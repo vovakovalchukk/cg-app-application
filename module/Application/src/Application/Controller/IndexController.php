@@ -1,21 +1,49 @@
 <?php
-/**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- */
-
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Exception\ExceptionInterface;
 use Zend\View\Model\ViewModel;
+use Zend\Db\Adapter\Adapter;
 
-class IndexController extends AbstractActionController
+class IndexController extends AbstractActionController implements ServiceLocatorAwareInterface
 {
+    protected $serviceLocator;
+
+    public function __construct(ServiceLocatorInterface $serviceLocator = null)
+    {
+        if ($serviceLocator) {
+            $this->setServiceLocator($serviceLocator);
+        }
+    }
+
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    {
+        $this->serviceLocator = $serviceLocator;
+    }
+
+    public function getServiceLocator()
+    {
+        return $this->serviceLocator;
+    }
+
     public function indexAction()
     {
-        return new ViewModel();
+        $view = new ViewModel();
+        $view->setVariable('framework', 'ZF2');
+
+        $serviceLocator = $this->getServiceLocator();
+        try {
+            $dbAdapter = $serviceLocator->get('readDb');
+            $view->setVariable('db', $dbAdapter->getCurrentSchema());
+            $view->setVariable('tables', $dbAdapter->query('SHOW TABLES', Adapter::QUERY_MODE_EXECUTE));
+        }
+        catch (ExceptionInterface $exception) {
+            // If no Db Adapter - Application created without database
+        }
+
+        return $view;
     }
 }

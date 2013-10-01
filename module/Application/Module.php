@@ -11,12 +11,14 @@ namespace Application;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use CG\Http\Exception as HttpException;
 
 class Module
 {
     public function onBootstrap(MvcEvent $e)
     {
         $eventManager        = $e->getApplication()->getEventManager();
+        $eventManager->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'httpExceptionHandler'));
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
     }
@@ -35,5 +37,15 @@ class Module
                 ),
             ),
         );
+    }
+
+    public function httpExceptionHandler(MvcEvent $event)
+    {
+        $exception = $event->getParam('exception');
+        if (!($exception instanceof HttpException)) {
+            return;
+        }
+
+        $event->getResponse()->setStatusCode($exception->getHttpCode());
     }
 }

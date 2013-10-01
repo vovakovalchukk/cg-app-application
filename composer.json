@@ -21,6 +21,7 @@
         "php" : ">=5.3.3",
         "zendframework/zendframework" : "2.2.*",
         "channelgrabber/stdlib" : "~1.0.3",
+        "channelgrabber/zend-hal" : "~1.0.1",
         "phpspec/phpspec" : "2.0.*@dev",
         "phpspec/prophecy" : "~1.0",
         "davedevelopment/phpmig" : "0.4",
