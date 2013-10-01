@@ -12,5 +12,24 @@
  */
 
 return array(
-    // ...
+    'service_manager' => array(
+        'factories' => array(
+            'Zend\Di\Di' => function($serviceManager) {
+                $configuration = $serviceManager->get('Config');
+                return new Zend\Di\Di(null, null, new Zend\Di\Config(
+                    isset($configuration['di']) ? $configuration['di'] : array()
+                ));
+            }
+        ),
+        'shared' => array(
+            'Zend\Di\Di' => true
+        )
+    ),
+    'di' => array(
+        'instance' => array(
+            'preferences' => array(
+                'Zend\Di\LocatorInterface' => 'Zend\Di\Di'
+            )
+        )
+    )
 );
