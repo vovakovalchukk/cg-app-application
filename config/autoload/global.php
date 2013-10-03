@@ -16,13 +16,27 @@ return array(
         'factories' => array(
             'Zend\Di\Di' => function($serviceManager) {
                 $configuration = $serviceManager->get('Config');
-                return new Zend\Di\Di(null, null, new Zend\Di\Config(
+
+                $im = new Zend\Di\InstanceManager();
+                $di = new Zend\Di\Di(null, $im, new Zend\Di\Config(
                     isset($configuration['di']) ? $configuration['di'] : array()
                 ));
+
+                if (isset($configuration['db'], $configuration['db']['adapters'])) {
+                    foreach (array_keys($configuration['db']['adapters']) as $adapter) {
+                        $im->addAlias($adapter, 'Zend\Db\Adapter\Adapter');
+                        $im->addSharedInstance($serviceManager->get($adapter), $adapter);
+                    }
+                }
+
+                return $di;
             }
         ),
         'shared' => array(
             'Zend\Di\Di' => true
+        ),
+        'aliases' => array(
+            'Di' => 'Zend\Di\Di'
         )
     ),
     'di' => array(

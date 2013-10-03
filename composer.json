@@ -29,5 +29,13 @@
         "nocarrier/hal" : "dev-develop as 0.9.3",
         "guzzle/guzzle" : "~3.7",
         "channelgrabber/http" : "~1.1.2"
+    },
+    "scripts": {
+        "post-install-cmd" : [
+            "php bin/compile_di.php"
+        ],
+        "post-update-cmd" : [
+            "php bin/compile_di.php"
+        ]
     }
 }
