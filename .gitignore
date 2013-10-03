@@ -1,2 +1,8 @@
 /vendor
+/data/certificates
 /data/di
+/config/autoload/database.local.php
+/config/autoload/di.guzzle.global.php
+/config/autoload/di.memcached.global.php
+/config/autoload/di.redis.global.php
+/config/host.php
