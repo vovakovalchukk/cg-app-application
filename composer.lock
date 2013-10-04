@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "18ae022b847fb782177aff48814c8b74",
+    "hash": "78209af9ed0c01f30dd148e8fbfea22b",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -376,6 +376,26 @@
             "time": "2013-04-13 23:52:11"
         },
         {
+            "name": "channelgrabber/codeception",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cgcodeception.git",
+                "reference": "31976b31a878f5f1075db5341a971a74ff16a242"
+            },
+            "require": {
+                "codeception/codeception": "1.6.5",
+                "nocarrier/hal": "dev-develop as 0.9.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "CG\\Codeception\\": ""
+                }
+            },
+            "time": "2013-10-03 09:56:55"
+        },
+        {
             "name": "channelgrabber/http",
             "version": "1.1.2",
             "source": {
@@ -414,12 +434,12 @@
             "time": "2013-09-13 14:39:31"
         },
         {
-            "name": "channelgrabber/zend-hal",
-            "version": "1.0.3",
+            "name": "channelgrabber/zf2-hal",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/cgzendhal.git",
-                "reference": "c8faff4905ce9f547ef3af460db2c6027939ba0c"
+                "url": "git@bitbucket.org:channelgrabber/cgzf2hal.git",
+                "reference": "8645ad3085cb13ef9198a5dc1f9dfc084c9a5386"
             },
             "require": {
                 "channelgrabber/http": "~1.1.2",
@@ -438,7 +458,7 @@
                     "CG\\Zend\\Hal": ""
                 }
             },
-            "time": "2013-09-26 11:06:45"
+            "time": "2013-10-04 09:25:39"
         },
         {
             "name": "codeception/codeception",
@@ -876,12 +896,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/blongden/hal.git",
-                "reference": "60e1fce0739ec652755f34e4cde35ee12f42f3a5"
+                "reference": "03c7253e0a2f30b7a028084c85508d40e5c3e2de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/blongden/hal/zipball/60e1fce0739ec652755f34e4cde35ee12f42f3a5",
-                "reference": "60e1fce0739ec652755f34e4cde35ee12f42f3a5",
+                "url": "https://api.github.com/repos/blongden/hal/zipball/03c7253e0a2f30b7a028084c85508d40e5c3e2de",
+                "reference": "03c7253e0a2f30b7a028084c85508d40e5c3e2de",
                 "shasum": ""
             },
             "require": {
@@ -929,7 +949,7 @@
                 "rest",
                 "xml"
             ],
-            "time": "2013-07-09 11:07:03"
+            "time": "2013-10-04 10:33:14"
         },
         {
             "name": "phpspec/php-diff",
@@ -970,12 +990,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/phpspec.git",
-                "reference": "79f91276fc8c853596b8180103d93762072e457a"
+                "reference": "d8f64251d27dc1bb17b76608d620374b6b51f9ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/79f91276fc8c853596b8180103d93762072e457a",
-                "reference": "79f91276fc8c853596b8180103d93762072e457a",
+                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/d8f64251d27dc1bb17b76608d620374b6b51f9ff",
+                "reference": "d8f64251d27dc1bb17b76608d620374b6b51f9ff",
                 "shasum": ""
             },
             "require": {
@@ -1030,7 +1050,7 @@
                 "testing",
                 "tests"
             ],
-            "time": "2013-09-02 20:20:07"
+            "time": "2013-10-04 08:02:36"
         },
         {
             "name": "phpspec/prophecy",

@@ -1,0 +1,10 @@
+class_name: ApiGuy
+modules:
+    enabled: [REST, PhpBrowser, ApiHelper, Db]
+    config:
+        PhpBrowser:
+            url: 'http://localhost/myapp/'
+        REST:
+            url: 'http://localhost/myapp/'
+        ApiHelper:
+            url: 'http://localhost/myapp/'
