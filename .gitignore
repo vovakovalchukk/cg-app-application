@@ -6,3 +6,5 @@
 /config/autoload/di.memcached.global.php
 /config/autoload/di.redis.global.php
 /config/host.php
+/tests/_log
+/tests/*/*Guy.php
