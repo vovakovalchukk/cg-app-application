@@ -39,6 +39,7 @@ return array(
                 'CG\Skeleton\Module\StartupCommand',
                 'CG\Skeleton\Vagrant\Command\Up',
                 'CG\Skeleton\Vagrant\Command\Provision',
+                'CG\Skeleton\Vagrant\Command\Ssh',
                 'CG\Skeleton\Vagrant\Command\Reload',
                 'CG\Skeleton\Vagrant\Command\Halt',
                 'CG\Skeleton\Module\Command',
