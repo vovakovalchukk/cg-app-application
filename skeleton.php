@@ -1,4 +1,4 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 declare(ticks = 1);
 require 'skeleton/bootstrap.php';

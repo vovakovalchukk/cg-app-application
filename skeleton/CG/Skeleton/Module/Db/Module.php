@@ -15,6 +15,8 @@ use DirectoryIterator;
 
 class Module extends AbstractModule implements EnableInterface, ConfigureInterface, DisableInterface
 {
+    use \CG\Skeleton\ComposerTrait;
+
     public function getModuleName()
     {
         return 'Db';
@@ -40,7 +42,7 @@ class Module extends AbstractModule implements EnableInterface, ConfigureInterfa
     {
         $this->configureStorageNode($arguments, $config, $moduleConfig, $reconfigure);
         $this->configureDatabaseName($arguments, $config, $moduleConfig, $reconfigure);
-        $this->configureDatabaseUsers($arguments, $config, $moduleConfig, $reconfigure);
+        $this->configureDatabaseAdapters($arguments, $config, $moduleConfig, $reconfigure);
     }
 
     public function configureStorageNode(Arguments $arguments, SkeletonConfig $config, Config $moduleConfig, $reconfigure = false)
@@ -134,12 +136,11 @@ class Module extends AbstractModule implements EnableInterface, ConfigureInterfa
         chdir($cwd);
     }
 
-    public function configureDatabaseUsers(Arguments $arguments, SkeletonConfig $config, Config $moduleConfig, $reconfigure = false)
+    public function configureDatabaseAdapters(Arguments $arguments, SkeletonConfig $config, Config $moduleConfig, $reconfigure = false)
     {
         if (!$moduleConfig->isEnabled()) {
             return;
         }
-
         $cwd = getcwd();
         chdir($config->getInfrastructurePath() . '/tools/chef');
 
@@ -163,17 +164,9 @@ class Module extends AbstractModule implements EnableInterface, ConfigureInterfa
             return;
         }
 
-        $databaseUsers = $moduleConfig->getDatabaseUsers();
+        $configuredAdapters = $moduleConfig->getDatabaseAdapters();
         while (true) {
-            $databaseUsers = array_unique($databaseUsers);
-            foreach ($databaseUsers as $index => $user) {
-                if (isset($availableUsers[$user])) {
-                    continue;
-                }
-                unset($databaseUsers[$index]);
-            }
-
-            if (!$reconfigure && !empty($databaseUsers)) {
+            if (!$reconfigure && !empty($configuredAdapters)) {
                 break;
             }
 
@@ -182,18 +175,18 @@ class Module extends AbstractModule implements EnableInterface, ConfigureInterfa
                 $this->getConsole()->writeln('   * ' . $user);
             }
 
-            $databaseUsers = explode(
-                ' ',
-                $this->getConsole()->ask(
-                    'Please specify one or more users you wish to connect as (separated by spaces)',
-                    implode(' ', $databaseUsers ?: $availableUsers)
-                )
-            );
+
+            $availableAdapters = array('readAdapter', 'writeAdapter', 'fastReadAdapter');
+            foreach ($availableAdapters as $adapter) {
+                $user = $this->getConsole()->ask(
+                    'Please choose the user you wish to use for adapter "'. $adapter .'"');
+                $configuredAdapters[$adapter] = array('user' => $user);
+            }
 
             $reconfigure = false;
         };
-        $moduleConfig->setDatabaseUsers($databaseUsers);
 
+        $moduleConfig->setDatabaseAdapters($configuredAdapters);
         chdir($cwd);
     }
 
@@ -207,6 +200,10 @@ class Module extends AbstractModule implements EnableInterface, ConfigureInterfa
         exec('git checkout ' . $config->getBranch() . ' 2>&1;');
         $this->updateNode($arguments, $config, $moduleConfig);
         chdir($cwd);
+
+        $this->updateComposer($moduleConfig, array(
+            'robmorgan/phinx:*'
+        ));
     }
 
     protected function updateNode(Arguments $arguments, SkeletonConfig $config, BaseConfig $moduleConfig)
@@ -219,17 +216,23 @@ class Module extends AbstractModule implements EnableInterface, ConfigureInterfa
             $node->setKey('database|storage_choice', $moduleConfig->getStorageNode());
             $node->setKey('database|database_choice', $moduleConfig->getDatabaseName());
 
-            $node->removeKey('database|users_choice');
-            foreach ($moduleConfig->getDatabaseUsers() as $user) {
-                $node->setKey('database|users_choice|' . $user, true);
+            $node->removeKey('database|adapters');
+            foreach ($moduleConfig->getDatabaseAdapters() as $adapter => $user) {
+                $node->setKey('database|adapters|' . $adapter, $user);
             }
 
             $node->setKey(
                 'cg|capistrano|' . $config->getAppName() . '|symlinks|config/autoload/database.local.php',
                 'config/autoload/database.local.php'
             );
+            $node->setKey('configure_sites|sites|' . $config->getAppName() . '|phinxroot', 'phinx');
+            $node->setKey(
+                'cg|capistrano|' . $config->getAppName() . '|symlinks|phinx/phinx.yml', 'phinx/phinx.yml'
+            );
         } else {
             $node->removeKey('cg|capistrano|' . $config->getAppName() . '|symlinks|config/autoload/database.local.php');
+            $node->removeKey('configure_sites|sites|' . $config->getAppName() . '|phinxroot');
+            $node->removeKey('cg|capistrano|' . $config->getAppName() . '|symlinks|phinx/phinx.yml');
             $node->removeKey('database');
         }
 

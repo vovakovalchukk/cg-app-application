@@ -14,6 +14,8 @@ use CG\Skeleton\Chef\Node;
 
 class Module extends AbstractModule implements EnableInterface, ApplyConfigurationInterface, DisableInterface
 {
+    use \CG\Skeleton\ComposerTrait;
+
     public function getModuleName()
     {
         return 'Redis';
@@ -31,6 +33,11 @@ class Module extends AbstractModule implements EnableInterface, ApplyConfigurati
         exec('git checkout ' . $config->getBranch() . ' 2>&1;');
         $this->updateNode($arguments, $config, $moduleConfig);
         chdir($cwd);
+
+        $this->updateComposer($moduleConfig, array(
+            'predis/predis:~0.8.3',
+            'channelgrabber/predis:~1.0.1'
+        ));
     }
 
     protected function updateNode(Arguments $arguments, SkeletonConfig $config, BaseConfig $moduleConfig)
