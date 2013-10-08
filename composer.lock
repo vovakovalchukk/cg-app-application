@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "78209af9ed0c01f30dd148e8fbfea22b",
+    "hash": "547ea7962f3d3ac78f53fdbefe58447a",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -377,15 +377,15 @@
         },
         {
             "name": "channelgrabber/codeception",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgcodeception.git",
-                "reference": "31976b31a878f5f1075db5341a971a74ff16a242"
+                "reference": "ecceb7f6a7c086b6ea087382f45c904c625f40f0"
             },
             "require": {
                 "codeception/codeception": "1.6.5",
-                "nocarrier/hal": "dev-develop as 0.9.3"
+                "nocarrier/hal": "~0.9.3"
             },
             "type": "library",
             "autoload": {
@@ -393,7 +393,7 @@
                     "CG\\Codeception\\": ""
                 }
             },
-            "time": "2013-10-03 09:56:55"
+            "time": "2013-10-08 07:37:04"
         },
         {
             "name": "channelgrabber/http",
@@ -892,16 +892,16 @@
         },
         {
             "name": "nocarrier/hal",
-            "version": "dev-develop",
+            "version": "0.9.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/blongden/hal.git",
-                "reference": "03c7253e0a2f30b7a028084c85508d40e5c3e2de"
+                "reference": "a15dfb2f07490e22a3faf075de0d7419fe644dec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/blongden/hal/zipball/03c7253e0a2f30b7a028084c85508d40e5c3e2de",
-                "reference": "03c7253e0a2f30b7a028084c85508d40e5c3e2de",
+                "url": "https://api.github.com/repos/blongden/hal/zipball/a15dfb2f07490e22a3faf075de0d7419fe644dec",
+                "reference": "a15dfb2f07490e22a3faf075de0d7419fe644dec",
                 "shasum": ""
             },
             "require": {
@@ -949,7 +949,7 @@
                 "rest",
                 "xml"
             ],
-            "time": "2013-10-04 10:33:14"
+            "time": "2013-10-07 14:21:31"
         },
         {
             "name": "phpspec/php-diff",
@@ -2277,17 +2277,11 @@
 
     ],
     "aliases": [
-        {
-            "alias": "0.9.3",
-            "alias_normalized": "0.9.3.0",
-            "version": "dev-develop",
-            "package": "nocarrier/hal"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "phpspec/phpspec": 20,
-        "nocarrier/hal": 20
+        "phpspec/phpspec": 20
     },
     "platform": {
         "php": ">=5.3.3"

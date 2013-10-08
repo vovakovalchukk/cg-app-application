@@ -26,10 +26,10 @@
         "phpspec/prophecy" : "~1.0",
         "davedevelopment/phpmig" : "0.4",
         "codeception/codeception" : "1.6.5",
-        "nocarrier/hal" : "dev-develop as 0.9.3",
+        "nocarrier/hal" : "~0.9.3",
         "guzzle/guzzle" : "~3.7",
         "channelgrabber/http" : "~1.1.2",
-        "channelgrabber/codeception" : "1.0.0"
+        "channelgrabber/codeception" : "1.0.*"
     },
     "scripts": {
         "post-install-cmd" : [
