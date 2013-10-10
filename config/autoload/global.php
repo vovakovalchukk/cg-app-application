@@ -29,6 +29,8 @@ return array(
                     }
                 }
 
+                $im->addSharedInstance($di, 'Zend\Di\Di');
+
                 return $di;
             }
         ),
@@ -41,6 +43,9 @@ return array(
     ),
     'di' => array(
         'instance' => array(
+            'aliases' => array(
+                'Di' => 'Zend\Di\Di'
+            ),
             'preferences' => array(
                 'Zend\Di\LocatorInterface' => 'Zend\Di\Di'
             )

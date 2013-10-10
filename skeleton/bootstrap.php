@@ -20,5 +20,5 @@ if (is_file(SKELETON_CONFIG)) {
     $config = Zend\Config\Factory::fromFile(SKELETON_CONFIG) ?: array();
 }
 
-$di = new Zend\Di\Di(null, null, new Zend\Di\Config(require_once 'config/di.php'));
+$di = new Zend\Di\Di(null, null, new Zend\Di\Config(require_once 'skeleton/config/di.php'));
 $di->instanceManager()->addSharedInstance(new CG\Skeleton\Config($config, true), 'CG\Skeleton\Config');
