@@ -11,6 +11,7 @@ use CG\Skeleton\Vagrant\NodeData\Node;
 class StartupCommand implements StartupCommandInterface
 {
     use CommandTrait;
+    use \CG\Skeleton\GitTicketIdTrait;
 
     const DEFAULT_RAM = '768';
     const DEFAULT_BOX = 'cg-precise64';
@@ -68,7 +69,7 @@ class StartupCommand implements StartupCommandInterface
 
         exec(
             'git add ' . $nodeData->getPath() . ';'
-            . ' git commit -m "SKELETON: Updated node data for ' . $config->getNode() . '" --only -- ' . $nodeData->getPath()
+            . ' git commit -m "' . $this->getGitTicketId() . ' (SKELETON) Updated node data for ' . $config->getNode() . '" --only -- ' . $nodeData->getPath()
         );
     }
 

@@ -11,6 +11,7 @@ use CG\Skeleton\Chef\Node;
 class StartupCommand implements StartupCommandInterface
 {
     use CommandTrait;
+    use \CG\Skeleton\GitTicketIdTrait;
 
     const ROLES = 'roles/';
     const NODES = 'nodes/';
@@ -45,7 +46,7 @@ class StartupCommand implements StartupCommandInterface
 
         exec(
             'git add ' . $roleFile . ';'
-            . ' git commit -m "SKELETON: Updated role ' . $roleName . '" --only -- ' . $roleFile
+            . ' git commit -m "' . $this->getGitTicketId() . ' (SKELETON) Updated role ' . $roleName . '" --only -- ' . $roleFile
         );
     }
 
@@ -65,7 +66,7 @@ class StartupCommand implements StartupCommandInterface
 
         exec(
             'git add ' . $nodeFile . ';'
-            . ' git commit -m "SKELETON: Updated node ' . $config->getNode() . '" --only -- ' . $nodeFile
+            . ' git commit -m "' . $this->getGitTicketId() . ' (SKELETON) Updated node ' . $config->getNode() . '" --only -- ' . $nodeFile
         );
     }
 

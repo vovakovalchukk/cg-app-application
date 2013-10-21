@@ -16,6 +16,7 @@ use DirectoryIterator;
 class Module extends AbstractModule implements EnableInterface, ConfigureInterface, DisableInterface
 {
     use \CG\Skeleton\ComposerTrait;
+    use \CG\Skeleton\GitTicketIdTrait;
 
     public function getModuleName()
     {
@@ -240,7 +241,7 @@ class Module extends AbstractModule implements EnableInterface, ConfigureInterfa
 
         exec(
             'git add ' . $nodeFile . ';'
-            . ' git commit -m "SKELETON: Updated node ' . $config->getNode() . ' with \'' . $this->getName() . '\' config" --only -- ' . $nodeFile
+            . ' git commit -m "' . $this->getGitTicketId() . ' (SKELETON) Updated node ' . $config->getNode() . ' with \'' . $this->getName() . '\' config" --only -- ' . $nodeFile
         );
     }
 

@@ -15,6 +15,7 @@ use CG\Skeleton\Chef\Node;
 class Module extends AbstractModule implements EnableInterface, ApplyConfigurationInterface, DisableInterface
 {
     use \CG\Skeleton\ComposerTrait;
+    use \CG\Skeleton\GitTicketIdTrait;
 
     public function getModuleName()
     {
@@ -60,7 +61,7 @@ class Module extends AbstractModule implements EnableInterface, ApplyConfigurati
 
         exec(
             'git add ' . $nodeFile . ';'
-            . ' git commit -m "SKELETON: Updated node ' . $config->getNode() . ' with \'' . $this->getName() . '\' config" --only -- ' . $nodeFile
+            . ' git commit -m "' . $this->getGitTicketId() . ' (SKELETON) Updated node ' . $config->getNode() . ' with \'' . $this->getName() . '\' config" --only -- ' . $nodeFile
         );
     }
 
