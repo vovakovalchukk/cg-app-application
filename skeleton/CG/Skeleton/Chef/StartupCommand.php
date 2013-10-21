@@ -39,10 +39,7 @@ class StartupCommand implements StartupCommandInterface
         $roleFile = static::ROLES . $roleName . '.json';
         $role = new Role($roleFile);
 
-        $role->addToRunList('role[apt]')
-             ->addToRunList('role[cg]')
-             ->addToRunList('role[percona]')
-             ->addToRunList('role[web_app]');
+        $role->addToRunList('role[web_app]');
 
         $role->save();
 
@@ -57,7 +54,10 @@ class StartupCommand implements StartupCommandInterface
         $nodeFile = static::NODES . $config->getNode() . '.json';
         $node = new Node($nodeFile);
 
-        $this->addRoleToNode($node, $config);
+        $this->addRoleToNode($node, 'cg')
+             ->addRoleToNode($node, 'database_storage')
+             ->addRoleToNode($node, $config->getRole());
+
         $this->configureCapistranoOnNode($node, $config);
         $this->configureSiteOnNode($node, $config);
 
@@ -69,9 +69,10 @@ class StartupCommand implements StartupCommandInterface
         );
     }
 
-    protected function addRoleToNode(Node $node, Config $config)
+    protected function addRoleToNode(Node $node, $role)
     {
-        $node->addToRunList('role[' . $config->getRole() . ']');
+        $node->addToRunList('role[' . $role . ']');
+        return $this;
     }
 
     protected function configureCapistranoOnNode(Node $node, Config $config)
