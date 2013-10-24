@@ -17,9 +17,22 @@ return array(
             'Zend\Di\Di' => function($serviceManager) {
                 $configuration = $serviceManager->get('Config');
 
+                $applicationConfig = array(
+                    'instance' => array(
+                        'alias' => array(
+                            'config' => 'Zend\Config\Config'
+                        ),
+                        'config' => array (
+                            'parameters' => array(
+                                'array' => $configuration
+                            )
+                        )
+                    )
+                );
+                $diConfig = array_merge_recursive($configuration['di'], $applicationConfig);
                 $im = new Zend\Di\InstanceManager();
                 $di = new Zend\Di\Di(null, $im, new Zend\Di\Config(
-                    isset($configuration['di']) ? $configuration['di'] : array()
+                    isset($diConfig) ? $diConfig : array()
                 ));
 
                 if (isset($configuration['db'], $configuration['db']['adapters'])) {
