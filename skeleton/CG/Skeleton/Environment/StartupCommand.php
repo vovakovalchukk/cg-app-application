@@ -52,6 +52,7 @@ class StartupCommand implements StartupCommandInterface
 
     public function run(Arguments $arguments, Config $config)
     {
+        $this->runBundleInstall($config);
         $this->setupProjectBasePath($config);
         $this->setupInfrastructurePath($config);
         $this->setupBranch($config);
@@ -185,5 +186,14 @@ class StartupCommand implements StartupCommandInterface
         }
         $this->getConsole()->writeStatus('VM application root set to \'' . $vmPath . '\'');
         $config->setVmPath($vmPath);
+    }
+
+    protected function runBundleInstall($config)
+    {
+        $this->getConsole()->writeStatus('Updating ruby dependencies...');
+        exec(
+            'cd ' . $config->getInfrastructurePath() . '/tools/chef;'
+            . 'bundle install'
+        );
     }
 }
