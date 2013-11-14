@@ -39,8 +39,7 @@ return array(
             'Zend\Di\Di' => true
         ),
         'aliases' => array(
-            'Di' => 'Zend\Di\Di',
-            'config' => 'Zend\Config\Config'
+            'Di' => 'Zend\Di\Di'
         )
     ),
     'di' => array(
