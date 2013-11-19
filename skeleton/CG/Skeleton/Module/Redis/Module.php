@@ -2,8 +2,8 @@
 namespace CG\Skeleton\Module\Redis;
 
 use CG\Skeleton\Module\AbstractModule;
+use CG\Skeleton\Module\ConfigureInterface;
 use CG\Skeleton\Module\EnableInterface;
-use CG\Skeleton\Module\ApplyConfigurationInterface;
 use CG\Skeleton\Module\DisableInterface;
 use CG\Skeleton\Console;
 use CG\Skeleton\Arguments;
@@ -12,7 +12,7 @@ use CG\Skeleton\Module\BaseConfig;
 use CG\Skeleton\Chef\StartupCommand as Chef;
 use CG\Skeleton\Chef\Node;
 
-class Module extends AbstractModule implements EnableInterface, ApplyConfigurationInterface, DisableInterface
+class Module extends AbstractModule implements EnableInterface, ConfigureInterface, DisableInterface
 {
     use \CG\Skeleton\ComposerTrait;
     use \CG\Skeleton\GitTicketIdTrait;
@@ -41,19 +41,87 @@ class Module extends AbstractModule implements EnableInterface, ApplyConfigurati
         ));
     }
 
+    public function configure(Arguments $arguments, SkeletonConfig $config, BaseConfig $moduleConfig)
+    {
+        $this->validateConfig($moduleConfig);
+        $this->configureModule($arguments, $config, $moduleConfig, true);
+    }
+
+    public function configureModule(Arguments $arguments, SkeletonConfig $config, Config $moduleConfig, $reconfigure = false)
+    {
+        $this->configureRedisAdapters($arguments, $config, $moduleConfig, $reconfigure);
+    }
+
+    public function configureRedisAdapters(Arguments $arguments, SkeletonConfig $config, Config $moduleConfig, $reconfigure = false)
+    {
+        if (!$moduleConfig->isEnabled()) {
+            return;
+        }
+        $cwd = getcwd();
+        chdir($config->getInfrastructurePath() . '/tools/chef');
+
+        ob_start();
+        passthru('knife solo data bag show redis local -F json 2>/dev/null');
+        $redisInstancesJson = json_decode(ob_get_clean(), true) ?: array();
+
+        $redisInstances = array();
+        if (isset($redisInstancesJson['instance'])) {
+            foreach (array_keys($redisInstancesJson['instance']) as $redisInstance) {
+                $redisInstances[$redisInstance] = $redisInstance;
+            }
+        }
+
+        if (empty($redisInstances)) {
+            $moduleConfig->setEnabled(false);
+            $this->getConsole()->writelnErr(
+                'No Redis Instances configured in redis data bag for local environment  - ' . $this->getModuleName() . ' Disabled'
+            );
+            chdir($cwd);
+            return;
+        }
+
+        $configuredAdapters = array();
+        while ($reconfigure || empty($configuredAdapters)) {
+            $this->getConsole()->writeln('Available Redis Adapters:');
+            foreach ($redisInstances as $instance) {
+                $this->getConsole()->writeln('   * ' . $instance);
+            }
+
+            $adaptersString = $this->getConsole()->ask('Please choose the adapters you require (separated by spaces)');
+
+            foreach (explode(" ", $adaptersString) as $adapter) {
+                $configuredAdapters[$adapter] = true;
+            }
+
+            $reconfigure = false;
+        };
+
+        $moduleConfig->setRedisAdapters($configuredAdapters);
+        chdir($cwd);
+    }
+
     protected function updateNode(Arguments $arguments, SkeletonConfig $config, BaseConfig $moduleConfig)
     {
         $nodeFile = Chef::NODES . $config->getNode() . '.json';
         $node = new Node($nodeFile);
 
+        $configKey = 'configure_sites|sites|' . $config->getAppName() . '|redis_client|';
+
         if ($moduleConfig->isEnabled()) {
-            $node->setKey('redis|enabled', true);
+            $node->setKey($configKey . 'enabled', true);
+            $adapters = array();
+            foreach ($moduleConfig->getRedisAdapters() as $adapter => $enabled) {
+                if ($enabled) {
+                    $adapters[] = $adapter;
+                }
+            }
+            $node->setKey($configKey . 'adapters', $adapters);
             $node->setKey(
                 'cg|capistrano|' . $config->getAppName() . '|symlinks|config/autoload/di.redis.global.php',
                 'config/autoload/di.redis.global.php'
             );
         } else {
-            $node->removeKey('redis');
+            $node->removeKey('configure_sites|sites|' . $config->getAppName() . '|redis_client');
             $node->removeKey('cg|capistrano|' . $config->getAppName() . '|symlinks|config/autoload/di.redis.global.php');
         }
 
