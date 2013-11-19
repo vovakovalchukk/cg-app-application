@@ -17,22 +17,9 @@ return array(
             'Zend\Di\Di' => function($serviceManager) {
                 $configuration = $serviceManager->get('Config');
 
-                $applicationConfig = array(
-                    'instance' => array(
-                        'alias' => array(
-                            'config' => 'Zend\Config\Config'
-                        ),
-                        'config' => array (
-                            'parameters' => array(
-                                'array' => $configuration
-                            )
-                        )
-                    )
-                );
-                $diConfig = array_merge_recursive($configuration['di'], $applicationConfig);
                 $im = new Zend\Di\InstanceManager();
                 $di = new Zend\Di\Di(null, $im, new Zend\Di\Config(
-                    isset($diConfig) ? $diConfig : array()
+                    isset($configuration['di']) ? $configuration['di'] : array()
                 ));
 
                 if (isset($configuration['db'], $configuration['db']['adapters'])) {
@@ -43,6 +30,7 @@ return array(
                 }
 
                 $im->addSharedInstance($di, 'Zend\Di\Di');
+                $im->addSharedInstance($di->get('config', array('array' => $configuration)), 'config');
 
                 return $di;
             }
