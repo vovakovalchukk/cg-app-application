@@ -18,6 +18,7 @@ use CG\UI\Links\RoutesInterface;
 use CG\UI\Links\NavigationRoutesInterface;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\View\Model\ViewModel;
+use CG\Zend\Stdlib\View\Model\Exception as ViewModelException;
 
 class Module
 {
@@ -35,6 +36,7 @@ class Module
         $eventManager = $e->getApplication()->getEventManager();
 
         $eventManager->attach(MvcEvent::EVENT_RENDER, array($this, 'layoutHandler'));
+        $eventManager->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'applicationExceptionHandler'));
         $eventManager->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'httpExceptionHandler'));
 
         $moduleRouteListener = new ModuleRouteListener();
@@ -107,6 +109,21 @@ class Module
         }
 
         return $routePath;
+    }
+
+    public function applicationExceptionHandler(MvcEvent $event)
+    {
+        $exception = $event->getParam('exception');
+        if (!($exception instanceof ViewModelException)) {
+            return;
+        }
+        $exceptionStrategy = $event->getApplication()->getServiceManager()->get('ExceptionStrategy');
+
+        $viewModel = $exception->getViewModel();
+        $viewModel->setTemplate($exceptionStrategy->getExceptionTemplate());
+        $viewModel->setVariable('display_exceptions', $exceptionStrategy->displayExceptions());
+
+        $event->setResult($viewModel);
     }
 
     public function httpExceptionHandler(MvcEvent $event)

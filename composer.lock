@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "9b48bbf4562274ba531c8abd28f9ec24",
+    "hash": "cae4c44d10cfad5410526f3dec71a191",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -416,13 +416,29 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "1.0.5",
+            "version": "2.1.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "57ad30e34d5a412912719cd3f806ed55b34adede"
+                "reference": "ad09a9459a93d25c43e1a1555a56eee9c9847737"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.1.1-3bb88a.zip",
+                "reference": "ad09a9459a93d25c43e1a1555a56eee9c9847737",
+                "shasum": "e3b2b22b4e089364a831e61ba805835815f809c3"
+            },
+            "require": {
+                "zendframework/zend-db": "2.2.*"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Stdlib\\": ""
@@ -431,7 +447,7 @@
                     "CG/Stdlib/Utilities.php"
                 ]
             },
-            "time": "2013-09-13 14:39:31"
+            "time": "2013-11-20 16:24:49"
         },
         {
             "name": "channelgrabber/ui",
@@ -492,6 +508,40 @@
                 }
             },
             "time": "2013-10-04 09:25:39"
+        },
+        {
+            "name": "channelgrabber/zf2-stdlib",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cgzf2stdlib.git",
+                "reference": "a1c78ba3cbcece1f29ff7f0162663aa2abecc3c5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-1.0.3-8ed439.zip",
+                "reference": "a1c78ba3cbcece1f29ff7f0162663aa2abecc3c5",
+                "shasum": "40cdb5862da21cbbe9eb3a42febcc0bb9c07ce80"
+            },
+            "require": {
+                "channelgrabber/stdlib": ">=2.0.7",
+                "zendframework/zend-http": "~2.2",
+                "zendframework/zend-view": "~2.2"
+            },
+            "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "CG\\Zend\\Stdlib\\": ""
+                }
+            },
+            "time": "2013-11-21 10:44:54"
         },
         {
             "name": "codeception/codeception",
