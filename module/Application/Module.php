@@ -12,9 +12,22 @@ namespace Application;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use CG\Http\Exception as HttpException;
+use Zend\ModuleManager\ModuleManager;
+use Zend\ModuleManager\ModuleEvent;
+use CG\UI\Links\RoutesInterface;
+use CG\UI\Links\NavigationRoutesInterface;
 
 class Module
 {
+    protected $routes = array();
+    protected $navigationRoutes = array();
+
+    public function init(ModuleManager $moduleManager)
+    {
+        $eventManager = $moduleManager->getEventManager();
+        $eventManager->attach(ModuleEvent::EVENT_LOAD_MODULES_POST, array($this, 'registerRouteModules'));
+    }
+
     public function onBootstrap(MvcEvent $e)
     {
         $eventManager        = $e->getApplication()->getEventManager();
@@ -37,6 +50,18 @@ class Module
                 ),
             ),
         );
+    }
+
+    public function registerRouteModules(ModuleEvent $event)
+    {
+        foreach ($event->getTarget()->getLoadedModules() as $module) {
+            if ($module instanceof RoutesInterface) {
+                $this->routes[] = $module;
+            }
+            if ($module instanceof NavigationRoutesInterface) {
+                $this->navigationRoutes[] = $module;
+            }
+        }
     }
 
     public function httpExceptionHandler(MvcEvent $event)

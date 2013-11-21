@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "547ea7962f3d3ac78f53fdbefe58447a",
+    "hash": "9b48bbf4562274ba531c8abd28f9ec24",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -432,6 +432,39 @@
                 ]
             },
             "time": "2013-09-13 14:39:31"
+        },
+        {
+            "name": "channelgrabber/ui",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-ui.git",
+                "reference": "0514b91f98642bea4b684fefaabd3f33a30f004d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ui-1.0.1-ec25f9.zip",
+                "reference": "0514b91f98642bea4b684fefaabd3f33a30f004d",
+                "shasum": "c678385aa8009f9cac0ce05ced023cc42d2ea4bc"
+            },
+            "require": {
+                "zendframework/zend-form": "2.*",
+                "zendframework/zend-view": "2.*"
+            },
+            "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "CG\\UI\\": ""
+                }
+            },
+            "time": "2013-11-19 15:46:23"
         },
         {
             "name": "channelgrabber/zf2-hal",
