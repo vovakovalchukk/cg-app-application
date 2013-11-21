@@ -99,4 +99,14 @@ return array(
             ),
         ),
     ),
+    'di' => array(
+        'instance' => array(
+            'Application\Forms\Factory' => array(
+                'parameters' => array(
+                    'applicationConfig' => 'config'
+                ),
+                'shared' => true
+            ),
+        )
+    ),
 );
