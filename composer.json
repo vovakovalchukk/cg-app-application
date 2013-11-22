@@ -18,6 +18,7 @@
         "psr-0" : { "" : "library/" }
     },
     "require": {
+
         "php" : ">=5.3.3",
         "zendframework/zendframework" : "2.2.*",
         "channelgrabber/stdlib" : "2.1.*",
@@ -31,7 +32,17 @@
         "channelgrabber/http" : "~1.1.2",
         "channelgrabber/codeception" : "1.0.*",
         "channelgrabber/ui": "~1.0.1",
-        "channelgrabber/zf2-stdlib" : "~1.0.3"
+        "channelgrabber/zf2-stdlib" : "~1.0.3",
+        "zendframework/zend-config" : "2.2.*",
+        "zendframework/zend-servicemanager" : "2.2.*",
+        "zendframework/zend-db" : "2.2.*",
+        "zendframework/zend-di" : "2.2.*"
+    },
+    "require-dev": {
+        "codeception/codeception" : "1.6.5",
+        "phpspec/phpspec" : "2.0.*@dev",
+        "phpspec/prophecy" : "~1.0",
+        "channelgrabber/codeception" : "1.0.*"
     },
     "scripts": {
         "post-install-cmd" : [

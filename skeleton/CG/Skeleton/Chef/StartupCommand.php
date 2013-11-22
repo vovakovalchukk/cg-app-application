@@ -33,7 +33,7 @@ class StartupCommand implements StartupCommandInterface
     {
         $roleName = $config->getRole();
         if (!$roleName) {
-            $roleName = $config->getAppName();
+            $roleName = str_replace(" ", "-", $config->getAppName());
             $config->setRole($roleName);
         }
 
@@ -78,30 +78,34 @@ class StartupCommand implements StartupCommandInterface
 
     protected function configureCapistranoOnNode(Node $node, Config $config)
     {
-        $node->setKey('cg|capistrano|' . $config->getAppName() . '|deploy_to', $config->getVmPath());
-        $node->setKey('cg|capistrano|' . $config->getAppName() . '|shared_structure|config', 'config');
-        $node->setKey('cg|capistrano|' . $config->getAppName() . '|shared_structure|config/autoload', 'config/autoload');
-        $node->setKey('cg|capistrano|' . $config->getAppName() . '|symlinks|config/host.php', 'config/host.php');
+        $siteName = str_replace(" ", "-", $config->getAppName());
+
+        $node->setKey('cg|capistrano|' . $siteName . '|deploy_to', $config->getVmPath());
+        $node->setKey('cg|capistrano|' . $siteName . '|shared_structure|config', 'config');
+        $node->setKey('cg|capistrano|' . $siteName . '|shared_structure|config/autoload', 'config/autoload');
+        $node->setKey('cg|capistrano|' . $siteName . '|symlinks|config/host.php', 'config/host.php');
     }
 
     protected function configureSiteOnNode(Node $node, Config $config)
     {
-        $node->setKey('configure_sites|sites|' . $config->getAppName() . '|docroot', $config->getVmPath());
-        $node->setKey('configure_sites|sites|' . $config->getAppName() . '|projectroot', '');
-        $node->setKey('configure_sites|sites|' . $config->getAppName() . '|webroot', 'public');
-        $node->setKey('configure_sites|sites|' . $config->getAppName() . '|configroot', 'config');
-        $node->setKey('configure_sites|sites|' . $config->getAppName() . '|dataroot', 'data');
-        $node->setKey('configure_sites|sites|' . $config->getAppName() . '|datadiroot', 'data/di');
-        $node->setKey('configure_sites|sites|' . $config->getAppName() . '|hostname', $config->getHostname());
-        $node->setKey('configure_sites|sites|' . $config->getAppName() . '|enabled', true);
-        $node->setKey('configure_sites|sites|' . $config->getAppName() . '|configautoloadroot', 'config/autoload');
-        $node->setKey('configure_sites|sites|' . $config->getAppName() . '|certificateroot', 'data/certificates');
-        $node->setKey('configure_sites|sites|' . $config->getAppName() . '|configmoduleroot', 'config/module');
-        $node->setKey('configure_sites|sites|' . $config->getAppName() . '|modules', array(
+        $siteName = str_replace(" ", "-", $config->getAppName());
+
+        $node->setKey('configure_sites|sites|' . $siteName . '|docroot', $config->getVmPath());
+        $node->setKey('configure_sites|sites|' . $siteName . '|projectroot', '');
+        $node->setKey('configure_sites|sites|' . $siteName . '|webroot', 'public');
+        $node->setKey('configure_sites|sites|' . $siteName . '|configroot', 'config');
+        $node->setKey('configure_sites|sites|' . $siteName . '|dataroot', 'data');
+        $node->setKey('configure_sites|sites|' . $siteName . '|datadiroot', 'data/di');
+        $node->setKey('configure_sites|sites|' . $siteName . '|hostname', $config->getHostname());
+        $node->setKey('configure_sites|sites|' . $siteName . '|enabled', true);
+        $node->setKey('configure_sites|sites|' . $siteName . '|configautoloadroot', 'config/autoload');
+        $node->setKey('configure_sites|sites|' . $siteName . '|certificateroot', 'data/certificates');
+        $node->setKey('configure_sites|sites|' . $siteName . '|configmoduleroot', 'config/module');
+        $node->setKey('configure_sites|sites|' . $siteName . '|modules', array(
                                                            'module config goes here' => 'do not delete this placeholder'
         ));
-        $node->setKey('configure_sites|sites|' . $config->getAppName() . '|application_config', array(
+        $node->setKey('configure_sites|sites|' . $siteName . '|application_config', array(
                                                                             'application_name' => $config->getAppName()
         ));
-    }
+  }
 }

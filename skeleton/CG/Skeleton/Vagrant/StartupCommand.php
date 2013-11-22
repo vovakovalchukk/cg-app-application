@@ -13,8 +13,8 @@ class StartupCommand implements StartupCommandInterface
     use CommandTrait;
     use \CG\Skeleton\GitTicketIdTrait;
 
-    const DEFAULT_RAM = '768';
-    const DEFAULT_BOX = 'cg-precise64';
+    const DEFAULT_RAM = '512';
+    const DEFAULT_BOX = 'cg-precise64-php55';
 
     protected $console;
     protected $nodeData;

@@ -170,6 +170,7 @@ class StartupCommand implements StartupCommandInterface
             $this->getConsole()->writeErrorStatus('Application hostname is not set');
             $hostname = $this->getConsole()->ask('What url will your app be available at');
         }
+        $hostname = str_replace(" ", "-", $hostname);
         $this->getConsole()->writeStatus('Application hostname set to \'' . $hostname . '\'');
         $config->setHostname($hostname);
     }
@@ -181,7 +182,7 @@ class StartupCommand implements StartupCommandInterface
             $this->getConsole()->writeErrorStatus('VM application root is not set');
             $vmPath = $this->getConsole()->ask(
                 'What is the absolute path of your application root on the vm',
-                '/var/www/' . $config->getAppName()
+                '/var/www/' . str_replace(" ", "-", $config->getAppName())
             );
         }
         $this->getConsole()->writeStatus('VM application root set to \'' . $vmPath . '\'');
