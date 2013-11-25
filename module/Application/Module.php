@@ -145,7 +145,14 @@ class Module
             return;
         }
 
-        newrelic_name_transaction($event->getControllerClass() . '/' . $event->getParam('action'));
+        $routeMatch = $event->getRouteMatch();
+        if ($routeMatch) {
+            newrelic_name_transaction(
+                implode('::', [$routeMatch->getParam('controller'), $routeMatch->getParam('action')])
+            );
+        } else {
+            newrelic_name_transaction('404');
+        }
 
         $event->getApplication()->getServiceManager()->get(HeadScript::Class)->prependScript(
             newrelic_get_browser_timing_header(false)
