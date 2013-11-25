@@ -40,7 +40,7 @@ class Module
         $eventManager->attach(MvcEvent::EVENT_RENDER, array($this, 'layoutHandler'));
         $eventManager->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'applicationExceptionHandler'));
         $eventManager->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'httpExceptionHandler'));
-        $eventManager->attach(MvcEvent::EVENT_FINISH, array($this, 'registerNewRelic'));
+        $eventManager->attach(MvcEvent::EVENT_DISPATCH, array($this, 'registerNewRelic'));
 
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
