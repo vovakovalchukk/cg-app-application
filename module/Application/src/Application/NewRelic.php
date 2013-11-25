@@ -34,7 +34,7 @@ class NewRelic
             )
         );
 
-        $url = $event->getApplication()->getServiceManager()->get('viewhelper')->get('url');
+        $url = $event->getApplication()->getServiceManager()->get('viewhelpermanager')->get('url');
         newrelic_name_transaction(
             urldecode($url($routeMatch->getMatchedRouteName(), $parameters))
         );
@@ -42,7 +42,7 @@ class NewRelic
 
     protected function registerBrowserTimings(MvcEvent $event)
     {
-        $viewHelper = $event->getApplication()->getServiceManager()->get('viewhelper');
+        $viewHelper = $event->getApplication()->getServiceManager()->get('viewhelpermanager');
 
         $viewHelper->get('headscript')->prependScript(
             newrelic_get_browser_timing_header(false)
