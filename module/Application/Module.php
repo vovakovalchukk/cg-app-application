@@ -19,8 +19,6 @@ use CG\UI\Links\NavigationRoutesInterface;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\View\Model\ViewModel;
 use CG\Zend\Stdlib\View\Model\Exception as ViewModelException;
-use Zend\View\Helper\HeadScript;
-use Zend\View\Helper\InlineScript;
 
 class Module
 {
@@ -40,7 +38,7 @@ class Module
         $eventManager->attach(MvcEvent::EVENT_RENDER, array($this, 'layoutHandler'));
         $eventManager->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'applicationExceptionHandler'));
         $eventManager->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'httpExceptionHandler'));
-        $eventManager->attach(MvcEvent::EVENT_DISPATCH, array($this, 'registerNewRelic'));
+        $eventManager->attach(MvcEvent::EVENT_DISPATCH, $e->getApplication()->getServiceManager()->get(NewRelic::Class));
 
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
@@ -137,40 +135,5 @@ class Module
         }
 
         $event->getResponse()->setStatusCode($exception->getHttpCode());
-    }
-
-    public function registerNewRelic(MvcEvent $event)
-    {
-        if (!extension_loaded('newrelic')) {
-            return;
-        }
-
-        $routeMatch = $event->getRouteMatch();
-        $viewHelper = $event->getApplication()->getServiceManager()->get('viewhelpermanager');
-
-        if ($routeMatch) {
-            $url = $viewHelper->get('url');
-            $keys = array_keys($routeMatch->getParams());
-
-            $parameters = array_combine(
-                $keys,
-                array_map(
-                    function($key) {
-                        return ':' . $key;
-                    },
-                    $keys
-                )
-            );
-
-            newrelic_name_transaction(urldecode($url($routeMatch->getMatchedRouteName(), $parameters)));
-        }
-
-        $viewHelper->get('headscript')->prependScript(
-            newrelic_get_browser_timing_header(false)
-        );
-
-        $viewHelper->get('inlinescript')->appendScript(
-            newrelic_get_browser_timing_footer(false)
-        );
     }
 }
