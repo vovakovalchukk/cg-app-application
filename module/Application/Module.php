@@ -146,6 +146,7 @@ class Module
         }
 
         $routeMatch = $event->getRouteMatch();
+        $viewHelper = $event->getApplication()->getServiceManager()->get('viewhelpermanager');
 
         $route = array();
         if ($routeMatch) {
@@ -154,11 +155,11 @@ class Module
         }
         newrelic_name_transaction(implode('::', $route));
 
-        $event->getApplication()->getServiceManager()->get(HeadScript::Class)->prependScript(
+        $viewHelper->get('headscript')->prependScript(
             newrelic_get_browser_timing_header(false)
         );
 
-        $event->getApplication()->getServiceManager()->get(InlineScript::Class)->appendScript(
+        $viewHelper->get('inlinescript')->appendScript(
             newrelic_get_browser_timing_footer(false)
         );
     }
