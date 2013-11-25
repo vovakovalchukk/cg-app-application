@@ -156,7 +156,7 @@ class Module
                 $keys,
                 array_map(
                     function($key) {
-                        return '{' . $key . '}';
+                        return ':' . $key;
                     },
                     $keys
                 )
