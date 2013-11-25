@@ -19,6 +19,8 @@ use CG\UI\Links\NavigationRoutesInterface;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\View\Model\ViewModel;
 use CG\Zend\Stdlib\View\Model\Exception as ViewModelException;
+use Zend\View\Helper\HeadScript;
+use Zend\View\Helper\InlineScript;
 
 class Module
 {
@@ -38,6 +40,7 @@ class Module
         $eventManager->attach(MvcEvent::EVENT_RENDER, array($this, 'layoutHandler'));
         $eventManager->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'applicationExceptionHandler'));
         $eventManager->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'httpExceptionHandler'));
+        $eventManager->attach(MvcEvent::EVENT_FINISH, array($this, 'registerNewRelic'));
 
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
@@ -134,5 +137,22 @@ class Module
         }
 
         $event->getResponse()->setStatusCode($exception->getHttpCode());
+    }
+
+    public function registerNewRelic(MvcEvent $event)
+    {
+        if (!extension_loaded('newrelic')) {
+            return;
+        }
+
+        newrelic_name_transaction($event->getControllerClass() . '/' . $event->getParam('action'));
+
+        $event->getApplication()->getServiceManager()->get(HeadScript::Class)->prependScript(
+            newrelic_get_browser_timing_header(false)
+        );
+
+        $event->getApplication()->getServiceManager()->get(InlineScript::Class)->appendScript(
+            newrelic_get_browser_timing_footer(false)
+        );
     }
 }
