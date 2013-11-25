@@ -148,12 +148,22 @@ class Module
         $routeMatch = $event->getRouteMatch();
         $viewHelper = $event->getApplication()->getServiceManager()->get('viewhelpermanager');
 
-        $route = array();
         if ($routeMatch) {
-            $route[] = $routeMatch->getParam('controller');
-            $route[] = $routeMatch->getParam('action');
+            $url = $viewHelper->get('url');
+            $keys = array_keys($routeMatch->getParams());
+
+            $parameters = array_combine(
+                $keys,
+                array_map(
+                    function($key) {
+                        return '{' . $key . '}';
+                    },
+                    $keys
+                )
+            );
+
+            newrelic_name_transaction(urldecode($url($routeMatch->getMatchedRouteName(), $parameters)));
         }
-        newrelic_name_transaction(implode('::', $route));
 
         $viewHelper->get('headscript')->prependScript(
             newrelic_get_browser_timing_header(false)
