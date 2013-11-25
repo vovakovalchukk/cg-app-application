@@ -1,29 +1,10 @@
 <?php
 namespace Application;
 
-use Zend\View\HelperPluginManager;
 use Zend\Mvc\MvcEvent;
 
 class NewRelic
 {
-    protected $viewHelper;
-
-    public function __construct(HelperPluginManager $viewHelper)
-    {
-        $this->setViewHelper($viewHelper);
-    }
-
-    public function setViewHelper(HelperPluginManager $viewHelper)
-    {
-        $this->viewHelper = $viewHelper;
-        return $this;
-    }
-
-    public function getViewHelper()
-    {
-        return $this->viewHelper;
-    }
-
     public function __invoke(MvcEvent $event)
     {
         if (!extension_loaded('newrelic')) {
@@ -53,7 +34,7 @@ class NewRelic
             )
         );
 
-        $url = $this->getViewHelper()->get('url');
+        $url = $event->getApplication()->getServiceManager()->get('viewhelper')->get('url');
         newrelic_name_transaction(
             urldecode($url($routeMatch->getMatchedRouteName(), $parameters))
         );
@@ -61,11 +42,13 @@ class NewRelic
 
     protected function registerBrowserTimings(MvcEvent $event)
     {
-        $this->getViewHelper()->get('headscript')->prependScript(
+        $viewHelper = $event->getApplication()->getServiceManager()->get('viewhelper');
+
+        $viewHelper->get('headscript')->prependScript(
             newrelic_get_browser_timing_header(false)
         );
 
-        $this->getViewHelper()->get('inlinescript')->appendScript(
+        $viewHelper->get('inlinescript')->appendScript(
             newrelic_get_browser_timing_footer(false)
         );
     }
