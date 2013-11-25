@@ -46,8 +46,9 @@ class NewRelic
             )
         );
 
+        $url = $this->url;
         newrelic_name_transaction(
-            urldecode($this->url($routeMatch->getMatchedRouteName(), $parameters))
+            urldecode($url($routeMatch->getMatchedRouteName(), $parameters))
         );
     }
 
