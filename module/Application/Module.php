@@ -38,7 +38,6 @@ class Module
         $eventManager->attach(MvcEvent::EVENT_RENDER, array($this, 'layoutHandler'));
         $eventManager->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'applicationExceptionHandler'));
         $eventManager->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'httpExceptionHandler'));
-        $eventManager->attach(MvcEvent::EVENT_DISPATCH, $e->getApplication()->getServiceManager()->get(NewRelic::Class));
 
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);

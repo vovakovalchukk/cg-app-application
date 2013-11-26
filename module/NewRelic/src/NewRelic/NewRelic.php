@@ -1,5 +1,5 @@
 <?php
-namespace Application;
+namespace NewRelic;
 
 use Zend\Mvc\MvcEvent;
 use Exception;
