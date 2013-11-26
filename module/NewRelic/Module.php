@@ -5,6 +5,8 @@ use Zend\Mvc\MvcEvent;
 use NewRelic\Api\Event\RegisterBrowserTimings;
 use NewRelic\Api\Event\RegisterController;
 use NewRelic\Api\Event\RegisterRoute;
+use NewRelic\Api\Event\RegisterUser;
+use CG\User\ActiveUserInterface;
 
 class Module
 {
@@ -20,6 +22,10 @@ class Module
         $eventManager->attach(MvcEvent::EVENT_DISPATCH, $serviceManager->get(RegisterRoute::Class));
         $eventManager->attach(MvcEvent::EVENT_DISPATCH, $serviceManager->get(RegisterController::Class));
         $eventManager->attach(MvcEvent::EVENT_DISPATCH, $serviceManager->get(RegisterBrowserTimings::Class));
+
+        if (interface_exists(ActiveUserInterface::Class)) {
+            $eventManager->attach(MvcEvent::EVENT_DISPATCH, $serviceManager->get(RegisterUser::Class));
+        }
     }
 
     public function getConfig()
