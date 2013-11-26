@@ -36,5 +36,7 @@ class RegisterUser
             '',
             ''
         );
+
+        newrelic_add_custom_parameter('userId', $user->getId());
     }
 } 
