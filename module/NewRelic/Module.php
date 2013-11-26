@@ -21,7 +21,7 @@ class Module
 
         $eventManager->attach(MvcEvent::EVENT_DISPATCH, $serviceManager->get(RegisterRoute::Class));
         $eventManager->attach(MvcEvent::EVENT_DISPATCH, $serviceManager->get(RegisterController::Class));
-        $eventManager->attach(MvcEvent::EVENT_DISPATCH, $serviceManager->get(RegisterBrowserTimings::Class));
+        $eventManager->attach(MvcEvent::EVENT_RENDER, $serviceManager->get(RegisterBrowserTimings::Class));
 
         if (interface_exists(ActiveUserInterface::Class)) {
             $eventManager->attach(MvcEvent::EVENT_DISPATCH, $serviceManager->get(RegisterUser::Class));
