@@ -17,9 +17,9 @@ class Module
         $eventManager = $event->getApplication()->getEventManager();
         $serviceManager = $event->getApplication()->getServiceManager();
 
-        $eventManager->attach(MvcEvent::EVENT_DISPATCH, $serviceManager->get(RegisterBrowserTimings::Class));
-        $eventManager->attach(MvcEvent::EVENT_DISPATCH, $serviceManager->get(RegisterController::Class));
         $eventManager->attach(MvcEvent::EVENT_DISPATCH, $serviceManager->get(RegisterRoute::Class));
+        $eventManager->attach(MvcEvent::EVENT_DISPATCH, $serviceManager->get(RegisterController::Class));
+        $eventManager->attach(MvcEvent::EVENT_DISPATCH, $serviceManager->get(RegisterBrowserTimings::Class));
     }
 
     public function getConfig()
