@@ -1,6 +1,7 @@
 <?php
 namespace NewRelic\Api\Event;
 
+use Zend\Mvc\MvcEvent;
 use CG\User\ActiveUserInterface;
 
 class RegisterUser
