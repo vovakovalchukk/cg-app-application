@@ -13,6 +13,7 @@ class NewRelic
         }
 
         $this->registerRoute($event);
+        $this->registerController($event);
         $this->registerBrowserTimings($event);
     }
 
@@ -43,6 +44,21 @@ class NewRelic
         } catch (Exception $exception) {
             // Ignore exception - Can't log url
         }
+    }
+
+    protected function registerController(MvcEvent $event)
+    {
+        $routeMatch = $event->getRouteMatch();
+        if (!$routeMatch) {
+            return;
+        }
+
+        $controller = array(
+            $routeMatch->getParam('controller'),
+            $routeMatch->getParam('action')
+        );
+
+        newrelic_add_custom_tracer(implode('::', $controller));
     }
 
     protected function registerBrowserTimings(MvcEvent $event)
