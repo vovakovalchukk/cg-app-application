@@ -54,11 +54,14 @@ class NewRelic
         }
 
         $controller = array(
-            $routeMatch->getParam('controller'),
-            $routeMatch->getParam('action')
+            'controller' => $routeMatch->getParam('controller'),
+            'action' => $routeMatch->getParam('action')
         );
 
         newrelic_add_custom_tracer(implode('::', $controller));
+        foreach ($controller as $key => $value) {
+            newrelic_add_custom_parameter($key, $value);
+        }
     }
 
     protected function registerBrowserTimings(MvcEvent $event)
