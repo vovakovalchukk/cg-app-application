@@ -2,6 +2,7 @@
 namespace Application;
 
 use Zend\Mvc\MvcEvent;
+use Exception;
 
 class NewRelic
 {
@@ -34,10 +35,14 @@ class NewRelic
             )
         );
 
-        $url = $event->getApplication()->getServiceManager()->get('viewhelpermanager')->get('url');
-        newrelic_name_transaction(
-            urldecode($url($routeMatch->getMatchedRouteName(), $parameters))
-        );
+        try {
+            $url = $event->getApplication()->getServiceManager()->get('viewhelpermanager')->get('url');
+            newrelic_name_transaction(
+                urldecode($url($routeMatch->getMatchedRouteName(), $parameters))
+            );
+        } catch (Exception $exception) {
+            // Ignore exception - Can't log url
+        }
     }
 
     protected function registerBrowserTimings(MvcEvent $event)
