@@ -30,6 +30,7 @@ class RegisterUser
         if (!$user) {
             return;
         }
+
         newrelic_set_user_attributes(
             $user->getId(),
             '',
