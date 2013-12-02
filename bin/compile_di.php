@@ -3,10 +3,14 @@ require_once 'bootstrap.php';
 require_once 'config/di/components.php';
 
 $diDataDir = 'data/di/';
-if (is_dir($diDataDir)) {
-    CG\Stdlib\rm($diDataDir);
+
+$it = new DirectoryIterator($diDataDir);
+foreach ($it as $file) {
+    if ($file->isFile() && !$file->isLink()
+        && preg_match('/-definition.php$/', $file->getBasename(), $matches)) {
+        unlink($file->getPathname());
+    }
 }
-mkdir($diDataDir, 0777, true);
 
 foreach ($libraryComponents as $component) {
     $diCompiler = new Zend\Di\Definition\CompilerDefinition;
