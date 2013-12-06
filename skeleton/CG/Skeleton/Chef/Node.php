@@ -48,7 +48,12 @@ class Node
             }
             $data =& $data[$currentKey];
         }
-        $data = $value;
+
+        if (is_array($value)) {
+            $data = array_merge($data, $value);
+        } else {
+            $data = $value;
+        }
     }
 
     public function removeKey($key)
