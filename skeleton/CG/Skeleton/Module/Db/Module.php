@@ -203,7 +203,7 @@ class Module extends AbstractModule implements EnableInterface, ConfigureInterfa
         chdir($cwd);
 
         $this->updateComposer($moduleConfig, array(
-            'robmorgan/phinx:*'
+            'channelgrabber/phinx:~0.2.9.1'
         ));
     }
 
