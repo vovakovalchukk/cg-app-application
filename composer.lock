@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "da2224f41d2ef109c46e644a27221994",
+    "hash": "e4bcec3d3474217685fa41c78ba47076",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -957,22 +957,29 @@
             "time": "2013-11-21 10:44:54"
         },
         {
-            "name": "channelgrabber/zf2-ui",
-            "version": "1.0.0",
+            "name": "channelgrabber/zf2-v4-ui",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/zf2-ui.git",
-                "reference": "367048a39eef538133e27cc304acae539754d1bf"
+                "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
+                "reference": "b9b3030b5bdbdff73df7c2aa287ba92f1b92b5c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ui-1.0.0-013268.zip",
-                "reference": "367048a39eef538133e27cc304acae539754d1bf",
-                "shasum": "04d71707888c07d7b486716d540f91a973886d2d"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.0.1-f68158.zip",
+                "reference": "b9b3030b5bdbdff73df7c2aa287ba92f1b92b5c9",
+                "shasum": "5de5c12730b54e8dc8a2047f6b658d572960e77c"
             },
             "require": {
+                "channelgrabber/zf2-stdlib": "~1.0.3",
+                "zendframework/zend-config": "2.*",
                 "zendframework/zend-form": "2.*",
+                "zendframework/zend-modulemanager": "2.*",
+                "zendframework/zend-mvc": "2.*",
                 "zendframework/zend-view": "2.*"
+            },
+            "replace": {
+                "channelgrabber/zf2-ui": "*"
             },
             "type": "library",
             "extra": {
@@ -990,7 +997,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2013-12-03 09:35:03"
+            "time": "2013-12-16 14:44:13"
         },
         {
             "name": "codeception/codeception",
