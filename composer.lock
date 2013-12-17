@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "47a97d4db0939227a3b8184a6d80c835",
+    "hash": "da2224f41d2ef109c46e644a27221994",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -470,6 +470,38 @@
             "time": "2013-12-09 09:46:22"
         },
         {
+            "name": "channelgrabber/guzzle",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-guzzle.git",
+                "reference": "4a91490785bc8260fa34a53ce19c74ca3ba0b317"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-guzzle-1.0.0-e2787f.zip",
+                "reference": "4a91490785bc8260fa34a53ce19c74ca3ba0b317",
+                "shasum": "a87a5e788c7164c42dd6048e493fdd78c7fa0c0b"
+            },
+            "require": {
+                "guzzle/guzzle": "~3.7"
+            },
+            "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "CG\\Guzzle\\": ""
+                }
+            },
+            "time": "2013-10-29 14:49:23"
+        },
+        {
             "name": "channelgrabber/http",
             "version": "1.2.1",
             "source": {
@@ -532,6 +564,42 @@
                 }
             },
             "time": "2013-07-09 15:10:32"
+        },
+        {
+            "name": "channelgrabber/sso",
+            "version": "1.1.2",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-sso.git",
+                "reference": "2d60956127803f96325de50003b6e8f7e21dce36"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-sso-1.1.2-aab9ee.zip",
+                "reference": "2d60956127803f96325de50003b6e8f7e21dce36",
+                "shasum": "8288e22c0505410f240ce80065f8da1940576cf1"
+            },
+            "require": {
+                "channelgrabber/guzzle": "~1.0.0",
+                "guzzle/guzzle": "~3.7",
+                "nocarrier/hal": "~0.9.4",
+                "zendframework/zend-crypt": "2.2.*",
+                "zendframework/zend-session": "2.2.*"
+            },
+            "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "CG\\Sso\\": ""
+                }
+            },
+            "time": "2013-11-20 16:48:05"
         },
         {
             "name": "channelgrabber/stdlib",
