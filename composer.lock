@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "66026156a5f1d933fa6946a31bc22b5b",
+    "hash": "e551f9c9f5ddc73ec6c5a5ea87a0a7ed",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -1016,17 +1016,11 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.2.6",
+            "version": "dev-CGIV-1110-DiSetup",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "ba3b3e087c20851ccb28ebd57fba087bdae407cd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.2.6-a559f0.zip",
-                "reference": "ba3b3e087c20851ccb28ebd57fba087bdae407cd",
-                "shasum": "f175971ffb717a2ba36f6e50c44e191c966f76bd"
+                "reference": "11d36c33fddc9446556870381a996dcf5f6de35b"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -1062,7 +1056,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2013-12-03 14:37:42"
+            "time": "2013-12-17 16:05:36"
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
@@ -3185,12 +3179,18 @@
 
     ],
     "aliases": [
-
+        {
+            "alias": "1.2.7",
+            "alias_normalized": "1.2.7.0",
+            "version": "dev-CGIV-1110-DiSetup",
+            "package": "channelgrabber/zf2-register"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/redis": 20,
+        "channelgrabber/zf2-register": 20,
         "phpspec/phpspec": 20
     },
     "platform": {
