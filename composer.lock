@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "de0bad142930f84a46567a6f2d1b1c84",
+    "hash": "ddf1c790e8d518b92f597fb5edd8ec73",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -948,7 +948,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-log-client.git",
-                "reference": "0812387282d1a601eee65295062915a8e38a32b2"
+                "reference": "edd8ca184502b12f32322e70f8d3f74105428099"
             },
             "require": {
                 "channelgrabber/log": ">=1.1.0,<1.4.0",
@@ -979,7 +979,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2013-12-18 14:09:29"
+            "time": "2013-12-18 14:17:25"
         },
         {
             "name": "channelgrabber/zf2-login",
@@ -1141,24 +1141,25 @@
             "time": "2013-11-21 10:44:54"
         },
         {
-            "name": "channelgrabber/zf2-ui",
-            "version": "1.0.0",
+            "name": "channelgrabber/zf2-v4-ui",
+            "version": "dev-CGIV-1110-Installer",
             "source": {
                 "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/zf2-ui.git",
-                "reference": "367048a39eef538133e27cc304acae539754d1bf"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ui-1.0.0-013268.zip",
-                "reference": "367048a39eef538133e27cc304acae539754d1bf",
-                "shasum": "04d71707888c07d7b486716d540f91a973886d2d"
+                "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
+                "reference": "50fc453a037b63a0ff2ed6df47f12ea650961a0d"
             },
             "require": {
+                "channelgrabber/zf2-stdlib": "~1.0.3",
+                "zendframework/zend-config": "2.*",
                 "zendframework/zend-form": "2.*",
+                "zendframework/zend-modulemanager": "2.*",
+                "zendframework/zend-mvc": "2.*",
                 "zendframework/zend-view": "2.*"
             },
-            "type": "library",
+            "replace": {
+                "channelgrabber/zf2-ui": "*"
+            },
+            "type": "zf2-module",
             "extra": {
                 "context-options": {
                     "ssl": {
@@ -1174,7 +1175,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2013-12-03 09:35:03"
+            "time": "2013-12-18 12:35:08"
         },
         {
             "name": "codeception/codeception",
@@ -3065,6 +3066,7 @@
         "channelgrabber/zf2-login": 20,
         "channelgrabber/zf2-register": 20,
         "channelgrabber/zf2-ssoclient": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpspec/phpspec": 20
     },
     "platform": {

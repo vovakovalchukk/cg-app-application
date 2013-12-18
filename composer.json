@@ -38,6 +38,7 @@
         "channelgrabber/zf2-register": "dev-CGIV-1110-DiSetup as 1.2.7",
         "channelgrabber/zf2-ssoclient": "dev-CGIV-1110-Installer",
         "channelgrabber/zf2-stdlib": "~1.0.3",
+        "channelgrabber/zf2-v4-ui": "dev-CGIV-1110-Installer",
         "codeception/codeception": "1.6.5",
         "davedevelopment/phpmig": "0.4",
         "guzzle/guzzle": "~3.7",
