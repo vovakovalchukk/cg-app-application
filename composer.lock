@@ -471,17 +471,17 @@
         },
         {
             "name": "channelgrabber/etag",
-            "version": "1.3.5",
+            "version": "1.3.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgetag.git",
-                "reference": "44d7dc17b8eccb7cb60b9279677755d40683b3f3"
+                "reference": "a29ef496f58caa72c5240ef7d182e5c1b9d96348"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-etag-1.3.5-0a0503.zip",
-                "reference": "44d7dc17b8eccb7cb60b9279677755d40683b3f3",
-                "shasum": "0faf9a780884a6a427cb22e21b73de7e5b699d90"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-etag-1.3.6-d962fa.zip",
+                "reference": "a29ef496f58caa72c5240ef7d182e5c1b9d96348",
+                "shasum": "d0796f1f6ab2d52650061aac9138e4ba33b86894"
             },
             "require": {
                 "channelgrabber/stdlib": ">=2.0.7, <2.4.0",
@@ -500,7 +500,7 @@
                     "CG\\ETag\\": ""
                 }
             },
-            "time": "2013-12-10 17:23:52"
+            "time": "2013-12-18 15:17:46"
         },
         {
             "name": "channelgrabber/guzzle",
@@ -921,7 +921,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-installer.git",
-                "reference": "ba00eb22ece10c6dc5343ecdfea04692743497f6"
+                "reference": "c4e04a54fe03f4b8c4697df6392e5cfd54685391"
             },
             "require": {
                 "composer-plugin-api": "1.0.0"
@@ -940,7 +940,7 @@
                     "CG\\Zend\\Installer\\": ""
                 }
             },
-            "time": "2013-12-18 13:59:05"
+            "time": "2013-12-18 15:12:34"
         },
         {
             "name": "channelgrabber/zf2-logclient",

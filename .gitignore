@@ -9,8 +9,4 @@
 /tests/*/*Guy.php
 /tests/_log
 /vendor
-public/css/log-client-ui.css
-public/css/normalize.css
-public/css/reset.css
-public/js/log-client-ui.js
-public/js/plugins.js
+public/channelgrabber/zf2-logclient
