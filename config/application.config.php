@@ -4,7 +4,6 @@ return array(
     'modules' => array(
         'Application',
         'NewRelic',
-        'AssetManager',
         'CG_Log',
         'CG_UI',
         'CG_Login',

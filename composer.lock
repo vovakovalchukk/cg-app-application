@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "e551f9c9f5ddc73ec6c5a5ea87a0a7ed",
+    "hash": "267ffd3c8c350e7c65c72a85ebcc896a",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -916,18 +916,39 @@
             "time": "2013-10-09 17:13:39"
         },
         {
+            "name": "channelgrabber/zf2-installer",
+            "version": "dev-CGIV-1110-ModuleInstaller",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/zf2-installer.git",
+                "reference": "7d6cd2906c48ae51962217a35fe06c925cb11347"
+            },
+            "require": {
+                "composer-plugin-api": "1.0.0"
+            },
+            "require-dev": {
+                "composer/composer": "1.0.*@dev"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": [
+                    "CG\\Zend\\Installer\\Plugin"
+                ]
+            },
+            "autoload": {
+                "psr-0": {
+                    "CG\\Zend\\Installer\\": ""
+                }
+            },
+            "time": "2013-12-18 12:24:13"
+        },
+        {
             "name": "channelgrabber/zf2-logclient",
-            "version": "1.1.2",
+            "version": "dev-CGIV-1110-Installer",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-log-client.git",
-                "reference": "c35af417e21b43a9aef815c2f3b4530f5bf736ec"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-logclient-1.1.2-9df3a2.zip",
-                "reference": "c35af417e21b43a9aef815c2f3b4530f5bf736ec",
-                "shasum": "3c0fccccbb396e5543064830f2e73b1467a89e2c"
+                "reference": "d6a9cde5060bcc0aef6cc939f486bfb534f8ddfd"
             },
             "require": {
                 "channelgrabber/log": ">=1.1.0,<1.4.0",
@@ -943,7 +964,7 @@
             "require-dev": {
                 "phpunit/phpunit": "3.7.*"
             },
-            "type": "library",
+            "type": "zf2-module",
             "extra": {
                 "context-options": {
                     "ssl": {
@@ -959,7 +980,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2013-12-03 14:16:22"
+            "time": "2013-12-18 09:24:43"
         },
         {
             "name": "channelgrabber/zf2-login",
@@ -3188,8 +3209,10 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/zf2-installer": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/redis": 20,
+        "channelgrabber/zf2-logclient": 20,
         "channelgrabber/zf2-register": 20,
         "phpspec/phpspec": 20
     },
