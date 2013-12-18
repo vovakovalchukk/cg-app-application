@@ -921,7 +921,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-installer.git",
-                "reference": "c4e04a54fe03f4b8c4697df6392e5cfd54685391"
+                "reference": "662baf69e8a0d46bef490fa2e4934cd898443c14"
             },
             "require": {
                 "composer-plugin-api": "1.0.0"
@@ -940,7 +940,7 @@
                     "CG\\Zend\\Installer\\": ""
                 }
             },
-            "time": "2013-12-18 15:12:34"
+            "time": "2013-12-18 17:00:10"
         },
         {
             "name": "channelgrabber/zf2-logclient",
