@@ -45,10 +45,12 @@
         "channelgrabber/codeception" : "1.0.*"
     },
     "scripts": {
-        "post-install-cmd" : [
+        "post-install-cmd": [
+            "php bin/update_di_components.php",
             "php bin/compile_di.php"
         ],
-        "post-update-cmd" : [
+        "post-update-cmd": [
+            "php bin/update_di_components.php",
             "php bin/compile_di.php"
         ]
     }
