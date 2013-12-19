@@ -17,7 +17,7 @@ return array(
     'service_manager' => array(
         'factories' => array(
             'Zend\Di\Di' => function($serviceManager) {
-                $configuration = $serviceManager->get('Config');
+                $configuration = $serviceManager->get('config');
 
                 $im = new Zend\Di\InstanceManager();
                 $di = new Zend\Di\Di(null, $im, new Zend\Di\Config(
