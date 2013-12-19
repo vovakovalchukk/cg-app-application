@@ -1146,7 +1146,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "558062e0dbf932c973fb67d75757f220e9c66c3e"
+                "reference": "ed2f353e86f2e72f6d567856450372022f9f184f"
             },
             "require": {
                 "channelgrabber/zf2-stdlib": "~1.0.3",
@@ -1160,13 +1160,6 @@
                 "channelgrabber/zf2-ui": "*"
             },
             "type": "zf2-module",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG_UI": "src/"
@@ -1175,7 +1168,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2013-12-19 08:39:24"
+            "time": "2013-12-19 09:24:35"
         },
         {
             "name": "codeception/codeception",
