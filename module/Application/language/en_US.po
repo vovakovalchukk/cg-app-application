@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: ZendSkeletonApplication\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-05 22:17-0700\n"
-"PO-Revision-Date: 2012-07-05 22:17-0700\n"
-"Last-Translator: Evan Coury <me@evancoury.com>\n"
+"PO-Revision-Date: 2013-12-19 08:31+0100\n"
+"Last-Translator: Richard Heelin <richardh@channelgrabber.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -150,4 +150,7 @@ msgstr ""
 #: ../view/error/404.phtml:51
 msgid "Exception"
 msgstr ""
+
+msgid "Application"
+msgstr "ZF2 Skeleton Application"
 

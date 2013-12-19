@@ -76,6 +76,11 @@ return array(
             'Application\Controller\Index' => 'Application\Controller\IndexController'
         ),
     ),
+    'view_manager' => array(
+        'template_path_stack' => array(
+            __DIR__ . '/../view',
+        ),
+    ),
     // Placeholder for console routes
     'console' => array(
         'router' => array(
