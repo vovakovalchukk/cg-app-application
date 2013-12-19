@@ -948,7 +948,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-log-client.git",
-                "reference": "f75a705174f7d78e35b7c3c86675ba22b1f53bb5"
+                "reference": "f6d4e558996e251db9c495e75978fba28cef9fc0"
             },
             "require": {
                 "channelgrabber/log": ">=1.1.0,<1.4.0",
@@ -979,7 +979,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2013-12-18 16:14:01"
+            "time": "2013-12-19 08:51:41"
         },
         {
             "name": "channelgrabber/zf2-login",
