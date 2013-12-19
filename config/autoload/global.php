@@ -17,7 +17,7 @@ return array(
     'service_manager' => array(
         'factories' => array(
             'Zend\Di\Di' => function($serviceManager) {
-                $configuration = $serviceManager->get('Config');
+                $configuration = $serviceManager->get('config');
 
                 $definition = new Zend\Di\Definition\RuntimeDefinition(
                     null,
