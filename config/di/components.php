@@ -23,7 +23,6 @@ $vendorComponents = array_merge($frameworkComponents, array(
         "zendframework_zendframework_library_Zend_Di"
 ));
 
-$components = array_merge($libraryComponents, $vendorComponents, $phpInternalComponents);
 $componentTypes = [
     'module' => $moduleComponents,
     'vendor' => $vendorComponents
