@@ -12,28 +12,19 @@ foreach ($it as $file) {
     }
 }
 
-foreach ($libraryComponents as $component) {
-    $diCompiler = new Zend\Di\Definition\CompilerDefinition;
-    $dir = dirname(__DIR__) . '/library/' . str_replace('_', '/', $component);
-    echo "Compiling ".$dir."\n";
-    $diCompiler->addDirectory($dir);
-    $diCompiler->setAllowReflectionExceptions();
-    $diCompiler->compile();
-    file_put_contents(
-        $diDataDir . $component . '-definition.php',
-        '<?php return ' . var_export($diCompiler->toArrayDefinition()->toArray(), true) . ';'
-    );
+$componentArray = [];
+foreach ($componentTypes as $type => $components) {
+    foreach ($components as $component) {
+        $diCompiler = new Zend\Di\Definition\CompilerDefinition;
+        $dir = dirname(__DIR__) . '/' . $type . '/' . str_replace('_', '/', $component);
+        echo "Compiling ".$dir."\n";
+        $diCompiler->addDirectory($dir);
+        $diCompiler->setAllowReflectionExceptions();
+        $diCompiler->compile();
+        $componentArray = array_merge($componentArray, $diCompiler->toArrayDefinition()->toArray());
+    }
 }
-
-foreach ($vendorComponents as $component) {
-    $diCompiler = new Zend\Di\Definition\CompilerDefinition;
-    $dir = dirname(__DIR__) . '/vendor/' . str_replace('_', '/', $component);
-    echo "Compiling ".$dir."\n";
-    $diCompiler->addDirectory($dir);
-    $diCompiler->setAllowReflectionExceptions(true);
-    $diCompiler->compile();
-    file_put_contents(
-        $diDataDir . $component . '-definition.php',
-        '<?php return ' . var_export($diCompiler->toArrayDefinition()->toArray(), true) . ';'
-    );
-}
+file_put_contents(
+    $diDataDir .'di-definition.php',
+    '<?php return ' . var_export($componentArray, true) . ';'
+);

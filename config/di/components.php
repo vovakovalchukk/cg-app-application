@@ -10,4 +10,7 @@ $vendorComponents = array_merge($frameworkComponents, array(
     'channelgrabber_stdlib_CG_Stdlib'
 ));
 
-$components = array_merge($libraryComponents, $vendorComponents, $phpInternalComponents);
+$componentTypes = [
+    'library' => $libraryComponents,
+    'vendor' => $vendorComponents
+];
