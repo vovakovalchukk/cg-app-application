@@ -19,7 +19,7 @@ return array(
             'Zend\Di\Di' => function($serviceManager) {
                 $configuration = $serviceManager->get('config');
 
-                $definition = new Zend\Di\Definition\RuntimeDefinition(
+                $definition = new CG\Di\Definition\RuntimeDefinition(
                     null,
                     include 'vendor/composer/autoload_classmap.php'
                 );
