@@ -46,10 +46,12 @@
     },
     "scripts": {
         "post-install-cmd": [
+            "php vendor/zendframework/zendframework/bin/classmap_generator.php -l module -o config/di/modules_classmap.php --overwrite",
             "php bin/update_di_components.php",
             "php bin/compile_di.php"
         ],
         "post-update-cmd": [
+            "php vendor/zendframework/zendframework/bin/classmap_generator.php -l module -o config/di/modules_classmap.php --overwrite",
             "php bin/update_di_components.php",
             "php bin/compile_di.php"
         ]

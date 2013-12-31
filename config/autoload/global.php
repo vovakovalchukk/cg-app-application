@@ -21,7 +21,7 @@ return array(
 
                 $definition = new CG\Di\Definition\RuntimeDefinition(
                     null,
-                    include 'vendor/composer/autoload_classmap.php'
+                    include 'bin/complete_classmap.php'
                 );
                 $definitionList = new Zend\Di\DefinitionList([$definition]);
                 $im = new Zend\Di\InstanceManager();
