@@ -4,12 +4,15 @@ chdir(dirname(__DIR__));
 define('PROJECT_NAME', basename(dirname(__DIR__)));
 define('SKELETON_CONFIG', __DIR__ . '/config.xml');
 
-if (!is_file('composer.phar')) {
-    passthru('curl -sS https://getcomposer.org/installer | php');
+exec('command -v composer >/dev/null 2>&1', $output, $composer_return);
+if ($composer_return != 0) {
+    echo "[Error]\t Composer is not installed globally. "
+    . "Please see http://getcomposer.org/doc/00-intro.md#globally for more details.\n";
+    exit(1);
 }
 
 if (!is_file('vendor/autoload.php')) {
-    passthru('php composer.phar install');
+    passthru('composer install');
 }
 
 $autoloader = require 'vendor/autoload.php';
