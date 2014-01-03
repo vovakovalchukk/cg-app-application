@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "ddf1c790e8d518b92f597fb5edd8ec73",
+    "hash": "2295dbd98fcb30de69c2eee87da0bbc0",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -471,36 +471,29 @@
         },
         {
             "name": "channelgrabber/etag",
-            "version": "1.3.7",
+            "version": "1.3.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgetag.git",
-                "reference": "b433fa5fe2d21b4664a83e36ffee4b7c84e53a91"
+                "reference": "4928a37a06aea8c3a9c44d39c73db5c75d951304"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-etag-1.3.7-7baf4e.zip",
-                "reference": "b433fa5fe2d21b4664a83e36ffee4b7c84e53a91",
-                "shasum": "c95a3f913f5419b1c44ef4ae793d45297d64fe8e"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-etag-1.3.8-f21350.zip",
+                "reference": "4928a37a06aea8c3a9c44d39c73db5c75d951304",
+                "shasum": "5fa7dedd90939e8096c79ab118c6b96a699d9316"
             },
             "require": {
                 "channelgrabber/stdlib": ">=2.0.7, <2.4.0",
                 "predis/predis": "v0.8.3"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\ETag\\": ""
                 }
             },
-            "time": "2013-12-18 16:11:55"
+            "time": "2013-12-19 17:38:16"
         },
         {
             "name": "channelgrabber/guzzle",
@@ -536,35 +529,28 @@
         },
         {
             "name": "channelgrabber/http",
-            "version": "1.2.1",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cghttp.git",
-                "reference": "b4e7e0d1f11b3b20c220ff93670ac79f5809c428"
+                "reference": "975ed377f999166ce94098c8394669fe9585507f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.2.1-f36d80.zip",
-                "reference": "b4e7e0d1f11b3b20c220ff93670ac79f5809c428",
-                "shasum": "ffe1b6312e4287761533af620b88cea5529020db"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.2.2-ef8351.zip",
+                "reference": "975ed377f999166ce94098c8394669fe9585507f",
+                "shasum": "12d664c1f06dd61dd6d78599e80585f82c6bec47"
             },
             "replace": {
                 "channelgrabber/cghttp": "*"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Http\\": ""
                 }
             },
-            "time": "2013-10-28 11:26:16"
+            "time": "2014-01-02 11:02:27"
         },
         {
             "name": "channelgrabber/log",
@@ -668,35 +654,28 @@
         },
         {
             "name": "channelgrabber/slim",
-            "version": "1.5.3",
+            "version": "1.5.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgslim.git",
-                "reference": "85f859545a250f3fca2265bcf1ea96613ea32871"
+                "reference": "9f3c538a945241bed103ebbb92cf65d039cf114f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-slim-1.5.3-97cf4b.zip",
-                "reference": "85f859545a250f3fca2265bcf1ea96613ea32871",
-                "shasum": "3b96619028f369089adf0ba7dc777303faf4deff"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-slim-1.5.5-0cd6d9.zip",
+                "reference": "9f3c538a945241bed103ebbb92cf65d039cf114f",
+                "shasum": "79f58d8e7017344ec7de077beb224aac21ff141d"
             },
             "replace": {
                 "channelgrabber/slim-hal": "<=1.0.3"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Slim": ""
                 }
             },
-            "time": "2013-12-18 09:05:06"
+            "time": "2014-01-02 12:28:15"
         },
         {
             "name": "channelgrabber/sso",
@@ -771,36 +750,29 @@
         },
         {
             "name": "channelgrabber/ui",
-            "version": "1.0.3",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ui.git",
-                "reference": "e786dd57e0d08aa1e1f47c40adbc714758eba071"
+                "reference": "fa58ae88aa2b2a02764483a71fbdf9400bf0f750"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ui-1.0.3-e79b00.zip",
-                "reference": "e786dd57e0d08aa1e1f47c40adbc714758eba071",
-                "shasum": "7c2b810f619c1bf54f1508e1d6414113e581f802"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ui-1.1.0-cbd3fa.zip",
+                "reference": "fa58ae88aa2b2a02764483a71fbdf9400bf0f750",
+                "shasum": "52b89132e051cd7d541461ea30d970e6bc5b41e9"
             },
             "require": {
                 "zendframework/zend-form": "2.*",
                 "zendframework/zend-view": "2.*"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\UI\\": ""
                 }
             },
-            "time": "2013-12-03 11:58:21"
+            "time": "2013-12-16 14:39:31"
         },
         {
             "name": "channelgrabber/user",
@@ -917,11 +889,17 @@
         },
         {
             "name": "channelgrabber/zf2-installer",
-            "version": "dev-CGIV-1110-ModuleInstaller",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-installer.git",
-                "reference": "662baf69e8a0d46bef490fa2e4934cd898443c14"
+                "reference": "dec3aae70d8664b322360d4ac650ee834e69d3e5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-installer-1.0.0-ef0666.zip",
+                "reference": "dec3aae70d8664b322360d4ac650ee834e69d3e5",
+                "shasum": "92cb3d93941be4236cd2e87a6a0651fa56ffdcde"
             },
             "require": {
                 "composer-plugin-api": "1.0.0"
@@ -940,15 +918,21 @@
                     "CG\\Zend\\Installer\\": ""
                 }
             },
-            "time": "2013-12-18 17:00:10"
+            "time": "2014-01-03 16:14:53"
         },
         {
             "name": "channelgrabber/zf2-logclient",
-            "version": "dev-CGIV-1110-Installer",
+            "version": "1.1.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-log-client.git",
-                "reference": "f6d4e558996e251db9c495e75978fba28cef9fc0"
+                "reference": "f0084bc9167254d0c9b668538233d592b9def928"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-logclient-1.1.3-2f8ae3.zip",
+                "reference": "f0084bc9167254d0c9b668538233d592b9def928",
+                "shasum": "e4943e1ff12912177531e8d094ae880505a01510"
             },
             "require": {
                 "channelgrabber/log": ">=1.1.0,<1.4.0",
@@ -964,13 +948,6 @@
                 "phpunit/phpunit": "3.7.*"
             },
             "type": "zf2-module",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG_Log": "src/"
@@ -979,21 +956,27 @@
                     "./Module.php"
                 ]
             },
-            "time": "2013-12-19 08:51:41"
+            "time": "2014-01-03 16:31:04"
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "dev-CGIV-1110-Installer",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "fd9f6de67d67283ad00bd3e430a0de7d01352cd8"
+                "reference": "1f12763eb2ff1d538763db9b10ea9b40f2249e07"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.3.1-ae6c44.zip",
+                "reference": "1f12763eb2ff1d538763db9b10ea9b40f2249e07",
+                "shasum": "3b897d13788ac8331d77ddd875769e78d596ee1b"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/stdlib": ">=2.2.0,<2.4.0",
-                "channelgrabber/ui": "~1.0.1",
+                "channelgrabber/ui": "~1.1.0",
                 "channelgrabber/user": ">=1.6.6,<1.10.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.1",
                 "channelgrabber/zf2-ui": "~1.0.0",
@@ -1010,13 +993,6 @@
                 "phpunit/phpunit": "3.7.*"
             },
             "type": "zf2-module",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG_Login": "src/"
@@ -1026,20 +1002,26 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2013-12-18 12:38:30"
+            "time": "2014-01-03 17:06:23"
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-CGIV-1110-DiSetup",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "1c9313b3edd8e2a2af5212549d34150f7c431bd8"
+                "reference": "2f3f140473b17901d7f27e9b7cd274f1778d9178"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.1-c30df2.zip",
+                "reference": "2f3f140473b17901d7f27e9b7cd274f1778d9178",
+                "shasum": "a30020e62517c6d16af7f4b2002f562ddc9bab8a"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/stdlib": "~2.3.0",
-                "channelgrabber/ui": "~1.0.1",
+                "channelgrabber/ui": "~1.1.0",
                 "channelgrabber/user": "~1.9.1",
                 "channelgrabber/zf2-stdlib": "~1.0.3",
                 "guzzle/guzzle": "~3.7",
@@ -1053,14 +1035,7 @@
             "require-dev": {
                 "phpunit/phpunit": "3.7.*"
             },
-            "type": "zf2-module",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
+            "type": "library",
             "autoload": {
                 "psr-0": {
                     "CG_Register": "src/"
@@ -1070,15 +1045,21 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2013-12-18 12:41:36"
+            "time": "2013-12-31 10:10:31"
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
-            "version": "dev-CGIV-1110-Installer",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-sso-client.git",
-                "reference": "883df32f96b89f6425935f3982548a49d4381249"
+                "reference": "6e76b803a9c3803ee91ae1859d6e6193f62d4d86"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ssoclient-1.2.1-0c8019.zip",
+                "reference": "6e76b803a9c3803ee91ae1859d6e6193f62d4d86",
+                "shasum": "602b526a71fba16b4ae75261f5340445291c1dcd"
             },
             "require": {
                 "codeception/codeception": "1.6.5",
@@ -1089,13 +1070,6 @@
                 "phpspec/prophecy": "~1.0"
             },
             "type": "zf2-module",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG_SSO": "src/"
@@ -1104,7 +1078,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2013-12-18 12:46:30"
+            "time": "2014-01-03 16:57:56"
         },
         {
             "name": "channelgrabber/zf2-stdlib",
@@ -1142,11 +1116,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-1110-Installer",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "ed2f353e86f2e72f6d567856450372022f9f184f"
+                "reference": "49281786683270bd492980f0a415ab39928e1519"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.0.2-009dac.zip",
+                "reference": "49281786683270bd492980f0a415ab39928e1519",
+                "shasum": "39d8500563e5a1b79769fa71263a29d33b976014"
             },
             "require": {
                 "channelgrabber/zf2-stdlib": "~1.0.3",
@@ -1168,7 +1148,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2013-12-19 09:24:35"
+            "time": "2014-01-03 17:15:30"
         },
         {
             "name": "codeception/codeception",
@@ -1708,18 +1688,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/phpspec.git",
-                "reference": "39624e966b8cfdfb5c6e7213e04328327699b7eb"
+                "reference": "ece08b74fe597442133311009c59b857c0d7b9f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/39624e966b8cfdfb5c6e7213e04328327699b7eb",
-                "reference": "39624e966b8cfdfb5c6e7213e04328327699b7eb",
+                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/ece08b74fe597442133311009c59b857c0d7b9f2",
+                "reference": "ece08b74fe597442133311009c59b857c0d7b9f2",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3",
                 "phpspec/php-diff": "~1.0.0",
-                "phpspec/prophecy": "~1.0.2",
+                "phpspec/prophecy": "~1.1",
                 "symfony/console": "~2.1",
                 "symfony/event-dispatcher": "~2.1",
                 "symfony/finder": "~2.1",
@@ -1768,20 +1748,20 @@
                 "testing",
                 "tests"
             ],
-            "time": "2013-12-13 15:32:32"
+            "time": "2014-01-03 14:54:23"
         },
         {
             "name": "phpspec/prophecy",
-            "version": "v1.0.4",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "79d9c8bd94801bffbf9b56964f6438762da6d8cd"
+                "reference": "119b07de9c592a0286cd584d6e961903ba096d8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/79d9c8bd94801bffbf9b56964f6438762da6d8cd",
-                "reference": "79d9c8bd94801bffbf9b56964f6438762da6d8cd",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/119b07de9c592a0286cd584d6e961903ba096d8a",
+                "reference": "119b07de9c592a0286cd584d6e961903ba096d8a",
                 "shasum": ""
             },
             "require-dev": {
@@ -1790,7 +1770,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.1.x-dev"
                 }
             },
             "autoload": {
@@ -1823,7 +1803,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2013-08-10 11:11:45"
+            "time": "2014-01-01 21:15:36"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -2877,16 +2857,16 @@
         },
         {
             "name": "videlalvaro/php-amqplib",
-            "version": "v2.2.5",
+            "version": "v2.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/videlalvaro/php-amqplib.git",
-                "reference": "6184ddd5497c6eaffa7817555515ff95999eefa1"
+                "reference": "6ef2ca9a45bb9fb20872f824f4c7c1518315bd3f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/videlalvaro/php-amqplib/zipball/6184ddd5497c6eaffa7817555515ff95999eefa1",
-                "reference": "6184ddd5497c6eaffa7817555515ff95999eefa1",
+                "url": "https://api.github.com/repos/videlalvaro/php-amqplib/zipball/6ef2ca9a45bb9fb20872f824f4c7c1518315bd3f",
+                "reference": "6ef2ca9a45bb9fb20872f824f4c7c1518315bd3f",
                 "shasum": ""
             },
             "require": {
@@ -2918,7 +2898,7 @@
                 "queue",
                 "rabbitmq"
             ],
-            "time": "2013-12-13 21:42:40"
+            "time": "2013-12-22 12:49:53"
         },
         {
             "name": "zendframework/zendframework",
@@ -3043,23 +3023,12 @@
 
     ],
     "aliases": [
-        {
-            "alias": "1.2.7",
-            "alias_normalized": "1.2.7.0",
-            "version": "dev-CGIV-1110-DiSetup",
-            "package": "channelgrabber/zf2-register"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/redis": 20,
-        "channelgrabber/zf2-installer": 20,
-        "channelgrabber/zf2-logclient": 20,
-        "channelgrabber/zf2-login": 20,
-        "channelgrabber/zf2-register": 20,
-        "channelgrabber/zf2-ssoclient": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpspec/phpspec": 20
     },
     "platform": {

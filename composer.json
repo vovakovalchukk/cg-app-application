@@ -1,10 +1,6 @@
 {
     "repositories": [
         {
-            "type": "git",
-            "url": "git@bitbucket.org:channelgrabber/zf2-installer.git"
-        },
-        {
             "url": "https://composer.build.channelgrabber.com",
             "type": "composer",
             "options": {
@@ -30,15 +26,15 @@
         "channelgrabber/redis": "dev-CGIV-529",
         "channelgrabber/sso": "~1.1.2",
         "channelgrabber/stdlib": "~2.3.0",
-        "channelgrabber/ui": "~1.0.1",
+        "channelgrabber/ui": "~1.1.0",
         "channelgrabber/zf2-hal": "~1.0.4",
-        "channelgrabber/zf2-installer": "dev-CGIV-1110-ModuleInstaller",
-        "channelgrabber/zf2-logclient": "dev-CGIV-1110-Installer",
-        "channelgrabber/zf2-login": "dev-CGIV-1110-Installer",
-        "channelgrabber/zf2-register": "dev-CGIV-1110-DiSetup as 1.2.7",
-        "channelgrabber/zf2-ssoclient": "dev-CGIV-1110-Installer",
+        "channelgrabber/zf2-installer": "~1.0.0",
+        "channelgrabber/zf2-logclient": "~1.1.3",
+        "channelgrabber/zf2-login": "~1.3.1",
+        "channelgrabber/zf2-register": "~1.4.1",
+        "channelgrabber/zf2-ssoclient": "~1.2.1",
         "channelgrabber/zf2-stdlib": "~1.0.3",
-        "channelgrabber/zf2-v4-ui": "dev-CGIV-1110-Installer",
+        "channelgrabber/zf2-v4-ui": "~1.0.2",
         "codeception/codeception": "1.6.5",
         "davedevelopment/phpmig": "0.4",
         "guzzle/guzzle": "~3.7",
