@@ -48,7 +48,7 @@ return array(
     'psr_log_Psr_Log',
     'symfony_browser-kit_Symfony_Component_BrowserKit',
     'symfony_class-loader_Symfony_Component_ClassLoader',
-    'symfony_config_Symfony_Component_Config',
+//    'symfony_config_Symfony_Component_Config',
     'symfony_console_Symfony_Component_Console',
     'symfony_css-selector_Symfony_Component_CssSelector',
     'symfony_dom-crawler_Symfony_Component_DomCrawler',
