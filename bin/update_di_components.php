@@ -66,7 +66,7 @@ foreach ($vendors as $vendor) {
         if ($srcDir != '') {
             $componentNameParts[] = trim($srcDir, '/');
         }
-        $componentNameParts = array_merge($componentNameParts, explode('/', $namespaceDir));
+        $componentNameParts = array_merge($componentNameParts, explode('/', str_replace('_', '\_', $namespaceDir)));
         $componentName = implode('_', $componentNameParts);
         echo $componentName . '... ';
         $newComponents[$componentName] = true;
