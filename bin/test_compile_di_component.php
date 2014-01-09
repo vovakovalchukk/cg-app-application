@@ -9,8 +9,8 @@ if (!isset($argv[1]) || !isset($argv[2])) {
 $type = $argv[1];
 $component = $argv[2];
 
-$diCompiler = new Zend\Di\Definition\CompilerDefinition;
-$dir = dirname(__DIR__) . '/' . $type . '/' . str_replace('_', '/', $component);
+$diCompiler = new CG\Zend\Stdlib\Di\Definition\RuntimeCompiler;
+$dir = dirname(__DIR__) . '/' . $type . '/' . stripslashes(preg_replace('|(?<!\\\\)_|', '/', $component));
 echo "Compiling ".$dir."\n";
 $diCompiler->addDirectory($dir);
 $diCompiler->setAllowReflectionExceptions();
