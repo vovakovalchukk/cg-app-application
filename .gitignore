@@ -1,10 +1,12 @@
 .idea
 /config/autoload/database.local.php
+/config/autoload/di.cgcache.global.php
 /config/autoload/di.guzzle.global.php
 /config/autoload/di.memcached.global.php
 /config/autoload/di.redis.global.php
-/config/module/*
+/config/autoload/orders.global.php
 /config/host.php
+/config/module/*
 /data/certificates
 /data/di
 /tests/*/*Guy.php
