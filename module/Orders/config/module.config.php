@@ -1,4 +1,6 @@
 <?php
+use Orders\Controller;
+
 return [
     'router' => [
         'routes' => [
@@ -26,13 +28,19 @@ return [
         ],
     ],
     'controllers' => [
-        'invokables' => [
-            'Orders\Controller\Orders' => 'Orders\Controller\OrdersController',
+        'factories' => [
+            'Orders\Controller\Orders' => function($controllerManager) {
+                return $controllerManager->getServiceLocator()->get(Controller\OrdersController::Class);
+            },
         ],
+        'invokables' => [],
     ],
     'view_manager' => [
         'template_path_stack' => [
             __DIR__ . '/../view',
+        ],
+        'strategies' => [
+            'ViewJsonStrategy',
         ],
     ],
 ];
