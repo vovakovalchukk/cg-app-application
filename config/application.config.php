@@ -9,6 +9,7 @@ return array(
         'CG_Login',
         'CG_Register',
 //        'CG_SSO',
+        'Orders',
     ),
 
     // These are various options for the listeners attached to the ModuleManager
