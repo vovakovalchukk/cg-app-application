@@ -17,6 +17,7 @@ return array(
     'channelgrabber_guzzle_CG_Guzzle',
     'channelgrabber_http_CG_Http',
     'channelgrabber_log_CG',
+//    'channelgrabber_order_CG_Order',
     'channelgrabber_predis_CG_Predis',
     'channelgrabber_redis_CG_Redis',
 //    'channelgrabber_slim_CG_Slim',
