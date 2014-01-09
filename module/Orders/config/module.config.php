@@ -1,10 +1,34 @@
 <?php
 return [
     'router' => [
-        'routes' => [],
+        'routes' => [
+            'Orders' => [
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => [
+                    'route' => '/orders',
+                    'defaults' => [
+                        'controller' => 'Orders\Controller\Orders',
+                    ],
+                ],
+                'may_terminate' => true,
+                'child_routes' => [
+                    'ajax' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '.json',
+                            'defaults' => [
+                                'action' => 'list',
+                            ]
+                        ]
+                    ]
+                ],
+            ]
+        ],
     ],
     'controllers' => [
-        'invokables' => [],
+        'invokables' => [
+            'Orders\Controller\Orders' => 'Orders\Controller\OrdersController',
+        ],
     ],
     'view_manager' => [
         'template_path_stack' => [
