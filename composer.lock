@@ -1096,13 +1096,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "2b923d36bf4ad92807f4bfbd143188b9a3be78c0"
+                "reference": "aed81174b74274ba75f0bd38ccd647600f92783b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.0.3-e1ebb6.zip",
-                "reference": "2b923d36bf4ad92807f4bfbd143188b9a3be78c0",
-                "shasum": "7aa5628996f7bd67e2fa892baf77644c4618ba75"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.0.3-fcdd01.zip",
+                "reference": "aed81174b74274ba75f0bd38ccd647600f92783b",
+                "shasum": "a94ad879e7216457d850fecefa2f9a02462a9f11"
             },
             "require": {
                 "channelgrabber/zf2-stdlib": ">=1.0.3,<1.2.0",
@@ -1124,8 +1124,7 @@
                     "./Module.php"
                 ]
             },
-            "description": "zf2 ui module for CGv4",
-            "time": "2014-01-09 12:06:31"
+            "time": "2014-01-09 11:56:16"
         },
         {
             "name": "codeception/codeception",
