@@ -1,0 +1,24 @@
+<div id="bulk-actions" class="module full-width with-padding clearfix">
+    <?php foreach($bulkActions as $bulkAction): ?>
+    <div class="bulk-action<?= (!empty($bulkAction['sub-actions'])) ? ' with-select' : '' ?>">
+        <div class="default clearfix">
+            <span class="action" data-action="<?= $bulkAction['class'] ?>">
+                <span class="icon-med inverted <?= $bulkAction['class'] ?>">&nbsp;</span>
+                <span class="title"><?= $bulkAction['title'] ?></span>
+            </span>
+            <?php if(!empty($bulkAction['sub-actions'])): ?>
+            <span class="divider">
+                <span class="arrow down">&nbsp;</span>
+            </span>
+        </div>
+        <ul>
+            <?php foreach($bulkAction['sub-actions'] as $subAction):?>
+            <li><a href="#" class="action" data-action="<?=$subAction['action']?>"><span><?=$subAction['title']?></span></a></li>
+            <?php endforeach;?>
+        </ul>
+        <?php else:?>
+        </div>
+        <?php endif;?>
+    </div>
+    <?php endforeach; ?>
+</div>
