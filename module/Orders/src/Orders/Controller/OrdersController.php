@@ -38,11 +38,6 @@ class OrdersController extends AbstractActionController
         return $this->viewModelFactory;
     }
 
-    public function listAction()
-    {
-        return $this->getJsonModelFactory()->newInstance();
-    }
-
     public function indexAction()
     {
         $view = $this->getViewModelFactory()->newInstance();
@@ -79,5 +74,10 @@ class OrdersController extends AbstractActionController
         $view->addChild($orders, 'orders');
 
         return $view;
+    }
+
+    public function listAction()
+    {
+        return $this->getJsonModelFactory()->newInstance();
     }
 }
