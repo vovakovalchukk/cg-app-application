@@ -12,6 +12,8 @@
  */
 
 use Zend\Config\Config;
+use CG\Cache\EventManagerInterface;
+use CG\Zend\Stdlib\Cache\EventManager;
 
 return array(
     'service_manager' => array(
@@ -56,7 +58,8 @@ return array(
                 'config' => Config::class
             ),
             'preferences' => array(
-                'Zend\Di\LocatorInterface' => 'Zend\Di\Di'
+                'Zend\Di\LocatorInterface' => 'Zend\Di\Di',
+                EventManagerInterface::Class => EventManager::Class,
             )
         )
     )
