@@ -131,6 +131,10 @@ class OrdersController extends AbstractActionController
         $filters->setTemplate('orders/orders/filters');
         $view->addChild($filters, 'filters');
 
+        $sidebar = $this->getViewModelFactory()->newInstance();
+        $sidebar->setTemplate('orders/orders/sidebar');
+        $view->addChild($sidebar, 'sidebar');
+
         return $view;
     }
 
