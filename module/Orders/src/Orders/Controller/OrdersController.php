@@ -56,12 +56,21 @@ class OrdersController extends AbstractActionController
     public function indexAction()
     {
         $view = $this->getViewModelFactory()->newInstance();
-        $view->addChild($this->getOrdersTable(), 'ordersTable');
+
+        $ordersTable = $this->getOrdersTable();
+        $settings = $ordersTable->getVariable('settings');
+        $settings->setSource($this->url()->fromRoute('Orders/ajax'));
+        $view->addChild($ordersTable, 'ordersTable');
+
         return $view;
     }
 
     public function listAction()
     {
-        return $this->getJsonModelFactory()->newInstance();
+        return $this->getJsonModelFactory()->newInstance(
+            [
+                'Records' => []
+            ]
+        );
     }
 }
