@@ -4,16 +4,20 @@ namespace Orders\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
+use CG_UI\View\DataTable;
 
 class OrdersController extends AbstractActionController
 {
     protected $jsonModelFactory;
     protected $viewModelFactory;
+    protected $ordersTable;
 
-    public function __construct(JsonModelFactory $jsonModelFactory, ViewModelFactory $viewModelFactory)
+    public function __construct(JsonModelFactory $jsonModelFactory, ViewModelFactory $viewModelFactory, DataTable $ordersTable)
     {
-        $this->setJsonModelFactory($jsonModelFactory)
-            ->setViewModelFactory($viewModelFactory);
+        $this
+            ->setJsonModelFactory($jsonModelFactory)
+            ->setViewModelFactory($viewModelFactory)
+            ->setOrdersTable($ordersTable);
     }
 
     public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -38,41 +42,21 @@ class OrdersController extends AbstractActionController
         return $this->viewModelFactory;
     }
 
+    public function setOrdersTable(DataTable $ordersTable)
+    {
+        $this->ordersTable = $ordersTable;
+        return $this;
+    }
+
+    public function getOrdersTable()
+    {
+        return $this->ordersTable;
+    }
+
     public function indexAction()
     {
         $view = $this->getViewModelFactory()->newInstance();
-
-        $tableColumns = [
-            ['title' => 'Channel', 'mData' => 'channel'],
-            ['title' => 'Account', 'mData' => 'account'],
-            ['title' => 'Order Date', 'mData' => 'purchaseDate'],
-            ['title' => 'Order Information', 'mData' => 'orderInformation'],
-            ['title' => 'Total', 'mData' => 'total'],
-            ['title' => 'Buyer', 'mData' => 'buyerName'],
-            ['title' => 'Status', 'mData' => 'status'],
-            ['title' => 'Batch', 'mData' => 'batch'],
-            ['title' => 'Messages', 'mData' => 'messages'],
-            ['title' => 'Shipping Method', 'mData' => 'shippingMethod'],
-            ['title' => 'Dispatch', 'mData' => 'shippingMethod'],
-            ['title' => 'Print', 'mData' => 'shippingMethod'],
-            ['title' => 'COG HOW DO I PICTURE HERE', 'mData' => '?'],
-        ];
-
-        $orders = $this->getViewModelFactory()->newInstance();
-        $orders->setTemplate('table/table');
-        $orders->setVariable('tableJSVars', [
-            'source' => $this->url()->fromRoute('Orders/ajax'),
-            'columns' => $tableColumns,
-            'limit' => 500
-        ]);
-        $orders->setVariable('datatableJSVars', [
-            'tableId' => 'orders-table',
-            'filterFormId' => 'filters'
-        ]);
-
-        $orders->setVariable('tableColumns', $tableColumns);
-        $view->addChild($orders, 'orders');
-
+        $view->addChild($this->getOrdersTable(), 'ordersTable');
         return $view;
     }
 
