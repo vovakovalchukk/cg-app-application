@@ -66,14 +66,11 @@ class OrdersController extends AbstractActionController
             [
                 'bulkActions' => [
                     [
-                        'title' => 'Print',
-                        'class' => 'print',
+                        'title' => 'Invoice',
+                        'class' => 'invoice',
                         'sub-actions' => [
-                            ['title' => 'Invoices',         'action' => 'invoices'],
-                            ['title' => 'Invoices by SKU',  'action' => 'invoices-sku'],
-                            ['title' => 'Invoices by Title','action' => 'invoices-title'],
-                            ['title' => 'Picking List',     'action' => 'picking-list'],
-                            ['title' => 'Thermal Print',    'action' => 'thermal-print']
+                            ['title' => 'by SKU',  'action' => 'invoices-sku'],
+                            ['title' => 'by Title','action' => 'invoices-title']
                         ]
                     ],
                     [
@@ -84,42 +81,30 @@ class OrdersController extends AbstractActionController
                         'title' => 'Tag / Untag',
                         'class' => 'tag-untag',
                         'sub-actions' => [
-                            ['title' => 'Example 1',         'action' => 'example'],
-                            ['title' => 'Example 2',         'action' => 'example']
+
                         ]
                     ],
                     [
-                        'title' => 'Download',
-                        'class' => 'download',
-                        'sub-actions' => [
-                            ['title' => 'Basic VAT Report', 'action' => 'vat-report']
-                        ]
+                        'title' => 'Download CSV',
+                        'class' => 'download-csv'
                     ],
                     [
                         'title' => 'Courier',
                         'class' => 'courier',
                         'sub-actions' => [
-                            ['title' => 'Create Royal Mail CSV',      'action' => 'add-tracking-numbers'],
-                            ['title' => 'Create Royal Mail CSV',      'action' => 'royal-mail-csv'],
-                            ['title' => 'Fulfillment by Amazon',      'action' => 'fulfillment-by-amazon'],
-                            ['title' => 'Print DPD Labels',           'action' => 'print-dpd-labels'],
-                            ['title' => 'Print eParcel Label',        'action' => 'print-eparcel-labels'],
-                            ['title' => 'Print Interlink Labels',     'action' => 'print-interlink-labels'],
-                            ['title' => 'Print ParcelForce Labels',   'action' => 'print-parcelforce-labels'],
-                            ['title' => 'Print UPS Labels',           'action' => 'print-ups-labels'],
-                            ['title' => 'Print TNT Labels',           'action' => 'print-tnt-labels'],
-                            ['title' => 'Print Yodel Labels',         'action' => 'print-yodel-labels'],
-                            ['title' => 'UKMail Export',              'action' => 'ukmail-export']
+                            ['title' => 'Create Royal Mail CSV', 'action' => 'royal-mail-csv']
                         ]
                     ],
                     [
                         'title' => 'Batch',
                         'class' => 'batch',
                         'sub-actions' => [
-                            ['title' => 'Archive',                    'action' => 'archive'],
-                            ['title' => 'Mark / Unmark as Printed',   'action' => 'mark-printed'],
-                            ['title' => 'Mark / Unmark as Packing',   'action' => 'mark-packing'],
+                            ['title' => 'Remove', 'action' => 'remove-from-batch']
                         ]
+                    ],
+                    [
+                        'title' => 'Archive',
+                        'class' => 'archive'
                     ]
                 ]
             ]
