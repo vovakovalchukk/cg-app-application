@@ -128,10 +128,13 @@ class OrdersController extends AbstractActionController
 
     public function jsonAction()
     {
-        return $this->getJsonModelFactory()->newInstance(
-            [
-                'Records' => []
-            ]
-        );
+        $data = [
+            'iTotalRecords' => 0,
+            'iTotalDisplayRecords' => 0,
+            'sEcho' => (int) $this->params()->fromQuery('sEcho'),
+            'Records' => [],
+        ];
+
+        return $this->getJsonModelFactory()->newInstance($data);
     }
 }
