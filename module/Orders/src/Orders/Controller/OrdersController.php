@@ -5,14 +5,21 @@ use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_UI\View\DataTable;
+use CG\Order\Client\Storage\Api;
 
 class OrdersController extends AbstractActionController
 {
     protected $jsonModelFactory;
     protected $viewModelFactory;
     protected $ordersTable;
+    protected $orderClient;
 
-    public function __construct(JsonModelFactory $jsonModelFactory, ViewModelFactory $viewModelFactory, DataTable $ordersTable)
+    public function __construct(
+        JsonModelFactory $jsonModelFactory,
+        ViewModelFactory $viewModelFactory,
+        DataTable $ordersTable,
+        Api $orderClient
+    )
     {
         $this
             ->setJsonModelFactory($jsonModelFactory)
@@ -51,6 +58,17 @@ class OrdersController extends AbstractActionController
     public function getOrdersTable()
     {
         return $this->ordersTable;
+    }
+
+    public function setOrderClient($orderClient)
+    {
+        $this->orderClient = $orderClient;
+        return $this;
+    }
+
+    public function getOrderClient()
+    {
+        return $this->orderClient;
     }
 
     public function indexAction()
