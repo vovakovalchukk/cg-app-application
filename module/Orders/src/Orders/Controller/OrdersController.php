@@ -124,11 +124,11 @@ class OrdersController extends AbstractActionController
                 ]
             ]
         );
-        $bulkItems->setTemplate('orders/orders/bulk-actions');
+        $bulkItems->setTemplate('layout/bulk-actions');
         $view->addChild($bulkItems, 'bulkItems');
 
         $filters = $this->getViewModelFactory()->newInstance();
-        $filters->setTemplate('orders/orders/filters');
+        $filters->setTemplate('layout/filters');
         $view->addChild($filters, 'filters');
 
         $sidebar = $this->getViewModelFactory()->newInstance();
