@@ -123,7 +123,7 @@ class OrdersController extends AbstractActionController
         return $view;
     }
 
-    public function listAction()
+    public function jsonAction()
     {
         return $this->getJsonModelFactory()->newInstance(
             [
