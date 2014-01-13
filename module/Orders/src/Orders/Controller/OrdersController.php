@@ -62,6 +62,9 @@ class OrdersController extends AbstractActionController
         $settings->setSource($this->url()->fromRoute('Orders/ajax'));
         $view->addChild($ordersTable, 'ordersTable');
 
+        /**
+         * When implementing bulk actions, need to delegate out rather than doing work in action
+         */
         $bulkItems = $this->getViewModelFactory()->newInstance(
             [
                 'bulkActions' => [
