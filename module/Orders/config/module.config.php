@@ -1,6 +1,7 @@
 <?php
 use Orders\Controller;
 use CG_UI\View\DataTable;
+use Orders\Order\Service;
 
 return [
     'router' => [
@@ -64,7 +65,7 @@ return [
                 'OrdersPrintColumn' => DataTable\Column::Class,
                 'OrdersOptionsColumn' => DataTable\Column::Class,
             ],
-            Controller\OrdersController::Class => [
+            Service::Class => [
                 'parameters' => [
                     'ordersTable' => 'OrdersTable',
                 ],
