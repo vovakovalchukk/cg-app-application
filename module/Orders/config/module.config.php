@@ -96,8 +96,9 @@ return [
             ],
             'OrdersCheckboxColumn' => [
                 'parameters' => [
+                    'column' => 'id',
                     'html' => '<input type="checkbox" name="select-all" class="select-all" data-group="mainTable" />',
-                    'class' => 'checkbox'
+                    'class' => 'checkbox',
                 ],
             ],
             'OrdersChannelColumn' => [
@@ -187,6 +188,7 @@ return [
                 'parameters' => [
                     'html' => '<span class="icon-med cog">Options</span>',
                     'class' => 'options',
+                    'defaultContent' => '',
                 ],
             ],
         ],
