@@ -16,7 +16,6 @@ class OrdersController extends AbstractActionController
     protected $service;
     protected $jsonModelFactory;
     protected $viewModelFactory;
-    protected $ordersTable;
     protected $orderClient;
     protected $organisationUnitClient;
     protected $batchClient;
@@ -26,13 +25,12 @@ class OrdersController extends AbstractActionController
     const ACTIVE = 1;
 
     public function __construct(Service $service, JsonModelFactory $jsonModelFactory, ViewModelFactory $viewModelFactory,
-                                DataTable $ordersTable, OrderInterface $orderClient,
-                                OrganisationUnitInterface $organisationUnitClient, BatchInterface $batchClient)
+                                OrderInterface $orderClient, OrganisationUnitInterface $organisationUnitClient,
+                                BatchInterface $batchClient)
     {
         $this
             ->setService($service)
             ->setJsonModelFactory($jsonModelFactory)
-            ->setOrdersTable($ordersTable)
             ->setOrganisationUnitClient($organisationUnitClient)
             ->setBatchClient($batchClient)
             ->setOrderClient($orderClient)
@@ -71,18 +69,7 @@ class OrdersController extends AbstractActionController
     {
         return $this->orderClient;
     }
-
-    public function setOrdersTable(DataTable $ordersTable)
-    {
-        $this->ordersTable = $ordersTable;
-        return $this;
-    }
-
-    public function getOrdersTable()
-    {
-        return $this->ordersTable;
-    }
-
+    
     public function setOrganisationUnitClient(OrganisationUnitInterface $organisationUnitClient)
     {
         $this->organisationUnitClient = $organisationUnitClient;
