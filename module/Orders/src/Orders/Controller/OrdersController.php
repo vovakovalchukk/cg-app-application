@@ -7,6 +7,8 @@ use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_UI\View\DataTable;
 use CG\Order\Shared\StorageInterface;
 use CG\Order\Service\Filter\Entity as Filter;
+use CG\User\ActiveUserInterface;
+use CG\Stdlib\Exception\Runtime\NotFound;
 
 class OrdersController extends AbstractActionController
 {
@@ -14,19 +16,22 @@ class OrdersController extends AbstractActionController
     protected $viewModelFactory;
     protected $ordersTable;
     protected $orderClient;
+    protected $activeUserContainer;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         ViewModelFactory $viewModelFactory,
         DataTable $ordersTable,
-        StorageInterface $orderClient
+        StorageInterface $orderClient,
+        ActiveUserInterface $activeUserContainer
     )
     {
         $this
             ->setJsonModelFactory($jsonModelFactory)
             ->setViewModelFactory($viewModelFactory)
             ->setOrdersTable($ordersTable)
-            ->setOrderClient($orderClient);
+            ->setOrderClient($orderClient)
+            ->setActiveUserContainer($activeUserContainer);
     }
 
     public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -71,6 +76,17 @@ class OrdersController extends AbstractActionController
     public function getOrderClient()
     {
         return $this->orderClient;
+    }
+
+    public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
+    {
+        $this->activeUserContainer = $activeUserContainer;
+        return $this;
+    }
+
+    public function getActiveUserContainer()
+    {
+        return $this->activeUserContainer;
     }
 
     public function indexAction()
@@ -166,7 +182,7 @@ class OrdersController extends AbstractActionController
             $limit,
             $page,
             [],
-            [],
+            [$this->getActiveUserContainer()->getActiveUser()->getOrganisationUnitId()],
             [],
             [],
             [],
@@ -184,13 +200,17 @@ class OrdersController extends AbstractActionController
             null
         );
 
-        $orders = $this->getOrderClient()->fetchCollectionByFilter($filter);
+        try {
+            $orders = $this->getOrderClient()->fetchCollectionByFilter($filter);
 
-        $data['iTotalRecords'] = (int) $orders->getTotal();
-        $data['iTotalDisplayRecords'] = (int) $orders->getTotal();
+            $data['iTotalRecords'] = (int) $orders->getTotal();
+            $data['iTotalDisplayRecords'] = (int) $orders->getTotal();
 
-        foreach ($orders as $order) {
-            $data['Records'][] = $order->toArray();
+            foreach ($orders as $order) {
+                $data['Records'][] = $order->toArray();
+            }
+        } catch (NotFound $exception) {
+            // No Orders so ignoring
         }
 
         return $this->getJsonModelFactory()->newInstance($data);
