@@ -13,7 +13,6 @@ class OrdersController extends AbstractActionController
     protected $service;
     protected $jsonModelFactory;
     protected $viewModelFactory;
-    protected $organisationUnitClient;
 
     const DEFAULT_LIMIT = 10;
     const DEFAULT_PAGE = 1;
@@ -37,17 +36,6 @@ class OrdersController extends AbstractActionController
         return $this->jsonModelFactory;
     }
 
-    public function setService(Service $service)
-    {
-        $this->service = $service;
-        return $this;
-    }
-
-    public function getService()
-    {
-        return $this->service;
-    }
-
     public function setViewModelFactory(ViewModelFactory $viewModelFactory)
     {
         $this->viewModelFactory = $viewModelFactory;
@@ -57,6 +45,17 @@ class OrdersController extends AbstractActionController
     public function getViewModelFactory()
     {
         return $this->viewModelFactory;
+    }
+
+    public function setService(Service $service)
+    {
+        $this->service = $service;
+        return $this;
+    }
+
+    public function getService()
+    {
+        return $this->service;
     }
 
     public function indexAction()
