@@ -1114,7 +1114,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "70487a68049c5bdd8ad57fb5a2733b704d47f5ca"
+                "reference": "bec798330558af7ebd5fd1657745eadd16f1c69f"
             },
             "require": {
                 "channelgrabber/zf2-stdlib": ">=1.0.3,<1.2.0",
@@ -1136,7 +1136,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-01-14 09:33:35"
+            "time": "2014-01-14 10:47:21"
         },
         {
             "name": "codeception/codeception",
