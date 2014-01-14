@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "d7ab6859fd9846c843f16790f244e5d5",
+    "hash": "5045061cb4998018c0cdad127503fcf9",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -1110,11 +1110,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-1207-DataTables",
+            "version": "dev-CGIV-1220-Filters",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "7c70498a48be9cff323f5a21ca47a6a7e96fcb2c"
+                "reference": "0461c8d52c5b3254a4d773b8a709ee75d4a5350c"
             },
             "require": {
                 "channelgrabber/zf2-stdlib": ">=1.0.3,<1.2.0",
@@ -1136,7 +1136,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-01-14 11:09:33"
+            "time": "2014-01-14 14:09:02"
         },
         {
             "name": "codeception/codeception",
@@ -3028,9 +3028,9 @@
             "package": "channelgrabber/order"
         },
         {
-            "alias": "1.0.5",
-            "alias_normalized": "1.0.5.0",
-            "version": "dev-CGIV-1207-DataTables",
+            "alias": "1.0.6",
+            "alias_normalized": "1.0.6.0",
+            "version": "dev-CGIV-1220-Filters",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
