@@ -24,6 +24,33 @@ return [
                                 'action' => 'json',
                             ]
                         ]
+                    ],
+                    'batch' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => array(
+                            'route'    => '/batch',
+                        ),
+                        'may_terminate' => false,
+                        'child_routes' => array(
+                            'create' => array(
+                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                'options' => array(
+                                    'route'    => '/:batchId/create',
+                                    'defaults' => array(
+                                        'action'     => 'create',
+                                    ),
+                                ),
+                            ),
+                            'delete' => array(
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => array(
+                                    'route'    => '/delete',
+                                    'defaults' => array(
+                                        'action'     => 'delete',
+                                    ),
+                                ),
+                            ),
+                        )
                     ]
                 ],
             ],
