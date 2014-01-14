@@ -377,21 +377,21 @@
         },
         {
             "name": "channelgrabber/cache",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgcache.git",
-                "reference": "76d3d513c141019c1291da0804b6abfb9d6307ed"
+                "reference": "99f98fc082bdcb3be7826f260d7e81a3e513295e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cache-1.2.0-b87876.zip",
-                "reference": "76d3d513c141019c1291da0804b6abfb9d6307ed",
-                "shasum": "890979062a65519391daa8e72f7ecf507534afa1"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cache-1.2.1-0f6ae9.zip",
+                "reference": "99f98fc082bdcb3be7826f260d7e81a3e513295e",
+                "shasum": "b0268d6fccde88f6c664863a51ea1ca3f78c5113"
             },
             "require": {
                 "channelgrabber/predis": "1.0.1",
-                "channelgrabber/stdlib": ">=2.2.3, <2.5.0",
+                "channelgrabber/stdlib": ">=2.2.3, <2.6.0",
                 "php": ">=5.5.0",
                 "predis/predis": "v0.8.3"
             },
@@ -405,7 +405,7 @@
                     "CG\\Cache\\": ""
                 }
             },
-            "time": "2013-12-30 14:36:43"
+            "time": "2014-01-13 16:48:02"
         },
         {
             "name": "channelgrabber/codeception",
@@ -464,20 +464,20 @@
         },
         {
             "name": "channelgrabber/etag",
-            "version": "1.4.0",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgetag.git",
-                "reference": "e52040903391bfef64a7b534637d6ad346c99a97"
+                "reference": "cbab2d46fd18c2aadc2438ab21c5d364ba68f637"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-etag-1.4.0-03b736.zip",
-                "reference": "e52040903391bfef64a7b534637d6ad346c99a97",
-                "shasum": "874a12e336c40b01fc16cc9c091530edb429e554"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-etag-1.4.1-8c2ae9.zip",
+                "reference": "cbab2d46fd18c2aadc2438ab21c5d364ba68f637",
+                "shasum": "9e9ea5c9dd5d6f292b6d982af07360ef348620e2"
             },
             "require": {
-                "channelgrabber/stdlib": ">=2.0.7, <2.5.0",
+                "channelgrabber/stdlib": ">=2.0.7,<2.6.0",
                 "predis/predis": "v0.8.3"
             },
             "type": "library",
@@ -486,7 +486,7 @@
                     "CG\\ETag\\": ""
                 }
             },
-            "time": "2013-12-30 14:45:43"
+            "time": "2014-01-13 16:52:16"
         },
         {
             "name": "channelgrabber/guzzle",
@@ -526,7 +526,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cghttp.git",
-                "reference": "ff1a5980b3229b44219ecd49df8c653eb0ab3ed3"
+                "reference": "7d97a3cdc96f9bb25eee5eeb58ef3afd9769fc9c"
             },
             "require": {
                 "channelgrabber/stdlib": "~2.4.2"
@@ -540,7 +540,7 @@
                     "CG\\Http\\": ""
                 }
             },
-            "time": "2014-01-13 12:08:37"
+            "time": "2014-01-14 09:20:32"
         },
         {
             "name": "channelgrabber/log",
@@ -583,7 +583,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "d0448b36cf7d34dd36c64e5065503ddb371336d2"
+                "reference": "ebc46a1c7ebb1a8cca63bfc90f8ed8a274f3da98"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.0,<1.3.0",
@@ -603,7 +603,7 @@
                     "CG\\Order\\": ""
                 }
             },
-            "time": "2014-01-13 15:57:25"
+            "time": "2014-01-14 09:16:08"
         },
         {
             "name": "channelgrabber/predis",
