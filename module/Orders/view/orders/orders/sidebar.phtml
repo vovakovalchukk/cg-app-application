@@ -15,10 +15,13 @@
         <h3>Batches</h3>
         <div class="module-content nav">
             <ul>
-                <li><a href="#">Batch 100<span class="total yellow">2</span></a><li>
-                <li><a href="#">Batch 99 <span class="total yellow">27</span></a><li>
-                <li><a href="#">Batch 98 <span class="total green">104</span></a><li>
-                <li><a href="#">Batch 97 <span class="total grey">1008</span></a><li>
+                <?php foreach ($batches as $batch): ?>
+                    <li>
+                        <a href="javascript:batchFilter('<?= $batch->getId(); ?>');">Batch <?= $batch->getName(); ?>
+                            <span class="total grey">0</span>
+                        </a>
+                    <li>
+                <?php endforeach; ?>
             </ul>
         </div>
     </div>

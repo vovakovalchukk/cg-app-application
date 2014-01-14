@@ -5,19 +5,30 @@ use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_UI\View\DataTable;
+use CG\Order\Client\Batch\Storage\Api as BatchApi;
+use CG\User\Storage\Api as UserApi;
 
 class OrdersController extends AbstractActionController
 {
     protected $jsonModelFactory;
     protected $viewModelFactory;
     protected $ordersTable;
+    protected $userApi;
+    protected $batchApi;
 
-    public function __construct(JsonModelFactory $jsonModelFactory, ViewModelFactory $viewModelFactory, DataTable $ordersTable)
+    const DEFAULT_LIMIT = 10;
+    const DEFAULT_PAGE = 1;
+    const ACTIVE = 1;
+
+    public function __construct(JsonModelFactory $jsonModelFactory, ViewModelFactory $viewModelFactory, DataTable $ordersTable,
+                                UserApi $userApi, BatchApi $batchApi)
     {
         $this
             ->setJsonModelFactory($jsonModelFactory)
             ->setViewModelFactory($viewModelFactory)
-            ->setOrdersTable($ordersTable);
+            ->setOrdersTable($ordersTable)
+            ->setUserApi($userApi)
+            ->setBatchApi($batchApi);
     }
 
     public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -53,9 +64,34 @@ class OrdersController extends AbstractActionController
         return $this->ordersTable;
     }
 
+    public function setBatchApi(BatchApi $batchApi)
+    {
+        $this->batchApi = $batchApi;
+        return $this;
+    }
+
+    public function getBatchApi()
+    {
+        return $this->batchApi;
+    }
+
+    public function setUserApi(UserApi $userApi)
+    {
+        $this->userApi = $userApi;
+        return $this;
+    }
+
+    public function getUserApi()
+    {
+        return $this->userApi;
+    }
+
     public function indexAction()
     {
         $view = $this->getViewModelFactory()->newInstance();
+        $this->getServiceLocator()
+            ->get('viewhelpermanager')
+            ->get('HeadScript')->appendFile('/channelgrabber/zf2-v4-ui/js/order.js', "text/javascript");
 
         $ordersTable = $this->getOrdersTable();
         $settings = $ordersTable->getVariable('settings');
@@ -99,7 +135,8 @@ class OrdersController extends AbstractActionController
                         'title' => 'Batch',
                         'class' => 'batch',
                         'sub-actions' => [
-                            ['title' => 'Remove', 'action' => 'remove-from-batch']
+                            ['title' => 'Remove', 'action' => 'remove-from-batch'],
+                            ['title' => 'Add', 'action' => 'add-to-batch']
                         ]
                     ],
                     [
@@ -118,6 +155,10 @@ class OrdersController extends AbstractActionController
 
         $sidebar = $this->getViewModelFactory()->newInstance();
         $sidebar->setTemplate('orders/orders/sidebar');
+        $organisationUnitIds = array();
+        $batchCollection = $this->getBatchApi()->fetchCollectionByPagination(static::DEFAULT_LIMIT, static::DEFAULT_PAGE,
+            $organisationUnitIds, static::ACTIVE);
+        $sidebar->setVariable('batches', $batchCollection);
         $view->addChild($sidebar, 'sidebar');
 
         return $view;

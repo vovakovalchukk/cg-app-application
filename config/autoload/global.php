@@ -15,6 +15,9 @@ use Zend\Config\Config;
 use CG\Cache\EventManagerInterface;
 use CG\Zend\Stdlib\Cache\EventManager;
 
+#Order Clients
+use CG\Order\Client\Batch\Storage\Api as BatchApi;
+
 return array(
     'service_manager' => array(
         'factories' => array(
@@ -56,6 +59,11 @@ return array(
             'aliases' => array(
                 'Di' => 'Zend\Di\Di',
                 'config' => Config::class
+            ),
+            BatchApi::class => array(
+                'parameter' => array(
+                    'client' => 'cg_app_guzzle'
+                )
             ),
             'preferences' => array(
                 'Zend\Di\LocatorInterface' => 'Zend\Di\Di',

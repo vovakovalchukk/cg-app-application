@@ -12,10 +12,6 @@
         {
             "type": "composer",
             "url": "http://packages.zendframework.com"
-        },
-        {
-            "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-            "type": "git"
         }
     ],
     "autoload": {
@@ -26,12 +22,13 @@
     "require": {
         "channelgrabber/codeception": "1.0.*",
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/http": "~1.2.0",
-        "channelgrabber/order": "dev-CGIV-1157-OrderItemGiftWrap as 1.0.1",
+        "channelgrabber/http": "dev-CGIV-1285 as 1.2.4",
+        "channelgrabber/order": "dev-CGIV-1285",
         "channelgrabber/redis": "dev-CGIV-529",
         "channelgrabber/sso": "~1.1.2",
         "channelgrabber/stdlib": "~2.3.0",
         "channelgrabber/ui": "~1.1.0",
+        "channelgrabber/userpreference": "dev-CGIV-1285",
         "channelgrabber/zf2-hal": "~1.0.4",
         "channelgrabber/zf2-installer": "~1.0.0",
         "channelgrabber/zf2-logclient": "~1.1.3",
