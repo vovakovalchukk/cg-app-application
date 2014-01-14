@@ -151,15 +151,15 @@ class OrdersController extends AbstractActionController
         $data = [
             'iTotalRecords' => 0,
             'iTotalDisplayRecords' => 0,
-            'sEcho' => (int) $this->params()->fromQuery('sEcho'),
+            'sEcho' => (int) $this->params()->fromPost('sEcho'),
             'Records' => [],
         ];
 
         $limit = 'all';
         $page = 1;
-        if ($this->params()->fromQuery('iDisplayLength') > 0) {
-            $limit = $this->params()->fromQuery('iDisplayLength');
-            $page += $this->params()->fromQuery('iDisplayStart') / $limit;
+        if ($this->params()->fromPost('iDisplayLength') > 0) {
+            $limit = $this->params()->fromPost('iDisplayLength');
+            $page += $this->params()->fromPost('iDisplayStart') / $limit;
         }
 
         $filter = new Filter(

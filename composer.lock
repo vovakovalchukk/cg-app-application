@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "90125e3cb992aafbd80e8a8f20d8dcb2",
+    "hash": "d7ab6859fd9846c843f16790f244e5d5",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -1110,17 +1110,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.0.4",
+            "version": "dev-CGIV-1207-DataTables",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "99b1a7b4aff1a6860927b953c77e4ca516fd56d2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.0.4-43d388.zip",
-                "reference": "99b1a7b4aff1a6860927b953c77e4ca516fd56d2",
-                "shasum": "16b6741058694ccdbfef669a03a6521ffc4f5fa6"
+                "reference": "70487a68049c5bdd8ad57fb5a2733b704d47f5ca"
             },
             "require": {
                 "channelgrabber/zf2-stdlib": ">=1.0.3,<1.2.0",
@@ -1142,7 +1136,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-01-13 12:17:47"
+            "time": "2014-01-14 09:33:35"
         },
         {
             "name": "codeception/codeception",
@@ -3032,6 +3026,12 @@
             "alias_normalized": "1.0.4.0",
             "version": "dev-CGIV-1285",
             "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.0.5",
+            "alias_normalized": "1.0.5.0",
+            "version": "dev-CGIV-1207-DataTables",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
@@ -3040,6 +3040,7 @@
         "channelgrabber/http": 20,
         "channelgrabber/order": 20,
         "channelgrabber/redis": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpspec/phpspec": 20
     },
     "platform": {
