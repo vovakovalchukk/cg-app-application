@@ -21,7 +21,7 @@ return [
                         'options' => [
                             'route' => '.json',
                             'defaults' => [
-                                'action' => 'list',
+                                'action' => 'json',
                             ]
                         ]
                     ]

@@ -7,6 +7,8 @@ use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_UI\View\DataTable;
 use CG\Order\Client\Batch\Storage\Api as BatchApi;
 use CG\User\Storage\Api as UserApi;
+use CG\Order\Shared\StorageInterface;
+use CG\Order\Service\Filter\Entity as Filter;
 
 class OrdersController extends AbstractActionController
 {
@@ -21,14 +23,15 @@ class OrdersController extends AbstractActionController
     const ACTIVE = 1;
 
     public function __construct(JsonModelFactory $jsonModelFactory, ViewModelFactory $viewModelFactory, DataTable $ordersTable,
-                                UserApi $userApi, BatchApi $batchApi)
+                                StorageInterface $orderClient, UserApi $userApi, BatchApi $batchApi)
     {
         $this
             ->setJsonModelFactory($jsonModelFactory)
             ->setViewModelFactory($viewModelFactory)
             ->setOrdersTable($ordersTable)
             ->setUserApi($userApi)
-            ->setBatchApi($batchApi);
+            ->setBatchApi($batchApi)
+            ->setOrderClient($orderClient);
     }
 
     public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -84,6 +87,17 @@ class OrdersController extends AbstractActionController
     public function getUserApi()
     {
         return $this->userApi;
+
+    }
+    public function setOrderClient(StorageInterface $orderClient)
+    {
+        $this->orderClient = $orderClient;
+        return $this;
+    }
+
+    public function getOrderClient()
+    {
+        return $this->orderClient;
     }
 
     public function indexAction()
@@ -98,6 +112,9 @@ class OrdersController extends AbstractActionController
         $settings->setSource($this->url()->fromRoute('Orders/ajax'));
         $view->addChild($ordersTable, 'ordersTable');
 
+        /**
+         * When implementing bulk actions, need to delegate out rather than doing work in action
+         */
         $bulkItems = $this->getViewModelFactory()->newInstance(
             [
                 'bulkActions' => [
@@ -164,12 +181,53 @@ class OrdersController extends AbstractActionController
         return $view;
     }
 
-    public function listAction()
+    public function jsonAction()
     {
-        return $this->getJsonModelFactory()->newInstance(
-            [
-                'Records' => []
-            ]
+        $data = [
+            'iTotalRecords' => 0,
+            'iTotalDisplayRecords' => 0,
+            'sEcho' => (int) $this->params()->fromPost('sEcho'),
+            'Records' => [],
+        ];
+
+        $limit = 'all';
+        $page = 1;
+        if ($this->params()->fromPost('iDisplayLength') > 0) {
+            $limit = $this->params()->fromPost('iDisplayLength');
+            $page += $this->params()->fromPost('iDisplayStart') / $limit;
+        }
+
+        $filter = new Filter(
+            $limit,
+            $page,
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
         );
+
+        $orders = $this->getOrderClient()->fetchCollectionByFilter($filter);
+
+        $data['iTotalRecords'] = (int) $orders->getTotal();
+        $data['iTotalDisplayRecords'] = (int) $orders->getTotal();
+
+        foreach ($orders as $order) {
+            $data['Records'][] = $order->toArray();
+        }
+
+        return $this->getJsonModelFactory()->newInstance($data);
     }
 }
