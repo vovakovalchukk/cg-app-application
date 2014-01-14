@@ -186,8 +186,8 @@ class OrdersController extends AbstractActionController
 
         $orders = $this->getOrderClient()->fetchCollectionByFilter($filter);
 
-        $data['iTotalRecords'] = $orders->getTotal();
-        $data['iTotalDisplayRecords'] = $orders->getTotal();
+        $data['iTotalRecords'] = (int) $orders->getTotal();
+        $data['iTotalDisplayRecords'] = (int) $orders->getTotal();
 
         foreach ($orders as $order) {
             $data['Records'][] = $order->toArray();
