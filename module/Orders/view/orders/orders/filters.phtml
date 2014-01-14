@@ -1,4 +1,12 @@
 <?php $this->placeholder('#content.style')->append('margin-top: 199px;'); ?>
+<?php $this->headScript()->appendFile($this->basePath() . '/channelgrabber/zf2-v4-ui/js/order.js'); ?>
+<?php $this->inlineScript()->captureStart(); ?>
+$(function() {
+    $("#filters #filter-btn").click(function() {
+        applyFilter();
+    });
+});
+<?php $this->inlineScript()->captureEnd(); ?>
 <div id="filters">
     <div class="row">
         <div class="date-range filter clearfix">
