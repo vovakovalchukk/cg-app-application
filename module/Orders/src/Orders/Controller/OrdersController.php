@@ -9,9 +9,12 @@ use CG\Order\Client\Batch\Storage\Api as BatchApi;
 use CG\User\Storage\Api as UserApi;
 use CG\Order\Shared\StorageInterface;
 use CG\Order\Service\Filter\Entity as Filter;
+use Orders\Order\Service;
+use CG\Stdlib\Exception\Runtime\NotFound;
 
 class OrdersController extends AbstractActionController
 {
+    protected $service;
     protected $jsonModelFactory;
     protected $viewModelFactory;
     protected $ordersTable;
@@ -22,16 +25,28 @@ class OrdersController extends AbstractActionController
     const DEFAULT_PAGE = 1;
     const ACTIVE = 1;
 
-    public function __construct(JsonModelFactory $jsonModelFactory, ViewModelFactory $viewModelFactory, DataTable $ordersTable,
+    public function __construct(Service $service, JsonModelFactory $jsonModelFactory, ViewModelFactory $viewModelFactory, DataTable $ordersTable,
                                 StorageInterface $orderClient, UserApi $userApi, BatchApi $batchApi)
     {
         $this
+            ->setService($service)
             ->setJsonModelFactory($jsonModelFactory)
-            ->setViewModelFactory($viewModelFactory)
             ->setOrdersTable($ordersTable)
             ->setUserApi($userApi)
             ->setBatchApi($batchApi)
-            ->setOrderClient($orderClient);
+            ->setOrderClient($orderClient)
+            ->setViewModelFactory($viewModelFactory);
+    }
+
+    public function setService(Service $service)
+    {
+        $this->service = $service;
+        return $this;
+    }
+
+    public function getService()
+    {
+        return $this->service;
     }
 
     public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -107,7 +122,7 @@ class OrdersController extends AbstractActionController
             ->get('viewhelpermanager')
             ->get('HeadScript')->appendFile('/channelgrabber/zf2-v4-ui/js/order.js', "text/javascript");
 
-        $ordersTable = $this->getOrdersTable();
+        $ordersTable = $this->getService()->getOrdersTable();
         $settings = $ordersTable->getVariable('settings');
         $settings->setSource($this->url()->fromRoute('Orders/ajax'));
         $view->addChild($ordersTable, 'ordersTable');
@@ -197,35 +212,17 @@ class OrdersController extends AbstractActionController
             $page += $this->params()->fromPost('iDisplayStart') / $limit;
         }
 
-        $filter = new Filter(
-            $limit,
-            $page,
-            [],
-            [],
-            [],
-            [],
-            [],
-            [],
-            [],
-            [],
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        );
+        try {
+            $orders = $this->getService()->getOrders($limit, $page);
 
-        $orders = $this->getOrderClient()->fetchCollectionByFilter($filter);
+            $data['iTotalRecords'] = (int) $orders->getTotal();
+            $data['iTotalDisplayRecords'] = (int) $orders->getTotal();
 
-        $data['iTotalRecords'] = (int) $orders->getTotal();
-        $data['iTotalDisplayRecords'] = (int) $orders->getTotal();
-
-        foreach ($orders as $order) {
-            $data['Records'][] = $order->toArray();
+            foreach ($orders as $order) {
+                $data['Records'][] = $order->toArray();
+            }
+        } catch (NotFound $exception) {
+            // No Orders so ignoring
         }
 
         return $this->getJsonModelFactory()->newInstance($data);

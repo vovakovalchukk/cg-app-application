@@ -1,6 +1,7 @@
 <?php
 use Orders\Controller;
 use CG_UI\View\DataTable;
+use Orders\Order\Service;
 
 return [
     'router' => [
@@ -64,7 +65,7 @@ return [
                 'OrdersPrintColumn' => DataTable\Column::Class,
                 'OrdersOptionsColumn' => DataTable\Column::Class,
             ],
-            Controller\OrdersController::Class => [
+            Service::Class => [
                 'parameters' => [
                     'ordersTable' => 'OrdersTable',
                 ],
@@ -96,77 +97,90 @@ return [
             ],
             'OrdersCheckboxColumn' => [
                 'parameters' => [
+                    'column' => 'id',
                     'html' => '<input type="checkbox" name="select-all" class="select-all" data-group="mainTable" />',
-                    'class' => 'checkbox'
+                    'class' => 'checkbox',
                 ],
             ],
             'OrdersChannelColumn' => [
                 'parameters' => [
+                    'column' => 'channel',
                     'html' => 'Channel',
                     'width' => 70,
                 ],
             ],
             'OrdersAccountColumn' => [
                 'parameters' => [
+                    'column' => 'accountId',
                     'html' => 'Account',
                     'width' => 50,
                 ],
             ],
             'OrdersDateColumn' => [
                 'parameters' => [
+                    'column' => 'purchaseDate',
                     'html' => 'Order Date',
                     'width' => 80,
                 ],
             ],
             'OrdersIdColumn' => [
                 'parameters' => [
+                    'column' => 'externalId',
                     'html' => 'Order ID / Product Information',
                 ],
             ],
             'OrdersTotalColumn' => [
                 'parameters' => [
+                    'column' => 'total',
                     'html' => 'Total',
                     'width' => 50,
                 ],
             ],
             'OrdersBuyerColumn' => [
                 'parameters' => [
+                    'column' => 'billingAddressFullName',
                     'html' => 'Buyer',
                     'width' => 100,
                 ],
             ],
             'OrdersStatusColumn' => [
                 'parameters' => [
+                    'column' => 'status',
                     'html' => 'Status',
                     'class' => 'status-col',
                 ],
             ],
             'OrdersBatchColumn' => [
                 'parameters' => [
+                    'column' => 'batch',
                     'html' => 'Batch',
                     'width' => 50,
                 ],
             ],
             'OrdersMessagesColumn' => [
                 'parameters' => [
+                    'column' => 'buyerMessage',
                     'html' => 'Messages',
                     'width' => 50,
                 ],
             ],
             'OrdersShippingColumn' => [
                 'parameters' => [
+                    'column' => 'shippingMethod',
                     'html' => 'Shipping Method',
                     'width' => '100',
                 ],
             ],
             'OrdersDispatchColumn' => [
                 'parameters' => [
+                    'column' => 'dispatchDate',
                     'html' => 'Dispatch',
                     'class' => 'actions',
                 ],
             ],
             'OrdersPrintColumn' => [
                 'parameters' => [
+                    'column' => 'printedDate',
                     'html' => 'Print',
                     'class' => 'actions',
                 ],
@@ -175,6 +189,7 @@ return [
                 'parameters' => [
                     'html' => '<span class="icon-med cog">Options</span>',
                     'class' => 'options',
+                    'defaultContent' => '',
                 ],
             ],
         ],
