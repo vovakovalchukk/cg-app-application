@@ -190,11 +190,7 @@ class OrdersController extends AbstractActionController
         $data['iTotalDisplayRecords'] = $orders->getTotal();
 
         foreach ($orders as $order) {
-            $data['Records'][] = [
-                'accountId' => $order->getAccountId(),
-                'externalId' => $order->getExternalId(),
-                'channel' => $order->getChannel()
-            ];
+            $data['Records'][] = $order->toArray();
         }
 
         return $this->getJsonModelFactory()->newInstance($data);
