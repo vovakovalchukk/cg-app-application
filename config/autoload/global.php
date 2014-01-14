@@ -15,10 +15,11 @@ use Zend\Config\Config;
 use CG\Cache\EventManagerInterface;
 use CG\Zend\Stdlib\Cache\EventManager;
 use CG\Order\Shared\StorageInterface as OrderStorage;
+use CG\Order\Shared\Batch\StorageInterface as OrderBatchStorage;
+use CG\OrganisationUnit\StorageInterface as OrganisationUnitStorage;
 use CG\Order\Client\Storage\Api as OrderApiClient;
-
-#Order Clients
-use CG\Order\Client\Batch\Storage\Api as BatchApi;
+use CG\Order\Client\Batch\Storage\Api as OrderBatchApiClient;
+use CG\OrganisationUnit\Storage\Api as OrganisationUnitClient;
 
 return array(
     'service_manager' => array(
@@ -62,21 +63,28 @@ return array(
                 'Di' => 'Zend\Di\Di',
                 'config' => Config::class
             ),
-            BatchApi::class => array(
-                'parameter' => array(
-                    'client' => 'cg_app_guzzle'
-                )
-            ),
             'preferences' => array(
                 'Zend\Di\LocatorInterface' => 'Zend\Di\Di',
-                EventManagerInterface::Class => EventManager::Class,
-                OrderStorage::Class => OrderApiClient::Class,
+                EventManagerInterface::class => EventManager::class,
+                OrderStorage::class => OrderApiClient::class,
+                OrderBatchStorage::class => OrderBatchApiClient::class,
+                OrganisationUnitStorage::class => OrganisationUnitClient::class
             ),
-            OrderApiClient::Class => [
+            OrderApiClient::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
                 ]
             ],
+            OrderBatchApiClient::class => array(
+                'parameter' => array(
+                    'client' => 'cg_app_guzzle'
+                )
+            ),
+            OrganisationUnitClient::class => array(
+                'parameter' => array(
+                    'client' => 'CGDirectoryApi_guzzle'
+                )
+            ),
         ),
     )
 );

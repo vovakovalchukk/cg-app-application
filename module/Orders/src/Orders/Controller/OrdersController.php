@@ -5,33 +5,24 @@ use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_UI\View\DataTable;
-use CG\Order\Client\Batch\Storage\Api as BatchApi;
-use CG\User\Storage\Api as UserApi;
-use CG\Order\Shared\StorageInterface;
-use CG\Order\Service\Filter\Entity as Filter;
+use Orders\Order\Service;
+use CG\Stdlib\Exception\Runtime\NotFound;
 
 class OrdersController extends AbstractActionController
 {
+    protected $service;
     protected $jsonModelFactory;
     protected $viewModelFactory;
-    protected $ordersTable;
-    protected $userApi;
-    protected $batchApi;
 
     const DEFAULT_LIMIT = 10;
     const DEFAULT_PAGE = 1;
     const ACTIVE = 1;
 
-    public function __construct(JsonModelFactory $jsonModelFactory, ViewModelFactory $viewModelFactory, DataTable $ordersTable,
-                                StorageInterface $orderClient, UserApi $userApi, BatchApi $batchApi)
+    public function __construct(Service $service, JsonModelFactory $jsonModelFactory, ViewModelFactory $viewModelFactory)
     {
-        $this
+        $this->setService($service)
             ->setJsonModelFactory($jsonModelFactory)
-            ->setViewModelFactory($viewModelFactory)
-            ->setOrdersTable($ordersTable)
-            ->setUserApi($userApi)
-            ->setBatchApi($batchApi)
-            ->setOrderClient($orderClient);
+            ->setViewModelFactory($viewModelFactory);
     }
 
     public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -56,48 +47,15 @@ class OrdersController extends AbstractActionController
         return $this->viewModelFactory;
     }
 
-    public function setOrdersTable(DataTable $ordersTable)
+    public function setService(Service $service)
     {
-        $this->ordersTable = $ordersTable;
+        $this->service = $service;
         return $this;
     }
 
-    public function getOrdersTable()
+    public function getService()
     {
-        return $this->ordersTable;
-    }
-
-    public function setBatchApi(BatchApi $batchApi)
-    {
-        $this->batchApi = $batchApi;
-        return $this;
-    }
-
-    public function getBatchApi()
-    {
-        return $this->batchApi;
-    }
-
-    public function setUserApi(UserApi $userApi)
-    {
-        $this->userApi = $userApi;
-        return $this;
-    }
-
-    public function getUserApi()
-    {
-        return $this->userApi;
-
-    }
-    public function setOrderClient(StorageInterface $orderClient)
-    {
-        $this->orderClient = $orderClient;
-        return $this;
-    }
-
-    public function getOrderClient()
-    {
-        return $this->orderClient;
+        return $this->service;
     }
 
     public function indexAction()
@@ -107,7 +65,7 @@ class OrdersController extends AbstractActionController
             ->get('viewhelpermanager')
             ->get('HeadScript')->appendFile('/channelgrabber/zf2-v4-ui/js/order.js', "text/javascript");
 
-        $ordersTable = $this->getOrdersTable();
+        $ordersTable = $this->getService()->getOrdersTable();
         $settings = $ordersTable->getVariable('settings');
         $settings->setSource($this->url()->fromRoute('Orders/ajax'));
         $view->addChild($ordersTable, 'ordersTable');
@@ -172,9 +130,24 @@ class OrdersController extends AbstractActionController
 
         $sidebar = $this->getViewModelFactory()->newInstance();
         $sidebar->setTemplate('orders/orders/sidebar');
-        $organisationUnitIds = array();
-        $batchCollection = $this->getBatchApi()->fetchCollectionByPagination(static::DEFAULT_LIMIT, static::DEFAULT_PAGE,
-            $organisationUnitIds, static::ACTIVE);
+
+        $userEntity = $this->getService()->getActiveUser();
+        try {
+            $organisationUnits = $this->getService()->getOrganisationUnitClient()->fetchFiltered(static::DEFAULT_LIMIT,
+                static::DEFAULT_PAGE, $userEntity->getOrganisationUnitId());
+        } catch (NotFound $exception) {
+            $organisationUnits = new \SplObjectStorage();
+        }
+        $organisationUnitIds = array($userEntity->getOrganisationUnitId());
+        foreach ($organisationUnits as $organisationUnit) {
+            $organisationUnitIds[] = $organisationUnit->getId();
+        }
+        try {
+            $batchCollection = $this->getService()->getBatchClient()->fetchCollectionByPagination(static::DEFAULT_LIMIT,
+                static::DEFAULT_PAGE, $organisationUnitIds, static::ACTIVE);
+        } catch (NotFound $exception) {
+            $batchCollection = new \SplObjectStorage();
+        }
         $sidebar->setVariable('batches', $batchCollection);
         $view->addChild($sidebar, 'sidebar');
 
@@ -197,35 +170,17 @@ class OrdersController extends AbstractActionController
             $page += $this->params()->fromPost('iDisplayStart') / $limit;
         }
 
-        $filter = new Filter(
-            $limit,
-            $page,
-            [],
-            [],
-            [],
-            [],
-            [],
-            [],
-            [],
-            [],
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        );
+        try {
+            $orders = $this->getService()->getOrders($limit, $page);
 
-        $orders = $this->getOrderClient()->fetchCollectionByFilter($filter);
+            $data['iTotalRecords'] = (int) $orders->getTotal();
+            $data['iTotalDisplayRecords'] = (int) $orders->getTotal();
 
-        $data['iTotalRecords'] = (int) $orders->getTotal();
-        $data['iTotalDisplayRecords'] = (int) $orders->getTotal();
-
-        foreach ($orders as $order) {
-            $data['Records'][] = $order->toArray();
+            foreach ($orders as $order) {
+                $data['Records'][] = $order->toArray();
+            }
+        } catch (NotFound $exception) {
+            // No Orders so ignoring
         }
 
         return $this->getJsonModelFactory()->newInstance($data);

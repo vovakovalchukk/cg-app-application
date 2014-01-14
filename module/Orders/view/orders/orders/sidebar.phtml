@@ -16,13 +16,17 @@
         <h3>Batches</h3>
         <div class="module-content nav">
             <ul>
-                <?php foreach ($batches as $batch): ?>
-                    <li>
-                        <a href="javascript:batchFilter('<?= $batch->getId(); ?>');">Batch <?= $batch->getName(); ?>
-                            <span class="total grey">0</span>
-                        </a>
-                    <li>
-                <?php endforeach; ?>
+                <?php if (count($batches)): ?>
+                    <?php foreach ($batches as $batch): ?>
+                        <li>
+                            <a href="javascript:batchFilter('<?= $batch->getId(); ?>');">Batch <?= $batch->getName(); ?>
+                                <span class="total grey">0</span>
+                            </a>
+                        <li>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                        <li id='no_active_batches'>No active batches</li>
+                <?php endif; ?>
             </ul>
         </div>
     </div>
