@@ -21,9 +21,6 @@ use CG\Order\Client\Storage\Api as OrderApiClient;
 use CG\Order\Client\Batch\Storage\Api as OrderBatchApiClient;
 use CG\OrganisationUnit\Storage\Api as OrganisationUnitClient;
 
-#Order Clients
-use CG\Order\Client\Batch\Storage\Api as BatchApi;
-
 return array(
     'service_manager' => array(
         'factories' => array(
@@ -66,11 +63,6 @@ return array(
                 'Di' => 'Zend\Di\Di',
                 'config' => Config::class
             ),
-            BatchApi::class => array(
-                'parameter' => array(
-                    'client' => 'cg_app_guzzle'
-                )
-            ),
             'preferences' => array(
                 'Zend\Di\LocatorInterface' => 'Zend\Di\Di',
                 EventManagerInterface::class => EventManager::class,
@@ -83,6 +75,16 @@ return array(
                     'client' => 'cg_app_guzzle'
                 ]
             ],
+            OrderBatchApiClient::class => array(
+                'parameter' => array(
+                    'client' => 'cg_app_guzzle'
+                )
+            ),
+            OrganisationUnitClient::class => array(
+                'parameter' => array(
+                    'client' => 'CGDirectoryApi_guzzle'
+                )
+            ),
         ),
     )
 );
