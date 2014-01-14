@@ -5,10 +5,9 @@ use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_UI\View\DataTable;
-use CG\Order\Client\Batch\Storage\Api as BatchApi;
-use CG\User\Storage\Api as UserApi;
-use CG\Order\Shared\StorageInterface;
-use CG\Order\Service\Filter\Entity as Filter;
+use CG\Order\Shared\Batch\StorageInterface as BatchInterface;
+use CG\OrganisationUnit\StorageInterface as OrganisationUnitInterface;
+use CG\Order\Shared\StorageInterface as OrderInterface;
 use Orders\Order\Service;
 use CG\Stdlib\Exception\Runtime\NotFound;
 
@@ -18,35 +17,37 @@ class OrdersController extends AbstractActionController
     protected $jsonModelFactory;
     protected $viewModelFactory;
     protected $ordersTable;
-    protected $userApi;
-    protected $batchApi;
+    protected $orderClient;
+    protected $organisationUnitClient;
+    protected $batchClient;
 
     const DEFAULT_LIMIT = 10;
     const DEFAULT_PAGE = 1;
     const ACTIVE = 1;
 
-    public function __construct(Service $service, JsonModelFactory $jsonModelFactory, ViewModelFactory $viewModelFactory, DataTable $ordersTable,
-                                StorageInterface $orderClient, UserApi $userApi, BatchApi $batchApi)
+    public function __construct(Service $service, JsonModelFactory $jsonModelFactory, ViewModelFactory $viewModelFactory,
+                                DataTable $ordersTable, OrderInterface $orderClient,
+                                OrganisationUnitInterface $organisationUnitClient, BatchInterface $batchClient)
     {
         $this
             ->setService($service)
             ->setJsonModelFactory($jsonModelFactory)
             ->setOrdersTable($ordersTable)
-            ->setUserApi($userApi)
-            ->setBatchApi($batchApi)
+            ->setOrganisationUnitClient($organisationUnitClient)
+            ->setBatchClient($batchClient)
             ->setOrderClient($orderClient)
             ->setViewModelFactory($viewModelFactory);
     }
 
-    public function setService(Service $service)
+    public function setBatchClient(BatchInterface $batchClient)
     {
-        $this->service = $service;
+        $this->batchClient = $batchClient;
         return $this;
     }
 
-    public function getService()
+    public function getBatchClient()
     {
-        return $this->service;
+        return $this->batchClient;
     }
 
     public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -60,15 +61,15 @@ class OrdersController extends AbstractActionController
         return $this->jsonModelFactory;
     }
 
-    public function setViewModelFactory(ViewModelFactory $viewModelFactory)
+    public function setOrderClient(OrderInterface $orderClient)
     {
-        $this->viewModelFactory = $viewModelFactory;
+        $this->orderClient = $orderClient;
         return $this;
     }
 
-    public function getViewModelFactory()
+    public function getOrderClient()
     {
-        return $this->viewModelFactory;
+        return $this->orderClient;
     }
 
     public function setOrdersTable(DataTable $ordersTable)
@@ -82,37 +83,37 @@ class OrdersController extends AbstractActionController
         return $this->ordersTable;
     }
 
-    public function setBatchApi(BatchApi $batchApi)
+    public function setOrganisationUnitClient(OrganisationUnitInterface $organisationUnitClient)
     {
-        $this->batchApi = $batchApi;
+        $this->organisationUnitClient = $organisationUnitClient;
         return $this;
     }
 
-    public function getBatchApi()
+    public function getOrganisationUnitClient()
     {
-        return $this->batchApi;
+        return $this->organisationUnitClient;
     }
 
-    public function setUserApi(UserApi $userApi)
+    public function setService(Service $service)
     {
-        $this->userApi = $userApi;
+        $this->service = $service;
         return $this;
     }
 
-    public function getUserApi()
+    public function getService()
     {
-        return $this->userApi;
-
+        return $this->service;
     }
-    public function setOrderClient(StorageInterface $orderClient)
+
+    public function setViewModelFactory(ViewModelFactory $viewModelFactory)
     {
-        $this->orderClient = $orderClient;
+        $this->viewModelFactory = $viewModelFactory;
         return $this;
     }
 
-    public function getOrderClient()
+    public function getViewModelFactory()
     {
-        return $this->orderClient;
+        return $this->viewModelFactory;
     }
 
     public function indexAction()
@@ -187,9 +188,24 @@ class OrdersController extends AbstractActionController
 
         $sidebar = $this->getViewModelFactory()->newInstance();
         $sidebar->setTemplate('orders/orders/sidebar');
-        $organisationUnitIds = array();
-        $batchCollection = $this->getBatchApi()->fetchCollectionByPagination(static::DEFAULT_LIMIT, static::DEFAULT_PAGE,
-            $organisationUnitIds, static::ACTIVE);
+
+        $userEntity = $this->getService()->getActiveUser();
+        try {
+            $organisationUnits = $this->getOrganisationUnitClient()->fetchFiltered(static::DEFAULT_LIMIT,
+                static::DEFAULT_PAGE, $userEntity->getOrganisationUnitId());
+        } catch (NotFound $exception) {
+            $organisationUnits = new \SplObjectStorage();
+        }
+        $organisationUnitIds = array($userEntity->getOrganisationUnitId());
+        foreach ($organisationUnits as $organisationUnit) {
+            $organisationUnitIds[] = $organisationUnit->getId();
+        }
+        try {
+            $batchCollection = $this->getBatchClient()->fetchCollectionByPagination(static::DEFAULT_LIMIT,
+                static::DEFAULT_PAGE, $organisationUnitIds, static::ACTIVE);
+        } catch (NotFound $exception) {
+            $batchCollection = new \SplObjectStorage();
+        }
         $sidebar->setVariable('batches', $batchCollection);
         $view->addChild($sidebar, 'sidebar');
 
