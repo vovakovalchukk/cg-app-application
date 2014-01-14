@@ -5,7 +5,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_UI\View\DataTable;
-use CG\Order\Client\Storage\Api;
+use CG\Order\Shared\StorageInterface;
 use CG\Order\Service\Filter\Entity as Filter;
 
 class OrdersController extends AbstractActionController
@@ -19,7 +19,7 @@ class OrdersController extends AbstractActionController
         JsonModelFactory $jsonModelFactory,
         ViewModelFactory $viewModelFactory,
         DataTable $ordersTable,
-        Api $orderClient
+        StorageInterface $orderClient
     )
     {
         $this
@@ -62,7 +62,7 @@ class OrdersController extends AbstractActionController
         return $this->ordersTable;
     }
 
-    public function setOrderClient(Api $orderClient)
+    public function setOrderClient(StorageInterface $orderClient)
     {
         $this->orderClient = $orderClient;
         return $this;
