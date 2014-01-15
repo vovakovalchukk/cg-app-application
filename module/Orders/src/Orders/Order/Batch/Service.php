@@ -1,7 +1,6 @@
 <?php
 namespace Orders\Order\Batch;
 
-use CG\User\ActiveUserInterface;
 use CG\Order\Shared\Batch\StorageInterface as BatchInterface;
 use Orders\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stdlib\Exception\Runtime\NotFound;

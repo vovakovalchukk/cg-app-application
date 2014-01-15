@@ -33,7 +33,7 @@ class Service
             $limit,
             $page,
             [],
-            [],
+            [$this->getActiveUser()->getOrganisationUnitId()],
             [],
             [],
             [],

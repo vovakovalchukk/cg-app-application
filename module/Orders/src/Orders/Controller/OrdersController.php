@@ -4,7 +4,6 @@ namespace Orders\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use CG_UI\View\DataTable;
 use Orders\Order\Service as OrderService;
 use Orders\Order\Batch\Service as BatchService;
 use CG\Stdlib\Exception\Runtime\NotFound;
