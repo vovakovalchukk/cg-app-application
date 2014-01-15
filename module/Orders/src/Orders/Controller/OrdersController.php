@@ -111,7 +111,7 @@ class OrdersController extends AbstractActionController
                         'class' => 'batch',
                         'sub-actions' => [
                             ['title' => 'Remove', 'action' => 'remove-from-batch'],
-                            ['title' => 'Add', 'action' => 'add-to-batch']
+                            ['title' => 'Add', 'action' => 'add-to-batch', 'href' => 'javascript:addBatch();']
                         ]
                     ],
                     [

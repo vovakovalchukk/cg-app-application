@@ -13,7 +13,11 @@
         </div>
         <ul>
             <?php foreach($bulkAction['sub-actions'] as $subAction):?>
-            <li><a href="#" class="action" data-action="<?=$subAction['action']?>"><span><?=$subAction['title']?></span></a></li>
+            <li>
+                <a href="<?= $subAction['href'] ?>" class="action" data-action="<?= $subAction['action'] ?>">
+                    <span><?= $subAction['title'] ?></span>
+                </a>
+            </li>
             <?php endforeach;?>
         </ul>
         <?php else:?>

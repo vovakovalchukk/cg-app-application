@@ -3,40 +3,58 @@ namespace Orders\Controller;
 
 use CG\Stdlib\Exception\Runtime\NotFound;
 use Zend\Mvc\Controller\AbstractActionController;
-use CG_UI\View\Prototyper\JsonModelFactory;
-use CG_UI\View\Prototyper\ViewModelFactory;
-use CG\Order\Client\Batch\Storage\Api as BatchApi;
-use CG\Order\Client\Storage\Api as OrderApi;
+use CG\User\ActiveUserInterface;
+use CG\Order\Shared\StorageInterface as OrderInterface;
+use CG\Order\Shared\Batch\StorageInterface as BatchInterface;
+use CG\OrganisationUnit\StorageInterface as OrganisationUnitInterface;
 use CG\Order\Service\Filter\Entity as FilterEntity;
 use CG\Order\Shared\Batch\Entity as BatchEntity;
 use Zend\Di\Di;
 
 class BatchController extends AbstractActionController
 {
-    protected $batchApi;
-    protected $orderApi;
-    protected $di;
+    protected $activeUserContainer;
+    protected $orderClient;
+    protected $organisationUnitClient;
+    protected $batchClient;
 
-    public function __construct(Di $di, OrderApi $orderApi, BatchApi $batchApi)
+    const DEFAULT_LIMIT = "ALL";
+    const DEFAULT_PAGE = 0;
+    const DEFAULT_INCLUDE_ARCHIVED = 1;
+
+    public function __construct(Di $di, ActiveUserInterface $activeUserContainer, OrderInterface $orderClient,
+                                OrganisationUnitInterface $organisationUnitClient, BatchInterface $batchClient)
     {
-        $this->setDi($di)
-            ->setOrderApi($orderApi)
-            ->setBatchApi($batchApi);
+        $this->setActiveUserContainer($activeUserContainer)
+            ->setOrderClient($orderClient)
+            ->setOrganisationUnitClient($organisationUnitClient)
+            ->setBatchClient($batchClient);
     }
 
     public function createAction()
     {
+        $userEntity = $this->getService()->getActiveUser();
         $batch = $this->getDi()->get(BatchEntity::class, array(
-            "organisationUnitId" => null //need this
+            "organisationUnitId" => $userEntity->getOrganisationUnitId()
         ));
         $batch = $this->getBatchApi()->save($batch);
 
+        try {
+            $organisationUnits = $this->getService()->getOrganisationUnitClient()->fetchFiltered(static::DEFAULT_LIMIT,
+                static::DEFAULT_PAGE, $userEntity->getOrganisationUnitId());
+        } catch (NotFound $exception) {
+            $organisationUnits = new \SplObjectStorage();
+        }
+        $organisationUnitIds = array($userEntity->getOrganisationUnitId());
+        foreach ($organisationUnits as $organisationUnit) {
+            $organisationUnitIds[] = $organisationUnit->getId();
+        }
         $orderIds = $this->params('orderIds');
         $filterEntity = $this->getDi()->get(FilterEntity::class, array(
-            "limit" => null,
-            "page" => null,
+            "limit" => static::DEFAULT_LIMIT,
+            "page" => static::DEFAULT_PAGE,
             "id" => $orderIds,
-            "organisationUnitId" => null, //need this
+            "organisationUnitId" => $organisationUnitIds,
             "status" => null,
             "accountId" => null,
             "channel" => null,
@@ -44,7 +62,7 @@ class BatchController extends AbstractActionController
             "countryExclude" => null,
             "shippingMethod" => null,
             "searchTerm" => null,
-            "includeArchived" => true,
+            "includeArchived" => static::DEFAULT_INCLUDE_ARCHIVED,
             "multiLineSameOrder" => null,
             "multiSameItem" => null,
             "timeFrom" => null,
@@ -87,36 +105,47 @@ class BatchController extends AbstractActionController
         $this->getBatchApi()->remove($entity);
     }
 
-    public function setBatchApi(BatchApi $batchApi)
+    public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
     {
-        $this->batchApi = $batchApi;
+        $this->activeUserContainer = $activeUserContainer;
         return $this;
     }
 
-    public function getBatchApi()
+    public function getActiveUserContainer()
     {
-        return $this->batchApi;
+        return $this->activeUserContainer;
     }
 
-    public function setOrderApi(OrderApi $orderApi)
+    public function setBatchClient(BatchInterface $batchClient)
     {
-        $this->orderApi = $orderApi;
+        $this->batchClient = $batchClient;
         return $this;
     }
 
-    public function getOrderApi()
+    public function getBatchClient()
     {
-        return $this->orderApi;
+        return $this->batchClient;
     }
 
-    public function setDi(Di $di)
+    public function setOrderClient(OrderInterface $orderClient)
     {
-        $this->di = $di;
+        $this->orderClient = $orderClient;
         return $this;
     }
 
-    public function getDi()
+    public function getOrderClient()
     {
-        return $this->di;
+        return $this->orderClient;
+    }
+
+    public function setOrganisationUnitClient(OrganisationUnitInterface $organisationUnitClient)
+    {
+        $this->organisationUnitClient = $organisationUnitClient;
+        return $this;
+    }
+
+    public function getOrganisationUnitClient()
+    {
+        return $this->organisationUnitClient;
     }
 }

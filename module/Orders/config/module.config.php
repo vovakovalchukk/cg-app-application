@@ -36,7 +36,7 @@ return [
                             'create' => array(
                                 'type' => 'Zend\Mvc\Router\Http\Segment',
                                 'options' => array(
-                                    'route'    => '/:batchId/create',
+                                    'route'    => '/create',
                                     'defaults' => array(
                                         'action'     => 'create',
                                     ),
@@ -45,12 +45,12 @@ return [
                             'delete' => array(
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => array(
-                                    'route'    => '/delete',
+                                    'route'    => '/:batchId/delete',
                                     'defaults' => array(
                                         'action'     => 'delete',
                                     ),
                                 ),
-                            ),
+                            )
                         )
                     ]
                 ],
