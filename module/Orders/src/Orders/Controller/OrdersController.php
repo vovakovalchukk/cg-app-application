@@ -144,7 +144,7 @@ class OrdersController extends AbstractActionController
         }
 
         try {
-            $orders = $this->getService()->getOrders($limit, $page);
+            $orders = $this->getService()->getOrders($limit, $page, $this->params()->fromPost('filters', []));
 
             $data['iTotalRecords'] = (int) $orders->getTotal();
             $data['iTotalDisplayRecords'] = (int) $orders->getTotal();

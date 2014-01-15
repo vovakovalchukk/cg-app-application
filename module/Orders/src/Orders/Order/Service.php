@@ -62,7 +62,7 @@ class Service
         return $this->getActiveUserContainer()->getActiveUser();
     }
 
-    public function getOrders($limit, $page)
+    public function getOrders($limit, $page, array $filters = [])
     {
         $filter = new Filter(
             $limit,
