@@ -43,6 +43,7 @@ return [
         ],
         'strategies' => [
             'ViewJsonStrategy',
+            'Mustache\View\Strategy'
         ],
     ],
     'di' => [

@@ -40,6 +40,7 @@ return array(
     'guzzle_guzzle_src_Guzzle',
     'instaclick_php-webdriver_lib_WebDriver',
     'monolog_monolog_src_Monolog',
+    'mustache_mustache_src_Mustache',
     'nocarrier_hal_src_Nocarrier',
     'phpspec_php-diff_lib_Diff',
     'phpspec_phpspec_src_PhpSpec',

@@ -62,6 +62,21 @@ class OrdersController extends AbstractActionController
         $settings->setSource($this->url()->fromRoute('Orders/ajax'));
         $view->addChild($ordersTable, 'ordersTable');
 
+        $view->addChild($this->getBulkActions(), 'bulkItems');
+        $view->addChild($this->getFilterBar(), 'filters');
+        $view->addChild($this->getSidebar(), 'sidebar');
+        return $view;
+    }
+
+    protected function getSidebar()
+    {
+        $sidebar = $this->getViewModelFactory()->newInstance();
+        $sidebar->setTemplate('orders/orders/sidebar');
+        return $sidebar;
+    }
+
+    protected function getBulkActions()
+    {
         $bulkItems = $this->getViewModelFactory()->newInstance(
             [
                 'bulkActions' => [
@@ -125,17 +140,111 @@ class OrdersController extends AbstractActionController
             ]
         );
         $bulkItems->setTemplate('layout/bulk-actions');
-        $view->addChild($bulkItems, 'bulkItems');
+        return $bulkItems;
+    }
 
-        $filters = $this->getViewModelFactory()->newInstance();
-        $filters->setTemplate('layout/filters');
-        $view->addChild($filters, 'filters');
+    protected function getFilterBar()
+    {
+        $viewRender = $this->getServiceLocator()->get('Mustache\View\Renderer');
 
-        $sidebar = $this->getViewModelFactory()->newInstance();
-        $sidebar->setTemplate('orders/orders/sidebar');
-        $view->addChild($sidebar, 'sidebar');
+        $filterRows = [];
+        $filterRow = [];
 
-        return $view;
+        $dateFormat = 'd/m/y';
+        $dateRangeOptions = [
+            [
+                'title' => 'All Time',
+                'from'  => 'All',
+                'to'    => 'All'
+            ],
+            [
+                'title' => 'Today',
+                'from'  => date($dateFormat),
+                'to'    => date($dateFormat)
+            ],
+            [
+                'title' => 'Last 7 days',
+                'from'  => date($dateFormat, strtotime("-7 days")),
+                'to'    => date($dateFormat)
+            ],
+            [
+                'title' => 'Month to date',
+                'from'  => date($dateFormat, strtotime( 'first day of ' . date( 'F Y'))),
+                'to'    => date($dateFormat)
+            ],
+            [
+                'title' => 'Year to date',
+                'from'  => date($dateFormat,  strtotime( 'first day of January ' . date('Y'))),
+                'to'    => date($dateFormat)
+            ],
+            [
+                'title' => 'The previous month',
+                'from'  => date($dateFormat, strtotime( 'first day of last month ')),
+                'to'    => date($dateFormat, strtotime( 'last day of last month ')),
+            ]
+        ];
+        $dateRangeFilter = $this->getViewModelFactory()->newInstance();
+        $dateRangeFilter->setTemplate('filters/date-range');
+        $dateRangeFilter->setVariable('options', $dateRangeOptions);
+        $filterRow[] = $viewRender->render($dateRangeFilter);
+
+        $options =[
+            'title' => "Status",
+            'id'    => 'filter-status',
+            'options' => [
+                ['href' => '#', 'class' => '', 'title' => 'New'],
+                ['href' => '#', 'class' => '', 'title' => 'Processing'],
+                ['href' => '#', 'class' => '', 'title' => 'Dispatched']
+            ]
+        ];
+        $statusFilter = $this->getViewModelFactory()->newInstance();
+        $statusFilter->setTemplate('filters/custom-select');
+        $statusFilter->setVariable('options', $options);
+        $filterRow[] = $viewRender->render($statusFilter);
+
+        $options = [
+            'title' => 'Contains Text',
+            'placeholder' => 'Contains Text...',
+            'class' => '',
+            'value' => ''
+        ];
+        $statusFilter = $this->getViewModelFactory()->newInstance();
+        $statusFilter->setTemplate('filters/text');
+        $statusFilter->setVariable('options', $options);
+        $filterRow[] = $viewRender->render($statusFilter);
+
+        $options = ['Account','Channel','Include Country','Exclude Country','Show Archived','Multi-Line Orders','Multiple Same Item','Flags','Columns']; 
+        $filter = $this->getViewModelFactory()->newInstance();
+        $filter->setTemplate('filters/columns');
+        $filter->setVariable('options', $options);
+        $filterRow[] = $viewRender->render($filter);
+
+        $options = [
+            ['value' => 'Apply Filters', 'name' => 'apply-filters', 'action' => 'apply-filters'],
+            ['value' => 'Clear', 'name' => 'clear-filters', 'action' => 'clear-filters'],
+            ['value' => 'Save', 'name' => 'save-filters', 'action' => 'save-filters'],
+        ];
+        $filterButtons = $this->getViewModelFactory()->newInstance();
+        $filterButtons->setTemplate('filters/buttons');
+        $filterButtons->setVariable('options', $options);
+        $filterRow[] = $viewRender->render($filterButtons);
+        $filterRows[] = $filterRow;
+
+        $filterRow = [];
+        $options = [
+            'title' => 'Include Country',
+            'options' => ['UK','Austria','Croatia','Cyprus','France','Germany','Italy','Spain'],
+        ]; 
+        $filterButtons = $this->getViewModelFactory()->newInstance();
+        $filterButtons->setTemplate('filters/custom-select-group');
+        $filterButtons->setVariable('options', $options);
+        $filterRow[] = $viewRender->render($filterButtons);
+        $filterRows[] = $filterRow;
+
+        $filterBar = $this->getViewModelFactory()->newInstance();
+        $filterBar->setTemplate('layout/filters');
+        $filterBar->setVariable('filterRows', $filterRows);
+        return $filterBar;
     }
 
     public function listAction()
