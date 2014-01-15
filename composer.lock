@@ -442,25 +442,18 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgconstants.git",
-                "reference": "d95a1ecdccabbbb2662c04dcb72ad35be0f645bb"
+                "reference": "76765f7dbe351ebd02fefea584f2703437fae6dd"
             },
             "require": {
                 "php": ">=5.4.0"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG": ""
                 }
             },
-            "time": "2013-12-09 09:46:22"
+            "time": "2014-01-13 17:46:01"
         },
         {
             "name": "channelgrabber/etag",
@@ -1114,7 +1107,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "c192793b067ff17daab3e2976afd0497c3e6208d"
+                "reference": "8d3931f7d48985102e53f74ddf33a8fffc545c44"
             },
             "require": {
                 "channelgrabber/zf2-stdlib": ">=1.0.3,<1.2.0",
@@ -1136,7 +1129,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-01-14 15:06:13"
+            "time": "2014-01-15 14:28:37"
         },
         {
             "name": "codeception/codeception",
@@ -2043,16 +2036,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "3.7.28",
+            "version": "3.7.29",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "3b97c8492bcafbabe6b6fbd2ab35f2f04d932a8d"
+                "reference": "faeb2d9f15dc83830d2db5e4c67acf1d68c9b5ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3b97c8492bcafbabe6b6fbd2ab35f2f04d932a8d",
-                "reference": "3b97c8492bcafbabe6b6fbd2ab35f2f04d932a8d",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/faeb2d9f15dc83830d2db5e4c67acf1d68c9b5ac",
+                "reference": "faeb2d9f15dc83830d2db5e4c67acf1d68c9b5ac",
                 "shasum": ""
             },
             "require": {
@@ -2113,7 +2106,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-10-17 07:27:40"
+            "time": "2014-01-15 06:46:38"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
