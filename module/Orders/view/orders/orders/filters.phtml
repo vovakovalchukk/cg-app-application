@@ -13,8 +13,8 @@ $(function() {
             <label for="date-range">Date Range</label>
             <input name="date-range" class="date-range-input" value=""/>
             <span class="toggle icon-med inverted calendar">&nbsp;</span>
-            <input type="hidden" name="date-range-from" class="date-range-input-from" value="" />
-            <input type="hidden" name="date-range-to" class="date-range-input-to" value="" />
+            <input type="hidden" name="date-range-from" class="date-range-input-from" value="<?= $filter->getTimeFrom() ?>" />
+            <input type="hidden" name="date-range-to" class="date-range-input-to" value="<?= $filter->getTimeTo() ?>" />
             <div class="date-range-menu">
                 <ul>
                     <?php
@@ -73,7 +73,7 @@ $(function() {
         </div>
         <div class="filter clearfix">
             <label for="contains-text">Contains Text</label>
-            <input name="contains-text" type="text" placeholder="Contains text..." class="" value=""/>
+            <input name="contains-text" type="text" placeholder="Contains text..." class="" value="<?= $filter->getSearchTerm() ?>"/>
         </div>
         <div class="filter clearfix">
             <label>Status:</label>

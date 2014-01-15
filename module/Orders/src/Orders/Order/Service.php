@@ -79,14 +79,29 @@ class Service
         return $this;
     }
 
+    public function setSessionFilter(Filter $filter)
+    {
+        $session = $this->getSessionStorage();
+        if (!isset($session['orders'])) {
+            $session['orders'] = [];
+        }
+        $session['orders']['filter'] = $filter;
+        return $this;
+    }
+
     public function getFilter()
+    {
+        return $this->filter;
+    }
+
+    public function getSessionFilter()
     {
         $session = $this->getSessionStorage();
         if (!isset($session['orders'])) {
             $session['orders'] = [];
         }
         if (!isset($session['orders']['filter']) || !($session['orders']['filter'] instanceof Filter)) {
-            $session['orders']['filter'] = $this->filter;
+            $session['orders']['filter'] = $this->getFilter();
         }
 
         return $session['orders']['filter'];
@@ -132,6 +147,7 @@ class Service
             );
         }
 
+        $this->setSessionFilter($filter);
         return $this->getOrderClient()->fetchCollectionByFilter($filter);
     }
 }
