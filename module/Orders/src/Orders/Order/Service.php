@@ -6,6 +6,7 @@ use CG\Order\Shared\StorageInterface;
 use CG\User\ActiveUserInterface;
 use CG\Order\Service\Filter\Entity as Filter;
 use CG\Order\Service\Filter\Mapper as FilterMapper;
+use Zend\Session\SessionManager;
 
 class Service
 {
@@ -14,13 +15,15 @@ class Service
     protected $activeUserContainer;
     protected $filter;
     protected $filterMapper;
+    protected $sessionManager;
 
     public function __construct(
         DataTable $ordersTable,
         StorageInterface $orderClient,
         ActiveUserInterface $activeUserContainer,
         Filter $filter,
-        FilterMapper $filterMapper
+        FilterMapper $filterMapper,
+        SessionManager $sessionManager
     )
     {
         $this
@@ -28,7 +31,8 @@ class Service
             ->setOrderClient($orderClient)
             ->setActiveUserContainer($activeUserContainer)
             ->setFilter($filter)
-            ->setFilterMapper($filterMapper);
+            ->setFilterMapper($filterMapper)
+            ->setSessionManager($sessionManager);
     }
 
     public function setOrdersTable($ordersTable)
@@ -77,7 +81,15 @@ class Service
 
     public function getFilter()
     {
-        return $this->filter;
+        $session = $this->getSessionStorage();
+        if (!isset($session['orders'])) {
+            $session['orders'] = [];
+        }
+        if (!isset($session['orders']['filter']) || !($session['orders']['filter'] instanceof Filter)) {
+            $session['orders']['filter'] = $this->filter;
+        }
+
+        return $session['orders']['filter'];
     }
 
     public function setFilterMapper(FilterMapper $filterMapper)
@@ -89,6 +101,22 @@ class Service
     public function getFilterMapper()
     {
         return $this->filterMapper;
+    }
+
+    public function setSessionManager(SessionManager $sessionManager)
+    {
+        $this->sessionManager = $sessionManager;
+        return $this;
+    }
+
+    public function getSessionManager()
+    {
+        return $this->sessionManager;
+    }
+
+    public function getSessionStorage()
+    {
+        return $this->getSessionManager()->getStorage();
     }
 
     public function getOrders($limit, $page, array $filters = [])
