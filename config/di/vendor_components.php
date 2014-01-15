@@ -26,6 +26,7 @@ return array(
     'channelgrabber_stdlib_CG_Stdlib',
 //    'channelgrabber_ui_CG_UI',
     'channelgrabber_user_CG',
+//    'channelgrabber_userpreference_CG_UserPreference',
     'channelgrabber_validation_CG_Validation',
     'channelgrabber_zf2-hal_CG_Zend_Hal',
 //    'channelgrabber_zf2-installer_CG_Zend_Installer',

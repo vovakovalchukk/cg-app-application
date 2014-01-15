@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "d7ab6859fd9846c843f16790f244e5d5",
+    "hash": "3aac318de39af132789893ddbf469d50",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -442,25 +442,18 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgconstants.git",
-                "reference": "d95a1ecdccabbbb2662c04dcb72ad35be0f645bb"
+                "reference": "76765f7dbe351ebd02fefea584f2703437fae6dd"
             },
             "require": {
                 "php": ">=5.4.0"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG": ""
                 }
             },
-            "time": "2013-12-09 09:46:22"
+            "time": "2014-01-13 17:46:01"
         },
         {
             "name": "channelgrabber/etag",
@@ -813,6 +806,27 @@
             "time": "2014-01-13 14:54:29"
         },
         {
+            "name": "channelgrabber/userpreference",
+            "version": "dev-CGIV-1285",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-userpreference.git",
+                "reference": "4ce740584e4127ff7d85cebb45994a4b4862aa84"
+            },
+            "require": {
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/http": "~1.2.3",
+                "ext-mongo": ">=1.4.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "CG\\UserPreference\\": ""
+                }
+            },
+            "time": "2014-01-13 10:18:31"
+        },
+        {
             "name": "channelgrabber/validation",
             "version": "1.1.7",
             "source": {
@@ -1110,11 +1124,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-1207-DataTables",
+            "version": "dev-CGIV-1335",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "7c70498a48be9cff323f5a21ca47a6a7e96fcb2c"
+                "reference": "c98d4c9acf5d843ca65b6f2b99252ff6e25940b3"
             },
             "require": {
                 "channelgrabber/zf2-stdlib": ">=1.0.3,<1.2.0",
@@ -1136,7 +1150,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-01-14 11:09:33"
+            "time": "2014-01-14 14:35:19"
         },
         {
             "name": "codeception/codeception",
@@ -1744,16 +1758,16 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "v1.1.0",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "119b07de9c592a0286cd584d6e961903ba096d8a"
+                "reference": "fc5ddee4879dfcee788d9cb4b92af9028bc3d7e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/119b07de9c592a0286cd584d6e961903ba096d8a",
-                "reference": "119b07de9c592a0286cd584d6e961903ba096d8a",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/fc5ddee4879dfcee788d9cb4b92af9028bc3d7e8",
+                "reference": "fc5ddee4879dfcee788d9cb4b92af9028bc3d7e8",
                 "shasum": ""
             },
             "require-dev": {
@@ -1795,7 +1809,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2014-01-01 21:15:36"
+            "time": "2014-01-15 15:06:06"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -2043,16 +2057,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "3.7.28",
+            "version": "3.7.29",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "3b97c8492bcafbabe6b6fbd2ab35f2f04d932a8d"
+                "reference": "faeb2d9f15dc83830d2db5e4c67acf1d68c9b5ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3b97c8492bcafbabe6b6fbd2ab35f2f04d932a8d",
-                "reference": "3b97c8492bcafbabe6b6fbd2ab35f2f04d932a8d",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/faeb2d9f15dc83830d2db5e4c67acf1d68c9b5ac",
+                "reference": "faeb2d9f15dc83830d2db5e4c67acf1d68c9b5ac",
                 "shasum": ""
             },
             "require": {
@@ -2113,7 +2127,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-10-17 07:27:40"
+            "time": "2014-01-15 06:46:38"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -3030,7 +3044,7 @@
         {
             "alias": "1.0.5",
             "alias_normalized": "1.0.5.0",
-            "version": "dev-CGIV-1207-DataTables",
+            "version": "dev-CGIV-1335",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
@@ -3040,6 +3054,7 @@
         "channelgrabber/http": 20,
         "channelgrabber/order": 20,
         "channelgrabber/redis": 20,
+        "channelgrabber/userpreference": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpspec/phpspec": 20
     },

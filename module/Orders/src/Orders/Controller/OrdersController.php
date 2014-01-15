@@ -5,20 +5,24 @@ use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_UI\View\DataTable;
-use Orders\Order\Service;
+use Orders\Order\Service as OrderService;
+use Orders\Order\Batch\Service as BatchService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 
 class OrdersController extends AbstractActionController
 {
-    protected $service;
     protected $jsonModelFactory;
     protected $viewModelFactory;
+    protected $orderService;
+    protected $batchService;
 
-    public function __construct(Service $service, JsonModelFactory $jsonModelFactory, ViewModelFactory $viewModelFactory)
+    public function __construct(JsonModelFactory $jsonModelFactory, ViewModelFactory $viewModelFactory, 
+                                OrderService $orderService, BatchService $batchService)
     {
-        $this->setService($service)
-            ->setJsonModelFactory($jsonModelFactory)
-            ->setViewModelFactory($viewModelFactory);
+        $this->setJsonModelFactory($jsonModelFactory)
+            ->setViewModelFactory($viewModelFactory)
+            ->setOrderService($orderService)
+            ->setBatchService($batchService);
     }
 
     public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -43,22 +47,33 @@ class OrdersController extends AbstractActionController
         return $this->viewModelFactory;
     }
 
-    public function setService(Service $service)
+    public function setBatchService(BatchService $batchService)
     {
-        $this->service = $service;
+        $this->batchService = $batchService;
         return $this;
     }
 
-    public function getService()
+    public function getBatchService()
     {
-        return $this->service;
+        return $this->batchService;
+    }
+
+    public function setOrderService(OrderService $orderService)
+    {
+        $this->orderService = $orderService;
+        return $this;
+    }
+
+    public function getOrderService()
+    {
+        return $this->orderService;
     }
 
     public function indexAction()
     {
         $view = $this->getViewModelFactory()->newInstance();
 
-        $ordersTable = $this->getService()->getOrdersTable();
+        $ordersTable = $this->getOrderService()->getOrdersTable();
         $settings = $ordersTable->getVariable('settings');
         $settings->setSource($this->url()->fromRoute('Orders/ajax'));
         $view->addChild($ordersTable, 'ordersTable');
@@ -124,7 +139,7 @@ class OrdersController extends AbstractActionController
         $sidebar = $this->getViewModelFactory()->newInstance();
         $sidebar->setTemplate('orders/orders/sidebar');
 
-        $sidebar->setVariable('batches', $this->getService()->getBatches());
+        $sidebar->setVariable('batches', $this->getBatchService()->getBatches());
         $view->addChild($sidebar, 'sidebar');
 
         return $view;
@@ -147,7 +162,7 @@ class OrdersController extends AbstractActionController
         }
 
         try {
-            $orders = $this->getService()->getOrders($limit, $page);
+            $orders = $this->getOrderService()->getOrders($limit, $page);
 
             $data['iTotalRecords'] = (int) $orders->getTotal();
             $data['iTotalDisplayRecords'] = (int) $orders->getTotal();
