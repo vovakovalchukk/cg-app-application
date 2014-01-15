@@ -5,6 +5,7 @@ use CG_UI\View\DataTable;
 use CG\Order\Shared\StorageInterface;
 use CG\User\ActiveUserInterface;
 use CG\Order\Service\Filter\Entity as Filter;
+use CG\Order\Service\Filter\Mapper as FilterMapper;
 
 class Service
 {
@@ -12,19 +13,22 @@ class Service
     protected $orderClient;
     protected $activeUserContainer;
     protected $filter;
+    protected $filterMapper;
 
     public function __construct(
         DataTable $ordersTable,
         StorageInterface $orderClient,
         ActiveUserInterface $activeUserContainer,
-        Filter $filter
+        Filter $filter,
+        FilterMapper $filterMapper
     )
     {
         $this
             ->setOrdersTable($ordersTable)
             ->setOrderClient($orderClient)
             ->setActiveUserContainer($activeUserContainer)
-            ->setFilter($filter);
+            ->setFilter($filter)
+            ->setFilterMapper($filterMapper);
     }
 
     public function setOrdersTable($ordersTable)
@@ -76,12 +80,29 @@ class Service
         return $this->filter;
     }
 
+    public function setFilterMapper(FilterMapper $filterMapper)
+    {
+        $this->filterMapper = $filterMapper;
+        return $this;
+    }
+
+    public function getFilterMapper()
+    {
+        return $this->filterMapper;
+    }
+
     public function getOrders($limit, $page, array $filters = [])
     {
         $filter = $this->getFilter()
             ->setLimit($limit)
             ->setPage($page)
             ->setOrganisationUnitId([$this->getActiveUser()->getOrganisationUnitId()]);
+
+        if (!empty($filters)) {
+            $filter->merge(
+                $this->getFilterMapper()->fromArray($filters)
+            );
+        }
 
         return $this->getOrderClient()->fetchCollectionByFilter($filter);
     }
