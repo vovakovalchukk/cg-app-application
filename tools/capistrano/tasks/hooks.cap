@@ -1,0 +1,18 @@
+namespace :deploy do
+    before :publishing, 'hooks:deploy'
+end
+
+namespace :hooks do
+    task :deploy do
+        on roles(:all), in: :parallel do
+            within release_path do
+                script = 'tools/post_deploy.sh'
+                if test '[', '-e', script, ']'
+                    execute script
+                else
+                    warn "[SKIPPING] Deployment Script No Found - #{script}"
+                end
+            end
+        end
+    end
+end
