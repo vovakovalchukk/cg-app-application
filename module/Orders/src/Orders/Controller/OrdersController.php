@@ -14,10 +14,6 @@ class OrdersController extends AbstractActionController
     protected $jsonModelFactory;
     protected $viewModelFactory;
 
-    const DEFAULT_LIMIT = 10;
-    const DEFAULT_PAGE = 1;
-    const ACTIVE = 1;
-
     public function __construct(Service $service, JsonModelFactory $jsonModelFactory, ViewModelFactory $viewModelFactory)
     {
         $this->setService($service)
@@ -131,24 +127,7 @@ class OrdersController extends AbstractActionController
         $sidebar = $this->getViewModelFactory()->newInstance();
         $sidebar->setTemplate('orders/orders/sidebar');
 
-        $userEntity = $this->getService()->getActiveUser();
-        try {
-            $organisationUnits = $this->getService()->getOrganisationUnitClient()->fetchFiltered(static::DEFAULT_LIMIT,
-                static::DEFAULT_PAGE, $userEntity->getOrganisationUnitId());
-        } catch (NotFound $exception) {
-            $organisationUnits = new \SplObjectStorage();
-        }
-        $organisationUnitIds = array($userEntity->getOrganisationUnitId());
-        foreach ($organisationUnits as $organisationUnit) {
-            $organisationUnitIds[] = $organisationUnit->getId();
-        }
-        try {
-            $batchCollection = $this->getService()->getBatchClient()->fetchCollectionByPagination(static::DEFAULT_LIMIT,
-                static::DEFAULT_PAGE, $organisationUnitIds, static::ACTIVE);
-        } catch (NotFound $exception) {
-            $batchCollection = new \SplObjectStorage();
-        }
-        $sidebar->setVariable('batches', $batchCollection);
+        $sidebar->setVariable('batches', $this->getService()->getBatches());
         $view->addChild($sidebar, 'sidebar');
 
         return $view;
