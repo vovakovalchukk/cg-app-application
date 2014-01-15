@@ -27,7 +27,7 @@
         "channelgrabber/codeception": "1.0.*",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/http": "dev-CGIV-1285 as 1.2.3",
-        "channelgrabber/order": "dev-CGIV-1285 as 1.0.4",
+        "channelgrabber/order": "dev-CGIV-1220-DiFixes as 1.0.5",
         "channelgrabber/redis": "dev-CGIV-529",
         "channelgrabber/sso": "~1.1.2",
         "channelgrabber/stdlib": "~2.4.0",

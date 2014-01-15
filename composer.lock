@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "5045061cb4998018c0cdad127503fcf9",
+    "hash": "478f2460ebe51e7deb9e52af0f288c55",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -572,11 +572,11 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-1285",
+            "version": "dev-CGIV-1220-DiFixes",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "ebc46a1c7ebb1a8cca63bfc90f8ed8a274f3da98"
+                "reference": "ea3b6c63ac6667e42e719dbc6615ead5dd140544"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.0,<1.3.0",
@@ -596,7 +596,7 @@
                     "CG\\Order\\": ""
                 }
             },
-            "time": "2014-01-14 09:16:08"
+            "time": "2014-01-15 14:58:23"
         },
         {
             "name": "channelgrabber/predis",
@@ -3015,9 +3015,9 @@
             "package": "channelgrabber/http"
         },
         {
-            "alias": "1.0.4",
-            "alias_normalized": "1.0.4.0",
-            "version": "dev-CGIV-1285",
+            "alias": "1.0.5",
+            "alias_normalized": "1.0.5.0",
+            "version": "dev-CGIV-1220-DiFixes",
             "package": "channelgrabber/order"
         },
         {

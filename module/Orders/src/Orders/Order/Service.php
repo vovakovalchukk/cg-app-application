@@ -11,17 +11,20 @@ class Service
     protected $ordersTable;
     protected $orderClient;
     protected $activeUserContainer;
+    protected $filter;
 
     public function __construct(
         DataTable $ordersTable,
         StorageInterface $orderClient,
-        ActiveUserInterface $activeUserContainer
+        ActiveUserInterface $activeUserContainer,
+        Filter $filter
     )
     {
         $this
             ->setOrdersTable($ordersTable)
             ->setOrderClient($orderClient)
-            ->setActiveUserContainer($activeUserContainer);
+            ->setActiveUserContainer($activeUserContainer)
+            ->setFilter($filter);
     }
 
     public function setOrdersTable($ordersTable)
@@ -62,29 +65,23 @@ class Service
         return $this->getActiveUserContainer()->getActiveUser();
     }
 
+    public function setFilter(Filter $filter)
+    {
+        $this->filter = $filter;
+        return $this;
+    }
+
+    public function getFilter()
+    {
+        return $this->filter;
+    }
+
     public function getOrders($limit, $page, array $filters = [])
     {
-        $filter = new Filter(
-            $limit,
-            $page,
-            [],
-            [$this->getActiveUser()->getOrganisationUnitId()],
-            [],
-            [],
-            [],
-            [],
-            [],
-            [],
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        );
+        $filter = $this->getFilter()
+            ->setLimit($limit)
+            ->setPage($page)
+            ->setOrganisationUnitId([$this->getActiveUser()->getOrganisationUnitId()]);
 
         return $this->getOrderClient()->fetchCollectionByFilter($filter);
     }
