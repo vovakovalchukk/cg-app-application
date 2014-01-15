@@ -57,9 +57,6 @@ class OrdersController extends AbstractActionController
     public function indexAction()
     {
         $view = $this->getViewModelFactory()->newInstance();
-        $this->getServiceLocator()
-            ->get('viewhelpermanager')
-            ->get('HeadScript')->appendFile('/channelgrabber/zf2-v4-ui/js/order.js', "text/javascript");
 
         $ordersTable = $this->getService()->getOrdersTable();
         $settings = $ordersTable->getVariable('settings');
