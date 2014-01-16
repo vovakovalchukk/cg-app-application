@@ -7,14 +7,17 @@ use CG\Skeleton\Arguments;
 use CG\Skeleton\Config as SkeletonConfig;
 use CG\Skeleton\Vagrant\NodeData;
 use CG\Skeleton\Vagrant\NodeData\Node;
+use CG\Skeleton\DevelopmentEnvironment\Environment;
+use CG\Skeleton\Vagrant\Environment as EnvironmentFile;
 
 class StartupCommand implements StartupCommandInterface
 {
     use CommandTrait;
     use \CG\Skeleton\GitTicketIdTrait;
 
-    const DEFAULT_RAM = '512';
+    const DEFAULT_RAM = '384';
     const DEFAULT_BOX = 'cg-precise64-php55';
+    const ENVIRONMENT_PATH = 'data/environment.json';
 
     protected $console;
     protected $nodeData;
@@ -48,20 +51,20 @@ class StartupCommand implements StartupCommandInterface
         return $this->nodeData;
     }
 
-    protected function runCommands(Arguments $arguments, SkeletonConfig $config)
+    protected function runCommands(Arguments $arguments, SkeletonConfig $config, Environment $environment)
     {
         $vagrantConfig = $config->get('Vagrant', new Config($this->defaults, true));
-        $this->saveNodeData($config, $vagrantConfig);
+        $this->saveNodeData($config, $vagrantConfig, $environment);
         $config->offsetSet('Vagrant', $vagrantConfig);
+        $this->saveEnvironment($environment);
     }
 
-    protected function saveNodeData(SkeletonConfig $config, Config $vagrantConfig)
+    protected function saveNodeData(SkeletonConfig $config, Config $vagrantConfig, Environment $environment)
     {
         $nodeData = $this->getNodeData();
-        $node = $nodeData->getNode($config->getNode());
+        $node = $nodeData->getNode($environment->getEnvironmentConfig()->getNode());
 
         $this->setVmRam($nodeData, $node, $config, $vagrantConfig);
-        $this->setVmIp($nodeData, $node, $config, $vagrantConfig);
         $this->setBox($nodeData, $node, $config, $vagrantConfig);
         $this->setApplication($nodeData, $node, $config, $vagrantConfig);
 
@@ -69,7 +72,7 @@ class StartupCommand implements StartupCommandInterface
 
         exec(
             'git add ' . $nodeData->getPath() . ';'
-            . ' git commit -m "' . $this->getGitTicketId() . ' (SKELETON) Updated node data for ' . $config->getNode() . '" --only -- ' . $nodeData->getPath()
+            . ' git commit -m "' . $this->getGitTicketId() . ' (SKELETON) Updated node data for ' . $environment->getEnvironmentConfig()->getNode() . '" --only -- ' . $nodeData->getPath()
         );
     }
 
@@ -84,42 +87,6 @@ class StartupCommand implements StartupCommandInterface
         $this->getConsole()->writeStatus('VM Ram set as \'' . $vmRam . '\'');
         $node->setVmRam($vmRam);
         $vagrantConfig->setVmRam($vmRam);
-    }
-
-    protected function setVmIp(NodeData $nodeData, Node $node, SkeletonConfig $config, Config $vagrantConfig)
-    {
-        $vmIp = $vagrantConfig->getVmIp();
-        $vmIps = $nodeData->getIpsInUse();
-
-        while (!filter_var($vmIp, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
-            $this->getConsole()->writeErrorStatus('VM ip is not set or is invalid');
-
-            if (!empty($vmIps)) {
-                $this->getConsole()->writeln('The following ips are in use');
-                foreach ($vmIps as $nodeName => $ip) {
-                    $this->getConsole()->writeln('   * ' . $ip . ' => ' . $nodeName);
-                }
-                $this->getConsole()->writeln('Please remember other ips may be in use, please confer with other developers before setting an ip address');
-            }
-
-            $vmIp = $this->getConsole()->ask('What local ip address would you like to access the vm for this node', '192.168.33.21');
-        }
-
-        $this->getConsole()->writeStatus('VM ip set as \'' . $vmIp . '\'');
-        $node->setVmIp($vmIp);
-        $vagrantConfig->setVmIp($vmIp);
-
-        $this->getConsole()->writeStatus(
-            'Saving VM ip to /etc/hosts '
-            . Startup::COLOR_PURPLE . '(You may be prompted for your password)' . Startup::COLOR_RESET
-        );
-
-        exec(
-            'grep -q -e "' . $vmIp . ' ' . $config->getHostname() . '.local" /etc/hosts'
-            . ' || echo "' . $vmIp . ' ' . $config->getHostname() . '.local" | sudo tee -a /etc/hosts'
-        );
-
-        $this->getConsole()->writeStatus('VM ip saved to /etc/hosts');
     }
 
     protected function setBox(NodeData $nodeData, Node $node, SkeletonConfig $config, Config $vagrantConfig)
@@ -144,5 +111,11 @@ class StartupCommand implements StartupCommandInterface
                 'role' => $config->getRole()
             )
         );
+    }
+
+    protected function saveEnvironment(Environment $environment)
+    {
+        $environmentFile = new EnvironmentFile(static::ENVIRONMENT_PATH, $environment->getName());
+        $environmentFile->save();
     }
 }

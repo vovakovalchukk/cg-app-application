@@ -1,6 +1,7 @@
 <?php
 namespace CG\Skeleton\Module\Mongo;
 
+use CG\Skeleton\DevelopmentEnvironment\Environment;
 use CG\Skeleton\Module\AbstractModule;
 use CG\Skeleton\Module\ConfigureInterface;
 use CG\Skeleton\Module\EnableInterface;
@@ -27,12 +28,12 @@ class Module extends AbstractModule implements EnableInterface, ConfigureInterfa
         $moduleConfig->setEnabled(true);
     }
 
-    public function applyConfiguration(Arguments $arguments, SkeletonConfig $config, BaseConfig $moduleConfig)
+    public function applyConfiguration(Arguments $arguments, SkeletonConfig $config, BaseConfig $moduleConfig, Environment $environment)
     {
         $cwd = getcwd();
         chdir($config->getInfrastructurePath() . '/tools/chef');
         exec('git checkout ' . $config->getBranch() . ' 2>&1;');
-        $this->updateNode($arguments, $config, $moduleConfig);
+        $this->updateNode($arguments, $config, $moduleConfig, $environment);
         chdir($cwd);
     }
 
@@ -95,9 +96,9 @@ class Module extends AbstractModule implements EnableInterface, ConfigureInterfa
         chdir($cwd);
     }
 
-    protected function updateNode(Arguments $arguments, SkeletonConfig $config, BaseConfig $moduleConfig)
+    protected function updateNode(Arguments $arguments, SkeletonConfig $config, BaseConfig $moduleConfig, Environment $environment)
     {
-        $nodeFile = Chef::NODES . $config->getNode() . '.json';
+        $nodeFile = Chef::NODES . $environment->getEnvironmentConfig()->getNode() . '.json';
         $node = new Node($nodeFile);
 
         $configKey = 'configure_sites|sites|' . $config->getAppName() . '|mongo_client|';
@@ -105,13 +106,19 @@ class Module extends AbstractModule implements EnableInterface, ConfigureInterfa
         if ($moduleConfig->isEnabled()) {
             $node->setKey($configKey . 'enabled', true);
 
+            $configuredAdapters = $moduleConfig->getMongoAdapters();
             $adapters = array();
-            foreach ($moduleConfig->getMongoAdapters() as $adapter => $enabled) {
-                if ($enabled) {
-                    $adapters[] = $adapter;
+            if (empty($configuredAdapters)) {
+                $adapters[] = "mongodb";
+            } else {
+                foreach ($configuredAdapters as $adapter => $enabled) {
+                    if ($enabled) {
+                        $adapters[] = $adapter;
+                    }
                 }
             }
-            $node->setKey($configKey . 'adapters', $adapters);
+
+            $node->setKey($configKey . 'adapters', $adapters, false);
 
             $node->setKey(
                 'cg|capistrano|' . $config->getAppName() . '|symlinks|config/autoload/di.mongo.global.php',
@@ -126,7 +133,8 @@ class Module extends AbstractModule implements EnableInterface, ConfigureInterfa
 
         exec(
             'git add ' . $nodeFile . ';'
-            . ' git commit -m "' . $this->getGitTicketId() . ' (SKELETON) Updated node ' . $config->getNode() . ' with \'' . $this->getName() . '\' config" --only -- ' . $nodeFile
+            . ' git commit -m "' . $this->getGitTicketId() . ' (SKELETON) Updated node ' . $environment->getEnvironmentConfig()->getNode()
+            . ' with \'' . $this->getName() . '\' config" --only -- ' . $nodeFile
         );
     }
 

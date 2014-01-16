@@ -39,6 +39,7 @@ return array(
                 'CG\Skeleton\Environment\StartupCommand',
                 'CG\Skeleton\Vagrant\StartupCommand',
                 'CG\Skeleton\Chef\StartupCommand',
+                'CG\Skeleton\DevelopmentEnvironment\StartupCommand',
                 'CG\Skeleton\Module\StartupCommand',
                 'CG\Skeleton\Vagrant\Command\Up',
                 'CG\Skeleton\Vagrant\Command\Provision',
@@ -47,6 +48,7 @@ return array(
                 'CG\Skeleton\Vagrant\Command\Halt',
                 'CG\Skeleton\Module\Command',
                 'CG\Skeleton\Environment\Command\PushInfrastructure',
+                'CG\Skeleton\DevelopmentEnvironment\Command\ChangeEnvironment',
                 'CG\Skeleton\Environment\ShutdownCommand'
             ),
             'shared' => true

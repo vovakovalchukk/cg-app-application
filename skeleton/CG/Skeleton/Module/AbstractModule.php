@@ -11,6 +11,7 @@ use SplObjectStorage;
 use CG\Skeleton\Console\Lists\Commands;
 use CG\Skeleton\Module\Command\Enable;
 use CG\Skeleton\Module\Command\Disable;
+use CG\Skeleton\DevelopmentEnvironment\Environment;
 
 abstract class AbstractModule implements ModuleInterface
 {
@@ -49,7 +50,7 @@ abstract class AbstractModule implements ModuleInterface
         }
     }
 
-    public function run(Arguments $arguments, SkeletonConfig $config, BaseConfig $moduleConfig = null)
+    public function run(Arguments $arguments, SkeletonConfig $config, Environment $environment, BaseConfig $moduleConfig = null)
     {
         $this->validateConfig($moduleConfig);
 
@@ -61,10 +62,10 @@ abstract class AbstractModule implements ModuleInterface
             $commands->attach(new Disable($this, $moduleConfig));
         }
 
-        while ($this->commandList($commands, $arguments, $config, $moduleConfig));
+        while ($this->commandList($commands, $arguments, $config, $environment, $moduleConfig));
     }
 
-    protected function commandList(SplObjectStorage $commands, Arguments $arguments, SkeletonConfig $config, BaseConfig $moduleConfig)
+    protected function commandList(SplObjectStorage $commands, Arguments $arguments, SkeletonConfig $config, Environment $environment, BaseConfig $moduleConfig)
     {
         if ($moduleConfig->isEnabled()) {
             $status = Console::COLOR_GREEN . 'Enabled' . Console::COLOR_RESET;
@@ -73,6 +74,6 @@ abstract class AbstractModule implements ModuleInterface
         }
 
         $commandList = new Commands($this->getConsole(), $commands, $this->getName() . ' [' . $status . ']');
-        return $commandList->askAndRun($arguments, $config);
+        return $commandList->askAndRun($arguments, $config, $environment);
     }
 }

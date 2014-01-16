@@ -11,6 +11,7 @@ use CG\Skeleton\Config as SkeletonConfig;
 use CG\Skeleton\Module\BaseConfig;
 use CG\Skeleton\Chef\StartupCommand as Chef;
 use CG\Skeleton\Chef\Node;
+use CG\Skeleton\DevelopmentEnvironment\Environment;
 
 class Module extends AbstractModule implements EnableInterface, ConfigureInterface, DisableInterface
 {
@@ -27,12 +28,12 @@ class Module extends AbstractModule implements EnableInterface, ConfigureInterfa
         $moduleConfig->setEnabled(true);
     }
 
-    public function applyConfiguration(Arguments $arguments, SkeletonConfig $config, BaseConfig $moduleConfig)
+    public function applyConfiguration(Arguments $arguments, SkeletonConfig $config, BaseConfig $moduleConfig, Environment $environment)
     {
         $cwd = getcwd();
         chdir($config->getInfrastructurePath() . '/tools/chef');
         exec('git checkout ' . $config->getBranch() . ' 2>&1;');
-        $this->updateNode($arguments, $config, $moduleConfig);
+        $this->updateNode($arguments, $config, $moduleConfig, $environment);
         chdir($cwd);
 
         $this->updateComposer($moduleConfig, array(
@@ -43,6 +44,7 @@ class Module extends AbstractModule implements EnableInterface, ConfigureInterfa
 
     public function configure(Arguments $arguments, SkeletonConfig $config, BaseConfig $moduleConfig)
     {
+        echo "FUCK YOU\n";
         $this->validateConfig($moduleConfig);
         $this->configureModule($arguments, $config, $moduleConfig, true);
     }
@@ -70,7 +72,6 @@ class Module extends AbstractModule implements EnableInterface, ConfigureInterfa
                 $redisInstances[$redisInstance] = $redisInstance;
             }
         }
-
         if (empty($redisInstances)) {
             $moduleConfig->setEnabled(false);
             $this->getConsole()->writelnErr(
@@ -100,22 +101,29 @@ class Module extends AbstractModule implements EnableInterface, ConfigureInterfa
         chdir($cwd);
     }
 
-    protected function updateNode(Arguments $arguments, SkeletonConfig $config, BaseConfig $moduleConfig)
+    protected function updateNode(Arguments $arguments, SkeletonConfig $config, BaseConfig $moduleConfig, Environment $environment)
     {
-        $nodeFile = Chef::NODES . $config->getNode() . '.json';
+        $nodeFile = Chef::NODES . $environment->getEnvironmentConfig()->getNode() . '.json';
         $node = new Node($nodeFile);
 
         $configKey = 'configure_sites|sites|' . $config->getAppName() . '|redis_client|';
 
         if ($moduleConfig->isEnabled()) {
             $node->setKey($configKey . 'enabled', true);
+
+            $configuredAdapters = $moduleConfig->getRedisAdapters();
             $adapters = array();
-            foreach ($moduleConfig->getRedisAdapters() as $adapter => $enabled) {
-                if ($enabled) {
-                    $adapters[] = $adapter;
+            if (empty($configuredAdapters)) {
+                $adapters[] = "unreliable";
+            } else {
+                foreach ($configuredAdapters as $adapter => $enabled) {
+                    if ($enabled) {
+                        $adapters[] = $adapter;
+                    }
                 }
             }
-            $node->setKey($configKey . 'adapters', $adapters);
+
+            $node->setKey($configKey . 'adapters', $adapters, false);
             $node->setKey(
                 'cg|capistrano|' . $config->getAppName() . '|symlinks|config/autoload/di.redis.global.php',
                 'config/autoload/di.redis.global.php'
@@ -129,7 +137,8 @@ class Module extends AbstractModule implements EnableInterface, ConfigureInterfa
 
         exec(
             'git add ' . $nodeFile . ';'
-            . ' git commit -m "' . $this->getGitTicketId() . ' (SKELETON) Updated node ' . $config->getNode() . ' with \'' . $this->getName() . '\' config" --only -- ' . $nodeFile
+            . ' git commit -m "' . $this->getGitTicketId() . ' (SKELETON) Updated node ' . $environment->getEnvironmentConfig()->getNode()
+            . ' with \'' . $this->getName() . '\' config" --only -- ' . $nodeFile
         );
     }
 

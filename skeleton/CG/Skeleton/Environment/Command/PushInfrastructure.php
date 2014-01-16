@@ -4,6 +4,7 @@ namespace CG\Skeleton\Environment\Command;
 use CG\Skeleton\CommandInterface;
 use CG\Skeleton\Arguments;
 use CG\Skeleton\Config;
+use CG\Skeleton\DevelopmentEnvironment\Environment;
 
 class PushInfrastructure implements CommandInterface
 {
@@ -12,7 +13,7 @@ class PushInfrastructure implements CommandInterface
         return 'Push Infrastructure changes to bitbucket';
     }
 
-    public function run(Arguments $arguments, Config $config)
+    public function run(Arguments $arguments, Config $config, Environment $environment)
     {
         $cwd = getcwd();
         chdir($config->getInfrastructurePath());

@@ -12,6 +12,7 @@ use CG\Skeleton\Module\BaseConfig;
 use CG\Skeleton\Chef\StartupCommand as Chef;
 use CG\Skeleton\Chef\Node;
 use DirectoryIterator;
+use CG\Skeleton\DevelopmentEnvironment\Environment;
 
 class Module extends AbstractModule implements EnableInterface, ConfigureInterface, DisableInterface
 {
@@ -191,7 +192,7 @@ class Module extends AbstractModule implements EnableInterface, ConfigureInterfa
         chdir($cwd);
     }
 
-    public function applyConfiguration(Arguments $arguments, SkeletonConfig $config, BaseConfig $moduleConfig)
+    public function applyConfiguration(Arguments $arguments, SkeletonConfig $config, BaseConfig $moduleConfig, Environment $environment)
     {
         $this->validateConfig($moduleConfig);
         $this->configureModule($arguments, $config, $moduleConfig);
@@ -199,7 +200,7 @@ class Module extends AbstractModule implements EnableInterface, ConfigureInterfa
         $cwd = getcwd();
         chdir($config->getInfrastructurePath() . '/tools/chef');
         exec('git checkout ' . $config->getBranch() . ' 2>&1;');
-        $this->updateNode($arguments, $config, $moduleConfig);
+        $this->updateNode($arguments, $config, $moduleConfig, $environment);
         chdir($cwd);
 
         $this->updateComposer($moduleConfig, array(
@@ -207,19 +208,21 @@ class Module extends AbstractModule implements EnableInterface, ConfigureInterfa
         ));
     }
 
-    protected function updateNode(Arguments $arguments, SkeletonConfig $config, BaseConfig $moduleConfig)
+    protected function updateNode(Arguments $arguments, SkeletonConfig $config, BaseConfig $moduleConfig, Environment $environment)
     {
-        $nodeFile = Chef::NODES . $config->getNode() . '.json';
+        $nodeFile = Chef::NODES . $environment->getEnvironmentConfig()->getNode() . '.json';
         $node = new Node($nodeFile);
 
+        $databaseApplicationKey = 'configure_sites|sites|' . $config->getAppName() . '|database_application|';
         if ($moduleConfig->isEnabled()) {
-            $node->setKey('database|enabled', true);
-            $node->setKey('database|storage_choice', $moduleConfig->getStorageNode());
-            $node->setKey('database|database_choice', $moduleConfig->getDatabaseName());
 
-            $node->removeKey('database|adapters');
+            $node->setKey($databaseApplicationKey . 'enabled', true);
+            $node->setKey($databaseApplicationKey . 'storage_choice', $moduleConfig->getStorageNode());
+            $node->setKey($databaseApplicationKey . 'database_choice', $moduleConfig->getDatabaseName());
+
+            $node->removeKey($databaseApplicationKey . 'adapters');
             foreach ($moduleConfig->getDatabaseAdapters() as $adapter => $user) {
-                $node->setKey('database|adapters|' . $adapter, $user);
+                $node->setKey($databaseApplicationKey . 'adapters|' . $adapter, $user);
             }
 
             $node->setKey(
@@ -227,21 +230,21 @@ class Module extends AbstractModule implements EnableInterface, ConfigureInterfa
                 'config/autoload/database.local.php'
             );
             $node->setKey('configure_sites|sites|' . $config->getAppName() . '|phinxroot', 'phinx');
-            $node->setKey(
-                'cg|capistrano|' . $config->getAppName() . '|symlinks|phinx/phinx.yml', 'phinx/phinx.yml'
-            );
+            $node->setKey( 'cg|capistrano|' . $config->getAppName() . '|symlinks|phinx/phinx.yml', 'phinx/phinx.yml');
         } else {
             $node->removeKey('cg|capistrano|' . $config->getAppName() . '|symlinks|config/autoload/database.local.php');
             $node->removeKey('configure_sites|sites|' . $config->getAppName() . '|phinxroot');
             $node->removeKey('cg|capistrano|' . $config->getAppName() . '|symlinks|phinx/phinx.yml');
-            $node->removeKey('database');
+            $node->removeKey($databaseApplicationKey);
         }
 
+        $environment->setDatabaseStorageKey($config, $moduleConfig, $node);
         $node->save();
 
         exec(
             'git add ' . $nodeFile . ';'
-            . ' git commit -m "' . $this->getGitTicketId() . ' (SKELETON) Updated node ' . $config->getNode() . ' with \'' . $this->getName() . '\' config" --only -- ' . $nodeFile
+            . ' git commit -m "' . $this->getGitTicketId() . ' (SKELETON) Updated node ' . $environment->getEnvironmentConfig()->getNode()
+            . ' with \'' . $this->getName() . '\' config" --only -- ' . $nodeFile
         );
     }
 

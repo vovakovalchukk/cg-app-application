@@ -9,17 +9,31 @@ use CG\Skeleton\CommandInterface;
 use CG\Skeleton\Module\Config as ModuleConfig;
 use CG\Skeleton\Module\ModuleInterface;
 use InvalidArgumentException;
+use CG\Skeleton\DevelopmentEnvironment\Environment;
 
 class Modules extends Commands
 {
     const TAGLINE = 'The following modules are available:';
 
     protected $moduleConfig;
+    protected $environment;
 
-    public function __construct(Console $console, SplObjectStorage $commands, ModuleConfig $moduleConfig)
+    public function __construct(Console $console, SplObjectStorage $commands, ModuleConfig $moduleConfig, Environment $environment)
     {
-        $this->setModuleConfig($moduleConfig);
+        $this->setModuleConfig($moduleConfig)
+             ->setEnvironment($environment);
         parent::__construct($console, $commands);
+    }
+
+    public function setEnvironment($environment)
+    {
+        $this->environment = $environment;
+        return $this;
+    }
+
+    public function getEnvironment()
+    {
+        return $this->environment;
     }
 
     public function setModuleConfig(ModuleConfig $moduleConfig)
@@ -56,7 +70,7 @@ class Modules extends Commands
         }
 
         $moduleConfig = $this->getModuleConfig()->getModule($command->getModuleName());
-        $command->run($arguments, $config, $moduleConfig);
+        $command->run($arguments, $config, $this->getEnvironment(), $moduleConfig);
         $this->getModuleConfig()->setModule($command->getModuleName(), $moduleConfig);
     }
 }
