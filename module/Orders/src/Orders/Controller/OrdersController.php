@@ -131,7 +131,7 @@ class OrdersController extends AbstractActionController
         $bulkItems->setTemplate('orders/orders/bulk-actions');
         $view->addChild($bulkItems, 'bulkItems');
 
-        $filters = $this->getViewModelFactory()->newInstance();
+        $filters = $this->getViewModelFactory()->newInstance(['filter' => $this->getService()->getSessionFilter()]);
         $filters->setTemplate('orders/orders/filters');
         $view->addChild($filters, 'filters');
 
@@ -161,7 +161,7 @@ class OrdersController extends AbstractActionController
         }
 
         try {
-            $orders = $this->getOrderService()->getOrders($limit, $page);
+            $orders = $this->getOrderService()->getOrders($limit, $page, $this->params()->fromPost('filter', []));
 
             $data['iTotalRecords'] = (int) $orders->getTotal();
             $data['iTotalDisplayRecords'] = (int) $orders->getTotal();
