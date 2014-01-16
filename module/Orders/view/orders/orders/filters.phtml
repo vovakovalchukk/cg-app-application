@@ -1,9 +1,14 @@
 <?php $this->placeholder('#content.style')->append('margin-top: 199px;'); ?>
-<?php $this->headScript()->appendFile($this->basePath() . '/channelgrabber/zf2-v4-ui/js/order.js'); ?>
 <?php $this->inlineScript()->captureStart(); ?>
+$("#datatable").on("fnServerData", function(event, sSource, aoData, fnCallback, oSettings) {
+    $("#filters input[name], #filters select[name]").each(function() {
+        aoData.push({"name": "filter[" + $(this).attr("name") + "]", "value": $(this).val()});
+    });
+});
+
 $(function() {
-    $("#filters #filter-btn").click(function() {
-        applyFilter();
+    $("#filter-btn").on("click", function() {
+        $("#datatable").cgDataTable("redraw");
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
