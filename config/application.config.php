@@ -8,6 +8,7 @@ return array(
         'CG_UI',
         'CG_Login',
         'CG_Register',
+        'Mustache',
 //        'CG_SSO',
         'Orders',
     ),
