@@ -184,7 +184,7 @@ class OrdersController extends AbstractActionController
             ]
         ];
         $dateRangeFilter = $this->getViewModelFactory()->newInstance();
-        $dateRangeFilter->setTemplate('filters/date-range');
+        $dateRangeFilter->setTemplate('elements/date-range');
         $dateRangeFilter->setVariable('options', $dateRangeOptions);
         $filterRow[] = $viewRender->render($dateRangeFilter);
 
@@ -197,8 +197,13 @@ class OrdersController extends AbstractActionController
                 ['href' => '#', 'class' => '', 'title' => 'Dispatched']
             ]
         ];
+        $customSelect = $this->getViewModelFactory()->newInstance();
+        $customSelect->setTemplate('elements/custom-select');
+        $customSelect->setVariable('options', $options);
+        $options['customSelect'] = $viewRender->render($customSelect);
+
         $statusFilter = $this->getViewModelFactory()->newInstance();
-        $statusFilter->setTemplate('filters/custom-select');
+        $statusFilter->setTemplate('elements/custom-select');
         $statusFilter->setVariable('options', $options);
         $filterRow[] = $viewRender->render($statusFilter);
 
@@ -209,13 +214,13 @@ class OrdersController extends AbstractActionController
             'value' => ''
         ];
         $statusFilter = $this->getViewModelFactory()->newInstance();
-        $statusFilter->setTemplate('filters/text');
+        $statusFilter->setTemplate('elements/text');
         $statusFilter->setVariable('options', $options);
         $filterRow[] = $viewRender->render($statusFilter);
 
         $options = ['Account','Channel','Include Country','Exclude Country','Show Archived','Multi-Line Orders','Multiple Same Item','Flags','Columns']; 
         $filter = $this->getViewModelFactory()->newInstance();
-        $filter->setTemplate('filters/columns');
+        $filter->setTemplate('elements/columns');
         $filter->setVariable('options', $options);
         $filterRow[] = $viewRender->render($filter);
 
@@ -225,7 +230,7 @@ class OrdersController extends AbstractActionController
             ['value' => 'Save', 'name' => 'save-filters', 'action' => 'save-filters'],
         ];
         $filterButtons = $this->getViewModelFactory()->newInstance();
-        $filterButtons->setTemplate('filters/buttons');
+        $filterButtons->setTemplate('elements/buttons');
         $filterButtons->setVariable('options', $options);
         $filterRow[] = $viewRender->render($filterButtons);
         $filterRows[] = $filterRow;
@@ -236,7 +241,7 @@ class OrdersController extends AbstractActionController
             'options' => ['UK','Austria','Croatia','Cyprus','France','Germany','Italy','Spain'],
         ]; 
         $filterButtons = $this->getViewModelFactory()->newInstance();
-        $filterButtons->setTemplate('filters/custom-select-group');
+        $filterButtons->setTemplate('elements/custom-select-group');
         $filterButtons->setVariable('options', $options);
         $filterRow[] = $viewRender->render($filterButtons);
         $filterRows[] = $filterRow;
