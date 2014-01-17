@@ -22,6 +22,7 @@ return array(
   '__Mustache_7fb393e94931f1ef136e58187c228719'    => __DIR__ . '/../../module/Orders/src/Orders/Controller/tmp/cache/mustache/__Mustache_7fb393e94931f1ef136e58187c228719.php',
   '__Mustache_8a3a03e7e7058abd5eb187d332194444'    => __DIR__ . '/../../module/Orders/src/Orders/Controller/tmp/cache/mustache/__Mustache_8a3a03e7e7058abd5eb187d332194444.php',
   '__Mustache_9854b9da15e4b2c2584913e1a5462577'    => __DIR__ . '/../../module/Orders/src/Orders/Controller/tmp/cache/mustache/__Mustache_9854b9da15e4b2c2584913e1a5462577.php',
+  'Orders\Filter\Service'                          => __DIR__ . '/../../module/Orders/src/Orders/Filter/Service.php',
   'Orders\Order\Service'                           => __DIR__ . '/../../module/Orders/src/Orders/Order/Service.php',
   'NewRelic\Module'                                => __DIR__ . '/../../module/NewRelic/Module.php',
   'attach'                                         => __DIR__ . '/../../module/NewRelic/Module.php',
