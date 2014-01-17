@@ -13,7 +13,26 @@ $("#filters input[name='clear-filters']").on("click", function() {
     $("#filters input[name][type!='button'], #filters select[name]").val(undefined);
     $("#datatable").cgDataTable("redraw");
 });
+
+$.ajax({
+    'url' : '<?= $this->basePath() . Orders\Module::PUBLIC_FOLDER . 'template/order/row.html' ?>',
+    'async' : 'false',
+    'method' : 'GET',
+    'success' : function(template) {
+        $("#datatable").on("fnRowCallback", function (event, nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+            var html;
+            aData.currencySymbol = Mustache.to_html($(template).filter("#" + aData.currencyCode).html(), aData);
+            dateTime = aData.purchaseDate.split(" ");
+            aData.dateTime = Mustache.to_html($(template).filter("#dateTime").html(), {'date' : dateTime[0], 'time' : dateTime[1]});
+            aData.extraItems = JSON.parse(JSON.stringify(aData.items));
+            aData.extraItems.splice(0, 1);
+            html = Mustache.to_html($(template).filter("#order-row").html(), aData);
+            $(nRow).html(html);
+        });
+    }
+});
 <?php $this->inlineScript()->captureEnd(); ?>
+<?php $this->headScript()->appendFile($this->basePath() . Orders\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
 <?php $this->placeholder('#main.class')->append('full-width'); ?>
 <?php $this->placeholder('#sub-header')->append($this->filters); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
