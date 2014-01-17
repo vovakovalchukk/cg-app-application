@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "478f2460ebe51e7deb9e52af0f288c55",
+    "hash": "050e66f21c879f45f7e349e4aea9640a",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -515,14 +515,20 @@
         },
         {
             "name": "channelgrabber/http",
-            "version": "dev-CGIV-1285",
+            "version": "1.2.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cghttp.git",
-                "reference": "7d97a3cdc96f9bb25eee5eeb58ef3afd9769fc9c"
+                "reference": "14c0d76daa9ecc1508f986162bd6f035c405b2dc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.2.4-ab4580.zip",
+                "reference": "14c0d76daa9ecc1508f986162bd6f035c405b2dc",
+                "shasum": "97e40eb6f5a6c0308f9a47ab03f5fda3cd80b611"
             },
             "require": {
-                "channelgrabber/stdlib": "~2.4.2"
+                "channelgrabber/stdlib": ">=2.4.2,<2.6.0"
             },
             "replace": {
                 "channelgrabber/cghttp": "*"
@@ -533,7 +539,7 @@
                     "CG\\Http\\": ""
                 }
             },
-            "time": "2014-01-14 09:20:32"
+            "time": "2014-01-17 12:30:13"
         },
         {
             "name": "channelgrabber/log",
@@ -1073,21 +1079,22 @@
         },
         {
             "name": "channelgrabber/zf2-stdlib",
-            "version": "1.1.3",
+            "version": "1.1.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgzf2stdlib.git",
-                "reference": "3306412e9795ed187b234e99226fac41b876aebf"
+                "reference": "769aad210c002a979aee67ff50240cceae1f5d9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-1.1.3-179eab.zip",
-                "reference": "3306412e9795ed187b234e99226fac41b876aebf",
-                "shasum": "ebf1429c6d2bc27c5a7dbde76e8d61610b14b1a4"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-1.1.5-2183ff.zip",
+                "reference": "769aad210c002a979aee67ff50240cceae1f5d9e",
+                "shasum": "134606b24e9f0ddb34ef87fd01263ce8d9eb35d1"
             },
             "require": {
                 "channelgrabber/cache": ">=1.1.0,<1.3.0",
-                "channelgrabber/stdlib": ">=2.0.7,<2.5.0",
+                "channelgrabber/stdlib": ">=2.0.7,<2.6.0",
+                "zendframework/zend-db": "~2.2",
                 "zendframework/zend-di": "~2.2",
                 "zendframework/zend-eventmanager": "~2.2",
                 "zendframework/zend-http": "~2.2",
@@ -1099,7 +1106,7 @@
                     "CG\\Zend\\Stdlib\\": ""
                 }
             },
-            "time": "2014-01-13 15:04:33"
+            "time": "2014-01-17 11:53:01"
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
@@ -3009,12 +3016,6 @@
     ],
     "aliases": [
         {
-            "alias": "1.2.3",
-            "alias_normalized": "1.2.3.0",
-            "version": "dev-CGIV-1285",
-            "package": "channelgrabber/http"
-        },
-        {
             "alias": "1.0.5",
             "alias_normalized": "1.0.5.0",
             "version": "dev-CGIV-1220-DiFixes",
@@ -3030,7 +3031,6 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/http": 20,
         "channelgrabber/order": 20,
         "channelgrabber/redis": 20,
         "channelgrabber/zf2-v4-ui": 20,
