@@ -79,4 +79,9 @@ class Service
 
         return $storage['orders']['filter'];
     }
+
+    public function getEntityFromArray(array $data)
+    {
+        return $this->getMapper()->fromArray($data);
+    }
 }

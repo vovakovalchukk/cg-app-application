@@ -4,32 +4,51 @@ namespace Orders\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use Orders\Order\Service;
+use Orders\Order\Service as OrderService;
+use Orders\Filter\Service as FilterService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 
 class OrdersController extends AbstractActionController
 {
-    protected $service;
+    protected $orderService;
+    protected $filterService;
     protected $jsonModelFactory;
     protected $viewModelFactory;
 
-    public function __construct(Service $service, JsonModelFactory $jsonModelFactory, ViewModelFactory $viewModelFactory)
+    public function __construct(
+        OrderService $orderService,
+        FilterService $filterService,
+        JsonModelFactory $jsonModelFactory,
+        ViewModelFactory $viewModelFactory
+    )
     {
         $this
-            ->setService($service)
+            ->setOrderService($orderService)
+            ->setFilterService($filterService)
             ->setJsonModelFactory($jsonModelFactory)
             ->setViewModelFactory($viewModelFactory);
     }
 
-    public function setService(Service $service)
+    public function setOrderService(OrderService $orderService)
     {
-        $this->service = $service;
+        $this->orderService = $orderService;
         return $this;
     }
 
-    public function getService()
+    public function getOrderService()
     {
-        return $this->service;
+        return $this->orderService;
+    }
+
+    public function setFilterService(FilterService $filterService)
+    {
+        $this->filterService = $filterService;
+        return $this;
+    }
+
+    public function getFilterService()
+    {
+        return $this->filterService;
     }
 
     public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -58,7 +77,7 @@ class OrdersController extends AbstractActionController
     {
         $view = $this->getViewModelFactory()->newInstance();
 
-        $ordersTable = $this->getService()->getOrdersTable();
+        $ordersTable = $this->getOrderService()->getOrdersTable();
         $settings = $ordersTable->getVariable('settings');
         $settings->setSource($this->url()->fromRoute('Orders/ajax'));
         $view->addChild($ordersTable, 'ordersTable');
@@ -131,7 +150,7 @@ class OrdersController extends AbstractActionController
 
     protected function getFilterBar()
     {
-        $filterObject = $this->getService()->getSessionFilter();
+        $filterObject = $this->getFilterService()->getPersistentEntity();
         $viewRender = $this->getServiceLocator()->get('Mustache\View\Renderer');
 
         $filterRows = [];
@@ -255,8 +274,22 @@ class OrdersController extends AbstractActionController
             $page += $this->params()->fromPost('iDisplayStart') / $limit;
         }
 
+        $filter = $this->getFilterService()->getEntity()
+            ->setLimit($limit)
+            ->setPage($page)
+            ->setOrganisationUnitId([$this->getOrderService()->getActiveUser()->getOrganisationUnitId()]);
+
+        $requestFilter = $this->params()->fromPost('filter', []);
+        if (!empty($requestFilter)) {
+            $filter->merge(
+                $this->getFilterService()->getEntityFromArray($requestFilter)
+            );
+        }
+
+        $this->getFilterService()->setPersistentEntity($filter);
+
         try {
-            $orders = $this->getService()->getOrders($limit, $page, $this->params()->fromPost('filter', []));
+            $orders = $this->getOrderService()->getOrders($filter);
 
             $data['iTotalRecords'] = (int) $orders->getTotal();
             $data['iTotalDisplayRecords'] = (int) $orders->getTotal();
