@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "31b275e40c3181c8b14d2d4e82cde05a",
+    "hash": "645dc75b6a5ab70624c1ffe97046aa10",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -578,11 +578,11 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-1361",
+            "version": "dev-CGIV-1283",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "d1da129e82bc0a686d0378989d5a561bf6c8bc14"
+                "reference": "aba7e89859e3a9a4d7599453ae3d85c9956a3cda"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.0,<1.3.0",
@@ -602,7 +602,7 @@
                     "CG\\Order\\": ""
                 }
             },
-            "time": "2014-01-17 12:42:18"
+            "time": "2014-01-17 15:53:44"
         },
         {
             "name": "channelgrabber/predis",
@@ -1110,11 +1110,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-1220-Filters",
+            "version": "dev-CGIV-1283",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "17c37e21c130e89009d55a333f00bd6cd66edffa"
+                "reference": "1817e52993acfd93739c4f24d9c1999ae8efff94"
             },
             "require": {
                 "channelgrabber/zf2-stdlib": ">=1.0.3,<1.2.0",
@@ -1136,7 +1136,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-01-17 14:13:09"
+            "time": "2014-01-17 15:49:05"
         },
         {
             "name": "codeception/codeception",
@@ -3101,15 +3101,15 @@
     ],
     "aliases": [
         {
-            "alias": "1.1.1",
-            "alias_normalized": "1.1.1.0",
-            "version": "dev-CGIV-1361",
+            "alias": "1.1.2",
+            "alias_normalized": "1.1.2.0",
+            "version": "dev-CGIV-1283",
             "package": "channelgrabber/order"
         },
         {
-            "alias": "1.0.6",
-            "alias_normalized": "1.0.6.0",
-            "version": "dev-CGIV-1220-Filters",
+            "alias": "1.0.7",
+            "alias_normalized": "1.0.7.0",
+            "version": "dev-CGIV-1283",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
