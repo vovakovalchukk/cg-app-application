@@ -2,7 +2,9 @@
 $modules = array(
     'CG\Skeleton\Module\Db\Module',
     'CG\Skeleton\Module\Redis\Module',
-    'CG\Skeleton\Module\Mongo\Module'
+    'CG\Skeleton\Module\Mongo\Module',
+    'CG\Skeleton\Module\GearmanClient\Module',
+    'CG\Skeleton\Module\GearmanWorker\Module'
 );
 
 return array(
