@@ -31,19 +31,6 @@ class IndexController extends AbstractActionController implements ServiceLocator
 
     public function indexAction()
     {
-        $view = new ViewModel();
-        $view->setVariable('framework', 'ZF2');
-
-        $serviceLocator = $this->getServiceLocator();
-        try {
-            $dbAdapter = $serviceLocator->get('readDb');
-            $view->setVariable('db', $dbAdapter->getCurrentSchema());
-            $view->setVariable('tables', $dbAdapter->query('SHOW TABLES', Adapter::QUERY_MODE_EXECUTE));
-        }
-        catch (ExceptionInterface $exception) {
-            // If no Db Adapter - Application created without database
-        }
-
-        return $view;
+        $this->redirect()->toRoute('Orders');
     }
 }
