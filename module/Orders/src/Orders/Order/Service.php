@@ -47,8 +47,7 @@ class Service
     {
         $filter = $this->getFilter()
             ->setLimit($limit)
-            ->setPage($page)
-            ->setOrganisationUnitId([$this->getActiveUser()->getOrganisationUnitId()]);
+            ->setPage($page);
 
         if (!empty($filters)) {
             $filter->merge(
@@ -58,6 +57,27 @@ class Service
 
         $this->setSessionFilter($filter);
         return $this->getOrderClient()->fetchCollectionByFilter($filter);
+    }
+
+    public function setSessionFilter(Filter $filter)
+    {
+        $session = $this->getSessionStorage();
+
+        if (!isset($session['orders'])) {
+            $session['orders'] = [];
+        }
+        $session['orders']['filter'] = $filter;
+        return $this;
+    }
+
+    protected function getSessionStorage()
+    {
+        return $this->getSessionManager()->getStorage();
+    }
+
+    public function getActiveUser()
+    {
+        return $this->getActiveUserContainer()->getActiveUser();
     }
 
     public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
