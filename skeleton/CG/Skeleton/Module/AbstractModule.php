@@ -1,6 +1,7 @@
 <?php
 namespace CG\Skeleton\Module;
 
+use CG\Skeleton\Composer\Composer;
 use CG\Skeleton\Module\ModuleInterface;
 use CG\Skeleton\Console;
 use CG\Skeleton\Arguments;
@@ -16,10 +17,12 @@ use CG\Skeleton\DevelopmentEnvironment\Environment;
 abstract class AbstractModule implements ModuleInterface
 {
     protected $console;
+    protected $composer;
 
-    public function __construct(Console $console)
+    public function __construct(Console $console, Composer $composer)
     {
-        $this->setConsole($console);
+        $this->setConsole($console)
+             ->setComposer($composer);
     }
 
     public function setConsole(Console $console)
@@ -31,6 +34,17 @@ abstract class AbstractModule implements ModuleInterface
     public function getConsole()
     {
         return $this->console;
+    }
+
+    public function setComposer(Composer $composer)
+    {
+        $this->composer = $composer;
+        return $this;
+    }
+
+    public function getComposer()
+    {
+        return $this->composer;
     }
 
     public function getName()

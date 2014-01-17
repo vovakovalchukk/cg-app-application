@@ -16,7 +16,6 @@ use CG\Skeleton\DevelopmentEnvironment\Environment;
 
 class Module extends AbstractModule implements EnableInterface, ConfigureInterface, DisableInterface
 {
-    use \CG\Skeleton\ComposerTrait;
     use \CG\Skeleton\GitTicketIdTrait;
 
     public function getModuleName()
@@ -203,9 +202,13 @@ class Module extends AbstractModule implements EnableInterface, ConfigureInterfa
         $this->updateNode($arguments, $config, $moduleConfig, $environment);
         chdir($cwd);
 
-        $this->updateComposer($moduleConfig, array(
-            'channelgrabber/phinx:~0.2.9.1'
-        ));
+        $composerRequires = array('channelgrabber/phinx:~0.2.9.2');
+
+        if ($moduleConfig->isEnabled()) {
+            $this->getComposer()->addRequires($moduleConfig, $composerRequires);
+        } else {
+            $this->getComposer()->removeRequires($moduleConfig, $composerRequires, false);
+        }
     }
 
     protected function updateNode(Arguments $arguments, SkeletonConfig $config, BaseConfig $moduleConfig, Environment $environment)

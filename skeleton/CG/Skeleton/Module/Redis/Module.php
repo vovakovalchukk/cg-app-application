@@ -15,7 +15,6 @@ use CG\Skeleton\DevelopmentEnvironment\Environment;
 
 class Module extends AbstractModule implements EnableInterface, ConfigureInterface, DisableInterface
 {
-    use \CG\Skeleton\ComposerTrait;
     use \CG\Skeleton\GitTicketIdTrait;
 
     public function getModuleName()
@@ -36,10 +35,16 @@ class Module extends AbstractModule implements EnableInterface, ConfigureInterfa
         $this->updateNode($arguments, $config, $moduleConfig, $environment);
         chdir($cwd);
 
-        $this->updateComposer($moduleConfig, array(
+        $composerRequires = array(
             'predis/predis:~0.8.3',
             'channelgrabber/predis:~1.0.1'
-        ));
+        );
+
+        if ($moduleConfig->isEnabled()) {
+            $this->getComposer()->addRequires($moduleConfig, $composerRequires);
+        } else {
+            $this->getComposer()->removeRequires($moduleConfig, $composerRequires, false);
+        }
     }
 
     public function configure(Arguments $arguments, SkeletonConfig $config, BaseConfig $moduleConfig)
