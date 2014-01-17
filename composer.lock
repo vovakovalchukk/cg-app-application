@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "050e66f21c879f45f7e349e4aea9640a",
+    "hash": "2e0c871bb675e43111f9c37e6b8e5182",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -1114,7 +1114,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "ea06aaa028070b2ade8d125c561d57f0641e4c4e"
+                "reference": "17c37e21c130e89009d55a333f00bd6cd66edffa"
             },
             "require": {
                 "channelgrabber/zf2-stdlib": ">=1.0.3,<1.2.0",
@@ -1136,7 +1136,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-01-16 10:03:45"
+            "time": "2014-01-17 14:13:09"
         },
         {
             "name": "codeception/codeception",
@@ -1575,6 +1575,51 @@
                 "psr-3"
             ],
             "time": "2013-11-14 19:48:31"
+        },
+        {
+            "name": "mustache/mustache",
+            "version": "v2.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bobthecow/mustache.php.git",
+                "reference": "996c944fa2ddedddfaf0d276b913809d6a32fd85"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bobthecow/mustache.php/zipball/996c944fa2ddedddfaf0d276b913809d6a32fd85",
+                "reference": "996c944fa2ddedddfaf0d276b913809d6a32fd85",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Mustache": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Justin Hileman",
+                    "email": "justin@justinhileman.info",
+                    "homepage": "http://justinhileman.com"
+                }
+            ],
+            "description": "A Mustache implementation in PHP.",
+            "homepage": "https://github.com/bobthecow/mustache.php",
+            "keywords": [
+                "mustache",
+                "templating"
+            ],
+            "time": "2014-01-09 00:36:09"
         },
         {
             "name": "nocarrier/hal",
@@ -2893,6 +2938,46 @@
             "time": "2013-12-22 12:49:53"
         },
         {
+            "name": "widmogrod/zf2-mustache-module",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/widmogrod/zf2-mustache-module.git",
+                "reference": "e0e5fc7f56441eff2e9c6c4e62709b2d1cfb9f20"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/widmogrod/zf2-mustache-module/zipball/e0e5fc7f56441eff2e9c6c4e62709b2d1cfb9f20",
+                "reference": "e0e5fc7f56441eff2e9c6c4e62709b2d1cfb9f20",
+                "shasum": ""
+            },
+            "require": {
+                "mustache/mustache": "2.*",
+                "php": ">=5.3.3",
+                "zendframework/zendframework": "2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Mustache": "src"
+                },
+                "classmap": [
+                    "./Module.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Gabriel Habryn",
+                    "email": "widmogrod@gmail.com",
+                    "homepage": "http://blog.widmogrod.info",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Zend Framework 2 module providing integration with the Mustache rendering engine.",
+            "time": "2013-07-19 17:49:50"
+        },
+        {
             "name": "zendframework/zendframework",
             "version": "2.2.5",
             "source": {
@@ -3034,7 +3119,8 @@
         "channelgrabber/order": 20,
         "channelgrabber/redis": 20,
         "channelgrabber/zf2-v4-ui": 20,
-        "phpspec/phpspec": 20
+        "phpspec/phpspec": 20,
+        "widmogrod/zf2-mustache-module": 20
     },
     "platform": {
         "php": ">=5.3.3"
