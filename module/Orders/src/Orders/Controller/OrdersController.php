@@ -220,7 +220,7 @@ class OrdersController extends AbstractActionController
 
         $options = ['Account','Channel','Include Country','Exclude Country','Show Archived','Multi-Line Orders','Multiple Same Item','Flags','Columns']; 
         $filter = $this->getViewModelFactory()->newInstance();
-        $filter->setTemplate('elements/columns');
+        $filter->setTemplate('elements/custom-select-group');
         $filter->setVariable('options', $options);
         $filterRow[] = $viewRender->render($filter);
 
