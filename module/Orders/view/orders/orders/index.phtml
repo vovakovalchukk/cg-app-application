@@ -1,3 +1,19 @@
+<?php $this->inlineScript()->captureStart(); ?>
+$("#datatable").on("fnServerData", function(event, sSource, aoData, fnCallback, oSettings) {
+    $("#filters input[name], #filters select[name]").each(function() {
+        aoData.push({"name": "filter[" + $(this).attr("name") + "]", "value": $(this).val()});
+    });
+});
+
+$("#filters input[name='apply-filters']").on("click", function() {
+    $("#datatable").cgDataTable("redraw");
+});
+
+$("#filters input[name='clear-filters']").on("click", function() {
+    $("#filters input[name][type!='button'], #filters select[name]").val(undefined);
+    $("#datatable").cgDataTable("redraw");
+});
+<?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#main.class')->append('full-width'); ?>
 <?php $this->placeholder('#sub-header')->append($this->filters); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>

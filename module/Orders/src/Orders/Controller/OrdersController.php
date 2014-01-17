@@ -131,6 +131,7 @@ class OrdersController extends AbstractActionController
 
     protected function getFilterBar()
     {
+        $filterObject = $this->getService()->getSessionFilter();
         $viewRender = $this->getServiceLocator()->get('Mustache\View\Renderer');
 
         $filterRows = [];
@@ -197,7 +198,7 @@ class OrdersController extends AbstractActionController
             'title' => 'Contains Text',
             'placeholder' => 'Contains Text...',
             'class' => '',
-            'value' => ''
+            'value' => $filterObject->getSearchTerm()
         ];
         $statusFilter = $this->getViewModelFactory()->newInstance();
         $statusFilter->setTemplate('elements/text');
@@ -232,7 +233,7 @@ class OrdersController extends AbstractActionController
         $filterRow[] = $viewRender->render($filterButtons);
         $filterRows[] = $filterRow;
 
-        $filterBar = $this->getViewModelFactory()->newInstance(['filter' => $this->getService()->getSessionFilter()]);
+        $filterBar = $this->getViewModelFactory()->newInstance();
         $filterBar->setTemplate('layout/filters');
         $filterBar->setVariable('filterRows', $filterRows);
         return $filterBar;
