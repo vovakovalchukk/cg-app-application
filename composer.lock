@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "ce48e8478d60db3364d35ef3e6ccd3ad",
+    "hash": "645dc75b6a5ab70624c1ffe97046aa10",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -578,17 +578,11 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.1.1",
+            "version": "dev-CGIV-1283",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "3ad58ac1c254fcd1fe956f9b263af3cdc30401be"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.1.1-3a5aaa.zip",
-                "reference": "3ad58ac1c254fcd1fe956f9b263af3cdc30401be",
-                "shasum": "36e2b625551c83705ed58ce5a849e04d569c891a"
+                "reference": "aba7e89859e3a9a4d7599453ae3d85c9956a3cda"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.0,<1.3.0",
@@ -608,7 +602,7 @@
                     "CG\\Order\\": ""
                 }
             },
-            "time": "2014-01-17 17:17:45"
+            "time": "2014-01-17 15:53:44"
         },
         {
             "name": "channelgrabber/predis",
@@ -1116,17 +1110,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.1.2",
+            "version": "dev-CGIV-1283",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "283fd89467aa1a3f9cac849cbece852c993a1d1b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.1.2-a23e8b.zip",
-                "reference": "283fd89467aa1a3f9cac849cbece852c993a1d1b",
-                "shasum": "f2d7526e6a2f62778750eec1b8f58ae55166a0cf"
+                "reference": "aa39ebe0e127d0c71e39fbda9d33c3f0b9e558e4"
             },
             "require": {
                 "channelgrabber/zf2-stdlib": ">=1.0.3,<1.2.0",
@@ -1148,7 +1136,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-01-17 17:31:00"
+            "time": "2014-01-20 09:57:19"
         },
         {
             "name": "codeception/codeception",
@@ -3112,12 +3100,25 @@
 
     ],
     "aliases": [
-
+        {
+            "alias": "1.1.2",
+            "alias_normalized": "1.1.2.0",
+            "version": "dev-CGIV-1283",
+            "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.0.7",
+            "alias_normalized": "1.0.7.0",
+            "version": "dev-CGIV-1283",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "channelgrabber/redis": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpspec/phpspec": 20,
         "widmogrod/zf2-mustache-module": 20
     },
