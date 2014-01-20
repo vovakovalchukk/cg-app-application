@@ -17,8 +17,12 @@ class OrdersController extends AbstractActionController
     protected $filterService;
     protected $batchService;
 
-    public function __construct(JsonModelFactory $jsonModelFactory, ViewModelFactory $viewModelFactory, 
-                                OrderService $orderService, FilterService $filterService, BatchService $batchService)
+    public function __construct(
+        JsonModelFactory $jsonModelFactory,
+        ViewModelFactory $viewModelFactory,
+        OrderService $orderService,
+        FilterService $filterService,
+        BatchService $batchService)
     {
         $this->setJsonModelFactory($jsonModelFactory)
             ->setViewModelFactory($viewModelFactory)
@@ -302,7 +306,7 @@ class OrdersController extends AbstractActionController
         $this->getFilterService()->setPersistentFilter($filter);
 
         try {
-            $orders = $this->getOrderService()->getOrders($limit, $page, $this->params()->fromPost('filter', []));
+            $orders = $this->getOrderService()->getOrders($filter);
             $data['iTotalRecords'] = (int) $orders->getTotal();
             $data['iTotalDisplayRecords'] = (int) $orders->getTotal();
 
