@@ -113,11 +113,9 @@ class OrdersController extends AbstractActionController
                         'class' => 'dispatch'
                     ],
                     [
-                        'title' => 'Tag / Untag',
+                        'title' => 'Tag',
                         'class' => 'tag-untag',
-                        'sub-actions' => [
-
-                        ]
+                        'action' => 'tag'
                     ],
                     [
                         'title' => 'Download CSV',

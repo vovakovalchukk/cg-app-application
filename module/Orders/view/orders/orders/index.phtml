@@ -14,6 +14,10 @@ $("#filters input[name='clear-filters']").on("click", function() {
     $("#datatable").cgDataTable("redraw");
 });
 
+$("#bulk-actions").bulkActions("set", "tag", function(event) {
+    alert("Tag");
+});
+
 var currencies = {
     'AUD' : {symbol: '$', format: '@symbol@value'},
     'DKK' : {symbol: 'kr', format: '@value @symbol'},
