@@ -101,6 +101,7 @@ return [
                     'column' => 'id',
                     'html' => '<input type="checkbox" name="select-all" class="select-all" data-group="mainTable" />',
                     'class' => 'checkbox',
+                    'sortable' => false
                 ],
             ],
             'OrdersChannelColumn' => [

@@ -3,6 +3,7 @@
 return array(
   'DataTable'                                      => __DIR__ . '/../../module/Orders/config/module.config.php',
   'Service'                                        => __DIR__ . '/../../module/Orders/config/module.config.php',
+  'false'                                          => __DIR__ . '/../../module/Orders/config/module.config.php',
   'Orders\Module'                                  => __DIR__ . '/../../module/Orders/Module.php',
   'Orders\Controller\OrdersController'             => __DIR__ . '/../../module/Orders/src/Orders/Controller/OrdersController.php',
   '__Mustache_eed1db1e62b13b1f68f45da5a5c3be45'    => __DIR__ . '/../../module/Orders/src/Orders/Controller/tmp/cache/mustache/__Mustache_eed1db1e62b13b1f68f45da5a5c3be45.php',
