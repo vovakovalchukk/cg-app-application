@@ -36,5 +36,4 @@ return array(
   'Orders\Filter\Service'                          => __DIR__ . '/../../module/Orders/src/Orders/Filter/Service.php',
   'Orders\Order\Batch\Service'                     => __DIR__ . '/../../module/Orders/src/Orders/Order/Batch/Service.php',
   'Orders\Order\Service'                           => __DIR__ . '/../../module/Orders/src/Orders/Order/Service.php',
-  'Orders\OrganisationUnit\Service'                => __DIR__ . '/../../module/Orders/src/Orders/OrganisationUnit/Service.php',
 );
