@@ -84,4 +84,9 @@ class Service
     {
         return $this->getMapper()->fromArray($data);
     }
+
+    public function mergeEntities(Entity $entity1, $entity2)
+    {
+        return $this->getMapper()->merge($entity1, $entity2);
+    }
 }

@@ -281,7 +281,8 @@ class OrdersController extends AbstractActionController
 
         $requestFilter = $this->params()->fromPost('filter', []);
         if (!empty($requestFilter)) {
-            $filter->merge(
+            $filter = $this->getFilterService()->mergeEntities(
+                $filter,
                 $this->getFilterService()->getEntityFromArray($requestFilter)
             );
         }
