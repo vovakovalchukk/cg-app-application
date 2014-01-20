@@ -25,7 +25,16 @@ return [
                                 'action' => 'json',
                             ]
                         ]
-                    ]
+                    ],
+                    'tag' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/tag.json',
+                            'defaults' => [
+                                'action' => 'tag',
+                            ]
+                        ]
+                    ],
                 ],
             ],
         ],

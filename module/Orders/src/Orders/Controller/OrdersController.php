@@ -302,4 +302,35 @@ class OrdersController extends AbstractActionController
 
         return $this->getJsonModelFactory()->newInstance($data);
     }
+
+    public function tagAction()
+    {
+        $tag = $this->params()->fromPost('tag');
+        if (!$tag) {
+            return;
+        }
+
+        $ids = $this->params()->fromPost('orders');
+        if (!is_array($ids) || empty($ids)) {
+            return;
+        }
+
+        $filter = $this->getFilterService()->getFilter()
+            ->setLimit('all')
+            ->setPage(1)
+            ->setOrganisationUnitId([$this->getOrderService()->getActiveUser()->getOrganisationUnitId()])
+            ->setId($ids);
+
+        try {
+            foreach($this->getOrderService()->getOrders($filter) as $order) {
+                $tags = $order->getTags();
+                $tags[] = $tag;
+                $this->getOrderService()->saveOrder(
+                    $order->setTags(array_unique($tags))
+                );
+            }
+        } catch (NotFound $exception) {
+            // No Orders so ignoring
+        }
+    }
 }

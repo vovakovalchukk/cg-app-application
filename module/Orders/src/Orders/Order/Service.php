@@ -5,6 +5,7 @@ use CG_UI\View\DataTable;
 use CG\Order\Shared\StorageInterface;
 use CG\User\ActiveUserInterface;
 use CG\Order\Service\Filter;
+use CG\Order\Shared\Entity as Order;
 
 class Service
 {
@@ -65,5 +66,10 @@ class Service
     public function getOrders(Filter $filter)
     {
         return $this->getOrderClient()->fetchCollectionByFilter($filter);
+    }
+
+    public function saveOrder(Order $entity)
+    {
+        return $this->getOrderClient()->save($entity);
     }
 }
