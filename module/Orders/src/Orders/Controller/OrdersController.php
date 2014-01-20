@@ -306,7 +306,7 @@ class OrdersController extends AbstractActionController
         $this->getFilterService()->setPersistentFilter($filter);
 
         try {
-            $orders = $this->getOrderService()->getOrders($limit, $page, $this->params()->fromPost('filter', []));
+            $orders = $this->getOrderService()->getOrders($filter);
             $data['iTotalRecords'] = (int) $orders->getTotal();
             $data['iTotalDisplayRecords'] = (int) $orders->getTotal();
 
