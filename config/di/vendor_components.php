@@ -24,6 +24,7 @@ return array(
     'channelgrabber_sso_CG_Sso',
     'channelgrabber_stdlib_CG_Stdlib',
 //    'channelgrabber_ui_CG_UI',
+//    'channelgrabber_user2_CG',
     'channelgrabber_user_CG',
 //    'channelgrabber_userpreference_CG_UserPreference',
     'channelgrabber_validation_CG_Validation',

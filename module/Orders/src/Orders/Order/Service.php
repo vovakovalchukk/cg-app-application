@@ -3,11 +3,11 @@ namespace Orders\Order;
 
 use CG_UI\View\DataTable;
 use CG\User\ActiveUserInterface;
-use CG\Order\Service\Filter\Entity as Filter;
 use CG\Order\Shared\StorageInterface as OrderInterface;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Order\Service\Filter\Mapper as FilterMapper;
 use Zend\Session\SessionManager;
+use CG\Order\Service\Filter;
 
 class Service
 {
