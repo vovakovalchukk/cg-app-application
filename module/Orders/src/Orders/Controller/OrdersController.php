@@ -17,8 +17,12 @@ class OrdersController extends AbstractActionController
     protected $filterService;
     protected $batchService;
 
-    public function __construct(JsonModelFactory $jsonModelFactory, ViewModelFactory $viewModelFactory, 
-                                OrderService $orderService, FilterService $filterService, BatchService $batchService)
+    public function __construct(
+        JsonModelFactory $jsonModelFactory,
+        ViewModelFactory $viewModelFactory,
+        OrderService $orderService,
+        FilterService $filterService,
+        BatchService $batchService)
     {
         $this->setJsonModelFactory($jsonModelFactory)
             ->setViewModelFactory($viewModelFactory)
