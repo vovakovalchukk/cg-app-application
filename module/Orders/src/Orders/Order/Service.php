@@ -18,9 +18,13 @@ class Service
     protected $filterMapper;
     protected $sessionManager;
 
-    public function __construct(DataTable $ordersTable, ActiveUserInterface $activeUserContainer,
-                                OrderInterface $orderClient, Filter $filter, FilterMapper $filterMapper,
-                                SessionManager $sessionManager)
+    public function __construct(
+        DataTable $ordersTable,
+        ActiveUserInterface $activeUserContainer,
+        OrderInterface $orderClient,
+        Filter $filter,
+        FilterMapper $filterMapper,
+        SessionManager $sessionManager)
     {
         $this->setOrdersTable($ordersTable)
             ->setActiveUserContainer($activeUserContainer)
