@@ -18,12 +18,13 @@ var templateUrl = '<?= $this->basePath() . Orders\Module::PUBLIC_FOLDER . 'templ
 var templateRowId = 'order-row';
 var formatters = {
     'formatAdditionalOrderItems': function(aData) {
-        return function() {
-        return function(variable, render) {
-            aData.extraItems = JSON.parse(JSON.stringify(aData.items));
-            aData.extraItems.splice(0, 1);
-            return render(variable);
-        };
+        return function()
+        {
+            return function(variable, render) {
+                aData.extraItems = JSON.parse(JSON.stringify(aData.items));
+                aData.extraItems.splice(0, 1);
+                return render(variable);
+            };
         };
     }
 };
