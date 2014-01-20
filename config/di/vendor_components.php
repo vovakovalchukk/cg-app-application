@@ -22,7 +22,6 @@ return array(
     'channelgrabber_redis_CG_Redis',
 //    'channelgrabber_slim_CG_Slim',
     'channelgrabber_sso_CG_Sso',
-    'channelgrabber_stdlib2_CG_Stdlib',
     'channelgrabber_stdlib_CG_Stdlib',
 //    'channelgrabber_ui_CG_UI',
     'channelgrabber_user_CG',

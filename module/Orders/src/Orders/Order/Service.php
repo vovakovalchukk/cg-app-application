@@ -51,6 +51,7 @@ class Service
 
         if (!empty($filters)) {
             $filter->merge(
+                $this->getFilterMapper(),
                 $this->getFilterMapper()->fromArray($filters)
             );
         }
