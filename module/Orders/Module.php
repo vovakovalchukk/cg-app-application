@@ -11,8 +11,8 @@ namespace Orders;
 
 class Module
 {
-    const PUBLIC_FOLDER = '/channelgrabber/zf2-v4-ui/';
-
+    const PUBLIC_FOLDER = 'channelgrabber/orders/';
+    
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
