@@ -15,7 +15,16 @@ $("#filters input[name='clear-filters']").on("click", function() {
 });
 
 $("#bulk-actions").bulkActions("set", "tag", function(event) {
-    alert("Tag");
+    var orders = [];
+    $("#datatable .order-id:checked").each(function() {
+        orders.push($(this).val());
+    });
+
+    if (!orders.length) {
+        return;
+    }
+
+    alert(orders);
 });
 
 var currencies = {
