@@ -4,7 +4,7 @@ namespace Orders\Order;
 use CG_UI\View\DataTable;
 use CG\Order\Shared\StorageInterface;
 use CG\User\ActiveUserInterface;
-use CG\Order\Service\Filter\Entity as Filter;
+use CG\Order\Service\Filter;
 
 class Service
 {

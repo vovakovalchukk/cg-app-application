@@ -1,33 +1,33 @@
 <?php
 namespace Orders\Filter;
 
-use CG\Order\Service\Filter\Entity;
+use CG\Order\Service\Filter;
 use CG\Order\Service\Filter\Mapper;
 use Zend\Session\ManagerInterface;
 
 class Service
 {
-    protected $entity;
+    protected $filter;
     protected $mapper;
     protected $persistentStorage;
 
-    public function __construct(Entity $entity, Mapper $mapper, ManagerInterface $persistentStorage)
+    public function __construct(Filter $filter, Mapper $mapper, ManagerInterface $persistentStorage)
     {
         $this
-            ->setEntity($entity)
+            ->setFilter($filter)
             ->setMapper($mapper)
             ->setPersistentStorage($persistentStorage);
     }
 
-    public function setEntity(Entity $entity)
+    public function setFilter(Filter $filter)
     {
-        $this->entity = $entity;
+        $this->filter = $filter;
         return $this;
     }
 
-    public function getEntity()
+    public function getFilter()
     {
-        return $this->entity;
+        return $this->filter;
     }
 
     public function setMapper(Mapper $mapper)
@@ -52,7 +52,7 @@ class Service
         return $this->persistentStorage;
     }
 
-    public function setPersistentEntity(Entity $filter)
+    public function setPersistentFilter(Filter $filter)
     {
         $storage = $this->getPersistentStorage()->getStorage();
 
@@ -65,7 +65,7 @@ class Service
         return $this;
     }
 
-    public function getPersistentEntity()
+    public function getPersistentFilter()
     {
         $storage = $this->getPersistentStorage()->getStorage();
 
@@ -73,20 +73,20 @@ class Service
             $storage['orders'] = [];
         }
 
-        if (!isset($storage['orders']['filter']) || !($storage['orders']['filter'] instanceof Entity)) {
-            $storage['orders']['filter'] = $this->getEntity();
+        if (!isset($storage['orders']['filter']) || !($storage['orders']['filter'] instanceof Filter)) {
+            $storage['orders']['filter'] = $this->getFilter();
         }
 
         return $storage['orders']['filter'];
     }
 
-    public function getEntityFromArray(array $data)
+    public function getFilterFromArray(array $data)
     {
         return $this->getMapper()->fromArray($data);
     }
 
-    public function mergeEntities(Entity $entity1, $entity2)
+    public function mergeFilters(Filter $filter1, Filter $filter2)
     {
-        return $this->getMapper()->merge($entity1, $entity2);
+        return $this->getMapper()->merge($filter1, $filter2);
     }
 }
