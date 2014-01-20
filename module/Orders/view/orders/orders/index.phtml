@@ -24,7 +24,18 @@ $("#bulk-actions").bulkActions("set", "tag", function(event) {
         return;
     }
 
-    alert(orders);
+    $("#datatable_processing").css("visibility", "visible");
+    $.ajax({
+        'url': '<?= $this->basePath() ?>tag.json',
+        'type': 'POST',
+        'data': {
+            'tag': 'tag',
+            'orders': orders
+        },
+        'complete': function() {
+            $("#datatable").cgDataTable("redraw");
+        }
+    });
 });
 
 var currencies = {
