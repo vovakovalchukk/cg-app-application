@@ -24,7 +24,7 @@ var currencies = {
 }
 
 $.ajax({
-    'url' : '<?= $this->basePath() . Orders\Module::PUBLIC_FOLDER . 'order/template/row.html' ?>',
+    'url' : '<?= $this->basePath() . Orders\Module::PUBLIC_FOLDER . 'template/row.html' ?>',
     'async' : 'false',
     'method' : 'GET',
     'success' : function(template) {
