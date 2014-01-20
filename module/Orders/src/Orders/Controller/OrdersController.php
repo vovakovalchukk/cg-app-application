@@ -162,7 +162,7 @@ class OrdersController extends AbstractActionController
 
     protected function getFilterBar()
     {
-        $filterObject = $this->getFilterService()->getPersistentEntity();
+        $filterObject = $this->getFilterService()->getPersistentFilter();
         $viewRender = $this->getServiceLocator()->get('Mustache\View\Renderer');
 
         $filterRows = [];
@@ -286,20 +286,20 @@ class OrdersController extends AbstractActionController
             $page += $this->params()->fromPost('iDisplayStart') / $limit;
         }
 
-        $filter = $this->getFilterService()->getEntity()
+        $filter = $this->getFilterService()->getFilter()
             ->setLimit($limit)
             ->setPage($page)
             ->setOrganisationUnitId([$this->getOrderService()->getActiveUser()->getOrganisationUnitId()]);
 
         $requestFilter = $this->params()->fromPost('filter', []);
         if (!empty($requestFilter)) {
-            $filter = $this->getFilterService()->mergeEntities(
+            $filter = $this->getFilterService()->mergeFilters(
                 $filter,
-                $this->getFilterService()->getEntityFromArray($requestFilter)
+                $this->getFilterService()->getFilterFromArray($requestFilter)
             );
         }
 
-        $this->getFilterService()->setPersistentEntity($filter);
+        $this->getFilterService()->setPersistentFilter($filter);
 
         try {
             $orders = $this->getOrderService()->getOrders($limit, $page, $this->params()->fromPost('filter', []));
