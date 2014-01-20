@@ -28,6 +28,7 @@
         "channelgrabber/sso": "~1.1.2",
         "channelgrabber/stdlib": "~2.4.0",
         "channelgrabber/ui": "~1.1.0",
+        "channelgrabber/user": "dev-CGIV-1335 as 1.10.6",
         "channelgrabber/userpreference": "dev-develop as 1.0.1",
         "channelgrabber/zf2-hal": "~1.0.4",
         "channelgrabber/zf2-installer": "~1.0.0",
