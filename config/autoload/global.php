@@ -20,6 +20,8 @@ use CG\OrganisationUnit\StorageInterface as OrganisationUnitStorage;
 use CG\Order\Client\Storage\Api as OrderApiClient;
 use CG\Order\Client\Batch\Storage\Api as OrderBatchApiClient;
 use CG\OrganisationUnit\Storage\Api as OrganisationUnitClient;
+use Zend\Session\ManagerInterface as SessionManagerInterface;
+use Zend\Session\SessionManager;
 
 return array(
     'service_manager' => array(
@@ -68,7 +70,8 @@ return array(
                 EventManagerInterface::class => EventManager::class,
                 OrderStorage::class => OrderApiClient::class,
                 OrderBatchStorage::class => OrderBatchApiClient::class,
-                OrganisationUnitStorage::class => OrganisationUnitClient::class
+                OrganisationUnitStorage::class => OrganisationUnitClient::class,
+                SessionManagerInterface::class => SessionManager::class
             ),
             OrderApiClient::class => [
                 'parameters' => [

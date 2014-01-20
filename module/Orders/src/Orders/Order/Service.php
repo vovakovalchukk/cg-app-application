@@ -3,87 +3,82 @@ namespace Orders\Order;
 
 use CG_UI\View\DataTable;
 use CG\User\ActiveUserInterface;
-use CG\Order\Service\Filter\Entity as Filter;
 use CG\Order\Shared\StorageInterface as OrderInterface;
-use CG\Order\Shared\Batch\StorageInterface as BatchInterface;
-use CG\OrganisationUnit\StorageInterface as OrganisationUnitInterface;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Order\Service\Filter\Mapper as FilterMapper;
+use Zend\Session\SessionManager;
+use CG\Order\Service\Filter;
 
 class Service
 {
     protected $ordersTable;
     protected $activeUserContainer;
     protected $orderClient;
-    protected $organisationUnitClient;
-    protected $batchClient;
-
-    const DEFAULT_LIMIT = 10;
-    const DEFAULT_PAGE = 1;
-    const ACTIVE = 1;
+    protected $filter;
+    protected $filterMapper;
+    protected $sessionManager;
 
     public function __construct(DataTable $ordersTable, ActiveUserInterface $activeUserContainer,
-                                OrderInterface $orderClient, OrganisationUnitInterface $organisationUnitClient,
-                                BatchInterface $batchClient)
+                                OrderInterface $orderClient, Filter $filter, FilterMapper $filterMapper,
+                                SessionManager $sessionManager)
     {
         $this->setOrdersTable($ordersTable)
             ->setActiveUserContainer($activeUserContainer)
             ->setOrderClient($orderClient)
-            ->setOrganisationUnitClient($organisationUnitClient)
-            ->setBatchClient($batchClient);
+            ->setFilter($filter)
+            ->setFilterMapper($filterMapper)
+            ->setSessionManager($sessionManager);
+    }
+
+    public function getSessionFilter()
+    {
+        $session = $this->getSessionStorage();
+        if (!isset($session['orders'])) {
+            $session['orders'] = [];
+        }
+        if (!isset($session['orders']['filter']) || !($session['orders']['filter'] instanceof Filter)) {
+            $session['orders']['filter'] = $this->getFilter();
+        }
+
+        return $session['orders']['filter'];
+    }
+
+    public function getOrders($limit, $page, array $filters = [])
+    {
+        $filter = $this->getFilter()
+            ->setLimit($limit)
+            ->setPage($page);
+
+        if (!empty($filters)) {
+            $filter->merge(
+                $this->getFilterMapper(),
+                $this->getFilterMapper()->fromArray($filters)
+            );
+        }
+
+        $this->setSessionFilter($filter);
+        return $this->getOrderClient()->fetchCollectionByFilter($filter);
+    }
+
+    public function setSessionFilter(Filter $filter)
+    {
+        $session = $this->getSessionStorage();
+
+        if (!isset($session['orders'])) {
+            $session['orders'] = [];
+        }
+        $session['orders']['filter'] = $filter;
+        return $this;
+    }
+
+    protected function getSessionStorage()
+    {
+        return $this->getSessionManager()->getStorage();
     }
 
     public function getActiveUser()
     {
         return $this->getActiveUserContainer()->getActiveUser();
-    }
-
-    public function getOrders($limit, $page)
-    {
-        $filter = new Filter(
-            $limit,
-            $page,
-            [],
-            [$this->getActiveUser()->getOrganisationUnitId()],
-            [],
-            [],
-            [],
-            [],
-            [],
-            [],
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        );
-
-        return $this->getOrderClient()->fetchCollectionByFilter($filter);
-    }
-
-    public function getBatches()
-    {
-        $userEntity = $this->getActiveUser();
-        try {
-            $organisationUnits = $this->getOrganisationUnitClient()->fetchFiltered(static::DEFAULT_LIMIT,
-                static::DEFAULT_PAGE, $userEntity->getOrganisationUnitId());
-        } catch (NotFound $exception) {
-            $organisationUnits = new \SplObjectStorage();
-        }
-        $organisationUnitIds = array($userEntity->getOrganisationUnitId());
-        foreach ($organisationUnits as $organisationUnit) {
-            $organisationUnitIds[] = $organisationUnit->getId();
-        }
-        try {
-            $batchCollection = $this->getBatchClient()->fetchCollectionByPagination(static::DEFAULT_LIMIT,
-                static::DEFAULT_PAGE, $organisationUnitIds, static::ACTIVE);
-        } catch (NotFound $exception) {
-            $batchCollection = new \SplObjectStorage();
-        }
-        return $batchCollection;
     }
 
     public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
@@ -97,15 +92,26 @@ class Service
         return $this->activeUserContainer;
     }
 
-    public function setBatchClient(BatchInterface $batchClient)
+    public function setFilter(Filter $filter)
     {
-        $this->batchClient = $batchClient;
+        $this->filter = $filter;
         return $this;
     }
 
-    public function getBatchClient()
+    public function getFilter()
     {
-        return $this->batchClient;
+        return $this->filter;
+    }
+
+    public function setFilterMapper(FilterMapper $filterMapper)
+    {
+        $this->filterMapper = $filterMapper;
+        return $this;
+    }
+
+    public function getFilterMapper()
+    {
+        return $this->filterMapper;
     }
 
     public function setOrderClient(OrderInterface $orderClient)
@@ -119,7 +125,7 @@ class Service
         return $this->orderClient;
     }
 
-    public function setOrdersTable(DataTable $ordersTable)
+    public function setOrdersTable(Datatable $ordersTable)
     {
         $this->ordersTable = $ordersTable;
         return $this;
@@ -130,14 +136,14 @@ class Service
         return $this->ordersTable;
     }
 
-    public function setOrganisationUnitClient(OrganisationUnitInterface $organisationUnitClient)
+    public function setSessionManager(SessionManager $sessionManager)
     {
-        $this->organisationUnitClient = $organisationUnitClient;
+        $this->sessionManager = $sessionManager;
         return $this;
     }
 
-    public function getOrganisationUnitClient()
+    public function getSessionManager()
     {
-        return $this->organisationUnitClient;
+        return $this->sessionManager;
     }
 }
