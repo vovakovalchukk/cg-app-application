@@ -22,8 +22,8 @@
     "require": {
         "channelgrabber/codeception": "1.0.*",
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/http": "dev-develop as 1.2.3",
-        "channelgrabber/order": "dev-CGIV-1361 as 1.1.0",
+        "channelgrabber/http": "~1.2.3",
+        "channelgrabber/order": "dev-CGIV-1283 as 1.1.2",
         "channelgrabber/redis": "dev-CGIV-529",
         "channelgrabber/sso": "~1.1.2",
         "channelgrabber/stdlib": "~2.4.0",
@@ -44,6 +44,7 @@
         "php": ">=5.3.3",
         "phpspec/phpspec": "2.0.*@dev",
         "phpspec/prophecy": "~1.0",
+        "widmogrod/zf2-mustache-module": "dev-master",
         "zendframework/zend-config": "2.2.*",
         "zendframework/zend-db": "2.2.*",
         "zendframework/zend-di": "2.2.*",

@@ -1,4 +1,70 @@
-<?php $this->headScript()->appendFile($this->basePath() . Orders\Module::PUBLIC_FOLDER . 'js/order.js'); ?>
+<?php $this->inlineScript()->captureStart(); ?>
+$("#datatable").on("fnServerData", function(event, sSource, aoData, fnCallback, oSettings) {
+    $("#filters input[name], #filters select[name]").each(function() {
+        aoData.push({"name": "filter[" + $(this).attr("name") + "]", "value": $(this).val()});
+    });
+});
+
+$("#filters input[name='apply-filters']").on("click", function() {
+    $("#datatable").cgDataTable("redraw");
+});
+
+$("#filters input[name='clear-filters']").on("click", function() {
+    $("#filters input[name][type!='button'], #filters select[name]").val(undefined);
+    $("#datatable").cgDataTable("redraw");
+});
+
+var currencies = {
+    'AUD' : {symbol: '$', format: '@symbol@value'},
+    'DKK' : {symbol: 'kr', format: '@value @symbol'},
+    'EUR' : {symbol: '&euro;', format: '@symbol@value'},
+    'GBP' : {symbol: '&pound;', format: '@symbol@value'},
+    'JPY' : {symbol: '&yen;', format: '@symbol@value'},
+    'USD' : {symbol: '$', format: '@symbol@value'}
+}
+
+$.ajax({
+    'url' : '<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'template/order/row.html' ?>',
+    'async' : 'false',
+    'method' : 'GET',
+    'success' : function(template) {
+        $("#datatable").on("fnRowCallback", function (event, nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+            var html;
+
+            aData.formatCurrency = function() {
+                return function(variable, render) {
+                    var currency = currencies[aData.currencyCode];
+                    var format = currency.format;
+                    var symbol = currency.symbol;
+                    format = format.replace('@value', render(variable));
+                    return format.replace('@symbol', symbol);
+                }
+            }
+
+            aData.formatDateTime = function() {
+                return function(variable, render) {
+                    dateTime = aData.purchaseDate.split(" ");
+                    aData.date = dateTime[0];
+                    aData.time = dateTime[1];
+                    return render(variable);
+                }
+            }
+
+            aData.formatAdditionalOrderItems = function() {
+                return function(variable, render) {
+                    aData.extraItems = JSON.parse(JSON.stringify(aData.items));
+                    aData.extraItems.splice(0, 1);
+                    return render(variable);
+                }
+            }
+
+            html = Mustache.to_html($(template).filter("#order-row").html(), aData);
+            $(nRow).html(html);
+        });
+    }
+});
+<?php $this->inlineScript()->captureEnd(); ?>
+<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
 <?php $this->placeholder('#main.class')->append('full-width'); ?>
 <?php $this->placeholder('#sub-header')->append($this->filters); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
