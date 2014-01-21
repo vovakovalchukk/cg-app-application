@@ -73,6 +73,7 @@ return [
                 'OrdersShippingColumn' => DataTable\Column::Class,
                 'OrdersDispatchColumn' => DataTable\Column::Class,
                 'OrdersPrintColumn' => DataTable\Column::Class,
+                'OrdersTagColumn' => DataTable\Column::Class,
                 'OrdersOptionsColumn' => DataTable\Column::Class,
             ],
             Service::Class => [
@@ -102,6 +103,7 @@ return [
                     'OrdersShippingColumn',
                     'OrdersDispatchColumn',
                     'OrdersPrintColumn',
+                    'OrdersTagColumn',
                     'OrdersOptionsColumn',
                 ],
             ],
@@ -195,6 +197,12 @@ return [
                     'html' => 'Print',
                     'class' => 'actions',
                 ],
+            ],
+            'OrdersTagColumn' => [
+                'parameters' => [
+                    'column' => 'tag',
+                    'html' => 'Tag'
+                ]
             ],
             'OrdersOptionsColumn' => [
                 'parameters' => [
