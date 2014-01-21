@@ -24,12 +24,17 @@ $("#bulk-actions").bulkActions("set", "tag", function(event) {
         return;
     }
 
+    var tag = $.trim(window.prompt("Name of Tag:", "tag"));
+    if (!tag.length) {
+        return;
+    }
+
     $("#datatable_processing").css("visibility", "visible");
     $.ajax({
         'url': '<?= $this->basePath() ?>orders/tag.json',
         'type': 'POST',
         'data': {
-            'tag': 'tag',
+            'tag': tag,
             'orders': orders
         },
         'complete': function() {
