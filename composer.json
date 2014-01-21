@@ -26,8 +26,8 @@
     "require": {
         "channelgrabber/codeception": "1.0.*",
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/http": "~1.2.3",
-        "channelgrabber/order": "dev-CGIV-1283 as 1.1.2",
+        "channelgrabber/http": "~1.2.5",
+        "channelgrabber/order": "dev-CGIV-1237-OrderTags as 1.2.3",
         "channelgrabber/redis": "dev-CGIV-529",
         "channelgrabber/slim": "1.6.2 as 1.5.6",
         "channelgrabber/sso": "~1.1.2",
