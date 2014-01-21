@@ -39,7 +39,7 @@ class Node
         return $this;
     }
 
-    public function setKey($key, $value)
+    public function setKey($key, $value, $merge = true)
     {
         $data =& $this->data;
         foreach (explode('|', $key) as $currentKey) {
@@ -49,7 +49,7 @@ class Node
             $data =& $data[$currentKey];
         }
 
-        if (is_array($value)) {
+        if ($merge && is_array($value)) {
             $data = array_merge($data, $value);
         } else {
             $data = $value;

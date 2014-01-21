@@ -1,12 +1,15 @@
 <?php
 namespace CG\Skeleton\Chef;
 
+use CG\Skeleton\DevelopmentEnvironment\Environment;
 use CG\Skeleton\StartupCommandInterface;
 use CG\Skeleton\Arguments;
 use CG\Skeleton\Config;
 use Zend\Config\Config as ZendConfig;
 use CG\Skeleton\Chef\Role;
 use CG\Skeleton\Chef\Node;
+use CG\Skeleton\Console\Startup;
+use CG\Skeleton\Chef\Hosts;
 
 class StartupCommand implements StartupCommandInterface
 {
@@ -15,18 +18,36 @@ class StartupCommand implements StartupCommandInterface
 
     const ROLES = 'roles/';
     const NODES = 'nodes/';
+    const HOSTS = 'data_bags/hosts/';
 
     protected $defaults;
+    protected $console;
 
-    public function __construct()
+    public function __construct(Startup $console)
     {
+        $this->setConsole($console);
         $this->defaults = array();
     }
 
-    public function runCommands(Arguments $arguments, Config $config)
+    public function setConsole(Startup $console)
+    {
+        $this->console = $console;
+        return $this;
+    }
+
+    public function getConsole()
+    {
+        return $this->console;
+    }
+
+    public function runCommands(Arguments $arguments, Config $config, Environment $environment)
     {
         $this->saveRole($config);
-        $this->saveNode($config);
+        $this->saveNode($config, $environment);
+        $this->setupIp($config, $environment);
+        $this->setupHostname($config, $environment);
+        $this->saveHosts($config, $environment);
+        $this->setupHostsFile($config, $environment);
     }
 
     protected function saveRole(Config $config)
@@ -50,14 +71,16 @@ class StartupCommand implements StartupCommandInterface
         );
     }
 
-    protected function saveNode(Config $config)
+    protected function saveNode(Config $config, Environment $environment)
     {
-        $nodeFile = static::NODES . $config->getNode() . '.json';
+        $nodeFile = static::NODES . $environment->getEnvironmentConfig()->getNode() . '.json';
         $node = new Node($nodeFile);
 
-        $this->addRoleToNode($node, 'cg')
-             ->addRoleToNode($node, 'database_storage')
-             ->addRoleToNode($node, $config->getRole());
+        $this->configureFqdnOnNode($node, $config, $environment);
+
+        foreach ($environment->getInitialNodeRunList() as $role) {
+            $this->addRoleToNode($node, $role);
+        }
 
         $this->configureCapistranoOnNode($node, $config);
         $this->configureSiteOnNode($node, $config);
@@ -66,8 +89,48 @@ class StartupCommand implements StartupCommandInterface
 
         exec(
             'git add ' . $nodeFile . ';'
-            . ' git commit -m "' . $this->getGitTicketId() . ' (SKELETON) Updated node ' . $config->getNode() . '" --only -- ' . $nodeFile
+            . ' git commit -m "' . $this->getGitTicketId() . ' (SKELETON) Updated node ' . $environment->getEnvironmentConfig()->getNode() . '" --only -- ' . $nodeFile
         );
+    }
+
+    protected function saveHosts(Config $config, Environment $environment)
+    {
+        $hostsFile = static::HOSTS . strtolower($environment->getName()) . '.json';
+        $hosts = new Hosts($hostsFile, $environment->getName());
+
+        $hosts->setHost(
+            $config->getAppName(),
+            $environment->getEnvironmentConfig()->getHostname($config, $environment),
+            $environment->getEnvironmentConfig()->getIp()
+        );
+
+        $hosts->save();
+
+        exec(
+            'git add ' . $hostsFile . ';'
+            . ' git commit -m "' . $this->getGitTicketId() . ' (SKELETON) Updated hosts with ' . $config->getAppName() . '" --only -- ' . $hostsFile
+        );
+    }
+
+    protected function setupHostname(Config $config, Environment $environment)
+    {
+        $hostname = $environment->getEnvironmentConfig()->getHostname($config, $environment);
+        while (!$hostname) {
+            $this->getConsole()->writeErrorStatus('Application hostname is not set');
+            $hostname = $this->getConsole()->ask('What url will your app be available at');
+        }
+        $this->getConsole()->writeStatus('Application hostname set to \'' . $hostname . '\'');
+        $environment->getEnvironmentConfig()->setHostname($hostname);
+    }
+
+    protected function setupIp(Config $config, Environment $environment)
+    {
+        $environment->setupIp($this->getConsole());
+    }
+
+    protected function setupHostsFile(Config $config, Environment $environment)
+    {
+        $environment->setupHostsFile($this->getConsole());
     }
 
     protected function addRoleToNode(Node $node, $role)
@@ -96,7 +159,6 @@ class StartupCommand implements StartupCommandInterface
         $node->setKey('configure_sites|sites|' . $siteName . '|configroot', 'config');
         $node->setKey('configure_sites|sites|' . $siteName . '|dataroot', 'data');
         $node->setKey('configure_sites|sites|' . $siteName . '|datadiroot', 'data/di');
-        $node->setKey('configure_sites|sites|' . $siteName . '|hostname', $config->getHostname());
         $node->setKey('configure_sites|sites|' . $siteName . '|enabled', true);
         $node->setKey('configure_sites|sites|' . $siteName . '|configautoloadroot', 'config/autoload');
         $node->setKey('configure_sites|sites|' . $siteName . '|certificateroot', 'data/certificates');
@@ -107,5 +169,12 @@ class StartupCommand implements StartupCommandInterface
         $node->setKey('configure_sites|sites|' . $siteName . '|application_config', array(
                                                                             'application_name' => $config->getAppName()
         ));
-  }
+    }
+
+    protected function configureFqdnOnNode(Node $node, Config $config, Environment $environment)
+    {
+        $hostname = $environment->getEnvironmentConfig()->getHostname($config, $environment);
+        $fqdn = preg_replace('/[^a-z0-9-.]+/i', '-', $hostname);
+        $node->setKey('set_fqdn', $fqdn);
+    }
 }

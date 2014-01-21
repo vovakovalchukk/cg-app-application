@@ -6,6 +6,7 @@ use SplObjectStorage;
 use CG\Skeleton\Arguments;
 use CG\Skeleton\Config;
 use CG\Skeleton\CommandInterface;
+use CG\Skeleton\DevelopmentEnvironment\Environment;
 
 class Commands
 {
@@ -62,10 +63,10 @@ class Commands
             return $tagLine;
         }
 
-        return $header . ' - ' . $tagLine;
+        return $header . "\n" . $tagLine;
     }
 
-    public function askAndRun(Arguments $arguments, Config $config)
+    public function askAndRun(Arguments $arguments, Config $config, Environment $environment)
     {
         $commands = $this->getCommands();
 
@@ -102,7 +103,7 @@ class Commands
                 continue;
             }
             $this->getConsole()->clear();
-            $this->runCommand($arguments, $config, $command);
+            $this->runCommand($arguments, $config, $command, $environment);
         }
 
 
@@ -122,8 +123,9 @@ class Commands
         );
     }
 
-    protected function runCommand(Arguments $arguments, Config $config, CommandInterface $command)
+    protected function runCommand(Arguments $arguments, Config $config, CommandInterface $command,
+                                  Environment $environment)
     {
-        $command->run($arguments, $config);
+        $command->run($arguments, $config, $environment);
     }
 }

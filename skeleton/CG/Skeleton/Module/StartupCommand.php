@@ -1,6 +1,7 @@
 <?php
 namespace CG\Skeleton\Module;
 
+use CG\Skeleton\DevelopmentEnvironment\Environment;
 use CG\Skeleton\StartupCommandInterface;
 use CG\Skeleton\Console\Startup;
 use SplObjectStorage;
@@ -42,11 +43,11 @@ class StartupCommand implements StartupCommandInterface
         return $this->modules;
     }
 
-    public function run(Arguments $arguments, SkeletonConfig $config)
+    public function run(Arguments $arguments, SkeletonConfig $config, Environment $environment)
     {
         $moduleConfig = $config->get('Module', new ModuleConfig(array(), true));
         foreach ($this->getModules() as $module) {
-            $module->applyConfiguration($arguments, $config, $moduleConfig->getModule($module->getModuleName()));
+            $module->applyConfiguration($arguments, $config, $moduleConfig->getModule($module->getModuleName()), $environment);
             $this->getConsole()->writeStatus('Applied Configuration for ' . $module->getName());
         }
     }

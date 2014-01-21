@@ -1,6 +1,7 @@
 <?php
 namespace CG\Skeleton\Environment;
 
+use CG\Skeleton\DevelopmentEnvironment\Environment;
 use CG\Skeleton\ShutdownCommandInterface;
 use CG\Skeleton\Console\Shutdown;
 use CG\Skeleton\Arguments;
@@ -27,7 +28,7 @@ class ShutdownCommand implements ShutdownCommandInterface
         return $this->console;
     }
 
-    public function run(Arguments $arguments, Config $config)
+    public function run(Arguments $arguments, Config $config, Environment $environment)
     {
         $this->getConsole()->writeStatus('Saving configuration to \'' . SKELETON_CONFIG . '\'');
         ConfigFactory::toFile(SKELETON_CONFIG, $config);

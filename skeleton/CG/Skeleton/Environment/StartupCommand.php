@@ -5,6 +5,7 @@ use CG\Skeleton\StartupCommandInterface;
 use CG\Skeleton\Console\Startup;
 use CG\Skeleton\Arguments;
 use CG\Skeleton\Config;
+use CG\Skeleton\DevelopmentEnvironment\Environment;
 
 class StartupCommand implements StartupCommandInterface
 {
@@ -50,15 +51,14 @@ class StartupCommand implements StartupCommandInterface
         return trim(ob_get_clean());
     }
 
-    public function run(Arguments $arguments, Config $config)
+    public function run(Arguments $arguments, Config $config, Environment $environment)
     {
         $this->runBundleInstall($config);
         $this->setupProjectBasePath($config);
         $this->setupInfrastructurePath($config);
         $this->setupBranch($config);
-        $this->setupNode($config);
+        $this->setupNode($environment);
         $this->setupAppName($config);
-        $this->setupHostname($config);
         $this->setupVmPath($config);
     }
 
@@ -141,17 +141,6 @@ class StartupCommand implements StartupCommandInterface
         $config->setBranch($branch);
     }
 
-    protected function setupNode(Config $config)
-    {
-        $node = $config->getNode();
-        while (!$node) {
-            $this->getConsole()->writeErrorStatus('No node set');
-            $node = $this->getConsole()->ask('What node will this application go on');
-        }
-        $this->getConsole()->writeStatus('Application configured for node \'' . $node . '\'');
-        $config->setNode($node);
-    }
-
     protected function setupAppName(Config $config)
     {
         $appName = $config->getAppName();
@@ -163,16 +152,9 @@ class StartupCommand implements StartupCommandInterface
         $config->setAppName($appName);
     }
 
-    protected function setupHostname(Config $config)
+    protected function setupNode(Environment $environment)
     {
-        $hostname = $config->getHostname();
-        while (!$hostname) {
-            $this->getConsole()->writeErrorStatus('Application hostname is not set');
-            $hostname = $this->getConsole()->ask('What url will your app be available at');
-        }
-        $hostname = str_replace(" ", "-", $hostname);
-        $this->getConsole()->writeStatus('Application hostname set to \'' . $hostname . '\'');
-        $config->setHostname($hostname);
+        $environment->setupNode($this->getConsole());
     }
 
     protected function setupVmPath(Config $config)
