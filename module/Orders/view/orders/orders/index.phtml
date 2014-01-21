@@ -16,9 +16,13 @@ $("#filters input[name='clear-filters']").on("click", function() {
 
 var templateUrl = '<?= $this->basePath() . Orders\Module::PUBLIC_FOLDER . 'template/row.html' ?>';
 var templateRowId = 'order-row';
-var formatters = {
-    'formatAdditionalOrderItems': function(aData) {
-        return function()
+CGMustache.get().fetchTemplate(templateUrl, function(template, cgmustache)
+{
+    $("#datatable").on("fnRowCallback", function (event, nRow, aData, iDisplayIndex, iDisplayIndexFull)
+    {
+        aData.formatCurrency = cgmustache.formatCurrency(aData);
+        aData.formatDateTime = cgmustache.formatDateTime(aData);
+        aData.formatAdditionalOrderItems = function()
         {
             return function(variable, render) {
                 aData.extraItems = JSON.parse(JSON.stringify(aData.items));
@@ -26,9 +30,11 @@ var formatters = {
                 return render(variable);
             };
         };
-    }
-};
-CGMustache.get().setupTemplateForDatatableRows(templateUrl, templateRowId, formatters);
+
+        var html = cgmustache.renderTemplate(template, aData, templateRowId);
+        $(nRow).html(html);
+    });
+});
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
