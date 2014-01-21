@@ -1,6 +1,7 @@
 <?php
 namespace Orders\Controller;
 
+use CG\Http\Exception\Exception3xx\NotModified;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
@@ -325,9 +326,11 @@ class OrdersController extends AbstractActionController
             foreach($this->getOrderService()->getOrders($filter) as $order) {
                 $tags = $order->getTags();
                 $tags[] = $tag;
-                $this->getOrderService()->saveOrder(
-                    $order->setTags(array_unique($tags))
-                );
+                try {
+                    $this->getOrderService()->saveOrder($order->setTags(array_unique($tags)));
+                } catch (NotModified $exception) {
+                    // Not changed so ignore
+                }
             }
         } catch (NotFound $exception) {
             // No Orders so ignoring
