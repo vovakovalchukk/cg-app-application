@@ -308,12 +308,12 @@ class OrdersController extends AbstractActionController
     {
         $tag = $this->params()->fromPost('tag');
         if (!$tag) {
-            return;
+            return $this->getJsonModelFactory()->newInstance(['tagged' => false]);
         }
 
         $ids = $this->params()->fromPost('orders');
         if (!is_array($ids) || empty($ids)) {
-            return;
+            return $this->getJsonModelFactory()->newInstance(['tagged' => false]);
         }
 
         $filter = $this->getFilterService()->getFilter()
@@ -335,5 +335,7 @@ class OrdersController extends AbstractActionController
         } catch (NotFound $exception) {
             // No Orders so ignoring
         }
+
+        return $this->getJsonModelFactory()->newInstance(['tagged' => true]);
     }
 }
