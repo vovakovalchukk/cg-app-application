@@ -1,8 +1,11 @@
 <?php
 namespace CG\Skeleton;
 
+use CG\Skeleton\Vagrant\NodeData;
 use SplObjectStorage;
 use CG\Skeleton\Console\Lists\Commands;
+use CG\Skeleton\Console;
+use CG\Skeleton\DevelopmentEnvironment\EnvironmentFactory;
 
 class Application
 {
@@ -12,10 +15,14 @@ class Application
     protected $startupCommands;
     protected $commands;
     protected $shutdownCommands;
+    protected $environment;
 
-    public function __construct(Console $console, Arguments $arguments, Config $config)
+    public function __construct(Console $console, Arguments $arguments, Config $config, NodeData $nodeData)
     {
-        $this->setConsole($console)->setArguments($arguments)->setConfig($config);
+        $this->setConsole($console)
+             ->setArguments($arguments)
+             ->setConfig($config)
+             ->setEnvironment($config, $nodeData);
         $this->startupCommands = new SplObjectStorage();
         $this->commands = new SplObjectStorage();
         $this->shutdownCommands = new SplObjectStorage();
@@ -30,6 +37,17 @@ class Application
     public function getConsole()
     {
         return $this->console;
+    }
+
+    public function setEnvironment(Config $config, NodeData $nodeData)
+    {
+        $this->environment = EnvironmentFactory::build($config, $nodeData);
+        return $this;
+    }
+
+    public function getEnvironment()
+    {
+        return $this->environment;
     }
 
     public function setArguments(Arguments $arguments)
@@ -103,10 +121,16 @@ class Application
         if ($startupCommands->count() > 0) {
             $this->getConsole()->writeln();
             foreach ($startupCommands as $command) {
-                $command->run($this->getArguments(), $this->getConfig());
+                $command->run($this->getArguments(), $this->getConfig(), $this->getEnvironment());
             }
             $this->getConsole()->writeln();
         }
+    }
+
+    public function getHeader()
+    {
+        return "Application:" . CONSOLE::COLOR_LIGHT_BLUE . $this->getConfig()->getAppName() . CONSOLE::COLOR_RESET
+               . " Environment:" . CONSOLE::COLOR_CYAN . $this->getConfig()->getEnvironment() . CONSOLE::COLOR_RESET;
     }
 
     public function shutdown()
@@ -114,7 +138,7 @@ class Application
         $shutdownCommands = $this->getShutdownCommands();
         if ($shutdownCommands->count() > 0) {
             foreach ($shutdownCommands as $command) {
-                $command->run($this->getArguments(), $this->getConfig());
+                $command->run($this->getArguments(), $this->getConfig(), $this->getEnvironment());
             }
         }
         exit();
@@ -122,7 +146,7 @@ class Application
 
     protected function commandList()
     {
-        $commandList = new Commands($this->getConsole(), $this->getCommands());
-        return $commandList->askAndRun($this->getArguments(), $this->getConfig());
+        $commandList = new Commands($this->getConsole(), $this->getCommands(), $this->getHeader());
+        return $commandList->askAndRun($this->getArguments(), $this->getConfig(), $this->getEnvironment());
     }
 }
