@@ -197,21 +197,12 @@ class OrdersController extends AbstractActionController
         $options =[
             'title' => "Status",
             'id'    => 'filter-status',
-            'options' => [
-                ['href' => '#', 'class' => '', 'title' => 'New'],
-                ['href' => '#', 'class' => '', 'title' => 'Processing'],
-                ['href' => '#', 'class' => '', 'title' => 'Dispatched']
-            ]
+            'options' => [ 'New', 'Processing', 'Dispatched']
         ];
-        $customSelect = $this->getViewModelFactory()->newInstance();
-        $customSelect->setTemplate('elements/custom-select');
-        $customSelect->setVariable('options', $options);
-        $options['customSelect'] = $viewRender->render($customSelect);
-
-        $statusFilter = $this->getViewModelFactory()->newInstance();
-        $statusFilter->setTemplate('elements/custom-select');
-        $statusFilter->setVariable('options', $options);
-        $filterRow[] = $viewRender->render($statusFilter);
+        $filterButtons = $this->getViewModelFactory()->newInstance();
+        $filterButtons->setTemplate('elements/custom-select-group');
+        $filterButtons->setVariable('options', $options);
+        $filterRow[] = $viewRender->render($filterButtons);
 
         $options = [
             'title' => 'Contains Text',
@@ -223,12 +214,6 @@ class OrdersController extends AbstractActionController
         $statusFilter->setTemplate('elements/text');
         $statusFilter->setVariable('options', $options);
         $filterRow[] = $viewRender->render($statusFilter);
-
-        $options = ['Account','Channel','Include Country','Exclude Country','Show Archived','Multi-Line Orders','Multiple Same Item','Flags','Columns']; 
-        $filter = $this->getViewModelFactory()->newInstance();
-        $filter->setTemplate('elements/custom-select-group');
-        $filter->setVariable('options', $options);
-        $filterRow[] = $viewRender->render($filter);
 
         $options = [
             ['value' => 'Apply Filters', 'name' => 'apply-filters', 'action' => 'apply-filters'],
@@ -245,7 +230,8 @@ class OrdersController extends AbstractActionController
         $options = [
             'title' => 'Include Country',
             'options' => ['UK','Austria','Croatia','Cyprus','France','Germany','Italy','Spain'],
-        ]; 
+            'isOptional' => true
+        ];
         $filterButtons = $this->getViewModelFactory()->newInstance();
         $filterButtons->setTemplate('elements/custom-select-group');
         $filterButtons->setVariable('options', $options);
@@ -292,11 +278,13 @@ class OrdersController extends AbstractActionController
         try {
             $orders = $this->getOrderService()->getOrders($filter);
 
-            $data['iTotalRecords'] = (int) $orders->getTotal();
-            $data['iTotalDisplayRecords'] = (int) $orders->getTotal();
+            $data['iTotalRecords'] = 250; //(int) $orders->getTotal();
+            $data['iTotalDisplayRecords'] = 250; //(int) $orders->getTotal();
 
             foreach ($orders as $order) {
-                $data['Records'][] = $order->toArray();
+                for($i=0;$i<250;$i++){
+                    $data['Records'][] = $order->toArray();
+                }
             }
         } catch (NotFound $exception) {
             // No Orders so ignoring
