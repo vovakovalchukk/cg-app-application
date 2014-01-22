@@ -278,13 +278,11 @@ class OrdersController extends AbstractActionController
         try {
             $orders = $this->getOrderService()->getOrders($filter);
 
-            $data['iTotalRecords'] = 250; //(int) $orders->getTotal();
-            $data['iTotalDisplayRecords'] = 250; //(int) $orders->getTotal();
+            $data['iTotalRecords'] = (int) $orders->getTotal();
+            $data['iTotalDisplayRecords'] = (int) $orders->getTotal();
 
             foreach ($orders as $order) {
-                for($i=0;$i<250;$i++){
-                    $data['Records'][] = $order->toArray();
-                }
+                $data['Records'][] = $order->toArray();
             }
         } catch (NotFound $exception) {
             // No Orders so ignoring
