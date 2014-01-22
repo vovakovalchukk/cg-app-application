@@ -69,6 +69,29 @@ $.ajax({
         });
     }
 });
+
+$("#bulk-actions").bulkActions("set", "batch", function(event) {
+    var orders = getCheckedOrders();
+    $.ajax({
+        "url" : "/orders/batch/create",
+        "type" : "POST",
+        "data" : {"orderIds" : orders},
+        "success" : function() {
+            $("#datatable").cgDataTable("redraw");
+        }
+    });
+});
+
+function getCheckedOrders()
+{
+    var checkedOrders = [];
+    $('.select-all-group').each(function () {
+        if (this.checked) {
+            checkedOrders.push($(this).val());
+        }
+    });
+    return checkedOrders;
+}
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
 <?php $this->placeholder('#main.class')->append('full-width'); ?>

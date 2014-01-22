@@ -148,6 +148,7 @@ class OrdersController extends AbstractActionController
                     [
                         'title' => 'Batch',
                         'class' => 'batch',
+                        'action' => 'batch',
                         'sub-actions' => [
                             ['title' => 'Remove', 'action' => 'remove-from-batch'],
                             ['title' => 'Add', 'action' => 'add-to-batch', 'href' => 'javascript:addBatch();']
@@ -293,7 +294,7 @@ class OrdersController extends AbstractActionController
         $filter = $this->getFilterService()->getFilter()
             ->setLimit($limit)
             ->setPage($page)
-            ->setOrganisationUnitId([$this->getOrderService()->getActiveUser()->getOrganisationUnitId()]);
+            ->setOrganisationUnitId([]);
 
         $requestFilter = $this->params()->fromPost('filter', []);
         if (!empty($requestFilter)) {

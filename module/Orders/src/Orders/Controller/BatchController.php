@@ -16,7 +16,7 @@ class BatchController extends AbstractActionController
 
     public function createAction()
     {
-        $orderIds = $this->params('orderIds');
+        $orderIds = $this->params()->fromPost('orderIds');
         $this->getBatchService()->create($orderIds);
     }
 

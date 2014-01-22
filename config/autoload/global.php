@@ -23,6 +23,7 @@ use CG\OrganisationUnit\Storage\Api as OrganisationUnitClient;
 use Zend\Session\ManagerInterface as SessionManagerInterface;
 use Zend\Session\SessionManager;
 
+
 return array(
     'service_manager' => array(
         'factories' => array(
@@ -78,16 +79,17 @@ return array(
                     'client' => 'cg_app_guzzle'
                 ]
             ],
-            OrderBatchApiClient::class => array(
-                'parameter' => array(
-                    'client' => 'cg_app_guzzle'
-                )
-            ),
-            OrganisationUnitClient::class => array(
-                'parameter' => array(
+            OrderBatchApiClient::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle',
+                    'redisClient' => 'reliable_redis'
+                ]
+            ],
+            OrganisationUnitClient::class => [
+                'parameters' => [
                     'client' => 'CGDirectoryApi_guzzle'
-                )
-            ),
+                ]
+            ]
         ),
     )
 );

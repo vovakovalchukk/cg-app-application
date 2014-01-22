@@ -7,24 +7,28 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Batch\Entity as BatchEntity;
 use CG\Order\Shared\StorageInterface as OrderInterface;
+use Zend\Di\Di;
+use Guzzle\Common\Exception\GuzzleException;
 
 class Service
 {
     protected $organisationUnitService;
     protected $batchClient;
     protected $orderClient;
+    protected $di;
 
     const DEFAULT_LIMIT = 10;
     const DEFAULT_PAGE = 1;
-    const ACTIVE = 1;
+    const ACTIVE = true;
     const DEFAULT_INCLUDE_ARCHIVED = 1;
 
     public function __construct(OrganisationUnitService $organisationUnitService, BatchInterface $batchClient,
-                                OrderInterface $orderClient)
+                                OrderInterface $orderClient, Di $di)
     {
         $this->setOrganisationUnitService($organisationUnitService)
             ->setBatchClient($batchClient)
-            ->setOrderClient($orderClient);
+            ->setOrderClient($orderClient)
+            ->setDi($di);
     }
 
     public function getBatches()
@@ -43,7 +47,8 @@ class Service
     {
         $userEntity = $this->getOrganisationUnitService()->getActiveUser();
         $batch = $this->getDi()->get(BatchEntity::class, array(
-            "organisationUnitId" => $userEntity->getOrganisationUnitId()
+            "organisationUnitId" => $userEntity->getOrganisationUnitId(),
+            "active" => true
         ));
         $batch = $this->getBatchClient()->save($batch);
 
@@ -52,29 +57,13 @@ class Service
             "limit" => "all",
             "page" => static::DEFAULT_PAGE,
             "id" => $orderIds,
-            "organisationUnitId" => $organisationUnitIds,
+            //"organisationUnitIds" => $organisationUnitIds,
             "includeArchived" => static::DEFAULT_INCLUDE_ARCHIVED,
         ));
         $orders = $this->getOrderClient()->fetchCollectionByFilter($filterEntity);
-        $rollback = array();
-        try {
-            foreach ($orders as $index => $order) {
-                $rollback[$index] = $order->getBatch();
-                $order->setBatch($batch->getId());
-                $this->getOrderClient()->save($order);
-            }
-        }
-        catch (\Exception $e) {
-            try {
-                foreach ($rollback as $index => $batchId) {
-                    $orders[$index]->setBatch($batchId);
-                    $this->getOrderClient()->save($orders[$index]);
-                }
-                $this->delete($batchId->getId());
-            } catch (\Exception $e) {
-                //Shits Really Hit The Fan
-            }
-            throw $e;
+        foreach ($orders as $order) {
+            $order->setBatch($batch->getId());
+            $this->getOrderClient()->save($order);
         }
     }
 
@@ -115,5 +104,16 @@ class Service
     public function getOrderClient()
     {
         return $this->orderClient;
+    }
+
+    public function setDi(Di $di)
+    {
+        $this->di = $di;
+        return $this;
+    }
+
+    public function getDi()
+    {
+        return $this->di;
     }
 }

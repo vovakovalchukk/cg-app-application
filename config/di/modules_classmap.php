@@ -15,6 +15,7 @@ return array(
   'DataTable'                                      => __DIR__ . '/../../module/Orders/config/module.config.php',
   'Service'                                        => __DIR__ . '/../../module/Orders/config/module.config.php',
   'Orders\Module'                                  => __DIR__ . '/../../module/Orders/Module.php',
+  'Orders\Controller\BatchController'              => __DIR__ . '/../../module/Orders/src/Orders/Controller/BatchController.php',
   'Orders\Controller\OrdersController'             => __DIR__ . '/../../module/Orders/src/Orders/Controller/OrdersController.php',
   '__Mustache_30c39f9eb4de85c695996505966eafea'    => __DIR__ . '/../../module/Orders/src/Orders/Controller/tmp/cache/mustache/__Mustache_30c39f9eb4de85c695996505966eafea.php',
   '__Mustache_34e8483fe596452411cbc9ed76704d56'    => __DIR__ . '/../../module/Orders/src/Orders/Controller/tmp/cache/mustache/__Mustache_34e8483fe596452411cbc9ed76704d56.php',
@@ -35,5 +36,7 @@ return array(
   '__MyTemplates_cde730d32f55ad65b7619a942a3bae34' => __DIR__ . '/../../module/Orders/src/Orders/Controller/tmp/cache/mustache/__MyTemplates_cde730d32f55ad65b7619a942a3bae34.php',
   'Orders\Filter\Service'                          => __DIR__ . '/../../module/Orders/src/Orders/Filter/Service.php',
   'Orders\Order\Batch\Service'                     => __DIR__ . '/../../module/Orders/src/Orders/Order/Batch/Service.php',
+  'getOrganisationUnitId'                          => __DIR__ . '/../../module/Orders/src/Orders/Order/Batch/Service.php',
+  'DEFAULT_PAGE'                                   => __DIR__ . '/../../module/Orders/src/Orders/Order/Batch/Service.php',
   'Orders\Order\Service'                           => __DIR__ . '/../../module/Orders/src/Orders/Order/Service.php',
 );

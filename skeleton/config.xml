@@ -11,4 +11,12 @@
         <box>cg-precise64-php55</box>
     </Vagrant>
     <ROLE>orders</ROLE>
+    <Module>
+        <Redis>
+            <enabled>1</enabled>
+            <Adapters>
+                <reliable>1</reliable>
+            </Adapters>
+        </Redis>
+    </Module>
 </zend-config>

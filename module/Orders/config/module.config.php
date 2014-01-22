@@ -29,27 +29,31 @@ return [
                     'batch' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => array(
-                            'route'    => '/batch',
+                            'route'    => '/batch'
                         ),
-                        'may_terminate' => false,
+                        'may_terminate' => true, //This should be false but seems to be broken
                         'child_routes' => array(
                             'create' => array(
-                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => array(
                                     'route'    => '/create',
                                     'defaults' => array(
+                                        'controller' => 'Orders\Controller\Batch',
                                         'action'     => 'create',
                                     ),
                                 ),
+                                'may_terminate' => true
                             ),
                             'delete' => array(
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => array(
-                                    'route'    => '/:batchId/delete',
+                                    'route'    => '/delete',
                                     'defaults' => array(
+                                        'controller' => 'Orders\Controller\Batch',
                                         'action'     => 'delete',
                                     ),
                                 ),
+                                'may_terminate' => true
                             )
                         )
                     ]
@@ -60,8 +64,11 @@ return [
     'controllers' => [
         'factories' => [
             'Orders\Controller\Orders' => function($controllerManager) {
-                return $controllerManager->getServiceLocator()->get(Controller\OrdersController::Class);
+                return $controllerManager->getServiceLocator()->get(Controller\OrdersController::class);
             },
+            'Orders\Controller\Batch' => function($controllerManager) {
+                    return $controllerManager->getServiceLocator()->get(Controller\BatchController::class);
+            }
         ],
         'invokables' => [],
     ],
@@ -77,23 +84,23 @@ return [
     'di' => [
         'instance' => [
             'aliases' => [
-                'OrdersTable' => DataTable::Class,
-                'OrdersCheckboxColumn' => DataTable\Column::Class,
-                'OrdersChannelColumn' => DataTable\Column::Class,
-                'OrdersAccountColumn' => DataTable\Column::Class,
-                'OrdersDateColumn' => DataTable\Column::Class,
-                'OrdersIdColumn' => DataTable\Column::Class,
-                'OrdersTotalColumn' => DataTable\Column::Class,
-                'OrdersBuyerColumn' => DataTable\Column::Class,
-                'OrdersStatusColumn' => DataTable\Column::Class,
-                'OrdersBatchColumn' => DataTable\Column::Class,
-                'OrdersMessagesColumn' => DataTable\Column::Class,
-                'OrdersShippingColumn' => DataTable\Column::Class,
-                'OrdersDispatchColumn' => DataTable\Column::Class,
-                'OrdersPrintColumn' => DataTable\Column::Class,
-                'OrdersOptionsColumn' => DataTable\Column::Class,
+                'OrdersTable' => DataTable::class,
+                'OrdersCheckboxColumn' => DataTable\Column::class,
+                'OrdersChannelColumn' => DataTable\Column::class,
+                'OrdersAccountColumn' => DataTable\Column::class,
+                'OrdersDateColumn' => DataTable\Column::class,
+                'OrdersIdColumn' => DataTable\Column::class,
+                'OrdersTotalColumn' => DataTable\Column::class,
+                'OrdersBuyerColumn' => DataTable\Column::class,
+                'OrdersStatusColumn' => DataTable\Column::class,
+                'OrdersBatchColumn' => DataTable\Column::class,
+                'OrdersMessagesColumn' => DataTable\Column::class,
+                'OrdersShippingColumn' => DataTable\Column::class,
+                'OrdersDispatchColumn' => DataTable\Column::class,
+                'OrdersPrintColumn' => DataTable\Column::class,
+                'OrdersOptionsColumn' => DataTable\Column::class,
             ],
-            Service::Class => [
+            Service::class => [
                 'parameters' => [
                     'ordersTable' => 'OrdersTable',
                 ],
