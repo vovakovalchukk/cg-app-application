@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "645dc75b6a5ab70624c1ffe97046aa10",
+    "hash": "ab768b62df8cdb7645472165e025b2c6",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -457,17 +457,17 @@
         },
         {
             "name": "channelgrabber/etag",
-            "version": "1.4.1",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgetag.git",
-                "reference": "cbab2d46fd18c2aadc2438ab21c5d364ba68f637"
+                "reference": "b928fd667e7eb333fda1c6a1cbd05d4b95238833"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-etag-1.4.1-8c2ae9.zip",
-                "reference": "cbab2d46fd18c2aadc2438ab21c5d364ba68f637",
-                "shasum": "9e9ea5c9dd5d6f292b6d982af07360ef348620e2"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-etag-1.4.2-f102fa.zip",
+                "reference": "b928fd667e7eb333fda1c6a1cbd05d4b95238833",
+                "shasum": "30d156deee48428c8c84858059b0267741c4bc15"
             },
             "require": {
                 "channelgrabber/stdlib": ">=2.0.7,<2.6.0",
@@ -479,7 +479,7 @@
                     "CG\\ETag\\": ""
                 }
             },
-            "time": "2014-01-13 16:52:16"
+            "time": "2014-01-21 10:30:22"
         },
         {
             "name": "channelgrabber/guzzle",
@@ -515,20 +515,23 @@
         },
         {
             "name": "channelgrabber/http",
-            "version": "1.2.4",
+            "version": "1.2.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cghttp.git",
-                "reference": "14c0d76daa9ecc1508f986162bd6f035c405b2dc"
+                "reference": "04ff5dd37b9ef6c8a04950c8dd6e855fb6fb34b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.2.4-ab4580.zip",
-                "reference": "14c0d76daa9ecc1508f986162bd6f035c405b2dc",
-                "shasum": "97e40eb6f5a6c0308f9a47ab03f5fda3cd80b611"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.2.5-cebe8b.zip",
+                "reference": "04ff5dd37b9ef6c8a04950c8dd6e855fb6fb34b0",
+                "shasum": "678ec45878c3cfb2249dfd628b73629885310fbe"
             },
             "require": {
-                "channelgrabber/stdlib": ">=2.4.2,<2.6.0"
+                "channelgrabber/etag": "~1.4.2",
+                "channelgrabber/stdlib": ">=2.4.2,<2.6.0",
+                "guzzle/guzzle": "~3.7",
+                "nocarrier/hal": "~0.9.4"
             },
             "replace": {
                 "channelgrabber/cghttp": "*"
@@ -539,28 +542,28 @@
                     "CG\\Http\\": ""
                 }
             },
-            "time": "2014-01-17 12:30:13"
+            "time": "2014-01-21 10:36:23"
         },
         {
             "name": "channelgrabber/log",
-            "version": "1.3.2",
+            "version": "1.3.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-log.git",
-                "reference": "db4ec76a9ee2a5bfd6c559beb66661808608b728"
+                "reference": "18e8dd6bbabf8c22b6934c4a28e22caf5333d545"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-1.3.2-849047.zip",
-                "reference": "db4ec76a9ee2a5bfd6c559beb66661808608b728",
-                "shasum": "1798e31b6c3ca0eb59a930a7a84cdf9ddea31fa2"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-1.3.4-1fa9a3.zip",
+                "reference": "18e8dd6bbabf8c22b6934c4a28e22caf5333d545",
+                "shasum": "5a74d6765880b63bb751920779af0affebabd3fd"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.7,<1.3.0",
                 "channelgrabber/etag": ">=1.3.1,<1.5.0",
-                "channelgrabber/redis": "dev-CGIV-529 as 1.0.0",
-                "channelgrabber/slim": "~1.5.0",
-                "channelgrabber/stdlib": ">=2.3.0,<2.5.0",
+                "channelgrabber/redis": "~0.1.0",
+                "channelgrabber/slim": ">=1.5.0,<1.7.0",
+                "channelgrabber/stdlib": ">=2.3.0,<2.6.0",
                 "channelgrabber/validation": "~1.1.0",
                 "nocarrier/hal": "~0.9.4",
                 "zendframework/zend-di": "2.2.*"
@@ -574,27 +577,37 @@
                     "CG": ""
                 }
             },
-            "time": "2014-01-13 15:17:42"
+            "time": "2014-01-13 16:40:35"
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-1283",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "aba7e89859e3a9a4d7599453ae3d85c9956a3cda"
+                "reference": "0a6c8ddf2cd3a4360530ec9e7238533b59c12d30"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.3.0-1bf01b.zip",
+                "reference": "0a6c8ddf2cd3a4360530ec9e7238533b59c12d30",
+                "shasum": "6d09d45436d48a50fce11349b9def30bfe84535c"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.0,<1.3.0",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/etag": ">=1.3.8,<1.5.0",
+                "channelgrabber/etag": "~1.4.0",
                 "channelgrabber/http": "~1.2.3",
-                "channelgrabber/slim": ">=1.5.5,<1.7.0",
+                "channelgrabber/slim": "~1.6.0",
                 "channelgrabber/stdlib": ">=2.3.3,<2.6.0",
-                "ext-mongo": ">=1.4.4",
+                "ext-mongo": ">=1.4.5",
                 "guzzle/guzzle": "~3.7",
                 "nocarrier/hal": "~0.9.4",
                 "zendframework/zend-di": "~2.2.5"
+            },
+            "require-dev": {
+                "channelgrabber/phpunit": "~1.0.0",
+                "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
             "autoload": {
@@ -602,7 +615,7 @@
                     "CG\\Order\\": ""
                 }
             },
-            "time": "2014-01-17 15:53:44"
+            "time": "2014-01-21 16:43:11"
         },
         {
             "name": "channelgrabber/predis",
@@ -648,13 +661,6 @@
                 "predis/predis": "v0.8.3"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Redis\\": ""
@@ -664,17 +670,27 @@
         },
         {
             "name": "channelgrabber/slim",
-            "version": "1.5.5",
+            "version": "1.6.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgslim.git",
-                "reference": "9f3c538a945241bed103ebbb92cf65d039cf114f"
+                "reference": "dd897ab90a02ae4920a45fd8431558ca145608ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-slim-1.5.5-0cd6d9.zip",
-                "reference": "9f3c538a945241bed103ebbb92cf65d039cf114f",
-                "shasum": "79f58d8e7017344ec7de077beb224aac21ff141d"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-slim-1.6.2-e5baa2.zip",
+                "reference": "dd897ab90a02ae4920a45fd8431558ca145608ae",
+                "shasum": "f21e397d3ad35f3fbe2249ce3f45022056348812"
+            },
+            "require": {
+                "channelgrabber/http": "~1.2.1",
+                "channelgrabber/stdlib": ">=2.4.1,<2.6.0",
+                "cilex/cilex": "1.0.1",
+                "nocarrier/hal": "~0.9.4",
+                "php": ">=5.4.0",
+                "rhumsaa/vnderror": "1.0.0",
+                "slim/slim": "2.3.*",
+                "zendframework/zend-eventmanager": "~2.2.5"
             },
             "replace": {
                 "channelgrabber/slim-hal": "<=1.0.3"
@@ -685,7 +701,7 @@
                     "CG\\Slim": ""
                 }
             },
-            "time": "2014-01-02 12:28:15"
+            "time": "2014-01-13 16:38:48"
         },
         {
             "name": "channelgrabber/sso",
@@ -1110,11 +1126,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-1283",
+            "version": "1.1.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "aa39ebe0e127d0c71e39fbda9d33c3f0b9e558e4"
+                "reference": "96b5cd33ff26ed1eeac85c922d36832c2a66f245"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.1.5-366323.zip",
+                "reference": "96b5cd33ff26ed1eeac85c922d36832c2a66f245",
+                "shasum": "17564b923aecdee077aced72b436c2d88d3d3127"
             },
             "require": {
                 "channelgrabber/zf2-stdlib": ">=1.0.3,<1.2.0",
@@ -1136,7 +1158,125 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-01-20 09:57:19"
+            "time": "2014-01-21 10:05:14"
+        },
+        {
+            "name": "cilex/cilex",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Cilex/Cilex.git",
+                "reference": "89ff6b821885b3f060d77de4d55ac8b4b9b42162"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Cilex/Cilex/zipball/89ff6b821885b3f060d77de4d55ac8b4b9b42162",
+                "reference": "89ff6b821885b3f060d77de4d55ac8b4b9b42162",
+                "shasum": ""
+            },
+            "require": {
+                "cilex/console-service-provider": "1.*",
+                "php": ">=5.3.3",
+                "pimple/pimple": "1.0.*",
+                "symfony/finder": "~2.1",
+                "symfony/process": "~2.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*",
+                "symfony/validator": "~2.1"
+            },
+            "suggest": {
+                "monolog/monolog": ">=1.0.0",
+                "symfony/validator": ">=1.0.0",
+                "symfony/yaml": ">=1.0.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Cilex": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mike van Riel",
+                    "email": "mike.vanriel@naenius.com"
+                }
+            ],
+            "description": "The PHP micro-framework for Command line tools based on the Symfony2 Components",
+            "homepage": "http://cilex.github.com",
+            "keywords": [
+                "cli",
+                "microframework"
+            ],
+            "time": "2013-08-01 15:19:34"
+        },
+        {
+            "name": "cilex/console-service-provider",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Cilex/console-service-provider.git",
+                "reference": "25ee3d1875243d38e1a3448ff94bdf944f70d24e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Cilex/console-service-provider/zipball/25ee3d1875243d38e1a3448ff94bdf944f70d24e",
+                "reference": "25ee3d1875243d38e1a3448ff94bdf944f70d24e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "pimple/pimple": "1.*@dev",
+                "symfony/console": "~2.1"
+            },
+            "require-dev": {
+                "cilex/cilex": "1.*@dev",
+                "silex/silex": "1.*@dev"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Cilex\\Provider\\Console": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Beau Simensen",
+                    "email": "beau@dflydev.com",
+                    "homepage": "http://beausimensen.com"
+                },
+                {
+                    "name": "Mike van Riel",
+                    "email": "mike.vanriel@naenius.com"
+                }
+            ],
+            "description": "Console Service Provider",
+            "keywords": [
+                "cilex",
+                "console",
+                "pimple",
+                "service-provider",
+                "silex"
+            ],
+            "time": "2012-12-19 10:50:58"
         },
         {
             "name": "codeception/codeception",
@@ -2211,16 +2351,16 @@
         },
         {
             "name": "pimple/pimple",
-            "version": "v1.1.0",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Pimple.git",
-                "reference": "471c7d7c52ad6594e17b8ec33efdd1be592b5d83"
+                "reference": "ae11e57e8c2bb414b2ff93396dbbfc0eb92feb94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Pimple/zipball/471c7d7c52ad6594e17b8ec33efdd1be592b5d83",
-                "reference": "471c7d7c52ad6594e17b8ec33efdd1be592b5d83",
+                "url": "https://api.github.com/repos/fabpot/Pimple/zipball/ae11e57e8c2bb414b2ff93396dbbfc0eb92feb94",
+                "reference": "ae11e57e8c2bb414b2ff93396dbbfc0eb92feb94",
                 "shasum": ""
             },
             "require": {
@@ -2229,7 +2369,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1.x-dev"
+                    "dev-master": "1.0.x-dev"
                 }
             },
             "autoload": {
@@ -2253,7 +2393,7 @@
                 "container",
                 "dependency injection"
             ],
-            "time": "2013-09-19 04:53:08"
+            "time": "2013-03-08 08:21:40"
         },
         {
             "name": "predis/predis",
@@ -2339,6 +2479,94 @@
                 "psr-3"
             ],
             "time": "2012-12-21 11:40:51"
+        },
+        {
+            "name": "rhumsaa/vnderror",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ramsey/vnderror.git",
+                "reference": "06c03145f4d9a34f679feb53b8a5a885f4d8aae2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ramsey/vnderror/zipball/06c03145f4d9a34f679feb53b8a5a885f4d8aae2",
+                "reference": "06c03145f4d9a34f679feb53b8a5a885f4d8aae2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Rhumsaa\\VndError": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ben Ramsey",
+                    "homepage": "http://benramsey.com"
+                }
+            ],
+            "description": "application/vnd.error builder / formatter for PHP 5.3+",
+            "homepage": "https://github.com/ramsey/vnderror",
+            "keywords": [
+                "error",
+                "hypermedia",
+                "json",
+                "rest",
+                "xml"
+            ],
+            "time": "2012-07-17 22:17:31"
+        },
+        {
+            "name": "slim/slim",
+            "version": "2.3.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/codeguy/Slim.git",
+                "reference": "3dec4f9ee2e9c204a9f334afd72abc174c1b792e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/codeguy/Slim/zipball/3dec4f9ee2e9c204a9f334afd72abc174c1b792e",
+                "reference": "3dec4f9ee2e9c204a9f334afd72abc174c1b792e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mcrypt": "*",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Slim": "."
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Josh Lockhart",
+                    "email": "info@joshlockhart.com",
+                    "homepage": "http://www.joshlockhart.com/"
+                }
+            ],
+            "description": "Slim Framework, a PHP micro framework",
+            "homepage": "http://github.com/codeguy/Slim",
+            "keywords": [
+                "microframework",
+                "rest",
+                "router"
+            ],
+            "time": "2013-10-31 02:05:09"
         },
         {
             "name": "symfony/browser-kit",
@@ -3101,24 +3329,16 @@
     ],
     "aliases": [
         {
-            "alias": "1.1.2",
-            "alias_normalized": "1.1.2.0",
-            "version": "dev-CGIV-1283",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.0.7",
-            "alias_normalized": "1.0.7.0",
-            "version": "dev-CGIV-1283",
-            "package": "channelgrabber/zf2-v4-ui"
+            "alias": "0.1.0",
+            "alias_normalized": "0.1.0.0",
+            "version": "dev-CGIV-529",
+            "package": "channelgrabber/redis"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
         "channelgrabber/redis": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpspec/phpspec": 20,
         "widmogrod/zf2-mustache-module": 20
     },
