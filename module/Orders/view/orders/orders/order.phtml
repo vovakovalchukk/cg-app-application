@@ -330,14 +330,18 @@ $bulkActions = array(
         <label>
             <span>Shipping Service</span>
             <div class="input">
-                <?php $options = array( 
-                    array( 'img' => 'img/logos/royalmail.png', 'href' => '#',   'title' => 'Royal Mail',  'class' => '' ),
-                    array( 'img' => 'img/logos/dpd.png', 'href' => '#',         'title' => 'DPD',  'class' => '' ),
-                    array( 'img' => 'img/logos/interlink.png', 'href' => '#',   'title' => 'Interlink',     'class' => '' ),
-                    array( 'img' => 'img/logos/parcelforce.png', 'href' => '#', 'title' => 'Parcel Force', 'class' => '' ),
-                 );
-                $customSelectImgSrc = 'img/logos/royalmail.png';
+                <?php
+                $data =  array(
+                    'options' =>array( 
+                        array( 'img' => '/channelgrabber/zf2-v4-ui/img/logos/royalmail.png', 'href' => '#',   'title' => 'Royal Mail',  'class' => '' ),
+                        array( 'img' => '/channelgrabber/zf2-v4-ui/img/logos/dpd.png', 'href' => '#',         'title' => 'DPD',  'class' => '' ),
+                        array( 'img' => '/channelgrabber/zf2-v4-ui/img/logos/interlink.png', 'href' => '#',   'title' => 'Interlink',     'class' => '' ),
+                        array( 'img' => '/channelgrabber/zf2-v4-ui/img/logos/parcelforce.png', 'href' => '#', 'title' => 'Parcel Force', 'class' => '' )
+                    ),
+                    'customSelectImgSrc' => '/channelgrabber/zf2-v4-ui/img/logos/royalmail.png'
+                );
                 ?>
+                <?= $this->partial('elements/custom-select-image', $data); ?>
                 <?php // include('includes/layout/custom/custom-select-image.php'); ?>
             </div>
         </label>
