@@ -88,6 +88,71 @@ class OrdersController extends AbstractActionController
         return $view;
     }
 
+    public function orderAction(){
+        $view = $this->getViewModelFactory()->newInstance();
+
+        $ordersTable = $this->getOrderService()->getOrdersTable();
+        $settings = $ordersTable->getVariable('settings');
+        $settings->setSource($this->url()->fromRoute('Orders/ajax'));
+        $view->addChild($ordersTable, 'ordersTable');
+
+        $view->addChild($this->getBulkActions(), 'bulkItems');
+        $view->addChild($this->getFilterBar(), 'filters');
+        $view->addChild($this->getSidebar(), 'sidebar');
+        $view->addChild($this->getNotes(), 'notes');
+        $view->addChild($this->getTimelineBoxes(), 'timelineBoxes');
+
+        return $view;
+    }
+
+    protected function getTimelineBoxes()
+    {
+        $data = [
+            'timelineBoxes' => [
+                ['title' => 'Purchase Date',   'subtitle' => '17th Dec 2013', 'extraText' => '12:36pm',  'colour' => 'green'],
+                ['title' => 'Payment Date',    'subtitle' => '17th Dec 2013', 'extraText' => '12:37pm',  'colour' => 'green'],
+                ['title' => 'Invoice Created', 'subtitle' => '17th Dec 2013', 'extraText' => '12:38pm',  'colour' => 'green'],
+                ['title' => 'Dispatch Pending', 'subtitle' => '17th Dec 2013', 'extraText' => '12:38pm',  'colour' => 'grey']
+            ],
+            'timelineTimes' => [
+                ['status' => 'ok',     'time' => '3 Minutes'],
+                ['status' => 'ok',     'time' => '3 Minutes'],
+                ['status' => 'ok',     'time' => '5 Days'],
+                ['status' => 'notice', 'time' => '']
+            ],
+            'timelineTotal' => '5d 0h 5m'
+        ];
+        $timelineBoxes = $this->getViewModelFactory()->newInstance($data);
+        $timelineBoxes->setTemplate('elements/timeline-boxes');
+        return $timelineBoxes;
+    }
+
+    protected function getNotes()
+    {
+        $notesData = [
+            'notes' => [
+                [
+                    'author' => "James Higgins",
+                    'date'   => "17/12/2013 - 09:00:34",
+                    'note'=> 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit involuptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+                ],
+                [
+                    'author' => "Daniel Williams",
+                    'date'   => "17/12/2013 - 09:00:34",
+                    'note'=> 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit involuptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+                ],
+                [
+                    'author' => "Matt King",
+                    'date'   => "17/12/2013 - 09:00:34",
+                    'note'=> 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit involuptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+                ]
+            ]
+        ];
+        $notes = $this->getViewModelFactory()->newInstance($notesData);
+        $notes->setTemplate('elements/notes');
+        return $notes;
+    }
+
     protected function getSidebar()
     {
         $sidebar = $this->getViewModelFactory()->newInstance();

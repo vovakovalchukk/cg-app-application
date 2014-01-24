@@ -1,0 +1,388 @@
+<?php $this->headScript()->appendFile("/". $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
+<?php $this->headScript()->appendFile("/". $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
+<?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
+<?php
+$fullWidth = false;
+$pageTitle = 'Order Page Prototype';
+$filters = false;
+$title = "View Order";
+$productTable = array( 
+    'headers' => array( 
+        array( 'title' => 'SKU',        'class' => '' ),
+        array( 'title' => 'Product Name',     'class' => '' ),
+        array( 'title' => 'Qty', 'class' => 'right' ),
+        array( 'title' => 'Line Total',     'class' => 'right' )
+     ), 
+    'actions' => array(  ),
+    'rows' => array( 
+        array( 'BLACK25545432', 'Logitech Keyboard - Title: Black', '1','&pound;4.20' ),
+        array( 'BLACK25545435', 'Logitech Mouse - Title: Black',    '1','&pound;10.80' )
+     )
+ );
+
+$accountingTable = array( 
+    'class' => 'table-med',
+    'headers' => array( 
+        array( 'title' => 'Invoice ID',        'class' => '' ),
+        array( 'title' => 'Description',     'class' => '' ),
+        array( 'title' => 'Total',     'class' => 'right' )
+     ), 
+    'actions' => array(  ),
+    'rows' => array( 
+        array( '123456789', 'Logitech Keyboard - Title: Black',  '&pound;4.20' )
+     )
+ );
+$bulkActionsClass = 'bulk-actions-inline';
+$bulkActions = array( 
+    array(  
+        'title' => 'Print',
+        'class' => 'print',
+        'sub-actions' => array( 
+              array( 'title' => 'Example 1',         'action' => 'example' ),
+              array( 'title' => 'Example 2',         'action' => 'example' )
+           )
+     ),
+    array(  
+        'title' => 'Dispatch',
+        'class' => 'dispatch'
+     ),
+    array(  
+        'title' => 'Tag / Untag',
+        'class' => 'tag-untag',
+        'sub-actions' => array( 
+              array( 'title' => 'Example 1',         'action' => 'example' ),
+              array( 'title' => 'Example 2',         'action' => 'example' )
+           )
+     ),
+    array(  
+        'title' => 'Courier',
+        'class' => 'courier',
+        'sub-actions' => array( 
+              array( 'title' => 'Example 1',         'action' => 'example' ),
+              array( 'title' => 'Example 2',         'action' => 'example' )
+           )
+     ),
+    array(  
+        'title' => 'Accounting',
+        'class' => 'accounting',
+        'sub-actions' => array( 
+              array( 'title' => 'Example 1',         'action' => 'example' ),
+              array( 'title' => 'Example 2',         'action' => 'example' )
+           )
+     )
+ );
+?>
+<div id="order-status" class="red-bg">New</div>
+<div id="breadcrumbs" class="order-breadcrumbs">
+    <ul>
+        <li><a href="#">View Order</a></li>
+        <li class="separator"><span>&nbsp;</span></li>
+        <li><span>1056609</span></li>
+    </ul>
+    <div class="right">
+        <span><strong>Order ID: </strong>1056609</span>
+        <img src="/channelgrabber/zf2-v4-ui/img/logos/ebay.png" alt="eBay" />
+    </div>
+</div>
+<div id="bulk-actions" class="module full-width with-padding clearfix bulk-actions-inline">
+    <div class="bulk-action  with-select">
+    <div class="default clearfix">
+        <span class="action" data-action="print">
+            <span class="icon-med inverted print">&nbsp;</span>
+            <span class="title">Print</span>
+        </span>
+                    <span class="divider">
+            <span class="arrow down">&nbsp;</span>
+        </span>
+    </div>
+    <ul>
+    <span class="box-arrow-up"></span>
+                    <li><a href="#" class="action" data-action="example"><span>Example 1</span></a></li>
+                    <li><a href="#" class="action" data-action="example"><span>Example 2</span></a></li>
+                </ul>
+        </div>
+    <div class="bulk-action ">
+    <div class="default clearfix">
+        <span class="action" data-action="dispatch">
+            <span class="icon-med inverted dispatch">&nbsp;</span>
+            <span class="title">Dispatch</span>
+        </span>
+                </div>
+        </div>
+    <div class="bulk-action  with-select">
+    <div class="default clearfix">
+        <span class="action" data-action="tag-untag">
+            <span class="icon-med inverted tag-untag">&nbsp;</span>
+            <span class="title">Tag / Untag</span>
+        </span>
+                    <span class="divider">
+            <span class="arrow down">&nbsp;</span>
+        </span>
+    </div>
+    <ul>
+    <span class="box-arrow-up"></span>
+                    <li><a href="#" class="action" data-action="example"><span>Example 1</span></a></li>
+                    <li><a href="#" class="action" data-action="example"><span>Example 2</span></a></li>
+                </ul>
+        </div>
+    <div class="bulk-action  with-select">
+    <div class="default clearfix">
+        <span class="action" data-action="courier">
+            <span class="icon-med inverted courier">&nbsp;</span>
+            <span class="title">Courier</span>
+        </span>
+                    <span class="divider">
+            <span class="arrow down">&nbsp;</span>
+        </span>
+    </div>
+    <ul>
+    <span class="box-arrow-up"></span>
+                    <li><a href="#" class="action" data-action="example"><span>Example 1</span></a></li>
+                    <li><a href="#" class="action" data-action="example"><span>Example 2</span></a></li>
+                </ul>
+        </div>
+    <div class="bulk-action  with-select">
+    <div class="default clearfix">
+        <span class="action" data-action="accounting">
+            <span class="icon-med inverted accounting">&nbsp;</span>
+            <span class="title">Accounting</span>
+        </span>
+                    <span class="divider">
+            <span class="arrow down">&nbsp;</span>
+        </span>
+    </div>
+    <ul>
+        <span class="box-arrow-up"></span>
+        <li><a href="#" class="action" data-action="example"><span>Example 1</span></a></li>
+        <li><a href="#" class="action" data-action="example"><span>Example 2</span></a></li>
+    </ul>
+</div>
+</div>
+<a class="close-popup close"><span class="icon close"></span> Close</a>
+<?=$this->timelineBoxes ?>
+<div class="module clearfix">
+    <form class="single-row">
+        <span class="icon-large warning"></span>
+        <input type="text" class="text" placeholder="Order Alert" name=""/>
+        <input type="submit" class="button inline" value="Save Alert" />
+    </form>
+</div>
+<div class="module clearfix">
+    <form class="single-row">
+        <span class="icon-large user"></span>
+        <p>Buyer Message:  Hello please leave it next door...</p>
+    </form>
+</div>
+<div class="module clearfix">
+    <div id="detailsForm">
+        <form action="" method="post" class="ajaxPost">
+            <div class="half">
+                <h2>Delivery Information</h2>
+                <label>
+                    <span>Recipient Name</span>
+                    <abbr class="required">*</abbr>
+                    <input type="text" name="companyName" required="required" placeholder="John Smith">
+                </label>
+                <label>
+                    <span>Company Name</span>
+                    <input type="text" name="companyName" required="required" placeholder="">
+                </label>
+                <label>
+                    <span>Address Line 1</span>
+                    <abbr class="required">*</abbr>
+                    <input type="text" name="addressLine1" required="required" placeholder="123 The Street" value="">
+                </label>
+                <label>
+                    <span>Address Line 2</span>
+                    <input type="text" name="addressLine2" placeholder="My Town" value="">
+                </label>
+                <label>
+                    <span>City</span>
+                    <abbr class="required">*</abbr>
+                    <input type="text" name="city" required="required" placeholder="Manchester" value="">
+                </label>
+                <label>
+                    <span>County</span>
+                    <input type="text" name="county" placeholder="Lancashire" value="">
+                </label>
+                <label>
+                    <span>Postcode</span>
+                    <input type="text" name="postcode" placeholder="AB1 2CD" value="">
+                </label>
+                <label>
+                    <span>Country</span>
+                    <div class="input">
+                        <div class="custom-select">
+                            <div class="selected">Select <span class="arrow down">&nbsp;</span></div>
+                            <ul>
+                                <li><a href="#">United Kingdom</a></li>
+                                <li><a href="#">Afghanistan</a></li>
+                                <li><a href="#">Azerbaijan</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </label>
+                <label>
+                    <span>Telephone</span>
+                    <input type="text" name="county" placeholder="Lancashire" value="">
+                </label>
+            </div>
+            <div class="half">
+                <h2>Buyer Information</h2>
+                <label>
+                    <span>Buyer Name</span>
+                    <abbr class="required">*</abbr>
+                    <input type="text" name="companyName" required="required" placeholder="John Smith">
+                </label>
+                <label>
+                    <span>Buyer Email</span>
+                    <input type="text" name="companyName" required="required" placeholder="">
+                </label>
+                <label>
+                    <span>Buyer Phone</span>
+                    <abbr class="required">*</abbr>
+                    <input type="text" name="addressLine1" required="required" placeholder="123 The Street" value="">
+                </label>
+            </div>
+            <div class="half" style="clear:both; padding-top:0px;">
+                <label>
+                    <input type="submit" name="save" class="button form-button" value="Save"> 
+                    <span class="loading">Saving</span>
+                </label>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="module clearfix">
+    <h2>Product &amp; Payment Information</h2>
+    <?php $table = $productTable; ?>
+    <?php if(!empty($table)):?>
+    <table class="normal-table <?php if(!empty($table['class'])): echo $table['class']; endif; ?>">
+        <thead>
+            <tr>
+                <?php foreach($table['headers'] as $tableHeader):?>
+                <th class="<?=$tableHeader['class']?>"><?=$tableHeader['title']?></th>
+                <?php endforeach; ?>
+                <?php if(!empty($table['actions'])):?>
+                <th class="actions actions-col">Actions</th>
+                <?php endif;?>
+            </tr>
+        </thead>
+        <tbody>
+            <?php for($i=0; $i < count($table['rows']); $i++):?>
+            <tr <?php if($i % 2 == 1): ?>class="odd"<?php endif; ?>>
+                <?php for($j =0; $j < count($table['rows'][$i]); $j++): ?>
+                <td class="<?=$table['headers'][$j]['class'];?>">
+                    <?= $table['rows'][$i][$j] ?>
+                </td>
+            <?php endfor; ?>
+
+                <?php if(!empty($table['actions'])):?>
+                    <?php foreach($table['actions'] as $action):?>
+                <td class="actions-col"><a href="#" class="action" data-action="<?=strtolower($action)?>"><?=$action?></a></td>
+                    <?php endforeach;?>
+                <?php endif;?>
+            </tr>
+            <?php endfor; ?>
+        </tbody>
+    </table>
+    <?php endif;?>
+    <table class="no-borders">
+        <tr>
+            <td colspan="2">Paid By: <strong>Paypal</strong></td>
+            <td class="right"><strong>Postage:</strong></td>
+            <td class="right"><strong>&pound;2.50</strong></td>
+        </tr>
+        <tr>
+            <td colspan="2">Reference: <strong>644864684</strong></td>
+            <td class="right"><strong>Total:</strong></td>
+            <td class="right"><strong>&pound;17.50</strong></td>
+        </tr>
+    </table>
+    <form  method="post" class="ajaxPost">
+        <label>
+            <span>Refund Amount &pound;</span>
+            <input type="text" name="companyName" required="required" placeholder="" value="">
+        </label>
+        <label>
+            <span>Refund Reason</span>
+            <div class="input">
+                <div class="custom-select">
+                    <div class="selected">Select <span class="arrow down">&nbsp;</span></div>
+                    <ul>
+                        <li><a href="#">Some reason</a></li>
+                        <li><a href="#">Another reason</a></li>
+                        <li><a href="#">And Another Reason</a></li>
+                    </ul>
+                </div>
+            </div>
+        </label>
+        <label>
+            <input type="submit" name="save" class="button form-button" value="Refund"> 
+            <span class="loading">Refunding</span>
+        </label>
+    </form>
+</div>
+<div class="module clearfix">
+    <h2>Shipping</h2>
+    <form  method="post" class="ajaxPost">
+        <label>
+            <span>Shipping Service</span>
+            <div class="input">
+                <?php $options = array( 
+                    array( 'img' => 'img/logos/royalmail.png', 'href' => '#',   'title' => 'Royal Mail',  'class' => '' ),
+                    array( 'img' => 'img/logos/dpd.png', 'href' => '#',         'title' => 'DPD',  'class' => '' ),
+                    array( 'img' => 'img/logos/interlink.png', 'href' => '#',   'title' => 'Interlink',     'class' => '' ),
+                    array( 'img' => 'img/logos/parcelforce.png', 'href' => '#', 'title' => 'Parcel Force', 'class' => '' ),
+                 );
+                $customSelectImgSrc = 'img/logos/royalmail.png';
+                ?>
+                <?php // include('includes/layout/custom/custom-select-image.php'); ?>
+            </div>
+        </label>
+        <label>
+            <span>Tracking Number</span>
+            <input type="text" name="companyName" required="required" placeholder="My Company Ltd"  value="GB 1234567890">
+        </label>
+    </form>
+</div>
+<div class="module clearfix">
+    <h2>Accounting</h2>
+        <?php 
+            $table = $accountingTable;
+            //include('includes/tables/normal.php');
+        ?>
+        <?php if(!empty($table)):?>
+        <table class="normal-table <?php if(!empty($table['class'])): echo $table['class']; endif; ?>">
+            <thead>
+                <tr>
+                    <?php foreach($table['headers'] as $tableHeader):?>
+                    <th class="<?=$tableHeader['class']?>"><?=$tableHeader['title']?></th>
+                    <?php endforeach; ?>
+                    <?php if(!empty($table['actions'])):?>
+                    <th class="actions actions-col">Actions</th>
+                    <?php endif;?>
+                </tr>
+            </thead>
+            <tbody>
+                <?php for($i=0; $i < count($table['rows']); $i++):?>
+                <tr <?php if($i % 2 == 1): ?>class="odd"<?php endif; ?>>
+                    <?php for($j =0; $j < count($table['rows'][$i]); $j++): ?>
+                    <td class="<?=$table['headers'][$j]['class'];?>">
+                        <?= $table['rows'][$i][$j] ?>
+                    </td>
+                <?php endfor; ?>
+
+                    <?php if(!empty($table['actions'])):?>
+                        <?php foreach($table['actions'] as $action):?>
+                    <td class="actions-col"><a href="#" class="action" data-action="<?=strtolower($action)?>"><?=$action?></a></td>
+                        <?php endforeach;?>
+                    <?php endif;?>
+                </tr>
+                <?php endfor; ?>
+            </tbody>
+        </table>
+        <?php endif;?>
+</div>
+<?= $this->notes ?>

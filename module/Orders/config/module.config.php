@@ -25,6 +25,15 @@ return [
                                 'action' => 'json',
                             ]
                         ]
+                    ],
+                    'order' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/order',
+                            'defaults' => [
+                                'action' => 'order',
+                            ]
+                        ]
                     ]
                 ],
             ],
