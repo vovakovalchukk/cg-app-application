@@ -20,8 +20,7 @@ class OrdersController extends AbstractActionController
         FilterService $filterService,
         JsonModelFactory $jsonModelFactory,
         ViewModelFactory $viewModelFactory
-    )
-    {
+    ) {
         $this
             ->setOrderService($orderService)
             ->setFilterService($filterService)
@@ -88,7 +87,8 @@ class OrdersController extends AbstractActionController
         return $view;
     }
 
-    public function orderAction(){
+    public function orderAction()
+    {
         $view = $this->getViewModelFactory()->newInstance();
 
         $ordersTable = $this->getOrderService()->getOrdersTable();
@@ -109,15 +109,35 @@ class OrdersController extends AbstractActionController
     {
         $data = [
             'timelineBoxes' => [
-                ['title' => 'Purchase Date',   'subtitle' => '17th Dec 2013', 'extraText' => '12:36pm',  'colour' => 'green'],
-                ['title' => 'Payment Date',    'subtitle' => '17th Dec 2013', 'extraText' => '12:37pm',  'colour' => 'green'],
-                ['title' => 'Invoice Created', 'subtitle' => '17th Dec 2013', 'extraText' => '12:38pm',  'colour' => 'green'],
-                ['title' => 'Dispatch Pending', 'subtitle' => '17th Dec 2013', 'extraText' => '12:38pm',  'colour' => 'grey']
+                [
+                    'title' => 'Purchase Date',
+                    'subtitle' => '17th Dec 2013',
+                    'extraText' => '12:36pm',
+                    'colour' => 'green'
+                ],
+                [
+                    'title' => 'Payment Date',
+                    'subtitle' => '17th Dec 2013',
+                    'extraText' => '12:37pm',
+                    'colour' => 'green'
+                ],
+                [
+                    'title' => 'Invoice Created',
+                    'subtitle' => '17th Dec 2013',
+                    'extraText' => '12:38pm',
+                    'colour' => 'green'
+                ],
+                [
+                    'title' => 'Dispatch Pending',
+                    'subtitle' => '17th Dec 2013',
+                    'extraText' => '12:38pm',
+                    'colour' => 'grey'
+                ]
             ],
             'timelineTimes' => [
-                ['status' => 'ok',     'time' => '3 Minutes'],
-                ['status' => 'ok',     'time' => '3 Minutes'],
-                ['status' => 'ok',     'time' => '5 Days'],
+                ['status' => 'ok', 'time' => '3 Minutes'],
+                ['status' => 'ok', 'time' => '3 Minutes'],
+                ['status' => 'ok', 'time' => '5 Days'],
                 ['status' => 'notice', 'time' => '']
             ],
             'timelineTotal' => '5d 0h 5m'
@@ -133,18 +153,18 @@ class OrdersController extends AbstractActionController
             'notes' => [
                 [
                     'author' => "James Higgins",
-                    'date'   => "17/12/2013 - 09:00:34",
-                    'note'=> 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit involuptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+                    'date' => "17/12/2013 - 09:00:34",
+                    'note' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit involuptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
                 ],
                 [
                     'author' => "Daniel Williams",
-                    'date'   => "17/12/2013 - 09:00:34",
-                    'note'=> 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit involuptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+                    'date' => "17/12/2013 - 09:00:34",
+                    'note' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit involuptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
                 ],
                 [
                     'author' => "Matt King",
-                    'date'   => "17/12/2013 - 09:00:34",
-                    'note'=> 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit involuptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+                    'date' => "17/12/2013 - 09:00:34",
+                    'note' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit involuptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
                 ]
             ]
         ];
@@ -169,8 +189,8 @@ class OrdersController extends AbstractActionController
                         'title' => 'Invoice',
                         'class' => 'invoice',
                         'sub-actions' => [
-                            ['title' => 'by SKU',  'action' => 'invoices-sku'],
-                            ['title' => 'by Title','action' => 'invoices-title']
+                            ['title' => 'by SKU', 'action' => 'invoices-sku'],
+                            ['title' => 'by Title', 'action' => 'invoices-title']
                         ]
                     ],
                     [
@@ -225,33 +245,33 @@ class OrdersController extends AbstractActionController
         $dateRangeOptions = [
             [
                 'title' => 'All Time',
-                'from'  => 'All',
-                'to'    => 'All'
+                'from' => 'All',
+                'to' => 'All'
             ],
             [
                 'title' => 'Today',
-                'from'  => date($dateFormat),
-                'to'    => date($dateFormat)
+                'from' => date($dateFormat),
+                'to' => date($dateFormat)
             ],
             [
                 'title' => 'Last 7 days',
-                'from'  => date($dateFormat, strtotime("-7 days")),
-                'to'    => date($dateFormat)
+                'from' => date($dateFormat, strtotime("-7 days")),
+                'to' => date($dateFormat)
             ],
             [
                 'title' => 'Month to date',
-                'from'  => date($dateFormat, strtotime( 'first day of ' . date( 'F Y'))),
-                'to'    => date($dateFormat)
+                'from' => date($dateFormat, strtotime('first day of ' . date('F Y'))),
+                'to' => date($dateFormat)
             ],
             [
                 'title' => 'Year to date',
-                'from'  => date($dateFormat,  strtotime( 'first day of January ' . date('Y'))),
-                'to'    => date($dateFormat)
+                'from' => date($dateFormat, strtotime('first day of January ' . date('Y'))),
+                'to' => date($dateFormat)
             ],
             [
                 'title' => 'The previous month',
-                'from'  => date($dateFormat, strtotime( 'first day of last month ')),
-                'to'    => date($dateFormat, strtotime( 'last day of last month ')),
+                'from' => date($dateFormat, strtotime('first day of last month ')),
+                'to' => date($dateFormat, strtotime('last day of last month ')),
             ]
         ];
         $dateRangeFilter = $this->getViewModelFactory()->newInstance();
@@ -259,10 +279,10 @@ class OrdersController extends AbstractActionController
         $dateRangeFilter->setVariable('options', $dateRangeOptions);
         $filterRow[] = $viewRender->render($dateRangeFilter);
 
-        $options =[
+        $options = [
             'title' => "Status",
-            'id'    => 'filter-status',
-            'options' => [ 'New', 'Processing', 'Dispatched']
+            'id' => 'filter-status',
+            'options' => ['New', 'Processing', 'Dispatched']
         ];
         $filterButtons = $this->getViewModelFactory()->newInstance();
         $filterButtons->setTemplate('elements/custom-select-group');
@@ -294,7 +314,7 @@ class OrdersController extends AbstractActionController
         $filterRow = [];
         $options = [
             'title' => 'Include Country',
-            'options' => ['UK','Austria','Croatia','Cyprus','France','Germany','Italy','Spain'],
+            'options' => ['UK', 'Austria', 'Croatia', 'Cyprus', 'France', 'Germany', 'Italy', 'Spain'],
             'isOptional' => true
         ];
         $filterButtons = $this->getViewModelFactory()->newInstance();
