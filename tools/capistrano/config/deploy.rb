@@ -16,23 +16,7 @@ set :ssh_options, {
     :forward_agent => true
 }
 
-set :linked_files, [
-    "config/host.php",
-    "config/autoload/di.cgcache.global.php",
-    "config/autoload/di.guzzle.global.php",
-    "config/autoload/di.memcached.global.php",
-    "config/autoload/orders.global.php",
-    "config/module/CG_Log.php",
-    "config/module/CG_SSO.php",
-    "data/certificates/audit_client.pem",
-    "data/certificates/cacert.pem",
-    "data/certificates/cg_app_client.pem",
-    "data/certificates/CGDirectoryApi_client.pem",
-    "data/certificates/log_client.pem",
-    "data/certificates/satis_client.pem",
-    "data/di/php_internal-definition.php",
-    "tests/api.suite.yml"
-]
+set :linked_files, []
 set :linked_dirs, []
 
 namespace :deploy do
