@@ -27,9 +27,9 @@ return [
                         ]
                     ],
                     'order' => [
-                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'type' => 'Zend\Mvc\Router\Http\Segment',
                         'options' => [
-                            'route' => '/order',
+                            'route' => '/:order',
                             'defaults' => [
                                 'action' => 'order',
                             ]
