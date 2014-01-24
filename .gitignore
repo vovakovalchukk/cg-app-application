@@ -8,7 +8,9 @@
 /config/host.php
 /config/module/*
 /data/certificates
+/data/mustache
 /data/di
+/module/Orders/src/Orders/Controller/tmp
 /tests/*/*Guy.php
 /tests/_log
 /vendor

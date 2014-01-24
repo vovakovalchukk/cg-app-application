@@ -1,0 +1,24 @@
+require 'json'
+
+namespace :deploy do
+    before :updating, 'symlinks:deploy'
+end
+
+namespace :symlinks do
+    task :deploy do
+        on roles(:all), in: :parallel do
+            within shared_path do
+                jsonFile = 'symlinks.json'
+                if test '[', '-e', jsonFile, ']'
+                    json = capture :cat, jsonFile
+                    symlinks = JSON.parse(json).values
+                    linked_files = fetch :linked_files, []
+                    linked_files.push(*symlinks).uniq
+                    set :linked_files, linked_files
+                else
+                    warn "[SKIPPING] Symlink File Not Found - #{jsonFile}"
+                end
+            end
+        end
+    end
+end
