@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "ab768b62df8cdb7645472165e025b2c6",
+    "hash": "b92a2caef5e928ae564d6531f4feccc5",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -442,7 +442,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgconstants.git",
-                "reference": "76765f7dbe351ebd02fefea584f2703437fae6dd"
+                "reference": "84172f11e6280e75a609904ccb3d9bf22a546e21"
             },
             "require": {
                 "php": ">=5.4.0"
@@ -453,7 +453,7 @@
                     "CG": ""
                 }
             },
-            "time": "2014-01-13 17:46:01"
+            "time": "2014-01-23 12:23:03"
         },
         {
             "name": "channelgrabber/etag",
@@ -1126,17 +1126,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.1.7",
+            "version": "dev-CGIV-1408",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "6a734a1ae26bf196299ef29e955ab19c5eb82a9c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.1.7-6259e5.zip",
-                "reference": "6a734a1ae26bf196299ef29e955ab19c5eb82a9c",
-                "shasum": "ec562a6fb041c0e1c298026b9ab7218a33677aa4"
+                "reference": "77517a64cef216c5121cc3f31eb33ca2d3c8db19"
             },
             "require": {
                 "channelgrabber/zf2-stdlib": ">=1.0.3,<1.2.0",
@@ -1158,7 +1152,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-01-22 11:42:22"
+            "time": "2014-01-23 15:03:49"
         },
         {
             "name": "cilex/cilex",
@@ -1861,12 +1855,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/phpspec.git",
-                "reference": "ebcd2691e16929614134cc146e8aad6d7782716b"
+                "reference": "59d1e207c19f97edeb9673e45a285b28d1852711"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/ebcd2691e16929614134cc146e8aad6d7782716b",
-                "reference": "ebcd2691e16929614134cc146e8aad6d7782716b",
+                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/59d1e207c19f97edeb9673e45a285b28d1852711",
+                "reference": "59d1e207c19f97edeb9673e45a285b28d1852711",
                 "shasum": ""
             },
             "require": {
@@ -1925,20 +1919,20 @@
                 "testing",
                 "tests"
             ],
-            "time": "2014-01-17 14:23:47"
+            "time": "2014-01-23 23:03:41"
         },
         {
             "name": "phpspec/prophecy",
-            "version": "v1.1.1",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "fc5ddee4879dfcee788d9cb4b92af9028bc3d7e8"
+                "reference": "976a65af02a2a0e17ce6c949f7b43437205628bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/fc5ddee4879dfcee788d9cb4b92af9028bc3d7e8",
-                "reference": "fc5ddee4879dfcee788d9cb4b92af9028bc3d7e8",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/976a65af02a2a0e17ce6c949f7b43437205628bb",
+                "reference": "976a65af02a2a0e17ce6c949f7b43437205628bb",
                 "shasum": ""
             },
             "require-dev": {
@@ -1980,7 +1974,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2014-01-15 15:06:06"
+            "time": "2014-01-24 11:03:43"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -3333,12 +3327,19 @@
             "alias_normalized": "0.1.0.0",
             "version": "dev-CGIV-529",
             "package": "channelgrabber/redis"
+        },
+        {
+            "alias": "1.1.9",
+            "alias_normalized": "1.1.9.0",
+            "version": "dev-CGIV-1408",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/redis": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpspec/phpspec": 20,
         "widmogrod/zf2-mustache-module": 20
     },
