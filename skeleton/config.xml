@@ -11,4 +11,9 @@
         <box>cg-precise64-php55</box>
     </Vagrant>
     <ROLE>orders</ROLE>
+    <Environment>
+        <Local>
+            <node>orders</node>
+        </Local>
+    </Environment>
 </zend-config>
