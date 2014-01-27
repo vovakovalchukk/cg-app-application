@@ -3,6 +3,7 @@
 /config/autoload/di.guzzle.global.php
 /config/autoload/di.memcached.global.php
 /config/autoload/di.redis.global.php
+/config/di/vendor_components.php
 /config/host.php
 /data/certificates
 /data/di
