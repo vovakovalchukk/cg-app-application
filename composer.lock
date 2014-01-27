@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "c6799bf0bff58e98bf07c04a66730c1b",
+    "hash": "bfb465cfeee4193ea84651465c9e6ce1",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -907,11 +907,17 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "dev-CGIV-1429-UICleanup",
+            "version": "1.3.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "d7fb4be830188c3f464a2b88da835ad72251ef76"
+                "reference": "1e0c24a05c42085499e851bb2c329b666e24843c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.3.4-a097c7.zip",
+                "reference": "1e0c24a05c42085499e851bb2c329b666e24843c",
+                "shasum": "5dd080ab8e9aa443e6dfe5a4e1669eafed8f4071"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2,<1.3.0",
@@ -942,15 +948,21 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2014-01-27 15:28:52"
+            "time": "2014-01-27 16:22:54"
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-CGIV-1429-UICleanup",
+            "version": "1.4.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "f1a2bb0df653cb2d7c8a300a97de4160619d6158"
+                "reference": "e1a473682f0ce95433434ecdfb15246c266e97ba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.5-25acb4.zip",
+                "reference": "e1a473682f0ce95433434ecdfb15246c266e97ba",
+                "shasum": "e2de1697bae01e26a555f9b44ed672893c6ad2fa"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -978,7 +990,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2014-01-27 14:51:39"
+            "time": "2014-01-27 16:26:50"
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
@@ -1046,11 +1058,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-1429-UICleanup",
+            "version": "1.1.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "f2da35fe6ead8bc42fccd983f6626c97215966ad"
+                "reference": "867de5e28c6d8455d173a5e08812dcd4a51b5fc0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.1.9-5e75c2.zip",
+                "reference": "867de5e28c6d8455d173a5e08812dcd4a51b5fc0",
+                "shasum": "3605875a01cd6260cc16f282b7b528e27afd19d7"
             },
             "require": {
                 "channelgrabber/zf2-stdlib": ">=1.0.3,<1.2.0",
@@ -1072,7 +1090,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-01-27 15:38:31"
+            "time": "2014-01-27 16:32:03"
         },
         {
             "name": "codeception/codeception",
@@ -3036,32 +3054,12 @@
 
     ],
     "aliases": [
-        {
-            "alias": "1.3.4",
-            "alias_normalized": "1.3.4.0",
-            "version": "dev-CGIV-1429-UICleanup",
-            "package": "channelgrabber/zf2-login"
-        },
-        {
-            "alias": "1.4.5",
-            "alias_normalized": "1.4.5.0",
-            "version": "dev-CGIV-1429-UICleanup",
-            "package": "channelgrabber/zf2-register"
-        },
-        {
-            "alias": "1.1.9",
-            "alias_normalized": "1.1.9.0",
-            "version": "dev-CGIV-1429-UICleanup",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/redis": 20,
-        "channelgrabber/zf2-login": 20,
-        "channelgrabber/zf2-register": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpspec/phpspec": 20,
         "widmogrod/zf2-mustache-module": 20
     },
