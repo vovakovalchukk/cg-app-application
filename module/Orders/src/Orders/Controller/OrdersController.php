@@ -103,6 +103,7 @@ class OrdersController extends AbstractActionController
     protected function getTimelineBoxes()
     {
         $timelineBoxes = $this->getViewModelFactory()->newInstance(
+            // Example Data - Should be loaded via Service/Di
             include dirname(dirname(dirname(__DIR__))) . '/test/data/timeline-boxes.php'
         );
         $timelineBoxes->setTemplate('elements/timeline-boxes');
@@ -112,6 +113,7 @@ class OrdersController extends AbstractActionController
     protected function getNotes()
     {
         $notes = $this->getViewModelFactory()->newInstance(
+            // Example Data - Should be loaded via Service/Di
             include dirname(dirname(dirname(__DIR__))) . '/test/data/notes.php'
         );
         $notes->setTemplate('elements/notes');
@@ -128,6 +130,7 @@ class OrdersController extends AbstractActionController
     protected function getBulkActions()
     {
         $bulkItems = $this->getViewModelFactory()->newInstance(
+            // Example Data - Should be loaded via Service/Di
             include dirname(dirname(dirname(__DIR__))) . '/test/data/bulkactions.php'
         );
         $bulkItems->setTemplate('layout/bulk-actions');
@@ -146,6 +149,7 @@ class OrdersController extends AbstractActionController
         $dateRangeFilter->setTemplate('elements/date-range');
         $dateRangeFilter->setVariable(
             'options',
+            // Example Data - Should be loaded via Service/Di
             include dirname(dirname(dirname(__DIR__))) . '/test/data/filterBar/daterange-options.php'
         );
         $filterRow[] = $viewRender->render($dateRangeFilter);
@@ -154,6 +158,7 @@ class OrdersController extends AbstractActionController
         $filterButtons->setTemplate('elements/custom-select-group');
         $filterButtons->setVariable(
             'options',
+            // Example Data - Should be loaded via Service/Di
             include dirname(dirname(dirname(__DIR__))) . '/test/data/filterBar/status-options.php'
         );
         $filterRow[] = $viewRender->render($filterButtons);
@@ -162,6 +167,7 @@ class OrdersController extends AbstractActionController
         $statusFilter->setTemplate('elements/text');
         $statusFilter->setVariable(
             'options',
+            // Example Data - Should be loaded via Service/Di
             include dirname(dirname(dirname(__DIR__))) . '/test/data/filterBar/search-options.php'
         );
         $filterRow[] = $viewRender->render($statusFilter);
@@ -170,6 +176,7 @@ class OrdersController extends AbstractActionController
         $filterButtons->setTemplate('elements/buttons');
         $filterButtons->setVariable(
             'options',
+            // Example Data - Should be loaded via Service/Di
             include dirname(dirname(dirname(__DIR__))) . '/test/data/filterBar/buttons.php'
         );
         $filterRow[] = $viewRender->render($filterButtons);
@@ -180,6 +187,7 @@ class OrdersController extends AbstractActionController
         $filterButtons->setTemplate('elements/custom-select-group');
         $filterButtons->setVariable(
             'options',
+            // Example Data - Should be loaded via Service/Di
             include dirname(dirname(dirname(__DIR__))) . '/test/data/filterBar/country-options.php'
         );
         $filterRow[] = $viewRender->render($filterButtons);
