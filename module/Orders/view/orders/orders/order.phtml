@@ -6,32 +6,6 @@ $fullWidth = false;
 $pageTitle = 'Order Page Prototype';
 $filters = false;
 $title = "View Order";
-$productTable = array( 
-    'headers' => array( 
-        array( 'title' => 'SKU',        'class' => '' ),
-        array( 'title' => 'Product Name',     'class' => '' ),
-        array( 'title' => 'Qty', 'class' => 'right' ),
-        array( 'title' => 'Line Total',     'class' => 'right' )
-     ), 
-    'actions' => array(  ),
-    'rows' => array( 
-        array( 'BLACK25545432', 'Logitech Keyboard - Title: Black', '1','&pound;4.20' ),
-        array( 'BLACK25545435', 'Logitech Mouse - Title: Black',    '1','&pound;10.80' )
-     )
- );
-
-$accountingTable = array( 
-    'class' => 'table-med',
-    'headers' => array( 
-        array( 'title' => 'Invoice ID',        'class' => '' ),
-        array( 'title' => 'Description',     'class' => '' ),
-        array( 'title' => 'Total',     'class' => 'right' )
-     ), 
-    'actions' => array(  ),
-    'rows' => array( 
-        array( '123456789', 'Logitech Keyboard - Title: Black',  '&pound;4.20' )
-     )
- );
 $bulkActionsClass = 'bulk-actions-inline';
 $bulkActions = array( 
     array(  
@@ -95,12 +69,12 @@ $bulkActions = array(
             <span class="arrow down">&nbsp;</span>
         </span>
     </div>
-    <ul>
-    <span class="box-arrow-up"></span>
-                    <li><a href="#" class="action" data-action="example"><span>Example 1</span></a></li>
-                    <li><a href="#" class="action" data-action="example"><span>Example 2</span></a></li>
-                </ul>
-        </div>
+    <ul> 
+        <span class="box-arrow-up"></span>
+        <li><a href="#" class="action" data-action="example"><span>Example 1</span></a></li>
+        <li><a href="#" class="action" data-action="example"><span>Example 2</span></a></li>
+    </ul>
+    </div>
     <div class="bulk-action ">
     <div class="default clearfix">
         <span class="action" data-action="dispatch">
@@ -256,38 +230,7 @@ $bulkActions = array(
 
 <div class="module clearfix">
     <h2>Product &amp; Payment Information</h2>
-    <?php $table = $productTable; ?>
-    <?php if(!empty($table)):?>
-    <table class="normal-table <?php if(!empty($table['class'])): echo $table['class']; endif; ?>">
-        <thead>
-            <tr>
-                <?php foreach($table['headers'] as $tableHeader):?>
-                <th class="<?=$tableHeader['class']?>"><?=$tableHeader['title']?></th>
-                <?php endforeach; ?>
-                <?php if(!empty($table['actions'])):?>
-                <th class="actions actions-col">Actions</th>
-                <?php endif;?>
-            </tr>
-        </thead>
-        <tbody>
-            <?php for($i=0; $i < count($table['rows']); $i++):?>
-            <tr <?php if($i % 2 == 1): ?>class="odd"<?php endif; ?>>
-                <?php for($j =0; $j < count($table['rows'][$i]); $j++): ?>
-                <td class="<?=$table['headers'][$j]['class'];?>">
-                    <?= $table['rows'][$i][$j] ?>
-                </td>
-            <?php endfor; ?>
-
-                <?php if(!empty($table['actions'])):?>
-                    <?php foreach($table['actions'] as $action):?>
-                <td class="actions-col"><a href="#" class="action" data-action="<?=strtolower($action)?>"><?=$action?></a></td>
-                    <?php endforeach;?>
-                <?php endif;?>
-            </tr>
-            <?php endfor; ?>
-        </tbody>
-    </table>
-    <?php endif;?>
+    <?= $this->productPaymentTable ?>
     <table class="no-borders">
         <tr>
             <td colspan="2">Paid By: <strong>Paypal</strong></td>
@@ -353,40 +296,6 @@ $bulkActions = array(
 </div>
 <div class="module clearfix">
     <h2>Accounting</h2>
-        <?php 
-            $table = $accountingTable;
-            //include('includes/tables/normal.php');
-        ?>
-        <?php if(!empty($table)):?>
-        <table class="normal-table <?php if(!empty($table['class'])): echo $table['class']; endif; ?>">
-            <thead>
-                <tr>
-                    <?php foreach($table['headers'] as $tableHeader):?>
-                    <th class="<?=$tableHeader['class']?>"><?=$tableHeader['title']?></th>
-                    <?php endforeach; ?>
-                    <?php if(!empty($table['actions'])):?>
-                    <th class="actions actions-col">Actions</th>
-                    <?php endif;?>
-                </tr>
-            </thead>
-            <tbody>
-                <?php for($i=0; $i < count($table['rows']); $i++):?>
-                <tr <?php if($i % 2 == 1): ?>class="odd"<?php endif; ?>>
-                    <?php for($j =0; $j < count($table['rows'][$i]); $j++): ?>
-                    <td class="<?=$table['headers'][$j]['class'];?>">
-                        <?= $table['rows'][$i][$j] ?>
-                    </td>
-                <?php endfor; ?>
-
-                    <?php if(!empty($table['actions'])):?>
-                        <?php foreach($table['actions'] as $action):?>
-                    <td class="actions-col"><a href="#" class="action" data-action="<?=strtolower($action)?>"><?=$action?></a></td>
-                        <?php endforeach;?>
-                    <?php endif;?>
-                </tr>
-                <?php endfor; ?>
-            </tbody>
-        </table>
-        <?php endif;?>
+    <?=$this->accountingTable; ?>
 </div>
 <?= $this->notes ?>
