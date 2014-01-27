@@ -11,5 +11,4 @@ return array(
   'NewRelic\Api\Event\RegisterController'     => __DIR__ . '/../../module/NewRelic/src/NewRelic/Api/Event/RegisterController.php',
   'Application\Module'                        => __DIR__ . '/../../module/Application/Module.php',
   'Application\Controller\IndexController'    => __DIR__ . '/../../module/Application/src/Application/Controller/IndexController.php',
-  'Application\Forms\Factory'                 => __DIR__ . '/../../module/Application/src/Application/Forms/Factory.php',
 );
