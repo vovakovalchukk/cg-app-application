@@ -911,7 +911,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "90597d4199ecb6179813347ee30c7d379c129e16"
+                "reference": "d7fb4be830188c3f464a2b88da835ad72251ef76"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2,<1.3.0",
@@ -942,7 +942,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2014-01-27 14:47:18"
+            "time": "2014-01-27 15:28:52"
         },
         {
             "name": "channelgrabber/zf2-register",
@@ -1050,7 +1050,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "a703bf3edf41cf6cfdbff0d6ffdf27434e9d319f"
+                "reference": "f2da35fe6ead8bc42fccd983f6626c97215966ad"
             },
             "require": {
                 "channelgrabber/zf2-stdlib": ">=1.0.3,<1.2.0",
@@ -1072,7 +1072,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-01-27 14:38:17"
+            "time": "2014-01-27 15:38:31"
         },
         {
             "name": "codeception/codeception",
