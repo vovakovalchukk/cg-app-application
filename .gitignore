@@ -8,8 +8,8 @@
 /config/host.php
 /config/module/*
 /data/certificates
-/data/mustache
 /data/di
+/data/mustache
 /module/Orders/src/Orders/Controller/tmp
 /tests/*/*Guy.php
 /tests/_log
