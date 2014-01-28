@@ -2,7 +2,7 @@
 <?php $this->headScript()->appendFile("/". $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
 <?php
-$this->plugin("currencyformat")->setCurrencyCode($order->getCurrencyCode())->setLocale("en_GB");
+$this->plugin("currencyformat")->setCurrencyCode($order->getCurrencyCode());
 
 $fullWidth = false;
 $pageTitle = 'Order Page Prototype';
@@ -71,7 +71,7 @@ $bulkActions = array(
     </ul>
     <div class="right">
         <span><strong><?= $this->translate('Order ID'); ?>: </strong><?= $order->getId(); ?></span>
-        <img src="/channelgrabber/zf2-v4-ui/img/logos/<?= $order->getChannel(); ?>.png" alt="eBay" />
+        <img src="<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/<?= $order->getChannel(); ?>.png" alt="<?= $order->getChannel(); ?>" />
     </div>
 </div>
 <div id="bulk-actions" class="module full-width with-padding clearfix bulk-actions-inline">
@@ -345,12 +345,12 @@ $bulkActions = array(
                 <?php
                 $data =  array(
                     'options' =>array( 
-                        array( 'img' => '/channelgrabber/zf2-v4-ui/img/logos/royalmail.png', 'href' => '#',   'title' => 'Royal Mail',  'class' => '' ),
-                        array( 'img' => '/channelgrabber/zf2-v4-ui/img/logos/dpd.png', 'href' => '#',         'title' => 'DPD',  'class' => '' ),
-                        array( 'img' => '/channelgrabber/zf2-v4-ui/img/logos/interlink.png', 'href' => '#',   'title' => 'Interlink',     'class' => '' ),
-                        array( 'img' => '/channelgrabber/zf2-v4-ui/img/logos/parcelforce.png', 'href' => '#', 'title' => 'Parcel Force', 'class' => '' )
+                        array( 'img' => '<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/royalmail.png', 'href' => '#',   'title' => 'Royal Mail',  'class' => '' ),
+                        array( 'img' => '<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/dpd.png', 'href' => '#',         'title' => 'DPD',  'class' => '' ),
+                        array( 'img' => '<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/interlink.png', 'href' => '#',   'title' => 'Interlink',     'class' => '' ),
+                        array( 'img' => '<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/parcelforce.png', 'href' => '#', 'title' => 'Parcel Force', 'class' => '' )
                     ),
-                    'customSelectImgSrc' => '/channelgrabber/zf2-v4-ui/img/logos/royalmail.png'
+                    'customSelectImgSrc' => '<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/royalmail.png'
                 );
                 ?>
                 <?= $this->partial('elements/custom-select-image', $data); ?>
