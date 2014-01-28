@@ -1102,10 +1102,11 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "c7b85721319d68bac09656522b3c4a66066887f9"
+                "reference": "5fa40e58696dd29f59d46ef4ce063fb632c6afc8"
             },
             "require": {
                 "channelgrabber/zf2-stdlib": ">=1.0.3,<1.2.0",
+                "widmogrod/zf2-mustache-module": "dev-master",
                 "zendframework/zend-config": "2.*",
                 "zendframework/zend-form": "2.*",
                 "zendframework/zend-modulemanager": "2.*",
@@ -1124,7 +1125,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-01-27 17:14:47"
+            "time": "2014-01-28 10:43:02"
         },
         {
             "name": "cilex/cilex",
