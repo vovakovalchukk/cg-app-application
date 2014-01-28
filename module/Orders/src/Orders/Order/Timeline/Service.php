@@ -55,7 +55,7 @@ class Service
                 'title' => $timelineHeading["title"],
                 'subtitle' => $unixTime ? date("jS M Y", $unixTime) : "Order Not Yet",
                 'extraText' => $unixTime ? date("h:ia", $unixTime) : "Order Not Yet",
-                'colour' => $unixTime ? "green" : "grey",
+                'colour' => $unixTime ? "green" : "light-grey",
                 'unixTime' => $unixTime
             ];
             $unixTimes[] = $unixTime;
