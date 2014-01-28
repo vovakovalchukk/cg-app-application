@@ -2,6 +2,8 @@
 <?php $this->headScript()->appendFile("/". $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
 <?php
+$this->plugin("currencyformat")->setCurrencyCode($order->getCurrencyCode())->setLocale("en_GB");
+
 $fullWidth = false;
 $pageTitle = 'Order Page Prototype';
 $filters = false;
@@ -63,12 +65,12 @@ $bulkActions = array(
 <div id="order-status" class="<?= $order->getStatus(); ?>-bg"><?= $order->getStatus(); ?></div>
 <div id="breadcrumbs" class="order-breadcrumbs">
     <ul>
-        <li><a href="#">View Order</a></li>
+        <li><a href="#"><?= $this->translate('View Order'); ?></a></li>
         <li class="separator"><span>&nbsp;</span></li>
         <li><span><?= $order->getId(); ?></span></li>
     </ul>
     <div class="right">
-        <span><strong>Order ID: </strong><?= $order->getId(); ?></span>
+        <span><strong><?= $this->translate('Order ID'); ?>: </strong><?= $order->getId(); ?></span>
         <img src="/channelgrabber/zf2-v4-ui/img/logos/<?= $order->getChannel(); ?>.png" alt="eBay" />
     </div>
 </div>
@@ -77,7 +79,7 @@ $bulkActions = array(
     <div class="default clearfix">
         <span class="action" data-action="print">
             <span class="icon-med inverted print">&nbsp;</span>
-            <span class="title">Print</span>
+            <span class="title"><?= $this->translate('Print'); ?></span>
         </span>
                     <span class="divider">
             <span class="arrow down">&nbsp;</span>
@@ -93,7 +95,7 @@ $bulkActions = array(
     <div class="default clearfix">
         <span class="action" data-action="dispatch">
             <span class="icon-med inverted dispatch">&nbsp;</span>
-            <span class="title">Dispatch</span>
+            <span class="title"><?= $this->translate('Dispatch'); ?></span>
         </span>
                 </div>
         </div>
@@ -101,7 +103,7 @@ $bulkActions = array(
     <div class="default clearfix">
         <span class="action" data-action="tag-untag">
             <span class="icon-med inverted tag-untag">&nbsp;</span>
-            <span class="title">Tag / Untag</span>
+            <span class="title"><?= $this->translate('Tag / Untag'); ?></span>
         </span>
                     <span class="divider">
             <span class="arrow down">&nbsp;</span>
@@ -117,7 +119,7 @@ $bulkActions = array(
     <div class="default clearfix">
         <span class="action" data-action="courier">
             <span class="icon-med inverted courier">&nbsp;</span>
-            <span class="title">Courier</span>
+            <span class="title"><?= $this->translate('Courier'); ?></span>
         </span>
                     <span class="divider">
             <span class="arrow down">&nbsp;</span>
@@ -133,7 +135,7 @@ $bulkActions = array(
     <div class="default clearfix">
         <span class="action" data-action="accounting">
             <span class="icon-med inverted accounting">&nbsp;</span>
-            <span class="title">Accounting</span>
+            <span class="title"><?= $this->translate('Accounting'); ?></span>
         </span>
                     <span class="divider">
             <span class="arrow down">&nbsp;</span>
@@ -242,20 +244,20 @@ $bulkActions = array(
     </div>
 </div>
 <div class="module clearfix">
-    <h2>Product &amp; Payment Information</h2>
+    <h2><?= $this->translate('Product & Payment Information'); ?></h2>
     <?php if(count($order->getItems())):?>
     <table class="normal-table">
         <thead>
             <tr>
-                <th>SKU</th>
-                <th>Product Name</th>
-                <th>Quantity</th>
-                <th>Individual Price</th>
-                <th>Individual Discount</th>
-                <th>Tax %</th>
-                <th>Discount Total</th>
-                <th>Tax Total</th>
-                <th>Line Total</th>
+                <th><?= $this->translate('SKU'); ?></th>
+                <th><?= $this->translate('Product Name'); ?></th>
+                <th><?= $this->translate('Quantity'); ?></th>
+                <th><?= $this->translate('Individual Price'); ?></th>
+                <th><?= $this->translate('Individual Discount'); ?></th>
+                <th><?= $this->translate('Tax'); ?> %</th>
+                <th><?= $this->translate('Discount Total'); ?></th>
+                <th><?= $this->translate('Tax Total'); ?></th>
+                <th><?= $this->translate('Line Total'); ?></th>
             </tr>
         </thead>
         <tbody>
@@ -270,30 +272,44 @@ $bulkActions = array(
                             <?= $value ?>
                         <?php endforeach; ?>
                     </td>
-                    <td><?= $item->getItemQuantity(); ?></td>
-                    <td><?= $item->getIndividualItemPrice(); ?></td>
-                    <td><?= $item->getIndividualItemDiscountPrice(); ?></td>
-                    <td><?= $item->getItemTaxPercentage(); ?></td>
-                    <td><?= $item->getIndividualItemDiscountPrice() * $item->getItemQuantity(); ?></td>
-                    <td><?= $item->getItemTaxPercentage() * $item->getItemQuantity(); ?></td>
-                    <td><?= $item->getIndividualItemPrice() * $item->getItemQuantity(); ?></td>
+                    <td>
+                        <?= $item->getItemQuantity(); ?>
+                    </td>
+                    <td>
+                        <?= $this->currencyFormat($item->getIndividualItemPrice()); ?>
+                    </td>
+                    <td>
+                        <?= $this->currencyFormat($item->getIndividualItemDiscountPrice()); ?>
+                    </td>
+                    <td>
+                        <?= $item->getItemTaxPercentage(); ?>
+                    </td>
+                    <td>
+                        <?= $this->currencyFormat($item->getIndividualItemDiscountPrice() * $item->getItemQuantity()); ?>
+                    </td>
+                    <td>
+                        <?= $this->currencyFormat($item->getItemTaxPercentage() * $item->getItemQuantity()); ?>
+                    </td>
+                    <td>
+                        <?= $this->currencyFormat($item->getIndividualItemPrice() * $item->getItemQuantity()); ?>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
     <?php else: ?>
-        <p>This order has no items.</p>
+        <p><?= $this->translate('This order has no items'); ?></p>
     <?php endif;?>
     <table class="no-borders">
         <tr>
-            <td colspan="2">Paid By: <strong><?= $order->getPaymentMethod() ?></strong></td>
-            <td class="right"><strong>Postage:</strong></td>
-            <td class="right"><strong>&pound;<?= $order->getShippingPrice() ?></strong></td>
+            <td colspan="2"><?= $this->translate('Paid Via'); ?>: <strong><?= $order->getPaymentMethod() ?></strong></td>
+            <td class="right"><strong><?= $this->translate('Postage'); ?>:</strong></td>
+            <td class="right"><strong><?= $this->currencyFormat($order->getShippingPrice()); ?></strong></td>
         </tr>
         <tr>
-            <td colspan="2">Reference: <strong><?= $order->getPaymentReference() ?></strong></td>
-            <td class="right"><strong>Total:</strong></td>
-            <td class="right"><strong>&pound;<?= $order->getTotal() ?></strong></td>
+            <td colspan="2"><?= $this->translate('Reference'); ?>: <strong><?= $order->getPaymentReference() ?></strong></td>
+            <td class="right"><strong><?= $this->translate('Total'); ?>:</strong></td>
+            <td class="right"><strong><?= $this->currencyFormat($order->getTotal()); ?></strong></td>
         </tr>
     </table>
     <form  method="post" class="ajaxPost">
