@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "fff414fd0cacb4721a7b638d87b0becc",
+    "hash": "df9765f26153e9d66ccdcdaf05566a6f",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -1056,11 +1056,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-1435-UICleanup",
+            "version": "1.1.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "90ba65a543cbc266b4843d0e67093e2822e2d9ba"
+                "reference": "90e0fb6aaaf846bbe91fd5d08f1e5ceb0e72e1e4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.1.12-19fac1.zip",
+                "reference": "90e0fb6aaaf846bbe91fd5d08f1e5ceb0e72e1e4",
+                "shasum": "d3122bc19dae2c9ad9f80827ed118565f78c5699"
             },
             "require": {
                 "channelgrabber/zf2-stdlib": ">=1.0.3,<1.2.0",
@@ -1083,7 +1089,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-01-28 14:20:30"
+            "time": "2014-01-28 14:51:07"
         },
         {
             "name": "cilex/cilex",
@@ -3258,19 +3264,12 @@
             "alias_normalized": "0.1.0.0",
             "version": "dev-CGIV-529",
             "package": "channelgrabber/redis"
-        },
-        {
-            "alias": "1.1.12",
-            "alias_normalized": "1.1.12.0",
-            "version": "dev-CGIV-1435-UICleanup",
-            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/redis": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpspec/phpspec": 20,
         "widmogrod/zf2-mustache-module": 20
     },
