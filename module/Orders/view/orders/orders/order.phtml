@@ -158,7 +158,7 @@ $bulkActions = array(
 <div class="module clearfix">
     <form class="single-row">
         <span class="icon-large user"></span>
-        <p>Buyer Message:  Hello please leave it next door...</p>
+        <p><?= $order->getBuyerMessage() ?: $this->translate("There is no buyer message for this order"); ?></p>
     </form>
 </div>
 <div class="module clearfix">
