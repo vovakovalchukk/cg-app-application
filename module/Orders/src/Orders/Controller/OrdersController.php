@@ -96,38 +96,14 @@ class OrdersController extends AbstractActionController
         $view->addChild($this->getSidebar(), 'sidebar');
         $view->addChild($this->getNotes(), 'notes');
         $view->addChild($this->getTimelineBoxes(), 'timelineBoxes');
-        $productPaymentData = [
-            'table' =>
-            [
-                'headers' => [
-                    [ 'title' => 'SKU',        'class' => '' ],
-                    [ 'title' => 'Product Name',     'class' => ''],
-                    [ 'title' => 'Qty', 'class' => 'right' ],
-                    [ 'title' => 'Line Total',     'class' => 'right' ]
-                 ],
-                'actions' => [],
-                'rows' => [
-                    [ 'BLACK25545432', 'Logitech Keyboard - Title: Black', '1','&pound;4.20' ],
-                    [ 'BLACK25545435', 'Logitech Mouse - Title: Black',    '1','&pound;10.80' ]
-                ]
-            ]
-        ];
-        $view->addChild($this->getStandardTable($productPaymentData), 'productPaymentTable');
-        $accountingData = [
-            'table' => [
-                'class' => 'table-med',
-                'headers' => [
-                    ['title' => 'Invoice ID',        'class' => '' ],
-                    ['title' => 'Description',     'class' => '' ],
-                    ['title' => 'Total',     'class' => 'right' ]
-                 ],
-                'actions' => [],
-                'rows' => [
-                    ['123456789', 'Logitech Keyboard - Title: Black',  '&pound;4.20']
-                ]
-            ]
-        ];
-        $view->addChild($this->getStandardTable($accountingData), 'accountingTable');
+        $view->addChild($this->getStandardTable(
+            include dirname(dirname(dirname(__DIR__))) . '/test/data/product-payment.php'), 
+            'productPaymentTable'
+        );
+        $view->addChild($this->getStandardTable(
+            include dirname(dirname(dirname(__DIR__))) . '/test/data/accounting.php'
+        ), 'accountingTable'
+        );
         return $view;
     }
 
