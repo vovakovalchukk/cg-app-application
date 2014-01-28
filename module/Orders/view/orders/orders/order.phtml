@@ -1,5 +1,5 @@
-<?php $this->headScript()->appendFile("/". $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
-<?php $this->headScript()->appendFile("/". $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
+<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
+<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
 <?php
 $fullWidth = false;
@@ -131,27 +131,33 @@ $bulkActions = array(
         <li><a href="#" class="action" data-action="example"><span>Example 2</span></a></li>
     </ul>
 </div>
+<a href="#" class="button close-popup">Back to Orders</a>
 </div>
-<a class="close-popup close"><span class="icon close"></span> Close</a>
 <?=$this->timelineBoxes ?>
 <div class="module clearfix">
     <form class="single-row">
-        <span class="icon-large warning"></span>
-        <input type="text" class="text" placeholder="Order Alert" name=""/>
-        <input type="submit" class="button inline" value="Save Alert" />
+        <label>
+            <span class="icon-large warning"></span>
+            <span class="label">Order Alert:</span>
+            <input type="text" class="text" placeholder="Order Alert" name=""/>
+            <input type="submit" class="button inline" value="Save Alert" />
+        </label>
     </form>
 </div>
 <div class="module clearfix">
     <form class="single-row">
-        <span class="icon-large user"></span>
-        <p>Buyer Message:  Hello please leave it next door...</p>
+        <label>
+            <span class="icon-large user"></span>
+            <span class="label">Buyer Message:</span>
+            <p>Hello please leave it next door...</p>
+        </label>
     </form>
 </div>
 <div class="module clearfix">
     <div id="detailsForm">
         <form action="" method="post" class="ajaxPost">
-            <div class="half">
-                <h2>Delivery Information</h2>
+            <div class="half" id="billing-information">
+                <h2>Billing Information</h2>
                 <label>
                     <span>Recipient Name</span>
                     <abbr class="required">*</abbr>
@@ -201,21 +207,59 @@ $bulkActions = array(
                     <input type="text" name="county" placeholder="Lancashire" value="">
                 </label>
             </div>
-            <div class="half">
+            <div class="half"  id="buyer-information">
                 <h2>Buyer Information</h2>
+                <div class="duplicate-data-checkbox">
+                    <input type="checkbox" class="duplicate-data" data-source="billing-information" data-target="buyer-information"/>
+                    <span>Same as billing: </span>
+                </div>
                 <label>
                     <span>Buyer Name</span>
                     <abbr class="required">*</abbr>
                     <input type="text" name="companyName" required="required" placeholder="John Smith">
                 </label>
                 <label>
-                    <span>Buyer Email</span>
+                    <span>Company Name</span>
                     <input type="text" name="companyName" required="required" placeholder="">
                 </label>
                 <label>
-                    <span>Buyer Phone</span>
+                    <span>Address Line 1</span>
                     <abbr class="required">*</abbr>
                     <input type="text" name="addressLine1" required="required" placeholder="123 The Street" value="">
+                </label>
+                <label>
+                    <span>Address Line 2</span>
+                    <input type="text" name="addressLine2" placeholder="My Town" value="">
+                </label>
+                <label>
+                    <span>City</span>
+                    <abbr class="required">*</abbr>
+                    <input type="text" name="city" required="required" placeholder="Manchester" value="">
+                </label>
+                <label>
+                    <span>County</span>
+                    <input type="text" name="county" placeholder="Lancashire" value="">
+                </label>
+                <label>
+                    <span>Postcode</span>
+                    <input type="text" name="postcode" placeholder="AB1 2CD" value="">
+                </label>
+                <label>
+                    <span>Country</span>
+                    <div class="input">
+                        <div class="custom-select">
+                            <div class="selected">Select <span class="arrow down">&nbsp;</span></div>
+                            <ul>
+                                <li><a href="#">United Kingdom</a></li>
+                                <li><a href="#">Afghanistan</a></li>
+                                <li><a href="#">Azerbaijan</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </label>
+                <label>
+                    <span>Telephone</span>
+                    <input type="text" name="county" placeholder="Lancashire" value="">
                 </label>
             </div>
             <div class="half" style="clear:both; padding-top:0px;">

@@ -23,14 +23,14 @@ return [
             'title' => 'Dispatch Pending',
             'subtitle' => '17th Dec 2013',
             'extraText' => '12:38pm',
-            'colour' => 'grey'
+            'colour' => 'light-grey'
         ]
     ],
     'timelineTimes' => [
         ['status' => 'ok', 'time' => '3 Minutes'],
         ['status' => 'ok', 'time' => '3 Minutes'],
-        ['status' => 'ok', 'time' => '5 Days'],
-        ['status' => 'notice', 'time' => '']
+        ['status' => 'ok', 'time' => ' '],
+        ['status' => 'light-grey', 'time' => '']
     ],
     'timelineTotal' => '5d 0h 5m'
 ];
