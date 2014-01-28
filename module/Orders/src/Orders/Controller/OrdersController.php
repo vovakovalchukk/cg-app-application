@@ -136,9 +136,7 @@ class OrdersController extends AbstractActionController
 
     protected function getSidebar()
     {
-        $sidebar = $this->getViewModelFactory()->newInstance(
-            include dirname(dirname(dirname(__DIR__))) . '/test/data/sidebar.php'
-        );
+        $sidebar = $this->getViewModelFactory()->newInstance();
         $sidebar->setTemplate('orders/orders/sidebar');
         return $sidebar;
     }
