@@ -7,6 +7,7 @@ use CG_UI\View\Prototyper\ViewModelFactory;
 use Orders\Order\Service as OrderService;
 use Orders\Filter\Service as FilterService;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Order\Shared\Entity as OrderEntity;
 
 class OrdersController extends AbstractActionController
 {
@@ -89,22 +90,23 @@ class OrdersController extends AbstractActionController
 
     public function orderAction()
     {
+        $order = $this->getOrderService()->getOrder($this->params('order'));
         $view = $this->getViewModelFactory()->newInstance();
 
         $view->addChild($this->getBulkActions(), 'bulkItems');
         $view->addChild($this->getFilterBar(), 'filters');
         $view->addChild($this->getSidebar(), 'sidebar');
-        $view->addChild($this->getNotes(), 'notes');
-        $view->addChild($this->getTimelineBoxes(), 'timelineBoxes');
+        //$view->addChild($this->getNotes(), 'notes');
 
+        $view->addChild($this->getTimelineBoxes($order), 'timelineBoxes');
+        $view->setVariable('order', $order);
         return $view;
     }
 
-    protected function getTimelineBoxes()
+    protected function getTimelineBoxes(OrderEntity $order)
     {
         $timelineBoxes = $this->getViewModelFactory()->newInstance(
-            // Example Data - Should be loaded via Service/Di
-            include dirname(dirname(dirname(__DIR__))) . '/test/data/timeline-boxes.php'
+            $this->getOrderService()->calculateTimelineBoxes($order)
         );
         $timelineBoxes->setTemplate('elements/timeline-boxes');
         return $timelineBoxes;

@@ -6,19 +6,7 @@ $fullWidth = false;
 $pageTitle = 'Order Page Prototype';
 $filters = false;
 $title = "View Order";
-$productTable = array( 
-    'headers' => array( 
-        array( 'title' => 'SKU',        'class' => '' ),
-        array( 'title' => 'Product Name',     'class' => '' ),
-        array( 'title' => 'Qty', 'class' => 'right' ),
-        array( 'title' => 'Line Total',     'class' => 'right' )
-     ), 
-    'actions' => array(  ),
-    'rows' => array( 
-        array( 'BLACK25545432', 'Logitech Keyboard - Title: Black', '1','&pound;4.20' ),
-        array( 'BLACK25545435', 'Logitech Mouse - Title: Black',    '1','&pound;10.80' )
-     )
- );
+
 
 $accountingTable = array( 
     'class' => 'table-med',
@@ -72,16 +60,16 @@ $bulkActions = array(
      )
  );
 ?>
-<div id="order-status" class="red-bg">New</div>
+<div id="order-status" class="<?= $order->getStatus(); ?>-bg"><?= $order->getStatus(); ?></div>
 <div id="breadcrumbs" class="order-breadcrumbs">
     <ul>
         <li><a href="#">View Order</a></li>
         <li class="separator"><span>&nbsp;</span></li>
-        <li><span>1056609</span></li>
+        <li><span><?= $order->getId(); ?></span></li>
     </ul>
     <div class="right">
-        <span><strong>Order ID: </strong>1056609</span>
-        <img src="/channelgrabber/zf2-v4-ui/img/logos/ebay.png" alt="eBay" />
+        <span><strong>Order ID: </strong><?= $order->getId(); ?></span>
+        <img src="/channelgrabber/zf2-v4-ui/img/logos/<?= $order->getChannel(); ?>.png" alt="eBay" />
     </div>
 </div>
 <div id="bulk-actions" class="module full-width with-padding clearfix bulk-actions-inline">
@@ -159,7 +147,7 @@ $bulkActions = array(
 </div>
 </div>
 <a class="close-popup close"><span class="icon close"></span> Close</a>
-<?=$this->timelineBoxes ?>
+<?= $this->timelineBoxes; ?>
 <div class="module clearfix">
     <form class="single-row">
         <span class="icon-large warning"></span>
@@ -253,51 +241,59 @@ $bulkActions = array(
         </form>
     </div>
 </div>
-
 <div class="module clearfix">
     <h2>Product &amp; Payment Information</h2>
-    <?php $table = $productTable; ?>
-    <?php if(!empty($table)):?>
-    <table class="normal-table <?php if(!empty($table['class'])): echo $table['class']; endif; ?>">
+    <?php if(count($order->getItems())):?>
+    <table class="normal-table">
         <thead>
             <tr>
-                <?php foreach($table['headers'] as $tableHeader):?>
-                <th class="<?=$tableHeader['class']?>"><?=$tableHeader['title']?></th>
-                <?php endforeach; ?>
-                <?php if(!empty($table['actions'])):?>
-                <th class="actions actions-col">Actions</th>
-                <?php endif;?>
+                <th>SKU</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Individual Price</th>
+                <th>Individual Discount</th>
+                <th>Tax %</th>
+                <th>Discount Total</th>
+                <th>Tax Total</th>
+                <th>Line Total</th>
             </tr>
         </thead>
         <tbody>
-            <?php for($i=0; $i < count($table['rows']); $i++):?>
-            <tr <?php if($i % 2 == 1): ?>class="odd"<?php endif; ?>>
-                <?php for($j =0; $j < count($table['rows'][$i]); $j++): ?>
-                <td class="<?=$table['headers'][$j]['class'];?>">
-                    <?= $table['rows'][$i][$j] ?>
-                </td>
-            <?php endfor; ?>
-
-                <?php if(!empty($table['actions'])):?>
-                    <?php foreach($table['actions'] as $action):?>
-                <td class="actions-col"><a href="#" class="action" data-action="<?=strtolower($action)?>"><?=$action?></a></td>
-                    <?php endforeach;?>
-                <?php endif;?>
-            </tr>
-            <?php endfor; ?>
+            <?php foreach($order->getItems() as $count => $item): ?>
+                <tr <? if($count % 2 == 0): ?>class="odd"<?php endif; ?>>
+                    <td><?= $item->getItemSku(); ?></td>
+                    <td>
+                        <?= $item->getItemName(); ?>
+                        <? foreach ($item->getItemVariationAttribute() as $attribute => $value): ?>
+                            <br />
+                            <?= $attribute ?>:
+                            <?= $value ?>
+                        <?php endforeach; ?>
+                    </td>
+                    <td><?= $item->getItemQuantity(); ?></td>
+                    <td><?= $item->getIndividualItemPrice(); ?></td>
+                    <td><?= $item->getIndividualItemDiscountPrice(); ?></td>
+                    <td><?= $item->getItemTaxPercentage(); ?></td>
+                    <td><?= $item->getIndividualItemDiscountPrice() * $item->getItemQuantity(); ?></td>
+                    <td><?= $item->getItemTaxPercentage() * $item->getItemQuantity(); ?></td>
+                    <td><?= $item->getIndividualItemPrice() * $item->getItemQuantity(); ?></td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
+    <?php else: ?>
+        <p>This order has no items.</p>
     <?php endif;?>
     <table class="no-borders">
         <tr>
-            <td colspan="2">Paid By: <strong>Paypal</strong></td>
+            <td colspan="2">Paid By: <strong><?= $order->getPaymentMethod() ?></strong></td>
             <td class="right"><strong>Postage:</strong></td>
-            <td class="right"><strong>&pound;2.50</strong></td>
+            <td class="right"><strong>&pound;<?= $order->getShippingPrice() ?></strong></td>
         </tr>
         <tr>
-            <td colspan="2">Reference: <strong>644864684</strong></td>
+            <td colspan="2">Reference: <strong><?= $order->getPaymentReference() ?></strong></td>
             <td class="right"><strong>Total:</strong></td>
-            <td class="right"><strong>&pound;17.50</strong></td>
+            <td class="right"><strong>&pound;<?= $order->getTotal() ?></strong></td>
         </tr>
     </table>
     <form  method="post" class="ajaxPost">
