@@ -14,6 +14,8 @@
     <Environment>
         <Local>
             <node>orders</node>
+            <IP>192.168.33.54</IP>
+            <hostname>orders.channelgrabber.com.local</hostname>
         </Local>
     </Environment>
 </zend-config>

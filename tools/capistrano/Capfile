@@ -1,5 +1,6 @@
 # Load DSL and Setup Up Stages
 require 'capistrano/setup'
+import 'lib/sshkit/formatters/passthrough.rb'
 
 # Includes default deployment tasks
 require 'capistrano/deploy'

@@ -12,7 +12,8 @@ return [
                     'route' => '/orders',
                     'defaults' => [
                         'controller' => 'Orders\Controller\Orders',
-                        'action' => 'index'
+                        'action' => 'index',
+                        'breadcrumbs' => false
                     ],
                 ],
                 'may_terminate' => true,
@@ -23,6 +24,15 @@ return [
                             'route' => '.json',
                             'defaults' => [
                                 'action' => 'json',
+                            ]
+                        ]
+                    ],
+                    'order' => [
+                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                        'options' => [
+                            'route' => '/:order',
+                            'defaults' => [
+                                'action' => 'order',
                             ]
                         ]
                     ]

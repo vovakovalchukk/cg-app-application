@@ -9,6 +9,8 @@
 /config/module/*
 /data/certificates
 /data/di
+/data/mustache
+/module/Orders/src/Orders/Controller/tmp
 /tests/*/*Guy.php
 /tests/_log
 /vendor

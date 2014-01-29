@@ -47,5 +47,8 @@ CGMustache.get().fetchTemplate(templateUrl, function(template, cgmustache)
 <?php $this->placeholder('#main.class')->append('full-width'); ?>
 <?php $this->placeholder('#sub-header')->append($this->filters); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
+<div id="main" class="module clearfix<?= $this->placeholder('#main.class')->setPrefix(' ')->setIndent(1) ?>">
+<?= $this->breadcrumbs; ?>
 <?= $this->bulkItems; ?>
 <?= $this->ordersTable; ?>
+</div>
