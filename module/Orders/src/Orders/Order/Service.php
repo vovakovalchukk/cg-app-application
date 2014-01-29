@@ -1,6 +1,7 @@
 <?php
 namespace Orders\Order;
 
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\DataTable;
 use CG_UI\View\Table;
 use CG_UI\View\Table\Column as TableColumn;
@@ -163,11 +164,16 @@ class Service
         if (empty($userIds)) {
             return $itemNotes;
         }
-        $users = $this->getUserService()->fetchCollection("all", null, null, null, $userIds);
-        foreach ($itemNotes as &$note) {
-            $user = $users->getById($note["userId"]);
-            $note["author"] = $user->getFirstName() . " " . $user->getLastName();
+        try {
+            $users = $this->getUserService()->fetchCollection("all", null, null, null, $userIds);
+            foreach ($itemNotes as &$note) {
+                $user = $users->getById($note["userId"]);
+                $note["author"] = $user->getFirstName() . " " . $user->getLastName();
+            }
+        } catch (NotFound $e) {
+
         }
+
         return $itemNotes;
     }
 }
