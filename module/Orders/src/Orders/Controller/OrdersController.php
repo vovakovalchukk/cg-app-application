@@ -5,25 +5,30 @@ use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Orders\Order\Service as OrderService;
+use Orders\Order\Timeline\Service as TimelineService;
 use Orders\Filter\Service as FilterService;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Order\Shared\Entity as OrderEntity;
 
 class OrdersController extends AbstractActionController
 {
     protected $orderService;
     protected $filterService;
+    protected $timelineService;
     protected $jsonModelFactory;
     protected $viewModelFactory;
 
     public function __construct(
         OrderService $orderService,
         FilterService $filterService,
+        TimelineService $timelineService,
         JsonModelFactory $jsonModelFactory,
         ViewModelFactory $viewModelFactory
     ) {
         $this
             ->setOrderService($orderService)
             ->setFilterService($filterService)
+            ->setTimelineService($timelineService)
             ->setJsonModelFactory($jsonModelFactory)
             ->setViewModelFactory($viewModelFactory);
     }
@@ -72,6 +77,17 @@ class OrdersController extends AbstractActionController
         return $this->viewModelFactory;
     }
 
+    public function setTimelineService(TimelineService $timelineService)
+    {
+        $this->timelineService = $timelineService;
+        return $this;
+    }
+
+    public function getTimelineService()
+    {
+        return $this->timelineService;
+    }
+
     public function indexAction()
     {
         $view = $this->getViewModelFactory()->newInstance();
@@ -89,36 +105,23 @@ class OrdersController extends AbstractActionController
 
     public function orderAction()
     {
+        $order = $this->getOrderService()->getOrder($this->params('order'));
         $view = $this->getViewModelFactory()->newInstance();
 
         $view->addChild($this->getBulkActions(), 'bulkItems');
         $view->addChild($this->getFilterBar(), 'filters');
         $view->addChild($this->getSidebar(), 'sidebar');
         $view->addChild($this->getNotes(), 'notes');
-        $view->addChild($this->getTimelineBoxes(), 'timelineBoxes');
-        $view->addChild($this->getStandardTable(
-            include dirname(dirname(dirname(__DIR__))) . '/test/data/product-payment.php'), 
-            'productPaymentTable'
-        );
-        $view->addChild($this->getStandardTable(
-            include dirname(dirname(dirname(__DIR__))) . '/test/data/accounting.php'
-        ), 'accountingTable'
-        );
+        $view->addChild($this->getTimelineBoxes($order), 'timelineBoxes');
+        $view->addChild($this->getOrderService()->getOrderItemTable($order), 'productPaymentTable');
+        $view->setVariable('order', $order);
         return $view;
     }
 
-    protected function getStandardTable($data)
-    {
-        $table = $this->getViewModelFactory()->newInstance($data);
-        $table->setTemplate('table/standard');
-        return $table;
-    }
-
-    protected function getTimelineBoxes()
+    protected function getTimelineBoxes(OrderEntity $order)
     {
         $timelineBoxes = $this->getViewModelFactory()->newInstance(
-            // Example Data - Should be loaded via Service/Di
-            include dirname(dirname(dirname(__DIR__))) . '/test/data/timeline-boxes.php'
+            $this->getTimelineService()->getTimeline($order)
         );
         $timelineBoxes->setTemplate('elements/timeline-boxes');
         return $timelineBoxes;
