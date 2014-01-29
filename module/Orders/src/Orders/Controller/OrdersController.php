@@ -5,6 +5,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Orders\Order\Service as OrderService;
+use Orders\Order\Batch\Service as BatchService;
 use Orders\Order\Timeline\Service as TimelineService;
 use Orders\Filter\Service as FilterService;
 use CG\Stdlib\Exception\Runtime\NotFound;
@@ -12,25 +13,29 @@ use CG\Order\Shared\Entity as OrderEntity;
 
 class OrdersController extends AbstractActionController
 {
+
+
     protected $orderService;
     protected $filterService;
     protected $timelineService;
+    protected $batchService;
     protected $jsonModelFactory;
     protected $viewModelFactory;
 
     public function __construct(
+        JsonModelFactory $jsonModelFactory,
+        ViewModelFactory $viewModelFactory,
         OrderService $orderService,
         FilterService $filterService,
         TimelineService $timelineService,
-        JsonModelFactory $jsonModelFactory,
-        ViewModelFactory $viewModelFactory
-    ) {
-        $this
+        BatchService $batchService)
+    {
+        $this->setJsonModelFactory($jsonModelFactory)
+            ->setViewModelFactory($viewModelFactory)
             ->setOrderService($orderService)
             ->setFilterService($filterService)
             ->setTimelineService($timelineService)
-            ->setJsonModelFactory($jsonModelFactory)
-            ->setViewModelFactory($viewModelFactory);
+            ->setBatchService($batchService);
     }
 
     public function setOrderService(OrderService $orderService)
@@ -77,6 +82,18 @@ class OrdersController extends AbstractActionController
         return $this->viewModelFactory;
     }
 
+    public function setBatchService(BatchService $batchService)
+    {
+        $this->batchService = $batchService;
+        return $this;
+    }
+
+    public function getBatchService()
+    {
+        return $this->batchService;
+
+    }
+
     public function setTimelineService(TimelineService $timelineService)
     {
         $this->timelineService = $timelineService;
@@ -100,6 +117,7 @@ class OrdersController extends AbstractActionController
         $view->addChild($this->getBulkActions(), 'bulkItems');
         $view->addChild($this->getFilterBar(), 'filters');
         $view->addChild($this->getSidebar(), 'sidebar');
+
         return $view;
     }
 
@@ -139,6 +157,7 @@ class OrdersController extends AbstractActionController
     {
         $sidebar = $this->getViewModelFactory()->newInstance();
         $sidebar->setTemplate('orders/orders/sidebar');
+        $sidebar->setVariable('batches', $this->getBatchService()->getBatches());
         return $sidebar;
     }
 
@@ -248,7 +267,6 @@ class OrdersController extends AbstractActionController
 
         try {
             $orders = $this->getOrderService()->getOrders($filter);
-
             $data['iTotalRecords'] = (int) $orders->getTotal();
             $data['iTotalDisplayRecords'] = (int) $orders->getTotal();
 

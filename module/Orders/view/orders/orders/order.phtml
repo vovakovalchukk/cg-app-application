@@ -148,8 +148,7 @@ $bulkActions = array(
     <form class="single-row">
         <label>
             <span class="icon-large user"></span>
-            <span class="label">Buyer Message:</span>
-            <p>Hello please leave it next door...</p>
+            <p><?= $order->getBuyerMessage() ?: $this->translate("There is no buyer message for this order"); ?></p>
         </label>
     </form>
 </div>
