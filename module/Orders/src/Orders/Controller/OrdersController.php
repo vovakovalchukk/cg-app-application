@@ -34,7 +34,7 @@ class OrdersController extends AbstractActionController
             ->setViewModelFactory($viewModelFactory)
             ->setOrderService($orderService)
             ->setFilterService($filterService)
-            ->setFilterService($filterService)
+            ->setTimelineService($timelineService)
             ->setBatchService($batchService);
     }
 
