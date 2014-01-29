@@ -12,8 +12,7 @@ return [
                     'route' => '/orders',
                     'defaults' => [
                         'controller' => 'Orders\Controller\Orders',
-                        'action' => 'index',
-                        'breadcrumbs' => false
+                        'action' => 'index'
                     ],
                 ],
                 'may_terminate' => true,
