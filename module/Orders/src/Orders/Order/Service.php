@@ -2,31 +2,47 @@
 namespace Orders\Order;
 
 use CG_UI\View\DataTable;
+use CG_UI\View\Table;
+use CG_UI\View\Table\Column as TableColumn;
+use CG_UI\View\Table\Rows as TableRows;
 use CG\Order\Shared\StorageInterface;
 use CG\User\ActiveUserInterface;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Entity;
+use CG\Order\Shared\Item\Entity as ItemEntity;
+use Zend\Di\Di;
+use Zend\I18n\View\Helper\CurrencyFormat;
 
 class Service
 {
-    const DAY_SECONDS = 86400;
-    const HOUR_SECONDS = 3600;
-    const MINUTE_SECONDS = 60;
-
     protected $ordersTable;
     protected $orderClient;
     protected $activeUserContainer;
+    protected $di;
 
     public function __construct(
         DataTable $ordersTable,
         StorageInterface $orderClient,
-        ActiveUserInterface $activeUserContainer
+        ActiveUserInterface $activeUserContainer,
+        Di $di
     )
     {
         $this
             ->setOrdersTable($ordersTable)
             ->setOrderClient($orderClient)
-            ->setActiveUserContainer($activeUserContainer);
+            ->setActiveUserContainer($activeUserContainer)
+            ->setDi($di);
+    }
+
+    public function setDi(Di $di)
+    {
+        $this->di = $di;
+        return $this;
+    }
+
+    public function getDi()
+    {
+        return $this->di;
     }
 
     public function setOrdersTable($ordersTable)
@@ -77,91 +93,47 @@ class Service
         return $this->getOrderClient()->fetch($orderId);
     }
 
-    public function calculateTimelineBoxes(Entity $order)
+    public function getOrderItemTable(Entity $order)
     {
-        $timelineHeadings = [
-            [
-                "get" => "getPurchaseDate",
-                "title" => "Purchase Date",
-                "extraText" => "Purchased"
-            ],
-            [
-                "get" => "getPaymentDate",
-                "title" => "Payment Date",
-                "extraText" => "Paid For"
-            ],
-            [
-                "get" => "getPrintedDate",
-                "title" => "Printed Date",
-                "extraText" => "Printed"
-            ],
-            [
-                "get" => "getDispatchDate",
-                "title" => "Dispatch Date",
-                "extraText" => "Dispatched"
-            ]
+        $getDiscountTotal = function (ItemEntity $entity) {
+            return $entity->getIndividualItemDiscountPrice() * $entity->getItemQuantity();
+        };
+
+        $getTaxTotal = function (ItemEntity $entity) {
+            return $entity->getItemTaxPercentage() * $entity->getItemQuantity();
+        };
+
+        $getLineTotal = function (ItemEntity $entity) {
+            return $entity->getIndividualItemPrice() * $entity->getItemQuantity();
+        };
+
+        $numberFormat = $this->getDi()->get(CurrencyFormat::class);
+        $currencyCode = $order->getCurrencyCode();
+        $currencyFormatter = function (ItemEntity $entity, $value) use ($numberFormat, $currencyCode) {
+            return $numberFormat($value, $currencyCode);
+        };
+
+        $columns = [
+            ['name' => 'SKU', 'class' => '', 'getter' => 'getItemSku', 'callback' => null],
+            ['name' => 'Product Name', 'class' => '', 'getter' => 'getItemName', 'callback' => null],
+            ['name' => 'Quantity', 'class' => 'right', 'getter' => 'getItemQuantity', 'callback' => null],
+            ['name' => 'Individual Price', 'class' => 'right', 'getter' => 'getIndividualItemPrice', 'callback' => $currencyFormatter],
+            ['name' => 'Individual Discount', 'class' => 'right', 'getter' => 'getIndividualItemDiscountPrice', 'callback' => $currencyFormatter],
+            ['name' => 'Tax', 'class' => 'right', 'getter' => 'getItemTaxPercentage', 'callback' => null],
+            ['name' => 'Discount Total', 'class' => 'right', 'getter' => $getDiscountTotal, 'callback' => $currencyFormatter],
+            ['name' => 'Tax Total', 'class' => 'right', 'getter' => $getTaxTotal, 'callback' => $currencyFormatter],
+            ['name' => 'Line Total', 'class' => 'right', 'getter' => $getLineTotal, 'callback' => $currencyFormatter],
         ];
 
-        $timelineBoxes = [];
-        foreach ($timelineHeadings as $timelineHeading) {
-            $unixTime = strtotime($order->$timelineHeading["get"]());
-            $unixTime ?: null;
-            $timelineBoxes['timelineBoxes'][] = [
-                'title' => $timelineHeading["title"],
-                'subtitle' => $order->$timelineHeading["get"]() ? date("jS M Y", $unixTime) : "Order Not Yet",
-                'extraText' => $order->$timelineHeading["get"]() ? date("h:ia", $unixTime) : "Order Not Yet",
-                'colour' => $order->$timelineHeading["get"]() ? "green" : "grey",
-                'unixTime' => $unixTime
-            ];
-            $unixTimes[] = $unixTime;
+        $table = $this->getDi()->newInstance(Table::class);
+        $mapping = [];
+        foreach ($columns as $column) {
+            $table->addColumn($this->getDi()->newInstance(TableColumn::class, ["name" => $column["name"], "class" => $column["class"]]));
+            $mapping[$column["name"]] = ["getter" => $column["getter"], "callback" => $column["callback"]];
         }
-        array_multisort($timelineBoxes["timelineBoxes"], SORT_NUMERIC, $unixTimes);
-        $firstTimelineBox = current($timelineBoxes["timelineBoxes"]);
-
-        $previousBox = "";
-        foreach ($timelineBoxes["timelineBoxes"] as $index => $box) {
-            if ($previousBox) {
-                if ($previousBox["unixTime"] && $box["unixTime"]) {
-                    $difference = $box["unixTime"] - $previousBox["unixTime"];
-                    if ($difference < static::HOUR_SECONDS) {
-                        $differenceString = round($difference / static::MINUTE_SECONDS) . " Minutes";
-                    } elseif ($difference < static::DAY_SECONDS) {
-                        $differenceString = round($difference / static::HOUR_SECONDS) . " Hours";
-                    } else {
-                        $differenceString = round($difference / static::DAY_SECONDS) . " Days";
-                    }
-                } else {
-                    $differenceString = "";
-                }
-                $timelineBoxes['timelineTimes'][] = [
-                    'status' => $previousBox['unixTime'] ? 'ok' : 'none',
-                    'time' => $differenceString
-                ];
-            }
-            $previousBox = $box;
-        }
-        $timelineBoxes['timelineTimes'][] = [
-            'status' => $previousBox['unixTime'] ? 'ok' : 'none',
-            'time' => ''
-        ];
-
-        $totalTimeUnix = end($timelineBoxes["timelineBoxes"])['unixTime'] - $firstTimelineBox['unixTime'];
-        $totalTime = "";
-        if ($totalTimeUnix >= static::DAY_SECONDS) {
-            $days = floor($totalTimeUnix / static::DAY_SECONDS);
-            $totalTime .= $days . " Days ";
-            $totalTimeUnix -= ($days * static::DAY_SECONDS);
-        }
-        if ($totalTimeUnix >= static::HOUR_SECONDS) {
-            $hours = floor($totalTimeUnix / static::HOUR_SECONDS);
-            $totalTime .= $hours . " Hours ";
-            $totalTimeUnix -= ($hours * static::HOUR_SECONDS);
-        }
-        if ($totalTimeUnix >= static::MINUTE_SECONDS) {
-            $minutes = floor($totalTimeUnix / static::MINUTE_SECONDS);
-            $totalTime .= $minutes . " Minutes ";
-        }
-        $timelineBoxes['timelineTotal'] = end($timelineBoxes["timelineBoxes"])['unixTime'] ? $totalTime : "Order Not Yet Completed";
-        return $timelineBoxes;
+        $rows = $this->getDi()->newInstance(TableRows::class, ["data" => $order->getItems(), "mapping" => $mapping]);
+        $table->setRows($rows);
+        $table->setTemplate('table/standard');
+        return $table;
     }
 }

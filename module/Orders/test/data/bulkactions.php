@@ -22,7 +22,7 @@ return [
         ],
         [
             'title' => 'Download CSV',
-            'class' => 'download-csv'
+            'class' => 'download'
         ],
         [
             'title' => 'Courier',
