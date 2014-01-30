@@ -18,7 +18,7 @@ var templateUrl = '<?= $this->basePath() . Orders\Module::PUBLIC_FOLDER . 'templ
 var templateRowId = 'order-row';
 CGMustache.get().fetchTemplate(templateUrl, function(template, cgmustache)
 {
-    $("#datatable").on("fnRowCallback", function (event, nRow, aData, iDisplayIndex, iDisplayIndexFull)
+    $("#datatable").on("fnCreatedRow", function (event, nRow, aData, iDisplayIndex, iDisplayIndexFull)
     {
         aData.formatCurrency = cgmustache.formatCurrency(aData);
         aData.formatDateTime = cgmustache.formatDateTime(aData);
@@ -35,9 +35,14 @@ CGMustache.get().fetchTemplate(templateUrl, function(template, cgmustache)
         $(nRow).html(html);
     });
 });
+
+$("#datatable").on("fnRowCallback", function(event, nRow, aData, iDataIndex) {
+    $("a.title", nRow).cgPjax();
+});
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
+<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/jquery/cg-pjax.js'); ?>
 <?php $this->placeholder('#main.class')->append('full-width'); ?>
 <?php $this->placeholder('#sub-header')->append($this->filters); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>

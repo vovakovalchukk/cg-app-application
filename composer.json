@@ -38,7 +38,7 @@
         "channelgrabber/zf2-register": "~1.4.5",
         "channelgrabber/zf2-ssoclient": "~1.2.1",
         "channelgrabber/zf2-stdlib": "~1.1.5",
-        "channelgrabber/zf2-v4-ui": "~1.1.12",
+        "channelgrabber/zf2-v4-ui": "dev-CGIV-1394-Iframe as 1.1.13",
         "codeception/codeception": "1.6.5",
         "davedevelopment/phpmig": "0.4",
         "guzzle/guzzle": "~3.7",
