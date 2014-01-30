@@ -2,45 +2,5 @@
     <?php if(!empty($slideable) && $slideable):?>
     <span class="slideable-toggle">&raquo;</span>
     <?php endif;?>
-    <?php if(!empty($nav)):?>
-    <div id="sidebar-nav">
-        <ul>
-            <?php foreach($nav as $navItem):?>
-            <li class="<?=$navItem['class']?>">
-                <a href="<?=$navItem['href']?>" title="<?=$navItem['title']?>"><?=$navItem['title']?></a>
-                <?php if(!empty($navItem['sub'])):?>
-                <ul>
-                    <?php foreach($navItem['sub'] as $subNavItem):?>
-                    <li class="<?=$subNavItem['class']?>">
-                        <a href="<?=$subNavItem['href']?>" title="<?=$subNavItem['title']?>"><?=$subNavItem['title']?></a>
-                    <li>
-                    <?php endforeach;?>
-                </ul>
-                <?php endif;?>
-            </li>
-            <?php endforeach;?>
-        </ul>
-    </div>
-    <?php endif;?>
-    <?php if(!empty($filterModules)):?>
-    <?php foreach($filterModules as $filterModule):?>
-    <div class="module filter-module clearfix">
-        <h3><?=$filterModule['title']?></h3>
-        <div class="module-content nav">
-            <ul>
-                <?php foreach($filterModule['nav'] as $navItem):?>
-                <li>
-                    <a href="<?=$navItem['href']?>" title="<?=$navItem['title']?>">
-                        <?php foreach($navItem['totals'] as $total):?>
-                        <span class="total <?=$total['class']?>"><?=$total['total']?></span>
-                        <?php endforeach;?>
-                        <?=$navItem['title']?>
-                    </a>
-                </li>
-                <?php endforeach;?>
-            </ul>
-        </div>
-    </div>
-    <?php endforeach;?>
-    <?php endif;?>
+    <?=$this->placeholder('sidebar-content'); ?>    
 </div>

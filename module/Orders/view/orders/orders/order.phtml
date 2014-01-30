@@ -46,16 +46,16 @@ $bulkActions = array(
      )
  );
 ?>
-<div id="order-status" class="red-bg">New</div>
+<div id="order-status" class="<?= $order->getStatus(); ?>-bg"><?= $order->getStatus(); ?></div>
 <div id="breadcrumbs" class="order-breadcrumbs">
     <ul>
-        <li><a href="#">View Order</a></li>
+        <li><a href="#"><?= $this->translate('View Order'); ?></a></li>
         <li class="separator"><span>&nbsp;</span></li>
-        <li><span>1056609</span></li>
+        <li><span><?= $order->getId(); ?></span></li>
     </ul>
     <div class="right">
-        <span><strong>Order ID: </strong>1056609</span>
-        <img src="/channelgrabber/zf2-v4-ui/img/logos/ebay.png" alt="eBay" />
+        <span><strong><?= $this->translate('Order ID'); ?>: </strong><?= $order->getId(); ?></span>
+        <img src="<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/<?= $order->getChannel(); ?>.png" alt="<?= $order->getChannel(); ?>" />
     </div>
 </div>
 <div id="bulk-actions" class="module full-width with-padding clearfix bulk-actions-inline">
@@ -63,7 +63,7 @@ $bulkActions = array(
     <div class="default clearfix">
         <span class="action" data-action="print">
             <span class="icon-med inverted print">&nbsp;</span>
-            <span class="title">Print</span>
+            <span class="title"><?= $this->translate('Print'); ?></span>
         </span>
                     <span class="divider">
             <span class="arrow down">&nbsp;</span>
@@ -79,7 +79,7 @@ $bulkActions = array(
     <div class="default clearfix">
         <span class="action" data-action="dispatch">
             <span class="icon-med inverted dispatch">&nbsp;</span>
-            <span class="title">Dispatch</span>
+            <span class="title"><?= $this->translate('Dispatch'); ?></span>
         </span>
                 </div>
         </div>
@@ -87,7 +87,7 @@ $bulkActions = array(
     <div class="default clearfix">
         <span class="action" data-action="tag-untag">
             <span class="icon-med inverted tag-untag">&nbsp;</span>
-            <span class="title">Tag / Untag</span>
+            <span class="title"><?= $this->translate('Tag / Untag'); ?></span>
         </span>
                     <span class="divider">
             <span class="arrow down">&nbsp;</span>
@@ -103,7 +103,7 @@ $bulkActions = array(
     <div class="default clearfix">
         <span class="action" data-action="courier">
             <span class="icon-med inverted courier">&nbsp;</span>
-            <span class="title">Courier</span>
+            <span class="title"><?= $this->translate('Courier'); ?></span>
         </span>
                     <span class="divider">
             <span class="arrow down">&nbsp;</span>
@@ -119,7 +119,7 @@ $bulkActions = array(
     <div class="default clearfix">
         <span class="action" data-action="accounting">
             <span class="icon-med inverted accounting">&nbsp;</span>
-            <span class="title">Accounting</span>
+            <span class="title"><?= $this->translate('Accounting'); ?></span>
         </span>
                     <span class="divider">
             <span class="arrow down">&nbsp;</span>
@@ -133,7 +133,7 @@ $bulkActions = array(
 </div>
 <a href="#" class="button close-popup">Back to Orders</a>
 </div>
-<?=$this->timelineBoxes ?>
+<?= $this->timelineBoxes; ?>
 <div class="module clearfix">
     <form class="single-row">
         <label>
@@ -148,8 +148,7 @@ $bulkActions = array(
     <form class="single-row">
         <label>
             <span class="icon-large user"></span>
-            <span class="label">Buyer Message:</span>
-            <p>Hello please leave it next door...</p>
+            <p><?= $order->getBuyerMessage() ?: $this->translate("There is no buyer message for this order"); ?></p>
         </label>
     </form>
 </div>
@@ -271,20 +270,23 @@ $bulkActions = array(
         </form>
     </div>
 </div>
-
 <div class="module clearfix">
-    <h2>Product &amp; Payment Information</h2>
-    <?= $this->productPaymentTable ?>
+    <h2><?= $this->translate('Product & Payment Information'); ?></h2>
+    <?php if(count($order->getItems())):?>
+        <?= $this->productPaymentTable; ?>
+    <?php else: ?>
+        <p><?= $this->translate('This order has no items'); ?></p>
+    <?php endif;?>
     <table class="no-borders">
         <tr>
-            <td colspan="2">Paid By: <strong>Paypal</strong></td>
-            <td class="right"><strong>Postage:</strong></td>
-            <td class="right"><strong>&pound;2.50</strong></td>
+            <td colspan="2"><?= $this->translate('Paid Via'); ?>: <strong><?= $order->getPaymentMethod() ?></strong></td>
+            <td class="right"><strong><?= $this->translate('Postage'); ?>:</strong></td>
+            <td class="right"><strong><?= $this->currencyFormat($order->getShippingPrice()); ?></strong></td>
         </tr>
         <tr>
-            <td colspan="2">Reference: <strong>644864684</strong></td>
-            <td class="right"><strong>Total:</strong></td>
-            <td class="right"><strong>&pound;17.50</strong></td>
+            <td colspan="2"><?= $this->translate('Reference'); ?>: <strong><?= $order->getPaymentReference() ?></strong></td>
+            <td class="right"><strong><?= $this->translate('Total'); ?>:</strong></td>
+            <td class="right"><strong><?= $this->currencyFormat($order->getTotal()); ?></strong></td>
         </tr>
     </table>
     <form  method="post" class="ajaxPost">
@@ -320,12 +322,12 @@ $bulkActions = array(
                 <?php
                 $data =  array(
                     'options' =>array( 
-                        array( 'img' => '/channelgrabber/zf2-v4-ui/img/logos/royalmail.png', 'href' => '#',   'title' => 'Royal Mail',  'class' => '' ),
-                        array( 'img' => '/channelgrabber/zf2-v4-ui/img/logos/dpd.png', 'href' => '#',         'title' => 'DPD',  'class' => '' ),
-                        array( 'img' => '/channelgrabber/zf2-v4-ui/img/logos/interlink.png', 'href' => '#',   'title' => 'Interlink',     'class' => '' ),
-                        array( 'img' => '/channelgrabber/zf2-v4-ui/img/logos/parcelforce.png', 'href' => '#', 'title' => 'Parcel Force', 'class' => '' )
+                        array( 'img' => '<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/royalmail.png', 'href' => '#',   'title' => 'Royal Mail',  'class' => '' ),
+                        array( 'img' => '<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/dpd.png', 'href' => '#',         'title' => 'DPD',  'class' => '' ),
+                        array( 'img' => '<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/interlink.png', 'href' => '#',   'title' => 'Interlink',     'class' => '' ),
+                        array( 'img' => '<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/parcelforce.png', 'href' => '#', 'title' => 'Parcel Force', 'class' => '' )
                     ),
-                    'customSelectImgSrc' => '/channelgrabber/zf2-v4-ui/img/logos/royalmail.png'
+                    'customSelectImgSrc' => '<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/royalmail.png'
                 );
                 ?>
                 <?= $this->partial('elements/custom-select-image', $data); ?>
@@ -337,9 +339,5 @@ $bulkActions = array(
             <input type="text" name="companyName" required="required" placeholder="My Company Ltd"  value="GB 1234567890">
         </label>
     </form>
-</div>
-<div class="module clearfix">
-    <h2>Accounting</h2>
-    <?=$this->accountingTable; ?>
 </div>
 <?= $this->notes ?>

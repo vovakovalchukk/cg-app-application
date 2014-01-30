@@ -5,27 +5,37 @@ use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Orders\Order\Service as OrderService;
+use Orders\Order\Batch\Service as BatchService;
+use Orders\Order\Timeline\Service as TimelineService;
 use Orders\Filter\Service as FilterService;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Order\Shared\Entity as OrderEntity;
 
 class OrdersController extends AbstractActionController
 {
+
+
     protected $orderService;
     protected $filterService;
+    protected $timelineService;
+    protected $batchService;
     protected $jsonModelFactory;
     protected $viewModelFactory;
 
     public function __construct(
+        JsonModelFactory $jsonModelFactory,
+        ViewModelFactory $viewModelFactory,
         OrderService $orderService,
         FilterService $filterService,
-        JsonModelFactory $jsonModelFactory,
-        ViewModelFactory $viewModelFactory
-    ) {
-        $this
+        TimelineService $timelineService,
+        BatchService $batchService)
+    {
+        $this->setJsonModelFactory($jsonModelFactory)
+            ->setViewModelFactory($viewModelFactory)
             ->setOrderService($orderService)
             ->setFilterService($filterService)
-            ->setJsonModelFactory($jsonModelFactory)
-            ->setViewModelFactory($viewModelFactory);
+            ->setTimelineService($timelineService)
+            ->setBatchService($batchService);
     }
 
     public function setOrderService(OrderService $orderService)
@@ -72,6 +82,29 @@ class OrdersController extends AbstractActionController
         return $this->viewModelFactory;
     }
 
+    public function setBatchService(BatchService $batchService)
+    {
+        $this->batchService = $batchService;
+        return $this;
+    }
+
+    public function getBatchService()
+    {
+        return $this->batchService;
+
+    }
+
+    public function setTimelineService(TimelineService $timelineService)
+    {
+        $this->timelineService = $timelineService;
+        return $this;
+    }
+
+    public function getTimelineService()
+    {
+        return $this->timelineService;
+    }
+
     public function indexAction()
     {
         $view = $this->getViewModelFactory()->newInstance();
@@ -84,41 +117,29 @@ class OrdersController extends AbstractActionController
         $view->addChild($this->getBulkActions(), 'bulkItems');
         $view->addChild($this->getFilterBar(), 'filters');
         $view->addChild($this->getSidebar(), 'sidebar');
+
         return $view;
     }
 
     public function orderAction()
     {
+        $order = $this->getOrderService()->getOrder($this->params('order'));
         $view = $this->getViewModelFactory()->newInstance();
 
         $view->addChild($this->getBulkActions(), 'bulkItems');
         $view->addChild($this->getFilterBar(), 'filters');
         $view->addChild($this->getSidebar(), 'sidebar');
         $view->addChild($this->getNotes(), 'notes');
-        $view->addChild($this->getTimelineBoxes(), 'timelineBoxes');
-        $view->addChild($this->getStandardTable(
-            include dirname(dirname(dirname(__DIR__))) . '/test/data/product-payment.php'), 
-            'productPaymentTable'
-        );
-        $view->addChild($this->getStandardTable(
-            include dirname(dirname(dirname(__DIR__))) . '/test/data/accounting.php'
-        ), 'accountingTable'
-        );
+        $view->addChild($this->getTimelineBoxes($order), 'timelineBoxes');
+        $view->addChild($this->getOrderService()->getOrderItemTable($order), 'productPaymentTable');
+        $view->setVariable('order', $order);
         return $view;
     }
 
-    protected function getStandardTable($data)
-    {
-        $table = $this->getViewModelFactory()->newInstance($data);
-        $table->setTemplate('table/standard');
-        return $table;
-    }
-
-    protected function getTimelineBoxes()
+    protected function getTimelineBoxes(OrderEntity $order)
     {
         $timelineBoxes = $this->getViewModelFactory()->newInstance(
-            // Example Data - Should be loaded via Service/Di
-            include dirname(dirname(dirname(__DIR__))) . '/test/data/timeline-boxes.php'
+            $this->getTimelineService()->getTimeline($order)
         );
         $timelineBoxes->setTemplate('elements/timeline-boxes');
         return $timelineBoxes;
@@ -140,6 +161,7 @@ class OrdersController extends AbstractActionController
             include dirname(dirname(dirname(__DIR__))) . '/test/data/sidebar.php'
         );
         $sidebar->setTemplate('orders/orders/sidebar');
+        $sidebar->setVariable('batches', $this->getBatchService()->getBatches());
         return $sidebar;
     }
 
@@ -249,7 +271,6 @@ class OrdersController extends AbstractActionController
 
         try {
             $orders = $this->getOrderService()->getOrders($filter);
-
             $data['iTotalRecords'] = (int) $orders->getTotal();
             $data['iTotalDisplayRecords'] = (int) $orders->getTotal();
 

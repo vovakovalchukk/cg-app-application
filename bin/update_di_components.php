@@ -5,10 +5,11 @@ define('RED', "\033[31m");
 define('WHITE', "\033[0m");
 define('COMPONENTS_FILE', 'config/di/vendor_components.php');
 
-if (!is_writable(COMPONENTS_FILE)) {
-    echo RED . 'Cannot update DI components as ' . COMPONENTS_FILE . ' is not writeable. Check the file permissions or try sudo-ing' . WHITE . PHP_EOL;
-    exit(1);
+if(!file_exists(COMPONENTS_FILE)) {
+	$empty = "<?php return array();";
+	file_put_contents(COMPONENTS_FILE, $empty);
 }
+
 
 require_once 'bootstrap.php';
 
@@ -70,8 +71,8 @@ foreach ($vendors as $vendor) {
         $componentName = implode('_', $componentNameParts);
         echo $componentName . '... ';
         $newComponents[$componentName] = true;
-
-        if (in_array($componentName, $currentComponents)) {
+        
+	if (in_array($componentName, $currentComponents)) {
             echo 'exists' . PHP_EOL;
             continue;
         }
