@@ -30,6 +30,7 @@ CGMustache.get().fetchTemplate(templateUrl, function(template, cgmustache)
                 return render(variable);
             };
         };
+        aData.order_url = Mustache.render("<?= urldecode($this->url('Orders/order', ['order' => '{{order}}'])) ?>", {order: aData.id});
 
         var html = cgmustache.renderTemplate(template, aData, templateRowId);
         $(nRow).html(html);
