@@ -16,7 +16,8 @@ return [
                     'defaults' => [
                         'controller' => 'Orders\Controller\Orders',
                         'action' => 'index',
-                        'breadcrumbs' => false
+                        'breadcrumbs' => false,
+                        'sidebar' => 'orders/orders/sidebar'
                     ],
                 ],
                 'may_terminate' => true,
