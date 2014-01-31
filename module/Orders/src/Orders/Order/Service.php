@@ -171,7 +171,7 @@ class Service
                 $note["author"] = $user->getFirstName() . " " . $user->getLastName();
             }
         } catch (NotFound $e) {
-
+            //no users found for notes, don't return any authors
         }
 
         return $itemNotes;
