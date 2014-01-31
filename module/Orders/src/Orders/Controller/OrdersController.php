@@ -115,7 +115,6 @@ class OrdersController extends AbstractActionController
         $view->addChild($ordersTable, 'ordersTable');
         $view->addChild($this->getBulkActions(), 'bulkItems');
         $view->addChild($this->getFilterBar(), 'filters');
-        $view->addChild($this->getSidebar(), 'sidebar');
         $view->addChild($this->getBatches(), 'batches');
         return $view;
     }
@@ -127,7 +126,6 @@ class OrdersController extends AbstractActionController
 
         $view->addChild($this->getBulkActions(), 'bulkItems');
         $view->addChild($this->getFilterBar(), 'filters');
-        $view->addChild($this->getSidebar(), 'sidebar');
         $view->addChild($this->getNotes($order), 'notes');
         $view->addChild($this->getTimelineBoxes($order), 'timelineBoxes');
         $view->addChild($this->getOrderService()->getOrderItemTable($order), 'productPaymentTable');
@@ -158,14 +156,6 @@ class OrdersController extends AbstractActionController
         $notes = $this->getViewModelFactory()->newInstance(["notes" => $itemNotes]);
         $notes->setTemplate('elements/notes');
         return $notes;
-    }
-
-    protected function getSidebar()
-    {
-        $sidebar = $this->getViewModelFactory()->newInstance();
-        $sidebar->setVariable('slideable', true);
-        $sidebar->setTemplate('orders/orders/sidebar');
-        return $sidebar;
     }
 
     protected function getBulkActions()

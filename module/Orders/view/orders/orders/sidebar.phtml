@@ -1,5 +1,4 @@
-<div id="sidebar" class="<?php if($slideable):?>slideable<?php endif; ?> clearfix fixed-scroll">
-    <?php if(!empty($slideable) && $slideable):?>
-        <span class="slideable-toggle">&raquo;</span>
-    <?php endif;?>
+<div id="sidebar" class="slideable clearfix fixed-scroll">
+    <span class="slideable-toggle">&raquo;</span>
+    <?= $this->placeholder('#sidebar') ?>
 </div>
