@@ -2,24 +2,25 @@
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/notifications.js'); ?>
 <?php $this->inlineScript()->captureStart(); ?>
-function saveNote() {
+function saveAlert() {
     n.clearNotifications($('#main-notifications'));
     n.showNotification($('#main-notifications'), 'notice', '<?= $this->translate("Saving alert"); ?>...', false);
+    var alert = $('#alert-input').val();
+    var action = alert ? 'set' : 'delete';
     $.ajax({
-        "url": "<?= $this->serverUrl(true); ?>/alert",
-        "type": "POST",
-        "data": {"alert" : $('#alert-input').val(), "eTag" : $('#alert-etag').val()},
-        "dataType" : "json",
+        url: '<?= $this->url('Orders/order/alert', array("order" => $order->getId())); ?>/' + action,
+        type: 'POST',
+        data: {'alert': alert, 'eTag': $('#alert-etag').val()},
+        dataType : 'json',
         success: function(data) {
-            if (data.eTag) {
-                $('#alert-etag').val(data.eTag);
-            }
+            $('#alert-etag').val(data.eTag);
             n.clearNotifications($('#main-notifications'));
-            n.showNotification($('#main-notifications'), 'success', '<?= $this->translate("Alert saved"); ?>', true);
+            n.showNotification($('#main-notifications'), 'success', '<?= $this->translate('Alert saved'); ?>', true);
         },
         error: function(error, textStatus, errorThrown) {
+            json = jQuery.parseJSON(error.responseText);
             n.clearNotifications($('#main-notifications'));
-            n.showNotification($('#main-notifications'), 'error', error.responseText, true);
+            n.showNotification($('#main-notifications'), 'error', json.message, true);
         }
     });
 }
@@ -170,7 +171,7 @@ $bulkActions = array(
             ?>
             <input type="text" class="text" name="" value="<?= ($alert) ? $alert->getAlert() : ""; ?>" id="alert-input"/>
             <input type="hidden" value="<?= ($alert) ? $alert->getETag() : ""; ?>" id="alert-etag"/>
-            <input type="submit" class="button inline" value="<?= $this->translate('Save Alert'); ?>" onClick="saveNote()" />
+            <input type="submit" class="button inline" value="<?= $this->translate('Save Alert'); ?>" onClick="saveAlert()" />
         </label>
     </form>
 </div>

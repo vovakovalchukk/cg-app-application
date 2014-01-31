@@ -29,42 +29,59 @@ class AlertController extends AbstractActionController
 
     public function setAction()
     {
-        $orderId = $this->params('order');
+        $alert = $this->fetchAlert();
+        $alert = is_null($alert) ? $this->create() : $this->update($alert);
+        $view = $this->getJsonModelFactory()->newInstance();
+        $view->setVariable("eTag", $alert->getETag());
+        return $view;
+    }
 
+    public function deleteAction()
+    {
+        $alert = $this->fetchAlert();
+        if ($alert) {
+            $this->getService()->remove($alert);
+        }
+        $view = $this->getJsonModelFactory()->newInstance();
+        $view->setVariable("eTag", "");
+        return $view;
+    }
+
+    protected function create()
+    {
+        $alert = $this->getMapper()->fromArray(
+            array(
+                "userId" => $this->getActiveUserContainer()->getActiveUser()->getId(),
+                "alert" => $this->params()->fromPost('alert'),
+                "timestamp" => date("Y-m-d H:i:s", time()),
+                "orderId" => $this->params('order')
+            )
+        );
+        $this->getService()->save($alert);
+        return $alert;
+    }
+
+    protected function update(AlertEntity $alert)
+    {
+        $alert->setAlert($this->params()->fromPost('alert'))
+            ->setUserId($this->getActiveUserContainer()->getActiveUser()->getId())
+            ->setTimestamp(date("Y-m-d H:i:s", time()));
+        $alert->setStoredETag($this->params()->fromPost('eTag'));
+        $this->getService()->save($alert);
+        return $alert;
+    }
+
+    protected function fetchAlert()
+    {
         try {
+            $orderId = $this->params('order');
             $alertCollection = $this->getService()->fetchCollectionByOrderIds([$orderId]);
             $alerts = $alertCollection->getByOrderId($orderId);
             $alerts->rewind();
             $alert = $alerts->current();
-            $alert->setStoredETag($this->params()->fromPost('eTag'));
         } catch (NotFound $e) {
             $alert = null;
         }
-        if ($this->params()->fromPost('alert')) {
-            $alert = $this->createUpdate($alert);
-            $eTag = array("eTag" => $alert->getETag());
-        } elseif ($alert) {
-            $this->getService()->remove($alert);
-            $eTag = array("eTag" => null);
-        }
-        $view = $this->getJsonModelFactory()->newInstance($eTag);
-        return $view;
-    }
-
-    protected function createUpdate(AlertEntity $alert = null)
-    {
-        if (!$alert) {
-            $alert = $this->getMapper()->fromArray(
-                array(
-                    "userId" => $this->getActiveUserContainer()->getActiveUser()->getId(),
-                    "alert" => $this->params()->fromPost('alert'),
-                    "timestamp" => date("Y-m-d H:i:s", time()),
-                    "orderId" => $this->params('order')
-                )
-            );
-        }
-        $alert->setAlert($this->params()->fromPost('alert'));
-        $this->getService()->save($alert);
         return $alert;
     }
 

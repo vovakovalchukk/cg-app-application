@@ -45,9 +45,31 @@ return [
                                 'options' => [
                                     'route' => '/alert',
                                     'defaults' => [
-                                        'controller' => 'Orders\Controller\Alert',
-                                        'action' => 'set'
+                                        'controller' => 'Orders\Controller\Alert'
                                     ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    'alertSet' => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/set',
+                                            'defaults' => [
+                                                'action' => 'set'
+                                            ],
+                                        ],
+                                        'may_terminate' => true
+                                    ],
+                                    'alertDelete' => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/delete',
+                                            'defaults' => [
+                                                'action' => 'delete'
+                                            ]
+                                        ],
+                                        'may_terminate' => true
+                                    ],
                                 ]
                             ],
                         ]
