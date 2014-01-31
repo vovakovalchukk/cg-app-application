@@ -1,32 +1,6 @@
-<div id="sidebar" class="slideable clearfix fixed-scroll">
+<div id="sidebar" class="<?php if($slideable):?>slideable<?php endif; ?> clearfix fixed-scroll">
+    <?php if(!empty($slideable) && $slideable):?>
     <span class="slideable-toggle">&raquo;</span>
-    <div class="module filter-module clearfix">
-        <h3>Saved Filters</h3>
-        <div class="module-content nav">
-            <ul>
-                <li><a href="#"><span class="total red">2</span>      New Orders   </a><li>
-                <li><a href="#"><span class="total orange">1008</span>International</a><li>
-                <li><a href="#"><span class="total yellow">27</span>  Processing   </a><li>
-                <li><a href="#"><span class="total green">104</span>  Dispatched   </a><li>
-            </ul>
-        </div>
-    </div>
-    <div class="module filter-module clearfix">
-        <input type='hidden' id='hidden_batch_filter' value=''>
-        <h3>Batches</h3>
-        <div class="module-content nav">
-            <ul>
-                <?php if (count($batches)): ?>
-                    <?php foreach ($batches as $batch): ?>
-                        <li>
-                            <a href="javascript:batchFilter('<?= $batch->getId(); ?>');">Batch <?= $batch->getName(); ?>
-                            </a>
-                        <li>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                        <li id='no_active_batches'>No active batches</li>
-                <?php endif; ?>
-            </ul>
-        </div>
-    </div>
+    <?php endif;?>
+    <?=$this->placeholder('sidebar-content'); ?>    
 </div>
