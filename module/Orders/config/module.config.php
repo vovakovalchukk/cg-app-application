@@ -251,7 +251,7 @@ return [
             ],
             AlertApi::class => [
                 'parameters' => [
-                    'client' => "cg_app_guzzle"
+                    'client' => 'cg_app_guzzle'
                 ]
             ]
         ],

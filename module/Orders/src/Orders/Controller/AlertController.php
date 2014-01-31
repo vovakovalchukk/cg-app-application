@@ -32,7 +32,7 @@ class AlertController extends AbstractActionController
         $alert = $this->fetchAlert();
         $alert = is_null($alert) ? $this->create() : $this->update($alert);
         $view = $this->getJsonModelFactory()->newInstance();
-        $view->setVariable("eTag", $alert->getETag());
+        $view->setVariable('eTag', $alert->getETag());
         return $view;
     }
 
@@ -43,7 +43,7 @@ class AlertController extends AbstractActionController
             $this->getService()->remove($alert);
         }
         $view = $this->getJsonModelFactory()->newInstance();
-        $view->setVariable("eTag", "");
+        $view->setVariable('eTag', '');
         return $view;
     }
 
@@ -51,10 +51,10 @@ class AlertController extends AbstractActionController
     {
         $alert = $this->getMapper()->fromArray(
             array(
-                "userId" => $this->getActiveUserContainer()->getActiveUser()->getId(),
-                "alert" => $this->params()->fromPost('alert'),
-                "timestamp" => date("Y-m-d H:i:s", time()),
-                "orderId" => $this->params('order')
+                'userId' => $this->getActiveUserContainer()->getActiveUser()->getId(),
+                'alert' => $this->params()->fromPost('alert'),
+                'timestamp' => date('Y-m-d H:i:s', time()),
+                'orderId' => $this->params('order')
             )
         );
         $this->getService()->save($alert);
@@ -65,7 +65,7 @@ class AlertController extends AbstractActionController
     {
         $alert->setAlert($this->params()->fromPost('alert'))
             ->setUserId($this->getActiveUserContainer()->getActiveUser()->getId())
-            ->setTimestamp(date("Y-m-d H:i:s", time()));
+            ->setTimestamp(date('Y-m-d H:i:s', time()));
         $alert->setStoredETag($this->params()->fromPost('eTag'));
         $this->getService()->save($alert);
         return $alert;
