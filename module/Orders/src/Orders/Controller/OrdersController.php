@@ -129,7 +129,7 @@ class OrdersController extends AbstractActionController
         $view->addChild($this->getBulkActions(), 'bulkItems');
         $view->addChild($this->getFilterBar(), 'filters');
         $view->addChild($this->getSidebar(), 'sidebar');
-        $view->addChild($this->getNotes(), 'notes');
+        $view->addChild($this->getNotes($order), 'notes');
         $view->addChild($this->getTimelineBoxes($order), 'timelineBoxes');
         $view->addChild($this->getOrderService()->getOrderItemTable($order), 'productPaymentTable');
         $view->setVariable('order', $order);
@@ -145,12 +145,10 @@ class OrdersController extends AbstractActionController
         return $timelineBoxes;
     }
 
-    protected function getNotes()
+    protected function getNotes(OrderEntity $order)
     {
-        $notes = $this->getViewModelFactory()->newInstance(
-            // Example Data - Should be loaded via Service/Di
-            include dirname(dirname(dirname(__DIR__))) . '/test/data/notes.php'
-        );
+        $itemNotes = $this->getOrderService()->getNamesFromOrderNotes($order->getNotes());
+        $notes = $this->getViewModelFactory()->newInstance(["notes" => $itemNotes]);
         $notes->setTemplate('elements/notes');
         return $notes;
     }

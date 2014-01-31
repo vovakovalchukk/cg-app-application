@@ -1,6 +1,7 @@
 <?php
 namespace Orders\Order;
 
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\DataTable;
 use CG_UI\View\Table;
 use CG_UI\View\Table\Column as TableColumn;
@@ -12,17 +13,21 @@ use CG\Order\Shared\Entity;
 use CG\Order\Shared\Item\Entity as ItemEntity;
 use Zend\Di\Di;
 use Zend\I18n\View\Helper\CurrencyFormat;
+use CG\User\Service as UserService;
+use CG\Order\Shared\Note\Collection as OrderNoteCollection;
 
 class Service
 {
     protected $ordersTable;
     protected $orderClient;
+    protected $userService;
     protected $activeUserContainer;
     protected $di;
 
     public function __construct(
         DataTable $ordersTable,
         StorageInterface $orderClient,
+        UserService $userService,
         ActiveUserInterface $activeUserContainer,
         Di $di
     )
@@ -30,6 +35,7 @@ class Service
         $this
             ->setOrdersTable($ordersTable)
             ->setOrderClient($orderClient)
+            ->setUserService($userService)
             ->setActiveUserContainer($activeUserContainer)
             ->setDi($di);
     }
@@ -45,7 +51,7 @@ class Service
         return $this->di;
     }
 
-    public function setOrdersTable($ordersTable)
+    public function setOrdersTable(DataTable $ordersTable)
     {
         $this->ordersTable = $ordersTable;
         return $this;
@@ -56,7 +62,7 @@ class Service
         return $this->ordersTable;
     }
 
-    public function setOrderClient($orderClient)
+    public function setOrderClient(StorageInterface $orderClient)
     {
         $this->orderClient = $orderClient;
         return $this;
@@ -67,10 +73,21 @@ class Service
         return $this->orderClient;
     }
 
-    public function setActiveUserContainer($activeUserContainer)
+    public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
     {
         $this->activeUserContainer = $activeUserContainer;
         return $this;
+    }
+
+    public function setUserService(UserService $userService)
+    {
+        $this->userService = $userService;
+        return $this;
+    }
+
+    public function getUserService()
+    {
+        return $this->userService;
     }
 
     public function getActiveUserContainer()
@@ -135,5 +152,28 @@ class Service
         $table->setRows($rows);
         $table->setTemplate('table/standard');
         return $table;
+    }
+
+    public function getNamesFromOrderNotes(OrderNoteCollection $notes)
+    {
+        $itemNotes = $notes->toArray();
+        $userIds = array();
+        foreach ($itemNotes as $itemNote) {
+            $userIds[] = $itemNote["userId"];
+        }
+        if (empty($userIds)) {
+            return $itemNotes;
+        }
+        try {
+            $users = $this->getUserService()->fetchCollection("all", null, null, null, $userIds);
+            foreach ($itemNotes as &$note) {
+                $user = $users->getById($note["userId"]);
+                $note["author"] = $user->getFirstName() . " " . $user->getLastName();
+            }
+        } catch (NotFound $e) {
+            //no users found for notes, don't return any authors
+        }
+
+        return $itemNotes;
     }
 }
