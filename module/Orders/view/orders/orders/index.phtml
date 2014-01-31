@@ -20,6 +20,12 @@ function batchFilter(batchId) {
     $("#filters input[name='clear-filters']").click();
 }
 
+$(document).on('click', '.' + batch_filter_class, function(e) {
+    e.preventDefault();
+    batchFilter($(this).attr('data-batch-id'));
+    return false;
+});
+
 var templateUrl = '<?= $this->basePath() . Orders\Module::PUBLIC_FOLDER . 'template/row.html' ?>';
 var templateRowId = 'order-row';
 CGMustache.get().fetchTemplate(templateUrl, function(template, cgmustache)
