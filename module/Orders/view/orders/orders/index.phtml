@@ -44,10 +44,9 @@ CGMustache.get().fetchTemplate(templateUrl, function(template, cgmustache)
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
-<?php $this->placeholder('sidebar-content')->append($batches); ?>
 <?php $this->placeholder('#main.class')->append('full-width'); ?>
 <?php $this->placeholder('#sub-header')->append($filters); ?>
-<?php $this->placeholder('#sidebar')->set($sidebar); ?>
+<?php $this->placeholder('#sidebar')->append($batches); ?>
 <div id="main" class="module clearfix<?= $this->placeholder('#main.class')->setPrefix(' ')->setIndent(1) ?>">
 <?= $this->breadcrumbs; ?>
 <?= $this->bulkItems; ?>
