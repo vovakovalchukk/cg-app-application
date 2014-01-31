@@ -1,37 +1,11 @@
-<?php $this->headScript()->appendFile("/". $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
-<?php $this->headScript()->appendFile("/". $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
+<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
+<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
 <?php
 $fullWidth = false;
 $pageTitle = 'Order Page Prototype';
 $filters = false;
 $title = "View Order";
-$productTable = array( 
-    'headers' => array( 
-        array( 'title' => 'SKU',        'class' => '' ),
-        array( 'title' => 'Product Name',     'class' => '' ),
-        array( 'title' => 'Qty', 'class' => 'right' ),
-        array( 'title' => 'Line Total',     'class' => 'right' )
-     ), 
-    'actions' => array(  ),
-    'rows' => array( 
-        array( 'BLACK25545432', 'Logitech Keyboard - Title: Black', '1','&pound;4.20' ),
-        array( 'BLACK25545435', 'Logitech Mouse - Title: Black',    '1','&pound;10.80' )
-     )
- );
-
-$accountingTable = array( 
-    'class' => 'table-med',
-    'headers' => array( 
-        array( 'title' => 'Invoice ID',        'class' => '' ),
-        array( 'title' => 'Description',     'class' => '' ),
-        array( 'title' => 'Total',     'class' => 'right' )
-     ), 
-    'actions' => array(  ),
-    'rows' => array( 
-        array( '123456789', 'Logitech Keyboard - Title: Black',  '&pound;4.20' )
-     )
- );
 $bulkActionsClass = 'bulk-actions-inline';
 $bulkActions = array( 
     array(  
@@ -72,16 +46,16 @@ $bulkActions = array(
      )
  );
 ?>
-<div id="order-status" class="red-bg">New</div>
+<div id="order-status" class="<?= $order->getStatus(); ?>-bg"><?= $order->getStatus(); ?></div>
 <div id="breadcrumbs" class="order-breadcrumbs">
     <ul>
-        <li><a href="#">View Order</a></li>
+        <li><a href="#"><?= $this->translate('View Order'); ?></a></li>
         <li class="separator"><span>&nbsp;</span></li>
-        <li><span>1056609</span></li>
+        <li><span><?= $order->getId(); ?></span></li>
     </ul>
     <div class="right">
-        <span><strong>Order ID: </strong>1056609</span>
-        <img src="/channelgrabber/zf2-v4-ui/img/logos/ebay.png" alt="eBay" />
+        <span><strong><?= $this->translate('Order ID'); ?>: </strong><?= $order->getId(); ?></span>
+        <img src="<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/<?= $order->getChannel(); ?>.png" alt="<?= $order->getChannel(); ?>" />
     </div>
 </div>
 <div id="bulk-actions" class="module full-width with-padding clearfix bulk-actions-inline">
@@ -89,23 +63,23 @@ $bulkActions = array(
     <div class="default clearfix">
         <span class="action" data-action="print">
             <span class="icon-med inverted print">&nbsp;</span>
-            <span class="title">Print</span>
+            <span class="title"><?= $this->translate('Print'); ?></span>
         </span>
                     <span class="divider">
             <span class="arrow down">&nbsp;</span>
         </span>
     </div>
-    <ul>
-    <span class="box-arrow-up"></span>
-                    <li><a href="#" class="action" data-action="example"><span>Example 1</span></a></li>
-                    <li><a href="#" class="action" data-action="example"><span>Example 2</span></a></li>
-                </ul>
-        </div>
+    <ul> 
+        <span class="box-arrow-up"></span>
+        <li><a href="#" class="action" data-action="example"><span>Example 1</span></a></li>
+        <li><a href="#" class="action" data-action="example"><span>Example 2</span></a></li>
+    </ul>
+    </div>
     <div class="bulk-action ">
     <div class="default clearfix">
         <span class="action" data-action="dispatch">
             <span class="icon-med inverted dispatch">&nbsp;</span>
-            <span class="title">Dispatch</span>
+            <span class="title"><?= $this->translate('Dispatch'); ?></span>
         </span>
                 </div>
         </div>
@@ -113,7 +87,7 @@ $bulkActions = array(
     <div class="default clearfix">
         <span class="action" data-action="tag-untag">
             <span class="icon-med inverted tag-untag">&nbsp;</span>
-            <span class="title">Tag / Untag</span>
+            <span class="title"><?= $this->translate('Tag / Untag'); ?></span>
         </span>
                     <span class="divider">
             <span class="arrow down">&nbsp;</span>
@@ -129,7 +103,7 @@ $bulkActions = array(
     <div class="default clearfix">
         <span class="action" data-action="courier">
             <span class="icon-med inverted courier">&nbsp;</span>
-            <span class="title">Courier</span>
+            <span class="title"><?= $this->translate('Courier'); ?></span>
         </span>
                     <span class="divider">
             <span class="arrow down">&nbsp;</span>
@@ -145,7 +119,7 @@ $bulkActions = array(
     <div class="default clearfix">
         <span class="action" data-action="accounting">
             <span class="icon-med inverted accounting">&nbsp;</span>
-            <span class="title">Accounting</span>
+            <span class="title"><?= $this->translate('Accounting'); ?></span>
         </span>
                     <span class="divider">
             <span class="arrow down">&nbsp;</span>
@@ -157,27 +131,32 @@ $bulkActions = array(
         <li><a href="#" class="action" data-action="example"><span>Example 2</span></a></li>
     </ul>
 </div>
+<a href="#" class="button close-popup">Back to Orders</a>
 </div>
-<a class="close-popup close"><span class="icon close"></span> Close</a>
-<?=$this->timelineBoxes ?>
+<?= $this->timelineBoxes; ?>
 <div class="module clearfix">
     <form class="single-row">
-        <span class="icon-large warning"></span>
-        <input type="text" class="text" placeholder="Order Alert" name=""/>
-        <input type="submit" class="button inline" value="Save Alert" />
+        <label>
+            <span class="icon-large warning"></span>
+            <span class="label">Order Alert:</span>
+            <input type="text" class="text" placeholder="Order Alert" name=""/>
+            <input type="submit" class="button inline" value="Save Alert" />
+        </label>
     </form>
 </div>
 <div class="module clearfix">
     <form class="single-row">
-        <span class="icon-large user"></span>
-        <p>Buyer Message:  Hello please leave it next door...</p>
+        <label>
+            <span class="icon-large user"></span>
+            <p><?= $order->getBuyerMessage() ?: $this->translate("There is no buyer message for this order"); ?></p>
+        </label>
     </form>
 </div>
 <div class="module clearfix">
     <div id="detailsForm">
         <form action="" method="post" class="ajaxPost">
-            <div class="half">
-                <h2>Delivery Information</h2>
+            <div class="half" id="billing-information">
+                <h2>Billing Information</h2>
                 <label>
                     <span>Recipient Name</span>
                     <abbr class="required">*</abbr>
@@ -227,21 +206,59 @@ $bulkActions = array(
                     <input type="text" name="county" placeholder="Lancashire" value="">
                 </label>
             </div>
-            <div class="half">
+            <div class="half"  id="buyer-information">
                 <h2>Buyer Information</h2>
+                <div class="duplicate-data-checkbox">
+                    <input type="checkbox" class="duplicate-data" data-source="billing-information" data-target="buyer-information"/>
+                    <span>Same as billing: </span>
+                </div>
                 <label>
                     <span>Buyer Name</span>
                     <abbr class="required">*</abbr>
                     <input type="text" name="companyName" required="required" placeholder="John Smith">
                 </label>
                 <label>
-                    <span>Buyer Email</span>
+                    <span>Company Name</span>
                     <input type="text" name="companyName" required="required" placeholder="">
                 </label>
                 <label>
-                    <span>Buyer Phone</span>
+                    <span>Address Line 1</span>
                     <abbr class="required">*</abbr>
                     <input type="text" name="addressLine1" required="required" placeholder="123 The Street" value="">
+                </label>
+                <label>
+                    <span>Address Line 2</span>
+                    <input type="text" name="addressLine2" placeholder="My Town" value="">
+                </label>
+                <label>
+                    <span>City</span>
+                    <abbr class="required">*</abbr>
+                    <input type="text" name="city" required="required" placeholder="Manchester" value="">
+                </label>
+                <label>
+                    <span>County</span>
+                    <input type="text" name="county" placeholder="Lancashire" value="">
+                </label>
+                <label>
+                    <span>Postcode</span>
+                    <input type="text" name="postcode" placeholder="AB1 2CD" value="">
+                </label>
+                <label>
+                    <span>Country</span>
+                    <div class="input">
+                        <div class="custom-select">
+                            <div class="selected">Select <span class="arrow down">&nbsp;</span></div>
+                            <ul>
+                                <li><a href="#">United Kingdom</a></li>
+                                <li><a href="#">Afghanistan</a></li>
+                                <li><a href="#">Azerbaijan</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </label>
+                <label>
+                    <span>Telephone</span>
+                    <input type="text" name="county" placeholder="Lancashire" value="">
                 </label>
             </div>
             <div class="half" style="clear:both; padding-top:0px;">
@@ -253,51 +270,23 @@ $bulkActions = array(
         </form>
     </div>
 </div>
-
 <div class="module clearfix">
-    <h2>Product &amp; Payment Information</h2>
-    <?php $table = $productTable; ?>
-    <?php if(!empty($table)):?>
-    <table class="normal-table <?php if(!empty($table['class'])): echo $table['class']; endif; ?>">
-        <thead>
-            <tr>
-                <?php foreach($table['headers'] as $tableHeader):?>
-                <th class="<?=$tableHeader['class']?>"><?=$tableHeader['title']?></th>
-                <?php endforeach; ?>
-                <?php if(!empty($table['actions'])):?>
-                <th class="actions actions-col">Actions</th>
-                <?php endif;?>
-            </tr>
-        </thead>
-        <tbody>
-            <?php for($i=0; $i < count($table['rows']); $i++):?>
-            <tr <?php if($i % 2 == 1): ?>class="odd"<?php endif; ?>>
-                <?php for($j =0; $j < count($table['rows'][$i]); $j++): ?>
-                <td class="<?=$table['headers'][$j]['class'];?>">
-                    <?= $table['rows'][$i][$j] ?>
-                </td>
-            <?php endfor; ?>
-
-                <?php if(!empty($table['actions'])):?>
-                    <?php foreach($table['actions'] as $action):?>
-                <td class="actions-col"><a href="#" class="action" data-action="<?=strtolower($action)?>"><?=$action?></a></td>
-                    <?php endforeach;?>
-                <?php endif;?>
-            </tr>
-            <?php endfor; ?>
-        </tbody>
-    </table>
+    <h2><?= $this->translate('Product & Payment Information'); ?></h2>
+    <?php if(count($order->getItems())):?>
+        <?= $this->productPaymentTable; ?>
+    <?php else: ?>
+        <p><?= $this->translate('This order has no items'); ?></p>
     <?php endif;?>
     <table class="no-borders">
         <tr>
-            <td colspan="2">Paid By: <strong>Paypal</strong></td>
-            <td class="right"><strong>Postage:</strong></td>
-            <td class="right"><strong>&pound;2.50</strong></td>
+            <td colspan="2"><?= $this->translate('Paid Via'); ?>: <strong><?= $order->getPaymentMethod() ?></strong></td>
+            <td class="right"><strong><?= $this->translate('Postage'); ?>:</strong></td>
+            <td class="right"><strong><?= $this->currencyFormat($order->getShippingPrice()); ?></strong></td>
         </tr>
         <tr>
-            <td colspan="2">Reference: <strong>644864684</strong></td>
-            <td class="right"><strong>Total:</strong></td>
-            <td class="right"><strong>&pound;17.50</strong></td>
+            <td colspan="2"><?= $this->translate('Reference'); ?>: <strong><?= $order->getPaymentReference() ?></strong></td>
+            <td class="right"><strong><?= $this->translate('Total'); ?>:</strong></td>
+            <td class="right"><strong><?= $this->currencyFormat($order->getTotal()); ?></strong></td>
         </tr>
     </table>
     <form  method="post" class="ajaxPost">
@@ -333,12 +322,12 @@ $bulkActions = array(
                 <?php
                 $data =  array(
                     'options' =>array( 
-                        array( 'img' => '/channelgrabber/zf2-v4-ui/img/logos/royalmail.png', 'href' => '#',   'title' => 'Royal Mail',  'class' => '' ),
-                        array( 'img' => '/channelgrabber/zf2-v4-ui/img/logos/dpd.png', 'href' => '#',         'title' => 'DPD',  'class' => '' ),
-                        array( 'img' => '/channelgrabber/zf2-v4-ui/img/logos/interlink.png', 'href' => '#',   'title' => 'Interlink',     'class' => '' ),
-                        array( 'img' => '/channelgrabber/zf2-v4-ui/img/logos/parcelforce.png', 'href' => '#', 'title' => 'Parcel Force', 'class' => '' )
+                        array( 'img' => '<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/royalmail.png', 'href' => '#',   'title' => 'Royal Mail',  'class' => '' ),
+                        array( 'img' => '<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/dpd.png', 'href' => '#',         'title' => 'DPD',  'class' => '' ),
+                        array( 'img' => '<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/interlink.png', 'href' => '#',   'title' => 'Interlink',     'class' => '' ),
+                        array( 'img' => '<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/parcelforce.png', 'href' => '#', 'title' => 'Parcel Force', 'class' => '' )
                     ),
-                    'customSelectImgSrc' => '/channelgrabber/zf2-v4-ui/img/logos/royalmail.png'
+                    'customSelectImgSrc' => '<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/royalmail.png'
                 );
                 ?>
                 <?= $this->partial('elements/custom-select-image', $data); ?>
@@ -350,43 +339,5 @@ $bulkActions = array(
             <input type="text" name="companyName" required="required" placeholder="My Company Ltd"  value="GB 1234567890">
         </label>
     </form>
-</div>
-<div class="module clearfix">
-    <h2>Accounting</h2>
-        <?php 
-            $table = $accountingTable;
-            //include('includes/tables/normal.php');
-        ?>
-        <?php if(!empty($table)):?>
-        <table class="normal-table <?php if(!empty($table['class'])): echo $table['class']; endif; ?>">
-            <thead>
-                <tr>
-                    <?php foreach($table['headers'] as $tableHeader):?>
-                    <th class="<?=$tableHeader['class']?>"><?=$tableHeader['title']?></th>
-                    <?php endforeach; ?>
-                    <?php if(!empty($table['actions'])):?>
-                    <th class="actions actions-col">Actions</th>
-                    <?php endif;?>
-                </tr>
-            </thead>
-            <tbody>
-                <?php for($i=0; $i < count($table['rows']); $i++):?>
-                <tr <?php if($i % 2 == 1): ?>class="odd"<?php endif; ?>>
-                    <?php for($j =0; $j < count($table['rows'][$i]); $j++): ?>
-                    <td class="<?=$table['headers'][$j]['class'];?>">
-                        <?= $table['rows'][$i][$j] ?>
-                    </td>
-                <?php endfor; ?>
-
-                    <?php if(!empty($table['actions'])):?>
-                        <?php foreach($table['actions'] as $action):?>
-                    <td class="actions-col"><a href="#" class="action" data-action="<?=strtolower($action)?>"><?=$action?></a></td>
-                        <?php endforeach;?>
-                    <?php endif;?>
-                </tr>
-                <?php endfor; ?>
-            </tbody>
-        </table>
-        <?php endif;?>
 </div>
 <?= $this->notes ?>

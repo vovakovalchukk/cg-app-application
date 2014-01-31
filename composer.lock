@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "69f08321bb508e1023eabde4962e9948",
+    "hash": "4c2a77f0002d25e9ea13db8777b32bab",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -713,17 +713,17 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.4.3",
+            "version": "2.5.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "c2ab6cd8f7c28240223f8811032011a08872dd26"
+                "reference": "bf2f8a372761f71a4fd771a47721ff75de684f1b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.4.3-f51ef5.zip",
-                "reference": "c2ab6cd8f7c28240223f8811032011a08872dd26",
-                "shasum": "ee3722b6f7dcca63ad161a6db0f890497be10f24"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.5.2-90e414.zip",
+                "reference": "bf2f8a372761f71a4fd771a47721ff75de684f1b",
+                "shasum": "f5a5885bc778320253a6bca82cd602bca5fda7ad"
             },
             "require": {
                 "zendframework/zend-db": "2.2.*"
@@ -737,7 +737,7 @@
                     "CG/Stdlib/Utilities.php"
                 ]
             },
-            "time": "2014-01-10 17:29:15"
+            "time": "2014-01-29 13:47:18"
         },
         {
             "name": "channelgrabber/user",
@@ -867,22 +867,22 @@
         },
         {
             "name": "channelgrabber/zf2-logclient",
-            "version": "1.1.4",
+            "version": "1.2.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-log-client.git",
-                "reference": "916e12b6ae7fe7669f3a2d8597825a5b3c266ec6"
+                "reference": "5c468eef6e79e0f7f247198463935bc89e749ad8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-logclient-1.1.4-d1a2b3.zip",
-                "reference": "916e12b6ae7fe7669f3a2d8597825a5b3c266ec6",
-                "shasum": "60b889b088dad53b018385830c9d5c60e3e51a9a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-logclient-1.2.4-40d957.zip",
+                "reference": "5c468eef6e79e0f7f247198463935bc89e749ad8",
+                "shasum": "5b52139767863e57a07c7ec5f4566bde9d3170fa"
             },
             "require": {
-                "channelgrabber/log": ">=1.1.0,<1.4.0",
-                "channelgrabber/redis": "dev-CGIV-529 as 1.0.0",
-                "channelgrabber/stdlib": ">=2.2.0,<2.5.0",
+                "channelgrabber/log": "~1.3.4",
+                "channelgrabber/redis": "~0.1.0",
+                "channelgrabber/stdlib": ">=2.2.0",
                 "nocarrier/hal": "~0.9.4",
                 "predis/predis": "~0.8.3",
                 "zendframework/zend-di": "2.2.*",
@@ -901,21 +901,21 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-01-13 15:21:54"
+            "time": "2014-01-29 16:13:02"
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.3.5",
+            "version": "1.3.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "34f4b553263418c53733f0179f2f1077fdab307f"
+                "reference": "42c10e4af456b05cd5db45e30c4f9d0ee7f9a5df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.3.5-e46738.zip",
-                "reference": "34f4b553263418c53733f0179f2f1077fdab307f",
-                "shasum": "e872d43081afe182518b83bbe168c248470e073f"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.3.6-14f0c6.zip",
+                "reference": "42c10e4af456b05cd5db45e30c4f9d0ee7f9a5df",
+                "shasum": "6e669ddb75697f10e389715d1c7a5710009a59a9"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
@@ -929,6 +929,7 @@
                 "zendframework/zend-di": "2.*",
                 "zendframework/zend-eventmanager": "2.*",
                 "zendframework/zend-form": "2.*",
+                "zendframework/zend-modulemanager": "2.*",
                 "zendframework/zend-mvc": "2.*",
                 "zendframework/zend-session": "2.*",
                 "zendframework/zend-view": "2.*"
@@ -946,7 +947,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2014-01-29 15:10:14"
+            "time": "2014-01-30 16:25:12"
         },
         {
             "name": "channelgrabber/zf2-register",
@@ -2015,16 +2016,16 @@
         },
         {
             "name": "phpunit/php-text-template",
-            "version": "1.1.4",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-text-template.git",
-                "reference": "5180896f51c5b3648ac946b05f9ec02be78a0b23"
+                "reference": "206dfefc0ffe9cebf65c413e3d0e809c82fbf00a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-text-template/zipball/5180896f51c5b3648ac946b05f9ec02be78a0b23",
-                "reference": "5180896f51c5b3648ac946b05f9ec02be78a0b23",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-text-template/zipball/206dfefc0ffe9cebf65c413e3d0e809c82fbf00a",
+                "reference": "206dfefc0ffe9cebf65c413e3d0e809c82fbf00a",
                 "shasum": ""
             },
             "require": {
@@ -2055,7 +2056,7 @@
             "keywords": [
                 "template"
             ],
-            "time": "2012-10-31 18:15:28"
+            "time": "2014-01-30 17:20:04"
         },
         {
             "name": "phpunit/php-timer",
@@ -3260,8 +3261,8 @@
             "package": "channelgrabber/redis"
         },
         {
-            "alias": "1.1.13",
-            "alias_normalized": "1.1.13.0",
+            "alias": "1.1.14",
+            "alias_normalized": "1.1.14.0",
             "version": "dev-CGIV-1394-Iframe",
             "package": "channelgrabber/zf2-v4-ui"
         }
