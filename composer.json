@@ -29,7 +29,7 @@
         "channelgrabber/stdlib": "~2.5.3",
         "channelgrabber/ui": "~1.1.0",
         "channelgrabber/user": "~1.10.7 ",
-        "channelgrabber/userpreference": "dev-develop as 1.0.1",
+        "channelgrabber/userpreference": "~1.0.2",
         "channelgrabber/zf2-hal": "~1.0.4",
         "channelgrabber/zf2-installer": "~1.0.0",
         "channelgrabber/zf2-logclient": "~1.2.3",
