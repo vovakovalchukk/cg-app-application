@@ -20,7 +20,7 @@ function batchFilter(batchId) {
     $("#filters input[name='clear-filters']").click();
 }
 
-$(document).on('click', '.' + batch_filter_class, function(e) {
+$(document).on('click', '.batch-filter', function(e) {
     e.preventDefault();
     batchFilter($(this).attr('data-batch-id'));
     return false;
