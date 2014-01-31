@@ -1,5 +1,29 @@
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
+<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/notifications.js'); ?>
+<?php $this->inlineScript()->captureStart(); ?>
+function saveNote() {
+    n.clearNotifications($('#main-notifications'));
+    n.showNotification($('#main-notifications'), 'notice', '<?= $this->translate("Saving alert"); ?>...', false);
+    $.ajax({
+        "url": "<?= $this->serverUrl(true); ?>/alert",
+        "type": "POST",
+        "data": {"alert" : $('#alert-input').val(), "eTag" : $('#alert-etag').val()},
+        "dataType" : "json",
+        success: function(data) {
+            if (data.eTag) {
+                $('#alert-etag').val(data.eTag);
+            }
+            n.clearNotifications($('#main-notifications'));
+            n.showNotification($('#main-notifications'), 'success', '<?= $this->translate("Alert saved"); ?>', true);
+        },
+        error: function(error, textStatus, errorThrown) {
+            n.clearNotifications($('#main-notifications'));
+            n.showNotification($('#main-notifications'), 'error', error.responseText, true);
+        }
+    });
+}
+<?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
 <?php
 $fullWidth = false;
@@ -131,16 +155,22 @@ $bulkActions = array(
         <li><a href="#" class="action" data-action="example"><span>Example 2</span></a></li>
     </ul>
 </div>
-<a href="#" class="button close-popup">Back to Orders</a>
+<a href="#" class="button close-popup"><?= $this->translate('Back To Orders'); ?></a>
 </div>
 <?= $this->timelineBoxes; ?>
 <div class="module clearfix">
     <form class="single-row">
         <label>
             <span class="icon-large warning"></span>
-            <span class="label">Order Alert:</span>
-            <input type="text" class="text" placeholder="Order Alert" name=""/>
-            <input type="submit" class="button inline" value="Save Alert" />
+            <span class="label"><?= $this->translate('Order Alert'); ?>:</span>
+            <?php
+                $alerts = $order->getAlerts();
+                $alerts->rewind();
+                $alert = $alerts->current();
+            ?>
+            <input type="text" class="text" name="" value="<?= ($alert) ? $alert->getAlert() : ""; ?>" id="alert-input"/>
+            <input type="hidden" value="<?= ($alert) ? $alert->getETag() : ""; ?>" id="alert-etag"/>
+            <input type="submit" class="button inline" value="<?= $this->translate('Save Alert'); ?>" onClick="saveNote()" />
         </label>
     </form>
 </div>
