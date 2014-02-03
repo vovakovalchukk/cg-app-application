@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "e71efad503223385fd99e4b095fcee46",
+    "hash": "fb1a4bbecbb9733234a414ceeb5a88dd",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -740,32 +740,6 @@
             "time": "2014-02-03 11:52:15"
         },
         {
-            "name": "channelgrabber/ui",
-            "version": "1.1.0",
-            "source": {
-                "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/cg-ui.git",
-                "reference": "fa58ae88aa2b2a02764483a71fbdf9400bf0f750"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ui-1.1.0-cbd3fa.zip",
-                "reference": "fa58ae88aa2b2a02764483a71fbdf9400bf0f750",
-                "shasum": "52b89132e051cd7d541461ea30d970e6bc5b41e9"
-            },
-            "require": {
-                "zendframework/zend-form": "2.*",
-                "zendframework/zend-view": "2.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "CG\\UI\\": ""
-                }
-            },
-            "time": "2013-12-16 14:39:31"
-        },
-        {
             "name": "channelgrabber/user",
             "version": "1.10.8",
             "source": {
@@ -1114,7 +1088,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "4bddc69e9df6f0ee08146963199bbe3b32e557fe"
+                "reference": "0e15e9fa43d4c98bf0fe4242fc702ead2b085ad4"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1139,7 +1113,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-02-03 14:40:20"
+            "time": "2014-02-03 15:43:07"
         },
         {
             "name": "cilex/cilex",
@@ -3316,8 +3290,8 @@
             "package": "channelgrabber/redis"
         },
         {
-            "alias": "1.1.18",
-            "alias_normalized": "1.1.18.0",
+            "alias": "1.1.19",
+            "alias_normalized": "1.1.19.0",
             "version": "dev-CGIV-1392-ActionButtons",
             "package": "channelgrabber/zf2-v4-ui"
         }
