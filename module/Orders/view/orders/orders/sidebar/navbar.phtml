@@ -1,9 +1,13 @@
 <?php $this->inlineScript()->captureStart(); ?>
-var $root = $('html, body');
+var $body = $('html, body');
+var headerHeight = $('#fixed-header').height() + $('#sub-header').height();
 $('a').click(function() {
-  $root.animate({
-    scrollTop: $( $.attr(this, 'href') ).offset().top - 119
-  }, 200); // TODO add hash to href
+  var href = $.attr(this, 'href');
+  $body.animate({
+    scrollTop: $( $.attr(this, 'href') ).offset().top - headerHeight
+  }, 200,  function () {
+     window.location.hash = href;
+  });
   return false;
 });
 <?php $this->inlineScript()->captureEnd(); ?>
