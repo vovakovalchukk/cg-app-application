@@ -3,6 +3,7 @@ namespace CG\Skeleton\Module;
 
 use CG\Skeleton\CommandInterface;
 use CG\Skeleton\Console;
+use CG\Skeleton\DevelopmentEnvironment\Environment;
 use SplObjectStorage;
 use CG\Skeleton\Arguments;
 use CG\Skeleton\Config as SkeletonConfig;
@@ -48,16 +49,16 @@ class Command implements CommandInterface
         return 'Configure Modules';
     }
 
-    public function run(Arguments $arguments, SkeletonConfig $config)
+    public function run(Arguments $arguments, SkeletonConfig $config, Environment $environment)
     {
         $moduleConfig = $config->get('Module', new Config($this->defaults, true));
-        while ($this->moduleList($arguments, $config, $moduleConfig));
+        while ($this->moduleList($arguments, $config, $moduleConfig, $environment));
         $config->offsetSet('Module', $moduleConfig);
     }
 
-    public function moduleList(Arguments $arguments, SkeletonConfig $config, Config $moduleConfig)
+    public function moduleList(Arguments $arguments, SkeletonConfig $config, Config $moduleConfig, Environment $environment)
     {
-        $moduleList = new Modules($this->getConsole(), $this->getModules(), $moduleConfig);
-        return $moduleList->askAndRun($arguments, $config);
+        $moduleList = new Modules($this->getConsole(), $this->getModules(), $moduleConfig, $environment);
+        return $moduleList->askAndRun($arguments, $config, $environment);
     }
 }

@@ -5,6 +5,7 @@ use CG\Skeleton\CommandInterface;
 use CG\Skeleton\Arguments;
 use CG\Skeleton\Config;
 use CG\Skeleton\Vagrant\CommandTrait;
+use CG\Skeleton\DevelopmentEnvironment\Environment;
 
 class Reload implements CommandInterface
 {
@@ -15,8 +16,8 @@ class Reload implements CommandInterface
         return 'Restart Virtual Machine';
     }
 
-    protected function runCommands(Arguments $arguments, Config $config)
+    protected function runCommands(Arguments $arguments, Config $config, Environment $environment)
     {
-        passthru('vagrant reload ' . $config->getNode());
+        $environment->vagrantReload($this->getConsole());
     }
 }

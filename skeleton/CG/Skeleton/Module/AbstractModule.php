@@ -1,6 +1,7 @@
 <?php
 namespace CG\Skeleton\Module;
 
+use CG\Skeleton\Composer\Composer;
 use CG\Skeleton\Module\ModuleInterface;
 use CG\Skeleton\Console;
 use CG\Skeleton\Arguments;
@@ -11,14 +12,17 @@ use SplObjectStorage;
 use CG\Skeleton\Console\Lists\Commands;
 use CG\Skeleton\Module\Command\Enable;
 use CG\Skeleton\Module\Command\Disable;
+use CG\Skeleton\DevelopmentEnvironment\Environment;
 
 abstract class AbstractModule implements ModuleInterface
 {
     protected $console;
+    protected $composer;
 
-    public function __construct(Console $console)
+    public function __construct(Console $console, Composer $composer)
     {
-        $this->setConsole($console);
+        $this->setConsole($console)
+             ->setComposer($composer);
     }
 
     public function setConsole(Console $console)
@@ -30,6 +34,17 @@ abstract class AbstractModule implements ModuleInterface
     public function getConsole()
     {
         return $this->console;
+    }
+
+    public function setComposer(Composer $composer)
+    {
+        $this->composer = $composer;
+        return $this;
+    }
+
+    public function getComposer()
+    {
+        return $this->composer;
     }
 
     public function getName()
@@ -49,7 +64,7 @@ abstract class AbstractModule implements ModuleInterface
         }
     }
 
-    public function run(Arguments $arguments, SkeletonConfig $config, BaseConfig $moduleConfig = null)
+    public function run(Arguments $arguments, SkeletonConfig $config, Environment $environment, BaseConfig $moduleConfig = null)
     {
         $this->validateConfig($moduleConfig);
 
@@ -61,10 +76,10 @@ abstract class AbstractModule implements ModuleInterface
             $commands->attach(new Disable($this, $moduleConfig));
         }
 
-        while ($this->commandList($commands, $arguments, $config, $moduleConfig));
+        while ($this->commandList($commands, $arguments, $config, $environment, $moduleConfig));
     }
 
-    protected function commandList(SplObjectStorage $commands, Arguments $arguments, SkeletonConfig $config, BaseConfig $moduleConfig)
+    protected function commandList(SplObjectStorage $commands, Arguments $arguments, SkeletonConfig $config, Environment $environment, BaseConfig $moduleConfig)
     {
         if ($moduleConfig->isEnabled()) {
             $status = Console::COLOR_GREEN . 'Enabled' . Console::COLOR_RESET;
@@ -73,6 +88,6 @@ abstract class AbstractModule implements ModuleInterface
         }
 
         $commandList = new Commands($this->getConsole(), $commands, $this->getName() . ' [' . $status . ']');
-        return $commandList->askAndRun($arguments, $config);
+        return $commandList->askAndRun($arguments, $config, $environment);
     }
 }

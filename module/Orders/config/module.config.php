@@ -2,6 +2,10 @@
 use Orders\Controller;
 use CG_UI\View\DataTable;
 use Orders\Order\Service;
+use CG\Order\Service\Alert\Service as AlertService;
+use CG\Order\Client\Alert\Storage\Api as AlertApi;
+use CG\Order\Service\Note\Service as NoteService;
+use CG\Order\Client\Note\Storage\Api as NoteApi;
 
 return [
     'router' => [
@@ -12,7 +16,9 @@ return [
                     'route' => '/orders',
                     'defaults' => [
                         'controller' => 'Orders\Controller\Orders',
-                        'action' => 'index'
+                        'action' => 'index',
+                        'breadcrumbs' => false,
+                        'sidebar' => 'orders/orders/sidebar'
                     ],
                 ],
                 'may_terminate' => true,
@@ -31,7 +37,7 @@ return [
                         'options' => array(
                             'route'    => '/batch'
                         ),
-                        'may_terminate' => true, //This should be false but seems to be broken
+                        'may_terminate' => true,
                         'child_routes' => array(
                             'create' => array(
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
@@ -56,6 +62,93 @@ return [
                                 'may_terminate' => true
                             )
                         )
+                    ],
+                    'order' => [
+                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                        'options' => [
+                            'route' => '/:order',
+                            'defaults' => [
+                                'action' => 'order',
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            'alert' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/alert',
+                                    'defaults' => [
+                                        'controller' => 'Orders\Controller\Alert'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    'set' => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/set',
+                                            'defaults' => [
+                                                'action' => 'set'
+                                            ],
+                                        ],
+                                        'may_terminate' => true
+                                    ],
+                                    'delete' => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/delete',
+                                            'defaults' => [
+                                                'action' => 'delete'
+                                            ]
+                                        ],
+                                        'may_terminate' => true
+                                    ],
+                                ]
+                            ],
+                            'note' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/note',
+                                    'defaults' => [
+                                        'controller' => 'Orders\Controller\Note',
+                                        'action' => 'index'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    'create' => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/create',
+                                            'defaults' => [
+                                                'action' => 'create'
+                                            ],
+                                        ],
+                                        'may_terminate' => true
+                                    ],
+                                    'update' => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/update',
+                                            'defaults' => [
+                                                'action' => 'update'
+                                            ],
+                                        ],
+                                        'may_terminate' => true
+                                    ],
+                                    'delete' => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/delete',
+                                            'defaults' => [
+                                                'action' => 'delete'
+                                            ]
+                                        ],
+                                        'may_terminate' => true
+                                    ],
+                                ]
+                            ]
+                        ]
                     ]
                 ],
             ],
@@ -65,6 +158,12 @@ return [
         'factories' => [
             'Orders\Controller\Orders' => function($controllerManager) {
                 return $controllerManager->getServiceLocator()->get(Controller\OrdersController::class);
+            },
+            'Orders\Controller\Alert' => function($controllerManager) {
+                return $controllerManager->getServiceLocator()->get(Controller\AlertController::class);
+            },
+            'Orders\Controller\Note' => function($controllerManager) {
+                return $controllerManager->getServiceLocator()->get(Controller\NoteController::class);
             },
             'Orders\Controller\Batch' => function($controllerManager) {
                     return $controllerManager->getServiceLocator()->get(Controller\BatchController::class);
@@ -227,6 +326,26 @@ return [
                     'defaultContent' => '',
                 ],
             ],
+            AlertService::class => [
+                'parameters' => [
+                    'repository' => AlertApi::class
+                ]
+            ],
+            AlertApi::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
+            NoteService::class => [
+                'parameters' => [
+                    'repository' => NoteApi::class
+                ]
+            ],
+            NoteApi::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ]
         ],
     ],
 ];

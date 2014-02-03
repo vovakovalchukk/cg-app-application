@@ -5,6 +5,9 @@ end
 namespace :hooks do
     task :deploy do
         on roles(:all), in: :parallel do
+            output = SSHKit.config.output
+            SSHKit.config.output = SSHKit::Formatter::PassThrough.new($stdout)
+
             within release_path do
                 script = 'tools/post_deploy.sh'
                 if test '[', '-e', script, ']'
@@ -13,6 +16,8 @@ namespace :hooks do
                     warn "[SKIPPING] Deployment Script No Found - #{script}"
                 end
             end
+
+            SSHKit.config.output = output
         end
     end
 end

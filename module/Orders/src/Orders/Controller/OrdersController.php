@@ -6,28 +6,35 @@ use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Orders\Order\Service as OrderService;
 use Orders\Order\Batch\Service as BatchService;
+use Orders\Order\Timeline\Service as TimelineService;
 use Orders\Filter\Service as FilterService;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Order\Shared\Entity as OrderEntity;
 
 class OrdersController extends AbstractActionController
 {
-    protected $jsonModelFactory;
-    protected $viewModelFactory;
+
+
     protected $orderService;
     protected $filterService;
+    protected $timelineService;
     protected $batchService;
+    protected $jsonModelFactory;
+    protected $viewModelFactory;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         ViewModelFactory $viewModelFactory,
         OrderService $orderService,
         FilterService $filterService,
+        TimelineService $timelineService,
         BatchService $batchService)
     {
         $this->setJsonModelFactory($jsonModelFactory)
             ->setViewModelFactory($viewModelFactory)
             ->setOrderService($orderService)
             ->setFilterService($filterService)
+            ->setTimelineService($timelineService)
             ->setBatchService($batchService);
     }
 
@@ -84,6 +91,18 @@ class OrdersController extends AbstractActionController
     public function getBatchService()
     {
         return $this->batchService;
+
+    }
+
+    public function setTimelineService(TimelineService $timelineService)
+    {
+        $this->timelineService = $timelineService;
+        return $this;
+    }
+
+    public function getTimelineService()
+    {
+        return $this->timelineService;
     }
 
     public function indexAction()
@@ -94,72 +113,56 @@ class OrdersController extends AbstractActionController
         $settings = $ordersTable->getVariable('settings');
         $settings->setSource($this->url()->fromRoute('Orders/ajax'));
         $view->addChild($ordersTable, 'ordersTable');
-
         $view->addChild($this->getBulkActions(), 'bulkItems');
         $view->addChild($this->getFilterBar(), 'filters');
-        $view->addChild($this->getSidebar(), 'sidebar');
-
+        $view->addChild($this->getBatches(), 'batches');
         return $view;
     }
 
-    protected function getSidebar()
+    public function orderAction()
     {
-        $sidebar = $this->getViewModelFactory()->newInstance();
-        $sidebar->setTemplate('orders/orders/sidebar');
-        $sidebar->setVariable('batches', $this->getBatchService()->getBatches());
-        return $sidebar;
+        $order = $this->getOrderService()->getOrder($this->params('order'));
+        $view = $this->getViewModelFactory()->newInstance();
+
+        $view->addChild($this->getBulkActions(), 'bulkItems');
+        $view->addChild($this->getFilterBar(), 'filters');
+        $view->addChild($this->getNotes($order), 'notes');
+        $view->addChild($this->getTimelineBoxes($order), 'timelineBoxes');
+        $view->addChild($this->getOrderService()->getOrderItemTable($order), 'productPaymentTable');
+        $view->setVariable('order', $order);
+        return $view;
+    }
+
+    protected function getBatches()
+    {
+        $view = $this->getViewModelFactory()->newInstance();
+        $view->setTemplate('layout/sidebar/batches');
+        $view->setVariable('batches', $this->getBatchService()->getBatches());
+        return $view;
+    }
+
+    protected function getTimelineBoxes(OrderEntity $order)
+    {
+        $timelineBoxes = $this->getViewModelFactory()->newInstance(
+            $this->getTimelineService()->getTimeline($order)
+        );
+        $timelineBoxes->setTemplate('elements/timeline-boxes');
+        return $timelineBoxes;
+    }
+
+    protected function getNotes(OrderEntity $order)
+    {
+        $itemNotes = $this->getOrderService()->getNamesFromOrderNotes($order->getNotes());
+        $notes = $this->getViewModelFactory()->newInstance(["notes" => $itemNotes]);
+        $notes->setTemplate('elements/notes');
+        return $notes;
     }
 
     protected function getBulkActions()
     {
         $bulkItems = $this->getViewModelFactory()->newInstance(
-            [
-                'bulkActions' => [
-                    [
-                        'title' => 'Invoice',
-                        'class' => 'invoice',
-                        'sub-actions' => [
-                            ['title' => 'by SKU',  'action' => 'invoices-sku'],
-                            ['title' => 'by Title','action' => 'invoices-title']
-                        ]
-                    ],
-                    [
-                        'title' => 'Dispatch',
-                        'class' => 'dispatch'
-                    ],
-                    [
-                        'title' => 'Tag / Untag',
-                        'class' => 'tag-untag',
-                        'sub-actions' => [
-
-                        ]
-                    ],
-                    [
-                        'title' => 'Download CSV',
-                        'class' => 'download-csv'
-                    ],
-                    [
-                        'title' => 'Courier',
-                        'class' => 'courier',
-                        'sub-actions' => [
-                            ['title' => 'Create Royal Mail CSV', 'action' => 'royal-mail-csv']
-                        ]
-                    ],
-                    [
-                        'title' => 'Batch',
-                        'class' => 'batch',
-                        'action' => 'batch',
-                        'sub-actions' => [
-                            ['title' => 'Remove', 'action' => 'remove-from-batch'],
-                            ['title' => 'Add', 'action' => 'add-to-batch', 'href' => 'javascript:addBatch();']
-                        ]
-                    ],
-                    [
-                        'title' => 'Archive',
-                        'class' => 'archive'
-                    ]
-                ]
-            ]
+            // Example Data - Should be loaded via Service/Di
+            include dirname(dirname(dirname(__DIR__))) . '/test/data/bulkactions.php'
         );
         $bulkItems->setTemplate('layout/bulk-actions');
         return $bulkItems;
@@ -173,105 +176,58 @@ class OrdersController extends AbstractActionController
         $filterRows = [];
         $filterRow = [];
 
-        $dateFormat = 'd/m/y';
-        $dateRangeOptions = [
-            [
-                'title' => 'All Time',
-                'from'  => 'All',
-                'to'    => 'All'
-            ],
-            [
-                'title' => 'Today',
-                'from'  => date($dateFormat),
-                'to'    => date($dateFormat)
-            ],
-            [
-                'title' => 'Last 7 days',
-                'from'  => date($dateFormat, strtotime("-7 days")),
-                'to'    => date($dateFormat)
-            ],
-            [
-                'title' => 'Month to date',
-                'from'  => date($dateFormat, strtotime( 'first day of ' . date( 'F Y'))),
-                'to'    => date($dateFormat)
-            ],
-            [
-                'title' => 'Year to date',
-                'from'  => date($dateFormat,  strtotime( 'first day of January ' . date('Y'))),
-                'to'    => date($dateFormat)
-            ],
-            [
-                'title' => 'The previous month',
-                'from'  => date($dateFormat, strtotime( 'first day of last month ')),
-                'to'    => date($dateFormat, strtotime( 'last day of last month ')),
-            ]
-        ];
         $dateRangeFilter = $this->getViewModelFactory()->newInstance();
         $dateRangeFilter->setTemplate('elements/date-range');
-        $dateRangeFilter->setVariable('options', $dateRangeOptions);
+        $dateRangeFilter->setVariable(
+            'options',
+            // Example Data - Should be loaded via Service/Di
+            include dirname(dirname(dirname(__DIR__))) . '/test/data/filterBar/daterange-options.php'
+        );
         $filterRow[] = $viewRender->render($dateRangeFilter);
 
-        $options =[
-            'title' => "Status",
-            'id'    => 'filter-status',
-            'options' => [
-                ['href' => '#', 'class' => '', 'title' => 'New'],
-                ['href' => '#', 'class' => '', 'title' => 'Processing'],
-                ['href' => '#', 'class' => '', 'title' => 'Dispatched']
-            ]
-        ];
-        $customSelect = $this->getViewModelFactory()->newInstance();
-        $customSelect->setTemplate('elements/custom-select');
-        $customSelect->setVariable('options', $options);
-        $options['customSelect'] = $viewRender->render($customSelect);
+        $filterButtons = $this->getViewModelFactory()->newInstance();
+        $filterButtons->setTemplate('elements/custom-select-group');
+        $filterButtons->setVariable(
+            'options',
+            // Example Data - Should be loaded via Service/Di
+            include dirname(dirname(dirname(__DIR__))) . '/test/data/filterBar/status-options.php'
+        );
+        $filterRow[] = $viewRender->render($filterButtons);
 
-        $statusFilter = $this->getViewModelFactory()->newInstance();
-        $statusFilter->setTemplate('elements/custom-select');
-        $statusFilter->setVariable('options', $options);
-        $filterRow[] = $viewRender->render($statusFilter);
-
-        $options = [
-            'title' => 'Contains Text',
-            'placeholder' => 'Contains Text...',
-            'class' => '',
-            'value' => $filterObject->getSearchTerm()
-        ];
         $statusFilter = $this->getViewModelFactory()->newInstance();
         $statusFilter->setTemplate('elements/text');
-        $statusFilter->setVariable('options', $options);
+        $statusFilter->setVariable(
+            'options',
+            // Example Data - Should be loaded via Service/Di
+            include dirname(dirname(dirname(__DIR__))) . '/test/data/filterBar/search-options.php'
+        );
         $filterRow[] = $viewRender->render($statusFilter);
 
-        $options = ['Account','Channel','Include Country','Exclude Country','Show Archived','Multi-Line Orders','Multiple Same Item','Flags','Columns']; 
-        $filter = $this->getViewModelFactory()->newInstance();
-        $filter->setTemplate('elements/custom-select-group');
-        $filter->setVariable('options', $options);
-        $filterRow[] = $viewRender->render($filter);
-
-        $options = [
-            ['value' => 'Apply Filters', 'name' => 'apply-filters', 'action' => 'apply-filters'],
-            ['value' => 'Clear', 'name' => 'clear-filters', 'action' => 'clear-filters'],
-            ['value' => 'Save', 'name' => 'save-filters', 'action' => 'save-filters'],
-        ];
         $filterButtons = $this->getViewModelFactory()->newInstance();
         $filterButtons->setTemplate('elements/buttons');
-        $filterButtons->setVariable('options', $options);
+        $filterButtons->setVariable(
+            'options',
+            // Example Data - Should be loaded via Service/Di
+            include dirname(dirname(dirname(__DIR__))) . '/test/data/filterBar/buttons.php'
+        );
         $filterRow[] = $viewRender->render($filterButtons);
         $filterRows[] = $filterRow;
 
         $filterRow = [];
-        $options = [
-            'title' => 'Include Country',
-            'options' => ['UK','Austria','Croatia','Cyprus','France','Germany','Italy','Spain'],
-        ]; 
         $filterButtons = $this->getViewModelFactory()->newInstance();
         $filterButtons->setTemplate('elements/custom-select-group');
-        $filterButtons->setVariable('options', $options);
+        $filterButtons->setVariable(
+            'options',
+            // Example Data - Should be loaded via Service/Di
+            include dirname(dirname(dirname(__DIR__))) . '/test/data/filterBar/country-options.php'
+        );
         $filterRow[] = $viewRender->render($filterButtons);
         $filterRows[] = $filterRow;
 
         $filterBar = $this->getViewModelFactory()->newInstance();
         $filterBar->setTemplate('layout/filters');
         $filterBar->setVariable('filterRows', $filterRows);
+
         return $filterBar;
     }
 

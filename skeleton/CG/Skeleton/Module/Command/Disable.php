@@ -8,6 +8,7 @@ use CG\Skeleton\Module\BaseConfig;
 use CG\Skeleton\Arguments;
 use CG\Skeleton\Config;
 use CG\Skeleton\Console;
+use CG\Skeleton\DevelopmentEnvironment\Environment;
 
 class Disable implements CommandInterface
 {
@@ -46,7 +47,7 @@ class Disable implements CommandInterface
         return 'Disable Module';
     }
 
-    public function run(Arguments $arguments, Config $config)
+    public function run(Arguments $arguments, Config $config, Environment $environment)
     {
         $this->getDisableInterface()->disable($arguments, $config, $this->getModuleConfig());
         if ($this->getDisableInterface() instanceof ApplyConfigurationInterface) {
