@@ -1,5 +1,34 @@
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
+<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/notifications.js'); ?>
+<?php $this->inlineScript()->captureStart(); ?>
+function saveAlert() {
+    n.clearNotifications($('#main-notifications'));
+    n.showNotification($('#main-notifications'), 'notice', '<?= $this->translate('Saving alert'); ?>...', false);
+    var alert = $('#alert-input').val();
+    var action = alert ? 'set' : 'delete';
+    $.ajax({
+        url: '<?= $this->url('Orders/order/alert', array('order' => $order->getId())); ?>/' + action,
+        type: 'POST',
+        data: {'alert': alert, 'eTag': $('#alert-etag').val()},
+        dataType : 'json',
+        success: function(data) {
+            $('#alert-etag').val(data.eTag);
+            n.clearNotifications($('#main-notifications'));
+            n.showNotification($('#main-notifications'), 'success', '<?= $this->translate('Alert saved'); ?>', true);
+        },
+        error: function(error, textStatus, errorThrown) {
+            json = jQuery.parseJSON(error.responseText);
+            n.clearNotifications($('#main-notifications'));
+            n.showNotification($('#main-notifications'), 'error', json.message, true);
+        }
+    });
+    return false;
+}
+$('.single-row').submit(function() {
+    return false;
+});
+<?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
 <?php
 $fullWidth = false;
@@ -7,39 +36,39 @@ $pageTitle = 'Order Page Prototype';
 $filters = false;
 $title = "View Order";
 $bulkActionsClass = 'bulk-actions-inline';
-$bulkActions = array( 
-    array(  
+$bulkActions = array(
+    array(
         'title' => 'Print',
         'class' => 'print',
-        'sub-actions' => array( 
+        'sub-actions' => array(
               array( 'title' => 'Example 1',         'action' => 'example' ),
               array( 'title' => 'Example 2',         'action' => 'example' )
            )
      ),
-    array(  
+    array(
         'title' => 'Dispatch',
         'class' => 'dispatch'
      ),
-    array(  
+    array(
         'title' => 'Tag / Untag',
         'class' => 'tag-untag',
-        'sub-actions' => array( 
+        'sub-actions' => array(
               array( 'title' => 'Example 1',         'action' => 'example' ),
               array( 'title' => 'Example 2',         'action' => 'example' )
            )
      ),
-    array(  
+    array(
         'title' => 'Courier',
         'class' => 'courier',
-        'sub-actions' => array( 
+        'sub-actions' => array(
               array( 'title' => 'Example 1',         'action' => 'example' ),
               array( 'title' => 'Example 2',         'action' => 'example' )
            )
      ),
-    array(  
+    array(
         'title' => 'Accounting',
         'class' => 'accounting',
-        'sub-actions' => array( 
+        'sub-actions' => array(
               array( 'title' => 'Example 1',         'action' => 'example' ),
               array( 'title' => 'Example 2',         'action' => 'example' )
            )
@@ -69,7 +98,7 @@ $bulkActions = array(
             <span class="arrow down">&nbsp;</span>
         </span>
     </div>
-    <ul> 
+    <ul>
         <span class="box-arrow-up"></span>
         <li><a href="#" class="action" data-action="example"><span>Example 1</span></a></li>
         <li><a href="#" class="action" data-action="example"><span>Example 2</span></a></li>
@@ -131,16 +160,22 @@ $bulkActions = array(
         <li><a href="#" class="action" data-action="example"><span>Example 2</span></a></li>
     </ul>
 </div>
-<a href="#" class="button close-popup">Back to Orders</a>
+<a href="#" class="button close-popup"><?= $this->translate('Back To Orders'); ?></a>
 </div>
 <?= $this->timelineBoxes; ?>
 <div class="module clearfix">
     <form class="single-row">
         <label>
             <span class="icon-large warning"></span>
-            <span class="label">Order Alert:</span>
-            <input type="text" class="text" placeholder="Order Alert" name=""/>
-            <input type="submit" class="button inline" value="Save Alert" />
+            <span class="label"><?= $this->translate('Order Alert'); ?>:</span>
+            <?php
+                $alerts = $order->getAlerts();
+                $alerts->rewind();
+                $alert = $alerts->current();
+            ?>
+            <input type="text" class="text" name="" value="<?= ($alert) ? $alert->getAlert() : ""; ?>" id="alert-input"/>
+            <input type="hidden" value="<?= ($alert) ? $alert->getETag() : ""; ?>" id="alert-etag"/>
+            <input type="submit" class="button inline" value="<?= $this->translate('Save Alert'); ?>" onClick="saveAlert();" />
         </label>
     </form>
 </div>
@@ -263,7 +298,7 @@ $bulkActions = array(
             </div>
             <div class="half" style="clear:both; padding-top:0px;">
                 <label>
-                    <input type="submit" name="save" class="button form-button" value="Save"> 
+                    <input type="submit" name="save" class="button form-button" value="Save">
                     <span class="loading">Saving</span>
                 </label>
             </div>
@@ -308,7 +343,7 @@ $bulkActions = array(
             </div>
         </label>
         <label>
-            <input type="submit" name="save" class="button form-button" value="Refund"> 
+            <input type="submit" name="save" class="button form-button" value="Refund">
             <span class="loading">Refunding</span>
         </label>
     </form>
@@ -321,13 +356,13 @@ $bulkActions = array(
             <div class="input">
                 <?php
                 $data =  array(
-                    'options' =>array( 
-                        array( 'img' => '<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/royalmail.png', 'href' => '#',   'title' => 'Royal Mail',  'class' => '' ),
-                        array( 'img' => '<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/dpd.png', 'href' => '#',         'title' => 'DPD',  'class' => '' ),
-                        array( 'img' => '<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/interlink.png', 'href' => '#',   'title' => 'Interlink',     'class' => '' ),
-                        array( 'img' => '<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/parcelforce.png', 'href' => '#', 'title' => 'Parcel Force', 'class' => '' )
+                    'options' =>array(
+                        array('img' => $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . '/img/logos/royalmail.png', 'href' => '#', 'title' => 'Royal Mail', 'class' => ''),
+                        array('img' => $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . '/img/logos/dpd.png', 'href' => '#', 'title' => 'DPD',  'class' => ''),
+                        array('img' => $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . '/img/logos/interlink.png', 'href' => '#', 'title' => 'Interlink', 'class' => ''),
+                        array('img' => $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . '/img/logos/parcelforce.png', 'href' => '#', 'title' => 'Parcel Force', 'class' => '')
                     ),
-                    'customSelectImgSrc' => '<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/royalmail.png'
+                    'customSelectImgSrc' => $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . '/img/logos/royalmail.png'
                 );
                 ?>
                 <?= $this->partial('elements/custom-select-image', $data); ?>
