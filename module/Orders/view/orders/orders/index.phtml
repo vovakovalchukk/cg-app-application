@@ -57,8 +57,8 @@ $("#datatable").on("fnRowCallback", function(event, nRow, aData, iDataIndex) {
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/jquery/cg-pjax.js'); ?>
 <?php $this->placeholder('#main.class')->append('full-width'); ?>
-<?php $this->placeholder('#sub-header')->append($this->filters); ?>
-<?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
+<?php $this->placeholder('#sub-header')->append($filters); ?>
+<?php $this->placeholder('#sidebar')->append($batches); ?>
 <div id="main" class="module clearfix<?= $this->placeholder('#main.class')->setPrefix(' ')->setIndent(1) ?>">
 <?= $this->breadcrumbs; ?>
 <?= $this->bulkItems; ?>
