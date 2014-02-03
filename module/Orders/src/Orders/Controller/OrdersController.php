@@ -139,7 +139,13 @@ class OrdersController extends AbstractActionController
         $order = $this->getOrderService()->getOrder($this->params('order'));
         $view = $this->getViewModelFactory()->newInstance();
 
-        $view->addChild($this->getBulkActionsService()->getOrderBulkActions($order), 'bulkItems');
+        $bulkActions = $this->getBulkActionsService()->getOrderBulkActions($order);
+        $bulkActions->addChild(
+            $this->getViewModelFactory()->newInstance()->setTemplate('orders/orders/bulk-actions/order'),
+            'afterActions'
+        );
+        $view->addChild($bulkActions, 'bulkItems');
+
         $view->addChild($this->getFilterBar(), 'filters');
         $view->addChild($this->getNotes($order), 'notes');
         $view->addChild($this->getTimelineBoxes($order), 'timelineBoxes');
