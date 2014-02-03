@@ -122,14 +122,18 @@ class OrdersController extends AbstractActionController
     public function orderAction()
     {
         $order = $this->getOrderService()->getOrder($this->params('order'));
-        $view = $this->getViewModelFactory()->newInstance();
+        $view = $this->getViewModelFactory()->newInstance(
+            [
+                'order' => $order
+            ]
+        );
 
         $view->addChild($this->getBulkActions(), 'bulkItems');
         $view->addChild($this->getFilterBar(), 'filters');
         $view->addChild($this->getNotes($order), 'notes');
         $view->addChild($this->getTimelineBoxes($order), 'timelineBoxes');
         $view->addChild($this->getOrderService()->getOrderItemTable($order), 'productPaymentTable');
-        $view->setVariable('order', $order);
+
         return $view;
     }
 
