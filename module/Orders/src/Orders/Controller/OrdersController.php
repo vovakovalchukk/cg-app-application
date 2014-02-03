@@ -127,7 +127,6 @@ class OrdersController extends AbstractActionController
         );
 
         $view->addChild($this->getBulkActions(), 'bulkItems');
-        $view->addChild($this->getFilterBar(), 'filters');
         $view->addChild($this->getNotes($order), 'notes');
         $view->addChild($this->getTimelineBoxes($order), 'timelineBoxes');
         $view->addChild($this->getOrderService()->getOrderItemTable($order), 'productPaymentTable');
