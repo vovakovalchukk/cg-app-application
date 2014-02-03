@@ -113,11 +113,9 @@ class OrdersController extends AbstractActionController
         $settings = $ordersTable->getVariable('settings');
         $settings->setSource($this->url()->fromRoute('Orders/ajax'));
         $view->addChild($ordersTable, 'ordersTable');
-
         $view->addChild($this->getBulkActions(), 'bulkItems');
         $view->addChild($this->getFilterBar(), 'filters');
-        $view->addChild($this->getSidebar(), 'sidebar');
-
+        $view->addChild($this->getBatches(), 'batches');
         return $view;
     }
 
@@ -128,11 +126,18 @@ class OrdersController extends AbstractActionController
 
         $view->addChild($this->getBulkActions(), 'bulkItems');
         $view->addChild($this->getFilterBar(), 'filters');
-        $view->addChild($this->getSidebar(), 'sidebar');
-        $view->addChild($this->getNotes(), 'notes');
+        $view->addChild($this->getNotes($order), 'notes');
         $view->addChild($this->getTimelineBoxes($order), 'timelineBoxes');
         $view->addChild($this->getOrderService()->getOrderItemTable($order), 'productPaymentTable');
         $view->setVariable('order', $order);
+        return $view;
+    }
+
+    protected function getBatches()
+    {
+        $view = $this->getViewModelFactory()->newInstance();
+        $view->setTemplate('layout/sidebar/batches');
+        $view->setVariable('batches', $this->getBatchService()->getBatches());
         return $view;
     }
 
@@ -145,22 +150,12 @@ class OrdersController extends AbstractActionController
         return $timelineBoxes;
     }
 
-    protected function getNotes()
+    protected function getNotes(OrderEntity $order)
     {
-        $notes = $this->getViewModelFactory()->newInstance(
-            // Example Data - Should be loaded via Service/Di
-            include dirname(dirname(dirname(__DIR__))) . '/test/data/notes.php'
-        );
+        $itemNotes = $this->getOrderService()->getNamesFromOrderNotes($order->getNotes());
+        $notes = $this->getViewModelFactory()->newInstance(["notes" => $itemNotes]);
         $notes->setTemplate('elements/notes');
         return $notes;
-    }
-
-    protected function getSidebar()
-    {
-        $sidebar = $this->getViewModelFactory()->newInstance();
-        $sidebar->setTemplate('orders/orders/sidebar');
-        $sidebar->setVariable('batches', $this->getBatchService()->getBatches());
-        return $sidebar;
     }
 
     protected function getBulkActions()

@@ -20,11 +20,17 @@ function batchFilter(batchId) {
     $("#filters input[name='clear-filters']").click();
 }
 
+$(document).on('click', '.batch-filter', function(e) {
+    e.preventDefault();
+    batchFilter($(this).attr('data-batch-id'));
+    return false;
+});
+
 var templateUrl = '<?= $this->basePath() . Orders\Module::PUBLIC_FOLDER . 'template/row.html' ?>';
 var templateRowId = 'order-row';
 CGMustache.get().fetchTemplate(templateUrl, function(template, cgmustache)
 {
-    $("#datatable").on("fnRowCallback", function (event, nRow, aData, iDisplayIndex, iDisplayIndexFull)
+    $("#datatable").on("fnCreatedRow", function (event, nRow, aData, iDisplayIndex, iDisplayIndexFull)
     {
         aData.formatCurrency = cgmustache.formatCurrency(aData);
         aData.formatDateTime = cgmustache.formatDateTime(aData);
@@ -36,17 +42,23 @@ CGMustache.get().fetchTemplate(templateUrl, function(template, cgmustache)
                 return render(variable);
             };
         };
+        aData.order_url = Mustache.render("<?= urldecode($this->url('Orders/order', ['order' => '{{order}}'])) ?>", {order: aData.id});
 
         var html = cgmustache.renderTemplate(template, aData, templateRowId);
         $(nRow).html(html);
     });
 });
+
+$("#datatable").on("fnRowCallback", function(event, nRow, aData, iDataIndex) {
+    $("a.title", nRow).cgPjax();
+});
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
+<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/jquery/cg-pjax.js'); ?>
 <?php $this->placeholder('#main.class')->append('full-width'); ?>
-<?php $this->placeholder('#sub-header')->append($this->filters); ?>
-<?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
+<?php $this->placeholder('#sub-header')->append($filters); ?>
+<?php $this->placeholder('#sidebar')->append($batches); ?>
 <div id="main" class="module clearfix<?= $this->placeholder('#main.class')->setPrefix(' ')->setIndent(1) ?>">
 <?= $this->breadcrumbs; ?>
 <?= $this->bulkItems; ?>
