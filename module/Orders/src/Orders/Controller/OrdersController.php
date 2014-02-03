@@ -133,6 +133,7 @@ class OrdersController extends AbstractActionController
         $view->addChild($this->getNotes($order), 'notes');
         $view->addChild($this->getTimelineBoxes($order), 'timelineBoxes');
         $view->addChild($this->getOrderService()->getOrderItemTable($order), 'productPaymentTable');
+        $view->addChild($this->getDetailsSidebar($view->getChildren()), 'sidebar');
 
         return $view;
     }
@@ -233,6 +234,20 @@ class OrdersController extends AbstractActionController
         $filterBar->setVariable('filterRows', $filterRows);
 
         return $filterBar;
+    }
+
+    protected function getDetailsSidebar(array $children)
+    {
+        $sidebar = $this->getViewModelFactory()->newInstance();
+        $sidebar->setTemplate('orders/orders/sidebar/navbar');
+
+        $links = [];
+        foreach ($children as $child) {
+            $links[] = $child->captureTo();
+        }
+        $sidebar->setVariable('links', $links);
+
+        return $sidebar;
     }
 
     public function jsonAction()
