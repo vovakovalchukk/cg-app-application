@@ -128,7 +128,14 @@ class OrdersController extends AbstractActionController
         $settings = $ordersTable->getVariable('settings');
         $settings->setSource($this->url()->fromRoute('Orders/ajax'));
         $view->addChild($ordersTable, 'ordersTable');
-        $view->addChild($this->getBulkActionsService()->getBulkActions(), 'bulkItems');
+
+        $bulkActions = $this->getBulkActionsService()->getBulkActions();
+        $bulkActions->addChild(
+            $this->getViewModelFactory()->newInstance()->setTemplate('orders/orders/bulk-actions/index'),
+            'afterActions'
+        );
+        $view->addChild($bulkActions, 'bulkItems');
+
         $view->addChild($this->getFilterBar(), 'filters');
         $view->addChild($this->getBatches(), 'batches');
         return $view;
