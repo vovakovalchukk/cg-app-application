@@ -13,8 +13,6 @@ use CG\Order\Shared\Entity as OrderEntity;
 
 class OrdersController extends AbstractActionController
 {
-
-
     protected $orderService;
     protected $filterService;
     protected $timelineService;
