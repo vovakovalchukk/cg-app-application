@@ -3,11 +3,11 @@ var $root = $('html, body');
 $('a').click(function() {
   $root.animate({
     scrollTop: $( $.attr(this, 'href') ).offset().top - 120
-  }, 500);
+  }, 200); // TODO add hash to href
   return false;
 });
 <?php $this->inlineScript()->captureEnd(); ?>
-<h3>Sections</h3>
+<h2>Sections</h2>
 <ul>
 <?php foreach($this->links as $link): ?>
     <li><a href="#<?= $link ?>"><?= ucwords(implode(" ", preg_split("/(?=[A-Z])/", $link))); ?></a></li> <!-- TODO use translator here -->
