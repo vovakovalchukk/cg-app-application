@@ -23,7 +23,11 @@ function saveAlert() {
             n.showNotification($('#main-notifications'), 'error', json.message, true);
         }
     });
+    return false;
 }
+$('.single-row').submit(function() {
+    return false;
+});
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
 <?php
@@ -171,7 +175,7 @@ $bulkActions = array(
             ?>
             <input type="text" class="text" name="" value="<?= ($alert) ? $alert->getAlert() : ""; ?>" id="alert-input"/>
             <input type="hidden" value="<?= ($alert) ? $alert->getETag() : ""; ?>" id="alert-etag"/>
-            <input type="submit" class="button inline" value="<?= $this->translate('Save Alert'); ?>" onClick="saveAlert()" />
+            <input type="submit" class="button inline" value="<?= $this->translate('Save Alert'); ?>" onClick="saveAlert();" />
         </label>
     </form>
 </div>
