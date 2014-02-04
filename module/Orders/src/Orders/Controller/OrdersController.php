@@ -327,7 +327,10 @@ class OrdersController extends AbstractActionController
                 }
             }
         } catch (NotFound $exception) {
-            return $response->setVariable('error', 'Orders could not be found');
+            return $response->setVariable(
+                'error',
+                'Order' . (count($ids) > 1 ? 's' : '') . ' could not be found'
+            );
         }
 
         return $response->setVariable('tagged', true);
