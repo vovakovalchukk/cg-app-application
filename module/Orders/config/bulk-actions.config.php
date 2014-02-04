@@ -12,6 +12,7 @@ use CG_UI\View\BulkActions\BatchAction;
 use CG_UI\View\BulkActions\ArchiveAction;
 use CG_UI\View\BulkActions\PrintAction;
 use CG_UI\View\BulkActions\AccountingAction;
+use Zend\View\Model\ViewModel;
 
 return [
     'di' => [
@@ -47,6 +48,7 @@ return [
                 'InvoiceByTitleBulkAction' => SubAction::class,
                 'RoyalMailBulkAction' => SubAction::class,
                 'RemoveBatchBulkAction' => SubAction::class,
+                'TagJavascript' => ViewModel::class
             ],
             Service::class => [
                 'parameters' => [
@@ -102,6 +104,16 @@ return [
                 'parameters' => [
                     'title' => 'by Title',
                     'action' => 'invoices-title'
+                ],
+            ],
+            TagAction::class => [
+                'parameters' => [
+                    'javascript' => 'TagJavascript',
+                ],
+            ],
+            'TagJavascript' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/tag.js',
                 ],
             ],
             CourierAction::class => [
