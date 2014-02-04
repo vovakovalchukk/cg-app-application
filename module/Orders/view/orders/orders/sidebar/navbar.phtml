@@ -12,10 +12,12 @@ $('a').click(function() {
   return false;
 });
 <?php $this->inlineScript()->captureEnd(); ?>
-<h2>Sections</h2>
-<ul>
-    <li><a href="#order-status">Order Status</a></li>
-<?php foreach($this->links as $link): ?>
-    <li><a href="#<?= $link ?>"><?= $this->translate($link); ?></a></li>
-<?php endforeach;?>
-</ul>
+<div>
+    <h2>Sections</h2>
+    <ul>
+        <li><a href="#order-status">Order Status</a></li>
+        <?php foreach($this->links as $link): ?>
+            <li><a href="#<?= $link ?>"><?= $this->translate($link); ?></a></li>
+        <?php endforeach;?>
+    </ul>
+</div>
