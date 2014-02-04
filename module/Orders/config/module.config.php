@@ -125,6 +125,7 @@ return [
                 'OrdersShippingColumn' => DataTable\Column::class,
                 'OrdersDispatchColumn' => DataTable\Column::class,
                 'OrdersPrintColumn' => DataTable\Column::class,
+                'OrdersTagColumn' => DataTable\Column::class,
                 'OrdersOptionsColumn' => DataTable\Column::class,
             ],
             Service::class => [
