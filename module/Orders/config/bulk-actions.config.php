@@ -2,6 +2,7 @@
 use Orders\Order\BulkActions\Service;
 use CG_UI\View\BulkActions;
 use CG_UI\View\BulkActions\Action;
+use CG_UI\View\BulkActions\ActionModifierInterface;
 use CG_UI\View\BulkActions\SubAction;
 use CG_UI\View\BulkActions\InvoiceAction;
 use CG_UI\View\BulkActions\DispatchAction;
@@ -13,6 +14,7 @@ use CG_UI\View\BulkActions\ArchiveAction;
 use CG_UI\View\BulkActions\PrintAction;
 use CG_UI\View\BulkActions\AccountingAction;
 use Zend\View\Model\ViewModel;
+use Orders\Order\BulkActions\TagActionModifier;
 
 return [
     'di' => [
@@ -30,6 +32,12 @@ return [
                 ],
                 Action::class => [
                     'methods' => [
+                        'applyModifier' => [
+                            'modifier' => [
+                                'required' => true,
+                                'type' => ActionModifierInterface::class,
+                            ],
+                        ],
                         'addSubAction' => [
                             'subAction' => [
                                 'required' => true,
@@ -109,6 +117,9 @@ return [
             TagAction::class => [
                 'parameters' => [
                     'javascript' => 'TagJavascript',
+                ],
+                'injections' => [
+                    TagActionModifier::class
                 ],
             ],
             'TagJavascript' => [

@@ -549,7 +549,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "0cecfdd87b5d258a7fd1d1c7936c8082e5684283"
+                "reference": "5fc14b5405480a3656816ad7efd9e5e12c749102"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.0,<1.3.0",
@@ -573,7 +573,7 @@
                     "CG\\Order\\": ""
                 }
             },
-            "time": "2014-02-04 11:56:09"
+            "time": "2014-02-04 13:53:03"
         },
         {
             "name": "channelgrabber/predis",
@@ -1066,7 +1066,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "5bc866980463df2097544fc7412d65517ee1999b"
+                "reference": "b9fddceaeb216366b8ef9f0bcc093b3f74b7ed4e"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1091,7 +1091,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-02-04 10:06:28"
+            "time": "2014-02-04 12:31:18"
         },
         {
             "name": "cilex/cilex",
