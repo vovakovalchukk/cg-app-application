@@ -1,14 +1,13 @@
 <?php $this->inlineScript()->captureStart(); ?>
-function Foo()
+function Sidebar()
 {
     this.$body = $('html, body');
     this.headerHeight = $('#fixed-header').height() + $('#sub-header').height();
 
     var that = this
 
-    this.a = function() {
-        $('a').click(function() {
-            console.log("bar()");
+    this.smoothScroll = function() {
+        $('#section-nav-links a').click(function() {
             var href = $.attr(this, 'href');
             that.$body.animate({
                 scrollTop: $( href ).offset().top - that.headerHeight
@@ -20,13 +19,12 @@ function Foo()
     }
 }
 
-var foo1 = new Foo();
-foo1.a();
-
+var sidebar = new Sidebar();
+sidebar.smoothScroll();
 <?php $this->inlineScript()->captureEnd(); ?>
-<div class="module filter-module clearfix">
+<div id="section-nav" class="module filter-module clearfix">
     <h3>Sections</h3>
-    <div class="module-content nav">
+    <div id="section-nav-links" class="module-content nav">
         <ul>
             <li><a href="#order-status">Order Status</a></li>
             <?php foreach($this->links as $link): ?>
