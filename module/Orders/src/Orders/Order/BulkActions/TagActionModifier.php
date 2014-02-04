@@ -77,7 +77,7 @@ class TagActionModifier implements ActionModifierInterface
             $tags = $this->getStorage()->fetchCollectionAll(
                 1,
                 'all',
-                [$this->getActiveUser()->getOrganisationUnitId()],
+                $this->getActiveUser()->getAvailableOrganisationUnitIds(),
                 []
             );
 

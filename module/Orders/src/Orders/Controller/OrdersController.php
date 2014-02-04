@@ -269,7 +269,7 @@ class OrdersController extends AbstractActionController
         $filter = $this->getFilterService()->getFilter()
             ->setLimit($limit)
             ->setPage($page)
-            ->setOrganisationUnitId([$this->getOrderService()->getActiveUser()->getOrganisationUnitId()]);
+            ->setOrganisationUnitId($this->getOrderService()->getActiveUser()->getAvailableOrganisationUnitIds());
 
         $requestFilter = $this->params()->fromPost('filter', []);
         if (!empty($requestFilter)) {
@@ -311,7 +311,7 @@ class OrdersController extends AbstractActionController
         $filter = $this->getFilterService()->getFilter()
             ->setLimit('all')
             ->setPage(1)
-            ->setOrganisationUnitId([$this->getOrderService()->getActiveUser()->getOrganisationUnitId()])
+            ->setOrganisationUnitId($this->getOrderService()->getActiveUser()->getAvailableOrganisationUnitIds())
             ->setId($ids);
 
         try {

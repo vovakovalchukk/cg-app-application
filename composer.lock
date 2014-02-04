@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "96a9fb7738d50ff8f66fff8823cf7fd9",
+    "hash": "ac5a5a9cd398a33f9c32b7f23dcb138c",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -719,17 +719,11 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.10.8",
+            "version": "dev-CGIV-1477-UserOrganisationUnits",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "49d25b8c61783b405fd452737b2961535bfc98d4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.10.8-20b6f3.zip",
-                "reference": "49d25b8c61783b405fd452737b2961535bfc98d4",
-                "shasum": "b80363d83a4e9329e96380f3f819e73fbdc224ca"
+                "reference": "23ddc8184fdac6be04713af39275ee46966ad20a"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.8",
@@ -749,7 +743,7 @@
                     "CG": ""
                 }
             },
-            "time": "2014-01-31 16:47:38"
+            "time": "2014-02-04 15:06:47"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -3289,6 +3283,12 @@
             "package": "channelgrabber/order"
         },
         {
+            "alias": "1.10.9",
+            "alias_normalized": "1.10.9.0",
+            "version": "dev-CGIV-1477-UserOrganisationUnits",
+            "package": "channelgrabber/user"
+        },
+        {
             "alias": "1.1.20",
             "alias_normalized": "1.1.20.0",
             "version": "dev-CGIV-1237-TagsUI",
@@ -3299,6 +3299,7 @@
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/order": 20,
+        "channelgrabber/user": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
