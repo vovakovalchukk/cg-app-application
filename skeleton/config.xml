@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zend-config>
-    <BRANCH>orders</BRANCH>
+    <BRANCH>master</BRANCH>
     <NODE>orders</NODE>
     <APP_NAME>orders</APP_NAME>
     <HOST_NAME>orders.channelgrabber.com</HOST_NAME>

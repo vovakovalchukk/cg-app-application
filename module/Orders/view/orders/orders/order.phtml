@@ -86,84 +86,8 @@ $bulkActions = array(
         <img src="<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/<?= $order->getChannel(); ?>.png" alt="<?= $order->getChannel(); ?>" />
     </div>
 </div>
-<div id="bulk-items" class="module full-width with-padding clearfix bulk-actions-inline">
-    <div class="bulk-action  with-select">
-    <div class="default clearfix">
-        <span class="action" data-action="print">
-            <span class="icon-med inverted print">&nbsp;</span>
-            <span class="title"><?= $this->translate('Print'); ?></span>
-        </span>
-                    <span class="divider">
-            <span class="arrow down">&nbsp;</span>
-        </span>
-    </div>
-    <ul>
-        <span class="box-arrow-up"></span>
-        <li><a href="#" class="action" data-action="example"><span>Example 1</span></a></li>
-        <li><a href="#" class="action" data-action="example"><span>Example 2</span></a></li>
-    </ul>
-    </div>
-    <div class="bulk-action ">
-    <div class="default clearfix">
-        <span class="action" data-action="dispatch">
-            <span class="icon-med inverted dispatch">&nbsp;</span>
-            <span class="title"><?= $this->translate('Dispatch'); ?></span>
-        </span>
-                </div>
-        </div>
-    <div class="bulk-action  with-select">
-    <div class="default clearfix">
-        <span class="action" data-action="tag-untag">
-            <span class="icon-med inverted tag-untag">&nbsp;</span>
-            <span class="title"><?= $this->translate('Tag / Untag'); ?></span>
-        </span>
-                    <span class="divider">
-            <span class="arrow down">&nbsp;</span>
-        </span>
-    </div>
-    <ul>
-    <span class="box-arrow-up"></span>
-                    <li><a href="#" class="action" data-action="example"><span>Example 1</span></a></li>
-                    <li><a href="#" class="action" data-action="example"><span>Example 2</span></a></li>
-                </ul>
-        </div>
-    <div class="bulk-action  with-select">
-    <div class="default clearfix">
-        <span class="action" data-action="courier">
-            <span class="icon-med inverted courier">&nbsp;</span>
-            <span class="title"><?= $this->translate('Courier'); ?></span>
-        </span>
-                    <span class="divider">
-            <span class="arrow down">&nbsp;</span>
-        </span>
-    </div>
-    <ul>
-    <span class="box-arrow-up"></span>
-                    <li><a href="#" class="action" data-action="example"><span>Example 1</span></a></li>
-                    <li><a href="#" class="action" data-action="example"><span>Example 2</span></a></li>
-                </ul>
-        </div>
-    <div class="bulk-action  with-select">
-    <div class="default clearfix">
-        <span class="action" data-action="accounting">
-            <span class="icon-med inverted accounting">&nbsp;</span>
-            <span class="title"><?= $this->translate('Accounting'); ?></span>
-        </span>
-                    <span class="divider">
-            <span class="arrow down">&nbsp;</span>
-        </span>
-    </div>
-    <ul>
-        <span class="box-arrow-up"></span>
-        <li><a href="#" class="action" data-action="example"><span>Example 1</span></a></li>
-        <li><a href="#" class="action" data-action="example"><span>Example 2</span></a></li>
-    </ul>
-</div>
-<a href="#" class="button close-popup"><?= $this->translate('Back To Orders'); ?></a>
-</div>
-<div id="timeline-boxes">
-    <?= $this->timelineBoxes; ?>
-</div>
+<?= $this->bulkItems ?>
+<?= $this->timelineBoxes; ?>
 <div class="module clearfix">
     <form class="single-row">
         <label>
