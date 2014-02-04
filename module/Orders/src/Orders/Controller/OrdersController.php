@@ -298,14 +298,16 @@ class OrdersController extends AbstractActionController
 
     public function tagAction()
     {
+        $response = $this->getJsonModelFactory()->newInstance(['tagged' => false]);
+
         $tag = $this->params()->fromPost('tag');
         if (!$tag) {
-            return $this->getJsonModelFactory()->newInstance(['tagged' => false]);
+            return $response->setVariable('error', 'No Tag provided');
         }
 
         $ids = $this->params()->fromPost('orders');
         if (!is_array($ids) || empty($ids)) {
-            return $this->getJsonModelFactory()->newInstance(['tagged' => false]);
+            return $response->setVariable('error', 'No Orders provided');
         }
 
         $filter = $this->getFilterService()->getFilter()
@@ -325,9 +327,9 @@ class OrdersController extends AbstractActionController
                 }
             }
         } catch (NotFound $exception) {
-            // No Orders so ignoring
+            return $response->setVariable('error', 'Orders could not be found');
         }
 
-        return $this->getJsonModelFactory()->newInstance(['tagged' => true]);
+        return $response->setVariable('tagged', true);
     }
 }
