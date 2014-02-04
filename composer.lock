@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "fb1a4bbecbb9733234a414ceeb5a88dd",
+    "hash": "6f61596db885e95d9841d1c9ca585d08",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -1084,11 +1084,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-1392-ActionButtons",
+            "version": "1.1.19",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "06befdb0c347cb3316ded6942f0b3869c2d78418"
+                "reference": "c57738e3e11875f9be17a4214726c30cbc9595a7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.1.19-066535.zip",
+                "reference": "c57738e3e11875f9be17a4214726c30cbc9595a7",
+                "shasum": "9e5d1aac9900c4de51e53c0caa73c04f8d013baa"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1113,7 +1119,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-02-03 16:03:20"
+            "time": "2014-02-04 08:32:13"
         },
         {
             "name": "cilex/cilex",
@@ -1816,12 +1822,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/phpspec.git",
-                "reference": "12e8105924c08f7958c149bc1b60c4951ff82e30"
+                "reference": "785ceefa9c8bae7db41af3d1263850530526a389"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/12e8105924c08f7958c149bc1b60c4951ff82e30",
-                "reference": "12e8105924c08f7958c149bc1b60c4951ff82e30",
+                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/785ceefa9c8bae7db41af3d1263850530526a389",
+                "reference": "785ceefa9c8bae7db41af3d1263850530526a389",
                 "shasum": ""
             },
             "require": {
@@ -1880,7 +1886,7 @@
                 "testing",
                 "tests"
             ],
-            "time": "2014-01-24 20:56:23"
+            "time": "2014-02-03 20:18:27"
         },
         {
             "name": "phpspec/prophecy",
@@ -3288,19 +3294,12 @@
             "alias_normalized": "0.1.0.0",
             "version": "dev-CGIV-529",
             "package": "channelgrabber/redis"
-        },
-        {
-            "alias": "1.1.19",
-            "alias_normalized": "1.1.19.0",
-            "version": "dev-CGIV-1392-ActionButtons",
-            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/redis": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpspec/phpspec": 20,
         "widmogrod/zf2-mustache-module": 20
     },
