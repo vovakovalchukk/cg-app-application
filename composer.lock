@@ -3,20 +3,20 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "ac5a5a9cd398a33f9c32b7f23dcb138c",
+    "hash": "709fa0db18b3c098abb96ecfbb1c1493",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
-            "version": "1.0.1",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alexandresalome/PHP-Selenium.git",
-                "reference": "aad2d9eda742e6f8b89ebb9af9b333a68ff848ce"
+                "reference": "060eb12ba7bdb30c80fafed09e94b79f25b286e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alexandresalome/PHP-Selenium/zipball/aad2d9eda742e6f8b89ebb9af9b333a68ff848ce",
-                "reference": "aad2d9eda742e6f8b89ebb9af9b333a68ff848ce",
+                "url": "https://api.github.com/repos/alexandresalome/PHP-Selenium/zipball/060eb12ba7bdb30c80fafed09e94b79f25b286e8",
+                "reference": "060eb12ba7bdb30c80fafed09e94b79f25b286e8",
                 "shasum": ""
             },
             "require-dev": {
@@ -43,7 +43,7 @@
             "keywords": [
                 "selenium"
             ],
-            "time": "2012-07-10 11:39:20"
+            "time": "2013-11-11 17:31:10"
         },
         {
             "name": "behat/mink",
@@ -719,11 +719,17 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "dev-CGIV-1477-UserOrganisationUnits",
+            "version": "1.10.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "23ddc8184fdac6be04713af39275ee46966ad20a"
+                "reference": "b019304dbc0de5be411820f1a81aea25de27bff3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.10.9-9147b1.zip",
+                "reference": "b019304dbc0de5be411820f1a81aea25de27bff3",
+                "shasum": "e6afb2812208dabf14f08ed860a8196abced112f"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.8",
@@ -743,7 +749,7 @@
                     "CG": ""
                 }
             },
-            "time": "2014-02-04 15:06:47"
+            "time": "2014-02-04 16:13:54"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -3283,12 +3289,6 @@
             "package": "channelgrabber/order"
         },
         {
-            "alias": "1.10.9",
-            "alias_normalized": "1.10.9.0",
-            "version": "dev-CGIV-1477-UserOrganisationUnits",
-            "package": "channelgrabber/user"
-        },
-        {
             "alias": "1.1.20",
             "alias_normalized": "1.1.20.0",
             "version": "dev-CGIV-1237-TagsUI",
@@ -3299,7 +3299,6 @@
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/order": 20,
-        "channelgrabber/user": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
