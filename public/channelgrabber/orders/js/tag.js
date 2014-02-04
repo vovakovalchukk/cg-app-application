@@ -26,10 +26,10 @@ var TagBulkAction = function(url, tag, orders) {
                 if (data.tagged || !data.error) {
                     return
                 }
-                this.error(data.error);
+                error(data.error);
             },
             error: function() {
-                this.error("Network Error");
+                error("Network Error");
             },
             complete: function() {
                 $("#datatable").cgDataTable("redraw");
