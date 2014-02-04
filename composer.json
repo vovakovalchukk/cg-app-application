@@ -23,7 +23,7 @@
         "channelgrabber/constants": "dev-master",
         "channelgrabber/http": "~1.2.6",
         "channelgrabber/order": "dev-CGIV-1237-OrderTags as 1.3.10",
-        "channelgrabber/redis": "dev-CGIV-529 as 0.1.0",
+        "channelgrabber/redis": "~0.1.0",
         "channelgrabber/sso": "~1.1.2",
         "channelgrabber/stdlib": "~2.5.3",
         "channelgrabber/user": "~1.10.7 ",
