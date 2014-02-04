@@ -12,12 +12,14 @@ $('a').click(function() {
   return false;
 });
 <?php $this->inlineScript()->captureEnd(); ?>
-<div>
-    <h2>Sections</h2>
-    <ul>
-        <li><a href="#order-status">Order Status</a></li>
-        <?php foreach($this->links as $link): ?>
-            <li><a href="#<?= $link ?>"><?= $this->translate($link); ?></a></li>
-        <?php endforeach;?>
-    </ul>
+<div class="module filter-module clearfix">
+    <h3>Sections</h3>
+    <div class="module-content nav">
+        <ul>
+            <li><a href="#order-status">Order Status</a></li>
+            <?php foreach($this->links as $link): ?>
+                <li><a href="#<?= $link ?>"><?= $this->translate($link); ?></a></li>
+            <?php endforeach;?>
+        </ul>
+    </div>
 </div>
