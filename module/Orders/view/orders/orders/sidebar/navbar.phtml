@@ -1,16 +1,28 @@
 <?php $this->inlineScript()->captureStart(); ?>
-// TODO Clean up this js. global scope is bad
-var $body = $('html, body');
-var headerHeight = $('#fixed-header').height() + $('#sub-header').height();
-$('a').click(function() {
-  var href = $.attr(this, 'href');
-  $body.animate({
-    scrollTop: $( href ).offset().top - headerHeight
-  }, 200,  function () {
-     window.location.hash = href;
-  });
-  return false;
-});
+function Foo()
+{
+    this.$body = $('html, body');
+    this.headerHeight = $('#fixed-header').height() + $('#sub-header').height();
+
+    var that = this
+
+    this.a = function() {
+        $('a').click(function() {
+            console.log("bar()");
+            var href = $.attr(this, 'href');
+            that.$body.animate({
+                scrollTop: $( href ).offset().top - that.headerHeight
+            }, 200,  function () {
+                window.location.hash = href;
+            });
+            return false;
+        });
+    }
+}
+
+var foo1 = new Foo();
+foo1.a();
+
 <?php $this->inlineScript()->captureEnd(); ?>
 <div class="module filter-module clearfix">
     <h3>Sections</h3>
