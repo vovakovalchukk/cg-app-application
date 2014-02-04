@@ -1,0 +1,11 @@
+msgid "bulk-items"
+msgstr "Bulk Actions"
+
+msgid "timeline-boxes"
+msgstr "Order Status"
+
+msgid "product-payment-table"
+msgstr "Product & Payment"
+
+msgid "notes"
+msgstr "Notes"
