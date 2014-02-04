@@ -1,4 +1,4 @@
-$("#<?= $id ?>").bulkActions("set", "tag", function(event) {
+$("#<?= $id ?>").bulkActions("set", "<?= $action ?>", function(event) {
     var orders = [<?= isset($order) ? '"' . $order->getId() . '"' : '' ?>];
     $("#datatable .order-id:checked").each(function() {
         orders.push($(this).val());

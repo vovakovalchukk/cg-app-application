@@ -82,15 +82,19 @@ class TagActionModifier implements ActionModifierInterface
             );
 
             foreach ($tags as $tag) {
-                $action->addSubAction(
-                    $this->getDi()->get(
-                        SubAction::class,
-                        [
-                            'title' => $tag->getTag(),
-                            'action' => 'tag-' . $tag->getTag()
-                        ]
-                    )
+                $javascript = $this->getDi()->get('TagJavascript');
+                $javascript->setVariable('tag', $tag->getTag());
+
+                $subAction = $this->getDi()->get(
+                    SubAction::class,
+                    [
+                        'title' => $tag->getTag(),
+                        'action' => 'tag-' . $tag->getTag(),
+                        'javascript' => $javascript
+                    ]
                 );
+
+                $action->addSubAction($subAction);
             }
         } catch (NotFound $exception) {
             // No Tags -- Nothing to do
