@@ -8,6 +8,6 @@ $("#<?= $id ?>").bulkActions(
             <?= isset($tag) ? '"' . $tag . '"' : '$.trim(window.prompt("Name of Tag:", "tag"))' ?>,
             <?= isset($order) ? '["' . $order->getId() . '"]' : '$("#datatable").cgDataTable("selected", ".order-id")' ?>
         );
-        return tagBulkAction.action.call(tagBulkAction, event);
+        return tagBulkAction.action(event);
     }
 );
