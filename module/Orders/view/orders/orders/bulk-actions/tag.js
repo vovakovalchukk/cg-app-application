@@ -2,11 +2,12 @@
 $("#<?= $id ?>").bulkActions(
     "set",
     "<?= $action ?>",
-    (
-        new TagBulkAction(
+    function(event) {
+        var tagBulkAction = new TagBulkAction(
             "<?= $this->url('Orders/tag') ?>",
-            <?= isset($order) ? '["' . $order->getId() . '"]' : '$("#datatable").cgDataTable("selected", ".order-id")' ?>,
-            <?= isset($tag) ? '"' . $tag . '"' : '$.trim(window.prompt("Name of Tag:", "tag"))' ?>
-        )
-    ).action
+            <?= isset($tag) ? '"' . $tag . '"' : '$.trim(window.prompt("Name of Tag:", "tag"))' ?>,
+            <?= isset($order) ? '["' . $order->getId() . '"]' : '$("#datatable").cgDataTable("selected", ".order-id")' ?>
+        );
+        return tagBulkAction.action.call(tagBulkAction, event);
+    }
 );

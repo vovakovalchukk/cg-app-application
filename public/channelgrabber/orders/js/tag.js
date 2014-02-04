@@ -1,28 +1,43 @@
-var TagBulkAction = function(url, orders, tag) {
+var TagBulkAction = function(url, tag, orders) {
     var url = url;
-    var orders = orders || [];
-    var tag = tag || "";
+    var tag = tag;
+    var orders = orders;
 
     this.action = function(event) {
-        if (!orders.length) {
+        if (!tag.length) {
             return;
         }
 
-        if (!tag.length) {
+        if (!orders.length) {
             return;
         }
 
         $("#datatable_processing").css("visibility", "visible");
         $.ajax({
-            'url': this.url,
-            'type': "POST",
-            'data': {
-                'tag': this.tag,
-                'orders': this.orders
+            context: this,
+            url: url,
+            type: "POST",
+            dataType: 'json',
+            data: {
+                'orders': orders,
+                'tag': tag
             },
-            'complete': function() {
+            success : function(data) {
+                if (data.tagged || !data.error) {
+                    return
+                }
+                this.error(data.error);
+            },
+            error: function() {
+                this.error("Network Error");
+            },
+            complete: function() {
                 $("#datatable").cgDataTable("redraw");
             }
         });
     };
+
+    var error = function(error) {
+        alert(error);
+    }
 };
