@@ -2,22 +2,6 @@
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/notifications.js'); ?>
 <?php $this->inlineScript()->captureStart(); ?>
-    var errorNotification = function (error, textStatus, errorThrown) {
-        json = jQuery.parseJSON(error.responseText);
-        n.clearNotifications($('#main-notifications'));
-        n.showNotification($('#main-notifications'), 'error', json.message, true);
-    };
-
-    function clearNotification (message) {
-        n.clearNotifications($('#main-notifications'));
-        n.showNotification($('#main-notifications'), 'notice', message + '...', false);
-    }
-
-    function successNotification (message) {
-        n.clearNotifications($('#main-notifications'));
-        n.showNotification($('#main-notifications'), 'success', message, true);
-    }
-
     function saveAlert() {
         clearNotification('<?= $this->translate('Saving alert'); ?>');
         var alert = $('#alert-input').val();
@@ -31,86 +15,14 @@
                 $('#alert-etag').val(data.eTag);
                 successNotification('<?= $this->translate('Alert saved'); ?>');
             },
-            error: errorNotification
+            error: function (error, textStatus, errorThrown) {
+                return that.getNotification().ajaxErrorNotification(error, textStatus, errorThrown);
+            }
         });
     }
     $('form').submit(function() {
         return false;
     });
-    var templateUrl = '<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/note.mustache' ?>';
-    var noteTemplate;
-    var noteCgMustache;
-    CGMustache.get().fetchTemplate(templateUrl, function(template, cgmustache) {
-        noteTemplate = "<script id='note'>" + template + "<script>";
-        noteCgMustache = cgmustache;
-    });
-    function redrawNote() {
-        $.ajax({
-            url: '<?= $this->url('Orders/order/note', array('order' => $order->getId())); ?>',
-            type: 'GET',
-            data: {},
-            dataType : 'json',
-            async :false,
-            success: function(data) {
-                $('#notes').html("");
-                $.each(data, function(index) {
-                    $('#notes').append(noteCgMustache.renderTemplate(noteTemplate, data[index], 'note'));
-                });
-            }
-        });
-    }
-    function createNote() {
-        clearNotification('<?= $this->translate('Creating note'); ?>');
-        $.ajax({
-            url: '<?= $this->url('Orders/order/note/create', array('order' => $order->getId())); ?>',
-            type: 'POST',
-            data: {'note': $('#note-input').val(), 'eTag': $('#note-etag').val()},
-            dataType : 'json',
-            success: function(data) {
-                redrawNote();
-                $('#note-input').val("")
-                successNotification('<?= $this->translate('Note saved'); ?>');
-            },
-            error: errorNotification
-        });
-    }
-
-    function deleteNote(noteId) {
-        clearNotification('<?= $this->translate('Deleting note'); ?>');
-        $.ajax({
-            url: '<?= $this->url('Orders/order/note/delete', array('order' => $order->getId())); ?>',
-            type: 'POST',
-            data: {'eTag': $('#note-etag-' + noteId).val(), 'noteId': noteId},
-            dataType : 'json',
-            success: function(data) {
-                redrawNote();
-                successNotification('<?= $this->translate('Note Deleted'); ?>');
-            },
-            error: errorNotification
-        });
-    }
-
-    function updateNote(noteId) {
-        if ($('#note-edit-' + noteId).hasClass('active')) {
-            clearNotification('<?= $this->translate('Saving note'); ?>');
-            $.ajax({
-                url: '<?= $this->url('Orders/order/note/update', array('order' => $order->getId())); ?>',
-                type: 'POST',
-                data: {'eTag': $('#note-etag-' + noteId).val(), 'noteId': noteId, 'note': $('#note-input-' + noteId).val()},
-                dataType : 'json',
-                success: function(data) {
-                    redrawNote();
-                    successNotification('<?= $this->translate('Note Saved'); ?>');
-                },
-                error: errorNotification
-            });
-        } else {
-            $('#note-content-' + noteId).html("<textarea id='note-input-" + noteId + "'>" +
-                $('#note-content-' + noteId).html() + "</textarea>");
-            $('#note-edit-' + noteId).addClass('active');
-            $('#note-input-' + noteId).focus();
-        }
-    }
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
 <?php
