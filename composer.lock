@@ -549,7 +549,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "51ae108ed16aa962b4fa42fcaaa6a49ba5f82b28"
+                "reference": "0cecfdd87b5d258a7fd1d1c7936c8082e5684283"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.0,<1.3.0",
@@ -573,7 +573,7 @@
                     "CG\\Order\\": ""
                 }
             },
-            "time": "2014-02-04 11:16:26"
+            "time": "2014-02-04 11:56:09"
         },
         {
             "name": "channelgrabber/predis",
