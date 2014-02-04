@@ -256,15 +256,14 @@ class OrdersController extends AbstractActionController
 
         $links = [];
         foreach ($children as $child) {
-            $childVariableName = $child->captureTo();
-            $links[] = $this->camelToHyphenated($childVariableName);
+            $links[] = $this->viewModelVarNameToHTMLId($child->captureTo());
         }
         $sidebar->setVariable('links', $links);
 
         return $sidebar;
     }
 
-    protected function camelToHyphenated($string)
+    protected function viewModelVarNameToHTMLId($string)
     {
         return strtolower(implode("-", preg_split("/(?=[A-Z])/", $string)));
     }
