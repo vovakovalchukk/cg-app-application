@@ -86,7 +86,7 @@ $bulkActions = array(
         <img src="<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/<?= $order->getChannel(); ?>.png" alt="<?= $order->getChannel(); ?>" />
     </div>
 </div>
-<div id="bulkItems" class="module full-width with-padding clearfix bulk-actions-inline">
+<div id="bulk-items" class="module full-width with-padding clearfix bulk-actions-inline">
     <div class="bulk-action  with-select">
     <div class="default clearfix">
         <span class="action" data-action="print">
@@ -161,7 +161,7 @@ $bulkActions = array(
 </div>
 <a href="#" class="button close-popup"><?= $this->translate('Back To Orders'); ?></a>
 </div>
-<div id="timelineBoxes">
+<div id="timeline-boxes">
     <?= $this->timelineBoxes; ?>
 </div>
 <div class="module clearfix">
@@ -306,7 +306,7 @@ $bulkActions = array(
         </form>
     </div>
 </div>
-<div id="productPaymentTable" class="module clearfix">
+<div id="product-payment-table" class="module clearfix">
     <h2><?= $this->translate('Product & Payment Information'); ?></h2>
     <?php if(count($order->getItems())):?>
         <?= $this->productPaymentTable; ?>

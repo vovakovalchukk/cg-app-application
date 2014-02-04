@@ -14,7 +14,8 @@ $('a').click(function() {
 <?php $this->inlineScript()->captureEnd(); ?>
 <h2>Sections</h2>
 <ul>
+    <li><a href="#order-status">Order Status</a></li>
 <?php foreach($this->links as $link): ?>
-    <li><a href="#<?= $link ?>"><?= $this->translate($link); ?></a></li> <!-- TODO use translator here -->
+    <li><a href="#<?= $link ?>"><?= $this->translate($link); ?></a></li>
 <?php endforeach;?>
 </ul>

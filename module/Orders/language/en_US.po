@@ -13,7 +13,7 @@ msgid "bulk-items"
 msgstr "Bulk Actions"
 
 msgid "timeline-boxes"
-msgstr "Order Status"
+msgstr "Timeline"
 
 msgid "product-payment-table"
 msgstr "Product & Payment"
