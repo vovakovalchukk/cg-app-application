@@ -240,11 +240,17 @@ class OrdersController extends AbstractActionController
 
         $links = [];
         foreach ($children as $child) {
-            $links[] = $child->captureTo();
+            $childVariableName = $child->captureTo();
+            $links[] = $this->camelToHyphenated($childVariableName);
         }
         $sidebar->setVariable('links', $links);
 
         return $sidebar;
+    }
+
+    protected function camelToHyphenated($string)
+    {
+        return strtolower(implode("-", preg_split("/(?=[A-Z])/", $string)));
     }
 
     public function jsonAction()

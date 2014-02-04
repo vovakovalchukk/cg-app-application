@@ -14,6 +14,6 @@ $('a').click(function() {
 <h2>Sections</h2>
 <ul>
 <?php foreach($this->links as $link): ?>
-    <li><a href="#<?= $link ?>"><?= ucwords(implode(" ", preg_split("/(?=[A-Z])/", $link))); ?></a></li> <!-- TODO use translator here -->
+    <li><a href="#<?= $link ?>"><?= $this->translate($link); ?></a></li> <!-- TODO use translator here -->
 <?php endforeach;?>
 </ul>
