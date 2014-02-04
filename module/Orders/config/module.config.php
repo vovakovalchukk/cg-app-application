@@ -2,6 +2,9 @@
 use Orders\Controller;
 use CG_UI\View\DataTable;
 use Orders\Order\Service;
+use CG\Order\Shared\Alert\StorageInterface;
+use CG\Order\Service\Alert\Service as AlertService;
+use CG\Order\Client\Alert\Storage\Api as AlertApi;
 
 return [
     'router' => [
@@ -12,7 +15,9 @@ return [
                     'route' => '/orders',
                     'defaults' => [
                         'controller' => 'Orders\Controller\Orders',
-                        'action' => 'index'
+                        'action' => 'index',
+                        'breadcrumbs' => false,
+                        'sidebar' => 'orders/orders/sidebar'
                     ],
                 ],
                 'may_terminate' => true,
@@ -24,6 +29,50 @@ return [
                             'defaults' => [
                                 'action' => 'json',
                             ]
+                        ]
+                    ],
+                    'order' => [
+                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                        'options' => [
+                            'route' => '/:order',
+                            'defaults' => [
+                                'action' => 'order',
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            'alert' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/alert',
+                                    'defaults' => [
+                                        'controller' => 'Orders\Controller\Alert'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    'alertSet' => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/set',
+                                            'defaults' => [
+                                                'action' => 'set'
+                                            ],
+                                        ],
+                                        'may_terminate' => true
+                                    ],
+                                    'alertDelete' => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/delete',
+                                            'defaults' => [
+                                                'action' => 'delete'
+                                            ]
+                                        ],
+                                        'may_terminate' => true
+                                    ],
+                                ]
+                            ],
                         ]
                     ],
                     'tag' => [
@@ -42,7 +91,10 @@ return [
     'controllers' => [
         'factories' => [
             'Orders\Controller\Orders' => function($controllerManager) {
-                return $controllerManager->getServiceLocator()->get(Controller\OrdersController::Class);
+                return $controllerManager->getServiceLocator()->get(Controller\OrdersController::class);
+            },
+            'Orders\Controller\Alert' => function($controllerManager) {
+                return $controllerManager->getServiceLocator()->get(Controller\AlertController::class);
             },
         ],
         'invokables' => [],
@@ -59,24 +111,23 @@ return [
     'di' => [
         'instance' => [
             'aliases' => [
-                'OrdersTable' => DataTable::Class,
-                'OrdersCheckboxColumn' => DataTable\Column::Class,
-                'OrdersChannelColumn' => DataTable\Column::Class,
-                'OrdersAccountColumn' => DataTable\Column::Class,
-                'OrdersDateColumn' => DataTable\Column::Class,
-                'OrdersIdColumn' => DataTable\Column::Class,
-                'OrdersTotalColumn' => DataTable\Column::Class,
-                'OrdersBuyerColumn' => DataTable\Column::Class,
-                'OrdersStatusColumn' => DataTable\Column::Class,
-                'OrdersBatchColumn' => DataTable\Column::Class,
-                'OrdersMessagesColumn' => DataTable\Column::Class,
-                'OrdersShippingColumn' => DataTable\Column::Class,
-                'OrdersDispatchColumn' => DataTable\Column::Class,
-                'OrdersPrintColumn' => DataTable\Column::Class,
-                'OrdersTagColumn' => DataTable\Column::Class,
-                'OrdersOptionsColumn' => DataTable\Column::Class,
+                'OrdersTable' => DataTable::class,
+                'OrdersCheckboxColumn' => DataTable\Column::class,
+                'OrdersChannelColumn' => DataTable\Column::class,
+                'OrdersAccountColumn' => DataTable\Column::class,
+                'OrdersDateColumn' => DataTable\Column::class,
+                'OrdersIdColumn' => DataTable\Column::class,
+                'OrdersTotalColumn' => DataTable\Column::class,
+                'OrdersBuyerColumn' => DataTable\Column::class,
+                'OrdersStatusColumn' => DataTable\Column::class,
+                'OrdersBatchColumn' => DataTable\Column::class,
+                'OrdersMessagesColumn' => DataTable\Column::class,
+                'OrdersShippingColumn' => DataTable\Column::class,
+                'OrdersDispatchColumn' => DataTable\Column::class,
+                'OrdersPrintColumn' => DataTable\Column::class,
+                'OrdersOptionsColumn' => DataTable\Column::class,
             ],
-            Service::Class => [
+            Service::class => [
                 'parameters' => [
                     'ordersTable' => 'OrdersTable',
                 ],
@@ -211,6 +262,16 @@ return [
                     'defaultContent' => '',
                 ],
             ],
+            AlertService::class => [
+                'parameters' => [
+                    'repository' => AlertApi::class
+                ]
+            ],
+            AlertApi::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ]
         ],
     ],
 ];

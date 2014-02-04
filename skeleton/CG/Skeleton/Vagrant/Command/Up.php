@@ -5,6 +5,7 @@ use CG\Skeleton\CommandInterface;
 use CG\Skeleton\Arguments;
 use CG\Skeleton\Config;
 use CG\Skeleton\Vagrant\CommandTrait;
+use CG\Skeleton\DevelopmentEnvironment\Environment;
 
 class Up implements CommandInterface
 {
@@ -15,8 +16,8 @@ class Up implements CommandInterface
         return 'Start Virtual Machine';
     }
 
-    protected function runCommands(Arguments $arguments, Config $config)
+    protected function runCommands(Arguments $arguments, Config $config, Environment $environment)
     {
-        passthru('vagrant up ' . $config->getNode());
+        $environment->vagrantUp($this->getConsole());
     }
 }

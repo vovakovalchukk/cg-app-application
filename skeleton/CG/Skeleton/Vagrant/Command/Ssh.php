@@ -5,6 +5,7 @@ use CG\Skeleton\CommandInterface;
 use CG\Skeleton\Arguments;
 use CG\Skeleton\Config;
 use CG\Skeleton\Vagrant\CommandTrait;
+use CG\Skeleton\DevelopmentEnvironment\Environment;
 
 class Ssh implements CommandInterface
 {
@@ -15,8 +16,8 @@ class Ssh implements CommandInterface
         return 'SSH onto Virtual Machine';
     }
 
-    protected function runCommands(Arguments $arguments, Config $config)
+    protected function runCommands(Arguments $arguments, Config $config, Environment $environment)
     {
-        passthru('vagrant ssh ' . $config->getNode());
+        $environment->vagrantSsh($this->getConsole());
     }
 }

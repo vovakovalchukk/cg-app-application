@@ -9,13 +9,17 @@
 
 namespace Orders;
 
+use Zend\Config\Factory as ConfigFactory;
+
 class Module
 {
     const PUBLIC_FOLDER = 'channelgrabber/orders/';
-
+    
     public function getConfig()
     {
-        return include __DIR__ . '/config/module.config.php';
+        return ConfigFactory::fromFiles(
+            glob(__DIR__ . '/config/*.config.php')
+        );
     }
 
     public function getAutoloaderConfig()

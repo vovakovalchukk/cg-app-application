@@ -5,6 +5,7 @@ use CG\Skeleton\CommandInterface;
 use CG\Skeleton\Arguments;
 use CG\Skeleton\Config;
 use CG\Skeleton\Vagrant\CommandTrait;
+use CG\Skeleton\DevelopmentEnvironment\Environment;
 
 class Provision implements CommandInterface
 {
@@ -15,8 +16,8 @@ class Provision implements CommandInterface
         return 'Provision Virtual Machine';
     }
 
-    protected function runCommands(Arguments $arguments, Config $config)
+    protected function runCommands(Arguments $arguments, Config $config, Environment $environment)
     {
-        passthru('vagrant provision ' . $config->getNode());
+        $environment->vagrantProvision($this->getConsole());
     }
 }

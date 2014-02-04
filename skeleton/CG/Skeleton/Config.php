@@ -13,14 +13,14 @@ class Config extends ZendConfig
     const BRANCH = 'BRANCH';
     const NODE = 'NODE';
     const APP_NAME = 'APP_NAME';
-    const HOST_NAME = 'HOST_NAME';
-    const DOMAIN = 'channelgrabber.com';
     const VM_PATH = 'VM_PATH';
     const ROLE = 'ROLE';
+    const ENVIRONMENT = 'ENVIRONMENT';
 
     protected $classMap = array(
         'Vagrant' => 'CG\Skeleton\Vagrant\Config',
-        'Module' => 'CG\Skeleton\Module\Config'
+        'Module' => 'CG\Skeleton\Module\Config',
+        'Environment' => 'CG\Skeleton\DevelopmentEnvironment\Config'
     );
 
     public function __construct(array $config, $allowModifications = false)
@@ -98,17 +98,6 @@ class Config extends ZendConfig
         return $this;
     }
 
-    public function getHostname()
-    {
-        return $this->get(static::HOST_NAME, $this->getAppName() . '.' . static::DOMAIN);
-    }
-
-    public function setHostname($hostname)
-    {
-        $this->offsetSet(static::HOST_NAME, $hostname);
-        return $this;
-    }
-
     public function getVmPath()
     {
         return rtrim($this->get(static::VM_PATH), '/');
@@ -128,6 +117,17 @@ class Config extends ZendConfig
     public function setRole($role)
     {
         $this->offsetSet(static::ROLE, $role);
+        return $this;
+    }
+
+    public function getEnvironment()
+    {
+        return $this->get(static::ENVIRONMENT, 'Local');
+    }
+
+    public function setEnvironment($environment)
+    {
+        $this->offsetSet(static::ENVIRONMENT, $environment);
         return $this;
     }
 }

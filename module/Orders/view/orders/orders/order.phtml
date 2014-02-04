@@ -1,0 +1,304 @@
+<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
+<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
+<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/notifications.js'); ?>
+<?php $this->inlineScript()->captureStart(); ?>
+function saveAlert() {
+    n.clearNotifications($('#main-notifications'));
+    n.showNotification($('#main-notifications'), 'notice', '<?= $this->translate('Saving alert'); ?>...', false);
+    var alert = $('#alert-input').val();
+    var action = alert ? 'set' : 'delete';
+    $.ajax({
+        url: '<?= $this->url('Orders/order/alert', array('order' => $order->getId())); ?>/' + action,
+        type: 'POST',
+        data: {'alert': alert, 'eTag': $('#alert-etag').val()},
+        dataType : 'json',
+        success: function(data) {
+            $('#alert-etag').val(data.eTag);
+            n.clearNotifications($('#main-notifications'));
+            n.showNotification($('#main-notifications'), 'success', '<?= $this->translate('Alert saved'); ?>', true);
+        },
+        error: function(error, textStatus, errorThrown) {
+            json = jQuery.parseJSON(error.responseText);
+            n.clearNotifications($('#main-notifications'));
+            n.showNotification($('#main-notifications'), 'error', json.message, true);
+        }
+    });
+    return false;
+}
+$('.single-row').submit(function() {
+    return false;
+});
+<?php $this->inlineScript()->captureEnd(); ?>
+<?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
+<?php
+$fullWidth = false;
+$pageTitle = 'Order Page Prototype';
+$filters = false;
+$title = "View Order";
+$bulkActionsClass = 'bulk-actions-inline';
+$bulkActions = array(
+    array(
+        'title' => 'Print',
+        'class' => 'print',
+        'sub-actions' => array(
+              array( 'title' => 'Example 1',         'action' => 'example' ),
+              array( 'title' => 'Example 2',         'action' => 'example' )
+           )
+     ),
+    array(
+        'title' => 'Dispatch',
+        'class' => 'dispatch'
+     ),
+    array(
+        'title' => 'Tag / Untag',
+        'class' => 'tag-untag',
+        'sub-actions' => array(
+              array( 'title' => 'Example 1',         'action' => 'example' ),
+              array( 'title' => 'Example 2',         'action' => 'example' )
+           )
+     ),
+    array(
+        'title' => 'Courier',
+        'class' => 'courier',
+        'sub-actions' => array(
+              array( 'title' => 'Example 1',         'action' => 'example' ),
+              array( 'title' => 'Example 2',         'action' => 'example' )
+           )
+     ),
+    array(
+        'title' => 'Accounting',
+        'class' => 'accounting',
+        'sub-actions' => array(
+              array( 'title' => 'Example 1',         'action' => 'example' ),
+              array( 'title' => 'Example 2',         'action' => 'example' )
+           )
+     )
+ );
+?>
+<div id="order-status" class="<?= $order->getStatus(); ?>-bg"><?= $order->getStatus(); ?></div>
+<div id="breadcrumbs" class="order-breadcrumbs">
+    <ul>
+        <li><a href="#"><?= $this->translate('View Order'); ?></a></li>
+        <li class="separator"><span>&nbsp;</span></li>
+        <li><span><?= $order->getId(); ?></span></li>
+    </ul>
+    <div class="right">
+        <span><strong><?= $this->translate('Order ID'); ?>: </strong><?= $order->getId(); ?></span>
+        <img src="<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/<?= $order->getChannel(); ?>.png" alt="<?= $order->getChannel(); ?>" />
+    </div>
+</div>
+<?= $this->bulkItems ?>
+<?= $this->timelineBoxes; ?>
+<div class="module clearfix">
+    <form class="single-row">
+        <label>
+            <span class="icon-large warning"></span>
+            <span class="label"><?= $this->translate('Order Alert'); ?>:</span>
+            <?php
+                $alerts = $order->getAlerts();
+                $alerts->rewind();
+                $alert = $alerts->current();
+            ?>
+            <input type="text" class="text" name="" value="<?= ($alert) ? $alert->getAlert() : ""; ?>" id="alert-input"/>
+            <input type="hidden" value="<?= ($alert) ? $alert->getETag() : ""; ?>" id="alert-etag"/>
+            <input type="submit" class="button inline" value="<?= $this->translate('Save Alert'); ?>" onClick="saveAlert();" />
+        </label>
+    </form>
+</div>
+<div class="module clearfix">
+    <form class="single-row">
+        <label>
+            <span class="icon-large user"></span>
+            <p><?= $order->getBuyerMessage() ?: $this->translate("There is no buyer message for this order"); ?></p>
+        </label>
+    </form>
+</div>
+<div class="module clearfix">
+    <div id="detailsForm">
+        <form action="" method="post" class="ajaxPost">
+            <div class="half" id="billing-information">
+                <h2>Billing Information</h2>
+                <label>
+                    <span>Recipient Name</span>
+                    <abbr class="required">*</abbr>
+                    <input type="text" name="companyName" required="required" placeholder="John Smith">
+                </label>
+                <label>
+                    <span>Company Name</span>
+                    <input type="text" name="companyName" required="required" placeholder="">
+                </label>
+                <label>
+                    <span>Address Line 1</span>
+                    <abbr class="required">*</abbr>
+                    <input type="text" name="addressLine1" required="required" placeholder="123 The Street" value="">
+                </label>
+                <label>
+                    <span>Address Line 2</span>
+                    <input type="text" name="addressLine2" placeholder="My Town" value="">
+                </label>
+                <label>
+                    <span>City</span>
+                    <abbr class="required">*</abbr>
+                    <input type="text" name="city" required="required" placeholder="Manchester" value="">
+                </label>
+                <label>
+                    <span>County</span>
+                    <input type="text" name="county" placeholder="Lancashire" value="">
+                </label>
+                <label>
+                    <span>Postcode</span>
+                    <input type="text" name="postcode" placeholder="AB1 2CD" value="">
+                </label>
+                <label>
+                    <span>Country</span>
+                    <div class="input">
+                        <div class="custom-select">
+                            <div class="selected">Select <span class="arrow down">&nbsp;</span></div>
+                            <ul>
+                                <li><a href="#">United Kingdom</a></li>
+                                <li><a href="#">Afghanistan</a></li>
+                                <li><a href="#">Azerbaijan</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </label>
+                <label>
+                    <span>Telephone</span>
+                    <input type="text" name="county" placeholder="Lancashire" value="">
+                </label>
+            </div>
+            <div class="half"  id="buyer-information">
+                <h2>Buyer Information</h2>
+                <div class="duplicate-data-checkbox">
+                    <input type="checkbox" class="duplicate-data" data-source="billing-information" data-target="buyer-information"/>
+                    <span>Same as billing: </span>
+                </div>
+                <label>
+                    <span>Buyer Name</span>
+                    <abbr class="required">*</abbr>
+                    <input type="text" name="companyName" required="required" placeholder="John Smith">
+                </label>
+                <label>
+                    <span>Company Name</span>
+                    <input type="text" name="companyName" required="required" placeholder="">
+                </label>
+                <label>
+                    <span>Address Line 1</span>
+                    <abbr class="required">*</abbr>
+                    <input type="text" name="addressLine1" required="required" placeholder="123 The Street" value="">
+                </label>
+                <label>
+                    <span>Address Line 2</span>
+                    <input type="text" name="addressLine2" placeholder="My Town" value="">
+                </label>
+                <label>
+                    <span>City</span>
+                    <abbr class="required">*</abbr>
+                    <input type="text" name="city" required="required" placeholder="Manchester" value="">
+                </label>
+                <label>
+                    <span>County</span>
+                    <input type="text" name="county" placeholder="Lancashire" value="">
+                </label>
+                <label>
+                    <span>Postcode</span>
+                    <input type="text" name="postcode" placeholder="AB1 2CD" value="">
+                </label>
+                <label>
+                    <span>Country</span>
+                    <div class="input">
+                        <div class="custom-select">
+                            <div class="selected">Select <span class="arrow down">&nbsp;</span></div>
+                            <ul>
+                                <li><a href="#">United Kingdom</a></li>
+                                <li><a href="#">Afghanistan</a></li>
+                                <li><a href="#">Azerbaijan</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </label>
+                <label>
+                    <span>Telephone</span>
+                    <input type="text" name="county" placeholder="Lancashire" value="">
+                </label>
+            </div>
+            <div class="half" style="clear:both; padding-top:0px;">
+                <label>
+                    <input type="submit" name="save" class="button form-button" value="Save">
+                    <span class="loading">Saving</span>
+                </label>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="module clearfix">
+    <h2><?= $this->translate('Product & Payment Information'); ?></h2>
+    <?php if(count($order->getItems())):?>
+        <?= $this->productPaymentTable; ?>
+    <?php else: ?>
+        <p><?= $this->translate('This order has no items'); ?></p>
+    <?php endif;?>
+    <table class="no-borders">
+        <tr>
+            <td colspan="2"><?= $this->translate('Paid Via'); ?>: <strong><?= $order->getPaymentMethod() ?></strong></td>
+            <td class="right"><strong><?= $this->translate('Postage'); ?>:</strong></td>
+            <td class="right"><strong><?= $this->currencyFormat($order->getShippingPrice()); ?></strong></td>
+        </tr>
+        <tr>
+            <td colspan="2"><?= $this->translate('Reference'); ?>: <strong><?= $order->getPaymentReference() ?></strong></td>
+            <td class="right"><strong><?= $this->translate('Total'); ?>:</strong></td>
+            <td class="right"><strong><?= $this->currencyFormat($order->getTotal()); ?></strong></td>
+        </tr>
+    </table>
+    <form  method="post" class="ajaxPost">
+        <label>
+            <span>Refund Amount &pound;</span>
+            <input type="text" name="companyName" required="required" placeholder="" value="">
+        </label>
+        <label>
+            <span>Refund Reason</span>
+            <div class="input">
+                <div class="custom-select">
+                    <div class="selected">Select <span class="arrow down">&nbsp;</span></div>
+                    <ul>
+                        <li><a href="#">Some reason</a></li>
+                        <li><a href="#">Another reason</a></li>
+                        <li><a href="#">And Another Reason</a></li>
+                    </ul>
+                </div>
+            </div>
+        </label>
+        <label>
+            <input type="submit" name="save" class="button form-button" value="Refund">
+            <span class="loading">Refunding</span>
+        </label>
+    </form>
+</div>
+<div class="module clearfix">
+    <h2>Shipping</h2>
+    <form  method="post" class="ajaxPost">
+        <label>
+            <span>Shipping Service</span>
+            <div class="input">
+                <?php
+                $data =  array(
+                    'options' =>array(
+                        array('img' => $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . '/img/logos/royalmail.png', 'href' => '#', 'title' => 'Royal Mail', 'class' => ''),
+                        array('img' => $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . '/img/logos/dpd.png', 'href' => '#', 'title' => 'DPD',  'class' => ''),
+                        array('img' => $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . '/img/logos/interlink.png', 'href' => '#', 'title' => 'Interlink', 'class' => ''),
+                        array('img' => $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . '/img/logos/parcelforce.png', 'href' => '#', 'title' => 'Parcel Force', 'class' => '')
+                    ),
+                    'customSelectImgSrc' => $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . '/img/logos/royalmail.png'
+                );
+                ?>
+                <?= $this->partial('elements/custom-select-image', $data); ?>
+                <?php // include('includes/layout/custom/custom-select-image.php'); ?>
+            </div>
+        </label>
+        <label>
+            <span>Tracking Number</span>
+            <input type="text" name="companyName" required="required" placeholder="My Company Ltd"  value="GB 1234567890">
+        </label>
+    </form>
+</div>
+<?= $this->notes ?>
