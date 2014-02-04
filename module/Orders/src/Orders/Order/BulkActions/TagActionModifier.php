@@ -82,10 +82,10 @@ class TagActionModifier implements ActionModifierInterface
             );
 
             foreach ($tags as $tag) {
-                $javascript = $this->getDi()->get('TagJavascript');
+                $javascript = $this->getDi()->newInstance('TagJavascript');
                 $javascript->setVariable('tag', $tag->getTag());
 
-                $subAction = $this->getDi()->get(
+                $subAction = $this->getDi()->newInstance(
                     SubAction::class,
                     [
                         'title' => $tag->getTag(),
