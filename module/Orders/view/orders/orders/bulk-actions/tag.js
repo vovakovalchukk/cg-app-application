@@ -1,4 +1,4 @@
-<?php $this->headScript()->appendFile($this->baseUrl . Orders\Module::PUBLIC_FOLDER . 'orders/js/tag.js'); ?>
+<?php $this->headScript()->appendFile($this->baseUrl . Orders\Module::PUBLIC_FOLDER . 'js/tag.js'); ?>
 $("#<?= $id ?>").bulkActions(
     "set",
     "<?= $action ?>",
