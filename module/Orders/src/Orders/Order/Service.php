@@ -156,7 +156,12 @@ class Service
 
     public function getNamesFromOrderNotes(OrderNoteCollection $notes)
     {
-        $itemNotes = $notes->toArray();
+        $itemNotes = array();
+        foreach ($notes as $note) {
+            $itemNote = $note->toArray();
+            $itemNote["eTag"] = $note->getETag();
+            $itemNotes[] = $itemNote;
+        }
         $userIds = array();
         foreach ($itemNotes as $itemNote) {
             $userIds[] = $itemNote["userId"];
@@ -164,6 +169,7 @@ class Service
         if (empty($userIds)) {
             return $itemNotes;
         }
+        $userIds = array_unique($userIds);
         try {
             $users = $this->getUserService()->fetchCollection("all", null, null, null, $userIds);
             foreach ($itemNotes as &$note) {

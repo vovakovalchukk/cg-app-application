@@ -181,7 +181,7 @@ class OrdersController extends AbstractActionController
     protected function getNotes(OrderEntity $order)
     {
         $itemNotes = $this->getOrderService()->getNamesFromOrderNotes($order->getNotes());
-        $notes = $this->getViewModelFactory()->newInstance(["notes" => $itemNotes]);
+        $notes = $this->getViewModelFactory()->newInstance(["notes" => $itemNotes, "order" => $order]);
         $notes->setTemplate('elements/notes');
         return $notes;
     }
