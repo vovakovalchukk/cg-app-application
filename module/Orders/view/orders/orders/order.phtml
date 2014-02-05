@@ -24,6 +24,18 @@
         return false;
     });
 <?php $this->inlineScript()->captureEnd(); ?>
+<?php $this->inlineScript()->captureStart(); ?>
+require([
+        "orderDetails/OrderDetailsSidebar",
+        "address/Address",
+        "orderDetails/OrderDetailsPage"
+    ],
+    function(OrderDetailsSidebar, Address, OrderDetailsPage) {
+        var sidebar = new OrderDetailsSidebar();
+        var address = new Address(n , '#addressInformation');
+        var orderDetailsPage = new OrderDetailsPage(sidebar, address);
+});
+<?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
 <div id="order-status" class="<?= $order->getStatus(); ?>-bg"><?= $order->getStatus(); ?></div>
 <div id="breadcrumbs" class="order-breadcrumbs">
