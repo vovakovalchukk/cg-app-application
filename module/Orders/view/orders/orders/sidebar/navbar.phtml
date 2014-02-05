@@ -1,37 +1,8 @@
 <?php $this->inlineScript()->captureStart(); ?>
-function Sidebar()
-{
-    var getBody = function() {
-        return $('html, body');
-    };
-
-    var getHeaderHeight = function() {
-        return $('#fixed-header').height() + $('#sub-header').height();
-    };
-
-    var $body = getBody();
-    var headerHeight = getHeaderHeight();
-
-    this.smoothScroll = function(element) {
-        var href = $.attr(element, 'href');
-        $body.animate({
-            scrollTop: $( href ).offset().top - headerHeight
-        }, 200,  function () {
-            window.location.hash = href;
-        });
-        return false;
-    }
-}
-
-function OrderDetailsPage(sidebar)
-{
-    this.sidebar = sidebar
-    $('#section-nav-links a').click(function() {sidebar.smoothScroll(this);});
-}
-
-var sidebar = new Sidebar();
-var orderDetailsPage = new OrderDetailsPage(sidebar);
-
+require(["orderDetails/OrderDetailsSidebar", "orderDetails/OrderDetailsPage"], function(OrderDetailsSidebar, OrderDetailsPage) {
+    var sidebar = new OrderDetailsSidebar();
+    var orderDetailsPage = new OrderDetailsPage(sidebar);
+});
 <?php $this->inlineScript()->captureEnd(); ?>
 <div id="section-nav" class="module filter-module clearfix">
     <h3>Sections</h3>
