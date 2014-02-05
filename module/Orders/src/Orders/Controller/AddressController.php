@@ -6,6 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use CG\Order\Service\UserChange\Service as UserChangeService;
 use CG\Order\Shared\UserChange\Mapper as UserChangeMapper;
 use CG\Order\Shared\UserChange\Entity as UserChangeEntity;
+use CG\Order\Shared\Entity as OrderEntity;
 use CG\Order\Client\Storage\Api as OrderApi;
 use CG\Stdlib\Exception\Runtime\NotFound;
 
@@ -29,24 +30,11 @@ class AddressController extends AbstractActionController
 
     public function updateAction()
     {
-        $userChange = $this->fetchUserChange();
+        $order = $this->fetchOrder();
+        $userChanges = $this->params()->fromPost();
+        unset($userChanges['eTag']);
+        $userChange = $this->fetchUserChange($order, $userChanges);
         $userChange->setStoredETag($this->params()->fromPost('eTag'));
-        $order = $this->fetchOrder()->toArray();
-        $changes = $userChange->getChanges();
-        foreach ($this->params()->fromPost() as $param => $value) {
-            if ($param == "eTag") {
-                continue;
-            }
-
-            if (isset($changes[$param])) {
-                unset($changes[$param]);
-            }
-
-            if ($order[$param] != $value) {
-                $changes[$param] = $value;
-            }
-        }
-        $userChange->setChanges($changes);
         $this->getService()->save($userChange);
 
         $view = $this->getJsonModelFactory()->newInstance();
@@ -54,14 +42,14 @@ class AddressController extends AbstractActionController
         return $view;
     }
 
-    protected function fetchUserChange()
+    protected function fetchUserChange(OrderEntity $order, array $userChanges)
     {
         try {
             $userChange = $this->getService()->fetch($this->params()->fromRoute('order'));
         } catch (NotFound $e) {
-            $userChange = new UserChangeEntity(array(), $this->params()->fromRoute('order'));
+            $userChange = null;
         }
-        return $userChange;
+        return $this->getService()->fromUserChangeArray($order, $userChanges, $userChange);
     }
 
     protected function fetchOrder()

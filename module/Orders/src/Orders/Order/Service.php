@@ -108,20 +108,7 @@ class Service
 
     public function getOrder($orderId)
     {
-        $order = $this->getOrderClient()->fetch($orderId);
-        if ($order->getUserChange() instanceof UserChangeEntity) {
-            $changes = $order->getUserChange()->getChanges();
-            foreach ($changes as $field => $change) {
-                if (strpos($field, 'shipping') === 0) {
-                    $setter = "set" . ucfirst(str_replace("shipping", "", $field));
-                    $order->getShippingAddress()->$setter($change);
-                } elseif (strpos($field, 'billing') === 0) {
-                    $setter = "set" . ucfirst(str_replace("billing", "", $field));
-                    $order->getBillingAddress()->$setter($change);
-                }
-            }
-        }
-        return $order;
+        return $this->getOrderClient()->fetch($orderId);
     }
 
     public function getOrderItemTable(Entity $order)

@@ -72,94 +72,94 @@
                 <h2><?= $this->translate('Billing Information'); ?></h2>
                 <label>
                     <span><?= $this->translate('Buyer Name'); ?></span>
-                    <input type="text" name="billingAddressFullName" value="<?= $order->getBillingAddress()->getAddressFullName(); ?>">
+                    <input type="text" name="billingAddressFullName" value="<?= $order->getCalculatedBillingAddressFullName(); ?>">
                 </label>
                 <label>
                     <span><?= $this->translate('Company Name'); ?></span>
-                    <input type="text" name="billingAddressCompanyName" value="<?= $order->getBillingAddress()->getAddressCompanyName(); ?>">
+                    <input type="text" name="billingAddressCompanyName" value="<?= $order->getCalculatedBillingAddressCompanyName(); ?>">
                 </label>
                 <label>
                     <span><?= $this->translate('Address Line 1'); ?></span>
-                    <input type="text" name="billingAddress1" value="<?= $order->getBillingAddress()->getAddress1(); ?>">
+                    <input type="text" name="billingAddress1" value="<?= $order->getCalculatedBillingAddress1(); ?>">
                 </label>
                 <label>
                     <span><?= $this->translate('Address Line 2'); ?></span>
-                    <input type="text" name="billingAddress2" value="<?= $order->getBillingAddress()->getAddress2(); ?>">
+                    <input type="text" name="billingAddress2" value="<?= $order->getCalculatedBillingAddress2(); ?>">
                 </label>
                 <label>
                     <span><?= $this->translate('Address Line 3'); ?></span>
-                    <input type="text" name="billingAddress3" value="<?= $order->getBillingAddress()->getAddress3(); ?>">
+                    <input type="text" name="billingAddress3" value="<?= $order->getCalculatedBillingAddress3(); ?>">
                 </label>
                 <label>
                     <span><?= $this->translate('City'); ?></span>
-                    <input type="text" name="billingAddressCity" value="<?= $order->getBillingAddress()->getAddressCity(); ?>">
+                    <input type="text" name="billingAddressCity" value="<?= $order->getCalculatedBillingAddressCity(); ?>">
                 </label>
                 <label>
                     <span><?= $this->translate('County'); ?></span>
-                    <input type="text" name="billingAddressCounty" value="<?= $order->getBillingAddress()->getAddressCounty(); ?>">
+                    <input type="text" name="billingAddressCounty" value="<?= $order->getCalculatedBillingAddressCounty(); ?>">
                 </label>
                 <label>
                     <span><?= $this->translate('Postcode'); ?></span>
-                    <input type="text" name="billingAddressPostcode" value="<?= $order->getBillingAddress()->getAddressPostCode(); ?>">
+                    <input type="text" name="billingAddressPostcode" value="<?= $order->getCalculatedBillingAddressPostcode(); ?>">
                 </label>
                 <label>
                     <span><?= $this->translate('Country'); ?></span>
-                    <input type="text" name="billingAddressCountry" value="<?= $order->getBillingAddress()->getAddressCountry(); ?>">
+                    <input type="text" name="billingAddressCountry" value="<?= $order->getCalculatedBillingAddressCountry(); ?>">
                 </label>
                 <label>
                     <span><?= $this->translate('Email'); ?></span>
-                    <input type="text" name="billingEmailAddress" value="<?= $order->getBillingAddress()->getEmailAddress(); ?>">
+                    <input type="text" name="billingEmailAddress" value="<?= $order->getCalculatedBillingEmailAddress(); ?>">
                 </label>
                 <label>
                     <span><?= $this->translate('Telephone'); ?></span>
-                    <input type="text" name="billingPhoneNumber" value="<?= $order->getBillingAddress()->getPhoneNumber(); ?>">
+                    <input type="text" name="billingPhoneNumber" value="<?= $order->getCalculatedBillingPhoneNumber(); ?>">
                 </label>
             </div>
             <div class="half"  id="shipping-information">
                 <h2><?= $this->translate('Shipping Information'); ?></h2>
                 <label>
                     <span><?= $this->translate('Recipient Name'); ?></span>
-                    <input type="text" name="shippingAddressFullName" value="<?= $order->getShippingAddress()->getAddressFullName(); ?>">
+                    <input type="text" name="shippingAddressFullName" value="<?= $order->getCalculatedShippingAddressFullName(); ?>">
                 </label>
                 <label>
                     <span><?= $this->translate('Company Name'); ?></span>
-                    <input type="text" name="shippingAddressCompanyName" value="<?= $order->getShippingAddress()->getAddressCompanyName(); ?>">
+                    <input type="text" name="shippingAddressCompanyName" value="<?= $order->getCalculatedShippingAddressCompanyName(); ?>">
                 </label>
                 <label>
                     <span><?= $this->translate('Address Line 1'); ?></span>
-                    <input type="text" name="shippingAddress1" value="<?= $order->getShippingAddress()->getAddress1(); ?>">
+                    <input type="text" name="shippingAddress1" value="<?= $order->getCalculatedShippingAddress1(); ?>">
                 </label>
                 <label>
                     <span><?= $this->translate('Address Line 2'); ?></span>
-                    <input type="text" name="shippingAddress2" value="<?= $order->getShippingAddress()->getAddress2(); ?>">
+                    <input type="text" name="shippingAddress2" value="<?= $order->getCalculatedShippingAddress2(); ?>">
                 </label>
                 <label>
                     <span><?= $this->translate('Address Line 3'); ?></span>
-                    <input type="text" name="shippingAddress3" value="<?= $order->getShippingAddress()->getAddress3(); ?>">
+                    <input type="text" name="shippingAddress3" value="<?= $order->getCalculatedShippingAddress3(); ?>">
                 </label>
                 <label>
                     <span><?= $this->translate('City'); ?></span>
-                    <input type="text" name="shippingAddressCity" value="<?= $order->getShippingAddress()->getAddressCity(); ?>">
+                    <input type="text" name="shippingAddressCity" value="<?= $order->getCalculatedShippingAddressCity(); ?>">
                 </label>
                 <label>
                     <span><?= $this->translate('County'); ?></span>
-                    <input type="text" name="shippingAddressCounty" value="<?= $order->getShippingAddress()->getAddressCounty(); ?>">
+                    <input type="text" name="shippingAddressCounty" value="<?= $order->getCalculatedShippingAddressCounty(); ?>">
                 </label>
                 <label>
                     <span><?= $this->translate('Postcode'); ?></span>
-                    <input type="text" name="shippingAddressPostcode" value="<?= $order->getShippingAddress()->getAddressPostCode(); ?>">
+                    <input type="text" name="shippingAddressPostcode" value="<?= $order->getCalculatedShippingAddressPostcode(); ?>">
                 </label>
                 <label>
                     <span><?= $this->translate('Country'); ?></span>
-                    <input type="text" name="shippingAddressCountry" value="<?= $order->getShippingAddress()->getAddressCountry(); ?>">
+                    <input type="text" name="shippingAddressCountry" value="<?= $order->getCalculatedShippingAddressCountry(); ?>">
                 </label>
                 <label>
                     <span><?= $this->translate('Email'); ?></span>
-                    <input type="text" name="shippingEmailAddress" value="<?= $order->getShippingAddress()->getEmailAddress(); ?>">
+                    <input type="text" name="shippingEmailAddress" value="<?= $order->getCalculatedShippingEmailAddress(); ?>">
                 </label>
                 <label>
                     <span><?= $this->translate('Telephone'); ?></span>
-                    <input type="text" name="shippingPhoneNumber" value="<?= $order->getShippingAddress()->getPhoneNumber(); ?>">
+                    <input type="text" name="shippingPhoneNumber" value="<?= $order->getCalculatedShippingPhoneNumber(); ?>">
                 </label>
             </div>
             <div class="half" style="clear:both; padding-top:0px;">
