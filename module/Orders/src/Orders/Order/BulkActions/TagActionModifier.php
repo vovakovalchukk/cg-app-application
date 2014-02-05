@@ -9,7 +9,7 @@ use CG\User\Entity as User;
 use CG\Order\Shared\Tag\StorageInterface;
 use Zend\Di\Di;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use Zend\Mvc\Router\RouteInterface;
+use Zend\View\Model\ViewModel;
 
 class TagActionModifier implements ActionModifierInterface
 {
@@ -81,6 +81,19 @@ class TagActionModifier implements ActionModifierInterface
 
     public function apply(Action $action)
     {
+        $urlView = $this->getDi()->newInstance(
+            ViewModel::class,
+            [
+                'variables' => [
+                    'route' => 'Orders/tag',
+                    'parameters' => []
+                ],
+                'template' => 'orders/orders/bulk-actions/data-url'
+            ]
+        );
+
+        $action->addElementView($urlView);
+
         try {
             $tags = $this->getStorage()->fetchCollectionAll(
                 1,
@@ -104,6 +117,8 @@ class TagActionModifier implements ActionModifierInterface
                         'javascript' => $javascript
                     ]
                 );
+
+                $subAction->addElementView($urlView);
 
                 $action->addSubAction($subAction);
             }
