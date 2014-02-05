@@ -6,6 +6,10 @@ use CG\Order\Service\Alert\Service as AlertService;
 use CG\Order\Client\Alert\Storage\Api as AlertApi;
 use CG\Order\Service\Note\Service as NoteService;
 use CG\Order\Client\Note\Storage\Api as NoteApi;
+use CG\Order\Service\UserChange\Service as UserChangeService;
+use CG\Order\Client\UserChange\Storage\Api as UserChangeApi;
+use CG\Order\Service\Service as OrderService;
+use CG\Order\Client\Storage\Api as OrderApi;
 
 return [
     'router' => [
@@ -116,7 +120,18 @@ return [
                                         'may_terminate' => true
                                     ],
                                 ]
-                            ]
+                            ],
+                            'address' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/address',
+                                    'defaults' => [
+                                        'controller' => 'Orders\Controller\Address',
+                                        'action' => 'update'
+                                    ]
+                                ],
+                                'may_terminate' => true
+                            ],
                         ]
                     ]
                 ],
@@ -133,6 +148,9 @@ return [
             },
             'Orders\Controller\Note' => function($controllerManager) {
                 return $controllerManager->getServiceLocator()->get(Controller\NoteController::class);
+            },
+            'Orders\Controller\Address' => function($controllerManager) {
+                return $controllerManager->getServiceLocator()->get(Controller\AddressController::class);
             },
         ],
         'invokables' => [],
@@ -308,6 +326,21 @@ return [
                 ]
             ],
             NoteApi::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
+            UserChangeService::class => [
+                'parameters' => [
+                    'repository' => UserChangeApi::class
+                ]
+            ],
+            UserChangeApi::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
+            OrderApi::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
                 ]

@@ -15,6 +15,7 @@ use Zend\Di\Di;
 use Zend\I18n\View\Helper\CurrencyFormat;
 use CG\User\Service as UserService;
 use CG\Order\Shared\Note\Collection as OrderNoteCollection;
+use CG\Order\Shared\UserChange\Entity as UserChangeEntity;
 
 class Service
 {
@@ -107,7 +108,20 @@ class Service
 
     public function getOrder($orderId)
     {
-        return $this->getOrderClient()->fetch($orderId);
+        $order = $this->getOrderClient()->fetch($orderId);
+        if ($order->getUserChange() instanceof UserChangeEntity) {
+            $changes = $order->getUserChange()->getChanges();
+            foreach ($changes as $field => $change) {
+                if (strpos($field, 'shipping') === 0) {
+                    $setter = "set" . ucfirst(str_replace("shipping", "", $field));
+                    $order->getShippingAddress()->$setter($change);
+                } elseif (strpos($field, 'billing') === 0) {
+                    $setter = "set" . ucfirst(str_replace("billing", "", $field));
+                    $order->getBillingAddress()->$setter($change);
+                }
+            }
+        }
+        return $order;
     }
 
     public function getOrderItemTable(Entity $order)

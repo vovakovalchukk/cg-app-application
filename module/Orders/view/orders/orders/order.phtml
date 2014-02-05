@@ -25,51 +25,6 @@
     });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
-<?php
-$fullWidth = false;
-$pageTitle = 'Order Page Prototype';
-$filters = false;
-$title = "View Order";
-$bulkActionsClass = 'bulk-actions-inline';
-$bulkActions = array(
-    array(
-        'title' => 'Print',
-        'class' => 'print',
-        'sub-actions' => array(
-              array( 'title' => 'Example 1',         'action' => 'example' ),
-              array( 'title' => 'Example 2',         'action' => 'example' )
-           )
-     ),
-    array(
-        'title' => 'Dispatch',
-        'class' => 'dispatch'
-     ),
-    array(
-        'title' => 'Tag / Untag',
-        'class' => 'tag-untag',
-        'sub-actions' => array(
-              array( 'title' => 'Example 1',         'action' => 'example' ),
-              array( 'title' => 'Example 2',         'action' => 'example' )
-           )
-     ),
-    array(
-        'title' => 'Courier',
-        'class' => 'courier',
-        'sub-actions' => array(
-              array( 'title' => 'Example 1',         'action' => 'example' ),
-              array( 'title' => 'Example 2',         'action' => 'example' )
-           )
-     ),
-    array(
-        'title' => 'Accounting',
-        'class' => 'accounting',
-        'sub-actions' => array(
-              array( 'title' => 'Example 1',         'action' => 'example' ),
-              array( 'title' => 'Example 2',         'action' => 'example' )
-           )
-     )
- );
-?>
 <div id="order-status" class="<?= $order->getStatus(); ?>-bg"><?= $order->getStatus(); ?></div>
 <div id="breadcrumbs" class="order-breadcrumbs">
     <ul>
@@ -110,117 +65,106 @@ $bulkActions = array(
 </div>
 <div class="module clearfix">
     <div id="detailsForm">
-        <form action="" method="post" class="ajaxPost">
+        <form id="addressInformation" data-url="<?= $this->url('Orders/order/address', array('order' => $order->getId())); ?>"
+              data-actionMessage="<?= $this->translate('Updating address'); ?>" data-successMessage="<?= $this->translate('Address updated'); ?>">
+            <input type="hidden" id="eTag" name="eTag" value="<?= $order->getUserChange() ? $order->getUserChange()->getEtag() : null; ?>">
             <div class="half" id="billing-information">
-                <h2>Billing Information</h2>
+                <h2><?= $this->translate('Billing Information'); ?></h2>
                 <label>
-                    <span>Recipient Name</span>
-                    <abbr class="required">*</abbr>
-                    <input type="text" name="companyName" required="required" placeholder="John Smith">
+                    <span><?= $this->translate('Buyer Name'); ?></span>
+                    <input type="text" name="billingAddressFullName" value="<?= $order->getBillingAddress()->getAddressFullName(); ?>">
                 </label>
                 <label>
-                    <span>Company Name</span>
-                    <input type="text" name="companyName" required="required" placeholder="">
+                    <span><?= $this->translate('Company Name'); ?></span>
+                    <input type="text" name="billingAddressCompanyName" value="<?= $order->getBillingAddress()->getAddressCompanyName(); ?>">
                 </label>
                 <label>
-                    <span>Address Line 1</span>
-                    <abbr class="required">*</abbr>
-                    <input type="text" name="addressLine1" required="required" placeholder="123 The Street" value="">
+                    <span><?= $this->translate('Address Line 1'); ?></span>
+                    <input type="text" name="billingAddress1" value="<?= $order->getBillingAddress()->getAddress1(); ?>">
                 </label>
                 <label>
-                    <span>Address Line 2</span>
-                    <input type="text" name="addressLine2" placeholder="My Town" value="">
+                    <span><?= $this->translate('Address Line 2'); ?></span>
+                    <input type="text" name="billingAddress2" value="<?= $order->getBillingAddress()->getAddress2(); ?>">
                 </label>
                 <label>
-                    <span>City</span>
-                    <abbr class="required">*</abbr>
-                    <input type="text" name="city" required="required" placeholder="Manchester" value="">
+                    <span><?= $this->translate('Address Line 3'); ?></span>
+                    <input type="text" name="billingAddress3" value="<?= $order->getBillingAddress()->getAddress3(); ?>">
                 </label>
                 <label>
-                    <span>County</span>
-                    <input type="text" name="county" placeholder="Lancashire" value="">
+                    <span><?= $this->translate('City'); ?></span>
+                    <input type="text" name="billingAddressCity" value="<?= $order->getBillingAddress()->getAddressCity(); ?>">
                 </label>
                 <label>
-                    <span>Postcode</span>
-                    <input type="text" name="postcode" placeholder="AB1 2CD" value="">
+                    <span><?= $this->translate('County'); ?></span>
+                    <input type="text" name="billingAddressCounty" value="<?= $order->getBillingAddress()->getAddressCounty(); ?>">
                 </label>
                 <label>
-                    <span>Country</span>
-                    <div class="input">
-                        <div class="custom-select">
-                            <div class="selected">Select <span class="arrow down">&nbsp;</span></div>
-                            <ul>
-                                <li><a href="#">United Kingdom</a></li>
-                                <li><a href="#">Afghanistan</a></li>
-                                <li><a href="#">Azerbaijan</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                    <span><?= $this->translate('Postcode'); ?></span>
+                    <input type="text" name="billingAddressPostcode" value="<?= $order->getBillingAddress()->getAddressPostCode(); ?>">
                 </label>
                 <label>
-                    <span>Telephone</span>
-                    <input type="text" name="county" placeholder="Lancashire" value="">
+                    <span><?= $this->translate('Country'); ?></span>
+                    <input type="text" name="billingAddressCountry" value="<?= $order->getBillingAddress()->getAddressCountry(); ?>">
+                </label>
+                <label>
+                    <span><?= $this->translate('Email'); ?></span>
+                    <input type="text" name="billingEmailAddress" value="<?= $order->getBillingAddress()->getEmailAddress(); ?>">
+                </label>
+                <label>
+                    <span><?= $this->translate('Telephone'); ?></span>
+                    <input type="text" name="billingPhoneNumber" value="<?= $order->getBillingAddress()->getPhoneNumber(); ?>">
                 </label>
             </div>
-            <div class="half"  id="buyer-information">
-                <h2>Buyer Information</h2>
-                <div class="duplicate-data-checkbox">
-                    <input type="checkbox" class="duplicate-data" data-source="billing-information" data-target="buyer-information"/>
-                    <span>Same as billing: </span>
-                </div>
+            <div class="half"  id="shipping-information">
+                <h2><?= $this->translate('Shipping Information'); ?></h2>
                 <label>
-                    <span>Buyer Name</span>
-                    <abbr class="required">*</abbr>
-                    <input type="text" name="companyName" required="required" placeholder="John Smith">
+                    <span><?= $this->translate('Recipient Name'); ?></span>
+                    <input type="text" name="shippingAddressFullName" value="<?= $order->getShippingAddress()->getAddressFullName(); ?>">
                 </label>
                 <label>
-                    <span>Company Name</span>
-                    <input type="text" name="companyName" required="required" placeholder="">
+                    <span><?= $this->translate('Company Name'); ?></span>
+                    <input type="text" name="shippingAddressCompanyName" value="<?= $order->getShippingAddress()->getAddressCompanyName(); ?>">
                 </label>
                 <label>
-                    <span>Address Line 1</span>
-                    <abbr class="required">*</abbr>
-                    <input type="text" name="addressLine1" required="required" placeholder="123 The Street" value="">
+                    <span><?= $this->translate('Address Line 1'); ?></span>
+                    <input type="text" name="shippingAddress1" value="<?= $order->getShippingAddress()->getAddress1(); ?>">
                 </label>
                 <label>
-                    <span>Address Line 2</span>
-                    <input type="text" name="addressLine2" placeholder="My Town" value="">
+                    <span><?= $this->translate('Address Line 2'); ?></span>
+                    <input type="text" name="shippingAddress2" value="<?= $order->getShippingAddress()->getAddress2(); ?>">
                 </label>
                 <label>
-                    <span>City</span>
-                    <abbr class="required">*</abbr>
-                    <input type="text" name="city" required="required" placeholder="Manchester" value="">
+                    <span><?= $this->translate('Address Line 3'); ?></span>
+                    <input type="text" name="shippingAddress3" value="<?= $order->getShippingAddress()->getAddress3(); ?>">
                 </label>
                 <label>
-                    <span>County</span>
-                    <input type="text" name="county" placeholder="Lancashire" value="">
+                    <span><?= $this->translate('City'); ?></span>
+                    <input type="text" name="shippingAddressCity" value="<?= $order->getShippingAddress()->getAddressCity(); ?>">
                 </label>
                 <label>
-                    <span>Postcode</span>
-                    <input type="text" name="postcode" placeholder="AB1 2CD" value="">
+                    <span><?= $this->translate('County'); ?></span>
+                    <input type="text" name="shippingAddressCounty" value="<?= $order->getShippingAddress()->getAddressCounty(); ?>">
                 </label>
                 <label>
-                    <span>Country</span>
-                    <div class="input">
-                        <div class="custom-select">
-                            <div class="selected">Select <span class="arrow down">&nbsp;</span></div>
-                            <ul>
-                                <li><a href="#">United Kingdom</a></li>
-                                <li><a href="#">Afghanistan</a></li>
-                                <li><a href="#">Azerbaijan</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                    <span><?= $this->translate('Postcode'); ?></span>
+                    <input type="text" name="shippingAddressPostcode" value="<?= $order->getShippingAddress()->getAddressPostCode(); ?>">
                 </label>
                 <label>
-                    <span>Telephone</span>
-                    <input type="text" name="county" placeholder="Lancashire" value="">
+                    <span><?= $this->translate('Country'); ?></span>
+                    <input type="text" name="shippingAddressCountry" value="<?= $order->getShippingAddress()->getAddressCountry(); ?>">
+                </label>
+                <label>
+                    <span><?= $this->translate('Email'); ?></span>
+                    <input type="text" name="shippingEmailAddress" value="<?= $order->getShippingAddress()->getEmailAddress(); ?>">
+                </label>
+                <label>
+                    <span><?= $this->translate('Telephone'); ?></span>
+                    <input type="text" name="shippingPhoneNumber" value="<?= $order->getShippingAddress()->getPhoneNumber(); ?>">
                 </label>
             </div>
             <div class="half" style="clear:both; padding-top:0px;">
                 <label>
-                    <input type="submit" name="save" class="button form-button" value="Save">
-                    <span class="loading">Saving</span>
+                    <input type="submit" name="save" class="button form-button address-button" value="<?= $this->translate('Save'); ?>">
                 </label>
             </div>
         </form>
