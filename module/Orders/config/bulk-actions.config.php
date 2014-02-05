@@ -75,6 +75,9 @@ return [
             BulkActions\TagAction::class => [
                 'parameters' => [
                     'javascript' => 'TagJavascript',
+                    'elementData' => [
+                        'datatable' => 'datatable',
+                    ],
                 ],
                 'injections' => [
                     TagActionModifier::class

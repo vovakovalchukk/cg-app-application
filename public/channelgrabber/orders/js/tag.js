@@ -13,7 +13,11 @@ var TagBulkAction = function(event) {
         return;
     }
 
-    $("#datatable_processing").css("visibility", "visible");
+    var datatable = $(this).data("datatable");
+    if (datatable) {
+        $("#" + datatable + "_processing").css("visibility", "visible");
+    }
+
     $.ajax({
         url: $(this).data("url"),
         type: "POST",
@@ -32,7 +36,9 @@ var TagBulkAction = function(event) {
             error("Network Error");
         },
         complete: function() {
-            $("#datatable").cgDataTable("redraw");
+            if (datatable) {
+                $("#" + datatable).cgDataTable("redraw");
+            }
         }
     });
 };

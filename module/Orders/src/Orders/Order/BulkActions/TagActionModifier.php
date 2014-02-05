@@ -106,14 +106,15 @@ class TagActionModifier implements ActionModifierInterface
                 $javascript = $this->getDi()->newInstance('TagJavascript');
                 $javascript->setVariable('tag', $tag->getTag());
 
+                $elementData = $action->getElementData();
+                $elementData['tag'] = $tag->getTag();
+
                 $subAction = $this->getDi()->newInstance(
                     SubAction::class,
                     [
                         'title' => $tag->getTag(),
                         'action' => 'tag-' . $tag->getTag(),
-                        'elementData' => [
-                            'tag' => $tag->getTag()
-                        ],
+                        'elementData' => $elementData,
                         'javascript' => $javascript
                     ]
                 );
