@@ -1,8 +1,16 @@
 <?php $this->inlineScript()->captureStart(); ?>
 function Sidebar()
 {
-    this.$body = $('html, body');
-    this.headerHeight = $('#fixed-header').height() + $('#sub-header').height();
+    this.$body = this.setBody();
+    this.headerHeight = this.setHeaderHeight();
+
+    this.setBody = function() {
+        return $('html, body');
+    }
+
+    this.setHeaderHeight = function() {
+        return $('#fixed-header').height() + $('#sub-header').height();
+    }
 
     this.smoothScroll = function() {
         var that = this
