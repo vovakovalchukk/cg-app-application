@@ -26,14 +26,19 @@
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->inlineScript()->captureStart(); ?>
 require([
+        "note/NoteDomAccess",
+        "note/Notes",
+        "note/Note",
         "orderDetails/OrderDetailsSidebar",
         "address/Address",
         "orderDetails/OrderDetailsPage"
     ],
-    function(OrderDetailsSidebar, Address, OrderDetailsPage) {
+    function(NoteDomAccess, Notes, Note, OrderDetailsSidebar, Address, OrderDetailsPage) {
+        var noteDomAccess = new NoteDomAccess('#notes', '#note-input', CGMustache);
+        var notes = new Notes(noteDomAccess, n, Note);
         var sidebar = new OrderDetailsSidebar();
         var address = new Address(n , '#addressInformation');
-        var orderDetailsPage = new OrderDetailsPage(sidebar, address);
+        var orderDetailsPage = new OrderDetailsPage(sidebar, address, notes);
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
