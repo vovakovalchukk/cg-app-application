@@ -9,16 +9,27 @@ use CG\User\Entity as User;
 use CG\Order\Shared\Tag\StorageInterface;
 use Zend\Di\Di;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use Zend\Mvc\Router\RouteInterface;
 
 class TagActionModifier implements ActionModifierInterface
 {
     protected $activeUserContainer;
     protected $storage;
     protected $di;
+    protected $router;
 
-    public function __construct(ActiveUserInterface $activeUserContainer, StorageInterface $storage, Di $di)
+    public function __construct(
+        ActiveUserInterface $activeUserContainer,
+        StorageInterface $storage,
+        Di $di,
+        RouteInterface $router
+    )
     {
-        $this->setActiveUserContainer($activeUserContainer)->setStorage($storage)->setDi($di);
+        $this
+            ->setActiveUserContainer($activeUserContainer)
+            ->setStorage($storage)
+            ->setDi($di)
+            ->setRouter($router);
     }
 
     public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
@@ -71,8 +82,25 @@ class TagActionModifier implements ActionModifierInterface
         return $this->di;
     }
 
+    public function setRouter(RouteInterface $router)
+    {
+        $this->router = $router;
+        return $this;
+    }
+
+    /**
+     * @return RouteInterface
+     */
+    public function getRouter()
+    {
+        return $this->router;
+    }
+
     public function apply(Action $action)
     {
+        $url = $this->getRouter()->assemble([], ['name' => 'Orders/tag']);
+        $action->setElementData('url', $url);
+
         try {
             $tags = $this->getStorage()->fetchCollectionAll(
                 1,
@@ -90,6 +118,9 @@ class TagActionModifier implements ActionModifierInterface
                     [
                         'title' => $tag->getTag(),
                         'action' => 'tag-' . $tag->getTag(),
+                        'elementData' => [
+                            'tag' => $tag->getTag()
+                        ],
                         'javascript' => $javascript
                     ]
                 );

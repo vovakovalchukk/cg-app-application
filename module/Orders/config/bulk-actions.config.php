@@ -127,6 +127,11 @@ return [
                     'template' => 'orders/orders/bulk-actions/tag.js',
                 ],
             ],
+            TagActionModifier::class => [
+                'parameters' => [
+                    'router' => 'router',
+                ],
+            ],
             CourierAction::class => [
                 'injections' => [
                     'RoyalMailBulkAction',
