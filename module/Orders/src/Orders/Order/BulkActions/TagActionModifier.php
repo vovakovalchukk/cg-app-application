@@ -16,20 +16,17 @@ class TagActionModifier implements ActionModifierInterface
     protected $activeUserContainer;
     protected $storage;
     protected $di;
-    protected $router;
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
         StorageInterface $storage,
-        Di $di,
-        RouteInterface $router
+        Di $di
     )
     {
         $this
             ->setActiveUserContainer($activeUserContainer)
             ->setStorage($storage)
-            ->setDi($di)
-            ->setRouter($router);
+            ->setDi($di);
     }
 
     public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
@@ -82,25 +79,8 @@ class TagActionModifier implements ActionModifierInterface
         return $this->di;
     }
 
-    public function setRouter(RouteInterface $router)
-    {
-        $this->router = $router;
-        return $this;
-    }
-
-    /**
-     * @return RouteInterface
-     */
-    public function getRouter()
-    {
-        return $this->router;
-    }
-
     public function apply(Action $action)
     {
-        $url = $this->getRouter()->assemble([], ['name' => 'Orders/tag']);
-        $action->setElementData('url', $url);
-
         try {
             $tags = $this->getStorage()->fetchCollectionAll(
                 1,
