@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "80bc3761d4f8afa47586fe015f36679c",
+    "hash": "7214284a982480abea32528d07774311",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -748,17 +748,17 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.5.5",
+            "version": "2.5.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "9254e3b5341854b33b39f58d14656ff8457fb478"
+                "reference": "a7db99d7e3b0f26031b455c63cf19c2a2cc1ba6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.5.5-b4edfe.zip",
-                "reference": "9254e3b5341854b33b39f58d14656ff8457fb478",
-                "shasum": "ce1b0e445f0fb967f984eeeebf3ab33a4a5bc2e3"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.5.6-8e3b4b.zip",
+                "reference": "a7db99d7e3b0f26031b455c63cf19c2a2cc1ba6d",
+                "shasum": "a47972a70b3a9719ef045e778ab1d25372507b7e"
             },
             "require": {
                 "zendframework/zend-db": "2.2.*"
@@ -772,21 +772,21 @@
                     "CG/Stdlib/Utilities.php"
                 ]
             },
-            "time": "2014-02-05 10:40:55"
+            "time": "2014-02-05 12:11:58"
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.10.9",
+            "version": "1.10.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "b019304dbc0de5be411820f1a81aea25de27bff3"
+                "reference": "785f91b6fd36d02a19b1554bb62785e5457dd868"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.10.9-9147b1.zip",
-                "reference": "b019304dbc0de5be411820f1a81aea25de27bff3",
-                "shasum": "e6afb2812208dabf14f08ed860a8196abced112f"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.10.10-ac19f9.zip",
+                "reference": "785f91b6fd36d02a19b1554bb62785e5457dd868",
+                "shasum": "5312362ffa457d732daae2d44c080e1f2a8a7d2f"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.8",
@@ -806,7 +806,7 @@
                     "CG": ""
                 }
             },
-            "time": "2014-02-04 16:13:54"
+            "time": "2014-02-05 12:13:26"
         },
         {
             "name": "channelgrabber/userpreference",
