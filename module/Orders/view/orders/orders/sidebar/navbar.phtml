@@ -4,9 +4,8 @@ function Sidebar()
     this.$body = $('html, body');
     this.headerHeight = $('#fixed-header').height() + $('#sub-header').height();
 
-    var that = this
-
     this.smoothScroll = function() {
+        var that = this
         $('#section-nav-links a').click(function() {
             var href = $.attr(this, 'href');
             that.$body.animate({
