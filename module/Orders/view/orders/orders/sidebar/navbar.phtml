@@ -1,33 +1,38 @@
 <?php $this->inlineScript()->captureStart(); ?>
 function Sidebar()
 {
-    this.$body = this.setBody();
-    this.headerHeight = this.setHeaderHeight();
-
-    this.setBody = function() {
+    this.getBody = function() {
         return $('html, body');
     }
 
-    this.setHeaderHeight = function() {
+    this.getHeaderHeight = function() {
         return $('#fixed-header').height() + $('#sub-header').height();
     }
 
-    this.smoothScroll = function() {
-        var that = this
-        $('#section-nav-links a').click(function() {
-            var href = $.attr(this, 'href');
-            that.$body.animate({
-                scrollTop: $( href ).offset().top - that.headerHeight
-            }, 200,  function () {
-                window.location.hash = href;
-            });
-            return false;
+    this.$body = this.getBody();
+    this.headerHeight = this.getHeaderHeight();
+
+
+    this.smoothScroll = function(element) {
+        var href = $.attr(element, 'href');
+        this.$body.animate({
+            scrollTop: $( href ).offset().top - this.headerHeight
+        }, 200,  function () {
+            window.location.hash = href;
         });
+        return false;
     }
 }
 
+function OrderDetailsPage(sidebar)
+{
+    this.sidebar = sidebar
+    $('#section-nav-links a').click(function() {sidebar.smoothScroll(this);});
+}
+
 var sidebar = new Sidebar();
-sidebar.smoothScroll();
+var orderDetailsPage = new OrderDetailsPage(sidebar);
+
 <?php $this->inlineScript()->captureEnd(); ?>
 <div id="section-nav" class="module filter-module clearfix">
     <h3>Sections</h3>
