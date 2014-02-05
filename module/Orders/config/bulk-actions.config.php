@@ -1,61 +1,19 @@
 <?php
 use Orders\Order\BulkActions\Service;
 use CG_UI\View\BulkActions;
-use CG_UI\View\BulkActions\Action;
-use CG_UI\View\BulkActions\ActionModifierInterface;
-use CG_UI\View\BulkActions\SubAction;
-use CG_UI\View\BulkActions\InvoiceAction;
-use CG_UI\View\BulkActions\DispatchAction;
-use CG_UI\View\BulkActions\TagAction;
-use CG_UI\View\BulkActions\DownloadAction;
-use CG_UI\View\BulkActions\CourierAction;
-use CG_UI\View\BulkActions\BatchAction;
-use CG_UI\View\BulkActions\ArchiveAction;
-use CG_UI\View\BulkActions\PrintAction;
-use CG_UI\View\BulkActions\AccountingAction;
 use Zend\View\Model\ViewModel;
 use Orders\Order\BulkActions\TagActionModifier;
 
 return [
     'di' => [
-        'definition' => [
-            'class' => [
-                BulkActions::class => [
-                    'methods' => [
-                        'addAction' => [
-                            'action' => [
-                                'required' => true,
-                                'type' => Action::class,
-                            ],
-                        ],
-                    ],
-                ],
-                Action::class => [
-                    'methods' => [
-                        'applyModifier' => [
-                            'modifier' => [
-                                'required' => true,
-                                'type' => ActionModifierInterface::class,
-                            ],
-                        ],
-                        'addSubAction' => [
-                            'subAction' => [
-                                'required' => true,
-                                'type' => SubAction::class
-                            ],
-                        ],
-                    ],
-                ],
-            ],
-        ],
         'instance' => [
             'aliases' => [
                 'BulkActions' => BulkActions::class,
                 'OrderDetailBulkActions' => BulkActions::class,
-                'InvoiceBySkuBulkAction' => SubAction::class,
-                'InvoiceByTitleBulkAction' => SubAction::class,
-                'RoyalMailBulkAction' => SubAction::class,
-                'RemoveBatchBulkAction' => SubAction::class,
+                'InvoiceBySkuBulkAction' => BulkActions\SubAction::class,
+                'InvoiceByTitleBulkAction' => BulkActions\SubAction::class,
+                'RoyalMailBulkAction' => BulkActions\SubAction::class,
+                'RemoveBatchBulkAction' => BulkActions\SubAction::class,
                 'TagJavascript' => ViewModel::class
             ],
             Service::class => [
@@ -72,13 +30,13 @@ return [
                     ],
                 ],
                 'injections' => [
-                    InvoiceAction::class,
-                    DispatchAction::class,
-                    TagAction::class,
-                    DownloadAction::class,
-                    CourierAction::class,
-                    BatchAction::class,
-                    ArchiveAction::class,
+                    BulkActions\InvoiceAction::class,
+                    BulkActions\DispatchAction::class,
+                    BulkActions\TagAction::class,
+                    BulkActions\DownloadAction::class,
+                    BulkActions\CourierAction::class,
+                    BulkActions\BatchAction::class,
+                    BulkActions\ArchiveAction::class,
                 ],
             ],
             'OrderDetailBulkActions' => [
@@ -89,14 +47,14 @@ return [
                     ],
                 ],
                 'injections' => [
-                    PrintAction::class,
-                    DispatchAction::class,
-                    TagAction::class,
-                    CourierAction::class,
-                    AccountingAction::class,
+                    BulkActions\PrintAction::class,
+                    BulkActions\DispatchAction::class,
+                    BulkActions\TagAction::class,
+                    BulkActions\CourierAction::class,
+                    BulkActions\AccountingAction::class,
                 ],
             ],
-            InvoiceAction::class => [
+            BulkActions\InvoiceAction::class => [
                 'injections' => [
                     'InvoiceBySkuBulkAction',
                     'InvoiceByTitleBulkAction',
@@ -114,7 +72,7 @@ return [
                     'action' => 'invoices-title'
                 ],
             ],
-            TagAction::class => [
+            BulkActions\TagAction::class => [
                 'parameters' => [
                     'javascript' => 'TagJavascript',
                 ],
@@ -132,7 +90,7 @@ return [
                     'router' => 'router',
                 ],
             ],
-            CourierAction::class => [
+            BulkActions\CourierAction::class => [
                 'injections' => [
                     'RoyalMailBulkAction',
                 ],
@@ -143,7 +101,7 @@ return [
                     'action' => 'royal-mail-csv'
                 ],
             ],
-            BatchAction::class => [
+            BulkActions\BatchAction::class => [
                 'injections' => [
                     'RemoveBatchBulkAction',
                 ],
