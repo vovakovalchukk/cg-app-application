@@ -37,7 +37,7 @@
         <img src="<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/<?= $order->getChannel(); ?>.png" alt="<?= $order->getChannel(); ?>" />
     </div>
 </div>
-<?= $this->bulkItems ?>
+<?= $this->bulkActions ?>
 <?= $this->timelineBoxes; ?>
 <div class="module clearfix">
     <form class="single-row">
@@ -170,7 +170,7 @@
         </form>
     </div>
 </div>
-<div class="module clearfix">
+<div id="product-payment-table" class="module clearfix">
     <h2><?= $this->translate('Product & Payment Information'); ?></h2>
     <?php if(count($order->getItems())):?>
         <?= $this->productPaymentTable; ?>

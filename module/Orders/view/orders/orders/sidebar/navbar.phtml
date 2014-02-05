@@ -1,0 +1,17 @@
+<?php $this->inlineScript()->captureStart(); ?>
+require(["orderDetails/OrderDetailsSidebar", "orderDetails/OrderDetailsPage"], function(OrderDetailsSidebar, OrderDetailsPage) {
+    var sidebar = new OrderDetailsSidebar();
+    var orderDetailsPage = new OrderDetailsPage(sidebar);
+});
+<?php $this->inlineScript()->captureEnd(); ?>
+<div id="section-nav" class="module filter-module clearfix">
+    <h3>Sections</h3>
+    <div id="section-nav-links" class="module-content nav">
+        <ul>
+            <li><a href="#order-status">Order Status</a></li>
+            <?php foreach($this->links as $link): ?>
+                <li><a href="#<?= $link ?>"><?= $this->translate($link); ?></a></li>
+            <?php endforeach;?>
+        </ul>
+    </div>
+</div>
