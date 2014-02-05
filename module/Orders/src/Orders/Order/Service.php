@@ -15,6 +15,7 @@ use Zend\Di\Di;
 use Zend\I18n\View\Helper\CurrencyFormat;
 use CG\User\Service as UserService;
 use CG\Order\Shared\Note\Collection as OrderNoteCollection;
+use CG\Order\Shared\UserChange\Entity as UserChangeEntity;
 
 class Service
 {
@@ -156,7 +157,12 @@ class Service
 
     public function getNamesFromOrderNotes(OrderNoteCollection $notes)
     {
-        $itemNotes = $notes->toArray();
+        $itemNotes = array();
+        foreach ($notes as $note) {
+            $itemNote = $note->toArray();
+            $itemNote["eTag"] = $note->getETag();
+            $itemNotes[] = $itemNote;
+        }
         $userIds = array();
         foreach ($itemNotes as $itemNote) {
             $userIds[] = $itemNote["userId"];
@@ -164,6 +170,7 @@ class Service
         if (empty($userIds)) {
             return $itemNotes;
         }
+        $userIds = array_unique($userIds);
         try {
             $users = $this->getUserService()->fetchCollection("all", null, null, null, $userIds);
             foreach ($itemNotes as &$note) {
