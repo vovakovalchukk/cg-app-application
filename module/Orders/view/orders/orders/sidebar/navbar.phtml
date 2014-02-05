@@ -1,22 +1,21 @@
 <?php $this->inlineScript()->captureStart(); ?>
 function Sidebar()
 {
-    this.getBody = function() {
+    var getBody = function() {
         return $('html, body');
-    }
+    };
 
-    this.getHeaderHeight = function() {
+    var getHeaderHeight = function() {
         return $('#fixed-header').height() + $('#sub-header').height();
-    }
+    };
 
-    this.$body = this.getBody();
-    this.headerHeight = this.getHeaderHeight();
-
+    var $body = getBody();
+    var headerHeight = getHeaderHeight();
 
     this.smoothScroll = function(element) {
         var href = $.attr(element, 'href');
-        this.$body.animate({
-            scrollTop: $( href ).offset().top - this.headerHeight
+        $body.animate({
+            scrollTop: $( href ).offset().top - headerHeight
         }, 200,  function () {
             window.location.hash = href;
         });
