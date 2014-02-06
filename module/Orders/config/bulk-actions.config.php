@@ -113,6 +113,9 @@ return [
             Action\Archive::class => [
                 'parameters' => [
                     'urlView' => 'UrlDataView',
+                    'elementData' => [
+                        'datatable' => 'datatable',
+                    ],
                     'javascript' => 'ArchiveJavascript',
                 ],
             ],
