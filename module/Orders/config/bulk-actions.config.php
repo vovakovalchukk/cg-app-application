@@ -3,7 +3,6 @@ use Orders\Order\BulkActions\Service;
 use CG_UI\View\BulkActions;
 use Zend\View\Model\ViewModel;
 use Orders\Order\BulkActions\Action;
-use Orders\Order\BulkActions\TagActionModifier;
 
 return [
     'di' => [
@@ -15,7 +14,8 @@ return [
                 'InvoiceByTitleBulkAction' => BulkActions\SubAction::class,
                 'RoyalMailBulkAction' => BulkActions\SubAction::class,
                 'RemoveBatchBulkAction' => BulkActions\SubAction::class,
-                'TagJavascript' => ViewModel::class
+                'TagJavascript' => ViewModel::class,
+                'UrlDataView' => ViewModel::class,
             ],
             Service::class => [
                 'parameters' => [
@@ -75,13 +75,11 @@ return [
             ],
             Action\Tag::class => [
                 'parameters' => [
-                    'javascript' => 'TagJavascript',
+                    'urlView' => 'UrlDataView',
                     'elementData' => [
                         'datatable' => 'datatable',
                     ],
-                ],
-                'injections' => [
-                    TagActionModifier::class
+                    'javascript' => 'TagJavascript',
                 ],
             ],
             'TagJavascript' => [
@@ -109,6 +107,11 @@ return [
                 'parameters' => [
                     'title' => 'Remove',
                     'action' => 'remove-from-batch'
+                ],
+            ],
+            'UrlDataView' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/data-url',
                 ],
             ],
         ],
