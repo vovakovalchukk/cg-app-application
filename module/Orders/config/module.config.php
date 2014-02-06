@@ -133,7 +133,16 @@ return [
                                 'may_terminate' => true
                             ],
                         ]
-                    ]
+                    ],
+                    'tag' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/tag.json',
+                            'defaults' => [
+                                'action' => 'tag',
+                            ]
+                        ]
+                    ],
                 ],
             ],
         ],
@@ -191,6 +200,7 @@ return [
                 'OrdersShippingColumn' => DataTable\Column::class,
                 'OrdersDispatchColumn' => DataTable\Column::class,
                 'OrdersPrintColumn' => DataTable\Column::class,
+                'OrdersTagColumn' => DataTable\Column::class,
                 'OrdersOptionsColumn' => DataTable\Column::class,
             ],
             Service::class => [
@@ -220,6 +230,7 @@ return [
                     'OrdersShippingColumn',
                     'OrdersDispatchColumn',
                     'OrdersPrintColumn',
+                    'OrdersTagColumn',
                     'OrdersOptionsColumn',
                 ],
             ],
@@ -228,6 +239,7 @@ return [
                     'column' => 'id',
                     'html' => '<input type="checkbox" name="select-all" class="select-all" data-group="mainTable" />',
                     'class' => 'checkbox',
+                    'sortable' => false
                 ],
             ],
             'OrdersChannelColumn' => [
@@ -312,6 +324,12 @@ return [
                     'html' => 'Print',
                     'class' => 'actions',
                 ],
+            ],
+            'OrdersTagColumn' => [
+                'parameters' => [
+                    'column' => 'tag',
+                    'html' => 'Tag'
+                ]
             ],
             'OrdersOptionsColumn' => [
                 'parameters' => [

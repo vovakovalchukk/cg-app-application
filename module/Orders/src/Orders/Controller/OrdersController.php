@@ -1,6 +1,7 @@
 <?php
 namespace Orders\Controller;
 
+use CG\Http\Exception\Exception3xx\NotModified;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
@@ -287,7 +288,7 @@ class OrdersController extends AbstractActionController
         $filter = $this->getFilterService()->getFilter()
             ->setLimit($limit)
             ->setPage($page)
-            ->setOrganisationUnitId([$this->getOrderService()->getActiveUser()->getOrganisationUnitId()]);
+            ->setOrganisationUnitId($this->getOrderService()->getActiveUser()->getAvailableOrganisationUnitIds());
 
         $requestFilter = $this->params()->fromPost('filter', []);
         if (!empty($requestFilter)) {
@@ -312,5 +313,45 @@ class OrdersController extends AbstractActionController
         }
 
         return $this->getJsonModelFactory()->newInstance($data);
+    }
+
+    public function tagAction()
+    {
+        $response = $this->getJsonModelFactory()->newInstance(['tagged' => false]);
+
+        $tag = $this->params()->fromPost('tag');
+        if (!$tag) {
+            return $response->setVariable('error', 'No Tag provided');
+        }
+
+        $ids = $this->params()->fromPost('orders');
+        if (!is_array($ids) || empty($ids)) {
+            return $response->setVariable('error', 'No Orders provided');
+        }
+
+        $filter = $this->getFilterService()->getFilter()
+            ->setLimit('all')
+            ->setPage(1)
+            ->setOrganisationUnitId($this->getOrderService()->getActiveUser()->getAvailableOrganisationUnitIds())
+            ->setId($ids);
+
+        try {
+            foreach($this->getOrderService()->getOrders($filter) as $order) {
+                $tags = $order->getTags();
+                $tags[] = $tag;
+                try {
+                    $this->getOrderService()->saveOrder($order->setTags(array_unique($tags)));
+                } catch (NotModified $exception) {
+                    // Not changed so ignore
+                }
+            }
+        } catch (NotFound $exception) {
+            return $response->setVariable(
+                'error',
+                'Order' . (count($ids) > 1 ? 's' : '') . ' could not be found'
+            );
+        }
+
+        return $response->setVariable('tagged', true);
     }
 }
