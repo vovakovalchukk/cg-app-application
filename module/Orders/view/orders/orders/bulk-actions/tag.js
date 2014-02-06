@@ -6,7 +6,8 @@ require.config({
 require(
     ["TagBulkAction"],
     function(TagBulkAction) {
-        $("#<?= $id ?>").bulkActions("set", "<?= $action ?>", TagBulkAction);
+        var tagBulkAction = new TagBulkAction(n);
+        $("#<?= $id ?>").bulkActions("set", "<?= $action ?>", tagBulkAction.action);
     }
 );
 <?php
