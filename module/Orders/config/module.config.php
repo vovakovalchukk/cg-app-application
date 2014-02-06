@@ -6,6 +6,10 @@ use CG\Order\Service\Alert\Service as AlertService;
 use CG\Order\Client\Alert\Storage\Api as AlertApi;
 use CG\Order\Service\Note\Service as NoteService;
 use CG\Order\Client\Note\Storage\Api as NoteApi;
+use CG\Order\Service\UserChange\Service as UserChangeService;
+use CG\Order\Client\UserChange\Storage\Api as UserChangeApi;
+use CG\Order\Service\Service as OrderService;
+use CG\Order\Client\Storage\Api as OrderApi;
 
 return [
     'router' => [
@@ -147,9 +151,29 @@ return [
                                         'may_terminate' => true
                                     ],
                                 ]
+                            ],
+                            'address' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/address',
+                                    'defaults' => [
+                                        'controller' => 'Orders\Controller\Address',
+                                        'action' => 'update'
+                                    ]
+                                ],
+                                'may_terminate' => true
+                            ],
+                        ]
+                    ],
+                    'tag' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/tag.json',
+                            'defaults' => [
+                                'action' => 'tag',
                             ]
                         ]
-                    ]
+                    ],
                 ],
             ],
         ],
@@ -167,6 +191,9 @@ return [
             },
             'Orders\Controller\Batch' => function($controllerManager) {
                     return $controllerManager->getServiceLocator()->get(Controller\BatchController::class);
+            },
+            'Orders\Controller\Address' => function($controllerManager) {
+                return $controllerManager->getServiceLocator()->get(Controller\AddressController::class);
             }
         ],
         'invokables' => [],
@@ -180,6 +207,16 @@ return [
             'Mustache\View\Strategy'
         ],
     ],
+    'translator' => array(
+        'locale' => 'en_US',
+        'translation_file_patterns' => array(
+            array(
+                'type'     => 'gettext',
+                'base_dir' => __DIR__ . '/../language',
+                'pattern'  => '%s.mo',
+            ),
+        ),
+    ),
     'di' => [
         'instance' => [
             'aliases' => [
@@ -197,6 +234,7 @@ return [
                 'OrdersShippingColumn' => DataTable\Column::class,
                 'OrdersDispatchColumn' => DataTable\Column::class,
                 'OrdersPrintColumn' => DataTable\Column::class,
+                'OrdersTagColumn' => DataTable\Column::class,
                 'OrdersOptionsColumn' => DataTable\Column::class,
             ],
             Service::class => [
@@ -226,6 +264,7 @@ return [
                     'OrdersShippingColumn',
                     'OrdersDispatchColumn',
                     'OrdersPrintColumn',
+                    'OrdersTagColumn',
                     'OrdersOptionsColumn',
                 ],
             ],
@@ -234,6 +273,7 @@ return [
                     'column' => 'id',
                     'html' => '<input type="checkbox" name="select-all" class="select-all" data-group="mainTable" />',
                     'class' => 'checkbox',
+                    'sortable' => false
                 ],
             ],
             'OrdersChannelColumn' => [
@@ -319,6 +359,12 @@ return [
                     'class' => 'actions',
                 ],
             ],
+            'OrdersTagColumn' => [
+                'parameters' => [
+                    'column' => 'tag',
+                    'html' => 'Tag'
+                ]
+            ],
             'OrdersOptionsColumn' => [
                 'parameters' => [
                     'html' => '<span class="icon-med cog">Options</span>',
@@ -342,6 +388,21 @@ return [
                 ]
             ],
             NoteApi::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
+            UserChangeService::class => [
+                'parameters' => [
+                    'repository' => UserChangeApi::class
+                ]
+            ],
+            UserChangeApi::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
+            OrderApi::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
                 ]

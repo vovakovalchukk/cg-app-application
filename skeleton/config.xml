@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zend-config>
-    <BRANCH>orders</BRANCH>
+    <BRANCH>master</BRANCH>
     <NODE>orders</NODE>
     <APP_NAME>orders</APP_NAME>
     <HOST_NAME>orders.channelgrabber.com</HOST_NAME>
@@ -25,5 +25,11 @@
             <IP>192.168.33.54</IP>
             <hostname>orders.channelgrabber.com.local</hostname>
         </Local>
+        <Dual>
+            <node>frontend</node>
+            <IP>192.168.33.52</IP>
+            <hostname>orders.channelgrabber.com.local</hostname>
+        </Dual>
     </Environment>
+    <ENVIRONMENT>Dual</ENVIRONMENT>
 </zend-config>

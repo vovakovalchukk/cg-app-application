@@ -1,6 +1,7 @@
 <?php
 namespace Orders\Controller;
 
+use CG\Http\Exception\Exception3xx\NotModified;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
@@ -10,15 +11,15 @@ use Orders\Order\Timeline\Service as TimelineService;
 use Orders\Filter\Service as FilterService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Order\Shared\Entity as OrderEntity;
+use Orders\Order\BulkActions\Service as BulkActionsService;
 
 class OrdersController extends AbstractActionController
 {
-
-
     protected $orderService;
     protected $filterService;
     protected $timelineService;
     protected $batchService;
+    protected $bulkActionsService;
     protected $jsonModelFactory;
     protected $viewModelFactory;
 
@@ -28,14 +29,16 @@ class OrdersController extends AbstractActionController
         OrderService $orderService,
         FilterService $filterService,
         TimelineService $timelineService,
-        BatchService $batchService)
+        BatchService $batchService,
+        BulkActionsService $bulkActionsService)
     {
         $this->setJsonModelFactory($jsonModelFactory)
             ->setViewModelFactory($viewModelFactory)
             ->setOrderService($orderService)
             ->setFilterService($filterService)
             ->setTimelineService($timelineService)
-            ->setBatchService($batchService);
+            ->setBatchService($batchService)
+            ->setBulkActionsService($bulkActionsService);
     }
 
     public function setOrderService(OrderService $orderService)
@@ -105,6 +108,17 @@ class OrdersController extends AbstractActionController
         return $this->timelineService;
     }
 
+    public function setBulkActionsService(BulkActionsService $bulkActionsService)
+    {
+        $this->bulkActionsService = $bulkActionsService;
+        return $this;
+    }
+
+    public function getBulkActionsService()
+    {
+        return $this->bulkActionsService;
+    }
+
     public function indexAction()
     {
         $view = $this->getViewModelFactory()->newInstance();
@@ -113,7 +127,14 @@ class OrdersController extends AbstractActionController
         $settings = $ordersTable->getVariable('settings');
         $settings->setSource($this->url()->fromRoute('Orders/ajax'));
         $view->addChild($ordersTable, 'ordersTable');
-        $view->addChild($this->getBulkActions(), 'bulkItems');
+
+        $bulkActions = $this->getBulkActionsService()->getBulkActions();
+        $bulkActions->addChild(
+            $this->getViewModelFactory()->newInstance()->setTemplate('orders/orders/bulk-actions/index'),
+            'afterActions'
+        );
+        $view->addChild($bulkActions, 'bulkItems');
+
         $view->addChild($this->getFilterBar(), 'filters');
         $view->addChild($this->getBatches(), 'batches');
         return $view;
@@ -122,14 +143,22 @@ class OrdersController extends AbstractActionController
     public function orderAction()
     {
         $order = $this->getOrderService()->getOrder($this->params('order'));
-        $view = $this->getViewModelFactory()->newInstance();
-
-        $view->addChild($this->getBulkActions(), 'bulkItems');
-        $view->addChild($this->getFilterBar(), 'filters');
-        $view->addChild($this->getNotes($order), 'notes');
+        $view = $this->getViewModelFactory()->newInstance(
+            [
+                'order' => $order
+            ]
+        );
+        $bulkActions = $this->getBulkActionsService()->getOrderBulkActions($order);
+        $bulkActions->addChild(
+            $this->getViewModelFactory()->newInstance()->setTemplate('orders/orders/bulk-actions/order'),
+            'afterActions'
+        );
+        $view->addChild($bulkActions, 'bulkActions');
         $view->addChild($this->getTimelineBoxes($order), 'timelineBoxes');
         $view->addChild($this->getOrderService()->getOrderItemTable($order), 'productPaymentTable');
-        $view->setVariable('order', $order);
+        $view->addChild($this->getNotes($order), 'notes');
+        $view->addChild($this->getDetailsSidebar($view->getChildren()), 'sidebar');
+
         return $view;
     }
 
@@ -153,19 +182,9 @@ class OrdersController extends AbstractActionController
     protected function getNotes(OrderEntity $order)
     {
         $itemNotes = $this->getOrderService()->getNamesFromOrderNotes($order->getNotes());
-        $notes = $this->getViewModelFactory()->newInstance(["notes" => $itemNotes]);
+        $notes = $this->getViewModelFactory()->newInstance(["notes" => $itemNotes, "order" => $order]);
         $notes->setTemplate('elements/notes');
         return $notes;
-    }
-
-    protected function getBulkActions()
-    {
-        $bulkItems = $this->getViewModelFactory()->newInstance(
-            // Example Data - Should be loaded via Service/Di
-            include dirname(dirname(dirname(__DIR__))) . '/test/data/bulkactions.php'
-        );
-        $bulkItems->setTemplate('layout/bulk-actions');
-        return $bulkItems;
     }
 
     protected function getFilterBar()
@@ -231,6 +250,25 @@ class OrdersController extends AbstractActionController
         return $filterBar;
     }
 
+    protected function getDetailsSidebar(array $children)
+    {
+        $sidebar = $this->getViewModelFactory()->newInstance();
+        $sidebar->setTemplate('orders/orders/sidebar/navbar');
+
+        $links = [];
+        foreach ($children as $child) {
+            $links[] = $this->viewModelVarNameToHTMLId($child->captureTo());
+        }
+        $sidebar->setVariable('links', $links);
+
+        return $sidebar;
+    }
+
+    protected function viewModelVarNameToHTMLId($string)
+    {
+        return strtolower(implode("-", preg_split("/(?=[A-Z])/", $string)));
+    }
+
     public function jsonAction()
     {
         $data = [
@@ -250,7 +288,7 @@ class OrdersController extends AbstractActionController
         $filter = $this->getFilterService()->getFilter()
             ->setLimit($limit)
             ->setPage($page)
-            ->setOrganisationUnitId([]);
+            ->setOrganisationUnitId($this->getOrderService()->getActiveUser()->getAvailableOrganisationUnitIds());
 
         $requestFilter = $this->params()->fromPost('filter', []);
         if (!empty($requestFilter)) {
@@ -275,5 +313,45 @@ class OrdersController extends AbstractActionController
         }
 
         return $this->getJsonModelFactory()->newInstance($data);
+    }
+
+    public function tagAction()
+    {
+        $response = $this->getJsonModelFactory()->newInstance(['tagged' => false]);
+
+        $tag = $this->params()->fromPost('tag');
+        if (!$tag) {
+            return $response->setVariable('error', 'No Tag provided');
+        }
+
+        $ids = $this->params()->fromPost('orders');
+        if (!is_array($ids) || empty($ids)) {
+            return $response->setVariable('error', 'No Orders provided');
+        }
+
+        $filter = $this->getFilterService()->getFilter()
+            ->setLimit('all')
+            ->setPage(1)
+            ->setOrganisationUnitId($this->getOrderService()->getActiveUser()->getAvailableOrganisationUnitIds())
+            ->setId($ids);
+
+        try {
+            foreach($this->getOrderService()->getOrders($filter) as $order) {
+                $tags = $order->getTags();
+                $tags[] = $tag;
+                try {
+                    $this->getOrderService()->saveOrder($order->setTags(array_unique($tags)));
+                } catch (NotModified $exception) {
+                    // Not changed so ignore
+                }
+            }
+        } catch (NotFound $exception) {
+            return $response->setVariable(
+                'error',
+                'Order' . (count($ids) > 1 ? 's' : '') . ' could not be found'
+            );
+        }
+
+        return $response->setVariable('tagged', true);
     }
 }

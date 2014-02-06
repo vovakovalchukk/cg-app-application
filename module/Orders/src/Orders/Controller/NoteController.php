@@ -42,12 +42,14 @@ class NoteController extends AbstractActionController
 
     public function createAction()
     {
+        $order = $this->getOrderService()->getOrder($this->params('order'));
         $note = $this->getMapper()->fromArray(
             array(
                 'orderId' => $this->params('order'),
                 'userId' => $this->getActiveUserContainer()->getActiveUser()->getId(),
                 'timestamp' => date('Y-m-d H:i:s', time()),
-                'note' => $this->params()->fromPost('note')
+                'note' => $this->params()->fromPost('note'),
+                'organisationUnitId' => $order->getOrganisationUnitId()
             )
         );
         $this->getService()->save($note);

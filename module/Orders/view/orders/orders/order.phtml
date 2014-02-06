@@ -1,163 +1,29 @@
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
-<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/notifications.js'); ?>
 <?php $this->inlineScript()->captureStart(); ?>
-    var errorNotification = function (error, textStatus, errorThrown) {
-        json = jQuery.parseJSON(error.responseText);
-        n.clearNotifications($('#main-notifications'));
-        n.showNotification($('#main-notifications'), 'error', json.message, true);
-    };
-
-    function clearNotification (message) {
-        n.clearNotifications($('#main-notifications'));
-        n.showNotification($('#main-notifications'), 'notice', message + '...', false);
-    }
-
-    function successNotification (message) {
-        n.clearNotifications($('#main-notifications'));
-        n.showNotification($('#main-notifications'), 'success', message, true);
-    }
-
-    function saveAlert() {
-        clearNotification('<?= $this->translate('Saving alert'); ?>');
-        var alert = $('#alert-input').val();
-        var action = alert ? 'set' : 'delete';
-        $.ajax({
-            url: '<?= $this->url('Orders/order/alert', array('order' => $order->getId())); ?>/' + action,
-            type: 'POST',
-            data: {'alert': alert, 'eTag': $('#alert-etag').val()},
-            dataType : 'json',
-            success: function(data) {
-                $('#alert-etag').val(data.eTag);
-                successNotification('<?= $this->translate('Alert saved'); ?>');
-            },
-            error: errorNotification
-        });
-    }
     $('form').submit(function() {
         return false;
     });
-    var templateUrl = '<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/note.mustache' ?>';
-    var noteTemplate;
-    var noteCgMustache;
-    CGMustache.get().fetchTemplate(templateUrl, function(template, cgmustache) {
-        noteTemplate = "<script id='note'>" + template + "<script>";
-        noteCgMustache = cgmustache;
-    });
-    function redrawNote() {
-        $.ajax({
-            url: '<?= $this->url('Orders/order/note', array('order' => $order->getId())); ?>',
-            type: 'GET',
-            data: {},
-            dataType : 'json',
-            async :false,
-            success: function(data) {
-                $('#notes').html("");
-                $.each(data, function(index) {
-                    $('#notes').append(noteCgMustache.renderTemplate(noteTemplate, data[index], 'note'));
-                });
-            }
-        });
-    }
-    function createNote() {
-        clearNotification('<?= $this->translate('Creating note'); ?>');
-        $.ajax({
-            url: '<?= $this->url('Orders/order/note/create', array('order' => $order->getId())); ?>',
-            type: 'POST',
-            data: {'note': $('#note-input').val(), 'eTag': $('#note-etag').val()},
-            dataType : 'json',
-            success: function(data) {
-                redrawNote();
-                $('#note-input').val("")
-                successNotification('<?= $this->translate('Note saved'); ?>');
-            },
-            error: errorNotification
-        });
-    }
-
-    function deleteNote(noteId) {
-        clearNotification('<?= $this->translate('Deleting note'); ?>');
-        $.ajax({
-            url: '<?= $this->url('Orders/order/note/delete', array('order' => $order->getId())); ?>',
-            type: 'POST',
-            data: {'eTag': $('#note-etag-' + noteId).val(), 'noteId': noteId},
-            dataType : 'json',
-            success: function(data) {
-                redrawNote();
-                successNotification('<?= $this->translate('Note Deleted'); ?>');
-            },
-            error: errorNotification
-        });
-    }
-
-    function updateNote(noteId) {
-        if ($('#note-edit-' + noteId).hasClass('active')) {
-            clearNotification('<?= $this->translate('Saving note'); ?>');
-            $.ajax({
-                url: '<?= $this->url('Orders/order/note/update', array('order' => $order->getId())); ?>',
-                type: 'POST',
-                data: {'eTag': $('#note-etag-' + noteId).val(), 'noteId': noteId, 'note': $('#note-input-' + noteId).val()},
-                dataType : 'json',
-                success: function(data) {
-                    redrawNote();
-                    successNotification('<?= $this->translate('Note Saved'); ?>');
-                },
-                error: errorNotification
-            });
-        } else {
-            $('#note-content-' + noteId).html("<textarea id='note-input-" + noteId + "'>" +
-                $('#note-content-' + noteId).html() + "</textarea>");
-            $('#note-edit-' + noteId).addClass('active');
-            $('#note-input-' + noteId).focus();
-        }
-    }
+require([
+        "note/NoteDomAccess",
+        "note/Notes",
+        "note/Note",
+        "orderDetails/OrderDetailsSidebar",
+        "address/Address",
+        "alert/Alert",
+        "orderDetails/OrderDetailsPage"
+    ],
+    function(NoteDomAccess, Notes, Note, OrderDetailsSidebar, Address, Alert, OrderDetailsPage) {
+        //References to n need to be migrated, it is the notification library
+        var noteDomAccess = new NoteDomAccess('#notes', '#note-input', CGMustache);
+        var notes = new Notes(noteDomAccess, n, Note);
+        var sidebar = new OrderDetailsSidebar();
+        var address = new Address(n, '#addressInformation');
+        var alert = new Alert(n, '#alert');
+        var orderDetailsPage = new OrderDetailsPage(sidebar, address, notes, alert);
+});
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
-<?php
-$fullWidth = false;
-$pageTitle = 'Order Page Prototype';
-$filters = false;
-$title = "View Order";
-$bulkActionsClass = 'bulk-actions-inline';
-$bulkActions = array(
-    array(
-        'title' => 'Print',
-        'class' => 'print',
-        'sub-actions' => array(
-              array( 'title' => 'Example 1',         'action' => 'example' ),
-              array( 'title' => 'Example 2',         'action' => 'example' )
-           )
-     ),
-    array(
-        'title' => 'Dispatch',
-        'class' => 'dispatch'
-     ),
-    array(
-        'title' => 'Tag / Untag',
-        'class' => 'tag-untag',
-        'sub-actions' => array(
-              array( 'title' => 'Example 1',         'action' => 'example' ),
-              array( 'title' => 'Example 2',         'action' => 'example' )
-           )
-     ),
-    array(
-        'title' => 'Courier',
-        'class' => 'courier',
-        'sub-actions' => array(
-              array( 'title' => 'Example 1',         'action' => 'example' ),
-              array( 'title' => 'Example 2',         'action' => 'example' )
-           )
-     ),
-    array(
-        'title' => 'Accounting',
-        'class' => 'accounting',
-        'sub-actions' => array(
-              array( 'title' => 'Example 1',         'action' => 'example' ),
-              array( 'title' => 'Example 2',         'action' => 'example' )
-           )
-     )
- );
-?>
 <div id="order-status" class="<?= $order->getStatus(); ?>-bg"><?= $order->getStatus(); ?></div>
 <div id="breadcrumbs" class="order-breadcrumbs">
     <ul>
@@ -170,84 +36,11 @@ $bulkActions = array(
         <img src="<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/<?= $order->getChannel(); ?>.png" alt="<?= $order->getChannel(); ?>" />
     </div>
 </div>
-<div id="bulk-actions" class="module full-width with-padding clearfix bulk-actions-inline">
-    <div class="bulk-action  with-select">
-    <div class="default clearfix">
-        <span class="action" data-action="print">
-            <span class="icon-med inverted print">&nbsp;</span>
-            <span class="title"><?= $this->translate('Print'); ?></span>
-        </span>
-                    <span class="divider">
-            <span class="arrow down">&nbsp;</span>
-        </span>
-    </div>
-    <ul>
-        <span class="box-arrow-up"></span>
-        <li><a href="#" class="action" data-action="example"><span>Example 1</span></a></li>
-        <li><a href="#" class="action" data-action="example"><span>Example 2</span></a></li>
-    </ul>
-    </div>
-    <div class="bulk-action ">
-    <div class="default clearfix">
-        <span class="action" data-action="dispatch">
-            <span class="icon-med inverted dispatch">&nbsp;</span>
-            <span class="title"><?= $this->translate('Dispatch'); ?></span>
-        </span>
-                </div>
-        </div>
-    <div class="bulk-action  with-select">
-    <div class="default clearfix">
-        <span class="action" data-action="tag-untag">
-            <span class="icon-med inverted tag-untag">&nbsp;</span>
-            <span class="title"><?= $this->translate('Tag / Untag'); ?></span>
-        </span>
-                    <span class="divider">
-            <span class="arrow down">&nbsp;</span>
-        </span>
-    </div>
-    <ul>
-    <span class="box-arrow-up"></span>
-                    <li><a href="#" class="action" data-action="example"><span>Example 1</span></a></li>
-                    <li><a href="#" class="action" data-action="example"><span>Example 2</span></a></li>
-                </ul>
-        </div>
-    <div class="bulk-action  with-select">
-    <div class="default clearfix">
-        <span class="action" data-action="courier">
-            <span class="icon-med inverted courier">&nbsp;</span>
-            <span class="title"><?= $this->translate('Courier'); ?></span>
-        </span>
-                    <span class="divider">
-            <span class="arrow down">&nbsp;</span>
-        </span>
-    </div>
-    <ul>
-    <span class="box-arrow-up"></span>
-                    <li><a href="#" class="action" data-action="example"><span>Example 1</span></a></li>
-                    <li><a href="#" class="action" data-action="example"><span>Example 2</span></a></li>
-                </ul>
-        </div>
-    <div class="bulk-action  with-select">
-    <div class="default clearfix">
-        <span class="action" data-action="accounting">
-            <span class="icon-med inverted accounting">&nbsp;</span>
-            <span class="title"><?= $this->translate('Accounting'); ?></span>
-        </span>
-                    <span class="divider">
-            <span class="arrow down">&nbsp;</span>
-        </span>
-    </div>
-    <ul>
-        <span class="box-arrow-up"></span>
-        <li><a href="#" class="action" data-action="example"><span>Example 1</span></a></li>
-        <li><a href="#" class="action" data-action="example"><span>Example 2</span></a></li>
-    </ul>
-</div>
-<a href="#" class="button close-popup"><?= $this->translate('Back To Orders'); ?></a>
-</div>
+<?= $this->bulkActions ?>
 <?= $this->timelineBoxes; ?>
 <div class="module clearfix">
-    <form class="single-row">
+    <form class="single-row" id="alert" data-url="<?= $this->url('Orders/order/alert', array('order' => $order->getId())); ?>"
+          data-actionMessage="<?= $this->translate('Saving alert'); ?>" data-successMessage="<?= $this->translate('Alert saved'); ?>">
         <label>
             <span class="icon-large warning"></span>
             <span class="label"><?= $this->translate('Order Alert'); ?>:</span>
@@ -256,9 +49,9 @@ $bulkActions = array(
                 $alerts->rewind();
                 $alert = $alerts->current();
             ?>
-            <input type="text" class="text" name="" value="<?= ($alert) ? $alert->getAlert() : ""; ?>" id="alert-input"/>
-            <input type="hidden" value="<?= ($alert) ? $alert->getETag() : ""; ?>" id="alert-etag"/>
-            <input type="submit" class="button inline" value="<?= $this->translate('Save Alert'); ?>" onClick="saveAlert();" />
+            <input type="text" class="text" name="" value="<?= ($alert) ? $alert->getAlert() : ""; ?>" id="input"/>
+            <input type="hidden" value="<?= ($alert) ? $alert->getETag() : ""; ?>" id="eTag"/>
+            <input type="submit" class="button inline alert-save" value="<?= $this->translate('Save Alert'); ?>"/>
         </label>
     </form>
 </div>
@@ -272,123 +65,112 @@ $bulkActions = array(
 </div>
 <div class="module clearfix">
     <div id="detailsForm">
-        <form action="" method="post" class="ajaxPost">
+        <form id="addressInformation" data-url="<?= $this->url('Orders/order/address', array('order' => $order->getId())); ?>"
+              data-actionMessage="<?= $this->translate('Updating address'); ?>" data-successMessage="<?= $this->translate('Address updated'); ?>">
+            <input type="hidden" id="eTag" name="eTag" value="<?= $order->getUserChange() ? $order->getUserChange()->getEtag() : null; ?>">
             <div class="half" id="billing-information">
-                <h2>Billing Information</h2>
+                <h2><?= $this->translate('Billing Information'); ?></h2>
                 <label>
-                    <span>Recipient Name</span>
-                    <abbr class="required">*</abbr>
-                    <input type="text" name="companyName" required="required" placeholder="John Smith">
+                    <span><?= $this->translate('Buyer Name'); ?></span>
+                    <input type="text" name="billingAddressFullName" value="<?= $order->getCalculatedBillingAddressFullName(); ?>">
                 </label>
                 <label>
-                    <span>Company Name</span>
-                    <input type="text" name="companyName" required="required" placeholder="">
+                    <span><?= $this->translate('Company Name'); ?></span>
+                    <input type="text" name="billingAddressCompanyName" value="<?= $order->getCalculatedBillingAddressCompanyName(); ?>">
                 </label>
                 <label>
-                    <span>Address Line 1</span>
-                    <abbr class="required">*</abbr>
-                    <input type="text" name="addressLine1" required="required" placeholder="123 The Street" value="">
+                    <span><?= $this->translate('Address Line 1'); ?></span>
+                    <input type="text" name="billingAddress1" value="<?= $order->getCalculatedBillingAddress1(); ?>">
                 </label>
                 <label>
-                    <span>Address Line 2</span>
-                    <input type="text" name="addressLine2" placeholder="My Town" value="">
+                    <span><?= $this->translate('Address Line 2'); ?></span>
+                    <input type="text" name="billingAddress2" value="<?= $order->getCalculatedBillingAddress2(); ?>">
                 </label>
                 <label>
-                    <span>City</span>
-                    <abbr class="required">*</abbr>
-                    <input type="text" name="city" required="required" placeholder="Manchester" value="">
+                    <span><?= $this->translate('Address Line 3'); ?></span>
+                    <input type="text" name="billingAddress3" value="<?= $order->getCalculatedBillingAddress3(); ?>">
                 </label>
                 <label>
-                    <span>County</span>
-                    <input type="text" name="county" placeholder="Lancashire" value="">
+                    <span><?= $this->translate('City'); ?></span>
+                    <input type="text" name="billingAddressCity" value="<?= $order->getCalculatedBillingAddressCity(); ?>">
                 </label>
                 <label>
-                    <span>Postcode</span>
-                    <input type="text" name="postcode" placeholder="AB1 2CD" value="">
+                    <span><?= $this->translate('County'); ?></span>
+                    <input type="text" name="billingAddressCounty" value="<?= $order->getCalculatedBillingAddressCounty(); ?>">
                 </label>
                 <label>
-                    <span>Country</span>
-                    <div class="input">
-                        <div class="custom-select">
-                            <div class="selected">Select <span class="arrow down">&nbsp;</span></div>
-                            <ul>
-                                <li><a href="#">United Kingdom</a></li>
-                                <li><a href="#">Afghanistan</a></li>
-                                <li><a href="#">Azerbaijan</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                    <span><?= $this->translate('Postcode'); ?></span>
+                    <input type="text" name="billingAddressPostcode" value="<?= $order->getCalculatedBillingAddressPostcode(); ?>">
                 </label>
                 <label>
-                    <span>Telephone</span>
-                    <input type="text" name="county" placeholder="Lancashire" value="">
+                    <span><?= $this->translate('Country'); ?></span>
+                    <input type="text" name="billingAddressCountry" value="<?= $order->getCalculatedBillingAddressCountry(); ?>">
+                </label>
+                <label>
+                    <span><?= $this->translate('Email'); ?></span>
+                    <input type="text" name="billingEmailAddress" value="<?= $order->getCalculatedBillingEmailAddress(); ?>">
+                </label>
+                <label>
+                    <span><?= $this->translate('Telephone'); ?></span>
+                    <input type="text" name="billingPhoneNumber" value="<?= $order->getCalculatedBillingPhoneNumber(); ?>">
                 </label>
             </div>
-            <div class="half"  id="buyer-information">
-                <h2>Buyer Information</h2>
-                <div class="duplicate-data-checkbox">
-                    <input type="checkbox" class="duplicate-data" data-source="billing-information" data-target="buyer-information"/>
-                    <span>Same as billing: </span>
-                </div>
+            <div class="half"  id="shipping-information">
+                <h2><?= $this->translate('Shipping Information'); ?></h2>
                 <label>
-                    <span>Buyer Name</span>
-                    <abbr class="required">*</abbr>
-                    <input type="text" name="companyName" required="required" placeholder="John Smith">
+                    <span><?= $this->translate('Recipient Name'); ?></span>
+                    <input type="text" name="shippingAddressFullName" value="<?= $order->getCalculatedShippingAddressFullName(); ?>">
                 </label>
                 <label>
-                    <span>Company Name</span>
-                    <input type="text" name="companyName" required="required" placeholder="">
+                    <span><?= $this->translate('Company Name'); ?></span>
+                    <input type="text" name="shippingAddressCompanyName" value="<?= $order->getCalculatedShippingAddressCompanyName(); ?>">
                 </label>
                 <label>
-                    <span>Address Line 1</span>
-                    <abbr class="required">*</abbr>
-                    <input type="text" name="addressLine1" required="required" placeholder="123 The Street" value="">
+                    <span><?= $this->translate('Address Line 1'); ?></span>
+                    <input type="text" name="shippingAddress1" value="<?= $order->getCalculatedShippingAddress1(); ?>">
                 </label>
                 <label>
-                    <span>Address Line 2</span>
-                    <input type="text" name="addressLine2" placeholder="My Town" value="">
+                    <span><?= $this->translate('Address Line 2'); ?></span>
+                    <input type="text" name="shippingAddress2" value="<?= $order->getCalculatedShippingAddress2(); ?>">
                 </label>
                 <label>
-                    <span>City</span>
-                    <abbr class="required">*</abbr>
-                    <input type="text" name="city" required="required" placeholder="Manchester" value="">
+                    <span><?= $this->translate('Address Line 3'); ?></span>
+                    <input type="text" name="shippingAddress3" value="<?= $order->getCalculatedShippingAddress3(); ?>">
                 </label>
                 <label>
-                    <span>County</span>
-                    <input type="text" name="county" placeholder="Lancashire" value="">
+                    <span><?= $this->translate('City'); ?></span>
+                    <input type="text" name="shippingAddressCity" value="<?= $order->getCalculatedShippingAddressCity(); ?>">
                 </label>
                 <label>
-                    <span>Postcode</span>
-                    <input type="text" name="postcode" placeholder="AB1 2CD" value="">
+                    <span><?= $this->translate('County'); ?></span>
+                    <input type="text" name="shippingAddressCounty" value="<?= $order->getCalculatedShippingAddressCounty(); ?>">
                 </label>
                 <label>
-                    <span>Country</span>
-                    <div class="input">
-                        <div class="custom-select">
-                            <div class="selected">Select <span class="arrow down">&nbsp;</span></div>
-                            <ul>
-                                <li><a href="#">United Kingdom</a></li>
-                                <li><a href="#">Afghanistan</a></li>
-                                <li><a href="#">Azerbaijan</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                    <span><?= $this->translate('Postcode'); ?></span>
+                    <input type="text" name="shippingAddressPostcode" value="<?= $order->getCalculatedShippingAddressPostcode(); ?>">
                 </label>
                 <label>
-                    <span>Telephone</span>
-                    <input type="text" name="county" placeholder="Lancashire" value="">
+                    <span><?= $this->translate('Country'); ?></span>
+                    <input type="text" name="shippingAddressCountry" value="<?= $order->getCalculatedShippingAddressCountry(); ?>">
+                </label>
+                <label>
+                    <span><?= $this->translate('Email'); ?></span>
+                    <input type="text" name="shippingEmailAddress" value="<?= $order->getCalculatedShippingEmailAddress(); ?>">
+                </label>
+                <label>
+                    <span><?= $this->translate('Telephone'); ?></span>
+                    <input type="text" name="shippingPhoneNumber" value="<?= $order->getCalculatedShippingPhoneNumber(); ?>">
                 </label>
             </div>
             <div class="half" style="clear:both; padding-top:0px;">
                 <label>
-                    <input type="submit" name="save" class="button form-button" value="Save">
-                    <span class="loading">Saving</span>
+                    <input type="submit" name="save" class="button form-button address-button" value="<?= $this->translate('Save'); ?>">
                 </label>
             </div>
         </form>
     </div>
 </div>
-<div class="module clearfix">
+<div id="product-payment-table" class="module clearfix">
     <h2><?= $this->translate('Product & Payment Information'); ?></h2>
     <?php if(count($order->getItems())):?>
         <?= $this->productPaymentTable; ?>

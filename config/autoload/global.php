@@ -15,9 +15,11 @@ use Zend\Config\Config;
 use CG\Cache\EventManagerInterface;
 use CG\Zend\Stdlib\Cache\EventManager;
 use CG\Order\Shared\StorageInterface as OrderStorage;
+use CG\Order\Shared\Tag\StorageInterface as OrderTagStorage;
 use CG\Order\Shared\Batch\StorageInterface as OrderBatchStorage;
 use CG\OrganisationUnit\StorageInterface as OrganisationUnitStorage;
 use CG\Order\Client\Storage\Api as OrderApiClient;
+use CG\Order\Client\Tag\Storage\Api as OrderTagApiClient;
 use CG\Order\Client\Batch\Storage\Api as OrderBatchApiClient;
 use CG\OrganisationUnit\Storage\Api as OrganisationUnitClient;
 use Zend\Session\ManagerInterface as SessionManagerInterface;
@@ -70,6 +72,7 @@ return array(
                 'Zend\Di\LocatorInterface' => 'Zend\Di\Di',
                 EventManagerInterface::class => EventManager::class,
                 OrderStorage::class => OrderApiClient::class,
+                OrderTagStorage::class => OrderTagApiClient::class,
                 OrderBatchStorage::class => OrderBatchApiClient::class,
                 OrganisationUnitStorage::class => OrganisationUnitClient::class,
                 SessionManagerInterface::class => SessionManager::class
@@ -85,8 +88,18 @@ return array(
                     'redisClient' => 'reliable_redis'
                 ]
             ],
-            OrganisationUnitClient::class => [
+            OrderTagApiClient::class => [
                 'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
+            OrderBatchApiClient::class => [
+                'parameter' => array(
+                    'client' => 'cg_app_guzzle'
+                )
+            ],
+            OrganisationUnitClient::class => [
+                'parameter' => [
                     'client' => 'CGDirectoryApi_guzzle'
                 ]
             ]
