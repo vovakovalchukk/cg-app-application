@@ -2,6 +2,7 @@
 use Orders\Order\BulkActions\Service;
 use CG_UI\View\BulkActions;
 use Zend\View\Model\ViewModel;
+use Orders\Order\BulkActions\Action;
 use Orders\Order\BulkActions\TagActionModifier;
 
 return [
@@ -32,7 +33,7 @@ return [
                 'injections' => [
                     BulkActions\InvoiceAction::class,
                     BulkActions\DispatchAction::class,
-                    BulkActions\TagAction::class,
+                    Action\Tag::class,
                     BulkActions\DownloadAction::class,
                     BulkActions\CourierAction::class,
                     BulkActions\BatchAction::class,
@@ -49,7 +50,7 @@ return [
                 'injections' => [
                     BulkActions\PrintAction::class,
                     BulkActions\DispatchAction::class,
-                    BulkActions\TagAction::class,
+                    Action\Tag::class,
                     BulkActions\CourierAction::class,
                     BulkActions\AccountingAction::class,
                 ],
@@ -72,7 +73,7 @@ return [
                     'action' => 'invoices-title'
                 ],
             ],
-            BulkActions\TagAction::class => [
+            Action\Tag::class => [
                 'parameters' => [
                     'javascript' => 'TagJavascript',
                     'elementData' => [
@@ -86,11 +87,6 @@ return [
             'TagJavascript' => [
                 'parameters' => [
                     'template' => 'orders/orders/bulk-actions/tag.js',
-                ],
-            ],
-            TagActionModifier::class => [
-                'parameters' => [
-                    'router' => 'router',
                 ],
             ],
             BulkActions\CourierAction::class => [
