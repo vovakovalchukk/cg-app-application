@@ -36,7 +36,7 @@ return [
                     Action\Tag::class,
                     BulkActions\DownloadAction::class,
                     BulkActions\CourierAction::class,
-                    BulkActions\BatchAction::class,
+                    Action\Batch::class,
                     BulkActions\ArchiveAction::class,
                 ],
             ],
@@ -98,9 +98,21 @@ return [
                     'action' => 'royal-mail-csv'
                 ],
             ],
-            BulkActions\BatchAction::class => [
+            Action\Batch::class => [
+                'parameters' => [
+                    'urlView' => 'UrlDataView',
+                    'elementData' => [
+                        'datatable' => 'datatable',
+                    ],
+                    'javascript' => 'BatchJavascript',
+                ],
                 'injections' => [
                     'RemoveBatchBulkAction',
+                ],
+            ],
+            'BatchJavascript' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/batch.js',
                 ],
             ],
             'RemoveBatchBulkAction' => [

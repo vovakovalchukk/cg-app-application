@@ -1,7 +1,6 @@
 <?php
 namespace Orders\Controller;
 
-use CG\Stdlib\Exception\Runtime\NotFound;
 use Zend\Mvc\Controller\AbstractActionController;
 use Orders\Order\Batch\Service as BatchService;
 
@@ -16,8 +15,13 @@ class BatchController extends AbstractActionController
 
     public function createAction()
     {
-        $orderIds = $this->params()->fromPost('orderIds');
-        $this->getBatchService()->create($orderIds);
+        $response = $this->getJsonModelFactory()->newInstance();
+        $ids = $this->params()->fromPost('orders');
+        if (!is_array($ids) || empty($ids)) {
+            return $response->setVariable('error', 'No Orders provided');
+        }
+        $this->getBatchService()->create($ids);
+        return $response;
     }
 
     public function deleteAction($batchId)
