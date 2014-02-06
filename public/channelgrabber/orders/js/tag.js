@@ -3,7 +3,13 @@ var TagBulkAction = function(event) {
         alert(error);
     }
 
-    var orders = $("#datatable").cgDataTable("selected", ".order-id");
+    var datatable = $(this).data("datatable");
+    var orders = $(this).data("orders");
+
+    if (!orders && datatable) {
+        orders = $("#" + datatable).cgDataTable("selected", ".order-id");
+    }
+
     if (!orders.length) {
         return;
     }
@@ -13,7 +19,6 @@ var TagBulkAction = function(event) {
         return;
     }
 
-    var datatable = $(this).data("datatable");
     if (datatable) {
         $("#" + datatable + "_processing").css("visibility", "visible");
     }
