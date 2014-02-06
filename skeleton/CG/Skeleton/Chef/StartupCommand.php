@@ -61,7 +61,7 @@ class StartupCommand implements StartupCommandInterface
         $roleFile = static::ROLES . $roleName . '.json';
         $role = new Role($roleFile);
 
-        $role->addToRunList('role[web_app]');
+        $role->addToRunList('role[service_configuration]');
 
         $role->save();
 
