@@ -1,6 +1,6 @@
 <script id="order-row" type="text/html">
     <td class="center checkbox">
-        <input type="checkbox" class="select-all-group mainTable" id='order-{{id}}' value='{{id}}'>
+        <input type="checkbox" class="select-all-group mainTable order-id" id='order-{{id}}' value='{{id}}'>
     </td>
     <td class="center">
         <span class="logo {{channel}}">{{channel}}</span>
@@ -73,6 +73,9 @@
         <a href="#" class="icon-large print action {{^printedDate}}inactive{{/printedDate}}" data-action="print" title="Print this order">
             <span class="total green tick"></span>
         </a>
+    </td>
+    <td class="center">
+        {{tag}}
     </td>
     <td class="center options">
         <span class="icon-med cog">Options</span>

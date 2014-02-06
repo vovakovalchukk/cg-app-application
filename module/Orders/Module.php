@@ -13,7 +13,7 @@ use Zend\Config\Factory as ConfigFactory;
 
 class Module
 {
-    const PUBLIC_FOLDER = 'channelgrabber/orders/';
+    const PUBLIC_FOLDER = '/channelgrabber/orders/';
     
     public function getConfig()
     {

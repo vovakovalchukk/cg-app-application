@@ -14,6 +14,7 @@ use CG\Order\Shared\Item\Entity as ItemEntity;
 use Zend\Di\Di;
 use Zend\I18n\View\Helper\CurrencyFormat;
 use CG\User\Service as UserService;
+use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Note\Collection as OrderNoteCollection;
 use CG\Order\Shared\UserChange\Entity as UserChangeEntity;
 
@@ -182,5 +183,10 @@ class Service
         }
 
         return $itemNotes;
+    }
+
+    public function saveOrder(Order $entity)
+    {
+        return $this->getOrderClient()->save($entity);
     }
 }
