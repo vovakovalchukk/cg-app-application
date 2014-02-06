@@ -8,6 +8,8 @@ use CG\Order\Shared\Alert\Mapper as AlertMapper;
 use CG\Order\Shared\Alert\Entity as AlertEntity;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
+use Orders\Order\Service as OrderService;
+
 
 class AlertController extends AbstractActionController
 {
@@ -15,16 +17,19 @@ class AlertController extends AbstractActionController
     protected $service;
     protected $activeUserContainer;
     protected $mapper;
+    protected $orderService;
 
     public function __construct(JsonModelFactory $jsonModelFactory,
                                 AlertService $service,
                                 ActiveUserInterface $activeUserContainer,
-                                AlertMapper $mapper)
+                                AlertMapper $mapper,
+                                OrderService $orderService)
     {
         $this->setJsonModelFactory($jsonModelFactory)
             ->setService($service)
             ->setActiveUserContainer($activeUserContainer)
-            ->setMapper($mapper);
+            ->setMapper($mapper)
+            ->setOrderService($orderService);
     }
 
     public function setAction()
@@ -49,12 +54,14 @@ class AlertController extends AbstractActionController
 
     protected function create()
     {
+        $order = $this->getOrderService()->getOrder($this->params('order'));
         $alert = $this->getMapper()->fromArray(
             array(
                 'userId' => $this->getActiveUserContainer()->getActiveUser()->getId(),
                 'alert' => $this->params()->fromPost('alert'),
                 'timestamp' => date('Y-m-d H:i:s', time()),
-                'orderId' => $this->params('order')
+                'orderId' => $this->params('order'),
+                'organisationUnitId' => $order->getOrganisationUnitId()
             )
         );
         $this->getService()->save($alert);
@@ -127,5 +134,16 @@ class AlertController extends AbstractActionController
     public function getJsonModelFactory()
     {
         return $this->jsonModelFactory;
+    }
+
+    public function setOrderService(OrderService $orderService)
+    {
+        $this->orderService = $orderService;
+        return $this;
+    }
+
+    public function getOrderService()
+    {
+        return $this->orderService;
     }
 }
