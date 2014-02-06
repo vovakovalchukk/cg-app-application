@@ -31,7 +31,7 @@ define(function() {
                     if (data.tagged) {
                         return notifications.success("Tagged Successfully");
                     } else if (!data.error) {
-                        return;
+                        return notifications.error("Failed to apply Tags");
                     }
                     notifications.error(data.error);
                 },
