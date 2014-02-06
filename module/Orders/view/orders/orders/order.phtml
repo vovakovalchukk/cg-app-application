@@ -2,43 +2,26 @@
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/notifications.js'); ?>
 <?php $this->inlineScript()->captureStart(); ?>
-    function saveAlert() {
-        clearNotification('<?= $this->translate('Saving alert'); ?>');
-        var alert = $('#alert-input').val();
-        var action = alert ? 'set' : 'delete';
-        $.ajax({
-            url: '<?= $this->url('Orders/order/alert', array('order' => $order->getId())); ?>/' + action,
-            type: 'POST',
-            data: {'alert': alert, 'eTag': $('#alert-etag').val()},
-            dataType : 'json',
-            success: function(data) {
-                $('#alert-etag').val(data.eTag);
-                successNotification('<?= $this->translate('Alert saved'); ?>');
-            },
-            error: function (error, textStatus, errorThrown) {
-                return that.getNotification().ajaxErrorNotification(error, textStatus, errorThrown);
-            }
-        });
-    }
     $('form').submit(function() {
         return false;
     });
-<?php $this->inlineScript()->captureEnd(); ?>
-<?php $this->inlineScript()->captureStart(); ?>
 require([
         "note/NoteDomAccess",
         "note/Notes",
         "note/Note",
         "orderDetails/OrderDetailsSidebar",
         "address/Address",
+        "alert/Alert",
         "orderDetails/OrderDetailsPage"
     ],
-    function(NoteDomAccess, Notes, Note, OrderDetailsSidebar, Address, OrderDetailsPage) {
+    function(NoteDomAccess, Notes, Note, OrderDetailsSidebar, Address, Alert, OrderDetailsPage) {
+        //References to n need to be migrated, it is the notification library
         var noteDomAccess = new NoteDomAccess('#notes', '#note-input', CGMustache);
         var notes = new Notes(noteDomAccess, n, Note);
         var sidebar = new OrderDetailsSidebar();
-        var address = new Address(n , '#addressInformation');
-        var orderDetailsPage = new OrderDetailsPage(sidebar, address, notes);
+        var address = new Address(n, '#addressInformation');
+        var alert = new Alert(n, '#alert');
+        var orderDetailsPage = new OrderDetailsPage(sidebar, address, notes, alert);
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
@@ -57,7 +40,8 @@ require([
 <?= $this->bulkActions ?>
 <?= $this->timelineBoxes; ?>
 <div class="module clearfix">
-    <form class="single-row">
+    <form class="single-row" id="alert" data-url="<?= $this->url('Orders/order/alert', array('order' => $order->getId())); ?>"
+          data-actionMessage="<?= $this->translate('Saving alert'); ?>" data-successMessage="<?= $this->translate('Alert saved'); ?>">
         <label>
             <span class="icon-large warning"></span>
             <span class="label"><?= $this->translate('Order Alert'); ?>:</span>
@@ -66,9 +50,9 @@ require([
                 $alerts->rewind();
                 $alert = $alerts->current();
             ?>
-            <input type="text" class="text" name="" value="<?= ($alert) ? $alert->getAlert() : ""; ?>" id="alert-input"/>
-            <input type="hidden" value="<?= ($alert) ? $alert->getETag() : ""; ?>" id="alert-etag"/>
-            <input type="submit" class="button inline" value="<?= $this->translate('Save Alert'); ?>" onClick="saveAlert();" />
+            <input type="text" class="text" name="" value="<?= ($alert) ? $alert->getAlert() : ""; ?>" id="input"/>
+            <input type="hidden" value="<?= ($alert) ? $alert->getETag() : ""; ?>" id="eTag"/>
+            <input type="submit" class="button inline alert-save" value="<?= $this->translate('Save Alert'); ?>"/>
         </label>
     </form>
 </div>
