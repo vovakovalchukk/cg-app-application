@@ -15,6 +15,7 @@ require([
         "orderDetails/OrderDetailsPage"
     ],
     function(NoteDomAccess, Notes, Note, OrderDetailsSidebar, Address, Alert, OrderDetailsPage) {
+        //References to n need to be migrated, it is the notification library
         var noteDomAccess = new NoteDomAccess('#notes', '#note-input', CGMustache);
         var notes = new Notes(noteDomAccess, n, Note);
         var sidebar = new OrderDetailsSidebar();
