@@ -18,8 +18,8 @@
             <hostname>orders.channelgrabber.com.local</hostname>
         </Local>
         <Dual>
-            <node>services</node>
-            <IP>192.168.33.50</IP>
+            <node>frontend</node>
+            <IP>192.168.33.52</IP>
             <hostname>orders.channelgrabber.com.local</hostname>
         </Dual>
     </Environment>
