@@ -15,6 +15,7 @@ return [
                 'RoyalMailBulkAction' => BulkActions\SubAction::class,
                 'RemoveBatchBulkAction' => BulkActions\SubAction::class,
                 'TagJavascript' => ViewModel::class,
+                'ArchiveJavascript' => ViewModel::class,
                 'UrlDataView' => ViewModel::class,
             ],
             Service::class => [
@@ -107,6 +108,16 @@ return [
                 'parameters' => [
                     'title' => 'Remove',
                     'action' => 'remove-from-batch'
+                ],
+            ],
+            BulkActions\ArchiveAction::class => [
+                'parameters' => [
+                    'javascript' => 'ArchiveJavascript',
+                ],
+            ],
+            'ArchiveJavascript' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/archive.js',
                 ],
             ],
             'UrlDataView' => [
