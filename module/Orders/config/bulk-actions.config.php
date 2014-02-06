@@ -38,7 +38,7 @@ return [
                     BulkActions\DownloadAction::class,
                     BulkActions\CourierAction::class,
                     BulkActions\BatchAction::class,
-                    BulkActions\ArchiveAction::class,
+                    Action\Archive::class,
                 ],
             ],
             'OrderDetailBulkActions' => [
@@ -110,8 +110,9 @@ return [
                     'action' => 'remove-from-batch'
                 ],
             ],
-            BulkActions\ArchiveAction::class => [
+            Action\Archive::class => [
                 'parameters' => [
+                    'urlView' => 'UrlDataView',
                     'javascript' => 'ArchiveJavascript',
                 ],
             ],
