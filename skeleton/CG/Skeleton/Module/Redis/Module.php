@@ -49,7 +49,6 @@ class Module extends AbstractModule implements EnableInterface, ConfigureInterfa
 
     public function configure(Arguments $arguments, SkeletonConfig $config, BaseConfig $moduleConfig)
     {
-        echo "FUCK YOU\n";
         $this->validateConfig($moduleConfig);
         $this->configureModule($arguments, $config, $moduleConfig, true);
     }
