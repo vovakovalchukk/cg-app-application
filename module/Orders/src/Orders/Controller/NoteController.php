@@ -1,0 +1,129 @@
+<?php
+namespace Orders\Controller;
+
+use CG_UI\View\Prototyper\JsonModelFactory;
+use Zend\Mvc\Controller\AbstractActionController;
+use CG\Order\Service\Note\Service as NoteService;
+use CG\Order\Shared\Note\Mapper as NoteMapper;
+use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\User\ActiveUserInterface;
+use Orders\Order\Service as OrderService;
+
+class NoteController extends AbstractActionController
+{
+    protected $jsonModelFactory;
+    protected $service;
+    protected $activeUserContainer;
+    protected $mapper;
+    protected $orderService;
+
+    public function __construct(JsonModelFactory $jsonModelFactory,
+                                NoteService $service,
+                                ActiveUserInterface $activeUserContainer,
+                                NoteMapper $mapper,
+                                OrderService $orderService)
+    {
+        $this->setJsonModelFactory($jsonModelFactory)
+            ->setService($service)
+            ->setActiveUserContainer($activeUserContainer)
+            ->setMapper($mapper)
+            ->setOrderService($orderService);
+
+        $this->view = $this->getJsonModelFactory()->newInstance();
+    }
+
+    public function indexAction()
+    {
+        $noteCollection = $this->getService()->fetchCollectionByOrderIds([$this->params('order')]);
+        $notes = $this->getOrderService()->getNamesFromOrderNotes($noteCollection);
+        $this->view->setVariables($notes);
+        return $this->view;
+    }
+
+    public function createAction()
+    {
+        $note = $this->getMapper()->fromArray(
+            array(
+                'orderId' => $this->params('order'),
+                'userId' => $this->getActiveUserContainer()->getActiveUser()->getId(),
+                'timestamp' => date('Y-m-d H:i:s', time()),
+                'note' => $this->params()->fromPost('note')
+            )
+        );
+        $this->getService()->save($note);
+        return $this->view;
+    }
+
+    public function deleteAction()
+    {
+        $noteId = $this->params()->fromPost('noteId');
+        $this->getService()->removeById($noteId, $this->params('order'));
+        return $this->view;
+    }
+
+    protected function updateAction()
+    {
+        $note = $this->getService()->fetch($this->params()->fromPost('noteId'), $this->params('order'));
+        $note->setNote($this->params()->fromPost('note'))
+            ->setUserId($this->getActiveUserContainer()->getActiveUser()->getId())
+            ->setTimestamp(date('Y-m-d H:i:s', time()));
+        $note->setStoredETag($this->params()->fromPost('eTag'));
+        $this->getService()->save($note);
+        return $this->view;
+    }
+
+    public function setService(NoteService $service)
+    {
+        $this->service = $service;
+        return $this;
+    }
+
+    public function getService()
+    {
+        return $this->service;
+    }
+
+    public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
+    {
+        $this->activeUserContainer = $activeUserContainer;
+        return $this;
+    }
+
+    public function getActiveUserContainer()
+    {
+        return $this->activeUserContainer;
+    }
+
+    public function setMapper(NoteMapper $mapper)
+    {
+        $this->mapper = $mapper;
+        return $this;
+    }
+
+    public function getMapper()
+    {
+        return $this->mapper;
+    }
+
+    public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
+    {
+        $this->jsonModelFactory = $jsonModelFactory;
+        return $this;
+    }
+
+    public function getJsonModelFactory()
+    {
+        return $this->jsonModelFactory;
+    }
+
+    public function setOrderService(OrderService $orderService)
+    {
+        $this->orderService = $orderService;
+        return $this;
+    }
+
+    public function getOrderService()
+    {
+        return $this->orderService;
+    }
+}

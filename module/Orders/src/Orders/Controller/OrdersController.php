@@ -15,8 +15,6 @@ use Orders\Order\BulkActions\Service as BulkActionsService;
 
 class OrdersController extends AbstractActionController
 {
-
-
     protected $orderService;
     protected $filterService;
     protected $timelineService;
@@ -145,20 +143,22 @@ class OrdersController extends AbstractActionController
     public function orderAction()
     {
         $order = $this->getOrderService()->getOrder($this->params('order'));
-        $view = $this->getViewModelFactory()->newInstance();
-
+        $view = $this->getViewModelFactory()->newInstance(
+            [
+                'order' => $order
+            ]
+        );
         $bulkActions = $this->getBulkActionsService()->getOrderBulkActions($order);
         $bulkActions->addChild(
             $this->getViewModelFactory()->newInstance()->setTemplate('orders/orders/bulk-actions/order'),
             'afterActions'
         );
-        $view->addChild($bulkActions, 'bulkItems');
-
-        $view->addChild($this->getFilterBar(), 'filters');
-        $view->addChild($this->getNotes($order), 'notes');
+        $view->addChild($bulkActions, 'bulkActions');
         $view->addChild($this->getTimelineBoxes($order), 'timelineBoxes');
         $view->addChild($this->getOrderService()->getOrderItemTable($order), 'productPaymentTable');
-        $view->setVariable('order', $order);
+        $view->addChild($this->getNotes($order), 'notes');
+        $view->addChild($this->getDetailsSidebar($view->getChildren()), 'sidebar');
+
         return $view;
     }
 
@@ -182,7 +182,7 @@ class OrdersController extends AbstractActionController
     protected function getNotes(OrderEntity $order)
     {
         $itemNotes = $this->getOrderService()->getNamesFromOrderNotes($order->getNotes());
-        $notes = $this->getViewModelFactory()->newInstance(["notes" => $itemNotes]);
+        $notes = $this->getViewModelFactory()->newInstance(["notes" => $itemNotes, "order" => $order]);
         $notes->setTemplate('elements/notes');
         return $notes;
     }
@@ -248,6 +248,25 @@ class OrdersController extends AbstractActionController
         $filterBar->setVariable('filterRows', $filterRows);
 
         return $filterBar;
+    }
+
+    protected function getDetailsSidebar(array $children)
+    {
+        $sidebar = $this->getViewModelFactory()->newInstance();
+        $sidebar->setTemplate('orders/orders/sidebar/navbar');
+
+        $links = [];
+        foreach ($children as $child) {
+            $links[] = $this->viewModelVarNameToHTMLId($child->captureTo());
+        }
+        $sidebar->setVariable('links', $links);
+
+        return $sidebar;
+    }
+
+    protected function viewModelVarNameToHTMLId($string)
+    {
+        return strtolower(implode("-", preg_split("/(?=[A-Z])/", $string)));
     }
 
     public function jsonAction()

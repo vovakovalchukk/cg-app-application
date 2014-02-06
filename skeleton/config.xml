@@ -17,5 +17,11 @@
             <IP>192.168.33.54</IP>
             <hostname>orders.channelgrabber.com.local</hostname>
         </Local>
+        <Dual>
+            <node>services</node>
+            <IP>192.168.33.50</IP>
+            <hostname>orders.channelgrabber.com.local</hostname>
+        </Dual>
     </Environment>
+    <ENVIRONMENT>Dual</ENVIRONMENT>
 </zend-config>
