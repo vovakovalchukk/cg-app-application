@@ -1,5 +1,4 @@
 .idea
-/nbproject
 /config/autoload/database.local.php
 /config/autoload/di.cgcache.global.php
 /config/autoload/di.guzzle.global.php
@@ -12,6 +11,7 @@
 /data/di
 /data/mustache
 /module/Orders/src/Orders/Controller/tmp
+/nbproject
 /tests/*/*Guy.php
 /tests/_log
 /vendor
