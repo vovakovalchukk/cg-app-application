@@ -2,7 +2,6 @@
 namespace Orders\Order;
 
 use CG\Stdlib\Exception\Runtime\NotFound;
-use CG_UI\View\DataTable;
 use CG_UI\View\Table;
 use CG_UI\View\Table\Column as TableColumn;
 use CG_UI\View\Table\Rows as TableRows;
@@ -16,30 +15,26 @@ use Zend\I18n\View\Helper\CurrencyFormat;
 use CG\User\Service as UserService;
 use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Note\Collection as OrderNoteCollection;
-use CG\Order\Shared\Tag\StorageInterface as TagStorage;
 
 class Service
 {
-    protected $ordersTable;
     protected $orderClient;
-    protected $tagClient;
+    protected $tableService;
     protected $userService;
     protected $activeUserContainer;
     protected $di;
 
     public function __construct(
-        DataTable $ordersTable,
         StorageInterface $orderClient,
-        TagStorage $tagClient,
+        TableService $tableService,
         UserService $userService,
         ActiveUserInterface $activeUserContainer,
         Di $di
     )
     {
         $this
-            ->setOrdersTable($ordersTable)
             ->setOrderClient($orderClient)
-            ->setTagClient($tagClient)
+            ->setTableService($tableService)
             ->setUserService($userService)
             ->setActiveUserContainer($activeUserContainer)
             ->setDi($di);
@@ -56,15 +51,20 @@ class Service
         return $this->di;
     }
 
-    public function setOrdersTable(DataTable $ordersTable)
+    public function setTableService(TableService $tableService)
     {
-        $this->ordersTable = $ordersTable;
+        $this->tableService = $tableService;
         return $this;
+    }
+
+    public function getTableService()
+    {
+        return $this->tableService;
     }
 
     public function getOrdersTable()
     {
-        return $this->ordersTable;
+        return $this->getTableService()->getOrdersTable();
     }
 
     public function setOrderClient(StorageInterface $orderClient)
@@ -76,17 +76,6 @@ class Service
     public function getOrderClient()
     {
         return $this->orderClient;
-    }
-
-    public function setTagClient(TagStorage $tagClient)
-    {
-        $this->tagClient = $tagClient;
-        return $this;
-    }
-
-    public function getTagClient()
-    {
-        return $this->tagClient;
     }
 
     public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)

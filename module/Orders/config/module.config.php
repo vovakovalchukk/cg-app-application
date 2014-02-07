@@ -1,14 +1,13 @@
 <?php
 use Orders\Controller;
 use CG_UI\View\DataTable;
-use Orders\Order\Service;
+use Orders\Order\TableService;
 use CG\Order\Service\Alert\Service as AlertService;
 use CG\Order\Client\Alert\Storage\Api as AlertApi;
 use CG\Order\Service\Note\Service as NoteService;
 use CG\Order\Client\Note\Storage\Api as NoteApi;
 use CG\Order\Service\UserChange\Service as UserChangeService;
 use CG\Order\Client\UserChange\Storage\Api as UserChangeApi;
-use CG\Order\Service\Service as OrderService;
 use CG\Order\Client\Storage\Api as OrderApi;
 
 return [
@@ -203,7 +202,7 @@ return [
                 'OrdersTagColumn' => DataTable\Column::class,
                 'OrdersOptionsColumn' => DataTable\Column::class,
             ],
-            Service::class => [
+            TableService::class => [
                 'parameters' => [
                     'ordersTable' => 'OrdersTable',
                 ],
