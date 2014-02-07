@@ -12,6 +12,7 @@ use Orders\Filter\Service as FilterService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Order\Shared\Entity as OrderEntity;
 use Orders\Order\BulkActions\Service as BulkActionsService;
+use Orders\Module;
 
 class OrdersController extends AbstractActionController
 {
@@ -30,7 +31,8 @@ class OrdersController extends AbstractActionController
         FilterService $filterService,
         TimelineService $timelineService,
         BatchService $batchService,
-        BulkActionsService $bulkActionsService)
+        BulkActionsService $bulkActionsService
+    )
     {
         $this->setJsonModelFactory($jsonModelFactory)
             ->setViewModelFactory($viewModelFactory)
@@ -39,6 +41,17 @@ class OrdersController extends AbstractActionController
             ->setTimelineService($timelineService)
             ->setBatchService($batchService)
             ->setBulkActionsService($bulkActionsService);
+    }
+
+    protected function basePath()
+    {
+        $config = $this->getServiceLocator()->get('Config');
+        if (isset($config['view_manager'], $config['view_manager']['base_path'])) {
+            return $config['view_manager']['base_path'];
+        }
+        else {
+            return $this->getServiceLocator()->get('Request')->getBasePath();
+        }
     }
 
     public function setOrderService(OrderService $orderService)
@@ -126,6 +139,7 @@ class OrdersController extends AbstractActionController
         $ordersTable = $this->getOrderService()->getOrdersTable();
         $settings = $ordersTable->getVariable('settings');
         $settings->setSource($this->url()->fromRoute('Orders/ajax'));
+        $settings->setTemplate($this->basePath() . Module::PUBLIC_FOLDER . 'template/row.html');
         $view->addChild($ordersTable, 'ordersTable');
 
         $bulkActions = $this->getBulkActionsService()->getBulkActions();

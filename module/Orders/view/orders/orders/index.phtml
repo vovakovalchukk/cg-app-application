@@ -26,29 +26,6 @@ $(document).on('click', '.batch-filter', function(e) {
     return false;
 });
 
-var templateUrl = '<?= $this->basePath() . Orders\Module::PUBLIC_FOLDER . 'template/row.html' ?>';
-var templateRowId = 'order-row';
-CGMustache.get().fetchTemplate(templateUrl, function(template, cgmustache)
-{
-    $("#datatable").on("fnCreatedRow", function (event, nRow, aData, iDataIndex)
-    {
-        aData.formatCurrency = cgmustache.formatCurrency(aData);
-        aData.formatDateTime = cgmustache.formatDateTime(aData);
-        aData.formatAdditionalOrderItems = function()
-        {
-            return function(variable, render) {
-                aData.extraItems = JSON.parse(JSON.stringify(aData.items));
-                aData.extraItems.splice(0, 1);
-                return render(variable);
-            };
-        };
-        aData.order_url = Mustache.render("<?= urldecode($this->url('Orders/order', ['order' => '{{order}}'])) ?>", {order: aData.id});
-
-        var html = cgmustache.renderTemplate(template, aData, templateRowId);
-        $(nRow).html(html);
-    });
-});
-
 $("#datatable").on("fnRowCallback", function(event, nRow, aData, iDisplayIndex, iDisplayIndexFull) {
     $("a.title", nRow).cgPjax();
 });
