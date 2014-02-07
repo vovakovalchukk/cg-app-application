@@ -373,7 +373,7 @@ class OrdersController extends AbstractActionController
         try {
             foreach($this->getOrderService()->getOrders($filter) as $order) {
                 try {
-                    $this->getOrderService()->archiveOrder($order);
+                    $this->getOrderService()->archiveOrder($order->setArchived(true));
                 } catch (NotModified $exception) {
                     // Not changed so ignore
                 }
