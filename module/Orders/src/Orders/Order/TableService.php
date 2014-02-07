@@ -111,6 +111,7 @@ class TableService
             DataTable\Column::class,
             [
                 'column' => $tag->getTag(),
+                'templateId' => 'custom-tag',
                 'html' => htmlentities($tag->getTag(), ENT_QUOTES),
                 'defaultContent' => ''
             ]
