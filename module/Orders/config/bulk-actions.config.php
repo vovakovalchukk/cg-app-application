@@ -15,6 +15,7 @@ return [
                 'RoyalMailBulkAction' => BulkActions\SubAction::class,
                 'RemoveBatchBulkAction' => BulkActions\SubAction::class,
                 'TagJavascript' => ViewModel::class,
+                'BatchJavascript' => ViewModel::class,
                 'UrlDataView' => ViewModel::class,
             ],
             Service::class => [
@@ -102,7 +103,7 @@ return [
                 'parameters' => [
                     'urlView' => 'UrlDataView',
                     'elementData' => [
-                        'datatable' => 'datatable',
+                        'datatable' => 'datatable'
                     ],
                     'javascript' => 'BatchJavascript',
                 ],
