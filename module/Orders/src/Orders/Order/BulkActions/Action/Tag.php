@@ -8,6 +8,7 @@ use CG\User\Entity as User;
 use CG\Order\Shared\Tag\StorageInterface;
 use CG\Order\Shared\Tag\Entity;
 use Orders\Order\BulkActions\SubAction\Tag as SubAction;
+use CG\Stdlib\Exception\Runtime\NotFound;
 
 class Tag extends Action
 {
