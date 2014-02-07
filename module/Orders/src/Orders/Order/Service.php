@@ -16,12 +16,13 @@ use Zend\I18n\View\Helper\CurrencyFormat;
 use CG\User\Service as UserService;
 use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Note\Collection as OrderNoteCollection;
-use CG\Order\Shared\UserChange\Entity as UserChangeEntity;
+use CG\Order\Shared\Tag\StorageInterface as TagStorage;
 
 class Service
 {
     protected $ordersTable;
     protected $orderClient;
+    protected $tagClient;
     protected $userService;
     protected $activeUserContainer;
     protected $di;
@@ -29,6 +30,7 @@ class Service
     public function __construct(
         DataTable $ordersTable,
         StorageInterface $orderClient,
+        TagStorage $tagClient,
         UserService $userService,
         ActiveUserInterface $activeUserContainer,
         Di $di
@@ -37,6 +39,7 @@ class Service
         $this
             ->setOrdersTable($ordersTable)
             ->setOrderClient($orderClient)
+            ->setTagClient($tagClient)
             ->setUserService($userService)
             ->setActiveUserContainer($activeUserContainer)
             ->setDi($di);
@@ -73,6 +76,17 @@ class Service
     public function getOrderClient()
     {
         return $this->orderClient;
+    }
+
+    public function setTagClient(TagStorage $tagClient)
+    {
+        $this->tagClient = $tagClient;
+        return $this;
+    }
+
+    public function getTagClient()
+    {
+        return $this->tagClient;
     }
 
     public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
