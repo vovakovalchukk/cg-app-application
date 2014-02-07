@@ -440,6 +440,7 @@ return [
                     'viewModel' => 'OrdersOptionsColumnView',
                     'class' => 'options',
                     'defaultContent' => '',
+                    'sortable' => false
                 ],
             ],
             AlertService::class => [
