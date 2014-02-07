@@ -1,6 +1,10 @@
 {
     "repositories": [
         {
+            "type": "git",
+            "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git"
+        },
+        {
             "url": "https://composer.build.channelgrabber.com",
             "type": "composer",
             "options": {
@@ -35,7 +39,7 @@
         "channelgrabber/zf2-register": "~1.4.6",
         "channelgrabber/zf2-ssoclient": "~1.2.1",
         "channelgrabber/zf2-stdlib": "~1.1.5",
-        "channelgrabber/zf2-v4-ui": "~1.2.0",
+        "channelgrabber/zf2-v4-ui": "dev-CGIV-1241-column-picker as 1.2.0",
         "davedevelopment/phpmig": "0.4",
         "guzzle/guzzle": "~3.7",
         "nocarrier/hal": "~0.9.3",
@@ -62,5 +66,8 @@
             "php bin/update_di_components.php",
             "php -d memory_limit=512M bin/compile_di.php"
         ]
+    },
+    "provide": {
+        "ext-mongo": "*"
     }
 }

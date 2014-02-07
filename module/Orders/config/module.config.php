@@ -432,7 +432,7 @@ return [
             ],
             'OrdersOptionsColumnView' => [
                 'parameters' => [
-                    'template' => 'orders/orders/table/header/columnPicker.phtml',
+                    'template' => 'table/column-picker.phtml',
                 ],
             ],
             'OrdersOptionsColumn' => [
