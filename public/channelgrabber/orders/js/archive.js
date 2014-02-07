@@ -22,7 +22,7 @@ define(function() {
                     'orders': orders
                 },
                 success : function(data) {
-                    if (data.tagged) {
+                    if (data.archived) {
                         return notifications.success("Archived Successfully");
                     } else if (!data.error) {
                         return notifications.error("Failed to archived Orders");
