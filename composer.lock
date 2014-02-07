@@ -1098,7 +1098,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "135e33af3c4a2aee1c8ba8c815dbe051f4563bf5"
+                "reference": "9295ff19acdeda979fbfa5dd0584d59602b92b1a"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1123,7 +1123,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-02-07 15:41:56"
+            "time": "2014-02-07 16:45:12"
         },
         {
             "name": "cilex/cilex",
