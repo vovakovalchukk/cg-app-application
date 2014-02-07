@@ -1,17 +1,25 @@
-<script id="order-row" type="text/html">
-    <td class="center checkbox">
+<script id="id" type="text/html">
+    <div class="center checkbox">
         <input type="checkbox" class="select-all-group mainTable order-id" id='order-{{id}}' value='{{id}}'>
-    </td>
-    <td class="center">
+    </div>
+</script>
+<script id="channel" type="text/html">
+    <div class="center">
         <span class="logo {{channel}}">{{channel}}</span>
-    </td>
-    <td>
+    </div>
+</script>
+<script id="accountId" type="text/html">
+    <div class="center">
         {{accountId}}
-    </td>
-    <td class="center">
+    </div>
+</script>
+<script id="purchaseDate" type="text/html">
+    <div class="center">
         {{#formatDateTime}}<strong>{{date}}</strong><br />{{time}}{{/formatDateTime}}
-    </td>
-    <td class="left">
+    </div>
+</script>
+<script id="externalId" type="text/html">
+    <div class="left">
         <table class="order-info">
             <tbody>
             <tr>
@@ -26,18 +34,18 @@
                 </td>
             </tr>
             {{#items.1}}
-                {{#formatAdditionalOrderItems}}
-                    {{#extraItems}}
-                    <tr class="hidden order-info-row">
-                        <td>
+            {{#formatAdditionalOrderItems}}
+            {{#extraItems}}
+            <tr class="hidden order-info-row">
+                <td>
                             <span class="subtitle">
                                {{itemName}}
                             </span>
-                        </td>
-                        <td><span class="subtitle"><br>x{{itemQuantity}}</span></td>
-                    </tr>
-                    {{/extraItems}}
-                {{/formatAdditionalOrderItems}}
+                </td>
+                <td><span class="subtitle"><br>x{{itemQuantity}}</span></td>
+            </tr>
+            {{/extraItems}}
+            {{/formatAdditionalOrderItems}}
             <tr><td colspan="2" class="left">
                 <a href="#" class="toggle-info" data-target="order-info-row">
                     <strong class="more">[Show All]</strong>
@@ -47,37 +55,47 @@
             {{/items.1}}
             </tbody>
         </table>
-    </td>
-    <td class="right">
+    </div>
+</script>
+<script id="total" type="text/html">
+    <div class="right">
         {{#formatCurrency}}{{total}}{{/formatCurrency}}
-    </td>
-    <td><a href="mailto:">
-        {{shippingAddressFullName}}</a>
-    </td>
-    <td class="center">
+    </div>
+</script>
+<script id="billingAddressFullName" type="text/html">
+    <a href="mailto:">{{shippingAddressFullName}}</a>
+</script>
+<script id="status" type="text/html">
+    <div class="center">
         <span class="status {{status}}">{{status}}</span>
-    </td>
-    <td class="center">
+    </div>
+</script>
+<script id="batch" type="text/html">
+    <div class="center">
         <a class="batch green">{{batch}}</a>
-    </td>
-    <td class="center">
-    </td>
-    <td>{{shippingMethod}}</td>
-    <td class="center action">
-
+    </div>
+</script>
+<script id="shippingMethod" type="text/html">
+    <div class="center">
+        {{shippingMethod}}
+    </div>
+</script>
+<script id="dispatchDate" type="text/html">
+    <div class="center action">
         <a href="#" class="icon-large dispatch action {{^dispatchDate}}inactive{{/dispatchDate}}" data-action="dispatch" title="Dispatch this order">
             <span class="total green tick"></span>
         </a>
-    </td>
-    <td class="center action">
+    </div>
+</script>
+<script id="printedDate" type="text/html">
+    <div class="center action">
         <a href="#" class="icon-large print action {{^printedDate}}inactive{{/printedDate}}" data-action="print" title="Print this order">
             <span class="total green tick"></span>
         </a>
-    </td>
-    <td class="center">
+    </div>
+</script>
+<script id="tag" type="text/html">
+    <div class="center">
         {{tag}}
-    </td>
-    <td class="center options">
-        <span class="icon-med cog">Options</span>
-    </td>
+    </div>
 </script>
