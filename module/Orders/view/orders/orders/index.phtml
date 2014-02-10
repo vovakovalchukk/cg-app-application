@@ -39,6 +39,7 @@ $("#datatable").on("renderColumn", function(event, cgmustache, template, column,
         };
     };
     data.order_url = Mustache.render("<?= urldecode($this->url('Orders/order', ['order' => '{{order}}'])) ?>", {order: data.id});
+    data.tag_url = "<?= $this->url('Orders/tag') ?>";
     data.hasTag = function() {
         return function(variable, render) {
             if ($.inArray(variable, data.tag)) {
