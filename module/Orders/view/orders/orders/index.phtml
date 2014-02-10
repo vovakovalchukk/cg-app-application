@@ -27,6 +27,7 @@ $(document).on('click', '.batch-filter', function(e) {
 });
 
 $("#datatable").on("renderColumn", function(event, cgmustache, template, column, data) {
+    data.datatable = $(this).attr("id");
     data.formatCurrency = cgmustache.formatCurrency(data);
     data.formatDateTime = cgmustache.formatDateTime(data);
     data.formatAdditionalOrderItems = function()

@@ -11,6 +11,7 @@
 /data/di
 /data/mustache
 /module/Orders/src/Orders/Controller/tmp
+/nbproject
 /tests/*/*Guy.php
 /tests/_log
 /vendor

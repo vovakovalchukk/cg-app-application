@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "4fd50426b2526fddbfd7ebef6abe417e",
+    "hash": "007e2c68282b558954bf9994585ba5ab",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -1098,7 +1098,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "9295ff19acdeda979fbfa5dd0584d59602b92b1a"
+                "reference": "b98875b3ca75751d3e93f74794e81d32e223ffb8"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1123,7 +1123,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-02-07 16:45:12"
+            "time": "2014-02-07 17:24:37"
         },
         {
             "name": "cilex/cilex",
@@ -1826,12 +1826,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/phpspec.git",
-                "reference": "785ceefa9c8bae7db41af3d1263850530526a389"
+                "reference": "44ba2ef07a4eebf146ce619f5f9f53d890226c7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/785ceefa9c8bae7db41af3d1263850530526a389",
-                "reference": "785ceefa9c8bae7db41af3d1263850530526a389",
+                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/44ba2ef07a4eebf146ce619f5f9f53d890226c7a",
+                "reference": "44ba2ef07a4eebf146ce619f5f9f53d890226c7a",
                 "shasum": ""
             },
             "require": {
@@ -1890,7 +1890,7 @@
                 "testing",
                 "tests"
             ],
-            "time": "2014-02-03 20:18:27"
+            "time": "2014-02-07 07:18:35"
         },
         {
             "name": "phpspec/prophecy",
@@ -2193,16 +2193,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "3.7.30",
+            "version": "3.7.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "2f33258fa5a0c330515b7deba2bc040fa5c3953b"
+                "reference": "d24e9877331039582497052cc3c4d9f465b88210"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/2f33258fa5a0c330515b7deba2bc040fa5c3953b",
-                "reference": "2f33258fa5a0c330515b7deba2bc040fa5c3953b",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/d24e9877331039582497052cc3c4d9f465b88210",
+                "reference": "d24e9877331039582497052cc3c4d9f465b88210",
                 "shasum": ""
             },
             "require": {
@@ -2263,7 +2263,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-01-31 08:54:33"
+            "time": "2014-02-03 07:46:27"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -3315,8 +3315,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.1.23",
-            "alias_normalized": "1.1.23.0",
+            "alias": "1.2.1",
+            "alias_normalized": "1.2.1.0",
             "version": "dev-CGIV-1284-PerColumnTemplates",
             "package": "channelgrabber/zf2-v4-ui"
         }
