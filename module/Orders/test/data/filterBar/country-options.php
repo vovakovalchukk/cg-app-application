@@ -1,6 +1,8 @@
 <?php
 return [
     'title' => 'Include Country',
-    'options' => ['UK', 'Austria', 'Croatia', 'Cyprus', 'France', 'Germany', 'Italy', 'Spain'],
+    'options' => [
+        ['title' => 'UK'], ['title' => 'Austria'], ['title' => 'Croatia'], ['title' => 'Cyprus'], ['title' => 'France'],
+        ['title' => 'Germany'], ['title' => 'Italy'], ['title' => 'Spain']],
     'isOptional' => true
 ];
