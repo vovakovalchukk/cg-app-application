@@ -143,6 +143,15 @@ return [
                             ]
                         ]
                     ],
+                    'archive' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/archive.json',
+                            'defaults' => [
+                                'action' => 'archive',
+                            ]
+                        ]
+                    ],
                 ],
             ],
         ],
