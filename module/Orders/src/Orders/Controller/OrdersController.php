@@ -351,8 +351,16 @@ class OrdersController extends AbstractActionController
 
         try {
             foreach($this->getOrderService()->getOrders($filter) as $order) {
+                $append = filter_var($this->params()->fromPost('append', true), FILTER_VALIDATE_BOOLEAN);
                 $tags = $order->getTags();
-                $tags[] = $tag;
+
+                if ($append) {
+                    $tags[] = $tag;
+                } else {
+                    $tags = array_combine($tags, $tags);
+                    unset($tags[$tag]);
+                }
+
                 try {
                     $this->getOrderService()->saveOrder($order->setTags(array_unique($tags)));
                 } catch (NotModified $exception) {
