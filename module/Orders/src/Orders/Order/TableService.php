@@ -8,6 +8,7 @@ use CG_UI\View\DataTable;
 use CG\Order\Shared\Tag\StorageInterface as TagStorage;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Order\Shared\Tag\Entity as Tag;
+use Zend\View\Model\ViewModel;
 
 class TableService
 {
@@ -107,12 +108,22 @@ class TableService
 
     protected function addTagColumn(Tag $tag)
     {
+        $viewModel = $this->getDi()->newInstance(
+            ViewModel::class,
+            [
+                'variables' => [
+                    'value' => htmlentities($tag->getTag(), ENT_QUOTES)
+                ],
+                'template' => 'value'
+            ]
+        );
+
         $column = $this->getDi()->newInstance(
             DataTable\Column::class,
             [
                 'column' => $tag->getTag(),
                 'templateId' => 'custom-tag',
-                'html' => htmlentities($tag->getTag(), ENT_QUOTES),
+                'viewModel' => $viewModel,
                 'defaultContent' => ''
             ]
         );
