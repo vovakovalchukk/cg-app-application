@@ -3,6 +3,8 @@ define(function() {
         var notifications = notifications;
 
         this.action = function(event) {
+            event.stopImmediatePropagation()
+
             var datatable = $(this).data("datatable");
             var orders = $(this).data("orders");
 
@@ -35,6 +37,8 @@ define(function() {
         };
 
         this.checkbox = function(event) {
+            event.stopImmediatePropagation()
+
             var tag = $(this).data("tag");
             var orders = $(this).data("orders");
 
