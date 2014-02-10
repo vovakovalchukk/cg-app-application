@@ -189,4 +189,9 @@ class Service
     {
         return $this->getOrderClient()->save($entity);
     }
+
+    public function archiveOrder(Order $entity)
+    {
+        return $this->getOrderClient()->archive($entity);
+    }
 }
