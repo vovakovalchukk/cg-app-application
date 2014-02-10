@@ -436,6 +436,7 @@ return [
             ],
             'OrdersOptionsColumn' => [
                 'parameters' => [
+                    'order' => 9999,
                     'viewModel' => 'OrdersOptionsColumnView',
                     'class' => 'options',
                     'defaultContent' => '',
