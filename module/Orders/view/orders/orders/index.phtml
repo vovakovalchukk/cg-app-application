@@ -26,18 +26,18 @@ $(document).on('click', '.batch-filter', function(e) {
     return false;
 });
 
-$("#datatable").on("renderColumn", function(event, cgmustache, template, column, full) {
-    full.formatCurrency = cgmustache.formatCurrency(full);
-    full.formatDateTime = cgmustache.formatDateTime(full);
-    full.formatAdditionalOrderItems = function()
+$("#datatable").on("renderColumn", function(event, cgmustache, template, column, data) {
+    data.formatCurrency = cgmustache.formatCurrency(data);
+    data.formatDateTime = cgmustache.formatDateTime(data);
+    data.formatAdditionalOrderItems = function()
     {
         return function(variable, render) {
-            full.extraItems = JSON.parse(JSON.stringify(full.items));
-            full.extraItems.splice(0, 1);
+            data.extraItems = JSON.parse(JSON.stringify(data.items));
+            data.extraItems.splice(0, 1);
             return render(variable);
         };
     };
-    full.order_url = Mustache.render("<?= urldecode($this->url('Orders/order', ['order' => '{{order}}'])) ?>", {order: full.id});
+    data.order_url = Mustache.render("<?= urldecode($this->url('Orders/order', ['order' => '{{order}}'])) ?>", {order: data.id});
 });
 
 $("#datatable").on("fnRowCallback", function(event, nRow, aData, iDisplayIndex, iDisplayIndexFull) {
