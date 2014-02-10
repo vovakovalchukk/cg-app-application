@@ -13,6 +13,7 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Order\Shared\Entity as OrderEntity;
 use Orders\Order\BulkActions\Service as BulkActionsService;
 use Orders\Module;
+use DirectoryIterator;
 
 class OrdersController extends AbstractActionController
 {
@@ -136,10 +137,21 @@ class OrdersController extends AbstractActionController
     {
         $view = $this->getViewModelFactory()->newInstance();
 
+        $templateUrlMap = [];
+        $webRoot = PROJECT_ROOT . '/public';
+        $templates = new DirectoryIterator($webRoot . Module::PUBLIC_FOLDER . 'template/columns');
+        foreach ($templates as $template) {
+            if (!$template->isFile()) {
+                continue;
+            }
+            $templateUrlMap[$template->getBasename('.html')]
+                = $this->basePath() . str_replace($webRoot, '', $template->getPathname());
+        }
+
         $ordersTable = $this->getOrderService()->getOrdersTable();
         $settings = $ordersTable->getVariable('settings');
         $settings->setSource($this->url()->fromRoute('Orders/ajax'));
-        $settings->setTemplate($this->basePath() . Module::PUBLIC_FOLDER . 'template/row.html');
+        $settings->setTemplateUrlMap($templateUrlMap);
         $view->addChild($ordersTable, 'ordersTable');
 
         $bulkActions = $this->getBulkActionsService()->getBulkActions();
