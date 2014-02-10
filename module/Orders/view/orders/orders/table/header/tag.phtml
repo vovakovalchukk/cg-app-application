@@ -8,7 +8,7 @@ require(
     ["TagBulkAction"],
     function(TagBulkAction) {
         var tagBulkAction = new TagBulkAction(n);
-        $("#<?= $id ?> input.tag").on("change", tagBulkAction.checkbox);
+        $(document).on("change", "#<?= $id ?> input.tag[data-tag='<?= $tag ?>']", tagBulkAction.checkbox);
     }
 );
 <?php $this->inlineScript()->captureEnd() ?>
