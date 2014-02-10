@@ -108,13 +108,16 @@ class TableService
 
     protected function addTagColumn(Tag $tag)
     {
+        $ordersTable = $this->getOrdersTable();
+
         $viewModel = $this->getDi()->newInstance(
             ViewModel::class,
             [
                 'variables' => [
-                    'value' => htmlentities($tag->getTag(), ENT_QUOTES)
+                    'id' => $ordersTable->getVariable('id'),
+                    'tag' => htmlentities($tag->getTag(), ENT_QUOTES)
                 ],
-                'template' => 'value'
+                'template' => 'orders/orders/table/header/tag'
             ]
         );
 
@@ -128,7 +131,7 @@ class TableService
             ]
         );
 
-        $this->getOrdersTable()->addColumn($column);
+        $ordersTable->addColumn($column);
     }
 
     /**
