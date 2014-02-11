@@ -27,12 +27,12 @@ define(function() {
     };
 
     Batch.prototype.action = function(element) {
-        var datatable = $(element).data('datatable');
+        this.datatable = $(element).data('datatable');
         if (!datatable) {
             return;
         }
 
-        var orders = $('#' + datatable).cgDataTable('selected', '.order-id');
+        var orders = $('#' + this.datatable).cgDataTable('selected', '.order-id');
         if (!orders.length) {
             return;
         }
@@ -54,9 +54,7 @@ define(function() {
     Batch.prototype.actionSuccess = function(data) {
         this.getNotifications().success('Orders successfully batched');
         this.redraw();
-        if (datatable) {
-            $('#' + datatable).cgDataTable('redraw');
-        }
+        $('#' + this.datatable).cgDataTable('redraw');
     };
 
     Batch.prototype.redraw = function() {
@@ -73,7 +71,7 @@ define(function() {
         var that = this;
         $(that.getSelector()).html('');
         $.each(data, function(index) {
-            $(that.getSelector()).append(that.getMustacheInstance().renderTemplate(template, data[index]));
+            $(that.getSelector()).append(that.getMustacheInstance().renderTemplate(that.getTemplate(), data[index]));
         });
     };
 
