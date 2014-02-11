@@ -12,6 +12,8 @@ use Orders\Filter\Service as FilterService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Order\Shared\Entity as OrderEntity;
 use Orders\Order\BulkActions\Service as BulkActionsService;
+use Orders\Module;
+use DirectoryIterator;
 
 class OrdersController extends AbstractActionController
 {
@@ -30,7 +32,8 @@ class OrdersController extends AbstractActionController
         FilterService $filterService,
         TimelineService $timelineService,
         BatchService $batchService,
-        BulkActionsService $bulkActionsService)
+        BulkActionsService $bulkActionsService
+    )
     {
         $this->setJsonModelFactory($jsonModelFactory)
             ->setViewModelFactory($viewModelFactory)
@@ -39,6 +42,17 @@ class OrdersController extends AbstractActionController
             ->setTimelineService($timelineService)
             ->setBatchService($batchService)
             ->setBulkActionsService($bulkActionsService);
+    }
+
+    protected function basePath()
+    {
+        $config = $this->getServiceLocator()->get('Config');
+        if (isset($config['view_manager'], $config['view_manager']['base_path'])) {
+            return $config['view_manager']['base_path'];
+        }
+        else {
+            return $this->getServiceLocator()->get('Request')->getBasePath();
+        }
     }
 
     public function setOrderService(OrderService $orderService)
@@ -123,9 +137,21 @@ class OrdersController extends AbstractActionController
     {
         $view = $this->getViewModelFactory()->newInstance();
 
+        $templateUrlMap = [];
+        $webRoot = PROJECT_ROOT . '/public';
+        $templates = new DirectoryIterator($webRoot . Module::PUBLIC_FOLDER . 'template/columns');
+        foreach ($templates as $template) {
+            if (!$template->isFile()) {
+                continue;
+            }
+            $templateUrlMap[$template->getBasename('.html')]
+                = $this->basePath() . str_replace($webRoot, '', $template->getPathname());
+        }
+
         $ordersTable = $this->getOrderService()->getOrdersTable();
         $settings = $ordersTable->getVariable('settings');
         $settings->setSource($this->url()->fromRoute('Orders/ajax'));
+        $settings->setTemplateUrlMap($templateUrlMap);
         $view->addChild($ordersTable, 'ordersTable');
 
         $bulkActions = $this->getBulkActionsService()->getBulkActions();
@@ -353,5 +379,38 @@ class OrdersController extends AbstractActionController
         }
 
         return $response->setVariable('tagged', true);
+    }
+
+    public function archiveAction()
+    {
+        $response = $this->getJsonModelFactory()->newInstance(['archived' => false]);
+
+        $ids = $this->params()->fromPost('orders');
+        if (!is_array($ids) || empty($ids)) {
+            return $response->setVariable('error', 'No Orders provided');
+        }
+
+        $filter = $this->getFilterService()->getFilter()
+            ->setLimit('all')
+            ->setPage(1)
+            ->setOrganisationUnitId($this->getOrderService()->getActiveUser()->getAvailableOrganisationUnitIds())
+            ->setId($ids);
+
+        try {
+            foreach($this->getOrderService()->getOrders($filter) as $order) {
+                try {
+                    $this->getOrderService()->archiveOrder($order->setArchived(true));
+                } catch (NotModified $exception) {
+                    // Not changed so ignore
+                }
+            }
+        } catch (NotFound $exception) {
+            return $response->setVariable(
+                'error',
+                'Order' . (count($ids) > 1 ? 's' : '') . ' could not be found'
+            );
+        }
+
+        return $response->setVariable('archived', true);
     }
 }
