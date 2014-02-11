@@ -28,29 +28,21 @@ $(document).on('click', '.batch-filter', function(e) {
     return false;
 });
 
-var templateUrl = '<?= $this->basePath() . Orders\Module::PUBLIC_FOLDER . 'template/row.html' ?>';
-var templateRowId = 'order-row';
-CGMustache.get().fetchTemplate(templateUrl, function(template, cgmustache)
-{
-    $("#datatable").on("fnCreatedRow", function (event, nRow, aData, iDisplayIndex, iDisplayIndexFull)
+$("#datatable").on("renderColumn", function(event, cgmustache, template, column, data) {
+    data.formatCurrency = cgmustache.formatCurrency(data);
+    data.formatDateTime = cgmustache.formatDateTime(data);
+    data.formatAdditionalOrderItems = function()
     {
-        aData.formatCurrency = cgmustache.formatCurrency(aData);
-        aData.formatDateTime = cgmustache.formatDateTime(aData);
-        aData.formatAdditionalOrderItems = function()
-        {
-            return function(variable, render) {
-                aData.extraItems = JSON.parse(JSON.stringify(aData.items));
-                aData.extraItems.splice(0, 1);
-                return render(variable);
-            };
+        return function(variable, render) {
+            data.extraItems = JSON.parse(JSON.stringify(data.items));
+            data.extraItems.splice(0, 1);
+            return render(variable);
         };
-        aData.order_url = Mustache.render("<?= urldecode($this->url('Orders/order', ['order' => '{{order}}'])) ?>", {order: aData.id});
-
-        var html = cgmustache.renderTemplate(template, aData, templateRowId);
-        $(nRow).html(html);
-    });
+    };
+    data.order_url = Mustache.render("<?= urldecode($this->url('Orders/order', ['order' => '{{order}}'])) ?>", {order: data.id});
 });
-$("#datatable").on("fnRowCallback", function(event, nRow, aData, iDataIndex) {
+
+$("#datatable").on("fnRowCallback", function(event, nRow, aData, iDisplayIndex, iDisplayIndexFull) {
     $("a.title", nRow).cgPjax();
 });
 <?php $this->inlineScript()->captureEnd(); ?>

@@ -10,6 +10,7 @@ use CG\Order\Service\UserChange\Service as UserChangeService;
 use CG\Order\Client\UserChange\Storage\Api as UserChangeApi;
 use CG\Order\Service\Service as OrderService;
 use CG\Order\Client\Storage\Api as OrderApi;
+use Zend\View\Model\ViewModel;
 
 return [
     'router' => [
@@ -179,6 +180,15 @@ return [
                             ]
                         ]
                     ],
+                    'archive' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/archive.json',
+                            'defaults' => [
+                                'action' => 'archive',
+                            ]
+                        ]
+                    ],
                 ],
             ],
         ],
@@ -226,20 +236,35 @@ return [
         'instance' => [
             'aliases' => [
                 'OrdersTable' => DataTable::class,
+                'OrdersCheckboxColumnView' => ViewModel::class,
                 'OrdersCheckboxColumn' => DataTable\Column::class,
+                'OrdersChannelColumnView' => ViewModel::class,
                 'OrdersChannelColumn' => DataTable\Column::class,
+                'OrdersAccountColumnView' => ViewModel::class,
                 'OrdersAccountColumn' => DataTable\Column::class,
+                'OrdersDateColumnView' => ViewModel::class,
                 'OrdersDateColumn' => DataTable\Column::class,
+                'OrdersIdColumnView' => ViewModel::class,
                 'OrdersIdColumn' => DataTable\Column::class,
+                'OrdersTotalColumnView' => ViewModel::class,
                 'OrdersTotalColumn' => DataTable\Column::class,
+                'OrdersBuyerColumnView' => ViewModel::class,
                 'OrdersBuyerColumn' => DataTable\Column::class,
+                'OrdersStatusColumnView' => ViewModel::class,
                 'OrdersStatusColumn' => DataTable\Column::class,
+                'OrdersBatchColumnView' => ViewModel::class,
                 'OrdersBatchColumn' => DataTable\Column::class,
+                'OrdersMessagesColumnView' => ViewModel::class,
                 'OrdersMessagesColumn' => DataTable\Column::class,
+                'OrdersShippingColumnView' => ViewModel::class,
                 'OrdersShippingColumn' => DataTable\Column::class,
+                'OrdersDispatchColumnView' => ViewModel::class,
                 'OrdersDispatchColumn' => DataTable\Column::class,
+                'OrdersPrintColumnView' => ViewModel::class,
                 'OrdersPrintColumn' => DataTable\Column::class,
+                'OrdersTagColumnView' => ViewModel::class,
                 'OrdersTagColumn' => DataTable\Column::class,
+                'OrdersOptionsColumnView' => ViewModel::class,
                 'OrdersOptionsColumn' => DataTable\Column::class,
             ],
             Service::class => [
@@ -273,106 +298,194 @@ return [
                     'OrdersOptionsColumn',
                 ],
             ],
+            'OrdersCheckboxColumnView' => [
+                'parameters' => [
+                    'template' => 'orders/orders/table/header/checkbox.phtml',
+                ],
+            ],
             'OrdersCheckboxColumn' => [
                 'parameters' => [
                     'column' => 'id',
-                    'html' => '<input type="checkbox" name="select-all" class="select-all" data-group="mainTable" />',
+                    'viewModel' => 'OrdersCheckboxColumnView',
                     'class' => 'checkbox',
                     'sortable' => false
+                ],
+            ],
+            'OrdersChannelColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Channel'],
+                    'template' => 'value.phtml',
                 ],
             ],
             'OrdersChannelColumn' => [
                 'parameters' => [
                     'column' => 'channel',
-                    'html' => 'Channel',
+                    'viewModel' => 'OrdersChannelColumnView',
                     'width' => 70,
+                ],
+            ],
+            'OrdersAccountColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Account'],
+                    'template' => 'value.phtml',
                 ],
             ],
             'OrdersAccountColumn' => [
                 'parameters' => [
                     'column' => 'accountId',
-                    'html' => 'Account',
+                    'viewModel' => 'OrdersAccountColumnView',
                     'width' => 50,
+                ],
+            ],
+            'OrdersDateColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Order Date'],
+                    'template' => 'value.phtml',
                 ],
             ],
             'OrdersDateColumn' => [
                 'parameters' => [
                     'column' => 'purchaseDate',
-                    'html' => 'Order Date',
+                    'viewModel' => 'OrdersDateColumnView',
                     'width' => 80,
+                ],
+            ],
+            'OrdersIdColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Order ID / Product Information'],
+                    'template' => 'value.phtml',
                 ],
             ],
             'OrdersIdColumn' => [
                 'parameters' => [
                     'column' => 'externalId',
-                    'html' => 'Order ID / Product Information',
+                    'viewModel' => 'OrdersIdColumnView',
+                ],
+            ],
+            'OrdersTotalColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Total'],
+                    'template' => 'value.phtml',
                 ],
             ],
             'OrdersTotalColumn' => [
                 'parameters' => [
                     'column' => 'total',
-                    'html' => 'Total',
+                    'viewModel' => 'OrdersTotalColumnView',
                     'width' => 50,
+                ],
+            ],
+            'OrdersBuyerColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Buyer'],
+                    'template' => 'value.phtml',
                 ],
             ],
             'OrdersBuyerColumn' => [
                 'parameters' => [
                     'column' => 'billingAddressFullName',
-                    'html' => 'Buyer',
+                    'viewModel' => 'OrdersBuyerColumnView',
                     'width' => 100,
+                ],
+            ],
+            'OrdersStatusColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Status'],
+                    'template' => 'value.phtml',
                 ],
             ],
             'OrdersStatusColumn' => [
                 'parameters' => [
                     'column' => 'status',
-                    'html' => 'Status',
+                    'viewModel' => 'OrdersStatusColumnView',
                     'class' => 'status-col',
+                ],
+            ],
+            'OrdersBatchColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Batch'],
+                    'template' => 'value.phtml',
                 ],
             ],
             'OrdersBatchColumn' => [
                 'parameters' => [
                     'column' => 'batch',
-                    'html' => 'Batch',
+                    'viewModel' => 'OrdersBatchColumnView',
                     'width' => 50,
+                ],
+            ],
+            'OrdersMessagesColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Messages'],
+                    'template' => 'value.phtml',
                 ],
             ],
             'OrdersMessagesColumn' => [
                 'parameters' => [
                     'column' => 'buyerMessage',
-                    'html' => 'Messages',
+                    'viewModel' => 'OrdersMessagesColumnView',
                     'width' => 50,
+                ],
+            ],
+            'OrdersShippingColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Shipping Method'],
+                    'template' => 'value.phtml',
                 ],
             ],
             'OrdersShippingColumn' => [
                 'parameters' => [
                     'column' => 'shippingMethod',
-                    'html' => 'Shipping Method',
+                    'viewModel' => 'OrdersShippingColumnView',
                     'width' => '100',
+                ],
+            ],
+            'OrdersDispatchColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Dispatch'],
+                    'template' => 'value.phtml',
                 ],
             ],
             'OrdersDispatchColumn' => [
                 'parameters' => [
                     'column' => 'dispatchDate',
-                    'html' => 'Dispatch',
+                    'viewModel' => 'OrdersDispatchColumnView',
                     'class' => 'actions',
+                ],
+            ],
+            'OrdersPrintColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Print'],
+                    'template' => 'value.phtml',
                 ],
             ],
             'OrdersPrintColumn' => [
                 'parameters' => [
                     'column' => 'printedDate',
-                    'html' => 'Print',
+                    'viewModel' => 'OrdersPrintColumnView',
                     'class' => 'actions',
+                ],
+            ],
+            'OrdersTagColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Tag'],
+                    'template' => 'value.phtml',
                 ],
             ],
             'OrdersTagColumn' => [
                 'parameters' => [
                     'column' => 'tag',
-                    'html' => 'Tag'
+                    'viewModel' => 'OrdersTagColumnView'
                 ]
+            ],
+            'OrdersOptionsColumnView' => [
+                'parameters' => [
+                    'template' => 'orders/orders/table/header/columnPicker.phtml',
+                ],
             ],
             'OrdersOptionsColumn' => [
                 'parameters' => [
-                    'html' => '<span class="icon-med cog">Options</span>',
+                    'viewModel' => 'OrdersOptionsColumnView',
                     'class' => 'options',
                     'defaultContent' => '',
                 ],

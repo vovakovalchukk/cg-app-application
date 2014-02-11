@@ -16,6 +16,7 @@ return [
                 'RemoveBatchBulkAction' => BulkActions\SubAction::class,
                 'TagJavascript' => ViewModel::class,
                 'BatchJavascript' => ViewModel::class,
+                'ArchiveJavascript' => ViewModel::class,
                 'UrlDataView' => ViewModel::class,
             ],
             Service::class => [
@@ -38,7 +39,7 @@ return [
                     BulkActions\DownloadAction::class,
                     BulkActions\CourierAction::class,
                     Action\Batch::class,
-                    BulkActions\ArchiveAction::class,
+                    Action\Archive::class
                 ],
             ],
             'OrderDetailBulkActions' => [
@@ -120,6 +121,20 @@ return [
                 'parameters' => [
                     'title' => 'Remove',
                     'action' => 'remove-from-batch'
+                ],
+            ],
+            Action\Archive::class => [
+                'parameters' => [
+                    'urlView' => 'UrlDataView',
+                    'elementData' => [
+                        'datatable' => 'datatable',
+                    ],
+                    'javascript' => 'ArchiveJavascript',
+                ],
+            ],
+            'ArchiveJavascript' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/archive.js',
                 ],
             ],
             'UrlDataView' => [

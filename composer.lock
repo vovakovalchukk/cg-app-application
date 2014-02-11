@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "46b37abf738cfd76e44db7253ce69ddc",
+    "hash": "3a498516c08d968660e0b22f88b05331",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -470,13 +470,6 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -632,13 +625,6 @@
                 "predis/predis": "v0.8.3"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Predis\\": ""
@@ -728,13 +714,6 @@
                 "zendframework/zend-session": "2.2.*"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Sso\\": ""
@@ -883,13 +862,6 @@
                 "zendframework/zend-view": "2.2.*"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Zend\\Hal": ""
@@ -1122,17 +1094,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.1.22",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "7fe7d653411d5e259821081ab22c0de532ae9143"
+                "reference": "a5471a808354c147045cd40bedb27eb6efc85058"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.1.22-77c84e.zip",
-                "reference": "7fe7d653411d5e259821081ab22c0de532ae9143",
-                "shasum": "449338ee3f12ec970caf54bf616199a62146595b"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.2.1-e6f206.zip",
+                "reference": "a5471a808354c147045cd40bedb27eb6efc85058",
+                "shasum": "4ad7f87b870c21d498b65b407e11220809d96ba6"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1157,7 +1129,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-02-06 17:10:48"
+            "time": "2014-02-10 17:07:59"
         },
         {
             "name": "cilex/cilex",
@@ -1860,12 +1832,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/phpspec.git",
-                "reference": "785ceefa9c8bae7db41af3d1263850530526a389"
+                "reference": "44ba2ef07a4eebf146ce619f5f9f53d890226c7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/785ceefa9c8bae7db41af3d1263850530526a389",
-                "reference": "785ceefa9c8bae7db41af3d1263850530526a389",
+                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/44ba2ef07a4eebf146ce619f5f9f53d890226c7a",
+                "reference": "44ba2ef07a4eebf146ce619f5f9f53d890226c7a",
                 "shasum": ""
             },
             "require": {
@@ -1924,7 +1896,7 @@
                 "testing",
                 "tests"
             ],
-            "time": "2014-02-03 20:18:27"
+            "time": "2014-02-07 07:18:35"
         },
         {
             "name": "phpspec/prophecy",
@@ -2227,16 +2199,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "3.7.30",
+            "version": "3.7.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "2f33258fa5a0c330515b7deba2bc040fa5c3953b"
+                "reference": "d24e9877331039582497052cc3c4d9f465b88210"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/2f33258fa5a0c330515b7deba2bc040fa5c3953b",
-                "reference": "2f33258fa5a0c330515b7deba2bc040fa5c3953b",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/d24e9877331039582497052cc3c4d9f465b88210",
+                "reference": "d24e9877331039582497052cc3c4d9f465b88210",
                 "shasum": ""
             },
             "require": {
@@ -2297,7 +2269,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-01-31 08:54:33"
+            "time": "2014-02-03 07:46:27"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -2610,7 +2582,7 @@
             ],
             "authors": [
                 {
-                    "name": "Fabien Potencier",
+                    "name": "Fabien Potencier2",
                     "email": "fabien@symfony.com"
                 },
                 {
@@ -2808,7 +2780,7 @@
             ],
             "authors": [
                 {
-                    "name": "Fabien Potencier",
+                    "name": "Fabien Potencier2",
                     "email": "fabien@symfony.com"
                 },
                 {
@@ -3339,13 +3311,6 @@
                 "shasum": "a2dae86e29d9bacdd301dc2cebd87f96ccb4a8eb"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Codeception\\": ""
