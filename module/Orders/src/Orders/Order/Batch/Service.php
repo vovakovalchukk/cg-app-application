@@ -10,6 +10,7 @@ use CG\Order\Shared\StorageInterface as OrderInterface;
 use Zend\Di\Di;
 use Guzzle\Common\Exception\GuzzleException;
 use Predis\Client as PredisClient;
+use CG\Stdlib\Exception\Runtime\RequiredKeyMissing;
 
 class Service
 {
@@ -25,8 +26,11 @@ class Service
     const DEFAULT_INCLUDE_ARCHIVED = 1;
     const BATCH_KEY = "BatchIncrement-";
 
-    public function __construct(OrganisationUnitService $organisationUnitService, BatchInterface $batchClient,
-                                OrderInterface $orderClient, Di $di, PredisClient $redisClient)
+    public function __construct(OrganisationUnitService $organisationUnitService,
+                                BatchInterface $batchClient,
+                                OrderInterface $orderClient,
+                                Di $di,
+                                PredisClient $redisClient)
     {
         $this->setOrganisationUnitService($organisationUnitService)
             ->setBatchClient($batchClient)
@@ -50,16 +54,39 @@ class Service
 
     public function create($orderIds)
     {
+        if (!is_array($orderIds) || empty($orderIds)) {
+            throw new RequiredKeyMissing('No Orders provided');
+        }
+        $batch = $this->createBatch();
+        $this->updateOrders($batch->getName(), $orderIds);
+    }
+
+    public function unsetBatch($orderIds)
+    {
+        if (!is_array($orderIds) || empty($orderIds)) {
+            throw new RequiredKeyMissing('No Orders provided');
+        }
+
+        $this->updateOrders(null, $orderIds);
+    }
+
+    protected function createBatch()
+    {
         $userEntity = $this->getOrganisationUnitService()->getActiveUser();
         $rootOu = $this->getOrganisationUnitService()->getRootOu();
         $id = $this->getRedisClient()->incr(static::BATCH_KEY . $rootOu);
         $batch = $this->getDi()->get(BatchEntity::class, array(
             "organisationUnitId" => $userEntity->getOrganisationUnitId(),
             "active" => true,
-            "id" => $rootOu . "-" . $id,
+            "id" => $this->generateBatchId($rootOu, $id),
             "name" => (string) $id
         ));
         $batch = $this->getBatchClient()->save($batch);
+        return $batch;
+    }
+
+    protected function updateOrders($batch, array $orderIds)
+    {
         $organisationUnitIds = $this->getOrganisationUnitService()->getAncestorOrganisationUnitIds();
         $filterEntity = $this->getDi()->get(Filter::class, array(
             "limit" => "all",
@@ -70,10 +97,14 @@ class Service
         ));
         $orders = $this->getOrderClient()->fetchCollectionByFilter($filterEntity);
         foreach ($orders as $order) {
-            $order->setStoredEtag($order->getEtag());
-            $order->setBatch($batch->getName());
-            $this->getOrderClient()->save($order);
+            $order->setBatch($batch);
         }
+        $this->getOrderClient()->saveCollection($orders);
+    }
+
+    protected function generateBatchId($rootOu, $increment)
+    {
+        return $rootOu . "-" . $increment;
     }
 
     public function delete($batchId)

@@ -4,6 +4,7 @@ namespace Orders\Controller;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
 use Orders\Order\Batch\Service as BatchService;
+use CG\Stdlib\Exception\Runtime\RequiredKeyMissing;
 
 class BatchController extends AbstractActionController
 {
@@ -28,10 +29,25 @@ class BatchController extends AbstractActionController
     {
         $response = $this->getJsonModelFactory()->newInstance();
         $ids = $this->params()->fromPost('orders');
-        if (!is_array($ids) || empty($ids)) {
-            return $response->setVariable('error', 'No Orders provided');
+        try {
+            $this->getBatchService()->create($ids);
+        } catch (RequiredKeyMissing $e) {
+            return $response->setVariable('error', $e->getMessage());
         }
-        $this->getBatchService()->create($ids);
+        return $response;
+    }
+
+    public function unsetAction()
+    {
+        $response = $this->getJsonModelFactory()->newInstance();
+        $ids = $this->params()->fromPost('orders');
+        try {
+            $this->getBatchService()->unsetBatch($ids);
+        } catch (RequiredKeyMissing $e) {
+            return $response->setVariable('error', $e->getMessage());
+        } catch (\Exception $e) {
+            echo $e->getPrevious()->getResponse()->getMessage();
+        }
         return $response;
     }
 

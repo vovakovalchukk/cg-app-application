@@ -31,7 +31,7 @@ return [
                     'ajax' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [
-                            'route' => '.json',
+                            'route' => '/ajax',
                             'defaults' => [
                                 'action' => 'json',
                             ]
@@ -58,6 +58,16 @@ return [
                                 ),
                                 'may_terminate' => true
                             ),
+                            'unset' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/unset',
+                                    'defaults' => [
+                                        'action' => 'unset'
+                                    ]
+                                ],
+                                'may_terminate' => true
+                            ],
                             'delete' => array(
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => array(
@@ -174,7 +184,7 @@ return [
                     'tag' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [
-                            'route' => '/tag.json',
+                            'route' => '/tag',
                             'defaults' => [
                                 'action' => 'tag',
                             ]
@@ -183,7 +193,7 @@ return [
                     'archive' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [
-                            'route' => '/archive.json',
+                            'route' => '/archive',
                             'defaults' => [
                                 'action' => 'archive',
                             ]
