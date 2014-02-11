@@ -120,7 +120,16 @@ return [
             'RemoveBatchBulkAction' => [
                 'parameters' => [
                     'title' => 'Remove',
-                    'action' => 'remove-from-batch'
+                    'action' => 'remove',
+                    'elementData' => [
+                        'datatable' => 'datatable'
+                    ],
+                    'javascript' => 'BatchRemoveJavascript'
+                ],
+            ],
+            'BatchRemoveJavascript' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/batch.js',
                 ],
             ],
             Action\Archive::class => [
