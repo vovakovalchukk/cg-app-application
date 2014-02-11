@@ -17,7 +17,9 @@ return [
                 'TagJavascript' => ViewModel::class,
                 'BatchJavascript' => ViewModel::class,
                 'ArchiveJavascript' => ViewModel::class,
-                'UrlDataView' => ViewModel::class,
+                'UrlDataViewTag' => ViewModel::class,
+                'UrlDataViewArchive' => ViewModel::class,
+                'UrlDataViewBatch' => ViewModel::class
             ],
             Service::class => [
                 'parameters' => [
@@ -77,7 +79,7 @@ return [
             ],
             Action\Tag::class => [
                 'parameters' => [
-                    'urlView' => 'UrlDataView',
+                    'urlView' => 'UrlDataViewTag',
                     'elementData' => [
                         'datatable' => 'datatable',
                     ],
@@ -102,7 +104,7 @@ return [
             ],
             Action\Batch::class => [
                 'parameters' => [
-                    'urlView' => 'UrlDataView',
+                    'urlView' => 'UrlDataViewBatch',
                     'elementData' => [
                         'datatable' => 'datatable'
                     ],
@@ -121,11 +123,11 @@ return [
                 'parameters' => [
                     'title' => 'Remove',
                     'action' => 'remove-from-batch'
-                ],
+                ]
             ],
             Action\Archive::class => [
                 'parameters' => [
-                    'urlView' => 'UrlDataView',
+                    'urlView' => 'UrlDataViewArchive',
                     'elementData' => [
                         'datatable' => 'datatable',
                     ],
@@ -137,7 +139,17 @@ return [
                     'template' => 'orders/orders/bulk-actions/archive.js',
                 ],
             ],
-            'UrlDataView' => [
+            'UrlDataViewTag' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/data-url',
+                ],
+            ],
+            'UrlDataViewArchive' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/data-url',
+                ],
+            ],
+            'UrlDataViewBatch' => [
                 'parameters' => [
                     'template' => 'orders/orders/bulk-actions/data-url',
                 ],

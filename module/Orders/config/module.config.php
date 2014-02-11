@@ -31,7 +31,7 @@ return [
                     'ajax' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [
-                            'route' => '.json',
+                            'route' => '/ajax',
                             'defaults' => [
                                 'action' => 'json',
                             ]
@@ -174,7 +174,7 @@ return [
                     'tag' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [
-                            'route' => '/tag.json',
+                            'route' => '/tag',
                             'defaults' => [
                                 'action' => 'tag',
                             ]
@@ -183,7 +183,7 @@ return [
                     'archive' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [
-                            'route' => '/archive.json',
+                            'route' => '/archive',
                             'defaults' => [
                                 'action' => 'archive',
                             ]
