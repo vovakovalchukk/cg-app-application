@@ -79,9 +79,8 @@ class TableService
     public function setOrdersTable(DataTable $ordersTable)
     {
         if ($this->ordersTable === $ordersTable) {
-            return;
+            return $this;
         }
-
         $this->ordersTable = $ordersTable;
         $this->configureOrdersTable();
         return $this;
