@@ -39,7 +39,11 @@ return [
                     'batch' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => array(
-                            'route'    => '/batch'
+                            'route'    => '/batch',
+                            'defaults' => array(
+                                'controller' => 'Orders\Controller\Batch',
+                                'action'     => 'index',
+                            ),
                         ),
                         'may_terminate' => true,
                         'child_routes' => array(
@@ -48,7 +52,6 @@ return [
                                 'options' => array(
                                     'route'    => '/create',
                                     'defaults' => array(
-                                        'controller' => 'Orders\Controller\Batch',
                                         'action'     => 'create',
                                     ),
                                 ),
@@ -59,7 +62,6 @@ return [
                                 'options' => array(
                                     'route'    => '/delete',
                                     'defaults' => array(
-                                        'controller' => 'Orders\Controller\Batch',
                                         'action'     => 'delete',
                                     ),
                                 ),
@@ -71,6 +73,9 @@ return [
                         'type' => 'Zend\Mvc\Router\Http\Segment',
                         'options' => [
                             'route' => '/:order',
+                            'constraints' => [
+                                'order' => '[0-9]*\-[a-zA-Z0-9_-]*'
+                            ],
                             'defaults' => [
                                 'action' => 'order',
                             ]

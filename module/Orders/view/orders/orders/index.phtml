@@ -3,7 +3,7 @@ $("#datatable").on("fnServerData", function(event, sSource, aoData, fnCallback, 
     $("#filters input[name], #filters select[name]").each(function() {
         aoData.push({"name": "filter[" + $(this).attr("name") + "]", "value": $(this).val()});
     });
-    aoData.push({"name": "batch", "value": $('#hidden_batch_filter').val()});
+    aoData.push({"name": "filter[batch]", "value": $('#hidden_batch_filter').val()});
 });
 
 $("#filters input[name='apply-filters']").on("click", function() {
@@ -12,17 +12,19 @@ $("#filters input[name='apply-filters']").on("click", function() {
 
 $("#filters input[name='clear-filters']").on("click", function() {
     $("#filters input[name][type!='button'], #filters select[name]").val(undefined);
+    $('#hidden_batch_filter').val("");
     $("#datatable").cgDataTable("redraw");
 });
 
 function batchFilter(batchId) {
+    $("#filters input[name][type!='button'], #filters select[name]").val(undefined);
     $('#hidden_batch_filter').val(batchId);
-    $("#filters input[name='clear-filters']").click();
+    $("#datatable").cgDataTable("redraw");
 }
 
 $(document).on('click', '.batch-filter', function(e) {
     e.preventDefault();
-    batchFilter($(this).attr('data-batch-id'));
+    batchFilter($(this).attr('data-name'));
     return false;
 });
 

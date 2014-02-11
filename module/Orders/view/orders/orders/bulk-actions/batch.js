@@ -6,7 +6,7 @@ require.config({
 require(
     ["batch"],
     function(Batch) {
-        var batchBulkAction = new Batch(n);
+        var batchBulkAction = new Batch(n, '#batch', CGMustache);
         $("#<?= $id ?>").bulkActions("set", "<?= $action ?>", batchBulkAction.action);
     }
 );

@@ -1,16 +1,27 @@
 <?php
 namespace Orders\Controller;
 
+use CG_UI\View\Prototyper\JsonModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
 use Orders\Order\Batch\Service as BatchService;
 
 class BatchController extends AbstractActionController
 {
+    protected $jsonModelFactory;
     protected $batchService;
 
-    public function __construct(BatchService $batchService)
+    public function __construct(JsonModelFactory $jsonModelFactory, BatchService $batchService)
     {
-        $this->setBatchService($batchService);
+        $this->setJsonModelFactory($jsonModelFactory)
+            ->setBatchService($batchService);
+    }
+
+    public function indexAction()
+    {
+        $response = $this->getJsonModelFactory()->newInstance();
+        $batches = $this->getBatchService()->getBatches();
+        $response->setVariables($batches);
+        return $response;
     }
 
     public function createAction()
@@ -38,5 +49,16 @@ class BatchController extends AbstractActionController
     public function getBatchService()
     {
         return $this->batchService;
+    }
+
+    public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
+    {
+        $this->jsonModelFactory = $jsonModelFactory;
+        return $this;
+    }
+
+    public function getJsonModelFactory()
+    {
+        return $this->jsonModelFactory;
     }
 }

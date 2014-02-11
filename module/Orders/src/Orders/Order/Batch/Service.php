@@ -9,6 +9,7 @@ use CG\Order\Shared\Batch\Entity as BatchEntity;
 use CG\Order\Shared\StorageInterface as OrderInterface;
 use Zend\Di\Di;
 use Guzzle\Common\Exception\GuzzleException;
+use Predis\Client as PredisClient;
 
 class Service
 {
@@ -16,19 +17,22 @@ class Service
     protected $batchClient;
     protected $orderClient;
     protected $di;
+    protected $redisClient;
 
-    const DEFAULT_LIMIT = 10;
+    const DEFAULT_LIMIT = "all";
     const DEFAULT_PAGE = 1;
     const ACTIVE = true;
     const DEFAULT_INCLUDE_ARCHIVED = 1;
+    const BATCH_KEY = "BatchIncrement-";
 
     public function __construct(OrganisationUnitService $organisationUnitService, BatchInterface $batchClient,
-                                OrderInterface $orderClient, Di $di)
+                                OrderInterface $orderClient, Di $di, PredisClient $redisClient)
     {
         $this->setOrganisationUnitService($organisationUnitService)
             ->setBatchClient($batchClient)
             ->setOrderClient($orderClient)
-            ->setDi($di);
+            ->setDi($di)
+            ->setRedisClient($redisClient);
     }
 
     public function getBatches()
@@ -37,32 +41,37 @@ class Service
         try {
             $batchCollection = $this->getBatchClient()->fetchCollectionByPagination(static::DEFAULT_LIMIT,
                 static::DEFAULT_PAGE, $organisationUnitIds, static::ACTIVE);
+            $batches = $batchCollection->toArray();
         } catch (NotFound $exception) {
-            $batchCollection = new \SplObjectStorage();
+            $batches = array();
         }
-        return $batchCollection;
+        return $batches;
     }
 
     public function create($orderIds)
     {
         $userEntity = $this->getOrganisationUnitService()->getActiveUser();
+        $rootOu = $this->getOrganisationUnitService()->getRootOu();
+        $id = $this->getRedisClient()->incr(static::BATCH_KEY . $rootOu);
         $batch = $this->getDi()->get(BatchEntity::class, array(
             "organisationUnitId" => $userEntity->getOrganisationUnitId(),
-            "active" => true
+            "active" => true,
+            "id" => $rootOu . "-" . $id,
+            "name" => (string) $id
         ));
         $batch = $this->getBatchClient()->save($batch);
-
         $organisationUnitIds = $this->getOrganisationUnitService()->getAncestorOrganisationUnitIds();
         $filterEntity = $this->getDi()->get(Filter::class, array(
             "limit" => "all",
             "page" => static::DEFAULT_PAGE,
             "id" => $orderIds,
-            //"organisationUnitIds" => $organisationUnitIds,
+            "organisationUnitIds" => $organisationUnitIds,
             "includeArchived" => static::DEFAULT_INCLUDE_ARCHIVED,
         ));
         $orders = $this->getOrderClient()->fetchCollectionByFilter($filterEntity);
         foreach ($orders as $order) {
-            $order->setBatch($batch->getId());
+            $order->setStoredEtag($order->getEtag());
+            $order->setBatch($batch->getName());
             $this->getOrderClient()->save($order);
         }
     }
@@ -115,5 +124,16 @@ class Service
     public function getDi()
     {
         return $this->di;
+    }
+
+    public function setRedisClient(PredisClient $redisClient)
+    {
+        $this->redisClient = $redisClient;
+        return $this;
+    }
+
+    public function getRedisClient()
+    {
+        return $this->redisClient;
     }
 }
