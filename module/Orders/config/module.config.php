@@ -38,6 +38,7 @@ return [
                     ],
                     'order' => [
                         'type' => 'Zend\Mvc\Router\Http\Segment',
+                        'priority' => -100,
                         'options' => [
                             'route' => '/:order',
                             'defaults' => [
