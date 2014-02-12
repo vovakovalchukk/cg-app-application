@@ -194,6 +194,20 @@ return [
         ),
     ),
     'di' => [
+        'definition' => [
+            'class' => [
+                TableService::class => [
+                    'methods' => [
+                        'addOrderTableModifier' => [
+                            'orderTableModifier' => [
+                                'type' => TableService\OrdersTableModifierInterface::class,
+                                'required' => true,
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
         'instance' => [
             'aliases' => [
                 'OrdersTable' => DataTable::class,
