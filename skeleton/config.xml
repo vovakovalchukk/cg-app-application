@@ -11,6 +11,16 @@
         <box>cg-precise64-php55</box>
     </Vagrant>
     <ROLE>orders</ROLE>
+    <Module>
+        <Redis>
+            <enabled>1</enabled>
+            <Adapters>
+                <reliable>1</reliable>
+            </Adapters>
+            <predis-predis>~0.8.3</predis-predis>
+            <channelgrabber-predis>~1.0.1</channelgrabber-predis>
+        </Redis>
+    </Module>
     <Environment>
         <Local>
             <node>orders</node>

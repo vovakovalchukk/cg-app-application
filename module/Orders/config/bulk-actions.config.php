@@ -15,8 +15,11 @@ return [
                 'RoyalMailBulkAction' => BulkActions\SubAction::class,
                 'RemoveBatchBulkAction' => BulkActions\SubAction::class,
                 'TagJavascript' => ViewModel::class,
+                'BatchJavascript' => ViewModel::class,
                 'ArchiveJavascript' => ViewModel::class,
-                'UrlDataView' => ViewModel::class,
+                'UrlDataViewTag' => ViewModel::class,
+                'UrlDataViewArchive' => ViewModel::class,
+                'UrlDataViewBatch' => ViewModel::class
             ],
             Service::class => [
                 'parameters' => [
@@ -37,8 +40,8 @@ return [
                     Action\Tag::class,
                     BulkActions\DownloadAction::class,
                     BulkActions\CourierAction::class,
-                    BulkActions\BatchAction::class,
-                    Action\Archive::class,
+                    Action\Batch::class,
+                    Action\Archive::class
                 ],
             ],
             'OrderDetailBulkActions' => [
@@ -76,7 +79,7 @@ return [
             ],
             Action\Tag::class => [
                 'parameters' => [
-                    'urlView' => 'UrlDataView',
+                    'urlView' => 'UrlDataViewTag',
                     'elementData' => [
                         'datatable' => 'datatable',
                     ],
@@ -99,20 +102,32 @@ return [
                     'action' => 'royal-mail-csv'
                 ],
             ],
-            BulkActions\BatchAction::class => [
+            Action\Batch::class => [
+                'parameters' => [
+                    'urlView' => 'UrlDataViewBatch',
+                    'elementData' => [
+                        'datatable' => 'datatable'
+                    ],
+                    'javascript' => 'BatchJavascript',
+                ],
                 'injections' => [
                     'RemoveBatchBulkAction',
+                ],
+            ],
+            'BatchJavascript' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/batch.js',
                 ],
             ],
             'RemoveBatchBulkAction' => [
                 'parameters' => [
                     'title' => 'Remove',
                     'action' => 'remove-from-batch'
-                ],
+                ]
             ],
             Action\Archive::class => [
                 'parameters' => [
-                    'urlView' => 'UrlDataView',
+                    'urlView' => 'UrlDataViewArchive',
                     'elementData' => [
                         'datatable' => 'datatable',
                     ],
@@ -124,7 +139,17 @@ return [
                     'template' => 'orders/orders/bulk-actions/archive.js',
                 ],
             ],
-            'UrlDataView' => [
+            'UrlDataViewTag' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/data-url',
+                ],
+            ],
+            'UrlDataViewArchive' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/data-url',
+                ],
+            ],
+            'UrlDataViewBatch' => [
                 'parameters' => [
                     'template' => 'orders/orders/bulk-actions/data-url',
                 ],

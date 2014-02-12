@@ -24,6 +24,7 @@ use CG\Order\Client\Batch\Storage\Api as OrderBatchApiClient;
 use CG\OrganisationUnit\Storage\Api as OrganisationUnitClient;
 use Zend\Session\ManagerInterface as SessionManagerInterface;
 use Zend\Session\SessionManager;
+use Orders\Order\Batch\Service as OrderBatchService;
 
 return array(
     'service_manager' => array(
@@ -81,21 +82,31 @@ return array(
                     'client' => 'cg_app_guzzle'
                 ]
             ],
+            OrderBatchService::class => [
+                'parameters' => [
+                    'redisClient' => 'reliable_redis'
+                ]
+            ],
+            OrderBatchApiClient::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
             OrderTagApiClient::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
                 ]
             ],
-            OrderBatchApiClient::class => array(
+            OrderBatchApiClient::class => [
                 'parameter' => array(
                     'client' => 'cg_app_guzzle'
                 )
-            ),
-            OrganisationUnitClient::class => array(
-                'parameter' => array(
+            ],
+            OrganisationUnitClient::class => [
+                'parameter' => [
                     'client' => 'CGDirectoryApi_guzzle'
-                )
-            ),
+                ]
+            ]
         ),
     )
 );
