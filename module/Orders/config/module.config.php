@@ -246,6 +246,9 @@ return [
                 'parameters' => [
                     'ordersTable' => 'OrdersTable',
                 ],
+                'injections' => [
+                    TableService\OrdersTableTagColumns::class,
+                ],
             ],
             'OrdersTable' => [
                 'parameters' => [
