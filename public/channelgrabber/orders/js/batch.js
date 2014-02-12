@@ -28,7 +28,7 @@ define(function() {
 
     Batch.prototype.action = function(element) {
         this.datatable = $(element).data('datatable');
-        if (!datatable) {
+        if (!this.datatable) {
             return;
         }
 
@@ -46,7 +46,7 @@ define(function() {
             context: this,
             success : this.actionSuccess,
             error: function (error, textStatus, errorThrown) {
-                return notifications.ajaxError(error, textStatus, errorThrown);
+                return this.getNotifications().ajaxError(error, textStatus, errorThrown);
             }
         });
     };
@@ -73,6 +73,36 @@ define(function() {
         $.each(data, function(index) {
             $(that.getSelector()).append(that.getMustacheInstance().renderTemplate(that.getTemplate(), data[index]));
         });
+    };
+
+    Batch.prototype.remove = function(element) {
+        this.datatable = $(element).data('datatable');
+        if (!this.datatable) {
+            return;
+        }
+
+        var orders = $('#' + this.datatable).cgDataTable('selected', '.order-id');
+        if (!orders.length) {
+            return;
+        }
+
+        this.getNotifications().notice('Removing orders from batch');
+        $.ajax({
+            url: $(element).data('url'),
+            type: 'POST',
+            dataType: 'json',
+            data: {'orders': orders},
+            context: this,
+            success : this.removeSuccess,
+            error: function (error, textStatus, errorThrown) {
+                return this.getNotifications().ajaxError(error, textStatus, errorThrown);
+            }
+        });
+    };
+
+    Batch.prototype.removeSuccess = function(data) {
+        this.getNotifications().success('Orders removed from batched');
+        $('#' + this.datatable).cgDataTable('redraw');
     };
 
     return Batch;

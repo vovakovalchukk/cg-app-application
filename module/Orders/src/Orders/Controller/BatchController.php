@@ -37,6 +37,20 @@ class BatchController extends AbstractActionController
         return $response;
     }
 
+    public function unsetAction()
+    {
+        $response = $this->getJsonModelFactory()->newInstance();
+        $ids = $this->params()->fromPost('orders');
+        try {
+            $this->getBatchService()->unsetBatch($ids);
+        } catch (RequiredKeyMissing $e) {
+            return $response->setVariable('error', $e->getMessage());
+        } catch (\Exception $e) {
+            echo $e->getPrevious()->getResponse()->getMessage();
+        }
+        return $response;
+    }
+
     public function deleteAction($batchId)
     {
         $this->getBatchService()->delete($batchId);

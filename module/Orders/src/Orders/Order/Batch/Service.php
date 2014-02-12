@@ -58,7 +58,16 @@ class Service
             throw new RequiredKeyMissing('No Orders provided');
         }
         $batch = $this->createBatch();
-        $this->updateOrders($batch, $orderIds);
+        $this->updateOrders($orderIds, $batch->getName());
+    }
+
+    public function unsetBatch($orderIds)
+    {
+        if (!is_array($orderIds) || empty($orderIds)) {
+            throw new RequiredKeyMissing('No Orders provided');
+        }
+
+        $this->updateOrders($orderIds);
     }
 
     protected function createBatch()
@@ -76,7 +85,7 @@ class Service
         return $batch;
     }
 
-    protected function updateOrders(BatchEntity $batch, array $orderIds)
+    protected function updateOrders(array $orderIds, $batch = null)
     {
         $organisationUnitIds = $this->getOrganisationUnitService()->getAncestorOrganisationUnitIds();
         $filterEntity = $this->getDi()->get(Filter::class, array(
@@ -88,7 +97,7 @@ class Service
         ));
         $orders = $this->getOrderClient()->fetchCollectionByFilter($filterEntity);
         foreach ($orders as $order) {
-            $order->setBatch($batch->getName());
+            $order->setBatch($batch);
         }
         $this->getOrderClient()->saveCollection($orders);
     }

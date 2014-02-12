@@ -58,6 +58,16 @@ return [
                                 ),
                                 'may_terminate' => true
                             ),
+                            'unset' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/unset',
+                                    'defaults' => [
+                                        'action' => 'unset'
+                                    ]
+                                ],
+                                'may_terminate' => true
+                            ],
                             'delete' => array(
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => array(
