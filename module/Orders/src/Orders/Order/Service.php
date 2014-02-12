@@ -17,9 +17,12 @@ use CG\User\Service as UserService;
 use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Note\Collection as OrderNoteCollection;
 use CG\Order\Shared\UserChange\Entity as UserChangeEntity;
+use CG\UserPreference\Client\Service as UserPreferenceService;
 
 class Service
 {
+    const ORDER_TABLE_COL_PREF_KEY = 'order-columns';
+
     protected $ordersTable;
     protected $orderClient;
     protected $userService;
@@ -31,7 +34,8 @@ class Service
         StorageInterface $orderClient,
         UserService $userService,
         ActiveUserInterface $activeUserContainer,
-        Di $di
+        Di $di,
+        UserPreferenceService $userPreferenceService
     )
     {
         $this
@@ -39,7 +43,9 @@ class Service
             ->setOrderClient($orderClient)
             ->setUserService($userService)
             ->setActiveUserContainer($activeUserContainer)
-            ->setDi($di);
+            ->setDi($di)
+            ->setUserPreferenceService($userPreferenceService)
+            ->configureOrderTable();
     }
 
     public function setDi(Di $di)
@@ -110,6 +116,17 @@ class Service
     public function getOrder($orderId)
     {
         return $this->getOrderClient()->fetch($orderId);
+    }
+
+    public function setUserPreferenceService(UserPreferenceService $userPreferenceService)
+    {
+        $this->userPreferenceService = $userPreferenceService;
+        return $this;
+    }
+
+    public function getUserPreferenceService()
+    {
+        return $this->userPreferenceService;
     }
 
     public function getOrderItemTable(Entity $order)
@@ -193,5 +210,32 @@ class Service
     public function archiveOrder(Order $entity)
     {
         return $this->getOrderClient()->archive($entity);
+    }
+
+    protected function configureOrderTable()
+    {
+        $columns = $this->getOrdersTable()->getColumns();
+        $associativeColumns = [];
+        foreach ($columns as $column) {
+            $associativeColumns[$column->getColumn()] = $column;
+        }
+        $columnPrefs = $this->fetchUserPrefOrderColumns();
+        foreach ($columnPrefs as $name => $on) {
+            if (isset($associativeColumns[$name]) && (!$on || $on === 'false')) {
+                $associativeColumns[$name]->setVisible(false);
+            }
+        }
+
+        return $this;
+    }
+
+    protected function fetchUserPrefOrderColumns()
+    {
+        $activeUserId = $this->getActiveUser()->getId();
+        $columnPrefKey = static::ORDER_TABLE_COL_PREF_KEY;
+        $userPrefs = $this->getUserPreferenceService()->fetch($activeUserId);
+        $userPrefsPref = $userPrefs->getPreference();
+        $storedColumns = (isset($userPrefsPref[$columnPrefKey]) ? $userPrefsPref[$columnPrefKey] : []);
+        return $storedColumns;
     }
 }
