@@ -28,6 +28,7 @@ class Service
     protected $userService;
     protected $activeUserContainer;
     protected $di;
+    protected $activeUserPreference;
 
     public function __construct(
         DataTable $ordersTable,
@@ -129,6 +130,16 @@ class Service
         return $this->userPreferenceService;
     }
 
+    protected function getActiveUserPreference()
+    {
+        if (!isset($this->activeUserPreference)) {
+            $activeUserId = $this->getActiveUser()->getId();
+            $this->activeUserPreference = $this->getUserPreferenceService()->fetch($activeUserId);
+        }
+
+        return $this->activeUserPreference;
+    }
+
     public function getOrderItemTable(Entity $order)
     {
         $getDiscountTotal = function (ItemEntity $entity) {
@@ -212,6 +223,23 @@ class Service
         return $this->getOrderClient()->archive($entity);
     }
 
+    public function updateUserPrefOrderColumns(array $updatedColumns)
+    {
+        $storedColumns = $this->fetchUserPrefOrderColumns();
+        foreach ($updatedColumns as $name => $on) {
+            $storedColumns[$name] = $on;
+        }
+        $userPrefs = $this->getActiveUserPreference();
+        $userPrefsPref = $userPrefs->getPreference();
+        $columnPrefKey = static::ORDER_TABLE_COL_PREF_KEY;
+        $userPrefsPref[$columnPrefKey] = $storedColumns;
+        $userPrefs->setPreference($userPrefsPref);
+
+        $this->getUserPreferenceService()->save($userPrefs);
+
+        return $this;
+    }
+
     protected function configureOrderTable()
     {
         $columns = $this->getOrdersTable()->getColumns();
@@ -231,10 +259,8 @@ class Service
 
     protected function fetchUserPrefOrderColumns()
     {
-        $activeUserId = $this->getActiveUser()->getId();
         $columnPrefKey = static::ORDER_TABLE_COL_PREF_KEY;
-        $userPrefs = $this->getUserPreferenceService()->fetch($activeUserId);
-        $userPrefsPref = $userPrefs->getPreference();
+        $userPrefsPref = $this->getActiveUserPreference()->getPreference();
         $storedColumns = (isset($userPrefsPref[$columnPrefKey]) ? $userPrefsPref[$columnPrefKey] : []);
         return $storedColumns;
     }
