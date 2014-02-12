@@ -22,6 +22,8 @@ use CG\Order\Client\Storage\Api as OrderApiClient;
 use CG\Order\Client\Tag\Storage\Api as OrderTagApiClient;
 use CG\Order\Client\Batch\Storage\Api as OrderBatchApiClient;
 use CG\OrganisationUnit\Storage\Api as OrganisationUnitClient;
+use CG\UserPreference\Client\Service as UserPreferenceService;
+use CG\UserPreference\Client\Storage\Api as UserPreferenceStorage;
 use Zend\Session\ManagerInterface as SessionManagerInterface;
 use Zend\Session\SessionManager;
 
@@ -94,6 +96,16 @@ return array(
             OrganisationUnitClient::class => array(
                 'parameter' => array(
                     'client' => 'CGDirectoryApi_guzzle'
+                )
+            ),
+            UserPreferenceStorage::class => array(
+                'parameter' => array(
+                    'client' => 'cg_app_guzzle'
+                )
+            ),
+            UserPreferenceService::class => array(
+                'parameter' => array(
+                    'repository' => UserPreferenceStorage::class
                 )
             ),
         ),

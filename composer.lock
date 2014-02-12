@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "9dc86f8465189cd9b53edba5134e7a6d",
+    "hash": "73434f7329a970050edb329ebf86405f",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -377,22 +377,21 @@
         },
         {
             "name": "channelgrabber/cache",
-            "version": "1.2.1",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgcache.git",
-                "reference": "99f98fc082bdcb3be7826f260d7e81a3e513295e"
+                "reference": "e3b6f260fcdfd7f5beb1f9bdfd52c084dadaa3c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cache-1.2.1-0f6ae9.zip",
-                "reference": "99f98fc082bdcb3be7826f260d7e81a3e513295e",
-                "shasum": "b0268d6fccde88f6c664863a51ea1ca3f78c5113"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cache-1.2.2-e664d1.zip",
+                "reference": "e3b6f260fcdfd7f5beb1f9bdfd52c084dadaa3c4",
+                "shasum": "d04be72ac384bc3eff672dee55b596abad10d4d6"
             },
             "require": {
                 "channelgrabber/predis": "1.0.1",
                 "channelgrabber/stdlib": ">=2.2.3, <2.6.0",
-                "php": ">=5.5.0",
                 "predis/predis": "v0.8.3"
             },
             "require-dev": {
@@ -405,7 +404,7 @@
                     "CG\\Cache\\": ""
                 }
             },
-            "time": "2014-01-13 16:48:02"
+            "time": "2014-02-11 08:32:44"
         },
         {
             "name": "channelgrabber/constants",
@@ -673,17 +672,17 @@
         },
         {
             "name": "channelgrabber/slim",
-            "version": "1.6.2",
+            "version": "1.6.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgslim.git",
-                "reference": "dd897ab90a02ae4920a45fd8431558ca145608ae"
+                "reference": "04c1347d3f967be06e6b374a250e98683cb55b01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-slim-1.6.2-e5baa2.zip",
-                "reference": "dd897ab90a02ae4920a45fd8431558ca145608ae",
-                "shasum": "f21e397d3ad35f3fbe2249ce3f45022056348812"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-slim-1.6.3-75ae69.zip",
+                "reference": "04c1347d3f967be06e6b374a250e98683cb55b01",
+                "shasum": "ceef51c412dd75f224580282eec10965f33989d2"
             },
             "require": {
                 "channelgrabber/http": "~1.2.1",
@@ -704,7 +703,7 @@
                     "CG\\Slim": ""
                 }
             },
-            "time": "2014-01-13 16:38:48"
+            "time": "2014-02-11 17:10:33"
         },
         {
             "name": "channelgrabber/sso",
@@ -806,17 +805,11 @@
         },
         {
             "name": "channelgrabber/userpreference",
-            "version": "1.0.2",
+            "version": "dev-CGIV-1516-preference-client",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-userpreference.git",
-                "reference": "d9dbee13fbb4a992c32704985bf1c1c285edc77c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-userpreference-1.0.2-4ed346.zip",
-                "reference": "d9dbee13fbb4a992c32704985bf1c1c285edc77c",
-                "shasum": "308da195c0dafb21e84172c2b00d99bad61e1643"
+                "reference": "aec302f13903e1b95886f96e1c432acc03e55480"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -829,7 +822,7 @@
                     "CG\\UserPreference\\": ""
                 }
             },
-            "time": "2014-01-31 17:07:13"
+            "time": "2014-02-12 10:44:52"
         },
         {
             "name": "channelgrabber/validation",
@@ -1122,11 +1115,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-1500-order-table-column-views",
+            "version": "dev-CGIV-1241-column-picker",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e839228d081c89a3eacc276c6cf37decb285482c"
+                "reference": "e5b007d8475c416465b2ef5e283db3e6515189f6"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1151,7 +1144,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-02-07 14:16:24"
+            "time": "2014-02-12 10:52:14"
         },
         {
             "name": "cilex/cilex",
@@ -1854,12 +1847,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/phpspec.git",
-                "reference": "44ba2ef07a4eebf146ce619f5f9f53d890226c7a"
+                "reference": "fc51fedf50377d8aced63615fa9f8fb95a5d2288"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/44ba2ef07a4eebf146ce619f5f9f53d890226c7a",
-                "reference": "44ba2ef07a4eebf146ce619f5f9f53d890226c7a",
+                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/fc51fedf50377d8aced63615fa9f8fb95a5d2288",
+                "reference": "fc51fedf50377d8aced63615fa9f8fb95a5d2288",
                 "shasum": ""
             },
             "require": {
@@ -1918,7 +1911,7 @@
                 "testing",
                 "tests"
             ],
-            "time": "2014-02-07 07:18:35"
+            "time": "2014-02-12 09:30:12"
         },
         {
             "name": "phpspec/prophecy",
@@ -2221,16 +2214,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "3.7.30",
+            "version": "3.7.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "2f33258fa5a0c330515b7deba2bc040fa5c3953b"
+                "reference": "d24e9877331039582497052cc3c4d9f465b88210"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/2f33258fa5a0c330515b7deba2bc040fa5c3953b",
-                "reference": "2f33258fa5a0c330515b7deba2bc040fa5c3953b",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/d24e9877331039582497052cc3c4d9f465b88210",
+                "reference": "d24e9877331039582497052cc3c4d9f465b88210",
                 "shasum": ""
             },
             "require": {
@@ -2291,7 +2284,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-01-31 08:54:33"
+            "time": "2014-02-03 07:46:27"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -3350,15 +3343,16 @@
     ],
     "aliases": [
         {
-            "alias": "1.1.22",
-            "alias_normalized": "1.1.22.0",
-            "version": "dev-CGIV-1500-order-table-column-views",
+            "alias": "1.2.0",
+            "alias_normalized": "1.2.0.0",
+            "version": "dev-CGIV-1241-column-picker",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/userpreference": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20

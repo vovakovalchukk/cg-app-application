@@ -37,6 +37,17 @@ return [
                             ]
                         ]
                     ],
+                    'update-columns' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+
+                        'options' => [
+                            'route' => '/update-columns',
+                            'defaults' => [
+                                'action' => 'updateColumns'
+                            ]
+                        ],
+                        'may_terminate' => true
+                    ],
                     'order' => [
                         'type' => 'Zend\Mvc\Router\Http\Segment',
                         'priority' => -100,
