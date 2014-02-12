@@ -25,7 +25,7 @@ define(function() {
                 this,
                 tag,
                 orders,
-                true,
+                undefined,
                 {
                     complete: function() {
                         if (datatable) {
@@ -63,6 +63,8 @@ define(function() {
         };
 
         var apply = function(tag, orders, append, ajaxSettings) {
+            append = (append == undefined) || append;
+
             var ajax = {
                 context: this,
                 url: $(this).data("url"),
