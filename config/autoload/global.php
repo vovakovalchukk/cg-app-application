@@ -26,6 +26,7 @@ use CG\UserPreference\Client\Service as UserPreferenceService;
 use CG\UserPreference\Client\Storage\Api as UserPreferenceStorage;
 use Zend\Session\ManagerInterface as SessionManagerInterface;
 use Zend\Session\SessionManager;
+use Orders\Order\Batch\Service as OrderBatchService;
 
 return array(
     'service_manager' => array(
@@ -83,31 +84,41 @@ return array(
                     'client' => 'cg_app_guzzle'
                 ]
             ],
+            OrderBatchService::class => [
+                'parameters' => [
+                    'redisClient' => 'reliable_redis'
+                ]
+            ],
+            OrderBatchApiClient::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
             OrderTagApiClient::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
                 ]
             ],
-            OrderBatchApiClient::class => array(
+            OrderBatchApiClient::class => [
                 'parameter' => array(
                     'client' => 'cg_app_guzzle'
                 )
-            ),
-            OrganisationUnitClient::class => array(
-                'parameter' => array(
+            ],
+            OrganisationUnitClient::class => [
+                'parameter' => [
                     'client' => 'CGDirectoryApi_guzzle'
-                )
-            ),
-            UserPreferenceStorage::class => array(
-                'parameter' => array(
+                ]
+            ],
+            UserPreferenceStorage::class => [
+                'parameter' => [
                     'client' => 'cg_app_guzzle'
-                )
-            ),
-            UserPreferenceService::class => array(
-                'parameter' => array(
+                ]
+            ],
+            UserPreferenceService::class => [
+                'parameter' => [
                     'repository' => UserPreferenceStorage::class
-                )
-            ),
+                ]
+            ],
         ),
     )
 );

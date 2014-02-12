@@ -31,7 +31,7 @@ return [
                     'ajax' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [
-                            'route' => '.json',
+                            'route' => '/ajax',
                             'defaults' => [
                                 'action' => 'json',
                             ]
@@ -48,11 +48,57 @@ return [
                         ],
                         'may_terminate' => true
                     ],
+                    'batch' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => array(
+                            'route'    => '/batch',
+                            'defaults' => array(
+                                'controller' => 'Orders\Controller\Batch',
+                                'action'     => 'index',
+                            ),
+                        ),
+                        'may_terminate' => true,
+                        'child_routes' => array(
+                            'create' => array(
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => array(
+                                    'route'    => '/create',
+                                    'defaults' => array(
+                                        'action'     => 'create',
+                                    ),
+                                ),
+                                'may_terminate' => true
+                            ),
+                            'unset' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/unset',
+                                    'defaults' => [
+                                        'action' => 'unset'
+                                    ]
+                                ],
+                                'may_terminate' => true
+                            ],
+                            'delete' => array(
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => array(
+                                    'route'    => '/delete',
+                                    'defaults' => array(
+                                        'action'     => 'delete',
+                                    ),
+                                ),
+                                'may_terminate' => true
+                            )
+                        )
+                    ],
                     'order' => [
                         'type' => 'Zend\Mvc\Router\Http\Segment',
                         'priority' => -100,
                         'options' => [
                             'route' => '/:order',
+                            'constraints' => [
+                                'order' => '[0-9]*\-[a-zA-Z0-9_-]*'
+                            ],
                             'defaults' => [
                                 'action' => 'order',
                             ]
@@ -150,7 +196,7 @@ return [
                     'tag' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [
-                            'route' => '/tag.json',
+                            'route' => '/tag',
                             'defaults' => [
                                 'action' => 'tag',
                             ]
@@ -159,7 +205,7 @@ return [
                     'archive' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [
-                            'route' => '/archive.json',
+                            'route' => '/archive',
                             'defaults' => [
                                 'action' => 'archive',
                             ]
@@ -180,9 +226,12 @@ return [
             'Orders\Controller\Note' => function($controllerManager) {
                 return $controllerManager->getServiceLocator()->get(Controller\NoteController::class);
             },
+            'Orders\Controller\Batch' => function($controllerManager) {
+                    return $controllerManager->getServiceLocator()->get(Controller\BatchController::class);
+            },
             'Orders\Controller\Address' => function($controllerManager) {
                 return $controllerManager->getServiceLocator()->get(Controller\AddressController::class);
-            },
+            }
         ],
         'invokables' => [],
     ],
