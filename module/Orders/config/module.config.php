@@ -330,7 +330,8 @@ return [
                     'column' => 'id',
                     'viewModel' => 'OrdersCheckboxColumnView',
                     'class' => 'checkbox',
-                    'sortable' => false
+                    'sortable' => false,
+                    'hideable' => false
                 ],
             ],
             'OrdersChannelColumnView' => [
@@ -510,7 +511,8 @@ return [
                     'viewModel' => 'OrdersOptionsColumnView',
                     'class' => 'options',
                     'defaultContent' => '',
-                    'sortable' => false
+                    'sortable' => false,
+                    'hideable' => false
                 ],
             ],
             AlertService::class => [
