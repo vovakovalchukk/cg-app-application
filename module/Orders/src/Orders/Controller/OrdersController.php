@@ -14,6 +14,7 @@ use CG\Order\Shared\Entity as OrderEntity;
 use Orders\Order\BulkActions\Service as BulkActionsService;
 use Orders\Module;
 use DirectoryIterator;
+use CG\UserPreference\Client\Service as UserPreferenceService;
 
 class OrdersController extends AbstractActionController
 {
@@ -32,7 +33,8 @@ class OrdersController extends AbstractActionController
         FilterService $filterService,
         TimelineService $timelineService,
         BatchService $batchService,
-        BulkActionsService $bulkActionsService
+        BulkActionsService $bulkActionsService,
+        UserPreferenceService $userPreferenceService
     )
     {
         $this->setJsonModelFactory($jsonModelFactory)
@@ -41,7 +43,8 @@ class OrdersController extends AbstractActionController
             ->setFilterService($filterService)
             ->setTimelineService($timelineService)
             ->setBatchService($batchService)
-            ->setBulkActionsService($bulkActionsService);
+            ->setBulkActionsService($bulkActionsService)
+            ->setUserPreferenceService($userPreferenceService);
     }
 
     protected function basePath()
@@ -131,6 +134,17 @@ class OrdersController extends AbstractActionController
     public function getBulkActionsService()
     {
         return $this->bulkActionsService;
+    }
+
+    public function setUserPreferenceService(UserPreferenceService $userPreferenceService)
+    {
+        $this->userPreferenceService = $userPreferenceService;
+        return $this;
+    }
+
+    public function getUserPreferenceService()
+    {
+        return $this->userPreferenceService;
     }
 
     public function indexAction()
@@ -339,6 +353,31 @@ class OrdersController extends AbstractActionController
         }
 
         return $this->getJsonModelFactory()->newInstance($data);
+    }
+
+    public function updateColumnsAction()
+    {
+        $response = $this->getJsonModelFactory()->newInstance(['updated' => false]);
+
+        $updatedColumns = $this->params()->fromPost('columns');
+        if (!$updatedColumns) {
+            return $response->setVariable('error', 'No columns provided');
+        }
+
+        $activeUserId = $this->getOrderService()->getActiveUser()->getId();
+        $columnPrefKey = 'order-columns';
+        $userPrefs = $this->getUserPreferenceService()->fetch($activeUserId);
+        $userPrefsPref = $userPrefs->getPreference();
+        $storedColumns = (isset($userPrefsPref[$columnPrefKey]) ? $userPrefsPref[$columnPrefKey] : []);
+        foreach ($updatedColumns as $name => $on) {
+            $storedColumns[$name] = $on;
+        }
+        $userPrefsPref[$columnPrefKey] = $storedColumns;
+        $userPrefs->setPreference($userPrefsPref);
+
+        $this->getUserPreferenceService()->save($userPrefs);
+
+        return $response->setVariable('updated', true);
     }
 
     public function tagAction()

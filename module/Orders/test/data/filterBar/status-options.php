@@ -2,5 +2,5 @@
 return [
     'title' => "Status",
     'id' => 'filter-status',
-    'options' => ['New', 'Processing', 'Dispatched']
+    'options' => [['title' => 'New'], ['title' => 'Processing'], ['title' => 'Dispatched']]
 ];
