@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "9533274402c966607b6b0ef30f07758a",
+    "hash": "6f4d59b0cd2a9cbbb61b98b8d1f70f54",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -1130,11 +1130,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-1241-column-picker",
+            "version": "1.2.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e5b007d8475c416465b2ef5e283db3e6515189f6"
+                "reference": "32450292c431aba6480232f0f75002f6594d23f3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.2.5-6fbe6f.zip",
+                "reference": "32450292c431aba6480232f0f75002f6594d23f3",
+                "shasum": "b1abd6bfc8196867f29d3eb62a941a895866b5e6"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1151,6 +1157,9 @@
                 "channelgrabber/zf2-ui": "*"
             },
             "type": "zf2-module",
+            "extra": {
+                "zf2-module": "CG_UI"
+            },
             "autoload": {
                 "psr-0": {
                     "CG_UI": "src/"
@@ -1159,7 +1168,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-02-12 10:52:14"
+            "time": "2014-02-12 15:17:46"
         },
         {
             "name": "cilex/cilex",
@@ -3357,17 +3366,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.2.0",
-            "alias_normalized": "1.2.0.0",
-            "version": "dev-CGIV-1241-column-picker",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },
