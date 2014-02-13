@@ -15,10 +15,19 @@ class OrdersTableTagColumns implements OrdersTableModifierInterface
     protected $di;
     protected $activeUserContainer;
     protected $tagClient;
+    protected $javascript;
 
-    public function __construct(Di $di, ActiveUserInterface $activeUserContainer, TagStorage $tagClient)
+    public function __construct(
+        Di $di,
+        ActiveUserInterface $activeUserContainer,
+        TagStorage $tagClient,
+        ViewModel $javascript
+    )
     {
-        $this->setDi($di)->setActiveUserContainer($activeUserContainer)->setTagClient($tagClient);
+        $this
+            ->setDi($di)
+            ->setActiveUserContainer($activeUserContainer)
+            ->setTagClient($tagClient);
     }
 
     public function setDi(Di $di)
@@ -57,9 +66,26 @@ class OrdersTableTagColumns implements OrdersTableModifierInterface
         return $this;
     }
 
+    /**
+     * @return TagStorage
+     */
     public function getTagClient()
     {
         return $this->tagClient;
+    }
+
+    public function setJavascript(ViewModel $javascript)
+    {
+        $this->javascript = $javascript;
+        return $this;
+    }
+
+    /**
+     * @return ViewModel
+     */
+    public function getJavascript()
+    {
+        return $this->javascript;
     }
 
     public function modifyTable(DataTable $ordersTable)
@@ -75,6 +101,12 @@ class OrdersTableTagColumns implements OrdersTableModifierInterface
             foreach ($tags as $tag) {
                 $this->addTagColumn($ordersTable, $tag);
             }
+
+            $ordersTable->addChild(
+                $this->getJavascript(),
+                'javascript',
+                true
+            );
         } catch (NotFound $exception) {
             // No Tags -- Nothing to do
         }
