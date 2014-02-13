@@ -118,7 +118,7 @@ class Tag extends Action
             $tags = $this->getStorage()->fetchCollectionAll(
                 1,
                 'all',
-                $this->getActiveUser()->getAvailableOrganisationUnitIds(),
+                $this->getActiveUser()->getOuList(),
                 []
             );
 
