@@ -94,7 +94,7 @@ class OrdersTableTagColumns implements OrdersTableModifierInterface
             $tags = $this->getTagClient()->fetchCollectionAll(
                 1,
                 'all',
-                $this->getActiveUser()->getAvailableOrganisationUnitIds(),
+                $this->getActiveUser()->getOuList(),
                 []
             );
 
