@@ -197,7 +197,19 @@ return [
                         'options' => [
                             'route' => '/tag',
                             'defaults' => [
-                                'action' => 'tag',
+                                'controller' => 'Orders\Controller\Tag'
+                            ]
+                        ],
+                        'may_terminate' => false,
+                        'child_routes' => [
+                            'action' => [
+                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                'options' => [
+                                    'route' => '/:action',
+                                    'constraints' => [
+                                        'action' => 'append|remove'
+                                    ],
+                                ],
                             ]
                         ]
                     ],
@@ -230,7 +242,10 @@ return [
             },
             'Orders\Controller\Address' => function($controllerManager) {
                 return $controllerManager->getServiceLocator()->get(Controller\AddressController::class);
-            }
+            },
+            'Orders\Controller\Tag' => function($controllerManager) {
+                return $controllerManager->getServiceLocator()->get(Controller\TagController::class);
+            },
         ],
         'invokables' => [],
     ],
