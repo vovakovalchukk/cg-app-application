@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "5913566600ad360e63ba6310ec265b3c",
+    "hash": "f272596200e3ea7f64cee87a70b1f4cb",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -775,7 +775,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "f17d134285685dcae4520ba68d52fc31536f44e0"
+                "reference": "320f2556c541999286c35eefa5ccd947edf4ef2e"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.8",
@@ -795,7 +795,7 @@
                     "CG": ""
                 }
             },
-            "time": "2014-02-13 09:55:42"
+            "time": "2014-02-13 11:50:05"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -1019,7 +1019,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/permission-module.git",
-                "reference": "424caaafacdbb6f5a7344c4967237ac5adb29753"
+                "reference": "ff758766523aba29bb77bc0717d6e8e9365235bd"
             },
             "require": {
                 "channelgrabber/user": ">=1.10.11",
@@ -1040,7 +1040,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-02-13 11:20:22"
+            "time": "2014-02-13 11:49:46"
         },
         {
             "name": "channelgrabber/zf2-register",
