@@ -726,7 +726,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "89ddc281f129dbb0657c7aee0cc45f048188fc6a"
+                "reference": "66bc81e57cb6da274b5f9a5e277a486ceb84f3a2"
             },
             "require": {
                 "zendframework/zend-db": "2.2.*"
@@ -743,7 +743,7 @@
                     "CG/Stdlib/Utilities.php"
                 ]
             },
-            "time": "2014-02-12 16:27:40"
+            "time": "2014-02-13 11:03:01"
         },
         {
             "name": "channelgrabber/user",
@@ -1103,7 +1103,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "b3d1fbbd52b9de8bbc01ab0bf20f259cf7e5f06b"
+                "reference": "f8bee211f1d37c062e8facbb9bedd8279419ab27"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1131,7 +1131,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-02-12 16:39:01"
+            "time": "2014-02-13 11:06:29"
         },
         {
             "name": "cilex/cilex",
