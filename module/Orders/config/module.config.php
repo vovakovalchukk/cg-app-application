@@ -209,7 +209,7 @@ return [
                                     'constraints' => [
                                         'action' => 'append|remove'
                                     ],
-                                ],
+                                ]
                             ]
                         ]
                     ],

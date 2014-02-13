@@ -23,9 +23,9 @@ define(function() {
 
             apply.call(
                 this,
+                getAppendUrl.call(this),
                 tag,
                 orders,
-                undefined,
                 {
                     complete: function() {
                         if (datatable) {
@@ -46,11 +46,18 @@ define(function() {
                 return;
             }
 
+            var url;
+            if ($(this).is(":checked")) {
+                url = getAppendUrl.call(this);
+            } else {
+                url = getRemoveUrl.call(this);
+            }
+
             apply.call(
                 this,
+                url,
                 tag,
                 orders,
-                $(this).is(":checked"),
                 {
                     complete: function() {
                         var datatable = $(this).data("datatable");
@@ -62,18 +69,27 @@ define(function() {
             );
         };
 
-        var apply = function(tag, orders, append, ajaxSettings) {
-            append = (append == undefined) || append;
+        var getAppendUrl = function() {
+            return getUrl.call(this, 'append');
+        };
 
+        var getRemoveUrl = function() {
+            return getUrl.call(this, 'remove');
+        };
+
+        var getUrl = function(action) {
+            return Mustache.render($(this).data("url"), {action: action});
+        };
+
+        var apply = function(url, tag, orders, ajaxSettings) {
             var ajax = {
                 context: this,
-                url: $(this).data("url"),
+                url: url,
                 type: "POST",
                 dataType: 'json',
                 data: {
                     'tag': tag,
-                    'orders': orders,
-                    'append': append
+                    'orders': orders
                 },
                 success : function(data) {
                     if (data.tagged) {
