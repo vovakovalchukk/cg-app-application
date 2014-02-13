@@ -33,8 +33,7 @@ class OrdersController extends AbstractActionController
         FilterService $filterService,
         TimelineService $timelineService,
         BatchService $batchService,
-        BulkActionsService $bulkActionsService,
-        UserPreferenceService $userPreferenceService
+        BulkActionsService $bulkActionsService
     )
     {
         $this->setJsonModelFactory($jsonModelFactory)
@@ -43,8 +42,7 @@ class OrdersController extends AbstractActionController
             ->setFilterService($filterService)
             ->setTimelineService($timelineService)
             ->setBatchService($batchService)
-            ->setBulkActionsService($bulkActionsService)
-            ->setUserPreferenceService($userPreferenceService);
+            ->setBulkActionsService($bulkActionsService);
     }
 
     protected function basePath()
@@ -134,17 +132,6 @@ class OrdersController extends AbstractActionController
     public function getBulkActionsService()
     {
         return $this->bulkActionsService;
-    }
-
-    public function setUserPreferenceService(UserPreferenceService $userPreferenceService)
-    {
-        $this->userPreferenceService = $userPreferenceService;
-        return $this;
-    }
-
-    public function getUserPreferenceService()
-    {
-        return $this->userPreferenceService;
     }
 
     public function indexAction()
@@ -364,18 +351,7 @@ class OrdersController extends AbstractActionController
             return $response->setVariable('error', 'No columns provided');
         }
 
-        $activeUserId = $this->getOrderService()->getActiveUser()->getId();
-        $columnPrefKey = 'order-columns';
-        $userPrefs = $this->getUserPreferenceService()->fetch($activeUserId);
-        $userPrefsPref = $userPrefs->getPreference();
-        $storedColumns = (isset($userPrefsPref[$columnPrefKey]) ? $userPrefsPref[$columnPrefKey] : []);
-        foreach ($updatedColumns as $name => $on) {
-            $storedColumns[$name] = $on;
-        }
-        $userPrefsPref[$columnPrefKey] = $storedColumns;
-        $userPrefs->setPreference($userPrefsPref);
-
-        $this->getUserPreferenceService()->save($userPrefs);
+        $this->getOrderService()->updateUserPrefOrderColumns($updatedColumns);
 
         return $response->setVariable('updated', true);
     }

@@ -15,21 +15,26 @@ use Zend\I18n\View\Helper\CurrencyFormat;
 use CG\User\Service as UserService;
 use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Note\Collection as OrderNoteCollection;
+use CG\UserPreference\Client\Service as UserPreferenceService;
 
 class Service
 {
+    const ORDER_TABLE_COL_PREF_KEY = 'order-columns';
+
     protected $orderClient;
     protected $tableService;
     protected $userService;
     protected $activeUserContainer;
     protected $di;
+    protected $activeUserPreference;
 
     public function __construct(
         StorageInterface $orderClient,
         TableService $tableService,
         UserService $userService,
         ActiveUserInterface $activeUserContainer,
-        Di $di
+        Di $di,
+        UserPreferenceService $userPreferenceService
     )
     {
         $this
@@ -37,7 +42,9 @@ class Service
             ->setTableService($tableService)
             ->setUserService($userService)
             ->setActiveUserContainer($activeUserContainer)
-            ->setDi($di);
+            ->setDi($di)
+            ->setUserPreferenceService($userPreferenceService)
+            ->configureOrderTable();
     }
 
     public function setDi(Di $di)
@@ -113,6 +120,27 @@ class Service
     public function getOrder($orderId)
     {
         return $this->getOrderClient()->fetch($orderId);
+    }
+
+    public function setUserPreferenceService(UserPreferenceService $userPreferenceService)
+    {
+        $this->userPreferenceService = $userPreferenceService;
+        return $this;
+    }
+
+    public function getUserPreferenceService()
+    {
+        return $this->userPreferenceService;
+    }
+
+    protected function getActiveUserPreference()
+    {
+        if (!isset($this->activeUserPreference)) {
+            $activeUserId = $this->getActiveUser()->getId();
+            $this->activeUserPreference = $this->getUserPreferenceService()->fetch($activeUserId);
+        }
+
+        return $this->activeUserPreference;
     }
 
     public function getOrderItemTable(Entity $order)
@@ -196,5 +224,47 @@ class Service
     public function archiveOrder(Order $entity)
     {
         return $this->getOrderClient()->archive($entity);
+    }
+
+    public function updateUserPrefOrderColumns(array $updatedColumns)
+    {
+        $storedColumns = $this->fetchUserPrefOrderColumns();
+        foreach ($updatedColumns as $name => $on) {
+            $storedColumns[$name] = $on;
+        }
+        $userPrefs = $this->getActiveUserPreference();
+        $userPrefsPref = $userPrefs->getPreference();
+        $columnPrefKey = static::ORDER_TABLE_COL_PREF_KEY;
+        $userPrefsPref[$columnPrefKey] = $storedColumns;
+        $userPrefs->setPreference($userPrefsPref);
+
+        $this->getUserPreferenceService()->save($userPrefs);
+
+        return $this;
+    }
+
+    protected function configureOrderTable()
+    {
+        $columns = $this->getOrdersTable()->getColumns();
+        $associativeColumns = [];
+        foreach ($columns as $column) {
+            $associativeColumns[$column->getColumn()] = $column;
+        }
+        $columnPrefs = $this->fetchUserPrefOrderColumns();
+        foreach ($columnPrefs as $name => $on) {
+            if (isset($associativeColumns[$name]) && (!$on || $on === 'false')) {
+                $associativeColumns[$name]->setVisible(false);
+            }
+        }
+
+        return $this;
+    }
+
+    protected function fetchUserPrefOrderColumns()
+    {
+        $columnPrefKey = static::ORDER_TABLE_COL_PREF_KEY;
+        $userPrefsPref = $this->getActiveUserPreference()->getPreference();
+        $storedColumns = (isset($userPrefsPref[$columnPrefKey]) ? $userPrefsPref[$columnPrefKey] : []);
+        return $storedColumns;
     }
 }
