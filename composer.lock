@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "632ef2a692601a86d608a234df0191e2",
+    "hash": "f891eafad7a1b044fb679e0fcec994f6",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -722,11 +722,17 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "dev-CGIV-1284-OrderedSplObjectStorage",
+            "version": "2.5.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "66bc81e57cb6da274b5f9a5e277a486ceb84f3a2"
+                "reference": "a1aea6e1a4ec50cc55cfb98876e6a14fe2644622"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.5.8-6c2ab6.zip",
+                "reference": "a1aea6e1a4ec50cc55cfb98876e6a14fe2644622",
+                "shasum": "5aabd60202f7018c718c089843a76adf4df9eba9"
             },
             "require": {
                 "zendframework/zend-db": "2.2.*"
@@ -743,7 +749,7 @@
                     "CG/Stdlib/Utilities.php"
                 ]
             },
-            "time": "2014-02-13 11:03:01"
+            "time": "2014-02-13 16:16:17"
         },
         {
             "name": "channelgrabber/user",
@@ -1134,15 +1140,21 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-1284-PerColumnTemplates",
+            "version": "1.2.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "6124cc16a01557170cb210c1d6246425e3224681"
+                "reference": "395f4748559b6d308a6861993dd49884c9bf5eb0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.2.8-26dd73.zip",
+                "reference": "395f4748559b6d308a6861993dd49884c9bf5eb0",
+                "shasum": "221c331dd4a447bd25cca17c910a426ba8b50f77"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
-                "channelgrabber/stdlib": "dev-CGIV-1284-OrderedSplObjectStorage as 2.5.7",
+                "channelgrabber/stdlib": ">=2.5.8",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
                 "widmogrod/zf2-mustache-module": "dev-master",
                 "zendframework/zend-config": "2.*",
@@ -1166,7 +1178,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-02-13 12:08:30"
+            "time": "2014-02-13 17:04:27"
         },
         {
             "name": "cilex/cilex",
@@ -3381,24 +3393,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "2.5.7",
-            "alias_normalized": "2.5.7.0",
-            "version": "dev-CGIV-1284-OrderedSplObjectStorage",
-            "package": "channelgrabber/stdlib"
-        },
-        {
-            "alias": "1.2.8",
-            "alias_normalized": "1.2.8.0",
-            "version": "dev-CGIV-1284-PerColumnTemplates",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/stdlib": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },
