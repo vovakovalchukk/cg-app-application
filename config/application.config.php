@@ -7,9 +7,10 @@ return array (
     2 => 'CG_Log',
     3 => 'Mustache',
     4 => 'CG_UI',
-    5 => 'CG_Login',
-    6 => 'CG_Register',
-    7 => 'Orders',
+    5 => 'CG_Permission',
+    6 => 'CG_Login',
+    7 => 'CG_Register',
+    8 => 'Orders',
   ),
   'module_listener_options' => 
   array (
