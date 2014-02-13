@@ -270,6 +270,7 @@ return [
         ],
         'instance' => [
             'aliases' => [
+                'MustacheFormatters' => ViewModel::class,
                 'OrdersTable' => DataTable::class,
                 'OrdersCheckboxColumnView' => ViewModel::class,
                 'OrdersCheckboxColumn' => DataTable\Column::class,
@@ -307,7 +308,18 @@ return [
                     'ordersTable' => 'OrdersTable',
                 ],
                 'injections' => [
+                    TableService\OrdersTableMustacheFormatters::class,
                     TableService\OrdersTableTagColumns::class,
+                ],
+            ],
+            TableService\OrdersTableMustacheFormatters::class => [
+                'parameters' => [
+                    'javascript' => 'MustacheFormatters'
+                ],
+            ],
+            'MustacheFormatters' => [
+                'parameters' => [
+                    'template' => 'orders/orders/table/javascript/mustache-formatters.js',
                 ],
             ],
             'OrdersTable' => [

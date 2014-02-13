@@ -29,18 +29,6 @@ $(document).on('click', '.batch-filter', function(e) {
 });
 
 $("#datatable").on("renderColumn", function(event, cgmustache, template, column, data) {
-    data.datatable = $(this).attr("id");
-    data.formatCurrency = cgmustache.formatCurrency(data);
-    data.formatDateTime = cgmustache.formatDateTime(data);
-    data.formatAdditionalOrderItems = function()
-    {
-        return function(variable, render) {
-            data.extraItems = JSON.parse(JSON.stringify(data.items));
-            data.extraItems.splice(0, 1);
-            return render(variable);
-        };
-    };
-    data.order_url = Mustache.render("<?= urldecode($this->url('Orders/order', ['order' => '{{order}}'])) ?>", {order: data.id});
     data.tag_url = "<?= $this->url('Orders/tag') ?>";
     data.hasTag = function() {
         return function(variable, render) {
