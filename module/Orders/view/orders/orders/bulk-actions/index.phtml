@@ -1,1 +1,4 @@
-<span class="hide-filters double-arrow vertical up" data-target="body" data-toggle-class="hide-filters">HideFilters</span>
+<span class="hide-filters double-arrow vertical
+<?php if(isset($child->filterBarState) && $child->filterBarState): ?>down<?php else: ?>up<?php endif;?>"
+data-target="body" data-toggle-class="hide-filters"
+data-preference-key="<?= Orders\Order\Service::ORDER_FILTER_BAR_STATE_KEY; ?>">HideFilters</span>

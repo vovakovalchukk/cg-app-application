@@ -22,6 +22,8 @@ use CG\UserPreference\Client\Service as UserPreferenceService;
 class Service
 {
     const ORDER_TABLE_COL_PREF_KEY = 'order-columns';
+    const ORDER_SIDEBAR_STATE_KEY = 'order-sidebar-state';
+    const ORDER_FILTER_BAR_STATE_KEY = 'order-filter-bar-state';
 
     protected $ordersTable;
     protected $orderClient;
@@ -29,6 +31,7 @@ class Service
     protected $activeUserContainer;
     protected $di;
     protected $activeUserPreference;
+    protected $userPreferenceService;
 
     public function __construct(
         DataTable $ordersTable,
@@ -138,6 +141,20 @@ class Service
         }
 
         return $this->activeUserPreference;
+    }
+
+    public function getSidebarState()
+    {
+        $preferences = $this->getActiveUserPreference();
+        $preference = $preferences->getPreference();
+        return isset($preference[static::ORDER_SIDEBAR_STATE_KEY]) ? $preference[static::ORDER_SIDEBAR_STATE_KEY] : true;
+    }
+
+    public function getFilterBarState()
+    {
+        $preferences = $this->getActiveUserPreference();
+        $preference = $preferences->getPreference();
+        return isset($preference[static::ORDER_FILTER_BAR_STATE_KEY]) ? $preference[static::ORDER_FILTER_BAR_STATE_KEY] : true;
     }
 
     public function getOrderItemTable(Entity $order)

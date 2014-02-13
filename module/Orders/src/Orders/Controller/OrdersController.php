@@ -154,16 +154,20 @@ class OrdersController extends AbstractActionController
         $settings->setSource($this->url()->fromRoute('Orders/ajax'));
         $settings->setTemplateUrlMap($templateUrlMap);
         $view->addChild($ordersTable, 'ordersTable');
-
         $bulkActions = $this->getBulkActionsService()->getBulkActions();
         $bulkActions->addChild(
             $this->getViewModelFactory()->newInstance()->setTemplate('orders/orders/bulk-actions/index'),
             'afterActions'
         );
-        $view->addChild($bulkActions, 'bulkItems');
+        $bulkActions->setVariable('sidebarState', filter_var($this->getOrderService()->getSidebarState(), FILTER_VALIDATE_BOOLEAN));
+        $bulkActions->setVariable('filterBarState', filter_var($this->getOrderService()->getFilterBarState(), FILTER_VALIDATE_BOOLEAN));
 
+
+        $view->addChild($bulkActions, 'bulkItems');
         $view->addChild($this->getFilterBar(), 'filters');
         $view->addChild($this->getBatches(), 'batches');
+        $view->setVariable('sidebarState', filter_var($this->getOrderService()->getSidebarState(), FILTER_VALIDATE_BOOLEAN));
+        $view->setVariable('filterBarState', filter_var($this->getOrderService()->getFilterBarState(), FILTER_VALIDATE_BOOLEAN));
         return $view;
     }
 
@@ -193,6 +197,7 @@ class OrdersController extends AbstractActionController
     {
         $view = $this->getViewModelFactory()->newInstance();
         $view->setTemplate('layout/sidebar/batches');
+        $view->setVariable('sidebarState', filter_var($this->getOrderService()->getSidebarState(), FILTER_VALIDATE_BOOLEAN));
         $view->setVariable('batches', $this->getBatchService()->getBatches());
         return $view;
     }
@@ -273,7 +278,7 @@ class OrdersController extends AbstractActionController
         $filterBar = $this->getViewModelFactory()->newInstance();
         $filterBar->setTemplate('layout/filters');
         $filterBar->setVariable('filterRows', $filterRows);
-
+        $filterBar->setVariable('sidebarState', $this->getOrderService()->getSidebarState());
         return $filterBar;
     }
 

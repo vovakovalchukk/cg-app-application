@@ -6,10 +6,10 @@ return array (
     1 => 'NewRelic',
     2 => 'CG_Log',
     3 => 'Mustache',
-    4 => 'CG_UI',
-    5 => 'CG_Login',
-    6 => 'CG_Register',
-    7 => 'Orders',
+    4 => 'CG_Register',
+    5 => 'Orders',
+    6 => 'CG_UI',
+    7 => 'CG_Login',
   ),
   'module_listener_options' => 
   array (
