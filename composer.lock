@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "f272596200e3ea7f64cee87a70b1f4cb",
+    "hash": "caf20b3149a33cd483c02fb440fc3550",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -771,11 +771,17 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "dev-CGIV-1498-user-get-ou-list-fixes",
+            "version": "1.10.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "320f2556c541999286c35eefa5ccd947edf4ef2e"
+                "reference": "314283f379703bb43e6ed234cee47e7aa7a46cf7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.10.13-d9ff78.zip",
+                "reference": "314283f379703bb43e6ed234cee47e7aa7a46cf7",
+                "shasum": "5e61a37cbb5eea079193e6a15ab78285875c3cc8"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.8",
@@ -795,7 +801,7 @@
                     "CG": ""
                 }
             },
-            "time": "2014-02-13 11:50:05"
+            "time": "2014-02-13 12:22:03"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -1015,11 +1021,17 @@
         },
         {
             "name": "channelgrabber/zf2-permission",
-            "version": "dev-CGIV-1498-user-get-ou-list-fixes",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/permission-module.git",
-                "reference": "ff758766523aba29bb77bc0717d6e8e9365235bd"
+                "reference": "5fd143ffe06334b5c530c038966cde90b7cc8c48"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.0.1-63d139.zip",
+                "reference": "5fd143ffe06334b5c530c038966cde90b7cc8c48",
+                "shasum": "2ad013ed6496463c39182d8e0937c800c7124d6d"
             },
             "require": {
                 "channelgrabber/user": ">=1.10.11",
@@ -1040,7 +1052,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-02-13 11:49:46"
+            "time": "2014-02-13 12:26:07"
         },
         {
             "name": "channelgrabber/zf2-register",
@@ -3411,24 +3423,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.10.12",
-            "alias_normalized": "1.10.12.0",
-            "version": "dev-CGIV-1498-user-get-ou-list-fixes",
-            "package": "channelgrabber/user"
-        },
-        {
-            "alias": "1.0.0",
-            "alias_normalized": "1.0.0.0",
-            "version": "dev-CGIV-1498-user-get-ou-list-fixes",
-            "package": "channelgrabber/zf2-permission"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/user": 20,
-        "channelgrabber/zf2-permission": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },
