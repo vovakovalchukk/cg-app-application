@@ -1,0 +1,12 @@
+{
+    "frontend": {
+        "VM-RAM": "512",
+        "box": "cg-precise64-php55",
+        "application": {
+            "orders": {
+                "localDirectory": "cg-orders-application",
+                "role": "orders"
+            }
+        }
+    }
+}
