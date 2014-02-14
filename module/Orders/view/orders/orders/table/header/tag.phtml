@@ -1,0 +1,15 @@
+<?php $this->inlineScript()->captureStart() ?>
+require.config({
+    paths: {
+        TagBulkAction: "<?= $this->baseUrl . Orders\Module::PUBLIC_FOLDER . 'js/tag' ?>"
+    }
+});
+require(
+    ["TagBulkAction"],
+    function(TagBulkAction) {
+        var tagBulkAction = new TagBulkAction(n);
+        $(document).on("change", "#<?= $id ?> input.tag[data-tag='<?= $tag ?>']", tagBulkAction.checkbox);
+    }
+);
+<?php $this->inlineScript()->captureEnd() ?>
+<?= $tag ?>

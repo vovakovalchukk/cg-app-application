@@ -1,1 +1,3 @@
-data-url="<?= htmlentities($this->url($route, $parameters)) ?>"
+<?php $url = $this->url($route, $parameters); ?>
+<?php $url = (isset($mustache) && $mustache ? urldecode($url) : $url) ?>
+data-url="<?= htmlentities($url, ENT_QUOTES) ?>"

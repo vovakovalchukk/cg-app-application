@@ -355,46 +355,6 @@ class OrdersController extends AbstractActionController
         return $response->setVariable('updated', true);
     }
 
-    public function tagAction()
-    {
-        $response = $this->getJsonModelFactory()->newInstance(['tagged' => false]);
-
-        $tag = $this->params()->fromPost('tag');
-        if (!$tag) {
-            return $response->setVariable('error', 'No Tag provided');
-        }
-
-        $ids = $this->params()->fromPost('orders');
-        if (!is_array($ids) || empty($ids)) {
-            return $response->setVariable('error', 'No Orders provided');
-        }
-
-        $filter = $this->getFilterService()->getFilter()
-            ->setLimit('all')
-            ->setPage(1)
-            ->setOrganisationUnitId($this->getOrderService()->getActiveUser()->getOuList())
-            ->setId($ids);
-
-        try {
-            foreach($this->getOrderService()->getOrders($filter) as $order) {
-                $tags = $order->getTags();
-                $tags[] = $tag;
-                try {
-                    $this->getOrderService()->saveOrder($order->setTags(array_unique($tags)));
-                } catch (NotModified $exception) {
-                    // Not changed so ignore
-                }
-            }
-        } catch (NotFound $exception) {
-            return $response->setVariable(
-                'error',
-                'Order' . (count($ids) > 1 ? 's' : '') . ' could not be found'
-            );
-        }
-
-        return $response->setVariable('tagged', true);
-    }
-
     public function archiveAction()
     {
         $response = $this->getJsonModelFactory()->newInstance(['archived' => false]);

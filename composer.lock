@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "caf20b3149a33cd483c02fb440fc3550",
+    "hash": "f891eafad7a1b044fb679e0fcec994f6",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -469,13 +469,6 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -631,13 +624,6 @@
                 "predis/predis": "v0.8.3"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Predis\\": ""
@@ -727,13 +713,6 @@
                 "zendframework/zend-session": "2.2.*"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Sso\\": ""
@@ -743,20 +722,23 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.5.7",
+            "version": "2.5.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "3d62262081c376fcac1d200db24bfa082263772d"
+                "reference": "a1aea6e1a4ec50cc55cfb98876e6a14fe2644622"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.5.7-c804a7.zip",
-                "reference": "3d62262081c376fcac1d200db24bfa082263772d",
-                "shasum": "98b8b488f13e18e0d446af5af6e40a71a793ed89"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.5.8-6c2ab6.zip",
+                "reference": "a1aea6e1a4ec50cc55cfb98876e6a14fe2644622",
+                "shasum": "5aabd60202f7018c718c089843a76adf4df9eba9"
             },
             "require": {
                 "zendframework/zend-db": "2.2.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
             "autoload": {
@@ -767,7 +749,7 @@
                     "CG/Stdlib/Utilities.php"
                 ]
             },
-            "time": "2014-02-13 10:01:47"
+            "time": "2014-02-13 16:16:17"
         },
         {
             "name": "channelgrabber/user",
@@ -882,13 +864,6 @@
                 "zendframework/zend-view": "2.2.*"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Zend\\Hal": ""
@@ -1165,21 +1140,21 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.2.7",
+            "version": "1.2.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "1928481ecad8d369ce1bee23e9a33dfe32c2d148"
+                "reference": "395f4748559b6d308a6861993dd49884c9bf5eb0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.2.7-2c08ae.zip",
-                "reference": "1928481ecad8d369ce1bee23e9a33dfe32c2d148",
-                "shasum": "38be0659c48ccbdf344a25cf94723b0392dddf59"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.2.8-26dd73.zip",
+                "reference": "395f4748559b6d308a6861993dd49884c9bf5eb0",
+                "shasum": "221c331dd4a447bd25cca17c910a426ba8b50f77"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
-                "channelgrabber/stdlib": ">=2.5.2",
+                "channelgrabber/stdlib": ">=2.5.8",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
                 "widmogrod/zf2-mustache-module": "dev-master",
                 "zendframework/zend-config": "2.*",
@@ -1203,7 +1178,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-02-13 10:04:58"
+            "time": "2014-02-13 17:04:27"
         },
         {
             "name": "cilex/cilex",
@@ -2429,7 +2404,9 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -3407,13 +3384,6 @@
                 "shasum": "a2dae86e29d9bacdd301dc2cebd87f96ccb4a8eb"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Codeception\\": ""

@@ -76,8 +76,11 @@ class Tag extends Action
         $this->urlView = $urlView;
         $this->urlView->setVariables(
             [
-                'route' => 'Orders/tag',
-                'parameters' => []
+                'route' => 'Orders/tag/action',
+                'parameters' => [
+                    'action' => '{{action}}'
+                ],
+                'mustache' => true
             ]
         );
         return $this;

@@ -1,14 +1,13 @@
 <?php
 use Orders\Controller;
 use CG_UI\View\DataTable;
-use Orders\Order\Service;
+use Orders\Order\TableService;
 use CG\Order\Service\Alert\Service as AlertService;
 use CG\Order\Client\Alert\Storage\Api as AlertApi;
 use CG\Order\Service\Note\Service as NoteService;
 use CG\Order\Client\Note\Storage\Api as NoteApi;
 use CG\Order\Service\UserChange\Service as UserChangeService;
 use CG\Order\Client\UserChange\Storage\Api as UserChangeApi;
-use CG\Order\Service\Service as OrderService;
 use CG\Order\Client\Storage\Api as OrderApi;
 use Zend\View\Model\ViewModel;
 
@@ -208,7 +207,19 @@ return [
                         'options' => [
                             'route' => '/tag',
                             'defaults' => [
-                                'action' => 'tag',
+                                'controller' => 'Orders\Controller\Tag'
+                            ]
+                        ],
+                        'may_terminate' => false,
+                        'child_routes' => [
+                            'action' => [
+                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                'options' => [
+                                    'route' => '/:action',
+                                    'constraints' => [
+                                        'action' => 'append|remove'
+                                    ],
+                                ]
                             ]
                         ]
                     ],
@@ -244,7 +255,10 @@ return [
             },
             'Orders\Controller\Preference' => function($controllerManager) {
                 return $controllerManager->getServiceLocator()->get(Controller\PreferenceController::class);
-            }
+            },
+            'Orders\Controller\Tag' => function($controllerManager) {
+                return $controllerManager->getServiceLocator()->get(Controller\TagController::class);
+            },
         ],
         'invokables' => [],
     ],
@@ -268,8 +282,24 @@ return [
         ),
     ),
     'di' => [
+        'definition' => [
+            'class' => [
+                TableService::class => [
+                    'methods' => [
+                        'addOrderTableModifier' => [
+                            'orderTableModifier' => [
+                                'type' => TableService\OrdersTableModifierInterface::class,
+                                'required' => true,
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
         'instance' => [
             'aliases' => [
+                'MustacheFormatters' => ViewModel::class,
+                'MustacheTags' => ViewModel::class,
                 'OrdersTable' => DataTable::class,
                 'OrdersCheckboxColumnView' => ViewModel::class,
                 'OrdersCheckboxColumn' => DataTable\Column::class,
@@ -302,9 +332,33 @@ return [
                 'OrdersOptionsColumnView' => ViewModel::class,
                 'OrdersOptionsColumn' => DataTable\Column::class,
             ],
-            Service::class => [
+            TableService::class => [
                 'parameters' => [
                     'ordersTable' => 'OrdersTable',
+                ],
+                'injections' => [
+                    TableService\OrdersTableMustacheFormatters::class,
+                    TableService\OrdersTableTagColumns::class,
+                ],
+            ],
+            TableService\OrdersTableMustacheFormatters::class => [
+                'parameters' => [
+                    'javascript' => 'MustacheFormatters'
+                ],
+            ],
+            'MustacheFormatters' => [
+                'parameters' => [
+                    'template' => 'orders/orders/table/javascript/mustache-formatters.js',
+                ],
+            ],
+            TableService\OrdersTableTagColumns::class => [
+                'parameters' => [
+                    'javascript' => 'MustacheTags'
+                ],
+            ],
+            'MustacheTags' => [
+                'parameters' => [
+                    'template' => 'orders/orders/table/javascript/mustache-tags.js',
                 ],
             ],
             'OrdersTable' => [
@@ -521,6 +575,7 @@ return [
             ],
             'OrdersOptionsColumn' => [
                 'parameters' => [
+                    'order' => 9999,
                     'viewModel' => 'OrdersOptionsColumnView',
                     'class' => 'options',
                     'defaultContent' => '',

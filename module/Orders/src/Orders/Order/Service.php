@@ -2,7 +2,6 @@
 namespace Orders\Order;
 
 use CG\Stdlib\Exception\Runtime\NotFound;
-use CG_UI\View\DataTable;
 use CG_UI\View\Table;
 use CG_UI\View\Table\Column as TableColumn;
 use CG_UI\View\Table\Rows as TableRows;
@@ -16,7 +15,6 @@ use Zend\I18n\View\Helper\CurrencyFormat;
 use CG\User\Service as UserService;
 use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Note\Collection as OrderNoteCollection;
-use CG\Order\Shared\UserChange\Entity as UserChangeEntity;
 use CG\UserPreference\Client\Service as UserPreferenceService;
 
 class Service
@@ -25,8 +23,8 @@ class Service
     const ORDER_SIDEBAR_STATE_KEY = 'order-sidebar-state';
     const ORDER_FILTER_BAR_STATE_KEY = 'order-filter-bar-state';
 
-    protected $ordersTable;
     protected $orderClient;
+    protected $tableService;
     protected $userService;
     protected $activeUserContainer;
     protected $di;
@@ -34,8 +32,8 @@ class Service
     protected $userPreferenceService;
 
     public function __construct(
-        DataTable $ordersTable,
         StorageInterface $orderClient,
+        TableService $tableService,
         UserService $userService,
         ActiveUserInterface $activeUserContainer,
         Di $di,
@@ -43,8 +41,8 @@ class Service
     )
     {
         $this
-            ->setOrdersTable($ordersTable)
             ->setOrderClient($orderClient)
+            ->setTableService($tableService)
             ->setUserService($userService)
             ->setActiveUserContainer($activeUserContainer)
             ->setDi($di)
@@ -63,15 +61,20 @@ class Service
         return $this->di;
     }
 
-    public function setOrdersTable(DataTable $ordersTable)
+    public function setTableService(TableService $tableService)
     {
-        $this->ordersTable = $ordersTable;
+        $this->tableService = $tableService;
         return $this;
+    }
+
+    public function getTableService()
+    {
+        return $this->tableService;
     }
 
     public function getOrdersTable()
     {
-        return $this->ordersTable;
+        return $this->getTableService()->getOrdersTable();
     }
 
     public function setOrderClient(StorageInterface $orderClient)
