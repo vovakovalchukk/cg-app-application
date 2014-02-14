@@ -27,6 +27,16 @@ return [
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
+                    'preference' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/preference',
+                            'defaults' => [
+                                'controller' => 'Orders\Controller\Preference',
+                                'action' => 'save',
+                            ]
+                        ]
+                    ],
                     'ajax' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [
@@ -242,6 +252,9 @@ return [
             },
             'Orders\Controller\Address' => function($controllerManager) {
                 return $controllerManager->getServiceLocator()->get(Controller\AddressController::class);
+            },
+            'Orders\Controller\Preference' => function($controllerManager) {
+                return $controllerManager->getServiceLocator()->get(Controller\PreferenceController::class);
             },
             'Orders\Controller\Tag' => function($controllerManager) {
                 return $controllerManager->getServiceLocator()->get(Controller\TagController::class);

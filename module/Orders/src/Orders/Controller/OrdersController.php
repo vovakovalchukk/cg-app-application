@@ -154,16 +154,16 @@ class OrdersController extends AbstractActionController
         $settings->setSource($this->url()->fromRoute('Orders/ajax'));
         $settings->setTemplateUrlMap($templateUrlMap);
         $view->addChild($ordersTable, 'ordersTable');
-
         $bulkActions = $this->getBulkActionsService()->getBulkActions();
         $bulkActions->addChild(
             $this->getViewModelFactory()->newInstance()->setTemplate('orders/orders/bulk-actions/index'),
             'afterActions'
         );
         $view->addChild($bulkActions, 'bulkItems');
-
         $view->addChild($this->getFilterBar(), 'filters');
         $view->addChild($this->getBatches(), 'batches');
+        $view->setVariable('isSidebarVisible', $this->getOrderService()->isSidebarVisible());
+        $view->setVariable('isHeaderBarVisible', $this->getOrderService()->isFilterBarVisible());
         return $view;
     }
 
@@ -273,7 +273,6 @@ class OrdersController extends AbstractActionController
         $filterBar = $this->getViewModelFactory()->newInstance();
         $filterBar->setTemplate('layout/filters');
         $filterBar->setVariable('filterRows', $filterRows);
-
         return $filterBar;
     }
 

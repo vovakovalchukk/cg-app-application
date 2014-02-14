@@ -20,6 +20,8 @@ use CG\UserPreference\Client\Service as UserPreferenceService;
 class Service
 {
     const ORDER_TABLE_COL_PREF_KEY = 'order-columns';
+    const ORDER_SIDEBAR_STATE_KEY = 'order-sidebar-state';
+    const ORDER_FILTER_BAR_STATE_KEY = 'order-filter-bar-state';
 
     protected $orderClient;
     protected $tableService;
@@ -27,6 +29,7 @@ class Service
     protected $activeUserContainer;
     protected $di;
     protected $activeUserPreference;
+    protected $userPreferenceService;
 
     public function __construct(
         StorageInterface $orderClient,
@@ -141,6 +144,20 @@ class Service
         }
 
         return $this->activeUserPreference;
+    }
+
+    public function isSidebarVisible()
+    {
+        $preference = $this->getActiveUserPreference()->getPreference();
+        $visible = isset($preference[static::ORDER_SIDEBAR_STATE_KEY]) ? $preference[static::ORDER_SIDEBAR_STATE_KEY] : true;
+        return filter_var($visible, FILTER_VALIDATE_BOOLEAN);
+    }
+
+    public function isFilterBarVisible()
+    {
+        $preference = $this->getActiveUserPreference()->getPreference();
+        $visible = isset($preference[static::ORDER_FILTER_BAR_STATE_KEY]) ? $preference[static::ORDER_FILTER_BAR_STATE_KEY] : true;
+        return filter_var($visible, FILTER_VALIDATE_BOOLEAN);
     }
 
     public function getOrderItemTable(Entity $order)

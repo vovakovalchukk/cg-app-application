@@ -11,15 +11,22 @@ $("#filters input[name='apply-filters']").on("click", function() {
 });
 
 $("#filters input[name='clear-filters']").on("click", function() {
-    $("#filters input[name][type!='button'], #filters select[name]").val(undefined);
+    clearFilters();
     $('#hidden_batch_filter').val("");
     $("#datatable").cgDataTable("redraw");
 });
 
 function batchFilter(batchId) {
-    $("#filters input[name][type!='button'], #filters select[name]").val(undefined);
+    clearFilters();
     $('#hidden_batch_filter').val(batchId);
     $("#datatable").cgDataTable("redraw");
+}
+
+function clearFilters() {
+    $("#filters input[name][type!='button']").val(undefined);
+    $("#filters select[name]").val(undefined);
+    $("#filters input[type=checkbox]").attr('checked', false);
+    $(".custom-select .selected-content").html("Select");
 }
 
 $(document).on('click', '.batch-filter', function(e) {
@@ -30,6 +37,18 @@ $(document).on('click', '.batch-filter', function(e) {
 
 $("#datatable").on("fnRowCallback", function(event, nRow, aData, iDisplayIndex, iDisplayIndexFull) {
     $("a.title", nRow).cgPjax();
+});
+
+require([
+    "preference/Preference",
+    "slideableSidebar",
+    "order/OrderPage"
+],
+function(Preference, SlideableSidebar, OrderPage) {
+    //References to n need to be migrated, it is the notification library
+    var preference = new Preference(n);
+    var slideableSidebar = new SlideableSidebar();
+    var orderPage = new OrderPage(preference, slideableSidebar);
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
