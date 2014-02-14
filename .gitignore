@@ -12,3 +12,4 @@
 /vendor
 public/channelgrabber/zf2-logclient
 public/channelgrabber/zf2-v4-ui
+/tools/post_deploy.sh
