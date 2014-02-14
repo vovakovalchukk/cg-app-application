@@ -10,7 +10,7 @@ return array (
     5 => 'CG_Permission',
     6 => 'CG_Login',
     7 => 'CG_Register',
-    8 => 'Orders'
+    8 => 'Orders',
   ),
   'module_listener_options' => 
   array (

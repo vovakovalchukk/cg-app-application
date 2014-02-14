@@ -159,15 +159,11 @@ class OrdersController extends AbstractActionController
             $this->getViewModelFactory()->newInstance()->setTemplate('orders/orders/bulk-actions/index'),
             'afterActions'
         );
-        $bulkActions->setVariable('sidebarState', filter_var($this->getOrderService()->getSidebarState(), FILTER_VALIDATE_BOOLEAN));
-        $bulkActions->setVariable('filterBarState', filter_var($this->getOrderService()->getFilterBarState(), FILTER_VALIDATE_BOOLEAN));
-
-
         $view->addChild($bulkActions, 'bulkItems');
         $view->addChild($this->getFilterBar(), 'filters');
         $view->addChild($this->getBatches(), 'batches');
-        $view->setVariable('sidebarState', filter_var($this->getOrderService()->getSidebarState(), FILTER_VALIDATE_BOOLEAN));
-        $view->setVariable('filterBarState', filter_var($this->getOrderService()->getFilterBarState(), FILTER_VALIDATE_BOOLEAN));
+        $view->setVariable('isSidebarVisible', $this->getOrderService()->isSidebarVisible());
+        $view->setVariable('isHeaderBarVisible', $this->getOrderService()->isFilterBarVisible());
         return $view;
     }
 
@@ -197,7 +193,6 @@ class OrdersController extends AbstractActionController
     {
         $view = $this->getViewModelFactory()->newInstance();
         $view->setTemplate('layout/sidebar/batches');
-        $view->setVariable('sidebarState', filter_var($this->getOrderService()->getSidebarState(), FILTER_VALIDATE_BOOLEAN));
         $view->setVariable('batches', $this->getBatchService()->getBatches());
         return $view;
     }
@@ -278,7 +273,6 @@ class OrdersController extends AbstractActionController
         $filterBar = $this->getViewModelFactory()->newInstance();
         $filterBar->setTemplate('layout/filters');
         $filterBar->setVariable('filterRows', $filterRows);
-        $filterBar->setVariable('sidebarState', $this->getOrderService()->getSidebarState());
         return $filterBar;
     }
 

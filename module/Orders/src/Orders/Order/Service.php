@@ -143,18 +143,18 @@ class Service
         return $this->activeUserPreference;
     }
 
-    public function getSidebarState()
+    public function isSidebarVisible()
     {
-        $preferences = $this->getActiveUserPreference();
-        $preference = $preferences->getPreference();
-        return isset($preference[static::ORDER_SIDEBAR_STATE_KEY]) ? $preference[static::ORDER_SIDEBAR_STATE_KEY] : true;
+        $preference = $this->getActiveUserPreference()->getPreference();
+        $visible = isset($preference[static::ORDER_SIDEBAR_STATE_KEY]) ? $preference[static::ORDER_SIDEBAR_STATE_KEY] : true;
+        return filter_var($visible, FILTER_VALIDATE_BOOLEAN);
     }
 
-    public function getFilterBarState()
+    public function isFilterBarVisible()
     {
-        $preferences = $this->getActiveUserPreference();
-        $preference = $preferences->getPreference();
-        return isset($preference[static::ORDER_FILTER_BAR_STATE_KEY]) ? $preference[static::ORDER_FILTER_BAR_STATE_KEY] : true;
+        $preference = $this->getActiveUserPreference()->getPreference();
+        $visible = isset($preference[static::ORDER_FILTER_BAR_STATE_KEY]) ? $preference[static::ORDER_FILTER_BAR_STATE_KEY] : true;
+        return filter_var($visible, FILTER_VALIDATE_BOOLEAN);
     }
 
     public function getOrderItemTable(Entity $order)
