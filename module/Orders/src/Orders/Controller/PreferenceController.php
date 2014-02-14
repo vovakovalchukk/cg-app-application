@@ -5,6 +5,7 @@ use CG_UI\View\Prototyper\JsonModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG\UserPreference\Client\Service as UserPreferenceService;
 use CG\User\ActiveUserInterface;
+use CG\Stdlib\Exception\Runtime\RequiredKeyMissing;
 
 class PreferenceController extends AbstractActionController
 {
@@ -29,7 +30,11 @@ class PreferenceController extends AbstractActionController
         $userId = $this->getActiveUserContainer()->getActiveUser()->getId();
         $key = $this->params()->fromPost('key');
         $value = $this->params()->fromPost('value');
-        $this->getUserPreferenceService()->savePartial($userId, $key, $value);
+        try {
+            $this->getUserPreferenceService()->savePartial($userId, $key, $value);
+        } catch (RequiredKeyMissing $e) {
+            return $response->setVariable('error', $e->getMessage());
+        }
         return $response;
     }
 
