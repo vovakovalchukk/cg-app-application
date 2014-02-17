@@ -232,12 +232,15 @@ class Module extends AbstractModule implements EnableInterface, ConfigureInterfa
                 'cg|capistrano|' . $config->getAppName() . '|symlinks|config/autoload/database.local.php',
                 'config/autoload/database.local.php'
             );
-            $node->setKey('configure_sites|sites|' . $config->getAppName() . '|phinxroot', 'phinx');
-            $node->setKey( 'cg|capistrano|' . $config->getAppName() . '|symlinks|phinx/phinx.yml', 'phinx/phinx.yml');
+            $node->setKey('configure_sites|sites|' . $config->getAppName() . '|phinxroot', '');
+            $node->setKey( 'cg|capistrano|' . $config->getAppName() . '|symlinks|phinx.yml', 'phinx.yml');
+
+            // legacy config settings
+            $node->removeKey( 'cg|capistrano|' . $config->getAppName() . '|symlinks|phinx/phinx.yml');
         } else {
             $node->removeKey('cg|capistrano|' . $config->getAppName() . '|symlinks|config/autoload/database.local.php');
             $node->removeKey('configure_sites|sites|' . $config->getAppName() . '|phinxroot');
-            $node->removeKey('cg|capistrano|' . $config->getAppName() . '|symlinks|phinx/phinx.yml');
+            $node->removeKey('cg|capistrano|' . $config->getAppName() . '|symlinks|phinx.yml');
             $node->removeKey($databaseApplicationKey);
         }
 
