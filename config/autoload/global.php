@@ -106,7 +106,7 @@ return array(
             ],
             OrganisationUnitClient::class => [
                 'parameter' => [
-                    'client' => 'CGDirectoryApi_guzzle'
+                    'client' => 'directory_guzzle'
                 ]
             ],
             UserPreferenceStorage::class => [
