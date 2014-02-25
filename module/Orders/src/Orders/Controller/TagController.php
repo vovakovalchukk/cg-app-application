@@ -5,6 +5,8 @@ use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Orders\Order\Service as OrderService;
 use Orders\Filter\Service as FilterService;
+use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Etag\Exception\NotModified;
 
 class TagController extends AbstractActionController
 {
