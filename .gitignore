@@ -14,6 +14,7 @@
 /nbproject
 /tests/*/*Guy.php
 /tests/_log
+/tests/api.suite.yml
 /tools/post_deploy.sh
 /vendor
 config/di/modules_classmap.php
