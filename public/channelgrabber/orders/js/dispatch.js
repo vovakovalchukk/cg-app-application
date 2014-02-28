@@ -40,7 +40,7 @@ define(function() {
                     'orders': orders
                 },
                 success : function(data) {
-                    if (data.tagged) {
+                    if (data.dispatching) {
                         return notifications.success("Orders Marked for Dispatch");
                     } else if (!data.error) {
                         return notifications.error("Failed to marked Orders for Dispatch");

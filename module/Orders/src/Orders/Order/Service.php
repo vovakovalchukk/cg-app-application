@@ -16,14 +16,18 @@ use CG\User\Service as UserService;
 use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Note\Collection as OrderNoteCollection;
 use CG\UserPreference\Client\Service as UserPreferenceService;
+use CG\Http\Rpc\Json\Client as JsonRpcClient;
+use CG\Http\Rpc\Batch as RpcBatch;
 
 class Service
 {
     const ORDER_TABLE_COL_PREF_KEY = 'order-columns';
     const ORDER_SIDEBAR_STATE_KEY = 'order-sidebar-state';
     const ORDER_FILTER_BAR_STATE_KEY = 'order-filter-bar-state';
+    const RPC_ENDPOINT = '/order';
 
     protected $orderClient;
+    protected $orderRpcClient;
     protected $tableService;
     protected $userService;
     protected $activeUserContainer;
@@ -33,6 +37,7 @@ class Service
 
     public function __construct(
         StorageInterface $orderClient,
+        JsonRpcClient $orderRpcClient,
         TableService $tableService,
         UserService $userService,
         ActiveUserInterface $activeUserContainer,
@@ -42,6 +47,7 @@ class Service
     {
         $this
             ->setOrderClient($orderClient)
+            ->setOrderRpcClient($orderRpcClient)
             ->setTableService($tableService)
             ->setUserService($userService)
             ->setActiveUserContainer($activeUserContainer)
@@ -86,6 +92,20 @@ class Service
     public function getOrderClient()
     {
         return $this->orderClient;
+    }
+
+    public function setOrderRpcClient(JsonRpcClient $orderRpcClient)
+    {
+        $this->orderRpcClient = $orderRpcClient;
+        return $this;
+    }
+
+    /**
+     * @return JsonRpcClient
+     */
+    public function getOrderRpcClient()
+    {
+        return $this->orderRpcClient;
     }
 
     public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
@@ -283,5 +303,15 @@ class Service
         $userPrefsPref = $this->getActiveUserPreference()->getPreference();
         $storedColumns = (isset($userPrefsPref[$columnPrefKey]) ? $userPrefsPref[$columnPrefKey] : []);
         return $storedColumns;
+    }
+
+    public function dispatchOrders(array $orderIds)
+    {
+        $batch = new RpcBatch();
+        foreach ($orderIds as $orderId) {
+            $batch->addRequest($orderId, 'dispatch', [$orderId]);
+        }
+
+        return $this->getOrderRpcClient()->sendBatch(static::RPC_ENDPOINT, $batch);
     }
 }

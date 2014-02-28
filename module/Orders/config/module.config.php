@@ -10,6 +10,8 @@ use CG\Order\Service\UserChange\Service as UserChangeService;
 use CG\Order\Client\UserChange\Storage\Api as UserChangeApi;
 use CG\Order\Client\Storage\Api as OrderApi;
 use Zend\View\Model\ViewModel;
+use Orders\Order\Service as OrderService;
+use CG\Http\Rpc\Json\Client as JsonRpcClient;
 
 return [
     'router' => [
@@ -340,6 +342,7 @@ return [
                 'OrdersTagColumn' => DataTable\Column::class,
                 'OrdersOptionsColumnView' => ViewModel::class,
                 'OrdersOptionsColumn' => DataTable\Column::class,
+                'OrderRpcClient' => JsonRpcClient::class,
             ],
             TableService::class => [
                 'parameters' => [
@@ -626,7 +629,17 @@ return [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
                 ]
-            ]
+            ],
+            OrderService::class => [
+                'parameters' => [
+                    'orderRpcClient' => 'OrderRpcClient'
+                ],
+            ],
+            'OrderRpcClient' => [
+                'parameters' => [
+                    'guzzle' => 'cg_app_rpc_guzzle'
+                ]
+            ],
         ],
     ],
 ];
