@@ -202,6 +202,15 @@ return [
                             ],
                         ]
                     ],
+                    'dispatch' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/dispatch',
+                            'defaults' => [
+                                'action' => 'dispatch',
+                            ]
+                        ]
+                    ],
                     'tag' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [

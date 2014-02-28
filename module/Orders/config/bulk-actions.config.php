@@ -15,10 +15,12 @@ return [
                 'InvoiceByTitleBulkAction' => BulkActions\SubAction::class,
                 'RoyalMailBulkAction' => BulkActions\SubAction::class,
                 'RemoveBatchBulkAction' => SubAction\Batch::class,
+                'DispatchJavascript' => ViewModel::class,
                 'TagJavascript' => ViewModel::class,
                 'BatchJavascript' => ViewModel::class,
                 'BatchRemoveJavascript' => ViewModel::class,
                 'ArchiveJavascript' => ViewModel::class,
+                'UrlDataViewDispatch' => ViewModel::class,
                 'UrlDataViewTag' => ViewModel::class,
                 'UrlDataViewArchive' => ViewModel::class,
                 'UrlDataViewBatch' => ViewModel::class,
@@ -39,7 +41,7 @@ return [
                 ],
                 'injections' => [
                     BulkActions\InvoiceAction::class,
-                    BulkActions\DispatchAction::class,
+                    Action\Dispatch::class,
                     Action\Tag::class,
                     BulkActions\DownloadAction::class,
                     BulkActions\CourierAction::class,
@@ -56,7 +58,7 @@ return [
                 ],
                 'injections' => [
                     BulkActions\PrintAction::class,
-                    BulkActions\DispatchAction::class,
+                    Action\Dispatch::class,
                     Action\Tag::class,
                     BulkActions\CourierAction::class,
                     BulkActions\AccountingAction::class,
@@ -66,6 +68,20 @@ return [
                 'injections' => [
                     'InvoiceBySkuBulkAction',
                     'InvoiceByTitleBulkAction',
+                ],
+            ],
+            Action\Dispatch::class => [
+                'parameters' => [
+                    'urlView' => 'UrlDataViewDispatch',
+                    'elementData' => [
+                        'datatable' => 'datatable',
+                    ],
+                    'javascript' => 'DispatchJavascript',
+                ]
+            ],
+            'DispatchJavascript' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/dispatch.js',
                 ],
             ],
             'InvoiceBySkuBulkAction' => [
@@ -153,6 +169,11 @@ return [
                 ],
             ],
             'UrlDataViewTag' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/data-url',
+                ],
+            ],
+            'UrlDataViewDispatch' => [
                 'parameters' => [
                     'template' => 'orders/orders/bulk-actions/data-url',
                 ],

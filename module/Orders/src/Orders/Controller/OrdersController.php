@@ -355,6 +355,11 @@ class OrdersController extends AbstractActionController
         return $response->setVariable('updated', true);
     }
 
+    public function dispatchAction()
+    {
+
+    }
+
     public function archiveAction()
     {
         $response = $this->getJsonModelFactory()->newInstance(['archived' => false]);
