@@ -3,7 +3,7 @@ define(function() {
         var notifications = notifications;
 
         this.action = function(event) {
-            event.stopImmediatePropagation()
+            event.stopImmediatePropagation();
 
             var datatable = $(this).data("datatable");
             var orders = $(this).data("orders");
