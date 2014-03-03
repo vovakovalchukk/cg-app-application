@@ -21,8 +21,8 @@
     },
     "require": {
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/http": "~1.2.6",
-        "channelgrabber/order": "~1.4.3",
+        "channelgrabber/http": "~1.2.8",
+        "channelgrabber/order": "~1.4.7",
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/sso": "~1.1.2",
