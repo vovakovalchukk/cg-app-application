@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "2d934bdbd76be332418fc5af8337be4d",
+    "hash": "b9705d04573041a454f66149a3eea30c",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -1140,17 +1140,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.2.13",
+            "version": "dev-CGIV-1226-DispatchBulkAction",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "13012ce556a3a28da20268378257a06c782d488b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.2.13-e76ac8.zip",
-                "reference": "13012ce556a3a28da20268378257a06c782d488b",
-                "shasum": "d4b690343ccfc23ce45c79884457650669edb1f1"
+                "reference": "c09347ba25b9c3d7319d85af135bcd78aa3aa48f"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1178,7 +1172,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-02-24 17:05:22"
+            "time": "2014-03-03 08:55:50"
         },
         {
             "name": "cilex/cilex",
@@ -3393,11 +3387,17 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.2.14",
+            "alias_normalized": "1.2.14.0",
+            "version": "dev-CGIV-1226-DispatchBulkAction",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },
