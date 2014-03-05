@@ -131,7 +131,8 @@ class OrdersTableTagColumns implements OrdersTableModifierInterface
                 'column' => $tag->getTag(),
                 'templateId' => 'custom-tag',
                 'viewModel' => $viewModel,
-                'defaultContent' => ''
+                'defaultContent' => '',
+                'visible' => false
             ]
         );
 
