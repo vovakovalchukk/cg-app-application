@@ -283,15 +283,20 @@ class Service
     protected function configureOrderTable()
     {
         $columns = $this->getOrdersTable()->getColumns();
+
         $associativeColumns = [];
         foreach ($columns as $column) {
             $associativeColumns[$column->getColumn()] = $column;
         }
+
         $columnPrefs = $this->fetchUserPrefOrderColumns();
         foreach ($columnPrefs as $name => $on) {
-            if (isset($associativeColumns[$name]) && (!$on || $on === 'false')) {
-                $associativeColumns[$name]->setVisible(false);
+            if (!isset($associativeColumns[$name])) {
+                continue;
             }
+            $associativeColumns[$name]->setVisible(
+                filter_var($on, FILTER_VALIDATE_BOOLEAN)
+            );
         }
 
         return $this;
