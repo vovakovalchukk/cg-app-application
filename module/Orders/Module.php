@@ -55,8 +55,13 @@ class Module implements DependencyIndicatorInterface
         if (!($viewModel instanceof ViewModel)) {
             return;
         }
+        $this->renderBodyTag($viewModel);
+        $this->renderNavBar($viewModel);
+    }
 
-        $viewModel->addChild($this->getBodyTagViewModel(), 'bodyTag', true);
+    protected function renderBodyTag(ViewModel $layout)
+    {
+        $layout->addChild($this->getBodyTagViewModel(), 'bodyTag', true);
     }
 
     /**
@@ -67,5 +72,51 @@ class Module implements DependencyIndicatorInterface
         $bodyTag = new ViewModel();
         $bodyTag->setTemplate('orders/orders/bodyTag');
         return $bodyTag;
+    }
+
+    protected function renderNavBar(ViewModel $layout)
+    {
+        if (!$layout->hasChildren()) {
+            return;
+        }
+
+        $header = null;
+        foreach ($layout->getChildren() as $child) {
+            if ($child->captureTo() == 'header') {
+                $header = $child;
+                break;
+            }
+        }
+
+        if (!$header) {
+            return;
+        }
+
+        foreach ($this->getNavBarItems() as $navBarItem) {
+            $header->addChild($navBarItem, 'navBar', true);
+        }
+    }
+
+    /**
+     * @return ViewModel[]
+     */
+    protected function getNavBarItems()
+    {
+        $navBarItemParameters = [
+            [
+                'class' => 'orders',
+                'route' => 'Orders',
+                'parameters' => [],
+                'text' => 'orders'
+            ]
+        ];
+
+        $navBarItems = [];
+        foreach ($navBarItemParameters as $navBarItemParameter) {
+            $navBarItemViewModel = new ViewModel($navBarItemParameter);
+            $navBarItemViewModel->setTemplate('orders/orders/navBarItem');
+            $navBarItems[] = $navBarItemViewModel;
+        }
+        return $navBarItems;
     }
 }
