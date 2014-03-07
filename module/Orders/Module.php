@@ -18,6 +18,8 @@ class Module implements DependencyIndicatorInterface
 {
     const PUBLIC_FOLDER = '/channelgrabber/orders/';
 
+    protected $header;
+
     public function onBootstrap(MvcEvent $e)
     {
         $eventManager = $e->getApplication()->getEventManager();
@@ -74,20 +76,33 @@ class Module implements DependencyIndicatorInterface
         return $bodyTag;
     }
 
-    protected function renderNavBar(ViewModel $layout)
+    /**
+     * @param ViewModel $layout
+     * @return ViewModel
+     */
+    protected function getHeaderViewModel(ViewModel $layout)
     {
+        if ($this->header) {
+            return $this->header;
+        }
+
         if (!$layout->hasChildren()) {
             return;
         }
 
-        $header = null;
+        $this->header = null;
         foreach ($layout->getChildren() as $child) {
             if ($child->captureTo() == 'header') {
-                $header = $child;
+                $this->header = $child;
                 break;
             }
         }
+        return $this->header;
+    }
 
+    protected function renderNavBar(ViewModel $layout)
+    {
+        $header = $this->getHeaderViewModel($layout);
         if (!$header) {
             return;
         }
