@@ -9,11 +9,20 @@
 
 namespace Orders;
 
+use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
 use Zend\Config\Factory as ConfigFactory;
+use Zend\Mvc\MvcEvent;
+use Zend\View\Model\ViewModel;
 
-class Module
+class Module implements DependencyIndicatorInterface
 {
     const PUBLIC_FOLDER = '/channelgrabber/orders/';
+
+    public function onBootstrap(MvcEvent $e)
+    {
+        $eventManager = $e->getApplication()->getEventManager();
+        $eventManager->attach(MvcEvent::EVENT_RENDER, array($this, 'layoutHandler'));
+    }
 
     public function getConfig()
     {
@@ -31,5 +40,32 @@ class Module
                 ),
             ),
         );
+    }
+
+    public function getModuleDependencies()
+    {
+        return [
+            'CG_UI'
+        ];
+    }
+
+    public function layoutHandler(MvcEvent $event)
+    {
+        $viewModel = $event->getViewModel();
+        if (!($viewModel instanceof ViewModel)) {
+            return;
+        }
+
+        $viewModel->addChild($this->getBodyTagViewModel(), 'bodyTag', true);
+    }
+
+    /**
+     * @return ViewModel
+     */
+    protected function getBodyTagViewModel()
+    {
+        $bodyTag = new ViewModel();
+        $bodyTag->setTemplate('orders/orders/bodyTag');
+        return $bodyTag;
     }
 }
