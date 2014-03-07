@@ -9,16 +9,16 @@
 
 namespace Orders;
 
+use Zend\Di\Di;
 use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
 use Zend\Config\Factory as ConfigFactory;
 use Zend\Mvc\MvcEvent;
 use Zend\View\Model\ViewModel;
+use CG_UI\Layout\ViewModelFactory;
 
 class Module implements DependencyIndicatorInterface
 {
     const PUBLIC_FOLDER = '/channelgrabber/orders/';
-
-    protected $header;
 
     public function onBootstrap(MvcEvent $e)
     {
@@ -58,7 +58,7 @@ class Module implements DependencyIndicatorInterface
             return;
         }
         $this->renderBodyTag($viewModel);
-        $this->renderNavBar($viewModel);
+        $this->renderNavBar($event, $viewModel);
     }
 
     protected function renderBodyTag(ViewModel $layout)
@@ -77,36 +77,19 @@ class Module implements DependencyIndicatorInterface
     }
 
     /**
-     * @param ViewModel $layout
+     * @param MvcEvent $event
      * @return ViewModel
      */
-    protected function getHeaderViewModel(ViewModel $layout)
+    protected function getHeaderViewModel(MvcEvent $event)
     {
-        if ($this->header) {
-            return $this->header;
-        }
-
-        if (!$layout->hasChildren()) {
-            return;
-        }
-
-        $this->header = null;
-        foreach ($layout->getChildren() as $child) {
-            if ($child->captureTo() == 'header') {
-                $this->header = $child;
-                break;
-            }
-        }
-        return $this->header;
+        $di = $event->getApplication()->getServiceManager()->get(Di::class);
+        $viewModelFactory = $di->get(ViewModelFactory::class);
+        return $viewModelFactory->get('header');
     }
 
-    protected function renderNavBar(ViewModel $layout)
+    protected function renderNavBar(MvcEvent $event, ViewModel $layout)
     {
-        $header = $this->getHeaderViewModel($layout);
-        if (!$header) {
-            return;
-        }
-
+        $header = $this->getHeaderViewModel($event);
         foreach ($this->getNavBarItems() as $navBarItem) {
             $header->addChild($navBarItem, 'navBar', true);
         }
