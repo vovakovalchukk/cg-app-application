@@ -54,7 +54,7 @@ define(function() {
         if (!orders.length) {
             return;
         }
-        this.getNotifications().notice(this.getMessage());
+        this.getNotifications().success(this.getMessage());
         this.getFormElement(orders).submit().remove();
     };
 
