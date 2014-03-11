@@ -243,6 +243,15 @@ return [
                             ]
                         ]
                     ],
+                    'invoice' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/invoice',
+                            'defaults' => [
+
+                            ]
+                        ]
+                    ],
                 ],
             ],
         ],
