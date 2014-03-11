@@ -248,7 +248,8 @@ return [
                         'options' => [
                             'route' => '/invoice',
                             'defaults' => [
-
+                                'controller' => 'Orders\Controller\Invoice',
+                                'action' => 'generate'
                             ]
                         ]
                     ],
@@ -278,6 +279,9 @@ return [
             },
             'Orders\Controller\Tag' => function($controllerManager) {
                 return $controllerManager->getServiceLocator()->get(Controller\TagController::class);
+            },
+            'Orders\Controller\Invoice' => function($controllerManager) {
+                return $controllerManager->getServiceLocator()->get(Controller\InvoiceController::class);
             },
         ],
         'invokables' => [],
