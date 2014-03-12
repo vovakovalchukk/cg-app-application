@@ -60,7 +60,7 @@ class Pdf implements ServiceInterface
         foreach ($renderedContent as $pdfContent) {
             $currentPdf = PdfDocument::parse($pdfContent);
             foreach ($currentPdf->pages as $page) {
-                $pdf->pages[] = $page;
+                $pdf->pages[] = clone $page;
             }
         }
         return $pdf->render();
