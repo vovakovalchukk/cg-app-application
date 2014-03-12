@@ -3,6 +3,7 @@ namespace Orders\Order\Invoice\Renderer\Service;
 
 use Orders\Order\Invoice\Renderer\ServiceInterface;
 use Zend\Di\Di;
+use CG\Template\ReplaceManager\OrderContent as TagReplacer;
 use CG\Template\Renderer\Pdf as Renderer;
 use CG\Order\Shared\Entity as Order;
 use CG\Template\Entity as Template;
@@ -13,11 +14,12 @@ use ZendPdf\PdfDocument;
 class Pdf implements ServiceInterface
 {
     protected $di;
+    protected $tagReplacer;
     protected $renderer;
 
-    public function __construct(Di $di, Renderer $renderer)
+    public function __construct(Di $di, TagReplacer $tagReplacer, Renderer $renderer)
     {
-        $this->setDi($di)->setRenderer($renderer);
+        $this->setDi($di)->setTagReplacer($tagReplacer)->setRenderer($renderer);
     }
 
     public function setDi(Di $di)
@@ -32,6 +34,20 @@ class Pdf implements ServiceInterface
     public function getDi()
     {
         return $this->di;
+    }
+
+    public function setTagReplacer(TagReplacer $tagReplacer)
+    {
+        $this->tagReplacer = $tagReplacer;
+        return $this;
+    }
+
+    /**
+     * @return TagReplacer
+     */
+    public function getTagReplacer()
+    {
+        return $this->tagReplacer;
     }
 
     public function setRenderer(Renderer $renderer)
@@ -58,6 +74,7 @@ class Pdf implements ServiceInterface
             ]
         );
         $template->expandPage($document->getPaperPage());
+        $this->getTagReplacer()->render($template, $order);
         return $this->getRenderer()->render($template, $document);
     }
 
