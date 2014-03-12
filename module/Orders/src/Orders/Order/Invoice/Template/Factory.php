@@ -34,6 +34,16 @@ class Factory
      */
     public function getTemplateForOrderEntity(Order $order)
     {
-        return $this->getDi()->get(Template::class);
+        return $this->getDi()->get(
+            Template::class,
+            [
+                'type' => 'Invoice',
+                'organisationUnitId' => 0,
+                'minHeight' => 842,
+                'minWidth' => 592,
+                'elements' => [],
+                'id' => 0
+            ]
+        );
     }
 }
