@@ -7,6 +7,7 @@ use CG\Template\Renderer\Pdf as Renderer;
 use CG\Order\Shared\Entity as Order;
 use CG\Template\Entity as Template;
 use CG\Template\Renderer\Pdf\Document;
+use CG\Template\Element\Page;
 use ZendPdf\PdfDocument;
 
 class Pdf implements ServiceInterface
@@ -49,7 +50,13 @@ class Pdf implements ServiceInterface
 
     public function renderOrderTemplate(Order $order, Template $template)
     {
-        $document = $this->getDi()->get(Document::class);
+        $document = $this->getDi()->newInstance(
+            Document::class,
+            [
+                'document' => $this->getDi()->newInstance(PdfDocument::class),
+                'page' => $this->getDi()->newInstance(Page::class)
+            ]
+        );
         $template->expandPage($document->getPaperPage());
         return $this->getRenderer()->render($template, $document);
     }
