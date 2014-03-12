@@ -5,7 +5,7 @@ use Zend\Http\Response as HttpResponse;
 
 class Response extends HttpResponse
 {
-    public function __construct($content, $filename = 'invoice.pdf', $mimeType = 'application/pdf')
+    public function __construct($mimeType, $filename, $content)
     {
         $this->setMimeType($mimeType)->setFilename($filename)->setContent($content);
     }

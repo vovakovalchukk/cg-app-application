@@ -64,6 +64,16 @@ class Pdf implements ServiceInterface
         return $this->renderer;
     }
 
+    public function getMimeType()
+    {
+        return 'application/pdf';
+    }
+
+    public function getFileName($filename = 'Invoice')
+    {
+        return $filename . '.pdf';
+    }
+
     public function renderOrderTemplate(Order $order, Template $template)
     {
         $orderTemplate = clone $template;

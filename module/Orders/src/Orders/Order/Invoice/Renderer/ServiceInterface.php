@@ -16,6 +16,8 @@ interface ServiceInterface
      * @return RendererInterface
      */
     public function getRenderer();
+    public function getMimeType();
+    public function getFileName($filename = 'Invoice');
     public function renderOrderTemplate(Order $order, Template $template);
     public function combine(array $renderedContent);
 }

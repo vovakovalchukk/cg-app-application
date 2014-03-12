@@ -104,6 +104,8 @@ class Service
         return $this->getDi()->get(
             Response::class,
             [
+                'mimeType' => $this->getRendererService()->getMimeType(),
+                'filename' => $this->getRendererService()->getFileName(),
                 'content' => $this->generateInvoiceFromOrderCollection($orderCollection)
             ]
         );
