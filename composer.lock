@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "03407f0f914c6fd64c4f8daf587f7058",
+    "hash": "8a60bbbebe288b650b6b48a66c9e417f",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -820,11 +820,11 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-develop",
+            "version": "dev-CGIV-1783-TagReplacableInterface",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "9d446f361f5d17951665aa52cab352758364ed04"
+                "reference": "3691e2ade147e49c57c7b55005d6d8884090944a"
             },
             "require": {
                 "channelgrabber/account": "~1.0",
@@ -846,7 +846,7 @@
                     "CG\\Template\\": ""
                 }
             },
-            "time": "2014-03-12 11:48:11"
+            "time": "2014-03-12 16:55:37"
         },
         {
             "name": "channelgrabber/user",
@@ -3572,7 +3572,7 @@
         {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
-            "version": "dev-develop",
+            "version": "dev-CGIV-1783-TagReplacableInterface",
             "package": "channelgrabber/template"
         },
         {
