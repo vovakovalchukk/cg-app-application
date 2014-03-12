@@ -4,6 +4,8 @@ namespace Orders\Order\Invoice\Template;
 use Zend\Di\Di;
 use CG\Order\Shared\Entity as Order;
 use CG\Template\Entity as Template;
+use CG\Template\Element\Text;
+use CG\Template\FontFamily;
 
 class Factory
 {
@@ -41,7 +43,9 @@ class Factory
                 'organisationUnitId' => 0,
                 'minHeight' => 842,
                 'minWidth' => 592,
-                'elements' => [],
+                'elements' => [
+                    new Text(12, new FontFamily\Courier(), 'black', 'Invoice', 0, 0)
+                ],
                 'id' => 0
             ]
         );
