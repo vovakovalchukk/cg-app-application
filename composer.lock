@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "5b827b93c28f41fd9a24cb82527de52f",
+    "hash": "03407f0f914c6fd64c4f8daf587f7058",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -820,17 +820,18 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-1764",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "28252a3692c15b18be7c8d612f757b5ab7011a9d"
+                "reference": "9d446f361f5d17951665aa52cab352758364ed04"
             },
             "require": {
                 "channelgrabber/account": "~1.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/order": "~1.4",
                 "channelgrabber/user": "~1.10",
+                "ext-gd": "*",
                 "zendframework/zend-di": ">=2.2.5",
                 "zendframework/zend-view": "~2.2.6",
                 "zendframework/zendpdf": "2.0.2.1"
@@ -845,7 +846,7 @@
                     "CG\\Template\\": ""
                 }
             },
-            "time": "2014-03-11 15:31:29"
+            "time": "2014-03-12 11:48:11"
         },
         {
             "name": "channelgrabber/user",
@@ -3571,7 +3572,7 @@
         {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
-            "version": "dev-CGIV-1764",
+            "version": "dev-develop",
             "package": "channelgrabber/template"
         },
         {
