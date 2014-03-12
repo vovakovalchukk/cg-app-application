@@ -66,6 +66,7 @@ class Pdf implements ServiceInterface
 
     public function renderOrderTemplate(Order $order, Template $template)
     {
+        $orderTemplate = clone $template;
         $document = $this->getDi()->newInstance(
             Document::class,
             [
@@ -73,9 +74,9 @@ class Pdf implements ServiceInterface
                 'page' => $this->getDi()->newInstance(Page::class)
             ]
         );
-        $template->expandPage($document->getPaperPage());
-        $this->getTagReplacer()->render($template, $order);
-        return $this->getRenderer()->render($template, $document);
+        $orderTemplate->expandPage($document->getPaperPage());
+        $this->getTagReplacer()->render($orderTemplate, $order);
+        return $this->getRenderer()->render($orderTemplate, $document);
     }
 
     public function combine(array $renderedContent)
