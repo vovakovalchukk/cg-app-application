@@ -59,6 +59,7 @@ return [
                     ],
                 ],
                 'injections' => [
+                    Action\Invoice::class,
                     BulkActions\PrintAction::class,
                     Action\Dispatch::class,
                     Action\Tag::class,
