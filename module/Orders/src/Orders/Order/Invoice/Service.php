@@ -5,16 +5,27 @@ use Zend\Di\Di;
 use Orders\Order\Service as OrderService;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection;
-use Exception;
+use Orders\Order\Invoice\Template\Factory as TemplateFactory;
+use Orders\Order\Invoice\Renderer\ServiceInterface as RendererService;
 
 class Service
 {
     protected $di;
     protected $orderService;
+    protected $templateFactory;
+    protected $rendererService;
 
-    public function __construct(Di $di, OrderService $orderService)
-    {
-        $this->setDi($di)->setOrderService($orderService);
+    public function __construct(
+        Di $di,
+        OrderService $orderService,
+        TemplateFactory $templateFactory,
+        RendererService $rendererService
+    ) {
+        $this
+            ->setDi($di)
+            ->setOrderService($orderService)
+            ->setTemplateFactory($templateFactory)
+            ->setRendererService($rendererService);
     }
 
     public function setDi(Di $di)
@@ -45,6 +56,34 @@ class Service
         return $this->orderService;
     }
 
+    public function setTemplateFactory(TemplateFactory $templateFactory)
+    {
+        $this->templateFactory = $templateFactory;
+        return $this;
+    }
+
+    /**
+     * @return TemplateFactory
+     */
+    public function getTemplateFactory()
+    {
+        return $this->templateFactory;
+    }
+
+    public function setRendererService(RendererService $rendererService)
+    {
+        $this->rendererService = $rendererService;
+        return $this;
+    }
+
+    /**
+     * @return RendererService
+     */
+    public function getRendererService()
+    {
+        return $this->rendererService;
+    }
+
     /**
      * @param array $orderIds
      * @return Response
@@ -65,8 +104,20 @@ class Service
         return $this->getDi()->get(
             Response::class,
             [
-                'content' => ''
+                'content' => $this->generateInvoiceFromOrderCollection($orderCollection)
             ]
         );
+    }
+
+    public function generateInvoiceFromOrderCollection(Collection $orderCollection)
+    {
+        $renderedContent = [];
+        foreach ($orderCollection as $order) {
+            $renderedContent[] = $this->getRendererService()->renderOrderTemplate(
+                $order,
+                $this->getTemplateFactory()->getTemplateForOrderEntity($order)
+            );
+        }
+        return $this->getRendererService()->combine($renderedContent);
     }
 }
