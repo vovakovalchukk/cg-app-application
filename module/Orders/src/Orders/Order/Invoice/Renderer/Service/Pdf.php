@@ -63,6 +63,6 @@ class Pdf implements ServiceInterface
                 $pdf->pages[] = $page;
             }
         }
-        return $pdf;
+        return $pdf->render();
     }
 }
