@@ -40,7 +40,7 @@ define(function() {
     };
 
     InvoiceBulkAction.prototype.getFormElement = function(orders) {
-        var form = $("<form></form>").attr("action", this.getUrl()).attr("method", "POST");
+        var form = $("<form></form>").attr("action", this.getUrl()).attr("method", "POST").hide();
         for (var index in orders) {
             form.append(function() {
                 return $("<input />").attr("name", "orders[]").val(orders[index]);
@@ -54,8 +54,12 @@ define(function() {
         if (!orders.length) {
             return;
         }
+
         this.getNotifications().success(this.getMessage());
-        this.getFormElement(orders).submit().remove();
+
+        var form = this.getFormElement(orders);
+        $("body").append(form);
+        form.submit().remove();
     };
 
     return InvoiceBulkAction;
