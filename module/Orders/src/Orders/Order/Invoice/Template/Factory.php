@@ -44,7 +44,9 @@ class Factory
                 'minHeight' => 842,
                 'minWidth' => 592,
                 'elements' => [
-                    new Text(12, new FontFamily\Courier(), 'black', 'Invoice', 0, 0)
+                    new Text(12, new FontFamily\Courier(), 'black', 'Invoice', 0, 0),
+                    (new Text(12, new FontFamily\Courier(), 'green', '{{order.id}}', 0, 0))
+                        ->setY(25)
                 ],
                 'id' => 0
             ]
