@@ -7,6 +7,7 @@ use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection;
 use Orders\Order\Invoice\Template\Factory as TemplateFactory;
 use Orders\Order\Invoice\Renderer\ServiceInterface as RendererService;
+use CG\Http\Exception\Exception3xx\NotModified;
 
 class Service
 {
@@ -101,6 +102,7 @@ class Service
      */
     public function getResponseFromOrderCollection(Collection $orderCollection)
     {
+        $this->markOrdersAsPrinterFromOrderCollection($orderCollection);
         return $this->getDi()->get(
             Response::class,
             [
@@ -109,6 +111,16 @@ class Service
                 'content' => $this->generateInvoiceFromOrderCollection($orderCollection)
             ]
         );
+    }
+
+    public function markOrdersAsPrinterFromOrderCollection(Collection $orderCollection)
+    {
+        $now = time();
+        foreach ($orderCollection as $order) {
+            $this->getOrderService()->saveOrder(
+                $order->setPrintedDate(date('Y-m-d H:i:s', $now))
+            );
+        }
     }
 
     public function generateInvoiceFromOrderCollection(Collection $orderCollection)
