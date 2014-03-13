@@ -11,22 +11,27 @@ class Service
         [
             "get" => "getPurchaseDate",
             "title" => "Purchase Date",
-            "extraText" => "Purchased"
+            "extraText" => "Purchased",
+            "sort" => 10
         ],
         [
             "get" => "getPaymentDate",
             "title" => "Payment Date",
-            "extraText" => "Paid For"
-        ],
-        [
-            "get" => "getPrintedDate",
-            "title" => "Printed Date",
-            "extraText" => "Printed"
+            "extraText" => "Paid For",
+            "sort" => 20
         ],
         [
             "get" => "getDispatchDate",
             "title" => "Dispatch Date",
-            "extraText" => "Dispatched"
+            "extraText" => "Dispatched",
+            "sort" => 30
+        ],
+        [
+            "get" => "getPrintedDate",
+            "title" => "Printed Date",
+            "extraText" => "Printed",
+            "sort" => 40,
+            "sortByDate" => true
         ]
     ];
 
@@ -49,18 +54,60 @@ class Service
     protected function getOrderedTimelineBoxes(OrderEntity $order)
     {
         $timelineBoxes = [];
+        $unixTimes = [];
+        $sortValues = [];
+        $sortByDateBoxes = [];
         foreach ($this->getTimelineHeadings() as $timelineHeading) {
-            $unixTime = strtotime($order->$timelineHeading["get"]()) ?: null;
-            $timelineBoxes[] = [
-                'title' => $timelineHeading["title"],
-                'subtitle' => $unixTime ? date("jS M Y", $unixTime) : "Order Not Yet",
-                'extraText' => $unixTime ? date("h:ia", $unixTime) : "Order Not Yet",
-                'colour' => $unixTime ? "green" : "light-grey",
-                'unixTime' => $unixTime
-            ];
-            $unixTimes[] = $unixTime;
+            $title = $timelineHeading["title"];
+            $timelineBoxes[$title] = $this->getTimelineBox($order, $timelineHeading);
+            $unixTimes[] = $timelineBoxes[$title]['unixTime'];
+            $sortValues[] = $timelineHeading["sort"];
+            if (isset($timelineHeading["sortByDate"]) && $timelineHeading["sortByDate"]) {
+                $sortByDateBoxes[] = $timelineHeading["title"];
+            }
         }
-        array_multisort($timelineBoxes, SORT_NUMERIC, $unixTimes);
+        $timelineBoxesBySort = $timelineBoxes;
+        array_multisort($timelineBoxesBySort, SORT_NUMERIC, $sortValues);
+        if (empty($sortByDateBoxes)) {
+            return array_values($timelineBoxesBySort);
+        }
+
+        return array_values($this->sortRelevantTimelineBoxesByDate($timelineBoxesBySort, $sortByDateBoxes));
+    }
+
+    protected function getTimelineBox(OrderEntity $order, array $timelineHeading)
+    {
+        $unixTime = strtotime($order->$timelineHeading["get"]()) ?: null;
+
+        $timelineBox = [
+            'title' => $timelineHeading["title"],
+            'subtitle' => $unixTime ? date("jS M Y", $unixTime) : "N/A",
+            'extraText' => $unixTime ? date("h:ia", $unixTime) : "",
+            'colour' => $unixTime ? "green" : "light-grey",
+            'unixTime' => $unixTime
+        ];
+        return $timelineBox;
+    }
+
+    protected function sortRelevantTimelineBoxesByDate(array $timelineBoxes, array $sortByDateBoxes)
+    {
+        foreach ($sortByDateBoxes as $titleToMove) {
+            if (!$timelineBoxes[$titleToMove]['unixTime']) {
+                continue;
+            }
+
+            $sortedIndex = array_search($titleToMove, array_keys($timelineBoxes));
+            $timelineBoxToMove = array_splice($timelineBoxes, $sortedIndex, 1);
+            $timelineBoxToMove = array_values($timelineBoxToMove)[0];
+            foreach ($timelineBoxes as $title => $timelineBox) {
+                if ((int)$timelineBoxToMove['unixTime'] > (int)$timelineBox['unixTime']) {
+                    continue;
+                }
+            }
+            $index = $sortedIndex = array_search($title, array_keys($timelineBoxes));
+            array_splice($timelineBoxes, $index, 0, $timelineBoxToMove);
+        }
+        
         return $timelineBoxes;
     }
 
