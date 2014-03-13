@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "d777c4c4f6624a8dfe2999e2e6858ea0",
+    "hash": "1dc77359b07c7c98c6ff8d240983a963",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -1171,17 +1171,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.2.17",
+            "version": "dev-CGIV-1697-section-breaks",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "629397b0acc9eb78761b864454c96fef45bd8a8b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.2.17-e5d515.zip",
-                "reference": "629397b0acc9eb78761b864454c96fef45bd8a8b",
-                "shasum": "13e083b28eda39a9f9ad118ad6c02cafba905958"
+                "reference": "6eebc0e629692b427112fb261c92c1b319830561"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -3472,11 +3466,17 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.2.15",
+            "alias_normalized": "1.2.15.0",
+            "version": "dev-CGIV-1697-section-breaks",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },
