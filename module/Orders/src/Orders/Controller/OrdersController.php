@@ -331,7 +331,7 @@ class OrdersController extends AbstractActionController
         try {
             $orders = $this->getOrderService()->getOrders($filter);
             $data['iTotalRecords'] = (int) $orders->getTotal();
-            $data['iTotalDisplayRecords'] = (int) $orders->getTotal();
+            $data['iTotalDisplayRecords'] = (int) $orders->count();
 
             foreach ($orders as $order) {
                 $data['Records'][] = $order->toArray();

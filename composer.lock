@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "d777c4c4f6624a8dfe2999e2e6858ea0",
+    "hash": "59be5035c69530dcb7cd97f256483425",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -469,13 +469,6 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -485,17 +478,11 @@
         },
         {
             "name": "channelgrabber/http",
-            "version": "1.2.8",
+            "version": "dev-CGIV-1685-PagenationHalResponse",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cghttp.git",
-                "reference": "8a1b863646e8657e4c551738c2dd6c3656cd4f9b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.2.8-94417a.zip",
-                "reference": "8a1b863646e8657e4c551738c2dd6c3656cd4f9b",
-                "shasum": "eb8b7febf6d61d27cc9a6027e9cbb993ef1e9847"
+                "reference": "0cc3c9e268c82391561666879918534b51789337"
             },
             "require": {
                 "channelgrabber/etag": "~1.4.2",
@@ -512,7 +499,7 @@
                     "CG\\Http\\": ""
                 }
             },
-            "time": "2014-03-03 15:46:42"
+            "time": "2014-03-13 11:09:32"
         },
         {
             "name": "channelgrabber/log",
@@ -631,13 +618,6 @@
                 "predis/predis": "v0.8.3"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Predis\\": ""
@@ -727,13 +707,6 @@
                 "zendframework/zend-session": "2.2.*"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Sso\\": ""
@@ -888,13 +861,6 @@
                 "zendframework/zend-view": "2.2.*"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Zend\\Hal": ""
@@ -2436,7 +2402,9 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -3472,11 +3440,17 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.2.9",
+            "alias_normalized": "1.2.9.0",
+            "version": "dev-CGIV-1685-PagenationHalResponse",
+            "package": "channelgrabber/http"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/http": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },
