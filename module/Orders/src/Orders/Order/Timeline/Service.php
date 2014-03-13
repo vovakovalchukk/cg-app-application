@@ -54,31 +54,30 @@ class Service
     protected function getOrderedTimelineBoxes(OrderEntity $order)
     {
         $timelineBoxes = [];
-        $unixTimes = [];
         $sortValues = [];
         $sortByDateBoxes = [];
+        $count = 0;
         foreach ($this->getTimelineHeadings() as $timelineHeading) {
-            $title = $timelineHeading["title"];
-            $timelineBoxes[$title] = $this->getTimelineBox($order, $timelineHeading);
-            $unixTimes[] = $timelineBoxes[$title]['unixTime'];
+            $timelineBox = $this->getTimelineBox($order, $timelineHeading);
+            $timelineBoxes[] = $timelineBox;
             $sortValues[] = $timelineHeading["sort"];
             if (isset($timelineHeading["sortByDate"]) && $timelineHeading["sortByDate"]) {
-                $sortByDateBoxes[] = $timelineHeading["title"];
+                $sortByDateBoxes[$count] = $timelineBox;
             }
-        }
-        $timelineBoxesBySort = $timelineBoxes;
-        array_multisort($timelineBoxesBySort, SORT_NUMERIC, $sortValues);
-        if (empty($sortByDateBoxes)) {
-            return array_values($timelineBoxesBySort);
+            $count++;
         }
 
-        return array_values($this->sortRelevantTimelineBoxesByDate($timelineBoxesBySort, $sortByDateBoxes));
+        array_multisort($timelineBoxes, SORT_NUMERIC, $sortValues);
+        if (empty($sortByDateBoxes)) {
+            return $timelineBoxes;
+        }
+
+        return $this->sortGivenTimelineBoxesByDate($timelineBoxes, $sortByDateBoxes);
     }
 
     protected function getTimelineBox(OrderEntity $order, array $timelineHeading)
     {
         $unixTime = strtotime($order->$timelineHeading["get"]()) ?: null;
-
         $timelineBox = [
             'title' => $timelineHeading["title"],
             'subtitle' => $unixTime ? date("jS M Y", $unixTime) : "N/A",
@@ -89,32 +88,40 @@ class Service
         return $timelineBox;
     }
 
-    protected function sortRelevantTimelineBoxesByDate(array $timelineBoxes, array $sortByDateBoxes)
+    protected function sortGivenTimelineBoxesByDate(array $timelineBoxes, array $sortByDateBoxes)
     {
-        foreach ($sortByDateBoxes as $titleToMove) {
-            if (!$timelineBoxes[$titleToMove]['unixTime']) {
+        foreach ($sortByDateBoxes as $sortByDateBoxIndex => $sortByDateBox) {
+            if (!$sortByDateBox['unixTime']) {
                 continue;
             }
 
-            $sortedIndex = array_search($titleToMove, array_keys($timelineBoxes));
-            $slice = array_splice($timelineBoxes, $sortedIndex, 1);
-            $timelineBoxToMove = array_pop($slice);
+            $timelineBoxToSort = $this->extractTimelineBox($timelineBoxes, $sortByDateBoxIndex);
             $count = 0;
-            foreach ($timelineBoxes as $currentTitle => $timelineBox) {
-                if ((int)$timelineBoxToMove['unixTime'] < (int)$timelineBox['unixTime']) {
+            foreach ($timelineBoxes as $currentBox) {
+                if ((int)$timelineBoxToSort['unixTime'] < (int)$currentBox['unixTime']) {
                     break;
                 }
                 $count++;
             }
-            if ($count < count($timelineBoxes)) {
-                $index = array_search($currentTitle, array_keys($timelineBoxes));
-                array_splice($timelineBoxes, $index, 0, [$timelineBoxToMove]);
-            } else {
-                array_push($timelineBoxes, $timelineBoxToMove);
-            }
+            $this->insertTimelineBox($timelineBoxes, $count, $timelineBoxToSort);
         }
 
         return $timelineBoxes;
+    }
+
+    protected function extractTimelineBox(&$timelineBoxes, $timelineBoxIndex)
+    {
+        $slice = array_splice($timelineBoxes, $timelineBoxIndex, 1);
+        return array_pop($slice);
+    }
+
+    protected function insertTimelineBox(&$timelineBoxes, $timelineBoxIndex, $timelineBox)
+    {
+        if ($timelineBoxIndex < count($timelineBoxes)) {
+            array_splice($timelineBoxes, $timelineBoxIndex, 0, [$timelineBox]);
+        } else {
+            array_push($timelineBoxes, $timelineBox);
+        }
     }
 
     protected function getTimelineTimes(array $timelineBoxes)
