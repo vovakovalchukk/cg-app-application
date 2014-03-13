@@ -312,6 +312,8 @@ return [
                 'MustacheFormatters' => ViewModel::class,
                 'MustacheTags' => ViewModel::class,
                 'OrdersTable' => DataTable::class,
+                'OrdersTableSettings' => DataTable\Settings::class,
+                'OrdersTableInfiniteScroll' => DataTable\InfiniteScroll::class,
                 'OrdersCheckboxColumnView' => ViewModel::class,
                 'OrdersCheckboxColumn' => DataTable\Column::class,
                 'OrdersChannelColumnView' => ViewModel::class,
@@ -382,21 +384,36 @@ return [
                     ],
                 ],
                 'injections' => [
-                    'OrdersCheckboxColumn',
-                    'OrdersChannelColumn',
-                    'OrdersAccountColumn',
-                    'OrdersDateColumn',
-                    'OrdersIdColumn',
-                    'OrdersTotalColumn',
-                    'OrdersBuyerColumn',
-                    'OrdersStatusColumn',
-                    'OrdersBatchColumn',
-                    'OrdersMessagesColumn',
-                    'OrdersShippingColumn',
-                    'OrdersDispatchColumn',
-                    'OrdersPrintColumn',
-                    'OrdersTagColumn',
-                    'OrdersOptionsColumn',
+                    'addColumn' => [
+                        ['column' => 'OrdersCheckboxColumn'],
+                        ['column' => 'OrdersChannelColumn'],
+                        ['column' => 'OrdersAccountColumn'],
+                        ['column' => 'OrdersDateColumn'],
+                        ['column' => 'OrdersIdColumn'],
+                        ['column' => 'OrdersTotalColumn'],
+                        ['column' => 'OrdersBuyerColumn'],
+                        ['column' => 'OrdersStatusColumn'],
+                        ['column' => 'OrdersBatchColumn'],
+                        ['column' => 'OrdersMessagesColumn'],
+                        ['column' => 'OrdersShippingColumn'],
+                        ['column' => 'OrdersDispatchColumn'],
+                        ['column' => 'OrdersPrintColumn'],
+                        ['column' => 'OrdersTagColumn'],
+                        ['column' => 'OrdersOptionsColumn'],
+                    ],
+                    'setVariable' => [
+                        ['name' => 'settings', 'value' => 'OrdersTableSettings']
+                    ],
+                ],
+            ],
+            'OrdersTableSettings' => [
+                'parameters' => [
+                    'infiniteScroll' => 'OrdersTableInfiniteScroll'
+                ],
+            ],
+            'OrdersTableInfiniteScroll' => [
+                'parameters' => [
+                    'rowHeight' => 60
                 ],
             ],
             'OrdersCheckboxColumnView' => [
