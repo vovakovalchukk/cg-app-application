@@ -38,7 +38,7 @@ require([
 </div>
 <?= $this->bulkActions ?>
 <?= $this->timelineBoxes; ?>
-<div class="module clearfix">
+<div class="module clearfix section-separator">
     <form class="single-row" id="alert" data-url="<?= $this->url('Orders/order/alert', array('order' => $order->getId())); ?>"
           data-actionMessage="<?= $this->translate('Saving alert'); ?>" data-successMessage="<?= $this->translate('Alert saved'); ?>">
         <label>
@@ -55,7 +55,7 @@ require([
         </label>
     </form>
 </div>
-<div class="module clearfix">
+<div class="module clearfix section-separator">
     <form class="single-row">
         <label>
             <span class="icon-large user"></span>
@@ -63,7 +63,7 @@ require([
         </label>
     </form>
 </div>
-<div class="module clearfix">
+<div class="module clearfix section-separator">
     <div id="detailsForm">
         <form id="addressInformation" data-url="<?= $this->url('Orders/order/address', array('order' => $order->getId())); ?>"
               data-actionMessage="<?= $this->translate('Updating address'); ?>" data-successMessage="<?= $this->translate('Address updated'); ?>">
@@ -170,7 +170,7 @@ require([
         </form>
     </div>
 </div>
-<div id="product-payment-table" class="module clearfix">
+<div id="product-payment-table" class="module clearfix section-separator">
     <h2><?= $this->translate('Product & Payment Information'); ?></h2>
     <?php if(count($order->getItems())):?>
         <?= $this->productPaymentTable; ?>
@@ -213,7 +213,7 @@ require([
         </label>
     </form>
 </div>
-<div class="module clearfix">
+<div class="module clearfix section-separator">
     <h2>Shipping</h2>
     <form  method="post" class="ajaxPost">
         <label>
