@@ -97,17 +97,23 @@ class Service
             }
 
             $sortedIndex = array_search($titleToMove, array_keys($timelineBoxes));
-            $timelineBoxToMove = array_splice($timelineBoxes, $sortedIndex, 1);
-            $timelineBoxToMove = array_values($timelineBoxToMove)[0];
-            foreach ($timelineBoxes as $title => $timelineBox) {
-                if ((int)$timelineBoxToMove['unixTime'] > (int)$timelineBox['unixTime']) {
-                    continue;
+            $slice = array_splice($timelineBoxes, $sortedIndex, 1);
+            $timelineBoxToMove = array_pop($slice);
+            $count = 0;
+            foreach ($timelineBoxes as $currentTitle => $timelineBox) {
+                if ((int)$timelineBoxToMove['unixTime'] < (int)$timelineBox['unixTime']) {
+                    break;
                 }
+                $count++;
             }
-            $index = $sortedIndex = array_search($title, array_keys($timelineBoxes));
-            array_splice($timelineBoxes, $index, 0, $timelineBoxToMove);
+            if ($count < count($timelineBoxes)) {
+                $index = array_search($currentTitle, array_keys($timelineBoxes));
+                array_splice($timelineBoxes, $index, 0, [$timelineBoxToMove]);
+            } else {
+                array_push($timelineBoxes, $timelineBoxToMove);
+            }
         }
-        
+
         return $timelineBoxes;
     }
 
