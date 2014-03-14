@@ -45,8 +45,6 @@ return [
                     Action\Invoice::class,
                     Action\Dispatch::class,
                     Action\Tag::class,
-                    BulkActions\DownloadAction::class,
-                    BulkActions\CourierAction::class,
                     Action\Batch::class,
                     Action\Archive::class
                 ],
