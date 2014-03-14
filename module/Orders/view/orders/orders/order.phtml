@@ -26,11 +26,6 @@ require([
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
 <div id="order-status" class="<?= $order->getStatus(); ?>-bg"><?= $order->getStatus(); ?></div>
 <div id="breadcrumbs" class="order-breadcrumbs">
-    <ul>
-        <li><a href="#"><?= $this->translate('View Order'); ?></a></li>
-        <li class="separator"><span>&nbsp;</span></li>
-        <li><span><?= $order->getId(); ?></span></li>
-    </ul>
     <div class="right">
         <span><strong><?= $this->translate('Order ID'); ?>: </strong><?= $order->getId(); ?></span>
         <img src="<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/<?= $order->getChannel(); ?>.png" alt="<?= $order->getChannel(); ?>" />

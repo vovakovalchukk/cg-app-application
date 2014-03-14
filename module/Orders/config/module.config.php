@@ -396,8 +396,6 @@ return [
                         ['column' => 'OrdersBatchColumn'],
                         ['column' => 'OrdersMessagesColumn'],
                         ['column' => 'OrdersShippingColumn'],
-                        ['column' => 'OrdersDispatchColumn'],
-                        ['column' => 'OrdersPrintColumn'],
                         ['column' => 'OrdersTagColumn'],
                         ['column' => 'OrdersOptionsColumn'],
                     ],
