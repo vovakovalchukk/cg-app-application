@@ -409,11 +409,6 @@ return [
                     'infiniteScroll' => 'OrdersTableInfiniteScroll'
                 ],
             ],
-            'OrdersTableInfiniteScroll' => [
-                'parameters' => [
-                    'rowHeight' => 60
-                ],
-            ],
             'OrdersCheckboxColumnView' => [
                 'parameters' => [
                     'template' => 'orders/orders/table/header/checkbox.phtml',
