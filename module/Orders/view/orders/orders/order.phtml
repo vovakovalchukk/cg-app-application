@@ -27,7 +27,7 @@ require([
 <div id="order-status" class="<?= $order->getStatus(); ?>-bg"><?= $order->getStatus(); ?></div>
 <div id="breadcrumbs" class="order-breadcrumbs">
     <div class="right">
-        <span><strong><?= $this->translate('Order ID'); ?>: </strong><?= $order->getId(); ?></span>
+        <span><strong><?= $this->translate('Order ID'); ?>: </strong><?= $order->getExternalId(); ?></span>
         <img src="<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/<?= $order->getChannel(); ?>.png" alt="<?= $order->getChannel(); ?>" />
     </div>
 </div>
@@ -174,14 +174,22 @@ require([
     <?php endif;?>
     <table class="no-borders">
         <tr>
-            <td colspan="2"><?= $this->translate('Paid Via'); ?>: <strong><?= $order->getPaymentMethod() ?></strong></td>
+            <td colspan="2" class="left">
+                <?php if ($order->getPaymentMethod()): ?>
+                    <?= $this->translate('Paid Via'); ?>: <strong><?= $order->getPaymentMethod() ?></strong>
+                <?php endif; ?>
+            </td>
             <td class="right"><strong><?= $this->translate('Postage'); ?>:</strong></td>
-            <td class="right"><strong><?= $this->currencyFormat($order->getShippingPrice()); ?></strong></td>
+            <td class="right"><strong><?= $this->currencyFormat($order->getShippingPrice(), $order->getCurrencyCode()); ?></strong></td>
         </tr>
         <tr>
-            <td colspan="2"><?= $this->translate('Reference'); ?>: <strong><?= $order->getPaymentReference() ?></strong></td>
+            <td colspan="2" class="left">
+                <?php if ($order->getPaymentReference()): ?>
+                    <?= $this->translate('Reference'); ?>: <strong><?= $order->getPaymentReference() ?></strong>
+                <?php endif; ?>
+            </td>
             <td class="right"><strong><?= $this->translate('Total'); ?>:</strong></td>
-            <td class="right"><strong><?= $this->currencyFormat($order->getTotal()); ?></strong></td>
+            <td class="right"><strong><?= $this->currencyFormat($order->getTotal(), $order->getCurrencyCode()); ?></strong></td>
         </tr>
     </table>
     <form  method="post" class="ajaxPost">
