@@ -393,8 +393,6 @@ return [
                     'OrdersBatchColumn',
                     'OrdersMessagesColumn',
                     'OrdersShippingColumn',
-                    'OrdersDispatchColumn',
-                    'OrdersPrintColumn',
                     'OrdersTagColumn',
                     'OrdersOptionsColumn',
                 ],
