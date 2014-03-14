@@ -102,7 +102,7 @@ class Service
      */
     public function getResponseFromOrderCollection(Collection $orderCollection)
     {
-        $this->markOrdersAsPrinterFromOrderCollection($orderCollection);
+        $this->markOrdersAsPrintedFromOrderCollection($orderCollection);
         return $this->getDi()->get(
             Response::class,
             [
@@ -113,7 +113,7 @@ class Service
         );
     }
 
-    public function markOrdersAsPrinterFromOrderCollection(Collection $orderCollection)
+    public function markOrdersAsPrintedFromOrderCollection(Collection $orderCollection)
     {
         $now = time();
         foreach ($orderCollection as $order) {
