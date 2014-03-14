@@ -74,9 +74,8 @@ class Pdf implements ServiceInterface
         return $filename . '.pdf';
     }
 
-    public function renderOrderTemplate(Order $order, Template $template)
+    public function renderOrderTemplate(Order $order, Template $orderTemplate)
     {
-        $orderTemplate = clone $template;
         $document = $this->getDi()->newInstance(
             Document::class,
             [
