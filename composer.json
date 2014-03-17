@@ -1,7 +1,4 @@
 {
-    "provide": {
-      "ext-gd": "*"
-    },
     "repositories": [
         {
             "type": "git",
