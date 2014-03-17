@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "a77ce029dbe22e1ca0b99a3ecedb6f61",
+    "hash": "857b292b8db59b974102672507d03769",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -547,17 +547,17 @@
         },
         {
             "name": "channelgrabber/http",
-            "version": "1.2.8",
+            "version": "1.2.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cghttp.git",
-                "reference": "8a1b863646e8657e4c551738c2dd6c3656cd4f9b"
+                "reference": "c32d9e608143dc28dca926084b6a58074cff23ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.2.8-94417a.zip",
-                "reference": "8a1b863646e8657e4c551738c2dd6c3656cd4f9b",
-                "shasum": "eb8b7febf6d61d27cc9a6027e9cbb993ef1e9847"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.2.9-5ae1c5.zip",
+                "reference": "c32d9e608143dc28dca926084b6a58074cff23ef",
+                "shasum": "c3be762e787659457a436ea64ca415f7cec23f35"
             },
             "require": {
                 "channelgrabber/etag": "~1.4.2",
@@ -574,7 +574,7 @@
                     "CG\\Http\\": ""
                 }
             },
-            "time": "2014-03-03 15:46:42"
+            "time": "2014-03-17 08:55:59"
         },
         {
             "name": "channelgrabber/log",
@@ -826,7 +826,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "60ca468dd075bfa4b794533eb3e2c6bb6535ee29"
+                "reference": "1cf0a651e553b49928a3a57cf23bc5ba84e1c46b"
             },
             "require": {
                 "channelgrabber/account": "~1.0",
@@ -849,7 +849,7 @@
                     "CG\\Template\\": ""
                 }
             },
-            "time": "2014-03-14 11:21:18"
+            "time": "2014-03-14 17:04:34"
         },
         {
             "name": "channelgrabber/user",
@@ -1240,11 +1240,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-1769-InvoiceBulkAction",
+            "version": "1.2.20",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "c6e7e387c756edc13ae9783a64bc2db5b2599313"
+                "reference": "36c9cba6bca6ac197ba82ed6aa0e50a770903c73"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.2.20-955ac2.zip",
+                "reference": "36c9cba6bca6ac197ba82ed6aa0e50a770903c73",
+                "shasum": "a1fff4c23c2fa878fac47f315319696a238160c5"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1272,7 +1278,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-03-11 15:14:29"
+            "time": "2014-03-17 09:17:30"
         },
         {
             "name": "cilex/cilex",
@@ -3569,19 +3575,12 @@
             "alias_normalized": "1.0.0.0",
             "version": "dev-develop",
             "package": "channelgrabber/template"
-        },
-        {
-            "alias": "1.2.18",
-            "alias_normalized": "1.2.18.0",
-            "version": "dev-CGIV-1769-InvoiceBulkAction",
-            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/template": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },

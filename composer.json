@@ -1,4 +1,5 @@
 {
+    "provide": {"ext-mongo": "*"},
     "repositories": [
         {
             "type": "git",
@@ -29,7 +30,7 @@
     },
     "require": {
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/http": "~1.2.8",
+        "channelgrabber/http": "~1.2.9",
         "channelgrabber/order": "~1.4.9",
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/redis": "~0.1.0",
@@ -46,7 +47,7 @@
         "channelgrabber/zf2-register": "~1.4.8",
         "channelgrabber/zf2-ssoclient": "~1.2.1",
         "channelgrabber/zf2-stdlib": "~1.1.5",
-        "channelgrabber/zf2-v4-ui": "dev-CGIV-1769-InvoiceBulkAction as 1.2.18",
+        "channelgrabber/zf2-v4-ui": "~1.2.20",
         "davedevelopment/phpmig": "0.4",
         "guzzle/guzzle": "~3.7",
         "nocarrier/hal": "~0.9.3",
