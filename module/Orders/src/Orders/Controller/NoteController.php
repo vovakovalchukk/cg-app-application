@@ -34,9 +34,13 @@ class NoteController extends AbstractActionController
 
     public function indexAction()
     {
-        $noteCollection = $this->getService()->fetchCollectionByOrderIds([$this->params('order')]);
-        $notes = $this->getOrderService()->getNamesFromOrderNotes($noteCollection);
-        $this->view->setVariables($notes);
+        try {
+            $noteCollection = $this->getService()->fetchCollectionByOrderIds([$this->params('order')]);
+            $notes = $this->getOrderService()->getNamesFromOrderNotes($noteCollection);
+        } catch (NotFound $e) {
+            $notes = [];
+        }
+        $this->view->setVariables(["notes" => $notes]); 
         return $this->view;
     }
 

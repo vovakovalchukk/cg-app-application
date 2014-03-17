@@ -1,0 +1,7 @@
+#datatable > tbody > tr {
+    height: 60px;
+}
+
+#datatable_length {
+    display: none;
+}
