@@ -12,6 +12,9 @@ use CG\Order\Client\Storage\Api as OrderApi;
 use Zend\View\Model\ViewModel;
 use Orders\Order\Service as OrderService;
 use CG\Http\Rpc\Json\Client as JsonRpcClient;
+use Orders\Order\Invoice\Renderer\ServiceInterface as InvoiceRendererService;
+use Orders\Order\Invoice\Renderer\Service\Pdf as PdfInvoiceRendererService;
+use CG\Template\Element\Page;
 
 return [
     'router' => [
@@ -243,6 +246,16 @@ return [
                             ]
                         ]
                     ],
+                    'invoice' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/invoice',
+                            'defaults' => [
+                                'controller' => 'Orders\Controller\Invoice',
+                                'action' => 'generate'
+                            ]
+                        ]
+                    ],
                 ],
             ],
         ],
@@ -269,6 +282,9 @@ return [
             },
             'Orders\Controller\Tag' => function($controllerManager) {
                 return $controllerManager->getServiceLocator()->get(Controller\TagController::class);
+            },
+            'Orders\Controller\Invoice' => function($controllerManager) {
+                return $controllerManager->getServiceLocator()->get(Controller\InvoiceController::class);
             },
         ],
         'invokables' => [],
@@ -312,6 +328,8 @@ return [
                 'MustacheFormatters' => ViewModel::class,
                 'MustacheTags' => ViewModel::class,
                 'OrdersTable' => DataTable::class,
+                'OrdersTableSettings' => DataTable\Settings::class,
+                'OrdersTableInfiniteScroll' => DataTable\InfiniteScroll::class,
                 'OrdersCheckboxColumnView' => ViewModel::class,
                 'OrdersCheckboxColumn' => DataTable\Column::class,
                 'OrdersChannelColumnView' => ViewModel::class,
@@ -343,6 +361,9 @@ return [
                 'OrdersOptionsColumnView' => ViewModel::class,
                 'OrdersOptionsColumn' => DataTable\Column::class,
                 'OrderRpcClient' => JsonRpcClient::class,
+            ],
+            'preferences' => [
+                InvoiceRendererService::class => PdfInvoiceRendererService::class,
             ],
             TableService::class => [
                 'parameters' => [
@@ -382,21 +403,29 @@ return [
                     ],
                 ],
                 'injections' => [
-                    'OrdersCheckboxColumn',
-                    'OrdersChannelColumn',
-                    'OrdersAccountColumn',
-                    'OrdersDateColumn',
-                    'OrdersIdColumn',
-                    'OrdersTotalColumn',
-                    'OrdersBuyerColumn',
-                    'OrdersStatusColumn',
-                    'OrdersBatchColumn',
-                    'OrdersMessagesColumn',
-                    'OrdersShippingColumn',
-                    'OrdersDispatchColumn',
-                    'OrdersPrintColumn',
-                    'OrdersTagColumn',
-                    'OrdersOptionsColumn',
+                    'addColumn' => [
+                        ['column' => 'OrdersCheckboxColumn'],
+                        ['column' => 'OrdersChannelColumn'],
+                        ['column' => 'OrdersAccountColumn'],
+                        ['column' => 'OrdersDateColumn'],
+                        ['column' => 'OrdersIdColumn'],
+                        ['column' => 'OrdersTotalColumn'],
+                        ['column' => 'OrdersBuyerColumn'],
+                        ['column' => 'OrdersStatusColumn'],
+                        ['column' => 'OrdersBatchColumn'],
+                        ['column' => 'OrdersMessagesColumn'],
+                        ['column' => 'OrdersShippingColumn'],
+                        ['column' => 'OrdersTagColumn'],
+                        ['column' => 'OrdersOptionsColumn'],
+                    ],
+                    'setVariable' => [
+                        ['name' => 'settings', 'value' => 'OrdersTableSettings']
+                    ],
+                ],
+            ],
+            'OrdersTableSettings' => [
+                'parameters' => [
+                    'infiniteScroll' => 'OrdersTableInfiniteScroll'
                 ],
             ],
             'OrdersCheckboxColumnView' => [
@@ -639,6 +668,12 @@ return [
                 'parameters' => [
                     'guzzle' => 'cg_app_rpc_guzzle'
                 ]
+            ],
+            Page::class => [
+                'parameters' => [
+                    'height' => 0,
+                    'width' => 0
+                ],
             ],
         ],
     ],
