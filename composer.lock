@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "857b292b8db59b974102672507d03769",
+    "hash": "302a4438ccd96384656994abb11e71e6",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -538,6 +538,13 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -693,6 +700,13 @@
                 "predis/predis": "v0.8.3"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Predis\\": ""
@@ -782,6 +796,13 @@
                 "zendframework/zend-session": "2.2.*"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Sso\\": ""
@@ -826,7 +847,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "1cf0a651e553b49928a3a57cf23bc5ba84e1c46b"
+                "reference": "4a71c5bf379842efbe01be658743e010fdad6dec"
             },
             "require": {
                 "channelgrabber/account": "~1.0",
@@ -849,7 +870,7 @@
                     "CG\\Template\\": ""
                 }
             },
-            "time": "2014-03-14 17:04:34"
+            "time": "2014-03-17 11:39:30"
         },
         {
             "name": "channelgrabber/user",
@@ -964,6 +985,13 @@
                 "zendframework/zend-view": "2.2.*"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Zend\\Hal": ""
@@ -1240,17 +1268,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.2.20",
+            "version": "1.2.22",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "36c9cba6bca6ac197ba82ed6aa0e50a770903c73"
+                "reference": "852932ed608c1704f6d6a008e9d3f4be6fd41d3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.2.20-955ac2.zip",
-                "reference": "36c9cba6bca6ac197ba82ed6aa0e50a770903c73",
-                "shasum": "a1fff4c23c2fa878fac47f315319696a238160c5"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.2.22-80a005.zip",
+                "reference": "852932ed608c1704f6d6a008e9d3f4be6fd41d3d",
+                "shasum": "bd4862adb1e02b99d8330ea0f9be0829c8c68a2d"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1278,7 +1306,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-03-17 09:17:30"
+            "time": "2014-03-18 08:30:11"
         },
         {
             "name": "cilex/cilex",
@@ -3358,9 +3386,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zf2/zipball/5eae447d46b00a280573b94c398b2f46f45a6903",
-                "reference": "5eae447d46b00a280573b94c398b2f46f45a6903",
-                "shasum": ""
+                "url": "https://packages.zendframework.com/composer/zendframework-zendframework-5eae447d46b00a280573b94c398b2f46f45a6903-zip-cbc7a8.zip",
+                "reference": "2.2.6",
+                "shasum": "fd15c9f720744a28ea2a93dda737ca37bd3c40b2"
             },
             "require": {
                 "php": ">=5.3.3",
@@ -3452,7 +3480,6 @@
                     "Zend\\": "library/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -3462,6 +3489,10 @@
                 "framework",
                 "zf2"
             ],
+            "support": {
+                "source": "https://github.com/zendframework/zf2/tree/release-2.2.6",
+                "issues": "https://github.com/zendframework/zf2/issues"
+            },
             "time": "2014-03-06 17:27:03"
         },
         {
@@ -3509,9 +3540,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "shasum": ""
+                "url": "https://packages.zendframework.com/composer/zendframework-zendxml-559b34f426d33a11c3db118e00ce14bb8dc64e5f-zip-6cf7a2.zip",
+                "reference": "1.0.0",
+                "shasum": "39abc614b5c26bcbf8102e203c52dee73c4460a8"
             },
             "require": {
                 "php": ">=5.3.3"
@@ -3531,7 +3562,6 @@
                     "ZendXml": "library/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -3542,6 +3572,10 @@
                 "xml",
                 "zf2"
             ],
+            "support": {
+                "source": "https://github.com/zendframework/ZendXml/tree/master",
+                "issues": "https://github.com/zendframework/ZendXml/issues"
+            },
             "time": "2014-03-05 22:25:44"
         }
     ],
