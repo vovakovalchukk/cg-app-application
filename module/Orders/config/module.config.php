@@ -12,6 +12,9 @@ use CG\Order\Client\Storage\Api as OrderApi;
 use Zend\View\Model\ViewModel;
 use Orders\Order\Service as OrderService;
 use CG\Http\Rpc\Json\Client as JsonRpcClient;
+use Orders\Order\Invoice\Renderer\ServiceInterface as InvoiceRendererService;
+use Orders\Order\Invoice\Renderer\Service\Pdf as PdfInvoiceRendererService;
+use CG\Template\Element\Page;
 
 return [
     'router' => [
@@ -243,6 +246,16 @@ return [
                             ]
                         ]
                     ],
+                    'invoice' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/invoice',
+                            'defaults' => [
+                                'controller' => 'Orders\Controller\Invoice',
+                                'action' => 'generate'
+                            ]
+                        ]
+                    ],
                 ],
             ],
         ],
@@ -269,6 +282,9 @@ return [
             },
             'Orders\Controller\Tag' => function($controllerManager) {
                 return $controllerManager->getServiceLocator()->get(Controller\TagController::class);
+            },
+            'Orders\Controller\Invoice' => function($controllerManager) {
+                return $controllerManager->getServiceLocator()->get(Controller\InvoiceController::class);
             },
         ],
         'invokables' => [],
@@ -346,6 +362,9 @@ return [
                 'OrdersOptionsColumnView' => ViewModel::class,
                 'OrdersOptionsColumn' => DataTable\Column::class,
                 'OrderRpcClient' => JsonRpcClient::class,
+            ],
+            'preferences' => [
+                InvoiceRendererService::class => PdfInvoiceRendererService::class,
             ],
             TableService::class => [
                 'parameters' => [
@@ -656,6 +675,12 @@ return [
                 'parameters' => [
                     'guzzle' => 'cg_app_rpc_guzzle'
                 ]
+            ],
+            Page::class => [
+                'parameters' => [
+                    'height' => 0,
+                    'width' => 0
+                ],
             ],
         ],
     ],

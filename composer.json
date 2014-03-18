@@ -1,6 +1,14 @@
 {
     "repositories": [
         {
+            "type": "git",
+            "url": "git@github.com:channelgrabber/ZendPdf.git"
+        },
+        {
+            "type": "git",
+            "url": "git@bitbucket.org:channelgrabber/cg-template.git"
+        },
+        {
             "url": "https://composer.build.channelgrabber.com",
             "type": "composer",
             "options": {
@@ -27,6 +35,7 @@
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/sso": "~1.1.2",
         "channelgrabber/stdlib": "~2.5.6",
+        "channelgrabber/template": "dev-develop as 1.0.0",
         "channelgrabber/user": "~1.10.13",
         "channelgrabber/userpreference": "~1.0.4",
         "channelgrabber/zf2-hal": "~1.0.4",
@@ -37,7 +46,7 @@
         "channelgrabber/zf2-register": "~1.4.8",
         "channelgrabber/zf2-ssoclient": "~1.2.1",
         "channelgrabber/zf2-stdlib": "~1.1.5",
-        "channelgrabber/zf2-v4-ui": "dev-CGIV-1803-TrackSelectedOrders as 1.2.21",
+        "channelgrabber/zf2-v4-ui": "~1.2.23",
         "davedevelopment/phpmig": "0.4",
         "guzzle/guzzle": "~3.7",
         "nocarrier/hal": "~0.9.3",
