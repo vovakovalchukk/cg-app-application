@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "e22e48c8ee8e619f9add06529a1b2d3b",
+    "hash": "fd52fb900df6db2cb81980d395e0118c",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -874,17 +874,17 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.11.1",
+            "version": "1.11.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "aadd60ba2bef4dbf77c630dcaa86bce7d37dee9b"
+                "reference": "3d00ff94aa561fa34bef212ad7741b1b67fb9a9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.11.1-138f90.zip",
-                "reference": "aadd60ba2bef4dbf77c630dcaa86bce7d37dee9b",
-                "shasum": "c7f471d5fa388ad36fc6d79a95b35c61c66467fc"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.11.2-d0a069.zip",
+                "reference": "3d00ff94aa561fa34bef212ad7741b1b67fb9a9c",
+                "shasum": "878bb7824b5e0f4c5afc5c80c298949aecb8f46c"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.8",
@@ -907,7 +907,7 @@
                     "CG": ""
                 }
             },
-            "time": "2014-03-18 13:19:58"
+            "time": "2014-03-18 14:38:33"
         },
         {
             "name": "channelgrabber/userpreference",
