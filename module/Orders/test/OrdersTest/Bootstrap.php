@@ -1,6 +1,5 @@
 <?php
-
-namespace Orders
+namespace Orders\OrdersTest;
 
 use Zend\Loader\AutoloaderFactory;
 use Zend\Mvc\Service\ServiceManagerConfig;
@@ -35,7 +34,9 @@ class Bootstrap
                 'module_paths' => $zf2ModulePaths,
             ),
             'modules' => array(
-                'Album'
+                'Mustache',
+                'CG_UI',
+                'Orders'
             )
         );
 
