@@ -12,9 +12,11 @@ chdir(__DIR__);
 /**
  * Test bootstrap, for setting up autoloading
  */
-class Bootstrap
+abstract class AbstractBootstrap
 {
     protected static $serviceManager;
+
+    abstract public function getModuleDependencies();
 
     public static function init()
     {
@@ -33,11 +35,12 @@ class Bootstrap
             'module_listener_options' => array(
                 'module_paths' => $zf2ModulePaths,
             ),
-            'modules' => array(
-                'Mustache',
-                'CG_UI',
-                'Orders'
-            )
+            'modules' => static::getModuleDependencies()
+//            'modules' => array(
+//                'Mustache',
+//                'CG_UI',
+//                'Orders'
+//            )
         );
 
         $serviceManager = new ServiceManager(new ServiceManagerConfig());
