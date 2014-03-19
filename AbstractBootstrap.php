@@ -1,10 +1,7 @@
 <?php
-namespace Orders\OrdersTest;
-
 use Zend\Loader\AutoloaderFactory;
 use Zend\Mvc\Service\ServiceManagerConfig;
 use Zend\ServiceManager\ServiceManager;
-use RuntimeException;
 
 error_reporting(E_ALL | E_STRICT);
 chdir(__DIR__);
@@ -36,11 +33,6 @@ abstract class AbstractBootstrap
                 'module_paths' => $zf2ModulePaths,
             ),
             'modules' => static::getModuleDependencies()
-//            'modules' => array(
-//                'Mustache',
-//                'CG_UI',
-//                'Orders'
-//            )
         );
 
         $serviceManager = new ServiceManager(new ServiceManagerConfig());
@@ -96,5 +88,3 @@ abstract class AbstractBootstrap
         return $dir . '/' . $path;
     }
 }
-
-Bootstrap::init();
