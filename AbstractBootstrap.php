@@ -9,7 +9,7 @@ abstract class AbstractBootstrap
 {
     protected static $serviceManager;
 
-    abstract public function getModuleDependencies();
+    abstract public static function getModuleDependencies();
 
     public static function init()
     {

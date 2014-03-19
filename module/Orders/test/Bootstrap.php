@@ -3,7 +3,7 @@ require dirname(dirname(dirname(__DIR__))) . '/AbstractBootstrap.php';
 
 class Bootstrap extends AbstractBootstrap
 {
-    public function getModuleDependencies()
+    public static function getModuleDependencies()
     {
         return array(
             'Mustache',
