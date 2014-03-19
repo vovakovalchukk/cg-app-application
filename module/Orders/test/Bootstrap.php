@@ -1,5 +1,4 @@
 <?php
-
 require dirname(dirname(dirname(__DIR__))) . '/AbstractBootstrap.php';
 
 class Bootstrap extends AbstractBootstrap
