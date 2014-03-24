@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "fd52fb900df6db2cb81980d395e0118c",
+    "hash": "436717a5bca071043ce1a7ba5095085b",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -874,17 +874,11 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.11.2",
+            "version": "dev-CGIV-1724-user-status",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "3d00ff94aa561fa34bef212ad7741b1b67fb9a9c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.11.2-d0a069.zip",
-                "reference": "3d00ff94aa561fa34bef212ad7741b1b67fb9a9c",
-                "shasum": "878bb7824b5e0f4c5afc5c80c298949aecb8f46c"
+                "reference": "b7b24a4f843725bd6cafc838a411e24efe63f606"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.8",
@@ -907,7 +901,7 @@
                     "CG": ""
                 }
             },
-            "time": "2014-03-18 14:38:33"
+            "time": "2014-03-21 14:59:24"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -3607,11 +3601,17 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.11.4",
+            "alias_normalized": "1.11.4.0",
+            "version": "dev-CGIV-1724-user-status",
+            "package": "channelgrabber/user"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/user": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },
