@@ -157,10 +157,14 @@ class OrdersController extends AbstractActionController
         $settings->setTemplateUrlMap($templateUrlMap);
         $view->addChild($ordersTable, 'ordersTable');
         $bulkActions = $this->getBulkActionsService()->getBulkActions();
+        $bulkAction = $this->getViewModelFactory()->newInstance()->setTemplate('orders/orders/bulk-actions/index');
+        $bulkAction->setVariable('isHeaderBarVisible', $this->getOrderService()->isFilterBarVisible());
         $bulkActions->addChild(
-            $this->getViewModelFactory()->newInstance()->setTemplate('orders/orders/bulk-actions/index'),
+            $bulkAction,
             'afterActions'
         );
+
+
         $view->addChild($bulkActions, 'bulkItems');
         $view->addChild($this->getFilterBar(), 'filters');
         $view->addChild($this->getBatches(), 'batches');
