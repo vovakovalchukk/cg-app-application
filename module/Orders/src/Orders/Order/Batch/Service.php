@@ -74,11 +74,11 @@ class Service
     {
         $userEntity = $this->getOrganisationUnitService()->getActiveUser();
         $rootOu = $this->getOrganisationUnitService()->getRootOu();
-        $id = $this->getRedisClient()->incr(static::BATCH_KEY . $rootOu);
+        $id = $this->getRedisClient()->incr(static::BATCH_KEY . $rootOu->getId());
         $batch = $this->getDi()->get(BatchEntity::class, array(
             "organisationUnitId" => $userEntity->getOrganisationUnitId(),
             "active" => true,
-            "id" => $this->generateBatchId($rootOu, $id),
+            "id" => $this->generateBatchId($rootOu->getId(), $id),
             "name" => (string) $id
         ));
         $batch = $this->getBatchClient()->save($batch);
