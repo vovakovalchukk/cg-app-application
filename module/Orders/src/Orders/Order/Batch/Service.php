@@ -73,7 +73,7 @@ class Service
     protected function createBatch()
     {
         $userEntity = $this->getOrganisationUnitService()->getActiveUser();
-        $rootOu = $this->getOrganisationUnitService()->getRootOu();
+        $rootOu = $this->getOrganisationUnitService()->getRootOuByActiveUser();
         $id = $this->getRedisClient()->incr(static::BATCH_KEY . $rootOu->getId());
         $batch = $this->getDi()->get(BatchEntity::class, array(
             "organisationUnitId" => $userEntity->getOrganisationUnitId(),
