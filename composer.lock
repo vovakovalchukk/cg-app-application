@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "93df9e920639b790691a4128fb347f07",
+    "hash": "3b7b5f4bcc76f4f7f2bb8347775ba491",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -495,6 +495,41 @@
             "time": "2014-03-25 12:58:38"
         },
         {
+            "name": "channelgrabber/email",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-email.git",
+                "reference": "1a3425ba61e38c892e0d7f44e674958a5135df6b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-email-1.0.1-4906ed.zip",
+                "reference": "1a3425ba61e38c892e0d7f44e674958a5135df6b",
+                "shasum": "e23b7b1eced74596915dc7d7e3e08df95acf7ac9"
+            },
+            "require": {
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/stdlib": "~2.5.9",
+                "zendframework/zend-di": "2.2.*",
+                "zendframework/zend-filter": "2.2.*",
+                "zendframework/zend-mail": "2.2.*",
+                "zendframework/zend-validator": "2.2.*",
+                "zendframework/zend-view": "2.2.*"
+            },
+            "require-dev": {
+                "channelgrabber/phpunit": ">=1.0.0",
+                "phpunit/phpunit": "~3.7.28"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "CG\\Email\\": ""
+                }
+            },
+            "time": "2014-03-28 15:59:19"
+        },
+        {
             "name": "channelgrabber/etag",
             "version": "1.4.2",
             "source": {
@@ -519,6 +554,31 @@
                 }
             },
             "time": "2014-01-21 10:30:22"
+        },
+        {
+            "name": "channelgrabber/gearman",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-gearman.git",
+                "reference": "0d3ef9a9d2d53d31d3f3c19127f650b98c9ee7e2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-1.0.4-b28ce3.zip",
+                "reference": "0d3ef9a9d2d53d31d3f3c19127f650b98c9ee7e2",
+                "shasum": "e28253cb7980db44f85bff99fbbcfaf023973a4f"
+            },
+            "require": {
+                "ext-gearman": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "CG\\Gearman\\": ""
+                }
+            },
+            "time": "2014-03-03 17:09:10"
         },
         {
             "name": "channelgrabber/guzzle",
@@ -874,21 +934,17 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.13.4",
+            "version": "dev-CGIV-1888-user-validation-fix",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "a47a0ff6d5bee2fb883a70f72bc8f3d6690fc271"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.13.4-9f1834.zip",
-                "reference": "a47a0ff6d5bee2fb883a70f72bc8f3d6690fc271",
-                "shasum": "8b20e237e32affb24be3e3c710fb67669aab3611"
+                "reference": "61ddd6f6c46f94167af856e826383c8199219344"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.8",
+                "channelgrabber/email": ">=1.0.1",
                 "channelgrabber/etag": ">=1.3.3",
+                "channelgrabber/gearman": ">=1.0.4",
                 "channelgrabber/http": "1.2.*",
                 "channelgrabber/slim": ">=1.6.0,<2.0.0",
                 "channelgrabber/stdlib": "2.5.13",
@@ -896,7 +952,9 @@
                 "guzzle/guzzle": "~3.7",
                 "nocarrier/hal": "~0.9.3",
                 "zendframework/zend-db": "2.2.*",
-                "zendframework/zend-di": "2.2.*"
+                "zendframework/zend-di": "2.2.*",
+                "zendframework/zend-i18n": "2.2.*",
+                "zendframework/zend-view": "2.2.*"
             },
             "require-dev": {
                 "channelgrabber/phpunit": ">=1.0.0",
@@ -908,7 +966,7 @@
                     "CG": ""
                 }
             },
-            "time": "2014-03-28 08:43:15"
+            "time": "2014-03-28 16:32:35"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -1079,25 +1137,19 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.3.14",
+            "version": "dev-CGIV-1711-password-reset-ui",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "9ee4a5562cc8189d7bd31226437454814f2acc82"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.3.14-f8350a.zip",
-                "reference": "9ee4a5562cc8189d7bd31226437454814f2acc82",
-                "shasum": "a4dfcef40fe618ba4974e3bdab37fdc4b97c3fd4"
+                "reference": "5eb0c80ada4e9bae4d7c8e08b93a0044790a0961"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/stdlib": ">=2.2.0",
-                "channelgrabber/user": ">=1.13.2,<2.0.0",
+                "channelgrabber/user": ">=1.13.4,<2.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.1",
-                "channelgrabber/zf2-v4-ui": ">=1.0.0",
+                "channelgrabber/zf2-v4-ui": "dev-CGIV-1711-password-reset-ui as 1.2.25",
                 "guzzle/guzzle": "~3.7",
                 "zendframework/zend-config": "2.*",
                 "zendframework/zend-di": "2.*",
@@ -1124,7 +1176,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2014-03-26 10:35:56"
+            "time": "2014-03-28 17:18:24"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -1272,17 +1324,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.2.25",
+            "version": "dev-CGIV-1711-password-reset-ui",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "d38d59e2f941283613952e704e8aa99fd7b502c2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.2.25-bf834d.zip",
-                "reference": "d38d59e2f941283613952e704e8aa99fd7b502c2",
-                "shasum": "030cf1d3359595fc5a646932139fd99b17a5409b"
+                "reference": "b9bb8e136a143ebaa52a3332fe8516d62e8d91da"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1310,7 +1356,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-03-26 08:45:35"
+            "time": "2014-03-27 10:36:04"
         },
         {
             "name": "cilex/cilex",
@@ -3609,11 +3655,31 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.13.4",
+            "alias_normalized": "1.13.4.0",
+            "version": "dev-CGIV-1888-user-validation-fix",
+            "package": "channelgrabber/user"
+        },
+        {
+            "alias": "1.3.12",
+            "alias_normalized": "1.3.12.0",
+            "version": "dev-CGIV-1711-password-reset-ui",
+            "package": "channelgrabber/zf2-login"
+        },
+        {
+            "alias": "1.2.25",
+            "alias_normalized": "1.2.25.0",
+            "version": "dev-CGIV-1711-password-reset-ui",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/user": 20,
+        "channelgrabber/zf2-login": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },
