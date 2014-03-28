@@ -1,7 +1,6 @@
 <?php
 return [
-    'title' => 'Contains Text',
-    'placeholder' => 'Contains Text...',
+    'placeholder' => 'Search for...',
     'class' => '',
     'value' => $filterObject->getSearchTerm()
 ];
