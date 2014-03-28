@@ -41,7 +41,7 @@ class Service
 
     public function getBatches()
     {
-        $organisationUnitIds = $this->getOrganisationUnitService()->getAncestorOrganisationUnitIds();
+        $organisationUnitIds = $this->getOrganisationUnitService()->getAncestorOrganisationUnitIdsByActiveUser();
         try {
             $batchCollection = $this->getBatchClient()->fetchCollectionByPagination(static::DEFAULT_LIMIT,
                 static::DEFAULT_PAGE, $organisationUnitIds, static::ACTIVE);
@@ -87,7 +87,7 @@ class Service
 
     protected function updateOrders(array $orderIds, $batch = null)
     {
-        $organisationUnitIds = $this->getOrganisationUnitService()->getAncestorOrganisationUnitIds();
+        $organisationUnitIds = $this->getOrganisationUnitService()->getAncestorOrganisationUnitIdsByActiveUser();
         $filterEntity = $this->getDi()->get(Filter::class, array(
             "limit" => "all",
             "page" => static::DEFAULT_PAGE,
