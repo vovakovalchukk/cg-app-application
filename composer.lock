@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "3b7b5f4bcc76f4f7f2bb8347775ba491",
+    "hash": "d024adf04ee674ace27ad2deb1a44042",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -680,17 +680,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.4.14",
+            "version": "1.4.15",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "1717b4d5ca79482521087334aaef8d48ba4e5eb2"
+                "reference": "6e6995683269e2ec93c42ac1279a45f66a8dccee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.4.14-fba8ef.zip",
-                "reference": "1717b4d5ca79482521087334aaef8d48ba4e5eb2",
-                "shasum": "9e22d12afd16bbe30bf1818afe2431e037cd4f7e"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.4.15-46cb3f.zip",
+                "reference": "6e6995683269e2ec93c42ac1279a45f66a8dccee",
+                "shasum": "4bc2993032a44c70ac16b373962574861bd06561"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.0,<1.3.0",
@@ -715,7 +715,7 @@
                     "CG\\Order\\": ""
                 }
             },
-            "time": "2014-03-27 08:32:09"
+            "time": "2014-03-28 16:15:46"
         },
         {
             "name": "channelgrabber/permission",
@@ -938,7 +938,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "61ddd6f6c46f94167af856e826383c8199219344"
+                "reference": "4d881d2ea7f47f2f83a7fb698bc9fd4c5289a222"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.8",
@@ -966,7 +966,7 @@
                     "CG": ""
                 }
             },
-            "time": "2014-03-28 16:32:35"
+            "time": "2014-03-30 20:19:45"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -1141,15 +1141,15 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "5eb0c80ada4e9bae4d7c8e08b93a0044790a0961"
+                "reference": "6a064161aa29068bc372c42d22c6516608274b1c"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/stdlib": ">=2.2.0",
-                "channelgrabber/user": ">=1.13.4,<2.0.0",
+                "channelgrabber/user": ">=1.13.5,<2.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.1",
-                "channelgrabber/zf2-v4-ui": "dev-CGIV-1711-password-reset-ui as 1.2.25",
+                "channelgrabber/zf2-v4-ui": ">=1.0.0",
                 "guzzle/guzzle": "~3.7",
                 "zendframework/zend-config": "2.*",
                 "zendframework/zend-di": "2.*",
@@ -1176,7 +1176,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2014-03-28 17:18:24"
+            "time": "2014-03-30 20:33:35"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -1215,22 +1215,22 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.4.10",
+            "version": "1.4.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "d96a448472410d9182738a5cd09dbff8284b5a62"
+                "reference": "c625f87f045fa5b09a8f204790e0afae68e5d796"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.10-e06f31.zip",
-                "reference": "d96a448472410d9182738a5cd09dbff8284b5a62",
-                "shasum": "ff7d446dd5dcb2ad75951db2311ddd351eb6082b"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.11-296449.zip",
+                "reference": "c625f87f045fa5b09a8f204790e0afae68e5d796",
+                "shasum": "0b28fa6b85e8a59dcb1f45c3127f08a3eff9ccfa"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/stdlib": ">=2.3.0",
-                "channelgrabber/user": ">=1.13.4",
+                "channelgrabber/user": ">=1.13.5",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
                 "guzzle/guzzle": "~3.7",
                 "zendframework/zend-config": "2.*",
@@ -1256,7 +1256,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2014-03-28 08:50:02"
+            "time": "2014-03-28 16:06:46"
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
@@ -1328,7 +1328,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "b9bb8e136a143ebaa52a3332fe8516d62e8d91da"
+                "reference": "a0d9e69d54570b50cc7132ff71a6a4e298e50290"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1356,7 +1356,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-03-27 10:36:04"
+            "time": "2014-03-30 20:42:14"
         },
         {
             "name": "cilex/cilex",
@@ -2184,22 +2184,22 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "1.2.13",
+            "version": "1.2.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "466e7cd2554b4e264c9e3f31216d25ac0e5f3d94"
+                "reference": "6ef2bf3a1c47eca07ea95f0d8a902a6340390b34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/466e7cd2554b4e264c9e3f31216d25ac0e5f3d94",
-                "reference": "466e7cd2554b4e264c9e3f31216d25ac0e5f3d94",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/6ef2bf3a1c47eca07ea95f0d8a902a6340390b34",
+                "reference": "6ef2bf3a1c47eca07ea95f0d8a902a6340390b34",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3",
                 "phpunit/php-file-iterator": ">=1.3.0@stable",
-                "phpunit/php-text-template": ">=1.1.1@stable",
+                "phpunit/php-text-template": ">=1.2.0@stable",
                 "phpunit/php-token-stream": ">=1.1.3@stable"
             },
             "require-dev": {
@@ -2241,7 +2241,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-09-10 08:14:32"
+            "time": "2014-03-28 10:53:45"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -2290,16 +2290,16 @@
         },
         {
             "name": "phpunit/php-text-template",
-            "version": "1.1.4",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-text-template.git",
-                "reference": "5180896f51c5b3648ac946b05f9ec02be78a0b23"
+                "reference": "206dfefc0ffe9cebf65c413e3d0e809c82fbf00a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-text-template/zipball/5180896f51c5b3648ac946b05f9ec02be78a0b23",
-                "reference": "5180896f51c5b3648ac946b05f9ec02be78a0b23",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-text-template/zipball/206dfefc0ffe9cebf65c413e3d0e809c82fbf00a",
+                "reference": "206dfefc0ffe9cebf65c413e3d0e809c82fbf00a",
                 "shasum": ""
             },
             "require": {
@@ -2330,7 +2330,7 @@
             "keywords": [
                 "template"
             ],
-            "time": "2012-10-31 18:15:28"
+            "time": "2014-01-30 17:20:04"
         },
         {
             "name": "phpunit/php-timer",
@@ -2428,16 +2428,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "3.7.33",
+            "version": "3.7.34",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "619f9179d6d30be8fc7333b5eaba9132dbaa8142"
+                "reference": "248d6ce95e6ca7f0e3135252c0b984bbe1f52f19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/619f9179d6d30be8fc7333b5eaba9132dbaa8142",
-                "reference": "619f9179d6d30be8fc7333b5eaba9132dbaa8142",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/248d6ce95e6ca7f0e3135252c0b984bbe1f52f19",
+                "reference": "248d6ce95e6ca7f0e3135252c0b984bbe1f52f19",
                 "shasum": ""
             },
             "require": {
@@ -2446,11 +2446,11 @@
                 "ext-reflection": "*",
                 "ext-spl": "*",
                 "php": ">=5.3.3",
-                "phpunit/php-code-coverage": "~1.2.1",
-                "phpunit/php-file-iterator": "~1.3.1",
-                "phpunit/php-text-template": "~1.1.1",
-                "phpunit/php-timer": "~1.0.4",
-                "phpunit/phpunit-mock-objects": "~1.2.0",
+                "phpunit/php-code-coverage": "~1.2",
+                "phpunit/php-file-iterator": "~1.3",
+                "phpunit/php-text-template": "~1.1",
+                "phpunit/php-timer": "~1.0",
+                "phpunit/phpunit-mock-objects": "~1.2",
                 "symfony/yaml": "~2.0"
             },
             "require-dev": {
@@ -2498,7 +2498,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-03-26 11:35:32"
+            "time": "2014-03-28 11:04:36"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -3656,8 +3656,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.13.4",
-            "alias_normalized": "1.13.4.0",
+            "alias": "1.13.5",
+            "alias_normalized": "1.13.5.0",
             "version": "dev-CGIV-1888-user-validation-fix",
             "package": "channelgrabber/user"
         },
