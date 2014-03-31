@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "27fc6ef6b9412b18cc4996c98c996055",
+    "hash": "31d107b10e1e09d1d6e370d99b199395",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -934,17 +934,17 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.13.5",
+            "version": "1.13.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "ca695ecc0926bf8c655a07e957e79692cd80dc50"
+                "reference": "4248ad42b310deef38a12bcaf1f00e5d61e3ee76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.13.5-862fec.zip",
-                "reference": "ca695ecc0926bf8c655a07e957e79692cd80dc50",
-                "shasum": "90726d4dee9efa8882dd98906bc90974e29cd611"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.13.6-0421e9.zip",
+                "reference": "4248ad42b310deef38a12bcaf1f00e5d61e3ee76",
+                "shasum": "ea7487f9ca0e1cc56949af21d8d9a5bf047721d2"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.8",
@@ -972,7 +972,7 @@
                     "CG": ""
                 }
             },
-            "time": "2014-03-28 16:02:03"
+            "time": "2014-03-31 08:44:56"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -1332,17 +1332,17 @@
         },
         {
             "name": "channelgrabber/zf2-stdlib",
-            "version": "1.1.5",
+            "version": "1.1.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgzf2stdlib.git",
-                "reference": "769aad210c002a979aee67ff50240cceae1f5d9e"
+                "reference": "2640ba4b63682a7c4be166462148d1653131e57c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-1.1.5-2183ff.zip",
-                "reference": "769aad210c002a979aee67ff50240cceae1f5d9e",
-                "shasum": "134606b24e9f0ddb34ef87fd01263ce8d9eb35d1"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-1.1.6-ad95d8.zip",
+                "reference": "2640ba4b63682a7c4be166462148d1653131e57c",
+                "shasum": "ff708acab9bd6daa680d52c20c740cf0f912b44a"
             },
             "require": {
                 "channelgrabber/cache": ">=1.1.0,<1.3.0",
@@ -1359,7 +1359,7 @@
                     "CG\\Zend\\Stdlib\\": ""
                 }
             },
-            "time": "2014-01-17 11:53:01"
+            "time": "2014-03-31 13:55:35"
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
