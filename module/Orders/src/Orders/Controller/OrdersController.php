@@ -218,64 +218,11 @@ class OrdersController extends AbstractActionController
 
     protected function getFilterBar()
     {
-        $filterObject = $this->getFilterService()->getPersistentFilter();
         $viewRender = $this->getServiceLocator()->get('Mustache\View\Renderer');
+        $filterValues = $this->getFilterService()->getPersistentFilter();
+        $filters = $this->getOrderService()->getFilterService()->getOrderFilters();
 
-        $filterRows = [];
-        $filterRow = [];
-
-        $dateRangeFilter = $this->getViewModelFactory()->newInstance();
-        $dateRangeFilter->setTemplate('elements/date-range');
-        $dateRangeFilter->setVariable(
-            'options',
-            // Example Data - Should be loaded via Service/Di
-            include dirname(dirname(dirname(__DIR__))) . '/test/data/filterBar/daterange-options.php'
-        );
-        $filterRow[] = $viewRender->render($dateRangeFilter);
-
-        $filterButtons = $this->getViewModelFactory()->newInstance();
-        $filterButtons->setTemplate('elements/custom-select-group');
-        $filterButtons->setVariable(
-            'options',
-            // Example Data - Should be loaded via Service/Di
-            include dirname(dirname(dirname(__DIR__))) . '/test/data/filterBar/status-options.php'
-        );
-        $filterRow[] = $viewRender->render($filterButtons);
-
-        $statusFilter = $this->getViewModelFactory()->newInstance();
-        $statusFilter->setTemplate('elements/text');
-        $statusFilter->setVariable(
-            'options',
-            // Example Data - Should be loaded via Service/Di
-            include dirname(dirname(dirname(__DIR__))) . '/test/data/filterBar/search-options.php'
-        );
-        $filterRow[] = $viewRender->render($statusFilter);
-
-        $filterButtons = $this->getViewModelFactory()->newInstance();
-        $filterButtons->setTemplate('elements/buttons');
-        $filterButtons->setVariable(
-            'options',
-            // Example Data - Should be loaded via Service/Di
-            include dirname(dirname(dirname(__DIR__))) . '/test/data/filterBar/buttons.php'
-        );
-        $filterRow[] = $viewRender->render($filterButtons);
-        $filterRows[] = $filterRow;
-
-        $filterRow = [];
-        $filterButtons = $this->getViewModelFactory()->newInstance();
-        $filterButtons->setTemplate('elements/custom-select-group');
-        $filterButtons->setVariable(
-            'options',
-            // Example Data - Should be loaded via Service/Di
-            include dirname(dirname(dirname(__DIR__))) . '/test/data/filterBar/country-options.php'
-        );
-        $filterRow[] = $viewRender->render($filterButtons);
-        $filterRows[] = $filterRow;
-
-        $filterBar = $this->getViewModelFactory()->newInstance();
-        $filterBar->setTemplate('layout/filters');
-        $filterBar->setVariable('filterRows', $filterRows);
-        return $filterBar;
+        return $filters->prepare($viewRender);
     }
 
     protected function getDetailsSidebar(array $children)
