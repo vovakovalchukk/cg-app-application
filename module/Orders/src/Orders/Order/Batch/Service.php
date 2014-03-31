@@ -41,7 +41,7 @@ class Service
 
     public function getBatches()
     {
-        $organisationUnitIds = $this->getOrganisationUnitService()->getAncestorOrganisationUnitIds();
+        $organisationUnitIds = $this->getOrganisationUnitService()->getAncestorOrganisationUnitIdsByActiveUser();
         try {
             $batchCollection = $this->getBatchClient()->fetchCollectionByPagination(static::DEFAULT_LIMIT,
                 static::DEFAULT_PAGE, $organisationUnitIds, static::ACTIVE);
@@ -73,12 +73,12 @@ class Service
     protected function createBatch()
     {
         $userEntity = $this->getOrganisationUnitService()->getActiveUser();
-        $rootOu = $this->getOrganisationUnitService()->getRootOu();
-        $id = $this->getRedisClient()->incr(static::BATCH_KEY . $rootOu);
+        $rootOu = $this->getOrganisationUnitService()->getRootOuByActiveUser();
+        $id = $this->getRedisClient()->incr(static::BATCH_KEY . $rootOu->getId());
         $batch = $this->getDi()->get(BatchEntity::class, array(
             "organisationUnitId" => $userEntity->getOrganisationUnitId(),
             "active" => true,
-            "id" => $this->generateBatchId($rootOu, $id),
+            "id" => $this->generateBatchId($rootOu->getId(), $id),
             "name" => (string) $id
         ));
         $batch = $this->getBatchClient()->save($batch);
@@ -87,7 +87,7 @@ class Service
 
     protected function updateOrders(array $orderIds, $batch = null)
     {
-        $organisationUnitIds = $this->getOrganisationUnitService()->getAncestorOrganisationUnitIds();
+        $organisationUnitIds = $this->getOrganisationUnitService()->getAncestorOrganisationUnitIdsByActiveUser();
         $filterEntity = $this->getDi()->get(Filter::class, array(
             "limit" => "all",
             "page" => static::DEFAULT_PAGE,
