@@ -11,6 +11,7 @@ return array (
     6 => 'CG_Login',
     7 => 'CG_Register',
     8 => 'Orders',
+    9 => 'CG_Email_Template',
   ),
   'module_listener_options' => 
   array (
