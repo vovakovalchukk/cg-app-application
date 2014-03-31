@@ -45,7 +45,7 @@
         "channelgrabber/zf2-permission": "~1.0.2",
         "channelgrabber/zf2-register": "~1.4.9",
         "channelgrabber/zf2-ssoclient": "~1.2.1",
-        "channelgrabber/zf2-stdlib": "~1.1.5",
+        "channelgrabber/zf2-stdlib": "~1.1.6",
         "channelgrabber/zf2-v4-ui": "dev-CGIV-1833-range-filter as 1.2.25",
         "davedevelopment/phpmig": "0.4",
         "guzzle/guzzle": "~3.7",
@@ -73,5 +73,6 @@
             "php bin/update_di_components.php",
             "php -d memory_limit=512M bin/compile_di.php"
         ]
+},"provide":{"ext-mongo":"*","ext-gearman":"*"
     }
 }
