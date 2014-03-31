@@ -238,7 +238,7 @@ class OrdersController extends AbstractActionController
         $filterRow[] = $viewRender->render($dateRangeFilter);
 
         $filterButtons = $this->getViewModelFactory()->newInstance();
-        $filterButtons->setTemplate('elements/custom-select');
+        $filterButtons->setTemplate('elements/custom-select-group');
         $filterButtons->setVariable(
             'options',
             // Example Data - Should be loaded via Service/Di
