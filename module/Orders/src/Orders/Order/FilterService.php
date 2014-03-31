@@ -12,7 +12,7 @@ class FilterService
     protected $config;
     protected $orderFilters;
 
-    public function __construct(Filters\Factory $factory, Config $config)
+    public function __construct(Filters\Factory $factory, $config)
     {
         $this->setFactory($factory)->setConfig($config);
     }
@@ -31,15 +31,12 @@ class FilterService
         return $this->factory;
     }
 
-    public function setConfig(Config $config)
+    public function setConfig($config)
     {
         $this->config = $config;
         return $this;
     }
 
-    /**
-     * @return Config
-     */
     public function getConfig()
     {
         return $this->config;
@@ -47,12 +44,12 @@ class FilterService
 
     public function getFilterConfig($filter)
     {
-        $filters = $this->getConfig()->get('filters');
-
-        if ((!is_array($filters) && !($filters instanceof ArrayAccess))) {
+        $config = $this->getConfig();
+        if (!isset($config['filters']) || (!is_array($config['filters']) && !($config['filters'] instanceof ArrayAccess))) {
             throw new RuntimeException('No filters Configured');
         }
 
+        $filters = $config['filters'];
         if (!isset($filters[$filter]) || !is_array($filters[$filter])) {
             throw new RuntimeException('Requested filter not Configured : ' . $filter);
         }
