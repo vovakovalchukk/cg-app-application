@@ -231,10 +231,14 @@ class OrdersController extends AbstractActionController
             // Example Data - Should be loaded via Service/Di
             include dirname(dirname(dirname(__DIR__))) . '/test/data/filterBar/daterange-options.php'
         );
+        $dateRangeFilter->setVariable('time', [
+            'hours' => date('G'),
+            'minutes' => date('i')
+        ]);
         $filterRow[] = $viewRender->render($dateRangeFilter);
 
         $filterButtons = $this->getViewModelFactory()->newInstance();
-        $filterButtons->setTemplate('elements/custom-select-group');
+        $filterButtons->setTemplate('elements/custom-select');
         $filterButtons->setVariable(
             'options',
             // Example Data - Should be loaded via Service/Di
