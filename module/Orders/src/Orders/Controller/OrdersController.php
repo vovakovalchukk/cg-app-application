@@ -274,6 +274,16 @@ class OrdersController extends AbstractActionController
             include dirname(dirname(dirname(__DIR__))) . '/test/data/filterBar/country-options.php'
         );
         $filterRow[] = $viewRender->render($filterButtons);
+
+        $numberRangeFilter = $this->getViewModelFactory()->newInstance();
+        $numberRangeFilter->setTemplate('elements/number-range');
+        $numberRangeFilter->setVariable(
+            'options',
+            // Example Data - Should be loaded via Service/Di
+            include dirname(dirname(dirname(__DIR__))) . '/test/data/filterBar/numberrange-options.php'
+        );
+        $filterRow[] = $viewRender->render($numberRangeFilter);
+
         $filterRows[] = $filterRow;
 
         $filterBar = $this->getViewModelFactory()->newInstance();
