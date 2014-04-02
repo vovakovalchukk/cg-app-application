@@ -22,7 +22,7 @@ return [
                         [
                             'type' => 'DateRange',
                             'variables' => [
-                                'fieldName' => 'date-range',
+                                'fieldName' => 'purchaseDate',
                                 'time' => [
                                     'hours' => date('H'),
                                     'minutes' => date('i')
@@ -64,6 +64,7 @@ return [
                         [
                             'type' => 'CustomSelectGroup',
                             'variables' => [
+                                'fieldName' => 'status',
                                 'title' => 'Status',
                                 'id' => 'filter-status',
                                 'options' => [
@@ -82,6 +83,7 @@ return [
                         [
                             'type' => 'Text',
                             'variables' => [
+                                'fieldName' => 'search',
                                 'placeholder' => 'Search for...',
                                 'class' => '',
                                 'value' => ''
@@ -117,6 +119,7 @@ return [
                         [
                             'type' => 'CustomSelectGroup',
                             'variables' => [
+                                'fieldName' => 'shippingAddressCountry',
                                 'title' => 'Include Country',
                                 'isOptional' => true,
                                 'options' => [
@@ -146,15 +149,14 @@ return [
                                     ]
                                 ]
                             ],
+                        ],
+                        [
                             'type' => 'NumberRange',
                             'variables' => [
-                                'id' => '',
-                                'from' => [
-                                    'class' => ''
-                                ],
-                                'to' => [
-                                    'class' => ''
-                                ]
+                                'fieldName' => 'total',
+                                'title' => 'Total',
+                                'isOptional' => true,
+                                'id' => ''
                             ]
                         ]
                     ]
