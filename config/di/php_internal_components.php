@@ -1,2 +1,2 @@
 <?php
-return array('php_internal');
+return get_declared_classes();
