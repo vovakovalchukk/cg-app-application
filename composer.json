@@ -1,5 +1,4 @@
 {
-    "provide": {"ext-mongo": "*","ext-gearman": "*"},
     "repositories": [
         {
             "type": "git",
