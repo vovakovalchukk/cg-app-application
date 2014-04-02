@@ -14,7 +14,8 @@ class FilterService
 
     public function __construct(Filters\Factory $factory, $config)
     {
-        $this->setFactory($factory)->setConfig($config);
+        $this->setFactory($factory)
+             ->setConfig($config);
     }
 
     public function setFactory(Filters\Factory $factory)
