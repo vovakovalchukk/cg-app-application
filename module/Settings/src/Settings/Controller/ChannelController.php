@@ -2,16 +2,32 @@
 namespace Settings\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use Settings\Channel\Service;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Zend\View\Model\ViewModel;
 
 class ChannelController extends AbstractActionController
 {
+    protected $service;
     protected $viewModelFactory;
 
-    public function __construct(ViewModelFactory $viewModelFactory)
+    public function __construct(Service $service, ViewModelFactory $viewModelFactory)
     {
-        $this->viewModelFactory = $viewModelFactory;
+        $this->setService($service)->setViewModelFactory($viewModelFactory);
+    }
+
+    public function setService(Service $service)
+    {
+        $this->service = $service;
+        return $this;
+    }
+
+    /**
+     * @return Service
+     */
+    public function getService()
+    {
+        return $this->service;
     }
 
     public function setViewModelFactory(ViewModelFactory $viewModelFactory)
@@ -44,6 +60,10 @@ class ChannelController extends AbstractActionController
         $list->setVariable(
             'title',
             $this->getRouteName()
+        );
+        $list->setVariable(
+            'newChannelForm',
+            $this->getService()->getNewChannelForm()
         );
         return $list;
     }
