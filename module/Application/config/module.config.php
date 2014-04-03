@@ -7,6 +7,8 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
+use Application\Controller\AbstractFactory;
+
 return array(
     'router' => array(
         'routes' => array(
@@ -75,6 +77,9 @@ return array(
         'invokables' => array(
             'Application\Controller\Index' => 'Application\Controller\IndexController'
         ),
+        'abstract_factories' => [
+            AbstractFactory::class,
+        ]
     ),
     'view_manager' => array(
         'template_path_stack' => array(
