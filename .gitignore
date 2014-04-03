@@ -22,3 +22,5 @@ config/di/vendor_components.php
 public/channelgrabber/zf2-logclient
 public/channelgrabber/zf2-login
 public/channelgrabber/zf2-v4-ui
+/.sass-cache
+/config/autoload/di.smtp.global.php
