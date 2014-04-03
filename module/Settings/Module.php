@@ -12,6 +12,7 @@ class Module
 {
     use NavBar\ModuleItemsTrait;
 
+    const PUBLIC_FOLDER = '/channelgrabber/settings/';
     const TEMPLATE = 'settings/sidebar';
     const ROUTE = 'Channel Management';
 

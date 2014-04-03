@@ -14,6 +14,7 @@
 /data/mustache
 /module/Orders/src/Orders/Controller/tmp
 /nbproject
+/public/channelgrabber/settings/css
 /tests/*/*Guy.php
 /tests/_log
 /tests/api.suite.yml

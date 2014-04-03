@@ -1,6 +1,7 @@
+<?php $this->headLink()->appendStylesheet($this->basePath() . Settings\Module::PUBLIC_FOLDER . 'css/sidebar.css') ?>
 <div id="sidebar">
     <div id="sidebar-settings">
-        <h5><?= $this->translate($title) ?></h5>
+        <div class="title"><?= $this->translate($title) ?></div>
         <ul>
             <?php foreach($routes as $label => $routeName) : ?>
                 <li class="<?= ($route && strpos($route->getMatchedRouteName(), $routeName) === 0) ? 'selected' : '' ?>">
