@@ -1,4 +1,5 @@
 <?php
+use Settings\Module;
 use Settings\Controller\IndexController;
 use Settings\Controller\ChannelController;
 
@@ -13,6 +14,7 @@ return [
                         'controller' => IndexController::class,
                         'action' => 'index',
                         'breadcrumbs' => false,
+                        'sidebar' => Module::TEMPLATE,
                     ],
                 ],
                 'may_terminate' => true,

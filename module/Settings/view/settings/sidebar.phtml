@@ -1,0 +1,14 @@
+<div id="sidebar">
+    <div id="sidebar-settings">
+        <h5><?= $this->translate($title) ?></h5>
+        <ul>
+            <?php foreach($routes as $label => $routeName) : ?>
+                <li class="<?= ($route && strpos($route->getMatchedRouteName(), $routeName) === 0) ? 'selected' : '' ?>">
+                    <a title="<?= $label ?>" href="<?= $this->url($routeName) ?>">
+                        <?= $label ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</div>
