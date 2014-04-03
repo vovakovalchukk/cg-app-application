@@ -20,7 +20,7 @@ return [
                     'type' => 'Row',
                     'filters' => [
                         [
-                            'type' => 'DateRange',
+                            'template' => 'elements/date-range.mustache',
                             'variables' => [
                                 'fieldName' => 'purchaseDate',
                                 'time' => [
@@ -62,7 +62,7 @@ return [
                             ]
                         ],
                         [
-                            'type' => 'CustomSelectGroup',
+                            'template' => 'elements/custom-select-group.mustache',
                             'variables' => [
                                 'fieldName' => 'status',
                                 'title' => 'Status',
@@ -81,7 +81,7 @@ return [
                             ],
                         ],
                         [
-                            'type' => 'Text',
+                            'template' => 'elements/text.mustache',
                             'variables' => [
                                 'fieldName' => 'search',
                                 'placeholder' => 'Search for...',
@@ -90,7 +90,7 @@ return [
                             ],
                         ],
                         [
-                            'type' => 'Buttons',
+                            'template' => 'elements/buttons.mustache',
                             'variables' => [
                                 'buttons' => [
                                     [
@@ -117,7 +117,7 @@ return [
                     'type' => 'Row',
                     'filters' => [
                         [
-                            'type' => 'CustomSelectGroup',
+                            'template' => 'elements/custom-select-group.mustache',
                             'variables' => [
                                 'fieldName' => 'shippingAddressCountry',
                                 'title' => 'Include Country',
@@ -151,7 +151,7 @@ return [
                             ],
                         ],
                         [
-                            'type' => 'NumberRange',
+                            'template' => 'elements/number-range.mustache',
                             'variables' => [
                                 'fieldName' => 'total',
                                 'title' => 'Total',
