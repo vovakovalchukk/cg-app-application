@@ -4,8 +4,8 @@
 /config/autoload/di.cgcache.global.php
 /config/autoload/di.guzzle.global.php
 /config/autoload/di.memcached.global.php
-/config/autoload/di.smtp.global.php
 /config/autoload/di.redis.global.php
+/config/autoload/di.smtp.global.php
 /config/autoload/orders.global.php
 /config/host.php
 /config/module/*
