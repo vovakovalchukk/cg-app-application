@@ -1,5 +1,5 @@
 .idea
-/.sass-cache/
+.sass-cache/
 /config/autoload/database.local.php
 /config/autoload/di.cgcache.global.php
 /config/autoload/di.guzzle.global.php

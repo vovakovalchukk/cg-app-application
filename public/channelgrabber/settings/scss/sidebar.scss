@@ -1,11 +1,11 @@
 #sidebar #sidebar-settings * {
   font-size: 12px;
-  font-weight: bold;
 }
 
 #sidebar #sidebar-settings .title {
   margin: 20px 5px 5px 10px;
   font-size: 13px;
+  font-weight: bold;
 }
 
 #sidebar #sidebar-settings ul {
@@ -20,4 +20,5 @@
 
 #sidebar #sidebar-settings ul > li.selected > a {
   color: #3c3c3c;
+  font-weight: bold;
 }
