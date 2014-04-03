@@ -73,8 +73,5 @@
             "php bin/update_di_components.php",
             "php -d memory_limit=512M bin/compile_di.php"
         ]
-    },
-    "provide": {
-        "ext-gearman": "*"
     }
 }
