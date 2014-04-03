@@ -13,8 +13,9 @@ class Module
     use NavBar\ModuleItemsTrait;
 
     const PUBLIC_FOLDER = '/channelgrabber/settings/';
-    const TEMPLATE = 'settings/sidebar';
     const ROUTE = 'Channel Management';
+    const SUBHEADER_TEMPLATE = 'settings/sub-header';
+    const SIDEBAR_TEMPLATE = 'settings/sidebar';
 
     public function onBootstrap(MvcEvent $e)
     {
@@ -72,7 +73,7 @@ class Module
     protected function renderSideBar(MvcEvent $event, ViewModel $layout)
     {
         $sidebar = $this->getSidebarViewModel($event);
-        if ($sidebar->getTemplate() != static::TEMPLATE) {
+        if ($sidebar->getTemplate() != static::SIDEBAR_TEMPLATE) {
             return;
         }
 
