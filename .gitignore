@@ -1,9 +1,11 @@
 .idea
+/.sass-cache
 /config/autoload/database.local.php
 /config/autoload/di.cgcache.global.php
 /config/autoload/di.guzzle.global.php
 /config/autoload/di.memcached.global.php
 /config/autoload/di.redis.global.php
+/config/autoload/di.smtp.global.php
 /config/autoload/orders.global.php
 /config/host.php
 /config/module/*
@@ -22,5 +24,3 @@ config/di/vendor_components.php
 public/channelgrabber/zf2-logclient
 public/channelgrabber/zf2-login
 public/channelgrabber/zf2-v4-ui
-/.sass-cache
-/config/autoload/di.smtp.global.php
