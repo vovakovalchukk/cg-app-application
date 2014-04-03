@@ -7,6 +7,7 @@ use CG\User\ActiveUserInterface;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Zend\Di\Di;
 use Zend\Mvc\Controller\AbstractActionController;
+use Settings\Channel\Service;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Zend\View\Model\ViewModel;
 
@@ -17,6 +18,7 @@ class ChannelController extends AbstractActionController
     protected $accountFactory;
     protected $activeUserContainer;
     protected $viewModelFactory;
+    protected $service;
 
     const ACCOUNT_ROUTE = "Sales Channel Item";
 
@@ -25,14 +27,30 @@ class ChannelController extends AbstractActionController
         JsonModelFactory $jsonModelFactory,
         ViewModelFactory $viewModelFactory,
         AccountFactory $accountFactory,
-        ActiveUserInterface $activeUserContainer
+        ActiveUserInterface $activeUserContainer,
+        Service $service
     )
     {
         $this->setDi($di)
             ->setJsonModelFactory($jsonModelFactory)
             ->setViewModelFactory($viewModelFactory)
             ->setAccountFactory($accountFactory)
-            ->setActiveUserContainer($activeUserContainer);
+            ->setActiveUserContainer($activeUserContainer)
+            ->setService($service);
+    }
+
+    public function setService(Service $service)
+    {
+        $this->service = $service;
+        return $this;
+    }
+
+    /**
+     * @return Service
+     */
+    public function getService()
+    {
+        return $this->service;
     }
 
 
@@ -66,6 +84,10 @@ class ChannelController extends AbstractActionController
         $list->setVariable(
             'title',
             $this->getRouteName()
+        );
+        $list->setVariable(
+            'newChannelForm',
+            $this->getService()->getNewChannelForm()
         );
         return $list;
     }
