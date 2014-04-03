@@ -7,6 +7,8 @@ use CG\User\ActiveUserInterface;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Zend\Di\Di;
 use Zend\Mvc\Controller\AbstractActionController;
+use CG_UI\View\Prototyper\ViewModelFactory;
+use Zend\View\Model\ViewModel;
 
 class ChannelController extends AbstractActionController
 {
@@ -14,25 +16,65 @@ class ChannelController extends AbstractActionController
     protected $jsonModelFactory;
     protected $accountFactory;
     protected $activeUserContainer;
+    protected $viewModelFactory;
 
     const ACCOUNT_ROUTE = "Sales Channel Item";
 
     public function __construct(
         Di $di,
         JsonModelFactory $jsonModelFactory,
+        ViewModelFactory $viewModelFactory,
         AccountFactory $accountFactory,
         ActiveUserInterface $activeUserContainer
     )
     {
         $this->setDi($di)
             ->setJsonModelFactory($jsonModelFactory)
+            ->setViewModelFactory($viewModelFactory)
             ->setAccountFactory($accountFactory)
             ->setActiveUserContainer($activeUserContainer);
     }
 
+
+    public function setViewModelFactory(ViewModelFactory $viewModelFactory)
+    {
+        $this->viewModelFactory = $viewModelFactory;
+        return $this;
+    }
+
+    /**
+     * @return ViewModelFactory
+     */
+    public function getViewModelFactory()
+    {
+        return $this->viewModelFactory;
+    }
+
+    /**
+     * @param null $variables
+     * @param null $options
+     * @return ViewModel
+     */
+    protected function newViewModel($variables = null, $options = null)
+    {
+        return $this->getViewModelFactory()->newInstance($variables, $options);
+    }
+
     public function listAction()
     {
+        $list = $this->newViewModel();
+        $list->setVariable(
+            'title',
+            $this->getRouteName()
+        );
+        return $list;
+    }
 
+    protected function getRouteName()
+    {
+        $route = $this->getEvent()->getRouteMatch()->getMatchedRouteName();
+        $routeParts = explode('/', $route);
+        return end($routeParts);
     }
 
     public function createAction()

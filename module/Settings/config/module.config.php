@@ -4,6 +4,7 @@ use CG\Account\Client\Service as AccountService;
 use CG\Ebay\Client\TradingApi;
 use CG\Ebay\Account as EbayAccount;
 use Guzzle\Http\Client as GuzzleHttpClient;
+use Settings\Module;
 use Settings\Controller\IndexController;
 use Settings\Controller\ChannelController;
 use Settings\Controller\EbayController;
@@ -19,6 +20,8 @@ return [
                         'controller' => IndexController::class,
                         'action' => 'index',
                         'breadcrumbs' => false,
+                        'subHeader' => Module::SUBHEADER_TEMPLATE,
+                        'sidebar' => Module::SIDEBAR_TEMPLATE,
                     ],
                 ],
                 'may_terminate' => true,
