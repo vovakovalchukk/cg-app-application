@@ -6,7 +6,6 @@ use Zend\View\Model\ViewModel;
 use CG_UI\View\NavBar;
 use Zend\Di\Di;
 use CG_UI\Layout\ViewModelFactory;
-use CG_UI\Links\RouteLink;
 use Zend\Mvc\Router\SimpleRouteStack;
 
 class Module
