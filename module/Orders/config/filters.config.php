@@ -1,8 +1,6 @@
 <?php
 use Orders\Order\FilterService;
 
-$dateFormat = 'd/m/y';
-
 return [
     'di' => [
         'instance' => [
@@ -35,28 +33,28 @@ return [
                                     ],
                                     [
                                         'title' => 'Today',
-                                        'from' => date($dateFormat),
-                                        'to' => date($dateFormat)
+                                        'from' => strtotime("today"),
+                                        'to' => strtotime("now")
                                     ],
                                     [
                                         'title' => 'Last 7 days',
-                                        'from' => date($dateFormat, strtotime("-7 days")),
-                                        'to' => date($dateFormat)
+                                        'from' => strtotime("-7 days"),
+                                        'to' => strtotime("now")
                                     ],
                                     [
                                         'title' => 'Month to date',
-                                        'from' => date($dateFormat, strtotime('first day of ' . date('F Y'))),
-                                        'to' => date($dateFormat)
+                                        'from' => strtotime('midnight first day of this month'),
+                                        'to' => strtotime("now")
                                     ],
                                     [
                                         'title' => 'Year to date',
-                                        'from' => date($dateFormat, strtotime('first day of January ' . date('Y'))),
-                                        'to' => date($dateFormat)
+                                        'from' => strtotime('first day of January'),
+                                        'to' => strtotime("now")
                                     ],
                                     [
                                         'title' => 'The previous month',
-                                        'from' => date($dateFormat, strtotime('first day of last month ')),
-                                        'to' => date($dateFormat, strtotime('last day of last month ')),
+                                        'from' => strtotime('midnight first day of last month'),
+                                        'to' => strtotime('midnight first day of this month'),
                                     ]
                                 ]
                             ]
