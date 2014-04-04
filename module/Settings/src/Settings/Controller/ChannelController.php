@@ -7,6 +7,7 @@ use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
+use Settings\Module;
 
 class ChannelController extends AbstractActionController
 {
@@ -96,10 +97,19 @@ class ChannelController extends AbstractActionController
             $this->getService()->getNewChannelForm()
         );
         $list->addChild(
-            $this->getService()->getAccountList(),
+            $this->getAccountList(),
             'accountList'
         );
         return $list;
+    }
+
+    protected function getAccountList()
+    {
+        $accountList = $this->getService()->getAccountList();
+        $accountList->getVariable('settings')->setSource(
+            $this->url()->fromRoute(Module::ROUTE . '/Sales Channels/ajax')
+        );
+        return $accountList;
     }
 
     public function listAjaxAction()
