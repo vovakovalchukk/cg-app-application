@@ -1,0 +1,25 @@
+#sidebar #sidebar-settings * {
+  font-size: 12px;
+}
+
+#sidebar #sidebar-settings .title {
+  margin: 25px 5px 5px 10px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+#sidebar #sidebar-settings ul {
+  margin: 5px 5px 5px 20px;
+  padding: inherit;
+}
+
+#sidebar #sidebar-settings ul > li {
+  display: block;
+  list-style-type: none;
+  margin-top: 10px;
+}
+
+#sidebar #sidebar-settings ul > li.selected > a {
+  color: #3c3c3c;
+  font-weight: bold;
+}

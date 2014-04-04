@@ -17,14 +17,15 @@ use CG_UI\View\NavBar;
 
 class Module implements DependencyIndicatorInterface
 {
-    use NavBar\ModuleItemsTrait;
+    use NavBar\ModuleServiceTrait;
 
     const PUBLIC_FOLDER = '/channelgrabber/orders/';
 
-    public function onBootstrap(MvcEvent $e)
+    public function onBootstrap(MvcEvent $event)
     {
-        $eventManager = $e->getApplication()->getEventManager();
+        $eventManager = $event->getApplication()->getEventManager();
         $eventManager->attach(MvcEvent::EVENT_RENDER, array($this, 'layoutHandler'));
+        $eventManager->attach(MvcEvent::EVENT_RENDER, [$this->getNavBarService($event), 'appendNavBarItemsToNavBar']);
     }
 
     public function getConfig()
@@ -59,7 +60,6 @@ class Module implements DependencyIndicatorInterface
             return;
         }
         $this->renderBodyTag($viewModel);
-        $this->renderNavBar($event, $viewModel);
     }
 
     protected function renderBodyTag(ViewModel $layout)

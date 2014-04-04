@@ -1,5 +1,5 @@
 .idea
-/.sass-cache/
+.sass-cache/
 /config/autoload/database.local.php
 /config/autoload/di.cgcache.global.php
 /config/autoload/di.guzzle.global.php
@@ -14,6 +14,7 @@
 /data/mustache
 /module/Orders/src/Orders/Controller/tmp
 /nbproject
+/public/*/*/css
 /tests/*/*Guy.php
 /tests/_log
 /tests/api.suite.yml
