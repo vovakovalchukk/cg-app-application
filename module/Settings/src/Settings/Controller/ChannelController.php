@@ -8,6 +8,8 @@ use Zend\View\Model\ViewModel;
 
 class ChannelController extends AbstractActionController
 {
+    const LIST_ROUTE = 'Sales Channels';
+
     protected $service;
     protected $viewModelFactory;
 
