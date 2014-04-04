@@ -21,6 +21,7 @@ class ChannelController extends AbstractActionController
     protected $service;
 
     const ACCOUNT_ROUTE = "Sales Channel Item";
+    const ROUTE = "Sales Channels";
 
     public function __construct(
         Di $di,
@@ -111,7 +112,9 @@ class ChannelController extends AbstractActionController
             "expiryDate" => null
         ));
         $view = $this->getJsonModelFactory()->newInstance();
-        $view->setVariable('url', $this->getAccountFactory()->createRedirect($accountEntity));
+        $url = $this->getAccountFactory()->createRedirect($accountEntity, static::ROUTE . '/' . IndexController::ROUTE,
+            $this->params()->fromQuery('region'));
+        $view->setVariable('url', $url);
         return $view;
     }
 
