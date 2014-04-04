@@ -5,6 +5,7 @@ use CG\Account\Client\Entity as AccountEntity;
 use CG\Channel\AccountFactory;
 use CG\User\ActiveUserInterface;
 use CG_UI\View\Prototyper\JsonModelFactory;
+use Settings\Module;
 use Zend\Di\Di;
 use Zend\Mvc\Controller\AbstractActionController;
 use Settings\Channel\Service;
@@ -116,7 +117,7 @@ class ChannelController extends AbstractActionController
             "expiryDate" => null
         ));
         $view = $this->getJsonModelFactory()->newInstance();
-        $url = $this->getAccountFactory()->createRedirect($accountEntity, static::ROUTE . '/' . IndexController::ROUTE,
+        $url = $this->getAccountFactory()->createRedirect($accountEntity, static::ROUTE . '/' . Module::ROUTE,
             $this->params()->fromQuery('region'));
         $view->setVariable('url', $url);
         return $view;
