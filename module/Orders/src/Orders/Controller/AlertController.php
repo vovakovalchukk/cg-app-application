@@ -3,6 +3,7 @@ namespace Orders\Controller;
 
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
+use CG\Constant\DateTime;
 use CG\Order\Service\Alert\Service as AlertService;
 use CG\Order\Shared\Alert\Mapper as AlertMapper;
 use CG\Order\Shared\Alert\Entity as AlertEntity;
@@ -59,7 +60,7 @@ class AlertController extends AbstractActionController
             array(
                 'userId' => $this->getActiveUserContainer()->getActiveUser()->getId(),
                 'alert' => $this->params()->fromPost('alert'),
-                'timestamp' => date('Y-m-d H:i:s', time()),
+                'timestamp' => date(DateTime::Format, time()),
                 'orderId' => $this->params('order'),
                 'organisationUnitId' => $order->getOrganisationUnitId()
             )
@@ -72,7 +73,7 @@ class AlertController extends AbstractActionController
     {
         $alert->setAlert($this->params()->fromPost('alert'))
             ->setUserId($this->getActiveUserContainer()->getActiveUser()->getId())
-            ->setTimestamp(date('Y-m-d H:i:s', time()));
+            ->setTimestamp(date(DateTime::Format, time()));
         $alert->setStoredETag($this->params()->fromPost('eTag'));
         $this->getService()->save($alert);
         return $alert;

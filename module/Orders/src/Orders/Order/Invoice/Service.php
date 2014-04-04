@@ -3,6 +3,7 @@ namespace Orders\Order\Invoice;
 
 use Zend\Di\Di;
 use Orders\Order\Service as OrderService;
+use CG\Constant\DateTime;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection;
 use Orders\Order\Invoice\Template\Factory as TemplateFactory;
@@ -118,7 +119,7 @@ class Service
         $now = time();
         foreach ($orderCollection as $order) {
             $this->getOrderService()->saveOrder(
-                $order->setPrintedDate(date('Y-m-d H:i:s', $now))
+                $order->setPrintedDate(date(DateTime::Format, $now))
             );
         }
     }
