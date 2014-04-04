@@ -27,9 +27,7 @@ return [
                                 ],
                                 'options' => [
                                     [
-                                        'title' => 'All Time',
-                                        'from' => 'All',
-                                        'to' => 'All'
+                                        'title' => 'All Time'
                                     ],
                                     [
                                         'title' => 'Today',
