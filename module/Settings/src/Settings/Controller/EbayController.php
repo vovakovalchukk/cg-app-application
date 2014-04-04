@@ -9,6 +9,7 @@ use CG\User\ActiveUserInterface;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Zend\Di\Di;
 use Zend\Mvc\Controller\AbstractActionController;
+use Settings\Module;
 
 class EbayController extends AbstractActionController
 {
@@ -49,7 +50,7 @@ class EbayController extends AbstractActionController
             ));
         }
         $accountEntity = $this->getEbayAccount()->save($this->params()->fromQuery('sessionId'), $accountEntity);
-        $routeName = implode('/', [IndexController::ROUTE, ChannelController::ROUTE, ChannelController::ACCOUNT_ROUTE]);
+        $routeName = implode('/', [Module::ROUTE, ChannelController::ROUTE, ChannelController::ACCOUNT_ROUTE]);
         $url = $this->plugin('url')->fromRoute($routeName, ["account" => $accountEntity->getId()]);
         $this->plugin('redirect')->toUrl($url);
         return false;

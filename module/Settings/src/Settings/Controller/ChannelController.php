@@ -15,9 +15,9 @@ class ChannelController extends AbstractActionController
 {
     protected $di;
     protected $jsonModelFactory;
+    protected $viewModelFactory;
     protected $accountFactory;
     protected $activeUserContainer;
-    protected $viewModelFactory;
     protected $service;
 
     const ACCOUNT_ROUTE = "Sales Channel Item";
@@ -89,6 +89,10 @@ class ChannelController extends AbstractActionController
         $list->setVariable(
             'newChannelForm',
             $this->getService()->getNewChannelForm()
+        );
+        $list->addChild(
+            $this->getService()->getAccountList(),
+            'accountList'
         );
         return $list;
     }
