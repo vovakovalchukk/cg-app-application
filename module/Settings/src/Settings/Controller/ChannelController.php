@@ -8,19 +8,27 @@ use CG_UI\View\Prototyper\JsonModelFactory;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Settings\Module;
+use CG\Account\Client\Service as AccountService;
+use CG\Stdlib\Exception\Runtime\NotFound;
 
 class ChannelController extends AbstractActionController
 {
     protected $service;
     protected $viewModelFactory;
     protected $jsonModelFactory;
+    protected $accountService;
 
     public function __construct(
         Service $service,
         ViewModelFactory $viewModelFactory,
-        JsonModelFactory $jsonModelFactory
+        JsonModelFactory $jsonModelFactory,
+        AccountService $accountService
     ) {
-        $this->setService($service)->setViewModelFactory($viewModelFactory)->setJsonModelFactory($jsonModelFactory);
+        $this
+            ->setService($service)
+            ->setViewModelFactory($viewModelFactory)
+            ->setJsonModelFactory($jsonModelFactory)
+            ->setAccountService($accountService);
     }
 
     public function setService(Service $service)
@@ -85,6 +93,20 @@ class ChannelController extends AbstractActionController
         return $this->getJsonModelFactory()->newInstance($variables, $options);
     }
 
+    public function setAccountService(AccountService $accountService)
+    {
+        $this->accountService = $accountService;
+        return $this;
+    }
+
+    /**
+     * @return AccountService
+     */
+    public function getAccountService()
+    {
+        return $this->accountService;
+    }
+
     public function listAction()
     {
         $list = $this->newViewModel();
@@ -120,6 +142,19 @@ class ChannelController extends AbstractActionController
             'sEcho' => (int) $this->params()->fromPost('sEcho'),
             'Records' => [],
         ];
+
+        $limit = 'all';
+        $page = 1;
+        if ($this->params()->fromPost('iDisplayLength') > 0) {
+            $limit = $this->params()->fromPost('iDisplayLength');
+            $page += floor($this->params()->fromPost('iDisplayStart') / $limit);
+        }
+
+        try {
+
+        } catch (NotFound $exception) {
+            // No accounts so ignoring
+        }
 
         return $this->newJsonModel($data);
     }
