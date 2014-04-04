@@ -12,6 +12,7 @@ use CG\User\Entity as User;
 use Settings\Module;
 use CG\Account\Client\Service as AccountService;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use DirectoryIterator;
 
 class ChannelController extends AbstractActionController
 {
@@ -158,10 +159,43 @@ class ChannelController extends AbstractActionController
     protected function getAccountList()
     {
         $accountList = $this->getService()->getAccountList();
-        $accountList->getVariable('settings')->setSource(
+        $settings = $accountList->getVariable('settings');
+
+        $settings->setSource(
             $this->url()->fromRoute(Module::ROUTE . '/' . static::LIST_ROUTE . '/' . static::LIST_AJAX_ROUTE)
         );
+
+        $settings->setTemplateUrlMap($this->getAccountListTemplates());
+
         return $accountList;
+    }
+
+    protected function basePath()
+    {
+        $config = $this->getServiceLocator()->get('Config');
+        if (isset($config['view_manager'], $config['view_manager']['base_path'])) {
+            return $config['view_manager']['base_path'];
+        }
+        else {
+            return $this->getServiceLocator()->get('Request')->getBasePath();
+        }
+    }
+
+    protected function getAccountListTemplates()
+    {
+        $templateUrlMap = [];
+        $webRoot = PROJECT_ROOT . '/public';
+
+        $templates = new DirectoryIterator($webRoot . Module::PUBLIC_FOLDER . 'template/columns');
+        foreach ($templates as $template) {
+            if (!$template->isFile()) {
+                continue;
+            }
+            $templateUrlMap[$template->getBasename('.html')]
+                = $this->basePath() . str_replace($webRoot, '', $template->getPathname());
+        }
+
+        return $templateUrlMap;
     }
 
     public function listAjaxAction()

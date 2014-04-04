@@ -117,6 +117,7 @@ return [
             ],
             'AccountEnableColumn' => [
                 'parameters' => [
+                    'templateId' => 'enable',
                     'viewModel' => 'AccountEnableColumnView',
                     'sortable' => false,
                     'hideable' => false,
@@ -124,6 +125,7 @@ return [
             ],
             'AccountStatusColumn' => [
                 'parameters' => [
+                    'templateId' => 'status',
                     'viewModel' => 'AccountStatusColumnView',
                     'sortable' => false,
                     'hideable' => false,
@@ -131,6 +133,7 @@ return [
             ],
             'AccountChannelColumn' => [
                 'parameters' => [
+                    'templateId' => 'channel',
                     'viewModel' => 'AccountChannelColumnView',
                     'sortable' => false,
                     'hideable' => false,
@@ -138,6 +141,7 @@ return [
             ],
             'AccountAccountColumn' => [
                 'parameters' => [
+                    'templateId' => 'account',
                     'viewModel' => 'AccountAccountColumnView',
                     'sortable' => false,
                     'hideable' => false,
@@ -145,6 +149,7 @@ return [
             ],
             'AccountTradingCompanyColumn' => [
                 'parameters' => [
+                    'templateId' => 'tradingCompany',
                     'viewModel' => 'AccountTradingCompanyColumnView',
                     'sortable' => false,
                     'hideable' => false,
@@ -152,6 +157,7 @@ return [
             ],
             'AccountTokenStatusColumn' => [
                 'parameters' => [
+                    'templateId' => 'tokenStatus',
                     'viewModel' => 'AccountTokenStatusColumnView',
                     'sortable' => false,
                     'hideable' => false,
@@ -159,6 +165,7 @@ return [
             ],
             'AccountManageColumn' => [
                 'parameters' => [
+                    'templateId' => 'manage',
                     'viewModel' => 'AccountManageColumnView',
                     'sortable' => false,
                     'hideable' => false,
