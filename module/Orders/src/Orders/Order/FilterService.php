@@ -34,7 +34,7 @@ class FilterService
 
     public function setConfig($config)
     {
-        if (isset($config['filters'] || !is_array($config['filters'])) {
+        if (isset($config['filters']) || is_array($config['filters'])) {
             $this->config = $config['filters'];
         } else {
             $this->config = $config;
