@@ -5,8 +5,8 @@ use Settings\Controller\ChannelController;
 use CG_UI\View\DataTable;
 use Settings\Channel\Service;
 use Zend\View\Model\ViewModel;
-use CG\Account\Client\StorageInterface as AccountSotrageInterface;
-use CG\Account\Client\Storage\Api as AccountApiSotrage;
+use CG\Account\Client\StorageInterface as AccountStorageInterface;
+use CG\Account\Client\Storage\Api as AccountApiStorage;
 
 return [
     'router' => [
@@ -59,7 +59,7 @@ return [
     'di' => [
         'instance' => [
             'preferences' => [
-                AccountSotrageInterface::class => AccountApiSotrage::class,
+                AccountStorageInterface::class => AccountApiStorage::class,
             ],
             'aliases' => [
                 'AccountList' => DataTable::class,
@@ -78,6 +78,11 @@ return [
                 'AccountTradingCompanyColumnView' => ViewModel::class,
                 'AccountTokenStatusColumnView' => ViewModel::class,
                 'AccountManageColumnView' => ViewModel::class,
+            ],
+            AccountApiStorage::class => [
+                'parameters' => [
+                    'client' => 'account_guzzle',
+                ],
             ],
             Service::class => [
                 'parameters' => [

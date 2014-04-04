@@ -381,7 +381,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-account.git",
-                "reference": "67cee1f0581eaa7002607af0a7e2bf7cd9a79f3d"
+                "reference": "6127ab0e616d904e4b46e2ff219a4cdf532dfe23"
             },
             "require": {
                 "channelgrabber/cache": ">=1.2.1, <1.3.0",
@@ -403,7 +403,7 @@
                     "CG\\Account\\": ""
                 }
             },
-            "time": "2014-04-04 13:43:28"
+            "time": "2014-04-04 14:36:19"
         },
         {
             "name": "channelgrabber/cache",
