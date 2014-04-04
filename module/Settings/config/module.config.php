@@ -68,6 +68,11 @@ return [
                 ],
             ],
             'AccountList' => [
+                'parameters' => [
+                    'variables' => [
+                        'id' => 'accounts',
+                    ],
+                ],
                 'injections' => [
                     'addColumn' => [
                         ['column' => 'AccountEnableColumn'],
