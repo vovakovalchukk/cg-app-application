@@ -13,6 +13,8 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 
 class ChannelController extends AbstractActionController
 {
+    const LIST_ROUTE = 'Sales Channels';
+
     protected $service;
     protected $viewModelFactory;
     protected $jsonModelFactory;

@@ -9,7 +9,7 @@ use Zend\View\Model\ViewModel;
 return [
     'router' => [
         'routes' => [
-            'Channel Management' => [
+            Module::ROUTE => [
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => [
                     'route' => '/settings',
@@ -23,7 +23,7 @@ return [
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
-                    'Sales Channels' => [
+                    ChannelController::LIST_ROUTE => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [
                             'route' => '/channel',
