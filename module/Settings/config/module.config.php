@@ -31,7 +31,19 @@ return [
                                 'controller' => ChannelController::class,
                                 'action' => 'list',
                             ]
-                        ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            'ajax' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/ajax',
+                                    'defaults' => [
+                                        'action' => 'listAjax',
+                                    ]
+                                ],
+                            ],
+                        ],
                     ],
                 ],
             ],
