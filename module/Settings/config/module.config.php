@@ -1,6 +1,9 @@
 <?php
 use CG\Account\Client\Storage\Api as AccountStorage;
 use CG\Account\Client\Service as AccountService;
+use CG\Amazon\Signer as AmazonSigner;
+USE CG\Amazon\Account as AmazonAccount;
+USE CG\Amazon\Account\Eu as AmazonAccountEu;
 use CG\Ebay\Client\TradingApi;
 use CG\Ebay\Account as EbayAccount;
 use Guzzle\Http\Client as GuzzleHttpClient;
@@ -48,6 +51,17 @@ return [
                                 ],
                                 'may_terminate' => true
                             ],
+                            AmazonAccount::ROUTE => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/amazon/:route',
+                                    'defaults' => [
+                                        'controller' => AmazonController::class,
+                                        'action' => 'save'
+                                    ]
+                                ],
+                                'may_terminate' => true
+                            ],
                             'Sales Channel Create' => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => [
@@ -90,6 +104,18 @@ return [
                     'baseUrl' => 'https://api.ebay.com/ws/api.dll'
                 ]
             ],
+            AmazonSigner::class => array(
+                'parameters' => array(
+                    'secretKey' => 'Tp6B7AEOI8piy6bbSN3n5fmIZgbqWDlTvaxuDBBD',
+                    'httpVerb' => 'GET'
+                )
+            ),
+            AmazonAccountEu::class => array(
+                'parameters' => array(
+                    'id' => '929b9241-7b26-4640-bc23-4e385329456b',
+                    'awsAccessKeyId' => 'AKIAIDD3ZCDYV53OVQEA'
+                )
+            ),
             TradingApi::class => [
                 'parameters' => [
                     'client' => 'EbayGuzzle',
