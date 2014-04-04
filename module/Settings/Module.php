@@ -10,17 +10,18 @@ use Zend\Mvc\Router\SimpleRouteStack;
 
 class Module
 {
-    use NavBar\ModuleItemsTrait;
+    use NavBar\ModuleServiceTrait;
 
     const PUBLIC_FOLDER = '/channelgrabber/settings/';
     const ROUTE = 'Channel Management';
     const SUBHEADER_TEMPLATE = 'settings/sub-header';
     const SIDEBAR_TEMPLATE = 'settings/sidebar';
 
-    public function onBootstrap(MvcEvent $e)
+    public function onBootstrap(MvcEvent $event)
     {
-        $eventManager = $e->getApplication()->getEventManager();
+        $eventManager = $event->getApplication()->getEventManager();
         $eventManager->attach(MvcEvent::EVENT_RENDER, array($this, 'layoutHandler'));
+        $eventManager->attach(MvcEvent::EVENT_RENDER, [$this->getNavBarService($event), 'appendNavBarItemsToNavBar']);
     }
 
     public function getConfig()
@@ -45,7 +46,6 @@ class Module
         if (!($viewModel instanceof ViewModel)) {
             return;
         }
-        $this->renderNavBar($event, $viewModel);
         $this->renderSideBar($event, $viewModel);
     }
 
