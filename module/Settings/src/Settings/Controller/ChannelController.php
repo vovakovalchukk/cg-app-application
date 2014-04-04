@@ -14,6 +14,7 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 class ChannelController extends AbstractActionController
 {
     const LIST_ROUTE = 'Sales Channels';
+    const LIST_AJAX_ROUTE = 'ajax';
 
     protected $service;
     protected $viewModelFactory;
@@ -131,7 +132,7 @@ class ChannelController extends AbstractActionController
     {
         $accountList = $this->getService()->getAccountList();
         $accountList->getVariable('settings')->setSource(
-            $this->url()->fromRoute(Module::ROUTE . '/Sales Channels/ajax')
+            $this->url()->fromRoute(Module::ROUTE . '/' . static::LIST_ROUTE . '/' . static::LIST_AJAX_ROUTE)
         );
         return $accountList;
     }
