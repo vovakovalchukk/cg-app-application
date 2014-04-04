@@ -114,7 +114,14 @@ class ChannelController extends AbstractActionController
 
     public function listAjaxAction()
     {
-        return $this->newJsonModel();
+        $data = [
+            'iTotalRecords' => 0,
+            'iTotalDisplayRecords' => 0,
+            'sEcho' => (int) $this->params()->fromPost('sEcho'),
+            'Records' => [],
+        ];
+
+        return $this->newJsonModel($data);
     }
 
     protected function getRouteName()
