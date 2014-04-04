@@ -5,6 +5,8 @@ use Settings\Controller\ChannelController;
 use CG_UI\View\DataTable;
 use Settings\Channel\Service;
 use Zend\View\Model\ViewModel;
+use CG\Account\Client\StorageInterface as AccountSotrageInterface;
+use CG\Account\Client\Storage\Api as AccountApiSotrage;
 
 return [
     'router' => [
@@ -34,7 +36,7 @@ return [
                         ],
                         'may_terminate' => true,
                         'child_routes' => [
-                            'ajax' => [
+                            ChannelController::LIST_AJAX_ROUTE => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => [
                                     'route' => '/ajax',
@@ -56,6 +58,9 @@ return [
     ],
     'di' => [
         'instance' => [
+            'preferences' => [
+                AccountSotrageInterface::class => AccountApiSotrage::class,
+            ],
             'aliases' => [
                 'AccountList' => DataTable::class,
                 'AccountListSettings' => DataTable\Settings::class,
