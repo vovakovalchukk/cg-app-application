@@ -2,11 +2,12 @@
 namespace Settings\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use Settings\Module;
 
 class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        $this->redirect()->toRoute('Channel Management/Sales Channels');
+        $this->redirect()->toRoute(Module::ROUTE . '/' . ChannelController::ROUTE);
     }
 }

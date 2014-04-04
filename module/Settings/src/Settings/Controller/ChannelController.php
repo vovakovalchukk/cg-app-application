@@ -5,6 +5,7 @@ use CG\Account\Client\Entity as AccountEntity;
 use CG\Channel\AccountFactory;
 use CG\User\ActiveUserInterface;
 use CG_UI\View\Prototyper\JsonModelFactory;
+use Settings\Module;
 use Zend\Di\Di;
 use Zend\Mvc\Controller\AbstractActionController;
 use Settings\Channel\Service;
@@ -15,12 +16,13 @@ class ChannelController extends AbstractActionController
 {
     protected $di;
     protected $jsonModelFactory;
+    protected $viewModelFactory;
     protected $accountFactory;
     protected $activeUserContainer;
-    protected $viewModelFactory;
     protected $service;
 
     const ACCOUNT_ROUTE = "Sales Channel Item";
+    const ROUTE = "Sales Channels";
 
     public function __construct(
         Di $di,
@@ -89,6 +91,10 @@ class ChannelController extends AbstractActionController
             'newChannelForm',
             $this->getService()->getNewChannelForm()
         );
+        $list->addChild(
+            $this->getService()->getAccountList(),
+            'accountList'
+        );
         return $list;
     }
 
@@ -111,7 +117,9 @@ class ChannelController extends AbstractActionController
             "expiryDate" => null
         ));
         $view = $this->getJsonModelFactory()->newInstance();
-        $view->setVariable('url', $this->getAccountFactory()->createRedirect($accountEntity));
+        $url = $this->getAccountFactory()->createRedirect($accountEntity, static::ROUTE . '/' . Module::ROUTE,
+            $this->params()->fromQuery('region'));
+        $view->setVariable('url', $url);
         return $view;
     }
 
