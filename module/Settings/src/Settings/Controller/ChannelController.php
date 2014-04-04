@@ -65,6 +65,10 @@ class ChannelController extends AbstractActionController
             'newChannelForm',
             $this->getService()->getNewChannelForm()
         );
+        $list->addChild(
+            $this->getService()->getAccountList(),
+            'accountList'
+        );
         return $list;
     }
 
