@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "823a986a0cd9e1f2d8b066eac24f6861",
+    "hash": "81807209d9ffd7b6ff770007dae7abde",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -598,13 +598,6 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -760,13 +753,6 @@
                 "predis/predis": "v0.8.3"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Predis\\": ""
@@ -856,13 +842,6 @@
                 "zendframework/zend-session": "2.2.*"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Sso\\": ""
@@ -1053,13 +1032,6 @@
                 "zendframework/zend-view": "2.2.*"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Zend\\Hal": ""
@@ -1337,17 +1309,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.3.2",
+            "version": "1.3.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "57e911b74f60bdab38cf60de2c2f6368d92a1add"
+                "reference": "e28f04d777852bcc6ad9aed86741f36f570cfd0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.3.2-3f55b4.zip",
-                "reference": "57e911b74f60bdab38cf60de2c2f6368d92a1add",
-                "shasum": "acc751cb0e3b4680a3b38dda40b71520e7174269"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.3.3-1ce107.zip",
+                "reference": "e28f04d777852bcc6ad9aed86741f36f570cfd0b",
+                "shasum": "110fd0f6d9e3a6f2b0144e2b5486bd075822c3c6"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1375,7 +1347,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-04-02 08:29:19"
+            "time": "2014-04-04 12:48:04"
         },
         {
             "name": "cilex/cilex",
@@ -2603,7 +2575,9 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",

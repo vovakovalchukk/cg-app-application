@@ -157,10 +157,14 @@ class OrdersController extends AbstractActionController
         $settings->setTemplateUrlMap($templateUrlMap);
         $view->addChild($ordersTable, 'ordersTable');
         $bulkActions = $this->getBulkActionsService()->getBulkActions();
+        $bulkAction = $this->getViewModelFactory()->newInstance()->setTemplate('orders/orders/bulk-actions/index');
+        $bulkAction->setVariable('isHeaderBarVisible', $this->getOrderService()->isFilterBarVisible());
         $bulkActions->addChild(
-            $this->getViewModelFactory()->newInstance()->setTemplate('orders/orders/bulk-actions/index'),
+            $bulkAction,
             'afterActions'
         );
+
+
         $view->addChild($bulkActions, 'bulkItems');
         $view->addChild($this->getFilterBar(), 'filters');
         $view->addChild($this->getBatches(), 'batches');
@@ -231,6 +235,10 @@ class OrdersController extends AbstractActionController
             // Example Data - Should be loaded via Service/Di
             include dirname(dirname(dirname(__DIR__))) . '/test/data/filterBar/daterange-options.php'
         );
+        $dateRangeFilter->setVariable('time', [
+            'hours' => date('G'),
+            'minutes' => date('i')
+        ]);
         $filterRow[] = $viewRender->render($dateRangeFilter);
 
         $filterButtons = $this->getViewModelFactory()->newInstance();
@@ -270,6 +278,16 @@ class OrdersController extends AbstractActionController
             include dirname(dirname(dirname(__DIR__))) . '/test/data/filterBar/country-options.php'
         );
         $filterRow[] = $viewRender->render($filterButtons);
+
+        $numberRangeFilter = $this->getViewModelFactory()->newInstance();
+        $numberRangeFilter->setTemplate('elements/number-range');
+        $numberRangeFilter->setVariable(
+            'options',
+            // Example Data - Should be loaded via Service/Di
+            include dirname(dirname(dirname(__DIR__))) . '/test/data/filterBar/numberrange-options.php'
+        );
+        $filterRow[] = $viewRender->render($numberRangeFilter);
+
         $filterRows[] = $filterRow;
 
         $filterBar = $this->getViewModelFactory()->newInstance();
