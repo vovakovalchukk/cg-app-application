@@ -17,11 +17,7 @@ $(document).ready(function() {
                 <span class="text" data-default=""><?= $this->translate('Select A Channel'); ?></span><span class="arrow down">&nbsp;</span>
             </div>
             <ul>
-                <?php
-                    foreach ($channels as $channel)  {
-                        require __DIR__ . "/create/item.phtml";
-                    }
-                ?>
+                <?= $channels ?>
             </ul>
         </div>
     </div>

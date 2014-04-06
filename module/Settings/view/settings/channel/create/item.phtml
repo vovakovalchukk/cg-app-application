@@ -1,7 +1,9 @@
+<?php foreach ($channels as $name => $channel): ?>
 <li>
     <a href="#">
-        <?= $channel["name"] ?>
+        <?= $name ?>
         <input type="hidden" value="<?= $channel["channel"] ?>" name="channel" id="channel">
         <input type="hidden" value="<?= $channel["region"] ?>" name="region" id="region">
     </a>
 </li>
+<?php endforeach; ?>
