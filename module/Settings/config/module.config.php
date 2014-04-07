@@ -55,9 +55,9 @@ return [
                                 'may_terminate' => true
                             ],
                             AmazonAccount::ROUTE => [
-                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'type' => 'Zend\Mvc\Router\Http\Segment',
                                 'options' => [
-                                    'route' => '/amazon/:route',
+                                    'route' => '/amazon/:region',
                                     'defaults' => [
                                         'controller' => AmazonController::class,
                                         'action' => 'save'
