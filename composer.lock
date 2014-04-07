@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "de7c8bc82fa7c92f0c4515f221185d2a",
+    "hash": "c2ac259d1fad926fd983143504a6e971",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -934,11 +934,17 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "dev-CGIV-1882-password-reset-show-ou-name",
+            "version": "1.13.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "fb66f644f8e56375f8a0c9aaeb42b17be74dbfd7"
+                "reference": "0183daf5d368af04712bf260dd3e5db3521e63d3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.13.8-b75cd9.zip",
+                "reference": "0183daf5d368af04712bf260dd3e5db3521e63d3",
+                "shasum": "9a1b5d57906ab73814d5ca14c3a2be37e1f15659"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.8",
@@ -966,7 +972,7 @@
                     "CG": ""
                 }
             },
-            "time": "2014-04-04 17:00:21"
+            "time": "2014-04-07 09:11:02"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -1137,17 +1143,23 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "dev-CGIV-1882-password-reset-show-ou-name",
+            "version": "1.3.18",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "7ba4809bdb50f755455f75ab097e6edcb5f60531"
+                "reference": "b4587b4ae05ee3452fc82996be165888fa314155"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.3.18-1fa8ae.zip",
+                "reference": "b4587b4ae05ee3452fc82996be165888fa314155",
+                "shasum": "2d3babf7ca592c617c00c27dde68ec2c26fb0ceb"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/stdlib": ">=2.2.0",
-                "channelgrabber/user": ">=1.13.5,<2.0.0",
+                "channelgrabber/user": ">=1.13.8",
                 "channelgrabber/zf2-stdlib": ">=1.0.1",
                 "channelgrabber/zf2-v4-ui": ">=1.3.1",
                 "guzzle/guzzle": "~3.7",
@@ -1177,7 +1189,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2014-04-04 16:12:07"
+            "time": "2014-04-07 09:18:21"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -3662,24 +3674,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.13.7",
-            "alias_normalized": "1.13.7.0",
-            "version": "dev-CGIV-1882-password-reset-show-ou-name",
-            "package": "channelgrabber/user"
-        },
-        {
-            "alias": "1.3.17",
-            "alias_normalized": "1.3.17.0",
-            "version": "dev-CGIV-1882-password-reset-show-ou-name",
-            "package": "channelgrabber/zf2-login"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/user": 20,
-        "channelgrabber/zf2-login": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },
