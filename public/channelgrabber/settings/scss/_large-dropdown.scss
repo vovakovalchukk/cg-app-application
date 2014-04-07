@@ -1,0 +1,27 @@
+.large-dropdown {
+  position:absolute;
+  right:25px;
+  width:342px;
+}
+
+.large-dropdown .input {
+  float:left;
+  margin:10px 20px 0px 0px;
+}
+
+.large-dropdown .input .custom-select-std .selected {
+  height:23px;
+  line-height:23px;
+  width:140px !important;
+  padding-left:15px;
+  font-size:13px;
+}
+
+.large-dropdown .input .custom-select-std ul {
+  top: 35px;
+  width:200px;
+}
+
+.large-dropdown .input .custom-select-std .selected .arrow {
+  top:14px;
+}
