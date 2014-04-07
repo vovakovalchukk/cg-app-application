@@ -9,6 +9,10 @@ $("#<?= $tableId ?>").on("renderColumn", function(event, cgmustache, template, c
             return "inactive";
         }
 
+        if (data.expiryDate !== null && data.expiryDate <= 0) {
+            return "expired";
+        }
+
         return "active";
     };
 });
