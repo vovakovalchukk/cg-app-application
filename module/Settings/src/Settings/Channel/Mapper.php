@@ -7,6 +7,7 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use Settings\Controller\ChannelController;
 use Settings\Module;
 use Zend\Mvc\Controller\Plugin\Url;
+use DateTime;
 
 class Mapper
 {
@@ -43,6 +44,11 @@ class Mapper
         $dataTableArray['organisationUnit'] = $this->getOrganisationUnitCompanyName($entity->getOrganisationUnitId());
         $dataTableArray['manageLinks'] = $this->getManageLinks($entity->getId(), $urlPlugin);
 
+        $dataTableArray['expiryDate'] = $this->parseExpiryDate($entity->getExpiryDate());
+        if ($dataTableArray['expiryDate']) {
+            $dataTableArray['expiryDate'] -= time();
+        }
+
         return $dataTableArray;
     }
 
@@ -74,5 +80,18 @@ class Mapper
         }
 
         return $manageLinks;
+    }
+
+    protected function parseExpiryDate($expiryDate)
+    {
+        if ($expiryDate instanceof DateTime) {
+            return $expiryDate->getTimestamp();
+        }
+
+        $time = strtotime($expiryDate);
+        if (!$time) {
+            return null;
+        }
+        return $time;
     }
 }

@@ -88,6 +88,7 @@ return [
                 'AccountList' => DataTable::class,
                 'AccountListSettings' => DataTable\Settings::class,
                 'MustacheStatus' => ViewModel::class,
+                'MustacheTokenStatus' => ViewModel::class,
                 'AccountEnableColumn' => DataTable\Column::class,
                 'AccountStatusColumn' => DataTable\Column::class,
                 'AccountChannelColumn' => DataTable\Column::class,
@@ -122,6 +123,7 @@ return [
                 'injections' => [
                     'addChild' => [
                         ['child' => 'MustacheStatus', 'captureTo' => 'javascript', 'append' => true],
+                        ['child' => 'MustacheTokenStatus', 'captureTo' => 'javascript', 'append' => true],
                     ],
                     'addColumn' => [
                         ['column' => 'AccountEnableColumn'],
@@ -145,6 +147,11 @@ return [
             'MustacheStatus' => [
                 'parameters' => [
                     'template' => 'settings/channel/javascript/mustache-status.js',
+                ],
+            ],
+            'MustacheTokenStatus' => [
+                'parameters' => [
+                    'template' => 'settings/channel/javascript/mustache-token.js',
                 ],
             ],
             'AccountEnableColumn' => [

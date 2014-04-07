@@ -9,3 +9,12 @@
 #accounts_wrapper .table-footer {
   display: none;
 }
+
+span.token.empty {
+  color:#bebebe;
+}
+
+span.token.expired {
+  color: #ec4832;
+  font-weight: bold;
+}
