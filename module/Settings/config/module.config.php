@@ -130,6 +130,7 @@ return [
                     'viewModel' => 'AccountEnableColumnView',
                     'sortable' => false,
                     'hideable' => false,
+                    'width' => '100px',
                 ],
             ],
             'AccountStatusColumn' => [
@@ -138,6 +139,7 @@ return [
                     'viewModel' => 'AccountStatusColumnView',
                     'sortable' => false,
                     'hideable' => false,
+                    'width' => '100px',
                 ],
             ],
             'AccountChannelColumn' => [
