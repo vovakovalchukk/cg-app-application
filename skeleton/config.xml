@@ -20,6 +20,9 @@
             <predis-predis>~0.8.3</predis-predis>
             <channelgrabber-predis>~1.0.1</channelgrabber-predis>
         </Redis>
+        <GearmanClient>
+            <enabled>1</enabled>
+        </GearmanClient>
     </Module>
     <Environment>
         <Local>
