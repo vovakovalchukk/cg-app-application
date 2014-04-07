@@ -21,12 +21,14 @@ return [
                 'BatchJavascript' => ViewModel::class,
                 'BatchRemoveJavascript' => ViewModel::class,
                 'ArchiveJavascript' => ViewModel::class,
+                'CancelJavascript' => ViewModel::class,
                 'UrlDataViewInvoice' => ViewModel::class,
                 'UrlDataViewDispatch' => ViewModel::class,
                 'UrlDataViewTag' => ViewModel::class,
                 'UrlDataViewArchive' => ViewModel::class,
                 'UrlDataViewBatch' => ViewModel::class,
-                'UrlDataViewBatchRemove' => ViewModel::class
+                'UrlDataViewBatchRemove' => ViewModel::class,
+                'UrlDataViewCancel' => ViewModel::class
             ],
             Service::class => [
                 'parameters' => [
@@ -63,6 +65,7 @@ return [
                     Action\Tag::class,
                     BulkActions\CourierAction::class,
                     BulkActions\AccountingAction::class,
+                    Action\Cancel::class
                 ],
             ],
             Action\Invoice::class => [
@@ -175,6 +178,25 @@ return [
             'ArchiveJavascript' => [
                 'parameters' => [
                     'template' => 'orders/orders/bulk-actions/archive.js',
+                ],
+            ],
+            Action\Cancel::class => [
+                'parameters' => [
+                    'urlView' => 'UrlDataViewCancel',
+                    'elementData' => [
+                        'datatable' => 'datatable',
+                    ],
+                    'javascript' => 'CancelJavascript',
+                ],
+            ],
+            'CancelJavascript' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/cancel.js',
+                ],
+            ],
+            'UrlDataViewCancel' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/data-url',
                 ],
             ],
             'UrlDataViewInvoice' => [

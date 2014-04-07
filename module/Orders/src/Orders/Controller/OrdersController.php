@@ -411,6 +411,18 @@ class OrdersController extends AbstractActionController
         return $response->setVariable('dispatching', true);
     }
 
+    public function cancelAction()
+    {
+        $response = $this->getJsonModelFactory()->newInstance(['cancelling' => false]);
+
+        $ids = $this->params()->fromPost('orders');
+        if (!is_array($ids) || empty($ids)) {
+            return $response->setVariable('error', 'No Orders provided');
+        }
+
+        return $response->setVariable('cancelling', true);
+    }
+
     public function archiveAction()
     {
         $response = $this->getJsonModelFactory()->newInstance(['archived' => false]);

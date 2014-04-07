@@ -216,6 +216,15 @@ return [
                             ]
                         ]
                     ],
+                    'cancel' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/cancel',
+                            'defaults' => [
+                                'action' => 'cancel'
+                            ]
+                        ]
+                    ],
                     'tag' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [
