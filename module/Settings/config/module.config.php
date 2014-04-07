@@ -7,6 +7,8 @@ use Settings\Channel\Service;
 use Zend\View\Model\ViewModel;
 use CG\Account\Client\StorageInterface as AccountStorageInterface;
 use CG\Account\Client\Storage\Api as AccountApiStorage;
+use CG\OrganisationUnit\StorageInterface as OUStorageInterface;
+use CG\OrganisationUnit\Storage\Api as OUApiStorage;
 
 return [
     'router' => [
@@ -60,6 +62,7 @@ return [
         'instance' => [
             'preferences' => [
                 AccountStorageInterface::class => AccountApiStorage::class,
+                OUStorageInterface::class => OUApiStorage::class,
             ],
             'aliases' => [
                 'AccountList' => DataTable::class,

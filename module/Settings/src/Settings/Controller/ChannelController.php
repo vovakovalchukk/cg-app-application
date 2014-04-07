@@ -3,6 +3,7 @@ namespace Settings\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Settings\Channel\Service;
+use Settings\Channel\Mapper;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG\User\ActiveUserInterface;
@@ -20,6 +21,7 @@ class ChannelController extends AbstractActionController
     const LIST_AJAX_ROUTE = 'ajax';
 
     protected $service;
+    protected $mapper;
     protected $viewModelFactory;
     protected $jsonModelFactory;
     protected $accountService;
@@ -27,6 +29,7 @@ class ChannelController extends AbstractActionController
 
     public function __construct(
         Service $service,
+        Mapper $mapper,
         ViewModelFactory $viewModelFactory,
         JsonModelFactory $jsonModelFactory,
         AccountService $accountService,
@@ -34,6 +37,7 @@ class ChannelController extends AbstractActionController
     ) {
         $this
             ->setService($service)
+            ->setMapper($mapper)
             ->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
             ->setAccountService($accountService)
@@ -52,6 +56,20 @@ class ChannelController extends AbstractActionController
     public function getService()
     {
         return $this->service;
+    }
+
+    public function setMapper(Mapper $mapper)
+    {
+        $this->mapper = $mapper;
+        return $this;
+    }
+
+    /**
+     * @return Mapper
+     */
+    public function getMapper()
+    {
+        return $this->mapper;
     }
 
     public function setViewModelFactory(ViewModelFactory $viewModelFactory)
@@ -224,7 +242,7 @@ class ChannelController extends AbstractActionController
             $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) $accounts->getTotal();
 
             foreach ($accounts as $account) {
-                $data['Records'][] = $account->toArray();
+                $data['Records'][] = $this->getMapper()->toDataTableArray($account);
             }
         } catch (NotFound $exception) {
             // No accounts so ignoring
