@@ -2,13 +2,13 @@ $("#<?= $tableId ?>").on("renderColumn", function(event, cgmustache, template, c
     data.enabled = data.active && !data.deleted;
     data.status = function() {
         if (data.deleted) {
-            return "Deleted";
+            return "deleted";
         }
 
         if (!data.active) {
-            return "Inactive";
+            return "inactive";
         }
 
-        return "Active";
+        return "active";
     };
 });
