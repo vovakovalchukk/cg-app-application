@@ -4,6 +4,9 @@ namespace Settings\Channel;
 use CG\Account\Shared\Entity;
 use CG\OrganisationUnit\StorageInterface as OUStorage;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use Settings\Controller\ChannelController;
+use Settings\Module;
+use Zend\Mvc\Controller\Plugin\Url;
 
 class Mapper
 {
@@ -28,7 +31,7 @@ class Mapper
         return $this->ouStorage;
     }
 
-    public function toDataTableArray(Entity $entity)
+    public function toDataTableArray(Entity $entity, Url $urlPlugin)
     {
         $dataTableArray = $entity->toArray();
 
@@ -38,6 +41,7 @@ class Mapper
         );
 
         $dataTableArray['organisationUnit'] = $this->getOrganisationUnitCompanyName($entity->getOrganisationUnitId());
+        $dataTableArray['manageLinks'] = $this->getManageLinks($entity->getId(), $urlPlugin);
 
         return $dataTableArray;
     }
@@ -50,5 +54,25 @@ class Mapper
         } catch (NotFound $exception) {
             return '';
         }
+    }
+
+    protected function getManageLinks($id, Url $urlPlugin)
+    {
+        $links = [
+            ChannelController::CHANNEL_ROUTE,
+            ChannelController::CHANNEL_ROUTE . '/' . ChannelController::CHANNEL_DELETE_ROUTE
+        ];
+
+        $manageLinks = [];
+        foreach ($links as $link) {
+            $route = Module::ROUTE . '/' . ChannelController::LIST_ROUTE . '/' . $link;
+            $routeMap = explode('/', $route);
+            $manageLinks[] = [
+                'name' => end($routeMap),
+                'href' => $urlPlugin->fromRoute($route, ['channel' => $id])
+            ];
+        }
+
+        return $manageLinks;
     }
 }

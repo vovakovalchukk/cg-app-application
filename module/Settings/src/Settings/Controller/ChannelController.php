@@ -19,6 +19,8 @@ class ChannelController extends AbstractActionController
 {
     const LIST_ROUTE = 'Sales Channels';
     const LIST_AJAX_ROUTE = 'ajax';
+    const CHANNEL_ROUTE = 'Manage';
+    const CHANNEL_DELETE_ROUTE = 'Delete';
 
     protected $service;
     protected $mapper;
@@ -242,7 +244,7 @@ class ChannelController extends AbstractActionController
             $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) $accounts->getTotal();
 
             foreach ($accounts as $account) {
-                $data['Records'][] = $this->getMapper()->toDataTableArray($account);
+                $data['Records'][] = $this->getMapper()->toDataTableArray($account, $this->url());
             }
         } catch (NotFound $exception) {
             // No accounts so ignoring

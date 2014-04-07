@@ -47,6 +47,26 @@ return [
                                     ]
                                 ],
                             ],
+                            ChannelController::CHANNEL_ROUTE => [
+                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                'options' => [
+                                    'route' => '/:channel',
+                                    'constraints' => [
+                                        'channel' => '[0-9]+'
+                                    ],
+                                    'defaults' => []
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    ChannelController::CHANNEL_DELETE_ROUTE => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/delete',
+                                            'defaults' => []
+                                        ],
+                                    ],
+                                ],
+                            ],
                         ],
                     ],
                 ],
