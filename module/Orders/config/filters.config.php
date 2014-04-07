@@ -67,6 +67,8 @@ return [
                                 'fieldName' => 'status',
                                 'title' => 'Status',
                                 'id' => 'filter-status',
+                                'searchField' => true,
+                                'concatenate' => true,
                                 'options' => [
                                     [
                                         'title' => 'New'
@@ -87,6 +89,41 @@ return [
                                 'placeholder' => 'Search for...',
                                 'class' => '',
                                 'value' => ''
+                            ],
+                        ],
+                        [
+                            'template' => 'elements/more.mustache',
+                            'variables' => [
+                                'title' => 'More',
+                                'concatenate' => true,
+                                'class' => 'more',
+                                'id' => 'more',
+                                'options' => [
+                                    [
+                                        'title' => 'Filter 1'
+                                    ],
+                                    [
+                                        'title' => 'Filter 2'
+                                    ],
+                                    [
+                                        'title' => 'Filter 3'
+                                    ],
+                                    [
+                                        'title' => 'Filter 4'
+                                    ],
+                                    [
+                                        'title' => 'Filter 5'
+                                    ],
+                                    [
+                                        'title' => 'Filter 6'
+                                    ],
+                                    [
+                                        'title' => 'Filter 7'
+                                    ],
+                                    [
+                                        'title' => 'Filter 8'
+                                    ]
+                                ],
                             ],
                         ],
                         [
@@ -121,7 +158,9 @@ return [
                             'variables' => [
                                 'fieldName' => 'shippingAddressCountry',
                                 'title' => 'Include Country',
+                                'searchField' => true,
                                 'isOptional' => true,
+                                'concatenate' => true,
                                 'options' => [
                                     [
                                         'title' => 'UK'
@@ -149,6 +188,42 @@ return [
                                     ]
                                 ]
                             ],
+                        ],
+                        [
+                            'template' => 'elements/number-range.mustache',
+                            'variables' => [
+                                'fieldName' => 'total',
+                                'title' => 'Total',
+                                'isOptional' => true,
+                                'id' => ''
+                            ]
+                        ],
+                        [
+                            'template' => 'elements/number-range.mustache',
+                            'variables' => [
+                                'fieldName' => 'total',
+                                'title' => 'Total',
+                                'isOptional' => true,
+                                'id' => ''
+                            ]
+                        ],
+                        [
+                            'template' => 'elements/number-range.mustache',
+                            'variables' => [
+                                'fieldName' => 'total',
+                                'title' => 'Total',
+                                'isOptional' => true,
+                                'id' => ''
+                            ]
+                        ],
+                        [
+                            'template' => 'elements/number-range.mustache',
+                            'variables' => [
+                                'fieldName' => 'total',
+                                'title' => 'Total',
+                                'isOptional' => true,
+                                'id' => ''
+                            ]
                         ],
                         [
                             'template' => 'elements/number-range.mustache',
