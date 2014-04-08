@@ -14,6 +14,7 @@ use Zend\View\Model\ViewModel;
 use CG\Channel\Service as ChannelService;
 use Settings\Form\AccountDetailsForm;
 use Mustache\View\Renderer as MustacheRenderer;
+use CG_UI\Form\Factory as FormFactory;
 use CG\Zend\Stdlib\View\Model\Exception as ViewModelException;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use Zend\I18n\Translator\Translator;
@@ -29,6 +30,7 @@ class ChannelController extends AbstractActionController
     protected $service;
     protected $channelService;
     protected $mustacheRenderer;
+    protected $formFactory;
     protected $translator;
 
     const ACCOUNT_ROUTE = "Sales Channel Item";
@@ -37,6 +39,7 @@ class ChannelController extends AbstractActionController
     const CREATE_ROUTE = "Sales Channel Create";
     const ACCOUNT_TEMPLATE = "Sales Channel Item";
     const ACCOUNT_CHANNEL_FORM_BLANK_TEMPLATE = "Sales Channel Item Channel Form Blank";
+    const ACCOUNT_DETAIL_FORM = "Sales Channel Item Detail";
 
     public function __construct(
         Di $di,
@@ -47,6 +50,7 @@ class ChannelController extends AbstractActionController
         Service $service,
         ChannelService $channelService,
         MustacheRenderer $mustacheRenderer,
+        FormFactory $formFactory,
         Translator $translator
     ) {
         $this->setDi($di)
@@ -57,6 +61,7 @@ class ChannelController extends AbstractActionController
             ->setService($service)
             ->setChannelService($channelService)
             ->setMustacheRenderer($mustacheRenderer)
+            ->setFormFactory($formFactory)
             ->setTranslator($translator);
     }
 
@@ -132,19 +137,37 @@ class ChannelController extends AbstractActionController
         $view->setTemplate(static::ACCOUNT_TEMPLATE);
         $view->setVariable('account', $accountEntity);
 
+        $this->addAccountsChannelSpecificView($accountEntity, $view)
+            ->addAccountDetailsForm($accountEntity, $view)
+            ->addTradingCompaniesView($accountEntity, $view);
+
+        return $view;
+    }
+
+    protected function addAccountsChannelSpecificView($accountEntity, $view)
+    {
         $channelSpecificTemplate = $this->getService()->getChannelSpecificTemplateForAccount($accountEntity);
         $channelSpecificView = $this->newViewModel();
         $channelSpecificView->setTemplate($channelSpecificTemplate);
         $view->addChild($channelSpecificView, 'channelSpecificForm');
+        return $this;
+    }
 
-        $accountForm = $this->getDi()->get(AccountDetailsForm::class, ['account' => $accountEntity]);
+    protected function addAccountDetailsForm($accountEntity, $view)
+    {
+        $accountForm = $this->getFormFactory()->get(static::ACCOUNT_DETAIL_FORM);
+        $accountForm->setData($accountEntity->toArray());
         $updateUrl = $this->url()->fromRoute(
             Module::ROUTE.'/'.static::ROUTE.'/'.static::ACCOUNT_ROUTE.'/'.static::ACCOUNT_AJAX_ROUTE,
-            ['account' => $id]
+            ['account' => $accountEntity->getId()]
         );
-        $accountForm->setAttribute('action', $updateUrl, ['account' => $id]);
+        $accountForm->setAttribute('action', $updateUrl);
         $view->setVariable('detailsForm', $accountForm);
+        return $this;
+    }
 
+    protected function addTradingCompaniesView($accountEntity, $view)
+    {
         $tradingCompanies = $this->getService()->getTradingCompanyOptionsForAccount($accountEntity);
         $tradingCompanyOptions = [];
         foreach ($tradingCompanies as $tradingCompany) {
@@ -160,8 +183,7 @@ class ChannelController extends AbstractActionController
             'options' => $tradingCompanyOptions
         ]);
         $view->setVariable('tradingCompanySelect', $this->getMustacheRenderer()->render($tradingCompanyView));
-
-        return $view;
+        return $this;
     }
 
     public function accountUpdateAction()
@@ -287,6 +309,17 @@ class ChannelController extends AbstractActionController
         return $this;
     }
 
+    public function getFormFactory()
+    {
+        return $this->formFactory;
+    }
+
+    public function setFormFactory(FormFactory $formFactory)
+    {
+        $this->formFactory = $formFactory;
+        return $this;
+    }
+
     public function getTranslator()
     {
         return $this->translator;
@@ -295,6 +328,5 @@ class ChannelController extends AbstractActionController
     public function setTranslator(Translator $translator)
     {
         $this->translator = $translator;
-        return $this;
     }
 }
