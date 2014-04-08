@@ -62,7 +62,9 @@ return [
                                         'type' => 'Zend\Mvc\Router\Http\Literal',
                                         'options' => [
                                             'route' => '/delete',
-                                            'defaults' => []
+                                            'defaults' => [
+                                                'action' => 'delete',
+                                            ]
                                         ],
                                     ],
                                 ],

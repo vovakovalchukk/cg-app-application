@@ -259,4 +259,27 @@ class ChannelController extends AbstractActionController
         $routeParts = explode('/', $route);
         return end($routeParts);
     }
+
+    public function deleteAction()
+    {
+        $response = $this->getJsonModelFactory()->newInstance(['deleted' => false]);
+
+        $accountService = $this->getAccountService();
+        try {
+            $account = $accountService->fetch(
+                $this->params()->fromRoute('channel')
+            );
+
+            $account->setActive(false)->setDeleted(true);
+
+            $accountService->save($account);
+        } catch (NotFound $exception) {
+            return $response->setVariable(
+                'error',
+                'Sales Channel could not be found'
+            );
+        }
+
+        return $response->setVariable('deleted', true);
+    }
 }
