@@ -31,5 +31,19 @@ require(
 
             notifications.success("<?= $this->translate('Sales Channel Status Updated') ?>");
         });
+
+        ajaxCheckbox.bindAjaxResponse(function(event, data) {
+            if (!data.account) {
+                return;
+            }
+
+            var dataTable = $(ajaxCheckbox.getBaseSelector()).dataTable();
+            var row = $(this).closest("tr");
+            if (!row.length) {
+                return;
+            }
+            var position = dataTable.fnGetPosition(row[0]);
+            dataTable.fnUpdate(data.account, position, undefined, false, false);
+        });
     }
 );

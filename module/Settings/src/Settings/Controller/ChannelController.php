@@ -277,6 +277,10 @@ class ChannelController extends AbstractActionController
             );
 
             $accountService->save($account->setActive($active));
+            $response->setVariable(
+                'account',
+                $this->getMapper()->toDataTableArray($account, $this->url())
+            );
         } catch (NotFound $exception) {
             return $response->setVariable(
                 'error',
