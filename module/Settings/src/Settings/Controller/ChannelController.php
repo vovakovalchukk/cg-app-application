@@ -14,6 +14,7 @@ use Zend\View\Model\ViewModel;
 use CG\Channel\Service as ChannelService;
 use Settings\Form\AccountDetailsForm;
 use Mustache\View\Renderer as MustacheRenderer;
+use CG_UI\Form\Factory as FormFactory;
 
 class ChannelController extends AbstractActionController
 {
@@ -25,12 +26,14 @@ class ChannelController extends AbstractActionController
     protected $service;
     protected $channelService;
     protected $mustacheRenderer;
+    protected $formFactory;
 
     const ACCOUNT_ROUTE = "Sales Channel Item";
     const ROUTE = "Sales Channels";
     const CREATE_ROUTE = "Sales Channel Create";
     const ACCOUNT_TEMPLATE = "Sales Channel Item";
     const ACCOUNT_CHANNEL_FORM_BLANK_TEMPLATE = "Sales Channel Item Channel Form Blank";
+    const ACCOUNT_DETAIL_FORM = "Sales Channel Item Detail";
 
     public function __construct(
         Di $di,
@@ -40,7 +43,8 @@ class ChannelController extends AbstractActionController
         ActiveUserInterface $activeUserContainer,
         Service $service,
         ChannelService $channelService,
-        MustacheRenderer $mustacheRenderer
+        MustacheRenderer $mustacheRenderer,
+        FormFactory $formFactory
     ) {
         $this->setDi($di)
             ->setJsonModelFactory($jsonModelFactory)
@@ -49,7 +53,8 @@ class ChannelController extends AbstractActionController
             ->setActiveUserContainer($activeUserContainer)
             ->setService($service)
             ->setChannelService($channelService)
-            ->setMustacheRenderer($mustacheRenderer);
+            ->setMustacheRenderer($mustacheRenderer)
+            ->setFormFactory($formFactory);
     }
 
     public function setService(Service $service)
@@ -142,7 +147,8 @@ class ChannelController extends AbstractActionController
 
     protected function addAccountDetailsForm($accountEntity, $view)
     {
-        $accountForm = $this->getDi()->get(AccountDetailsForm::class, ['account' => $accountEntity]);
+        $accountForm = $this->getFormFactory()->get(static::ACCOUNT_DETAIL_FORM);
+        $accountForm->setData($accountEntity->toArray());
         $view->setVariable('detailsForm', $accountForm);
         return $this;
     }
@@ -255,6 +261,17 @@ class ChannelController extends AbstractActionController
     public function setMustacheRenderer(MustacheRenderer $mustacheRenderer)
     {
         $this->mustacheRenderer = $mustacheRenderer;
+        return $this;
+    }
+
+    public function getFormFactory()
+    {
+        return $this->formFactory;
+    }
+
+    public function setFormFactory(FormFactory $formFactory)
+    {
+        $this->formFactory = $formFactory;
         return $this;
     }
 }
