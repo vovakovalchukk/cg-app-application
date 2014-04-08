@@ -2,7 +2,7 @@
 require(
     ["ajaxLink"],
     function(AjaxLink) {
-        var ajaxLink = new AjaxLink(n, "#<?= $tableId ?>", ".action .delete");
+        var ajaxLink = new AjaxLink(n, "#<?= $tableId ?>", ".manage .delete");
         $(ajaxLink).bind("clicked", function(event, clicked) {
             this.getNotifications().notice("<?= $this->translate('Deleting Sales Channel') ?>");
         });
