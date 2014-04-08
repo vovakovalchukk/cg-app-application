@@ -124,14 +124,31 @@ class ChannelController extends AbstractActionController
         $view->setTemplate(static::ACCOUNT_TEMPLATE);
         $view->setVariable('account', $accountEntity);
 
+        $this->addAccountsChannelSpecificView($accountEntity, $view)
+            ->addAccountDetailsForm($accountEntity, $view)
+            ->addTradingCompaniesView($accountEntity, $view);
+
+        return $view;
+    }
+
+    protected function addAccountsChannelSpecificView($accountEntity, $view)
+    {
         $channelSpecificTemplate = $this->getService()->getChannelSpecificTemplateForAccount($accountEntity);
         $channelSpecificView = $this->newViewModel();
         $channelSpecificView->setTemplate($channelSpecificTemplate);
         $view->addChild($channelSpecificView, 'channelSpecificForm');
+        return $this;
+    }
 
+    protected function addAccountDetailsForm($accountEntity, $view)
+    {
         $accountForm = $this->getDi()->get(AccountDetailsForm::class, ['account' => $accountEntity]);
         $view->setVariable('detailsForm', $accountForm);
+        return $this;
+    }
 
+    protected function addTradingCompaniesView($accountEntity, $view)
+    {
         $tradingCompanies = $this->getService()->getTradingCompanyOptionsForAccount($accountEntity);
         $tradingCompanyOptions = [];
         foreach ($tradingCompanies as $tradingCompany) {
@@ -147,8 +164,7 @@ class ChannelController extends AbstractActionController
             'options' => $tradingCompanyOptions
         ]);
         $view->setVariable('tradingCompanySelect', $this->getMustacheRenderer()->render($tradingCompanyView));
-
-        return $view;
+        return $this;
     }
 
     protected function getRouteName()
