@@ -3,9 +3,9 @@ namespace Orders\Controller;
 
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
-use CG\Constant\DateTime;
 use CG\Order\Service\Note\Service as NoteService;
 use CG\Order\Shared\Note\Mapper as NoteMapper;
+use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
 use Orders\Order\Service as OrderService;

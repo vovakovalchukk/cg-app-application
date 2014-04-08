@@ -3,12 +3,11 @@ namespace Orders\Order\Invoice;
 
 use Zend\Di\Di;
 use Orders\Order\Service as OrderService;
-use CG\Constant\DateTime;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection;
+use CG\Stdlib\DateTime;
 use Orders\Order\Invoice\Template\Factory as TemplateFactory;
 use Orders\Order\Invoice\Renderer\ServiceInterface as RendererService;
-use CG\Http\Exception\Exception3xx\NotModified;
 
 class Service
 {
