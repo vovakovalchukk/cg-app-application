@@ -12,6 +12,8 @@ use Settings\Channel\Service;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Zend\View\Model\ViewModel;
 use CG\Channel\Service as ChannelService;
+use Settings\Form\AccountDetailsForm;
+use Mustache\View\Renderer as MustacheRenderer;
 
 class ChannelController extends AbstractActionController
 {
@@ -22,10 +24,13 @@ class ChannelController extends AbstractActionController
     protected $activeUserContainer;
     protected $service;
     protected $channelService;
+    protected $mustacheRenderer;
 
     const ACCOUNT_ROUTE = "Sales Channel Item";
     const ROUTE = "Sales Channels";
     const CREATE_ROUTE = "Sales Channel Create";
+    const ACCOUNT_TEMPLATE = "Sales Channel Item";
+    const ACCOUNT_CHANNEL_FORM_BLANK_TEMPLATE = "Sales Channel Item Channel Form Blank";
 
     public function __construct(
         Di $di,
@@ -34,16 +39,17 @@ class ChannelController extends AbstractActionController
         AccountFactory $accountFactory,
         ActiveUserInterface $activeUserContainer,
         Service $service,
-        ChannelService $channelService
-    )
-    {
+        ChannelService $channelService,
+        MustacheRenderer $mustacheRenderer
+    ) {
         $this->setDi($di)
             ->setJsonModelFactory($jsonModelFactory)
             ->setViewModelFactory($viewModelFactory)
             ->setAccountFactory($accountFactory)
             ->setActiveUserContainer($activeUserContainer)
             ->setService($service)
-            ->setChannelService($channelService);
+            ->setChannelService($channelService)
+            ->setMustacheRenderer($mustacheRenderer);
     }
 
     public function setService(Service $service)
@@ -108,6 +114,41 @@ class ChannelController extends AbstractActionController
             'channels'
         );
         return $list;
+    }
+
+    public function accountAction()
+    {
+        $id = $this->params('account');
+        $accountEntity = $this->getService()->getAccount($id);
+        $view = $this->newViewModel();
+        $view->setTemplate(static::ACCOUNT_TEMPLATE);
+        $view->setVariable('account', $accountEntity);
+
+        $channelSpecificTemplate = $this->getService()->getChannelSpecificTemplateForAccount($accountEntity);
+        $channelSpecificView = $this->newViewModel();
+        $channelSpecificView->setTemplate($channelSpecificTemplate);
+        $view->addChild($channelSpecificView, 'channelSpecificForm');
+
+        $accountForm = $this->getDi()->get(AccountDetailsForm::class, ['account' => $accountEntity]);
+        $view->setVariable('detailsForm', $accountForm);
+
+        $tradingCompanies = $this->getService()->getTradingCompanyOptionsForAccount($accountEntity);
+        $tradingCompanyOptions = [];
+        foreach ($tradingCompanies as $tradingCompany) {
+            $tradingCompanyOptions[] = [
+                'value' => $tradingCompany->getId(),
+                'title' => $tradingCompany->getAddressCompanyName(),
+                'selected' => ($tradingCompany->getId() == $accountEntity->getOrganisationUnitId())
+            ];
+        }
+        $tradingCompanyView = $this->newViewModel();
+        $tradingCompanyView->setTemplate('elements/custom-select');
+        $tradingCompanyView->setVariable('options', [
+            'options' => $tradingCompanyOptions
+        ]);
+        $view->setVariable('tradingCompanySelect', $this->getMustacheRenderer()->render($tradingCompanyView));
+
+        return $view;
     }
 
     protected function getRouteName()
@@ -188,5 +229,16 @@ class ChannelController extends AbstractActionController
     public function getChannelService()
     {
         return $this->channelService;
+    }
+
+    public function getMustacheRenderer()
+    {
+        return $this->mustacheRenderer;
+    }
+
+    public function setMustacheRenderer(MustacheRenderer $mustacheRenderer)
+    {
+        $this->mustacheRenderer = $mustacheRenderer;
+        return $this;
     }
 }

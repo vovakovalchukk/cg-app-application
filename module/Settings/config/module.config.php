@@ -81,6 +81,7 @@ return [
                                 'options' => [
                                     'route' => '/:account',
                                     'defaults' => [
+                                        'action' => 'account'
                                     ],
                                     'constraints' => [
                                         'account' => '[0-9]*'
@@ -97,6 +98,10 @@ return [
         'template_path_stack' => [
             dirname(__DIR__) . '/view',
         ],
+        'template_map' => [
+            ChannelController::ACCOUNT_TEMPLATE => dirname(__DIR__) . '/view/settings/channel/account.phtml',
+            ChannelController::ACCOUNT_CHANNEL_FORM_BLANK_TEMPLATE => dirname(__DIR__) . '/view/settings/channel/account/channel_form_blank.phtml',
+        ]
     ],
     'di' => [
         'instance' => [
