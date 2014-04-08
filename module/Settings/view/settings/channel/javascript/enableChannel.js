@@ -43,6 +43,7 @@ require(
                 return;
             }
             var position = dataTable.fnGetPosition(row[0]);
+
             dataTable.fnUpdate(data.account, position, undefined, false, false);
         });
     }
