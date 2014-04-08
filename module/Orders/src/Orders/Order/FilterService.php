@@ -34,11 +34,13 @@ class FilterService
 
     public function setConfig($config)
     {
-        if (isset($config['filters']) && (is_array($config['filters']) || ($config['filters'] instanceof ArrayAccess))) {
-            $this->config = $config['filters'];
-        } else {
-            $this->config = $config;
+        if (isset($config['filters']) {
+            $config = $config['filters'];
         }
+        if (!(is_array($config) || ($config instanceof ArrayAccess))) {
+            throw new RuntimeException('Filter config must be accessible as an array');
+        }
+        $this->config = $config;
         return $this;
     }
 
