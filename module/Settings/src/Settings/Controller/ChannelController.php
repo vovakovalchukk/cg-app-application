@@ -20,6 +20,7 @@ class ChannelController extends AbstractActionController
     const LIST_ROUTE = 'Sales Channels';
     const LIST_AJAX_ROUTE = 'ajax';
     const CHANNEL_ROUTE = 'Manage';
+    const CHANNEL_STATUS_ROUTE = 'Status';
     const CHANNEL_DELETE_ROUTE = 'Delete';
 
     protected $service;
@@ -258,5 +259,31 @@ class ChannelController extends AbstractActionController
         $route = $this->getEvent()->getRouteMatch()->getMatchedRouteName();
         $routeParts = explode('/', $route);
         return end($routeParts);
+    }
+
+    public function statusAjaxAction()
+    {
+        $response = $this->getJsonModelFactory()->newInstance(['updated' => false]);
+
+        $accountService = $this->getAccountService();
+        try {
+            $account = $accountService->fetch(
+                $this->params()->fromRoute('channel')
+            );
+
+            $active = filter_var(
+                $this->params()->fromPost('active', false),
+                FILTER_VALIDATE_BOOLEAN
+            );
+
+            $accountService->save($account->setActive($active));
+        } catch (NotFound $exception) {
+            return $response->setVariable(
+                'error',
+                'Sales Channel could not be found'
+            );
+        }
+
+        return $response->setVariable('updated', true);
     }
 }

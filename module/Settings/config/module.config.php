@@ -58,6 +58,15 @@ return [
                                 ],
                                 'may_terminate' => true,
                                 'child_routes' => [
+                                    ChannelController::CHANNEL_STATUS_ROUTE => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/enable',
+                                            'defaults' => [
+                                                'action' => 'statusAjax',
+                                            ]
+                                        ],
+                                    ],
                                     ChannelController::CHANNEL_DELETE_ROUTE => [
                                         'type' => 'Zend\Mvc\Router\Http\Literal',
                                         'options' => [
@@ -159,6 +168,17 @@ return [
             'EnableChannelJavascript' => [
                 'parameters' => [
                     'template' => 'settings/channel/javascript/enableChannel.js',
+                    'variables' => [
+                        'route' => implode(
+                            '/',
+                            [
+                                Module::ROUTE,
+                                ChannelController::LIST_ROUTE,
+                                ChannelController::CHANNEL_ROUTE,
+                                ChannelController::CHANNEL_STATUS_ROUTE,
+                            ]
+                        ),
+                    ],
                 ],
             ],
             'AccountEnableColumn' => [
