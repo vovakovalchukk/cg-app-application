@@ -319,4 +319,9 @@ class Service
 
         return $this->getOrderRpcClient()->sendBatch(static::RPC_ENDPOINT, $batch);
     }
+
+    public function cancelOrder($orderId)
+    {
+
+    }
 }

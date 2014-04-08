@@ -73,7 +73,8 @@ define(['popup/mustache'], function(Popup) {
                         mappedReasons.push({name: value});
                     });
                     return mappedReasons;
-                }
+                },
+                type: "Cancel"
             });
 
             if (ajaxSettings !== undefined) {

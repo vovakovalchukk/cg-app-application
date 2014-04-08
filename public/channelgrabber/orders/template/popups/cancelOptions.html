@@ -1,17 +1,33 @@
-<div class="center">
-    <div class="sm-element">
-        <div class="custom-select custom-select-sm custom-select-std">
-            <div class="selected">
-            <span class="text" data-default="<b>{{title}}:</b> ">
-                <b>{{title}}:</b>
-            </span>
-                <span class="arrow down">&nbsp;</span>
+<div class="cancel-popup-container clearfix">
+    <div class="cancel-popup-header-box">
+        <div class="cancel-popup-header">
+            <b>{{type}} Order</b>
+        </div>
+        <div class="cancel-popup-exit">
+
+        </div>
+    </div>
+    <div class="cancel-popup-selection">
+        <div class="cancel-popup-label label">
+            {{type}} Reason:
+        </div>
+        <div class="sm-element cancel-popup-drop-down">
+            <div class="custom-select custom-select-sm custom-select-std">
+                <div class="selected cancel-popup-drop-down">
+                        <span class="text" data-default=""></span>
+                    <span class="arrow down">&nbsp;</span>
+                </div>
+                <ul>
+                    {{#reasons}}
+                    <li><a class="cancellation-reason">{{name}}</a></li>
+                    {{/reasons}}
+                </ul>
             </div>
-            <ul>
-                {{#reasons}}
-                <li><a class="cancellation-reason">{{name}}</a></li>
-                {{/reasons}}
-            </ul>
+        </div>
+    </div>
+    <div class="cancel-popup-button">
+        <div class="center">
+            <input type="submit" class="button inline cancel-popup-button" value="Confirm">
         </div>
     </div>
 </div>

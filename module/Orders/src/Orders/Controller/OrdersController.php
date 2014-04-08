@@ -420,6 +420,31 @@ class OrdersController extends AbstractActionController
             return $response->setVariable('error', 'No Orders provided');
         }
 
+        try {
+
+        } catch (RpcBatchException $batchException) {
+            $requestedOrderIds = array_fill_keys($ids, true);
+
+            $failedOrderIds = [];
+            foreach ($batchException->getExceptions() as $exception) {
+                if (!($exception instanceof RpcError)) {
+                    continue;
+                }
+
+                $orderId = $exception->getRequestId();
+                if (!isset($requestedOrderIds[$orderId])) {
+                    continue;
+                }
+
+                $failedOrderIds[] = $orderId;
+            }
+
+            return $response->setVariable(
+                'error',
+                'Failed to mark the following orders for cancellation: ' . implode(', ', $failedOrderIds)
+            );
+        }
+
         return $response->setVariable('cancelling', true);
     }
 
