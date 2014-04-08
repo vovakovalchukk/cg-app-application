@@ -28,7 +28,7 @@
         }
     },
     "require": {
-        "channelgrabber/account": "dev-CGIV-1914-GetAccountByOU as 1.0.8",
+        "channelgrabber/account": "dev-CGIV-1913-FetchByStatus as 1.0.10",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/http": "~1.2.9",
         "channelgrabber/order": "~1.4.9",

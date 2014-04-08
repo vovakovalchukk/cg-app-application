@@ -235,8 +235,10 @@ class ChannelController extends AbstractActionController
         }
 
         try {
-            $accounts = $this->getAccountService()->fetchByOU(
+            $accounts = $this->getAccountService()->fetchByOUAndStatus(
                 $this->getActiveUser()->getOuList(),
+                null,
+                false,
                 $limit,
                 $page
             );
