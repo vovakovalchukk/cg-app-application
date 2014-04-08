@@ -14,6 +14,10 @@ use Zend\View\Model\ViewModel;
 use CG\Channel\Service as ChannelService;
 use Settings\Form\AccountDetailsForm;
 use Mustache\View\Renderer as MustacheRenderer;
+use CG\Zend\Stdlib\View\Model\Exception as ViewModelException;
+use CG\Stdlib\Exception\Runtime\NotFound;
+use Zend\I18n\Translator\Translator;
+use CG\Http\Exception\Exception3xx\NotModified;
 
 class ChannelController extends AbstractActionController
 {
@@ -25,8 +29,10 @@ class ChannelController extends AbstractActionController
     protected $service;
     protected $channelService;
     protected $mustacheRenderer;
+    protected $translator;
 
     const ACCOUNT_ROUTE = "Sales Channel Item";
+    const ACCOUNT_AJAX_ROUTE = "Sales Channel Item Ajax";
     const ROUTE = "Sales Channels";
     const CREATE_ROUTE = "Sales Channel Create";
     const ACCOUNT_TEMPLATE = "Sales Channel Item";
@@ -40,7 +46,8 @@ class ChannelController extends AbstractActionController
         ActiveUserInterface $activeUserContainer,
         Service $service,
         ChannelService $channelService,
-        MustacheRenderer $mustacheRenderer
+        MustacheRenderer $mustacheRenderer,
+        Translator $translator
     ) {
         $this->setDi($di)
             ->setJsonModelFactory($jsonModelFactory)
@@ -49,7 +56,8 @@ class ChannelController extends AbstractActionController
             ->setActiveUserContainer($activeUserContainer)
             ->setService($service)
             ->setChannelService($channelService)
-            ->setMustacheRenderer($mustacheRenderer);
+            ->setMustacheRenderer($mustacheRenderer)
+            ->setTranslator($translator);
     }
 
     public function setService(Service $service)
@@ -130,6 +138,11 @@ class ChannelController extends AbstractActionController
         $view->addChild($channelSpecificView, 'channelSpecificForm');
 
         $accountForm = $this->getDi()->get(AccountDetailsForm::class, ['account' => $accountEntity]);
+        $updateUrl = $this->url()->fromRoute(
+            Module::ROUTE.'/'.static::ROUTE.'/'.static::ACCOUNT_ROUTE.'/'.static::ACCOUNT_AJAX_ROUTE,
+            ['account' => $id]
+        );
+        $accountForm->setAttribute('action', $updateUrl, ['account' => $id]);
         $view->setVariable('detailsForm', $accountForm);
 
         $tradingCompanies = $this->getService()->getTradingCompanyOptionsForAccount($accountEntity);
@@ -149,6 +162,38 @@ class ChannelController extends AbstractActionController
         $view->setVariable('tradingCompanySelect', $this->getMustacheRenderer()->render($tradingCompanyView));
 
         return $view;
+    }
+
+    public function accountUpdateAction()
+    {
+        $id = $this->params('account');
+        $postData = $this->getRequest()->getPost();
+        $displayName = $postData->get('displayName');
+        $organisationUnitId = $postData->get('organisationUnitId');
+
+        try {
+            $this->getService()->updateAccount($id, compact('displayName', 'organisationUnitId'));
+            $response = $this->getJsonModelFactory()->newInstance();
+            $response->setVariable('valid', true);
+            $response->setVariable('status', 'Channel account updated');
+            return $response;
+        } catch (NotFound $e) {
+            $this->handleAccountUpdateException($e, 'That channel account could not be found and so could not be updated');
+        } catch (NotModified $e) {
+            $this->handleAccountUpdateException($e, 'There were no changes to be saved');
+        }
+    }
+
+    protected function handleAccountUpdateException(\Exception $e, $message)
+    {
+        $status = $this->getJsonModelFactory()->newInstance();
+        $status->setVariable('valid', false);
+        throw new ViewModelException(
+            $status,
+            $this->getTranslator()->translate($message),
+            $e->getCode(),
+            $e
+        );
     }
 
     protected function getRouteName()
@@ -239,6 +284,17 @@ class ChannelController extends AbstractActionController
     public function setMustacheRenderer(MustacheRenderer $mustacheRenderer)
     {
         $this->mustacheRenderer = $mustacheRenderer;
+        return $this;
+    }
+
+    public function getTranslator()
+    {
+        return $this->translator;
+    }
+
+    public function setTranslator(Translator $translator)
+    {
+        $this->translator = $translator;
         return $this;
     }
 }

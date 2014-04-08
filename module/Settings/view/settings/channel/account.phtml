@@ -1,3 +1,12 @@
+<?php $this->headScript()->captureStart(); ?>
+$(document).ready(function()
+{
+    $('#account_details_form').submit(function()
+    {
+        n.notice('Updating channel account');
+    });
+});
+<?php $this->headScript()->captureEnd(); ?>
 <div id="breadcrumbs">
     <h1><?= $account->getDisplayName(); ?></h1>
     <div class="right">
@@ -31,6 +40,7 @@
         </label>
         <label>
             <?= $this->formButton($detailsForm->get('save')); ?>
+            <span class="loading">Saving</span>
         </label>
     <?= $this->form()->closeTag(); ?>
 </div>

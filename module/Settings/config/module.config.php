@@ -86,8 +86,20 @@ return [
                                     'constraints' => [
                                         'account' => '[0-9]*'
                                     ],
-                                ]
-                            ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    ChannelController::ACCOUNT_AJAX_ROUTE => [
+                                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => [
+                                            'route' => '/ajax',
+                                            'defaults' => [
+                                                'action' => 'accountUpdate'
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
                         ],
                     ],
                 ],

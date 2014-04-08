@@ -85,6 +85,17 @@ class Service
         return $this->getAccountClient()->fetch($id);
     }
 
+    public function updateAccount($id, $data)
+    {
+        $account = $this->getAccount($id);
+        foreach ($data as $key => $value) {
+            $setter = 'set'.ucfirst($key);
+            $account->$setter($value);
+        }
+        $this->getAccountClient()->save($account);
+        return $account;
+    }
+
     public function getAccountClient()
     {
         return $this->accountClient;
