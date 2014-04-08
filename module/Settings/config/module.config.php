@@ -91,6 +91,7 @@ return [
                 'AccountListSettings' => DataTable\Settings::class,
                 'MustacheStatus' => ViewModel::class,
                 'MustacheTokenStatus' => ViewModel::class,
+                'DeleteChannelJavascript' => ViewModel::class,
                 'AccountEnableColumn' => DataTable\Column::class,
                 'AccountStatusColumn' => DataTable\Column::class,
                 'AccountChannelColumn' => DataTable\Column::class,
@@ -126,6 +127,7 @@ return [
                     'addChild' => [
                         ['child' => 'MustacheStatus', 'captureTo' => 'javascript', 'append' => true],
                         ['child' => 'MustacheTokenStatus', 'captureTo' => 'javascript', 'append' => true],
+                        ['child' => 'DeleteChannelJavascript', 'captureTo' => 'javascript', 'append' => true],
                     ],
                     'addColumn' => [
                         ['column' => 'AccountEnableColumn'],
@@ -154,6 +156,11 @@ return [
             'MustacheTokenStatus' => [
                 'parameters' => [
                     'template' => 'settings/channel/javascript/mustache-token.js',
+                ],
+            ],
+            'DeleteChannelJavascript' => [
+                'parameters' => [
+                    'template' => 'settings/channel/javascript/deleteChannel.js',
                 ],
             ],
             'AccountEnableColumn' => [
