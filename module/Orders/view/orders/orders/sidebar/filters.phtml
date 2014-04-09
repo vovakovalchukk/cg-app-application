@@ -18,7 +18,7 @@ console.log(storedFilters.getFilters().find("[data-action='save-filters']"));
 <div class="module filter-module clearfix navbar-content">
     <h3><?= $this->translate('Saved Filters') ?></h3>
     <div class="module-content nav">
-        <ul id="savedFilters">
+        <ul id="savedFilters" data-template="<?= Orders\Module::PUBLIC_FOLDER ?>template/popup/saveFilter.mustache">
             <li class='empty-list<?= count($filters) ? ' hidden' : '' ?>'><?= $this->translate('No saved filters') ?></li>
             <?php if (count($filters)) : ?>
                 <?= $this->mustacheLoop('elements/savedFilter.mustache', $filters) ?>
