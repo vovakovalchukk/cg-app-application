@@ -1,3 +1,20 @@
+<?php $this->inlineScript()->captureStart(); ?>
+require.config({
+    paths: {
+        storedFilters: "<?= Orders\Module::PUBLIC_FOLDER ?>js/storedFilters"
+    }
+});
+require([
+    'storedFilters'
+],
+function(StoredFilters) {
+    var storedFilters = new StoredFilters("#filters", "#savedFilters");
+console.log(storedFilters.getFilters().find("[data-action='save-filters']"));
+    storedFilters.bindSaveTo(
+        storedFilters.getFilters().find("[data-action='save-filters']")
+    );
+});
+<?php $this->inlineScript()->captureEnd(); ?>
 <div class="module filter-module clearfix navbar-content">
     <h3><?= $this->translate('Saved Filters') ?></h3>
     <div class="module-content nav">
