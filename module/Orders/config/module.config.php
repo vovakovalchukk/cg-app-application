@@ -1,4 +1,5 @@
 <?php
+use Orders\Module;
 use Orders\Controller;
 use CG_UI\View\DataTable;
 use Orders\Order\TableService;
@@ -291,7 +292,8 @@ return [
     ],
     'view_manager' => [
         'template_path_stack' => [
-            __DIR__ . '/../view',
+            dirname(__DIR__) . '/view',
+            PROJECT_ROOT . '/public' . Module::PUBLIC_FOLDER . 'template',
         ],
         'strategies' => [
             'ViewJsonStrategy',
