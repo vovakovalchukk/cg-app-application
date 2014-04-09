@@ -1,4 +1,27 @@
 <?php $this->headLink()->appendStylesheet($this->basePath() . Settings\Module::PUBLIC_FOLDER . 'css/list.css') ?>
+<?php $this->inlineScript()->captureStart(); ?>
+$(document).ready(function() {
+    require(["settings/SettingsPage", "settings/Account"],
+        function(SettingsPage, Account) {
+            var settingsPage = new SettingsPage(new Account());
+        }
+    );
+});
+<?php $this->inlineScript()->captureEnd(); ?>
 <h1><?= $this->translate($title) ?></h1>
+<div class="account_create large-dropdown" data-url="<?= $this->url(Settings\Module::ROUTE . '/' .
+    Settings\Controller\ChannelController::ROUTE . '/' . Settings\Controller\ChannelController::CREATE_ROUTE); ?>">
+    <div class="input">
+        <div class="custom-select custom-select-std">
+            <div class="selected">
+                <span class="text" data-default=""><?= $this->translate('Select A Channel'); ?></span><span class="arrow down">&nbsp;</span>
+            </div>
+            <ul>
+                <?= $channels ?>
+            </ul>
+        </div>
+    </div>
+    <input type="submit" class="button inline account-save" value="<?= $this->translate('Add'); ?>"/>
+</div>
 <?php $newChannelForm->prepare(); echo($this->formCollection($newChannelForm)); ?>
 <?= $this->accountList ?>

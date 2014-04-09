@@ -11,6 +11,7 @@ use Settings\Module;
 use Settings\Controller\IndexController;
 use Settings\Controller\ChannelController;
 use Settings\Controller\EbayController;
+use Settings\Controller\AmazonController;
 use CG_UI\View\DataTable;
 use Settings\Channel\Service;
 use Zend\View\Model\ViewModel;
@@ -65,7 +66,7 @@ return [
                                 ],
                                 'may_terminate' => true
                             ],
-                            'Sales Channel Create' => [
+                            ChannelController::CREATE_ROUTE => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => [
                                     'route' => '/create',

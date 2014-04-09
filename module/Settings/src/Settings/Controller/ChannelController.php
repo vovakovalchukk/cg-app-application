@@ -11,6 +11,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Settings\Channel\Service;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Zend\View\Model\ViewModel;
+use CG\Channel\Service as ChannelService;
 
 class ChannelController extends AbstractActionController
 {
@@ -20,9 +21,11 @@ class ChannelController extends AbstractActionController
     protected $accountFactory;
     protected $activeUserContainer;
     protected $service;
+    protected $channelService;
 
     const ACCOUNT_ROUTE = "Sales Channel Item";
     const ROUTE = "Sales Channels";
+    const CREATE_ROUTE = "Sales Channel Create";
 
     public function __construct(
         Di $di,
@@ -30,7 +33,8 @@ class ChannelController extends AbstractActionController
         ViewModelFactory $viewModelFactory,
         AccountFactory $accountFactory,
         ActiveUserInterface $activeUserContainer,
-        Service $service
+        Service $service,
+        ChannelService $channelService
     )
     {
         $this->setDi($di)
@@ -38,7 +42,8 @@ class ChannelController extends AbstractActionController
             ->setViewModelFactory($viewModelFactory)
             ->setAccountFactory($accountFactory)
             ->setActiveUserContainer($activeUserContainer)
-            ->setService($service);
+            ->setService($service)
+            ->setChannelService($channelService);
     }
 
     public function setService(Service $service)
@@ -95,6 +100,13 @@ class ChannelController extends AbstractActionController
             $this->getService()->getAccountList(),
             'accountList'
         );
+        $channels = $this->newViewModel();
+        $channels->setVariable('channels', $this->getChannelService()->getChannels());
+        $channels->setTemplate('settings/channel/create/item');
+        $list->addChild(
+            $channels,
+            'channels'
+        );
         return $list;
     }
 
@@ -108,7 +120,7 @@ class ChannelController extends AbstractActionController
     public function createAction()
     {
         $accountEntity = $this->getDi()->newInstance(AccountEntity::class, array(
-            "channel" => $this->params()->fromQuery('channel'),
+            "channel" => $this->params()->fromPost('channel'),
             "organisationUnitId" => $this->getActiveUserContainer()->getActiveUser()->getOrganisationUnitId(),
             "displayName" => "",
             "credentials" => "",
@@ -117,8 +129,8 @@ class ChannelController extends AbstractActionController
             "expiryDate" => null
         ));
         $view = $this->getJsonModelFactory()->newInstance();
-        $url = $this->getAccountFactory()->createRedirect($accountEntity, static::ROUTE . '/' . Module::ROUTE,
-            $this->params()->fromQuery('region'));
+        $url = $this->getAccountFactory()->createRedirect($accountEntity, Module::ROUTE . '/' . static::ROUTE,
+            $this->params()->fromPost('region'));
         $view->setVariable('url', $url);
         return $view;
     }
@@ -165,5 +177,16 @@ class ChannelController extends AbstractActionController
     public function getActiveUserContainer()
     {
         return $this->activeUserContainer;
+    }
+
+    public function setChannelService(ChannelService $channelService)
+    {
+        $this->channelService = $channelService;
+        return $this;
+    }
+
+    public function getChannelService()
+    {
+        return $this->channelService;
     }
 }
