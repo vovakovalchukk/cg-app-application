@@ -185,7 +185,7 @@ class OrdersController extends AbstractActionController
         $view->addChild($this->getFilterBar(), 'filters');
         $view->addChild(
             $this->getStoredFiltersService()->getStoredFiltersSidebarView(
-                $this->getOrderService()->getActiveUser()
+                $this->getOrderService()->getActiveUserPreference()
             ),
             'storedFiltersSidebar'
         );

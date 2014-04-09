@@ -3,7 +3,7 @@ namespace Orders\Order\StoredFilters;
 
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Zend\View\Model\ViewModel;
-use CG\User\Entity as User;
+use CG\UserPreference\Shared\Entity as UserPreference;
 
 class Service
 {
@@ -38,18 +38,45 @@ class Service
         return $this->getViewModelFactory()->newInstance($variables, $options);
     }
 
-    public function getStoredFilters(User $user)
+    public function addStoredFilter(UserPreference $userPreference, $filterName, array $filterData)
     {
-        return [];
+        $preference = $userPreference->getPreference();
+
+        if (!isset($preference['order-saved-filters'])) {
+            $preference['order-saved-filters'] = [];
+        }
+
+        $preference['order-saved-filters'][$filterName] = $filterData;
+
+        $userPreference->setPreference($preference);
+    }
+
+    public function getStoredFilters(UserPreference $userPreference)
+    {
+        $preference = $userPreference->getPreference();
+        $storedFilters = [];
+
+        if (!isset($preference['order-saved-filters'])) {
+            return $storedFilters;
+        }
+
+        foreach ($preference['order-saved-filters'] as $filterName => $filterData) {
+            $storedFilters[] = [
+                'name' => $filterName,
+                'filter' => $filterData,
+            ];
+        }
+
+        return $storedFilters;
     }
 
     /**
-     * @param User $user
+     * @param UserPreference $userPreference
      * @return ViewModel
      */
-    public function getStoredFiltersSidebarView(User $user)
+    public function getStoredFiltersSidebarView(UserPreference $userPreference)
     {
-        $storedFiltersSidebar = $this->newViewModel(['filters' => $this->getStoredFilters($user)]);
+        $storedFiltersSidebar = $this->newViewModel(['filters' => $this->getStoredFilters($userPreference)]);
         $storedFiltersSidebar->setTemplate('orders/orders/sidebar/filters');
         return $storedFiltersSidebar;
     }
