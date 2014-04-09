@@ -6,7 +6,7 @@
         },
         {
             "type": "git",
-            "url": "git@bitbucket.org:channelgrabber/cg-template.git"
+            "url": "git@bitbucket.org:channelgrabber/amazon-module.git"
         },
         {
             "url": "https://composer.build.channelgrabber.com",
@@ -29,7 +29,7 @@
     },
     "require": {
         "channelgrabber/account": "~1.0.8",
-        "channelgrabber/amazon": "dev-CGIV-1911",
+        "channelgrabber/amazon": "~1.2.7",
         "channelgrabber/channel": "dev-CGIV-1916-manage-channel-specific-forms as 1.1.4",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/ebay": "~1.1.10",
@@ -42,6 +42,7 @@
         "channelgrabber/template": "~1.0.0",
         "channelgrabber/user": "~1.13.7",
         "channelgrabber/userpreference": "~1.0.4",
+        "channelgrabber/zf2-amazon": "dev-CGIV-1916-manage-channel-specific-forms as 1.0.0",
         "channelgrabber/zf2-hal": "~1.0.4",
         "channelgrabber/zf2-installer": "~1.0.2",
         "channelgrabber/zf2-logclient": "~1.2.5",

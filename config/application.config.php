@@ -12,6 +12,7 @@ return array (
     7 => 'CG_Register',
     8 => 'Orders',
     9 => 'Settings',
+    10 => 'CG_Amazon',
   ),
   'module_listener_options' => 
   array (

@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "afaa0eedbccca4b4ef43e1c55160066c",
+    "hash": "81ac4210b497ac658ee735568d7bfc03",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -377,21 +377,20 @@
         },
         {
             "name": "channelgrabber/account",
-            "version": "1.0.8",
+            "version": "1.0.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-account.git",
-                "reference": "654985c9b0498a7c639a87998ba9fa3be471330e"
+                "reference": "dfa8dedfb5bbdc2d8fe5ac84c7c1a7f475f116c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-account-1.0.8-ce7aad.zip",
-                "reference": "654985c9b0498a7c639a87998ba9fa3be471330e",
-                "shasum": "929d1fc369b7c5eb048964326b6bb12f16378803"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-account-1.0.9-a82bab.zip",
+                "reference": "dfa8dedfb5bbdc2d8fe5ac84c7c1a7f475f116c9",
+                "shasum": "97ee6a11e678f538447b84cecc9a2ae60b197f0b"
             },
             "require": {
                 "channelgrabber/cache": ">=1.2.1, <1.3.0",
-                "channelgrabber/channel": ">=1.0.3",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/etag": ">=1.4.1, <1.5.0",
                 "channelgrabber/slim": ">=1.5.5,<2.0.0",
@@ -409,15 +408,21 @@
                     "CG\\Account\\": ""
                 }
             },
-            "time": "2014-04-07 07:46:15"
+            "time": "2014-04-08 07:13:17"
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-CGIV-1911",
+            "version": "1.2.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "e87f6e229ba641ee2b8da8e2e4ec25858e6f3a90"
+                "reference": "1ad57421731aca9f9ea8c0ab1e3e14953e8c15f8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.2.7-aeec40.zip",
+                "reference": "1ad57421731aca9f9ea8c0ab1e3e14953e8c15f8",
+                "shasum": "bd7f48ca47037ea12b5d2dbfbb341df91277807b"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.2",
@@ -442,7 +447,7 @@
                     "CG\\Amazon\\": ""
                 }
             },
-            "time": "2014-04-07 13:36:03"
+            "time": "2014-04-09 08:05:15"
         },
         {
             "name": "channelgrabber/cache",
@@ -481,7 +486,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "c24d2393b6e6dc25ccb98640b980529b9cbe075b"
+                "reference": "94de3d0e088259333172cddddc44374e987306b8"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.0",
@@ -500,7 +505,7 @@
                     "CG\\Channel\\": ""
                 }
             },
-            "time": "2014-04-09 10:34:38"
+            "time": "2014-04-09 12:40:31"
         },
         {
             "name": "channelgrabber/constants",
@@ -562,17 +567,17 @@
         },
         {
             "name": "channelgrabber/email",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-email.git",
-                "reference": "1a3425ba61e38c892e0d7f44e674958a5135df6b"
+                "reference": "15149ed763e3a9d19f944aaabd4634c46fcf6653"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-email-1.0.1-4906ed.zip",
-                "reference": "1a3425ba61e38c892e0d7f44e674958a5135df6b",
-                "shasum": "e23b7b1eced74596915dc7d7e3e08df95acf7ac9"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-email-1.0.2-30aa7c.zip",
+                "reference": "15149ed763e3a9d19f944aaabd4634c46fcf6653",
+                "shasum": "c48edbae1849ce51ca919dcb90ffd2c3ace5a61e"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -593,7 +598,7 @@
                     "CG\\Email\\": ""
                 }
             },
-            "time": "2014-03-28 15:59:19"
+            "time": "2014-04-09 08:12:29"
         },
         {
             "name": "channelgrabber/etag",
@@ -1000,17 +1005,17 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.13.8",
+            "version": "1.13.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "0183daf5d368af04712bf260dd3e5db3521e63d3"
+                "reference": "6a20afccfe915f0a87761f3acf5c74bceecfc630"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.13.8-b75cd9.zip",
-                "reference": "0183daf5d368af04712bf260dd3e5db3521e63d3",
-                "shasum": "9a1b5d57906ab73814d5ca14c3a2be37e1f15659"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.13.9-c7815c.zip",
+                "reference": "6a20afccfe915f0a87761f3acf5c74bceecfc630",
+                "shasum": "ac46a60782f83d1748ecf9e38d6728c3ef5f5e69"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.8",
@@ -1038,7 +1043,7 @@
                     "CG": ""
                 }
             },
-            "time": "2014-04-07 09:11:02"
+            "time": "2014-04-09 08:10:59"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -1092,6 +1097,39 @@
                 }
             },
             "time": "2014-01-06 11:42:26"
+        },
+        {
+            "name": "channelgrabber/zf2-amazon",
+            "version": "dev-CGIV-1916-manage-channel-specific-forms",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
+                "reference": "a058fed3467d3b1b2afc5ff788b3afae919d4cc0"
+            },
+            "require": {
+                "channelgrabber/amazon": ">=1.2.7",
+                "channelgrabber/channel": "dev-CGIV-1916-manage-channel-specific-forms as 1.1.4",
+                "channelgrabber/constants": "dev-master",
+                "zendframework/zend-config": "2.*",
+                "zendframework/zend-form": "2.*",
+                "zendframework/zend-loader": "2.*",
+                "zendframework/zend-modulemanager": "2.*",
+                "zendframework/zend-view": "2.*"
+            },
+            "type": "zf2-module",
+            "extra": {
+                "zf2-module": "CG_Amazon"
+            },
+            "autoload": {
+                "psr-0": {
+                    "CG_Amazon": "src/"
+                },
+                "classmap": [
+                    "./Module.php"
+                ]
+            },
+            "description": "Amazon module",
+            "time": "2014-04-09 13:42:23"
         },
         {
             "name": "channelgrabber/zf2-hal",
@@ -1209,17 +1247,17 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.3.18",
+            "version": "1.3.19",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "b4587b4ae05ee3452fc82996be165888fa314155"
+                "reference": "2c1aadbe960640f49686e07938d89a7f0c36cce2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.3.18-1fa8ae.zip",
-                "reference": "b4587b4ae05ee3452fc82996be165888fa314155",
-                "shasum": "2d3babf7ca592c617c00c27dde68ec2c26fb0ceb"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.3.19-5a651d.zip",
+                "reference": "2c1aadbe960640f49686e07938d89a7f0c36cce2",
+                "shasum": "b8d40e48c635ae902eed216691b8473cc7313823"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
@@ -1255,7 +1293,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2014-04-07 09:18:21"
+            "time": "2014-04-09 14:18:02"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -3736,6 +3774,12 @@
             "package": "channelgrabber/channel"
         },
         {
+            "alias": "1.0.0",
+            "alias_normalized": "1.0.0.0",
+            "version": "dev-CGIV-1916-manage-channel-specific-forms",
+            "package": "channelgrabber/zf2-amazon"
+        },
+        {
             "alias": "1.1.6",
             "alias_normalized": "1.1.6.0",
             "version": "dev-CGIV-1930",
@@ -3750,9 +3794,9 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/amazon": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-amazon": 20,
         "channelgrabber/zf2-stdlib": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,
