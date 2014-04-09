@@ -20,7 +20,7 @@ return [
                         [
                             'template' => 'elements/date-range.mustache',
                             'variables' => [
-                                'fieldName' => 'purchaseDate',
+                                'filterName' => 'purchaseDate',
                                 'time' => [
                                     'hours' => date('H'),
                                     'minutes' => date('i')
@@ -60,7 +60,7 @@ return [
                         [
                             'template' => 'elements/custom-select-group.mustache',
                             'variables' => [
-                                'fieldName' => 'status',
+                                'filterName' => 'status',
                                 'title' => 'Status',
                                 'id' => 'filter-status',
                                 'searchField' => true,
@@ -81,7 +81,7 @@ return [
                         [
                             'template' => 'elements/text.mustache',
                             'variables' => [
-                                'fieldName' => 'search',
+                                'filterName' => 'search',
                                 'placeholder' => 'Search for...',
                                 'class' => '',
                                 'value' => ''
@@ -91,35 +91,8 @@ return [
                             'template' => 'elements/more.mustache',
                             'variables' => [
                                 'title' => 'More',
-                                'concatenate' => true,
                                 'class' => 'more',
-                                'id' => 'more',
-                                'options' => [
-                                    [
-                                        'title' => 'Filter 1'
-                                    ],
-                                    [
-                                        'title' => 'Filter 2'
-                                    ],
-                                    [
-                                        'title' => 'Filter 3'
-                                    ],
-                                    [
-                                        'title' => 'Filter 4'
-                                    ],
-                                    [
-                                        'title' => 'Filter 5'
-                                    ],
-                                    [
-                                        'title' => 'Filter 6'
-                                    ],
-                                    [
-                                        'title' => 'Filter 7'
-                                    ],
-                                    [
-                                        'title' => 'Filter 8'
-                                    ]
-                                ],
+                                'filterName' => 'more'
                             ],
                         ],
                         [
@@ -151,8 +124,9 @@ return [
                     'filters' => [
                         [
                             'template' => 'elements/custom-select-group.mustache',
+                            'visible' => true,
                             'variables' => [
-                                'fieldName' => 'shippingAddressCountry',
+                                'filterName' => 'shippingAddressCountry',
                                 'title' => 'Include Country',
                                 'searchField' => true,
                                 'isOptional' => true,
@@ -187,8 +161,9 @@ return [
                         ],
                         [
                             'template' => 'elements/number-range.mustache',
+                            'visible' => true,
                             'variables' => [
-                                'fieldName' => 'total',
+                                'filterName' => 'total',
                                 'title' => 'Total',
                                 'isOptional' => true,
                                 'id' => ''
@@ -196,8 +171,9 @@ return [
                         ],
                         [
                             'template' => 'elements/number-range.mustache',
+                            'visible' => true,
                             'variables' => [
-                                'fieldName' => 'total',
+                                'filterName' => 'total2',
                                 'title' => 'Total',
                                 'isOptional' => true,
                                 'id' => ''
@@ -205,8 +181,9 @@ return [
                         ],
                         [
                             'template' => 'elements/number-range.mustache',
+                            'visible' => true,
                             'variables' => [
-                                'fieldName' => 'total',
+                                'filterName' => 'total3',
                                 'title' => 'Total',
                                 'isOptional' => true,
                                 'id' => ''
@@ -214,8 +191,9 @@ return [
                         ],
                         [
                             'template' => 'elements/number-range.mustache',
+                            'visible' => true,
                             'variables' => [
-                                'fieldName' => 'total',
+                                'filterName' => 'total4',
                                 'title' => 'Total',
                                 'isOptional' => true,
                                 'id' => ''
@@ -223,8 +201,9 @@ return [
                         ],
                         [
                             'template' => 'elements/number-range.mustache',
+                            'visible' => true,
                             'variables' => [
-                                'fieldName' => 'total',
+                                'filterName' => 'total5',
                                 'title' => 'Total',
                                 'isOptional' => true,
                                 'id' => ''
