@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "b98a46bf8e7565fa17b4c87662e223b8",
+    "hash": "21c7cf542f65871b64e00ee64a5bcf3c",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -377,21 +377,20 @@
         },
         {
             "name": "channelgrabber/account",
-            "version": "1.0.8",
+            "version": "1.0.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-account.git",
-                "reference": "654985c9b0498a7c639a87998ba9fa3be471330e"
+                "reference": "dfa8dedfb5bbdc2d8fe5ac84c7c1a7f475f116c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-account-1.0.8-ce7aad.zip",
-                "reference": "654985c9b0498a7c639a87998ba9fa3be471330e",
-                "shasum": "929d1fc369b7c5eb048964326b6bb12f16378803"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-account-1.0.9-a82bab.zip",
+                "reference": "dfa8dedfb5bbdc2d8fe5ac84c7c1a7f475f116c9",
+                "shasum": "97ee6a11e678f538447b84cecc9a2ae60b197f0b"
             },
             "require": {
                 "channelgrabber/cache": ">=1.2.1, <1.3.0",
-                "channelgrabber/channel": ">=1.0.3",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/etag": ">=1.4.1, <1.5.0",
                 "channelgrabber/slim": ">=1.5.5,<2.0.0",
@@ -409,7 +408,7 @@
                     "CG\\Account\\": ""
                 }
             },
-            "time": "2014-04-07 07:46:15"
+            "time": "2014-04-08 07:13:17"
         },
         {
             "name": "channelgrabber/cache",
@@ -443,41 +442,8 @@
             "time": "2014-03-27 08:21:32"
         },
         {
-            "name": "channelgrabber/channel",
-            "version": "1.1.3",
-            "source": {
-                "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "5da092009ac99db7093a95d51690c8c913d211a4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.1.3-d39309.zip",
-                "reference": "5da092009ac99db7093a95d51690c8c913d211a4",
-                "shasum": "8c0bc90b24b354d9b9015ac6961048316e8cdf7f"
-            },
-            "require": {
-                "channelgrabber/account": ">=1.0.0",
-                "channelgrabber/constants": "dev-master",
-                "channelgrabber/order": ">=1.4.6",
-                "channelgrabber/stdlib": ">=2.4.0",
-                "zendframework/zend-di": ">=2.2.5"
-            },
-            "require-dev": {
-                "channelgrabber/phpunit": ">=1.0.0",
-                "phpunit/phpunit": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "CG\\Channel\\": ""
-                }
-            },
-            "time": "2014-04-07 07:50:41"
-        },
-        {
             "name": "channelgrabber/constants",
-            "version": "dev-CGIV-1826-password-reset-request-ui",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgconstants.git",
@@ -496,17 +462,17 @@
         },
         {
             "name": "channelgrabber/email",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-email.git",
-                "reference": "1a3425ba61e38c892e0d7f44e674958a5135df6b"
+                "reference": "15149ed763e3a9d19f944aaabd4634c46fcf6653"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-email-1.0.1-4906ed.zip",
-                "reference": "1a3425ba61e38c892e0d7f44e674958a5135df6b",
-                "shasum": "e23b7b1eced74596915dc7d7e3e08df95acf7ac9"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-email-1.0.2-30aa7c.zip",
+                "reference": "15149ed763e3a9d19f944aaabd4634c46fcf6653",
+                "shasum": "c48edbae1849ce51ca919dcb90ffd2c3ace5a61e"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -527,7 +493,7 @@
                     "CG\\Email\\": ""
                 }
             },
-            "time": "2014-03-28 15:59:19"
+            "time": "2014-04-09 08:12:29"
         },
         {
             "name": "channelgrabber/etag",
@@ -934,11 +900,17 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "dev-CGIV-1826-password-reset-request-ui",
+            "version": "1.13.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "b76d3fa157a0cbe100cc7dc435f451937763ed66"
+                "reference": "6400dd6ec45031663373694917d3a245820918f9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.13.10-e4f119.zip",
+                "reference": "6400dd6ec45031663373694917d3a245820918f9",
+                "shasum": "cf9ad28b49bd64545d9703c9b0b39470f6223d7b"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.8",
@@ -966,7 +938,7 @@
                     "CG": ""
                 }
             },
-            "time": "2014-04-07 13:22:35"
+            "time": "2014-04-09 14:37:30"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -1137,19 +1109,25 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "dev-CGIV-1826-password-reset-request-ui",
+            "version": "1.3.20",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "17b6ca69891e50503eb4950a14c5c4cbf6ab5d78"
+                "reference": "53e1c2d90970477a2cd041db58fb0aa595705e74"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.3.20-6a131f.zip",
+                "reference": "53e1c2d90970477a2cd041db58fb0aa595705e74",
+                "shasum": "3045ed97d570050435aa358b59e4b1dccedc80f1"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
-                "channelgrabber/constants": "dev-CGIV-1826-password-reset-request-ui as dev-master",
+                "channelgrabber/constants": "dev-master",
                 "channelgrabber/stdlib": ">=2.2.0",
-                "channelgrabber/user": "dev-CGIV-1826-password-reset-request-ui as 1.13.8",
+                "channelgrabber/user": ">=1.13.10",
                 "channelgrabber/zf2-stdlib": ">=1.0.1",
-                "channelgrabber/zf2-v4-ui": "dev-CGIV-1826-password-reset-request-ui as 1.3.3",
+                "channelgrabber/zf2-v4-ui": ">=1.4.1",
                 "guzzle/guzzle": "~3.7",
                 "widmogrod/zf2-mustache-module": "dev-master",
                 "zendframework/zend-config": "2.*",
@@ -1177,7 +1155,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2014-04-07 14:07:12"
+            "time": "2014-04-09 14:50:53"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -1294,17 +1272,17 @@
         },
         {
             "name": "channelgrabber/zf2-stdlib",
-            "version": "1.1.6",
+            "version": "1.1.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgzf2stdlib.git",
-                "reference": "2640ba4b63682a7c4be166462148d1653131e57c"
+                "reference": "e7eb2aa84c31c55db09a0b177fd00fefca0dc3ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-1.1.6-ad95d8.zip",
-                "reference": "2640ba4b63682a7c4be166462148d1653131e57c",
-                "shasum": "ff708acab9bd6daa680d52c20c740cf0f912b44a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-1.1.7-767ae9.zip",
+                "reference": "e7eb2aa84c31c55db09a0b177fd00fefca0dc3ae",
+                "shasum": "9d7f3d9fdedce7330b305faed90bcc1a2a376aeb"
             },
             "require": {
                 "channelgrabber/cache": ">=1.1.0,<1.3.0",
@@ -1313,6 +1291,7 @@
                 "zendframework/zend-di": "~2.2",
                 "zendframework/zend-eventmanager": "~2.2",
                 "zendframework/zend-http": "~2.2",
+                "zendframework/zend-servicemanager": "~2.2",
                 "zendframework/zend-view": "~2.2"
             },
             "type": "library",
@@ -1321,15 +1300,21 @@
                     "CG\\Zend\\Stdlib\\": ""
                 }
             },
-            "time": "2014-03-31 13:55:35"
+            "time": "2014-04-09 08:07:05"
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-1826-password-reset-request-ui",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "f22bffa5bf77b46ded5551e96382421740e71f99"
+                "reference": "1d51b22a7454ebf128632c66c9c342fc83fd3d55"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.4.1-455f9d.zip",
+                "reference": "1d51b22a7454ebf128632c66c9c342fc83fd3d55",
+                "shasum": "be07a409fa778e70c3542649abc9e553691d8b26"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1357,7 +1342,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-04-07 14:00:01"
+            "time": "2014-04-09 14:34:53"
         },
         {
             "name": "cilex/cilex",
@@ -3656,37 +3641,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "dev-master",
-            "alias_normalized": "9999999-dev",
-            "version": "dev-CGIV-1826-password-reset-request-ui",
-            "package": "channelgrabber/constants"
-        },
-        {
-            "alias": "1.13.8",
-            "alias_normalized": "1.13.8.0",
-            "version": "dev-CGIV-1826-password-reset-request-ui",
-            "package": "channelgrabber/user"
-        },
-        {
-            "alias": "1.3.18",
-            "alias_normalized": "1.3.18.0",
-            "version": "dev-CGIV-1826-password-reset-request-ui",
-            "package": "channelgrabber/zf2-login"
-        },
-        {
-            "alias": "1.3.3",
-            "alias_normalized": "1.3.3.0",
-            "version": "dev-CGIV-1826-password-reset-request-ui",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/user": 20,
-        "channelgrabber/zf2-login": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },
