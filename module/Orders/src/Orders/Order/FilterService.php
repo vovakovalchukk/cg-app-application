@@ -34,7 +34,7 @@ class FilterService
 
     public function setConfig($config)
     {
-        if (isset($config['filters']) {
+        if (isset($config['filters'])) {
             $config = $config['filters'];
         }
         if (!(is_array($config) || ($config instanceof ArrayAccess))) {
