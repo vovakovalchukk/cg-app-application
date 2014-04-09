@@ -18,11 +18,4 @@ return [
 
         ],
     ],
-    //module name
-    'CG_Name' => [
-        //module namespace
-        'CG_Name' => [
-
-        ]
-    ]
 ];
