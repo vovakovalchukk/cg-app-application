@@ -3,9 +3,8 @@ namespace CG_Amazon;
 
 use Zend\Config\Factory as ConfigFactory;
 use Zend\Loader\StandardAutoloader;
-use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
 
-class Module implements DependencyIndicatorInterface
+class Module
 {
     public function getConfig()
     {
