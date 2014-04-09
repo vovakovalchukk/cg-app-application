@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "6b6b8851a598a0f05804acaa921b3c61",
+    "hash": "afaa0eedbccca4b4ef43e1c55160066c",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -477,11 +477,11 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-1911",
+            "version": "dev-CGIV-1916-manage-channel-specific-forms",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "f84de85f2d76e165342d2f958dbc00afadac2b34"
+                "reference": "c24d2393b6e6dc25ccb98640b980529b9cbe075b"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.0",
@@ -500,7 +500,7 @@
                     "CG\\Channel\\": ""
                 }
             },
-            "time": "2014-04-06 18:51:48"
+            "time": "2014-04-09 10:34:38"
         },
         {
             "name": "channelgrabber/constants",
@@ -3730,9 +3730,9 @@
     ],
     "aliases": [
         {
-            "alias": "1.1.3",
-            "alias_normalized": "1.1.3.0",
-            "version": "dev-CGIV-1911",
+            "alias": "1.1.4",
+            "alias_normalized": "1.1.4.0",
+            "version": "dev-CGIV-1916-manage-channel-specific-forms",
             "package": "channelgrabber/channel"
         },
         {

@@ -4,6 +4,7 @@ namespace Settings\Channel;
 use CG_UI\View\DataTable;
 use CG\Account\Shared\Entity as AccountEntity;
 use CG\Account\Client\Service as AccountClient;
+use CG\Channel\Service as ChannelService;
 use CG\OrganisationUnit\StorageInterface as OUClient;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use Settings\Controller\ChannelController;
@@ -14,15 +15,18 @@ class Service
     protected $accountList;
     protected $accountClient;
     protected $ouClient;
+    protected $channelService;
 
     public function __construct(
         DataTable $accountList,
         AccountClient $accountClient,
-        OUClient $ouClient
+        OUClient $ouClient,
+        ChannelService $channelService
     ) {
         $this->setAccountList($accountList)
             ->setAccountClient($accountClient)
-            ->setOuClient($ouClient);
+            ->setOuClient($ouClient)
+            ->setChannelService($channelService);
     }
 
     public function setAccountList(DataTable $accountList)
@@ -47,12 +51,14 @@ class Service
         return new Form();
     }
 
-    public function getChannelSpecificTemplateForAccount(AccountEntity $account)
+    public function getChannelSpecificTemplateNameForAccount(AccountEntity $account)
     {
-        /*
-         * This is to be implemented by CGIV-1916
-         */
-        return ChannelController::ACCOUNT_CHANNEL_FORM_BLANK_TEMPLATE;
+        return $this->getChannelService()->getChannelSpecificTemplateNameForAccount($account);
+    }
+
+    public function getChannelSpecificFormNameForAccount(AccountEntity $account)
+    {
+        return $this->getChannelService()->getChannelSpecificFormNameForAccount($account);
     }
 
     public function getTradingCompanyOptionsForAccount(AccountEntity $account)
@@ -115,6 +121,17 @@ class Service
     public function setOuClient(OuClient $ouClient)
     {
         $this->ouClient = $ouClient;
+        return $this;
+    }
+
+    public function getChannelService()
+    {
+        return $this->channelService;
+    }
+
+    public function setChannelService(ChannelService $channelService)
+    {
+        $this->channelService = $channelService;
         return $this;
     }
 }
