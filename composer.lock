@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "e988b8d6b1b5c005ddd80c1bc8b68be1",
+    "hash": "b229df63efa76b4c64ef3d1b61219507",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -519,7 +519,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgconstants.git",
-                "reference": "3c7c0a3c0e1fc525ee73fbbc70bc03cee2bf447b"
+                "reference": "14f38b87f466018b445b41c3a8916e58981fbac4"
             },
             "require": {
                 "php": ">=5.4.0"
@@ -530,7 +530,7 @@
                     "CG": ""
                 }
             },
-            "time": "2014-04-06 20:16:22"
+            "time": "2014-04-07 11:05:25"
         },
         {
             "name": "channelgrabber/ebay",
@@ -1415,17 +1415,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.3.4",
+            "version": "dev-CGIV-1917-manage-channels-layout",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "6bcba0300f4e8db78398c9f6579b2c9f43384f96"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.3.4-39cff9.zip",
-                "reference": "6bcba0300f4e8db78398c9f6579b2c9f43384f96",
-                "shasum": "9f136d76c92d79993f156c5b974b210ae48a80b7"
+                "reference": "6463592bf9be3b74be29d3bcc822384ad0b48711"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1453,7 +1447,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-04-09 08:41:16"
+            "time": "2014-04-09 15:36:39"
         },
         {
             "name": "cilex/cilex",
@@ -3752,11 +3746,17 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.3.4",
+            "alias_normalized": "1.3.4.0",
+            "version": "dev-CGIV-1917-manage-channels-layout",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },
