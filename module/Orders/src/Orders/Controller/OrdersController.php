@@ -17,6 +17,7 @@ use DirectoryIterator;
 use CG\UserPreference\Client\Service as UserPreferenceService;
 use CG\Http\Rpc\Exception\BatchException as RpcBatchException;
 use CG\Http\Rpc\Exception\Error\AbstractError as RpcError;
+use Orders\Order\StoredFilters\Service as StoredFiltersService;
 
 class OrdersController extends AbstractActionController
 {
@@ -27,6 +28,7 @@ class OrdersController extends AbstractActionController
     protected $bulkActionsService;
     protected $jsonModelFactory;
     protected $viewModelFactory;
+    protected $storedFiltersService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
@@ -35,7 +37,8 @@ class OrdersController extends AbstractActionController
         FilterService $filterService,
         TimelineService $timelineService,
         BatchService $batchService,
-        BulkActionsService $bulkActionsService
+        BulkActionsService $bulkActionsService,
+        StoredFiltersService $storedFiltersService
     )
     {
         $this->setJsonModelFactory($jsonModelFactory)
@@ -44,7 +47,8 @@ class OrdersController extends AbstractActionController
             ->setFilterService($filterService)
             ->setTimelineService($timelineService)
             ->setBatchService($batchService)
-            ->setBulkActionsService($bulkActionsService);
+            ->setBulkActionsService($bulkActionsService)
+            ->setStoredFiltersService($storedFiltersService);
     }
 
     protected function basePath()
@@ -136,6 +140,20 @@ class OrdersController extends AbstractActionController
         return $this->bulkActionsService;
     }
 
+    public function setStoredFiltersService(StoredFiltersService $storedFiltersService)
+    {
+        $this->storedFiltersService = $storedFiltersService;
+        return $this;
+    }
+
+    /**
+     * @return StoredFiltersService
+     */
+    public function getStoredFiltersService()
+    {
+        return $this->storedFiltersService;
+    }
+
     public function indexAction()
     {
         $view = $this->getViewModelFactory()->newInstance();
@@ -165,6 +183,12 @@ class OrdersController extends AbstractActionController
         );
         $view->addChild($bulkActions, 'bulkItems');
         $view->addChild($this->getFilterBar(), 'filters');
+        $view->addChild(
+            $this->getStoredFiltersService()->getStoredFiltersSidebarView(
+                $this->getOrderService()->getActiveUser()
+            ),
+            'storedFiltersSidebar'
+        );
         $view->addChild($this->getBatches(), 'batches');
         $view->setVariable('isSidebarVisible', $this->getOrderService()->isSidebarVisible());
         $view->setVariable('isHeaderBarVisible', $this->getOrderService()->isFilterBarVisible());
