@@ -1,5 +1,5 @@
 <?php
-namespace CG_Amazon;
+namespace CG_Name;
 
 use Zend\Config\Factory as ConfigFactory;
 use Zend\Loader\StandardAutoloader;
