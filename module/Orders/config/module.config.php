@@ -16,6 +16,7 @@ use CG\Http\Rpc\Json\Client as JsonRpcClient;
 use Orders\Order\Invoice\Renderer\ServiceInterface as InvoiceRendererService;
 use Orders\Order\Invoice\Renderer\Service\Pdf as PdfInvoiceRendererService;
 use CG\Template\Element\Page;
+use Orders\Controller\StoredFiltersController;
 
 return [
     'router' => [
@@ -254,6 +255,26 @@ return [
                             'defaults' => [
                                 'controller' => 'Orders\Controller\Invoice',
                                 'action' => 'generate'
+                            ]
+                        ]
+                    ],
+                    StoredFiltersController::ROUTE_SAVE => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/filter/save',
+                            'defaults' => [
+                                'controller' => StoredFiltersController::class,
+                                'action' => 'saveFilter'
+                            ]
+                        ]
+                    ],
+                    StoredFiltersController::ROUTE_REMOVE => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/filter/remove',
+                            'defaults' => [
+                                'controller' => StoredFiltersController::class,
+                                'action' => 'removeFilter'
                             ]
                         ]
                     ],

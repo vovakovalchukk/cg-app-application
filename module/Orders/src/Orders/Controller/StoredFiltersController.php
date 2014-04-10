@@ -9,6 +9,9 @@ use Zend\View\Model\JsonModel;
 
 class StoredFiltersController extends AbstractActionController
 {
+    const ROUTE_SAVE = 'save';
+    const ROUTE_REMOVE = 'remove';
+
     protected $service;
     protected $orderService;
     protected $jsonModelFactory;
