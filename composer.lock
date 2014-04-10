@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "552321768d2c413352cd02264dd6aef8",
+    "hash": "4458a51b1937f93f838d20d3b37f49ca",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -440,6 +440,39 @@
                 }
             },
             "time": "2014-03-27 08:21:32"
+        },
+        {
+            "name": "channelgrabber/channel",
+            "version": "1.1.4",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
+                "reference": "47c7948091f4aa0e303d62edd68747e75a3a7747"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.1.4-ce8124.zip",
+                "reference": "47c7948091f4aa0e303d62edd68747e75a3a7747",
+                "shasum": "0a24d6ae9d2a3286d39faf1d4484d2a22a10c44c"
+            },
+            "require": {
+                "channelgrabber/account": ">=1.0.0",
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/order": ">=1.4.6",
+                "channelgrabber/stdlib": ">=2.4.0",
+                "zendframework/zend-di": ">=2.2.5"
+            },
+            "require-dev": {
+                "channelgrabber/phpunit": ">=1.0.0",
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "CG\\Channel\\": ""
+                }
+            },
+            "time": "2014-04-09 08:09:33"
         },
         {
             "name": "channelgrabber/constants",
