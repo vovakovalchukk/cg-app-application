@@ -64,7 +64,7 @@ define(
                 optional: []
             };
 
-            $(this.getFilters().find(":input").serializeArray()).each(function(index, data) {
+            $(this.getFilters().find(":input[name]").serializeArray()).each(function(index, data) {
                 filter.filters[data.name] = data.value;
             });
 
@@ -113,7 +113,26 @@ define(
         };
 
         StoredFilters.prototype.activateFilter = function(listElement) {
+            var filter = $(listElement).data("filter");
 
+            this.getFilters().find(".more a[data-filter-name]").each(function() {
+                var checked = $(this).find(":checkbox").is(":checked");
+                var selected = ($.inArray($(this).data("filter-name"), filter.optional) >= 0);
+
+                if (checked != selected) {
+                    $(this).click();
+                }
+            });
+
+            this.getFilters().find(":input[name]").each(function() {
+                var name = $(this).attr("name");
+                if (filter.filters[name] == undefined) {
+                    return;
+                }
+                $(this).val(filter.filters[name]);
+            });
+
+            this.getFilters().find("[data-action='apply-filters']").click();
         };
 
         StoredFilters.prototype.deleteFilter = function(listElement) {
