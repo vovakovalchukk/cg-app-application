@@ -9,6 +9,10 @@
             "url": "git@bitbucket.org:channelgrabber/amazon-module.git"
         },
         {
+            "type": "git",
+            "url": "git@bitbucket.org:channelgrabber/ebay-module.git"
+        },
+        {
             "url": "https://composer.build.channelgrabber.com",
             "type": "composer",
             "options": {
@@ -43,6 +47,7 @@
         "channelgrabber/user": "~1.13.9",
         "channelgrabber/userpreference": "~1.0.4",
         "channelgrabber/zf2-amazon": "dev-CGIV-1916-manage-channel-specific-forms as 1.0.0",
+        "channelgrabber/zf2-ebay": "dev-CGIV-1916-manage-channel-specific-forms as 1.0.0",
         "channelgrabber/zf2-hal": "~1.0.4",
         "channelgrabber/zf2-installer": "~1.0.2",
         "channelgrabber/zf2-logclient": "~1.2.5",

@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "0c82be67a26a28ab4220af534cc26efe",
+    "hash": "d8f40da8013a354b866a979426ce3bae",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -1131,6 +1131,39 @@
             },
             "description": "Amazon module",
             "time": "2014-04-10 08:33:28"
+        },
+        {
+            "name": "channelgrabber/zf2-ebay",
+            "version": "dev-CGIV-1916-manage-channel-specific-forms",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/ebay-module.git",
+                "reference": "44b315c0246edd9cb8bb18e7de5c7c31d5756181"
+            },
+            "require": {
+                "channelgrabber/channel": "dev-CGIV-1916-manage-channel-specific-forms as 1.1.4",
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/ebay": ">=1.1.10",
+                "zendframework/zend-config": "2.*",
+                "zendframework/zend-form": "2.*",
+                "zendframework/zend-loader": "2.*",
+                "zendframework/zend-modulemanager": "2.*",
+                "zendframework/zend-view": "2.*"
+            },
+            "type": "zf2-module",
+            "extra": {
+                "zf2-module": "CG_Ebay"
+            },
+            "autoload": {
+                "psr-0": {
+                    "CG_Ebay": "src/"
+                },
+                "classmap": [
+                    "./Module.php"
+                ]
+            },
+            "description": "Ebay module",
+            "time": "2014-04-10 10:35:43"
         },
         {
             "name": "channelgrabber/zf2-hal",
@@ -3791,6 +3824,12 @@
             "alias_normalized": "1.0.0.0",
             "version": "dev-CGIV-1916-manage-channel-specific-forms",
             "package": "channelgrabber/zf2-amazon"
+        },
+        {
+            "alias": "1.0.0",
+            "alias_normalized": "1.0.0.0",
+            "version": "dev-CGIV-1916-manage-channel-specific-forms",
+            "package": "channelgrabber/zf2-ebay"
         }
     ],
     "minimum-stability": "stable",
@@ -3798,6 +3837,7 @@
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-amazon": 20,
+        "channelgrabber/zf2-ebay": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },

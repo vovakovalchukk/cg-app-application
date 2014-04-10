@@ -13,6 +13,7 @@ return array (
     8 => 'Orders',
     9 => 'Settings',
     10 => 'CG_Amazon',
+    11 => 'CG_Ebay',
   ),
   'module_listener_options' => 
   array (
