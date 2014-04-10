@@ -36,6 +36,12 @@ define(
                     savedFilterList.data("popup")
                 );
 
+                popup.getElement().on("keypress.storedFilters", "input.name", function(event) {
+                    if (event.which !== 13) {
+                        return;
+                    }
+                    popup.getElement().find(".save").click();
+                });
                 popup.getElement().on("click.storedFilters", ".save", function() {
                     var name = $.trim(popup.getElement().find("input.name").val());
                     if (!name.length) {
