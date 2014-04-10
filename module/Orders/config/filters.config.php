@@ -171,11 +171,11 @@ return [
                         ],
                         [
                             'template' => 'elements/custom-select.mustache',
-                            'visible' => true,
+                            'visible' => false,
                             'variables' => [
                                 'filterName' => 'archive',
                                 'title' => 'Show Archived',
-                                'searchField' => true,
+                                'searchField' => false,
                                 'isOptional' => true,
                                 'concatenate' => false,
                                 'options' => [
