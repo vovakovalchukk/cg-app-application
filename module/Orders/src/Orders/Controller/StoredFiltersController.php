@@ -4,15 +4,18 @@ namespace Orders\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Orders\Order\StoredFilters\Service;
 use Orders\Order\Service as OrderService;
+use CG_UI\View\Prototyper\JsonModelFactory;
+use Zend\View\Model\JsonModel;
 
 class StoredFiltersController extends AbstractActionController
 {
     protected $service;
     protected $orderService;
+    protected $jsonModelFactory;
 
-    public function __construct(Service $service, OrderService $orderService)
+    public function __construct(Service $service, OrderService $orderService, JsonModelFactory $jsonModelFactory)
     {
-        $this->setService($service)->setOrderService($orderService);
+        $this->setService($service)->setOrderService($orderService)->setJsonModelFactory($jsonModelFactory);
     }
 
     public function setService(Service $service)
@@ -43,8 +46,33 @@ class StoredFiltersController extends AbstractActionController
         return $this->orderService;
     }
 
+    public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
+    {
+        $this->jsonModelFactory = $jsonModelFactory;
+        return $this;
+    }
+
+    /**
+     * @return JsonModelFactory
+     */
+    public function getJsonModelFactory()
+    {
+        return $this->jsonModelFactory;
+    }
+
+    /**
+     * @param $variables
+     * @param $options
+     * @return JsonModel
+     */
+    protected function newJsonModel($variables = null, $options = null)
+    {
+        return $this->getJsonModelFactory()->newInstance($variables, $options);
+    }
+
     public function saveFilterAction()
     {
+        $jsonModel = $this->newJsonModel(['saved' => false]);
         $userPreference = $this->getOrderService()->getActiveUserPreference();
         $this->getService()->addStoredFilter(
             $userPreference,
@@ -52,15 +80,18 @@ class StoredFiltersController extends AbstractActionController
             $this->params()->fromPost('filter')
         );
         $this->getOrderService()->getUserPreferenceService()->save($userPreference);
+        return $jsonModel->setVariable('saved', true);
     }
 
     public function removeFilterAction()
     {
+        $jsonModel = $this->newJsonModel(['removed' => false]);
         $userPreference = $this->getOrderService()->getActiveUserPreference();
         $this->getService()->removeStoredFilter(
             $userPreference,
             $this->params()->fromPost('name')
         );
         $this->getOrderService()->getUserPreferenceService()->save($userPreference);
+        return $jsonModel->setVariable('removed', true);
     }
 } 
