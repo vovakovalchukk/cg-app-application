@@ -2,12 +2,14 @@ define(
     ['popup/mustache'],
     function(Popup) {
         var StoredFilters = function(filters, savedFilterList) {
+            var filters = $(filters)
             this.getFilters = function() {
-                return $(filters);
+                return filters;
             };
 
+            var savedFilterList = $(savedFilterList)
             this.getSavedFilterList = function() {
-                return $(savedFilterList);
+                return savedFilterList;
             };
 
             var popup;
@@ -32,6 +34,7 @@ define(
                         return;
                     }
                     self.saveFilter.call(self, name, popup.getElement().data("filter"));
+                    popup.hide();
                 });
                 popup.getElement().on("click.storedFilters", ".cancel", function() {
                     popup.hide();
