@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "9decd7fbeb6b3b061edecbdf099c4492",
+    "hash": "2575f7ab45f479518b177a80f93cc067",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -1008,17 +1008,17 @@
         },
         {
             "name": "channelgrabber/zf2-email-template",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/email-template-module.git",
-                "reference": "4e633c8b8e00039937cd21eed1a89e71899ed3b5"
+                "reference": "ef064e820149f0b0bdb128dce919d017a2531364"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-1.0.1-379f38.zip",
-                "reference": "4e633c8b8e00039937cd21eed1a89e71899ed3b5",
-                "shasum": "90e1c4ecd8a8d50f0d8d27ffa8ddcc3d71662cb0"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-1.0.2-9a8484.zip",
+                "reference": "ef064e820149f0b0bdb128dce919d017a2531364",
+                "shasum": "a0b6f5260cbed54af13853d81b1871123d9c583a"
             },
             "require": {
                 "guzzle/guzzle": "~3.7",
@@ -1038,7 +1038,7 @@
                 ]
             },
             "description": "email template module",
-            "time": "2014-03-28 16:08:57"
+            "time": "2014-04-08 07:15:07"
         },
         {
             "name": "channelgrabber/zf2-hal",
@@ -1347,7 +1347,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "d84580f24e955642000c4cad2a2df185636ac1d0"
+                "reference": "7a90e6d3a724d8a235999ea893761d68c0e9771d"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1375,7 +1375,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-04-10 08:27:57"
+            "time": "2014-04-10 09:33:00"
         },
         {
             "name": "cilex/cilex",
