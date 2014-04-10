@@ -189,6 +189,26 @@ return [
                                 ]
                             ],
                         ],
+                        [
+                            'template' => 'elements/custom-select.mustache',
+                            'visible' => false,
+                            'variables' => [
+                                'filterName' => 'buyerMessage',
+                                'title' => 'Buyer Message',
+                                'isOptional' => true,
+                                'options' => [
+                                    [
+                                        'title' => 'All'
+                                    ],
+                                    [
+                                        'title' => 'Yes'
+                                    ],
+                                    [
+                                        'title' => 'No'
+                                    ],
+                                ]
+                            ],
+                        ],
                     ]
                 ],
             ],
