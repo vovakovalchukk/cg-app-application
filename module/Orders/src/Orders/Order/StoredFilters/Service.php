@@ -51,6 +51,19 @@ class Service
         $userPreference->setPreference($preference);
     }
 
+    public function removeStoredFilter(UserPreference $userPreference, $filterName)
+    {
+        $preference = $userPreference->getPreference();
+
+        if (!isset($preference['order-saved-filters'], $preference['order-saved-filters'][$filterName])) {
+            return;
+        }
+
+        unset($preference['order-saved-filters'][$filterName]);
+
+        $userPreference->setPreference($preference);
+    }
+
     public function getStoredFilters(UserPreference $userPreference)
     {
         $preference = $userPreference->getPreference();
