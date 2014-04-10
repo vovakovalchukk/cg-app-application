@@ -192,6 +192,7 @@ define(
             }
 
             if (json.saved) {
+                this.getSavedFilterList().find("li[data-name='" + listElement.data("name") + "']").remove();
                 this.getSavedFilterList().append(listElement);
                 this.getSavedFilterList().find(".empty-list").addClass("hidden");
                 this.getNotifications().success("Filter Saved");
