@@ -94,7 +94,7 @@ class Service
     public function getStoredFiltersSidebarView(UserPreference $userPreference)
     {
         $storedFiltersSidebar = $this->newViewModel(['filters' => $this->getStoredFilters($userPreference, true)]);
-        $storedFiltersSidebar->setTemplate('orders/orders/sidebar/filters');
+        $storedFiltersSidebar->setTemplate('orders/orders/sidebar/storedFilters');
         return $storedFiltersSidebar;
     }
 }

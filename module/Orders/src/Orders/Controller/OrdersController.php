@@ -183,6 +183,7 @@ class OrdersController extends AbstractActionController
         );
         $view->addChild($bulkActions, 'bulkItems');
         $view->addChild($this->getFilterBar(), 'filters');
+        $view->addChild($this->getStatusFilters(), 'statusFiltersSidebar');
         $view->addChild(
             $this->getStoredFiltersService()->getStoredFiltersSidebarView(
                 $this->getOrderService()->getActiveUserPreference()
@@ -192,6 +193,13 @@ class OrdersController extends AbstractActionController
         $view->addChild($this->getBatches(), 'batches');
         $view->setVariable('isSidebarVisible', $this->getOrderService()->isSidebarVisible());
         $view->setVariable('isHeaderBarVisible', $this->getOrderService()->isFilterBarVisible());
+        return $view;
+    }
+
+    protected function getStatusFilters()
+    {
+        $view = $this->getViewModelFactory()->newInstance(['filters' => []]);
+        $view->setTemplate('orders/orders/sidebar/statusFilters');
         return $view;
     }
 
