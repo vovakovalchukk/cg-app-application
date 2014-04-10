@@ -168,46 +168,6 @@ return [
                                 'isOptional' => true,
                                 'id' => ''
                             ]
-                        ],
-                        [
-                            'template' => 'elements/number-range.mustache',
-                            'visible' => true,
-                            'variables' => [
-                                'filterName' => 'total2',
-                                'title' => 'Total',
-                                'isOptional' => true,
-                                'id' => ''
-                            ]
-                        ],
-                        [
-                            'template' => 'elements/number-range.mustache',
-                            'visible' => true,
-                            'variables' => [
-                                'filterName' => 'total3',
-                                'title' => 'Total',
-                                'isOptional' => true,
-                                'id' => ''
-                            ]
-                        ],
-                        [
-                            'template' => 'elements/number-range.mustache',
-                            'visible' => true,
-                            'variables' => [
-                                'filterName' => 'total4',
-                                'title' => 'Total',
-                                'isOptional' => true,
-                                'id' => ''
-                            ]
-                        ],
-                        [
-                            'template' => 'elements/number-range.mustache',
-                            'visible' => true,
-                            'variables' => [
-                                'filterName' => 'total5',
-                                'title' => 'Total',
-                                'isOptional' => true,
-                                'id' => ''
-                            ]
                         ]
                     ]
                 ],
