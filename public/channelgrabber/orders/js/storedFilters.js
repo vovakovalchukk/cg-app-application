@@ -13,6 +13,10 @@ define(
             };
 
             var popup;
+            this.getPopup = function() {
+                return popup;
+            };
+
             var init = function() {
                 var self = this;
                 var savedFilterList = self.getSavedFilterList();
@@ -40,11 +44,6 @@ define(
                     popup.hide();
                 });
             };
-
-            this.getPopup = function() {
-                return popup;
-            };
-
             init.call(this);
         };
 
