@@ -36,6 +36,9 @@ define(
                     savedFilterList.data("popup")
                 );
 
+                popup.getElement().on("callback.storedFilters", function(event) {
+                    popup.getElement().find("input.name").focus();
+                });
                 popup.getElement().on("keypress.storedFilters", "input.name", function(event) {
                     if (event.which !== 13) {
                         return;
