@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "12d2608179e1e84b2404c1e1ef5fc04a",
+    "hash": "552321768d2c413352cd02264dd6aef8",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -639,17 +639,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.5.2",
+            "version": "1.5.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "5169a9ad3a78af0ce71842146ee83030e51c717b"
+                "reference": "8cc0f24358a8340b2e6c1c6c03518108653f5ad6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.5.2-8cace0.zip",
-                "reference": "5169a9ad3a78af0ce71842146ee83030e51c717b",
-                "shasum": "7e005530312ccf0529ff567ffb525c6f4f7bc221"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.5.3-5c57ef.zip",
+                "reference": "8cc0f24358a8340b2e6c1c6c03518108653f5ad6",
+                "shasum": "b644031e19b4109da6ddae2f6e404f5d2eb83612"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.0,<1.3.0",
@@ -674,7 +674,7 @@
                     "CG\\Order\\": ""
                 }
             },
-            "time": "2014-04-08 16:16:23"
+            "time": "2014-04-10 12:53:12"
         },
         {
             "name": "channelgrabber/permission",
@@ -1310,17 +1310,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.4.2",
+            "version": "1.4.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "40598f58036db43813bb32af03276634899cd609"
+                "reference": "50e93fb90e14302a2251d2b8ca5d7f49bc6d4935"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.4.2-c4e40f.zip",
-                "reference": "40598f58036db43813bb32af03276634899cd609",
-                "shasum": "b36fafb48ba9877b19351267d8ff63941cd93619"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.4.3-eea883.zip",
+                "reference": "50e93fb90e14302a2251d2b8ca5d7f49bc6d4935",
+                "shasum": "8d25a1545bd16592762c221b6170e8bb695541cf"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1348,7 +1348,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-04-09 16:13:54"
+            "time": "2014-04-10 12:47:51"
         },
         {
             "name": "cilex/cilex",
