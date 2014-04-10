@@ -9,7 +9,6 @@ require([
 ],
 function(StoredFilters) {
     var storedFilters = new StoredFilters("#filters", "#savedFilters");
-console.log(storedFilters.getFilters().find("[data-action='save-filters']"));
     storedFilters.bindSaveTo(
         storedFilters.getFilters().find("[data-action='save-filters']")
     );
