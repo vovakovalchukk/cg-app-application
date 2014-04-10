@@ -64,7 +64,7 @@ class Service
         $userPreference->setPreference($preference);
     }
 
-    public function getStoredFilters(UserPreference $userPreference)
+    public function getStoredFilters(UserPreference $userPreference, $jsonEncodeFilter = false)
     {
         $preference = $userPreference->getPreference();
         $storedFilters = [];
@@ -74,6 +74,10 @@ class Service
         }
 
         foreach ($preference['order-saved-filters'] as $filterName => $filterData) {
+            if ($jsonEncodeFilter) {
+                $filterData = json_encode($filterData);
+            }
+
             $storedFilters[] = [
                 'name' => $filterName,
                 'filter' => $filterData,
@@ -89,7 +93,7 @@ class Service
      */
     public function getStoredFiltersSidebarView(UserPreference $userPreference)
     {
-        $storedFiltersSidebar = $this->newViewModel(['filters' => $this->getStoredFilters($userPreference)]);
+        $storedFiltersSidebar = $this->newViewModel(['filters' => $this->getStoredFilters($userPreference, true)]);
         $storedFiltersSidebar->setTemplate('orders/orders/sidebar/filters');
         return $storedFiltersSidebar;
     }

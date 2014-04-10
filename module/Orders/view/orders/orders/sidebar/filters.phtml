@@ -8,7 +8,7 @@ require([
     'storedFilters'
 ],
 function(StoredFilters) {
-    var storedFilters = new StoredFilters("#filters", "#savedFilters");
+    var storedFilters = new StoredFilters(n, "#filters", "#savedFilters");
     storedFilters.bindSaveTo(
         storedFilters.getFilters().find("[data-action='save-filters']")
     );
@@ -17,7 +17,13 @@ function(StoredFilters) {
 <div class="module filter-module clearfix navbar-content">
     <h3><?= $this->translate('Saved Filters') ?></h3>
     <div class="module-content nav">
-        <ul id="savedFilters" data-template="<?= Orders\Module::PUBLIC_FOLDER ?>template/popup/saveFilter.mustache">
+        <ul
+            id="savedFilters"
+            data-save="<?= $this->url('Orders/' . Orders\Controller\StoredFiltersController::ROUTE_SAVE) ?>"
+            data-remove="<?= $this->url('Orders/' . Orders\Controller\StoredFiltersController::ROUTE_REMOVE) ?>"
+            data-template="<?= Orders\Module::PUBLIC_FOLDER ?>template/elements/savedFilter.mustache"
+            data-popup="<?= Orders\Module::PUBLIC_FOLDER ?>template/popup/saveFilter.mustache"
+            >
             <li class='empty-list<?= count($filters) ? ' hidden' : '' ?>'><?= $this->translate('No saved filters') ?></li>
             <?php if (count($filters)) : ?>
                 <?= $this->mustacheLoop('elements/savedFilter.mustache', $filters) ?>

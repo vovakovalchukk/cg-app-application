@@ -77,8 +77,8 @@ class StoredFiltersController extends AbstractActionController
     {
         $jsonModel = $this->newJsonModel(['saved' => false]);
 
-        $name = trim($this->params()->fromPost('name'));
-        $filter = $this->params()->fromPost('filter');
+        $name = trim($this->params()->fromPost('name', ''));
+        $filter = $this->params()->fromPost('filter', []);
 
         if (empty($name) || !is_array($filter)) {
             return $jsonModel->setVariable('error', 'Invalid Filter');
@@ -95,7 +95,7 @@ class StoredFiltersController extends AbstractActionController
     {
         $jsonModel = $this->newJsonModel(['removed' => false]);
 
-        $name = trim($this->params()->fromPost('name'));
+        $name = trim($this->params()->fromPost('name', ''));
         if (empty($name)) {
             return $jsonModel->setVariable('error', 'Invalid Filter');
         }
