@@ -183,10 +183,10 @@ return [
                                         'title' => 'All'
                                     ],
                                     [
-                                        'title' => 'Active'
+                                        'title' => 'Yes'
                                     ],
                                     [
-                                        'title' => 'Archived'
+                                        'title' => 'No'
                                     ],
                                 ]
                             ],
