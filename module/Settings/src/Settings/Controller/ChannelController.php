@@ -153,7 +153,8 @@ class ChannelController extends AbstractActionController
         $form = $this->getFormFactory()->get($formName);
         $channelSpecificView->setVariables([
             'form' => $form,
-            'account' => $accountEntity
+            'account' => $accountEntity,
+            'route' => Module::ROUTE . '/' . static::ROUTE
         ]);
         $view->addChild($channelSpecificView, 'channelSpecificForm');
         return $this;
