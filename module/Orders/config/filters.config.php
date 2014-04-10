@@ -175,9 +175,7 @@ return [
                             'variables' => [
                                 'filterName' => 'archived',
                                 'title' => 'Show Archived',
-                                'searchField' => false,
                                 'isOptional' => true,
-                                'concatenate' => false,
                                 'options' => [
                                     [
                                         'title' => 'All'
