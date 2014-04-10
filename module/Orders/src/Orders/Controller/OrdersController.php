@@ -17,6 +17,7 @@ use DirectoryIterator;
 use CG\UserPreference\Client\Service as UserPreferenceService;
 use CG\Http\Rpc\Exception\BatchException as RpcBatchException;
 use CG\Http\Rpc\Exception\Error\AbstractError as RpcError;
+use Orders\Order\FilterService as FiltersService;
 use Orders\Order\StoredFilters\Service as StoredFiltersService;
 
 class OrdersController extends AbstractActionController
@@ -28,6 +29,7 @@ class OrdersController extends AbstractActionController
     protected $bulkActionsService;
     protected $jsonModelFactory;
     protected $viewModelFactory;
+    protected $filtersService;
     protected $storedFiltersService;
 
     public function __construct(
@@ -38,6 +40,7 @@ class OrdersController extends AbstractActionController
         TimelineService $timelineService,
         BatchService $batchService,
         BulkActionsService $bulkActionsService,
+        FiltersService $filtersService,
         StoredFiltersService $storedFiltersService
     )
     {
@@ -48,6 +51,7 @@ class OrdersController extends AbstractActionController
             ->setTimelineService($timelineService)
             ->setBatchService($batchService)
             ->setBulkActionsService($bulkActionsService)
+            ->setFiltersService($filtersService)
             ->setStoredFiltersService($storedFiltersService);
     }
 
@@ -140,6 +144,20 @@ class OrdersController extends AbstractActionController
         return $this->bulkActionsService;
     }
 
+    public function setFiltersService(FiltersService $filtersService)
+    {
+        $this->filtersService = $filtersService;
+        return $this;
+    }
+
+    /**
+     * @return FiltersService
+     */
+    public function getFiltersService()
+    {
+        return $this->filtersService;
+    }
+
     public function setStoredFiltersService(StoredFiltersService $storedFiltersService)
     {
         $this->storedFiltersService = $storedFiltersService;
@@ -198,7 +216,11 @@ class OrdersController extends AbstractActionController
 
     protected function getStatusFilters()
     {
-        $view = $this->getViewModelFactory()->newInstance(['filters' => []]);
+        $view = $this->getViewModelFactory()->newInstance(
+            [
+                'filters' => $this->getFiltersService()->getFilterConfig('stateFilters')
+            ]
+        );
         $view->setTemplate('orders/orders/sidebar/statusFilters');
         return $view;
     }
