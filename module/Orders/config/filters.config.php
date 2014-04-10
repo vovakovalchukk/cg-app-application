@@ -173,7 +173,7 @@ return [
                             'template' => 'elements/custom-select.mustache',
                             'visible' => false,
                             'variables' => [
-                                'filterName' => 'archive',
+                                'filterName' => 'archived',
                                 'title' => 'Show Archived',
                                 'searchField' => false,
                                 'isOptional' => true,
