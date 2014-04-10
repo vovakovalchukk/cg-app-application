@@ -58,8 +58,28 @@ define(
             });
         };
 
+        StoredFilters.prototype.getCurrentFilter = function() {
+            var filter = {
+                filters: {},
+                optional: []
+            };
+
+            $(this.getFilters().find(":input").serializeArray()).each(function(index, data) {
+                filter.filters[data.name] = data.value;
+            });
+
+            this.getFilters().find(".more a[data-filter-name]").each(function() {
+                if (!$(this).find(":checkbox").is(":checked")) {
+                    return;
+                }
+                filter.optional.push($(this).data("filter-name"));
+            });
+
+            return filter;
+        };
+
         StoredFilters.prototype.saveCurrentFilter = function() {
-            this.getPopup().getElement().data("filter", []);
+            this.getPopup().getElement().data("filter", this.getCurrentFilter());
             this.getPopup().show();
         };
 
@@ -70,7 +90,7 @@ define(
             CGMustache.get().fetchTemplate(this.getSavedFilterList().data("template"), function(template, cgmustache) {
                 listElement = $(cgmustache.renderTemplate(template, {
                     name: name,
-                    filter: filter
+                    filter: JSON.stringify(filter)
                 }));
             });
 
