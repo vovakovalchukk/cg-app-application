@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "16645bfa3281363b237a9a0c0a80f2a5",
+    "hash": "0adcc04796d648c732c81aa703c48fbd",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -377,22 +377,17 @@
         },
         {
             "name": "channelgrabber/account",
-            "version": "1.0.9",
+            "version": "dev-CGIV-1943-account-ownership",
             "source": {
                 "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/cg-account.git",
-                "reference": "dfa8dedfb5bbdc2d8fe5ac84c7c1a7f475f116c9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-account-1.0.9-a82bab.zip",
-                "reference": "dfa8dedfb5bbdc2d8fe5ac84c7c1a7f475f116c9",
-                "shasum": "97ee6a11e678f538447b84cecc9a2ae60b197f0b"
+                "url": "/home/shoniqua/repos/cg-account",
+                "reference": "f3ad0c67693f9700707ebbf8c39b9ab2cda4700f"
             },
             "require": {
                 "channelgrabber/cache": ">=1.2.1, <1.3.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/etag": ">=1.4.1, <1.5.0",
+                "channelgrabber/permission": ">=1.0.1, <2.0.0",
                 "channelgrabber/slim": ">=1.5.5,<2.0.0",
                 "channelgrabber/stdlib": "~2.5.13",
                 "guzzle/guzzle": "~3.7",
@@ -408,7 +403,7 @@
                     "CG\\Account\\": ""
                 }
             },
-            "time": "2014-04-08 07:13:17"
+            "time": "2014-04-11 15:27:21"
         },
         {
             "name": "channelgrabber/amazon",
@@ -519,7 +514,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgconstants.git",
-                "reference": "14f38b87f466018b445b41c3a8916e58981fbac4"
+                "reference": "878e8e6eb01d3b1a20f4b2927196bac691cc0287"
             },
             "require": {
                 "php": ">=5.4.0"
@@ -530,7 +525,7 @@
                     "CG": ""
                 }
             },
-            "time": "2014-04-07 11:05:25"
+            "time": "2014-03-25 12:58:38"
         },
         {
             "name": "channelgrabber/ebay",
@@ -1415,17 +1410,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.4.2",
+            "version": "1.4.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "40598f58036db43813bb32af03276634899cd609"
+                "reference": "e2986486aa458bb5c212217284f1a8bca83e2d3f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.4.2-c4e40f.zip",
-                "reference": "40598f58036db43813bb32af03276634899cd609",
-                "shasum": "b36fafb48ba9877b19351267d8ff63941cd93619"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.4.4-5ce755.zip",
+                "reference": "e2986486aa458bb5c212217284f1a8bca83e2d3f",
+                "shasum": "4401d77b3420bf1a9b6e5184adf1275803710602"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1453,7 +1448,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-04-09 16:13:54"
+            "time": "2014-04-11 14:58:41"
         },
         {
             "name": "cilex/cilex",
@@ -3752,10 +3747,16 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.0.9",
+            "alias_normalized": "1.0.9.0",
+            "version": "dev-CGIV-1943-account-ownership",
+            "package": "channelgrabber/account"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/account": 20,
         "channelgrabber/constants": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
