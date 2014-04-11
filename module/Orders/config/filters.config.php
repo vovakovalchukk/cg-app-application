@@ -2,6 +2,7 @@
 use Orders\Order\FilterService;
 use Orders\Order\TableService\OrdersTableTagColumns;
 use Orders\Order\Filter\Channel;
+use Orders\Order\Filter\Account;
 
 return [
     'di' => [
@@ -183,6 +184,19 @@ return [
                                 'options' => []
                             ],
                             'optionsProvider' => Channel::class,
+                        ],
+                        [
+                            'template' => 'elements/custom-select-group.mustache',
+                            'visible' => false,
+                            'variables' => [
+                                'filterName' => 'account',
+                                'title' => 'Account',
+                                'searchField' => true,
+                                'isOptional' => true,
+                                'concatenate' => true,
+                                'options' => []
+                            ],
+                            'optionsProvider' => Account::class,
                         ],
                         [
                             'template' => 'elements/custom-select-group.mustache',

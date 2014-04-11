@@ -70,6 +70,14 @@ class Channel implements FilterOptionsInterface
         return $this->di;
     }
 
+    protected function getAccounts(User $user)
+    {
+        return $this->getAccountService()->fetchByOU(
+            $user->getOuList(),
+            'all'
+        );
+    }
+
     /**
      * return Select[] array of options to be added to filter
      */
@@ -77,10 +85,7 @@ class Channel implements FilterOptionsInterface
     {
         $options = [];
         try {
-            $accounts = $this->getAccountService()->fetchByOU(
-                $this->getActiveUser()->getOuList(),
-                'all'
-            );
+            $accounts = $this->getAccounts($this->getActiveUser());
 
             $channels = [];
             foreach ($accounts as $account) {
