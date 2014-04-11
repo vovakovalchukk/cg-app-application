@@ -1,8 +1,6 @@
 <?php
 use Orders\Order\FilterService;
 
-$dateFormat = 'd/m/y';
-
 return [
     'di' => [
         'instance' => [
@@ -22,41 +20,39 @@ return [
                         [
                             'template' => 'elements/date-range.mustache',
                             'variables' => [
-                                'fieldName' => 'purchaseDate',
+                                'filterName' => 'purchaseDate',
                                 'time' => [
                                     'hours' => date('H'),
                                     'minutes' => date('i')
                                 ],
                                 'options' => [
                                     [
-                                        'title' => 'All Time',
-                                        'from' => 'All',
-                                        'to' => 'All'
+                                        'title' => 'All Time'
                                     ],
                                     [
                                         'title' => 'Today',
-                                        'from' => date($dateFormat),
-                                        'to' => date($dateFormat)
+                                        'from' => strtotime("today"),
+                                        'to' => strtotime("now")
                                     ],
                                     [
                                         'title' => 'Last 7 days',
-                                        'from' => date($dateFormat, strtotime("-7 days")),
-                                        'to' => date($dateFormat)
+                                        'from' => strtotime("-7 days"),
+                                        'to' => strtotime("now")
                                     ],
                                     [
                                         'title' => 'Month to date',
-                                        'from' => date($dateFormat, strtotime('first day of ' . date('F Y'))),
-                                        'to' => date($dateFormat)
+                                        'from' => strtotime('midnight first day of this month'),
+                                        'to' => strtotime("now")
                                     ],
                                     [
                                         'title' => 'Year to date',
-                                        'from' => date($dateFormat, strtotime('first day of January ' . date('Y'))),
-                                        'to' => date($dateFormat)
+                                        'from' => strtotime('first day of January'),
+                                        'to' => strtotime("now")
                                     ],
                                     [
                                         'title' => 'The previous month',
-                                        'from' => date($dateFormat, strtotime('first day of last month ')),
-                                        'to' => date($dateFormat, strtotime('last day of last month ')),
+                                        'from' => strtotime('midnight first day of last month'),
+                                        'to' => strtotime('midnight first day of this month'),
                                     ]
                                 ]
                             ]
@@ -64,9 +60,11 @@ return [
                         [
                             'template' => 'elements/custom-select-group.mustache',
                             'variables' => [
-                                'fieldName' => 'status',
+                                'filterName' => 'status',
                                 'title' => 'Status',
                                 'id' => 'filter-status',
+                                'searchField' => true,
+                                'concatenate' => true,
                                 'options' => [
                                     [
                                         'title' => 'New'
@@ -83,10 +81,18 @@ return [
                         [
                             'template' => 'elements/text.mustache',
                             'variables' => [
-                                'fieldName' => 'search',
+                                'filterName' => 'search',
                                 'placeholder' => 'Search for...',
                                 'class' => '',
                                 'value' => ''
+                            ],
+                        ],
+                        [
+                            'template' => 'elements/more.mustache',
+                            'variables' => [
+                                'title' => 'More',
+                                'class' => 'more',
+                                'filterName' => 'more'
                             ],
                         ],
                         [
@@ -118,10 +124,13 @@ return [
                     'filters' => [
                         [
                             'template' => 'elements/custom-select-group.mustache',
+                            'visible' => true,
                             'variables' => [
-                                'fieldName' => 'shippingAddressCountry',
+                                'filterName' => 'shippingAddressCountry',
                                 'title' => 'Include Country',
+                                'searchField' => true,
                                 'isOptional' => true,
+                                'concatenate' => true,
                                 'options' => [
                                     [
                                         'title' => 'UK'
@@ -152,13 +161,34 @@ return [
                         ],
                         [
                             'template' => 'elements/number-range.mustache',
+                            'visible' => true,
                             'variables' => [
-                                'fieldName' => 'total',
+                                'filterName' => 'total',
                                 'title' => 'Total',
                                 'isOptional' => true,
                                 'id' => ''
                             ]
-                        ]
+                        ],
+                        [
+                            'template' => 'elements/custom-select.mustache',
+                            'visible' => false,
+                            'variables' => [
+                                'filterName' => 'archived',
+                                'title' => 'Show Archived',
+                                'isOptional' => true,
+                                'options' => [
+                                    [
+                                        'title' => 'All'
+                                    ],
+                                    [
+                                        'title' => 'Yes'
+                                    ],
+                                    [
+                                        'title' => 'No'
+                                    ],
+                                ]
+                            ],
+                        ],
                     ]
                 ],
             ],

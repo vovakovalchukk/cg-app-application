@@ -34,6 +34,12 @@ class FilterService
 
     public function setConfig($config)
     {
+        if (isset($config['filters'])) {
+            $config = $config['filters'];
+        }
+        if (!(is_array($config) || ($config instanceof ArrayAccess))) {
+            throw new RuntimeException('Filter config must be accessible as an array');
+        }
         $this->config = $config;
         return $this;
     }
@@ -45,16 +51,11 @@ class FilterService
 
     public function getFilterConfig($filter)
     {
-        $config = $this->getConfig();
-        if (!isset($config['filters']) || (!is_array($config['filters']) && !($config['filters'] instanceof ArrayAccess))) {
-            throw new RuntimeException('No filters Configured');
-        }
+        $filters = $this->config;
 
-        $filters = $config['filters'];
         if (!isset($filters[$filter]) || !is_array($filters[$filter])) {
             throw new RuntimeException('Requested filter not Configured : ' . $filter);
         }
-
         return $filters[$filter];
     }
 
