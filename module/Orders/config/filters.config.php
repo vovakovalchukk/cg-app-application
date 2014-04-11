@@ -1,4 +1,5 @@
 <?php
+use Orders\Order\CountryService;
 use Orders\Order\FilterService;
 use Orders\Order\TableService\OrdersTableTagColumns;
 
@@ -133,32 +134,9 @@ return [
                                 'isOptional' => true,
                                 'concatenate' => true,
                                 'options' => [
-                                    [
-                                        'title' => 'UK'
-                                    ],
-                                    [
-                                        'title' => 'Austria'
-                                    ],
-                                    [
-                                        'title' => 'Croatia'
-                                    ],
-                                    [
-                                        'title' => 'Cyprus'
-                                    ],
-                                    [
-                                        'title' => 'France'
-                                    ],
-                                    [
-                                        'title' => 'Germany'
-                                    ],
-                                    [
-                                        'title' => 'Italy'
-                                    ],
-                                    [
-                                        'title' => 'Spain'
-                                    ]
                                 ]
                             ],
+                            'initialiser' => CountryService::class,
                         ],
                         [
                             'template' => 'elements/number-range.mustache',
