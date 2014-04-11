@@ -2,11 +2,10 @@
 namespace Orders\Order;
 
 use CG\Stdlib\Exception\Runtime\NotFound;
-use CG_UI\View\Filters\InitialiserInterface;
+use CG_UI\View\Filters\FilterOptionsInterface;
 use CG\User\ActiveUserInterface;
-use Zend\View\Model\ViewModel;
 
-class CountryService implements InitialiserInterface
+class CountryService implements FilterOptionsInterface
 {
     protected $activeUserContainer;
 
@@ -15,22 +14,12 @@ class CountryService implements InitialiserInterface
         $this->setActiveUserContainer($activeUserContainer);
     }
 
-    public function initialise(ViewModel $filter)
+    public function getOptions()
     {
         try {
-            $countries = $this->getActiveUserCurrencies();
-
-            $options = $filter->getVariable('options', []);
-            foreach ($countries as $code => $country) {
-                $options[] = [
-                    'value' => $code,
-                    'title' => htmlentities($country, ENT_QUOTES)
-                ];
-            }
-
-            $filter->setVariable('options', $options);
+            return $this->getActiveUserCurrencies();
         } catch (NotFound $e) {
-            // No countries, nothing to do
+            return [];
         }
     }
 

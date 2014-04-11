@@ -136,7 +136,7 @@ return [
                                 'options' => [
                                 ]
                             ],
-                            'initialiser' => CountryService::class,
+                            'optionsProvider' => CountryService::class,
                         ],
                         [
                             'template' => 'elements/number-range.mustache',
