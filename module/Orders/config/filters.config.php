@@ -159,7 +159,7 @@ return [
                                 'concatenate' => true,
                                 'options' => []
                             ],
-                            'initialiser' => OrdersTableTagColumns::class,
+                            'optionsProvider' => OrdersTableTagColumns::class,
                         ],
                         [
                             'template' => 'elements/custom-select.mustache',

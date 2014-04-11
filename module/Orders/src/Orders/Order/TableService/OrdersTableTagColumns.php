@@ -9,9 +9,10 @@ use CG\Order\Shared\Tag\StorageInterface as TagStorage;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Order\Shared\Tag\Entity as Tag;
 use Zend\View\Model\ViewModel;
-use CG_UI\View\Filters\InitialiserInterface;
+use CG_UI\View\Filters\FilterOptionsInterface;
+use CG_UI\View\Filters\Options\Select;
 
-class OrdersTableTagColumns implements OrdersTableModifierInterface, InitialiserInterface
+class OrdersTableTagColumns implements OrdersTableModifierInterface, FilterOptionsInterface
 {
     protected $di;
     protected $activeUserContainer;
@@ -37,6 +38,9 @@ class OrdersTableTagColumns implements OrdersTableModifierInterface, Initialiser
         return $this;
     }
 
+    /**
+     * @return Di
+     */
     public function getDi()
     {
         return $this->di;
@@ -99,22 +103,28 @@ class OrdersTableTagColumns implements OrdersTableModifierInterface, Initialiser
         );
     }
 
-    public function initialise(ViewModel $filter)
+    /**
+     * return Select[] array of options to be added to filter
+     */
+    public function getOptions()
     {
+        $options = [];
+
         try {
             $tags = $this->getActiveUserTags();
-
-            $options = $filter->getVariable('options', []);
             foreach ($tags as $tag) {
-                $options[] = [
-                    'title' => htmlentities($tag->getTag(), ENT_QUOTES)
-                ];
+                $options[] = $this->getDi()->get(
+                    Select::class,
+                    [
+                        'title' => htmlentities($tag->getTag(), ENT_QUOTES),
+                    ]
+                );
             }
-
-            $filter->setVariable('options', $options);
         } catch (NotFound $exception) {
             // No Tags -- Nothing to do
         }
+
+        return $options;
     }
 
     public function modifyTable(DataTable $ordersTable)
