@@ -28,6 +28,7 @@
         }
     },
     "require": {
+        "channelgrabber/account": "~1.0.11",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/http": "~1.2.9",
         "channelgrabber/order": "~1.4.9",
