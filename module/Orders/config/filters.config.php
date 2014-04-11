@@ -1,5 +1,6 @@
 <?php
 use Orders\Order\FilterService;
+use Orders\Order\TableService\OrdersTableTagColumns;
 
 return [
     'di' => [
@@ -180,6 +181,7 @@ return [
                                 'concatenate' => true,
                                 'options' => []
                             ],
+                            'initializer' => OrdersTableTagColumns::class,
                         ],
                         [
                             'template' => 'elements/custom-select.mustache',
