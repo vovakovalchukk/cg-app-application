@@ -28,7 +28,7 @@
         }
     },
     "require": {
-        "channelgrabber/account": "dev-CGIV-1943-account-ownership as 1.0.9",
+        "channelgrabber/account": "~1.0.11",
         "channelgrabber/amazon": "~1.2.7",
         "channelgrabber/channel": "~1.1.4",
         "channelgrabber/constants": "dev-master",
