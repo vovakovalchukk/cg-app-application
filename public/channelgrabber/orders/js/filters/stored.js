@@ -1,19 +1,11 @@
 define(
-    ['popup/mustache', 'cg-mustache'],
-    function(Popup, CGMustache) {
-        var StoredFilters = function(notifications, filters, savedFilterList) {
+    ['filters', 'popup/mustache', 'cg-mustache'],
+    function(Filters, Popup, CGMustache) {
+        var StoredFilters = function(notifications, filters, filterList) {
+            Filters.call(this, filters, filterList);
+
             this.getNotifications = function() {
                 return notifications;
-            };
-
-            var filters = $(filters)
-            this.getFilters = function() {
-                return filters;
-            };
-
-            var savedFilterList = $(savedFilterList)
-            this.getSavedFilterList = function() {
-                return savedFilterList;
             };
 
             var popup;
@@ -23,17 +15,14 @@ define(
 
             var init = function() {
                 var self = this;
-                var savedFilterList = self.getSavedFilterList();
+                var filterList = self.getFilterList();
 
-                savedFilterList.on("click.storedFilters", "li a", function() {
-                    self.activateFilter.call(self, $(this).closest("li"));
-                });
-                savedFilterList.on("click.storedFilters", "li .close", function() {
+                filterList.on("click.storedFilters", "li .close", function() {
                     self.deleteFilter.call(self, $(this).closest("li"));
                 });
 
                 popup = new Popup(
-                    savedFilterList.data("popup")
+                    filterList.data("popup")
                 );
 
                 popup.getElement().on("callback.storedFilters", function(event) {
@@ -59,6 +48,8 @@ define(
             };
             init.call(this);
         };
+
+        StoredFilters.prototype = Object.create(Filters.prototype);
 
         StoredFilters.prototype.bindSaveTo = function(element) {
             var self = this;
@@ -96,7 +87,7 @@ define(
             this.getNotifications().notice("Saving Filter");
 
             var listElement = $();
-            CGMustache.get().fetchTemplate(this.getSavedFilterList().data("template"), function(template, cgmustache) {
+            CGMustache.get().fetchTemplate(this.getFilterList().data("template"), function(template, cgmustache) {
                 listElement = $(cgmustache.renderTemplate(template, {
                     name: name,
                     filter: JSON.stringify(filter)
@@ -105,7 +96,7 @@ define(
 
             var self = this;
             $.ajax({
-                url: self.getSavedFilterList().data("save"),
+                url: self.getFilterList().data("save"),
                 type: "POST",
                 dataType: "json",
                 data: {
@@ -121,35 +112,12 @@ define(
             });
         };
 
-        StoredFilters.prototype.activateFilter = function(listElement) {
-            var filter = $(listElement).data("filter");
-
-            this.getFilters().find(".more a[data-filter-name]").each(function() {
-                var checked = $(this).find(":checkbox").is(":checked");
-                var selected = ($.inArray($(this).data("filter-name"), filter.optional) >= 0);
-
-                if (checked != selected) {
-                    $(this).click();
-                }
-            });
-
-            this.getFilters().find(":input[name]").each(function() {
-                var name = $(this).attr("name");
-                if (filter.filters[name] == undefined) {
-                    return;
-                }
-                $(this).val(filter.filters[name]);
-            });
-
-            this.getFilters().find("[data-action='apply-filters']").click();
-        };
-
         StoredFilters.prototype.deleteFilter = function(listElement) {
             this.getNotifications().notice("Removing Filter");
 
             var self = this;
             $.ajax({
-                url: self.getSavedFilterList().data("remove"),
+                url: self.getFilterList().data("remove"),
                 type: "POST",
                 dataType: "json",
                 data: {
@@ -195,14 +163,14 @@ define(
             }
 
             if (json.saved) {
-                this.getSavedFilterList().find("li[data-name='" + listElement.data("name") + "']").remove();
-                this.getSavedFilterList().append(listElement);
-                this.getSavedFilterList().find(".empty-list").addClass("hidden");
+                this.getFilterList().find("li[data-name='" + listElement.data("name") + "']").remove();
+                this.getFilterList().append(listElement);
+                this.getFilterList().find(".empty-list").addClass("hidden");
                 this.getNotifications().success("Filter Saved");
             } else if (json.removed) {
                 listElement.remove();
-                if (!this.getSavedFilterList().find("li").not(".empty-list").length) {
-                    this.getSavedFilterList().find(".empty-list").removeClass("hidden");
+                if (!this.getFilterList().find("li").not(".empty-list").length) {
+                    this.getFilterList().find(".empty-list").removeClass("hidden");
                 }
                 this.getNotifications().success("Filter Removed");
             } else {
