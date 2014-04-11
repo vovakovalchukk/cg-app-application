@@ -9,9 +9,9 @@ use CG\Order\Shared\Tag\StorageInterface as TagStorage;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Order\Shared\Tag\Entity as Tag;
 use Zend\View\Model\ViewModel;
-use CG_UI\View\Filters\InitializerInterface;
+use CG_UI\View\Filters\InitialiserInterface;
 
-class OrdersTableTagColumns implements OrdersTableModifierInterface, InitializerInterface
+class OrdersTableTagColumns implements OrdersTableModifierInterface, InitialiserInterface
 {
     protected $di;
     protected $activeUserContainer;
@@ -99,7 +99,7 @@ class OrdersTableTagColumns implements OrdersTableModifierInterface, Initializer
         );
     }
 
-    public function initialize(ViewModel $filter)
+    public function initialise(ViewModel $filter)
     {
         try {
             $tags = $this->getActiveUserTags();
