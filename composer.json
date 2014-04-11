@@ -35,9 +35,9 @@
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/sso": "~1.1.2",
-        "channelgrabber/stdlib": "~2.5.6",
+        "channelgrabber/stdlib": "~2.5.16",
         "channelgrabber/template": "~1.0.0",
-        "channelgrabber/user": "~1.13.7",
+        "channelgrabber/user": "~1.13.11",
         "channelgrabber/userpreference": "~1.0.4",
         "channelgrabber/zf2-email-template": "~1.0.1",
         "channelgrabber/zf2-hal": "~1.0.4",
@@ -48,11 +48,7 @@
         "channelgrabber/zf2-register": "~1.4.10",
         "channelgrabber/zf2-ssoclient": "~1.2.1",
         "channelgrabber/zf2-stdlib": "~1.1.6",
-<<<<<<< HEAD
-        "channelgrabber/zf2-v4-ui": "dev-CGIV-1907-CustomSelectJS as 1.3.3",
-=======
-        "channelgrabber/zf2-v4-ui": "~1.4.2",
->>>>>>> CGIV-1908-improve-daterange
+        "channelgrabber/zf2-v4-ui": "~1.4.4",
         "davedevelopment/phpmig": "0.4",
         "guzzle/guzzle": "~3.7",
         "nocarrier/hal": "~0.9.3",
