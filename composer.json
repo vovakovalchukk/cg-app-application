@@ -1,7 +1,4 @@
 {
-    "provide": {
-        "ext-gearman": "*"
-    },
     "repositories": [
         {
             "type": "git",
