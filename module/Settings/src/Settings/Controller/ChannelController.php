@@ -146,15 +146,18 @@ class ChannelController extends AbstractActionController
 
     protected function addAccountsChannelSpecificView($accountEntity, $view)
     {
+        $returnRoute = Module::ROUTE . '/' . static::ROUTE;
         $channelSpecificTemplate = $this->getService()->getChannelSpecificTemplateNameForAccount($accountEntity);
         $channelSpecificView = $this->newViewModel();
         $channelSpecificView->setTemplate($channelSpecificTemplate);
         $formName = $this->getService()->getChannelSpecificFormNameForAccount($accountEntity);
         $form = $this->getFormFactory()->get($formName);
+        $form->get('account')->setValue($accountEntity->getId());
+        $form->get('route')->setValue($returnRoute);
         $channelSpecificView->setVariables([
             'form' => $form,
             'account' => $accountEntity,
-            'route' => Module::ROUTE . '/' . static::ROUTE
+            'route' => $returnRoute
         ]);
         $view->addChild($channelSpecificView, 'channelSpecificForm');
         return $this;

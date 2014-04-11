@@ -14,6 +14,7 @@ return array (
     9 => 'Settings',
     10 => 'CG_Amazon',
     11 => 'CG_Ebay',
+    12 => 'CG_Channel',
   ),
   'module_listener_options' => 
   array (
