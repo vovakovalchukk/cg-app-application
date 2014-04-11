@@ -170,6 +170,18 @@ return [
                             ]
                         ],
                         [
+                            'template' => 'elements/custom-select-group.mustache',
+                            'visible' => false,
+                            'variables' => [
+                                'filterName' => 'tags',
+                                'title' => 'Tags',
+                                'searchField' => true,
+                                'isOptional' => true,
+                                'concatenate' => true,
+                                'options' => []
+                            ],
+                        ],
+                        [
                             'template' => 'elements/custom-select.mustache',
                             'visible' => false,
                             'variables' => [
