@@ -181,7 +181,7 @@ return [
                                 'concatenate' => true,
                                 'options' => []
                             ],
-                            'initializer' => OrdersTableTagColumns::class,
+                            'initialiser' => OrdersTableTagColumns::class,
                         ],
                         [
                             'template' => 'elements/custom-select.mustache',
