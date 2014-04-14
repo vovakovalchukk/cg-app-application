@@ -140,6 +140,7 @@ return [
             'preferences' => [
                 AccountStorageInterface::class => AccountApiStorage::class,
                 OUStorageInterface::class => OUApiStorage::class,
+                'CG\Stdlib\Log\LoggerInterface' => 'CG\Log\Logger'
             ],
             'aliases' => [
                 'EbayGuzzle' => GuzzleHttpClient::class,
@@ -160,7 +161,7 @@ return [
                 'AccountAccountColumnView' => ViewModel::class,
                 'AccountTradingCompanyColumnView' => ViewModel::class,
                 'AccountTokenStatusColumnView' => ViewModel::class,
-                'AccountManageColumnView' => ViewModel::class
+                'AccountManageColumnView' => ViewModel::class,
             ],
             AccountApiStorage::class => [
                 'parameters' => [
@@ -354,9 +355,6 @@ return [
                     'siteId' => 3
                 ]
             ],
-            'preferences' => [
-                'CG\Stdlib\Log\LoggerInterface' => 'CG\Log\Logger'
-            ]
         ]
     ]
 ];
