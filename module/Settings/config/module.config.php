@@ -1,7 +1,17 @@
 <?php
+use CG\Account\Client\Storage\Api as AccountStorage;
+use CG\Account\Client\Service as AccountService;
+use CG\Amazon\Signer as AmazonSigner;
+USE CG\Amazon\Account as AmazonAccount;
+USE CG\Amazon\Account\Eu as AmazonAccountEu;
+use CG\Ebay\Client\TradingApi;
+use CG\Ebay\Account as EbayAccount;
+use Guzzle\Http\Client as GuzzleHttpClient;
 use Settings\Module;
 use Settings\Controller\IndexController;
 use Settings\Controller\ChannelController;
+use Settings\Controller\EbayController;
+use Settings\Controller\AmazonController;
 use CG_UI\View\DataTable;
 use Settings\Channel\Service;
 use Zend\View\Model\ViewModel;
@@ -27,7 +37,7 @@ return [
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
-                    ChannelController::LIST_ROUTE => [
+                    ChannelController::ROUTE => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [
                             'route' => '/channel',
@@ -38,7 +48,29 @@ return [
                         ],
                         'may_terminate' => true,
                         'child_routes' => [
-                            ChannelController::LIST_AJAX_ROUTE => [
+                            'Sales Channel Ebay' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/ebay',
+                                    'defaults' => [
+                                        'controller' => EbayController::class,
+                                        'action' => 'save'
+                                    ]
+                                ],
+                                'may_terminate' => true
+                            ],
+                            AmazonAccount::ROUTE => [
+                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                'options' => [
+                                    'route' => '/amazon/:region',
+                                    'defaults' => [
+                                        'controller' => AmazonController::class,
+                                        'action' => 'save'
+                                    ]
+                                ],
+                                'may_terminate' => true
+                            ],
+                            ChannelController::AJAX_ROUTE => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => [
                                     'route' => '/ajax',
@@ -47,18 +79,39 @@ return [
                                     ]
                                 ],
                             ],
-                            ChannelController::CHANNEL_ROUTE => [
+                            ChannelController::CREATE_ROUTE => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/create',
+                                    'defaults' => [
+                                        'action' => 'create'
+                                    ]
+                                ],
+                                'may_terminate' => true
+                            ],
+                            ChannelController::ACCOUNT_ROUTE => [
                                 'type' => 'Zend\Mvc\Router\Http\Segment',
                                 'options' => [
-                                    'route' => '/:channel',
-                                    'constraints' => [
-                                        'channel' => '[0-9]+'
+                                    'route' => '/:account',
+                                    'defaults' => [
+                                        'action' => 'account'
                                     ],
-                                    'defaults' => []
+                                    'constraints' => [
+                                        'account' => '[0-9]*'
+                                    ],
                                 ],
                                 'may_terminate' => true,
                                 'child_routes' => [
-                                    ChannelController::CHANNEL_DELETE_ROUTE => [
+                                    ChannelController::ACCOUNT_AJAX_ROUTE => [
+                                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => [
+                                            'route' => '/ajax',
+                                            'defaults' => [
+                                                'action' => 'accountUpdate'
+                                            ],
+                                        ],
+                                    ],
+                                    ChannelController::ACCOUNT_DELETE_ROUTE => [
                                         'type' => 'Zend\Mvc\Router\Http\Literal',
                                         'options' => [
                                             'route' => '/delete',
@@ -79,19 +132,24 @@ return [
         'template_path_stack' => [
             dirname(__DIR__) . '/view',
         ],
+        'template_map' => [
+            ChannelController::ACCOUNT_TEMPLATE => dirname(__DIR__) . '/view/settings/channel/account.phtml',
+            ChannelController::ACCOUNT_CHANNEL_FORM_BLANK_TEMPLATE => dirname(__DIR__) . '/view/settings/channel/account/channel_form_blank.phtml',
+        ]
     ],
     'di' => [
         'instance' => [
             'preferences' => [
                 AccountStorageInterface::class => AccountApiStorage::class,
                 OUStorageInterface::class => OUApiStorage::class,
+                'CG\Stdlib\Log\LoggerInterface' => 'CG\Log\Logger'
             ],
             'aliases' => [
+                'EbayGuzzle' => GuzzleHttpClient::class,
                 'AccountList' => DataTable::class,
                 'AccountListSettings' => DataTable\Settings::class,
-                'MustacheStatus' => ViewModel::class,
-                'MustacheTokenStatus' => ViewModel::class,
-                'DeleteChannelJavascript' => ViewModel::class,
+                'ChannelTokenStatusMustacheJS' => ViewModel::class,
+                'ChannelDeleteJavascript' => ViewModel::class,
                 'AccountEnableColumn' => DataTable\Column::class,
                 'AccountStatusColumn' => DataTable\Column::class,
                 'AccountChannelColumn' => DataTable\Column::class,
@@ -112,6 +170,31 @@ return [
                     'client' => 'account_guzzle',
                 ],
             ],
+            'EbayGuzzle' => [
+                'parameters' => [
+                    'baseUrl' => 'https://api.ebay.com/ws/api.dll'
+                ]
+            ],
+            AmazonSigner::class => array(
+                'parameters' => array(
+                    'secretKey' => 'Tp6B7AEOI8piy6bbSN3n5fmIZgbqWDlTvaxuDBBD',
+                    'httpVerb' => 'GET'
+                )
+            ),
+            AmazonAccountEu::class => array(
+                'parameters' => array(
+                    'id' => '929b9241-7b26-4640-bc23-4e385329456b',
+                    'awsAccessKeyId' => 'AKIAIDD3ZCDYV53OVQEA'
+                )
+            ),
+            TradingApi::class => [
+                'parameters' => [
+                    'client' => 'EbayGuzzle',
+                    'developerId' => '91dbbc3a-8765-4498-86ff-646f255323a8',
+                    'applicationName' => 'WilkiLtd-beda-4d92-9c9f-7f7f9d283733',
+                    'certificateId' => 'ba6edfbf-a5c5-48cd-a147-b9dbf0350fb3'
+                ]
+            ],
             Service::class => [
                 'parameters' => [
                     'accountList' => 'AccountList',
@@ -125,9 +208,8 @@ return [
                 ],
                 'injections' => [
                     'addChild' => [
-                        ['child' => 'MustacheStatus', 'captureTo' => 'javascript', 'append' => true],
-                        ['child' => 'MustacheTokenStatus', 'captureTo' => 'javascript', 'append' => true],
-                        ['child' => 'DeleteChannelJavascript', 'captureTo' => 'javascript', 'append' => true],
+                        ['child' => 'ChannelTokenStatusMustacheJS', 'captureTo' => 'javascript', 'append' => true],
+                        ['child' => 'ChannelDeleteJavascript', 'captureTo' => 'javascript', 'append' => true],
                     ],
                     'addColumn' => [
                         ['column' => 'AccountEnableColumn'],
@@ -145,20 +227,16 @@ return [
             ],
             'AccountListSettings' => [
                 'parameters' => [
-
+                    'scrollHeightAuto' => true,
+                    'footer' => false,
                 ]
             ],
-            'MustacheStatus' => [
-                'parameters' => [
-                    'template' => 'settings/channel/javascript/mustache-status.js',
-                ],
-            ],
-            'MustacheTokenStatus' => [
+            'ChannelTokenStatusMustacheJS' => [
                 'parameters' => [
                     'template' => 'settings/channel/javascript/mustache-token.js',
                 ],
             ],
-            'DeleteChannelJavascript' => [
+            'ChannelDeleteJavascript' => [
                 'parameters' => [
                     'template' => 'settings/channel/javascript/deleteChannel.js',
                 ],
@@ -263,6 +341,23 @@ return [
                     'template' => 'value.phtml',
                 ],
             ],
-        ],
-    ],
+            AccountStorage::class => [
+                'parameters' => [
+                    'client' => 'account_guzzle'
+                ]
+            ],
+            AccountService::class => [
+                'parameters' => [
+                    'repository' => AccountStorage::class
+                ]
+            ],
+            EbayAccount::class => [
+                'parameters' => [
+                    'domain' => 'https://signin.ebay.com/ws/eBayISAPI.dll',
+                    'ruName' => 'Wilki_Ltd-WilkiLtd-beda-4-kdighency',
+                    'siteId' => 3
+                ]
+            ],
+        ]
+    ]
 ];

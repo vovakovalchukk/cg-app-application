@@ -1,0 +1,46 @@
+<?php $this->headScript()->captureStart(); ?>
+$(document).ready(function()
+{
+    $('#account_details_form').submit(function()
+    {
+        n.notice('Updating channel account');
+    });
+});
+<?php $this->headScript()->captureEnd(); ?>
+<div id="breadcrumbs">
+    <h1><?= $account->getDisplayName(); ?></h1>
+    <div class="right">
+        <span class="logo-large <?=$account->getChannel()?>"></span>
+    </div>
+</div>
+<div class="module clearfix">
+    <form class="single-row">
+        <label>Enable Account:</label>
+    </form>
+</div>
+<div id="manage-account-channel-form" class="module clearfix section-separator">
+    <?= $this->channelSpecificForm;?>
+</div>
+<div class="module clearfix section-separator">
+    <?php
+    $detailsForm->prepare();
+    $detailsForm->setAttribute('class', 'ajaxPost');
+    ?>
+    <?= $this->form()->openTag($detailsForm) ?>
+        <?= $this->formHidden($detailsForm->get('csrf')); ?>
+        <label>
+            <span>Display Name:</span>
+            <?= $this->formText($detailsForm->get('displayName')); ?>
+        </label>
+        <label>
+            <span>Trading Company:</span>
+            <abbr class="required">*</abbr>
+            <?= $this->formHidden($detailsForm->get('organisationUnitId')); ?>
+            <div class="input"><?= $tradingCompanySelect; ?></div>
+        </label>
+        <label>
+            <?= $this->formButton($detailsForm->get('save')); ?>
+            <span class="loading">Saving</span>
+        </label>
+    <?= $this->form()->closeTag(); ?>
+</div>

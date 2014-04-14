@@ -6,6 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use CG\Order\Service\Alert\Service as AlertService;
 use CG\Order\Shared\Alert\Mapper as AlertMapper;
 use CG\Order\Shared\Alert\Entity as AlertEntity;
+use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
 use Orders\Order\Service as OrderService;
@@ -59,7 +60,7 @@ class AlertController extends AbstractActionController
             array(
                 'userId' => $this->getActiveUserContainer()->getActiveUser()->getId(),
                 'alert' => $this->params()->fromPost('alert'),
-                'timestamp' => date('Y-m-d H:i:s', time()),
+                'timestamp' => date(DateTime::Format, time()),
                 'orderId' => $this->params('order'),
                 'organisationUnitId' => $order->getOrganisationUnitId()
             )
@@ -72,7 +73,7 @@ class AlertController extends AbstractActionController
     {
         $alert->setAlert($this->params()->fromPost('alert'))
             ->setUserId($this->getActiveUserContainer()->getActiveUser()->getId())
-            ->setTimestamp(date('Y-m-d H:i:s', time()));
+            ->setTimestamp(date(DateTime::Format, time()));
         $alert->setStoredETag($this->params()->fromPost('eTag'));
         $this->getService()->save($alert);
         return $alert;
