@@ -7,7 +7,7 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 class Account extends Channel
 {
     /**
-     * return Select[] array of options to be added to filter
+     * @return Select[] array of options to be added to filter
      */
     public function getOptions()
     {
@@ -15,7 +15,7 @@ class Account extends Channel
         try {
             $accounts = $this->getAccounts($this->getActiveUser());
             foreach ($accounts as $account) {
-                $options[] = $this->getDi()->get(
+                $options[] = $this->getDi()->newInstance(
                     Select::class,
                     [
                         'title' => htmlentities($account->getDisplayName(), ENT_QUOTES),

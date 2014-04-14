@@ -79,7 +79,7 @@ class Channel implements FilterOptionsInterface
     }
 
     /**
-     * return Select[] array of options to be added to filter
+     * @return Select[] array of options to be added to filter
      */
     public function getOptions()
     {
@@ -94,7 +94,7 @@ class Channel implements FilterOptionsInterface
                 }
 
                 $channels[$account->getChannel()] = true;
-                $options[] = $this->getDi()->get(
+                $options[] = $this->getDi()->newInstance(
                     Select::class,
                     [
                         'title' => htmlentities($account->getChannel(), ENT_QUOTES),
