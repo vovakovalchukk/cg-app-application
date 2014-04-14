@@ -1,8 +1,14 @@
+@import "../../zf2-v4-ui/scss/common/partials/_variables";
+
+h1.title {
+  margin-bottom: 25px;
+}
+
 span.token.empty {
-  color:#bebebe;
+  color: $color-lgrey;
 }
 
 span.token.expired {
-  color: #ec4832;
+  color: $color-red;
   font-weight: bold;
 }
