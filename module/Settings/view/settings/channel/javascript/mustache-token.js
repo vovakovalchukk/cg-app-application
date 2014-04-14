@@ -12,7 +12,7 @@ $("#<?= $tableId ?>").on("renderColumn", function(event, cgmustache, template, c
     };
 
     data.tokenStatus = function() {
-        if (data.expiryDate === null) {
+        if (data.expiryDate == undefined) {
             return "-";
         }
 

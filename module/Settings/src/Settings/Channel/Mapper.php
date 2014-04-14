@@ -8,9 +8,15 @@ use Settings\Controller\ChannelController;
 use Settings\Module;
 use Zend\Mvc\Controller\Plugin\Url;
 use DateTime;
+use Exception;
 
 class Mapper
 {
+    const STATUS_ACTIVE = 'active';
+    const STATUS_EXPIRED = 'expired';
+    const STATUS_INACTIVE = 'inactive';
+    const STATUS_DELETED = 'deleted';
+
     protected $ouStorage;
 
     public function __construct(OUStorage $ouStorage)
@@ -32,24 +38,53 @@ class Mapper
         return $this->ouStorage;
     }
 
-    public function toDataTableArray(Entity $entity, Url $urlPlugin)
+    public function toDataTableArray(Entity $entity, Url $urlPlugin, DateTime $now = null)
     {
+        if (!($now instanceof DateTime)) {
+            $now = new DateTime();
+        }
+
         $dataTableArray = $entity->toArray();
 
         unset(
             $dataTableArray['credentials'],
-            $dataTableArray['organisationUnitId']
+            $dataTableArray['organisationUnitId'],
+            $dataTableArray['expiryDate']
         );
 
+        $dataTableArray['enabled'] = $entity->getActive() && !$entity->getDeleted();
+        $dataTableArray['status'] = $this->getAccountStatus($entity);
         $dataTableArray['organisationUnit'] = $this->getOrganisationUnitCompanyName($entity->getOrganisationUnitId());
         $dataTableArray['manageLinks'] = $this->getManageLinks($entity->getId(), $urlPlugin);
 
-        $dataTableArray['expiryDate'] = $this->parseExpiryDate($entity->getExpiryDate());
-        if ($dataTableArray['expiryDate']) {
-            $dataTableArray['expiryDate'] -= time();
+        $expiryDate = $this->parseExpiryDate($entity->getExpiryDate());
+        if ($expiryDate instanceof DateTime) {
+            $dataTableArray['expiryDate'] = $expiryDate->getTimestamp() - $now->getTimestamp();
         }
 
         return $dataTableArray;
+    }
+
+    public function getAccountStatus(Entity $entity, DateTime $now = null)
+    {
+        if (!($now instanceof DateTime)) {
+            $now = new DateTime();
+        }
+
+        if ($entity->getDeleted()) {
+            return static::STATUS_DELETED;
+        }
+
+        if (!$entity->getActive()) {
+            return static::STATUS_INACTIVE;
+        }
+
+        $expiryDate = $this->parseExpiryDate($entity->getExpiryDate());
+        if ($expiryDate instanceof DateTime && $expiryDate <= $now) {
+            return static::STATUS_EXPIRED;
+        }
+
+        return static::STATUS_ACTIVE;
     }
 
     protected function getOrganisationUnitCompanyName($ouId)
@@ -82,16 +117,22 @@ class Mapper
         return $manageLinks;
     }
 
+    /**
+     * @param $expiryDate
+     * @return DateTime
+     */
     protected function parseExpiryDate($expiryDate)
     {
         if ($expiryDate instanceof DateTime) {
-            return $expiryDate->getTimestamp();
-        }
-
-        $time = strtotime($expiryDate);
-        if (!$time) {
+            return $expiryDate;
+        } else if (!$expiryDate) {
             return null;
         }
-        return $time;
+
+        try {
+            return new DateTime($expiryDate);
+        } catch (Exception $exception) {
+            return null;
+        }
     }
 }

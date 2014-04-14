@@ -146,8 +146,7 @@ return [
                 'EbayGuzzle' => GuzzleHttpClient::class,
                 'AccountList' => DataTable::class,
                 'AccountListSettings' => DataTable\Settings::class,
-                'ChannelStatusMustacheJS' => ViewModel::class,
-                'MustacheTokenStatus' => ViewModel::class,
+                'ChannelTokenStatusMustacheJS' => ViewModel::class,
                 'AccountEnableColumn' => DataTable\Column::class,
                 'AccountStatusColumn' => DataTable\Column::class,
                 'AccountChannelColumn' => DataTable\Column::class,
@@ -206,7 +205,6 @@ return [
                 ],
                 'injections' => [
                     'addChild' => [
-                        ['child' => 'ChannelStatusMustacheJS', 'captureTo' => 'javascript', 'append' => true],
                         ['child' => 'ChannelTokenStatusMustacheJS', 'captureTo' => 'javascript', 'append' => true],
                     ],
                     'addColumn' => [
@@ -227,11 +225,6 @@ return [
                 'parameters' => [
 
                 ]
-            ],
-            'ChannelStatusMustacheJS' => [
-                'parameters' => [
-                    'template' => 'settings/channel/javascript/mustache-status.js',
-                ],
             ],
             'ChannelTokenStatusMustacheJS' => [
                 'parameters' => [
