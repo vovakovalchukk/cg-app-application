@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "f16834a1eff4d0a90fc6fc01faed89a4",
+    "hash": "e70bdd0ad07434edcbcd02f3e3e98e83",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -377,22 +377,23 @@
         },
         {
             "name": "channelgrabber/account",
-            "version": "1.0.10",
+            "version": "1.0.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-account.git",
-                "reference": "6a2e44a2631d041731448dd780e7722e2f8144ee"
+                "reference": "0488edfe621d46f0d3c7401e99363b9adc36fbc1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-account-1.0.10-7a741f.zip",
-                "reference": "6a2e44a2631d041731448dd780e7722e2f8144ee",
-                "shasum": "c90f00c89bd76d4e64aa331aba8a9628b02cbf0d"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-account-1.0.12-56e56d.zip",
+                "reference": "0488edfe621d46f0d3c7401e99363b9adc36fbc1",
+                "shasum": "1b071072fbf3b81a4660f9c34196dcb91dd5eada"
             },
             "require": {
                 "channelgrabber/cache": ">=1.2.1, <1.3.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/etag": ">=1.4.1, <1.5.0",
+                "channelgrabber/permission": ">=1.0.1, <2.0.0",
                 "channelgrabber/slim": ">=1.5.5,<2.0.0",
                 "channelgrabber/stdlib": "~2.5.13",
                 "guzzle/guzzle": "~3.7",
@@ -408,7 +409,7 @@
                     "CG\\Account\\": ""
                 }
             },
-            "time": "2014-04-10 16:35:06"
+            "time": "2014-04-14 08:45:45"
         },
         {
             "name": "channelgrabber/amazon",
@@ -482,11 +483,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-1916-manage-channel-specific-forms",
+            "version": "1.1.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "94de3d0e088259333172cddddc44374e987306b8"
+                "reference": "634ce556ef34e6f8e1f80687757bc20c19e655eb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.1.5-2c3867.zip",
+                "reference": "634ce556ef34e6f8e1f80687757bc20c19e655eb",
+                "shasum": "2c58b878812b5aa0f5650d0aff507bc232a6efc4"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.0",
@@ -505,7 +512,7 @@
                     "CG\\Channel\\": ""
                 }
             },
-            "time": "2014-04-09 12:40:31"
+            "time": "2014-04-14 08:25:57"
         },
         {
             "name": "channelgrabber/constants",
@@ -943,17 +950,17 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.5.13",
+            "version": "2.5.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "d9de1db6d14ef31f3f43b64d14a960503d1a5076"
+                "reference": "760f04f7f731430b744526248cf9faacd32b9725"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.5.13-9da221.zip",
-                "reference": "d9de1db6d14ef31f3f43b64d14a960503d1a5076",
-                "shasum": "59bd387228407c98d98e1885b407bb5144624e80"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.5.16-06d263.zip",
+                "reference": "760f04f7f731430b744526248cf9faacd32b9725",
+                "shasum": "388add495c09a68794ae7ad3dd1138e3d8d7bc55"
             },
             "require": {
                 "zendframework/zend-db": "2.2.*"
@@ -970,7 +977,7 @@
                     "CG/Stdlib/Utilities.php"
                 ]
             },
-            "time": "2014-03-11 08:41:43"
+            "time": "2014-04-11 14:56:52"
         },
         {
             "name": "channelgrabber/template",
@@ -1005,17 +1012,17 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.13.10",
+            "version": "1.13.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "6400dd6ec45031663373694917d3a245820918f9"
+                "reference": "bf496db8aa0c751cded38030361ca7e211c175a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.13.10-e4f119.zip",
-                "reference": "6400dd6ec45031663373694917d3a245820918f9",
-                "shasum": "cf9ad28b49bd64545d9703c9b0b39470f6223d7b"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.13.11-98f550.zip",
+                "reference": "bf496db8aa0c751cded38030361ca7e211c175a4",
+                "shasum": "2a71a698fee29d9e6f38fe1d634363c5dddbac04"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.8",
@@ -1024,7 +1031,7 @@
                 "channelgrabber/gearman": ">=1.0.4",
                 "channelgrabber/http": "1.2.*",
                 "channelgrabber/slim": ">=1.6.0,<2.0.0",
-                "channelgrabber/stdlib": "2.5.13",
+                "channelgrabber/stdlib": ">=2.5.13,<3",
                 "channelgrabber/validation": ">=1.2.0",
                 "guzzle/guzzle": "~3.7",
                 "nocarrier/hal": "~0.9.3",
@@ -1043,7 +1050,7 @@
                     "CG": ""
                 }
             },
-            "time": "2014-04-09 14:37:30"
+            "time": "2014-04-11 15:47:14"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -1100,18 +1107,24 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "dev-CGIV-1916-manage-channel-specific-forms",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "6f5ef594c1dbeeb9fb8bbdf2618a55c39c8bc3ce"
+                "reference": "0843c899d3029d2a26091f8fd0743d7152010106"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.0-32d1d5.zip",
+                "reference": "0843c899d3029d2a26091f8fd0743d7152010106",
+                "shasum": "e126707b9398528cd9318c96e9c6e098df700460"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
                 "channelgrabber/amazon": ">=1.2.7",
-                "channelgrabber/channel": "dev-CGIV-1916-manage-channel-specific-forms as 1.1.4",
+                "channelgrabber/channel": ">=1.1.5",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/zf2-channel": "dev-CGIV-1916-manage-channel-specific-forms as 1.0.0",
+                "channelgrabber/zf2-channel": ">=1.0.0",
                 "zendframework/zend-config": "2.*",
                 "zendframework/zend-form": "2.*",
                 "zendframework/zend-loader": "2.*",
@@ -1131,18 +1144,24 @@
                 ]
             },
             "description": "Amazon module",
-            "time": "2014-04-11 10:30:39"
+            "time": "2014-04-14 08:45:28"
         },
         {
             "name": "channelgrabber/zf2-channel",
-            "version": "dev-CGIV-1916-manage-channel-specific-forms",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/channel-module.git",
-                "reference": "3149085fd9623b4b05ef5f528d0c3b583fbc1f22"
+                "reference": "ee17cc376e6dc4eaa3ff7f4c92b8e362dd81f784"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-channel-1.0.0-32fb25.zip",
+                "reference": "ee17cc376e6dc4eaa3ff7f4c92b8e362dd81f784",
+                "shasum": "d06059a78699acdbe669f226ba4cffb1c9a07a35"
             },
             "require": {
-                "channelgrabber/channel": ">=1.1.4",
+                "channelgrabber/channel": ">=1.1.5",
                 "channelgrabber/constants": "dev-master",
                 "zendframework/zend-config": "2.*",
                 "zendframework/zend-form": "2.*",
@@ -1163,21 +1182,27 @@
                 ]
             },
             "description": "Channel module",
-            "time": "2014-04-11 10:38:54"
+            "time": "2014-04-14 08:40:10"
         },
         {
             "name": "channelgrabber/zf2-ebay",
-            "version": "dev-CGIV-1916-manage-channel-specific-forms",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/ebay-module.git",
-                "reference": "2e4ec419ace9512b21c21caf790e591cf464d74f"
+                "reference": "a9870ac051547472e385f6226fd718eef70e4c2a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ebay-1.0.0-344074.zip",
+                "reference": "a9870ac051547472e385f6226fd718eef70e4c2a",
+                "shasum": "db95845c03d37513e18ca02f956ccb9f8a099057"
             },
             "require": {
-                "channelgrabber/channel": "dev-CGIV-1916-manage-channel-specific-forms as 1.1.4",
+                "channelgrabber/channel": ">=1.1.5",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/ebay": ">=1.1.10",
-                "channelgrabber/zf2-channel": "dev-CGIV-1916-manage-channel-specific-forms as 1.0.0",
+                "channelgrabber/zf2-channel": ">=1.0.0",
                 "zendframework/zend-config": "2.*",
                 "zendframework/zend-form": "2.*",
                 "zendframework/zend-loader": "2.*",
@@ -1197,7 +1222,7 @@
                 ]
             },
             "description": "Ebay module",
-            "time": "2014-04-11 10:36:03"
+            "time": "2014-04-14 08:49:16"
         },
         {
             "name": "channelgrabber/zf2-hal",
@@ -1512,11 +1537,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-1916-manage-channel-specific-forms",
+            "version": "1.4.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "d586bed9de3c7d8ab80bfff0eca27646a86cebc5"
+                "reference": "4a6ec830040fd22f378ad850eb56bfd29e89aa3b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.4.5-2f78ae.zip",
+                "reference": "4a6ec830040fd22f378ad850eb56bfd29e89aa3b",
+                "shasum": "a8bb0e62e3ca9f0dac9a7c444baf1a46b57184cf"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1544,7 +1575,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-04-11 11:12:50"
+            "time": "2014-04-14 08:20:14"
         },
         {
             "name": "cilex/cilex",
@@ -2105,16 +2136,16 @@
         },
         {
             "name": "mustache/mustache",
-            "version": "v2.5.1",
+            "version": "v2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/mustache.php.git",
-                "reference": "996c944fa2ddedddfaf0d276b913809d6a32fd85"
+                "reference": "43dc9457a2089cf86c0f7fdb79fcdc516293a4b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/mustache.php/zipball/996c944fa2ddedddfaf0d276b913809d6a32fd85",
-                "reference": "996c944fa2ddedddfaf0d276b913809d6a32fd85",
+                "url": "https://api.github.com/repos/bobthecow/mustache.php/zipball/43dc9457a2089cf86c0f7fdb79fcdc516293a4b6",
+                "reference": "43dc9457a2089cf86c0f7fdb79fcdc516293a4b6",
                 "shasum": ""
             },
             "require": {
@@ -2146,7 +2177,7 @@
                 "mustache",
                 "templating"
             ],
-            "time": "2014-01-09 00:36:09"
+            "time": "2014-04-14 01:24:40"
         },
         {
             "name": "nocarrier/hal",
@@ -3843,45 +3874,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.1.4",
-            "alias_normalized": "1.1.4.0",
-            "version": "dev-CGIV-1916-manage-channel-specific-forms",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.0.0",
-            "alias_normalized": "1.0.0.0",
-            "version": "dev-CGIV-1916-manage-channel-specific-forms",
-            "package": "channelgrabber/zf2-amazon"
-        },
-        {
-            "alias": "1.0.0",
-            "alias_normalized": "1.0.0.0",
-            "version": "dev-CGIV-1916-manage-channel-specific-forms",
-            "package": "channelgrabber/zf2-channel"
-        },
-        {
-            "alias": "1.0.0",
-            "alias_normalized": "1.0.0.0",
-            "version": "dev-CGIV-1916-manage-channel-specific-forms",
-            "package": "channelgrabber/zf2-ebay"
-        },
-        {
-            "alias": "1.4.2",
-            "alias_normalized": "1.4.2.0",
-            "version": "dev-CGIV-1916-manage-channel-specific-forms",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-amazon": 20,
-        "channelgrabber/zf2-channel": 20,
-        "channelgrabber/zf2-ebay": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },
