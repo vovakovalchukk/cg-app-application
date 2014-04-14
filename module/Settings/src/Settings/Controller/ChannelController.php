@@ -358,7 +358,7 @@ class ChannelController extends AbstractActionController
         $accountService = $this->getAccountService();
         try {
             $account = $accountService->fetch(
-                $this->params()->fromRoute('channel')
+                $this->params()->fromRoute('account')
             );
 
             $account->setActive(false)->setDeleted(true);
