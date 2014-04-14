@@ -12,9 +12,10 @@ return array (
     7 => 'CG_Register',
     8 => 'Orders',
     9 => 'Settings',
-    10 => 'CG_Amazon',
-    11 => 'CG_Ebay',
-    12 => 'CG_Channel',
+    10 => 'CG_Email_Template',
+    11 => 'CG_Amazon',
+    12 => 'CG_Ebay',
+    13 => 'CG_Channel',
   ),
   'module_listener_options' => 
   array (
