@@ -1,6 +1,6 @@
 $("#<?= $tableId ?>").on("renderColumn", function(event, cgmustache, template, column, data) {
     data.tokenClass = function() {
-        if (data.expiryDate === null) {
+        if (data.expiryDate == undefined) {
             return "empty";
         }
 
