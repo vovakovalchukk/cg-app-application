@@ -332,6 +332,7 @@ return [
                 'OrdersTableInfiniteScroll' => DataTable\InfiniteScroll::class,
                 'OrdersCheckboxColumnView' => ViewModel::class,
                 'OrdersCheckboxColumn' => DataTable\Column::class,
+                'OrdersCheckboxCheckAll' => DataTable\CheckAll::class,
                 'OrdersChannelColumnView' => ViewModel::class,
                 'OrdersChannelColumn' => DataTable\Column::class,
                 'OrdersAccountColumnView' => ViewModel::class,
@@ -439,7 +440,13 @@ return [
                     'viewModel' => 'OrdersCheckboxColumnView',
                     'class' => 'checkbox',
                     'sortable' => false,
-                    'hideable' => false
+                    'hideable' => false,
+                    'checkAll' => 'OrdersCheckboxCheckAll'
+                ],
+            ],
+            'OrdersCheckboxCheckAll' => [
+                'parameters' => [
+                    'checkboxes' => '.order-id',
                 ],
             ],
             'OrdersChannelColumnView' => [

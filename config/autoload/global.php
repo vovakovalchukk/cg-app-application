@@ -27,6 +27,7 @@ use CG\UserPreference\Client\Storage\Api as UserPreferenceStorage;
 use Zend\Session\ManagerInterface as SessionManagerInterface;
 use Zend\Session\SessionManager;
 use Orders\Order\Batch\Service as OrderBatchService;
+use Zend\ServiceManager\ServiceManager;
 
 return array(
     'service_manager' => array(
@@ -50,10 +51,9 @@ return array(
                         $im->addSharedInstance($serviceManager->get($adapter), $adapter);
                     }
                 }
-
                 $im->addSharedInstance($di, 'Zend\Di\Di');
                 $im->addSharedInstance($di->get('config', array('array' => $configuration)), 'config');
-
+                $im->addSharedInstance($serviceManager, ServiceManager::class);
                 return $di;
             }
         ),

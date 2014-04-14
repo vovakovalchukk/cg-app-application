@@ -9,21 +9,23 @@
 
 namespace Orders;
 
-use Zend\Di\Di;
 use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
 use Zend\Config\Factory as ConfigFactory;
 use Zend\Mvc\MvcEvent;
 use Zend\View\Model\ViewModel;
-use CG_UI\Layout\ViewModelFactory;
+use CG_UI\View\NavBar;
 
 class Module implements DependencyIndicatorInterface
 {
+    use NavBar\ModuleServiceTrait;
+
     const PUBLIC_FOLDER = '/channelgrabber/orders/';
 
-    public function onBootstrap(MvcEvent $e)
+    public function onBootstrap(MvcEvent $event)
     {
-        $eventManager = $e->getApplication()->getEventManager();
+        $eventManager = $event->getApplication()->getEventManager();
         $eventManager->attach(MvcEvent::EVENT_RENDER, array($this, 'layoutHandler'));
+        $eventManager->attach(MvcEvent::EVENT_RENDER, [$this->getNavBarService($event), 'appendNavBarItemsToNavBar']);
     }
 
     public function getConfig()
@@ -58,7 +60,6 @@ class Module implements DependencyIndicatorInterface
             return;
         }
         $this->renderBodyTag($viewModel);
-        $this->renderNavBar($event, $viewModel);
     }
 
     protected function renderBodyTag(ViewModel $layout)
@@ -77,44 +78,12 @@ class Module implements DependencyIndicatorInterface
     }
 
     /**
-     * @param MvcEvent $event
-     * @return ViewModel
-     */
-    protected function getHeaderViewModel(MvcEvent $event)
-    {
-        $di = $event->getApplication()->getServiceManager()->get(Di::class);
-        $viewModelFactory = $di->get(ViewModelFactory::class);
-        return $viewModelFactory->get('header');
-    }
-
-    protected function renderNavBar(MvcEvent $event, ViewModel $layout)
-    {
-        $header = $this->getHeaderViewModel($event);
-        foreach ($this->getNavBarItems() as $navBarItem) {
-            $header->addChild($navBarItem, 'navBar', true);
-        }
-    }
-
-    /**
-     * @return ViewModel[]
+     * @return NavBar\Item[]
      */
     protected function getNavBarItems()
     {
-        $navBarItemParameters = [
-            [
-                'class' => 'orders',
-                'route' => 'Orders',
-                'parameters' => [],
-                'text' => 'orders'
-            ]
+        return [
+            new NavBar\Item('orders', 'Orders', 'Orders'),
         ];
-
-        $navBarItems = [];
-        foreach ($navBarItemParameters as $navBarItemParameter) {
-            $navBarItemViewModel = new ViewModel($navBarItemParameter);
-            $navBarItemViewModel->setTemplate('orders/orders/navBarItem');
-            $navBarItems[] = $navBarItemViewModel;
-        }
-        return $navBarItems;
     }
 }

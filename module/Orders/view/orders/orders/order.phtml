@@ -28,7 +28,7 @@ require([
 <div id="breadcrumbs" class="order-breadcrumbs">
     <div class="right">
         <span><strong><?= $this->translate('Order ID'); ?>: </strong><?= $order->getExternalId(); ?></span>
-        <img src="<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER; ?>/img/logos/<?= $order->getChannel(); ?>.png" alt="<?= $order->getChannel(); ?>" />
+        <span class="logo-large <?=$order->getChannel()?>"></span>
     </div>
 </div>
 <?= $this->bulkActions ?>
