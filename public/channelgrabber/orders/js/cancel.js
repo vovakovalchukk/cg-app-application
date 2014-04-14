@@ -1,89 +1,71 @@
 define(['popup/mustache'], function(Popup) {
-    return function(notifications, reasons) {
-        var notifications = notifications;
+    var Cancel = function(notifications, reasons, type) {
+        var selector;
 
-        this.action = function(event) {
-            event.stopImmediatePropagation();
-
-            var datatable = $(this).data("datatable");
-            var orders = $(this).data("orders");
-
-            if (!orders && datatable) {
-                orders = $("#" + datatable).cgDataTable("selected", ".order-id");
-            }
-
-            if (!orders.length) {
-                return;
-            }
-
-            apply.call(
-                this,
-                orders,
-                {
-                    complete: function() {
-                        var datatable = $(this).data("datatable");
-                        if (datatable) {
-                            $("#" + datatable).cgDataTable("redraw");
-                        }
-                    }
-                }
-            );
+        this.getNotifications = function() {
+            return notifications;
         };
 
-        var apply = function(orders, ajaxSettings) {
-            var ajax = {
-                context: this,
-                url: $(this).data("url"),
+        this.getReasons = function() {
+            return reasons;
+        };
+
+        this.getType = function() {
+            return type;
+        };
+
+        this.getSelector = function() {
+            return selector;
+        };
+
+        this.setSelector = function(newSelector) {
+            selector = newSelector;
+            return this;
+        };
+    };
+
+    Cancel.prototype.action = function(element) {
+        var that = this;
+        popup = new Popup("/channelgrabber/orders/template/popups/cancelOptions.html", {
+            title: this.getType() + " Reason",
+            reasons: function(){
+                var mappedReasons = [];
+                $.each(that.getReasons(), function(key, value) {
+                    mappedReasons.push({name: value});
+                });
+                return mappedReasons;
+            },
+            type: this.getType()
+        });
+        popup.show();
+        this.listen();
+    };
+
+
+    Cancel.prototype.listen = function() {
+        var that = this;
+        $('.cancel-popup-button').click(function () {
+            that.getNotifications().notice("Cancelling order");
+            popup.hide();
+            $.ajax({
+                context: that,
+                url: $(that.getSelector()).data("url"),
                 type: "POST",
                 dataType: 'json',
                 data: {
-                    'orders': orders
+                    'orders': $(that.getSelector()).data("orders"),
+                    'reason': $('.cancel-popup-drop-down .text').html(),
+                    'type': that.getType().toLowerCase()
                 },
                 success : function(data) {
-                    if (data.cancelling) {
-                        return notifications.success("Order marked for Cancellation");
-                    } else if (!data.error) {
-                        return notifications.error("Failed to mark Order for Cancellation");
-                    }
-                    return notifications.error(data.error);
+                    return that.getNotifications().success("Order marked to be cancelled");
                 },
-                error: function(request) {
-                    try {
-                        if (request.getResponseHeader('Content-Type') != 'application/json') {
-                            throw "An Unknown Error has Occurred";
-                        }
-
-                        var response = $.parseJSON(request.responseText);
-                        if (!response.message) {
-                            throw "An Unknown Error has Occurred";
-                        }
-
-                        notifications.error(response.message);
-                    } catch (err) {
-                        notifications.error(err);
-                    }
+                error: function(error, textStatus, errorThrown) {
+                    return that.getNotifications().ajaxError(error, textStatus, errorThrown);
                 }
-            };
-
-            var popup = new Popup("/channelgrabber/orders/template/popups/cancelOptions.html", {
-                title: "Cancellation Reason",
-                reasons: function(){
-                    var mappedReasons = [];
-                    $.each(reasons, function(key, value) {
-                        mappedReasons.push({name: value});
-                    });
-                    return mappedReasons;
-                },
-                type: "Cancel"
             });
-
-            if (ajaxSettings !== undefined) {
-                $.extend(ajax, ajaxSettings);
-            }
-
-            popup.show();
-            notifications.notice("Marking Orders for Cancellation");
-            return $.ajax(ajax);
-        };
+        });
     };
+
+    return Cancel;
 });

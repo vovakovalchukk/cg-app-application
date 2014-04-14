@@ -16,7 +16,7 @@ class Cancel extends Action
         ViewModel $javascript = null,
         SplObjectStorage $subActions = null
     ) {
-        parent::__construct('cancel', 'Cancel', 'cancel', $elementData, $javascript, $subActions);
+        parent::__construct('archive', 'Cancel', 'cancel', $elementData, $javascript, $subActions);
         $this
             ->setUrlView($urlView)
             ->configure();

@@ -63,8 +63,6 @@ return [
                     BulkActions\PrintAction::class,
                     Action\Dispatch::class,
                     Action\Tag::class,
-                    BulkActions\CourierAction::class,
-                    BulkActions\AccountingAction::class,
                     Action\Cancel::class
                 ],
             ],

@@ -416,12 +416,16 @@ class OrdersController extends AbstractActionController
         $response = $this->getJsonModelFactory()->newInstance(['cancelling' => false]);
 
         $ids = $this->params()->fromPost('orders');
-        if (!is_array($ids) || empty($ids)) {
+        if (!isset($ids[0])) {
             return $response->setVariable('error', 'No Orders provided');
         }
 
         try {
-
+            $this->getOrderService()->cancelOrder(
+                $ids[0],
+                $this->params()->fromPost('reason'),
+                $this->params()->fromPost('type')
+            );
         } catch (RpcBatchException $batchException) {
             $requestedOrderIds = array_fill_keys($ids, true);
 
@@ -443,6 +447,9 @@ class OrdersController extends AbstractActionController
                 'error',
                 'Failed to mark the following orders for cancellation: ' . implode(', ', $failedOrderIds)
             );
+        } catch (\Exception $e) {
+            echo $e->getPrevious()->getMessage();
+            exit;
         }
 
         return $response->setVariable('cancelling', true);
