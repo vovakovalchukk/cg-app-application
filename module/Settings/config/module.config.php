@@ -223,7 +223,8 @@ return [
             ],
             'AccountListSettings' => [
                 'parameters' => [
-
+                    'scrollHeightAuto' => true,
+                    'footer' => false,
                 ]
             ],
             'ChannelTokenStatusMustacheJS' => [
