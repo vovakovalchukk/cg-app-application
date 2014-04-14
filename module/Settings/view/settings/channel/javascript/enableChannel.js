@@ -2,7 +2,7 @@ require(
     ["ajaxCheckbox", "mustache"],
     function(AjaxCheckbox, Mustache) {
         var ajaxCheckbox = new AjaxCheckbox(n, "#<?= $tableId ?>", "input.toggle", {
-            url: "<?= urldecode($this->url($route, ['channel' => '{{id}}'])) ?>"
+            url: "<?= urldecode($this->url($route, ['account' => '{{id}}'])) ?>"
         });
 
         ajaxCheckbox.bindAjax(function() {

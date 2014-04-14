@@ -5,9 +5,9 @@ use Zend\Di\Di;
 use Orders\Order\Service as OrderService;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection;
+use CG\Stdlib\DateTime;
 use Orders\Order\Invoice\Template\Factory as TemplateFactory;
 use Orders\Order\Invoice\Renderer\ServiceInterface as RendererService;
-use CG\Http\Exception\Exception3xx\NotModified;
 
 class Service
 {
@@ -118,7 +118,7 @@ class Service
         $now = time();
         foreach ($orderCollection as $order) {
             $this->getOrderService()->saveOrder(
-                $order->setPrintedDate(date('Y-m-d H:i:s', $now))
+                $order->setPrintedDate(date(DateTime::Format, $now))
             );
         }
     }
