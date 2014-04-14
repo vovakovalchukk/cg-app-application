@@ -184,7 +184,8 @@ return [
                                         'title' => 'Yes'
                                     ],
                                     [
-                                        'title' => 'No'
+                                        'title' => 'No',
+                                        'selected' => true
                                     ],
                                 ]
                             ],
