@@ -2,10 +2,10 @@
 namespace Orders\Order;
 
 use CG\Stdlib\Exception\Runtime\NotFound;
-use CG_UI\View\Filters\FilterOptionsInterface;
+use CG_UI\View\Filters\FilterSelectOptionsInterface;
 use CG\User\ActiveUserInterface;
 
-class CountryService implements FilterOptionsInterface
+class CountryService implements FilterSelectOptionsInterface
 {
     protected $activeUserContainer;
 
@@ -14,10 +14,10 @@ class CountryService implements FilterOptionsInterface
         $this->setActiveUserContainer($activeUserContainer);
     }
 
-    public function getOptions()
+    public function getSelectOptions()
     {
         try {
-            return $this->getActiveUserCurrencies();
+            return array_flip($this->getActiveUserCurrencies());
         } catch (NotFound $e) {
             return [];
         }
