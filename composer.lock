@@ -381,7 +381,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-account.git",
-                "reference": "cbb54c861f1a938b169338507b26402a1d843e86"
+                "reference": "a260a6c34dc0730ebd021a9e4fe32437861eb48a"
             },
             "require": {
                 "channelgrabber/cache": ">=1.2.1, <1.3.0",
@@ -403,7 +403,7 @@
                     "CG\\Account\\": ""
                 }
             },
-            "time": "2014-04-14 15:25:22"
+            "time": "2014-04-14 15:39:12"
         },
         {
             "name": "channelgrabber/amazon",
