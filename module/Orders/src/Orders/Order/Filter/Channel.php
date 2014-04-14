@@ -1,23 +1,20 @@
 <?php
 namespace Orders\Order\Filter;
 
-use CG_UI\View\Filters\FilterOptionsInterface;
+use CG_UI\View\Filters\FilterSelectOptionsInterface;
 use CG\User\ActiveUserInterface;
 use CG\User\Entity as User;
 use CG\Account\Client\Service as AccountService;
-use Zend\Di\Di;
-use CG_UI\View\Filters\Options\Select;
 use CG\Stdlib\Exception\Runtime\NotFound;
 
-class Channel implements FilterOptionsInterface
+class Channel implements FilterSelectOptionsInterface
 {
     protected $activeUserContainer;
     protected $accountService;
-    protected $di;
 
-    public function __construct(ActiveUserInterface $activeUserContainer, AccountService $accountService, Di $di)
+    public function __construct(ActiveUserInterface $activeUserContainer, AccountService $accountService)
     {
-        $this->setActiveUserContainer($activeUserContainer)->setAccountService($accountService)->setDi($di);
+        $this->setActiveUserContainer($activeUserContainer)->setAccountService($accountService);
     }
 
     public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
@@ -56,20 +53,6 @@ class Channel implements FilterOptionsInterface
         return $this->accountService;
     }
 
-    public function setDi(Di $di)
-    {
-        $this->di = $di;
-        return $this;
-    }
-
-    /**
-     * @return Di
-     */
-    public function getDi()
-    {
-        return $this->di;
-    }
-
     protected function getAccounts(User $user)
     {
         return $this->getAccountService()->fetchByOU(
@@ -79,27 +62,18 @@ class Channel implements FilterOptionsInterface
     }
 
     /**
-     * @return Select[] array of options to be added to filter
+     * {@inherit}
      */
-    public function getOptions()
+    public function getSelectOptions()
     {
         $options = [];
         try {
             $accounts = $this->getAccounts($this->getActiveUser());
-
-            $channels = [];
             foreach ($accounts as $account) {
-                if (isset($channels[$account->getChannel()])) {
+                if (isset($options[$account->getChannel()])) {
                     continue;
                 }
-
-                $channels[$account->getChannel()] = true;
-                $options[] = $this->getDi()->newInstance(
-                    Select::class,
-                    [
-                        'title' => htmlentities($account->getChannel(), ENT_QUOTES),
-                    ]
-                );
+                $options[$account->getChannel()] = $account->getChannel();
             }
         } catch (NotFound $exception) {
             // No accounts means no channels so ignore
