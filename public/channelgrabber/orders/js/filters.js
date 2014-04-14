@@ -24,6 +24,8 @@ define(
         Filters.prototype.activateFilter = function(listElement) {
             var filter = $(listElement).data("filter");
 
+            this.getFilters().trigger("reset");
+
             this.getFilters().find(".more a[data-filter-name]").each(function() {
                 var checked = $(this).find(":checkbox").is(":checked");
                 var selected = ($.inArray($(this).data("filter-name"), filter.optional) >= 0);
@@ -41,7 +43,7 @@ define(
                 $(this).val(filter.filters[name]);
             });
 
-            this.getFilters().find("[data-action='apply-filters']").click();
+            this.getFilters().trigger("apply");
         };
 
         return Filters;
