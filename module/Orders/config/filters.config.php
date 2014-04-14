@@ -168,7 +168,27 @@ return [
                                 'isOptional' => true,
                                 'id' => ''
                             ]
-                        ]
+                        ],
+                        [
+                            'template' => 'elements/custom-select.mustache',
+                            'visible' => false,
+                            'variables' => [
+                                'filterName' => 'archived',
+                                'title' => 'Show Archived',
+                                'isOptional' => true,
+                                'options' => [
+                                    [
+                                        'title' => 'All'
+                                    ],
+                                    [
+                                        'title' => 'Yes'
+                                    ],
+                                    [
+                                        'title' => 'No'
+                                    ],
+                                ]
+                            ],
+                        ],
                     ]
                 ],
             ],
