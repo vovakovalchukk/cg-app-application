@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "4458a51b1937f93f838d20d3b37f49ca",
+    "hash": "4a98a804f8a7e5f00d24058ea49cce3a",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -1343,17 +1343,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.4.3",
+            "version": "dev-CGIV-1831-filter-more-button",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "50e93fb90e14302a2251d2b8ca5d7f49bc6d4935"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.4.3-eea883.zip",
-                "reference": "50e93fb90e14302a2251d2b8ca5d7f49bc6d4935",
-                "shasum": "8d25a1545bd16592762c221b6170e8bb695541cf"
+                "reference": "533e47d55f73bfdaaf28f3b6e8f457bc4bc1d8b3"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1381,7 +1375,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-04-10 12:47:51"
+            "time": "2014-04-14 09:44:57"
         },
         {
             "name": "cilex/cilex",
@@ -1666,9 +1660,7 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "A simple PHP Web Scraper",
@@ -2739,8 +2731,7 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com",
-                    "role": "Developer"
+                    "homepage": "http://benramsey.com"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
@@ -3685,11 +3676,17 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.4.6",
+            "alias_normalized": "1.4.6.0",
+            "version": "dev-CGIV-1831-filter-more-button",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },
