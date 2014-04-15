@@ -164,17 +164,6 @@ class ChannelController extends AbstractActionController
         return $accountList;
     }
 
-    protected function basePath()
-    {
-        $config = $this->getServiceLocator()->get('Config');
-        if (isset($config['view_manager'], $config['view_manager']['base_path'])) {
-            return $config['view_manager']['base_path'];
-        }
-        else {
-            return $this->getServiceLocator()->get('Request')->getBasePath();
-        }
-    }
-
     protected function getAccountListTemplates()
     {
         $templateUrlMap = [];
