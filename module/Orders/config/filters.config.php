@@ -1,6 +1,7 @@
 <?php
 use Orders\Order\FilterService;
 use Orders\Order\TableService\OrdersTableTagColumns;
+use Orders\Order\Filter\Channel;
 
 return [
     'di' => [
@@ -169,6 +170,19 @@ return [
                                 'isOptional' => true,
                                 'id' => ''
                             ]
+                        ],
+                        [
+                            'type' => 'customSelectGroup',
+                            'visible' => false,
+                            'variables' => [
+                                'filterName' => 'channel',
+                                'title' => 'Channel',
+                                'searchField' => true,
+                                'isOptional' => true,
+                                'concatenate' => true,
+                                'options' => []
+                            ],
+                            'optionsProvider' => Channel::class,
                         ],
                         [
                             'type' => 'customSelectGroup',

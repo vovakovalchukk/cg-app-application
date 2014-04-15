@@ -1,0 +1,80 @@
+<?php
+namespace Orders\Order\Filter;
+
+use CG_UI\View\Filters\FilterSelectOptionsInterface;
+use CG\User\ActiveUserInterface;
+use CG\User\Entity as User;
+use CG\Account\Client\Service as AccountService;
+use CG\Stdlib\Exception\Runtime\NotFound;
+
+class Channel implements FilterSelectOptionsInterface
+{
+    protected $activeUserContainer;
+    protected $accountService;
+
+    public function __construct(ActiveUserInterface $activeUserContainer, AccountService $accountService)
+    {
+        $this->setActiveUserContainer($activeUserContainer)->setAccountService($accountService);
+    }
+
+    public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
+    {
+        $this->activeUserContainer = $activeUserContainer;
+        return $this;
+    }
+
+    /**
+     * @return ActiveUserInterface
+     */
+    public function getActiveUserContainer()
+    {
+        return $this->activeUserContainer;
+    }
+
+    /**
+     * @return User
+     */
+    public function getActiveUser()
+    {
+        return $this->getActiveUserContainer()->getActiveUser();
+    }
+
+    public function setAccountService(AccountService $accountService)
+    {
+        $this->accountService = $accountService;
+        return $this;
+    }
+
+    /**
+     * @return AccountService
+     */
+    public function getAccountService()
+    {
+        return $this->accountService;
+    }
+
+    /**
+     * {@inherit}
+     */
+    public function getSelectOptions()
+    {
+        $options = [];
+        try {
+            $accounts = $this->getAccountService()->fetchByOU(
+                $this->getActiveUser()->getOuList(),
+                'all'
+            );
+
+            foreach ($accounts as $account) {
+                if (isset($options[$account->getChannel()])) {
+                    continue;
+                }
+
+                $options[$account->getChannel()] = $account->getChannel();
+            }
+        } catch (NotFound $exception) {
+            // No accounts means no channels so ignore
+        }
+        return $options;
+    }
+}

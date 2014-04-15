@@ -1,5 +1,8 @@
 {
-    "provide": {"ext-mongo": "*", "ext-gearman": "*"},
+    "provide": {
+        "ext-mongo": "*",
+        "ext-gearman": "*"
+    },
     "repositories": [
         {
             "type": "git",
@@ -29,7 +32,8 @@
         }
     },
     "require": {
-        "channelgrabber/channel": "1.1.4",
+        "channelgrabber/channel": "~1.1.4",
+        "channelgrabber/account": "~1.0.12",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/http": "~1.2.9",
         "channelgrabber/order": "~1.5.0",
