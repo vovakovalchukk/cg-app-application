@@ -1,36 +1,25 @@
+require.config({
+    paths: {
+        enableChannel: "<?= Settings\Module::PUBLIC_FOLDER ?>js/enableChannel"
+    }
+});
+
 require(
-    ["ajaxCheckbox", "mustache"],
-    function(AjaxCheckbox, Mustache) {
-        var ajaxCheckbox = new AjaxCheckbox(n, "#<?= $tableId ?>", "input.toggle", {
-            url: "<?= urldecode($this->url($route, ['account' => '{{id}}'])) ?>"
-        });
-
-        ajaxCheckbox.bindAjax(function() {
-            ajaxCheckbox.getNotifications().notice("<?= $this->translate('Updating Sales Channel Status') ?>");
-        });
-
-        ajaxCheckbox.bindAjax(function(event, ajaxOptions) {
-            var id = $(this).data("id");
-            if (!id) {
-                return;
+    ["enableChannel"],
+    function(enableChannel) {
+        var ajaxCheckbox = enableChannel(
+            n,
+            "#<?= $tableId ?>",
+            "input.toggle",
+            {
+                url: "<?= urldecode($this->url($route, ['account' => '{{id}}'])) ?>"
+            },
+            {
+                info: "<?= $this->translate('Updating Sales Channel Status') ?>",
+                error: "<?= $this->translate('Updating Sales Channel Status') ?>",
+                success: "<?= $this->translate('Sales Channel Status Updated') ?>"
             }
-            ajaxOptions.url = Mustache.render(ajaxOptions.url, {id: id});
-        });
-
-        ajaxCheckbox.bindAjaxError(function() {
-            $(this).prop("checked", !$(this).is(":checked"));
-        });
-
-        ajaxCheckbox.bindAjaxResponse(function(event, data) {
-            var notifications = ajaxCheckbox.getNotifications();
-
-            if (!data.updated) {
-                notifications.error("<?= $this->translate('Updating Sales Channel Status') ?>");
-                return;
-            }
-
-            notifications.success("<?= $this->translate('Sales Channel Status Updated') ?>");
-        });
+        );
 
         ajaxCheckbox.bindAjaxResponse(function(event, data) {
             if (!data.account) {
