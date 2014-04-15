@@ -14,8 +14,12 @@ $(document).ready(function()
     </div>
 </div>
 <div class="module clearfix">
-    <form class="single-row">
+    <form class="account-status single-row">
         <label>Enable Account:</label>
+        <div class="mustache">
+            <?= $this->mustache('columns/enable.mustache', ['id' => $account->getId(), 'enabled' => true]) ?>
+            <?= $this->mustache('columns/status.mustache', ['status' => 'active']) ?>
+        </div>
     </form>
 </div>
 <div id="manage-account-channel-form" class="module clearfix section-separator">

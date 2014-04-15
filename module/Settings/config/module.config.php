@@ -138,6 +138,7 @@ return [
     'view_manager' => [
         'template_path_stack' => [
             dirname(__DIR__) . '/view',
+            dirname(dirname(dirname(__DIR__))) . '/public' . Module::PUBLIC_FOLDER . 'template',
         ],
         'template_map' => [
             ChannelController::ACCOUNT_TEMPLATE => dirname(__DIR__) . '/view/settings/channel/account.phtml',
