@@ -1,3 +1,4 @@
+<?php $this->headLink()->appendStylesheet($this->basePath() . Settings\Module::PUBLIC_FOLDER . 'css/channel.css') ?>
 <?php $this->headScript()->captureStart(); ?>
 $(document).ready(function()
 {
@@ -14,12 +15,14 @@ $(document).ready(function()
     </div>
 </div>
 <div class="module clearfix">
-    <form class="account-status single-row">
-        <label>Enable Account:</label>
-        <div class="mustache">
-            <?= $this->mustache('columns/enable.mustache', $account) ?>
-            <?= $this->mustache('columns/status.mustache', $account) ?>
-        </div>
+    <form class="account-status">
+        <label>
+            <span>Enable Account:</span>
+            <div class="alternate-input mustache">
+                <?= $this->mustache('columns/enable.mustache', $account) ?>
+                <?= $this->mustache('columns/status.mustache', $account) ?>
+            </div>
+        </label>
     </form>
 </div>
 <div id="manage-account-channel-form" class="module clearfix section-separator">
