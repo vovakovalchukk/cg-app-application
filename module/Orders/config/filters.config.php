@@ -18,7 +18,7 @@ return [
                     'type' => 'Row',
                     'filters' => [
                         [
-                            'template' => 'elements/date-range.mustache',
+                            'type' => 'date-range',
                             'variables' => [
                                 'filterName' => 'purchaseDate',
                                 'time' => [
@@ -58,7 +58,7 @@ return [
                             ]
                         ],
                         [
-                            'template' => 'elements/custom-select-group.mustache',
+                            'type' => 'customSelectGroup',
                             'variables' => [
                                 'filterName' => 'status',
                                 'title' => 'Status',
@@ -79,7 +79,7 @@ return [
                             ],
                         ],
                         [
-                            'template' => 'elements/text.mustache',
+                            'type' => 'text',
                             'variables' => [
                                 'filterName' => 'search',
                                 'placeholder' => 'Search for...',
@@ -88,7 +88,7 @@ return [
                             ],
                         ],
                         [
-                            'template' => 'elements/more.mustache',
+                            'type' => 'more',
                             'variables' => [
                                 'title' => 'More',
                                 'class' => 'more',
@@ -96,7 +96,7 @@ return [
                             ],
                         ],
                         [
-                            'template' => 'elements/buttons.mustache',
+                            'type' => 'buttons',
                             'variables' => [
                                 'buttons' => [
                                     [
@@ -123,7 +123,7 @@ return [
                     'type' => 'Row',
                     'filters' => [
                         [
-                            'template' => 'elements/custom-select-group.mustache',
+                            'type' => 'customSelectGroup',
                             'visible' => true,
                             'variables' => [
                                 'filterName' => 'shippingAddressCountry',
@@ -160,7 +160,7 @@ return [
                             ],
                         ],
                         [
-                            'template' => 'elements/number-range.mustache',
+                            'type' => 'numberRange',
                             'visible' => true,
                             'variables' => [
                                 'filterName' => 'total',
@@ -170,7 +170,7 @@ return [
                             ]
                         ],
                         [
-                            'template' => 'elements/custom-select.mustache',
+                            'type' => 'customSelect',
                             'visible' => false,
                             'variables' => [
                                 'filterName' => 'archived',
