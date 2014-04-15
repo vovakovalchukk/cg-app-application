@@ -1,5 +1,20 @@
+<?php
+use Settings\Module;
+use Settings\Controller\ChannelController;
+$enableChannelRoute = implode(
+    '/',
+    [
+        Module::ROUTE,
+        ChannelController::ROUTE,
+        ChannelController::ACCOUNT_ROUTE,
+        ChannelController::ACCOUNT_STATUS_ROUTE,
+    ]
+);
+?>
 <?php $this->headLink()->appendStylesheet($this->basePath() . Settings\Module::PUBLIC_FOLDER . 'css/channel.css') ?>
-<?php $this->headScript()->captureStart(); ?>
+<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
+<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
+<?php $this->inlineScript()->captureStart(); ?>
 $(document).ready(function()
 {
     $('#account_details_form').submit(function()
@@ -7,11 +22,54 @@ $(document).ready(function()
         n.notice('Updating channel account');
     });
 });
-<?php $this->headScript()->captureEnd(); ?>
+
+require.config({
+    paths: {
+        enableChannel: "<?= Settings\Module::PUBLIC_FOLDER ?>js/enableChannel"
+    }
+});
+
+require(
+    ["enableChannel"],
+    function(enableChannel) {
+        var ajaxCheckbox = enableChannel(
+            n,
+            ".account-status .mustache",
+            "input.toggle",
+            {
+                url: "<?= $this->url($enableChannelRoute, ['account' => $account['id']]) ?>"
+            },
+            {
+                info: "<?= $this->translate('Updating Sales Channel Status') ?>",
+                error: "<?= $this->translate('Updating Sales Channel Status') ?>",
+                success: "<?= $this->translate('Sales Channel Status Updated') ?>"
+            }
+        );
+
+        CGMustache.get().fetchTemplates(
+            {
+                enable: "<?= Module::PUBLIC_FOLDER ?>template/columns/enable.mustache",
+                status: "<?= Module::PUBLIC_FOLDER ?>template/columns/status.mustache"
+            },
+            function(template, cgmustache) {
+                ajaxCheckbox.bindAjaxResponse(function(event, data) {
+                    if (!data.account) {
+                        return;
+                    }
+
+                    var status = $(ajaxCheckbox.getBaseSelector()).empty();
+                    status.append(cgmustache.renderTemplate(template, data.account, "enable"));
+                    status.append(cgmustache.renderTemplate(template, data.account, "status"));
+                });
+            }
+        );
+    }
+);
+<?php $this->inlineScript()->captureEnd(); ?>
 <div id="breadcrumbs">
     <h1><?= $account['displayName'] ?></h1>
     <div class="right">
-        <span class="logo-large <?= $account['channel'] ?>"><?= $account['channel'] ?></span>
+        <span class="logo-large <?= $account['channel'] ?>"></span>
     </div>
 </div>
 <div class="module clearfix">
