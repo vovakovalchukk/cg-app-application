@@ -29,9 +29,10 @@
         }
     },
     "require": {
+        "channelgrabber/channel": "1.1.4",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/http": "~1.2.9",
-        "channelgrabber/order": "~1.4.9",
+        "channelgrabber/order": "~1.5.0",
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/sso": "~1.1.2",
