@@ -256,5 +256,40 @@ return [
                 ],
             ],
         ],
+        'stateFilters' => [
+            [
+                'name' => 'New Orders',
+                'filter' => json_encode(
+                    [
+                        'filters' => [
+                            'status' => 'New'
+                        ],
+                        'optional' => []
+                    ]
+                )
+            ],
+            [
+                'name' => 'Processing',
+                'filter' => json_encode(
+                    [
+                        'filters' => [
+                            'status' => 'Processing'
+                        ],
+                        'optional' => []
+                    ]
+                )
+            ],
+            [
+                'name' => 'Dispatched',
+                'filter' => json_encode(
+                    [
+                        'filters' => [
+                            'status' => 'Dispatched'
+                        ],
+                        'optional' => []
+                    ]
+                )
+            ],
+        ],
     ],
 ];

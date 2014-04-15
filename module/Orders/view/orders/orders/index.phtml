@@ -6,27 +6,32 @@ $("#datatable").on("fnServerData", function(event, sSource, aoData, fnCallback, 
     aoData.push({"name": "filter[batch]", "value": $('#hidden_batch_filter').val()});
 });
 
-$("#filters input[name='apply-filters']").on("click", function() {
+$("#filters").on("apply", function() {
     $("#datatable").cgDataTable("redraw");
+}).on("reset", function() {
+    $("#filters :input").not(":button").val(undefined);
+    $("#filters :checkbox").prop("checked", false);
+    $("#filters .custom-select .selected-content").html("Select");
+});
+
+$("#filters input[name='apply-filters']").on("click", function() {
+    $("#filters").trigger("apply");
 });
 
 $("#filters input[name='clear-filters']").on("click", function() {
-    clearFilters();
+    $("#filters").trigger("reset");
     $('#hidden_batch_filter').val("");
-    $("#datatable").cgDataTable("redraw");
+    $("#filters").trigger("apply");
 });
 
 function batchFilter(batchId) {
-    clearFilters();
+    $("#filters").trigger("reset");
     $('#hidden_batch_filter').val(batchId);
-    $("#datatable").cgDataTable("redraw");
+    $("#filters").trigger("apply");
 }
 
 function clearFilters() {
-    $("#filters input[name][type!='button']").val(undefined);
-    $("#filters select[name]").val(undefined);
-    $("#filters input[type=checkbox]").attr('checked', false);
-    $(".custom-select .selected-content").html("Select");
+    $("#filters").trigger("reset");
 }
 
 $(document).on('click', '.batch-filter', function(e) {
@@ -56,7 +61,12 @@ function(Preference, SlideableSidebar, OrderPage) {
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/jquery/cg-pjax.js'); ?>
 <?php $this->placeholder('#main.class')->append('full-width'); ?>
 <?php $this->placeholder('#sub-header')->append($filters); ?>
-<?php $this->placeholder('#sidebar')->append($batches); ?>
+<?php
+$this->placeholder('#sidebar')
+    ->append($this->statusFiltersSidebar)
+    ->append($this->storedFiltersSidebar)
+    ->append($this->batches);
+?>
 <?php $this->headLink()->appendStylesheet($this->basePath() . Orders\Module::PUBLIC_FOLDER . 'css/orders.css') ?>
 <div id="main" class="module clearfix<?= $this->placeholder('#main.class')->setPrefix(' ')->setIndent(1) ?>">
 <?= $this->breadcrumbs; ?>
