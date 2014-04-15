@@ -53,38 +53,16 @@ class Mapper
         );
 
         $dataTableArray['enabled'] = $entity->getActive() && !$entity->getDeleted();
-        $dataTableArray['status'] = $this->getAccountStatus($entity);
+        $dataTableArray['status'] = $entity->getStatus($now);
         $dataTableArray['organisationUnit'] = $this->getOrganisationUnitCompanyName($entity->getOrganisationUnitId());
         $dataTableArray['manageLinks'] = $this->getManageLinks($entity->getId(), $urlPlugin);
 
-        $expiryDate = $this->parseExpiryDate($entity->getExpiryDate());
+        $expiryDate = $entity->getExpiryDateAsDateTime();
         if ($expiryDate instanceof DateTime) {
             $dataTableArray['expiryDate'] = $expiryDate->getTimestamp() - $now->getTimestamp();
         }
 
         return $dataTableArray;
-    }
-
-    public function getAccountStatus(Entity $entity, DateTime $now = null)
-    {
-        if (!($now instanceof DateTime)) {
-            $now = new DateTime();
-        }
-
-        if ($entity->getDeleted()) {
-            return static::STATUS_DELETED;
-        }
-
-        if (!$entity->getActive()) {
-            return static::STATUS_INACTIVE;
-        }
-
-        $expiryDate = $this->parseExpiryDate($entity->getExpiryDate());
-        if ($expiryDate instanceof DateTime && $expiryDate <= $now) {
-            return static::STATUS_EXPIRED;
-        }
-
-        return static::STATUS_ACTIVE;
     }
 
     protected function getOrganisationUnitCompanyName($ouId)
@@ -115,24 +93,5 @@ class Mapper
         }
 
         return $manageLinks;
-    }
-
-    /**
-     * @param $expiryDate
-     * @return DateTime
-     */
-    protected function parseExpiryDate($expiryDate)
-    {
-        if ($expiryDate instanceof DateTime) {
-            return $expiryDate;
-        } else if (!$expiryDate) {
-            return null;
-        }
-
-        try {
-            return new DateTime($expiryDate);
-        } catch (Exception $exception) {
-            return null;
-        }
     }
 }
