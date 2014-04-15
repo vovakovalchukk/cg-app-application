@@ -229,7 +229,7 @@ class ChannelController extends AbstractActionController
         $accountEntity = $this->getService()->getAccount($id);
         $view = $this->newViewModel();
         $view->setTemplate(static::ACCOUNT_TEMPLATE);
-        $view->setVariable('account', $accountEntity);
+        $view->setVariable('account', $this->getMapper()->toDataTableArray($accountEntity, $this->url()));
 
         $this->addAccountsChannelSpecificView($accountEntity, $view)
             ->addAccountDetailsForm($accountEntity, $view)

@@ -8,17 +8,17 @@ $(document).ready(function()
 });
 <?php $this->headScript()->captureEnd(); ?>
 <div id="breadcrumbs">
-    <h1><?= $account->getDisplayName(); ?></h1>
+    <h1><?= $account['displayName'] ?></h1>
     <div class="right">
-        <span class="logo-large <?=$account->getChannel()?>"></span>
+        <span class="logo-large <?= $account['channel'] ?>"><?= $account['channel'] ?></span>
     </div>
 </div>
 <div class="module clearfix">
     <form class="account-status single-row">
         <label>Enable Account:</label>
         <div class="mustache">
-            <?= $this->mustache('columns/enable.mustache', ['id' => $account->getId(), 'enabled' => true]) ?>
-            <?= $this->mustache('columns/status.mustache', ['status' => 'active']) ?>
+            <?= $this->mustache('columns/enable.mustache', $account) ?>
+            <?= $this->mustache('columns/status.mustache', $account) ?>
         </div>
     </form>
 </div>
