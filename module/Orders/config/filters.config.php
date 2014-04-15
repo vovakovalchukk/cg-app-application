@@ -199,7 +199,7 @@ return [
                             'optionsProvider' => Account::class,
                         ],
                         [
-                            'template' => 'elements/custom-select-group.mustache',
+                            'type' => 'customSelectGroup',
                             'visible' => false,
                             'variables' => [
                                 'filterName' => 'tags',
