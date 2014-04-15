@@ -9,8 +9,9 @@ use CG\Order\Shared\Tag\StorageInterface as TagStorage;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Order\Shared\Tag\Entity as Tag;
 use Zend\View\Model\ViewModel;
+use CG_UI\View\Filters\FilterSelectOptionsInterface;
 
-class OrdersTableTagColumns implements OrdersTableModifierInterface
+class OrdersTableTagColumns implements OrdersTableModifierInterface, FilterSelectOptionsInterface
 {
     protected $di;
     protected $activeUserContainer;
@@ -36,6 +37,9 @@ class OrdersTableTagColumns implements OrdersTableModifierInterface
         return $this;
     }
 
+    /**
+     * @return Di
+     */
     public function getDi()
     {
         return $this->di;
@@ -88,15 +92,39 @@ class OrdersTableTagColumns implements OrdersTableModifierInterface
         return $this->javascript;
     }
 
+    protected function getActiveUserTags()
+    {
+        return $this->getTagClient()->fetchCollectionAll(
+            1,
+            'all',
+            $this->getActiveUser()->getOuList(),
+            []
+        );
+    }
+
+    /**
+     * {@inherit}
+     */
+    public function getSelectOptions()
+    {
+        $options = [];
+
+        try {
+            $tags = $this->getActiveUserTags();
+            foreach ($tags as $tag) {
+                $options[$tag->getTag()] = $tag->getTag();
+            }
+        } catch (NotFound $exception) {
+            // No Tags -- Nothing to do
+        }
+
+        return $options;
+    }
+
     public function modifyTable(DataTable $ordersTable)
     {
         try {
-            $tags = $this->getTagClient()->fetchCollectionAll(
-                1,
-                'all',
-                $this->getActiveUser()->getOuList(),
-                []
-            );
+            $tags = $this->getActiveUserTags();
 
             foreach ($tags as $tag) {
                 $this->addTagColumn($ordersTable, $tag);

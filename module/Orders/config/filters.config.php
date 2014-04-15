@@ -1,5 +1,6 @@
 <?php
 use Orders\Order\FilterService;
+use Orders\Order\TableService\OrdersTableTagColumns;
 
 return [
     'di' => [
@@ -168,6 +169,19 @@ return [
                                 'isOptional' => true,
                                 'id' => ''
                             ]
+                        ],
+                        [
+                            'type' => 'customSelectGroup',
+                            'visible' => false,
+                            'variables' => [
+                                'filterName' => 'tags',
+                                'title' => 'Tags',
+                                'searchField' => true,
+                                'isOptional' => true,
+                                'concatenate' => true,
+                                'options' => []
+                            ],
+                            'optionsProvider' => OrdersTableTagColumns::class,
                         ],
                         [
                             'type' => 'customSelect',
