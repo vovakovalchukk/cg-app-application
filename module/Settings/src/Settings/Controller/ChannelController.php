@@ -22,7 +22,6 @@ use Zend\I18n\Translator\Translator;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Account\Client\Service as AccountService;
 use CG\User\Entity as User;
-use DirectoryIterator;
 
 class ChannelController extends AbstractActionController
 {
@@ -178,19 +177,15 @@ class ChannelController extends AbstractActionController
 
     protected function getAccountListTemplates()
     {
-        $templateUrlMap = [];
-        $webRoot = PROJECT_ROOT . '/public';
-
-        $templates = new DirectoryIterator($webRoot . Module::PUBLIC_FOLDER . 'template/columns');
-        foreach ($templates as $template) {
-            if (!$template->isFile()) {
-                continue;
-            }
-            $templateUrlMap[$template->getBasename('.html')]
-                = $this->basePath() . str_replace($webRoot, '', $template->getPathname());
-        }
-
-        return $templateUrlMap;
+        return [
+            'account' => $this->basePath() . Module::PUBLIC_FOLDER . 'template/columns/account.html',
+            'channel' => $this->basePath() . Module::PUBLIC_FOLDER . 'template/columns/channel.html',
+            'enable' => $this->basePath() . Module::PUBLIC_FOLDER . 'template/columns/enable.mustache',
+            'manage' => $this->basePath() . Module::PUBLIC_FOLDER . 'template/columns/manage.html',
+            'status' => $this->basePath() . Module::PUBLIC_FOLDER . 'template/columns/status.mustache',
+            'tokenStatus' => $this->basePath() . Module::PUBLIC_FOLDER . 'template/columns/tokenStatus.html',
+            'tradingCompany' => $this->basePath() . Module::PUBLIC_FOLDER . 'template/columns/tradingCompany.html',
+        ];
     }
 
     public function listAjaxAction()
