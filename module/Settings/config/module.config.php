@@ -142,7 +142,7 @@ return [
             'preferences' => [
                 AccountStorageInterface::class => AccountApiStorage::class,
                 OUStorageInterface::class => OUApiStorage::class,
-                LoggerInterface::class => CG\Log\Logger::class
+                LoggerInterface::class => Logger::class
             ],
             'aliases' => [
                 'EbayGuzzle' => GuzzleHttpClient::class,
