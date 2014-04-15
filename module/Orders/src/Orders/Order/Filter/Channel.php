@@ -53,6 +53,14 @@ class Channel implements FilterSelectOptionsInterface
         return $this->accountService;
     }
 
+    protected function getAccounts(User $user)
+    {
+        return $this->getAccountService()->fetchByOU(
+            $user->getOuList(),
+            'all'
+        );
+    }
+
     /**
      * {@inherit}
      */
@@ -60,16 +68,11 @@ class Channel implements FilterSelectOptionsInterface
     {
         $options = [];
         try {
-            $accounts = $this->getAccountService()->fetchByOU(
-                $this->getActiveUser()->getOuList(),
-                'all'
-            );
-
+            $accounts = $this->getAccounts($this->getActiveUser());
             foreach ($accounts as $account) {
                 if (isset($options[$account->getChannel()])) {
                     continue;
                 }
-
                 $options[$account->getChannel()] = $account->getChannel();
             }
         } catch (NotFound $exception) {
