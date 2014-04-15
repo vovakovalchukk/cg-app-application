@@ -219,7 +219,7 @@ return [
                             ],
                         ],
                         [
-                            'template' => 'elements/custom-select.mustache',
+                            'type' => 'customSelect',
                             'visible' => false,
                             'variables' => [
                                 'filterName' => 'buyerMessage',
