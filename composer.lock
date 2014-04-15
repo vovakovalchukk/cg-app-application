@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "220b1d586b7aa64e11b3ab2f487109a3",
+    "hash": "54299dbfa41788504c25770460f5e19b",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -377,17 +377,11 @@
         },
         {
             "name": "channelgrabber/account",
-            "version": "1.0.12",
+            "version": "dev-CGIV-1914-GetStatus",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-account.git",
-                "reference": "0488edfe621d46f0d3c7401e99363b9adc36fbc1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-account-1.0.12-56e56d.zip",
-                "reference": "0488edfe621d46f0d3c7401e99363b9adc36fbc1",
-                "shasum": "1b071072fbf3b81a4660f9c34196dcb91dd5eada"
+                "reference": "9d7da9c996b8f5c63b5b2ec40e2613e0bd02b973"
             },
             "require": {
                 "channelgrabber/cache": ">=1.2.1, <1.3.0",
@@ -409,7 +403,7 @@
                     "CG\\Account\\": ""
                 }
             },
-            "time": "2014-04-14 08:45:45"
+            "time": "2014-04-15 14:28:25"
         },
         {
             "name": "channelgrabber/amazon",
@@ -1547,7 +1541,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "1f478ab244a2750ce01c0feb92d153482f4b2783"
+                "reference": "1b3c66d00f0e376082b0795f379383ad328056f6"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1575,7 +1569,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-04-14 15:57:42"
+            "time": "2014-04-15 15:41:45"
         },
         {
             "name": "cilex/cilex",
@@ -3877,6 +3871,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.0.13",
+            "alias_normalized": "1.0.13.0",
+            "version": "dev-CGIV-1914-GetStatus",
+            "package": "channelgrabber/account"
+        },
+        {
             "alias": "1.4.6",
             "alias_normalized": "1.4.6.0",
             "version": "dev-CGIV-1918-CheckboxAjaxJavascript",
@@ -3885,6 +3885,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/account": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,

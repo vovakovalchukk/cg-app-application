@@ -159,33 +159,9 @@ class ChannelController extends AbstractActionController
             $this->url()->fromRoute(Module::ROUTE . '/' . static::ROUTE . '/' . static::AJAX_ROUTE)
         );
 
-        $settings->setTemplateUrlMap($this->getAccountListTemplates());
+        $settings->setTemplateUrlMap($this->mustacheTemplateMap('accountList'));
 
         return $accountList;
-    }
-
-    protected function basePath()
-    {
-        $config = $this->getServiceLocator()->get('Config');
-        if (isset($config['view_manager'], $config['view_manager']['base_path'])) {
-            return $config['view_manager']['base_path'];
-        }
-        else {
-            return $this->getServiceLocator()->get('Request')->getBasePath();
-        }
-    }
-
-    protected function getAccountListTemplates()
-    {
-        return [
-            'account' => $this->basePath() . Module::PUBLIC_FOLDER . 'template/columns/account.html',
-            'channel' => $this->basePath() . Module::PUBLIC_FOLDER . 'template/columns/channel.html',
-            'enable' => $this->basePath() . Module::PUBLIC_FOLDER . 'template/columns/enable.mustache',
-            'manage' => $this->basePath() . Module::PUBLIC_FOLDER . 'template/columns/manage.html',
-            'status' => $this->basePath() . Module::PUBLIC_FOLDER . 'template/columns/status.mustache',
-            'tokenStatus' => $this->basePath() . Module::PUBLIC_FOLDER . 'template/columns/tokenStatus.html',
-            'tradingCompany' => $this->basePath() . Module::PUBLIC_FOLDER . 'template/columns/tradingCompany.html',
-        ];
     }
 
     public function listAjaxAction()

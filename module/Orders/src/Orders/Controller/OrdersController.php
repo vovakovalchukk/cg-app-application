@@ -47,17 +47,6 @@ class OrdersController extends AbstractActionController
             ->setBulkActionsService($bulkActionsService);
     }
 
-    protected function basePath()
-    {
-        $config = $this->getServiceLocator()->get('Config');
-        if (isset($config['view_manager'], $config['view_manager']['base_path'])) {
-            return $config['view_manager']['base_path'];
-        }
-        else {
-            return $this->getServiceLocator()->get('Request')->getBasePath();
-        }
-    }
-
     public function setOrderService(OrderService $orderService)
     {
         $this->orderService = $orderService;

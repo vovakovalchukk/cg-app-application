@@ -19,6 +19,8 @@ use CG\Account\Client\StorageInterface as AccountStorageInterface;
 use CG\Account\Client\Storage\Api as AccountApiStorage;
 use CG\OrganisationUnit\StorageInterface as OUStorageInterface;
 use CG\OrganisationUnit\Storage\Api as OUApiStorage;
+use CG\Stdlib\Log\LoggerInterface;
+use CG\Log\Logger;
 
 return [
     'router' => [
@@ -150,7 +152,7 @@ return [
             'preferences' => [
                 AccountStorageInterface::class => AccountApiStorage::class,
                 OUStorageInterface::class => OUApiStorage::class,
-                'CG\Stdlib\Log\LoggerInterface' => 'CG\Log\Logger'
+                LoggerInterface::class => Logger::class
             ],
             'aliases' => [
                 'EbayGuzzle' => GuzzleHttpClient::class,
