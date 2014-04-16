@@ -22,7 +22,7 @@ return [
                     'type' => 'Row',
                     'filters' => [
                         [
-                            'type' => 'date-range',
+                            'filterType' => 'date-range',
                             'variables' => [
                                 'filterName' => 'purchaseDate',
                                 'time' => [
@@ -62,7 +62,7 @@ return [
                             ]
                         ],
                         [
-                            'type' => 'customSelectGroup',
+                            'filterType' => 'customSelectGroup',
                             'variables' => [
                                 'filterName' => 'status',
                                 'title' => 'Status',
@@ -83,7 +83,7 @@ return [
                             ],
                         ],
                         [
-                            'type' => 'text',
+                            'filterType' => 'text',
                             'variables' => [
                                 'filterName' => 'search',
                                 'placeholder' => 'Search for...',
@@ -92,7 +92,7 @@ return [
                             ],
                         ],
                         [
-                            'type' => 'more',
+                            'filterType' => 'more',
                             'variables' => [
                                 'title' => 'More',
                                 'class' => 'more',
@@ -100,7 +100,7 @@ return [
                             ],
                         ],
                         [
-                            'type' => 'buttons',
+                            'filterType' => 'buttons',
                             'variables' => [
                                 'buttons' => [
                                     [
@@ -127,7 +127,7 @@ return [
                     'type' => 'Row',
                     'filters' => [
                         [
-                            'type' => 'customSelectGroup',
+                            'filterType' => 'customSelectGroup',
                             'visible' => true,
                             'variables' => [
                                 'filterName' => 'shippingAddressCountry',
@@ -141,7 +141,7 @@ return [
                             'optionsProvider' => CountryService::class,
                         ],
                         [
-                            'type' => 'numberRange',
+                            'filterType' => 'numberRange',
                             'visible' => true,
                             'variables' => [
                                 'filterName' => 'total',
@@ -151,7 +151,7 @@ return [
                             ]
                         ],
                         [
-                            'type' => 'customSelectGroup',
+                            'filterType' => 'customSelectGroup',
                             'visible' => false,
                             'variables' => [
                                 'filterName' => 'channel',
@@ -164,7 +164,7 @@ return [
                             'optionsProvider' => Channel::class,
                         ],
                         [
-                            'type' => 'customSelectGroup',
+                            'filterType' => 'customSelectGroup',
                             'visible' => false,
                             'variables' => [
                                 'filterName' => 'account',
@@ -177,7 +177,7 @@ return [
                             'optionsProvider' => Account::class,
                         ],
                         [
-                            'type' => 'customSelectGroup',
+                            'filterType' => 'customSelectGroup',
                             'visible' => false,
                             'variables' => [
                                 'filterName' => 'tags',
@@ -190,7 +190,7 @@ return [
                             'optionsProvider' => OrdersTableTagColumns::class,
                         ],
                         [
-                            'type' => 'customSelect',
+                            'filterType' => 'customSelect',
                             'visible' => false,
                             'variables' => [
                                 'filterName' => 'archived',
@@ -211,7 +211,7 @@ return [
                             ],
                         ],
                         [
-                            'type' => 'customSelect',
+                            'filterType' => 'customSelect',
                             'visible' => false,
                             'variables' => [
                                 'filterName' => 'buyerMessage',
