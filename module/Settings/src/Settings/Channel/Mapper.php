@@ -78,16 +78,17 @@ class Mapper
     protected function getManageLinks($id, Url $urlPlugin)
     {
         $links = [
-            ChannelController::ACCOUNT_ROUTE,
-            ChannelController::ACCOUNT_ROUTE . '/' . ChannelController::ACCOUNT_DELETE_ROUTE
+            'manage' => ChannelController::ACCOUNT_ROUTE,
+            'delete' => ChannelController::ACCOUNT_ROUTE . '/' . ChannelController::ACCOUNT_DELETE_ROUTE
         ];
 
         $manageLinks = [];
-        foreach ($links as $link) {
+        foreach ($links as $class => $link) {
             $route = Module::ROUTE . '/' . ChannelController::ROUTE . '/' . $link;
             $routeMap = explode('/', $route);
             $manageLinks[] = [
                 'name' => end($routeMap),
+                'class' => $class,
                 'href' => $urlPlugin->fromRoute($route, ['account' => $id])
             ];
         }

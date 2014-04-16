@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "54299dbfa41788504c25770460f5e19b",
+    "hash": "d220797c6a88f4fa63a34b78576b5b87",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -377,11 +377,17 @@
         },
         {
             "name": "channelgrabber/account",
-            "version": "dev-CGIV-1914-GetStatus",
+            "version": "1.0.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-account.git",
-                "reference": "9d7da9c996b8f5c63b5b2ec40e2613e0bd02b973"
+                "reference": "1df2cff2604603b3a99997b7d41da0a1c3004405"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-account-1.0.14-59198a.zip",
+                "reference": "1df2cff2604603b3a99997b7d41da0a1c3004405",
+                "shasum": "ef46a606c817e7001def16cfbb72e78938f907ac"
             },
             "require": {
                 "channelgrabber/cache": ">=1.2.1, <1.3.0",
@@ -403,7 +409,7 @@
                     "CG\\Account\\": ""
                 }
             },
-            "time": "2014-04-15 14:28:25"
+            "time": "2014-04-16 07:51:47"
         },
         {
             "name": "channelgrabber/amazon",
@@ -514,7 +520,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgconstants.git",
-                "reference": "14f38b87f466018b445b41c3a8916e58981fbac4"
+                "reference": "878e8e6eb01d3b1a20f4b2927196bac691cc0287"
             },
             "require": {
                 "php": ">=5.4.0"
@@ -525,7 +531,7 @@
                     "CG": ""
                 }
             },
-            "time": "2014-04-07 11:05:25"
+            "time": "2014-03-25 12:58:38"
         },
         {
             "name": "channelgrabber/ebay",
@@ -1537,11 +1543,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-1918-CheckboxAjaxJavascript",
+            "version": "1.4.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "1b3c66d00f0e376082b0795f379383ad328056f6"
+                "reference": "38d6b9cd0f337422e01016368e004bfa2e8e4bfe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.4.8-3fc508.zip",
+                "reference": "38d6b9cd0f337422e01016368e004bfa2e8e4bfe",
+                "shasum": "3b0fbb92d3017aefd08f3bedd030e7e6a4adc59c"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1569,7 +1581,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-04-15 15:41:45"
+            "time": "2014-04-16 08:25:31"
         },
         {
             "name": "cilex/cilex",
@@ -3870,24 +3882,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.0.13",
-            "alias_normalized": "1.0.13.0",
-            "version": "dev-CGIV-1914-GetStatus",
-            "package": "channelgrabber/account"
-        },
-        {
-            "alias": "1.4.6",
-            "alias_normalized": "1.4.6.0",
-            "version": "dev-CGIV-1918-CheckboxAjaxJavascript",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/account": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },

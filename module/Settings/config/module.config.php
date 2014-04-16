@@ -126,7 +126,9 @@ return [
                                         'type' => 'Zend\Mvc\Router\Http\Literal',
                                         'options' => [
                                             'route' => '/delete',
-                                            'defaults' => []
+                                            'defaults' => [
+                                                'action' => 'delete',
+                                            ]
                                         ],
                                     ],
                                 ],
@@ -160,6 +162,7 @@ return [
                 'AccountListSettings' => DataTable\Settings::class,
                 'ChannelTokenStatusMustacheJS' => ViewModel::class,
                 'ChannelStatusJS' => viewModel::class,
+                'ChannelDeleteJavascript' => ViewModel::class,
                 'AccountEnableColumn' => DataTable\Column::class,
                 'AccountStatusColumn' => DataTable\Column::class,
                 'AccountChannelColumn' => DataTable\Column::class,
@@ -220,6 +223,7 @@ return [
                     'addChild' => [
                         ['child' => 'ChannelTokenStatusMustacheJS', 'captureTo' => 'javascript', 'append' => true],
                         ['child' => 'ChannelStatusJS', 'captureTo' => 'javascript', 'append' => true],
+                        ['child' => 'ChannelDeleteJavascript', 'captureTo' => 'javascript', 'append' => true],
                     ],
                     'addColumn' => [
                         ['column' => 'AccountEnableColumn'],
@@ -260,6 +264,11 @@ return [
                             ]
                         ),
                     ],
+                ],
+            ],
+            'ChannelDeleteJavascript' => [
+                'parameters' => [
+                    'template' => 'settings/channel/javascript/deleteChannel.js',
                 ],
             ],
             'AccountEnableColumn' => [

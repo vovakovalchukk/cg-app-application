@@ -181,8 +181,10 @@ class ChannelController extends AbstractActionController
         }
 
         try {
-            $accounts = $this->getAccountService()->fetchByOU(
+            $accounts = $this->getAccountService()->fetchByOUAndStatus(
                 $this->getActiveUser()->getOuList(),
+                null,
+                false,
                 $limit,
                 $page
             );
@@ -349,6 +351,29 @@ class ChannelController extends AbstractActionController
         }
 
         return $response->setVariable('updated', true);
+    }
+
+    public function deleteAction()
+    {
+        $response = $this->getJsonModelFactory()->newInstance(['deleted' => false]);
+
+        $accountService = $this->getAccountService();
+        try {
+            $account = $accountService->fetch(
+                $this->params()->fromRoute('account')
+            );
+
+            $account->setDeleted(true);
+
+            $accountService->save($account);
+        } catch (NotFound $exception) {
+            return $response->setVariable(
+                'error',
+                'Sales Channel could not be found'
+            );
+        }
+
+        return $response->setVariable('deleted', true);
     }
 
     public function setDi(Di $di)
