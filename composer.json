@@ -1,4 +1,8 @@
 {
+    "provide": {
+        "ext-mongo": "*",
+        "ext-gearman": "*"
+    },
     "repositories": [
         {
             "type": "git",
@@ -34,10 +38,11 @@
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/sso": "~1.1.2",
-        "channelgrabber/stdlib": "~2.5.6",
+        "channelgrabber/stdlib": "~2.5.16",
         "channelgrabber/template": "~1.0.0",
-        "channelgrabber/user": "~1.13.7",
+        "channelgrabber/user": "~1.13.11",
         "channelgrabber/userpreference": "~1.0.4",
+        "channelgrabber/zf2-email-template": "~1.0.1",
         "channelgrabber/zf2-hal": "~1.0.4",
         "channelgrabber/zf2-installer": "~1.0.2",
         "channelgrabber/zf2-logclient": "~1.2.5",

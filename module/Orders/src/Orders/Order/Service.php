@@ -30,6 +30,7 @@ class Service
     protected $orderClient;
     protected $orderRpcClient;
     protected $tableService;
+    protected $filterService;
     protected $userService;
     protected $activeUserContainer;
     protected $di;
@@ -40,6 +41,7 @@ class Service
         StorageInterface $orderClient,
         JsonRpcClient $orderRpcClient,
         TableService $tableService,
+        FilterService $filterService,
         UserService $userService,
         ActiveUserInterface $activeUserContainer,
         Di $di,
@@ -50,6 +52,7 @@ class Service
             ->setOrderClient($orderClient)
             ->setOrderRpcClient($orderRpcClient)
             ->setTableService($tableService)
+            ->setFilterService($filterService)
             ->setUserService($userService)
             ->setActiveUserContainer($activeUserContainer)
             ->setDi($di)
@@ -82,6 +85,20 @@ class Service
     public function getOrdersTable()
     {
         return $this->getTableService()->getOrdersTable();
+    }
+
+    public function setFilterService(FilterService $filterService)
+    {
+        $this->filterService = $filterService;
+        return $this;
+    }
+
+    /**
+     * @return FilterService
+     */
+    public function getFilterService()
+    {
+        return $this->filterService;
     }
 
     public function setOrderClient(StorageInterface $orderClient)
