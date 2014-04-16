@@ -27,9 +27,6 @@
             "": "library/"
         }
     },
-    "provide": {
-        "ext-gearman": "*"
-    },
     "require": {
         "channelgrabber/constants": "dev-master",
         "channelgrabber/http": "~1.2.9",

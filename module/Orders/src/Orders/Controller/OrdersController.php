@@ -17,6 +17,7 @@ use DirectoryIterator;
 use CG\UserPreference\Client\Service as UserPreferenceService;
 use CG\Http\Rpc\Exception\BatchException as RpcBatchException;
 use CG\Http\Rpc\Exception\Error\AbstractError as RpcError;
+use CG\Http\Rpc\Exception as RpcException;
 
 class OrdersController extends AbstractActionController
 {
@@ -426,30 +427,11 @@ class OrdersController extends AbstractActionController
                 $this->params()->fromPost('reason'),
                 $this->params()->fromPost('type')
             );
-        } catch (RpcBatchException $batchException) {
-            $requestedOrderIds = array_fill_keys($ids, true);
-
-            $failedOrderIds = [];
-            foreach ($batchException->getExceptions() as $exception) {
-                if (!($exception instanceof RpcError)) {
-                    continue;
-                }
-
-                $orderId = $exception->getRequestId();
-                if (!isset($requestedOrderIds[$orderId])) {
-                    continue;
-                }
-
-                $failedOrderIds[] = $orderId;
-            }
-
+        } catch (RpcException $exception) {
             return $response->setVariable(
                 'error',
-                'Failed to mark the following orders for cancellation: ' . implode(', ', $failedOrderIds)
+                'Failed to mark the order for cancellation'
             );
-        } catch (\Exception $e) {
-            echo $e->getPrevious()->getMessage();
-            exit;
         }
 
         return $response->setVariable('cancelling', true);

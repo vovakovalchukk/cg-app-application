@@ -22,11 +22,27 @@ define(['popup/mustache'], function(Popup) {
             selector = newSelector;
             return this;
         };
+
+        this.getNoticeMessage = function() {
+            var noticeMessage = {
+                'Cancel' : 'Cancelling order',
+                'Refund' : 'Refunding order'
+            };
+            return noticeMessage[this.getType()];
+        };
+
+        this.getSuccessMessage = function() {
+            var successMessage = {
+                'Cancel' : 'Order marked to be cancelled',
+                'Refund' : 'Order marked to be refunded'
+            };
+            return successMessage[this.getType()];
+        };
     };
 
     Cancel.prototype.action = function(element) {
         var that = this;
-        popup = new Popup("/channelgrabber/orders/template/popups/cancelOptions.html", {
+        popup = new Popup($(this.getSelector()).attr('data-popup'), {
             title: this.getType() + " Reason",
             reasons: function(){
                 var mappedReasons = [];
@@ -44,8 +60,8 @@ define(['popup/mustache'], function(Popup) {
 
     Cancel.prototype.listen = function() {
         var that = this;
-        $('.cancel-popup-button').click(function () {
-            that.getNotifications().notice("Cancelling order");
+        $('.popup-cancel-button').click(function () {
+            that.getNotifications().notice(that.getNoticeMessage());
             popup.hide();
             $.ajax({
                 context: that,
@@ -54,11 +70,11 @@ define(['popup/mustache'], function(Popup) {
                 dataType: 'json',
                 data: {
                     'orders': $(that.getSelector()).data("orders"),
-                    'reason': $('.cancel-popup-drop-down .text').html(),
+                    'reason': $('.popup-cancel-drop-down .text').html(),
                     'type': that.getType().toLowerCase()
                 },
                 success : function(data) {
-                    return that.getNotifications().success("Order marked to be cancelled");
+                    return that.getNotifications().success(that.getSuccessMessage());
                 },
                 error: function(error, textStatus, errorThrown) {
                     return that.getNotifications().ajaxError(error, textStatus, errorThrown);

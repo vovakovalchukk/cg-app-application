@@ -25,6 +25,7 @@ $(document).ready(function(){
 <?php
 if (isset($order)) {
     $this->placeholder($id . '-' . $action)
-    ->append('data-orders="' . htmlentities(json_encode([$order->getId()]), ENT_QUOTES) . '"');
+    ->append('data-orders="' . htmlentities(json_encode([$order->getId()]), ENT_QUOTES) . '"')
+    ->append('data-popup="/channelgrabber/orders/template/popups/cancelOptions.html"');
 }
 ?>
