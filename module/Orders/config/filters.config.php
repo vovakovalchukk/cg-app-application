@@ -216,7 +216,7 @@ return [
                         ],
                         [
                             'type' => 'customSelect',
-                            'visible' => false,
+                            'visible' => true,
                             'variables' => [
                                 'filterName' => 'archived',
                                 'title' => 'Show Archived',
