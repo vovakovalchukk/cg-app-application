@@ -70,13 +70,16 @@ return [
                                 'concatenate' => true,
                                 'options' => [
                                     [
-                                        'title' => 'New'
+                                        'title' => 'New',
+                                        'value' => 'new'
                                     ],
                                     [
-                                        'title' => 'Processing'
+                                        'title' => 'Processing',
+                                        'value' => 'processing'
                                     ],
                                     [
-                                        'title' => 'Dispatched'
+                                        'title' => 'Dispatched',
+                                        'value' => 'dispatched'
                                     ]
                                 ],
                             ],
