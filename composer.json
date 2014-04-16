@@ -24,7 +24,7 @@
         }
     },
     "require": {
-        "channelgrabber/account": "dev-CGIV-1914-GetStatus as 1.0.13",
+        "channelgrabber/account": "~1.0.13",
         "channelgrabber/amazon": "~1.2.7",
         "channelgrabber/channel": "~1.1.5",
         "channelgrabber/constants": "dev-master",
@@ -49,7 +49,7 @@
         "channelgrabber/zf2-register": "~1.4.10",
         "channelgrabber/zf2-ssoclient": "~1.2.1",
         "channelgrabber/zf2-stdlib": "~1.1.8",
-        "channelgrabber/zf2-v4-ui": "dev-CGIV-1914-DataTableDefaultCOlumnValue as 1.4.6",
+        "channelgrabber/zf2-v4-ui": "~1.4.7",
         "davedevelopment/phpmig": "0.4",
         "guzzle/guzzle": "~3.7",
         "nocarrier/hal": "~0.9.3",
