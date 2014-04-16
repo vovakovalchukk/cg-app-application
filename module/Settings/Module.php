@@ -55,7 +55,7 @@ class Module
     protected function getNavBarItems()
     {
         return [
-            new NavBar\Item('settings', 'Settings', 'Channel Management'),
+            new NavBar\Item('sprite-settings-18-white', 'Settings', 'Channel Management'),
         ];
     }
 
