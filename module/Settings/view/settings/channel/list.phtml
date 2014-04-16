@@ -3,7 +3,7 @@
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
 <?php $this->inlineScript()->captureStart(); ?>
 $(document).ready(function() {
-    require(["settings/SettingsPage", "settings/Account"],
+    require(["settings/SettingsPage", "settings/account"],
         function(SettingsPage, Account) {
             var settingsPage = new SettingsPage(new Account());
         }
