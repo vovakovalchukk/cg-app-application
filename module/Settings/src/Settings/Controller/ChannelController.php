@@ -159,37 +159,9 @@ class ChannelController extends AbstractActionController
             $this->url()->fromRoute(Module::ROUTE . '/' . static::ROUTE . '/' . static::AJAX_ROUTE)
         );
 
-        $settings->setTemplateUrlMap($this->getAccountListTemplates());
+        $settings->setTemplateUrlMap($this->mustacheTemplateMap('accountList'));
 
         return $accountList;
-    }
-
-    protected function basePath()
-    {
-        $config = $this->getServiceLocator()->get('Config');
-        if (isset($config['view_manager'], $config['view_manager']['base_path'])) {
-            return $config['view_manager']['base_path'];
-        }
-        else {
-            return $this->getServiceLocator()->get('Request')->getBasePath();
-        }
-    }
-
-    protected function getAccountListTemplates()
-    {
-        $templateUrlMap = [];
-        $webRoot = PROJECT_ROOT . '/public';
-
-        $templates = new DirectoryIterator($webRoot . Module::PUBLIC_FOLDER . 'template/columns');
-        foreach ($templates as $template) {
-            if (!$template->isFile()) {
-                continue;
-            }
-            $templateUrlMap[$template->getBasename('.html')]
-                = $this->basePath() . str_replace($webRoot, '', $template->getPathname());
-        }
-
-        return $templateUrlMap;
     }
 
     public function listAjaxAction()
