@@ -18,6 +18,7 @@ use CG\Order\Shared\Note\Collection as OrderNoteCollection;
 use CG\UserPreference\Client\Service as UserPreferenceService;
 use CG\Http\Rpc\Json\Client as JsonRpcClient;
 use CG\Http\Rpc\Batch as RpcBatch;
+use CG\Stdlib\DateTime;
 
 class Service
 {
@@ -335,5 +336,31 @@ class Service
         }
 
         return $this->getOrderRpcClient()->sendBatch(static::RPC_ENDPOINT, $batch);
+    }
+
+    public function cancelOrder($orderId, $reason, $type)
+    {
+        $order = $this->getOrder($orderId);
+        $items = [];
+        foreach ($order->getItems() as $item) {
+            $items[] = [
+                "orderItemId" => $item->getId(),
+                "sku" => $item->getItemSku(),
+                "quantity" => $item->getItemQuantity(),
+                "amount" => $item->getIndividualItemPrice(),
+                "unitPrice" => 0.00
+            ];
+        }
+        $orderCancel = [
+            "orderId" => $order->getId(),
+            "shippingAmount" => $order->getShippingPrice(),
+            "cancelValue" => [
+                "type" => $type,
+                "timestamp" => date(DateTime::FORMAT),
+                "reason" => $reason,
+                "items" => $items
+            ]
+        ];
+        return $this->getOrderRpcClient()->sendRequest(static::RPC_ENDPOINT, $orderId, 'cancel', $orderCancel);
     }
 }
