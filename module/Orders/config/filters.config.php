@@ -57,7 +57,7 @@ return [
                                     [
                                         'title' => 'The previous month',
                                         'from' => strtotime('midnight first day of last month'),
-                                        'to' => strtotime('midnight first day of this month'),
+                                        'to' => strtotime('23:59 last day of last month'),
                                     ]
                                 ]
                             ]
