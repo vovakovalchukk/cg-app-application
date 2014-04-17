@@ -1,4 +1,8 @@
 {
+    "provide": {
+        "ext-mongo": "*",
+        "ext-gearman": "*"
+    },
     "repositories": [
         {
             "type": "git",
@@ -30,14 +34,15 @@
     "require": {
         "channelgrabber/constants": "dev-master",
         "channelgrabber/http": "~1.2.9",
-        "channelgrabber/order": "~1.4.9",
+        "channelgrabber/order": "~1.5.0",
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/sso": "~1.1.2",
-        "channelgrabber/stdlib": "~2.5.6",
+        "channelgrabber/stdlib": "~2.5.16",
         "channelgrabber/template": "~1.0.0",
-        "channelgrabber/user": "~1.13.10",
+        "channelgrabber/user": "~1.13.11",
         "channelgrabber/userpreference": "~1.0.4",
+        "channelgrabber/zf2-email-template": "~1.0.1",
         "channelgrabber/zf2-hal": "~1.0.4",
         "channelgrabber/zf2-installer": "~1.0.2",
         "channelgrabber/zf2-logclient": "~1.2.5",
@@ -46,7 +51,7 @@
         "channelgrabber/zf2-register": "~1.4.10",
         "channelgrabber/zf2-ssoclient": "~1.2.1",
         "channelgrabber/zf2-stdlib": "~1.1.6",
-        "channelgrabber/zf2-v4-ui": "~1.4.1",
+        "channelgrabber/zf2-v4-ui": "~1.4.6",
         "davedevelopment/phpmig": "0.4",
         "guzzle/guzzle": "~3.7",
         "nocarrier/hal": "~0.9.3",
