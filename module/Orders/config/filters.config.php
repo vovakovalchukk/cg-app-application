@@ -1,5 +1,6 @@
 <?php
 use Orders\Order\CountryService;
+use Orders\Order\CurrencyService;
 use Orders\Order\FilterService;
 use Orders\Order\TableService\OrdersTableTagColumns;
 use Orders\Order\Filter\Channel;
@@ -139,6 +140,19 @@ return [
                                 ]
                             ],
                             'optionsProvider' => CountryService::class,
+                        ],
+                        [
+                            'filterType' => 'customSelectGroup',
+                            'visible' => false,
+                            'variables' => [
+                                'filterName' => 'currencyCode',
+                                'title' => 'Include Currency',
+                                'searchField' => true,
+                                'isOptional' => true,
+                                'concatenate' => true,
+                                'options' => []
+                            ],
+                            'optionsProvider' => CurrencyService::class,
                         ],
                         [
                             'filterType' => 'numberRange',
