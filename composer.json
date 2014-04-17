@@ -28,7 +28,7 @@
         "channelgrabber/amazon": "~1.2.7",
         "channelgrabber/channel": "~1.1.5",
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/ebay": "dev-CGIV-1996-EbayAccountExpiryDateFormat as 1.1.14",
+        "channelgrabber/ebay": "~1.1.14",
         "channelgrabber/http": "~1.2.9",
         "channelgrabber/order": "~1.5.0",
         "channelgrabber/permission": "~1.0.1",

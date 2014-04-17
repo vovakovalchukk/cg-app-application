@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "2423db4b2a046c96060117d15a60635b",
+    "hash": "74e0579ff2b04e8ad2b704a45a76f0a7",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -537,11 +537,17 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-CGIV-1996-EbayAccountExpiryDateFormat",
+            "version": "1.1.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "a706c97d2ec44d48b004fcd748e22c4de9bd709a"
+                "reference": "eee3eb8054b68db50cfd641126f8c411e0885e94"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.1.14-2bcaaf.zip",
+                "reference": "eee3eb8054b68db50cfd641126f8c411e0885e94",
+                "shasum": "f5e2bc87819410b0f51f7a806cdef4263510126f"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.0",
@@ -569,7 +575,7 @@
                     "CG\\Ebay\\": ""
                 }
             },
-            "time": "2014-04-17 16:10:43"
+            "time": "2014-04-17 16:28:02"
         },
         {
             "name": "channelgrabber/email",
@@ -3881,17 +3887,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.1.14",
-            "alias_normalized": "1.1.14.0",
-            "version": "dev-CGIV-1996-EbayAccountExpiryDateFormat",
-            "package": "channelgrabber/ebay"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/ebay": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },
