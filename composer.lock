@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "b0b18aa0b36094bedbbcfbb2e846861c",
+    "hash": "c02c9179b8fc3c333ab96a30f7dc1046",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -682,11 +682,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-1977-fix-filtering-of-orders",
+            "version": "1.5.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "adfab5abe389038ac0737ae5c394ddf5fffa88da"
+                "reference": "31ec29dffc4184c2f9bf6916ab5137983681cf01"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.5.7-e97ed3.zip",
+                "reference": "31ec29dffc4184c2f9bf6916ab5137983681cf01",
+                "shasum": "ac61e3401fbe2e35f89a84d6ae19c292c9273ea7"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.0,<1.3.0",
@@ -711,7 +717,7 @@
                     "CG\\Order\\": ""
                 }
             },
-            "time": "2014-04-17 13:18:30"
+            "time": "2014-04-17 14:56:57"
         },
         {
             "name": "channelgrabber/permission",
@@ -868,23 +874,23 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.5.16",
+            "version": "2.5.17",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "760f04f7f731430b744526248cf9faacd32b9725"
+                "reference": "86e9e770e5bfed322cff03ed8079154d1facf782"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.5.16-06d263.zip",
-                "reference": "760f04f7f731430b744526248cf9faacd32b9725",
-                "shasum": "388add495c09a68794ae7ad3dd1138e3d8d7bc55"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.5.17-deeac8.zip",
+                "reference": "86e9e770e5bfed322cff03ed8079154d1facf782",
+                "shasum": "87f9a3cfaded3d4cedae6f68440b844a8e1a1e18"
             },
             "require": {
                 "zendframework/zend-db": "2.2.*"
             },
             "require-dev": {
-                "phpunit/phpunit": "3.7.*"
+                "phpunit/phpunit": "4.0.*"
             },
             "type": "library",
             "autoload": {
@@ -895,7 +901,7 @@
                     "CG/Stdlib/Utilities.php"
                 ]
             },
-            "time": "2014-04-11 14:56:52"
+            "time": "2014-04-17 14:50:35"
         },
         {
             "name": "channelgrabber/template",
@@ -1370,11 +1376,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-1977-fix-filtering-of-orders",
+            "version": "dev-CGIV-1831-bundle",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "8e0bd024900687b483b2f2c964dd89a7b9634531"
+                "reference": "53c3899533fcd11d70fcd841320de8d408602c0a"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1402,7 +1408,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-04-17 10:32:32"
+            "time": "2014-04-17 14:48:12"
         },
         {
             "name": "cilex/cilex",
@@ -3704,20 +3710,13 @@
         {
             "alias": "1.5.5",
             "alias_normalized": "1.5.5.0",
-            "version": "dev-CGIV-1977-fix-filtering-of-orders",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.5.5",
-            "alias_normalized": "1.5.5.0",
-            "version": "dev-CGIV-1977-fix-filtering-of-orders",
+            "version": "dev-CGIV-1831-bundle",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
