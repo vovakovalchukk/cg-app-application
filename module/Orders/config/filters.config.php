@@ -184,7 +184,7 @@ return [
                             'filterType' => 'customSelectGroup',
                             'visible' => false,
                             'variables' => [
-                                'filterName' => 'account',
+                                'filterName' => 'accountId',
                                 'title' => 'Account',
                                 'searchField' => true,
                                 'isOptional' => true,
@@ -197,7 +197,7 @@ return [
                             'filterType' => 'customSelectGroup',
                             'visible' => false,
                             'variables' => [
-                                'filterName' => 'tags',
+                                'filterName' => 'tag',
                                 'title' => 'Tags',
                                 'searchField' => true,
                                 'isOptional' => true,
