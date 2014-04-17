@@ -384,7 +384,7 @@ return [
             EbayAccount::class => [
                 'parameters' => [
                     'domain' => 'https://signin.ebay.com/ws/eBayISAPI.dll',
-                    'ruName' => 'Wilki_Ltd-WilkiLtd-beda-4-kdighency',
+                    'ruName' => 'Wilki_Ltd-WilkiLtd-beda-4-klnwz',
                     'siteId' => 3
                 ]
             ],
