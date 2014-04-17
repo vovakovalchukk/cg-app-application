@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "9e7c54a48d221b6160638fc7f2f440ce",
+    "hash": "b16a96994aff06855b26092c520547ce",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -1350,17 +1350,17 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.3.21",
+            "version": "1.3.22",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "01908edd6c708a71b8af161cdf8ff276d8bbde52"
+                "reference": "a2ad55a0ac3af494eddf49943e953a78c380d113"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.3.21-196e19.zip",
-                "reference": "01908edd6c708a71b8af161cdf8ff276d8bbde52",
-                "shasum": "ac9817e0fc2acc727900dc302df90c440ce64ec8"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.3.22-010fa6.zip",
+                "reference": "a2ad55a0ac3af494eddf49943e953a78c380d113",
+                "shasum": "a7dd549376688eec4d1d396c106482d20622895d"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
@@ -1396,7 +1396,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2014-04-16 16:25:25"
+            "time": "2014-04-17 10:00:52"
         },
         {
             "name": "channelgrabber/zf2-permission",
