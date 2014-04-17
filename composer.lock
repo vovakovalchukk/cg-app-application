@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "058a6c23621d0aae1c39bd9faf61f625",
+    "hash": "9e7c54a48d221b6160638fc7f2f440ce",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -994,17 +994,17 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.13.11",
+            "version": "1.13.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "bf496db8aa0c751cded38030361ca7e211c175a4"
+                "reference": "30702e5df31cd10ac982bf8ee2d621e13150670c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.13.11-98f550.zip",
-                "reference": "bf496db8aa0c751cded38030361ca7e211c175a4",
-                "shasum": "2a71a698fee29d9e6f38fe1d634363c5dddbac04"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.13.12-2dfc7d.zip",
+                "reference": "30702e5df31cd10ac982bf8ee2d621e13150670c",
+                "shasum": "f91c4acfe564acb6928b2158b59f5bfdfd01c264"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.8",
@@ -1032,7 +1032,7 @@
                     "CG": ""
                 }
             },
-            "time": "2014-04-11 15:47:14"
+            "time": "2014-04-16 16:20:43"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -1350,23 +1350,23 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.3.20",
+            "version": "1.3.21",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "53e1c2d90970477a2cd041db58fb0aa595705e74"
+                "reference": "01908edd6c708a71b8af161cdf8ff276d8bbde52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.3.20-6a131f.zip",
-                "reference": "53e1c2d90970477a2cd041db58fb0aa595705e74",
-                "shasum": "3045ed97d570050435aa358b59e4b1dccedc80f1"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.3.21-196e19.zip",
+                "reference": "01908edd6c708a71b8af161cdf8ff276d8bbde52",
+                "shasum": "ac9817e0fc2acc727900dc302df90c440ce64ec8"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/stdlib": ">=2.2.0",
-                "channelgrabber/user": ">=1.13.10",
+                "channelgrabber/user": ">=1.13.12",
                 "channelgrabber/zf2-stdlib": ">=1.0.1",
                 "channelgrabber/zf2-v4-ui": ">=1.4.1",
                 "guzzle/guzzle": "~3.7",
@@ -1396,7 +1396,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2014-04-09 14:50:53"
+            "time": "2014-04-16 16:25:25"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -1513,17 +1513,17 @@
         },
         {
             "name": "channelgrabber/zf2-stdlib",
-            "version": "1.1.8",
+            "version": "1.1.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgzf2stdlib.git",
-                "reference": "9c9f02ac55e1d5fd1b2e682acd99f1268ff5d784"
+                "reference": "995afba7dbb3de4fd55fcc8636b641c1b45ea97b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-1.1.8-e8733e.zip",
-                "reference": "9c9f02ac55e1d5fd1b2e682acd99f1268ff5d784",
-                "shasum": "549be245f07e91d0860e98660b1965bac9c4321b"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-1.1.9-776754.zip",
+                "reference": "995afba7dbb3de4fd55fcc8636b641c1b45ea97b",
+                "shasum": "89abdf38ed7384bb0da3b6c2436a0ff848ebfb7b"
             },
             "require": {
                 "channelgrabber/cache": ">=1.1.0,<1.3.0",
@@ -1542,21 +1542,21 @@
                     "CG\\Zend\\Stdlib\\": ""
                 }
             },
-            "time": "2014-04-11 10:52:14"
+            "time": "2014-04-16 16:27:12"
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.4.9",
+            "version": "1.4.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "31756bc3ec1674e4c6c535def0933b3c3f5bbb55"
+                "reference": "cef60b94f8bd665506b333f24f15f7c4f05c8721"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.4.9-8435d5.zip",
-                "reference": "31756bc3ec1674e4c6c535def0933b3c3f5bbb55",
-                "shasum": "d03f498c36bad29ea92b8c00b65053fa5781b244"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.4.10-e1ae98.zip",
+                "reference": "cef60b94f8bd665506b333f24f15f7c4f05c8721",
+                "shasum": "c49d1bac31bf43d44dcf2940c0aff0f2c0bf9cd1"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1584,7 +1584,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-04-16 10:18:01"
+            "time": "2014-04-16 16:15:57"
         },
         {
             "name": "cilex/cilex",
