@@ -65,20 +65,38 @@ define(
             };
 
             $(this.getFilters().find(":input[name]").serializeArray()).each(function(index, data) {
-                filter.filters[data.name] = data.value;
+                
+                isMultiSelect = new RegExp('\\[\\]$');
+                if (isMultiSelect.test(data.name)) {
+                    data.name = data.name.replace('[]', '');
+                    
+                    console.log('name is '+data.name);
+                    
+                    if (! (filter.filters[data.name] instanceof Array)) {
+                        filter.filters[data.name] = Array();
+                    }
+                    filter.filters[data.name].push(data.value);
+                } else {
+                    filter.filters[data.name] = data.value;
+                }
             });
 
-            this.getFilters().find(".more a[data-filter-name]").each(function() {
+            this.getFilters().find(".more label[data-filter-name]").each(function() {
                 if (!$(this).find(":checkbox").is(":checked")) {
                     return;
                 }
                 filter.optional.push($(this).data("filter-name"));
             });
-
             return filter;
         };
 
         StoredFilters.prototype.saveCurrentFilter = function() {
+
+            console.log('saving:');
+            console.log(this.getCurrentFilter().filters);
+
+            //return false;
+
             this.getPopup().getElement().data("filter", this.getCurrentFilter());
             this.getPopup().show();
         };

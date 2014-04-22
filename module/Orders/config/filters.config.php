@@ -132,7 +132,7 @@ return [
                             'visible' => true,
                             'variables' => [
                                 'filterName' => 'shippingAddressCountry',
-                                'title' => 'Include Country',
+                                'title' => 'Country',
                                 'searchField' => true,
                                 'isOptional' => true,
                                 'concatenate' => true,
@@ -146,7 +146,7 @@ return [
                             'visible' => false,
                             'variables' => [
                                 'filterName' => 'currencyCode',
-                                'title' => 'Include Currency',
+                                'title' => 'Currency',
                                 'searchField' => true,
                                 'isOptional' => true,
                                 'concatenate' => true,
