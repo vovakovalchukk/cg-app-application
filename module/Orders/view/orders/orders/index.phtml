@@ -16,40 +16,6 @@ $("#datatable").on("fnServerData", function(event, sSource, aoData, fnCallback, 
     aoData.push({"name": "filter[batch]", "value": $('#hidden_batch_filter').val()});
 });
 
-$("#filters").on("apply", function() {
-    $("#datatable").cgDataTable("redraw");
-}).on("reset", function() {
-    $("#filters :input").not(":button").val(undefined);
-    $("#filters :checkbox").prop("checked", false);
-    $("#filters .custom-select .selected-content").html("Select");
-});
-
-$("#filters input[name='apply-filters']").on("click", function() {
-    $("#filters").trigger("apply");
-});
-
-$("#filters input[name='clear-filters']").on("click", function() {
-    $("#filters").trigger("reset");
-    $('#hidden_batch_filter').val("");
-    $("#filters").trigger("apply");
-});
-
-function batchFilter(batchId) {
-    $("#filters").trigger("reset");
-    $('#hidden_batch_filter').val(batchId);
-    $("#filters").trigger("apply");
-}
-
-function clearFilters() {
-    $("#filters").trigger("reset");
-}
-
-$(document).on('click', '.batch-filter', function(e) {
-    e.preventDefault();
-    batchFilter($(this).attr('data-name'));
-    return false;
-});
-
 $("#datatable").on("fnRowCallback", function(event, nRow, aData, iDisplayIndex, iDisplayIndexFull) {
     $("a.title", nRow).cgPjax();
 });
