@@ -1,16 +1,8 @@
 {
-    "provide": {
-        "ext-mongo": "*",
-        "ext-gearman": "*"
-    },
     "repositories": [
         {
             "type": "git",
             "url": "git@github.com:channelgrabber/ZendPdf.git"
-        },
-        {
-            "type": "git",
-            "url": "git@bitbucket.org:channelgrabber/cg-template.git"
         },
         {
             "url": "https://composer.build.channelgrabber.com",
