@@ -48,7 +48,7 @@ define(['element/moreButton'], function(MoreButton) {
             if (Filters.savedFilters.hasOwnProperty(filterName)) {
                 Filters.prototype.applyFilterValues(filterName, Filters.savedFilters[filterName]);
                 delete Filters.savedFilters[filterName];
-            });
+            }
         });
     };
 
@@ -66,23 +66,28 @@ define(['element/moreButton'], function(MoreButton) {
     {
         var filters = $(listElement).data("filter").filters;
 
+        console.log('filterS:');
+        console.log(filters);
+
         this.clearFilters();
         this.getFilters().trigger("reset");
 
         for (var filterName in filters) {
             var filterOptions = filters[filterName];
             
+            console.log(filterName);
+
+            if (filterName == 'purchaseDate[from' || filterName == 'purchaseDate[to' || filterName == 'search') {
+                continue;
+            }
+            
             filter = this.getFilters().find(".more label[data-filter-name=" + filterName + "]");
             
             if (filter.length != 0) {
                 if (MoreButton.prototype.addFilter(filterName)) {
-                    this.prepareFilterValues(filterName, filterOptions);
+                    this.prepareFilterValues(filterName, filterOptions);;
                 }
             } else {
-                // not optional filter. date and search to be done
-                if (filterName == 'purchaseDate-from' || filterName == 'purchaseDate-to' || filterName == 'search') {
-                    continue;
-                }
                 this.applyFilterValues(filterName, filterOptions);
             }
         };

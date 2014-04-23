@@ -95,6 +95,14 @@ return [
                                 'value' => ''
                             ],
                         ],
+//                        [
+//                            'template' => 'elements/more.mustache',
+//                            'variables' => [
+//                                'title' => 'More',
+//                                'class' => 'more',
+//                                'filterName' => 'more'
+//                            ],
+//                        ],
                         [
                             'filterType' => 'more',
                             'variables' => [

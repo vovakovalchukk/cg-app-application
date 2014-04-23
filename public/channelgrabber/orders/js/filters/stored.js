@@ -70,8 +70,6 @@ define(
                 if (isMultiSelect.test(data.name)) {
                     data.name = data.name.replace('[]', '');
                     
-                    console.log('name is '+data.name);
-                    
                     if (! (filter.filters[data.name] instanceof Array)) {
                         filter.filters[data.name] = Array();
                     }
@@ -90,13 +88,8 @@ define(
             return filter;
         };
 
-        StoredFilters.prototype.saveCurrentFilter = function() {
-
-            console.log('saving:');
-            console.log(this.getCurrentFilter().filters);
-
-            //return false;
-
+        StoredFilters.prototype.saveCurrentFilter = function()
+        {
             this.getPopup().getElement().data("filter", this.getCurrentFilter());
             this.getPopup().show();
         };
