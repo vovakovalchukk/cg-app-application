@@ -5,7 +5,7 @@ use Zend\Loader\AutoloaderFactory;
 use Zend\Mvc\Service\ServiceManagerConfig;
 use Zend\ServiceManager\ServiceManager;
 
-abstract class AbstractBootstrap
+abstract class BootstrapAbstract
 {
     protected static $serviceManager;
 

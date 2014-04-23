@@ -1,7 +1,7 @@
 <?php
-require dirname(dirname(dirname(__DIR__))) . '/AbstractBootstrap.php';
+require dirname(dirname(dirname(__DIR__))) . '/BootstrapAbstract.php';
 
-class Bootstrap extends AbstractBootstrap
+class Bootstrap extends BootstrapAbstract
 {
     public static function getModuleDependencies()
     {
