@@ -321,6 +321,14 @@ class OrdersController extends AbstractActionController
             ->setPage($page)
             ->setOrganisationUnitId($this->getOrderService()->getActiveUser()->getOuList());
 
+        $orderByIndex = $this->params()->fromPost('iSortCol_0');
+        if ($orderByIndex) {
+            $orderBy = $this->params()->fromPost('mDataProp_'.$orderByIndex);
+            $orderDirection = strtoupper($this->params()->fromPost('sSortDir_0', 'asc'));
+            $filter->setOrderBy($orderBy)
+                ->setOrderDirection($orderDirection);
+        }
+
         $requestFilter = $this->params()->fromPost('filter', []);
         if (!empty($requestFilter)) {
             $filter = $this->getFilterService()->mergeFilters(

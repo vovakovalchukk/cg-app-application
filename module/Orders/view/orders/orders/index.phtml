@@ -1,8 +1,17 @@
 <?php $this->inlineScript()->captureStart(); ?>
 $("#datatable").on("fnServerData", function(event, sSource, aoData, fnCallback, oSettings) {
-    $("#filters input[name], #filters select[name]").each(function() {
-        aoData.push({"name": "filter[" + $(this).attr("name") + "]", "value": $(this).val()});
-    }); 
+    $("#filters :input[name]").each(function() {
+        var value = $.trim($(this).val());
+        if (!value.length) {
+            return;
+        }
+        var name = $(this).attr("name").replace(/^(.*?)(\[.*\])?$/g, "filter[$1]$2");
+
+        aoData.push({
+            "name": name,
+            "value": value
+        });
+    });
     aoData.push({"name": "filter[batch]", "value": $('#hidden_batch_filter').val()});
 });
 

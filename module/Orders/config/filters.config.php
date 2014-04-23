@@ -72,13 +72,16 @@ return [
                                 'concatenate' => true,
                                 'options' => [
                                     [
-                                        'title' => 'New'
+                                        'title' => 'New',
+                                        'value' => 'new'
                                     ],
                                     [
-                                        'title' => 'Processing'
+                                        'title' => 'Processing',
+                                        'value' => 'processing'
                                     ],
                                     [
-                                        'title' => 'Dispatched'
+                                        'title' => 'Dispatched',
+                                        'value' => 'dispatched'
                                     ]
                                 ],
                             ],
@@ -181,7 +184,7 @@ return [
                             'filterType' => 'customSelectGroup',
                             'visible' => false,
                             'variables' => [
-                                'filterName' => 'account',
+                                'filterName' => 'accountId',
                                 'title' => 'Account',
                                 'searchField' => true,
                                 'isOptional' => true,
@@ -194,7 +197,7 @@ return [
                             'filterType' => 'customSelectGroup',
                             'visible' => false,
                             'variables' => [
-                                'filterName' => 'tags',
+                                'filterName' => 'tag',
                                 'title' => 'Tags',
                                 'searchField' => true,
                                 'isOptional' => true,
@@ -205,7 +208,7 @@ return [
                         ],
                         [
                             'filterType' => 'customSelect',
-                            'visible' => false,
+                            'visible' => true,
                             'variables' => [
                                 'filterName' => 'archived',
                                 'title' => 'Show Archived',

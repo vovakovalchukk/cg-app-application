@@ -14,7 +14,7 @@ class Account extends Channel
         try {
             $accounts = $this->getAccounts($this->getActiveUser());
             foreach ($accounts as $account) {
-                $options[$account->getDisplayName()] = $account->getDisplayName();
+                $options[$account->getDisplayName()] = $account->getId();
             }
         } catch (NotFound $exception) {
             // No accounts means no channels so ignore
