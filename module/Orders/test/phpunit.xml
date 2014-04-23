@@ -5,5 +5,9 @@
             <directory>./OrdersTest</directory>
         </testsuite>
     </testsuites>
-    <todo>ADD "IGNORE INTEGRATION TESTS BY DEFAULT" IN HERE SOMEWHERE</todo>
+    <groups>
+        <exclude>
+            <group>integration</group>
+        </exclude>
+    </groups>
 </phpunit>
