@@ -23,6 +23,8 @@ define(['element/moreButton'], function(MoreButton) {
         init.call(this);
     };
 
+    Filters.savedFilters = {};
+
     Filters.prototype.clearFilters = function()
     {
         this.getFilters().find(".more label[data-filter-name]").each(function() {
@@ -31,34 +33,7 @@ define(['element/moreButton'], function(MoreButton) {
                 checkbox.click();   
             }
         });   
-    }
-
-    Filters.prototype.setOptionalFilters = function(optionalFilters)
-    {
-        this.clearFilters();
-        this.getFilters().trigger("reset");
-
-        for (var filterName in optionalFilters) { // todo rename var
-            var filterOptions = optionalFilters[filterName];
-            
-            filter = this.getFilters().find(".more label[data-filter-name=" + filterName + "]");
-            
-            if (filter.length != 0) {
-                if (MoreButton.prototype.addFilter(filterName)) {
-                    this.prepareFilterValues(filterName, filterOptions);
-                }
-            } else {
-                // not optional filter. date and search to be done
-                if (filterName == 'purchaseDate-from' || filterName == 'purchaseDate-to' || filterName == 'search') {
-                    continue;
-                }
-                this.applyFilterValues(filterName, filterOptions);
-            }
-
-        };
     };
-
-    Filters.savedFilters = {};
 
     Filters.prototype.prepareFilterValues = function(filterName, filterOptions)
     {
@@ -72,7 +47,8 @@ define(['element/moreButton'], function(MoreButton) {
             var filterName = filter.getElementName();
             if (Filters.savedFilters.hasOwnProperty(filterName)) {
                 Filters.prototype.applyFilterValues(filterName, Filters.savedFilters[filterName]);
-            }
+                delete Filters.savedFilters[filterName];
+            });
         });
     };
 
@@ -88,8 +64,28 @@ define(['element/moreButton'], function(MoreButton) {
 
     Filters.prototype.activateFilter = function(listElement) 
     {
-        var filter = $(listElement).data("filter");
-        this.setOptionalFilters(filter.filters);
+        var filters = $(listElement).data("filter").filters;
+
+        this.clearFilters();
+        this.getFilters().trigger("reset");
+
+        for (var filterName in filters) {
+            var filterOptions = filters[filterName];
+            
+            filter = this.getFilters().find(".more label[data-filter-name=" + filterName + "]");
+            
+            if (filter.length != 0) {
+                if (MoreButton.prototype.addFilter(filterName)) {
+                    this.prepareFilterValues(filterName, filterOptions);
+                }
+            } else {
+                // not optional filter. date and search to be done
+                if (filterName == 'purchaseDate-from' || filterName == 'purchaseDate-to' || filterName == 'search') {
+                    continue;
+                }
+                this.applyFilterValues(filterName, filterOptions);
+            }
+        };
     };
 
     Filters.prototype.handleFilterAdding();
