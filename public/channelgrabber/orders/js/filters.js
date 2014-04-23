@@ -66,17 +66,12 @@ define(['element/moreButton'], function(MoreButton) {
     {
         var filters = $(listElement).data("filter").filters;
 
-        console.log('filterS:');
-        console.log(filters);
-
         this.clearFilters();
         this.getFilters().trigger("reset");
 
         for (var filterName in filters) {
             var filterOptions = filters[filterName];
             
-            console.log(filterName);
-
             if (filterName == 'purchaseDate[from' || filterName == 'purchaseDate[to' || filterName == 'search') {
                 continue;
             }
