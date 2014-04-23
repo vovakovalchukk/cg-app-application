@@ -1,81 +1,98 @@
-define(
-    [],
-    function() {
-        var Filters = function(filters, filterList) {
-            filters = $(filters)
-            this.getFilters = function() {
-                return filters;
-            };
+define(['element/moreButton'], function(MoreButton) {
 
-            filterList = $(filterList);
-            this.getFilterList = function() {
-                return filterList;
-            };
+    var Filters = function(filters, filterList)
+    {
+        this.savedFilters = {};
 
-            var init = function() {
-                var self = this;
-                self.getFilterList().on("click.filters", "li a", function() {
-                    self.activateFilter.call(self, $(this).closest("li"));
-                });
-            };
-            init.call(this);
+        filters = $(filters)
+        this.getFilters = function() {
+            return filters;
         };
 
-        Filters.prototype.activateFilter = function(listElement) {
-            
-            var filter = $(listElement).data("filter");
+        filterList = $(filterList);
+        this.getFilterList = function() {
+            return filterList;
+        };
 
-            this.getFilters().trigger("reset");
-            
-            
-            console.log(filter);
-            //return false;
-
-            this.getFilters().find(".more label[data-filter-name]").each(function() {
-                var checked = $(this).find(":checkbox").is(":checked");
-                var selected = ($.inArray($(this).data("filter-name"), filter.optional) >= 0);
-
-                if (checked != selected) {
-                    $(this).find(":checkbox").click();
-                }
+        var init = function() {
+            var self = this;
+            self.getFilterList().on("click.filters", "li a", function() {
+                self.activateFilter.call(self, $(this).closest("li"));
             });
+        };
+        init.call(this);
+    };
 
-            
-            for (var key in filter.filters) {
-                var value = filter.filters[key];
-                console.log(key);
-                console.log(value);
-                
-                if (value instanceof Array) {
-                    // click each from the list
-                    var filter = this.getFilters().find("div[data-element-name="+key+"]");
-                    console.log(filter);
-                                        
-                    
-                } else {
-                    console.log(key+' set to '+value);
-                    this.getFilters().find(":input["+key+"]").attr(value);
-                }
-                
+    Filters.prototype.clearFilters = function()
+    {
+        this.getFilters().find(".more label[data-filter-name]").each(function() {
+            var checkbox = $(this).find(":checkbox");
+            if (checkbox.is(":checked")) {                 
+                checkbox.click();   
             }
-            
-            
-            return true;
-
-            this.getFilters().find(":input[name]").each(function() {
-                var name = $(this).attr("name");
-                
-                console.log(name);
-                
-                if (filter.filters[name] == undefined) {
-                    return;
-                }
-                $(this).val(filter.filters[name]);
-            });
-
-            //this.getFilters().trigger("apply");
-        };
-
-        return Filters;
+        });   
     }
-);
+
+    Filters.prototype.setOptionalFilters = function(optionalFilters)
+    {
+        this.clearFilters();
+        this.getFilters().trigger("reset");
+
+        for (var filterName in optionalFilters) { // todo rename var
+            var filterOptions = optionalFilters[filterName];
+            
+            filter = this.getFilters().find(".more label[data-filter-name=" + filterName + "]");
+            
+            if (filter.length != 0) {
+                if (MoreButton.prototype.addFilter(filterName)) {
+                    this.prepareFilterValues(filterName, filterOptions);
+                }
+            } else {
+                // not optional filter. date and search to be done
+                if (filterName == 'purchaseDate-from' || filterName == 'purchaseDate-to' || filterName == 'search') {
+                    continue;
+                }
+                this.applyFilterValues(filterName, filterOptions);
+            }
+
+        };
+    };
+
+    Filters.savedFilters = {};
+
+    Filters.prototype.prepareFilterValues = function(filterName, filterOptions)
+    {
+        Filters.savedFilters[filterName] = filterOptions;
+    };
+
+    Filters.prototype.handleFilterAdding = function() 
+    {
+        $(document).bind('filterCollection.attach.after', function(e, filter) {
+
+            var filterName = filter.getElementName();
+            if (Filters.savedFilters.hasOwnProperty(filterName)) {
+                Filters.prototype.applyFilterValues(filterName, Filters.savedFilters[filterName]);
+            }
+        });
+    };
+
+    Filters.prototype.applyFilterValues = function(filterName, filterOptions)
+    {
+        require(['filterCollection'], function(FilterCollection) {
+            var filterObject = FilterCollection.get(filterName);
+            if (filterObject != undefined) {
+                filterObject.setValue(filterOptions);
+            }
+        });
+    };
+
+    Filters.prototype.activateFilter = function(listElement) 
+    {
+        var filter = $(listElement).data("filter");
+        this.setOptionalFilters(filter.filters);
+    };
+
+    Filters.prototype.handleFilterAdding();
+
+    return Filters;
+});
