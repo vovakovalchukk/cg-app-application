@@ -72,10 +72,6 @@ define(['element/moreButton'], function(MoreButton) {
         for (var filterName in filters) {
             var filterOptions = filters[filterName];
             
-            if (filterName == 'purchaseDate[from' || filterName == 'purchaseDate[to' || filterName == 'search') {
-                continue;
-            }
-            
             filter = this.getFilters().find(".more label[data-filter-name=" + filterName + "]");
             
             if (filter.length != 0) {
