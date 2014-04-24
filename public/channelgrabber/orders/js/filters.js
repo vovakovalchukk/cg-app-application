@@ -46,7 +46,7 @@ define(['element/moreButton'], function(MoreButton) {
 
             var filterName = filter.getElementName();
             if (Filters.savedFilters.hasOwnProperty(filterName)) {
-                Filters.prototype.applyFilterValues(filterName, Filters.savedFilters[filterName]);
+                Filters.applyFilterValues(filterName, Filters.savedFilters[filterName]);
                 delete Filters.savedFilters[filterName];
             }
         });
@@ -72,10 +72,10 @@ define(['element/moreButton'], function(MoreButton) {
         for (var filterName in filters) {
             var filterOptions = filters[filterName];
             
-            filter = this.getFilters().find(".more label[data-filter-name=" + filterName + "]");
+            var filter = this.getFilters().find(".more label[data-filter-name=" + filterName + "]");
             
             if (filter.length != 0) {
-                if (MoreButton.prototype.addFilter(filterName)) {
+                if (MoreButton.addFilter(filterName)) {
                     this.prepareFilterValues(filterName, filterOptions);;
                 }
             } else {
