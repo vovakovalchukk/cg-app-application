@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zend-config>
-    <BRANCH>master</BRANCH>
+    <BRANCH>CGIV-2045-rename-orders-and-pineapple</BRANCH>
     <NODE>orders</NODE>
-    <APP_NAME>orders</APP_NAME>
-    <HOST_NAME>orders.channelgrabber.com</HOST_NAME>
-    <VM_PATH>/var/www/orders</VM_PATH>
+    <APP_NAME>app</APP_NAME>
+    <HOST_NAME>app.channelgrabber.com</HOST_NAME>
+    <VM_PATH>/var/www/app</VM_PATH>
     <Vagrant>
         <VM-RAM>512</VM-RAM>
         <VM-ip>192.168.33.54</VM-ip>
         <box>cg-precise64-php55</box>
     </Vagrant>
-    <ROLE>orders</ROLE>
+    <ROLE>app</ROLE>
     <Module>
         <Redis>
             <enabled>1</enabled>
@@ -26,14 +26,14 @@
     </Module>
     <Environment>
         <Local>
-            <node>orders</node>
+            <node>app</node>
             <IP>192.168.33.54</IP>
-            <hostname>orders.channelgrabber.com.local</hostname>
+            <hostname>app.channelgrabber.com.local</hostname>
         </Local>
         <Dual>
             <node>frontend</node>
             <IP>192.168.33.52</IP>
-            <hostname>orders.channelgrabber.com.local</hostname>
+            <hostname>app.channelgrabber.com.local</hostname>
         </Dual>
     </Environment>
     <ENVIRONMENT>Dual</ENVIRONMENT>
