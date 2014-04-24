@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "1a4a648aa9a81d8be789e3d9ed21da28",
+    "hash": "e9b46ef30afdfdff8d713e86b5c1c90d",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -1548,11 +1548,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-1831-bundle",
+            "version": "dev-CGIV-1998-FilterValues",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "c28a493bae557f7f5e5dbf2436a1a0e515bf6ba0"
+                "reference": "aa11f8a7500d0b68ed131630b3f07ec8ba2a4596"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1580,7 +1580,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-04-22 10:21:07"
+            "time": "2014-04-24 09:37:56"
         },
         {
             "name": "cilex/cilex",
@@ -3884,7 +3884,7 @@
         {
             "alias": "1.5.5",
             "alias_normalized": "1.5.5.0",
-            "version": "dev-CGIV-1831-bundle",
+            "version": "dev-CGIV-1998-FilterValues",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
