@@ -65,7 +65,6 @@ define(
 
         StoredFilters.prototype.saveCurrentFilter = function()
         {
-            console.log(this.getCurrentFilter());
             this.getPopup().getElement().data("filter", this.getCurrentFilter());
             this.getPopup().show();
         };
