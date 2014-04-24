@@ -264,10 +264,9 @@ return [
                 'name' => 'New Orders',
                 'filter' => json_encode(
                     [
-                        'filters' => [
-                            'status' => 'New'
-                        ],
-                        'optional' => []
+                        'status' => [
+                            'new'
+                        ]
                     ]
                 )
             ],
@@ -275,10 +274,9 @@ return [
                 'name' => 'Processing',
                 'filter' => json_encode(
                     [
-                        'filters' => [
-                            'status' => 'Processing'
-                        ],
-                        'optional' => []
+                        'status' => [
+                            'processing'
+                        ]
                     ]
                 )
             ],
@@ -286,10 +284,9 @@ return [
                 'name' => 'Dispatched',
                 'filter' => json_encode(
                     [
-                        'filters' => [
-                            'status' => 'Dispatched'
-                        ],
-                        'optional' => []
+                        'status' => [
+                            'dispatched'
+                        ]
                     ]
                 )
             ],

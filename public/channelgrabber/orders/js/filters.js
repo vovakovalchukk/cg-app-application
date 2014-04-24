@@ -64,7 +64,7 @@ define(['element/moreButton'], function(MoreButton) {
 
     Filters.prototype.activateFilter = function(listElement) 
     {
-        var filters = $(listElement).data("filter").filters;
+        var filters = $(listElement).data("filter");
 
         this.clearFilters();
         this.getFilters().trigger("reset");

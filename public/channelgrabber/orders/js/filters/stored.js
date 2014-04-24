@@ -1,6 +1,6 @@
 define(
-    ['filters', 'popup/mustache', 'cg-mustache'],
-    function(Filters, Popup, CGMustache) {
+    ['filters', 'popup/mustache', 'cg-mustache', 'filterCollection'],
+    function(Filters, Popup, CGMustache, FilterCollection) {
         var StoredFilters = function(notifications, filters, filterList) {
             Filters.call(this, filters, filterList);
 
@@ -58,38 +58,14 @@ define(
             });
         };
 
-        StoredFilters.prototype.getCurrentFilter = function() {
-            var filter = {
-                filters: {},
-                optional: []
-            };
-
-            $(this.getFilters().find(":input[name]").serializeArray()).each(function(index, data) {
-                
-                isMultiSelect = new RegExp('\\[\\]$');
-                if (isMultiSelect.test(data.name)) {
-                    data.name = data.name.replace('[]', '');
-                    
-                    if (! (filter.filters[data.name] instanceof Array)) {
-                        filter.filters[data.name] = Array();
-                    }
-                    filter.filters[data.name].push(data.value);
-                } else {
-                    filter.filters[data.name] = data.value;
-                }
-            });
-
-            this.getFilters().find(".more label[data-filter-name]").each(function() {
-                if (!$(this).find(":checkbox").is(":checked")) {
-                    return;
-                }
-                filter.optional.push($(this).data("filter-name"));
-            });
-            return filter;
+        StoredFilters.prototype.getCurrentFilter = function()
+        {
+            return FilterCollection.getCollectionValues();
         };
 
         StoredFilters.prototype.saveCurrentFilter = function()
         {
+            console.log(this.getCurrentFilter());
             this.getPopup().getElement().data("filter", this.getCurrentFilter());
             this.getPopup().show();
         };
