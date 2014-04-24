@@ -1,8 +1,8 @@
-define(['../StorageAbstract', '../Entity'], function(StorageAbstract, Entity)
+define(['../StorageAbstract'], function(StorageAbstract)
 {
-    var Ajax = function(mapper)
+    var Ajax = function()
     {
-        StorageAbstract.call(this, mapper);
+        StorageAbstract.call(this);
     };
 
     Ajax.prototype = Object.create(StorageAbstract.prototype);
@@ -20,14 +20,10 @@ define(['../StorageAbstract', '../Entity'], function(StorageAbstract, Entity)
 
     Ajax.prototype.save = function(template)
     {
-        if (!(template instanceof Entity)) {
-            throw 'InvalidArgumentException: InvoiceDesigner Storage Ajax::save must be passed an instance of Template Entity';
-        }
-
         /*
          * TODO (CGIV-2009)
          */
     };
 
-    return Ajax;
+    return new Ajax();
 });

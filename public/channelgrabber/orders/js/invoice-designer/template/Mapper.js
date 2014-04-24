@@ -1,4 +1,4 @@
-define(['./Entity'], function(Entity)
+define([], function()
 {
     var Mapper = function()
     {
@@ -7,5 +7,5 @@ define(['./Entity'], function(Entity)
          */
     };
 
-    return Mapper;
+    return new Mapper();
 });

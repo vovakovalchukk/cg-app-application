@@ -1,17 +1,18 @@
-define(['./Mapper'], function(Mapper) {
-    var StorageAbstract = function(mapper)
+define(['./Mapper'], function(mapper) {
+    var StorageAbstract = function()
     {
-        if (!(mapper instanceof Mapper)) {
-            throw 'InvalidArgumentException: InvoiceDesigner Storage must be passed an instance of Mapper';
-        }
+        var mapper = mapper;
 
         this.getMapper = function()
         {
             return mapper;
         };
 
-        this.enforceMethod('fetch');
-        this.enforceMethod('save');
+        this.setMapper = function(newMapper)
+        {
+            mapper = newMapper;
+            return this;
+        };
     };
 
     return StorageAbstract;
