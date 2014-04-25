@@ -1,0 +1,23 @@
+form {
+  margin-bottom: 0px !important;
+}
+
+.account-status .mustache {
+  > div {
+    display: inline-block;
+
+    .status {
+      margin-left: 60px;
+    }
+
+    input.toggle:empty + label {
+      top: -7px;
+      left: 0px;
+      width: initial;
+
+      span.toggle_label {
+        top: -1px;
+      }
+    }
+  }
+}

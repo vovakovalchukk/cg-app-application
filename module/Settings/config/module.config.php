@@ -1,6 +1,9 @@
 <?php
 use CG\Account\Client\Storage\Api as AccountStorage;
 use CG\Account\Client\Service as AccountService;
+use CG\Amazon\Signer as AmazonSigner;
+USE CG\Amazon\Account as AmazonAccount;
+USE CG\Amazon\Account\Eu as AmazonAccountEu;
 use CG\Ebay\Client\TradingApi;
 use CG\Ebay\Account as EbayAccount;
 use Guzzle\Http\Client as GuzzleHttpClient;
@@ -8,9 +11,16 @@ use Settings\Module;
 use Settings\Controller\IndexController;
 use Settings\Controller\ChannelController;
 use Settings\Controller\EbayController;
+use Settings\Controller\AmazonController;
 use CG_UI\View\DataTable;
 use Settings\Channel\Service;
 use Zend\View\Model\ViewModel;
+use CG\Account\Client\StorageInterface as AccountStorageInterface;
+use CG\Account\Client\Storage\Api as AccountApiStorage;
+use CG\OrganisationUnit\StorageInterface as OUStorageInterface;
+use CG\OrganisationUnit\Storage\Api as OUApiStorage;
+use CG\Stdlib\Log\LoggerInterface;
+use CG\Log\Logger;
 
 return [
     'router' => [
@@ -51,7 +61,27 @@ return [
                                 ],
                                 'may_terminate' => true
                             ],
-                            'Sales Channel Create' => [
+                            AmazonAccount::ROUTE => [
+                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                'options' => [
+                                    'route' => '/amazon/:region',
+                                    'defaults' => [
+                                        'controller' => AmazonController::class,
+                                        'action' => 'save'
+                                    ]
+                                ],
+                                'may_terminate' => true
+                            ],
+                            ChannelController::AJAX_ROUTE => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/ajax',
+                                    'defaults' => [
+                                        'action' => 'listAjax',
+                                    ]
+                                ],
+                            ],
+                            ChannelController::CREATE_ROUTE => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => [
                                     'route' => '/create',
@@ -66,12 +96,43 @@ return [
                                 'options' => [
                                     'route' => '/:account',
                                     'defaults' => [
+                                        'action' => 'account'
                                     ],
                                     'constraints' => [
                                         'account' => '[0-9]*'
                                     ],
-                                ]
-                            ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    ChannelController::ACCOUNT_STATUS_ROUTE => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/enable',
+                                            'defaults' => [
+                                                'action' => 'statusAjax',
+                                            ]
+                                        ],
+                                    ],
+                                    ChannelController::ACCOUNT_AJAX_ROUTE => [
+                                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => [
+                                            'route' => '/ajax',
+                                            'defaults' => [
+                                                'action' => 'accountUpdate'
+                                            ],
+                                        ],
+                                    ],
+                                    ChannelController::ACCOUNT_DELETE_ROUTE => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/delete',
+                                            'defaults' => [
+                                                'action' => 'delete',
+                                            ]
+                                        ],
+                                    ],
+                                ],
+                            ],
                         ],
                     ],
                 ],
@@ -81,14 +142,27 @@ return [
     'view_manager' => [
         'template_path_stack' => [
             dirname(__DIR__) . '/view',
+            dirname(dirname(dirname(__DIR__))) . '/public' . Module::PUBLIC_FOLDER . 'template',
         ],
+        'template_map' => [
+            ChannelController::ACCOUNT_TEMPLATE => dirname(__DIR__) . '/view/settings/channel/account.phtml',
+            ChannelController::ACCOUNT_CHANNEL_FORM_BLANK_TEMPLATE => dirname(__DIR__) . '/view/settings/channel/account/channel_form_blank.phtml',
+        ]
     ],
     'di' => [
         'instance' => [
+            'preferences' => [
+                AccountStorageInterface::class => AccountApiStorage::class,
+                OUStorageInterface::class => OUApiStorage::class,
+                LoggerInterface::class => Logger::class
+            ],
             'aliases' => [
                 'EbayGuzzle' => GuzzleHttpClient::class,
                 'AccountList' => DataTable::class,
                 'AccountListSettings' => DataTable\Settings::class,
+                'ChannelTokenStatusMustacheJS' => ViewModel::class,
+                'ChannelStatusJS' => viewModel::class,
+                'ChannelDeleteJavascript' => ViewModel::class,
                 'AccountEnableColumn' => DataTable\Column::class,
                 'AccountStatusColumn' => DataTable\Column::class,
                 'AccountChannelColumn' => DataTable\Column::class,
@@ -102,13 +176,30 @@ return [
                 'AccountAccountColumnView' => ViewModel::class,
                 'AccountTradingCompanyColumnView' => ViewModel::class,
                 'AccountTokenStatusColumnView' => ViewModel::class,
-                'AccountManageColumnView' => ViewModel::class
+                'AccountManageColumnView' => ViewModel::class,
+            ],
+            AccountApiStorage::class => [
+                'parameters' => [
+                    'client' => 'account_guzzle',
+                ],
             ],
             'EbayGuzzle' => [
                 'parameters' => [
                     'baseUrl' => 'https://api.ebay.com/ws/api.dll'
                 ]
             ],
+            AmazonSigner::class => array(
+                'parameters' => array(
+                    'secretKey' => 'Tp6B7AEOI8piy6bbSN3n5fmIZgbqWDlTvaxuDBBD',
+                    'httpVerb' => 'GET'
+                )
+            ),
+            AmazonAccountEu::class => array(
+                'parameters' => array(
+                    'id' => '929b9241-7b26-4640-bc23-4e385329456b',
+                    'awsAccessKeyId' => 'AKIAIDD3ZCDYV53OVQEA'
+                )
+            ),
             TradingApi::class => [
                 'parameters' => [
                     'client' => 'EbayGuzzle',
@@ -129,6 +220,11 @@ return [
                     ],
                 ],
                 'injections' => [
+                    'addChild' => [
+                        ['child' => 'ChannelTokenStatusMustacheJS', 'captureTo' => 'javascript', 'append' => true],
+                        ['child' => 'ChannelStatusJS', 'captureTo' => 'javascript', 'append' => true],
+                        ['child' => 'ChannelDeleteJavascript', 'captureTo' => 'javascript', 'append' => true],
+                    ],
                     'addColumn' => [
                         ['column' => 'AccountEnableColumn'],
                         ['column' => 'AccountStatusColumn'],
@@ -145,25 +241,57 @@ return [
             ],
             'AccountListSettings' => [
                 'parameters' => [
-
+                    'scrollHeightAuto' => true,
+                    'footer' => false,
                 ]
+            ],
+            'ChannelTokenStatusMustacheJS' => [
+                'parameters' => [
+                    'template' => 'settings/channel/javascript/mustache-token.js',
+                ],
+            ],
+            'ChannelStatusJS' => [
+                'parameters' => [
+                    'template' => 'settings/channel/javascript/enableChannel.js',
+                    'variables' => [
+                        'route' => implode(
+                            '/',
+                            [
+                                Module::ROUTE,
+                                ChannelController::ROUTE,
+                                ChannelController::ACCOUNT_ROUTE,
+                                ChannelController::ACCOUNT_STATUS_ROUTE,
+                            ]
+                        ),
+                    ],
+                ],
+            ],
+            'ChannelDeleteJavascript' => [
+                'parameters' => [
+                    'template' => 'settings/channel/javascript/deleteChannel.js',
+                ],
             ],
             'AccountEnableColumn' => [
                 'parameters' => [
+                    'templateId' => 'enable',
                     'viewModel' => 'AccountEnableColumnView',
                     'sortable' => false,
                     'hideable' => false,
+                    'width' => '100px',
                 ],
             ],
             'AccountStatusColumn' => [
                 'parameters' => [
+                    'templateId' => 'status',
                     'viewModel' => 'AccountStatusColumnView',
                     'sortable' => false,
                     'hideable' => false,
+                    'width' => '100px',
                 ],
             ],
             'AccountChannelColumn' => [
                 'parameters' => [
+                    'templateId' => 'channel',
                     'viewModel' => 'AccountChannelColumnView',
                     'sortable' => false,
                     'hideable' => false,
@@ -171,6 +299,7 @@ return [
             ],
             'AccountAccountColumn' => [
                 'parameters' => [
+                    'templateId' => 'account',
                     'viewModel' => 'AccountAccountColumnView',
                     'sortable' => false,
                     'hideable' => false,
@@ -178,6 +307,7 @@ return [
             ],
             'AccountTradingCompanyColumn' => [
                 'parameters' => [
+                    'templateId' => 'tradingCompany',
                     'viewModel' => 'AccountTradingCompanyColumnView',
                     'sortable' => false,
                     'hideable' => false,
@@ -185,6 +315,7 @@ return [
             ],
             'AccountTokenStatusColumn' => [
                 'parameters' => [
+                    'templateId' => 'tokenStatus',
                     'viewModel' => 'AccountTokenStatusColumnView',
                     'sortable' => false,
                     'hideable' => false,
@@ -192,6 +323,7 @@ return [
             ],
             'AccountManageColumn' => [
                 'parameters' => [
+                    'templateId' => 'manage',
                     'viewModel' => 'AccountManageColumnView',
                     'sortable' => false,
                     'hideable' => false,
@@ -252,13 +384,10 @@ return [
             EbayAccount::class => [
                 'parameters' => [
                     'domain' => 'https://signin.ebay.com/ws/eBayISAPI.dll',
-                    'ruName' => 'Wilki_Ltd-WilkiLtd-beda-4-kdighency',
+                    'ruName' => 'Wilki_Ltd-WilkiLtd-beda-4-klnwz',
                     'siteId' => 3
                 ]
             ],
-            'preferences' => [
-                'CG\Stdlib\Log\LoggerInterface' => 'CG\Log\Logger'
-            ]
         ]
     ]
 ];
