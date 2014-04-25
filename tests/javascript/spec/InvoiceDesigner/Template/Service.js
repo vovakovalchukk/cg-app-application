@@ -20,12 +20,19 @@ define(['jasq', 'InvoiceDesigner/Template/Entity'], function (Jasq, templateEnti
             expect(loadedId).toBe(templateId);
         });
 
-        it('should be able to save a template', function(service)
-        {
-            spyOn(service.getStorage(), 'save');
+        it('should be able to save a template', {
+            mock: {
+                'InvoiceDesigner/Template/Storage/Ajax': {
+                    save: function() {}
+                }
+            }, expect: function(service, dependencies)
+            {
+                var storage = dependencies['InvoiceDesigner/Template/Storage/Ajax'];
+                spyOn(storage, 'save');
 
-            service.save(templateEntity);
-            expect(service.getStorage().save).toHaveBeenCalled();
+                service.save(templateEntity);
+                expect(storage.save).toHaveBeenCalled();
+            }
         });
 
         it('should be able to create a new template', function(service)
@@ -58,12 +65,19 @@ define(['jasq', 'InvoiceDesigner/Template/Entity'], function (Jasq, templateEnti
             expect(newName).not.toBe(oldName);
         });
 
-        it('should be able to render a template', function(service)
-        {
-            spyOn(service.getDomManipulator(), 'insertTemplateHtml');
+        it('should be able to render a template', {
+            mock: {
+                'InvoiceDesigner/Template/DomManipulator': {
+                    insertTemplateHtml: function() {}
+                }
+            }, expect: function(service, dependencies)
+            {
+                var domManipulator = dependencies['InvoiceDesigner/Template/DomManipulator'];
+                spyOn(domManipulator, 'insertTemplateHtml');
 
-            service.render(templateEntity);
-            expect(service.getDomManipulator().insertTemplateHtml).toHaveBeenCalled();
+                service.render(templateEntity);
+                expect(domManipulator.insertTemplateHtml).toHaveBeenCalled();
+            }
         });
     });
 });
