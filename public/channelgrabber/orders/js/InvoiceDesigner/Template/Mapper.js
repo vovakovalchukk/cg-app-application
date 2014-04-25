@@ -1,4 +1,4 @@
-define([], function()
+define(['require'], function(require)
 {
     var Mapper = function()
     {
