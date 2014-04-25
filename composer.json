@@ -2,10 +2,6 @@
     "repositories": [
         {
             "type": "git",
-            "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git"
-        },
-        {
-            "type": "git",
             "url": "git@github.com:channelgrabber/ZendPdf.git"
         },
         {
@@ -53,7 +49,7 @@
         "channelgrabber/zf2-register": "~1.4.10",
         "channelgrabber/zf2-ssoclient": "~1.2.1",
         "channelgrabber/zf2-stdlib": "~1.1.9",
-        "channelgrabber/zf2-v4-ui": "dev-CGIV-2047-skeletal-javascript-invoice-object as 1.4.10",
+        "channelgrabber/zf2-v4-ui": "~1.4.10",
         "davedevelopment/phpmig": "0.4",
         "guzzle/guzzle": "~3.7",
         "nocarrier/hal": "~0.9.3",

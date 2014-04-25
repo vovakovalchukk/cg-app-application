@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "82eefe76c93fa9cad815c19d17ea26e1",
+    "hash": "e586de0af26995d569016eeee6e606e7",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -1576,11 +1576,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-2047-skeletal-javascript-invoice-object",
+            "version": "1.4.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "9a66d93518a5e5902f1c9e600824f56fc0a27d5d"
+                "reference": "cef60b94f8bd665506b333f24f15f7c4f05c8721"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.4.10-e1ae98.zip",
+                "reference": "cef60b94f8bd665506b333f24f15f7c4f05c8721",
+                "shasum": "c49d1bac31bf43d44dcf2940c0aff0f2c0bf9cd1"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1608,7 +1614,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-04-24 13:19:34"
+            "time": "2014-04-16 16:15:57"
         },
         {
             "name": "cilex/cilex",
@@ -3907,17 +3913,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.4.10",
-            "alias_normalized": "1.4.10.0",
-            "version": "dev-CGIV-2047-skeletal-javascript-invoice-object",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },
