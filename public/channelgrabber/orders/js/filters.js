@@ -14,11 +14,35 @@ define(['element/moreButton'], function(MoreButton) {
             return filterList;
         };
 
+        this.applyFilterValues = function(filterName, filterOptions)
+        {
+            require(['filterCollection'], function(FilterCollection) {
+                var filterObject = FilterCollection.get(filterName);
+                if (filterObject != undefined) {
+                    filterObject.setValue(filterOptions);
+                }
+            });
+        };
+
+        this.handleFilterAdding = function()
+        {
+            var that = this;
+            $(document).bind('filterCollection.attach.after', function(e, filter) {
+
+                var filterName = filter.getElementName();
+                if (Filters.savedFilters.hasOwnProperty(filterName)) {
+                    that.applyFilterValues(filterName, Filters.savedFilters[filterName]);
+                    delete Filters.savedFilters[filterName];
+                }
+            });
+        };
+
         var init = function() {
             var self = this;
             self.getFilterList().on("click.filters", "li a", function() {
                 self.activateFilter.call(self, $(this).closest("li"));
             });
+            self.handleFilterAdding();
         };
         init.call(this);
     };
@@ -42,22 +66,13 @@ define(['element/moreButton'], function(MoreButton) {
 
     Filters.prototype.handleFilterAdding = function() 
     {
+        var that = this;
         $(document).bind('filterCollection.attach.after', function(e, filter) {
 
             var filterName = filter.getElementName();
             if (Filters.savedFilters.hasOwnProperty(filterName)) {
-                Filters.applyFilterValues(filterName, Filters.savedFilters[filterName]);
+                that.applyFilterValues(filterName, Filters.savedFilters[filterName]);
                 delete Filters.savedFilters[filterName];
-            }
-        });
-    };
-
-    Filters.prototype.applyFilterValues = function(filterName, filterOptions)
-    {
-        require(['filterCollection'], function(FilterCollection) {
-            var filterObject = FilterCollection.get(filterName);
-            if (filterObject != undefined) {
-                filterObject.setValue(filterOptions);
             }
         });
     };
@@ -76,15 +91,13 @@ define(['element/moreButton'], function(MoreButton) {
             
             if (filter.length != 0) {
                 if (MoreButton.addFilter(filterName)) {
-                    this.prepareFilterValues(filterName, filterOptions);;
+                    this.prepareFilterValues(filterName, filterOptions);
                 }
             } else {
                 this.applyFilterValues(filterName, filterOptions);
             }
         };
     };
-
-    Filters.prototype.handleFilterAdding();
 
     return Filters;
 });
