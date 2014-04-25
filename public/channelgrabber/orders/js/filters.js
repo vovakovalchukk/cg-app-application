@@ -26,12 +26,12 @@ define(['element/moreButton'], function(MoreButton) {
 
         this.handleFilterAdding = function()
         {
-            var that = this;
+            var self = this;
             $(document).bind('filterCollection.attach.after', function(e, filter) {
 
                 var filterName = filter.getElementName();
                 if (Filters.savedFilters.hasOwnProperty(filterName)) {
-                    that.applyFilterValues(filterName, Filters.savedFilters[filterName]);
+                    self.applyFilterValues(filterName, Filters.savedFilters[filterName]);
                     delete Filters.savedFilters[filterName];
                 }
             });
@@ -66,12 +66,12 @@ define(['element/moreButton'], function(MoreButton) {
 
     Filters.prototype.handleFilterAdding = function() 
     {
-        var that = this;
+        var self = this;
         $(document).bind('filterCollection.attach.after', function(e, filter) {
 
             var filterName = filter.getElementName();
             if (Filters.savedFilters.hasOwnProperty(filterName)) {
-                that.applyFilterValues(filterName, Filters.savedFilters[filterName]);
+                self.applyFilterValues(filterName, Filters.savedFilters[filterName]);
                 delete Filters.savedFilters[filterName];
             }
         });
