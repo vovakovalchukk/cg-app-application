@@ -1,4 +1,5 @@
-define(['./Mapper'], function(mapper) {
+define(['./Mapper'], function(mapper)
+{
     var StorageAbstract = function()
     {
         var mapper = mapper;

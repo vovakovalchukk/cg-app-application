@@ -1,4 +1,4 @@
-define(['./element/Collection'], function(collection)
+define(['./Element/Collection'], function(collection)
 {
     var Entity = function()
     {

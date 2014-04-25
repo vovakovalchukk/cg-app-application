@@ -3,11 +3,10 @@ require.config({
     baseUrl: "../../public/channelgrabber/orders/js/",
     // The paths below are now relative to the baseUrl
     paths: {
-        jasq: "../../../../tests/javascript/lib/jasq"
+        jasq: "../../../../tests/javascript/lib/jasq",
+        jQuery: "../../zf2-v4-ui/js/jquery.min"
     }
 });
-
-require(['../../zf2-v4-ui/js/object-helpers']);
 
 // Configure Jasmine
 var jasmineEnv = jasmine.getEnv();
@@ -19,7 +18,7 @@ jasmineEnv.specFilter = function (spec) {
 };
 
 require([
-    "../../../../tests/javascript/spec/invoice-designer/Service"
+    "../../../../tests/javascript/spec/InvoiceDesigner/Template/Service"
     ], function ()
     {
         jasmineEnv.execute();

@@ -10,7 +10,7 @@ define(['../StorageAbstract'], function(StorageAbstract)
     Ajax.prototype.fetch = function(id)
     {
         if (!id) {
-            throw 'InvalidArgumentException: InvoiceDesigner Storage Ajax::fetch must be passed an id';
+            throw 'InvalidArgumentException: InvoiceDesigner\Template\Storage\Ajax::fetch must be passed an id';
         }
 
         /*
