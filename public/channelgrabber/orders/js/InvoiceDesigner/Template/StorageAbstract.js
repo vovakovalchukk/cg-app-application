@@ -1,8 +1,8 @@
-define(['./Mapper'], function(mapper)
+define(['./Mapper'], function(templateMapper)
 {
     var StorageAbstract = function()
     {
-        var mapper = mapper;
+        var mapper = templateMapper;
 
         this.getMapper = function()
         {
