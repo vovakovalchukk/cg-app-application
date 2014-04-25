@@ -1,9 +1,25 @@
-define(['./DomListener/TemplateSelector'], function(domListener)
-{
+define([
+    './DomListener/TemplateSelector',
+    '../Template/Service'
+], function(
+    templateSelectorListener,
+    templateService
+) {
     var TemplateSelector = function()
     {
-        var domListener = domListener;
+        var domListener = templateSelectorListener;
+        var service = templateService;
         var application;
+
+        this.getDomListener = function()
+        {
+            return domListener;
+        };
+
+        this.getService = function()
+        {
+            return service;
+        };
 
         this.getApplication = function()
         {
@@ -14,11 +30,6 @@ define(['./DomListener/TemplateSelector'], function(domListener)
         {
             application = newApplication;
             return this;
-        };
-
-        this.getDomListener = function()
-        {
-            return domListener;
         };
     };
 

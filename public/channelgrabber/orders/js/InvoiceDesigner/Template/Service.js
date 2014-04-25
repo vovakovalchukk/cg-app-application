@@ -5,15 +5,15 @@ define([
     './DomManipulator'
 ], function(
     require,
-    ajaxStorage,
-    mapper,
-    domManipulator
+    templateAjaxStorage,
+    templateMapper,
+    templateDomManipulator
 ) {
     var Service = function()
     {
-        var storage = ajaxStorage;
-        var mapper = mapper;
-        var domManipulator = domManipulator;
+        var storage = templateAjaxStorage;
+        var mapper = templateMapper;
+        var domManipulator = templateDomManipulator;
 
         this.getStorage = function()
         {
