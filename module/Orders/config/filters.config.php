@@ -87,14 +87,14 @@ return [
                                 'value' => ''
                             ],
                         ],
-                        [
-                            'template' => 'elements/more.mustache',
-                            'variables' => [
-                                'title' => 'More',
-                                'class' => 'more',
-                                'filterName' => 'more'
-                            ],
-                        ],
+//                        [
+//                            'template' => 'elements/more.mustache',
+//                            'variables' => [
+//                                'title' => 'More',
+//                                'class' => 'more',
+//                                'filterName' => 'more'
+//                            ],
+//                        ],
                         [
                             'template' => 'elements/buttons.mustache',
                             'variables' => [
@@ -168,7 +168,27 @@ return [
                                 'isOptional' => true,
                                 'id' => ''
                             ]
-                        ]
+                        ],
+                        [
+                            'template' => 'elements/custom-select.mustache',
+                            'visible' => false,
+                            'variables' => [
+                                'filterName' => 'archived',
+                                'title' => 'Show Archived',
+                                'isOptional' => true,
+                                'options' => [
+                                    [
+                                        'title' => 'All'
+                                    ],
+                                    [
+                                        'title' => 'Yes'
+                                    ],
+                                    [
+                                        'title' => 'No'
+                                    ],
+                                ]
+                            ],
+                        ],
                     ]
                 ],
             ],
