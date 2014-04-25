@@ -1,6 +1,6 @@
 define(['jasq', 'InvoiceDesigner/Template/Entity'], function (Jasq, templateEntity)
 {
-    describe('The Service module', 'InvoiceDesigner/Template/Service', function ()
+    describe('The Template Service module', 'InvoiceDesigner/Template/Service', function ()
     {
         it('should be an object', function(service)
         {
@@ -56,6 +56,14 @@ define(['jasq', 'InvoiceDesigner/Template/Entity'], function (Jasq, templateEnti
             expect(newId).toBe(null);
             expect(newName).toBeTruthy();
             expect(newName).not.toBe(oldName);
+        });
+
+        it('should be able to render a template', function(service)
+        {
+            spyOn(service.getDomManipulator(), 'insertTemplateHtml');
+
+            service.render(templateEntity);
+            expect(service.getDomManipulator().insertTemplateHtml).toHaveBeenCalled();
         });
     });
 });

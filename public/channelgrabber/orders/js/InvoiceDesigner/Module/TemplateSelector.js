@@ -22,7 +22,7 @@ define(['./DomListener/TemplateSelector'], function(domListener)
         };
     };
 
-    TemplateSelector.protoype.init = function(application)
+    TemplateSelector.prototype.init = function(application)
     {
         this.setApplication(application);
         this.getDomListener().init(this);

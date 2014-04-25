@@ -22,7 +22,7 @@ define(['module'], function(requireModule)
         };
     };
 
-    TemplateSelector.protoype.init = function(module)
+    TemplateSelector.prototype.init = function(module)
     {
         this.setModule(module);
         /*
