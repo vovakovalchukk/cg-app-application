@@ -16,6 +16,13 @@ define(['require'], function(require)
          */
     };
 
+    Mapper.prototype.toJson = function(template)
+    {
+        /*
+         * TODO (CGIV-2009)
+         */
+    };
+
     Mapper.prototype.toHtml = function(template)
     {
         /*

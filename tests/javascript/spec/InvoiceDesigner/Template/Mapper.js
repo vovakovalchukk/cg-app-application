@@ -23,6 +23,18 @@ define(['jasq', 'InvoiceDesigner/Template/Entity'], function (jasq, templateEnti
             }
         });
 
+        it('should convert a template to JSON', function(mapper)
+        {
+            templateEntity.setId(1);
+            var json = mapper.toJson(templateEntity);
+            expect(typeof json).toBe('object');
+            try {
+                expect(json.id).toBe(templateEntity.getId());
+            } catch (e) {
+                expect(null).toBe(templateEntity.getId());
+            }
+        });
+
         it('should convert a template to HTML', function(mapper)
         {
             var html = mapper.toHtml(templateEntity);

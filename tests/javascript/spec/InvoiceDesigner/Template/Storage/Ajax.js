@@ -1,4 +1,4 @@
-define(['jasq'], function ()
+define(['jasq', 'InvoiceDesigner/Template/Entity'], function (jasq, templateEntity)
 {
     describe('The Template Storage Ajax module', 'InvoiceDesigner/Template/Storage/Ajax', function ()
     {
@@ -26,7 +26,7 @@ define(['jasq'], function ()
                         };
                     }
                 }
-            }, expect: function(storage, dependencies)
+            }, expect: function(storage)
             {
                 var id = 1;
                 var template = storage.fetch(id);
@@ -40,6 +40,24 @@ define(['jasq'], function ()
             }
         });
 
-        // TODO: test save()
+        it('should save a template', {
+            mock: {
+                jQuery: {
+                    ajax: function(config) {
+                        config.success({});
+                    }
+                },
+                'InvoiceDesigner/Template/Mapper': {
+                    toJson: function(template) {
+                        return {};
+                    }
+                }
+            }, expect: function(storage, dependencies)
+            {
+                spyOn(dependencies.jQuery, 'ajax');
+                storage.save(templateEntity);
+                expect(dependencies.jQuery.ajax).toHaveBeenCalled();
+            }
+        });
     });
 });

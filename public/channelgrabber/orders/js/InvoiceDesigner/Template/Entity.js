@@ -17,9 +17,21 @@ define(['./Element/Collection'], function(collection)
             return id;
         };
 
+        this.setId = function(newId)
+        {
+            id = newId;
+            return this;
+        };
+
         this.getName = function()
         {
             return name;
+        };
+
+        this.setName = function(newName)
+        {
+            name = newName;
+            return this;
         };
     };
 
