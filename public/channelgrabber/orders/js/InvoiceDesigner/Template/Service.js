@@ -105,5 +105,13 @@ define([
          */
     };
 
+    Service.prototype.triggerTemplateChangeEvent = function(template)
+    {
+        /*
+         * TODO (CGIV-2009)
+         * DomManipulator::triggerTemplateChangeEvent(template)
+         */
+    };
+
     return new Service();
 });
