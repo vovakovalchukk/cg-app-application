@@ -1,11 +1,11 @@
-define(['./AddressAbstract'], function(AddressAbstract)
+define(['./ImmutableTextAbstract'], function(ImmutableTextAbstract)
 {
     var DeliveryAddress = function()
     {
-        AddressAbstract.call(this);
+        ImmutableTextAbstract.call(this);
     };
 
-    DeliveryAddress.prototype = Object.create(AddressAbstract.prototype);
+    DeliveryAddress.prototype = Object.create(ImmutableTextAbstract.prototype);
 
     return DeliveryAddress;
 });
