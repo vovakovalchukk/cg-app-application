@@ -9,6 +9,8 @@ define(['jasq', 'InvoiceDesigner/Template/Entity'], function (jasq, templateEnti
 
         it('should convert JSON to a template', function(mapper)
         {
+            console.warn('Incomplete test: "Mapper should convert JSON to a template"');
+
             var json = {
                 id: 1,
                 name: 'Test'
@@ -25,6 +27,8 @@ define(['jasq', 'InvoiceDesigner/Template/Entity'], function (jasq, templateEnti
 
         it('should convert a template to JSON', function(mapper)
         {
+            console.warn('Incomplete test: "Mapper should convert a template to JSON"');
+
             templateEntity.setId(1);
             var json = mapper.toJson(templateEntity);
             expect(typeof json).toBe('object');
@@ -37,6 +41,8 @@ define(['jasq', 'InvoiceDesigner/Template/Entity'], function (jasq, templateEnti
 
         it('should convert a template to HTML', function(mapper)
         {
+            console.warn('Incomplete test: "Mapper should convert a template to HTML"');
+
             var html = mapper.toHtml(templateEntity);
             expect(typeof html).toBe('string');
         });
