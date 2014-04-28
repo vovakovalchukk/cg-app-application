@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zend-config>
-    <BRANCH>CGIV-2045-rename-orders-and-pineapple</BRANCH>
+    <BRANCH>master</BRANCH>
     <NODE>app</NODE>
     <APP_NAME>app</APP_NAME>
     <HOST_NAME>app.channelgrabber.com</HOST_NAME>
