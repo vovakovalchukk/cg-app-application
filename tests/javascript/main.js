@@ -23,7 +23,7 @@ require([
     "../../../../tests/javascript/spec/InvoiceDesigner/Application",
     "../../../../tests/javascript/spec/InvoiceDesigner/CollectionAbstract",
     "../../../../tests/javascript/spec/InvoiceDesigner/Module/TemplateSelector",
-    "../../../../tests/javascript/spec/InvoiceDesigner/Template/ElementAbstract",
+    "../../../../tests/javascript/spec/InvoiceDesigner/PubSubAbstract",
     "../../../../tests/javascript/spec/InvoiceDesigner/Template/Mapper",
     "../../../../tests/javascript/spec/InvoiceDesigner/Template/Service",
     "../../../../tests/javascript/spec/InvoiceDesigner/Template/Storage/Ajax"

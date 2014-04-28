@@ -29,6 +29,9 @@ define(['jasq', 'InvoiceDesigner/Template/Entity'], function (jasq, templateEnti
         {
             console.warn('Incomplete test: "Mapper should convert a template to JSON"');
 
+            // Prevent change event by stubbing the trigger
+            spyOn(templateEntity, 'notifyOfChange');
+
             templateEntity.setId(1);
             var json = mapper.toJson(templateEntity);
             expect(typeof json).toBe('object');
