@@ -20,5 +20,13 @@ define(['../ElementAbstract'], function(ElementAbstract)
 
     Paper.prototype = Object.create(ElementAbstract.prototype);
 
+    Paper.prototype.toJson = function()
+    {
+        var json = ElementAbstract.prototype.toJson.call(this);
+        json.backgroundImage = this.getBackgroundImage();
+
+        return json;
+    };
+
     return new Paper();
 });

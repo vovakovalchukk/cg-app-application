@@ -131,7 +131,7 @@ define(['./Element/Collection', './Service'], function(collection, templateServi
         return this;
     };
 
-    Entity.prototype.elementUpdate = function(element)
+    Entity.prototype.publisherUpdate = function(element)
     {
         this.notifyOfChange();
     };

@@ -14,14 +14,14 @@ define(['../StorageAbstract', 'jQuery'], function(StorageAbstract, $)
         }
 
         /*
-         * TODO (CGIV-2009)
+         * TODO (CGIV-2002)
          */
     };
 
     Ajax.prototype.save = function(template)
     {
         /*
-         * TODO (CGIV-2009)
+         * TODO (CGIV-2016)
          */
     };
 

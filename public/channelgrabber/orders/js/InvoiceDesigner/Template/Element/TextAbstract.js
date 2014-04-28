@@ -7,11 +7,11 @@ define(['../ElementAbstract'], function(ElementAbstract)
         var fontSize;
         var fontFamily;
         var fontColour;
-        var textabstract;
+        var text;
         var padding;
         var lineHeight;
         var align;
-        var replacedTextAbstract;
+        var replacedText;
         var removeBlankLines;
 
         this.getFontSize = function()
@@ -47,14 +47,14 @@ define(['../ElementAbstract'], function(ElementAbstract)
             return this;
         };
 
-        this.getTextAbstract = function()
+        this.getText = function()
         {
-            return textabstract;
+            return text;
         };
 
-        this.setTextAbstract = function(newTextAbstract)
+        this.setText = function(newText)
         {
-            textabstract = newTextAbstract;
+            text = newText;
             return this;
         };
 
@@ -91,14 +91,14 @@ define(['../ElementAbstract'], function(ElementAbstract)
             return this;
         };
 
-        this.getReplacedTextAbstract = function()
+        this.getReplacedText = function()
         {
-            return replacedTextAbstract;
+            return replacedText;
         };
 
-        this.setReplacedTextAbstract = function(newReplacedTextAbstract)
+        this.setReplacedText = function(newReplacedText)
         {
-            replacedTextAbstract = newReplacedTextAbstract;
+            replacedText = newReplacedText;
             return this;
         };
 
@@ -115,6 +115,27 @@ define(['../ElementAbstract'], function(ElementAbstract)
     };
 
     TextAbstract.prototype = Object.create(ElementAbstract.prototype);
+
+    TextAbstract.prototype.toJson = function()
+    {
+        var json = ElementAbstract.prototype.toJson.call(this);
+        var additional = {
+            fontSize: this.getFontSize(),
+            fontFamily: this.getFontFamily(),
+            fontColour: this.getFontColour(),
+            text: this.getText(),
+            padding: this.getPadding(),
+            lineHeight: this.getLineHeight(),
+            align: this.getAlign(),
+            replacedText: this.getReplacedText(),
+            removeBlankLines: this.getRemoveBlankLines()
+        };
+        for (var field in additional) {
+            json[field] = additional[field];
+        }
+
+        return json;
+    };
 
     return TextAbstract;
 });

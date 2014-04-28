@@ -27,19 +27,23 @@ define(['jasq', 'InvoiceDesigner/Template/Entity'], function (jasq, templateEnti
 
         it('should convert a template to JSON', function(mapper)
         {
-            console.warn('Incomplete test: "Mapper should convert a template to JSON"');
-
-            // Prevent change event by stubbing the trigger
-            spyOn(templateEntity, 'notifyOfChange');
-
-            templateEntity.setId(1);
-            var json = mapper.toJson(templateEntity);
-            expect(typeof json).toBe('object');
-            try {
-                expect(json.id).toBe(templateEntity.getId());
-            } catch (e) {
-                expect(null).toBe(templateEntity.getId());
+            var json = getMockJson();
+            var template = mapper.fromJson(json);
+            var mappedJson = mapper.toJson(template);
+            // No easy way to compare two objects...
+            var match = true;
+            for (var key in json) {
+                if (typeof json[key] === 'function' || key === 'elements') {
+                    continue;
+                }
+                if (mappedJson[key] !== json[key]) {
+                    match = false;
+                    console.info('Mapper should convert a template to JSON: ' + key + ' does not match');
+                    break;
+                }
             }
+            expect(match).toBe(true);
+            expect(mappedJson.elements.length).toBe(json.elements.length);
         });
 
         it('should convert a template to HTML', function(mapper)
@@ -54,14 +58,15 @@ define(['jasq', 'InvoiceDesigner/Template/Entity'], function (jasq, templateEnti
         {
             var json = {
                 id: 1,
+                type: "invoice",
                 name: "Example",
                 organisationUnitId: 1,
                 minHeight: 100,
                 minWidth: 100,
                 elements: [{
                     type: "text",
-                    width: 100,
                     height: 100,
+                    width: 100,
                     x: 10,
                     y: 10,
                     backgroundColour: "white",
@@ -72,14 +77,14 @@ define(['jasq', 'InvoiceDesigner/Template/Entity'], function (jasq, templateEnti
                     fontColour: "black",
                     text: "Example text element",
                     padding: 3,
-                    lineHieght: 1,
+                    lineHeight: 1,
                     align: "left",
                     replacedText: "",
                     removeBlankLines: false
                 }, {
                     type: "image",
-                    width: 50,
                     height: 50,
+                    width: 50,
                     x: 120,
                     y: 10,
                     backgroundColour: "white",

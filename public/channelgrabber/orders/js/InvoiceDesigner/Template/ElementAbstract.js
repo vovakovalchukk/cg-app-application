@@ -3,6 +3,8 @@ define(['../PubSubAbstract'], function(PubSubAbstract) {
     {
         PubSubAbstract.call(this);
 
+        var id;
+        var type;
         var height;
         var width;
         var x;
@@ -12,6 +14,28 @@ define(['../PubSubAbstract'], function(PubSubAbstract) {
         var borderColour;
 
         var editable = true;
+
+        this.getId = function()
+        {
+            return id;
+        };
+
+        this.setId = function(newId)
+        {
+            id = newId;
+            return this;
+        };
+
+        this.getType = function()
+        {
+            return type;
+        };
+
+        this.setType = function(newType)
+        {
+            type = newType;
+            return this;
+        };
 
         this.getHeight = function()
         {
@@ -100,9 +124,30 @@ define(['../PubSubAbstract'], function(PubSubAbstract) {
             editable = newEditable;
             return this;
         };
+
+        // Elements aren't expected to have IDs so generate one
+        var generateId = function()
+        {
+            return  (new Date()).getTime()+String(Math.random()).substr(2);
+        };
+        this.setId(generateId());
     };
 
     ElementAbstract.prototype = Object.create(PubSubAbstract.prototype);
+
+    ElementAbstract.prototype.toJson = function()
+    {
+        return {
+            type: this.getType(),
+            height: this.getHeight(),
+            width: this.getWidth(),
+            x: this.getX(),
+            y: this.getY(),
+            backgroundColour: this.getBackgroundColour(),
+            borderWidth: this.getBorderWidth(),
+            borderColour: this.getBorderColour()
+        };
+    };
 
     return ElementAbstract;
 });

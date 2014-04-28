@@ -55,9 +55,22 @@ define([
 
     Mapper.prototype.toJson = function(template)
     {
-        /*
-         * TODO (CGIV-2009)
-         */
+        var json = {
+            id: template.getId(),
+            type: template.getType(),
+            name: template.getName(),
+            organisationUnitId: template.getOrganisationUnitId(),
+            minHeight: template.getMinHeight(),
+            minWidth: template.getMinWidth(),
+            elements: []
+        };
+
+        template.getElements().each(function(element)
+        {
+            json.elements.push(element.toJson());
+        });
+
+        return json;
     };
 
     Mapper.prototype.toHtml = function(template)
