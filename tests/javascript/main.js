@@ -8,6 +8,8 @@ require.config({
     }
 });
 
+require(['../../zf2-v4-ui/js/object-helpers']);
+
 // Configure Jasmine
 var jasmineEnv = jasmine.getEnv();
 jasmineEnv.updateInterval = 1000;
@@ -20,6 +22,7 @@ jasmineEnv.specFilter = function (spec) {
 require([
     "../../../../tests/javascript/spec/InvoiceDesigner/Application",
     "../../../../tests/javascript/spec/InvoiceDesigner/Module/TemplateSelector",
+    "../../../../tests/javascript/spec/InvoiceDesigner/Template/ElementAbstract",
     "../../../../tests/javascript/spec/InvoiceDesigner/Template/Mapper",
     "../../../../tests/javascript/spec/InvoiceDesigner/Template/Service",
     "../../../../tests/javascript/spec/InvoiceDesigner/Template/Storage/Ajax"
