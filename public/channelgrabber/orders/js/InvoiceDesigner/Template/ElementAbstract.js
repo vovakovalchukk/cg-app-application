@@ -15,7 +15,7 @@ define(function() {
     {
         if (!subscriber.hasMethods([ElementAbstract.PUBLISH_METHOD, 'getId'])) {
             throw 'InvalidArgumentException: InvoiceDesigner\Template\Element::subscribe() '+
-                'must be passed a subscriber with a ' + ElementAbstract.PUBLISH_METHOD + ' method';
+                'must be passed a valid subscriber object';
         }
 
         this.getSubscribers().push(subscriber);

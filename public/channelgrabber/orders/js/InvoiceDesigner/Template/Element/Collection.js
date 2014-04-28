@@ -1,11 +1,11 @@
-define(function()
+define(['../../CollectionAbstract'], function(CollectionAbstract)
 {
     var Collection = function()
     {
-        /*
-         * TODO (CGIV-2009)
-         */
+        CollectionAbstract.call(this);
     };
+
+    Collection.prototype = Object.create(CollectionAbstract.prototype);
 
     return new Collection();
 });

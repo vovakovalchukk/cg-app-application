@@ -1,4 +1,4 @@
-define(['jasq', 'InvoiceDesigner/Template/Entity'], function (jasq, templateEntity)
+define(['jasq', 'InvoiceDesigner/Template/Entity'], function ()
 {
     describe('The Element module', 'InvoiceDesigner/Template/ElementAbstract', function ()
     {
@@ -49,7 +49,6 @@ define(['jasq', 'InvoiceDesigner/Template/Entity'], function (jasq, templateEnti
 
         var getMockSubscriber = function(ElementAbstract)
         {
-            var element = new ElementAbstract();
             var subscriber = {
                 getId: function()
                 {
