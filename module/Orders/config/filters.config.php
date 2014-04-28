@@ -208,7 +208,7 @@ return [
                         ],
                         [
                             'filterType' => 'customSelect',
-                            'visible' => true,
+                            'visible' => false,
                             'variables' => [
                                 'filterName' => 'archived',
                                 'title' => 'Show Archived',
