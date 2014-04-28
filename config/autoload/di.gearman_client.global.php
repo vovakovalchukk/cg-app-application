@@ -1,1 +1,0 @@
-/var/www/app/shared/config/autoload/di.gearman_client.global.php
