@@ -105,12 +105,10 @@ define([
          */
     };
 
-    Service.prototype.triggerTemplateChangeEvent = function(template)
+    Service.prototype.notifyOfChange = function(template)
     {
-        /*
-         * TODO (CGIV-2009)
-         * DomManipulator::triggerTemplateChangeEvent(template)
-         */
+        this.getDomManipulator().triggerTemplateChangeEvent(template);
+        return this;
     };
 
     return new Service();

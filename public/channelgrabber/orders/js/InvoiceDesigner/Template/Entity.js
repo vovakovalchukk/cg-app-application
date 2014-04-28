@@ -30,7 +30,7 @@ define(['./Element/Collection', './Service'], function(collection, templateServi
         this.setId = function(newId)
         {
             id = newId;
-            this.triggerChangeEvent();
+            this.notifyOfChange();
             return this;
         };
 
@@ -42,7 +42,7 @@ define(['./Element/Collection', './Service'], function(collection, templateServi
         this.setName = function(newName)
         {
             name = newName;
-            this.triggerChangeEvent();
+            this.notifyOfChange();
             return this;
         };
 
@@ -54,7 +54,7 @@ define(['./Element/Collection', './Service'], function(collection, templateServi
         this.setType = function(newType)
         {
             type = newType;
-            this.triggerChangeEvent();
+            this.notifyOfChange();
             return this;
         };
 
@@ -66,7 +66,7 @@ define(['./Element/Collection', './Service'], function(collection, templateServi
         this.setOrganisationUnitId = function(newOrganisationUnitId)
         {
             organisationUnitId = newOrganisationUnitId;
-            this.triggerChangeEvent();
+            this.notifyOfChange();
             return this;
         };
 
@@ -78,7 +78,7 @@ define(['./Element/Collection', './Service'], function(collection, templateServi
         this.setMinHeight = function(newMinHeight)
         {
             minHeight = newMinHeight;
-            this.triggerChangeEvent();
+            this.notifyOfChange();
             return this;
         };
 
@@ -90,13 +90,13 @@ define(['./Element/Collection', './Service'], function(collection, templateServi
         this.setMinWidth = function(newMinWidth)
         {
             minWidth = newMinWidth;
-            this.triggerChangeEvent();
+            this.notifyOfChange();
             return this;
         };
 
-        this.triggerChangeEvent = function()
+        this.notifyOfChange = function()
         {
-            this.getService().triggerTemplateChangeEvent(this);
+            this.getService().notifyOfChange(this);
         };
     };
 
@@ -104,7 +104,7 @@ define(['./Element/Collection', './Service'], function(collection, templateServi
     {
         this.getElements().attach(element);
         element.subscribe(this);
-        this.triggerChangeEvent();
+        this.notifyOfChange();
         return this;
     };
 
@@ -112,13 +112,13 @@ define(['./Element/Collection', './Service'], function(collection, templateServi
     {
         this.getElements().detch(element);
         element.unsubscribe(this);
-        this.triggerChangeEvent();
+        this.notifyOfChange();
         return this;
     };
 
     Entity.prototype.elementUpdate = function(element)
     {
-        this.triggerChangeEvent();
+        this.notifyOfChange();
     };
 
     return new Entity();
