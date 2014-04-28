@@ -4,6 +4,7 @@ define(['./Element/Collection', './Service'], function(collection, templateServi
     {
         var elements = collection;
         var service = templateService;
+        var populating = false;
 
         var id;
         var name;
@@ -20,6 +21,17 @@ define(['./Element/Collection', './Service'], function(collection, templateServi
         this.getService = function()
         {
             return service;
+        };
+
+        this.isPopulating = function()
+        {
+            return populating;
+        };
+
+        this.setPopulating = function(newPopulating)
+        {
+            populating = newPopulating;
+            return this;
         };
 
         this.getId = function()
@@ -96,6 +108,9 @@ define(['./Element/Collection', './Service'], function(collection, templateServi
 
         this.notifyOfChange = function()
         {
+            if (this.isPopulating()) {
+                return;
+            }
             this.getService().notifyOfChange(this);
         };
     };
