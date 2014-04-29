@@ -1,15 +1,17 @@
 define([
+    '../ModuleAbstract',
     './DomListener/TemplateSelector',
     '../Template/Service'
 ], function(
+    ModuleAbstract,
     templateSelectorListener,
     templateService
 ) {
     var TemplateSelector = function()
     {
+        ModuleAbstract.call(this);
         var domListener = templateSelectorListener;
         var service = templateService;
-        var application;
 
         this.getDomListener = function()
         {
@@ -20,22 +22,13 @@ define([
         {
             return service;
         };
-
-        this.getApplication = function()
-        {
-            return application;
-        };
-
-        this.setApplication = function(newApplication)
-        {
-            application = newApplication;
-            return this;
-        };
     };
+
+    TemplateSelector.prototype = Object.create(ModuleAbstract.prototype);
 
     TemplateSelector.prototype.init = function(application)
     {
-        this.setApplication(application);
+        ModuleAbstract.prototype.init.call(this, application);
         this.getDomListener().init(this);
     };
 
