@@ -1,30 +1,23 @@
-define(['module'], function(requireModule)
+define(['module', '../DomListenerAbstract'], function(requireModule, DomListenerAbstract)
 {
     var TemplateSelector = function()
     {
-        var module;
+        DomListenerAbstract.call(this);
+
         var events = requireModule.config().events;
 
         this.getEvents = function()
         {
             return events;
         };
-
-        this.getModule = function(module)
-        {
-            return module;
-        };
-
-        this.setModule = function(newModule)
-        {
-            module = newModule;
-            return this;
-        };
     };
+
+    TemplateSelector.prototype = Object.create(DomListenerAbstract.prototype);
 
     TemplateSelector.prototype.init = function(module)
     {
-        this.setModule(module);
+        DomListenerAbstract.prototype.init.call(this, module);
+
         /*
          * TODO (CGIV-2002): foreach event add a listener that calls back to module
          */

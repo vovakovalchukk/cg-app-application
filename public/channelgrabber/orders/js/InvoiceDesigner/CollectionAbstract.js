@@ -55,5 +55,10 @@ define(function()
         return this;
     };
 
+    CollectionAbstract.prototype.containsId = function(id)
+    {
+        return (this.getItems()[id] !== undefined);
+    };
+
     return CollectionAbstract;
 });

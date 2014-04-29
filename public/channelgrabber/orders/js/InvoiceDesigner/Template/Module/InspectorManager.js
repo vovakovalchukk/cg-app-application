@@ -1,15 +1,17 @@
 define([
     '../ModuleAbstract',
-    '../InspectorManager'
+    '../InspectorManager',
+    './DomListener/InspectorManager'
 ], function(
     ModuleAbstract,
-    // TODO: DomListener
+    inspectorManagerListener,
     templateInspectorManager
 ) {
     var InspectorManager = function()
     {
         ModuleAbstract.call(this);
         var inspectorManager = templateInspectorManager;
+        this.setDomListener(inspectorManagerListener);
 
         this.getInspectorManager = function()
         {
@@ -23,6 +25,11 @@ define([
     {
         ModuleAbstract.prototype.init.call(this, template);
         this.getInspectorManager().init();
+    };
+
+    InspectorManager.prototype.elementSelected = function(element)
+    {
+        this.getInspectorManager().showForElement(element);
     };
 
     return new InspectorManager();

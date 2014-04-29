@@ -1,7 +1,9 @@
-define(function()
+define(['../ModuleAbstract'], function(AppModuleAbstract)
 {
     var ModuleAbstract = function()
     {
+        AppModuleAbstract.call(this);
+
         var template;
 
         this.getTemplate = function()
@@ -14,6 +16,8 @@ define(function()
             template = newTemplate;
         };
     };
+
+    ModuleAbstract.prototype = Object.create(AppModuleAbstract.prototype);
 
     ModuleAbstract.prototype.init = function(template)
     {

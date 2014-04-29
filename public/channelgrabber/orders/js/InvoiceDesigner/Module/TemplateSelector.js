@@ -10,13 +10,8 @@ define([
     var TemplateSelector = function()
     {
         ModuleAbstract.call(this);
-        var domListener = templateSelectorListener;
         var service = templateService;
-
-        this.getDomListener = function()
-        {
-            return domListener;
-        };
+        this.setDomListener(templateSelectorListener);
 
         this.getService = function()
         {

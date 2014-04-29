@@ -3,6 +3,7 @@ define(function()
     var ModuleAbstract = function()
     {
         var application;
+        var domListener;
 
         this.getApplication = function()
         {
@@ -12,6 +13,17 @@ define(function()
         this.setApplication = function(newApplication)
         {
             application = newApplication;
+            return this;
+        };
+
+        this.getDomListener = function()
+        {
+            return domListener;
+        };
+
+        this.setDomListener = function(newDomListener)
+        {
+            domListener = newDomListener;
             return this;
         };
     };
