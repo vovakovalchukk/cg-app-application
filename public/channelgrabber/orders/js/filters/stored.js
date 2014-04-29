@@ -50,10 +50,6 @@ define(
                 });
             };
 
-            var saveCPopup = function() {
-                popup.getElement().find(".save").click();
-            };
-
             var focusPopup = function() {
                 popup.getElement().find("input.name").focus();
             };
@@ -153,10 +149,6 @@ define(
             });
         };
 
-        StoredFilters.prototype.handleAjaxSuccess = function(data, listElement) {
-            this.handleResponse.call(this, data, listElement);
-        };
-
         StoredFilters.prototype.handleAjaxError = function(request, listElement) {
             if (request.getResponseHeader('Content-Type').indexOf('json') > -1) {
                 try {
@@ -172,7 +164,7 @@ define(
             );
         };
 
-        StoredFilters.prototype.handleResponse = function(json, listElement) {
+        StoredFilters.prototype.handleAjaxSuccess = function(json, listElement) {
             if (json.display_exceptions && json.message) {
                 this.getNotifications().error(json.message);
                 return;
@@ -184,19 +176,28 @@ define(
             }
 
             if (json.saved) {
-                this.getFilterList().find("li[data-name='" + listElement.data("name") + "']").remove();
-                this.getFilterList().append(listElement);
-                this.getFilterList().find(".empty-list").addClass("hidden");
-                this.getNotifications().success("Filter Saved");
+                saveJson.call(this);
             } else if (json.removed) {
                 listElement.remove();
-                if (!this.getFilterList().find("li").not(".empty-list").length) {
-                    this.getFilterList().find(".empty-list").removeClass("hidden");
-                }
-                this.getNotifications().success("Filter Removed");
+                removeJson.call(this);
             } else {
                 this.getNotifications().error("An error has occurred, please try again");
             }
+        };
+
+        StoredFilters.prototype.saveJson = function() {
+            this.getFilterList().find("li[data-name='" + listElement.data("name") + "']").remove();
+            this.getFilterList().append(listElement);
+            this.getFilterList().find(".empty-list").addClass("hidden");
+            this.getNotifications().success("Filter Saved");
+        };
+
+        StoredFilters.prototype.removeJson = function() {
+            listElement.remove();
+            if (!this.getFilterList().find("li").not(".empty-list").length) {
+                this.getFilterList().find(".empty-list").removeClass("hidden");
+            }
+            this.getNotifications().success("Filter Removed");
         };
 
         return StoredFilters;
