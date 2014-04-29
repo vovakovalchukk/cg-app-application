@@ -164,6 +164,21 @@ define(
             );
         };
 
+        StoredFilters.prototype.saveJson = function(listElement) {
+            this.getFilterList().find("li[data-name='" + listElement.data("name") + "']").remove();
+            this.getFilterList().append(listElement);
+            this.getFilterList().find(".empty-list").addClass("hidden");
+            this.getNotifications().success("Filter Saved");
+        };
+
+        StoredFilters.prototype.removeJson = function(listElement) {
+            listElement.remove();
+            if (!this.getFilterList().find("li").not(".empty-list").length) {
+                this.getFilterList().find(".empty-list").removeClass("hidden");
+            }
+            this.getNotifications().success("Filter Removed");
+        };
+        
         StoredFilters.prototype.handleAjaxSuccess = function(json, listElement) {
             if (json.display_exceptions && json.message) {
                 this.getNotifications().error(json.message);
@@ -176,28 +191,13 @@ define(
             }
 
             if (json.saved) {
-                saveJson.call(this);
+                this.saveJson.call(this, listElement);
             } else if (json.removed) {
                 listElement.remove();
-                removeJson.call(this);
+                this.removeJson.call(this, listElement);
             } else {
                 this.getNotifications().error("An error has occurred, please try again");
             }
-        };
-
-        StoredFilters.prototype.saveJson = function() {
-            this.getFilterList().find("li[data-name='" + listElement.data("name") + "']").remove();
-            this.getFilterList().append(listElement);
-            this.getFilterList().find(".empty-list").addClass("hidden");
-            this.getNotifications().success("Filter Saved");
-        };
-
-        StoredFilters.prototype.removeJson = function() {
-            listElement.remove();
-            if (!this.getFilterList().find("li").not(".empty-list").length) {
-                this.getFilterList().find(".empty-list").removeClass("hidden");
-            }
-            this.getNotifications().success("Filter Removed");
         };
 
         return StoredFilters;
