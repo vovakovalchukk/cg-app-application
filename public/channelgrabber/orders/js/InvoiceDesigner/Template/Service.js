@@ -3,17 +3,23 @@ define([
     './Storage/Ajax',
     './Mapper',
     './DomManipulator'
+    // Template Module requires here
 ], function(
     require,
     templateAjaxStorage,
     templateMapper,
     templateDomManipulator
+    // Template Module variables here
 ) {
     var Service = function()
     {
         var storage = templateAjaxStorage;
         var mapper = templateMapper;
         var domManipulator = templateDomManipulator;
+
+        var modules = [
+            // Template Modules require() paths here
+        ];
 
         this.getStorage = function()
         {
@@ -47,6 +53,11 @@ define([
             domManipulator = newDomManipulator;
             return this;
         };
+
+        this.getModules = function()
+        {
+            return modules;
+        };
     };
 
     Service.prototype.fetch = function(id)
@@ -62,9 +73,8 @@ define([
 
     Service.prototype.save = function(template)
     {
-        /*
-         * TODO (CGIV-2009)
-         */
+        this.getStorage().save(template);
+        return this;
     };
 
     Service.prototype.create = function()
@@ -84,22 +94,23 @@ define([
     Service.prototype.showAsPdf = function(template)
     {
         /*
-         * TODO (CGIV-2009)
+         * TODO (CGIV-2011)
          */
     };
 
     Service.prototype.loadModules = function(template)
     {
-        /*
-         * TODO (CGIV-2009)
-         * Use require() to create modules for this template
-         */
+        var modules = this.getModules();
+        for (var key in modules) {
+            var module = require(modules[key]);
+            module.init(template);
+        }
     };
 
     Service.prototype.render = function(template)
     {
         /*
-         * TODO (CGIV-2009)
+         * TODO (CGIV-2026)
          * html = Mapper::toHtml(template)
          * DomManipulator::insertTemplateHtml(html);
          */

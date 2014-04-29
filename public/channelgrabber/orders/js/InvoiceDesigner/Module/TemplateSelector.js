@@ -42,16 +42,12 @@ define([
     TemplateSelector.prototype.selectionMade = function(id)
     {
         /*
-         * TODO (CGIV-2009)
+         * TODO (CGIV-2002)
          * This will be called by domListener when the user chooses a template
          * Service::fetch(id)
          * Service::loadModules(template)
          */
     };
-
-    /*
-     * TODO (CGIV-2009)
-     */
 
     return new TemplateSelector();
 });

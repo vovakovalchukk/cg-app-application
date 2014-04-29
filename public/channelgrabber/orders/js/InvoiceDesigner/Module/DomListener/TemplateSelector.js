@@ -26,7 +26,7 @@ define(['module'], function(requireModule)
     {
         this.setModule(module);
         /*
-         * TODO (CGIV-2009): foreach event add a listener that calls back to module
+         * TODO (CGIV-2002): foreach event add a listener that calls back to module
          */
     };
 

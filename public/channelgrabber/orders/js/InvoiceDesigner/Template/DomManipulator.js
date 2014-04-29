@@ -10,7 +10,7 @@ define(['jQuery'], function($)
     DomManipulator.prototype.insertTemplateHtml = function(html)
     {
         /*
-         * TODO (CGIV-2009)
+         * TODO (CGIV-2026)
          * Use jQuery to insert the HTML in the right place
          */
     };
