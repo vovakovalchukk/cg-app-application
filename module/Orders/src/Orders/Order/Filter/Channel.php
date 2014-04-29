@@ -1,13 +1,13 @@
 <?php
 namespace Orders\Order\Filter;
 
-use CG_UI\View\Filters\FilterSelectOptionsInterface;
+use CG_UI\View\Filters\SelectOptionsInterface;
 use CG\User\ActiveUserInterface;
 use CG\User\Entity as User;
 use CG\Account\Client\Service as AccountService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 
-class Channel implements FilterSelectOptionsInterface
+class Channel implements SelectOptionsInterface
 {
     protected $activeUserContainer;
     protected $accountService;

@@ -9,9 +9,9 @@ use CG\Order\Shared\Tag\StorageInterface as TagStorage;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Order\Shared\Tag\Entity as Tag;
 use Zend\View\Model\ViewModel;
-use CG_UI\View\Filters\FilterSelectOptionsInterface;
+use CG_UI\View\Filters\SelectOptionsInterface;
 
-class OrdersTableTagColumns implements OrdersTableModifierInterface, FilterSelectOptionsInterface
+class OrdersTableTagColumns implements OrdersTableModifierInterface, SelectOptionsInterface
 {
     protected $di;
     protected $activeUserContainer;

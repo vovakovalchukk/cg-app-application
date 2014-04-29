@@ -2,10 +2,10 @@
 namespace Orders\Order;
 
 use CG\Stdlib\Exception\Runtime\NotFound;
-use CG_UI\View\Filters\FilterSelectOptionsInterface;
+use CG_UI\View\Filters\SelectOptionsInterface;
 use CG\User\ActiveUserInterface;
 
-class CurrencyService implements FilterSelectOptionsInterface
+class CurrencyService implements SelectOptionsInterface
 {
     protected $activeUserContainer;
 

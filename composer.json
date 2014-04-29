@@ -1,4 +1,8 @@
 {
+    "provide": {
+        "ext-mongo": "*",
+        "ext-gearman": "*"
+    },
     "repositories": [
         {
             "type": "git",
@@ -47,7 +51,7 @@
         "channelgrabber/zf2-login": "~1.3.22",
         "channelgrabber/zf2-permission": "~1.0.2",
         "channelgrabber/zf2-register": "~1.4.10",
-        "channelgrabber/zf2-ssoclient": "~1.2.1",
+        "channelgrabber/zf2-ssoclient": "~1.2.2",
         "channelgrabber/zf2-stdlib": "~1.1.9",
         "channelgrabber/zf2-v4-ui": "dev-CGIV-1831-bundle as 1.5.5",
         "davedevelopment/phpmig": "0.4",

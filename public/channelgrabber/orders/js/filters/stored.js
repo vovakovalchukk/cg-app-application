@@ -4,14 +4,7 @@ define(
         var StoredFilters = function(notifications, filters, filterList) {
             Filters.call(this, filters, filterList);
 
-            this.getNotifications = function() {
-                return notifications;
-            };
-
             var popup;
-            this.getPopup = function() {
-                return popup;
-            };
 
             var init = function() {
                 var self = this;
@@ -24,28 +17,52 @@ define(
                 popup = new Popup(
                     filterList.data("popup")
                 );
+                setupPopup.call(this); // call
+            };
 
+            this.getNotifications = function() {
+                return notifications;
+            };
+
+            this.getPopup = function() {
+                return popup;
+            };
+
+            var setupPopup = function() {
+                var self = this;
                 popup.getElement().on("callback.storedFilters", function(event) {
-                    popup.getElement().find("input.name").focus();
+                    focusPopup();
                 });
+
                 popup.getElement().on("keypress.storedFilters", "input.name", function(event) {
                     if (event.which !== 13) {
                         return;
                     }
-                    popup.getElement().find(".save").click();
+                    savePopup.call(self);
                 });
+
                 popup.getElement().on("click.storedFilters", ".save", function() {
-                    var name = $.trim(popup.getElement().find("input.name").val());
-                    if (!name.length) {
-                        return;
-                    }
-                    self.saveFilter.call(self, name, popup.getElement().data("filter"));
-                    popup.hide();
+                    savePopup.call(self);
                 });
+
                 popup.getElement().on("click.storedFilters", ".cancel", function() {
                     popup.hide();
                 });
             };
+
+            var focusPopup = function() {
+                popup.getElement().find("input.name").focus();
+            };
+
+            var savePopup = function() {
+                var name = $.trim(popup.getElement().find("input.name").val());
+                if (!name.length) {
+                    return;
+                }
+                this.saveFilter.call(this, name, popup.getElement().data("filter"));
+                popup.hide();
+            };
+
             init.call(this);
         };
 
@@ -118,10 +135,6 @@ define(
             });
         };
 
-        StoredFilters.prototype.handleAjaxSuccess = function(data, listElement) {
-            this.handleResponse.call(this, data, listElement);
-        };
-
         StoredFilters.prototype.handleAjaxError = function(request, listElement) {
             if (request.getResponseHeader('Content-Type').indexOf('json') > -1) {
                 try {
@@ -137,7 +150,22 @@ define(
             );
         };
 
-        StoredFilters.prototype.handleResponse = function(json, listElement) {
+        StoredFilters.prototype.saveJson = function(listElement) {
+            this.getFilterList().find("li[data-name='" + listElement.data("name") + "']").remove();
+            this.getFilterList().append(listElement);
+            this.getFilterList().find(".empty-list").addClass("hidden");
+            this.getNotifications().success("Filter Saved");
+        };
+
+        StoredFilters.prototype.removeJson = function(listElement) {
+            listElement.remove();
+            if (!this.getFilterList().find("li").not(".empty-list").length) {
+                this.getFilterList().find(".empty-list").removeClass("hidden");
+            }
+            this.getNotifications().success("Filter Removed");
+        };
+        
+        StoredFilters.prototype.handleAjaxSuccess = function(json, listElement) {
             if (json.display_exceptions && json.message) {
                 this.getNotifications().error(json.message);
                 return;
@@ -149,16 +177,10 @@ define(
             }
 
             if (json.saved) {
-                this.getFilterList().find("li[data-name='" + listElement.data("name") + "']").remove();
-                this.getFilterList().append(listElement);
-                this.getFilterList().find(".empty-list").addClass("hidden");
-                this.getNotifications().success("Filter Saved");
+                this.saveJson.call(this, listElement);
             } else if (json.removed) {
                 listElement.remove();
-                if (!this.getFilterList().find("li").not(".empty-list").length) {
-                    this.getFilterList().find(".empty-list").removeClass("hidden");
-                }
-                this.getNotifications().success("Filter Removed");
+                this.removeJson.call(this, listElement);
             } else {
                 this.getNotifications().error("An error has occurred, please try again");
             }
