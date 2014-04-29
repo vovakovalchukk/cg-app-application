@@ -75,25 +75,17 @@ class StoredFiltersController extends AbstractActionController
 
     public function saveFilterAction()
     {
-        $jsonModel = $this->newJsonModel(['saved' => false]);
-
-        $name = trim($this->params()->fromPost('name', ''));
-        $filter = $this->params()->fromPost('filter', []);
-
-        if (empty($name) || !is_array($filter)) {
-            return $jsonModel->setVariable('error', 'Invalid Filter');
-        }
-
-        $userPreference = $this->getOrderService()->getActiveUserPreference();
-        $this->getService()->addStoredFilter($userPreference, $name, $filter);
-        $this->getOrderService()->getUserPreferenceService()->save($userPreference);
-
-        return $jsonModel->setVariable('saved', true);
+        return $this->doFilterAction('saved');
     }
 
     public function removeFilterAction()
     {
-        $jsonModel = $this->newJsonModel(['removed' => false]);
+        return $this->doFilterAction('removed');
+    }
+
+    protected function doFilterAction($action)
+    {
+        $jsonModel = $this->newJsonModel([$action => false]);
 
         $name = trim($this->params()->fromPost('name', ''));
         if (empty($name)) {
@@ -101,9 +93,15 @@ class StoredFiltersController extends AbstractActionController
         }
 
         $userPreference = $this->getOrderService()->getActiveUserPreference();
-        $this->getService()->removeStoredFilter($userPreference, $name);
+
+        if ($action == 'removed') {
+            $this->getService()->removeStoredFilter($userPreference, $name);
+        } else {
+            $filter = $this->params()->fromPost('filter', []);
+            $this->getService()->addStoredFilter($userPreference, $name, $filter);
+        }
         $this->getOrderService()->getUserPreferenceService()->save($userPreference);
 
-        return $jsonModel->setVariable('removed', true);
+        return $jsonModel->setVariable($action, true);
     }
 } 

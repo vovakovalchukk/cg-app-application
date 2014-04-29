@@ -4,14 +4,7 @@ define(
         var StoredFilters = function(notifications, filters, filterList) {
             Filters.call(this, filters, filterList);
 
-            this.getNotifications = function() {
-                return notifications;
-            };
-
             var popup;
-            this.getPopup = function() {
-                return popup;
-            };
 
             var init = function() {
                 var self = this;
@@ -24,28 +17,56 @@ define(
                 popup = new Popup(
                     filterList.data("popup")
                 );
+                setupPopup.call(this); // call
+            };
 
+            this.getNotifications = function() {
+                return notifications;
+            };
+
+            this.getPopup = function() {
+                return popup;
+            };
+
+            var setupPopup = function() {
+                var self = this;
                 popup.getElement().on("callback.storedFilters", function(event) {
-                    popup.getElement().find("input.name").focus();
+                    focusPopup();
                 });
+
                 popup.getElement().on("keypress.storedFilters", "input.name", function(event) {
                     if (event.which !== 13) {
                         return;
                     }
-                    popup.getElement().find(".save").click();
+                    savePopup.call(self);
                 });
+
                 popup.getElement().on("click.storedFilters", ".save", function() {
-                    var name = $.trim(popup.getElement().find("input.name").val());
-                    if (!name.length) {
-                        return;
-                    }
-                    self.saveFilter.call(self, name, popup.getElement().data("filter"));
-                    popup.hide();
+                    savePopup.call(self);
                 });
+
                 popup.getElement().on("click.storedFilters", ".cancel", function() {
                     popup.hide();
                 });
             };
+
+            var saveCPopup = function() {
+                popup.getElement().find(".save").click();
+            };
+
+            var focusPopup = function() {
+                popup.getElement().find("input.name").focus();
+            };
+
+            var savePopup = function() {
+                var name = $.trim(popup.getElement().find("input.name").val());
+                if (!name.length) {
+                    return;
+                }
+                this.saveFilter.call(this, name, popup.getElement().data("filter"));
+                popup.hide();
+            };
+
             init.call(this);
         };
 
