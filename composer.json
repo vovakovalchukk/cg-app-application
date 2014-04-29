@@ -53,7 +53,7 @@
         "channelgrabber/zf2-register": "~1.4.10",
         "channelgrabber/zf2-ssoclient": "~1.2.2",
         "channelgrabber/zf2-stdlib": "~1.1.9",
-        "channelgrabber/zf2-v4-ui": "dev-CGIV-1831-bundle as 1.5.5",
+        "channelgrabber/zf2-v4-ui": "dev-CGIV-2053-searchfiltersaving as 1.5.5",
         "davedevelopment/phpmig": "0.4",
         "guzzle/guzzle": "~3.7",
         "nocarrier/hal": "~0.9.3",
