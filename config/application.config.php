@@ -16,7 +16,7 @@ return array (
     11 => 'CG_Email_Template',
     12 => 'CG_Amazon',
     13 => 'CG_Ebay',
-    14 => 'CG_Channel'
+    14 => 'CG_Channel',
   ),
   'module_listener_options' => 
   array (

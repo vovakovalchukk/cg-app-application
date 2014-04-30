@@ -48,7 +48,7 @@
         "channelgrabber/zf2-register": "~1.4.10",
         "channelgrabber/zf2-ssoclient": "~1.2.2",
         "channelgrabber/zf2-stdlib": "~1.1.9",
-        "channelgrabber/zf2-v4-ui": "~1.4.10",
+        "channelgrabber/zf2-v4-ui": "~1.4.11",
         "guzzle/guzzle": "~3.7",
         "nocarrier/hal": "~0.9.3",
         "php": ">=5.3.3",
@@ -73,6 +73,6 @@
             "php vendor/zendframework/zendframework/bin/classmap_generator.php -l module -o config/di/modules_classmap.php --overwrite",
             "php bin/update_di_components.php",
             "php -d memory_limit=512M bin/compile_di.php"
-        ]
+        ]    
     }
 }
