@@ -1,4 +1,4 @@
-set :application, 'orders'
+set :application, 'app'
 set :deploy_to, "/var/www/#{fetch(:application)}"
 set :keep_releases, 5
 

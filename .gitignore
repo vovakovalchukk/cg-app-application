@@ -1,7 +1,10 @@
+.DS_Store
 .idea
 .sass-cache/
+/config/autoload/app.global.php
 /config/autoload/database.local.php
 /config/autoload/di.cgcache.global.php
+/config/autoload/di.gearman_client.global.php
 /config/autoload/di.guzzle.global.php
 /config/autoload/di.memcached.global.php
 /config/autoload/di.redis.global.php
