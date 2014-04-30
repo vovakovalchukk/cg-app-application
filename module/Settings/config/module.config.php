@@ -12,6 +12,7 @@ use Settings\Controller\IndexController;
 use Settings\Controller\ChannelController;
 use Settings\Controller\EbayController;
 use Settings\Controller\AmazonController;
+use Settings\Controller\InvoiceController;
 use CG_UI\View\DataTable;
 use Settings\Channel\Service;
 use Zend\View\Model\ViewModel;
@@ -134,6 +135,18 @@ return [
                                 ],
                             ],
                         ],
+                    ],
+                    InvoiceController::ROUTE => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/invoice',
+                            'defaults' => [
+                                'controller' => ChannelController::class,
+                                'action' => 'design',
+                                'sidebar' => null
+                            ]
+                        ],
+                        'may_terminate' => true,
                     ],
                 ],
             ],
