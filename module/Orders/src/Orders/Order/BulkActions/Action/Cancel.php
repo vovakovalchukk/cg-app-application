@@ -9,9 +9,13 @@ use CG\Channel\Action\Order\Service as ActionDecider;
 use CG\Channel\Action\Order\MapInterface as ActionDeciderMap;
 use Orders\Order\BulkActions\OrderAwareInterface;
 use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\Cancel\Value as CancelValue;
 
 class Cancel extends Action implements OrderAwareInterface
 {
+    const TYPE = CancelValue::CANCEL_TYPE;
+    const ALLOWED_ACTION = ActionDeciderMap::CANCEL;
+
     protected $actionDecider;
     protected $urlView;
 
@@ -22,7 +26,7 @@ class Cancel extends Action implements OrderAwareInterface
         ViewModel $javascript = null,
         SplObjectStorage $subActions = null
     ) {
-        parent::__construct('archive', 'Cancel', 'cancel', $elementData, $javascript, $subActions);
+        parent::__construct('archive', ucwords(static::TYPE), static::TYPE, $elementData, $javascript, $subActions);
         $this
             ->setActionDecider($actionDecider)
             ->setUrlView($urlView)
@@ -66,14 +70,18 @@ class Cancel extends Action implements OrderAwareInterface
     protected function configure()
     {
         $this->addElementView($this->getUrlView());
-        $jsonReasons = json_encode(Reasons::getAllCancellationReasons());
-        $this->getJavascript()->setVariable("cancellationReasons", $jsonReasons);
+        $this->getJavascript()->setVariables(
+            [
+                'cancellationReasons' => json_encode(Reasons::getAllCancellationReasons()),
+                'type' => static::TYPE,
+            ]
+        );
         return $this;
     }
 
     public function setOrder(Order $order)
     {
         $actions = array_fill_keys($this->getActionDecider()->getAvailableActionsForOrder($order), true);
-        $this->setEnabled(isset($actions[ActionDeciderMap::CANCEL]));
+        $this->setEnabled(isset($actions[static::ALLOWED_ACTION]));
     }
 }

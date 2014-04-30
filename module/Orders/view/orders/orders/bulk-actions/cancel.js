@@ -8,8 +8,7 @@ require(
     ["cancel"],
     function(Cancel) {
         var reasons = <?= $cancellationReasons ?>;
-        var cancelBulkAction = new Cancel(n, reasons, '<?= ($order->getPaymentDate()) ? $this->translate(ucwords(Value::REFUND_TYPE)) :
-        $this->translate(ucwords(Value::CANCEL_TYPE)); ?>');
+        var cancelBulkAction = new Cancel(n, reasons, '<?= $this->translate(ucwords($type)) ?>');
         $("#<?= $id ?>").bulkActions("set", "<?= $action ?>", function() {
             cancelBulkAction.setSelector(this);
             cancelBulkAction.action();

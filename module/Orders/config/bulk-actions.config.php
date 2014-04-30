@@ -21,14 +21,14 @@ return [
                 'BatchJavascript' => ViewModel::class,
                 'BatchRemoveJavascript' => ViewModel::class,
                 'ArchiveJavascript' => ViewModel::class,
-                'CancelJavascript' => ViewModel::class,
+                'CancelRefundJavascript' => ViewModel::class,
                 'UrlDataViewInvoice' => ViewModel::class,
                 'UrlDataViewDispatch' => ViewModel::class,
                 'UrlDataViewTag' => ViewModel::class,
                 'UrlDataViewArchive' => ViewModel::class,
                 'UrlDataViewBatch' => ViewModel::class,
                 'UrlDataViewBatchRemove' => ViewModel::class,
-                'UrlDataViewCancel' => ViewModel::class
+                'UrlDataViewCancelRefund' => ViewModel::class
             ],
             Service::class => [
                 'parameters' => [
@@ -63,7 +63,8 @@ return [
                     BulkActions\PrintAction::class,
                     Action\Dispatch::class,
                     Action\Tag::class,
-                    Action\Cancel::class
+                    Action\Cancel::class,
+                    Action\Refund::class,
                 ],
             ],
             Action\Invoice::class => [
@@ -180,19 +181,28 @@ return [
             ],
             Action\Cancel::class => [
                 'parameters' => [
-                    'urlView' => 'UrlDataViewCancel',
+                    'urlView' => 'UrlDataViewCancelRefund',
                     'elementData' => [
                         'datatable' => 'datatable',
                     ],
-                    'javascript' => 'CancelJavascript',
+                    'javascript' => 'CancelRefundJavascript',
                 ],
             ],
-            'CancelJavascript' => [
+            Action\Refund::class => [
+                'parameters' => [
+                    'urlView' => 'UrlDataViewCancelRefund',
+                    'elementData' => [
+                        'datatable' => 'datatable',
+                    ],
+                    'javascript' => 'CancelRefundJavascript',
+                ],
+            ],
+            'CancelRefundJavascript' => [
                 'parameters' => [
                     'template' => 'orders/orders/bulk-actions/cancel.js',
                 ],
             ],
-            'UrlDataViewCancel' => [
+            'UrlDataViewCancelRefund' => [
                 'parameters' => [
                     'template' => 'orders/orders/bulk-actions/data-url',
                 ],
