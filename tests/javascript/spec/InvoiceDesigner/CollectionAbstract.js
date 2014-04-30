@@ -2,10 +2,16 @@ define(['jasq'], function ()
 {
     describe('The Collection module', 'InvoiceDesigner/CollectionAbstract', function ()
     {
+        var item;
+
+        beforeEach(function() {
+            item = jasmine.createSpyObj('item', ['getId']);
+            item.getId.andReturn(1);
+        });
+
         it('should be able to attach items', function(CollectionAbstract)
         {
             var collection = new CollectionAbstract();
-            var item = getMockItem();
             
             collection.attach(item);
             expect(collection.getItems()[item.getId()]).toBeDefined();
@@ -16,19 +22,12 @@ define(['jasq'], function ()
             var collection = new CollectionAbstract();
             var item = {};
 
-            try {
-                collection.attach(item);
-                var errored = false;
-            } catch (e) {
-                var errored = true;
-            }
-            expect(errored).toBe(true);
+            expect(function() { collection.attach(item); }).toThrow();
         });
 
         it('should be able to detach items', function(CollectionAbstract)
         {
             var collection = new CollectionAbstract();
-            var item = getMockItem();
 
             collection.attach(item);
             expect(collection.getItems()[item.getId()]).toBeDefined();
@@ -39,7 +38,6 @@ define(['jasq'], function ()
         it('should be able to count its items', function(CollectionAbstract)
         {
             var collection = new CollectionAbstract();
-            var item = getMockItem();
 
             expect(collection.count()).toBe(0);
             collection.attach(item);
@@ -49,23 +47,11 @@ define(['jasq'], function ()
         it('should be able to iterate over its items', function(CollectionAbstract)
         {
             var collection = new CollectionAbstract();
-            var item = getMockItem();
             var callback = jasmine.createSpy('callback');
 
             collection.attach(item);
             collection.each(callback);
             expect(callback).toHaveBeenCalled();
         });
-
-        var getMockItem = function()
-        {
-            var item = {
-                getId: function()
-                {
-                    return 1;
-                }
-            };
-            return item;
-        };
     });
 });

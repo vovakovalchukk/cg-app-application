@@ -4,7 +4,6 @@ define(['./Element/Collection', './Service'], function(collection, templateServi
     {
         var elements = collection;
         var service = templateService;
-        var populating = false;
 
         var id;
         var name;
@@ -23,17 +22,6 @@ define(['./Element/Collection', './Service'], function(collection, templateServi
             return service;
         };
 
-        this.isPopulating = function()
-        {
-            return populating;
-        };
-
-        this.setPopulating = function(newPopulating)
-        {
-            populating = newPopulating;
-            return this;
-        };
-
         this.getId = function()
         {
             return id;
@@ -41,8 +29,7 @@ define(['./Element/Collection', './Service'], function(collection, templateServi
 
         this.setId = function(newId)
         {
-            id = newId;
-            this.notifyOfChange();
+            this.set('id', newId);
             return this;
         };
 
@@ -53,8 +40,7 @@ define(['./Element/Collection', './Service'], function(collection, templateServi
 
         this.setName = function(newName)
         {
-            name = newName;
-            this.notifyOfChange();
+            this.set('name', newName);
             return this;
         };
 
@@ -65,8 +51,7 @@ define(['./Element/Collection', './Service'], function(collection, templateServi
 
         this.setType = function(newType)
         {
-            type = newType;
-            this.notifyOfChange();
+            this.set('type', newType);
             return this;
         };
 
@@ -77,8 +62,7 @@ define(['./Element/Collection', './Service'], function(collection, templateServi
 
         this.setOrganisationUnitId = function(newOrganisationUnitId)
         {
-            organisationUnitId = newOrganisationUnitId;
-            this.notifyOfChange();
+            this.set('organisationUnitId', newOrganisationUnitId);
             return this;
         };
 
@@ -89,8 +73,7 @@ define(['./Element/Collection', './Service'], function(collection, templateServi
 
         this.setMinHeight = function(newMinHeight)
         {
-            minHeight = newMinHeight;
-            this.notifyOfChange();
+            this.set('minHeight', newMinHeight);
             return this;
         };
 
@@ -101,18 +84,45 @@ define(['./Element/Collection', './Service'], function(collection, templateServi
 
         this.setMinWidth = function(newMinWidth)
         {
-            minWidth = newMinWidth;
-            this.notifyOfChange();
+            this.set('minWidth', newMinWidth);
             return this;
+        };
+
+        this.set = function(field, value, populating)
+        {
+            value = this.formatValueForSetting(value);
+            // If you are of a nervous disposition look away now
+            eval(field+' = '+value);
+            
+            if (populating) {
+                return;
+            }
+            this.notifyOfChange();
+        };
+
+        this.formatValueForSetting = function(value)
+        {
+            if (typeof value !== 'string') {
+                return value;
+            }
+            return (value.match(/^[0-9\-\.]+$/) === null ? "'"+value+"'" : value);
         };
 
         this.notifyOfChange = function()
         {
-            if (this.isPopulating()) {
-                return;
-            }
             this.getService().notifyOfChange(this);
         };
+    };
+
+    Entity.prototype.hydrate = function(data, populating)
+    {
+        for (var field in data)
+        {
+            if (field === 'elements') {
+                continue;
+            }
+            this.set(field, data[field], populating);
+        }
     };
 
     Entity.prototype.addElement = function(element)
@@ -125,7 +135,7 @@ define(['./Element/Collection', './Service'], function(collection, templateServi
 
     Entity.prototype.removeElement = function(element)
     {
-        this.getElements().detch(element);
+        this.getElements().detach(element);
         element.unsubscribe(this);
         this.notifyOfChange();
         return this;
