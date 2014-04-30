@@ -26,7 +26,7 @@ class Tag extends Action
         ViewModel $javascript = null
     )
     {
-        parent::__construct('tag-untag', 'Tag', 'tag', $elementData, $javascript);
+        parent::__construct('sprite-tag-22-black', 'Tag', 'tag', $elementData, $javascript);
         $this
             ->setActiveUserContainer($activeUserContainer)
             ->setStorage($storage)
