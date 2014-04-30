@@ -5,12 +5,15 @@ define(['./Element/Collection', './Service'], function(collection, templateServi
         var elements = collection;
         var service = templateService;
 
-        var id;
-        var name;
-        var type;
-        var organisationUnitId;
-        var minHeight;
-        var minWidth;
+        // Member vars to watch for changes
+        var data = {
+            id: undefined,
+            name: undefined,
+            type: undefined,
+            organisationUnitId: undefined,
+            minHeight: undefined,
+            minWidth: undefined
+        };
 
         this.getElements = function()
         {
@@ -24,7 +27,7 @@ define(['./Element/Collection', './Service'], function(collection, templateServi
 
         this.getId = function()
         {
-            return id;
+            return this.get('id');
         };
 
         this.setId = function(newId)
@@ -35,7 +38,7 @@ define(['./Element/Collection', './Service'], function(collection, templateServi
 
         this.getName = function()
         {
-            return name;
+            return this.get('name');
         };
 
         this.setName = function(newName)
@@ -46,7 +49,7 @@ define(['./Element/Collection', './Service'], function(collection, templateServi
 
         this.getType = function()
         {
-            return type;
+            return this.get('type');
         };
 
         this.setType = function(newType)
@@ -57,7 +60,7 @@ define(['./Element/Collection', './Service'], function(collection, templateServi
 
         this.getOrganisationUnitId = function()
         {
-            return organisationUnitId;
+            return this.get('organisationUnitId');
         };
 
         this.setOrganisationUnitId = function(newOrganisationUnitId)
@@ -68,7 +71,7 @@ define(['./Element/Collection', './Service'], function(collection, templateServi
 
         this.getMinHeight = function()
         {
-            return minHeight;
+            return this.get('minHeight');
         };
 
         this.setMinHeight = function(newMinHeight)
@@ -79,7 +82,7 @@ define(['./Element/Collection', './Service'], function(collection, templateServi
 
         this.getMinWidth = function()
         {
-            return minWidth;
+            return this.get('minWidth');
         };
 
         this.setMinWidth = function(newMinWidth)
@@ -88,24 +91,19 @@ define(['./Element/Collection', './Service'], function(collection, templateServi
             return this;
         };
 
+        this.get = function(field)
+        {
+            return data[field];
+        };
+
         this.set = function(field, value, populating)
         {
-            value = this.formatValueForSetting(value);
-            // If you are of a nervous disposition look away now
-            eval(field+' = '+value);
+            data[field] = value;
             
             if (populating) {
                 return;
             }
             this.notifyOfChange();
-        };
-
-        this.formatValueForSetting = function(value)
-        {
-            if (typeof value !== 'string') {
-                return value;
-            }
-            return (value.match(/^[0-9\-\.]+$/) === null ? "'"+value+"'" : value);
         };
 
         this.notifyOfChange = function()
