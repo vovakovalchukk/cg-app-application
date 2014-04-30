@@ -22,13 +22,8 @@ define([
         }
 
         var template = require('./Entity');
-        template.setPopulating(true)
-            .setId(json.id)
-            .setName(json.name)
-            .setType(json.type)
-            .setOrganisationUnitId(json.organisationUnitId)
-            .setMinHeight(json.minHeight)
-            .setMinWidth(json.minWidth);
+        var populating = true;
+        template.hydrate(json, populating);
 
         for (var key in json.elements) {
             var elementData = json.elements[key];
@@ -36,7 +31,6 @@ define([
             template.addElement(element);
         }
 
-        template.setPopulating(false);
         return template;
     };
 
