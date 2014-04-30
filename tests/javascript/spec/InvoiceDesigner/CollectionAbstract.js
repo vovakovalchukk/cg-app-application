@@ -53,5 +53,16 @@ define(['jasq'], function ()
             collection.each(callback);
             expect(callback).toHaveBeenCalled();
         });
+
+        it('should be able tell us if it contains a specified item', function(CollectionAbstract)
+        {
+            var collection = new CollectionAbstract();
+
+            expect(collection.containsId(item.getId())).toBe(false);
+            collection.attach(item);
+            expect(collection.containsId(item.getId())).toBe(true);
+            collection.detach(item);
+            expect(collection.containsId(item.getId())).toBe(false);
+        });
     });
 });
