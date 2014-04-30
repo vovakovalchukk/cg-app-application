@@ -34,13 +34,7 @@ define(['jasq'], function ()
                     'InvoiceDesigner/Template/Inspector/TextArea': {}
                 }, expect: function(inspectorManager)
                 {
-                    try {
-                        inspectorManager.init();
-                        var errored = false;
-                    } catch (e) {
-                        var errored = true;
-                    }
-                    expect(errored).toBe(true);
+                    expect(function() { inspectorManager.init(); }).toThrow();
                 }
             });
 
@@ -55,6 +49,29 @@ define(['jasq'], function ()
                     var typeCollection = inspectorManager.getForType(mockSupportedTypes[key]);
                     expect(typeCollection.containsId(mockTextInspector.getId())).toBe(true);
                 }
+            });
+
+            it('should tell the inspectors to clear', function(inspectorManager, dependencies)
+            {
+                var mockTextInspector = dependencies['InvoiceDesigner/Template/Inspector/TextArea'];
+                spyOn(mockTextInspector, 'clear');
+
+                inspectorManager.init();
+                inspectorManager.clear();
+                expect(mockTextInspector.clear).toHaveBeenCalled();
+            });
+
+            it('should tell the inspectors to show', function(inspectorManager, dependencies)
+            {
+                var mockTextInspector = dependencies['InvoiceDesigner/Template/Inspector/TextArea'];
+                spyOn(mockTextInspector, 'showForElement');
+                var mockElement = {
+                    getType: function() { return 'text'; }
+                };
+
+                inspectorManager.init();
+                inspectorManager.showForElement(mockElement);
+                expect(mockTextInspector.showForElement).toHaveBeenCalled();
             });
         }
     });

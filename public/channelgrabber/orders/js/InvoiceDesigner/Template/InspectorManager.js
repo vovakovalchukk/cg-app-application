@@ -58,8 +58,8 @@ define([
 
         var inspectors = this.getInspectors();
         var supportedTypes = inspector.getSupportedTypes();
-        for (var key2 in supportedTypes) {
-            var type = supportedTypes[key2];
+        for (var key in supportedTypes) {
+            var type = supportedTypes[key];
             if (!inspectors[type]) {
                 inspectors[type] = require('./Inspector/Collection');
             }
