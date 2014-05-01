@@ -48,7 +48,7 @@
         "channelgrabber/zf2-register": "~1.4.10",
         "channelgrabber/zf2-ssoclient": "~1.2.2",
         "channelgrabber/zf2-stdlib": "~1.1.9",
-        "channelgrabber/zf2-v4-ui": "dev-CGIV-2052-EnableDisableBulkActions as 1.4.12",
+        "channelgrabber/zf2-v4-ui": "~1.4.13",
         "davedevelopment/phpmig": "0.4",
         "guzzle/guzzle": "~3.7",
         "nocarrier/hal": "~0.9.3",
