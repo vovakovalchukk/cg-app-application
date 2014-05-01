@@ -1,4 +1,4 @@
-define(['./Element/Collection.js', './Service.js'], function(collection, templateService)
+define(['InvoiceDesigner/Template/Element/Collection', 'InvoiceDesigner/Template/Service'], function(collection, templateService)
 {
     var Entity = function()
     {

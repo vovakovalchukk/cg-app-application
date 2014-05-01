@@ -1,4 +1,4 @@
-define(['./TextAbstract.js'], function(TextAbstract)
+define(['InvoiceDesigner/Template/Element/TextAbstract'], function(TextAbstract)
 {
     var Text = function()
     {

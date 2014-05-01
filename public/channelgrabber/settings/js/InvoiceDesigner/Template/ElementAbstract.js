@@ -1,4 +1,4 @@
-define(['../PubSubAbstract.js'], function(PubSubAbstract) {
+define(['InvoiceDesigner/PubSubAbstract'], function(PubSubAbstract) {
     var ElementAbstract = function()
     {
         PubSubAbstract.call(this);

@@ -1,6 +1,6 @@
 define([
-    './DomListener/TemplateSelector.js',
-    '../Template/Service.js'
+    'InvoiceDesigner/Module/DomListener/TemplateSelector',
+    'InvoiceDesigner/Template/Service'
 ], function(
     templateSelectorListener,
     templateService

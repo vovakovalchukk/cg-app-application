@@ -1,4 +1,4 @@
-define(['./ImmutableTextAbstract.js'], function(ImmutableTextAbstract)
+define(['InvoiceDesigner/Template/Element/ImmutableTextAbstract'], function(ImmutableTextAbstract)
 {
     var DeliveryAddress = function()
     {

@@ -1,13 +1,13 @@
 define([
     'require',
-    './Entity.js',
-    './Element/Box.js',
-    './Element/DeliveryAddress.js',
-    './Element/Image.js',
-    './Element/OrderTable.js',
-    './Element/Paper.js',
-    './Element/SellerAddress.js',
-    './Element/Text.js'
+    'InvoiceDesigner/Template/Entity',
+    'InvoiceDesigner/Template/Element/Box',
+    'InvoiceDesigner/Template/Element/DeliveryAddress',
+    'InvoiceDesigner/Template/Element/Image',
+    'InvoiceDesigner/Template/Element/OrderTable',
+    'InvoiceDesigner/Template/Element/Paper',
+    'InvoiceDesigner/Template/Element/SellerAddress',
+    'InvoiceDesigner/Template/Element/Text'
 ], function(require)
 {
     var Mapper = function()
@@ -21,7 +21,7 @@ define([
             throw 'InvalidArgumentException: InvoiceDesigner\Template\Mapper::fromJson must be passed a JSON object';
         }
 
-        var template = require('./Entity');
+        var template = require('InvoiceDesigner/Template/Entity');
         var populating = true;
         template.hydrate(json, populating);
 
@@ -37,7 +37,7 @@ define([
     Mapper.prototype.elementFromJson = function(elementData)
     {
         var elementType = elementData.type.charAt(0).toUpperCase() + elementData.type.substr(1);
-        var element = require('./Element/' + elementType);
+        var element = require('InvoiceDesigner/Template/Element/' + elementType);
         for (var field in elementData) {
             var setter = 'set' + field.charAt(0).toUpperCase() + field.substr(1);
             if (element[setter]) {

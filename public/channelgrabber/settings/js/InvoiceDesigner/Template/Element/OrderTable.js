@@ -1,4 +1,4 @@
-define(['../ElementAbstract.js'], function(ElementAbstract)
+define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
 {
     var OrderTable = function()
     {

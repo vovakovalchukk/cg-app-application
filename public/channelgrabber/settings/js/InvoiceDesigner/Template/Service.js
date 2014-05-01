@@ -1,8 +1,8 @@
 define([
     'require',
-    './Storage/Ajax.js',
-    './Mapper.js',
-    './DomManipulator.js'
+    'InvoiceDesigner/Template/Storage/Ajax',
+    'InvoiceDesigner/Template/Mapper',
+    'InvoiceDesigner/Template/DomManipulator'
     // Template Module requires here
 ], function(
     require,

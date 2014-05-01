@@ -20,14 +20,14 @@ jasmineEnv.specFilter = function (spec) {
 };
 
 require([
-    "../../../../tests/javascript/spec/InvoiceDesigner/Application",
-    "../../../../tests/javascript/spec/InvoiceDesigner/CollectionAbstract",
-    "../../../../tests/javascript/spec/InvoiceDesigner/Module/TemplateSelector",
-    "../../../../tests/javascript/spec/InvoiceDesigner/PubSubAbstract",
-    "../../../../tests/javascript/spec/InvoiceDesigner/Template/Entity",
-    "../../../../tests/javascript/spec/InvoiceDesigner/Template/Mapper",
-    "../../../../tests/javascript/spec/InvoiceDesigner/Template/Service",
-    "../../../../tests/javascript/spec/InvoiceDesigner/Template/Storage/Ajax"
+    "./spec/InvoiceDesigner/Application.js",
+    "./spec/InvoiceDesigner/CollectionAbstract.js",
+    "./spec/InvoiceDesigner/Module/TemplateSelector.js",
+    "./spec/InvoiceDesigner/PubSubAbstract.js",
+    "./spec/InvoiceDesigner/Template/Entity.js",
+    "./spec/InvoiceDesigner/Template/Mapper.js",
+    "./spec/InvoiceDesigner/Template/Service.js",
+    "./spec/InvoiceDesigner/Template/Storage/Ajax.js"
     ], function ()
     {
         jasmineEnv.execute();

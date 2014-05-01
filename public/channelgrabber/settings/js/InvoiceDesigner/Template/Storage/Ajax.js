@@ -1,4 +1,4 @@
-define(['../StorageAbstract.js', 'jQuery'], function(StorageAbstract, $)
+define(['InvoiceDesigner/Template/StorageAbstract', 'jQuery'], function(StorageAbstract, $)
 {
     var Ajax = function()
     {

@@ -1,4 +1,4 @@
-define(['../../CollectionAbstract.js'], function(CollectionAbstract)
+define(['InvoiceDesigner/CollectionAbstract'], function(CollectionAbstract)
 {
     var Collection = function()
     {
