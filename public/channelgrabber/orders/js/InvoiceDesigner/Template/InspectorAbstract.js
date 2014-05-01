@@ -52,7 +52,7 @@ define(function()
     /**
      * @abstract
      */
-    InspectorAbstract.prototype.clear = function()
+    InspectorAbstract.prototype.hide = function()
     {
         throw 'RuntimeException: InvoiceDesigner\Template\InspectorAbstract::clear() should be overridden by sub-class';
     };
