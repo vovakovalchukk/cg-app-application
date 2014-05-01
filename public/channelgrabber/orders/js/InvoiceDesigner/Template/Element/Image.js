@@ -30,7 +30,20 @@ define(['../ElementAbstract'], function(ElementAbstract)
         };
     };
 
+    Image.inspectableAttributes = [
+        'source', 'format'
+    ];
+
     Image.prototype = Object.create(ElementAbstract.prototype);
+
+    Image.prototype.getInspectableAttributes = function()
+    {
+        var allAttributes = ElementAbstract.prototype.getInspectableAttributes.call(this);
+        for(var key in Image.inspectableAttributes) {
+            allAttributes.push(Image.inspectableAttributes[key]);
+        }
+        return allAttributes;
+    };
 
     Image.prototype.toJson = function()
     {

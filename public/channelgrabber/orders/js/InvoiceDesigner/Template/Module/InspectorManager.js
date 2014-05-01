@@ -1,21 +1,21 @@
 define([
     '../ModuleAbstract',
-    '../InspectorManager',
+    '../Inspector/Service',
     './DomListener/InspectorManager'
 ], function(
     ModuleAbstract,
-    inspectorManagerListener,
-    templateInspectorManager
+    inspectorService,
+    inspectorManagerListener
 ) {
     var InspectorManager = function()
     {
         ModuleAbstract.call(this);
-        var inspectorManager = templateInspectorManager;
+        var service = inspectorService;
         this.setDomListener(inspectorManagerListener);
 
-        this.getInspectorManager = function()
+        this.getService = function()
         {
-            return inspectorManager;
+            return service;
         };
     };
 
@@ -24,12 +24,12 @@ define([
     InspectorManager.prototype.init = function(template)
     {
         ModuleAbstract.prototype.init.call(this, template);
-        this.getInspectorManager().init();
+        this.getService().init();
     };
 
     InspectorManager.prototype.elementSelected = function(element)
     {
-        this.getInspectorManager().showForElement(element);
+        this.getService().showForElement(element);
     };
 
     return new InspectorManager();

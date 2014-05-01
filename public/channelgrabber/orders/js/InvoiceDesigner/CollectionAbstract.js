@@ -60,5 +60,15 @@ define(function()
         return (this.getItems()[id] !== undefined);
     };
 
+    CollectionAbstract.prototype.merge = function(collection)
+    {
+        var self = this;
+        collection.each(function(item)
+        {
+            self.attach(item);
+        });
+        return this;
+    };
+
     return CollectionAbstract;
 });

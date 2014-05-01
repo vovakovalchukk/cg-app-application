@@ -64,5 +64,24 @@ define(['jasq'], function ()
             collection.detach(item);
             expect(collection.containsId(item.getId())).toBe(false);
         });
+
+        it('should be able to merge in another collection', function(CollectionAbstract)
+        {
+            var collection1 = new CollectionAbstract();
+            var collection2 = new CollectionAbstract();
+
+            var item2 = jasmine.createSpyObj('item', ['getId']);
+            item2.getId.andReturn(2);
+            var item3 = jasmine.createSpyObj('item', ['getId']);
+            item3.getId.andReturn(3);
+
+            collection1.attach(item).attach(item2);
+            collection2.attach(item).attach(item3);
+            collection1.merge(collection2);
+            expect(collection1.count()).toBe(3);
+            expect(collection1.containsId(1)).toBe(true);
+            expect(collection1.containsId(2)).toBe(true);
+            expect(collection1.containsId(3)).toBe(true);
+        });
     });
 });

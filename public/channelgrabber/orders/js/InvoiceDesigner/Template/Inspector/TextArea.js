@@ -5,12 +5,12 @@ define(['../InspectorAbstract'], function(InspectorAbstract)
         InspectorAbstract.call(this);
 
         this.setId('text');
-        this.setSupportedTypes(['text']);
+        this.setInspectedAttributes(['text']);
     };
 
     TextArea.prototype = Object.create(InspectorAbstract.prototype);
 
-    TextArea.prototype.clear = function()
+    TextArea.prototype.hide = function()
     {
         /*
          * TODO (CGIV-2014)

@@ -133,7 +133,16 @@ define(['../PubSubAbstract'], function(PubSubAbstract) {
         this.setId(generateId());
     };
 
+    ElementAbstract.inspectableAttributes = [
+        'height', 'width', 'x', 'y', 'backgroundColour', 'borderWidth', 'borderColour'
+    ];
+
     ElementAbstract.prototype = Object.create(PubSubAbstract.prototype);
+
+    ElementAbstract.prototype.getInspectableAttributes = function()
+    {
+        return ElementAbstract.inspectableAttributes;
+    };
 
     ElementAbstract.prototype.toJson = function()
     {

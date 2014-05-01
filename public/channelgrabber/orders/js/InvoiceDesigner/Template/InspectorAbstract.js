@@ -3,7 +3,7 @@ define(function()
     var InspectorAbstract = function()
     {
         var id;
-        var supportedTypes = [];
+        var inspectedAttributes = [];
         var template;
 
         this.getId = function()
@@ -16,14 +16,14 @@ define(function()
             id = newId;
         };
 
-        this.getSupportedTypes = function()
+        this.getInspectedAttributes = function()
         {
-            return supportedTypes;
+            return inspectedAttributes;
         };
 
-        this.setSupportedTypes = function(newSupportedTypes)
+        this.setInspectedAttributes = function(newInspectedAttributes)
         {
-            supportedTypes = newSupportedTypes;
+            inspectedAttributes = newInspectedAttributes;
         };
 
         this.getTemplate = function()
@@ -37,21 +37,33 @@ define(function()
         };
     };
 
+    /*
+     * Sub-classes should, in their constructor:
+     * call this.setId() with a sensible name for the inspector e.g. 'text', 'border', etc
+     * call this.setInspectedAttributes() with an array of attributes it can inspect
+     */
+
     InspectorAbstract.prototype.init = function(template)
     {
         this.setTemplate(template);
         // Sub-classes should override with a .call() to this method then do their own work
     };
 
-    /*
-     * Sub-classes should, in their constructor:
-     * call this.setId() with a sensible name for the inspector e.g. 'text', 'border', etc
-     * call this.setSupportedTypes() with an array of supported types
-     *
-     * Sub-classes should implement:
-     * clear() - remove the inspector from the DOM
-     * showForElement(element) - add the inspector to the DOM and populate for the given element
+    /**
+     * @abstract
      */
+    InspectorAbstract.prototype.clear = function()
+    {
+        throw 'RuntimeException: InvoiceDesigner\Template\InspectorAbstract::clear() should be overridden by sub-class';
+    };
+
+    /**
+     * @abstract
+     */
+    InspectorAbstract.prototype.showForElement = function(element)
+    {
+        throw 'RuntimeException: InvoiceDesigner\Template\InspectorAbstract::showForElement() should be overridden by sub-class';
+    };
 
     return InspectorAbstract;
 });

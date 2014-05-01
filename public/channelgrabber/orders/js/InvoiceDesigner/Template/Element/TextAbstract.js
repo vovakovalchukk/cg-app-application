@@ -114,7 +114,20 @@ define(['../ElementAbstract'], function(ElementAbstract)
         };
     };
 
+    TextAbstract.inspectableAttributes = [
+        'fontSize', 'fontFamily', 'fontColour', 'text', 'padding', 'lineHeight', 'align', 'replacedText', 'removeBlankLines'
+    ];
+
     TextAbstract.prototype = Object.create(ElementAbstract.prototype);
+
+    TextAbstract.prototype.getInspectableAttributes = function()
+    {
+        var allAttributes = ElementAbstract.prototype.getInspectableAttributes.call(this);
+        for(var key in TextAbstract.inspectableAttributes) {
+            allAttributes.push(TextAbstract.inspectableAttributes[key]);
+        }
+        return allAttributes;
+    };
 
     TextAbstract.prototype.toJson = function()
     {

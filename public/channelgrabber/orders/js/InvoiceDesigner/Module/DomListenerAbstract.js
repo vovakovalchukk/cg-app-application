@@ -3,7 +3,6 @@ define(function()
     var DomListenerAbstract = function()
     {
         var module;
-        var domListener;
 
         this.getModule = function()
         {
@@ -14,11 +13,6 @@ define(function()
         {
             module = newModule;
             return this;
-        };
-
-        this.getDomListener = function()
-        {
-            return domListener;
         };
     };
 

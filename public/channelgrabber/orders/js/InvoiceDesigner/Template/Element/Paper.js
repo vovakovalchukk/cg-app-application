@@ -18,7 +18,20 @@ define(['../ElementAbstract'], function(ElementAbstract)
         };
     };
 
+    Paper.inspectableAttributes = [
+        'backgroundImage'
+    ];
+
     Paper.prototype = Object.create(ElementAbstract.prototype);
+
+    Paper.prototype.getInspectableAttributes = function()
+    {
+        var allAttributes = ElementAbstract.prototype.getInspectableAttributes.call(this);
+        for(var key in Paper.inspectableAttributes) {
+            allAttributes.push(Paper.inspectableAttributes[key]);
+        }
+        return allAttributes;
+    };
 
     Paper.prototype.toJson = function()
     {
