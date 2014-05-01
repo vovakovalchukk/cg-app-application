@@ -1,6 +1,6 @@
 define([
     // Application Module requires here
-    './Module/TemplateSelector'
+    './Module/TemplateSelector.js'
 ], function(
     // Application Module variables here
     templateSelector

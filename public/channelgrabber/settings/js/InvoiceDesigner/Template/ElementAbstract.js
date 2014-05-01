@@ -1,4 +1,4 @@
-define(['../PubSubAbstract'], function(PubSubAbstract) {
+define(['../PubSubAbstract.js'], function(PubSubAbstract) {
     var ElementAbstract = function()
     {
         PubSubAbstract.call(this);

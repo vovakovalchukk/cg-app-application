@@ -1,4 +1,4 @@
-define(['../ElementAbstract'], function(ElementAbstract)
+define(['../ElementAbstract.js'], function(ElementAbstract)
 {
     var Box = function()
     {

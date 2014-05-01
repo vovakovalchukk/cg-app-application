@@ -1,4 +1,4 @@
-define(['../StorageAbstract', 'jQuery'], function(StorageAbstract, $)
+define(['../StorageAbstract.js', 'jQuery'], function(StorageAbstract, $)
 {
     var Ajax = function()
     {

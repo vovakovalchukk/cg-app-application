@@ -1,8 +1,8 @@
 define([
     'require',
-    './Storage/Ajax',
-    './Mapper',
-    './DomManipulator'
+    './Storage/Ajax.js',
+    './Mapper.js',
+    './DomManipulator.js'
     // Template Module requires here
 ], function(
     require,

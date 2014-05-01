@@ -1,4 +1,4 @@
-define(['./Element/Collection', './Service'], function(collection, templateService)
+define(['./Element/Collection.js', './Service.js'], function(collection, templateService)
 {
     var Entity = function()
     {

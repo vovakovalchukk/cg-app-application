@@ -1,4 +1,4 @@
-define(['./ImmutableTextAbstract'], function(ImmutableTextAbstract)
+define(['./ImmutableTextAbstract.js'], function(ImmutableTextAbstract)
 {
     var DeliveryAddress = function()
     {

@@ -1,4 +1,4 @@
-define(['../../CollectionAbstract'], function(CollectionAbstract)
+define(['../../CollectionAbstract.js'], function(CollectionAbstract)
 {
     var Collection = function()
     {

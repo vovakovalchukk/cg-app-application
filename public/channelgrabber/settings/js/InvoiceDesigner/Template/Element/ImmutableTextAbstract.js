@@ -1,4 +1,4 @@
-define(['./TextAbstract'], function(TextAbstract)
+define(['./TextAbstract.js'], function(TextAbstract)
 {
     var ImmutableTextAbstract = function()
     {

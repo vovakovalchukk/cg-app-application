@@ -1,13 +1,13 @@
 define([
     'require',
-    './Entity',
-    './Element/Box',
-    './Element/DeliveryAddress',
-    './Element/Image',
-    './Element/OrderTable',
-    './Element/Paper',
-    './Element/SellerAddress',
-    './Element/Text'
+    './Entity.js',
+    './Element/Box.js',
+    './Element/DeliveryAddress.js',
+    './Element/Image.js',
+    './Element/OrderTable.js',
+    './Element/Paper.js',
+    './Element/SellerAddress.js',
+    './Element/Text.js'
 ], function(require)
 {
     var Mapper = function()

@@ -1,4 +1,4 @@
-define(['./Mapper'], function(templateMapper)
+define(['./Mapper.js'], function(templateMapper)
 {
     var StorageAbstract = function()
     {
