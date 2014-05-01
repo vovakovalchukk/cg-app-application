@@ -141,7 +141,7 @@ return [
                         'options' => [
                             'route' => '/invoice',
                             'defaults' => [
-                                'controller' => ChannelController::class,
+                                'controller' => InvoiceController::class,
                                 'action' => 'design',
                                 'sidebar' => null
                             ]

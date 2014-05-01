@@ -1,1 +1,18 @@
-<h1>Invoice Designer</h1>
+<?php $this->inlineScript()->captureStart(); ?>
+$(document).ready(function() {
+    require(['<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/InvoiceDesigner/Application.js';?>'],
+        function(application) {
+            application.init();
+        }
+    );
+});
+<?php $this->inlineScript()->captureEnd(); ?>
+<div id="invoice-controls-bar" class="sidebar-fixed sidebar-left sidebar-invoice-designer">
+    <!--Invoice Controls-->
+</div>
+<div id="invoice-template">
+    <!--Invoice Template-->
+</div>
+<div id="element-inspector-bar" class="sidebar-fixed sidebar-right sidebar-invoice-designer">
+    <!--Element Inspectors-->
+</div>
