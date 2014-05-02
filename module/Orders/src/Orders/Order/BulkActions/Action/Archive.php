@@ -15,7 +15,7 @@ class Archive extends Action
         ViewModel $javascript = null,
         SplObjectStorage $subActions = null
     ) {
-        parent::__construct('archive', 'Archive', 'archive', $elementData, $javascript, $subActions);
+        parent::__construct('sprite-archive-22-black', 'Archive', 'archive', $elementData, $javascript, $subActions);
         $this
             ->setUrlView($urlView)
             ->configure();
