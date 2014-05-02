@@ -1,6 +1,6 @@
 require.config({
     // Set baseUrl for easy access to the modules we are testing
-    baseUrl: "../../public/channelgrabber/orders/js/",
+    baseUrl: "../../public/channelgrabber/settings/js/",
     // The paths below are now relative to the baseUrl
     paths: {
         jasq: "../../../../tests/javascript/lib/jasq",
