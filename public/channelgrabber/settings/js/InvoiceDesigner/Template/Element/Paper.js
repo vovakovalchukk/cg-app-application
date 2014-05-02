@@ -6,6 +6,10 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
 
         var backgroundImage;
 
+        var extraInspectableAttributes = [
+            'backgroundImage'
+        ];
+
         this.getBackgroundImage = function()
         {
             return backgroundImage;
@@ -16,22 +20,13 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
             backgroundImage = newBackgroundImage;
             return this;
         };
-    };
 
-    Paper.inspectableAttributes = [
-        'backgroundImage'
-    ];
+        this.getExtraInspectableAttributes = function() {
+            return extraInspectableAttributes;
+        };
+    };
 
     Paper.prototype = Object.create(ElementAbstract.prototype);
-
-    Paper.prototype.getInspectableAttributes = function()
-    {
-        var allAttributes = ElementAbstract.prototype.getInspectableAttributes.call(this);
-        for(var key in Paper.inspectableAttributes) {
-            allAttributes.push(Paper.inspectableAttributes[key]);
-        }
-        return allAttributes;
-    };
 
     Paper.prototype.toJson = function()
     {

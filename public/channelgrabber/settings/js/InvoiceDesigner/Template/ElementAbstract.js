@@ -15,6 +15,10 @@ define(['InvoiceDesigner/PubSubAbstract'], function(PubSubAbstract) {
 
         var editable = true;
 
+        var baseInspectableAttributes = [
+            'height', 'width', 'x', 'y', 'backgroundColour', 'borderWidth', 'borderColour'
+        ];
+
         this.getId = function()
         {
             return id;
@@ -125,6 +129,18 @@ define(['InvoiceDesigner/PubSubAbstract'], function(PubSubAbstract) {
             return this;
         };
 
+        this.getBaseInspectableAttributes = function()
+        {
+            return baseInspectableAttributes;
+        };
+
+        /**
+         * Sub-classes can override this to provide extra inspectable attributes for themselves
+         */
+        this.getExtraInspectableAttributes = function() {
+            return [];
+        };
+
         // Elements aren't expected to have IDs so generate one
         var generateId = function()
         {
@@ -133,15 +149,17 @@ define(['InvoiceDesigner/PubSubAbstract'], function(PubSubAbstract) {
         this.setId(generateId());
     };
 
-    ElementAbstract.inspectableAttributes = [
-        'height', 'width', 'x', 'y', 'backgroundColour', 'borderWidth', 'borderColour'
-    ];
-
     ElementAbstract.prototype = Object.create(PubSubAbstract.prototype);
 
     ElementAbstract.prototype.getInspectableAttributes = function()
     {
-        return ElementAbstract.inspectableAttributes;
+        var baseAttribs = this.getBaseInspectableAttributes();
+        var extraAttribs = this.getExtraInspectableAttributes();
+        var allAttribs = baseAttribs;
+        for (var key in extraAttribs) {
+            allAttribs.push(extraAttribs[key]);
+        }
+        return allAttribs;
     };
 
     ElementAbstract.prototype.toJson = function()

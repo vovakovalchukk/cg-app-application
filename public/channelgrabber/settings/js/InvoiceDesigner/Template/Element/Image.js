@@ -7,6 +7,10 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
         var source;
         var format;
 
+        var extraInspectableAttributes = [
+            'source', 'format'
+        ];
+
         this.getSource = function()
         {
             return source;
@@ -28,22 +32,13 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
             format = newFormat;
             return this;
         };
-    };
 
-    Image.inspectableAttributes = [
-        'source', 'format'
-    ];
+        this.getExtraInspectableAttributes = function() {
+            return extraInspectableAttributes;
+        };
+    };
 
     Image.prototype = Object.create(ElementAbstract.prototype);
-
-    Image.prototype.getInspectableAttributes = function()
-    {
-        var allAttributes = ElementAbstract.prototype.getInspectableAttributes.call(this);
-        for(var key in Image.inspectableAttributes) {
-            allAttributes.push(Image.inspectableAttributes[key]);
-        }
-        return allAttributes;
-    };
 
     Image.prototype.toJson = function()
     {

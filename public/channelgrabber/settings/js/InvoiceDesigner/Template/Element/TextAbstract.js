@@ -14,6 +14,10 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
         var replacedText;
         var removeBlankLines;
 
+        var extraInspectableAttributes = [
+            'fontSize', 'fontFamily', 'fontColour', 'text', 'padding', 'lineHeight', 'align', 'replacedText', 'removeBlankLines'
+        ];
+
         this.getFontSize = function()
         {
             return fontSize;
@@ -112,22 +116,13 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
             removeBlankLines = newRemoveBlankLines;
             return this;
         };
-    };
 
-    TextAbstract.inspectableAttributes = [
-        'fontSize', 'fontFamily', 'fontColour', 'text', 'padding', 'lineHeight', 'align', 'replacedText', 'removeBlankLines'
-    ];
+        this.getExtraInspectableAttributes = function() {
+            return extraInspectableAttributes;
+        };
+    };
 
     TextAbstract.prototype = Object.create(ElementAbstract.prototype);
-
-    TextAbstract.prototype.getInspectableAttributes = function()
-    {
-        var allAttributes = ElementAbstract.prototype.getInspectableAttributes.call(this);
-        for(var key in TextAbstract.inspectableAttributes) {
-            allAttributes.push(TextAbstract.inspectableAttributes[key]);
-        }
-        return allAttributes;
-    };
 
     TextAbstract.prototype.toJson = function()
     {
