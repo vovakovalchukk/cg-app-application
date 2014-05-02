@@ -1,4 +1,4 @@
-define(['./TextAbstract'], function(TextAbstract)
+define(['InvoiceDesigner/Template/Element/TextAbstract'], function(TextAbstract)
 {
     var ImmutableTextAbstract = function()
     {

@@ -15,7 +15,7 @@ class Dispatch extends Action
         ViewModel $javascript = null,
         SplObjectStorage $subActions = null
     ) {
-        parent::__construct('dispatch', 'Dispatch', 'dispatch', $elementData, $javascript, $subActions);
+        parent::__construct('sprite-dispatch-22-black', 'Dispatch', 'dispatch', $elementData, $javascript, $subActions);
         $this
             ->setUrlView($urlView)
             ->configure();

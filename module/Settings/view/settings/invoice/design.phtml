@@ -1,0 +1,24 @@
+<?php $this->headLink()->appendStylesheet($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'css/common/subheader-hide.css'); ?>
+<?php $this->inlineScript()->captureStart(); ?>
+$(document).ready(function() {
+    require.config({
+        paths: {
+            'InvoiceDesigner': "<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/InvoiceDesigner';?>"
+        }
+    });
+
+    require(['InvoiceDesigner/Application'], function(designerApp)
+    {
+        designerApp.init();
+    });
+});
+<?php $this->inlineScript()->captureEnd(); ?>
+<div id="invoice-controls-bar" class="sidebar sidebar-fixed sidebar-left sidebar-invoice-designer">
+    <!--Invoice Controls-->
+</div>
+<div id="invoice-template">
+    <!--Invoice Template-->
+</div>
+<div id="element-inspector-bar" class="sidebar sidebar-fixed sidebar-right sidebar-invoice-designer">
+    <!--Element Inspectors-->
+</div>

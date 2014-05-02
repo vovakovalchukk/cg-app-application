@@ -1,6 +1,6 @@
 define([
     // Application Module requires here
-    './Module/TemplateSelector'
+    'InvoiceDesigner/Module/TemplateSelector'
 ], function(
     // Application Module variables here
     templateSelector

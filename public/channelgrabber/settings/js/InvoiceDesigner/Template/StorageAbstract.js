@@ -1,4 +1,4 @@
-define(['./Mapper'], function(templateMapper)
+define(['InvoiceDesigner/Template/Mapper'], function(templateMapper)
 {
     var StorageAbstract = function()
     {

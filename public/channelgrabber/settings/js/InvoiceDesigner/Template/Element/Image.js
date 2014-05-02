@@ -1,4 +1,4 @@
-define(['../ElementAbstract'], function(ElementAbstract)
+define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
 {
     var Image = function()
     {

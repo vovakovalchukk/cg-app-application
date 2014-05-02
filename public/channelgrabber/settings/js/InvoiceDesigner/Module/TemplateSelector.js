@@ -1,7 +1,7 @@
 define([
-    '../ModuleAbstract',
-    './DomListener/TemplateSelector',
-    '../Template/Service'
+    'InvoiceDesigner/ModuleAbstract',
+    'InvoiceDesigner/Module/DomListener/TemplateSelector',
+    'InvoiceDesigner/Template/Service'
 ], function(
     ModuleAbstract,
     templateSelectorListener,
