@@ -13,7 +13,7 @@ namespace :hooks do
                 if test '[', '-e', script, ']'
                     execute script
                 else
-                    warn "[SKIPPING] Deployment Script No Found - #{script}"
+                    warn "[SKIPPING] Deployment Script Not Found - #{script}"
                 end
             end
 
