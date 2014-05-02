@@ -7,17 +7,17 @@
     "packages": [
         {
             "name": "channelgrabber/account",
-            "version": "1.0.16",
+            "version": "1.0.17",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-account.git",
-                "reference": "f7dfe78979987dabb5b83adbbde0aa9cb2d1f654"
+                "reference": "600143bb6c44e59206c10fa0d29178bdfe126734"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-account-1.0.16-9689d0.zip",
-                "reference": "f7dfe78979987dabb5b83adbbde0aa9cb2d1f654",
-                "shasum": "e11c6191687dd66179e9bb15a7f4ce9a894036fb"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-account-1.0.17-040bc7.zip",
+                "reference": "600143bb6c44e59206c10fa0d29178bdfe126734",
+                "shasum": "8ba5bbdc2b46892603fe397ade642ab1acda39ef"
             },
             "require": {
                 "channelgrabber/cache": ">=1.2.1, <1.3.0",
@@ -41,7 +41,7 @@
                     "CG\\Account\\": ""
                 }
             },
-            "time": "2014-05-01 16:20:57"
+            "time": "2014-05-02 13:34:42"
         },
         {
             "name": "channelgrabber/amazon",
