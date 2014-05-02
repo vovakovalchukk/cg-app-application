@@ -83,7 +83,7 @@ class Module implements DependencyIndicatorInterface
     protected function getNavBarItems()
     {
         return [
-            new NavBar\Item('orders', 'Orders', 'Orders'),
+            new NavBar\Item('sprite-orders-18-white', 'Orders', 'Orders'),
         ];
     }
 }

@@ -6,6 +6,7 @@ use Zend\View\Model\ViewModel;
 use CG_UI\View\NavBar;
 use Zend\Di\Di;
 use CG_UI\Layout\ViewModelFactory;
+use Zend\Config\Factory as ConfigFactory;
 use Zend\Mvc\Router\SimpleRouteStack;
 
 class Module
@@ -26,7 +27,9 @@ class Module
 
     public function getConfig()
     {
-        return include __DIR__ . '/config/module.config.php';
+        return ConfigFactory::fromFiles(
+            glob(__DIR__ . '/config/*.config.php')
+        );
     }
 
     public function getAutoloaderConfig()
@@ -55,7 +58,7 @@ class Module
     protected function getNavBarItems()
     {
         return [
-            new NavBar\Item('settings', 'Settings', 'Channel Management'),
+            new NavBar\Item('sprite-settings-18-white', 'Settings', 'Channel Management'),
         ];
     }
 
