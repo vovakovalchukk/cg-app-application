@@ -15,7 +15,7 @@ class Batch extends Action
         ViewModel $javascript = null,
         SplObjectStorage $subActions = null
     ) {
-        parent::__construct('batch', 'Batch', 'batch', $elementData, $javascript, $subActions);
+        parent::__construct('sprite-batch-22-black', 'Batch', 'batch', $elementData, $javascript, $subActions);
         $this->setUrlView($urlView)
             ->configure();
     }
