@@ -1,6 +1,5 @@
 <?php
 require_once 'bootstrap.php';
-require_once 'config/di/components.php';
 
 if (!isset($argv[1]) || !isset($argv[2])) {
     echo 'Component type and name must be passed in'.PHP_EOL;
