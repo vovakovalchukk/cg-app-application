@@ -16,11 +16,14 @@ define(['element/moreButton'], function(MoreButton) {
 
         this.applyFilterValues = function(filterName, filterOptions)
         {
+            self = this;
             require(['filterCollection'], function(FilterCollection) {
                 var filterObject = FilterCollection.get(filterName);
                 if (filterObject != undefined) {
                     filterObject.setValue(filterOptions);
                 }
+                Filters.pendingFilters--;
+                self.updateFilters();
             });
         };
 
@@ -47,6 +50,7 @@ define(['element/moreButton'], function(MoreButton) {
         init.call(this);
     };
 
+    Filters.pendingFilters = 0;
     Filters.savedFilters = {};
 
     Filters.prototype.clearFilters = function()
@@ -83,6 +87,8 @@ define(['element/moreButton'], function(MoreButton) {
 
         this.clearFilters();
         this.getFilters().trigger("reset");
+        
+        Filters.pendingFilters = Object.keys(filters).length;
 
         for (var filterName in filters) {
             var filterOptions = filters[filterName];
@@ -97,6 +103,12 @@ define(['element/moreButton'], function(MoreButton) {
                 this.applyFilterValues(filterName, filterOptions);
             }
         };
+    };
+
+    Filters.prototype.updateFilters = function() {
+        if (Filters.pendingFilters == 0) {
+            this.getFilters().trigger("apply");
+        }
     };
 
     return Filters;
