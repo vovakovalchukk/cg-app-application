@@ -1,8 +1,4 @@
 {
-    "provide": {
-        "ext-mongo": "*",
-        "ext-gearman": "1.1.0"
-    },
     "repositories": [
         {
             "type": "git",
@@ -23,13 +19,13 @@
         }
     },
     "require": {
-        "channelgrabber/account": "dev-CGIV-2071-fixed-ous-issue as 1.0.16",
+        "channelgrabber/account": "~1.0.17",
         "channelgrabber/amazon": "~1.2.7",
         "channelgrabber/channel": "~1.1.5",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/ebay": "~1.1.14",
         "channelgrabber/http": "~1.2.9",
-        "channelgrabber/order": "dev-CGIV-2071-filter-filtering as 1.5.9",
+        "channelgrabber/order": "~1.5.12",
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/sso": "~1.1.2",
