@@ -1,4 +1,4 @@
-define(['../ModuleAbstract'], function(AppModuleAbstract)
+define(['InvoiceDesigner/ModuleAbstract'], function(AppModuleAbstract)
 {
     var ModuleAbstract = function()
     {

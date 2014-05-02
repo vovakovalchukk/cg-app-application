@@ -1,4 +1,4 @@
-define(['module', '../DomListenerAbstract'], function(requireModule, DomListenerAbstract)
+define(['module', 'InvoiceDesigner/Module/DomListenerAbstract'], function(requireModule, DomListenerAbstract)
 {
     var TemplateSelector = function()
     {

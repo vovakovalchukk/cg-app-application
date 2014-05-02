@@ -1,4 +1,4 @@
-define(['../../Module/DomListenerAbstract'], function(AppModuleDomListenerAbstract)
+define(['InvoiceDesigner/Module/DomListenerAbstract'], function(AppModuleDomListenerAbstract)
 {
     var DomListenerAbstract = function()
     {
