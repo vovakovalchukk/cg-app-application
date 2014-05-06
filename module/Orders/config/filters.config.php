@@ -1,5 +1,10 @@
 <?php
+use Orders\Order\CountryService;
+use Orders\Order\CurrencyService;
 use Orders\Order\FilterService;
+use Orders\Order\TableService\OrdersTableTagColumns;
+use Orders\Order\Filter\Channel;
+use Orders\Order\Filter\Account;
 
 return [
     'di' => [
@@ -18,7 +23,7 @@ return [
                     'type' => 'Row',
                     'filters' => [
                         [
-                            'template' => 'elements/date-range.mustache',
+                            'filterType' => 'date-range',
                             'variables' => [
                                 'filterName' => 'purchaseDate',
                                 'time' => [
@@ -52,13 +57,13 @@ return [
                                     [
                                         'title' => 'The previous month',
                                         'from' => strtotime('midnight first day of last month'),
-                                        'to' => strtotime('midnight first day of this month'),
+                                        'to' => strtotime('23:59 last day of last month'),
                                     ]
                                 ]
                             ]
                         ],
                         [
-                            'template' => 'elements/custom-select-group.mustache',
+                            'filterType' => 'customSelectGroup',
                             'variables' => [
                                 'filterName' => 'status',
                                 'title' => 'Status',
@@ -67,19 +72,22 @@ return [
                                 'concatenate' => true,
                                 'options' => [
                                     [
-                                        'title' => 'New'
+                                        'title' => 'New',
+                                        'value' => 'new'
                                     ],
                                     [
-                                        'title' => 'Processing'
+                                        'title' => 'Processing',
+                                        'value' => 'processing'
                                     ],
                                     [
-                                        'title' => 'Dispatched'
+                                        'title' => 'Dispatched',
+                                        'value' => 'dispatched'
                                     ]
                                 ],
                             ],
                         ],
                         [
-                            'template' => 'elements/text.mustache',
+                            'filterType' => 'text',
                             'variables' => [
                                 'filterName' => 'search',
                                 'placeholder' => 'Search for...',
@@ -87,16 +95,16 @@ return [
                                 'value' => ''
                             ],
                         ],
-//                        [
-//                            'template' => 'elements/more.mustache',
-//                            'variables' => [
-//                                'title' => 'More',
-//                                'class' => 'more',
-//                                'filterName' => 'more'
-//                            ],
-//                        ],
                         [
-                            'template' => 'elements/buttons.mustache',
+                            'filterType' => 'more',
+                            'variables' => [
+                                'title' => 'More',
+                                'class' => 'more',
+                                'filterName' => 'more'
+                            ],
+                        ],
+                        [
+                            'filterType' => 'buttons',
                             'variables' => [
                                 'buttons' => [
                                     [
@@ -123,44 +131,34 @@ return [
                     'type' => 'Row',
                     'filters' => [
                         [
-                            'template' => 'elements/custom-select-group.mustache',
+                            'filterType' => 'customSelectGroup',
                             'visible' => true,
                             'variables' => [
                                 'filterName' => 'shippingAddressCountry',
-                                'title' => 'Include Country',
+                                'title' => 'Country',
                                 'searchField' => true,
                                 'isOptional' => true,
                                 'concatenate' => true,
                                 'options' => [
-                                    [
-                                        'title' => 'UK'
-                                    ],
-                                    [
-                                        'title' => 'Austria'
-                                    ],
-                                    [
-                                        'title' => 'Croatia'
-                                    ],
-                                    [
-                                        'title' => 'Cyprus'
-                                    ],
-                                    [
-                                        'title' => 'France'
-                                    ],
-                                    [
-                                        'title' => 'Germany'
-                                    ],
-                                    [
-                                        'title' => 'Italy'
-                                    ],
-                                    [
-                                        'title' => 'Spain'
-                                    ]
                                 ]
                             ],
+                            'optionsProvider' => CountryService::class,
                         ],
                         [
-                            'template' => 'elements/number-range.mustache',
+                            'filterType' => 'customSelectGroup',
+                            'visible' => false,
+                            'variables' => [
+                                'filterName' => 'currencyCode',
+                                'title' => 'Currency',
+                                'searchField' => true,
+                                'isOptional' => true,
+                                'concatenate' => true,
+                                'options' => []
+                            ],
+                            'optionsProvider' => CurrencyService::class,
+                        ],
+                        [
+                            'filterType' => 'numberRange',
                             'visible' => true,
                             'variables' => [
                                 'filterName' => 'total',
@@ -170,11 +168,71 @@ return [
                             ]
                         ],
                         [
-                            'template' => 'elements/custom-select.mustache',
+                            'filterType' => 'customSelectGroup',
+                            'visible' => false,
+                            'variables' => [
+                                'filterName' => 'channel',
+                                'title' => 'Channel',
+                                'searchField' => true,
+                                'isOptional' => true,
+                                'concatenate' => true,
+                                'options' => []
+                            ],
+                            'optionsProvider' => Channel::class,
+                        ],
+                        [
+                            'filterType' => 'customSelectGroup',
+                            'visible' => false,
+                            'variables' => [
+                                'filterName' => 'accountId',
+                                'title' => 'Account',
+                                'searchField' => true,
+                                'isOptional' => true,
+                                'concatenate' => true,
+                                'options' => []
+                            ],
+                            'optionsProvider' => Account::class,
+                        ],
+                        [
+                            'filterType' => 'customSelectGroup',
+                            'visible' => false,
+                            'variables' => [
+                                'filterName' => 'tag',
+                                'title' => 'Tags',
+                                'searchField' => true,
+                                'isOptional' => true,
+                                'concatenate' => true,
+                                'options' => []
+                            ],
+                            'optionsProvider' => OrdersTableTagColumns::class,
+                        ],
+                        [
+                            'filterType' => 'customSelect',
                             'visible' => false,
                             'variables' => [
                                 'filterName' => 'archived',
                                 'title' => 'Show Archived',
+                                'isOptional' => true,
+                                'options' => [
+                                    [
+                                        'title' => 'All'
+                                    ],
+                                    [
+                                        'title' => 'Yes'
+                                    ],
+                                    [
+                                        'title' => 'No',
+                                        'selected' => true
+                                    ],
+                                ]
+                            ],
+                        ],
+                        [
+                            'filterType' => 'customSelect',
+                            'visible' => false,
+                            'variables' => [
+                                'filterName' => 'buyerMessage',
+                                'title' => 'Buyer Message',
                                 'isOptional' => true,
                                 'options' => [
                                     [
@@ -191,6 +249,38 @@ return [
                         ],
                     ]
                 ],
+            ],
+        ],
+        'stateFilters' => [
+            [
+                'name' => 'New Orders',
+                'filter' => json_encode(
+                    [
+                        'status' => [
+                            'new'
+                        ]
+                    ]
+                )
+            ],
+            [
+                'name' => 'Processing',
+                'filter' => json_encode(
+                    [
+                        'status' => [
+                            'processing'
+                        ]
+                    ]
+                )
+            ],
+            [
+                'name' => 'Dispatched',
+                'filter' => json_encode(
+                    [
+                        'status' => [
+                            'dispatched'
+                        ]
+                    ]
+                )
             ],
         ],
     ],

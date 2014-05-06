@@ -11,22 +11,27 @@ class Service
         [
             "get" => "getPurchaseDate",
             "title" => "Purchase Date",
-            "extraText" => "Purchased"
+            "extraText" => "Purchased",
+            "sort" => 10
         ],
         [
             "get" => "getPaymentDate",
             "title" => "Payment Date",
-            "extraText" => "Paid For"
-        ],
-        [
-            "get" => "getPrintedDate",
-            "title" => "Printed Date",
-            "extraText" => "Printed"
+            "extraText" => "Paid For",
+            "sort" => 20
         ],
         [
             "get" => "getDispatchDate",
             "title" => "Dispatch Date",
-            "extraText" => "Dispatched"
+            "extraText" => "Dispatched",
+            "sort" => 30
+        ],
+        [
+            "get" => "getPrintedDate",
+            "title" => "Printed Date",
+            "extraText" => "Printed",
+            "sort" => 40,
+            "sortByDate" => true
         ]
     ];
 
@@ -41,7 +46,7 @@ class Service
         $timeline = [
             "timelineBoxes" => $orderedTimelineBoxes,
             "timelineTimes" => $this->getTimelineTimes($orderedTimelineBoxes),
-            "timelineTotal" => $this->getTimelineTotal($orderedTimelineBoxes[0]['unixTime'], end($orderedTimelineBoxes)['unixTime'])
+            "timelineTotal" => $this->getTimelineTotal($orderedTimelineBoxes)
         ];
         return $timeline;
     }
@@ -49,32 +54,94 @@ class Service
     protected function getOrderedTimelineBoxes(OrderEntity $order)
     {
         $timelineBoxes = [];
+        $sortValues = [];
+        $sortByDateBoxes = [];
+        $count = 0;
         foreach ($this->getTimelineHeadings() as $timelineHeading) {
-            $unixTime = strtotime($order->$timelineHeading["get"]()) ?: null;
-            $timelineBoxes[] = [
-                'title' => $timelineHeading["title"],
-                'subtitle' => $unixTime ? date("jS M Y", $unixTime) : "Order Not Yet",
-                'extraText' => $unixTime ? date("h:ia", $unixTime) : "Order Not Yet",
-                'colour' => $unixTime ? "green" : "light-grey",
-                'unixTime' => $unixTime
-            ];
-            $unixTimes[] = $unixTime;
+            $timelineBox = $this->getTimelineBox($order, $timelineHeading);
+            $timelineBoxes[] = $timelineBox;
+            $sortValues[] = $timelineHeading["sort"];
+            if (isset($timelineHeading["sortByDate"]) && $timelineHeading["sortByDate"]) {
+                $sortByDateBoxes[$count] = $timelineBox;
+            }
+            $count++;
         }
-        array_multisort($timelineBoxes, SORT_NUMERIC, $unixTimes);
+
+        array_multisort($timelineBoxes, SORT_NUMERIC, $sortValues);
+        if (empty($sortByDateBoxes)) {
+            return $timelineBoxes;
+        }
+
+        return $this->sortGivenTimelineBoxesByDate($timelineBoxes, $sortByDateBoxes);
+    }
+
+    protected function getTimelineBox(OrderEntity $order, array $timelineHeading)
+    {
+        $unixTime = strtotime($order->$timelineHeading["get"]()) ?: null;
+        $timelineBox = [
+            'title' => $timelineHeading["title"],
+            'subtitle' => $unixTime ? date("jS M Y", $unixTime) : "N/A",
+            'extraText' => $unixTime ? date("h:ia", $unixTime) : "",
+            'colour' => $unixTime ? "green" : "light-grey",
+            'unixTime' => $unixTime
+        ];
+        return $timelineBox;
+    }
+
+    protected function sortGivenTimelineBoxesByDate(array $timelineBoxes, array $sortByDateBoxes)
+    {
+        foreach ($sortByDateBoxes as $sortByDateBoxIndex => $sortByDateBox) {
+            if (!$sortByDateBox['unixTime']) {
+                continue;
+            }
+
+            $timelineBoxToSort = $this->extractTimelineBox($timelineBoxes, $sortByDateBoxIndex);
+            $count = 0;
+            foreach ($timelineBoxes as $currentBox) {
+                if (!$currentBox['unixTime'] || (int)$timelineBoxToSort['unixTime'] < (int)$currentBox['unixTime']) {
+                    break;
+                }
+                $count++;
+            }
+            $this->insertTimelineBox($timelineBoxes, $count, $timelineBoxToSort);
+        }
+
         return $timelineBoxes;
+    }
+
+    protected function extractTimelineBox(array &$timelineBoxes, $timelineBoxIndex)
+    {
+        $slice = array_splice($timelineBoxes, $timelineBoxIndex, 1);
+        return array_pop($slice);
+    }
+
+    protected function insertTimelineBox(array &$timelineBoxes, $timelineBoxIndex, array $timelineBox)
+    {
+        if ($timelineBoxIndex < count($timelineBoxes)) {
+            array_splice($timelineBoxes, $timelineBoxIndex, 0, [$timelineBox]);
+        } else {
+            array_push($timelineBoxes, $timelineBox);
+        }
     }
 
     protected function getTimelineTimes(array $timelineBoxes)
     {
         $previousBox = "";
+        $lastAction = 0;
         foreach ($timelineBoxes as $box) {
             if ($previousBox) {
-                $difference = $box["unixTime"] - $previousBox["unixTime"];
+                if ($box["unixTime"] && $lastAction) {
+                    $difference = $box["unixTime"] - $lastAction;
+                    $time = $this->getTimings()->secondsIntoOneOfMinutesHoursDays($difference);
+                } else {
+                    $time = 'N/A';
+                }
                 $timelineTimes[] = [
                     'status' => $previousBox['unixTime'] ? 'ok' : 'none',
-                    'time' => $box["unixTime"] ? $this->getTimings()->secondsIntoOneOfMinutesHoursDays($difference) : ""
+                    'time' => $time
                 ];
             }
+            $lastAction = $box['unixTime'] ?: $lastAction;
             $previousBox = $box;
         }
         $timelineTimes[] = [
@@ -84,10 +151,26 @@ class Service
         return $timelineTimes;
     }
 
-    protected function getTimelineTotal($start, $end)
+    protected function getTimelineTotal(array $timelineBoxes)
     {
+        $start = $end = null;
+        foreach ($timelineBoxes as $timelineBox) {
+            if (!$timelineBox['unixTime']) {
+                continue;
+            }
+            if (!$start) {
+                $start = $timelineBox['unixTime'];
+            }
+            if ($timelineBox['unixTime'] > (int)$end) {
+                $end = $timelineBox['unixTime'];
+            }
+        }
+        if (!$start || !$end) {
+            return '';
+        }
+
         $seconds = $end - $start;
-        return $end ? $this->getTimings()->secondsIntoMinutesHoursDays($seconds) : "Order Not Yet Completed";
+        return $this->getTimings()->secondsIntoMinutesHoursDays($seconds);
     }
 
     protected function setTimings(Timings $timings)
