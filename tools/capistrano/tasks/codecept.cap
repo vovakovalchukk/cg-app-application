@@ -1,0 +1,44 @@
+desc "Run Codeception Test Suite"
+task :codecept do
+    invoke 'codecept:build';
+    invoke 'codecept:run';
+    invoke 'codecept:report';
+end
+
+namespace :codecept do
+    codecept = 'vendor/bin/codecept'
+
+    desc "Build Codeception Helpers"
+    task :build do
+        on roles(:all), in: :parallel do
+            within release_path do
+                execute codecept, 'build'
+            end
+        end
+    end
+
+    desc "Run Codeception Tests"
+    task :run do
+        on roles(:all), in: :sequence, wait: 5 do
+            within release_path do
+                begin
+                    execute codecept, 'run', '--xml'
+                rescue
+                    # Ignore error and continue
+                end
+            end
+        end
+    end
+
+    desc "Download Codeception Report"
+    task :report do
+        on roles(:all), in: :sequence, wait: 5 do
+            report = File.join(release_path, "/tests/_log/report.xml")
+            if test '[', '-s', report, ']'
+                download! report, "../../tests/_log/report.xml"
+            else
+                warn "[SKIPPING] Codeception Report Not Found - #{report}"
+            end
+        end
+    end
+end
