@@ -16,7 +16,7 @@ define(['element/moreButton'], function(MoreButton) {
 
         this.applyFilterValues = function(filterName, filterOptions)
         {
-            self = this;
+            var self = this;
             require(['filterCollection'], function(FilterCollection) {
                 var filterObject = FilterCollection.get(filterName);
                 if (filterObject != undefined) {
