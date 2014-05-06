@@ -3,11 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-<<<<<<< HEAD
-    "hash": "8b40895d8ed70cda7472dfeb203cb3aa",
-=======
-    "hash": "bb91348cf1e9d7127e27ef07c836f3f5",
->>>>>>> 81e3a1ab5bad966476c9938ca4563dd353281016
+    "hash": "ca4d0479190b24a54e866d6133d9af32",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -171,7 +167,6 @@
         },
         {
             "name": "channelgrabber/ebay",
-<<<<<<< HEAD
             "version": "1.1.14",
             "source": {
                 "type": "git",
@@ -187,23 +182,6 @@
             "require": {
                 "channelgrabber/account": ">=1.0.0",
                 "channelgrabber/channel": ">=1.1.3",
-=======
-            "version": "1.1.17",
-            "source": {
-                "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "61a323cb05a7af576aeee64787189ff4e8a4c2fa"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.1.17-45b62d.zip",
-                "reference": "61a323cb05a7af576aeee64787189ff4e8a4c2fa",
-                "shasum": "91dfc2b922d3d719ae9b5c119fc9704c6ba837b0"
-            },
-            "require": {
-                "channelgrabber/account": ">=1.0.16,<2.0.0",
-                "channelgrabber/channel": ">=1.1.6",
->>>>>>> 81e3a1ab5bad966476c9938ca4563dd353281016
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": ">=1.0.6",
                 "channelgrabber/http": ">=1.2.2",
@@ -227,11 +205,7 @@
                     "CG\\Ebay\\": ""
                 }
             },
-<<<<<<< HEAD
             "time": "2014-04-17 16:28:02"
-=======
-            "time": "2014-05-02 07:22:19"
->>>>>>> 81e3a1ab5bad966476c9938ca4563dd353281016
         },
         {
             "name": "channelgrabber/email",
@@ -1216,7 +1190,6 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-<<<<<<< HEAD
             "version": "1.4.16",
             "source": {
                 "type": "git",
@@ -1228,13 +1201,6 @@
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.4.16-63cc67.zip",
                 "reference": "334475daef170ffe7ade17d46251c75e416b3c24",
                 "shasum": "a45f83f0d6a5d9d735fab0907f88e10b363441e8"
-=======
-            "version": "dev-CGIV-1825-filtering-orders-table-epic",
-            "source": {
-                "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "4793abb384e742fc7ad7a1c4a3bc25b9617de478"
->>>>>>> 81e3a1ab5bad966476c9938ca4563dd353281016
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1262,11 +1228,7 @@
                     "./Module.php"
                 ]
             },
-<<<<<<< HEAD
             "time": "2014-05-02 13:09:38"
-=======
-            "time": "2014-04-30 15:08:15"
->>>>>>> 81e3a1ab5bad966476c9938ca4563dd353281016
         },
         {
             "name": "cilex/cilex",
@@ -1432,7 +1394,7 @@
                     "homepage": "http://davedevelopment.co.uk"
                 },
                 {
-                    "name": "David Nielsen",
+                    "name": "David Neilsen",
                     "email": "david@panmedia.co.nz"
                 }
             ],
@@ -2038,8 +2000,6 @@
             "description": "Symfony EventDispatcher Component",
             "homepage": "http://symfony.com",
             "time": "2014-04-16 10:34:31"
-<<<<<<< HEAD
-=======
         },
         {
             "name": "symfony/filesystem",
@@ -2089,7 +2049,6 @@
             "description": "Symfony Filesystem Component",
             "homepage": "http://symfony.com",
             "time": "2014-04-16 10:34:31"
->>>>>>> 81e3a1ab5bad966476c9938ca4563dd353281016
         },
         {
             "name": "symfony/finder",
@@ -2188,8 +2147,6 @@
             "description": "Symfony Process Component",
             "homepage": "http://symfony.com",
             "time": "2014-04-27 13:34:57"
-<<<<<<< HEAD
-=======
         },
         {
             "name": "symfony/yaml",
@@ -2239,7 +2196,6 @@
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
             "time": "2014-04-18 20:37:09"
->>>>>>> 81e3a1ab5bad966476c9938ca4563dd353281016
         },
         {
             "name": "widmogrod/zf2-mustache-module",
@@ -3897,58 +3853,6 @@
             "description": "Symfony DomCrawler Component",
             "homepage": "http://symfony.com",
             "time": "2014-04-18 20:37:09"
-<<<<<<< HEAD
-        },
-        {
-            "name": "symfony/yaml",
-            "version": "v2.4.4",
-            "target-dir": "Symfony/Component/Yaml",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/Yaml.git",
-                "reference": "65539ecde838f9c0d18b006b2101e3deb4b5c9ff"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/65539ecde838f9c0d18b006b2101e3deb4b5c9ff",
-                "reference": "65539ecde838f9c0d18b006b2101e3deb4b5c9ff",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.4-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Symfony\\Component\\Yaml\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony Yaml Component",
-            "homepage": "http://symfony.com",
-            "time": "2014-04-18 20:37:09"
-=======
->>>>>>> 81e3a1ab5bad966476c9938ca4563dd353281016
         },
         {
             "name": "videlalvaro/php-amqplib",
@@ -3997,17 +3901,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.5.5",
-            "alias_normalized": "1.5.5.0",
-            "version": "dev-CGIV-1825-filtering-orders-table-epic",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },
