@@ -61,6 +61,11 @@ define(['popup/mustache'], function(Popup) {
     Cancel.prototype.listen = function() {
         var that = this;
         $('.popup-cancel-button').click(function () {
+            var reason = $('.popup-cancel-drop-down .text').html();
+            if (!reason.length) {
+                return;
+            }
+
             that.getNotifications().notice(that.getNoticeMessage());
             popup.hide();
             $.ajax({
@@ -70,7 +75,7 @@ define(['popup/mustache'], function(Popup) {
                 dataType: 'json',
                 data: {
                     'orders': $(that.getSelector()).data("orders"),
-                    'reason': $('.popup-cancel-drop-down .text').html(),
+                    'reason': reason,
                     'type': that.getType().toLowerCase()
                 },
                 success : function(data) {
