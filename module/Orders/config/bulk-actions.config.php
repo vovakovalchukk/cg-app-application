@@ -21,7 +21,8 @@ return [
                 'BatchJavascript' => ViewModel::class,
                 'BatchRemoveJavascript' => ViewModel::class,
                 'ArchiveJavascript' => ViewModel::class,
-                'CancelRefundJavascript' => ViewModel::class,
+                'CancelJavascript' => ViewModel::class,
+                'RefundJavascript' => ViewModel::class,
                 'UrlDataViewInvoice' => ViewModel::class,
                 'UrlDataViewDispatch' => ViewModel::class,
                 'UrlDataViewTag' => ViewModel::class,
@@ -185,7 +186,12 @@ return [
                     'elementData' => [
                         'datatable' => 'datatable',
                     ],
-                    'javascript' => 'CancelRefundJavascript',
+                    'javascript' => 'CancelJavascript',
+                ],
+            ],
+            'CancelJavascript' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/cancel.js',
                 ],
             ],
             Action\Refund::class => [
@@ -194,10 +200,10 @@ return [
                     'elementData' => [
                         'datatable' => 'datatable',
                     ],
-                    'javascript' => 'CancelRefundJavascript',
+                    'javascript' => 'RefundJavascript',
                 ],
             ],
-            'CancelRefundJavascript' => [
+            'RefundJavascript' => [
                 'parameters' => [
                     'template' => 'orders/orders/bulk-actions/cancel.js',
                 ],

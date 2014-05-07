@@ -15,16 +15,10 @@ require(
         });
     }
 );
-<?php if ($order->getPaymentDate()): ?>
-$(document).ready(function(){
-    $('.icon-med.archive').addClass('accounting').removeClass('archive').parent().children('.title').html('<?= $this->translate('Refund'); ?>');
-});
-<?php endif; ?>
-
 <?php
+$placeholder = $this->placeholder($id . '-' . $action);
+$placeholder->append('data-popup="/channelgrabber/orders/template/popups/cancelOptions.html"');
 if (isset($order)) {
-    $this->placeholder($id . '-' . $action)
-    ->append('data-orders="' . htmlentities(json_encode([$order->getId()]), ENT_QUOTES) . '"')
-    ->append('data-popup="/channelgrabber/orders/template/popups/cancelOptions.html"');
+    $placeholder->append('data-orders="' . htmlentities(json_encode([$order->getId()]), ENT_QUOTES) . '"');
 }
 ?>

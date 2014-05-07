@@ -6,6 +6,7 @@ use CG\Channel\Action\Order\MapInterface as ActionDeciderMap;
 
 class Refund extends Cancel
 {
+    const ICON = 'accounting';
     const TYPE = CancelValue::REFUND_TYPE;
     const ALLOWED_ACTION = ActionDeciderMap::REFUND;
 } 

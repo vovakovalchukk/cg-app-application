@@ -13,6 +13,7 @@ use CG\Order\Shared\Cancel\Value as CancelValue;
 
 class Cancel extends Action implements OrderAwareInterface
 {
+    const ICON = 'archive';
     const TYPE = CancelValue::CANCEL_TYPE;
     const ALLOWED_ACTION = ActionDeciderMap::CANCEL;
 
@@ -26,7 +27,7 @@ class Cancel extends Action implements OrderAwareInterface
         ViewModel $javascript = null,
         SplObjectStorage $subActions = null
     ) {
-        parent::__construct('archive', ucwords(static::TYPE), static::TYPE, $elementData, $javascript, $subActions);
+        parent::__construct(static::ICON, ucwords(static::TYPE), static::TYPE, $elementData, $javascript, $subActions);
         $this
             ->setActionDecider($actionDecider)
             ->setUrlView($urlView)
