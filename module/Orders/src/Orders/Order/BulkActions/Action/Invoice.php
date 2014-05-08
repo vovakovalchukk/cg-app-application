@@ -15,7 +15,7 @@ class Invoice extends Action
         ViewModel $javascript = null,
         SplObjectStorage $subActions = null
     ) {
-        parent::__construct('invoice', 'Invoice', 'invoice', $elementData, $javascript, $subActions);
+        parent::__construct('sprite-invoice-22-black', 'Invoice', 'invoice', $elementData, $javascript, $subActions);
         $this->setUrlView($urlView)->configure();
     }
 
