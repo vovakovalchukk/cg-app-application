@@ -28,7 +28,7 @@
         "channelgrabber/constants": "dev-master",
         "channelgrabber/ebay": "~1.1.14",
         "channelgrabber/http": "~1.2.9",
-        "channelgrabber/order": "dev-CGIV-2103-ItemSKU as 1.5.12",
+        "channelgrabber/order": "~1.5.13",
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/sso": "~1.1.2",
