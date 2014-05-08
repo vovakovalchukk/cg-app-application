@@ -5,7 +5,6 @@ use CG\Amazon\Signer as AmazonSigner;
 USE CG\Amazon\Account as AmazonAccount;
 USE CG\Amazon\Account\Eu as AmazonAccountEu;
 use CG\Ebay\Client\TradingApi;
-use CG\Ebay\Account as EbayAccount;
 use Guzzle\Http\Client as GuzzleHttpClient;
 use Settings\Module;
 use Settings\Controller\IndexController;
@@ -379,13 +378,6 @@ return [
             AccountService::class => [
                 'parameters' => [
                     'repository' => AccountStorage::class
-                ]
-            ],
-            EbayAccount::class => [
-                'parameters' => [
-                    'domain' => 'https://signin.ebay.com/ws/eBayISAPI.dll',
-                    'ruName' => 'Wilki_Ltd-WilkiLtd-beda-4-klnwz',
-                    'siteId' => 3
                 ]
             ],
         ]
