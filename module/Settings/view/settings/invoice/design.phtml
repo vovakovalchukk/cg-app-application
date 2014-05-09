@@ -14,12 +14,52 @@ $(document).ready(function() {
 
     require(['cg-mustache'], function(CGMustache)
     {
-        var templateUrl = '/channelgrabber/settings/template/invoiceDesigner/paperType.mustache';
-        CGMustache.get().fetchTemplate(templateUrl, function(template, cgmustache)
+        var templateUrlMap = {
+            paperType:    '/channelgrabber/settings/template/invoiceDesigner/paperType.mustache',
+            customSelect: '<?=$this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache';?>'
+        };
+
+        CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache)
         {
-            var colourPicker = cgmustache.renderTemplate(template, {id: 'test', initialColour: '#000'});
-            $('#invoice-controls-bar').append(colourPicker);
+            var customSelectOptions = {
+                options: {
+                    title: 'My Select',
+                    isOptional: false,
+                    options: [
+                        {
+                            title: 'foo',
+                            value: 'bar',
+                            href : '#',
+                            class: 'foo-option'
+                        }
+                    ]
+                }
+            };
+            //var customSelect = cgmustache.renderTemplate(templates, customSelectOptions, "customSelect");
+            var paperType = cgmustache.renderTemplate(templates, {dropdown: 'foo'}, "paperType");
+            $('#invoice-controls-bar').append(paperType);
         });
+
+
+<!--        var customSelect = '--><?//=$this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache';?><!--'-->
+<!--        CGMustache.get().fetchTemplate(customSelect, function(templates, cgmustache)-->
+<!--        {-->
+<!--            var customSelectOptions = {-->
+<!--                title: 'My Select',-->
+<!--                isOptional: false,-->
+<!--                filterName: '',-->
+<!--                class: '',-->
+<!--                options: [-->
+<!--                    {-->
+<!--                        title: 'foo',-->
+<!--                        value: 'bar'-->
+<!--                    }-->
+<!--                ]-->
+<!--            };-->
+<!--            var customSelect = cgmustache.renderTemplate(templates, customSelectOptions);-->
+<!--console.log(customSelect);-->
+<!--        });-->
+
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
