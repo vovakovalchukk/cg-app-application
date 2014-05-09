@@ -11,6 +11,29 @@ $(document).ready(function() {
     {
         designerApp.init();
     });
+
+/*
+ * TEMP testing code
+ */
+require(['InvoiceDesigner/Template/Mapper', 'InvoiceDesigner/Template/Service'], function(mapper, service)
+{
+var json = {
+    id: 1,
+    name: "Example",
+    type: "invoice",
+    organisationUnitId: 1,
+    minHeight: 0,
+    minWidth: 0,
+    elements: [{
+        type: "page",
+        width: 300,
+        height: 400,
+        backgroundImage: "http://www.ledr.com/colours/red.jpg"
+    }]
+};
+var template = mapper.fromJson(json);
+service.render(template);
+});
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <div id="invoice-controls-bar" class="sidebar sidebar-fixed sidebar-left sidebar-invoice-designer">

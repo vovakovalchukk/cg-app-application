@@ -4,6 +4,7 @@ define(['InvoiceDesigner/Template/Element/Collection', 'InvoiceDesigner/Template
     {
         var elements = collection;
         var service = templateService;
+        var page;
 
         // Member vars to watch for changes
         var data = {
@@ -23,6 +24,17 @@ define(['InvoiceDesigner/Template/Element/Collection', 'InvoiceDesigner/Template
         this.getService = function()
         {
             return service;
+        };
+
+        this.getPage = function()
+        {
+            return page;
+        };
+
+        this.setPage = function(newPage)
+        {
+            page = newPage;
+            return this;
         };
 
         this.getId = function()
@@ -123,10 +135,16 @@ define(['InvoiceDesigner/Template/Element/Collection', 'InvoiceDesigner/Template
         }
     };
 
-    Entity.prototype.addElement = function(element)
+    Entity.prototype.addElement = function(element, populating)
     {
         this.getElements().attach(element);
         element.subscribe(this);
+        if (element.getType() === 'page') {
+            this.setPage(element);
+        }
+        if (populating) {
+            return this;
+        }
         this.notifyOfChange();
         return this;
     };

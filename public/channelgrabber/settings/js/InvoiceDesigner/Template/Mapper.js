@@ -5,9 +5,16 @@ define([
     'InvoiceDesigner/Template/Element/DeliveryAddress',
     'InvoiceDesigner/Template/Element/Image',
     'InvoiceDesigner/Template/Element/OrderTable',
-    'InvoiceDesigner/Template/Element/Paper',
+    'InvoiceDesigner/Template/Element/Page',
     'InvoiceDesigner/Template/Element/SellerAddress',
-    'InvoiceDesigner/Template/Element/Text'
+    'InvoiceDesigner/Template/Element/Text',
+//    'InvoiceDesigner/Template/Element/Mapper/Box',
+//    'InvoiceDesigner/Template/Element/Mapper/DeliveryAddress',
+//    'InvoiceDesigner/Template/Element/Mapper/Image',
+//    'InvoiceDesigner/Template/Element/Mapper/OrderTable',
+    'InvoiceDesigner/Template/Element/Mapper/Page'
+//,    'InvoiceDesigner/Template/Element/Mapper/SellerAddress',
+//    'InvoiceDesigner/Template/Element/Mapper/Text'
 ], function(require)
 {
     var Mapper = function()
@@ -15,20 +22,25 @@ define([
 
     };
 
+    Mapper.PATH_TO_ELEMENT_ENTITY = 'InvoiceDesigner/Template/Entity';
+    Mapper.PATH_TO_ELEMENT_TYPES = 'InvoiceDesigner/Template/Element/';
+    Mapper.PATH_TO_ELEMENT_TYPE_MAPPERS = 'InvoiceDesigner/Template/Element/Mapper/';
+    Mapper.PATH_TO_PAGE_MAPPER = 'InvoiceDesigner/Template/Element/Mapper/Page';
+
     Mapper.prototype.fromJson = function(json)
     {
         if (typeof json !== 'object') {
             throw 'InvalidArgumentException: InvoiceDesigner\Template\Mapper::fromJson must be passed a JSON object';
         }
 
-        var template = require('InvoiceDesigner/Template/Entity');
+        var template = require(Mapper.PATH_TO_ELEMENT_ENTITY);
         var populating = true;
         template.hydrate(json, populating);
 
         for (var key in json.elements) {
             var elementData = json.elements[key];
             var element = this.elementFromJson(elementData);
-            template.addElement(element);
+            template.addElement(element, populating);
         }
 
         return template;
@@ -37,7 +49,7 @@ define([
     Mapper.prototype.elementFromJson = function(elementData)
     {
         var elementType = elementData.type.charAt(0).toUpperCase() + elementData.type.substr(1);
-        var element = require('InvoiceDesigner/Template/Element/' + elementType);
+        var element = require(Mapper.PATH_TO_ELEMENT_TYPES + elementType);
         for (var field in elementData) {
             var setter = 'set' + field.charAt(0).toUpperCase() + field.substr(1);
             if (element[setter]) {
@@ -69,9 +81,25 @@ define([
 
     Mapper.prototype.toHtml = function(template)
     {
-        /*
-         * TODO (CGIV-2026)
-         */
+        var page = template.getPage();
+        var pageMapper = require(Mapper.PATH_TO_PAGE_MAPPER);
+
+        var elementsHtml = '';
+        var elements = template.getElements();
+        elements.each(function(element) {
+            if (element.getId() === page.getId()) {
+                return true;
+            }
+            var elementType = element.getType().charAt(0).toUpperCase() + element.getType().substr(1);
+            var elementMapper = require(Mapper.PATH_TO_ELEMENT_TYPE_MAPPERS + elementType);
+            var elementHtml = elementMapper.toHtml(element);
+            elementsHtml += elementHtml;
+        });
+
+        pageMapper.setPageContent(elementsHtml);
+        var html = pageMapper.toHtml(page);
+
+        return html;
     };
 
     return new Mapper();

@@ -1,6 +1,6 @@
 define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
 {
-    var Paper = function()
+    var Page = function()
     {
         ElementAbstract.call(this);
 
@@ -26,9 +26,9 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
         };
     };
 
-    Paper.prototype = Object.create(ElementAbstract.prototype);
+    Page.prototype = Object.create(ElementAbstract.prototype);
 
-    Paper.prototype.toJson = function()
+    Page.prototype.toJson = function()
     {
         var json = ElementAbstract.prototype.toJson.call(this);
         json.backgroundImage = this.getBackgroundImage();
@@ -36,5 +36,5 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
         return json;
     };
 
-    return new Paper();
+    return new Page();
 });

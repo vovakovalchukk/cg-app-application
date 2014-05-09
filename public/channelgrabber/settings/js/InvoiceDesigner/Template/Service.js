@@ -109,11 +109,9 @@ define([
 
     Service.prototype.render = function(template)
     {
-        /*
-         * TODO (CGIV-2026)
-         * html = Mapper::toHtml(template)
-         * DomManipulator::insertTemplateHtml(html);
-         */
+        var html = this.getMapper().toHtml(template);
+        this.getDomManipulator().insertTemplateHtml(html);
+        return this;
     };
 
     Service.prototype.notifyOfChange = function(template)

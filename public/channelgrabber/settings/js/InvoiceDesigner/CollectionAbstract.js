@@ -50,7 +50,10 @@ define(function()
         }
         var items = this.getItems();
         for (var id in items) {
-            callback(items[id]);
+            var success = callback(items[id]);
+            if (success === false) {
+                break;
+            }
         }
         return this;
     };
