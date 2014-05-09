@@ -11,6 +11,16 @@ $(document).ready(function() {
     {
         designerApp.init();
     });
+
+    require(['cg-mustache'], function(CGMustache)
+    {
+        var templateUrl = '/channelgrabber/settings/template/invoiceDesigner/paperType.mustache';
+        CGMustache.get().fetchTemplate(templateUrl, function(template, cgmustache)
+        {
+            var colourPicker = cgmustache.renderTemplate(template, {id: 'test', initialColour: '#000'});
+            $('#invoice-controls-bar').append(colourPicker);
+        });
+    });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <div id="invoice-controls-bar" class="sidebar sidebar-fixed sidebar-left sidebar-invoice-designer">
