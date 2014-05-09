@@ -3,9 +3,7 @@ use CG\Account\Client\Storage\Api as AccountStorage;
 use CG\Account\Client\Service as AccountService;
 use CG\Amazon\Signer as AmazonSigner;
 USE CG\Amazon\Account as AmazonAccount;
-USE CG\Amazon\Account\Eu as AmazonAccountEu;
 use CG\Ebay\Client\TradingApi;
-use CG\Ebay\Account as EbayAccount;
 use Guzzle\Http\Client as GuzzleHttpClient;
 use Settings\Module;
 use Settings\Controller\IndexController;
@@ -194,12 +192,6 @@ return [
                     'httpVerb' => 'GET'
                 )
             ),
-            AmazonAccountEu::class => array(
-                'parameters' => array(
-                    'id' => '929b9241-7b26-4640-bc23-4e385329456b',
-                    'awsAccessKeyId' => 'AKIAIDD3ZCDYV53OVQEA'
-                )
-            ),
             TradingApi::class => [
                 'parameters' => [
                     'client' => 'EbayGuzzle',
@@ -379,13 +371,6 @@ return [
             AccountService::class => [
                 'parameters' => [
                     'repository' => AccountStorage::class
-                ]
-            ],
-            EbayAccount::class => [
-                'parameters' => [
-                    'domain' => 'https://signin.ebay.com/ws/eBayISAPI.dll',
-                    'ruName' => 'Wilki_Ltd-WilkiLtd-beda-4-klnwz',
-                    'siteId' => 3
                 ]
             ],
         ]
