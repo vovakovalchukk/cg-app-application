@@ -22,6 +22,8 @@ use CG\OrganisationUnit\StorageInterface as OUStorageInterface;
 use CG\OrganisationUnit\Storage\Api as OUApiStorage;
 use CG\Stdlib\Log\LoggerInterface;
 use CG\Log\Logger;
+use CG\Template\Storage\Api as TemplateStorage;
+use CG\Template\Service as TemplateService;
 
 return [
     'router' => [
@@ -401,6 +403,16 @@ return [
                     'siteId' => 3
                 ]
             ],
+            TemplateStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
+            TemplateService::class => [
+                'parameters' => [
+                    'repository' => TemplateStorage::class
+                ]
+            ]
         ]
     ]
 ];

@@ -1,5 +1,13 @@
-define(['module', 'InvoiceDesigner/Module/DomListenerAbstract'], function(requireModule, DomListenerAbstract)
-{
+define([
+    'module',
+    'InvoiceDesigner/Module/DomListenerAbstract',
+    'element/customSelect'
+], function(
+    requireModule,
+    DomListenerAbstract,
+    CustomSelect
+) {
+
     var TemplateSelector = function()
     {
         DomListenerAbstract.call(this);
@@ -16,11 +24,11 @@ define(['module', 'InvoiceDesigner/Module/DomListenerAbstract'], function(requir
 
     TemplateSelector.prototype.init = function(module)
     {
+        var self = this;
         DomListenerAbstract.prototype.init.call(this, module);
-
-        /*
-         * TODO (CGIV-2002): foreach event add a listener that calls back to module
-         */
+        $(document).on(CustomSelect.EVENT_SELECT_CHANGED, function (event, selectBox, id) {
+            self.getModule().selectionMade(id);
+        });
     };
 
     return new TemplateSelector();

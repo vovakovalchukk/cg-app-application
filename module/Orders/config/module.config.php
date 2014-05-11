@@ -292,22 +292,8 @@ return [
     'view_manager' => [
         'template_path_stack' => [
             __DIR__ . '/../view',
-        ],
-        'strategies' => [
-            'ViewJsonStrategy',
-            'Mustache\View\Strategy'
-        ],
+        ]
     ],
-    'translator' => array(
-        'locale' => 'en_US',
-        'translation_file_patterns' => array(
-            array(
-                'type'     => 'gettext',
-                'base_dir' => __DIR__ . '/../language',
-                'pattern'  => '%s.mo',
-            ),
-        ),
-    ),
     'di' => [
         'definition' => [
             'class' => [
