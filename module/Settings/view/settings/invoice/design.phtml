@@ -16,50 +16,40 @@ $(document).ready(function() {
     {
         var templateUrlMap = {
             paperType:    '/channelgrabber/settings/template/invoiceDesigner/paperType.mustache',
-            customSelect: '<?=$this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache';?>'
+            customSelect: '<?=$this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache';?>',
+            test: '<?=$this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/test.mustache';?>'
         };
 
         CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache)
         {
             var customSelectOptions = {
-                options: {
-                    title: 'My Select',
-                    isOptional: false,
-                    options: [
-                        {
-                            title: 'foo',
-                            value: 'bar',
-                            href : '#',
-                            class: 'foo-option'
-                        }
-                    ]
-                }
+                isOptional: false,
+                name: 'name',
+                class: 'class',
+                options: [
+                    {
+                        selected: true,
+                        title: 'No Label (Blank)'
+                    },
+                    {
+                        title: 'Single Label Top'
+                    },
+                    {
+                        title: 'Single Label Bottom'
+                    },
+                    {
+                        title: 'Double Label Top'
+                    },
+                    {
+                        title: 'Double Label Bottom'
+                    }
+                ]
             };
-            //var customSelect = cgmustache.renderTemplate(templates, customSelectOptions, "customSelect");
-            var paperType = cgmustache.renderTemplate(templates, {dropdown: 'foo'}, "paperType");
+            var customSelect = cgmustache.renderTemplate(templates, customSelectOptions, "customSelect");
+            var paperType = cgmustache.renderTemplate(templates, {}, "paperType", {dropDown: customSelect});
+
             $('#invoice-controls-bar').append(paperType);
         });
-
-
-<!--        var customSelect = '--><?//=$this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache';?><!--'-->
-<!--        CGMustache.get().fetchTemplate(customSelect, function(templates, cgmustache)-->
-<!--        {-->
-<!--            var customSelectOptions = {-->
-<!--                title: 'My Select',-->
-<!--                isOptional: false,-->
-<!--                filterName: '',-->
-<!--                class: '',-->
-<!--                options: [-->
-<!--                    {-->
-<!--                        title: 'foo',-->
-<!--                        value: 'bar'-->
-<!--                    }-->
-<!--                ]-->
-<!--            };-->
-<!--            var customSelect = cgmustache.renderTemplate(templates, customSelectOptions);-->
-<!--console.log(customSelect);-->
-<!--        });-->
-
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
