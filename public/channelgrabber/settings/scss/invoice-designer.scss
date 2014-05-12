@@ -14,3 +14,46 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+.template-element-orderTable{
+    border: dashed 2px black;
+
+    table{
+        border: none;
+        background: white;
+        float: none;
+        margin: 0;
+
+        tr{
+            border: none;
+            background: inherit;
+        }
+
+        td{
+            border: none;
+            background: inherit;
+            color: black;
+            padding: 3px;
+            text-align: left;
+        }
+
+        th{
+            @extend td;
+            font-weight: bold
+        }
+    }
+}
+
+.template-element-orderTable-totals{
+    float: right;
+
+    table{
+        td{
+            min-width: 90px;
+        }
+
+        th{
+            @extend td;
+        }
+    }
+}

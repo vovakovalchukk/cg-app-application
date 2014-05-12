@@ -2,12 +2,20 @@ define(function()
 {
     var MapperAbstract = function()
     {
-
+        var optionalAttribs = ['x', 'y', 'backgroundColour', 'borderWidth', 'borderColour'];
+        this.getOptionalAttribs = function()
+        {
+            return optionalAttribs;
+        };
     };
 
     MapperAbstract.attributePropertyMap = {
         x: "left",
         y: "top"
+    };
+
+    MapperAbstract.attributePropertyAdditionalMap = {
+        borderWidth: ['border-style: solid']
     };
 
     MapperAbstract.prototype.toHtml = function(element)
@@ -52,11 +60,8 @@ define(function()
             'width: '+element.getWidth()+'mm',
             'height: '+element.getHeight()+'mm'
         ];
-        var optionalAttribs = ['x', 'y', 'backgroundColour', 'borderWidth', 'borderColour'];
+        var optionalAttribs = this.getOptionalAttribs();
         domStyles = this.addOptionalDomStyles(element, optionalAttribs, domStyles);
-        if (element.getBorderWidth()) {
-            domStyles.push('border-style: solid');
-        }
         var extraDomStyles = this.getExtraDomStyles(element);
         for (var key in extraDomStyles) {
             domStyles.push(extraDomStyles[key]);
@@ -73,6 +78,10 @@ define(function()
             if (element[getter]()) {
                 var value = this.elementAttributeValueToCssPropertyValue(element[getter]());
                 domStyles.push(property+': '+value);
+                var additionalStyles = this.getAdditionalStylesForAttribute(attribute, value);
+                for (var key2 in additionalStyles) {
+                    domStyles.push(additionalStyles[key2]);
+                }
             }
         };
         return domStyles;
@@ -97,6 +106,23 @@ define(function()
             return value+'mm';
         }
         return value;
+    };
+
+    MapperAbstract.prototype.getAdditionalStylesForAttribute = function(attribute, value)
+    {
+        if (!MapperAbstract.attributePropertyAdditionalMap[attribute]) {
+            return [];
+        }
+
+        if (typeof MapperAbstract.attributePropertyAdditionalMap[attribute] === 'array') {
+            return MapperAbstract.attributePropertyAdditionalMap[attribute];
+        }
+
+        if (typeof MapperAbstract.attributePropertyAdditionalMap[attribute] === 'function') {
+            return MapperAbstract.attributePropertyAdditionalMap[attribute](value);
+        }
+
+        return [MapperAbstract.attributePropertyAdditionalMap[attribute]];
     };
 
     /**
