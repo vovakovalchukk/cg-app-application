@@ -29,12 +29,8 @@ define([
 
     TemplateSelector.prototype.selectionMade = function(id)
     {
-        /*
-         * TODO (CGIV-2002)
-         * This will be called by domListener when the user chooses a template
-         * Service::fetch(id)
-         * Service::loadModules(template)
-         */
+        var template = this.getService().fetch(id);
+        this.getService().loadModules(template);
     };
 
     return new TemplateSelector();

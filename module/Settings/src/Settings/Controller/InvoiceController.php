@@ -1,6 +1,7 @@
 <?php
 namespace Settings\Controller;
 
+use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG\Template\Service as TemplateService;
@@ -10,19 +11,23 @@ use CG\Zend\Stdlib\Mvc\Model\Helper\Translate;
 class InvoiceController extends AbstractActionController
 {
     const ROUTE = 'Invoice';
+    const ROUTE_FETCH = 'Fetch';
 
     protected $viewModelFactory;
+    protected $jsonModelFactory;
     protected $templateService;
     protected $userOrganisationUnitService;
     protected $translate;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
+        JsonModelFactory $jsonModelFactory,
         TemplateService $templateService,
         UserOrganisationUnitService $userOrganisationUnitService,
         Translate $translate
     ) {
         $this->setViewModelFactory($viewModelFactory)
+            ->setJsonModelFactory($jsonModelFactory)
             ->setTemplateService($templateService)
             ->setUserOrganisationUnitService($userOrganisationUnitService)
             ->setTranslate($translate);
@@ -51,6 +56,12 @@ class InvoiceController extends AbstractActionController
         $templateView->setVariable('name', 'template');
         $templateView->setVariable('initialTitle', $this->getTranslate()->translate('Select Template'));
         return $templateView;
+    }
+
+    public function fetchAction()
+    {
+        $view = $this->getJsonModelFactory()->newInstance($this->getTemplateService()->fetch());
+        return $view;
     }
 
     public function getViewModelFactory()
@@ -95,5 +106,16 @@ class InvoiceController extends AbstractActionController
     public function getTranslate()
     {
         return $this->translate;
+    }
+
+    public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
+    {
+        $this->jsonModelFactory = $jsonModelFactory;
+        return $this;
+    }
+
+    public function getJsonModelFactory()
+    {
+        return $this->jsonModelFactory;
     }
 }

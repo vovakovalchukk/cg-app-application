@@ -66,9 +66,7 @@ define([
             throw 'InvalidArgumentException: InvoiceDesigner\Template\Service::fetch must be passed a template ID';
         }
 
-        /*
-         * TODO (CGIV-2002)
-         */
+        return this.getStorage().fetch(id);
     };
 
     Service.prototype.save = function(template)

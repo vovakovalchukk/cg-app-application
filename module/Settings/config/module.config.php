@@ -149,6 +149,19 @@ return [
                             ]
                         ],
                         'may_terminate' => true,
+                        'child_routes' => [
+                            InvoiceController::ROUTE_FETCH => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/fetch',
+                                    'defaults' => [
+                                        'controller' => InvoiceController::class,
+                                        'action' => 'fetch'
+                                    ]
+                                ],
+                                'may_terminate' => true
+                            ]
+                        ]
                     ],
                 ],
             ],
