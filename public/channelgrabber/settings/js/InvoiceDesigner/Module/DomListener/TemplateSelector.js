@@ -29,7 +29,22 @@ define([
         $(document).on(CustomSelect.EVENT_SELECT_CHANGED, function (event, selectBox, id) {
             self.getModule().selectionMade(id);
         });
+        $(this.DUPLICATE_TEMPLATE_SELECTOR).click(function () {
+            if (this.hasClass('disabled'))  {
+                return;
+            }
+
+            self.getModule().duplicate();
+        });
     };
+
+    TemplateSelector.prototype.enableDuplicate()
+    {
+        $(this.DUPLICATE_TEMPLATE_SELECTOR).removeClass('disabled');
+    };
+
+    TemplateSelector.prototype.DUPLICATE_TEMPLATE_SELECTOR = '#duplicate-template';
+    TemplateSelector.prototype.NEW_TEMPLATE_SELECTOR = '#new-template';
 
     return new TemplateSelector();
 });

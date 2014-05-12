@@ -37,6 +37,8 @@ class InvoiceController extends AbstractActionController
     {
         $view = $this->getViewModelFactory()->newInstance();
         $view->addChild($this->getTemplateSelectView(), 'templates');
+        $view->addChild($this->getTemplateAddButtonView(), 'templateAddButton');
+        $view->addChild($this->getTemplateDuplicateButtonView(), 'templateDuplicateButton');
         return $view;
     }
 
@@ -58,9 +60,37 @@ class InvoiceController extends AbstractActionController
         return $templateView;
     }
 
+    public function getTemplateAddButtonView()
+    {
+        $templateAddButtonView = $this->getViewModelFactory()->newInstance([
+            'buttons' => true,
+            'value' => $this->getTranslate()->translate('New Template'),
+            'id' => 'new-template'
+        ]);
+        $templateAddButtonView->setTemplate('elements/buttons.mustache');
+        return $templateAddButtonView;
+    }
+
+    public function getTemplateDuplicateButtonView()
+    {
+        $templateDuplicateButtonView = $this->getViewModelFactory()->newInstance([
+            'buttons' => true,
+            'value' => $this->getTranslate()->translate('Duplicate'),
+            'disabled' => true,
+            'id' => 'duplicate-template'
+        ]);
+        $templateDuplicateButtonView->setTemplate('elements/buttons.mustache');
+        return $templateDuplicateButtonView;
+    }
+
     public function fetchAction()
     {
-        $template = $this->getTemplateService()->fetch($this->params()->fromPost('id'));
+        if ($this->params()->fromPost('id')) {
+            $template = $this->getTemplateService()->fetchAsJson($this->params()->fromPost('id'));
+        } else {
+            $user = $this->getUserOrganisationUnitService()->getActiveUser();
+            $template = $this->getTemplateService()->fetchHardCodedAsJson($user->getOrganisationUnitId());
+        }
         $view = $this->getJsonModelFactory()->newInstance($template);
         return $view;
     }

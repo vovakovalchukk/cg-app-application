@@ -65,8 +65,9 @@ define([
         if (!id) {
             throw 'InvalidArgumentException: InvoiceDesigner\Template\Service::fetch must be passed a template ID';
         }
-
-        return this.getStorage().fetch(id);
+        var template = this.getStorage().fetch(id);
+        template.setState(this.LOADED_STATE);
+        return template;
     };
 
     Service.prototype.save = function(template)
@@ -77,16 +78,18 @@ define([
 
     Service.prototype.create = function()
     {
-        /*
-         * TODO (CGIV-2002)
-         */
+        var template = require('InvoiceDesigner/Template/Entity');
+        template.setState(this.NEW_STATE);
+        this.loadModules(template);
     };
 
     Service.prototype.duplicate = function(template)
     {
-        /*
-         * TODO (CGIV-2002)
-         */
+        template.setName('DUPLICATE - ' + template.getName());
+        template.setId();
+        template.setState(this.DUPLICATED_STATE);
+        this.render(template);
+        this.notifyOfChange(template);
     };
 
     Service.prototype.showAsPdf = function(template)
@@ -119,6 +122,11 @@ define([
         this.getDomManipulator().triggerTemplateChangeEvent(template);
         return this;
     };
+
+    Service.prototype.LOADED_STATE = 'loaded';
+    Service.prototype.DUPLICATED_STATE = 'duplicate';
+    Service.prototype.NEW_STATE = 'new';
+
 
     return new Service();
 });

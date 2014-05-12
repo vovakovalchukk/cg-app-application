@@ -11,11 +11,22 @@ define([
     {
         ModuleAbstract.call(this);
         var service = templateService;
+        var template;
         this.setDomListener(templateSelectorListener);
 
         this.getService = function()
         {
             return service;
+        };
+
+        this.setTemplate = function(newTemplate)
+        {
+            template = newTemplate;
+        };
+
+        this.getTemplate = function()
+        {
+            return template;
         };
     };
 
@@ -29,9 +40,20 @@ define([
 
     TemplateSelector.prototype.selectionMade = function(id)
     {
-        var template = this.getService().fetch(id);
-        this.getService().loadModules(template);
+        this.setTemplate(this.getService().fetch(id));
+        this.getService().loadModules(this.getTemplate());
+        this.getDomListener().enableDuplicate();
     };
+
+    TemplateSelector.prototype.duplicate()
+    {
+        this.getService().duplicate(this.getTemplate());
+    }
+
+    TemplateSelector.prototype.create()
+    {
+        this.getService().create();
+    }
 
     return new TemplateSelector();
 });

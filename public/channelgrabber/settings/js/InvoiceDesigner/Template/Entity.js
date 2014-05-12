@@ -91,6 +91,17 @@ define(['InvoiceDesigner/Template/Element/Collection', 'InvoiceDesigner/Template
             return this;
         };
 
+        this.getState = function()
+        {
+            return this.get('state');
+        };
+
+        this.setState = function(state)
+        {
+            this.set('state', state);
+            return this;
+        };
+
         this.get = function(field)
         {
             return data[field];
