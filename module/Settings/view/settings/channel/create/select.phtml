@@ -1,0 +1,27 @@
+<div class="med-element">
+    <div class="custom-select custom-select-std large" data-element-name="addChannelSelect">
+        <input type="hidden" name="addChannelSelect"/>
+        <div class="selected">
+            <span class="selected-content" data-default=""><?= $this->translate('Select A Channel'); ?></span><span class="arrow down">&nbsp;</span>
+        </div>
+        <ul>
+        <?php foreach ($channels as $name => $channel): ?>
+            <li>
+                <a href="#">
+                    <?= $name ?>
+                    <input type="hidden" value="<?= $channel["channel"] ?>" name="channel">
+                    <input type="hidden" value="<?= $channel["region"] ?>" name="region">
+                </a>
+            </li>
+        <?php endforeach; ?>
+        </ul>
+    </div>
+</div>
+
+<script>
+    require(['element/customSelect'], function(CustomSelect)
+    {
+        var element = $('.custom-select[data-element-name="addChannelSelect"]');
+        var customSelect = new CustomSelect(element);
+    });
+</script>
