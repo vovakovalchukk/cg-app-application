@@ -1,6 +1,6 @@
 define([
     'InvoiceDesigner/ModuleAbstract',
-    'InvoiceDesigner/Module/DomListener/PaperType',
+    'InvoiceDesigner/Template/Module/DomListener/PaperType',
     'InvoiceDesigner/Template/Service'
 ], function(
     ModuleAbstract,
@@ -36,6 +36,7 @@ define([
     {
         ModuleAbstract.prototype.init.call(this, application);
         this.getDomListener().init(this);
+        console.log("HELLO WORLD");
         // TODO Load paper type options from storage
         // TODO show ui
     };

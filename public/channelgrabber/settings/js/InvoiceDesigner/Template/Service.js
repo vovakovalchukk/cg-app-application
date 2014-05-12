@@ -3,7 +3,7 @@ define([
     'InvoiceDesigner/Template/Storage/Ajax',
     'InvoiceDesigner/Template/Mapper',
     'InvoiceDesigner/Template/DomManipulator',
-    'InvoiceDesigner/Template/PaperType'
+    'InvoiceDesigner/Template/Module/PaperType'
     // Template Module requires here
 ], function(
     require,
@@ -19,7 +19,7 @@ define([
         var domManipulator = templateDomManipulator;
 
         var modules = [
-            'InvoiceDesigner/Template/PaperType'
+            'InvoiceDesigner/Template/Module/PaperType'
             // Template Modules require() paths here
         ];
 
