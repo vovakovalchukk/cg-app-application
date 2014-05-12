@@ -118,7 +118,7 @@ class Service
         $now = time();
         foreach ($orderCollection as $order) {
             $this->getOrderService()->saveOrder(
-                $order->setPrintedDate(date(DateTime::Format, $now))
+                $order->setPrintedDate(date(DateTime::FORMAT, $now))
             );
         }
     }

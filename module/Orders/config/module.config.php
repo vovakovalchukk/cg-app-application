@@ -1,4 +1,5 @@
 <?php
+use Orders\Module;
 use Orders\Controller;
 use CG_UI\View\DataTable;
 use Orders\Order\TableService;
@@ -15,6 +16,7 @@ use CG\Http\Rpc\Json\Client as JsonRpcClient;
 use Orders\Order\Invoice\Renderer\ServiceInterface as InvoiceRendererService;
 use Orders\Order\Invoice\Renderer\Service\Pdf as PdfInvoiceRendererService;
 use CG\Template\Element\Page;
+use Orders\Controller\StoredFiltersController;
 
 return [
     'router' => [
@@ -256,6 +258,26 @@ return [
                             ]
                         ]
                     ],
+                    StoredFiltersController::ROUTE_SAVE => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/filter/save',
+                            'defaults' => [
+                                'controller' => StoredFiltersController::class,
+                                'action' => 'saveFilter'
+                            ]
+                        ]
+                    ],
+                    StoredFiltersController::ROUTE_REMOVE => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/filter/remove',
+                            'defaults' => [
+                                'controller' => StoredFiltersController::class,
+                                'action' => 'removeFilter'
+                            ]
+                        ]
+                    ],
                 ],
             ],
         ],
@@ -291,8 +313,13 @@ return [
     ],
     'view_manager' => [
         'template_path_stack' => [
-            __DIR__ . '/../view',
-        ]
+            dirname(__DIR__) . '/view',
+            PROJECT_ROOT . '/public' . Module::PUBLIC_FOLDER . 'template',
+        ],
+        'strategies' => [
+            'ViewJsonStrategy',
+            'Mustache\View\Strategy'
+        ],
     ],
     'di' => [
         'definition' => [

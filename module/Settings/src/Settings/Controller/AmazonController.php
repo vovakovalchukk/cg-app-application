@@ -11,6 +11,7 @@ use CG_UI\View\Prototyper\JsonModelFactory;
 use Zend\Di\Di;
 use Zend\Mvc\Controller\AbstractActionController;
 use Settings\Module;
+use CG\Http\Exception\Exception3xx\NotModified;
 
 class AmazonController extends AbstractActionController
 {
@@ -43,7 +44,7 @@ class AmazonController extends AbstractActionController
             $accountEntity = $this->getDi()->newInstance(AccountEntity::class, array(
                 "channel" => "amazon",
                 "organisationUnitId" => $this->getActiveUserContainer()->getActiveUser()->getOrganisationUnitId(),
-                "displayName" => $this->params()->fromQuery('username'),
+                "displayName" => "Amazon",
                 "credentials" => "",
                 "active" => true,
                 "deleted" => false,
@@ -53,10 +54,14 @@ class AmazonController extends AbstractActionController
         $credentials = $this->getDi()->get(Credentials::class, array(
             'awsAccessKeyId'=> $this->params()->fromPost('AWSAccessKeyId'),
             'merchantId' => $this->params()->fromPost('Merchant'),
-            'regionCode' => $this->params()->fromQuery('region')
+            'regionCode' => $this->params()->fromRoute('region')
         ));
         $accountEntity->setCredentials($this->getCryptor()->encrypt($credentials));
-        $accountEntity = $this->getAccountService()->save($accountEntity);
+        try {
+            $accountEntity = $this->getAccountService()->save($accountEntity);
+        } catch (NotModified $e) {
+            //Ignore the account has been reconnected but the credentials remain the same
+        }
         $routeName = implode('/', [Module::ROUTE, ChannelController::ROUTE, ChannelController::ACCOUNT_ROUTE]);
         $url = $this->plugin('url')->fromRoute($routeName, ["account" => $accountEntity->getId()]);
         $this->plugin('redirect')->toUrl($url);

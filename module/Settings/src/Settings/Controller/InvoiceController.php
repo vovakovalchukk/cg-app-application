@@ -60,7 +60,8 @@ class InvoiceController extends AbstractActionController
 
     public function fetchAction()
     {
-        $view = $this->getJsonModelFactory()->newInstance($this->getTemplateService()->fetch());
+        $template = $this->getTemplateService()->fetch($this->params()->fromPost('id'));
+        $view = $this->getJsonModelFactory()->newInstance($template);
         return $view;
     }
 

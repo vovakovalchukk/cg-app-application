@@ -140,14 +140,19 @@ class ChannelController extends AbstractActionController
             $this->getAccountList(),
             'accountList'
         );
-        $channels = $this->newViewModel();
-        $channels->setVariable('channels', $this->getChannelService()->getChannels());
-        $channels->setTemplate('settings/channel/create/item');
         $list->addChild(
-            $channels,
-            'channels'
+            $this->getAddChannelSelect(),
+            'addChannelSelect'
         );
         return $list;
+    }
+
+    protected function getAddChannelSelect()
+    {
+        $addChannelSelect = $this->newViewModel();
+        $addChannelSelect->setTemplate('settings/channel/create/select');
+        $addChannelSelect->setVariable('channels', $this->getChannelService()->getChannels());
+        return $addChannelSelect;
     }
 
     protected function getAccountList()
