@@ -25,6 +25,9 @@ define([
     {
         ModuleAbstract.prototype.init.call(this, application);
         this.getDomListener().init(this);
+
+        // TODO remove: debug to get template modules to load
+        this.getService().loadModules();
     };
 
     TemplateSelector.prototype.selectionMade = function(id)
