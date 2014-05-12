@@ -6,31 +6,18 @@ define([
     var Page = function()
     {
         MapperAbstract.call(this);
-
-        var pageContent;
-
-        this.setPageContent = function(newPageContent)
-        {
-            pageContent = newPageContent;
-            return this;
-        };
-
-        this.getPageContent = function()
-        {
-            return pageContent;
-        };
     };
 
     Page.prototype = Object.create(MapperAbstract.prototype);
 
-    MapperAbstract.prototype.getExtraDomStyles = function(element)
+    Page.prototype.getExtraDomStyles = function(element)
     {
         return ['background: url('+element.getBackgroundImage()+') no-repeat left top'];
     };
 
-    MapperAbstract.prototype.getHtmlContents = function(element)
+    Page.prototype.getHtmlContents = function(element)
     {
-        return this.getPageContent();
+        return element.getContent();
     };
 
     return new Page();

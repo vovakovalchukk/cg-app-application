@@ -5,6 +5,11 @@ define(function()
 
     };
 
+    MapperAbstract.attributePropertyMap = {
+        x: "left",
+        y: "top"
+    };
+
     MapperAbstract.prototype.toHtml = function(element)
     {
         var domId = this.getDomId(element);
@@ -47,12 +52,17 @@ define(function()
             'width: '+element.getWidth()+'mm',
             'height: '+element.getHeight()+'mm'
         ];
-        var optionalStyles = ['x', 'y', 'backgroundColour', 'borderWidth', 'borderColour'];
-        for (var key in optionalStyles) {
-            var style = optionalStyles[key];
-            var getter = 'get' + style.charAt(0).toUpperCase() + style.substr(1);
+        var optionalAttribs = ['x', 'y', 'backgroundColour', 'borderWidth', 'borderColour'];
+        for (var key in optionalAttribs) {
+            var attribute = optionalAttribs[key];
+            var property = this.elementAttributeToCssProperty(attribute);
+            var getter = 'get' + attribute.ucfirst();
             if (element[getter]()) {
-                domStyles.push(style+': '+element[getter]());
+                var value = this.elementAttributeValueToCssPropertyValue(element[getter]());
+                domStyles.push(property+': '+value);
+                if (attribute === 'borderColour') {
+                    domStyles.push('border-style: solid');
+                }
             }
         }
         var extraDomStyles = this.getExtraDomStyles(element);
@@ -60,6 +70,23 @@ define(function()
             domStyles.push(extraDomStyles[key]);
         }
         return domStyles;
+    };
+
+    MapperAbstract.prototype.elementAttributeToCssProperty = function(attribute)
+    {
+        var map = MapperAbstract.attributePropertyMap;
+        if (map[attribute]) {
+            return map[attribute];
+        }
+        return attribute.camelCaseToDashed().replace('colour', 'color');
+    };
+
+    MapperAbstract.prototype.elementAttributeValueToCssPropertyValue = function(value)
+    {
+        if (typeof value === 'number' && value !== '' && !isNaN(value)) {
+            return value+'mm';
+        }
+        return value;
     };
 
     /**

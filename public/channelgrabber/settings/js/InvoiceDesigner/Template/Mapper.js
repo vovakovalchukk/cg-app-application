@@ -8,7 +8,7 @@ define([
     'InvoiceDesigner/Template/Element/Page',
     'InvoiceDesigner/Template/Element/SellerAddress',
     'InvoiceDesigner/Template/Element/Text',
-//    'InvoiceDesigner/Template/Element/Mapper/Box',
+    'InvoiceDesigner/Template/Element/Mapper/Box',
 //    'InvoiceDesigner/Template/Element/Mapper/DeliveryAddress',
 //    'InvoiceDesigner/Template/Element/Mapper/Image',
 //    'InvoiceDesigner/Template/Element/Mapper/OrderTable',
@@ -96,7 +96,7 @@ define([
             elementsHtml += elementHtml;
         });
 
-        pageMapper.setPageContent(elementsHtml);
+        page.setContent(elementsHtml);
         var html = pageMapper.toHtml(page);
 
         return html;

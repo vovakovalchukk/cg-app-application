@@ -6,7 +6,7 @@ define(['jquery'], function($)
     };
 
     DomManipulator.EVENT_TEMPLATE_CHANGED = 'invoice-template-changed';
-    DomManipulator.DOM_SELECTOR_TEMPLATE_CONTAINER = '#invoice-template';
+    DomManipulator.DOM_SELECTOR_TEMPLATE_CONTAINER = '#invoice-template-container';
 
     DomManipulator.prototype.insertTemplateHtml = function(html)
     {

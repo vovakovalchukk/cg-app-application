@@ -6,6 +6,8 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
 
         var backgroundImage;
 
+        var content;
+
         var extraInspectableAttributes = [
             'backgroundImage'
         ];
@@ -19,6 +21,17 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
         {
             backgroundImage = newBackgroundImage;
             return this;
+        };
+
+        this.setContent = function(newContent)
+        {
+            content = newContent;
+            return this;
+        };
+
+        this.getContent = function()
+        {
+            return content;
         };
 
         this.getExtraInspectableAttributes = function() {
