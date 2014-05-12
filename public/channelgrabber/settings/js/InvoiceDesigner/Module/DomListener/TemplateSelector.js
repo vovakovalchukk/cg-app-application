@@ -36,6 +36,9 @@ define([
 
             self.getModule().duplicate();
         });
+        $(this.NEW_TEMPLATE_SELECTOR).click(function () {
+            self.getModule().create();
+        });
     };
 
     TemplateSelector.prototype.enableDuplicate()
