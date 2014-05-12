@@ -1,4 +1,4 @@
-define(['InvoiceDesigner/Template/Module/DomListenerAbstract', 'jQuery'], function(DomListenerAbstract, $)
+define(['InvoiceDesigner/Template/Module/DomListenerAbstract', 'jquery'], function(DomListenerAbstract, $)
 {
     var InspectorManager = function()
     {
