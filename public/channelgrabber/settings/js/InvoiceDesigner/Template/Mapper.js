@@ -12,9 +12,9 @@ define([
 //    'InvoiceDesigner/Template/Element/Mapper/DeliveryAddress',
 //    'InvoiceDesigner/Template/Element/Mapper/Image',
 //    'InvoiceDesigner/Template/Element/Mapper/OrderTable',
-    'InvoiceDesigner/Template/Element/Mapper/Page'
-//,    'InvoiceDesigner/Template/Element/Mapper/SellerAddress',
-//    'InvoiceDesigner/Template/Element/Mapper/Text'
+    'InvoiceDesigner/Template/Element/Mapper/Page',
+//    'InvoiceDesigner/Template/Element/Mapper/SellerAddress',
+    'InvoiceDesigner/Template/Element/Mapper/Text'
 ], function(require)
 {
     var Mapper = function()

@@ -53,17 +53,9 @@ define(function()
             'height: '+element.getHeight()+'mm'
         ];
         var optionalAttribs = ['x', 'y', 'backgroundColour', 'borderWidth', 'borderColour'];
-        for (var key in optionalAttribs) {
-            var attribute = optionalAttribs[key];
-            var property = this.elementAttributeToCssProperty(attribute);
-            var getter = 'get' + attribute.ucfirst();
-            if (element[getter]()) {
-                var value = this.elementAttributeValueToCssPropertyValue(element[getter]());
-                domStyles.push(property+': '+value);
-                if (attribute === 'borderColour') {
-                    domStyles.push('border-style: solid');
-                }
-            }
+        domStyles = this.addOptionalDomStyles(element, optionalAttribs, domStyles);
+        if (element.getBorderWidth()) {
+            domStyles.push('border-style: solid');
         }
         var extraDomStyles = this.getExtraDomStyles(element);
         for (var key in extraDomStyles) {
@@ -72,9 +64,27 @@ define(function()
         return domStyles;
     };
 
+    MapperAbstract.prototype.addOptionalDomStyles = function(element, optionalAttribs, domStyles)
+    {
+        for (var key in optionalAttribs) {
+            var attribute = optionalAttribs[key];
+            var property = this.elementAttributeToCssProperty(attribute);
+            var getter = 'get' + attribute.ucfirst();
+            if (element[getter]()) {
+                var value = this.elementAttributeValueToCssPropertyValue(element[getter]());
+                domStyles.push(property+': '+value);
+            }
+        };
+        return domStyles;
+    }
+
     MapperAbstract.prototype.elementAttributeToCssProperty = function(attribute)
     {
         var map = MapperAbstract.attributePropertyMap;
+        var extraMap = this.getExtraAttributePropertyMap();
+        for (var key in extraMap) {
+            map[key] = extraMap[key];
+        }
         if (map[attribute]) {
             return map[attribute];
         }
@@ -95,6 +105,14 @@ define(function()
     MapperAbstract.prototype.getExtraDomStyles = function(element)
     {
         return [];
+    };
+
+    /**
+     * Sub-classes can override this to provide extra attributes mapped to CSS properties
+     */
+    MapperAbstract.prototype.getExtraAttributePropertyMap = function()
+    {
+        return {};
     };
 
     /**
