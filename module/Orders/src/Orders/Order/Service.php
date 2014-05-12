@@ -173,7 +173,7 @@ class Service
         return $this->userPreferenceService;
     }
 
-    protected function getActiveUserPreference()
+    public function getActiveUserPreference()
     {
         if (!isset($this->activeUserPreference)) {
             $activeUserId = $this->getActiveUser()->getId();

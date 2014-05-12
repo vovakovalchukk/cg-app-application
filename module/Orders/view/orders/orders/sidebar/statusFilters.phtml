@@ -1,0 +1,24 @@
+<?php $this->inlineScript()->captureStart(); ?>
+require.config({
+    paths: {
+        filters: "<?= Orders\Module::PUBLIC_FOLDER ?>js/filters"
+    }
+});
+require([
+    'filters'
+],
+function(Filters) {
+    new Filters("#filters", "#statusFilters");
+});
+<?php $this->inlineScript()->captureEnd(); ?>
+<div class="filter-module clearfix navbar-content">
+    <h3><?= $this->translate('Status Filters') ?></h3>
+    <div class="module-content nav">
+        <ul id="statusFilters">
+            <li class='empty-list<?= count($filters) ? ' hidden' : '' ?>'><?= $this->translate('No status filters') ?></li>
+            <?php if (count($filters)) : ?>
+                <?= $this->mustacheLoop('elements/statusFilter.mustache', $filters) ?>
+            <?php endif; ?>
+        </ul>
+    </div>
+</div>
