@@ -27,9 +27,9 @@ var json = {
     minWidth: 0,
     elements: [{
         type: "page",
-        width: 300,
-        height: 400,
-        backgroundImage: "http://www.ledr.com/colours/red.jpg"
+        width: 250,
+        height: 353,
+        backgroundImage: "http://lakeshorechurch.org.au/wp-content/uploads/2013/02/rough-beige-paper-texture.jpg"
     }, {
         type: "box",
         width: 20,
@@ -53,6 +53,30 @@ var json = {
         padding: 2,
         lineHeight: 3,
         align: "center"
+    }, {
+        type: "deliveryAddress",
+        width: 70,
+        height: 30,
+        x: 85,
+        y: 5,
+        backgroundColour: "#ccc",
+        fontSize: 10,
+        fontFamily: "monospace",
+        fontColour: "#000",
+        text: "1 The Street\nThe Town\nThe City\nTE1 1ST",
+        padding: 2
+    }, {
+        type: "sellerAddress",
+        width: 70,
+        height: 30,
+        x: 160,
+        y: 5,
+        backgroundColour: "#ccc",
+        fontSize: 10,
+        fontFamily: "monospace",
+        fontColour: "#000",
+        text: "The Company\nThe Business Park\nThe Town\nThe City\nTE1 1ST",
+        padding: 2
     }]
 };
 var template = mapper.fromJson(json);

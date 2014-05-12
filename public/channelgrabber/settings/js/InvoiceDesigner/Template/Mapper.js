@@ -9,11 +9,11 @@ define([
     'InvoiceDesigner/Template/Element/SellerAddress',
     'InvoiceDesigner/Template/Element/Text',
     'InvoiceDesigner/Template/Element/Mapper/Box',
-//    'InvoiceDesigner/Template/Element/Mapper/DeliveryAddress',
+    'InvoiceDesigner/Template/Element/Mapper/DeliveryAddress',
 //    'InvoiceDesigner/Template/Element/Mapper/Image',
 //    'InvoiceDesigner/Template/Element/Mapper/OrderTable',
     'InvoiceDesigner/Template/Element/Mapper/Page',
-//    'InvoiceDesigner/Template/Element/Mapper/SellerAddress',
+    'InvoiceDesigner/Template/Element/Mapper/SellerAddress',
     'InvoiceDesigner/Template/Element/Mapper/Text'
 ], function(require)
 {
@@ -48,10 +48,10 @@ define([
 
     Mapper.prototype.elementFromJson = function(elementData)
     {
-        var elementType = elementData.type.charAt(0).toUpperCase() + elementData.type.substr(1);
+        var elementType = elementData.type.ucfirst();
         var element = require(Mapper.PATH_TO_ELEMENT_TYPES + elementType);
         for (var field in elementData) {
-            var setter = 'set' + field.charAt(0).toUpperCase() + field.substr(1);
+            var setter = 'set' + field.ucfirst();
             if (element[setter]) {
                 element[setter](elementData[field]);
             }
@@ -90,7 +90,7 @@ define([
             if (element.getId() === page.getId()) {
                 return true;
             }
-            var elementType = element.getType().charAt(0).toUpperCase() + element.getType().substr(1);
+            var elementType = element.getType().ucfirst();
             var elementMapper = require(Mapper.PATH_TO_ELEMENT_TYPE_MAPPERS + elementType);
             var elementHtml = elementMapper.toHtml(element);
             elementsHtml += elementHtml;

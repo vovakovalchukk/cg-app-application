@@ -3,12 +3,12 @@ define([
 ], function(
     TextAbstract
 ) {
-    var Text = function()
+    var DeliveryAddress = function()
     {
         TextAbstract.call(this);
     };
 
-    Text.prototype = Object.create(TextAbstract.prototype);
+    DeliveryAddress.prototype = Object.create(TextAbstract.prototype);
 
-    return new Text();
+    return new DeliveryAddress();
 });

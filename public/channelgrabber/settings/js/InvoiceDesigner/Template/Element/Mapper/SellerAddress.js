@@ -3,12 +3,12 @@ define([
 ], function(
     TextAbstract
 ) {
-    var Text = function()
+    var SellerAddress = function()
     {
         TextAbstract.call(this);
     };
 
-    Text.prototype = Object.create(TextAbstract.prototype);
+    SellerAddress.prototype = Object.create(TextAbstract.prototype);
 
-    return new Text();
+    return new SellerAddress();
 });
