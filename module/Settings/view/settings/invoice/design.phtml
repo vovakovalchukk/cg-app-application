@@ -16,8 +16,7 @@ $(document).ready(function() {
     {
         var templateUrlMap = {
             paperType:    '/channelgrabber/settings/template/invoiceDesigner/paperType.mustache',
-            customSelect: '<?=$this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache';?>',
-            test: '<?=$this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/test.mustache';?>'
+            customSelect: '<?=$this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache';?>'
         };
 
         CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache)
@@ -45,9 +44,9 @@ $(document).ready(function() {
                     }
                 ]
             };
+
             var customSelect = cgmustache.renderTemplate(templates, customSelectOptions, "customSelect");
             var paperType = cgmustache.renderTemplate(templates, {}, "paperType", {dropDown: customSelect});
-
             $('#invoice-controls-bar').append(paperType);
         });
     });
