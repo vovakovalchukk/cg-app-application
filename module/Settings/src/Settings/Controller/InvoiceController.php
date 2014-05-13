@@ -60,7 +60,7 @@ class InvoiceController extends AbstractActionController
         return $templateView;
     }
 
-    public function getTemplateAddButtonView()
+    protected function getTemplateAddButtonView()
     {
         $templateAddButtonView = $this->getViewModelFactory()->newInstance([
             'buttons' => true,
@@ -71,7 +71,7 @@ class InvoiceController extends AbstractActionController
         return $templateAddButtonView;
     }
 
-    public function getTemplateDuplicateButtonView()
+    protected function getTemplateDuplicateButtonView()
     {
         $templateDuplicateButtonView = $this->getViewModelFactory()->newInstance([
             'buttons' => true,
@@ -81,6 +81,18 @@ class InvoiceController extends AbstractActionController
         ]);
         $templateDuplicateButtonView->setTemplate('elements/buttons.mustache');
         return $templateDuplicateButtonView;
+    }
+
+    public function fetchAction()
+    {
+        if (is_int($this->params()->fromPost('id'))) {
+            $template = $this->getTemplateService()->fetchAsJson($this->params()->fromPost('id'));
+        } else {
+            $user = $this->getUserOrganisationUnitService()->getActiveUser();
+            $template = $this->getTemplateService()->fetchHardCodedAsJson($user->getOrganisationUnitId());
+        }
+        $view = $this->getJsonModelFactory()->newInstance(["template" => $template]);
+        return $view;
     }
 
     public function fetchAction()
