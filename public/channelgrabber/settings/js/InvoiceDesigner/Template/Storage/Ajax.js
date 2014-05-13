@@ -9,16 +9,19 @@ define(['InvoiceDesigner/Template/StorageAbstract', 'jquery'], function(StorageA
 
     Ajax.prototype.fetch = function(id)
     {
+        var template;
+        var self = this;
         if (!id) {
             throw 'InvalidArgumentException: InvoiceDesigner\Template\Storage\Ajax::fetch must be passed an id';
         }
-        var template;
         $.ajax({
-            'url' : 'settings/invoice/fetch',
+            'url' : '/settings/invoice/fetch',
             'data' : {'id' : id},
             'method' : 'POST',
+            'dataType' : 'json',
+            'async' : false,
             'success' : function(data) {
-                template = this.getMapper().fromJson(data);
+                template = self.getMapper().fromJson(JSON.parse(data['template']));
             },
             'error' : function () {
                 throw 'Unable to load template';
