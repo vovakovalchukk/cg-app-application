@@ -12,6 +12,7 @@ class InvoiceController extends AbstractActionController
 {
     const ROUTE = 'Invoice';
     const ROUTE_FETCH = 'Fetch';
+    const ROUTE_SAVE = 'Save';
 
     protected $viewModelFactory;
     protected $jsonModelFactory;
@@ -39,6 +40,8 @@ class InvoiceController extends AbstractActionController
         $view->addChild($this->getTemplateSelectView(), 'templates');
         $view->addChild($this->getTemplateAddButtonView(), 'templateAddButton');
         $view->addChild($this->getTemplateDuplicateButtonView(), 'templateDuplicateButton');
+        $view->addChild($this->getTemplateDiscardButtonView(), 'templateDiscardButton');
+        $view->addChild($this->getTemplateSaveButtonView(), 'templateSaveButton');
         return $view;
     }
 
@@ -60,7 +63,7 @@ class InvoiceController extends AbstractActionController
         return $templateView;
     }
 
-    public function getTemplateAddButtonView()
+    protected function getTemplateAddButtonView()
     {
         $templateAddButtonView = $this->getViewModelFactory()->newInstance([
             'buttons' => true,
@@ -71,7 +74,7 @@ class InvoiceController extends AbstractActionController
         return $templateAddButtonView;
     }
 
-    public function getTemplateDuplicateButtonView()
+    protected function getTemplateDuplicateButtonView()
     {
         $templateDuplicateButtonView = $this->getViewModelFactory()->newInstance([
             'buttons' => true,
@@ -83,15 +86,44 @@ class InvoiceController extends AbstractActionController
         return $templateDuplicateButtonView;
     }
 
+    protected function getTemplateDiscardButtonView()
+    {
+        $templateDuplicateButtonView = $this->getViewModelFactory()->newInstance([
+            'buttons' => true,
+            'value' => $this->getTranslate()->translate('Discard'),
+            'id' => 'discard-template'
+        ]);
+        $templateDuplicateButtonView->setTemplate('elements/buttons.mustache');
+        return $templateDuplicateButtonView;
+    }
+
+    protected function getTemplateSaveButtonView()
+    {
+        $templateDuplicateButtonView = $this->getViewModelFactory()->newInstance([
+            'buttons' => true,
+            'value' => $this->getTranslate()->translate('Save'),
+            'id' => 'save-template'
+        ]);
+        $templateDuplicateButtonView->setTemplate('elements/buttons.mustache');
+        return $templateDuplicateButtonView;
+    }
+
     public function fetchAction()
     {
-        if ($this->params()->fromPost('id')) {
+        if (is_int($this->params()->fromPost('id'))) {
             $template = $this->getTemplateService()->fetchAsJson($this->params()->fromPost('id'));
         } else {
             $user = $this->getUserOrganisationUnitService()->getActiveUser();
             $template = $this->getTemplateService()->fetchHardCodedAsJson($user->getOrganisationUnitId());
         }
-        $view = $this->getJsonModelFactory()->newInstance($template);
+        $view = $this->getJsonModelFactory()->newInstance(["template" => $template]);
+        return $view;
+    }
+
+    public function saveAction()
+    {
+        $view = $this->getJsonModelFactory()->newInstance();
+        $this->getTemplateService()->saveFromJson($this->params()->fromPost('template'));
         return $view;
     }
 
