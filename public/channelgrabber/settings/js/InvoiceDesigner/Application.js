@@ -16,16 +16,16 @@ define([
         {
             return modules;
         };
-    };
 
-    this.getTemplate = function()
-    {
-        return template;
-    };
+        this.getTemplate = function()
+        {
+            return template;
+        };
 
-    this.setTemplate = function(newTemplate)
-    {
-        template = newTemplate;
+        this.setTemplate = function(newTemplate)
+        {
+            template = newTemplate;
+        };
     };
 
     Application.prototype.init = function()
