@@ -18,6 +18,12 @@ define([
         var template;
         var availablePaperTypes;
 
+        var hasPaperType = function(id) {
+            this.getAvailablePaperTypes().forEach(function(paperType) { // TODO WHY INVALID?!
+
+            });
+        };
+
         this.setDomListener(paperTypeListener);
 
         this.getService = function()
@@ -67,7 +73,17 @@ define([
     PaperType.prototype.selectionMade = function(id)
     {
         // TODO Look up paper type by id
+        var selectedPaperType;
+        this.getAvailablePaperTypes().some(function(paperType) {
+            if (paperType.getId() === id) {
+                selectedPaperType = paperType;
+                return true;
+            }
+            return false;
+        });
+
         // TODO template.getPage().setBackgroundImage(paperTypeById.getBackgroundImage())
+        this.getTemplate().getPage().setBackgroundImage(selectedPaperType.getBackgroundImage()); // TODO get getPage() method from somewhere
     };
 
     return new PaperType();
