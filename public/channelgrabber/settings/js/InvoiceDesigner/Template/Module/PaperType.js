@@ -2,12 +2,14 @@ define([
     'InvoiceDesigner/ModuleAbstract',
     'InvoiceDesigner/Template/Module/DomListener/PaperType',
     'InvoiceDesigner/Template/Service',
-    'InvoiceDesigner/Template/PaperType/Storage/Ajax'
+    'InvoiceDesigner/Template/PaperType/Storage/Ajax',
+    'InvoiceDesigner/Template/DomManipulator'
 ], function(
     ModuleAbstract,
     paperTypeListener,
     templateService,
-    paperTypeStorage
+    paperTypeStorage,
+    domManipulator
     ) {
     var PaperType = function()
     {
@@ -56,17 +58,17 @@ define([
     PaperType.prototype.init = function(application)
     {
         ModuleAbstract.prototype.init.call(this, application);
-        this.getDomListener().init(this);
+        this.getDomListener().init(this); // TODO this should be done automatically in module abstract CGIV-2026
 
         // Load paper type options from storage
         this.setAvailablePaperTypes(this.getStorage().fetchAll());
+        domManipulator.populateCustomSelect('#paperTypeDropDown', this.getAvailablePaperTypes());
 
         // TODO show ui. Currently shown by default until CGIV-2002
     };
 
     PaperType.prototype.selectionMade = function(id)
     {
-        console.log("Selection made: " + id);
         // Look up paper type by id
         var selectedPaperType;
         this.getAvailablePaperTypes().some(function(paperType) {
