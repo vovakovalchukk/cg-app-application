@@ -29,5 +29,14 @@ define([
         });
     };
 
+    Renderer.prototype.listenForElementSelect = function(domId, element)
+    {
+        var self = this;
+        $('#'+domId).on('click focus', function()
+        {
+            domManipulator.triggerElementSelectedEvent(element);
+        });
+    };
+
     return new Renderer();
 });

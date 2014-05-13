@@ -63,6 +63,11 @@ define(function()
         return (this.getItems()[id] !== undefined);
     };
 
+    CollectionAbstract.prototype.getById = function(id)
+    {
+        return this.getItems()[id];
+    };
+
     CollectionAbstract.prototype.merge = function(collection)
     {
         var self = this;

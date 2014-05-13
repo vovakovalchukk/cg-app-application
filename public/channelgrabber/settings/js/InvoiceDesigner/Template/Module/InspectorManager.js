@@ -1,6 +1,6 @@
 define([
-    'InvoiceDesigner/ModuleAbstract',
-    'InvoiceDesigner/Inspector/Service',
+    'InvoiceDesigner/Template/ModuleAbstract',
+    'InvoiceDesigner/Template/Inspector/Service',
     'InvoiceDesigner/Template/Module/DomListener/InspectorManager'
 ], function(
     ModuleAbstract,

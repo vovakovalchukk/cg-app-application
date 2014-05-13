@@ -9,6 +9,13 @@ define(function()
         };
     };
 
+    MapperAbstract.ELEMENT_DOM_ID_PREFIX = 'template-element-';
+
+    MapperAbstract.getDomId = function(element)
+    {
+        return MapperAbstract.ELEMENT_DOM_ID_PREFIX+element.getId();
+    };
+
     MapperAbstract.attributePropertyMap = {
         x: "left",
         y: "top"
@@ -20,7 +27,7 @@ define(function()
 
     MapperAbstract.prototype.toHtml = function(element)
     {
-        var domId = this.getDomId(element);
+        var domId = MapperAbstract.getDomId(element);
         var cssClasses = this.getDomClasses(element).join(' ');
         var cssStyle = this.getDomStyles(element).join('; ');
 
@@ -29,11 +36,6 @@ define(function()
         html += '\n</div>';
 
         return html;
-    };
-
-    MapperAbstract.prototype.getDomId = function(element)
-    {
-        return 'template-element-'+element.getId();
     };
 
     MapperAbstract.prototype.getDomClasses = function(element)
