@@ -28,9 +28,9 @@ define(['jquery'], function($)
         return this;
     };
 
-    DomManipulator.prototype.triggerTemplateChanged = function ()
+    DomManipulator.prototype.triggerTemplateChanged = function (template)
     {
-        $(DomManipulator.EVENT_TEMPLATE_CHANGED).trigger();
+        $(DomManipulator.EVENT_TEMPLATE_CHANGED).trigger(template);
     };
 
     DomManipulator.prototype.getTemplateChangedEvent = function()
