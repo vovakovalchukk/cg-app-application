@@ -2,39 +2,33 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
 {
     var Image = function()
     {
-        ElementAbstract.call(this);
+        var additionalData = {
+            source: undefined,
+            format: undefined
+        };
 
-        var source;
-        var format;
-
-        var extraInspectableAttributes = [
-            'source', 'format'
-        ];
+        ElementAbstract.call(this, additionalData);
 
         this.getSource = function()
         {
-            return source;
+            return this.get('source');
         };
 
         this.setSource = function(newSource)
         {
-            source = newSource;
+            this.set('source', newSource);
             return this;
         };
 
         this.getFormat = function()
         {
-            return format;
+            return this.get('format');
         };
 
         this.setFormat = function(newFormat)
         {
-            format = newFormat;
+            this.set('format', newFormat);
             return this;
-        };
-
-        this.getExtraInspectableAttributes = function() {
-            return extraInspectableAttributes;
         };
     };
 

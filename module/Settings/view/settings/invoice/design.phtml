@@ -1,6 +1,8 @@
 <?php $this->headLink()->appendStylesheet($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'css/common/subheader-hide.css'); ?>
 <?php $this->headLink()->appendStylesheet($this->basePath() . Settings\Module::PUBLIC_FOLDER . 'css/invoice-designer.css') ?>
 <?php $this->inlineScript()->captureStart(); ?>
+var gobalTemplate;
+var gobalDomManipulator;
 $(document).ready(function() {
     require.config({
         paths: {
@@ -16,7 +18,7 @@ $(document).ready(function() {
 /*
  * TEMP testing code
  */
-require(['InvoiceDesigner/Template/Mapper', 'InvoiceDesigner/Template/Service'], function(mapper, service)
+require(['InvoiceDesigner/Template/Mapper', 'InvoiceDesigner/Template/Service', 'InvoiceDesigner/Template/DomManipulator'], function(mapper, service, domManipulator)
 {
 var json = {
     id: 1,
@@ -87,8 +89,9 @@ var json = {
         borderColour: "#000"
     }]
 };
-var template = mapper.fromJson(json);
-service.render(template);
+gobalDomManipulator = domManipulator;
+gobalTemplate = mapper.fromJson(json);
+service.loadModules(gobalTemplate);
 });
 });
 <?php $this->inlineScript()->captureEnd(); ?>

@@ -2,24 +2,21 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
 {
     var Page = function()
     {
-        ElementAbstract.call(this);
-
-        var backgroundImage;
-
         var content;
+        var additionalData = {
+            backgroundImage: undefined
+        };
 
-        var extraInspectableAttributes = [
-            'backgroundImage'
-        ];
+        ElementAbstract.call(this, additionalData);
 
         this.getBackgroundImage = function()
         {
-            return backgroundImage;
+            return this.get('backgroundImage');
         };
 
         this.setBackgroundImage = function(newBackgroundImage)
         {
-            backgroundImage = newBackgroundImage;
+            this.set('backgroundImage', newBackgroundImage);
             return this;
         };
 
@@ -32,10 +29,6 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
         this.getContent = function()
         {
             return content;
-        };
-
-        this.getExtraInspectableAttributes = function() {
-            return extraInspectableAttributes;
         };
     };
 

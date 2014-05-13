@@ -13,7 +13,7 @@ define([
         var service = inspectorService;
         this.setDomListener(inspectorManagerListener);
 
-        this.getService = function()
+        this.getInspectorService = function()
         {
             return service;
         };
@@ -21,15 +21,15 @@ define([
 
     InspectorManager.prototype = Object.create(ModuleAbstract.prototype);
 
-    InspectorManager.prototype.init = function(template)
+    InspectorManager.prototype.init = function(template, templateService)
     {
-        ModuleAbstract.prototype.init.call(this, template);
-        this.getService().init();
+        ModuleAbstract.prototype.init.call(this, template, templateService);
+        this.getInspectorService().init();
     };
 
     InspectorManager.prototype.elementSelected = function(element)
     {
-        this.getService().showForElement(element);
+        this.getInspectorService().showForElement(element);
     };
 
     return new InspectorManager();
