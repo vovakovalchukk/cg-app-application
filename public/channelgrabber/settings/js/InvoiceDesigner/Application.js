@@ -18,6 +18,16 @@ define([
         };
     };
 
+    this.getTemplate = function()
+    {
+        return template;
+    };
+
+    this.setTemplate = function(newTemplate)
+    {
+        template = newTemplate;
+    };
+
     Application.prototype.init = function()
     {
         var modules = this.getModules();

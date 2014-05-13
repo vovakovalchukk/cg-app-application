@@ -36,7 +36,7 @@ define([
 
     Mapper.prototype.elementFromJson = function(elementData)
     {
-        var elementType = elementData.type.charAt(0).toUpperCase() + elementData.type.substr(1);
+        var elementType = elementData.templateType.charAt(0).toUpperCase() + elementData.templateType.substr(1);
         var element = require('InvoiceDesigner/Template/Element/' + elementType);
         for (var field in elementData) {
             var setter = 'set' + field.charAt(0).toUpperCase() + field.substr(1);
