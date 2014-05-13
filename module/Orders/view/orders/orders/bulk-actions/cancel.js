@@ -17,7 +17,7 @@ require(
 );
 <?php
 $placeholder = $this->placeholder($id . '-' . $action);
-$placeholder->append('data-popup="/channelgrabber/orders/template/popups/cancelOptions.html"');
+$placeholder->append('data-popup="' . htmlentities(json_encode($templateMap), ENT_QUOTES) . '"');
 if (isset($order)) {
     $placeholder->append('data-orders="' . htmlentities(json_encode([$order->getId()]), ENT_QUOTES) . '"');
 }

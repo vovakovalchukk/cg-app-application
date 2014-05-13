@@ -47,7 +47,7 @@
         "channelgrabber/zf2-register": "~1.4.13",
         "channelgrabber/zf2-ssoclient": "~1.2.3",
         "channelgrabber/zf2-stdlib": "~1.1.9",
-        "channelgrabber/zf2-v4-ui": "~1.5.2",
+        "channelgrabber/zf2-v4-ui": "dev-CGIV-2091-MultiMustacheTemplate as 1.4.17",
         "davedevelopment/phpmig": "0.4",
         "guzzle/guzzle": "~3.7",
         "nocarrier/hal": "~0.9.3",

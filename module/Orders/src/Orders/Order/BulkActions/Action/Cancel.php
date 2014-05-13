@@ -10,6 +10,8 @@ use CG\Channel\Action\Order\MapInterface as ActionDeciderMap;
 use Orders\Order\BulkActions\OrderAwareInterface;
 use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Cancel\Value as CancelValue;
+use Orders\Module;
+use CG_UI\Module as CG_UI;
 
 class Cancel extends Action implements OrderAwareInterface
 {
@@ -75,6 +77,10 @@ class Cancel extends Action implements OrderAwareInterface
             [
                 'cancellationReasons' => json_encode(Reasons::getAllCancellationReasons()),
                 'type' => static::TYPE,
+                'templateMap' => [
+                    'popup' => Module::PUBLIC_FOLDER . 'template/popups/cancelOptions.html',
+                    'select' => CG_UI::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache',
+                ],
             ]
         );
         return $this;

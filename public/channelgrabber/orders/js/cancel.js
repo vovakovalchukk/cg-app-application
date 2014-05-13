@@ -41,27 +41,39 @@ define(['popup/mustache'], function(Popup) {
     };
 
     Cancel.prototype.action = function(element) {
-        var that = this;
-        popup = new Popup($(this.getSelector()).attr('data-popup'), {
+        var templateMap = $(this.getSelector()).attr('data-popup');
+
+        popup = new Popup($.parseJSON(templateMap), {
             title: this.getType() + " Reason",
-            reasons: function(){
-                var mappedReasons = [];
-                $.each(that.getReasons(), function(key, value) {
-                    mappedReasons.push({name: value});
-                });
-                return mappedReasons;
-            },
             type: this.getType()
-        });
+        }, "popup");
+
+        this.listen(popup);
         popup.show();
-        this.listen();
     };
 
-
-    Cancel.prototype.listen = function() {
+    Cancel.prototype.listen = function(popup) {
         var that = this;
+        popup.getElement().bind('mustacheRender', function(event, cgmustache, templates, data, templateId) {
+            var reasons = [];
+            $.each(that.getReasons(), function(index, reason) {
+                reasons.push({
+                    title: reason
+                });
+            });
+
+            data['reasons'] = cgmustache.renderTemplate(
+                templates,
+                {
+                    name: 'reasons',
+                    class: 'popup-cancel-drop-down',
+                    options: reasons
+                },
+                'select'
+            );
+        });
         $('.popup-cancel-button').click(function () {
-            var reason = $('.popup-cancel-drop-down .text').html();
+            var reason = $('.popup-cancel-drop-down').val();
             if (!reason.length) {
                 return;
             }

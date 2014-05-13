@@ -11,19 +11,7 @@
         <div class="popup-cancel-label label">
             {{type}} Reason:
         </div>
-        <div class="sm-element popup-cancel-drop-down">
-            <div class="custom-select custom-select-sm custom-select-std">
-                <div class="selected popup-cancel-drop-down">
-                        <span class="text" data-default=""></span>
-                    <span class="arrow down">&nbsp;</span>
-                </div>
-                <ul>
-                    {{#reasons}}
-                    <li><a class="cancellation-reason">{{name}}</a></li>
-                    {{/reasons}}
-                </ul>
-            </div>
-        </div>
+        {{{reasons}}}
     </div>
     <div>
         <div class="center">
