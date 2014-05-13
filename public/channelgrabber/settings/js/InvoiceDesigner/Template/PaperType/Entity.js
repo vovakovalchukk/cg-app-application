@@ -39,7 +39,7 @@ define(['InvoiceDesigner/Template/Service'], function(templateService)
 
         this.getBackgroundImage = function()
         {
-            return this.get('type');
+            return this.get('backgroundImage');
         };
 
         this.setBackgroundImage = function(newBackgroundImage)
@@ -77,5 +77,5 @@ define(['InvoiceDesigner/Template/Service'], function(templateService)
         }
     };
 
-    return new Entity();
+    return Entity;
 });

@@ -62,6 +62,7 @@ define([
 
         // Load paper type options from storage
         this.setAvailablePaperTypes(this.getStorage().fetchAll());
+        //console.log(this.getStorage().fetchAll());
         domManipulator.populateCustomSelect('#paperTypeDropDown', this.getAvailablePaperTypes());
 
         // TODO show ui. Currently shown by default until CGIV-2002

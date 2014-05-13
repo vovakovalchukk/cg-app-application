@@ -21,25 +21,25 @@ define(['jquery'], function($)
         return this;
     }
 
-    DomManipulator.prototype.populateCustomSelect = function(id, data) {
-        console.log("id: " + id);
+    DomManipulator.prototype.populateCustomSelect = function(id, data)
+    {
         var container = $(id).parent();
         var view = {
             isOptional: false,
             id: 'domManipulated',
             name: 'foo',
             class: 'bar',
-            options: [
-                {
-                    selected: true,
-                    title: 'LOADED WOOP'
-                }
-            ]
+            options: []
         };
 
         data.forEach(function(element) {
-            // add to view['options']
+            view['options'].push({
+                title: element.getName(),
+                value: element.getId()
+            })
         });
+
+        // TODO set first to selected
 
         require(['cg-mustache'], function(CGMustache) // TODO move into top level require?
         {

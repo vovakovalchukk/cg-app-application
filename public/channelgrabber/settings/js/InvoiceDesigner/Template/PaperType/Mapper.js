@@ -1,14 +1,12 @@
 define([
     'require',
-    'InvoiceDesigner/Template/PaperType/Entity',
-], function(require)
+    'InvoiceDesigner/Template/PaperType/Entity'
+], function(require, PaperTypeEntity)
 {
     var Mapper = function() {};
 
     Mapper.prototype.fromArray = function(array)
     {
-
-        console.log("mapper array: " + array);
         if (!Array.isArray(array)) {
             throw 'InvalidArgumentException: InvoiceDesigner\Template\PaperType\Mapper::fromArray must be passed an array object';
         }
@@ -17,8 +15,9 @@ define([
         var populating = true;
 
         array.forEach(function(paperTypeArray) {
-            var paperType = require('InvoiceDesigner/Template/PaperType/Entity');
-            collection.push(paperType.hydrate(paperTypeArray, populating))
+            var paperType = new PaperTypeEntity();
+            paperType.hydrate(paperTypeArray, populating);
+            collection.push(paperType);
         });
 
         return collection;
