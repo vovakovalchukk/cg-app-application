@@ -158,6 +158,17 @@ return [
                                     ]
                                 ],
                                 'may_terminate' => true
+                            ],
+                            InvoiceController::ROUTE_SAVE => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/save',
+                                    'defaults' => [
+                                        'controller' => InvoiceController::class,
+                                        'action' => 'save'
+                                    ]
+                                ],
+                                'may_terminate' => true
                             ]
                         ]
                     ],

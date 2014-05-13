@@ -20,6 +20,11 @@ $(document).ready(function() {
     <?= $templateDuplicateButton ?>
 </div>
 <div id="invoice-template">
+    <div id="save-template" class='save-template'>
+        <?= $this->translate('You have made changes that are currently not saved'); ?>
+        <?= $templateDiscardButton ?>
+        <?= $templateSaveButton ?>
+    </div>
     <!--Invoice Template-->
 </div>
 <div id="element-inspector-bar" class="sidebar sidebar-fixed sidebar-right sidebar-invoice-designer">
