@@ -31,7 +31,7 @@ define(['jquery'], function($)
     DomManipulator.prototype.triggerTemplateChanged = function ()
     {
         $(DomManipulator.EVENT_TEMPLED_CHANGED).trigger();
-    }
+    };
 
     return new DomManipulator();
 });
