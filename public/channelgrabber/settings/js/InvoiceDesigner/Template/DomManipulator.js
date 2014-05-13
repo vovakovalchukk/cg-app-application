@@ -43,10 +43,8 @@ define(['jquery', 'cg-mustache'], function($, CGMustache)
         });
 
         var templateUrl = '/channelgrabber/zf2-v4-ui/templates/elements/custom-select.mustache';
-        CGMustache.get().fetchTemplate(templateUrl, function(template, cgmustache)
-        {
-            var customSelect = cgmustache.renderTemplate(template, view);
-            container.html(customSelect);
+        CGMustache.get().fetchTemplate(templateUrl, function(template, cgmustache) {
+            container.html(cgmustache.renderTemplate(template, view));
         });
     }
 
