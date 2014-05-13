@@ -18,12 +18,6 @@ define([
         var template;
         var availablePaperTypes;
 
-        var hasPaperType = function(id) {
-            this.getAvailablePaperTypes().forEach(function(paperType) { // TODO WHY INVALID?!
-
-            });
-        };
-
         this.setDomListener(paperTypeListener);
 
         this.getService = function()
@@ -64,7 +58,7 @@ define([
         ModuleAbstract.prototype.init.call(this, application);
         this.getDomListener().init(this);
 
-        // TODO Load paper type options from storage
+        // Load paper type options from storage
         this.setAvailablePaperTypes(this.getStorage().fetchAll());
 
         // TODO show ui. Currently shown by default until CGIV-2002
@@ -72,7 +66,8 @@ define([
 
     PaperType.prototype.selectionMade = function(id)
     {
-        // TODO Look up paper type by id
+        console.log("Selection made: " + id);
+        // Look up paper type by id
         var selectedPaperType;
         this.getAvailablePaperTypes().some(function(paperType) {
             if (paperType.getId() === id) {
@@ -82,7 +77,6 @@ define([
             return false;
         });
 
-        // TODO template.getPage().setBackgroundImage(paperTypeById.getBackgroundImage())
         this.getTemplate().getPage().setBackgroundImage(selectedPaperType.getBackgroundImage()); // TODO get getPage() method from somewhere
     };
 

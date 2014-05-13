@@ -7,7 +7,9 @@ define([
 
     Mapper.prototype.fromArray = function(array)
     {
-        if (!array.isArray()) {
+
+        console.log("mapper array: " + array);
+        if (!Array.isArray(array)) {
             throw 'InvalidArgumentException: InvoiceDesigner\Template\PaperType\Mapper::fromArray must be passed an array object';
         }
 
