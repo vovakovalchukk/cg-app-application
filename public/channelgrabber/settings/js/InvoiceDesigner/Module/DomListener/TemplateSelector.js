@@ -13,8 +13,8 @@ define([
         DomListenerAbstract.call(this);
     };
 
-    TemplateSelector.prototype.DUPLICATE_TEMPLATE_SELECTOR = '#duplicate-template';
-    TemplateSelector.prototype.NEW_TEMPLATE_SELECTOR = '#new-template';
+    TemplateSelector.DUPLICATE_TEMPLATE_SELECTOR = '#duplicate-template';
+    TemplateSelector.NEW_TEMPLATE_SELECTOR = '#new-template';
 
     TemplateSelector.prototype = Object.create(DomListenerAbstract.prototype);
 
