@@ -36,9 +36,8 @@ define([
     {
         ModuleAbstract.prototype.init.call(this, application);
         this.getDomListener().init(this);
-        console.log("HELLO WORLD");
         // TODO Load paper type options from storage
-        // TODO show ui
+        // TODO show ui. Currently shown by default until CGIV-2002
     };
 
     PaperType.prototype.selectionMade = function(id)
