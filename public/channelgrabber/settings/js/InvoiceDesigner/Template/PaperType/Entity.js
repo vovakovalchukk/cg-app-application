@@ -65,11 +65,12 @@ define(['InvoiceDesigner/Template/Service'], function(templateService)
 
         this.notifyOfChange = function()
         {
+            console.log("notify change");
             this.getService().notifyOfChange(this);
         };
     };
 
-    Entity.prototype.hydrate = function(data, populating)
+    Entity.prototype.hydrate = function(data, populating) // TODO should be extracted to abstract. check with azza b
     {
         for (var field in data)
         {

@@ -59,8 +59,6 @@ define([
     {
         ModuleAbstract.prototype.init.call(this, application);
         this.getDomListener().init(this); // TODO this should be done automatically in module abstract CGIV-2026
-
-        // Load paper type options from storage
         this.setAvailablePaperTypes(this.getStorage().fetchAll());
         //console.log(this.getStorage().fetchAll());
         domManipulator.populateCustomSelect('#paperTypeDropDown', this.getAvailablePaperTypes());
