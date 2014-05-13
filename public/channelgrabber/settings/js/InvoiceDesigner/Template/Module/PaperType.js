@@ -1,23 +1,34 @@
 define([
     'InvoiceDesigner/ModuleAbstract',
     'InvoiceDesigner/Template/Module/DomListener/PaperType',
-    'InvoiceDesigner/Template/Service'
+    'InvoiceDesigner/Template/Service',
+    'InvoiceDesigner/Template/PaperType/Storage/Ajax'
 ], function(
     ModuleAbstract,
     paperTypeListener,
-    templateService
+    templateService,
+    paperTypeStorage
     ) {
     var PaperType = function()
     {
         ModuleAbstract.call(this);
         var service = templateService;
+        var storage = paperTypeStorage;
+
         var template;
+        var availablePaperTypes;
+
         this.setDomListener(paperTypeListener);
 
         this.getService = function()
         {
             return service;
         };
+
+        this.getStorage = function()
+        {
+            return storage;
+        }
 
         this.setTemplate = function(newTemplate)
         {
@@ -28,6 +39,16 @@ define([
         {
             return template;
         };
+
+        this.setAvailablePaperTypes = function(newAvailablePaperTypes)
+        {
+            availablePaperTypes = newAvailablePaperTypes;
+        }
+
+        this.getAvailablePaperTypes = function()
+        {
+            return availablePaperTypes;
+        }
     };
 
     PaperType.prototype = Object.create(ModuleAbstract.prototype);
@@ -36,7 +57,10 @@ define([
     {
         ModuleAbstract.prototype.init.call(this, application);
         this.getDomListener().init(this);
+
         // TODO Load paper type options from storage
+        this.setAvailablePaperTypes(this.getStorage().fetchAll());
+
         // TODO show ui. Currently shown by default until CGIV-2002
     };
 
