@@ -4,7 +4,8 @@ define([
     'InvoiceDesigner/Module/TemplateChange'
 ], function(
     // Application Module variables here
-    templateSelector
+    templateSelector,
+    templateChange
 ) {
     var Application = function()
     {
