@@ -22,6 +22,7 @@ jasmineEnv.specFilter = function (spec) {
 require([
     "./spec/InvoiceDesigner/Application.js",
     "./spec/InvoiceDesigner/CollectionAbstract.js",
+    "./spec/InvoiceDesigner/EntityHydrateAbstract.js",
     "./spec/InvoiceDesigner/Module/TemplateSelector.js",
     "./spec/InvoiceDesigner/PubSubAbstract.js",
     "./spec/InvoiceDesigner/Template/Entity.js",
