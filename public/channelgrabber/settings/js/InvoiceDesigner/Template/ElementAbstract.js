@@ -21,6 +21,9 @@ define(['InvoiceDesigner/PubSubAbstract'], function(PubSubAbstract) {
 
         this.getId = function()
         {
+            if (!id) {
+                this.setId(generateId());
+            }
             return id;
         };
 
@@ -137,16 +140,16 @@ define(['InvoiceDesigner/PubSubAbstract'], function(PubSubAbstract) {
         /**
          * Sub-classes can override this to provide extra inspectable attributes for themselves
          */
-        this.getExtraInspectableAttributes = function() {
+        this.getExtraInspectableAttributes = function()
+        {
             return [];
         };
 
         // Elements aren't expected to have IDs so generate one
         var generateId = function()
         {
-            return  (new Date()).getTime()+String(Math.random()).substr(2);
+            return (new Date()).getTime()+String(Math.random()).substr(2);
         };
-        this.setId(generateId());
     };
 
     ElementAbstract.prototype = Object.create(PubSubAbstract.prototype);

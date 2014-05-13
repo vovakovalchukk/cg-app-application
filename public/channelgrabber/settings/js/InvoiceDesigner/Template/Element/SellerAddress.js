@@ -7,5 +7,5 @@ define(['InvoiceDesigner/Template/Element/ImmutableTextAbstract'], function(Immu
 
     SellerAddress.prototype = Object.create(ImmutableTextAbstract.prototype);
 
-    return SellerAddress;
+    return new SellerAddress();
 });

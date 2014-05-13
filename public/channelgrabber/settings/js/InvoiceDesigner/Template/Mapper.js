@@ -24,7 +24,6 @@ define([
         var template = require('InvoiceDesigner/Template/Entity');
         var populating = true;
         template.hydrate(json, populating);
-
         for (var key in json.elements) {
             var elementData = json.elements[key];
             var element = this.elementFromJson(elementData);
@@ -36,7 +35,7 @@ define([
 
     Mapper.prototype.elementFromJson = function(elementData)
     {
-        var elementType = elementData.type.charAt(0).toUpperCase() + elementData.type.substr(1);
+        var elementType = elementData.templateType.charAt(0).toUpperCase() + elementData.templateType.substr(1);
         var element = require('InvoiceDesigner/Template/Element/' + elementType);
         for (var field in elementData) {
             var setter = 'set' + field.charAt(0).toUpperCase() + field.substr(1);

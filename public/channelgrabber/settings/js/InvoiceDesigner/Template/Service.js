@@ -60,36 +60,53 @@ define([
         };
     };
 
+    Service.FETCHED_STATE = 'fetch';
+    Service.DUPLICATED_STATE = 'fetchAndDuplicate';
+    Service.CREATED_STATE = 'create';
+
     Service.prototype.fetch = function(id)
     {
         if (!id) {
             throw 'InvalidArgumentException: InvoiceDesigner\Template\Service::fetch must be passed a template ID';
         }
         var template = this.getStorage().fetch(id);
-        template.setState(this.LOADED_STATE);
+        template.setState(Service.FETCHED_STATE)
+            .setStateId(id);
+        this.getDomManipulator().hideSaveDiscardBar(template);
         return template;
     };
 
     Service.prototype.save = function(template)
     {
         this.getStorage().save(template);
+        template.setState(Service.FETCHED_STATE)
+            .setStateId(template.getId());
+        this.getDomManipulator().hideSaveDiscardBar(template);
         return this;
     };
 
     Service.prototype.create = function()
     {
         var template = require('InvoiceDesigner/Template/Entity');
-        template.setState(this.NEW_STATE);
+        template.setState(Service.CREATED_STATE);
         this.loadModules(template);
+        this.getDomManipulator().hideSaveDiscardBar(template);
     };
 
     Service.prototype.duplicate = function(template)
     {
-        template.setName('DUPLICATE - ' + template.getName());
-        template.setId();
-        template.setState(this.DUPLICATED_STATE);
+        template.setName('DUPLICATE - ' + template.getName())
+            .setState(Service.DUPLICATED_STATE)
+            .setStateId(template.getId())
+            .setId();
         this.render(template);
-        this.notifyOfChange(template);
+        this.getDomManipulator().hideSaveDiscardBar(template);
+    };
+
+    Service.prototype.fetchAndDuplicate = function(id)
+    {
+        var template = this.fetch(id);
+        this.duplicate(template);
     };
 
     Service.prototype.showAsPdf = function(template)
@@ -119,14 +136,9 @@ define([
 
     Service.prototype.notifyOfChange = function(template)
     {
-        this.getDomManipulator().triggerTemplateChangeEvent(template);
+        this.getDomManipulator().showSaveDiscardBar(template);
         return this;
     };
-
-    Service.prototype.LOADED_STATE = 'loaded';
-    Service.prototype.DUPLICATED_STATE = 'duplicate';
-    Service.prototype.NEW_STATE = 'new';
-
 
     return new Service();
 });

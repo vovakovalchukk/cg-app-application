@@ -4,6 +4,8 @@ define(['InvoiceDesigner/Template/Element/Collection', 'InvoiceDesigner/Template
     {
         var elements = collection;
         var service = templateService;
+        var state;
+        var stateId;
 
         // Member vars to watch for changes
         var data = {
@@ -93,12 +95,23 @@ define(['InvoiceDesigner/Template/Element/Collection', 'InvoiceDesigner/Template
 
         this.getState = function()
         {
-            return this.get('state');
+            return state;
         };
 
-        this.setState = function(state)
+        this.setState = function(newState)
         {
-            this.set('state', state);
+            state = newState;
+            return this;
+        };
+
+        this.getStateId = function()
+        {
+            return stateId;
+        };
+
+        this.setStateId = function(newStateId)
+        {
+            stateId = newStateId;
             return this;
         };
 
@@ -119,7 +132,7 @@ define(['InvoiceDesigner/Template/Element/Collection', 'InvoiceDesigner/Template
 
         this.notifyOfChange = function()
         {
-            this.getService().notifyOfChange(this);
+            //this.getService().notifyOfChange(this);
         };
     };
 

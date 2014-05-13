@@ -1,24 +1,20 @@
 define([
-    'module',
     'InvoiceDesigner/Module/DomListenerAbstract',
-    'element/customSelect'
+    'element/customSelect',
+    'jquery'
 ], function(
-    requireModule,
     DomListenerAbstract,
-    CustomSelect
+    CustomSelect,
+    $
 ) {
 
     var TemplateSelector = function()
     {
         DomListenerAbstract.call(this);
-
-        var events = requireModule.config().events;
-
-        this.getEvents = function()
-        {
-            return events;
-        };
     };
+
+    TemplateSelector.DUPLICATE_TEMPLATE_SELECTOR = '#duplicate-template';
+    TemplateSelector.NEW_TEMPLATE_SELECTOR = '#new-template';
 
     TemplateSelector.prototype = Object.create(DomListenerAbstract.prototype);
 
@@ -29,25 +25,21 @@ define([
         $(document).on(CustomSelect.EVENT_SELECT_CHANGED, function (event, selectBox, id) {
             self.getModule().selectionMade(id);
         });
-        $(this.DUPLICATE_TEMPLATE_SELECTOR).click(function () {
-            if (this.hasClass('disabled'))  {
+        $(TemplateSelector.DUPLICATE_TEMPLATE_SELECTOR).click(function () {
+            if ($(this).hasClass('disabled'))  {
                 return;
             }
-
             self.getModule().duplicate();
         });
-        $(this.NEW_TEMPLATE_SELECTOR).click(function () {
+        $(TemplateSelector.NEW_TEMPLATE_SELECTOR).click(function () {
             self.getModule().create();
         });
     };
 
-    TemplateSelector.prototype.enableDuplicate()
+    TemplateSelector.prototype.enableDuplicate = function()
     {
-        $(this.DUPLICATE_TEMPLATE_SELECTOR).removeClass('disabled');
+        $(TemplateSelector.DUPLICATE_TEMPLATE_SELECTOR).removeClass('disabled');
     };
-
-    TemplateSelector.prototype.DUPLICATE_TEMPLATE_SELECTOR = '#duplicate-template';
-    TemplateSelector.prototype.NEW_TEMPLATE_SELECTOR = '#new-template';
 
     return new TemplateSelector();
 });
