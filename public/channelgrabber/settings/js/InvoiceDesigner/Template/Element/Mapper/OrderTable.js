@@ -18,6 +18,14 @@ define([
 
     OrderTable.prototype.getHtmlContents = function(element)
     {
+        var table = this.getHtmlForMainTable(element);
+        var totals = this.getHtmlForTotals(element);
+
+        return table + totals;
+    };
+
+    OrderTable.prototype.getHtmlForMainTable = function(element)
+    {
         var tableStyles = [];
         var tableAttributes = ['backgroundColour', 'borderWidth', 'borderColour'];
         tableStyles = this.addOptionalDomStyles(element, tableAttributes, tableStyles);
@@ -39,15 +47,21 @@ define([
             table += '<td style="'+cssStyle+'">'+tableData[key]+'</th>';
         }
         table += '</tbody>\n</table>\n';
-        table += '<div class="template-element-orderTable-totals">\n';
-        table += '<table><tbody>\n';
-        table += '<tr><th>Sub Total</th><td>&pound;4.00</td></tr>\n';
-        table += '<tr><th>VAT @20%</th><td>&pound;0.80</td></tr>\n';
-        table += '<tr><th>Total</th><td>&pound;4.80</td></tr>\n';
-        table += '</tbody></table>\n';
-        table += '</div>'
 
         return table;
+    };
+
+    OrderTable.prototype.getHtmlForTotals = function(element)
+    {
+        var totals = '<div class="template-element-orderTable-totals">\n';
+        totals += '<table><tbody>\n';
+        totals += '<tr><th>Sub Total</th><td>&pound;4.00</td></tr>\n';
+        totals += '<tr><th>VAT @20%</th><td>&pound;0.80</td></tr>\n';
+        totals += '<tr><th>Total</th><td>&pound;4.80</td></tr>\n';
+        totals += '</tbody></table>\n';
+        totals += '</div>';
+
+        return totals;
     };
 
     return new OrderTable();
