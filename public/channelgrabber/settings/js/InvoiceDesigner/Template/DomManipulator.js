@@ -32,14 +32,15 @@ define(['jquery'], function($)
             options: []
         };
 
+        var isFirstElement = true;
         data.forEach(function(element) {
             view['options'].push({
                 title: element.getName(),
-                value: element.getId()
+                value: element.getId(),
+                selected: isFirstElement
             })
+            isFirstElement = false;
         });
-
-        // TODO set first to selected
 
         require(['cg-mustache'], function(CGMustache) // TODO move into top level require?
         {
