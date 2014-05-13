@@ -21,14 +21,14 @@ define(['jquery', 'cg-mustache'], function($, CGMustache)
         return this;
     }
 
-    DomManipulator.prototype.populateCustomSelect = function(id, data)
+    DomManipulator.prototype.populateCustomSelect = function(selector, data)
     {
-        var container = $(id).parent();
+        var container = $(selector).parent();
         var view = {
-            isOptional: false,
-            id: 'domManipulated',
-            name: 'foo',
-            class: 'bar',
+            isOptional: $(selector).hasClass("filter-optional"),
+            id: $(selector).attr('id'),
+            name: $(selector + " input:first").attr('name'),
+            class: $(selector + " input:first").attr('class'),
             options: []
         };
 
@@ -38,7 +38,7 @@ define(['jquery', 'cg-mustache'], function($, CGMustache)
                 title: element.getName(),
                 value: element.getId(),
                 selected: isFirstElement
-            })
+            });
             isFirstElement = false;
         });
 

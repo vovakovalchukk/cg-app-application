@@ -61,7 +61,7 @@ define([
         this.getDomListener().init(this); // TODO this should be done automatically in module abstract CGIV-2026
         this.setAvailablePaperTypes(this.getStorage().fetchAll());
         //console.log(this.getStorage().fetchAll());
-        domManipulator.populateCustomSelect('#paperTypeDropDown', this.getAvailablePaperTypes());
+        domManipulator.populateCustomSelect('#paperTypeDropdown', this.getAvailablePaperTypes());
 
         // TODO show ui. Currently shown by default until CGIV-2002
     };
