@@ -19,7 +19,12 @@ define(['jQuery'], function($)
     {
         $(document).trigger(DomManipulator.EVENT_TEMPLATE_CHANGED, [template]);
         return this;
-    }
+    };
+
+    DomManipulator.prototype.getTemplateChangedEvent = function()
+    {
+        return DomManipulator.EVENT_TEMPLATE_CHANGED;
+    };
 
     return new DomManipulator();
 });
