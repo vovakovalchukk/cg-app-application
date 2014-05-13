@@ -60,7 +60,7 @@ class AlertController extends AbstractActionController
             array(
                 'userId' => $this->getActiveUserContainer()->getActiveUser()->getId(),
                 'alert' => $this->params()->fromPost('alert'),
-                'timestamp' => date(DateTime::Format, time()),
+                'timestamp' => date(DateTime::FORMAT, time()),
                 'orderId' => $this->params('order'),
                 'organisationUnitId' => $order->getOrganisationUnitId()
             )
@@ -73,7 +73,7 @@ class AlertController extends AbstractActionController
     {
         $alert->setAlert($this->params()->fromPost('alert'))
             ->setUserId($this->getActiveUserContainer()->getActiveUser()->getId())
-            ->setTimestamp(date(DateTime::Format, time()));
+            ->setTimestamp(date(DateTime::FORMAT, time()));
         $alert->setStoredETag($this->params()->fromPost('eTag'));
         $this->getService()->save($alert);
         return $alert;
