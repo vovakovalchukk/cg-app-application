@@ -39,23 +39,19 @@ define([
 
         for (var key in json.elements) {
             var elementData = json.elements[key];
-            var element = this.elementFromJson(elementData);
+            var element = this.elementFromJson(elementData, populating);
             template.addElement(element, populating);
         }
 
         return template;
     };
 
-    Mapper.prototype.elementFromJson = function(elementData)
+    Mapper.prototype.elementFromJson = function(elementData, populating)
     {
         var elementType = elementData.type.ucfirst();
-        var element = require(Mapper.PATH_TO_ELEMENT_TYPES + elementType);
-        for (var field in elementData) {
-            var setter = 'set' + field.ucfirst();
-            if (element[setter]) {
-                element[setter](elementData[field]);
-            }
-        }
+        var elementClass = require(Mapper.PATH_TO_ELEMENT_TYPES + elementType);
+        var element = new elementClass();
+        element.hydrate(elementData, populating);
         return element;
     };
 

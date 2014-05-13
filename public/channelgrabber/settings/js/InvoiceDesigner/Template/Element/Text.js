@@ -7,5 +7,5 @@ define(['InvoiceDesigner/Template/Element/TextAbstract'], function(TextAbstract)
 
     Text.prototype = Object.create(TextAbstract.prototype);
 
-    return new Text();
+    return Text;
 });

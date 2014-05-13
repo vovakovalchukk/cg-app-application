@@ -48,5 +48,5 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
         return json;
     };
 
-    return new Image();
+    return Image;
 });

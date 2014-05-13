@@ -1,11 +1,18 @@
-define(['InvoiceDesigner/PubSubAbstract'], function(PubSubAbstract) {
+define([
+    'InvoiceDesigner/EntityHydrateAbstract',
+    'InvoiceDesigner/PubSubAbstract'
+], function(
+    EntityHydrateAbstract,
+    PubSubAbstract
+) {
     var ElementAbstract = function(additionalData)
     {
+        EntityHydrateAbstract.call(this);
         PubSubAbstract.call(this);
 
-        var id;
-        var type;
         var data = {
+            id: undefined,
+            type: undefined,
             height: undefined,
             width: undefined,
             x: undefined,
@@ -30,23 +37,23 @@ define(['InvoiceDesigner/PubSubAbstract'], function(PubSubAbstract) {
 
         this.getId = function()
         {
-            return id;
+            return this.get('id');
         };
 
         this.setId = function(newId)
         {
-            id = newId;
+            this.set('id', newId);
             return this;
         };
 
         this.getType = function()
         {
-            return type;
+            return this.get('type');
         };
 
         this.setType = function(newType)
         {
-            type = newType;
+            this.set('type', newType);
             return this;
         };
 
@@ -173,7 +180,11 @@ define(['InvoiceDesigner/PubSubAbstract'], function(PubSubAbstract) {
         this.setId(generateId());
     };
 
-    ElementAbstract.prototype = Object.create(PubSubAbstract.prototype);
+    var combinedPrototype = EntityHydrateAbstract.prototype;
+    for (var key in PubSubAbstract.prototype) {
+        combinedPrototype[key] = PubSubAbstract.prototype[key];
+    }
+    ElementAbstract.prototype = Object.create(combinedPrototype);
 
     ElementAbstract.prototype.getInspectableAttributes = function()
     {

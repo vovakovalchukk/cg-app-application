@@ -1,7 +1,16 @@
-define(['InvoiceDesigner/Template/Element/Collection', 'InvoiceDesigner/Template/Service'], function(collection, templateService)
-{
+define([
+    'InvoiceDesigner/EntityHydrateAbstract',
+    'InvoiceDesigner/Template/Element/Collection',
+    'InvoiceDesigner/Template/Service'
+], function(
+    EntityHydrateAbstract,
+    collection,
+    templateService
+) {
     var Entity = function()
     {
+        EntityHydrateAbstract.call(this);
+
         var elements = collection;
         var service = templateService;
         var page;
@@ -124,15 +133,14 @@ define(['InvoiceDesigner/Template/Element/Collection', 'InvoiceDesigner/Template
         };
     };
 
-    Entity.prototype.hydrate = function(data, populating)
+    Entity.prototype = Object.create(EntityHydrateAbstract.prototype);
+
+    Entity.prototype.shouldFieldBeHydrated = function(field)
     {
-        for (var field in data)
-        {
-            if (field === 'elements') {
-                continue;
-            }
-            this.set(field, data[field], populating);
+        if (field === 'elements') {
+            return false;
         }
+        return true;
     };
 
     Entity.prototype.addElement = function(element, populating)
