@@ -60,15 +60,13 @@ define([
         ModuleAbstract.prototype.init.call(this, application);
         this.getDomListener().init(this); // TODO this should be done automatically in module abstract CGIV-2026
         this.setAvailablePaperTypes(this.getStorage().fetchAll());
-        //console.log(this.getStorage().fetchAll());
         domManipulator.populateCustomSelect('#paperTypeDropdown', this.getAvailablePaperTypes());
 
-        // TODO show ui. Currently shown by default until CGIV-2002
+        // TODO show ui. Currently shown by default until CGIV-2002. Should still implement being shown on module load though.
     };
 
     PaperType.prototype.selectionMade = function(id)
     {
-        // Look up paper type by id
         var selectedPaperType;
         this.getAvailablePaperTypes().some(function(paperType) {
             if (paperType.getId() === id) {
