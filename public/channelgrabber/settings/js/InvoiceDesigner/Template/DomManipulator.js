@@ -5,8 +5,8 @@ define(['jquery'], function($)
 
     };
 
-    DomManipulator.SAVE_TEMPLATE_SELECTOR = '#save-template';
-    DomManipulator.EVENT_TEMPLED_CHANGED = 'event-entity-changed';
+    DomManipulator.SAVE_DISCARD_BAR_SELECTOR = '#save-template';
+    DomManipulator.EVENT_TEMPLATE_CHANGED = 'event-template-changed';
 
     DomManipulator.prototype.insertTemplateHtml = function(html)
     {
@@ -18,19 +18,19 @@ define(['jquery'], function($)
 
     DomManipulator.prototype.showSaveDiscardBar = function(template)
     {
-        $(DomManipulator.SAVE_TEMPLATE_SELECTOR).show();
+        $(DomManipulator.SAVE_DISCARD_BAR_SELECTOR).show();
         return this;
     };
 
     DomManipulator.prototype.hideSaveDiscardBar = function(template)
     {
-        $(DomManipulator.SAVE_TEMPLATE_SELECTOR).hide();
+        $(DomManipulator.SAVE_DISCARD_BAR_SELECTOR).hide();
         return this;
     };
 
     DomManipulator.prototype.triggerTemplateChanged = function ()
     {
-        $(DomManipulator.EVENT_TEMPLED_CHANGED).trigger();
+        $(DomManipulator.EVENT_TEMPLATE_CHANGED).trigger();
     };
 
     return new DomManipulator();
