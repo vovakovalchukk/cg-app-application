@@ -24,9 +24,11 @@ define([
 
     PaperType.prototype.init = function(module)
     {
+        console.log("Init DomListener")
         var self = this;
         DomListenerAbstract.prototype.init.call(this, module);
-        $(document).on(CustomSelect.EVENT_SELECT_CHANGED, function (event, selectBox, id) {
+
+        $(document).on(CustomSelect.EVENT_SELECT_CHANGED, function (event, selectBox, id) { // TODO Blocked by CGIV-2002. Implemented in there
             self.getModule().selectionMade(id);
         });
     };
