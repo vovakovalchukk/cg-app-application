@@ -110,12 +110,7 @@ class InvoiceController extends AbstractActionController
 
     public function fetchAction()
     {
-        if (is_int($this->params()->fromPost('id'))) {
-            $template = $this->getTemplateService()->fetchAsJson($this->params()->fromPost('id'));
-        } else {
-            $user = $this->getUserOrganisationUnitService()->getActiveUser();
-            $template = $this->getTemplateService()->fetchHardCodedAsJson($user->getOrganisationUnitId());
-        }
+        $template = $this->getTemplateService()->fetchAsJson($this->params()->fromPost('id'));
         $view = $this->getJsonModelFactory()->newInstance(["template" => $template]);
         return $view;
     }
