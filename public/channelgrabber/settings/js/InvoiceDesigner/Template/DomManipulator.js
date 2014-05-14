@@ -28,14 +28,20 @@ define(['jquery'], function($)
         return this;
     };
 
-    DomManipulator.prototype.triggerTemplateChanged = function (template)
+    DomManipulator.prototype.triggerTemplateChangeEvent = function (template)
     {
-        $(DomManipulator.EVENT_TEMPLATE_CHANGED).trigger(template);
+        $(document).trigger(DomManipulator.EVENT_TEMPLATE_CHANGED, [template]);
+        return this;
     };
 
     DomManipulator.prototype.getTemplateChangedEvent = function()
     {
         return DomManipulator.EVENT_TEMPLATE_CHANGED;
+    };
+
+    TemplateSelector.prototype.enable = function(selector)
+    {
+        $(selector).removeClass('disabled');
     };
 
     return new DomManipulator();

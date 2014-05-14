@@ -37,9 +37,9 @@ define([
         });
     };
 
-    TemplateSelector.prototype.enableDuplicate = function()
+    TemplateSelector.prototype.getDuplicateTemplateSelector = function()
     {
-        $(TemplateSelector.DUPLICATE_TEMPLATE_SELECTOR).removeClass('disabled');
+        return TemplateSelector.DUPLICATE_TEMPLATE_SELECTOR;
     };
 
     return new TemplateSelector();

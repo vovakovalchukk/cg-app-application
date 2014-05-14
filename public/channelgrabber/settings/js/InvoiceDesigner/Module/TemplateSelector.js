@@ -1,21 +1,29 @@
 define([
     'InvoiceDesigner/ModuleAbstract',
     'InvoiceDesigner/Module/DomListener/TemplateSelector',
-    'InvoiceDesigner/Template/Service'
+    'InvoiceDesigner/Template/Service',
+    'InvoiceDesigner/Template/DomManipulator'
 ], function(
     ModuleAbstract,
     templateSelectorListener,
-    templateService
+    templateService,
+    domManipulator
 ) {
     var TemplateSelector = function()
     {
         ModuleAbstract.call(this);
         var service = templateService;
+        var manipulator = domManipulator;
         this.setDomListener(templateSelectorListener);
 
         this.getService = function()
         {
             return service;
+        };
+
+        this.getDomManipulator = function()
+        {
+            return manipulator;
         };
     };
 
@@ -31,7 +39,7 @@ define([
     {
         this.getApplication().setTemplate(this.getService().fetch(id));
         this.getService().loadModules(this.getApplication().getTemplate());
-        this.getDomListener().enableDuplicate();
+        this.getDomManipulator().enable(this.getDomListener().getDuplicateTemplateSelector());
     };
 
     TemplateSelector.prototype.duplicate = function()

@@ -99,7 +99,6 @@ define([
             .setState(Service.DUPLICATED_STATE)
             .setStateId(template.getId())
             .setId();
-        this.render(template);
         this.getDomManipulator().hideSaveDiscardBar(template);
     };
 
@@ -132,12 +131,6 @@ define([
          * html = Mapper::toHtml(template)
          * DomManipulator::insertTemplateHtml(html);
          */
-    };
-
-    Service.prototype.notifyOfChange = function(template)
-    {
-        this.getDomManipulator().showSaveDiscardBar(template);
-        return this;
     };
 
     return new Service();

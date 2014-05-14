@@ -1,9 +1,14 @@
-define(['InvoiceDesigner/Template/Element/Collection', 'InvoiceDesigner/Template/Service'], function(collection, templateService)
-{
+define([
+    'InvoiceDesigner/Template/Element/Collection',
+    'InvoiceDesigner/Template/DomManipulator'
+], function(
+    collection,
+    domManipulator
+) {
     var Entity = function()
     {
         var elements = collection;
-        var service = templateService;
+        var manipulator = domManipulator;
         var state;
         var stateId;
 
@@ -22,9 +27,9 @@ define(['InvoiceDesigner/Template/Element/Collection', 'InvoiceDesigner/Template
             return elements;
         };
 
-        this.getService = function()
+        this.getManipulator = function()
         {
-            return service;
+            return manipulator;
         };
 
         this.getId = function()
@@ -132,7 +137,7 @@ define(['InvoiceDesigner/Template/Element/Collection', 'InvoiceDesigner/Template
 
         this.notifyOfChange = function()
         {
-            //this.getService().notifyOfChange(this);
+            this.getDomManipulator().notifyOfChange(this);
         };
     };
 
