@@ -14,14 +14,7 @@ $(document).ready(function() {
 <div class="account_create large-dropdown" data-url="<?= $this->url(Settings\Module::ROUTE . '/' .
     Settings\Controller\ChannelController::ROUTE . '/' . Settings\Controller\ChannelController::CREATE_ROUTE); ?>">
     <div class="input">
-        <div class="custom-select custom-select-std">
-            <div class="selected">
-                <span class="text" data-default=""><?= $this->translate('Select A Channel'); ?></span><span class="arrow down">&nbsp;</span>
-            </div>
-            <ul>
-                <?= $channels ?>
-            </ul>
-        </div>
+        <?= $addChannelSelect; ?>
     </div>
     <input type="submit" class="button inline account-save" value="<?= $this->translate('Add'); ?>"/>
 </div>
