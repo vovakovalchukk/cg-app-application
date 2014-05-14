@@ -34,19 +34,5 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
 
     Image.prototype = Object.create(ElementAbstract.prototype);
 
-    Image.prototype.toJson = function()
-    {
-        var json = ElementAbstract.prototype.toJson.call(this);
-        var additional = {
-            source: this.getSource(),
-            format: this.getFormat()
-        };
-        for (var field in additional) {
-            json[field] = additional[field];
-        }
-
-        return json;
-    };
-
     return Image;
 });
