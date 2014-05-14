@@ -1,0 +1,16 @@
+<div class="placeholder">
+    Image
+    <input type="file" />
+    <input type="button" class="button" value="Upload" />
+</div>
+<script type="text/javascript">
+    require(['element/FileUpload'], function(FileUpload) {
+        var fileInputSelector = '#{{id}} input[type=file]';
+        var altElementSelector = '#{{id}} input[type=button]';
+        var fileUpload = new FileUpload(fileInputSelector, altElementSelector);
+        fileUpload.watchForUploads(function()
+        {
+            // TODO
+        });
+    });
+</script>
