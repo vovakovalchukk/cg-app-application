@@ -32,7 +32,14 @@ define([
         //$(document).on(CustomSelect.EVENT_SELECT_CHANGED, function (event, selectBox, id) { // TODO Blocked by CGIV-2002. Implemented in there
         $(document).on(CustomSelect.EVENT_SELECT_CHANGED, function (event, selectBox, id) {
             console.log("CLICK");
-            var isInverse = $("#" + PaperType.ID + " #inverseLabelPosition").is(":checked");
+            var isInverse = $("#inverseLabelPosition").is(":checked");
+            self.getModule().selectionMade(id, isInverse);
+        });
+
+        $("#" + PaperType.ID + " #inverseLabelPosition").click(function() {
+            console.log("CHECK TOGGLED");
+            var id = $("#" + PaperType.ID + " input[type=hidden]").val();
+            var isInverse = $("#inverseLabelPosition").is(":checked");
             self.getModule().selectionMade(id, isInverse);
         });
     };
