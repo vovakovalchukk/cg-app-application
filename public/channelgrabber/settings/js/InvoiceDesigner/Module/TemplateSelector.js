@@ -40,6 +40,7 @@ define([
         this.getApplication().setTemplate(this.getService().fetch(id));
         this.getService().loadModules(this.getApplication().getTemplate());
         this.getDomManipulator().enable(this.getDomListener().getDuplicateTemplateSelector());
+        this.getDomManipulator().showSaveDiscardBar();
     };
 
     TemplateSelector.prototype.duplicate = function()

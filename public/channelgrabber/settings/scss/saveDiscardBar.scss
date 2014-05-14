@@ -1,8 +1,10 @@
+@import "../../zf2-v4-ui/scss/common/partials/_variables";
+
 .save-template {
-  background-color: red;
-  color:white;
+  background-color: $color-red;
+  color: $color-white;
   font-weight:bold;
-  height:50px;
+  height: 40px;
   display:none;
 
   .button {

@@ -11,15 +11,16 @@ define([
         DomListenerAbstract.call(this);
     };
 
-    AddDiscardBar.SAVE_TEMPLATE_SELECTOR = '#save-template';
-    AddDiscardBar.DISCARD_TEMPLATE_SELECTOR = '#discard-template';
+    AddDiscardBar.SAVE_TEMPLATE_SELECTOR = '#save-template-button';
+    AddDiscardBar.DISCARD_TEMPLATE_SELECTOR = '#discard-template-button';
 
     AddDiscardBar.prototype = Object.create(DomListenerAbstract.prototype);
 
     AddDiscardBar.prototype.init = function(module)
     {
         var self = this;
-        $(AddDiscardBar.SAVE_TEMPLATE_SELECTOR).click(function() {
+        DomListenerAbstract.prototype.init.call(this, module);
+        $('#save-template').click(function() {
             self.getModule().save();
         });
         $(AddDiscardBar.DISCARD_TEMPLATE_SELECTOR).click(function() {

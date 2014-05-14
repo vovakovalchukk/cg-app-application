@@ -4,7 +4,7 @@ define(['InvoiceDesigner/PubSubAbstract'], function(PubSubAbstract) {
         PubSubAbstract.call(this);
 
         var id;
-        var type;
+        var templateType;
         var height;
         var width;
         var x;
@@ -33,14 +33,14 @@ define(['InvoiceDesigner/PubSubAbstract'], function(PubSubAbstract) {
             return this;
         };
 
-        this.getType = function()
+        this.getTemplateType = function()
         {
-            return type;
+            return templateType;
         };
 
-        this.setType = function(newType)
+        this.setTemplateType = function(newTemplateType)
         {
-            type = newType;
+            templateType = newTemplateType;
             return this;
         };
 
@@ -168,7 +168,7 @@ define(['InvoiceDesigner/PubSubAbstract'], function(PubSubAbstract) {
     ElementAbstract.prototype.toJson = function()
     {
         return {
-            type: this.getType(),
+            templateType: this.getTemplateType(),
             height: this.getHeight(),
             width: this.getWidth(),
             x: this.getX(),
