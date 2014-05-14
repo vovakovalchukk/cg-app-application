@@ -39,7 +39,7 @@ define(['jquery'], function($)
         return DomManipulator.EVENT_TEMPLATE_CHANGED;
     };
 
-    TemplateSelector.prototype.enable = function(selector)
+    DomManipulator.prototype.enable = function(selector)
     {
         $(selector).removeClass('disabled');
     };

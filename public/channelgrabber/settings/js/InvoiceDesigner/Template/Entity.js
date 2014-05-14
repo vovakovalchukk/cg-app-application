@@ -135,9 +135,14 @@ define([
             this.notifyOfChange();
         };
 
+        this.getDomManipulator = function()
+        {
+            return manipulator;
+        };
+
         this.notifyOfChange = function()
         {
-            this.getDomManipulator().notifyOfChange(this);
+            this.getDomManipulator().enable(this);
         };
     };
 

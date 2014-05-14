@@ -1,11 +1,9 @@
 define([
     'InvoiceDesigner/Module/DomListenerAbstract',
-    'element/customSelect',
-    'jquery'
+    'element/customSelect'
 ], function(
     DomListenerAbstract,
-    CustomSelect,
-    $
+    CustomSelect
 ) {
 
     var TemplateSelector = function()
