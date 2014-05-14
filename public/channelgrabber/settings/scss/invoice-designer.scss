@@ -59,3 +59,18 @@
         }
     }
 }
+
+.template-element-text{
+    .style-tag-b{
+        font-weight: bold;
+    }
+
+    .style-tag-i{
+        font-style: italic;
+    }
+
+    .style-tag-bi{
+        @extend .style-tag-b;
+        @extend .style-tag-i;
+    }
+}

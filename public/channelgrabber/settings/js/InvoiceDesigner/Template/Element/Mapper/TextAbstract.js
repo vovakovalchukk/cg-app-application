@@ -35,7 +35,13 @@ define([
 
     TextAbstract.prototype.getHtmlContents = function(element)
     {
-        return element.getText().nl2br();
+        return this.convertInlineStyleTagsToHtml(element.getText()).nl2br();
+    };
+
+    TextAbstract.prototype.convertInlineStyleTagsToHtml = function(rawHtml)
+    {
+        var html = '<span>'+rawHtml.replace(/{{([a-z]+)}}/gi, '</span><span class="style-tag-$1">')+'</span>';
+        return html;
     };
 
     return TextAbstract;

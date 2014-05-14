@@ -10,7 +10,7 @@ define([
 
     Box.prototype = Object.create(MapperAbstract.prototype);
 
-    MapperAbstract.prototype.getHtmlContents = function(element)
+    Box.prototype.getHtmlContents = function(element)
     {
         return '';
     };
