@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "4c9b465b1f8dbd440c92740e51fc2691",
+    "hash": "6817f371fb58c33d1878ec75fe754f2c",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -1208,17 +1208,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.5.5",
+            "version": "1.5.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "eb8f34e69b055565449ab4ef3fb884a1e548bb0a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.5.5-4a5ede.zip",
-                "reference": "eb8f34e69b055565449ab4ef3fb884a1e548bb0a",
-                "shasum": "e5b1fee200e34984775c9013477b9a72cbee5fbc"
+                "reference": "0a55f1f9dc9545ac28524df2b7c36064914a8c4c"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1246,7 +1240,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-05-12 10:45:51"
+            "time": "2014-05-14 16:09:29"
         },
         {
             "name": "cilex/cilex",
