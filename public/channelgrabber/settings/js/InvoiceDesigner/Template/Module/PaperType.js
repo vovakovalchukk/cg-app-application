@@ -76,7 +76,7 @@ define([
             return false;
         });
 
-        this.getTemplate().getPage().setBackgroundImage(selectedPaperType.getBackgroundImage()); // TODO get getPage() method from somewhere
+        this.getTemplate().getPage().setBackgroundImage(selectedPaperType.getBackgroundImage()); // TODO get getPage() method from CGIV-2026
     };
 
     return new PaperType();
