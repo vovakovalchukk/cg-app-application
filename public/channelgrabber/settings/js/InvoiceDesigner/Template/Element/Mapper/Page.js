@@ -17,7 +17,7 @@ define([
 
     Page.prototype.getHtmlContents = function(element)
     {
-        return element.getContent();
+        return element.getHtmlContents();
     };
 
     return new Page();

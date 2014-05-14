@@ -60,6 +60,21 @@
     }
 }
 
+.template-element-text{
+    .style-tag-b{
+        font-weight: bold;
+    }
+
+    .style-tag-i{
+        font-style: italic;
+    }
+
+    .style-tag-bi{
+        @extend .style-tag-b;
+        @extend .style-tag-i;
+    }
+}
+
 .template-element-image{
     background-color: #eee;
     border: solid 1px #999;

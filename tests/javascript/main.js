@@ -4,7 +4,9 @@ require.config({
     // The paths below are now relative to the baseUrl
     paths: {
         jasq: "../../../../tests/javascript/lib/jasq",
-        jquery: "../../zf2-v4-ui/js/jquery.min"
+        jquery: "../../zf2-v4-ui/js/jquery.min",
+        mustache: "../../zf2-v4-ui/js/mustache",
+        "cg-mustache": "../../zf2-v4-ui/js/cg-mustache",
     }
 });
 
