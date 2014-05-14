@@ -65,18 +65,24 @@ define([
         // TODO show ui. Currently shown by default until CGIV-2002. Should still implement being shown on module load though.
     };
 
-    PaperType.prototype.selectionMade = function(id)
+    PaperType.prototype.selectionMade = function(id, isInverse)
     {
         var selectedPaperType;
         this.getAvailablePaperTypes().some(function(paperType) {
-            if (paperType.getId() === id) {
+            if (paperType.getId() == id) {
                 selectedPaperType = paperType;
                 return true;
             }
             return false;
         });
 
-        this.getTemplate().getPage().setBackgroundImage(selectedPaperType.getBackgroundImage()); // TODO get getPage() method from CGIV-2026
+        if (typeof selectedPaperType === 'undefined') {
+            throw 'InvalidSelectionException: InvoiceDesigner/Template/Module/PaperType.selectionMade() received an id which does not exist';
+        }
+
+        var backgroundImage = isInverse ? selectedPaperType.getBackgroundImageInverse() : selectedPaperType.getBackgroundImage();
+        console.log("BackgroundImageUrl: " + backgroundImage);
+        //this.getTemplate().getPage().setBackgroundImage(selectedPaperType.getBackgroundImage()); // TODO get getPage() method from CGIV-2026
     };
 
     return new PaperType();
