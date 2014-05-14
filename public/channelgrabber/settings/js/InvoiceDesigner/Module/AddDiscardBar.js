@@ -27,16 +27,7 @@ define([
         this.getDomListener().init(this);
     };
 
-    AddDiscardBar.prototype.discard = function()
-    {
-        var state = this.getApplication().getTemplate().getState();
-        this.getService()[state](this.getApplication().getTemplate().getStateId());
-    };
 
-    AddDiscardBar.prototype.save = function()
-    {
-        this.getService().save(this.getApplication().getTemplate());
-    };
 
     return new AddDiscardBar();
 });

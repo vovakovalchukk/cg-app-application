@@ -1,19 +1,16 @@
 define([
     // Application Module requires here
-    'InvoiceDesigner/Module/TemplateSelector',
-    'InvoiceDesigner/Module/AddDiscardBar'
+    'InvoiceDesigner/Module/TemplateSelector'
 ], function(
     // Application Module variables here
-    templateSelector,
-    addDiscardBar
+    templateSelector
 ) {
     var Application = function()
     {
         var template;
         var modules = [
             // Modules here
-            templateSelector,
-            addDiscardBar
+            templateSelector
         ];
 
         this.getModules = function()
