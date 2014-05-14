@@ -7,7 +7,8 @@ define(['InvoiceDesigner/Template/Service'], function(templateService)
         var data = {
             id: undefined,
             name: undefined,
-            backgroundImage: undefined
+            backgroundImage: undefined,
+            backgroundImageInverse: undefined
         };
 
         this.getService = function()
@@ -47,6 +48,17 @@ define(['InvoiceDesigner/Template/Service'], function(templateService)
             this.set('backgroundImage', newBackgroundImage);
             return this;
         };
+
+        this.getBackgroundImageInverse = function()
+        {
+            return this.get('backgroundImageInverse');
+        }
+
+        this.setBackgroundImageInverse = function(newBackgroundImageInverse)
+        {
+            this.set('backgroundImageInverse', newBackgroundImageInverse);
+            return this;
+        }
 
         this.get = function(field)
         {

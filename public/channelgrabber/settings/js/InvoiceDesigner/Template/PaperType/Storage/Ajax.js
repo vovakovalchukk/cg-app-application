@@ -14,31 +14,31 @@ define(['InvoiceDesigner/Template/PaperType/StorageAbstract', 'jquery'], functio
                 id: 1,
                 name: "No Label (Blank)",
                 backgroundImage: "/path/to/no/label",
-                InverseBackgroundImage: "/path/to/no/label/inverse"
+                backgroundImageInverse: "/path/to/no/label/inverse"
             },
             {
                 id: 2,
                 name: "Single Label Top",
                 backgroundImage: "/path/to/single/label/top",
-                InverseBackgroundImage: "/path/to/single/label/top/inverse"
+                backgroundImageInverse: "/path/to/single/label/top/inverse"
             },
             {
                 id: 3,
                 name: "Single Label Bottom",
                 backgroundImage: "/path/to/single/label/bottom",
-                InverseBackgroundImage: "/path/to/single/label/bottom/inverse"
+                backgroundImageInverse: "/path/to/single/label/bottom/inverse"
             },
             {
                 id: 4,
                 name: "Double Label Top",
                 backgroundImage: "/path/to/double/label/top",
-                InverseBackgroundImage: "/path/to/double/label/top/inverse"
+                backgroundImageInverse: "/path/to/double/label/top/inverse"
             },
             {
                 id: 5,
                 name: "Double Label Bottom",
                 backgroundImage: "/path/to/double/label/bottom",
-                InverseBackgroundImage: "/path/to/double/label/bottom/inverse"
+                backgroundImageInverse: "/path/to/double/label/bottom/inverse"
             }
         ];
 
