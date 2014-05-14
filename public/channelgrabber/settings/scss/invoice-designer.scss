@@ -59,3 +59,17 @@
         }
     }
 }
+
+.template-element-image{
+    background-color: #eee;
+    border: solid 1px #999;
+
+    .placeholder{
+        margin-top: 50%;
+        text-align: center;
+
+        input[type=file]{
+            display: none;
+        }
+    }
+}
