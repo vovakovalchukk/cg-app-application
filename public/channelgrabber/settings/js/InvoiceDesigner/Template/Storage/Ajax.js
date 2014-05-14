@@ -38,9 +38,6 @@ define(['InvoiceDesigner/Template/StorageAbstract', 'jquery'], function(StorageA
             'url' : '/settings/invoice/save',
             'data' : {'template' : JSON.stringify(self.getMapper().toJson(template))},
             'method' : 'POST',
-            'success' : function() {
-
-            },
             'error' : function () {
                 throw 'Unable to save template';
             }
