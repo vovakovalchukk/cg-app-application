@@ -149,6 +149,11 @@ define([
             this.publish();
         };
 
+        this.getData = function()
+        {
+            return data;
+        };
+
         this.isEditable = function()
         {
             return editable;
@@ -199,16 +204,7 @@ define([
 
     ElementAbstract.prototype.toJson = function()
     {
-        return {
-            type: this.getType(),
-            height: this.getHeight(),
-            width: this.getWidth(),
-            x: this.getX(),
-            y: this.getY(),
-            backgroundColour: this.getBackgroundColour(),
-            borderWidth: this.getBorderWidth(),
-            borderColour: this.getBorderColour()
-        };
+        return this.getData();
     };
 
     return ElementAbstract;
