@@ -92,7 +92,7 @@ define([
             elementsHtml += elementHtml;
         });
 
-        page.setContent(elementsHtml);
+        page.htmlContents(elementsHtml);
         var html = pageMapper.toHtml(page);
 
         return html;

@@ -2,7 +2,7 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
 {
     var Page = function()
     {
-        var content;
+        var contents;
         var additionalData = {
             backgroundImage: undefined
         };
@@ -20,15 +20,18 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
             return this;
         };
 
-        this.setContent = function(newContent)
+        /**
+         * Used to store the generated HTML contents during rendering
+         */
+        this.htmlContents = function(htmlContents)
         {
-            content = newContent;
+            contents = htmlContents;
             return this;
         };
 
-        this.getContent = function()
+        this.getHtmlContents = function()
         {
-            return content;
+            return contents;
         };
     };
 

@@ -137,10 +137,7 @@ define([
 
     Entity.prototype.shouldFieldBeHydrated = function(field)
     {
-        if (field === 'elements') {
-            return false;
-        }
-        return true;
+        return (field !== 'elements');
     };
 
     Entity.prototype.addElement = function(element, populating)

@@ -1,4 +1,4 @@
-define(function()
+define(['cg-mustache'], function(CGMustache)
 {
     var MapperAbstract = function()
     {
@@ -7,9 +7,16 @@ define(function()
         {
             return optionalAttribs;
         };
+
+        var cgMustache = new CGMustache();
+        this.getCGMustache = function()
+        {
+            return cgMustache;
+        };
     };
 
     MapperAbstract.ELEMENT_DOM_ID_PREFIX = 'template-element-';
+    MapperAbstract.ELEMENT_TEMPLATE_PATH = '/channelgrabber/settings/template/InvoiceDesigner/Template/Element/';
 
     MapperAbstract.getDomId = function(element)
     {
@@ -30,11 +37,27 @@ define(function()
         var domId = MapperAbstract.getDomId(element);
         var cssClasses = this.getDomClasses(element).join(' ');
         var cssStyle = this.getDomStyles(element).join('; ');
+        var htmlContents = this.getHtmlContents(element);
 
-        var html = '<div id="'+domId+'" class="'+cssClasses+'" style="'+cssStyle+'">\n';
-        html += this.getHtmlContents(element);
-        html += '\n</div>';
+        var templateUrl = MapperAbstract.ELEMENT_TEMPLATE_PATH+'abstract.mustache';
+        var data = {
+            id: domId,
+            classes: cssClasses,
+            styles: cssStyle,
+            contents: htmlContents
+        };
+        var html = this.renderMustacheTemplate(templateUrl, data);
 
+        return html;
+    };
+
+    MapperAbstract.prototype.renderMustacheTemplate = function(templateUrl, data)
+    {
+        var html;
+        this.getCGMustache().fetchTemplate(templateUrl, function(template, cgMustache)
+        {
+            html = cgMustache.renderTemplate(template, data);
+        });
         return html;
     };
 
@@ -77,13 +100,14 @@ define(function()
             var attribute = optionalAttribs[key];
             var property = this.elementAttributeToCssProperty(attribute);
             var getter = 'get' + attribute.ucfirst();
-            if (element[getter]()) {
-                var value = this.elementAttributeValueToCssPropertyValue(element[getter]());
-                domStyles.push(property+': '+value);
-                var additionalStyles = this.getAdditionalStylesForAttribute(attribute, value);
-                for (var key2 in additionalStyles) {
-                    domStyles.push(additionalStyles[key2]);
-                }
+            if (!element[getter]()) {
+                continue;
+            }
+            var value = this.elementAttributeValueToCssPropertyValue(element[getter]());
+            domStyles.push(property+': '+value);
+            var additionalStyles = this.getAdditionalStylesForAttribute(attribute, value);
+            for (var key2 in additionalStyles) {
+                domStyles.push(additionalStyles[key2]);
             }
         };
         return domStyles;
