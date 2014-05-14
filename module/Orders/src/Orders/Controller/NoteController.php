@@ -52,7 +52,7 @@ class NoteController extends AbstractActionController
             array(
                 'orderId' => $this->params('order'),
                 'userId' => $this->getActiveUserContainer()->getActiveUser()->getId(),
-                'timestamp' => date(DateTime::Format, time()),
+                'timestamp' => date(DateTime::FORMAT, time()),
                 'note' => $this->params()->fromPost('note'),
                 'organisationUnitId' => $order->getOrganisationUnitId()
             )
@@ -73,7 +73,7 @@ class NoteController extends AbstractActionController
         $note = $this->getService()->fetch($this->params()->fromPost('noteId'), $this->params('order'));
         $note->setNote($this->params()->fromPost('note'))
             ->setUserId($this->getActiveUserContainer()->getActiveUser()->getId())
-            ->setTimestamp(date(DateTime::Format, time()));
+            ->setTimestamp(date(DateTime::FORMAT, time()));
         $note->setStoredETag($this->params()->fromPost('eTag'));
         $this->getService()->save($note);
         return $this->view;
