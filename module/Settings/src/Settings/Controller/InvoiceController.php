@@ -91,7 +91,7 @@ class InvoiceController extends AbstractActionController
         $templateDuplicateButtonView = $this->getViewModelFactory()->newInstance([
             'buttons' => true,
             'value' => $this->getTranslate()->translate('Discard'),
-            'id' => 'discard-template'
+            'id' => 'discard-template-button'
         ]);
         $templateDuplicateButtonView->setTemplate('elements/buttons.mustache');
         return $templateDuplicateButtonView;
@@ -102,7 +102,7 @@ class InvoiceController extends AbstractActionController
         $templateDuplicateButtonView = $this->getViewModelFactory()->newInstance([
             'buttons' => true,
             'value' => $this->getTranslate()->translate('Save'),
-            'id' => 'save-template'
+            'id' => 'save-template-button'
         ]);
         $templateDuplicateButtonView->setTemplate('elements/buttons.mustache');
         return $templateDuplicateButtonView;

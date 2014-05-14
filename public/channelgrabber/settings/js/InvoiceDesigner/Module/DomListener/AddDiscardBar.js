@@ -20,7 +20,7 @@ define([
     {
         var self = this;
         DomListenerAbstract.prototype.init.call(this, module);
-        $('#save-template').click(function() {
+        $(AddDiscardBar.SAVE_TEMPLATE_SELECTOR).click(function() {
             self.getModule().save();
         });
         $(AddDiscardBar.DISCARD_TEMPLATE_SELECTOR).click(function() {
