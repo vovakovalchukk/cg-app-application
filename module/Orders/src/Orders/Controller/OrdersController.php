@@ -77,7 +77,6 @@ class OrdersController extends AbstractActionController
     public function getOrderService()
     {
         return $this->orderService;
-
     }
 
     public function setFilterService(FilterService $filterService)
