@@ -1,6 +1,7 @@
 <?php $this->headLink()->appendStylesheet($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'css/common/subheader-hide.css'); ?>
 <?php $this->headLink()->appendStylesheet($this->basePath() . Settings\Module::PUBLIC_FOLDER . 'css/invoiceDesigner.css') ?>
 <?php $this->inlineScript()->captureStart(); ?>
+var templateSelectorId = "#<?= $templateSelectorId; ?>";
 $(document).ready(function() {
     require.config({
         paths: {
@@ -8,7 +9,6 @@ $(document).ready(function() {
         }
     });
 
-    var templateSelectorId = "#<?= $templateSelectorId; ?>";
     require(['InvoiceDesigner/Application'], function(designerApp)
     {
         designerApp.init();
