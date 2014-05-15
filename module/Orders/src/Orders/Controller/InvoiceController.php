@@ -43,8 +43,7 @@ class InvoiceController extends AbstractActionController
     protected function createElement(array $config)
     {
         $class = 'CG\\Template\\Element\\' . ucfirst($config['type']);
-        $element = $this->getService()->getDi()->get($class, $config);
-        return $element;
+        return $this->getService()->getDi()->get($class, $config);
     }
 
     /**
@@ -52,21 +51,17 @@ class InvoiceController extends AbstractActionController
      */
     public function generatePreviewAction()
     {
-        // get order
         $filter = $this->getService()->getDi()->get('CG\\Order\\Service\\Filter', ['limit' => 1]);
         $orders = $this->getService()->getOrderService()->getOrders($filter);
-
-        // get config
-        $templateConfig = json_decode($this->params()->fromPost('template'), true);
-
         $elements = [];
+
+        $templateConfig = json_decode($this->params()->fromPost('template'), true);
         foreach ($templateConfig['elements'] as $element) {
             $elements[] = $this->createElement($element);
         }
         $templateConfig['elements'] = $elements;
 
         $template = $this->getService()->getTemplateFactory()->getTemplateForOrderEntity($templateConfig);
-
         return $this->getService()->getResponseFromOrderCollection($orders, $template);
     }
 }
