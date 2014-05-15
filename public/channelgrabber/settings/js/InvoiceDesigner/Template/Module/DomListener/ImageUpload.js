@@ -7,20 +7,20 @@ define([
     $,
     domManipulator
 ) {
-    var Renderer = function()
+    var ImageUpload = function()
     {
         DomListenerAbstract.call(this);
     };
 
-    Renderer.prototype = Object.create(DomListenerAbstract.prototype);
+    ImageUpload.prototype = Object.create(DomListenerAbstract.prototype);
 
-    Renderer.prototype.init = function(module)
+    ImageUpload.prototype.init = function(module)
     {
         DomListenerAbstract.prototype.init.call(this, module);
         this.initListeners();
     };
 
-    Renderer.prototype.initListeners = function()
+    ImageUpload.prototype.initListeners = function()
     {
         var self = this;
         $(document).on(domManipulator.getImageUploadFileSelectedEvent(), function(event, elementDomId, file)
@@ -29,5 +29,5 @@ define([
         });
     };
 
-    return new Renderer();
+    return new ImageUpload();
 });
