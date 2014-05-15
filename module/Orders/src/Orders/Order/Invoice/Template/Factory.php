@@ -4,6 +4,7 @@ namespace Orders\Order\Invoice\Template;
 use Zend\Di\Di;
 use CG\Order\Shared\Entity as Order;
 use CG\Template\Entity;
+use CG\Template\InvoiceEntity;
 use CG\Template\Element\Text;
 use CG\Template\FontFamily;
 
@@ -31,7 +32,17 @@ class Factory
     }
 
     /**
-     * @param Order $order
+     * @return Template
+     */
+    public function getDefaultTemplateForOrderEntity($organisationUnitId)
+    {
+        return $this->getDi()->get(
+            InvoiceEntity::class, compact('organisationUnitId')
+        );
+    }
+
+    /**
+     * @param array $templateConfig
      * @return Template
      */
     public function getTemplateForOrderEntity($templateConfig)

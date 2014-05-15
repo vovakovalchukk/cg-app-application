@@ -89,18 +89,18 @@ class Service
      * @param array $orderIds
      * @return Response
      */
-    public function getResponseFromOrderIds(array $orderIds, array $templateConfig = [])
+    public function getResponseFromOrderIds(array $orderIds)
     {
         $filter = $this->getDi()->get(Filter::class, ['id' => $orderIds]);
-        $collection = $this->getOrderService()->getOrders($filter);
-        return $this->getResponseFromOrderCollection($collection, $templateConfig);
+        $orderCollection = $this->getOrderService()->getOrders($filter);
+        return $this->getResponseFromOrderCollection($orderCollection);
     }
 
     /**
      * @param Collection $orderCollection
      * @return Response
      */
-    public function getResponseFromOrderCollection(Collection $orderCollection, array $templateConfig = [])
+    public function getResponseFromOrderCollection(Collection $orderCollection, $template = null)
     {
         $this->markOrdersAsPrintedFromOrderCollection($orderCollection);
         return $this->getDi()->get(
@@ -108,7 +108,7 @@ class Service
             [
                 'mimeType' => $this->getRendererService()->getMimeType(),
                 'filename' => $this->getRendererService()->getFileName(),
-                'content' => $this->generateInvoiceFromOrderCollection($orderCollection, $templateConfig)
+                'content' => $this->generateInvoiceFromOrderCollection($orderCollection, $template)
             ]
         );
     }
@@ -123,10 +123,14 @@ class Service
         }
     }
 
-    public function generateInvoiceFromOrderCollection(Collection $orderCollection, array $templateConfig = [])
+    public function generateInvoiceFromOrderCollection(Collection $orderCollection, $template)
     {
         $renderedContent = [];
-        $template = $this->getTemplateFactory()->getTemplateForOrderEntity($templateConfig);
+        if (! isset($template)) {
+            $template = $this->getTemplateFactory()->getDefaultTemplateForOrderEntity(
+                $this->getOrderService()->getActiveUser()->getOrganisationUnitId()
+            );
+        }
 
         foreach ($orderCollection as $order) {
             $renderedContent[] = $this->getRendererService()->renderOrderTemplate(
