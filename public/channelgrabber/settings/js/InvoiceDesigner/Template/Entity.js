@@ -43,8 +43,8 @@ define([
         this.getPage = function()
         {
             if (!page) {
-                var pageElement = require(Entity.PATH_TO_PAGE_ENTITY);
-                page = new pageElement();
+                var pageClass = require(Entity.PATH_TO_PAGE_ENTITY);
+                page = new pageClass();
             }
             return page;
         };
