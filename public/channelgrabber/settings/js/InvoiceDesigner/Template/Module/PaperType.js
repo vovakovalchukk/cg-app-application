@@ -1,31 +1,23 @@
 define([
-    'InvoiceDesigner/ModuleAbstract',
+    'InvoiceDesigner/Template/ModuleAbstract',
     'InvoiceDesigner/Template/Module/DomListener/PaperType',
-    'InvoiceDesigner/Template/Service',
     'InvoiceDesigner/Template/PaperType/Storage/Ajax',
     'InvoiceDesigner/Template/DomManipulator'
 ], function(
     ModuleAbstract,
     paperTypeListener,
-    templateService,
     paperTypeStorage,
     domManipulator
     ) {
     var PaperType = function()
     {
         ModuleAbstract.call(this);
-        var service = templateService;
         var storage = paperTypeStorage;
 
         var template;
         var availablePaperTypes;
 
         this.setDomListener(paperTypeListener);
-
-        this.getService = function()
-        {
-            return service;
-        };
 
         this.getStorage = function()
         {
@@ -55,10 +47,9 @@ define([
 
     PaperType.prototype = Object.create(ModuleAbstract.prototype);
 
-    PaperType.prototype.init = function(application)
+    PaperType.prototype.init = function(template, templateService)
     {
-        ModuleAbstract.prototype.init.call(this, application);
-        this.getDomListener().init(this); // TODO this should be done automatically in module abstract CGIV-2026
+        ModuleAbstract.prototype.init.call(this, template, templateService);
         this.setAvailablePaperTypes(this.getStorage().fetchAll());
         domManipulator.populateCustomSelect('#paperTypeDropdown', this.getAvailablePaperTypes());
 

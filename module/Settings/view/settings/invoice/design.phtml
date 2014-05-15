@@ -13,29 +13,81 @@ $(document).ready(function() {
         designerApp.init();
     });
 
-<!--    require(['cg-mustache'], function(CGMustache)-->
-<!--    {-->
-<!--        var templateUrlMap = {-->
-<!--            paperType:    '/channelgrabber/settings/template/invoiceDesigner/paperType.mustache',-->
-<!--            customSelect: '--><?//=$this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache';?><!--'-->
-<!--        };-->
-<!---->
-<!--        CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache)-->
-<!--        {-->
-<!--            var customSelectOptions = {-->
-<!--                isOptional: false,-->
-<!--                id: 'paperTypeDropdown',-->
-<!--                name: 'name',-->
-<!--                class: 'class',-->
-<!--                options: [-->
-<!--                ]-->
-<!--            };-->
-<!---->
-<!--            var customSelect = cgmustache.renderTemplate(templates, customSelectOptions, "customSelect");-->
-<!--            var paperType = cgmustache.renderTemplate(templates, {}, "paperType", {dropDown: customSelect});-->
-<!--            $('#invoice-controls-bar').append(paperType);-->
-<!--        });-->
-<!--    });-->
+require(['InvoiceDesigner/Template/Mapper', 'InvoiceDesigner/Template/Service', 'InvoiceDesigner/Template/DomManipulator'], function(mapper, service, domManipulator)
+{
+var json = {
+id: 1,
+name: "Example",
+type: "invoice",
+organisationUnitId: 1,
+minHeight: 0,
+minWidth: 0,
+elements: [{
+type: "page",
+width: 250,
+height: 353,
+backgroundImage: "http://lakeshorechurch.org.au/wp-content/uploads/2013/02/rough-beige-paper-texture.jpg"
+}, {
+type: "box",
+width: 20,
+height: 20,
+x: 5,
+y: 5,
+backgroundColour: "#000080",
+borderWidth: 2,
+borderColour: "#008000"
+}, {
+type: "text",
+width: 50,
+height: 30,
+x: 30,
+y: 5,
+backgroundColour: "#fff",
+fontSize: 10,
+fontFamily: "monospace",
+fontColour: "#999",
+text: "This is an example text element with\nnewline",
+padding: 2,
+lineHeight: 3,
+align: "center"
+}, {
+type: "deliveryAddress",
+width: 70,
+height: 30,
+x: 85,
+y: 5,
+backgroundColour: "#ccc",
+fontSize: 10,
+fontFamily: "monospace",
+fontColour: "#000",
+text: "1 The Street\nThe Town\nThe City\nTE1 1ST",
+padding: 2
+}, {
+type: "sellerAddress",
+width: 70,
+height: 30,
+x: 160,
+y: 5,
+backgroundColour: "#ccc",
+fontSize: 10,
+fontFamily: "monospace",
+fontColour: "#000",
+text: "The Company\nThe Business Park\nThe Town\nThe City\nTE1 1ST",
+padding: 2
+}, {
+type: "orderTable",
+width: 200,
+height: 100,
+x: 5,
+y: 40,
+borderWidth: 1,
+borderColour: "#000"
+}]
+};
+
+var template = mapper.fromJson(json);
+service.loadModules(template);
+});
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <div id="invoice-controls-bar" class="sidebar sidebar-fixed sidebar-left sidebar-invoice-designer">
