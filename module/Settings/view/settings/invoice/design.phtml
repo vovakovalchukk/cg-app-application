@@ -8,6 +8,7 @@ $(document).ready(function() {
         }
     });
 
+    var templateSelectorId = "#<?= $templateSelectorId; ?>";
     require(['InvoiceDesigner/Application'], function(designerApp)
     {
         designerApp.init();
