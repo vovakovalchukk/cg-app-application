@@ -22,8 +22,9 @@ $(document).ready(function() {
         <?= $templateAddButton ?>
         <?= $templateDuplicateButton ?>
     </div>
-    <div>
+    <div id="template-name-container" class="template-name-container">
         <h5><?= $this->translate('Template Name'); ?></h5>
+        <?= $templateName; ?>
     </div>
 </div>
 <div id="invoice-template">
