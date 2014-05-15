@@ -32,7 +32,6 @@ define([
     TemplateSelector.prototype.init = function(application)
     {
         ModuleAbstract.prototype.init.call(this, application);
-        this.getDomListener().init(this);
     };
 
     TemplateSelector.prototype.selectionMade = function(id)
