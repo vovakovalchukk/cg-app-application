@@ -49,8 +49,6 @@ define(['jquery', 'cg-mustache'], function($, CGMustache)
 
     DomManipulator.prototype.show = function(selector)
     {
-        console.log("SHOWING");
-        console.log(selector);
         $(selector).removeClass('hidden');
     }
 

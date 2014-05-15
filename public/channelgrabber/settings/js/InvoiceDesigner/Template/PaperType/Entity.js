@@ -83,7 +83,6 @@ define([
 
         this.notifyOfChange = function()
         {
-            console.log("notify change");
             this.getService().notifyOfChange(this);
         };
     };
