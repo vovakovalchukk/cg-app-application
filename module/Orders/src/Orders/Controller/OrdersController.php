@@ -13,16 +13,12 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Order\Shared\Entity as OrderEntity;
 use Orders\Order\BulkActions\Service as BulkActionsService;
 use Orders\Module;
-use Settings\Module as SettingsModule;
-use Settings\Controller\ChannelController;
 use DirectoryIterator;
 use CG\UserPreference\Client\Service as UserPreferenceService;
 use CG\Http\Rpc\Exception\BatchException as RpcBatchException;
 use CG\Http\Rpc\Exception\Error\AbstractError as RpcError;
 use Orders\Order\FilterService as FiltersService;
 use Orders\Order\StoredFilters\Service as StoredFiltersService;
-use CG\Account\Client\Service as AccountService;
-use CG\User\ActiveUserInterface;
 
 class OrdersController extends AbstractActionController
 {
@@ -35,11 +31,6 @@ class OrdersController extends AbstractActionController
     protected $viewModelFactory;
     protected $filtersService;
     protected $storedFiltersService;
-    protected $accountService;
-    protected $activeUserContainer;
-
-    const ACCOUNTS_PAGE = 1;
-    const ACCOUNTS_LIMIT = 'all';
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
@@ -50,9 +41,7 @@ class OrdersController extends AbstractActionController
         BatchService $batchService,
         BulkActionsService $bulkActionsService,
         FiltersService $filtersService,
-        StoredFiltersService $storedFiltersService,
-        AccountService $accountService,
-        ActiveUserInterface $activeUserContainer
+        StoredFiltersService $storedFiltersService
     )
     {
         $this->setJsonModelFactory($jsonModelFactory)
@@ -63,9 +52,7 @@ class OrdersController extends AbstractActionController
             ->setBatchService($batchService)
             ->setBulkActionsService($bulkActionsService)
             ->setFiltersService($filtersService)
-            ->setStoredFiltersService($storedFiltersService)
-            ->setAccountService($accountService)
-            ->setActiveUserContainer($activeUserContainer);
+            ->setStoredFiltersService($storedFiltersService);
     }
 
     public function setOrderService(OrderService $orderService)
@@ -342,27 +329,8 @@ class OrdersController extends AbstractActionController
         $this->getFilterService()->setPersistentFilter($filter);
 
         try {
-            $accounts = $this->getAccountService()->fetchByOUAndStatus(
-                $this->getActiveUser()->getOuList(),
-                null,
-                false,
-                static::ACCOUNTS_LIMIT,
-                static::ACCOUNTS_PAGE
-            );
-            $orders = $this->getOrderService()->getOrders($filter);
-
-            $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) $orders->getTotal();
-
-            foreach ($orders as $order) {
-                $order = $order->toArray();
-                $accountEntity = $accounts->getById($order['accountId']);
-                $order['accountName'] = $accountEntity->getDisplayName();
-                $order['accountLink'] = $this->url()->fromRoute(
-                    SettingsModule::ROUTE . '/' . ChannelController::ROUTE . '/' . ChannelController::ACCOUNT_ROUTE,
-                    array('account' => $order['accountId'])
-                );
-                $data['Records'][] = $order;
-            }
+            $data['Records'] = $this->getOrderService()->getOrdersArrayWithAccountDetails($filter, $this->getEvent());
+            $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) count($data['Records']);
         } catch (NotFound $exception) {
             // No Orders so ignoring
         }
@@ -452,35 +420,5 @@ class OrdersController extends AbstractActionController
         }
 
         return $response->setVariable('archived', true);
-    }
-
-    public function setAccountService($accountService)
-    {
-        $this->accountService = $accountService;
-        return $this;
-    }
-
-    public function getAccountService()
-    {
-        return $this->accountService;
-    }
-
-    public function setActiveUserContainer($activeUserContainer)
-    {
-        $this->activeUserContainer = $activeUserContainer;
-        return $this;
-    }
-
-    public function getActiveUserContainer()
-    {
-        return $this->activeUserContainer;
-    }
-
-    /**
-     * @return User
-     */
-    public function getActiveUser()
-    {
-        return $this->getActiveUserContainer()->getActiveUser();
     }
 }

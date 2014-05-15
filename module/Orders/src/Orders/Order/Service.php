@@ -18,6 +18,10 @@ use CG\Order\Shared\Note\Collection as OrderNoteCollection;
 use CG\UserPreference\Client\Service as UserPreferenceService;
 use CG\Http\Rpc\Json\Client as JsonRpcClient;
 use CG\Http\Rpc\Batch as RpcBatch;
+use Settings\Module as SettingsModule;
+use Settings\Controller\ChannelController;
+use CG\Account\Client\Service as AccountService;
+use Zend\Mvc\MvcEvent;
 
 class Service
 {
@@ -25,6 +29,8 @@ class Service
     const ORDER_SIDEBAR_STATE_KEY = 'order-sidebar-state';
     const ORDER_FILTER_BAR_STATE_KEY = 'order-filter-bar-state';
     const RPC_ENDPOINT = '/order';
+    const ACCOUNTS_PAGE = 1;
+    const ACCOUNTS_LIMIT = 'all';
 
     protected $orderClient;
     protected $orderRpcClient;
@@ -35,6 +41,7 @@ class Service
     protected $di;
     protected $activeUserPreference;
     protected $userPreferenceService;
+    protected $accountService;
 
     public function __construct(
         StorageInterface $orderClient,
@@ -44,7 +51,8 @@ class Service
         UserService $userService,
         ActiveUserInterface $activeUserContainer,
         Di $di,
-        UserPreferenceService $userPreferenceService
+        UserPreferenceService $userPreferenceService,
+        AccountService $accountService
     )
     {
         $this
@@ -56,7 +64,36 @@ class Service
             ->setActiveUserContainer($activeUserContainer)
             ->setDi($di)
             ->setUserPreferenceService($userPreferenceService)
-            ->configureOrderTable();
+            ->configureOrderTable()
+            ->setAccountService($accountService);
+    }
+
+    public function getOrdersArrayWithAccountDetails($filter, MvcEvent $event)
+    {
+        $accounts = $this->getAccountService()->fetchByOUAndStatus(
+            $this->getActiveUser()->getOuList(),
+            null,
+            false,
+            static::ACCOUNTS_LIMIT,
+            static::ACCOUNTS_PAGE
+        );
+
+        $orderCollection = $this->getOrders($filter);
+        $orders = [];
+        foreach($orderCollection as $orderEntity) {
+            $order = $orderEntity->toArray();
+            $accountEntity = $accounts->getById($order['accountId']);
+
+            $order['accountName'] = $accountEntity->getDisplayName();
+            $order['accountLink'] = $event->getRouter()->assemble(
+                ['account' => $order['accountId']],
+                ['name' => SettingsModule::ROUTE . '/' . ChannelController::ROUTE . '/' . ChannelController::ACCOUNT_ROUTE]
+            );
+
+            $orders[] = $order;
+        }
+
+        return $orders;
     }
 
     public function setDi(Di $di)
@@ -335,5 +372,16 @@ class Service
         }
 
         return $this->getOrderRpcClient()->sendBatch(static::RPC_ENDPOINT, $batch);
+    }
+
+    public function setAccountService($accountService)
+    {
+        $this->accountService = $accountService;
+        return $this;
+    }
+
+    public function getAccountService()
+    {
+        return $this->accountService;
     }
 }
