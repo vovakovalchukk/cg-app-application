@@ -4,11 +4,13 @@ require.config({
     // The paths below are now relative to the baseUrl
     paths: {
         jasq: "../../../../tests/javascript/lib/jasq",
-        jQuery: "../../zf2-v4-ui/js/jquery.min"
+        jquery: "../../zf2-v4-ui/js/jquery.min",
+        mustache: "../../zf2-v4-ui/js/mustache",
+        "cg-mustache": "../../zf2-v4-ui/js/cg-mustache",
     }
 });
 
-require(['../../zf2-v4-ui/js/object-helpers']);
+require(['../../zf2-v4-ui/js/object-helpers', '../../zf2-v4-ui/js/string-helpers']);
 
 // Configure Jasmine
 var jasmineEnv = jasmine.getEnv();
@@ -22,6 +24,7 @@ jasmineEnv.specFilter = function (spec) {
 require([
     "./spec/InvoiceDesigner/Application.js",
     "./spec/InvoiceDesigner/CollectionAbstract.js",
+    "./spec/InvoiceDesigner/EntityHydrateAbstract.js",
     "./spec/InvoiceDesigner/Module/TemplateSelector.js",
     "./spec/InvoiceDesigner/PubSubAbstract.js",
     "./spec/InvoiceDesigner/Template/Entity.js",

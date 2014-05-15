@@ -1,9 +1,19 @@
-define(['InvoiceDesigner/Template/Element/Collection', 'InvoiceDesigner/Template/Service'], function(collection, templateService)
-{
+define([
+    'InvoiceDesigner/EntityHydrateAbstract',
+    'InvoiceDesigner/Template/Element/Collection',
+    'InvoiceDesigner/Template/Service'
+], function(
+    EntityHydrateAbstract,
+    collection,
+    templateService
+) {
     var Entity = function()
     {
+        EntityHydrateAbstract.call(this);
+
         var elements = collection;
         var service = templateService;
+        var page;
 
         // Member vars to watch for changes
         var data = {
@@ -23,6 +33,17 @@ define(['InvoiceDesigner/Template/Element/Collection', 'InvoiceDesigner/Template
         this.getService = function()
         {
             return service;
+        };
+
+        this.getPage = function()
+        {
+            return page;
+        };
+
+        this.setPage = function(newPage)
+        {
+            page = newPage;
+            return this;
         };
 
         this.getId = function()
@@ -112,21 +133,23 @@ define(['InvoiceDesigner/Template/Element/Collection', 'InvoiceDesigner/Template
         };
     };
 
-    Entity.prototype.hydrate = function(data, populating)
+    Entity.prototype = Object.create(EntityHydrateAbstract.prototype);
+
+    Entity.prototype.shouldFieldBeHydrated = function(field)
     {
-        for (var field in data)
-        {
-            if (field === 'elements') {
-                continue;
-            }
-            this.set(field, data[field], populating);
-        }
+        return (field !== 'elements');
     };
 
-    Entity.prototype.addElement = function(element)
+    Entity.prototype.addElement = function(element, populating)
     {
         this.getElements().attach(element);
         element.subscribe(this);
+        if (element.getType() === 'page') {
+            this.setPage(element);
+        }
+        if (populating) {
+            return this;
+        }
         this.notifyOfChange();
         return this;
     };

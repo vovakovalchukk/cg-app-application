@@ -1,10 +1,12 @@
 define([
+    // Template Module requires here
     'require',
     'InvoiceDesigner/Template/Storage/Ajax',
     'InvoiceDesigner/Template/Mapper',
     'InvoiceDesigner/Template/DomManipulator',
-    'InvoiceDesigner/Template/Module/PaperType'
-    // Template Module requires here
+    'InvoiceDesigner/Template/Module/PaperType',
+    'InvoiceDesigner/Template/Module/InspectorManager',
+    'InvoiceDesigner/Template/Module/Renderer'    
 ], function(
     require,
     templateAjaxStorage,
@@ -19,8 +21,10 @@ define([
         var domManipulator = templateDomManipulator;
 
         var modules = [
-            'InvoiceDesigner/Template/Module/PaperType'
             // Template Modules require() paths here
+            'InvoiceDesigner/Template/Module/PaperType',            
+            'InvoiceDesigner/Template/Module/InspectorManager',
+            'InvoiceDesigner/Template/Module/Renderer'            
         ];
 
         this.getStorage = function()
@@ -105,17 +109,15 @@ define([
         var modules = this.getModules();
         for (var key in modules) {
             var module = require(modules[key]);
-            module.init(template);
+            module.init(template, this);
         }
     };
 
     Service.prototype.render = function(template)
     {
-        /*
-         * TODO (CGIV-2026)
-         * html = Mapper::toHtml(template)
-         * DomManipulator::insertTemplateHtml(html);
-         */
+        var html = this.getMapper().toHtml(template);
+        this.getDomManipulator().insertTemplateHtml(html);
+        return this;
     };
 
     Service.prototype.notifyOfChange = function(template)

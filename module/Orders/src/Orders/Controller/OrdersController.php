@@ -17,6 +17,8 @@ use DirectoryIterator;
 use CG\UserPreference\Client\Service as UserPreferenceService;
 use CG\Http\Rpc\Exception\BatchException as RpcBatchException;
 use CG\Http\Rpc\Exception\Error\AbstractError as RpcError;
+use Orders\Order\FilterService as FiltersService;
+use Orders\Order\StoredFilters\Service as StoredFiltersService;
 
 class OrdersController extends AbstractActionController
 {
@@ -27,6 +29,8 @@ class OrdersController extends AbstractActionController
     protected $bulkActionsService;
     protected $jsonModelFactory;
     protected $viewModelFactory;
+    protected $filtersService;
+    protected $storedFiltersService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
@@ -35,7 +39,9 @@ class OrdersController extends AbstractActionController
         FilterService $filterService,
         TimelineService $timelineService,
         BatchService $batchService,
-        BulkActionsService $bulkActionsService
+        BulkActionsService $bulkActionsService,
+        FiltersService $filtersService,
+        StoredFiltersService $storedFiltersService
     )
     {
         $this->setJsonModelFactory($jsonModelFactory)
@@ -44,7 +50,9 @@ class OrdersController extends AbstractActionController
             ->setFilterService($filterService)
             ->setTimelineService($timelineService)
             ->setBatchService($batchService)
-            ->setBulkActionsService($bulkActionsService);
+            ->setBulkActionsService($bulkActionsService)
+            ->setFiltersService($filtersService)
+            ->setStoredFiltersService($storedFiltersService);
     }
 
     public function setOrderService(OrderService $orderService)
@@ -125,6 +133,34 @@ class OrdersController extends AbstractActionController
         return $this->bulkActionsService;
     }
 
+    public function setFiltersService(FiltersService $filtersService)
+    {
+        $this->filtersService = $filtersService;
+        return $this;
+    }
+
+    /**
+     * @return FiltersService
+     */
+    public function getFiltersService()
+    {
+        return $this->filtersService;
+    }
+
+    public function setStoredFiltersService(StoredFiltersService $storedFiltersService)
+    {
+        $this->storedFiltersService = $storedFiltersService;
+        return $this;
+    }
+
+    /**
+     * @return StoredFiltersService
+     */
+    public function getStoredFiltersService()
+    {
+        return $this->storedFiltersService;
+    }
+
     public function indexAction()
     {
         $view = $this->getViewModelFactory()->newInstance();
@@ -154,9 +190,27 @@ class OrdersController extends AbstractActionController
         );
         $view->addChild($bulkActions, 'bulkItems');
         $view->addChild($this->getFilterBar(), 'filters');
+        $view->addChild($this->getStatusFilters(), 'statusFiltersSidebar');
+        $view->addChild(
+            $this->getStoredFiltersService()->getStoredFiltersSidebarView(
+                $this->getOrderService()->getActiveUserPreference()
+            ),
+            'storedFiltersSidebar'
+        );
         $view->addChild($this->getBatches(), 'batches');
         $view->setVariable('isSidebarVisible', $this->getOrderService()->isSidebarVisible());
         $view->setVariable('isHeaderBarVisible', $this->getOrderService()->isFilterBarVisible());
+        return $view;
+    }
+
+    protected function getStatusFilters()
+    {
+        $view = $this->getViewModelFactory()->newInstance(
+            [
+                'filters' => $this->getFiltersService()->getFilterConfig('stateFilters')
+            ]
+        );
+        $view->setTemplate('orders/orders/sidebar/statusFilters');
         return $view;
     }
 
@@ -255,6 +309,14 @@ class OrdersController extends AbstractActionController
             ->setLimit($limit)
             ->setPage($page)
             ->setOrganisationUnitId($this->getOrderService()->getActiveUser()->getOuList());
+
+        $orderByIndex = $this->params()->fromPost('iSortCol_0');
+        if ($orderByIndex) {
+            $orderBy = $this->params()->fromPost('mDataProp_'.$orderByIndex);
+            $orderDirection = strtoupper($this->params()->fromPost('sSortDir_0', 'asc'));
+            $filter->setOrderBy($orderBy)
+                ->setOrderDirection($orderDirection);
+        }
 
         $requestFilter = $this->params()->fromPost('filter', []);
         if (!empty($requestFilter)) {

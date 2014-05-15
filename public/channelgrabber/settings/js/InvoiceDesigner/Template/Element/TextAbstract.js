@@ -2,148 +2,121 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
 {
     var TextAbstract = function()
     {
-        ElementAbstract.call(this);
+        var additionalData = {
+            fontSize: undefined,
+            fontFamily: undefined,
+            fontColour: undefined,
+            text: undefined,
+            padding: undefined,
+            lineHeight: undefined,
+            align: undefined,
+            replacedText: undefined,
+            removeBlankLines: undefined
+        };
 
-        var fontSize;
-        var fontFamily;
-        var fontColour;
-        var text;
-        var padding;
-        var lineHeight;
-        var align;
-        var replacedText;
-        var removeBlankLines;
-
-        var extraInspectableAttributes = [
-            'fontSize', 'fontFamily', 'fontColour', 'text', 'padding', 'lineHeight', 'align', 'replacedText', 'removeBlankLines'
-        ];
+        ElementAbstract.call(this, additionalData);
 
         this.getFontSize = function()
         {
-            return fontSize;
+            return this.get('fontSize');
         };
 
         this.setFontSize = function(newFontSize)
         {
-            fontSize = newFontSize;
+            this.set('fontSize', newFontSize);
             return this;
         };
 
         this.getFontFamily = function()
         {
-            return fontFamily;
+            return this.get('fontFamily');
         };
 
         this.setFontFamily = function(newFontFamily)
         {
-            fontFamily = newFontFamily;
+            this.set('fontFamily', newFontFamily);
             return this;
         };
 
         this.getFontColour = function()
         {
-            return fontColour;
+            return this.get('fontColour');
         };
 
         this.setFontColour = function(newFontColour)
         {
-            fontColour = newFontColour;
+            this.set('fontColour', newFontColour);
             return this;
         };
 
         this.getText = function()
         {
-            return text;
+            return this.get('text');
         };
 
         this.setText = function(newText)
         {
-            text = newText;
+            this.set('text', newText);
             return this;
         };
 
         this.getPadding = function()
         {
-            return padding;
+            return this.get('padding');
         };
 
         this.setPadding = function(newPadding)
         {
-            padding = newPadding;
+            this.set('padding', newPadding);
             return this;
         };
 
         this.getLineHeight = function()
         {
-            return lineHeight;
+            return this.get('lineHeight');
         };
 
         this.setLineHeight = function(newLineHeight)
         {
-            lineHeight = newLineHeight;
+            this.set('lineHeight', newLineHeight);
             return this;
         };
 
         this.getAlign = function()
         {
-            return align;
+            return this.get('align');
         };
 
         this.setAlign = function(newAlign)
         {
-            align = newAlign;
+            this.set('align', newAlign);
             return this;
         };
 
         this.getReplacedText = function()
         {
-            return replacedText;
+            return this.get('replacedText');
         };
 
         this.setReplacedText = function(newReplacedText)
         {
-            replacedText = newReplacedText;
+            this.set('replacedText', newReplacedText);
             return this;
         };
 
         this.getRemoveBlankLines = function()
         {
-            return removeBlankLines;
+            return this.get('removeBlankLines');
         };
 
         this.setRemoveBlankLines = function(newRemoveBlankLines)
         {
-            removeBlankLines = newRemoveBlankLines;
+            this.set('removeBlankLines', newRemoveBlankLines);
             return this;
-        };
-
-        this.getExtraInspectableAttributes = function() {
-            return extraInspectableAttributes;
         };
     };
 
     TextAbstract.prototype = Object.create(ElementAbstract.prototype);
-
-    TextAbstract.prototype.toJson = function()
-    {
-        var json = ElementAbstract.prototype.toJson.call(this);
-        var additional = {
-            fontSize: this.getFontSize(),
-            fontFamily: this.getFontFamily(),
-            fontColour: this.getFontColour(),
-            text: this.getText(),
-            padding: this.getPadding(),
-            lineHeight: this.getLineHeight(),
-            align: this.getAlign(),
-            replacedText: this.getReplacedText(),
-            removeBlankLines: this.getRemoveBlankLines()
-        };
-        for (var field in additional) {
-            json[field] = additional[field];
-        }
-
-        return json;
-    };
 
     return TextAbstract;
 });

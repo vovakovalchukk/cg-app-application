@@ -1,4 +1,4 @@
-define(['jasq', 'InvoiceDesigner/Template/Entity'], function (jasq, templateEntity)
+define(['jasq'], function (jasq)
 {
     describe('The Template Mapper module', {
         moduleName: 'InvoiceDesigner/Template/Mapper',
@@ -24,6 +24,10 @@ define(['jasq', 'InvoiceDesigner/Template/Entity'], function (jasq, templateEnti
                     minHeight: 100,
                     minWidth: 100,
                     elements: [{
+                        type: "page",
+                        width: 250,
+                        height: 353,
+                    }, {
                         type: "text",
                         height: 100,
                         width: 100,
@@ -91,7 +95,8 @@ define(['jasq', 'InvoiceDesigner/Template/Entity'], function (jasq, templateEnti
             {
                 console.warn('Incomplete test: "Mapper should convert a template to HTML"');
 
-                var html = mapper.toHtml(templateEntity);
+                var template = mapper.fromJson(json);
+                var html = mapper.toHtml(template);
                 expect(typeof html).toBe('string');
             });
         }

@@ -65,6 +65,16 @@ define(['jasq'], function ()
             expect(collection.containsId(item.getId())).toBe(false);
         });
 
+        it('should be able to get a specified item by its id', function(CollectionAbstract)
+        {
+            var collection = new CollectionAbstract();
+
+            expect(collection.getById(item.getId())).not.toBeDefined();
+            collection.attach(item);
+            var gotItem = collection.getById(item.getId());
+            expect(gotItem.getId()).toBe(item.getId());
+        });
+
         it('should be able to merge in another collection', function(CollectionAbstract)
         {
             var collection1 = new CollectionAbstract();

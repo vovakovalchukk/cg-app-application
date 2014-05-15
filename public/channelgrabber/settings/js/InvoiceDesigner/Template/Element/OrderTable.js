@@ -7,5 +7,5 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
 
     OrderTable.prototype = Object.create(ElementAbstract.prototype);
 
-    return new OrderTable();
+    return OrderTable;
 });
