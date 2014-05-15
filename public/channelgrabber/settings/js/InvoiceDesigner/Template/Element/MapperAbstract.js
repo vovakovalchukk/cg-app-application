@@ -23,6 +23,11 @@ define(['cg-mustache'], function(CGMustache)
         return MapperAbstract.ELEMENT_DOM_ID_PREFIX+element.getId();
     };
 
+    MapperAbstract.getElementIdFromDomId = function(domId)
+    {
+        return domId.replace(MapperAbstract.ELEMENT_DOM_ID_PREFIX, '');
+    };
+
     MapperAbstract.attributePropertyMap = {
         x: "left",
         y: "top"

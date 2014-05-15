@@ -16,9 +16,18 @@ define([
         var data = {
             id: MapperAbstract.getDomId(element)
         };
+        if (element.getSource()) {
+            data.imgSrc = this.elementSourceToImageData(element);
+        }
 
         var html = this.renderMustacheTemplate(templateUrl, data);
         return html;
+    };
+
+    Image.prototype.elementSourceToImageData = function(element)
+    {
+        var encodedSource = btoa(encodeURIComponent(escape(element.getSource())));
+        return 'data:image/'+element.getFormat()+';base64,'+encodedSource;
     };
 
     return new Image();

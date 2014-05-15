@@ -1,16 +1,17 @@
-<div class="placeholder">
+<img {{#imgSrc}}src="{{.}}"{{/imgSrc}}{{^imgSrc}}style="display:none"{{/imgSrc}} />
+<div class="placeholder" {{#imgSrc}}style="display:none"{{/imgSrc}}>
     Image
     <input type="file" />
     <input type="button" class="button" value="Upload" />
 </div>
 <script type="text/javascript">
-    require(['element/FileUpload'], function(FileUpload) {
+    require(['element/FileUpload', 'InvoiceDesigner/Template/DomManipulator'], function(FileUpload, domManipulator) {
         var fileInputSelector = '#{{id}} input[type=file]';
         var altElementSelector = '#{{id}} input[type=button]';
         var fileUpload = new FileUpload(fileInputSelector, altElementSelector);
-        fileUpload.watchForUploads(function()
+        fileUpload.watchForFileSelection(function(file)
         {
-            // TODO
+            $(document).trigger(domManipulator.getImageUploadFileSelectedEvent(), ['{{id}}', file]);
         });
     });
 </script>

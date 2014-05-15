@@ -7,6 +7,7 @@ define(['jquery'], function($)
 
     DomManipulator.EVENT_TEMPLATE_CHANGED = 'invoice-template-changed';
     DomManipulator.EVENT_TEMPLATE_ELEMENT_SELECTED = 'invoice-template-element-selected';
+    DomManipulator.EVENT_IMAGE_UPLOAD_FILE_SELECTED = 'invoice-template-image-selected';
     DomManipulator.DOM_SELECTOR_TEMPLATE_CONTAINER = '#invoice-template-container';
 
     DomManipulator.prototype.insertTemplateHtml = function(html)
@@ -34,6 +35,11 @@ define(['jquery'], function($)
     DomManipulator.prototype.getElementSelectedEvent = function()
     {
         return DomManipulator.EVENT_TEMPLATE_ELEMENT_SELECTED;
+    };
+
+    DomManipulator.prototype.getImageUploadFileSelectedEvent = function()
+    {
+        return DomManipulator.EVENT_IMAGE_UPLOAD_FILE_SELECTED;
     };
 
     return new DomManipulator();
