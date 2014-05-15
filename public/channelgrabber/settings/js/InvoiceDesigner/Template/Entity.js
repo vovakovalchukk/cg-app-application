@@ -1,16 +1,21 @@
 define([
     'InvoiceDesigner/Template/Element/Collection',
-    'InvoiceDesigner/Template/DomManipulator'
+    'InvoiceDesigner/Template/DomManipulator',
+    'InvoiceDesigner/EntityHydrateAbstract'
 ], function(
     collection,
-    domManipulator
+    domManipulator,
+    EntityHydrateAbstract
 ) {
     var Entity = function()
     {
+        EntityHydrateAbstract.call(this);
+
         var elements = collection;
         var manipulator = domManipulator;
         var state;
         var stateId;
+        var page;
 
         // Member vars to watch for changes
         var data = {
@@ -30,6 +35,17 @@ define([
         this.getManipulator = function()
         {
             return manipulator;
+        };
+
+        this.getPage = function()
+        {
+            return page;
+        };
+
+        this.setPage = function(newPage)
+        {
+            page = newPage;
+            return this;
         };
 
         this.getId = function()
@@ -146,21 +162,23 @@ define([
         };
     };
 
-    Entity.prototype.hydrate = function(data, populating)
+    Entity.prototype = Object.create(EntityHydrateAbstract.prototype);
+
+    Entity.prototype.shouldFieldBeHydrated = function(field)
     {
-        for (var field in data)
-        {
-            if (field === 'elements') {
-                continue;
-            }
-            this.set(field, data[field], populating);
-        }
+        return (field !== 'elements');
     };
 
-    Entity.prototype.addElement = function(element)
+    Entity.prototype.addElement = function(element, populating)
     {
         this.getElements().attach(element);
         element.subscribe(this);
+        if (element.getType() === 'page') {
+            this.setPage(element);
+        }
+        if (populating) {
+            return this;
+        }
         this.notifyOfChange();
         return this;
     };

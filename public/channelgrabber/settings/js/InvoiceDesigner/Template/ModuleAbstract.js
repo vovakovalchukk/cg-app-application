@@ -5,6 +5,7 @@ define(['InvoiceDesigner/ModuleAbstract'], function(AppModuleAbstract)
         AppModuleAbstract.call(this);
 
         var template;
+        var templateService;
 
         this.getTemplate = function()
         {
@@ -15,13 +16,26 @@ define(['InvoiceDesigner/ModuleAbstract'], function(AppModuleAbstract)
         {
             template = newTemplate;
         };
+
+        this.getTemplateService = function()
+        {
+            return templateService;
+        };
+
+        this.setTemplateService = function(newService)
+        {
+            templateService = newService;
+            return this;
+        };
     };
 
     ModuleAbstract.prototype = Object.create(AppModuleAbstract.prototype);
 
-    ModuleAbstract.prototype.init = function(template)
+    ModuleAbstract.prototype.init = function(template, templateService)
     {
         this.setTemplate(template);
+        this.setTemplateService(templateService);
+        this.getDomListener().init(this);
         // Sub-classes should override with a .call() to this method then do their own work
     };
 

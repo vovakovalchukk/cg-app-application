@@ -2,14 +2,15 @@ define([
     'require',
     'InvoiceDesigner/Template/Storage/Ajax',
     'InvoiceDesigner/Template/Mapper',
-    'InvoiceDesigner/Template/DomManipulator'
+    'InvoiceDesigner/Template/DomManipulator',
     // Template Module requires here
+    'InvoiceDesigner/Template/Module/InspectorManager',
+    'InvoiceDesigner/Template/Module/Renderer'
 ], function(
     require,
     templateAjaxStorage,
     templateMapper,
     templateDomManipulator
-    // Template Module variables here
 ) {
     var Service = function()
     {
@@ -19,6 +20,8 @@ define([
 
         var modules = [
             // Template Modules require() paths here
+            'InvoiceDesigner/Template/Module/InspectorManager',
+            'InvoiceDesigner/Template/Module/Renderer'
         ];
 
         this.getStorage = function()
@@ -120,17 +123,15 @@ define([
         var modules = this.getModules();
         for (var key in modules) {
             var module = require(modules[key]);
-            module.init(template);
+            module.init(template, this);
         }
     };
 
     Service.prototype.render = function(template)
     {
-        /*
-         * TODO (CGIV-2026)
-         * html = Mapper::toHtml(template)
-         * DomManipulator::insertTemplateHtml(html);
-         */
+        var html = this.getMapper().toHtml(template);
+        this.getDomManipulator().insertTemplateHtml(html);
+        return this;
     };
 
     return new Service();

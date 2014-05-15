@@ -1,5 +1,8 @@
-define(['InvoiceDesigner/Template/Element/TextAbstract'], function(TextAbstract)
-{
+define([
+    'InvoiceDesigner/Template/Element/Mapper/TextAbstract'
+], function(
+    TextAbstract
+) {
     var Text = function()
     {
         TextAbstract.call(this);
@@ -7,5 +10,5 @@ define(['InvoiceDesigner/Template/Element/TextAbstract'], function(TextAbstract)
 
     Text.prototype = Object.create(TextAbstract.prototype);
 
-    return Text;
+    return new Text();
 });
