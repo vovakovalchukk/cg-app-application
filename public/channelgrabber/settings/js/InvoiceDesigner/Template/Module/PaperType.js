@@ -17,7 +17,7 @@ define([
         var template;
         var availablePaperTypes;
 
-        this.setDomListener(paperTypeListener);
+        this.setDomListener(new paperTypeListener());
 
         this.getStorage = function()
         {
@@ -51,9 +51,8 @@ define([
     {
         ModuleAbstract.prototype.init.call(this, template, templateService);
         this.setAvailablePaperTypes(this.getStorage().fetchAll());
+        //domManipulator.show('#paperType')
         domManipulator.populateCustomSelect('#paperTypeDropdown', this.getAvailablePaperTypes());
-
-        // TODO show ui. Currently shown by default until CGIV-2002. Should still implement being shown on module load though.
     };
 
     PaperType.prototype.selectionMade = function(id, isInverse)

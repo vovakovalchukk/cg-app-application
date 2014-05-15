@@ -44,5 +44,5 @@ define([
         });
     };
 
-    return new PaperType();
+    return PaperType;
 });
