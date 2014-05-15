@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "6817f371fb58c33d1878ec75fe754f2c",
+    "hash": "d04a9a364d58315368f8644cbb246f3f",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -1208,11 +1208,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.5.7",
+            "version": "dev-CGIV-2023-invoice-designer-image-rendering",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "0a55f1f9dc9545ac28524df2b7c36064914a8c4c"
+                "reference": "166aa0f14f3a9170e7ccc608362aa9db72a6b8a9"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1240,7 +1240,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-05-14 16:09:29"
+            "time": "2014-05-15 14:54:49"
         },
         {
             "name": "cilex/cilex",
@@ -3688,11 +3688,17 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.5.7",
+            "alias_normalized": "1.5.7.0",
+            "version": "dev-CGIV-2023-invoice-designer-image-rendering",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },

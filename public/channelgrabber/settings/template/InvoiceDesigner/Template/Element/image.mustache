@@ -8,7 +8,8 @@
     require(['element/FileUpload', 'InvoiceDesigner/Template/DomManipulator'], function(FileUpload, domManipulator) {
         var fileInputSelector = '#{{id}} input[type=file]';
         var altElementSelector = '#{{id}} input[type=button]';
-        var fileUpload = new FileUpload(fileInputSelector, altElementSelector);
+        var dropZoneSelector = '#{{id}}';
+        var fileUpload = new FileUpload(fileInputSelector, altElementSelector, dropZoneSelector);
         fileUpload.watchForFileSelection(function(file)
         {
             $(document).trigger(domManipulator.getImageUploadFileSelectedEvent(), ['{{id}}', file]);
