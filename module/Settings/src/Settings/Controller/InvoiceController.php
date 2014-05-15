@@ -68,30 +68,31 @@ class InvoiceController extends AbstractActionController
 
     protected function getTemplateAddButtonView()
     {
-        return $this->getButtonFromNameAndId($this->getTranslate()->translate('New Template'), 'new-template');
+        return $this->getButtonFromNameAndId($this->getTranslate()->translate('New Template'), 'new-template', false);
     }
 
     protected function getTemplateDuplicateButtonView()
     {
-        return $this->getButtonFromNameAndId($this->getTranslate()->translate('Duplicate'), 'duplicate-template');
+        return $this->getButtonFromNameAndId($this->getTranslate()->translate('Duplicate'), 'duplicate-template', true);
     }
 
     protected function getTemplateDiscardButtonView()
     {
-        return $this->getButtonFromNameAndId($this->getTranslate()->translate('Discard'), 'discard-template-button');
+        return $this->getButtonFromNameAndId($this->getTranslate()->translate('Discard'), 'discard-template-button', false);
     }
 
     protected function getTemplateSaveButtonView()
     {
-        return $this->getButtonFromNameAndId($this->getTranslate()->translate('Save'), 'save-template-button');
+        return $this->getButtonFromNameAndId($this->getTranslate()->translate('Save'), 'save-template-button', false);
     }
 
-    protected function getButtonFromNameAndId($name, $id)
+    protected function getButtonFromNameAndId($name, $id, $disabled)
     {
         $button = $this->getViewModelFactory()->newInstance([
             'buttons' => true,
             'value' => $name,
-            'id' => $id
+            'id' => $id,
+            'disabled' => $disabled
         ]);
         $button->setTemplate('elements/buttons.mustache');
         return $button;
