@@ -47,6 +47,13 @@ define(['jquery', 'cg-mustache'], function($, CGMustache)
         });
     };
 
+    DomManipulator.prototype.show = function(selector)
+    {
+        console.log("SHOWING");
+        console.log(selector);
+        $(selector).removeClass('hidden');
+    }
+
     DomManipulator.prototype.triggerElementSelectedEvent = function(element)
     {
         $(document).trigger(DomManipulator.EVENT_TEMPLATE_ELEMENT_SELECTED, [element]);

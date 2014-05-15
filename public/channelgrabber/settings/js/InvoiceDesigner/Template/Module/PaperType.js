@@ -51,7 +51,7 @@ define([
     {
         ModuleAbstract.prototype.init.call(this, template, templateService);
         this.setAvailablePaperTypes(this.getStorage().fetchAll());
-        //domManipulator.show('#paperType')
+        domManipulator.show("#" + paperTypeListener.ID);
         domManipulator.populateCustomSelect('#paperTypeDropdown', this.getAvailablePaperTypes());
     };
 
