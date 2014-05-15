@@ -89,18 +89,18 @@ class Service
      * @param array $orderIds
      * @return Response
      */
-    public function getResponseFromOrderIds(array $orderIds)
+    public function getResponseFromOrderIds(array $orderIds, array $templateConfig = [])
     {
         $filter = $this->getDi()->get(Filter::class, ['id' => $orderIds]);
         $collection = $this->getOrderService()->getOrders($filter);
-        return $this->getResponseFromOrderCollection($collection);
+        return $this->getResponseFromOrderCollection($collection, $templateConfig);
     }
 
     /**
      * @param Collection $orderCollection
      * @return Response
      */
-    public function getResponseFromOrderCollection(Collection $orderCollection)
+    public function getResponseFromOrderCollection(Collection $orderCollection, array $templateConfig = [])
     {
         $this->markOrdersAsPrintedFromOrderCollection($orderCollection);
         return $this->getDi()->get(
@@ -108,7 +108,7 @@ class Service
             [
                 'mimeType' => $this->getRendererService()->getMimeType(),
                 'filename' => $this->getRendererService()->getFileName(),
-                'content' => $this->generateInvoiceFromOrderCollection($orderCollection)
+                'content' => $this->generateInvoiceFromOrderCollection($orderCollection, $templateConfig)
             ]
         );
     }
@@ -123,13 +123,15 @@ class Service
         }
     }
 
-    public function generateInvoiceFromOrderCollection(Collection $orderCollection)
+    public function generateInvoiceFromOrderCollection(Collection $orderCollection, array $templateConfig = [])
     {
         $renderedContent = [];
+        $template = $this->getTemplateFactory()->getTemplateForOrderEntity($templateConfig);
+
         foreach ($orderCollection as $order) {
             $renderedContent[] = $this->getRendererService()->renderOrderTemplate(
                 $order,
-                $this->getTemplateFactory()->getTemplateForOrderEntity($order)
+                $template
             );
         }
         return $this->getRendererService()->combine($renderedContent);

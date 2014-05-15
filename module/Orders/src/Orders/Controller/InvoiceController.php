@@ -5,6 +5,8 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Orders\Order\Invoice\Service;
 use Orders\Order\Invoice\Response;
 
+use CG\Template\FontFamily\Helvetica;
+
 class InvoiceController extends AbstractActionController
 {
     protected $service;
@@ -38,5 +40,34 @@ class InvoiceController extends AbstractActionController
             return $this->redirect()->toRoute('Orders');
         }
         return $this->getService()->getResponseFromOrderIds($orderIds);
+    }
+
+    protected function createElement(array $config)
+    {
+        $class = 'CG\\Template\\Element\\' . ucfirst($config['type']);
+        $element = $this->getService()->getDi()->get($class, $config);
+        return $element;
+    }
+
+    /**
+     * @return Response
+     */
+    public function generatePreviewAction()
+    {
+        // get order
+        $filter = $this->getService()->getDi()->get('CG\\Order\\Service\\Filter', ['limit' => '1']);
+        $orders = $this->getService()->getOrderService()->getOrders($filter)->toArray();
+        $order = array_pop($orders);
+
+        // get config
+        $templateConfig = json_decode($this->params()->fromPost('template'),true);
+
+        $elements = [];
+        foreach ($templateConfig['elements'] as $element) {
+            $elements[] = $this->createElement($element);
+        }
+        $templateConfig['elements'] = $elements;
+
+        return $this->getService()->getResponseFromOrderIds([$order['id']], $templateConfig);
     }
 }
