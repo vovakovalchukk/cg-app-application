@@ -50,7 +50,10 @@ define(function()
         }
         var items = this.getItems();
         for (var id in items) {
-            callback(items[id]);
+            var success = callback(items[id]);
+            if (success === false) {
+                break;
+            }
         }
         return this;
     };
@@ -58,6 +61,11 @@ define(function()
     CollectionAbstract.prototype.containsId = function(id)
     {
         return (this.getItems()[id] !== undefined);
+    };
+
+    CollectionAbstract.prototype.getById = function(id)
+    {
+        return this.getItems()[id];
     };
 
     CollectionAbstract.prototype.merge = function(collection)

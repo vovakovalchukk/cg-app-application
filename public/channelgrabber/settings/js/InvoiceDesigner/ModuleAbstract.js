@@ -31,6 +31,7 @@ define(function()
     ModuleAbstract.prototype.init = function(application)
     {
         this.setApplication(application);
+        this.getDomListener().init(this);
         // Sub-classes should override with a .call() to this method then do their own work
     };
 

@@ -7,5 +7,5 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
 
     Box.prototype = Object.create(ElementAbstract.prototype);
 
-    return new Box();
+    return Box;
 });

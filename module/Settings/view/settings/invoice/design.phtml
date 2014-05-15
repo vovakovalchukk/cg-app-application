@@ -1,5 +1,6 @@
 <?php $this->headLink()->appendStylesheet($this->basePath() . Settings\Module::PUBLIC_FOLDER . 'css/invoiceDesignerMain.css') ?>
 <?php $this->headLink()->appendStylesheet($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'css/common/subheader-hide.css'); ?>
+<?php $this->headLink()->appendStylesheet($this->basePath() . Settings\Module::PUBLIC_FOLDER . 'css/invoice-designer.css') ?>
 <?php $this->inlineScript()->captureStart(); ?>
 $(document).ready(function() {
     require.config({
@@ -16,9 +17,11 @@ $(document).ready(function() {
 <?php $this->inlineScript()->captureEnd(); ?>
 <div id="invoice-controls-bar" class="sidebar sidebar-fixed sidebar-left sidebar-invoice-designer">
     <!--Invoice Controls-->
-    <?= $templates; ?>
-    <?= $templateAddButton ?>
-    <?= $templateDuplicateButton ?>
+    <div class="invoice-select-create">
+        <?= $templates; ?>
+        <?= $templateAddButton ?>
+        <?= $templateDuplicateButton ?>
+    </div>
 </div>
 <div id="invoice-template">
     <div id="save-template" class='save-template'>
@@ -26,7 +29,8 @@ $(document).ready(function() {
         <?= $templateDiscardButton ?>
         <?= $templateSaveButton ?>
     </div>
-    <!--Invoice Template-->
+    <div id="invoice-template-container" class="invoice-template-container">
+    </div>
 </div>
 <div id="element-inspector-bar" class="sidebar sidebar-fixed sidebar-right sidebar-invoice-designer">
     <!--Element Inspectors-->

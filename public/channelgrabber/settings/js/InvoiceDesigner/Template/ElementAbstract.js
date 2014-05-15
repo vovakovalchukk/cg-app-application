@@ -1,124 +1,160 @@
-define(['InvoiceDesigner/PubSubAbstract'], function(PubSubAbstract) {
-    var ElementAbstract = function()
+define([
+    'InvoiceDesigner/EntityHydrateAbstract',
+    'InvoiceDesigner/PubSubAbstract'
+], function(
+    EntityHydrateAbstract,
+    PubSubAbstract
+) {
+    var ElementAbstract = function(additionalData)
     {
+        EntityHydrateAbstract.call(this);
         PubSubAbstract.call(this);
 
-        var id;
-        var templateType;
-        var height;
-        var width;
-        var x;
-        var y;
-        var backgroundColour;
-        var borderWidth;
-        var borderColour;
+        var data = {
+            id: undefined,
+            templateType: undefined,
+            height: undefined,
+            width: undefined,
+            x: undefined,
+            y: undefined,
+            backgroundColour: undefined,
+            borderWidth: undefined,
+            borderColour: undefined
+        };
+        var baseInspectableAttributes = [];
+        for (var field in data) {
+            baseInspectableAttributes.push(field);
+        }
+        var extraInspectableAttributes = [];
+        if (additionalData) {
+            for (var field in additionalData) {
+                data[field] = additionalData[field];
+                extraInspectableAttributes.push(field);
+            }
+        }
 
         var editable = true;
 
-        var baseInspectableAttributes = [
-            'height', 'width', 'x', 'y', 'backgroundColour', 'borderWidth', 'borderColour'
-        ];
-
         this.getId = function()
         {
-            if (!id) {
+            if (!this.get('id')) {
                 this.setId(generateId());
             }
-            return id;
+            return this.get('id');
         };
 
         this.setId = function(newId)
         {
-            id = newId;
+            this.set('id', newId);
             return this;
         };
 
         this.getTemplateType = function()
         {
-            return templateType;
+            return this.get('templateType');
         };
 
         this.setTemplateType = function(newTemplateType)
         {
-            templateType = newTemplateType;
+            this.set('templateType', newTemplateType);
             return this;
         };
 
         this.getHeight = function()
         {
-            return height;
+            return this.get('height');
         };
 
         this.setHeight = function(newHeight)
         {
-            height = newHeight;
+            this.set('height', newHeight);
             return this;
         };
 
         this.getWidth = function()
         {
-            return width;
+            return this.get('width');
         };
 
         this.setWidth = function(newWidth)
         {
-            width = newWidth;
+            this.set('width', newWidth);
             return this;
         };
 
         this.getX = function()
         {
-            return x;
+            return this.get('x');
         };
 
         this.setX = function(newX)
         {
-            x = newX;
+            this.set('x', newX);
             return this;
         };
 
         this.getY = function()
         {
-            return y;
+            return this.get('y');
         };
 
         this.setY = function(newY)
         {
-            y = newY;
+            this.set('y', newY);
             return this;
         };
 
         this.getBackgroundColour = function()
         {
-            return backgroundColour;
+            return this.get('backgroundColour');
         };
 
         this.setBackgroundColour = function(newBackgroundColour)
         {
-            backgroundColour = newBackgroundColour;
+            this.set('backgroundColour', newBackgroundColour);
             return this;
         };
 
         this.getBorderWidth = function()
         {
-            return borderWidth;
+            return this.get('borderWidth');
         };
 
         this.setBorderWidth = function(newBorderWidth)
         {
-            borderWidth = newBorderWidth;
+            this.set('borderWidth', newBorderWidth);
             return this;
         };
 
         this.getBorderColour = function()
         {
-            return borderColour;
+            return this.get('borderColour');
         };
 
         this.setBorderColour = function(newBorderColour)
         {
-            borderColour = newBorderColour;
+            this.set('borderColour', newBorderColour);
             return this;
+        };
+
+        this.get = function(field)
+        {
+            return data[field];
+        };
+
+        this.set = function(field, value, populating)
+        {
+            data[field] = value;
+
+            if (populating) {
+                return;
+            }
+            this.publish();
+        };
+
+        this.getData = function()
+        {
+            return data;
         };
 
         this.isEditable = function()
@@ -142,7 +178,7 @@ define(['InvoiceDesigner/PubSubAbstract'], function(PubSubAbstract) {
          */
         this.getExtraInspectableAttributes = function()
         {
-            return [];
+            return extraInspectableAttributes;
         };
 
         // Elements aren't expected to have IDs so generate one
@@ -152,7 +188,11 @@ define(['InvoiceDesigner/PubSubAbstract'], function(PubSubAbstract) {
         };
     };
 
-    ElementAbstract.prototype = Object.create(PubSubAbstract.prototype);
+    var combinedPrototype = EntityHydrateAbstract.prototype;
+    for (var key in PubSubAbstract.prototype) {
+        combinedPrototype[key] = PubSubAbstract.prototype[key];
+    }
+    ElementAbstract.prototype = Object.create(combinedPrototype);
 
     ElementAbstract.prototype.getInspectableAttributes = function()
     {
@@ -167,16 +207,7 @@ define(['InvoiceDesigner/PubSubAbstract'], function(PubSubAbstract) {
 
     ElementAbstract.prototype.toJson = function()
     {
-        return {
-            templateType: this.getTemplateType(),
-            height: this.getHeight(),
-            width: this.getWidth(),
-            x: this.getX(),
-            y: this.getY(),
-            backgroundColour: this.getBackgroundColour(),
-            borderWidth: this.getBorderWidth(),
-            borderColour: this.getBorderColour()
-        };
+        return this.getData();
     };
 
     return ElementAbstract;

@@ -6,14 +6,13 @@ define(['jquery'], function($)
     };
 
     DomManipulator.SAVE_DISCARD_BAR_SELECTOR = '#save-template';
-    DomManipulator.EVENT_TEMPLATE_CHANGED = 'event-template-changed';
+    DomManipulator.EVENT_TEMPLATE_CHANGED = 'invoice-template-changed';
+    DomManipulator.EVENT_TEMPLATE_ELEMENT_SELECTED = 'invoice-template-element-selected';
+    DomManipulator.DOM_SELECTOR_TEMPLATE_CONTAINER = '#invoice-template-container';
 
     DomManipulator.prototype.insertTemplateHtml = function(html)
     {
-        /*
-         * TODO (CGIV-2026)
-         * Use jquery to insert the HTML in the right place
-         */
+        $(DomManipulator.DOM_SELECTOR_TEMPLATE_CONTAINER).empty().append(html);
     };
 
     DomManipulator.prototype.showSaveDiscardBar = function(template)
@@ -34,6 +33,12 @@ define(['jquery'], function($)
         return this;
     };
 
+    DomManipulator.prototype.triggerElementSelectedEvent = function(element)
+    {
+        $(document).trigger(DomManipulator.EVENT_TEMPLATE_ELEMENT_SELECTED, [element]);
+        return this;
+    };
+
     DomManipulator.prototype.getTemplateChangedEvent = function()
     {
         return DomManipulator.EVENT_TEMPLATE_CHANGED;
@@ -42,6 +47,11 @@ define(['jquery'], function($)
     DomManipulator.prototype.enable = function(selector)
     {
         $(selector).removeClass('disabled');
+    };
+
+    DomManipulator.prototype.getElementSelectedEvent = function()
+    {
+        return DomManipulator.EVENT_TEMPLATE_ELEMENT_SELECTED;
     };
 
     return new DomManipulator();

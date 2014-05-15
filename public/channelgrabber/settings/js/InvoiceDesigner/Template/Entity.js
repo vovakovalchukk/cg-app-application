@@ -1,16 +1,22 @@
 define([
     'InvoiceDesigner/Template/Element/Collection',
-    'InvoiceDesigner/Template/DomManipulator'
+    'InvoiceDesigner/Template/DomManipulator',
+    'InvoiceDesigner/EntityHydrateAbstract',
+    'InvoiceDesigner/Template/Entity'
 ], function(
-    collection,
-    domManipulator
+    Collection,
+    domManipulator,
+    EntityHydrateAbstract
 ) {
     var Entity = function()
     {
-        var elements = collection;
+        EntityHydrateAbstract.call(this);
+
+        var elements = new Collection();
         var manipulator = domManipulator;
         var state;
         var stateId;
+        var page;
 
         // Member vars to watch for changes
         var data = {
@@ -22,6 +28,8 @@ define([
             minWidth: undefined
         };
 
+        Entity.PATH_TO_PAGE_ENTITY = 'InvoiceDesigner/Template/Element/Page';
+
         this.getElements = function()
         {
             return elements;
@@ -30,6 +38,21 @@ define([
         this.getManipulator = function()
         {
             return manipulator;
+        };
+
+        this.getPage = function()
+        {
+            if (!page) {
+                var pageElement = require(Entity.PATH_TO_PAGE_ENTITY);
+                page = new pageElement();
+            }
+            return page;
+        };
+
+        this.setPage = function(newPage)
+        {
+            page = newPage;
+            return this;
         };
 
         this.getId = function()
@@ -142,25 +165,27 @@ define([
 
         this.notifyOfChange = function()
         {
-            this.getDomManipulator().enable(this);
+            this.getDomManipulator().triggerTemplateChangeEvent(this);
         };
     };
 
-    Entity.prototype.hydrate = function(data, populating)
+    Entity.prototype = Object.create(EntityHydrateAbstract.prototype);
+
+    Entity.prototype.shouldFieldBeHydrated = function(field)
     {
-        for (var field in data)
-        {
-            if (field === 'elements') {
-                continue;
-            }
-            this.set(field, data[field], populating);
-        }
+        return (field !== 'elements');
     };
 
-    Entity.prototype.addElement = function(element)
+    Entity.prototype.addElement = function(element, populating)
     {
         this.getElements().attach(element);
         element.subscribe(this);
+        if (element.getTemplateType() === 'page') {
+            this.setPage(element);
+        }
+        if (populating) {
+            return this;
+        }
         this.notifyOfChange();
         return this;
     };
@@ -178,5 +203,5 @@ define([
         this.notifyOfChange();
     };
 
-    return new Entity();
+    return Entity;
 });
