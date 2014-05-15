@@ -1,9 +1,15 @@
-define(['InvoiceDesigner/Template/Service'], function(templateService)
-{
+define([
+    'InvoiceDesigner/Template/Service',
+    'InvoiceDesigner/EntityHydrateAbstract',
+], function(
+    templateService,
+    EntityHydrateAbstract
+) {
     var Entity = function()
     {
-        var service = templateService;
+        EntityHydrateAbstract.call(this);
 
+        var service = templateService;
         var data = {
             id: undefined,
             name: undefined,
@@ -82,13 +88,7 @@ define(['InvoiceDesigner/Template/Service'], function(templateService)
         };
     };
 
-    Entity.prototype.hydrate = function(data, populating) // TODO should be extracted to abstract. check with azza b
-    {
-        for (var field in data)
-        {
-            this.set(field, data[field], populating);
-        }
-    };
+    Entity.prototype = Object.create(EntityHydrateAbstract.prototype);
 
     return Entity;
 });
