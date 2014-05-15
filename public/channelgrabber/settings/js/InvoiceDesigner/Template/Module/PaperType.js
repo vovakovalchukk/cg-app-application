@@ -5,7 +5,7 @@ define([
     'InvoiceDesigner/Template/DomManipulator'
 ], function(
     ModuleAbstract,
-    paperTypeListener,
+    PaperTypeListener,
     paperTypeStorage,
     domManipulator
     ) {
@@ -17,7 +17,7 @@ define([
         var template;
         var availablePaperTypes;
 
-        this.setDomListener(new paperTypeListener());
+        this.setDomListener(new PaperTypeListener());
 
         this.getStorage = function()
         {
@@ -51,8 +51,8 @@ define([
     {
         ModuleAbstract.prototype.init.call(this, template, templateService);
         this.setAvailablePaperTypes(this.getStorage().fetchAll());
-        domManipulator.show("#" + paperTypeListener.ID);
-        domManipulator.populateCustomSelect('#paperTypeDropdown', this.getAvailablePaperTypes());
+        domManipulator.show("#" + PaperTypeListener.CONTAINER_ID);
+        domManipulator.populateCustomSelect("#" + PaperTypeListener.DROPDOWN_ID, this.getAvailablePaperTypes());
     };
 
     PaperType.prototype.selectionMade = function(id, isInverse)

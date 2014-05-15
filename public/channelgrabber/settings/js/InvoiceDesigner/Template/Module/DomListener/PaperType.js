@@ -20,7 +20,9 @@ define([
         };
     };
 
-    PaperType.ID = 'paperTypeModule';
+    PaperType.CONTAINER_ID = 'paperTypeModule';
+    PaperType.CHECKBOX_ID = 'inverseLabelPosition';
+    PaperType.DROPDOWN_ID = 'paperTypeDropdown';
 
     PaperType.prototype = Object.create(DomListenerAbstract.prototype);
 
@@ -30,17 +32,17 @@ define([
         DomListenerAbstract.prototype.init.call(this, module);
 
         //$(document).on(CustomSelect.EVENT_SELECT_CHANGED, function (event, selectBox, id) { // TODO Blocked by CGIV-2002. Implemented in there
-        $(document).on(CustomSelect.EVENT_SELECT_CHANGED, function (event, selectBox, id) {
+        $(document).on(CustomSelect.EVENT_SELECT_CHANGED, function (event, selectBox, selectedId) {
             console.log("CLICK");
-            var isInverse = $("#inverseLabelPosition").is(":checked");
-            self.getModule().selectionMade(id, isInverse);
+            var isInverse = $("#" + PaperType.CHECKBOX_ID).is(":checked");
+            self.getModule().selectionMade(selectedId, isInverse);
         });
 
-        $("#" + PaperType.ID + " #inverseLabelPosition").click(function() {
+        $("#" + PaperType.CHECKBOX_ID).click(function() {
             console.log("CHECK TOGGLED");
-            var id = $("#" + PaperType.ID + " input[type=hidden]").val();
-            var isInverse = $("#inverseLabelPosition").is(":checked");
-            self.getModule().selectionMade(id, isInverse);
+            var selectedId = $("#" + PaperType.CONTAINER_ID + " input[type=hidden]").val();
+            var isInverse = $("#" + PaperType.CHECKBOX_ID).is(":checked");
+            self.getModule().selectionMade(selectedId, isInverse);
         });
     };
 
