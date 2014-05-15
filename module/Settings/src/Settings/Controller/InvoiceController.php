@@ -12,6 +12,7 @@ class InvoiceController extends AbstractActionController
 {
     const ROUTE = 'Invoice';
     const ROUTE_FETCH = 'Fetch';
+    const TEMPLATE_SELECTOR_ID = 'template-selector';
 
     protected $viewModelFactory;
     protected $jsonModelFactory;
@@ -39,6 +40,7 @@ class InvoiceController extends AbstractActionController
         $view->addChild($this->getTemplateSelectView(), 'templates');
         $view->addChild($this->getTemplateAddButtonView(), 'templateAddButton');
         $view->addChild($this->getTemplateDuplicateButtonView(), 'templateDuplicateButton');
+        $view->setVariable('templateSelectorId', static::TEMPLATE_SELECTOR_ID);
         return $view;
     }
 
@@ -57,6 +59,7 @@ class InvoiceController extends AbstractActionController
         $templateView->setTemplate('elements/custom-select.mustache');
         $templateView->setVariable('name', 'template');
         $templateView->setVariable('initialTitle', $this->getTranslate()->translate('Select Template'));
+        $templateView->setVariable('id', static::TEMPLATE_SELECTOR_ID);
         return $templateView;
     }
 
