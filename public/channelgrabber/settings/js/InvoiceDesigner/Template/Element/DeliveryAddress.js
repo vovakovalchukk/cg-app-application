@@ -7,5 +7,5 @@ define(['InvoiceDesigner/Template/Element/ImmutableTextAbstract'], function(Immu
 
     DeliveryAddress.prototype = Object.create(ImmutableTextAbstract.prototype);
 
-    return new DeliveryAddress();
+    return DeliveryAddress;
 });

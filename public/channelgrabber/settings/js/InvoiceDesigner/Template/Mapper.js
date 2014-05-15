@@ -33,7 +33,8 @@ define([
             throw 'InvalidArgumentException: InvoiceDesigner\Template\Mapper::fromJson must be passed a JSON object';
         }
 
-        var template = require(Mapper.PATH_TO_ELEMENT_ENTITY);
+        var templateClass = require(Mapper.PATH_TO_ELEMENT_ENTITY);
+        var template = new templateClass();
         var populating = true;
         template.hydrate(json, populating);
 
@@ -86,7 +87,7 @@ define([
             if (element.getId() === page.getId()) {
                 return true;
             }
-            var elementType = element.getType().ucfirst();
+            var elementType = element.getTemplateType().ucfirst();
             var elementMapper = require(Mapper.PATH_TO_ELEMENT_TYPE_MAPPERS + elementType);
             var elementHtml = elementMapper.toHtml(element);
             elementsHtml += elementHtml;

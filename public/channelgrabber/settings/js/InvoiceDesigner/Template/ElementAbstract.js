@@ -12,7 +12,7 @@ define([
 
         var data = {
             id: undefined,
-            type: undefined,
+            templateType: undefined,
             height: undefined,
             width: undefined,
             x: undefined,
@@ -49,14 +49,14 @@ define([
             return this;
         };
 
-        this.getType = function()
+        this.getTemplateType = function()
         {
-            return this.get('type');
+            return this.get('templateType');
         };
 
-        this.setType = function(newType)
+        this.setTemplateType = function(newTemplateType)
         {
-            this.set('type', newType);
+            this.set('templateType', newTemplateType);
             return this;
         };
 

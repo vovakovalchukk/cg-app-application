@@ -16,9 +16,11 @@ $(document).ready(function() {
 <?php $this->inlineScript()->captureEnd(); ?>
 <div id="invoice-controls-bar" class="sidebar sidebar-fixed sidebar-left sidebar-invoice-designer">
     <!--Invoice Controls-->
-    <?= $templates; ?>
-    <?= $templateAddButton ?>
-    <?= $templateDuplicateButton ?>
+    <div class="invoice-select-create">
+        <?= $templates; ?>
+        <?= $templateAddButton ?>
+        <?= $templateDuplicateButton ?>
+    </div>
 </div>
 <div id="invoice-template-container" class="invoice-template-container">
     <!--Invoice Template-->

@@ -1,9 +1,10 @@
 define([
     'InvoiceDesigner/Template/Element/Collection',
     'InvoiceDesigner/Template/DomManipulator',
-    'InvoiceDesigner/EntityHydrateAbstract'
+    'InvoiceDesigner/EntityHydrateAbstract',
+    'InvoiceDesigner/Template/Entity'
 ], function(
-    collection,
+    Collection,
     domManipulator,
     EntityHydrateAbstract
 ) {
@@ -11,7 +12,7 @@ define([
     {
         EntityHydrateAbstract.call(this);
 
-        var elements = collection;
+        var elements = new Collection();
         var manipulator = domManipulator;
         var state;
         var stateId;
@@ -27,6 +28,8 @@ define([
             minWidth: undefined
         };
 
+        Entity.PATH_TO_PAGE_ENTITY = 'InvoiceDesigner/Template/Element/Page';
+
         this.getElements = function()
         {
             return elements;
@@ -39,6 +42,10 @@ define([
 
         this.getPage = function()
         {
+            if (!page) {
+                var pageElement = require(Entity.PATH_TO_PAGE_ENTITY);
+                page = new pageElement();
+            }
             return page;
         };
 
@@ -158,7 +165,7 @@ define([
 
         this.notifyOfChange = function()
         {
-            this.getDomManipulator().enable(this);
+            this.getDomManipulator().triggerTemplateChangeEvent(this);
         };
     };
 
@@ -173,7 +180,7 @@ define([
     {
         this.getElements().attach(element);
         element.subscribe(this);
-        if (element.getType() === 'page') {
+        if (element.getTemplateType() === 'page') {
             this.setPage(element);
         }
         if (populating) {
@@ -196,5 +203,5 @@ define([
         this.notifyOfChange();
     };
 
-    return new Entity();
+    return Entity;
 });
