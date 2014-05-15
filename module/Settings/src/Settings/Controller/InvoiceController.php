@@ -65,47 +65,33 @@ class InvoiceController extends AbstractActionController
 
     protected function getTemplateAddButtonView()
     {
-        $templateAddButtonView = $this->getViewModelFactory()->newInstance([
-            'buttons' => true,
-            'value' => $this->getTranslate()->translate('New Template'),
-            'id' => 'new-template'
-        ]);
-        $templateAddButtonView->setTemplate('elements/buttons.mustache');
-        return $templateAddButtonView;
+        return $this->getButtonFromNameAndId($this->getTranslate()->translate('New Template'), 'new-template');
     }
 
     protected function getTemplateDuplicateButtonView()
     {
-        $templateDuplicateButtonView = $this->getViewModelFactory()->newInstance([
-            'buttons' => true,
-            'value' => $this->getTranslate()->translate('Duplicate'),
-            'disabled' => true,
-            'id' => 'duplicate-template'
-        ]);
-        $templateDuplicateButtonView->setTemplate('elements/buttons.mustache');
-        return $templateDuplicateButtonView;
+        return $this->getButtonFromNameAndId($this->getTranslate()->translate('Duplicate'), 'duplicate-template');
     }
 
     protected function getTemplateDiscardButtonView()
     {
-        $templateDuplicateButtonView = $this->getViewModelFactory()->newInstance([
-            'buttons' => true,
-            'value' => $this->getTranslate()->translate('Discard'),
-            'id' => 'discard-template-button'
-        ]);
-        $templateDuplicateButtonView->setTemplate('elements/buttons.mustache');
-        return $templateDuplicateButtonView;
+        return $this->getButtonFromNameAndId($this->getTranslate()->translate('Discard'), 'discard-template-button');
     }
 
     protected function getTemplateSaveButtonView()
     {
-        $templateDuplicateButtonView = $this->getViewModelFactory()->newInstance([
+        return $this->getButtonFromNameAndId($this->getTranslate()->translate('Save'), 'save-template-button');
+    }
+
+    protected function getButtonFromNameAndId($name, $id)
+    {
+        $button = $this->getViewModelFactory()->newInstance([
             'buttons' => true,
-            'value' => $this->getTranslate()->translate('Save'),
-            'id' => 'save-template-button'
+            'value' => $name,
+            'id' => $id
         ]);
-        $templateDuplicateButtonView->setTemplate('elements/buttons.mustache');
-        return $templateDuplicateButtonView;
+        $button->setTemplate('elements/buttons.mustache');
+        return $button;
     }
 
     public function fetchAction()

@@ -24,12 +24,15 @@ class Module
         $eventManager = $event->getApplication()->getEventManager();
         $eventManager->attach(MvcEvent::EVENT_RENDER, array($this, 'layoutHandler'));
         $eventManager->attach(MvcEvent::EVENT_RENDER, [$this->getNavBarService($event), 'appendNavBarItemsToNavBar']);
+        $eventManager->attach(MvcEvent::EVENT_RENDER, [$this, 'appendStylesheet']);
+    }
 
-        $eventManager->attach(MvcEvent::EVENT_RENDER, function (MvcEvent $e) {
-            $renderer = $e->getApplication()->getServiceManager()->get(PhpRenderer::class);
-            $basePath = $e->getApplication()->getServiceManager()->get('viewhelpermanager')->get('basePath');
-            $renderer->headLink()->appendStylesheet($basePath() . static::PUBLIC_FOLDER . 'css/default.css');
-        });
+    public function appendStylesheet(MvcEvent $e)
+    {
+        $serviceManager = $e->getApplication()->getServiceManager();
+        $renderer = $serviceManager->get(PhpRenderer::class);
+        $basePath = $serviceManager->get('viewhelpermanager')->get('basePath');
+        $renderer->headLink()->appendStylesheet($basePath() . static::PUBLIC_FOLDER . 'css/default.css');
     }
 
     public function getConfig()
