@@ -12,33 +12,34 @@ $(document).ready(function() {
         designerApp.init();
     });
 
-    require(['cg-mustache'], function(CGMustache)
-    {
-        var templateUrlMap = {
-            paperType:    '/channelgrabber/settings/template/invoiceDesigner/paperType.mustache',
-            customSelect: '<?=$this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache';?>'
-        };
-
-        CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache)
-        {
-            var customSelectOptions = {
-                isOptional: false,
-                id: 'paperTypeDropdown',
-                name: 'name',
-                class: 'class',
-                options: [
-                ]
-            };
-
-            var customSelect = cgmustache.renderTemplate(templates, customSelectOptions, "customSelect");
-            var paperType = cgmustache.renderTemplate(templates, {}, "paperType", {dropDown: customSelect});
-            $('#invoice-controls-bar').append(paperType);
-        });
-    });
+<!--    require(['cg-mustache'], function(CGMustache)-->
+<!--    {-->
+<!--        var templateUrlMap = {-->
+<!--            paperType:    '/channelgrabber/settings/template/invoiceDesigner/paperType.mustache',-->
+<!--            customSelect: '--><?//=$this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache';?><!--'-->
+<!--        };-->
+<!---->
+<!--        CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache)-->
+<!--        {-->
+<!--            var customSelectOptions = {-->
+<!--                isOptional: false,-->
+<!--                id: 'paperTypeDropdown',-->
+<!--                name: 'name',-->
+<!--                class: 'class',-->
+<!--                options: [-->
+<!--                ]-->
+<!--            };-->
+<!---->
+<!--            var customSelect = cgmustache.renderTemplate(templates, customSelectOptions, "customSelect");-->
+<!--            var paperType = cgmustache.renderTemplate(templates, {}, "paperType", {dropDown: customSelect});-->
+<!--            $('#invoice-controls-bar').append(paperType);-->
+<!--        });-->
+<!--    });-->
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <div id="invoice-controls-bar" class="sidebar sidebar-fixed sidebar-left sidebar-invoice-designer">
     <!--Invoice Controls-->
+    <?= $paperTypeModule ?>
 </div>
 <div id="invoice-template">
     <!--Invoice Template-->
