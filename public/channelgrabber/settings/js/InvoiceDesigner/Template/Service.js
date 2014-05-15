@@ -96,9 +96,20 @@ define([
 
     Service.prototype.showAsPdf = function(template)
     {
-        /*
-         * TODO (CGIV-2011)
-         */
+        var form = document.createElement('form');
+        form.action = 'https://app.channelgrabber.com.local/orders/invoice/preview';
+        form.method = 'POST';
+        form.id = 'tempInvoiceForm';
+        form.setAttribute('style','display:none');
+
+        var input = document.createElement('input');
+        input.name = 'template';
+        input.value = JSON.stringify(template);
+        form.appendChild(input);
+
+        document.body.appendChild(form);
+        form.submit();
+        document.getElementById("tempInvoiceForm").remove();
     };
 
     Service.prototype.loadModules = function(template)
