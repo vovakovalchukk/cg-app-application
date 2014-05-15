@@ -1,9 +1,7 @@
 define([
-    'InvoiceDesigner/Module/DomListenerAbstract',
-    'element/customSelect'
+    'InvoiceDesigner/Module/DomListenerAbstract'
 ], function(
-    DomListenerAbstract,
-    CustomSelect
+    DomListenerAbstract
 ) {
 
     var TemplateSelector = function()
@@ -20,7 +18,7 @@ define([
     {
         var self = this;
         DomListenerAbstract.prototype.init.call(this, module);
-        $(document).on(CustomSelect.EVENT_SELECT_CHANGED, function (event, selectBox, id) {
+        $(templateSelectorId).on('change', function (event, selectBox, id) {
             self.getModule().selectionMade(id);
         });
         $(TemplateSelector.DUPLICATE_TEMPLATE_SELECTOR).click(function () {
