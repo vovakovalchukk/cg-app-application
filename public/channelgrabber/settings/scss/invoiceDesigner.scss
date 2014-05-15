@@ -1,4 +1,5 @@
 @import "../../zf2-v4-ui/scss/common/partials/_variables";
+@import "saveDiscardBar";
 
 .invoice-template-container{
     margin-right: 200px;
@@ -75,6 +76,10 @@
         @extend .style-tag-b;
         @extend .style-tag-i;
     }
+}
+
+#main-wrapper {
+  padding: 0px !important;
 }
 
 .invoice-select-create {
