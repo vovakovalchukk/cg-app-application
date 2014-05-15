@@ -1,5 +1,5 @@
 define([
-    'InvoiceDesigner/ModuleAbstract',
+    'InvoiceDesigner/Template/ModuleAbstract',
     'InvoiceDesigner/Template/Module/DomListener/AddDiscardBar'
 ], function(
     ModuleAbstract,
@@ -13,14 +13,20 @@ define([
 
     AddDiscardBar.prototype = Object.create(ModuleAbstract.prototype);
 
+    AddDiscardBar.prototype.init = function(template, service)
+    {
+        ModuleAbstract.prototype.init.call(this, template, service);
+    };
+
     AddDiscardBar.prototype.discard = function()
     {
-        this.getTemplateService().discard();
+        var state = this.getTemplate().getState();
+        this.getTemplateService()[state](this.getTemplate().getStateId());
     };
 
     AddDiscardBar.prototype.save = function()
     {
-        this.getTemplateService().save();
+        this.getTemplateService().save(this.getTemplate());
     };
 
     return new AddDiscardBar();
