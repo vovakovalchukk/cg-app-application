@@ -1,5 +1,12 @@
-define(['InvoiceDesigner/Template/Module/DomListenerAbstract', 'jQuery'], function(DomListenerAbstract, $)
-{
+define([
+    'InvoiceDesigner/Template/Module/DomListenerAbstract',
+    'jquery',
+    'InvoiceDesigner/Template/DomManipulator'
+], function(
+    DomListenerAbstract,
+    $,
+    domManipulator
+) {
     var InspectorManager = function()
     {
         DomListenerAbstract.call(this);
@@ -16,7 +23,7 @@ define(['InvoiceDesigner/Template/Module/DomListenerAbstract', 'jQuery'], functi
     InspectorManager.prototype.initListeners = function()
     {
         var self = this;
-        $(document).on('invoice-template-element-selected', function(event, element)
+        $(document).on(domManipulator.getElementSelectedEvent(), function(event, element)
         {
             self.getModule().elementSelected(element);
         });

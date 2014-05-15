@@ -1,4 +1,4 @@
-define(['jQuery'], function($)
+define(['jquery'], function($)
 {
     var DomManipulator = function()
     {
@@ -6,13 +6,12 @@ define(['jQuery'], function($)
     };
 
     DomManipulator.EVENT_TEMPLATE_CHANGED = 'invoice-template-changed';
+    DomManipulator.EVENT_TEMPLATE_ELEMENT_SELECTED = 'invoice-template-element-selected';
+    DomManipulator.DOM_SELECTOR_TEMPLATE_CONTAINER = '#invoice-template-container';
 
     DomManipulator.prototype.insertTemplateHtml = function(html)
     {
-        /*
-         * TODO (CGIV-2026)
-         * Use jQuery to insert the HTML in the right place
-         */
+        $(DomManipulator.DOM_SELECTOR_TEMPLATE_CONTAINER).empty().append(html);
     };
 
     DomManipulator.prototype.triggerTemplateChangeEvent = function(template)
@@ -21,9 +20,20 @@ define(['jQuery'], function($)
         return this;
     };
 
+    DomManipulator.prototype.triggerElementSelectedEvent = function(element)
+    {
+        $(document).trigger(DomManipulator.EVENT_TEMPLATE_ELEMENT_SELECTED, [element]);
+        return this;
+    };
+
     DomManipulator.prototype.getTemplateChangedEvent = function()
     {
         return DomManipulator.EVENT_TEMPLATE_CHANGED;
+    };
+
+    DomManipulator.prototype.getElementSelectedEvent = function()
+    {
+        return DomManipulator.EVENT_TEMPLATE_ELEMENT_SELECTED;
     };
 
     return new DomManipulator();

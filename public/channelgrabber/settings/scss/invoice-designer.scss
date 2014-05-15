@@ -1,0 +1,76 @@
+.invoice-template-container{
+    margin-right: 200px;
+    overflow-x: auto;
+}
+
+.template-element{
+    position: absolute;
+    float: left;
+    cursor: pointer;
+}
+
+.template-element-page{
+    position: relative;
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: inherit;
+}
+
+.template-element-orderTable{
+    border: dashed 2px black;
+
+    table{
+        border: none;
+        background: white;
+        float: none;
+        margin: 0;
+
+        tr{
+            border: none;
+            background: inherit;
+        }
+
+        td{
+            border: none;
+            background: inherit;
+            color: black;
+            padding: 3px;
+            text-align: left;
+        }
+
+        th{
+            @extend td;
+            font-weight: bold
+        }
+    }
+}
+
+.template-element-orderTable-totals{
+    float: right;
+
+    table{
+        td{
+            min-width: 90px;
+        }
+
+        th{
+            @extend td;
+        }
+    }
+}
+
+.template-element-text{
+    .style-tag-b{
+        font-weight: bold;
+    }
+
+    .style-tag-i{
+        font-style: italic;
+    }
+
+    .style-tag-bi{
+        @extend .style-tag-b;
+        @extend .style-tag-i;
+    }
+}
