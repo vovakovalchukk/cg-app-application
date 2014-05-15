@@ -1,6 +1,7 @@
 <?php $this->headLink()->appendStylesheet($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'css/common/subheader-hide.css'); ?>
 <?php $this->headLink()->appendStylesheet($this->basePath() . Settings\Module::PUBLIC_FOLDER . 'css/invoice-designer.css') ?>
-<?php $this->inlineScript()->captureStart(); ?>
+<?php //$this->inlineScript()->captureStart(); ?>
+<script>
 $(document).ready(function() {
     require.config({
         paths: {
@@ -12,27 +13,51 @@ $(document).ready(function() {
     {
         designerApp.init();
     });
+
+    // create 'ADD ELEMENT' buttons
+    require(['mustache'], function(Mustache) {
+        var variables = {
+            buttons: [
+                {   value: 'Seller Address',
+                    element: 'selleraddress'
+                },{ value: 'Delivery Address',
+                    element: 'deliveryaddress'
+                },{ value: 'Image',
+                    element: 'image'
+                },{ value: 'Text',
+                    element: 'text'
+                },{ value: 'Order Table',
+                    element: 'ordertable'
+                },{ value: 'Box',
+                    element: 'box'
+                }
+            ]
+        };
+        var template = "{{#buttons}}<div class='button' data-element='{{element}}' style='margin:10px;width:60px !important;float:left;min-width:initial;'>{{value}}</div>{{/buttons}}";
+        var renderedTemplate = Mustache.render(template, variables);
+        $('#invoice-controls-bar .addElements').append(renderedTemplate);
+    });
+
+    // ADD ELEMENT listeners
+    require([
+        'InvoiceDesigner/Template/Module/ElementManager'
+    ], function(ElementManager) {
+        new ElementManager();
+    });
 });
-<?php $this->inlineScript()->captureEnd(); ?>
+</script>
+<?php //$this->inlineScript()->captureEnd(); ?>
 <div id="invoice-controls-bar" class="sidebar sidebar-fixed sidebar-left sidebar-invoice-designer">
     <!--Invoice Controls-->
 
-    <div class="button toPdfButton" style="margin: 10px">To Pdf</div>
+    <div class="addElements">
+        <h3 style="padding-left:10px;">Add Element</h3>
+    </div>
 </div>
+
 <div id="invoice-template-container" class="invoice-template-container">
     <!--Invoice Template-->
 </div>
 <div id="element-inspector-bar" class="sidebar sidebar-fixed sidebar-right sidebar-invoice-designer">
     <!--Element Inspectors-->
 </div>
-
-<script>
-$(document).on('click', '.toPdfButton', function() {
-    require([
-        'InvoiceDesigner/Template/Service'
-    ], function(InvoiceDesignerService) {
-        var template = InvoiceDesignerService.getMapper().toJson();
-        InvoiceDesignerService.showAsPdf(template);
-    });
-});
-</script>
