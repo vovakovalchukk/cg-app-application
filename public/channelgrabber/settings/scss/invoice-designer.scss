@@ -74,3 +74,10 @@
         @extend .style-tag-i;
     }
 }
+
+.template-module{
+    .element{
+          clear: left;
+          padding: 2px 5px;
+    }
+}
