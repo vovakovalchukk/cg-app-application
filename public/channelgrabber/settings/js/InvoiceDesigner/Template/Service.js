@@ -5,6 +5,7 @@ define([
     'InvoiceDesigner/Template/DomManipulator',
     // Template Module requires here
     'InvoiceDesigner/Template/Module/InspectorManager',
+    'InvoiceDesigner/Template/Module/AddDiscardBar',
     'InvoiceDesigner/Template/Module/Renderer'
 ], function(
     require,
@@ -21,7 +22,8 @@ define([
         var modules = [
             // Template Modules require() paths here
             'InvoiceDesigner/Template/Module/InspectorManager',
-            'InvoiceDesigner/Template/Module/Renderer'
+            'InvoiceDesigner/Template/Module/Renderer',
+            'InvoiceDesigner/Template/Module/AddDiscardBar'
         ];
 
         this.getStorage = function()
