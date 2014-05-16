@@ -7,7 +7,7 @@ define([
     // Template Module requires here
     'InvoiceDesigner/Template/Module/InspectorManager',
     'InvoiceDesigner/Template/Module/Renderer',
-    'InvoiceDesigner/Template/Module/ImageUpload'
+    'InvoiceDesigner/Template/Module/ImageUpload',
     'InvoiceDesigner/Template/Module/AddDiscardBar'
 ], function(
     require,
