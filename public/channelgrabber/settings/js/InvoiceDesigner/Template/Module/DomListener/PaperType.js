@@ -30,7 +30,7 @@ define([
     {
         var self = this;
         DomListenerAbstract.prototype.init.call(this, module);
-
+        //$("#" + PaperType.DROPDOWN_ID).on('change', function (event, selectBox, selectedId) {
         $(document).on(CustomSelect.EVENT_SELECT_CHANGED, function (event, selectBox, selectedId) { // TODO Blocked by CGIV-2002. Event implemented in there
             var isInverse = $("#" + PaperType.CHECKBOX_ID).is(":checked");
             self.getModule().selectionMade(selectedId, isInverse);
