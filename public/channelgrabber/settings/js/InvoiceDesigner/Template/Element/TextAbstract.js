@@ -118,5 +118,13 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
 
     TextAbstract.prototype = Object.create(ElementAbstract.prototype);
 
+    ElementAbstract.prototype.toJson = function()
+    {
+        var json = JSON.parse(JSON.stringify(ElementAbstract.getData()));
+        json.padding = this.mmToPoints(json.padding);
+        json.lineHeight = this.mmToPoints(json.lineHeight);
+        return json;
+    };
+
     return TextAbstract;
 });

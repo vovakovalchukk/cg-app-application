@@ -207,7 +207,18 @@ define([
 
     ElementAbstract.prototype.toJson = function()
     {
-        return this.getData();
+        var json = JSON.parse(JSON.stringify(this.getData()));
+        json.x = this.mmToPoints(json.x);
+        json.y = this.mmToPoints(json.y);
+        json.height = this.mmToPoints(json.height);
+        json.width = this.mmToPoints(json.width);
+        return json;
+    };
+
+    ElementAbstract.prototype.mmToPoints = function(mm)
+    {
+        var inches = mm / 25.4;
+        return inches * 72;
     };
 
     return ElementAbstract;

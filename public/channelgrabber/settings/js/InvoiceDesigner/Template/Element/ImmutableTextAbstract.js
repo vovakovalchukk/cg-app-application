@@ -11,7 +11,7 @@ define(['InvoiceDesigner/Template/Element/TextAbstract'], function(TextAbstract)
 
     ImmutableTextAbstract.prototype.toJson = function()
     {
-        var json = JSON.parse(JSON.stringify(this.getData()));
+        var json = JSON.parse(JSON.stringify(TextAbstract.getData()));
         delete json.text;
         return json;
     };

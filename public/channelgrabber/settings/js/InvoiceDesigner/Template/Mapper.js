@@ -35,6 +35,7 @@ define([
 
         var templateClass = require(Mapper.PATH_TO_ELEMENT_ENTITY);
         var template = new templateClass();
+
         var populating = true;
         template.hydrate(json, populating);
         for (var key in json.elements) {
@@ -49,10 +50,26 @@ define([
     Mapper.prototype.elementFromJson = function(elementData, populating)
     {
         var elementType = elementData.type.ucfirst();
+        elementData.x = this.pointsToMm(elementData.x);
+        elementData.y = this.pointsToMm(elementData.y);
+        elementData.height = this.pointsToMm(elementData.height);
+        elementData.width = this.pointsToMm(elementData.width);
         var elementClass = require(Mapper.PATH_TO_ELEMENT_TYPES + elementType);
         var element = new elementClass();
+        if (elementData.padding) {
+            elementData.padding = this.pointsToMm(elementData.padding);
+        }
+        if (elementData.lineHeight) {
+            elementData.lineHeight = this.pointsToMm(elementData.lineHeight);
+        }
         element.hydrate(elementData, populating);
         return element;
+    };
+
+    Mapper.prototype.pointsToMm = function(points)
+    {
+        var inches = points / 72;
+        return inches * 25.4;
     };
 
     Mapper.prototype.toJson = function(template)
