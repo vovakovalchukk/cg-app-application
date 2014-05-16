@@ -8,6 +8,7 @@ define([
     'InvoiceDesigner/Template/Module/InspectorManager',
     'InvoiceDesigner/Template/Module/Renderer',
     'InvoiceDesigner/Template/Module/ImageUpload'
+    'InvoiceDesigner/Template/Module/AddDiscardBar'
 ], function(
     require,
     templateAjaxStorage,
@@ -25,7 +26,8 @@ define([
             // Template Modules require() paths here
             'InvoiceDesigner/Template/Module/InspectorManager',
             'InvoiceDesigner/Template/Module/Renderer',
-            'InvoiceDesigner/Template/Module/ImageUpload'
+            'InvoiceDesigner/Template/Module/ImageUpload',
+            'InvoiceDesigner/Template/Module/AddDiscardBar'
         ];
 
         this.getStorage = function()

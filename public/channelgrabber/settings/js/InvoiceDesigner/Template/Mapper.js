@@ -37,7 +37,6 @@ define([
         var template = new templateClass();
         var populating = true;
         template.hydrate(json, populating);
-
         for (var key in json.elements) {
             var elementData = json.elements[key];
             var element = this.elementFromJson(elementData, populating);

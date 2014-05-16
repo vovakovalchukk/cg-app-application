@@ -25,7 +25,6 @@ define([
             if ($(this).hasClass('disabled'))  {
                 return;
             }
-
             self.getModule().duplicate();
         });
         $(TemplateSelector.NEW_TEMPLATE_SELECTOR).click(function () {
