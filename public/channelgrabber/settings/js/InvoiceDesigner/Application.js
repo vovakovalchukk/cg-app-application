@@ -7,6 +7,7 @@ define([
 ) {
     var Application = function()
     {
+        var template;
         var modules = [
             // Modules here
             templateSelector

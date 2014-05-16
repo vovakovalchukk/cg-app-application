@@ -32,9 +32,15 @@ define(['InvoiceDesigner/Template/StorageAbstract', 'jquery'], function(StorageA
 
     Ajax.prototype.save = function(template)
     {
-        /*
-         * TODO (CGIV-2016)
-         */
+        var self = this;
+        $.ajax({
+            'url' : '/settings/invoice/save',
+            'data' : {'template' : JSON.stringify(self.getMapper().toJson(template))},
+            'method' : 'POST',
+            'error' : function () {
+                throw 'Unable to save template';
+            }
+        });
     };
 
     return new Ajax();
