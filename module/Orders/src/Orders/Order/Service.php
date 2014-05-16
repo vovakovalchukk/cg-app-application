@@ -79,7 +79,7 @@ class Service
         );
 
         $orderCollection = $this->getOrders($filter);
-        $orders = [];
+        $total = (int) $orderCollection->getTotal();
         foreach($orderCollection as $orderEntity) {
             $order = $orderEntity->toArray();
             $accountEntity = $accounts->getById($order['accountId']);
@@ -93,7 +93,10 @@ class Service
             $orders[] = $order;
         }
 
-        return $orders;
+        return [
+            'orders' => $orders,
+            'orderTotal' => $total
+        ];
     }
 
     public function setDi(Di $di)

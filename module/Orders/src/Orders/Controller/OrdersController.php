@@ -329,14 +329,12 @@ class OrdersController extends AbstractActionController
         $this->getFilterService()->setPersistentFilter($filter);
 
         try {
-            $data['Records'] = $this->getOrderService()->getOrdersArrayWithAccountDetails($filter, $this->getEvent());
-            $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) count($data['Records']);
+            $orderData = $this->getOrderService()->getOrdersArrayWithAccountDetails($filter, $this->getEvent());
+            $data['Records'] = $orderData['orders'];
+            $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = $orderData['orderTotal'];
         } catch (NotFound $exception) {
             // No Orders so ignoring
         }
-
-        var_dump($data);
-        die();
 
         return $this->getJsonModelFactory()->newInstance($data);
     }
