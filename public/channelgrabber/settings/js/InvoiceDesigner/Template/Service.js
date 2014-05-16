@@ -67,35 +67,53 @@ define([
         };
     };
 
+    Service.FETCHED_STATE = 'fetch';
+    Service.DUPLICATED_STATE = 'fetchAndDuplicate';
+    Service.CREATED_STATE = 'create';
+
     Service.prototype.fetch = function(id)
     {
         if (!id) {
             throw 'InvalidArgumentException: InvoiceDesigner\Template\Service::fetch must be passed a template ID';
         }
-
-        /*
-         * TODO (CGIV-2002)
-         */
+        var template = this.getStorage().fetch(id);
+        template.setState(Service.FETCHED_STATE)
+            .setStateId(id);
+        this.getDomManipulator().hideSaveDiscardBar(template);
+        return template;
     };
 
     Service.prototype.save = function(template)
     {
         this.getStorage().save(template);
+        template.setState(Service.FETCHED_STATE)
+            .setStateId(template.getId());
+        this.getDomManipulator().hideSaveDiscardBar(template);
         return this;
     };
 
     Service.prototype.create = function()
     {
-        /*
-         * TODO (CGIV-2002)
-         */
+        var templateClass = require('InvoiceDesigner/Template/Entity');
+        var template = new templateClass();
+        template.setState(Service.CREATED_STATE);
+        this.loadModules(template);
+        this.getDomManipulator().hideSaveDiscardBar(template);
     };
 
     Service.prototype.duplicate = function(template)
     {
-        /*
-         * TODO (CGIV-2002)
-         */
+        template.setName('DUPLICATE - ' + template.getName())
+            .setState(Service.DUPLICATED_STATE)
+            .setStateId(template.getId())
+            .setId();
+        this.getDomManipulator().hideSaveDiscardBar(template);
+    };
+
+    Service.prototype.fetchAndDuplicate = function(id)
+    {
+        var template = this.fetch(id);
+        this.duplicate(template);
     };
 
     Service.prototype.showAsPdf = function(template)
@@ -118,12 +136,6 @@ define([
     {
         var html = this.getMapper().toHtml(template);
         this.getDomManipulator().insertTemplateHtml(html);
-        return this;
-    };
-
-    Service.prototype.notifyOfChange = function(template)
-    {
-        this.getDomManipulator().triggerTemplateChangeEvent(template);
         return this;
     };
 

@@ -1,3 +1,5 @@
+@import "../../zf2-v4-ui/scss/common/partials/_variables";
+
 .invoice-template-container{
     margin-right: 200px;
     overflow-x: auto;
@@ -96,4 +98,13 @@
             margin: auto;
         }
     }
+}
+
+.invoice-select-create {
+  padding:10px;
+  border-bottom: 1px solid $color-lgrey;
+  height:80px;
+  .button {
+    float:left;
+  }
 }
