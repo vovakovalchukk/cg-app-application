@@ -71,7 +71,7 @@ define([
         }
 
         var backgroundImage = isInverse ? selectedPaperType.getBackgroundImageInverse() : selectedPaperType.getBackgroundImage();
-        //this.getTemplate().getPage().setBackgroundImage(selectedPaperType.getBackgroundImage()); // TODO notifyOfChange() error. Fixed in CGIV-2002
+        this.getTemplate().getPage().setBackgroundImage(backgroundImage);
     };
 
     return new PaperType();
