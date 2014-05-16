@@ -45,6 +45,7 @@ define([
             if (!page) {
                 var pageClass = require(Entity.PATH_TO_PAGE_ENTITY);
                 page = new pageClass();
+                this.addElement(page, false);
             }
             return page;
         };
