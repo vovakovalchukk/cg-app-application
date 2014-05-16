@@ -19,21 +19,21 @@ $(document).ready(function() {
         var variables = {
             buttons: [
                 {   value: 'Seller Address',
-                    element: 'selleraddress'
+                    element: 'SellerAddress'
                 },{ value: 'Delivery Address',
-                    element: 'deliveryaddress'
+                    element: 'DeliveryAddress'
                 },{ value: 'Image',
-                    element: 'image'
+                    element: 'Image'
                 },{ value: 'Text',
-                    element: 'text'
+                    element: 'Text'
                 },{ value: 'Order Table',
-                    element: 'ordertable'
+                    element: 'OrderTable'
                 },{ value: 'Box',
-                    element: 'box'
+                    element: 'Box'
                 }
             ]
         };
-        var template = "{{#buttons}}<div class='button' data-element='{{element}}' style='margin:10px;width:60px !important;float:left;min-width:initial;'>{{value}}</div>{{/buttons}}";
+        var template = "{{#buttons}}<div class='button' data-element='{{element}}'>{{value}}</div>{{/buttons}}";
         var renderedTemplate = Mustache.render(template, variables);
         $('#invoice-controls-bar .addElements').append(renderedTemplate);
     });
@@ -51,8 +51,9 @@ $(document).ready(function() {
     <!--Invoice Controls-->
 
     <div class="addElements">
-        <h3 style="padding-left:10px;">Add Element</h3>
+        <h3>Add Element</h3>
     </div>
+    <hr>
 </div>
 
 <div id="invoice-template-container" class="invoice-template-container">

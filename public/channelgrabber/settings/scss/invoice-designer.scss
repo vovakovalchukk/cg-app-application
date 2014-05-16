@@ -45,7 +45,9 @@
         }
     }
 }
-
+.test {
+  
+}
 .template-element-orderTable-totals{
     float: right;
 
@@ -73,4 +75,17 @@
         @extend .style-tag-b;
         @extend .style-tag-i;
     }
+}
+
+#invoice-controls-bar .addElements {
+  h3 {
+    padding-left: 10px;
+  }
+  div.button {
+      margin:10px;
+      width:60px !important;
+      display: inline-block;
+      min-width:initial;
+      vertical-align: top;
+  }
 }

@@ -9,7 +9,7 @@ define([
     'InvoiceDesigner/Template/Element/Box',
 ], function(
     TemplateEntity,
-    SellerAddress,
+    SellerAddressElement,
     DeliveryAddress,
     Image,
     Text,
@@ -29,24 +29,22 @@ define([
             $(document).on('click', '#invoice-controls-bar .addElements div.button', function() {
                 var element = $(this).data('element');
                 TemplateEntity.addElement(create(element), true);
-                console.log(TemplateEntity.getElements().getItems());
             });
         };
 
         var create = function(elementName)
         {
-            elementName = elementName.toLowerCase();
-            if (elementName == 'selleraddress') {
+            if (elementName == 'SellerAddress') {
                 return new SellerAddress();
-            } else if (elementName == 'deliveryaddress')  {
+            } else if (elementName == 'DeliveryAddress')  {
                 return new DeliveryAddress();
-            } else if (elementName == 'image')  {
+            } else if (elementName == 'Image')  {
                 return new Image();
-            } else if (elementName == 'text')  {
+            } else if (elementName == 'Text')  {
                 return new Text();
-            } else if (elementName == 'ordertable')  {
+            } else if (elementName == 'OrderTable')  {
                 return new OrderTable();
-            } else if (elementName == 'box')  {
+            } else if (elementName == 'Box')  {
                 return new Box();
             }
         };
