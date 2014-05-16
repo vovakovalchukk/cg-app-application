@@ -8,6 +8,7 @@ use Zend\Di\Di;
 use CG_UI\Layout\ViewModelFactory;
 use Zend\Config\Factory as ConfigFactory;
 use Zend\Mvc\Router\SimpleRouteStack;
+use Zend\View\Renderer\PhpRenderer;
 
 class Module
 {
@@ -23,6 +24,15 @@ class Module
         $eventManager = $event->getApplication()->getEventManager();
         $eventManager->attach(MvcEvent::EVENT_RENDER, array($this, 'layoutHandler'));
         $eventManager->attach(MvcEvent::EVENT_RENDER, [$this->getNavBarService($event), 'appendNavBarItemsToNavBar']);
+        $eventManager->attach(MvcEvent::EVENT_RENDER, [$this, 'appendStylesheet']);
+    }
+
+    public function appendStylesheet(MvcEvent $e)
+    {
+        $serviceManager = $e->getApplication()->getServiceManager();
+        $renderer = $serviceManager->get(PhpRenderer::class);
+        $basePath = $serviceManager->get('viewhelpermanager')->get('basePath');
+        $renderer->headLink()->appendStylesheet($basePath() . static::PUBLIC_FOLDER . 'css/default.css');
     }
 
     public function getConfig()

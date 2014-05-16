@@ -1,7 +1,8 @@
 <?php $this->headLink()->appendStylesheet($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'css/common/subheader-hide.css'); ?>
-<?php $this->headLink()->appendStylesheet($this->basePath() . Settings\Module::PUBLIC_FOLDER . 'css/invoice-designer.css') ?>
+<?php $this->headLink()->appendStylesheet($this->basePath() . Settings\Module::PUBLIC_FOLDER . 'css/invoiceDesigner.css') ?>
 <?php //$this->inlineScript()->captureStart(); ?>
 <script>
+var templateSelectorId = "#<?= $templateSelectorId; ?>";
 $(document).ready(function() {
     require.config({
         paths: {
@@ -42,7 +43,7 @@ $(document).ready(function() {
     require([
         'InvoiceDesigner/Template/Module/ElementManager'
     ], function(ElementManager) {
-        new ElementManager();
+        console.log(ElementManager);
     });
 });
 </script>
@@ -58,6 +59,25 @@ $(document).ready(function() {
 
 <div id="invoice-template-container" class="invoice-template-container">
     <!--Invoice Template-->
+
+    <div class="invoice-select-create">
+        <?= $templates; ?>
+        <?= $templateAddButton ?>
+        <?= $templateDuplicateButton ?>
+    </div>
+</div>
+
+<div id="invoice-template">
+    <div id="save-template" class='save-template'>
+        <div class="save-template-message"><?= $this->translate('You have made changes that are currently not saved'); ?></div>
+        <div class="save-template-buttons">
+            <?= $templateDiscardButton ?>
+            <?= $templateSaveButton ?>
+        </div>
+    </div>
+    <div id="invoice-template-container" class="invoice-template-container">
+    </div>
+
 </div>
 <div id="element-inspector-bar" class="sidebar sidebar-fixed sidebar-right sidebar-invoice-designer">
     <!--Element Inspectors-->

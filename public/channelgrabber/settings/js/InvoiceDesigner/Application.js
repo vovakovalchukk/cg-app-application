@@ -7,6 +7,7 @@ define([
 ) {
     var Application = function()
     {
+        var template;
         var modules = [
             // Modules here
             templateSelector
@@ -15,6 +16,16 @@ define([
         this.getModules = function()
         {
             return modules;
+        };
+
+        this.getTemplate = function()
+        {
+            return template;
+        };
+
+        this.setTemplate = function(newTemplate)
+        {
+            template = newTemplate;
         };
     };
 

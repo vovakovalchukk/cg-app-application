@@ -1,56 +1,49 @@
 define([
-    'InvoiceDesigner/Template/Entity',
-
-    'InvoiceDesigner/Template/Element/SellerAddress',
-    'InvoiceDesigner/Template/Element/DeliveryAddress',
-    'InvoiceDesigner/Template/Element/Image',
-    'InvoiceDesigner/Template/Element/Text',
-    'InvoiceDesigner/Template/Element/OrderTable',
-    'InvoiceDesigner/Template/Element/Box',
+    'InvoiceDesigner/Template/ModuleAbstract',
+    'InvoiceDesigner/Template/Service',
+    'InvoiceDesigner/Application',
+    'InvoiceDesigner/Template/Module/DomListener/ElementManager'
 ], function(
-    TemplateEntity,
-    SellerAddressElement,
-    DeliveryAddress,
-    Image,
-    Text,
-    OrderTable,
-    Box
+    ModuleAbstract,
+    TemplateService,
+    Application,
+    ElementManagerListener
     ) {
 
     var ElementManager = function ()
     {
-        var init = function()
+        ModuleAbstract.call(this);
+        this.setDomListener(ElementManagerListener);
+        ElementManagerListener.init(this);
+
+        this.getService = function()
         {
-            clickListener();
+            return TemplateService;
         };
 
-        var clickListener = function()
+        this.getApplication = function()
         {
-            $(document).on('click', '#invoice-controls-bar .addElements div.button', function() {
-                var element = $(this).data('element');
-                TemplateEntity.addElement(create(element), true);
-            });
+            return Application;
         };
-
-        var create = function(elementName)
-        {
-            if (elementName == 'SellerAddress') {
-                return new SellerAddress();
-            } else if (elementName == 'DeliveryAddress')  {
-                return new DeliveryAddress();
-            } else if (elementName == 'Image')  {
-                return new Image();
-            } else if (elementName == 'Text')  {
-                return new Text();
-            } else if (elementName == 'OrderTable')  {
-                return new OrderTable();
-            } else if (elementName == 'Box')  {
-                return new Box();
-            }
-        };
-
-        init();
     };
 
-    return ElementManager;
+    ElementManager.prototype = Object.create(ModuleAbstract.prototype);
+
+    ElementManager.prototype.init = function(application, service)
+    {
+        ModuleAbstract.prototype.init.call(this, application, service);
+    };
+
+    ElementManager.prototype.addElementToCurrentTemplate = function(elementType)
+    {
+        var elementData = {};
+        elementData.templateType = elementType;
+
+        if (this.getApplication().getTemplate()) {
+            var element = this.getService().getMapper().elementFromJson(elementData);
+            this.getApplication().getTemplate().addElement(element, true);
+        }
+    }
+
+    return new ElementManager();
 });
