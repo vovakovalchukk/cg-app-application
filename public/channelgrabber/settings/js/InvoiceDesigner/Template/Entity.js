@@ -180,7 +180,7 @@ define([
     {
         this.getElements().attach(element);
         element.subscribe(this);
-        if (element.getTemplateType() === 'page') {
+        if (element.getType() === 'page') {
             this.setPage(element);
         }
         if (populating) {

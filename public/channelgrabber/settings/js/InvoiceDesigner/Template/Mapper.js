@@ -48,7 +48,7 @@ define([
 
     Mapper.prototype.elementFromJson = function(elementData, populating)
     {
-        var elementType = elementData.templateType.ucfirst();
+        var elementType = elementData.type.ucfirst();
         var elementClass = require(Mapper.PATH_TO_ELEMENT_TYPES + elementType);
         var element = new elementClass();
         element.hydrate(elementData, populating);
@@ -86,7 +86,7 @@ define([
             if (element.getId() === page.getId()) {
                 return true;
             }
-            var elementType = element.getTemplateType().ucfirst();
+            var elementType = element.getType().ucfirst();
             var elementMapper = require(Mapper.PATH_TO_ELEMENT_TYPE_MAPPERS + elementType);
             var elementHtml = elementMapper.toHtml(element);
             elementsHtml += elementHtml;
