@@ -78,19 +78,42 @@
     }
 }
 
+.template-element-image{
+    background-color: #eee;
+    border: solid 1px #999;
+
+    img{
+        width: 100%;
+        height: 100%;
+    }
+
+    .placeholder{
+        margin-top: 50%;
+        text-align: center;
+
+        input[type=file]{
+            display: none;
+        }
+
+        input[type=button]{
+            margin: auto;
+        }
+    }
+}
+
 #main-wrapper {
-padding: 0px !important;
+    padding: 0px !important;
 }
 
 .invoice-select-create {
-  padding:10px;
-  border-bottom: 1px solid $color-lgrey;
-  height:80px;
-  .button {
-    float:left;
-  }
+    padding:10px;
+    border-bottom: 1px solid $color-lgrey;
+    height:80px;
+    .button {
+        float:left;
+    }
 }
 
 .template-name-container {
-  display:none;
+    display:none;
 }
