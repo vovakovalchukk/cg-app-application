@@ -40,7 +40,7 @@ define(function()
             }
         }
         return count;
-    }
+    };
 
     CollectionAbstract.prototype.each = function(callback)
     {

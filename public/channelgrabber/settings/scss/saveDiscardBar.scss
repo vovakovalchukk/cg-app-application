@@ -1,0 +1,25 @@
+@import "../../zf2-v4-ui/scss/common/partials/_variables";
+
+.save-template {
+  background-color: $color-red;
+  color: $color-white;
+  font-weight:bold;
+  height: 40px;
+  display:none;
+
+  .button {
+    float:left;
+  }
+}
+
+.save-template-message {
+  float:left;
+  font-size:12px;
+  line-height:40px;
+  padding-left:20px;
+}
+
+.save-template-buttons {
+  position:absolute;
+  right:300px;
+}

@@ -1,26 +1,40 @@
-define(['module', 'InvoiceDesigner/Module/DomListenerAbstract'], function(requireModule, DomListenerAbstract)
-{
+define([
+    'InvoiceDesigner/Module/DomListenerAbstract'
+], function(
+    DomListenerAbstract
+) {
+
     var TemplateSelector = function()
     {
         DomListenerAbstract.call(this);
-
-        var events = requireModule.config().events;
-
-        this.getEvents = function()
-        {
-            return events;
-        };
     };
+
+    TemplateSelector.DUPLICATE_TEMPLATE_SELECTOR = '#duplicate-template';
+    TemplateSelector.NEW_TEMPLATE_SELECTOR = '#new-template';
 
     TemplateSelector.prototype = Object.create(DomListenerAbstract.prototype);
 
     TemplateSelector.prototype.init = function(module)
     {
+        var self = this;
         DomListenerAbstract.prototype.init.call(this, module);
+        $(templateSelectorId).on('change', function (event, selectBox, id) {
+            self.getModule().selectionMade(id);
+        });
+        $(TemplateSelector.DUPLICATE_TEMPLATE_SELECTOR).click(function () {
+            if ($(this).hasClass('disabled'))  {
+                return;
+            }
+            self.getModule().duplicate();
+        });
+        $(TemplateSelector.NEW_TEMPLATE_SELECTOR).click(function () {
+            self.getModule().create();
+        });
+    };
 
-        /*
-         * TODO (CGIV-2002): foreach event add a listener that calls back to module
-         */
+    TemplateSelector.prototype.getDuplicateTemplateSelector = function()
+    {
+        return TemplateSelector.DUPLICATE_TEMPLATE_SELECTOR;
     };
 
     return new TemplateSelector();

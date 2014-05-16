@@ -1,4 +1,4 @@
-define(['jasq', 'InvoiceDesigner/Template/Entity'], function (Jasq, templateEntity)
+define(['jasq', 'InvoiceDesigner/Template/Mapper'], function (jasq, mapper)
 {
     describe('The Template Service module', {
         moduleName: 'InvoiceDesigner/Template/Service',
@@ -21,6 +21,25 @@ define(['jasq', 'InvoiceDesigner/Template/Entity'], function (Jasq, templateEnti
         },
         specify: function ()
         {
+            var templateEntity;
+            beforeEach(function()
+            {
+                var json = {
+                    id: 1,
+                    type: "invoice",
+                    name: "Example",
+                    organisationUnitId: 1,
+                    minHeight: 100,
+                    minWidth: 100,
+                    elements: [{
+                        type: "page",
+                        width: 250,
+                        height: 353
+                    }]
+                };
+                templateEntity = mapper.fromJson(json);
+            });
+
             it('should be an object', function(service)
             {
                 expect(typeof service).toBe('object');

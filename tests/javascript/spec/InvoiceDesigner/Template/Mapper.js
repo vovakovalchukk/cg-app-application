@@ -53,9 +53,7 @@ define(['jasq'], function (jasq)
                         y: 10,
                         backgroundColour: "white",
                         borderWidth: 0,
-                        borderColour: null,
-                        source: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==",
-                        format: "png"
+                        borderColour: null
                     }]
                 };
             });
@@ -89,15 +87,6 @@ define(['jasq'], function (jasq)
                     expect(mappedJson[key]).toBe(json[key]);
                 }
                 expect(mappedJson.elements.length).toBe(json.elements.length);
-            });
-
-            it('should convert a template to HTML', function(mapper)
-            {
-                console.warn('Incomplete test: "Mapper should convert a template to HTML"');
-
-                var template = mapper.fromJson(json);
-                var html = mapper.toHtml(template);
-                expect(typeof html).toBe('string');
             });
         }
     });

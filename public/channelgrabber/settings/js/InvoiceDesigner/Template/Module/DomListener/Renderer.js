@@ -23,7 +23,7 @@ define([
     Renderer.prototype.initListeners = function()
     {
         var self = this;
-        $(document).on(domManipulator.getTemplateChangedEvent(), function(event, template)
+        $(document).off(domManipulator.getTemplateChangedEvent()).on(domManipulator.getTemplateChangedEvent(), function(event, template)
         {
             self.getModule().templateChanged(template);
         });
@@ -32,7 +32,7 @@ define([
     Renderer.prototype.listenForElementSelect = function(domId, element)
     {
         var self = this;
-        $('#'+domId).on('click focus', function()
+        $('#'+domId).off('click focus').on('click focus', function()
         {
             domManipulator.triggerElementSelectedEvent(element);
         });

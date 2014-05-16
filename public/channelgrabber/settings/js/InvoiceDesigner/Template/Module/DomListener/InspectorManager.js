@@ -23,7 +23,7 @@ define([
     InspectorManager.prototype.initListeners = function()
     {
         var self = this;
-        $(document).on(domManipulator.getElementSelectedEvent(), function(event, element)
+        $(document).off(domManipulator.getElementSelectedEvent()).on(domManipulator.getElementSelectedEvent(), function(event, element)
         {
             self.getModule().elementSelected(element);
         });
