@@ -71,6 +71,8 @@ define([
         }
 
         var backgroundImage = isInverse ? selectedPaperType.getBackgroundImageInverse() : selectedPaperType.getBackgroundImage();
+        this.getTemplate().getPage().setHeight(selectedPaperType.getHeight());
+        this.getTemplate().getPage().setWidth(selectedPaperType.getWidth());
         this.getTemplate().getPage().setBackgroundImage(backgroundImage);
     };
 

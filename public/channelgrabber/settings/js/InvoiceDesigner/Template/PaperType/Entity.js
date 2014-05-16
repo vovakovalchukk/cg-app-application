@@ -13,6 +13,8 @@ define([
         var data = {
             id: undefined,
             name: undefined,
+            height: undefined,
+            width: undefined,
             backgroundImage: undefined,
             backgroundImageInverse: undefined
         };
@@ -43,6 +45,28 @@ define([
             this.set('name', newName);
             return this;
         };
+
+        this.setHeight = function(newHeight)
+        {
+            this.set('height', newHeight);
+            return this;
+        }
+
+        this.getHeight = function()
+        {
+            return this.get('height');
+        }
+
+        this.setWidth = function(newWidth)
+        {
+            this.set('width', newWidth);
+            return this;
+        }
+
+        this.getWidth = function()
+        {
+            return this.get('width');
+        }
 
         this.getBackgroundImage = function()
         {
