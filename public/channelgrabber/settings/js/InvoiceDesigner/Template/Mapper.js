@@ -46,11 +46,16 @@ define([
         return template;
     };
 
+    Mapper.prototype.createNewElement = function(elementName)
+    {
+        var elementClass = require(Mapper.PATH_TO_ELEMENT_TYPES + elementName);
+        return new elementClass();
+    };
+
     Mapper.prototype.elementFromJson = function(elementData, populating)
     {
         var elementType = elementData.templateType.ucfirst();
-        var elementClass = require(Mapper.PATH_TO_ELEMENT_TYPES + elementType);
-        var element = new elementClass();
+        var element = this.createNewElement(elementType);
         element.hydrate(elementData, populating);
         return element;
     };

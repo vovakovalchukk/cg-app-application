@@ -8,7 +8,8 @@ define([
     'InvoiceDesigner/Template/Module/InspectorManager',
     'InvoiceDesigner/Template/Module/Renderer',
     'InvoiceDesigner/Template/Module/ImageUpload',
-    'InvoiceDesigner/Template/Module/AddDiscardBar'
+    'InvoiceDesigner/Template/Module/AddDiscardBar',
+    'InvoiceDesigner/Template/Module/ElementManager'
 ], function(
     require,
     templateAjaxStorage,
@@ -27,7 +28,8 @@ define([
             'InvoiceDesigner/Template/Module/InspectorManager',
             'InvoiceDesigner/Template/Module/Renderer',
             'InvoiceDesigner/Template/Module/ImageUpload',
-            'InvoiceDesigner/Template/Module/AddDiscardBar'
+            'InvoiceDesigner/Template/Module/AddDiscardBar',
+            'InvoiceDesigner/Template/Module/ElementManager'
         ];
 
         this.getStorage = function()
