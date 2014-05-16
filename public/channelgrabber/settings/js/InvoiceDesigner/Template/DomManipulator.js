@@ -1,5 +1,8 @@
-define(['jquery'], function($)
-{
+define([
+    'jquery'
+], function(
+    $
+) {
     var DomManipulator = function()
     {
 
@@ -30,6 +33,7 @@ define(['jquery'], function($)
 
     DomManipulator.prototype.triggerTemplateChangeEvent = function (template)
     {
+        this.showSaveDiscardBar();
         $(document).trigger(DomManipulator.EVENT_TEMPLATE_CHANGED, [template]);
         return this;
     };
@@ -48,6 +52,16 @@ define(['jquery'], function($)
     DomManipulator.prototype.enable = function(selector)
     {
         $(selector).removeClass('disabled');
+    };
+
+    DomManipulator.prototype.show = function(selector)
+    {
+        $(selector).show();
+    };
+
+    DomManipulator.prototype.reloadName = function(selector, template)
+    {
+        $(selector).val(template.getName());
     };
 
     DomManipulator.prototype.getElementSelectedEvent = function()

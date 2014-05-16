@@ -39,6 +39,7 @@ class InvoiceController extends AbstractActionController
         $view->addChild($this->getTemplateDuplicateButtonView(), 'templateDuplicateButton');
         $view->addChild($this->getTemplateDiscardButtonView(), 'templateDiscardButton');
         $view->addChild($this->getTemplateSaveButtonView(), 'templateSaveButton');
+        $view->addChild($this->getTemplateNameInputView(), 'templateName');
         $view->setVariable('templateSelectorId', static::TEMPLATE_SELECTOR_ID);
         return $view;
     }
@@ -92,6 +93,16 @@ class InvoiceController extends AbstractActionController
         ]);
         $button->setTemplate('elements/buttons.mustache');
         return $button;
+    }
+
+    protected function getTemplateNameInputView()
+    {
+        $input = $this->getViewModelFactory()->newInstance([
+            'name' => 'template-name',
+            'id' => 'template-name'
+        ]);
+        $input->setTemplate('elements/text.mustache');
+        return $input;
     }
 
     public function fetchAction()
