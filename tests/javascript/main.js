@@ -7,6 +7,7 @@ require.config({
         jquery: "../../zf2-v4-ui/js/jquery.min",
         mustache: "../../zf2-v4-ui/js/mustache",
         "cg-mustache": "../../zf2-v4-ui/js/cg-mustache",
+        element: "../../zf2-v4-ui/js/element/"
     }
 });
 

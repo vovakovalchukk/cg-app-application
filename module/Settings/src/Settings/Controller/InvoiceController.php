@@ -6,7 +6,6 @@ use CG_UI\View\Prototyper\ViewModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG\Template\Service as TemplateService;
 use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
-use CG\Zend\Stdlib\Mvc\Model\Helper\Translate;
 
 class InvoiceController extends AbstractActionController
 {
@@ -19,20 +18,17 @@ class InvoiceController extends AbstractActionController
     protected $jsonModelFactory;
     protected $templateService;
     protected $userOrganisationUnitService;
-    protected $translate;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         JsonModelFactory $jsonModelFactory,
         TemplateService $templateService,
-        UserOrganisationUnitService $userOrganisationUnitService,
-        Translate $translate
+        UserOrganisationUnitService $userOrganisationUnitService
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
             ->setTemplateService($templateService)
-            ->setUserOrganisationUnitService($userOrganisationUnitService)
-            ->setTranslate($translate);
+            ->setUserOrganisationUnitService($userOrganisationUnitService);
     }
 
     public function designAction()
@@ -47,6 +43,64 @@ class InvoiceController extends AbstractActionController
 
         $view->addChild($this->getPaperTypeModule(), 'paperTypeModule');
         
+        return $view;
+    }
+
+    protected function getTemplateSelectView()
+    {
+        $organisationUnitIds = $this->getUserOrganisationUnitService()->getAncestorOrganisationUnitIdsByActiveUser();
+        $templates = $this->getTemplateService()->fetchInvoiceCollectionByOrganisationUnitWithHardCoded($organisationUnitIds);
+        $options = [];
+        foreach ($templates as $template) {
+            $options[] = [
+                "title" => $template->getName(),
+                "value" => $template->getId(),
+            ];
+        }
+        $templateView = $this->getViewModelFactory()->newInstance(["options" => $options]);
+        $templateView->setTemplate('elements/custom-select.mustache');
+        $templateView->setVariable('name', 'template');
+        $templateView->setVariable('initialTitle', $this->translate('Select Template'));
+        $templateView->setVariable('id', static::TEMPLATE_SELECTOR_ID);
+        return $templateView;
+    }
+
+    protected function getTemplateAddButtonView()
+    {
+        return $this->getButtonFromNameAndId($this->translate('New Template'), 'new-template', false);
+    }
+
+    protected function getTemplateDuplicateButtonView()
+    {
+        return $this->getButtonFromNameAndId($this->translate('Duplicate'), 'duplicate-template', true);
+    }
+
+    protected function getTemplateDiscardButtonView()
+    {
+        return $this->getButtonFromNameAndId($this->translate('Discard'), 'discard-template-button', false);
+    }
+
+    protected function getTemplateSaveButtonView()
+    {
+        return $this->getButtonFromNameAndId($this->translate('Save'), 'save-template-button', false);
+    }
+
+    protected function getButtonFromNameAndId($name, $id, $disabled)
+    {
+        $button = $this->getViewModelFactory()->newInstance([
+            'buttons' => true,
+            'value' => $name,
+            'id' => $id,
+            'disabled' => $disabled
+        ]);
+        $button->setTemplate('elements/buttons.mustache');
+        return $button;
+    }
+
+    public function fetchAction()
+    {
+        $template = $this->getTemplateService()->fetchAsJson($this->params()->fromPost('id'));
+        $view = $this->getJsonModelFactory()->newInstance(["template" => $template]);
         return $view;
     }
 
@@ -88,17 +142,6 @@ class InvoiceController extends AbstractActionController
     public function getUserOrganisationUnitService()
     {
         return $this->userOrganisationUnitService;
-    }
-
-    public function setTranslate(Translate $translate)
-    {
-        $this->translate = $translate;
-        return $this;
-    }
-
-    public function getTranslate()
-    {
-        return $this->translate;
     }
 
     public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)

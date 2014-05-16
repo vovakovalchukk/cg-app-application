@@ -3,15 +3,19 @@ define([
     'InvoiceDesigner/Template/Storage/Ajax',
     'InvoiceDesigner/Template/Mapper',
     'InvoiceDesigner/Template/DomManipulator',
+    'InvoiceDesigner/Template/Element/MapperAbstract',
+    // Template Module requires here
     'InvoiceDesigner/Template/Module/PaperType',
     'InvoiceDesigner/Template/Module/InspectorManager',
-    'InvoiceDesigner/Template/Module/AddDiscardBar',
-    'InvoiceDesigner/Template/Module/Renderer'
+    'InvoiceDesigner/Template/Module/Renderer',
+    'InvoiceDesigner/Template/Module/ImageUpload',
+    'InvoiceDesigner/Template/Module/AddDiscardBar'
 ], function(
     require,
     templateAjaxStorage,
     templateMapper,
-    templateDomManipulator
+    templateDomManipulator,
+    ElementMapperAbstract
 ) {
     var Service = function()
     {
@@ -24,7 +28,8 @@ define([
             'InvoiceDesigner/Template/Module/PaperType',            
             'InvoiceDesigner/Template/Module/InspectorManager',
             'InvoiceDesigner/Template/Module/Renderer',
-            'InvoiceDesigner/Template/Module/AddDiscardBar'           
+            'InvoiceDesigner/Template/Module/ImageUpload',
+            'InvoiceDesigner/Template/Module/AddDiscardBar'          
         ];
 
         this.getStorage = function()

@@ -1,3 +1,6 @@
+@import "../../zf2-v4-ui/scss/common/partials/_variables";
+@import "saveDiscardBar";
+
 .invoice-template-container{
     margin-right: 200px;
     overflow-x: auto;
@@ -72,6 +75,29 @@
     .style-tag-bi{
         @extend .style-tag-b;
         @extend .style-tag-i;
+    }
+}
+
+.template-element-image{
+    background-color: #eee;
+    border: solid 1px #999;
+
+    img{
+        width: 100%;
+        height: 100%;
+    }
+
+    .placeholder{
+        margin-top: 50%;
+        text-align: center;
+
+        input[type=file]{
+            display: none;
+        }
+
+        input[type=button]{
+            margin: auto;
+        }
     }
 }
 
