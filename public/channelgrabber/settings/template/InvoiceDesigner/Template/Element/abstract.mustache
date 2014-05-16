@@ -12,13 +12,13 @@ require(['jquery', 'InvoiceDesigner/Template/DomManipulator'], function($, domMa
         stop: function(event, $ui)
         {
             $(document).trigger(domManipulator.getElementResizedEvent(), ['{{id}}', $ui.size]);
-        });
+        }
     }).draggable({
         containment: 'parent',
         stop: function(event, $ui)
         {
             $(document).trigger(domManipulator.getElementMovedEvent(), ['{{id}}', $ui.offset]);
-        });
+        }
     });
 });
 </script>
