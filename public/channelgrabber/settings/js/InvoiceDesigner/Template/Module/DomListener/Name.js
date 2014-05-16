@@ -4,7 +4,7 @@ define([
 ], function(
     DomListenerAbstract,
     $
-    ) {
+) {
 
     var Name = function()
     {
@@ -19,9 +19,14 @@ define([
     Name.prototype.init = function(module)
     {
         var self = this;
+        var renderTimeout;
         DomListenerAbstract.prototype.init.call(this, module);
         $(Name.TEMPLATE_NAME_SELECTOR).off('keyup paste input change keypress').on('keyup paste input change keypress', function() {
-            self.getModule().updateName($(this).val());
+            var name = $(this).val();
+            clearTimeout(renderTimeout);
+            renderTimeout = setTimeout(function() {
+                self.getModule().updateName(name);
+            }, 500);
         });
     };
 
