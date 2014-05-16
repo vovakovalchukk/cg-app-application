@@ -7,8 +7,9 @@ define([
     // Template Module requires here
     'InvoiceDesigner/Template/Module/InspectorManager',
     'InvoiceDesigner/Template/Module/Renderer',
-    'InvoiceDesigner/Template/Module/ImageUpload'
-    'InvoiceDesigner/Template/Module/AddDiscardBar'
+    'InvoiceDesigner/Template/Module/ImageUpload',
+    'InvoiceDesigner/Template/Module/AddDiscardBar',
+    'InvoiceDesigner/Template/Module/ElementResizeMove'
 ], function(
     require,
     templateAjaxStorage,
@@ -27,7 +28,8 @@ define([
             'InvoiceDesigner/Template/Module/InspectorManager',
             'InvoiceDesigner/Template/Module/Renderer',
             'InvoiceDesigner/Template/Module/ImageUpload',
-            'InvoiceDesigner/Template/Module/AddDiscardBar'
+            'InvoiceDesigner/Template/Module/AddDiscardBar',
+            'InvoiceDesigner/Template/Module/ElementResizeMove'
         ];
 
         this.getStorage = function()

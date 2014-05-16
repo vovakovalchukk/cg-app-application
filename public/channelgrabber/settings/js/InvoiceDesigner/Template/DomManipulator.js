@@ -8,6 +8,8 @@ define(['jquery'], function($)
     DomManipulator.SAVE_DISCARD_BAR_SELECTOR = '#save-template';
     DomManipulator.EVENT_TEMPLATE_CHANGED = 'invoice-template-changed';
     DomManipulator.EVENT_TEMPLATE_ELEMENT_SELECTED = 'invoice-template-element-selected';
+    DomManipulator.EVENT_TEMPLATE_ELEMENT_RESIZED = 'invoice-template-element-resized';
+    DomManipulator.EVENT_TEMPLATE_ELEMENT_MOVED = 'invoice-template-element-moved';
     DomManipulator.EVENT_IMAGE_UPLOAD_FILE_SELECTED = 'invoice-template-image-selected';
     DomManipulator.DOM_SELECTOR_TEMPLATE_CONTAINER = '#invoice-template-container';
 
@@ -53,6 +55,16 @@ define(['jquery'], function($)
     DomManipulator.prototype.getElementSelectedEvent = function()
     {
         return DomManipulator.EVENT_TEMPLATE_ELEMENT_SELECTED;
+    };
+
+    DomManipulator.prototype.getElementResizedEvent = function()
+    {
+        return DomManipulator.EVENT_TEMPLATE_ELEMENT_RESIZED;
+    };
+
+    DomManipulator.prototype.getElementMovedEvent = function()
+    {
+        return DomManipulator.EVENT_TEMPLATE_ELEMENT_MOVED;
     };
 
     DomManipulator.prototype.getImageUploadFileSelectedEvent = function()

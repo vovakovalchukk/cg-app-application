@@ -1,3 +1,24 @@
 <div id="{{id}}" class="{{classes}}" style="{{styles}}">
     {{{contents}}}
 </div>
+<script type="text/javascript">
+require(['jquery', 'InvoiceDesigner/Template/DomManipulator'], function($, domManipulator)
+{
+    $('#{{id}}').resizable({
+        containment: 'parent',
+        handles: 'all',
+        minHeight: 1,
+        minWidth: 1,
+        stop: function(event, $ui)
+        {
+            $(document).trigger(domManipulator.getElementResizedEvent(), ['{{id}}', $ui.size]);
+        });
+    }).draggable({
+        containment: 'parent',
+        stop: function(event, $ui)
+        {
+            $(document).trigger(domManipulator.getElementMovedEvent(), ['{{id}}', $ui.offset]);
+        });
+    });
+});
+</script>
