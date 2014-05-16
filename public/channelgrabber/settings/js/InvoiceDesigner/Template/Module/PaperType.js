@@ -52,7 +52,7 @@ define([
         ModuleAbstract.prototype.init.call(this, template, templateService);
         this.setAvailablePaperTypes(this.getStorage().fetchAll());
         domManipulator.show("#" + PaperTypeListener.CONTAINER_ID);
-        domManipulator.populateCustomSelect("#" + PaperTypeListener.DROPDOWN_ID, this.getAvailablePaperTypes());
+        domManipulator.populateCustomSelect(paperTypeDropdownId, this.getAvailablePaperTypes());
     };
 
     PaperType.prototype.selectionMade = function(id, isInverse)

@@ -13,6 +13,7 @@ class InvoiceController extends AbstractActionController
     const ROUTE_FETCH = 'Fetch';
     const ROUTE_SAVE = 'Save';
     const TEMPLATE_SELECTOR_ID = 'template-selector';
+    const PAPER_TYPE_DROPDOWN_ID = "paper-type-dropdown";
 
     protected $viewModelFactory;
     protected $jsonModelFactory;
@@ -40,6 +41,7 @@ class InvoiceController extends AbstractActionController
         $view->addChild($this->getTemplateDiscardButtonView(), 'templateDiscardButton');
         $view->addChild($this->getTemplateSaveButtonView(), 'templateSaveButton');
         $view->setVariable('templateSelectorId', static::TEMPLATE_SELECTOR_ID);
+        $view->setVariable('paperTypeDropdownId', static::PAPER_TYPE_DROPDOWN_ID);
 
         $view->addChild($this->getPaperTypeModule(), 'paperTypeModule');
         
@@ -159,8 +161,8 @@ class InvoiceController extends AbstractActionController
     {
         $dropDownConfig = [
             "isOptional" => false,
-            "id" => "paperTypeDropdown",
-            "name" => "paperTypeDropdown",
+            "id" => static::PAPER_TYPE_DROPDOWN_ID,
+            "name" => static::PAPER_TYPE_DROPDOWN_ID,
             "class" => "",
             "options" => []
         ];

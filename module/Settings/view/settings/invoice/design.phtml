@@ -2,6 +2,7 @@
 <?php $this->headLink()->appendStylesheet($this->basePath() . Settings\Module::PUBLIC_FOLDER . 'css/invoiceDesigner.css') ?>
 <?php $this->inlineScript()->captureStart(); ?>
 var templateSelectorId = "#<?= $templateSelectorId; ?>";
+var paperTypeDropdownId = "#<?= $paperTypeDropdownId; ?>";
 $(document).ready(function() {
     require.config({
         paths: {

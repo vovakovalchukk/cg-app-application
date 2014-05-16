@@ -22,7 +22,6 @@ define([
 
     PaperType.CONTAINER_ID = 'paperTypeModule';
     PaperType.CHECKBOX_ID = 'inverseLabelPosition';
-    PaperType.DROPDOWN_ID = 'paperTypeDropdown';
 
     PaperType.prototype = Object.create(DomListenerAbstract.prototype);
 
@@ -30,10 +29,11 @@ define([
     {
         var self = this;
         DomListenerAbstract.prototype.init.call(this, module);
-        $("#" + PaperType.DROPDOWN_ID).on('change', function (event, selectBox, selectedId) {
+        console.log("listening: " + paperTypeDropdownId + " ("+$(paperTypeDropdownId).length+")");
+        $(document).on('change', paperTypeDropdownId, function (event, selectBox, id) {
             console.log("Dropdown changed");
             var isInverse = $("#" + PaperType.CHECKBOX_ID).is(":checked");
-            self.getModule().selectionMade(selectedId, isInverse);
+            self.getModule().selectionMade(id, isInverse);
         });
 
         $("#" + PaperType.CHECKBOX_ID).click(function() {
