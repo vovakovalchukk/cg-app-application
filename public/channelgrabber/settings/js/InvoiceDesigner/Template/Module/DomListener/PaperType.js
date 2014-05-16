@@ -30,7 +30,7 @@ define([
         var self = this;
         DomListenerAbstract.prototype.init.call(this, module);
         console.log("listening: " + paperTypeDropdownId + " ("+$(paperTypeDropdownId).length+")");
-        $(document).on('change', paperTypeDropdownId, function (event, selectBox, id) {
+        $(document).on('change', paperTypeDropdownId, function (event, selectBox, id) { // TODO change back to non delegated once papertype storage is in php side
             console.log("Dropdown changed");
             var isInverse = $("#" + PaperType.CHECKBOX_ID).is(":checked");
             self.getModule().selectionMade(id, isInverse);
