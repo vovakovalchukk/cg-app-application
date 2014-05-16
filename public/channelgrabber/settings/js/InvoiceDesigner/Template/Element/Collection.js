@@ -7,5 +7,5 @@ define(['InvoiceDesigner/CollectionAbstract'], function(CollectionAbstract)
 
     Collection.prototype = Object.create(CollectionAbstract.prototype);
 
-    return new Collection();
+    return Collection;
 });
