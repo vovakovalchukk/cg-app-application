@@ -5,6 +5,7 @@ define(['jquery', 'cg-mustache'], function($, CGMustache)
 
     };
 
+    DomManipulator.SAVE_DISCARD_BAR_SELECTOR = '#save-template';
     DomManipulator.EVENT_TEMPLATE_CHANGED = 'invoice-template-changed';
     DomManipulator.EVENT_TEMPLATE_ELEMENT_SELECTED = 'invoice-template-element-selected';
     DomManipulator.DOM_SELECTOR_TEMPLATE_CONTAINER = '#invoice-template-container';
@@ -14,7 +15,19 @@ define(['jquery', 'cg-mustache'], function($, CGMustache)
         $(DomManipulator.DOM_SELECTOR_TEMPLATE_CONTAINER).empty().append(html);
     };
 
-    DomManipulator.prototype.triggerTemplateChangeEvent = function(template)
+    DomManipulator.prototype.showSaveDiscardBar = function(template)
+    {
+        $(DomManipulator.SAVE_DISCARD_BAR_SELECTOR).show();
+        return this;
+    };
+
+    DomManipulator.prototype.hideSaveDiscardBar = function(template)
+    {
+        $(DomManipulator.SAVE_DISCARD_BAR_SELECTOR).hide();
+        return this;
+    };
+
+    DomManipulator.prototype.triggerTemplateChangeEvent = function (template)
     {
         $(document).trigger(DomManipulator.EVENT_TEMPLATE_CHANGED, [template]);
         return this;
@@ -61,6 +74,11 @@ define(['jquery', 'cg-mustache'], function($, CGMustache)
     DomManipulator.prototype.getTemplateChangedEvent = function()
     {
         return DomManipulator.EVENT_TEMPLATE_CHANGED;
+    };
+
+    DomManipulator.prototype.enable = function(selector)
+    {
+        $(selector).removeClass('disabled');
     };
 
     DomManipulator.prototype.getElementSelectedEvent = function()

@@ -12,7 +12,7 @@ define([
 
         var data = {
             id: undefined,
-            type: undefined,
+            templateType: undefined,
             height: undefined,
             width: undefined,
             x: undefined,
@@ -37,6 +37,9 @@ define([
 
         this.getId = function()
         {
+            if (!this.get('id')) {
+                this.setId(generateId());
+            }
             return this.get('id');
         };
 
@@ -46,14 +49,14 @@ define([
             return this;
         };
 
-        this.getType = function()
+        this.getTemplateType = function()
         {
-            return this.get('type');
+            return this.get('templateType');
         };
 
-        this.setType = function(newType)
+        this.setTemplateType = function(newTemplateType)
         {
-            this.set('type', newType);
+            this.set('templateType', newTemplateType);
             return this;
         };
 
@@ -173,16 +176,16 @@ define([
         /**
          * Sub-classes can override this to provide extra inspectable attributes for themselves
          */
-        this.getExtraInspectableAttributes = function() {
+        this.getExtraInspectableAttributes = function()
+        {
             return extraInspectableAttributes;
         };
 
         // Elements aren't expected to have IDs so generate one
         var generateId = function()
         {
-            return  (new Date()).getTime()+String(Math.random()).substr(2);
+            return (new Date()).getTime()+String(Math.random()).substr(2);
         };
-        this.setId(generateId());
     };
 
     var combinedPrototype = EntityHydrateAbstract.prototype;

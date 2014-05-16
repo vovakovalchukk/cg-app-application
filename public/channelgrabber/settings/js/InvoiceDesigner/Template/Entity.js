@@ -1,18 +1,21 @@
 define([
-    'InvoiceDesigner/EntityHydrateAbstract',
     'InvoiceDesigner/Template/Element/Collection',
-    'InvoiceDesigner/Template/Service'
+    'InvoiceDesigner/Template/DomManipulator',
+    'InvoiceDesigner/EntityHydrateAbstract',
+    'InvoiceDesigner/Template/Entity'
 ], function(
-    EntityHydrateAbstract,
-    collection,
-    templateService
+    Collection,
+    domManipulator,
+    EntityHydrateAbstract
 ) {
     var Entity = function()
     {
         EntityHydrateAbstract.call(this);
 
-        var elements = collection;
-        var service = templateService;
+        var elements = new Collection();
+        var manipulator = domManipulator;
+        var state;
+        var stateId;
         var page;
 
         // Member vars to watch for changes
@@ -25,18 +28,24 @@ define([
             minWidth: undefined
         };
 
+        Entity.PATH_TO_PAGE_ENTITY = 'InvoiceDesigner/Template/Element/Page';
+
         this.getElements = function()
         {
             return elements;
         };
 
-        this.getService = function()
+        this.getManipulator = function()
         {
-            return service;
+            return manipulator;
         };
 
         this.getPage = function()
         {
+            if (!page) {
+                var pageClass = require(Entity.PATH_TO_PAGE_ENTITY);
+                page = new pageClass();
+            }
             return page;
         };
 
@@ -112,6 +121,28 @@ define([
             return this;
         };
 
+        this.getState = function()
+        {
+            return state;
+        };
+
+        this.setState = function(newState)
+        {
+            state = newState;
+            return this;
+        };
+
+        this.getStateId = function()
+        {
+            return stateId;
+        };
+
+        this.setStateId = function(newStateId)
+        {
+            stateId = newStateId;
+            return this;
+        };
+
         this.get = function(field)
         {
             return data[field];
@@ -127,9 +158,14 @@ define([
             this.notifyOfChange();
         };
 
+        this.getDomManipulator = function()
+        {
+            return manipulator;
+        };
+
         this.notifyOfChange = function()
         {
-            this.getService().notifyOfChange(this);
+            this.getDomManipulator().triggerTemplateChangeEvent(this);
         };
     };
 
@@ -144,7 +180,7 @@ define([
     {
         this.getElements().attach(element);
         element.subscribe(this);
-        if (element.getType() === 'page') {
+        if (element.getTemplateType() === 'page') {
             this.setPage(element);
         }
         if (populating) {
@@ -167,5 +203,5 @@ define([
         this.notifyOfChange();
     };
 
-    return new Entity();
+    return Entity;
 });

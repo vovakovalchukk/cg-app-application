@@ -75,6 +75,19 @@
     }
 }
 
+#main-wrapper {
+  padding: 0px !important;
+}
+
+.invoice-select-create {
+  padding:10px;
+  border-bottom: 1px solid $color-lgrey;
+  height:80px;
+  .button {
+    float:left;
+  }
+}
+
 .template-module{
     .element{
           clear: left;
