@@ -13,10 +13,10 @@ define([
         var data = {
             id: undefined,
             type: undefined,
-            height: undefined,
-            width: undefined,
-            x: undefined,
-            y: undefined,
+            height: 100,
+            width: 100,
+            x: 50,
+            y: 50,
             backgroundColour: undefined,
             borderWidth: undefined,
             borderColour: undefined

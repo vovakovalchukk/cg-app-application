@@ -20,8 +20,15 @@ define([
 
     ElementManager.prototype.addElementToCurrentTemplate = function(elementName)
     {
-        var element = this.getTemplateService().getMapper().createNewElement(elementName);
-        this.getTemplate().addElement(element, true);
+        var d = {
+            type: elementName,
+            borderWidth: 1,
+            borderColour: 'black'
+        };
+
+        //var element = this.getTemplateService().getMapper().createNewElement(elementName);
+        var element = this.getTemplateService().getMapper().elementFromJson(d, true);
+        this.getTemplate().addElement(element);
         console.log(this.getTemplate().getElements().getItems());
     }
 

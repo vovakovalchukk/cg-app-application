@@ -3,13 +3,24 @@
 <?php //$this->inlineScript()->captureStart(); ?>
 <script>
 var templateSelectorId = "#<?= $templateSelectorId; ?>";
+
+$(document).on('click', '.toPdfButton', function() {
+    require([
+        'InvoiceDesigner/Application',
+        'InvoiceDesigner/Template/Service'
+    ], function(Application, InvoiceDesignerService) {
+        var template = Application.getTemplate();
+        var templateJson = InvoiceDesignerService.getMapper().toJson(template);
+        InvoiceDesignerService.showAsPdf(templateJson);
+    });
+});
+
 $(document).ready(function() {
     require.config({
         paths: {
             'InvoiceDesigner': "<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/InvoiceDesigner';?>"
         }
     });
-
     require(['InvoiceDesigner/Application'], function(designerApp)
     {
         designerApp.init();
@@ -51,19 +62,20 @@ $(document).ready(function() {
 <div id="invoice-controls-bar" class="sidebar sidebar-fixed sidebar-left sidebar-invoice-designer">
     <!--Invoice Controls-->
 
-    <div class="addElements">
-        <h3>Add Element</h3>
-    </div>
-</div>
-
-<div id="invoice-template-container" class="invoice-template-container">
-    <!--Invoice Template-->
     <form method="post" action="/orders/invoice/preview" class="button toPdfButton" style="margin: 10px">
         To Pdf
         <input name="template" type="hidden" />
     </form>
-    <hr>
 
+    <hr>
+    <div class="addElements">
+        <h3>Add Element</h3>
+    </div>
+
+</div>
+
+<div id="invoice-template-container" class="invoice-template-container">
+    <!--Invoice Template-->
     <div class="invoice-select-create">
         <?= $templates; ?>
         <?= $templateAddButton ?>
@@ -90,16 +102,3 @@ $(document).ready(function() {
 <div id="element-inspector-bar" class="sidebar sidebar-fixed sidebar-right sidebar-invoice-designer">
     <!--Element Inspectors-->
 </div>
-
-<script>
-    $(document).on('click', '.toPdfButton', function() {
-    require([
-        'InvoiceDesigner/Application',
-        'InvoiceDesigner/Template/Service'
-    ], function(Application, InvoiceDesignerService) {
-        var template = Application.getTemplate();
-        var templateJson = InvoiceDesignerService.getMapper().toJson(template);
-        InvoiceDesignerService.showAsPdf(templateJson);
-    });
-});
-</script>
