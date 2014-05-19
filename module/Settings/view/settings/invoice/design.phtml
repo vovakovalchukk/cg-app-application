@@ -50,17 +50,6 @@ $(document).ready(function() {
 </div>
 
 <script>
-    function getMethods(obj)
-    {
-        var res = [];
-        for(var m in obj) {
-            if(typeof obj[m] == "function") {
-                res.push(m)
-            }
-        }
-        return res;
-    }
-
     $(document).on('click', '.toPdfButton', function() {
     require([
         'InvoiceDesigner/Application',
