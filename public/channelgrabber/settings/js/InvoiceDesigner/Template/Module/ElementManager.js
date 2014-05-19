@@ -13,16 +13,16 @@ define([
 
     ElementManager.prototype = Object.create(ModuleAbstract.prototype);
 
-    ElementManager.prototype.init = function(service)
+    ElementManager.prototype.init = function(template, service)
     {
-        ModuleAbstract.prototype.init.call(this, service);
+        ModuleAbstract.prototype.init.call(this, template, service);
     };
 
     ElementManager.prototype.addElementToCurrentTemplate = function(elementName)
     {
         var element = this.getTemplateService().getMapper().createNewElement(elementName);
         this.getTemplate().addElement(element, true);
-        //console.log(this.getTemplate().getElements().getItems());
+        console.log(this.getTemplate().getElements().getItems());
     }
 
     return new ElementManager();

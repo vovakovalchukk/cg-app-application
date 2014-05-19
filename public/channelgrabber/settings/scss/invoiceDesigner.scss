@@ -81,16 +81,17 @@
 }
 
 #invoice-controls-bar .addElements {
-  h3 {
-    padding-left: 10px;
-  }
-  div.button {
-      margin:10px;
-      width:85px !important;
-      display: inline-block;
-      min-width:initial;
-      vertical-align: top;
-  }
+    display: none;
+    h3 {
+        padding-left: 10px;
+    }
+    div.button {
+        margin:10px;
+        width:85px !important;
+        display: inline-block;
+        min-width:initial;
+        vertical-align: top;
+    }
 }
 .template-element-image{
     background-color: #eee;

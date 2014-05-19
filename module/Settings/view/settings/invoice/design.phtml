@@ -34,7 +34,7 @@ $(document).ready(function() {
                 }
             ]
         };
-        var template = "{{#buttons}}<div class='button' data-element='{{element}}'>{{value}}</div>{{/buttons}}";
+        var template = "{{#buttons}}<div class='button' data-element='{{element}}'>{{value}}</div>{{/buttons}}<hr>";
         var renderedTemplate = Mustache.render(template, variables);
         $('#invoice-controls-bar .addElements').append(renderedTemplate);
     });
@@ -54,7 +54,6 @@ $(document).ready(function() {
     <div class="addElements">
         <h3>Add Element</h3>
     </div>
-    <hr>
 </div>
 
 <div id="invoice-template-container" class="invoice-template-container">
