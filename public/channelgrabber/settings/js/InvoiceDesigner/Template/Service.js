@@ -5,6 +5,7 @@ define([
     'InvoiceDesigner/Template/DomManipulator',
     'InvoiceDesigner/Template/Element/MapperAbstract',
     // Template Module requires here
+    'InvoiceDesigner/Template/Module/PaperType',
     'InvoiceDesigner/Template/Module/InspectorManager',
     'InvoiceDesigner/Template/Module/Renderer',
     'InvoiceDesigner/Template/Module/ElementManager',
@@ -26,6 +27,7 @@ define([
 
         var modules = [
             // Template Modules require() paths here
+            'InvoiceDesigner/Template/Module/PaperType',
             'InvoiceDesigner/Template/Module/InspectorManager',
             'InvoiceDesigner/Template/Module/Renderer',
             'InvoiceDesigner/Template/Module/ElementManager',
@@ -85,7 +87,6 @@ define([
         var template = this.getStorage().fetch(id);
         template.setState(Service.FETCHED_STATE)
             .setStateId(id);
-        this.loadModules(template);
         this.getDomManipulator().hideSaveDiscardBar(template);
 
         $('#invoice-controls-bar .addElements').fadeIn();
