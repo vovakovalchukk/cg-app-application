@@ -26,7 +26,7 @@ define([
 
         var modules = [
             // Template Modules require() paths here
-            'InvoiceDesigner/Template/Module/PaperType',            
+            'InvoiceDesigner/Template/Module/PaperType',
             'InvoiceDesigner/Template/Module/InspectorManager',
             'InvoiceDesigner/Template/Module/Renderer',
             'InvoiceDesigner/Template/Module/AddDiscardBar',
