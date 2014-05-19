@@ -15,40 +15,16 @@ define(['InvoiceDesigner/Template/PaperType/StorageAbstract', 'jquery'], functio
                 name: "No Label (Blank)",
                 height: "297",
                 width: "210",
-                backgroundImage: "http://www.scottiescardsandcrafts.co.uk/images/products/buzzcraft---pink-flowers-backing-sheet-Swrl.jpg",
-                backgroundImageInverse: "http://www.scottiescardsandcrafts.co.uk/images/products/buzzcraft---pink-flowers-backing-sheet-Swrl.jpg"
+                backgroundImage: "",
+                backgroundImageInverse: ""
             },
             {
                 id: 2,
-                name: "Single Label Top",
+                name: "Single Style C",
                 height: "297",
                 width: "210",
-                backgroundImage: "http://www.scottiescardsandcrafts.co.uk/images/products/buzzcraft---pink-flowers-backing-sheet-Swrl.jpg",
-                backgroundImageInverse: "http://www.scottiescardsandcrafts.co.uk/images/products/buzzcraft---pink-flowers-backing-sheet-Swrl.jpg"
-            },
-            {
-                id: 3,
-                name: "Single Label Bottom",
-                height: "297",
-                width: "210",
-                backgroundImage: "http://www.scottiescardsandcrafts.co.uk/images/products/buzzcraft---pink-flowers-backing-sheet-Swrl.jpg",
-                backgroundImageInverse: "http://www.scottiescardsandcrafts.co.uk/images/products/buzzcraft---pink-flowers-backing-sheet-Swrl.jpg"
-            },
-            {
-                id: 4,
-                name: "Double Label Top",
-                height: "297",
-                width: "210",
-                backgroundImage: "http://www.scottiescardsandcrafts.co.uk/images/products/buzzcraft---pink-flowers-backing-sheet-Swrl.jpg",
-                backgroundImageInverse: "http://www.scottiescardsandcrafts.co.uk/images/products/buzzcraft---pink-flowers-backing-sheet-Swrl.jpg"
-            },
-            {
-                id: 5,
-                name: "Double Label Bottom",
-                height: "297",
-                width: "210",
-                backgroundImage: "http://www.scottiescardsandcrafts.co.uk/images/products/buzzcraft---pink-flowers-backing-sheet-Swrl.jpg",
-                backgroundImageInverse: "http://www.scottiescardsandcrafts.co.uk/images/products/buzzcraft---pink-flowers-backing-sheet-Swrl.jpg"
+                backgroundImage: "/channelgrabber/settings/img/InvoiceDesigner/Template/PaperType/style-c-label.png",
+                backgroundImageInverse: "/channelgrabber/settings/img/InvoiceDesigner/Template/PaperType/style-c-label-inverse.png"
             }
         ];
 
