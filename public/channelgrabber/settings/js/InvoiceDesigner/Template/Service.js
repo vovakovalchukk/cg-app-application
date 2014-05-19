@@ -85,7 +85,6 @@ define([
         var template = this.getStorage().fetch(id);
         template.setState(Service.FETCHED_STATE)
             .setStateId(id);
-        this.loadModules(template);
         this.getDomManipulator().hideSaveDiscardBar(template);
         return template;
     };
