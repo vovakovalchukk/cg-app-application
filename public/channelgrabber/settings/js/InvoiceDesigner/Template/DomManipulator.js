@@ -15,6 +15,7 @@ define([
     DomManipulator.EVENT_TEMPLATE_ELEMENT_SELECTED = 'invoice-template-element-selected';
     DomManipulator.EVENT_IMAGE_UPLOAD_FILE_SELECTED = 'invoice-template-image-selected';
     DomManipulator.DOM_SELECTOR_TEMPLATE_CONTAINER = '#invoice-template-container';
+    DomManipulator.CUSTOM_SELECT_TEMPLATE_PATH = '/channelgrabber/zf2-v4-ui/templates/elements/custom-select.mustache';
 
     DomManipulator.prototype.insertTemplateHtml = function(html)
     {
@@ -61,8 +62,7 @@ define([
             isFirstElement = false;
         });
 
-        var templateUrl = '/channelgrabber/zf2-v4-ui/templates/elements/custom-select.mustache';
-        CGMustache.get().fetchTemplate(templateUrl, function(template, cgmustache) {
+        CGMustache.get().fetchTemplate(DomManipulator.CUSTOM_SELECT_TEMPLATE_PATH, function(template, cgmustache) {
             container.html(cgmustache.renderTemplate(template, view));
         });
     };
