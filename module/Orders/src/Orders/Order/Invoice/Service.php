@@ -108,7 +108,7 @@ class Service
             [
                 'mimeType' => $this->getRendererService()->getMimeType(),
                 'filename' => $this->getRendererService()->getFileName(),
-                'content' => $this->generateInvoiceFromOrderCollection($orderCollection, $template)
+                'content' => $this->generateInvoiceFromOrderCollection($orderCollection, $template = null)
             ]
         );
     }
@@ -123,7 +123,7 @@ class Service
         }
     }
 
-    public function generateInvoiceFromOrderCollection(Collection $orderCollection, $template)
+    public function generateInvoiceFromOrderCollection(Collection $orderCollection, $template = null)
     {
         $renderedContent = [];
         if (! isset($template)) {
