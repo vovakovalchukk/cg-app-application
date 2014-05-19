@@ -43,7 +43,8 @@ define([
 
     DomManipulator.prototype.populateCustomSelect = function(selector, data)
     {
-        var container = $(selector).parent();
+        var container = $(selector).parent().parent();
+
         var view = {
             isOptional: $(selector).hasClass("filter-optional"),
             id: $(selector).attr('id'),
@@ -63,7 +64,7 @@ define([
         });
 
         CGMustache.get().fetchTemplate(DomManipulator.CUSTOM_SELECT_TEMPLATE_PATH, function(template, cgmustache) {
-            container.html(cgmustache.renderTemplate(template, view));
+            container.empty().html(cgmustache.renderTemplate(template, view));
         });
     };
 
