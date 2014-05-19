@@ -125,9 +125,9 @@ define([
 
     Service.prototype.showAsPdf = function(template)
     {
-        /*
-         * TODO (CGIV-2011)
-         */
+        var form = $('form.toPdfButton');
+        form.find('input').val(JSON.stringify(template));
+        form.submit();
     };
 
     Service.prototype.loadModules = function(template)

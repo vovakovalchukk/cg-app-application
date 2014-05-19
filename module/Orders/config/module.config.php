@@ -256,6 +256,19 @@ return [
                                 'controller' => 'Orders\Controller\Invoice',
                                 'action' => 'generate'
                             ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            'invoice_demo' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/preview',
+                                    'defaults' => [
+                                        'controller' => 'Orders\Controller\Invoice',
+                                        'action' => 'generatePreview'
+                                    ]
+                                ],
+                            ],
                         ]
                     ],
                     StoredFiltersController::ROUTE_SAVE => [
