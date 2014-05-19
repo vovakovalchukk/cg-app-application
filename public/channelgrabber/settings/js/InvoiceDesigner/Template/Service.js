@@ -8,8 +8,9 @@ define([
     'InvoiceDesigner/Template/Module/PaperType',
     'InvoiceDesigner/Template/Module/InspectorManager',
     'InvoiceDesigner/Template/Module/Renderer',
-    'InvoiceDesigner/Template/Module/ImageUpload',
-    'InvoiceDesigner/Template/Module/AddDiscardBar'
+    'InvoiceDesigner/Template/Module/AddDiscardBar',
+    'InvoiceDesigner/Template/Module/Name',
+    'InvoiceDesigner/Template/Module/ImageUpload'
 ], function(
     require,
     templateAjaxStorage,
@@ -28,8 +29,9 @@ define([
             'InvoiceDesigner/Template/Module/PaperType',            
             'InvoiceDesigner/Template/Module/InspectorManager',
             'InvoiceDesigner/Template/Module/Renderer',
-            'InvoiceDesigner/Template/Module/ImageUpload',
-            'InvoiceDesigner/Template/Module/AddDiscardBar'          
+            'InvoiceDesigner/Template/Module/AddDiscardBar',
+            'InvoiceDesigner/Template/Module/Name',
+            'InvoiceDesigner/Template/Module/ImageUpload'
         ];
 
         this.getStorage = function()
@@ -83,6 +85,7 @@ define([
         var template = this.getStorage().fetch(id);
         template.setState(Service.FETCHED_STATE)
             .setStateId(id);
+        this.loadModules(template);
         this.getDomManipulator().hideSaveDiscardBar(template);
         return template;
     };
@@ -111,6 +114,7 @@ define([
             .setState(Service.DUPLICATED_STATE)
             .setStateId(template.getId())
             .setId();
+        this.loadModules(template);
         this.getDomManipulator().hideSaveDiscardBar(template);
     };
 

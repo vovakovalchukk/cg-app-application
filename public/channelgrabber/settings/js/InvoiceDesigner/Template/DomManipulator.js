@@ -1,5 +1,10 @@
-define(['jquery', 'cg-mustache'], function($, CGMustache)
-{
+define([
+    'jquery',
+    'cg-mustache'
+], function(
+    $,
+    CGMustache
+) {
     var DomManipulator = function()
     {
 
@@ -30,6 +35,7 @@ define(['jquery', 'cg-mustache'], function($, CGMustache)
 
     DomManipulator.prototype.triggerTemplateChangeEvent = function (template)
     {
+        this.showSaveDiscardBar();
         $(document).trigger(DomManipulator.EVENT_TEMPLATE_CHANGED, [template]);
         return this;
     };
@@ -80,6 +86,16 @@ define(['jquery', 'cg-mustache'], function($, CGMustache)
     DomManipulator.prototype.enable = function(selector)
     {
         $(selector).removeClass('disabled');
+    };
+
+    DomManipulator.prototype.show = function(selector)
+    {
+        $(selector).show();
+    };
+
+    DomManipulator.prototype.reloadName = function(selector, template)
+    {
+        $(selector).val(template.getName());
     };
 
     DomManipulator.prototype.getElementSelectedEvent = function()
