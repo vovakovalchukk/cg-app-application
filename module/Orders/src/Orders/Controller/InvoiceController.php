@@ -51,7 +51,10 @@ class InvoiceController extends AbstractActionController
      */
     public function generatePreviewAction()
     {
-        $filter = $this->getService()->getDi()->get('CG\\Order\\Service\\Filter', ['limit' => 1]);
+        $filter = $this->getService()->getDi()->get('CG\\Order\\Service\\Filter', [
+            'limit' => 1,
+            'organisationUnitId' => $this->getService()->getOrderService()->getActiveUser()->getOuList()
+        ]);
         $orders = $this->getService()->getOrderService()->getOrders($filter);
         $elements = [];
 
