@@ -11,13 +11,6 @@ define([
     var PaperType = function()
     {
         DomListenerAbstract.call(this);
-
-        var events = requireModule.config().events;
-
-        this.getEvents = function()
-        {
-            return events;
-        };
     };
 
     PaperType.CONTAINER_ID = 'paperTypeModule';
