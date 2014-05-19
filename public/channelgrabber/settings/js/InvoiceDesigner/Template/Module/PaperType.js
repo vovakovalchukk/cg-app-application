@@ -14,7 +14,6 @@ define([
         ModuleAbstract.call(this);
         var storage = paperTypeStorage;
 
-        var template;
         var availablePaperTypes;
 
         this.setDomListener(new PaperTypeListener());
@@ -23,16 +22,6 @@ define([
         {
             return storage;
         }
-
-        this.setTemplate = function(newTemplate)
-        {
-            template = newTemplate;
-        };
-
-        this.getTemplate = function()
-        {
-            return template;
-        };
 
         this.setAvailablePaperTypes = function(newAvailablePaperTypes)
         {
@@ -71,9 +60,11 @@ define([
         }
 
         var backgroundImage = isInverse ? selectedPaperType.getBackgroundImageInverse() : selectedPaperType.getBackgroundImage();
-        this.getTemplate().getPage().setHeight(selectedPaperType.getHeight());
-        this.getTemplate().getPage().setWidth(selectedPaperType.getWidth());
-        this.getTemplate().getPage().setBackgroundImage(backgroundImage);
+        var templatePage = this.getTemplate().getPage();
+
+        templatePage.setHeight(selectedPaperType.getHeight());
+        templatePage.setWidth(selectedPaperType.getWidth());
+        templatePage.setBackgroundImage(backgroundImage);
     };
 
     return new PaperType();
