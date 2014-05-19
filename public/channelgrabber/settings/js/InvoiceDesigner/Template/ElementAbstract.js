@@ -208,17 +208,11 @@ define([
     ElementAbstract.prototype.toJson = function()
     {
         var json = JSON.parse(JSON.stringify(this.getData()));
-        json.x = this.mmToPoints(json.x);
-        json.y = this.mmToPoints(json.y);
-        json.height = this.mmToPoints(json.height);
-        json.width = this.mmToPoints(json.width);
+        json.x = json.x.mmToPt();
+        json.y = json.y.mmToPt();
+        json.height = json.height.mmToPt();
+        json.width = json.width.mmToPt();
         return json;
-    };
-
-    ElementAbstract.prototype.mmToPoints = function(mm)
-    {
-        var inches = mm / 25.4;
-        return inches * 72;
     };
 
     return ElementAbstract;
