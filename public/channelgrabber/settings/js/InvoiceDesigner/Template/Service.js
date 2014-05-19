@@ -7,9 +7,10 @@ define([
     // Template Module requires here
     'InvoiceDesigner/Template/Module/InspectorManager',
     'InvoiceDesigner/Template/Module/Renderer',
-    'InvoiceDesigner/Template/Module/ImageUpload',
+    'InvoiceDesigner/Template/Module/ElementManager',
     'InvoiceDesigner/Template/Module/AddDiscardBar',
-    'InvoiceDesigner/Template/Module/ElementManager'
+    'InvoiceDesigner/Template/Module/Name',
+    'InvoiceDesigner/Template/Module/ImageUpload'
 ], function(
     require,
     templateAjaxStorage,
@@ -27,9 +28,10 @@ define([
             // Template Modules require() paths here
             'InvoiceDesigner/Template/Module/InspectorManager',
             'InvoiceDesigner/Template/Module/Renderer',
-            'InvoiceDesigner/Template/Module/ImageUpload',
+            'InvoiceDesigner/Template/Module/ElementManager',
             'InvoiceDesigner/Template/Module/AddDiscardBar',
-            'InvoiceDesigner/Template/Module/ElementManager'
+            'InvoiceDesigner/Template/Module/Name',
+            'InvoiceDesigner/Template/Module/ImageUpload'
         ];
 
         this.getStorage = function()
@@ -83,6 +85,7 @@ define([
         var template = this.getStorage().fetch(id);
         template.setState(Service.FETCHED_STATE)
             .setStateId(id);
+        this.loadModules(template);
         this.getDomManipulator().hideSaveDiscardBar(template);
         return template;
     };
@@ -111,6 +114,7 @@ define([
             .setState(Service.DUPLICATED_STATE)
             .setStateId(template.getId())
             .setId();
+        this.loadModules(template);
         this.getDomManipulator().hideSaveDiscardBar(template);
     };
 
@@ -122,20 +126,9 @@ define([
 
     Service.prototype.showAsPdf = function(template)
     {
-        var form = document.createElement('form');
-        form.action = 'https://app.channelgrabber.com.local/orders/invoice/preview';
-        form.method = 'POST';
-        form.id = 'tempInvoiceForm';
-        form.setAttribute('style','display:none');
-
-        var input = document.createElement('input');
-        input.name = 'template';
-        input.value = JSON.stringify(template);
-        form.appendChild(input);
-
-        document.body.appendChild(form);
+        var form = $('form.toPdfButton');
+        form.find('input').val(JSON.stringify(template));
         form.submit();
-        document.getElementById("tempInvoiceForm").remove();
     };
 
     Service.prototype.loadModules = function(template)

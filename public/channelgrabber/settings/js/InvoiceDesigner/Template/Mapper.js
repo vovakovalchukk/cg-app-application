@@ -46,15 +46,15 @@ define([
         return template;
     };
 
-    Mapper.prototype.createNewElement = function(elementName)
+    Mapper.prototype.createNewElement = function(elementType)
     {
-        var elementClass = require(Mapper.PATH_TO_ELEMENT_TYPES + elementName);
+        var elementClass = require(Mapper.PATH_TO_ELEMENT_TYPES + elementType);
         return new elementClass();
     };
 
     Mapper.prototype.elementFromJson = function(elementData, populating)
     {
-        var elementType = elementData.templateType.ucfirst();
+        var elementType = elementData.type.ucfirst();
         var element = this.createNewElement(elementType);
         element.hydrate(elementData, populating);
         return element;
@@ -91,7 +91,7 @@ define([
             if (element.getId() === page.getId()) {
                 return true;
             }
-            var elementType = element.getTemplateType().ucfirst();
+            var elementType = element.getType().ucfirst();
             var elementMapper = require(Mapper.PATH_TO_ELEMENT_TYPE_MAPPERS + elementType);
             var elementHtml = elementMapper.toHtml(element);
             elementsHtml += elementHtml;

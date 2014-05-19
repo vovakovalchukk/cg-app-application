@@ -58,11 +58,20 @@ $(document).ready(function() {
 
 <div id="invoice-template-container" class="invoice-template-container">
     <!--Invoice Template-->
+    <form method="post" action="/orders/invoice/preview" class="button toPdfButton" style="margin: 10px">
+        To Pdf
+        <input name="template" type="hidden" />
+    </form>
+    <hr>
 
     <div class="invoice-select-create">
         <?= $templates; ?>
         <?= $templateAddButton ?>
         <?= $templateDuplicateButton ?>
+    </div>
+    <div id="template-name-container" class="template-name-container">
+        <div><?= $this->translate('Template Name'); ?></div>
+        <?= $templateName; ?>
     </div>
 </div>
 
@@ -81,3 +90,16 @@ $(document).ready(function() {
 <div id="element-inspector-bar" class="sidebar sidebar-fixed sidebar-right sidebar-invoice-designer">
     <!--Element Inspectors-->
 </div>
+
+<script>
+    $(document).on('click', '.toPdfButton', function() {
+    require([
+        'InvoiceDesigner/Application',
+        'InvoiceDesigner/Template/Service'
+    ], function(Application, InvoiceDesignerService) {
+        var template = Application.getTemplate();
+        var templateJson = InvoiceDesignerService.getMapper().toJson(template);
+        InvoiceDesignerService.showAsPdf(templateJson);
+    });
+});
+</script>

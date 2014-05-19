@@ -68,7 +68,7 @@ define(['cg-mustache'], function(CGMustache)
 
     MapperAbstract.prototype.getDomClasses = function(element)
     {
-        var domClasses = ['template-element', 'template-element-'+element.getTemplateType()];
+        var domClasses = ['template-element', 'template-element-'+element.getType()];
         var extraDomClasses = this.getExtraDomClasses(element);
         for (var key in extraDomClasses) {
             domClasses.push(extraDomClasses[key]);
