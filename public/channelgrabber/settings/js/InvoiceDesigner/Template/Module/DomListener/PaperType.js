@@ -6,7 +6,7 @@ define([
     requireModule,
     DomListenerAbstract,
     CustomSelect
-    ) {
+) {
 
     var PaperType = function()
     {

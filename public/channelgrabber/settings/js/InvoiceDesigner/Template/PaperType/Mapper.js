@@ -1,8 +1,9 @@
 define([
     'require',
     'InvoiceDesigner/Template/PaperType/Entity'
-], function(require, PaperTypeEntity)
-{
+], function(
+    require, PaperTypeEntity
+) {
     var Mapper = function() {};
 
     Mapper.prototype.fromArray = function(array)

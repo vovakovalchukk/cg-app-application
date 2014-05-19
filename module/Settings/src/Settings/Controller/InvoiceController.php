@@ -34,7 +34,7 @@ class InvoiceController extends AbstractActionController
 
     public function designAction()
     {
-        $view = $this->getViewModelFactory()->newInstance();        
+        $view = $this->getViewModelFactory()->newInstance();
         $view->addChild($this->getTemplateSelectView(), 'templates');
         $view->addChild($this->getTemplateAddButtonView(), 'templateAddButton');
         $view->addChild($this->getTemplateDuplicateButtonView(), 'templateDuplicateButton');

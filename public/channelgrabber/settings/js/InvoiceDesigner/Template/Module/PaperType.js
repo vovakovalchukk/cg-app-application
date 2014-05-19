@@ -8,7 +8,7 @@ define([
     PaperTypeListener,
     paperTypeStorage,
     domManipulator
-    ) {
+) {
     var PaperType = function()
     {
         ModuleAbstract.call(this);
