@@ -2,7 +2,7 @@ define([
     'jquery'
 ], function(
     $
-    ) {
+) {
 
     var Heading = function()
     {
