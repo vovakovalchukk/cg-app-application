@@ -144,9 +144,10 @@ define([
 
         this.set = function(field, value, populating)
         {
+            var oldValue = data[field];
             data[field] = value;
 
-            if (populating) {
+            if (oldValue === value || populating) {
                 return;
             }
             this.publish();

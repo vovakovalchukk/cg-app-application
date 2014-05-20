@@ -101,6 +101,28 @@ define([
         $(selector).val(template.getName());
     };
 
+    DomManipulator.prototype.calculatePxPerMm = function()
+    {
+        var domId = 'pxPerMmTest';
+        $("body").append('<div id="'+domId+'" style="width:1mm;height:1mm;display:hidden;"></div>');
+        var pixels = $('#'+domId).width();
+        $('#'+domId).remove();
+        return pixels;
+    };
+
+    DomManipulator.prototype.getDimensions = function(selector)
+    {
+        var dimensions = $(selector).offset();
+        dimensions.width = $(selector).width();
+        dimensions.height = $(selector).height();
+        return dimensions;
+    };
+
+    DomManipulator.prototype.getParentDimensions = function(selector)
+    {
+        return this.getDimensions($(selector).parent());
+    };
+
     DomManipulator.prototype.getElementSelectedEvent = function()
     {
         return DomManipulator.EVENT_TEMPLATE_ELEMENT_SELECTED;
