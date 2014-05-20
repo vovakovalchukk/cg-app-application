@@ -1,13 +1,9 @@
 define([
     'InvoiceDesigner/Module/DomListenerAbstract',
-    'jquery',
-    'mustache',
-    'cg-mustache'
+    'jquery'
 ], function(
     DomListenerAbstract,
-    $,
-    Mustache,
-    CGMustache
+    $
 ) {
 
     var ElementManager = function()
