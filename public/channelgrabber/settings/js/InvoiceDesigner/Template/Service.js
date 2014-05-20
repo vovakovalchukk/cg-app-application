@@ -105,6 +105,7 @@ define([
         template.setState(Service.CREATED_STATE);
         this.loadModules(template);
         this.getDomManipulator().hideSaveDiscardBar(template);
+        return template;
     };
 
     Service.prototype.duplicate = function(template)
@@ -115,12 +116,13 @@ define([
             .setId();
         this.loadModules(template);
         this.getDomManipulator().hideSaveDiscardBar(template);
+        return template;
     };
 
     Service.prototype.fetchAndDuplicate = function(id)
     {
         var template = this.fetch(id);
-        this.duplicate(template);
+        return this.duplicate(template);
     };
 
     Service.prototype.showAsPdf = function(template)

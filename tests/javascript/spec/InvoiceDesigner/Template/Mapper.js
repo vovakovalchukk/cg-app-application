@@ -23,11 +23,12 @@ define(['jasq'], function (jasq)
                     organisationUnitId: 1,
                     minHeight: 100,
                     minWidth: 100,
-                    elements: [{
-                        type: "page",
+                    paperPage: {
                         width: 250,
                         height: 353,
-                    }, {
+                        paperType: 1
+                    },
+                    elements: [{
                         type: "text",
                         height: 100,
                         width: 100,
@@ -81,10 +82,13 @@ define(['jasq'], function (jasq)
                 var mappedJson = mapper.toJson(template);
                 // No easy way to compare two objects...
                 for (var key in json) {
-                    if (typeof json[key] === 'function' || key === 'elements') {
+                    if (typeof json[key] === 'function' || key === 'elements' || key === 'paperPage') {
                         continue;
                     }
                     expect(mappedJson[key]).toBe(json[key]);
+                }
+                for (var key in json.paperPage) {
+                    expect(mappedJson.paperPage[key]).toBe(json.paperPage[key]);
                 }
                 expect(mappedJson.elements.length).toBe(json.elements.length);
             });
