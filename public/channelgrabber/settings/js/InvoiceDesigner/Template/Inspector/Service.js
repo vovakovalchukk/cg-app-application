@@ -3,13 +3,15 @@ define([
     'InvoiceDesigner/Template/Inspector/Collection',
     // Inspector requires here
     'InvoiceDesigner/Template/Inspector/TextArea',
-    'InvoiceDesigner/Template/Inspector/Heading'
+    'InvoiceDesigner/Template/Inspector/Heading',
+    'InvoiceDesigner/Template/Inspector/Positioning'
 ], function(
     require,
     inspectorCollection,
     // Inspector variables here
     textArea,
-    heading
+    heading,
+    positioning
 ) {
     var Service = function()
     {
@@ -42,7 +44,8 @@ define([
         
         var inspectorsToAdd = [
             // Inspector variables here
-            textArea
+            textArea,
+            positioning
         ];
 
         for (var key in inspectorsToAdd) {

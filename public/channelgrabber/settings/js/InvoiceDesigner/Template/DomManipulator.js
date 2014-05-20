@@ -79,5 +79,10 @@ define([
         $(selector).html(html);
     };
 
+    DomManipulator.prototype.setValue = function(selector, value)
+    {
+        $(selector).val(value);
+    };
+
     return new DomManipulator();
 });

@@ -67,7 +67,7 @@ define([
 
         this.setHeight = function(newHeight)
         {
-            this.set('height', newHeight);
+            this.set('height', Number(newHeight).roundToNearest(0.5));
             return this;
         };
 
@@ -78,7 +78,7 @@ define([
 
         this.setWidth = function(newWidth)
         {
-            this.set('width', newWidth);
+            this.set('width', Number(newWidth).roundToNearest(0.5));
             return this;
         };
 
@@ -89,7 +89,7 @@ define([
 
         this.setX = function(newX)
         {
-            this.set('x', newX);
+            this.set('x', Number(newX).roundToNearest(0.5));
             return this;
         };
 
@@ -100,7 +100,7 @@ define([
 
         this.setY = function(newY)
         {
-            this.set('y', newY);
+            this.set('y', Number(newY).roundToNearest(0.5));
             return this;
         };
 
