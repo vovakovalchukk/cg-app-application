@@ -15,7 +15,7 @@ use CG_UI\Module as CG_UI;
 
 class Cancel extends Action implements OrderAwareInterface
 {
-    const ICON = 'archive';
+    const ICON = 'sprite-cancel-22-black';
     const TYPE = CancelValue::CANCEL_TYPE;
     const ALLOWED_ACTION = ActionDeciderMap::CANCEL;
 
