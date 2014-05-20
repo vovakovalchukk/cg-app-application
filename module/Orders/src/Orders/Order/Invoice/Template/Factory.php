@@ -47,10 +47,6 @@ class Factory
      */
     public function getTemplateForOrderEntity($templateConfig)
     {
-//        echo "<pre>";
-//        print_r($templateConfig);
-//        exit;
-
         return $this->getDi()->get(
             Entity::class, $templateConfig
         );

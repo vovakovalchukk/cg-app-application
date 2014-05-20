@@ -49,27 +49,6 @@ define([
     Mapper.prototype.createNewElement = function(elementType)
     {
         var elementClass = require(Mapper.PATH_TO_ELEMENT_TYPES + elementType);
-//
-//        var d = {
-//            x: 40,
-//            y: 40,
-//            height: 123,
-//            width: 123,
-//            borderColour: 'green'
-//        };
-//        var element = new elementClass(d);
-//
-//        //element.setId(1);
-////        element.setX(800);
-////        element.setY(50);
-//        element.setHeight(20);
-//        element.setWidth(20);
-//        element.setBorderColour('red');
-//        element.setBorderWidth(6);
-//
-//        console.log(element);
-//        console.log(element.getX());
-//        return element;
         return new elementClass();
     };
 

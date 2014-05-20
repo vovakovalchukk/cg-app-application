@@ -18,8 +18,8 @@ define([
             x: 50,
             y: 50,
             backgroundColour: undefined,
-            borderWidth: undefined,
-            borderColour: undefined
+            borderWidth: 1,
+            borderColour: 'grey'
         };
         var baseInspectableAttributes = [];
         for (var field in data) {

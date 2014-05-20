@@ -88,8 +88,6 @@ define([
         template.setState(Service.FETCHED_STATE)
             .setStateId(id);
         this.getDomManipulator().hideSaveDiscardBar(template);
-
-        $('#invoice-controls-bar .addElements').fadeIn();
         return template;
     };
 
@@ -109,9 +107,6 @@ define([
         template.setState(Service.CREATED_STATE);
         this.loadModules(template);
         this.getDomManipulator().hideSaveDiscardBar(template);
-
-        console.log('created!');
-        $('#invoice-controls-bar .addElements').fadeIn();
     };
 
     Service.prototype.duplicate = function(template)

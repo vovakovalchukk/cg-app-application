@@ -1,7 +1,6 @@
 <?php $this->headLink()->appendStylesheet($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'css/common/subheader-hide.css'); ?>
 <?php $this->headLink()->appendStylesheet($this->basePath() . Settings\Module::PUBLIC_FOLDER . 'css/invoiceDesigner.css') ?>
-<?php //$this->inlineScript()->captureStart(); ?>
-<script>
+<?php $this->inlineScript()->captureStart(); ?>
 var templateSelectorId = "#<?= $templateSelectorId; ?>";
 
 $(document).on('click', '.toPdfButton', function() {
@@ -28,8 +27,8 @@ $(document).ready(function() {
         designerApp.init();
     });
 
-    // create 'ADD ELEMENT' buttons
-    require(['mustache'], function(Mustache) {
+    require(['mustache','cg-mustache'], function(Mustache, CGMustache) {
+        var templateUrl = '<?= $this->basePath() . Settings\Module::PUBLIC_FOLDER . 'template/InvoiceDesigner/Template/buttons.mustache' ?>';
         var variables = {
             buttons: [
                 {   value: 'Seller Address',
@@ -47,20 +46,13 @@ $(document).ready(function() {
                 }
             ]
         };
-        var template = "{{#buttons}}<div class='button' data-element='{{element}}'>{{value}}</div>{{/buttons}}<hr>";
-        var renderedTemplate = Mustache.render(template, variables);
-        $('#invoice-controls-bar .addElements').append(renderedTemplate);
-    });
-
-    // ADD ELEMENT listeners
-    require([
-        'InvoiceDesigner/Template/Module/ElementManager'
-    ], function(ElementManager) {
-        console.log(ElementManager);
+        CGMustache.get().fetchTemplate(templateUrl, function(template) {
+            var renderedTemplate = Mustache.render(template, variables);
+            $('#invoice-controls-bar .addElements').append(renderedTemplate);
+        });
     });
 });
-</script>
-<?php //$this->inlineScript()->captureEnd(); ?>
+<?php $this->inlineScript()->captureEnd(); ?>
 <div id="invoice-controls-bar" class="sidebar sidebar-fixed sidebar-left sidebar-invoice-designer">
     <!--Invoice Controls-->
 

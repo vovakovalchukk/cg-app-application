@@ -12,6 +12,7 @@ define([
     };
 
     ElementManager.SELECTOR = '.addElements div.button';
+    ElementManager.CONTAINER_SELECTOR = '#invoice-controls-bar .addElements';
 
     ElementManager.prototype = Object.create(DomListenerAbstract.prototype);
 
@@ -23,6 +24,16 @@ define([
             var elementType = $(this).data('element');
             self.getModule().addElementToCurrentTemplate(elementType);
         });
+    };
+
+    ElementManager.prototype.getSelector = function()
+    {
+        return ElementManager.SELECTOR;
+    };
+
+    ElementManager.prototype.getContainerSelector = function()
+    {
+        return ElementManager.CONTAINER_SELECTOR;
     };
 
     return new ElementManager();
