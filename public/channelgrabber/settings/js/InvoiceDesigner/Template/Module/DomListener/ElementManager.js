@@ -1,9 +1,13 @@
 define([
     'InvoiceDesigner/Module/DomListenerAbstract',
-    'jquery'
+    'jquery',
+    'mustache',
+    'cg-mustache'
 ], function(
     DomListenerAbstract,
-    $
+    $,
+    Mustache,
+    CGMustache
 ) {
 
     var ElementManager = function()
@@ -11,8 +15,8 @@ define([
         DomListenerAbstract.call(this);
     };
 
-    ElementManager.SELECTOR = '.addElements div.button';
-    ElementManager.CONTAINER_SELECTOR = '#invoice-controls-bar .addElements';
+    ElementManager.SELECTOR = '.addInvoiceElement div.button';
+    ElementManager.CONTAINER_SELECTOR = '.addInvoiceElement';
 
     ElementManager.prototype = Object.create(DomListenerAbstract.prototype);
 

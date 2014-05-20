@@ -79,10 +79,11 @@
     }
 }
 
-#invoice-controls-bar .addElements {
+.addInvoiceElement {
     display:none;
-    h3 {
+    .addInvoiceElementTitle {
         padding-left: 10px;
+        font-weight:bold;
     }
     div.button {
         margin:8px;

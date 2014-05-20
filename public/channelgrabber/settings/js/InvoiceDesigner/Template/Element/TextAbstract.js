@@ -3,11 +3,12 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
     var TextAbstract = function()
     {
         var additionalData = {
-            borderWidth: 0,
+            borderWidth: undefined,
+            borderColour: undefined,
             fontSize: 12,
-            fontFamily: 'CG\\Template\\FontFamily\\Helvetica',
+            fontFamily: 'Helvetica',
             fontColour: 'black',
-            text: 'text',
+            text: 'Enter your text here.',
             padding: undefined,
             lineHeight: undefined,
             align: undefined,

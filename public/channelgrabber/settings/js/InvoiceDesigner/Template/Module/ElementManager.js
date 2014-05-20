@@ -1,14 +1,36 @@
 define([
     'InvoiceDesigner/Template/ModuleAbstract',
     'InvoiceDesigner/Template/Module/DomListener/ElementManager',
-    'InvoiceDesigner/Template/DomManipulator'
+    'InvoiceDesigner/Template/DomManipulator',
+    'mustache',
+    'cg-mustache'
 ], function(
     ModuleAbstract,
     ElementManagerListener,
-    domManipulator
+    domManipulator,
+    Mustache,
+    CGMustache
 ) {
     var ElementManager = function ()
     {
+        var templateUrl = ModuleAbstract.TEMPLATE_PATH + 'buttons.mustache';
+        var elementOptions = {
+            buttons: [{
+                value: 'Seller Address',
+                element: 'SellerAddress'
+            },{ value: 'Delivery Address',
+                element: 'DeliveryAddress'
+            },{ value: 'Image',
+                element: 'Image'
+            },{ value: 'Text',
+                element: 'Text'
+            },{ value: 'Order Table',
+                element: 'OrderTable'
+            },{ value: 'Box',
+                element: 'Box'
+            }
+        ]};
+
         ModuleAbstract.call(this);
         this.setDomListener(ElementManagerListener);
 
@@ -16,6 +38,15 @@ define([
         {
             return domManipulator;
         };
+
+        var init = function()
+        {
+            CGMustache.get().fetchTemplate(templateUrl, function(template) {
+                var renderedTemplate = Mustache.render(template, elementOptions);
+                $(ElementManagerListener.getContainerSelector()).append(renderedTemplate);
+            });
+        }
+        init();
     };
 
     ElementManager.prototype = Object.create(ModuleAbstract.prototype);
@@ -30,7 +61,7 @@ define([
     {
         var element = this.getTemplateService().getMapper().createNewElement(elementName);
         this.getTemplate().addElement(element);
-    }
+    };
 
     return new ElementManager();
 });
