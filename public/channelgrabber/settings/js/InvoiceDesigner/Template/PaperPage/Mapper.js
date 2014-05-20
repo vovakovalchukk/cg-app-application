@@ -21,7 +21,7 @@ define([
         var domId = MapperAbstract.getDomId(paperPage);
         var cssClasses = this.getDomClasses(paperPage).join(' ');
         var cssStyle = this.getDomStyles(paperPage).join('; ');
-        var htmlContents = this.getHtmlContents(paperPage);
+        var htmlContents = paperPage.getHtmlContents();
 
         var templateUrl = MapperAbstract.ELEMENT_TEMPLATE_PATH+'abstract.mustache';
         var data = {
@@ -49,11 +49,6 @@ define([
             'background: url('+paperPage.getBackgroundImage()+') no-repeat left top'
         ];
         return domStyles;
-    };
-
-    Mapper.prototype.getHtmlContents = function(paperPage)
-    {
-        return paperPage.getHtmlContents();
     };
 
     Mapper.prototype.renderMustacheTemplate = function(templateUrl, data)
