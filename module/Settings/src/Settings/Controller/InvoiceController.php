@@ -13,6 +13,7 @@ class InvoiceController extends AbstractActionController
     const ROUTE_FETCH = 'Fetch';
     const ROUTE_SAVE = 'Save';
     const TEMPLATE_SELECTOR_ID = 'template-selector';
+    const PAPER_TYPE_DROPDOWN_ID = "paper-type-dropdown";
 
     protected $viewModelFactory;
     protected $jsonModelFactory;
@@ -39,7 +40,12 @@ class InvoiceController extends AbstractActionController
         $view->addChild($this->getTemplateDuplicateButtonView(), 'templateDuplicateButton');
         $view->addChild($this->getTemplateDiscardButtonView(), 'templateDiscardButton');
         $view->addChild($this->getTemplateSaveButtonView(), 'templateSaveButton');
+        $view->addChild($this->getTemplateNameInputView(), 'templateName');
         $view->setVariable('templateSelectorId', static::TEMPLATE_SELECTOR_ID);
+        $view->setVariable('paperTypeDropdownId', static::PAPER_TYPE_DROPDOWN_ID);
+
+        $view->addChild($this->getPaperTypeModule(), 'paperTypeModule');
+        
         return $view;
     }
 
@@ -92,6 +98,16 @@ class InvoiceController extends AbstractActionController
         ]);
         $button->setTemplate('elements/buttons.mustache');
         return $button;
+    }
+
+    protected function getTemplateNameInputView()
+    {
+        $input = $this->getViewModelFactory()->newInstance([
+            'name' => 'template-name',
+            'id' => 'template-name'
+        ]);
+        $input->setTemplate('elements/text.mustache');
+        return $input;
     }
 
     public function fetchAction()
@@ -150,5 +166,21 @@ class InvoiceController extends AbstractActionController
     public function getJsonModelFactory()
     {
         return $this->jsonModelFactory;
+    }
+
+    protected function getPaperTypeModule()
+    {
+        $dropDownConfig = [
+            "isOptional" => false,
+            "id" => static::PAPER_TYPE_DROPDOWN_ID,
+            "name" => static::PAPER_TYPE_DROPDOWN_ID,
+            "class" => "",
+            "options" => []
+        ];
+
+        $paperTypeModule = $this->getViewModelFactory()->newInstance($dropDownConfig);
+        $paperTypeModule->setTemplate('InvoiceDesigner/Template/paperType');
+
+        return $paperTypeModule;
     }
 }

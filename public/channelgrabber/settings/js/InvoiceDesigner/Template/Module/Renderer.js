@@ -27,7 +27,7 @@ define([
         this.getTemplateService().render(template);
         template.getElements().each(function(element)
         {
-            if (element.getTemplateType() === 'page') {
+            if (element.getType() === 'page') {
                 return true;
             }
             var domId = ElementMapperAbstract.getDomId(element);

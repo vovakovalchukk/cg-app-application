@@ -87,7 +87,7 @@ return [
                             ],
                         ],
                         [
-                            'filterType' => 'text',
+                            'filterType' => 'search',
                             'variables' => [
                                 'filterName' => 'search',
                                 'placeholder' => 'Search for...',

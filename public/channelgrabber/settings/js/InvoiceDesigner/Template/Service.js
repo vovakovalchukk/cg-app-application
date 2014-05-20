@@ -5,10 +5,12 @@ define([
     'InvoiceDesigner/Template/DomManipulator',
     'InvoiceDesigner/Template/Element/MapperAbstract',
     // Template Module requires here
+    'InvoiceDesigner/Template/Module/PaperType',
     'InvoiceDesigner/Template/Module/InspectorManager',
     'InvoiceDesigner/Template/Module/Renderer',
-    'InvoiceDesigner/Template/Module/ImageUpload',
     'InvoiceDesigner/Template/Module/AddDiscardBar',
+    'InvoiceDesigner/Template/Module/Name',
+    'InvoiceDesigner/Template/Module/ImageUpload',
     'InvoiceDesigner/Template/Module/ElementResizeMove'
 ], function(
     require,
@@ -25,10 +27,12 @@ define([
 
         var modules = [
             // Template Modules require() paths here
+            'InvoiceDesigner/Template/Module/PaperType',
             'InvoiceDesigner/Template/Module/InspectorManager',
             'InvoiceDesigner/Template/Module/Renderer',
-            'InvoiceDesigner/Template/Module/ImageUpload',
             'InvoiceDesigner/Template/Module/AddDiscardBar',
+            'InvoiceDesigner/Template/Module/Name',
+            'InvoiceDesigner/Template/Module/ImageUpload',
             'InvoiceDesigner/Template/Module/ElementResizeMove'
         ];
 
@@ -111,6 +115,7 @@ define([
             .setState(Service.DUPLICATED_STATE)
             .setStateId(template.getId())
             .setId();
+        this.loadModules(template);
         this.getDomManipulator().hideSaveDiscardBar(template);
     };
 
@@ -122,9 +127,9 @@ define([
 
     Service.prototype.showAsPdf = function(template)
     {
-        /*
-         * TODO (CGIV-2011)
-         */
+        var form = $('form.toPdfButton');
+        form.find('input').val(JSON.stringify(template));
+        form.submit();
     };
 
     Service.prototype.loadModules = function(template)

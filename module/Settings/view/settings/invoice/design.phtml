@@ -2,6 +2,7 @@
 <?php $this->headLink()->appendStylesheet($this->basePath() . Settings\Module::PUBLIC_FOLDER . 'css/invoiceDesigner.css') ?>
 <?php $this->inlineScript()->captureStart(); ?>
 var templateSelectorId = "#<?= $templateSelectorId; ?>";
+var paperTypeDropdownId = "#<?= $paperTypeDropdownId; ?>";
 $(document).ready(function() {
     require.config({
         paths: {
@@ -17,11 +18,23 @@ $(document).ready(function() {
 <?php $this->inlineScript()->captureEnd(); ?>
 <div id="invoice-controls-bar" class="sidebar sidebar-fixed sidebar-left sidebar-invoice-designer">
     <!--Invoice Controls-->
+
+    <form method="post" action="/orders/invoice/preview" class="button toPdfButton" style="margin: 10px">
+        To Pdf
+        <input name="template" type="hidden" />
+    </form>
+    <hr>
+
     <div class="invoice-select-create">
         <?= $templates; ?>
         <?= $templateAddButton ?>
         <?= $templateDuplicateButton ?>
     </div>
+    <div id="template-name-container" class="template-module template-name-container">
+        <div><?= $this->translate('Template Name'); ?></div>
+        <?= $templateName; ?>
+    </div>
+    <?= $paperTypeModule ?>
 </div>
 <div id="invoice-template">
     <div id="save-template" class='save-template'>
@@ -37,3 +50,16 @@ $(document).ready(function() {
 <div id="element-inspector-bar" class="sidebar sidebar-fixed sidebar-right sidebar-invoice-designer">
     <!--Element Inspectors-->
 </div>
+
+<script>
+    $(document).on('click', '.toPdfButton', function() {
+    require([
+        'InvoiceDesigner/Application',
+        'InvoiceDesigner/Template/Service'
+    ], function(Application, InvoiceDesignerService) {
+        var template = Application.getTemplate();
+        var templateJson = InvoiceDesignerService.getMapper().toJson(template);
+        InvoiceDesignerService.showAsPdf(templateJson);
+    });
+});
+</script>

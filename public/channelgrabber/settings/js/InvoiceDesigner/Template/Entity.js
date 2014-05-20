@@ -45,6 +45,7 @@ define([
             if (!page) {
                 var pageClass = require(Entity.PATH_TO_PAGE_ENTITY);
                 page = new pageClass();
+                this.addElement(page, false);
             }
             return page;
         };
@@ -180,7 +181,7 @@ define([
     {
         this.getElements().attach(element);
         element.subscribe(this);
-        if (element.getTemplateType() === 'page') {
+        if (element.getType() === 'page') {
             this.setPage(element);
         }
         if (populating) {

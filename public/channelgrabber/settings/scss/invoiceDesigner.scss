@@ -18,6 +18,7 @@
     margin-left: auto;
     margin-right: auto;
     cursor: inherit;
+    border: 1px solid black;
 }
 
 .template-element-orderTable{
@@ -102,14 +103,24 @@
 }
 
 #main-wrapper {
-  padding: 0px !important;
+    padding: 0px !important;
 }
 
 .invoice-select-create {
-  padding:10px;
-  border-bottom: 1px solid $color-lgrey;
-  height:80px;
-  .button {
-    float:left;
-  }
+    padding:10px;
+    border-bottom: 1px solid $color-lgrey;
+    height:80px;
+    .button {
+        float:left;
+    }
+}
+
+.template-module {
+    display: none;
+    clear: left;
+    padding: 5px 10px;
+    .element {
+        clear: left;
+        padding: 2px 5px;
+    }
 }
