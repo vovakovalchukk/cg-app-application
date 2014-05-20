@@ -41,7 +41,7 @@ define([
         return this;
     };
 
-    DomManipulator.prototype.populateCustomSelect = function(selector, data)
+    DomManipulator.prototype.populateCustomSelect = function(selector, data, selectedValue)
     {
         var container = $(selector).parent().parent();
 
@@ -58,7 +58,7 @@ define([
             view['options'].push({
                 title: element.getName(),
                 value: element.getId(),
-                selected: isFirstElement
+                selected: ((!selectedValue && isFirstElement) || element.getId() === selectedValue)
             });
             isFirstElement = false;
         });

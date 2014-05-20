@@ -15,7 +15,7 @@ use Orders\Order\Service as OrderService;
 use CG\Http\Rpc\Json\Client as JsonRpcClient;
 use Orders\Order\Invoice\Renderer\ServiceInterface as InvoiceRendererService;
 use Orders\Order\Invoice\Renderer\Service\Pdf as PdfInvoiceRendererService;
-use CG\Template\Element\Page;
+use CG\Template\PaperPage;
 use Orders\Controller\StoredFiltersController;
 
 return [
@@ -702,12 +702,12 @@ return [
                     'guzzle' => 'cg_app_rpc_guzzle'
                 ]
             ],
-            Page::class => [
-                'parameters' => [
-                    'height' => 0,
-                    'width' => 0
-                ],
-            ],
+//            PaperPage::class => [
+//                'parameters' => [
+//                    'height' => 0,
+//                    'width' => 0
+//                ],
+//            ],
         ],
     ],
 ];
