@@ -70,11 +70,6 @@ define([
         });
     };
 
-    DomManipulator.prototype.show = function(selector)
-    {
-        $(selector).removeClass('hidden');
-    }
-
     DomManipulator.prototype.triggerElementSelectedEvent = function(element)
     {
         $(document).trigger(DomManipulator.EVENT_TEMPLATE_ELEMENT_SELECTED, [element]);
