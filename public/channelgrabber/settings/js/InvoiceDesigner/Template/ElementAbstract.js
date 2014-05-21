@@ -15,13 +15,13 @@ define([
         var data = {
             id: undefined,
             type: undefined,
-            height: undefined,
-            width: undefined,
-            x: undefined,
-            y: undefined,
+            height: 100,
+            width: 100,
+            x: 0,
+            y: 0,
             backgroundColour: undefined,
-            borderWidth: undefined,
-            borderColour: undefined
+            borderWidth: 1,
+            borderColour: 'black'
         };
         var baseInspectableAttributes = [];
         for (var field in data) {

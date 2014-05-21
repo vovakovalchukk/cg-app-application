@@ -80,6 +80,20 @@
     }
 }
 
+.addInvoiceElement {
+    display:none;
+    .addInvoiceElementTitle {
+        padding-left: 10px;
+        font-weight:bold;
+    }
+    div.button {
+        margin:8px;
+        width:85px !important;
+        display: inline-block;
+        min-width:initial;
+        vertical-align: top;
+    }
+}
 .template-element-image{
     background-color: #eee;
     border: solid 1px #999;
@@ -116,6 +130,9 @@
     }
 }
 
+.template-name-container {
+    display:none;
+}
 .template-module {
     display: none;
     clear: left;

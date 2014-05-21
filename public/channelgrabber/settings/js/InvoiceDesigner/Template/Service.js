@@ -8,6 +8,7 @@ define([
     'InvoiceDesigner/Template/Module/PaperType',
     'InvoiceDesigner/Template/Module/InspectorManager',
     'InvoiceDesigner/Template/Module/Renderer',
+    'InvoiceDesigner/Template/Module/ElementManager',
     'InvoiceDesigner/Template/Module/AddDiscardBar',
     'InvoiceDesigner/Template/Module/Name',
     'InvoiceDesigner/Template/Module/ImageUpload'
@@ -29,6 +30,7 @@ define([
             'InvoiceDesigner/Template/Module/PaperType',
             'InvoiceDesigner/Template/Module/InspectorManager',
             'InvoiceDesigner/Template/Module/Renderer',
+            'InvoiceDesigner/Template/Module/ElementManager',
             'InvoiceDesigner/Template/Module/AddDiscardBar',
             'InvoiceDesigner/Template/Module/Name',
             'InvoiceDesigner/Template/Module/ImageUpload'

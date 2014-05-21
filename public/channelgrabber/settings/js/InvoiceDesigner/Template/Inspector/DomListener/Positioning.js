@@ -4,7 +4,7 @@ define([
 ], function(
     $,
     domManipulator
-    ) {
+) {
 
     var Positioning = function()
     {
@@ -41,7 +41,8 @@ define([
 
     Positioning.prototype.set = function(event, selector, inspector, element)
     {
-        var value = Number($(selector).val());
+        var that = this;
+        var value = Number(this.getDomManipulator().getValue(selector));
         if (event.key == '.') {
             value += + 0.5;
         }
@@ -53,10 +54,10 @@ define([
         this.getDomManipulator().setValue(selector, value.roundToNearest(0.5));
         clearTimeout(this.getTimeout());
         this.setTimeout(setTimeout(function() {
-            element.setX($('#' + inspector.getPositioningInspectorLeftId()).val())
-                .setY($('#' + inspector.getPositioningInspectorTopId()).val())
-                .setWidth($('#' + inspector.getPositioningInspectorWidthId()).val())
-                .setHeight($('#' + inspector.getPositioningInspectorHeightId()).val());
+            element.setX(that.getDomManipulator().getValue('#' + inspector.getPositioningInspectorLeftId()))
+                .setY(that.getDomManipulator().getValue('#' + inspector.getPositioningInspectorTopId()))
+                .setWidth(that.getDomManipulator().getValue('#' + inspector.getPositioningInspectorWidthId()))
+                .setHeight(that.getDomManipulator().getValue('#' + inspector.getPositioningInspectorHeightId()));
         }, 500));
     };
 

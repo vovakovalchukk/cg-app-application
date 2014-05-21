@@ -29,6 +29,8 @@ define(['InvoiceDesigner/ModuleAbstract'], function(AppModuleAbstract)
         };
     };
 
+    ModuleAbstract.TEMPLATE_PATH = '/channelgrabber/settings/template/InvoiceDesigner/Template/';
+
     ModuleAbstract.prototype = Object.create(AppModuleAbstract.prototype);
 
     ModuleAbstract.prototype.init = function(template, templateService)
