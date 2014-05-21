@@ -2,12 +2,14 @@ define([
     'require',
     'InvoiceDesigner/Template/Inspector/Collection',
     // Inspector requires here
-    'InvoiceDesigner/Template/Inspector/TextArea'
+    'InvoiceDesigner/Template/Inspector/TextArea',
+    'InvoiceDesigner/Template/Inspector/Heading'
 ], function(
     require,
     inspectorCollection,
     // Inspector variables here
-    textArea
+    textArea,
+    heading
 ) {
     var Service = function()
     {
@@ -70,8 +72,8 @@ define([
     Service.prototype.showForElement = function(element)
     {
         this.hideAll();
-
         var inspectors = this.getForElement(element);
+        heading.showForElement(element, this.getTemplate(), this);
         inspectors.each(function(inspector)
         {
             inspector.showForElement(element);
@@ -87,6 +89,7 @@ define([
                 inspector.hide();
             });
         }
+        heading.hide();
     };
 
     Service.prototype.getForElement = function(element)

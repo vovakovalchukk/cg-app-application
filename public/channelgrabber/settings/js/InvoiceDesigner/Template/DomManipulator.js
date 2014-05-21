@@ -104,5 +104,10 @@ define([
         return DomManipulator.EVENT_IMAGE_UPLOAD_FILE_SELECTED;
     };
 
+    DomManipulator.prototype.render = function(selector, html)
+    {
+        $(selector).html(html);
+    };
+
     return new DomManipulator();
 });

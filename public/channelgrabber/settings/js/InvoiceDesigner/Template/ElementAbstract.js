@@ -15,8 +15,8 @@ define([
             type: undefined,
             height: 100,
             width: 100,
-            x: 50,
-            y: 50,
+            x: 0,
+            y: 0,
             backgroundColour: undefined,
             borderWidth: 1,
             borderColour: 'black'
@@ -207,7 +207,12 @@ define([
 
     ElementAbstract.prototype.toJson = function()
     {
-        return this.getData();
+        var json = JSON.parse(JSON.stringify(this.getData()));
+        json.x = json.x.mmToPt();
+        json.y = json.y.mmToPt();
+        json.height = json.height.mmToPt();
+        json.width = json.width.mmToPt();
+        return json;
     };
 
     return ElementAbstract;
