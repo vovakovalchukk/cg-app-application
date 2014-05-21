@@ -35,11 +35,7 @@ $(document).ready(function() {
         To Pdf
         <input name="template" type="hidden" />
     </form>
-
     <hr>
-    <div class="addInvoiceElement">
-        <div class="addInvoiceElementTitle">Add Element</div>
-    </div>
 
     <!--Invoice Template-->
     <div class="invoice-select-create">
@@ -52,6 +48,10 @@ $(document).ready(function() {
         <?= $templateName; ?>
     </div>
     <?= $paperTypeModule ?>
+
+    <div class="addInvoiceElement">
+        <div class="addInvoiceElementTitle">Add Element</div>
+    </div>
 </div>
 <div id="invoice-template" class="invoice-template">
     <div id="save-template" class='save-template'>
