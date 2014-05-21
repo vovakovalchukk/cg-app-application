@@ -5,6 +5,7 @@ define([
     'InvoiceDesigner/Template/DomManipulator',
     'InvoiceDesigner/Template/Element/MapperAbstract',
     // Template Module requires here
+    'InvoiceDesigner/Template/Module/PaperType',
     'InvoiceDesigner/Template/Module/InspectorManager',
     'InvoiceDesigner/Template/Module/Renderer',
     'InvoiceDesigner/Template/Module/AddDiscardBar',
@@ -25,6 +26,7 @@ define([
 
         var modules = [
             // Template Modules require() paths here
+            'InvoiceDesigner/Template/Module/PaperType',
             'InvoiceDesigner/Template/Module/InspectorManager',
             'InvoiceDesigner/Template/Module/Renderer',
             'InvoiceDesigner/Template/Module/AddDiscardBar',
@@ -83,7 +85,6 @@ define([
         var template = this.getStorage().fetch(id);
         template.setState(Service.FETCHED_STATE)
             .setStateId(id);
-        this.loadModules(template);
         this.getDomManipulator().hideSaveDiscardBar(template);
         return template;
     };
@@ -124,9 +125,9 @@ define([
 
     Service.prototype.showAsPdf = function(template)
     {
-        /*
-         * TODO (CGIV-2011)
-         */
+        var form = $('form.toPdfButton');
+        form.find('input').val(JSON.stringify(template));
+        form.submit();
     };
 
     Service.prototype.loadModules = function(template)
