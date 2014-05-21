@@ -17,16 +17,28 @@ define([
     Renderer.prototype.init = function(module)
     {
         DomListenerAbstract.prototype.init.call(this, module);
-        this.initListeners();
+        this.initElementSelectedListener()
+            .initTemplateChangeListener();
     };
 
-    Renderer.prototype.initListeners = function()
+    Renderer.prototype.initElementSelectedListener = function()
+    {
+        var self = this;
+        $(document).on(domManipulator.getElementSelectedEvent(), function(event, element)
+        {
+            self.getModule().elementSelected(element);
+        });
+        return this;
+    };
+
+    Renderer.prototype.initTemplateChangeListener = function()
     {
         var self = this;
         $(document).off(domManipulator.getTemplateChangedEvent()).on(domManipulator.getTemplateChangedEvent(), function(event, template)
         {
             self.getModule().templateChanged(template);
         });
+        return this;
     };
 
     Renderer.prototype.listenForElementSelect = function(domId, element)
