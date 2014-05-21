@@ -22,19 +22,26 @@ define([
 
     ElementResizeMove.prototype = Object.create(ModuleAbstract.prototype);
 
+    ElementResizeMove.prototype.elementSelected = function(element)
+    {
+        var elementDomId = ElementMapperAbstract.getDomId(element);
+        this.getDomManipulator().markAsInactive('.'+ElementMapperAbstract.ELEMENT_DOM_CLASS);
+        this.getDomManipulator().markAsActive('#'+elementDomId);
+    };
+
     ElementResizeMove.prototype.elementResized = function(elementDomId, position, size)
     {
         var element = this.getElementByDomId(elementDomId);
-        element.setWidth(this.pxToMm(size.width));
-        element.setHeight(this.pxToMm(size.height));
+        element.setWidth(size.width.pxToMm());
+        element.setHeight(size.height.pxToMm());
         this.elementMoved(elementDomId, position);
     };
 
     ElementResizeMove.prototype.elementMoved = function(elementDomId, position)
     {
         var element = this.getElementByDomId(elementDomId);
-        element.setX(this.pxToMm(position.left));
-        element.setY(this.pxToMm(position.top));
+        element.setX(position.left.pxToMm());
+        element.setY(position.top.pxToMm());
     };
 
     ElementResizeMove.prototype.getElementByDomId = function(elementDomId)
@@ -42,12 +49,6 @@ define([
         var elementId = ElementMapperAbstract.getElementIdFromDomId(elementDomId);
         var element = this.getTemplate().getElements().getById(elementId);
         return element;
-    };
-
-    ElementResizeMove.prototype.pxToMm = function(px)
-    {
-        var pxPerMm = this.getDomManipulator().getPxPerMm();
-        return px / pxPerMm;
     };
 
     return new ElementResizeMove();

@@ -17,8 +17,19 @@ define([
     ElementResizeMove.prototype.init = function(module)
     {
         DomListenerAbstract.prototype.init.call(this, module);
-        this.initResizeListener();
-        this.initMoveListener();
+        this.initElementSelectedListener()
+            .initResizeListener()
+            .initMoveListener();
+    };
+
+    ElementResizeMove.prototype.initElementSelectedListener = function()
+    {
+        var self = this;
+        $(document).on(domManipulator.getElementSelectedEvent(), function(event, element)
+        {
+            self.getModule().elementSelected(element);
+        });
+        return this;
     };
 
     ElementResizeMove.prototype.initResizeListener = function()
@@ -28,6 +39,7 @@ define([
         {
             self.getModule().elementResized(elementDomId, offset, size);
         });
+        return this;
     };
 
     ElementResizeMove.prototype.initMoveListener = function()
@@ -37,6 +49,7 @@ define([
         {
             self.getModule().elementMoved(elementDomId, offset);
         });
+        return this;
     };
 
     return new ElementResizeMove();

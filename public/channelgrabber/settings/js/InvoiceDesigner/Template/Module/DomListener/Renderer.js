@@ -32,7 +32,7 @@ define([
     Renderer.prototype.listenForElementSelect = function(domId, element)
     {
         var self = this;
-        $('#'+domId).off('click focus').on('click focus', function()
+        $('#'+domId).off('mousedown focus').on('mousedown focus', function()
         {
             domManipulator.triggerElementSelectedEvent(element);
         });

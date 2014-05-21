@@ -15,6 +15,7 @@ define(['cg-mustache'], function(CGMustache)
         };
     };
 
+    MapperAbstract.ELEMENT_DOM_CLASS = 'template-element';
     MapperAbstract.ELEMENT_DOM_ID_PREFIX = 'template-element-';
     MapperAbstract.ELEMENT_TEMPLATE_PATH = '/channelgrabber/settings/template/InvoiceDesigner/Template/Element/';
 
@@ -69,7 +70,7 @@ define(['cg-mustache'], function(CGMustache)
 
     MapperAbstract.prototype.getDomClasses = function(element)
     {
-        var domClasses = ['template-element'];
+        var domClasses = [MapperAbstract.ELEMENT_DOM_CLASS];
         if (element.getType()) {
             domClasses.push('template-element-' + element.getType().toLowerCase());
         }

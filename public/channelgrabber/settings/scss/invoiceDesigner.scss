@@ -9,7 +9,13 @@
 .template-element{
     position: absolute;
     float: left;
-    cursor: pointer;
+    cursor: move;
+}
+
+.template-element.active{
+    border-color: $color-lblue !important;
+    border-style: solid !important;
+    border-width: 3px !important;
 }
 
 .template-paperpage{
