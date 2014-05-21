@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "c47fa548dba88a4ac304fd485b59c29c",
+    "hash": "98d7f1909c24d7f076fee2eb06dd546a",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -609,11 +609,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-2187-invoice-template-page-element",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "60e373d6e76660cb3ac82d65180f7903349b1b1f"
+                "reference": "f90716d6e389b9de4c1be059619f101ed8b7bf3e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.1.0-d5580c.zip",
+                "reference": "f90716d6e389b9de4c1be059619f101ed8b7bf3e",
+                "shasum": "476638cf146ce28308cfaa68ee0d39052eb5e84f"
             },
             "require": {
                 "channelgrabber/account": "~1.0",
@@ -636,7 +642,7 @@
                     "CG\\Template\\": ""
                 }
             },
-            "time": "2014-05-19 15:37:12"
+            "time": "2014-05-21 07:18:58"
         },
         {
             "name": "channelgrabber/user",
@@ -1202,17 +1208,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.5.13",
+            "version": "1.5.15",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "b50c204318f4ecb5c141802aaafbb9105eeabf78"
+                "reference": "2b814e5fb6b8760f304040a67ee2eee5a00be765"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.5.13-baf39d.zip",
-                "reference": "b50c204318f4ecb5c141802aaafbb9105eeabf78",
-                "shasum": "550cba8ff3dbec6862d30ab2dacbaba121b1e495"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.5.15-33a182.zip",
+                "reference": "2b814e5fb6b8760f304040a67ee2eee5a00be765",
+                "shasum": "3348e2ed5c7cea6769abc66efa3a9f8cee484916"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1240,7 +1246,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-05-16 16:05:50"
+            "time": "2014-05-20 16:29:53"
         },
         {
             "name": "cilex/cilex",
@@ -3688,17 +3694,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.0.6",
-            "alias_normalized": "1.0.6.0",
-            "version": "dev-CGIV-2187-invoice-template-page-element",
-            "package": "channelgrabber/template"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/template": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },
