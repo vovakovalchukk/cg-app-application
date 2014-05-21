@@ -1,5 +1,8 @@
-define(['InvoiceDesigner/Template/InspectorAbstract'], function(InspectorAbstract)
-{
+define([
+    'InvoiceDesigner/Template/InspectorAbstract'
+], function(
+    InspectorAbstract
+) {
     var TextArea = function()
     {
         InspectorAbstract.call(this);

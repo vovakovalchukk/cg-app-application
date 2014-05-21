@@ -19,7 +19,7 @@
     border: 1px solid black;
 }
 
-.template-element-OrderTable{
+.template-element-ordertable{
     border: dashed 2px black;
 
     table{
@@ -48,7 +48,7 @@
     }
 }
 
-.template-element-OrderTable-totals{
+.template-element-ordertable-totals{
     float: right;
 
     table{
@@ -62,7 +62,7 @@
     }
 }
 
-.template-element-Text{
+.template-element-text{
     .style-tag-b{
         font-weight: bold;
     }
@@ -77,7 +77,7 @@
     }
 }
 
-.template-element-Image{
+.template-element-image{
     background-color: #eee;
     border: solid 1px #999;
 

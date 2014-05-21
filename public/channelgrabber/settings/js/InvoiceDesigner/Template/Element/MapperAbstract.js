@@ -30,7 +30,8 @@ define(['cg-mustache'], function(CGMustache)
 
     MapperAbstract.attributePropertyMap = {
         x: "left",
-        y: "top"
+        y: "top",
+        padding: "padding-left"
     };
 
     MapperAbstract.attributePropertyAdditionalMap = {
@@ -68,7 +69,10 @@ define(['cg-mustache'], function(CGMustache)
 
     MapperAbstract.prototype.getDomClasses = function(element)
     {
-        var domClasses = ['template-element', 'template-element-'+element.getType()];
+        var domClasses = ['template-element'];
+        if (element.getType()) {
+            domClasses.push('template-element-' + element.getType().toLowerCase());
+        }
         var extraDomClasses = this.getExtraDomClasses(element);
         for (var key in extraDomClasses) {
             domClasses.push(extraDomClasses[key]);
@@ -116,7 +120,7 @@ define(['cg-mustache'], function(CGMustache)
             }
         };
         return domStyles;
-    }
+    };
 
     MapperAbstract.prototype.elementAttributeToCssProperty = function(attribute)
     {

@@ -1,4 +1,4 @@
-define(function()
+define(['InvoiceDesigner/Template/DomManipulator'], function(domManipulator)
 {
     var InspectorAbstract = function()
     {
@@ -34,6 +34,11 @@ define(function()
         this.setTemplate = function(newTemplate)
         {
             template = newTemplate;
+        };
+
+        this.getDomManipulator = function()
+        {
+            return domManipulator;
         };
     };
 

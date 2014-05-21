@@ -54,8 +54,18 @@ define([
     Mapper.prototype.elementFromJson = function(elementData, populating)
     {
         var elementType = elementData.type.ucfirst();
+        elementData.x = elementData.x.ptToMm();
+        elementData.y = elementData.y.ptToMm();
+        elementData.height = elementData.height.ptToMm();
+        elementData.width = elementData.width.ptToMm();
         var elementClass = require(Mapper.PATH_TO_ELEMENT_TYPES + elementType);
         var element = new elementClass();
+        if (elementData.padding) {
+            elementData.padding = elementData.padding.ptToMm();
+        }
+        if (elementData.lineHeight) {
+            elementData.lineHeight = elementData.lineHeight.ptToMm();
+        }
         element.hydrate(elementData, populating);
         return element;
     };
