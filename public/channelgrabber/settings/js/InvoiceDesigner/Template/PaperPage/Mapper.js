@@ -47,7 +47,7 @@ define([
             'width: '+paperPage.getWidth()+'mm',
             'height: '+paperPage.getHeight()+'mm',
             'background: url('+paperPage.getBackgroundImage()+') no-repeat left top',
-            'background-size: cover',
+            'background-size: cover'
         ];
         return domStyles;
     };
