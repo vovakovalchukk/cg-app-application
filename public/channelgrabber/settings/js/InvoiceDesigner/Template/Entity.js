@@ -16,7 +16,7 @@ define([
         var manipulator = domManipulator;
         var state;
         var stateId;
-        var page;
+        var paperPage;
 
         // Member vars to watch for changes
         var data = {
@@ -28,8 +28,6 @@ define([
             minWidth: undefined
         };
 
-        Entity.PATH_TO_PAGE_ENTITY = 'InvoiceDesigner/Template/Element/Page';
-
         this.getElements = function()
         {
             return elements;
@@ -40,19 +38,15 @@ define([
             return manipulator;
         };
 
-        this.getPage = function()
+        this.getPaperPage = function()
         {
-            if (!page) {
-                var pageClass = require(Entity.PATH_TO_PAGE_ENTITY);
-                page = new pageClass();
-                this.addElement(page, false);
-            }
-            return page;
+            return paperPage;
         };
 
-        this.setPage = function(newPage)
+        this.setPaperPage = function(newPaperPage)
         {
-            page = newPage;
+            paperPage = newPaperPage;
+            paperPage.subscribe(this);
             return this;
         };
 
@@ -174,16 +168,14 @@ define([
 
     Entity.prototype.shouldFieldBeHydrated = function(field)
     {
-        return (field !== 'elements');
+        var skip = ['elements', 'paperPage'];
+        return (skip.indexOf(field) < 0);
     };
 
     Entity.prototype.addElement = function(element, populating)
     {
         this.getElements().attach(element);
         element.subscribe(this);
-        if (element.getType() === 'page') {
-            this.setPage(element);
-        }
         if (populating) {
             return this;
         }

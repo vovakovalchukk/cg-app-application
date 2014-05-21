@@ -5,14 +5,14 @@ define([
     'InvoiceDesigner/Template/Element/DeliveryAddress',
     'InvoiceDesigner/Template/Element/Image',
     'InvoiceDesigner/Template/Element/OrderTable',
-    'InvoiceDesigner/Template/Element/Page',
+    'InvoiceDesigner/Template/PaperPage/Entity',
     'InvoiceDesigner/Template/Element/SellerAddress',
     'InvoiceDesigner/Template/Element/Text',
     'InvoiceDesigner/Template/Element/Mapper/Box',
     'InvoiceDesigner/Template/Element/Mapper/DeliveryAddress',
     'InvoiceDesigner/Template/Element/Mapper/Image',
     'InvoiceDesigner/Template/Element/Mapper/OrderTable',
-    'InvoiceDesigner/Template/Element/Mapper/Page',
+    'InvoiceDesigner/Template/PaperPage/Mapper',
     'InvoiceDesigner/Template/Element/Mapper/SellerAddress',
     'InvoiceDesigner/Template/Element/Mapper/Text'
 ], function(require)
@@ -22,10 +22,11 @@ define([
 
     };
 
-    Mapper.PATH_TO_ELEMENT_ENTITY = 'InvoiceDesigner/Template/Entity';
+    Mapper.PATH_TO_TEMPLATE_ENTITY = 'InvoiceDesigner/Template/Entity';
     Mapper.PATH_TO_ELEMENT_TYPES = 'InvoiceDesigner/Template/Element/';
     Mapper.PATH_TO_ELEMENT_TYPE_MAPPERS = 'InvoiceDesigner/Template/Element/Mapper/';
-    Mapper.PATH_TO_PAGE_MAPPER = 'InvoiceDesigner/Template/Element/Mapper/Page';
+    Mapper.PATH_TO_PAGE_ENTITY = 'InvoiceDesigner/Template/PaperPage/Entity';
+    Mapper.PATH_TO_PAGE_MAPPER = 'InvoiceDesigner/Template/PaperPage/Mapper';
 
     Mapper.prototype.fromJson = function(json)
     {
@@ -33,9 +34,8 @@ define([
             throw 'InvalidArgumentException: InvoiceDesigner\Template\Mapper::fromJson must be passed a JSON object';
         }
 
-        var templateClass = require(Mapper.PATH_TO_ELEMENT_ENTITY);
-        var template = new templateClass();
-
+        var TemplateClass = require(Mapper.PATH_TO_TEMPLATE_ENTITY);
+        var template = new TemplateClass();
         var populating = true;
         template.hydrate(json, populating);
         for (var key in json.elements) {
@@ -43,6 +43,10 @@ define([
             var element = this.elementFromJson(elementData, populating);
             template.addElement(element, populating);
         }
+        var PaperPageClass = require(Mapper.PATH_TO_PAGE_ENTITY);
+        var paperPage = new PaperPageClass();
+        paperPage.hydrate(json.paperPage, populating);
+        template.setPaperPage(paperPage);
 
         return template;
     };
@@ -81,6 +85,7 @@ define([
             organisationUnitId: template.getOrganisationUnitId(),
             minHeight: template.getMinHeight(),
             minWidth: template.getMinWidth(),
+            paperPage: template.getPaperPage().toJson(),
             elements: []
         };
 
@@ -94,23 +99,20 @@ define([
 
     Mapper.prototype.toHtml = function(template)
     {
-        var page = template.getPage();
+        var paperPage = template.getPaperPage();
         var pageMapper = require(Mapper.PATH_TO_PAGE_MAPPER);
 
         var elementsHtml = '';
         var elements = template.getElements();
         elements.each(function(element) {
-            if (element.getId() === page.getId()) {
-                return true;
-            }
             var elementType = element.getType().ucfirst();
             var elementMapper = require(Mapper.PATH_TO_ELEMENT_TYPE_MAPPERS + elementType);
             var elementHtml = elementMapper.toHtml(element);
             elementsHtml += elementHtml;
         });
 
-        page.htmlContents(elementsHtml);
-        var html = pageMapper.toHtml(page);
+        paperPage.htmlContents(elementsHtml);
+        var html = pageMapper.toHtml(paperPage);
 
         return html;
     };

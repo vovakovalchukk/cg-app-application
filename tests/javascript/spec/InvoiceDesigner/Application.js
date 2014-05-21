@@ -1,25 +1,30 @@
 define(['jasq'], function ()
 {
-    describe('The Application module', 'InvoiceDesigner/Application', function ()
-    {
-        it('should be an object', function(application)
+    describe('The Application module', {
+        moduleName: 'InvoiceDesigner/Application',
+        mock: function ()
         {
-            expect(typeof application).toBe('object');
-        });
-
-        it('should initialise the modules', {
-            mock: {
+            return {
                 'InvoiceDesigner/Module/TemplateSelector': {
                     init: function() {}
                 }
-            }, expect: function(application, dependencies)
+            };
+        },
+        specify: function ()
+        {
+            it('should be an object', function(application)
+            {
+                expect(typeof application).toBe('object');
+            });
+
+            it('should initialise the modules', function(application, dependencies)
             {
                 var mockTemplateSelector = dependencies['InvoiceDesigner/Module/TemplateSelector'];
                 spyOn(mockTemplateSelector, 'init');
 
                 application.init();
                 expect(mockTemplateSelector.init).toHaveBeenCalled();
-            }
-        });
+            });
+        }
     });
 });

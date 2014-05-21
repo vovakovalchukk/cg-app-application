@@ -1,9 +1,11 @@
 define([
     'InvoiceDesigner/EntityHydrateAbstract',
-    'InvoiceDesigner/PubSubAbstract'
+    'InvoiceDesigner/PubSubAbstract',
+    'InvoiceDesigner/IdGenerator'
 ], function(
     EntityHydrateAbstract,
-    PubSubAbstract
+    PubSubAbstract,
+    idGenerator
 ) {
     var ElementAbstract = function(additionalData)
     {
@@ -38,7 +40,7 @@ define([
         this.getId = function()
         {
             if (!this.get('id')) {
-                this.setId(generateId());
+                this.setId(idGenerator.generate());
             }
             return this.get('id');
         };
@@ -179,12 +181,6 @@ define([
         this.getExtraInspectableAttributes = function()
         {
             return extraInspectableAttributes;
-        };
-
-        // Elements aren't expected to have IDs so generate one
-        var generateId = function()
-        {
-            return (new Date()).getTime()+String(Math.random()).substr(2);
         };
     };
 
