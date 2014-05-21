@@ -116,7 +116,7 @@ define([
 
     DomManipulator.prototype.getValue = function(selector)
     {
-        $(selector).val();
+        return $(selector).val();
     };
 
     return new DomManipulator();
