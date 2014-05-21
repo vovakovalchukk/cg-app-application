@@ -25,7 +25,7 @@ return [
                         [
                             'filterType' => 'date-range',
                             'variables' => [
-                                'filterName' => 'purchaseDate',
+                                'name' => 'purchaseDate',
                                 'time' => [
                                     'hours' => date('H'),
                                     'minutes' => date('i')
@@ -65,7 +65,7 @@ return [
                         [
                             'filterType' => 'customSelectGroup',
                             'variables' => [
-                                'filterName' => 'status',
+                                'name' => 'status',
                                 'title' => 'Status',
                                 'id' => 'filter-status',
                                 'searchField' => true,
@@ -89,7 +89,7 @@ return [
                         [
                             'filterType' => 'search',
                             'variables' => [
-                                'filterName' => 'search',
+                                'name' => 'search',
                                 'placeholder' => 'Search for...',
                                 'class' => '',
                                 'value' => ''
@@ -100,7 +100,7 @@ return [
                             'variables' => [
                                 'title' => 'More',
                                 'class' => 'more',
-                                'filterName' => 'more'
+                                'name' => 'more'
                             ],
                         ],
                         [
@@ -134,7 +134,7 @@ return [
                             'filterType' => 'customSelectGroup',
                             'visible' => true,
                             'variables' => [
-                                'filterName' => 'shippingAddressCountry',
+                                'name' => 'shippingAddressCountry',
                                 'title' => 'Country',
                                 'searchField' => true,
                                 'isOptional' => true,
@@ -148,7 +148,7 @@ return [
                             'filterType' => 'customSelectGroup',
                             'visible' => false,
                             'variables' => [
-                                'filterName' => 'currencyCode',
+                                'name' => 'currencyCode',
                                 'title' => 'Currency',
                                 'searchField' => true,
                                 'isOptional' => true,
@@ -161,7 +161,7 @@ return [
                             'filterType' => 'numberRange',
                             'visible' => true,
                             'variables' => [
-                                'filterName' => 'total',
+                                'name' => 'total',
                                 'title' => 'Total',
                                 'isOptional' => true,
                                 'id' => ''
@@ -171,7 +171,7 @@ return [
                             'filterType' => 'customSelectGroup',
                             'visible' => false,
                             'variables' => [
-                                'filterName' => 'channel',
+                                'name' => 'channel',
                                 'title' => 'Channel',
                                 'searchField' => true,
                                 'isOptional' => true,
@@ -184,7 +184,7 @@ return [
                             'filterType' => 'customSelectGroup',
                             'visible' => false,
                             'variables' => [
-                                'filterName' => 'accountId',
+                                'name' => 'accountId',
                                 'title' => 'Account',
                                 'searchField' => true,
                                 'isOptional' => true,
@@ -197,7 +197,7 @@ return [
                             'filterType' => 'customSelectGroup',
                             'visible' => false,
                             'variables' => [
-                                'filterName' => 'tag',
+                                'name' => 'tag',
                                 'title' => 'Tags',
                                 'searchField' => true,
                                 'isOptional' => true,
@@ -210,7 +210,7 @@ return [
                             'filterType' => 'customSelect',
                             'visible' => false,
                             'variables' => [
-                                'filterName' => 'archived',
+                                'name' => 'archived',
                                 'title' => 'Show Archived',
                                 'isOptional' => true,
                                 'options' => [
@@ -231,7 +231,7 @@ return [
                             'filterType' => 'customSelect',
                             'visible' => false,
                             'variables' => [
-                                'filterName' => 'buyerMessage',
+                                'name' => 'buyerMessage',
                                 'title' => 'Buyer Message',
                                 'isOptional' => true,
                                 'options' => [
