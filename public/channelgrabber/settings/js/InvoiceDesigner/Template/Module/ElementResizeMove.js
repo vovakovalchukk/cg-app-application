@@ -22,19 +22,19 @@ define([
 
     ElementResizeMove.prototype = Object.create(ModuleAbstract.prototype);
 
-    ElementResizeMove.prototype.elementResized = function(elementDomId, size)
+    ElementResizeMove.prototype.elementResized = function(elementDomId, position, size)
     {
         var element = this.getElementByDomId(elementDomId);
         element.setWidth(this.pxToMm(size.width));
         element.setHeight(this.pxToMm(size.height));
+        this.elementMoved(elementDomId, position);
     };
 
-    ElementResizeMove.prototype.elementMoved = function(elementDomId, offset)
+    ElementResizeMove.prototype.elementMoved = function(elementDomId, position)
     {
         var element = this.getElementByDomId(elementDomId);
-        var parentDimensions = this.getDomManipulator().getParentDimensions('#'+elementDomId);
-        element.setX(this.pxToMm(offset.left - parentDimensions.left));
-        element.setY(this.pxToMm(offset.top - parentDimensions.top));
+        element.setX(this.pxToMm(position.left));
+        element.setY(this.pxToMm(position.top));
     };
 
     ElementResizeMove.prototype.getElementByDomId = function(elementDomId)

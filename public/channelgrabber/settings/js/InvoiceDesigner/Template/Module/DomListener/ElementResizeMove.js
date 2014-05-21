@@ -24,9 +24,9 @@ define([
     ElementResizeMove.prototype.initResizeListener = function()
     {
         var self = this;
-        $(document).on(domManipulator.getElementResizedEvent(), function(event, elementDomId, size)
+        $(document).on(domManipulator.getElementResizedEvent(), function(event, elementDomId, offset, size)
         {
-            self.getModule().elementResized(elementDomId, size);
+            self.getModule().elementResized(elementDomId, offset, size);
         });
     };
 
