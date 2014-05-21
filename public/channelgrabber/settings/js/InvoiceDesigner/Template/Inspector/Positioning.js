@@ -6,7 +6,7 @@ define([
     InspectorAbstract,
     positioningDomListener,
     CGMustache
-    ) {
+) {
     var Positioning = function()
     {
         InspectorAbstract.call(this);
