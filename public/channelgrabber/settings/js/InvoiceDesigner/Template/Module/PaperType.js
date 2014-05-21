@@ -41,7 +41,9 @@ define([
         ModuleAbstract.prototype.init.call(this, template, templateService);
         this.setAvailablePaperTypes(this.getStorage().fetchAll());
         domManipulator.show("#" + PaperTypeListener.CONTAINER_ID);
-        domManipulator.populateCustomSelect(paperTypeDropdownId, this.getAvailablePaperTypes());
+        domManipulator.populateCustomSelect(
+            paperTypeDropdownId, this.getAvailablePaperTypes(), template.getPaperPage().getPaperType()
+        );
     };
 
     PaperType.prototype.selectionMade = function(id, isInverse)
@@ -60,11 +62,12 @@ define([
         }
 
         var backgroundImage = isInverse ? selectedPaperType.getBackgroundImageInverse() : selectedPaperType.getBackgroundImage();
-        var templatePage = this.getTemplate().getPage();
+        var templatePage = this.getTemplate().getPaperPage();
 
         templatePage.setHeight(selectedPaperType.getHeight());
         templatePage.setWidth(selectedPaperType.getWidth());
         templatePage.setBackgroundImage(backgroundImage);
+        templatePage.setPaperType(selectedPaperType.getId());
     };
 
     return new PaperType();

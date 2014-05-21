@@ -1,7 +1,13 @@
-define(['jasq', 'InvoiceDesigner/Template/Entity'], function (jasq, templateEntity)
+define(['jasq', 'InvoiceDesigner/Template/Entity'], function (jasq, TemplateEntity)
 {
     describe('The Template Storage Ajax module', 'InvoiceDesigner/Template/Storage/Ajax', function ()
     {
+        var templateEntity;
+        beforeEach(function()
+        {
+            templateEntity = new TemplateEntity();
+        });
+
         it('should be an object', function(storage)
         {
             expect(typeof storage).toBe('object');
@@ -9,10 +15,10 @@ define(['jasq', 'InvoiceDesigner/Template/Entity'], function (jasq, templateEnti
 
         it('should fetch a template by id', {
             mock: {
-                jQuery: {
+                jquery: {
                     ajax: function(config) {
                         config.success({
-                            id: 1
+                            template: "{ \"id\": 1, \"type\": \"Invoice\" }"
                         });
                     }
                 },
@@ -42,7 +48,7 @@ define(['jasq', 'InvoiceDesigner/Template/Entity'], function (jasq, templateEnti
 
         it('should save a template', {
             mock: {
-                jQuery: {
+                jquery: {
                     ajax: function(config) {
                         config.success({});
                     }
@@ -54,9 +60,9 @@ define(['jasq', 'InvoiceDesigner/Template/Entity'], function (jasq, templateEnti
                 }
             }, expect: function(storage, dependencies)
             {
-                spyOn(dependencies.jQuery, 'ajax');
+                spyOn(dependencies.jquery, 'ajax');
                 storage.save(templateEntity);
-                expect(dependencies.jQuery.ajax).toHaveBeenCalled();
+                expect(dependencies.jquery.ajax).toHaveBeenCalled();
             }
         });
     });

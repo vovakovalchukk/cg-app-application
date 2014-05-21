@@ -1,6 +1,7 @@
 <?php
 namespace Orders\Controller;
 
+use CG\Template\PaperPage;
 use Zend\Mvc\Controller\AbstractActionController;
 use Orders\Order\Invoice\Service;
 use Orders\Order\Invoice\Response;
@@ -63,6 +64,7 @@ class InvoiceController extends AbstractActionController
             $elements[] = $this->createElement($element);
         }
         $templateConfig['elements'] = $elements;
+        $templateConfig['paperPage'] = $this->getService()->getDi()->newInstance(PaperPage::class, $templateConfig['paperPage']);
 
         $template = $this->getService()->getTemplateFactory()->getTemplateForOrderEntity($templateConfig);
         return $this->getService()->getResponseFromOrderCollection($orders, $template);
