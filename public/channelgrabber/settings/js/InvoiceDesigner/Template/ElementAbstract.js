@@ -1,9 +1,11 @@
 define([
     'InvoiceDesigner/EntityHydrateAbstract',
-    'InvoiceDesigner/PubSubAbstract'
+    'InvoiceDesigner/PubSubAbstract',
+    'InvoiceDesigner/IdGenerator'
 ], function(
     EntityHydrateAbstract,
-    PubSubAbstract
+    PubSubAbstract,
+    idGenerator
 ) {
     var ElementAbstract = function(additionalData)
     {
@@ -38,7 +40,7 @@ define([
         this.getId = function()
         {
             if (!this.get('id')) {
-                this.setId(generateId());
+                this.setId(idGenerator.generate());
             }
             return this.get('id');
         };
@@ -181,12 +183,6 @@ define([
         {
             return extraInspectableAttributes;
         };
-
-        // Elements aren't expected to have IDs so generate one
-        var generateId = function()
-        {
-            return (new Date()).getTime()+String(Math.random()).substr(2);
-        };
     };
 
     var combinedPrototype = EntityHydrateAbstract.prototype;
@@ -208,7 +204,12 @@ define([
 
     ElementAbstract.prototype.toJson = function()
     {
-        return this.getData();
+        var json = JSON.parse(JSON.stringify(this.getData()));
+        json.x = json.x.mmToPt();
+        json.y = json.y.mmToPt();
+        json.height = json.height.mmToPt();
+        json.width = json.width.mmToPt();
+        return json;
     };
 
     return ElementAbstract;

@@ -1,21 +1,26 @@
 define(['jasq'], function ()
 {
-    describe('The Entity module', 'InvoiceDesigner/Template/Entity', function ()
-    {
-        it('should be an object', function(entity)
+    describe('The Entity module', {
+        moduleName: 'InvoiceDesigner/Template/Entity',
+        mock: function()
         {
-            expect(typeof entity).toBe('object');
-        });
-
-        it('should not notify of changes while populating', {
-            mock: {
-                'InvoiceDesigner/Template/Service': {
-                    notifyOfChange: function() {}
+            return {
+                'InvoiceDesigner/Template/DomManipulator': {
+                    triggerTemplateChangeEvent: function() {}
                 }
-            }, expect: function(entity, dependencies)
+            };
+        },
+        specify: function ()
+        {
+            it('should be a class', function(Entity)
             {
-                var mockService = dependencies['InvoiceDesigner/Template/Service'];
-                spyOn(mockService, 'notifyOfChange');
+                expect(typeof Entity).toBe('function');
+            });
+
+            it('should not notify of changes while populating', function(Entity, dependencies)
+            {
+                var mockDomManipulator = dependencies['InvoiceDesigner/Template/DomManipulator'];
+                spyOn(mockDomManipulator, 'triggerTemplateChangeEvent');
 
                 var data = {
                     id: 1,
@@ -27,24 +32,20 @@ define(['jasq'], function ()
                 };
                 var populating = true;
 
+                var entity = new Entity();
                 entity.hydrate(data, populating);
-                expect(mockService.notifyOfChange).not.toHaveBeenCalled();
-            }
-        });
+                expect(mockDomManipulator.triggerTemplateChangeEvent).not.toHaveBeenCalled();
+            });
 
-        it('should notify of changes when not populating', {
-            mock: {
-                'InvoiceDesigner/Template/Service': {
-                    notifyOfChange: function() {}
-                }
-            }, expect: function(entity, dependencies)
+            it('should notify of changes when not populating', function(Entity, dependencies)
             {
-                var mockService = dependencies['InvoiceDesigner/Template/Service'];
-                spyOn(mockService, 'notifyOfChange');
+                var mockDomManipulator = dependencies['InvoiceDesigner/Template/DomManipulator'];
+                spyOn(mockDomManipulator, 'triggerTemplateChangeEvent');
 
+                var entity = new Entity();
                 entity.setId(1);
-                expect(mockService.notifyOfChange).toHaveBeenCalled();
-            }
-        });
+                expect(mockDomManipulator.triggerTemplateChangeEvent).toHaveBeenCalled();
+            });
+        }
     });
 });

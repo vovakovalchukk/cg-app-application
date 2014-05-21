@@ -14,6 +14,7 @@ define([
         ModuleAbstract.call(this);
         var service = templateService;
         var manipulator = domManipulator;
+        var template;
         this.setDomListener(templateSelectorListener);
 
         this.getService = function()
@@ -24,6 +25,17 @@ define([
         this.getDomManipulator = function()
         {
             return manipulator;
+        };
+
+        this.setTemplate = function(newTemplate)
+        {
+            template = newTemplate;
+            return this;
+        };
+
+        this.getTemplate = function()
+        {
+            return template;
         };
     };
 
@@ -36,14 +48,14 @@ define([
 
     TemplateSelector.prototype.selectionMade = function(id)
     {
-        this.getApplication().setTemplate(this.getService().fetch(id));
-        this.getService().loadModules(this.getApplication().getTemplate());
+        this.setTemplate(this.getService().fetch(id));
+        this.getService().loadModules(this.getTemplate());
         this.getDomManipulator().enable(this.getDomListener().getDuplicateTemplateSelector());
     };
 
     TemplateSelector.prototype.duplicate = function()
     {
-        this.getService().duplicate(this.getApplication().getTemplate());
+        this.getService().duplicate(this.getTemplate());
     };
 
     TemplateSelector.prototype.create = function()
