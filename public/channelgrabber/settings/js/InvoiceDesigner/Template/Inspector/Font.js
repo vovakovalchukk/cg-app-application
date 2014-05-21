@@ -41,9 +41,8 @@ define([
         CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache)
         {
             var fontSizeOptions = [];
-            console.log(element.getFontSize());
-            for (var fontSizeSize = 6; fontSizeSize < 72; fontSizeSize = fontSizeSize + 2) {
-                var selected;
+            for (var fontSizeSize = 6; fontSizeSize <= 72; fontSizeSize++) {
+                var selected = false;
                 if (element.getFontSize() == fontSizeSize) {
                     selected = true;
                 }
