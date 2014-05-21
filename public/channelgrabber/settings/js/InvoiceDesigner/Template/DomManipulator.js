@@ -68,11 +68,6 @@ define([
         });
     };
 
-    DomManipulator.prototype.show = function(selector)
-    {
-        $(selector).removeClass('hidden');
-    }
-
     DomManipulator.prototype.triggerElementSelectedEvent = function(element)
     {
         $(document).trigger(DomManipulator.EVENT_TEMPLATE_ELEMENT_SELECTED, [element]);
@@ -117,6 +112,11 @@ define([
     DomManipulator.prototype.setValue = function(selector, value)
     {
         $(selector).val(value);
+    };
+
+    DomManipulator.prototype.getValue = function(selector)
+    {
+        $(selector).val();
     };
 
     return new DomManipulator();

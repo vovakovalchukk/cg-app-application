@@ -71,8 +71,8 @@
             "php vendor/zendframework/zendframework/bin/classmap_generator.php -l module -o config/di/modules_classmap.php --overwrite",
             "php bin/update_di_components.php",
             "php -d memory_limit=512M bin/compile_di.php",
-	    "compass compile vendor/channelgrabber/zf2-v4-ui",
-	    "compass compile public/channelgrabber/settings"
+            "compass compile vendor/channelgrabber/zf2-v4-ui",
+            "compass compile public/channelgrabber/settings"
         ]
     }
 }

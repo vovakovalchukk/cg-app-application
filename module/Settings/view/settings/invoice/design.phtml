@@ -2,14 +2,26 @@
 <?php $this->headLink()->appendStylesheet($this->basePath() . Settings\Module::PUBLIC_FOLDER . 'css/invoiceDesigner.css') ?>
 <?php $this->inlineScript()->captureStart(); ?>
 var templateSelectorId = "#<?= $templateSelectorId; ?>";
+
+$(document).on('click', '.toPdfButton', function() {
+    require([
+        'InvoiceDesigner/Application',
+        'InvoiceDesigner/Template/Service'
+    ], function(Application, InvoiceDesignerService) {
+        var template = Application.getTemplate();
+        var templateJson = InvoiceDesignerService.getMapper().toJson(template);
+        InvoiceDesignerService.showAsPdf(templateJson);
+    });
+});
+
 var paperTypeDropdownId = "#<?= $paperTypeDropdownId; ?>";
+
 $(document).ready(function() {
     require.config({
         paths: {
             'InvoiceDesigner': "<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/InvoiceDesigner';?>"
         }
     });
-
     require(['InvoiceDesigner/Application'], function(designerApp)
     {
         designerApp.init();
@@ -25,6 +37,7 @@ $(document).ready(function() {
     </form>
     <hr>
 
+    <!--Invoice Template-->
     <div class="invoice-select-create">
         <?= $templates; ?>
         <?= $templateAddButton ?>
@@ -35,6 +48,10 @@ $(document).ready(function() {
         <?= $templateName; ?>
     </div>
     <?= $paperTypeModule ?>
+
+    <div class="addInvoiceElement">
+        <div class="addInvoiceElementTitle">Add Element</div>
+    </div>
 </div>
 <div id="invoice-template" class="invoice-template">
     <div id="save-template" class='save-template'>
@@ -46,13 +63,13 @@ $(document).ready(function() {
     </div>
     <div id="invoice-template-container" class="invoice-template-container">
     </div>
+
 </div>
 <div id="element-inspector-bar" class="sidebar sidebar-fixed sidebar-right sidebar-invoice-designer">
     <!--Element Inspectors-->
     <div id="heading-inspector"></div>
     <div id="positioning-inspector"></div>
 </div>
-
 <script>
     $(document).on('click', '.toPdfButton', function() {
     require([
