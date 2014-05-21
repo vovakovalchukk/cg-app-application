@@ -46,7 +46,7 @@ define([
 
     ElementResizeMove.prototype.pxToMm = function(px)
     {
-        var pxPerMm = this.getDomManipulator().calculatePxPerMm();
+        var pxPerMm = this.getDomManipulator().getPxPerMm();
         return px / pxPerMm;
     };
 
