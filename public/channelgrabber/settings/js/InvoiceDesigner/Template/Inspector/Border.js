@@ -37,8 +37,8 @@ define([
         };
         CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache)
         {
-            var borderWidth = cgmustache.renderTemplate(templates, self.getBorderWidthView(element), "select");
-            var borderColour = cgmustache.renderTemplate(templates, self.getBorderColourView(element), "colourPicker");
+            var borderWidth = cgmustache.renderTemplate(templates, self.getBorderWidthViewData(element), "select");
+            var borderColour = cgmustache.renderTemplate(templates, self.getBorderColourViewData(element), "colourPicker");
             var border = cgmustache.renderTemplate(templates, {}, "border", {
                 'borderWidth': borderWidth,
                 'borderColour': borderColour
@@ -53,14 +53,11 @@ define([
         });
     };
 
-    Border.prototype.getBorderWidthView = function(element)
+    Border.prototype.getBorderWidthViewData = function(element)
     {
         var BorderWidthOptions = [];
         for (var borderWidthWidth = 0.5; borderWidthWidth <= 10; borderWidthWidth = borderWidthWidth + 0.5) {
-            var selected = false;
-            if (element.getBorderWidth() == borderWidthWidth) {
-                selected = true;
-            }
+            var selected = (element.getBorderWidth() == borderWidthWidth)
             BorderWidthOptions.push({'value': borderWidthWidth, 'title': borderWidthWidth + 'mm', selected: selected});
         }
         return {
@@ -70,12 +67,22 @@ define([
         };
     };
 
-    Border.prototype.getBorderColourView = function(element)
+    Border.prototype.getBorderColourViewData = function(element)
     {
         return {
             'id': Border.BORDER_INSPECTOR_BORDER_COLOUR_ID,
             'initialColour': element.getBorderColour()
         };
+    };
+
+    Border.prototype.setBorderWidth = function(element, borderWidth)
+    {
+        element.setBorderWidth(borderWidth);
+    };
+
+    Border.prototype.setBorderColour = function(element, borderColour)
+    {
+        element.setBorderColour(borderColour);
     };
 
     Border.prototype.getBorderInspectorBorderWidthId = function()
