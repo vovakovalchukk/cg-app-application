@@ -9,7 +9,6 @@
 .template-element-wrapper{
     position: absolute;
     float: left;
-    cursor: move;
     padding: 2px;
     border-color: transparent;
     border-style: solid;
@@ -55,6 +54,10 @@
         left:-6px;
         top:50%; margin-top:-6px;
     }
+}
+
+.template-element{
+    cursor: move;
 }
 
 .template-paperpage{
