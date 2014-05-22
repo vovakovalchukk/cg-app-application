@@ -2,7 +2,7 @@ define([
     'require',
     'InvoiceDesigner/Template/Inspector/Collection',
     // Inspector requires here
-    'InvoiceDesigner/Template/Inspector/TextArea',
+    'InvoiceDesigner/Template/Inspector/Text',
     'InvoiceDesigner/Template/Inspector/Heading',
     'InvoiceDesigner/Template/Inspector/Positioning',
     'InvoiceDesigner/Template/Inspector/Font',
@@ -11,7 +11,7 @@ define([
     require,
     inspectorCollection,
     // Inspector variables here
-    textArea,
+    text,
     heading,
     positioning,
     font,
@@ -48,7 +48,7 @@ define([
         
         var inspectorsToAdd = [
             // Inspector variables here
-            textArea,
+            text,
             positioning,
             font,
             border
