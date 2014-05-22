@@ -4,19 +4,21 @@
     </div>
 </div>
 <script type="text/javascript">
-require(['jquery-ui', 'InvoiceDesigner/Template/DomManipulator'], function($, domManipulator)
+require(['jqueryPlugin/ui', 'InvoiceDesigner/Template/DomManipulator'], function($, domManipulator)
 {
     $('#{{id}}-wrapper').resizable({
+        alsoResize: '#{{id}}',
         containment: 'parent',
         handles: 'all',
         minHeight: 1,
         minWidth: 1,
         stop: function(event, $ui)
         {
-            var wrapperSize = $('#{{id}}-wrapper').outerWidth()-$('#{{id}}-wrapper').innerWidth();
+            var wrapperSize = $('#{{id}}-wrapper').outerWidth()-$('#{{id}}-wrapper').width();
+            var posAdjust = wrapperSize / 2;
             var position = {
-                top: $ui.position.top - wrapperSize,
-                left: $ui.position.left - wrapperSize
+                top: $ui.position.top + posAdjust,
+                left: $ui.position.left + posAdjust
             };
             var size = {
                 width: $('#{{id}}').outerWidth(),
@@ -28,10 +30,11 @@ require(['jquery-ui', 'InvoiceDesigner/Template/DomManipulator'], function($, do
         containment: 'parent',
         stop: function(event, $ui)
         {
-            var wrapperSize = $('#{{id}}-wrapper').outerWidth()-$('#{{id}}-wrapper').innerWidth();
+            var wrapperSize = $('#{{id}}-wrapper').outerWidth()-$('#{{id}}-wrapper').width();
+            var posAdjust = wrapperSize / 2;
             var position = {
-                top: $ui.position.top - wrapperSize,
-                left: $ui.position.left - wrapperSize
+                top: $ui.position.top + posAdjust,
+                left: $ui.position.left + posAdjust
             };
             $(document).trigger(domManipulator.getElementMovedEvent(), ['{{id}}', position]);
         }

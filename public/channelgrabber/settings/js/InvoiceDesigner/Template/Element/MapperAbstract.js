@@ -1,5 +1,10 @@
-define(['cg-mustache'], function(CGMustache)
-{
+define([
+    'cg-mustache',
+    'InvoiceDesigner/Template/DomManipulator'
+], function(
+    CGMustache,
+    domManipulator
+) {
     var MapperAbstract = function()
     {
         var optionalAttribs = ['backgroundColour', 'borderWidth', 'borderColour'];
@@ -13,13 +18,19 @@ define(['cg-mustache'], function(CGMustache)
         {
             return cgMustache;
         };
+
+        var manipulator = domManipulator;
+        this.getDomManipulator = function()
+        {
+            return manipulator;
+        };
     };
 
     MapperAbstract.ELEMENT_DOM_CLASS = 'template-element';
     MapperAbstract.ELEMENT_DOM_WRAPPER_CLASS = 'template-element-wrapper';
     MapperAbstract.ELEMENT_DOM_ID_PREFIX = 'template-element-';
     MapperAbstract.ELEMENT_TEMPLATE_PATH = '/channelgrabber/settings/template/InvoiceDesigner/Template/Element/';
-    MapperAbstract.ELEMENT_DOM_WRAPPER_SIZE_DIFF = 6;
+    MapperAbstract.element_dom_wrapper_gap = undefined;
 
     MapperAbstract.getDomId = function(element)
     {
@@ -99,8 +110,9 @@ define(['cg-mustache'], function(CGMustache)
 
     MapperAbstract.prototype.getDomWrapperStyles = function(element)
     {
-        var top = element.getY()-MapperAbstract.ELEMENT_DOM_WRAPPER_SIZE_DIFF;
-        var left = element.getX()-MapperAbstract.ELEMENT_DOM_WRAPPER_SIZE_DIFF;
+        var wrapperGap = this.getElementDomWrapperGap();
+        var top = element.getY() - wrapperGap;
+        var left = element.getX() - wrapperGap;
         var domStyles = [
             'top: '+top+'mm',
             'left: '+left+'mm'
@@ -211,6 +223,17 @@ define(['cg-mustache'], function(CGMustache)
     {
         throw 'RuntimeException: InvoiceDesigner\\Template\\Element\\MapperAbstract::getHtmlContents() should be overridden by sub-class';
     };
+
+    MapperAbstract.prototype.getElementDomWrapperGap = function()
+    {
+        if (!MapperAbstract.element_dom_wrapper_gap) {
+            var wrapperDimensions = this.getDomManipulator().getPotentialDimensions(MapperAbstract.ELEMENT_DOM_WRAPPER_CLASS);
+            var pixelGap = (wrapperDimensions.outerWidth - wrapperDimensions.width) / 2;
+            MapperAbstract.element_dom_wrapper_gap = pixelGap.pxToMm();
+        }
+
+        return MapperAbstract.element_dom_wrapper_gap;
+    }
 
     return MapperAbstract;
 });
