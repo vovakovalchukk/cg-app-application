@@ -99,7 +99,8 @@ define([
     Font.prototype.getFontColourView = function(element)
     {
         return {
-            'id': Font.FONT_INSPECTOR_FONT_COLOUR_ID
+            'id': Font.FONT_INSPECTOR_FONT_COLOUR_ID,
+            'initialColour': element.getFontColour()
         };
     };
 
