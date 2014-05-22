@@ -1,23 +1,39 @@
-<div id="{{id}}" class="{{classes}}" style="{{styles}}">
-    {{{contents}}}
+<div id="{{id}}-wrapper" class="{{wrapperClasses}}" style="{{wrapperStyles}}">
+    <div id="{{id}}" class="{{classes}}" style="{{styles}}">
+        {{{contents}}}
+    </div>
 </div>
 <script type="text/javascript">
 require(['jquery-ui', 'InvoiceDesigner/Template/DomManipulator'], function($, domManipulator)
 {
-    $('#{{id}}').resizable({
+    $('#{{id}}-wrapper').resizable({
         containment: 'parent',
         handles: 'all',
         minHeight: 1,
         minWidth: 1,
         stop: function(event, $ui)
         {
-            $(document).trigger(domManipulator.getElementResizedEvent(), ['{{id}}', $ui.position, $ui.size]);
+            var wrapperSize = $('#{{id}}-wrapper').outerWidth()-$('#{{id}}-wrapper').innerWidth();
+            var position = {
+                top: $ui.position.top - wrapperSize,
+                left: $ui.position.left - wrapperSize
+            };
+            var size = {
+                width: $('#{{id}}').outerWidth(),
+                height: $('#{{id}}').outerHeight()
+            };
+            $(document).trigger(domManipulator.getElementResizedEvent(), ['{{id}}', position, size]);
         }
     }).draggable({
         containment: 'parent',
         stop: function(event, $ui)
         {
-            $(document).trigger(domManipulator.getElementMovedEvent(), ['{{id}}', $ui.position]);
+            var wrapperSize = $('#{{id}}-wrapper').outerWidth()-$('#{{id}}-wrapper').innerWidth();
+            var position = {
+                top: $ui.position.top - wrapperSize,
+                left: $ui.position.left - wrapperSize
+            };
+            $(document).trigger(domManipulator.getElementMovedEvent(), ['{{id}}', position]);
         }
     });
 });

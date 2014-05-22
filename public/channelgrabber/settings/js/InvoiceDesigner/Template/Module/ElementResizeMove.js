@@ -2,17 +2,24 @@ define([
     'InvoiceDesigner/Template/ModuleAbstract',
     'InvoiceDesigner/Template/Module/DomListener/ElementResizeMove',
     'InvoiceDesigner/Template/Element/MapperAbstract',
+    'InvoiceDesigner/Template/PaperPage/Mapper',
     'InvoiceDesigner/Template/DomManipulator'
 ], function(
     ModuleAbstract,
     elementListener,
     ElementMapperAbstract,
+    paperPageMapper,
     domManipulator
 ) {
     var ElementResizeMove = function()
     {
         ModuleAbstract.call(this);
         this.setDomListener(elementListener);
+
+        this.getPaperPageMapper = function()
+        {
+            return paperPageMapper;
+        };
 
         this.getDomManipulator = function()
         {
@@ -24,17 +31,17 @@ define([
 
     ElementResizeMove.prototype.elementSelected = function(element)
     {
-        var elementDomId = ElementMapperAbstract.getDomId(element);
-        this.getDomManipulator().markAsInactive('.'+ElementMapperAbstract.ELEMENT_DOM_CLASS);
-        this.getDomManipulator().markAsActive('#'+elementDomId);
+        var elementDomWrapperId = ElementMapperAbstract.getDomWrapperId(element);
+        this.getDomManipulator().markAsInactive('.'+ElementMapperAbstract.ELEMENT_DOM_WRAPPER_CLASS);
+        this.getDomManipulator().markAsActive('#'+elementDomWrapperId);
     };
 
-    ElementResizeMove.prototype.elementResized = function(elementDomId, position, size)
+    ElementResizeMove.prototype.elementResized = function(elementDomId, offset, size)
     {
         var element = this.getElementByDomId(elementDomId);
         element.setWidth(size.width.pxToMm());
         element.setHeight(size.height.pxToMm());
-        this.elementMoved(elementDomId, position);
+        this.elementMoved(elementDomId, offset);
     };
 
     ElementResizeMove.prototype.elementMoved = function(elementDomId, position)

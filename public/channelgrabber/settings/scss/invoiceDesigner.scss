@@ -6,19 +6,59 @@
     overflow-x: auto;
 }
 
-.template-element{
+.template-element-wrapper{
     position: absolute;
     float: left;
     cursor: move;
+    padding: 2px;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 3px;
 }
 
-.template-element.active{
-    border-color: $color-lblue !important;
-    border-style: solid !important;
-    border-width: 3px !important;
+.template-element-wrapper.active{
+    @extend .template-element-wrapper;
+    border-color: $color-lblue;
+
+    .ui-resizable-handle {
+        @extend .template-element-wrapper.active;
+        width: 10px;
+        height: 10px;
+        background-color: #ffffff;
+    }
+
+    .ui-resizable-ne {
+        top:-6px; right:-6px;
+    }
+    .ui-resizable-se {
+        bottom:-6px; right:-6px;
+    }
+    .ui-resizable-nw {
+        top:-6px; left:-6px;
+    }
+    .ui-resizable-sw {
+        bottom:-6px; left:-6px;
+    }
+    .ui-resizable-n {
+        top:-6px;
+        left:50%; margin-left:-6px;
+    }
+    .ui-resizable-e {
+        right:-6px;
+        top:50%; margin-top:-6px;
+    }
+    .ui-resizable-s {
+        bottom:-6px;
+        left:50%; margin-left:-6px;
+    }
+    .ui-resizable-w {
+        left:-6px;
+        top:50%; margin-top:-6px;
+    }
 }
 
 .template-paperpage{
+    box-sizing: border-box;
     position: relative;
     margin-left: auto;
     margin-right: auto;

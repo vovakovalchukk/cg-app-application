@@ -1,9 +1,11 @@
 define([
     'jquery',
-    'cg-mustache'
+    'cg-mustache',
+    'InvoiceDesigner/Template/PaperPage/Mapper'
 ], function(
     $,
-    CGMustache
+    CGMustache,
+    PaperPageMapper
 ) {
     var DomManipulator = function()
     {
@@ -114,9 +116,14 @@ define([
         return dimensions;
     };
 
-    DomManipulator.prototype.getParentDimensions = function(selector)
+    DomManipulator.prototype.getParentDimensions = function(selector, parentSelector)
     {
-        return this.getDimensions($(selector).parent());
+        if (parentSelector) {
+            parentSelector = $(selector).parents(parentSelector+':first');
+        } else {
+            parentSelector = $(selector).parent();
+        }
+        return this.getDimensions(parentSelector);
     };
 
     DomManipulator.prototype.getElementSelectedEvent = function()

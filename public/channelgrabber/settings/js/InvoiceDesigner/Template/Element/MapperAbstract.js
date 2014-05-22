@@ -2,7 +2,7 @@ define(['cg-mustache'], function(CGMustache)
 {
     var MapperAbstract = function()
     {
-        var optionalAttribs = ['x', 'y', 'backgroundColour', 'borderWidth', 'borderColour'];
+        var optionalAttribs = ['backgroundColour', 'borderWidth', 'borderColour'];
         this.getOptionalAttribs = function()
         {
             return optionalAttribs;
@@ -16,12 +16,19 @@ define(['cg-mustache'], function(CGMustache)
     };
 
     MapperAbstract.ELEMENT_DOM_CLASS = 'template-element';
+    MapperAbstract.ELEMENT_DOM_WRAPPER_CLASS = 'template-element-wrapper';
     MapperAbstract.ELEMENT_DOM_ID_PREFIX = 'template-element-';
     MapperAbstract.ELEMENT_TEMPLATE_PATH = '/channelgrabber/settings/template/InvoiceDesigner/Template/Element/';
+    MapperAbstract.ELEMENT_DOM_WRAPPER_SIZE_DIFF = 6;
 
     MapperAbstract.getDomId = function(element)
     {
         return MapperAbstract.ELEMENT_DOM_ID_PREFIX+element.getId();
+    };
+
+    MapperAbstract.getDomWrapperId = function(element)
+    {
+        return MapperAbstract.getDomId(element)+'-wrapper';
     };
 
     MapperAbstract.getElementIdFromDomId = function(domId)
@@ -42,6 +49,8 @@ define(['cg-mustache'], function(CGMustache)
     MapperAbstract.prototype.toHtml = function(element)
     {
         var domId = MapperAbstract.getDomId(element);
+        var wrapperCssStyle = this.getDomWrapperStyles(element).join('; ');
+        var wrapperCssClasses = this.getDomWrapperClasses(element).join(' ');
         var cssClasses = this.getDomClasses(element).join(' ');
         var cssStyle = this.getDomStyles(element).join('; ');
         var htmlContents = this.getHtmlContents(element);
@@ -49,6 +58,8 @@ define(['cg-mustache'], function(CGMustache)
         var templateUrl = MapperAbstract.ELEMENT_TEMPLATE_PATH+'abstract.mustache';
         var data = {
             id: domId,
+            wrapperStyles: wrapperCssStyle,
+            wrapperClasses: wrapperCssClasses,
             classes: cssClasses,
             styles: cssStyle,
             contents: htmlContents
@@ -68,6 +79,11 @@ define(['cg-mustache'], function(CGMustache)
         return html;
     };
 
+    MapperAbstract.prototype.getDomWrapperClasses = function(element)
+    {
+        return [MapperAbstract.ELEMENT_DOM_WRAPPER_CLASS];
+    };
+
     MapperAbstract.prototype.getDomClasses = function(element)
     {
         var domClasses = [MapperAbstract.ELEMENT_DOM_CLASS];
@@ -79,6 +95,17 @@ define(['cg-mustache'], function(CGMustache)
             domClasses.push(extraDomClasses[key]);
         }
         return domClasses;
+    };
+
+    MapperAbstract.prototype.getDomWrapperStyles = function(element)
+    {
+        var top = element.getY()-MapperAbstract.ELEMENT_DOM_WRAPPER_SIZE_DIFF;
+        var left = element.getX()-MapperAbstract.ELEMENT_DOM_WRAPPER_SIZE_DIFF;
+        var domStyles = [
+            'top: '+top+'mm',
+            'left: '+left+'mm'
+        ];
+        return domStyles;
     };
 
     /**
