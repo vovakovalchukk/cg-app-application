@@ -16,21 +16,21 @@ define([
 
     Font.prototype.init = function(inspector, element)
     {
-        var that = this;
+        var self = this;
         $('#' + inspector.getFontInspectorFontFamilyId()).off('change').on('change', function(event, selectBox, id) {
-            element.setFontFamily(id);
+            inspector.setFontFamily(element, id);
         });
 
         $('#' + inspector.getFontInspectorFontSizeId()).off('change').on('change', function(event, selectBox, id) {
-            element.setFontSize(id);
+            inspector.setFontSize(element, id);
         });
 
         $('#' + inspector.getFontInspectorAlignId()).off('change').on('change', function(event, align) {
-            element.setAlign(align);
+            inspector.setAlign(element, align);
         });
 
         $('#' + inspector.getFontInspectorFontColourId()).off('change keyup paste').on('change keyup paste', function() {
-            element.setFontColour(that.getDomManipulator().getValue(this));
+            inspector.setFontColour(element, self.getDomManipulator().getValue(this));
         });
     };
 

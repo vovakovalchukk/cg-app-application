@@ -20,6 +20,8 @@ define([
     Font.FONT_INSPECTOR_FONT_FAMILY_ID = 'font-inspector-font-family';
     Font.FONT_INSPECTOR_FONT_COLOUR_ID = 'font-inspector-font-colour';
     Font.FONT_INSPECTOR_ALIGN_ID = 'font-inspector-align';
+    Font.MINIMUM_FONT_SIZE = 6;
+    Font.MAXIMUM_FONT_SIZE = 72;
 
     Font.prototype = Object.create(InspectorAbstract.prototype);
 
@@ -63,7 +65,7 @@ define([
     Font.prototype.getFontSizeView = function(element)
     {
         var fontSizeOptions = [];
-        for (var fontSizeSize = 6; fontSizeSize <= 72; fontSizeSize++) {
+        for (var fontSizeSize = Font.MINIMUM_FONT_SIZE; fontSizeSize <= Font.MAXIMUM_FONT_SIZE; fontSizeSize++) {
             var selected = false;
             if (element.getFontSize() == fontSizeSize) {
                 selected = true;
@@ -111,6 +113,26 @@ define([
         };
         alignView[element.getAlign()] = true;
         return alignView;
+    };
+
+    Font.prototype.setFontFamily = function(element, fontFamily)
+    {
+        element.setFontFamily(fontFamily);
+    };
+
+    Font.prototype.setFontSize = function(element, fontSize)
+    {
+        element.setFontSize(fontSize);
+    };
+
+    Font.prototype.setAlign = function(element, align)
+    {
+        element.setAlign(align);
+    };
+
+    Font.prototype.setFontColour = function(element, colour)
+    {
+        element.setFontColour(colour);
     };
 
     Font.prototype.getFontInspectorFontSizeId = function()
