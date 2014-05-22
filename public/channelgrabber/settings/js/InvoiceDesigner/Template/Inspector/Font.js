@@ -89,7 +89,6 @@ define([
                 fontFamilyOptions[key]['selected'] = true;
             }
         }
-        console.log(fontFamilyOptions);
         return {
             'id': Font.FONT_INSPECTOR_FONT_FAMILY_ID,
             'name': Font.FONT_INSPECTOR_FONT_FAMILY_ID,
