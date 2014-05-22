@@ -52,11 +52,8 @@ define([
         this.getTemplateService().render(template);
         template.getElements().each(function(element)
         {
-            if (element.getType() === 'page') {
-                return true;
-            }
-            var domId = ElementMapperAbstract.getDomId(element);
-            self.getDomListener().listenForElementSelect(domId, element);
+            var domWrapperId = ElementMapperAbstract.getDomWrapperId(element);
+            self.getDomListener().listenForElementSelect(domWrapperId, element);
 
             if (selectedElement && selectedElement.getId() === element.getId()) {
                 self.getDomManipulator().triggerElementSelectedEvent(element);
