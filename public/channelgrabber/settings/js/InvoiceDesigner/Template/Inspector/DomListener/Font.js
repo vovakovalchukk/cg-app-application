@@ -4,7 +4,7 @@ define([
 ], function(
     $,
     domManipulator
-    ) {
+) {
 
     var Font = function()
     {
