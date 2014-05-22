@@ -5,10 +5,10 @@ var templateSelectorId = "#<?= $templateSelectorId; ?>";
 
 $(document).on('click', '.toPdfButton', function() {
     require([
-        'InvoiceDesigner/Application',
+        'InvoiceDesigner/Template/Inspector/Service',
         'InvoiceDesigner/Template/Service'
-    ], function(Application, InvoiceDesignerService) {
-        var template = Application.getTemplate();
+    ], function(InspectorService, InvoiceDesignerService) {
+        var template = InspectorService.getTemplate();
         var templateJson = InvoiceDesignerService.getMapper().toJson(template);
         InvoiceDesignerService.showAsPdf(templateJson);
     });
