@@ -42,10 +42,10 @@ define([
         };
         CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache)
         {
-            var fontSize = cgmustache.renderTemplate(templates, self.getFontSizeView(element), "select");
-            var fontFamily = cgmustache.renderTemplate(templates, self.getFontFamilyView(element), "select");
-            var fontColour = cgmustache.renderTemplate(templates, self.getFontColourView(element), "colourPicker");
-            var align = cgmustache.renderTemplate(templates, self.getFontAlignView(element), "align");
+            var fontSize = cgmustache.renderTemplate(templates, self.getFontSizeViewData(element), "select");
+            var fontFamily = cgmustache.renderTemplate(templates, self.getFontFamilyViewData(element), "select");
+            var fontColour = cgmustache.renderTemplate(templates, self.getFontColourViewData(element), "colourPicker");
+            var align = cgmustache.renderTemplate(templates, self.getFontAlignViewData(element), "align");
             var font = cgmustache.renderTemplate(templates, {}, "font", {
                 'fontSize': fontSize,
                 'fontFamily': fontFamily,
@@ -62,14 +62,11 @@ define([
         });
     };
 
-    Font.prototype.getFontSizeView = function(element)
+    Font.prototype.getFontSizeViewData = function(element)
     {
         var fontSizeOptions = [];
         for (var fontSizeSize = Font.MINIMUM_FONT_SIZE; fontSizeSize <= Font.MAXIMUM_FONT_SIZE; fontSizeSize++) {
-            var selected = false;
-            if (element.getFontSize() == fontSizeSize) {
-                selected = true;
-            }
+            var selected = (element.getFontSize() == fontSizeSize);
             fontSizeOptions.push({'value': fontSizeSize, 'title': fontSizeSize + 'pt', selected: selected});
         }
         return {
@@ -79,7 +76,7 @@ define([
         };
     };
 
-    Font.prototype.getFontFamilyView = function(element)
+    Font.prototype.getFontFamilyViewData = function(element)
     {
         var fontFamilyOptions = [
             {'title': 'Courier New', 'value': 'Courier'},
@@ -98,20 +95,20 @@ define([
         };
     };
 
-    Font.prototype.getFontColourView = function(element)
+    Font.prototype.getFontColourViewData = function(element)
     {
         return {
             'id': Font.FONT_INSPECTOR_FONT_COLOUR_ID
         };
     };
 
-    Font.prototype.getFontAlignView = function(element)
+    Font.prototype.getFontAlignViewData = function(element)
     {
-        var alignView = {
+        var alignViewData = {
             'id': Font.FONT_INSPECTOR_ALIGN_ID
         };
-        alignView[element.getAlign()] = true;
-        return alignView;
+        alignViewData[element.getAlign()] = true;
+        return alignViewData;
     };
 
     Font.prototype.setFontFamily = function(element, fontFamily)
