@@ -1,8 +1,8 @@
 define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
 {
-    var TextAbstract = function()
+    var TextAbstract = function(additionalData)
     {
-        var additionalData = {
+        var data = {
             borderWidth: undefined,
             borderColour: undefined,
             fontSize: 12,
@@ -16,7 +16,11 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
             removeBlankLines: undefined
         };
 
-        ElementAbstract.call(this, additionalData);
+        for (var field in additionalData) {
+            data[field] = additionalData[field];
+        };
+
+        ElementAbstract.call(this, data);
 
         this.getFontSize = function()
         {
