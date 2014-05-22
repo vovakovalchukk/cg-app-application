@@ -34,35 +34,16 @@ define([
         var templateUrlMap = {
             select: '/channelgrabber/zf2-v4-ui/templates/elements/custom-select.mustache',
             colourPicker: '/channelgrabber/zf2-v4-ui/templates/elements/colour-picker.mustache',
-            align: '/channelgrabber/zf2-v4-ui/templates/elements/custom-select.mustache',
+            align: '/channelgrabber/zf2-v4-ui/templates/elements/align.mustache',
             font: '/channelgrabber/settings/template/InvoiceDesigner/Template/Inspector/font.mustache',
             collapsible: '/channelgrabber/zf2-v4-ui/templates/elements/collapsible.mustache'
         };
         CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache)
         {
-            var fontSizeOptions = [];
-            for (var fontSizeSize = 6; fontSizeSize <= 72; fontSizeSize++) {
-                var selected = false;
-                if (element.getFontSize() == fontSizeSize) {
-                    selected = true;
-                }
-                fontSizeOptions.push({'value': fontSizeSize, 'title': fontSizeSize + 'pt', selected: selected});
-            }
-            var fontSize = cgmustache.renderTemplate(templates, {
-                'name': Font.FONT_INSPECTOR_FONT_SIZE_ID,
-                'options': fontSizeOptions
-            }, "select");
-            var fontFamilyOptions = [
-                {'title': 'Courier New', 'value': 'Courier'},
-                {'title': 'Helvetica'},
-                {'title': 'Times New Roman', 'value': 'Times'}
-            ];
-            var fontFamily = cgmustache.renderTemplate(templates, {
-                'name': Font.FONT_INSPECTOR_FONT_FAMILY_ID,
-                'options': fontFamilyOptions
-            }, "select");
-            var fontColour = cgmustache.renderTemplate(templates, {'id': Font.FONT_INSPECTOR_FONT_COLOUR_ID}, "colourPicker");
-            var align = cgmustache.renderTemplate(templates, {'id': Font.FONT_INSPECTOR_ALIGN_ID}, "align");
+            var fontSize = cgmustache.renderTemplate(templates, self.getFontSizeView(element), "select");
+            var fontFamily = cgmustache.renderTemplate(templates, self.getFontFamilyView(element), "select");
+            var fontColour = cgmustache.renderTemplate(templates, self.getFontColourView(element), "colourPicker");
+            var align = cgmustache.renderTemplate(templates, self.getFontAlignView(element), "align");
             var font = cgmustache.renderTemplate(templates, {}, "font", {
                 'fontSize': fontSize,
                 'fontFamily': fontFamily,
@@ -77,6 +58,59 @@ define([
             self.getDomManipulator().render(Font.FONT_INSPECTOR_SELECTOR, collapsible);
             fontDomListener.init(self, element);
         });
+    };
+
+    Font.prototype.getFontSizeView = function(element)
+    {
+        var fontSizeOptions = [];
+        for (var fontSizeSize = 6; fontSizeSize <= 72; fontSizeSize++) {
+            var selected = false;
+            if (element.getFontSize() == fontSizeSize) {
+                selected = true;
+            }
+            fontSizeOptions.push({'value': fontSizeSize, 'title': fontSizeSize + 'pt', selected: selected});
+        }
+        return {
+            'id': Font.FONT_INSPECTOR_FONT_SIZE_ID,
+            'name': Font.FONT_INSPECTOR_FONT_SIZE_ID,
+            'options': fontSizeOptions
+        };
+    };
+
+    Font.prototype.getFontFamilyView = function(element)
+    {
+        var fontFamilyOptions = [
+            {'title': 'Courier New', 'value': 'Courier'},
+            {'title': 'Helvetica', 'value': 'Helvetica'},
+            {'title': 'Times New Roman', 'value': 'Times'}
+        ];
+        for (var key in fontFamilyOptions) {
+            if (fontFamilyOptions[key]['value'] == element.getFontFamily()) {
+                fontFamilyOptions[key]['selected'] = true;
+            }
+        }
+        console.log(fontFamilyOptions);
+        return {
+            'id': Font.FONT_INSPECTOR_FONT_FAMILY_ID,
+            'name': Font.FONT_INSPECTOR_FONT_FAMILY_ID,
+            'options': fontFamilyOptions
+        };
+    };
+
+    Font.prototype.getFontColourView = function(element)
+    {
+        return {
+            'id': Font.FONT_INSPECTOR_FONT_COLOUR_ID
+        };
+    };
+
+    Font.prototype.getFontAlignView = function(element)
+    {
+        var alignView = {
+            'id': Font.FONT_INSPECTOR_ALIGN_ID
+        };
+        alignView[element.getAlign()] = true;
+        return alignView;
     };
 
     Font.prototype.getFontInspectorFontSizeId = function()
