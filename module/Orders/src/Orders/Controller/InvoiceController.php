@@ -61,7 +61,6 @@ class InvoiceController extends AbstractActionController
     protected function createElement(array $config)
     {
         return $this->getElementMapper()->fromArray($config);
-
     }
 
     /**
@@ -71,6 +70,8 @@ class InvoiceController extends AbstractActionController
     {
         $filter = $this->getService()->getDi()->get('CG\\Order\\Service\\Filter', [
             'limit' => 1,
+            'orderBy' => 'id',
+            'orderDirection' => 'ASC',
             'organisationUnitId' => $this->getService()->getOrderService()->getActiveUser()->getOuList()
         ]);
         $orders = $this->getService()->getOrderService()->getOrders($filter);
