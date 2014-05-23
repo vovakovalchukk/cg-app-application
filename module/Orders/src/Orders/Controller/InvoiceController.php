@@ -71,7 +71,6 @@ class InvoiceController extends AbstractActionController
     {
         $filter = $this->getService()->getDi()->get('CG\\Order\\Service\\Filter', [
             'limit' => 1,
-            'page' => 4,
             'organisationUnitId' => $this->getService()->getOrderService()->getActiveUser()->getOuList()
         ]);
         $orders = $this->getService()->getOrderService()->getOrders($filter);
@@ -90,10 +89,6 @@ class InvoiceController extends AbstractActionController
         );
 
         $template = $this->getService()->getTemplateFactory()->getTemplateForOrderEntity($templateConfig);
-
-//        echo "<pre>";
-//        print_r($template);
-//        exit;
         return $this->getService()->getResponseFromOrderCollection($orders, $template);
     }
 }

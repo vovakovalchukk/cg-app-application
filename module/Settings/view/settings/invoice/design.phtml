@@ -10,7 +10,6 @@ $(document).on('click', '.toPdfButton', function() {
     ], function(InspectorService, InvoiceDesignerService) {
         var template = InspectorService.getTemplate();
         var templateJson = InvoiceDesignerService.getMapper().toJson(template);
-        console.log(templateJson);
         InvoiceDesignerService.showAsPdf(templateJson);
     });
 });
