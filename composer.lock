@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "862e0e9060b1e4f6e1ed6bb1671dcb35",
+    "hash": "508b4ec155fe9ecf461ff2d23fc322ce",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -1212,11 +1212,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-2022-invoice-designer-element-drag-resize",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "a2dce28da0b54158d8d751c0b2a9e51b509ec1bf"
+                "reference": "3b69df2acfb0ec7cc26c1e3bf23a169ad53247af"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.6.1-1a39c8.zip",
+                "reference": "3b69df2acfb0ec7cc26c1e3bf23a169ad53247af",
+                "shasum": "692fe72b0d736eca716e3892c3191ed8527c7fbf"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1244,7 +1250,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-05-23 07:47:41"
+            "time": "2014-05-23 12:40:21"
         },
         {
             "name": "cilex/cilex",
@@ -3692,17 +3698,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.6.0",
-            "alias_normalized": "1.6.0.0",
-            "version": "dev-CGIV-2022-invoice-designer-element-drag-resize",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },

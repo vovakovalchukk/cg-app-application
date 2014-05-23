@@ -167,7 +167,19 @@ define([
         return this.getDimensions(parentSelector);
     };
 
-    DomManipulator.prototype.getPotentialDimensions = function(classes)
+    /**
+     * This method will create a DOM element with the given classes applied,
+     * get its dimensions, destroy it and then return the dimensions.
+     *
+     * This is useful for rendering when you need to account for elements that don't exist yet,
+     * such as positioning template elements based on their wrapper element before it is rendered.
+     *
+     * Note: the temporary element created will have no content so its dimensions simply represent
+     * its padding and border.
+     * Note: the width and height given are for the whole element - the 'diameter' if you will. If you
+     * want the 'radius' for positioning elements within one of these remember to half the dimensions.
+     */
+    DomManipulator.prototype.getDimensionsOfTemporaryElement = function(classes)
     {
         classes = (typeof classes !== 'array' ? classes.split(' ') : classes);
         var tempId = classes.join('-')+'-dimension-test';
