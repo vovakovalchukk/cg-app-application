@@ -43,6 +43,24 @@ define([
         return this;
     };
 
+    DomManipulator.prototype.triggerElementSelectedEvent = function(element)
+    {
+        $(document).trigger(DomManipulator.EVENT_TEMPLATE_ELEMENT_SELECTED, [element]);
+        return this;
+    };
+
+    DomManipulator.prototype.triggerElementResizedEvent = function(elementId, position, size)
+    {
+        $(document).trigger(DomManipulator.EVENT_TEMPLATE_ELEMENT_RESIZED, [elementId, position, size]);
+        return this;
+    };
+
+    DomManipulator.prototype.triggerElementMovedEvent = function(elementId, position)
+    {
+        $(document).trigger(DomManipulator.EVENT_TEMPLATE_ELEMENT_MOVED, [elementId, position]);
+        return this;
+    };
+
     DomManipulator.prototype.populateCustomSelect = function(selector, data, selectedValue)
     {
         var container = $(selector).parent().parent();
@@ -70,17 +88,6 @@ define([
         });
     };
 
-    DomManipulator.prototype.triggerElementSelectedEvent = function(element)
-    {
-        $(document).trigger(DomManipulator.EVENT_TEMPLATE_ELEMENT_SELECTED, [element]);
-        return this;
-    };
-
-    DomManipulator.prototype.getTemplateChangedEvent = function()
-    {
-        return DomManipulator.EVENT_TEMPLATE_CHANGED;
-    };
-
     DomManipulator.prototype.enable = function(selector)
     {
         $(selector).removeClass('disabled');
@@ -106,15 +113,32 @@ define([
         $(selector).val(template.getName());
     };
 
+    DomManipulator.prototype.getOffset = function(selector)
+    {
+        return $(selector).offset();
+    };
+
+    DomManipulator.prototype.getSize = function(selector)
+    {
+        var size = {
+            width: $(selector).width(),
+            height: $(selector).height(),
+            innerWidth: $(selector).innerWidth(),
+            innerHeight: $(selector).innerHeight(),
+            outerWidth: $(selector).outerWidth(),
+            outerHeight: $(selector).outerHeight()
+        };
+        return size;
+    }
+
     DomManipulator.prototype.getDimensions = function(selector)
     {
-        var dimensions = $(selector).offset();
-        dimensions.width = $(selector).width();
-        dimensions.height = $(selector).height();
-        dimensions.innerWidth = $(selector).innerWidth();
-        dimensions.innerHeight = $(selector).innerHeight();
-        dimensions.outerWidth = $(selector).outerWidth();
-        dimensions.outerHeight = $(selector).outerHeight();
+        var dimensions = this.getOffset(selector);
+        var sizes = this.getSize(selector);
+        for (var size in sizes) {
+            dimensions[size] = sizes[size];
+        }
+
         return dimensions;
     };
 
@@ -137,6 +161,11 @@ define([
         var dimensions = this.getDimensions('#'+tempId);
         $('#'+tempId).remove();
         return dimensions;
+    };
+
+    DomManipulator.prototype.getTemplateChangedEvent = function()
+    {
+        return DomManipulator.EVENT_TEMPLATE_CHANGED;
     };
 
     DomManipulator.prototype.getElementSelectedEvent = function()

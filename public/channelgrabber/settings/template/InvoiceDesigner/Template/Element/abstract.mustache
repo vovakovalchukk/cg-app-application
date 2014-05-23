@@ -4,8 +4,16 @@
     </div>
 </div>
 <script type="text/javascript">
-require(['jqueryPlugin/ui', 'InvoiceDesigner/Template/DomManipulator'], function($, domManipulator)
-{
+require([
+    'jqueryPlugin/ui',
+    'InvoiceDesigner/Template/DomManipulator',
+    'InvoiceDesigner/Template/Element/Service',
+],
+function(
+    $,
+    domManipulator,
+    elementService
+) {
     $('#{{id}}-wrapper').resizable({
         alsoResize: '#{{id}}',
         containment: 'parent',
@@ -14,29 +22,19 @@ require(['jqueryPlugin/ui', 'InvoiceDesigner/Template/DomManipulator'], function
         minWidth: 1,
         stop: function(event, $ui)
         {
-            var wrapperSize = $('#{{id}}-wrapper').outerWidth()-$('#{{id}}-wrapper').width();
-            var posAdjust = wrapperSize / 2;
-            var position = {
-                top: $ui.position.top + posAdjust,
-                left: $ui.position.left + posAdjust
-            };
+            var position = elementService.addDomWrapperGapToDimensions($ui.position);
             var size = {
                 width: $('#{{id}}').outerWidth(),
                 height: $('#{{id}}').outerHeight()
             };
-            $(document).trigger(domManipulator.getElementResizedEvent(), ['{{id}}', position, size]);
+            domManipulator.triggerElementResizedEvent('{{id}}', position, size);
         }
     }).draggable({
         containment: 'parent',
         stop: function(event, $ui)
         {
-            var wrapperSize = $('#{{id}}-wrapper').outerWidth()-$('#{{id}}-wrapper').width();
-            var posAdjust = wrapperSize / 2;
-            var position = {
-                top: $ui.position.top + posAdjust,
-                left: $ui.position.left + posAdjust
-            };
-            $(document).trigger(domManipulator.getElementMovedEvent(), ['{{id}}', position]);
+            var position = elementService.addDomWrapperGapToDimensions($ui.position);
+            domManipulator.triggerElementMovedEvent('{{id}}', position);
         }
     });
 });
