@@ -170,18 +170,6 @@
     padding: 0px !important;
 }
 
-.invoice-select-create {
-    padding:10px;
-    border-bottom: 1px solid $color-lgrey;
-    height:80px;
-    .button {
-        float:left;
-    }
-}
-
-.template-name-container {
-    display:none;
-}
 .template-module {
     display: none;
     clear: left;
@@ -189,6 +177,15 @@
     .element {
         clear: left;
         padding: 2px 5px;
+    }
+}
+
+.invoice-select-create {
+    display: block;
+    padding:10px;
+    height:80px;
+    .button {
+        float:left;
     }
 }
 
