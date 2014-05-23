@@ -1,9 +1,8 @@
 define(['InvoiceDesigner/Template/Element/TextAbstract'], function(TextAbstract)
 {
-    var ImmutableTextAbstract = function()
+    var ImmutableTextAbstract = function(data)
     {
-        TextAbstract.call(this);
-
+        TextAbstract.call(this, data);
         this.setEditable(false);
     };
 

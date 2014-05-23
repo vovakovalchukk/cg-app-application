@@ -164,5 +164,15 @@ define([
         $(selector).html(html);
     };
 
+    DomManipulator.prototype.setValue = function(selector, value)
+    {
+        $(selector).val(value);
+    };
+
+    DomManipulator.prototype.getValue = function(selector)
+    {
+        return $(selector).val();
+    };
+
     return new DomManipulator();
 });

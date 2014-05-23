@@ -177,7 +177,7 @@ define([
 
     MapperAbstract.prototype.elementAttributeValueToCssPropertyValue = function(value)
     {
-        if (typeof value === 'number' && value !== '' && !isNaN(value)) {
+        if (value !== '' && !isNaN(Number(value))) {
             return value+'mm';
         }
         return value;
