@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "fc2d282ca25e52ebcb5bd3c51cbeca2c",
+    "hash": "1ff8df4cb6c3589a63e51be4fd259a68",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -1208,17 +1208,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.5.14",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e16f28260ed19b10752464018b3207580e6c9bf6"
+                "reference": "5932d17e68d82b9ded22a5526b1446c416c45ff4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.5.14-253af0.zip",
-                "reference": "e16f28260ed19b10752464018b3207580e6c9bf6",
-                "shasum": "90fcf4b9479006d0e0c89c41281e92dc272ee5b6"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.6.0-bc32cb.zip",
+                "reference": "5932d17e68d82b9ded22a5526b1446c416c45ff4",
+                "shasum": "c7e0f05eb1cecc56001a4a6efc7f627a20f90c47"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1246,7 +1246,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-05-20 07:12:52"
+            "time": "2014-05-23 07:27:59"
         },
         {
             "name": "cilex/cilex",
@@ -1792,7 +1792,7 @@
         },
         {
             "name": "symfony/class-loader",
-            "version": "v2.4.4",
+            "version": "v2.4.5",
             "target-dir": "Symfony/Component/ClassLoader",
             "source": {
                 "type": "git",
@@ -1844,7 +1844,7 @@
         },
         {
             "name": "symfony/config",
-            "version": "v2.4.4",
+            "version": "v2.4.5",
             "target-dir": "Symfony/Component/Config",
             "source": {
                 "type": "git",
@@ -2005,7 +2005,7 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v2.4.4",
+            "version": "v2.4.5",
             "target-dir": "Symfony/Component/Filesystem",
             "source": {
                 "type": "git",
