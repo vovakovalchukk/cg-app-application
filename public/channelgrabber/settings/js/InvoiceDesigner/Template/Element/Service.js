@@ -14,7 +14,7 @@ define(['InvoiceDesigner/Template/DomManipulator'], function(domManipulator)
     Service.prototype.getElementDomWrapperGap = function()
     {
         if (!Service.element_dom_wrapper_gap) {
-            var wrapperDimensions = this.getDomManipulator().getPotentialDimensions(Service.ELEMENT_DOM_WRAPPER_CLASS);
+            var wrapperDimensions = this.getDomManipulator().getDimensionsOfTemporaryElement(Service.ELEMENT_DOM_WRAPPER_CLASS);
             var pixelGap = (wrapperDimensions.outerWidth - wrapperDimensions.width) / 2;
             Service.element_dom_wrapper_gap = pixelGap.pxToMm();
         }
