@@ -41,10 +41,9 @@ define([
         });
     };
 
-    Heading.prototype.removeElement = function(template, element, service)
+    Heading.prototype.removeElement = function(template, element)
     {
         template.removeElement(element);
-        service.hideAll();
     };
 
     Heading.prototype.getHeadingInspectorDeleteId = function()

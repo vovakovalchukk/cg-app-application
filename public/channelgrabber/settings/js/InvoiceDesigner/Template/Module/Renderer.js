@@ -45,6 +45,11 @@ define([
         this.setSelectedElement(element);
     };
 
+    Renderer.prototype.elementDeselected = function()
+    {
+        this.setSelectedElement(undefined);
+    };
+
     Renderer.prototype.templateChanged = function(template)
     {
         var self = this;

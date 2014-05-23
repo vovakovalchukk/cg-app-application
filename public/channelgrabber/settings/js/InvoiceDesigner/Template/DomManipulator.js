@@ -15,6 +15,8 @@ define([
     DomManipulator.EVENT_TEMPLATE_ELEMENT_SELECTED = 'invoice-template-element-selected';
     DomManipulator.EVENT_TEMPLATE_ELEMENT_RESIZED = 'invoice-template-element-resized';
     DomManipulator.EVENT_TEMPLATE_ELEMENT_MOVED = 'invoice-template-element-moved';
+    DomManipulator.EVENT_TEMPLATE_ELEMENT_DESELECTED = 'invoice-template-element-deselected';
+    DomManipulator.EVENT_TEMPLATE_ELEMENT_DELETED = 'invoice-template-element-deleted';
     DomManipulator.EVENT_IMAGE_UPLOAD_FILE_SELECTED = 'invoice-template-image-selected';
     DomManipulator.DOM_SELECTOR_TEMPLATE_CONTAINER = '#invoice-template-container';
     DomManipulator.CUSTOM_SELECT_TEMPLATE_PATH = '/channelgrabber/zf2-v4-ui/templates/elements/custom-select.mustache';
@@ -58,6 +60,19 @@ define([
     DomManipulator.prototype.triggerElementMovedEvent = function(elementId, position)
     {
         $(document).trigger(DomManipulator.EVENT_TEMPLATE_ELEMENT_MOVED, [elementId, position]);
+        return this;
+    };
+
+    DomManipulator.prototype.triggerElementDeselectedEvent = function(element)
+    {
+        $(document).trigger(DomManipulator.EVENT_TEMPLATE_ELEMENT_DESELECTED, [element]);
+        return this;
+    };
+
+    DomManipulator.prototype.triggerElementDeletedEvent = function(element)
+    {
+        $(document).trigger(DomManipulator.EVENT_TEMPLATE_ELEMENT_DELETED, [element]);
+        this.triggerElementDeselectedEvent(element);
         return this;
     };
 
@@ -181,6 +196,16 @@ define([
     DomManipulator.prototype.getElementMovedEvent = function()
     {
         return DomManipulator.EVENT_TEMPLATE_ELEMENT_MOVED;
+    };
+
+    DomManipulator.prototype.getElementDeselectedEvent = function()
+    {
+        return DomManipulator.EVENT_TEMPLATE_ELEMENT_DESELECTED;
+    };
+
+    DomManipulator.prototype.getElementDeletedEvent = function()
+    {
+        return DomManipulator.EVENT_TEMPLATE_ELEMENT_DELETED;
     };
 
     DomManipulator.prototype.getImageUploadFileSelectedEvent = function()

@@ -18,6 +18,7 @@ define([
     {
         DomListenerAbstract.prototype.init.call(this, module);
         this.initElementSelectedListener()
+            .initElementDeselectedListener()
             .initTemplateChangeListener();
     };
 
@@ -27,6 +28,16 @@ define([
         $(document).on(domManipulator.getElementSelectedEvent(), function(event, element)
         {
             self.getModule().elementSelected(element);
+        });
+        return this;
+    };
+
+    Renderer.prototype.initElementDeselectedListener = function()
+    {
+        var self = this;
+        $(document).on(domManipulator.getElementDeselectedEvent(), function(event, element)
+        {
+            self.getModule().elementDeselected(element);
         });
         return this;
     };
