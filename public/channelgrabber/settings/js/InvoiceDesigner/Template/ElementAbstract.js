@@ -40,7 +40,7 @@ define([
         this.getId = function()
         {
             if (!this.get('id')) {
-                this.setId(idGenerator.generate());
+                this.set('id', idGenerator.generate(), true);
             }
             return this.get('id');
         };
@@ -209,7 +209,7 @@ define([
         json.y = json.y.mmToPt();
         json.height = json.height.mmToPt();
         json.width = json.width.mmToPt();
-        json.borderWidth = json.borderWidth.mmToPt();
+        json.borderWidth = (json.borderWidth ? json.borderWidth.mmToPt() : json.borderWidth);
         return json;
     };
 

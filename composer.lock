@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "508b4ec155fe9ecf461ff2d23fc322ce",
+    "hash": "29f3cd21e5ccc087d206fc273c356a17",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -1212,17 +1212,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.6.1",
+            "version": "dev-CGIV-2244-invoice-designer-inspector-element-change-bug",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "3b69df2acfb0ec7cc26c1e3bf23a169ad53247af"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.6.1-1a39c8.zip",
-                "reference": "3b69df2acfb0ec7cc26c1e3bf23a169ad53247af",
-                "shasum": "692fe72b0d736eca716e3892c3191ed8527c7fbf"
+                "reference": "4585de0dcee77b3cdbe53b5c23dfc88fc8624b76"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1250,7 +1244,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-05-23 12:40:21"
+            "time": "2014-05-23 15:12:37"
         },
         {
             "name": "cilex/cilex",
@@ -3698,11 +3692,17 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.6.1",
+            "alias_normalized": "1.6.1.0",
+            "version": "dev-CGIV-2244-invoice-designer-inspector-element-change-bug",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },

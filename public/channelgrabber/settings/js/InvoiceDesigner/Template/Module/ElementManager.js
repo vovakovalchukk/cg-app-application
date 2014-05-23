@@ -61,6 +61,7 @@ define([
     {
         var element = this.getTemplateService().getMapper().createNewElement(elementName);
         this.getTemplate().addElement(element);
+        this.getDomManipulator().triggerElementSelectedEvent(element);
     };
 
     return new ElementManager();
