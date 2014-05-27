@@ -24,8 +24,8 @@ define([
             name: undefined,
             type: Entity.TYPE,
             organisationUnitId: undefined,
-            minHeight: undefined,
-            minWidth: undefined
+            minHeight: 0,
+            minWidth: 0
         };
 
         this.getElements = function()

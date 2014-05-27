@@ -5,8 +5,9 @@ define([
     // Application Module variables here
     templateSelector
 ) {
-    var Application = function(organisationUnitId)
+    var Application = function()
     {
+        var organisationUnitId;
         var modules = [
             // Modules here
             templateSelector
@@ -21,10 +22,17 @@ define([
         {
             return organisationUnitId;
         };
+
+        this.setOrganisationUnitId = function(newOrganisationUnitId)
+        {
+            organisationUnitId = newOrganisationUnitId;
+            return this;
+        };
     };
 
-    Application.prototype.init = function()
+    Application.prototype.init = function(organisationUnitId)
     {
+        this.setOrganisationUnitId(organisationUnitId);
         var modules = this.getModules();
         for (var key in modules) {
             modules[key].init(this);
