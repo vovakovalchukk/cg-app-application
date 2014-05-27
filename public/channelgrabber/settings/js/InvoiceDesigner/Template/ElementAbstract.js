@@ -130,10 +130,12 @@ define([
 
         this.getBorderColour = function()
         {
-            if (this.get('borderColour') == null) {
-                this.set('borderColour', 'black');
+            var borderColour = this.get('borderColour');
+            if (borderColour == null) {
+                borderColour = 'black';
+                this.set('borderColour', borderColour);
             }
-            return this.get('borderColour');
+            return borderColour;
         };
 
         this.setBorderColour = function(newBorderColour)
