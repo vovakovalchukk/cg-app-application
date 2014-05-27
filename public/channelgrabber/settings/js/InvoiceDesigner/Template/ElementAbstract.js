@@ -32,8 +32,13 @@ define([
             for (var field in additionalData) {
                 data[field] = additionalData[field];
                 extraInspectableAttributes.push(field);
+
+                if (data[field]) {
+                    baseInspectableAttributes.push(field);
+                }
             }
         }
+        console.log(baseInspectableAttributes);
 
         var editable = true;
 

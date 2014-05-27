@@ -30,6 +30,7 @@ define([
         });
 
         $('#' + inspector.getFontInspectorFontColourId()).off('change keyup paste').on('change keyup paste', function() {
+            console.log('font colour change');
             inspector.setFontColour(element, self.getDomManipulator().getValue(this));
         });
     };
