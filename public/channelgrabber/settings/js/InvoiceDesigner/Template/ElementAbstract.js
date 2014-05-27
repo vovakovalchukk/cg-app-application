@@ -45,7 +45,7 @@ define([
         this.getId = function()
         {
             if (!this.get('id')) {
-                this.setId(idGenerator.generate());
+                this.set('id', idGenerator.generate(), true);
             }
             return this.get('id');
         };

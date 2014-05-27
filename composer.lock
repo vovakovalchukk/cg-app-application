@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "91acecd86aa347c1ae369af376e7c111",
+    "hash": "8ea3a48865c64003f8d2e771da2435a0",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -317,17 +317,17 @@
         },
         {
             "name": "channelgrabber/http",
-            "version": "1.2.9",
+            "version": "1.2.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cghttp.git",
-                "reference": "c32d9e608143dc28dca926084b6a58074cff23ef"
+                "reference": "4dce7c928529aecbe32e160c5b7a4780d58f392e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.2.9-5ae1c5.zip",
-                "reference": "c32d9e608143dc28dca926084b6a58074cff23ef",
-                "shasum": "c3be762e787659457a436ea64ca415f7cec23f35"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.2.10-5a2d6c.zip",
+                "reference": "4dce7c928529aecbe32e160c5b7a4780d58f392e",
+                "shasum": "27b992c1ac8d7885fcbdc4233fab76889a95f219"
             },
             "require": {
                 "channelgrabber/etag": "~1.4.2",
@@ -344,7 +344,7 @@
                     "CG\\Http\\": ""
                 }
             },
-            "time": "2014-03-17 08:55:59"
+            "time": "2014-05-27 11:13:40"
         },
         {
             "name": "channelgrabber/log",
@@ -599,17 +599,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.1.1",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "fd0942ef1ebe2b611ace167ed0fc96cb2e737ee6"
+                "reference": "8e6f91339a94b35c358ed14555a6ceda2cfd7d7f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.1.1-9e34f1.zip",
-                "reference": "fd0942ef1ebe2b611ace167ed0fc96cb2e737ee6",
-                "shasum": "12ec5335a6fa1ae0b8d30d6603102bd2175340e2"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.1.2-241298.zip",
+                "reference": "8e6f91339a94b35c358ed14555a6ceda2cfd7d7f",
+                "shasum": "0db422e34238714662fd62b06c45b06125f14438"
             },
             "require": {
                 "channelgrabber/account": "~1.0",
@@ -632,7 +632,7 @@
                     "CG\\Template\\": ""
                 }
             },
-            "time": "2014-05-27 07:47:02"
+            "time": "2014-05-27 11:15:27"
         },
         {
             "name": "channelgrabber/user",
@@ -1191,17 +1191,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.6.1",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "3b69df2acfb0ec7cc26c1e3bf23a169ad53247af"
+                "reference": "013ed1ed0fcd08b2f57f2e7e1e83edf4e1d28ac6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.6.1-1a39c8.zip",
-                "reference": "3b69df2acfb0ec7cc26c1e3bf23a169ad53247af",
-                "shasum": "692fe72b0d736eca716e3892c3191ed8527c7fbf"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.7.0-202dd5.zip",
+                "reference": "013ed1ed0fcd08b2f57f2e7e1e83edf4e1d28ac6",
+                "shasum": "7c415cb10e195944a7f2d2da883eb33c05372065"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1229,7 +1229,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-05-23 12:40:21"
+            "time": "2014-05-27 11:16:37"
         },
         {
             "name": "cilex/cilex",
