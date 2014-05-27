@@ -19,14 +19,25 @@ define([
     {
         var extraDomStyles = [];
         if (element.getFontSize()) {
-            extraDomStyles.push('font-size: '+element.getFontSize()+'pt');
+            extraDomStyles.push('font-size: ' + element.getFontSize()+'pt');
         }
+
+        extraDomStyles.push('font-family: ' + this.getFont(element.getFontFamily()));
+
         var textAttribs = [
-            'fontFamily', 'fontColour', 'padding', 'lineHeight', 'align', 'replacedText', 'removeBlankLines'
+            'fontColour', 'padding', 'lineHeight', 'align', 'replacedText', 'removeBlankLines'
         ];
         extraDomStyles = this.addOptionalDomStyles(element, textAttribs, extraDomStyles);
         return extraDomStyles;
     };
+
+    TextAbstract.prototype.getFont = function(font)
+    {
+        if (font == 'TimesRoman') {
+            return '"Times New Roman"';
+        }
+        return font;
+    }
 
     TextAbstract.prototype.getExtraAttributePropertyMap = function()
     {

@@ -2,6 +2,7 @@
 namespace Orders\Controller;
 
 use CG\Template\PaperPage;
+use CG\Template\Element\Mapper as ElementMapper;
 use Zend\Mvc\Controller\AbstractActionController;
 use Orders\Order\Invoice\Service;
 use Orders\Order\Invoice\Response;
@@ -10,9 +11,10 @@ class InvoiceController extends AbstractActionController
 {
     protected $service;
 
-    public function __construct(Service $service)
+    public function __construct(Service $service, ElementMapper $elementMapper)
     {
-        $this->setService($service);
+        $this->setService($service)
+             ->setElementMapper($elementMapper);
     }
 
     public function setService(Service $service)
@@ -29,6 +31,20 @@ class InvoiceController extends AbstractActionController
         return $this->service;
     }
 
+    public function setElementMapper(ElementMapper $elementMapper)
+    {
+        $this->elementMapper = $elementMapper;
+        return $this;
+    }
+
+    /**
+     * @return ElementMapper
+     */
+    public function getElementMapper()
+    {
+        return $this->elementMapper;
+    }
+
     /**
      * @return Response
      */
@@ -43,8 +59,8 @@ class InvoiceController extends AbstractActionController
 
     protected function createElement(array $config)
     {
-        $class = 'CG\\Template\\Element\\' . ucfirst($config['type']);
-        return $this->getService()->getDi()->get($class, $config);
+        return $this->getElementMapper()->fromArray($config);
+
     }
 
     /**
@@ -60,11 +76,16 @@ class InvoiceController extends AbstractActionController
         $elements = [];
 
         $templateConfig = json_decode($this->params()->fromPost('template'), true);
+
         foreach ($templateConfig['elements'] as $element) {
-            $elements[] = $this->createElement($element);
+            $elements[] = $this->getElementMapper()->fromArray($element);
         }
+
         $templateConfig['elements'] = $elements;
-        $templateConfig['paperPage'] = $this->getService()->getDi()->newInstance(PaperPage::class, $templateConfig['paperPage']);
+        $templateConfig['paperPage'] = $this->getService()->getDi()->newInstance(
+            PaperPage::class,
+            $templateConfig['paperPage']
+        );
 
         $template = $this->getService()->getTemplateFactory()->getTemplateForOrderEntity($templateConfig);
         return $this->getService()->getResponseFromOrderCollection($orders, $template);
