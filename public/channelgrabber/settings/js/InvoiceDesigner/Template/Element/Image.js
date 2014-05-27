@@ -8,7 +8,7 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
         };
 
         ElementAbstract.call(this, additionalData);
-        this.setType('Image');
+        this.set('type', 'Image', true);
 
         this.getSource = function()
         {

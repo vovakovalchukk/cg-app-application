@@ -44,6 +44,7 @@ define([
         domManipulator.populateCustomSelect(
             paperTypeDropdownId, this.getAvailablePaperTypes(), template.getPaperPage().getPaperType()
         );
+        this.selectionMade(template.getPaperPage().getPaperType());
     };
 
     PaperType.prototype.selectionMade = function(id, isInverse)
