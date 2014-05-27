@@ -2,7 +2,7 @@
 namespace Orders\Controller;
 
 use CG\Template\PaperPage;
-use CG\Template\Element\Mapper as ElementMapper;
+use CG\Template\Element\Factory as ElementFactory;
 use Zend\Mvc\Controller\AbstractActionController;
 use Orders\Order\Invoice\Service;
 use Orders\Order\Invoice\Response;
@@ -10,11 +10,12 @@ use Orders\Order\Invoice\Response;
 class InvoiceController extends AbstractActionController
 {
     protected $service;
+    protected $elementFactory;
 
-    public function __construct(Service $service, ElementMapper $elementMapper)
+    public function __construct(Service $service, ElementFactory $elementFactory)
     {
         $this->setService($service)
-             ->setElementMapper($elementMapper);
+             ->setElementFactory($elementFactory);
     }
 
     public function setService(Service $service)
@@ -31,18 +32,18 @@ class InvoiceController extends AbstractActionController
         return $this->service;
     }
 
-    public function setElementMapper(ElementMapper $elementMapper)
+    public function setElementFactory(ElementFactory $elementFactory)
     {
-        $this->elementMapper = $elementMapper;
+        $this->elementFactory = $elementFactory;
         return $this;
     }
 
     /**
-     * @return ElementMapper
+     * @return ElementFactory
      */
-    public function getElementMapper()
+    public function getElementFactory()
     {
-        return $this->elementMapper;
+        return $this->elementFactory;
     }
 
     /**
@@ -57,12 +58,6 @@ class InvoiceController extends AbstractActionController
         return $this->getService()->getResponseFromOrderIds($orderIds);
     }
 
-    protected function createElement(array $config)
-    {
-        return $this->getElementMapper()->fromArray($config);
-
-    }
-
     /**
      * @return Response
      */
@@ -70,6 +65,8 @@ class InvoiceController extends AbstractActionController
     {
         $filter = $this->getService()->getDi()->get('CG\\Order\\Service\\Filter', [
             'limit' => 1,
+            'orderBy' => 'id',
+            'orderDirection' => 'ASC',
             'organisationUnitId' => $this->getService()->getOrderService()->getActiveUser()->getOuList()
         ]);
         $orders = $this->getService()->getOrderService()->getOrders($filter);
@@ -78,7 +75,7 @@ class InvoiceController extends AbstractActionController
         $templateConfig = json_decode($this->params()->fromPost('template'), true);
 
         foreach ($templateConfig['elements'] as $element) {
-            $elements[] = $this->getElementMapper()->fromArray($element);
+            $elements[] = $this->getElementFactory()->createElement($element);
         }
 
         $templateConfig['elements'] = $elements;

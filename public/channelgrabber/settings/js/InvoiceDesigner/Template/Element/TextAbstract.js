@@ -4,7 +4,7 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
     {
         var data = {
             borderWidth: undefined,
-            borderColour: undefined,
+            borderColour: 'black',
             fontSize: 12,
             fontFamily: 'Helvetica',
             fontColour: 'black',
