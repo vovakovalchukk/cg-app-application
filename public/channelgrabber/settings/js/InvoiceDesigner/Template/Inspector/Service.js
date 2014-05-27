@@ -1,5 +1,4 @@
 define([
-    'require',
     'InvoiceDesigner/Template/Inspector/Collection',
     // Inspector requires here
     'InvoiceDesigner/Template/Inspector/TextArea',
@@ -8,8 +7,7 @@ define([
     'InvoiceDesigner/Template/Inspector/Font',
     'InvoiceDesigner/Template/Inspector/Border'
 ], function(
-    require,
-    inspectorCollection,
+    Collection,
     // Inspector variables here
     textArea,
     heading,
@@ -72,7 +70,7 @@ define([
         for (var key in inspectedAttributes) {
             var attribute = inspectedAttributes[key];
             if (!inspectors[attribute]) {
-                inspectors[attribute] = require('InvoiceDesigner/Template/Inspector/Collection');
+                inspectors[attribute] = new Collection();
             }
             inspectors[attribute].attach(inspector);
         }
@@ -103,7 +101,7 @@ define([
 
     Service.prototype.getForElement = function(element)
     {
-        var inspectorsForElement = require('InvoiceDesigner/Template/Inspector/Collection');
+        var inspectorsForElement = new Collection();
         var inspectors = this.getInspectors();
         var elementAttributes = element.getInspectableAttributes();
         for (var key in elementAttributes) {
