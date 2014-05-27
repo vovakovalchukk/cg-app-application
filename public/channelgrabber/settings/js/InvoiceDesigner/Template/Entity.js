@@ -187,6 +187,7 @@ define([
     {
         this.getElements().detach(element);
         element.unsubscribe(this);
+        this.getDomManipulator().triggerElementDeletedEvent(element);
         this.notifyOfChange();
         return this;
     };

@@ -67,9 +67,9 @@ define([
             return this.get('height');
         };
 
-        this.setHeight = function(newHeight)
+        this.setHeight = function(newHeight, populating)
         {
-            this.set('height', newHeight);
+            this.set('height', Number(newHeight).roundToNearest(0.5), populating);
             return this;
         };
 
@@ -78,9 +78,9 @@ define([
             return this.get('width');
         };
 
-        this.setWidth = function(newWidth)
+        this.setWidth = function(newWidth, populating)
         {
-            this.set('width', newWidth);
+            this.set('width', Number(newWidth).roundToNearest(0.5), populating);
             return this;
         };
 
@@ -89,9 +89,9 @@ define([
             return this.get('x');
         };
 
-        this.setX = function(newX)
+        this.setX = function(newX, populating)
         {
-            this.set('x', newX);
+            this.set('x', Number(newX).roundToNearest(0.5), populating);
             return this;
         };
 
@@ -100,9 +100,9 @@ define([
             return this.get('y');
         };
 
-        this.setY = function(newY)
+        this.setY = function(newY, populating)
         {
-            this.set('y', newY);
+            this.set('y', Number(newY).roundToNearest(0.5), populating);
             return this;
         };
 
@@ -146,9 +146,10 @@ define([
 
         this.set = function(field, value, populating)
         {
+            var oldValue = data[field];
             data[field] = value;
 
-            if (populating) {
+            if (oldValue === value || populating) {
                 return;
             }
             this.publish();
@@ -208,7 +209,17 @@ define([
         json.y = json.y.mmToPt();
         json.height = json.height.mmToPt();
         json.width = json.width.mmToPt();
+        json.borderWidth = json.borderWidth.mmToPt();
         return json;
+    };
+
+    ElementAbstract.prototype.hydrate = function(data, populating)
+    {
+        EntityHydrateAbstract.prototype.hydrate.call(this, data, populating);
+        this.setHeight(data.height, populating);
+        this.setWidth(data.width, populating);
+        this.setX(data.x, populating);
+        this.setY(data.y, populating);
     };
 
     return ElementAbstract;
