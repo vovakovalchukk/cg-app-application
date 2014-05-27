@@ -106,8 +106,7 @@ define([
 
     Service.prototype.create = function()
     {
-        var templateClass = require('InvoiceDesigner/Template/Entity');
-        var template = new templateClass();
+        var template = this.getMapper().createNewTemplate();
         template.setState(Service.CREATED_STATE);
         this.loadModules(template);
         this.getDomManipulator().hideSaveDiscardBar(template);

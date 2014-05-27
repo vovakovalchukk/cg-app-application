@@ -22,7 +22,7 @@ define([
         var data = {
             id: undefined,
             name: undefined,
-            type: undefined,
+            type: Entity.TYPE,
             organisationUnitId: undefined,
             minHeight: undefined,
             minWidth: undefined
@@ -163,6 +163,8 @@ define([
             this.getDomManipulator().triggerTemplateChangeEvent(this);
         };
     };
+
+    Entity.TYPE = 'invoice';
 
     Entity.prototype = Object.create(EntityHydrateAbstract.prototype);
 

@@ -5,7 +5,7 @@ define([
     // Application Module variables here
     templateSelector
 ) {
-    var Application = function()
+    var Application = function(organisationUnitId)
     {
         var modules = [
             // Modules here
@@ -15,6 +15,11 @@ define([
         this.getModules = function()
         {
             return modules;
+        };
+
+        this.getOrganisationUnitId = function()
+        {
+            return organisationUnitId;
         };
     };
 
