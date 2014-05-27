@@ -16,7 +16,7 @@ define([
     };
 
     Text.TEXT_INSPECTOR_SELECTOR = '#text-inspector';
-    Text.TEXT_INSPECTOR_text_ID = 'text-inspector-text';
+    Text.TEXT_INSPECTOR_TEXT_ID = 'text-inspector-text';
 
     Text.prototype = Object.create(InspectorAbstract.prototype);
 
@@ -36,21 +36,25 @@ define([
         CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache)
         {
             var textarea = cgmustache.renderTemplate(templates, self.getTextViewData(element), "textarea");
+            console.log(textarea);
             var text = cgmustache.renderTemplate(templates, {}, "text", {'textarea': textarea});
+            console.log(text);
             var collapsible = cgmustache.renderTemplate(templates, {
                 'display': true,
                 'title': 'Text',
                 'id': 'text-collapsible'
             }, "collapsible", {'content': text});
+            console.log(collapsible);
             self.getDomManipulator().render(Text.TEXT_INSPECTOR_SELECTOR, collapsible);
             textDomListener.init(self, element);
         });
-    };
+    }
 
     Text.prototype.getTextViewData = function(element)
     {
+        console.log(element.getText());
         return {
-            'id': Text.TEXT_INSPECTOR_text_ID,
+            'id': Text.TEXT_INSPECTOR_TEXT_ID,
             'content': element.getText()
         };
     };
