@@ -69,7 +69,7 @@ require([
               data-actionMessage="<?= $this->translate('Updating address'); ?>" data-successMessage="<?= $this->translate('Address updated'); ?>">
             <input type="hidden" id="eTag" name="eTag" value="<?= $order->getUserChange() ? $order->getUserChange()->getEtag() : null; ?>">
             <div class="half" id="billing-information">
-                <span class="heading-large"><?= $this->translate('Billing Information'); ?></span>
+                <span class="heading-large heading-spacing"><?= $this->translate('Billing Information'); ?></span>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Buyer Name'); ?></span>
                     <div class="order-inputbox-holder">
@@ -138,7 +138,7 @@ require([
                 </label>
             </div>
             <div class="half"  id="shipping-information">
-                <span class="heading-large"><?= $this->translate('Shipping Information'); ?></span>
+                <span class="heading-large heading-spacing"><?= $this->translate('Shipping Information'); ?></span>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Recipient Name'); ?></span>
                     <div class="order-inputbox-holder">
@@ -215,7 +215,7 @@ require([
     </div>
 </div>
 <div id="product-payment-table" class="module clearfix section-separator">
-    <span class="heading-large"><?= $this->translate('Product & Payment Information'); ?></span>
+    <span class="heading-large heading-spacing"><?= $this->translate('Product & Payment Information'); ?></span>
     <?php if(count($order->getItems())):?>
         <?= $this->productPaymentTable; ?>
     <?php else: ?>
@@ -267,7 +267,7 @@ require([
                     </div>
                 </div>
             </label>
-            <div class="half" style="clear:both; padding-top:0px;">
+            <div class="half button-half">
                 <label>
                     <input type="submit" name="save" class="button form-button" value="Refund">
                     <span class="loading">Refunding</span>
@@ -276,7 +276,7 @@ require([
         </div>
     </form>
 <div class="module clearfix section-separator">
-    <span class="heading-large">Shipping</span>
+    <span class="heading-large header-spacing">Shipping</span>
     <form  method="post" class="ajaxPost">
         <div class="half">
         <label>
