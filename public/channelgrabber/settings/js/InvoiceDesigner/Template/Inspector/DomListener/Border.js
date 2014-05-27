@@ -22,7 +22,6 @@ define([
         });
 
         $('#' + inspector.getBorderInspectorBorderColourId()).off('change keyup paste').on('change keyup paste', function() {
-            console.log('border color');
             inspector.setBorderColour(element, that.getDomManipulator().getValue(this));
         });
     };

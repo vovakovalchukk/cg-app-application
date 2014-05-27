@@ -15,7 +15,7 @@ define([
         var data = {
             id: undefined,
             type: undefined,
-            height: 100,
+            height: 50,
             width: 100,
             x: 0,
             y: 0,
@@ -32,13 +32,8 @@ define([
             for (var field in additionalData) {
                 data[field] = additionalData[field];
                 extraInspectableAttributes.push(field);
-
-                if (data[field]) {
-                    baseInspectableAttributes.push(field);
-                }
             }
         }
-        console.log(baseInspectableAttributes);
 
         var editable = true;
 
@@ -135,6 +130,9 @@ define([
 
         this.getBorderColour = function()
         {
+            if (this.get('borderColour') == null) {
+                return 'black';
+            }
             return this.get('borderColour');
         };
 

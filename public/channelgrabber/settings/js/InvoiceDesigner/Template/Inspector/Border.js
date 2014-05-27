@@ -56,9 +56,9 @@ define([
     Border.prototype.getBorderWidthViewData = function(element)
     {
         var BorderWidthOptions = [{
-            value: 0,
+            value: '0',
             title: 'none',
-            mm: 0
+            mm: '0'
         }];
         for (var borderWidthWidth = 0.5; borderWidthWidth <= 10; borderWidthWidth = borderWidthWidth + 0.5) {
             var selected = (element.getBorderWidth() == borderWidthWidth)
@@ -86,7 +86,6 @@ define([
 
     Border.prototype.setBorderColour = function(element, borderColour)
     {
-        console.log('border colour !!!');
         element.setBorderColour(borderColour);
     };
 
