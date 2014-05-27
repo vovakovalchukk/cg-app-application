@@ -71,17 +71,22 @@ define(['jasq'], function ()
             it('should tell the inspectors to hide', function(service, dependencies)
             {
                 var mockTextInspector = dependencies['InvoiceDesigner/Template/Inspector/TextArea'];
+                var mockBorderInspector = dependencies['InvoiceDesigner/Template/Inspector/Border'];
                 spyOn(mockTextInspector, 'hide');
+                spyOn(mockBorderInspector, 'hide');
 
                 service.init();
                 service.hideAll();
                 expect(mockTextInspector.hide).toHaveBeenCalled();
+                expect(mockBorderInspector.hide).toHaveBeenCalled();
             });
 
-            it('should tell the inspectors to show', function(service, dependencies)
+            it('should tell the inspectors to show for an element', function(service, dependencies)
             {
                 var mockTextInspector = dependencies['InvoiceDesigner/Template/Inspector/TextArea'];
+                var mockBorderInspector = dependencies['InvoiceDesigner/Template/Inspector/Border'];
                 spyOn(mockTextInspector, 'showForElement');
+                spyOn(mockBorderInspector, 'showForElement');
                 var mockElement = {
                     getInspectableAttributes: function() { return ['text']; }
                 };
@@ -89,6 +94,7 @@ define(['jasq'], function ()
                 service.init();
                 service.showForElement(mockElement);
                 expect(mockTextInspector.showForElement).toHaveBeenCalled();
+                expect(mockBorderInspector.showForElement).not.toHaveBeenCalled();
             });
         }
     });
