@@ -17,15 +17,25 @@ define([
     InspectorManager.prototype.init = function(module)
     {
         DomListenerAbstract.prototype.init.call(this, module);
-        this.initListeners();
+        this.initElementSelectedListener();
+        this.initElementDeselectedListener();
     };
 
-    InspectorManager.prototype.initListeners = function()
+    InspectorManager.prototype.initElementSelectedListener = function()
     {
         var self = this;
         $(document).off(domManipulator.getElementSelectedEvent()).on(domManipulator.getElementSelectedEvent(), function(event, element)
         {
             self.getModule().elementSelected(element);
+        });
+    };
+
+    InspectorManager.prototype.initElementDeselectedListener = function()
+    {
+        var self = this;
+        $(document).off(domManipulator.getElementDeselectedEvent()).on(domManipulator.getElementDeselectedEvent(), function(event, element)
+        {
+            self.getModule().elementDeselected(element);
         });
     };
 

@@ -17,22 +17,45 @@ define([
     Renderer.prototype.init = function(module)
     {
         DomListenerAbstract.prototype.init.call(this, module);
-        this.initListeners();
+        this.initElementSelectedListener()
+            .initElementDeselectedListener()
+            .initTemplateChangeListener();
     };
 
-    Renderer.prototype.initListeners = function()
+    Renderer.prototype.initElementSelectedListener = function()
+    {
+        var self = this;
+        $(document).on(domManipulator.getElementSelectedEvent(), function(event, element)
+        {
+            self.getModule().elementSelected(element);
+        });
+        return this;
+    };
+
+    Renderer.prototype.initElementDeselectedListener = function()
+    {
+        var self = this;
+        $(document).on(domManipulator.getElementDeselectedEvent(), function(event, element)
+        {
+            self.getModule().elementDeselected(element);
+        });
+        return this;
+    };
+
+    Renderer.prototype.initTemplateChangeListener = function()
     {
         var self = this;
         $(document).off(domManipulator.getTemplateChangedEvent()).on(domManipulator.getTemplateChangedEvent(), function(event, template)
         {
             self.getModule().templateChanged(template);
         });
+        return this;
     };
 
     Renderer.prototype.listenForElementSelect = function(domId, element)
     {
         var self = this;
-        $('#'+domId).off('click focus').on('click focus', function()
+        $('#'+domId).off('mousedown focus').on('mousedown focus', function()
         {
             domManipulator.triggerElementSelectedEvent(element);
         });

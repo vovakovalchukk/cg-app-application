@@ -32,5 +32,10 @@ define([
         this.getInspectorService().showForElement(element);
     };
 
+    InspectorManager.prototype.elementDeselected = function(element)
+    {
+        this.getInspectorService().hideAll();
+    };
+
     return new InspectorManager();
 });

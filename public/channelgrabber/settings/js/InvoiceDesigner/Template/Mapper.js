@@ -72,6 +72,9 @@ define([
         if (elementData.lineHeight) {
             elementData.lineHeight = elementData.lineHeight.ptToMm();
         }
+        if (elementData.borderWidth) {
+            elementData.borderWidth = elementData.borderWidth.ptToMm();
+        }
         element.hydrate(elementData, populating);
         return element;
     };

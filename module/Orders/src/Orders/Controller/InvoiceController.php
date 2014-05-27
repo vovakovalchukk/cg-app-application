@@ -58,11 +58,6 @@ class InvoiceController extends AbstractActionController
         return $this->getService()->getResponseFromOrderIds($orderIds);
     }
 
-    protected function createElement(array $config)
-    {
-        return $this->getElementMapper()->fromArray($config);
-    }
-
     /**
      * @return Response
      */
@@ -80,7 +75,7 @@ class InvoiceController extends AbstractActionController
         $templateConfig = json_decode($this->params()->fromPost('template'), true);
 
         foreach ($templateConfig['elements'] as $element) {
-            $elements[] = $this->getElementFactory()->fromArray($element);
+            $elements[] = $this->getElementFactory()->createElement($element);
         }
 
         $templateConfig['elements'] = $elements;

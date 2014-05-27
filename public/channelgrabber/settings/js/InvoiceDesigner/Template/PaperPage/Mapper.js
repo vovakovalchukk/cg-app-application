@@ -16,6 +16,8 @@ define([
         };
     };
 
+    Mapper.PAGE_DOM_CLASS = 'template-paperpage';
+
     Mapper.prototype.toHtml = function(paperPage)
     {
         var domId = MapperAbstract.getDomId(paperPage);
@@ -23,7 +25,7 @@ define([
         var cssStyle = this.getDomStyles(paperPage).join('; ');
         var htmlContents = paperPage.getHtmlContents();
 
-        var templateUrl = MapperAbstract.ELEMENT_TEMPLATE_PATH+'abstract.mustache';
+        var templateUrl = MapperAbstract.ELEMENT_TEMPLATE_PATH+'page.mustache';
         var data = {
             id: domId,
             classes: cssClasses,
@@ -37,7 +39,7 @@ define([
 
     Mapper.prototype.getDomClasses = function(paperPage)
     {
-        var domClasses = ['template-paperpage'];
+        var domClasses = [Mapper.PAGE_DOM_CLASS];
         return domClasses;
     };
 
@@ -59,6 +61,11 @@ define([
             html = cgMustache.renderTemplate(template, data);
         });
         return html;
+    };
+
+    Mapper.prototype.getPageDomClass = function()
+    {
+        return Mapper.PAGE_DOM_CLASS;
     };
 
     return new Mapper();
