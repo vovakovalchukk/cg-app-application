@@ -38,15 +38,19 @@ require([
           data-actionMessage="<?= $this->translate('Saving alert'); ?>" data-successMessage="<?= $this->translate('Alert saved'); ?>">
         <label>
             <span class="icon-large warning"></span>
-            <span class="label"><?= $this->translate('Order Alert'); ?>:</span>
+            <span class="large-heading-left"><?= $this->translate('Order Alert'); ?>:</span>
             <?php
                 $alerts = $order->getAlerts();
                 $alerts->rewind();
                 $alert = $alerts->current();
             ?>
-            <input type="text" class="text" name="" value="<?= ($alert) ? $alert->getAlert() : ""; ?>" id="input"/>
+            <div class="order-alert-inputholder">
+                <input type="text" class="inputbox" name="" value="<?= ($alert) ? $alert->getAlert() : ""; ?>" id="input"/>
+            </div>
             <input type="hidden" value="<?= ($alert) ? $alert->getETag() : ""; ?>" id="eTag"/>
-            <input type="submit" class="button inline alert-save" value="<?= $this->translate('Save Alert'); ?>"/>
+            <div class="order-alert-button">
+                <input type="submit" class="button inline alert-save" value="<?= $this->translate('Save Alert'); ?>"/>
+            </div>
         </label>
     </form>
 </div>
@@ -54,7 +58,8 @@ require([
     <form class="single-row">
         <label>
             <span class="icon-large user"></span>
-            <p><?= $order->getBuyerMessage() ?: $this->translate("There is no buyer message for this order"); ?></p>
+            <span class="large-heading-left">Buyer Message:</span>
+            <p class="buyer-message"><?= $order->getBuyerMessage() ?: $this->translate("There is no buyer message for this order"); ?></p>
         </label>
     </form>
 </div>
@@ -64,97 +69,141 @@ require([
               data-actionMessage="<?= $this->translate('Updating address'); ?>" data-successMessage="<?= $this->translate('Address updated'); ?>">
             <input type="hidden" id="eTag" name="eTag" value="<?= $order->getUserChange() ? $order->getUserChange()->getEtag() : null; ?>">
             <div class="half" id="billing-information">
-                <h2><?= $this->translate('Billing Information'); ?></h2>
+                <span class="heading-large"><?= $this->translate('Billing Information'); ?></span>
                 <label>
-                    <span><?= $this->translate('Buyer Name'); ?></span>
-                    <input type="text" name="billingAddressFullName" value="<?= $order->getCalculatedBillingAddressFullName(); ?>">
+                    <span class="inputbox-label"><?= $this->translate('Buyer Name'); ?></span>
+                    <div class="order-inputbox-holder">
+                        <input class="inputbox" type="text" name="billingAddressFullName" value="<?= $order->getCalculatedBillingAddressFullName(); ?>">
+                    </div>
                 </label>
                 <label>
-                    <span><?= $this->translate('Company Name'); ?></span>
-                    <input type="text" name="billingAddressCompanyName" value="<?= $order->getCalculatedBillingAddressCompanyName(); ?>">
+                    <span class="inputbox-label"><?= $this->translate('Company Name'); ?></span>
+                    <div class="order-inputbox-holder">
+                        <input class="inputbox" type="text" name="billingAddressCompanyName" value="<?= $order->getCalculatedBillingAddressCompanyName(); ?>">
+                    </div>
                 </label>
                 <label>
-                    <span><?= $this->translate('Address Line 1'); ?></span>
-                    <input type="text" name="billingAddress1" value="<?= $order->getCalculatedBillingAddress1(); ?>">
+                    <span class="inputbox-label"><?= $this->translate('Address Line 1'); ?></span>
+                    <div class="order-inputbox-holder">
+                        <input class="inputbox" type="text" name="billingAddress1" value="<?= $order->getCalculatedBillingAddress1(); ?>">
+                    </div>
                 </label>
                 <label>
-                    <span><?= $this->translate('Address Line 2'); ?></span>
-                    <input type="text" name="billingAddress2" value="<?= $order->getCalculatedBillingAddress2(); ?>">
+                    <span class="inputbox-label"><?= $this->translate('Address Line 2'); ?></span>
+                    <div class="order-inputbox-holder">
+                        <input class="inputbox" type="text" name="billingAddress2" value="<?= $order->getCalculatedBillingAddress2(); ?>">
+                    </div>
                 </label>
                 <label>
-                    <span><?= $this->translate('Address Line 3'); ?></span>
-                    <input type="text" name="billingAddress3" value="<?= $order->getCalculatedBillingAddress3(); ?>">
+                    <span class="inputbox-label"><?= $this->translate('Address Line 3'); ?></span>
+                    <div class="order-inputbox-holder">
+                        <input class="inputbox" type="text" name="billingAddress3" value="<?= $order->getCalculatedBillingAddress3(); ?>">
+                    </div>
                 </label>
                 <label>
-                    <span><?= $this->translate('City'); ?></span>
-                    <input type="text" name="billingAddressCity" value="<?= $order->getCalculatedBillingAddressCity(); ?>">
+                    <span class="inputbox-label"><?= $this->translate('City'); ?></span>
+                    <div class="order-inputbox-holder">
+                        <input class="inputbox" type="text" name="billingAddressCity" value="<?= $order->getCalculatedBillingAddressCity(); ?>">
+                    </div>
                 </label>
                 <label>
-                    <span><?= $this->translate('County'); ?></span>
-                    <input type="text" name="billingAddressCounty" value="<?= $order->getCalculatedBillingAddressCounty(); ?>">
+                    <span class="inputbox-label"><?= $this->translate('County'); ?></span>
+                    <div class="order-inputbox-holder">
+                        <input class="inputbox" type="text" name="billingAddressCounty" value="<?= $order->getCalculatedBillingAddressCounty(); ?>">
+                    </div>
                 </label>
                 <label>
-                    <span><?= $this->translate('Postcode'); ?></span>
-                    <input type="text" name="billingAddressPostcode" value="<?= $order->getCalculatedBillingAddressPostcode(); ?>">
+                    <span class="inputbox-label"><?= $this->translate('Postcode'); ?></span>
+                    <div class="order-inputbox-holder">
+                        <input class="inputbox" type="text" name="billingAddressPostcode" value="<?= $order->getCalculatedBillingAddressPostcode(); ?>">
+                    </div>
                 </label>
                 <label>
-                    <span><?= $this->translate('Country'); ?></span>
-                    <input type="text" name="billingAddressCountry" value="<?= $order->getCalculatedBillingAddressCountry(); ?>">
+                    <span class="inputbox-label"><?= $this->translate('Country'); ?></span>
+                    <div class="order-inputbox-holder">
+                        <input class="inputbox" type="text" name="billingAddressCountry" value="<?= $order->getCalculatedBillingAddressCountry(); ?>">
+                    </div>
                 </label>
                 <label>
-                    <span><?= $this->translate('Email'); ?></span>
-                    <input type="text" name="billingEmailAddress" value="<?= $order->getCalculatedBillingEmailAddress(); ?>">
+                    <span class="inputbox-label"><?= $this->translate('Email'); ?></span>
+                    <div class="order-inputbox-holder">
+                        <input class="inputbox" type="text" name="billingEmailAddress" value="<?= $order->getCalculatedBillingEmailAddress(); ?>">
+                    </div>
                 </label>
                 <label>
-                    <span><?= $this->translate('Telephone'); ?></span>
-                    <input type="text" name="billingPhoneNumber" value="<?= $order->getCalculatedBillingPhoneNumber(); ?>">
+                    <span class="inputbox-label"><?= $this->translate('Telephone'); ?></span>
+                    <div class="order-inputbox-holder">
+                        <input class="inputbox" type="text" name="billingPhoneNumber" value="<?= $order->getCalculatedBillingPhoneNumber(); ?>">
+                    </div>
                 </label>
             </div>
             <div class="half"  id="shipping-information">
-                <h2><?= $this->translate('Shipping Information'); ?></h2>
+                <span class="heading-large"><?= $this->translate('Shipping Information'); ?></span>
                 <label>
-                    <span><?= $this->translate('Recipient Name'); ?></span>
-                    <input type="text" name="shippingAddressFullName" value="<?= $order->getCalculatedShippingAddressFullName(); ?>">
+                    <span class="inputbox-label"><?= $this->translate('Recipient Name'); ?></span>
+                    <div class="order-inputbox-holder">
+                        <input class="inputbox" type="text" name="shippingAddressFullName" value="<?= $order->getCalculatedShippingAddressFullName(); ?>">
+                    </div>
                 </label>
                 <label>
-                    <span><?= $this->translate('Company Name'); ?></span>
-                    <input type="text" name="shippingAddressCompanyName" value="<?= $order->getCalculatedShippingAddressCompanyName(); ?>">
+                    <span class="inputbox-label"><?= $this->translate('Company Name'); ?></span>
+                    <div class="order-inputbox-holder">
+                        <input class="inputbox" type="text" name="shippingAddressCompanyName" value="<?= $order->getCalculatedShippingAddressCompanyName(); ?>">
+                    </div>
                 </label>
                 <label>
-                    <span><?= $this->translate('Address Line 1'); ?></span>
-                    <input type="text" name="shippingAddress1" value="<?= $order->getCalculatedShippingAddress1(); ?>">
+                    <span class="inputbox-label"><?= $this->translate('Address Line 1'); ?></span>
+                    <div class="order-inputbox-holder">
+                        <input class="inputbox" type="text" name="shippingAddress1" value="<?= $order->getCalculatedShippingAddress1(); ?>">
+                    </div>
                 </label>
                 <label>
-                    <span><?= $this->translate('Address Line 2'); ?></span>
-                    <input type="text" name="shippingAddress2" value="<?= $order->getCalculatedShippingAddress2(); ?>">
+                    <span class="inputbox-label"><?= $this->translate('Address Line 2'); ?></span>
+                    <div class="order-inputbox-holder">
+                        <input class="inputbox" type="text" name="shippingAddress2" value="<?= $order->getCalculatedShippingAddress2(); ?>">
+                    </div>
                 </label>
                 <label>
-                    <span><?= $this->translate('Address Line 3'); ?></span>
-                    <input type="text" name="shippingAddress3" value="<?= $order->getCalculatedShippingAddress3(); ?>">
+                    <span class="inputbox-label"><?= $this->translate('Address Line 3'); ?></span>
+                    <div class="order-inputbox-holder">
+                        <input class="inputbox" type="text" name="shippingAddress3" value="<?= $order->getCalculatedShippingAddress3(); ?>">
+                    </div>
                 </label>
                 <label>
-                    <span><?= $this->translate('City'); ?></span>
-                    <input type="text" name="shippingAddressCity" value="<?= $order->getCalculatedShippingAddressCity(); ?>">
+                    <span class="inputbox-label"><?= $this->translate('City'); ?></span>
+                    <div class="order-inputbox-holder">
+                        <input class="inputbox" type="text" name="shippingAddressCity" value="<?= $order->getCalculatedShippingAddressCity(); ?>">
+                    </div>
                 </label>
                 <label>
-                    <span><?= $this->translate('County'); ?></span>
-                    <input type="text" name="shippingAddressCounty" value="<?= $order->getCalculatedShippingAddressCounty(); ?>">
+                    <span class="inputbox-label"><?= $this->translate('County'); ?></span>
+                    <div class="order-inputbox-holder">
+                        <input class="inputbox" type="text" name="shippingAddressCounty" value="<?= $order->getCalculatedShippingAddressCounty(); ?>">
+                    </div>
                 </label>
                 <label>
-                    <span><?= $this->translate('Postcode'); ?></span>
-                    <input type="text" name="shippingAddressPostcode" value="<?= $order->getCalculatedShippingAddressPostcode(); ?>">
+                    <span class="inputbox-label"><?= $this->translate('Postcode'); ?></span>
+                    <div class="order-inputbox-holder">
+                        <input class="inputbox" type="text" name="shippingAddressPostcode" value="<?= $order->getCalculatedShippingAddressPostcode(); ?>">
+                    </div>
                 </label>
                 <label>
-                    <span><?= $this->translate('Country'); ?></span>
-                    <input type="text" name="shippingAddressCountry" value="<?= $order->getCalculatedShippingAddressCountry(); ?>">
+                    <span class="inputbox-label"><?= $this->translate('Country'); ?></span>
+                    <div class="order-inputbox-holder">
+                        <input class="inputbox" type="text" name="shippingAddressCountry" value="<?= $order->getCalculatedShippingAddressCountry(); ?>">
+                    </div>
                 </label>
                 <label>
-                    <span><?= $this->translate('Email'); ?></span>
-                    <input type="text" name="shippingEmailAddress" value="<?= $order->getCalculatedShippingEmailAddress(); ?>">
+                    <span class="inputbox-label"><?= $this->translate('Email'); ?></span>
+                    <div class="order-inputbox-holder">
+                        <input class="inputbox" type="text" name="shippingEmailAddress" value="<?= $order->getCalculatedShippingEmailAddress(); ?>">
+                    </div>
                 </label>
                 <label>
-                    <span><?= $this->translate('Telephone'); ?></span>
-                    <input type="text" name="shippingPhoneNumber" value="<?= $order->getCalculatedShippingPhoneNumber(); ?>">
+                    <span class="inputbox-label"><?= $this->translate('Telephone'); ?></span>
+                    <div class="order-inputbox-holder">
+                        <input class="inputbox" type="text" name="shippingPhoneNumber" value="<?= $order->getCalculatedShippingPhoneNumber(); ?>">
+                    </div>
                 </label>
             </div>
             <div class="half" style="clear:both; padding-top:0px;">
@@ -166,7 +215,7 @@ require([
     </div>
 </div>
 <div id="product-payment-table" class="module clearfix section-separator">
-    <h2><?= $this->translate('Product & Payment Information'); ?></h2>
+    <span class="heading-large"><?= $this->translate('Product & Payment Information'); ?></span>
     <?php if(count($order->getItems())):?>
         <?= $this->productPaymentTable; ?>
     <?php else: ?>
@@ -193,54 +242,70 @@ require([
         </tr>
     </table>
     <form  method="post" class="ajaxPost">
+        <div class="half">
+            <label>
+                <span class="inputbox-label">Refund Amount &pound;</span>
+                <div class="order-inputbox-holder">
+                    <input class="inputbox" type="text" name="companyName" required="required" placeholder="" value="">
+                </div>
+            </label>
+            <label>
+                <span class="inputbox-label">Refund Reason</span>
+                <div class="order-inputbox-holder">
+                    <div class="input">
+                        <div class="custom-select">
+                            <div class="selected">
+                                <span class="text" data-default="Select">Select</span>
+                                <span class="sprite-arrow-down-10-black">&nbsp;</span></div>
+                                <ul>
+                                    <li><a href="#">Some reason</a></li>
+                                    <li><a href="#">Another reason</a></li>
+                                    <li><a href="#">And Another Reason</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </label>
+            <div class="half" style="clear:both; padding-top:0px;">
+                <label>
+                    <input type="submit" name="save" class="button form-button" value="Refund">
+                    <span class="loading">Refunding</span>
+                </label>
+            </div>
+        </div>
+    </form>
+<div class="module clearfix section-separator">
+    <span class="heading-large">Shipping</span>
+    <form  method="post" class="ajaxPost">
+        <div class="half">
         <label>
-            <span>Refund Amount &pound;</span>
-            <input type="text" name="companyName" required="required" placeholder="" value="">
-        </label>
-        <label>
-            <span>Refund Reason</span>
-            <div class="input">
-                <div class="custom-select">
-                    <div class="selected">Select <span class="arrow down">&nbsp;</span></div>
-                    <ul>
-                        <li><a href="#">Some reason</a></li>
-                        <li><a href="#">Another reason</a></li>
-                        <li><a href="#">And Another Reason</a></li>
-                    </ul>
+            <span class="inputbox-label">Shipping Service</span>
+            <div class="order-inputbox-holder">
+                <div class="input">
+                    <?php
+                    $data =  array(
+                        'options' =>array(
+                            array('img' => $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . '/img/logos/royalmail.png', 'href' => '#', 'title' => 'Royal Mail', 'class' => ''),
+                            array('img' => $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . '/img/logos/dpd.png', 'href' => '#', 'title' => 'DPD',  'class' => ''),
+                            array('img' => $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . '/img/logos/interlink.png', 'href' => '#', 'title' => 'Interlink', 'class' => ''),
+                            array('img' => $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . '/img/logos/parcelforce.png', 'href' => '#', 'title' => 'Parcel Force', 'class' => '')
+                        ),
+                        'customSelectImgSrc' => $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . '/img/logos/royalmail.png'
+                    );
+                    ?>
+                    <?= $this->partial('elements/custom-select-image', $data); ?>
+                    <?php // include('includes/layout/custom/custom-select-image.php'); ?>
                 </div>
             </div>
         </label>
         <label>
-            <input type="submit" name="save" class="button form-button" value="Refund">
-            <span class="loading">Refunding</span>
-        </label>
-    </form>
-</div>
-<div class="module clearfix section-separator">
-    <h2>Shipping</h2>
-    <form  method="post" class="ajaxPost">
-        <label>
-            <span>Shipping Service</span>
-            <div class="input">
-                <?php
-                $data =  array(
-                    'options' =>array(
-                        array('img' => $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . '/img/logos/royalmail.png', 'href' => '#', 'title' => 'Royal Mail', 'class' => ''),
-                        array('img' => $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . '/img/logos/dpd.png', 'href' => '#', 'title' => 'DPD',  'class' => ''),
-                        array('img' => $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . '/img/logos/interlink.png', 'href' => '#', 'title' => 'Interlink', 'class' => ''),
-                        array('img' => $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . '/img/logos/parcelforce.png', 'href' => '#', 'title' => 'Parcel Force', 'class' => '')
-                    ),
-                    'customSelectImgSrc' => $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . '/img/logos/royalmail.png'
-                );
-                ?>
-                <?= $this->partial('elements/custom-select-image', $data); ?>
-                <?php // include('includes/layout/custom/custom-select-image.php'); ?>
+            <span class="inputbox-label">Tracking Number</span>
+            <div class="order-inputbox-holder">
+                <input class="inputbox" type="text" name="companyName" required="required" placeholder="My Company Ltd"  value="GB 1234567890">
             </div>
         </label>
-        <label>
-            <span>Tracking Number</span>
-            <input type="text" name="companyName" required="required" placeholder="My Company Ltd"  value="GB 1234567890">
-        </label>
+        </div>
     </form>
 </div>
 <?= $this->notes ?>
