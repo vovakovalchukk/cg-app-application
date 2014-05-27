@@ -30,7 +30,7 @@
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/sso": "~1.1.2",
         "channelgrabber/stdlib": "~2.5.16",
-        "channelgrabber/template": "~1.1.0",
+        "channelgrabber/template": "~1.1.1",
         "channelgrabber/user": "~1.13.15",
         "channelgrabber/userpreference": "~1.0.4",
         "channelgrabber/zf2-amazon": "~1.0.0",
