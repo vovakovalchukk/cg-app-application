@@ -15,7 +15,7 @@ define([
         var data = {
             id: undefined,
             type: undefined,
-            height: 100,
+            height: 50,
             width: 100,
             x: 0,
             y: 0,
@@ -130,7 +130,12 @@ define([
 
         this.getBorderColour = function()
         {
-            return this.get('borderColour');
+            var borderColour = this.get('borderColour');
+            if (borderColour == null) {
+                borderColour = 'black';
+                this.set('borderColour', borderColour);
+            }
+            return borderColour;
         };
 
         this.setBorderColour = function(newBorderColour)

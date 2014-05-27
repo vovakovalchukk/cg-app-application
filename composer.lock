@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "79f552b50fd8c4016874ff850368c821",
+    "hash": "931778e287b090b10638f2afac3fa8f0",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -308,6 +308,13 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -317,17 +324,17 @@
         },
         {
             "name": "channelgrabber/http",
-            "version": "1.2.10",
+            "version": "1.2.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cghttp.git",
-                "reference": "4dce7c928529aecbe32e160c5b7a4780d58f392e"
+                "reference": "c32d9e608143dc28dca926084b6a58074cff23ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.2.10-5a2d6c.zip",
-                "reference": "4dce7c928529aecbe32e160c5b7a4780d58f392e",
-                "shasum": "27b992c1ac8d7885fcbdc4233fab76889a95f219"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.2.9-5ae1c5.zip",
+                "reference": "c32d9e608143dc28dca926084b6a58074cff23ef",
+                "shasum": "c3be762e787659457a436ea64ca415f7cec23f35"
             },
             "require": {
                 "channelgrabber/etag": "~1.4.2",
@@ -344,7 +351,7 @@
                     "CG\\Http\\": ""
                 }
             },
-            "time": "2014-05-27 11:13:40"
+            "time": "2014-03-17 08:55:59"
         },
         {
             "name": "channelgrabber/log",
@@ -463,6 +470,13 @@
                 "predis/predis": "v0.8.3"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Predis\\": ""
@@ -599,17 +613,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.1.3",
+            "version": "1.1.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "870a36591f855f59b7fee1e4f0771f3d6a3ac5c3"
+                "reference": "8afb747b483a02958e4c356fc40235351d01ec83"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.1.3-efcec9.zip",
-                "reference": "870a36591f855f59b7fee1e4f0771f3d6a3ac5c3",
-                "shasum": "2581c2db340210d9a995ee95e1b3db70b5dd9057"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.1.4-56fbcf.zip",
+                "reference": "8afb747b483a02958e4c356fc40235351d01ec83",
+                "shasum": "36d4d1c664e6d5ebba6871a7e88a7ff1a0236b0f"
             },
             "require": {
                 "channelgrabber/account": "~1.0",
@@ -632,7 +646,7 @@
                     "CG\\Template\\": ""
                 }
             },
-            "time": "2014-05-27 14:01:44"
+            "time": "2014-05-27 16:07:10"
         },
         {
             "name": "channelgrabber/user",
@@ -908,6 +922,13 @@
                 "zendframework/zend-view": "2.2.*"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Zend\\Hal": ""
@@ -1569,9 +1590,7 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -1659,8 +1678,7 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com",
-                    "role": "Developer"
+                    "homepage": "http://benramsey.com"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",

@@ -3,8 +3,8 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
     var TextAbstract = function(additionalData)
     {
         var data = {
+            height: 7,
             borderWidth: undefined,
-            borderColour: 'black',
             fontSize: 12,
             fontFamily: 'Helvetica',
             fontColour: 'black',
