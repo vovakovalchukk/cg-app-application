@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "0816a1d1311fec53bf37440ad9f59c05",
+    "hash": "e62775637f284e554bc461260076f110",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -348,17 +348,17 @@
         },
         {
             "name": "channelgrabber/log",
-            "version": "1.3.5",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-log.git",
-                "reference": "61da37732930ebffb79d8cc8152bad135f8e757f"
+                "reference": "2f8c035ccebcf50415e5599af3edb3a9fe7b31b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-1.3.5-946066.zip",
-                "reference": "61da37732930ebffb79d8cc8152bad135f8e757f",
-                "shasum": "c314d0f63ae71b38ad6230cbb7f571b7602394a8"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-1.4.0-78d411.zip",
+                "reference": "2f8c035ccebcf50415e5599af3edb3a9fe7b31b5",
+                "shasum": "7c38dced379fc2543e9a295ec5da90d83f892add"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.7",
@@ -368,7 +368,8 @@
                 "channelgrabber/stdlib": ">=2.3.0",
                 "channelgrabber/validation": ">=1.1.0",
                 "nocarrier/hal": "~0.9.4",
-                "zendframework/zend-di": "2.2.*"
+                "zendframework/zend-di": "2.2.*",
+                "zendframework/zend-eventmanager": "2.2.*"
             },
             "require-dev": {
                 "phpunit/phpunit": "3.7.*"
@@ -379,7 +380,7 @@
                     "CG": ""
                 }
             },
-            "time": "2014-01-29 14:42:47"
+            "time": "2014-05-27 14:08:56"
         },
         {
             "name": "channelgrabber/order",
@@ -950,25 +951,25 @@
         },
         {
             "name": "channelgrabber/zf2-logclient",
-            "version": "1.2.8",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-log-client.git",
-                "reference": "dd7df85644f34801be4b72d1b0f76de9c37e7773"
+                "reference": "a3856de0a4ec4a5925793795e057ad46a5ab58e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-logclient-1.2.8-34d12d.zip",
-                "reference": "dd7df85644f34801be4b72d1b0f76de9c37e7773",
-                "shasum": "9be662417a7184844aecf52f634909d44322e149"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-logclient-1.3.0-32496d.zip",
+                "reference": "a3856de0a4ec4a5925793795e057ad46a5ab58e4",
+                "shasum": "dc67ba1ab7bf82350a1c7deea1dc753fcc3dbc38"
             },
             "require": {
-                "channelgrabber/log": "~1.3.4",
-                "channelgrabber/redis": "~0.1.0",
+                "channelgrabber/log": ">=1.4.0,<2.0.0",
                 "channelgrabber/stdlib": ">=2.2.0",
                 "channelgrabber/zf2-stdlib": ">=1.1.8",
                 "nocarrier/hal": "~0.9.4",
                 "predis/predis": "~0.8.3",
+                "zendframework/zend-config": "2.2.*",
                 "zendframework/zend-di": "2.2.*",
                 "zendframework/zend-eventmanager": "2.2.*",
                 "zendframework/zend-view": "2.2.*"
@@ -988,7 +989,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-05-14 15:00:20"
+            "time": "2014-05-27 14:21:34"
         },
         {
             "name": "channelgrabber/zf2-login",
@@ -1395,7 +1396,7 @@
                     "homepage": "http://davedevelopment.co.uk"
                 },
                 {
-                    "name": "David Neilsen",
+                    "name": "David Nielsen",
                     "email": "david@panmedia.co.nz"
                 }
             ],
@@ -1717,8 +1718,7 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com",
-                    "role": "Developer"
+                    "homepage": "http://benramsey.com"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
