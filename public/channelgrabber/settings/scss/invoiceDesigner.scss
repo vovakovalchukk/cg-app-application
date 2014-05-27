@@ -9,7 +9,6 @@
 .template-element-wrapper{
     position: absolute;
     float: left;
-    cursor: pointer;
     box-sizing:border-box;
     padding: 2px;
     border-color: transparent;
@@ -30,31 +29,39 @@
 
     .ui-resizable-ne {
         top:-6px; right:-6px;
+        cursor: ne-resize;
     }
     .ui-resizable-se {
         bottom:-6px; right:-6px;
+        cursor: se-resize;
     }
     .ui-resizable-nw {
         top:-6px; left:-6px;
+        cursor: nw-resize;
     }
     .ui-resizable-sw {
         bottom:-6px; left:-6px;
+        cursor: sw-resize;
     }
     .ui-resizable-n {
         top:-6px;
         left:50%; margin-left:-6px;
+        cursor: ns-resize;
     }
     .ui-resizable-e {
         right:-6px;
         top:50%; margin-top:-6px;
+        cursor: ew-resize;
     }
     .ui-resizable-s {
         bottom:-6px;
         left:50%; margin-left:-6px;
+        cursor: ns-resize;
     }
     .ui-resizable-w {
         left:-6px;
         top:50%; margin-top:-6px;
+        cursor: ew-resize;
     }
 }
 
