@@ -88,7 +88,6 @@ define([
         if (!id) {
             throw 'InvalidArgumentException: InvoiceDesigner\Template\Service::fetch must be passed a template ID';
         }
-        console.log('fetching template' + id);
         var template = this.getStorage().fetch(id);
         template.setState(Service.FETCHED_STATE)
             .setStateId(id);

@@ -1,9 +1,12 @@
 @import "../../zf2-v4-ui/scss/common/partials/_variables";
 @import "saveDiscardBar";
 
-.invoice-template-container{
+.invoice-template {
+    margin-left: 50px;
     margin-right: 250px;
-    overflow-x: auto;
+    .invoice-template-container {
+        overflow-x: auto;
+    }
 }
 
 .template-element-wrapper{
