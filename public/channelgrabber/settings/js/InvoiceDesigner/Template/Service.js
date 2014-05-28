@@ -104,11 +104,11 @@ define([
         return this;
     };
 
-    Service.prototype.create = function()
+    Service.prototype.createForOu = function(organisationUnitId)
     {
-        var templateClass = require('InvoiceDesigner/Template/Entity');
-        var template = new templateClass();
-        template.setState(Service.CREATED_STATE);
+        var template = this.getMapper().createNewTemplate();
+        template.setOrganisationUnitId(organisationUnitId)
+            .setState(Service.CREATED_STATE);
         this.loadModules(template);
         this.getDomManipulator().hideSaveDiscardBar(template);
         return template;

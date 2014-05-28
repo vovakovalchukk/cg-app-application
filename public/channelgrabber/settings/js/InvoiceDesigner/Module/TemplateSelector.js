@@ -60,7 +60,7 @@ define([
 
     TemplateSelector.prototype.create = function()
     {
-        this.getService().create();
+        this.getService().createForOu(this.getApplication().getOrganisationUnitId());
     };
 
     return new TemplateSelector();

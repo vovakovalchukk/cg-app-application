@@ -34,6 +34,8 @@ define([
         }
     };
 
+    PaperType.DEFAULT_ID = 1;
+
     PaperType.prototype = Object.create(ModuleAbstract.prototype);
 
     PaperType.prototype.init = function(template, templateService)
@@ -41,10 +43,11 @@ define([
         ModuleAbstract.prototype.init.call(this, template, templateService);
         this.setAvailablePaperTypes(this.getStorage().fetchAll());
         domManipulator.show("#" + PaperTypeListener.CONTAINER_ID);
+        var currentPaperType = template.getPaperPage().getPaperType() || PaperType.DEFAULT_ID;
         domManipulator.populateCustomSelect(
-            paperTypeDropdownId, this.getAvailablePaperTypes(), template.getPaperPage().getPaperType()
+            paperTypeDropdownId, this.getAvailablePaperTypes(), currentPaperType
         );
-        this.selectionMade(template.getPaperPage().getPaperType());
+        this.selectionMade(currentPaperType);
     };
 
     PaperType.prototype.selectionMade = function(id, isInverse)

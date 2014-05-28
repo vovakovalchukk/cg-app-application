@@ -68,15 +68,17 @@ define(['jasq', 'InvoiceDesigner/Template/Mapper'], function (jasq, mapper)
                 expect(storage.save).toHaveBeenCalled();
             });
 
-            it('should be able to create a new template', function(service)
+            it('should be able to create a new template for an OU', function(service)
             {
                 spyOn(service, 'loadModules');
-                var template = service.create();
+                var ouId = 1;
+                var template = service.createForOu(ouId);
 
                 expect(typeof template).toBe('object');
                 expect(function()
                 {
                     expect(template.getId()).not.toBeDefined();
+                    expect(template.getOrganisationUnitId()).toBe(ouId);
                 }).not.toThrow();
                 expect(service.loadModules).toHaveBeenCalled();
             });
