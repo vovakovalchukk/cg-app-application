@@ -19,8 +19,7 @@ define([
     {
         DomListenerAbstract.prototype.init.call(this, module);
         var self = this;
-        $(ToPdf.BUTTON_SELECTOR).click(function()
-        {
+        $(ToPdf.BUTTON_SELECTOR).click(function() {
             self.getModule().toPdf();
         });
     };
