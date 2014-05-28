@@ -37,7 +37,7 @@ require([
     <form class="single-row" id="alert" data-url="<?= $this->url('Orders/order/alert', array('order' => $order->getId())); ?>"
           data-actionMessage="<?= $this->translate('Saving alert'); ?>" data-successMessage="<?= $this->translate('Alert saved'); ?>">
         <label>
-            <span class="icon-large warning"></span>
+            <span class="sprite-alert-tri-28-black"></span>
             <span class="large-heading-left"><?= $this->translate('Order Alert'); ?>:</span>
             <?php
                 $alerts = $order->getAlerts();
@@ -57,7 +57,7 @@ require([
 <div class="module clearfix section-separator">
     <form class="single-row">
         <label>
-            <span class="icon-large user"></span>
+            <span class="sprite-user-28-black"></span>
             <span class="large-heading-left">Buyer Message:</span>
             <p class="buyer-message"><?= $order->getBuyerMessage() ?: $this->translate("There is no buyer message for this order"); ?></p>
         </label>
