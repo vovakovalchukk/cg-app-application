@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "931778e287b090b10638f2afac3fa8f0",
+    "hash": "7a81ac5f647599ae4309b4e1032e8a76",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -613,17 +613,11 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.1.4",
+            "version": "dev-CGIV-2262-invoice-designer-update-template-bug",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "8afb747b483a02958e4c356fc40235351d01ec83"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.1.4-56fbcf.zip",
-                "reference": "8afb747b483a02958e4c356fc40235351d01ec83",
-                "shasum": "36d4d1c664e6d5ebba6871a7e88a7ff1a0236b0f"
+                "reference": "44aa96a49ca03f8dad7d5fb9fae40cd9617cfcad"
             },
             "require": {
                 "channelgrabber/account": "~1.0",
@@ -646,7 +640,7 @@
                     "CG\\Template\\": ""
                 }
             },
-            "time": "2014-05-27 16:07:10"
+            "time": "2014-05-28 09:06:28"
         },
         {
             "name": "channelgrabber/user",
@@ -3698,11 +3692,17 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.1.4",
+            "alias_normalized": "1.1.4.0",
+            "version": "dev-CGIV-2262-invoice-designer-update-template-bug",
+            "package": "channelgrabber/template"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/template": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },
