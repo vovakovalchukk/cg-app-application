@@ -12,7 +12,7 @@ $(document).ready(function() {
     });
     require(['InvoiceDesigner/Application'], function(designerApp)
     {
-        designerApp.init();
+        designerApp.init(<?=$rootOuId;?>);
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>

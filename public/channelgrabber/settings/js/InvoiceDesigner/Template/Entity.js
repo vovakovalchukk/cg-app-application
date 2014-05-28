@@ -23,10 +23,10 @@ define([
             storedETag: undefined,
             id: undefined,
             name: undefined,
-            type: undefined,
+            type: Entity.TYPE,
             organisationUnitId: undefined,
-            minHeight: undefined,
-            minWidth: undefined
+            minHeight: 0,
+            minWidth: 0
         };
 
         this.getElements = function()
@@ -175,6 +175,8 @@ define([
             this.getDomManipulator().triggerTemplateChangeEvent(this);
         };
     };
+
+    Entity.TYPE = 'invoice';
 
     Entity.prototype = Object.create(EntityHydrateAbstract.prototype);
 
