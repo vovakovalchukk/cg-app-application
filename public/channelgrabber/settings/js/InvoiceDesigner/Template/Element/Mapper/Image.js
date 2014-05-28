@@ -26,8 +26,7 @@ define([
 
     Image.prototype.elementSourceToImageData = function(element)
     {
-        var encodedSource = btoa(element.getSource());
-        return 'data:image/'+element.getFormat()+';base64,'+encodedSource;
+        return 'data:image/'+element.getFormat().toLowerCase()+';base64,'+element.getSource();
     };
 
     return new Image();
