@@ -28,14 +28,23 @@ define([
     Mapper.PATH_TO_PAGE_ENTITY = 'InvoiceDesigner/Template/PaperPage/Entity';
     Mapper.PATH_TO_PAGE_MAPPER = 'InvoiceDesigner/Template/PaperPage/Mapper';
 
+    Mapper.prototype.createNewTemplate = function()
+    {
+        var TemplateClass = require(Mapper.PATH_TO_TEMPLATE_ENTITY);
+        var template = new TemplateClass();
+        var PaperPageClass = require(Mapper.PATH_TO_PAGE_ENTITY);
+        var paperPage = new PaperPageClass();
+        template.setPaperPage(paperPage);
+        return template;
+    };
+
     Mapper.prototype.fromJson = function(json)
     {
         if (typeof json !== 'object') {
             throw 'InvalidArgumentException: InvoiceDesigner\Template\Mapper::fromJson must be passed a JSON object';
         }
 
-        var TemplateClass = require(Mapper.PATH_TO_TEMPLATE_ENTITY);
-        var template = new TemplateClass();
+        var template = this.createNewTemplate();
         var populating = true;
         template.hydrate(json, populating);
         for (var key in json.elements) {
@@ -43,8 +52,7 @@ define([
             var element = this.elementFromJson(elementData, populating);
             template.addElement(element, populating);
         }
-        var PaperPageClass = require(Mapper.PATH_TO_PAGE_ENTITY);
-        var paperPage = new PaperPageClass();
+        var paperPage = template.getPaperPage();
         paperPage.hydrate(json.paperPage, populating);
         template.setPaperPage(paperPage).setEditable(!! json.editable);
         return template;

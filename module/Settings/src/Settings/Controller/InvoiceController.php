@@ -41,6 +41,9 @@ class InvoiceController extends AbstractActionController
         $view->addChild($this->getTemplateDiscardButtonView(), 'templateDiscardButton');
         $view->addChild($this->getTemplateSaveButtonView(), 'templateSaveButton');
         $view->addChild($this->getTemplateNameInputView(), 'templateName');
+
+        $rootOu = $this->getUserOrganisationUnitService()->getRootOuByActiveUser();
+        $view->setVariable('rootOuId', $rootOu->getId());
         $view->setVariable('templateSelectorId', static::TEMPLATE_SELECTOR_ID);
         $view->setVariable('paperTypeDropdownId', static::PAPER_TYPE_DROPDOWN_ID);
 
