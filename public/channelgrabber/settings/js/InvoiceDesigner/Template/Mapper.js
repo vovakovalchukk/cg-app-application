@@ -46,8 +46,7 @@ define([
         var PaperPageClass = require(Mapper.PATH_TO_PAGE_ENTITY);
         var paperPage = new PaperPageClass();
         paperPage.hydrate(json.paperPage, populating);
-        template.setPaperPage(paperPage);
-
+        template.setPaperPage(paperPage).setEditable(!! json.editable);
         return template;
     };
 
@@ -89,7 +88,8 @@ define([
             minHeight: template.getMinHeight(),
             minWidth: template.getMinWidth(),
             paperPage: template.getPaperPage().toJson(),
-            elements: []
+            elements: [],
+            editable: template.isEditable()
         };
 
         template.getElements().each(function(element)

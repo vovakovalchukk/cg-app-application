@@ -27,6 +27,14 @@ define([
         };
     };
 
+    ElementResizeMove.prototype.init = function(template)
+    {
+        if (! template.isEditable()){
+            return;
+        }
+        ModuleAbstract.prototype.init.call(this, template);
+    };
+
     ElementResizeMove.prototype = Object.create(ModuleAbstract.prototype);
 
     ElementResizeMove.prototype.elementSelected = function(element)
