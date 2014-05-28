@@ -1,34 +1,30 @@
 @import "../../zf2-v4-ui/scss/common/partials/_variables";
 
-$saveTemplateHeight: 40px;
-
-#save-template {
+.save-template {
     display: none;
-    height: $saveTemplateHeight;
-    #save-template-inner {
-        height: $saveTemplateHeight;
-        position:fixed;
-        z-index:999;
-        background-color: $color-red;
-        color: $color-white;
-        font-weight:bold;
-        width:Calc(100% - 500px);
-        .button {
-            float:left;
-        }
-        .save-template-message {
-            line-height:$saveTemplateHeight;
-            float:left;
-            font-size:12px;
-            padding-left:20px;
-        }
-        .save-template-buttons {
-            position:absolute;
-            right:0px;
-            input {
-                margin:5px;
-                margin-left:0px;
-            }
-        }
+    height: 40px;
+}
+.save-template-inner {
+    width: Calc(100% - 500px);
+    z-index: 999;
+    background-color: $color-red;
+    color: $color-white;
+    font-weight:bold;
+    .button {
+        float:left;
+    }
+}
+.save-template-message {
+    line-height:40px;
+    float:left;
+    font-size:12px;
+    padding-left:20px;
+}
+.save-template-buttons {
+    position:absolute;
+    right:0px;
+    input {
+        margin:5px;
+        margin-left:0px;
     }
 }
