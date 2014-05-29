@@ -135,7 +135,6 @@ define([
     {
         var form = $('form.toPdfButton');
         form.find('input').val(JSON.stringify(template));
-        //console.log(template);
         form.submit();
     };
 

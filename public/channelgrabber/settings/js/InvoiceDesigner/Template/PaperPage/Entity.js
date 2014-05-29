@@ -15,8 +15,8 @@ define([
         var contents;
         var data = {
             id: undefined,
-            height: 842,
-            width: 595,
+            height: undefined,
+            width: undefined,
             paperType: undefined,
             backgroundImage: undefined
         };
