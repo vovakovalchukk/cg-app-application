@@ -2,12 +2,14 @@ define([
     'InvoiceDesigner/Template/InspectorAbstract',
     'InvoiceDesigner/Template/Inspector/DomListener/Text',
     'cg-mustache',
-    'tinyMCE'
+    'tinyMCE',
+    'element/customSelect'
 ], function(
     InspectorAbstract,
     textDomListener,
     CGMustache,
-    tinyMCE
+    tinyMCE,
+    CustomSelect
 ) {
     var Text = function()
     {
@@ -99,9 +101,21 @@ define([
         element.setText(text);
     };
 
+    Text.prototype.dataFieldSelected = function(selectElement, dataField)
+    {
+        tinyMCE.get(Text.TEXT_INSPECTOR_TEXT_ID).selection.setContent(dataField);
+        // Reset the CustomSelect by re-initialising it
+        //var reset = new CustomSelect(selectElement);
+    };
+
     Text.prototype.getTextInspectorTextId = function()
     {
         return Text.TEXT_INSPECTOR_TEXT_ID;
+    };
+
+    Text.prototype.getTextInspectorDataFieldsId = function()
+    {
+        return Text.TEXT_INSPECTOR_DATA_FIELDS_ID;
     };
 
     return new Text();
