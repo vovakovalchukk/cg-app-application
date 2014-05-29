@@ -17,6 +17,7 @@ define([
         var state;
         var stateId;
         var paperPage;
+        var editable = true;
 
         // Member vars to watch for changes
         var data = {
@@ -147,6 +148,17 @@ define([
         this.setStateId = function(newStateId)
         {
             stateId = newStateId;
+            return this;
+        };
+
+        this.isEditable = function()
+        {
+            return editable;
+        };
+
+        this.setEditable = function(newEditable)
+        {
+            editable = newEditable;
             return this;
         };
 
