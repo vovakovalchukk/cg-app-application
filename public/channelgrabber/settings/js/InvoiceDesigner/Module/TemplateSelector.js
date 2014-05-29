@@ -48,8 +48,7 @@ define([
 
     TemplateSelector.prototype.selectionMade = function(id)
     {
-        this.setTemplate(this.getService().fetch(id));
-        this.getService().loadModules(this.getTemplate());
+        this.setTemplate(this.getService().fetchAndLoadModules(id));
         this.getDomManipulator().enable(this.getDomListener().getDuplicateTemplateSelector());
     };
 

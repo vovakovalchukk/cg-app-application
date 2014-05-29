@@ -79,9 +79,9 @@ define([
         };
     };
 
-    Service.FETCHED_STATE = 'fetch';
+    Service.FETCHED_STATE = 'fetchAndLoadModules';
     Service.DUPLICATED_STATE = 'fetchAndDuplicate';
-    Service.CREATED_STATE = 'create';
+    Service.CREATED_STATE = 'createForOu';  
 
     Service.prototype.fetch = function(id)
     {
@@ -100,7 +100,6 @@ define([
         this.getStorage().save(template);
         template.setState(Service.FETCHED_STATE)
             .setStateId(template.getId());
-        this.getDomManipulator().hideSaveDiscardBar(template);
         return this;
     };
 
@@ -108,7 +107,8 @@ define([
     {
         var template = this.getMapper().createNewTemplate();
         template.setOrganisationUnitId(organisationUnitId)
-            .setState(Service.CREATED_STATE);
+            .setState(Service.CREATED_STATE)
+            .setStateId(organisationUnitId);
         this.loadModules(template);
         this.getDomManipulator().hideSaveDiscardBar(template);
         return template;
@@ -145,6 +145,13 @@ define([
             var module = require(modules[key]);
             module.init(template, this);
         }
+    };
+
+    Service.prototype.fetchAndLoadModules = function(id)
+    {
+        var template = this.fetch(id);
+        this.loadModules(template);
+        return template;
     };
 
     Service.prototype.render = function(template)

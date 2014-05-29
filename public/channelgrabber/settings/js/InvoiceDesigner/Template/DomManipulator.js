@@ -26,13 +26,13 @@ define([
         $(DomManipulator.DOM_SELECTOR_TEMPLATE_CONTAINER).empty().append(html);
     };
 
-    DomManipulator.prototype.showSaveDiscardBar = function(template)
+    DomManipulator.prototype.showSaveDiscardBar = function()
     {
         $(DomManipulator.SAVE_DISCARD_BAR_SELECTOR).show();
         return this;
     };
 
-    DomManipulator.prototype.hideSaveDiscardBar = function(template)
+    DomManipulator.prototype.hideSaveDiscardBar = function()
     {
         $(DomManipulator.SAVE_DISCARD_BAR_SELECTOR).hide();
         return this;

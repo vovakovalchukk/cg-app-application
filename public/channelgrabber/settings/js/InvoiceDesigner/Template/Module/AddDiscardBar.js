@@ -1,14 +1,21 @@
 define([
     'InvoiceDesigner/Template/ModuleAbstract',
-    'InvoiceDesigner/Template/Module/DomListener/AddDiscardBar'
+    'InvoiceDesigner/Template/Module/DomListener/AddDiscardBar',
+    'InvoiceDesigner/Template/DomManipulator'
 ], function(
     ModuleAbstract,
-    addDiscardBarListener
+    addDiscardBarListener,
+    domManipulator
     ) {
     var AddDiscardBar = function()
     {
         ModuleAbstract.call(this);
         this.setDomListener(addDiscardBarListener);
+
+        this.getDomManipulator = function()
+        {
+            return domManipulator;
+        };
     };
 
     AddDiscardBar.prototype = Object.create(ModuleAbstract.prototype);
@@ -22,11 +29,13 @@ define([
     {
         var state = this.getTemplate().getState();
         this.getTemplateService()[state](this.getTemplate().getStateId());
+        this.getDomManipulator().hideSaveDiscardBar();
     };
 
     AddDiscardBar.prototype.save = function()
     {
         this.getTemplateService().save(this.getTemplate());
+        this.getDomManipulator().hideSaveDiscardBar();
     };
 
     return new AddDiscardBar();
