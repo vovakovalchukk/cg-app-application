@@ -1,11 +1,13 @@
 define([
     'InvoiceDesigner/Template/InspectorAbstract',
     'InvoiceDesigner/Template/Inspector/DomListener/Text',
-    'cg-mustache'
+    'cg-mustache',
+    'tinyMCE'
 ], function(
     InspectorAbstract,
     textDomListener,
-    CGMustache
+    CGMustache,
+    tinyMCE
     ) {
     var Text = function()
     {
@@ -22,6 +24,7 @@ define([
 
     Text.prototype.hide = function()
     {
+        tinyMCE.execCommand('mceRemoveEditor', false, Text.TEXT_INSPECTOR_TEXT_ID);
         this.getDomManipulator().render(Text.TEXT_INSPECTOR_SELECTOR, "");
     };
 
@@ -36,26 +39,27 @@ define([
         CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache)
         {
             var textarea = cgmustache.renderTemplate(templates, self.getTextViewData(element), "textarea");
-            console.log(textarea);
             var text = cgmustache.renderTemplate(templates, {}, "text", {'textarea': textarea});
-            console.log(text);
             var collapsible = cgmustache.renderTemplate(templates, {
                 'display': true,
                 'title': 'Text',
                 'id': 'text-collapsible'
             }, "collapsible", {'content': text});
-            console.log(collapsible);
             self.getDomManipulator().render(Text.TEXT_INSPECTOR_SELECTOR, collapsible);
             textDomListener.init(self, element);
         });
-    }
+    };
 
     Text.prototype.getTextViewData = function(element)
     {
-        console.log(element.getText());
+        var text = (element.getText().replace(/%%(b|bi|i|n|ib)%%/gi, '</><$1>') + '</>')
+            .replace(/<b>([\s\S]*?)<\/>/gi, '<strong>$1</strong>')
+            .replace(/<i>([\s\S]*?)<\/>/gi, '<em>$1</em>')
+            .replace(/<ib>|<bi>([\s\S]*?)<\/>/gi, '<strong><em>$1</em></strong>')
+            .replace(/<n>|<\/>/gi, '');
         return {
             'id': Text.TEXT_INSPECTOR_TEXT_ID,
-            'content': element.getText()
+            'content': text
         };
     };
 
@@ -66,9 +70,10 @@ define([
 
     Text.prototype.getTextInspectorTextId = function()
     {
-        return Text.TEXT_INSPECTOR_text_ID;
+        return Text.TEXT_INSPECTOR_TEXT_ID;
     };
 
     return new Text();
 });
+
 
