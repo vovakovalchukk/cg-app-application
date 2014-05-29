@@ -89,6 +89,7 @@ define([
     Mapper.prototype.toJson = function(template)
     {
         var json = {
+            storedETag: template.getStoredETag(),
             id: template.getId(),
             type: template.getType(),
             name: template.getName(),

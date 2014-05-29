@@ -21,6 +21,7 @@ define([
 
         // Member vars to watch for changes
         var data = {
+            storedETag: undefined,
             id: undefined,
             name: undefined,
             type: Entity.TYPE,
@@ -48,6 +49,17 @@ define([
         {
             paperPage = newPaperPage;
             paperPage.subscribe(this);
+            return this;
+        };
+
+        this.getStoredETag = function()
+        {
+            return this.get('storedETag');
+        };
+
+        this.setStoredETag = function(newStoredETag)
+        {
+            this.set('storedETag', newStoredETag);
             return this;
         };
 

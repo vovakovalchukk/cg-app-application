@@ -31,7 +31,7 @@ define([
         this.getFileUpload().loadBinaryDataFromFile(file, function(data)
         {
             element.setFormat(format);
-            element.setSource(data);
+            element.setSource(btoa(data)); 
         });
     };
 
