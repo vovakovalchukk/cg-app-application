@@ -15,8 +15,8 @@ define([
         var contents;
         var data = {
             id: undefined,
-            height: undefined,
-            width: undefined,
+            height: 842,
+            width: 595,
             paperType: undefined,
             backgroundImage: undefined
         };
@@ -42,7 +42,7 @@ define([
 
         this.setHeight = function(newHeight)
         {
-            this.set('height', newHeight);
+            this.set('height', parseFloat(newHeight));
             return this;
         };
 
@@ -53,7 +53,7 @@ define([
 
         this.setWidth = function(newWidth)
         {
-            this.set('width', newWidth);
+            this.set('width', parseFloat(newWidth));
             return this;
         };
 
@@ -127,7 +127,10 @@ define([
 
     Entity.prototype.toJson = function()
     {
-        return this.getData();
+        var json = JSON.parse(JSON.stringify(this.getData()));
+        json.height = json.height.mmToPt();
+        json.width = json.width.mmToPt();
+        return json;
     };
 
     return Entity;
