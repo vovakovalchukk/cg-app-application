@@ -20,12 +20,13 @@ define([
 
         // Member vars to watch for changes
         var data = {
+            storedETag: undefined,
             id: undefined,
             name: undefined,
-            type: undefined,
+            type: Entity.TYPE,
             organisationUnitId: undefined,
-            minHeight: undefined,
-            minWidth: undefined
+            minHeight: 0,
+            minWidth: 0
         };
 
         this.getElements = function()
@@ -47,6 +48,17 @@ define([
         {
             paperPage = newPaperPage;
             paperPage.subscribe(this);
+            return this;
+        };
+
+        this.getStoredETag = function()
+        {
+            return this.get('storedETag');
+        };
+
+        this.setStoredETag = function(newStoredETag)
+        {
+            this.set('storedETag', newStoredETag);
             return this;
         };
 
@@ -164,6 +176,8 @@ define([
         };
     };
 
+    Entity.TYPE = 'invoice';
+
     Entity.prototype = Object.create(EntityHydrateAbstract.prototype);
 
     Entity.prototype.shouldFieldBeHydrated = function(field)
@@ -187,6 +201,7 @@ define([
     {
         this.getElements().detach(element);
         element.unsubscribe(this);
+        this.getDomManipulator().triggerElementDeletedEvent(element);
         this.notifyOfChange();
         return this;
     };

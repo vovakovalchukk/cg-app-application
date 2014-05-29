@@ -15,7 +15,7 @@ define([
         var data = {
             id: undefined,
             type: undefined,
-            height: 100,
+            height: 50,
             width: 100,
             x: 0,
             y: 0,
@@ -40,7 +40,7 @@ define([
         this.getId = function()
         {
             if (!this.get('id')) {
-                this.setId(idGenerator.generate());
+                this.set('id', idGenerator.generate(), true);
             }
             return this.get('id');
         };
@@ -130,7 +130,12 @@ define([
 
         this.getBorderColour = function()
         {
-            return this.get('borderColour');
+            var borderColour = this.get('borderColour');
+            if (borderColour == null) {
+                borderColour = 'black';
+                this.set('borderColour', borderColour);
+            }
+            return borderColour;
         };
 
         this.setBorderColour = function(newBorderColour)
@@ -146,9 +151,10 @@ define([
 
         this.set = function(field, value, populating)
         {
+            var oldValue = data[field];
             data[field] = value;
 
-            if (populating) {
+            if (oldValue === value || populating) {
                 return;
             }
             this.publish();
@@ -208,7 +214,7 @@ define([
         json.y = json.y.mmToPt();
         json.height = json.height.mmToPt();
         json.width = json.width.mmToPt();
-        json.borderWidth = json.borderWidth.mmToPt();
+        json.borderWidth = (json.borderWidth ? json.borderWidth.mmToPt() : json.borderWidth);
         return json;
     };
 

@@ -11,7 +11,9 @@ define([
     'InvoiceDesigner/Template/Module/ElementManager',
     'InvoiceDesigner/Template/Module/AddDiscardBar',
     'InvoiceDesigner/Template/Module/Name',
-    'InvoiceDesigner/Template/Module/ImageUpload'
+    'InvoiceDesigner/Template/Module/ImageUpload',
+    'InvoiceDesigner/Template/Module/ElementResizeMove',
+    'InvoiceDesigner/Template/Module/ToPdf'
 ], function(
     require,
     templateAjaxStorage,
@@ -33,7 +35,9 @@ define([
             'InvoiceDesigner/Template/Module/ElementManager',
             'InvoiceDesigner/Template/Module/AddDiscardBar',
             'InvoiceDesigner/Template/Module/Name',
-            'InvoiceDesigner/Template/Module/ImageUpload'
+            'InvoiceDesigner/Template/Module/ImageUpload',
+            'InvoiceDesigner/Template/Module/ElementResizeMove',
+            'InvoiceDesigner/Template/Module/ToPdf'
         ];
 
         this.getStorage = function()
@@ -100,11 +104,11 @@ define([
         return this;
     };
 
-    Service.prototype.create = function()
+    Service.prototype.createForOu = function(organisationUnitId)
     {
-        var templateClass = require('InvoiceDesigner/Template/Entity');
-        var template = new templateClass();
-        template.setState(Service.CREATED_STATE);
+        var template = this.getMapper().createNewTemplate();
+        template.setOrganisationUnitId(organisationUnitId)
+            .setState(Service.CREATED_STATE);
         this.loadModules(template);
         this.getDomManipulator().hideSaveDiscardBar(template);
         return template;

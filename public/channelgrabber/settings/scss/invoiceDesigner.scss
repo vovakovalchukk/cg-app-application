@@ -6,13 +6,72 @@
     overflow-x: auto;
 }
 
-.template-element{
+.template-element-wrapper{
     position: absolute;
     float: left;
-    cursor: pointer;
+    box-sizing:border-box;
+    padding: 2px;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 2px;
+}
+
+.template-element-wrapper.active{
+    @extend .template-element-wrapper;
+    border-color: $color-lblue;
+
+    .ui-resizable-handle {
+        @extend .template-element-wrapper.active;
+        width: 5px;
+        height: 5px;
+        background-color: #ffffff;
+    }
+
+    .ui-resizable-ne {
+        top:-6px; right:-6px;
+        cursor: ne-resize;
+    }
+    .ui-resizable-se {
+        bottom:-6px; right:-6px;
+        cursor: se-resize;
+    }
+    .ui-resizable-nw {
+        top:-6px; left:-6px;
+        cursor: nw-resize;
+    }
+    .ui-resizable-sw {
+        bottom:-6px; left:-6px;
+        cursor: sw-resize;
+    }
+    .ui-resizable-n {
+        top:-6px;
+        left:50%; margin-left:-6px;
+        cursor: ns-resize;
+    }
+    .ui-resizable-e {
+        right:-6px;
+        top:50%; margin-top:-6px;
+        cursor: ew-resize;
+    }
+    .ui-resizable-s {
+        bottom:-6px;
+        left:50%; margin-left:-6px;
+        cursor: ns-resize;
+    }
+    .ui-resizable-w {
+        left:-6px;
+        top:50%; margin-top:-6px;
+        cursor: ew-resize;
+    }
+}
+
+.template-element{
+    cursor: move;
+    box-sizing: border-box;
 }
 
 .template-paperpage{
+    box-sizing: border-box;
     position: relative;
     margin-left: auto;
     margin-right: auto;
@@ -121,18 +180,6 @@
     padding: 0px !important;
 }
 
-.invoice-select-create {
-    padding:10px;
-    border-bottom: 1px solid $color-lgrey;
-    height:80px;
-    .button {
-        float:left;
-    }
-}
-
-.template-name-container {
-    display:none;
-}
 .template-module {
     display: none;
     clear: left;
@@ -140,6 +187,15 @@
     .element {
         clear: left;
         padding: 2px 5px;
+    }
+}
+
+.invoice-select-create {
+    display: block;
+    padding:10px;
+    height:80px;
+    .button {
+        float:left;
     }
 }
 

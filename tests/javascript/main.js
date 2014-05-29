@@ -10,9 +10,9 @@ require.config({
 });
 
 require([
-    '../../public/channelgrabber/zf2-v4-ui/js/object-helpers',
-    '../../public/channelgrabber/zf2-v4-ui/js/string-helpers',
-    '../../public/channelgrabber/zf2-v4-ui/js/number-helpers'
+    'object-helpers',
+    'string-helpers',
+    'number-helpers'
 ]);
 
 // Configure Jasmine

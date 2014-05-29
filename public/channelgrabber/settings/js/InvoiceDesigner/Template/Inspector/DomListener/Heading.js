@@ -11,7 +11,7 @@ define([
     Heading.prototype.init = function(inspector, template, element, service)
     {
         $('#' + inspector.getHeadingInspectorDeleteId()).off('click').on('click', function() {
-            inspector.removeElement(template, element, service);
+            inspector.removeElement(template, element);
         });
     };
 
