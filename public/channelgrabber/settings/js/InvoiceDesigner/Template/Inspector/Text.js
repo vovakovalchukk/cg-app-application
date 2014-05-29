@@ -8,7 +8,7 @@ define([
     textDomListener,
     CGMustache,
     tinyMCE
-    ) {
+) {
     var Text = function()
     {
         InspectorAbstract.call(this);
