@@ -25,19 +25,16 @@ define(['jasq'], function ()
         it('should load a template when selected', {
             mock: {
                 'InvoiceDesigner/Template/Service': {
-                    fetch: function() {},
-                    loadModules: function() {}
+                    fetchAndLoadModules: function() {}
                 }
             }, expect: function(templateSelector, dependencies)
             {
                 var mockService = dependencies['InvoiceDesigner/Template/Service'];
-                spyOn(mockService, 'fetch');
-                spyOn(mockService, 'loadModules');
+                spyOn(mockService, 'fetchAndLoadModules');
 
                 var id = 1;
                 templateSelector.selectionMade(id);
-                expect(mockService.fetch).toHaveBeenCalled();
-                expect(mockService.loadModules).toHaveBeenCalled();
+                expect(mockService.fetchAndLoadModules).toHaveBeenCalled();
             }
         });
     });
