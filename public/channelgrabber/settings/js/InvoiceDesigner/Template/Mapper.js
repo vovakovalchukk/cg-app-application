@@ -94,8 +94,6 @@ define([
             type: template.getType(),
             name: template.getName(),
             organisationUnitId: template.getOrganisationUnitId(),
-            minHeight: template.getMinHeight(),
-            minWidth: template.getMinWidth(),
             paperPage: template.getPaperPage().toJson(),
             elements: [],
             editable: template.isEditable()

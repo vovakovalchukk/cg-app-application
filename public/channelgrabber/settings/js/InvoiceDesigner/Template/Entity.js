@@ -25,9 +25,7 @@ define([
             id: undefined,
             name: undefined,
             type: Entity.TYPE,
-            organisationUnitId: undefined,
-            minHeight: 0,
-            minWidth: 0
+            organisationUnitId: undefined
         };
 
         this.getElements = function()
@@ -104,28 +102,6 @@ define([
         this.setOrganisationUnitId = function(newOrganisationUnitId)
         {
             this.set('organisationUnitId', newOrganisationUnitId);
-            return this;
-        };
-
-        this.getMinHeight = function()
-        {
-            return this.get('minHeight');
-        };
-
-        this.setMinHeight = function(newMinHeight)
-        {
-            this.set('minHeight', newMinHeight);
-            return this;
-        };
-
-        this.getMinWidth = function()
-        {
-            return this.get('minWidth');
-        };
-
-        this.setMinWidth = function(newMinWidth)
-        {
-            this.set('minWidth', newMinWidth);
             return this;
         };
 
