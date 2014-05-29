@@ -4,6 +4,7 @@ namespace Settings\Controller;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
+use CG\Template\ReplaceManager\OrderContent as OrderTagManager;
 use CG\Template\Service as TemplateService;
 use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
 
@@ -19,17 +20,20 @@ class InvoiceController extends AbstractActionController
     protected $jsonModelFactory;
     protected $templateService;
     protected $userOrganisationUnitService;
+    protected $orderTagManager;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         JsonModelFactory $jsonModelFactory,
         TemplateService $templateService,
-        UserOrganisationUnitService $userOrganisationUnitService
+        UserOrganisationUnitService $userOrganisationUnitService,
+        OrderTagManager $orderTagManager
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
             ->setTemplateService($templateService)
-            ->setUserOrganisationUnitService($userOrganisationUnitService);
+            ->setUserOrganisationUnitService($userOrganisationUnitService)
+            ->setOrderTagManager($orderTagManager);
     }
 
     public function designAction()
@@ -48,7 +52,9 @@ class InvoiceController extends AbstractActionController
         $view->setVariable('paperTypeDropdownId', static::PAPER_TYPE_DROPDOWN_ID);
 
         $view->addChild($this->getPaperTypeModule(), 'paperTypeModule');
-        
+
+        $view->setVariable('dataFieldOptions', $this->getOrderTagManager()->getAvailableTags());
+
         return $view;
     }
 
@@ -158,6 +164,17 @@ class InvoiceController extends AbstractActionController
     public function getUserOrganisationUnitService()
     {
         return $this->userOrganisationUnitService;
+    }
+
+    public function getOrderTagManager()
+    {
+        return $this->orderTagManager;
+    }
+
+    public function setOrderTagManager(OrderTagManager $orderTagManager)
+    {
+        $this->orderTagManager = $orderTagManager;
+        return $this;
     }
 
     public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
