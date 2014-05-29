@@ -40,9 +40,6 @@ define(['InvoiceDesigner/Template/StorageAbstract', 'jquery'], function(StorageA
             'dataType' : 'json',
             'async' : false,
             'success' : function(data) {
-                if (template.getId()) {
-                    return;
-                }
                 var mappedTemplate = self.getMapper().fromJson(JSON.parse(data['template']));
                 template.setStoredETag(mappedTemplate.getStoredETag());
                 if (!template.getId()) {
