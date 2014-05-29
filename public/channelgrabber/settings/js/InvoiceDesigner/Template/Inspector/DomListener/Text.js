@@ -4,7 +4,7 @@ define([
 ], function(
     $,
     domManipulator
-    ) {
+) {
 
     var Text = function()
     {
@@ -23,9 +23,8 @@ define([
                 .replace(/<strong><em>|<em><strong>/gi, '%%bi%%')
                 .replace(/<strong>/gi, '%%b%%')
                 .replace(/<em>/gi, '%%i%%')
-                .replace(/<\/em>|<\/strong>/gi, '%%n%%');
-
-            console.log(text);
+                .replace(/<\/em>|<\/strong>/gi, '%%n%%')
+                .replace(/%%n%%%%n%%/gi, '%%n%%');
             inspector.setText(element, text);
         });
     };
