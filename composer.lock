@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "3d3f45e40714f2d5a619082361e3cc02",
+    "hash": "f90f470d32dff16d16cf5616e25cfacc",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -614,11 +614,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-2274-invoice-designer-image-bug",
+            "version": "1.1.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "35f2cc7fe56ec6b5236c2d3b5de2f90894c76a63"
+                "reference": "a7ff24e1f8401f85cc1c6b1e9102f157dd54c1e2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.1.6-18eda9.zip",
+                "reference": "a7ff24e1f8401f85cc1c6b1e9102f157dd54c1e2",
+                "shasum": "9152020739322f0d587d09faa20dba364cdb12e2"
             },
             "require": {
                 "channelgrabber/account": "~1.0",
@@ -641,7 +647,7 @@
                     "CG\\Template\\": ""
                 }
             },
-            "time": "2014-05-28 15:20:51"
+            "time": "2014-05-29 07:36:12"
         },
         {
             "name": "channelgrabber/user",
@@ -3693,17 +3699,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.1.5",
-            "alias_normalized": "1.1.5.0",
-            "version": "dev-CGIV-2274-invoice-designer-image-bug",
-            "package": "channelgrabber/template"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/template": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },
