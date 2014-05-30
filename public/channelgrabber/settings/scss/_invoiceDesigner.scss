@@ -24,7 +24,7 @@
         @extend .template-element-wrapper.active;
         width: 5px;
         height: 5px;
-        background-color: #ffffff;
+        background-color: $color-white;
     }
 
     .ui-resizable-ne {
@@ -75,18 +75,18 @@
     position: relative;
     margin-left: auto;
     margin-right: auto;
-    border: 1px solid black;
+    border: 1px solid $color-black;
     background-size: cover;
     background-repeat:  no-repeat;
     background-position: left top;
 }
 
 .template-element-ordertable{
-    border: dashed 2px black;
+    border: dashed 2px $color-black;
 
     table{
         border: none;
-        background: white;
+        background: $color-white;
         float: none;
         margin: 0;
 
@@ -154,8 +154,8 @@
     }
 }
 .template-element-image{
-    background-color: #eee;
-    border: solid 1px #999;
+    background-color: $color-lgrey;
+    border: solid 1px $color-mgrey;
 
     img{
         width: 100%;
