@@ -147,6 +147,10 @@
         min-width:initial;
         vertical-align: top;
         float: left;
+        margin: 5px 0px 5px 0px;
+    }
+    div.button:nth-child(odd) {
+        margin-left: 10px;
     }
 }
 .template-element-image{
