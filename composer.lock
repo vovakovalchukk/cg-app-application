@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "82421968f061c2b70236854df13bc12e",
+    "hash": "4897b141e708eb9a4dc5ac13ee99dbd9",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -1193,17 +1193,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.7.1",
+            "version": "1.7.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "b45f4b749966793261b73b623f0e72b8a6072ed9"
+                "reference": "9eb2ce16e20c6012f782690ef29b7705e4f50a67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.7.1-fe66d7.zip",
-                "reference": "b45f4b749966793261b73b623f0e72b8a6072ed9",
-                "shasum": "7ccf1fa9e77234975b9b6de333f3f844df368700"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.7.4-e5d5dd.zip",
+                "reference": "9eb2ce16e20c6012f782690ef29b7705e4f50a67",
+                "shasum": "634408bd556aa8ab4e54bb8245af0248721b1e64"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1231,7 +1231,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-05-28 12:23:02"
+            "time": "2014-05-30 07:44:17"
         },
         {
             "name": "cilex/cilex",
@@ -1397,7 +1397,7 @@
                     "homepage": "http://davedevelopment.co.uk"
                 },
                 {
-                    "name": "David Neilsen",
+                    "name": "David Nielsen",
                     "email": "david@panmedia.co.nz"
                 }
             ],
@@ -1719,8 +1719,7 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com",
-                    "role": "Developer"
+                    "homepage": "http://benramsey.com"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
