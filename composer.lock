@@ -1,9 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
-    "hash": "8b1428a14882fbe1b7a662f71b213d68",
+    "hash": "94741fdadd694c3b328a17deadba7380",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -44,17 +45,17 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.2.18",
+            "version": "1.2.19",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "d929ae4d05b8aa8f8753586ebd28c69b3c499e28"
+                "reference": "afbadd73c18f4388992c23794c2aae26997eb1e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.2.18-c688b1.zip",
-                "reference": "d929ae4d05b8aa8f8753586ebd28c69b3c499e28",
-                "shasum": "20ae3f4320703f2ec7718e68032cd3d9371d6e9c"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.2.19-1396d0.zip",
+                "reference": "afbadd73c18f4388992c23794c2aae26997eb1e7",
+                "shasum": "8de739c79aa78a2ea022cad45f82a8bbf1392663"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.2",
@@ -79,7 +80,7 @@
                     "CG\\Amazon\\": ""
                 }
             },
-            "time": "2014-05-21 12:32:28"
+            "time": "2014-05-29 15:13:58"
         },
         {
             "name": "channelgrabber/cache",
@@ -354,17 +355,17 @@
         },
         {
             "name": "channelgrabber/log",
-            "version": "1.4.1",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-log.git",
-                "reference": "491a26fabedcd46217f05b228e6a7755e4a8b77c"
+                "reference": "5c5c95338d74b823dd2603fece3a267f4b3db70d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-1.4.1-4b5370.zip",
-                "reference": "491a26fabedcd46217f05b228e6a7755e4a8b77c",
-                "shasum": "17466f3874d4902d1ac81a8afce0c36465541364"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-1.4.2-d63cd6.zip",
+                "reference": "5c5c95338d74b823dd2603fece3a267f4b3db70d",
+                "shasum": "61d49de28b0eee945df7a2296ef25ed9fed91403"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.7",
@@ -386,7 +387,7 @@
                     "CG": ""
                 }
             },
-            "time": "2014-05-29 14:09:11"
+            "time": "2014-05-30 14:48:16"
         },
         {
             "name": "channelgrabber/order",
@@ -584,17 +585,17 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.5.19",
+            "version": "2.5.20",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "33841986cc889be77d5065e73ff510d4d4c3cf4e"
+                "reference": "637bf5b05fb251ae309c4e9c676e6a6f42545ad7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.5.19-d81dac.zip",
-                "reference": "33841986cc889be77d5065e73ff510d4d4c3cf4e",
-                "shasum": "3cc1c085523b1cdf12fa58cc2f01f8da539eb28e"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.5.20-8b807d.zip",
+                "reference": "637bf5b05fb251ae309c4e9c676e6a6f42545ad7",
+                "shasum": "df6fe40b79455790646080f6281522194c4cae18"
             },
             "require": {
                 "zendframework/zend-db": "2.2.*"
@@ -611,7 +612,7 @@
                     "CG/Stdlib/Utilities.php"
                 ]
             },
-            "time": "2014-05-19 10:11:32"
+            "time": "2014-05-29 14:05:09"
         },
         {
             "name": "channelgrabber/template",
