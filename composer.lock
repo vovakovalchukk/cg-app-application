@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "ab11bcd734f21c262292e5161472b2d5",
+    "hash": "9eb8f3604c644add70c60e5303d29503",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -354,17 +354,17 @@
         },
         {
             "name": "channelgrabber/log",
-            "version": "1.4.0",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-log.git",
-                "reference": "2f8c035ccebcf50415e5599af3edb3a9fe7b31b5"
+                "reference": "491a26fabedcd46217f05b228e6a7755e4a8b77c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-1.4.0-78d411.zip",
-                "reference": "2f8c035ccebcf50415e5599af3edb3a9fe7b31b5",
-                "shasum": "7c38dced379fc2543e9a295ec5da90d83f892add"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-1.4.1-4b5370.zip",
+                "reference": "491a26fabedcd46217f05b228e6a7755e4a8b77c",
+                "shasum": "17466f3874d4902d1ac81a8afce0c36465541364"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.7",
@@ -386,7 +386,7 @@
                     "CG": ""
                 }
             },
-            "time": "2014-05-27 14:08:56"
+            "time": "2014-05-29 14:09:11"
         },
         {
             "name": "channelgrabber/order",
