@@ -37,7 +37,7 @@ define([
             return '"Times New Roman"';
         }
         return font;
-    }
+    };
 
     TextAbstract.prototype.getExtraAttributePropertyMap = function()
     {
