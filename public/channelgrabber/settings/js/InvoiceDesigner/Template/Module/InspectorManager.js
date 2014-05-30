@@ -38,5 +38,7 @@ define([
         this.getInspectorService().hideAll();
     };
 
+    InspectorManager.prototype.selectedInput;
+
     return new InspectorManager();
 });

@@ -24,6 +24,7 @@ define([
     InspectorManager.prototype.initElementSelectedListener = function()
     {
         var self = this;
+
         $(document).off(domManipulator.getElementSelectedEvent()).on(domManipulator.getElementSelectedEvent(), function(event, element)
         {
             self.getModule().elementSelected(element);
