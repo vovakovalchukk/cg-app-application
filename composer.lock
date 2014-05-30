@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "cff7a58822d5de1f2398c83f34820178",
+    "hash": "9b056fb16a9e73e9a7540e42c47beb9d",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -44,17 +44,17 @@
         },
         {
             "name": "channelgrabber/amazon",
-            "version": "1.2.18",
+            "version": "1.2.19",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "d929ae4d05b8aa8f8753586ebd28c69b3c499e28"
+                "reference": "afbadd73c18f4388992c23794c2aae26997eb1e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.2.18-c688b1.zip",
-                "reference": "d929ae4d05b8aa8f8753586ebd28c69b3c499e28",
-                "shasum": "20ae3f4320703f2ec7718e68032cd3d9371d6e9c"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.2.19-1396d0.zip",
+                "reference": "afbadd73c18f4388992c23794c2aae26997eb1e7",
+                "shasum": "8de739c79aa78a2ea022cad45f82a8bbf1392663"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.2",
@@ -79,7 +79,7 @@
                     "CG\\Amazon\\": ""
                 }
             },
-            "time": "2014-05-21 12:32:28"
+            "time": "2014-05-29 15:13:58"
         },
         {
             "name": "channelgrabber/cache",
@@ -354,17 +354,17 @@
         },
         {
             "name": "channelgrabber/log",
-            "version": "1.4.1",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-log.git",
-                "reference": "491a26fabedcd46217f05b228e6a7755e4a8b77c"
+                "reference": "5c5c95338d74b823dd2603fece3a267f4b3db70d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-1.4.1-4b5370.zip",
-                "reference": "491a26fabedcd46217f05b228e6a7755e4a8b77c",
-                "shasum": "17466f3874d4902d1ac81a8afce0c36465541364"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-1.4.2-d63cd6.zip",
+                "reference": "5c5c95338d74b823dd2603fece3a267f4b3db70d",
+                "shasum": "61d49de28b0eee945df7a2296ef25ed9fed91403"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.7",
@@ -386,21 +386,21 @@
                     "CG": ""
                 }
             },
-            "time": "2014-05-29 14:09:11"
+            "time": "2014-05-30 14:48:16"
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.5.18",
+            "version": "1.5.19",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "519ab91bb7776e9ca8bb5b55951b28846e2faf29"
+                "reference": "aa8da4dce0bfa6fc55cd76edbdca294ce7fbbd5b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.5.18-464e79.zip",
-                "reference": "519ab91bb7776e9ca8bb5b55951b28846e2faf29",
-                "shasum": "df8640701c220daea08ef9c2442077bfe6b97e8f"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.5.19-1dba47.zip",
+                "reference": "aa8da4dce0bfa6fc55cd76edbdca294ce7fbbd5b",
+                "shasum": "d6b9bf7fd9996dedf47918611f3006ef5ce82799"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.0,<1.3.0",
@@ -416,7 +416,7 @@
                 "zendframework/zend-di": ">=2.2.5"
             },
             "require-dev": {
-                "channelgrabber/phpunit": "~1.0.0",
+                "channelgrabber/phpunit": "~1.0.1",
                 "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
@@ -425,7 +425,7 @@
                     "CG\\Order\\": ""
                 }
             },
-            "time": "2014-05-21 14:53:01"
+            "time": "2014-05-30 16:06:21"
         },
         {
             "name": "channelgrabber/permission",
@@ -584,17 +584,17 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.5.19",
+            "version": "2.5.21",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "33841986cc889be77d5065e73ff510d4d4c3cf4e"
+                "reference": "7d886af51556ed7ae8a8f946739dc5b1749c1dda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.5.19-d81dac.zip",
-                "reference": "33841986cc889be77d5065e73ff510d4d4c3cf4e",
-                "shasum": "3cc1c085523b1cdf12fa58cc2f01f8da539eb28e"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.5.21-d50f14.zip",
+                "reference": "7d886af51556ed7ae8a8f946739dc5b1749c1dda",
+                "shasum": "5638fd1001ffce1d1203b47867157a9909d35ec1"
             },
             "require": {
                 "zendframework/zend-db": "2.2.*"
@@ -611,15 +611,21 @@
                     "CG/Stdlib/Utilities.php"
                 ]
             },
-            "time": "2014-05-19 10:11:32"
+            "time": "2014-05-30 14:52:27"
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-2015-invoice-designer-text-inspector-data-fields",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "55d966395f227bcdf0ba5d4877a4b7b281187565"
+                "reference": "b2de0ec578c389a5ea94bcab6b25fe794ea514e8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.3-0337d7.zip",
+                "reference": "b2de0ec578c389a5ea94bcab6b25fe794ea514e8",
+                "shasum": "31b50b13bd10a9ae04220ebeeeebd6212a7d6c12"
             },
             "require": {
                 "channelgrabber/account": "~1.0",
@@ -642,7 +648,7 @@
                     "CG\\Template\\": ""
                 }
             },
-            "time": "2014-05-29 14:10:58"
+            "time": "2014-05-30 16:10:32"
         },
         {
             "name": "channelgrabber/user",
@@ -1233,11 +1239,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-2015-invoice-designer-text-inspector-data-fields",
+            "version": "1.7.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "2a6181aaa00ea0fae0ccbde5e9c666149b0b1e7d"
+                "reference": "fa58e01155830094186cf222cec5fb0d1135595e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.7.5-aad65d.zip",
+                "reference": "fa58e01155830094186cf222cec5fb0d1135595e",
+                "shasum": "c438a6fa75b5e988d710f53b6102805d1bfb7324"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1265,7 +1277,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-05-30 15:16:55"
+            "time": "2014-05-30 16:08:51"
         },
         {
             "name": "cilex/cilex",
@@ -3713,24 +3725,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.2.2",
-            "alias_normalized": "1.2.2.0",
-            "version": "dev-CGIV-2015-invoice-designer-text-inspector-data-fields",
-            "package": "channelgrabber/template"
-        },
-        {
-            "alias": "1.7.4",
-            "alias_normalized": "1.7.4.0",
-            "version": "dev-CGIV-2015-invoice-designer-text-inspector-data-fields",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/template": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },
