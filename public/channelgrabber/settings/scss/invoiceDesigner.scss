@@ -1,4 +1,4 @@
-@import "../../zf2-v4-ui/scss/common/partials/_variables";
+@import "../../zf2-v4-ui/scss/common/partials/variables";
 @import "saveDiscardBar";
 
 .invoice-template {
@@ -184,18 +184,25 @@
 }
 
 .template-module {
+    width: auto;
+    min-width: 208px;
     display: none;
-    clear: left;
-    padding: 5px 10px;
+    float: left;
+    clear: both;
+    padding: 20px;
+    border-bottom: 1px solid $color-lgrey;
     .element {
-        clear: left;
-        padding: 2px 5px;
+        clear: both;
+    }
+    .heading-small {
+        font-weight: 700;
+        margin-bottom: 10px;
     }
 }
 
 .invoice-select-create {
     display: block;
-    padding:10px;
+    padding:20px 20px 10px 20px;
     height:80px;
     .button {
         float:left;
@@ -210,4 +217,42 @@
 .positioning-input {
     width: 60px;
     display: block;
+}
+#template-selector{
+    width: 100%;
+    min-width: 100%;
+    float: left;
+    clear:both;
+    margin-bottom: 8px;
+}
+#paper-type-dropdown {
+    width: 100%;
+    min-width: 100%;
+    float: left;
+    clear:both;
+    margin-bottom: 8px;
+}
+.med-element {
+    width: 100%;
+    float: left;
+    clear:both;
+}
+.template-new-btn {
+    width: auto;
+    float: left;
+    clear:both;
+}
+.template-dup-btn {
+    width: auto;
+    float: right;
+}
+.pdf-btn {
+    width: 100%;
+    float: left;
+    clear:both;
+}
+.template-inputbox-holder {
+    width: 94%;
+    float: left;
+    clear:both;
 }
