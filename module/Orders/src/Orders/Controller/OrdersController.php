@@ -17,6 +17,7 @@ use DirectoryIterator;
 use CG\UserPreference\Client\Service as UserPreferenceService;
 use CG\Http\Rpc\Exception\BatchException as RpcBatchException;
 use CG\Http\Rpc\Exception\Error\AbstractError as RpcError;
+use CG\Http\Rpc\Exception as RpcException;
 use Orders\Order\FilterService as FiltersService;
 use Orders\Order\StoredFilters\Service as StoredFiltersService;
 
@@ -388,6 +389,31 @@ class OrdersController extends AbstractActionController
         }
 
         return $response->setVariable('dispatching', true);
+    }
+
+    public function cancelAction()
+    {
+        $response = $this->getJsonModelFactory()->newInstance(['cancelling' => false]);
+
+        $ids = $this->params()->fromPost('orders');
+        if (!isset($ids[0])) {
+            return $response->setVariable('error', 'No Orders provided');
+        }
+
+        try {
+            $this->getOrderService()->cancelOrder(
+                $ids[0],
+                $this->params()->fromPost('reason'),
+                $this->params()->fromPost('type')
+            );
+        } catch (RpcException $exception) {
+            return $response->setVariable(
+                'error',
+                'Failed to mark the order for cancellation'
+            );
+        }
+
+        return $response->setVariable('cancelling', true);
     }
 
     public function archiveAction()

@@ -56,6 +56,10 @@ class Service
 
     protected function appendOrderToAction(SubAction $action, OrderEntity $orderEntity)
     {
+        if ($action instanceof OrderAwareInterface) {
+            $action->setOrder($orderEntity);
+        }
+
         if ($action->hasJavascript()) {
             $action->getJavascript()->setVariable('order', $orderEntity);
         }
