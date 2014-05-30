@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "9eb8f3604c644add70c60e5303d29503",
+    "hash": "cff7a58822d5de1f2398c83f34820178",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -1233,17 +1233,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.7.4",
+            "version": "dev-CGIV-2015-invoice-designer-text-inspector-data-fields",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "9eb2ce16e20c6012f782690ef29b7705e4f50a67"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.7.4-e5d5dd.zip",
-                "reference": "9eb2ce16e20c6012f782690ef29b7705e4f50a67",
-                "shasum": "634408bd556aa8ab4e54bb8245af0248721b1e64"
+                "reference": "2a6181aaa00ea0fae0ccbde5e9c666149b0b1e7d"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1271,7 +1265,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-05-30 07:44:17"
+            "time": "2014-05-30 15:16:55"
         },
         {
             "name": "cilex/cilex",
@@ -3724,12 +3718,19 @@
             "alias_normalized": "1.2.2.0",
             "version": "dev-CGIV-2015-invoice-designer-text-inspector-data-fields",
             "package": "channelgrabber/template"
+        },
+        {
+            "alias": "1.7.4",
+            "alias_normalized": "1.7.4.0",
+            "version": "dev-CGIV-2015-invoice-designer-text-inspector-data-fields",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/template": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },
