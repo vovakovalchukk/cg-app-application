@@ -25,6 +25,7 @@ define([
     {
         ModuleAbstract.prototype.init.call(this, template, templateService);
         this.getInspectorService().init(template);
+        this.getInspectorService().hideAll();
     };
 
     InspectorManager.prototype.elementSelected = function(element)

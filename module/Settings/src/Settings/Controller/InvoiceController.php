@@ -128,8 +128,8 @@ class InvoiceController extends AbstractActionController
 
     public function saveAction()
     {
-        $view = $this->getJsonModelFactory()->newInstance();
-        $this->getTemplateService()->saveFromJson($this->params()->fromPost('template'));
+        $template = $this->getTemplateService()->saveFromJson($this->params()->fromPost('template'));
+        $view = $this->getJsonModelFactory()->newInstance(["template" => json_encode($template)]);
         return $view;
     }
 

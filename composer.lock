@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "36bf8ab1c2b49f87a5138643e82708a1",
+    "hash": "ab11bcd734f21c262292e5161472b2d5",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -615,11 +615,11 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-2014",
+            "version": "dev-CGIV-2015-invoice-designer-text-inspector-data-fields",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "43a5ceac8e80b482db6aded7d4ccf5587211b45e"
+                "reference": "55d966395f227bcdf0ba5d4877a4b7b281187565"
             },
             "require": {
                 "channelgrabber/account": "~1.0",
@@ -642,7 +642,7 @@
                     "CG\\Template\\": ""
                 }
             },
-            "time": "2014-05-29 10:59:55"
+            "time": "2014-05-29 14:10:58"
         },
         {
             "name": "channelgrabber/user",
@@ -1233,11 +1233,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-2014",
+            "version": "1.7.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "8f09f7a8e6586e64cf08b9fb333af5aa11f33e9f"
+                "reference": "9eb2ce16e20c6012f782690ef29b7705e4f50a67"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.7.4-e5d5dd.zip",
+                "reference": "9eb2ce16e20c6012f782690ef29b7705e4f50a67",
+                "shasum": "634408bd556aa8ab4e54bb8245af0248721b1e64"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1265,7 +1271,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-05-29 13:13:24"
+            "time": "2014-05-30 07:44:17"
         },
         {
             "name": "cilex/cilex",
@@ -3714,23 +3720,16 @@
     ],
     "aliases": [
         {
-            "alias": "1.1.7",
-            "alias_normalized": "1.1.7.0",
-            "version": "dev-CGIV-2014",
+            "alias": "1.2.2",
+            "alias_normalized": "1.2.2.0",
+            "version": "dev-CGIV-2015-invoice-designer-text-inspector-data-fields",
             "package": "channelgrabber/template"
-        },
-        {
-            "alias": "1.7.2",
-            "alias_normalized": "1.7.2.0",
-            "version": "dev-CGIV-2014",
-            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/template": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },

@@ -46,11 +46,13 @@ $(document).ready(function() {
     </div>
 </div>
 <div id="invoice-template" class="invoice-template">
-    <div id="save-template" class='save-template'>
-        <div class="save-template-message"><?= $this->translate('You have made changes that are currently not saved'); ?></div>
-        <div class="save-template-buttons">
-            <?= $templateDiscardButton ?>
-            <?= $templateSaveButton ?>
+    <div class="save-template">
+        <div class="save-template-inner fixedElement">
+            <div class="save-template-message"><?= $this->translate('You have made changes that are currently not saved'); ?></div>
+            <div class="save-template-buttons">
+                <?= $templateDiscardButton ?>
+                <?= $templateSaveButton ?>
+            </div>
         </div>
     </div>
     <div id="invoice-template-container" class="invoice-template-container">

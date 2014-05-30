@@ -1,25 +1,30 @@
 @import "../../zf2-v4-ui/scss/common/partials/_variables";
 
 .save-template {
-  background-color: $color-red;
-  color: $color-white;
-  font-weight:bold;
-  height: 40px;
-  display:none;
-
-  .button {
-    float:left;
-  }
+    display: none;
+    height: 40px;
 }
-
+.save-template-inner {
+    width: Calc(100% - 500px);
+    z-index: 999;
+    background-color: $color-red;
+    color: $color-white;
+    font-weight:bold;
+    .button {
+        float:left;
+    }
+}
 .save-template-message {
-  float:left;
-  font-size:12px;
-  line-height:40px;
-  padding-left:20px;
+    line-height:40px;
+    float:left;
+    font-size:12px;
+    padding-left:20px;
 }
-
 .save-template-buttons {
-  position:absolute;
-  right:300px;
+    position:absolute;
+    right:0px;
+    input {
+        margin:5px;
+        margin-left:0px;
+    }
 }
