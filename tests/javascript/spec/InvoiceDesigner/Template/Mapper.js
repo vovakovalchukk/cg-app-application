@@ -21,8 +21,6 @@ define(['jasq'], function (jasq)
                     type: "invoice",
                     name: "Example",
                     organisationUnitId: 1,
-                    minHeight: 100,
-                    minWidth: 100,
                     paperPage: {
                         width: 250,
                         height: 353,

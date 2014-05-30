@@ -5,7 +5,7 @@ define(['jasq'], function ()
         mock: function()
         {
             return {
-                'InvoiceDesigner/Template/Inspector/TextArea': {
+                'InvoiceDesigner/Template/Inspector/Text': {
                     init: function() {},
                     getInspectedAttributes: function() { return ['text', 'source']; },
                     getId: function() { return 'test-inspector' },
@@ -29,7 +29,7 @@ define(['jasq'], function ()
 
             it('should initialise the inspectors', function(service, dependencies)
             {
-                var mockTextInspector = dependencies['InvoiceDesigner/Template/Inspector/TextArea'];
+                var mockTextInspector = dependencies['InvoiceDesigner/Template/Inspector/Text'];
                 var mockBorderInspector = dependencies['InvoiceDesigner/Template/Inspector/Border'];
                 spyOn(mockTextInspector, 'init');
                 spyOn(mockBorderInspector, 'init');
@@ -41,7 +41,7 @@ define(['jasq'], function ()
 
             it('should not initialise if there are invalid inspectors', {
                 mock: {
-                    'InvoiceDesigner/Template/Inspector/TextArea': {}
+                    'InvoiceDesigner/Template/Inspector/Text': {}
                 }, expect: function(service)
                 {
                     expect(function() { service.init(); }).toThrow();
@@ -50,7 +50,7 @@ define(['jasq'], function ()
 
             it('should store the inspectors against the right attributes', function(service, dependencies)
             {
-                var mockTextInspector = dependencies['InvoiceDesigner/Template/Inspector/TextArea'];
+                var mockTextInspector = dependencies['InvoiceDesigner/Template/Inspector/Text'];
                 var mockBorderInspector = dependencies['InvoiceDesigner/Template/Inspector/Border'];
 
                 service.init();
@@ -70,7 +70,7 @@ define(['jasq'], function ()
 
             it('should tell the inspectors to hide', function(service, dependencies)
             {
-                var mockTextInspector = dependencies['InvoiceDesigner/Template/Inspector/TextArea'];
+                var mockTextInspector = dependencies['InvoiceDesigner/Template/Inspector/Text'];
                 var mockBorderInspector = dependencies['InvoiceDesigner/Template/Inspector/Border'];
                 spyOn(mockTextInspector, 'hide');
                 spyOn(mockBorderInspector, 'hide');
@@ -83,7 +83,7 @@ define(['jasq'], function ()
 
             it('should tell the inspectors to show for an element', function(service, dependencies)
             {
-                var mockTextInspector = dependencies['InvoiceDesigner/Template/Inspector/TextArea'];
+                var mockTextInspector = dependencies['InvoiceDesigner/Template/Inspector/Text'];
                 var mockBorderInspector = dependencies['InvoiceDesigner/Template/Inspector/Border'];
                 spyOn(mockTextInspector, 'showForElement');
                 spyOn(mockBorderInspector, 'showForElement');
