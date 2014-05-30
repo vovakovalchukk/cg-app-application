@@ -141,16 +141,12 @@
 
 .addInvoiceElement {
     display:none;
-    .addInvoiceElementTitle {
-        padding-left: 10px;
-        font-weight:bold;
-    }
     div.button {
-        margin:8px;
-        width:85px !important;
+        width:75px !important;
         display: inline-block;
         min-width:initial;
         vertical-align: top;
+        float: left;
     }
 }
 .template-element-image{
@@ -257,4 +253,12 @@
     width: 100%;
     float: left;
     clear:both;
+    margin-bottom: 7px;
+    .std-checkbox {
+        left: -10px;
+    }
+    .checkbox_label {
+        top: 7px;
+        left: 35px;
+    }
 }
