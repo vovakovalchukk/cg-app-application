@@ -104,8 +104,6 @@ define([
     Text.prototype.dataFieldSelected = function(selectElement, dataField)
     {
         tinyMCE.get(Text.TEXT_INSPECTOR_TEXT_ID).selection.setContent(dataField);
-        // Reset the CustomSelect by re-initialising it
-        //var reset = new CustomSelect(selectElement);
     };
 
     Text.prototype.getTextInspectorTextId = function()
