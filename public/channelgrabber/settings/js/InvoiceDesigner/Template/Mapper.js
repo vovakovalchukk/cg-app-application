@@ -43,6 +43,7 @@ define([
         if (typeof json !== 'object') {
             throw 'InvalidArgumentException: InvoiceDesigner\Template\Mapper::fromJson must be passed a JSON object';
         }
+        var json = JSON.parse(JSON.stringify(json));
 
         var template = this.createNewTemplate();
         var populating = true;
@@ -53,7 +54,7 @@ define([
             template.addElement(element, populating);
         }
         var paperPage = template.getPaperPage();
-        paperPage.hydrate(json.paperPage, populating);
+        this.hydratePaperPageFromJson(paperPage, json.paperPage, populating);
         template.setPaperPage(paperPage).setEditable(!! json.editable);
         return template;
     };
@@ -84,6 +85,14 @@ define([
         }
         element.hydrate(elementData, populating);
         return element;
+    };
+
+    Mapper.prototype.hydratePaperPageFromJson = function(paperPage, json, populating)
+    {
+        json.width = json.width.ptToMm();
+        json.height = json.height.ptToMm();
+
+        paperPage.hydrate(json, populating);
     };
 
     Mapper.prototype.toJson = function(template)
