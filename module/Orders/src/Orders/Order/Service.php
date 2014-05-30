@@ -22,6 +22,7 @@ use Settings\Module as SettingsModule;
 use Settings\Controller\ChannelController;
 use CG\Account\Client\Service as AccountService;
 use Zend\Mvc\MvcEvent;
+use CG\Stdlib\DateTime;
 
 class Service
 {
@@ -375,6 +376,32 @@ class Service
         }
 
         return $this->getOrderRpcClient()->sendBatch(static::RPC_ENDPOINT, $batch);
+    }
+
+    public function cancelOrder($orderId, $reason, $type)
+    {
+        $order = $this->getOrder($orderId);
+        $items = [];
+        foreach ($order->getItems() as $item) {
+            $items[] = [
+                "orderItemId" => $item->getId(),
+                "sku" => $item->getItemSku(),
+                "quantity" => $item->getItemQuantity(),
+                "amount" => $item->getIndividualItemPrice(),
+                "unitPrice" => 0.00
+            ];
+        }
+        $orderCancel = [
+            "orderId" => $order->getId(),
+            "shippingAmount" => $order->getShippingPrice(),
+            "cancelValue" => [
+                "type" => $type,
+                "timestamp" => date(DateTime::FORMAT),
+                "reason" => $reason,
+                "items" => $items
+            ]
+        ];
+        return $this->getOrderRpcClient()->sendRequest(static::RPC_ENDPOINT, $orderId, 'cancel', $orderCancel);
     }
 
     public function setAccountService($accountService)

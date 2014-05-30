@@ -1,9 +1,14 @@
 <div id="paperTypeModule" class="template-module">
     <div class="heading-small">Paper Type</div>
-    <div class="element">
+    <div class="paper-type-select">
         {{> elements/custom-select}}
     </div>
-    <div class="element">
-        <input id="inverseLabelPosition" type="checkbox" value="inverseLabelPosition" />Inverse Label Position<br>
+    <div class="paper-type-checkbox">
+        <div class="std-checkbox">
+            <input id="inverseLabelPosition" type="checkbox" value="inverseLabelPosition" name="check" {{#selected}} checked="checked"{{/selected}}/>
+            <label for="inverseLabelPosition">
+                <span class="checkbox_label">Inverse Label Position</span>
+            </label>
+        </div>
     </div>
 </div>
