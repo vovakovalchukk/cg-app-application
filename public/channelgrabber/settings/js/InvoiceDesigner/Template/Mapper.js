@@ -54,7 +54,7 @@ define([
         }
         var paperPage = template.getPaperPage();
         paperPage.hydrate(json.paperPage, populating);
-
+        template.setPaperPage(paperPage).setEditable(!! json.editable);
         return template;
     };
 
@@ -94,10 +94,9 @@ define([
             type: template.getType(),
             name: template.getName(),
             organisationUnitId: template.getOrganisationUnitId(),
-            minHeight: template.getMinHeight(),
-            minWidth: template.getMinWidth(),
             paperPage: template.getPaperPage().toJson(),
-            elements: []
+            elements: [],
+            editable: template.isEditable()
         };
 
         template.getElements().each(function(element)

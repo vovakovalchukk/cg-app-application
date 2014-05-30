@@ -10,7 +10,7 @@ define([
 
     };
 
-    DomManipulator.SAVE_DISCARD_BAR_SELECTOR = '#save-template';
+    DomManipulator.SAVE_DISCARD_BAR_SELECTOR = '.save-template';
     DomManipulator.EVENT_TEMPLATE_CHANGED = 'invoice-template-changed';
     DomManipulator.EVENT_TEMPLATE_ELEMENT_SELECTED = 'invoice-template-element-selected';
     DomManipulator.EVENT_TEMPLATE_ELEMENT_RESIZED = 'invoice-template-element-resized';

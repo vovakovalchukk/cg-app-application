@@ -39,11 +39,13 @@ $(document).ready(function() {
     </div>
 </div>
 <div id="invoice-template" class="invoice-template">
-    <div id="save-template" class='save-template'>
-        <div class="save-template-message"><?= $this->translate('You have made changes that are currently not saved'); ?></div>
-        <div class="save-template-buttons">
-            <?= $templateDiscardButton ?>
-            <?= $templateSaveButton ?>
+    <div class="save-template">
+        <div class="save-template-inner fixedElement">
+            <div class="save-template-message"><?= $this->translate('You have made changes that are currently not saved'); ?></div>
+            <div class="save-template-buttons">
+                <?= $templateDiscardButton ?>
+                <?= $templateSaveButton ?>
+            </div>
         </div>
     </div>
     <div id="invoice-template-container" class="invoice-template-container">
@@ -53,6 +55,7 @@ $(document).ready(function() {
 <div id="element-inspector-bar" class="sidebar sidebar-fixed sidebar-right sidebar-invoice-designer">
     <!--Element Inspectors-->
     <div id="heading-inspector"></div>
+    <div id="text-inspector"></div>
     <div id="font-inspector"></div>
     <div id="border-inspector"></div>
     <div id="positioning-inspector"></div>

@@ -97,6 +97,9 @@ define([
 
     Service.prototype.save = function(template)
     {
+        if (! template.isEditable()) {
+            template = this.duplicate(template);
+        }
         this.getStorage().save(template);
         template.setState(Service.FETCHED_STATE)
             .setStateId(template.getId());
@@ -119,7 +122,8 @@ define([
         template.setName('DUPLICATE - ' + template.getName())
             .setState(Service.DUPLICATED_STATE)
             .setStateId(template.getId())
-            .setId();
+            .setId()
+            .setEditable(true);
         this.loadModules(template);
         this.getDomManipulator().hideSaveDiscardBar(template);
         return template;
