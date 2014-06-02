@@ -62,7 +62,7 @@ return [
                                 'options' => [
                                     'route' => '/:filterId',
                                     'constraints' => [
-                                        'filterId' => '[0-9]+'
+                                        'filterId' => '.+'
                                     ],
                                     'defaults' => [
                                         'action' => 'jsonFilterId',
