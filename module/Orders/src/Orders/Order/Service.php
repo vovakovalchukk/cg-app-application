@@ -80,7 +80,8 @@ class Service
         );
 
         $orderCollection = $this->getOrders($filter);
-        $total = (int) $orderCollection->getTotal();
+
+        $orders = [];
         foreach($orderCollection as $orderEntity) {
             $order = $orderEntity->toArray();
             $accountEntity = $accounts->getById($order['accountId']);
@@ -93,6 +94,7 @@ class Service
 
             $orders[] = $order;
         }
+        $total = (int) $orderCollection->getTotal();
 
         return [
             'orders' => $orders,
