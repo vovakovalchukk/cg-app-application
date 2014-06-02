@@ -1,5 +1,5 @@
 .invoice-template {
-    margin-left: 50px;
+    margin-left: 48px;
     margin-right: 250px;
     .invoice-template-container {
         overflow-x: auto;
@@ -264,5 +264,85 @@
     .checkbox_label {
         top: 7px;
         left: 35px;
+    }
+}
+#heading-inspector {
+    width: 100%;
+    float: left;
+    clear:both;
+    border-bottom: 1px solid $color-mgrey;
+    padding: 15px;
+    .heading-medium {
+        margin-top: 4px;
+    }
+    .heading-btn {
+        float: right;
+        margin-right: 30px;
+        margin-top: -5px;
+    }
+}
+#text-inspector {
+    width: 100%;
+    float: left;
+    clear:both;
+    border-bottom: 1px solid $color-mgrey;
+    padding: 15px;
+}
+#border-inspector {
+    width: 100%;
+    float: left;
+    clear:both;
+    border-bottom: 1px solid $color-mgrey;
+    padding: 15px;
+}
+#font-inspector {
+    width: 100%;
+    float: left;
+    clear:both;
+    border-bottom: 1px solid $color-mgrey;
+    padding: 15px;
+}
+#positioning-inspector {
+    width: 100%;
+    float: left;
+    clear:both;
+    border-bottom: 1px solid $color-grey;
+    padding: 15px;
+}
+.collapsible {
+    border: none;
+    padding: 0;
+    .collapsibleHeader {
+        width: 95%;
+        float: left;
+        clear:both;
+        .sprite-arrow-up-10-black {
+            float: right;
+            margin-right: 20px;
+            margin-top: 5px;
+        }
+        .heading-medium {
+            width: 100%;
+            float: left;
+            clear:both;
+        }
+    }
+    .collapsibleContent {
+        width: 95%;
+        float: left;
+        clear:both;
+        margin-top: 10px;
+        .med-element {
+            width: 40%;
+            float: left;
+            #font-inspector-font-family, #font-inspector-font-size {
+                width: 100px;
+                float: left;
+            }
+        }
+        .color-picker {
+            float: left;
+            clear:both;
+        }
     }
 }
