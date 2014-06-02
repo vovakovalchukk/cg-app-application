@@ -17,7 +17,6 @@ define([
         var state;
         var stateId;
         var paperPage;
-        var editable = true;
 
         // Member vars to watch for changes
         var data = {
@@ -25,7 +24,8 @@ define([
             id: undefined,
             name: undefined,
             type: Entity.TYPE,
-            organisationUnitId: undefined
+            organisationUnitId: undefined,
+            editable: true
         };
 
         this.getElements = function()
@@ -129,12 +129,12 @@ define([
 
         this.isEditable = function()
         {
-            return editable;
+            return this.get('editable');
         };
 
         this.setEditable = function(newEditable)
         {
-            editable = newEditable;
+            this.set('editable', newEditable);
             return this;
         };
 
