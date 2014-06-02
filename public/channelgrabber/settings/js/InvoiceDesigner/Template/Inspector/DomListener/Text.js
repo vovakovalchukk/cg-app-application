@@ -24,9 +24,20 @@ define([
             var textarea = this;
             clearTimeout(timeoutId);
             timeoutId = setTimeout(function() {
-                self.styleText(textarea, inspector, element);
+                self.styleText(textarea, inspector, element)
+                    .initDataFieldsChangeListener(inspector, element);
             }, timeout);
         });
+        return this;
+    };
+
+    Text.prototype.initDataFieldsChangeListener = function(inspector, element)
+    {
+        $('#' + inspector.getTextInspectorDataFieldsId()).off('change').on('change', function(event, container, value)
+        {
+            inspector.dataFieldSelected(container, value);
+        });
+        return this;
     };
 
     Text.prototype.styleText = function(textarea, inspector, element)
@@ -39,6 +50,7 @@ define([
             .replace(/<\/em>|<\/strong>/gi, '%%n%%')
             .replace(/%%n%%%%n%%/gi, '%%n%%');
         inspector.setText(element, text);
+        return this;
     };
 
     return new Text();

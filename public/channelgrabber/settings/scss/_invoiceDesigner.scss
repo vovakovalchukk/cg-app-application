@@ -1,6 +1,3 @@
-@import "../../zf2-v4-ui/scss/common/partials/_variables";
-@import "saveDiscardBar";
-
 .invoice-template {
     margin-left: 50px;
     margin-right: 250px;
@@ -27,7 +24,7 @@
         @extend .template-element-wrapper.active;
         width: 5px;
         height: 5px;
-        background-color: #ffffff;
+        background-color: $color-white;
     }
 
     .ui-resizable-ne {
@@ -71,6 +68,10 @@
 .template-element{
     cursor: move;
     box-sizing: border-box;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select:none;
+    user-select:none;
 }
 
 .template-paperpage{
@@ -78,18 +79,18 @@
     position: relative;
     margin-left: auto;
     margin-right: auto;
-    border: 1px solid black;
+    border: 1px solid $color-black;
     background-size: cover;
     background-repeat:  no-repeat;
     background-position: left top;
 }
 
 .template-element-ordertable{
-    border: dashed 2px black;
+    border: dashed 2px $color-black;
 
     table{
         border: none;
-        background: white;
+        background: $color-white;
         float: none;
         margin: 0;
 
@@ -144,21 +145,21 @@
 
 .addInvoiceElement {
     display:none;
-    .addInvoiceElementTitle {
-        padding-left: 10px;
-        font-weight:bold;
-    }
     div.button {
-        margin:8px;
-        width:85px !important;
+        width:75px !important;
         display: inline-block;
         min-width:initial;
         vertical-align: top;
+        float: left;
+        margin: 5px 0px 5px 0px;
+    }
+    div.button:nth-child(odd) {
+        margin-left: 10px;
     }
 }
 .template-element-image{
-    background-color: #eee;
-    border: solid 1px #999;
+    background-color: $color-lgrey;
+    border: solid 1px $color-mgrey;
 
     img{
         width: 100%;
@@ -184,18 +185,25 @@
 }
 
 .template-module {
+    width: auto;
+    min-width: 208px;
     display: none;
-    clear: left;
-    padding: 5px 10px;
+    float: left;
+    clear: both;
+    padding: 20px;
+    border-bottom: 1px solid $color-lgrey;
     .element {
-        clear: left;
-        padding: 2px 5px;
+        clear: both;
+    }
+    .heading-small {
+        font-weight: 700;
+        margin-bottom: 10px;
     }
 }
 
 .invoice-select-create {
     display: block;
-    padding:10px;
+    padding:20px 20px 10px 20px;
     height:80px;
     .button {
         float:left;
@@ -210,4 +218,55 @@
 .positioning-input {
     width: 60px;
     display: block;
+}
+#template-selector{
+    width: 100%;
+    min-width: 100%;
+    float: left;
+    clear:both;
+    margin-bottom: 8px;
+}
+#paper-type-dropdown {
+    width: 100%;
+    min-width: 100%;
+    float: left;
+    clear:both;
+    margin-bottom: 8px;
+}
+.med-element {
+    width: 100%;
+    float: left;
+    clear:both;
+}
+.template-new-btn {
+    width: auto;
+    float: left;
+    clear:both;
+}
+.template-dup-btn {
+    width: auto;
+    float: right;
+}
+.pdf-btn {
+    width: 100%;
+    float: left;
+    clear:both;
+}
+.template-inputbox-holder {
+    width: 94%;
+    float: left;
+    clear:both;
+}
+.paper-type-checkbox {
+    width: 100%;
+    float: left;
+    clear:both;
+    margin-bottom: 7px;
+    .std-checkbox {
+        left: -10px;
+    }
+    .checkbox_label {
+        top: 7px;
+        left: 35px;
+    }
 }

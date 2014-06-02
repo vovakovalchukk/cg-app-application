@@ -26,6 +26,7 @@ define(['jasq', 'InvoiceDesigner/Template/Mapper'], function (jasq, mapper)
             beforeEach(function()
             {
                 var json = {
+                    editable: true,
                     id: 1,
                     type: "invoice",
                     name: "Example",
@@ -40,6 +41,7 @@ define(['jasq', 'InvoiceDesigner/Template/Mapper'], function (jasq, mapper)
                     elements: []
                 };
                 templateEntity = mapper.fromJson(json);
+                spyOn(templateEntity, 'notifyOfChange');
             });
 
             it('should be an object', function(service)
