@@ -218,6 +218,7 @@
 .positioning-input {
     width: 60px;
     display: block;
+    margin: 5px 0px 5px 0px;
 }
 #template-selector{
     width: 100%;
@@ -310,7 +311,7 @@
 
 .align_buttons {
     float: left;
-    clear:both;
+    margin-left: 10px;
 }
 .collapsible {
     border: none;
@@ -334,7 +335,7 @@
     .collapsibleContent {
         width: 95%;
         float: left;
-        clear:both;
+        clear: both;
         margin-top: 10px;
         .med-element {
             width: 40%;
@@ -371,11 +372,23 @@
 }
 
 .inspector-field-fontfamily {
-    width: 150px;
+    width: 205px;
     float: left;
 }
 
 .inspector-field-fontsize {
     width: 100px;
     float :left;
+}
+.inspector-font-align {
+    float: left;
+}
+.positioning-secondrow {
+    width: 100%;
+    float: left;
+    clear:both;
+    margin-top: 10px;
+}
+.positioning-mm {
+    margin: 10px 0px 0px 3px;
 }
