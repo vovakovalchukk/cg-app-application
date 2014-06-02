@@ -24,7 +24,7 @@ define([
         this.getId = function()
         {
             if (!this.get('id')) {
-                this.setId(idGenerator.generate());
+                this.set('id', idGenerator.generate(), true);
             }
             return this.get('id');
         };
@@ -128,8 +128,8 @@ define([
     Entity.prototype.toJson = function()
     {
         var json = JSON.parse(JSON.stringify(this.getData()));
-        json.height = json.height.mmToPt();
-        json.width = json.width.mmToPt();
+        json.height = Number(json.height).mmToPt();
+        json.width = Number(json.width).mmToPt(); 
         return json;
     };
 

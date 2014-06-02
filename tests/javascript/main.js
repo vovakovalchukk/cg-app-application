@@ -5,7 +5,28 @@ require.config({
     paths: {
         jasq: "../../../../tests/javascript/lib/jasq",
         jquery: "jquery.min",
-        InvoiceDesigner: "../../settings/js/InvoiceDesigner"
+        InvoiceDesigner: "../../settings/js/InvoiceDesigner",
+        tinyMCE: "jqueryPlugin/tinymce",
+        json: 'lib/require/json',
+        text: 'lib/require/text',
+        spectrum: "jqueryPlugin/spectrum"
+    },
+    shim: {
+        "jqueryPlugin/ui": {
+            exports: "$",
+            deps: ['jquery']
+        },
+        "spectrum": {
+            exports: "$",
+            deps: ['jquery']
+        },
+        tinyMCE: {
+            exports: 'tinyMCE',
+            init: function () {
+                this.tinyMCE.DOM.events.domLoaded = true;
+                return this.tinyMCE;
+            }
+        }
     }
 });
 

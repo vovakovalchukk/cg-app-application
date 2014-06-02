@@ -10,8 +10,15 @@ $(document).ready(function() {
             'InvoiceDesigner': "<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/InvoiceDesigner';?>"
         }
     });
-    require(['InvoiceDesigner/Application'], function(designerApp)
-    {
+    require([
+        'InvoiceDesigner/Application',
+        'InvoiceDesigner/Template/Inspector/Text'
+    ], function(
+        designerApp,
+        textInspector
+    ) {
+        textInspector.setDataFieldOptions(<?=json_encode($dataFieldOptions);?>);
+
         designerApp.init(<?=$rootOuId;?>);
     });
 });
