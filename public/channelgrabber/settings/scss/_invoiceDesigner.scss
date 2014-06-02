@@ -270,7 +270,7 @@
     width: 100%;
     float: left;
     clear:both;
-    border-bottom: 1px solid $color-mgrey;
+    border-bottom: 1px solid $color-lgrey;
     padding: 15px;
     .heading-medium {
         margin-top: 4px;
@@ -285,29 +285,33 @@
     width: 100%;
     float: left;
     clear:both;
-    border-bottom: 1px solid $color-mgrey;
+    border-bottom: 1px solid $color-lgrey;
     padding: 15px;
 }
 #border-inspector {
     width: 100%;
     float: left;
     clear:both;
-    border-bottom: 1px solid $color-mgrey;
+    border-bottom: 1px solid $color-lgrey;
     padding: 15px;
 }
 #font-inspector {
     width: 100%;
     float: left;
     clear:both;
-    border-bottom: 1px solid $color-mgrey;
+    border-bottom: 1px solid $color-lgrey;
     padding: 15px;
 }
 #positioning-inspector {
     width: 100%;
     float: left;
     clear:both;
-    border-bottom: 1px solid $color-grey;
+    border-bottom: 1px solid $color-lgrey;
     padding: 15px;
+}
+.align_buttons {
+    float: left;
+    clear:both;
 }
 .collapsible {
     border: none;
@@ -340,9 +344,14 @@
                 float: left;
             }
         }
-        .color-picker {
-            float: left;
-            clear:both;
-        }
+    }
+}
+
+.color-picker {
+    float: left;
+    clear:both;
+    .sp-replacer {
+        float: left;
+        clear:both;
     }
 }
