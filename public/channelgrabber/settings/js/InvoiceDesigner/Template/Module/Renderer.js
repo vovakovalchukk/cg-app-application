@@ -2,12 +2,14 @@ define([
     'InvoiceDesigner/Template/ModuleAbstract',
     'InvoiceDesigner/Template/Module/DomListener/Renderer',
     'InvoiceDesigner/Template/Element/MapperAbstract',
-    'InvoiceDesigner/Template/DomManipulator'
+    'InvoiceDesigner/Template/DomManipulator',
+    'InvoiceDesigner/Template/Module/ElementResizeMove'
 ], function(
     ModuleAbstract,
     rendererListener,
     ElementMapperAbstract,
-    domManipulator
+    domManipulator,
+    elementResizeMoveModule
 ) {
     var Renderer = function()
     {
@@ -29,6 +31,11 @@ define([
         this.getDomManipulator = function()
         {
             return domManipulator;
+        };
+
+        this.getElementResizeMoveModule = function()
+        {
+            return elementResizeMoveModule;
         };
     };
 
@@ -61,7 +68,9 @@ define([
             self.getDomListener().listenForElementSelect(domWrapperId, element);
 
             if (selectedElement && selectedElement.getId() === element.getId()) {
-                self.getDomManipulator().triggerElementSelectedEvent(element);
+                // Don't trigger the element selected event as that does more than we need,
+                // we just want to re-highlight the selected element
+                self.getElementResizeMoveModule().elementSelected(element);
             }
         });
     };
