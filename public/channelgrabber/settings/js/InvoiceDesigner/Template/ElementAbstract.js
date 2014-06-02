@@ -124,7 +124,7 @@ define([
 
         this.setBorderWidth = function(newBorderWidth, populating)
         {
-            this.set('borderWidth',  Number(newBorderWidth).roundToNearest(0.5), populating);
+            this.set('borderWidth', Number(newBorderWidth).roundToNearest(0.5), populating);
             return this;
         };
 
