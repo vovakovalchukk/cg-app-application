@@ -124,8 +124,6 @@ define([
 
         this.setBorderWidth = function(newBorderWidth, populating)
         {
-            console.log(newBorderWidth);
-            console.log(Number(newBorderWidth).roundToNearest(0.5));
             this.set('borderWidth',  Number(newBorderWidth).roundToNearest(0.5), populating);
             return this;
         };
