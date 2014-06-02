@@ -23,6 +23,7 @@ use Settings\Controller\ChannelController;
 use CG\Account\Client\Service as AccountService;
 use Zend\Mvc\MvcEvent;
 use CG\Stdlib\DateTime;
+use CG\Order\Client\Collection as FilteredCollection;
 
 class Service
 {
@@ -98,11 +99,17 @@ class Service
 
             $orders[] = $order;
         }
-        $total = (int) $orderCollection->getTotal();
+
+
+        $filterId = null;
+        if ($orderCollection instanceof FilteredCollection) {
+            $filterId = $orderCollection->getFilterId();
+        }
 
         return [
             'orders' => $orders,
-            'orderTotal' => $total
+            'orderTotal' => (int) $orderCollection->getTotal(),
+            'filterId' => $filterId,
         ];
     }
 

@@ -49,9 +49,24 @@ return [
                         'options' => [
                             'route' => '/ajax',
                             'defaults' => [
-                                'action' => 'json',
+                                'action' => 'jsonFilter',
                             ]
-                        ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            'filterId' => [
+                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                'options' => [
+                                    'route' => '/:filterId',
+                                    'constraints' => [
+                                        'filterId' => '[0-9]+'
+                                    ],
+                                    'defaults' => [
+                                        'action' => 'jsonFilterId',
+                                    ]
+                                ],
+                            ],
+                        ],
                     ],
                     'update-columns' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
