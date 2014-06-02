@@ -8,18 +8,6 @@ define([
 
     var Positioning = function()
     {
-        var timeout;
-
-        this.getTimeout = function()
-        {
-            return timeout;
-        };
-
-        this.setTimeout = function(newTimeout)
-        {
-            timeout = newTimeout;
-        };
-
         this.getDomManipulator = function()
         {
             return domManipulator;
@@ -30,35 +18,43 @@ define([
 
     Positioning.prototype.init = function(inspector, element)
     {
+        var timeoutId;
+        var timeout = 700;
+
         var that = this;
         $('#' + inspector.getPositioningInspectorLeftId() + ',' +
             '#' + inspector.getPositioningInspectorTopId() + ',' +
             '#' + inspector.getPositioningInspectorHeightId()  + ',' +
             '#' + inspector.getPositioningInspectorWidthId()).off(Positioning.EVENTS).on(Positioning.EVENTS, function(event) {
-            that.set(event, this, inspector, element);
+
+            var selector = this;
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(function() {
+                that.set(selector, inspector, element);
+            }, timeout);
         });
     };
 
-    Positioning.prototype.set = function(event, selector, inspector, element)
+    Positioning.prototype.set = function(selector, inspector, element)
     {
         var that = this;
-        var value = Number(this.getDomManipulator().getValue(selector));
-        if (event.key == '.') {
-            value += + 0.5;
+        var value = this.getDomManipulator().getValue(selector);
+
+        if (value.slice(-1) == '.') {
+            value = parseFloat(value) + 0.5;
+        } else {
+            value = parseFloat(value);
         }
 
         if (isNaN(value)) {
-            return;
+            value = 0;
         }
 
         this.getDomManipulator().setValue(selector, value.roundToNearest(0.5));
-        clearTimeout(this.getTimeout());
-        this.setTimeout(setTimeout(function() {
-            element.setX(that.getDomManipulator().getValue('#' + inspector.getPositioningInspectorLeftId()))
+        element.setX(that.getDomManipulator().getValue('#' + inspector.getPositioningInspectorLeftId()))
                 .setY(that.getDomManipulator().getValue('#' + inspector.getPositioningInspectorTopId()))
                 .setWidth(that.getDomManipulator().getValue('#' + inspector.getPositioningInspectorWidthId()))
                 .setHeight(that.getDomManipulator().getValue('#' + inspector.getPositioningInspectorHeightId()));
-        }, 500));
     };
 
     return new Positioning();
