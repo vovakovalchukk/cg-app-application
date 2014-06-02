@@ -383,7 +383,7 @@ class OrdersController extends AbstractActionController
         $pageLimit = $this->getPageLimit();
         $orderBy = $this->getOrderBy();
 
-        $filterId = $this->params()->fromPost('filterId');
+        $filterId = $this->params()->fromRoute('filterId');
         try {
             $this->mergeOrderDataWithJsonData(
                 $data,
