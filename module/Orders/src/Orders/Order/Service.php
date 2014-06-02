@@ -79,7 +79,11 @@ class Service
             static::ACCOUNTS_PAGE
         );
 
-        $orderCollection = $this->getOrders($filter);
+        if ($filter instanceof Filter) {
+            $orderCollection = $this->getOrders($filter);
+        } else {
+            $orderCollection = $this->getOrdersFromFilterId($filter);
+        }
 
         $orders = [];
         foreach($orderCollection as $orderEntity) {
@@ -198,6 +202,11 @@ class Service
     public function getOrders(Filter $filter)
     {
         return $this->getOrderClient()->fetchCollectionByFilter($filter);
+    }
+
+    public function getOrdersFromFilterId($filterId)
+    {
+        return $this->getOrderClient()->fetchCollectionByFilterId($filterId);
     }
 
     public function getOrder($orderId)
