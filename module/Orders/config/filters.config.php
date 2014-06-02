@@ -5,6 +5,7 @@ use Orders\Order\FilterService;
 use Orders\Order\TableService\OrdersTableTagColumns;
 use Orders\Order\Filter\Channel;
 use Orders\Order\Filter\Account;
+use CG\Order\Shared\Status;
 
 return [
     'di' => [
@@ -72,17 +73,37 @@ return [
                                 'concatenate' => true,
                                 'options' => [
                                     [
-                                        'title' => 'New',
-                                        'value' => 'new'
+                                        'title' => ucwords(Status::AWAITING_PAYMENT),
+                                        'value' => Status::AWAITING_PAYMENT
                                     ],
                                     [
-                                        'title' => 'Processing',
-                                        'value' => 'processing'
+                                        'title' => ucwords(Status::NEW_ORDER),
+                                        'value' => Status::NEW_ORDER
                                     ],
                                     [
-                                        'title' => 'Dispatched',
-                                        'value' => 'dispatched'
-                                    ]
+                                        'title' => ucwords(Status::DISPATCHING),
+                                        'value' => Status::DISPATCHING
+                                    ],
+                                    [
+                                        'title' => ucwords(Status::DISPATCHED),
+                                        'value' => Status::DISPATCHED
+                                    ],
+                                    [
+                                        'title' => ucwords(Status::CANCELLING),
+                                        'value' => Status::CANCELLING
+                                    ],
+                                    [
+                                        'title' => ucwords(Status::CANCELLED),
+                                        'value' => Status::CANCELLED
+                                    ],
+                                    [
+                                        'title' => ucwords(Status::REFUNDING),
+                                        'value' => Status::REFUNDING
+                                    ],
+                                    [
+                                        'title' => ucwords(Status::REFUNDED),
+                                        'value' => Status::REFUNDED
+                                    ],
                                 ],
                             ],
                         ],
@@ -253,11 +274,21 @@ return [
         ],
         'stateFilters' => [
             [
+                'name' => 'Awaiting Payment',
+                'filter' => json_encode(
+                    [
+                        'status' => [
+                            Status::AWAITING_PAYMENT
+                        ]
+                    ]
+                )
+            ],
+            [
                 'name' => 'New Orders',
                 'filter' => json_encode(
                     [
                         'status' => [
-                            'new'
+                            Status::NEW_ORDER
                         ]
                     ]
                 )
@@ -267,7 +298,9 @@ return [
                 'filter' => json_encode(
                     [
                         'status' => [
-                            'processing'
+                            Status::DISPATCHING,
+                            Status::CANCELLING,
+                            Status::REFUNDING
                         ]
                     ]
                 )
@@ -277,7 +310,18 @@ return [
                 'filter' => json_encode(
                     [
                         'status' => [
-                            'dispatched'
+                            Status::DISPATCHED
+                        ]
+                    ]
+                )
+            ],
+            [
+                'name' => 'Cancelled & Refunded',
+                'filter' => json_encode(
+                    [
+                        'status' => [
+                            Status::CANCELLED,
+                            Status::REFUNDED
                         ]
                     ]
                 )
