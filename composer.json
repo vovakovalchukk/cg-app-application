@@ -24,7 +24,7 @@
         "channelgrabber/channel": "~1.1.5",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/ebay": "~1.1.14",
-        "channelgrabber/http": "~1.2.9",
+        "channelgrabber/http": "dev-CGIV-2325-UnsupportedStoredEtag as 1.2.11",
         "channelgrabber/order": "dev-CGIV-1844-EncapsulateFiltering as 1.5.19",
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/redis": "~0.1.0",

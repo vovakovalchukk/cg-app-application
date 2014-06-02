@@ -17,6 +17,9 @@ use Orders\Order\Invoice\Renderer\ServiceInterface as InvoiceRendererService;
 use Orders\Order\Invoice\Renderer\Service\Pdf as PdfInvoiceRendererService;
 use CG\Template\Element\Page;
 use Orders\Controller\StoredFiltersController;
+use CG\Order\Client\Service as OrderClientService;
+use CG\Order\Service\Filter\StorageInterface as FilterStorageInterface;
+use CG\Order\Client\Filter\Storage\Api as FilterStorage;
 
 return [
     'router' => [
@@ -412,6 +415,7 @@ return [
             ],
             'preferences' => [
                 InvoiceRendererService::class => PdfInvoiceRendererService::class,
+                FilterStorageInterface::class => FilterStorage::class,
             ],
             TableService::class => [
                 'parameters' => [
@@ -715,6 +719,7 @@ return [
             ],
             OrderService::class => [
                 'parameters' => [
+                    'orderClient' => OrderClientService::class,
                     'orderRpcClient' => 'OrderRpcClient'
                 ],
             ],
@@ -727,6 +732,11 @@ return [
                 'parameters' => [
                     'height' => 0,
                     'width' => 0
+                ],
+            ],
+            FilterStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
                 ],
             ],
         ],
