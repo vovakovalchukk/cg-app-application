@@ -304,6 +304,10 @@
     float: left;
     clear:both;
 }
+#text-inspector-data-fields {
+    margin-top: 10px;
+}
+
 .align_buttons {
     float: left;
     clear:both;
@@ -336,7 +340,7 @@
             width: 40%;
             float: left;
             #font-inspector-font-family, #font-inspector-font-size, #border-inspector-border-width {
-                width: 100px;
+                width: 100%;
                 float: left;
             }
         }
@@ -347,16 +351,31 @@
     width: 100%!important;
     float: left;
     clear:both;
-    .sp-replacer {
-        float: left;
-        clear:both;
-    }
 }
 
-.inspector-wrapper {
+.inspector-holder {
     width: 100%;
     float: left;
     clear: both;
     border-bottom: 1px solid $color-lgrey;
     padding: 0px 15px 15px 15px;
+    .inspector-group-holder {
+        float: left;
+        clear:both;
+        .inspector-field-holder {
+            float: left;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+    }
+}
+
+.inspector-field-fontfamily {
+    width: 150px;
+    float: left;
+}
+
+.inspector-field-fontsize {
+    width: 100px;
+    float :left;
 }
