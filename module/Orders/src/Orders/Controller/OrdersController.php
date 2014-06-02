@@ -21,6 +21,8 @@ use CG\Http\Rpc\Exception as RpcException;
 use Orders\Order\FilterService as FiltersService;
 use Orders\Order\StoredFilters\Service as StoredFiltersService;
 use ArrayObject;
+use Orders\Order\PageLimit;
+use Orders\Order\OrderBy;
 
 class OrdersController extends AbstractActionController
 {
@@ -313,14 +315,12 @@ class OrdersController extends AbstractActionController
 
     protected function getPageLimit()
     {
-        $pageLimit = [
-            'page' => 1,
-            'limit' => 'all',
-        ];
+        $pageLimit = new PageLimit();
 
         if ($this->params()->fromPost('iDisplayLength') > 0) {
-            $pageLimit['limit'] = $this->params()->fromPost('iDisplayLength');
-            $pageLimit['page'] += $this->params()->fromPost('iDisplayStart') / $pageLimit['limit'];
+            $pageLimit
+                ->setLimit($this->params()->fromPost('iDisplayLength'))
+                ->setPageFromOffset($this->params()->fromPost('iDisplayStart'));
         }
 
         return $pageLimit;
@@ -328,15 +328,13 @@ class OrdersController extends AbstractActionController
 
     protected function getOrderBy()
     {
-        $orderBy = [
-            'column' => null,
-            'direction' => null,
-        ];
+        $orderBy = new OrderBy();
 
         $orderByIndex = $this->params()->fromPost('iSortCol_0');
         if ($orderByIndex) {
-            $orderBy['column'] = $this->params()->fromPost('mDataProp_' . $orderByIndex);
-            $orderBy['direction'] = strtoupper($this->params()->fromPost('sSortDir_0', 'asc'));
+            $orderBy
+                ->setColumn($this->params()->fromPost('mDataProp_' . $orderByIndex))
+                ->setDirection($this->params()->fromPost('sSortDir_0', 'asc'));
         }
 
         return $orderBy;
@@ -345,14 +343,8 @@ class OrdersController extends AbstractActionController
     public function jsonFilterAction()
     {
         $data = $this->getDefaultJsonData();
-        $pageLimit = $this->getPageLimit();
-        $orderBy = $this->getOrderBy();
 
         $filter = $this->getFilterService()->getFilter()
-            ->setLimit($pageLimit['limit'])
-            ->setPage($pageLimit['page'])
-            ->setOrderBy($orderBy['column'])
-            ->setOrderDirection($orderBy['direction'])
             ->setOrganisationUnitId($this->getOrderService()->getActiveUser()->getOuList());
 
         $requestFilter = $this->params()->fromPost('filter', []);
@@ -368,7 +360,12 @@ class OrdersController extends AbstractActionController
         try {
             $this->mergeOrderDataWithJsonData(
                 $data,
-                $this->getOrderService()->getOrdersArrayWithAccountDetails($filter, $this->getEvent())
+                $this->getOrderService()->getOrdersArrayWithAccountDetails(
+                    $filter,
+                    $this->getPageLimit(),
+                    $this->getOrderBy(),
+                    $this->getEvent()
+                )
             );
         } catch (NotFound $exception) {
             // No Orders so ignoring
@@ -380,14 +377,17 @@ class OrdersController extends AbstractActionController
     public function jsonFilterIdAction()
     {
         $data = $this->getDefaultJsonData();
-        $pageLimit = $this->getPageLimit();
-        $orderBy = $this->getOrderBy();
 
         $filterId = $this->params()->fromRoute('filterId');
         try {
             $this->mergeOrderDataWithJsonData(
                 $data,
-                $this->getOrderService()->getOrdersArrayWithAccountDetails($filterId, $this->getEvent())
+                $this->getOrderService()->getOrdersArrayWithAccountDetails(
+                    $filterId,
+                    $this->getPageLimit(),
+                    $this->getOrderBy(),
+                    $this->getEvent()
+                )
             );
         } catch (NotFound $exception) {
             // No Orders so ignoring

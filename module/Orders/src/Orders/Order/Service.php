@@ -24,6 +24,8 @@ use CG\Account\Client\Service as AccountService;
 use Zend\Mvc\MvcEvent;
 use CG\Stdlib\DateTime;
 use CG\Order\Client\Collection as FilteredCollection;
+use Orders\Order\PageLimit;
+use Orders\Order\OrderBy;
 
 class Service
 {
@@ -70,7 +72,7 @@ class Service
             ->setAccountService($accountService);
     }
 
-    public function getOrdersArrayWithAccountDetails($filter, MvcEvent $event)
+    public function getOrdersArrayWithAccountDetails($filter, PageLimit $pageLimit, OrderBy $orderBy, MvcEvent $event)
     {
         $accounts = $this->getAccountService()->fetchByOUAndStatus(
             $this->getActiveUser()->getOuList(),
@@ -81,9 +83,21 @@ class Service
         );
 
         if ($filter instanceof Filter) {
+            $filter
+                ->setPage($pageLimit->getPage())
+                ->setLimit($pageLimit->getLimit())
+                ->setOrderBy($orderBy->getColumn())
+                ->setOrderDirection($orderBy->getDirection());
+
             $orderCollection = $this->getOrders($filter);
         } else {
-            $orderCollection = $this->getOrdersFromFilterId($filter);
+            $orderCollection = $this->getOrdersFromFilterId(
+                $filter,
+                $pageLimit->getLimit(),
+                $pageLimit->getPage(),
+                $orderBy->getColumn(),
+                $orderBy->getDirection()
+            );
         }
 
         $orders = [];
@@ -211,9 +225,15 @@ class Service
         return $this->getOrderClient()->fetchCollectionByFilter($filter);
     }
 
-    public function getOrdersFromFilterId($filterId)
+    public function getOrdersFromFilterId($filterId, $limit, $page, $orderBy, $orderDirection)
     {
-        return $this->getOrderClient()->fetchCollectionByFilterId($filterId);
+        return $this->getOrderClient()->fetchCollectionByFilterId(
+            $filterId,
+            $limit,
+            $page,
+            $orderBy,
+            $orderDirection
+        );
     }
 
     public function getOrder($orderId)
