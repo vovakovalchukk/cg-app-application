@@ -128,10 +128,10 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
     {
         var json = JSON.parse(JSON.stringify(ElementAbstract.prototype.toJson.call(this)));
         if (json.padding) {
-            json.padding = json.padding.mmToPt();
+            json.padding = Number(json.padding).mmToPt();
         }
         if (json.lineHeight) {
-            json.lineHeight = json.lineHeight.mmToPt();
+            json.lineHeight = Number(json.lineHeight).mmToPt(); 
         }
         return json;
     };

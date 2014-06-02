@@ -206,11 +206,11 @@ define([
     ElementAbstract.prototype.toJson = function()
     {
         var json = JSON.parse(JSON.stringify(this.getData()));
-        json.x = json.x.mmToPt();
-        json.y = json.y.mmToPt();
-        json.height = json.height.mmToPt();
-        json.width = json.width.mmToPt();
-        json.borderWidth = (json.borderWidth ? json.borderWidth.mmToPt() : json.borderWidth);
+        json.x = Number(json.x).mmToPt();
+        json.y = Number(json.y).mmToPt();
+        json.height = Number(json.height).mmToPt();
+        json.width = Number(json.width).mmToPt();
+        json.borderWidth = (json.borderWidth ? Number(json.borderWidth).mmToPt() : json.borderWidth); 
         return json;
     };
 
