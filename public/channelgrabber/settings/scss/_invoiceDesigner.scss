@@ -1,0 +1,272 @@
+.invoice-template {
+    margin-left: 50px;
+    margin-right: 250px;
+    .invoice-template-container {
+        overflow-x: auto;
+    }
+}
+
+.template-element-wrapper{
+    position: absolute;
+    float: left;
+    box-sizing:border-box;
+    padding: 2px;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 2px;
+}
+
+.template-element-wrapper.active{
+    @extend .template-element-wrapper;
+    border-color: $color-lblue;
+
+    .ui-resizable-handle {
+        @extend .template-element-wrapper.active;
+        width: 5px;
+        height: 5px;
+        background-color: $color-white;
+    }
+
+    .ui-resizable-ne {
+        top:-6px; right:-6px;
+        cursor: ne-resize;
+    }
+    .ui-resizable-se {
+        bottom:-6px; right:-6px;
+        cursor: se-resize;
+    }
+    .ui-resizable-nw {
+        top:-6px; left:-6px;
+        cursor: nw-resize;
+    }
+    .ui-resizable-sw {
+        bottom:-6px; left:-6px;
+        cursor: sw-resize;
+    }
+    .ui-resizable-n {
+        top:-6px;
+        left:50%; margin-left:-6px;
+        cursor: ns-resize;
+    }
+    .ui-resizable-e {
+        right:-6px;
+        top:50%; margin-top:-6px;
+        cursor: ew-resize;
+    }
+    .ui-resizable-s {
+        bottom:-6px;
+        left:50%; margin-left:-6px;
+        cursor: ns-resize;
+    }
+    .ui-resizable-w {
+        left:-6px;
+        top:50%; margin-top:-6px;
+        cursor: ew-resize;
+    }
+}
+
+.template-element{
+    cursor: move;
+    box-sizing: border-box;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select:none;
+    user-select:none;
+}
+
+.template-paperpage{
+    box-sizing: border-box;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid $color-black;
+    background-size: cover;
+    background-repeat:  no-repeat;
+    background-position: left top;
+}
+
+.template-element-ordertable{
+    border: dashed 2px $color-black;
+
+    table{
+        border: none;
+        background: $color-white;
+        float: none;
+        margin: 0;
+
+        tr{
+            border: none;
+            background: inherit;
+        }
+
+        td{
+            border: none;
+            background: inherit;
+            color: black;
+            padding: 3px;
+            text-align: left;
+        }
+
+        th{
+            @extend td;
+            font-weight: bold
+        }
+    }
+}
+
+.template-element-ordertable-totals{
+    float: right;
+
+    table{
+        td{
+            min-width: 90px;
+        }
+
+        th{
+            @extend td;
+        }
+    }
+}
+
+.template-element-text, .template-element-selleraddress, .template-element-deliveryaddress{
+    .style-tag-b{
+        font-weight: bold;
+    }
+
+    .style-tag-i{
+        font-style: italic;
+    }
+
+    .style-tag-bi{
+        @extend .style-tag-b;
+        @extend .style-tag-i;
+    }
+}
+
+.addInvoiceElement {
+    display:none;
+    div.button {
+        width:75px !important;
+        display: inline-block;
+        min-width:initial;
+        vertical-align: top;
+        float: left;
+        margin: 5px 0px 5px 0px;
+    }
+    div.button:nth-child(odd) {
+        margin-left: 10px;
+    }
+}
+.template-element-image{
+    background-color: $color-lgrey;
+    border: solid 1px $color-mgrey;
+
+    img{
+        width: 100%;
+        height: 100%;
+    }
+
+    .placeholder{
+        margin-top: 50%;
+        text-align: center;
+
+        input[type=file]{
+            display: none;
+        }
+
+        input[type=button]{
+            margin: auto;
+        }
+    }
+}
+
+#main-wrapper {
+    padding: 0px !important;
+}
+
+.template-module {
+    width: auto;
+    min-width: 208px;
+    display: none;
+    float: left;
+    clear: both;
+    padding: 20px;
+    border-bottom: 1px solid $color-lgrey;
+    .element {
+        clear: both;
+    }
+    .heading-small {
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+}
+
+.invoice-select-create {
+    display: block;
+    padding:20px 20px 10px 20px;
+    height:80px;
+    .button {
+        float:left;
+    }
+}
+
+.positioning-square {
+    width:110px;
+    float:left;
+}
+
+.positioning-input {
+    width: 60px;
+    display: block;
+}
+#template-selector{
+    width: 100%;
+    min-width: 100%;
+    float: left;
+    clear:both;
+    margin-bottom: 8px;
+}
+#paper-type-dropdown {
+    width: 100%;
+    min-width: 100%;
+    float: left;
+    clear:both;
+    margin-bottom: 8px;
+}
+.med-element {
+    width: 100%;
+    float: left;
+    clear:both;
+}
+.template-new-btn {
+    width: auto;
+    float: left;
+    clear:both;
+}
+.template-dup-btn {
+    width: auto;
+    float: right;
+}
+.pdf-btn {
+    width: 100%;
+    float: left;
+    clear:both;
+}
+.template-inputbox-holder {
+    width: 94%;
+    float: left;
+    clear:both;
+}
+.paper-type-checkbox {
+    width: 100%;
+    float: left;
+    clear:both;
+    margin-bottom: 7px;
+    .std-checkbox {
+        left: -10px;
+    }
+    .checkbox_label {
+        top: 7px;
+        left: 35px;
+    }
+}

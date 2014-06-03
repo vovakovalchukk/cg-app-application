@@ -30,7 +30,7 @@
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/sso": "~1.1.2",
         "channelgrabber/stdlib": "~2.5.16",
-        "channelgrabber/template": "~1.0.0",
+        "channelgrabber/template": "~1.2.4",
         "channelgrabber/user": "~1.13.15",
         "channelgrabber/userpreference": "~1.0.4",
         "channelgrabber/zf2-amazon": "~1.0.0",
@@ -45,7 +45,6 @@
         "channelgrabber/zf2-ssoclient": "~1.2.4",
         "channelgrabber/zf2-stdlib": "~1.1.9",
         "channelgrabber/zf2-v4-ui": "dev-CGIV-1845-DataTableAdditionalEvents as 1.7.7",
-        "davedevelopment/phpmig": "0.4",
         "guzzle/guzzle": "~3.7",
         "nocarrier/hal": "~0.9.3",
         "php": ">=5.3.3",
@@ -63,13 +62,17 @@
             "composer -o dump-autoload",
             "php vendor/zendframework/zendframework/bin/classmap_generator.php -l module -o config/di/modules_classmap.php --overwrite",
             "php bin/update_di_components.php",
-            "php -d memory_limit=-1M bin/compile_di.php"
+            "php -d memory_limit=512M bin/compile_di.php",
+            "compass compile vendor/channelgrabber/zf2-v4-ui",
+            "compass compile public/channelgrabber/settings"
         ],
         "post-update-cmd": [
             "composer -o dump-autoload",
             "php vendor/zendframework/zendframework/bin/classmap_generator.php -l module -o config/di/modules_classmap.php --overwrite",
             "php bin/update_di_components.php",
-            "php -d memory_limit=-1M bin/compile_di.php"
+            "php -d memory_limit=512M bin/compile_di.php",
+            "compass compile vendor/channelgrabber/zf2-v4-ui",
+            "compass compile public/channelgrabber/settings"
         ]
     }
 }

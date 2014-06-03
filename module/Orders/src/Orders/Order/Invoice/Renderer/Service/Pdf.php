@@ -80,10 +80,11 @@ class Pdf implements ServiceInterface
             Document::class,
             [
                 'document' => $this->getDi()->newInstance(PdfDocument::class),
-                'page' => $this->getDi()->newInstance(Page::class)
+                'height' => $orderTemplate->getPaperPage()->getHeight(),
+                'width' => $orderTemplate->getPaperPage()->getWidth()
             ]
         );
-        $orderTemplate->expandPage($document->getPaperPage());
+
         $this->getTagReplacer()->render($orderTemplate, $order);
         return $this->getRenderer()->render($orderTemplate, $document);
     }

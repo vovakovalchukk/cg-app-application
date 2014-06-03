@@ -15,7 +15,6 @@ use Orders\Order\Service as OrderService;
 use CG\Http\Rpc\Json\Client as JsonRpcClient;
 use Orders\Order\Invoice\Renderer\ServiceInterface as InvoiceRendererService;
 use Orders\Order\Invoice\Renderer\Service\Pdf as PdfInvoiceRendererService;
-use CG\Template\Element\Page;
 use Orders\Controller\StoredFiltersController;
 use CG\Order\Client\Service as OrderClientService;
 use CG\Order\Service\Filter\StorageInterface as FilterStorageInterface;
@@ -283,6 +282,19 @@ return [
                                 'controller' => 'Orders\Controller\Invoice',
                                 'action' => 'generate'
                             ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            'invoice_demo' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/preview',
+                                    'defaults' => [
+                                        'controller' => 'Orders\Controller\Invoice',
+                                        'action' => 'generatePreview'
+                                    ]
+                                ],
+                            ],
                         ]
                     ],
                     StoredFiltersController::ROUTE_SAVE => [
@@ -348,16 +360,6 @@ return [
             'Mustache\View\Strategy'
         ],
     ],
-    'translator' => array(
-        'locale' => 'en_US',
-        'translation_file_patterns' => array(
-            array(
-                'type'     => 'gettext',
-                'base_dir' => __DIR__ . '/../language',
-                'pattern'  => '%s.mo',
-            ),
-        ),
-    ),
     'di' => [
         'definition' => [
             'class' => [
