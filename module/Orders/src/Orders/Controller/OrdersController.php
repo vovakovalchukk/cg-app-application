@@ -301,6 +301,7 @@ class OrdersController extends AbstractActionController
                 'iTotalDisplayRecords' => 0,
                 'sEcho' => (int) $this->params()->fromPost('sEcho'),
                 'Records' => [],
+                'iFilterId' => null,
             ]
         );
     }
