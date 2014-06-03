@@ -27,7 +27,7 @@ datatable.on("fnServerData", function(event, sSource, aoData, fnCallback, oSetti
     aoData.push({"name": "filter[batch]", "value": $('#hidden_batch_filter').val()});
 });
 
-$("#datatable").on("jqXHRBeforeSend", function(event, request, settings) {
+datatable.on("jqXHRBeforeSend", function(event, request, settings) {
     var filterId = datatable.data("filterId");
     if (filterId) {
         settings.url += "/" + filterId;
