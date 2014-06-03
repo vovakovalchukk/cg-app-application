@@ -93,21 +93,25 @@ require(
     ?>
     <?= $this->form()->openTag($detailsForm) ?>
         <?= $this->formHidden($detailsForm->get('csrf')); ?>
-        <label>
-            <span class="inputbox-label">Display Name:</span>
-            <div class="order-inputbox-holder">
-                <?= $this->formText($detailsForm->get('displayName')); ?>
-            </div>
-        </label>
-        <label>
-            <span class="inputbox-label">Trading Company:</span>
-            <abbr class="required">*</abbr>
-            <?= $this->formHidden($detailsForm->get('organisationUnitId')); ?>
-            <div class="input"><?= $tradingCompanySelect; ?></div>
-        </label>
-        <label>
-            <?= $this->formButton($detailsForm->get('save')); ?>
-            <span class="loading">Saving</span>
-        </label>
+        <div class="half">
+            <label>
+                <span class="inputbox-label">Display Name:</span>
+                <div class="order-inputbox-holder">
+                    <?= $this->formText($detailsForm->get('displayName')); ?>
+                </div>
+            </label>
+            <label>
+                <span class="inputbox-label">Trading Company:</span>
+                <abbr class="required">*</abbr>
+                <?= $this->formHidden($detailsForm->get('organisationUnitId')); ?>
+                <div class="order-inputbox-holder">
+                    <div class="input"><?= $tradingCompanySelect; ?></div>
+                </div>
+            </label>
+            <label>
+                <?= $this->formButton($detailsForm->get('save')); ?>
+                <span class="loading">Saving</span>
+            </label>
+        </div>
     <?= $this->form()->closeTag(); ?>
 </div>
