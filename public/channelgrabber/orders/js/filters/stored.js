@@ -1,6 +1,6 @@
 define(
-    ['filters', 'popup/mustache', 'cg-mustache', 'filterCollection'],
-    function(Filters, Popup, CGMustache, FilterCollection) {
+    ['filters', 'popup/mustache', 'cg-mustache', 'Filters/FilterCollection', 'element/ElementCollection'],
+    function(Filters, Popup, CGMustache, filterCollection, elementCollection) {
         var StoredFilters = function(notifications, filters, filterList) {
             Filters.call(this, filters, filterList);
 
@@ -59,7 +59,7 @@ define(
                 if (!name.length) {
                     return;
                 }
-                this.saveFilter.call(this, name, popup.getElement().data("filter"));
+                this.saveFilter.call(this, name);
                 popup.hide();
             };
 
@@ -75,25 +75,31 @@ define(
             });
         };
 
-        StoredFilters.prototype.getCurrentFilter = function()
+        StoredFilters.prototype.getCurrentFilterValues = function()
         {
-            return FilterCollection.getCollectionValues();
+            var collectionValues = {};
+            for (var filterName in filterCollection.getFilters()) {
+                var filter = elementCollection.get(filterName);
+                if (filter) {
+                    collectionValues[filterName] = filter.getValue();
+                }
+            }
+            return collectionValues;
         };
 
         StoredFilters.prototype.saveCurrentFilter = function()
         {
-            this.getPopup().getElement().data("filter", this.getCurrentFilter());
             this.getPopup().show();
         };
 
-        StoredFilters.prototype.saveFilter = function(name, filter) {
+        StoredFilters.prototype.saveFilter = function(name) {
             this.getNotifications().notice("Saving Filter");
-
+            var filters = JSON.stringify(this.getCurrentFilterValues());
             var listElement = $();
             CGMustache.get().fetchTemplate(this.getFilterList().data("template"), function(template, cgmustache) {
                 listElement = $(cgmustache.renderTemplate(template, {
                     name: name,
-                    filter: JSON.stringify(filter)
+                    filter: filters
                 }));
             });
 
@@ -104,7 +110,7 @@ define(
                 dataType: "json",
                 data: {
                     name: name,
-                    filter: filter
+                    filter: filters
                 },
                 success: function(data) {
                     self.handleAjaxSuccess.call(self, data, listElement);
