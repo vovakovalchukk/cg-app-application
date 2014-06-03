@@ -320,6 +320,10 @@ class OrdersController extends AbstractActionController
         }
 
         $requestFilter = $this->params()->fromPost('filter', []);
+        if (! isset($requestFilter['archived'])) {
+            $requestFilter['archived'] = false;
+        }
+
         if (!empty($requestFilter)) {
             $filter = $this->getFilterService()->mergeFilters(
                 $filter,
