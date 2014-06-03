@@ -15,6 +15,16 @@ $("#datatable").on("fnServerData", function(event, sSource, aoData, fnCallback, 
     aoData.push({"name": "filter[batch]", "value": $('#hidden_batch_filter').val()});
 });
 
+$("#datatable").on("fnDrawCallback", function(event, oSettings) {
+    oSettings.jqXHR.done(function(data, status, request) {
+        if (!data.sFilterId) {
+            return;
+        }
+
+        $(event.target).data("filterId", data.sFilterId);
+    });
+});
+
 $("#datatable").on("fnRowCallback", function(event, nRow, aData, iDisplayIndex, iDisplayIndexFull) {
     $("a.title", nRow).cgPjax();
 });
