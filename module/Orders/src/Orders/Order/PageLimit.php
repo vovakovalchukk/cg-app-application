@@ -30,6 +30,6 @@ class PageLimit
 
     public function setPageFromOffset($offset)
     {
-        $this->page = ceil($offset / $this->getLimit());
+        $this->page = floor($offset / $this->getLimit()) + 1;
     }
 } 
