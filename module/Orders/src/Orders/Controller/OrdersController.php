@@ -23,9 +23,13 @@ use Orders\Order\StoredFilters\Service as StoredFiltersService;
 use ArrayObject;
 use Orders\Order\PageLimit;
 use Orders\Order\OrderBy;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 
-class OrdersController extends AbstractActionController
+class OrdersController extends AbstractActionController implements LoggerAwareInterface
 {
+    use LogTrait;
+
     protected $orderService;
     protected $filterService;
     protected $timelineService;
@@ -380,6 +384,11 @@ class OrdersController extends AbstractActionController
         $data = $this->getDefaultJsonData();
 
         $filterId = $this->params()->fromRoute('filterId');
+
+        ob_start();
+        var_dump($filterId);
+        $this->log('Requested Order Filter Id ' . trim(ob_get_clean()), 0, 'debug', __NAMESPACE__);
+
         try {
             $this->mergeOrderDataWithJsonData(
                 $data,
