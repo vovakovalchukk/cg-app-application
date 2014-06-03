@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "7256670c7be32c91c150bbc79809eaab",
+    "hash": "04aead0611f1ef7478344b7075dfabc7",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -1181,17 +1181,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.7.4",
+            "version": "dev-CGIV-1845-DataTableAdditionalEvents",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "9eb2ce16e20c6012f782690ef29b7705e4f50a67"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.7.4-e5d5dd.zip",
-                "reference": "9eb2ce16e20c6012f782690ef29b7705e4f50a67",
-                "shasum": "634408bd556aa8ab4e54bb8245af0248721b1e64"
+                "reference": "d193a73093bba1abf3da34d84733d84a4e638243"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1219,7 +1213,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-05-30 07:44:17"
+            "time": "2014-06-03 10:27:22"
         },
         {
             "name": "cilex/cilex",
@@ -3889,6 +3883,12 @@
             "alias_normalized": "1.5.19.0",
             "version": "dev-CGIV-1844-EncapsulateFiltering",
             "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.7.7",
+            "alias_normalized": "1.7.7.0",
+            "version": "dev-CGIV-1845-DataTableAdditionalEvents",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
@@ -3896,6 +3896,7 @@
         "channelgrabber/constants": 20,
         "channelgrabber/http": 20,
         "channelgrabber/order": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },
