@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "f7d896de538a99277d997313c9cc77fb",
+    "hash": "29299de13edfed4fcab3ff74806e3e95",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -1212,11 +1212,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-1845-DataTableAdditionalEvents",
+            "version": "dev-CGIV-1846-DataTableCheckAll",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "6462258a68140e2cce8ff8adde489d1e3c445209"
+                "reference": "b8a069436561ba56cb96c14f72e2b7e1ba0f5694"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1244,7 +1244,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-06-03 14:20:17"
+            "time": "2014-06-03 14:58:18"
         },
         {
             "name": "cilex/cilex",
@@ -3706,9 +3706,9 @@
             "package": "channelgrabber/order"
         },
         {
-            "alias": "1.7.7",
-            "alias_normalized": "1.7.7.0",
-            "version": "dev-CGIV-1845-DataTableAdditionalEvents",
+            "alias": "1.7.8",
+            "alias_normalized": "1.7.8.0",
+            "version": "dev-CGIV-1846-DataTableCheckAll",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
