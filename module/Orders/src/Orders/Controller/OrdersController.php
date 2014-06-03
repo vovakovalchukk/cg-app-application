@@ -301,7 +301,7 @@ class OrdersController extends AbstractActionController
                 'iTotalDisplayRecords' => 0,
                 'sEcho' => (int) $this->params()->fromPost('sEcho'),
                 'Records' => [],
-                'iFilterId' => null,
+                'sFilterId' => null,
             ]
         );
     }
@@ -310,7 +310,7 @@ class OrdersController extends AbstractActionController
     {
         $json['Records'] = $orderData['orders'];
         $json['iTotalRecords'] = $json['iTotalDisplayRecords'] = $orderData['orderTotal'];
-        $json['iFilterId'] = $orderData['filterId'];
+        $json['sFilterId'] = $orderData['filterId'];
         return $this;
     }
 
