@@ -72,7 +72,7 @@ class Service
             ->setAccountService($accountService);
     }
 
-    public function getOrdersArrayWithAccountDetails($filter, \CG\Stlib\PageLimit $pageLimit, \CG\Stdlib\OrderBy $orderBy, MvcEvent $event)
+    public function getOrdersArrayWithAccountDetails($filter, PageLimit $pageLimit, OrderBy $orderBy, MvcEvent $event)
     {
         $accounts = $this->getAccountService()->fetchByOUAndStatus(
             $this->getActiveUser()->getOuList(),
