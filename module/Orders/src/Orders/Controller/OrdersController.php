@@ -407,10 +407,7 @@ class OrdersController extends AbstractActionController
                 $this->params()->fromPost('type')
             );
         } catch (RpcException $exception) {
-            return $response->setVariable(
-                'error',
-                'Failed to mark the order for cancellation'
-            );
+            throw new \Exception('Failed to mark the order for cancellation', 0, $exception);
         }
 
         return $response->setVariable('cancelling', true);
