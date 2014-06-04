@@ -1,9 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
-    "hash": "8080f2d61fd005a52a6f822ebeedc9b4",
+    "hash": "b6d596e60af685eb7b834dde02493fb6",
     "packages": [
         {
             "name": "channelgrabber/account",
