@@ -75,4 +75,16 @@ class FilterService
             $this->getFilterConfig('orders')
         );
     }
+
+    public function getFilterNames()
+    {
+        $names = [];
+        $filters = $this->getConfig()["orders"]["rows"];
+        foreach (array_merge($filters[0]["filters"], $filters[1]["filters"]) as $filter) {
+            if (isset($filter['variables']['name'])) {
+                $names[]  = $filter['variables']['name'];
+            }
+        }
+        return $names;
+    }
 }
