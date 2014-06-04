@@ -348,9 +348,15 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     public function jsonFilterAction()
     {
         $data = $this->getDefaultJsonData();
+        $pageLimit = $this->getPageLimit();
+        $orderBy = $this->getOrderBy();
 
         $filter = $this->getFilterService()->getFilter()
-            ->setOrganisationUnitId($this->getOrderService()->getActiveUser()->getOuList());
+            ->setOrganisationUnitId($this->getOrderService()->getActiveUser()->getOuList())
+            ->setPage($pageLimit->getPage())
+            ->setLimit($pageLimit->getLimit())
+            ->setOrderBy($orderBy->getColumn())
+            ->setOrderDirection($orderBy->getDirection());
 
         $requestFilter = $this->params()->fromPost('filter', []);
         if (!empty($requestFilter)) {
@@ -363,14 +369,10 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $this->getFilterService()->setPersistentFilter($filter);
 
         try {
+            $orders = $this->getOrderService()->getOrders($filter);
             $this->mergeOrderDataWithJsonData(
                 $data,
-                $this->getOrderService()->getOrdersArrayWithAccountDetails(
-                    $filter,
-                    $this->getPageLimit(),
-                    $this->getOrderBy(),
-                    $this->getEvent()
-                )
+                $this->getOrderService()->getOrdersArrayWithAccountDetails($orders, $this->getEvent())
             );
         } catch (NotFound $exception) {
             // No Orders so ignoring
@@ -382,6 +384,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     public function jsonFilterIdAction()
     {
         $data = $this->getDefaultJsonData();
+        $pageLimit = $this->getPageLimit();
+        $orderBy = $this->getOrderBy();
 
         $filterId = $this->params()->fromRoute('filterId');
 
@@ -390,14 +394,17 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $this->log('Requested Order Filter Id ' . trim(ob_get_clean()), 0, 'debug', __NAMESPACE__);
 
         try {
+            $orders = $this->getOrderService()->getOrdersFromFilterId(
+                $filterId,
+                $pageLimit->getLimit(),
+                $pageLimit->getPage(),
+                $orderBy->getColumn(),
+                $orderBy->getDirection()
+            );
+
             $this->mergeOrderDataWithJsonData(
                 $data,
-                $this->getOrderService()->getOrdersArrayWithAccountDetails(
-                    $filterId,
-                    $this->getPageLimit(),
-                    $this->getOrderBy(),
-                    $this->getEvent()
-                )
+                $this->getOrderService()->getOrdersArrayWithAccountDetails($orders, $this->getEvent())
             );
         } catch (NotFound $exception) {
             // No Orders so ignoring
