@@ -9,7 +9,11 @@ define(function() {
             var orders = $(this).data("orders");
 
             if (!orders && datatable) {
-                orders = $("#" + datatable).cgDataTable("selected", ".order-id");
+                if ($("#" + datatable + "-select-all").is(":checked")) {
+                    orders = $("#" + datatable).data("filterId");
+                } else {
+                    orders = $("#" + datatable).cgDataTable("selected", ".order-id");
+                }
             }
 
             if (!orders.length) {
