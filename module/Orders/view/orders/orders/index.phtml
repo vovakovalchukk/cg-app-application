@@ -30,6 +30,21 @@ function(Preference, SlideableSidebar, OrderPage) {
     var slideableSidebar = new SlideableSidebar();
     var orderPage = new OrderPage(preference, slideableSidebar);
 });
+require.config({
+    paths: {
+        'Filters': "<?= $this->basePath() . Orders\Module::PUBLIC_FOLDER . 'js';?>"
+    }
+});
+require(["Filters/FilterCollection"], function(filterCollection) {
+    var filterNames = {
+<?php
+    foreach ($filterNames as $index => $filterName) {
+        echo $filterName . ": '" . $filterName . "', ";
+    }
+?>
+    };
+    filterCollection.setFilters(filterNames);
+});
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
