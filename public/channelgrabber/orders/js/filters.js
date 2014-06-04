@@ -17,10 +17,12 @@ define(['element/moreButton'], function(MoreButton) {
         this.applyFilterValues = function(filterName, filterOptions)
         {
             var self = this;
-            require(['filterCollection'], function(FilterCollection) {
-                var filterObject = FilterCollection.get(filterName);
-                if (filterObject != undefined) {
-                    filterObject.setValue(filterOptions);
+            require(['element/customSelect'], function(CustomSelect)
+            {
+                var element = $('.custom-select[data-element-name="'+ filterName +'"]');
+                var customSelect = new CustomSelect(element);
+                for (key in filterOptions) {
+                    customSelect.setValue(filterOptions[key]);
                 }
                 Filters.pendingFilters--;
                 self.updateFilters();
@@ -84,7 +86,6 @@ define(['element/moreButton'], function(MoreButton) {
     Filters.prototype.activateFilter = function(listElement) 
     {
         var filters = $(listElement).data("filter");
-
         this.clearFilters();
         this.getFilters().trigger("reset");
         
@@ -92,7 +93,6 @@ define(['element/moreButton'], function(MoreButton) {
 
         for (var filterName in filters) {
             var filterOptions = filters[filterName];
-            
             var filter = this.getFilters().find(".more label[data-filter-name=" + filterName + "]");
             
             if (filter.length != 0) {
