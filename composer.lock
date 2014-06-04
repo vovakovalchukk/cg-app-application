@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "268b2a47418864b1ef8b2512a7bcd6ce",
+    "hash": "388ce51f2a523e33d0238b52018c5383",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -589,17 +589,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.2.4",
+            "version": "1.2.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "222adfebb87e3c3909dc5dcf585f04992b3b84c2"
+                "reference": "e9bf29927bc9b9e00d0caa13c43ddfce2fcb611d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.4-fc1e7e.zip",
-                "reference": "222adfebb87e3c3909dc5dcf585f04992b3b84c2",
-                "shasum": "3e1e69240e3cbec3e1b51a04f7ea17177b59aef3"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.5-2d69b5.zip",
+                "reference": "e9bf29927bc9b9e00d0caa13c43ddfce2fcb611d",
+                "shasum": "efa0b8c2ac782b8b269be7fe243840add2fe8f3d"
             },
             "require": {
                 "channelgrabber/account": "~1.0",
@@ -622,7 +622,7 @@
                     "CG\\Template\\": ""
                 }
             },
-            "time": "2014-06-02 10:46:42"
+            "time": "2014-06-04 07:28:33"
         },
         {
             "name": "channelgrabber/user",
@@ -1210,7 +1210,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "6462258a68140e2cce8ff8adde489d1e3c445209"
+                "reference": "d4ee2971361eaae6c60e366c9c9934b532f91771"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1238,7 +1238,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-06-03 14:20:17"
+            "time": "2014-06-04 13:45:56"
         },
         {
             "name": "cilex/cilex",
@@ -3706,8 +3706,8 @@
             "package": "channelgrabber/stdlib"
         },
         {
-            "alias": "1.7.7",
-            "alias_normalized": "1.7.7.0",
+            "alias": "1.7.8",
+            "alias_normalized": "1.7.8.0",
             "version": "dev-CGIV-1845-DataTableAdditionalEvents",
             "package": "channelgrabber/zf2-v4-ui"
         }
