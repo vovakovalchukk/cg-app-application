@@ -21,8 +21,8 @@ use CG\Http\Rpc\Exception as RpcException;
 use Orders\Order\FilterService as FiltersService;
 use Orders\Order\StoredFilters\Service as StoredFiltersService;
 use ArrayObject;
-use Orders\Order\PageLimit;
-use Orders\Order\OrderBy;
+use CG\Stdlib\PageLimit;
+use CG\Stdlib\OrderBy;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 

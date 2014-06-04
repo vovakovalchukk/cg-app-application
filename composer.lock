@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "f7d896de538a99277d997313c9cc77fb",
+    "hash": "268b2a47418864b1ef8b2512a7bcd6ce",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -564,17 +564,11 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.5.21",
+            "version": "dev-CGIV-1845-ValueObjects",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "7d886af51556ed7ae8a8f946739dc5b1749c1dda"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.5.21-d50f14.zip",
-                "reference": "7d886af51556ed7ae8a8f946739dc5b1749c1dda",
-                "shasum": "5638fd1001ffce1d1203b47867157a9909d35ec1"
+                "reference": "71562abd44e8726c36cfd3f9d4e6cb7ca80b0b50"
             },
             "require": {
                 "zendframework/zend-db": "2.2.*"
@@ -591,7 +585,7 @@
                     "CG/Stdlib/Utilities.php"
                 ]
             },
-            "time": "2014-05-30 14:52:27"
+            "time": "2014-06-04 11:26:07"
         },
         {
             "name": "channelgrabber/template",
@@ -3706,6 +3700,12 @@
             "package": "channelgrabber/order"
         },
         {
+            "alias": "2.5.22",
+            "alias_normalized": "2.5.22.0",
+            "version": "dev-CGIV-1845-ValueObjects",
+            "package": "channelgrabber/stdlib"
+        },
+        {
             "alias": "1.7.7",
             "alias_normalized": "1.7.7.0",
             "version": "dev-CGIV-1845-DataTableAdditionalEvents",
@@ -3716,6 +3716,7 @@
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/order": 20,
+        "channelgrabber/stdlib": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20

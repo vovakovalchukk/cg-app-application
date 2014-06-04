@@ -24,8 +24,8 @@ use CG\Account\Client\Service as AccountService;
 use Zend\Mvc\MvcEvent;
 use CG\Stdlib\DateTime;
 use CG\Order\Client\Collection as FilteredCollection;
-use Orders\Order\PageLimit;
-use Orders\Order\OrderBy;
+use CG\Stdlib\PageLimit;
+use CG\Stdlib\OrderBy;
 
 class Service
 {
@@ -72,7 +72,7 @@ class Service
             ->setAccountService($accountService);
     }
 
-    public function getOrdersArrayWithAccountDetails($filter, PageLimit $pageLimit, OrderBy $orderBy, MvcEvent $event)
+    public function getOrdersArrayWithAccountDetails($filter, \CG\Stlib\PageLimit $pageLimit, \CG\Stdlib\OrderBy $orderBy, MvcEvent $event)
     {
         $accounts = $this->getAccountService()->fetchByOUAndStatus(
             $this->getActiveUser()->getOuList(),
