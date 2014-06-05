@@ -97,7 +97,7 @@ class StoredFiltersController extends AbstractActionController
         if ($action == 'removed') {
             $this->getService()->removeStoredFilter($userPreference, $name);
         } else {
-            $filter = $this->params()->fromPost('filter', []);
+            $filter = json_decode($this->params()->fromPost('filter', []), true);
             $this->getService()->addStoredFilter($userPreference, $name, $filter);
         }
         $this->getOrderService()->getUserPreferenceService()->save($userPreference);
