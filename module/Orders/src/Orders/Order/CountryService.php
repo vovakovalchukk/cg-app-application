@@ -17,7 +17,7 @@ class CountryService implements SelectOptionsInterface
     public function getSelectOptions()
     {
         try {
-            return array_flip($this->getActiveUserCurrencies());
+            return $this->getActiveUserCurrencies();
         } catch (NotFound $e) {
             return [];
         }
