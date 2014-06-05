@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e2db2ed4abe18843e991dd1973fdebac",
+    "hash": "4cac1727bf8e5a3802f9f906d4a2e21d",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -567,17 +567,17 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.5.21",
+            "version": "2.5.22",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "7d886af51556ed7ae8a8f946739dc5b1749c1dda"
+                "reference": "31cb9f665f549af6639d522b1fbf6447c2a0e833"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.5.21-d50f14.zip",
-                "reference": "7d886af51556ed7ae8a8f946739dc5b1749c1dda",
-                "shasum": "5638fd1001ffce1d1203b47867157a9909d35ec1"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.5.22-bdb63d.zip",
+                "reference": "31cb9f665f549af6639d522b1fbf6447c2a0e833",
+                "shasum": "2756fe0e9fca635c3f0210760385b97d25484af0"
             },
             "require": {
                 "zendframework/zend-db": "2.2.*"
@@ -594,7 +594,7 @@
                     "CG/Stdlib/Utilities.php"
                 ]
             },
-            "time": "2014-05-30 14:52:27"
+            "time": "2014-06-05 10:01:42"
         },
         {
             "name": "channelgrabber/template",
@@ -635,17 +635,17 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.13.15",
+            "version": "1.13.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "15bcf84284071e318ed1ccd608586ad701a011b7"
+                "reference": "8f840209ffbaec74dd3ea8515209cfc6fc58426b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.13.15-21889e.zip",
-                "reference": "15bcf84284071e318ed1ccd608586ad701a011b7",
-                "shasum": "da42fd104e3dc2c007cbf28c6af2a0c369acafb5"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.13.16-b1ab9e.zip",
+                "reference": "8f840209ffbaec74dd3ea8515209cfc6fc58426b",
+                "shasum": "14ced8649f43831c3260ca11390481bfa7a9477e"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.8",
@@ -673,7 +673,7 @@
                     "CG": ""
                 }
             },
-            "time": "2014-05-07 16:15:01"
+            "time": "2014-06-05 09:52:49"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -704,21 +704,21 @@
         },
         {
             "name": "channelgrabber/validation",
-            "version": "1.2.2",
+            "version": "1.2.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-validation.git",
-                "reference": "9de6c593ac2c77bee47306edaffc1545db4ff8f4"
+                "reference": "7db9ac03b08602ac76a1f1b389ce0dc39cd3fef0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-validation-1.2.2-a4057e.zip",
-                "reference": "9de6c593ac2c77bee47306edaffc1545db4ff8f4",
-                "shasum": "8d0bbd3c5167ba3636fe07c7aabc0dfe30320a3a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-validation-1.2.2.1-a39915.zip",
+                "reference": "7db9ac03b08602ac76a1f1b389ce0dc39cd3fef0",
+                "shasum": "f227e2413c58cda730a4b1fc7278ec1905adc883"
             },
             "require": {
-                "zendframework/zend-inputfilter": "~2.2.4",
-                "zendframework/zend-validator": "~2.2.4"
+                "zendframework/zend-inputfilter": ">=2.2.4,<3.0",
+                "zendframework/zend-validator": ">=2.2.4,<3.0"
             },
             "type": "library",
             "autoload": {
@@ -726,7 +726,7 @@
                     "CG\\Validation\\": ""
                 }
             },
-            "time": "2014-05-21 14:51:36"
+            "time": "2014-06-05 09:59:18"
         },
         {
             "name": "channelgrabber/vnderror",

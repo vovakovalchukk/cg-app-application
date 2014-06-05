@@ -31,7 +31,7 @@
         "channelgrabber/sso": "~1.1.2",
         "channelgrabber/stdlib": "~2.5.16",
         "channelgrabber/template": "~1.2.5",
-        "channelgrabber/user": "~1.13.15",
+        "channelgrabber/user": "~1.13.16",
         "channelgrabber/userpreference": "~1.0.4",
         "channelgrabber/zf2-amazon": "~1.0.0",
         "channelgrabber/zf2-ebay": "~1.0.0",
