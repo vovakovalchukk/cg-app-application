@@ -92,15 +92,10 @@ define(function() {
                     'orders': orders
                 },
                 success : function(data) {
-                    if (data.tagged) {
-                        return notifications.success("Tagged Successfully");
-                    } else if (!data.error) {
-                        return notifications.error("Failed to apply Tag");
-                    }
-                    notifications.error(data.error);
+                    return notifications.success("Tagged Successfully");
                 },
-                error: function() {
-                    notifications.error("Network Error");
+                error: function(error, textStatus, errorThrown) {
+                    return notifications.ajaxError(error, textStatus, errorThrown);
                 }
             };
 

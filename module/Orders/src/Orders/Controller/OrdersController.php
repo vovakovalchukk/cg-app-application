@@ -201,6 +201,7 @@ class OrdersController extends AbstractActionController
         $view->addChild($this->getBatches(), 'batches');
         $view->setVariable('isSidebarVisible', $this->getOrderService()->isSidebarVisible());
         $view->setVariable('isHeaderBarVisible', $this->getOrderService()->isFilterBarVisible());
+        $view->setVariable('filterNames', $this->getOrderService()->getFilterService()->getFilterNames());
         return $view;
     }
 
@@ -267,7 +268,6 @@ class OrdersController extends AbstractActionController
         $viewRender = $this->getServiceLocator()->get('Mustache\View\Renderer');
         $filterValues = $this->getFilterService()->getPersistentFilter();
         $filters = $this->getOrderService()->getFilterService()->getOrderFilters();
-
         return $filters->prepare($viewRender);
     }
 
@@ -411,10 +411,7 @@ class OrdersController extends AbstractActionController
                 $this->params()->fromPost('type')
             );
         } catch (RpcException $exception) {
-            return $response->setVariable(
-                'error',
-                'Failed to mark the order for cancellation'
-            );
+            throw new \Exception('Failed to mark the order for cancellation', 0, $exception);
         }
 
         return $response->setVariable('cancelling', true);
