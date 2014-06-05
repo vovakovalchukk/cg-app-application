@@ -82,7 +82,7 @@
 }
 
 .template-element-ordertable{
-    border: dashed 2px $color-black;
+    border: dashed 2px $color-dgrey;
 
     table{
         border: none;
@@ -98,7 +98,7 @@
         td{
             border: none;
             background: inherit;
-            color: black;
+            color: $color-dgrey;
             padding: 3px;
             text-align: left;
         }
