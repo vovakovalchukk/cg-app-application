@@ -2,9 +2,9 @@
     <div class="custom-select custom-select-std large" data-element-name="addChannelSelect">
         <input type="hidden" name="addChannelSelect"/>
         <div class="selected">
-            <span class="selected-content" data-default=""><?= $this->translate('Select A Channel'); ?></span><span class="arrow down">&nbsp;</span>
+            <span class="selected-content" data-default=""><?= $this->translate('Select A Channel'); ?></span><span class="sprite-arrow-down-10-black">&nbsp;</span>
         </div>
-        <ul>
+        <ul class="open-content">
         <?php foreach ($channels as $name => $channel): ?>
             <li>
                 <a href="#">
