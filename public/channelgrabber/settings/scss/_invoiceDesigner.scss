@@ -292,42 +292,6 @@
     float: left;
     margin-left: 10px;
 }
-.collapsible {
-    border: none;
-    padding: 0;
-}
-
-.collapsibleHeader {
-    width: 95%;
-    float: left;
-    clear:both;
-    padding: 15px 15px 0px 15px;
-    .sprite-arrow-up-10-black {
-        float: right;
-        margin-right: 20px;
-        margin-top: 5px;
-    }
-    .heading-medium {
-        width: 100%;
-        float: left;
-        clear:both;
-    }
-}
-.collapsibleContent {
-    width: 95%;
-    float: left;
-    clear: both;
-    margin-top: 10px;
-    .med-element {
-        width: 40%;
-        float: left;
-        #font-inspector-font-family, #font-inspector-font-size, #border-inspector-border-width {
-            width: 100%;
-            float: left;
-        }
-    }
-}
-
 .color-picker {
     width: 100%!important;
     float: left;
