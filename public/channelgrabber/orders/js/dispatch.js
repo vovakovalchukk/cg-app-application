@@ -1,48 +1,43 @@
 define(function() {
     return function(notifications) {
-        var notifications = notifications;
-
         this.action = function(event) {
             event.stopImmediatePropagation();
 
             var datatable = $(this).data("datatable");
             var orders = $(this).data("orders");
-
-            if (!orders && datatable) {
-                if ($("#" + datatable + "-select-all").is(":checked")) {
-                    orders = $("#" + datatable).data("filterId");
-                } else {
-                    orders = $("#" + datatable).cgDataTable("selected", ".order-id");
-                }
-            }
-
-            if (!orders.length) {
-                return;
-            }
-
-            apply.call(
-                this,
-                orders,
-                {
-                    complete: function() {
-                        var datatable = $(this).data("datatable");
-                        if (datatable) {
-                            $("#" + datatable).cgDataTable("redraw");
-                        }
+            var ajax = {
+                url: $(this).data("url"),
+                complete: function() {
+                    if (datatable) {
+                        $("#" + datatable).cgDataTable("redraw");
                     }
                 }
-            );
+            };
+
+            if (datatable && $("#" + datatable + "-select-all").is(":checked")) {
+                ajax.url += "/" + $("#" + datatable).data("filterId");
+            } else {
+                if (!orders && datatable) {
+                    orders = $("#" + datatable).cgDataTable("selected", ".order-id");
+                }
+
+                if (!orders.length) {
+                    return;
+                }
+
+                ajax.data = {
+                    'orders': orders
+                };
+            }
+
+            apply.call(this, orders, ajax);
         };
 
         var apply = function(orders, ajaxSettings) {
             var ajax = {
                 context: this,
-                url: $(this).data("url"),
                 type: "POST",
                 dataType: 'json',
-                data: {
-                    'orders': orders
-                },
                 success : function(data) {
                     if (data.dispatching) {
                         return notifications.success("Orders Marked for Dispatch");
