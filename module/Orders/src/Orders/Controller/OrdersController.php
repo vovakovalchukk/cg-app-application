@@ -320,6 +320,10 @@ class OrdersController extends AbstractActionController
         }
 
         $requestFilter = $this->params()->fromPost('filter', []);
+        if (! isset($requestFilter['archived'])) {
+            $requestFilter['archived'] = false;
+        }
+
         if (!empty($requestFilter)) {
             $filter = $this->getFilterService()->mergeFilters(
                 $filter,
@@ -407,10 +411,7 @@ class OrdersController extends AbstractActionController
                 $this->params()->fromPost('type')
             );
         } catch (RpcException $exception) {
-            return $response->setVariable(
-                'error',
-                'Failed to mark the order for cancellation'
-            );
+            throw new \Exception('Failed to mark the order for cancellation', 0, $exception);
         }
 
         return $response->setVariable('cancelling', true);
