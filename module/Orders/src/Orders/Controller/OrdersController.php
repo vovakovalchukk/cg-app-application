@@ -208,6 +208,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->addChild($this->getBatches(), 'batches');
         $view->setVariable('isSidebarVisible', $this->getOrderService()->isSidebarVisible());
         $view->setVariable('isHeaderBarVisible', $this->getOrderService()->isFilterBarVisible());
+        $view->setVariable('filterNames', $this->getOrderService()->getFilterService()->getFilterNames());
         return $view;
     }
 
@@ -239,8 +240,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->addChild($this->getTimelineBoxes($order), 'timelineBoxes');
         $view->addChild($this->getOrderService()->getOrderItemTable($order), 'productPaymentTable');
         $view->addChild($this->getNotes($order), 'notes');
-        $view->addChild($this->getDetailsSidebar($view->getChildren()), 'sidebar');
-
+        $view->addChild($this->getDetailsSidebar(), 'sidebar');
+        $view->setVariable('subHeaderHide', true);
         return $view;
     }
 
@@ -274,27 +275,28 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $viewRender = $this->getServiceLocator()->get('Mustache\View\Renderer');
         $filterValues = $this->getFilterService()->getPersistentFilter();
         $filters = $this->getOrderService()->getFilterService()->getOrderFilters();
-
         return $filters->prepare($viewRender);
     }
 
-    protected function getDetailsSidebar(array $children)
+    protected function getDetailsSidebar()
     {
         $sidebar = $this->getViewModelFactory()->newInstance();
         $sidebar->setTemplate('orders/orders/sidebar/navbar');
 
-        $links = [];
-        foreach ($children as $child) {
-            $links[] = $this->viewModelVarNameToHTMLId($child->captureTo());
-        }
+        $links = [
+            'order-status' => 'Order Status',
+            'bulk-actions' => 'Bulk Actions',
+            'timeline-boxes' => 'Timeline',
+            'order-alert' => 'Alert',
+            'order-buyer-message' => 'Buyer Message',
+            'addressInformation' => 'Address Information',
+            'product-payment-table' => 'Payment Information',
+            'notes' => 'Notes'
+
+        ];
         $sidebar->setVariable('links', $links);
 
         return $sidebar;
-    }
-
-    protected function viewModelVarNameToHTMLId($string)
-    {
-        return strtolower(implode("-", preg_split("/(?=[A-Z])/", $string)));
     }
 
     protected function getDefaultJsonData()
@@ -359,6 +361,10 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             ->setOrderDirection($orderBy->getDirection());
 
         $requestFilter = $this->params()->fromPost('filter', []);
+        if (! isset($requestFilter['archived'])) {
+            $requestFilter['archived'] = false;
+        }
+
         if (!empty($requestFilter)) {
             $filter = $this->getFilterService()->mergeFilters(
                 $filter,
@@ -480,10 +486,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
                 $this->params()->fromPost('type')
             );
         } catch (RpcException $exception) {
-            return $response->setVariable(
-                'error',
-                'Failed to mark the order for cancellation'
-            );
+            throw new \Exception('Failed to mark the order for cancellation', 0, $exception);
         }
 
         return $response->setVariable('cancelling', true);

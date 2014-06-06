@@ -1,4 +1,4 @@
-define(['element/moreButton'], function(MoreButton) {
+define(['element/moreButton', 'element/ElementCollection'], function(MoreButton, elementCollection) {
 
     var Filters = function(filters, filterList)
     {
@@ -17,27 +17,22 @@ define(['element/moreButton'], function(MoreButton) {
         this.applyFilterValues = function(filterName, filterOptions)
         {
             var self = this;
-            require(['element/customSelect'], function(CustomSelect)
-            {
-                var element = $('.custom-select[data-element-name="'+ filterName +'"]');
-                var customSelect = new CustomSelect(element);
-                for (key in filterOptions) {
-                    customSelect.setValue(filterOptions[key]);
-                }
+            var element = elementCollection.get(filterName);
+            if (element) {
+                element.setValue(filterOptions);
                 Filters.pendingFilters--;
                 self.updateFilters();
-            });
+            }
         };
 
         this.handleFilterAdding = function()
         {
             var self = this;
-            $(document).bind('filterCollection.attach.after', function(e, filter) {
-
+            $(document).bind('ElementCollection.attach.after', function(e, filter) {
                 var filterName = filter.getElementName();
-                if (Filters.savedFilters.hasOwnProperty(filterName)) {
-                    self.applyFilterValues(filterName, Filters.savedFilters[filterName]);
-                    delete Filters.savedFilters[filterName];
+                if (self.savedFilters.hasOwnProperty(filterName)) {
+                    self.applyFilterValues(filterName, self.savedFilters[filterName]);
+                    delete self.savedFilters[filterName];
                 }
             });
         };
@@ -47,13 +42,12 @@ define(['element/moreButton'], function(MoreButton) {
             self.getFilterList().on("click.filters", "li a", function() {
                 self.activateFilter.call(self, $(this).closest("li"));
             });
-            self.handleFilterAdding();
+            this.handleFilterAdding();
         };
         init.call(this);
     };
 
     Filters.pendingFilters = 0;
-    Filters.savedFilters = {};
 
     Filters.prototype.clearFilters = function()
     {
@@ -67,35 +61,23 @@ define(['element/moreButton'], function(MoreButton) {
 
     Filters.prototype.prepareFilterValues = function(filterName, filterOptions)
     {
-        Filters.savedFilters[filterName] = filterOptions;
-    };
-
-    Filters.prototype.handleFilterAdding = function() 
-    {
-        var self = this;
-        $(document).bind('filterCollection.attach.after', function(e, filter) {
-
-            var filterName = filter.getElementName();
-            if (Filters.savedFilters.hasOwnProperty(filterName)) {
-                self.applyFilterValues(filterName, Filters.savedFilters[filterName]);
-                delete Filters.savedFilters[filterName];
-            }
-        });
+        this.savedFilters[filterName] = filterOptions;
     };
 
     Filters.prototype.activateFilter = function(listElement) 
     {
         var filters = $(listElement).data("filter");
         this.clearFilters();
+        MoreButton.removeFilters();
         this.getFilters().trigger("reset");
         
         Filters.pendingFilters = Object.keys(filters).length;
 
         for (var filterName in filters) {
             var filterOptions = filters[filterName];
-            var filter = this.getFilters().find(".more label[data-filter-name=" + filterName + "]");
+            var filter = elementCollection.get(filterName);
             
-            if (filter.length != 0) {
+            if (!filter) {
                 if (MoreButton.addFilter(filterName)) {
                     this.prepareFilterValues(filterName, filterOptions);
                 }

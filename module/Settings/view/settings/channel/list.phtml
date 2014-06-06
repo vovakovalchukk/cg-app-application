@@ -9,12 +9,18 @@ $(document).ready(function() {
     );
 });
 <?php $this->inlineScript()->captureEnd(); ?>
-<span class="heading-large"><?= $this->translate($title) ?></span>
-<div class="account_create large-dropdown" data-url="<?= $this->url(Settings\Module::ROUTE . '/' .
-    Settings\Controller\ChannelController::ROUTE . '/' . Settings\Controller\ChannelController::CREATE_ROUTE); ?>">
-    <div class="input">
-        <?= $addChannelSelect; ?>
-    </div>
-    <input type="submit" class="button inline account-save" value="<?= $this->translate('Add'); ?>"/>
+<div class="padded-content-holder">
+    <span class="heading-large">
+        <?= $this->translate($title) ?>
+        <div class="add-saleschannel">
+            <div class="input">
+                <?= $addChannelSelect; ?>
+            </div>
+            <input type="submit" class="button inline account-save" value="<?= $this->translate('Add'); ?>"/>
+        </div>
+    </span>
+    <div class="account_create" data-url="<?= $this->url(Settings\Module::ROUTE . '/' .
+        Settings\Controller\ChannelController::ROUTE . '/' . Settings\Controller\ChannelController::CREATE_ROUTE); ?>">
+
+    <?= $this->accountList ?>
 </div>
-<?= $this->accountList ?>
