@@ -19,6 +19,7 @@ use Orders\Controller\StoredFiltersController;
 use CG\Order\Client\Service as OrderClientService;
 use CG\Order\Service\Filter\StorageInterface as FilterStorageInterface;
 use CG\Order\Client\Filter\Storage\Api as FilterStorage;
+use Orders\Controller\DispatchController;
 
 return [
     'router' => [
@@ -231,9 +232,25 @@ return [
                         'options' => [
                             'route' => '/dispatch',
                             'defaults' => [
-                                'action' => 'dispatch',
+                                'controller' => DispatchController::class,
+                                'action' => 'jsonFilter',
                             ]
-                        ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            'filterId' => [
+                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                'options' => [
+                                    'route' => '/:filterId',
+                                    'constraints' => [
+                                        'filterId' => '.+'
+                                    ],
+                                    'defaults' => [
+                                        'action' => 'jsonFilterId',
+                                    ]
+                                ],
+                            ],
+                        ],
                     ],
                     'cancel' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
