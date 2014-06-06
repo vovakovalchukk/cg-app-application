@@ -14,9 +14,6 @@ use CG\Order\Shared\Entity as OrderEntity;
 use Orders\Order\BulkActions\Service as BulkActionsService;
 use Orders\Module;
 use DirectoryIterator;
-use CG\UserPreference\Client\Service as UserPreferenceService;
-use CG\Http\Rpc\Exception\BatchException as RpcBatchException;
-use CG\Http\Rpc\Exception\Error\AbstractError as RpcError;
 use CG\Http\Rpc\Exception as RpcException;
 use Orders\Order\FilterService as FiltersService;
 use Orders\Order\StoredFilters\Service as StoredFiltersService;
@@ -431,43 +428,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $this->getOrderService()->updateUserPrefOrderColumns($updatedColumns);
 
         return $response->setVariable('updated', true);
-    }
-
-    public function dispatchAction()
-    {
-        $response = $this->getJsonModelFactory()->newInstance(['dispatching' => false]);
-
-        $ids = $this->params()->fromPost('orders');
-        if (!is_array($ids) || empty($ids)) {
-            return $response->setVariable('error', 'No Orders provided');
-        }
-
-        try {
-            $this->getOrderService()->dispatchOrders($ids);
-        } catch (RpcBatchException $batchException) {
-            $requestedOrderIds = array_fill_keys($ids, true);
-
-            $failedOrderIds = [];
-            foreach ($batchException->getExceptions() as $exception) {
-                if (!($exception instanceof RpcError)) {
-                    continue;
-                }
-
-                $orderId = $exception->getRequestId();
-                if (!isset($requestedOrderIds[$orderId])) {
-                    continue;
-                }
-
-                $failedOrderIds[] = $orderId;
-            }
-
-            return $response->setVariable(
-                'error',
-                'Failed to mark the following orders for dispatch: ' . implode(', ', $failedOrderIds)
-            );
-        }
-
-        return $response->setVariable('dispatching', true);
     }
 
     public function cancelAction()
