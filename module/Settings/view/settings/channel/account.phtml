@@ -65,19 +65,20 @@ require(
     }
 );
 <?php $this->inlineScript()->captureEnd(); ?>
-<div id="breadcrumbs">
-    <h1><?= $account['displayName'] ?></h1>
-    <div class="right">
-        <span class="logo-large <?= $account['channel'] ?>"></span>
-    </div>
+<div id="breadcrumbs" class="floatLeftClear">
+    <span class="heading-large"><?= $account['displayName'] ?><span class="logo-large <?= $account['channel'] ?>"></span></span>
 </div>
 <div class="module clearfix">
     <form class="account-status">
         <label>
-            <span>Enable Account:</span>
+            <span class="inputbox-label">Enable Account:</span>
             <div class="alternate-input mustache">
-                <?= $this->mustache('columns/enable.mustache', $account) ?>
-                <?= $this->mustache('columns/status.mustache', $account) ?>
+                <div class="enable_switch">
+                    <?= $this->mustache('columns/enable.mustache', $account) ?>
+                </div>
+                <div class="current-account-status">
+                    <?= $this->mustache('columns/status.mustache', $account) ?>
+                </div>
             </div>
         </label>
     </form>
@@ -92,19 +93,25 @@ require(
     ?>
     <?= $this->form()->openTag($detailsForm) ?>
         <?= $this->formHidden($detailsForm->get('csrf')); ?>
-        <label>
-            <span>Display Name:</span>
-            <?= $this->formText($detailsForm->get('displayName')); ?>
-        </label>
-        <label>
-            <span>Trading Company:</span>
-            <abbr class="required">*</abbr>
-            <?= $this->formHidden($detailsForm->get('organisationUnitId')); ?>
-            <div class="input"><?= $tradingCompanySelect; ?></div>
-        </label>
-        <label>
-            <?= $this->formButton($detailsForm->get('save')); ?>
-            <span class="loading">Saving</span>
-        </label>
+        <div class="half">
+            <label>
+                <span class="inputbox-label">Display Name:</span>
+                <div class="order-inputbox-holder">
+                    <?= $this->formText($detailsForm->get('displayName')); ?>
+                </div>
+            </label>
+            <label>
+                <span class="inputbox-label">Trading Company:</span>
+                <abbr class="required">*</abbr>
+                <?= $this->formHidden($detailsForm->get('organisationUnitId')); ?>
+                <div class="order-inputbox-holder">
+                    <div class="input"><?= $tradingCompanySelect; ?></div>
+                </div>
+            </label>
+            <label>
+                <?= $this->formButton($detailsForm->get('save')); ?>
+                <span class="loading">Saving</span>
+            </label>
+        </div>
     <?= $this->form()->closeTag(); ?>
 </div>

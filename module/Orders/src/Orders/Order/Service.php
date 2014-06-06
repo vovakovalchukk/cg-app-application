@@ -14,6 +14,7 @@ use Zend\Di\Di;
 use Zend\I18n\View\Helper\CurrencyFormat;
 use CG\User\Service as UserService;
 use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Note\Collection as OrderNoteCollection;
 use CG\UserPreference\Client\Service as UserPreferenceService;
 use CG\Http\Rpc\Json\Client as JsonRpcClient;
@@ -24,8 +25,8 @@ use CG\Account\Client\Service as AccountService;
 use Zend\Mvc\MvcEvent;
 use CG\Stdlib\DateTime;
 use CG\Order\Client\Collection as FilteredCollection;
-use Orders\Order\PageLimit;
-use Orders\Order\OrderBy;
+use CG\Stdlib\PageLimit;
+use CG\Stdlib\OrderBy;
 
 class Service
 {
@@ -72,7 +73,7 @@ class Service
             ->setAccountService($accountService);
     }
 
-    public function getOrdersArrayWithAccountDetails($filter, PageLimit $pageLimit, OrderBy $orderBy, MvcEvent $event)
+    public function getOrdersArrayWithAccountDetails(OrderCollection $orderCollection, MvcEvent $event)
     {
         $accounts = $this->getAccountService()->fetchByOUAndStatus(
             $this->getActiveUser()->getOuList(),
@@ -81,24 +82,6 @@ class Service
             static::ACCOUNTS_LIMIT,
             static::ACCOUNTS_PAGE
         );
-
-        if ($filter instanceof Filter) {
-            $filter
-                ->setPage($pageLimit->getPage())
-                ->setLimit($pageLimit->getLimit())
-                ->setOrderBy($orderBy->getColumn())
-                ->setOrderDirection($orderBy->getDirection());
-
-            $orderCollection = $this->getOrders($filter);
-        } else {
-            $orderCollection = $this->getOrdersFromFilterId(
-                $filter,
-                $pageLimit->getLimit(),
-                $pageLimit->getPage(),
-                $orderBy->getColumn(),
-                $orderBy->getDirection()
-            );
-        }
 
         $orders = [];
         foreach($orderCollection as $orderEntity) {

@@ -1,5 +1,5 @@
 .invoice-template {
-    margin-left: 50px;
+    margin-left: 48px;
     margin-right: 250px;
     .invoice-template-container {
         overflow-x: auto;
@@ -68,18 +68,14 @@
 .template-element{
     cursor: move;
     box-sizing: border-box;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select:none;
-    user-select:none;
+    @include user-select(none);
 }
 
 .template-paperpage{
     box-sizing: border-box;
     position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    border: 1px solid $color-black;
+    margin: 40px auto 40px auto;
+    border: 1px solid $color-lgrey;
     background-size: cover;
     background-repeat:  no-repeat;
     background-position: left top;
@@ -102,7 +98,7 @@
         td{
             border: none;
             background: inherit;
-            color: black;
+            color: $color-black;
             padding: 3px;
             text-align: left;
         }
@@ -218,6 +214,7 @@
 .positioning-input {
     width: 60px;
     display: block;
+    margin: 5px 0px 5px 0px;
 }
 #template-selector{
     width: 100%;
@@ -269,4 +266,73 @@
         top: 7px;
         left: 35px;
     }
+}
+#heading-inspector {
+    width: 100%;
+    float: left;
+    clear:both;
+    padding-top: 15px;
+    .heading-medium {
+        margin-top: 4px;
+    }
+    .heading-btn {
+        float: right;
+        margin-right: 30px;
+        margin-top: -5px;
+    }
+}
+.inspector-module {
+    width: 100%;
+}
+#text-inspector-data-fields {
+    margin-top: 10px;
+}
+
+.align_buttons {
+    float: left;
+    margin-left: 10px;
+}
+.color-picker {
+    width: 100%!important;
+    float: left;
+    clear:both;
+}
+
+.inspector-holder {
+    width: 100%;
+    float: left;
+    clear: both;
+    border-bottom: 1px solid $color-lgrey;
+    padding: 0px 15px 15px 15px;
+    .inspector-group-holder {
+        float: left;
+        clear:both;
+        .inspector-field-holder {
+            float: left;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+    }
+}
+
+.inspector-field-fontfamily {
+    width: 205px;
+    float: left;
+}
+
+.inspector-field-fontsize {
+    width: 100px;
+    float :left;
+}
+.inspector-font-align {
+    float: left;
+}
+.positioning-secondrow {
+    width: 100%;
+    float: left;
+    clear:both;
+    margin-top: 10px;
+}
+.positioning-mm {
+    margin: 10px 0px 0px 3px;
 }

@@ -1,9 +1,9 @@
 .save-template {
     display: none;
-    height: 40px;
+    height: 41px;
 }
 .save-template-inner {
-    width: Calc(100% - 500px);
+    width: Calc(100% - 503px);
     z-index: 999;
     background-color: $color-red;
     color: $color-white;
@@ -13,7 +13,7 @@
     }
 }
 .save-template-message {
-    line-height:40px;
+    line-height:41px;
     float:left;
     font-size: 13px;
     padding-left:20px;
@@ -22,7 +22,7 @@
     position:absolute;
     right:0px;
     input {
-        margin:5px;
-        margin-left:0px;
+        margin:7px 8px 5px 0px;
+        border: none!important;
     }
 }
