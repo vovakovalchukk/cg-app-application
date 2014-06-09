@@ -27,6 +27,14 @@ define(function() {
         return $("#" + dataTable);
     };
 
+    InvoiceBulkAction.prototype.isDataTableCheckedAll = function() {
+        var dataTable = this.getElement().data("datatable");
+        if (!dataTable) {
+            return false;
+        }
+        return $("#" + dataTable + "-select-all").is(":checked");
+    };
+
     InvoiceBulkAction.prototype.getOrders = function() {
         var orders = this.getElement().data("orders");
         if (orders) {
@@ -35,8 +43,16 @@ define(function() {
         return this.getDataTableElement().cgDataTable("selected", ".order-id");
     };
 
+    InvoiceBulkAction.prototype.getFilterId = function() {
+        return this.getDataTableElement().data("filterId");
+    };
+
     InvoiceBulkAction.prototype.getUrl = function() {
-        return this.getElement().data("url") || "";
+        var url = this.getElement().data("url") || "";
+        if (this.isDataTableCheckedAll()) {
+            url += "/" + this.getFilterId();
+        }
+        return url;
     };
 
     InvoiceBulkAction.prototype.getFormElement = function(orders) {
@@ -50,9 +66,12 @@ define(function() {
     };
 
     InvoiceBulkAction.prototype.action = function(event) {
-        var orders = this.getOrders();
-        if (!orders.length) {
-            return;
+        var orders = [];
+        if (!this.isDataTableCheckedAll()) {
+            orders = this.getOrders();
+            if (!orders.length) {
+                return;
+            }
         }
 
         this.getNotifications().success(this.getMessage());
