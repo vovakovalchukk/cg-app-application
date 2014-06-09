@@ -13,6 +13,6 @@ class Refund extends Cancel
 
     protected function getReasons()
     {
-        return json_encode(Reasons::getAllRefundReasons());
+        return Reasons::getAllRefundReasons();
     }
 }
