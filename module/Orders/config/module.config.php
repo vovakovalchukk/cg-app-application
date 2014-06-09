@@ -329,7 +329,22 @@ return [
                             'defaults' => [
                                 'action' => 'archive',
                             ]
-                        ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            'filterId' => [
+                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                'options' => [
+                                    'route' => '/:filterId',
+                                    'constraints' => [
+                                        'filterId' => '.+'
+                                    ],
+                                    'defaults' => [
+                                        'action' => 'archiveFilterId',
+                                    ]
+                                ],
+                            ],
+                        ],
                     ],
                     'invoice' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',

@@ -465,7 +465,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             ->setLimit('all')
             ->setPage(1)
             ->setOrganisationUnitId($this->getOrderService()->getActiveUser()->getOuList())
-            ->setId($ids);
+            ->setOrderIds($ids);
 
         try {
             foreach($this->getOrderService()->getOrders($filter) as $order) {
@@ -479,6 +479,36 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             return $response->setVariable(
                 'error',
                 'Order' . (count($ids) > 1 ? 's' : '') . ' could not be found'
+            );
+        }
+
+        return $response->setVariable('archived', true);
+    }
+
+    public function archiveFilterIdAction()
+    {
+        $response = $this->getJsonModelFactory()->newInstance(['archived' => false]);
+
+        try {
+            $orders = $this->getOrderService()->getOrdersFromFilterId(
+                $this->params()->fromRoute('filterId'),
+                'all',
+                1,
+                null,
+                null
+            );
+
+            foreach($orders as $order) {
+                try {
+                    $this->getOrderService()->archiveOrder($order->setArchived(true));
+                } catch (NotModified $exception) {
+                    // Not changed so ignore
+                }
+            }
+        } catch (NotFound $exception) {
+            return $response->setVariable(
+                'error',
+                'Orders could not be found'
             );
         }
 
