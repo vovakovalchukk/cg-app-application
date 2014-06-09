@@ -5,11 +5,8 @@
             <td>
                 <a href="{{order_url}}" class="title">{{externalId}}</a>
                     <span class="subtitle">
-                        {{items.0.itemName}}
+                        {{items.0.itemQuantity}} x {{items.0.itemName}}
                     </span>
-            </td>
-            <td>
-                <span class="subtitle"><br>x{{items.0.itemQuantity}}</span>
             </td>
         </tr>
         {{#items.1}}
