@@ -75,7 +75,7 @@ class Cancel extends Action implements OrderAwareInterface
         $this->addElementView($this->getUrlView());
         $this->getJavascript()->setVariables(
             [
-                'cancellationReasons' => json_encode(Reasons::getAllCancellationReasons()),
+                'cancellationReasons' => $this->getReasons(),
                 'type' => static::TYPE,
                 'templateMap' => [
                     'popup' => Module::PUBLIC_FOLDER . 'template/popups/cancelOptions.html',
@@ -84,6 +84,11 @@ class Cancel extends Action implements OrderAwareInterface
             ]
         );
         return $this;
+    }
+
+    protected function getReasons()
+    {
+        return json_encode(Reasons::getAllCancellationReasons());
     }
 
     public function setOrder(Order $order)
