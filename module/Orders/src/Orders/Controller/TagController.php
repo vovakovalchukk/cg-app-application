@@ -7,6 +7,7 @@ use Orders\Order\Service as OrderService;
 use Orders\Filter\Service as FilterService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Etag\Exception\NotModified;
+use CG\Order\Shared\Collection;
 
 class TagController extends AbstractActionController
 {
@@ -70,54 +71,59 @@ class TagController extends AbstractActionController
 
     public function appendAction()
     {
-        return $this->updateTags(new Tag\Append());
+        return $this->updateTags(
+            $this->getOrderService()->getOrders($this->getOrderFilters()),
+            new Tag\Append()
+        );
     }
 
     public function removeAction()
     {
-        return $this->updateTags(new Tag\Remove());
+        return $this->updateTags(
+            $this->getOrderService()->getOrders($this->getOrderFilters()),
+            new Tag\Remove()
+        );
     }
 
-    protected function getTagRequest()
+    protected function getTagRequest(array $ids)
     {
         $request = new Tag\Request();
-
         $tag = $this->params()->fromPost('tag');
+
         if (!$tag) {
             throw new Tag\Exception('No Tag provided');
         }
-        $request->setTag($tag);
 
-        $ids = $this->params()->fromPost('orders');
-        if (!is_array($ids) || empty($ids)) {
+        if (empty($ids)) {
             throw new Tag\Exception('No Orders provided');
         }
-        $request->setOrderIds($ids);
 
-        return $request;
+        return $request
+            ->setTag($tag)
+            ->setOrderIds($ids);
     }
 
-    protected function getOrderFilters(Tag\Request $request)
+    protected function getOrderFilters()
     {
         return $this->getFilterService()->getFilter()
             ->setLimit('all')
             ->setPage(1)
             ->setOrganisationUnitId($this->getOrderService()->getActiveUser()->getOuList())
-            ->setId($request->getOrderIds());
+            ->setOrderIds((array) $this->params()->fromPost('orders', []));
     }
 
-    protected function updateTags(callable $updater)
+    protected function updateTags(Collection $orders, callable $updater)
     {
         $response = $this->getJsonModelFactory()->newInstance(['tagged' => false]);
+
         try {
-            $request = $this->getTagRequest();
+            $request = $this->getTagRequest($orders->getIds());
         } catch (Tag\Exception $exception) {
             return $response->setVariable('error', $exception->getMessage());
         }
-        $filter = $this->getOrderFilters($request);
 
         try {
-            foreach($this->getOrderService()->getOrders($filter) as $order) {
+            foreach($orders as $order) {
                 try {
                     $tags = call_user_func($updater, $request, $order->getTags());
                     $order->setTags(array_unique($tags));
