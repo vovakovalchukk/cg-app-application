@@ -4,11 +4,11 @@ define(function() {
 
         this.getElement = function () {
             return $(element);
-        }
+        };
 
         this.setElement = function(newElement) {
             element = newElement;
-        }
+        };
 
         this.getNotifications = function() {
             return notifications;
