@@ -278,7 +278,19 @@ return [
                                     'constraints' => [
                                         'action' => 'append|remove'
                                     ],
-                                ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    'filterId' => [
+                                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => [
+                                            'route' => '/:filterId',
+                                            'constraints' => [
+                                                'filterId' => '.+'
+                                            ],
+                                        ],
+                                    ],
+                                ],
                             ]
                         ]
                     ],

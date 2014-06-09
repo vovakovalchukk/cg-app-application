@@ -69,20 +69,30 @@ class TagController extends AbstractActionController
         return $this->filterService;
     }
 
+    protected function getOrders()
+    {
+        $filterId = $this->params()->fromRoute('filterId', false);
+        if ($filterId) {
+            return $this->getOrderService()->getOrdersFromFilterId(
+                $filterId,
+                'all',
+                1,
+                null,
+                null
+            );
+        }
+
+        return $this->getOrderService()->getOrders($this->getOrderFilters());
+    }
+
     public function appendAction()
     {
-        return $this->updateTags(
-            $this->getOrderService()->getOrders($this->getOrderFilters()),
-            new Tag\Append()
-        );
+        return $this->updateTags($this->getOrders(), new Tag\Append());
     }
 
     public function removeAction()
     {
-        return $this->updateTags(
-            $this->getOrderService()->getOrders($this->getOrderFilters()),
-            new Tag\Remove()
-        );
+        return $this->updateTags($this->getOrders(), new Tag\Remove());
     }
 
     protected function getTagRequest(array $ids)
