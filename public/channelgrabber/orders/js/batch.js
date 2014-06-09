@@ -89,23 +89,31 @@ define(function() {
             return;
         }
 
-        var orders = $('#' + this.datatable).cgDataTable('selected', '.order-id');
-        if (!orders.length) {
-            return;
-        }
-
-        this.getNotifications().notice('Removing orders from batch');
-        $.ajax({
+        var ajax = {
             url: $(element).data('url'),
             type: 'POST',
             dataType: 'json',
-            data: {'orders': orders},
             context: this,
             success : this.removeSuccess,
             error: function (error, textStatus, errorThrown) {
                 return this.getNotifications().ajaxError(error, textStatus, errorThrown);
             }
-        });
+        };
+
+        if ($("#" + this.datatable + "-select-all").is(":checked")) {
+            ajax.url += "/" + $('#' + this.datatable).data("filterId");
+        } else {
+            var orders = $('#' + this.datatable).cgDataTable('selected', '.order-id');
+            if (!orders.length) {
+                return;
+            }
+            ajax.data = {
+                orders: orders
+            };
+        }
+
+        this.getNotifications().notice('Removing orders from batch');
+        $.ajax(ajax);
     };
 
     Batch.prototype.removeSuccess = function(data) {
