@@ -44,7 +44,7 @@ define(function() {
         };
 
         if ($("#" + datatable + "-select-all").is(":checked")) {
-            ajax.url += $('#' + this.datatable).data("filterId");
+            ajax.url += "/" + $('#' + this.datatable).data("filterId");
         } else {
             var orders = $('#' + this.datatable).cgDataTable('selected', '.order-id');
             if (!orders.length) {
