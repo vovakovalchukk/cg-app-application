@@ -1,4 +1,6 @@
 <?php
+use CG\Log\FatalErrorHandler;
+
 require_once __DIR__.'/../application/bootstrap.php';
 
 // Decline static file requests back to the PHP built-in webserver
@@ -11,5 +13,5 @@ require 'init_autoloader.php';
 
 // Run the application!
 $app = Zend\Mvc\Application::init(require 'config/application.config.php');
-$app->getServiceManager()->get('Di')->get('CG\Log\FatalErrorHandler');
+$app->getServiceManager()->get('Di')->get(CG\Log\FatalErrorHandler::class);
 $app->run();
