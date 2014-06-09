@@ -11,6 +11,7 @@ use Zend\Di\Di;
 use Guzzle\Common\Exception\GuzzleException;
 use Predis\Client as PredisClient;
 use CG\Stdlib\Exception\Runtime\RequiredKeyMissing;
+use CG\Order\Shared\Collection as Orders;
 
 class Service
 {
@@ -52,22 +53,23 @@ class Service
         return $batches;
     }
 
-    public function create($orderIds)
+    public function create(Orders $orders)
     {
-        if (!is_array($orderIds) || empty($orderIds)) {
+        if (empty($orders)) {
             throw new RequiredKeyMissing('No Orders provided');
         }
+
         $batch = $this->createBatch();
-        $this->updateOrders($orderIds, $batch->getName());
+        $this->updateOrders($orders, $batch->getName());
     }
 
-    public function unsetBatch($orderIds)
+    public function unsetBatch(Orders $orders)
     {
-        if (!is_array($orderIds) || empty($orderIds)) {
+        if (empty($orders)) {
             throw new RequiredKeyMissing('No Orders provided');
         }
 
-        $this->updateOrders($orderIds);
+        $this->updateOrders($orders);
     }
 
     protected function createBatch()
@@ -85,21 +87,13 @@ class Service
         return $batch;
     }
 
-    protected function updateOrders(array $orderIds, $batch = null)
+    protected function updateOrders(Orders $orders, $batch = null)
     {
-        $organisationUnitIds = $this->getOrganisationUnitService()->getAncestorOrganisationUnitIdsByActiveUser();
-        $filterEntity = $this->getDi()->get(Filter::class, array(
-            "limit" => "all",
-            "page" => static::DEFAULT_PAGE,
-            "id" => $orderIds,
-            "organisationUnitIds" => $organisationUnitIds,
-            "includeArchived" => static::DEFAULT_INCLUDE_ARCHIVED,
-        ));
-        $orders = $this->getOrderClient()->fetchCollectionByFilter($filterEntity);
         foreach ($orders as $order) {
-            $order->setBatch($batch);
+            $this->getOrderClient()->save(
+                $order->setBatch($batch)
+            );
         }
-        $this->getOrderClient()->saveCollection($orders);
     }
 
     protected function generateBatchId($rootOu, $increment)

@@ -5,6 +5,7 @@ use CG_UI\View\Prototyper\JsonModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
 use Orders\Order\Batch\Service as BatchService;
 use CG\Stdlib\Exception\Runtime\RequiredKeyMissing;
+use CG\Order\Service\Filter;
 
 class BatchController extends AbstractActionController
 {
@@ -25,12 +26,48 @@ class BatchController extends AbstractActionController
         return $response;
     }
 
+    protected function getOrderFilter(array $ids)
+    {
+        return $this->getBatchService()->getDi()->newInstance(
+            Filter::class,
+            [
+                'page' => 1,
+                'limit' => 'all',
+                'orderIds' => $ids,
+            ]
+        );
+    }
+
     public function createAction()
     {
         $response = $this->getJsonModelFactory()->newInstance();
-        $ids = $this->params()->fromPost('orders');
+        $ids = $this->params()->fromPost('orders', []);
         try {
-            $this->getBatchService()->create($ids);
+            $batchService = $this->getBatchService();
+            $orders = $batchService->getOrderClient()->fetchCollectionByFilter(
+                $this->getOrderFilter((array) $ids)
+            );
+            $batchService->create($orders);
+        } catch (RequiredKeyMissing $e) {
+            return $response->setVariable('error', $e->getMessage());
+        }
+        return $response;
+    }
+
+    public function createFromFilterIdAction()
+    {
+        $response = $this->getJsonModelFactory()->newInstance();
+        $filterId = $this->params()->fromRoute('filterId');
+        try {
+            $batchService = $this->getBatchService();
+            $orders = $batchService->getOrderClient()->fetchCollectionByFilterId(
+                $filterId,
+                'all',
+                1,
+                null,
+                null
+            );
+            $batchService->create($orders);
         } catch (RequiredKeyMissing $e) {
             return $response->setVariable('error', $e->getMessage());
         }
@@ -42,11 +79,35 @@ class BatchController extends AbstractActionController
         $response = $this->getJsonModelFactory()->newInstance();
         $ids = $this->params()->fromPost('orders');
         try {
-            $this->getBatchService()->unsetBatch($ids);
+            $batchService = $this->getBatchService();
+            $orders = $batchService->getOrderClient()->fetchCollectionByFilter(
+                $this->getOrderFilter((array) $ids)
+            );
+            $this->getBatchService()->unsetBatch($orders);
         } catch (RequiredKeyMissing $e) {
             return $response->setVariable('error', $e->getMessage());
         } catch (\Exception $e) {
             echo $e->getPrevious()->getResponse()->getMessage();
+        }
+        return $response;
+    }
+
+    public function unsetFromFilterIdAction()
+    {
+        $response = $this->getJsonModelFactory()->newInstance();
+        $filterId = $this->params()->fromRoute('filterId');
+        try {
+            $batchService = $this->getBatchService();
+            $orders = $batchService->getOrderClient()->fetchCollectionByFilterId(
+                $filterId,
+                'all',
+                1,
+                null,
+                null
+            );
+            $this->getBatchService()->unsetBatch($orders);
+        } catch (RequiredKeyMissing $e) {
+            return $response->setVariable('error', $e->getMessage());
         }
         return $response;
     }

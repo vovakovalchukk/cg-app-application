@@ -101,7 +101,21 @@ return [
                                         'action'     => 'create',
                                     ),
                                 ),
-                                'may_terminate' => true
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    'filterId' => [
+                                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => [
+                                            'route' => '/:filterId',
+                                            'constraints' => [
+                                                'filterId' => '.+'
+                                            ],
+                                            'defaults' => [
+                                                'action' => 'createFromFilterId',
+                                            ]
+                                        ],
+                                    ],
+                                ],
                             ),
                             'unset' => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
@@ -111,7 +125,21 @@ return [
                                         'action' => 'unset'
                                     ]
                                 ],
-                                'may_terminate' => true
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    'filterId' => [
+                                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => [
+                                            'route' => '/:filterId',
+                                            'constraints' => [
+                                                'filterId' => '.+'
+                                            ],
+                                            'defaults' => [
+                                                'action' => 'unsetFromFilterId',
+                                            ]
+                                        ],
+                                    ],
+                                ],
                             ],
                             'delete' => array(
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
