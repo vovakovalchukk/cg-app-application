@@ -13,5 +13,5 @@ require 'init_autoloader.php';
 
 // Run the application!
 $app = Zend\Mvc\Application::init(require 'config/application.config.php');
-$app->getServiceManager()->get('Di')->get(CG\Log\FatalErrorHandler::class);
+$app->getServiceManager()->get('Di')->get(FatalErrorHandler::class);
 $app->run();
