@@ -43,7 +43,7 @@ define(function() {
             }
         };
 
-        if ($("#" + datatable + "-select-all").is(":checked")) {
+        if ($("#" + this.datatable + "-select-all").is(":checked")) {
             ajax.url += "/" + $('#' + this.datatable).data("filterId");
         } else {
             var orders = $('#' + this.datatable).cgDataTable('selected', '.order-id');
