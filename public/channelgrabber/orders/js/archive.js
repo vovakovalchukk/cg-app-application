@@ -8,19 +8,10 @@ define(function() {
                 return;
             }
 
-            var orders = $("#" + datatable).cgDataTable("selected", ".order-id");
-            if (!orders.length) {
-                return;
-            }
-
-            notifications.notice("Archiving Orders");
-            $.ajax({
+            var ajax = {
                 url: $(this).data("url"),
                 type: "POST",
                 dataType: 'json',
-                data: {
-                    'orders': orders
-                },
                 success : function(data) {
                     if (data.archived) {
                         return notifications.success("Archived Successfully");
@@ -37,7 +28,22 @@ define(function() {
                         $("#" + datatable).cgDataTable("redraw");
                     }
                 }
-            });
+            };
+
+            if ($("#" + datatable + "-select-all").is(":checked")) {
+                ajax.url += "/" + $("#" + datatable).data("filterId");
+            } else {
+                var orders = $("#" + datatable).cgDataTable("selected", ".order-id");
+                if (!orders.length) {
+                    return;
+                }
+                ajax.data = {
+                    orders: orders
+                };
+            }
+
+            notifications.notice("Archiving Orders");
+            $.ajax(ajax);
         };
     };
 });
