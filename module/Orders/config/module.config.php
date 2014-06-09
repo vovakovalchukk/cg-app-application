@@ -302,6 +302,18 @@ return [
                         ],
                         'may_terminate' => true,
                         'child_routes' => [
+                            'filterId' => [
+                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                'options' => [
+                                    'route' => '/:filterId',
+                                    'constraints' => [
+                                        'filterId' => '.+'
+                                    ],
+                                    'defaults' => [
+                                        'action' => 'generateFromFilterId',
+                                    ]
+                                ],
+                            ],
                             'invoice_demo' => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => [

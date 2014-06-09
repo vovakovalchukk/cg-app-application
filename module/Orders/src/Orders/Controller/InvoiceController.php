@@ -58,6 +58,22 @@ class InvoiceController extends AbstractActionController
         return $this->getService()->getResponseFromOrderIds($orderIds);
     }
 
+    public function generateFromFilterIdAction()
+    {
+        $orders = $this->getService()->getOrderService()->getOrdersFromFilterId(
+            $this->params()->fromRoute('filterId'),
+            'all',
+            1,
+            null, null
+        );
+
+        if (empty($orders)) {
+            return $this->redirect()->toRoute('Orders');
+        }
+
+        return $this->getService()->getResponseFromOrderCollection($orders);
+    }
+
     /**
      * @return Response
      */
