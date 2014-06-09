@@ -91,7 +91,7 @@ class Service
      */
     public function getResponseFromOrderIds(array $orderIds)
     {
-        $filter = $this->getDi()->get(Filter::class, ['id' => $orderIds]);
+        $filter = $this->getDi()->get(Filter::class, ['orderIds' => $orderIds]);
         $orderCollection = $this->getOrderService()->getOrders($filter);
         return $this->getResponseFromOrderCollection($orderCollection);
     }
