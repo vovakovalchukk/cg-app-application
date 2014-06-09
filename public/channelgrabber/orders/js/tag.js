@@ -1,19 +1,21 @@
 define(function() {
     return function(notifications) {
-        var notifications = notifications;
-
         this.action = function(event) {
             event.stopImmediatePropagation();
 
             var datatable = $(this).data("datatable");
             var orders = $(this).data("orders");
 
-            if (!orders && datatable) {
-                orders = $("#" + datatable).cgDataTable("selected", ".order-id");
-            }
+            if (datatable && $("#" + datatable + "-select-all").is(":checked")) {
+                orders = [];
+            } else {
+                if (!orders && datatable) {
+                    orders = $("#" + datatable).cgDataTable("selected", ".order-id");
+                }
 
-            if (!orders.length) {
-                return;
+                if (!orders.length) {
+                    return;
+                }
             }
 
             var tag = $(this).data("tag") || $.trim(window.prompt("Name of Tag:", "tag"));
@@ -23,7 +25,7 @@ define(function() {
 
             apply.call(
                 this,
-                getAppendUrl.call(this),
+                getAppendUrl.call(this, datatable),
                 tag,
                 orders,
                 {
@@ -69,16 +71,20 @@ define(function() {
             );
         };
 
-        var getAppendUrl = function() {
-            return getUrl.call(this, 'append');
+        var getAppendUrl = function(datatable) {
+            return getUrl.call(this, 'append', datatable);
         };
 
-        var getRemoveUrl = function() {
-            return getUrl.call(this, 'remove');
+        var getRemoveUrl = function(datatable) {
+            return getUrl.call(this, 'remove', datatable);
         };
 
-        var getUrl = function(action) {
-            return Mustache.render($(this).data("url"), {action: action});
+        var getUrl = function(action, datatable) {
+            var url = Mustache.render($(this).data("url"), {action: action});
+            if (datatable && $("#" + datatable + "-select-all").is(":checked")) {
+                url += "/" + $("#" + datatable).data("filterId");
+            }
+            return url;
         };
 
         var apply = function(url, tag, orders, ajaxSettings) {
