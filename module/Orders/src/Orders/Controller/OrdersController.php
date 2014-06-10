@@ -2,6 +2,7 @@
 namespace Orders\Controller;
 
 use CG\Http\Exception\Exception3xx\NotModified;
+use Orders\Order\Exception\MultiException;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
@@ -22,6 +23,8 @@ use CG\Stdlib\PageLimit;
 use CG\Stdlib\OrderBy;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use Zend\View\Model\JsonModel;
+use CG\Order\Shared\Collection as OrderCollection;
 
 class OrdersController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -66,6 +69,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $this;
     }
 
+    /**
+     * @return OrderService
+     */
     public function getOrderService()
     {
         return $this->orderService;
@@ -77,6 +83,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $this;
     }
 
+    /**
+     * @return FilterService
+     */
     public function getFilterService()
     {
         return $this->filterService;
@@ -88,6 +97,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $this;
     }
 
+    /**
+     * @return JsonModelFactory
+     */
     public function getJsonModelFactory()
     {
         return $this->jsonModelFactory;
@@ -99,6 +111,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $this;
     }
 
+    /**
+     * @return ViewModelFactory
+     */
     public function getViewModelFactory()
     {
         return $this->viewModelFactory;
@@ -110,6 +125,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $this;
     }
 
+    /**
+     * @return BatchService
+     */
     public function getBatchService()
     {
         return $this->batchService;
@@ -122,6 +140,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $this;
     }
 
+    /**
+     * @return TimelineService
+     */
     public function getTimelineService()
     {
         return $this->timelineService;
@@ -133,6 +154,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $this;
     }
 
+    /**
+     * @return BulkActionsService
+     */
     public function getBulkActionsService()
     {
         return $this->bulkActionsService;
@@ -434,33 +458,17 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     {
         $response = $this->getJsonModelFactory()->newInstance(['archived' => false]);
 
-        $ids = $this->params()->fromPost('orders');
-        if (!is_array($ids) || empty($ids)) {
+        try {
+            $ids = $this->params()->fromPost('orders');
+            if (!is_array($ids) || empty($ids)) {
+                throw new NotFound();
+            }
+
+            $orders = $this->getOrderService()->getOrdersById($ids);
+            return $this->archiveOrders($response, $orders);
+        } catch (NotFound $exception) {
             return $response->setVariable('error', 'No Orders provided');
         }
-
-        $filter = $this->getFilterService()->getFilter()
-            ->setLimit('all')
-            ->setPage(1)
-            ->setOrganisationUnitId($this->getOrderService()->getActiveUser()->getOuList())
-            ->setOrderIds($ids);
-
-        try {
-            foreach($this->getOrderService()->getOrders($filter) as $order) {
-                try {
-                    $this->getOrderService()->archiveOrder($order->setArchived(true));
-                } catch (NotModified $exception) {
-                    // Not changed so ignore
-                }
-            }
-        } catch (NotFound $exception) {
-            return $response->setVariable(
-                'error',
-                'Order' . (count($ids) > 1 ? 's' : '') . ' could not be found'
-            );
-        }
-
-        return $response->setVariable('archived', true);
     }
 
     public function archiveFilterIdAction()
@@ -476,17 +484,25 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
                 null
             );
 
-            foreach($orders as $order) {
-                try {
-                    $this->getOrderService()->archiveOrder($order->setArchived(true));
-                } catch (NotModified $exception) {
-                    // Not changed so ignore
-                }
-            }
+            return $this->archiveOrders($response, $orders);
         } catch (NotFound $exception) {
+            return $response->setVariable('error', 'No Orders provided');
+        }
+    }
+
+    protected function archiveOrders(JsonModel $response, OrderCollection $orders)
+    {
+        try {
+            $this->getOrderService()->archiveOrders($orders);
+        } catch (MultiException $exception) {
+            $failedOrderIds = [];
+            foreach ($exception as $orderId => $orderException) {
+                $failedOrderIds[] = $orderId;
+            }
+
             return $response->setVariable(
                 'error',
-                'Orders could not be found'
+                'Failed to mark the following orders as archived: ' . implode(', ', $failedOrderIds)
             );
         }
 

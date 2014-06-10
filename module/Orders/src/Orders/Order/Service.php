@@ -375,11 +375,6 @@ class Service implements LoggerAwareInterface
         return $this->getOrderClient()->save($entity);
     }
 
-    public function archiveOrder(Order $entity)
-    {
-        return $this->getOrderClient()->archive($entity);
-    }
-
     public function updateUserPrefOrderColumns(array $updatedColumns)
     {
         $storedColumns = $this->fetchUserPrefOrderColumns();
@@ -454,6 +449,31 @@ class Service implements LoggerAwareInterface
         );
 
         $this->getOrderDispatcher()->generateJob($account, $order);
+    }
+
+    public function archiveOrders(OrderCollection $orders, $archive = true)
+    {
+        $exception = new MultiException();
+
+        foreach ($orders as $order) {
+            try {
+                $this->archiveOrder($order, $archive);
+            } catch (Exception $orderException) {
+                $exception->addOrderException($order->getId(), $orderException);
+                $this->logException($orderException, 'error', __NAMESPACE__);
+            }
+        }
+
+        if (count($exception) > 0) {
+            throw $exception;
+        }
+    }
+
+    public function archiveOrder(Order $order, $archive = true)
+    {
+        return $this->getOrderClient()->archive(
+            $order->setArchived($archive)
+        );
     }
 
     public function cancelOrders(OrderCollection $orders, $type, $reason)
