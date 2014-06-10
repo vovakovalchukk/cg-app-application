@@ -27,9 +27,18 @@ use CG\Stdlib\DateTime;
 use CG\Order\Client\Collection as FilteredCollection;
 use CG\Stdlib\PageLimit;
 use CG\Stdlib\OrderBy;
+use CG\Order\Shared\Mapper as OrderMapper;
+use CG\Order\Shared\Cancel\Value as CancelValue;
+use CG\Channel\Gearman\Generator\Order\Cancel as OrderCanceller;
+use Orders\Order\Exception\MultiException;
+use Exception;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 
-class Service
+class Service implements LoggerAwareInterface
 {
+    use LogTrait;
+
     const ORDER_TABLE_COL_PREF_KEY = 'order-columns';
     const ORDER_SIDEBAR_STATE_KEY = 'order-sidebar-state';
     const ORDER_FILTER_BAR_STATE_KEY = 'order-filter-bar-state';
@@ -47,6 +56,7 @@ class Service
     protected $activeUserPreference;
     protected $userPreferenceService;
     protected $accountService;
+    protected $orderCanceller;
 
     public function __construct(
         StorageInterface $orderClient,
@@ -57,7 +67,8 @@ class Service
         ActiveUserInterface $activeUserContainer,
         Di $di,
         UserPreferenceService $userPreferenceService,
-        AccountService $accountService
+        AccountService $accountService,
+        OrderCanceller $orderCanceller
     )
     {
         $this
@@ -70,7 +81,8 @@ class Service
             ->setDi($di)
             ->setUserPreferenceService($userPreferenceService)
             ->configureOrderTable()
-            ->setAccountService($accountService);
+            ->setAccountService($accountService)
+            ->setOrderCanceller($orderCanceller);
     }
 
     public function getOrdersArrayWithAccountDetails(OrderCollection $orderCollection, MvcEvent $event)
@@ -116,6 +128,9 @@ class Service
         return $this;
     }
 
+    /**
+     * @return Di
+     */
     public function getDi()
     {
         return $this->di;
@@ -127,6 +142,9 @@ class Service
         return $this;
     }
 
+    /**
+     * @return TableService
+     */
     public function getTableService()
     {
         return $this->tableService;
@@ -157,6 +175,9 @@ class Service
         return $this;
     }
 
+    /**
+     * @return StorageInterface
+     */
     public function getOrderClient()
     {
         return $this->orderClient;
@@ -188,11 +209,17 @@ class Service
         return $this;
     }
 
+    /**
+     * UserService
+     */
     public function getUserService()
     {
         return $this->userService;
     }
 
+    /**
+     * @return ActiveUserInterface
+     */
     public function getActiveUserContainer()
     {
         return $this->activeUserContainer;
@@ -203,9 +230,31 @@ class Service
         return $this->getActiveUserContainer()->getActiveUser();
     }
 
+    /**
+     * @param Filter $filter
+     * @return OrderCollection
+     */
     public function getOrders(Filter $filter)
     {
         return $this->getOrderClient()->fetchCollectionByFilter($filter);
+    }
+
+    /**
+     * @param array $orderIds
+     * @return OrderCollection
+     */
+    public function getOrdersById(array $orderIds)
+    {
+        $filter = $this->getDi()->newInstance(
+            Filter::class,
+            [
+                'orderIds' => $orderIds,
+                'organisationUnitId' => $this->getActiveUser()->getOuList(),
+                'page' => 1,
+                'limit' => 'all',
+            ]
+        );
+        return $this->getOrders($filter);
     }
 
     public function getOrdersFromFilterId($filterId, $limit, $page, $orderBy, $orderDirection)
@@ -230,6 +279,9 @@ class Service
         return $this;
     }
 
+    /**
+     * @return UserPreferenceService
+     */
     public function getUserPreferenceService()
     {
         return $this->userPreferenceService;
@@ -276,6 +328,7 @@ class Service
         $numberFormat = $this->getDi()->get(CurrencyFormat::class);
         $currencyCode = $order->getCurrencyCode();
         $currencyFormatter = function (ItemEntity $entity, $value) use ($numberFormat, $currencyCode) {
+            /** @var $numberFormat CurrencyFormat */
             return $numberFormat($value, $currencyCode);
         };
 
@@ -399,40 +452,93 @@ class Service
         return $this->getOrderRpcClient()->sendBatch(static::RPC_ENDPOINT, $batch);
     }
 
-    public function cancelOrder($orderId, $reason, $type)
+    public function cancelOrders(OrderCollection $orders, $type, $reason)
     {
-        $order = $this->getOrder($orderId);
+        $exception = new MultiException();
+
+        foreach ($orders as $order) {
+            try {
+                $this->cancelOrder($order, $type, $reason);
+            } catch (Exception $orderException) {
+                $exception->addOrderException($order->getId(), $orderException);
+                $this->logException($orderException, 'error', __NAMESPACE__);
+            }
+        }
+
+        if (count($exception) > 0) {
+            throw $exception;
+        }
+    }
+
+    public function cancelOrder(Order $order, $type, $reason)
+    {
+        $account = $this->getAccountService()->fetch($order->getAccountId());
+        $status = OrderMapper::calculateOrderStatusFromCancelType($type);
+        $cancel = $this->getCancelValue($order, $type, $reason);
+
+        $this->saveOrder(
+            $order->setStatus($status)
+        );
+
+        $this->getOrderCanceller()->generateJob($account, $order, $cancel);
+    }
+
+    /**
+     * @param Order $order
+     * @param string $type
+     * @param string $reason
+     * @return CancelValue
+     */
+    protected function getCancelValue(Order $order, $type, $reason)
+    {
         $items = [];
         foreach ($order->getItems() as $item) {
             $items[] = [
-                "orderItemId" => $item->getId(),
-                "sku" => $item->getItemSku(),
-                "quantity" => $item->getItemQuantity(),
-                "amount" => $item->getIndividualItemPrice(),
-                "unitPrice" => 0.00
+                'orderItemId' => $item->getId(),
+                'sku' => $item->getItemSku(),
+                'quantity' => $item->getItemQuantity(),
+                'amount' => $item->getIndividualItemPrice(),
+                'unitPrice' => 0.00,
             ];
         }
-        $orderCancel = [
-            "orderId" => $order->getId(),
-            "shippingAmount" => $order->getShippingPrice(),
-            "cancelValue" => [
-                "type" => $type,
-                "timestamp" => date(DateTime::FORMAT),
-                "reason" => $reason,
-                "items" => $items
+
+        return $this->getDi()->newInstance(
+            CancelValue::class,
+            [
+                'type' => $type,
+                'timestamp' => date(DateTime::FORMAT),
+                'reason' => $reason,
+                'items' => $items,
+                'shippingAmount' => $order->getShippingPrice(),
             ]
-        ];
-        return $this->getOrderRpcClient()->sendRequest(static::RPC_ENDPOINT, $orderId, 'cancel', $orderCancel);
+        );
     }
 
-    public function setAccountService($accountService)
+    public function setAccountService(AccountService $accountService)
     {
         $this->accountService = $accountService;
         return $this;
     }
 
+    /**
+     * @return AccountService
+     */
     public function getAccountService()
     {
         return $this->accountService;
+    }
+
+    public function setOrderCanceller(OrderCanceller $orderCanceller)
+    {
+        $this->orderCanceller = $orderCanceller;
+        return $this;
+    }
+
+    /**
+     * @return OrderCanceller
+     */
+    public function getOrderCanceller()
+    {
+        return $this->orderCanceller;
     }
 }
