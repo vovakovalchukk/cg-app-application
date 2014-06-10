@@ -89,13 +89,13 @@
 	left: 12px;
 	bottom: 14px;
 	background: transparent;
-	@include transform(skew(-5deg) rotate(-5deg));
+    @include transform(skew(-5deg) rotate(-5deg));
     @include box-shadow(0, 6px, 12px, rgba(0, 0, 0, 0.3));
 	z-index: -1;
 }
 .template-paperpage:after {
     left: auto;
-	right: 12px;
+    right: 12px;
     @include transform(skew(5deg) rotate(5deg));
 }
 .template-element-ordertable{
