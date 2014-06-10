@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "0d83f992f1c8241acf1d2cd56134b576",
+    "hash": "bd1cda1e7b0621c64ddd1424eb6df2e0",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -383,17 +383,11 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.5.24",
+            "version": "dev-CGIV-1846-InterfaceCleanup",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "e44ad174747e6074fe58d32a724bcedebeecebd1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.5.24-369efd.zip",
-                "reference": "e44ad174747e6074fe58d32a724bcedebeecebd1",
-                "shasum": "cb41af18812813635b64cd0d0aa793226d58a149"
+                "reference": "4f7297acf1ce3087325ed89da73b80fedbc8b616"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.0,<1.3.0",
@@ -418,7 +412,7 @@
                     "CG\\Order\\": ""
                 }
             },
-            "time": "2014-06-10 07:50:05"
+            "time": "2014-06-10 09:41:23"
         },
         {
             "name": "channelgrabber/permission",
@@ -3709,6 +3703,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.5.25",
+            "alias_normalized": "1.5.25.0",
+            "version": "dev-CGIV-1846-InterfaceCleanup",
+            "package": "channelgrabber/order"
+        },
+        {
             "alias": "1.7.13",
             "alias_normalized": "1.7.13.0",
             "version": "dev-CGIV-1846-DataTableCheckAll",
@@ -3718,6 +3718,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
