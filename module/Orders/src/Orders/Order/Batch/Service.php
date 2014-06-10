@@ -1,12 +1,12 @@
 <?php
 namespace Orders\Order\Batch;
 
-use CG\Order\Shared\Batch\StorageInterface as BatchInterface;
+use CG\Order\Shared\Batch\StorageInterface as BatchClient;
 use CG\User\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Batch\Entity as BatchEntity;
-use CG\Order\Shared\StorageInterface as OrderInterface;
+use CG\Order\Client\StorageInterface as OrderClient;
 use Zend\Di\Di;
 use Guzzle\Common\Exception\GuzzleException;
 use Predis\Client as PredisClient;
@@ -29,8 +29,8 @@ class Service
 
     public function __construct(
         OrganisationUnitService $organisationUnitService,
-        BatchInterface $batchClient,
-        OrderInterface $orderClient,
+        BatchClient $batchClient,
+        OrderClient $orderClient,
         Di $di,
         PredisClient $redisClient
     ) {
@@ -108,12 +108,15 @@ class Service
         $this->getBatchClient()->remove($entity);
     }
 
-    public function setBatchClient(BatchInterface $batchClient)
+    public function setBatchClient(BatchClient $batchClient)
     {
         $this->batchClient = $batchClient;
         return $this;
     }
 
+    /**
+     * @return BatchClient
+     */
     public function getBatchClient()
     {
         return $this->batchClient;
@@ -125,17 +128,23 @@ class Service
         return $this;
     }
 
+    /**
+     * @return OrganisationUnitService
+     */
     public function getOrganisationUnitService()
     {
         return $this->organisationUnitService;
     }
 
-    public function setOrderClient(OrderInterface $orderClient)
+    public function setOrderClient(OrderClient $orderClient)
     {
         $this->orderClient = $orderClient;
         return $this;
     }
 
+    /**
+     * @return OrderClient
+     */
     public function getOrderClient()
     {
         return $this->orderClient;
@@ -147,6 +156,9 @@ class Service
         return $this;
     }
 
+    /**
+     * @return Di
+     */
     public function getDi()
     {
         return $this->di;
@@ -158,6 +170,9 @@ class Service
         return $this;
     }
 
+    /**
+     * @return PredisClient
+     */
     public function getRedisClient()
     {
         return $this->redisClient;
