@@ -430,28 +430,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $response->setVariable('updated', true);
     }
 
-    public function cancelAction()
-    {
-        $response = $this->getJsonModelFactory()->newInstance(['cancelling' => false]);
-
-        $ids = $this->params()->fromPost('orders');
-        if (!isset($ids[0])) {
-            return $response->setVariable('error', 'No Orders provided');
-        }
-
-        try {
-            $this->getOrderService()->cancelOrder(
-                $ids[0],
-                $this->params()->fromPost('reason'),
-                $this->params()->fromPost('type')
-            );
-        } catch (RpcException $exception) {
-            throw new \Exception('Failed to mark the order for cancellation', 0, $exception);
-        }
-
-        return $response->setVariable('cancelling', true);
-    }
-
     public function archiveAction()
     {
         $response = $this->getJsonModelFactory()->newInstance(['archived' => false]);

@@ -20,6 +20,7 @@ use CG\Order\Client\Service as OrderClientService;
 use CG\Order\Service\Filter\StorageInterface as FilterStorageInterface;
 use CG\Order\Client\Filter\Storage\Api as FilterStorage;
 use Orders\Controller\DispatchController;
+use Orders\Controller\CancelController;
 
 return [
     'router' => [
@@ -285,6 +286,7 @@ return [
                         'options' => [
                             'route' => '/cancel',
                             'defaults' => [
+                                'controller' => CancelController::class,
                                 'action' => 'cancel'
                             ]
                         ]
