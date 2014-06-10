@@ -242,7 +242,7 @@ class Service implements LoggerAwareInterface
         return $this->getOrders($filter);
     }
 
-    public function getOrdersFromFilterId($filterId, $limit, $page, $orderBy, $orderDirection)
+    public function getOrdersFromFilterId($filterId, $limit = 'all', $page = 1, $orderBy = null, $orderDirection = null)
     {
         return $this->getOrderClient()->fetchCollectionByFilterId(
             $filterId,

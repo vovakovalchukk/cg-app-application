@@ -98,15 +98,9 @@ class Service
 
     public function getResponseFromFilterId($filterId)
     {
-        $orders = $this->getOrderService()->getOrdersFromFilterId(
-            $filterId,
-            'all',
-            1,
-            null,
-            null
+        return $this->getResponseFromOrderCollection(
+            $this->getOrderService()->getOrdersFromFilterId($filterId)
         );
-
-        return $this->getResponseFromOrderCollection($orders);
     }
 
     /**

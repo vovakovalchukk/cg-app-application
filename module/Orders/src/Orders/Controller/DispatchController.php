@@ -90,11 +90,7 @@ class DispatchController extends AbstractActionController implements LoggerAware
 
         try {
             $orders = $this->getOrderService()->getOrdersFromFilterId(
-                $this->params()->fromRoute('filterId'),
-                'all',
-                1,
-                null,
-                null
+                $this->params()->fromRoute('filterId')
             );
 
             return $this->cancelOrders($response, $orders);

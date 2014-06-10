@@ -73,15 +73,8 @@ class TagController extends AbstractActionController
     {
         $filterId = $this->params()->fromRoute('filterId', false);
         if ($filterId) {
-            return $this->getOrderService()->getOrdersFromFilterId(
-                $filterId,
-                'all',
-                1,
-                null,
-                null
-            );
+            return $this->getOrderService()->getOrdersFromFilterId($filterId);
         }
-
         return $this->getOrderService()->getOrders($this->getOrderFilters());
     }
 

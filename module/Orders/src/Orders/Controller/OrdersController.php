@@ -477,11 +477,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
         try {
             $orders = $this->getOrderService()->getOrdersFromFilterId(
-                $this->params()->fromRoute('filterId'),
-                'all',
-                1,
-                null,
-                null
+                $this->params()->fromRoute('filterId')
             );
 
             return $this->archiveOrders($response, $orders);
