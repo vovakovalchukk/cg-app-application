@@ -17,8 +17,6 @@ use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Note\Collection as OrderNoteCollection;
 use CG\UserPreference\Client\Service as UserPreferenceService;
-use CG\Http\Rpc\Json\Client as JsonRpcClient;
-use CG\Http\Rpc\Batch as RpcBatch;
 use Settings\Module as SettingsModule;
 use Settings\Controller\ChannelController;
 use CG\Account\Client\Service as AccountService;
@@ -29,11 +27,13 @@ use CG\Stdlib\PageLimit;
 use CG\Stdlib\OrderBy;
 use CG\Order\Shared\Mapper as OrderMapper;
 use CG\Order\Shared\Cancel\Value as CancelValue;
+use CG\Channel\Gearman\Generator\Order\Dispatch as OrderDispatcher;
 use CG\Channel\Gearman\Generator\Order\Cancel as OrderCanceller;
 use Orders\Order\Exception\MultiException;
 use Exception;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use CG\Order\Shared\Status as OrderStatus;
 
 class Service implements LoggerAwareInterface
 {
@@ -42,12 +42,10 @@ class Service implements LoggerAwareInterface
     const ORDER_TABLE_COL_PREF_KEY = 'order-columns';
     const ORDER_SIDEBAR_STATE_KEY = 'order-sidebar-state';
     const ORDER_FILTER_BAR_STATE_KEY = 'order-filter-bar-state';
-    const RPC_ENDPOINT = '/order';
     const ACCOUNTS_PAGE = 1;
     const ACCOUNTS_LIMIT = 'all';
 
     protected $orderClient;
-    protected $orderRpcClient;
     protected $tableService;
     protected $filterService;
     protected $userService;
@@ -56,11 +54,11 @@ class Service implements LoggerAwareInterface
     protected $activeUserPreference;
     protected $userPreferenceService;
     protected $accountService;
+    protected $orderDispatcher;
     protected $orderCanceller;
 
     public function __construct(
         StorageInterface $orderClient,
-        JsonRpcClient $orderRpcClient,
         TableService $tableService,
         FilterService $filterService,
         UserService $userService,
@@ -68,12 +66,12 @@ class Service implements LoggerAwareInterface
         Di $di,
         UserPreferenceService $userPreferenceService,
         AccountService $accountService,
+        OrderDispatcher $orderDispatcher,
         OrderCanceller $orderCanceller
     )
     {
         $this
             ->setOrderClient($orderClient)
-            ->setOrderRpcClient($orderRpcClient)
             ->setTableService($tableService)
             ->setFilterService($filterService)
             ->setUserService($userService)
@@ -82,6 +80,7 @@ class Service implements LoggerAwareInterface
             ->setUserPreferenceService($userPreferenceService)
             ->configureOrderTable()
             ->setAccountService($accountService)
+            ->setOrderDispatcher($orderDispatcher)
             ->setOrderCanceller($orderCanceller);
     }
 
@@ -181,20 +180,6 @@ class Service implements LoggerAwareInterface
     public function getOrderClient()
     {
         return $this->orderClient;
-    }
-
-    public function setOrderRpcClient(JsonRpcClient $orderRpcClient)
-    {
-        $this->orderRpcClient = $orderRpcClient;
-        return $this;
-    }
-
-    /**
-     * @return JsonRpcClient
-     */
-    public function getOrderRpcClient()
-    {
-        return $this->orderRpcClient;
     }
 
     public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
@@ -442,14 +427,33 @@ class Service implements LoggerAwareInterface
         return $storedColumns;
     }
 
-    public function dispatchOrders(array $orderIds)
+    public function dispatchOrders(OrderCollection $orders)
     {
-        $batch = new RpcBatch();
-        foreach ($orderIds as $orderId) {
-            $batch->addRequest($orderId, 'dispatch', [$orderId]);
+        $exception = new MultiException();
+
+        foreach ($orders as $order) {
+            try {
+                $this->dispatchOrder($order);
+            } catch (Exception $orderException) {
+                $exception->addOrderException($order->getId(), $orderException);
+                $this->logException($orderException, 'error', __NAMESPACE__);
+            }
         }
 
-        return $this->getOrderRpcClient()->sendBatch(static::RPC_ENDPOINT, $batch);
+        if (count($exception) > 0) {
+            throw $exception;
+        }
+    }
+
+    public function dispatchOrder(Order $order)
+    {
+        $account = $this->getAccountService()->fetch($order->getAccountId());
+
+        $this->saveOrder(
+            $order->setStatus(OrderStatus::DISPATCHING)
+        );
+
+        $this->getOrderDispatcher()->generateJob($account, $order);
     }
 
     public function cancelOrders(OrderCollection $orders, $type, $reason)
@@ -526,6 +530,20 @@ class Service implements LoggerAwareInterface
     public function getAccountService()
     {
         return $this->accountService;
+    }
+
+    public function setOrderDispatcher(OrderDispatcher $orderDispatcher)
+    {
+        $this->orderDispatcher = $orderDispatcher;
+        return $this;
+    }
+
+    /**
+     * @return OrderDispatcher
+     */
+    public function getOrderDispatcher()
+    {
+        return $this->orderDispatcher;
     }
 
     public function setOrderCanceller(OrderCanceller $orderCanceller)

@@ -2,38 +2,28 @@
 namespace Orders\Controller;
 
 use CG\Stdlib\Exception\Runtime\NotFound;
-use Exception;
+use Orders\Order\Exception\MultiException;
 use Zend\Mvc\Controller\AbstractActionController;
 use Orders\Order\Service as OrderService;
-use Orders\Filter\Service as FilterService;
 use CG_UI\View\Prototyper\JsonModelFactory;
-use CG\Order\Shared\Collection as OrderCollection;
-use CG\Order\Shared\Entity as Order;
-use CG\Order\Shared\Status as OrderStatus;
-use CG\Channel\Gearman\Generator\Order\Dispatch as OrderDispatcher;
 use Zend\View\Model\JsonModel;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use CG\Order\Shared\Collection as OrderCollection;
 
 class DispatchController extends AbstractActionController implements LoggerAwareInterface
 {
     use LogTrait;
 
     protected $orderService;
-    protected $filterService;
-    protected $orderDispatcher;
     protected $jsonModelFactory;
 
     public function __construct(
         OrderService $orderService,
-        FilterService $filterService,
-        OrderDispatcher $orderDispatcher,
         JsonModelFactory $jsonModelFactory
     ) {
         $this
             ->setOrderService($orderService)
-            ->setFilterService($filterService)
-            ->setOrderDispatcher($orderDispatcher)
             ->setJsonModelFactory($jsonModelFactory);
     }
 
@@ -49,34 +39,6 @@ class DispatchController extends AbstractActionController implements LoggerAware
     public function getOrderService()
     {
         return $this->orderService;
-    }
-
-    public function setFilterService(FilterService $filterService)
-    {
-        $this->filterService = $filterService;
-        return $this;
-    }
-
-    /**
-     * @return FilterService
-     */
-    public function getFilterService()
-    {
-        return $this->filterService;
-    }
-
-    public function setOrderDispatcher(OrderDispatcher $orderDispatcher)
-    {
-        $this->orderDispatcher = $orderDispatcher;
-        return $this;
-    }
-
-    /**
-     * @return OrderDispatcher
-     */
-    public function getOrderDispatcher()
-    {
-        return $this->orderDispatcher;
     }
 
     public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -109,58 +71,48 @@ class DispatchController extends AbstractActionController implements LoggerAware
     {
         $response = $this->getDefaultJsonResponse();
 
-        $filter = $this->getFilterService()->getFilter()
-            ->setOrganisationUnitId($this->getOrderService()->getActiveUser()->getOuList())
-            ->setPage(1)
-            ->setLimit('all');
-
         try {
             $ids = $this->params()->fromPost('orders');
             if (!is_array($ids) || empty($ids)) {
                 throw new NotFound('No Orders provided');
             }
 
-            $orders = $this->getOrderService()->getOrders($filter->setOrderIds($ids));
+            $orders = $this->getOrderService()->getOrdersById($ids);
+            return $this->cancelOrders($response, $orders);
         } catch (NotFound $exception) {
             return $response->setVariable('error', 'No Orders found');
         }
-
-        return $this->dispatchOrders($response, $orders);
     }
 
     public function jsonFilterIdAction()
     {
         $response = $this->getDefaultJsonResponse();
 
-        $filterId = $this->params()->fromRoute('filterId');
         try {
             $orders = $this->getOrderService()->getOrdersFromFilterId(
-                $filterId,
+                $this->params()->fromRoute('filterId'),
                 'all',
                 1,
                 null,
                 null
             );
+
+            return $this->cancelOrders($response, $orders);
         } catch (NotFound $exception) {
             return $response->setVariable('error', 'No Orders found');
         }
-
-        return $this->dispatchOrders($response, $orders);
     }
 
-    protected function dispatchOrders(JsonModel $response, OrderCollection $orders)
+    protected function cancelOrders(JsonModel $response, OrderCollection $orders)
     {
-        $failedOrderIds = [];
-        foreach ($orders as $order) {
-            try {
-                $this->dispatchOrder($order);
-            } catch (Exception $exception) {
-                $failedOrderIds[] = $order->getId();
-                $this->logException($exception, 'error', __NAMESPACE__);
+        try {
+            $this->getOrderService()->dispatchOrders($orders);
+        } catch (MultiException $exception) {
+            $failedOrderIds = [];
+            foreach ($exception as $orderId => $orderException) {
+                $failedOrderIds[] = $orderId;
             }
-        }
 
-        if (!empty($failedOrderIds)) {
             return $response->setVariable(
                 'error',
                 'Failed to mark the following orders for dispatch: ' . implode(', ', $failedOrderIds)
@@ -168,16 +120,5 @@ class DispatchController extends AbstractActionController implements LoggerAware
         }
 
         return $response->setVariable('dispatching', true);
-    }
-
-    protected function dispatchOrder(Order $order)
-    {
-        $account = $this->getOrderService()->getAccountService()->fetch($order->getAccountId());
-
-        $this->getOrderService()->saveOrder(
-            $order->setStatus(OrderStatus::DISPATCHING)
-        );
-
-        $this->getOrderDispatcher()->generateJob($account, $order);
     }
 } 
