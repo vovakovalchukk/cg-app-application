@@ -330,6 +330,11 @@
             margin-bottom: 10px;
         }
     }
+    .tinymce-holder {
+        width: 220px!important;
+        float: left;
+        clear:both;
+    }
 }
 
 .inspector-field-fontfamily {
