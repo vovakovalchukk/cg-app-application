@@ -214,6 +214,7 @@ class CancelController extends AbstractActionController implements LoggerAwareIn
                 'timestamp' => date(DateTime::FORMAT),
                 'reason' => $reason,
                 'items' => $items,
+                'shippingAmount' => $order->getShippingPrice(),
             ]
         );
     }
