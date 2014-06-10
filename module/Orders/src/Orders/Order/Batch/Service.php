@@ -12,6 +12,7 @@ use Guzzle\Common\Exception\GuzzleException;
 use Predis\Client as PredisClient;
 use CG\Stdlib\Exception\Runtime\RequiredKeyMissing;
 use CG\Order\Shared\Collection as Orders;
+use CG\Http\Exception\Exception3xx\NotModified;
 
 class Service
 {
@@ -54,7 +55,45 @@ class Service
         return $batches;
     }
 
-    public function create(Orders $orders)
+    /**
+     * @param array $orderIds
+     * @return Filter
+     */
+    protected function getOrderFilter(array $orderIds)
+    {
+        return $this->getDi()->newInstance(
+            Filter::class,
+            [
+                'page' => 1,
+                'limit' => 'all',
+                'orderIds' => $orderIds,
+            ]
+        );
+    }
+
+    public function createForOrders(array $orderIds)
+    {
+        $this->create(
+            $this->getOrderClient()->fetchCollectionByFilter(
+                $this->getOrderFilter($orderIds)
+            )
+        );
+    }
+
+    public function createForFilterId($filterId)
+    {
+        $this->create(
+            $this->getOrderClient()->fetchCollectionByFilterId(
+                $filterId,
+                'all',
+                1,
+                null,
+                null
+            )
+        );
+    }
+
+    protected function create(Orders $orders)
     {
         if (empty($orders)) {
             throw new RequiredKeyMissing('No Orders provided');
@@ -64,7 +103,29 @@ class Service
         $this->updateOrders($orders, $batch->getName());
     }
 
-    public function unsetBatch(Orders $orders)
+    public function unsetForOrders(array $orderIds)
+    {
+        $this->unsetBatch(
+            $this->getOrderClient()->fetchCollectionByFilter(
+                $this->getOrderFilter($orderIds)
+            )
+        );
+    }
+
+    public function unsetForFilterId($filterId)
+    {
+        $this->unsetBatch(
+            $this->getOrderClient()->fetchCollectionByFilterId(
+                $filterId,
+                'all',
+                1,
+                null,
+                null
+            )
+        );
+    }
+
+    protected function unsetBatch(Orders $orders)
     {
         if (empty($orders)) {
             throw new RequiredKeyMissing('No Orders provided');
@@ -91,9 +152,13 @@ class Service
     protected function updateOrders(Orders $orders, $batch = null)
     {
         foreach ($orders as $order) {
-            $this->getOrderClient()->save(
-                $order->setBatch($batch)
-            );
+            try {
+                $this->getOrderClient()->save(
+                    $order->setBatch($batch)
+                );
+            } catch (NotModified $exception) {
+                // Batch already correct - ignore
+            }
         }
     }
 

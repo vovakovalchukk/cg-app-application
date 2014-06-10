@@ -26,28 +26,13 @@ class BatchController extends AbstractActionController
         return $response;
     }
 
-    protected function getOrderFilter(array $ids)
-    {
-        return $this->getBatchService()->getDi()->newInstance(
-            Filter::class,
-            [
-                'page' => 1,
-                'limit' => 'all',
-                'orderIds' => $ids,
-            ]
-        );
-    }
-
     public function createAction()
     {
         $response = $this->getJsonModelFactory()->newInstance();
-        $ids = $this->params()->fromPost('orders', []);
         try {
-            $batchService = $this->getBatchService();
-            $orders = $batchService->getOrderClient()->fetchCollectionByFilter(
-                $this->getOrderFilter((array) $ids)
+            $this->getBatchService()->createForOrders(
+                (array) $this->params()->fromPost('orders', [])
             );
-            $batchService->create($orders);
         } catch (RequiredKeyMissing $e) {
             return $response->setVariable('error', $e->getMessage());
         }
@@ -57,17 +42,10 @@ class BatchController extends AbstractActionController
     public function createFromFilterIdAction()
     {
         $response = $this->getJsonModelFactory()->newInstance();
-        $filterId = $this->params()->fromRoute('filterId');
         try {
-            $batchService = $this->getBatchService();
-            $orders = $batchService->getOrderClient()->fetchCollectionByFilterId(
-                $filterId,
-                'all',
-                1,
-                null,
-                null
+            $this->getBatchService()->createForFilterId(
+                $this->params()->fromRoute('filterId')
             );
-            $batchService->create($orders);
         } catch (RequiredKeyMissing $e) {
             return $response->setVariable('error', $e->getMessage());
         }
@@ -77,17 +55,12 @@ class BatchController extends AbstractActionController
     public function unsetAction()
     {
         $response = $this->getJsonModelFactory()->newInstance();
-        $ids = $this->params()->fromPost('orders');
         try {
-            $batchService = $this->getBatchService();
-            $orders = $batchService->getOrderClient()->fetchCollectionByFilter(
-                $this->getOrderFilter((array) $ids)
+            $this->getBatchService()->unsetForOrders(
+                (array) $this->params()->fromPost('orders', [])
             );
-            $this->getBatchService()->unsetBatch($orders);
         } catch (RequiredKeyMissing $e) {
             return $response->setVariable('error', $e->getMessage());
-        } catch (\Exception $e) {
-            echo $e->getPrevious()->getResponse()->getMessage();
         }
         return $response;
     }
@@ -95,17 +68,10 @@ class BatchController extends AbstractActionController
     public function unsetFromFilterIdAction()
     {
         $response = $this->getJsonModelFactory()->newInstance();
-        $filterId = $this->params()->fromRoute('filterId');
         try {
-            $batchService = $this->getBatchService();
-            $orders = $batchService->getOrderClient()->fetchCollectionByFilterId(
-                $filterId,
-                'all',
-                1,
-                null,
-                null
+            $this->getBatchService()->unsetForFilterId(
+                $this->params()->fromRoute('filterId')
             );
-            $this->getBatchService()->unsetBatch($orders);
         } catch (RequiredKeyMissing $e) {
             return $response->setVariable('error', $e->getMessage());
         }
@@ -123,6 +89,9 @@ class BatchController extends AbstractActionController
         return $this;
     }
 
+    /**
+     * @return BatchService
+     */
     public function getBatchService()
     {
         return $this->batchService;
@@ -134,6 +103,9 @@ class BatchController extends AbstractActionController
         return $this;
     }
 
+    /**
+     * @return JsonModelFactory
+     */
     public function getJsonModelFactory()
     {
         return $this->jsonModelFactory;
