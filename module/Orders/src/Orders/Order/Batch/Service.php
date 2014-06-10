@@ -27,12 +27,13 @@ class Service
     const DEFAULT_INCLUDE_ARCHIVED = 1;
     const BATCH_KEY = "BatchIncrement-";
 
-    public function __construct(OrganisationUnitService $organisationUnitService,
-                                BatchInterface $batchClient,
-                                OrderInterface $orderClient,
-                                Di $di,
-                                PredisClient $redisClient)
-    {
+    public function __construct(
+        OrganisationUnitService $organisationUnitService,
+        BatchInterface $batchClient,
+        OrderInterface $orderClient,
+        Di $di,
+        PredisClient $redisClient
+    ) {
         $this->setOrganisationUnitService($organisationUnitService)
             ->setBatchClient($batchClient)
             ->setOrderClient($orderClient)
