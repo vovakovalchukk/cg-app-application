@@ -55,23 +55,17 @@ class InvoiceController extends AbstractActionController
         if (!is_array($orderIds) || empty($orderIds)) {
             return $this->redirect()->toRoute('Orders');
         }
-        return $this->getService()->getResponseFromOrderIds($orderIds);
+
+        return $this->getService()->getResponseFromOrderIds(
+            $orderIds
+        );
     }
 
     public function generateFromFilterIdAction()
     {
-        $orders = $this->getService()->getOrderService()->getOrdersFromFilterId(
-            $this->params()->fromRoute('filterId'),
-            'all',
-            1,
-            null, null
+        return $this->getService()->getResponseFromFilterId(
+            $this->params()->fromRoute('filterId')
         );
-
-        if (empty($orders)) {
-            return $this->redirect()->toRoute('Orders');
-        }
-
-        return $this->getService()->getResponseFromOrderCollection($orders);
     }
 
     /**

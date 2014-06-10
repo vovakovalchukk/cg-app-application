@@ -96,6 +96,19 @@ class Service
         return $this->getResponseFromOrderCollection($orderCollection);
     }
 
+    public function getResponseFromFilterId($filterId)
+    {
+        $orders = $this->getOrderService()->getOrdersFromFilterId(
+            $filterId,
+            'all',
+            1,
+            null,
+            null
+        );
+
+        return $this->getResponseFromOrderCollection($orders);
+    }
+
     /**
      * @param Collection $orderCollection
      * @return Response
