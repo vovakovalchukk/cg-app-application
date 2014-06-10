@@ -233,8 +233,8 @@ class OrdersController extends AbstractActionController
         $view->addChild($this->getTimelineBoxes($order), 'timelineBoxes');
         $view->addChild($this->getOrderService()->getOrderItemTable($order), 'productPaymentTable');
         $view->addChild($this->getNotes($order), 'notes');
-        $view->addChild($this->getDetailsSidebar($view->getChildren()), 'sidebar');
-
+        $view->addChild($this->getDetailsSidebar(), 'sidebar');
+        $view->setVariable('subHeaderHide', true);
         return $view;
     }
 
@@ -271,23 +271,25 @@ class OrdersController extends AbstractActionController
         return $filters->prepare($viewRender);
     }
 
-    protected function getDetailsSidebar(array $children)
+    protected function getDetailsSidebar()
     {
         $sidebar = $this->getViewModelFactory()->newInstance();
         $sidebar->setTemplate('orders/orders/sidebar/navbar');
 
-        $links = [];
-        foreach ($children as $child) {
-            $links[] = $this->viewModelVarNameToHTMLId($child->captureTo());
-        }
+        $links = [
+            'order-status' => 'Order Status',
+            'bulk-actions' => 'Bulk Actions',
+            'timeline-boxes' => 'Timeline',
+            'order-alert' => 'Alert',
+            'order-buyer-message' => 'Buyer Message',
+            'addressInformation' => 'Address Information',
+            'product-payment-table' => 'Payment Information',
+            'notes' => 'Notes'
+
+        ];
         $sidebar->setVariable('links', $links);
 
         return $sidebar;
-    }
-
-    protected function viewModelVarNameToHTMLId($string)
-    {
-        return strtolower(implode("-", preg_split("/(?=[A-Z])/", $string)));
     }
 
     public function jsonAction()
