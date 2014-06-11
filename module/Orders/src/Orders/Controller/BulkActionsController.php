@@ -91,7 +91,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     protected function getOrdersFromFilterId()
     {
-        $this->getOrderService()->getOrdersFromFilterId(
+        return $this->getOrderService()->getOrdersFromFilterId(
             $this->getFilterId()
         );
     }
@@ -132,5 +132,26 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             );
         }
         return $response->setVariable($action, true);
+    }
+
+    public function dispatchOrderIdsAction()
+    {
+        return $this->performActionOnOrderIds(
+            'dispatching',
+            [$this, 'dispatchOrders']
+        );
+    }
+
+    public function dispatchFilterIdAction()
+    {
+        return $this->performActionOnFilterId(
+            'dispatching',
+            [$this, 'dispatchOrders']
+        );
+    }
+
+    public function dispatchOrders(OrderCollection $orders)
+    {
+        $this->getOrderService()->dispatchOrders($orders);
     }
 }

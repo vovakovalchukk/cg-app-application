@@ -19,7 +19,7 @@ use Orders\Controller\StoredFiltersController;
 use CG\Order\Client\Service as OrderClientService;
 use CG\Order\Service\Filter\StorageInterface as FilterStorageInterface;
 use CG\Order\Client\Filter\Storage\Api as FilterStorage;
-use Orders\Controller\DispatchController;
+use Orders\Controller\BulkActionsController;
 use Orders\Controller\CancelController;
 
 return [
@@ -261,8 +261,8 @@ return [
                         'options' => [
                             'route' => '/dispatch',
                             'defaults' => [
-                                'controller' => DispatchController::class,
-                                'action' => 'jsonFilter',
+                                'controller' => BulkActionsController::class,
+                                'action' => 'dispatchOrderIds',
                             ]
                         ],
                         'may_terminate' => true,
@@ -275,7 +275,7 @@ return [
                                         'filterId' => '.+'
                                     ],
                                     'defaults' => [
-                                        'action' => 'jsonFilterId',
+                                        'action' => 'dispatchFilterId',
                                     ]
                                 ],
                             ],
