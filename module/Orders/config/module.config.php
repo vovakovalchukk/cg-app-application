@@ -329,7 +329,8 @@ return [
                         'options' => [
                             'route' => '/archive',
                             'defaults' => [
-                                'action' => 'archive',
+                                'controller' => BulkActionsController::class,
+                                'action' => 'archiveOrderIds',
                             ]
                         ],
                         'may_terminate' => true,

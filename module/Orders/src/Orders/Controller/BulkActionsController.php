@@ -154,4 +154,25 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     {
         $this->getOrderService()->dispatchOrders($orders);
     }
+
+    public function archiveOrderIdsAction()
+    {
+        return $this->performActionOnOrderIds(
+            'archived',
+            [$this, 'archiveOrders']
+        );
+    }
+
+    public function archiveFilterIdAction()
+    {
+        return $this->performActionOnFilterId(
+            'archived',
+            [$this, 'archiveOrders']
+        );
+    }
+
+    public function archiveOrders(OrderCollection $orders)
+    {
+        $this->getOrderService()->archiveOrders($orders);
+    }
 }
