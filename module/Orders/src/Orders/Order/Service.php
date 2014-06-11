@@ -226,10 +226,15 @@ class Service implements LoggerAwareInterface
 
     /**
      * @param array $orderIds
+     * @throws NotFound
      * @return OrderCollection
      */
     public function getOrdersById(array $orderIds)
     {
+        if (empty($orderIds)) {
+            throw new NotFound();
+        }
+
         $filter = $this->getDi()->newInstance(
             Filter::class,
             [
@@ -239,6 +244,7 @@ class Service implements LoggerAwareInterface
                 'limit' => 'all',
             ]
         );
+
         return $this->getOrders($filter);
     }
 
