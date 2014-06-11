@@ -296,7 +296,7 @@ return [
                         'options' => [
                             'route' => '/tag',
                             'defaults' => [
-                                'controller' => 'Orders\Controller\Tag'
+                                'controller' => BulkActionsController::class,
                             ]
                         ],
                         'may_terminate' => false,
@@ -304,9 +304,12 @@ return [
                             'action' => [
                                 'type' => 'Zend\Mvc\Router\Http\Segment',
                                 'options' => [
-                                    'route' => '/:action',
+                                    'route' => '/:tagAction',
                                     'constraints' => [
-                                        'action' => 'append|remove'
+                                        'tagAction' => 'append|remove'
+                                    ],
+                                    'defaults' => [
+                                        'action' => 'tagOrderIds',
                                     ],
                                 ],
                                 'may_terminate' => true,
@@ -317,6 +320,9 @@ return [
                                             'route' => '/:filterId',
                                             'constraints' => [
                                                 'filterId' => '.+'
+                                            ],
+                                            'defaults' => [
+                                                'action' => 'tagFilterId',
                                             ],
                                         ],
                                     ],

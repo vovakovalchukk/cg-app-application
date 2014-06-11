@@ -78,7 +78,7 @@ class Tag extends Action
             [
                 'route' => 'Orders/tag/action',
                 'parameters' => [
-                    'action' => '{{action}}'
+                    'tagAction' => '{{action}}'
                 ],
                 'mustache' => true
             ]

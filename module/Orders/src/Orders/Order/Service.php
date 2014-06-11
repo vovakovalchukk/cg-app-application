@@ -428,6 +428,70 @@ class Service implements LoggerAwareInterface
         return $storedColumns;
     }
 
+    public function tagOrders($tag, OrderCollection $orders)
+    {
+        $exception = new MultiException();
+
+        foreach ($orders as $order) {
+            try {
+                $this->tagOrder($tag, $order);
+            } catch (Exception $orderException) {
+                $exception->addOrderException($order->getId(), $orderException);
+                $this->logException($orderException, 'error', __NAMESPACE__);
+            }
+        }
+
+        if (count($exception) > 0) {
+            throw $exception;
+        }
+    }
+
+    public function tagOrder($tag, Order $order)
+    {
+        $tags = array_fill_keys($order->getTags(), true);
+        if (isset($tags[$tag])) {
+            return;
+        }
+
+        $tags[$tag] = true;
+
+        $this->saveOrder(
+            $order->setTags(array_keys($tags))
+        );
+    }
+
+    public function unTagOrders($tag, OrderCollection $orders)
+    {
+        $exception = new MultiException();
+
+        foreach ($orders as $order) {
+            try {
+                $this->unTagOrder($tag, $order);
+            } catch (Exception $orderException) {
+                $exception->addOrderException($order->getId(), $orderException);
+                $this->logException($orderException, 'error', __NAMESPACE__);
+            }
+        }
+
+        if (count($exception) > 0) {
+            throw $exception;
+        }
+    }
+
+    public function unTagOrder($tag, Order $order)
+    {
+        $tags = array_fill_keys($order->getTags(), true);
+        if (!isset($tags[$tag])) {
+            return;
+        }
+
+        unset($tags[$tag]);
+
+        $this->saveOrder(
+            $order->setTags(array_keys($tags))
+        );
+    }
+
     public function dispatchOrders(OrderCollection $orders)
     {
         $exception = new MultiException();

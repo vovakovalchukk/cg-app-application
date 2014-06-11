@@ -3,7 +3,6 @@ namespace Orders\Controller;
 
 use CG\Stdlib\Exception\Runtime\NotFound;
 use Orders\Order\Exception\MultiException;
-use RuntimeException;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
@@ -11,6 +10,9 @@ use CG_UI\View\Prototyper\JsonModelFactory;
 use Zend\View\Model\JsonModel;
 use Orders\Order\Service as OrderService;
 use CG\Order\Shared\Collection as OrderCollection;
+use Orders\Controller\BulkActions\ExceptionInterface as Exception;
+use Orders\Controller\BulkActions\RuntimeException;
+use Orders\Controller\BulkActions\InvalidArgumentException;
 
 class BulkActionsController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -118,6 +120,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         try {
             $orders = $this->{$this->typeMap[$type]}();
             $callable($orders);
+        } catch (Exception $exception) {
+            return $response->setVariable('error', $exception->getMessage());
         } catch (NotFound $exception) {
             return $response->setVariable('error', 'No Orders found');
         } catch (MultiException $exception) {
@@ -132,6 +136,56 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             );
         }
         return $response->setVariable($action, true);
+    }
+
+    public function tagOrderIdsAction()
+    {
+        return $this->performActionOnOrderIds(
+            'tagged',
+            [$this, 'tagOrders']
+        );
+    }
+
+    public function tagFilterIdAction()
+    {
+        return $this->performActionOnFilterId(
+            'tagged',
+            [$this, 'tagOrders']
+        );
+    }
+
+    public function tagOrders(OrderCollection $orders)
+    {
+        $tagAction = $this->getTagAction();
+        $this->getOrderService()->{$tagAction}(
+            $this->getTag(),
+            $orders
+        );
+    }
+
+    protected function getTag()
+    {
+        $tag = trim($this->params()->fromPost('tag', ''));
+        if (strlen($tag) == 0) {
+            throw new InvalidArgumentException('No Tag provided');
+        }
+        return $tag;
+    }
+
+    protected function getTagAction()
+    {
+        $actionMap = [
+            'append' => 'tagOrders',
+            'remove' => 'unTagOrders',
+        ];
+
+        $action = $this->params()->fromRoute('tagAction', '');
+
+        if (!isset($actionMap[$action])) {
+            throw new InvalidArgumentException('Unsupported tag action');
+        }
+
+        return $actionMap[$action];
     }
 
     public function dispatchOrderIdsAction()
