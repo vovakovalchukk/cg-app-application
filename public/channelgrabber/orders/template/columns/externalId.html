@@ -1,37 +1,29 @@
-
-    <table class="order-info">
-        <tbody>
-        <tr>
-            <td>
-                <a href="{{order_url}}" class="title">{{externalId}}</a>
-                <span class="subtitle">
-                    {{items.0.itemQuantity}} x {{items.0.itemName}}
-                </span>
-            </td>
-        </tr>
-        {{#items.1}}
-        {{#formatAdditionalOrderItems}}
-        {{#extraItems}}
-        <tr class="hidden order-info-row">
-            <td>
-                <span class="subtitle">
-                   {{itemName}}
-                </span>
-            </td>
-            <td>
-                <span class="subtitle"><br>x{{itemQuantity}}</span>
-            </td>
-        </tr>
-        {{/extraItems}}
-        {{/formatAdditionalOrderItems}}
-        <tr>
-            <td colspan="2" class="left">
-                <a href="#" class="toggle-info" data-target="order-info-row">
-                    <strong class="more">[Show All]</strong>
-                    <strong class="hide">[Hide]</strong>
-                </a>
-            </td>
-        </tr>
-        {{/items.1}}
-        </tbody>
-    </table>
+<div class="orderid-cell">
+    <div class="orderid">
+        <a href="{{order_url}}" class="title">{{externalId}}</a>
+    </div>
+    <div class="productinfo">
+        <span class="subtitle">
+            {{items.0.itemQuantity}} x {{items.0.itemName}}
+        </span>
+    </div>
+    {{#items.1}}
+    {{#formatAdditionalOrderItems}}
+    {{#extraItems}}
+    <div class="hidden additional-items">
+        <div class="productinfo">
+            <span class="subtitle">
+                {{itemQuantity}} x {{itemName}}
+            </span>
+        </div>
+    </div>
+    {{/extraItems}}
+    {{/formatAdditionalOrderItems}}
+    <div class="hidden additional-item-links">
+        <a href="#" class="toggle-info" data-target="order-info-row">
+            <strong class="more">[Show All]</strong>
+            <strong class="hide">[Hide]</strong>
+        </a>
+    </div>
+    {{/items.1}}
+</div>
