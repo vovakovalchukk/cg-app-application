@@ -1,10 +1,9 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
-        "This file is @generated automatically"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "426b058cf27b45d19315387fb3c697c7",
+    "hash": "e1fcbc9e15c7b9a40c5763bf0f5380fc",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -267,17 +266,17 @@
         },
         {
             "name": "channelgrabber/gearman",
-            "version": "1.0.7",
+            "version": "1.0.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-gearman.git",
-                "reference": "a21e624b3bb15b5b52d318e84adfbd4ba0a54a8a"
+                "reference": "267c710401c415a810a5ce55c14228b0003ef791"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-1.0.7-7ebfcc.zip",
-                "reference": "a21e624b3bb15b5b52d318e84adfbd4ba0a54a8a",
-                "shasum": "81528cc41bf2db46ba2bb0e334593f0d842532ff"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-1.0.8-ee0d51.zip",
+                "reference": "267c710401c415a810a5ce55c14228b0003ef791",
+                "shasum": "3abb4c3cab633d5e70c9cdf83c74ab5a0a1b9a1f"
             },
             "require": {
                 "ext-gearman": "*"
@@ -288,7 +287,7 @@
                     "CG\\Gearman\\": ""
                 }
             },
-            "time": "2014-05-28 12:16:33"
+            "time": "2014-06-11 12:55:18"
         },
         {
             "name": "channelgrabber/guzzle",
@@ -567,17 +566,17 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.5.25",
+            "version": "2.5.26",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "c3f19bd4dff17ee9adfd6082319b8b79fcfe0204"
+                "reference": "b3b30416691a9815c5d601c1b404a99866a5023b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.5.25-119e1f.zip",
-                "reference": "c3f19bd4dff17ee9adfd6082319b8b79fcfe0204",
-                "shasum": "8f4444ef95529e2fdf9fda5c97c391635a26c311"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.5.26-49bf7a.zip",
+                "reference": "b3b30416691a9815c5d601c1b404a99866a5023b",
+                "shasum": "af37778ad4e425fcf36b98f17b23dad47eb29480"
             },
             "require": {
                 "zendframework/zend-db": ">=2.2,<3.0"
@@ -595,7 +594,7 @@
                     "CG/Stdlib/Utilities.php"
                 ]
             },
-            "time": "2014-06-11 08:56:27"
+            "time": "2014-06-11 12:53:09"
         },
         {
             "name": "channelgrabber/template",
@@ -1104,17 +1103,17 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.4.14",
+            "version": "1.4.15",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "fcaeac61bef640aa9ed17a7885545107e9369646"
+                "reference": "b22f6d06665d386dbf20ea7ad0041727accd50de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.14-58bedf.zip",
-                "reference": "fcaeac61bef640aa9ed17a7885545107e9369646",
-                "shasum": "7edf23a0b84298cc5ff82cce4ea007c0c72d5751"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.15-cc61b8.zip",
+                "reference": "b22f6d06665d386dbf20ea7ad0041727accd50de",
+                "shasum": "1397c2ade1875e8f261fda4d7936d3cc3dd1af9c"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -1145,7 +1144,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2014-05-28 12:21:25"
+            "time": "2014-06-11 12:50:20"
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
@@ -1218,17 +1217,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.7.16",
+            "version": "1.8.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "6e5348eaf95e5173907b2603539d570fc2592d9a"
+                "reference": "fe4242b769472fb2c35fa894c134af8695476a0d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.7.16-52da31.zip",
-                "reference": "6e5348eaf95e5173907b2603539d570fc2592d9a",
-                "shasum": "5a75c166bb9fe362046199ea13238fd968ce8b92"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.8.0-ee8d05.zip",
+                "reference": "fe4242b769472fb2c35fa894c134af8695476a0d",
+                "shasum": "91f55ca70a5c25ca08ec15140aea3bde4042e8f7"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1236,7 +1235,8 @@
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
                 "widmogrod/zf2-mustache-module": "dev-master",
                 "zendframework/zend-config": "2.*",
-                "zendframework/zend-form": "2.*",
+                "zendframework/zend-form": ">=2.3,<3.0",
+                "zendframework/zend-i18n": "2.*",
                 "zendframework/zend-modulemanager": "2.*",
                 "zendframework/zend-mvc": "2.*",
                 "zendframework/zend-view": "2.*"
@@ -1256,7 +1256,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-06-11 12:40:00"
+            "time": "2014-06-11 13:02:08"
         },
         {
             "name": "cilex/cilex",
@@ -1686,8 +1686,7 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com",
-                    "role": "Developer"
+                    "homepage": "http://benramsey.com"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
@@ -2004,20 +2003,20 @@
         },
         {
             "name": "zendframework/zendframework",
-            "version": "2.2.7",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zf2.git",
-                "reference": "ffca3e3eefd7fbe0f316ed0224edff368949223d"
+                "reference": "055eac4314425c291f3ef0e104a6196a8fc24cd5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packages.zendframework.com/composer/zendframework-zendframework-ffca3e3eefd7fbe0f316ed0224edff368949223d-zip-486378.zip",
-                "reference": "2.2.7",
-                "shasum": "0e386ea1eed09bbb50be7d957f8f3d7cefb7bd3d"
+                "url": "https://packages.zendframework.com/composer/zendframework-zendframework-055eac4314425c291f3ef0e104a6196a8fc24cd5-zip-13cc39.zip",
+                "reference": "2.3.1",
+                "shasum": "3f93bd90560b42b997ba8261e7a99d6dbb73d799"
             },
             "require": {
-                "php": ">=5.3.3",
+                "php": ">=5.3.23",
                 "zendframework/zendxml": "~1.0-dev"
             },
             "replace": {
@@ -2078,14 +2077,16 @@
                 "fabpot/php-cs-fixer": "*@dev",
                 "ircmaxell/random-lib": "dev-master",
                 "ircmaxell/security-lib": "dev-master",
-                "ocramius/proxy-manager": "0.4.*",
-                "phpunit/phpunit": "3.7.*"
+                "mikey179/vfsstream": "1.2.*",
+                "phpunit/phpunit": "3.7.*",
+                "satooshi/php-coveralls": "dev-master",
+                "sebastianbergmann/phpcov": "1.1.0"
             },
             "suggest": {
                 "doctrine/annotations": "Doctrine Annotations >=1.0 for annotation features",
                 "ext-intl": "ext/intl for i18n features (included in default builds of PHP)",
                 "ircmaxell/random-lib": "Fallback random byte generator for Zend\\Math\\Rand if OpenSSL/Mcrypt extensions are unavailable",
-                "ocramius/proxy-manager": "ProxyManager to handle lazy initialization of services",
+                "ocramius/proxy-manager": "ProxyManager 0.5.* to handle lazy initialization of services",
                 "zendframework/zendpdf": "ZendPdf for creating PDF representations of barcodes",
                 "zendframework/zendservice-recaptcha": "ZendService\\ReCaptcha for rendering ReCaptchas in Zend\\Captcha and/or Zend\\Form"
             },
@@ -2097,8 +2098,8 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.2-dev",
-                    "dev-develop": "2.3-dev"
+                    "dev-master": "2.3-dev",
+                    "dev-develop": "2.4-dev"
                 }
             },
             "autoload": {
@@ -2116,10 +2117,10 @@
                 "zf2"
             ],
             "support": {
-                "source": "https://github.com/zendframework/zf2/tree/release-2.2.7",
+                "source": "https://github.com/zendframework/zf2/tree/release-2.3.1",
                 "issues": "https://github.com/zendframework/zf2/issues"
             },
-            "time": "2014-04-15 14:31:59"
+            "time": "2014-04-15 14:47:18"
         },
         {
             "name": "zendframework/zendpdf",
