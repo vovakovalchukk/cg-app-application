@@ -383,17 +383,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.5.21",
+            "version": "1.5.25",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "b6ced7e7f85a127780d580e7672a6b36c1282f07"
+                "reference": "f568efbac2ca73902ce67e26de85a71c8cd1579f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.5.21-c6eb55.zip",
-                "reference": "b6ced7e7f85a127780d580e7672a6b36c1282f07",
-                "shasum": "e84f5663cf3aac96541d3f04e7b083759e6afc0c"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.5.25-1edd01.zip",
+                "reference": "f568efbac2ca73902ce67e26de85a71c8cd1579f",
+                "shasum": "44004bb2035d86dfda3d5788f97775e827e9fe45"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.0,<1.3.0",
@@ -402,7 +402,7 @@
                 "channelgrabber/http": ">=1.2.3",
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/slim": ">=1.6.0,<2.0.0",
-                "channelgrabber/stdlib": ">=2.5.19,<3.0.0",
+                "channelgrabber/stdlib": ">=2.5.22,<3.0.0",
                 "ext-mongo": ">=1.4.4",
                 "guzzle/guzzle": "~3.7",
                 "nocarrier/hal": "~0.9.4",
@@ -418,7 +418,7 @@
                     "CG\\Order\\": ""
                 }
             },
-            "time": "2014-06-04 16:10:18"
+            "time": "2014-06-10 14:08:44"
         },
         {
             "name": "channelgrabber/permission",
@@ -1219,7 +1219,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "cbe95a110a52515da7931c8ba197663bbfea672b"
+                "reference": "4b554ade0c25c41da06746d8220144f1c88522d5"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1248,7 +1248,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-06-06 15:53:41"
+            "time": "2014-06-11 08:45:08"
         },
         {
             "name": "cilex/cilex",
