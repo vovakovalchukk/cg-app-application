@@ -73,12 +73,8 @@ require(
         <label>
             <span class="inputbox-label">Enable Account:</span>
             <div class="alternate-input mustache">
-                <div class="enable_switch">
-                    <?= $this->mustache('columns/enable.mustache', $account) ?>
-                </div>
-                <div class="current-account-status">
-                    <?= $this->mustache('columns/status.mustache', $account) ?>
-                </div>
+                <?= $this->mustache('columns/enable.mustache', $account) ?>
+                <?= $this->mustache('columns/status.mustache', $account) ?>
             </div>
         </label>
     </form>
