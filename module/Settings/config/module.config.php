@@ -236,9 +236,9 @@ return [
             TradingApi::class => [
                 'parameters' => [
                     'client' => 'EbayGuzzle',
-                    'developerId' => '91dbbc3a-8765-4498-86ff-646f255323a8',
-                    'applicationName' => 'WilkiLtd-beda-4d92-9c9f-7f7f9d283733',
-                    'certificateId' => 'ba6edfbf-a5c5-48cd-a147-b9dbf0350fb3'
+                    'developerId' => '39b27d4e-07e2-4298-8eaa-7614e79dba4c',
+                    'applicationName' => 'ChannelG-9b1e-4478-a742-146c81a2b5a9',
+                    'certificateId' => 'fa030731-18cc-4087-a06e-605d63113625'
                 ]
             ],
             Service::class => [
