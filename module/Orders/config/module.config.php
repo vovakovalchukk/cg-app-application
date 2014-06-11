@@ -493,7 +493,7 @@ return [
                 'parameters' => [
                     'column' => 'channel',
                     'viewModel' => 'OrdersChannelColumnView',
-                    'width' => 70,
+                    'class' => 'channel-col',
                 ],
             ],
             'OrdersAccountColumnView' => [
@@ -506,7 +506,7 @@ return [
                 'parameters' => [
                     'column' => 'accountId',
                     'viewModel' => 'OrdersAccountColumnView',
-                    'width' => 50,
+                    'class' => 'account-col',
                 ],
             ],
             'OrdersDateColumnView' => [
@@ -519,7 +519,7 @@ return [
                 'parameters' => [
                     'column' => 'purchaseDate',
                     'viewModel' => 'OrdersDateColumnView',
-                    'width' => 80,
+                    'class' => 'orderdate-col',
                 ],
             ],
             'OrdersIdColumnView' => [
@@ -532,6 +532,7 @@ return [
                 'parameters' => [
                     'column' => 'externalId',
                     'viewModel' => 'OrdersIdColumnView',
+                    'class' => 'orderid-col',
                 ],
             ],
             'OrdersTotalColumnView' => [
@@ -544,7 +545,7 @@ return [
                 'parameters' => [
                     'column' => 'total',
                     'viewModel' => 'OrdersTotalColumnView',
-                    'width' => 50,
+                    'class' => 'total-col',
                 ],
             ],
             'OrdersBuyerColumnView' => [
@@ -557,7 +558,7 @@ return [
                 'parameters' => [
                     'column' => 'billingAddressFullName',
                     'viewModel' => 'OrdersBuyerColumnView',
-                    'width' => 100,
+                    'class' => 'buyer-col',
                 ],
             ],
             'OrdersStatusColumnView' => [
@@ -583,7 +584,7 @@ return [
                 'parameters' => [
                     'column' => 'batch',
                     'viewModel' => 'OrdersBatchColumnView',
-                    'width' => 50,
+                    'class' => 'batch-col',
                 ],
             ],
             'OrdersMessagesColumnView' => [
@@ -596,7 +597,7 @@ return [
                 'parameters' => [
                     'column' => 'buyerMessage',
                     'viewModel' => 'OrdersMessagesColumnView',
-                    'width' => 50,
+                    'class' => 'message-col',
                 ],
             ],
             'OrdersShippingColumnView' => [
@@ -609,7 +610,7 @@ return [
                 'parameters' => [
                     'column' => 'shippingMethod',
                     'viewModel' => 'OrdersShippingColumnView',
-                    'width' => '100',
+                    'class' => 'shipping-col',
                 ],
             ],
             'OrdersDispatchColumnView' => [
@@ -647,7 +648,8 @@ return [
             'OrdersTagColumn' => [
                 'parameters' => [
                     'column' => 'tag',
-                    'viewModel' => 'OrdersTagColumnView'
+                    'viewModel' => 'OrdersTagColumnView',
+                    'class' => 'tag-col',
                 ]
             ],
             'OrdersOptionsColumnView' => [
