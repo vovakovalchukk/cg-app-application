@@ -259,6 +259,7 @@ class Service implements LoggerAwareInterface
                 'organisationUnitId' => $this->getActiveUser()->getOuList(),
                 'page' => 1,
                 'limit' => 1,
+                'orderDirection' => 'ASC',
             ]
         );
 
