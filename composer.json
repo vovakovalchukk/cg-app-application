@@ -25,12 +25,12 @@
         "channelgrabber/constants": "dev-master",
         "channelgrabber/ebay": "~1.1.14",
         "channelgrabber/http": "~1.2.9",
-        "channelgrabber/log": "~1.4.3",
+        "channelgrabber/log": "~1.4.4",
         "channelgrabber/order": "~1.5.27",
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/sso": "~1.1.2",
-        "channelgrabber/stdlib": "~2.5.22",
+        "channelgrabber/stdlib": "~2.5.26",
         "channelgrabber/template": "~1.2.7",
         "channelgrabber/user": "~1.14.1",
         "channelgrabber/userpreference": "~1.0.4",
@@ -45,11 +45,7 @@
         "channelgrabber/zf2-register": "~1.4.13",
         "channelgrabber/zf2-ssoclient": "~1.2.4",
         "channelgrabber/zf2-stdlib": "~1.1.9",
-<<<<<<< HEAD
-        "channelgrabber/zf2-v4-ui": "dev-CGIV-1684-page-width as 1.7.16",
-=======
         "channelgrabber/zf2-v4-ui": "~1.8.0",
->>>>>>> develop
         "guzzle/guzzle": "~3.7",
         "nocarrier/hal": "~0.9.3",
         "php": ">=5.3.3",
