@@ -7,25 +7,30 @@ use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection;
 use CG\Stdlib\DateTime;
 use Orders\Order\Invoice\Template\Factory as TemplateFactory;
+use CG\Template\Element\Factory as ElementFactory;
 use Orders\Order\Invoice\Renderer\ServiceInterface as RendererService;
+use CG\Template\PaperPage;
 
 class Service
 {
     protected $di;
     protected $orderService;
     protected $templateFactory;
+    protected $elementFactory;
     protected $rendererService;
 
     public function __construct(
         Di $di,
         OrderService $orderService,
         TemplateFactory $templateFactory,
+        ElementFactory $elementFactory,
         RendererService $rendererService
     ) {
         $this
             ->setDi($di)
             ->setOrderService($orderService)
             ->setTemplateFactory($templateFactory)
+            ->setElementFactory($elementFactory)
             ->setRendererService($rendererService);
     }
 
@@ -71,6 +76,20 @@ class Service
         return $this->templateFactory;
     }
 
+    public function setElementFactory(ElementFactory $elementFactory)
+    {
+        $this->elementFactory = $elementFactory;
+        return $this;
+    }
+
+    /**
+     * @return ElementFactory
+     */
+    public function getElementFactory()
+    {
+        return $this->elementFactory;
+    }
+
     public function setRendererService(RendererService $rendererService)
     {
         $this->rendererService = $rendererService;
@@ -101,6 +120,32 @@ class Service
         return $this->getResponseFromOrderCollection(
             $this->getOrderService()->getOrdersFromFilterId($filterId)
         );
+    }
+
+    public function createTemplate(array $config)
+    {
+        $config['elements'] = $this->createElements($config['elements']);
+        $config['paperPage'] = $this->createPaperPage($config['paperPage']);
+        return $this->getTemplateFactory()->getTemplateForOrderEntity($config);
+    }
+
+    protected function createElements(array $elementConfigs)
+    {
+        $elements = [];
+        foreach ($elementConfigs as $elementConfig) {
+            $elements[] = $this->createElement($elementConfig);
+        }
+        return $elements;
+    }
+
+    protected function createElement(array $config)
+    {
+        return $this->getElementFactory()->createElement($config);
+    }
+
+    protected function createPaperPage(array $config)
+    {
+        return $this->getDi()->newInstance(PaperPage::class, $config);
     }
 
     /**

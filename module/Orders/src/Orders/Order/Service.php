@@ -248,6 +248,23 @@ class Service implements LoggerAwareInterface
         return $this->getOrders($filter);
     }
 
+    /**
+     * @return OrderCollection
+     */
+    public function getPreviewOrder()
+    {
+        $filter = $this->getDi()->newInstance(
+            Filter::class,
+            [
+                'organisationUnitId' => $this->getActiveUser()->getOuList(),
+                'page' => 1,
+                'limit' => 1,
+            ]
+        );
+
+        return $this->getOrders($filter);
+    }
+
     public function getOrdersFromFilterId($filterId, $limit = 'all', $page = 1, $orderBy = null, $orderDirection = null)
     {
         return $this->getOrderClient()->fetchCollectionByFilterId(

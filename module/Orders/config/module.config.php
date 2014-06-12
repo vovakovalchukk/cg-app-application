@@ -350,8 +350,8 @@ return [
                         'options' => [
                             'route' => '/invoice',
                             'defaults' => [
-                                'controller' => 'Orders\Controller\Invoice',
-                                'action' => 'generate'
+                                'controller' => BulkActionsController::class,
+                                'action' => 'invoiceOrderIds'
                             ]
                         ],
                         'may_terminate' => true,
@@ -364,7 +364,7 @@ return [
                                         'filterId' => '.+'
                                     ],
                                     'defaults' => [
-                                        'action' => 'generateFromFilterId',
+                                        'action' => 'invoiceFilterId',
                                     ]
                                 ],
                             ],
@@ -373,8 +373,7 @@ return [
                                 'options' => [
                                     'route' => '/preview',
                                     'defaults' => [
-                                        'controller' => 'Orders\Controller\Invoice',
-                                        'action' => 'generatePreview'
+                                        'action' => 'previewInvoice'
                                     ]
                                 ],
                             ],
