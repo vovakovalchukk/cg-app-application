@@ -261,6 +261,31 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         $this->getBatchService()->remove($orders);
     }
 
+    public function cancelOrderIdsAction()
+    {
+        return $this->performActionOnOrderIds(
+            'cancelling',
+            [$this, 'cancelOrders']
+        );
+    }
+
+    public function cancelFilterIdAction()
+    {
+        return $this->performActionOnFilterId(
+            'cancelling',
+            [$this, 'cancelOrders']
+        );
+    }
+
+    public function cancelOrders(OrderCollection $orders)
+    {
+        $this->getOrderService()->cancelOrders(
+            $orders,
+            $this->params()->fromPost('type'),
+            $this->params()->fromPost('reason')
+        );
+    }
+
     public function dispatchOrderIdsAction()
     {
         return $this->performActionOnOrderIds(

@@ -276,8 +276,8 @@ return [
                         'options' => [
                             'route' => '/cancel',
                             'defaults' => [
-                                'controller' => CancelController::class,
-                                'action' => 'cancel'
+                                'controller' => BulkActionsController::class,
+                                'action' => 'cancelOrderIds'
                             ]
                         ]
                     ],
