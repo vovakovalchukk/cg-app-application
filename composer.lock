@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "79072510f478d913eeab3056d6a95a53",
+    "hash": "c167ed0411a74b7961f611b650b7508b",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -1215,15 +1215,17 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "90912e16b0b61d250a19d291ff316d91729fd88e"
+                "reference": "0a68b639d7f3334e4b656e4ff485d4d5c6b94d50"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
+                "channelgrabber/log": ">=1.4.2",
                 "channelgrabber/stdlib": ">=2.5.8",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
                 "widmogrod/zf2-mustache-module": "dev-master",
                 "zendframework/zend-config": "2.*",
-                "zendframework/zend-form": "2.*",
+                "zendframework/zend-form": ">=2.3,<3.0",
+                "zendframework/zend-i18n": "2.*",
                 "zendframework/zend-modulemanager": "2.*",
                 "zendframework/zend-mvc": "2.*",
                 "zendframework/zend-view": "2.*"
@@ -1243,7 +1245,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-06-10 08:15:07"
+            "time": "2014-06-11 15:13:39"
         },
         {
             "name": "cilex/cilex",
@@ -3707,14 +3709,14 @@
     ],
     "aliases": [
         {
-            "alias": "1.5.25",
-            "alias_normalized": "1.5.25.0",
+            "alias": "1.5.28",
+            "alias_normalized": "1.5.28.0",
             "version": "dev-CGIV-1846-InterfaceCleanup",
             "package": "channelgrabber/order"
         },
         {
-            "alias": "1.8.1",
-            "alias_normalized": "1.8.1.0",
+            "alias": "1.8.2",
+            "alias_normalized": "1.8.2.0",
             "version": "dev-CGIV-1846-DataTableCheckAll",
             "package": "channelgrabber/zf2-v4-ui"
         }
