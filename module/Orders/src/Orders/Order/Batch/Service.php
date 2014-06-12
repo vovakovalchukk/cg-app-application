@@ -93,7 +93,7 @@ class Service
         );
     }
 
-    protected function create(Orders $orders)
+    public function create(Orders $orders)
     {
         if (empty($orders)) {
             throw new RequiredKeyMissing('No Orders provided');
@@ -103,7 +103,7 @@ class Service
         $this->updateOrders($orders, $batch->getName());
     }
 
-    public function unsetForOrders(array $orderIds)
+    public function removeForOrders(array $orderIds)
     {
         $this->unsetBatch(
             $this->getOrderClient()->fetchCollectionByFilter(
@@ -112,7 +112,7 @@ class Service
         );
     }
 
-    public function unsetForFilterId($filterId)
+    public function removeForFilterId($filterId)
     {
         $this->unsetBatch(
             $this->getOrderClient()->fetchCollectionByFilterId(
@@ -125,7 +125,7 @@ class Service
         );
     }
 
-    protected function unsetBatch(Orders $orders)
+    public function remove(Orders $orders)
     {
         if (empty($orders)) {
             throw new RequiredKeyMissing('No Orders provided');

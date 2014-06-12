@@ -88,8 +88,8 @@ return [
                         'options' => array(
                             'route'    => '/batch',
                             'defaults' => array(
-                                'controller' => 'Orders\Controller\Batch',
-                                'action'     => 'index',
+                                'controller' => BulkActionsController::class,
+                                'action'     => 'batches',
                             ),
                         ),
                         'may_terminate' => true,
@@ -99,7 +99,7 @@ return [
                                 'options' => array(
                                     'route'    => '/create',
                                     'defaults' => array(
-                                        'action'     => 'create',
+                                        'action'     => 'batchOrderIds',
                                     ),
                                 ),
                                 'may_terminate' => true,
@@ -112,7 +112,7 @@ return [
                                                 'filterId' => '.+'
                                             ],
                                             'defaults' => [
-                                                'action' => 'createFromFilterId',
+                                                'action' => 'batchFilterId',
                                             ]
                                         ],
                                     ],
@@ -123,7 +123,7 @@ return [
                                 'options' => [
                                     'route' => '/unset',
                                     'defaults' => [
-                                        'action' => 'unset'
+                                        'action' => 'unBatchOrderIds'
                                     ]
                                 ],
                                 'may_terminate' => true,
@@ -136,22 +136,12 @@ return [
                                                 'filterId' => '.+'
                                             ],
                                             'defaults' => [
-                                                'action' => 'unsetFromFilterId',
+                                                'action' => 'unBatchFilterId',
                                             ]
                                         ],
                                     ],
                                 ],
                             ],
-                            'delete' => array(
-                                'type' => 'Zend\Mvc\Router\Http\Literal',
-                                'options' => array(
-                                    'route'    => '/delete',
-                                    'defaults' => array(
-                                        'action'     => 'delete',
-                                    ),
-                                ),
-                                'may_terminate' => true
-                            )
                         )
                     ],
                     'order' => [

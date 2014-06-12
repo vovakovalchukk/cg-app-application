@@ -13,6 +13,7 @@ use CG\Order\Shared\Collection as OrderCollection;
 use Orders\Controller\BulkActions\ExceptionInterface as Exception;
 use Orders\Controller\BulkActions\RuntimeException;
 use Orders\Controller\BulkActions\InvalidArgumentException;
+use Orders\Order\Batch\Service as BatchService;
 
 class BulkActionsController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -23,14 +24,21 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     protected $jsonModelFactory;
     protected $orderService;
+    protected $batchService;
     protected $typeMap = [
         self::TYPE_ORDER_IDS => 'getOrdersFromOrderIds',
         self::TYPE_FILTER_ID => 'getOrdersFromFilterId',
     ];
 
-    public function __construct(JsonModelFactory $jsonModelFactory, OrderService $orderService)
-    {
-        $this->setJsonModelFactory($jsonModelFactory)->setOrderService($orderService);
+    public function __construct(
+        JsonModelFactory $jsonModelFactory,
+        OrderService $orderService,
+        BatchService $batchService
+    ) {
+        $this
+            ->setJsonModelFactory($jsonModelFactory)
+            ->setOrderService($orderService)
+            ->setBatchService($batchService);
     }
 
     public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -61,6 +69,20 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         return $this->orderService;
     }
 
+    public function setBatchService(BatchService $batchService)
+    {
+        $this->batchService = $batchService;
+        return $this;
+    }
+
+    /**
+     * @return BatchService
+     */
+    public function getBatchService()
+    {
+        return $this->batchService;
+    }
+
     /**
      * @param $action
      * @return JsonModel
@@ -86,9 +108,11 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     protected function getOrdersFromOrderIds()
     {
-        return $this->getOrderService()->getOrdersById(
-            $this->getOrderIds()
-        );
+        $orderIds = $this->getOrderIds();
+        if (empty($orderIds)) {
+            throw new NotFound('No orderIds provided');
+        }
+        return $this->getOrderService()->getOrdersById($orderIds);
     }
 
     protected function getOrdersFromFilterId()
@@ -120,10 +144,10 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         try {
             $orders = $this->{$this->typeMap[$type]}();
             $callable($orders);
-        } catch (Exception $exception) {
-            return $response->setVariable('error', $exception->getMessage());
         } catch (NotFound $exception) {
             return $response->setVariable('error', 'No Orders found');
+        } catch (Exception $exception) {
+            return $response->setVariable('error', $exception->getMessage());
         } catch (MultiException $exception) {
             $failedOrderIds = [];
             foreach ($exception as $orderId => $orderException) {
@@ -186,6 +210,55 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         }
 
         return $actionMap[$action];
+    }
+
+    public function batchesAction()
+    {
+        return $this->getJsonModelFactory()->newInstance(
+            $this->getBatchService()->getBatches()
+        );
+    }
+
+    public function batchOrderIdsAction()
+    {
+        return $this->performActionOnOrderIds(
+            'batched',
+            [$this, 'batchOrders']
+        );
+    }
+
+    public function batchFilterIdAction()
+    {
+        return $this->performActionOnFilterId(
+            'batched',
+            [$this, 'batchOrders']
+        );
+    }
+
+    public function batchOrders(OrderCollection $orders)
+    {
+        $this->getBatchService()->create($orders);
+    }
+
+    public function unBatchOrderIdsAction()
+    {
+        return $this->performActionOnOrderIds(
+            'unBatched',
+            [$this, 'unBatchOrders']
+        );
+    }
+
+    public function unBatchFilterIdAction()
+    {
+        return $this->performActionOnFilterId(
+            'unBatched',
+            [$this, 'unBatchOrders']
+        );
+    }
+
+    public function unBatchOrders(OrderCollection $orders)
+    {
+        $this->getBatchService()->remove($orders);
     }
 
     public function dispatchOrderIdsAction()
