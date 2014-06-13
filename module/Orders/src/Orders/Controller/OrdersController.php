@@ -312,7 +312,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             'order-buyer-message' => 'Buyer Message',
             'addressInformation' => 'Address Information',
             'product-payment-table' => 'Payment Information',
-            'notes' => 'Notes'
+            'order-notes' => 'Notes'
 
         ];
         $sidebar->setVariable('links', $links);
