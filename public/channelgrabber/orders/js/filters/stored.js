@@ -34,7 +34,7 @@ define(
                     focusPopup();
                 });
 
-                popup.getElement().on("keypress.storedFilters", "input.name", function(event) {
+                popup.getElement().on("keypress.storedFilters", "input#filter-name", function(event) {
                     if (event.which !== 13) {
                         return;
                     }
@@ -51,11 +51,11 @@ define(
             };
 
             var focusPopup = function() {
-                popup.getElement().find("input.name").focus();
+                popup.getElement().find("input#filter-name").focus();
             };
 
             var savePopup = function() {
-                var name = $.trim(popup.getElement().find("input.name").val());
+                var name = $.trim(popup.getElement().find("input#filter-name").val());
                 if (!name.length) {
                     return;
                 }
