@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "e4ea4f838d346bdf6e19fabc51b8b1a0",
+    "hash": "b46243ca56c50fc6f5e9271e9ae0251e",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -566,11 +566,17 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "dev-CGIV-2444-PageLimitOffset",
+            "version": "2.5.27",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "8f95acc43bc02a96e3273a1418017f63f6ad8049"
+                "reference": "c87ec0388bbdbf665cc563a1ea41124828be753e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.5.27-d8989a.zip",
+                "reference": "c87ec0388bbdbf665cc563a1ea41124828be753e",
+                "shasum": "3833d92c4fbf4bcf5484e71750abce680e19d906"
             },
             "require": {
                 "zendframework/zend-db": ">=2.2,<3.0"
@@ -588,7 +594,7 @@
                     "CG/Stdlib/Utilities.php"
                 ]
             },
-            "time": "2014-06-13 17:21:59"
+            "time": "2014-06-13 17:44:03"
         },
         {
             "name": "channelgrabber/template",
@@ -3714,17 +3720,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "2.5.27",
-            "alias_normalized": "2.5.27.0",
-            "version": "dev-CGIV-2444-PageLimitOffset",
-            "package": "channelgrabber/stdlib"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/stdlib": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },
