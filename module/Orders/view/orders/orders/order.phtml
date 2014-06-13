@@ -24,15 +24,20 @@ require([
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
-<div id="order-status" class="<?= $order->getStatus(); ?>-bg"><?= $order->getStatus(); ?></div>
-<div id="breadcrumbs" class="order-breadcrumbs">
-    <div class="right">
-        <span><strong><?= $this->translate('Order ID'); ?>: </strong><?= $order->getExternalId(); ?></span>
-        <span class="logo-large <?=$order->getChannel()?>"></span>
+<div class="module clearfix section-separator" id="timeline">
+    <?= $this->timelineBoxes; ?>
+    <div class="order-details-right">
+        <div class="orderid-logo-holder">
+            <span class="order-status-holder status <?= $order->getStatus(); ?>-bg"><?= $order->getStatus(); ?></span>
+            <span class="logo-large <?=$order->getChannel()?>"></span>
+            <span class="orderid"><strong><?= $this->translate('Order ID'); ?>: </strong><?= $order->getExternalId(); ?></span>
+        </div>
     </div>
 </div>
-<?= $this->bulkActions ?>
-<?= $this->timelineBoxes; ?>
+
+<div class="clearfix section-separator">
+    <?= $this->bulkActions ?>
+</div>
 <div class="module clearfix section-separator" id="order-alert">
     <form class="single-row" id="alert" data-url="<?= $this->url('Orders/order/alert', array('order' => $order->getId())); ?>"
           data-actionMessage="<?= $this->translate('Saving alert'); ?>" data-successMessage="<?= $this->translate('Alert saved'); ?>">
