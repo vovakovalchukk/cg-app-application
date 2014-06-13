@@ -1,23 +1,24 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
-    "hash": "5308f0783f5d2158d7bc74aebaaaf5d9",
+    "hash": "9a82cfacc2fee44fdd02f5b255adecd5",
     "packages": [
         {
             "name": "channelgrabber/account",
-            "version": "1.0.22",
+            "version": "1.0.23",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-account.git",
-                "reference": "2c9b69279126c8f9525693d664d47bba8720886c"
+                "reference": "28e04348b75f9a480de87254aac0e8ac49504475"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-account-1.0.22-a15b6a.zip",
-                "reference": "2c9b69279126c8f9525693d664d47bba8720886c",
-                "shasum": "8d6bd29972c1ecb4c467c994ff338cf52d8661f4"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-account-1.0.23-3dfa21.zip",
+                "reference": "28e04348b75f9a480de87254aac0e8ac49504475",
+                "shasum": "2313f1354a9ed0f80068b70e627b868a7a1fd824"
             },
             "require": {
                 "channelgrabber/cache": ">=1.2.1, <1.3.0",
@@ -40,7 +41,7 @@
                     "CG\\Account\\": ""
                 }
             },
-            "time": "2014-06-06 15:27:16"
+            "time": "2014-06-13 09:55:47"
         },
         {
             "name": "channelgrabber/amazon",
@@ -266,17 +267,17 @@
         },
         {
             "name": "channelgrabber/gearman",
-            "version": "1.0.8",
+            "version": "1.0.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-gearman.git",
-                "reference": "267c710401c415a810a5ce55c14228b0003ef791"
+                "reference": "f68503ad1cef82c755933f9206338effda0c58f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-1.0.8-ee0d51.zip",
-                "reference": "267c710401c415a810a5ce55c14228b0003ef791",
-                "shasum": "3abb4c3cab633d5e70c9cdf83c74ab5a0a1b9a1f"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-1.0.9-18c23c.zip",
+                "reference": "f68503ad1cef82c755933f9206338effda0c58f8",
+                "shasum": "39b1aae4f5da0195b0d46b015c59e6caa0b72276"
             },
             "require": {
                 "ext-gearman": "*"
@@ -287,7 +288,7 @@
                     "CG\\Gearman\\": ""
                 }
             },
-            "time": "2014-06-11 12:55:18"
+            "time": "2014-06-13 10:04:18"
         },
         {
             "name": "channelgrabber/guzzle",
@@ -307,6 +308,13 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -383,17 +391,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.5.28",
+            "version": "1.5.29",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "26291f474eaa20989e23eacdba257ec95251b156"
+                "reference": "11292b1de86c71bf34f2d32df9812d67a244ab6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.5.28-4215fd.zip",
-                "reference": "26291f474eaa20989e23eacdba257ec95251b156",
-                "shasum": "3d794d7aecfd838dfbdd3386126f538e0377d440"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.5.29-aa3442.zip",
+                "reference": "11292b1de86c71bf34f2d32df9812d67a244ab6d",
+                "shasum": "a7e65494038a78f31199d62997b4f907d0e2b220"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.0,<1.3.0",
@@ -418,7 +426,7 @@
                     "CG\\Order\\": ""
                 }
             },
-            "time": "2014-06-12 14:59:57"
+            "time": "2014-06-13 09:17:39"
         },
         {
             "name": "channelgrabber/permission",
@@ -463,6 +471,13 @@
                 "predis/predis": "v0.8.3"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Predis\\": ""
@@ -635,17 +650,17 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.14.1",
+            "version": "1.14.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "cb39a36337c9c32676b9c59b54e5c9c6bc294419"
+                "reference": "48e73fb3cb19716c8c9544aca891afaa1a21038f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.14.1-abb833.zip",
-                "reference": "cb39a36337c9c32676b9c59b54e5c9c6bc294419",
-                "shasum": "8e42defa712f77ee907df4dc433b275596b21339"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.14.2-df5bab.zip",
+                "reference": "48e73fb3cb19716c8c9544aca891afaa1a21038f",
+                "shasum": "54b8bfd95ec0bdd0afcc41c0c1ac783b775c02eb"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.8",
@@ -675,21 +690,21 @@
                     "CG": ""
                 }
             },
-            "time": "2014-06-10 13:48:32"
+            "time": "2014-06-13 10:13:38"
         },
         {
             "name": "channelgrabber/userpreference",
-            "version": "1.0.6",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-userpreference.git",
-                "reference": "4db5c560f69ad2428c0861e8357575e76c476ccf"
+                "reference": "8685e1ba7a55b1193fa67e6af534184b2ef370a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-userpreference-1.0.6-d87077.zip",
-                "reference": "4db5c560f69ad2428c0861e8357575e76c476ccf",
-                "shasum": "6645fc3e9d82abd8e4a0e4fe0df4db9c6998da3a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-userpreference-1.1.0-1f3d0e.zip",
+                "reference": "8685e1ba7a55b1193fa67e6af534184b2ef370a9",
+                "shasum": "ca69ff21aed61ca543b482d3804ac559f3113851"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -702,7 +717,7 @@
                     "CG\\UserPreference\\": ""
                 }
             },
-            "time": "2014-02-14 17:57:16"
+            "time": "2014-06-13 10:02:18"
         },
         {
             "name": "channelgrabber/validation",
@@ -1068,17 +1083,17 @@
         },
         {
             "name": "channelgrabber/zf2-permission",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/permission-module.git",
-                "reference": "66f6cc6a4a338ef671e7745613986bc887ba5052"
+                "reference": "95da242e9fac5b704ce99739d233c166e36ce762"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.0.3-26e4d2.zip",
-                "reference": "66f6cc6a4a338ef671e7745613986bc887ba5052",
-                "shasum": "8951b86965bafee729db0c73f9363c7a7b32190e"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.0.4-5f6ac4.zip",
+                "reference": "95da242e9fac5b704ce99739d233c166e36ce762",
+                "shasum": "4216cf06181decb708ed0529b24a21193e75ff44"
             },
             "require": {
                 "channelgrabber/user": ">=1.10.11",
@@ -1099,7 +1114,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-06-10 10:16:13"
+            "time": "2014-06-13 10:18:19"
         },
         {
             "name": "channelgrabber/zf2-register",
@@ -1217,17 +1232,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.8.3",
+            "version": "1.8.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e2d53a7a3118dbfb07e3e0f99af0e3483c0f1874"
+                "reference": "c8373582f80b78f0fc434a9072ee2c1854378c5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.8.3-4aa09b.zip",
-                "reference": "e2d53a7a3118dbfb07e3e0f99af0e3483c0f1874",
-                "shasum": "92449a4436c5bc583c83dfb08d19ea474c60fa92"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.8.4-e96d10.zip",
+                "reference": "c8373582f80b78f0fc434a9072ee2c1854378c5c",
+                "shasum": "c031a586aae365479438ee47502cd5596602672f"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1257,7 +1272,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-06-13 08:51:58"
+            "time": "2014-06-13 10:16:28"
         },
         {
             "name": "cilex/cilex",
@@ -1597,9 +1612,7 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
