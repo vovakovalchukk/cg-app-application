@@ -28,7 +28,7 @@ use CG\Template\Repository as TemplateRepository;
 return [
     'router' => [
         'routes' => [
-            Module::ROUTE => [ // Settings
+            Module::ROUTE => [
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => [
                     'route' => '/settings',
@@ -42,7 +42,7 @@ return [
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
-                    ChannelController::ROUTE => [ // Channel Management
+                    ChannelController::ROUTE => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [
                             'route' => '/channel',
@@ -53,7 +53,7 @@ return [
                         ],
                         'may_terminate' => true,
                         'child_routes' => [
-                            ChannelController::ROUTE_CHANNELS => [ // Sales Channels
+                            ChannelController::ROUTE_CHANNELS => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => [
                                     'route' => '/settings',
@@ -151,7 +151,7 @@ return [
                             ],
                         ],
                     ],
-                    InvoiceController::ROUTE => [ // Invoice Settings
+                    InvoiceController::ROUTE => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [
                             'route' => '/invoice',
@@ -163,14 +163,13 @@ return [
                         ],
                         'may_terminate' => true,
                         'child_routes' => [
-                            InvoiceController::ROUTE_DESIGNER => [ // Invoice Designer
+                            InvoiceController::ROUTE_DESIGNER => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => [
                                     'route' => '/designer',
                                     'defaults' => [
                                         'controller' => InvoiceController::class,
                                         'action' => 'design',
-                                //        'sidebar' => null
                                     ]
                                 ],
                                 'may_terminate' => true,

@@ -41,16 +41,6 @@ class InvoiceController extends AbstractActionController
     {
         $view = $this->getJsonModelFactory()->newInstance();
         $view->setVariable('Invoice page to be created in ', 'https://channelgrabber.atlassian.net/browse/CGIV-2282');
-
-        return $view;
-
-        $addChannelSelect = $this->newViewModel();
-        $addChannelSelect->setTemplate('settings/channel/create/select');
-        $addChannelSelect->setVariable('channels', $this->getChannelService()->getChannels());
-        return $addChannelSelect;
-
-
-        $view = $this->getViewModelFactory()->newInstance();
         return $view;
     }
 

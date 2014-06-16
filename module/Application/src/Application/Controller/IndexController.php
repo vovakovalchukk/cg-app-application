@@ -31,10 +31,6 @@ class IndexController extends AbstractActionController implements ServiceLocator
 
     public function indexAction()
     {
-        try {
         $this->redirect()->toRoute('Orders');
-        } catch (\Exception $e) {
-            exit('foo');
-        }
     }
 }
