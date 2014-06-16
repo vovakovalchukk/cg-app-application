@@ -1,7 +1,8 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
     "hash": "30df64d24657eae851f6c874d99ef7df",
     "packages": [
@@ -307,6 +308,13 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -383,17 +391,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.5.29",
+            "version": "1.5.30",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "11292b1de86c71bf34f2d32df9812d67a244ab6d"
+                "reference": "23d3df78e86978f3441aa1d3516337001a976078"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.5.29-aa3442.zip",
-                "reference": "11292b1de86c71bf34f2d32df9812d67a244ab6d",
-                "shasum": "a7e65494038a78f31199d62997b4f907d0e2b220"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.5.30-14abdf.zip",
+                "reference": "23d3df78e86978f3441aa1d3516337001a976078",
+                "shasum": "90185bf9d3e30509221f27cba2f764086d8436ba"
             },
             "require": {
                 "channelgrabber/cache": ">=1.0.0,<1.3.0",
@@ -418,7 +426,7 @@
                     "CG\\Order\\": ""
                 }
             },
-            "time": "2014-06-13 09:17:39"
+            "time": "2014-06-13 17:40:03"
         },
         {
             "name": "channelgrabber/permission",
@@ -463,6 +471,13 @@
                 "predis/predis": "v0.8.3"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Predis\\": ""
@@ -1597,9 +1612,7 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",

@@ -78,8 +78,8 @@ define(function() {
     Batch.prototype.redrawSuccess = function(data) {
         var that = this;
         $(that.getSelector()).html('');
-        $.each(data, function(index) {
-            $(that.getSelector()).append(that.getMustacheInstance().renderTemplate(that.getTemplate(), data[index]));
+        $.each(data['batches'], function(index) {
+            $(that.getSelector()).append(that.getMustacheInstance().renderTemplate(that.getTemplate(), data['batches'][index]));
         });
     };
 
