@@ -28,7 +28,7 @@ use CG\Template\Repository as TemplateRepository;
 return [
     'router' => [
         'routes' => [
-            Module::ROUTE => [
+            Module::ROUTE => [ // Settings
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => [
                     'route' => '/settings',
@@ -42,7 +42,7 @@ return [
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
-                    ChannelController::ROUTE => [
+                    ChannelController::ROUTE => [ // Channel Management
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [
                             'route' => '/channel',
@@ -53,129 +53,156 @@ return [
                         ],
                         'may_terminate' => true,
                         'child_routes' => [
-                            'Sales Channel Ebay' => [
+                            ChannelController::ROUTE_CHANNELS => [ // Sales Channels
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => [
-                                    'route' => '/ebay',
+                                    'route' => '/settings',
                                     'defaults' => [
-                                        'controller' => EbayController::class,
-                                        'action' => 'save'
+                                        'controller' => ChannelController::class,
+                                        'action' => 'list',
                                     ]
-                                ],
-                                'may_terminate' => true
-                            ],
-                            AmazonAccount::ROUTE => [
-                                'type' => 'Zend\Mvc\Router\Http\Segment',
-                                'options' => [
-                                    'route' => '/amazon/:region',
-                                    'defaults' => [
-                                        'controller' => AmazonController::class,
-                                        'action' => 'save'
-                                    ]
-                                ],
-                                'may_terminate' => true
-                            ],
-                            ChannelController::AJAX_ROUTE => [
-                                'type' => 'Zend\Mvc\Router\Http\Literal',
-                                'options' => [
-                                    'route' => '/ajax',
-                                    'defaults' => [
-                                        'action' => 'listAjax',
-                                    ]
-                                ],
-                            ],
-                            ChannelController::CREATE_ROUTE => [
-                                'type' => 'Zend\Mvc\Router\Http\Literal',
-                                'options' => [
-                                    'route' => '/create',
-                                    'defaults' => [
-                                        'action' => 'create'
-                                    ]
-                                ],
-                                'may_terminate' => true
-                            ],
-                            ChannelController::ACCOUNT_ROUTE => [
-                                'type' => 'Zend\Mvc\Router\Http\Segment',
-                                'options' => [
-                                    'route' => '/:account',
-                                    'defaults' => [
-                                        'action' => 'account'
-                                    ],
-                                    'constraints' => [
-                                        'account' => '[0-9]*'
-                                    ],
                                 ],
                                 'may_terminate' => true,
                                 'child_routes' => [
-                                    ChannelController::ACCOUNT_STATUS_ROUTE => [
+                                    'Sales Channel Ebay' => [
                                         'type' => 'Zend\Mvc\Router\Http\Literal',
                                         'options' => [
-                                            'route' => '/enable',
+                                            'route' => '/ebay',
                                             'defaults' => [
-                                                'action' => 'statusAjax',
+                                                'controller' => EbayController::class,
+                                                'action' => 'save'
                                             ]
                                         ],
+                                        'may_terminate' => true
                                     ],
-                                    ChannelController::ACCOUNT_AJAX_ROUTE => [
+                                    AmazonAccount::ROUTE => [
                                         'type' => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => [
+                                            'route' => '/amazon/:region',
+                                            'defaults' => [
+                                                'controller' => AmazonController::class,
+                                                'action' => 'save'
+                                            ]
+                                        ],
+                                        'may_terminate' => true
+                                    ],
+                                    ChannelController::AJAX_ROUTE => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
                                         'options' => [
                                             'route' => '/ajax',
                                             'defaults' => [
-                                                'action' => 'accountUpdate'
-                                            ],
+                                                'action' => 'listAjax',
+                                            ]
                                         ],
                                     ],
-                                    ChannelController::ACCOUNT_DELETE_ROUTE => [
+                                    ChannelController::CREATE_ROUTE => [
                                         'type' => 'Zend\Mvc\Router\Http\Literal',
                                         'options' => [
-                                            'route' => '/delete',
+                                            'route' => '/create',
                                             'defaults' => [
-                                                'action' => 'delete',
+                                                'action' => 'create'
                                             ]
+                                        ],
+                                        'may_terminate' => true
+                                    ],
+                                    ChannelController::ACCOUNT_ROUTE => [
+                                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => [
+                                            'route' => '/:account',
+                                            'defaults' => [
+                                                'action' => 'account'
+                                            ],
+                                            'constraints' => [
+                                                'account' => '[0-9]*'
+                                            ],
+                                        ],
+                                        'may_terminate' => true,
+                                        'child_routes' => [
+                                            ChannelController::ACCOUNT_STATUS_ROUTE => [
+                                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                                'options' => [
+                                                    'route' => '/enable',
+                                                    'defaults' => [
+                                                        'action' => 'statusAjax',
+                                                    ]
+                                                ],
+                                            ],
+                                            ChannelController::ACCOUNT_AJAX_ROUTE => [
+                                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                                'options' => [
+                                                    'route' => '/ajax',
+                                                    'defaults' => [
+                                                        'action' => 'accountUpdate'
+                                                    ],
+                                                ],
+                                            ],
+                                            ChannelController::ACCOUNT_DELETE_ROUTE => [
+                                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                                'options' => [
+                                                    'route' => '/delete',
+                                                    'defaults' => [
+                                                        'action' => 'delete',
+                                                    ]
+                                                ],
+                                            ],
                                         ],
                                     ],
                                 ],
                             ],
                         ],
                     ],
-                    InvoiceController::ROUTE => [
+                    InvoiceController::ROUTE => [ // Invoice Settings
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [
                             'route' => '/invoice',
                             'defaults' => [
                                 'controller' => InvoiceController::class,
-                                'action' => 'design',
-                                'sidebar' => null
+                                'action' => 'settings',
+                                'sidebar' => Module::SIDEBAR_TEMPLATE,
                             ]
                         ],
                         'may_terminate' => true,
                         'child_routes' => [
-                            InvoiceController::ROUTE_FETCH => [
+                            InvoiceController::ROUTE_DESIGNER => [ // Invoice Designer
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => [
-                                    'route' => '/fetch',
+                                    'route' => '/designer',
                                     'defaults' => [
                                         'controller' => InvoiceController::class,
-                                        'action' => 'fetch'
+                                        'action' => 'design',
+                                //        'sidebar' => null
                                     ]
                                 ],
-                                'may_terminate' => true
-                            ],
-                            InvoiceController::ROUTE_SAVE => [
-                                'type' => 'Zend\Mvc\Router\Http\Literal',
-                                'options' => [
-                                    'route' => '/save',
-                                    'defaults' => [
-                                        'controller' => InvoiceController::class,
-                                        'action' => 'save'
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    InvoiceController::ROUTE_FETCH => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/fetch',
+                                            'defaults' => [
+                                                'controller' => InvoiceController::class,
+                                                'action' => 'fetch'
+                                            ]
+                                        ],
+                                        'may_terminate' => true
+                                    ],
+                                    InvoiceController::ROUTE_SAVE => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/save',
+                                            'defaults' => [
+                                                'controller' => InvoiceController::class,
+                                                'action' => 'save'
+                                            ]
+                                        ],
+                                        'may_terminate' => true
                                     ]
-                                ],
-                                'may_terminate' => true
+                                ]
                             ]
                         ]
-                    ],
-                ],
-            ],
+                    ]
+                 ]
+            ]
         ],
     ],
     'view_manager' => [
@@ -292,6 +319,7 @@ return [
                             [
                                 Module::ROUTE,
                                 ChannelController::ROUTE,
+                                ChannelController::ROUTE_CHANNELS,
                                 ChannelController::ACCOUNT_ROUTE,
                                 ChannelController::ACCOUNT_STATUS_ROUTE,
                             ]

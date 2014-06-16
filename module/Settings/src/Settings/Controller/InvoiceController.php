@@ -10,7 +10,8 @@ use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
 
 class InvoiceController extends AbstractActionController
 {
-    const ROUTE = 'Invoice';
+    const ROUTE = 'Invoice Settings';
+    const ROUTE_DESIGNER = 'Invoice Designer';
     const ROUTE_FETCH = 'Fetch';
     const ROUTE_SAVE = 'Save';
     const TEMPLATE_SELECTOR_ID = 'template-selector';
@@ -34,6 +35,23 @@ class InvoiceController extends AbstractActionController
             ->setTemplateService($templateService)
             ->setUserOrganisationUnitService($userOrganisationUnitService)
             ->setOrderTagManager($orderTagManager);
+    }
+
+    public function settingsAction()
+    {
+        $view = $this->getJsonModelFactory()->newInstance();
+        $view->setVariable('Invoice page to be created in ', 'https://channelgrabber.atlassian.net/browse/CGIV-2282');
+
+        return $view;
+
+        $addChannelSelect = $this->newViewModel();
+        $addChannelSelect->setTemplate('settings/channel/create/select');
+        $addChannelSelect->setVariable('channels', $this->getChannelService()->getChannels());
+        return $addChannelSelect;
+
+
+        $view = $this->getViewModelFactory()->newInstance();
+        return $view;
     }
 
     public function designAction()

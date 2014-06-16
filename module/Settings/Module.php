@@ -15,7 +15,7 @@ class Module
     use NavBar\ModuleServiceTrait;
 
     const PUBLIC_FOLDER = '/channelgrabber/settings/';
-    const ROUTE = 'Channel Management';
+    const ROUTE = 'Settings';
     const SUBHEADER_TEMPLATE = 'settings/sub-header';
     const SIDEBAR_TEMPLATE = 'settings/sidebar';
 
@@ -68,7 +68,7 @@ class Module
     protected function getNavBarItems()
     {
         return [
-            new NavBar\Item('sprite-settings-18-white', 'Settings', 'Channel Management'),
+            new NavBar\Item('sprite-settings-18-white', 'Settings', 'Settings'),
         ];
     }
 
@@ -101,21 +101,26 @@ class Module
     protected function getSettingRoutes(MvcEvent $event)
     {
         $links = [];
-
-        $router = $event->getApplication()->getServiceManager()->get('Router');
-        if (!($router instanceof SimpleRouteStack) || !$router->hasRoute(static::ROUTE)) {
+        $router = $event->getApplication()->getServiceManager()->get('config')['router']['routes'];
+        if (! isset($router[static::ROUTE])) {
             return $links;
         }
+        $routes = $router[static::ROUTE];
 
-        $route = $router->getRoute(static::ROUTE);
-        if (!($route instanceof SimpleRouteStack)) {
-            return $links;
+        foreach ($routes['child_routes'] as $groupName => $route) {
+            if ($route['type'] == SimpleRouteStack::class) {
+                continue;
+            }
+            $links[$groupName] = [
+                'route' => static::ROUTE.'/'.$groupName,
+                'child_routes' => [
+                ]
+            ];
+
+            foreach ($route['child_routes'] as $routeName => $childRoute) {
+                $links[$groupName]['child_routes'][$routeName] = static::ROUTE.'/'.$groupName.'/'.$routeName;
+            }
         }
-
-        foreach ($route->getRoutes() as $routeName => $childRoute) {
-            $links[$routeName] = static::ROUTE . '/' . $routeName;
-        }
-
         return $links;
     }
 }

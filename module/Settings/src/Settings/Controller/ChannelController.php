@@ -29,7 +29,8 @@ class ChannelController extends AbstractActionController
     const ACCOUNT_STATUS_ROUTE = 'Status';
     const ACCOUNT_DELETE_ROUTE = "Delete";
     const ACCOUNT_AJAX_ROUTE = "Sales Channel Item Ajax";
-    const ROUTE = "Sales Channels";
+    const ROUTE = "Channel Management";
+    const ROUTE_CHANNELS = "Sales Channels";
     const AJAX_ROUTE = "ajax";
     const CREATE_ROUTE = "Sales Channel Create";
     const ACCOUNT_TEMPLATE = "Sales Channel Item";
@@ -159,9 +160,8 @@ class ChannelController extends AbstractActionController
     {
         $accountList = $this->getService()->getAccountList();
         $settings = $accountList->getVariable('settings');
-
         $settings->setSource(
-            $this->url()->fromRoute(Module::ROUTE . '/' . static::ROUTE . '/' . static::AJAX_ROUTE)
+            $this->url()->fromRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_CHANNELS.'/'.static::AJAX_ROUTE)
         );
 
         $settings->setTemplateUrlMap($this->mustacheTemplateMap('accountList'));
@@ -245,7 +245,7 @@ class ChannelController extends AbstractActionController
         $accountForm = $this->getFormFactory()->get(static::ACCOUNT_DETAIL_FORM);
         $accountForm->setData($accountEntity->toArray());
         $updateUrl = $this->url()->fromRoute(
-            Module::ROUTE.'/'.static::ROUTE.'/'.static::ACCOUNT_ROUTE.'/'.static::ACCOUNT_AJAX_ROUTE,
+            Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_CHANNELS.'/'.static::ACCOUNT_ROUTE.'/'.static::ACCOUNT_AJAX_ROUTE,
             ['account' => $accountEntity->getId()]
         );
         $accountForm->setAttribute('action', $updateUrl);
