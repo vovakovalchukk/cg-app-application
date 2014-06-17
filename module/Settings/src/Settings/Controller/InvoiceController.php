@@ -4,13 +4,15 @@ namespace Settings\Controller;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
+use Settings\Module;
 use CG\Template\ReplaceManager\OrderContent as OrderTagManager;
 use CG\Template\Service as TemplateService;
 use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
 
 class InvoiceController extends AbstractActionController
 {
-    const ROUTE = 'Invoice Settings';
+    const ROUTE = 'Invoice';
+    const ROUTE_MAPPING = 'Invoice Mapping';
     const ROUTE_DESIGNER = 'Invoice Designer';
     const ROUTE_FETCH = 'Fetch';
     const ROUTE_SAVE = 'Save';
@@ -37,10 +39,14 @@ class InvoiceController extends AbstractActionController
             ->setOrderTagManager($orderTagManager);
     }
 
-    public function settingsAction()
+    public function indexAction()
     {
-        $view = $this->getJsonModelFactory()->newInstance();
-        $view->setVariable('Invoice page to be created in ', 'https://channelgrabber.atlassian.net/browse/CGIV-2282');
+        return $this->redirect()->toRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_MAPPING);
+    }
+
+    public function mappingAction()
+    {
+        $view = $this->getViewModelFactory()->newInstance();
         return $view;
     }
 

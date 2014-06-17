@@ -26,6 +26,35 @@ use CG\Template\Service as TemplateService;
 use CG\Template\Repository as TemplateRepository;
 
 return [
+    'navigation' => [
+        'default' => [
+            [
+                'label' => ChannelController::ROUTE,
+                'route' => Module::ROUTE.'/'.ChannelController::ROUTE,
+                'pages' => [
+                    [
+                        'label' => ChannelController::ROUTE_CHANNELS,
+                        'title' => ChannelController::ROUTE_CHANNELS,
+                        'route' => Module::ROUTE.'/'.ChannelController::ROUTE.'/'.ChannelController::ROUTE_CHANNELS
+                    ]
+                ]
+            ], [
+                'label' => InvoiceController::ROUTE,
+                'route' => Module::ROUTE.'/'.InvoiceController::ROUTE,
+                'pages' => [
+                    [
+                        'label' => InvoiceController::ROUTE_MAPPING,
+                        'title' => InvoiceController::ROUTE_MAPPING,
+                        'route' => Module::ROUTE.'/'.InvoiceController::ROUTE.'/'.InvoiceController::ROUTE_MAPPING
+                    ], [
+                        'label' => InvoiceController::ROUTE_DESIGNER,
+                        'title' => InvoiceController::ROUTE_DESIGNER,
+                        'route' => Module::ROUTE.'/'.InvoiceController::ROUTE.'/'.InvoiceController::ROUTE_DESIGNER
+                    ],
+                ]
+            ]
+        ]
+    ],
     'router' => [
         'routes' => [
             Module::ROUTE => [
@@ -48,7 +77,7 @@ return [
                             'route' => '/channel',
                             'defaults' => [
                                 'controller' => ChannelController::class,
-                                'action' => 'list',
+                                'action' => 'index',
                             ]
                         ],
                         'may_terminate' => true,
@@ -56,7 +85,7 @@ return [
                             ChannelController::ROUTE_CHANNELS => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => [
-                                    'route' => '/settings',
+                                    'route' => '/sales',
                                     'defaults' => [
                                         'controller' => ChannelController::class,
                                         'action' => 'list',
@@ -157,12 +186,22 @@ return [
                             'route' => '/invoice',
                             'defaults' => [
                                 'controller' => InvoiceController::class,
-                                'action' => 'settings',
-                                'sidebar' => Module::SIDEBAR_TEMPLATE,
+                                'action' => 'index',
+                                'sidebar' => Module::SIDEBAR_TEMPLATE
                             ]
                         ],
                         'may_terminate' => true,
                         'child_routes' => [
+                            InvoiceController::ROUTE_MAPPING => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/mapping',
+                                    'defaults' => [
+                                        'controller' => InvoiceController::class,
+                                        'action' => 'mapping',
+                                    ]
+                                ],
+                            ],
                             InvoiceController::ROUTE_DESIGNER => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => [
@@ -172,37 +211,39 @@ return [
                                         'action' => 'design',
                                     ]
                                 ],
-                                'may_terminate' => true,
-                                'child_routes' => [
-                                    InvoiceController::ROUTE_FETCH => [
-                                        'type' => 'Zend\Mvc\Router\Http\Literal',
-                                        'options' => [
-                                            'route' => '/fetch',
-                                            'defaults' => [
-                                                'controller' => InvoiceController::class,
-                                                'action' => 'fetch'
-                                            ]
-                                        ],
-                                        'may_terminate' => true
-                                    ],
-                                    InvoiceController::ROUTE_SAVE => [
-                                        'type' => 'Zend\Mvc\Router\Http\Literal',
-                                        'options' => [
-                                            'route' => '/save',
-                                            'defaults' => [
-                                                'controller' => InvoiceController::class,
-                                                'action' => 'save'
-                                            ]
-                                        ],
-                                        'may_terminate' => true
+                            ],
+                            InvoiceController::ROUTE_FETCH => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/fetch',
+                                    'defaults' => [
+                                        'controller' => InvoiceController::class,
+                                        'action' => 'fetch'
                                     ]
-                                ]
+                                ],
+                                'may_terminate' => true
+                            ],
+                            InvoiceController::ROUTE_SAVE => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/save',
+                                    'defaults' => [
+                                        'controller' => InvoiceController::class,
+                                        'action' => 'save'
+                                    ]
+                                ],
+                                'may_terminate' => true
                             ]
                         ]
                     ]
                  ]
             ]
         ],
+    ],
+    'service_manager' => [
+        'factories' => [
+            'navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory'
+        ]
     ],
     'view_manager' => [
         'template_path_stack' => [

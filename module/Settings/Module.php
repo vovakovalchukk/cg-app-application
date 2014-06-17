@@ -100,27 +100,6 @@ class Module
      */
     protected function getSettingRoutes(MvcEvent $event)
     {
-        $links = [];
-        $router = $event->getApplication()->getServiceManager()->get('config')['router']['routes'];
-        if (! isset($router[static::ROUTE])) {
-            return $links;
-        }
-        $routes = $router[static::ROUTE];
-
-        foreach ($routes['child_routes'] as $groupName => $route) {
-            if ($route['type'] == SimpleRouteStack::class) {
-                continue;
-            }
-            $links[$groupName] = [
-                'route' => static::ROUTE.'/'.$groupName,
-                'child_routes' => [
-                ]
-            ];
-
-            foreach ($route['child_routes'] as $routeName => $childRoute) {
-                $links[$groupName]['child_routes'][$routeName] = static::ROUTE.'/'.$groupName.'/'.$routeName;
-            }
-        }
-        return $links;
+        return $event->getApplication()->getServiceManager()->get('navigation');
     }
 }

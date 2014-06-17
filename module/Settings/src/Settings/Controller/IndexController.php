@@ -8,6 +8,6 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        $this->redirect()->toRoute(Module::ROUTE . '/' . ChannelController::ROUTE);
+        return $this->redirect()->toRoute(Module::ROUTE . '/' . ChannelController::ROUTE);
     }
 }

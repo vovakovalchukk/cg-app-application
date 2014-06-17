@@ -130,6 +130,11 @@ class ChannelController extends AbstractActionController
         return $this->getViewModelFactory()->newInstance($variables, $options);
     }
 
+    public function indexAction()
+    {
+        return $this->redirect()->toRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_CHANNELS);
+    }
+
     public function listAction()
     {
         $list = $this->newViewModel();
