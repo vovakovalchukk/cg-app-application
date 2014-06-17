@@ -69,6 +69,7 @@ class Module
     {
         return [
             new NavBar\Item('sprite-settings-18-white', 'Settings', 'Channel Management'),
+//            new NavBar\Item('sprite-user-24-white', 'AdminApplication', 'Admin')
         ];
     }
 

@@ -827,4 +827,14 @@ return [
             ],
         ],
     ],
+    'navigation' => array(
+        'header-navigation' => array(
+            array(
+                'label'  => 'Orders',
+                'route'  => 'Orders',
+                'sprite' => 'sprite-orders-18-white',
+                'order'  => 10
+            )
+        )
+    ),
 ];
