@@ -828,7 +828,7 @@ return [
         ],
     ],
     'navigation' => array(
-        'header-navigation' => array(
+        'application-navigation' => array(
             array(
                 'label'  => 'Orders',
                 'route'  => 'Orders',

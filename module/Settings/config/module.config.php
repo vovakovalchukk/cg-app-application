@@ -433,7 +433,7 @@ return [
         ]
     ],
     'navigation' => array(
-        'header-navigation' => array(
+        'application-navigation' => array(
             array(
                 'label'  => 'Settings',
                 'route'  => Module::ROUTE,
