@@ -395,8 +395,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
         $this->getFilterService()->setPersistentFilter($filter);
 
-//        print_r($filter);
-//        exit;
         try {
             $orders = $this->getOrderService()->getOrders($filter);
             $this->mergeOrderDataWithJsonData(
