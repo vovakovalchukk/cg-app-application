@@ -89,7 +89,7 @@ class Service implements LoggerAwareInterface
         $accounts = $this->getAccountService()->fetchByOUAndStatus(
             $this->getActiveUser()->getOuList(),
             null,
-            false,
+            null,
             static::ACCOUNTS_LIMIT,
             static::ACCOUNTS_PAGE
         );

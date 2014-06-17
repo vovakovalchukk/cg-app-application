@@ -76,10 +76,10 @@
     position: relative;
     margin: 40px auto 40px auto;
     border: 1px solid $color-lgrey;
+    background-color: $color-white;
     background-size: cover;
     background-repeat:  no-repeat;
     background-position: left top;
-
 }
 .template-paperpage:before, .template-paperpage:after {
     position: absolute;
@@ -97,6 +97,7 @@
     left: auto;
     right: 12px;
     @include transform(skew(5deg) rotate(5deg));
+    z-index: -1;
 }
 .template-element-ordertable{
     border: dashed 2px $color-mgrey;

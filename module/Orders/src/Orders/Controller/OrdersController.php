@@ -312,7 +312,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             'order-buyer-message' => 'Buyer Message',
             'addressInformation' => 'Address Information',
             'product-payment-table' => 'Payment Information',
-            'notes' => 'Notes'
+            'order-notes' => 'Notes'
 
         ];
         $sidebar->setVariable('links', $links);
@@ -333,9 +333,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         );
     }
 
-    protected function mergeOrderDataWithJsonData(ArrayObject $json, array $orderData)
+    protected function mergeOrderDataWithJsonData(PageLimit $pageLimit, ArrayObject $json, array $orderData)
     {
-        $json['Records'] = $orderData['orders'];
+        $json['Records'] = $pageLimit->getPageData($orderData['orders']);
         $json['iTotalRecords'] = $json['iTotalDisplayRecords'] = $orderData['orderTotal'];
         $json['sFilterId'] = $orderData['filterId'];
         return $this;
@@ -398,6 +398,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         try {
             $orders = $this->getOrderService()->getOrders($filter);
             $this->mergeOrderDataWithJsonData(
+                $pageLimit,
                 $data,
                 $this->getOrderService()->getOrdersArrayWithAccountDetails($orders, $this->getEvent())
             );
@@ -430,6 +431,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             );
 
             $this->mergeOrderDataWithJsonData(
+                $pageLimit,
                 $data,
                 $this->getOrderService()->getOrdersArrayWithAccountDetails($orders, $this->getEvent())
             );
