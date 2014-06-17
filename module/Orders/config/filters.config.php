@@ -38,22 +38,22 @@ return [
                                     [
                                         'title' => 'Today',
                                         'from' => 'today',
-                                        'to' => 'now'
+                                        'to' => '23:59'
                                     ],
                                     [
                                         'title' => 'Last 7 days',
                                         'from' => '-7 days',
-                                        'to' => 'now'
+                                        'to' => '23:59'
                                     ],
                                     [
                                         'title' => 'Month to date',
                                         'from' => 'midnight first day of this month',
-                                        'to' => 'now'
+                                        'to' => '23:59'
                                     ],
                                     [
                                         'title' => 'Year to date',
                                         'from' => 'first day of January',
-                                        'to' => 'now'
+                                        'to' => '23:59'
                                     ],
                                     [
                                         'title' => 'The previous month',
