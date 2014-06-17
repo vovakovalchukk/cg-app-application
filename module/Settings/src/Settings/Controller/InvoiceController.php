@@ -39,8 +39,29 @@ class InvoiceController extends AbstractActionController
 
     public function settingsAction()
     {
-        $view = $this->getJsonModelFactory()->newInstance();
-        $view->setVariable('Invoice page to be created in ', 'https://channelgrabber.atlassian.net/browse/CGIV-2282');
+        $view = $this->getViewModelFactory()->newInstance();
+        $invoices = [
+            3 => 'invoice1',
+            4 => 'invoice2',
+            5 => 'invoice3',
+        ];
+        $defaultInvoice = 4;
+        $tradingCompanies = [
+            9 => 'tradingCompany1',
+            12 => 'tradingCompany2',
+            13 => 'tradingCompany3',
+            14 => 'tradingCompany4'
+        ];
+        $assignedInvoices = [
+            9 => 5,
+            12 => 5,
+            13 => 3,
+            14 => 4
+        ];
+        $view->setVariable('invoices', $invoices);
+        $view->setVariable('defaultInvoice', $defaultInvoice);
+        $view->setVariable('tradingCompanies', $tradingCompanies);
+        $view->setVariable('assignedInvoices', $assignedInvoices);
         return $view;
     }
 

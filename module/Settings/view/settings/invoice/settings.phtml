@@ -1,0 +1,70 @@
+<!-- todo i should live in a scss file somewhere -->
+<style>
+.invoiceSettings {
+    margin:10px;
+}
+.invoiceDefaultSettings table {
+    float:none;
+    margin: 10px;
+    width: auto !important;
+    border: none;
+}
+.invoiceDefaultSettings table tr {
+    border:none;
+}
+.invoiceDefaultSettings table th {
+    color:black;
+    background-color:transparent;
+}
+.invoiceTradingCompanySettings table {
+    width: auto !important;
+}
+</style>
+
+<div class="invoiceSettings">
+    <div class="invoiceDefaultSettings">
+        <div class="heading-large">Invoice Settings</div>
+        <table>
+            <tr>
+                <th>Default Invoice</th>
+            </tr>
+            <tr>
+                <td>
+                    <select id="">
+                        <?php foreach ($invoices as $invoiceId => $invoice) : ?>
+                            <option<?= $defaultInvoice == $invoiceId ? ' selected="selected"' : '' ?> value="<?= $invoiceId ?>"><?= $invoice ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <hr>
+
+    <div class="invoiceTradingCompanySettings">
+        <div class="heading-large">Trading Companies</div>
+        <?php if (empty($tradingCompanies)) : ?>
+            (No Trading companies exist)
+        <?php else : ?>
+            <table>
+                <tr>
+                    <th>Trading Company</th>
+                    <th>Assigned Invoice</th>
+                </tr>
+                <?php foreach ($tradingCompanies as $tradingCompanyId => $tradingCompany) : ?>
+                <tr>
+                    <td><?= $tradingCompany ?></td>
+                    <td>
+                        <select>
+                            <?php foreach ($invoices as $invoiceId => $invoice) : ?>
+                                <option<?= $assignedInvoices[$tradingCompanyId] == $invoiceId ? ' selected="selected"' : '' ?> value="<?= $invoiceId ?>"><?= $invoice ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </table>
+        <?php endif; ?>
+    </div>
+</div>
