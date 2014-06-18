@@ -104,10 +104,16 @@ define([
         if (! template.isEditable()) {
             template = this.duplicate(template);
         }
-        this.getStorage().save(template);
-        template.setState(Service.FETCHED_STATE)
-            .setStateId(template.getId());
-        return true;
+
+        try {
+            this.getStorage().save(template);
+            template.setState(Service.FETCHED_STATE)
+                .setStateId(template.getId());
+            return true;
+        } catch(e){
+            n.error(e);
+            return false;
+        }
     };
 
     Service.prototype.validateTemplate = function(template)
