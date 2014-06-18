@@ -12,8 +12,6 @@ use Zend\View\Renderer\PhpRenderer;
 
 class Module
 {
-    use NavBar\ModuleServiceTrait;
-
     const PUBLIC_FOLDER = '/channelgrabber/settings/';
     const ROUTE = 'Channel Management';
     const SUBHEADER_TEMPLATE = 'settings/sub-header';
@@ -23,7 +21,6 @@ class Module
     {
         $eventManager = $event->getApplication()->getEventManager();
         $eventManager->attach(MvcEvent::EVENT_RENDER, array($this, 'layoutHandler'));
-        $eventManager->attach(MvcEvent::EVENT_RENDER, [$this->getNavBarService($event), 'appendNavBarItemsToNavBar']);
         $eventManager->attach(MvcEvent::EVENT_RENDER, [$this, 'appendStylesheet']);
     }
 
@@ -60,17 +57,6 @@ class Module
             return;
         }
         $this->renderSideBar($event, $viewModel);
-    }
-
-    /**
-     * @return NavBar\Item[]
-     */
-    protected function getNavBarItems()
-    {
-        return [
-            new NavBar\Item('sprite-settings-18-white', 'Settings', 'Channel Management'),
-//            new NavBar\Item('sprite-user-24-white', 'AdminApplication', 'Admin')
-        ];
     }
 
     /**
