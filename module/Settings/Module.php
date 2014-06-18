@@ -91,14 +91,14 @@ class Module
         }
 
         $sidebar->setVariable('title', static::ROUTE);
-        $sidebar->setVariable('routes', $this->getSettingRoutes($event));
+        $sidebar->setVariable('nav', $this->getSettingNavigation($event));
     }
 
     /**
      * @param MvcEvent $event
      * @return array
      */
-    protected function getSettingRoutes(MvcEvent $event)
+    protected function getSettingNavigation(MvcEvent $event)
     {
         return $event->getApplication()->getServiceManager()->get('navigation');
     }

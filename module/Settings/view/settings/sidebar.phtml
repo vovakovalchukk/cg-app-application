@@ -1,12 +1,12 @@
 <div id="sidebar" class="slideable clearfix fixed-scroll">
-    <?php foreach($routes->getPages() as $routes) : ?>
+    <?php foreach($nav->getPages() as $pages) : ?>
         <div class="filter-module clearfix navbar-content">
             <span class="heading-medium">
-                <?= $routes->getLabel(); ?>
+                <?= $pages->getLabel(); ?>
             </span>
             <div class="module-content nav">
                 <ul>
-                    <?php foreach($routes->getPages() as $page) : ?>
+                    <?php foreach($pages->getPages() as $page) : ?>
                         <li class="<?= ($route && strpos($route->getMatchedRouteName(), $page->getRoute()) === 0) ? 'selected' : '' ?>">
                             <a title="<?= $page->getTitle() ?>" href="<?= $this->url($page->getRoute()) ?>">
                             <?= $page->getLabel() ?>
