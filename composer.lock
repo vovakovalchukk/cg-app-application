@@ -1,10 +1,9 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
-        "This file is @generated automatically"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "61b2f16abbb8a2792c025aed24841fc9",
+    "hash": "5ab3245eb5f782a08583365b93a3edba",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -1019,17 +1018,11 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.3.25",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
                 "reference": "1b27232256686140e536ac07354909c706b3ac92"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.3.25-abd3a1.zip",
-                "reference": "1b27232256686140e536ac07354909c706b3ac92",
-                "shasum": "23d86b4154b14e51ac1991c2e031951e1a94c8e7"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
@@ -1688,7 +1681,8 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com"
+                    "homepage": "http://benramsey.com",
+                    "role": "Developer"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
@@ -3721,11 +3715,17 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.3.22",
+            "alias_normalized": "1.3.22.0",
+            "version": "dev-develop",
+            "package": "channelgrabber/zf2-login"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-login": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },
