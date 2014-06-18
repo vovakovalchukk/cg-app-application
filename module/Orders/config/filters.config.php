@@ -228,16 +228,13 @@ return [
                             'optionsProvider' => OrdersTableTagColumns::class,
                         ],
                         [
-                            'filterType' => 'customSelect',
+                            'filterType' => 'customSelectGroup',
                             'visible' => false,
                             'variables' => [
                                 'name' => 'archived',
                                 'title' => 'Show Archived',
                                 'isOptional' => true,
                                 'options' => [
-                                    [
-                                        'title' => 'All'
-                                    ],
                                     [
                                         'title' => 'Yes'
                                     ],
@@ -249,16 +246,13 @@ return [
                             ],
                         ],
                         [
-                            'filterType' => 'customSelect',
+                            'filterType' => 'customSelectGroup',
                             'visible' => false,
                             'variables' => [
                                 'name' => 'buyerMessage',
                                 'title' => 'Buyer Message',
                                 'isOptional' => true,
                                 'options' => [
-                                    [
-                                        'title' => 'All'
-                                    ],
                                     [
                                         'title' => 'Yes'
                                     ],
