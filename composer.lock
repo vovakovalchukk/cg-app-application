@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "5ab3245eb5f782a08583365b93a3edba",
+    "hash": "10bb1570e8dd65402a0c6d6d57572b05",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -566,17 +566,11 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.5.27",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "c87ec0388bbdbf665cc563a1ea41124828be753e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.5.27-d8989a.zip",
-                "reference": "c87ec0388bbdbf665cc563a1ea41124828be753e",
-                "shasum": "3833d92c4fbf4bcf5484e71750abce680e19d906"
+                "reference": "2982f248e77580b47d8584e165444dd1661cfd8e"
             },
             "require": {
                 "zendframework/zend-db": ">=2.2,<3.0"
@@ -3716,6 +3710,12 @@
     ],
     "aliases": [
         {
+            "alias": "2.5.27",
+            "alias_normalized": "2.5.27.0",
+            "version": "dev-develop",
+            "package": "channelgrabber/stdlib"
+        },
+        {
             "alias": "1.3.22",
             "alias_normalized": "1.3.22.0",
             "version": "dev-develop",
@@ -3725,6 +3725,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/stdlib": 20,
         "channelgrabber/zf2-login": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20

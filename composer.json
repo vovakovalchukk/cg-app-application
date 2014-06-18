@@ -30,7 +30,7 @@
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/sso": "~1.1.2",
-        "channelgrabber/stdlib": "~2.5.27",
+        "channelgrabber/stdlib": "dev-develop as 2.5.27",
         "channelgrabber/template": "~1.2.7",
         "channelgrabber/user": "~1.14.1",
         "channelgrabber/userpreference": "~1.1.0",
