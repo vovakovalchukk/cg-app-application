@@ -434,7 +434,7 @@ return [
     ],
     'navigation' => array(
         'application-navigation' => array(
-            array(
+            'settings' => array(
                 'label'  => 'Settings',
                 'route'  => Module::ROUTE,
                 'sprite' => 'sprite-settings-18-white',

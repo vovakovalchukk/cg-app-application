@@ -829,7 +829,7 @@ return [
     ],
     'navigation' => array(
         'application-navigation' => array(
-            array(
+            'orders' => array(
                 'label'  => 'Orders',
                 'route'  => 'Orders',
                 'sprite' => 'sprite-orders-18-white',
