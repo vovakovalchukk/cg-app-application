@@ -29,6 +29,9 @@ use Zend\Session\ManagerInterface as SessionManagerInterface;
 use Zend\Session\SessionManager;
 use Orders\Order\Batch\Service as OrderBatchService;
 use Zend\ServiceManager\ServiceManager;
+use CG\Session\SaveHandler\CGSessionSaveHandler;
+use Zend\Db\TableGateway\TableGateway;
+use Zend\Db\Adapter\Adapter;
 
 return array(
     'service_manager' => array(
@@ -69,7 +72,8 @@ return array(
         'instance' => array(
             'aliases' => array(
                 'Di' => 'Zend\Di\Di',
-                'config' => Config::class
+                'config' => Config::class,
+                'CGSessionSaveHandler' => CGSessionSaveHandler::class
             ),
             'preferences' => array(
                 'Zend\Di\LocatorInterface' => 'Zend\Di\Di',
@@ -79,8 +83,19 @@ return array(
                 OrderTagStorage::class => OrderTagApiClient::class,
                 OrderBatchStorage::class => OrderBatchApiClient::class,
                 OrganisationUnitStorage::class => OrganisationUnitClient::class,
-                SessionManagerInterface::class => SessionManager::class
+                SessionManagerInterface::class => SessionManager::class,
             ),
+            TableGateway::class => [
+                'parameters' => [
+                    'table' => 'sessions',
+                    'adapter' => Adapter::class
+                ]
+            ],
+            SessionManager::class => [
+                'parameters' => [
+                    'saveHandler' => 'CGSessionSaveHandler'
+                ]
+            ],
             OrderApiClient::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
