@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "61b2f16abbb8a2792c025aed24841fc9",
+    "hash": "d7512f3b762549f893e2fc843568b200",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -599,17 +599,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.2.7",
+            "version": "1.2.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "3af3badfae6657b85bf7f0f0af3b405aff3fefe8"
+                "reference": "e478df857bf3f0aff331ddad81b9ebe96d57a48e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.7-6d0e79.zip",
-                "reference": "3af3badfae6657b85bf7f0f0af3b405aff3fefe8",
-                "shasum": "9961e49fe7fe9f36af494031b4d65da77f00cf00"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.8-768f09.zip",
+                "reference": "e478df857bf3f0aff331ddad81b9ebe96d57a48e",
+                "shasum": "b59916de3cbcff98b72c198b487e970ec607f9e9"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.0",
@@ -632,7 +632,7 @@
                     "CG\\Template\\": ""
                 }
             },
-            "time": "2014-06-11 12:32:41"
+            "time": "2014-06-19 07:18:13"
         },
         {
             "name": "channelgrabber/user",
@@ -1688,7 +1688,8 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com"
+                    "homepage": "http://benramsey.com",
+                    "role": "Developer"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
