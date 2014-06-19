@@ -3,6 +3,7 @@ define(['InvoiceDesigner/Template/Element/ImmutableTextAbstract'], function(Immu
     var SellerAddress = function()
     {
         var data = {
+            height: 60.5,
             text: "%%b%%Returns Address%%n%%\n%%organisationUnit.addressFullName%%\n%%organisationUnit.addressCompanyName%%\n%%organisationUnit.address1%%\n%%organisationUnit.address2%%\n%%organisationUnit.address3%%\n%%organisationUnit.addressCity%%\n%%organisationUnit.addressCounty%%\n%%organisationUnit.addressPostcode%%\n%%organisationUnit.addressCountry%%"
         };
         ImmutableTextAbstract.call(this, data);
