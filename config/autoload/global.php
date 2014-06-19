@@ -73,7 +73,6 @@ return array(
             'aliases' => array(
                 'Di' => 'Zend\Di\Di',
                 'config' => Config::class,
-                'CGSessionSaveHandler' => CGSessionSaveHandler::class
             ),
             'preferences' => array(
                 'Zend\Di\LocatorInterface' => 'Zend\Di\Di',
@@ -85,15 +84,9 @@ return array(
                 OrganisationUnitStorage::class => OrganisationUnitClient::class,
                 SessionManagerInterface::class => SessionManager::class,
             ),
-            TableGateway::class => [
-                'parameters' => [
-                    'table' => 'sessions',
-                    'adapter' => Adapter::class
-                ]
-            ],
             SessionManager::class => [
                 'parameters' => [
-                    'saveHandler' => 'CGSessionSaveHandler'
+                    'saveHandler' => CGSessionSaveHandler::class
                 ]
             ],
             OrderApiClient::class => [
