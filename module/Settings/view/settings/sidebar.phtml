@@ -1,5 +1,6 @@
 <div id="sidebar" class="slideable clearfix fixed-scroll">
-    <?php foreach($nav->getPages() as $pages) : ?>
+    <?php $nav = []; ?>
+    <?php foreach($nav as $pages) : ?>
         <div class="filter-module clearfix navbar-content">
             <span class="heading-medium">
                 <?= $pages->getLabel(); ?>
@@ -16,5 +17,6 @@
                 </ul>
             </div>
         </div>
-    <?php endforeach; ?>
+    <?php endforeach; ?>?>
+    <?= $this->navigation('sidebar-nav') ?>
 </div>

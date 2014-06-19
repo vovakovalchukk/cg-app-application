@@ -27,7 +27,7 @@ use CG\Template\Repository as TemplateRepository;
 
 return [
     'navigation' => [
-        'default' => [
+        'sidebar-nav' => [
             [
                 'label' => ChannelController::ROUTE,
                 'route' => Module::ROUTE.'/'.ChannelController::ROUTE,
@@ -53,7 +53,7 @@ return [
                     ],
                 ]
             ]
-        ]
+        ],
     ],
     'router' => [
         'routes' => [
@@ -242,7 +242,7 @@ return [
     ],
     'service_manager' => [
         'factories' => [
-            'navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory'
+            'sidebar-nav' => \Settings\Factory\SidebarNav::class
         ]
     ],
     'view_manager' => [

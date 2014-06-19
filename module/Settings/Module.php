@@ -91,7 +91,7 @@ class Module
         }
 
         $sidebar->setVariable('title', static::ROUTE);
-        $sidebar->setVariable('nav', $this->getSettingNavigation($event));
+        //$sidebar->setVariable('nav', $this->getSettingNavigation($event));
     }
 
     /**
