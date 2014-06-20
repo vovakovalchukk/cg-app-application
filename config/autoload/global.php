@@ -29,7 +29,6 @@ use Zend\Session\ManagerInterface as SessionManagerInterface;
 use Zend\Session\SessionManager;
 use Orders\Order\Batch\Service as OrderBatchService;
 use Zend\ServiceManager\ServiceManager;
-use CG\Session\SaveHandler\CGSessionSaveHandler;
 
 return array(
     'service_manager' => array(
@@ -82,11 +81,6 @@ return array(
                 OrganisationUnitStorage::class => OrganisationUnitClient::class,
                 SessionManagerInterface::class => SessionManager::class,
             ),
-            SessionManager::class => [
-                'parameters' => [
-                    'saveHandler' => CGSessionSaveHandler::class
-                ]
-            ],
             OrderApiClient::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
