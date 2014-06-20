@@ -123,6 +123,10 @@ define([
             n.error("Please enter a template name.");
             return false;
         }
+        if(!template.getElements().count()){
+            n.error("Please add an element to the template.");
+            return false;
+        }
         return true;
     };
 
