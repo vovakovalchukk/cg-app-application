@@ -104,16 +104,26 @@ define([
         if (! template.isEditable()) {
             template = this.duplicate(template);
         }
-        this.getStorage().save(template);
-        template.setState(Service.FETCHED_STATE)
-            .setStateId(template.getId());
-        return true;
+
+        try {
+            this.getStorage().save(template);
+            template.setState(Service.FETCHED_STATE)
+                .setStateId(template.getId());
+            return true;
+        } catch(e){
+            n.error(e);
+            return false;
+        }
     };
 
     Service.prototype.validateTemplate = function(template)
     {
         if(!template.getName()) {
             n.error("Please enter a template name.");
+            return false;
+        }
+        if(!template.getElements().count()){
+            n.error("Please add an element to the template.");
             return false;
         }
         return true;

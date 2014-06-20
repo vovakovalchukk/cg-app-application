@@ -30,8 +30,6 @@ use Zend\Session\SessionManager;
 use Orders\Order\Batch\Service as OrderBatchService;
 use Zend\ServiceManager\ServiceManager;
 use CG\Session\SaveHandler\CGSessionSaveHandler;
-use Zend\Db\TableGateway\TableGateway;
-use Zend\Db\Adapter\Adapter;
 
 return array(
     'service_manager' => array(
