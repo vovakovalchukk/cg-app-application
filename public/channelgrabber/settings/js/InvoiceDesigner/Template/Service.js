@@ -91,7 +91,8 @@ define([
         var template = this.getStorage().fetch(id);
         template.setState(Service.FETCHED_STATE)
             .setStateId(id);
-        this.getDomManipulator().hideSaveDiscardBar(template);
+        this.getDomManipulator().hideSaveDiscardBar(template)
+            .triggerTemplateSelectedEvent(template);
         return template;
     };
 
@@ -132,7 +133,8 @@ define([
             .setState(Service.CREATED_STATE)
             .setStateId(organisationUnitId);
         this.loadModules(template);
-        this.getDomManipulator().hideSaveDiscardBar(template);
+        this.getDomManipulator().hideSaveDiscardBar(template)
+            .triggerTemplateSelectedEvent(template);
         return template;
     };
 

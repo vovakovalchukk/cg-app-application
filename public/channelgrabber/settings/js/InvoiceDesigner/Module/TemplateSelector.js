@@ -55,6 +55,7 @@ define([
     TemplateSelector.prototype.duplicate = function()
     {
         this.getService().duplicate(this.getTemplate());
+        
     };
 
     TemplateSelector.prototype.create = function()
