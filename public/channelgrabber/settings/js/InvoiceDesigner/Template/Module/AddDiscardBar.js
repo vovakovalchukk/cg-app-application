@@ -30,7 +30,6 @@ define([
         var state = this.getTemplate().getState();
         this.getTemplateService()[state](this.getTemplate().getStateId());
         this.getDomManipulator().hideSaveDiscardBar();
-        TemplateSelector.setTemplate(previousLoaded);
     };
 
     AddDiscardBar.prototype.save = function()
