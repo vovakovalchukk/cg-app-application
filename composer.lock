@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "40c769330c745e94e5aa091246b43dcb",
+    "hash": "a19fcf525148a0eade20f7addf23e578",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -1218,17 +1218,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.8.9",
+            "version": "1.8.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "a187ac8e31760f8b4d4550683d0097a3387aa174"
+                "reference": "ddc876febcd26f36248879371f76fa9f4653e787"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.8.9-9b6e52.zip",
-                "reference": "a187ac8e31760f8b4d4550683d0097a3387aa174",
-                "shasum": "fd09e7d1c5ba710f46e45cedfbbfc4677f32de47"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.8.11-e3ddba.zip",
+                "reference": "ddc876febcd26f36248879371f76fa9f4653e787",
+                "shasum": "8cfb4318e9947b5233c7552ba3abd21319c3451f"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1258,7 +1258,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-06-19 14:13:01"
+            "time": "2014-06-23 10:17:57"
         },
         {
             "name": "cilex/cilex",
@@ -1688,7 +1688,8 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com"
+                    "homepage": "http://benramsey.com",
+                    "role": "Developer"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
