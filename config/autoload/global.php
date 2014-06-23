@@ -29,6 +29,9 @@ use Zend\Session\ManagerInterface as SessionManagerInterface;
 use Zend\Session\SessionManager;
 use Orders\Order\Batch\Service as OrderBatchService;
 use Zend\ServiceManager\ServiceManager;
+use CG\Cache\Client\Redis as CacheRedis;
+use CG\Cache\Client\RedisPipeline as CacheRedisPipeline;
+use CG\ETag\Storage\Predis as EtagRedis;
 
 return array(
     'service_manager' => array(
@@ -121,6 +124,21 @@ return array(
                     'repository' => UserPreferenceStorage::class
                 ]
             ],
+            CacheRedisPipeline::class => array(
+                'parameter' => array(
+                    'predis' => 'unreliable_redis'
+                )
+            ),
+            CacheRedis::class => array(
+                'parameter' => array(
+                    'predis' => 'unreliable_redis'
+                )
+            ),
+            EtagRedis::class => array(
+                'parameter' => array(
+                    'predisClient' => 'unreliable_redis'
+                )
+            ),
         ),
     ),
     'view_manager' => [

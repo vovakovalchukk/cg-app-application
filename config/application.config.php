@@ -10,7 +10,7 @@ return array (
     5 => 'CG_Permission',
     6 => 'CG_Login',
     7 => 'CG_Register',
-//    8 => 'CG_SSO',
+    8 => 'CG_SSO',
     9 => 'Orders',
     10 => 'Settings',
     11 => 'CG_Email_Template',
