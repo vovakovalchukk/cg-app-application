@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "326a24ad106f470cb5cba8dae7a667a2",
+    "hash": "bb88c6b6612b5a3cfd93d2f0ce903aec",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -1018,11 +1018,17 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "dev-develop",
+            "version": "1.3.26",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "1b27232256686140e536ac07354909c706b3ac92"
+                "reference": "2862995f2dba9cd751e1b239863240700aad286d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.3.26-b233b5.zip",
+                "reference": "2862995f2dba9cd751e1b239863240700aad286d",
+                "shasum": "7ae1f326d7003b4867c8ba66b037b9e65c143730"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
@@ -1058,7 +1064,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2014-05-28 12:19:35"
+            "time": "2014-06-24 07:55:06"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -1211,11 +1217,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-2421",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "4ce619d305ca53e2a5f6ebd5e4c683eb2b86f522"
+                "reference": "8988f66a2307668b942ee94966ea8811ef158eb6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.9.0-172d28.zip",
+                "reference": "8988f66a2307668b942ee94966ea8811ef158eb6",
+                "shasum": "dd0602d5b574f20a83b00afbe1a20bd8ca4ecb18"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1245,7 +1257,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-06-19 12:59:17"
+            "time": "2014-06-24 09:58:48"
         },
         {
             "name": "cilex/cilex",
@@ -3709,24 +3721,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.3.22",
-            "alias_normalized": "1.3.22.0",
-            "version": "dev-develop",
-            "package": "channelgrabber/zf2-login"
-        },
-        {
-            "alias": "1.8.5",
-            "alias_normalized": "1.8.5.0",
-            "version": "dev-CGIV-2421",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-login": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },
