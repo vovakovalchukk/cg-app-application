@@ -28,8 +28,8 @@ return [
                             'variables' => [
                                 'name' => 'purchaseDate',
                                 'time' => [
-                                    'hours' => date('H'),
-                                    'minutes' => date('i')
+                                    'hours' => '23',
+                                    'minutes' => '59'
                                 ],
                                 'options' => [
                                     [
@@ -37,28 +37,28 @@ return [
                                     ],
                                     [
                                         'title' => 'Today',
-                                        'from' => strtotime("today"),
-                                        'to' => strtotime("now")
+                                        'from' => 'today',
+                                        'to' => '23:59'
                                     ],
                                     [
                                         'title' => 'Last 7 days',
-                                        'from' => strtotime("-7 days"),
-                                        'to' => strtotime("now")
+                                        'from' => '-7 days',
+                                        'to' => '23:59'
                                     ],
                                     [
                                         'title' => 'Month to date',
-                                        'from' => strtotime('midnight first day of this month'),
-                                        'to' => strtotime("now")
+                                        'from' => 'midnight first day of this month',
+                                        'to' => '23:59'
                                     ],
                                     [
                                         'title' => 'Year to date',
-                                        'from' => strtotime('first day of January'),
-                                        'to' => strtotime("now")
+                                        'from' => 'first day of January',
+                                        'to' => '23:59'
                                     ],
                                     [
                                         'title' => 'The previous month',
-                                        'from' => strtotime('midnight first day of last month'),
-                                        'to' => strtotime('23:59 last day of last month'),
+                                        'from' => 'midnight first day of last month',
+                                        'to' => '23:59 last day of last month',
                                     ]
                                 ]
                             ]

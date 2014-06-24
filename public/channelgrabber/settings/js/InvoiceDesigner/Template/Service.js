@@ -86,12 +86,13 @@ define([
     Service.prototype.fetch = function(id)
     {
         if (!id) {
-            throw 'InvalidArgumentException: InvoiceDesigner\Template\Service::fetch must be passed a template ID';
+            throw 'InvalidArgumentException: InvoiceDesigner\\Template\\Service::fetch must be passed a template ID';
         }
         var template = this.getStorage().fetch(id);
         template.setState(Service.FETCHED_STATE)
             .setStateId(id);
-        this.getDomManipulator().hideSaveDiscardBar(template);
+        this.getDomManipulator().hideSaveDiscardBar(template)
+            .triggerTemplateSelectedEvent(template);
         return template;
     };
 
@@ -104,16 +105,26 @@ define([
         if (! template.isEditable()) {
             template = this.duplicate(template);
         }
-        this.getStorage().save(template);
-        template.setState(Service.FETCHED_STATE)
-            .setStateId(template.getId());
-        return true;
+
+        try {
+            this.getStorage().save(template);
+            template.setState(Service.FETCHED_STATE)
+                .setStateId(template.getId());
+            return true;
+        } catch(e){
+            n.error(e);
+            return false;
+        }
     };
 
     Service.prototype.validateTemplate = function(template)
     {
         if(!template.getName()) {
             n.error("Please enter a template name.");
+            return false;
+        }
+        if(!template.getElements().count()){
+            n.error("Please add an element to the template.");
             return false;
         }
         return true;
@@ -126,7 +137,8 @@ define([
             .setState(Service.CREATED_STATE)
             .setStateId(organisationUnitId);
         this.loadModules(template);
-        this.getDomManipulator().hideSaveDiscardBar(template);
+        this.getDomManipulator().hideSaveDiscardBar(template)
+            .triggerTemplateSelectedEvent(template);
         return template;
     };
 
@@ -134,9 +146,11 @@ define([
     {
         template.setName('DUPLICATE - ' + template.getName())
             .setState(Service.DUPLICATED_STATE)
-            .setStateId(template.getId())
             .setId()
             .setEditable(true);
+        if (template.getId()) {
+            template.setStateId(template.getId());
+        }
         this.loadModules(template);
         this.getDomManipulator().hideSaveDiscardBar(template);
         return template;
