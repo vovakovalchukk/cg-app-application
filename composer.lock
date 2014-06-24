@@ -1,10 +1,9 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
-        "This file is @generated automatically"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "bb88c6b6612b5a3cfd93d2f0ce903aec",
+    "hash": "eccd933284048ad6d46b5d2e741699b6",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -309,13 +308,6 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -472,13 +464,6 @@
                 "predis/predis": "v0.8.3"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Predis\\": ""
@@ -1235,17 +1220,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.9.0",
+            "version": "1.9.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "8988f66a2307668b942ee94966ea8811ef158eb6"
+                "reference": "6c4dabe51dc41b4b93d6d42446c3b446f8675eb2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.9.0-172d28.zip",
-                "reference": "8988f66a2307668b942ee94966ea8811ef158eb6",
-                "shasum": "dd0602d5b574f20a83b00afbe1a20bd8ca4ecb18"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.9.1-430c9f.zip",
+                "reference": "6c4dabe51dc41b4b93d6d42446c3b446f8675eb2",
+                "shasum": "c42c8059bb12fd2a910ffcc1290a309577812c4a"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1275,7 +1260,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-06-24 09:58:48"
+            "time": "2014-06-24 14:36:59"
         },
         {
             "name": "cilex/cilex",
@@ -1615,7 +1600,9 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -1703,7 +1690,8 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com"
+                    "homepage": "http://benramsey.com",
+                    "role": "Developer"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
