@@ -4,9 +4,11 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-
+<<<<<<< HEAD
     "hash": "36fff8b8895ca0da2367cd1b0150dfe5",
-
+=======
+    "hash": "9c8738c27f6da9c715c8828b994895c0",
+>>>>>>> a17194d07eed8f39623408ec821e5c002fb4be14
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -894,7 +896,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ebay-1.0.0-344074.zip",CGIV-2531-press-enter-filter-search-bar
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ebay-1.0.0-344074.zip",
                 "reference": "a9870ac051547472e385f6226fd718eef70e4c2a",
                 "shasum": "db95845c03d37513e18ca02f956ccb9f8a099057"
             },
