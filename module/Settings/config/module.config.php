@@ -431,5 +431,15 @@ return [
                 ]
             ]
         ]
-    ]
+    ],
+    'navigation' => array(
+        'application-navigation' => array(
+            'settings' => array(
+                'label'  => 'Settings',
+                'route'  => Module::ROUTE,
+                'sprite' => 'sprite-settings-18-white',
+                'order'  => 20
+            )
+        )
+    )
 ];

@@ -13,19 +13,15 @@ use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
 use Zend\Config\Factory as ConfigFactory;
 use Zend\Mvc\MvcEvent;
 use Zend\View\Model\ViewModel;
-use CG_UI\View\NavBar;
 
 class Module implements DependencyIndicatorInterface
 {
-    use NavBar\ModuleServiceTrait;
-
     const PUBLIC_FOLDER = '/channelgrabber/orders/';
 
     public function onBootstrap(MvcEvent $event)
     {
         $eventManager = $event->getApplication()->getEventManager();
         $eventManager->attach(MvcEvent::EVENT_RENDER, array($this, 'layoutHandler'));
-        $eventManager->attach(MvcEvent::EVENT_RENDER, [$this->getNavBarService($event), 'appendNavBarItemsToNavBar']);
     }
 
     public function getConfig()
@@ -75,15 +71,5 @@ class Module implements DependencyIndicatorInterface
         $bodyTag = new ViewModel();
         $bodyTag->setTemplate('orders/orders/bodyTag');
         return $bodyTag;
-    }
-
-    /**
-     * @return NavBar\Item[]
-     */
-    protected function getNavBarItems()
-    {
-        return [
-            new NavBar\Item('sprite-orders-18-white', 'Orders', 'Orders'),
-        ];
     }
 }
