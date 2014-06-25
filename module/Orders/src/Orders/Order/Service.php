@@ -89,7 +89,7 @@ class Service implements LoggerAwareInterface
         $accounts = $this->getAccountService()->fetchByOUAndStatus(
             $this->getActiveUser()->getOuList(),
             null,
-            false,
+            null,
             static::ACCOUNTS_LIMIT,
             static::ACCOUNTS_PAGE
         );
@@ -97,9 +97,12 @@ class Service implements LoggerAwareInterface
         $orders = [];
         foreach($orderCollection as $orderEntity) {
             $order = $orderEntity->toArray();
-            $accountEntity = $accounts->getById($order['accountId']);
 
-            $order['accountName'] = $accountEntity->getDisplayName();
+            $accountEntity = $accounts->getById($order['accountId']);
+            if ($accountEntity) {
+                $order['accountName'] = $accountEntity->getDisplayName();
+            }
+
             $order['accountLink'] = $event->getRouter()->assemble(
                 ['account' => $order['accountId']],
                 ['name' => SettingsModule::ROUTE . '/' . ChannelController::ROUTE . '/' .ChannelController::ROUTE_CHANNELS.'/'. ChannelController::ACCOUNT_ROUTE]

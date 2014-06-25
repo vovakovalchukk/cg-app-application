@@ -1,7 +1,10 @@
 define([
-    'InvoiceDesigner/Module/DomListenerAbstract'
+    'InvoiceDesigner/Module/DomListenerAbstract',
+    'InvoiceDesigner/Template/DomManipulator'
+    
 ], function(
-    DomListenerAbstract
+    DomListenerAbstract,
+    domManipulator
 ) {
 
     var TemplateSelector = function()
@@ -30,6 +33,10 @@ define([
         $(TemplateSelector.NEW_TEMPLATE_SELECTOR).click(function () {
             self.getModule().create();
         });
+        $(document).on(domManipulator.getTemplateSelectedEvent(), function (event, template) {
+            self.getModule().setTemplate(template);
+        });
+        
     };
 
     TemplateSelector.prototype.getDuplicateTemplateSelector = function()

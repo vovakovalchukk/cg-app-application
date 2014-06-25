@@ -34,7 +34,10 @@ define([
 
     AddDiscardBar.prototype.save = function()
     {
-        this.getTemplateService().save(this.getTemplate());
+        var success = this.getTemplateService().save(this.getTemplate());
+        if(! success) {
+            return;
+        }
         this.getDomManipulator().hideSaveDiscardBar();
     };
 
