@@ -451,7 +451,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:channelgrabber/phinx.git",
-                "reference": "44b5b4daa4dd3b9880ed7512a9eadecf6ea1355e"
+                "reference": "245ab541eee6ddc06f410460f20a798b2ecb39b2"
             },
             "require": {
                 "php": ">=5.3.2",
@@ -495,7 +495,7 @@
                 "migrations",
                 "phinx"
             ],
-            "time": "2014-06-24 12:12:55"
+            "time": "2014-06-24 13:51:15"
         },
         {
             "name": "channelgrabber/predis",
