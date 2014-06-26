@@ -70,7 +70,7 @@ return array(
         'instance' => array(
             'aliases' => array(
                 'Di' => 'Zend\Di\Di',
-                'config' => Config::class,
+                'config' => Config::class
             ),
             'preferences' => array(
                 'Zend\Di\LocatorInterface' => 'Zend\Di\Di',
@@ -122,7 +122,7 @@ return array(
                 'parameter' => [
                     'repository' => UserPreferenceStorage::class
                 ]
-            ]
+            ],
         ),
     ),
     'view_manager' => [
