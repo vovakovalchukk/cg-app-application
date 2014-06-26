@@ -11,6 +11,7 @@ define([
     };
 
     DomManipulator.SAVE_DISCARD_BAR_SELECTOR = '.save-template';
+    DomManipulator.EVENT_TEMPLATE_SELECTED = 'invoice-template-selected';
     DomManipulator.EVENT_TEMPLATE_CHANGED = 'invoice-template-changed';
     DomManipulator.EVENT_TEMPLATE_ELEMENT_SELECTED = 'invoice-template-element-selected';
     DomManipulator.EVENT_TEMPLATE_ELEMENT_RESIZED = 'invoice-template-element-resized';
@@ -35,6 +36,12 @@ define([
     DomManipulator.prototype.hideSaveDiscardBar = function()
     {
         $(DomManipulator.SAVE_DISCARD_BAR_SELECTOR).hide();
+        return this;
+    };
+
+    DomManipulator.prototype.triggerTemplateSelectedEvent = function (template)
+    {
+        $(document).trigger(DomManipulator.EVENT_TEMPLATE_SELECTED, [template]);
         return this;
     };
 
@@ -188,6 +195,11 @@ define([
         var dimensions = this.getDimensions('#'+tempId);
         $('#'+tempId).remove();
         return dimensions;
+    };
+
+    DomManipulator.prototype.getTemplateSelectedEvent = function()
+    {
+        return DomManipulator.EVENT_TEMPLATE_SELECTED;
     };
 
     DomManipulator.prototype.getTemplateChangedEvent = function()
