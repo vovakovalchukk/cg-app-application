@@ -877,7 +877,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ebay-1.0.0-344074.zip",CGIV-2531-press-enter-filter-search-bar
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ebay-1.0.0-344074.zip",
                 "reference": "a9870ac051547472e385f6226fd718eef70e4c2a",
                 "shasum": "db95845c03d37513e18ca02f956ccb9f8a099057"
             },
