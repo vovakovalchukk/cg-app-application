@@ -29,6 +29,7 @@ use Zend\Session\ManagerInterface as SessionManagerInterface;
 use Zend\Session\SessionManager;
 use Orders\Order\Batch\Service as OrderBatchService;
 use Zend\ServiceManager\ServiceManager;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 return array(
     'service_manager' => array(
@@ -79,7 +80,8 @@ return array(
                 OrderTagStorage::class => OrderTagApiClient::class,
                 OrderBatchStorage::class => OrderBatchApiClient::class,
                 OrganisationUnitStorage::class => OrganisationUnitClient::class,
-                SessionManagerInterface::class => SessionManager::class
+                SessionManagerInterface::class => SessionManager::class,
+                ServiceLocatorInterface::class => ServiceManager::class
             ),
             OrderApiClient::class => [
                 'parameters' => [

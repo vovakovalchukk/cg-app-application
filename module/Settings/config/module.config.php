@@ -24,6 +24,7 @@ use CG\Template\Storage\Object as TemplateObjectStorage;
 use CG\Template\Storage\Api as TemplateApiStorage;
 use CG\Template\Service as TemplateService;
 use CG\Template\Repository as TemplateRepository;
+use Settings\Factory\SidebarNavFactory;
 
 return [
     'navigation' => [
@@ -54,6 +55,19 @@ return [
                 ]
             ]
         ],
+        'application-navigation' => [
+            'settings' => [
+                'label'  => 'Settings',
+                'route'  => Module::ROUTE,
+                'sprite' => 'sprite-settings-18-white',
+                'order'  => 20
+            ]
+        ]
+    ],
+    'service_manager' => [
+        'factories' => [
+            'sidebar-nav'  => SidebarNavFactory::class,
+        ]
     ],
     'router' => [
         'routes' => [
@@ -239,11 +253,6 @@ return [
                  ]
             ]
         ],
-    ],
-    'service_manager' => [
-        'factories' => [
-            'sidebar-nav' => \Settings\Factory\SidebarNav::class
-        ]
     ],
     'view_manager' => [
         'template_path_stack' => [
