@@ -46,6 +46,7 @@
         "channelgrabber/zf2-register": "~1.4.13",
         "channelgrabber/zf2-ssoclient": "~1.2.4",
         "channelgrabber/zf2-stdlib": "~1.1.9",
+        "channelgrabber/zf2-usage": "dev-master",
         "channelgrabber/zf2-v4-ui": "~1.9.3",
         "guzzle/guzzle": "~3.7",
         "nocarrier/hal": "~0.9.3",
