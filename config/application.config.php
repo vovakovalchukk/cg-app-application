@@ -17,7 +17,6 @@ return array (
     12 => 'CG_Amazon',
     13 => 'CG_Ebay',
     14 => 'CG_Channel',
-    15 => 'CG_Sessions',
   ),
   'module_listener_options' => 
   array (

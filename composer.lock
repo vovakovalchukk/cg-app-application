@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "3342d5c81f56ff87b07a7df9987d831d",
+    "hash": "0c090e246e85d85ef22e8d91692345c4",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -1236,6 +1236,35 @@
             },
             "description": "module to register a new user account",
             "time": "2014-06-11 12:50:20"
+        },
+        {
+            "name": "channelgrabber/zf2-sessions",
+            "version": "dev-CGIV-2550",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-zf2-sessions.git",
+                "reference": "1d3e665176f92cfe7089ff4d6ca226c5714dd684"
+            },
+            "require": {
+                "channelgrabber/cache": "~1.2.4",
+                "channelgrabber/phinx": "~0.3.2.3",
+                "channelgrabber/stdlib": "~2.6.0",
+                "zendframework/zend-session": ">=2.2,<3.0"
+            },
+            "require-dev": {
+                "channelgrabber/phpunit": ">=1.0.0",
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "zf2-module",
+            "autoload": {
+                "psr-0": {
+                    "CG_Sessions": "src/"
+                },
+                "classmap": [
+                    "./Module.php"
+                ]
+            },
+            "time": "2014-06-27 14:03:33"
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
@@ -3963,11 +3992,17 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.0.0",
+            "alias_normalized": "1.0.0.0",
+            "version": "dev-CGIV-2550",
+            "package": "channelgrabber/zf2-sessions"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-sessions": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },
