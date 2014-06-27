@@ -11,6 +11,10 @@
         {
             "type": "composer",
             "url": "http://packages.zendframework.com"
+        },
+        {
+            "type" : "git",
+            "url" : "git@bitbucket.org:channelgrabber/cg-zf2-sessions.git"
         }
     ],
     "autoload": {
@@ -29,9 +33,10 @@
         "channelgrabber/log": "~1.5.1",
         "channelgrabber/order": "~1.5.31",
         "channelgrabber/permission": "~1.0.1",
+        "channelgrabber/phinx": "~0.3.2.3",
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/sso": "~1.1.2",
-        "channelgrabber/stdlib": "~2.5.27",
+        "channelgrabber/stdlib": "~2.6.0",
         "channelgrabber/template": "~1.2.9",
         "channelgrabber/user": "~1.14.3",
         "channelgrabber/userpreference": "~1.1.0",
@@ -39,14 +44,15 @@
         "channelgrabber/zf2-ebay": "~1.0.0",
         "channelgrabber/zf2-email-template": "~1.0.1",
         "channelgrabber/zf2-hal": "~1.0.4",
-        "channelgrabber/zf2-installer": "~1.0.2",
+        "channelgrabber/zf2-installer": "~1.0.3",
         "channelgrabber/zf2-logclient": "~1.3.0",
-        "channelgrabber/zf2-login": "~1.3.26",
+        "channelgrabber/zf2-login": "~1.4.0",
         "channelgrabber/zf2-permission": "~1.0.2",
         "channelgrabber/zf2-register": "~1.4.13",
+        "channelgrabber/zf2-sessions" : "~1.0.0",
         "channelgrabber/zf2-ssoclient": "~1.2.4",
         "channelgrabber/zf2-stdlib": "~1.1.9",
-        "channelgrabber/zf2-v4-ui": "~1.9.1",
+        "channelgrabber/zf2-v4-ui": "~1.9.4",
         "guzzle/guzzle": "~3.7",
         "nocarrier/hal": "~0.9.3",
         "php": ">=5.3.3",
