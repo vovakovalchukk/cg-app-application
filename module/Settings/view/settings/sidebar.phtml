@@ -1,24 +1,5 @@
 <div id="sidebar" class="slideable clearfix fixed-scroll">
-    <?= $this->navigation('sidebar-navigation')->menu()->setPartial(null)->setUlClass('module-content nav')->render(); ?>
+    <div class="filter-module clearfix navbar-content">
+        <?= $this->navigation('sidebar-navigation')->menu()->setUlClass('module-content nav')->render(); ?>
+    </div>
 </div>
-<!--<!--    -->--><?php ////$nav = []; ?>
-<!--    --><?php //foreach($nav as $pages) : ?>
-<!--        <div class="filter-module clearfix navbar-content">-->
-<!--            <span class="heading-medium">-->
-<!--                --><?//= $pages->getLabel(); ?>
-<!--            </span>-->
-<!--            <div class="module-content nav">-->
-<!--                <ul>-->
-<!--                    --><?php //foreach($pages->getPages() as $page) : ?>
-<!--                        <li class="--><?//= ($route && strpos($route->getMatchedRouteName(), $page->getRoute()) === 0) ? 'selected' : '' ?><!--">-->
-<!--                            <a title="--><?//= $page->getTitle() ?><!--" href="--><?//= $this->url($page->getRoute()) ?><!--">-->
-<!--                            --><?//= $page->getLabel() ?>
-<!--                            </a>-->
-<!--                        </li>-->
-<!--                    --><?php //endforeach; ?>
-<!--                </ul>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    --><?php //endforeach; ?><!--?>-->
-<!--    --><?//= $this->navigation('sidebar-nav') ?>
-<!--</div>-->

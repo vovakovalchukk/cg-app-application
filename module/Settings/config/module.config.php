@@ -38,10 +38,6 @@ return [
                         'label' => ChannelController::ROUTE_CHANNELS,
                         'title' => ChannelController::ROUTE_CHANNELS,
                         'route' => Module::ROUTE.'/'.ChannelController::ROUTE.'/'.ChannelController::ROUTE_CHANNELS
-                    ],
-                    'login' => [
-                        'label' => 'login',
-                        'uri' => '/login'
                     ]
                 ]
             ],
