@@ -2,30 +2,16 @@
 
 use Phinx\Migration\AbstractMigration;
 
-class SessionsMigration extends AbstractMigration
+class RemoveOutOfDateSessions extends AbstractMigration
 {
-    /**
-     * Change.
-     */
-    public function change()
+   public function up()
     {
-        $this->createSessionsTable();
+        $this->dropTable('sessions');
     }
 
-    /**
-     * Migrate Up.
-     */
-    public function up()
-    {
-
-    }
-
-    /**
-     * Migrate Down.
-     */
     public function down()
     {
-
+        $this->createSessionsTable();
     }
 
     private function createSessionsTable()

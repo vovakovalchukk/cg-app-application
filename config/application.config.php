@@ -18,6 +18,7 @@ return array (
     13 => 'CG_Ebay',
     14 => 'CG_Channel',
     15 => 'CG_Name',
+    15 => 'CG_Sessions'
   ),
   'module_listener_options' => 
   array (
