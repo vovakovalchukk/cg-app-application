@@ -28,20 +28,27 @@ use Settings\Factory\SidebarNavFactory;
 
 return [
     'navigation' => [
-        'sidebar-nav' => [
-            [
-                'label' => ChannelController::ROUTE,
+        'sidebar-navigation' => [
+            'Channel Management' => [
+                'label' => 'Channel Management',
                 'route' => Module::ROUTE.'/'.ChannelController::ROUTE,
+                'class' => 'heading-medium',
                 'pages' => [
-                    [
+                    ChannelController::ROUTE_CHANNELS => [
                         'label' => ChannelController::ROUTE_CHANNELS,
                         'title' => ChannelController::ROUTE_CHANNELS,
                         'route' => Module::ROUTE.'/'.ChannelController::ROUTE.'/'.ChannelController::ROUTE_CHANNELS
+                    ],
+                    'login' => [
+                        'label' => 'login',
+                        'uri' => '/login'
                     ]
                 ]
-            ], [
-                'label' => InvoiceController::ROUTE,
+            ],
+            'Invoices' => [
+                'label' => 'Invoices',
                 'route' => Module::ROUTE.'/'.InvoiceController::ROUTE,
+                'class' => 'heading-medium',
                 'pages' => [
                     [
                         'label' => InvoiceController::ROUTE_MAPPING,
@@ -66,7 +73,7 @@ return [
     ],
     'service_manager' => [
         'factories' => [
-            'sidebar-nav'  => SidebarNavFactory::class,
+            'sidebar-navigation'  => SidebarNavFactory::class,
         ]
     ],
     'router' => [

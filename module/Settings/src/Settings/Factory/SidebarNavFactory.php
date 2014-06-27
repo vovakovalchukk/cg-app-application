@@ -9,6 +9,6 @@ class SidebarNavFactory extends DefaultNavigationFactory
 
     protected function getName()
     {
-        return 'sidebar-nav';
+        return 'sidebar-navigation';
     }
 }

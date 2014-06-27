@@ -1,23 +1,24 @@
-<?= $this->navigation('sidebar-nav')->menu(); ?>
 <div id="sidebar" class="slideable clearfix fixed-scroll">
-<!--    --><?php //$nav = []; ?>
-    <?php foreach($nav as $pages) : ?>
-        <div class="filter-module clearfix navbar-content">
-            <span class="heading-medium">
-                <?= $pages->getLabel(); ?>
-            </span>
-            <div class="module-content nav">
-                <ul>
-                    <?php foreach($pages->getPages() as $page) : ?>
-                        <li class="<?= ($route && strpos($route->getMatchedRouteName(), $page->getRoute()) === 0) ? 'selected' : '' ?>">
-                            <a title="<?= $page->getTitle() ?>" href="<?= $this->url($page->getRoute()) ?>">
-                            <?= $page->getLabel() ?>
-                            </a>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        </div>
-    <?php endforeach; ?>?>
-    <?= $this->navigation('sidebar-nav') ?>
+    <?= $this->navigation('sidebar-navigation')->menu()->setPartial(null)->setUlClass('module-content nav')->render(); ?>
 </div>
+<!--<!--    -->--><?php ////$nav = []; ?>
+<!--    --><?php //foreach($nav as $pages) : ?>
+<!--        <div class="filter-module clearfix navbar-content">-->
+<!--            <span class="heading-medium">-->
+<!--                --><?//= $pages->getLabel(); ?>
+<!--            </span>-->
+<!--            <div class="module-content nav">-->
+<!--                <ul>-->
+<!--                    --><?php //foreach($pages->getPages() as $page) : ?>
+<!--                        <li class="--><?//= ($route && strpos($route->getMatchedRouteName(), $page->getRoute()) === 0) ? 'selected' : '' ?><!--">-->
+<!--                            <a title="--><?//= $page->getTitle() ?><!--" href="--><?//= $this->url($page->getRoute()) ?><!--">-->
+<!--                            --><?//= $page->getLabel() ?>
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                    --><?php //endforeach; ?>
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    --><?php //endforeach; ?><!--?>-->
+<!--    --><?//= $this->navigation('sidebar-nav') ?>
+<!--</div>-->
