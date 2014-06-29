@@ -78,15 +78,5 @@ class Module
         }
 
         $sidebar->setVariable('title', static::ROUTE);
-        //$sidebar->setVariable('nav', $this->getSettingNavigation($event));
-    }
-
-    /**
-     * @param MvcEvent $event
-     * @return array
-     */
-    protected function getSettingNavigation(MvcEvent $event)
-    {
-        return $event->getApplication()->getServiceManager()->get('navigation');
     }
 }
