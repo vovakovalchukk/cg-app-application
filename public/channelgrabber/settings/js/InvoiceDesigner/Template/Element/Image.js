@@ -1,4 +1,3 @@
-var jsImage = new Image();
 define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
 {
     var Image = function()
@@ -38,11 +37,13 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
 
     Image.prototype.resizeImageData = function()
     {
+        var jsImage = new window.Image();
         jsImage.src = 'data:image/' + this.getFormat().toLowerCase() + ';base64,' + this.getSource();
-        var canvas = document.createElement('canvas'), ctx = canvas.getContext('2d');
+        var canvas = document.createElement('canvas');
+        var canvasContext = canvas.getContext('2d');
         canvas.width = Number(this.getWidth()).mmToPx();
         canvas.height = Number(this.getHeight()).mmToPx();
-        ctx.drawImage(jsImage, 0, 0, Number(this.getWidth()).mmToPx(), Number(this.getHeight()).mmToPx());
+        canvasContext.drawImage(jsImage, 0, 0, Number(this.getWidth()).mmToPx(), Number(this.getHeight()).mmToPx());
         return canvas.toDataURL().split(',')[1];
     };
 
