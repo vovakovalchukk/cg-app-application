@@ -43,14 +43,9 @@ return [
             ],
             'Invoices' => [
                 'label' => 'Invoices',
-                'route' => Module::ROUTE.'/'.InvoiceController::ROUTE,
+                'route' => Module::ROUTE.'/'.InvoiceController::ROUTE.'/'.InvoiceController::ROUTE_DESIGNER,
                 'class' => 'heading-medium',
                 'pages' => [
-//                    [
-//                        'label' => InvoiceController::ROUTE_MAPPING,
-//                        'title' => InvoiceController::ROUTE_MAPPING,
-//                        'route' => Module::ROUTE.'/'.InvoiceController::ROUTE.'/'.InvoiceController::ROUTE_MAPPING
-//                    ],
                     [
                         'label' => InvoiceController::ROUTE_DESIGNER,
                         'title' => InvoiceController::ROUTE_DESIGNER,
