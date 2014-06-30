@@ -220,7 +220,7 @@ class ChannelController extends AbstractActionController
 
     protected function addAccountsChannelSpecificView($accountEntity, $view)
     {
-        $returnRoute = Module::ROUTE . '/' . static::ROUTE;
+        $returnRoute = Module::ROUTE . '/' . static::ROUTE . '/' . static::ROUTE_CHANNELS;
         $channelSpecificTemplate = $this->getService()->getChannelSpecificTemplateNameForAccount($accountEntity);
         $channelSpecificView = $this->newViewModel();
         $channelSpecificView->setTemplate($channelSpecificTemplate);
@@ -319,7 +319,7 @@ class ChannelController extends AbstractActionController
             "expiryDate" => null
         ));
         $view = $this->getJsonModelFactory()->newInstance();
-        $url = $this->getAccountFactory()->createRedirect($accountEntity, Module::ROUTE . '/' . static::ROUTE,
+        $url = $this->getAccountFactory()->createRedirect($accountEntity, Module::ROUTE . '/' . static::ROUTE . '/' . ChannelController::ROUTE_CHANNELS,
             $this->params()->fromPost('region'));
         $view->setVariable('url', $url);
         return $view;

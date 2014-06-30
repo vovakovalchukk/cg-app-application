@@ -50,7 +50,7 @@ class EbayController extends AbstractActionController
             ));
         }
         $accountEntity = $this->getEbayAccount()->save($this->params()->fromQuery('sessionId'), $accountEntity);
-        $routeName = implode('/', [Module::ROUTE, ChannelController::ROUTE, ChannelController::ACCOUNT_ROUTE]);
+        $routeName = implode('/', [Module::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS, ChannelController::ACCOUNT_ROUTE]);
         $url = $this->plugin('url')->fromRoute($routeName, ["account" => $accountEntity->getId()]);
         $this->plugin('redirect')->toUrl($url);
         return false;
