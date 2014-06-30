@@ -3,7 +3,6 @@ namespace Settings;
 
 use Zend\Mvc\MvcEvent;
 use Zend\View\Model\ViewModel;
-use CG_UI\View\NavBar;
 use Zend\Di\Di;
 use CG_UI\Layout\ViewModelFactory;
 use Zend\Config\Factory as ConfigFactory;
