@@ -41,6 +41,23 @@ return [
                     ]
                 ]
             ],
+            'Invoices' => [
+                'label' => 'Invoices',
+                'route' => Module::ROUTE.'/'.InvoiceController::ROUTE,
+                'class' => 'heading-medium',
+                'pages' => [
+//                    [
+//                        'label' => InvoiceController::ROUTE_MAPPING,
+//                        'title' => InvoiceController::ROUTE_MAPPING,
+//                        'route' => Module::ROUTE.'/'.InvoiceController::ROUTE.'/'.InvoiceController::ROUTE_MAPPING
+//                    ],
+                    [
+                        'label' => InvoiceController::ROUTE_DESIGNER,
+                        'title' => InvoiceController::ROUTE_DESIGNER,
+                        'route' => Module::ROUTE.'/'.InvoiceController::ROUTE.'/'.InvoiceController::ROUTE_DESIGNER
+                    ],
+                ]
+            ]
         ],
         'application-navigation' => [
             'settings' => [
