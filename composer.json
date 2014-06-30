@@ -27,7 +27,7 @@
         "channelgrabber/gearman": "~1.0.11",
         "channelgrabber/http": "~1.2.12",
         "channelgrabber/log": "~2.0.0",
-        "channelgrabber/order": "~1.5.31",
+        "channelgrabber/order": "~1.5.35",
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/phinx": "~0.3.2.3",
         "channelgrabber/redis": "~0.1.0",
