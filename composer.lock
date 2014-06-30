@@ -1,10 +1,9 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
-        "This file is @generated automatically"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "0a38557f840dca591388030947829110",
+    "hash": "81de3c68a9b319cda1959dfc86faaeda",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -171,17 +170,17 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.1.31",
+            "version": "1.1.32",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "4c0e315486f325c0b7c13b57fdce9d7a6c9dbdcf"
+                "reference": "e796edbed41e2c9ec330871ccb5fcef800fc416e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.1.31-735689.zip",
-                "reference": "4c0e315486f325c0b7c13b57fdce9d7a6c9dbdcf",
-                "shasum": "dff8b80ac3a55cc7590b3960a39a8002cefca43f"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.1.32-6a9ad1.zip",
+                "reference": "e796edbed41e2c9ec330871ccb5fcef800fc416e",
+                "shasum": "b011c6c7f36b4731ac28c3c425e1bf023164bb25"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.23",
@@ -207,7 +206,7 @@
                     "CG\\Ebay\\": ""
                 }
             },
-            "time": "2014-06-30 11:43:44"
+            "time": "2014-06-30 13:32:37"
         },
         {
             "name": "channelgrabber/email",
@@ -314,13 +313,6 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -535,13 +527,6 @@
                 "predis/predis": "v0.8.3"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Predis\\": ""
@@ -1370,17 +1355,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.10.1",
+            "version": "1.10.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "ce8aaa8b84b4f0c9b59527be274e51f4d84b7de2"
+                "reference": "bd273880992b4b68447679fb77e2234ceccf393d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.10.1-a759cc.zip",
-                "reference": "ce8aaa8b84b4f0c9b59527be274e51f4d84b7de2",
-                "shasum": "b31c25744cb023964d2f2b981ab5c4efe81012f4"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.10.2-e699c8.zip",
+                "reference": "bd273880992b4b68447679fb77e2234ceccf393d",
+                "shasum": "526abd373df35f1845d68d5d4d9147d9d9ebe560"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1410,7 +1395,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-06-30 09:26:30"
+            "time": "2014-06-30 13:35:40"
         },
         {
             "name": "cilex/cilex",
@@ -1750,7 +1735,9 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -1838,7 +1825,8 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com"
+                    "homepage": "http://benramsey.com",
+                    "role": "Developer"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
