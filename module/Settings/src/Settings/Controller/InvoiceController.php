@@ -4,6 +4,7 @@ namespace Settings\Controller;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
+use Settings\Module;
 use CG\Template\ReplaceManager\OrderContent as OrderTagManager;
 use CG\Template\Service as TemplateService;
 use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
@@ -11,6 +12,8 @@ use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
 class InvoiceController extends AbstractActionController
 {
     const ROUTE = 'Invoice';
+    const ROUTE_MAPPING = 'Invoice Mapping';
+    const ROUTE_DESIGNER = 'Invoice Designer';
     const ROUTE_FETCH = 'Fetch';
     const ROUTE_SAVE = 'Save';
     const TEMPLATE_SELECTOR_ID = 'template-selector';
@@ -34,6 +37,17 @@ class InvoiceController extends AbstractActionController
             ->setTemplateService($templateService)
             ->setUserOrganisationUnitService($userOrganisationUnitService)
             ->setOrderTagManager($orderTagManager);
+    }
+
+    public function indexAction()
+    {
+        return $this->redirect()->toRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_MAPPING);
+    }
+
+    public function mappingAction()
+    {
+        $view = $this->getViewModelFactory()->newInstance();
+        return $view;
     }
 
     public function designAction()

@@ -105,7 +105,7 @@ class Service implements LoggerAwareInterface
 
             $order['accountLink'] = $event->getRouter()->assemble(
                 ['account' => $order['accountId']],
-                ['name' => SettingsModule::ROUTE . '/' . ChannelController::ROUTE . '/' . ChannelController::ACCOUNT_ROUTE]
+                ['name' => SettingsModule::ROUTE . '/' . ChannelController::ROUTE . '/' .ChannelController::ROUTE_CHANNELS.'/'. ChannelController::ACCOUNT_ROUTE]
             );
 
             $orders[] = $order;

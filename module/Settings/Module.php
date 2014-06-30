@@ -3,7 +3,6 @@ namespace Settings;
 
 use Zend\Mvc\MvcEvent;
 use Zend\View\Model\ViewModel;
-use CG_UI\View\NavBar;
 use Zend\Di\Di;
 use CG_UI\Layout\ViewModelFactory;
 use Zend\Config\Factory as ConfigFactory;
@@ -13,7 +12,7 @@ use Zend\View\Renderer\PhpRenderer;
 class Module
 {
     const PUBLIC_FOLDER = '/channelgrabber/settings/';
-    const ROUTE = 'Channel Management';
+    const ROUTE = 'Settings';
     const SUBHEADER_TEMPLATE = 'settings/sub-header';
     const SIDEBAR_TEMPLATE = 'settings/sidebar';
 
@@ -78,31 +77,5 @@ class Module
         }
 
         $sidebar->setVariable('title', static::ROUTE);
-        $sidebar->setVariable('routes', $this->getSettingRoutes($event));
-    }
-
-    /**
-     * @param MvcEvent $event
-     * @return array
-     */
-    protected function getSettingRoutes(MvcEvent $event)
-    {
-        $links = [];
-
-        $router = $event->getApplication()->getServiceManager()->get('Router');
-        if (!($router instanceof SimpleRouteStack) || !$router->hasRoute(static::ROUTE)) {
-            return $links;
-        }
-
-        $route = $router->getRoute(static::ROUTE);
-        if (!($route instanceof SimpleRouteStack)) {
-            return $links;
-        }
-
-        foreach ($route->getRoutes() as $routeName => $childRoute) {
-            $links[$routeName] = static::ROUTE . '/' . $routeName;
-        }
-
-        return $links;
     }
 }

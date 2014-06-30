@@ -19,8 +19,6 @@ $(document).ready(function() {
             <input type="submit" class="button inline account-save" value="<?= $this->translate('Add'); ?>"/>
         </div>
     </span>
-    <div class="account_create" data-url="<?= $this->url(Settings\Module::ROUTE . '/' .
-        Settings\Controller\ChannelController::ROUTE . '/' . Settings\Controller\ChannelController::CREATE_ROUTE); ?>">
-
+    <div class="account_create" data-url="<?= $this->url($createRoute); ?>">
     <?= $this->accountList ?>
 </div>

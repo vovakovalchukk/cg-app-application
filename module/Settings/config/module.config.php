@@ -24,8 +24,50 @@ use CG\Template\Storage\Object as TemplateObjectStorage;
 use CG\Template\Storage\Api as TemplateApiStorage;
 use CG\Template\Service as TemplateService;
 use CG\Template\Repository as TemplateRepository;
+use Settings\Factory\SidebarNavFactory;
 
 return [
+    'navigation' => [
+        'sidebar-navigation' => [
+            'Channel Management' => [
+                'label' => 'Channel Management',
+                'route' => Module::ROUTE.'/'.ChannelController::ROUTE,
+                'class' => 'heading-medium',
+                'pages' => [
+                    ChannelController::ROUTE_CHANNELS => [
+                        'label' => ChannelController::ROUTE_CHANNELS,
+                        'title' => ChannelController::ROUTE_CHANNELS,
+                        'route' => Module::ROUTE.'/'.ChannelController::ROUTE.'/'.ChannelController::ROUTE_CHANNELS
+                    ]
+                ]
+            ],
+            'Invoices' => [
+                'label' => 'Invoices',
+                'route' => Module::ROUTE.'/'.InvoiceController::ROUTE.'/'.InvoiceController::ROUTE_DESIGNER,
+                'class' => 'heading-medium',
+                'pages' => [
+                    [
+                        'label' => InvoiceController::ROUTE_DESIGNER,
+                        'title' => InvoiceController::ROUTE_DESIGNER,
+                        'route' => Module::ROUTE.'/'.InvoiceController::ROUTE.'/'.InvoiceController::ROUTE_DESIGNER
+                    ],
+                ]
+            ]
+        ],
+        'application-navigation' => [
+            'settings' => [
+                'label'  => 'Settings',
+                'route'  => Module::ROUTE,
+                'sprite' => 'sprite-settings-18-white',
+                'order'  => 20
+            ]
+        ]
+    ],
+    'service_manager' => [
+        'factories' => [
+            'sidebar-navigation'  => SidebarNavFactory::class,
+        ]
+    ],
     'router' => [
         'routes' => [
             Module::ROUTE => [
@@ -48,90 +90,103 @@ return [
                             'route' => '/channel',
                             'defaults' => [
                                 'controller' => ChannelController::class,
-                                'action' => 'list',
+                                'action' => 'index',
                             ]
                         ],
                         'may_terminate' => true,
                         'child_routes' => [
-                            'Sales Channel Ebay' => [
+                            ChannelController::ROUTE_CHANNELS => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => [
-                                    'route' => '/ebay',
+                                    'route' => '/sales',
                                     'defaults' => [
-                                        'controller' => EbayController::class,
-                                        'action' => 'save'
+                                        'controller' => ChannelController::class,
+                                        'action' => 'list',
                                     ]
-                                ],
-                                'may_terminate' => true
-                            ],
-                            AmazonAccount::ROUTE => [
-                                'type' => 'Zend\Mvc\Router\Http\Segment',
-                                'options' => [
-                                    'route' => '/amazon/:region',
-                                    'defaults' => [
-                                        'controller' => AmazonController::class,
-                                        'action' => 'save'
-                                    ]
-                                ],
-                                'may_terminate' => true
-                            ],
-                            ChannelController::AJAX_ROUTE => [
-                                'type' => 'Zend\Mvc\Router\Http\Literal',
-                                'options' => [
-                                    'route' => '/ajax',
-                                    'defaults' => [
-                                        'action' => 'listAjax',
-                                    ]
-                                ],
-                            ],
-                            ChannelController::CREATE_ROUTE => [
-                                'type' => 'Zend\Mvc\Router\Http\Literal',
-                                'options' => [
-                                    'route' => '/create',
-                                    'defaults' => [
-                                        'action' => 'create'
-                                    ]
-                                ],
-                                'may_terminate' => true
-                            ],
-                            ChannelController::ACCOUNT_ROUTE => [
-                                'type' => 'Zend\Mvc\Router\Http\Segment',
-                                'options' => [
-                                    'route' => '/:account',
-                                    'defaults' => [
-                                        'action' => 'account'
-                                    ],
-                                    'constraints' => [
-                                        'account' => '[0-9]*'
-                                    ],
                                 ],
                                 'may_terminate' => true,
                                 'child_routes' => [
-                                    ChannelController::ACCOUNT_STATUS_ROUTE => [
+                                    'Sales Channel Ebay' => [
                                         'type' => 'Zend\Mvc\Router\Http\Literal',
                                         'options' => [
-                                            'route' => '/enable',
+                                            'route' => '/ebay',
                                             'defaults' => [
-                                                'action' => 'statusAjax',
+                                                'controller' => EbayController::class,
+                                                'action' => 'save'
                                             ]
                                         ],
+                                        'may_terminate' => true
                                     ],
-                                    ChannelController::ACCOUNT_AJAX_ROUTE => [
+                                    AmazonAccount::ROUTE => [
                                         'type' => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => [
+                                            'route' => '/amazon/:region',
+                                            'defaults' => [
+                                                'controller' => AmazonController::class,
+                                                'action' => 'save'
+                                            ]
+                                        ],
+                                        'may_terminate' => true
+                                    ],
+                                    ChannelController::AJAX_ROUTE => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
                                         'options' => [
                                             'route' => '/ajax',
                                             'defaults' => [
-                                                'action' => 'accountUpdate'
-                                            ],
+                                                'action' => 'listAjax',
+                                            ]
                                         ],
                                     ],
-                                    ChannelController::ACCOUNT_DELETE_ROUTE => [
+                                    ChannelController::CREATE_ROUTE => [
                                         'type' => 'Zend\Mvc\Router\Http\Literal',
                                         'options' => [
-                                            'route' => '/delete',
+                                            'route' => '/create',
                                             'defaults' => [
-                                                'action' => 'delete',
+                                                'action' => 'create'
                                             ]
+                                        ],
+                                        'may_terminate' => true
+                                    ],
+                                    ChannelController::ACCOUNT_ROUTE => [
+                                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => [
+                                            'route' => '/:account',
+                                            'defaults' => [
+                                                'action' => 'account'
+                                            ],
+                                            'constraints' => [
+                                                'account' => '[0-9]*'
+                                            ],
+                                        ],
+                                        'may_terminate' => true,
+                                        'child_routes' => [
+                                            ChannelController::ACCOUNT_STATUS_ROUTE => [
+                                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                                'options' => [
+                                                    'route' => '/enable',
+                                                    'defaults' => [
+                                                        'action' => 'statusAjax',
+                                                    ]
+                                                ],
+                                            ],
+                                            ChannelController::ACCOUNT_AJAX_ROUTE => [
+                                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                                'options' => [
+                                                    'route' => '/ajax',
+                                                    'defaults' => [
+                                                        'action' => 'accountUpdate'
+                                                    ],
+                                                ],
+                                            ],
+                                            ChannelController::ACCOUNT_DELETE_ROUTE => [
+                                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                                'options' => [
+                                                    'route' => '/delete',
+                                                    'defaults' => [
+                                                        'action' => 'delete',
+                                                    ]
+                                                ],
+                                            ],
                                         ],
                                     ],
                                 ],
@@ -144,12 +199,32 @@ return [
                             'route' => '/invoice',
                             'defaults' => [
                                 'controller' => InvoiceController::class,
-                                'action' => 'design',
-                                'sidebar' => null
+                                'action' => 'index',
+                                'sidebar' => Module::SIDEBAR_TEMPLATE
                             ]
                         ],
                         'may_terminate' => true,
                         'child_routes' => [
+                            InvoiceController::ROUTE_MAPPING => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/mapping',
+                                    'defaults' => [
+                                        'controller' => InvoiceController::class,
+                                        'action' => 'mapping',
+                                    ]
+                                ],
+                            ],
+                            InvoiceController::ROUTE_DESIGNER => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/designer',
+                                    'defaults' => [
+                                        'controller' => InvoiceController::class,
+                                        'action' => 'design',
+                                    ]
+                                ],
+                            ],
                             InvoiceController::ROUTE_FETCH => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => [
@@ -173,9 +248,9 @@ return [
                                 'may_terminate' => true
                             ]
                         ]
-                    ],
-                ],
-            ],
+                    ]
+                 ]
+            ]
         ],
     ],
     'view_manager' => [
@@ -292,6 +367,7 @@ return [
                             [
                                 Module::ROUTE,
                                 ChannelController::ROUTE,
+                                ChannelController::ROUTE_CHANNELS,
                                 ChannelController::ACCOUNT_ROUTE,
                                 ChannelController::ACCOUNT_STATUS_ROUTE,
                             ]
@@ -431,15 +507,5 @@ return [
                 ]
             ]
         ]
-    ],
-    'navigation' => array(
-        'application-navigation' => array(
-            'settings' => array(
-                'label'  => 'Settings',
-                'route'  => Module::ROUTE,
-                'sprite' => 'sprite-settings-18-white',
-                'order'  => 20
-            )
-        )
-    )
+    ]
 ];
