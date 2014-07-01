@@ -13,9 +13,13 @@ use Predis\Client as PredisClient;
 use CG\Stdlib\Exception\Runtime\RequiredKeyMissing;
 use CG\Order\Shared\Collection as Orders;
 use CG\Http\Exception\Exception3xx\NotModified;
+use CG\Stdlib\Log\LogTrait;
+use CG\Stdlib\Log\LoggerAwareInterface;
 
-class Service
+class Service implements LoggerAwareInterface
 {
+    use LogTrait;
+
     protected $organisationUnitService;
     protected $batchClient;
     protected $orderClient;
@@ -99,6 +103,7 @@ class Service
             throw new RequiredKeyMissing('No Orders provided');
         }
 
+        $this->logInfo("Creating batch with orders: %s", implode(", ", $orders->getIds()));
         $batch = $this->createBatch();
         $this->updateOrders($orders, $batch->getName());
     }

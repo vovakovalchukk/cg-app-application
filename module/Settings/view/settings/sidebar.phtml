@@ -1,20 +1,5 @@
 <div id="sidebar" class="slideable clearfix fixed-scroll">
-    <?php foreach($routes as $groupName => $group) : ?>
-        <div class="filter-module clearfix navbar-content">
-            <span class="heading-medium">
-                <a href="<?= $this->url($group['route']) ?>" title="<?= $groupName ?>"><?= $groupName ?></a>
-            </span>
-            <div class="module-content nav">
-                <ul>
-                    <?php foreach($group['child_routes'] as $label => $routeName) : ?>
-                        <li class="<?= ($route && strpos($route->getMatchedRouteName(), $routeName) === 0) ? 'selected' : '' ?>">
-                            <a title="<?= $label ?>" href="<?= $this->url($routeName) ?>">
-                            <?= $label ?>
-                            </a>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        </div>
-    <?php endforeach; ?>
+    <div class="filter-module clearfix navbar-content">
+        <?= $this->cgnavigation('sidebar-navigation')->menu()->setUlClass('module-content nav')->render(); ?>
+    </div>
 </div>

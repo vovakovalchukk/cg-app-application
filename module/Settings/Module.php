@@ -3,7 +3,6 @@ namespace Settings;
 
 use Zend\Mvc\MvcEvent;
 use Zend\View\Model\ViewModel;
-use CG_UI\View\NavBar;
 use Zend\Di\Di;
 use CG_UI\Layout\ViewModelFactory;
 use Zend\Config\Factory as ConfigFactory;
@@ -78,36 +77,5 @@ class Module
         }
 
         $sidebar->setVariable('title', static::ROUTE);
-        $sidebar->setVariable('routes', $this->getSettingRoutes($event));
-    }
-
-    /**
-     * @param MvcEvent $event
-     * @return array
-     */
-    protected function getSettingRoutes(MvcEvent $event)
-    {
-        $links = [];
-        $router = $event->getApplication()->getServiceManager()->get('config')['router']['routes'];
-        if (! isset($router[static::ROUTE])) {
-            return $links;
-        }
-        $routes = $router[static::ROUTE];
-
-        foreach ($routes['child_routes'] as $groupName => $route) {
-            if ($route['type'] == SimpleRouteStack::class) {
-                continue;
-            }
-            $links[$groupName] = [
-                'route' => static::ROUTE.'/'.$groupName,
-                'child_routes' => [
-                ]
-            ];
-
-            foreach ($route['child_routes'] as $routeName => $childRoute) {
-                $links[$groupName]['child_routes'][$routeName] = static::ROUTE.'/'.$groupName.'/'.$routeName;
-            }
-        }
-        return $links;
     }
 }

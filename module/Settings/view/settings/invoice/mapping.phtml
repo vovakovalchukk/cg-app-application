@@ -1,24 +1,24 @@
 <!-- todo i should live in a scss file somewhere -->
 <style>
-.invoiceSettings {
-    margin:10px;
-}
-.invoiceDefaultSettings table {
-    float:none;
-    margin: 10px;
-    width: auto !important;
-    border: none;
-}
-.invoiceDefaultSettings table tr {
-    border:none;
-}
-.invoiceDefaultSettings table th {
-    color:black;
-    background-color:transparent;
-}
-.invoiceTradingCompanySettings table {
-    width: auto !important;
-}
+    .invoiceSettings {
+        margin:10px;
+    }
+    .invoiceDefaultSettings table {
+        float:none;
+        margin: 10px;
+        width: auto !important;
+        border: none;
+    }
+    .invoiceDefaultSettings table tr {
+        border:none;
+    }
+    .invoiceDefaultSettings table th {
+        color:black;
+        background-color:transparent;
+    }
+    .invoiceTradingCompanySettings table {
+        width: auto !important;
+    }
 </style>
 
 <div class="invoiceSettings">
@@ -53,16 +53,16 @@
                     <th>Assigned Invoice</th>
                 </tr>
                 <?php foreach ($tradingCompanies as $tradingCompanyId => $tradingCompany) : ?>
-                <tr>
-                    <td><?= $tradingCompany ?></td>
-                    <td>
-                        <select>
-                            <?php foreach ($invoices as $invoiceId => $invoice) : ?>
-                                <option<?= $assignedInvoices[$tradingCompanyId] == $invoiceId ? ' selected="selected"' : '' ?> value="<?= $invoiceId ?>"><?= $invoice ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </td>
-                </tr>
+                    <tr>
+                        <td><?= $tradingCompany ?></td>
+                        <td>
+                            <select>
+                                <?php foreach ($invoices as $invoiceId => $invoice) : ?>
+                                    <option<?= $assignedInvoices[$tradingCompanyId] == $invoiceId ? ' selected="selected"' : '' ?> value="<?= $invoiceId ?>"><?= $invoice ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </td>
+                    </tr>
                 <?php endforeach; ?>
             </table>
         <?php endif; ?>

@@ -4,13 +4,15 @@ namespace Settings\Controller;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
+use Settings\Module;
 use CG\Template\ReplaceManager\OrderContent as OrderTagManager;
 use CG\Template\Service as TemplateService;
 use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
 
 class InvoiceController extends AbstractActionController
 {
-    const ROUTE = 'Invoice Settings';
+    const ROUTE = 'Invoice';
+    const ROUTE_MAPPING = 'Invoice Mapping';
     const ROUTE_DESIGNER = 'Invoice Designer';
     const ROUTE_FETCH = 'Fetch';
     const ROUTE_SAVE = 'Save';
@@ -37,9 +39,13 @@ class InvoiceController extends AbstractActionController
             ->setOrderTagManager($orderTagManager);
     }
 
-    public function settingsAction()
+    public function indexAction()
     {
-        $view = $this->getViewModelFactory()->newInstance();
+        return $this->redirect()->toRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_MAPPING);
+    }
+
+    public function mappingAction()
+    {
         $invoices = [
             3 => 'invoice1',
             4 => 'invoice2',
@@ -58,10 +64,12 @@ class InvoiceController extends AbstractActionController
             13 => 3,
             14 => 4
         ];
-        $view->setVariable('invoices', $invoices);
-        $view->setVariable('defaultInvoice', $defaultInvoice);
-        $view->setVariable('tradingCompanies', $tradingCompanies);
-        $view->setVariable('assignedInvoices', $assignedInvoices);
+
+        $view = $this->getViewModelFactory()->newInstance()
+             ->setVariable('invoices', $invoices)
+             ->setVariable('defaultInvoice', $defaultInvoice)
+             ->setVariable('tradingCompanies', $tradingCompanies)
+             ->setVariable('assignedInvoices', $assignedInvoices);
         return $view;
     }
 

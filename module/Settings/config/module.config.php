@@ -24,8 +24,54 @@ use CG\Template\Storage\Object as TemplateObjectStorage;
 use CG\Template\Storage\Api as TemplateApiStorage;
 use CG\Template\Service as TemplateService;
 use CG\Template\Repository as TemplateRepository;
+use Settings\Factory\SidebarNavFactory;
 
 return [
+    'navigation' => [
+        'sidebar-navigation' => [
+            'Channel Management' => [
+                'label' => 'Channel Management',
+                'route' => Module::ROUTE.'/'.ChannelController::ROUTE,
+                'class' => 'heading-medium',
+                'pages' => [
+                    ChannelController::ROUTE_CHANNELS => [
+                        'label' => ChannelController::ROUTE_CHANNELS,
+                        'title' => ChannelController::ROUTE_CHANNELS,
+                        'route' => Module::ROUTE.'/'.ChannelController::ROUTE.'/'.ChannelController::ROUTE_CHANNELS
+                    ]
+                ]
+            ],
+            'Invoices' => [
+                'label' => 'Invoices',
+                'route' => Module::ROUTE.'/'.InvoiceController::ROUTE,
+                'class' => 'heading-medium',
+                'pages' => [
+                    [
+                        'label' => InvoiceController::ROUTE_MAPPING,
+                        'title' => InvoiceController::ROUTE_MAPPING,
+                        'route' => Module::ROUTE.'/'.InvoiceController::ROUTE.'/'.InvoiceController::ROUTE_MAPPING
+                    ], [
+                        'label' => InvoiceController::ROUTE_DESIGNER,
+                        'title' => InvoiceController::ROUTE_DESIGNER,
+                        'route' => Module::ROUTE.'/'.InvoiceController::ROUTE.'/'.InvoiceController::ROUTE_DESIGNER
+                    ],
+                ]
+            ]
+        ],
+        'application-navigation' => [
+            'settings' => [
+                'label'  => 'Settings',
+                'route'  => Module::ROUTE,
+                'sprite' => 'sprite-settings-18-white',
+                'order'  => 20
+            ]
+        ]
+    ],
+    'service_manager' => [
+        'factories' => [
+            'sidebar-navigation'  => SidebarNavFactory::class,
+        ]
+    ],
     'router' => [
         'routes' => [
             Module::ROUTE => [
@@ -48,7 +94,7 @@ return [
                             'route' => '/channel',
                             'defaults' => [
                                 'controller' => ChannelController::class,
-                                'action' => 'list',
+                                'action' => 'index',
                             ]
                         ],
                         'may_terminate' => true,
@@ -56,7 +102,7 @@ return [
                             ChannelController::ROUTE_CHANNELS => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => [
-                                    'route' => '/settings',
+                                    'route' => '/sales',
                                     'defaults' => [
                                         'controller' => ChannelController::class,
                                         'action' => 'list',
@@ -157,12 +203,22 @@ return [
                             'route' => '/invoice',
                             'defaults' => [
                                 'controller' => InvoiceController::class,
-                                'action' => 'settings',
-                                'sidebar' => Module::SIDEBAR_TEMPLATE,
+                                'action' => 'index',
+                                'sidebar' => Module::SIDEBAR_TEMPLATE
                             ]
                         ],
                         'may_terminate' => true,
                         'child_routes' => [
+                            InvoiceController::ROUTE_MAPPING => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/mapping',
+                                    'defaults' => [
+                                        'controller' => InvoiceController::class,
+                                        'action' => 'mapping',
+                                    ]
+                                ],
+                            ],
                             InvoiceController::ROUTE_DESIGNER => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => [
@@ -172,31 +228,28 @@ return [
                                         'action' => 'design',
                                     ]
                                 ],
-                                'may_terminate' => true,
-                                'child_routes' => [
-                                    InvoiceController::ROUTE_FETCH => [
-                                        'type' => 'Zend\Mvc\Router\Http\Literal',
-                                        'options' => [
-                                            'route' => '/fetch',
-                                            'defaults' => [
-                                                'controller' => InvoiceController::class,
-                                                'action' => 'fetch'
-                                            ]
-                                        ],
-                                        'may_terminate' => true
-                                    ],
-                                    InvoiceController::ROUTE_SAVE => [
-                                        'type' => 'Zend\Mvc\Router\Http\Literal',
-                                        'options' => [
-                                            'route' => '/save',
-                                            'defaults' => [
-                                                'controller' => InvoiceController::class,
-                                                'action' => 'save'
-                                            ]
-                                        ],
-                                        'may_terminate' => true
+                            ],
+                            InvoiceController::ROUTE_FETCH => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/fetch',
+                                    'defaults' => [
+                                        'controller' => InvoiceController::class,
+                                        'action' => 'fetch'
                                     ]
-                                ]
+                                ],
+                                'may_terminate' => true
+                            ],
+                            InvoiceController::ROUTE_SAVE => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/save',
+                                    'defaults' => [
+                                        'controller' => InvoiceController::class,
+                                        'action' => 'save'
+                                    ]
+                                ],
+                                'may_terminate' => true
                             ]
                         ]
                     ]
@@ -458,15 +511,5 @@ return [
                 ]
             ]
         ]
-    ],
-    'navigation' => array(
-        'application-navigation' => array(
-            'settings' => array(
-                'label'  => 'Settings',
-                'route'  => Module::ROUTE,
-                'sprite' => 'sprite-settings-18-white',
-                'order'  => 20
-            )
-        )
-    )
+    ]
 ];
