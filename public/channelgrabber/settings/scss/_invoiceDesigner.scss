@@ -1,6 +1,9 @@
 .invoice-template {
+    @include calc(width, '100% - 298px');
     margin-left: 48px;
     margin-right: 250px;
+    height: auto;
+    float: left;
     .invoice-template-container {
         overflow-x: auto;
     }

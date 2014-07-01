@@ -263,6 +263,7 @@ class ChannelController extends AbstractActionController
         }
         $tradingCompanyView = $this->newViewModel();
         $tradingCompanyView->setTemplate('elements/custom-select');
+        $tradingCompanyView->setVariable('name', 'organisationUnitId');
         $tradingCompanyView->setVariable('options', $tradingCompanyOptions);
         $view->setVariable('tradingCompanySelect', $this->getMustacheRenderer()->render($tradingCompanyView));
         return $this;
