@@ -71,7 +71,7 @@ $(document).ready(function() {
                 </tr>
                 <?php foreach ($tradingCompanies as $tradingCompany) : ?>
                     <tr>
-                        <td><?= $tradingCompany->getAddressFullName() ?></td>
+                        <td><?= $tradingCompany->getAddressCompanyName() != null ? $tradingCompany->getAddressCompanyName() : '(unnamed)' ?></td>
                         <td>
                             <select data-trading-company="<?= $tradingCompany->getId() ?>">
                                 <?php foreach ($invoices as $invoice) : ?>
