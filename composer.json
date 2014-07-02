@@ -31,7 +31,7 @@
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/phinx": "~0.3.2.3",
         "channelgrabber/redis": "~0.1.0",
-        "channelgrabber/settings": "~1.0.0",
+        "channelgrabber/settings": "dev-CGIV-2282-invoice-settings-saving-issue as 1.0.3",
         "channelgrabber/sso": "~1.1.2",
         "channelgrabber/stdlib": "~2.7.0",
         "channelgrabber/template": "dev-CGIV-2282-added-template-fetchCollectionMethod as 1.2.9",

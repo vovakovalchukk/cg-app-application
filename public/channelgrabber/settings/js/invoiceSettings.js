@@ -1,57 +1,33 @@
 define(function() {
-    var InvoiceSettings = function(id)
+    var InvoiceSettings = function()
     {
-        var id;
+        this.successMessage = 'Settings Saved';
+        this.errorMessage = 'Error: Settings could not be saved';
+
         var container = '.invoiceSettings';
         var selector = container + ' select';
         var defaultSettingsSelector = container + ' .invoiceDefaultSettings select';
         var tradingCompaniesSelector = container + ' .invoiceTradingCompanySettings select';
 
-        var successMessage = 'Settings Saved';
-        var errorMessage = 'Error: Settings could not be saved';
-
-        var init = function()
-        {;
-            $(document).on('change', selector, function() {
-                save();
+        var init = function() {
+            var self = this;
+            $(document).on('change', selector, function () {
+                self.save();
             });
-        }
+        };
 
-        var save = function()
-        {
-            $.ajax({
-                url: "mapping/save",
-                type: "POST",
-                data: getInvoiceSettingsEntity()
-            }).success(function() {
-                if (n) {
-                    n.success(successMessage);
-                }
-            }).error(function() {
-                if (n) {
-                    n.error(errorMessage);
-                }
-            });
-        }
-
-        var getInvoiceSettingsEntity = function()
+        this.getInvoiceSettingsEntity = function()
         {
             return {
-                'id': getId(),
                 'default': getDefault(),
                 'tradingCompanies': getTradingCompanies()
             };
-        }
-
-        var getId = function()
-        {
-            return id;
         };
 
         var getDefault = function()
         {
             return $(defaultSettingsSelector).val();
-        }
+        };
 
         var getTradingCompanies = function()
         {
@@ -63,15 +39,28 @@ define(function() {
                 tradingCompanies[tradingCompanyId] = assignedInvoice;
             });
             return tradingCompanies;
-        }
+        };
 
-        init();
+        init.call(this);
     };
 
-    InvoiceSettings.init = function(id)
+    InvoiceSettings.prototype.save = function()
     {
-        return new InvoiceSettings(id);
-    }
+        var self = this;
+        $.ajax({
+            url: "mapping/save",
+            type: "POST",
+            data: self.getInvoiceSettingsEntity()
+        }).success(function() {
+            if (n) {
+                n.success(self.successMessage);
+            }
+        }).error(function() {
+            if (n) {
+                n.error(self.errorMessage);
+            }
+        });
+    };
 
     return InvoiceSettings
 });

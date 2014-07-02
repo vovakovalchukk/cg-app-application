@@ -239,7 +239,10 @@ class InvoiceController extends AbstractActionController
         return $paperTypeModule;
     }
 
-    public function getInvoiceService()
+    /**
+     * @return InvoiceService
+     */
+    protected function getInvoiceService()
     {
         return $this->invoiceService;
     }

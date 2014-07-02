@@ -10,7 +10,7 @@ $(document).ready(function() {
     ], function(
         InvoiceSettings
     ) {
-        InvoiceSettings.init(<?= $invoiceSettings->getId() ?>);
+        new InvoiceSettings;
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>

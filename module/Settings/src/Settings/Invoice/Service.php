@@ -2,6 +2,7 @@
 namespace Settings\Invoice;
 
 use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
+use CG\Settings\Invoice\Shared\Mapper as InvoiceSettingsMapper;
 use CG\Template\Service as TemplateService;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stdlib\Exception\Runtime\NotFound;
@@ -14,23 +15,26 @@ class Service
     protected $templateService;
     protected $organisationUnitService;
     protected $activeUserContainer;
+    protected $invoiceSettingsMapper;
 
     public function __construct(
         InvoiceSettingsService $invoiceSettingsService,
         TemplateService $templateService,
         OrganisationUnitService $organisationUnitService,
-        ActiveUserInterface $activeUserContainer
-    )
-    {
+        ActiveUserInterface $activeUserContainer,
+        InvoiceSettingsMapper $invoiceSettingsMapper
+    ) {
         $this->setInvoiceSettingsService($invoiceSettingsService)
              ->setTemplateService($templateService)
              ->setOrganisationUnitService($organisationUnitService)
-             ->setActiveUserContainer($activeUserContainer);
+             ->setActiveUserContainer($activeUserContainer)
+             ->setInvoiceSettingsMapper($invoiceSettingsMapper);
     }
 
     public function saveSettings($invoiceSettingsArray)
     {
-        $entity = $this->getInvoiceSettingsService()->getMapper()->fromArray(
+        $invoiceSettingsArray['id'] = $this->getOrganisationUnitId();
+        $entity = $this->getInvoiceSettingsMapper()->fromArray(
             $invoiceSettingsArray
         );
         $this->getInvoiceSettingsService()->save($entity);
@@ -40,8 +44,13 @@ class Service
     public function getSettings()
     {
         return $this->getInvoiceSettingsService()->fetch(
-            $this->getActiveUserContainer()->getActiveUser()->getOrganisationUnitId()
+            $this->getOrganisationUnitId()
         );
+    }
+
+    protected function getOrganisationUnitId()
+    {
+        return $this->getActiveUserContainer()->getActiveUser()->getOrganisationUnitId();
     }
 
     public function getInvoices()
@@ -85,7 +94,7 @@ class Service
     /**
      * @return InvoiceSettingsService
      */
-    public function getInvoiceSettingsService()
+    protected function getInvoiceSettingsService()
     {
         return $this->invoiceSettingsService;
     }
@@ -99,12 +108,12 @@ class Service
     /**
      * @return TemplateService
      */
-    public function getTemplateService()
+    protected function getTemplateService()
     {
         return $this->templateService;
     }
 
-    public function setTemplateService($templateService)
+    public function setTemplateService(TemplateService $templateService)
     {
         $this->templateService = $templateService;
         return $this;
@@ -113,12 +122,12 @@ class Service
     /**
      * @return OrganisationUnitService
      */
-    public function getOrganisationUnitService()
+    protected function getOrganisationUnitService()
     {
         return $this->organisationUnitService;
     }
 
-    public function setOrganisationUnitService($organisationUnitService)
+    public function setOrganisationUnitService(OrganisationUnitService $organisationUnitService)
     {
         $this->organisationUnitService = $organisationUnitService;
         return $this;
@@ -127,14 +136,28 @@ class Service
     /**
      * @return ActiveUserInterface
      */
-    public function getActiveUserContainer()
+    protected function getActiveUserContainer()
     {
         return $this->activeUserContainer;
     }
 
-    public function setActiveUserContainer($activeUserContainer)
+    public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
     {
         $this->activeUserContainer = $activeUserContainer;
+        return $this;
+    }
+
+    /**
+     * @return InvoiceSettingsMapper
+     */
+    protected function getInvoiceSettingsMapper()
+    {
+        return $this->invoiceSettingsMapper;
+    }
+
+    public function setInvoiceSettingsMapper(InvoiceSettingsMapper $invoiceSettingsMapper)
+    {
+        $this->invoiceSettingsMapper = $invoiceSettingsMapper;
         return $this;
     }
 }

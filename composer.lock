@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "591f7214db2a55c1422454398377eb27",
+    "hash": "4c03a717bd307e3d1a4c36d6f5418880",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -562,17 +562,11 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.0.1",
+            "version": "dev-CGIV-2282-invoice-settings-saving-issue",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "149a8db2cedcf025b7633327083d1089ffb96e2b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.0.1-aa5bd9.zip",
-                "reference": "149a8db2cedcf025b7633327083d1089ffb96e2b",
-                "shasum": "b7b71489179f989801cf0f23b993044a7a6cee6e"
+                "reference": "e785a52eb80839db12f77be73c9c59b716da1c5f"
             },
             "require": {
                 "channelgrabber/cache": ">=1.2.4",
@@ -586,7 +580,7 @@
                     "CG\\Settings\\": ""
                 }
             },
-            "time": "2014-06-27 15:41:40"
+            "time": "2014-07-02 09:43:37"
         },
         {
             "name": "channelgrabber/slim",
@@ -4024,6 +4018,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.0.3",
+            "alias_normalized": "1.0.3.0",
+            "version": "dev-CGIV-2282-invoice-settings-saving-issue",
+            "package": "channelgrabber/settings"
+        },
+        {
             "alias": "1.2.9",
             "alias_normalized": "1.2.9.0",
             "version": "dev-CGIV-2282-added-template-fetchCollectionMethod",
@@ -4045,6 +4045,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/settings": 20,
         "channelgrabber/template": 20,
         "channelgrabber/user": 20,
         "channelgrabber/zf2-permission": 20,
