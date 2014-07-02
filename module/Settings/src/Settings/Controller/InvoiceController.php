@@ -5,6 +5,7 @@ use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
 use Settings\Module;
+use Settings\Invoice\Service as InvoiceService;
 use CG\Template\ReplaceManager\OrderContent as OrderTagManager;
 use CG\Template\Service as TemplateService;
 use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
@@ -24,19 +25,22 @@ class InvoiceController extends AbstractActionController
     protected $templateService;
     protected $userOrganisationUnitService;
     protected $orderTagManager;
+    protected $invoiceService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         JsonModelFactory $jsonModelFactory,
         TemplateService $templateService,
         UserOrganisationUnitService $userOrganisationUnitService,
-        OrderTagManager $orderTagManager
+        OrderTagManager $orderTagManager,
+        InvoiceService $invoiceService
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
             ->setTemplateService($templateService)
             ->setUserOrganisationUnitService($userOrganisationUnitService)
-            ->setOrderTagManager($orderTagManager);
+            ->setOrderTagManager($orderTagManager)
+            ->setInvoiceService($invoiceService);
     }
 
     public function indexAction()
@@ -44,32 +48,26 @@ class InvoiceController extends AbstractActionController
         return $this->redirect()->toRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_MAPPING);
     }
 
+    public function saveMappingAction()
+    {
+        $entity = $this->getInvoiceService()->saveSettings(
+            $this->params()->fromPost()
+        );
+        return $this->getJsonModelFactory()->newInstance([
+            "invoiceSettings" => json_encode($entity),
+        ]);
+    }
+
     public function mappingAction()
     {
-        $invoices = [
-            3 => 'invoice1',
-            4 => 'invoice2',
-            5 => 'invoice3',
-        ];
-        $defaultInvoice = 4;
-        $tradingCompanies = [
-            9 => 'tradingCompany1',
-            12 => 'tradingCompany2',
-            13 => 'tradingCompany3',
-            14 => 'tradingCompany4'
-        ];
-        $assignedInvoices = [
-            9 => 5,
-            12 => 5,
-            13 => 3,
-            14 => 4
-        ];
+        $invoiceSettings = $this->getInvoiceService()->getSettings();
+        $tradingCompanies = $this->getInvoiceService()->getTradingCompanies();
+        $invoices = $this->getInvoiceService()->getInvoices();
 
         $view = $this->getViewModelFactory()->newInstance()
-             ->setVariable('invoices', $invoices)
-             ->setVariable('defaultInvoice', $defaultInvoice)
-             ->setVariable('tradingCompanies', $tradingCompanies)
-             ->setVariable('assignedInvoices', $assignedInvoices);
+            ->setVariable('invoiceSettings', $invoiceSettings)
+            ->setVariable('tradingCompanies', $tradingCompanies)
+            ->setVariable('invoices', $invoices);
         return $view;
     }
 
@@ -239,5 +237,16 @@ class InvoiceController extends AbstractActionController
         $paperTypeModule->setTemplate('InvoiceDesigner/Template/paperType');
 
         return $paperTypeModule;
+    }
+
+    public function getInvoiceService()
+    {
+        return $this->invoiceService;
+    }
+
+    public function setInvoiceService(InvoiceService $invoiceService)
+    {
+        $this->invoiceService = $invoiceService;
+        return $this;
     }
 }

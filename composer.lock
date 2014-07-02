@@ -1,9 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
-    "hash": "81de3c68a9b319cda1959dfc86faaeda",
+    "hash": "746c13a541c052ccab4363fbe81960fa",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -560,6 +561,34 @@
             "time": "2013-12-17 17:45:58"
         },
         {
+            "name": "channelgrabber/settings",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
+                "reference": "149a8db2cedcf025b7633327083d1089ffb96e2b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.0.1-aa5bd9.zip",
+                "reference": "149a8db2cedcf025b7633327083d1089ffb96e2b",
+                "shasum": "b7b71489179f989801cf0f23b993044a7a6cee6e"
+            },
+            "require": {
+                "channelgrabber/cache": ">=1.2.4",
+                "channelgrabber/etag": ">=1.4.3",
+                "channelgrabber/http": ">=1.2.3",
+                "channelgrabber/stdlib": ">=2.5.26"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "CG\\Settings\\": ""
+                }
+            },
+            "time": "2014-06-27 15:41:40"
+        },
+        {
             "name": "channelgrabber/slim",
             "version": "1.8.13",
             "source": {
@@ -734,17 +763,17 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.14.4",
+            "version": "1.15.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "a89db69dbb63efdebe238622b947ed8f40f4fa50"
+                "reference": "85020887fb6d99cdb40e9a23aacf89ef74041728"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.14.4-1c36ab.zip",
-                "reference": "a89db69dbb63efdebe238622b947ed8f40f4fa50",
-                "shasum": "0c1f43214a26fef6a43bef0f0089ac50ba6fe1ec"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.15.0-4da076.zip",
+                "reference": "85020887fb6d99cdb40e9a23aacf89ef74041728",
+                "shasum": "44987e8ef46086a41ee868b3c67dd0e99fde9df8"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -776,7 +805,7 @@
                     "CG": ""
                 }
             },
-            "time": "2014-06-27 14:22:31"
+            "time": "2014-06-27 15:40:17"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -3257,7 +3286,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",

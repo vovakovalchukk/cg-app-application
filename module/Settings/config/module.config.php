@@ -218,6 +218,19 @@ return [
                                         'action' => 'mapping',
                                     ]
                                 ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    InvoiceController::ROUTE_SAVE => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/save',
+                                            'defaults' => [
+                                                'controller' => InvoiceController::class,
+                                                'action' => 'saveMapping',
+                                            ]
+                                        ]
+                                    ],
+                                ]
                             ],
                             InvoiceController::ROUTE_DESIGNER => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
