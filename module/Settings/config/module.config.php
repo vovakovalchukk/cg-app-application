@@ -11,6 +11,7 @@ use Settings\Controller\ChannelController;
 use Settings\Controller\EbayController;
 use Settings\Controller\AmazonController;
 use Settings\Controller\InvoiceController;
+use Settings\Controller\ShippingController;
 use CG_UI\View\DataTable;
 use Settings\Channel\Service;
 use Zend\View\Model\ViewModel;
@@ -50,6 +51,18 @@ return [
                         'label' => InvoiceController::ROUTE_DESIGNER,
                         'title' => InvoiceController::ROUTE_DESIGNER,
                         'route' => Module::ROUTE.'/'.InvoiceController::ROUTE.'/'.InvoiceController::ROUTE_DESIGNER
+                    ],
+                ]
+            ],
+            'Shipping Management' => [
+                'label' => 'Shipping Management',
+                'route' => Module::ROUTE . '/' . ShippingController::ROUTE . '/' . ShippingController::ROUTE_ALIASES,
+                'class' => 'heading-medium',
+                'pages' => [
+                    [
+                        'label' => ShippingController::ROUTE_ALIASES,
+                        'title' => ShippingController::ROUTE_ALIASES,
+                        'route' => Module::ROUTE . '/' . ShippingController::ROUTE . '/' . ShippingController::ROUTE_ALIASES
                     ],
                 ]
             ]
@@ -248,8 +261,30 @@ return [
                                 'may_terminate' => true
                             ]
                         ]
+                    ],
+                    ShippingController::ROUTE => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/shipping',
+                            'defaults' => [
+                                'controller' => ShippingController::class,
+                                'action' => 'index',
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            ShippingController::ROUTE_ALIASES => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/alias',
+                                    'defaults' => [
+                                        'action' => 'alias',
+                                    ]
+                                ],
+                            ]
+                        ]
                     ]
-                 ]
+                ]
             ]
         ],
     ],

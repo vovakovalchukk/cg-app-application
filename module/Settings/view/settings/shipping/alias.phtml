@@ -1,0 +1,22 @@
+<div class="padded-content-holder">
+    <span class="heading-large">
+        <?= $this->translate($title) ?>
+    </span>
+    <?= $addButton ?>
+
+    <?php $this->inlineScript()->captureStart(); ?>
+        $(document).ready(function() {
+            require.config({
+                paths: {
+                    'ShippingAlias': "<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/ShippingAlias';?>"
+                }
+            });
+            require(['ShippingAlias/DomListener/AddButton'], function(domListener) {
+                domListener.init();
+            });
+        });
+    <?php $this->inlineScript()->captureEnd(); ?>
+    <div id="shipping-alias-container">
+
+    </div>
+</div>
