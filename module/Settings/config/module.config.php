@@ -470,7 +470,7 @@ return [
             ],
             'AccountTokenStatusColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Token Expires'],
+                    'variables' => ['value' => 'Connection Expires'],
                     'template' => 'value.phtml',
                 ],
             ],

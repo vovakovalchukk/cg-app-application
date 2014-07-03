@@ -57,9 +57,11 @@ class Mapper
         $dataTableArray['organisationUnit'] = $this->getOrganisationUnitCompanyName($entity->getOrganisationUnitId());
         $dataTableArray['manageLinks'] = $this->getManageLinks($entity->getId(), $urlPlugin);
 
+        $dataTableArray['expiryDate'] = 'N/A';
         $expiryDate = $entity->getExpiryDateAsDateTime();
         if ($expiryDate instanceof DateTime) {
-            $dataTableArray['expiryDate'] = $expiryDate->getTimestamp() - $now->getTimestamp();
+            $timeToExpiry = $expiryDate->getTimestamp() - $now->getTimestamp();
+            $dataTableArray['expiryDate'] = ($timeToExpiry > 0) ? $expiryDate->format('jS F Y') : 'Expired';
         }
 
         return $dataTableArray;
