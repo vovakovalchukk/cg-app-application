@@ -12,14 +12,12 @@ class Mapper
         TemplateCollection $invoices,
         InvoiceSettingsEntity $settings
     ) {
-
         $name = $tradingCompany->getAddressCompanyName() != null ? $tradingCompany->getAddressCompanyName() : '(unnamed)';
 
         $data = [
             "organisationUnit" => $name,
             'organisationUnitId' => $tradingCompany->getId(),
-            "assignedInvoice" => [
-            ]
+            "assignedInvoice" => []
         ];
 
         $tradingCompanySettings = $settings->getTradingCompanies();

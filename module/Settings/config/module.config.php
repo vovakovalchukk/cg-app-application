@@ -369,8 +369,6 @@ return [
                 'injections' => [
                     'addChild' => [
                         ['child' => 'ChannelTokenStatusMustacheJS', 'captureTo' => 'javascript', 'append' => true],
-//                        ['child' => 'ChannelStatusJS', 'captureTo' => 'javascript', 'append' => true],
-//                        ['child' => 'ChannelDeleteJavascript', 'captureTo' => 'javascript', 'append' => true],
                     ],
                     'addColumn' => [
                         ['column' => 'InvoiceTradingCompanyColumn'],

@@ -114,7 +114,9 @@ class InvoiceController extends AbstractActionController
         $settings = $datatables->getVariable('settings');
 
         $settings->setSource(
-            '/settings/invoice/mapping/ajax'
+            $this->url()->fromRoute(
+                Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_MAPPING.'/'.static::ROUTE_AJAX
+            )
         );
         $settings->setTemplateUrlMap(
             [
