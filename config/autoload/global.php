@@ -41,7 +41,6 @@ return array(
 
                 $im->addSharedInstance($di, 'Zend\Di\Di');
                 $im->addSharedInstance($di->get('config', array('array' => $configuration)), 'config');
-                $im->addSharedInstance($di->get('config', array('array' => $configuration)), Config::class);
                 $im->addSharedInstance($serviceManager, ServiceManager::class);
 
                 return $di;
