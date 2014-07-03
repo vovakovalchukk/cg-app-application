@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "21a56c5d57fc8c4ae088799921fcd63d",
+    "hash": "007baf05e1d709922b169b08ed691c4d",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -913,17 +913,17 @@
         },
         {
             "name": "channelgrabber/zf2-channel",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/channel-module.git",
-                "reference": "ee17cc376e6dc4eaa3ff7f4c92b8e362dd81f784"
+                "reference": "f475e0d9062045826bcf26263b8c3ad8fd70cc92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-channel-1.0.0-32fb25.zip",
-                "reference": "ee17cc376e6dc4eaa3ff7f4c92b8e362dd81f784",
-                "shasum": "d06059a78699acdbe669f226ba4cffb1c9a07a35"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-channel-1.0.1-41ab4a.zip",
+                "reference": "f475e0d9062045826bcf26263b8c3ad8fd70cc92",
+                "shasum": "bafe9e02b57240a839d354ff4329d6647c406752"
             },
             "require": {
                 "channelgrabber/channel": ">=1.1.5",
@@ -947,7 +947,7 @@
                 ]
             },
             "description": "Channel module",
-            "time": "2014-04-14 08:40:10"
+            "time": "2014-07-03 10:11:04"
         },
         {
             "name": "channelgrabber/zf2-ebay",
