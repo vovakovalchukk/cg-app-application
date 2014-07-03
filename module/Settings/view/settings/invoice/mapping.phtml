@@ -1,3 +1,5 @@
+<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
+<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
 <?php $this->inlineScript()->captureStart(); ?>
 $(document).ready(function() {
     require.config({
@@ -15,73 +17,29 @@ $(document).ready(function() {
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 
-
-<!-- todo i should live in a scss file somewhere -->
-<style>
-    .invoiceSettings {
-        margin:10px;
-    }
-    .invoiceDefaultSettings table {
-        float:none;
-        margin: 10px;
-        width: auto !important;
-        border: none;
-    }
-    .invoiceDefaultSettings table tr {
-        border:none;
-    }
-    .invoiceDefaultSettings table th {
-        color:black;
-        background-color:transparent;
-    }
-    .invoiceTradingCompanySettings table {
-        width: auto !important;
-    }
-</style>
-<div class="invoiceSettings">
-    <div class="invoiceDefaultSettings">
-        <div class="heading-large">Invoice Settings</div>
-        <table>
-            <tr>
-                <th>Default Invoice</th>
-            </tr>
-            <tr>
-                <td>
-                    <select id="">
-                        <?php foreach ($invoices as $invoice) : ?>
-                            <option<?= $invoiceSettings->getDefault() == $invoice->getId() ? ' selected="selected"' : '' ?> value="<?= $invoice->getId() ?>"><?= $invoice->getName() ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </td>
-            </tr>
-        </table>
-    </div>
-
-    <hr>
-
-    <div class="invoiceTradingCompanySettings">
-        <div class="heading-large">Trading Companies</div>
-        <?php if (empty($tradingCompanies)) : ?>
-            (No Trading companies exist)
-        <?php else : ?>
-            <table>
-                <tr>
-                    <th>Trading Company</th>
-                    <th>Assigned Invoice</th>
-                </tr>
-                <?php foreach ($tradingCompanies as $tradingCompany) : ?>
-                    <tr>
-                        <td><?= $tradingCompany->getAddressCompanyName() != null ? $tradingCompany->getAddressCompanyName() : '(unnamed)' ?></td>
-                        <td>
-                            <select data-trading-company="<?= $tradingCompany->getId() ?>">
-                                <?php foreach ($invoices as $invoice) : ?>
-                                    <option<?= $invoiceSettings->getTradingCompanies()[$tradingCompany->getId()] == $invoice->getId() ? ' selected="selected"' : '' ?> value="<?= $invoice->getId() ?>"><?= $invoice->getName() ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </table>
-        <?php endif; ?>
+<div class="padded-content-holder">
+    <div class="invoiceSettings">
+        <div class="invoiceDefaultSettings">
+            <div class="heading-large">Invoice Settings</div>
+            <div>
+                Default Invoice
+            </div>
+            <div>
+                <select id="">
+                    <?php foreach ($invoices as $invoice) : ?>
+                        <option<?= $invoiceSettings->getDefault() == $invoice->getId() ? ' selected="selected"' : '' ?> value="<?= $invoice->getId() ?>"><?= $invoice->getName() ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        <hr>
+        <div class="invoiceTradingCompanySettings">
+            <div class="heading-large">Trading Companies</div>
+            <?php if (empty($tradingCompanies)) : ?>
+                (No Trading companies exist)
+            <?php else : ?>
+                <?= $this->invoiceSettingsDataTable ?>
+            <?php endif; ?>
+        </div>
     </div>
 </div>

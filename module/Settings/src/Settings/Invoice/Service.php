@@ -1,13 +1,14 @@
 <?php
 namespace Settings\Invoice;
 
+use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
 use CG\Settings\Invoice\Shared\Mapper as InvoiceSettingsMapper;
-use CG\Template\Service as TemplateService;
-use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use CG\User\ActiveUserInterface;
+use CG\Template\Service as TemplateService;
 use CG\Template\Type as TemplateType;
+use CG\User\ActiveUserInterface;
+use CG_UI\View\DataTable;
 
 class Service
 {
@@ -16,19 +17,22 @@ class Service
     protected $organisationUnitService;
     protected $activeUserContainer;
     protected $invoiceSettingsMapper;
+    protected $datatable;
 
     public function __construct(
         InvoiceSettingsService $invoiceSettingsService,
         TemplateService $templateService,
         OrganisationUnitService $organisationUnitService,
         ActiveUserInterface $activeUserContainer,
-        InvoiceSettingsMapper $invoiceSettingsMapper
+        InvoiceSettingsMapper $invoiceSettingsMapper,
+        DataTable $datatable
     ) {
         $this->setInvoiceSettingsService($invoiceSettingsService)
              ->setTemplateService($templateService)
              ->setOrganisationUnitService($organisationUnitService)
              ->setActiveUserContainer($activeUserContainer)
-             ->setInvoiceSettingsMapper($invoiceSettingsMapper);
+             ->setInvoiceSettingsMapper($invoiceSettingsMapper)
+             ->setDatatable($datatable);
     }
 
     public function saveSettings($invoiceSettingsArray)
@@ -65,13 +69,17 @@ class Service
             TemplateType::INVOICE
         ];
 
-        return $this->getTemplateService()->fetchCollectionByPagination(
-            $limit,
-            $page,
-            $ids,
-            $organisationUnits,
-            $type
-        );
+        try {
+            return $this->getTemplateService()->fetchCollectionByPagination(
+                $limit,
+                $page,
+                $ids,
+                $organisationUnits,
+                $type
+            );
+        } catch (NotFound $e) {
+            return [];
+        }
     }
 
     public function getTradingCompanies()
@@ -158,6 +166,20 @@ class Service
     public function setInvoiceSettingsMapper(InvoiceSettingsMapper $invoiceSettingsMapper)
     {
         $this->invoiceSettingsMapper = $invoiceSettingsMapper;
+        return $this;
+    }
+
+    /**
+     * @return Datatable
+     */
+    public function getDatatable()
+    {
+        return $this->datatable;
+    }
+
+    public function setDatatable(Datatable $datatable)
+    {
+        $this->datatable = $datatable;
         return $this;
     }
 }

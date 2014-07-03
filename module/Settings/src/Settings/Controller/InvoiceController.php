@@ -6,6 +6,7 @@ use CG_UI\View\Prototyper\ViewModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
 use Settings\Module;
 use Settings\Invoice\Service as InvoiceService;
+use Settings\Invoice\Mapper as InvoiceMapper;
 use CG\Template\ReplaceManager\OrderContent as OrderTagManager;
 use CG\Template\Service as TemplateService;
 use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
@@ -15,6 +16,7 @@ class InvoiceController extends AbstractActionController
     const ROUTE = 'Invoice';
     const ROUTE_MAPPING = 'Invoice Mapping';
     const ROUTE_DESIGNER = 'Invoice Designer';
+    const ROUTE_AJAX = 'Ajax';
     const ROUTE_FETCH = 'Fetch';
     const ROUTE_SAVE = 'Save';
     const TEMPLATE_SELECTOR_ID = 'template-selector';
@@ -26,6 +28,7 @@ class InvoiceController extends AbstractActionController
     protected $userOrganisationUnitService;
     protected $orderTagManager;
     protected $invoiceService;
+    protected $invoiceMapper;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -33,14 +36,16 @@ class InvoiceController extends AbstractActionController
         TemplateService $templateService,
         UserOrganisationUnitService $userOrganisationUnitService,
         OrderTagManager $orderTagManager,
-        InvoiceService $invoiceService
+        InvoiceService $invoiceService,
+        InvoiceMapper $invoiceMapper
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
             ->setTemplateService($templateService)
             ->setUserOrganisationUnitService($userOrganisationUnitService)
             ->setOrderTagManager($orderTagManager)
-            ->setInvoiceService($invoiceService);
+            ->setInvoiceService($invoiceService)
+            ->setInvoiceMapper($invoiceMapper);
     }
 
     public function indexAction()
@@ -58,6 +63,36 @@ class InvoiceController extends AbstractActionController
         ]);
     }
 
+
+    public function ajaxMappingAction()
+    {
+        $invoiceSettings = $this->getInvoiceService()->getSettings();
+        $tradingCompanies = $this->getInvoiceService()->getTradingCompanies();
+        $invoices = $this->getInvoiceService()->getInvoices();
+
+        $data = [
+            'iTotalRecords' => 0,
+            'iTotalDisplayRecords' => 0,
+            'sEcho' => (int) $this->params()->fromPost('sEcho'),
+            'Records' => [],
+        ];
+
+        try {
+            $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) $tradingCompanies->count();
+
+            foreach ($tradingCompanies as $tradingCompany) {
+                $data['Records'][] = $this->getInvoiceMapper()->toDataTableArray(
+                    $tradingCompany,
+                    $invoices,
+                    $invoiceSettings
+                );
+            }
+        } catch (NotFound $exception) {
+            // No accounts so ignoring
+        }
+        return $this->getJsonModelFactory()->newInstance($data);
+    }
+
     public function mappingAction()
     {
         $invoiceSettings = $this->getInvoiceService()->getSettings();
@@ -67,8 +102,27 @@ class InvoiceController extends AbstractActionController
         $view = $this->getViewModelFactory()->newInstance()
             ->setVariable('invoiceSettings', $invoiceSettings)
             ->setVariable('tradingCompanies', $tradingCompanies)
-            ->setVariable('invoices', $invoices);
+            ->setVariable('invoices', $invoices)
+            ->addChild($this->getTradingCompanyInvoiceSettingsDataTable(), 'invoiceSettingsDataTable');
         return $view;
+    }
+
+    protected function getTradingCompanyInvoiceSettingsDataTable()
+    {
+        $datatables = $this->getInvoiceService()->getDatatable();
+
+        $settings = $datatables->getVariable('settings');
+
+        $settings->setSource(
+            '/settings/invoice/mapping/ajax'
+        );
+        $settings->setTemplateUrlMap(
+            [
+                'tradingCompany' => '/channelgrabber/settings/template/columns/tradingCompany.html',
+                'assignedInvoice' => '/channelgrabber/settings/template/columns/assignedInvoice.html',
+            ]
+        );
+        return $datatables;
     }
 
     public function designAction()
@@ -250,6 +304,20 @@ class InvoiceController extends AbstractActionController
     public function setInvoiceService(InvoiceService $invoiceService)
     {
         $this->invoiceService = $invoiceService;
+        return $this;
+    }
+
+    /**
+     * @return InvoiceMapper
+     */
+    public function getInvoiceMapper()
+    {
+        return $this->invoiceMapper;
+    }
+
+    public function setInvoiceMapper(InvoiceMapper $invoiceMapper)
+    {
+        $this->invoiceMapper = $invoiceMapper;
         return $this;
     }
 }

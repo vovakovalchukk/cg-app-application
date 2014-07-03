@@ -57,10 +57,10 @@
         "zendframework/zendframework": "2.3.*"
     },
     "require-dev": {
-        "codeception/codeception": "1.6.5",
+        "channelgrabber/codeception": "~1.1.47",
+        "codeception/codeception": "~1.8.0",
         "phpspec/phpspec": "2.0.*@dev",
-        "phpspec/prophecy": "~1.0",
-        "channelgrabber/codeception": "1.0.*"
+        "phpspec/prophecy": "~1.0"
     },
     "scripts": {
         "post-install-cmd": [

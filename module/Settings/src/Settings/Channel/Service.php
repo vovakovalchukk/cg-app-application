@@ -72,7 +72,7 @@ class Service
             }
             $limit = 'all';
             $page = 1;
-            $rootOuChildren = $this->getOuClient()->fetchFiltered($page, $limit, $rootOu->getId());
+            $rootOuChildren = $this->getOuClient()->fetchFiltered($limit, $page, $rootOu->getId());
             $tradingCompanies = [];
             foreach ($rootOuChildren as $rootOuChild) {
                 if ($rootOuChild->getParent() != $rootOu->getId()) {
