@@ -400,7 +400,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             $this->mergeOrderDataWithJsonData(
                 $pageLimit,
                 $data,
-                $this->getOrderService()->getOrdersArrayWithAccountDetails($orders, $this->getEvent())
+                $this->getOrderService()->alterOrderTable($orders, $this->getEvent())
             );
         } catch (NotFound $exception) {
             // No Orders so ignoring
