@@ -77,18 +77,14 @@ class InvoiceController extends AbstractActionController
             'Records' => [],
         ];
 
-        try {
-            $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) $tradingCompanies->count();
+        $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) $tradingCompanies->count();
 
-            foreach ($tradingCompanies as $tradingCompany) {
-                $data['Records'][] = $this->getInvoiceMapper()->toDataTableArray(
-                    $tradingCompany,
-                    $invoices,
-                    $invoiceSettings
-                );
-            }
-        } catch (NotFound $exception) {
-            // No accounts so ignoring
+        foreach ($tradingCompanies as $tradingCompany) {
+            $data['Records'][] = $this->getInvoiceMapper()->toDataTableArray(
+                $tradingCompany,
+                $invoices,
+                $invoiceSettings
+            );
         }
         return $this->getJsonModelFactory()->newInstance($data);
     }
@@ -97,12 +93,10 @@ class InvoiceController extends AbstractActionController
     {
         $invoiceSettings = $this->getInvoiceService()->getSettings();
         $tradingCompanies = $this->getInvoiceService()->getTradingCompanies();
-        $invoices = $this->getInvoiceService()->getInvoices();
 
         $view = $this->getViewModelFactory()->newInstance()
             ->setVariable('invoiceSettings', $invoiceSettings)
             ->setVariable('tradingCompanies', $tradingCompanies)
-            ->setVariable('invoices', $invoices)
             ->addChild($this->getTradingCompanyInvoiceSettingsDataTable(), 'invoiceSettingsDataTable');
         return $view;
     }
@@ -110,7 +104,6 @@ class InvoiceController extends AbstractActionController
     protected function getTradingCompanyInvoiceSettingsDataTable()
     {
         $datatables = $this->getInvoiceService()->getDatatable();
-
         $settings = $datatables->getVariable('settings');
 
         $settings->setSource(
@@ -118,12 +111,10 @@ class InvoiceController extends AbstractActionController
                 Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_MAPPING.'/'.static::ROUTE_AJAX
             )
         );
-        $settings->setTemplateUrlMap(
-            [
+        $settings->setTemplateUrlMap([
                 'tradingCompany' => '/channelgrabber/settings/template/columns/tradingCompany.html',
                 'assignedInvoice' => '/channelgrabber/settings/template/columns/assignedInvoice.html',
-            ]
-        );
+        ]);
         return $datatables;
     }
 
