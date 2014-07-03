@@ -21,11 +21,12 @@
     "require": {
         "channelgrabber/account": "~1.0.26",
         "channelgrabber/amazon": "~1.2.29",
+        "channelgrabber/billing": "dev-CGIV-2390 as 1.0.1",
         "channelgrabber/channel": "~1.2.5",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/ebay": "~1.1.31",
         "channelgrabber/gearman": "~1.1.0",
-        "channelgrabber/http": "~1.2.12",
+        "channelgrabber/http": "dev-CGIV-2390 as 1.2.14",
         "channelgrabber/log": "~2.0.0",
         "channelgrabber/order": "~1.5.37",
         "channelgrabber/permission": "~1.0.1",
