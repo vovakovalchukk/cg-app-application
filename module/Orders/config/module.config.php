@@ -825,6 +825,11 @@ return [
                     'client' => 'cg_app_guzzle'
                 ],
             ],
+            BulkActionsController::class => [
+                'parameters' => [
+                    'usageService' => 'order_count_usage_service'
+                ]
+            ]
         ],
     ],
     'navigation' => array(

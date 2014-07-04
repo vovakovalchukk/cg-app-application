@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6d16751086cd9c5478b1ef5fe86f61c4",
+    "hash": "d323a9e50c756e7db4e5d604c67deb97",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -91,7 +91,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "6def6c43ac2a58d97319e979bb76f4d3b63064bf"
+                "reference": "95611bceb9218be47eb611c1a68bc6e1448666f3"
             },
             "type": "library",
             "autoload": {
@@ -99,7 +99,7 @@
                     "CG\\Billing\\": ""
                 }
             },
-            "time": "2014-07-01 21:57:50"
+            "time": "2014-07-03 17:10:18"
         },
         {
             "name": "channelgrabber/cache",
@@ -731,17 +731,11 @@
         },
         {
             "name": "channelgrabber/usage",
-            "version": "1.0.1",
+            "version": "dev-CGIV-2390",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-usage.git",
-                "reference": "cb183f8d80dd5088471190bac2d7ea1cec65717d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-usage-1.0.1-5e330e.zip",
-                "reference": "cb183f8d80dd5088471190bac2d7ea1cec65717d",
-                "shasum": "0669f22d5eedaa287aa367164215acc348a643c6"
+                "reference": "f88cf6e1caf1b345bb03ca1259374216f4df05e7"
             },
             "require": {
                 "channelgrabber/cache": ">=1.2.4",
@@ -756,7 +750,7 @@
                     "CG\\Usage\\": ""
                 }
             },
-            "time": "2014-06-30 11:44:54"
+            "time": "2014-07-03 17:08:11"
         },
         {
             "name": "channelgrabber/user",
@@ -1147,17 +1141,11 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.4.1",
+            "version": "dev-CGIV-2390",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "7f7a4e383513e6dd2f6d706cd5eeafee6e974f6e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.1-d716ae.zip",
-                "reference": "7f7a4e383513e6dd2f6d706cd5eeafee6e974f6e",
-                "shasum": "eecae87a7975a5adb15be12f57d03d3564ce8c14"
+                "reference": "8ff10fed7a942b8e80e3a11b4cc3acb5b3f9880f"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
@@ -1193,7 +1181,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2014-07-01 16:19:45"
+            "time": "2014-07-03 17:12:02"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -1385,12 +1373,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/usage-module.git",
-                "reference": "6ea284df2d291b9dda48c37bcf4ccff0700a3ac5"
+                "reference": "2ffd60edf51d02be8f00b2aac3cddcc92d8f2b8c"
             },
             "require": {
                 "channelgrabber/billing": "dev-CGIV-2390 as 1.0.1",
                 "channelgrabber/http": "dev-CGIV-2390 as 1.2.14",
                 "channelgrabber/stdlib": ">=2.7.0",
+                "channelgrabber/usage": "dev-CGIV-2390 as 1.0.3",
                 "channelgrabber/user": ">=1.11.14",
                 "guzzle/guzzle": "~3.7",
                 "zendframework/zend-config": "2.*",
@@ -1414,21 +1403,21 @@
                 ]
             },
             "description": "Usage module to determine if users are exceeding their limits",
-            "time": "2014-07-03 10:11:36"
+            "time": "2014-07-03 17:11:31"
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.10.7",
+            "version": "1.10.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "94174b826387b58a464ec44688e548250f3792a1"
+                "reference": "bb57cacbac66a8a88c6d8a4b7b674617ee6121d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.10.7-9efe2b.zip",
-                "reference": "94174b826387b58a464ec44688e548250f3792a1",
-                "shasum": "b92a2b2ae03db3e8952916fede1c82a14d0d5003"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.10.8-cdd8c5.zip",
+                "reference": "bb57cacbac66a8a88c6d8a4b7b674617ee6121d6",
+                "shasum": "e315a1212de50a1176c9f15c37ed1a3749a79611"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1458,7 +1447,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-07-03 10:08:31"
+            "time": "2014-07-03 15:49:10"
         },
         {
             "name": "cilex/cilex",
@@ -4081,6 +4070,18 @@
             "alias_normalized": "1.2.14.0",
             "version": "dev-CGIV-2390",
             "package": "channelgrabber/http"
+        },
+        {
+            "alias": "1.0.3",
+            "alias_normalized": "1.0.3.0",
+            "version": "dev-CGIV-2390",
+            "package": "channelgrabber/usage"
+        },
+        {
+            "alias": "1.4.1",
+            "alias_normalized": "1.4.1.0",
+            "version": "dev-CGIV-2390",
+            "package": "channelgrabber/zf2-login"
         }
     ],
     "minimum-stability": "stable",
@@ -4088,6 +4089,8 @@
         "channelgrabber/billing": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/http": 20,
+        "channelgrabber/usage": 20,
+        "channelgrabber/zf2-login": 20,
         "channelgrabber/zf2-usage": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
