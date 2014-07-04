@@ -377,6 +377,15 @@ return [
                                     ]
                                 ],
                             ],
+                            'invoice_check' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/check',
+                                    'defaults' => [
+                                        'action' => 'checkInvoicePrintingAllowed'
+                                    ]
+                                ],
+                            ],
                         ]
                     ],
                     StoredFiltersController::ROUTE_SAVE => [
