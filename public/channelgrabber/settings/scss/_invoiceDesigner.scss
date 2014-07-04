@@ -15,7 +15,9 @@
     border-style: solid;
     border-width: 2px;
 }
-
+.template-element-ordertable-main {
+    width: 100%;
+}
 .template-element-wrapper.active{
     @extend .template-element-wrapper;
     border-color: $color-lblue;

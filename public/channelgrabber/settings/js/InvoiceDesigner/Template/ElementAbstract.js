@@ -122,9 +122,9 @@ define([
             return this.get('borderWidth');
         };
 
-        this.setBorderWidth = function(newBorderWidth)
+        this.setBorderWidth = function(newBorderWidth, populating)
         {
-            this.set('borderWidth', newBorderWidth);
+            this.set('borderWidth', Number(newBorderWidth).roundToNearest(0.5), populating);
             return this;
         };
 
@@ -221,6 +221,7 @@ define([
         this.setWidth(data.width, populating);
         this.setX(data.x, populating);
         this.setY(data.y, populating);
+        this.setBorderWidth(data.borderWidth, populating);
     };
 
     return ElementAbstract;
