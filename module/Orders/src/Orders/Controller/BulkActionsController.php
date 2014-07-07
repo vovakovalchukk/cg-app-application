@@ -427,7 +427,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected function checkUsage()
     {
         if ($this->getUsageService()->hasUsageBeenExceeded()) {
-            throw new UsageExceeded('Order limit exceeded');
+            throw new UsageExceeded();
         }
     }
 }
