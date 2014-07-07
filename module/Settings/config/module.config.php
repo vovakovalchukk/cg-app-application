@@ -11,6 +11,7 @@ use Settings\Controller\ChannelController;
 use Settings\Controller\EbayController;
 use Settings\Controller\AmazonController;
 use Settings\Controller\InvoiceController;
+use Settings\Controller\ShippingController;
 use CG_UI\View\DataTable;
 use Settings\Channel\Service;
 use Zend\View\Model\ViewModel;
@@ -25,6 +26,10 @@ use CG\Template\Storage\Api as TemplateApiStorage;
 use CG\Template\Service as TemplateService;
 use CG\Template\Repository as TemplateRepository;
 use Settings\Factory\SidebarNavFactory;
+use CG\Order\Client\Shipping\Method\Storage\Api as ShippingMethodStorage;
+use CG\Order\Service\Shipping\Method\Service as ShippingMethodService;
+use CG\Settings\Alias\Storage\Api as ShippingAliasStorage;
+use CG\Settings\Alias\Service as ShippingAliasService;
 
 return [
     'navigation' => [
@@ -50,6 +55,18 @@ return [
                         'label' => InvoiceController::ROUTE_DESIGNER,
                         'title' => InvoiceController::ROUTE_DESIGNER,
                         'route' => Module::ROUTE.'/'.InvoiceController::ROUTE.'/'.InvoiceController::ROUTE_DESIGNER
+                    ],
+                ]
+            ],
+            'Shipping Management' => [
+                'label' => 'Shipping Management',
+                'route' => Module::ROUTE . '/' . ShippingController::ROUTE . '/' . ShippingController::ROUTE_ALIASES,
+                'class' => 'heading-medium',
+                'pages' => [
+                    [
+                        'label' => ShippingController::ROUTE_ALIASES,
+                        'title' => ShippingController::ROUTE_ALIASES,
+                        'route' => Module::ROUTE . '/' . ShippingController::ROUTE . '/' . ShippingController::ROUTE_ALIASES
                     ],
                 ]
             ]
@@ -248,8 +265,30 @@ return [
                                 'may_terminate' => true
                             ]
                         ]
+                    ],
+                    ShippingController::ROUTE => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/shipping',
+                            'defaults' => [
+                                'controller' => ShippingController::class,
+                                'action' => 'index',
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            ShippingController::ROUTE_ALIASES => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/alias',
+                                    'defaults' => [
+                                        'action' => 'alias',
+                                    ]
+                                ],
+                            ]
+                        ]
                     ]
-                 ]
+                ]
             ]
         ],
     ],
@@ -470,7 +509,7 @@ return [
             ],
             'AccountTokenStatusColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Token Expires'],
+                    'variables' => ['value' => 'Connection Expires'],
                     'template' => 'value.phtml',
                 ],
             ],
@@ -504,6 +543,21 @@ return [
                 'parameters' => [
                     'storage' => TemplateObjectStorage::class,
                     'repository' => TemplateApiStorage::class
+                ]
+            ],
+            ShippingMethodService::class => [
+                'parameters' => [
+                    'repository' => ShippingMethodStorage::class
+                ]
+            ],
+            ShippingMethodStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle',
+                ]
+            ],
+            ShippingAliasService::class => [
+                'parameters' => [
+                    'repository' => ShippingAliasStorage::class
                 ]
             ]
         ]

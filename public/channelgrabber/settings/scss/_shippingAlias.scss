@@ -1,0 +1,60 @@
+.shipping-alias {
+    min-width: 1000px;
+    float: left;
+    clear:both;
+    background-color: $color-xlgrey;
+    border: 3px solid $color-mgrey;
+    padding: 15px;
+    @include border-radius(5px);
+    margin: 20px;
+    .shipping-alias-name-holder {
+        width: 50%;
+        float: left;
+        .inputbox-label {
+            margin-top: 4px;
+        }
+    }
+    .shipping-alias-delete {
+        float: right;
+    }
+    .shipping-alias-inner {
+        @include calc(width, '100% - 3px');
+        min-height: 170px;
+        float: left;
+        clear:both;
+        margin-top: 15px;
+        background-color: $color-white;
+        border: 1px solid $color-lgrey;
+        padding: 0px;
+    }
+    .channel-shipping-methods {
+        width: 449px;
+        float: left;
+        clear:both;
+        border-right: 1px solid $color-lgrey;
+        padding: 5px 13px 5px 13px;
+    }
+    .shipping-services {
+        width: 495px;
+        float: left;
+        padding: 5px 13px 5px 13px;
+        .shipping-account-select {
+            width: 100%;
+            float: left;
+            clear:both;
+            margin-top: 10px;
+            .custom-select{
+                &.shipping-account{
+                    width: 48%;
+                    float: left;
+                    clear:both;
+                }
+                &.shipping-service{
+                    width: 48%;
+                    float: left;
+                    margin-left: 18px;
+                }
+            }
+        }
+    }
+}
