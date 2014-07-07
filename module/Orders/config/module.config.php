@@ -838,6 +838,11 @@ return [
                 'parameters' => [
                     'usageService' => 'order_count_usage_service'
                 ]
+            ],
+            Controller\OrdersController::class => [
+                'parameters' => [
+                    'usageService' => 'order_count_usage_service'
+                ]
             ]
         ],
     ],
