@@ -3,6 +3,7 @@ namespace Settings\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\ViewModelFactory;
+use CG\Order\Shared\Shipping\Conversion\Service as ShippingService;
 
 class ShippingController extends AbstractActionController
 {
@@ -11,17 +12,18 @@ class ShippingController extends AbstractActionController
 
     protected $viewModelFactory;
 
-    public function __construct(ViewModelFactory $viewModelFactory)
+    public function __construct(ViewModelFactory $viewModelFactory, ShippingService $shippingService)
     {
-        $this->setViewModelFactory($viewModelFactory);
+        $this->setViewModelFactory($viewModelFactory)
+            ->setShippingService($shippingService);
     }
-
-
 
     public function aliasAction()
     {
+        $shippingMethods = $this->getShippingService()->fetchMethods();
         $view = $this->getViewModelFactory()->newInstance();
-        $view->setvariable('title', static::ROUTE_ALIASES);
+        $view->setVariable('title', static::ROUTE_ALIASES);
+        $view->setVariable('shippingMethods', $shippingMethods->toArray());
         $view->addChild($this->getAddButtonView(), 'addButton');
         return $view;
     }
@@ -45,6 +47,17 @@ class ShippingController extends AbstractActionController
     public function setViewModelFactory(ViewModelFactory $viewModelFactory)
     {
         $this->viewModelFactory = $viewModelFactory;
+        return $this;
+    }
+
+    public function getShippingService()
+    {
+        return $this->shippingService;
+    }
+
+    public function setShippingService(ShippingService $shippingService)
+    {
+        $this->shippingService = $shippingService;
         return $this;
     }
 }

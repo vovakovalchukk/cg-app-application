@@ -1,9 +1,11 @@
 define([
     'jquery',
-    'cg-mustache'
+    'cg-mustache',
+    'ShippingAlias/MethodCollection'
 ], function(
     $,
-    CGMustache
+    CGMustache,
+    methodCollection
 ) {
     var DomManipulator = function()
     {
@@ -16,8 +18,6 @@ define([
 
     DomManipulator.prototype.prependAlias = function()
     {
-        console.log("DomManipulator prependAlias1"); 
-        console.log("DomManipulator prependAlias1");
         var self = this;
         var aliasUrlMap = {
             text: '/channelgrabber/zf2-v4-ui/templates/elements/text.mustache',
@@ -28,17 +28,20 @@ define([
         };
         CGMustache.get().fetchTemplates(aliasUrlMap, function(templates, cgmustache)
         {
-            var text = cgmustache.renderTemplate(templates, {}, "text");
+            var aliasNo = $('.shipping-alias').length + 1;
+            console.log("instances " + aliasNo);
+            var text = cgmustache.renderTemplate(templates, {'name': "alias-name-" + aliasNo}, "text");
             var deleteButton = cgmustache.renderTemplate(templates, {
                 'buttons' : true,
                 'value' : "Delete",
-                'id' : "deleteButton"
+                'id' : "deleteButton-" + aliasNo
             }, "deleteButton");
 
-            var multiSelect = cgmustache.renderTemplate(templates, {}, "multiSelect");
+            var multiSelect = cgmustache.renderTemplate(templates, {'options': methodCollection.getItems(),
+                    'name': 'aliasMultiSelect-' + aliasNo}, "multiSelect");
             var multiSelectExpanded = cgmustache.renderTemplate(templates, {}, "multiSelectExpanded", {'multiSelect' : multiSelect});
             var alias = cgmustache.renderTemplate(templates, {}, "alias", {
-                'multiSelectExpanded' : multiSelectExpanded,
+                'multiSelectExpanded' : multiSelect,
                 'deleteButton' : deleteButton,
                 'text' : text
             });

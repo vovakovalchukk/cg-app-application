@@ -26,6 +26,10 @@ use CG\Template\Storage\Api as TemplateApiStorage;
 use CG\Template\Service as TemplateService;
 use CG\Template\Repository as TemplateRepository;
 use Settings\Factory\SidebarNavFactory;
+use CG\Order\Client\Shipping\Method\Storage\Api as ShippingMethodStorage;
+use CG\Order\Service\Shipping\Method\Service as ShippingMethodService;
+use CG\Settings\Alias\Storage\Api as ShippingAliasStorage;
+use CG\Settings\Alias\Service as ShippingAliasService;
 
 return [
     'navigation' => [
@@ -539,6 +543,21 @@ return [
                 'parameters' => [
                     'storage' => TemplateObjectStorage::class,
                     'repository' => TemplateApiStorage::class
+                ]
+            ],
+            ShippingMethodService::class => [
+                'parameters' => [
+                    'repository' => ShippingMethodStorage::class
+                ]
+            ],
+            ShippingMethodStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle',
+                ]
+            ],
+            ShippingAliasService::class => [
+                'parameters' => [
+                    'repository' => ShippingAliasStorage::class
                 ]
             ]
         ]

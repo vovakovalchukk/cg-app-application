@@ -11,7 +11,13 @@
                     'ShippingAlias': "<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/ShippingAlias';?>"
                 }
             });
-            require(['ShippingAlias/DomListener/AddButton'], function(domListener) {
+            var shippingMethods = $.parseJSON('<?= json_encode($shippingMethods); ?>');
+            require([
+                'ShippingAlias/MethodCollection',
+                'ShippingAlias/DomListener/AddButton',
+                'ShippingAlias/Mapper'
+            ], function(methodCollection, domListener, mapper) {
+                methodCollection.setItems(mapper.fromCollectionToOptions(shippingMethods));
                 domListener.init();
             });
         });
