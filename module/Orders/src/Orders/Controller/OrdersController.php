@@ -1,8 +1,6 @@
 <?php
 namespace Orders\Controller;
 
-use CG\Http\Exception\Exception3xx\NotModified;
-use Orders\Order\Exception\MultiException;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
@@ -23,8 +21,8 @@ use CG\Stdlib\PageLimit;
 use CG\Stdlib\OrderBy;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
-use Zend\View\Model\JsonModel;
-use CG\Order\Shared\Collection as OrderCollection;
+use CG_Usage\Service as UsageService;
+use CG_Usage\Exception\Exceeded as UsageExceeded;
 
 class OrdersController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -39,6 +37,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected $viewModelFactory;
     protected $filtersService;
     protected $storedFiltersService;
+    protected $usageService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
@@ -49,7 +48,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         BatchService $batchService,
         BulkActionsService $bulkActionsService,
         FiltersService $filtersService,
-        StoredFiltersService $storedFiltersService
+        StoredFiltersService $storedFiltersService,
+        UsageService $usageService
     )
     {
         $this->setJsonModelFactory($jsonModelFactory)
@@ -60,7 +60,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             ->setBatchService($batchService)
             ->setBulkActionsService($bulkActionsService)
             ->setFiltersService($filtersService)
-            ->setStoredFiltersService($storedFiltersService);
+            ->setStoredFiltersService($storedFiltersService)
+            ->setUsageService($usageService);
     }
 
     public function setOrderService(OrderService $orderService)
@@ -246,6 +247,10 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
     public function orderAction()
     {
+        if ($this->getUsageService()->hasUsageBeenExceeded()) {
+            throw new UsageExceeded();
+        }
+
         $order = $this->getOrderService()->getOrder($this->params('order'));
         $view = $this->getViewModelFactory()->newInstance(
             [
@@ -454,5 +459,16 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $this->getOrderService()->updateUserPrefOrderColumns($updatedColumns);
 
         return $response->setVariable('updated', true);
+    }
+
+    protected function setUsageService(UsageService $usageService)
+    {
+        $this->usageService = $usageService;
+        return $this;
+    }
+
+    protected function getUsageService()
+    {
+        return $this->usageService;
     }
 }
