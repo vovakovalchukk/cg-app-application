@@ -14,6 +14,7 @@
 use Zend\Config\Config;
 use CG\Cache\EventManagerInterface;
 use CG\Zend\Stdlib\Cache\EventManager;
+use Zend\ServiceManager\ServiceManager;
 
 return array(
     'service_manager' => array(
@@ -40,6 +41,7 @@ return array(
 
                 $im->addSharedInstance($di, 'Zend\Di\Di');
                 $im->addSharedInstance($di->get('config', array('array' => $configuration)), 'config');
+                $im->addSharedInstance($serviceManager, ServiceManager::class);
 
                 return $di;
             }
