@@ -12,26 +12,24 @@ class Mapper
         TemplateCollection $invoices,
         InvoiceSettingsEntity $settings
     ) {
-        $name = $tradingCompany->getAddressCompanyName() != null ? $tradingCompany->getAddressCompanyName() : '(unnamed)';
-
         $data = [
-            "organisationUnit" => $name,
+            "organisationUnit" => $tradingCompany->getAddressCompanyName(),
             'organisationUnitId' => $tradingCompany->getId(),
             "assignedInvoice" => []
         ];
 
         $tradingCompanySettings = $settings->getTradingCompanies();
-        if (! isset($tradingCompanySettings[$tradingCompany->getId()])) {
-            $default = false;
-        } else {
-            $default = $settings->getTradingCompanies()[$tradingCompany->getId()];
+
+        $selected = false;
+        if (isset($tradingCompanySettings[$tradingCompany->getId()])) {
+            $selected = $settings->getTradingCompanies()[$tradingCompany->getId()];
         }
 
         foreach ($invoices as $invoice) {
             $data['assignedInvoice'][] = [
                 'id' => $invoice->getId(),
                 'name' => $invoice->getName(),
-                'selected' => $invoice->getId() == $default,
+                'selected' => $invoice->getId() == $selected,
             ];
         }
         return $data;

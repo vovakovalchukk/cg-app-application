@@ -93,10 +93,12 @@ class InvoiceController extends AbstractActionController
     {
         $invoiceSettings = $this->getInvoiceService()->getSettings();
         $tradingCompanies = $this->getInvoiceService()->getTradingCompanies();
+        $invoices = $this->getInvoiceService()->getInvoices();
 
         $view = $this->getViewModelFactory()->newInstance()
             ->setVariable('invoiceSettings', $invoiceSettings)
             ->setVariable('tradingCompanies', $tradingCompanies)
+            ->setVariable('invoices', $invoices)
             ->addChild($this->getTradingCompanyInvoiceSettingsDataTable(), 'invoiceSettingsDataTable');
         return $view;
     }

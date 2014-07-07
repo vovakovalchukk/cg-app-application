@@ -59,23 +59,13 @@ class Service
 
     public function getInvoices()
     {
-        $limit = 'all';
-        $page = 1;
-        $ids = [];
         $organisationUnits = [
             $this->getActiveUserContainer()->getActiveUser()->getOrganisationUnitId()
         ];
-        $type = [
-            TemplateType::INVOICE
-        ];
 
         try {
-            return $this->getTemplateService()->fetchCollectionByPagination(
-                $limit,
-                $page,
-                $ids,
-                $organisationUnits,
-                $type
+            return $this->getTemplateService()->fetchInvoiceCollectionByOrganisationUnitWithHardCoded(
+                $organisationUnits
             );
         } catch (NotFound $e) {
             return [];

@@ -16,7 +16,6 @@ $(document).ready(function() {
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
-
 <div class="padded-content-holder">
     <div class="invoiceSettings">
         <div class="invoiceDefaultSettings">
@@ -25,7 +24,7 @@ $(document).ready(function() {
                 Default Invoice
             </div>
             <div>
-                <select id="">
+                <select>
                     <?php foreach ($invoices as $invoice) : ?>
                         <option<?= $invoiceSettings->getDefault() == $invoice->getId() ? ' selected="selected"' : '' ?> value="<?= $invoice->getId() ?>"><?= $invoice->getName() ?></option>
                     <?php endforeach; ?>
