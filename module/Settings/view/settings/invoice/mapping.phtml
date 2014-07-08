@@ -1,1 +1,44 @@
-invoice settings page TBC (CGIV-2282)
+<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
+<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
+<?php $this->inlineScript()->captureStart(); ?>
+$(document).ready(function() {
+    require.config({
+        paths: {
+            'Settings': "<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js';?>"
+        }
+    });
+    require([
+        'Settings/invoiceSettings'
+    ], function(
+        InvoiceSettings
+    ) {
+        new InvoiceSettings;
+    });
+});
+<?php $this->inlineScript()->captureEnd(); ?>
+<div class="padded-content-holder">
+    <div class="invoiceSettings">
+        <div class="invoiceDefaultSettings">
+            <div class="heading-large">Invoice Settings</div>
+            <div>
+                Default Invoice
+            </div>
+            <div>
+                <select>
+                    <?php foreach ($invoices as $invoice) : ?>
+                        <option<?= $invoiceSettings->getDefault() == $invoice->getId() ? ' selected="selected"' : '' ?> value="<?= $invoice->getId() ?>"><?= $invoice->getName() ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        <hr>
+        <div class="invoiceTradingCompanySettings">
+            <div class="heading-large">Trading Companies</div>
+            <?php if (empty($tradingCompanies)) : ?>
+                (No Trading companies exist)
+            <?php else : ?>
+                <?= $this->invoiceSettingsDataTable ?>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>

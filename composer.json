@@ -21,7 +21,7 @@
     "require": {
         "channelgrabber/account": "~1.0.26",
         "channelgrabber/amazon": "~1.2.29",
-        "channelgrabber/channel": "~1.2.5",
+        "channelgrabber/channel": "~1.2.6",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/ebay": "~1.1.31",
         "channelgrabber/gearman": "~1.1.0",
@@ -58,10 +58,10 @@
         "zendframework/zendframework": "2.3.*"
     },
     "require-dev": {
-        "codeception/codeception": "1.6.5",
+        "channelgrabber/codeception": "~1.1.47",
+        "codeception/codeception": "~1.8.0",
         "phpspec/phpspec": "2.0.*@dev",
-        "phpspec/prophecy": "~1.0",
-        "channelgrabber/codeception": "1.0.*"
+        "phpspec/prophecy": "~1.0"
     },
     "scripts": {
         "post-install-cmd": [
