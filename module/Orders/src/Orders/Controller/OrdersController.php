@@ -262,6 +262,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->addChild($this->getOrderService()->getOrderItemTable($order), 'productPaymentTable');
         $view->addChild($this->getNotes($order), 'notes');
         $view->addChild($this->getDetailsSidebar(), 'sidebar');
+        $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
         return $view;
     }
