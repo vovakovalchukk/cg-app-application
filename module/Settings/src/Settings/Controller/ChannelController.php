@@ -160,7 +160,6 @@ class ChannelController extends AbstractActionController
         $settings->setSource(
             $this->url()->fromRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_CHANNELS.'/'.static::AJAX_ROUTE)
         );
-
         $settings->setTemplateUrlMap($this->mustacheTemplateMap('accountList'));
 
         return $accountList;
