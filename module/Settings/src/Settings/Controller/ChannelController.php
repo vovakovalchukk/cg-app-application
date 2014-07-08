@@ -252,19 +252,23 @@ class ChannelController extends AbstractActionController
 
     protected function addTradingCompaniesView($accountEntity, $view)
     {
-        $tradingCompanies = $this->getService()->getTradingCompanyOptionsForAccount($accountEntity);
+        $tradingCompanies = $this->getService()->getTradingCompanyOptionsForAccount($accountEntity);        
         $tradingCompanyOptions = [];
+
         foreach ($tradingCompanies as $tradingCompany) {
             $tradingCompanyOptions[] = [
                 'value' => $tradingCompany->getId(),
                 'title' => $tradingCompany->getAddressCompanyName(),
                 'selected' => ($tradingCompany->getId() == $accountEntity->getOrganisationUnitId())
             ];
+            $index++;
         }
+
         $tradingCompanyView = $this->newViewModel();
         $tradingCompanyView->setTemplate('elements/custom-select');
         $tradingCompanyView->setVariable('name', 'organisationUnitId');
         $tradingCompanyView->setVariable('options', $tradingCompanyOptions);
+        $tradingCompanyView->setVariable('blankOption', true);
         $view->setVariable('tradingCompanySelect', $this->getMustacheRenderer()->render($tradingCompanyView));
         return $this;
     }
