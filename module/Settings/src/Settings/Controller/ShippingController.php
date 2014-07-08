@@ -39,7 +39,7 @@ class ShippingController extends AbstractActionController
         return $button;
     }
 
-    public function getViewModelFactory()
+    protected function getViewModelFactory()
     {
         return $this->viewModelFactory;
     }
@@ -50,7 +50,7 @@ class ShippingController extends AbstractActionController
         return $this;
     }
 
-    public function getShippingService()
+    protected function getShippingService()
     {
         return $this->shippingService;
     }
