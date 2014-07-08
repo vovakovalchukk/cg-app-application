@@ -137,10 +137,13 @@ class ChannelController extends AbstractActionController
 
     public function listAction()
     {
+//        $channelName = $this->getDi()->get(\CG_UI\View\Helper\ChannelName::class);
         $list = $this->newViewModel();
+
         $list->setVariable('title', $this->getRouteName())
              ->setVariable('createRoute', Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_CHANNELS.'/'.static::CREATE_ROUTE)
              ->addChild($this->getAccountList(), 'accountList')
+//             ->setVariable('channelName', $channelName)
              ->addChild($this->getAddChannelSelect(), 'addChannelSelect');
         return $list;
     }
