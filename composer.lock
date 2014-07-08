@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9353f7d425fc63e31af64c7480ca5862",
+    "hash": "152d58c6c8871da98992d6967adf2746",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -118,17 +118,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.2.5",
+            "version": "1.2.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "11a9af6324a98564b105aab260c1d2291d34f822"
+                "reference": "5f6fee644d8293bb5c61100336569cf75f45aa27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.2.5-49e910.zip",
-                "reference": "11a9af6324a98564b105aab260c1d2291d34f822",
-                "shasum": "c4d64973e8a3e00ee0d356b6486fbdfb5ce23c2d"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.2.6-397e58.zip",
+                "reference": "5f6fee644d8293bb5c61100336569cf75f45aa27",
+                "shasum": "0cb479cbd28e7bcf82293fc0b31c60e83c2e5a3c"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -148,7 +148,7 @@
                     "CG\\Channel\\": ""
                 }
             },
-            "time": "2014-06-26 13:54:31"
+            "time": "2014-07-07 16:14:22"
         },
         {
             "name": "channelgrabber/constants",
@@ -323,17 +323,17 @@
         },
         {
             "name": "channelgrabber/http",
-            "version": "1.2.13",
+            "version": "1.2.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cghttp.git",
-                "reference": "b9f67875dfe87b80a9cb42e5ef0ff15091790418"
+                "reference": "6ac38de4475de076453071af2bea541c0fe616dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.2.13-065c41.zip",
-                "reference": "b9f67875dfe87b80a9cb42e5ef0ff15091790418",
-                "shasum": "e4519937d3fa7d009ca4731e033a97c0d7bacfaf"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.2.14-0d63a6.zip",
+                "reference": "6ac38de4475de076453071af2bea541c0fe616dd",
+                "shasum": "5d40f3d370139e8da583dbd715d3b12ceec4ad17"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2,<2.0.0",
@@ -350,7 +350,7 @@
                     "CG\\Http\\": ""
                 }
             },
-            "time": "2014-06-25 13:36:10"
+            "time": "2014-07-07 16:26:13"
         },
         {
             "name": "channelgrabber/log",
@@ -561,6 +561,34 @@
             "time": "2013-12-17 17:45:58"
         },
         {
+            "name": "channelgrabber/settings",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
+                "reference": "af5b0261fa9fe82a482b941c2e0047d1c0c15bad"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.0.3-23368a.zip",
+                "reference": "af5b0261fa9fe82a482b941c2e0047d1c0c15bad",
+                "shasum": "d1af56d3f3c4424c24a3155ee0eb0937750843d1"
+            },
+            "require": {
+                "channelgrabber/cache": ">=1.2.4",
+                "channelgrabber/etag": ">=1.4.3",
+                "channelgrabber/http": ">=1.2.3",
+                "channelgrabber/stdlib": ">=2.5.26"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "CG\\Settings\\": ""
+                }
+            },
+            "time": "2014-07-07 16:10:14"
+        },
+        {
             "name": "channelgrabber/slim",
             "version": "1.8.13",
             "source": {
@@ -667,17 +695,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.2.11",
+            "version": "1.2.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "88c435eb905a25c6a40794ad861095c99f0de189"
+                "reference": "3cd63df6713319de5702ea6790c8661e8f9c4787"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.11-fc7c0b.zip",
-                "reference": "88c435eb905a25c6a40794ad861095c99f0de189",
-                "shasum": "3c06a56da3ad7ed6fe3a5ee778a6e2f53d6e3728"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.13-94f79e.zip",
+                "reference": "3cd63df6713319de5702ea6790c8661e8f9c4787",
+                "shasum": "b0b5267e2a5837c9a78ff8af48e04921185f7f0c"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -703,21 +731,21 @@
                     "CG\\Template\\": ""
                 }
             },
-            "time": "2014-06-26 14:27:10"
+            "time": "2014-07-07 16:11:49"
         },
         {
             "name": "channelgrabber/usage",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-usage.git",
-                "reference": "cb183f8d80dd5088471190bac2d7ea1cec65717d"
+                "reference": "95ef68463fdcc23a11067f2f74bc66eee2602feb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-usage-1.0.1-5e330e.zip",
-                "reference": "cb183f8d80dd5088471190bac2d7ea1cec65717d",
-                "shasum": "0669f22d5eedaa287aa367164215acc348a643c6"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-usage-1.0.2-7afd06.zip",
+                "reference": "95ef68463fdcc23a11067f2f74bc66eee2602feb",
+                "shasum": "fb937f80761ce2092bfc0534022844ba15048ef2"
             },
             "require": {
                 "channelgrabber/cache": ">=1.2.4",
@@ -732,21 +760,21 @@
                     "CG\\Usage\\": ""
                 }
             },
-            "time": "2014-06-30 11:44:54"
+            "time": "2014-07-07 16:18:25"
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.15.0",
+            "version": "1.16.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "85020887fb6d99cdb40e9a23aacf89ef74041728"
+                "reference": "a926f89e9545f158b7b9ded7b01df58f0b1a9e16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.15.0-4da076.zip",
-                "reference": "85020887fb6d99cdb40e9a23aacf89ef74041728",
-                "shasum": "44987e8ef46086a41ee868b3c67dd0e99fde9df8"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.16.0-d9867f.zip",
+                "reference": "a926f89e9545f158b7b9ded7b01df58f0b1a9e16",
+                "shasum": "6a2e20a8036dd205d73cf719d9ff5e94436d2afb"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -778,7 +806,7 @@
                     "CG": ""
                 }
             },
-            "time": "2014-06-27 15:40:17"
+            "time": "2014-07-07 16:04:45"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -1123,17 +1151,17 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.4.1",
+            "version": "1.4.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "7f7a4e383513e6dd2f6d706cd5eeafee6e974f6e"
+                "reference": "f40314451f671108fddf46435cde0f6aa99be443"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.1-d716ae.zip",
-                "reference": "7f7a4e383513e6dd2f6d706cd5eeafee6e974f6e",
-                "shasum": "eecae87a7975a5adb15be12f57d03d3564ce8c14"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.3-754234.zip",
+                "reference": "f40314451f671108fddf46435cde0f6aa99be443",
+                "shasum": "dd412327a25b6800a46ecd1e0e14cb8c21ad5b22"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
@@ -1169,21 +1197,21 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2014-07-01 16:19:45"
+            "time": "2014-07-07 16:17:06"
         },
         {
             "name": "channelgrabber/zf2-permission",
-            "version": "1.0.4",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/permission-module.git",
-                "reference": "95da242e9fac5b704ce99739d233c166e36ce762"
+                "reference": "f34afdc0d5147a796a05fbddd9267b6e77b896d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.0.4-5f6ac4.zip",
-                "reference": "95da242e9fac5b704ce99739d233c166e36ce762",
-                "shasum": "4216cf06181decb708ed0529b24a21193e75ff44"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.1.0-d96321.zip",
+                "reference": "f34afdc0d5147a796a05fbddd9267b6e77b896d6",
+                "shasum": "d7156599aa631478c5c45a846b12efeb17aefda5"
             },
             "require": {
                 "channelgrabber/user": ">=1.10.11",
@@ -1204,7 +1232,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-06-13 10:18:19"
+            "time": "2014-07-07 16:08:34"
         },
         {
             "name": "channelgrabber/zf2-register",
@@ -1357,17 +1385,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.10.8",
+            "version": "1.10.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "bb57cacbac66a8a88c6d8a4b7b674617ee6121d6"
+                "reference": "03e8ea61593e5f55e15af063b8c57aee08412b4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.10.8-cdd8c5.zip",
-                "reference": "bb57cacbac66a8a88c6d8a4b7b674617ee6121d6",
-                "shasum": "e315a1212de50a1176c9f15c37ed1a3749a79611"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.10.10-197790.zip",
+                "reference": "03e8ea61593e5f55e15af063b8c57aee08412b4f",
+                "shasum": "668f31b97435db0cb3858e65d18a0855edc6ba69"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1397,7 +1425,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-07-03 15:49:10"
+            "time": "2014-07-07 16:22:44"
         },
         {
             "name": "cilex/cilex",
@@ -2550,46 +2578,6 @@
     ],
     "packages-dev": [
         {
-            "name": "alexandresalome/php-selenium",
-            "version": "v1.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/alexandresalome/PHP-Selenium.git",
-                "reference": "a9997e74d8016a5cdb995ca8d06263d1843e3cc0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/alexandresalome/PHP-Selenium/zipball/a9997e74d8016a5cdb995ca8d06263d1843e3cc0",
-                "reference": "a9997e74d8016a5cdb995ca8d06263d1843e3cc0",
-                "shasum": ""
-            },
-            "require-dev": {
-                "symfony/dom-crawler": "dev-master"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Selenium": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Alexandre Salomé",
-                    "email": "alexandre.salome@gmail.com",
-                    "homepage": "http://alexandre-salome.fr/"
-                }
-            ],
-            "description": "PHP Library for Selenium",
-            "keywords": [
-                "selenium"
-            ],
-            "time": "2014-02-05 08:32:37"
-        },
-        {
             "name": "behat/mink",
             "version": "v1.5.0",
             "source": {
@@ -2751,59 +2739,6 @@
             "time": "2013-07-03 18:43:54"
         },
         {
-            "name": "behat/mink-selenium-driver",
-            "version": "v1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Behat/MinkSeleniumDriver.git",
-                "reference": "a782b031cb8a94b449b9ccecdcd0e79206bbc882"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Behat/MinkSeleniumDriver/zipball/a782b031cb8a94b449b9ccecdcd0e79206bbc882",
-                "reference": "a782b031cb8a94b449b9ccecdcd0e79206bbc882",
-                "shasum": ""
-            },
-            "require": {
-                "alexandresalome/php-selenium": "~1.0.1",
-                "behat/mink": "~1.5.0",
-                "php": ">=5.3.1",
-                "symfony/dom-crawler": "~2.0"
-            },
-            "type": "mink-driver",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Behat\\Mink\\Driver": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Konstantin Kudryashov",
-                    "email": "ever.zet@gmail.com",
-                    "homepage": "http://everzet.com"
-                }
-            ],
-            "description": "Selenium driver for Mink framework",
-            "homepage": "http://mink.behat.org/",
-            "keywords": [
-                "ajax",
-                "browser",
-                "javascript",
-                "selenium",
-                "testing"
-            ],
-            "time": "2013-04-13 23:50:14"
-        },
-        {
             "name": "behat/mink-selenium2-driver",
             "version": "v1.1.1",
             "source": {
@@ -2862,76 +2797,23 @@
             "time": "2013-06-02 19:09:45"
         },
         {
-            "name": "behat/mink-zombie-driver",
-            "version": "v1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Behat/MinkZombieDriver.git",
-                "reference": "808c0ae0dc618e7fd925ccfd80a864efd08cd1b0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Behat/MinkZombieDriver/zipball/808c0ae0dc618e7fd925ccfd80a864efd08cd1b0",
-                "reference": "808c0ae0dc618e7fd925ccfd80a864efd08cd1b0",
-                "shasum": ""
-            },
-            "require": {
-                "behat/mink": "~1.5.0",
-                "php": ">=5.3.1",
-                "symfony/process": "~2.1"
-            },
-            "type": "mink-driver",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Behat\\Mink\\Driver": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Konstantin Kudryashov",
-                    "email": "ever.zet@gmail.com",
-                    "homepage": "http://everzet.com"
-                },
-                {
-                    "name": "Pascal Cremer",
-                    "email": "b00gizm@gmail.com",
-                    "homepage": "http://github.com/b00gizm"
-                }
-            ],
-            "description": "Zombie.js driver for Mink framework",
-            "homepage": "http://mink.behat.org/",
-            "keywords": [
-                "ajax",
-                "browser",
-                "headless",
-                "javascript",
-                "testing",
-                "zombie"
-            ],
-            "time": "2013-04-13 23:52:11"
-        },
-        {
             "name": "channelgrabber/codeception",
-            "version": "1.0.24",
+            "version": "1.1.47",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgcodeception.git",
-                "reference": "add4a633a5b2a6247e3d60a8f2b4d1481b438b7e"
+                "reference": "29ae54fbfb7f58433dc21bb7e6c28d3e5611bfd3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-codeception-1.0.24-11f077.zip",
-                "reference": "add4a633a5b2a6247e3d60a8f2b4d1481b438b7e",
-                "shasum": "a2dae86e29d9bacdd301dc2cebd87f96ccb4a8eb"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-codeception-1.1.47-89bc8c.zip",
+                "reference": "29ae54fbfb7f58433dc21bb7e6c28d3e5611bfd3",
+                "shasum": "764a2a657069c6830e7dbfa11dfc5161bd41e6c3"
+            },
+            "require": {
+                "channelgrabber/http": "1.2.*",
+                "codeception/codeception": "1.8.0",
+                "nocarrier/hal": "~0.9.3"
             },
             "type": "library",
             "autoload": {
@@ -2939,37 +2821,43 @@
                     "CG\\Codeception\\": ""
                 }
             },
-            "time": "2013-11-12 10:37:22"
+            "time": "2014-06-25 14:30:15"
         },
         {
             "name": "codeception/codeception",
-            "version": "1.6.5",
+            "version": "1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "3510f86c83fc92a078a1e2d4ece8e883417380ab"
+                "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/3510f86c83fc92a078a1e2d4ece8e883417380ab",
-                "reference": "3510f86c83fc92a078a1e2d4ece8e883417380ab",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
+                "reference": "bac92379a97935c6ebc8b2f2f0ade7312b75f80c",
                 "shasum": ""
             },
             "require": {
                 "behat/mink": "1.5.*",
                 "behat/mink-goutte-driver": "1.0.*",
-                "behat/mink-selenium-driver": "1.1.*",
                 "behat/mink-selenium2-driver": "1.1.*",
-                "behat/mink-zombie-driver": "1.1.*",
-                "facebook/php-sdk": "3.*",
+                "facebook/webdriver": "< 0.3",
                 "monolog/monolog": "*",
                 "php": ">=5.3.3",
                 "phpunit/phpunit": "3.7.*",
                 "symfony/console": "~2.3",
                 "symfony/event-dispatcher": "~2.3",
                 "symfony/finder": "~2.3",
-                "symfony/yaml": "~2.3",
+                "symfony/yaml": "~2.3"
+            },
+            "require-dev": {
+                "behat/mink-selenium-driver": "1.1.*",
+                "behat/mink-zombie-driver": "1.1.*",
+                "facebook/php-sdk": "3.*",
                 "videlalvaro/php-amqplib": "*"
+            },
+            "suggest": {
+                "codeception/phpbuiltinserver": "Extension to starts and stops PHP builtin web server for your tests"
             },
             "bin": [
                 "codecept"
@@ -3000,7 +2888,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2013-08-09 03:01:50"
+            "time": "2013-11-15 02:57:56"
         },
         {
             "name": "fabpot/goutte",
@@ -3061,50 +2949,35 @@
             "time": "2014-03-14 13:02:09"
         },
         {
-            "name": "facebook/php-sdk",
-            "version": "v3.2.3",
+            "name": "facebook/webdriver",
+            "version": "v0.2.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/facebook/facebook-php-sdk.git",
-                "reference": "6714042fa2f5979d4c64c7d11fb4bcab16bdf6cb"
+                "url": "https://github.com/facebook/php-webdriver.git",
+                "reference": "36bf555115da4cb03b131b4c04b681a75acd47d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/facebook-php-sdk/zipball/6714042fa2f5979d4c64c7d11fb4bcab16bdf6cb",
-                "reference": "6714042fa2f5979d4c64c7d11fb4bcab16bdf6cb",
+                "url": "https://api.github.com/repos/facebook/php-webdriver/zipball/36bf555115da4cb03b131b4c04b681a75acd47d1",
+                "reference": "36bf555115da4cb03b131b4c04b681a75acd47d1",
                 "shasum": ""
             },
             "require": {
-                "ext-curl": "*",
-                "ext-json": "*",
-                "php": ">=5.2.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "3.7.*"
+                "php": ">=5.4.20"
             },
             "type": "library",
             "autoload": {
                 "classmap": [
-                    "src"
+                    "lib/"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "Apache2"
+                "Apache-2.0"
             ],
-            "authors": [
-                {
-                    "name": "Facebook",
-                    "homepage": "https://github.com/facebook/facebook-php-sdk/contributors"
-                }
-            ],
-            "description": "Facebook PHP SDK",
-            "homepage": "https://github.com/facebook/facebook-php-sdk",
-            "keywords": [
-                "facebook",
-                "sdk"
-            ],
-            "time": "2013-11-19 23:11:14"
+            "description": "A php client for WebDriver",
+            "homepage": "https://github.com/facebook/php-webdriver",
+            "time": "2013-10-15 05:25:07"
         },
         {
             "name": "instaclick/php-webdriver",
@@ -3259,7 +3132,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -3961,54 +3835,6 @@
             "description": "Symfony DomCrawler Component",
             "homepage": "http://symfony.com",
             "time": "2014-05-31 02:02:56"
-        },
-        {
-            "name": "videlalvaro/php-amqplib",
-            "version": "v2.4.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/videlalvaro/php-amqplib.git",
-                "reference": "d8294736e47340e8d96f37d788b15f578bfc084f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/videlalvaro/php-amqplib/zipball/d8294736e47340e8d96f37d788b15f578bfc084f",
-                "reference": "d8294736e47340e8d96f37d788b15f578bfc084f",
-                "shasum": ""
-            },
-            "require": {
-                "ext-bcmath": "*",
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "3.7.*"
-            },
-            "suggest": {
-                "ext-sockets": "Use AMQPSocketConnection"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "PhpAmqpLib": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL-2.1"
-            ],
-            "authors": [
-                {
-                    "name": "Alvaro Videla"
-                }
-            ],
-            "description": "This library is a pure PHP implementation of the AMQP protocol. It's been tested against RabbitMQ.",
-            "homepage": "https://github.com/videlalvaro/php-amqplib/",
-            "keywords": [
-                "message",
-                "queue",
-                "rabbitmq"
-            ],
-            "time": "2014-06-21 09:27:57"
         }
     ],
     "aliases": [
