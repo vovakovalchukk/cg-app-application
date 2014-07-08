@@ -5,6 +5,8 @@ use Orders\Order\FilterService;
 use Orders\Order\TableService\OrdersTableTagColumns;
 use Orders\Order\Filter\Channel;
 use Orders\Order\Filter\Account;
+use Orders\Order\Filter\Shipping;
+use Orders\Controller\OrdersController;
 use CG\Order\Shared\Status;
 
 return [
@@ -213,6 +215,19 @@ return [
                                 'options' => []
                             ],
                             'optionsProvider' => Account::class,
+                        ],
+                        [
+                            'filterType' => 'customSelectGroup',
+                            'visible' => false,
+                            'variables' => [
+                                'name' => OrdersController::FILTER_SHIPPING_METHOD_NAME,
+                                'title' => 'Shipping Method',
+                                'searchField' => true,
+                                'isOptional' => true,
+                                'concatenate' => true,
+                                'options' => []
+                            ],
+                            'optionsProvider' => Shipping::class,
                         ],
                         [
                             'filterType' => 'customSelectGroup',
