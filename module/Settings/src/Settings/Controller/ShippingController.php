@@ -11,6 +11,7 @@ class ShippingController extends AbstractActionController
     const ROUTE_ALIASES = "Shipping Aliases";
 
     protected $viewModelFactory;
+    protected $shippingService;
 
     public function __construct(ViewModelFactory $viewModelFactory, ShippingService $shippingService)
     {
@@ -39,23 +40,23 @@ class ShippingController extends AbstractActionController
         return $button;
     }
 
-    public function getViewModelFactory()
+    protected function getViewModelFactory()
     {
         return $this->viewModelFactory;
     }
 
-    public function setViewModelFactory(ViewModelFactory $viewModelFactory)
+    protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
     {
         $this->viewModelFactory = $viewModelFactory;
         return $this;
     }
 
-    public function getShippingService()
+    protected function getShippingService()
     {
         return $this->shippingService;
     }
 
-    public function setShippingService(ShippingService $shippingService)
+    protected function setShippingService(ShippingService $shippingService)
     {
         $this->shippingService = $shippingService;
         return $this;

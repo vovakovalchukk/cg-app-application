@@ -1,27 +1,26 @@
+<?php $this->inlineScript()->captureStart(); ?>
+$(document).ready(function() {
+    require.config({
+        paths: {
+            'ShippingAlias': "<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/ShippingAlias';?>"
+        }
+    });
+    var shippingMethods = $.parseJSON('<?= json_encode($shippingMethods); ?>');
+    require([
+        'ShippingAlias/MethodCollection',
+        'ShippingAlias/DomListener/AddButton',
+        'ShippingAlias/Mapper'
+    ], function(methodCollection, domListener, mapper) {
+        methodCollection.setItems(mapper.fromCollectionToOptions(shippingMethods));
+        domListener.init();
+    });
+});
+<?php $this->inlineScript()->captureEnd(); ?>
 <div class="padded-content-holder">
     <span class="heading-large">
         <?= $this->translate($title) ?>
     </span>
     <?= $addButton ?>
-
-    <?php $this->inlineScript()->captureStart(); ?>
-        $(document).ready(function() {
-            require.config({
-                paths: {
-                    'ShippingAlias': "<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/ShippingAlias';?>"
-                }
-            });
-            var shippingMethods = $.parseJSON('<?= json_encode($shippingMethods); ?>');
-            require([
-                'ShippingAlias/MethodCollection',
-                'ShippingAlias/DomListener/AddButton',
-                'ShippingAlias/Mapper'
-            ], function(methodCollection, domListener, mapper) {
-                methodCollection.setItems(mapper.fromCollectionToOptions(shippingMethods));
-                domListener.init();
-            });
-        });
-    <?php $this->inlineScript()->captureEnd(); ?>
     <div id="shipping-alias-container">
 
     </div>

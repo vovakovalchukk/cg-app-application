@@ -29,7 +29,6 @@ define([
         CGMustache.get().fetchTemplates(aliasUrlMap, function(templates, cgmustache)
         {
             var aliasNo = $('.shipping-alias').length + 1;
-            console.log("instances " + aliasNo);
             var text = cgmustache.renderTemplate(templates, {'name': "alias-name-" + aliasNo}, "text");
             var deleteButton = cgmustache.renderTemplate(templates, {
                 'buttons' : true,
