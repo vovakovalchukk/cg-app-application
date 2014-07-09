@@ -1,12 +1,17 @@
+.shipping-alias-wrapper {
+    width: 925px;
+    float: left;
+    clear:both;
+}
 .shipping-alias {
-    min-width: 1000px;
+    width: 100%;
     float: left;
     clear:both;
     background-color: $color-xlgrey;
     border: 3px solid $color-mgrey;
     padding: 15px;
     @include border-radius(5px);
-    margin: 20px;
+    margin: 20px 0px 0px 0px;
     .shipping-alias-name-holder {
         width: 50%;
         float: left;
@@ -28,10 +33,9 @@
         padding: 0px;
     }
     .channel-shipping-methods {
-        width: 449px;
+        width: 100%;
         float: left;
         clear:both;
-        border-right: 1px solid $color-lgrey;
         padding: 5px 13px 5px 13px;
     }
     .shipping-services {

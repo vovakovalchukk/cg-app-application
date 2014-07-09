@@ -40,7 +40,7 @@ define([
                     'name': 'aliasMultiSelect-' + aliasNo}, "multiSelect");
             var multiSelectExpanded = cgmustache.renderTemplate(templates, {}, "multiSelectExpanded", {'multiSelect' : multiSelect});
             var alias = cgmustache.renderTemplate(templates, {}, "alias", {
-                'multiSelectExpanded' : multiSelect,
+                'multiSelectExpanded' : multiSelectExpanded,
                 'deleteButton' : deleteButton,
                 'text' : text
             });
