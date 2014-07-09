@@ -261,7 +261,6 @@ class ChannelController extends AbstractActionController
                 'title' => $tradingCompany->getAddressCompanyName(),
                 'selected' => ($tradingCompany->getId() == $accountEntity->getOrganisationUnitId())
             ];
-            $index++;
         }
 
         $tradingCompanyView = $this->newViewModel();
@@ -275,10 +274,15 @@ class ChannelController extends AbstractActionController
 
     public function accountUpdateAction()
     {
+        
         $id = $this->params('account');
         $postData = $this->getRequest()->getPost();
         $displayName = $postData->get('displayName');
         $organisationUnitId = $postData->get('organisationUnitId');
+        
+        if ($organisationUnitId == "") {
+            $organisationUnitId = $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId();
+        }
 
         try {
             $this->getService()->updateAccount($id, compact('displayName', 'organisationUnitId'));
