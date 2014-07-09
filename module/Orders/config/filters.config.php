@@ -112,7 +112,7 @@ return [
                         [
                             'filterType' => 'search',
                             'variables' => [
-                                'name' => 'search',
+                                'name' => 'searchTerm',
                                 'placeholder' => 'Search for...',
                                 'class' => '',
                                 'value' => ''
@@ -246,14 +246,17 @@ return [
                             'filterType' => 'customSelectGroup',
                             'visible' => false,
                             'variables' => [
+                                'isBoolean' => true,
                                 'name' => 'archived',
                                 'title' => 'Show Archived',
                                 'isOptional' => true,
                                 'options' => [
                                     [
+                                        'value' => true,
                                         'title' => 'Yes'
                                     ],
                                     [
+                                        'value' => false,
                                         'title' => 'No',
                                         'selected' => true
                                     ],
@@ -264,14 +267,17 @@ return [
                             'filterType' => 'customSelectGroup',
                             'visible' => false,
                             'variables' => [
+                                'isBoolean' => true,
                                 'name' => 'buyerMessage',
                                 'title' => 'Buyer Message',
                                 'isOptional' => true,
                                 'options' => [
                                     [
+                                        'value' => true,
                                         'title' => 'Yes'
                                     ],
                                     [
+                                        'value' => false,
                                         'title' => 'No'
                                     ],
                                 ]
