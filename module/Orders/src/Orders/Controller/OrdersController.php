@@ -263,12 +263,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         }
 
         if (isset($requestFilter[static::FILTER_SHIPPING_METHOD_NAME])) {
-            $methodNames = [];
-            foreach ($requestFilter[static::FILTER_SHIPPING_METHOD_NAME] as $alias) {
-                $methods = $this->getShippingConversionService()->fromAliasIdToMethods($alias);
-                $methodNames = array_merge($methodNames, $methods->getMethods());
-            }
-            array_unique($methodNames);
+            $methodNames = $this->getShippingConversionService()->fromAliasIdsToMethodNames($requestFilter[static::FILTER_SHIPPING_METHOD_NAME]);
             $requestFilter[static::FILTER_SHIPPING_METHOD_NAME] = $methodNames;
         }
 
