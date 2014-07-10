@@ -52,7 +52,8 @@ define([
                 'method' : 'POST',
                 'dataType' : 'json',
                 'success' : function(data) {
-                    aliasInUse.find('input[name=shipping-alias-id]').val(data.id);
+                    var parsedData = $.parseJSON(data['alias']);
+                    aliasInUse.find('input[name=shipping-alias-id]').val(parsedData.id);
                 },
                 'error' : function () {
                     n.error('Unable to save shipping aliases');
