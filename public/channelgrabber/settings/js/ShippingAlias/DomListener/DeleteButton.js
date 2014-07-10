@@ -1,20 +1,24 @@
+
 define([
     'ShippingAlias/DomManipulator'
 ],
 function(domManipulator)
 {
-    var AddButton = function() { };
+    var DeleteButton = function() { };
 
-    AddButton.ADD_BUTTON_SELECTOR = '#addButtonSelector';
+    DeleteButton.DELETE_BUTTON_SELECTOR = '.shipping-alias-delete';
 
-    AddButton.prototype.init = function(module)
+    DeleteButton.prototype.init = function(module)
     {
         var self = this;
-        
-        $(AddButton.ADD_BUTTON_SELECTOR).click(function () {
-            domManipulator.prependAlias();
+
+        $(document).on("click", DeleteButton.DELETE_BUTTON_SELECTOR, function() {
+            var root = domManipulator.getDomSelectorAliasContainer();
+
+            // $(this).parentsUntil(root).find(".inputbox").val() // Alias name
+            $(this).parentsUntil(root).remove(); // Remove from the browser, not rom ajax
         });
     };
 
-    return new AddButton(); 
+    return new DeleteButton();
 });

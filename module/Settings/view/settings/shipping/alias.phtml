@@ -9,10 +9,16 @@ $(document).ready(function() {
     require([
         'ShippingAlias/MethodCollection',
         'ShippingAlias/DomListener/AddButton',
+        'ShippingAlias/DomListener/DeleteButton',
+        'ShippingAlias/DomListener/ShippingMethod',
+        'ShippingAlias/DomListener/AliasName',
         'ShippingAlias/Mapper'
-    ], function(methodCollection, domListener, mapper) {
+    ], function(methodCollection, addButtonListener, deleteButtonListener, shippingMethodListener, aliasName, mapper) {
         methodCollection.setItems(mapper.fromCollectionToOptions(shippingMethods));
-        domListener.init();
+        addButtonListener.init();
+        deleteButtonListener.init();
+        shippingMethodListener.init();
+        aliasName.init();
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>

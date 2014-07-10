@@ -313,7 +313,19 @@ return [
                                         'action' => 'alias',
                                     ]
                                 ],
-                            ]
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    ShippingController::ROUTE_ALIASES_SAVE => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/save',
+                                            'defaults' => [
+                                                'action' => 'aliasSave',
+                                            ]
+                                        ],
+                                    ]
+                                ]
+                            ],
                         ]
                     ]
                 ]
