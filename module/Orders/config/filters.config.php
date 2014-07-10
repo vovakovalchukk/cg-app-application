@@ -220,7 +220,7 @@ return [
                             'filterType' => 'customSelectGroup',
                             'visible' => false,
                             'variables' => [
-                                'name' => OrdersController::FILTER_SHIPPING_METHOD_NAME,
+                                'name' => OrdersController::FILTER_SHIPPING_ALIAS_NAME,
                                 'title' => 'Shipping Method',
                                 'searchField' => true,
                                 'isOptional' => true,
