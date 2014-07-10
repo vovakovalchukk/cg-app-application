@@ -388,7 +388,7 @@ return [
             'AccountList' => [
                 'parameters' => [
                     'variables' => [
-                        //'sortable' => 'false',
+                        'sortable' => 'false',
                         'id' => 'accounts'
                     ],
                 ],
