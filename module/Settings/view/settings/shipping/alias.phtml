@@ -10,15 +10,13 @@ $(document).ready(function() {
         'ShippingAlias/MethodCollection',
         'ShippingAlias/DomListener/AddButton',
         'ShippingAlias/DomListener/DeleteButton',
-        'ShippingAlias/DomListener/ShippingMethod',
-        'ShippingAlias/DomListener/AliasName',
+        'ShippingAlias/DomListener/AliasChange',
         'ShippingAlias/Mapper'
-    ], function(methodCollection, addButtonListener, deleteButtonListener, shippingMethodListener, aliasName, mapper) {
+    ], function(methodCollection, addButtonListener, deleteButtonListener, aliasChangeListener, mapper) {
         methodCollection.setItems(mapper.fromCollectionToOptions(shippingMethods));
         addButtonListener.init();
         deleteButtonListener.init();
-        shippingMethodListener.init();
-        aliasName.init();
+        aliasChangeListener.init();
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
