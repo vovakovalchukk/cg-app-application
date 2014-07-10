@@ -44,6 +44,7 @@
         "channelgrabber/zf2-installer": "~1.0.3",
         "channelgrabber/zf2-logclient": "~1.3.3",
         "channelgrabber/zf2-login": "~1.4.3",
+        "channelgrabber/zf2-login": "~1.4.5",
         "channelgrabber/zf2-permission": "~1.1.0",
         "channelgrabber/zf2-register": "~1.4.17",
         "channelgrabber/zf2-sessions": "~1.0.3",
