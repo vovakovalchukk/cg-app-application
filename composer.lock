@@ -1,10 +1,9 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
-        "This file is @generated automatically"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "e34f8a94fe3507865ca19a5b335e8140",
+    "hash": "c3bf02152bf3861117ba15cf97419279",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -1259,17 +1258,17 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.4.16",
+            "version": "1.4.17",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "d5d2e9c437cc46ec6f728dd3d670ec4f4fa840b7"
+                "reference": "c23b38608f7a5e58b44f38e73bbd6db6f8a61dec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.16-11b4eb.zip",
-                "reference": "d5d2e9c437cc46ec6f728dd3d670ec4f4fa840b7",
-                "shasum": "cf0d627be1462eae76009231944915f640c206e0"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.17-349717.zip",
+                "reference": "c23b38608f7a5e58b44f38e73bbd6db6f8a61dec",
+                "shasum": "f39facaaf28dfad5e59972d15dc5d847ab938df6"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -1300,7 +1299,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2014-07-02 14:39:07"
+            "time": "2014-07-10 07:11:47"
         },
         {
             "name": "channelgrabber/zf2-sessions",
@@ -3199,7 +3198,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
