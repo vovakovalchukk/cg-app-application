@@ -5,13 +5,26 @@ define([
 function(domManipulator, eventCollator)
 {
     var AliasChange = function() {
+        var rootOuId;
+
+        this.setRootOuId = function(newRootOuId)
+        {
+            rootOuId = newRootOuId;
+            return this;
+        };
+
+        this.getRootOuId = function()
+        {
+            return rootOuId;
+        };
     };
 
     AliasChange.SHIPPING_METHOD_SELECTOR = '.channel-shipping-methods .custom-select-item';
     AliasChange.ALIAS_NAME_INPUT_SELECTOR = '.shipping-alias-name-holder .inputbox';
 
-    AliasChange.prototype.init = function(module)
+    AliasChange.prototype.init = function(rootOuId)
     {
+        this.setRootOuId(rootOuId);
         var self = this;
 
         $(document).on("click", AliasChange.SHIPPING_METHOD_SELECTOR, function() {
@@ -59,7 +72,7 @@ function(domManipulator, eventCollator)
             checkBoxValues[index] = $(this).val();
         });
 
-        var singleAlias = {storedEtag: storedETag, id: aliasID, name: aliasName, methodIds: checkBoxValues};
+        var singleAlias = {storedEtag: storedETag, id: aliasID, name: aliasName, organisationUnitId: this.getRootOuId(), methodIds: checkBoxValues};
 
         $.ajax({
             'url' : '/settings/shipping/alias/save',

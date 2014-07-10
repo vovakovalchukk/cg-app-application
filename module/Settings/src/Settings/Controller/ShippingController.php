@@ -6,6 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG\Order\Shared\Shipping\Conversion\Service as ConversionService;
 use CG\Settings\Alias\Service as ShippingService;
+use CG\User\ActiveUserInterface;
 
 class ShippingController extends AbstractActionController
 {
@@ -17,17 +18,20 @@ class ShippingController extends AbstractActionController
     protected $conversionService;
     protected $shippingService;
     protected $jsonModelFactory;
+    protected $activeUser;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         ConversionService $conversionService,
         ShippingService $shippingService,
-        JsonModelFactory $jsonModelFactory
+        JsonModelFactory $jsonModelFactory,
+        ActiveUserInterface $activeUser
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setConversionService($conversionService)
             ->setShippingService($shippingService)
-            ->setJsonModelFactory($jsonModelFactory);
+            ->setJsonModelFactory($jsonModelFactory)
+            ->setActiveUser($activeUser);
     }
 
     public function aliasAction()
@@ -36,6 +40,7 @@ class ShippingController extends AbstractActionController
         $view = $this->getViewModelFactory()->newInstance();
         $view->setVariable('title', static::ROUTE_ALIASES);
         $view->setVariable('shippingMethods', $shippingMethods->toArray());
+        $view->setVariable('rootOuId', $this->getActiveUser()->getActiveUserRootOrganisationUnitId());
         $view->addChild($this->getAddButtonView(), 'addButton');
         return $view;
     }
@@ -101,5 +106,14 @@ class ShippingController extends AbstractActionController
         return $this->jsonModelFactory;
     }
 
+    protected function setActiveUser(ActiveUserInterface $activeUser)
+    {
+        $this->activeUser = $activeUser;
+        return $this;
+    }
 
+    protected function getActiveUser()
+    {
+        return $this->activeUser;
+    }
 }

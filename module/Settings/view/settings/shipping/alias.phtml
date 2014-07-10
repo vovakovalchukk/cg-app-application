@@ -6,6 +6,7 @@ $(document).ready(function() {
         }
     });
     var shippingMethods = $.parseJSON('<?= json_encode($shippingMethods); ?>');
+    var rootOuId = <?=$rootOuId;?>;
     require([
         'ShippingAlias/MethodCollection',
         'ShippingAlias/DomListener/AddButton',
@@ -16,7 +17,7 @@ $(document).ready(function() {
         methodCollection.setItems(mapper.fromCollectionToOptions(shippingMethods));
         addButtonListener.init();
         deleteButtonListener.init();
-        aliasChangeListener.init();
+        aliasChangeListener.init(rootOuId);
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
