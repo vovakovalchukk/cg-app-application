@@ -34,17 +34,18 @@ define([
         {
             var aliasInUse = $('#' + alias);
             var aliasID = aliasInUse.find('input[name=shipping-alias-id]').val();
+            var storedETag = aliasInUse.find('input[name=shipping-alias-storedETag]').val();
             var aliasName = aliasInUse.find('.shipping-alias-name-holder .inputbox').val();
             var hiddenCheckBoxes = aliasInUse.find('.channel-shipping-methods input[type=hidden]');
             var checkBoxValues = [];
+
+            console.log(storedETag);
 
             hiddenCheckBoxes.each(function (index) {
                 checkBoxValues[index] = $(this).val();
             });
 
-            console.log(checkBoxValues);
-
-            var singleAlias = {id: aliasID, name: aliasName, methodIds: checkBoxValues};
+            var singleAlias = {storedEtag: storedETag, id: aliasID, name: aliasName, methodIds: checkBoxValues};
 
             $.ajax({
                 'url' : '/settings/shipping/alias/save',
@@ -52,8 +53,15 @@ define([
                 'method' : 'POST',
                 'dataType' : 'json',
                 'success' : function(data) {
+                    console.log('Outputting all data sent');
+                    for(var key in data)
+                    {
+                        console.log('key: ' + key + ' - data: ' + data[key]);
+                    }
+
                     var parsedData = $.parseJSON(data['alias']);
                     aliasInUse.find('input[name=shipping-alias-id]').val(parsedData.id);
+                    aliasInUse.find('input[name=shipping-alias-storedETag]').val(parsedData.storedETag);
                 },
                 'error' : function () {
                     n.error('Unable to save shipping aliases');
