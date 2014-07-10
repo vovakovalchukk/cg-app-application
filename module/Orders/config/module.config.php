@@ -21,6 +21,7 @@ use CG\Order\Service\Filter\StorageInterface as FilterStorageInterface;
 use CG\Order\Client\Filter\Storage\Api as FilterStorage;
 use Orders\Controller\BulkActionsController;
 use Orders\Controller\CancelController;
+use CG\Settings\Alias\Storage\Api as ShippingAliasStorage;
 
 return [
     'router' => [
@@ -825,6 +826,11 @@ return [
                     'client' => 'cg_app_guzzle'
                 ],
             ],
+            ShippingAliasStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ]
         ],
     ],
     'navigation' => array(
