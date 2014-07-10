@@ -304,7 +304,6 @@ return [
                             ]
                         ],
                         'may_terminate' => true,
-<<<<<<< Updated upstream
                         'child_routes' => [
                             ShippingController::ROUTE_ALIASES => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
@@ -316,13 +315,10 @@ return [
                                 ],
                             ]
                         ]
-=======
-                        'child_routes' => []
->>>>>>> Stashed changes
                     ]
                 ]
             ]
-        ],
+        ], 
     ],
     'view_manager' => [
         'template_path_stack' => [
