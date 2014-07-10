@@ -39,8 +39,10 @@ define([
             var checkBoxValues = [];
 
             hiddenCheckBoxes.each(function (index) {
-                checkBoxValues[index] = hiddenCheckBoxes.val();
+                checkBoxValues[index] = $(this).val();
             });
+
+            console.log(checkBoxValues);
 
             var singleAlias = {id: aliasID, name: aliasName, methodIds: checkBoxValues};
 

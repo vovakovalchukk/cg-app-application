@@ -667,7 +667,12 @@ return [
                 'parameters' => [
                     'repository' => ShippingAliasStorage::class
                 ]
-            ]
+            ],
+            ShippingAliasStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle',
+                ]
+            ],
         ]
     ]
 ];

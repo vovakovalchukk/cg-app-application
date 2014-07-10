@@ -1,6 +1,7 @@
 <?php
 namespace Settings\Controller;
 
+use CG_UI\View\Prototyper\JsonModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG\Order\Shared\Shipping\Conversion\Service as ConversionService;
@@ -15,15 +16,18 @@ class ShippingController extends AbstractActionController
     protected $viewModelFactory;
     protected $conversionService;
     protected $shippingService;
+    protected $jsonModelFactory;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         ConversionService $conversionService,
-        ShippingService $shippingService
+        ShippingService $shippingService,
+        JsonModelFactory $jsonModelFactory
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setConversionService($conversionService)
-            ->setShippingService($shippingService);
+            ->setShippingService($shippingService)
+            ->setJsonModelFactory($jsonModelFactory);
     }
 
     public function aliasAction()
@@ -85,4 +89,17 @@ class ShippingController extends AbstractActionController
     {
         return $this->shippingService;
     }
+
+    protected function setJsonModelFactory($jsonModelFactory)
+    {
+        $this->jsonModelFactory = $jsonModelFactory;
+        return $this;
+    }
+
+    protected function getJsonModelFactory()
+    {
+        return $this->jsonModelFactory;
+    }
+
+
 }
