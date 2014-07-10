@@ -388,7 +388,8 @@ return [
             'AccountList' => [
                 'parameters' => [
                     'variables' => [
-                        'id' => 'accounts',
+                        //'sortable' => 'false',
+                        'id' => 'accounts'
                     ],
                 ],
                 'injections' => [
@@ -415,6 +416,7 @@ return [
                 'parameters' => [
                     'scrollHeightAuto' => true,
                     'footer' => false,
+                    'tableOptions' => 'rt<"table-footer" pil <"auto-refresh">>'
                 ]
             ],
             'ChannelTokenStatusMustacheJS' => [
