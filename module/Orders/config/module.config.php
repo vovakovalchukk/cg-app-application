@@ -378,6 +378,15 @@ return [
                                     ]
                                 ],
                             ],
+                            'invoice_check' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/check',
+                                    'defaults' => [
+                                        'action' => 'checkInvoicePrintingAllowed'
+                                    ]
+                                ],
+                            ],
                         ]
                     ],
                     StoredFiltersController::ROUTE_SAVE => [
@@ -829,6 +838,16 @@ return [
             ShippingAliasStorage::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
+                ]
+            ],
+            BulkActionsController::class => [
+                'parameters' => [
+                    'usageService' => 'order_count_usage_service'
+                ]
+            ],
+            Controller\OrdersController::class => [
+                'parameters' => [
+                    'usageService' => 'order_count_usage_service'
                 ]
             ]
         ],
