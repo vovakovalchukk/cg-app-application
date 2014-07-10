@@ -7,10 +7,6 @@
         {
             "url": "https://composer.build.channelgrabber.com",
             "type": "composer"
-        },
-        {
-            "type": "composer",
-            "url": "http://packages.zendframework.com"
         }
     ],
     "autoload": {
