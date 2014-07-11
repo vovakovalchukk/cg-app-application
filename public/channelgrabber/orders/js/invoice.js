@@ -74,11 +74,26 @@ define(function() {
             }
         }
 
-        this.getNotifications().success(this.getMessage());
+        $.ajax({
+            context: this,
+            url: this.getUrl()+'/check',
+            type: "POST",
+            dataType: 'json',
+            success : function(data) {
+                if (!data.allowed) {
+                    return this.getNotifications().error('You do not have permission to do that');
+                }
 
-        var form = this.getFormElement(orders);
-        $("body").append(form);
-        form.submit().remove();
+                this.getNotifications().success(this.getMessage());
+
+                var form = this.getFormElement(orders);
+                $("body").append(form);
+                form.submit().remove();
+            },
+            error: function(error, textStatus, errorThrown) {
+                return this.getNotifications().ajaxError(error, textStatus, errorThrown);
+            }
+        });
     };
 
     return InvoiceBulkAction;
