@@ -33,7 +33,7 @@ function(domManipulator, eventCollator)
         var self = this;
 
         $(document).on("click", AliasChange.SHIPPING_METHOD_SELECTOR, function() {
-            self.getDomManipulator().updateAliasMethodCheckboxes(this);
+            self.getDomManipulator().updateOtherAliasMethodCheckboxes(this);
             self.triggerRequestMadeEvent(this);
         });
 

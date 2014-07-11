@@ -52,7 +52,7 @@ define([
         });
     };
 
-    DomManipulator.prototype.updateAliasMethodCheckboxes = function(selectedElement)
+    DomManipulator.prototype.updateOtherAliasMethodCheckboxes = function(selectedElement)
     {
         var checked = $(selectedElement).find('input:checkbox').is(':checked');
         var value = $(selectedElement).data('value');
@@ -72,6 +72,17 @@ define([
                 }
                 currentCheckbox.addClass('disabled');
             }
+        });
+    };
+
+    DomManipulator.prototype.updateAllAliasMethodCheckboxes = function()
+    {
+        var self = this;
+        var checkedCheckboxes = $(DomManipulator.DOM_SELECTOR_ALIAS_CONTAINER + ' ' + DomManipulator.SHIPPING_METHOD_SELECTOR + ' input:checked');
+        checkedCheckboxes.each(function()
+        {
+            var checkedElement = checkedCheckboxes.closest(DomManipulator.SHIPPING_METHOD_SELECTOR);
+            self.updateOtherAliasMethodCheckboxes(checkedElement);
         });
     };
 
