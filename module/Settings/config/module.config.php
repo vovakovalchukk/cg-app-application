@@ -323,6 +323,15 @@ return [
                                                 'action' => 'aliasSave',
                                             ]
                                         ],
+                                    ],
+                                    ShippingController::ROUTE_ALIASES_REMOVE => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/delete',
+                                            'defaults' => [
+                                                'action' => 'aliasDelete',
+                                            ]
+                                        ],
                                     ]
                                 ]
                             ],
