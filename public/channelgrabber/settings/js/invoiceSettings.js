@@ -5,9 +5,9 @@ define(function() {
         this.errorMessage = 'Error: Settings could not be saved';
 
         var container = '.invoiceSettings';
-        var selector = container + ' select';
-        var defaultSettingsSelector = container + ' .invoiceDefaultSettings select';
-        var tradingCompaniesSelector = container + ' .invoiceTradingCompanySettings select';
+        var selector = container + ' .custom-select';
+        var defaultSettingsSelector = container + ' .invoiceDefaultSettings #defaultInvoiceCustomSelect input';
+        var tradingCompaniesSelector = container + ' .invoiceTradingCompanySettings input.invoiceTradingCompaniesCustomSelect';
 
         var init = function() {
             var self = this;
@@ -33,9 +33,8 @@ define(function() {
         {
             var tradingCompanies = {};
             $(tradingCompaniesSelector).each(function(){
-                var tradingCompanyId = $(this).data('trading-company');
                 var assignedInvoice = $(this).val();
-
+                var tradingCompanyId = $(this).attr('name').replace('invoiceTradingCompaniesCustomSelect_','');
                 tradingCompanies[tradingCompanyId] = assignedInvoice;
             });
             return tradingCompanies;

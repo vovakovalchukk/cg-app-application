@@ -1,6 +1,7 @@
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
-<?php $this->inlineScript()->captureStart(); ?>
+<?php //$this->inlineScript()->captureStart(); ?>
+<script>
 $(document).ready(function() {
     require.config({
         paths: {
@@ -8,28 +9,31 @@ $(document).ready(function() {
         }
     });
     require([
-        'Settings/invoiceSettings'
+        'Settings/invoiceSettings',
+        'element/Factory/Select'
     ], function(
-        InvoiceSettings
+        InvoiceSettings,
+        select
     ) {
         new InvoiceSettings;
+
+        $(document).on('fnDrawCallback', function(event, data) {
+            $('.invoiceTradingCompaniesCustomSelect').each(function() {
+                select.init($(this).attr('name'));
+            });
+        });
     });
 });
-<?php $this->inlineScript()->captureEnd(); ?>
+</script>
+<?php //$this->inlineScript()->captureEnd(); ?>
 <div class="padded-content-holder">
     <div class="invoiceSettings">
         <div class="invoiceDefaultSettings">
             <div class="heading-large">Invoice Settings</div>
-            <div>
+            <div style="clear:both">
                 Default Invoice
             </div>
-            <div>
-                <select>
-                    <?php foreach ($invoices as $invoice) : ?>
-                        <option<?= $invoiceSettings->getDefault() == $invoice->getId() ? ' selected="selected"' : '' ?> value="<?= $invoice->getId() ?>"><?= $invoice->getName() ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
+            <?= $defaultCustomSelect; ?>
         </div>
         <hr>
         <div class="invoiceTradingCompanySettings">
