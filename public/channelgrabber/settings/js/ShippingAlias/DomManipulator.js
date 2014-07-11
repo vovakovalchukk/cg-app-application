@@ -15,6 +15,7 @@ define([
     DomManipulator.ALIAS_CHANGED = 'alias-changed';
     DomManipulator.ALIAS_DELETED = 'alias-deleted';
     DomManipulator.DOM_SELECTOR_ALIAS_CONTAINER = '#shipping-alias-container';
+    DomManipulator.DOM_SELECTOR_ALIAS = '.shipping-alias';
     DomManipulator.SHIPPING_METHOD_SELECTOR = '.channel-shipping-methods .custom-select-item';
 
     DomManipulator.prototype.prependAlias = function()
@@ -49,29 +50,47 @@ define([
             });
 
             self.prepend(DomManipulator.DOM_SELECTOR_ALIAS_CONTAINER, alias);
+            self.updateAllAliasMethodCheckboxes();
         });
     };
 
     DomManipulator.prototype.updateOtherAliasMethodCheckboxes = function(selectedElement)
     {
-        var checked = $(selectedElement).find('input:checkbox').is(':checked');
-        var value = $(selectedElement).data('value');
-        var matchingElements = $(DomManipulator.DOM_SELECTOR_ALIAS_CONTAINER + ' ' + DomManipulator.SHIPPING_METHOD_SELECTOR + '[data-value='+value+']');
-        
+        var selectedAliasDomId = $(selectedElement).closest(DomManipulator.DOM_SELECTOR_ALIAS).attr('id');
+        var selectedChecked = $(selectedElement).find('input:checkbox').is(':checked');
+        var selectedValue = $(selectedElement).data('value');
+        var matchingElements = $(DomManipulator.DOM_SELECTOR_ALIAS_CONTAINER + ' ' + DomManipulator.SHIPPING_METHOD_SELECTOR + '[data-value='+selectedValue+']');
+
+        var anyChecked = selectedChecked;
+        if (selectedChecked) {
+            $(selectedElement).find('input:checkbox').removeClass('disabled');
+        } else {
+            matchingElements.each(function()
+            {
+                var currentCheckbox = $(this).find('input:checkbox');
+                if (currentCheckbox.is(':checked')) {
+                    anyChecked = true;
+                    // break
+                    return false;
+                }
+            });
+        }
+
         matchingElements.each(function()
         {
-            if (this === selectedElement) {
+            var aliasDomId = $(this).closest(DomManipulator.DOM_SELECTOR_ALIAS).attr('id');
+            if (aliasDomId === selectedAliasDomId) {
                 // Continue
                 return true;
             }
 
             var currentCheckbox = $(this).find('input:checkbox');
-            if (checked) {
+            if (selectedChecked) {
                 if (currentCheckbox.is(':checked')) {
-                    currentCheckbox.click();
+                    $(this).click();
                 }
                 currentCheckbox.addClass('disabled');
-            } else {
+            } else if (!anyChecked) {
                 currentCheckbox.removeClass('disabled');
             }
         });
@@ -83,7 +102,7 @@ define([
         var checkedCheckboxes = $(DomManipulator.DOM_SELECTOR_ALIAS_CONTAINER + ' ' + DomManipulator.SHIPPING_METHOD_SELECTOR + ' input:checked');
         checkedCheckboxes.each(function()
         {
-            var checkedElement = checkedCheckboxes.closest(DomManipulator.SHIPPING_METHOD_SELECTOR);
+            var checkedElement = $(this).closest(DomManipulator.SHIPPING_METHOD_SELECTOR);
             self.updateOtherAliasMethodCheckboxes(checkedElement);
         });
     };
