@@ -93,7 +93,7 @@ class ShippingController extends AbstractActionController
         return $this;
     }
 
-    public function setShippingService($shippingService)
+    protected function setShippingService($shippingService)
     {
         $this->shippingService = $shippingService;
         return $this;
