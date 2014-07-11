@@ -39,7 +39,9 @@ define([
             var multiSelect = cgmustache.renderTemplate(templates, {'options': methodCollection.getItems(),
                     'name': 'aliasMultiSelect-' + aliasNo}, "multiSelect");
             var multiSelectExpanded = cgmustache.renderTemplate(templates, {}, "multiSelectExpanded", {'multiSelect' : multiSelect});
-            var alias = cgmustache.renderTemplate(templates, {}, "alias", {
+            var alias = cgmustache.renderTemplate(templates, {
+                'id' : 'shipping-alias-' + aliasNo
+            }, "alias", {
                 'multiSelectExpanded' : multiSelectExpanded,
                 'deleteButton' : deleteButton,
                 'text' : text
@@ -49,10 +51,20 @@ define([
         });
     };
 
+    DomManipulator.prototype.remove = function(id, html)
+    {
+        $(id).remove(html);
+    };
+
     DomManipulator.prototype.prepend = function(id, html)
     {
         $(id).prepend(html);
     };
+
+    DomManipulator.prototype.getDomSelectorAliasContainer = function()
+    {
+        return DomManipulator.DOM_SELECTOR_ALIAS_CONTAINER;
+    }
 
     return new DomManipulator();
 });

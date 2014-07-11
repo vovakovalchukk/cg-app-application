@@ -6,13 +6,18 @@ $(document).ready(function() {
         }
     });
     var shippingMethods = $.parseJSON('<?= json_encode($shippingMethods); ?>');
+    var rootOuId = <?=$rootOuId;?>;
     require([
         'ShippingAlias/MethodCollection',
         'ShippingAlias/DomListener/AddButton',
+        'ShippingAlias/DomListener/DeleteButton',
+        'ShippingAlias/DomListener/AliasChange',
         'ShippingAlias/Mapper'
-    ], function(methodCollection, domListener, mapper) {
+    ], function(methodCollection, addButtonListener, deleteButtonListener, aliasChangeListener, mapper) {
         methodCollection.setItems(mapper.fromCollectionToOptions(shippingMethods));
-        domListener.init();
+        addButtonListener.init();
+        deleteButtonListener.init(rootOuId);
+        aliasChangeListener.init(rootOuId);
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
