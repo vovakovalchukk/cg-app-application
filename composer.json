@@ -49,7 +49,7 @@
         "channelgrabber/zf2-sessions": "~1.0.3",
         "channelgrabber/zf2-ssoclient": "~1.2.4",
         "channelgrabber/zf2-stdlib": "~1.1.9",
-        "channelgrabber/zf2-v4-ui": "~1.10.10",
+        "channelgrabber/zf2-v4-ui": "~1.10.14",
         "guzzle/guzzle": "~3.7",
         "nocarrier/hal": "~0.9.3",
         "php": ">=5.3.3",
