@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "68f7d9311b2201df9264a04d30cf9a31",
+    "hash": "556e37df580c0c6c1a8b41d350eac491",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -579,17 +579,11 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.0.5",
+            "version": "dev-CGIV-2566-Save-delete-shipping-alias",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "348ec3e42b31121029548c987e62bf50bd4a2991"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.0.5-8589a8.zip",
-                "reference": "348ec3e42b31121029548c987e62bf50bd4a2991",
-                "shasum": "668fdcb3d503d5ca837912245a2ec90f6f02797e"
+                "reference": "d07e1c737a06ba8b420e1353b22fbfe98c0fe49c"
             },
             "require": {
                 "channelgrabber/cache": ">=1.2.4",
@@ -603,7 +597,7 @@
                     "CG\\Settings\\": ""
                 }
             },
-            "time": "2014-07-10 07:21:53"
+            "time": "2014-07-10 16:50:24"
         },
         {
             "name": "channelgrabber/slim",
@@ -1446,17 +1440,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.10.13",
+            "version": "dev-CGIV-2566-ShippingAliasesSaveAndDelete",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "6687a13062565d1bad95626aea113dc1c6742a21"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.10.13-64c82a.zip",
-                "reference": "6687a13062565d1bad95626aea113dc1c6742a21",
-                "shasum": "4f95c046cf1314095fbbfbb398c6b1e728d3f435"
+                "reference": "c245a32d245e7945abb965fe05d164bb4dd55a2e"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1486,7 +1474,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-07-10 07:14:30"
+            "time": "2014-07-10 14:12:16"
         },
         {
             "name": "cilex/cilex",
@@ -3903,12 +3891,26 @@
             "alias_normalized": "1.6.4.0",
             "version": "dev-CGIV-2572-shipping-alias-ui-helper-service",
             "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.0.6",
+            "alias_normalized": "1.0.6.0",
+            "version": "dev-CGIV-2566-Save-delete-shipping-alias",
+            "package": "channelgrabber/settings"
+        },
+        {
+            "alias": "1.10.14",
+            "alias_normalized": "1.10.14.0",
+            "version": "dev-CGIV-2566-ShippingAliasesSaveAndDelete",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/order": 20,
+        "channelgrabber/settings": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },
