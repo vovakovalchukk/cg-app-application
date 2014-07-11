@@ -1,6 +1,5 @@
 <?php
 use Settings\Module;
-use CG_UI\Module as CG_UIModule;
 
 return [
     'mustache' => [
@@ -14,7 +13,6 @@ return [
                     'status' => Module::PUBLIC_FOLDER . 'template/columns/status.mustache',
                     'tokenStatus' => Module::PUBLIC_FOLDER . 'template/columns/tokenStatus.html',
                     'tradingCompany' => Module::PUBLIC_FOLDER . 'template/columns/tradingCompany.html',
-                    'assignedInvoice' => Module::PUBLIC_FOLDER . 'template/columns/assignedInvoice.mustache',
                 ],
             ],
         ],

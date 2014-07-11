@@ -1,7 +1,6 @@
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
-<?php //$this->inlineScript()->captureStart(); ?>
-<script>
+<?php $this->inlineScript()->captureStart(); ?>
 $(document).ready(function() {
     require.config({
         paths: {
@@ -24,8 +23,7 @@ $(document).ready(function() {
         });
     });
 });
-</script>
-<?php //$this->inlineScript()->captureEnd(); ?>
+<?php $this->inlineScript()->captureEnd(); ?>
 <div class="padded-content-holder">
     <div class="invoiceSettings">
         <div class="invoiceDefaultSettings">
