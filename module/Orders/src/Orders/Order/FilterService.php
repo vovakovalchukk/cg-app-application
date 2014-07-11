@@ -5,6 +5,7 @@ use CG_UI\View\Filters;
 use Zend\Config\Config;
 use ArrayAccess;
 use RuntimeException;
+use CG\Order\Service\Filter;
 
 class FilterService
 {
@@ -65,12 +66,12 @@ class FilterService
         return $this;
     }
 
-    public function getOrderFilters()
+    public function getOrderFilters(Filter $filterValues)
     {
         if ($this->orderFilters) {
             return $this->orderFilters;
         }
-
+        $this->getFactory()->setFilterValues($filterValues);
         return $this->orderFilters = $this->getFactory()->create(
             $this->getFilterConfig('orders')
         );
