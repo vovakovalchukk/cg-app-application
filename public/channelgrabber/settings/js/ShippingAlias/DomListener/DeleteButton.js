@@ -41,8 +41,6 @@ function(domManipulator, eventCollator)
 
             processedRootOfThisAlias.remove();
         });
-
-
     };
 
     DeleteButton.prototype.aliasDelete = function(alias)
