@@ -8,6 +8,7 @@ use CG_UI\View\Table\Rows as TableRows;
 use CG\Order\Shared\StorageInterface;
 use CG\User\ActiveUserInterface;
 use CG\Order\Service\Filter;
+use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
 use CG\Order\Shared\Entity;
 use CG\Order\Shared\Item\Entity as ItemEntity;
 use Zend\Di\Di;
@@ -56,6 +57,7 @@ class Service implements LoggerAwareInterface
     protected $accountService;
     protected $orderDispatcher;
     protected $orderCanceller;
+    protected $shippingConversionService;
 
     public function __construct(
         StorageInterface $orderClient,
@@ -67,7 +69,8 @@ class Service implements LoggerAwareInterface
         UserPreferenceService $userPreferenceService,
         AccountService $accountService,
         OrderDispatcher $orderDispatcher,
-        OrderCanceller $orderCanceller
+        OrderCanceller $orderCanceller,
+        ShippingConversionService $shippingConversionService
     )
     {
         $this
@@ -81,37 +84,16 @@ class Service implements LoggerAwareInterface
             ->configureOrderTable()
             ->setAccountService($accountService)
             ->setOrderDispatcher($orderDispatcher)
-            ->setOrderCanceller($orderCanceller);
+            ->setOrderCanceller($orderCanceller)
+            ->setShippingConversionService($shippingConversionService);
     }
 
-    public function getOrdersArrayWithAccountDetails(OrderCollection $orderCollection, MvcEvent $event)
+    public function alterOrderTable(OrderCollection $orderCollection, MvcEvent $event)
     {
-        $accounts = $this->getAccountService()->fetchByOUAndStatus(
-            $this->getActiveUser()->getOuList(),
-            null,
-            null,
-            static::ACCOUNTS_LIMIT,
-            static::ACCOUNTS_PAGE
-        );
-
-        $orders = [];
-        foreach($orderCollection as $orderEntity) {
-            $order = $orderEntity->toArray();
-
-            $accountEntity = $accounts->getById($order['accountId']);
-            if ($accountEntity) {
-                $order['accountName'] = $accountEntity->getDisplayName();
-            }
-
-            $order['accountLink'] = $event->getRouter()->assemble(
-                ['account' => $order['accountId']],
-                ['name' => SettingsModule::ROUTE . '/' . ChannelController::ROUTE . '/' .ChannelController::ROUTE_CHANNELS.'/'. ChannelController::ACCOUNT_ROUTE]
-            );
-
-            $orders[] = $order;
-        }
-
-
+        $orders = $orderCollection->toArray();
+        $orders = $this->getOrdersArrayWithShippingAliases($orders);
+        $orders = $this->getOrdersArrayWithAccountDetails($orders, $event);
+        
         $filterId = null;
         if ($orderCollection instanceof FilteredCollection) {
             $filterId = $orderCollection->getFilterId();
@@ -122,6 +104,41 @@ class Service implements LoggerAwareInterface
             'orderTotal' => (int) $orderCollection->getTotal(),
             'filterId' => $filterId,
         ];
+    }
+
+    public function getOrdersArrayWithShippingAliases(array $orders)
+    {
+        foreach($orders as $index => $order) {
+            $shippingAlias = $this->getShippingConversionService()->fromMethodToAlias($order['shippingMethod']);
+            $orders[$index]['shippingMethod'] = $shippingAlias ? $shippingAlias->getName() : $orders[$index]['shippingMethod'];
+        }
+        return $orders;
+    }
+
+    public function getOrdersArrayWithAccountDetails(array $orders, MvcEvent $event)
+    {
+        $accounts = $this->getAccountService()->fetchByOUAndStatus(
+            $this->getActiveUser()->getOuList(),
+            null,
+            null,
+            static::ACCOUNTS_LIMIT,
+            static::ACCOUNTS_PAGE
+        );
+
+        foreach($orders as $index => $order) {
+            $accountEntity = $accounts->getById($order['accountId']);
+            if ($accountEntity) {
+                $order['accountName'] = $accountEntity->getDisplayName();
+            }
+
+            $order['accountLink'] = $event->getRouter()->assemble(
+                ['account' => $order['accountId']],
+                ['name' => SettingsModule::ROUTE . '/' . ChannelController::ROUTE . '/' .ChannelController::ROUTE_CHANNELS.'/'. ChannelController::ACCOUNT_ROUTE]
+            );
+
+            $orders[$index] = $order;
+        }
+        return $orders;
     }
 
     public function setDi(Di $di)
@@ -669,5 +686,16 @@ class Service implements LoggerAwareInterface
     public function getOrderCanceller()
     {
         return $this->orderCanceller;
+    }
+
+    protected function setShippingConversionService(ShippingConversionService $shippingConversionService)
+    {
+        $this->shippingConversionService = $shippingConversionService;
+        return $this;
+    }
+
+    protected function getShippingConversionService()
+    {
+        return $this->shippingConversionService;
     }
 }
