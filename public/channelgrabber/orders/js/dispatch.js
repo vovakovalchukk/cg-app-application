@@ -46,21 +46,8 @@ define(function() {
                     }
                     notifications.error(data.error);
                 },
-                error: function(request) {
-                    try {
-                        if (request.getResponseHeader('Content-Type') != 'application/json') {
-                            throw "An Unknown Error has Occurred";
-                        }
-
-                        var response = $.parseJSON(request.responseText);
-                        if (!response.message) {
-                            throw "An Unknown Error has Occurred";
-                        }
-
-                        notifications.error(response.message);
-                    } catch (err) {
-                        notifications.error(err);
-                    }
+                error: function(request, textStatus, errorThrown) {
+                    return notifications.ajaxError(request, textStatus, errorThrown);
                 }
             };
 
