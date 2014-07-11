@@ -33,11 +33,12 @@ function(domManipulator, eventCollator)
             if(processedRootOfThisAlias.find('input[name=shipping-alias-storedETag]').val() &&
                 processedRootOfThisAlias.find('input[name=shipping-alias-id]').val()) {
                 self.aliasDelete(rootOfThisAlias);
-
-                $(document).trigger(eventCollator.getEventRemoveFromQueue(), [
-                    'shippingAlias', $(rootOfThisAlias)
-                ]);
             }
+
+            $(document).trigger(eventCollator.getEventRemoveFromQueue(), [
+                'shippingAlias', rootOfThisAlias
+            ]);
+
             processedRootOfThisAlias.remove();
         });
 
