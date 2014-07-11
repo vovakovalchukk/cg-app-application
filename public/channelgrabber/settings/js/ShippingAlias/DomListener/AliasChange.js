@@ -17,11 +17,6 @@ function(domManipulator, eventCollator)
         {
             return rootOuId;
         };
-
-        this.getDomManipulator = function()
-        {
-            return domManipulator;
-        };
     };
 
     AliasChange.SHIPPING_METHOD_SELECTOR = '.channel-shipping-methods .custom-select-item';
@@ -33,7 +28,6 @@ function(domManipulator, eventCollator)
         var self = this;
 
         $(document).on("click", AliasChange.SHIPPING_METHOD_SELECTOR, function() {
-            self.getDomManipulator().updateAliasMethodCheckboxes(this);
             self.triggerRequestMadeEvent(this);
         });
 

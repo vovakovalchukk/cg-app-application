@@ -15,7 +15,6 @@ define([
     DomManipulator.ALIAS_CHANGED = 'alias-changed';
     DomManipulator.ALIAS_DELETED = 'alias-deleted';
     DomManipulator.DOM_SELECTOR_ALIAS_CONTAINER = '#shipping-alias-container';
-    DomManipulator.SHIPPING_METHOD_SELECTOR = '.channel-shipping-methods .custom-select-item';
 
     DomManipulator.prototype.prependAlias = function()
     {
@@ -48,29 +47,6 @@ define([
             });
 
             self.prepend(DomManipulator.DOM_SELECTOR_ALIAS_CONTAINER, alias);
-        });
-    };
-
-    DomManipulator.prototype.updateAliasMethodCheckboxes = function(selectedElement)
-    {
-        var checked = $(selectedElement).find('input:checkbox').is(':checked');
-        var value = $(selectedElement).data('value');
-        var matchingElements = $(DomManipulator.DOM_SELECTOR_ALIAS_CONTAINER + ' ' + DomManipulator.SHIPPING_METHOD_SELECTOR + '[data-value='+value+']');
-        
-        matchingElements.each(function()
-        {
-            if (this === selectedElement) {
-                // Continue
-                return true;
-            }
-
-            var currentCheckbox = $(this).find('input:checkbox');
-            if (checked) {
-                if (currentCheckbox.is(':checked')) {
-                    currentCheckbox.click();
-                }
-                currentCheckbox.addClass('disabled');
-            }
         });
     };
 
