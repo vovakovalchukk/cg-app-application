@@ -9,13 +9,13 @@ use CG\Order\Shared\Shipping\Conversion\Service as ConversionService;
 use CG\Settings\Alias\Service as ShippingService;
 use CG\User\ActiveUserInterface;
 use CG\Settings\Alias\Entity as AliasEntity;
-use Mustache\View\Renderer;
 
 class ShippingController extends AbstractActionController
 {
     const ROUTE = "Shipping Management";
     const ROUTE_ALIASES = "Shipping Aliases";
     const ROUTE_ALIASES_SAVE = 'Shipping Alias Save';
+    const ROUTE_ALIASES_REMOVE = 'Shipping Alias Remove';
     const FIRST_PAGE = 1;
     const LIMIT = 'all';
 
@@ -24,22 +24,19 @@ class ShippingController extends AbstractActionController
     protected $shippingService;
     protected $jsonModelFactory;
     protected $activeUser;
-    protected $renderer;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         ConversionService $conversionService,
         ShippingService $shippingService,
         JsonModelFactory $jsonModelFactory,
-        ActiveUserInterface $activeUser,
-        Renderer $renderer
+        ActiveUserInterface $activeUser
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setConversionService($conversionService)
             ->setShippingService($shippingService)
             ->setJsonModelFactory($jsonModelFactory)
-            ->setActiveUser($activeUser)
-            ->setRenderer($renderer);
+            ->setActiveUser($activeUser);
     }
 
     public function aliasAction()
@@ -58,6 +55,14 @@ class ShippingController extends AbstractActionController
     {
         $alias = $this->getShippingService()->saveFromJson($this->params()->fromPost('alias'));
         return $this->getJsonModelFactory()->newInstance(["alias" => json_encode($alias)]);
+    }
+
+    public function aliasDeleteAction()
+    {
+        $alias = $this->params()->fromPost('alias');
+        $decodedAlias = json_decode($alias, true);
+        $this->getShippingService()->removeById($decodedAlias['id']);
+        return $this->getJsonModelFactory()->newInstance(["alias" => $alias]);
     }
 
     protected function getAddButtonView()
@@ -183,13 +188,13 @@ class ShippingController extends AbstractActionController
         return $this;
     }
 
-    public function setShippingService($shippingService)
+    protected function setShippingService($shippingService)
     {
         $this->shippingService = $shippingService;
         return $this;
     }
 
-    public function getShippingService()
+    protected function getShippingService()
     {
         return $this->shippingService;
     }
@@ -214,16 +219,5 @@ class ShippingController extends AbstractActionController
     protected function getActiveUser()
     {
         return $this->activeUser;
-    }
-
-    protected function setRenderer(Renderer $renderer)
-    {
-        $this->renderer = $renderer;
-        return $this;
-    }
-
-    protected function getRenderer()
-    {
-        return $this->renderer;
     }
 }

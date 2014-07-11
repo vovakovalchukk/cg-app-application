@@ -16,7 +16,7 @@ $(document).ready(function() {
     ], function(methodCollection, addButtonListener, deleteButtonListener, aliasChangeListener, mapper) {
         methodCollection.setItems(mapper.fromCollectionToOptions(shippingMethods));
         addButtonListener.init();
-        deleteButtonListener.init();
+        deleteButtonListener.init(rootOuId);
         aliasChangeListener.init(rootOuId);
     });
 });

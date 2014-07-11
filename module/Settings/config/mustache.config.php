@@ -15,6 +15,6 @@ return [
                     'tradingCompany' => Module::PUBLIC_FOLDER . 'template/columns/tradingCompany.html',
                 ],
             ],
-        ]
+        ],
     ],
 ];
