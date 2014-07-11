@@ -22,11 +22,15 @@ $(document).ready(function() {
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <div class="padded-content-holder">
-    <span class="heading-large">
-        <?= $this->translate($title) ?>
-    </span>
-    <?= $addButton ?>
-    <div id="shipping-alias-container">
+    <div class="shipping-alias-wrapper">
+        <span class="heading-large">
+            <?= $this->translate($title) ?>
+            <div class="add-settings">
+            <?= $addButton ?>
+            </div>
+        </span>
+        <div id="shipping-alias-container">
 
+        </div>
     </div>
 </div>
