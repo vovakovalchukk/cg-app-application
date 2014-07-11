@@ -99,7 +99,7 @@ class ShippingController extends AbstractActionController
         return $this;
     }
 
-    public function getShippingService()
+    protected function getShippingService()
     {
         return $this->shippingService;
     }
