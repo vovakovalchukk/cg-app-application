@@ -71,6 +71,8 @@ define([
                     currentCheckbox.click();
                 }
                 currentCheckbox.addClass('disabled');
+            } else {
+                currentCheckbox.removeClass('disabled');
             }
         });
     };
