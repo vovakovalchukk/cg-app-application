@@ -56,8 +56,12 @@ function(domManipulator, eventCollator)
 
     AliasChange.prototype.validateAndSaveAliases = function(aliasDomIds)
     {
+        var aliasNameVal;
         for(var index in aliasDomIds) {
-            if(!$('#' + aliasDomIds[index]).find(AliasChange.ALIAS_NAME_INPUT_SELECTOR).val()) {
+            aliasNameVal = $('#' + aliasDomIds[index]).find(AliasChange.ALIAS_NAME_INPUT_SELECTOR).val();
+            aliasNameVal = aliasNameVal.trim();
+
+            if(!aliasNameVal) {
                 n.error('Please set a shipping alias name');
                 return;
             }

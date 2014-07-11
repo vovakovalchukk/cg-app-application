@@ -13,6 +13,7 @@ class ShippingController extends AbstractActionController
     const ROUTE = "Shipping Management";
     const ROUTE_ALIASES = "Shipping Aliases";
     const ROUTE_ALIASES_SAVE = 'Shipping Alias Save';
+    const ROUTE_ALIASES_REMOVE = 'Shipping Alias Remove';
 
     protected $viewModelFactory;
     protected $conversionService;
@@ -49,6 +50,14 @@ class ShippingController extends AbstractActionController
     {
         $alias = $this->getShippingService()->saveFromJson($this->params()->fromPost('alias'));
         return $this->getJsonModelFactory()->newInstance(["alias" => json_encode($alias)]);
+    }
+
+    public function aliasDeleteAction()
+    {
+        $alias = $this->params()->fromPost('alias');
+        $decodedAlias = json_decode($alias, true);
+        $this->getShippingService()->removeById($decodedAlias['id']);
+        return $this->getJsonModelFactory()->newInstance(["alias" => $alias]);
     }
 
     protected function getAddButtonView()
