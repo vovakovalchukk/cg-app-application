@@ -129,6 +129,7 @@ return [
                         [
                             'filterType' => 'buttons',
                             'variables' => [
+                                'name' => 'buttons',
                                 'buttons' => [
                                     [
                                         'name' => 'apply-filters',
