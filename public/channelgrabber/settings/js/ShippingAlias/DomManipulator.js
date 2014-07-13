@@ -47,6 +47,9 @@ define([
                 'text' : text
             });
 
+            if (!aliasNo) {
+                $(DomManipulator.DOM_SELECTOR_ALIAS_CONTAINER).html("");
+            }
             self.prepend(DomManipulator.DOM_SELECTOR_ALIAS_CONTAINER, alias);
             self.updateAllAliasMethodCheckboxes();
         });
