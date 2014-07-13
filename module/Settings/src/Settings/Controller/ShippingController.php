@@ -148,11 +148,12 @@ class ShippingController extends AbstractActionController
     {
         $shippingMethods = $this->getConversionService()->fetchMethods();
         $options = [];
+        $methodIds = array_flip($alias->getMethods()->getIds());
         foreach ($shippingMethods as $shippingMethod) {
             $options[] = [
                 "title" => $shippingMethod->getMethod(),
                 "value" => $shippingMethod->getId(),
-                "selected" => in_array($shippingMethod->getId(), $alias->getMethods()->getIds())
+                "selected" => isset($methodIds[$shippingMethod->getId()])
             ];
         }
         $multiSelect = $this->getViewModelFactory()->newInstance([
