@@ -121,6 +121,7 @@ return [
                         [
                             'filterType' => 'more',
                             'variables' => [
+                                'id' => 'filter-more-button',
                                 'title' => 'More',
                                 'class' => 'more',
                                 'name' => 'more'
