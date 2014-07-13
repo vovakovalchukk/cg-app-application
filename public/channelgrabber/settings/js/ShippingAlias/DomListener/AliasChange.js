@@ -17,6 +17,11 @@ function(domManipulator, eventCollator)
         {
             return rootOuId;
         };
+
+        this.getDomManipulator = function()
+        {
+            return domManipulator;
+        };
     };
 
     AliasChange.SHIPPING_METHOD_SELECTOR = '.channel-shipping-methods .custom-select-item';
@@ -28,6 +33,7 @@ function(domManipulator, eventCollator)
         var self = this;
 
         $(document).on("click", AliasChange.SHIPPING_METHOD_SELECTOR, function() {
+            self.getDomManipulator().updateOtherAliasMethodCheckboxes(this);
             self.triggerRequestMadeEvent(this);
         });
 
@@ -42,28 +48,23 @@ function(domManipulator, eventCollator)
 
     AliasChange.prototype.triggerRequestMadeEvent = function(domElement)
     {
-        if($(domElement).closest('.shipping-alias').attr('id'))
-        {
-            var unique = true;
-            $(document).trigger(eventCollator.getRequestMadeEvent(), [
-                'shippingAlias', $(domElement).closest('.shipping-alias').attr('id'), unique
-            ]);
-        }
+        var unique = true;
+        $(document).trigger(eventCollator.getRequestMadeEvent(), [
+            'shippingAlias', $(domElement).closest('.shipping-alias').attr('id'), unique
+        ]);
     };
 
     AliasChange.prototype.validateAndSaveAliases = function(aliasDomIds)
     {
         var aliasNameVal;
         for(var index in aliasDomIds) {
-            if($('#' + aliasDomIds[index]).find(AliasChange.ALIAS_NAME_INPUT_SELECTOR).val()) {
-                aliasNameVal = $('#' + aliasDomIds[index]).find(AliasChange.ALIAS_NAME_INPUT_SELECTOR).val();
-                aliasNameVal = aliasNameVal.trim();
-                if(!aliasNameVal) {
-                    n.error('Please set a shipping alias name');
-                    return;
-                }
-                this.save(aliasDomIds[index]);
+            aliasNameVal = $('#' + aliasDomIds[index]).find(AliasChange.ALIAS_NAME_INPUT_SELECTOR).val();
+            aliasNameVal = aliasNameVal.trim();
+            if(!aliasNameVal) {
+                n.error('Please set a shipping alias name');
+                return;
             }
+            this.save(aliasDomIds[index]);
         }
     };
 
