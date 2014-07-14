@@ -35,7 +35,6 @@ define(['popup/mustache'],function(Popup) {
         });
 
         this.saveTag = function(tagName, datatable, orders) {
-            console.log(getAppendUrl.call(this, datatable));
             apply.call(
                 this,
                 getAppendUrl.call(this, datatable),
@@ -78,9 +77,6 @@ define(['popup/mustache'],function(Popup) {
             self.getPopup().getElement().data('button', this);
             self.getPopup().getElement().data('datatable', datatable);
             self.getPopup().getElement().data('orders', orders);
-            
-           
-            
         };
 
 
