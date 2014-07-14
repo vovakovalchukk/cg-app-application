@@ -33,9 +33,6 @@ function(domManipulator, eventCollator)
         var self = this;
 
         $(document).on("click", AliasChange.SHIPPING_METHOD_SELECTOR, function() {
-            if ($(this).find('input').hasClass('disabled')) {
-                return;
-            }
             self.getDomManipulator().updateOtherAliasMethodCheckboxes(this);
             self.triggerRequestMadeEvent(this);
         });
