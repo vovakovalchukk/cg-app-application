@@ -313,7 +313,28 @@ return [
                                         'action' => 'alias',
                                     ]
                                 ],
-                            ]
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    ShippingController::ROUTE_ALIASES_SAVE => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/save',
+                                            'defaults' => [
+                                                'action' => 'aliasSave',
+                                            ]
+                                        ],
+                                    ],
+                                    ShippingController::ROUTE_ALIASES_REMOVE => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/delete',
+                                            'defaults' => [
+                                                'action' => 'aliasDelete',
+                                            ]
+                                        ],
+                                    ]
+                                ]
+                            ],
                         ]
                     ]
                 ]
@@ -657,7 +678,12 @@ return [
                 'parameters' => [
                     'repository' => ShippingAliasStorage::class
                 ]
-            ]
+            ],
+            ShippingAliasStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle',
+                ]
+            ],
         ]
     ]
 ];

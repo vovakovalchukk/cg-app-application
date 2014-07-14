@@ -1,32 +1,63 @@
 <?php
 namespace Settings\Controller;
 
+use CG_UI\View\Prototyper\JsonModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use CG\Order\Shared\Shipping\Conversion\Service as ShippingService;
+use CG\Order\Shared\Shipping\Conversion\Service as ConversionService;
+use CG\Settings\Alias\Service as ShippingService;
+use CG\User\ActiveUserInterface;
 
 class ShippingController extends AbstractActionController
 {
     const ROUTE = "Shipping Management";
     const ROUTE_ALIASES = "Shipping Aliases";
+    const ROUTE_ALIASES_SAVE = 'Shipping Alias Save';
+    const ROUTE_ALIASES_REMOVE = 'Shipping Alias Remove';
 
     protected $viewModelFactory;
+    protected $conversionService;
     protected $shippingService;
+    protected $jsonModelFactory;
+    protected $activeUser;
 
-    public function __construct(ViewModelFactory $viewModelFactory, ShippingService $shippingService)
-    {
+    public function __construct(
+        ViewModelFactory $viewModelFactory,
+        ConversionService $conversionService,
+        ShippingService $shippingService,
+        JsonModelFactory $jsonModelFactory,
+        ActiveUserInterface $activeUser
+    ) {
         $this->setViewModelFactory($viewModelFactory)
-            ->setShippingService($shippingService);
+            ->setConversionService($conversionService)
+            ->setShippingService($shippingService)
+            ->setJsonModelFactory($jsonModelFactory)
+            ->setActiveUser($activeUser);
     }
 
     public function aliasAction()
     {
-        $shippingMethods = $this->getShippingService()->fetchMethods();
+        $shippingMethods = $this->getConversionService()->fetchMethods();
         $view = $this->getViewModelFactory()->newInstance();
         $view->setVariable('title', static::ROUTE_ALIASES);
         $view->setVariable('shippingMethods', $shippingMethods->toArray());
+        $view->setVariable('rootOuId', $this->getActiveUser()->getActiveUserRootOrganisationUnitId());
         $view->addChild($this->getAddButtonView(), 'addButton');
         return $view;
+    }
+
+    public function aliasSaveAction()
+    {
+        $alias = $this->getShippingService()->saveFromJson($this->params()->fromPost('alias'));
+        return $this->getJsonModelFactory()->newInstance(["alias" => json_encode($alias)]);
+    }
+
+    public function aliasDeleteAction()
+    {
+        $alias = $this->params()->fromPost('alias');
+        $decodedAlias = json_decode($alias, true);
+        $this->getShippingService()->removeById($decodedAlias['id']);
+        return $this->getJsonModelFactory()->newInstance(["alias" => $alias]);
     }
 
     protected function getAddButtonView()
@@ -51,14 +82,47 @@ class ShippingController extends AbstractActionController
         return $this;
     }
 
+    protected function getConversionService()
+    {
+        return $this->conversionService;
+    }
+
+    protected function setConversionService(ConversionService $conversionService)
+    {
+        $this->conversionService = $conversionService;
+        return $this;
+    }
+
+    protected function setShippingService($shippingService)
+    {
+        $this->shippingService = $shippingService;
+        return $this;
+    }
+
     protected function getShippingService()
     {
         return $this->shippingService;
     }
 
-    protected function setShippingService(ShippingService $shippingService)
+    protected function setJsonModelFactory($jsonModelFactory)
     {
-        $this->shippingService = $shippingService;
+        $this->jsonModelFactory = $jsonModelFactory;
         return $this;
+    }
+
+    protected function getJsonModelFactory()
+    {
+        return $this->jsonModelFactory;
+    }
+
+    protected function setActiveUser(ActiveUserInterface $activeUser)
+    {
+        $this->activeUser = $activeUser;
+        return $this;
+    }
+
+    protected function getActiveUser()
+    {
+        return $this->activeUser;
     }
 }
