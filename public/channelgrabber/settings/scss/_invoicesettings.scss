@@ -1,0 +1,64 @@
+.invoiceSettings {
+    width: 100%;
+    float: left;
+    clear:both;
+    .heading-large {
+        margin-bottom: 20px;
+    }
+    .heading-medium {
+        margin-bottom: 10px;
+    }
+    .dataTables_scroll {
+        width: 500px;
+        float: left;
+        clear: both;
+        height: auto;
+        .dataTables_scrollBody {
+            height: 100%;
+            min-height: 100px;
+            min-width: 300px;
+        }
+        .dataTables_scrollHead {
+            min-width: 300px;
+        }
+    }
+    .med-element {
+        width: 100%;
+        min-width: 200px;
+        float: left;
+        clear:both;
+        .custom-select {
+            width: 200px;
+            float: none;
+            clear:both;
+            margin: auto;
+            li a :hover {
+                background-color: $color-dgrey;
+            }
+        }
+    }
+    td {
+        overflow: visible!important;
+        text-align: center;
+    }
+}
+.invoiceDefaultSettings {
+    @include calc(width, "100% - 60px");
+    float: left;
+    clear:both;
+}
+.default-invoice-holder {
+    @include calc(width, "100% - 6 0px");
+    float: left;
+    clear: both;
+}
+.default-invoice-dropdown {
+    width: 100%;
+    float: left;
+    clear:both;
+}
+.invoiceTradingCompanySettings {
+    @include calc(width, "100% - 60px");
+    float: left;
+    clear:both;
+}

@@ -24,23 +24,24 @@ $(document).ready(function() {
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
-<div class="padded-content-holder">
-    <div class="invoiceSettings">
-        <div class="invoiceDefaultSettings">
-            <div class="heading-large">Invoice Settings</div>
-            <div>
+<div class="invoiceSettings">
+    <div class="invoiceDefaultSettings module">
+        <div class="heading-large">Invoice Settings</div>
+        <div class="default-invoice-holder">
+            <div class="heading-medium">
                 Default Invoice
             </div>
-            <?= $defaultCustomSelect; ?>
+            <div class="default-invoice-dropdown">
+                <?= $defaultCustomSelect; ?>
+            </div>
         </div>
-        <hr>
-        <div class="invoiceTradingCompanySettings">
-            <div class="heading-large">Trading Companies</div>
-            <?php if (empty($tradingCompanies)) : ?>
-                (No Trading companies exist)
-            <?php else : ?>
-                <?= $this->invoiceSettingsDataTable ?>
-            <?php endif; ?>
-        </div>
+    </div>
+    <div class="invoiceTradingCompanySettings module section-separator">
+        <div class="heading-large">Trading Companies</div>
+        <?php if (empty($tradingCompanies)) : ?>
+            (No Trading companies exist)
+        <?php else : ?>
+            <?= $this->invoiceSettingsDataTable ?>
+        <?php endif; ?>
     </div>
 </div>
