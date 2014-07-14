@@ -8,37 +8,40 @@ $(document).ready(function() {
         }
     });
     require([
-        'Settings/invoiceSettings'
+        'Settings/invoiceSettings',
+        'element/Factory/Select'
     ], function(
-        InvoiceSettings
+        InvoiceSettings,
+        select
     ) {
         new InvoiceSettings;
+
+        $(document).on('fnDrawCallback', function(event, data) {
+            $('.invoiceTradingCompaniesCustomSelect').each(function() {
+                select.init($(this).attr('name'));
+            });
+        });
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
-<div class="padded-content-holder">
-    <div class="invoiceSettings">
-        <div class="invoiceDefaultSettings">
-            <div class="heading-large">Invoice Settings</div>
-            <div>
+<div class="invoiceSettings">
+    <div class="invoiceDefaultSettings module">
+        <div class="heading-large">Invoice Settings</div>
+        <div class="default-invoice-holder">
+            <div class="heading-medium">
                 Default Invoice
             </div>
-            <div>
-                <select>
-                    <?php foreach ($invoices as $invoice) : ?>
-                        <option<?= $invoiceSettings->getDefault() == $invoice->getId() ? ' selected="selected"' : '' ?> value="<?= $invoice->getId() ?>"><?= $invoice->getName() ?></option>
-                    <?php endforeach; ?>
-                </select>
+            <div class="default-invoice-dropdown">
+                <?= $defaultCustomSelect; ?>
             </div>
         </div>
-        <hr>
-        <div class="invoiceTradingCompanySettings">
-            <div class="heading-large">Trading Companies</div>
-            <?php if (empty($tradingCompanies)) : ?>
-                (No Trading companies exist)
-            <?php else : ?>
-                <?= $this->invoiceSettingsDataTable ?>
-            <?php endif; ?>
-        </div>
+    </div>
+    <div class="invoiceTradingCompanySettings module section-separator">
+        <div class="heading-large">Trading Companies</div>
+        <?php if (empty($tradingCompanies)) : ?>
+            (No Trading companies exist)
+        <?php else : ?>
+            <?= $this->invoiceSettingsDataTable ?>
+        <?php endif; ?>
     </div>
 </div>

@@ -449,7 +449,7 @@ return [
         ],
         'strategies' => [
             'ViewJsonStrategy',
-            'Mustache\View\Strategy'
+            'CG_Mustache\View\Strategy'
         ],
     ],
     'di' => [

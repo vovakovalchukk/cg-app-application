@@ -18,6 +18,10 @@ class Mapper
             "assignedInvoice" => []
         ];
 
+        $data['class'] = 'invoiceTradingCompaniesCustomSelect';
+        $data['name'] = 'invoiceTradingCompaniesCustomSelect_' . $tradingCompany->getId();
+        $data['id'] = $data['name'];
+
         $tradingCompanySettings = $settings->getTradingCompanies();
 
         $selected = false;
@@ -26,10 +30,10 @@ class Mapper
         }
 
         foreach ($invoices as $invoice) {
-            $data['assignedInvoice'][] = [
-                'id' => $invoice->getId(),
-                'name' => $invoice->getName(),
-                'selected' => $invoice->getId() == $selected,
+            $data['options'][] = [
+                'title' => $invoice->getName(),
+                'value' => $invoice->getId(),
+                'selected' => $invoice->getId() == $selected
             ];
         }
         return $data;
