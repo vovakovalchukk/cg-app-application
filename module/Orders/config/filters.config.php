@@ -122,6 +122,7 @@ return [
                             'filterType' => 'more',
                             'variables' => [
                                 'id' => 'filter-more-button',
+                                'searchField' => true,
                                 'title' => 'More',
                                 'class' => 'more',
                                 'name' => 'more'
@@ -130,6 +131,7 @@ return [
                         [
                             'filterType' => 'buttons',
                             'variables' => [
+                                'name' => 'buttons',
                                 'buttons' => [
                                     [
                                         'name' => 'apply-filters',

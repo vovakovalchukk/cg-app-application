@@ -179,10 +179,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
     protected function getFilterBar()
     {
-        $viewRender = $this->getServiceLocator()->get('Mustache\View\Renderer');
         $filterValues = $this->getFilterService()->getPersistentFilter();
         $filters = $this->getOrderService()->getFilterService()->getOrderFilters($filterValues);
-        return $filters->prepare($viewRender);
+        return $filters->prepare();
     }
 
     protected function getDetailsSidebar()

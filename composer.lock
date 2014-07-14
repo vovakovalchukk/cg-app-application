@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b5983c80f52b44fb6b54d5c8050b0147",
+    "hash": "45fc732f9d28475e0157f158d684eb88",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -336,6 +336,13 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -551,6 +558,13 @@
                 "predis/predis": "v0.8.3"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Predis\\": ""
@@ -1174,27 +1188,27 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.4.5",
+            "version": "1.4.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "d4ab0bec047fd4484d2606cb6c3adf49dd3b53f7"
+                "reference": "2661ab9fead51d09ef6c2eff5458dbcb0b8e0e09"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.5-e5ba66.zip",
-                "reference": "d4ab0bec047fd4484d2606cb6c3adf49dd3b53f7",
-                "shasum": "db7160e97fb28641fcb31488ad18862a6181494e"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.6-010570.zip",
+                "reference": "2661ab9fead51d09ef6c2eff5458dbcb0b8e0e09",
+                "shasum": "f1ca9ebec10d514631e77d0937e1ed833e22b836"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/stdlib": ">=2.2.0",
                 "channelgrabber/user": ">=1.13.14",
+                "channelgrabber/zf2-mustache": ">=1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.1",
                 "channelgrabber/zf2-v4-ui": ">=1.4.1",
                 "guzzle/guzzle": "~3.7",
-                "widmogrod/zf2-mustache-module": "dev-master",
                 "zendframework/zend-config": "2.*",
                 "zendframework/zend-di": "2.*",
                 "zendframework/zend-eventmanager": "2.*",
@@ -1220,7 +1234,43 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2014-07-08 16:21:25"
+            "time": "2014-07-14 08:17:58"
+        },
+        {
+            "name": "channelgrabber/zf2-mustache",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/mustache-module.git",
+                "reference": "5c4a7ae309ffac403e97d6ef33dd51ff6a7ef330"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-mustache-1.0.0-97236f.zip",
+                "reference": "5c4a7ae309ffac403e97d6ef33dd51ff6a7ef330",
+                "shasum": "0839338777b066c5e444d77ce58ec0a7af1e4d49"
+            },
+            "require": {
+                "mustache/mustache": "2.*",
+                "zendframework/zend-eventmanager": "2.*",
+                "zendframework/zend-modulemanager": "2.*",
+                "zendframework/zend-servicemanager": "2.*",
+                "zendframework/zend-view": "2.*"
+            },
+            "type": "zf2-mustache",
+            "extra": {
+                "zf2-module": "CG_Mustache"
+            },
+            "autoload": {
+                "psr-0": {
+                    "CG_Mustache": "src/"
+                },
+                "classmap": [
+                    "./Module.php"
+                ]
+            },
+            "description": "ZF2 Mustache rendering module",
+            "time": "2014-07-14 08:14:26"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -1456,14 +1506,14 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "87dfc197067b267581065fc4c71ad0e11a3c4be6"
+                "reference": "f8f988591661c35ec56395e4861879f9e0054235"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
                 "channelgrabber/log": ">=1.4.2",
                 "channelgrabber/stdlib": ">=2.5.8",
+                "channelgrabber/zf2-mustache": ">=1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
-                "widmogrod/zf2-mustache-module": "dev-master",
                 "zendframework/zend-config": "2.*",
                 "zendframework/zend-form": ">=2.3,<3.0",
                 "zendframework/zend-i18n": "2.*",
@@ -1486,7 +1536,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-07-13 19:04:49"
+            "time": "2014-07-14 09:16:50"
         },
         {
             "name": "cilex/cilex",
@@ -1826,9 +1876,7 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -1916,8 +1964,7 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com",
-                    "role": "Developer"
+                    "homepage": "http://benramsey.com"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
@@ -2388,49 +2435,6 @@
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
             "time": "2014-07-08 12:21:33"
-        },
-        {
-            "name": "widmogrod/zf2-mustache-module",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/widmogrod/zf2-mustache-module.git",
-                "reference": "e8d54fe69a7feb80932431a37d1535b5ae6218e8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/widmogrod/zf2-mustache-module/zipball/e8d54fe69a7feb80932431a37d1535b5ae6218e8",
-                "reference": "e8d54fe69a7feb80932431a37d1535b5ae6218e8",
-                "shasum": ""
-            },
-            "require": {
-                "mustache/mustache": "2.*",
-                "php": ">=5.3.3",
-                "zendframework/zend-eventmanager": "2.*",
-                "zendframework/zend-modulemanager": "2.*",
-                "zendframework/zend-servicemanager": "2.*",
-                "zendframework/zend-view": "2.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Mustache": "src"
-                },
-                "classmap": [
-                    "./Module.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "authors": [
-                {
-                    "name": "Gabriel Habryn",
-                    "email": "widmogrod@gmail.com",
-                    "homepage": "https://github.com/widmogrod/zf2-assetic-module",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Zend Framework 2 module providing integration with the Mustache rendering engine.",
-            "time": "2014-06-05 14:01:44"
         },
         {
             "name": "zendframework/zendframework",
@@ -3899,8 +3903,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.10.16",
-            "alias_normalized": "1.10.16.0",
+            "alias": "1.11.0",
+            "alias_normalized": "1.11.0.0",
             "version": "dev-CGIV-2622-order-list-javascript-race-condition-fix",
             "package": "channelgrabber/zf2-v4-ui"
         }
@@ -3909,7 +3913,6 @@
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-v4-ui": 20,
-        "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
     },
     "platform": {
