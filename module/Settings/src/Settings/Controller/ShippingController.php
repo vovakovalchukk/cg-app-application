@@ -87,11 +87,9 @@ class ShippingController extends AbstractActionController
             );
             $view = $this->getViewModelFactory()->newInstance();
             $view->setTemplate('settings/shipping/aliases/many');
-            $count = 0;
             $aliasViews = [];
             foreach ($aliases as $alias) {
-                $aliasViews[] = $this->getIndividualAliasView($alias, $count);
-                $count++;
+                $aliasViews[] = $this->getIndividualAliasView($alias);
             }
             $aliasViews = array_reverse($aliasViews);
             foreach ($aliasViews as $aliasView) {
@@ -110,41 +108,41 @@ class ShippingController extends AbstractActionController
         return $view;
     }
 
-    protected function getIndividualAliasView(AliasEntity $alias, $id)
+    protected function getIndividualAliasView(AliasEntity $alias)
     {
         $view = $this->getViewModelFactory()->newInstance([
-            'id' => 'shipping-alias-' . $id
+            'id' => 'shipping-alias-' . $alias->getId()
         ]);
-        $view->addChild($this->getTextView($alias, $id), 'text');
-        $view->addChild($this->getDeleteButtonView($id), 'deleteButton');
-        $view->addChild($this->getMultiSelectExpandedView($alias, $id), 'multiSelectExpanded');
+        $view->addChild($this->getTextView($alias), 'text');
+        $view->addChild($this->getDeleteButtonView($alias), 'deleteButton');
+        $view->addChild($this->getMultiSelectExpandedView($alias), 'multiSelectExpanded');
         $view->setTemplate('ShippingAlias/alias.mustache');
 
         return $view;
     }
 
-    protected function getDeleteButtonView($id)
+    protected function getDeleteButtonView(AliasEntity $alias)
     {
         $button = $this->getViewModelFactory()->newInstance([
             'buttons' => true,
             'value' => $this->translate("Delete"),
-            'id' => "deleteButton-" . $id
+            'id' => "deleteButton-" . $alias->getId()
         ]);
         $button->setTemplate('elements/buttons.mustache');
         return $button;
     }
 
-    protected function getTextView(AliasEntity $alias, $id)
+    protected function getTextView(AliasEntity $alias)
     {
         $text = $this->getViewModelFactory()->newInstance([
-            'name' => "alias-name-" . $id,
+            'name' => "alias-name-" . $alias->getId(),
             'value' => $alias->getName()
         ]);
         $text->setTemplate('elements/text.mustache');
         return $text;
     }
 
-    protected function getMultiSelectExpandedView(AliasEntity $alias, $id)
+    protected function getMultiSelectExpandedView(AliasEntity $alias)
     {
         $shippingMethods = $this->getConversionService()->fetchMethods();
         $options = [];
@@ -157,7 +155,7 @@ class ShippingController extends AbstractActionController
             ];
         }
         $multiSelect = $this->getViewModelFactory()->newInstance([
-            'name' => "aliasMultiSelect-" . $id,
+            'name' => "aliasMultiSelect-" . $alias->getId(),
             'options' => $options
         ]);
         $multiSelect->setTemplate('elements/custom-select-group.mustache');
