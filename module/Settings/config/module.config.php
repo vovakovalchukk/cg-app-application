@@ -12,7 +12,8 @@ use Settings\Controller\EbayController;
 use Settings\Controller\AmazonController;
 use Settings\Controller\InvoiceController;
 use CG_UI\View\DataTable;
-use Settings\Channel\Service;
+use Settings\Channel\Service as ChannelService;
+use Settings\Invoice\Service as InvoiceService;
 use Zend\View\Model\ViewModel;
 use CG\Account\Client\StorageInterface as AccountStorageInterface;
 use CG\Account\Client\Storage\Api as AccountApiStorage;
@@ -43,10 +44,14 @@ return [
             ],
             'Invoices' => [
                 'label' => 'Invoices',
-                'route' => Module::ROUTE.'/'.InvoiceController::ROUTE.'/'.InvoiceController::ROUTE_DESIGNER,
+                'route' => Module::ROUTE.'/'.InvoiceController::ROUTE,
                 'class' => 'heading-medium',
                 'pages' => [
                     [
+                        'label' => InvoiceController::ROUTE_MAPPING,
+                        'title' => InvoiceController::ROUTE_MAPPING,
+                        'route' => Module::ROUTE.'/'.InvoiceController::ROUTE.'/'.InvoiceController::ROUTE_MAPPING
+                    ], [
                         'label' => InvoiceController::ROUTE_DESIGNER,
                         'title' => InvoiceController::ROUTE_DESIGNER,
                         'route' => Module::ROUTE.'/'.InvoiceController::ROUTE.'/'.InvoiceController::ROUTE_DESIGNER
@@ -214,6 +219,29 @@ return [
                                         'action' => 'mapping',
                                     ]
                                 ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    InvoiceController::ROUTE_SAVE => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/save',
+                                            'defaults' => [
+                                                'controller' => InvoiceController::class,
+                                                'action' => 'saveMapping',
+                                            ]
+                                        ]
+                                    ],
+                                    InvoiceController::ROUTE_AJAX => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/ajax',
+                                            'defaults' => [
+                                                'controller' => InvoiceController::class,
+                                                'action' => 'ajaxMapping',
+                                            ]
+                                        ]
+                                    ],
+                                ]
                             ],
                             InvoiceController::ROUTE_DESIGNER => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
@@ -272,11 +300,17 @@ return [
             ],
             'aliases' => [
                 'EbayGuzzle' => GuzzleHttpClient::class,
+                'InvoiceSettingsDataTable' => DataTable::class,
                 'AccountList' => DataTable::class,
+                'InvoiceSettingsDataTableSettings' => DataTable\Settings::class,
                 'AccountListSettings' => DataTable\Settings::class,
                 'ChannelTokenStatusMustacheJS' => ViewModel::class,
                 'ChannelStatusJS' => viewModel::class,
                 'ChannelDeleteJavascript' => ViewModel::class,
+                'InvoiceTradingCompanyColumn' => DataTable\Column::class,
+                'InvoiceAssignedInvoiceColumn' => DataTable\Column::class,
+                'InvoiceTradingCompanyColumnView' => ViewModel::class,
+                'InvoiceAssignedInvoiceColumnView' => ViewModel::class,
                 'AccountEnableColumn' => DataTable\Column::class,
                 'AccountStatusColumn' => DataTable\Column::class,
                 'AccountChannelColumn' => DataTable\Column::class,
@@ -316,10 +350,40 @@ return [
                     'certificateId' => 'fa030731-18cc-4087-a06e-605d63113625'
                 ]
             ],
-            Service::class => [
+            ChannelService::class => [
                 'parameters' => [
                     'accountList' => 'AccountList',
                 ],
+            ],
+            InvoiceService::class => [
+                'parameters' => [
+                    'datatable' => 'InvoiceSettingsDataTable',
+                ],
+            ],
+            'InvoiceSettingsDataTable' => [
+                'parameters' => [
+                    'variables' => [
+                        'id' => 'accounts'
+                    ],
+                ],
+                'injections' => [
+                    'addChild' => [
+                        ['child' => 'ChannelTokenStatusMustacheJS', 'captureTo' => 'javascript', 'append' => true],
+                    ],
+                    'addColumn' => [
+                        ['column' => 'InvoiceTradingCompanyColumn'],
+                        ['column' => 'InvoiceAssignedInvoiceColumn'],
+                    ],
+                    'setVariable' => [
+                        ['name' => 'settings', 'value' => 'InvoiceSettingsDataTableSettings']
+                    ],
+                ]
+            ],
+            'InvoiceSettingsDataTableSettings' => [
+                'parameters' => [
+                    'scrollHeightAuto' => true,
+                    'footer' => false,
+                ]
             ],
             'AccountList' => [
                 'parameters' => [
@@ -380,6 +444,38 @@ return [
                     'template' => 'settings/channel/javascript/deleteChannel.js',
                 ],
             ],
+
+            'InvoiceTradingCompanyColumn' => [
+                'parameters' => [
+                    'templateId' => 'tradingCompany',
+                    'viewModel' => 'InvoiceTradingCompanyColumnView',
+                    'sortable' => false,
+                    'hideable' => false,
+                    'width' => '100px',
+                ],
+            ],
+            'InvoiceAssignedInvoiceColumn' => [
+                'parameters' => [
+                    'templateId' => 'assignedInvoice',
+                    'viewModel' => 'InvoiceAssignedInvoiceColumnView',
+                    'sortable' => false,
+                    'hideable' => false,
+                    'width' => '100px',
+                ],
+            ],
+            'InvoiceTradingCompanyColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Trading Company'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'InvoiceAssignedInvoiceColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Assigned Invoice'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+
             'AccountEnableColumn' => [
                 'parameters' => [
                     'templateId' => 'enable',
@@ -470,7 +566,7 @@ return [
             ],
             'AccountTokenStatusColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Token Expires'],
+                    'variables' => ['value' => 'Connection Expires'],
                     'template' => 'value.phtml',
                 ],
             ],

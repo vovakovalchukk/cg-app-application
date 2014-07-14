@@ -5,6 +5,8 @@ use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
 use Settings\Module;
+use Settings\Invoice\Service as InvoiceService;
+use Settings\Invoice\Mapper as InvoiceMapper;
 use CG\Template\ReplaceManager\OrderContent as OrderTagManager;
 use CG\Template\Service as TemplateService;
 use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
@@ -14,6 +16,7 @@ class InvoiceController extends AbstractActionController
     const ROUTE = 'Invoice';
     const ROUTE_MAPPING = 'Invoice Mapping';
     const ROUTE_DESIGNER = 'Invoice Designer';
+    const ROUTE_AJAX = 'Ajax';
     const ROUTE_FETCH = 'Fetch';
     const ROUTE_SAVE = 'Save';
     const TEMPLATE_SELECTOR_ID = 'template-selector';
@@ -24,19 +27,25 @@ class InvoiceController extends AbstractActionController
     protected $templateService;
     protected $userOrganisationUnitService;
     protected $orderTagManager;
+    protected $invoiceService;
+    protected $invoiceMapper;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         JsonModelFactory $jsonModelFactory,
         TemplateService $templateService,
         UserOrganisationUnitService $userOrganisationUnitService,
-        OrderTagManager $orderTagManager
+        OrderTagManager $orderTagManager,
+        InvoiceService $invoiceService,
+        InvoiceMapper $invoiceMapper
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
             ->setTemplateService($templateService)
             ->setUserOrganisationUnitService($userOrganisationUnitService)
-            ->setOrderTagManager($orderTagManager);
+            ->setOrderTagManager($orderTagManager)
+            ->setInvoiceService($invoiceService)
+            ->setInvoiceMapper($invoiceMapper);
     }
 
     public function indexAction()
@@ -44,10 +53,72 @@ class InvoiceController extends AbstractActionController
         return $this->redirect()->toRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_MAPPING);
     }
 
+    public function saveMappingAction()
+    {
+        $entity = $this->getInvoiceService()->saveSettings(
+            $this->params()->fromPost()
+        );
+        return $this->getJsonModelFactory()->newInstance([
+            "invoiceSettings" => json_encode($entity),
+        ]);
+    }
+
+
+    public function ajaxMappingAction()
+    {
+        $invoiceSettings = $this->getInvoiceService()->getSettings();
+        $tradingCompanies = $this->getInvoiceService()->getTradingCompanies();
+        $invoices = $this->getInvoiceService()->getInvoices();
+
+        $data = [
+            'iTotalRecords' => 0,
+            'iTotalDisplayRecords' => 0,
+            'sEcho' => (int) $this->params()->fromPost('sEcho'),
+            'Records' => [],
+        ];
+
+        $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) $tradingCompanies->count();
+
+        foreach ($tradingCompanies as $tradingCompany) {
+            $data['Records'][] = $this->getInvoiceMapper()->toDataTableArray(
+                $tradingCompany,
+                $invoices,
+                $invoiceSettings
+            );
+        }
+        return $this->getJsonModelFactory()->newInstance($data);
+    }
+
     public function mappingAction()
     {
-        $view = $this->getViewModelFactory()->newInstance();
+        $invoiceSettings = $this->getInvoiceService()->getSettings();
+        $tradingCompanies = $this->getInvoiceService()->getTradingCompanies();
+        $invoices = $this->getInvoiceService()->getInvoices();
+
+        $view = $this->getViewModelFactory()->newInstance()
+            ->setVariable('invoiceSettings', $invoiceSettings)
+            ->setVariable('tradingCompanies', $tradingCompanies)
+            ->setVariable('invoices', $invoices)
+            ->addChild($this->getInvoiceSettingsDefaultSelectView($invoiceSettings, $invoices), 'defaultCustomSelect')
+            ->addChild($this->getTradingCompanyInvoiceSettingsDataTable(), 'invoiceSettingsDataTable');
         return $view;
+    }
+
+    protected function getTradingCompanyInvoiceSettingsDataTable()
+    {
+        $datatables = $this->getInvoiceService()->getDatatable();
+        $settings = $datatables->getVariable('settings');
+
+        $settings->setSource(
+            $this->url()->fromRoute(
+                Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_MAPPING.'/'.static::ROUTE_AJAX
+            )
+        );
+        $settings->setTemplateUrlMap([
+            'tradingCompany' => '/channelgrabber/settings/template/columns/tradingCompany.html',
+            'assignedInvoice' => \CG_UI\Module::PUBLIC_FOLDER . '/templates/elements/custom-select.mustache',
+        ]);
+        return $datatables;
     }
 
     public function designAction()
@@ -70,6 +141,21 @@ class InvoiceController extends AbstractActionController
         $view->setVariable('dataFieldOptions', $this->getOrderTagManager()->getAvailableTags());
 
         return $view;
+    }
+
+    protected function getInvoiceSettingsDefaultSelectView($invoiceSettings, $invoices)
+    {
+        $customSelectConfig['name'] = 'defaultInvoiceCustomSelect';
+        $customSelectConfig['id'] = $customSelectConfig['name'];
+        foreach ($invoices as $invoice) {
+            $customSelectConfig['options'][] = [
+                'title' => $invoice->getName(),
+                'value' => $invoice->getId(),
+                'selected' => ($invoice->getId() == $invoiceSettings->getDefault())
+            ];
+        };
+        return $this->getViewModelFactory()->newInstance($customSelectConfig)
+                                            ->setTemplate('elements/custom-select.mustache');
     }
 
     protected function getTemplateSelectView()
@@ -216,5 +302,33 @@ class InvoiceController extends AbstractActionController
         $paperTypeModule->setTemplate('InvoiceDesigner/Template/paperType');
 
         return $paperTypeModule;
+    }
+
+    /**
+     * @return InvoiceService
+     */
+    protected function getInvoiceService()
+    {
+        return $this->invoiceService;
+    }
+
+    public function setInvoiceService(InvoiceService $invoiceService)
+    {
+        $this->invoiceService = $invoiceService;
+        return $this;
+    }
+
+    /**
+     * @return InvoiceMapper
+     */
+    public function getInvoiceMapper()
+    {
+        return $this->invoiceMapper;
+    }
+
+    public function setInvoiceMapper(InvoiceMapper $invoiceMapper)
+    {
+        $this->invoiceMapper = $invoiceMapper;
+        return $this;
     }
 }

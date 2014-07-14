@@ -23,6 +23,8 @@ use CG\Order\Client\Storage\Api as OrderApiClient;
 use CG\Order\Client\Tag\Storage\Api as OrderTagApiClient;
 use CG\Order\Client\Batch\Storage\Api as OrderBatchApiClient;
 use CG\OrganisationUnit\Storage\Api as OrganisationUnitClient;
+use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
+use CG\Settings\Invoice\Client\Storage\Api as InvoiceSettingsApiStorage;
 use CG\UserPreference\Client\Service as UserPreferenceService;
 use CG\UserPreference\Client\Storage\Api as UserPreferenceStorage;
 use Zend\Session\ManagerInterface as SessionManagerInterface;
@@ -56,6 +58,8 @@ return array(
                 $im->addSharedInstance($di, 'Zend\Di\Di');
                 $im->addSharedInstance($di->get('config', array('array' => $configuration)), 'config');
                 $im->addSharedInstance($serviceManager, ServiceManager::class);
+                $im->addSharedInstance($di->get(Config::class, array('array' => $configuration)), 'app_config');
+
                 return $di;
             }
         ),
@@ -70,7 +74,8 @@ return array(
         'instance' => array(
             'aliases' => array(
                 'Di' => 'Zend\Di\Di',
-                'config' => Config::class
+                'config' => Config::class,
+                'app_config' => Config::class
             ),
             'preferences' => array(
                 'Zend\Di\LocatorInterface' => 'Zend\Di\Di',
@@ -118,11 +123,21 @@ return array(
                     'client' => 'cg_app_guzzle'
                 ]
             ],
+            InvoiceSettingsApiStorage::class => [
+                'parameter' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
             UserPreferenceService::class => [
                 'parameter' => [
                     'repository' => UserPreferenceStorage::class
                 ]
             ],
+            InvoiceSettingsService::class => array(
+                'parameters' => array(
+                    'repository' => InvoiceSettingsApiStorage::class
+                )
+            ),
         ),
     ),
     'view_manager' => [
