@@ -6,7 +6,7 @@ require.config({
 require(
     ["TagBulkAction"],
     function(TagBulkAction) {
-        var tagBulkAction = new TagBulkAction(n);
+        var tagBulkAction = new TagBulkAction(n, "<?= Orders\Module::PUBLIC_FOLDER ?>template/popup/saveTag.mustache");
         $("#<?= $id ?>").bulkActions("set", "<?= $action ?>", tagBulkAction.action);
     }
 );

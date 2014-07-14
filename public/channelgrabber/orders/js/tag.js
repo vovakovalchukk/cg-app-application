@@ -1,5 +1,56 @@
-define(function() {
-    return function(notifications) {
+define(['popup/mustache'],function(Popup) {
+    return function(notifications, popupTemplate) {
+        var self = this;
+        var popup = new Popup(popupTemplate);
+        
+        this.getPopup = function() {
+            return popup;
+        }
+
+        var savePopup = function() {
+            var name = $.trim(popup.getElement().find("input#tag-name").val());
+            if (!name.length) {
+                return;
+            }
+            var button = popup.getElement().data("button");
+            var datatable = popup.getElement().data("datatable");
+            var orders = popup.getElement().data("orders");
+            self.saveTag.call(button, name, datatable, orders);
+            popup.hide();
+        };
+
+        popup.getElement().on("keypress.createTag", "input#tag-name", function(event) {
+            if (event.which !== 13) {
+                return;
+            }
+            savePopup.call(self);
+        });
+
+        popup.getElement().on("click.createTag", ".create", function() {
+            savePopup.call(self);
+        });
+
+        popup.getElement().on("click.createTag", ".cancel", function() {
+            popup.hide();
+        });
+
+        this.saveTag = function(tagName, datatable, orders) {
+            console.log(getAppendUrl.call(this, datatable));
+            apply.call(
+                this,
+                getAppendUrl.call(this, datatable),
+                tagName,
+                orders,
+                {
+                    complete: function() {
+                        if (datatable) {
+                            $("#" + datatable).cgDataTable("redraw");
+                        }
+                    }
+                }
+            );
+        }
+
         this.action = function(event) {
             event.stopImmediatePropagation();
 
@@ -18,25 +69,21 @@ define(function() {
                 }
             }
 
-            var tag = $(this).data("tag") || $.trim(window.prompt("Name of Tag:", "tag"));
-            if (!tag.length) {
-                return;
+            var tag = $(this).data("tag");
+            if (tag) {
+                return self.saveTag.call(this, tag, datatable, orders);
             }
 
-            apply.call(
-                this,
-                getAppendUrl.call(this, datatable),
-                tag,
-                orders,
-                {
-                    complete: function() {
-                        if (datatable) {
-                            $("#" + datatable).cgDataTable("redraw");
-                        }
-                    }
-                }
-            );
+            self.getPopup().show();
+            self.getPopup().getElement().data('button', this);
+            self.getPopup().getElement().data('datatable', datatable);
+            self.getPopup().getElement().data('orders', orders);
+            
+           
+            
         };
+
+
 
         this.checkbox = function(event) {
             event.stopImmediatePropagation()
