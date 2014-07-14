@@ -5,6 +5,8 @@ use Orders\Order\FilterService;
 use Orders\Order\TableService\OrdersTableTagColumns;
 use Orders\Order\Filter\Channel;
 use Orders\Order\Filter\Account;
+use Orders\Order\Filter\Shipping;
+use Orders\Controller\OrdersController;
 use CG\Order\Shared\Status;
 
 return [
@@ -110,7 +112,7 @@ return [
                         [
                             'filterType' => 'search',
                             'variables' => [
-                                'name' => 'search',
+                                'name' => 'searchTerm',
                                 'placeholder' => 'Search for...',
                                 'class' => '',
                                 'value' => ''
@@ -119,6 +121,8 @@ return [
                         [
                             'filterType' => 'more',
                             'variables' => [
+                                'id' => 'filter-more-button',
+                                'searchField' => true,
                                 'title' => 'More',
                                 'class' => 'more',
                                 'name' => 'more'
@@ -127,6 +131,7 @@ return [
                         [
                             'filterType' => 'buttons',
                             'variables' => [
+                                'name' => 'buttons',
                                 'buttons' => [
                                     [
                                         'name' => 'apply-filters',
@@ -218,6 +223,19 @@ return [
                             'filterType' => 'customSelectGroup',
                             'visible' => false,
                             'variables' => [
+                                'name' => OrdersController::FILTER_SHIPPING_ALIAS_NAME,
+                                'title' => 'Shipping Method',
+                                'searchField' => true,
+                                'isOptional' => true,
+                                'concatenate' => true,
+                                'options' => []
+                            ],
+                            'optionsProvider' => Shipping::class,
+                        ],
+                        [
+                            'filterType' => 'customSelectGroup',
+                            'visible' => false,
+                            'variables' => [
                                 'name' => 'tag',
                                 'title' => 'Tags',
                                 'searchField' => true,
@@ -231,14 +249,17 @@ return [
                             'filterType' => 'customSelectGroup',
                             'visible' => false,
                             'variables' => [
+                                'isBoolean' => true,
                                 'name' => 'archived',
                                 'title' => 'Show Archived',
                                 'isOptional' => true,
                                 'options' => [
                                     [
+                                        'value' => true,
                                         'title' => 'Yes'
                                     ],
                                     [
+                                        'value' => false,
                                         'title' => 'No',
                                         'selected' => true
                                     ],
@@ -249,14 +270,17 @@ return [
                             'filterType' => 'customSelectGroup',
                             'visible' => false,
                             'variables' => [
+                                'isBoolean' => true,
                                 'name' => 'buyerMessage',
                                 'title' => 'Buyer Message',
                                 'isOptional' => true,
                                 'options' => [
                                     [
+                                        'value' => true,
                                         'title' => 'Yes'
                                     ],
                                     [
+                                        'value' => false,
                                         'title' => 'No'
                                     ],
                                 ]

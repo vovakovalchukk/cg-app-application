@@ -152,7 +152,6 @@ define([
             template.setStateId(template.getId());
         }
         this.loadModules(template);
-        this.getDomManipulator().hideSaveDiscardBar(template);
         return template;
     };
 

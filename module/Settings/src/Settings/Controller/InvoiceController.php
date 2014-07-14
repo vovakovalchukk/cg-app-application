@@ -298,7 +298,10 @@ class InvoiceController extends AbstractActionController
             "options" => []
         ];
 
-        $paperTypeModule = $this->getViewModelFactory()->newInstance($dropDownConfig);
+        $paperTypeModule = $this->getViewModelFactory()->newInstance();
+        $select = $this->getViewModelFactory()->newInstance($dropDownConfig);
+        $select->setTemplate('elements/custom-select.mustache');
+        $paperTypeModule->addChild($select, 'select');
         $paperTypeModule->setTemplate('InvoiceDesigner/Template/paperType');
 
         return $paperTypeModule;

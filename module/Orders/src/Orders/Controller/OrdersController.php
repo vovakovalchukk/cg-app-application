@@ -1,8 +1,6 @@
 <?php
 namespace Orders\Controller;
 
-use CG\Http\Exception\Exception3xx\NotModified;
-use Orders\Order\Exception\MultiException;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
@@ -23,12 +21,16 @@ use CG\Stdlib\PageLimit;
 use CG\Stdlib\OrderBy;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
-use Zend\View\Model\JsonModel;
-use CG\Order\Shared\Collection as OrderCollection;
+use CG_Usage\Service as UsageService;
+use CG_Usage\Exception\Exceeded as UsageExceeded;
+use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
 
 class OrdersController extends AbstractActionController implements LoggerAwareInterface
 {
     use LogTrait;
+
+    const FILTER_SHIPPING_METHOD_NAME = "shippingMethod";
+    const FILTER_SHIPPING_ALIAS_NAME = "shippingAliasId";
 
     protected $orderService;
     protected $filterService;
@@ -39,6 +41,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected $viewModelFactory;
     protected $filtersService;
     protected $storedFiltersService;
+    protected $usageService;
+    protected $shippingConversionService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
@@ -49,7 +53,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         BatchService $batchService,
         BulkActionsService $bulkActionsService,
         FiltersService $filtersService,
-        StoredFiltersService $storedFiltersService
+        StoredFiltersService $storedFiltersService,
+        UsageService $usageService,
+        ShippingConversionService $shippingConversionService
     )
     {
         $this->setJsonModelFactory($jsonModelFactory)
@@ -60,134 +66,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             ->setBatchService($batchService)
             ->setBulkActionsService($bulkActionsService)
             ->setFiltersService($filtersService)
-            ->setStoredFiltersService($storedFiltersService);
-    }
-
-    public function setOrderService(OrderService $orderService)
-    {
-        $this->orderService = $orderService;
-        return $this;
-    }
-
-    /**
-     * @return OrderService
-     */
-    public function getOrderService()
-    {
-        return $this->orderService;
-    }
-
-    public function setFilterService(FilterService $filterService)
-    {
-        $this->filterService = $filterService;
-        return $this;
-    }
-
-    /**
-     * @return FilterService
-     */
-    public function getFilterService()
-    {
-        return $this->filterService;
-    }
-
-    public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
-    {
-        $this->jsonModelFactory = $jsonModelFactory;
-        return $this;
-    }
-
-    /**
-     * @return JsonModelFactory
-     */
-    public function getJsonModelFactory()
-    {
-        return $this->jsonModelFactory;
-    }
-
-    public function setViewModelFactory(ViewModelFactory $viewModelFactory)
-    {
-        $this->viewModelFactory = $viewModelFactory;
-        return $this;
-    }
-
-    /**
-     * @return ViewModelFactory
-     */
-    public function getViewModelFactory()
-    {
-        return $this->viewModelFactory;
-    }
-
-    public function setBatchService(BatchService $batchService)
-    {
-        $this->batchService = $batchService;
-        return $this;
-    }
-
-    /**
-     * @return BatchService
-     */
-    public function getBatchService()
-    {
-        return $this->batchService;
-
-    }
-
-    public function setTimelineService(TimelineService $timelineService)
-    {
-        $this->timelineService = $timelineService;
-        return $this;
-    }
-
-    /**
-     * @return TimelineService
-     */
-    public function getTimelineService()
-    {
-        return $this->timelineService;
-    }
-
-    public function setBulkActionsService(BulkActionsService $bulkActionsService)
-    {
-        $this->bulkActionsService = $bulkActionsService;
-        return $this;
-    }
-
-    /**
-     * @return BulkActionsService
-     */
-    public function getBulkActionsService()
-    {
-        return $this->bulkActionsService;
-    }
-
-    public function setFiltersService(FiltersService $filtersService)
-    {
-        $this->filtersService = $filtersService;
-        return $this;
-    }
-
-    /**
-     * @return FiltersService
-     */
-    public function getFiltersService()
-    {
-        return $this->filtersService;
-    }
-
-    public function setStoredFiltersService(StoredFiltersService $storedFiltersService)
-    {
-        $this->storedFiltersService = $storedFiltersService;
-        return $this;
-    }
-
-    /**
-     * @return StoredFiltersService
-     */
-    public function getStoredFiltersService()
-    {
-        return $this->storedFiltersService;
+            ->setStoredFiltersService($storedFiltersService)
+            ->setUsageService($usageService)
+            ->setShippingConversionService($shippingConversionService);
     }
 
     public function indexAction()
@@ -246,6 +127,10 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
     public function orderAction()
     {
+        if ($this->getUsageService()->hasUsageBeenExceeded()) {
+            throw new UsageExceeded();
+        }
+
         $order = $this->getOrderService()->getOrder($this->params('order'));
         $view = $this->getViewModelFactory()->newInstance(
             [
@@ -294,10 +179,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
     protected function getFilterBar()
     {
-        $viewRender = $this->getServiceLocator()->get('Mustache\View\Renderer');
         $filterValues = $this->getFilterService()->getPersistentFilter();
-        $filters = $this->getOrderService()->getFilterService()->getOrderFilters();
-        return $filters->prepare($viewRender);
+        $filters = $this->getOrderService()->getFilterService()->getOrderFilters($filterValues);
+        return $filters->prepare();
     }
 
     protected function getDetailsSidebar()
@@ -383,8 +267,13 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             ->setOrderDirection($orderBy->getDirection());
 
         $requestFilter = $this->params()->fromPost('filter', []);
-        if (! isset($requestFilter['archived'])) {
+        if (!isset($requestFilter['archived'])) {
             $requestFilter['archived'] = [false];
+        }
+
+        if (isset($requestFilter[static::FILTER_SHIPPING_ALIAS_NAME])) {
+            $methodNames = $this->getShippingConversionService()->fromAliasIdsToMethodNames($requestFilter[static::FILTER_SHIPPING_ALIAS_NAME]);
+            $requestFilter[static::FILTER_SHIPPING_METHOD_NAME] = $methodNames;
         }
 
         if (!empty($requestFilter)) {
@@ -401,7 +290,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             $this->mergeOrderDataWithJsonData(
                 $pageLimit,
                 $data,
-                $this->getOrderService()->getOrdersArrayWithAccountDetails($orders, $this->getEvent())
+                $this->getOrderService()->alterOrderTable($orders, $this->getEvent())
             );
         } catch (NotFound $exception) {
             // No Orders so ignoring
@@ -434,7 +323,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             $this->mergeOrderDataWithJsonData(
                 $pageLimit,
                 $data,
-                $this->getOrderService()->getOrdersArrayWithAccountDetails($orders, $this->getEvent())
+                $this->getOrderService()->alterOrderTable($orders, $this->getEvent())
             );
         } catch (NotFound $exception) {
             // No Orders so ignoring
@@ -455,5 +344,154 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $this->getOrderService()->updateUserPrefOrderColumns($updatedColumns);
 
         return $response->setVariable('updated', true);
+    }
+
+    protected function setUsageService(UsageService $usageService)
+    {
+        $this->usageService = $usageService;
+        return $this;
+    }
+
+    protected function getUsageService()
+    {
+        return $this->usageService;
+    }
+
+    protected function setOrderService(OrderService $orderService)
+    {
+        $this->orderService = $orderService;
+        return $this;
+    }
+
+    /**
+     * @return OrderService
+     */
+    protected function getOrderService()
+    {
+        return $this->orderService;
+    }
+
+    protected function setFilterService(FilterService $filterService)
+    {
+        $this->filterService = $filterService;
+        return $this;
+    }
+
+    /**
+     * @return FilterService
+     */
+    protected function getFilterService()
+    {
+        return $this->filterService;
+    }
+
+    protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
+    {
+        $this->jsonModelFactory = $jsonModelFactory;
+        return $this;
+    }
+
+    /**
+     * @return JsonModelFactory
+     */
+    protected function getJsonModelFactory()
+    {
+        return $this->jsonModelFactory;
+    }
+
+    protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
+    {
+        $this->viewModelFactory = $viewModelFactory;
+        return $this;
+    }
+
+    /**
+     * @return ViewModelFactory
+     */
+    protected function getViewModelFactory()
+    {
+        return $this->viewModelFactory;
+    }
+
+    protected function setBatchService(BatchService $batchService)
+    {
+        $this->batchService = $batchService;
+        return $this;
+    }
+
+    /**
+     * @return BatchService
+     */
+    protected function getBatchService()
+    {
+        return $this->batchService;
+
+    }
+
+    protected function setTimelineService(TimelineService $timelineService)
+    {
+        $this->timelineService = $timelineService;
+        return $this;
+    }
+
+    /**
+     * @return TimelineService
+     */
+    protected function getTimelineService()
+    {
+        return $this->timelineService;
+    }
+
+    protected function setBulkActionsService(BulkActionsService $bulkActionsService)
+    {
+        $this->bulkActionsService = $bulkActionsService;
+        return $this;
+    }
+
+    /**
+     * @return BulkActionsService
+     */
+    protected function getBulkActionsService()
+    {
+        return $this->bulkActionsService;
+    }
+
+    protected function setFiltersService(FiltersService $filtersService)
+    {
+        $this->filtersService = $filtersService;
+        return $this;
+    }
+
+    /**
+     * @return FiltersService
+     */
+    protected function getFiltersService()
+    {
+        return $this->filtersService;
+    }
+
+    protected function setStoredFiltersService(StoredFiltersService $storedFiltersService)
+    {
+        $this->storedFiltersService = $storedFiltersService;
+        return $this;
+    }
+
+    /**
+     * @return StoredFiltersService
+     */
+    protected function getStoredFiltersService()
+    {
+        return $this->storedFiltersService;
+    }
+
+    protected function setShippingConversionService(ShippingConversionService $shippingConversionService)
+    {
+        $this->shippingConversionService = $shippingConversionService;
+        return $this;
+    }
+
+    protected function getShippingConversionService()
+    {
+        return $this->shippingConversionService;
     }
 }

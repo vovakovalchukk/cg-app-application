@@ -313,12 +313,33 @@ return [
                                         'action' => 'alias',
                                     ]
                                 ],
-                            ]
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    ShippingController::ROUTE_ALIASES_SAVE => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/save',
+                                            'defaults' => [
+                                                'action' => 'aliasSave',
+                                            ]
+                                        ],
+                                    ],
+                                    ShippingController::ROUTE_ALIASES_REMOVE => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/delete',
+                                            'defaults' => [
+                                                'action' => 'aliasDelete',
+                                            ]
+                                        ],
+                                    ]
+                                ]
+                            ],
                         ]
                     ]
                 ]
             ]
-        ],
+        ], 
     ],
     'view_manager' => [
         'template_path_stack' => [
@@ -427,7 +448,8 @@ return [
             'AccountList' => [
                 'parameters' => [
                     'variables' => [
-                        'id' => 'accounts',
+                        'sortable' => 'false',
+                        'id' => 'accounts'
                     ],
                 ],
                 'injections' => [
@@ -454,6 +476,7 @@ return [
                 'parameters' => [
                     'scrollHeightAuto' => true,
                     'footer' => false,
+                    'tableOptions' => 'rt<"table-footer" pil <"auto-refresh">>'
                 ]
             ],
             'ChannelTokenStatusMustacheJS' => [
@@ -655,7 +678,12 @@ return [
                 'parameters' => [
                     'repository' => ShippingAliasStorage::class
                 ]
-            ]
+            ],
+            ShippingAliasStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle',
+                ]
+            ],
         ]
     ]
 ];

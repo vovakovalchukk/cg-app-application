@@ -142,7 +142,7 @@ return array(
     ),
     'view_manager' => [
         'strategies' => [
-            'Mustache\View\Strategy'
+            'CG_Mustache\View\Strategy'
         ],
     ],
     'translator' => array(

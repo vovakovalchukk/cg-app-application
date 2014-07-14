@@ -14,7 +14,7 @@ use CG_UI\View\Prototyper\ViewModelFactory;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use CG\Channel\Service as ChannelService;
-use Mustache\View\Renderer as MustacheRenderer;
+use CG_Mustache\View\Renderer as MustacheRenderer;
 use CG_UI\Form\Factory as FormFactory;
 use CG\Zend\Stdlib\View\Model\Exception as ViewModelException;
 use CG\Stdlib\Exception\Runtime\NotFound;
@@ -251,8 +251,9 @@ class ChannelController extends AbstractActionController
 
     protected function addTradingCompaniesView($accountEntity, $view)
     {
-        $tradingCompanies = $this->getService()->getTradingCompanyOptionsForAccount($accountEntity);
+        $tradingCompanies = $this->getService()->getTradingCompanyOptionsForAccount($accountEntity);        
         $tradingCompanyOptions = [];
+
         foreach ($tradingCompanies as $tradingCompany) {
             $tradingCompanyOptions[] = [
                 'value' => $tradingCompany->getId(),
@@ -260,19 +261,27 @@ class ChannelController extends AbstractActionController
                 'selected' => ($tradingCompany->getId() == $accountEntity->getOrganisationUnitId())
             ];
         }
+
         $tradingCompanyView = $this->newViewModel();
         $tradingCompanyView->setTemplate('elements/custom-select');
+        $tradingCompanyView->setVariable('name', 'organisationUnitId');
         $tradingCompanyView->setVariable('options', $tradingCompanyOptions);
+        $tradingCompanyView->setVariable('blankOption', true);
         $view->setVariable('tradingCompanySelect', $this->getMustacheRenderer()->render($tradingCompanyView));
         return $this;
     }
 
     public function accountUpdateAction()
     {
+        
         $id = $this->params('account');
         $postData = $this->getRequest()->getPost();
         $displayName = $postData->get('displayName');
         $organisationUnitId = $postData->get('organisationUnitId');
+        
+        if ($organisationUnitId == "") {
+            $organisationUnitId = $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId();
+        }
 
         try {
             $this->getService()->updateAccount($id, compact('displayName', 'organisationUnitId'));

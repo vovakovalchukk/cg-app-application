@@ -86,7 +86,7 @@ return array(
             __DIR__ . '/../view',
         ),
         'strategies' => array(
-            'Mustache\View\Strategy'
+            'CG_Mustache\View\Strategy'
         ),
     ),
     // Placeholder for console routes
