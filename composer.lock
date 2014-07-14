@@ -1487,17 +1487,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.11.2",
+            "version": "1.11.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "1e1f917bc0290084df98cd9396b6af9830f5ce75"
+                "reference": "31da3858c454b532a6c1dda6ecf362070130daaa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.11.2-5fa7ff.zip",
-                "reference": "1e1f917bc0290084df98cd9396b6af9830f5ce75",
-                "shasum": "15244bb1db2780c756148cd7cfc73c1e4ade51fc"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.11.4-351659.zip",
+                "reference": "31da3858c454b532a6c1dda6ecf362070130daaa",
+                "shasum": "3e20dfc1abb4315d2a7d9c46833cd985ec1297c6"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1527,7 +1527,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-07-14 10:12:07"
+            "time": "2014-07-14 13:55:17"
         },
         {
             "name": "cilex/cilex",
