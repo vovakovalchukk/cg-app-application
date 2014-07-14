@@ -111,7 +111,9 @@ class ShippingController extends AbstractActionController
     protected function getIndividualAliasView(AliasEntity $alias)
     {
         $view = $this->getViewModelFactory()->newInstance([
-            'id' => 'shipping-alias-' . $alias->getId()
+            'id' => 'shipping-alias-' . $alias->getId(),
+            'aliasId' => $alias->getId(),
+            'aliasEtag' => $alias->getETag()
         ]);
         $view->addChild($this->getTextView($alias), 'text');
         $view->addChild($this->getDeleteButtonView($alias), 'deleteButton');

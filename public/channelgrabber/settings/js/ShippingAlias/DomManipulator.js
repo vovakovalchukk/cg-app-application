@@ -41,7 +41,7 @@ define([
             var multiSelect = cgmustache.renderTemplate(templates, {'options': methodCollection.getItems(),
                     'name': 'aliasMultiSelect-' + aliasNo}, "multiSelect");
             var multiSelectExpanded = cgmustache.renderTemplate(templates, {}, "multiSelectExpanded", {'multiSelect' : multiSelect});
-            var alias = cgmustache.renderTemplate(templates, {'id' : 'shipping-alias-' + aliasNo}, "alias", {
+            var alias = cgmustache.renderTemplate(templates, {'id' : 'shipping-alias-new-' + aliasNo}, "alias", {
                 'multiSelectExpanded' : multiSelectExpanded,
                 'deleteButton' : deleteButton,
                 'text' : text
