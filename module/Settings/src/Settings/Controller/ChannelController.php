@@ -14,7 +14,7 @@ use CG_UI\View\Prototyper\ViewModelFactory;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use CG\Channel\Service as ChannelService;
-use Mustache\View\Renderer as MustacheRenderer;
+use CG_Mustache\View\Renderer as MustacheRenderer;
 use CG_UI\Form\Factory as FormFactory;
 use CG\Zend\Stdlib\View\Model\Exception as ViewModelException;
 use CG\Stdlib\Exception\Runtime\NotFound;

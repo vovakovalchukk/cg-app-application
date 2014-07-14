@@ -30,7 +30,7 @@ define([
         };
         CGMustache.get().fetchTemplates(aliasUrlMap, function(templates, cgmustache)
         {
-            var aliasNo = $('.shipping-alias').length + 1;
+            var aliasNo = $('.shipping-alias').length;
             var text = cgmustache.renderTemplate(templates, {'name': "alias-name-" + aliasNo}, "text");
             var deleteButton = cgmustache.renderTemplate(templates, {
                 'buttons' : true,
@@ -41,14 +41,15 @@ define([
             var multiSelect = cgmustache.renderTemplate(templates, {'options': methodCollection.getItems(),
                     'name': 'aliasMultiSelect-' + aliasNo}, "multiSelect");
             var multiSelectExpanded = cgmustache.renderTemplate(templates, {}, "multiSelectExpanded", {'multiSelect' : multiSelect});
-            var alias = cgmustache.renderTemplate(templates, {
-                'id' : 'shipping-alias-' + aliasNo
-            }, "alias", {
+            var alias = cgmustache.renderTemplate(templates, {'id' : 'shipping-alias-new-' + aliasNo}, "alias", {
                 'multiSelectExpanded' : multiSelectExpanded,
                 'deleteButton' : deleteButton,
                 'text' : text
             });
 
+            if (!aliasNo) {
+                $(DomManipulator.DOM_SELECTOR_ALIAS_CONTAINER).html("");
+            }
             self.prepend(DomManipulator.DOM_SELECTOR_ALIAS_CONTAINER, alias);
             self.updateAllAliasMethodCheckboxes();
         });
