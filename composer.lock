@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b078074e3d31589a2a2f21da2abb5389",
+    "hash": "61f3ce524e8d60d6961c74d4edd532a1",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -336,6 +336,13 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -551,6 +558,13 @@
                 "predis/predis": "v0.8.3"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Predis\\": ""
@@ -585,17 +599,17 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.0.6",
+            "version": "1.0.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "94031d783dd027996362ca3cc8f2df2cef03228a"
+                "reference": "18d2251c0c69a679e7bf1b78455ede810c2e3cf5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.0.6-f6c4af.zip",
-                "reference": "94031d783dd027996362ca3cc8f2df2cef03228a",
-                "shasum": "227d1750a0e980c0b397c936040551e07837c27a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.0.7-e6dd81.zip",
+                "reference": "18d2251c0c69a679e7bf1b78455ede810c2e3cf5",
+                "shasum": "c957243a444c69223b31b3c80895158fd071c2dc"
             },
             "require": {
                 "channelgrabber/cache": ">=1.2.4",
@@ -609,7 +623,7 @@
                     "CG\\Settings\\": ""
                 }
             },
-            "time": "2014-07-11 13:57:05"
+            "time": "2014-07-14 14:28:52"
         },
         {
             "name": "channelgrabber/slim",
@@ -1488,17 +1502,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.11.3",
+            "version": "1.11.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "71b696c9768836b2a2c3bcfc57c1ada72adb7078"
+                "reference": "31da3858c454b532a6c1dda6ecf362070130daaa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.11.3-1d09ad.zip",
-                "reference": "71b696c9768836b2a2c3bcfc57c1ada72adb7078",
-                "shasum": "1c47e8bd8322d29fce6a18c9e78a7c15fdcbe3d3"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.11.4-351659.zip",
+                "reference": "31da3858c454b532a6c1dda6ecf362070130daaa",
+                "shasum": "3e20dfc1abb4315d2a7d9c46833cd985ec1297c6"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1528,7 +1542,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-07-14 11:14:53"
+            "time": "2014-07-14 13:55:17"
         },
         {
             "name": "cilex/cilex",
@@ -1868,9 +1882,7 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -1958,8 +1970,7 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com",
-                    "role": "Developer"
+                    "homepage": "http://benramsey.com"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
