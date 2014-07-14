@@ -99,6 +99,7 @@ class InvoiceController extends AbstractActionController
             ->setVariable('invoiceSettings', $invoiceSettings)
             ->setVariable('tradingCompanies', $tradingCompanies)
             ->setVariable('invoices', $invoices)
+            ->addChild($this->getInvoiceSettingsDefaultSelectView($invoiceSettings, $invoices), 'defaultCustomSelect')
             ->addChild($this->getTradingCompanyInvoiceSettingsDataTable(), 'invoiceSettingsDataTable');
         return $view;
     }
@@ -114,8 +115,8 @@ class InvoiceController extends AbstractActionController
             )
         );
         $settings->setTemplateUrlMap([
-                'tradingCompany' => '/channelgrabber/settings/template/columns/tradingCompany.html',
-                'assignedInvoice' => '/channelgrabber/settings/template/columns/assignedInvoice.html',
+            'tradingCompany' => '/channelgrabber/settings/template/columns/tradingCompany.html',
+            'assignedInvoice' => \CG_UI\Module::PUBLIC_FOLDER . '/templates/elements/custom-select.mustache',
         ]);
         return $datatables;
     }
@@ -140,6 +141,21 @@ class InvoiceController extends AbstractActionController
         $view->setVariable('dataFieldOptions', $this->getOrderTagManager()->getAvailableTags());
 
         return $view;
+    }
+
+    protected function getInvoiceSettingsDefaultSelectView($invoiceSettings, $invoices)
+    {
+        $customSelectConfig['name'] = 'defaultInvoiceCustomSelect';
+        $customSelectConfig['id'] = $customSelectConfig['name'];
+        foreach ($invoices as $invoice) {
+            $customSelectConfig['options'][] = [
+                'title' => $invoice->getName(),
+                'value' => $invoice->getId(),
+                'selected' => ($invoice->getId() == $invoiceSettings->getDefault())
+            ];
+        };
+        return $this->getViewModelFactory()->newInstance($customSelectConfig)
+                                            ->setTemplate('elements/custom-select.mustache');
     }
 
     protected function getTemplateSelectView()
