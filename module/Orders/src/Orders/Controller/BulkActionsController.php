@@ -186,25 +186,10 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function invoiceOrderIdsAction()
     {
         try {
-            $x = $this->invoiceOrders(
+            return $this->invoiceOrders(
                 $this->getOrdersFromOrderIds()
             );
-            return $x;
-            return $this->getJsonModelFactory()->newInstance(['r' => print_r($x, true)]);
         } catch (NotFound $exception) {
-            $e = $exception->getPrevious();
-
-
-            return $this->getJsonModelFactory()->newInstance([
-                'response' => get_class($e),
-                'code' => $e->getMessage(),
-                'loc' => $e->getFile() . ' L' . $e->getLine(),
-                'foo' => (string) $e->getRequest(),
-                'request' => $e->getRequest()->getMethod() .' '. $e->getRequest()->getUrl(),
-                'params' => print_r($e->getRequest()->getParams(), true),
-                'body' => print_r($e->getRequest()->getBody(), true),
-                'trace' => get_class_methods($e->getRequest())
-            ]);
             return $this->redirect()->toRoute('Orders');
         }
     }
