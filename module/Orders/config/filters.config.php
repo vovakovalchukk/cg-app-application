@@ -172,14 +172,15 @@ return [
                         ],
                         [
                             'filterType' => 'customSelectGroup',
-                            'visible' => false,
+                            'visible' => true, //TODO
                             'variables' => [
                                 'name' => 'currencyCode',
                                 'title' => 'Currency',
                                 'searchField' => true,
                                 'isOptional' => true,
                                 'concatenate' => true,
-                                'options' => []
+                                'options' => [],
+                                'priorityOptions' => []
                             ],
                             'optionsProvider' => CurrencyService::class,
                         ],
