@@ -1,15 +1,19 @@
 <?php
 namespace Orders\Order\Invoice;
 
-use Zend\Di\Di;
-use Orders\Order\Service as OrderService;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection;
+use CG\Order\Shared\Entity as OrderEntity;
+use CG\Settings\Invoice\Shared\Entity as InvoiceSettingsEntity;
+use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
 use CG\Stdlib\DateTime;
-use Orders\Order\Invoice\Template\Factory as TemplateFactory;
 use CG\Template\Element\Factory as ElementFactory;
-use Orders\Order\Invoice\Renderer\ServiceInterface as RendererService;
 use CG\Template\PaperPage;
+use CG\User\ActiveUserInterface;
+use Orders\Order\Invoice\Renderer\ServiceInterface as RendererService;
+use Orders\Order\Invoice\Template\Factory as TemplateFactory;
+use Orders\Order\Service as OrderService;
+use Zend\Di\Di;
 
 class Service
 {
@@ -18,20 +22,23 @@ class Service
     protected $templateFactory;
     protected $elementFactory;
     protected $rendererService;
+    protected $invoiceSettingsService;
 
     public function __construct(
         Di $di,
         OrderService $orderService,
         TemplateFactory $templateFactory,
         ElementFactory $elementFactory,
-        RendererService $rendererService
+        RendererService $rendererService,
+        InvoiceSettingsService $invoiceSettingsService
     ) {
         $this
             ->setDi($di)
             ->setOrderService($orderService)
             ->setTemplateFactory($templateFactory)
             ->setElementFactory($elementFactory)
-            ->setRendererService($rendererService);
+            ->setRendererService($rendererService)
+            ->setInvoiceSettingsService($invoiceSettingsService);
     }
 
     public function setDi(Di $di)
@@ -60,6 +67,20 @@ class Service
     public function getOrderService()
     {
         return $this->orderService;
+    }
+
+    public function setInvoiceSettingsService(InvoiceSettingsService $invoiceSettingsService)
+    {
+        $this->invoiceSettingsService = $invoiceSettingsService;
+        return $this;
+    }
+
+    /**
+     * @return InvoiceSettingsService
+     */
+    public function getInvoiceSettingsService()
+    {
+        return $this->invoiceSettingsService;
     }
 
     public function setTemplateFactory(TemplateFactory $templateFactory)
@@ -112,13 +133,27 @@ class Service
     {
         $filter = $this->getDi()->get(Filter::class, ['orderIds' => $orderIds]);
         $orderCollection = $this->getOrderService()->getOrders($filter);
-        return $this->getResponseFromOrderCollection($orderCollection);
+        return $this->getResponseFromOrderCollection(
+            $orderCollection,
+            $this->getInvoiceSettings()
+        );
     }
 
     public function getResponseFromFilterId($filterId)
     {
         return $this->getResponseFromOrderCollection(
-            $this->getOrderService()->getOrdersFromFilterId($filterId)
+            $this->getOrderService()->getOrdersFromFilterId($filterId),
+            $this->getInvoiceSettings()
+        );
+    }
+
+    /**
+     * @return InvoiceSettingsEntity
+     */
+    protected function getInvoiceSettings()
+    {
+        return $this->getInvoiceSettingsService()->fetch(
+            $this->getOrderService()->getActiveUser()->getOrganisationUnitId()
         );
     }
 
@@ -152,7 +187,7 @@ class Service
      * @param Collection $orderCollection
      * @return Response
      */
-    public function getResponseFromOrderCollection(Collection $orderCollection, $template = null)
+    public function getResponseFromOrderCollection(Collection $orderCollection)
     {
         $this->markOrdersAsPrintedFromOrderCollection($orderCollection);
         return $this->getDi()->get(
@@ -160,7 +195,7 @@ class Service
             [
                 'mimeType' => $this->getRendererService()->getMimeType(),
                 'filename' => $this->getRendererService()->getFileName(),
-                'content' => $this->generateInvoiceFromOrderCollection($orderCollection, $template)
+                'content' => $this->generateInvoiceFromOrderCollection($orderCollection)
             ]
         );
     }
@@ -175,19 +210,29 @@ class Service
         }
     }
 
-    public function generateInvoiceFromOrderCollection(Collection $orderCollection, $template = null)
+    protected function getTemplate(InvoiceSettingsEntity $invoiceSettings, OrderEntity $order)
     {
-        $renderedContent = [];
-        if (! isset($template)) {
-            $template = $this->getTemplateFactory()->getDefaultTemplateForOrderEntity(
-                $this->getOrderService()->getActiveUser()->getOrganisationUnitId()
-            );
-        }
+        $templateId = $invoiceSettings->getDefault();
+        $tradingCompanyDefaults = $invoiceSettings->getTradingCompanies();
+        $tradingCompanyId = $order->getOrganisationUnitId();
 
+        if (isset($tradingCompanyDefaults[$tradingCompanyId])) {
+            $templateId = $tradingCompanyDefaults[$tradingCompanyId];
+        }
+        if ($templateId == null) {
+            return $this->getTemplateFactory()->getDefaultTemplateForOrderEntity($templateId);
+        }
+        return $this->getTemplateFactory()->getTemplateById($templateId);
+    }
+
+    public function generateInvoiceFromOrderCollection(Collection $orderCollection)
+    {
+        $invoiceSettings = $this->getInvoiceSettings();
+        $renderedContent = [];
         foreach ($orderCollection as $order) {
             $renderedContent[] = $this->getRendererService()->renderOrderTemplate(
                 $order,
-                $template
+                $this->getTemplate($invoiceSettings, $order)
             );
         }
         return $this->getRendererService()->combine($renderedContent);

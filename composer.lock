@@ -1,7 +1,8 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
     "hash": "b5fa967598a1d8ca86d6cd5ca6e3165b",
     "packages": [
@@ -561,17 +562,17 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.0.6",
+            "version": "1.0.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "94031d783dd027996362ca3cc8f2df2cef03228a"
+                "reference": "1640cff80cac76bc23858ca6242e50ac68306661"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.0.6-f6c4af.zip",
-                "reference": "94031d783dd027996362ca3cc8f2df2cef03228a",
-                "shasum": "227d1750a0e980c0b397c936040551e07837c27a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.0.8-af39cd.zip",
+                "reference": "1640cff80cac76bc23858ca6242e50ac68306661",
+                "shasum": "3038aa7935120ea9fdbaf53ccacf42ccf55952e3"
             },
             "require": {
                 "channelgrabber/cache": ">=1.2.4",
@@ -585,7 +586,7 @@
                     "CG\\Settings\\": ""
                 }
             },
-            "time": "2014-07-11 13:57:05"
+            "time": "2014-07-14 15:29:59"
         },
         {
             "name": "channelgrabber/slim",
@@ -661,17 +662,17 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.7.1",
+            "version": "2.7.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "50285600f31f5a571dd94efc58d980a6f9a13021"
+                "reference": "8b5bc6f965569253741551a4b8c5a5525eca5418"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.7.1-4cef70.zip",
-                "reference": "50285600f31f5a571dd94efc58d980a6f9a13021",
-                "shasum": "4c2a7653660bbc65747e66b81961a9eec89598f3"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.7.2-f71706.zip",
+                "reference": "8b5bc6f965569253741551a4b8c5a5525eca5418",
+                "shasum": "b5466c139bf32ee7a329c1937d4b55c77f51b161"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -690,7 +691,7 @@
                     "CG/Stdlib/Utilities.php"
                 ]
             },
-            "time": "2014-07-08 09:45:23"
+            "time": "2014-07-14 09:26:43"
         },
         {
             "name": "channelgrabber/template",
@@ -763,17 +764,17 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.16.0",
+            "version": "1.16.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "a926f89e9545f158b7b9ded7b01df58f0b1a9e16"
+                "reference": "31f8cf280d36ac78a1746aa3bdd3c26765f3d18e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.16.0-d9867f.zip",
-                "reference": "a926f89e9545f158b7b9ded7b01df58f0b1a9e16",
-                "shasum": "6a2e20a8036dd205d73cf719d9ff5e94436d2afb"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.16.1-380a3b.zip",
+                "reference": "31f8cf280d36ac78a1746aa3bdd3c26765f3d18e",
+                "shasum": "2e1d95323867cb1db5d0cb3c67a06cbe9e58a2f1"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -785,7 +786,7 @@
                 "channelgrabber/log": ">=1.5.2",
                 "channelgrabber/permission": ">=1.0.1",
                 "channelgrabber/slim": ">=1.6.0,<2.0.0",
-                "channelgrabber/stdlib": ">=2.7.0,<3",
+                "channelgrabber/stdlib": ">=2.7.2,<3",
                 "channelgrabber/validation": ">=1.2.0",
                 "channelgrabber/zf2-stdlib": ">=1.1.7,<2.0.0",
                 "guzzle/guzzle": "~3.7",
@@ -805,7 +806,7 @@
                     "CG": ""
                 }
             },
-            "time": "2014-07-07 16:04:45"
+            "time": "2014-07-14 09:48:32"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -1150,23 +1151,24 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.4.5.2",
+            "version": "1.4.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "fdc62d6fb85d0593b6913312ed7605f5a6999f24"
+                "reference": "2661ab9fead51d09ef6c2eff5458dbcb0b8e0e09"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.5.2-cf06e5.zip",
-                "reference": "fdc62d6fb85d0593b6913312ed7605f5a6999f24",
-                "shasum": "39c4d6c1be88847f1e0a9c1dded63e49603fb296"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.6-010570.zip",
+                "reference": "2661ab9fead51d09ef6c2eff5458dbcb0b8e0e09",
+                "shasum": "f1ca9ebec10d514631e77d0937e1ed833e22b836"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/stdlib": ">=2.2.0",
                 "channelgrabber/user": ">=1.13.14",
+                "channelgrabber/zf2-mustache": ">=1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.1",
                 "channelgrabber/zf2-v4-ui": ">=1.4.1",
                 "guzzle/guzzle": "~3.7",
@@ -1195,7 +1197,43 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2014-07-11 15:37:17"
+            "time": "2014-07-14 08:17:58"
+        },
+        {
+            "name": "channelgrabber/zf2-mustache",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/mustache-module.git",
+                "reference": "5c4a7ae309ffac403e97d6ef33dd51ff6a7ef330"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-mustache-1.0.0-97236f.zip",
+                "reference": "5c4a7ae309ffac403e97d6ef33dd51ff6a7ef330",
+                "shasum": "0839338777b066c5e444d77ce58ec0a7af1e4d49"
+            },
+            "require": {
+                "mustache/mustache": "2.*",
+                "zendframework/zend-eventmanager": "2.*",
+                "zendframework/zend-modulemanager": "2.*",
+                "zendframework/zend-servicemanager": "2.*",
+                "zendframework/zend-view": "2.*"
+            },
+            "type": "zf2-mustache",
+            "extra": {
+                "zf2-module": "CG_Mustache"
+            },
+            "autoload": {
+                "psr-0": {
+                    "CG_Mustache": "src/"
+                },
+                "classmap": [
+                    "./Module.php"
+                ]
+            },
+            "description": "ZF2 Mustache rendering module",
+            "time": "2014-07-14 08:14:26"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -3130,7 +3168,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
