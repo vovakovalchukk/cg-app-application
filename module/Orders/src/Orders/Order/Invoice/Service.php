@@ -78,7 +78,7 @@ class Service
     /**
      * @return InvoiceSettingsService
      */
-    public function getInvoiceSettingsService()
+    protected function getInvoiceSettingsService()
     {
         return $this->invoiceSettingsService;
     }
@@ -210,8 +210,9 @@ class Service
         }
     }
 
-    protected function getTemplateId(InvoiceSettingsEntity $invoiceSettings, OrderEntity $order)
+    protected function getTemplateId(OrderEntity $order)
     {
+        $invoiceSettings = $this->getInvoiceSettings();
         $templateId = $invoiceSettings->getDefault();
         $tradingCompanyDefaults = $invoiceSettings->getTradingCompanies();
         $tradingCompanyId = $order->getOrganisationUnitId();
@@ -222,29 +223,23 @@ class Service
         return $templateId;
     }
 
-    protected function getTemplate(InvoiceSettingsEntity $invoiceSettings, OrderEntity $order)
+    protected function getTemplate(OrderEntity $order)
     {
-        $templateId = $this->getTemplateId($invoiceSettings, $order);
+        $templateId = $this->getTemplateId($order);
 
         if (! isset($this->templates[$templateId])) {
-            if ($templateId == null) {
-                $template = $this->getTemplateFactory()->getDefaultTemplateForOrderEntity($templateId);
-            } else {
-                $template = $this->getTemplateFactory()->getTemplateById($templateId);
-            }
-            $this->template[$templateId] = $template;
+            $this->templates[$templateId] = $this->getTemplateFactory()->getTemplateById($templateId);
         }
         return $this->templates[$templateId];
     }
 
     public function generateInvoiceFromOrderCollection(Collection $orderCollection)
     {
-        $invoiceSettings = $this->getInvoiceSettings();
         $renderedContent = [];
         foreach ($orderCollection as $order) {
             $renderedContent[] = $this->getRendererService()->renderOrderTemplate(
                 $order,
-                $this->getTemplate($invoiceSettings, $order)
+                $this->getTemplate($order)
             );
         }
         return $this->getRendererService()->combine($renderedContent);
