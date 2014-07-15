@@ -9,7 +9,6 @@ use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
 use CG\Stdlib\DateTime;
 use CG\Template\Element\Factory as ElementFactory;
 use CG\Template\PaperPage;
-use CG\User\ActiveUserInterface;
 use Orders\Order\Invoice\Renderer\ServiceInterface as RendererService;
 use Orders\Order\Invoice\Template\Factory as TemplateFactory;
 use Orders\Order\Service as OrderService;
@@ -23,6 +22,7 @@ class Service
     protected $elementFactory;
     protected $rendererService;
     protected $invoiceSettingsService;
+    protected $templates = [];
 
     public function __construct(
         Di $di,
@@ -210,7 +210,7 @@ class Service
         }
     }
 
-    protected function getTemplate(InvoiceSettingsEntity $invoiceSettings, OrderEntity $order)
+    protected function getTemplateId(InvoiceSettingsEntity $invoiceSettings, OrderEntity $order)
     {
         $templateId = $invoiceSettings->getDefault();
         $tradingCompanyDefaults = $invoiceSettings->getTradingCompanies();
@@ -219,10 +219,22 @@ class Service
         if (isset($tradingCompanyDefaults[$tradingCompanyId])) {
             $templateId = $tradingCompanyDefaults[$tradingCompanyId];
         }
-        if ($templateId == null) {
-            return $this->getTemplateFactory()->getDefaultTemplateForOrderEntity($templateId);
+        return $templateId;
+    }
+
+    protected function getTemplate(InvoiceSettingsEntity $invoiceSettings, OrderEntity $order)
+    {
+        $templateId = $this->getTemplateId($invoiceSettings, $order);
+
+        if (! isset($this->templates[$templateId])) {
+            if ($templateId == null) {
+                $template = $this->getTemplateFactory()->getDefaultTemplateForOrderEntity($templateId);
+            } else {
+                $template = $this->getTemplateFactory()->getTemplateById($templateId);
+            }
+            $this->template[$templateId] = $template;
         }
-        return $this->getTemplateFactory()->getTemplateById($templateId);
+        return $this->templates[$templateId];
     }
 
     public function generateInvoiceFromOrderCollection(Collection $orderCollection)
