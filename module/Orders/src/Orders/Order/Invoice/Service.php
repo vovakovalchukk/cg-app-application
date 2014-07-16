@@ -147,16 +147,6 @@ class Service
         );
     }
 
-    /**
-     * @return InvoiceSettingsEntity
-     */
-    protected function getInvoiceSettings()
-    {
-        return $this->getInvoiceSettingsService()->fetch(
-            $this->getOrderService()->getActiveUser()->getOrganisationUnitId()
-        );
-    }
-
     public function createTemplate(array $config)
     {
         $config['elements'] = $this->createElements($config['elements']);
@@ -212,15 +202,10 @@ class Service
 
     protected function getTemplateId(OrderEntity $order)
     {
-        $invoiceSettings = $this->getInvoiceSettings();
-        $templateId = $invoiceSettings->getDefault();
-        $tradingCompanyDefaults = $invoiceSettings->getTradingCompanies();
-        $tradingCompanyId = $order->getOrganisationUnitId();
-
-        if (isset($tradingCompanyDefaults[$tradingCompanyId])) {
-            $templateId = $tradingCompanyDefaults[$tradingCompanyId];
-        }
-        return $templateId;
+        return $this->getInvoiceSettingsService()->fetchTemplateIdFromOrganisationUnitId(
+            $this->getOrderService()->getActiveUser()->getOrganisationUnitId(),
+            $order->getOrganisationUnitId()
+        );
     }
 
     protected function getTemplate(OrderEntity $order)
