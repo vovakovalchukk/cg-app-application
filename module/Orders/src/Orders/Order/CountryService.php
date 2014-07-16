@@ -20,7 +20,7 @@ class CountryService implements SelectOptionsInterface, SelectPriorityOptionsInt
         try {
             return $this->getPriorityActiveUserCountries();
         } catch (NotFound $e) {
-            // No currencies
+            // No countries
             return [];
         }
     }
