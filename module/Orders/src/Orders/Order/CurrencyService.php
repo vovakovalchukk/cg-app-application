@@ -40,7 +40,7 @@ class CurrencyService implements SelectOptionsInterface, SelectPriorityOptionsIn
         return [
             'GBP' => 'UK Pound',
             'EUR' => 'Euro',
-            'USD' => 'US Dollar',
+            'USD' => 'US Dollar'
         ];
     }
 
