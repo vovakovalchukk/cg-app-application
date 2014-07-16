@@ -73,12 +73,14 @@ define([
             templatePage.set('width', selectedPaperType.getWidth(), true);
             templatePage.set('backgroundImage', backgroundImage, true);
             templatePage.set('paperType', selectedPaperType.getId(), true);
+            templatePage.set('inverse', isInverse, true);
             return;
         }
         templatePage.setHeight(selectedPaperType.getHeight());
         templatePage.setWidth(selectedPaperType.getWidth());
         templatePage.setBackgroundImage(backgroundImage);
         templatePage.setPaperType(selectedPaperType.getId());
+        templatePage.setInverse(isInverse);
     };
 
     return new PaperType();
