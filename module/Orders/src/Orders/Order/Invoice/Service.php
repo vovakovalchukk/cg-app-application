@@ -212,9 +212,10 @@ class Service
     {
         $templateId = $this->getTemplateId($order);
 
-        if (! isset($this->templates[$templateId])) {
-            $this->templates[$templateId] = $this->getTemplateFactory()->getTemplateById($templateId);
+        if (isset($this->templates[$templateId])) {
+            return $this->templates[$templateId];
         }
+        $this->templates[$templateId] = $this->getTemplateFactory()->getTemplateById($templateId);
         return $this->templates[$templateId];
     }
 
