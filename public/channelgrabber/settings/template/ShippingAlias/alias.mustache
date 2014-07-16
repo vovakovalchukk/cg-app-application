@@ -1,0 +1,19 @@
+<div id="{{id}}" class="shipping-alias">
+    <input type="hidden" name="shipping-alias-id" value="{{aliasId}}">
+    <input type="hidden" name="shipping-alias-storedETag" value="{{aliasEtag}}">
+    <div class="shipping-alias-name-holder">
+        <span class="inputbox-label">Shipping Alias</span>
+        <div class="order-inputbox-holder">
+            {{> text}}
+        </div>
+    </div>
+    <div class="shipping-alias-delete">
+        {{> deleteButton}}
+    </div>
+    <div class="shipping-alias-inner">
+        <div class="channel-shipping-methods">
+            <span class="inputbox-label">Channel Shipping Methods</span>
+            {{> multiSelectExpanded}}
+        </div>
+    </div>
+</div>

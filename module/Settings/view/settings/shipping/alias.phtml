@@ -1,0 +1,50 @@
+<?php $this->inlineScript()->captureStart(); ?>
+$(document).ready(function() {
+    require.config({
+        paths: {
+            'ShippingAlias': "<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/ShippingAlias';?>"
+        }
+    });
+    var shippingMethods = $.parseJSON('<?= json_encode($shippingMethods); ?>');
+    var rootOuId = <?=$rootOuId;?>;
+    require([
+        'ShippingAlias/DomManipulator',
+        'ShippingAlias/MethodCollection',
+        'ShippingAlias/DomListener/AddButton',
+        'ShippingAlias/DomListener/DeleteButton',
+        'ShippingAlias/DomListener/AliasChange',
+        'ShippingAlias/Mapper'
+    ], function(
+        domManipulator,
+        methodCollection,
+        addButtonListener,
+        deleteButtonListener,
+        aliasChangeListener,
+        mapper
+    ) {
+        $(document).ready(function()
+        {
+            methodCollection.setItems(mapper.fromCollectionToOptions(shippingMethods));
+
+            addButtonListener.init();
+            deleteButtonListener.init(rootOuId);
+            aliasChangeListener.init(rootOuId);
+
+            domManipulator.updateAllAliasMethodCheckboxes();
+        });
+    });
+});
+<?php $this->inlineScript()->captureEnd(); ?>
+<div class="padded-content-holder">
+    <div class="shipping-alias-wrapper">
+        <span class="heading-large">
+            <?= $this->translate($title) ?>
+            <div class="add-settings">
+            <?= $addButton ?>
+            </div>
+        </span>
+        <div id="shipping-alias-container">
+            <?= $aliases ?>
+        </div>
+    </div>
+</div>

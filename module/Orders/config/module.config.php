@@ -21,6 +21,7 @@ use CG\Order\Service\Filter\StorageInterface as FilterStorageInterface;
 use CG\Order\Client\Filter\Storage\Api as FilterStorage;
 use Orders\Controller\BulkActionsController;
 use Orders\Controller\CancelController;
+use CG\Settings\Alias\Storage\Api as ShippingAliasStorage;
 
 return [
     'router' => [
@@ -377,6 +378,15 @@ return [
                                     ]
                                 ],
                             ],
+                            'invoice_check' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/check',
+                                    'defaults' => [
+                                        'action' => 'checkInvoicePrintingAllowed'
+                                    ]
+                                ],
+                            ],
                         ]
                     ],
                     StoredFiltersController::ROUTE_SAVE => [
@@ -439,7 +449,7 @@ return [
         ],
         'strategies' => [
             'ViewJsonStrategy',
-            'Mustache\View\Strategy'
+            'CG_Mustache\View\Strategy'
         ],
     ],
     'di' => [
@@ -825,6 +835,21 @@ return [
                     'client' => 'cg_app_guzzle'
                 ],
             ],
+            ShippingAliasStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
+            BulkActionsController::class => [
+                'parameters' => [
+                    'usageService' => 'order_count_usage_service'
+                ]
+            ],
+            Controller\OrdersController::class => [
+                'parameters' => [
+                    'usageService' => 'order_count_usage_service'
+                ]
+            ]
         ],
     ],
     'navigation' => array(

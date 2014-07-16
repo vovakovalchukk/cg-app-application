@@ -4,7 +4,7 @@ define(['element/moreButton', 'element/ElementCollection'], function(MoreButton,
     {
         this.savedFilters = {};
 
-        filters = $(filters)
+        filters = $(filters);
         this.getFilters = function() {
             return filters;
         };
@@ -13,6 +13,14 @@ define(['element/moreButton', 'element/ElementCollection'], function(MoreButton,
         this.getFilterList = function() {
             return filterList;
         };
+
+        optionalFilters = {};
+        $('.custom-select[data-element-name=more] li').each(function() {
+            if ($(this).attr('data-value')) {
+                var json = JSON.parse($(this).attr('data-value'));
+                optionalFilters[json['name']] = json;
+            }
+        });
 
         this.applyFilterValues = function(filterName, filterOptions)
         {
@@ -68,7 +76,6 @@ define(['element/moreButton', 'element/ElementCollection'], function(MoreButton,
     {
         var filters = $(listElement).data("filter");
         this.clearFilters();
-        MoreButton.removeFilters();
         this.getFilters().trigger("reset");
         
         Filters.pendingFilters = Object.keys(filters).length;
@@ -78,13 +85,15 @@ define(['element/moreButton', 'element/ElementCollection'], function(MoreButton,
             var filter = elementCollection.get(filterName);
             
             if (!filter) {
-                if (MoreButton.addFilter(filterName)) {
+                var template = optionalFilters[filterName]['template'];
+                var variables = optionalFilters[filterName]['variables'];
+                if (MoreButton.addFilter(filterName, template, variables)) {
                     this.prepareFilterValues(filterName, filterOptions);
                 }
             } else {
                 this.applyFilterValues(filterName, filterOptions);
             }
-        };
+        }
     };
 
     Filters.prototype.updateFilters = function() {

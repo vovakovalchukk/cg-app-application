@@ -20,8 +20,8 @@ define(function() {
                     }
                     notifications.error(data.error);
                 },
-                error: function() {
-                    notifications.error("Network Error");
+                error: function (error, textStatus, errorThrown) {
+                    return notifications.ajaxError(error, textStatus, errorThrown);
                 },
                 complete: function() {
                     if (datatable) {

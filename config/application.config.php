@@ -5,7 +5,7 @@ return array (
     0 => 'Application',
     1 => 'NewRelic',
     2 => 'CG_Log',
-    3 => 'Mustache',
+    3 => 'CG_Mustache',
     4 => 'CG_UI',
     5 => 'CG_Permission',
     6 => 'CG_Login',
@@ -18,6 +18,7 @@ return array (
     13 => 'CG_Ebay',
     14 => 'CG_Channel',
     15 => 'CG_Sessions',
+    16 => 'CG_Usage',
   ),
   'module_listener_options' => 
   array (

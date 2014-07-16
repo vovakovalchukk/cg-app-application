@@ -7,6 +7,8 @@ use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Template\Entity as Template;
 use CG_UI\View\Prototyper\JsonModelFactory;
+use CG_Usage\Service as UsageService;
+use CG_Usage\Exception\Exceeded as UsageExceeded;
 use Orders\Order\Service as OrderService;
 use Orders\Controller\BulkActions\ExceptionInterface as Exception;
 use Orders\Controller\BulkActions\InvalidArgumentException;
@@ -30,6 +32,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected $orderService;
     protected $invoiceService;
     protected $batchService;
+    protected $usageService;
     protected $typeMap = [
         self::TYPE_ORDER_IDS => 'getOrdersFromOrderIds',
         self::TYPE_FILTER_ID => 'getOrdersFromFilterId',
@@ -39,13 +42,15 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         JsonModelFactory $jsonModelFactory,
         OrderService $orderService,
         InvoiceService $invoiceService,
-        BatchService $batchService
+        BatchService $batchService,
+        UsageService $usageService
     ) {
         $this
             ->setJsonModelFactory($jsonModelFactory)
             ->setOrderService($orderService)
             ->setInvoiceService($invoiceService)
-            ->setBatchService($batchService);
+            ->setBatchService($batchService)
+            ->setUsageService($usageService);
     }
 
     public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -104,7 +109,18 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         return $this->batchService;
     }
 
-    /**
+    protected function getUsageService()
+    {
+        return $this->usageService;
+    }
+
+    protected function setUsageService(UsageService $usageService)
+    {
+        $this->usageService = $usageService;
+        return $this;
+    }
+
+        /**
      * @param $action
      * @return JsonModel
      */
@@ -160,6 +176,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
                 'Unsupported Bulk Action Type - ' . $type
             );
         }
+
+        $this->checkUsage();
 
         $response = $this->getDefaultJsonResponse($action);
         try {
@@ -229,6 +247,15 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function invoiceOrders(OrderCollection $orders)
     {
         return $this->getInvoiceService()->getResponseFromOrderCollection($orders);
+    }
+
+    public function checkInvoicePrintingAllowedAction()
+    {
+        $this->checkUsage();
+
+        return $this->getJsonModelFactory()->newInstance(
+            ["allowed" => true]
+        );
     }
 
     public function tagOrderIdsAction()
@@ -395,5 +422,12 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function archiveOrders(OrderCollection $orders)
     {
         $this->getOrderService()->archiveOrders($orders);
+    }
+
+    protected function checkUsage()
+    {
+        if ($this->getUsageService()->hasUsageBeenExceeded()) {
+            throw new UsageExceeded();
+        }
     }
 }
