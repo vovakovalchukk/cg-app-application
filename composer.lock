@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a05ebb9b525202d7735c233ab9398544",
+    "hash": "33c2543ae2e77847857273fdaf74a5ad",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -585,11 +585,17 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "dev-CGIV-2654-invoiceEntityDefaultName",
+            "version": "1.0.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "3705015f524e12da82e1c3327bdbdd1b54c66eec"
+                "reference": "6890056eb4a74e4157373a6277a24f4351f9922e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.0.9-bdd955.zip",
+                "reference": "6890056eb4a74e4157373a6277a24f4351f9922e",
+                "shasum": "89a825abeec5e602b6d9105cf7e6cdc2e2717acd"
             },
             "require": {
                 "channelgrabber/cache": ">=1.2.4",
@@ -604,7 +610,7 @@
                     "CG\\Settings\\": ""
                 }
             },
-            "time": "2014-07-16 11:33:01"
+            "time": "2014-07-17 07:20:44"
         },
         {
             "name": "channelgrabber/slim",
@@ -713,11 +719,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-2654-invoiceEntityDefaultId",
+            "version": "1.2.15",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "f6392b36371c0e556a6ab6cf36c1b07f7f9ba58b"
+                "reference": "50b21745f78c7b18b89bcd6a91d2931db272594b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.15-4301a0.zip",
+                "reference": "50b21745f78c7b18b89bcd6a91d2931db272594b",
+                "shasum": "5c5991cec074d1737ec3a042783b14ff5038bbc9"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -743,7 +755,7 @@
                     "CG\\Template\\": ""
                 }
             },
-            "time": "2014-07-16 11:23:43"
+            "time": "2014-07-16 13:30:54"
         },
         {
             "name": "channelgrabber/usage",
@@ -1477,17 +1489,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.11.4",
+            "version": "1.11.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "31da3858c454b532a6c1dda6ecf362070130daaa"
+                "reference": "1cd1780fe786d7378fd78075c824e736023c96b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.11.4-351659.zip",
-                "reference": "31da3858c454b532a6c1dda6ecf362070130daaa",
-                "shasum": "3e20dfc1abb4315d2a7d9c46833cd985ec1297c6"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.11.7-658cf3.zip",
+                "reference": "1cd1780fe786d7378fd78075c824e736023c96b3",
+                "shasum": "848ad28d108bf329f49d033a8d0a844dbf2e250c"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1517,7 +1529,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-07-14 13:55:17"
+            "time": "2014-07-17 10:12:59"
         },
         {
             "name": "cilex/cilex",
@@ -3887,24 +3899,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.0.9",
-            "alias_normalized": "1.0.9.0",
-            "version": "dev-CGIV-2654-invoiceEntityDefaultName",
-            "package": "channelgrabber/settings"
-        },
-        {
-            "alias": "1.2.15",
-            "alias_normalized": "1.2.15.0",
-            "version": "dev-CGIV-2654-invoiceEntityDefaultId",
-            "package": "channelgrabber/template"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/settings": 20,
-        "channelgrabber/template": 20,
         "phpspec/phpspec": 20
     },
     "platform": {
