@@ -136,6 +136,7 @@ class InvoiceController extends AbstractActionController
         $view->setVariable('templateSelectorId', static::TEMPLATE_SELECTOR_ID);
         $view->setVariable('paperTypeDropdownId', static::PAPER_TYPE_DROPDOWN_ID);
 
+
         $view->addChild($this->getPaperTypeModule(), 'paperTypeModule');
 
         $view->setVariable('dataFieldOptions', $this->getOrderTagManager()->getAvailableTags());
