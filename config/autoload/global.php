@@ -59,6 +59,7 @@ return array(
                 $im->addSharedInstance($di->get('config', array('array' => $configuration)), 'config');
                 $im->addSharedInstance($serviceManager, ServiceManager::class);
                 $im->addSharedInstance($di->get(Config::class, array('array' => $configuration)), 'app_config');
+                $im->addSharedInstance($serviceManager, ServiceManager::class);
 
                 return $di;
             }
