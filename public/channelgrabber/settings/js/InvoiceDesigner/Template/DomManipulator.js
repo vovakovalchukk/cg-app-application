@@ -21,7 +21,6 @@ define([
     DomManipulator.EVENT_IMAGE_UPLOAD_FILE_SELECTED = 'invoice-template-image-selected';
     DomManipulator.DOM_SELECTOR_TEMPLATE_CONTAINER = '#invoice-template-container';
     DomManipulator.CUSTOM_SELECT_TEMPLATE_PATH = '/channelgrabber/zf2-v4-ui/templates/elements/custom-select.mustache';
-    DomManipulator.PAPERTYPE_CHECKBOX = 'inverseLabelPosition';
 
     DomManipulator.prototype.insertTemplateHtml = function(html)
     {
