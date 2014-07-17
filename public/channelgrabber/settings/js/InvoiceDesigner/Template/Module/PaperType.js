@@ -21,17 +21,17 @@ define([
         this.getStorage = function()
         {
             return storage;
-        }
+        };
 
         this.setAvailablePaperTypes = function(newAvailablePaperTypes)
         {
             availablePaperTypes = newAvailablePaperTypes;
-        }
+        };
 
         this.getAvailablePaperTypes = function()
         {
             return availablePaperTypes;
-        }
+        };
     };
 
     PaperType.DEFAULT_ID = 1;
@@ -89,7 +89,6 @@ define([
         templatePage.setBackgroundImage(backgroundImage);
         templatePage.setPaperType(selectedPaperType.getId());
         templatePage.setInverse(isInverse);
-
     };
 
     return new PaperType();
