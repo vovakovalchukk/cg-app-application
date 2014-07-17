@@ -137,7 +137,7 @@ define([
 
     DomManipulator.prototype.changeCheckBoxState = function(selector, value)
     {
-        return $(selector).prop("checked", value);
+        return $(selector).prop('checked', value);
     };
 
     DomManipulator.prototype.resetCheckbox = function(selector)
