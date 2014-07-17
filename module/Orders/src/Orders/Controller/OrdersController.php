@@ -43,6 +43,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected $storedFiltersService;
     protected $usageService;
     protected $shippingConversionService;
+    protected $carriers;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
@@ -132,6 +133,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         }
 
         $order = $this->getOrderService()->getOrder($this->params('order'));
+        $carriers = $this->getOrderService()->getCarriersData();
+        var_dump($carriers);
+        die();
         $view = $this->getViewModelFactory()->newInstance(
             [
                 'order' => $order
@@ -476,8 +480,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $this;
     }
 
-    /**
-     * @return StoredFiltersService
+     /* @return StoredFiltersService
      */
     protected function getStoredFiltersService()
     {

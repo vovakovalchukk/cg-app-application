@@ -219,6 +219,29 @@ require([
         </form>
     </div>
 </div>
+<div class="module clearfix section-separator" id="tracking-information">
+    <span class="heading-large heading-spacing"><?= $this->translate('Shipping'); ?></span>
+    <form id="trackingInformation" data-url="<?= $this->url('Orders/order/address', array('order' => $order->getId())); ?>"
+              data-actionMessage="<?= $this->translate('Updating address'); ?>" data-successMessage="<?= $this->translate('Address updated'); ?>">
+        <label>
+        <span class="inputbox-label"><?= $this->translate('Carrier'); ?></span>
+            <div class="order-inputbox-holder">
+                <input class="custom-select" type="text" name="shippingAddressCountry" value="">
+            </div>
+        </label>
+        <label>
+        <span class="inputbox-label"><?= $this->translate('Tracking ID'); ?></span>
+            <div class="order-inputbox-holder">
+                <input class="inputbox" type="text" name="shippingAddressCountry" value="">
+            </div>
+        </label>
+        <div class="half" style="clear:both; padding-top:0px;">
+            <label>
+                <input type="submit" name="save" class="button form-button address-button" value="<?= $this->translate('Save'); ?>">
+            </label>
+        </div>
+    </form>
+</div>
 <div id="product-payment-table" class="module clearfix section-separator">
     <span class="heading-large heading-spacing"><?= $this->translate('Product & Payment Information'); ?></span>
     <?php if(count($order->getItems())):?>
