@@ -1,6 +1,7 @@
 <?php
 namespace Settings\Controller;
 
+use CG\Stdlib\Log\LoggerAwareInterface;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -13,9 +14,12 @@ use CG\Template\Service as TemplateService;
 use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
 use CG\Zend\Stdlib\View\Model\Exception as ViewModelException;
 use Zend\I18n\Translator\Translator;
+use CG\Stdlib\Log\LogTrait;
 
-class InvoiceController extends AbstractActionController
+class InvoiceController extends AbstractActionController implements LoggerAwareInterface
 {
+    use LogTrait;
+
     const ROUTE = 'Invoice';
     const ROUTE_MAPPING = 'Invoice Mapping';
     const ROUTE_DESIGNER = 'Invoice Designer';
@@ -242,6 +246,7 @@ class InvoiceController extends AbstractActionController
             $this->handleAccountUpdateException($e, 'There were no changes to be saved');
         } catch (Exception $e) {
             $this->handleAccountUpdateException($e, 'Template could not be saved.');
+            $this->logException($e, 'log:info', __NAMESPACE__);
         }
         return false;
     }
