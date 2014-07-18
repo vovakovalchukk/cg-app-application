@@ -1,8 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
-        "This file is @generated automatically"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
     "hash": "79ef48885edf29138d5fb4123c219cea",
     "packages": [
@@ -336,6 +335,13 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -551,6 +557,13 @@
                 "predis/predis": "v0.8.3"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Predis\\": ""
@@ -1175,17 +1188,17 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.4.7",
+            "version": "1.4.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "8de3fc12ea5ed1f4b1bbe1a6cdb274ffcc042c23"
+                "reference": "092473a0192a8a030922a3d6cfdf83aee19ded1b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.7-5aacf6.zip",
-                "reference": "8de3fc12ea5ed1f4b1bbe1a6cdb274ffcc042c23",
-                "shasum": "f37e5562d044de816f72fc0af66db0a8e0c07900"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.8-db3d29.zip",
+                "reference": "092473a0192a8a030922a3d6cfdf83aee19ded1b",
+                "shasum": "65501cbf1a0f3167ca797e4181fd948016258c94"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
@@ -1221,7 +1234,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2014-07-18 09:31:14"
+            "time": "2014-07-18 15:22:17"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -1296,17 +1309,17 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.4.17",
+            "version": "1.4.18",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "c23b38608f7a5e58b44f38e73bbd6db6f8a61dec"
+                "reference": "154e0f6e52b4fb2568572260e37cf0f4c5a8ab41"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.17-349717.zip",
-                "reference": "c23b38608f7a5e58b44f38e73bbd6db6f8a61dec",
-                "shasum": "f39facaaf28dfad5e59972d15dc5d847ab938df6"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.18-ea01d3.zip",
+                "reference": "154e0f6e52b4fb2568572260e37cf0f4c5a8ab41",
+                "shasum": "567c056f701c9b1d258e9d2622bb907abdeed563"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -1337,7 +1350,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2014-07-10 07:11:47"
+            "time": "2014-07-18 15:20:51"
         },
         {
             "name": "channelgrabber/zf2-sessions",
@@ -1489,17 +1502,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.11.10",
+            "version": "1.11.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "c4c1e8f964f668a00d21711fdb63d2c98fab8b88"
+                "reference": "4ae2d47a0e1e3452f7c08ed7c651288d1c5f99db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.11.10-097e64.zip",
-                "reference": "c4c1e8f964f668a00d21711fdb63d2c98fab8b88",
-                "shasum": "b8a8fe6ef0d73616ee7792a0c3cf82645c3ed523"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.11.11-6c62ba.zip",
+                "reference": "4ae2d47a0e1e3452f7c08ed7c651288d1c5f99db",
+                "shasum": "a01442ef6a268cbd1a6403d4500ed12840ded3bb"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1529,7 +1542,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-07-18 09:34:55"
+            "time": "2014-07-18 15:19:34"
         },
         {
             "name": "cilex/cilex",
@@ -1869,9 +1882,7 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -1959,8 +1970,7 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com",
-                    "role": "Developer"
+                    "homepage": "http://benramsey.com"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
@@ -3193,8 +3203,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
