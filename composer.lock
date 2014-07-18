@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "79ef48885edf29138d5fb4123c219cea",
+    "hash": "ec5fae76b32afcbb7b5b3e243fe0345a",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -336,6 +336,13 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -551,6 +558,13 @@
                 "predis/predis": "v0.8.3"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Predis\\": ""
@@ -1489,17 +1503,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.11.10",
+            "version": "dev-CGIV-2617-invoice-designer-element-firefox-bug",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "c4c1e8f964f668a00d21711fdb63d2c98fab8b88"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.11.10-097e64.zip",
-                "reference": "c4c1e8f964f668a00d21711fdb63d2c98fab8b88",
-                "shasum": "b8a8fe6ef0d73616ee7792a0c3cf82645c3ed523"
+                "reference": "5c76c7d01934356e4fa4247018429587ccf965c8"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1529,7 +1537,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-07-18 09:34:55"
+            "time": "2014-07-18 14:29:01"
         },
         {
             "name": "cilex/cilex",
@@ -1869,9 +1877,7 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -1959,8 +1965,7 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com",
-                    "role": "Developer"
+                    "homepage": "http://benramsey.com"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
@@ -3193,8 +3198,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -3899,11 +3903,17 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.11.10",
+            "alias_normalized": "1.11.10.0",
+            "version": "dev-CGIV-2617-invoice-designer-element-firefox-bug",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpspec/phpspec": 20
     },
     "platform": {
