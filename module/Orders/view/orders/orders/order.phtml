@@ -221,12 +221,12 @@ require([
 </div>
 <div class="module clearfix section-separator" id="tracking-information">
     <span class="heading-large heading-spacing"><?= $this->translate('Shipping'); ?></span>
-    <form id="trackingInformation" data-url="<?= $this->url('Orders/order/address', array('order' => $order->getId())); ?>"
-              data-actionMessage="<?= $this->translate('Updating address'); ?>" data-successMessage="<?= $this->translate('Address updated'); ?>">
+    <form id="trackingInformation" data-url="<?= $this->url('Orders/order/tracking', array('order' => $order->getId())); ?>"
+              data-actionMessage="<?= $this->translate('Updating address'); ?>" data-successMessage="<?= $this->translate('Tracking info updated'); ?>">
         <label>
-        <span class="inputbox-label"><?= $this->translate('Carrier'); ?></span>
+            <span class="inputbox-label"><?= $this->translate('Carrier'); ?></span>
             <div class="order-inputbox-holder">
-                <input class="custom-select" type="text" name="shippingAddressCountry" value="">
+                <?= $this->carriersSelect ?>
             </div>
         </label>
         <label>

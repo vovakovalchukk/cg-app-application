@@ -245,6 +245,16 @@ return [
                                 ],
                                 'may_terminate' => true
                             ],
+                            'tracking' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/tracking',
+                                    'defaults' => [
+                                        'controller' => 'Orders\Controller\Tracking',
+                                        'action' => 'update'
+                                    ]
+                                ]
+                            ]
                         ]
                     ],
                     'dispatch' => [
