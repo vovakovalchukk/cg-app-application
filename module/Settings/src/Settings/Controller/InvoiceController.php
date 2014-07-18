@@ -240,7 +240,7 @@ class InvoiceController extends AbstractActionController
             return $view;
         } catch (NotModified $e) {
             $this->handleAccountUpdateException($e, 'There were no changes to be saved');
-        } catch (ViewModelException $e) {
+        } catch (Exception $e) {
             $this->handleAccountUpdateException($e, 'Template could not be saved.');
         }
         return false;
