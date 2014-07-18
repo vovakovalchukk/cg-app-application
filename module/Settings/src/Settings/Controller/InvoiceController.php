@@ -246,7 +246,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             $this->handleAccountUpdateException($e, 'There were no changes to be saved');
         } catch (Exception $e) {
             $this->handleAccountUpdateException($e, 'Template could not be saved.');
-            $this->logException($e, 'log:info', __NAMESPACE__);
+            $this->logException($e, 'log:error', __NAMESPACE__);
         }
         return false;
     }
