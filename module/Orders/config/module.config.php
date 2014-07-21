@@ -23,6 +23,7 @@ use Orders\Controller\BulkActionsController;
 use Orders\Controller\CancelController;
 use CG\Settings\Alias\Storage\Api as ShippingAliasStorage;
 use CG\Order\Shared\Tracking\StorageInterface as TrackingStorageInterface;
+use CG\Order\Service\Tracking\Service as TrackingService;
 
 return [
     'router' => [
@@ -251,7 +252,7 @@ return [
                                 'options' => [
                                     'route' => '/tracking',
                                     'defaults' => [
-                                        'controller' => 'Orders\Controller\Tracking',
+                                        'controller' => Controller\TrackingController::class,
                                         'action' => 'update'
                                     ]
                                 ]
@@ -441,9 +442,6 @@ return [
             'Orders\Controller\Address' => function($controllerManager) {
                 return $controllerManager->getServiceLocator()->get(Controller\AddressController::class);
             },
-            'Orders\Controller\Tracking' => function($controllerManager) {
-                return $controllerManager->getServiceLocator()->get(Controller\TrackingController::class);
-            },
             'Orders\Controller\Preference' => function($controllerManager) {
                 return $controllerManager->getServiceLocator()->get(Controller\PreferenceController::class);
             },
@@ -524,7 +522,6 @@ return [
             'preferences' => [
                 InvoiceRendererService::class => PdfInvoiceRendererService::class,
                 FilterStorageInterface::class => FilterStorage::class,
-                StorageInterface::class => TrackingStorageInterface::class
             ],
             TableService::class => [
                 'parameters' => [
@@ -853,6 +850,11 @@ return [
             ShippingAliasStorage::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
+                ]
+            ],
+            TrackingService::class => [
+                'parameters' => [
+                    'TrackingStorage' => TrackingStorageInterface::class
                 ]
             ],
             BulkActionsController::class => [
