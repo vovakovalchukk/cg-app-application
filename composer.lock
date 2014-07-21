@@ -1,9 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
-    "hash": "ec5fae76b32afcbb7b5b3e243fe0345a",
+    "hash": "b06ab41d3b48400c52a6d3cc5c7c24ef",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -1502,11 +1503,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-2617-invoice-designer-element-firefox-bug",
+            "version": "1.12.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "5c76c7d01934356e4fa4247018429587ccf965c8"
+                "reference": "ca4e9faf2818af14a0de63504ddea415645ff581"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.0-1bff22.zip",
+                "reference": "ca4e9faf2818af14a0de63504ddea415645ff581",
+                "shasum": "e27075ffe82291b7479275f6a5ce0e7c856b77e5"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1536,7 +1543,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-07-18 14:29:01"
+            "time": "2014-07-21 10:05:44"
         },
         {
             "name": "cilex/cilex",
@@ -3902,17 +3909,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.11.10",
-            "alias_normalized": "1.11.10.0",
-            "version": "dev-CGIV-2617-invoice-designer-element-firefox-bug",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpspec/phpspec": 20
     },
     "platform": {
