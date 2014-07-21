@@ -34,8 +34,8 @@ use CG\Settings\Alias\Service as ShippingAliasService;
 
 return [
     'CG' => [
-        'settings' => [
-            'showToPdfButton' => false
+        'Settings' => [
+            'show_to_pdf_button' => false
         ]
     ],
     'navigation' => [

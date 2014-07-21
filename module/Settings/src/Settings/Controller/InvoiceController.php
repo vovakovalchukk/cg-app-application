@@ -137,7 +137,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     public function designAction()
     {
-        $showToPdfButton = $this->getConfig()->get('CG')->get('settings')->get('showToPdfButton');
+        $showToPdfButton = $this->getConfig()->get('CG')->get('Settings')->get('show_to_pdf_button');
 
         $view = $this->getViewModelFactory()->newInstance();
         $view->addChild($this->getTemplateSelectView(), 'templates');
