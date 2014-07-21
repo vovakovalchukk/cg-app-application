@@ -48,8 +48,8 @@ define(['InvoiceDesigner/Template/StorageAbstract', 'jquery'], function(StorageA
                     template.setId(mappedTemplate.getId());
                 }
             },
-            'error' : function (jqXHR, textStatus, errorThrown) {
-                throw textStatus + ': ' + errorThrown;
+            'error' : function () {
+                throw 'Unable to save template';
             }
         });
     };
