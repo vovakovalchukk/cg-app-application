@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b06ab41d3b48400c52a6d3cc5c7c24ef",
+    "hash": "1e1f9f324fdfe83a0e9238b6a902d27a",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -700,17 +700,11 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.7.3",
+            "version": "dev-CGIV-2620-persist-order-table-column-positions",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "d4d94e5ae8dc74b3a7407767dcbfd0cf54877d41"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.7.3-05493f.zip",
-                "reference": "d4d94e5ae8dc74b3a7407767dcbfd0cf54877d41",
-                "shasum": "da33cfa537f4e5c00c217da321ca3d50ee4e8f1f"
+                "reference": "92ad5a902cfb5c3299f29ada1ed98e663bc4a940"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -729,7 +723,7 @@
                     "CG/Stdlib/Utilities.php"
                 ]
             },
-            "time": "2014-07-18 09:11:29"
+            "time": "2014-07-21 15:47:33"
         },
         {
             "name": "channelgrabber/template",
@@ -1503,17 +1497,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.0",
+            "version": "dev-CGIV-2620-persist-order-table-column-positions",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "ca4e9faf2818af14a0de63504ddea415645ff581"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.0-1bff22.zip",
-                "reference": "ca4e9faf2818af14a0de63504ddea415645ff581",
-                "shasum": "e27075ffe82291b7479275f6a5ce0e7c856b77e5"
+                "reference": "c8df802df7d8bfdfd1b8d06656576c97d08b4810"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1543,7 +1531,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-07-21 10:05:44"
+            "time": "2014-07-21 15:05:26"
         },
         {
             "name": "cilex/cilex",
@@ -3909,11 +3897,24 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "2.7.3",
+            "alias_normalized": "2.7.3.0",
+            "version": "dev-CGIV-2620-persist-order-table-column-positions",
+            "package": "channelgrabber/stdlib"
+        },
+        {
+            "alias": "1.12.0",
+            "alias_normalized": "1.12.0.0",
+            "version": "dev-CGIV-2620-persist-order-table-column-positions",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/stdlib": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpspec/phpspec": 20
     },
     "platform": {
