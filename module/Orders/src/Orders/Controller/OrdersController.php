@@ -135,8 +135,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
         $order = $this->getOrderService()->getOrder($this->params('order'));
         $carriers = $this->getCarriersSelect();
-        //var_dump($carriers);
-        //die();
         $view = $this->getViewModelFactory()->newInstance(
             [
                 'order' => $order
@@ -335,7 +333,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $filterId = $this->params()->fromRoute('filterId');
 
         ob_start();
-        var_dump($filterId);
+
         $this->log('Requested Order Filter Id ' . trim(ob_get_clean()), 0, 'debug', __NAMESPACE__);
 
         try {

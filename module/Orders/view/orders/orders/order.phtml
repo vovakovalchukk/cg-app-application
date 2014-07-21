@@ -11,16 +11,18 @@ require([
         "orderDetails/OrderDetailsSidebar",
         "address/Address",
         "alert/Alert",
-        "orderDetails/OrderDetailsPage"
+        "orderDetails/OrderDetailsPage",
+        "tracking/Tracking"
     ],
-    function(NoteDomAccess, Notes, Note, OrderDetailsSidebar, Address, Alert, OrderDetailsPage) {
+    function(NoteDomAccess, Notes, Note, OrderDetailsSidebar, Address, Alert, OrderDetailsPage, Tracking) {
         //References to n need to be migrated, it is the notification library
         var noteDomAccess = new NoteDomAccess('#notes', '#note-input', CGMustache);
         var notes = new Notes(noteDomAccess, n, Note);
         var sidebar = new OrderDetailsSidebar();
         var address = new Address(n, '#addressInformation');
+        var tracking = new Tracking(n, '#trackingInformation');
         var alert = new Alert(n, '#alert');
-        var orderDetailsPage = new OrderDetailsPage(sidebar, address, notes, alert);
+        var orderDetailsPage = new OrderDetailsPage(sidebar, address, notes, alert, tracking);
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
@@ -222,7 +224,7 @@ require([
 <div class="module clearfix section-separator" id="tracking-information">
     <span class="heading-large heading-spacing"><?= $this->translate('Shipping'); ?></span>
     <form id="trackingInformation" data-url="<?= $this->url('Orders/order/tracking', array('order' => $order->getId())); ?>"
-              data-actionMessage="<?= $this->translate('Updating address'); ?>" data-successMessage="<?= $this->translate('Tracking info updated'); ?>">
+              data-actionMessage="<?= $this->translate('Updating tracking info'); ?>" data-successMessage="<?= $this->translate('Tracking info updated'); ?>">
         <label>
             <span class="inputbox-label"><?= $this->translate('Carrier'); ?></span>
             <div class="order-inputbox-holder">
@@ -237,7 +239,7 @@ require([
         </label>
         <div class="half" style="clear:both; padding-top:0px;">
             <label>
-                <input type="submit" name="save" class="button form-button address-button" value="<?= $this->translate('Save'); ?>">
+                <input type="submit" name="save" class="button form-button tracking-button" value="<?= $this->translate('Save'); ?>">
             </label>
         </div>
     </form>

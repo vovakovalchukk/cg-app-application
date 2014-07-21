@@ -440,6 +440,9 @@ return [
             'Orders\Controller\Address' => function($controllerManager) {
                 return $controllerManager->getServiceLocator()->get(Controller\AddressController::class);
             },
+            'Orders\Controller\Tracking' => function($controllerManager) {
+                return $controllerManager->getServiceLocator()->get(Controller\TrackingController::class);
+            },
             'Orders\Controller\Preference' => function($controllerManager) {
                 return $controllerManager->getServiceLocator()->get(Controller\PreferenceController::class);
             },

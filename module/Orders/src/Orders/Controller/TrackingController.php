@@ -3,9 +3,9 @@ namespace Orders\Controller;
 
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
-use CG\Order\Service\UserChange\Service as UserChangeService;
-use CG\Order\Shared\UserChange\Mapper as UserChangeMapper;
-use CG\Order\Shared\UserChange\Entity as UserChangeEntity;
+use CG\Order\Service\Tracking\Service as TrackingService;
+use CG\Order\Shared\Tracking\Mapper as TrackingMapper;
+use CG\Order\Shared\Tracking\Entity as TrackingEntity;
 use CG\Order\Shared\Entity as OrderEntity;
 use CG\Order\Client\Storage\Api as OrderApi;
 use CG\Stdlib\Exception\Runtime\NotFound;
@@ -18,8 +18,8 @@ class AddressController extends AbstractActionController
     protected $orderApi;
 
     public function __construct(JsonModelFactory $jsonModelFactory,
-                                UserChangeService $service,
-                                UserChangeMapper $mapper,
+                                TrackingService $service,
+                                TrackingMapper $mapper,
                                 OrderApi $orderApi)
     {
         $this->setJsonModelFactory($jsonModelFactory)
@@ -58,7 +58,7 @@ class AddressController extends AbstractActionController
         return $order;
     }
 
-    public function setService(UserChangeService $service)
+    public function setService(TrackingService $service)
     {
         $this->service = $service;
         return $this;
@@ -69,7 +69,7 @@ class AddressController extends AbstractActionController
         return $this->service;
     }
 
-    public function setMapper(UserChangeMapper $mapper)
+    public function setMapper(TrackingMapper $mapper)
     {
         $this->mapper = $mapper;
         return $this;
