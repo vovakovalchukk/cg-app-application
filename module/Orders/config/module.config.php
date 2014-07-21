@@ -22,6 +22,7 @@ use CG\Order\Client\Filter\Storage\Api as FilterStorage;
 use Orders\Controller\BulkActionsController;
 use Orders\Controller\CancelController;
 use CG\Settings\Alias\Storage\Api as ShippingAliasStorage;
+use CG\Order\Shared\Tracking\StorageInterface as TrackingStorageInterface;
 
 return [
     'router' => [
@@ -523,6 +524,7 @@ return [
             'preferences' => [
                 InvoiceRendererService::class => PdfInvoiceRendererService::class,
                 FilterStorageInterface::class => FilterStorage::class,
+                StorageInterface::class => TrackingStorageInterface::class
             ],
             TableService::class => [
                 'parameters' => [

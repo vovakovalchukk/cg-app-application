@@ -10,7 +10,7 @@ use CG\Order\Shared\Entity as OrderEntity;
 use CG\Order\Client\Storage\Api as OrderApi;
 use CG\Stdlib\Exception\Runtime\NotFound;
 
-class AddressController extends AbstractActionController
+class TrackingController extends AbstractActionController
 {
     protected $jsonModelFactory;
     protected $service;
