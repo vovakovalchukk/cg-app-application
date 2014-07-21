@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "27e65cbd4a50a8eaa85d2d5ac06443dc",
+    "hash": "900941ec56281c035babe9182e41a079",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -336,13 +336,6 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -558,13 +551,6 @@
                 "predis/predis": "v0.8.3"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Predis\\": ""
@@ -1189,17 +1175,17 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.4.8",
+            "version": "1.4.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "092473a0192a8a030922a3d6cfdf83aee19ded1b"
+                "reference": "1b0fc95bff753319d8c412b1367b913fb8e8593a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.8-db3d29.zip",
-                "reference": "092473a0192a8a030922a3d6cfdf83aee19ded1b",
-                "shasum": "65501cbf1a0f3167ca797e4181fd948016258c94"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.9-a70b14.zip",
+                "reference": "1b0fc95bff753319d8c412b1367b913fb8e8593a",
+                "shasum": "2341efbbacf5727b5b92197bb1c3c0beb710a34b"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
@@ -1235,7 +1221,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2014-07-18 15:22:17"
+            "time": "2014-07-21 10:03:20"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -1503,17 +1489,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.11.11",
+            "version": "1.11.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "4ae2d47a0e1e3452f7c08ed7c651288d1c5f99db"
+                "reference": "b86e5784df352b2863374a84c5db7bfd89c016b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.11.11-6c62ba.zip",
-                "reference": "4ae2d47a0e1e3452f7c08ed7c651288d1c5f99db",
-                "shasum": "a01442ef6a268cbd1a6403d4500ed12840ded3bb"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.11.12-ea27ee.zip",
+                "reference": "b86e5784df352b2863374a84c5db7bfd89c016b0",
+                "shasum": "408cd8c862a128117a79e4ad3c866003ea805623"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1543,7 +1529,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-07-18 15:19:34"
+            "time": "2014-07-21 08:08:47"
         },
         {
             "name": "cilex/cilex",
@@ -1883,7 +1869,9 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -1971,7 +1959,8 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com"
+                    "homepage": "http://benramsey.com",
+                    "role": "Developer"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
@@ -3178,6 +3167,55 @@
             "time": "2014-06-04 16:30:04"
         },
         {
+            "name": "phpdocumentor/reflection-docblock",
+            "version": "2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
+                "reference": "0bca477a34baea39add016af90046f002a175619"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/0bca477a34baea39add016af90046f002a175619",
+                "reference": "0bca477a34baea39add016af90046f002a175619",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*@stable"
+            },
+            "suggest": {
+                "dflydev/markdown": "1.0.*",
+                "erusev/parsedown": "~0.7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "phpDocumentor": [
+                        "src/"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mike van Riel",
+                    "email": "mike.vanriel@naenius.com"
+                }
+            ],
+            "time": "2014-03-28 09:21:30"
+        },
+        {
             "name": "phpspec/php-diff",
             "version": "v1.0.2",
             "source": {
@@ -3285,25 +3323,28 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "1.1.2",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "976a65af02a2a0e17ce6c949f7b43437205628bb"
+                "reference": "328484c88ed3cd7d1980b624bb98fa635f212ec9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/976a65af02a2a0e17ce6c949f7b43437205628bb",
-                "reference": "976a65af02a2a0e17ce6c949f7b43437205628bb",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/328484c88ed3cd7d1980b624bb98fa635f212ec9",
+                "reference": "328484c88ed3cd7d1980b624bb98fa635f212ec9",
                 "shasum": ""
             },
+            "require": {
+                "phpdocumentor/reflection-docblock": "~2.0"
+            },
             "require-dev": {
-                "phpspec/phpspec": "2.0.*"
+                "phpspec/phpspec": "~2.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1.x-dev"
+                    "dev-master": "1.2.x-dev"
                 }
             },
             "autoload": {
@@ -3336,7 +3377,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2014-01-24 11:03:43"
+            "time": "2014-07-18 21:26:55"
         },
         {
             "name": "phpunit/php-code-coverage",
