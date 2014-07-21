@@ -33,7 +33,6 @@ define(['InvoiceDesigner/Template/StorageAbstract', 'jquery'], function(StorageA
     Ajax.prototype.save = function(template)
     {
         var self = this;
-
         $.ajax({
             'url' : '/settings/invoice/save',
             'data' : {'template' : JSON.stringify(self.getMapper().toJson(template))},
