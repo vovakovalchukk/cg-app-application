@@ -4,6 +4,7 @@ namespace Settings\Controller;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
+use Zend\Config\Config;
 use Zend\Mvc\Controller\AbstractActionController;
 use Settings\Module;
 use Settings\Invoice\Service as InvoiceService;
@@ -37,6 +38,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     protected $invoiceService;
     protected $invoiceMapper;
     protected $translator;
+    protected $config;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -46,7 +48,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         OrderTagManager $orderTagManager,
         InvoiceService $invoiceService,
         InvoiceMapper $invoiceMapper,
-        Translator $translator
+        Translator $translator,
+        Config $config
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
@@ -55,7 +58,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setOrderTagManager($orderTagManager)
             ->setInvoiceService($invoiceService)
             ->setInvoiceMapper($invoiceMapper)
-            ->setTranslator($translator);
+            ->setTranslator($translator)
+            ->setConfig($config);
     }
 
     public function indexAction()
@@ -133,6 +137,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     public function designAction()
     {
+        $showToPdfButton = $this->getConfig()->get('CG')->get('settings')->get('showToPdfButton');
+
         $view = $this->getViewModelFactory()->newInstance();
         $view->addChild($this->getTemplateSelectView(), 'templates');
         $view->addChild($this->getTemplateAddButtonView(), 'templateAddButton');
@@ -145,6 +151,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         $view->setVariable('rootOuId', $rootOu->getId());
         $view->setVariable('templateSelectorId', static::TEMPLATE_SELECTOR_ID);
         $view->setVariable('paperTypeDropdownId', static::PAPER_TYPE_DROPDOWN_ID);
+        $view->setVariable('showToPdfButton', $showToPdfButton);
 
         $view->addChild($this->getPaperTypeModule(), 'paperTypeModule');
 
@@ -373,5 +380,19 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     protected function setTranslator(Translator $translator)
     {
         $this->translator = $translator;
+    }
+    
+    protected function setConfig(Config $config)
+    {
+        $this->config = $config;
+        return $this;
+    }
+
+    /**
+     * @return Config
+     */
+    protected function getConfig()
+    {
+        return $this->config;
     }
 }
