@@ -33,6 +33,8 @@ define(['InvoiceDesigner/Template/StorageAbstract', 'jquery'], function(StorageA
     Ajax.prototype.save = function(template)
     {
         var self = this;
+
+        console.log(JSON.stringify(self.getMapper().toJson(template)));
         $.ajax({
             'url' : '/settings/invoice/save',
             'data' : {'template' : JSON.stringify(self.getMapper().toJson(template))},
@@ -46,8 +48,8 @@ define(['InvoiceDesigner/Template/StorageAbstract', 'jquery'], function(StorageA
                     template.setId(mappedTemplate.getId());
                 }
             },
-            'error' : function (data) {
-                throw data;
+            'error' : function (jqXHR, textStatus, errorThrown) {
+                throw textStatus + ': ' + errorThrown;
             }
         });
     };

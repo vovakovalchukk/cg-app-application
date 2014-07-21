@@ -3,8 +3,8 @@ define(['InvoiceDesigner/Template/Element/ImmutableTextAbstract'], function(Immu
     var ShippingAlias = function()
     {
         var data = {
-            height: 60.5,
-            text: "%%order.shippingAlias%%"
+            height: 15,
+            text: "%%b%%SHIPPING METHOD:\n%%n%%%%order.shippingAlias%%"
         };
         ImmutableTextAbstract.call(this, data);
         this.set('type', 'ShippingAlias', true);
