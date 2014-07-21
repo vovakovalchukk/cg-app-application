@@ -34,7 +34,6 @@ define(['InvoiceDesigner/Template/StorageAbstract', 'jquery'], function(StorageA
     {
         var self = this;
 
-        console.log(JSON.stringify(self.getMapper().toJson(template)));
         $.ajax({
             'url' : '/settings/invoice/save',
             'data' : {'template' : JSON.stringify(self.getMapper().toJson(template))},
@@ -48,8 +47,8 @@ define(['InvoiceDesigner/Template/StorageAbstract', 'jquery'], function(StorageA
                     template.setId(mappedTemplate.getId());
                 }
             },
-            'error' : function (jqXHR, textStatus, errorThrown) {
-                throw textStatus + ': ' + errorThrown;
+            'error' : function () {
+                throw 'Unable to save template';
             }
         });
     };
