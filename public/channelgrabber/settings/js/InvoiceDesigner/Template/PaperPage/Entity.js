@@ -18,7 +18,8 @@ define([
             height: undefined,
             width: undefined,
             paperType: undefined,
-            backgroundImage: undefined
+            backgroundImage: undefined,
+            inverse: undefined
         };
 
         this.getId = function()
@@ -32,6 +33,17 @@ define([
         this.setId = function(newId)
         {
             this.set('id', newId);
+            return this;
+        };
+
+        this.getInverse = function()
+        {
+            return this.get('inverse');
+        };
+
+        this.setInverse = function(inverse)
+        {
+            this.set('inverse', inverse);
             return this;
         };
 

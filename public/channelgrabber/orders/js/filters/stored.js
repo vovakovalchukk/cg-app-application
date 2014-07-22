@@ -96,12 +96,13 @@ define(
             this.getNotifications().notice("Saving Filter");
             var filters = JSON.stringify(this.getCurrentFilterValues());
             var listElement = $();
+            var synchronous = true;
             CGMustache.get().fetchTemplate(this.getFilterList().data("template"), function(template, cgmustache) {
                 listElement = $(cgmustache.renderTemplate(template, {
                     name: name,
                     filter: filters
                 }));
-            });
+            }, synchronous);
 
             var self = this;
             $.ajax({

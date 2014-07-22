@@ -89,11 +89,12 @@ define([
 
     MapperAbstract.prototype.renderMustacheTemplate = function(templateUrl, data)
     {
+        var synchronous = true;
         var html;
         this.getCGMustache().fetchTemplate(templateUrl, function(template, cgMustache)
         {
             html = cgMustache.renderTemplate(template, data);
-        });
+        }, synchronous);
         return html;
     };
 
