@@ -41,6 +41,7 @@ class Service implements LoggerAwareInterface
     use LogTrait;
 
     const ORDER_TABLE_COL_PREF_KEY = 'order-columns';
+    const ORDER_TABLE_COL_POS_PREF_KEY = 'order-column-positions';
     const ORDER_SIDEBAR_STATE_KEY = 'order-sidebar-state';
     const ORDER_FILTER_BAR_STATE_KEY = 'order-filter-bar-state';
     const ACCOUNTS_PAGE = 1;
@@ -425,13 +426,17 @@ class Service implements LoggerAwareInterface
         foreach ($updatedColumns as $name => $on) {
             $storedColumns[$name] = $on;
         }
-        $userPrefs = $this->getActiveUserPreference();
-        $userPrefsPref = $userPrefs->getPreference();
-        $columnPrefKey = static::ORDER_TABLE_COL_PREF_KEY;
-        $userPrefsPref[$columnPrefKey] = $storedColumns;
-        $userPrefs->setPreference($userPrefsPref);
 
-        $this->getUserPreferenceService()->save($userPrefs);
+        $columnPrefKey = static::ORDER_TABLE_COL_PREF_KEY;
+        $this->saveUserPrefItem($columnPrefKey, $storedColumns);
+
+        return $this;
+    }
+
+    public function updateUserPrefOrderColumnPositions(array $columnPositions)
+    {
+        $columnPrefKey = static::ORDER_TABLE_COL_POS_PREF_KEY;
+        $this->saveUserPrefItem($columnPrefKey, $columnPositions);
 
         return $this;
     }
@@ -455,15 +460,45 @@ class Service implements LoggerAwareInterface
             );
         }
 
+        $columnPosPrefs = $this->fetchUserPrefOrderColumnPositions();
+        foreach ($columnPosPrefs as $name => $pos) {
+            if (!isset($associativeColumns[$name])) {
+                continue;
+            }
+            $associativeColumns[$name]->setOrder($pos);
+        }
+        $this->getOrdersTable()->reorderColumns();
+
         return $this;
     }
 
     protected function fetchUserPrefOrderColumns()
     {
         $columnPrefKey = static::ORDER_TABLE_COL_PREF_KEY;
+        return $this->fetchUserPrefItem($columnPrefKey);
+    }
+
+    protected function fetchUserPrefOrderColumnPositions()
+    {
+        $columnPrefKey = static::ORDER_TABLE_COL_POS_PREF_KEY;
+        return $this->fetchUserPrefItem($columnPrefKey);
+    }
+
+    protected function fetchUserPrefItem($key)
+    {
         $userPrefsPref = $this->getActiveUserPreference()->getPreference();
-        $storedColumns = (isset($userPrefsPref[$columnPrefKey]) ? $userPrefsPref[$columnPrefKey] : []);
-        return $storedColumns;
+        $storedItem = (isset($userPrefsPref[$key]) ? $userPrefsPref[$key] : []);
+        return $storedItem;
+    }
+
+    protected function saveUserPrefItem($key, $value)
+    {
+        $userPrefs = $this->getActiveUserPreference();
+        $userPrefsPref = $userPrefs->getPreference();
+        $userPrefsPref[$key] = $value;
+        $userPrefs->setPreference($userPrefsPref);
+
+        $this->getUserPreferenceService()->save($userPrefs);
     }
 
     public function tagOrders($tag, OrderCollection $orders)
