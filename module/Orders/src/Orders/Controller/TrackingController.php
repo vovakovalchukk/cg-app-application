@@ -10,6 +10,7 @@ use CG\Order\Shared\Entity as OrderEntity;
 use CG\Order\Client\Service as OrderService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
+use CG\Channel\Gearman\Generator\Order\Dispatch as GearmanOrderGenerator;
 
 class TrackingController extends AbstractActionController
 {
@@ -18,18 +19,21 @@ class TrackingController extends AbstractActionController
     protected $mustacheRenderer;
     protected $mapper;
     protected $orderService;
+    protected $gearmanOrderGenerator;
 
     public function __construct(ActiveUserInterface $activeUserContainer,
                                 JsonModelFactory $jsonModelFactory,
                                 TrackingService $service,
                                 TrackingMapper $mapper,
-                                OrderService $orderService)
+                                OrderService $orderService,
+                                GearmanOrderGenerator $gearmanOrderGenerator)
     {
         $this->setJsonModelFactory($jsonModelFactory)
             ->setTrackingService($service)
             ->setMapper($mapper)
             ->setOrderService($orderService)
-            ->setActiveUserContainer($activeUserContainer);
+            ->setActiveUserContainer($activeUserContainer)
+            ->setGearmanOrderGenerator($gearmanOrderGenerator);
     }
 
     public function updateAction()
@@ -37,6 +41,7 @@ class TrackingController extends AbstractActionController
         $tracking = $this->fetchTracking();
         $tracking = is_null($tracking) ? $this->create() : $this->update($tracking);
         $this->getTrackingService()->save($tracking);
+        $this->createGearmanJob();
         $view = $this->getJsonModelFactory()->newInstance();
         $view->setVariable('eTag', $tracking->getETag());
         return $view;
@@ -48,9 +53,20 @@ class TrackingController extends AbstractActionController
         if ($tracking) {
             $this->getTrackingService()->remove($tracking);
         }
+        $this->createGearmanJob();
         $view = $this->getJsonModelFactory()->newInstance();
         $view->setVariable('eTag', '');
         return $view;
+    }
+
+    protected function createGearmanJob()
+    {
+        $order = $this->getOrderService()->fetch($this->params('order'));
+        if(!$order->getDispatchDate()) {
+            return;
+        }      
+        $this->getGearmanOrderGenerator()->generateJob($order->getAccountId(), $order);
+        return $this;
     }
 
     protected function create()
@@ -152,5 +168,14 @@ class TrackingController extends AbstractActionController
     public function getActiveUserContainer()
     {
         return $this->activeUserContainer;
+    }
+
+    protected function getGearmanOrderGenerator() {
+        return $this->gearmanOrderGenerator;
+    }
+
+    protected function setGearmanOrderGenerator(GearmanOrderGenerator $gearmanOrderGenerator) {
+        $this->gearmanOrderGenerator = $gearmanOrderGenerator;
+        return $this;
     }
 }
