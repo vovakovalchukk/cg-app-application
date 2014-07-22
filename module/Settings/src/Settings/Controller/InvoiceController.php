@@ -380,6 +380,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     protected function setTranslator(Translator $translator)
     {
         $this->translator = $translator;
+        return $this;
     }
     
     protected function setConfig(Config $config)
