@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "707f50db5792dfd47d06c6a747137be0",
+    "hash": "d1950fb3520ad93bf7c6678c60845f1a",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -1503,11 +1503,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-2677-DataTableTurbo",
+            "version": "1.12.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "efbd68dae5028457f9889113b4429417d570118c"
+                "reference": "734595fa5e04eb100a89f9f91cb4f81214d6809b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.3-6a27cd.zip",
+                "reference": "734595fa5e04eb100a89f9f91cb4f81214d6809b",
+                "shasum": "c0afc01cf5cd6ed0a2637cc91900e57eb5d6dd09"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1537,7 +1543,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-07-22 11:00:15"
+            "time": "2014-07-22 12:06:45"
         },
         {
             "name": "cilex/cilex",
@@ -3955,17 +3961,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.12.3",
-            "alias_normalized": "1.12.3.0",
-            "version": "dev-CGIV-2677-DataTableTurbo",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpspec/phpspec": 20
     },
     "platform": {
