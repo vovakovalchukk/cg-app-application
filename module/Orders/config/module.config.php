@@ -22,7 +22,7 @@ use CG\Order\Client\Filter\Storage\Api as FilterStorage;
 use Orders\Controller\BulkActionsController;
 use Orders\Controller\CancelController;
 use CG\Settings\Alias\Storage\Api as ShippingAliasStorage;
-use CG\Order\Shared\Tracking\StorageInterface as TrackingStorageInterface;
+use CG\Order\Client\Tracking\Storage\Api as TrackingStorageApi;
 use CG\Order\Service\Tracking\Service as TrackingService;
 
 return [
@@ -854,7 +854,12 @@ return [
             ],
             TrackingService::class => [
                 'parameters' => [
-                    'TrackingStorage' => TrackingStorageInterface::class
+                    'repository' => TrackingStorageApi::class
+                ]
+            ],
+            TrackingStorageApi::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
                 ]
             ],
             BulkActionsController::class => [

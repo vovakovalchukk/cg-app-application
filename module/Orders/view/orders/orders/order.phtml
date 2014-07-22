@@ -225,6 +225,11 @@ require([
     <span class="heading-large heading-spacing"><?= $this->translate('Shipping'); ?></span>
     <form id="trackingInformation" data-url="<?= $this->url('Orders/order/tracking', array('order' => $order->getId())); ?>"
               data-actionMessage="<?= $this->translate('Updating tracking info'); ?>" data-successMessage="<?= $this->translate('Tracking info updated'); ?>">
+        <?php
+            $trackings = $order->getTrackings();
+            $trackings->rewind();
+            $tracking = $trackings->current();
+        ?>
         <label>
             <span class="inputbox-label"><?= $this->translate('Carrier'); ?></span>
             <div class="order-inputbox-holder">
@@ -232,11 +237,12 @@ require([
             </div>
         </label>
         <label>
-        <span class="inputbox-label"><?= $this->translate('Tracking ID'); ?></span>
+        <span class="inputbox-label"><?= $this->translate('Tracking Number'); ?></span>
             <div class="order-inputbox-holder">
-                <input class="inputbox" type="text" name="shippingAddressCountry" value="">
+                <input class="inputbox" type="text" name="trackingNumber" value="<?= ($tracking) ? $tracking->getNumber() : ""; ?>">
             </div>
         </label>
+        <input type="hidden" value="<?= ($tracking) ? $tracking->getETag() : ""; ?>" id="eTag"/>
         <div class="half" style="clear:both; padding-top:0px;">
             <label>
                 <input type="submit" name="save" class="button form-button tracking-button" value="<?= $this->translate('Save'); ?>">

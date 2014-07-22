@@ -24,6 +24,7 @@ use CG\Stdlib\Log\LogTrait;
 use CG_Usage\Service as UsageService;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
+use Orders\Controller\TrackingController;
 
 class OrdersController extends AbstractActionController implements LoggerAwareInterface
 {

@@ -7,66 +7,101 @@ use CG\Order\Service\Tracking\Service as TrackingService;
 use CG\Order\Shared\Tracking\Mapper as TrackingMapper;
 use CG\Order\Shared\Tracking\Entity as TrackingEntity;
 use CG\Order\Shared\Entity as OrderEntity;
-use CG\Order\Client\Storage\Api as OrderApi;
+use CG\Order\Client\Service as OrderService;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\User\ActiveUserInterface;
 
 class TrackingController extends AbstractActionController
 {
     protected $jsonModelFactory;
-    protected $service;
+    protected $trackingService;
     protected $mapper;
-    protected $orderApi;
+    protected $orderService;
 
-    public function __construct(JsonModelFactory $jsonModelFactory,
+    public function __construct(ActiveUserInterface $activeUserContainer,
+                                JsonModelFactory $jsonModelFactory,
                                 TrackingService $service,
                                 TrackingMapper $mapper,
-                                OrderApi $orderApi)
+                                OrderService $orderService)
     {
         $this->setJsonModelFactory($jsonModelFactory)
-            ->setService($service)
+            ->setTrackingService($service)
             ->setMapper($mapper)
-            ->setOrderApi($orderApi);
+            ->setOrderService($orderService)
+            ->setActiveUserContainer($activeUserContainer);
     }
 
     public function updateAction()
     {
-        $order = $this->fetchOrder();
-        $userChanges = $this->params()->fromPost();
-        unset($userChanges['eTag']);
-        $userChange = $this->fetchUserChange($order, $userChanges);
-        $userChange->setStoredETag($this->params()->fromPost('eTag'));
-        $this->getService()->save($userChange);
-
+        $tracking = $this->fetchTracking();
+        $tracking = is_null($tracking) ? $this->create() : $this->update($tracking);
+        $this->getTrackingService()->save($tracking);
         $view = $this->getJsonModelFactory()->newInstance();
-        $view->setVariable('eTag', $userChange->getETag());
+        $view->setVariable('eTag', $tracking->getETag());
         return $view;
     }
 
-    protected function fetchUserChange(OrderEntity $order, array $userChanges)
+    protected function create()
     {
-        try {
-            $userChange = $this->getService()->fetch($this->params()->fromRoute('order'));
-        } catch (NotFound $e) {
-            $userChange = null;
-        }
-        return $this->getService()->fromUserChangeArray($order, $userChanges, $userChange);
+        $order = $this->getOrderService()->fetch($this->params('order'));
+        var_dump($this->params()->fromPost('trackingNumber'));
+        $tracking = $this->getMapper()->fromArray(
+            array(
+                'userId' =>  $this->getActiveUserContainer()->getActiveUser()->getId(),
+                'orderId' => $this->params('order'),
+                'number' => $this->params()->fromPost('trackingNumber'),
+                'carrier' => $this->params()->fromPost('carrier'),
+                'timestamp' => $order->getDispatchDate(),
+                'id' => NULL,
+                'organisationUnitId' => $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()
+            )
+        );
+        return $tracking;
+    }
+
+    protected function update(TrackingEntity $tracking)
+    {
+        print "update";
+        var_dump($tracking);
+        
+        $tracking->setNumber($this->params()->fromPost('trackingNumber'))
+            ->setCarrier($this->params()->fromPost('carrier'));
+        print "\n\n\n\n\n\n";
+        var_dump($tracking);
+        $tracking->setStoredETag($this->params()->fromPost('eTag'));
+        return $tracking;
     }
 
     protected function fetchOrder()
     {
-        $order = $this->getOrderApi()->fetch($this->params()->fromRoute('order'));
+        $order = $this->getOrderService()->fetch($this->params()->fromRoute('order'));
         return $order;
     }
 
-    public function setService(TrackingService $service)
+    protected function fetchTracking()
     {
-        $this->service = $service;
+        try {
+            $orderId = $this->params('order');
+            $trackingCollection = $this->getTrackingService()->fetchCollectionByOrderIds([$orderId]);
+            $trackings = $trackingCollection->getByOrderId($orderId);
+            $trackings->rewind();
+            $tracking = $trackings->current();
+        } catch (NotFound $e) {
+            $tracking = null;
+        }
+
+        return $tracking;
+    }
+
+    public function setTrackingService(TrackingService $service)
+    {
+        $this->trackingService = $service;
         return $this;
     }
 
-    public function getService()
+    public function getTrackingService()
     {
-        return $this->service;
+        return $this->trackingService;
     }
 
     public function setMapper(TrackingMapper $mapper)
@@ -91,14 +126,25 @@ class TrackingController extends AbstractActionController
         return $this->jsonModelFactory;
     }
 
-    public function setOrderApi(OrderApi $orderApi)
+    public function setOrderService(OrderService $orderService)
     {
-        $this->orderApi = $orderApi;
+        $this->orderService = $orderService;
         return $this;
     }
 
-    public function getOrderApi()
+    public function getOrderService()
     {
-        return $this->orderApi;
+        return $this->orderService;
+    }
+
+    public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
+    {
+        $this->activeUserContainer = $activeUserContainer;
+        return $this;
+    }
+
+    public function getActiveUserContainer()
+    {
+        return $this->activeUserContainer;
     }
 }
