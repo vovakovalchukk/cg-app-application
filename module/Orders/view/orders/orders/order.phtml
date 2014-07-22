@@ -233,7 +233,7 @@ require([
         <label>
             <span class="inputbox-label"><?= $this->translate('Carrier'); ?></span>
             <div class="order-inputbox-holder">
-                <?= $this->carriersSelect ?>
+                <?= $this->carrierSelect ?>
             </div>
         </label>
         <label>
@@ -242,7 +242,7 @@ require([
                 <input class="inputbox" type="text" name="trackingNumber" value="<?= ($tracking) ? $tracking->getNumber() : ""; ?>">
             </div>
         </label>
-        <input type="hidden" value="<?= ($tracking) ? $tracking->getETag() : ""; ?>" id="eTag"/>
+        <input type="hidden" value="<?= ($tracking) ? $tracking->getETag() : ""; ?>" id="eTag" name="eTag"/>
         <div class="half" style="clear:both; padding-top:0px;">
             <label>
                 <input type="submit" name="save" class="button form-button tracking-button" value="<?= $this->translate('Save'); ?>">

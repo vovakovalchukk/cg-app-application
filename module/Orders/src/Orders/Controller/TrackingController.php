@@ -44,7 +44,6 @@ class TrackingController extends AbstractActionController
     protected function create()
     {
         $order = $this->getOrderService()->fetch($this->params('order'));
-        var_dump($this->params()->fromPost('trackingNumber'));
         $tracking = $this->getMapper()->fromArray(
             array(
                 'userId' =>  $this->getActiveUserContainer()->getActiveUser()->getId(),
@@ -61,13 +60,8 @@ class TrackingController extends AbstractActionController
 
     protected function update(TrackingEntity $tracking)
     {
-        print "update";
-        var_dump($tracking);
-        
         $tracking->setNumber($this->params()->fromPost('trackingNumber'))
             ->setCarrier($this->params()->fromPost('carrier'));
-        print "\n\n\n\n\n\n";
-        var_dump($tracking);
         $tracking->setStoredETag($this->params()->fromPost('eTag'));
         return $tracking;
     }

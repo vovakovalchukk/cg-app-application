@@ -135,7 +135,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         }
 
         $order = $this->getOrderService()->getOrder($this->params('order'));
-        $carriers = $this->getCarriersSelect();
+        $carriers = $this->getCarrierSelect();
         $view = $this->getViewModelFactory()->newInstance(
             [
                 'order' => $order
@@ -154,14 +154,18 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
         $view->setVariable('carriers', $carriers);
-        $view->addChild($this->getCarriersSelect(), 'carriersSelect');
+        $view->addChild($this->getCarrierSelect(), 'carrierSelect');
 
         return $view;
     }
 
-    protected function getCarriersSelect()
+    protected function getCarrierSelect()
     {
+        $order = $this->getOrderService()->getOrder($this->params('order'));
         $carriers = $this->getOrderService()->getCarriersData();
+        $trackings = $order->getTrackings();
+        $trackings->rewind();
+        $tracking = $trackings->current();
 
         $options = [];
         foreach ($carriers as $carrier) {
@@ -172,9 +176,11 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         }
         $carrierSelect = $this->getViewModelFactory()->newInstance(["options" => $options]);
         $carrierSelect->setTemplate("elements/custom-select.mustache");
-        $carrierSelect->setVariable("name", "carrier");
-        $carrierSelect->setVariable("initialTitle", $this->translate("Select a Carrier"));
+        $carrierSelect->setVariable("name", "carrier");        
         $carrierSelect->setVariable("id", "carrier");
+        $carrierSelect->setVariable("blankOption", "true");
+        ($tracking->getCarrier()) ? $carrierSelect->setVariable("initialTitle", $tracking->getCarrier()) :
+            $carrierSelect->setVariable("initialTitle", $this->translate("Select a Carrier"));
         return $carrierSelect;
     }
 
