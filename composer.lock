@@ -1,9 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
-    "hash": "7a56d9e980f7c99d40f9ad0141f864ff",
+    "hash": "b96cab4de5d15a2b5ac25848fab55210",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -1502,17 +1503,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.2",
+            "version": "dev-CGIV-2717-SettingsNav",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "cf6fbb02ab4495acb50d98c03e156abbc2390444"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.2-ec6caa.zip",
-                "reference": "cf6fbb02ab4495acb50d98c03e156abbc2390444",
-                "shasum": "f866de4a63a75a8c7f6648b4ebafa98c7f96d42c"
+                "reference": "4a72839b52dddcc1e2d4c9e617a84c9790cc6637"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1542,7 +1537,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-07-22 08:50:06"
+            "time": "2014-07-22 10:27:24"
         },
         {
             "name": "cilex/cilex",
@@ -3960,11 +3955,17 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.12.2",
+            "alias_normalized": "1.12.2.0",
+            "version": "dev-CGIV-2717-SettingsNav",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpspec/phpspec": 20
     },
     "platform": {
