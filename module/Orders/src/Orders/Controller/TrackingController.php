@@ -15,6 +15,7 @@ class TrackingController extends AbstractActionController
 {
     protected $jsonModelFactory;
     protected $trackingService;
+    protected $mustacheRenderer;
     protected $mapper;
     protected $orderService;
 
@@ -38,6 +39,17 @@ class TrackingController extends AbstractActionController
         $this->getTrackingService()->save($tracking);
         $view = $this->getJsonModelFactory()->newInstance();
         $view->setVariable('eTag', $tracking->getETag());
+        return $view;
+    }
+
+    public function deleteAction()
+    {
+        $tracking = $this->fetchTracking();
+        if ($tracking) {
+            $this->getTrackingService()->remove($tracking);
+        }
+        $view = $this->getJsonModelFactory()->newInstance();
+        $view->setVariable('eTag', '');
         return $view;
     }
 

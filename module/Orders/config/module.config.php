@@ -253,8 +253,30 @@ return [
                                     'route' => '/tracking',
                                     'defaults' => [
                                         'controller' => Controller\TrackingController::class,
-                                        'action' => 'update'
                                     ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    'set' => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/update',
+                                            'defaults' => [
+                                                'action' => 'update'
+                                            ],
+                                        ],
+                                        'may_terminate' => true
+                                    ],
+                                    'delete' => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/delete',
+                                            'defaults' => [
+                                                'action' => 'delete'
+                                            ]
+                                        ],
+                                        'may_terminate' => true
+                                    ],
                                 ]
                             ]
                         ]

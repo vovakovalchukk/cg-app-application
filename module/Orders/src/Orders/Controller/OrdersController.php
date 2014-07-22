@@ -21,6 +21,7 @@ use CG\Stdlib\PageLimit;
 use CG\Stdlib\OrderBy;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use CG_Mustache\View\Renderer as MustacheRenderer;
 use CG_Usage\Service as UsageService;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
@@ -49,6 +50,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         ViewModelFactory $viewModelFactory,
+        MustacheRenderer $mustacheRenderer,
         OrderService $orderService,
         FilterService $filterService,
         TimelineService $timelineService,
@@ -62,6 +64,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     {
         $this->setJsonModelFactory($jsonModelFactory)
             ->setViewModelFactory($viewModelFactory)
+            ->setMustacheRenderer($mustacheRenderer)
             ->setOrderService($orderService)
             ->setFilterService($filterService)
             ->setTimelineService($timelineService)
@@ -155,7 +158,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->setVariable('subHeaderHide', true);
         $view->setVariable('carriers', $carriers);
         $view->addChild($this->getCarrierSelect(), 'carrierSelect');
-
         return $view;
     }
 
@@ -170,17 +172,16 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $options = [];
         foreach ($carriers as $carrier) {
             $options[] = [
-                "title" => $carrier,
-                "value" => $carrier
+                'title' => $carrier,
+                'value' => $carrier,
+                'selected' => ($tracking->getCarrier() == $carrier)
             ];
         }
         $carrierSelect = $this->getViewModelFactory()->newInstance(["options" => $options]);
         $carrierSelect->setTemplate("elements/custom-select.mustache");
         $carrierSelect->setVariable("name", "carrier");        
         $carrierSelect->setVariable("id", "carrier");
-        $carrierSelect->setVariable("blankOption", "true");
-        ($tracking->getCarrier()) ? $carrierSelect->setVariable("initialTitle", $tracking->getCarrier()) :
-            $carrierSelect->setVariable("initialTitle", $this->translate("Select a Carrier"));
+        $carrierSelect->setVariable("blankOption", true);
         return $carrierSelect;
     }
 
@@ -524,5 +525,16 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected function getShippingConversionService()
     {
         return $this->shippingConversionService;
+    }
+
+    public function getMustacheRenderer()
+    {
+        return $this->mustacheRenderer;
+    }
+
+    public function setMustacheRenderer(MustacheRenderer $mustacheRenderer)
+    {
+        $this->mustacheRenderer = $mustacheRenderer;
+        return $this;
     }
 }
