@@ -19,7 +19,7 @@
         "channelgrabber/amazon": "~1.2.29",
         "channelgrabber/channel": "~1.2.7",
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/ebay": "~1.1.31",
+        "channelgrabber/ebay": "dev-CGIV-2683-RenewToken as 1.1.34",
         "channelgrabber/gearman": "~1.1.0",
         "channelgrabber/http": "~1.2.15",
         "channelgrabber/log": "~2.0.2",
