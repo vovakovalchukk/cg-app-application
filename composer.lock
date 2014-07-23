@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dd35c18ea81603089063ba4de0c19a62",
+    "hash": "e8483c0d0960474c379be56265101a78",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -1503,17 +1503,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.4",
+            "version": "dev-CGIV-2726-DataTableColumnWidths",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "f91f12c66c4626e0c8d5ce032ad800a11a9bd3a8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.4-992cea.zip",
-                "reference": "f91f12c66c4626e0c8d5ce032ad800a11a9bd3a8",
-                "shasum": "d47d10955e20019b75a6acd7b0a62a69d9c3f267"
+                "reference": "c8b6a0e487d22f28c284e1305dd21251af43283b"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1543,7 +1537,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-07-22 12:50:57"
+            "time": "2014-07-23 09:46:22"
         },
         {
             "name": "cilex/cilex",
@@ -3961,11 +3955,17 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.12.5",
+            "alias_normalized": "1.12.5.0",
+            "version": "dev-CGIV-2726-DataTableColumnWidths",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpspec/phpspec": 20
     },
     "platform": {
