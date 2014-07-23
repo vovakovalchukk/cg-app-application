@@ -20,6 +20,8 @@ function(domManipulator, eventCollator)
     };
 
     DeleteButton.DELETE_BUTTON_SELECTOR = '.shipping-alias-delete';
+    DeleteButton.DOM_SELECTOR_ALIAS = '.shipping-alias';
+    DeleteButton.DOM_SELECTOR_ALIAS_NONE = '.shipping-alias-none';
 
     DeleteButton.prototype.init = function(rootOuId)
     {
@@ -40,6 +42,11 @@ function(domManipulator, eventCollator)
             ]);
 
             processedRootOfThisAlias.remove();
+            if ($(DeleteButton.DOM_SELECTOR_ALIAS).length == 0) {
+                $(DeleteButton.DOM_SELECTOR_ALIAS_NONE).show();
+            } else {
+                domManipulator.updateAllAliasMethodCheckboxes();
+            }
         });
     };
 

@@ -21,20 +21,21 @@ define([
         this.getStorage = function()
         {
             return storage;
-        }
+        };
 
         this.setAvailablePaperTypes = function(newAvailablePaperTypes)
         {
             availablePaperTypes = newAvailablePaperTypes;
-        }
+        };
 
         this.getAvailablePaperTypes = function()
         {
             return availablePaperTypes;
-        }
+        };
     };
 
     PaperType.DEFAULT_ID = 1;
+    PaperType.PAPERTYPE_CHECKBOX = '#inverseLabelPosition';
 
     PaperType.prototype = Object.create(ModuleAbstract.prototype);
 
@@ -47,7 +48,14 @@ define([
         domManipulator.populateCustomSelect(
             paperTypeDropdownId, this.getAvailablePaperTypes(), currentPaperType
         );
-        this.selectionMade(currentPaperType, false, true);
+        var currentInverseCheckbox = template.getPaperPage().getInverse();
+        domManipulator.changeCheckBoxState(
+            PaperType.PAPERTYPE_CHECKBOX,
+            currentInverseCheckbox
+        );
+
+        this.selectionMade(currentPaperType, currentInverseCheckbox, true);
+
     };
 
     PaperType.prototype.selectionMade = function(id, isInverse, initialise)
@@ -73,12 +81,14 @@ define([
             templatePage.set('width', selectedPaperType.getWidth(), true);
             templatePage.set('backgroundImage', backgroundImage, true);
             templatePage.set('paperType', selectedPaperType.getId(), true);
+            templatePage.set('inverse', isInverse, false);
             return;
         }
         templatePage.setHeight(selectedPaperType.getHeight());
         templatePage.setWidth(selectedPaperType.getWidth());
         templatePage.setBackgroundImage(backgroundImage);
         templatePage.setPaperType(selectedPaperType.getId());
+        templatePage.setInverse(isInverse);
     };
 
     return new PaperType();

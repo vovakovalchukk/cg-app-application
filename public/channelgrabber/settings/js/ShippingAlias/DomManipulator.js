@@ -9,13 +9,24 @@ define([
 ) {
     var DomManipulator = function()
     {
+        var aliasNo = 0;
 
+        this.getAliasNo = function()
+        {
+            return aliasNo;
+        };
+
+        this.getAndIncrementAliasNo = function()
+        {
+            return ++aliasNo;
+        };
     };
 
     DomManipulator.ALIAS_CHANGED = 'alias-changed';
     DomManipulator.ALIAS_DELETED = 'alias-deleted';
     DomManipulator.DOM_SELECTOR_ALIAS_CONTAINER = '#shipping-alias-container';
     DomManipulator.DOM_SELECTOR_ALIAS = '.shipping-alias';
+    DomManipulator.DOM_SELECTOR_ALIAS_NONE = '.shipping-alias-none';
     DomManipulator.SHIPPING_METHOD_SELECTOR = '.channel-shipping-methods .custom-select-item';
 
     DomManipulator.prototype.prependAlias = function()
@@ -30,7 +41,7 @@ define([
         };
         CGMustache.get().fetchTemplates(aliasUrlMap, function(templates, cgmustache)
         {
-            var aliasNo = $('.shipping-alias').length;
+            var aliasNo = self.getAndIncrementAliasNo();
             var text = cgmustache.renderTemplate(templates, {'name': "alias-name-" + aliasNo}, "text");
             var deleteButton = cgmustache.renderTemplate(templates, {
                 'buttons' : true,
@@ -47,8 +58,8 @@ define([
                 'text' : text
             });
 
-            if (!aliasNo) {
-                $(DomManipulator.DOM_SELECTOR_ALIAS_CONTAINER).html("");
+            if ($(DomManipulator.DOM_SELECTOR_ALIAS_NONE).is(':visible')) {
+                $(DomManipulator.DOM_SELECTOR_ALIAS_NONE).hide();
             }
             self.prepend(DomManipulator.DOM_SELECTOR_ALIAS_CONTAINER, alias);
             self.updateAllAliasMethodCheckboxes();
@@ -100,6 +111,10 @@ define([
     DomManipulator.prototype.updateAllAliasMethodCheckboxes = function()
     {
         var self = this;
+        // Reset
+        var disabledCheckboxes = $(DomManipulator.DOM_SELECTOR_ALIAS_CONTAINER + ' ' + DomManipulator.SHIPPING_METHOD_SELECTOR + ' input.disabled');
+        disabledCheckboxes.removeClass('disabled');
+
         var checkedCheckboxes = $(DomManipulator.DOM_SELECTOR_ALIAS_CONTAINER + ' ' + DomManipulator.SHIPPING_METHOD_SELECTOR + ' input:checked');
         checkedCheckboxes.each(function()
         {
