@@ -36,6 +36,7 @@ class ChannelController extends AbstractActionController
     const ACCOUNT_TEMPLATE = "Sales Channel Item";
     const ACCOUNT_CHANNEL_FORM_BLANK_TEMPLATE = "Sales Channel Item Channel Form Blank";
     const ACCOUNT_DETAIL_FORM = "Sales Channel Item Detail";
+    const ACCOUNT_TYPE_DEFAULT = 'sale';
 
     protected $di;
     protected $jsonModelFactory;
@@ -187,7 +188,8 @@ class ChannelController extends AbstractActionController
                 null,
                 false,
                 $limit,
-                $page
+                $page,
+                static::ACCOUNT_TYPE_DEFAULT
             );
 
             $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) $accounts->getTotal();
@@ -198,6 +200,8 @@ class ChannelController extends AbstractActionController
         } catch (NotFound $exception) {
             // No accounts so ignoring
         }
+
+
 
         return $this->newJsonModel($data);
     }
@@ -324,7 +328,8 @@ class ChannelController extends AbstractActionController
             "credentials" => "",
             "active" => false,
             "deleted" => false,
-            "expiryDate" => null
+            "expiryDate" => null,
+            "type" => static::ACCOUNT_TYPE_DEFAULT
         ));
         $view = $this->getJsonModelFactory()->newInstance();
         $url = $this->getAccountFactory()->createRedirect($accountEntity, Module::ROUTE . '/' . static::ROUTE . '/' . ChannelController::ROUTE_CHANNELS,

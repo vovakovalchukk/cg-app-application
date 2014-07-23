@@ -15,7 +15,7 @@
         }
     },
     "require": {
-        "channelgrabber/account": "~1.0.26",
+        "channelgrabber/account": "dev-CGIV-2641-UseTypeWhenAccessingAccounts as 1.0.27",
         "channelgrabber/amazon": "~1.2.29",
         "channelgrabber/channel": "~1.2.7",
         "channelgrabber/constants": "dev-master",
