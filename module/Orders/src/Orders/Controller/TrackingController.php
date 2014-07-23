@@ -38,7 +38,6 @@ class TrackingController extends AbstractActionController
         $tracking = $this->fetchTracking();
         $tracking = is_null($tracking) ? $this->create() : $this->update($tracking);
         $this->getTrackingService()->save($tracking);
-        print "hello";
         $this->getTrackingService()->createGearmanJob($this->fetchOrder());
         $view = $this->getJsonModelFactory()->newInstance();
         $view->setVariable('eTag', $tracking->getETag());
