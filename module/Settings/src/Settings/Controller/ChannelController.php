@@ -201,8 +201,6 @@ class ChannelController extends AbstractActionController
             // No accounts so ignoring
         }
 
-
-
         return $this->newJsonModel($data);
     }
 
