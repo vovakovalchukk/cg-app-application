@@ -24,6 +24,7 @@ use Orders\Controller\CancelController;
 use CG\Settings\Alias\Storage\Api as ShippingAliasStorage;
 use CG\Order\Client\Tracking\Storage\Api as TrackingStorageApi;
 use CG\Order\Service\Tracking\Service as TrackingService;
+use CG\Account\Client\Storage\Api as AccountStorageApi;
 
 return [
     'router' => [
@@ -876,7 +877,8 @@ return [
             ],
             TrackingService::class => [
                 'parameters' => [
-                    'repository' => TrackingStorageApi::class
+                    'repository' => TrackingStorageApi::class,
+                    'accountStorage' => AccountStorageApi::class
                 ]
             ],
             TrackingStorageApi::class => [
