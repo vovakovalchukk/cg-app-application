@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fda2e94ae3b799634b8b278cb420be38",
+    "hash": "ac28350d4a59707d313b8d4d75f56930",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -1503,17 +1503,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.5",
+            "version": "dev-CGIV-2697-SlidableSidebar",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "c23f6e179de673a9e3883efc8feaaccd1ec6dcd9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.5-d28543.zip",
-                "reference": "c23f6e179de673a9e3883efc8feaaccd1ec6dcd9",
-                "shasum": "fef0eb203d19941b1dbe0f11723ad34c8fa98812"
+                "reference": "6b8fd4a992349441c75a3808a85a661b8e9fe534"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1543,7 +1537,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-07-23 10:21:54"
+            "time": "2014-07-23 10:58:42"
         },
         {
             "name": "cilex/cilex",
@@ -3961,11 +3955,17 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.12.6",
+            "alias_normalized": "1.12.6.0",
+            "version": "dev-CGIV-2697-SlidableSidebar",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpspec/phpspec": 20
     },
     "platform": {
