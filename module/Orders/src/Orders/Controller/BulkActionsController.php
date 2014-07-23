@@ -1,25 +1,25 @@
 <?php
 namespace Orders\Controller;
 
+use CG\Order\Shared\Collection as OrderCollection;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use Orders\Order\Exception\MultiException;
-use Zend\Mvc\Controller\AbstractActionController;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
-use CG_UI\View\Prototyper\JsonModelFactory;
-use Zend\View\Model\JsonModel;
-use Orders\Order\Service as OrderService;
-use CG\Order\Shared\Collection as OrderCollection;
-use Orders\Controller\BulkActions\ExceptionInterface as Exception;
-use Orders\Controller\BulkActions\RuntimeException;
-use Orders\Controller\BulkActions\InvalidArgumentException;
-use Orders\Order\Invoice\Service as InvoiceService;
-use Orders\Order\Batch\Service as BatchService;
 use CG\Template\Entity as Template;
-use Settings\Module as Settings;
-use Settings\Controller\InvoiceController as InvoiceSettings;
+use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_Usage\Service as UsageService;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
+use Orders\Order\Service as OrderService;
+use Orders\Controller\BulkActions\ExceptionInterface as Exception;
+use Orders\Controller\BulkActions\InvalidArgumentException;
+use Orders\Controller\BulkActions\RuntimeException;
+use Orders\Order\Batch\Service as BatchService;
+use Orders\Order\Exception\MultiException;
+use Orders\Order\Invoice\Service as InvoiceService;
+use Settings\Module as Settings;
+use Settings\Controller\InvoiceController as InvoiceSettings;
+use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\JsonModel;
 
 class BulkActionsController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -62,7 +62,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     /**
      * @return JsonModelFactory
      */
-    public function getJsonModelFactory()
+    protected function getJsonModelFactory()
     {
         return $this->jsonModelFactory;
     }
@@ -76,7 +76,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     /**
      * @return OrderService
      */
-    public function getOrderService()
+    protected function getOrderService()
     {
         return $this->orderService;
     }
@@ -90,7 +90,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     /**
      * @return InvoiceService
      */
-    public function getInvoiceService()
+    protected function getInvoiceService()
     {
         return $this->invoiceService;
     }
@@ -244,9 +244,9 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         }
     }
 
-    public function invoiceOrders(OrderCollection $orders, Template $template = null)
+    public function invoiceOrders(OrderCollection $orders)
     {
-        return $this->getInvoiceService()->getResponseFromOrderCollection($orders, $template);
+        return $this->getInvoiceService()->getResponseFromOrderCollection($orders);
     }
 
     public function checkInvoicePrintingAllowedAction()
