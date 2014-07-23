@@ -35,7 +35,7 @@ use Exception;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Order\Shared\Status as OrderStatus;
-use CG\Channel\Carriers;
+use CG\Channel\Carrier;
 
 class Service implements LoggerAwareInterface
 {
@@ -73,7 +73,7 @@ class Service implements LoggerAwareInterface
         OrderDispatcher $orderDispatcher,
         OrderCanceller $orderCanceller,
         ShippingConversionService $shippingConversionService,
-        Carriers $carriers
+        Carrier $carriers
     )
     {
         $this
@@ -713,7 +713,7 @@ class Service implements LoggerAwareInterface
         return $this->carriers;
     }
 
-    protected function setCarriers(Carriers $carriers)
+    protected function setCarriers(Carrier $carriers)
     {
         $this->carriers = $carriers;
         return $this;

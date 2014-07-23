@@ -239,7 +239,7 @@ require([
         <label>
         <span class="inputbox-label"><?= $this->translate('Tracking Number'); ?></span>
             <div class="order-inputbox-holder">
-                <input class="inputbox" type="text" name="trackingNumber" value="<?= ($tracking) ? $tracking->getNumber() : ""; ?>">
+                <input class="inputbox" id="trackingNumber" type="text" name="trackingNumber" value="<?= ($tracking) ? $tracking->getNumber() : ""; ?>">
             </div>
         </label>
         <input type="hidden" value="<?= ($tracking) ? $tracking->getETag() : ""; ?>" id="eTag" name="eTag"/>

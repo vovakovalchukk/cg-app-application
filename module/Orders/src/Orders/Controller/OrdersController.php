@@ -166,20 +166,18 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $order = $this->getOrderService()->getOrder($this->params('order'));
         $carriers = $this->getOrderService()->getCarriersData();
         $trackings = $order->getTrackings();
-        //var_dump($order->getTrackings());
         $trackings->rewind();
         $tracking = $trackings->current();
-
-        //var_dump($order->getTrackings());
-        //get_class($trackings);
-        //die();
-
         $options = [];
         foreach ($carriers as $carrier) {
+            $selected = false;
+            if(!is_null($tracking)) {
+                $selected = ($tracking->getCarrier() == $carrier);
+            }
             $options[] = [
                 'title' => $carrier,
                 'value' => $carrier,
-                'selected' => ($tracking->getCarrier() == $carrier)
+                'selected' => $selected
             ];
         }
         $carrierSelect = $this->getViewModelFactory()->newInstance(["options" => $options]);

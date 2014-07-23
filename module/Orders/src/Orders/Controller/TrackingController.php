@@ -38,7 +38,8 @@ class TrackingController extends AbstractActionController
         $tracking = $this->fetchTracking();
         $tracking = is_null($tracking) ? $this->create() : $this->update($tracking);
         $this->getTrackingService()->save($tracking);
-        $this->getTrackingService()->createGearmanJob();
+        print "hello";
+        $this->getTrackingService()->createGearmanJob($this->fetchOrder());
         $view = $this->getJsonModelFactory()->newInstance();
         $view->setVariable('eTag', $tracking->getETag());
         return $view;
@@ -50,7 +51,7 @@ class TrackingController extends AbstractActionController
         if ($tracking) {
             $this->getTrackingService()->remove($tracking);
         }
-        $this->getTrackingService()->createGearmanJob();
+        $this->getTrackingService()->createGearmanJob($this->fetchOrder()); 
         $view = $this->getJsonModelFactory()->newInstance();
         $view->setVariable('eTag', '');
         return $view;
@@ -58,7 +59,7 @@ class TrackingController extends AbstractActionController
 
     protected function create()
     {
-        $order = $this->getOrderService()->fetch($this->params('order'));
+        $order = $this->fetchOrder();
         $tracking = $this->getMapper()->fromArray(
             array(
                 'userId' =>  $this->getActiveUserContainer()->getActiveUser()->getId(),
@@ -155,14 +156,5 @@ class TrackingController extends AbstractActionController
     public function getActiveUserContainer()
     {
         return $this->activeUserContainer;
-    }
-
-    protected function getGearmanOrderGenerator() {
-        return $this->gearmanOrderGenerator;
-    }
-
-    protected function setGearmanOrderGenerator(GearmanOrderGenerator $gearmanOrderGenerator) {
-        $this->gearmanOrderGenerator = $gearmanOrderGenerator;
-        return $this;
     }
 }
