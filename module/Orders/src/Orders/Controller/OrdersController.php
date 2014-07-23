@@ -226,9 +226,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $sidebar->setTemplate('orders/orders/sidebar/navbar');
 
         $links = [
-            'order-status' => 'Order Status',
+            'order-status-details' => 'Order Status',
             'bulk-actions' => 'Bulk Actions',
-            'timeline-boxes' => 'Timeline',
+            'timeline' => 'Timeline',
             'order-alert' => 'Alert',
             'order-buyer-message' => 'Buyer Message',
             'addressInformation' => 'Address Information',

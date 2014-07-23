@@ -28,7 +28,7 @@ require([
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
 <div class="module clearfix" id="timeline">
     <?= $this->timelineBoxes; ?>
-    <div class="order-details-right">
+    <div class="order-details-right" id="order-status-details">
         <div class="orderid-logo-holder">
             <span class="order-status-holder status <?= $order->getStatus(); ?>-bg"><?= $order->getStatus(); ?></span>
             <span class="logo-large <?=$order->getChannel()?>"></span>
