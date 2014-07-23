@@ -48,7 +48,8 @@ class AmazonController extends AbstractActionController
                 "credentials" => "",
                 "active" => true,
                 "deleted" => false,
-                "expiryDate" => null
+                "expiryDate" => null,
+                "type" => "sale"
             ));
         }
         $credentials = $this->getDi()->get(Credentials::class, array(
