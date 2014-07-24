@@ -135,6 +135,16 @@ define([
         $(selector).val(template.getName());
     };
 
+    DomManipulator.prototype.changeCheckBoxState = function(selector, value)
+    {
+        return $(selector).prop('checked', value);
+    };
+
+    DomManipulator.prototype.resetCheckbox = function(selector)
+    {
+        $(selector).prop('checked', false);
+    }
+
     DomManipulator.prototype.getOffset = function(selector)
     {
         return $(selector).offset();

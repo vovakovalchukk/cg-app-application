@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "80c09e65b702d894a75e2cc143e34e22",
+    "hash": "300ddb480a2e84b7c1fdc6e260d637c0",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -229,7 +229,11 @@
                     "CG\\Ebay\\": ""
                 }
             },
+<<<<<<< HEAD
             "time": "2014-07-24 07:29:57"
+=======
+            "time": "2014-07-23 14:31:48"
+>>>>>>> 53525027ad2331fae8dceb275bf5d3b1ce141a94
         },
         {
             "name": "channelgrabber/email",
@@ -336,6 +340,13 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -551,6 +562,13 @@
                 "predis/predis": "v0.8.3"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Predis\\": ""
@@ -719,6 +737,7 @@
         },
         {
             "name": "channelgrabber/template",
+<<<<<<< HEAD
             "version": "1.2.19",
             "source": {
                 "type": "git",
@@ -730,6 +749,19 @@
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.19-97c518.zip",
                 "reference": "9064656d90bc36ff3368ed7e2e4c1afc6bde591c",
                 "shasum": "bebde6ae97f0e2f4ade72b741cc7ffeebd29e9fd"
+=======
+            "version": "1.2.18",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-template.git",
+                "reference": "3588d730c0c892bdb051d82446816ce5fe7241ca"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.18-79e39f.zip",
+                "reference": "3588d730c0c892bdb051d82446816ce5fe7241ca",
+                "shasum": "3da790a2a555508103a4e3d23d5a7069bf0faae9"
+>>>>>>> 53525027ad2331fae8dceb275bf5d3b1ce141a94
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -755,7 +787,11 @@
                     "CG\\Template\\": ""
                 }
             },
+<<<<<<< HEAD
             "time": "2014-07-24 07:28:46"
+=======
+            "time": "2014-07-23 12:26:58"
+>>>>>>> 53525027ad2331fae8dceb275bf5d3b1ce141a94
         },
         {
             "name": "channelgrabber/usage",
@@ -1869,9 +1905,7 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -1959,8 +1993,7 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com",
-                    "role": "Developer"
+                    "homepage": "http://benramsey.com"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
@@ -3950,11 +3983,17 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.1.31",
+            "alias_normalized": "1.1.31.0",
+            "version": "dev-CGIV-2667",
+            "package": "channelgrabber/ebay"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/ebay": 20,
         "phpspec/phpspec": 20
     },
     "platform": {
