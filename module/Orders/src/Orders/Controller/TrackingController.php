@@ -6,7 +6,6 @@ use Zend\Mvc\Controller\AbstractActionController;
 use CG\Order\Service\Tracking\Service as TrackingService;
 use CG\Order\Shared\Tracking\Mapper as TrackingMapper;
 use CG\Order\Shared\Tracking\Entity as TrackingEntity;
-use CG\Order\Shared\Entity as OrderEntity;
 use CG\Order\Client\Service as OrderService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
@@ -19,12 +18,12 @@ class TrackingController extends AbstractActionController
     protected $mapper;
     protected $orderService;
 
-    public function __construct(ActiveUserInterface $activeUserContainer,
-
-                                JsonModelFactory $jsonModelFactory,
-                                TrackingService $service,
-                                TrackingMapper $mapper,
-                                OrderService $orderService)
+    public function __construct(
+        ActiveUserInterface $activeUserContainer,
+        JsonModelFactory $jsonModelFactory,
+        TrackingService $service,
+        TrackingMapper $mapper,
+        OrderService $orderService)
     {
         $this->setJsonModelFactory($jsonModelFactory)
             ->setTrackingService($service)
