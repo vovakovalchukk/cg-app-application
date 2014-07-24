@@ -508,8 +508,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     }
 
     /**
-     /* @return StoredFiltersService
-     */
+      @return StoredFiltersService
+    */
     protected function getStoredFiltersService()
     {
         return $this->storedFiltersService;
