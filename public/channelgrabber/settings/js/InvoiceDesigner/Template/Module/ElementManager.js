@@ -3,13 +3,15 @@ define([
     'InvoiceDesigner/Template/Module/DomListener/ElementManager',
     'InvoiceDesigner/Template/DomManipulator',
     'mustache',
-    'cg-mustache'
+    'cg-mustache',
+    'jquery'
 ], function(
     ModuleAbstract,
     ElementManagerListener,
     domManipulator,
     Mustache,
-    CGMustache
+    CGMustache,
+    $
 ) {
     var ElementManager = function ()
     {
@@ -45,7 +47,7 @@ define([
                 var renderedTemplate = Mustache.render(template, elementOptions);
                 $(ElementManagerListener.getContainerSelector()).append(renderedTemplate);
             });
-        }
+        };
         init();
     };
 
