@@ -33,11 +33,16 @@ use CG\Settings\Alias\Storage\Api as ShippingAliasStorage;
 use CG\Settings\Alias\Service as ShippingAliasService;
 
 return [
+    'CG' => [
+        'Settings' => [
+            'show_to_pdf_button' => false
+        ]
+    ],
     'navigation' => [
         'sidebar-navigation' => [
             'Channel Management' => [
                 'label' => 'Channel Management',
-                'route' => Module::ROUTE.'/'.ChannelController::ROUTE,
+                'uri' => '',
                 'class' => 'heading-medium',
                 'pages' => [
                     ChannelController::ROUTE_CHANNELS => [
@@ -49,7 +54,7 @@ return [
             ],
             'Invoices' => [
                 'label' => 'Invoices',
-                'route' => Module::ROUTE.'/'.InvoiceController::ROUTE,
+                'uri' => '',
                 'class' => 'heading-medium',
                 'pages' => [
                     [
@@ -65,7 +70,7 @@ return [
             ],
             'Shipping Management' => [
                 'label' => 'Shipping Management',
-                'route' => Module::ROUTE . '/' . ShippingController::ROUTE . '/' . ShippingController::ROUTE_ALIASES,
+                'uri' => '',
                 'class' => 'heading-medium',
                 'pages' => [
                     [
@@ -385,6 +390,11 @@ return [
                 'AccountTradingCompanyColumnView' => ViewModel::class,
                 'AccountTokenStatusColumnView' => ViewModel::class,
                 'AccountManageColumnView' => ViewModel::class,
+            ],
+            InvoiceController::class => [
+                'parameters' => [
+                    'config' => 'app_config'
+                ]
             ],
             AccountApiStorage::class => [
                 'parameters' => [

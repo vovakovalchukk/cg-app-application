@@ -16,19 +16,21 @@ function(StoredFilters) {
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <div class="filter-module clearfix navbar-content">
-    <span class="heading-medium"><?= $this->translate('Saved Filters') ?></span>
-    <div class="module-content nav">
-        <ul
-            id="savedFilters"
-            data-save="<?= $this->url('Orders/' . Orders\Controller\StoredFiltersController::ROUTE_SAVE) ?>"
-            data-remove="<?= $this->url('Orders/' . Orders\Controller\StoredFiltersController::ROUTE_REMOVE) ?>"
-            data-template="<?= Orders\Module::PUBLIC_FOLDER ?>template/elements/savedFilter.mustache"
-            data-popup="<?= Orders\Module::PUBLIC_FOLDER ?>template/popup/saveFilter.mustache"
-            >
-            <li class='empty-list<?= count($filters) ? ' hidden' : '' ?>'><?= $this->translate('No saved filters') ?></li>
-            <?php if (count($filters)) : ?>
-                <?= $this->mustacheLoop('elements/savedFilter.mustache', $filters) ?>
-            <?php endif; ?>
-        </ul>
-    </div>
+    <ul class="module-content nav">
+        <li>
+            <span class="heading-medium"><?= $this->translate('Saved Filters') ?></span>
+            <ul
+                id="savedFilters"
+                data-save="<?= $this->url('Orders/' . Orders\Controller\StoredFiltersController::ROUTE_SAVE) ?>"
+                data-remove="<?= $this->url('Orders/' . Orders\Controller\StoredFiltersController::ROUTE_REMOVE) ?>"
+                data-template="<?= Orders\Module::PUBLIC_FOLDER ?>template/elements/savedFilter.mustache"
+                data-popup="<?= Orders\Module::PUBLIC_FOLDER ?>template/popup/saveFilter.mustache"
+                >
+                <li class='empty-list<?= count($filters) ? ' hidden' : '' ?>'><?= $this->translate('No saved filters') ?></li>
+                <?php if (count($filters)) : ?>
+                    <?= $this->mustacheLoop('elements/savedFilter.mustache', $filters) ?>
+                <?php endif; ?>
+            </ul>
+        </li>
+    </ul>
 </div>
