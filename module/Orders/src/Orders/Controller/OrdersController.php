@@ -335,12 +335,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $data = $this->getDefaultJsonData();
         $pageLimit = $this->getPageLimit();
         $orderBy = $this->getOrderBy();
-
         $filterId = $this->params()->fromRoute('filterId');
 
-        ob_start();
         $this->logDebugDump($filterId, "Filter id: ");
-        $this->log('Requested Order Filter Id ' . trim(ob_get_clean()), 0, 'debug', __NAMESPACE__);
 
         try {
             $orders = $this->getOrderService()->getOrdersFromFilterId(
