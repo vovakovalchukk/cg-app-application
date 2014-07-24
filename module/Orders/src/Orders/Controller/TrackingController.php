@@ -36,7 +36,7 @@ class TrackingController extends AbstractActionController
     public function updateAction()
     {     
         $tracking = $this->fetchTracking();
-        $tracking = is_null($tracking) ? $this->create() : $this->update($tracking);
+        $this->update($tracking);
         $this->getTrackingService()->save($tracking);
         $this->getTrackingService()->createGearmanJob($this->fetchOrder());
         $view = $this->getJsonModelFactory()->newInstance();
@@ -60,14 +60,14 @@ class TrackingController extends AbstractActionController
     {
         $order = $this->fetchOrder();
         $tracking = $this->getMapper()->fromArray(
-            array(
+            [
                 'userId' =>  $this->getActiveUserContainer()->getActiveUser()->getId(),
                 'orderId' => $this->params('order'),
                 'number' => $this->params()->fromPost('trackingNumber'),
                 'carrier' => $this->params()->fromPost('carrier'),
                 'timestamp' => $order->getDispatchDate(),
                 'organisationUnitId' => $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()
-            )
+            ]
         );
         return $tracking;
     }
@@ -82,8 +82,7 @@ class TrackingController extends AbstractActionController
 
     protected function fetchOrder()
     {
-        $order = $this->getOrderService()->fetch($this->params()->fromRoute('order'));
-        return $order;
+        return $this->getOrderService()->fetch($this->params()->fromRoute('order'));
     }
 
     protected function fetchTracking()
@@ -95,7 +94,7 @@ class TrackingController extends AbstractActionController
             $trackings->rewind();
             $tracking = $trackings->current();
         } catch (NotFound $e) {
-            $tracking = null;
+            $tracking = $this->create();
         }
 
         return $tracking;

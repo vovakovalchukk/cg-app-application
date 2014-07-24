@@ -339,7 +339,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $filterId = $this->params()->fromRoute('filterId');
 
         ob_start();
-
+        $this->logDebugDump($filterId, "Filter id: ");
         $this->log('Requested Order Filter Id ' . trim(ob_get_clean()), 0, 'debug', __NAMESPACE__);
 
         try {
@@ -507,6 +507,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $this;
     }
 
+    /**
      /* @return StoredFiltersService
      */
     protected function getStoredFiltersService()
