@@ -67,7 +67,6 @@ class TrackingController extends AbstractActionController
                 'number' => $this->params()->fromPost('trackingNumber'),
                 'carrier' => $this->params()->fromPost('carrier'),
                 'timestamp' => date(StdlibDateTime::FORMAT),
-                'id' => NULL,
                 'organisationUnitId' => $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()
             )
         );
