@@ -17,6 +17,7 @@ class TrackingController extends AbstractActionController
     protected $mustacheRenderer;
     protected $mapper;
     protected $orderService;
+    protected $activeUserContainer;
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
@@ -33,7 +34,7 @@ class TrackingController extends AbstractActionController
     }
 
     public function updateAction()
-    {
+    {     
         $tracking = $this->fetchTracking();
         $tracking = is_null($tracking) ? $this->create() : $this->update($tracking);
         $this->getTrackingService()->save($tracking);
@@ -65,7 +66,6 @@ class TrackingController extends AbstractActionController
                 'number' => $this->params()->fromPost('trackingNumber'),
                 'carrier' => $this->params()->fromPost('carrier'),
                 'timestamp' => $order->getDispatchDate(),
-                'id' => NULL,
                 'organisationUnitId' => $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()
             )
         );
