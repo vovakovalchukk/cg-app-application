@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a9fb68864d8b7f2e3903fe8af784f52b",
+    "hash": "ee9e91f1d7ae23a7c1d5f9c1f7b5ae98",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -193,11 +193,17 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-CGIV-2683-RenewToken",
+            "version": "1.1.34",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "105fe026347f6a83a3a6c5cafca658a93032b3b9"
+                "reference": "74b1e0f8ce3ec88f1d2517280c2823c6c6d5878e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.1.34-4fb19e.zip",
+                "reference": "74b1e0f8ce3ec88f1d2517280c2823c6c6d5878e",
+                "shasum": "60770e239cc6f2741670c94a94bad0d35b1b389d"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.23",
@@ -223,7 +229,7 @@
                     "CG\\Ebay\\": ""
                 }
             },
-            "time": "2014-07-23 14:26:37"
+            "time": "2014-07-24 07:29:57"
         },
         {
             "name": "channelgrabber/email",
@@ -3955,17 +3961,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.1.34",
-            "alias_normalized": "1.1.34.0",
-            "version": "dev-CGIV-2683-RenewToken",
-            "package": "channelgrabber/ebay"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/ebay": 20,
         "phpspec/phpspec": 20
     },
     "platform": {
