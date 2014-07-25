@@ -35,6 +35,7 @@ use Exception;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Order\Shared\Status as OrderStatus;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
 
 class Service implements LoggerAwareInterface
 {
@@ -59,6 +60,7 @@ class Service implements LoggerAwareInterface
     protected $orderDispatcher;
     protected $orderCanceller;
     protected $shippingConversionService;
+    protected $organisationUnitService;
 
     public function __construct(
         StorageInterface $orderClient,
@@ -71,7 +73,8 @@ class Service implements LoggerAwareInterface
         AccountService $accountService,
         OrderDispatcher $orderDispatcher,
         OrderCanceller $orderCanceller,
-        ShippingConversionService $shippingConversionService
+        ShippingConversionService $shippingConversionService,
+        OrganisationUnitService $organisationUnitService
     )
     {
         $this
@@ -86,7 +89,8 @@ class Service implements LoggerAwareInterface
             ->setAccountService($accountService)
             ->setOrderDispatcher($orderDispatcher)
             ->setOrderCanceller($orderCanceller)
-            ->setShippingConversionService($shippingConversionService);
+            ->setShippingConversionService($shippingConversionService)
+            ->setOrganisationUnitService($organisationUnitService);
     }
 
     public function alterOrderTable(OrderCollection $orderCollection, MvcEvent $event)
@@ -109,8 +113,10 @@ class Service implements LoggerAwareInterface
 
     public function getOrdersArrayWithShippingAliases(array $orders)
     {
+        $organisationUnit = $this->getOrganisationUnitService()->fetch($this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId());
+
         foreach($orders as $index => $order) {
-            $shippingAlias = $this->getShippingConversionService()->fromMethodToAlias($order['shippingMethod'], $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId());
+            $shippingAlias = $this->getShippingConversionService()->fromMethodToAlias($order['shippingMethod'], $organisationUnit);
             $orders[$index]['shippingMethod'] = $shippingAlias ? $shippingAlias->getName() : $orders[$index]['shippingMethod'];
         }
         return $orders;
@@ -732,5 +738,16 @@ class Service implements LoggerAwareInterface
     protected function getShippingConversionService()
     {
         return $this->shippingConversionService;
+    }
+
+    protected function getOrganisationUnitService()
+    {
+        return $this->organisationUnitService;
+    }
+
+    protected function setOrganisationUnitService(OrganisationUnitService $organisationUnitService)
+    {
+        $this->organisationUnitService = $organisationUnitService;
+        return $this;
     }
 }
