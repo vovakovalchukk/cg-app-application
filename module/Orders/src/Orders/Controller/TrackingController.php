@@ -9,6 +9,7 @@ use CG\Order\Shared\Tracking\Entity as TrackingEntity;
 use CG\Order\Client\Service as OrderService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
+use CG\Stdlib\DateTime as StdlibDateTime;
 
 class TrackingController extends AbstractActionController
 {
@@ -58,14 +59,13 @@ class TrackingController extends AbstractActionController
 
     protected function create()
     {
-        $order = $this->fetchOrder();
         $tracking = $this->getMapper()->fromArray(
             [
                 'userId' =>  $this->getActiveUserContainer()->getActiveUser()->getId(),
                 'orderId' => $this->params('order'),
                 'number' => $this->params()->fromPost('trackingNumber'),
                 'carrier' => $this->params()->fromPost('carrier'),
-                'timestamp' => $order->getDispatchDate(),
+                'timestamp' => date(StdlibDateTime::FORMAT),
                 'organisationUnitId' => $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()
             ]
         );
