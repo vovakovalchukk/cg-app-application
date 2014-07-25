@@ -41,7 +41,7 @@ class ShippingController extends AbstractActionController
 
     public function aliasAction()
     {
-        $shippingMethods = $this->getConversionService()->fetchMethods();
+        $shippingMethods = $this->getConversionService()->fetchMethods($this->getActiveUser()->getActiveUserRootOrganisationUnitId());
         $view = $this->getViewModelFactory()->newInstance();
         $view->setVariable('title', static::ROUTE_ALIASES);
         $view->setVariable('shippingMethods', $shippingMethods->toArray());
@@ -146,7 +146,7 @@ class ShippingController extends AbstractActionController
 
     protected function getMultiSelectExpandedView(AliasEntity $alias)
     {
-        $shippingMethods = $this->getConversionService()->fetchMethods();
+        $shippingMethods = $this->getConversionService()->fetchMethods($this->getActiveUser()->getActiveUserRootOrganisationUnitId());
         $options = [];
         $methodIds = array_flip($alias->getMethods()->getIds());
         foreach ($shippingMethods as $shippingMethod) {
