@@ -43,7 +43,7 @@
         "channelgrabber/zf2-login": "~1.4.9",
         "channelgrabber/zf2-mustache": "~1.0.0",
         "channelgrabber/zf2-permission": "~1.1.0",
-        "channelgrabber/zf2-register": "~1.4.17",
+        "channelgrabber/zf2-register": "~1.4.13",
         "channelgrabber/zf2-sessions": "~1.0.3",
         "channelgrabber/zf2-ssoclient": "~1.4.0",
         "channelgrabber/zf2-stdlib": "~1.1.9",
