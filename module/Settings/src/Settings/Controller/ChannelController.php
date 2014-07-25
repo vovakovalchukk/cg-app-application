@@ -151,7 +151,7 @@ class ChannelController extends AbstractActionController
     {
         $addChannelSelect = $this->newViewModel();
         $addChannelSelect->setTemplate('settings/channel/create/select');
-        $addChannelSelect->setVariable('channels', $this->getChannelService()->getChannels());
+        $addChannelSelect->setVariable('channels', $this->getChannelService()->getChannels($this->params('type')));
         return $addChannelSelect;
     }
 

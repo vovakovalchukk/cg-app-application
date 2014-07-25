@@ -67,7 +67,7 @@ return [
                 ]
             ],
             'Invoices' => [
-                'label' => 'Invoices',
+                'label' => 'Invoice Management',
                 'uri' => '',
                 'class' => 'heading-medium',
                 'pages' => [
@@ -143,6 +143,9 @@ return [
                                     'defaults' => [
                                         'controller' => ChannelController::class,
                                         'action' => 'list',
+                                    ],
+                                    'constraints' => [
+                                        'type' => implode('|', Type::getTypes())
                                     ]
                                 ],
                                 'may_terminate' => true,
@@ -634,7 +637,7 @@ return [
             ],
             'AccountChannelColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Sales Channel'],
+                    'variables' => ['value' => 'Channel'],
                     'template' => 'value.phtml',
                 ],
             ],
