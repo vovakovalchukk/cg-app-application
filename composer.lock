@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e8b85963776d9cf9f306b20eabdc8760",
+    "hash": "a7711dfd9279dd7c5b8be436a1444c07",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -419,11 +419,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-2716-account-trading-company-update-orders",
+            "version": "1.7.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "9568a195074803a0d907bc8e0f2ec978a8a1b2b8"
+                "reference": "848222bafab1fd714d3c80fb65e1cbf76039c43f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.7.3-4cc612.zip",
+                "reference": "848222bafab1fd714d3c80fb65e1cbf76039c43f",
+                "shasum": "fa10e4398886674b0a8c3ac9dc52ab1955916090"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -435,6 +441,7 @@
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/slim": ">=1.6.0,<2.0.0",
                 "channelgrabber/stdlib": ">=2.7.0,<3.0.0",
+                "channelgrabber/user": ">=1.16.2,<2.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.1.12",
                 "ext-mongo": ">=1.4.4",
                 "guzzle/guzzle": "~3.7",
@@ -451,7 +458,7 @@
                     "CG\\Order\\": ""
                 }
             },
-            "time": "2014-07-24 10:02:57"
+            "time": "2014-07-25 15:13:21"
         },
         {
             "name": "channelgrabber/permission",
@@ -3957,17 +3964,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.6.4",
-            "alias_normalized": "1.6.4.0",
-            "version": "dev-CGIV-2716-account-trading-company-update-orders",
-            "package": "channelgrabber/order"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
         "phpspec/phpspec": 20
     },
     "platform": {
