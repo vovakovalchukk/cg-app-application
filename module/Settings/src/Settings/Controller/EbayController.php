@@ -46,7 +46,8 @@ class EbayController extends AbstractActionController
                 "credentials" => "",
                 "active" => true,
                 "deleted" => false,
-                "expiryDate" => null
+                "expiryDate" => null,
+                "type" => "sale"
             ));
         }
         $accountEntity = $this->getEbayAccount()->save($this->params()->fromQuery('sessionId'), $accountEntity);

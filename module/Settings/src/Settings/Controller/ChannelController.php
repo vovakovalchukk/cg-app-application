@@ -36,6 +36,7 @@ class ChannelController extends AbstractActionController
     const ACCOUNT_TEMPLATE = "Sales Channel Item";
     const ACCOUNT_CHANNEL_FORM_BLANK_TEMPLATE = "Sales Channel Item Channel Form Blank";
     const ACCOUNT_DETAIL_FORM = "Sales Channel Item Detail";
+    const ACCOUNT_TYPE_TO_LIST = 'sale';
 
     protected $di;
     protected $jsonModelFactory;
@@ -187,7 +188,8 @@ class ChannelController extends AbstractActionController
                 null,
                 false,
                 $limit,
-                $page
+                $page,
+                static::ACCOUNT_TYPE_TO_LIST
             );
 
             $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) $accounts->getTotal();
@@ -288,6 +290,7 @@ class ChannelController extends AbstractActionController
             $response = $this->getJsonModelFactory()->newInstance();
             $response->setVariable('valid', true);
             $response->setVariable('status', 'Channel account updated');
+            $response->setVariable('type', 'sale');
             return $response;
         } catch (NotFound $e) {
             $this->handleAccountUpdateException($e, 'That channel account could not be found and so could not be updated');
@@ -324,7 +327,8 @@ class ChannelController extends AbstractActionController
             "credentials" => "",
             "active" => false,
             "deleted" => false,
-            "expiryDate" => null
+            "expiryDate" => null,
+            "type" => "sale"
         ));
         $view = $this->getJsonModelFactory()->newInstance();
         $url = $this->getAccountFactory()->createRedirect($accountEntity, Module::ROUTE . '/' . static::ROUTE . '/' . ChannelController::ROUTE_CHANNELS,
