@@ -36,6 +36,7 @@ use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Order\Shared\Status as OrderStatus;
 use CG\Channel\Carrier;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
 
 class Service implements LoggerAwareInterface
 {
@@ -61,6 +62,7 @@ class Service implements LoggerAwareInterface
     protected $orderCanceller;
     protected $shippingConversionService;
     protected $carriers;
+    protected $organisationUnitService;
 
     public function __construct(
         StorageInterface $orderClient,
@@ -74,7 +76,8 @@ class Service implements LoggerAwareInterface
         OrderDispatcher $orderDispatcher,
         OrderCanceller $orderCanceller,
         ShippingConversionService $shippingConversionService,
-        Carrier $carriers
+        Carrier $carriers,
+        OrganisationUnitService $organisationUnitService
     )
     {
         $this
@@ -90,7 +93,8 @@ class Service implements LoggerAwareInterface
             ->setOrderDispatcher($orderDispatcher)
             ->setOrderCanceller($orderCanceller)
             ->setShippingConversionService($shippingConversionService)
-            ->setCarriers($carriers);
+            ->setCarriers($carriers)
+            ->setOrganisationUnitService($organisationUnitService);
     }
 
     public function alterOrderTable(OrderCollection $orderCollection, MvcEvent $event)
@@ -113,8 +117,10 @@ class Service implements LoggerAwareInterface
 
     public function getOrdersArrayWithShippingAliases(array $orders)
     {
+        $organisationUnit = $this->getOrganisationUnitService()->fetch($this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId());
+
         foreach($orders as $index => $order) {
-            $shippingAlias = $this->getShippingConversionService()->fromMethodToAlias($order['shippingMethod']);
+            $shippingAlias = $this->getShippingConversionService()->fromMethodToAlias($order['shippingMethod'], $organisationUnit);
             $orders[$index]['shippingMethod'] = $shippingAlias ? $shippingAlias->getName() : $orders[$index]['shippingMethod'];
         }
         return $orders;
@@ -574,6 +580,7 @@ class Service implements LoggerAwareInterface
         $exception = new MultiException();
 
         foreach ($orders as $order) {
+
             try {
                 $this->dispatchOrder($order);
             } catch (Exception $orderException) {
@@ -743,6 +750,7 @@ class Service implements LoggerAwareInterface
         return $this->shippingConversionService;
     }
 
+
     protected function getCarriers()
     {
         return $this->carriers;
@@ -751,6 +759,17 @@ class Service implements LoggerAwareInterface
     protected function setCarriers(Carrier $carriers)
     {
         $this->carriers = $carriers;
+        return $this;
+    }
+
+    protected function getOrganisationUnitService()
+    {
+        return $this->organisationUnitService;
+    }
+
+    protected function setOrganisationUnitService(OrganisationUnitService $organisationUnitService)
+    {
+        $this->organisationUnitService = $organisationUnitService;
         return $this;
     }
 }
