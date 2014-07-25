@@ -15,7 +15,7 @@
         }
     },
     "require": {
-        "channelgrabber/account": "~1.0.26",
+        "channelgrabber/account": "~1.0.28",
         "channelgrabber/amazon": "~1.2.29",
         "channelgrabber/channel": "~1.2.7",
         "channelgrabber/constants": "dev-master",
@@ -23,7 +23,7 @@
         "channelgrabber/gearman": "~1.1.0",
         "channelgrabber/http": "~1.2.15",
         "channelgrabber/log": "~2.0.2",
-        "channelgrabber/order": "~1.6.4",
+        "channelgrabber/order": "~1.7.0",
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/phinx": "~0.3.2.3",
         "channelgrabber/redis": "~0.1.0",
