@@ -38,7 +38,7 @@ class Mapper
         return $this->ouStorage;
     }
 
-    public function toDataTableArray(Entity $entity, Url $urlPlugin, DateTime $now = null)
+    public function toDataTableArray(Entity $entity, Url $urlPlugin, $type, DateTime $now = null)
     {
         if (!($now instanceof DateTime)) {
             $now = new DateTime();
@@ -55,7 +55,7 @@ class Mapper
         $dataTableArray['enabled'] = $entity->getActive() && !$entity->getDeleted();
         $dataTableArray['status'] = $entity->getStatus($now);
         $dataTableArray['organisationUnit'] = $this->getOrganisationUnitCompanyName($entity->getOrganisationUnitId());
-        $dataTableArray['manageLinks'] = $this->getManageLinks($entity->getId(), $urlPlugin);
+        $dataTableArray['manageLinks'] = $this->getManageLinks($entity->getId(), $type, $urlPlugin);
 
         $dataTableArray['expiryDate'] = 'N/A';
         $expiryDate = $entity->getExpiryDateAsDateTime();
@@ -77,11 +77,11 @@ class Mapper
         }
     }
 
-    protected function getManageLinks($id, Url $urlPlugin)
+    protected function getManageLinks($id, $type, Url $urlPlugin)
     {
         $links = [
-            'manage' => ChannelController::ROUTE_CHANNELS . '/' . ChannelController::ACCOUNT_ROUTE,
-            'delete' => ChannelController::ROUTE_CHANNELS . '/' . ChannelController::ACCOUNT_ROUTE . '/' . ChannelController::ACCOUNT_DELETE_ROUTE
+            'manage' => ChannelController::ROUTE_SALES . '/' . ChannelController::ACCOUNT_ROUTE,
+            'delete' => ChannelController::ROUTE_SALES . '/' . ChannelController::ACCOUNT_ROUTE . '/' . ChannelController::ACCOUNT_DELETE_ROUTE
         ];
 
         $manageLinks = [];
@@ -91,7 +91,7 @@ class Mapper
             $manageLinks[] = [
                 'name' => end($routeMap),
                 'class' => $class,
-                'href' => $urlPlugin->fromRoute($route, ['account' => $id])
+                'href' => $urlPlugin->fromRoute($route, ['account' => $id, 'type' => $type])
             ];
         }
 

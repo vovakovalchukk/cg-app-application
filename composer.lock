@@ -4,21 +4,15 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "acfe302cee6e918a518dd6a58c9382cb",
+    "hash": "62864cba856ddf988644ed29d2ecb535",
     "packages": [
         {
             "name": "channelgrabber/account",
-            "version": "1.0.27",
+            "version": "dev-CGIV-2641-UseTypeWhenAccessingAccounts",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-account.git",
-                "reference": "3a4901db817a7d93b7db12c4442990e4e787a0cf"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-account-1.0.27-03176c.zip",
-                "reference": "3a4901db817a7d93b7db12c4442990e4e787a0cf",
-                "shasum": "411b3b6b667b51e7eab8e65af86f0a878880485f"
+                "reference": "fe349c7e152df1fb8a1c8886f1197e33a9c75157"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -43,7 +37,7 @@
                     "CG\\Account\\": ""
                 }
             },
-            "time": "2014-07-24 07:27:03"
+            "time": "2014-07-23 12:53:11"
         },
         {
             "name": "channelgrabber/amazon",
@@ -3961,10 +3955,16 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.0.27",
+            "alias_normalized": "1.0.27.0",
+            "version": "dev-CGIV-2641-UseTypeWhenAccessingAccounts",
+            "package": "channelgrabber/account"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/account": 20,
         "channelgrabber/constants": 20,
         "phpspec/phpspec": 20
     },

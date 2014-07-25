@@ -63,7 +63,7 @@ class AmazonController extends AbstractActionController
         } catch (NotModified $e) {
             //Ignore the account has been reconnected but the credentials remain the same
         }
-        $routeName = implode('/', [Module::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS, ChannelController::ACCOUNT_ROUTE]);
+        $routeName = implode('/', [Module::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_SALES, ChannelController::ACCOUNT_ROUTE]);
         $url = $this->plugin('url')->fromRoute($routeName, ["account" => $accountEntity->getId()]);
         $this->plugin('redirect')->toUrl($url);
         return false;
