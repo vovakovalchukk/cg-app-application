@@ -190,9 +190,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $sidebar->setTemplate('orders/orders/sidebar/navbar');
 
         $links = [
-            'order-status' => 'Order Status',
+            'order-status-details' => 'Order Status',
             'bulk-actions' => 'Bulk Actions',
-            'timeline-boxes' => 'Timeline',
+            'timeline' => 'Timeline',
             'order-alert' => 'Alert',
             'order-buyer-message' => 'Buyer Message',
             'addressInformation' => 'Address Information',
@@ -284,6 +284,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         }
 
         $this->getFilterService()->setPersistentFilter($filter);
+        $this->updateColumnPositions();
 
         try {
             $orders = $this->getOrderService()->getOrders($filter);
@@ -310,6 +311,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         ob_start();
         var_dump($filterId);
         $this->log('Requested Order Filter Id ' . trim(ob_get_clean()), 0, 'debug', __NAMESPACE__);
+
+        $this->updateColumnPositions();
 
         try {
             $orders = $this->getOrderService()->getOrdersFromFilterId(
@@ -344,6 +347,20 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $this->getOrderService()->updateUserPrefOrderColumns($updatedColumns);
 
         return $response->setVariable('updated', true);
+    }
+
+    protected function updateColumnPositions()
+    {
+        $keyPrefix = 'mDataProp_';
+        $columnPositions = [];
+        $post = $this->params()->fromPost();
+        foreach ($post as $key => $value) {
+            if (strpos($key, $keyPrefix) === 0) {
+                $columnPositions[$value] = substr($key, strlen($keyPrefix));
+            }
+        }
+
+        $this->getOrderService()->updateUserPrefOrderColumnPositions($columnPositions);
     }
 
     protected function setUsageService(UsageService $usageService)

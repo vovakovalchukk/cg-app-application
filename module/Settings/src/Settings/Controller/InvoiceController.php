@@ -1,18 +1,26 @@
 <?php
 namespace Settings\Controller;
 
+use CG\Stdlib\Log\LoggerAwareInterface;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
+use Zend\Config\Config;
 use Zend\Mvc\Controller\AbstractActionController;
 use Settings\Module;
 use Settings\Invoice\Service as InvoiceService;
 use Settings\Invoice\Mapper as InvoiceMapper;
+use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Template\ReplaceManager\OrderContent as OrderTagManager;
 use CG\Template\Service as TemplateService;
 use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
+use CG\Zend\Stdlib\View\Model\Exception as ViewModelException;
+use Zend\I18n\Translator\Translator;
+use CG\Stdlib\Log\LogTrait;
 
-class InvoiceController extends AbstractActionController
+class InvoiceController extends AbstractActionController implements LoggerAwareInterface
 {
+    use LogTrait;
+
     const ROUTE = 'Invoice';
     const ROUTE_MAPPING = 'Invoice Mapping';
     const ROUTE_DESIGNER = 'Invoice Designer';
@@ -29,6 +37,8 @@ class InvoiceController extends AbstractActionController
     protected $orderTagManager;
     protected $invoiceService;
     protected $invoiceMapper;
+    protected $translator;
+    protected $config;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -37,7 +47,9 @@ class InvoiceController extends AbstractActionController
         UserOrganisationUnitService $userOrganisationUnitService,
         OrderTagManager $orderTagManager,
         InvoiceService $invoiceService,
-        InvoiceMapper $invoiceMapper
+        InvoiceMapper $invoiceMapper,
+        Translator $translator,
+        Config $config
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
@@ -45,7 +57,9 @@ class InvoiceController extends AbstractActionController
             ->setUserOrganisationUnitService($userOrganisationUnitService)
             ->setOrderTagManager($orderTagManager)
             ->setInvoiceService($invoiceService)
-            ->setInvoiceMapper($invoiceMapper);
+            ->setInvoiceMapper($invoiceMapper)
+            ->setTranslator($translator)
+            ->setConfig($config);
     }
 
     public function indexAction()
@@ -123,6 +137,8 @@ class InvoiceController extends AbstractActionController
 
     public function designAction()
     {
+        $showToPdfButton = $this->getConfig()->get('CG')->get('Settings')->get('show_to_pdf_button');
+
         $view = $this->getViewModelFactory()->newInstance();
         $view->addChild($this->getTemplateSelectView(), 'templates');
         $view->addChild($this->getTemplateAddButtonView(), 'templateAddButton');
@@ -135,6 +151,7 @@ class InvoiceController extends AbstractActionController
         $view->setVariable('rootOuId', $rootOu->getId());
         $view->setVariable('templateSelectorId', static::TEMPLATE_SELECTOR_ID);
         $view->setVariable('paperTypeDropdownId', static::PAPER_TYPE_DROPDOWN_ID);
+        $view->setVariable('showToPdfButton', $showToPdfButton);
 
         $view->addChild($this->getPaperTypeModule(), 'paperTypeModule');
 
@@ -228,9 +245,29 @@ class InvoiceController extends AbstractActionController
 
     public function saveAction()
     {
-        $template = $this->getTemplateService()->saveFromJson($this->params()->fromPost('template'));
-        $view = $this->getJsonModelFactory()->newInstance(["template" => json_encode($template)]);
-        return $view;
+        try{
+            $template = $this->getTemplateService()->saveFromJson($this->params()->fromPost('template'));
+            $view = $this->getJsonModelFactory()->newInstance(["template" => json_encode($template)]);
+            return $view;
+        } catch (NotModified $e) {
+            $this->handleAccountUpdateException($e, 'There were no changes to be saved');
+        } catch (Exception $e) {
+            $this->handleAccountUpdateException($e, 'Template could not be saved.');
+            $this->logException($e, 'log:error', __NAMESPACE__);
+        }
+        return false;
+    }
+
+    protected function handleAccountUpdateException(\Exception $e, $message)
+    {
+        $status = $this->getJsonModelFactory()->newInstance();
+        $status->setVariable('valid', false);
+        throw new ViewModelException(
+            $status,
+            $this->getTranslator()->translate($message),
+            $e->getCode(),
+            $e
+        );
     }
 
     public function getViewModelFactory()
@@ -333,5 +370,30 @@ class InvoiceController extends AbstractActionController
     {
         $this->invoiceMapper = $invoiceMapper;
         return $this;
+    }
+
+    protected function getTranslator()
+    {
+        return $this->translator;
+    }
+
+    protected function setTranslator(Translator $translator)
+    {
+        $this->translator = $translator;
+        return $this;
+    }
+    
+    protected function setConfig(Config $config)
+    {
+        $this->config = $config;
+        return $this;
+    }
+
+    /**
+     * @return Config
+     */
+    protected function getConfig()
+    {
+        return $this->config;
     }
 }
