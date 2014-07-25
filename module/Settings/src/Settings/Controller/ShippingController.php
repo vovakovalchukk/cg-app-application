@@ -9,6 +9,7 @@ use CG\Order\Shared\Shipping\Conversion\Service as ConversionService;
 use CG\Settings\Alias\Service as ShippingService;
 use CG\User\ActiveUserInterface;
 use CG\Settings\Alias\Entity as AliasEntity;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
 
 class ShippingController extends AbstractActionController
 {
@@ -24,24 +25,31 @@ class ShippingController extends AbstractActionController
     protected $shippingService;
     protected $jsonModelFactory;
     protected $activeUser;
+    protected $organisationUnitService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         ConversionService $conversionService,
         ShippingService $shippingService,
         JsonModelFactory $jsonModelFactory,
-        ActiveUserInterface $activeUser
+        ActiveUserInterface $activeUser,
+        OrganisationUnitService $organisationUnitService
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setConversionService($conversionService)
             ->setShippingService($shippingService)
             ->setJsonModelFactory($jsonModelFactory)
-            ->setActiveUser($activeUser);
+            ->setActiveUser($activeUser)
+            ->setOrganisationUnitService($organisationUnitService);
     }
 
     public function aliasAction()
     {
-        $shippingMethods = $this->getConversionService()->fetchMethods();
+        $organisationUnit = $this->getOrganisationUnitService()
+                                 ->fetch($this->getActiveUser()
+                                              ->getActiveUserRootOrganisationUnitId()
+            );
+        $shippingMethods = $this->getConversionService()->fetchMethods($organisationUnit);
         $view = $this->getViewModelFactory()->newInstance();
         $view->setVariable('title', static::ROUTE_ALIASES);
         $view->setVariable('shippingMethods', $shippingMethods->toArray());
@@ -146,7 +154,11 @@ class ShippingController extends AbstractActionController
 
     protected function getMultiSelectExpandedView(AliasEntity $alias)
     {
-        $shippingMethods = $this->getConversionService()->fetchMethods();
+        $organisationUnit = $this->getOrganisationUnitService()
+                                 ->fetch($this->getActiveUser()
+                                              ->getActiveUserRootOrganisationUnitId()
+            );
+        $shippingMethods = $this->getConversionService()->fetchMethods($organisationUnit);
         $options = [];
         $methodIds = array_flip($alias->getMethods()->getIds());
         foreach ($shippingMethods as $shippingMethod) {
@@ -220,5 +232,16 @@ class ShippingController extends AbstractActionController
     protected function getActiveUser()
     {
         return $this->activeUser;
+    }
+
+    protected function getOrganisationUnitService()
+    {
+        return $this->organisationUnitService;
+    }
+
+    protected function setOrganisationUnitService(OrganisationUnitService $organisationUnitService)
+    {
+        $this->organisationUnitService = $organisationUnitService;
+        return $this;
     }
 }
