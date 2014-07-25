@@ -6,7 +6,6 @@ use Zend\Mvc\Controller\AbstractActionController;
 use CG\Order\Service\Tracking\Service as TrackingService;
 use CG\Order\Shared\Tracking\Mapper as TrackingMapper;
 use CG\Order\Shared\Tracking\Entity as TrackingEntity;
-use CG\Order\Shared\Entity as OrderEntity;
 use CG\Order\Client\Service as OrderService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
@@ -19,13 +18,14 @@ class TrackingController extends AbstractActionController
     protected $mustacheRenderer;
     protected $mapper;
     protected $orderService;
+    protected $activeUserContainer;
 
-    public function __construct(ActiveUserInterface $activeUserContainer,
-
-                                JsonModelFactory $jsonModelFactory,
-                                TrackingService $service,
-                                TrackingMapper $mapper,
-                                OrderService $orderService)
+    public function __construct(
+        ActiveUserInterface $activeUserContainer,
+        JsonModelFactory $jsonModelFactory,
+        TrackingService $service,
+        TrackingMapper $mapper,
+        OrderService $orderService)
     {
         $this->setJsonModelFactory($jsonModelFactory)
             ->setTrackingService($service)
@@ -35,9 +35,9 @@ class TrackingController extends AbstractActionController
     }
 
     public function updateAction()
-    {
+    {     
         $tracking = $this->fetchTracking();
-        $tracking = is_null($tracking) ? $this->create() : $this->update($tracking);
+        $this->update($tracking);
         $this->getTrackingService()->save($tracking);
         $this->getTrackingService()->createGearmanJob($this->fetchOrder());
         $view = $this->getJsonModelFactory()->newInstance();
@@ -59,16 +59,15 @@ class TrackingController extends AbstractActionController
 
     protected function create()
     {
-        $order = $this->fetchOrder();
         $tracking = $this->getMapper()->fromArray(
-            array(
+            [
                 'userId' =>  $this->getActiveUserContainer()->getActiveUser()->getId(),
                 'orderId' => $this->params('order'),
                 'number' => $this->params()->fromPost('trackingNumber'),
                 'carrier' => $this->params()->fromPost('carrier'),
                 'timestamp' => date(StdlibDateTime::FORMAT),
                 'organisationUnitId' => $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()
-            )
+            ]
         );
         return $tracking;
     }
@@ -83,8 +82,7 @@ class TrackingController extends AbstractActionController
 
     protected function fetchOrder()
     {
-        $order = $this->getOrderService()->fetch($this->params()->fromRoute('order'));
-        return $order;
+        return $this->getOrderService()->fetch($this->params()->fromRoute('order'));
     }
 
     protected function fetchTracking()
@@ -96,7 +94,7 @@ class TrackingController extends AbstractActionController
             $trackings->rewind();
             $tracking = $trackings->current();
         } catch (NotFound $e) {
-            $tracking = null;
+            $tracking = $this->create();
         }
 
         return $tracking;

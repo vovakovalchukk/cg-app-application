@@ -21,11 +21,9 @@ use CG\Stdlib\PageLimit;
 use CG\Stdlib\OrderBy;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
-use CG_Mustache\View\Renderer as MustacheRenderer;
 use CG_Usage\Service as UsageService;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
-use Orders\Controller\TrackingController;
 
 class OrdersController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -45,12 +43,10 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected $storedFiltersService;
     protected $usageService;
     protected $shippingConversionService;
-    protected $carriers;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         ViewModelFactory $viewModelFactory,
-        MustacheRenderer $mustacheRenderer,
         OrderService $orderService,
         FilterService $filterService,
         TimelineService $timelineService,
@@ -64,7 +60,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     {
         $this->setJsonModelFactory($jsonModelFactory)
             ->setViewModelFactory($viewModelFactory)
-            ->setMustacheRenderer($mustacheRenderer)
             ->setOrderService($orderService)
             ->setFilterService($filterService)
             ->setTimelineService($timelineService)
@@ -340,12 +335,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $data = $this->getDefaultJsonData();
         $pageLimit = $this->getPageLimit();
         $orderBy = $this->getOrderBy();
-
         $filterId = $this->params()->fromRoute('filterId');
 
-        ob_start();
-
-        $this->log('Requested Order Filter Id ' . trim(ob_get_clean()), 0, 'debug', __NAMESPACE__);
+        $this->logDebugDump($filterId, "Filter id: ");
 
         try {
             $orders = $this->getOrderService()->getOrdersFromFilterId(
@@ -512,8 +504,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $this;
     }
 
-     /* @return StoredFiltersService
-     */
+    /**
+      @return StoredFiltersService
+    */
     protected function getStoredFiltersService()
     {
         return $this->storedFiltersService;
@@ -528,16 +521,5 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected function getShippingConversionService()
     {
         return $this->shippingConversionService;
-    }
-
-    public function getMustacheRenderer()
-    {
-        return $this->mustacheRenderer;
-    }
-
-    public function setMustacheRenderer(MustacheRenderer $mustacheRenderer)
-    {
-        $this->mustacheRenderer = $mustacheRenderer;
-        return $this;
     }
 }
