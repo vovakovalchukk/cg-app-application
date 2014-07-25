@@ -15,7 +15,7 @@
         }
     },
     "require": {
-        "channelgrabber/account": "~1.0.26",
+        "channelgrabber/account": "~1.0.28",
         "channelgrabber/amazon": "~1.2.29",
         "channelgrabber/channel": "~1.2.7",
         "channelgrabber/constants": "dev-master",

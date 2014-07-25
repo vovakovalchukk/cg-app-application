@@ -113,10 +113,16 @@ class Service implements LoggerAwareInterface
 
     public function getOrdersArrayWithShippingAliases(array $orders)
     {
-        $organisationUnit = $this->getOrganisationUnitService()->fetch($this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId());
+        $organisationUnit = $this->getOrganisationUnitService()
+                                 ->fetch($this->getActiveUserContainer()
+                                              ->getActiveUserRootOrganisationUnitId()
+            );
 
         foreach($orders as $index => $order) {
-            $shippingAlias = $this->getShippingConversionService()->fromMethodToAlias($order['shippingMethod'], $organisationUnit);
+            $shippingAlias = $this->getShippingConversionService()
+                                  ->fromMethodToAlias($order['shippingMethod'],
+                                                      $organisationUnit
+                );
             $orders[$index]['shippingMethod'] = $shippingAlias ? $shippingAlias->getName() : $orders[$index]['shippingMethod'];
         }
         return $orders;
