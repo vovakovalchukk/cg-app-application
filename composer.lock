@@ -1,9 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
-    "hash": "98e4e6619d027299809585341241dd0f",
+    "hash": "10cfc3d728efc1b2a236303055848d60",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -351,17 +352,17 @@
         },
         {
             "name": "channelgrabber/http",
-            "version": "1.2.17",
+            "version": "1.2.18",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cghttp.git",
-                "reference": "229264b18fe2de205f0aacf73cd39edd3412f614"
+                "reference": "3d3d6e00b2c73df68f1cf743fa3d37570951c3e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.2.17-323704.zip",
-                "reference": "229264b18fe2de205f0aacf73cd39edd3412f614",
-                "shasum": "40f85806e6e8a2df5256c0918d9a3c23d81abfb0"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.2.18-e5c0f8.zip",
+                "reference": "3d3d6e00b2c73df68f1cf743fa3d37570951c3e3",
+                "shasum": "26fdd25cd3e2a4603593e94998ac4bbfba7a444b"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2,<2.0.0",
@@ -378,7 +379,7 @@
                     "CG\\Http\\": ""
                 }
             },
-            "time": "2014-07-25 11:07:58"
+            "time": "2014-07-28 09:19:09"
         },
         {
             "name": "channelgrabber/log",
@@ -601,17 +602,17 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.0.10",
+            "version": "1.0.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "09733519750a5d67a99a371bff44a89b7b2754c2"
+                "reference": "e0d0d8b6948d4770997b65c5bf5f685984734f5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.0.10-10333a.zip",
-                "reference": "09733519750a5d67a99a371bff44a89b7b2754c2",
-                "shasum": "c652b71f5dc1f7b50b521b0cb16c032b8b20d2d4"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.0.11-10ab74.zip",
+                "reference": "e0d0d8b6948d4770997b65c5bf5f685984734f5a",
+                "shasum": "fa4530f1d0135b3b48d0bf50f3540c695b264073"
             },
             "require": {
                 "channelgrabber/cache": ">=1.2.4",
@@ -626,7 +627,7 @@
                     "CG\\Settings\\": ""
                 }
             },
-            "time": "2014-07-25 09:26:04"
+            "time": "2014-07-28 09:21:40"
         },
         {
             "name": "channelgrabber/slim",
@@ -735,17 +736,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.2.20",
+            "version": "1.2.21",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "6c4c3e713f0dbfc087b1eac79e22094e0af3d096"
+                "reference": "f391c5a6d2c90ae15efe5dbc6a116894980b8d35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.20-f85467.zip",
-                "reference": "6c4c3e713f0dbfc087b1eac79e22094e0af3d096",
-                "shasum": "a690b0d045a1cfe6f6c697469ab5688d84c9e106"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.21-08074f.zip",
+                "reference": "f391c5a6d2c90ae15efe5dbc6a116894980b8d35",
+                "shasum": "f94127cb6dbbf2bbf9a40e445a529a715e089547"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -771,7 +772,7 @@
                     "CG\\Template\\": ""
                 }
             },
-            "time": "2014-07-25 09:28:51"
+            "time": "2014-07-28 09:20:25"
         },
         {
             "name": "channelgrabber/usage",
@@ -1191,17 +1192,17 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.4.10",
+            "version": "1.4.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "41d50053101fd8a25b53e9b6bf8929e511caba04"
+                "reference": "90d3c4e1c8c9b42c7e348ccc18752ff58a6009e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.10-48aef5.zip",
-                "reference": "41d50053101fd8a25b53e9b6bf8929e511caba04",
-                "shasum": "82304cabc1fad125fb69bcd2fee8a08dc98c684c"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.11-5957a4.zip",
+                "reference": "90d3c4e1c8c9b42c7e348ccc18752ff58a6009e6",
+                "shasum": "6480ba3d2ef6031c10c7cf14800ff41aec69e561"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
@@ -1237,7 +1238,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2014-07-24 15:47:10"
+            "time": "2014-07-28 08:08:05"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -1277,17 +1278,17 @@
         },
         {
             "name": "channelgrabber/zf2-permission",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/permission-module.git",
-                "reference": "f34afdc0d5147a796a05fbddd9267b6e77b896d6"
+                "reference": "477c4f774c5bc4d6622daf23ef59e7bb6b10ff6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.1.0-d96321.zip",
-                "reference": "f34afdc0d5147a796a05fbddd9267b6e77b896d6",
-                "shasum": "d7156599aa631478c5c45a846b12efeb17aefda5"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.1.1-aa43c1.zip",
+                "reference": "477c4f774c5bc4d6622daf23ef59e7bb6b10ff6e",
+                "shasum": "b588c8d249ce0f9bfc79faf89cff962de3dd46be"
             },
             "require": {
                 "channelgrabber/user": ">=1.10.11",
@@ -1308,7 +1309,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-07-07 16:08:34"
+            "time": "2014-07-28 08:10:23"
         },
         {
             "name": "channelgrabber/zf2-register",
@@ -3263,16 +3264,16 @@
         },
         {
             "name": "phpspec/phpspec",
-            "version": "dev-master",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/phpspec.git",
-                "reference": "294cfcc2c4a23f6f22f55f48dd885a40b441d4ac"
+                "reference": "61712147412cb647b6cb68b19833a60bfda759a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/294cfcc2c4a23f6f22f55f48dd885a40b441d4ac",
-                "reference": "294cfcc2c4a23f6f22f55f48dd885a40b441d4ac",
+                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/61712147412cb647b6cb68b19833a60bfda759a1",
+                "reference": "61712147412cb647b6cb68b19833a60bfda759a1",
                 "shasum": ""
             },
             "require": {
@@ -3332,7 +3333,7 @@
                 "testing",
                 "tests"
             ],
-            "time": "2014-07-02 12:25:38"
+            "time": "2014-07-01 14:09:19"
         },
         {
             "name": "phpspec/prophecy",
