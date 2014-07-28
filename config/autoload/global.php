@@ -16,10 +16,12 @@ use CG\Cache\EventManagerInterface;
 use CG\Zend\Stdlib\Cache\EventManager;
 use CG\Order\Shared\StorageInterface as OrderStorage;
 use CG\Order\Client\StorageInterface as OrderClientStorage;
+use CG\Order\Shared\Item\StorageInterface as ItemStorage;
 use CG\Order\Shared\Tag\StorageInterface as OrderTagStorage;
 use CG\Order\Shared\Batch\StorageInterface as OrderBatchStorage;
 use CG\OrganisationUnit\StorageInterface as OrganisationUnitStorage;
 use CG\Order\Client\Storage\Api as OrderApiClient;
+use CG\Order\Client\Item\Storage\Api as ItemApiClient;
 use CG\Order\Client\Tag\Storage\Api as OrderTagApiClient;
 use CG\Order\Client\Batch\Storage\Api as OrderBatchApiClient;
 use CG\OrganisationUnit\Storage\Api as OrganisationUnitClient;
@@ -82,6 +84,7 @@ return array(
                 'Zend\Di\LocatorInterface' => 'Zend\Di\Di',
                 EventManagerInterface::class => EventManager::class,
                 OrderStorage::class => OrderApiClient::class,
+                ItemStorage::class => ItemApiClient::class,
                 OrderClientStorage::class => OrderApiClient::class,
                 OrderTagStorage::class => OrderTagApiClient::class,
                 OrderBatchStorage::class => OrderBatchApiClient::class,
