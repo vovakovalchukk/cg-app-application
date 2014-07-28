@@ -20,7 +20,8 @@ define(function() {
         {
             return {
                 'default': getDefault(),
-                'tradingCompanies': getTradingCompanies()
+                'tradingCompanies': getTradingCompanies(),
+                'eTag': $('#setting-etag').val()
             };
         };
 
@@ -49,14 +50,16 @@ define(function() {
         $.ajax({
             url: "mapping/save",
             type: "POST",
+            dataType : 'json',
             data: self.getInvoiceSettingsEntity()
-        }).success(function() {
+        }).success(function(data) {
+            $('#setting-etag').val(data.eTag);
             if (n) {
                 n.success(self.successMessage);
             }
-        }).error(function() {
+        }).error(function(error, textStatus, errorThrown) {
             if (n) {
-                n.error(self.errorMessage);
+                n.ajaxError(error, textStatus, errorThrown);
             }
         });
     };
