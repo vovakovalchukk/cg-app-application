@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "df56c2179b824a5c77c180091b4cc3fc",
+    "hash": "1f10036bac3717b0f5722208ad1e58e0",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -734,17 +734,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.2.20",
+            "version": "1.2.21",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "6c4c3e713f0dbfc087b1eac79e22094e0af3d096"
+                "reference": "f391c5a6d2c90ae15efe5dbc6a116894980b8d35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.20-f85467.zip",
-                "reference": "6c4c3e713f0dbfc087b1eac79e22094e0af3d096",
-                "shasum": "a690b0d045a1cfe6f6c697469ab5688d84c9e106"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.21-08074f.zip",
+                "reference": "f391c5a6d2c90ae15efe5dbc6a116894980b8d35",
+                "shasum": "f94127cb6dbbf2bbf9a40e445a529a715e089547"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -770,7 +770,7 @@
                     "CG\\Template\\": ""
                 }
             },
-            "time": "2014-07-25 09:28:51"
+            "time": "2014-07-28 09:20:25"
         },
         {
             "name": "channelgrabber/usage",
