@@ -2,15 +2,15 @@ define(['popup/mustache'],function(Popup) {
     var TagPopup = function(notifications, popupTemplate) {
         var self = this;
         var popup = new Popup(popupTemplate);
-        
+
         this.getPopup = function() {
             return popup;
         };
-        
-        this.saveTag = function(button, tagName, datatable, orders) {
+
+        this.saveTag = function(tagName, datatable, orders) {
             apply.call(
-                button,
-                getAppendUrl.call(button, datatable),
+                this,
+                getAppendUrl.call(this, datatable),
                 tagName,
                 orders,
                 {
@@ -51,9 +51,9 @@ define(['popup/mustache'],function(Popup) {
             self.getPopup().getElement().data('datatable', datatable);
             self.getPopup().getElement().data('orders', orders);
         };
-        
+
         this.checkbox = function(event) {
-            event.stopImmediatePropagation()
+            event.stopImmediatePropagation();
 
             var tag = $(this).data("tag");
             var orders = $(this).data("orders");
@@ -147,16 +147,16 @@ define(['popup/mustache'],function(Popup) {
     };
 
     TagPopup.prototype.savePopup = function() {
-        var name = $.trim(popup.getElement().find("input#tag-name").val());
+        var name = $.trim(this.getPopup().getElement().find("input#tag-name").val());
         if (!name.length) {
             return;
         }
-        var button = popup.getElement().data("button");
-        var datatable = popup.getElement().data("datatable");
-        var orders = popup.getElement().data("orders");
-        self.saveTag.call(button, name, datatable, orders);
-        popup.hide();
+        var button = this.getPopup().getElement().data("button");
+        var datatable = this.getPopup().getElement().data("datatable");
+        var orders = this.getPopup().getElement().data("orders");
+        this.saveTag.call(button, name, datatable, orders);
+        this.getPopup().hide();
     };
-    
+
     return TagPopup;
 });
