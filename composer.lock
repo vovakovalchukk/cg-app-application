@@ -1,8 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
-        "This file is @generated automatically"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
     "hash": "cc37e12a136c830cbe74ef2a4183eff0",
     "packages": [
@@ -1278,17 +1277,17 @@
         },
         {
             "name": "channelgrabber/zf2-permission",
-            "version": "1.1.1",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/permission-module.git",
-                "reference": "477c4f774c5bc4d6622daf23ef59e7bb6b10ff6e"
+                "reference": "f891fff255161a31e0c399ae03782cf36f02a4a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.1.1-aa43c1.zip",
-                "reference": "477c4f774c5bc4d6622daf23ef59e7bb6b10ff6e",
-                "shasum": "b588c8d249ce0f9bfc79faf89cff962de3dd46be"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.1.2-efce31.zip",
+                "reference": "f891fff255161a31e0c399ae03782cf36f02a4a6",
+                "shasum": "c610977ebeaa379c8baeeab76045f7adcf03fc5a"
             },
             "require": {
                 "channelgrabber/user": ">=1.10.11",
@@ -1309,7 +1308,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-07-28 08:10:23"
+            "time": "2014-07-29 13:13:37"
         },
         {
             "name": "channelgrabber/zf2-register",
@@ -3256,7 +3255,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
