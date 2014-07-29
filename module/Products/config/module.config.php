@@ -2,6 +2,8 @@
 use Products\Module;
 use Zend\Mvc\Router\Http\Literal;
 use Products\Controller\ProductsJsonController;
+use CG\Product\Service as ProductService;
+use CG\Product\Storage\Api as ProductApiStorage;
 
 return [
     'router' => [
@@ -11,7 +13,7 @@ return [
                 'options' => [
                     'route' => '/products'
                 ],
-                'may_terminate' => false, //=true when you add products list page
+                'may_terminate' => true,
                 'child_routes' => [
                     ProductsJsonController::AJAX_ROUTE => [
                         'type' => Literal::class,
@@ -21,10 +23,29 @@ return [
                                 'controller' => ProductsJsonController::class,
                                 'action' => 'ajax'
                             ]
-                        ]
+                        ],
                     ]
                 ]
             ]
+        ]
+    ],
+    'view_manager' => [
+        'strategies' => [
+            'ViewJsonStrategy'
+        ]
+    ],
+    'di' => [
+        'instance' => [
+            ProductService::class => [
+                'parameters' => [
+                    'repository' => ProductApiStorage::class
+                ]
+           ],
+           ProductApiStorage::class => [
+               'parameters' => [
+                   'client' => 'cg_app_guzzle'
+               ]
+           ]
         ]
     ]
 ];

@@ -26,6 +26,7 @@
         "channelgrabber/order": "~1.7.5",
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/phinx": "~0.3.2.3",
+        "channelgrabber/product": "~1.0.1",
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/settings": "~1.0.11",
         "channelgrabber/sso": "~1.2.0",

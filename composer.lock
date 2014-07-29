@@ -1,10 +1,9 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
-        "This file is @generated automatically"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "cc37e12a136c830cbe74ef2a4183eff0",
+    "hash": "8e3ed557732000219d5ec8fd3c3c72ba",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -574,6 +573,41 @@
                 }
             },
             "time": "2013-07-09 15:10:32"
+        },
+        {
+            "name": "channelgrabber/product",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-product.git",
+                "reference": "a338982c7db11533d5b0e79258a1eaf7d4e25996"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.0.1-511226.zip",
+                "reference": "a338982c7db11533d5b0e79258a1eaf7d4e25996",
+                "shasum": "41abd40e56b964cd7b782e40c4468dcb206ffd82"
+            },
+            "require": {
+                "channelgrabber/cache": ">=1.3.0,<2.0.0",
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/etag": ">=1.4.3",
+                "channelgrabber/http": ">=1.2.14",
+                "channelgrabber/permission": ">=1.0.0",
+                "channelgrabber/slim": ">=1.8.13",
+                "channelgrabber/stdlib": ">=2.7.0",
+                "channelgrabber/zf2-stdlib": ">=1.1.12",
+                "guzzle/guzzle": "~3.7",
+                "nocarrier/hal": "~0.9.4",
+                "zendframework/zend-di": ">=2.2.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "CG\\Product\\": ""
+                }
+            },
+            "time": "2014-07-25 09:27:41"
         },
         {
             "name": "channelgrabber/redis",
@@ -3256,7 +3290,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
