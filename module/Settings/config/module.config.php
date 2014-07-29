@@ -383,7 +383,8 @@ return [
             'aliases' => [
                 'EbayGuzzle' => GuzzleHttpClient::class,
                 'InvoiceSettingsDataTable' => DataTable::class,
-                'AccountList' => DataTable::class,
+                'salesAccountList' => DataTable::class,
+                'shippingAccountList' => DataTable::class,
                 'InvoiceSettingsDataTableSettings' => DataTable\Settings::class,
                 'AccountListSettings' => DataTable\Settings::class,
                 'ChannelTokenStatusMustacheJS' => ViewModel::class,
@@ -437,11 +438,6 @@ return [
                     'certificateId' => 'fa030731-18cc-4087-a06e-605d63113625'
                 ]
             ],
-            ChannelService::class => [
-                'parameters' => [
-                    'accountList' => 'AccountList',
-                ],
-            ],
             InvoiceService::class => [
                 'parameters' => [
                     'datatable' => 'InvoiceSettingsDataTable',
@@ -472,7 +468,7 @@ return [
                     'footer' => false,
                 ]
             ],
-            'AccountList' => [
+            'salesAccountList' => [
                 'parameters' => [
                     'variables' => [
                         'sortable' => 'false',
@@ -492,6 +488,31 @@ return [
                         ['column' => 'AccountAccountColumn'],
                         ['column' => 'AccountTradingCompanyColumn'],
                         ['column' => 'AccountTokenStatusColumn'],
+                        ['column' => 'AccountManageColumn'],
+                    ],
+                    'setVariable' => [
+                        ['name' => 'settings', 'value' => 'AccountListSettings']
+                    ],
+                ],
+            ],
+            'shippingAccountList' => [
+                'parameters' => [
+                    'variables' => [
+                        'sortable' => 'false',
+                        'id' => 'accounts'
+                    ],
+                ],
+                'injections' => [
+                    'addChild' => [
+                        ['child' => 'ChannelTokenStatusMustacheJS', 'captureTo' => 'javascript', 'append' => true],
+                        ['child' => 'ChannelStatusJS', 'captureTo' => 'javascript', 'append' => true],
+                        ['child' => 'ChannelDeleteJavascript', 'captureTo' => 'javascript', 'append' => true],
+                    ],
+                    'addColumn' => [
+                        ['column' => 'AccountEnableColumn'],
+                        ['column' => 'AccountStatusColumn'],
+                        ['column' => 'AccountChannelColumn'],
+                        ['column' => 'AccountAccountColumn'],
                         ['column' => 'AccountManageColumn'],
                     ],
                     'setVariable' => [
@@ -604,7 +625,7 @@ return [
                     'templateId' => 'tradingCompany',
                     'viewModel' => 'AccountTradingCompanyColumnView',
                     'sortable' => false,
-                    'hideable' => false,
+                    'hideable' => false
                 ],
             ],
             'AccountTokenStatusColumn' => [
@@ -612,7 +633,7 @@ return [
                     'templateId' => 'tokenStatus',
                     'viewModel' => 'AccountTokenStatusColumnView',
                     'sortable' => false,
-                    'hideable' => false,
+                    'hideable' => false
                 ],
             ],
             'AccountManageColumn' => [

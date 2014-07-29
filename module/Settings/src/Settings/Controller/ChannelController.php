@@ -157,13 +157,15 @@ class ChannelController extends AbstractActionController
 
     protected function getAccountList()
     {
+        $this->getService()->setupAccountList($this->params('type'));
         $accountList = $this->getService()->getAccountList();
         $settings = $accountList->getVariable('settings');
         $settings->setSource(
             $this->url()->fromRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_SALES.'/'.static::ROUTE_AJAX, ['type' => $this->params('type')])
         );
+        die('boom2');
         $settings->setTemplateUrlMap($this->mustacheTemplateMap('accountList'));
-
+        die('boom');
         return $accountList;
     }
 
