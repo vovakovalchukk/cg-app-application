@@ -2,6 +2,7 @@
 
 namespace Products\Controller;
 
+use CG\Stdlib\Exception\Runtime\NotFound;
 use Zend\Mvc\Controller\AbstractActionController;
 use Products\Service\ProductsService;
 use CG_UI\View\Prototyper\JsonModelFactory;
@@ -22,7 +23,12 @@ class ProductsJsonController extends AbstractActionController
     public function ajaxAction()
     {
         $view = $this->getJsonModelFactory()->newInstance();
-        $products = $this->getProductsService()->fetchProducts();
+        $products = [];
+        try {
+            $products = $this->getProductsService()->fetchProducts();
+        } catch(NotFound $e) {
+            //noop
+        }
         return $view->setVariable('products', $products);
     }
 
