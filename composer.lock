@@ -1,9 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
-    "hash": "cc37e12a136c830cbe74ef2a4183eff0",
+    "hash": "503b733104749bee0b9272029e874656",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -929,6 +930,35 @@
             "time": "2013-11-04 13:10:03"
         },
         {
+            "name": "channelgrabber/zendesk",
+            "version": "dev-CGIV-2706-OrganisationClient",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-zendesk.git",
+                "reference": "dc259ab89687e908b052ae00ac7c834f8b3bba25"
+            },
+            "require": {
+                "guzzlehttp/guzzle": "4.1.*",
+                "zendframework/zend-di": "2.3.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Zendesk\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Zendesk\\Test\\": "tests/",
+                    "CG\\Zendesk\\TestAsset\\": "tests/assets/"
+                }
+            },
+            "time": "2014-07-29 08:46:58"
+        },
+        {
             "name": "channelgrabber/zf2-amazon",
             "version": "1.0.1",
             "source": {
@@ -1312,22 +1342,17 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.4.18",
+            "version": "dev-CGIV-2706",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "154e0f6e52b4fb2568572260e37cf0f4c5a8ab41"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.18-ea01d3.zip",
-                "reference": "154e0f6e52b4fb2568572260e37cf0f4c5a8ab41",
-                "shasum": "567c056f701c9b1d258e9d2622bb907abdeed563"
+                "reference": "ff8dc373fc7eaeafad925812c2604dc02d0244ad"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/stdlib": ">=2.3.0",
                 "channelgrabber/user": ">=1.13.5",
+                "channelgrabber/zendesk": "dev-CGIV-2706-OrganisationClient as 1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
                 "guzzle/guzzle": "~3.7",
                 "zendframework/zend-config": "2.*",
@@ -1353,7 +1378,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2014-07-18 15:20:51"
+            "time": "2014-07-30 13:25:47"
         },
         {
             "name": "channelgrabber/zf2-sessions",
@@ -1756,6 +1781,124 @@
                 "web service"
             ],
             "time": "2014-05-07 17:04:22"
+        },
+        {
+            "name": "guzzlehttp/guzzle",
+            "version": "4.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/guzzle.git",
+                "reference": "5ae164dae6e65784286a698800190bc094407f7c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/5ae164dae6e65784286a698800190bc094407f7c",
+                "reference": "5ae164dae6e65784286a698800190bc094407f7c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/streams": "~1.4",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "ext-curl": "*",
+                "phpunit/phpunit": "~4.0",
+                "psr/log": "~1.0"
+            },
+            "suggest": {
+                "ext-curl": "Guzzle will use specific adapters if cURL is present"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GuzzleHttp\\": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "Guzzle is a PHP HTTP client library and framework for building RESTful web service clients",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "client",
+                "curl",
+                "framework",
+                "http",
+                "http client",
+                "rest",
+                "web service"
+            ],
+            "time": "2014-07-23 00:52:39"
+        },
+        {
+            "name": "guzzlehttp/streams",
+            "version": "1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/streams.git",
+                "reference": "3b761a328e5ed6ed519e960aded95d7acbe77894"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/streams/zipball/3b761a328e5ed6ed519e960aded95d7acbe77894",
+                "reference": "3b761a328e5ed6ed519e960aded95d7acbe77894",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GuzzleHttp\\Stream\\": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "Provides a simple abstraction over streams of data (Guzzle 4+)",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "Guzzle",
+                "stream"
+            ],
+            "time": "2014-07-19 18:43:42"
         },
         {
             "name": "mustache/mustache",
@@ -3255,8 +3398,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -3964,13 +4106,27 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.0.0",
+            "alias_normalized": "1.0.0.0",
+            "version": "dev-CGIV-2706-OrganisationClient",
+            "package": "channelgrabber/zendesk"
+        },
+        {
+            "alias": "1.4.19",
+            "alias_normalized": "1.4.19.0",
+            "version": "dev-CGIV-2706",
+            "package": "channelgrabber/zf2-register"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zendesk": 20,
+        "channelgrabber/zf2-register": 20,
         "phpspec/phpspec": 20
     },
+    "prefer-stable": false,
     "platform": {
         "php": ">=5.3.3"
     },
