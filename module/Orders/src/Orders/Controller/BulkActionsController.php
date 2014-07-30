@@ -1,6 +1,7 @@
 <?php
 namespace Orders\Controller;
 
+use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -10,7 +11,6 @@ use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_Usage\Service as UsageService;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
 use Orders\Order\Service as OrderService;
-use Orders\Controller\BulkActions\ExceptionInterface as Exception;
 use Orders\Controller\BulkActions\InvalidArgumentException;
 use Orders\Controller\BulkActions\RuntimeException;
 use Orders\Order\Batch\Service as BatchService;
@@ -183,20 +183,20 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         try {
             $orders = $this->{$this->typeMap[$type]}();
             $callable($orders);
-        } catch (NotFound $exception) {
-            return $response->setVariable('error', 'No Orders found');
-        } catch (Exception $exception) {
-            return $response->setVariable('error', $exception->getMessage());
         } catch (MultiException $exception) {
             $failedOrderIds = [];
+            echo $exception->getMessage();
             foreach ($exception as $orderId => $orderException) {
+                if (get_class($orderException) == NotModified::class) {
+                    continue;
+                }
                 $failedOrderIds[] = $orderId;
             }
+            if (!count($failedOrderIds)) {
+                return $response;
+            }
 
-            return $response->setVariable(
-                'error',
-                'Failed to update the following orders: ' . implode(', ', $failedOrderIds)
-            );
+            throw new \Exception('Failed to update the following orders: ' . implode(', ', $failedOrderIds), 0, $exception);
         }
         return $response->setVariable($action, true);
     }
