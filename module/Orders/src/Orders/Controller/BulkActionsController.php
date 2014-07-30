@@ -186,7 +186,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         } catch (MultiException $exception) {
             $failedOrderIds = [];
             foreach ($exception as $orderId => $orderException) {
-                if (get_class($orderException) == NotModified::class) {
+                if ($orderException instanceof NotModified) {
                     continue;
                 }
                 $failedOrderIds[] = $orderId;
