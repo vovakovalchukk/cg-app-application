@@ -1,5 +1,5 @@
 <?php
-namespace Orders\Controller;
+namespace Products\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\JsonModelFactory;
@@ -21,11 +21,9 @@ use CG\Stdlib\PageLimit;
 use CG\Stdlib\OrderBy;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
-use CG_Usage\Service as UsageService;
-use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
 
-class OrdersController extends AbstractActionController implements LoggerAwareInterface
+class ProductsController extends AbstractActionController implements LoggerAwareInterface
 {
     use LogTrait;
 
@@ -41,7 +39,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected $viewModelFactory;
     protected $filtersService;
     protected $storedFiltersService;
-    protected $usageService;
     protected $shippingConversionService;
 
     public function __construct(
@@ -54,7 +51,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         BulkActionsService $bulkActionsService,
         FiltersService $filtersService,
         StoredFiltersService $storedFiltersService,
-        UsageService $usageService,
         ShippingConversionService $shippingConversionService
     )
     {
@@ -67,28 +63,13 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             ->setBulkActionsService($bulkActionsService)
             ->setFiltersService($filtersService)
             ->setStoredFiltersService($storedFiltersService)
-            ->setUsageService($usageService)
             ->setShippingConversionService($shippingConversionService);
     }
 
     public function indexAction()
     {
-        die("jere");
         $view = $this->getViewModelFactory()->newInstance();
 
-        $templateUrlMap = [];
-        $webRoot = PROJECT_ROOT . '/public';
-        $templates = new DirectoryIterator($webRoot . Module::PUBLIC_FOLDER . 'template/columns');
-        foreach ($templates as $template) {
-            if (!$template->isFile()) {
-                continue;
-            }
-            $templateUrlMap[$template->getBasename('.html')]
-                = $this->basePath() . str_replace($webRoot, '', $template->getPathname());
-        }
-
-        $settings->setSource($this->url()->fromRoute('Orders/ajax'));
-        $settings->setTemplateUrlMap($templateUrlMap);
         $bulkActions = $this->getBulkActionsService()->getBulkActions();
         $bulkAction = $this->getViewModelFactory()->newInstance()->setTemplate('orders/orders/bulk-actions/index');
         $bulkAction->setVariable('isHeaderBarVisible', $this->getOrderService()->isFilterBarVisible());
@@ -96,9 +77,10 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             $bulkAction,
             'afterActions'
         );
-        
+
         $view->addChild($bulkActions, 'bulkItems');
         $view->addChild($this->getFilterBar(), 'filters');
+        $view->addChild($this->getSimpleProductView(), 'product');
         $view->addChild($this->getStatusFilters(), 'statusFiltersSidebar');
         $view->addChild(
             $this->getStoredFiltersService()->getStoredFiltersSidebarView(
@@ -109,8 +91,20 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->addChild($this->getBatches(), 'batches');
         $view->setVariable('isSidebarVisible', $this->getOrderService()->isSidebarVisible());
         $view->setVariable('isHeaderBarVisible', $this->getOrderService()->isFilterBarVisible());
-        $view->setVariable('filterNames', $this->getOrderService()->getFilterService()->getFilterNames());         
+        $view->setVariable('filterNames', $this->getOrderService()->getFilterService()->getFilterNames());
         return $view;
+    }
+
+    protected function getSimpleProductView()
+    {
+        $product = $this->getViewModelFactory()->newInstance([
+            'title' => 'Nike',
+            'SKU' => 'NKE',
+            'id' => "deleteButton-",
+        ]);
+        $product->setTemplate('elements/simple-product.mustache');
+
+        return $product;
     }
 
     protected function getStatusFilters()
@@ -121,36 +115,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             ]
         );
         $view->setTemplate('orders/orders/sidebar/statusFilters');
-        return $view;
-    }
-
-    public function orderAction()
-    {
-        if ($this->getUsageService()->hasUsageBeenExceeded()) {
-            throw new UsageExceeded();
-        }
-
-        $order = $this->getOrderService()->getOrder($this->params('order'));
-        $carriers = $this->getCarrierSelect();
-        $view = $this->getViewModelFactory()->newInstance(
-            [
-                'order' => $order
-            ]
-        );
-        $bulkActions = $this->getBulkActionsService()->getOrderBulkActions($order);
-        $bulkActions->addChild(
-            $this->getViewModelFactory()->newInstance()->setTemplate('orders/orders/bulk-actions/order'),
-            'afterActions'
-        );
-        $view->addChild($bulkActions, 'bulkActions');
-        $view->addChild($this->getTimelineBoxes($order), 'timelineBoxes');
-        $view->addChild($this->getOrderService()->getOrderItemTable($order), 'productPaymentTable');
-        $view->addChild($this->getNotes($order), 'notes');
-        $view->addChild($this->getDetailsSidebar(), 'sidebar');
-        $view->setVariable('isHeaderBarVisible', false);
-        $view->setVariable('subHeaderHide', true);
-        $view->setVariable('carriers', $carriers);
-        $view->addChild($this->getCarrierSelect(), 'carrierSelect');
         return $view;
     }
 
@@ -360,17 +324,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         }
 
         $this->getOrderService()->updateUserPrefOrderColumnPositions($columnPositions);
-    }
-
-    protected function setUsageService(UsageService $usageService)
-    {
-        $this->usageService = $usageService;
-        return $this;
-    }
-
-    protected function getUsageService()
-    {
-        return $this->usageService;
     }
 
     protected function setOrderService(OrderService $orderService)

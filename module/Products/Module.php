@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Orders;
+namespace Products;
 
 use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
 use Zend\Config\Factory as ConfigFactory;
@@ -17,12 +17,6 @@ use Zend\View\Model\ViewModel;
 class Module implements DependencyIndicatorInterface
 {
     const PUBLIC_FOLDER = '/channelgrabber/products/';
-
-    public function onBootstrap(MvcEvent $event)
-    {
-        $eventManager = $event->getApplication()->getEventManager();
-        $eventManager->attach(MvcEvent::EVENT_RENDER, array($this, 'layoutHandler'));
-    }
 
     public function getConfig()
     {
@@ -47,29 +41,5 @@ class Module implements DependencyIndicatorInterface
         return [
             'CG_UI'
         ];
-    }
-
-    public function layoutHandler(MvcEvent $event)
-    {
-        $viewModel = $event->getViewModel();
-        if (!($viewModel instanceof ViewModel)) {
-            return;
-        }
-        $this->renderBodyTag($viewModel);
-    }
-
-    protected function renderBodyTag(ViewModel $layout)
-    {
-        $layout->addChild($this->getBodyTagViewModel(), 'bodyTag', true);
-    }
-
-    /**
-     * @return ViewModel
-     */
-    protected function getBodyTagViewModel()
-    {
-        $bodyTag = new ViewModel();
-        $bodyTag->setTemplate('products/products/bodyTag');
-        return $bodyTag;
     }
 }

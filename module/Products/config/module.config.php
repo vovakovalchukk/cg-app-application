@@ -1,6 +1,6 @@
 <?php
-use Orders\Module;
-use Orders\Controller;
+use Products\Module;
+use Products\Controller;
 use CG_UI\View\DataTable;
 use Orders\Order\TableService;
 use CG\Order\Service\Alert\Service as AlertService;
@@ -37,7 +37,6 @@ return [
                         'controller' => 'Products\Controller\Products',
                         'action' => 'index',
                         'breadcrumbs' => false,
-                        'sidebar' => 'products/products/sidebar'
                     ],
                 ],
                 'may_terminate' => true,
@@ -429,8 +428,8 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            'Orders\Controller\Orders' => function($controllerManager) {
-                return $controllerManager->getServiceLocator()->get(Controller\OrdersController::class);
+            'Products\Controller\Products' => function($controllerManager) {
+                return $controllerManager->getServiceLocator()->get(Controller\ProductsController::class);
             },
             'Orders\Controller\Alert' => function($controllerManager) {
                 return $controllerManager->getServiceLocator()->get(Controller\AlertController::class);
@@ -493,11 +492,11 @@ return [
     ],
     'navigation' => array(
         'application-navigation' => array(
-            'orders' => array(
-                'label'  => 'Orders',
-                'route'  => 'Orders',
+            'products' => array(
+                'label'  => 'Products',
+                'route'  => 'Products',
                 'sprite' => 'sprite-orders-18-white',
-                'order'  => 10
+                'product'  => 10
             )
         )
     ),
