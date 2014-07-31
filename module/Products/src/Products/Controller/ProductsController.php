@@ -32,38 +32,32 @@ class ProductsController extends AbstractActionController implements LoggerAware
 
     protected $orderService;
     protected $filterService;
-    protected $timelineService;
     protected $batchService;
     protected $bulkActionsService;
     protected $jsonModelFactory;
     protected $viewModelFactory;
     protected $filtersService;
     protected $storedFiltersService;
-    protected $shippingConversionService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         ViewModelFactory $viewModelFactory,
         OrderService $orderService,
         FilterService $filterService,
-        TimelineService $timelineService,
         BatchService $batchService,
         BulkActionsService $bulkActionsService,
         FiltersService $filtersService,
         StoredFiltersService $storedFiltersService,
-        ShippingConversionService $shippingConversionService
     )
     {
         $this->setJsonModelFactory($jsonModelFactory)
             ->setViewModelFactory($viewModelFactory)
             ->setOrderService($orderService)
             ->setFilterService($filterService)
-            ->setTimelineService($timelineService)
             ->setBatchService($batchService)
             ->setBulkActionsService($bulkActionsService)
             ->setFiltersService($filtersService)
             ->setStoredFiltersService($storedFiltersService)
-            ->setShippingConversionService($shippingConversionService);
     }
 
     public function indexAction()
@@ -101,6 +95,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
             'title' => 'Nike',
             'SKU' => 'NKE',
             'id' => "deleteButton-",
+            'available' => 5
         ]);
         $product->setTemplate('elements/simple-product.mustache');
 
@@ -124,23 +119,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setTemplate('layout/sidebar/batches');
         $view->setVariable('batches', $this->getBatchService()->getBatches());
         return $view;
-    }
-
-    protected function getTimelineBoxes(OrderEntity $order)
-    {
-        $timelineBoxes = $this->getViewModelFactory()->newInstance(
-            $this->getTimelineService()->getTimeline($order)
-        );
-        $timelineBoxes->setTemplate('elements/timeline-boxes');
-        return $timelineBoxes;
-    }
-
-    protected function getNotes(OrderEntity $order)
-    {
-        $itemNotes = $this->getOrderService()->getNamesFromOrderNotes($order->getNotes());
-        $notes = $this->getViewModelFactory()->newInstance(["notes" => $itemNotes, "order" => $order]);
-        $notes->setTemplate('elements/notes');
-        return $notes;
     }
 
     protected function getFilterBar()
@@ -182,14 +160,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
                 'sFilterId' => null,
             ]
         );
-    }
-
-    protected function mergeOrderDataWithJsonData(PageLimit $pageLimit, ArrayObject $json, array $orderData)
-    {
-        $json['Records'] = $pageLimit->getPageData($orderData['orders']);
-        $json['iTotalRecords'] = $json['iTotalDisplayRecords'] = $orderData['orderTotal'];
-        $json['sFilterId'] = $orderData['filterId'];
-        return $this;
     }
 
     protected function getPageLimit()
@@ -298,34 +268,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
         return $this->getJsonModelFactory()->newInstance($data);
     }
 
-    public function updateColumnsAction()
-    {
-        $response = $this->getJsonModelFactory()->newInstance(['updated' => false]);
-
-        $updatedColumns = $this->params()->fromPost('columns');
-        if (!$updatedColumns) {
-            return $response->setVariable('error', 'No columns provided');
-        }
-
-        $this->getOrderService()->updateUserPrefOrderColumns($updatedColumns);
-
-        return $response->setVariable('updated', true);
-    }
-
-    protected function updateColumnPositions()
-    {
-        $keyPrefix = 'mDataProp_';
-        $columnPositions = [];
-        $post = $this->params()->fromPost();
-        foreach ($post as $key => $value) {
-            if (strpos($key, $keyPrefix) === 0) {
-                $columnPositions[$value] = substr($key, strlen($keyPrefix));
-            }
-        }
-
-        $this->getOrderService()->updateUserPrefOrderColumnPositions($columnPositions);
-    }
-
     protected function setOrderService(OrderService $orderService)
     {
         $this->orderService = $orderService;
@@ -395,20 +337,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
     {
         return $this->batchService;
 
-    }
-
-    protected function setTimelineService(TimelineService $timelineService)
-    {
-        $this->timelineService = $timelineService;
-        return $this;
-    }
-
-    /**
-     * @return TimelineService
-     */
-    protected function getTimelineService()
-    {
-        return $this->timelineService;
     }
 
     protected function setBulkActionsService(BulkActionsService $bulkActionsService)
