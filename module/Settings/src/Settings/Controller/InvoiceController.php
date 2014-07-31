@@ -74,6 +74,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         );
         return $this->getJsonModelFactory()->newInstance([
             "invoiceSettings" => json_encode($entity),
+            "eTag" => $entity->getEtag()
         ]);
     }
 
@@ -113,6 +114,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setVariable('invoiceSettings', $invoiceSettings)
             ->setVariable('tradingCompanies', $tradingCompanies)
             ->setVariable('invoices', $invoices)
+            ->setVariable('eTag', $invoiceSettings->getStoredEtag())
             ->addChild($this->getInvoiceSettingsDefaultSelectView($invoiceSettings, $invoices), 'defaultCustomSelect')
             ->addChild($this->getTradingCompanyInvoiceSettingsDataTable(), 'invoiceSettingsDataTable');
         return $view;

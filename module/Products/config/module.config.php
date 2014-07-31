@@ -1,5 +1,6 @@
 <?php
 use Products\Module;
+
 use Products\Controller;
 use CG_UI\View\DataTable;
 use Orders\Order\TableService;
@@ -25,12 +26,17 @@ use CG\Settings\Alias\Storage\Api as ShippingAliasStorage;
 use CG\Order\Client\Tracking\Storage\Api as TrackingStorageApi;
 use CG\Order\Service\Tracking\Service as TrackingService;
 use CG\Account\Client\Storage\Api as AccountStorageApi;
+use Zend\Mvc\Router\Http\Literal;
+use Products\Controller\ProductsJsonController;
+use CG\Product\Service as ProductService;
+use CG\Product\Storage\Api as ProductApiStorage;
+
 
 return [
     'router' => [
         'routes' => [
             'Products' => [
-                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'type' => Literal::class,
                 'options' => [
                     'route' => '/products',
                     'defaults' => [
@@ -295,44 +301,15 @@ return [
                             ]
                         ]
                     ],
-                    'tag' => [
-                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                    ProductsJsonController::AJAX_ROUTE => [
+                        'type' => Literal::class,
                         'options' => [
-                            'route' => '/tag',
+                            'route' => '/ajax',
                             'defaults' => [
-                                'controller' => BulkActionsController::class,
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'ajax'
                             ]
                         ],
-                        'may_terminate' => false,
-                        'child_routes' => [
-                            'action' => [
-                                'type' => 'Zend\Mvc\Router\Http\Segment',
-                                'options' => [
-                                    'route' => '/:tagAction',
-                                    'constraints' => [
-                                        'tagAction' => 'append|remove'
-                                    ],
-                                    'defaults' => [
-                                        'action' => 'tagOrderIds',
-                                    ],
-                                ],
-                                'may_terminate' => true,
-                                'child_routes' => [
-                                    'filterId' => [
-                                        'type' => 'Zend\Mvc\Router\Http\Segment',
-                                        'options' => [
-                                            'route' => '/:filterId',
-                                            'constraints' => [
-                                                'filterId' => '.+'
-                                            ],
-                                            'defaults' => [
-                                                'action' => 'tagFilterId',
-                                            ],
-                                        ],
-                                    ],
-                                ],
-                            ]
-                        ]
                     ],
                     'archive' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
@@ -487,7 +464,17 @@ return [
             'preferences' => [
                 InvoiceRendererService::class => PdfInvoiceRendererService::class,
                 FilterStorageInterface::class => FilterStorage::class,
-            ],             
+            ],
+            ProductService::class => [
+                'parameters' => [
+                    'repository' => ProductApiStorage::class
+                ]
+            ],
+            ProductApiStorage::class => [
+               'parameters' => [
+                   'client' => 'cg_app_guzzle'
+                ]
+            ]
         ],
     ],
     'navigation' => array(

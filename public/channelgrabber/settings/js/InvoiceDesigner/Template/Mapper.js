@@ -7,7 +7,6 @@ define([
     'InvoiceDesigner/Template/Element/OrderTable',
     'InvoiceDesigner/Template/PaperPage/Entity',
     'InvoiceDesigner/Template/Element/SellerAddress',
-    'InvoiceDesigner/Template/Element/ShippingAlias',
     'InvoiceDesigner/Template/Element/Text',
     'InvoiceDesigner/Template/Element/Mapper/Box',
     'InvoiceDesigner/Template/Element/Mapper/DeliveryAddress',
@@ -15,8 +14,7 @@ define([
     'InvoiceDesigner/Template/Element/Mapper/OrderTable',
     'InvoiceDesigner/Template/PaperPage/Mapper',
     'InvoiceDesigner/Template/Element/Mapper/SellerAddress',
-    'InvoiceDesigner/Template/Element/Mapper/Text',
-    'InvoiceDesigner/Template/Element/Mapper/ShippingAlias'
+    'InvoiceDesigner/Template/Element/Mapper/Text'
 ], function(require)
 {
     var Mapper = function()

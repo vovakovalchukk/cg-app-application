@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework (http://framework.zend.com/)
  *
@@ -6,6 +7,7 @@
  * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
+
 
 namespace Products;
 
@@ -17,6 +19,11 @@ use Zend\View\Model\ViewModel;
 class Module implements DependencyIndicatorInterface
 {
     const PUBLIC_FOLDER = '/channelgrabber/products/';
+    const ROUTE = 'Products';
+
+    public function onBootstrap(MvcEvent $event)
+    {
+    }
 
     public function getConfig()
     {
