@@ -47,7 +47,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         BatchService $batchService,
         BulkActionsService $bulkActionsService,
         FiltersService $filtersService,
-        StoredFiltersService $storedFiltersService,
+        StoredFiltersService $storedFiltersService
     )
     {
         $this->setJsonModelFactory($jsonModelFactory)
@@ -57,7 +57,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
             ->setBatchService($batchService)
             ->setBulkActionsService($bulkActionsService)
             ->setFiltersService($filtersService)
-            ->setStoredFiltersService($storedFiltersService)
+            ->setStoredFiltersService($storedFiltersService);
     }
 
     public function indexAction()
@@ -72,7 +72,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
             'afterActions'
         );
 
-        $view->addChild($bulkActions, 'bulkItems');
+        //$view->addChild($bulkActions, 'bulkItems');
         $view->addChild($this->getFilterBar(), 'filters');
         $view->addChild($this->getSimpleProductView(), 'product');
         $view->addChild($this->getStatusFilters(), 'statusFiltersSidebar');
