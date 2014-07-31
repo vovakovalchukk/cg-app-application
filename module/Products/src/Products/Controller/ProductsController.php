@@ -6,12 +6,9 @@ use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Orders\Order\Service as OrderService;
 use Orders\Order\Batch\Service as BatchService;
-use Orders\Order\Timeline\Service as TimelineService;
 use Orders\Filter\Service as FilterService;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use CG\Order\Shared\Entity as OrderEntity;
 use Orders\Order\BulkActions\Service as BulkActionsService;
-use Orders\Module;
 use DirectoryIterator;
 use CG\Http\Rpc\Exception as RpcException;
 use Orders\Order\FilterService as FiltersService;
@@ -21,7 +18,7 @@ use CG\Stdlib\PageLimit;
 use CG\Stdlib\OrderBy;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
-use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
+use Products\Service\ProductsService;
 
 class ProductsController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -38,6 +35,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected $viewModelFactory;
     protected $filtersService;
     protected $storedFiltersService;
+    protected $productService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
@@ -47,7 +45,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
         BatchService $batchService,
         BulkActionsService $bulkActionsService,
         FiltersService $filtersService,
-        StoredFiltersService $storedFiltersService
+        StoredFiltersService $storedFiltersService,
+        ProductsService $productService
     )
     {
         $this->setJsonModelFactory($jsonModelFactory)
@@ -57,7 +56,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
             ->setBatchService($batchService)
             ->setBulkActionsService($bulkActionsService)
             ->setFiltersService($filtersService)
-            ->setStoredFiltersService($storedFiltersService);
+            ->setStoredFiltersService($storedFiltersService)
+            ->setProductService($productService);
     }
 
     public function indexAction()
@@ -89,13 +89,50 @@ class ProductsController extends AbstractActionController implements LoggerAware
         return $view;
     }
 
-    protected function getSimpleProductView()
+    protected function getProductView()
     {
+        try {
+            $products = $this->getProductService()->fetchProducts();
+            $view = $this->getViewModelFactory()->newInstance();
+            $view->setTemplate('products/products/many');
+            $productViews = [];
+            foreach ($products as $product) {
+                $productViews[] = $this->getIndividualProductView($product);
+            }
+            $productViews = array_reverse($productViews);
+            foreach ($productViews as $productView) {
+                $view->addChild($productView, 'products', true);
+            }
+            return $view;
+        } catch (NotFound $e) {
+            return $this->getNoAliasesView();
+        }
+    }
+
+    protected function getIndividualAliasView(AliasEntity $alias)
+    {
+        $view = $this->getViewModelFactory()->newInstance([
+            'id' => 'shipping-alias-' . $alias->getId(),
+            'aliasId' => $alias->getId(),
+            'aliasEtag' => $alias->getETag()
+        ]);
+        $view->addChild($this->getTextView($alias), 'text');
+        $view->addChild($this->getDeleteButtonView($alias), 'deleteButton');
+        $view->addChild($this->getMultiSelectExpandedView($alias), 'multiSelectExpanded');
+        $view->setTemplate('ShippingAlias/alias.mustache');
+
+        return $view;
+    }
+
+    protected function getSimpleProductView($title, $sku, $allocated, $total)
+    {
+        $available = $total - $allocated;
         $product = $this->getViewModelFactory()->newInstance([
-            'title' => 'Nike',
-            'SKU' => 'NKE',
-            'id' => "deleteButton-",
-            'available' => 5
+            'title' => $title,
+            'SKU' => $sku,
+            'available' => $available,
+            'allocated' => $allocated,
+            'total' => $total
         ]);
         $product->setTemplate('elements/simple-product.mustache');
 
@@ -390,5 +427,16 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected function getShippingConversionService()
     {
         return $this->shippingConversionService;
+    }
+
+    protected function setProductService(ProductsService $productService)
+    {
+        $this->productService = $productService;
+        return $this;
+    }
+
+    protected function getProductService()
+    {
+        return $this->productService;
     }
 }
