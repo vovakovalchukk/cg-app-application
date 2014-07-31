@@ -1,31 +1,14 @@
 <?php
 use Products\Module;
-
 use Products\Controller;
-use CG_UI\View\DataTable;
 use Orders\Order\TableService;
-use CG\Order\Service\Alert\Service as AlertService;
-use CG\Order\Client\Alert\Storage\Api as AlertApi;
-use CG\Order\Service\Note\Service as NoteService;
-use CG\Order\Client\Note\Storage\Api as NoteApi;
-use CG\Order\Service\UserChange\Service as UserChangeService;
-use CG\Order\Client\UserChange\Storage\Api as UserChangeApi;
-use CG\Order\Client\Storage\Api as OrderApi;
-use Zend\View\Model\ViewModel;
-use Orders\Order\Service as OrderService;
 use CG\Http\Rpc\Json\Client as JsonRpcClient;
 use Orders\Order\Invoice\Renderer\ServiceInterface as InvoiceRendererService;
 use Orders\Order\Invoice\Renderer\Service\Pdf as PdfInvoiceRendererService;
 use Orders\Controller\StoredFiltersController;
-use CG\Order\Client\Service as OrderClientService;
 use CG\Order\Service\Filter\StorageInterface as FilterStorageInterface;
 use CG\Order\Client\Filter\Storage\Api as FilterStorage;
 use Orders\Controller\BulkActionsController;
-use Orders\Controller\CancelController;
-use CG\Settings\Alias\Storage\Api as ShippingAliasStorage;
-use CG\Order\Client\Tracking\Storage\Api as TrackingStorageApi;
-use CG\Order\Service\Tracking\Service as TrackingService;
-use CG\Account\Client\Storage\Api as AccountStorageApi;
 use Zend\Mvc\Router\Http\Literal;
 use Products\Controller\ProductsJsonController;
 use CG\Product\Service as ProductService;
@@ -221,49 +204,6 @@ return [
                                     ],
                                 ]
                             ],
-                            'address' => [
-                                'type' => 'Zend\Mvc\Router\Http\Literal',
-                                'options' => [
-                                    'route' => '/address',
-                                    'defaults' => [
-                                        'controller' => 'Orders\Controller\Address',
-                                        'action' => 'update'
-                                    ]
-                                ],
-                                'may_terminate' => true
-                            ],
-                            'tracking' => [
-                                'type' => 'Zend\Mvc\Router\Http\Literal',
-                                'options' => [
-                                    'route' => '/tracking',
-                                    'defaults' => [
-                                        'controller' => Controller\TrackingController::class,
-                                    ]
-                                ],
-                                'may_terminate' => true,
-                                'child_routes' => [
-                                    'set' => [
-                                        'type' => 'Zend\Mvc\Router\Http\Literal',
-                                        'options' => [
-                                            'route' => '/update',
-                                            'defaults' => [
-                                                'action' => 'update'
-                                            ],
-                                        ],
-                                        'may_terminate' => true
-                                    ],
-                                    'delete' => [
-                                        'type' => 'Zend\Mvc\Router\Http\Literal',
-                                        'options' => [
-                                            'route' => '/delete',
-                                            'defaults' => [
-                                                'action' => 'delete'
-                                            ]
-                                        ],
-                                        'may_terminate' => true
-                                    ],
-                                ]
-                            ]
                         ]
                     ],
                     'dispatch' => [
