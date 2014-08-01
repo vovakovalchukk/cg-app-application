@@ -41,6 +41,7 @@ class Service
         $entity = $this->getInvoiceSettingsMapper()->fromArray(
             $invoiceSettingsArray
         );
+        $entity->setStoredEtag($invoiceSettingsArray['eTag']);
         $this->getInvoiceSettingsService()->save($entity);
         return $entity;
     }

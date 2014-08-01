@@ -599,7 +599,7 @@ class Service implements LoggerAwareInterface
     {
         $account = $this->getAccountService()->fetch($order->getAccountId());
 
-        $this->saveOrder(
+        $order = $this->saveOrder(
             $order->setStatus(OrderStatus::DISPATCHING)
         );
 
@@ -655,7 +655,7 @@ class Service implements LoggerAwareInterface
         $status = OrderMapper::calculateOrderStatusFromCancelType($type);
         $cancel = $this->getCancelValue($order, $type, $reason);
 
-        $this->saveOrder(
+        $order = $this->saveOrder(
             $order->setStatus($status)
         );
 
