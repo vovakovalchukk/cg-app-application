@@ -4,7 +4,6 @@ namespace Products\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use Orders\Order\Service as OrderService;
 use Orders\Order\Batch\Service as BatchService;
 use Orders\Order\Timeline\Service as TimelineService;
 use Orders\Filter\Service as FilterService;
@@ -42,7 +41,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         ViewModelFactory $viewModelFactory,
-        OrderService $orderService,
         FilterService $filterService,
         BatchService $batchService,
         BulkActionsService $bulkActionsService,
@@ -52,7 +50,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
     {
         $this->setJsonModelFactory($jsonModelFactory)
             ->setViewModelFactory($viewModelFactory)
-            ->setOrderService($orderService)
             ->setFilterService($filterService)
             ->setBatchService($batchService)
             ->setBulkActionsService($bulkActionsService)
@@ -66,26 +63,21 @@ class ProductsController extends AbstractActionController implements LoggerAware
 
         $bulkActions = $this->getBulkActionsService()->getBulkActions();
         $bulkAction = $this->getViewModelFactory()->newInstance()->setTemplate('orders/orders/bulk-actions/index');
-        $bulkAction->setVariable('isHeaderBarVisible', $this->getOrderService()->isFilterBarVisible());
+        //$bulkAction->setVariable('isHeaderBarVisible', $this->getOrderService()->isFilterBarVisible());
         $bulkActions->addChild(
             $bulkAction,
             'afterActions'
         );
 
         //$view->addChild($bulkActions, 'bulkItems');
-        $view->addChild($this->getFilterBar(), 'filters');
+        //$view->addChild($this->getFilterBar(), 'filters');
         $view->addChild($this->getSimpleProductView(), 'product');
         $view->addChild($this->getStatusFilters(), 'statusFiltersSidebar');
-        $view->addChild(
-            $this->getStoredFiltersService()->getStoredFiltersSidebarView(
-                $this->getOrderService()->getActiveUserPreference()
-            ),
-            'storedFiltersSidebar'
-        );
+       
         $view->addChild($this->getBatches(), 'batches');
-        $view->setVariable('isSidebarVisible', $this->getOrderService()->isSidebarVisible());
-        $view->setVariable('isHeaderBarVisible', $this->getOrderService()->isFilterBarVisible());
-        $view->setVariable('filterNames', $this->getOrderService()->getFilterService()->getFilterNames());
+        //$view->setVariable('isSidebarVisible', $this->getOrderService()->isSidebarVisible());
+        //$view->setVariable('isHeaderBarVisible', $this->getOrderService()->isFilterBarVisible());
+        //$view->setVariable('filterNames', $this->getOrderService()->getFilterService()->getFilterNames());
         return $view;
     }
 
