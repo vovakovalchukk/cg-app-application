@@ -1,11 +1,8 @@
 <?php
-
 namespace Products\Service;
 
 use CG\Product\Service as ProductService;
 use CG\User\ActiveUserInterface;
-use Products\Service\FilterService;
-use Zend\Di\Di;
 
 class ProductsService
 {
@@ -13,9 +10,7 @@ class ProductsService
     const PAGE = 1;
 
     protected $productService;
-    protected $filterService;
     protected $activeUserContainer;
-    protected $di;
 
     public function __construct(ProductService $productService, ActiveUserInterface $activeUserContainer)
     {

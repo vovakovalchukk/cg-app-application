@@ -74,7 +74,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
 
         //$view->addChild($bulkActions, 'bulkItems');
         $view->addChild($this->getFilterBar(), 'filters');
-        $view->addChild($this->getSimpleProductView(), 'product');
         $view->addChild($this->getStatusFilters(), 'statusFiltersSidebar');
         $view->addChild(
             $this->getStoredFiltersService()->getStoredFiltersSidebarView(
@@ -83,6 +82,9 @@ class ProductsController extends AbstractActionController implements LoggerAware
             'storedFiltersSidebar'
         );
         $view->addChild($this->getBatches(), 'batches');
+        $view->addChild($this->getProductView(), 'products');
+
+
         $view->setVariable('isSidebarVisible', $this->getOrderService()->isSidebarVisible());
         $view->setVariable('isHeaderBarVisible', $this->getOrderService()->isFilterBarVisible());
         $view->setVariable('filterNames', $this->getOrderService()->getFilterService()->getFilterNames());
@@ -97,7 +99,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
             $view->setTemplate('products/products/many');
             $productViews = [];
             foreach ($products as $product) {
-                $productViews[] = $this->getIndividualProductView($product);
+                $productViews[] = $this->getSimpleProductView($product);
             }
             $productViews = array_reverse($productViews);
             foreach ($productViews as $productView) {
@@ -124,11 +126,13 @@ class ProductsController extends AbstractActionController implements LoggerAware
         return $view;
     }
 
-    protected function getSimpleProductView($title, $sku, $allocated, $total)
+    protected function getSimpleProductView($product)
     {
-        $available = $total - $allocated;
+        $name = $product->getName();
+        $sku = $product->getSku();
+
         $product = $this->getViewModelFactory()->newInstance([
-            'title' => $title,
+            'title' => $name,
             'SKU' => $sku,
             'available' => $available,
             'allocated' => $allocated,
