@@ -267,8 +267,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         throw new ViewModelUserException(
             $status,
             $this->getTranslator()->translate($message),
-            $e->getCode(),
-            $e
+            $e->getCode()
         );
     }
 

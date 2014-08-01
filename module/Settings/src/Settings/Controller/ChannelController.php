@@ -303,8 +303,7 @@ class ChannelController extends AbstractActionController
         throw new ViewModelUserException(
             $status,
             $this->getTranslator()->translate($message),
-            $e->getCode(),
-            $e
+            $e->getCode()
         );
     }
 
