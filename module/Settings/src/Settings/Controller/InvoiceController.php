@@ -13,7 +13,7 @@ use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Template\ReplaceManager\OrderContent as OrderTagManager;
 use CG\Template\Service as TemplateService;
 use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
-use CG\Zend\Stdlib\View\Model\Exception as ViewModelException;
+use CG\Zend\Stdlib\View\Model\UserException as ViewModelUserException;
 use Zend\I18n\Translator\Translator;
 use CG\Stdlib\Log\LogTrait;
 
@@ -264,7 +264,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     {
         $status = $this->getJsonModelFactory()->newInstance();
         $status->setVariable('valid', false);
-        throw new ViewModelException(
+        throw new ViewModelUserException(
             $status,
             $this->getTranslator()->translate($message),
             $e->getCode(),
