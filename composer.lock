@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5a7bbbefcaba0dc901d8533e57f3cf4a",
+    "hash": "83c541f6760506d952c9f911e39f472b",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -4003,7 +4003,6 @@
         "channelgrabber/constants": 20,
         "phpspec/phpspec": 20
     },
-    "prefer-stable": false,
     "platform": {
         "php": ">=5.3.3"
     },

@@ -24,10 +24,9 @@ use CG\Account\Client\Service as AccountService;
 use Zend\Mvc\MvcEvent;
 use CG\Stdlib\DateTime;
 use CG\Order\Client\Collection as FilteredCollection;
-use CG\Stdlib\PageLimit;
-use CG\Stdlib\OrderBy;
 use CG\Order\Shared\Mapper as OrderMapper;
 use CG\Order\Shared\Cancel\Value as CancelValue;
+use CG\Order\Shared\Cancel\Item as CancelItem;
 use CG\Channel\Gearman\Generator\Order\Dispatch as OrderDispatcher;
 use CG\Channel\Gearman\Generator\Order\Cancel as OrderCanceller;
 use Orders\Order\Exception\MultiException;
@@ -672,13 +671,13 @@ class Service implements LoggerAwareInterface
     {
         $items = [];
         foreach ($order->getItems() as $item) {
-            $items[] = [
+            $items[] = $this->getDi()->newInstance(CancelItem::class, [
                 'orderItemId' => $item->getId(),
                 'sku' => $item->getItemSku(),
                 'quantity' => $item->getItemQuantity(),
                 'amount' => $item->getIndividualItemPrice(),
                 'unitPrice' => 0.00,
-            ];
+            ]);
         }
 
         return $this->getDi()->newInstance(
