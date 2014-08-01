@@ -63,7 +63,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
 
         $bulkActions = $this->getBulkActionsService()->getBulkActions();
         $bulkAction = $this->getViewModelFactory()->newInstance()->setTemplate('orders/orders/bulk-actions/index');
-        //$bulkAction->setVariable('isHeaderBarVisible', $this->getOrderService()->isFilterBarVisible());
         $bulkActions->addChild(
             $bulkAction,
             'afterActions'
