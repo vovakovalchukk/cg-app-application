@@ -72,7 +72,6 @@ require(["Filters/FilterCollection"], function(filterCollection) {
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/jqueryPlugin/cg-pjax.js'); ?>
 <?php $this->placeholder('#main.class')->append('full-width'); ?>
-<?php $this->placeholder('#sub-header')->append($filters); ?>
 <?php
 $this->placeholder('#sidebar')
     ->append($this->statusFiltersSidebar)
@@ -85,7 +84,6 @@ $this->placeholder('#sidebar')
 <?= $this->breadcrumbs; ?>
 <?= $this->bulkItems; ?>
 <div class="products-list">
-    
-    <?= $this->product; ?>
+    <?= $this->products; ?>
 </div>
 </div>

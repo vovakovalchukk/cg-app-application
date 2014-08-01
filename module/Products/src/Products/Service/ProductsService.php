@@ -25,6 +25,7 @@ class ProductsService
             static::PAGE,
             $this->getActiveUserContainer()->getActiveUser()->getOuList()
         );
+
         return $products;
     }
 

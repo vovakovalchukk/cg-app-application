@@ -29,6 +29,7 @@ class ProductsJsonController extends AbstractActionController
         } catch(NotFound $e) {
             //noop
         }
+        
         return $view->setVariable('products', $products);
     }
 

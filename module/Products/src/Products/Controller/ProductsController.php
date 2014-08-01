@@ -71,10 +71,18 @@ class ProductsController extends AbstractActionController implements LoggerAware
 
         //$view->addChild($bulkActions, 'bulkItems');
 
-        $view->addChild($this->getFilterBar(), 'filters');
+//        /$view->addChild($this->getFilterBar(), 'filters');
 
         //$view->addChild($this->getFilterBar(), 'filters');
-        $view->addChild($this->getSimpleProductView(), 'product');
+        ///foreach($products as $product) {
+        //    $view->addChild($this->getSimpleProductView($product), 'product');
+        //}
+
+        
+
+        
+//        var_dump($products);
+        //die($products[0]["sku"]);
 
         $view->addChild($this->getStatusFilters(), 'statusFiltersSidebar');
        
@@ -127,6 +135,9 @@ class ProductsController extends AbstractActionController implements LoggerAware
     {
         $name = $product->getName();
         $sku = $product->getSku();
+        $total = 45;
+        $allocated = 10;
+        $available = $total - $allocated;
 
         $product = $this->getViewModelFactory()->newInstance([
             'title' => $name,
