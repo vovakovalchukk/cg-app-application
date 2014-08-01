@@ -69,30 +69,9 @@ class ProductsController extends AbstractActionController implements LoggerAware
             'afterActions'
         );
 
-        //$view->addChild($bulkActions, 'bulkItems');
-
-//        /$view->addChild($this->getFilterBar(), 'filters');
-
-        //$view->addChild($this->getFilterBar(), 'filters');
-        ///foreach($products as $product) {
-        //    $view->addChild($this->getSimpleProductView($product), 'product');
-        //}
-
-        
-
-        
-//        var_dump($products);
-        //die($products[0]["sku"]);
-
         $view->addChild($this->getStatusFilters(), 'statusFiltersSidebar');
-       
         $view->addChild($this->getBatches(), 'batches');
-
         $view->addChild($this->getProductView(), 'products');
-
-        //$view->setVariable('isSidebarVisible', $this->getOrderService()->isSidebarVisible());
-        //$view->setVariable('isHeaderBarVisible', $this->getOrderService()->isFilterBarVisible());
-        //$view->setVariable('filterNames', $this->getOrderService()->getFilterService()->getFilterNames());
         return $view;
     }
 
