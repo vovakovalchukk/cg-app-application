@@ -3,25 +3,17 @@ namespace Products\Product;
 
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Table;
-use CG_UI\View\Table\Column as TableColumn;
-use CG_UI\View\Table\Rows as TableRows;
 use CG\Order\Shared\StorageInterface;
 use CG\User\ActiveUserInterface;
 use CG\Order\Service\Filter;
-use CG\Product\Entity;
-use CG\Order\Shared\Item\Entity as ItemEntity;
 use Zend\Di\Di;
-use Zend\I18n\View\Helper\CurrencyFormat;
 use CG\User\Service as UserService;
-use CG\Order\Shared\Collection as OrderCollection;
 use CG\UserPreference\Client\Service as UserPreferenceService;
 use CG\Account\Client\Service as AccountService;
 use CG\Stdlib\DateTime;
 use CG\Stdlib\PageLimit;
 use CG\Stdlib\OrderBy;
 use CG\Order\Shared\Mapper as OrderMapper;
-use Orders\Order\Exception\MultiException;
-use Exception;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
@@ -207,24 +199,6 @@ class Service implements LoggerAwareInterface
         $userPrefs->setPreference($userPrefsPref);
 
         $this->getUserPreferenceService()->save($userPrefs);
-    }
-
-    public function tagOrders($tag, OrderCollection $orders)
-    {
-        $exception = new MultiException();
-
-        foreach ($orders as $order) {
-            try {
-                $this->tagOrder($tag, $order);
-            } catch (Exception $orderException) {
-                $exception->addOrderException($order->getId(), $orderException);
-                $this->logException($orderException, 'error', __NAMESPACE__);
-            }
-        }
-
-        if (count($exception) > 0) {
-            throw $exception;
-        }
     }
 
     public function setAccountService(AccountService $accountService)

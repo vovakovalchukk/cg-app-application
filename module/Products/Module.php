@@ -11,8 +11,6 @@ namespace Products;
 
 use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
 use Zend\Config\Factory as ConfigFactory;
-use Zend\Mvc\MvcEvent;
-use Zend\View\Model\ViewModel;
 
 class Module implements DependencyIndicatorInterface
 {
