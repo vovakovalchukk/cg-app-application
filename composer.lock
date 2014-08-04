@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fd912afc70ad1561ec3a133512501bb0",
+    "hash": "ea562b502b9de8b2fafb3324e1edb70c",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -87,17 +87,17 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.0.2",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "67b497cc4447f36d71a498f64bf4ca0dd0b1cfe8"
+                "reference": "f4717079e268eaa0f68bd402b72df8f940f19cbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.0.2-3a6ec7.zip",
-                "reference": "67b497cc4447f36d71a498f64bf4ca0dd0b1cfe8",
-                "shasum": "26fd5f5af7ccc17f633bdae90e611c906b69b9e5"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.1.1-559904.zip",
+                "reference": "f4717079e268eaa0f68bd402b72df8f940f19cbf",
+                "shasum": "3d4fec2671148a5113f63565b1fa4654beca5ca8"
             },
             "type": "library",
             "autoload": {
@@ -105,7 +105,7 @@
                     "CG\\Billing\\": ""
                 }
             },
-            "time": "2014-07-11 08:22:05"
+            "time": "2014-08-01 15:02:56"
         },
         {
             "name": "channelgrabber/cache",
@@ -336,13 +336,6 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -562,13 +555,6 @@
                 "predis/predis": "v0.8.3"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Predis\\": ""
@@ -1497,17 +1483,17 @@
         },
         {
             "name": "channelgrabber/zf2-stdlib",
-            "version": "1.1.12",
+            "version": "1.1.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgzf2stdlib.git",
-                "reference": "4bed2d703d449db7996662b30bfa3a0530b1a0e5"
+                "reference": "871b1ce9cd8446aadd90bb0084b4202199ce2a72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-1.1.12-ec4cce.zip",
-                "reference": "4bed2d703d449db7996662b30bfa3a0530b1a0e5",
-                "shasum": "ee78fe86cc4ab6134f1617cc959c9889f6f1bbe9"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-1.1.13-4db1ce.zip",
+                "reference": "871b1ce9cd8446aadd90bb0084b4202199ce2a72",
+                "shasum": "c3de050590af6870078f0e2a1ce03bae629206b4"
             },
             "require": {
                 "channelgrabber/cache": ">=1.1.0,<2.0",
@@ -1526,7 +1512,7 @@
                     "CG\\Zend\\Stdlib\\": ""
                 }
             },
-            "time": "2014-07-03 10:33:46"
+            "time": "2014-08-04 08:30:03"
         },
         {
             "name": "channelgrabber/zf2-usage",
@@ -1574,17 +1560,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.14",
+            "version": "1.12.15",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "95a949f362edcdcabd137022a1c0fbdcee6935ec"
+                "reference": "be588372495c9e1da58b12ec2abdd38899004fd6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.14-9d1e2c.zip",
-                "reference": "95a949f362edcdcabd137022a1c0fbdcee6935ec",
-                "shasum": "e1d3c1f8e1900cf8f64198a279be3ea3716269ea"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.15-f2dea6.zip",
+                "reference": "be588372495c9e1da58b12ec2abdd38899004fd6",
+                "shasum": "c3156c45ab50cd7eaa3892d97fb15bccb28d2c89"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1614,7 +1600,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-07-30 15:11:47"
+            "time": "2014-08-04 08:32:24"
         },
         {
             "name": "cilex/cilex",
@@ -1828,21 +1814,21 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "4.1.4",
+            "version": "4.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "5ae164dae6e65784286a698800190bc094407f7c"
+                "reference": "095cf4db559bebc78d967890eb93280d8ceb5a08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/5ae164dae6e65784286a698800190bc094407f7c",
-                "reference": "5ae164dae6e65784286a698800190bc094407f7c",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/095cf4db559bebc78d967890eb93280d8ceb5a08",
+                "reference": "095cf4db559bebc78d967890eb93280d8ceb5a08",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "guzzlehttp/streams": "~1.4",
+                "guzzlehttp/streams": "~1.0",
                 "php": ">=5.4.0"
             },
             "require-dev": {
@@ -1889,20 +1875,20 @@
                 "rest",
                 "web service"
             ],
-            "time": "2014-07-23 00:52:39"
+            "time": "2014-06-18 18:22:41"
         },
         {
             "name": "guzzlehttp/streams",
-            "version": "1.4.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/streams.git",
-                "reference": "3b761a328e5ed6ed519e960aded95d7acbe77894"
+                "reference": "cf0c8c33ca95cc147efba4c714f630ee44767180"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/streams/zipball/3b761a328e5ed6ed519e960aded95d7acbe77894",
-                "reference": "3b761a328e5ed6ed519e960aded95d7acbe77894",
+                "url": "https://api.github.com/repos/guzzle/streams/zipball/cf0c8c33ca95cc147efba4c714f630ee44767180",
+                "reference": "cf0c8c33ca95cc147efba4c714f630ee44767180",
                 "shasum": ""
             },
             "require": {
@@ -1914,7 +1900,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.4.x-dev"
+                    "dev-master": "1.0.x-dev"
                 }
             },
             "autoload": {
@@ -1942,7 +1928,7 @@
                 "Guzzle",
                 "stream"
             ],
-            "time": "2014-07-19 18:43:42"
+            "time": "2014-04-03 04:48:24"
         },
         {
             "name": "mustache/mustache",
@@ -2072,7 +2058,9 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -2160,7 +2148,8 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com"
+                    "homepage": "http://benramsey.com",
+                    "role": "Developer"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
@@ -3442,7 +3431,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -4157,7 +4147,6 @@
         "channelgrabber/constants": 20,
         "phpspec/phpspec": 20
     },
-    "prefer-stable": false,
     "platform": {
         "php": ">=5.3.3"
     },
