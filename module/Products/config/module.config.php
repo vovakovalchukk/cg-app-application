@@ -19,21 +19,6 @@ return [
                     ]
                 ],
                 'may_terminate' => true,
-                'child_routes' => [
-                    'product' => [
-                        'type' => 'Zend\Mvc\Router\Http\Segment',
-                        'priority' => -100,
-                        'options' => [
-                            'route' => '/:product',
-                            'constraints' => [
-                                'order' => '[0-9]*\-[a-zA-Z0-9_-]*'
-                            ],
-                            'defaults' => [
-                                'action' => 'product',
-                            ]
-                        ],
-                    ],
-                ],
             ],
         ],
     ],
@@ -43,7 +28,6 @@ return [
                 return $controllerManager->getServiceLocator()->get(Controller\ProductsController::class);
             }
         ],
-        'invokables' => [],
     ],
     'view_manager' => [
         'template_path_stack' => [
