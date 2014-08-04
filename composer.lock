@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8e3ed557732000219d5ec8fd3c3c72ba",
+    "hash": "b8e1d7f11fc69a925cd4f2bbca77a01f",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -87,17 +87,17 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.0.2",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "67b497cc4447f36d71a498f64bf4ca0dd0b1cfe8"
+                "reference": "f4717079e268eaa0f68bd402b72df8f940f19cbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.0.2-3a6ec7.zip",
-                "reference": "67b497cc4447f36d71a498f64bf4ca0dd0b1cfe8",
-                "shasum": "26fd5f5af7ccc17f633bdae90e611c906b69b9e5"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.1.1-559904.zip",
+                "reference": "f4717079e268eaa0f68bd402b72df8f940f19cbf",
+                "shasum": "3d4fec2671148a5113f63565b1fa4654beca5ca8"
             },
             "type": "library",
             "autoload": {
@@ -105,7 +105,7 @@
                     "CG\\Billing\\": ""
                 }
             },
-            "time": "2014-07-11 08:22:05"
+            "time": "2014-08-01 15:02:56"
         },
         {
             "name": "channelgrabber/cache",
@@ -653,17 +653,17 @@
         },
         {
             "name": "channelgrabber/slim",
-            "version": "1.9.2",
+            "version": "1.9.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgslim.git",
-                "reference": "af5d8cfb3b303bbf00f4d468916e5d4388f79448"
+                "reference": "efedfba326516e9ac20f13caaaaabedf22754179"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-slim-1.9.2-434ff5.zip",
-                "reference": "af5d8cfb3b303bbf00f4d468916e5d4388f79448",
-                "shasum": "70fb160a4078efc37f0273647971455c1a088a5c"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-slim-1.9.3-eb4675.zip",
+                "reference": "efedfba326516e9ac20f13caaaaabedf22754179",
+                "shasum": "034a01f280ea13c3a30bc4948b17e92f2416061e"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.3,<2.0.0",
@@ -689,7 +689,7 @@
                     "CG\\Slim": ""
                 }
             },
-            "time": "2014-07-30 15:14:50"
+            "time": "2014-08-04 13:02:17"
         },
         {
             "name": "channelgrabber/sso",
@@ -726,20 +726,19 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.7.5",
+            "version": "2.7.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "b30a51326fa360a6e46146fab745852d371ec52f"
+                "reference": "422be42e2f9e7b689ac4329bfd16ccf4d17ee525"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.7.5-0ea61b.zip",
-                "reference": "b30a51326fa360a6e46146fab745852d371ec52f",
-                "shasum": "0116edbb01ffcc5488619cb96a8ccf724542b1f3"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.7.6-ec3769.zip",
+                "reference": "422be42e2f9e7b689ac4329bfd16ccf4d17ee525",
+                "shasum": "dfbe60290e10fe0aad28d35f2f4ea523bcfce607"
             },
             "require": {
-                "channelgrabber/cache": ">=1.3.0,<2.0.0",
                 "zendframework/zend-db": ">=2.2,<3.0"
             },
             "require-dev": {
@@ -755,7 +754,39 @@
                     "CG/Stdlib/Utilities.php"
                 ]
             },
-            "time": "2014-07-29 08:43:33"
+            "time": "2014-08-04 13:04:06"
+        },
+        {
+            "name": "channelgrabber/stock",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
+                "reference": "0575053c1be9b8f0197f3a0e593c55f018187fee"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.0.0-e7b989.zip",
+                "reference": "0575053c1be9b8f0197f3a0e593c55f018187fee",
+                "shasum": "9b322a33ba09a35bba4d4b256f3c69684d91d1c0"
+            },
+            "require": {
+                "channelgrabber/cache": ">=1.3.0,<2.0.0",
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/etag": ">=1.4.3,<2.0.0",
+                "channelgrabber/http": ">=1.2.18,<2.0.0",
+                "channelgrabber/permission": ">=1.0.1,<2.0.0",
+                "channelgrabber/slim": ">=1.9.2,<2.0.0",
+                "channelgrabber/stdlib": ">=2.7.5,<3.0.0",
+                "nocarrier/hal": "~0.9.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Stock\\": "src"
+                }
+            },
+            "time": "2014-08-04 10:53:08"
         },
         {
             "name": "channelgrabber/template",
@@ -981,6 +1012,41 @@
                 }
             },
             "time": "2013-11-04 13:10:03"
+        },
+        {
+            "name": "channelgrabber/zendesk",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-zendesk.git",
+                "reference": "c334cdcd91fd02f0d2dfd75372474fd0d8bdc10a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zendesk-1.0.0-7f143f.zip",
+                "reference": "c334cdcd91fd02f0d2dfd75372474fd0d8bdc10a",
+                "shasum": "9e67324222253ca0e42b10cc5ea4fc3ae7e261bd"
+            },
+            "require": {
+                "guzzlehttp/guzzle": "4.1.*",
+                "zendframework/zend-di": "2.3.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Zendesk\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Zendesk\\Test\\": "tests/",
+                    "CG\\Zendesk\\TestAsset\\": "tests/assets/"
+                }
+            },
+            "time": "2014-08-01 07:43:41"
         },
         {
             "name": "channelgrabber/zf2-amazon",
@@ -1366,22 +1432,23 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.4.18",
+            "version": "1.4.19.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "154e0f6e52b4fb2568572260e37cf0f4c5a8ab41"
+                "reference": "cd2e8af27811d7d696bd116af5ef01ff88cc0db2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.18-ea01d3.zip",
-                "reference": "154e0f6e52b4fb2568572260e37cf0f4c5a8ab41",
-                "shasum": "567c056f701c9b1d258e9d2622bb907abdeed563"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.19.1-3cb9c5.zip",
+                "reference": "cd2e8af27811d7d696bd116af5ef01ff88cc0db2",
+                "shasum": "8cef94e5e0e7e9ef21c97218c2fe2efccb7fb3a3"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/stdlib": ">=2.3.0",
                 "channelgrabber/user": ">=1.13.5",
+                "channelgrabber/zendesk": ">=1.0.0,<2.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
                 "guzzle/guzzle": "~3.7",
                 "zendframework/zend-config": "2.*",
@@ -1407,7 +1474,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2014-07-18 15:20:51"
+            "time": "2014-08-04 12:19:29"
         },
         {
             "name": "channelgrabber/zf2-sessions",
@@ -1482,17 +1549,17 @@
         },
         {
             "name": "channelgrabber/zf2-stdlib",
-            "version": "1.1.12",
+            "version": "1.1.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgzf2stdlib.git",
-                "reference": "4bed2d703d449db7996662b30bfa3a0530b1a0e5"
+                "reference": "871b1ce9cd8446aadd90bb0084b4202199ce2a72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-1.1.12-ec4cce.zip",
-                "reference": "4bed2d703d449db7996662b30bfa3a0530b1a0e5",
-                "shasum": "ee78fe86cc4ab6134f1617cc959c9889f6f1bbe9"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-1.1.13-4db1ce.zip",
+                "reference": "871b1ce9cd8446aadd90bb0084b4202199ce2a72",
+                "shasum": "c3de050590af6870078f0e2a1ce03bae629206b4"
             },
             "require": {
                 "channelgrabber/cache": ">=1.1.0,<2.0",
@@ -1511,7 +1578,7 @@
                     "CG\\Zend\\Stdlib\\": ""
                 }
             },
-            "time": "2014-07-03 10:33:46"
+            "time": "2014-08-04 08:30:03"
         },
         {
             "name": "channelgrabber/zf2-usage",
@@ -1559,17 +1626,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.14",
+            "version": "1.12.15",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "95a949f362edcdcabd137022a1c0fbdcee6935ec"
+                "reference": "be588372495c9e1da58b12ec2abdd38899004fd6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.14-9d1e2c.zip",
-                "reference": "95a949f362edcdcabd137022a1c0fbdcee6935ec",
-                "shasum": "e1d3c1f8e1900cf8f64198a279be3ea3716269ea"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.15-f2dea6.zip",
+                "reference": "be588372495c9e1da58b12ec2abdd38899004fd6",
+                "shasum": "c3156c45ab50cd7eaa3892d97fb15bccb28d2c89"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1599,7 +1666,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-07-30 15:11:47"
+            "time": "2014-08-04 08:32:24"
         },
         {
             "name": "cilex/cilex",
@@ -1810,6 +1877,124 @@
                 "web service"
             ],
             "time": "2014-05-07 17:04:22"
+        },
+        {
+            "name": "guzzlehttp/guzzle",
+            "version": "4.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/guzzle.git",
+                "reference": "e49ad58038b46a0d7739627a72f6d998cd92d3d6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/e49ad58038b46a0d7739627a72f6d998cd92d3d6",
+                "reference": "e49ad58038b46a0d7739627a72f6d998cd92d3d6",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/streams": "~1.4",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "ext-curl": "*",
+                "phpunit/phpunit": "~4.0",
+                "psr/log": "~1.0"
+            },
+            "suggest": {
+                "ext-curl": "Guzzle will use specific adapters if cURL is present"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GuzzleHttp\\": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "Guzzle is a PHP HTTP client library and framework for building RESTful web service clients",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "client",
+                "curl",
+                "framework",
+                "http",
+                "http client",
+                "rest",
+                "web service"
+            ],
+            "time": "2014-08-03 20:38:45"
+        },
+        {
+            "name": "guzzlehttp/streams",
+            "version": "1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/streams.git",
+                "reference": "3b761a328e5ed6ed519e960aded95d7acbe77894"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/streams/zipball/3b761a328e5ed6ed519e960aded95d7acbe77894",
+                "reference": "3b761a328e5ed6ed519e960aded95d7acbe77894",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GuzzleHttp\\Stream\\": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "Provides a simple abstraction over streams of data (Guzzle 4+)",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "Guzzle",
+                "stream"
+            ],
+            "time": "2014-07-19 18:43:42"
         },
         {
             "name": "mustache/mustache",
@@ -3320,16 +3505,16 @@
         },
         {
             "name": "phpspec/phpspec",
-            "version": "dev-master",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/phpspec.git",
-                "reference": "06b52bc7ab811153da97d2edd9d94e1d60b60190"
+                "reference": "61712147412cb647b6cb68b19833a60bfda759a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/06b52bc7ab811153da97d2edd9d94e1d60b60190",
-                "reference": "06b52bc7ab811153da97d2edd9d94e1d60b60190",
+                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/61712147412cb647b6cb68b19833a60bfda759a1",
+                "reference": "61712147412cb647b6cb68b19833a60bfda759a1",
                 "shasum": ""
             },
             "require": {
@@ -3355,7 +3540,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.1.x-dev"
+                    "dev-master": "2.0.x-dev"
                 }
             },
             "autoload": {
@@ -3389,7 +3574,7 @@
                 "testing",
                 "tests"
             ],
-            "time": "2014-07-27 10:44:23"
+            "time": "2014-07-01 14:09:19"
         },
         {
             "name": "phpspec/prophecy",
