@@ -26,7 +26,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
     const FILTER_SHIPPING_METHOD_NAME = "shippingMethod";
     const FILTER_SHIPPING_ALIAS_NAME = "shippingAliasId";
 
-    protected $orderService;
     protected $filterService;
     protected $batchService;
     protected $bulkActionsService;
@@ -295,20 +294,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
         return $this->getJsonModelFactory()->newInstance($data);
     }
 
-    protected function setOrderService(OrderService $orderService)
-    {
-        $this->orderService = $orderService;
-        return $this;
-    }
-
-    /**
-     * @return OrderService
-     */
-    protected function getOrderService()
-    {
-        return $this->orderService;
-    }
-
     protected function setFilterService(FilterService $filterService)
     {
         $this->filterService = $filterService;
@@ -406,17 +391,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected function getStoredFiltersService()
     {
         return $this->storedFiltersService;
-    }
-
-    protected function setShippingConversionService(ShippingConversionService $shippingConversionService)
-    {
-        $this->shippingConversionService = $shippingConversionService;
-        return $this;
-    }
-
-    protected function getShippingConversionService()
-    {
-        return $this->shippingConversionService;
     }
 
     protected function setProductService(ProductsService $productService)
