@@ -1,7 +1,6 @@
 <?php
 use Products\Module;
 use Products\Controller;
-use Orders\Order\TableService;
 use CG\Http\Rpc\Json\Client as JsonRpcClient;
 use Orders\Order\Invoice\Renderer\ServiceInterface as InvoiceRendererService;
 use Orders\Order\Invoice\Renderer\Service\Pdf as PdfInvoiceRendererService;
@@ -53,193 +52,6 @@ return [
                                 ],
                             ],
                         ],
-                    ],
-                    'batch' => [
-                        'type' => 'Zend\Mvc\Router\Http\Literal',
-                        'options' => array(
-                            'route'    => '/batch',
-                            'defaults' => array(
-                                'controller' => BulkActionsController::class,
-                                'action'     => 'batches',
-                            ),
-                        ),
-                        'may_terminate' => true,
-                        'child_routes' => array(
-                            'create' => array(
-                                'type' => 'Zend\Mvc\Router\Http\Literal',
-                                'options' => array(
-                                    'route'    => '/create',
-                                    'defaults' => array(
-                                        'action'     => 'batchOrderIds',
-                                    ),
-                                ),
-                                'may_terminate' => true,
-                                'child_routes' => [
-                                    'filterId' => [
-                                        'type' => 'Zend\Mvc\Router\Http\Segment',
-                                        'options' => [
-                                            'route' => '/:filterId',
-                                            'constraints' => [
-                                                'filterId' => '.+'
-                                            ],
-                                            'defaults' => [
-                                                'action' => 'batchFilterId',
-                                            ]
-                                        ],
-                                    ],
-                                ],
-                            ),
-                            'unset' => [
-                                'type' => 'Zend\Mvc\Router\Http\Literal',
-                                'options' => [
-                                    'route' => '/unset',
-                                    'defaults' => [
-                                        'action' => 'unBatchOrderIds'
-                                    ]
-                                ],
-                                'may_terminate' => true,
-                                'child_routes' => [
-                                    'filterId' => [
-                                        'type' => 'Zend\Mvc\Router\Http\Segment',
-                                        'options' => [
-                                            'route' => '/:filterId',
-                                            'constraints' => [
-                                                'filterId' => '.+'
-                                            ],
-                                            'defaults' => [
-                                                'action' => 'unBatchFilterId',
-                                            ]
-                                        ],
-                                    ],
-                                ],
-                            ],
-                        )
-                    ],
-                    'order' => [
-                        'type' => 'Zend\Mvc\Router\Http\Segment',
-                        'priority' => -100,
-                        'options' => [
-                            'route' => '/:order',
-                            'constraints' => [
-                                'order' => '[0-9]*\-[a-zA-Z0-9_-]*'
-                            ],
-                            'defaults' => [
-                                'action' => 'order',
-                            ]
-                        ],
-                        'may_terminate' => true,
-                        'child_routes' => [
-                            'alert' => [
-                                'type' => 'Zend\Mvc\Router\Http\Literal',
-                                'options' => [
-                                    'route' => '/alert',
-                                    'defaults' => [
-                                        'controller' => 'Orders\Controller\Alert'
-                                    ]
-                                ],
-                                'may_terminate' => true,
-                                'child_routes' => [
-                                    'set' => [
-                                        'type' => 'Zend\Mvc\Router\Http\Literal',
-                                        'options' => [
-                                            'route' => '/set',
-                                            'defaults' => [
-                                                'action' => 'set'
-                                            ],
-                                        ],
-                                        'may_terminate' => true
-                                    ],
-                                    'delete' => [
-                                        'type' => 'Zend\Mvc\Router\Http\Literal',
-                                        'options' => [
-                                            'route' => '/delete',
-                                            'defaults' => [
-                                                'action' => 'delete'
-                                            ]
-                                        ],
-                                        'may_terminate' => true
-                                    ],
-                                ]
-                            ],
-                            'note' => [
-                                'type' => 'Zend\Mvc\Router\Http\Literal',
-                                'options' => [
-                                    'route' => '/note',
-                                    'defaults' => [
-                                        'controller' => 'Orders\Controller\Note',
-                                        'action' => 'index'
-                                    ]
-                                ],
-                                'may_terminate' => true,
-                                'child_routes' => [
-                                    'create' => [
-                                        'type' => 'Zend\Mvc\Router\Http\Literal',
-                                        'options' => [
-                                            'route' => '/create',
-                                            'defaults' => [
-                                                'action' => 'create'
-                                            ],
-                                        ],
-                                        'may_terminate' => true
-                                    ],
-                                    'update' => [
-                                        'type' => 'Zend\Mvc\Router\Http\Literal',
-                                        'options' => [
-                                            'route' => '/update',
-                                            'defaults' => [
-                                                'action' => 'update'
-                                            ],
-                                        ],
-                                        'may_terminate' => true
-                                    ],
-                                    'delete' => [
-                                        'type' => 'Zend\Mvc\Router\Http\Literal',
-                                        'options' => [
-                                            'route' => '/delete',
-                                            'defaults' => [
-                                                'action' => 'delete'
-                                            ]
-                                        ],
-                                        'may_terminate' => true
-                                    ],
-                                ]
-                            ],
-                        ]
-                    ],
-                    'dispatch' => [
-                        'type' => 'Zend\Mvc\Router\Http\Literal',
-                        'options' => [
-                            'route' => '/dispatch',
-                            'defaults' => [
-                                'controller' => BulkActionsController::class,
-                                'action' => 'dispatchOrderIds',
-                            ]
-                        ],
-                        'may_terminate' => true,
-                        'child_routes' => [
-                            'filterId' => [
-                                'type' => 'Zend\Mvc\Router\Http\Segment',
-                                'options' => [
-                                    'route' => '/:filterId',
-                                    'constraints' => [
-                                        'filterId' => '.+'
-                                    ],
-                                    'defaults' => [
-                                        'action' => 'dispatchFilterId',
-                                    ]
-                                ],
-                            ],
-                        ],
-                    ],
-                    'cancel' => [
-                        'type' => 'Zend\Mvc\Router\Http\Literal',
-                        'options' => [
-                            'route' => '/cancel',
-                            'defaults' => [
-                                'controller' => BulkActionsController::class,
-                                'action' => 'cancelOrderIds'
-                            ]
-                        ]
                     ],
                     ProductsJsonController::AJAX_ROUTE => [
                         'type' => Literal::class,
@@ -348,27 +160,6 @@ return [
             'Products\Controller\Products' => function($controllerManager) {
                 return $controllerManager->getServiceLocator()->get(Controller\ProductsController::class);
             },
-            'Orders\Controller\Alert' => function($controllerManager) {
-                return $controllerManager->getServiceLocator()->get(Controller\AlertController::class);
-            },
-            'Orders\Controller\Note' => function($controllerManager) {
-                return $controllerManager->getServiceLocator()->get(Controller\NoteController::class);
-            },
-            'Orders\Controller\Batch' => function($controllerManager) {
-                    return $controllerManager->getServiceLocator()->get(Controller\BatchController::class);
-            },
-            'Orders\Controller\Address' => function($controllerManager) {
-                return $controllerManager->getServiceLocator()->get(Controller\AddressController::class);
-            },
-            'Orders\Controller\Preference' => function($controllerManager) {
-                return $controllerManager->getServiceLocator()->get(Controller\PreferenceController::class);
-            },
-            'Orders\Controller\Tag' => function($controllerManager) {
-                return $controllerManager->getServiceLocator()->get(Controller\TagController::class);
-            },
-            'Orders\Controller\Invoice' => function($controllerManager) {
-                return $controllerManager->getServiceLocator()->get(Controller\InvoiceController::class);
-            },
         ],
         'invokables' => [],
     ],
@@ -383,20 +174,6 @@ return [
         ],
     ],
     'di' => [
-        'definition' => [
-            'class' => [
-                TableService::class => [
-                    'methods' => [
-                        'addOrderTableModifier' => [
-                            'orderTableModifier' => [
-                                'type' => TableService\OrdersTableModifierInterface::class,
-                                'required' => true,
-                            ],
-                        ],
-                    ],
-                ],
-            ],
-        ],
         'instance' => [
             'aliases' => [
                 'OrderRpcClient' => JsonRpcClient::class,
