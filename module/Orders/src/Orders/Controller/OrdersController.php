@@ -91,7 +91,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $settings->setSource($this->url()->fromRoute('Orders/ajax'));
         $settings->setTemplateUrlMap($templateUrlMap);
         $view->addChild($ordersTable, 'ordersTable');
-
         $bulkActions = $this->getBulkActionsService()->getBulkActions();
         $bulkAction = $this->getViewModelFactory()->newInstance()->setTemplate('orders/orders/bulk-actions/index');
         $bulkAction->setVariable('isHeaderBarVisible', $this->getOrderService()->isFilterBarVisible());
@@ -134,7 +133,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         }
 
         $order = $this->getOrderService()->getOrder($this->params('order'));
-        //$carriers = $this->getCarrierSelect();
+        $carriers = $this->getCarrierSelect();
         $view = $this->getViewModelFactory()->newInstance(
             [
                 'order' => $order
@@ -152,8 +151,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->addChild($this->getDetailsSidebar(), 'sidebar');
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
-        //$view->setVariable('carriers', $carriers);
-        //$view->addChild($this->getCarrierSelect(), 'carrierSelect');
+        $view->setVariable('carriers', $carriers);
+        $view->addChild($this->getCarrierSelect(), 'carrierSelect');
         return $view;
     }
 
