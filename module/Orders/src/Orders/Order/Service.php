@@ -11,7 +11,7 @@ use CG\Order\Service\Filter;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
 use CG\Order\Shared\Entity;
 use CG\Order\Shared\Item\Entity as ItemEntity;
-use CG\Order\Client\Item\Storage\Api as OrderItemClient;
+use CG\Order\Shared\Item\StorageInterface as OrderItemClient;
 use Zend\Di\Di;
 use Zend\I18n\View\Helper\CurrencyFormat;
 use CG\User\Service as UserService;
@@ -81,6 +81,7 @@ class Service implements LoggerAwareInterface
     {
         $this
             ->setOrderClient($orderClient)
+            ->setOrderItemClient($orderItemClient)
             ->setTableService($tableService)
             ->setFilterService($filterService)
             ->setUserService($userService)
@@ -587,6 +588,7 @@ class Service implements LoggerAwareInterface
             try {
                 $this->dispatchOrder($order);
             } catch (Exception $orderException) {
+                die($orderException->getMessage());
                 $exception->addOrderException($order->getId(), $orderException);
                 $this->logException($orderException, 'error', __NAMESPACE__);
             }
