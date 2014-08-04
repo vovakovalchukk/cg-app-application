@@ -19,7 +19,7 @@ return array (
     14 => 'CG_Channel',
     15 => 'CG_Sessions',
     16 => 'CG_Usage',
-    17 => 'Products',
+    17 => 'Products'
   ),
   'module_listener_options' => 
   array (

@@ -1,0 +1,8 @@
+This is a simple product
+<?php
+foreach($this->products as $product) {
+    echo 'Title: ' . $product["title"] . ' - ' .
+         'SKU: ' . $product['SKU'] . ' - ' .
+         'Available: ' . $product['available'] .
+         '<br>';
+}
