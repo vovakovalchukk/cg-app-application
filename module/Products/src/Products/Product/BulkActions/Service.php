@@ -61,7 +61,7 @@ class Service
         }
 
         if ($action->hasJavascript()) {
-            $action->getJavascript()->setVariable('order', $productEntity);
+            $action->getJavascript()->setVariable('product', $productEntity);
         }
 
         if (!($action instanceof Action) || !$action->hasSubActions()) {

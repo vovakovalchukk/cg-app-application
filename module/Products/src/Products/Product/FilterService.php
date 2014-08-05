@@ -12,7 +12,7 @@ class FilterService
 {
     protected $factory;
     protected $config;
-    protected $orderFilters;
+    protected $productFilters;
 
     public function __construct(Filters\Factory $factory, $config)
     {
@@ -61,27 +61,27 @@ class FilterService
         return $filters[$filter];
     }
 
-    public function setProductFilters($orderFilters)
+    public function setProductFilters($productFilters)
     {
-        $this->orderFilters = $orderFilters;
+        $this->productFilters = $productFilters;
         return $this;
     }
 
     public function getProductFilters(Filter $filterValues)
     {
-        if ($this->orderFilters) {
-            return $this->orderFilters;
+        if ($this->productFilters) {
+            return $this->productFilters;
         }
         $this->getFactory()->setFilterValues($filterValues);
-        return $this->orderFilters = $this->getFactory()->create(
-            $this->getFilterConfig('orders')
+        return $this->productFilters = $this->getFactory()->create(
+            $this->getFilterConfig('products')
         );
     }
 
     public function getFilterNames()
     {
         $names = [];
-        $filters = $this->getConfig()["orders"]["rows"];
+        $filters = $this->getConfig()["products"]["rows"];
         foreach (array_merge($filters[0]["filters"], $filters[1]["filters"]) as $filter) {
             if (isset($filter['variables']['name'])) {
                 $names[]  = $filter['variables']['name'];

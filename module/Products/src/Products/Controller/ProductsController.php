@@ -28,8 +28,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         ViewModelFactory $viewModelFactory,
         ProductService $productService,
         BulkActionsService $bulkActionsService
-    )
-    {
+    ) {
         $this->setJsonModelFactory($jsonModelFactory)
              ->setViewModelFactory($viewModelFactory)
              ->setProductService($productService)
@@ -39,63 +38,19 @@ class ProductsController extends AbstractActionController implements LoggerAware
     public function indexAction()
     {
         $view = $this->getViewModelFactory()->newInstance();
-
         $view->addChild($this->getDetailsSidebar(), 'sidebarLinks');
-        $view->setVariable('isSidebarVisible', $this->getProductService()->isSidebarVisible());
 
         $bulkActions = $this->getBulkActionsService()->getListPageBulkActions();
-
         $bulkAction = $this->getViewModelFactory()->newInstance()->setTemplate('products/products/bulk-actions/index');
-        $bulkAction->setVariable('isHeaderBarVisible', $this->getProductService()->isFilterBarVisible());
         $bulkActions->addChild(
             $bulkAction,
             'afterActions'
         );
         $view->addChild($bulkActions, 'bulkItems');
 
-        $view->addChild($this->getSimpleProductView(), 'productsTable');
-
-        return $view;
-    }
-
-    protected function getSimpleProductView()
-    {
-        $products =[
-            [
-                'title' => 'Nike',
-                'SKU' => 'NKE',
-                'id' => 1,
-                'available' => 5
-            ],
-            [
-                'title' => 'Nike',
-                'SKU' => 'NKE',
-                'id' => 1,
-                'available' => 5
-            ],
-            [
-                'title' => 'Nike',
-                'SKU' => 'NKE',
-                'id' => 1,
-                'available' => 5
-            ],
-            [
-                'title' => 'Nike',
-                'SKU' => 'NKE',
-                'id' => 1,
-                'available' => 5
-            ],
-            [
-                'title' => 'Nike',
-                'SKU' => 'NKE',
-                'id' => 1,
-                'available' => 5
-            ]
-        ];
-
-        $view = $this->getViewModelFactory()->newInstance(['products' => $products]);
-
-        $view->setTemplate('products/products/simple-product');
+        $bulkAction->setVariable('isHeaderBarVisible', $this->getProductService()->isFilterBarVisible());
+        $view->setVariable('isSidebarVisible', $this->getProductService()->isSidebarVisible());
+        $view->setVariable('isHeaderBarVisible', $this->getProductService()->isFilterBarVisible());
 
         return $view;
     }
@@ -105,12 +60,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $sidebar = $this->getViewModelFactory()->newInstance();
         $sidebar->setTemplate('products/products/sidebar/navbar');
 
-        $links = [
-            '#A' => 'A LINK',
-            '#B' => 'B LINK',
-            '#C' => 'C LINK',
-            '#D' => 'D LINK'
-        ];
+        $links = [];
         $sidebar->setVariable('links', $links);
 
         return $sidebar;
