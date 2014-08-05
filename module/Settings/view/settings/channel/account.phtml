@@ -37,7 +37,7 @@ require(
             ".account-status .mustache",
             "input.toggle",
             {
-                url: "<?= $this->url($enableChannelRoute, ['account' => $account['id']]) ?>"
+                url: "<?= $this->url($enableChannelRoute, ['account' => $account['id'], 'type' => $type]) ?>"
             },
             {
                 info: "<?= $this->translate('Updating Sales Channel Status') ?>",

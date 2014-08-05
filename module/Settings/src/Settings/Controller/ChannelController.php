@@ -216,13 +216,14 @@ class ChannelController extends AbstractActionController
         $this->addAccountsChannelSpecificView($accountEntity, $view)
             ->addAccountDetailsForm($accountEntity, $view)
             ->addTradingCompaniesView($accountEntity, $view);
+        $view->setVariable('type', $this->params('type'));
 
         return $view;
     }
 
     protected function addAccountsChannelSpecificView($accountEntity, $view)
     {
-        $returnRoute = Module::ROUTE . '/' . static::ROUTE . '/' . static::ROUTE_SALES;
+        $returnRoute = Module::ROUTE . '/' . static::ROUTE . '/' . static::ROUTE_SALES . '/' . static::ACCOUNT_ROUTE;
         $channelSpecificTemplate = $this->getService()->getChannelSpecificTemplateNameForAccount($accountEntity);
         $channelSpecificView = $this->newViewModel();
         $channelSpecificView->setTemplate($channelSpecificTemplate);
@@ -245,7 +246,7 @@ class ChannelController extends AbstractActionController
         $accountForm->setData($accountEntity->toArray());
         $updateUrl = $this->url()->fromRoute(
             Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_SALES.'/'.static::ACCOUNT_ROUTE.'/'.static::ACCOUNT_AJAX_ROUTE,
-            ['account' => $accountEntity->getId()]
+            ['account' => $accountEntity->getId(), 'type' => $this->params('type')]
         );
         $accountForm->setAttribute('action', $updateUrl);
         $view->setVariable('detailsForm', $accountForm);
@@ -333,7 +334,7 @@ class ChannelController extends AbstractActionController
         ));
         $view = $this->getJsonModelFactory()->newInstance();
         $url = $this->getAccountFactory()->createRedirect($accountEntity, Module::ROUTE . '/' . static::ROUTE . '/' . ChannelController::ROUTE_SALES,
-            $this->params()->fromPost('region'));
+            ["type" => $this->params('type')], $this->params()->fromPost('region'));
         $view->setVariable('url', $url);
         return $view;
     }
