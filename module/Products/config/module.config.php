@@ -1,18 +1,10 @@
 <?php
 use Products\Module;
 use Products\Controller;
-use CG\Http\Rpc\Json\Client as JsonRpcClient;
-use Orders\Order\Invoice\Renderer\ServiceInterface as InvoiceRendererService;
-use Orders\Order\Invoice\Renderer\Service\Pdf as PdfInvoiceRendererService;
-use Orders\Controller\StoredFiltersController;
-use CG\Order\Service\Filter\StorageInterface as FilterStorageInterface;
-use CG\Order\Client\Filter\Storage\Api as FilterStorage;
-use Orders\Controller\BulkActionsController;
 use Zend\Mvc\Router\Http\Literal;
 use Products\Controller\ProductsJsonController;
 use CG\Product\Service as ProductService;
 use CG\Product\Storage\Api as ProductApiStorage;
-
 
 return [
     'router' => [
@@ -25,34 +17,11 @@ return [
                         'controller' => 'Products\Controller\Products',
                         'action' => 'index',
                         'breadcrumbs' => false,
-                    ],
+                        'sidebar' => 'products/products/sidebar'
+                    ]
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
-                    'ajax' => [
-                        'type' => 'Zend\Mvc\Router\Http\Literal',
-                        'options' => [
-                            'route' => '/ajax',
-                            'defaults' => [
-                                'action' => 'jsonFilter',
-                            ]
-                        ],
-                        'may_terminate' => true,
-                        'child_routes' => [
-                            'filterId' => [
-                                'type' => 'Zend\Mvc\Router\Http\Segment',
-                                'options' => [
-                                    'route' => '/:filterId',
-                                    'constraints' => [
-                                        'filterId' => '.+'
-                                    ],
-                                    'defaults' => [
-                                        'action' => 'jsonFilterId',
-                                    ]
-                                ],
-                            ],
-                        ],
-                    ],
                     ProductsJsonController::AJAX_ROUTE => [
                         'type' => Literal::class,
                         'options' => [
@@ -62,94 +31,6 @@ return [
                                 'action' => 'ajax'
                             ]
                         ],
-                    ],
-                    'archive' => [
-                        'type' => 'Zend\Mvc\Router\Http\Literal',
-                        'options' => [
-                            'route' => '/archive',
-                            'defaults' => [
-                                'controller' => BulkActionsController::class,
-                                'action' => 'archiveOrderIds',
-                            ]
-                        ],
-                        'may_terminate' => true,
-                        'child_routes' => [
-                            'filterId' => [
-                                'type' => 'Zend\Mvc\Router\Http\Segment',
-                                'options' => [
-                                    'route' => '/:filterId',
-                                    'constraints' => [
-                                        'filterId' => '.+'
-                                    ],
-                                    'defaults' => [
-                                        'action' => 'archiveFilterId',
-                                    ]
-                                ],
-                            ],
-                        ],
-                    ],
-                    'invoice' => [
-                        'type' => 'Zend\Mvc\Router\Http\Literal',
-                        'options' => [
-                            'route' => '/invoice',
-                            'defaults' => [
-                                'controller' => BulkActionsController::class,
-                                'action' => 'invoiceOrderIds'
-                            ]
-                        ],
-                        'may_terminate' => true,
-                        'child_routes' => [
-                            'filterId' => [
-                                'type' => 'Zend\Mvc\Router\Http\Segment',
-                                'options' => [
-                                    'route' => '/:filterId',
-                                    'constraints' => [
-                                        'filterId' => '.+'
-                                    ],
-                                    'defaults' => [
-                                        'action' => 'invoiceFilterId',
-                                    ]
-                                ],
-                            ],
-                            'invoice_demo' => [
-                                'type' => 'Zend\Mvc\Router\Http\Literal',
-                                'options' => [
-                                    'route' => '/preview',
-                                    'defaults' => [
-                                        'action' => 'previewInvoice'
-                                    ]
-                                ],
-                            ],
-                            'invoice_check' => [
-                                'type' => 'Zend\Mvc\Router\Http\Literal',
-                                'options' => [
-                                    'route' => '/check',
-                                    'defaults' => [
-                                        'action' => 'checkInvoicePrintingAllowed'
-                                    ]
-                                ],
-                            ],
-                        ]
-                    ],
-                    StoredFiltersController::ROUTE_SAVE => [
-                        'type' => 'Zend\Mvc\Router\Http\Literal',
-                        'options' => [
-                            'route' => '/filter/save',
-                            'defaults' => [
-                                'controller' => StoredFiltersController::class,
-                                'action' => 'saveFilter'
-                            ]
-                        ]
-                    ],
-                    StoredFiltersController::ROUTE_REMOVE => [
-                        'type' => 'Zend\Mvc\Router\Http\Literal',
-                        'options' => [
-                            'route' => '/filter/remove',
-                            'defaults' => [
-                                'controller' => StoredFiltersController::class,
-                                'action' => 'removeFilter'
-                            ]
-                        ]
                     ],
                 ],
             ],
@@ -161,7 +42,6 @@ return [
                 return $controllerManager->getServiceLocator()->get(Controller\ProductsController::class);
             },
         ],
-        'invokables' => [],
     ],
     'view_manager' => [
         'template_path_stack' => [
@@ -200,7 +80,7 @@ return [
                 'label'  => 'Products',
                 'route'  => 'Products',
                 'sprite' => 'sprite-orders-18-white',
-                'product'  => 10
+                'order'  => 5
             )
         )
     ),

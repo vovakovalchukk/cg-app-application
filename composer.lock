@@ -830,21 +830,22 @@
         },
         {
             "name": "channelgrabber/transaction",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-transaction.git",
-                "reference": "2058717dbfdfdf939988c08f088b6adca7e41459"
+                "reference": "954a5b4085d297d139288088800f6fbdc751e1fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-transaction-1.0.2-c3b136.zip",
-                "reference": "2058717dbfdfdf939988c08f088b6adca7e41459",
-                "shasum": "9a335ba722d6fafbaaf1c703d602112f914e1cc0"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-transaction-1.0.3-373a7d.zip",
+                "reference": "954a5b4085d297d139288088800f6fbdc751e1fa",
+                "shasum": "ee76ba08eccb787008e4b23fae9f9f2c2dcfb5f8"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
-                "channelgrabber/log": ">=2.0.1"
+                "channelgrabber/log": ">=2.0.1",
+                "channelgrabber/stdlib": ">=2.7.6,<3.0.0"
             },
             "require-dev": {
                 "channelgrabber/phpunit": "dev-develop",
@@ -856,7 +857,7 @@
                     "CG\\Transaction\\": ""
                 }
             },
-            "time": "2014-07-30 15:10:23"
+            "time": "2014-08-05 10:32:43"
         },
         {
             "name": "channelgrabber/usage",
