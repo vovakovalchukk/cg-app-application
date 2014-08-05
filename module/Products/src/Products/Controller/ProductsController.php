@@ -14,6 +14,7 @@ use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use Products\Service\ProductsService;
 use Products\Product\Service as ProductService;
+use Products\Product\BulkActions\Service as BulkActionsService;
 
 class ProductsController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -203,7 +204,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         return $this->storedFiltersService;
     }
 
-    protected function setProductService(ProductsService $productService)
+    protected function setProductService(ProductService $productService)
     {
         $this->productService = $productService;
         return $this;

@@ -1,6 +1,7 @@
 <?php
 namespace Products\Product;
 
+use CG\Product\Service as ProductService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Table;
 use CG\User\ActiveUserInterface;
@@ -25,6 +26,8 @@ class Service implements LoggerAwareInterface
     const PRODUCT_FILTER_BAR_STATE_KEY = 'product-filter-bar-state';
     const ACCOUNTS_PAGE = 1;
     const ACCOUNTS_LIMIT = 'all';
+    const LIMIT = 20;
+    const PAGE = 1;
 
     protected $userService;
     protected $activeUserContainer;
@@ -33,6 +36,7 @@ class Service implements LoggerAwareInterface
     protected $userPreferenceService;
     protected $accountService;
     protected $organisationUnitService;
+    protected $productService;
 
     public function __construct(
         UserService $userService,
@@ -40,15 +44,27 @@ class Service implements LoggerAwareInterface
         Di $di,
         UserPreferenceService $userPreferenceService,
         AccountService $accountService,
-        OrganisationUnitService $organisationUnitService
+        OrganisationUnitService $organisationUnitService,
+        ProductService $productService
     ) {
-        $this
+        $this->setProductService($productService)
             ->setUserService($userService)
             ->setActiveUserContainer($activeUserContainer)
             ->setDi($di)
             ->setUserPreferenceService($userPreferenceService)
             ->setAccountService($accountService)
             ->setOrganisationUnitService($organisationUnitService);
+    }
+
+    public function fetchProducts()
+    {
+        $products = $this->getProductService()->fetchCollectionByPagination(
+            static::LIMIT,
+            static::PAGE,
+            $this->getActiveUserContainer()->getActiveUser()->getOuList()
+        );
+
+        return $products;
     }
 
     public function isSidebarVisible()
@@ -80,6 +96,20 @@ class Service implements LoggerAwareInterface
         $userPrefs->setPreference($userPrefsPref);
 
         $this->getUserPreferenceService()->save($userPrefs);
+    }
+
+    protected function setProductService(ProductService $productService)
+    {
+        $this->productService = $productService;
+        return $this;
+    }
+
+    /**
+     * @return ProductService
+     */
+    protected function getProductService()
+    {
+        return $this->productService;
     }
 
     protected function setDi(Di $di)
