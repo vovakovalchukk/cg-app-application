@@ -26,12 +26,12 @@ use CG\Channel\Type;
 
 class ChannelController extends AbstractActionController
 {
-    const ACCOUNT_ROUTE = "Manage";
-    const ACCOUNT_STATUS_ROUTE = 'Status';
-    const ACCOUNT_DELETE_ROUTE = "Delete";
-    const ACCOUNT_AJAX_ROUTE = "Sales Channel Item Ajax";
+    const ROUTE_ACCOUNT = "Manage";
+    const ROUTE_ACCOUNT_STATUS = 'Status';
+    const ROUTE_ACCOUNT_DELETE = "Delete";
+    const ROUTE_ACCOUNT_AJAX = "Sales Channel Item Ajax";
     const ROUTE = "Channel Management";
-    const ROUTE_SALES = "Channels";
+    const ROUTE_CHANNELS = "Channels";
     const ROUTE_AJAX = "ajax";
     const ROUTE_CREATE = "create";
     const ACCOUNT_TEMPLATE = "Sales Channel Item";
@@ -133,14 +133,14 @@ class ChannelController extends AbstractActionController
 
     public function indexAction()
     {
-        return $this->redirect()->toRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_SALES, ['type' => Type::SALES]);
+        return $this->redirect()->toRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_CHANNELS, ['type' => Type::SALES]);
     }
 
     public function listAction()
     {
         $list = $this->newViewModel();
         $list->setVariable('title', $this->getRouteName())
-             ->setVariable('createRoute', Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_SALES.'/'.static::ROUTE_CREATE, ['type' => $this->params('type')])
+             ->setVariable('createRoute', Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_CHANNELS.'/'.static::ROUTE_CREATE, ['type' => $this->params('type')])
              ->setVariable('type', $this->params('type'))
              ->addChild($this->getAccountList(), 'accountList')
              ->addChild($this->getAddChannelSelect(), 'addChannelSelect');
@@ -161,7 +161,7 @@ class ChannelController extends AbstractActionController
         $accountList = $this->getService()->getAccountList();
         $settings = $accountList->getVariable('settings');
         $settings->setSource(
-            $this->url()->fromRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_SALES.'/'.static::ROUTE_AJAX, ['type' => $this->params('type')])
+            $this->url()->fromRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_CHANNELS.'/'.static::ROUTE_AJAX, ['type' => $this->params('type')])
         );
         $settings->setTemplateUrlMap($this->mustacheTemplateMap('accountList'));
         return $accountList;
@@ -223,7 +223,7 @@ class ChannelController extends AbstractActionController
 
     protected function addAccountsChannelSpecificView($accountEntity, $view)
     {
-        $returnRoute = Module::ROUTE . '/' . static::ROUTE . '/' . static::ROUTE_SALES . '/' . static::ACCOUNT_ROUTE;
+        $returnRoute = Module::ROUTE . '/' . static::ROUTE . '/' . static::ROUTE_CHANNELS . '/' . static::ROUTE_ACCOUNT;
         $channelSpecificTemplate = $this->getService()->getChannelSpecificTemplateNameForAccount($accountEntity);
         $channelSpecificView = $this->newViewModel();
         $channelSpecificView->setTemplate($channelSpecificTemplate);
@@ -245,7 +245,7 @@ class ChannelController extends AbstractActionController
         $accountForm = $this->getFormFactory()->get(static::ACCOUNT_DETAIL_FORM);
         $accountForm->setData($accountEntity->toArray());
         $updateUrl = $this->url()->fromRoute(
-            Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_SALES.'/'.static::ACCOUNT_ROUTE.'/'.static::ACCOUNT_AJAX_ROUTE,
+            Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_CHANNELS.'/'.static::ROUTE_ACCOUNT.'/'.static::ROUTE_ACCOUNT_AJAX,
             ['account' => $accountEntity->getId(), 'type' => $this->params('type')]
         );
         $accountForm->setAttribute('action', $updateUrl);
@@ -333,7 +333,7 @@ class ChannelController extends AbstractActionController
             "type" => $this->params('type')
         ));
         $view = $this->getJsonModelFactory()->newInstance();
-        $url = $this->getAccountFactory()->createRedirect($accountEntity, Module::ROUTE . '/' . static::ROUTE . '/' . ChannelController::ROUTE_SALES,
+        $url = $this->getAccountFactory()->createRedirect($accountEntity, Module::ROUTE . '/' . static::ROUTE . '/' . ChannelController::ROUTE_CHANNELS,
             ["type" => $this->params('type')], $this->params()->fromPost('region'));
         $view->setVariable('url', $url);
         return $view;

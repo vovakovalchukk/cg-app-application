@@ -48,18 +48,18 @@ return [
                 'uri' => '',
                 'class' => 'heading-medium',
                 'pages' => [
-                    Type::SALES . ' ' . ChannelController::ROUTE_SALES => [
-                        'label' => ucwords(Type::SALES) . ' ' . ChannelController::ROUTE_SALES,
-                        'title' => ucwords(Type::SALES) . ' ' . ChannelController::ROUTE_SALES,
-                        'route' => Module::ROUTE.'/'.ChannelController::ROUTE.'/'.ChannelController::ROUTE_SALES,
+                    Type::SALES . ' ' . ChannelController::ROUTE_CHANNELS => [
+                        'label' => ucwords(Type::SALES) . ' ' . ChannelController::ROUTE_CHANNELS,
+                        'title' => ucwords(Type::SALES) . ' ' . ChannelController::ROUTE_CHANNELS,
+                        'route' => Module::ROUTE.'/'.ChannelController::ROUTE.'/'.ChannelController::ROUTE_CHANNELS,
                         'params' => [
                             'type' => Type::SALES
                         ]
                     ],
-                    Type::SHIPPING . ' ' . ChannelController::ROUTE_SALES => [
-                        'label' => ucwords(Type::SHIPPING) . ' ' . ChannelController::ROUTE_SALES,
-                        'title' => ucwords(Type::SHIPPING) . ' ' . ChannelController::ROUTE_SALES,
-                        'route' => Module::ROUTE.'/'.ChannelController::ROUTE.'/'.ChannelController::ROUTE_SALES,
+                    Type::SHIPPING . ' ' . ChannelController::ROUTE_CHANNELS => [
+                        'label' => ucwords(Type::SHIPPING) . ' ' . ChannelController::ROUTE_CHANNELS,
+                        'title' => ucwords(Type::SHIPPING) . ' ' . ChannelController::ROUTE_CHANNELS,
+                        'route' => Module::ROUTE.'/'.ChannelController::ROUTE.'/'.ChannelController::ROUTE_CHANNELS,
                         'params' => [
                             'type' => Type::SHIPPING
                         ]
@@ -136,7 +136,7 @@ return [
                         ],
                         'may_terminate' => true,
                         'child_routes' => [
-                            ChannelController::ROUTE_SALES => [
+                            ChannelController::ROUTE_CHANNELS => [
                                 'type' => Segment::class,
                                 'options' => [
                                     'route' => '/:type',
@@ -191,7 +191,7 @@ return [
                                         ],
                                         'may_terminate' => true
                                     ],
-                                    ChannelController::ACCOUNT_ROUTE => [
+                                    ChannelController::ROUTE_ACCOUNT => [
                                         'type' => Segment::class,
                                         'options' => [
                                             'route' => '/:account',
@@ -204,7 +204,7 @@ return [
                                         ],
                                         'may_terminate' => true,
                                         'child_routes' => [
-                                            ChannelController::ACCOUNT_STATUS_ROUTE => [
+                                            ChannelController::ROUTE_ACCOUNT_STATUS => [
                                                 'type' => Literal::class,
                                                 'options' => [
                                                     'route' => '/enable',
@@ -213,7 +213,7 @@ return [
                                                     ]
                                                 ],
                                             ],
-                                            ChannelController::ACCOUNT_AJAX_ROUTE => [
+                                            ChannelController::ROUTE_ACCOUNT_AJAX => [
                                                 'type' => Segment::class,
                                                 'options' => [
                                                     'route' => '/ajax',
@@ -222,7 +222,7 @@ return [
                                                     ],
                                                 ],
                                             ],
-                                            ChannelController::ACCOUNT_DELETE_ROUTE => [
+                                            ChannelController::ROUTE_ACCOUNT_DELETE => [
                                                 'type' => Literal::class,
                                                 'options' => [
                                                     'route' => '/delete',
@@ -541,9 +541,9 @@ return [
                             [
                                 Module::ROUTE,
                                 ChannelController::ROUTE,
-                                ChannelController::ROUTE_SALES,
-                                ChannelController::ACCOUNT_ROUTE,
-                                ChannelController::ACCOUNT_STATUS_ROUTE,
+                                ChannelController::ROUTE_CHANNELS,
+                                ChannelController::ROUTE_ACCOUNT,
+                                ChannelController::ROUTE_ACCOUNT_STATUS,
                             ]
                         ),
                     ],

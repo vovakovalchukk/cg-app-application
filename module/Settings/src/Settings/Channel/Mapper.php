@@ -80,8 +80,8 @@ class Mapper
     protected function getManageLinks($id, $type, Url $urlPlugin)
     {
         $links = [
-            'manage' => ChannelController::ROUTE_SALES . '/' . ChannelController::ACCOUNT_ROUTE,
-            'delete' => ChannelController::ROUTE_SALES . '/' . ChannelController::ACCOUNT_ROUTE . '/' . ChannelController::ACCOUNT_DELETE_ROUTE
+            'manage' => ChannelController::ROUTE_CHANNELS . '/' . ChannelController::ROUTE_ACCOUNT,
+            'delete' => ChannelController::ROUTE_CHANNELS . '/' . ChannelController::ROUTE_ACCOUNT . '/' . ChannelController::ROUTE_ACCOUNT_DELETE
         ];
 
         $manageLinks = [];
