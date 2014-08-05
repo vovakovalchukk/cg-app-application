@@ -97,6 +97,11 @@ return array(
                     'client' => 'cg_app_guzzle'
                 ]
             ],
+            ItemApiClient::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
             OrderBatchService::class => [
                 'parameters' => [
                     'redisClient' => 'reliable_redis'

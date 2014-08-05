@@ -588,7 +588,6 @@ class Service implements LoggerAwareInterface
             try {
                 $this->dispatchOrder($order);
             } catch (Exception $orderException) {
-                die($orderException->getMessage());
                 $exception->addOrderException($order->getId(), $orderException);
                 $this->logException($orderException, 'error', __NAMESPACE__);
             }
