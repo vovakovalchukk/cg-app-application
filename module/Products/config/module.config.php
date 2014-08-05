@@ -2,7 +2,6 @@
 use Products\Module;
 use Products\Controller;
 use CG_UI\View\DataTable;
-use Orders\Order\TableService;
 
 return [
     'router' => [
@@ -45,7 +44,7 @@ return [
                 'label'  => 'Products',
                 'route'  => 'Products',
                 'sprite' => 'sprite-orders-18-white',
-                'product'  => 10
+                'order'  => 5
             )
         )
     ),

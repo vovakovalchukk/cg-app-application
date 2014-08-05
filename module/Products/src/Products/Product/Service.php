@@ -4,7 +4,6 @@ namespace Products\Product;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Table;
 use CG\User\ActiveUserInterface;
-use CG\Order\Service\Filter;
 use Zend\Di\Di;
 use CG\User\Service as UserService;
 use CG\UserPreference\Client\Service as UserPreferenceService;
@@ -27,7 +26,6 @@ class Service implements LoggerAwareInterface
     const ACCOUNTS_PAGE = 1;
     const ACCOUNTS_LIMIT = 'all';
 
-    protected $tableService;
     protected $userService;
     protected $activeUserContainer;
     protected $di;

@@ -5,7 +5,6 @@ use CG_UI\View\Filters;
 use Zend\Config\Config;
 use ArrayAccess;
 use RuntimeException;
-use CG\Order\Service\Filter;
 use Filters\Factory;
 
 class FilterService
