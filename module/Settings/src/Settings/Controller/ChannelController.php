@@ -163,9 +163,7 @@ class ChannelController extends AbstractActionController
         $settings->setSource(
             $this->url()->fromRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_SALES.'/'.static::ROUTE_AJAX, ['type' => $this->params('type')])
         );
-        die('boom2');
         $settings->setTemplateUrlMap($this->mustacheTemplateMap('accountList'));
-        die('boom');
         return $accountList;
     }
 
@@ -358,7 +356,7 @@ class ChannelController extends AbstractActionController
             $accountService->save($account->setActive($active));
             $response->setVariable(
                 'account',
-                $this->getMapper()->toDataTableArray($account, $this->url())
+                $this->getMapper()->toDataTableArray($account, $this->url(), $this->params('type'))
             );
         } catch (NotFound $exception) {
             return $response->setVariable(

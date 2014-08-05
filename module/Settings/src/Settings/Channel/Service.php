@@ -8,7 +8,7 @@ use CG\Channel\Service as ChannelService;
 use CG\OrganisationUnit\StorageInterface as OUClient;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use Zend\Form\Form;
-use Zend\Di\Di;
+use Zend\ServiceManager\ServiceManager;
 
 class Service
 {
@@ -16,18 +16,18 @@ class Service
     protected $accountClient;
     protected $ouClient;
     protected $channelService;
-    protected $di;
+    protected $serviceManager;
 
     public function __construct(
         AccountClient $accountClient,
         OUClient $ouClient,
         ChannelService $channelService,
-        Di $di
+        ServiceManager $serviceManager
     ) {
         $this->setAccountClient($accountClient)
             ->setOuClient($ouClient)
             ->setChannelService($channelService)
-            ->setDi($di);
+            ->setServiceManager($serviceManager);
     }
 
     public function setAccountList(DataTable $accountList)
@@ -46,7 +46,7 @@ class Service
 
     public function setupAccountList($type)
     {
-        $accountList = $this->getDi()->get($type . 'AccountList');
+        $accountList = $this->getServiceManager()->get($type . 'AccountList');
         $this->setAccountList($accountList);
     }
 
@@ -142,14 +142,14 @@ class Service
         return $this;
     }
 
-    protected function setDi(Di $di)
+    protected function setServiceManager(ServiceManager $serviceManager)
     {
-        $this->di = $di;
+        $this->serviceManager = $serviceManager;
         return $this;
     }
 
-    protected function getDi()
+    protected function getServiceManager()
     {
-        return $this->di;
+        return $this->serviceManager;
     }
 }
