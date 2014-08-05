@@ -1,13 +1,6 @@
 <?php
 use Products\Module;
 use Products\Controller;
-use CG\Http\Rpc\Json\Client as JsonRpcClient;
-use Orders\Order\Invoice\Renderer\ServiceInterface as InvoiceRendererService;
-use Orders\Order\Invoice\Renderer\Service\Pdf as PdfInvoiceRendererService;
-use Orders\Controller\StoredFiltersController;
-use CG\Order\Service\Filter\StorageInterface as FilterStorageInterface;
-use CG\Order\Client\Filter\Storage\Api as FilterStorage;
-use Orders\Controller\BulkActionsController;
 use Zend\Mvc\Router\Http\Literal;
 use Products\Controller\ProductsJsonController;
 use CG\Product\Service as ProductService;
