@@ -84,7 +84,7 @@ class Service implements LoggerAwareInterface
         $this->getUserPreferenceService()->save($userPrefs);
     }
 
-    public function setDi(Di $di)
+    protected function setDi(Di $di)
     {
         $this->di = $di;
         return $this;
@@ -93,18 +93,18 @@ class Service implements LoggerAwareInterface
     /**
      * @return Di
      */
-    public function getDi()
+    protected function getDi()
     {
         return $this->di;
     }
 
-    public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
+    protected function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
     {
         $this->activeUserContainer = $activeUserContainer;
         return $this;
     }
 
-    public function getActiveUserPreference()
+    protected function getActiveUserPreference()
     {
         if (!isset($this->activeUserPreference)) {
             $activeUserId = $this->getActiveUser()->getId();
@@ -114,7 +114,7 @@ class Service implements LoggerAwareInterface
         return $this->activeUserPreference;
     }
 
-    public function setUserService(UserService $userService)
+    protected function setUserService(UserService $userService)
     {
         $this->userService = $userService;
         return $this;
@@ -123,7 +123,7 @@ class Service implements LoggerAwareInterface
     /**
      * UserService
      */
-    public function getUserService()
+    protected function getUserService()
     {
         return $this->userService;
     }
@@ -131,17 +131,17 @@ class Service implements LoggerAwareInterface
     /**
      * @return ActiveUserInterface
      */
-    public function getActiveUserContainer()
+    protected function getActiveUserContainer()
     {
         return $this->activeUserContainer;
     }
 
-    public function getActiveUser()
+    protected function getActiveUser()
     {
         return $this->getActiveUserContainer()->getActiveUser();
     }
 
-    public function setUserPreferenceService(UserPreferenceService $userPreferenceService)
+    protected function setUserPreferenceService(UserPreferenceService $userPreferenceService)
     {
         $this->userPreferenceService = $userPreferenceService;
         return $this;
@@ -150,12 +150,12 @@ class Service implements LoggerAwareInterface
     /**
      * @return UserPreferenceService
      */
-    public function getUserPreferenceService()
+    protected function getUserPreferenceService()
     {
         return $this->userPreferenceService;
     }
 
-    public function setAccountService(AccountService $accountService)
+    protected function setAccountService(AccountService $accountService)
     {
         $this->accountService = $accountService;
         return $this;
@@ -164,7 +164,7 @@ class Service implements LoggerAwareInterface
     /**
      * @return AccountService
      */
-    public function getAccountService()
+    protected function getAccountService()
     {
         return $this->accountService;
     }
