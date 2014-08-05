@@ -27,7 +27,10 @@ class Shipping implements SelectOptionsInterface
     public function getSelectOptions()
     {
         $options = [];
-        $organisationUnit = $this->getOrganisationUnitService()->fetch($this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId());
+        $organisationUnit = $this->getOrganisationUnitService()
+                                 ->fetch($this->getActiveUserContainer()
+                                              ->getActiveUserRootOrganisationUnitId()
+            );
         $aliases = $this->getService()->fetchAliases($organisationUnit);
         foreach ($aliases as $alias) {
             $options[$alias->getId()] = $alias->getName();

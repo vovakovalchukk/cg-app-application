@@ -60,7 +60,6 @@ class Service implements LoggerAwareInterface
     protected $orderDispatcher;
     protected $orderCanceller;
     protected $shippingConversionService;
-    protected $carriers;
     protected $organisationUnitService;
 
     public function __construct(
@@ -75,7 +74,6 @@ class Service implements LoggerAwareInterface
         OrderDispatcher $orderDispatcher,
         OrderCanceller $orderCanceller,
         ShippingConversionService $shippingConversionService,
-        Carrier $carriers,
         OrganisationUnitService $organisationUnitService
     )
     {
@@ -92,7 +90,6 @@ class Service implements LoggerAwareInterface
             ->setOrderDispatcher($orderDispatcher)
             ->setOrderCanceller($orderCanceller)
             ->setShippingConversionService($shippingConversionService)
-            ->setCarriers($carriers)
             ->setOrganisationUnitService($organisationUnitService);
     }
 
@@ -116,10 +113,16 @@ class Service implements LoggerAwareInterface
 
     public function getOrdersArrayWithShippingAliases(array $orders)
     {
-        $organisationUnit = $this->getOrganisationUnitService()->fetch($this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId());
+        $organisationUnit = $this->getOrganisationUnitService()
+                                 ->fetch($this->getActiveUserContainer()
+                                              ->getActiveUserRootOrganisationUnitId()
+            );
 
         foreach($orders as $index => $order) {
-            $shippingAlias = $this->getShippingConversionService()->fromMethodToAlias($order['shippingMethod'], $organisationUnit);
+            $shippingAlias = $this->getShippingConversionService()
+                                  ->fromMethodToAlias($order['shippingMethod'],
+                                                      $organisationUnit
+                );
             $orders[$index]['shippingMethod'] = $shippingAlias ? $shippingAlias->getName() : $orders[$index]['shippingMethod'];
         }
         return $orders;
@@ -580,7 +583,6 @@ class Service implements LoggerAwareInterface
         $exception = new MultiException();
 
         foreach ($orders as $order) {
-
             try {
                 $this->dispatchOrder($order);
             } catch (Exception $orderException) {
@@ -598,7 +600,7 @@ class Service implements LoggerAwareInterface
     {
         $account = $this->getAccountService()->fetch($order->getAccountId());
 
-        $this->saveOrder(
+        $order = $this->saveOrder(
             $order->setStatus(OrderStatus::DISPATCHING)
         );
 
@@ -654,7 +656,7 @@ class Service implements LoggerAwareInterface
         $status = OrderMapper::calculateOrderStatusFromCancelType($type);
         $cancel = $this->getCancelValue($order, $type, $reason);
 
-        $this->saveOrder(
+        $order = $this->saveOrder(
             $order->setStatus($status)
         );
 
@@ -690,11 +692,6 @@ class Service implements LoggerAwareInterface
                 'shippingAmount' => $order->getShippingPrice(),
             ]
         );
-    }
-
-    public function getCarriersData()
-    {
-        return $this->getCarriers()->getAllCarriers();
     }
 
     public function setAccountService(AccountService $accountService)
@@ -748,18 +745,6 @@ class Service implements LoggerAwareInterface
     protected function getShippingConversionService()
     {
         return $this->shippingConversionService;
-    }
-
-
-    protected function getCarriers()
-    {
-        return $this->carriers;
-    }
-
-    protected function setCarriers(Carrier $carriers)
-    {
-        $this->carriers = $carriers;
-        return $this;
     }
 
     protected function getOrganisationUnitService()

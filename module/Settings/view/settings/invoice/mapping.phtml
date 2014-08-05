@@ -25,6 +25,7 @@ $(document).ready(function() {
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <div class="invoiceSettings">
+    <input type='hidden' value="<?= $eTag ?>" id="setting-etag">
     <div class="invoiceDefaultSettings module">
         <div class="heading-large">Invoice Settings</div>
         <div class="default-invoice-holder">

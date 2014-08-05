@@ -37,6 +37,7 @@ class ChannelController extends AbstractActionController
     const ACCOUNT_TEMPLATE = "Sales Channel Item";
     const ACCOUNT_CHANNEL_FORM_BLANK_TEMPLATE = "Sales Channel Item Channel Form Blank";
     const ACCOUNT_DETAIL_FORM = "Sales Channel Item Detail";
+    const ACCOUNT_TYPE_TO_LIST = 'sale';
 
     protected $di;
     protected $jsonModelFactory;
