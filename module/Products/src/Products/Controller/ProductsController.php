@@ -12,7 +12,6 @@ use CG\Stdlib\PageLimit;
 use CG\Stdlib\OrderBy;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
-use Products\Service\ProductsService;
 use Products\Product\Service as ProductService;
 use Products\Product\BulkActions\Service as BulkActionsService;
 

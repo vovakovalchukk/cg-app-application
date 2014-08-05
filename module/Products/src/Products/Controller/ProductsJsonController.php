@@ -11,12 +11,12 @@ class ProductsJsonController extends AbstractActionController
 {
     const AJAX_ROUTE = 'AJAX';
 
-    protected $productsService;
+    protected $productService;
     protected $jsonModelFactory;
 
-    public function __construct(ProductsService $productsService, JsonModelFactory $jsonModelFactory)
+    public function __construct(ProductService $productService, JsonModelFactory $jsonModelFactory)
     {
-        $this->setProductsService($productsService)
+        $this->setProductsService($productService)
             ->setJsonModelFactory($jsonModelFactory);
     }
 
@@ -33,9 +33,9 @@ class ProductsJsonController extends AbstractActionController
         return $view->setVariable('products', $products);
     }
 
-    protected function setProductsService($productsService)
+    protected function setProductsService($productService)
     {
-        $this->productsService = $productsService;
+        $this->productService = $productService;
         return $this;
     }
 
@@ -44,7 +44,7 @@ class ProductsJsonController extends AbstractActionController
      */
     protected function getProductsService()
     {
-        return $this->productsService;
+        return $this->productService;
     }
 
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
