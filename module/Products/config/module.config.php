@@ -27,7 +27,7 @@ return [
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
-                    ProductsJsonController::AJAX_ROUTE => [
+                    ProductsJsonController::ROUTE_AJAX => [
                         'type' => Literal::class,
                         'options' => [
                             'route' => '/ajax',

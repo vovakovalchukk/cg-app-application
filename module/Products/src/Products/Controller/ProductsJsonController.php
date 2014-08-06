@@ -9,7 +9,7 @@ use CG_UI\View\Prototyper\JsonModelFactory;
 
 class ProductsJsonController extends AbstractActionController
 {
-    const AJAX_ROUTE = 'AJAX';
+    const ROUTE_AJAX = 'AJAX';
 
     protected $productsService;
     protected $jsonModelFactory;
