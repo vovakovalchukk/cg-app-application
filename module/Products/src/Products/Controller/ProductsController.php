@@ -14,6 +14,7 @@ use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use Products\Product\Service as ProductService;
 use Products\Product\BulkActions\Service as BulkActionsService;
+use CG\Stock\Service as StockService;
 
 class ProductsController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -22,18 +23,21 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected $jsonModelFactory;
     protected $viewModelFactory;
     protected $productService;
+    protected $stockService;
     protected $bulkActionsService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         ViewModelFactory $viewModelFactory,
         ProductService $productService,
-        BulkActionsService $bulkActionsService
+        BulkActionsService $bulkActionsService,
+        StockService $stockService
     ) {
         $this->setJsonModelFactory($jsonModelFactory)
              ->setViewModelFactory($viewModelFactory)
              ->setProductService($productService)
-             ->setBulkActionsService($bulkActionsService);
+             ->setBulkActionsService($bulkActionsService)
+             ->setStockService($stockService);
     }
 
     public function indexAction()
@@ -54,6 +58,12 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('isSidebarVisible', $this->getProductService()->isSidebarVisible());
         $view->setVariable('isHeaderBarVisible', $this->getProductService()->isFilterBarVisible());      
         return $view;
+    }
+
+    public function saveTotalAction($newTotal, $location, $productId)
+    {
+        $newTotal
+        $entity = $this->getS
     }
 
     protected function getProductView()
@@ -80,9 +90,9 @@ class ProductsController extends AbstractActionController implements LoggerAware
     {
         $name = $product->getName();
         $sku = $product->getSku();
-        $available = $product->getStock()->getTotalOnHand();
-        $allocated = $product->getStock()->getTotalAllocated();
-        $total = $product->getStock()->getTotalAvailable();
+        $available = 10; //$product->getStock()->getTotalOnHand();
+        $allocated = 20; //$product->getStock()->getTotalAllocated();
+        $total = 30; //$product->getStock()->getTotalAvailable();
 
         $totalTextBox = $this->getViewModelFactory()->newInstance([
             'value' => $total,

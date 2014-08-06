@@ -4,7 +4,7 @@ namespace Products\Controller;
 
 use CG\Stdlib\Exception\Runtime\NotFound;
 use Zend\Mvc\Controller\AbstractActionController;
-use Products\Service\ProductsService;
+use Products\Service\ProductService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 
 class ProductsJsonController extends AbstractActionController
