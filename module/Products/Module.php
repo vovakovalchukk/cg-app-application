@@ -1,14 +1,18 @@
 <?php
-
 namespace Products;
 
 use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
 use Zend\Config\Factory as ConfigFactory;
+use Zend\Mvc\MvcEvent;
 
 class Module implements DependencyIndicatorInterface
 {
-    const ROUTE = 'Products';
     const PUBLIC_FOLDER = '/channelgrabber/products/';
+    const ROUTE = 'Products';
+
+    public function onBootstrap(MvcEvent $event)
+    {
+    }
 
     public function getConfig()
     {

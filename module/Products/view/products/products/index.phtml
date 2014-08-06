@@ -7,7 +7,9 @@ $this->placeholder('#sidebar')
     ->append($this->sidebarLinks);
 ?>
 <div id="main" class="transition-preload module clearfix<?= $this->placeholder('#main.class')->setPrefix(' ')->setIndent(1) ?>">
-    <?= $this->breadcrumbs; ?>
-    <?= $this->bulkItems; ?>
-    <?= $this->productsTable; ?>
+<?= $this->breadcrumbs; ?>
+<?= $this->bulkItems; ?>
+    <div class="products-list">
+        <?= $this->products; ?>
+    </div>
 </div>
