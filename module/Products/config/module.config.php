@@ -9,7 +9,7 @@ use CG\Product\Storage\Api as ProductApiStorage;
 return [
     'router' => [
         'routes' => [
-            'Products' => [
+            Module::ROUTE => [
                 'type' => Literal::class,
                 'options' => [
                     'route' => '/products',
