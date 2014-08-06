@@ -1,3 +1,66 @@
+<?php $this->inlineScript()->captureStart(); ?>
+var datatable = $("#datatable");
+
+datatable.on("redraw", function() {
+datatable.removeData("filterId");
+});
+
+datatable.on("fnServerData", function(event, sSource, aoData, fnCallback, oSettings) {
+var filterId = datatable.data("filterId");
+if (filterId) {
+return;
+}
+
+$("#filters :input[name]").each(function() {
+var value = $.trim($(this).val());
+if (!value.length) {
+return;
+}
+var name = $(this).attr("name").replace(/^(.*?)(\[.*\])?$/g, "filter[$1]$2");
+
+aoData.push({
+"name": name,
+"value": value
+});
+});
+
+aoData.push({"name": "filter[batch]", "value": $('#hidden_batch_filter').val()});
+});
+
+datatable.on("jqXHRBeforeSend", function(event, request, settings) {
+var filterId = datatable.data("filterId");
+if (filterId) {
+settings.url += "/" + filterId;
+}
+
+request.done(function(data, status, request) {
+if (!data.sFilterId) {
+return;
+}
+
+$(event.target).data("filterId", data.sFilterId);
+});
+});
+
+datatable.on("fnRowCallback", function(event, nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+$("a.title", nRow).cgPjax();
+});
+
+require([
+"preference/Preference",
+"order/OrderPage"
+],
+function(Preference, OrderPage) {
+//References to n need to be migrated, it is the notification library
+var preference = new Preference(n);
+var orderPage = new OrderPage(preference);
+});
+require.config({
+paths: {
+'Filters': "<?= $this->basePath() . Orders\Module::PUBLIC_FOLDER . 'js';?>"
+}
+});
+<?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/jqueryPlugin/cg-pjax.js'); ?>
