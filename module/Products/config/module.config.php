@@ -3,7 +3,6 @@
 namespace Products;
 
 use Products\Module;
-use Products\Controller;
 use Zend\Mvc\Router\Http\Literal;
 use Products\Controller\ProductsJsonController;
 use CG\Product\Service as ProductService;
@@ -20,7 +19,6 @@ return [
                 'options' => [
                     'route' => '/products',
                     'defaults' => [
-                        'controller' => 'Products\Controller\Products',
                         'controller' => ProductsController::class,
                         'action' => 'index',
                         'breadcrumbs' => false,

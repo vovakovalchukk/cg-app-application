@@ -103,55 +103,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
         return $sidebar;
     }
 
-    protected function getDefaultJsonData()
-    {
-        return new ArrayObject(
-            [
-                'iTotalRecords' => 0,
-                'iTotalDisplayRecords' => 0,
-                'sEcho' => (int) $this->params()->fromPost('sEcho'),
-                'Records' => [],
-                'sFilterId' => null,
-            ]
-        );
-    }
-
-    protected function getPageLimit()
-    {
-        $pageLimit = new PageLimit();
-
-        if ($this->params()->fromPost('iDisplayLength') > 0) {
-            $pageLimit
-                ->setLimit($this->params()->fromPost('iDisplayLength'))
-                ->setPageFromOffset($this->params()->fromPost('iDisplayStart'));
-        }
-
-        return $pageLimit;
-    }
-
-    protected function getOrderBy()
-    {
-        $orderBy = new OrderBy();
-
-        $orderByIndex = $this->params()->fromPost('iSortCol_0');
-        if ($orderByIndex) {
-            $orderBy
-                ->setColumn($this->params()->fromPost('mDataProp_' . $orderByIndex))
-                ->setDirection($this->params()->fromPost('sSortDir_0', 'asc'));
-        }
-
-        return $orderBy;
-    }
-
-
-    /**
-     * @return JsonModelFactory
-     */
-    protected function getJsonModelFactory()
-    {
-        return $this->jsonModelFactory;
-    }
-
     protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
     {
         $this->viewModelFactory = $viewModelFactory;
