@@ -1,11 +1,9 @@
 <?php $this->inlineScript()->captureStart(); ?>
 require([
-"preference/Preference",
-"product/ProductPage"
+"showHideFilters"
 ],
-function(Preference, ProductPage) {
-var preference = new Preference(n);
-var productPage = new ProductPage(preference);
+function(showHideFilters) {
+var productPage = new showHideFilters();
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>

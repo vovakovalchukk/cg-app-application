@@ -47,13 +47,10 @@ datatable.on("fnRowCallback", function(event, nRow, aData, iDisplayIndex, iDispl
 });
 
 require([
-    "preference/Preference",
-    "order/OrderPage"
+"showHideFilters"
 ],
-function(Preference, OrderPage) {
-    //References to n need to be migrated, it is the notification library
-    var preference = new Preference(n);
-    var orderPage = new OrderPage(preference);
+function(showHideFilters) {
+var productPage = new showHideFilters();
 });
 require.config({
     paths: {
