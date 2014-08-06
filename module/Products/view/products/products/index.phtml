@@ -1,0 +1,13 @@
+<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
+<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
+<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/jqueryPlugin/cg-pjax.js'); ?>
+<?php $this->placeholder('#main.class')->append('full-width'); ?>
+<?php
+$this->placeholder('#sidebar')
+    ->append($this->sidebarLinks);
+?>
+<div id="main" class="transition-preload module clearfix<?= $this->placeholder('#main.class')->setPrefix(' ')->setIndent(1) ?>">
+    <?= $this->breadcrumbs; ?>
+    <?= $this->bulkItems; ?>
+    <?= $this->productsTable; ?>
+</div>
