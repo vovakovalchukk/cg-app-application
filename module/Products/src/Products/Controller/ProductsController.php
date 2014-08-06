@@ -64,7 +64,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
     {
         $id = $this->params('id');
         $locationId = $this->params('locationId');
-        $total = $this->params('total');
+        $newTotal = $this->params('total');
         $entity = $this->getStockService()->fetch($id);
         $entity->getLocations();
     }
