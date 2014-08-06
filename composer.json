@@ -15,7 +15,6 @@
         }
     },
     "require": {
-        "channelgrabber/account": "~1.0.28",
         "channelgrabber/amazon": "~1.2.29",
         "channelgrabber/channel": "~1.2.7",
         "channelgrabber/constants": "dev-master",
@@ -49,7 +48,7 @@
         "channelgrabber/zf2-ssoclient": "~1.4.0",
         "channelgrabber/zf2-stdlib": "~1.1.9",
         "channelgrabber/zf2-usage": "~1.0.0",
-        "channelgrabber/zf2-v4-ui": "~1.12.11",
+        "channelgrabber/zf2-v4-ui": "dev-CGIV-2844 as 1.12.11",
         "guzzle/guzzle": "~3.7",
         "nocarrier/hal": "~0.9.3",
         "php": ">=5.3.3",
