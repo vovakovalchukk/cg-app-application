@@ -68,7 +68,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
             }
             return $view;
         } catch (NotFound $e) {
-            return $this->getNoAliasesView();
+            echo "No products found";
         }
     }
 
