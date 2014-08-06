@@ -68,7 +68,7 @@ return [
             'products' => array(
                 'label'  => 'Products',
                 'route'  => 'Products',
-                'sprite' => 'sprite-orders-18-white',
+                'sprite' => 'sprite-products-18-white',
                 'order'  => 5
             )
         )
