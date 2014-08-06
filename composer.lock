@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "62d1f4ca0c8370672aa34038d3c694ed",
+    "hash": "58f6fde3fc17fa06b2d9a52ece0a16c9",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -578,17 +578,11 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.0.2",
+            "version": "dev-CGIV-2136-AddStockCollectionToProduct",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "d8ed5358509d9786fe12a21567d9cff8d1474605"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.0.2-0e7c14.zip",
-                "reference": "d8ed5358509d9786fe12a21567d9cff8d1474605",
-                "shasum": "747fb2c61af6f3922dd00e73d22b6f0f0bdd9607"
+                "reference": "84d0247b6bb84ceee717962a56a1ed743fe36798"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -609,7 +603,7 @@
                     "CG\\Product\\": ""
                 }
             },
-            "time": "2014-08-06 09:47:32"
+            "time": "2014-08-06 11:11:17"
         },
         {
             "name": "channelgrabber/redis",
@@ -4199,6 +4193,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/product": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpspec/phpspec": 20
     },
