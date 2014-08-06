@@ -1,4 +1,7 @@
 <?php
+
+namespace Products;
+
 use Products\Module;
 use Zend\Mvc\Router\Http\Literal;
 use Products\Controller\ProductsJsonController;
