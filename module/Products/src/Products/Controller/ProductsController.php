@@ -4,6 +4,7 @@ namespace Products\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use DirectoryIterator;
 use CG\Http\Rpc\Exception as RpcException;
 use ArrayObject;
 use CG\Stdlib\PageLimit;
@@ -43,12 +44,59 @@ class ProductsController extends AbstractActionController implements LoggerAware
             'afterActions'
         );
         $view->addChild($bulkActions, 'bulkItems');
+        $view->addChild($this->getProductView(), 'products');
 
         $bulkAction->setVariable('isHeaderBarVisible', $this->getProductService()->isFilterBarVisible());
         $view->setVariable('isSidebarVisible', $this->getProductService()->isSidebarVisible());
-        $view->setVariable('isHeaderBarVisible', $this->getProductService()->isFilterBarVisible());
-
+        $view->setVariable('isHeaderBarVisible', $this->getProductService()->isFilterBarVisible());      
         return $view;
+    }
+
+    protected function getProductView()
+    {
+        try {
+            $products = $this->getProductService()->fetchProducts();
+            $view = $this->getViewModelFactory()->newInstance();
+            $view->setTemplate('products/products/many');
+            $productViews = [];
+            foreach ($products as $product) {
+                $productViews[] = $this->getSimpleProductView($product);
+            }
+            $productViews = array_reverse($productViews);
+            foreach ($productViews as $productView) {
+                $view->addChild($productView, 'products', true);
+            }
+            return $view;
+        } catch (NotFound $e) {
+            return $this->getNoProductsView();
+        }
+    }
+
+    protected function getNoProductsView()
+    {
+        $view = $this->getViewModelFactory()->newInstance();
+        $view->setTemplate('products/products/none');
+        return $view;
+    }
+
+    protected function getSimpleProductView($product)
+    {
+        $name = $product->getName();
+        $sku = $product->getSku();
+        $total = 45;
+        $allocated = 10;
+        $available = $total - $allocated;
+
+        $product = $this->getViewModelFactory()->newInstance([
+            'title' => $name,
+            'SKU' => $sku,
+            'available' => $available,
+            'allocated' => $allocated,
+            'total' => $total
+        ]);
+        $product->setTemplate('elements/simple-product.mustache');
+
+        return $product;
     }
 
     protected function getDetailsSidebar()
@@ -60,20 +108,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $sidebar->setVariable('links', $links);
 
         return $sidebar;
-    }
-
-    protected function setProductService(ProductService $productService)
-    {
-        $this->productService = $productService;
-        return $this;
-    }
-
-    /**
-     * @return ProductService
-     */
-    protected function getProductService()
-    {
-        return $this->productService;
     }
 
     protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
@@ -102,5 +136,30 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected function getBulkActionsService()
     {
         return $this->bulkActionsService;
+    }
+
+    protected function setStoredFiltersService(StoredFiltersService $storedFiltersService)
+    {
+        $this->storedFiltersService = $storedFiltersService;
+        return $this;
+    }
+
+    /**
+      @return StoredFiltersService
+    */
+    protected function getStoredFiltersService()
+    {
+        return $this->storedFiltersService;
+    }
+
+    protected function setProductService(ProductService $productService)
+    {
+        $this->productService = $productService;
+        return $this;
+    }
+
+    protected function getProductService()
+    {
+        return $this->productService;
     }
 }
