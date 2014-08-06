@@ -1,10 +1,16 @@
 <?php
+
+namespace Products;
+
 use Products\Module;
 use Products\Controller;
 use Zend\Mvc\Router\Http\Literal;
 use Products\Controller\ProductsJsonController;
 use CG\Product\Service as ProductService;
 use CG\Product\Storage\Api as ProductApiStorage;
+use Products\Controller\ProductsController;
+use CG_UI\View\DataTable;
+use CG_Mustache\View\Strategy as MustacheStrategy;
 
 return [
     'router' => [
@@ -15,6 +21,7 @@ return [
                     'route' => '/products',
                     'defaults' => [
                         'controller' => 'Products\Controller\Products',
+                        'controller' => ProductsController::class,
                         'action' => 'index',
                         'breadcrumbs' => false,
                         'sidebar' => 'products/products/sidebar'
@@ -22,7 +29,7 @@ return [
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
-                    ProductsJsonController::AJAX_ROUTE => [
+                    ProductsJsonController::ROUTE_AJAX => [
                         'type' => Literal::class,
                         'options' => [
                             'route' => '/ajax',

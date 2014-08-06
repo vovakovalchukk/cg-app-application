@@ -4,7 +4,11 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "hash": "211787526012bcb1f2244a3387fba5ac",
+=======
+    "hash": "7d74e538be8efbe69a6c3a079200f197",
+>>>>>>> CGIV-2107-EPIC-simple-products
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -564,17 +568,17 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "a338982c7db11533d5b0e79258a1eaf7d4e25996"
+                "reference": "d8ed5358509d9786fe12a21567d9cff8d1474605"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.0.1-511226.zip",
-                "reference": "a338982c7db11533d5b0e79258a1eaf7d4e25996",
-                "shasum": "41abd40e56b964cd7b782e40c4468dcb206ffd82"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.0.2-0e7c14.zip",
+                "reference": "d8ed5358509d9786fe12a21567d9cff8d1474605",
+                "shasum": "747fb2c61af6f3922dd00e73d22b6f0f0bdd9607"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -595,7 +599,7 @@
                     "CG\\Product\\": ""
                 }
             },
-            "time": "2014-07-25 09:27:41"
+            "time": "2014-08-06 09:47:32"
         },
         {
             "name": "channelgrabber/redis",

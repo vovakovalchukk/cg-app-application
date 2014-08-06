@@ -26,7 +26,11 @@
         "channelgrabber/order": "~1.7.6",
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/phinx": "~0.3.2.3",
+<<<<<<< HEAD
         "channelgrabber/product": "~1.0.1",
+=======
+        "channelgrabber/product": "~1.0.2",
+>>>>>>> CGIV-2107-EPIC-simple-products
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/settings": "~1.0.11",
         "channelgrabber/sso": "~1.2.0",
