@@ -13,13 +13,13 @@ return array (
     8 => 'CG_SSO',
     9 => 'Orders',
     10 => 'Settings',
-    11 => 'CG_Email_Template',
-    12 => 'CG_Amazon',
-    13 => 'CG_Ebay',
-    14 => 'CG_Channel',
-    15 => 'CG_Sessions',
-    16 => 'CG_Usage',
-    17 => 'Products'
+    11 => 'Products',
+    12 => 'CG_Email_Template',
+    13 => 'CG_Amazon',
+    14 => 'CG_Ebay',
+    15 => 'CG_Channel',
+    16 => 'CG_Sessions',
+    17 => 'CG_Usage',
   ),
   'module_listener_options' => 
   array (

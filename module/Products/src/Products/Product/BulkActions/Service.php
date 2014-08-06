@@ -5,6 +5,7 @@ use CG_UI\View\BulkActions;
 use CG_UI\View\BulkActions\SubAction;
 use CG_UI\View\BulkActions\Action;
 use CG\Product\Entity as ProductEntity;
+use Products\Product\BulkActions\ProductAwareInterface;
 
 class Service
 {

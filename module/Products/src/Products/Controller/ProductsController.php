@@ -2,7 +2,6 @@
 namespace Products\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use DirectoryIterator;
@@ -12,7 +11,6 @@ use CG\Stdlib\PageLimit;
 use CG\Stdlib\OrderBy;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
-use Products\Service\ProductsService;
 use Products\Product\Service as ProductService;
 use Products\Product\BulkActions\Service as BulkActionsService;
 
@@ -20,19 +18,16 @@ class ProductsController extends AbstractActionController implements LoggerAware
 {
     use LogTrait;
 
-    protected $jsonModelFactory;
     protected $viewModelFactory;
     protected $productService;
     protected $bulkActionsService;
 
     public function __construct(
-        JsonModelFactory $jsonModelFactory,
         ViewModelFactory $viewModelFactory,
         ProductService $productService,
         BulkActionsService $bulkActionsService
     ) {
-        $this->setJsonModelFactory($jsonModelFactory)
-             ->setViewModelFactory($viewModelFactory)
+        $this->setViewModelFactory($viewModelFactory)
              ->setProductService($productService)
              ->setBulkActionsService($bulkActionsService);
     }
@@ -154,11 +149,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
         return $orderBy;
     }
 
-    protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
-    {
-        $this->jsonModelFactory = $jsonModelFactory;
-        return $this;
-    }
 
     /**
      * @return JsonModelFactory
