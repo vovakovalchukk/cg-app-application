@@ -36,48 +36,32 @@ return [
                                 'action' => 'ajax'
                             ]
                         ],
-                    ],
-                ],
-            ],
-        ],
-    ],
-    'controllers' => [
-        'factories' => [
-            'Products\Controller\Products' => function($controllerManager) {
-                return $controllerManager->getServiceLocator()->get(Controller\ProductsController::class);
-            },
-        ],
+                    ]
+                ]
+            ]
+        ]
     ],
     'view_manager' => [
-        'template_path_stack' => [
-            dirname(__DIR__) . '/view',
-            PROJECT_ROOT . '/public' . Module::PUBLIC_FOLDER . 'template',
-        ],
         'strategies' => [
-            'ViewJsonStrategy',
-            'CG_Mustache\View\Strategy'
+            'ViewJsonStrategy'
         ],
+        'template_path_stack' => [
+            __NAMESPACE__ => dirname(__DIR__) . '/view',
+        ]
     ],
     'di' => [
         'instance' => [
-            'aliases' => [
-                'OrderRpcClient' => JsonRpcClient::class,
-            ],
-            'preferences' => [
-                InvoiceRendererService::class => PdfInvoiceRendererService::class,
-                FilterStorageInterface::class => FilterStorage::class,
-            ],
             ProductService::class => [
                 'parameters' => [
                     'repository' => ProductApiStorage::class
                 ]
-            ],
-            ProductApiStorage::class => [
+           ],
+           ProductApiStorage::class => [
                'parameters' => [
                    'client' => 'cg_app_guzzle'
-                ]
-            ]
-        ],
+               ]
+           ]
+        ]
     ],
     'navigation' => array(
         'application-navigation' => array(
