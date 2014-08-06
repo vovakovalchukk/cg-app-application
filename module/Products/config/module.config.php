@@ -40,12 +40,10 @@ return [
     ],
     'view_manager' => [
         'strategies' => [
-            'ViewJsonStrategy',
-            MustacheStrategy::class
+            'ViewJsonStrategy'
         ],
         'template_path_stack' => [
             __NAMESPACE__ => dirname(__DIR__) . '/view',
-            __NAMESPACE__ . '_mustache' => PROJECT_ROOT . '/public' . Module::PUBLIC_FOLDER . 'template',
         ]
     ],
     'di' => [
