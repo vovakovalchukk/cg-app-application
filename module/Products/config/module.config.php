@@ -6,6 +6,12 @@ use Products\Controller\ProductsJsonController;
 use CG\Product\Service as ProductService;
 use CG\Product\Storage\Api as ProductApiStorage;
 
+// Stock
+use CG\Stock\Service as StockService;
+use CG\Stock\Storage\Api as StockApiStorage;
+use CG\Stock\Location\Service as LocationService;
+use CG\Stock\Location\Storage\Api as LocationApiStorage;
+
 return [
     'router' => [
         'routes' => [
@@ -64,14 +70,36 @@ return [
             ],
             ProductService::class => [
                 'parameters' => [
-                    'repository' => ProductApiStorage::class
-                ]
+                    'repository' => ProductApiStorage::class,
+                    'stockStorage' => StockApiStorage::class
+                ],
             ],
             ProductApiStorage::class => [
                'parameters' => [
                    'client' => 'cg_app_guzzle'
                 ]
-            ]
+            ],
+            StockService::class => [
+                'parameter' => [
+                    'repository' => StockApiStorage::class,
+                    'locationStorage' => LocationService::class
+                ]
+            ],
+            StockApiStorage::class => [
+                'parameter' => [
+                    'client' => 'cg_app_guzzle',
+                ]
+            ],
+            LocationService::class => [
+                'parameter' => [
+                    'repository' => LocationApiStorage::class
+                ]
+            ],
+            LocationApiStorage::class => [
+                'parameter' => [
+                    'client' => 'cg_app_guzzle',
+                ]
+            ],
         ],
     ],
     'navigation' => array(
