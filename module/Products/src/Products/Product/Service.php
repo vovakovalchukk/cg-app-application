@@ -63,7 +63,6 @@ class Service implements LoggerAwareInterface
             static::PAGE,
             $this->getActiveUserContainer()->getActiveUser()->getOuList()
         );
-
         return $products;
     }
 
