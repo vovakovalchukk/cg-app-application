@@ -26,6 +26,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected $stockService;
     protected $bulkActionsService;
 
+    const SAVE_ROUTE = 'SAVE';
+
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         ViewModelFactory $viewModelFactory,
@@ -62,11 +64,13 @@ class ProductsController extends AbstractActionController implements LoggerAware
 
     public function saveTotalAction()
     {
-        /*$locationId = $this->params('locationId');
+        die("save");
+        $id = $this->params('id');
+        $locationId = $this->params('locationId');
         $newTotal = $this->params('total');
         $entity = $this->getStockService()->fetch($id);
         $this->getStockLocationService()->fetch($locationId)->setOnHand($newTotal);
-        return $this;*/
+        return $this;
     }
 
     protected function getProductView()

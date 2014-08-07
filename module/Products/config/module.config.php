@@ -1,6 +1,6 @@
 <?php
 use Products\Module;
-use Products\Controller;
+use Products\Controller as ProductController;
 use Zend\Mvc\Router\Http\Literal;
 use Products\Controller\ProductsJsonController;
 use CG\Product\Service as ProductService;
@@ -38,6 +38,18 @@ return [
                             ]
                         ],
                     ],
+                    ProductController::SAVE_ROUTE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/saveTotal',
+                            'defaults' => [
+                                'controller' => 'Products\Controller\Products',
+                                'action' => 'saveTotal',
+                                'breadcrumbs' => false,
+                                'sidebar' => 'products/products/sidebar'
+                            ]
+                        ]
+                    ]
                 ],
             ],
         ],
