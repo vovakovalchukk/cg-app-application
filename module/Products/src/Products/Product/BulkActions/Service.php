@@ -1,20 +1,35 @@
 <?php
 namespace Products\Product\BulkActions;
 
-use CG_UI\View\BulkActions;
+use CG_UI\View\ProductBulkActions as BulkActions;
 use CG_UI\View\BulkActions\SubAction;
 use CG_UI\View\BulkActions\Action;
 use CG\Product\Entity as ProductEntity;
-use Products\Product\BulkActions\ProductAwareInterface;
+use CG_UI\View\Prototyper\ViewModelFactory;
 
 class Service
 {
     protected $listPageBulkActions;
-    protected $detailPageBulkActions;
+    protected $viewModelFactory;
 
-    public function __construct(BulkActions $listPageBulkActions, BulkActions $detailPageBulkActions)
-    {
-        $this->setListPageBulkActions($listPageBulkActions)->setDetailPageBulkActions($detailPageBulkActions);
+    public function __construct(
+        BulkActions $listPageBulkActions,
+        ViewModelFactory $viewModelFactory
+    ) {
+        $this->setViewModelFactory($viewModelFactory);
+
+        $searchView = $this->getViewModelFactory()->newInstance(
+            [
+                'name' => 'search',
+                'class' => '',
+                'placeholder' => 'Search',
+                'value' => 'Search for...'
+            ]
+        );
+        $searchView->setTemplate('elements/search.mustache');
+        $searchView->setVariable('name', 'Search');
+        $listPageBulkActions->addChild($searchView, 'searchUI');
+        $this->setListPageBulkActions($listPageBulkActions);
     }
 
     /**
@@ -34,27 +49,6 @@ class Service
         return $this->listPageBulkActions;
     }
 
-    /**
-     * @return Service
-     */
-    public function setDetailPageBulkActions(BulkActions $detailPageBulkActions)
-    {
-        $this->detailPageBulkActions = $detailPageBulkActions;
-        return $this;
-    }
-
-    /**
-     * @return BulkActions
-     */
-    public function getDetailPageBulkActions(ProductEntity $productEntity)
-    {
-        foreach ($this->detailPageBulkActions->getActions() as $action) {
-            $this->appendProductToAction($action, $productEntity);
-        }
-
-        return $this->detailPageBulkActions;
-    }
-
     protected function appendProductToAction(SubAction $action, ProductEntity $productEntity)
     {
         if ($action instanceof ProductAwareInterface) {
@@ -72,5 +66,19 @@ class Service
         foreach ($action->getSubActions() as $subAction) {
             $this->appendProductToAction($subAction, $productEntity);
         }
+    }
+
+    protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
+    {
+        $this->viewModelFactory = $viewModelFactory;
+        return $this;
+    }
+
+    /**
+     * @return ViewModelFactory
+     */
+    protected function getViewModelFactory()
+    {
+        return $this->viewModelFactory;
     }
 }
