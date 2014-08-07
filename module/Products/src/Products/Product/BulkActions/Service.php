@@ -20,14 +20,13 @@ class Service
 
         $searchView = $this->getViewModelFactory()->newInstance(
             [
-                'name' => 'search',
+                'name' => 'searchTerm',
                 'class' => '',
                 'placeholder' => 'Search',
                 'value' => 'Search for...'
             ]
         );
         $searchView->setTemplate('elements/search.mustache');
-        $searchView->setVariable('name', 'Search');
         $listPageBulkActions->addChild($searchView, 'searchUI');
         $this->setListPageBulkActions($listPageBulkActions);
     }
