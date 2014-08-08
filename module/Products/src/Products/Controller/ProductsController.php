@@ -83,19 +83,25 @@ class ProductsController extends AbstractActionController implements LoggerAware
     {
         $name = $product->getName();
         $sku = $product->getSku();
-        $total = 45;
-        $allocated = 10;
-        $available = $total - $allocated;
+        $available = $product->getStock()->getTotalOnHand();
+        $allocated = $product->getStock()->getTotalAllocated();
+        $total = $product->getStock()->getTotalAvailable();
+
+        $totalTextBox = $this->getViewModelFactory()->newInstance([
+            'value' => $total,
+            'class' => 'total-text-field'
+        ]);
+
+        $totalTextBox->setTemplate('elements/text.mustache'); 
 
         $product = $this->getViewModelFactory()->newInstance([
             'title' => $name,
-            'SKU' => $sku,
+            'sku' => $sku,
             'available' => $available,
             'allocated' => $allocated,
-            'total' => $total
         ]);
         $product->setTemplate('elements/simple-product.mustache');
-
+        $product->addChild($totalTextBox, 'text');
         return $product;
     }
 
