@@ -22,6 +22,9 @@ use CG\Order\Client\Filter\Storage\Api as FilterStorage;
 use Orders\Controller\BulkActionsController;
 use Orders\Controller\CancelController;
 use CG\Settings\Alias\Storage\Api as ShippingAliasStorage;
+use CG\Order\Client\Tracking\Storage\Api as TrackingStorageApi;
+use CG\Order\Service\Tracking\Service as TrackingService;
+use CG\Account\Client\Storage\Api as AccountStorageApi;
 
 return [
     'router' => [
@@ -245,6 +248,38 @@ return [
                                 ],
                                 'may_terminate' => true
                             ],
+                            'tracking' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/tracking',
+                                    'defaults' => [
+                                        'controller' => Controller\TrackingController::class,
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    'set' => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/update',
+                                            'defaults' => [
+                                                'action' => 'update'
+                                            ],
+                                        ],
+                                        'may_terminate' => true
+                                    ],
+                                    'delete' => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/delete',
+                                            'defaults' => [
+                                                'action' => 'delete'
+                                            ]
+                                        ],
+                                        'may_terminate' => true
+                                    ],
+                                ]
+                            ]
                         ]
                     ],
                     'dispatch' => [
@@ -836,6 +871,17 @@ return [
                 ],
             ],
             ShippingAliasStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
+            TrackingService::class => [
+                'parameters' => [
+                    'repository' => TrackingStorageApi::class,
+                    'accountStorage' => AccountStorageApi::class
+                ]
+            ],
+            TrackingStorageApi::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
                 ]
