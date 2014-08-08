@@ -4,7 +4,7 @@ namespace Products\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use DirectoryIterator;
+use CG\Product\Entity as ProductEntity;
 use CG\Http\Rpc\Exception as RpcException;
 use ArrayObject;
 use CG\Stdlib\PageLimit;
@@ -72,24 +72,25 @@ class ProductsController extends AbstractActionController implements LoggerAware
         }
     }
 
-    protected function getSimpleProductView($product)
+    protected function getSimpleProductView(ProductEntity $product)
     {
-        $name = $product->getName();
-        $sku = $product->getSku();
-        $available = $product->getStock()->getTotalOnHand();
-        $allocated = $product->getStock()->getTotalAllocated();
-        $total = $product->getStock()->getTotalAvailable();
+        $stockCollection = $product->getStock();
+        $stockCollection->rewind();
+        $stock = $stockCollection->current();
+        $available = $stock->getTotalOnHand();
+        $allocated = $stock->getTotalAllocated();
+        $total = $stock->getTotalAvailable();
 
         $totalTextBox = $this->getViewModelFactory()->newInstance([
             'value' => $total,
-            'class' => 'total-text-field'
+            'name' => 'total-stock-' . $stock->getId()
         ]);
 
-        $totalTextBox->setTemplate('elements/text.mustache'); 
+        $totalTextBox->setTemplate('elements/inline-text.mustache');
 
         $product = $this->getViewModelFactory()->newInstance([
-            'title' => $name,
-            'sku' => $sku,
+            'title' => $product->getName(),
+            'sku' => $product->getSku(),
             'available' => $available,
             'allocated' => $allocated,
         ]);
@@ -149,15 +150,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
         return $orderBy;
     }
 
-
-    /**
-     * @return JsonModelFactory
-     */
-    protected function getJsonModelFactory()
-    {
-        return $this->jsonModelFactory;
-    }
-
     protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
     {
         $this->viewModelFactory = $viewModelFactory;
@@ -184,20 +176,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected function getBulkActionsService()
     {
         return $this->bulkActionsService;
-    }
-
-    protected function setStoredFiltersService(StoredFiltersService $storedFiltersService)
-    {
-        $this->storedFiltersService = $storedFiltersService;
-        return $this;
-    }
-
-    /**
-      @return StoredFiltersService
-    */
-    protected function getStoredFiltersService()
-    {
-        return $this->storedFiltersService;
     }
 
     protected function setProductService(ProductService $productService)

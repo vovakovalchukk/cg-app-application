@@ -2,7 +2,6 @@
 
 namespace Products;
 
-use Products\Module;
 use Products\Controller;
 use Zend\Mvc\Router\Http\Literal;
 use Products\Controller\ProductsJsonController;
@@ -10,7 +9,10 @@ use CG\Product\Service as ProductService;
 use CG\Product\Storage\Api as ProductApiStorage;
 use Products\Controller\ProductsController;
 use CG_UI\View\DataTable;
-use CG_Mustache\View\Strategy as MustacheStrategy;
+use CG\Stock\Service as StockService;
+use CG\Stock\Storage\Api as StockApiStorage;
+use CG\Stock\Location\Service as LocationService;
+use CG\Stock\Location\Storage\Api as LocationApiStorage;
 
 return [
     'router' => [
@@ -20,7 +22,6 @@ return [
                 'options' => [
                     'route' => '/products',
                     'defaults' => [
-                        'controller' => 'Products\Controller\Products',
                         'controller' => ProductsController::class,
                         'action' => 'index',
                         'breadcrumbs' => false,
@@ -62,21 +63,36 @@ return [
     ],
     'di' => [
         'instance' => [
-            'aliases' => [
-                'OrderRpcClient' => JsonRpcClient::class,
-            ],
-            'preferences' => [
-                InvoiceRendererService::class => PdfInvoiceRendererService::class,
-                FilterStorageInterface::class => FilterStorage::class,
-            ],
             ProductService::class => [
                 'parameters' => [
-                    'repository' => ProductApiStorage::class
+                    'repository' => ProductApiStorage::class,
+                    'stockStorage' => StockService::class
                 ]
             ],
             ProductApiStorage::class => [
                'parameters' => [
                    'client' => 'cg_app_guzzle'
+               ]
+            ],
+            StockService::class => [
+                'parameter' => [
+                    'repository' => StockApiStorage::class,
+                    'locationStorage' => LocationService::class
+                ]
+            ],
+            StockApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
+            LocationService::class => [
+                'parameter' => [
+                    'repository' => LocationApiStorage::class
+                ]
+            ],
+            LocationApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
                 ]
             ]
         ],
