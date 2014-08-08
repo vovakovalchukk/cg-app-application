@@ -27,7 +27,6 @@ return [
                     ],
                 ],
                 'injections' => [
-                    Action\Search::class,
                     Action\Delete::class
                 ],
             ],
@@ -44,20 +43,6 @@ return [
                     'template' => 'products/products/bulk-actions/data-url',
                 ],
             ],
-            Action\Search::class => [
-                'parameters' => [
-                    'urlView' => 'UrlDataViewSearch',
-                    'elementData' => [
-                        'datatable' => 'datatable',
-                    ]
-                ]
-            ],
-            'UrlDataViewSearch' => [
-                'parameters' => [
-                    'template' => 'products/products/bulk-actions/data-url',
-                ],
-            ],
-
             'ProductDetailBulkActions' => [
                 'parameters' => [
                     'variables' => [

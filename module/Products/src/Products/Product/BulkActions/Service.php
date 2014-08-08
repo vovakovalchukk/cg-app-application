@@ -27,6 +27,18 @@ class Service
             ]
         );
         $searchView->setTemplate('elements/search.mustache');
+
+        $searchButton = $this->getViewModelFactory()->newInstance(
+            [
+                'type' => 'Submit',
+                'class' => '',
+                'value' => 'Search',
+                'id' => 'searchSubmit'
+            ]
+        );
+        $searchButton->setTemplate('elements/button.mustache');
+        $searchView->addChild($searchButton, 'searchUIButton');
+
         $listPageBulkActions->addChild($searchView, 'searchUI');
         $this->setListPageBulkActions($listPageBulkActions);
     }
