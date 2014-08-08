@@ -56,6 +56,8 @@ return [
                             'type' => Type::SALES
                         ]
                     ],
+                    /**
+                     * Commented this out to achieve a 'Dark Deploy' TODO: Remove this comment.
                     Type::SHIPPING . ' ' . ChannelController::ROUTE_CHANNELS => [
                         'label' => ucwords(Type::SHIPPING) . ' ' . ChannelController::ROUTE_CHANNELS,
                         'title' => ucwords(Type::SHIPPING) . ' ' . ChannelController::ROUTE_CHANNELS,
@@ -63,7 +65,7 @@ return [
                         'params' => [
                             'type' => Type::SHIPPING
                         ]
-                    ]
+                    ]*/
                 ]
             ],
             'Invoices' => [
