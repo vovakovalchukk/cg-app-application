@@ -4,9 +4,8 @@ namespace Orders\Order;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Filters\SelectOptionsInterface;
 use CG\User\ActiveUserInterface;
-use CG_UI\View\Filters\SelectPriorityOptionsInterface;
 
-class CountryService implements SelectOptionsInterface, SelectPriorityOptionsInterface
+class CountryService implements SelectOptionsInterface
 {
     protected $activeUserContainer;
 
@@ -15,43 +14,27 @@ class CountryService implements SelectOptionsInterface, SelectPriorityOptionsInt
         $this->setActiveUserContainer($activeUserContainer);
     }
 
-    public function getPrioritySelectionOptions()
-    {
-        try {
-            return $this->getPriorityActiveUserCountries();
-        } catch (NotFound $e) {
-            // No countries
-            return [];
-        }
-    }
-
     public function getSelectOptions()
     {
         try {
-            return $this->getActiveUserCountries();
+            return $this->getActiveUserCurrencies();
         } catch (NotFound $e) {
             return [];
         }
     }
 
-    public function getPriorityActiveUserCountries()
-    {
-        return [
-            'GB' => 'United Kingdom',
-            'US' => 'United States',
-            'IE' => 'Ireland',
-            'IM' => 'Isle of Man',
-            'GG' => 'Guernsey',
-            'JE' => 'Jersey'
-        ];
-    }
-
-    public function getActiveUserCountries()
+    public function getActiveUserCurrencies()
     {
         /*
          * In a future update this will be changed to call out to somewhere and retrieve suitable countries
          */
         return [
+            'GB' => 'United Kingdom',
+            'IE' => 'Ireland',
+            'IM' => 'Isle of Man',
+            'GG' => 'Guernsey',
+            'JE' => 'Jersey',
+
             'AF' => 'Afghanistan',
             'AX' => 'Aland Islands',
             'AL' => 'Albania',
@@ -282,6 +265,7 @@ class CountryService implements SelectOptionsInterface, SelectPriorityOptionsInt
             'UG' => 'Uganda',
             'UA' => 'Ukraine',
             'AE' => 'United Arab Emirates',
+            'US' => 'United States',
             'UM' => 'United States Minor Outlying Islands',
             'UY' => 'Uruguay',
             'UZ' => 'Uzbekistan',

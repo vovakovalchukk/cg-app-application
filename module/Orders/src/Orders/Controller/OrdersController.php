@@ -98,7 +98,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             $bulkAction,
             'afterActions'
         );
-        
         $view->addChild($bulkActions, 'bulkItems');
         $view->addChild($this->getFilterBar(), 'filters');
         $view->addChild($this->getStatusFilters(), 'statusFiltersSidebar');
@@ -111,7 +110,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->addChild($this->getBatches(), 'batches');
         $view->setVariable('isSidebarVisible', $this->getOrderService()->isSidebarVisible());
         $view->setVariable('isHeaderBarVisible', $this->getOrderService()->isFilterBarVisible());
-        $view->setVariable('filterNames', $this->getOrderService()->getFilterService()->getFilterNames());         
+        $view->setVariable('filterNames', $this->getOrderService()->getFilterService()->getFilterNames());
         return $view;
     }
 
@@ -133,7 +132,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         }
 
         $order = $this->getOrderService()->getOrder($this->params('order'));
-        $carriers = $this->getCarrierSelect();
         $view = $this->getViewModelFactory()->newInstance(
             [
                 'order' => $order
@@ -151,36 +149,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->addChild($this->getDetailsSidebar(), 'sidebar');
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
-        $view->setVariable('carriers', $carriers);
-        $view->addChild($this->getCarrierSelect(), 'carrierSelect');
         return $view;
-    }
-
-    protected function getCarrierSelect()
-    {
-        $order = $this->getOrderService()->getOrder($this->params('order'));
-        $carriers = $this->getOrderService()->getCarriersData();
-        $trackings = $order->getTrackings();
-        $trackings->rewind();
-        $tracking = $trackings->current();
-        $options = [];
-        foreach ($carriers as $carrier) {
-            $selected = false;
-            if(!is_null($tracking)) {
-                $selected = ($tracking->getCarrier() == $carrier);
-            }
-            $options[] = [
-                'title' => $carrier,
-                'value' => $carrier,
-                'selected' => $selected
-            ];
-        }
-        $carrierSelect = $this->getViewModelFactory()->newInstance(["options" => $options]);
-        $carrierSelect->setTemplate("elements/custom-select.mustache");
-        $carrierSelect->setVariable("name", "carrier");        
-        $carrierSelect->setVariable("id", "carrier");
-        $carrierSelect->setVariable("blankOption", true);
-        return $carrierSelect;
     }
 
     protected function getBatches()
@@ -336,9 +305,12 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $data = $this->getDefaultJsonData();
         $pageLimit = $this->getPageLimit();
         $orderBy = $this->getOrderBy();
+
         $filterId = $this->params()->fromRoute('filterId');
 
-        $this->logDebugDump($filterId, "Filter id: ");
+        ob_start();
+        var_dump($filterId);
+        $this->log('Requested Order Filter Id ' . trim(ob_get_clean()), 0, 'debug', __NAMESPACE__);
 
         $this->updateColumnPositions();
 
@@ -522,8 +494,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     }
 
     /**
-      @return StoredFiltersService
-    */
+     * @return StoredFiltersService
+     */
     protected function getStoredFiltersService()
     {
         return $this->storedFiltersService;

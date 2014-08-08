@@ -4157,6 +4157,7 @@
         "channelgrabber/constants": 20,
         "phpspec/phpspec": 20
     },
+    "prefer-stable": false,
     "platform": {
         "php": ">=5.3.3"
     },
