@@ -4,14 +4,25 @@ namespace Orders\Order;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Filters\SelectOptionsInterface;
 use CG\User\ActiveUserInterface;
+use CG_UI\View\Filters\SelectPriorityOptionsInterface;
 
-class CurrencyService implements SelectOptionsInterface
+class CurrencyService implements SelectOptionsInterface, SelectPriorityOptionsInterface
 {
     protected $activeUserContainer;
 
     public function __construct(ActiveUserInterface $activeUserContainer)
     {
         $this->setActiveUserContainer($activeUserContainer);
+    }
+
+    public function getPrioritySelectionOptions()
+    {
+        try {
+            return $this->getPriorityActiveUserCurrencies();
+        } catch (NotFound $e) {
+            // No currencies
+            return [];
+        }
     }
 
     public function getSelectOptions()
@@ -24,16 +35,21 @@ class CurrencyService implements SelectOptionsInterface
         }
     }
 
+    public function getPriorityActiveUserCurrencies()
+    {
+        return [
+            'GBP' => 'UK Pound',
+            'EUR' => 'Euro',
+            'USD' => 'US Dollar'
+        ];
+    }
+
     public function getActiveUserCurrencies()
     {
         /*
          * In a future update this will be changed to call out to somewhere and retrieve suitable currencies
          */
         return [
-            'GBP' => 'UK Pound',
-            'EUR' => 'Euro',
-            'USD' => 'US Dollar',
-
             'AED' => 'UAE Dirham',
             'AFN' => 'Afghanistan Afghani',
             'ALL' => 'Albania Lek',
