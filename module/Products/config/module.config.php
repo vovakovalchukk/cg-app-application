@@ -1,6 +1,6 @@
 <?php
 use Products\Module;
-use Products\Controller as ProductController;
+use Products\Controller\ProductsController;
 use Zend\Mvc\Router\Http\Literal;
 use Products\Controller\ProductsJsonController;
 use CG\Product\Service as ProductService;
@@ -20,7 +20,7 @@ return [
                 'options' => [
                     'route' => '/products',
                     'defaults' => [
-                        'controller' => 'Products\Controller\Products',
+                        'controller' => ProductsController::class,
                         'action' => 'index',
                         'breadcrumbs' => false,
                         'sidebar' => 'products/products/sidebar'
@@ -38,27 +38,8 @@ return [
                             ]
                         ],
                     ],
-                    ProductController::SAVE_ROUTE => [
-                        'type' => Literal::class,
-                        'options' => [
-                            'route' => '/saveTotal',
-                            'defaults' => [
-                                'controller' => 'Products\Controller\Products',
-                                'action' => 'saveTotal',
-                                'breadcrumbs' => false,
-                                'sidebar' => 'products/products/sidebar'
-                            ]
-                        ]
-                    ]
                 ],
             ],
-        ],
-    ],
-    'controllers' => [
-        'factories' => [
-            'Products\Controller\Products' => function($controllerManager) {
-                return $controllerManager->getServiceLocator()->get(Controller\ProductsController::class);
-            },
         ],
     ],
     'view_manager' => [

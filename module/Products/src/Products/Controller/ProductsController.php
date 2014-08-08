@@ -62,17 +62,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
         return $view;
     }
 
-    public function saveTotalAction()
-    {
-        die("save");
-        $id = $this->params('id');
-        $locationId = $this->params('locationId');
-        $newTotal = $this->params('total');
-        $entity = $this->getStockService()->fetch($id);
-        $this->getStockLocationService()->fetch($locationId)->setOnHand($newTotal);
-        return $this;
-    }
-
     protected function getProductView()
     {
         try {
@@ -101,9 +90,9 @@ class ProductsController extends AbstractActionController implements LoggerAware
    
         foreach($product->getStock() as $stock)
         {
-            $available = $stock->getTotalOnHand();
+            $available = $stock->getTotalAvailable();
             $allocated = $stock->getTotalAllocated();
-            $total = $stock->getTotalAvailable();
+            $total = $stock->getTotalOnHand();;
         }
         
         $totalTextBox = $this->getViewModelFactory()->newInstance([
@@ -120,7 +109,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
             'allocated' => $allocated
         ]);
         $product->setTemplate('elements/simple-product.mustache');
-        $product->addChild($totalTextBox, 'text');
+        $product->addChild($totalTextBox, 'total');
         return $product;
     }
 
