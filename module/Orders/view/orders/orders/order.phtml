@@ -225,6 +225,7 @@ require([
     <span class="heading-large heading-spacing"><?= $this->translate('Shipping'); ?></span>
     <form id="trackingInformation" data-url="<?= $this->url('Orders/order/tracking', array('order' => $order->getId())); ?>"
               data-actionMessage="<?= $this->translate('Updating tracking info'); ?>" data-successMessage="<?= $this->translate('Tracking info updated'); ?>">
+        <div class="half">
         <?php
             $trackings = $order->getTrackings();
             $trackings->rewind();
@@ -245,8 +246,11 @@ require([
         <input type="hidden" value="<?= ($tracking) ? $tracking->getETag() : ""; ?>" id="eTag" name="eTag"/>
         <div class="half" style="clear:both; padding-top:0px;">
             <label>
-                <input type="submit" name="save" class="button form-button tracking-button" value="<?= $this->translate('Save'); ?>">
+                <div class="order-inputbox-holder">
+                    <input type="submit" name="save" class="button form-button tracking-button" value="<?= $this->translate('Save'); ?>">
+                </div>
             </label>
+        </div>
         </div>
     </form>
 </div>
