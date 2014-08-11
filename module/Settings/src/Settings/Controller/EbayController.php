@@ -10,6 +10,7 @@ use CG_UI\View\Prototyper\JsonModelFactory;
 use Zend\Di\Di;
 use Zend\Mvc\Controller\AbstractActionController;
 use Settings\Module;
+use CG\Channel\Type as ChannelType;
 
 class EbayController extends AbstractActionController
 {
@@ -47,12 +48,12 @@ class EbayController extends AbstractActionController
                 "active" => true,
                 "deleted" => false,
                 "expiryDate" => null,
-                "type" => "sale"
+                "type" => ChannelType::SALES
             ));
         }
         $accountEntity = $this->getEbayAccount()->save($this->params()->fromQuery('sessionId'), $accountEntity);
-        $routeName = implode('/', [Module::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS, ChannelController::ACCOUNT_ROUTE]);
-        $url = $this->plugin('url')->fromRoute($routeName, ["account" => $accountEntity->getId()]);
+        $routeName = implode('/', [Module::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS, ChannelController::ROUTE_ACCOUNT]);
+        $url = $this->plugin('url')->fromRoute($routeName, ["account" => $accountEntity->getId(), "type" => ChannelType::SALES]);
         $this->plugin('redirect')->toUrl($url);
         return false;
     }

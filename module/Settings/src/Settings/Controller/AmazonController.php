@@ -12,6 +12,7 @@ use Zend\Di\Di;
 use Zend\Mvc\Controller\AbstractActionController;
 use Settings\Module;
 use CG\Http\Exception\Exception3xx\NotModified;
+use CG\Channel\Type as ChannelType;
 
 class AmazonController extends AbstractActionController
 {
@@ -49,7 +50,7 @@ class AmazonController extends AbstractActionController
                 "active" => true,
                 "deleted" => false,
                 "expiryDate" => null,
-                "type" => "sale"
+                "type" => ChannelType::SALES
             ));
         }
         $credentials = $this->getDi()->get(Credentials::class, array(
@@ -63,8 +64,8 @@ class AmazonController extends AbstractActionController
         } catch (NotModified $e) {
             //Ignore the account has been reconnected but the credentials remain the same
         }
-        $routeName = implode('/', [Module::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS, ChannelController::ACCOUNT_ROUTE]);
-        $url = $this->plugin('url')->fromRoute($routeName, ["account" => $accountEntity->getId()]);
+        $routeName = implode('/', [Module::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS, ChannelController::ROUTE_ACCOUNT]);
+        $url = $this->plugin('url')->fromRoute($routeName, ["account" => $accountEntity->getId(), "type" => ChannelType::SALES]);
         $this->plugin('redirect')->toUrl($url);
         return false;
     }

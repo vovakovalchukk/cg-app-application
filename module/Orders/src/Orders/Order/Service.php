@@ -24,8 +24,6 @@ use CG\Account\Client\Service as AccountService;
 use Zend\Mvc\MvcEvent;
 use CG\Stdlib\DateTime;
 use CG\Order\Client\Collection as FilteredCollection;
-use CG\Stdlib\PageLimit;
-use CG\Stdlib\OrderBy;
 use CG\Order\Shared\Mapper as OrderMapper;
 use CG\Order\Shared\Cancel\Value as CancelValue;
 use CG\Channel\Gearman\Generator\Order\Dispatch as OrderDispatcher;
@@ -35,6 +33,8 @@ use Exception;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Order\Shared\Status as OrderStatus;
+use CG\Channel\Type;
+use CG\Channel\Carrier;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 
 class Service implements LoggerAwareInterface
@@ -135,7 +135,8 @@ class Service implements LoggerAwareInterface
             null,
             null,
             static::ACCOUNTS_LIMIT,
-            static::ACCOUNTS_PAGE
+            static::ACCOUNTS_PAGE,
+            Type::SALES
         );
 
         foreach($orders as $index => $order) {
@@ -145,8 +146,8 @@ class Service implements LoggerAwareInterface
             }
 
             $order['accountLink'] = $event->getRouter()->assemble(
-                ['account' => $order['accountId']],
-                ['name' => SettingsModule::ROUTE . '/' . ChannelController::ROUTE . '/' .ChannelController::ROUTE_CHANNELS.'/'. ChannelController::ACCOUNT_ROUTE]
+                ['account' => $order['accountId'], 'type' => Type::SALES],
+                ['name' => SettingsModule::ROUTE . '/' . ChannelController::ROUTE . '/' .ChannelController::ROUTE_CHANNELS.'/'. ChannelController::ROUTE_ACCOUNT]
             );
 
             $orders[$index] = $order;
