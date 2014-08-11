@@ -1,0 +1,22 @@
+<tr>
+    <td>{{available}}</td>
+    <td>{{allocated}}</td>
+    <td>
+        <div class="total-text-holder">
+            {{>total}}
+            <input type='hidden' id='etag-{{stockLocationId}}' value='{{eTag}}'>
+            <script>
+                $(document).ready(function() {
+                    require(['jquery', 'Stock/DomListener'], function($, DomListener) {
+                        var domListener = new DomListener();
+                        domListener.init(
+                            '.submit-inputbox[name="{{totalName}}"]',
+                            '{{stockLocationId}}',
+                            '#etag-{{stockLocationId}}'
+                        );
+                    });
+                });
+            </script>
+        </div>
+    </td>
+</tr>

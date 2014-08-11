@@ -10,6 +10,7 @@ use CG_UI\View\Prototyper\JsonModelFactory;
 class ProductsJsonController extends AbstractActionController
 {
     const ROUTE_AJAX = 'AJAX';
+    const ROUTE_STOCK_UPDATE = 'stockupdate';
 
     protected $productService;
     protected $jsonModelFactory;
@@ -33,15 +34,24 @@ class ProductsJsonController extends AbstractActionController
         return $view->setVariable('products', $products);
     }
 
-    protected function setProductsService($productService)
+    public function stockUpdateAction()
+    {
+        $stockLocation = $this->getProductsService()->updateStock(
+            $this->params()->fromPost('stockLocationId'),
+            $this->params()->fromPost('eTag'),
+            $this->params()->fromPost('totalQuantity')
+        );
+        $view = $this->getJsonModelFactory()->newInstance();
+        $view->setVariable('eTag', $stockLocation->getETag());
+        return $view;
+    }
+
+    protected function setProductsService(ProductService $productService)
     {
         $this->productService = $productService;
         return $this;
     }
 
-    /**
-     * @return ProductsService
-     */
     protected function getProductsService()
     {
         return $this->productService;
@@ -53,9 +63,6 @@ class ProductsJsonController extends AbstractActionController
         return $this;
     }
 
-    /**
-     * @return JsonModelFactory
-     */
     protected function getJsonModelFactory()
     {
         return $this->jsonModelFactory;

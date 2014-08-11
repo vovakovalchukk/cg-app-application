@@ -1,20 +1,18 @@
 <?php
 namespace Products\Product;
 
+use CG\ETag\Exception\NotModified;
 use CG\Product\Service as ProductService;
-use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Table;
 use CG\User\ActiveUserInterface;
 use Zend\Di\Di;
 use CG\User\Service as UserService;
 use CG\UserPreference\Client\Service as UserPreferenceService;
 use CG\Account\Client\Service as AccountService;
-use CG\Stdlib\DateTime;
-use CG\Stdlib\PageLimit;
-use CG\Stdlib\OrderBy;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Stock\Location\Service as StockLocationService;
 
 class Service implements LoggerAwareInterface
 {
@@ -37,6 +35,7 @@ class Service implements LoggerAwareInterface
     protected $accountService;
     protected $organisationUnitService;
     protected $productService;
+    protected $stockLocationService;
 
     public function __construct(
         UserService $userService,
@@ -45,7 +44,8 @@ class Service implements LoggerAwareInterface
         UserPreferenceService $userPreferenceService,
         AccountService $accountService,
         OrganisationUnitService $organisationUnitService,
-        ProductService $productService
+        ProductService $productService,
+        StockLocationService $stockLocationService
     ) {
         $this->setProductService($productService)
             ->setUserService($userService)
@@ -53,7 +53,8 @@ class Service implements LoggerAwareInterface
             ->setDi($di)
             ->setUserPreferenceService($userPreferenceService)
             ->setAccountService($accountService)
-            ->setOrganisationUnitService($organisationUnitService);
+            ->setOrganisationUnitService($organisationUnitService)
+            ->setStockLocationService($stockLocationService);
     }
 
     public function fetchProducts()
@@ -64,6 +65,19 @@ class Service implements LoggerAwareInterface
             $this->getActiveUserContainer()->getActiveUser()->getOuList()
         );
         return $products;
+    }
+
+    public function updateStock($stockLocationId, $eTag, $totalQuantity)
+    {
+        try {
+            $stockEntity = $this->getStockLocationService()->fetch($stockLocationId);
+            $stockEntity->setStoredEtag($eTag)
+                ->setOnHand($totalQuantity);
+            $this->getStockLocationService()->save($stockEntity);
+        } catch (NotModified $e) {
+            //No changes do nothing
+        }
+        return $stockEntity;
     }
 
     public function isSidebarVisible()
@@ -205,5 +219,16 @@ class Service implements LoggerAwareInterface
     {
         $this->organisationUnitService = $organisationUnitService;
         return $this;
+    }
+
+    protected function setStockLocationService($stockLocationService)
+    {
+        $this->stockLocationService = $stockLocationService;
+        return $this;
+    }
+
+    protected function getStockLocationService()
+    {
+        return $this->stockLocationService;
     }
 }

@@ -38,6 +38,16 @@ return [
                                 'action' => 'ajax'
                             ]
                         ],
+                    ],
+                    ProductsJsonController::ROUTE_STOCK_UPDATE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/stock/update',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'stockUpdate'
+                            ]
+                        ],
                     ]
                 ]
             ]
@@ -49,6 +59,7 @@ return [
         ],
         'template_path_stack' => [
             __NAMESPACE__ => dirname(__DIR__) . '/view',
+            PROJECT_ROOT . '/public' . Module::PUBLIC_FOLDER . 'template',
         ]
     ],
     'di' => [

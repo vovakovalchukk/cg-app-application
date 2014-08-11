@@ -5,28 +5,14 @@ require([
 function(showHideFilters) {
 var productPage = new showHideFilters();
 });
-$(document).ready(function() {
-    require.config({
-        paths: {
-            'Products': "<?=$this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js';?>"
-        }
-    });
-    var rootOuId = <?=$rootOuId;?>;
-    require([
-        'Products/DomManipulator',
-    ], function(
-        domManipulator,
-    ) {
-        $(document).ready(function()
-        {
-
-        });
-    });
+require.config({
+    paths: {
+        'Stock': '<?=$this->basePath() . Products\Module::PUBLIC_FOLDER; ?>/js/Stock'
+    }
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
-<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/jqueryPlugin/cg-pjax.js'); ?>
 <?php $this->placeholder('#main.class')->append('full-width'); ?>
 <?php
 $this->placeholder('#sidebar')

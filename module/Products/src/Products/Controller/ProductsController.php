@@ -64,12 +64,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
             $products = $this->getProductService()->fetchProducts();
             $view = $this->getViewModelFactory()->newInstance();
             $view->setTemplate('products/products/many');
-            $productViews = [];
             foreach ($products as $product) {
-                $productViews[] = $this->getSimpleProductView($product);
-            }
-            $productViews = array_reverse($productViews);
-            foreach ($productViews as $productView) {
+                $productView = $this->getSimpleProductView($product);
                 $view->addChild($productView, 'products', true);
             }
             return $view;
@@ -85,42 +81,35 @@ class ProductsController extends AbstractActionController implements LoggerAware
         return $view;
     }
 
-    protected function getSimpleProductView(ProductEntity$product)
+    protected function getSimpleProductView(ProductEntity $product)
     {
-        $stockCollection = $product->getStock();
-        $stockCollection->rewind();
-        $stock = $stockCollection->current();
-        $available = $stock->getTotalOnHand();
-        $allocated = $stock->getTotalAllocated();
-        $total = $stock->getTotalAvailable();
-
-        $name = $product->getName();
-        $sku = $product->getSku();
-        $id = $product->getStock()->getId();
-   
-        foreach($product->getStock() as $stock)
-        {
-            $available = $stock->getTotalAvailable();
-            $allocated = $stock->getTotalAllocated();
-            $total = $stock->getTotalOnHand();;
-        }
-
-        $totalTextBox = $this->getViewModelFactory()->newInstance([
-            'value' => $total,
-            'name' => 'total-stock-' . $stock->getId()
-        ]);
-
-        $totalTextBox->setTemplate('elements/inline-text.mustache');
-
-        $product = $this->getViewModelFactory()->newInstance([
+        $productView = $this->getViewModelFactory()->newInstance([
             'title' => $product->getName(),
             'sku' => $product->getSku(),
-            'available' => $available,
-            'allocated' => $allocated
+            'status' => 'active'
         ]);
-        $product->setTemplate('elements/simple-product.mustache');
-        $product->addChild($totalTextBox, 'total');
-        return $product;
+        $productView->setTemplate('elements/simpleProduct.mustache');
+        $stockLocationViews = [];
+        $stock = $product->getStock();
+        foreach($stock->getLocations() as $stockLocation) {
+            $name = 'total-stock-' . $stock->getId();
+            $totalView = $this->getViewModelFactory()->newInstance([
+                'value' => $stockLocation->getOnHand(),
+                'name' => $name
+            ]);
+            $totalView->setTemplate('elements/inline-text.mustache');
+            $stockLocationView = $this->getViewModelFactory()->newInstance([
+                'available' => $stockLocation->getAvailable(),
+                'allocated' => $stockLocation->getAllocated(),
+                'total' => $totalView,
+                'totalName' => $name,
+                'stockLocationId' => $stockLocation->getId(),
+                'eTag' => $stockLocation->getEtag()
+            ]);
+            $stockLocationView->setTemplate('product/stockRow.mustache');
+            $productView->addChild($stockLocationView, 'stockLocations', true);
+        }
+        return $productView;
     }
 
     protected function getDetailsSidebar()

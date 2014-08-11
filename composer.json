@@ -16,7 +16,7 @@
     },
     "require": {
         "channelgrabber/amazon": "~1.2.29",
-        "channelgrabber/channel": "~1.3.2",
+        "channelgrabber/channel": "~1.5.0",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/ebay": "~1.1.34",
         "channelgrabber/gearman": "~1.1.0",
