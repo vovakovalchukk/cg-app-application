@@ -5,6 +5,24 @@ require([
 function(showHideFilters) {
 var productPage = new showHideFilters();
 });
+$(document).ready(function() {
+    require.config({
+        paths: {
+            'Products': "<?=$this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js';?>"
+        }
+    });
+    var rootOuId = <?=$rootOuId;?>;
+    require([
+        'Products/DomManipulator',
+    ], function(
+        domManipulator,
+    ) {
+        $(document).ready(function()
+        {
+
+        });
+    });
+});
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>

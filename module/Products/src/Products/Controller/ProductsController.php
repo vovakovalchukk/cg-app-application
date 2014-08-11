@@ -13,6 +13,7 @@ use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use Products\Product\Service as ProductService;
 use Products\Product\BulkActions\Service as BulkActionsService;
+use CG\Stock\Service as StockService;
 
 class ProductsController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -20,16 +21,21 @@ class ProductsController extends AbstractActionController implements LoggerAware
 
     protected $viewModelFactory;
     protected $productService;
+    protected $stockService;
     protected $bulkActionsService;
+
+    const SAVE_ROUTE = 'SAVE';
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         ProductService $productService,
-        BulkActionsService $bulkActionsService
+        BulkActionsService $bulkActionsService,
+        StockService $stockService
     ) {
         $this->setViewModelFactory($viewModelFactory)
              ->setProductService($productService)
-             ->setBulkActionsService($bulkActionsService);
+             ->setBulkActionsService($bulkActionsService)
+             ->setStockService($stockService);
     }
 
     public function indexAction()
@@ -88,6 +94,17 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $allocated = $stock->getTotalAllocated();
         $total = $stock->getTotalAvailable();
 
+        $name = $product->getName();
+        $sku = $product->getSku();
+        $id = $product->getStock()->getId();
+   
+        foreach($product->getStock() as $stock)
+        {
+            $available = $stock->getTotalAvailable();
+            $allocated = $stock->getTotalAllocated();
+            $total = $stock->getTotalOnHand();;
+        }
+
         $totalTextBox = $this->getViewModelFactory()->newInstance([
             'value' => $total,
             'name' => 'total-stock-' . $stock->getId()
@@ -99,10 +116,10 @@ class ProductsController extends AbstractActionController implements LoggerAware
             'title' => $product->getName(),
             'sku' => $product->getSku(),
             'available' => $available,
-            'allocated' => $allocated,
+            'allocated' => $allocated
         ]);
         $product->setTemplate('elements/simple-product.mustache');
-        $product->addChild($totalTextBox, 'text');
+        $product->addChild($totalTextBox, 'total');
         return $product;
     }
 
@@ -194,5 +211,16 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected function getProductService()
     {
         return $this->productService;
+    }
+
+    protected function setStockService(StockService $stockService)
+    {
+        $this->stockService = $stockService;
+        return $this;
+    }
+
+    protected function getStockService()
+    {
+        return $this->stockService;
     }
 }

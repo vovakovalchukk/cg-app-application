@@ -4,19 +4,19 @@ namespace Products\Controller;
 
 use CG\Stdlib\Exception\Runtime\NotFound;
 use Zend\Mvc\Controller\AbstractActionController;
-use Products\Product\Service as ProductsService;
+use Products\Product\Service as ProductService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 
 class ProductsJsonController extends AbstractActionController
 {
     const ROUTE_AJAX = 'AJAX';
 
-    protected $productsService;
+    protected $productService;
     protected $jsonModelFactory;
 
-    public function __construct(ProductsService $productsService, JsonModelFactory $jsonModelFactory)
+    public function __construct(ProductService $productService, JsonModelFactory $jsonModelFactory)
     {
-        $this->setProductsService($productsService)
+        $this->setProductsService($productService)
             ->setJsonModelFactory($jsonModelFactory);
     }
 
@@ -33,9 +33,9 @@ class ProductsJsonController extends AbstractActionController
         return $view->setVariable('products', $products);
     }
 
-    protected function setProductsService($productsService)
+    protected function setProductsService($productService)
     {
-        $this->productsService = $productsService;
+        $this->productService = $productService;
         return $this;
     }
 
@@ -44,7 +44,7 @@ class ProductsJsonController extends AbstractActionController
      */
     protected function getProductsService()
     {
-        return $this->productsService;
+        return $this->productService;
     }
 
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)

@@ -1,13 +1,12 @@
 <?php
-
 namespace Products;
 
 use Products\Controller;
+use Products\Controller\ProductsController;
 use Zend\Mvc\Router\Http\Literal;
 use Products\Controller\ProductsJsonController;
 use CG\Product\Service as ProductService;
 use CG\Product\Storage\Api as ProductApiStorage;
-use Products\Controller\ProductsController;
 use CG_UI\View\DataTable;
 use CG\Stock\Service as StockService;
 use CG\Stock\Storage\Api as StockApiStorage;
@@ -85,7 +84,28 @@ return [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
                 ]
-            ]
+            ],
+            StockService::class => [
+                'parameter' => [
+                    'repository' => StockApiStorage::class,
+                    'locationStorage' => LocationService::class
+                ]
+            ],
+            StockApiStorage::class => [
+                'parameter' => [
+                    'client' => 'cg_app_guzzle',
+                ]
+            ],
+            LocationService::class => [
+                'parameter' => [
+                    'repository' => LocationApiStorage::class
+                ]
+            ],
+            LocationApiStorage::class => [
+                'parameter' => [
+                    'client' => 'cg_app_guzzle',
+                ]
+            ],
         ],
     ],
     'navigation' => array(
