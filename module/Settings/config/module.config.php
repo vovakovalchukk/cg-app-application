@@ -363,7 +363,7 @@ return [
                     ]
                 ]
             ]
-        ], 
+        ],
     ],
     'view_manager' => [
         'template_path_stack' => [
@@ -734,6 +734,16 @@ return [
                     'client' => 'cg_app_guzzle',
                 ]
             ],
+            AmazonController::class => [
+                'parameters' => [
+                    'cryptor' => 'amazon_cryptor'
+                ]
+            ],
+            EbayController::class => [
+                'parameters' => [
+                    'cryptor' => 'ebay_cryptor'
+                ]
+            ]
         ]
     ]
 ];

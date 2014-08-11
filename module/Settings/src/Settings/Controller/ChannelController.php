@@ -16,7 +16,7 @@ use Zend\View\Model\JsonModel;
 use CG\Channel\Service as ChannelService;
 use CG_Mustache\View\Renderer as MustacheRenderer;
 use CG_UI\Form\Factory as FormFactory;
-use CG\Zend\Stdlib\View\Model\Exception as ViewModelException;
+use CG\Zend\Stdlib\View\Model\UserException as ViewModelUserException;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use Zend\I18n\Translator\Translator;
 use CG\Http\Exception\Exception3xx\NotModified;
@@ -306,11 +306,10 @@ class ChannelController extends AbstractActionController
     {
         $status = $this->getJsonModelFactory()->newInstance();
         $status->setVariable('valid', false);
-        throw new ViewModelException(
+        throw new ViewModelUserException(
             $status,
             $this->getTranslator()->translate($message),
-            $e->getCode(),
-            $e
+            $e->getCode()
         );
     }
 
