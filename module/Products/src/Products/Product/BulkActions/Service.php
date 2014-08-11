@@ -33,13 +33,14 @@ class Service
                 'type' => 'Submit',
                 'class' => '',
                 'value' => 'Search',
-                'id' => 'searchSubmit'
+                'id' => 'searchSubmit',
+                'buttons' => 'search'
             ]
         );
-        $searchButton->setTemplate('elements/button.mustache');
-        $searchView->addChild($searchButton, 'searchUIButton');
+        $searchButton->setTemplate('elements/buttons.mustache');
 
         $listPageBulkActions->addChild($searchView, 'searchUI');
+        $listPageBulkActions->addChild($searchButton, 'searchUIButton');
         $this->setListPageBulkActions($listPageBulkActions);
     }
 
