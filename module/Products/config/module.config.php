@@ -39,27 +39,18 @@ return [
                                 'action' => 'ajax'
                             ]
                         ],
-                    ],
-                ],
-            ],
-        ],
-    ],
-    'controllers' => [
-        'factories' => [
-            'Products\Controller\Products' => function($controllerManager) {
-                return $controllerManager->getServiceLocator()->get(Controller\ProductsController::class);
-            },
-        ],
+                    ]
+                ]
+            ]
+        ]
     ],
     'view_manager' => [
-        'template_path_stack' => [
-            dirname(__DIR__) . '/view',
-            PROJECT_ROOT . '/public' . Module::PUBLIC_FOLDER . 'template',
-        ],
         'strategies' => [
-            'ViewJsonStrategy',
-            'CG_Mustache\View\Strategy'
+            'ViewJsonStrategy'
         ],
+        'template_path_stack' => [
+            __NAMESPACE__ => dirname(__DIR__) . '/view',
+        ]
     ],
     'di' => [
         'instance' => [
@@ -102,7 +93,7 @@ return [
             'products' => array(
                 'label'  => 'Products',
                 'route'  => 'Products',
-                'sprite' => 'sprite-orders-18-white',
+                'sprite' => 'sprite-products-18-white',
                 'order'  => 5
             )
         )

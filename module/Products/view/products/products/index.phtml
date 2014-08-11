@@ -1,3 +1,11 @@
+<?php $this->inlineScript()->captureStart(); ?>
+require([
+"showHideFilters"
+],
+function(showHideFilters) {
+var productPage = new showHideFilters();
+});
+<?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/jqueryPlugin/cg-pjax.js'); ?>

@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "315cf891413a99a0c5736822ae95b31d",
+    "hash": "7d6221727de12c059424141fcafc95a1",
     "packages": [
         {
             "name": "channelgrabber/amazon",

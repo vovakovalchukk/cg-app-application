@@ -68,11 +68,18 @@ class ProductsController extends AbstractActionController implements LoggerAware
             }
             return $view;
         } catch (NotFound $e) {
-            return $this->getNoAliasesView();
+            return $this->getNoProductsView();
         }
     }
 
-    protected function getSimpleProductView(ProductEntity $product)
+    protected function getNoProductsView()
+    {
+        $view = $this->getViewModelFactory()->newInstance();
+        $view->setTemplate('products/products/none');
+        return $view;
+    }
+
+    protected function getSimpleProductView(ProductEntity$product)
     {
         $stockCollection = $product->getStock();
         $stockCollection->rewind();
