@@ -35,8 +35,6 @@ class TrackingController extends AbstractActionController
             ->setActiveUserContainer($activeUserContainer);
     }
 
-
-    // try save, if not then check error, if they are same then save back o.g etag
     public function updateAction()
     {     
         $tracking = $this->fetchTracking();
