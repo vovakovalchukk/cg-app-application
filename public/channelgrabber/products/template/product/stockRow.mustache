@@ -7,7 +7,7 @@
             <input type='hidden' id='etag-{{stockLocationId}}' value='{{eTag}}'>
             <script>
                 $(document).ready(function() {
-                    require(['jquery', 'Stock/DomListener'], function($, DomListener) {
+                    require(['Stock/DomListener'], function(DomListener) {
                         var domListener = new DomListener();
                         domListener.init(
                             '.submit-inputbox[name="{{totalName}}"]',
