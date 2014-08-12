@@ -10,6 +10,7 @@ use CG\Order\Client\Service as OrderService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
 use CG\Stdlib\DateTime as StdlibDateTime;
+use CG\Http\Exception\Exception3xx\NotModified;
 
 class TrackingController extends AbstractActionController
 {
@@ -34,12 +35,19 @@ class TrackingController extends AbstractActionController
             ->setActiveUserContainer($activeUserContainer);
     }
 
+
+    // try save, if not then check error, if they are same then save back o.g etag
     public function updateAction()
     {     
         $tracking = $this->fetchTracking();
         $this->update($tracking);
-        $this->getTrackingService()->save($tracking);
-        $this->getTrackingService()->createGearmanJob($this->fetchOrder());
+        try {
+            $this->getTrackingService()->save($tracking);
+            $this->getTrackingService()->createGearmanJob($this->fetchOrder());
+        } catch (NotModified $ex) {
+            // If not modified then noop
+        }
+
         $view = $this->getJsonModelFactory()->newInstance();
         $view->setVariable('eTag', $tracking->getETag());
         return $view;

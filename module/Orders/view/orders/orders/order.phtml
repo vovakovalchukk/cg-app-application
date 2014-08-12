@@ -244,9 +244,9 @@ require([
         </label>
         <input type="hidden" value="<?= ($tracking) ? $tracking->getETag() : ""; ?>" id="eTag" name="eTag"/>
         <div class="half" style="clear:both; padding-top:0px;">
-            <label>
+            <div class="order-inputbox-holder">
                 <input type="submit" name="save" class="button form-button tracking-button" value="<?= $this->translate('Save'); ?>">
-            </label>
+            </div>
         </div>
     </form>
 </div>
