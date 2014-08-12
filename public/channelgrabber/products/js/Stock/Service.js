@@ -1,13 +1,11 @@
 define([
-    'jquery'
 ], function (
-    $
 ) {
     var Service = function()
     {
     };
 
-    Service.prototype.save = function(stockLocationId, totalQuantity, eTagSelector)
+    Service.prototype.save = function(stockLocationId, totalQuantity, eTag, eTagCallback)
     {
         $.ajax({
             url: 'products/stock/update',
@@ -16,10 +14,10 @@ define([
             data: {
                 'stockLocationId': stockLocationId,
                 'totalQuantity': totalQuantity,
-                'eTag': $(eTagSelector).val()
+                'eTag': eTag
             },
             success: function(data) {
-                $(eTagSelector).val(data.eTag);
+                eTagCallback(data.eTag);
             },
             error: function(error, textStatus, errorThrown) {
                 n.ajaxError(error, textStatus, errorThrown);

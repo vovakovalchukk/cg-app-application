@@ -16,7 +16,9 @@ define([
     DomListener.prototype.init = function(elementSelector, stockLocationId, eTagSelector)
     {
         $(elementSelector).off('save').on('save', function(event, value) {
-            service.save(stockLocationId, value, eTagSelector);
+            service.save(stockLocationId, value, $(eTagSelector).val(), function(eTag){
+                $(eTagSelector).val(eTag);
+            });
         });
     };
 

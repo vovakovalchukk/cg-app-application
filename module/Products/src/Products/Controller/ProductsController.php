@@ -6,9 +6,6 @@ use CG_UI\View\Prototyper\ViewModelFactory;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Product\Entity as ProductEntity;
 use CG\Http\Rpc\Exception as RpcException;
-use ArrayObject;
-use CG\Stdlib\PageLimit;
-use CG\Stdlib\OrderBy;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use Products\Product\Service as ProductService;
@@ -23,8 +20,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected $productService;
     protected $stockService;
     protected $bulkActionsService;
-
-    const SAVE_ROUTE = 'SAVE';
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
