@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "04828d10b05718b0237f094043fbc771",
+    "hash": "bf784ceb1f35eecb2de88a94d8be5003",
     "packages": [
         {
             "name": "channelgrabber/account",
@@ -341,13 +341,6 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -567,13 +560,6 @@
                 "predis/predis": "v0.8.3"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Predis\\": ""
@@ -637,24 +623,24 @@
         },
         {
             "name": "channelgrabber/slim",
-            "version": "1.9.4",
+            "version": "1.9.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgslim.git",
-                "reference": "cf1a9fe2a5de82346378358fa401c5def7b66a10"
+                "reference": "68517746dec897ea06691221d7666dc72e820ab2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-slim-1.9.4-407721.zip",
-                "reference": "cf1a9fe2a5de82346378358fa401c5def7b66a10",
-                "shasum": "68305c9654f6f38ba5ca1bc29fa923209e5672dd"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-slim-1.9.5-384552.zip",
+                "reference": "68517746dec897ea06691221d7666dc72e820ab2",
+                "shasum": "f5ed5d012324859ea80c5e58b46b9b1d3692cb36"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.3,<2.0.0",
                 "channelgrabber/http": ">=1.2.1,<2.0.0",
                 "channelgrabber/log": ">=1.5.2,<3.0.0",
                 "channelgrabber/stdlib": ">=2.5.23,<3.0.0",
-                "channelgrabber/transaction": "~1.0.2",
+                "channelgrabber/transaction": ">=1.0.2, <2.0.0",
                 "channelgrabber/usage": ">=1.0.0",
                 "channelgrabber/vnderror": ">=1.0.0",
                 "cilex/cilex": "1.0.1",
@@ -673,7 +659,7 @@
                     "CG\\Slim": ""
                 }
             },
-            "time": "2014-08-08 09:51:27"
+            "time": "2014-08-13 07:49:41"
         },
         {
             "name": "channelgrabber/sso",
@@ -782,17 +768,17 @@
         },
         {
             "name": "channelgrabber/transaction",
-            "version": "1.0.5",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-transaction.git",
-                "reference": "e750b24436310af36d4ad8b907d0851ec7896282"
+                "reference": "bf405e9c78a79ce960c32350922fd8f046e3067a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-transaction-1.0.5-5c18fc.zip",
-                "reference": "e750b24436310af36d4ad8b907d0851ec7896282",
-                "shasum": "264d68c6b975fef25014aa069412dc47cafb1c29"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-transaction-1.1.0-98f0e3.zip",
+                "reference": "bf405e9c78a79ce960c32350922fd8f046e3067a",
+                "shasum": "49cca6e72c68a4dd074573018e72b41670405f87"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -809,7 +795,7 @@
                     "CG\\Transaction\\": ""
                 }
             },
-            "time": "2014-08-08 13:47:42"
+            "time": "2014-08-13 07:30:27"
         },
         {
             "name": "channelgrabber/usage",
@@ -1264,17 +1250,17 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.4.11",
+            "version": "1.4.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "90d3c4e1c8c9b42c7e348ccc18752ff58a6009e6"
+                "reference": "967a08b582d2903c0de994a6f4a6a3874c311319"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.11-5957a4.zip",
-                "reference": "90d3c4e1c8c9b42c7e348ccc18752ff58a6009e6",
-                "shasum": "6480ba3d2ef6031c10c7cf14800ff41aec69e561"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.12-fbbd34.zip",
+                "reference": "967a08b582d2903c0de994a6f4a6a3874c311319",
+                "shasum": "dd3570811e95119575e1de91c11de1eadc940294"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
@@ -1310,7 +1296,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2014-07-28 08:08:05"
+            "time": "2014-08-12 10:30:46"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -1574,17 +1560,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.24",
+            "version": "1.12.25",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "c61ccf7e0c775a56c1a2955b71e7f4499bd1b805"
+                "reference": "b1681480080ed1d029b1fdb0b906c0a8220eb588"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.24-5e80c8.zip",
-                "reference": "c61ccf7e0c775a56c1a2955b71e7f4499bd1b805",
-                "shasum": "0ba08d5a429d36f4f75a1d0c0921909e122f6bf2"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.25-a53fae.zip",
+                "reference": "b1681480080ed1d029b1fdb0b906c0a8220eb588",
+                "shasum": "7ce03291b3b984bd89bb3000ad1a0b35526163a7"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1614,7 +1600,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-08-12 08:14:59"
+            "time": "2014-08-13 07:37:04"
         },
         {
             "name": "cilex/cilex",
@@ -2072,7 +2058,9 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -2160,7 +2148,8 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com"
+                    "homepage": "http://benramsey.com",
+                    "role": "Developer"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
@@ -2618,17 +2607,17 @@
         },
         {
             "name": "zendframework/zendframework",
-            "version": "2.3.1",
+            "version": "2.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zf2.git",
-                "reference": "055eac4314425c291f3ef0e104a6196a8fc24cd5"
+                "reference": "0b74b66dc07ff88140287bdf67d230c1bd32ee0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packages.zendframework.com/composer/zendframework-zendframework-055eac4314425c291f3ef0e104a6196a8fc24cd5-zip-13cc39.zip",
-                "reference": "2.3.1",
-                "shasum": "3f93bd90560b42b997ba8261e7a99d6dbb73d799"
+                "url": "https://api.github.com/repos/zendframework/zf2/zipball/0b74b66dc07ff88140287bdf67d230c1bd32ee0c",
+                "reference": "0b74b66dc07ff88140287bdf67d230c1bd32ee0c",
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.23",
@@ -2689,7 +2678,7 @@
             },
             "require-dev": {
                 "doctrine/annotations": ">=1.0",
-                "fabpot/php-cs-fixer": "*@dev",
+                "fabpot/php-cs-fixer": "dev-master",
                 "ircmaxell/random-lib": "dev-master",
                 "ircmaxell/security-lib": "dev-master",
                 "mikey179/vfsstream": "1.2.*",
@@ -2722,6 +2711,7 @@
                     "Zend\\": "library/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -2731,11 +2721,7 @@
                 "framework",
                 "zf2"
             ],
-            "support": {
-                "source": "https://github.com/zendframework/zf2/tree/release-2.3.1",
-                "issues": "https://github.com/zendframework/zf2/issues"
-            },
-            "time": "2014-04-15 14:47:18"
+            "time": "2014-08-12 16:48:34"
         },
         {
             "name": "zendframework/zendpdf",
@@ -4141,7 +4127,6 @@
         "channelgrabber/zf2-usage": 20,
         "phpspec/phpspec": 20
     },
-    "prefer-stable": false,
     "platform": {
         "php": ">=5.3.3"
     },
