@@ -1535,20 +1535,15 @@
         },
         {
             "name": "channelgrabber/zf2-usage",
-            "version": "1.0.0.1",
+            "version": "dev-CGIV-2898-BillingDate",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/usage-module.git",
-                "reference": "d0fdb994388c24ea9001d066073bf9a3c4e2c346"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-usage-1.0.0.1-954058.zip",
-                "reference": "d0fdb994388c24ea9001d066073bf9a3c4e2c346",
-                "shasum": "54f1d39fe5f421048a8ffb350bca9995ea76a7c2"
+                "reference": "ce3759b807d11672b59f0f034d37af9983470148"
             },
             "require": {
-                "channelgrabber/billing": ">=1.0.1",
+                "channelgrabber/billing": ">=1.1.3",
+                "channelgrabber/constants": "dev-master",
                 "channelgrabber/http": ">=1.2.14",
                 "channelgrabber/stdlib": ">=2.7.0",
                 "channelgrabber/usage": ">=1.0.2",
@@ -1575,7 +1570,7 @@
                 ]
             },
             "description": "Usage module to determine if users are exceeding their limits",
-            "time": "2014-07-07 16:52:18"
+            "time": "2014-08-11 14:05:25"
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
@@ -4133,13 +4128,20 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.0.1",
+            "alias_normalized": "1.0.1.0",
+            "version": "dev-CGIV-2898-BillingDate",
+            "package": "channelgrabber/zf2-usage"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-usage": 20,
         "phpspec/phpspec": 20
     },
+    "prefer-stable": false,
     "platform": {
         "php": ">=5.3.3"
     },
