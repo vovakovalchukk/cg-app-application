@@ -36,16 +36,15 @@ class TrackingController extends AbstractActionController
     }
 
     public function updateAction()
-    {     
+    {
         $tracking = $this->fetchTracking();
-        $this->update($tracking);
+        $tracking = $this->update($tracking);
         try {
             $this->getTrackingService()->save($tracking);
             $this->getTrackingService()->createGearmanJob($this->fetchOrder());
         } catch (NotModified $ex) {
             // If not modified then noop
         }
-
         $view = $this->getJsonModelFactory()->newInstance();
         $view->setVariable('eTag', $tracking->getETag());
         return $view;
@@ -82,7 +81,6 @@ class TrackingController extends AbstractActionController
     {
         $tracking->setNumber($this->params()->fromPost('trackingNumber'))
             ->setCarrier($this->params()->fromPost('carrier'));
-        $tracking->setStoredETag($this->params()->fromPost('eTag'));
         return $tracking;
     }
 
