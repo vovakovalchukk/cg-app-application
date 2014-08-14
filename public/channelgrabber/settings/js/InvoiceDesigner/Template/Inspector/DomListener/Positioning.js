@@ -33,6 +33,20 @@ define([
                 that.set(selector, inspector, element);
             }, timeout);
         });
+
+        this.initResizeMoveListeners(inspector);
+    };
+
+    Positioning.prototype.initResizeMoveListeners = function(inspector)
+    {
+        $(document).on(this.getDomManipulator().getElementMovedEvent(), function(event, elementDomId, position)
+        {
+            inspector.updatePosition(position);
+        });
+        $(document).on(this.getDomManipulator().getElementResizedEvent(), function(event, elementDomId, position, size)
+        {
+            inspector.updateSize(size);
+        });
     };
 
     Positioning.prototype.set = function(selector, inspector, element)
