@@ -84,7 +84,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
             'status' => 'active'
         ]);
         $productView->setTemplate('elements/simpleProduct.mustache');
-        $stockLocationViews = [];
         $stock = $product->getStock();
         foreach($stock->getLocations() as $stockLocation) {
             $name = 'total-stock-' . $stock->getId();
