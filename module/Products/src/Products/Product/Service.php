@@ -13,6 +13,7 @@ use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stock\Location\Service as StockLocationService;
+use CG\Product\Filter as ProductFilter;
 
 class Service implements LoggerAwareInterface
 {
@@ -59,11 +60,12 @@ class Service implements LoggerAwareInterface
 
     public function fetchProducts()
     {
-        $products = $this->getProductService()->fetchCollectionByPagination(
+        $productFilter = new ProductFilter(
             static::LIMIT,
             static::PAGE,
             $this->getActiveUserContainer()->getActiveUser()->getOuList()
         );
+        $products = $this->getProductService()->fetchCollectionByFilter($productFilter);
         return $products;
     }
 
