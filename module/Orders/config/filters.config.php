@@ -223,6 +223,19 @@ return [
                             'filterType' => 'customSelectGroup',
                             'visible' => false,
                             'variables' => [
+                                'name' => 'batchId',
+                                'title' => 'Batch',
+                                'searchField' => true,
+                                'isOptional' => true,
+                                'concatenate' => true,
+                                'options' => []
+                            ],
+                            'optionsProvider' => Batch::class,
+                        ],
+                        [
+                            'filterType' => 'customSelectGroup',
+                            'visible' => false,
+                            'variables' => [
                                 'name' => OrdersController::FILTER_SHIPPING_ALIAS_NAME,
                                 'title' => 'Shipping Method',
                                 'searchField' => true,

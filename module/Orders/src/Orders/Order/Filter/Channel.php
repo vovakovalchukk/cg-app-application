@@ -6,15 +6,27 @@ use CG\User\ActiveUserInterface;
 use CG\User\Entity as User;
 use CG\Account\Client\Service as AccountService;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use Orders\Order\Batch\Service as BatchService;
 
 class Channel implements SelectOptionsInterface
 {
     protected $activeUserContainer;
     protected $accountService;
+    protected $batchService;
 
-    public function __construct(ActiveUserInterface $activeUserContainer, AccountService $accountService)
+    public function __construct(
+        ActiveUserInterface $activeUserContainer,
+        AccountService $accountService,
+        BatchService $batchService)
     {
-        $this->setActiveUserContainer($activeUserContainer)->setAccountService($accountService);
+        $this->setActiveUserContainer($activeUserContainer)
+            ->setAccountService($accountService)
+            ->setBatchService($batchService);
+    }
+
+    public function getBatches()
+    {
+        return $this->getBatchService()->getBatches();
     }
 
     public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
@@ -42,6 +54,17 @@ class Channel implements SelectOptionsInterface
     public function setAccountService(AccountService $accountService)
     {
         $this->accountService = $accountService;
+        return $this;
+    }
+
+    public function getBatchService()
+    {
+        return $this->batchService;
+    }
+
+    public function setBatchService(BatchService $batchService)
+    {
+        $this->batchService = $batchService;
         return $this;
     }
 
