@@ -56,6 +56,8 @@ class ShippingController extends AbstractActionController
         $view->setVariable('rootOuId', $this->getActiveUser()->getActiveUserRootOrganisationUnitId());
         $view->addChild($this->getAliasView(), 'aliases');
         $view->addChild($this->getAddButtonView(), 'addButton');
+        $view->setVariable('isHeaderBarVisible', false);
+        $view->setVariable('subHeaderHide', true);
         return $view;
     }
 
