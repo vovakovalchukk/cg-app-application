@@ -1,0 +1,42 @@
+<div class="simple-product-container">
+    <input type="hidden" value="{{id}}" name="id">
+    <div class="checkbox-container">
+        <div class="checkbox-holder">
+            <a class="std-checkbox">
+                <input type="checkbox"{{#selected}} checked="checked"{{/selected}}/>
+                <label>
+                    <span class="checkbox_label"></span>
+                </label>
+            </a>
+        </div>
+    </div>
+
+    <div class="product-image-container">
+    </div>
+
+    <div class="product-info-container">
+        <div class="product-header">
+            {{#title}}<b>{{title}}</b>{{/title}}
+            <span class="product-sku">
+                {{#sku}}({{sku}}){{/sku}}
+            </span>
+            <span class="product-status-holder">
+                <span class="status {{status}}">{{status}}</span>
+            </span>
+        </div>
+
+        <div class="stock-table">
+            <table>
+                <tr>
+                    <th>Available</th>
+                    <th>Allocated</th>
+                    <th>Total</th>
+                </tr>
+                {{> stockLocations}}
+            </table>
+        </div>
+
+        <div class="product-footer">
+        </div>
+    </div>
+</div>

@@ -4,19 +4,20 @@ namespace Products\Controller;
 
 use CG\Stdlib\Exception\Runtime\NotFound;
 use Zend\Mvc\Controller\AbstractActionController;
-use Products\Product\Service as ProductsService;
+use Products\Product\Service as ProductService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 
 class ProductsJsonController extends AbstractActionController
 {
     const ROUTE_AJAX = 'AJAX';
+    const ROUTE_STOCK_UPDATE = 'stockupdate';
 
-    protected $productsService;
+    protected $productService;
     protected $jsonModelFactory;
 
-    public function __construct(ProductsService $productsService, JsonModelFactory $jsonModelFactory)
+    public function __construct(ProductService $productService, JsonModelFactory $jsonModelFactory)
     {
-        $this->setProductsService($productsService)
+        $this->setProductsService($productService)
             ->setJsonModelFactory($jsonModelFactory);
     }
 
@@ -33,18 +34,27 @@ class ProductsJsonController extends AbstractActionController
         return $view->setVariable('products', $products);
     }
 
-    protected function setProductsService($productsService)
+    public function stockUpdateAction()
     {
-        $this->productsService = $productsService;
+        $stockLocation = $this->getProductsService()->updateStock(
+            $this->params()->fromPost('stockLocationId'),
+            $this->params()->fromPost('eTag'),
+            $this->params()->fromPost('totalQuantity')
+        );
+        $view = $this->getJsonModelFactory()->newInstance();
+        $view->setVariable('eTag', $stockLocation->getETag());
+        return $view;
+    }
+
+    protected function setProductsService(ProductService $productService)
+    {
+        $this->productService = $productService;
         return $this;
     }
 
-    /**
-     * @return ProductsService
-     */
     protected function getProductsService()
     {
-        return $this->productsService;
+        return $this->productService;
     }
 
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -53,9 +63,6 @@ class ProductsJsonController extends AbstractActionController
         return $this;
     }
 
-    /**
-     * @return JsonModelFactory
-     */
     protected function getJsonModelFactory()
     {
         return $this->jsonModelFactory;
