@@ -12,6 +12,10 @@ use CG\Stock\Service as StockService;
 use CG\Stock\Storage\Api as StockApiStorage;
 use CG\Stock\Location\Service as LocationService;
 use CG\Stock\Location\Storage\Api as LocationApiStorage;
+use CG\Listing\Service as ListingService;
+use CG\Image\Service as ImageService;
+use CG\Listing\Storage\Api as ListingApiStorage;
+use CG\Image\Storage\Api as ImageApiStorage;
 
 return [
     'router' => [
@@ -67,7 +71,9 @@ return [
             ProductService::class => [
                 'parameters' => [
                     'repository' => ProductApiStorage::class,
-                    'stockStorage' => StockService::class
+                    'stockStorage' => StockService::class,
+                    'listingStorage' => ListingService::class,
+                    'imageStorage' => ImageService::class
                 ]
             ],
             ProductApiStorage::class => [
@@ -81,7 +87,27 @@ return [
                     'locationStorage' => LocationService::class
                 ]
             ],
+            ListingService::class => [
+                'parameter' => [
+                    'repository' => ListingApiStorage::class
+                ]
+            ],
+            ImageService::class => [
+                'parameter' => [
+                    'repository' => ImageApiStorage::class
+                ]
+            ],
             StockApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
+            ListingApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
+            ImageApiStorage::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
                 ]
