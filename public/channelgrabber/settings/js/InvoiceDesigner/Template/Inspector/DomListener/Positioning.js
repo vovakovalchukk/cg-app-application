@@ -46,6 +46,7 @@ define([
         $(document).on(this.getDomManipulator().getElementResizedEvent(), function(event, elementDomId, position, size)
         {
             inspector.updateSize(size);
+            inspector.updatePosition(position);
         });
     };
 
