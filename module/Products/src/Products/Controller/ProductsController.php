@@ -5,6 +5,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Product\Entity as ProductEntity;
+use CG\Product\Collection as ProductCollection;
 use CG\Http\Rpc\Exception as RpcException;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
@@ -45,7 +46,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
             'afterActions'
         );
         $view->addChild($bulkActions, 'bulkItems');
-        $view->addChild($this->getProductView(), 'products');
+        $view->addChild($this->getProductsView(), 'products');
 
         $bulkAction->setVariable('isHeaderBarVisible', $this->getProductService()->isFilterBarVisible());
         $view->setVariable('isSidebarVisible', $this->getProductService()->isSidebarVisible());
@@ -53,14 +54,14 @@ class ProductsController extends AbstractActionController implements LoggerAware
         return $view;
     }
 
-    protected function getProductView()
+    protected function getProductsView()
     {
         try {
             $products = $this->getProductService()->fetchProducts();
             $view = $this->getViewModelFactory()->newInstance();
             $view->setTemplate('products/products/many');
             foreach ($products as $product) {
-                $productView = $this->getSimpleProductView($product);
+                $productView = $this->getProductView($product);
                 $view->addChild($productView, 'products', true);
             }
             return $view;
@@ -76,34 +77,90 @@ class ProductsController extends AbstractActionController implements LoggerAware
         return $view;
     }
 
-    protected function getSimpleProductView(ProductEntity $product)
+    protected function getProductView(ProductEntity $product)
     {
         $productView = $this->getViewModelFactory()->newInstance([
             'title' => $product->getName(),
             'sku' => $product->getSku(),
             'status' => 'active'
         ]);
-        $productView->setTemplate('elements/simpleProduct.mustache');
-        $stock = $product->getStock();
-        foreach($stock->getLocations() as $stockLocation) {
-            $name = 'total-stock-' . $stock->getId();
-            $totalView = $this->getViewModelFactory()->newInstance([
-                'value' => $stockLocation->getOnHand(),
-                'name' => $name
-            ]);
-            $totalView->setTemplate('elements/inline-text.mustache');
-            $stockLocationView = $this->getViewModelFactory()->newInstance([
-                'available' => $stockLocation->getAvailable(),
-                'allocated' => $stockLocation->getAllocated(),
-                'total' => $totalView,
-                'totalName' => $name,
-                'stockLocationId' => $stockLocation->getId(),
-                'eTag' => $stockLocation->getEtag()
-            ]);
-            $stockLocationView->setTemplate('product/stockRow.mustache');
-            $productView->addChild($stockLocationView, 'stockLocations', true);
+        $productView->setTemplate('elements/product.mustache');
+        $variations = $product->getVariations();
+
+        if (count($variations)) {
+            $productView->addChild($this->getParentProductView($product, $variations), 'productContent');
+        } else {
+            $productView->addChild($this->getStandaloneProductView($product), 'productContent');
         }
+
         return $productView;
+    }
+
+    protected function getParentProductView(ProductEntity $product, ProductCollection $variations)
+    {
+        $parentView = $this->getViewModelFactory()->newInstance();
+        $parentView->setTemplate('elements/variationStock.mustache');
+        $parentView->addChild($this->getVariationTableView($product, $variations), 'variationTable');
+        $parentView->addChild($this->getStockTableView($product, $variations), 'stockTable');
+    }
+
+    protected function getStandaloneProductView(ProductEntity $product)
+    {
+        return $this->getStockTableView($product);
+    }
+
+    protected function getVariationTableView(ProductEntity $product, ProductCollection $variations)
+    {
+        $variationsView = $this->getViewModelFactory()->newInstance([
+            'attributes' => $product->getAttributeNames()
+        ]);
+        $variationsView->setTemplate('product/variationTable.mustache');
+
+        foreach ($variations as $variation) {
+            $viewParams = [
+                'sku' => $variation->getSku(),
+                'attributes' => array_values($variation->getAttributeValues())
+            ];
+            $variationView = $this->getViewModelFactory()->newInstance($viewParams);
+            $variationView->setTemplate('product/variationRow.mustache');
+            $variationView->addChild($variationView, 'variations', true);
+        }
+
+        return $variationView;
+    }
+
+    protected function getStockTableView(ProductEntity $product, ProductCollection $variations = null)
+    {
+        $stockView = $this->getViewModelFactory()->newInstance();
+        $stockView->setTemplate('product/stockTable.mustache');
+
+        if (!$variations) {
+            $variations = [$product];
+        }
+        foreach ($variations as $variation) {
+            $stock = $variation->getStock();
+            foreach ($stock->getLocations() as $stockLocation) {
+                $name = 'total-stock-' . $stock->getId();
+                $totalView = $this->getViewModelFactory()->newInstance([
+                    'value' => $stockLocation->getOnHand(),
+                    'name' => $name,
+                    'type' => 'number'
+                ]);
+                $totalView->setTemplate('elements/inline-text.mustache');
+                $stockLocationView = $this->getViewModelFactory()->newInstance([
+                    'available' => $stockLocation->getAvailable(),
+                    'allocated' => $stockLocation->getAllocated(),
+                    'total' => $totalView,
+                    'totalName' => $name,
+                    'stockLocationId' => $stockLocation->getId(),
+                    'eTag' => $stockLocation->getEtag()
+                ]);
+                $stockLocationView->setTemplate('product/stockRow.mustache');
+                $stockView->addChild($stockLocationView, 'stockLocations', true);
+            }
+        }
+
+        return $stockView;
     }
 
     protected function getDetailsSidebar()

@@ -60,10 +60,13 @@ class Service implements LoggerAwareInterface
 
     public function fetchProducts()
     {
+        $parentProductIds = [0];
         $productFilter = new ProductFilter(
             static::LIMIT,
             static::PAGE,
-            $this->getActiveUserContainer()->getActiveUser()->getOuList()
+            $this->getActiveUserContainer()->getActiveUser()->getOuList(),
+            null,
+            $parentProductIds
         );
         $products = $this->getProductService()->fetchCollectionByFilter($productFilter);
         return $products;
