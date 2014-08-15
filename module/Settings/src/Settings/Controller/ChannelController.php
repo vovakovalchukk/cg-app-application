@@ -142,6 +142,8 @@ class ChannelController extends AbstractActionController
              ->setVariable('createRoute', Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_CHANNELS.'/'.static::CREATE_ROUTE)
              ->addChild($this->getAccountList(), 'accountList')
              ->addChild($this->getAddChannelSelect(), 'addChannelSelect');
+        $list->setVariable('isHeaderBarVisible', false);
+        $list->setVariable('subHeaderHide', true);
         return $list;
     }
 
@@ -209,7 +211,8 @@ class ChannelController extends AbstractActionController
         $view = $this->newViewModel();
         $view->setTemplate(static::ACCOUNT_TEMPLATE);
         $view->setVariable('account', $this->getMapper()->toDataTableArray($accountEntity, $this->url()));
-
+        $view->setVariable('isHeaderBarVisible', false);
+        $view->setVariable('subHeaderHide', true);
         $this->addAccountsChannelSpecificView($accountEntity, $view)
             ->addAccountDetailsForm($accountEntity, $view)
             ->addTradingCompaniesView($accountEntity, $view);
@@ -251,7 +254,7 @@ class ChannelController extends AbstractActionController
 
     protected function addTradingCompaniesView($accountEntity, $view)
     {
-        $tradingCompanies = $this->getService()->getTradingCompanyOptionsForAccount($accountEntity);        
+        $tradingCompanies = $this->getService()->getTradingCompanyOptionsForAccount($accountEntity);
         $tradingCompanyOptions = [];
 
         foreach ($tradingCompanies as $tradingCompany) {
@@ -273,12 +276,12 @@ class ChannelController extends AbstractActionController
 
     public function accountUpdateAction()
     {
-        
+
         $id = $this->params('account');
         $postData = $this->getRequest()->getPost();
         $displayName = $postData->get('displayName');
         $organisationUnitId = $postData->get('organisationUnitId');
-        
+
         if ($organisationUnitId == "") {
             $organisationUnitId = $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId();
         }
