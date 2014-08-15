@@ -34,6 +34,7 @@ use CG\Settings\Alias\Service as ShippingAliasService;
 use Zend\Mvc\Router\Http\Segment;
 use Zend\Mvc\Router\Http\Literal;
 use CG\Channel\Type;
+use CG\Ebay\Account as EbayAccount;
 
 return [
     'CG' => [
@@ -742,6 +743,16 @@ return [
             EbayController::class => [
                 'parameters' => [
                     'cryptor' => 'ebay_cryptor'
+                ]
+            ],
+            EbayAccount::class => [
+                'parameters' => [
+                    'cryptor' => 'ebay_cryptor'
+                ]
+            ],
+            AmazonAccount::class => [
+                'parameters' => [
+                    'cryptor' => 'amazon_cryptor'
                 ]
             ]
         ]
