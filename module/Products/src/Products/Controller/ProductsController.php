@@ -4,15 +4,13 @@ namespace Products\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use DirectoryIterator;
+use CG\Product\Entity as ProductEntity;
 use CG\Http\Rpc\Exception as RpcException;
-use ArrayObject;
-use CG\Stdlib\PageLimit;
-use CG\Stdlib\OrderBy;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use Products\Product\Service as ProductService;
 use Products\Product\BulkActions\Service as BulkActionsService;
+use CG\Stock\Service as StockService;
 
 class ProductsController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -20,16 +18,19 @@ class ProductsController extends AbstractActionController implements LoggerAware
 
     protected $viewModelFactory;
     protected $productService;
+    protected $stockService;
     protected $bulkActionsService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         ProductService $productService,
-        BulkActionsService $bulkActionsService
+        BulkActionsService $bulkActionsService,
+        StockService $stockService
     ) {
         $this->setViewModelFactory($viewModelFactory)
              ->setProductService($productService)
-             ->setBulkActionsService($bulkActionsService);
+             ->setBulkActionsService($bulkActionsService)
+             ->setStockService($stockService);
     }
 
     public function indexAction()
@@ -58,12 +59,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
             $products = $this->getProductService()->fetchProducts();
             $view = $this->getViewModelFactory()->newInstance();
             $view->setTemplate('products/products/many');
-            $productViews = [];
             foreach ($products as $product) {
-                $productViews[] = $this->getSimpleProductView($product);
-            }
-            $productViews = array_reverse($productViews);
-            foreach ($productViews as $productView) {
+                $productView = $this->getSimpleProductView($product);
                 $view->addChild($productView, 'products', true);
             }
             return $view;
@@ -79,30 +76,34 @@ class ProductsController extends AbstractActionController implements LoggerAware
         return $view;
     }
 
-    protected function getSimpleProductView($product)
+    protected function getSimpleProductView(ProductEntity $product)
     {
-        $name = $product->getName();
-        $sku = $product->getSku();
-        $available = $product->getStock()->getTotalOnHand();
-        $allocated = $product->getStock()->getTotalAllocated();
-        $total = $product->getStock()->getTotalAvailable();
-
-        $totalTextBox = $this->getViewModelFactory()->newInstance([
-            'value' => $total,
-            'class' => 'total-text-field'
+        $productView = $this->getViewModelFactory()->newInstance([
+            'title' => $product->getName(),
+            'sku' => $product->getSku(),
+            'status' => 'active'
         ]);
-
-        $totalTextBox->setTemplate('elements/text.mustache'); 
-
-        $product = $this->getViewModelFactory()->newInstance([
-            'title' => $name,
-            'sku' => $sku,
-            'available' => $available,
-            'allocated' => $allocated,
-        ]);
-        $product->setTemplate('elements/simple-product.mustache');
-        $product->addChild($totalTextBox, 'text');
-        return $product;
+        $productView->setTemplate('elements/simpleProduct.mustache');
+        $stock = $product->getStock();
+        foreach($stock->getLocations() as $stockLocation) {
+            $name = 'total-stock-' . $stock->getId();
+            $totalView = $this->getViewModelFactory()->newInstance([
+                'value' => $stockLocation->getOnHand(),
+                'name' => $name
+            ]);
+            $totalView->setTemplate('elements/inline-text.mustache');
+            $stockLocationView = $this->getViewModelFactory()->newInstance([
+                'available' => $stockLocation->getAvailable(),
+                'allocated' => $stockLocation->getAllocated(),
+                'total' => $totalView,
+                'totalName' => $name,
+                'stockLocationId' => $stockLocation->getId(),
+                'eTag' => $stockLocation->getEtag()
+            ]);
+            $stockLocationView->setTemplate('product/stockRow.mustache');
+            $productView->addChild($stockLocationView, 'stockLocations', true);
+        }
+        return $productView;
     }
 
     protected function getDetailsSidebar()
@@ -144,20 +145,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
         return $this->bulkActionsService;
     }
 
-    protected function setStoredFiltersService(StoredFiltersService $storedFiltersService)
-    {
-        $this->storedFiltersService = $storedFiltersService;
-        return $this;
-    }
-
-    /**
-      @return StoredFiltersService
-    */
-    protected function getStoredFiltersService()
-    {
-        return $this->storedFiltersService;
-    }
-
     protected function setProductService(ProductService $productService)
     {
         $this->productService = $productService;
@@ -167,5 +154,16 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected function getProductService()
     {
         return $this->productService;
+    }
+
+    protected function setStockService(StockService $stockService)
+    {
+        $this->stockService = $stockService;
+        return $this;
+    }
+
+    protected function getStockService()
+    {
+        return $this->stockService;
     }
 }
