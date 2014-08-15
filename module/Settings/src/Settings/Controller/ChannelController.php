@@ -22,20 +22,22 @@ use Zend\I18n\Translator\Translator;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Account\Client\Service as AccountService;
 use CG\User\Entity as User;
+use CG\Channel\Type;
 
 class ChannelController extends AbstractActionController
 {
-    const ACCOUNT_ROUTE = "Manage";
-    const ACCOUNT_STATUS_ROUTE = 'Status';
-    const ACCOUNT_DELETE_ROUTE = "Delete";
-    const ACCOUNT_AJAX_ROUTE = "Sales Channel Item Ajax";
+    const ROUTE_ACCOUNT = "Manage";
+    const ROUTE_ACCOUNT_STATUS = 'Status';
+    const ROUTE_ACCOUNT_DELETE = "Delete";
+    const ROUTE_ACCOUNT_AJAX = "Sales Channel Item Ajax";
     const ROUTE = "Channel Management";
-    const ROUTE_CHANNELS = "Sales Channels";
-    const AJAX_ROUTE = "ajax";
-    const CREATE_ROUTE = "Sales Channel Create";
+    const ROUTE_CHANNELS = "Channels";
+    const ROUTE_AJAX = "ajax";
+    const ROUTE_CREATE = "create";
     const ACCOUNT_TEMPLATE = "Sales Channel Item";
     const ACCOUNT_CHANNEL_FORM_BLANK_TEMPLATE = "Sales Channel Item Channel Form Blank";
     const ACCOUNT_DETAIL_FORM = "Sales Channel Item Detail";
+    const ACCOUNT_TYPE_TO_LIST = 'sale';
 
     protected $di;
     protected $jsonModelFactory;
@@ -132,14 +134,15 @@ class ChannelController extends AbstractActionController
 
     public function indexAction()
     {
-        return $this->redirect()->toRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_CHANNELS);
+        return $this->redirect()->toRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_CHANNELS, ['type' => Type::SALES]);
     }
 
     public function listAction()
     {
         $list = $this->newViewModel();
         $list->setVariable('title', $this->getRouteName())
-             ->setVariable('createRoute', Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_CHANNELS.'/'.static::CREATE_ROUTE)
+             ->setVariable('createRoute', Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_CHANNELS.'/'.static::ROUTE_CREATE, ['type' => $this->params('type')])
+             ->setVariable('type', $this->params('type'))
              ->addChild($this->getAccountList(), 'accountList')
              ->addChild($this->getAddChannelSelect(), 'addChannelSelect');
         $list->setVariable('isHeaderBarVisible', false);
@@ -151,19 +154,19 @@ class ChannelController extends AbstractActionController
     {
         $addChannelSelect = $this->newViewModel();
         $addChannelSelect->setTemplate('settings/channel/create/select');
-        $addChannelSelect->setVariable('channels', $this->getChannelService()->getChannels());
+        $addChannelSelect->setVariable('channels', $this->getChannelService()->getChannels($this->params('type')));
         return $addChannelSelect;
     }
 
     protected function getAccountList()
     {
+        $this->getService()->setupAccountList($this->params('type'));
         $accountList = $this->getService()->getAccountList();
         $settings = $accountList->getVariable('settings');
         $settings->setSource(
-            $this->url()->fromRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_CHANNELS.'/'.static::AJAX_ROUTE)
+            $this->url()->fromRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_CHANNELS.'/'.static::ROUTE_AJAX, ['type' => $this->params('type')])
         );
         $settings->setTemplateUrlMap($this->mustacheTemplateMap('accountList'));
-
         return $accountList;
     }
 
@@ -189,13 +192,14 @@ class ChannelController extends AbstractActionController
                 null,
                 false,
                 $limit,
-                $page
+                $page,
+                $this->params('type')
             );
 
             $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) $accounts->getTotal();
 
             foreach ($accounts as $account) {
-                $data['Records'][] = $this->getMapper()->toDataTableArray($account, $this->url());
+                $data['Records'][] = $this->getMapper()->toDataTableArray($account, $this->url(), $this->params('type'));
             }
         } catch (NotFound $exception) {
             // No accounts so ignoring
@@ -210,19 +214,20 @@ class ChannelController extends AbstractActionController
         $accountEntity = $this->getService()->getAccount($id);
         $view = $this->newViewModel();
         $view->setTemplate(static::ACCOUNT_TEMPLATE);
-        $view->setVariable('account', $this->getMapper()->toDataTableArray($accountEntity, $this->url()));
+        $view->setVariable('account', $this->getMapper()->toDataTableArray($accountEntity, $this->url(), $this->params('type')));
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
         $this->addAccountsChannelSpecificView($accountEntity, $view)
             ->addAccountDetailsForm($accountEntity, $view)
             ->addTradingCompaniesView($accountEntity, $view);
+        $view->setVariable('type', $this->params('type'));
 
         return $view;
     }
 
     protected function addAccountsChannelSpecificView($accountEntity, $view)
     {
-        $returnRoute = Module::ROUTE . '/' . static::ROUTE . '/' . static::ROUTE_CHANNELS;
+        $returnRoute = Module::ROUTE . '/' . static::ROUTE . '/' . static::ROUTE_CHANNELS . '/' . static::ROUTE_ACCOUNT;
         $channelSpecificTemplate = $this->getService()->getChannelSpecificTemplateNameForAccount($accountEntity);
         $channelSpecificView = $this->newViewModel();
         $channelSpecificView->setTemplate($channelSpecificTemplate);
@@ -244,8 +249,8 @@ class ChannelController extends AbstractActionController
         $accountForm = $this->getFormFactory()->get(static::ACCOUNT_DETAIL_FORM);
         $accountForm->setData($accountEntity->toArray());
         $updateUrl = $this->url()->fromRoute(
-            Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_CHANNELS.'/'.static::ACCOUNT_ROUTE.'/'.static::ACCOUNT_AJAX_ROUTE,
-            ['account' => $accountEntity->getId()]
+            Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_CHANNELS.'/'.static::ROUTE_ACCOUNT.'/'.static::ROUTE_ACCOUNT_AJAX,
+            ['account' => $accountEntity->getId(), 'type' => $this->params('type')]
         );
         $accountForm->setAttribute('action', $updateUrl);
         $view->setVariable('detailsForm', $accountForm);
@@ -291,6 +296,7 @@ class ChannelController extends AbstractActionController
             $response = $this->getJsonModelFactory()->newInstance();
             $response->setVariable('valid', true);
             $response->setVariable('status', 'Channel account updated');
+            $response->setVariable('type', $this->params('type'));
             return $response;
         } catch (NotFound $e) {
             $this->handleAccountUpdateException($e, 'That channel account could not be found and so could not be updated');
@@ -326,11 +332,12 @@ class ChannelController extends AbstractActionController
             "credentials" => "",
             "active" => false,
             "deleted" => false,
-            "expiryDate" => null
+            "expiryDate" => null,
+            "type" => $this->params('type')
         ));
         $view = $this->getJsonModelFactory()->newInstance();
         $url = $this->getAccountFactory()->createRedirect($accountEntity, Module::ROUTE . '/' . static::ROUTE . '/' . ChannelController::ROUTE_CHANNELS,
-            $this->params()->fromPost('region'));
+            ["type" => $this->params('type')], $this->params()->fromPost('region'));
         $view->setVariable('url', $url);
         return $view;
     }
@@ -353,7 +360,7 @@ class ChannelController extends AbstractActionController
             $accountService->save($account->setActive($active));
             $response->setVariable(
                 'account',
-                $this->getMapper()->toDataTableArray($account, $this->url())
+                $this->getMapper()->toDataTableArray($account, $this->url(), $this->params('type'))
             );
         } catch (NotFound $exception) {
             return $response->setVariable(

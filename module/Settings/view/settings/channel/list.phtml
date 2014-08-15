@@ -11,7 +11,7 @@ $(document).ready(function() {
 <?php $this->inlineScript()->captureEnd(); ?>
 <div class="padded-content-holder">
     <span class="heading-large">
-        <?= $this->translate($title) ?>
+        <?= $this->translate(ucwords($type) . ' ' . $title) ?>
         <div class="add-saleschannel">
             <div class="input">
                 <?= $addChannelSelect; ?>
@@ -19,6 +19,6 @@ $(document).ready(function() {
             <input type="submit" class="button inline account-save" value="<?= $this->translate('Add'); ?>"/>
         </div>
     </span>
-    <div class="account_create" data-url="<?= $this->url($createRoute); ?>">
+    <div class="account_create" data-url="<?= $this->url($createRoute, ['type' => $type]); ?>">
     <?= $this->accountList ?>
 </div>
