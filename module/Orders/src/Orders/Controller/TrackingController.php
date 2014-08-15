@@ -10,6 +10,7 @@ use CG\Order\Client\Service as OrderService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
 use CG\Stdlib\DateTime as StdlibDateTime;
+use CG\Http\Exception\Exception3xx\NotModified;
 
 class TrackingController extends AbstractActionController
 {
@@ -35,11 +36,15 @@ class TrackingController extends AbstractActionController
     }
 
     public function updateAction()
-    {     
+    {
         $tracking = $this->fetchTracking();
-        $this->update($tracking);
-        $this->getTrackingService()->save($tracking);
-        $this->getTrackingService()->createGearmanJob($this->fetchOrder());
+        $tracking = $this->update($tracking);
+        try {
+            $this->getTrackingService()->save($tracking);
+            $this->getTrackingService()->createGearmanJob($this->fetchOrder());
+        } catch (NotModified $ex) {
+            // If not modified then noop
+        }
         $view = $this->getJsonModelFactory()->newInstance();
         $view->setVariable('eTag', $tracking->getETag());
         return $view;
@@ -76,7 +81,6 @@ class TrackingController extends AbstractActionController
     {
         $tracking->setNumber($this->params()->fromPost('trackingNumber'))
             ->setCarrier($this->params()->fromPost('carrier'));
-        $tracking->setStoredETag($this->params()->fromPost('eTag'));
         return $tracking;
     }
 
