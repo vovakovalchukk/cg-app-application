@@ -13,7 +13,8 @@ class Batch extends Channel
         $options = [];
         try {
             $batches = $this->getBatches();
-            foreach ($batches as $batch) {
+            foreach ($batches as $batchArray) {
+                $batch = $this->getBatchMapper()->fromArray($batchArray);
                 $options[$batch->getId()] = $batch->getName();
             }
         } catch (NotFound $exception) {

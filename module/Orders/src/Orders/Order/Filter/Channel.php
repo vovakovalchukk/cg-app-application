@@ -7,12 +7,14 @@ use CG\User\Entity as User;
 use CG\Account\Client\Service as AccountService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use Orders\Order\Batch\Service as BatchService;
+use CG\Order\Shared\Batch\Mapper as BatchMapper;
 
 class Channel implements SelectOptionsInterface
 {
     protected $activeUserContainer;
     protected $accountService;
     protected $batchService;
+    protected $batchMapper;
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
@@ -21,7 +23,8 @@ class Channel implements SelectOptionsInterface
     {
         $this->setActiveUserContainer($activeUserContainer)
             ->setAccountService($accountService)
-            ->setBatchService($batchService);
+            ->setBatchService($batchService)
+            ->setBatchMapper($batchMapper);
     }
 
     public function getBatches()
@@ -65,6 +68,17 @@ class Channel implements SelectOptionsInterface
     public function setBatchService(BatchService $batchService)
     {
         $this->batchService = $batchService;
+        return $this;
+    }
+
+    public function getBatchMapper()
+    {
+        return $this->batchMapper;
+    }
+
+    public function setBatchMapper(BatchMapper $batchMapper)
+    {
+        $this->batchMapper = $batchMapper;
         return $this;
     }
 
