@@ -111,15 +111,20 @@ class ProductsController extends AbstractActionController implements LoggerAware
 
     protected function getVariationTableView(ProductEntity $product, ProductCollection $variations)
     {
+        $attributeNames = $product->getAttributeNames();
         $variationsView = $this->getViewModelFactory()->newInstance([
-            'attributes' => $product->getAttributeNames()
+            'attributes' => $attributeNames
         ]);
         $variationsView->setTemplate('product/variationTable.mustache');
 
         foreach ($variations as $variation) {
+            $attributeValues = [];
+            foreach ($attributeNames as $attributeName) {
+                $attributeValues[] = $variation->getAttributeValue($attributeName);
+            }
             $viewParams = [
                 'sku' => $variation->getSku(),
-                'attributes' => array_values($variation->getAttributeValues())
+                'attributes' => $attributeValues
             ];
             $variationView = $this->getViewModelFactory()->newInstance($viewParams);
             $variationView->setTemplate('product/variationRow.mustache');
