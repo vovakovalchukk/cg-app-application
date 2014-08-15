@@ -50,7 +50,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
 
         $bulkAction->setVariable('isHeaderBarVisible', $this->getProductService()->isFilterBarVisible());
         $view->setVariable('isSidebarVisible', $this->getProductService()->isSidebarVisible());
-        $view->setVariable('isHeaderBarVisible', $this->getProductService()->isFilterBarVisible());      
+        $view->setVariable('isHeaderBarVisible', false);
+        $view->setVariable('subHeaderHide', true);
         return $view;
     }
 
