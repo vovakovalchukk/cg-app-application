@@ -117,6 +117,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setVariable('eTag', $invoiceSettings->getStoredEtag())
             ->addChild($this->getInvoiceSettingsDefaultSelectView($invoiceSettings, $invoices), 'defaultCustomSelect')
             ->addChild($this->getTradingCompanyInvoiceSettingsDataTable(), 'invoiceSettingsDataTable');
+        $view->setVariable('isHeaderBarVisible', false);
+        $view->setVariable('subHeaderHide', true);    
         return $view;
     }
 
@@ -148,6 +150,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         $view->addChild($this->getTemplateDiscardButtonView(), 'templateDiscardButton');
         $view->addChild($this->getTemplateSaveButtonView(), 'templateSaveButton');
         $view->addChild($this->getTemplateNameInputView(), 'templateName');
+        $view->setVariable('isHeaderBarVisible', false);
+        $view->setVariable('subHeaderHide', true);
 
         $rootOu = $this->getUserOrganisationUnitService()->getRootOuByActiveUser();
         $view->setVariable('rootOuId', $rootOu->getId());
@@ -383,7 +387,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         $this->translator = $translator;
         return $this;
     }
-    
+
     protected function setConfig(Config $config)
     {
         $this->config = $config;

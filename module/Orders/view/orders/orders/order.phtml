@@ -225,6 +225,7 @@ require([
     <span class="heading-large heading-spacing"><?= $this->translate('Shipping'); ?></span>
     <form id="trackingInformation" data-url="<?= $this->url('Orders/order/tracking', array('order' => $order->getId())); ?>"
               data-actionMessage="<?= $this->translate('Updating tracking info'); ?>" data-successMessage="<?= $this->translate('Tracking info updated'); ?>">
+        <div class="half">
         <?php
             $trackings = $order->getTrackings();
             $trackings->rewind();
@@ -244,9 +245,10 @@ require([
         </label>
         <input type="hidden" value="<?= ($tracking) ? $tracking->getETag() : ""; ?>" id="eTag" name="eTag"/>
         <div class="half" style="clear:both; padding-top:0px;">
-            <label>
+            <div class="order-inputbox-holder">
                 <input type="submit" name="save" class="button form-button tracking-button" value="<?= $this->translate('Save'); ?>">
-            </label>
+            </div>
+        </div>
         </div>
     </form>
 </div>
@@ -259,22 +261,22 @@ require([
     <?php endif;?>
     <table class="no-borders">
         <tr>
-            <td colspan="2" class="left">
+            <td class="leftcell" class="left">
                 <?php if ($order->getPaymentMethod()): ?>
-                    <?= $this->translate('Paid Via'); ?>: <strong><?= $order->getPaymentMethod() ?></strong>
+                    <strong><?= $this->translate('Paid Via'); ?>:</strong> <?= $order->getPaymentMethod() ?>
                 <?php endif; ?>
             </td>
-            <td class="right"><strong><?= $this->translate('Postage'); ?>:</strong></td>
-            <td class="right"><strong><?= $this->currencyFormat($order->getShippingPrice(), $order->getCurrencyCode()); ?></strong></td>
+            <td class="midcell"><strong><?= $this->translate('Postage'); ?>:</strong></td>
+            <td class="rightcell"><?= $this->currencyFormat($order->getShippingPrice(), $order->getCurrencyCode()); ?></td>
         </tr>
         <tr>
-            <td colspan="2" class="left">
+            <td class="leftcell">
                 <?php if ($order->getPaymentReference()): ?>
                     <?= $this->translate('Reference'); ?>: <strong><?= $order->getPaymentReference() ?></strong>
                 <?php endif; ?>
             </td>
-            <td class="right"><strong><?= $this->translate('Total'); ?>:</strong></td>
-            <td class="right"><strong><?= $this->currencyFormat($order->getTotal(), $order->getCurrencyCode()); ?></strong></td>
+            <td class="midcell"><strong><?= $this->translate('Total'); ?>:</strong></td>
+            <td class="rightcell"><?= $this->currencyFormat($order->getTotal(), $order->getCurrencyCode()); ?></strong></td>
         </tr>
     </table>
 </div>

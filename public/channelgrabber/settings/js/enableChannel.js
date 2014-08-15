@@ -12,10 +12,11 @@ define(
 
             ajaxCheckbox.bindAjax(function(event, ajaxOptions) {
                 var id = $(this).data("id");
-                if (!id) {
+                var type = $(this).data("type");
+                if (!id || !type) {
                     return;
                 }
-                ajaxOptions.url = Mustache.render(ajaxOptions.url, {id: id});
+                ajaxOptions.url = Mustache.render(ajaxOptions.url, {'id': id, 'type': type});
             });
 
             ajaxCheckbox.bindAjaxError(function() {
