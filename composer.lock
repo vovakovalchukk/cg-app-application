@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "75ea6503ed1f592550f664734be49c79",
+    "hash": "8880bee86e02865ca0747b903705c5ea",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -109,17 +109,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.5.1",
+            "version": "1.5.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "b6d94e5bbcc94311c8fc08031b5c685d7c429ab1"
+                "reference": "b97319ecf9d0925bb2bc582b6ac4d010265b6eff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.5.1-235401.zip",
-                "reference": "b6d94e5bbcc94311c8fc08031b5c685d7c429ab1",
-                "shasum": "5604f5292b40402eb2cb9517b9c591e08ed334cc"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.5.2-3fc14b.zip",
+                "reference": "b97319ecf9d0925bb2bc582b6ac4d010265b6eff",
+                "shasum": "1b0c1556c31473ac597fc647d3c2e1b0eb944bc1"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -155,7 +155,7 @@
                     "CG\\Account\\Test\\": "tests/Account"
                 }
             },
-            "time": "2014-08-14 14:43:21"
+            "time": "2014-08-15 11:13:48"
         },
         {
             "name": "channelgrabber/constants",
@@ -178,17 +178,17 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.1.39",
+            "version": "1.1.40",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "2b2097fb2e3b300171f050883ccee28ef89a1306"
+                "reference": "11863714a5ba688a4fc401e3623c3b0fdf6848fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.1.39-546a04.zip",
-                "reference": "2b2097fb2e3b300171f050883ccee28ef89a1306",
-                "shasum": "814dc4f248978a4a108857d09acb7ae24f2ab79a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.1.40-554e18.zip",
+                "reference": "11863714a5ba688a4fc401e3623c3b0fdf6848fa",
+                "shasum": "24b6004a6489c296d1a06ecfe9f429a0c36fb986"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.23",
@@ -214,7 +214,7 @@
                     "CG\\Ebay\\": ""
                 }
             },
-            "time": "2014-08-14 14:49:17"
+            "time": "2014-08-15 11:32:32"
         },
         {
             "name": "channelgrabber/email",
@@ -984,17 +984,17 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "09cec7cdff38283e1bec070e9ee23cb2472e96b8"
+                "reference": "9e4a572d141d4690a39d9e5a91bbeb296668abde"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.1-36836e.zip",
-                "reference": "09cec7cdff38283e1bec070e9ee23cb2472e96b8",
-                "shasum": "4983e59becf98b863d018eb2476c6661baafe0b0"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.2-290625.zip",
+                "reference": "9e4a572d141d4690a39d9e5a91bbeb296668abde",
+                "shasum": "62e71f3b8a96eb7f9a4c23b30a40663ffc884d7a"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
@@ -1021,21 +1021,21 @@
                 ]
             },
             "description": "Amazon module",
-            "time": "2014-07-03 10:12:09"
+            "time": "2014-08-15 11:16:49"
         },
         {
             "name": "channelgrabber/zf2-channel",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/channel-module.git",
-                "reference": "f475e0d9062045826bcf26263b8c3ad8fd70cc92"
+                "reference": "9356889fe550bb5ec92cf45278bcd42c28098777"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-channel-1.0.1-41ab4a.zip",
-                "reference": "f475e0d9062045826bcf26263b8c3ad8fd70cc92",
-                "shasum": "bafe9e02b57240a839d354ff4329d6647c406752"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-channel-1.0.2-b05216.zip",
+                "reference": "9356889fe550bb5ec92cf45278bcd42c28098777",
+                "shasum": "3b7446db50ce4c73c480f9da33bdaf6d4075d49e"
             },
             "require": {
                 "channelgrabber/channel": ">=1.1.5",
@@ -1059,21 +1059,21 @@
                 ]
             },
             "description": "Channel module",
-            "time": "2014-07-03 10:11:04"
+            "time": "2014-08-15 11:17:44"
         },
         {
             "name": "channelgrabber/zf2-ebay",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/ebay-module.git",
-                "reference": "d4df1f744d79b0907a5fc208e787cab0c6e42410"
+                "reference": "801b47ee7b97471636b951238cb63fab74848b91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ebay-1.0.1-d0289b.zip",
-                "reference": "d4df1f744d79b0907a5fc208e787cab0c6e42410",
-                "shasum": "51921d4701af519bc014e466e33b85d354e0d864"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ebay-1.0.2-a396d6.zip",
+                "reference": "801b47ee7b97471636b951238cb63fab74848b91",
+                "shasum": "e15c289b40be1c53b45dbfd29342fde05cc58aa5"
             },
             "require": {
                 "channelgrabber/channel": ">=1.1.5",
@@ -1099,7 +1099,7 @@
                 ]
             },
             "description": "Ebay module",
-            "time": "2014-07-03 10:09:48"
+            "time": "2014-08-15 11:15:15"
         },
         {
             "name": "channelgrabber/zf2-email-template",
