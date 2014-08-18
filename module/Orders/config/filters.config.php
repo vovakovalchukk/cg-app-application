@@ -224,7 +224,7 @@ return [
                             'filterType' => 'customSelectGroup',
                             'visible' => false,
                             'variables' => [
-                                'name' => 'batchId',
+                                'name' => 'batch',
                                 'title' => 'Batch',
                                 'searchField' => true,
                                 'isOptional' => true,
