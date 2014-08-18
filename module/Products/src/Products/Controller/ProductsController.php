@@ -99,9 +99,10 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected function getParentProductView(ProductEntity $product, ProductCollection $variations)
     {
         $parentView = $this->getViewModelFactory()->newInstance();
-        $parentView->setTemplate('elements/variationStock.mustache');
+        $parentView->setTemplate('product/variationStock.mustache');
         $parentView->addChild($this->getVariationTableView($product, $variations), 'variationTable');
         $parentView->addChild($this->getStockTableView($product, $variations), 'stockTable');
+        return $parentView;
     }
 
     protected function getStandaloneProductView(ProductEntity $product)
@@ -128,10 +129,10 @@ class ProductsController extends AbstractActionController implements LoggerAware
             ];
             $variationView = $this->getViewModelFactory()->newInstance($viewParams);
             $variationView->setTemplate('product/variationRow.mustache');
-            $variationView->addChild($variationView, 'variations', true);
+            $variationsView->addChild($variationView, 'variations', true);
         }
 
-        return $variationView;
+        return $variationsView;
     }
 
     protected function getStockTableView(ProductEntity $product, ProductCollection $variations = null)
@@ -144,6 +145,9 @@ class ProductsController extends AbstractActionController implements LoggerAware
         }
         foreach ($variations as $variation) {
             $stock = $variation->getStock();
+            if (!$stock) {
+                continue;
+            }
             foreach ($stock->getLocations() as $stockLocation) {
                 $name = 'total-stock-' . $stock->getId();
                 $totalView = $this->getViewModelFactory()->newInstance([
