@@ -10,9 +10,10 @@ class Batch extends Channel
     protected $batchService;
     protected $batchMapper;
     
-    public function __construct(BatchService $batchService)
+    public function __construct(BatchService $batchService, BatchMapper $batchMapper)
     {
-        $this->setBatchService($batchService);
+        $this->setBatchService($batchService)
+            ->setBatchMapper($batchMapper);
     }
 
     public function getBatches()
@@ -52,16 +53,7 @@ class Batch extends Channel
             $batches = $this->getBatches();
             foreach ($batches as $batchArray) {
                 $batch = $this->getBatchMapper()->fromArray($batchArray);
-                $options[$batch->getId()] = $batch->getName();/*[
-                    'name' => "this",
-                    'filter' => json_encode(
-                        [
-                            'batch' => [
-                                $batch->getId()
-                            ]
-                        ]
-                    )
-                ];*/
+                $options[$batch->getName()] = $batch->getName();
             }
         } catch (NotFound $exception) {
             // No accounts means no channels so ignore

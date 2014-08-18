@@ -298,7 +298,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             ->setOrderDirection($orderBy->getDirection());
 
         $requestFilter = $this->params()->fromPost('filter', []);
- 
         if (!isset($requestFilter['archived'])) {
             $requestFilter['archived'] = [false];
         }
