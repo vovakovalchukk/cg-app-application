@@ -253,6 +253,7 @@ return [
                                 'name' => 'archived',
                                 'title' => 'Show Archived',
                                 'isOptional' => true,
+                                'emptyValue' => true,
                                 'options' => [
                                     [
                                         'value' => true,
