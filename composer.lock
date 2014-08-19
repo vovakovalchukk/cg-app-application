@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "aba724c7a394f61cfe24ea62a0a654cd",
+    "hash": "2d8c668da55b20d476d3c5da410560c9",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1709,7 +1709,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "60b8a24e28c9ceeb931ff3db74527e7bd9749ea9"
+                "reference": "57cbe0479edf1342163e907efa8992c852e6e47b"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1739,7 +1739,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-08-15 10:38:11"
+            "time": "2014-08-19 15:53:50"
         },
         {
             "name": "cilex/cilex",

@@ -12,6 +12,7 @@ use CG\Stdlib\Log\LogTrait;
 use Products\Product\Service as ProductService;
 use Products\Product\BulkActions\Service as BulkActionsService;
 use CG\Stock\Service as StockService;
+use Zend\I18n\Translator\Translator;
 
 class ProductsController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -23,17 +24,20 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected $productService;
     protected $stockService;
     protected $bulkActionsService;
+    protected $translator;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         ProductService $productService,
         BulkActionsService $bulkActionsService,
-        StockService $stockService
+        StockService $stockService,
+        Translator $translator
     ) {
         $this->setViewModelFactory($viewModelFactory)
              ->setProductService($productService)
              ->setBulkActionsService($bulkActionsService)
-             ->setStockService($stockService);
+             ->setStockService($stockService)
+             ->setTranslator($translator);
     }
 
     public function indexAction()
@@ -83,21 +87,36 @@ class ProductsController extends AbstractActionController implements LoggerAware
     {
         $variations = $product->getVariations();
         $productView = $this->getViewModelFactory()->newInstance([
+            'id' => $product->getId(),
             'title' => $product->getName(),
             'sku' => $product->getSku(),
             'status' => 'active',
-            'hasVariations' => (count($variations) > 0),
-            'expandable' => (count($variations) > static::DEFAULT_DISPLAY_VARIATIONS)
+            'hasVariations' => (count($variations) > 0)
         ]);
         $productView->setTemplate('elements/product.mustache');
 
         if (count($variations)) {
             $productView->addChild($this->getParentProductView($product, $variations), 'productContent');
+            $productView->addChild($this->getExpandButtonView($product), 'expandButton');
         } else {
             $productView->addChild($this->getStandaloneProductView($product), 'productContent');
         }
 
         return $productView;
+    }
+
+    protected function getExpandButtonView(ProductEntity $product)
+    {
+        $buttonView = $this->getViewModelFactory()->newInstance([
+            'buttons' => [
+                'id' => 'product-variation-expand-button-'.$product->getId(),
+                'class' => 'product-variation-expand-button',
+                'value' => $this->getTranslator()->translate('Contract Variations'),
+                'action' => $this->getTranslator()->translate('Expand Variations'),
+            ]
+        ]);
+        $buttonView->setTemplate('elements/buttons.mustache');
+        return $buttonView;
     }
 
     protected function getParentProductView(ProductEntity $product, ProductCollection $variations)
@@ -246,5 +265,16 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected function getStockService()
     {
         return $this->stockService;
+    }
+
+    protected function getTranslator()
+    {
+        return $this->translator;
+    }
+
+    protected function setTranslator(Translator $translator)
+    {
+        $this->translator = $translator;
+        return $this;
     }
 }

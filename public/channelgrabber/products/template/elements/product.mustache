@@ -1,4 +1,4 @@
-<div class="product-container {{#hasVariations}}product-variations-container{{/hasVariations}}">
+<div class="product-container {{#hasVariations}}product-variations-container{{/hasVariations}}" id="product-container-{{id}}">
     <input type="hidden" value="{{id}}" name="id">
     <div class="checkbox-container">
         <div class="checkbox-holder">
@@ -28,11 +28,9 @@
         <div class="product-content-container">
             {{> productContent}}
         </div>
+    </div>
 
-        <div class="product-footer">
-            {{#expandable}}
-            <input type="button" class="button" value="Expand Variations" />
-            {{/expandable}}
-        </div>
+    <div class="product-footer">
+        {{> expandButton}}
     </div>
 </div>
