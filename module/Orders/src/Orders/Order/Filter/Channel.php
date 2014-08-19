@@ -14,7 +14,8 @@ class Channel implements SelectOptionsInterface
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
-        AccountService $accountService)
+        AccountService $accountService
+    )
     {
         $this->setActiveUserContainer($activeUserContainer)
             ->setAccountService($accountService);
