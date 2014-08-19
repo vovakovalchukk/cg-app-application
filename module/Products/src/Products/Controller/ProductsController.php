@@ -17,6 +17,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
 {
     use LogTrait;
 
+    const DEFAULT_DISPLAY_VARIATIONS = 2;
+
     protected $viewModelFactory;
     protected $productService;
     protected $stockService;
@@ -79,13 +81,15 @@ class ProductsController extends AbstractActionController implements LoggerAware
 
     protected function getProductView(ProductEntity $product)
     {
+        $variations = $product->getVariations();
         $productView = $this->getViewModelFactory()->newInstance([
             'title' => $product->getName(),
             'sku' => $product->getSku(),
-            'status' => 'active'
+            'status' => 'active',
+            'hasVariations' => (count($variations) > 0),
+            'expandable' => (count($variations) > static::DEFAULT_DISPLAY_VARIATIONS)
         ]);
         $productView->setTemplate('elements/product.mustache');
-        $variations = $product->getVariations();
 
         if (count($variations)) {
             $productView->addChild($this->getParentProductView($product, $variations), 'productContent');
@@ -130,6 +134,17 @@ class ProductsController extends AbstractActionController implements LoggerAware
             $variationView = $this->getViewModelFactory()->newInstance($viewParams);
             $variationView->setTemplate('product/variationRow.mustache');
             $variationsView->addChild($variationView, 'variations', true);
+            if ($variation->getStock() && count($variation->getStock()->getLocations()) > 1) {
+                for ($count = 1; $count < count($variation->getStock()->getLocations()); $count++) {
+                    $viewParams = [
+                        'sku' => '',
+                        'attributes' => array_fill(0, count($attributeNames), '')
+                    ];
+                    $variationView = $this->getViewModelFactory()->newInstance($viewParams);
+                    $variationView->setTemplate('product/variationRow.mustache');
+                    $variationsView->addChild($variationView, 'variations', true);
+                }
+            }
         }
 
         return $variationsView;

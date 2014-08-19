@@ -1,10 +1,14 @@
 <div class="stock-table">
     <table>
-        <tr>
-            <th>Available</th>
-            <th>Allocated</th>
-            <th>Total</th>
-        </tr>
-        {{> stockLocations}}
+        <thead>
+            <tr>
+                <th>Available</th>
+                <th>Allocated</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{> stockLocations}}
+        </tbody>
     </table>
 </div>
