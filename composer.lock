@@ -4,32 +4,32 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "66056fe080e1ff70c2b3df17b91a59a4",
+    "hash": "aba724c7a394f61cfe24ea62a0a654cd",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "1.2.34.2",
+            "version": "1.3.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "ffce52aaa75d75dd9d239f820806894f403b9a79"
+                "reference": "29295f618ac770d48e070549577c1046949acf94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.2.34.2-9669ff.zip",
-                "reference": "ffce52aaa75d75dd9d239f820806894f403b9a79",
-                "shasum": "197523f14aa7cf0ea42d9ed2ccc4fb01481325ea"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.3.2-703192.zip",
+                "reference": "29295f618ac770d48e070549577c1046949acf94",
+                "shasum": "a53423994ba4ddd854e1c54ae8b1e8f6d1e675e0"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.23",
                 "channelgrabber/cache": ">=1.2.1",
-                "channelgrabber/channel": ">=1.2.8",
+                "channelgrabber/channel": "~1.5.1",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": ">=1.1.0",
                 "channelgrabber/http": ">=1.2.6",
                 "channelgrabber/log": ">=1.5.0",
                 "channelgrabber/order": ">=1.5.22",
-                "channelgrabber/stdlib": ">=2.5.23",
+                "channelgrabber/stdlib": "~2.7.10",
                 "channelgrabber/zf2-stdlib": ">=1.1.6",
                 "guzzle/guzzle": "~3.7",
                 "zendframework/zend-di": ">=2.2,<3.0"
@@ -44,21 +44,21 @@
                     "CG\\Amazon\\": ""
                 }
             },
-            "time": "2014-08-07 20:19:07"
+            "time": "2014-08-14 16:10:11"
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.3.2",
+            "version": "1.3.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "8e9e1c9b80c682238f458350d6fc83c0b2410574"
+                "reference": "1fad57508892d25b4eeb97c83fd44ba034307487"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.3.2-b91a6e.zip",
-                "reference": "8e9e1c9b80c682238f458350d6fc83c0b2410574",
-                "shasum": "563981585924dbe9e51aa0c7b186801190bc3348"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.3.3-24905e.zip",
+                "reference": "1fad57508892d25b4eeb97c83fd44ba034307487",
+                "shasum": "50adc3af79f8cbc1f9ff8756b9948bf5319008dd"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.2",
@@ -74,7 +74,7 @@
                     "CG\\Billing\\": ""
                 }
             },
-            "time": "2014-08-18 08:23:33"
+            "time": "2014-08-19 10:09:18"
         },
         {
             "name": "channelgrabber/cache",
@@ -630,11 +630,11 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-CGIV-2963-fix-mapping-of-embedded-hal",
+            "version": "dev-CGIV-2982-fix-mapping-of-attribute-values",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "ef4a3449de23d6b8b7eedd4a2c9f04c1af97bc4f"
+                "reference": "93b52c43f02b336a9623bf5be4bcf6011e5be897"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -658,7 +658,7 @@
                     "CG\\Product\\": ""
                 }
             },
-            "time": "2014-08-19 09:00:20"
+            "time": "2014-08-19 11:45:21"
         },
         {
             "name": "channelgrabber/redis",
@@ -4251,9 +4251,9 @@
     ],
     "aliases": [
         {
-            "alias": "1.2.0",
-            "alias_normalized": "1.2.0.0",
-            "version": "dev-CGIV-2963-fix-mapping-of-embedded-hal",
+            "alias": "1.2.2",
+            "alias_normalized": "1.2.2.0",
+            "version": "dev-CGIV-2982-fix-mapping-of-attribute-values",
             "package": "channelgrabber/product"
         },
         {
