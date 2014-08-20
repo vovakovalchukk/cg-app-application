@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c18910dd677c241775da7fe567e5d0d5",
+    "hash": "6b889ab71e2dca762d4c444754560972",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -401,17 +401,17 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.0.1",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "f57f56a68a4ee098352e4aa81526ffe2b2bb0ca4"
+                "reference": "7e6d9d4619475d57678881ef1b60cf86bc0de9eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.0.1-bf3fea.zip",
-                "reference": "f57f56a68a4ee098352e4aa81526ffe2b2bb0ca4",
-                "shasum": "2bd4128b108f82a36cf21f5266e60aff7da7736b"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.0.3-979a6b.zip",
+                "reference": "7e6d9d4619475d57678881ef1b60cf86bc0de9eb",
+                "shasum": "bca232f605fd601ac71cc01abc998d13c8110aca"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -419,9 +419,15 @@
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/etag": ">=1.4.3,<2.0.0",
                 "channelgrabber/http": ">=1.2.18,<2.0.0",
+                "channelgrabber/image": ">=1.00,<2.0.0",
                 "channelgrabber/permission": ">=1.0.1,<2.0.0",
                 "channelgrabber/stdlib": ">=2.7.5,<3.0.0",
                 "nocarrier/hal": "~0.9.4"
+            },
+            "require-dev": {
+                "channelgrabber/gearman": ">=1.1.0,<2.0.0",
+                "channelgrabber/phpunit": ">=1.0.0",
+                "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
             "autoload": {
@@ -429,7 +435,12 @@
                     "CG\\Listing\\": "src"
                 }
             },
-            "time": "2014-08-14 15:55:41"
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Listing\\Test\\": "tests"
+                }
+            },
+            "time": "2014-08-20 11:03:26"
         },
         {
             "name": "channelgrabber/log",
@@ -1711,11 +1722,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-2855-product-variation-display",
+            "version": "1.12.30",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "57cbe0479edf1342163e907efa8992c852e6e47b"
+                "reference": "b2a26b7ea7d233d3d357b08e423ef51ab4cd2638"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.30-767100.zip",
+                "reference": "b2a26b7ea7d233d3d357b08e423ef51ab4cd2638",
+                "shasum": "5490756e6f3c2ae9c245d939b67b19499a48697a"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1745,7 +1762,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-08-19 15:53:50"
+            "time": "2014-08-20 10:59:25"
         },
         {
             "name": "cilex/cilex",
@@ -4256,17 +4273,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.12.27",
-            "alias_normalized": "1.12.27.0",
-            "version": "dev-CGIV-2855-product-variation-display",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "phpspec/phpspec": 20
     },
     "prefer-stable": false,
