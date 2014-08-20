@@ -111,8 +111,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
             'buttons' => [
                 'id' => 'product-variation-expand-button-'.$product->getId(),
                 'class' => 'product-variation-expand-button',
-                'value' => $this->getTranslator()->translate('Contract Variations'),
-                'action' => $this->getTranslator()->translate('Expand Variations'),
+                'value' => $this->getTranslator()->translate('Expand Variations'),
+                'action' => $this->getTranslator()->translate('Contract Variations'),
             ]
         ]);
         $buttonView->setTemplate('elements/buttons.mustache');
