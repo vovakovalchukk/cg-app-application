@@ -11,7 +11,7 @@ require([
 ],
 function(ShowHideFilters, productService) {
     var hideFilters = new ShowHideFilters();
-    productService.init();
+    productService.init('<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img');
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
