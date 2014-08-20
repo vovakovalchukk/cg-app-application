@@ -50,6 +50,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
             'afterActions'
         );
         $view->addChild($bulkActions, 'bulkItems');
+        // Note: this is soon changing to be done on the JS side
         $view->addChild($this->getProductsView(), 'products');
 
         $bulkAction->setVariable('isHeaderBarVisible', $this->getProductService()->isFilterBarVisible());
@@ -59,6 +60,11 @@ class ProductsController extends AbstractActionController implements LoggerAware
         return $view;
     }
 
+    /**
+     * @deprecated
+     * Note: this is soon changing to be done on the JS side
+     * Do not amend this method
+     */
     protected function getProductsView()
     {
         try {
@@ -75,6 +81,11 @@ class ProductsController extends AbstractActionController implements LoggerAware
         }
     }
 
+    /**
+     * @deprecated
+     * Note: this is soon changing to be done on the JS side
+     * Do not amend this method
+     */
     protected function getNoProductsView()
     {
         $view = $this->getViewModelFactory()->newInstance();
@@ -82,6 +93,11 @@ class ProductsController extends AbstractActionController implements LoggerAware
         return $view;
     }
 
+    /**
+     * @deprecated
+     * Note: this is soon changing to be done on the JS side
+     * Do not amend this method
+     */
     protected function getProductView(ProductEntity $product)
     {
         $variations = $product->getVariations();
@@ -104,6 +120,11 @@ class ProductsController extends AbstractActionController implements LoggerAware
         return $productView;
     }
 
+    /**
+     * @deprecated
+     * Note: this is soon changing to be done on the JS side
+     * Do not amend this method
+     */
     protected function getExpandButtonView(ProductEntity $product)
     {
         $buttonView = $this->getViewModelFactory()->newInstance([
@@ -118,6 +139,11 @@ class ProductsController extends AbstractActionController implements LoggerAware
         return $buttonView;
     }
 
+    /**
+     * @deprecated
+     * Note: this is soon changing to be done on the JS side
+     * Do not amend this method
+     */
     protected function getParentProductView(ProductEntity $product, ProductCollection $variations)
     {
         $parentView = $this->getViewModelFactory()->newInstance();
@@ -127,11 +153,21 @@ class ProductsController extends AbstractActionController implements LoggerAware
         return $parentView;
     }
 
+    /**
+     * @deprecated
+     * Note: this is soon changing to be done on the JS side
+     * Do not amend this method
+     */
     protected function getStandaloneProductView(ProductEntity $product)
     {
         return $this->getStockTableView($product);
     }
 
+    /**
+     * @deprecated
+     * Note: this is soon changing to be done on the JS side
+     * Do not amend this method
+     */
     protected function getVariationTableView(ProductEntity $product, ProductCollection $variations)
     {
         $attributeNames = $product->getAttributeNames();
@@ -168,6 +204,11 @@ class ProductsController extends AbstractActionController implements LoggerAware
         return $variationsView;
     }
 
+    /**
+     * @deprecated
+     * Note: this is soon changing to be done on the JS side
+     * Do not amend this method
+     */
     protected function getStockTableView(ProductEntity $product, ProductCollection $variations = null)
     {
         $stockView = $this->getViewModelFactory()->newInstance();
