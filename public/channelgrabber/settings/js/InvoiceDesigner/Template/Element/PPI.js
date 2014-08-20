@@ -8,10 +8,10 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract) {
         this.set('type', 'PPI', true);
         this.set('borderWidth', undefined, true);
 
-        var ignoredAttributes = ['backgroundColour', 'borderWidth', 'borderColour'];
+        var disabledInspectors = ['backgroundColour', 'borderWidth', 'borderColour'];
         baseInspectableAttributes = this.getBaseInspectableAttributes();
-        for (var key in ignoredAttributes) {
-            var index = baseInspectableAttributes.indexOf(ignoredAttributes[key]);
+        for (var key in disabledInspectors) {
+            var index = baseInspectableAttributes.indexOf(disabledInspectors[key]);
             if (index >= 0) {
                 baseInspectableAttributes.splice(index, 1);
             }
