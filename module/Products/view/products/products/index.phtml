@@ -2,7 +2,8 @@
 require.config({
     paths: {
         'Stock': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>/js/Stock',
-        'Product' : '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>/js/Product'
+        'Product': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>/js/Product',
+        'Variation': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>/js/Variation'
     }
 });
 require([
@@ -29,7 +30,7 @@ $this->placeholder('#sidebar')
     </div>
 </div>
 <script type="text/javascript">
-    require(['Product/DomListener'], function(domListener)
+    require(['Variation/DomListener'], function(domListener)
     {
         domListener.init();
     });

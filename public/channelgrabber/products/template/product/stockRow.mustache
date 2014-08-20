@@ -1,6 +1,6 @@
 <tr>
-    <td>{{available}}</td>
-    <td>{{allocated}}</td>
+    <td id='available-{{stockLocationId}}'>{{available}}</td>
+    <td id='allocated-{{stockLocationId}}'>{{allocated}}</td>
     <td>
         <div class="total-text-holder">
             {{>total}}
@@ -12,7 +12,9 @@
                         domListener.init(
                             '.submit-inputbox[name="{{totalName}}"]',
                             '{{stockLocationId}}',
-                            '#etag-{{stockLocationId}}'
+                            '#etag-{{stockLocationId}}',
+                            '#available-{{stockLocationId}}',
+                            '#allocated-{{stockLocationId}}'
                         );
                     });
                 });

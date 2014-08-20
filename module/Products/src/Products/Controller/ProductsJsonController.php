@@ -6,6 +6,7 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use Zend\Mvc\Controller\AbstractActionController;
 use Products\Product\Service as ProductService;
 use CG_UI\View\Prototyper\JsonModelFactory;
+use CG\Product\Entity as ProductEntity;
 
 class ProductsJsonController extends AbstractActionController
 {
@@ -24,13 +25,37 @@ class ProductsJsonController extends AbstractActionController
     public function ajaxAction()
     {
         $view = $this->getJsonModelFactory()->newInstance();
-        $products = [];
+        $productsArray = [];
         try {
             $products = $this->getProductsService()->fetchProducts();
+            foreach ($products as $product) {
+                $productsArray[] = $this->toArrayProductEntityWithEmbedData($product);
+            }
         } catch(NotFound $e) {
             //noop
         }
-        return $view->setVariable('products', $products);
+        return $view->setVariable('products', $productsArray);
+    }
+
+    protected function toArrayProductEntityWithEmbedData(ProductEntity $productEntity)
+    {
+        $product = $productEntity->toArray();
+        $product = array_merge($product, [
+            'images' => $productEntity->getImages()->toArray(),
+            'listings' => $productEntity->getListings()->toArray()
+        ]);
+        $stockEntity = $productEntity->getStock();
+        $product['stock'] = array_merge($productEntity->getStock()->toArray(), [
+            'locations' => $stockEntity->getLocations()->toArray()
+        ]);
+        foreach ($productEntity->getVariations() as $variation) {
+            $product['variations'][] = $this->toArrayProductEntityWithEmbedData($variation);
+        }
+        foreach ($product['stock']['locations'] as $stockLocationIndex => $stockLocation) {
+            $stockLocationId = $product['stock']['locations'][$stockLocationIndex]['id'];
+            $product['stock']['locations'][$stockLocationIndex]['eTag'] = $stockEntity->getLocations()->getById($stockLocationId)->getEtag();
+        }
+        return $product;
     }
 
     public function stockUpdateAction()
