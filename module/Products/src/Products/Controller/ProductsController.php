@@ -46,35 +46,11 @@ class ProductsController extends AbstractActionController implements LoggerAware
             'afterActions'
         );
         $view->addChild($bulkActions, 'bulkItems');
-        $view->addChild($this->getProductsView(), 'products');
 
         $bulkAction->setVariable('isHeaderBarVisible', $this->getProductService()->isFilterBarVisible());
         $view->setVariable('isSidebarVisible', $this->getProductService()->isSidebarVisible());
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
-        return $view;
-    }
-
-    protected function getProductsView()
-    {
-        try {
-            $products = $this->getProductService()->fetchProducts();
-            $view = $this->getViewModelFactory()->newInstance();
-            $view->setTemplate('products/products/many');
-            foreach ($products as $product) {
-                $productView = $this->getProductView($product);
-                $view->addChild($productView, 'products', true);
-            }
-            return $view;
-        } catch (NotFound $e) {
-            return $this->getNoProductsView();
-        }
-    }
-
-    protected function getNoProductsView()
-    {
-        $view = $this->getViewModelFactory()->newInstance();
-        $view->setTemplate('products/products/none');
         return $view;
     }
 

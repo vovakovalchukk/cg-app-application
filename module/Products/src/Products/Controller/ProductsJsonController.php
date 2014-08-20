@@ -30,7 +30,6 @@ class ProductsJsonController extends AbstractActionController
         } catch(NotFound $e) {
             //noop
         }
-        
         return $view->setVariable('products', $products);
     }
 
@@ -68,3 +67,6 @@ class ProductsJsonController extends AbstractActionController
         return $this->jsonModelFactory;
     }
 }
+
+
+

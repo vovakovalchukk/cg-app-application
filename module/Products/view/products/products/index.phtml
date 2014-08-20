@@ -10,7 +10,7 @@ require([
 ],
 function(ShowHideFilters, productService) {
     var hideFilters = new ShowHideFilters();
-    productService.renderProducts();
+    productService.init();
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>

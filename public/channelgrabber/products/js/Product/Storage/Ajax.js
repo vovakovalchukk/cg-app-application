@@ -1,7 +1,27 @@
 define([
-], function () {
-    var DomListener = function () {
+    'jquery'
+], function (
+    $
+) {
+    var Ajax = function ()
+    {
     };
 
-    return new DomListener();
+    Ajax.prototype.fetchByFilter = function(filter, callback)
+    {
+        $.ajax({
+            'url' : '/products/ajax',
+            'data' : filter.toJson(),
+            'method' : 'POST',
+            'dataType' : 'json',
+            'success' : function(data) {
+                callback(data['products']);
+            },
+            'error' : function () {
+                throw 'Unable to load products';
+            }
+        });
+    };
+
+    return new Ajax();
 });

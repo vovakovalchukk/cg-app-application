@@ -1,7 +1,19 @@
 define([
 ], function () {
-    var Entity = function () {
+    var Entity = function (searchTerm)
+    {
+        this.getSearchTerm = function()
+        {
+            return searchTerm;
+        };
     };
 
-    return new Entity();
+    Entity.prototype.toJson = function()
+    {
+        return JSON.stringify({
+            'searchTerm' : this.getSearchTerm()
+        });
+    };
+
+    return Entity;
 });
