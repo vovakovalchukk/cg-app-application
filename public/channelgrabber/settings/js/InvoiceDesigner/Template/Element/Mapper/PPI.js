@@ -24,5 +24,5 @@ define(['InvoiceDesigner/Template/Element/MapperAbstract'], function(MapperAbstr
         return this.renderMustacheTemplate(templateUrl, data);
     };
 
-    return PPI;
+    return new PPI();
 });
