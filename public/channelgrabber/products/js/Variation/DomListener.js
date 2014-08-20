@@ -20,7 +20,6 @@ define([
     {
         var self = this;
         $(document).off('click', '.' + DomListener.CLASS_EXPAND_BUTTON).on('click', '.' + DomListener.CLASS_EXPAND_BUTTON, function() {
-            console.log('clicky');
             self.getService().toggleVariations($(this).closest(DomListener.SELECTOR_PRODUCT_CONTAINER));
         });
     };

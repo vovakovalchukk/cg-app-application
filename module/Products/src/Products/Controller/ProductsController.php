@@ -14,8 +14,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
 {
     use LogTrait;
 
-    const DEFAULT_DISPLAY_VARIATIONS = 2;
-
     protected $viewModelFactory;
     protected $productService;
     protected $bulkActionsService;
@@ -45,7 +43,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
             'afterActions'
         );
         $view->addChild($bulkActions, 'bulkItems');
-
         $bulkAction->setVariable('isHeaderBarVisible', $this->getProductService()->isFilterBarVisible());
         $view->setVariable('isSidebarVisible', $this->getProductService()->isSidebarVisible());
         $view->setVariable('isHeaderBarVisible', false);
