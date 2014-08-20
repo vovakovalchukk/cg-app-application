@@ -34,6 +34,7 @@ use Exception;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Order\Shared\Status as OrderStatus;
+use CG\Channel\Type;
 use CG\Channel\Carrier;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 
@@ -138,7 +139,8 @@ class Service implements LoggerAwareInterface
             null,
             null,
             static::ACCOUNTS_LIMIT,
-            static::ACCOUNTS_PAGE
+            static::ACCOUNTS_PAGE,
+            Type::SALES
         );
 
         foreach($orders as $index => $order) {
@@ -148,8 +150,8 @@ class Service implements LoggerAwareInterface
             }
 
             $order['accountLink'] = $event->getRouter()->assemble(
-                ['account' => $order['accountId']],
-                ['name' => SettingsModule::ROUTE . '/' . ChannelController::ROUTE . '/' .ChannelController::ROUTE_CHANNELS.'/'. ChannelController::ACCOUNT_ROUTE]
+                ['account' => $order['accountId'], 'type' => Type::SALES],
+                ['name' => SettingsModule::ROUTE . '/' . ChannelController::ROUTE . '/' .ChannelController::ROUTE_CHANNELS.'/'. ChannelController::ROUTE_ACCOUNT]
             );
 
             $orders[$index] = $order;
