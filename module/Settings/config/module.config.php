@@ -13,7 +13,6 @@ use Settings\Controller\AmazonController;
 use Settings\Controller\InvoiceController;
 use Settings\Controller\ShippingController;
 use CG_UI\View\DataTable;
-use Settings\Channel\Service as ChannelService;
 use Settings\Invoice\Service as InvoiceService;
 use Zend\View\Model\ViewModel;
 use CG\Account\Client\StorageInterface as AccountStorageInterface;
@@ -31,6 +30,10 @@ use CG\Order\Client\Shipping\Method\Storage\Api as ShippingMethodStorage;
 use CG\Order\Service\Shipping\Method\Service as ShippingMethodService;
 use CG\Settings\Alias\Storage\Api as ShippingAliasStorage;
 use CG\Settings\Alias\Service as ShippingAliasService;
+use Zend\Mvc\Router\Http\Segment;
+use Zend\Mvc\Router\Http\Literal;
+use CG\Channel\Type;
+use CG\Ebay\Account as EbayAccount;
 
 return [
     'CG' => [
@@ -45,15 +48,28 @@ return [
                 'uri' => '',
                 'class' => 'heading-medium',
                 'pages' => [
-                    ChannelController::ROUTE_CHANNELS => [
-                        'label' => ChannelController::ROUTE_CHANNELS,
-                        'title' => ChannelController::ROUTE_CHANNELS,
-                        'route' => Module::ROUTE.'/'.ChannelController::ROUTE.'/'.ChannelController::ROUTE_CHANNELS
-                    ]
+                    Type::SALES . ' ' . ChannelController::ROUTE_CHANNELS => [
+                        'label' => ucwords(Type::SALES) . ' ' . ChannelController::ROUTE_CHANNELS,
+                        'title' => ucwords(Type::SALES) . ' ' . ChannelController::ROUTE_CHANNELS,
+                        'route' => Module::ROUTE.'/'.ChannelController::ROUTE.'/'.ChannelController::ROUTE_CHANNELS,
+                        'params' => [
+                            'type' => Type::SALES
+                        ]
+                    ],
+                    /**
+                     * Commented this out to achieve a 'Dark Deploy' TODO: Remove this comment.
+                    Type::SHIPPING . ' ' . ChannelController::ROUTE_CHANNELS => [
+                        'label' => ucwords(Type::SHIPPING) . ' ' . ChannelController::ROUTE_CHANNELS,
+                        'title' => ucwords(Type::SHIPPING) . ' ' . ChannelController::ROUTE_CHANNELS,
+                        'route' => Module::ROUTE.'/'.ChannelController::ROUTE.'/'.ChannelController::ROUTE_CHANNELS,
+                        'params' => [
+                            'type' => Type::SHIPPING
+                        ]
+                    ]*/
                 ]
             ],
             'Invoices' => [
-                'label' => 'Invoices',
+                'label' => 'Invoice Management',
                 'uri' => '',
                 'class' => 'heading-medium',
                 'pages' => [
@@ -98,7 +114,7 @@ return [
     'router' => [
         'routes' => [
             Module::ROUTE => [
-                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'type' => Literal::class,
                 'options' => [
                     'route' => '/settings',
                     'defaults' => [
@@ -112,7 +128,7 @@ return [
                 'may_terminate' => true,
                 'child_routes' => [
                     ChannelController::ROUTE => [
-                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'type' => Literal::class,
                         'options' => [
                             'route' => '/channel',
                             'defaults' => [
@@ -123,18 +139,21 @@ return [
                         'may_terminate' => true,
                         'child_routes' => [
                             ChannelController::ROUTE_CHANNELS => [
-                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'type' => Segment::class,
                                 'options' => [
-                                    'route' => '/sales',
+                                    'route' => '/:type',
                                     'defaults' => [
                                         'controller' => ChannelController::class,
                                         'action' => 'list',
+                                    ],
+                                    'constraints' => [
+                                        'type' => implode('|', Type::getTypes())
                                     ]
                                 ],
                                 'may_terminate' => true,
                                 'child_routes' => [
                                     'Sales Channel Ebay' => [
-                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'type' => Literal::class,
                                         'options' => [
                                             'route' => '/ebay',
                                             'defaults' => [
@@ -145,7 +164,7 @@ return [
                                         'may_terminate' => true
                                     ],
                                     AmazonAccount::ROUTE => [
-                                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                                        'type' => Segment::class,
                                         'options' => [
                                             'route' => '/amazon/:region',
                                             'defaults' => [
@@ -155,8 +174,8 @@ return [
                                         ],
                                         'may_terminate' => true
                                     ],
-                                    ChannelController::AJAX_ROUTE => [
-                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                    ChannelController::ROUTE_AJAX => [
+                                        'type' => Literal::class,
                                         'options' => [
                                             'route' => '/ajax',
                                             'defaults' => [
@@ -164,8 +183,8 @@ return [
                                             ]
                                         ],
                                     ],
-                                    ChannelController::CREATE_ROUTE => [
-                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                    ChannelController::ROUTE_CREATE => [
+                                        'type' => Literal::class,
                                         'options' => [
                                             'route' => '/create',
                                             'defaults' => [
@@ -174,8 +193,8 @@ return [
                                         ],
                                         'may_terminate' => true
                                     ],
-                                    ChannelController::ACCOUNT_ROUTE => [
-                                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                                    ChannelController::ROUTE_ACCOUNT => [
+                                        'type' => Segment::class,
                                         'options' => [
                                             'route' => '/:account',
                                             'defaults' => [
@@ -187,8 +206,8 @@ return [
                                         ],
                                         'may_terminate' => true,
                                         'child_routes' => [
-                                            ChannelController::ACCOUNT_STATUS_ROUTE => [
-                                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                            ChannelController::ROUTE_ACCOUNT_STATUS => [
+                                                'type' => Literal::class,
                                                 'options' => [
                                                     'route' => '/enable',
                                                     'defaults' => [
@@ -196,8 +215,8 @@ return [
                                                     ]
                                                 ],
                                             ],
-                                            ChannelController::ACCOUNT_AJAX_ROUTE => [
-                                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                            ChannelController::ROUTE_ACCOUNT_AJAX => [
+                                                'type' => Segment::class,
                                                 'options' => [
                                                     'route' => '/ajax',
                                                     'defaults' => [
@@ -205,8 +224,8 @@ return [
                                                     ],
                                                 ],
                                             ],
-                                            ChannelController::ACCOUNT_DELETE_ROUTE => [
-                                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                            ChannelController::ROUTE_ACCOUNT_DELETE => [
+                                                'type' => Literal::class,
                                                 'options' => [
                                                     'route' => '/delete',
                                                     'defaults' => [
@@ -221,7 +240,7 @@ return [
                         ],
                     ],
                     InvoiceController::ROUTE => [
-                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'type' => Literal::class,
                         'options' => [
                             'route' => '/invoice',
                             'defaults' => [
@@ -233,7 +252,7 @@ return [
                         'may_terminate' => true,
                         'child_routes' => [
                             InvoiceController::ROUTE_MAPPING => [
-                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'type' => Literal::class,
                                 'options' => [
                                     'route' => '/mapping',
                                     'defaults' => [
@@ -244,7 +263,7 @@ return [
                                 'may_terminate' => true,
                                 'child_routes' => [
                                     InvoiceController::ROUTE_SAVE => [
-                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'type' => Literal::class,
                                         'options' => [
                                             'route' => '/save',
                                             'defaults' => [
@@ -254,7 +273,7 @@ return [
                                         ]
                                     ],
                                     InvoiceController::ROUTE_AJAX => [
-                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'type' => Literal::class,
                                         'options' => [
                                             'route' => '/ajax',
                                             'defaults' => [
@@ -266,7 +285,7 @@ return [
                                 ]
                             ],
                             InvoiceController::ROUTE_DESIGNER => [
-                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'type' => Literal::class,
                                 'options' => [
                                     'route' => '/designer',
                                     'defaults' => [
@@ -276,7 +295,7 @@ return [
                                 ],
                             ],
                             InvoiceController::ROUTE_FETCH => [
-                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'type' => Literal::class,
                                 'options' => [
                                     'route' => '/fetch',
                                     'defaults' => [
@@ -287,7 +306,7 @@ return [
                                 'may_terminate' => true
                             ],
                             InvoiceController::ROUTE_SAVE => [
-                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'type' => Literal::class,
                                 'options' => [
                                     'route' => '/save',
                                     'defaults' => [
@@ -300,7 +319,7 @@ return [
                         ]
                     ],
                     ShippingController::ROUTE => [
-                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'type' => Literal::class,
                         'options' => [
                             'route' => '/shipping',
                             'defaults' => [
@@ -311,7 +330,7 @@ return [
                         'may_terminate' => true,
                         'child_routes' => [
                             ShippingController::ROUTE_ALIASES => [
-                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'type' => Literal::class,
                                 'options' => [
                                     'route' => '/alias',
                                     'defaults' => [
@@ -321,7 +340,7 @@ return [
                                 'may_terminate' => true,
                                 'child_routes' => [
                                     ShippingController::ROUTE_ALIASES_SAVE => [
-                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'type' => Literal::class,
                                         'options' => [
                                             'route' => '/save',
                                             'defaults' => [
@@ -330,7 +349,7 @@ return [
                                         ],
                                     ],
                                     ShippingController::ROUTE_ALIASES_REMOVE => [
-                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'type' => Literal::class,
                                         'options' => [
                                             'route' => '/delete',
                                             'defaults' => [
@@ -366,7 +385,8 @@ return [
             'aliases' => [
                 'EbayGuzzle' => GuzzleHttpClient::class,
                 'InvoiceSettingsDataTable' => DataTable::class,
-                'AccountList' => DataTable::class,
+                'salesAccountList' => DataTable::class,
+                'shippingAccountList' => DataTable::class,
                 'InvoiceSettingsDataTableSettings' => DataTable\Settings::class,
                 'AccountListSettings' => DataTable\Settings::class,
                 'ChannelTokenStatusMustacheJS' => ViewModel::class,
@@ -420,11 +440,6 @@ return [
                     'certificateId' => 'fa030731-18cc-4087-a06e-605d63113625'
                 ]
             ],
-            ChannelService::class => [
-                'parameters' => [
-                    'accountList' => 'AccountList',
-                ],
-            ],
             InvoiceService::class => [
                 'parameters' => [
                     'datatable' => 'InvoiceSettingsDataTable',
@@ -455,7 +470,7 @@ return [
                     'footer' => false,
                 ]
             ],
-            'AccountList' => [
+            'salesAccountList' => [
                 'parameters' => [
                     'variables' => [
                         'sortable' => 'false',
@@ -475,6 +490,31 @@ return [
                         ['column' => 'AccountAccountColumn'],
                         ['column' => 'AccountTradingCompanyColumn'],
                         ['column' => 'AccountTokenStatusColumn'],
+                        ['column' => 'AccountManageColumn'],
+                    ],
+                    'setVariable' => [
+                        ['name' => 'settings', 'value' => 'AccountListSettings']
+                    ],
+                ],
+            ],
+            'shippingAccountList' => [
+                'parameters' => [
+                    'variables' => [
+                        'sortable' => 'false',
+                        'id' => 'accounts'
+                    ],
+                ],
+                'injections' => [
+                    'addChild' => [
+                        ['child' => 'ChannelTokenStatusMustacheJS', 'captureTo' => 'javascript', 'append' => true],
+                        ['child' => 'ChannelStatusJS', 'captureTo' => 'javascript', 'append' => true],
+                        ['child' => 'ChannelDeleteJavascript', 'captureTo' => 'javascript', 'append' => true],
+                    ],
+                    'addColumn' => [
+                        ['column' => 'AccountEnableColumn'],
+                        ['column' => 'AccountStatusColumn'],
+                        ['column' => 'AccountChannelColumn'],
+                        ['column' => 'AccountAccountColumn'],
                         ['column' => 'AccountManageColumn'],
                     ],
                     'setVariable' => [
@@ -504,8 +544,8 @@ return [
                                 Module::ROUTE,
                                 ChannelController::ROUTE,
                                 ChannelController::ROUTE_CHANNELS,
-                                ChannelController::ACCOUNT_ROUTE,
-                                ChannelController::ACCOUNT_STATUS_ROUTE,
+                                ChannelController::ROUTE_ACCOUNT,
+                                ChannelController::ROUTE_ACCOUNT_STATUS,
                             ]
                         ),
                     ],
@@ -587,7 +627,7 @@ return [
                     'templateId' => 'tradingCompany',
                     'viewModel' => 'AccountTradingCompanyColumnView',
                     'sortable' => false,
-                    'hideable' => false,
+                    'hideable' => false
                 ],
             ],
             'AccountTokenStatusColumn' => [
@@ -595,7 +635,7 @@ return [
                     'templateId' => 'tokenStatus',
                     'viewModel' => 'AccountTokenStatusColumnView',
                     'sortable' => false,
-                    'hideable' => false,
+                    'hideable' => false
                 ],
             ],
             'AccountManageColumn' => [
@@ -620,7 +660,7 @@ return [
             ],
             'AccountChannelColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Sales Channel'],
+                    'variables' => ['value' => 'Channel'],
                     'template' => 'value.phtml',
                 ],
             ],
@@ -694,6 +734,26 @@ return [
                     'client' => 'cg_app_guzzle',
                 ]
             ],
+            AmazonController::class => [
+                'parameters' => [
+                    'cryptor' => 'amazon_cryptor'
+                ]
+            ],
+            EbayController::class => [
+                'parameters' => [
+                    'cryptor' => 'ebay_cryptor'
+                ]
+            ],
+            EbayAccount::class => [
+                'parameters' => [
+                    'cryptor' => 'ebay_cryptor'
+                ]
+            ],
+            AmazonAccount::class => [
+                'parameters' => [
+                    'cryptor' => 'amazon_cryptor'
+                ]
+            ]
         ]
     ]
 ];
