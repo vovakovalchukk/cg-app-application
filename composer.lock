@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2d8c668da55b20d476d3c5da410560c9",
+    "hash": "c18910dd677c241775da7fe567e5d0d5",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -630,11 +630,17 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-CGIV-2982-fix-mapping-of-attribute-values",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "93b52c43f02b336a9623bf5be4bcf6011e5be897"
+                "reference": "4b156955a1dc11a895ac6299dcbfdc75bfffcd9e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.2.3-eb52d6.zip",
+                "reference": "4b156955a1dc11a895ac6299dcbfdc75bfffcd9e",
+                "shasum": "3b25f310e981b57034db17d6815daac264c38214"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -658,7 +664,7 @@
                     "CG\\Product\\": ""
                 }
             },
-            "time": "2014-08-19 11:45:21"
+            "time": "2014-08-20 07:50:06"
         },
         {
             "name": "channelgrabber/redis",
@@ -4251,12 +4257,6 @@
     ],
     "aliases": [
         {
-            "alias": "1.2.2",
-            "alias_normalized": "1.2.2.0",
-            "version": "dev-CGIV-2982-fix-mapping-of-attribute-values",
-            "package": "channelgrabber/product"
-        },
-        {
             "alias": "1.12.27",
             "alias_normalized": "1.12.27.0",
             "version": "dev-CGIV-2855-product-variation-display",
@@ -4266,7 +4266,6 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/product": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpspec/phpspec": 20
     },

@@ -77,7 +77,6 @@ define([
         var rowCount = this.getDomManipulator().getCount(rowSelector);
         var newRowCount = rowCount - Service.DEFAULT_DISPLAY_VARIATIONS;
         var rowHeight = this.getDomManipulator().getSize(rowSelector + ':first').outerHeight;
-console.log(rowHeight);
         var containerSelector = this.getSelectorForProductContainer(productContainer);
         var containerHeight = this.getDomManipulator().getSize(containerSelector).height;
 

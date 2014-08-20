@@ -18,8 +18,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
 {
     use LogTrait;
 
-    const DEFAULT_DISPLAY_VARIATIONS = 2;
-
     protected $viewModelFactory;
     protected $productService;
     protected $stockService;
