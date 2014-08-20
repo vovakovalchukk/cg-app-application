@@ -8,13 +8,15 @@ define([
     'InvoiceDesigner/Template/PaperPage/Entity',
     'InvoiceDesigner/Template/Element/SellerAddress',
     'InvoiceDesigner/Template/Element/Text',
+    'InvoiceDesigner/Template/Element/PPI',
     'InvoiceDesigner/Template/Element/Mapper/Box',
     'InvoiceDesigner/Template/Element/Mapper/DeliveryAddress',
     'InvoiceDesigner/Template/Element/Mapper/Image',
     'InvoiceDesigner/Template/Element/Mapper/OrderTable',
     'InvoiceDesigner/Template/PaperPage/Mapper',
     'InvoiceDesigner/Template/Element/Mapper/SellerAddress',
-    'InvoiceDesigner/Template/Element/Mapper/Text'
+    'InvoiceDesigner/Template/Element/Mapper/Text',
+    'InvoiceDesigner/Template/Element/Mapper/PPI'
 ], function(require)
 {
     var Mapper = function()
