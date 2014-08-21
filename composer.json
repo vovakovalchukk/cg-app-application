@@ -48,7 +48,7 @@
         "channelgrabber/zf2-ssoclient": "~1.4.0",
         "channelgrabber/zf2-stdlib": "~1.1.13",
         "channelgrabber/zf2-usage": "~1.0.1",
-        "channelgrabber/zf2-v4-ui": "dev-CGIV-2990-datatables-mustache-async as 1.12.25",
+        "channelgrabber/zf2-v4-ui": "dev-CGIV-2990-datatables-mustache-async as 1.12.29",
         "guzzle/guzzle": "~3.7",
         "nocarrier/hal": "~0.9.3",
         "php": ">=5.3.3",
