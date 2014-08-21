@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dc10d57407f6df5bb989de9d59d883c3",
+    "hash": "29cd696ccb534e254a46377aba8b7f79",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -580,6 +580,26 @@
                 }
             },
             "time": "2013-12-17 17:45:58"
+        },
+        {
+            "name": "channelgrabber/royalmail",
+            "version": "dev-CGIV-2923-RoyalMailAccount",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-royalmail.git",
+                "reference": "150edc91faadf9d2cc4fbe718f2e8c0b0e35ed7c"
+            },
+            "require": {
+                "channelgrabber/channel": ">=1.5.3, <2.0.0",
+                "channelgrabber/constants": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\RoyalMail\\": "src"
+                }
+            },
+            "time": "2014-08-21 10:14:36"
         },
         {
             "name": "channelgrabber/settings",
@@ -4141,6 +4161,12 @@
             "package": "channelgrabber/channel"
         },
         {
+            "alias": "1.0.1",
+            "alias_normalized": "1.0.1.0",
+            "version": "dev-CGIV-2923-RoyalMailAccount",
+            "package": "channelgrabber/royalmail"
+        },
+        {
             "alias": "1.0.3",
             "alias_normalized": "1.0.3.0",
             "version": "dev-CGIV-2923-ChannelType",
@@ -4157,6 +4183,7 @@
     "stability-flags": {
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/royalmail": 20,
         "channelgrabber/zf2-channel": 20,
         "channelgrabber/zf2-royalmail": 20,
         "phpspec/phpspec": 20
