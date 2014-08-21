@@ -51,10 +51,10 @@ define([
         {
             inspector.updatePosition(position);
         });
-        $(document).on(this.getDomManipulator().getElementResizedEvent(), function(event, elementDomId, position, size)
-        {
+        $(document).on(this.getDomManipulator().getElementResizedEvent(), function(event, elementDomId, position, size) {
             inspector.updateSize(size);
             inspector.updatePosition(position);
+        });
     }
 
     Positioning.prototype.setupSizeDropdownHandler = function(inspector, element)
