@@ -23,23 +23,24 @@
         float: right;
     }
     .shipping-alias-inner {
-        @include calc(width, '100% - 3px');
+       width: 100%;
         min-height: 170px;
         float: left;
-        clear:both;
         margin-top: 15px;
         background-color: $color-white;
         border: 1px solid $color-lgrey;
-        padding: 0px;
     }
     .channel-shipping-methods {
-        width: 100%;
+        width: 48%;
+        height: 170px;
         float: left;
         clear:both;
-        padding: 5px 13px 5px 13px;
+        padding: 5px 0px 5px 13px;
+        @include box-sizing(border);
+        border-right: 1px solid $color-lgrey;
     }
     .shipping-services {
-        width: 495px;
+        width: 48%;
         float: left;
         padding: 5px 13px 5px 13px;
         .shipping-account-select {

@@ -81,7 +81,15 @@ function(domManipulator, eventCollator)
             checkBoxValues[index] = $(this).val();
         });
 
-        var singleAlias = {storedEtag: storedETag, id: aliasID, name: aliasName, organisationUnitId: this.getRootOuId(), methodIds: checkBoxValues};
+        var singleAlias = {
+            storedEtag: storedETag,
+            id: aliasID,
+            name: aliasName,
+            organisationUnitId: this.getRootOuId(),
+            accountId: 1, //TODO: to change
+            shippingService: "firstclass", //TODO: to change
+            methodIds: checkBoxValues
+        };
 
         $.ajax({
             'url' : '/settings/shipping/alias/save',

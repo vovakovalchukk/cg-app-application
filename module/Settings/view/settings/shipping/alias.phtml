@@ -6,10 +6,12 @@ $(document).ready(function() {
         }
     });
     var shippingMethods = $.parseJSON('<?= json_encode($shippingMethods); ?>');
+    var shippingAccounts = $.parseJSON('<?= json_encode($shippingAccounts); ?>');
     var rootOuId = <?=$rootOuId;?>;
     require([
         'ShippingAlias/DomManipulator',
         'ShippingAlias/MethodCollection',
+        'ShippingAlias/AccountCollection',
         'ShippingAlias/DomListener/AddButton',
         'ShippingAlias/DomListener/DeleteButton',
         'ShippingAlias/DomListener/AliasChange',
@@ -17,6 +19,7 @@ $(document).ready(function() {
     ], function(
         domManipulator,
         methodCollection,
+        accountCollection,
         addButtonListener,
         deleteButtonListener,
         aliasChangeListener,
@@ -25,6 +28,7 @@ $(document).ready(function() {
         $(document).ready(function()
         {
             methodCollection.setItems(mapper.fromCollectionToOptions(shippingMethods));
+            accountCollection.setItems(mapper.fromCollectionToOptions(shippingAccounts));
 
             addButtonListener.init();
             deleteButtonListener.init(rootOuId);

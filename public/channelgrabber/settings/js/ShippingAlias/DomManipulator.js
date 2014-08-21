@@ -1,11 +1,13 @@
 define([
     'jquery',
     'cg-mustache',
-    'ShippingAlias/MethodCollection'
+    'ShippingAlias/MethodCollection',
+    'ShippingAlias/AccountCollection'
 ], function(
     $,
     CGMustache,
-    methodCollection
+    methodCollection,
+    accountCollection
 ) {
     var DomManipulator = function()
     {
@@ -37,7 +39,8 @@ define([
             deleteButton: '/channelgrabber/zf2-v4-ui/templates/elements/buttons.mustache',
             multiSelect: '/channelgrabber/zf2-v4-ui/templates/elements/custom-select-group.mustache',
             multiSelectExpanded: '/channelgrabber/zf2-v4-ui/templates/elements/multiselectexpanded.mustache',
-            alias: '/channelgrabber/settings/template/ShippingAlias/alias.mustache'
+            alias: '/channelgrabber/settings/template/ShippingAlias/alias.mustache',
+            customSelect: '/channelgrabber/zf2-v4-ui/templates/elements/custom-select.mustache'
         };
         CGMustache.get().fetchTemplates(aliasUrlMap, function(templates, cgmustache)
         {
@@ -52,8 +55,18 @@ define([
             var multiSelect = cgmustache.renderTemplate(templates, {'options': methodCollection.getItems(),
                     'name': 'aliasMultiSelect-' + aliasNo}, "multiSelect");
             var multiSelectExpanded = cgmustache.renderTemplate(templates, {}, "multiSelectExpanded", {'multiSelect' : multiSelect});
+
+            var customSelect = cgmustache.renderTemplate(templates, {
+                isOptional: 'true',
+                id: 'shippingServiceMultiSelect-' + aliasNo,
+                name: 'shippingServiceMultiSelect-' + aliasNo,
+                class: 'shipping-account-select',
+                options: accountCollection.getItems()
+            }, "customSelect");
+
             var alias = cgmustache.renderTemplate(templates, {'id' : 'shipping-alias-new-' + aliasNo}, "alias", {
                 'multiSelectExpanded' : multiSelectExpanded,
+                'customSelect': customSelect,
                 'deleteButton' : deleteButton,
                 'text' : text
             });
