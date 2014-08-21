@@ -65,8 +65,7 @@ class AlertController extends AbstractActionController
                 'organisationUnitId' => $order->getOrganisationUnitId()
             )
         );
-        $this->getService()->save($alert);
-        return $alert;
+        return $this->getService()->save($alert);
     }
 
     protected function update(AlertEntity $alert)
@@ -75,8 +74,7 @@ class AlertController extends AbstractActionController
             ->setUserId($this->getActiveUserContainer()->getActiveUser()->getId())
             ->setTimestamp(date(DateTime::FORMAT, time()));
         $alert->setStoredETag($this->params()->fromPost('eTag'));
-        $this->getService()->save($alert);
-        return $alert;
+        return $this->getService()->save($alert);
     }
 
     protected function fetchAlert()

@@ -1,22 +1,25 @@
+
 <div class="orderid-cell">
-    <div class="orderid">
-        <a href="{{order_url}}" class="title">{{externalId}}</a>
-    </div>
-    <div class="productinfo">
-        <span class="subtitle">
-            {{items.0.itemQuantity}} x {{items.0.itemName}}
-        </span>
-    </div>
-    {{#items.1}}
-    {{#formatAdditionalOrderItems}}
-    {{#extraItems}}
-    <div class="hidden additional-items">
+    <a href="{{order_url}}" class="title">
+        <div class="orderid">
+            {{externalId}}
+        </div>
         <div class="productinfo">
             <span class="subtitle">
-                {{itemQuantity}} x {{itemName}}
+                {{items.0.itemQuantity}} x {{items.0.itemName}}
             </span>
         </div>
-    </div>
+        {{#items.1}}
+        {{#formatAdditionalOrderItems}}
+        {{#extraItems}}
+        <div class="hidden additional-items">
+            <div class="productinfo">
+                <span class="subtitle">
+                    {{itemQuantity}} x {{itemName}}
+                </span>
+            </div>
+        </div>
+    </a>
     {{/extraItems}}
     {{/formatAdditionalOrderItems}}
     <div class="hidden additional-item-links">

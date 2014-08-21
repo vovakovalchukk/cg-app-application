@@ -54,7 +54,7 @@ return [
                         ],
                         'type'  => 'Submit',
                         'attributes' => [
-                            'value' => 'Submit',
+                            'value' => 'Save',
                             'class' => 'button'
                         ],
                     ]

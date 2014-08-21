@@ -58,6 +58,18 @@ define([
         });
     };
 
+    Positioning.prototype.updatePosition = function(position)
+    {
+        this.getDomManipulator().setValue('#'+Positioning.POSITIONING_INSPECTOR_LEFT_ID, position.left.pxToMm().roundToNearest(0.5));
+        this.getDomManipulator().setValue('#'+Positioning.POSITIONING_INSPECTOR_TOP_ID, position.top.pxToMm().roundToNearest(0.5));
+    };
+
+    Positioning.prototype.updateSize = function(size)
+    {
+        this.getDomManipulator().setValue('#'+Positioning.POSITIONING_INSPECTOR_WIDTH_ID, size.width.pxToMm().roundToNearest(0.5));
+        this.getDomManipulator().setValue('#'+Positioning.POSITIONING_INSPECTOR_HEIGHT_ID, size.height.pxToMm().roundToNearest(0.5));
+    };
+
     Positioning.prototype.getPositioningInspectorLeftId = function()
     {
         return Positioning.POSITIONING_INSPECTOR_LEFT_ID;
