@@ -25,7 +25,7 @@ class Service implements LoggerAwareInterface
     const PRODUCT_FILTER_BAR_STATE_KEY = 'product-filter-bar-state';
     const ACCOUNTS_PAGE = 1;
     const ACCOUNTS_LIMIT = 'all';
-    const LIMIT = 20;
+    const LIMIT = 200;
     const PAGE = 1;
 
     protected $userService;
@@ -58,16 +58,13 @@ class Service implements LoggerAwareInterface
             ->setStockLocationService($stockLocationService);
     }
 
-    public function fetchProducts()
+    public function fetchProducts(ProductFilter $productFilter)
     {
         $parentProductIds = [0];
-        $productFilter = new ProductFilter(
-            static::LIMIT,
-            static::PAGE,
-            $this->getActiveUserContainer()->getActiveUser()->getOuList(),
-            null,
-            $parentProductIds
-        );
+        $productFilter->setLimit(static::LIMIT)
+            ->setPage(static::PAGE)
+            ->setOrganisationUnitId($this->getActiveUserContainer()->getActiveUser()->getOuList())
+            ->setParentProductId($parentProductIds);
         $products = $this->getProductService()->fetchCollectionByFilter($productFilter);
         return $products;
     }
