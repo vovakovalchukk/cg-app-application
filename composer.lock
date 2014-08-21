@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9864b0be76bfc436a401b13f35765ef4",
+    "hash": "6336f829b0ee975156432e5bd588aee6",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1562,11 +1562,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-2990-datatables-mustache-async",
+            "version": "dev-CGIV-2993-bulkactions-mustache-async",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "b9b64f3fd8493d9256bdff72a46643260ea14091"
+                "reference": "c022333aa83f7774a59eea7596936e47476419d6"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1596,7 +1596,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-08-20 15:52:23"
+            "time": "2014-08-21 11:19:54"
         },
         {
             "name": "cilex/cilex",
@@ -4108,9 +4108,9 @@
     ],
     "aliases": [
         {
-            "alias": "1.12.25",
-            "alias_normalized": "1.12.25.0",
-            "version": "dev-CGIV-2990-datatables-mustache-async",
+            "alias": "1.12.32",
+            "alias_normalized": "1.12.32.0",
+            "version": "dev-CGIV-2993-bulkactions-mustache-async",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
