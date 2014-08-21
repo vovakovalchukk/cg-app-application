@@ -18,8 +18,9 @@ define([
     Positioning.POSITIONING_INSPECTOR_SELECTOR = '#positioning-inspector';
     Positioning.POSITIONING_INSPECTOR_LEFT_ID = 'positioning-inspector-left';
     Positioning.POSITIONING_INSPECTOR_TOP_ID = 'positioning-inspector-top';
-    Positioning.POSITIONING_INSPECTOR_WIDTH_ID = 'positioning-inspector-wifth';
+    Positioning.POSITIONING_INSPECTOR_WIDTH_ID = 'positioning-inspector-width';
     Positioning.POSITIONING_INSPECTOR_HEIGHT_ID = 'positioning-inspector-height';
+    Positioning.POSITIONING_INSPECTOR_SIZE_ID = 'positioning-inspector-size';
 
     Positioning.prototype = Object.create(InspectorAbstract.prototype);
 
@@ -32,21 +33,35 @@ define([
     {
         var self = this;
         var templateUrlMap = {
+            select: '/channelgrabber/zf2-v4-ui/templates/elements/custom-select.mustache',
             text: '/channelgrabber/zf2-v4-ui/templates/elements/text.mustache',
             positioning: '/channelgrabber/settings/template/InvoiceDesigner/Template/Inspector/positioning.mustache',
             collapsible: '/channelgrabber/zf2-v4-ui/templates/elements/collapsible.mustache'
         };
         CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache)
         {
+            var sizeAsOptions = (typeof element.getSizeOptions() != 'undefined');
+            var sizeFieldType = 'text';
+            if (sizeAsOptions) {
+                sizeFieldType = 'hidden';
+            }
+
             var left = cgmustache.renderTemplate(templates, {'id' : Positioning.POSITIONING_INSPECTOR_LEFT_ID, 'value' : element.getX()}, "text");
             var top = cgmustache.renderTemplate(templates, {'id' : Positioning.POSITIONING_INSPECTOR_TOP_ID, 'value' : element.getY()}, "text");
-            var width = cgmustache.renderTemplate(templates, {'id' : Positioning.POSITIONING_INSPECTOR_WIDTH_ID, 'value' : element.getWidth()}, "text");
-            var height = cgmustache.renderTemplate(templates, {'id' : Positioning.POSITIONING_INSPECTOR_HEIGHT_ID, 'value' : element.getHeight()}, "text");
-            var positioning = cgmustache.renderTemplate(templates, {}, "positioning", {
+            var width = cgmustache.renderTemplate(templates, {'id' : Positioning.POSITIONING_INSPECTOR_WIDTH_ID, 'value' : element.getWidth(), 'type': sizeFieldType}, "text");
+            var height = cgmustache.renderTemplate(templates, {'id' : Positioning.POSITIONING_INSPECTOR_HEIGHT_ID, 'value' : element.getHeight(), 'type': sizeFieldType}, "text");
+            var sizeOptions = cgmustache.renderTemplate(templates, self.getSizeViewData(element), "select");
+
+            var data = {
+                'setSizeOptions': sizeAsOptions
+            };
+
+            var positioning = cgmustache.renderTemplate(templates, data, "positioning", {
                 'left': left,
                 'top': top,
                 'width': width,
-                'height': height
+                'height': height,
+                'sizeOptions': sizeOptions
             });
             var collapsible = cgmustache.renderTemplate(templates, {
                 'display' : true,
@@ -70,6 +85,32 @@ define([
         this.getDomManipulator().setValue('#'+Positioning.POSITIONING_INSPECTOR_HEIGHT_ID, size.height.pxToMm().roundToNearest(0.5));
     };
 
+    Positioning.prototype.getSizeViewData = function(element)
+    {
+        function concatenate(width, height) {
+            return width + 'x' + height;
+        }
+
+        var sizeOptions = [];
+        var selectedElement = concatenate(element.getWidth(), element.getHeight());
+
+        for (var key in element.getSizeOptions()) {
+            var value = concatenate(element.getSizeOptions()[key].width, element.getSizeOptions()[key].height);
+
+            sizeOptions.push({
+                'title': element.getSizeOptions()[key].name,
+                'value': value,
+                'selected': (value == selectedElement)
+            });
+        };
+
+        return {
+            'id': this.getPositioningInspectorSizeId(),
+            'name': this.getPositioningInspectorSizeId(),
+            'options': sizeOptions
+        }
+    }
+
     Positioning.prototype.getPositioningInspectorLeftId = function()
     {
         return Positioning.POSITIONING_INSPECTOR_LEFT_ID;
@@ -88,6 +129,11 @@ define([
     Positioning.prototype.getPositioningInspectorHeightId = function()
     {
         return Positioning.POSITIONING_INSPECTOR_HEIGHT_ID;
+    };
+
+    Positioning.prototype.getPositioningInspectorSizeId = function()
+    {
+        return Positioning.POSITIONING_INSPECTOR_SIZE_ID;
     };
 
     return new Positioning();
