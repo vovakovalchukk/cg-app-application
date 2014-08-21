@@ -13,14 +13,25 @@ define([
 ) {
     var Service = function ()
     {
+        var baseUrl;
+        this.getBaseUrl = function()
+        {
+            return baseUrl;
+        };
+
+        this.setBaseUrl = function(newBaseUrl)
+        {
+            baseUrl = newBaseUrl;
+        };
     };
 
     Service.DOM_SELECTOR_PRODUCT_CONTAINER = '#products-list';
-    Service.DEFAULT_IMAGE_URL = '';
+    Service.DEFAULT_IMAGE_URL = '/noproductsimage.png';
 
-    Service.prototype.init = function()
+    Service.prototype.init = function(baseUrl)
     {
         var self = this;
+        this.setBaseUrl(baseUrl);
         var filter = productFilterMapper.fromDom();
         this.fetchProducts(filter, function (products) {
             if (!products.length) {
@@ -117,7 +128,7 @@ define([
                 attributeValues.push(variation['attributeValues'][product['attributeNames'][attributeNameIndex]]);
             }
             variations += CGMustache.get().renderTemplate(templates, {
-                'image': this.getPrimaryImage(product['images']),
+                'image': this.getPrimaryImage(variation['images']),
                 'sku': variation['sku'],
                 'attributes': attributeValues
             }, 'variationRow');
@@ -136,7 +147,7 @@ define([
 
     Service.prototype.getPrimaryImage = function(images)
     {
-        return images[0] != undefined ? images[0]['url'] : Service.DEFAULT_IMAGE_URL;
+        return images.length > 0 ? images[0]['url'] : this.getBaseUrl() + Service.DEFAULT_IMAGE_URL;
     };
 
     Service.prototype.getExpandButtonView = function(product, templates)
