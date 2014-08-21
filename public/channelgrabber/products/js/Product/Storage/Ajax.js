@@ -11,7 +11,7 @@ define([
     {
         $.ajax({
             'url' : '/products/ajax',
-            'data' : {'filter': filter.toArray()},
+            'data' : {'filter': filter.toObject()},
             'method' : 'POST',
             'dataType' : 'json',
             'success' : function(data) {

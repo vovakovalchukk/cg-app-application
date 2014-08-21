@@ -8,7 +8,7 @@ define([
         };
     };
 
-    Entity.prototype.toArray = function()
+    Entity.prototype.toObject = function()
     {
         return {
             'searchTerm' : this.getSearchTerm()
