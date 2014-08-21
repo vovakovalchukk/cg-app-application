@@ -30,8 +30,13 @@ define([
 
     Service.prototype.init = function(baseUrl)
     {
-        var self = this;
         this.setBaseUrl(baseUrl);
+        this.refresh();
+    };
+
+    Service.prototype.refresh = function()
+    {
+        var self = this;
         var filter = productFilterMapper.fromDom();
         this.fetchProducts(filter, function (products) {
             if (!products.length) {

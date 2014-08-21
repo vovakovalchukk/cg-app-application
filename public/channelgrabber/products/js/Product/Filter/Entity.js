@@ -8,11 +8,11 @@ define([
         };
     };
 
-    Entity.prototype.toJson = function()
+    Entity.prototype.toObject = function()
     {
-        return JSON.stringify({
+        return {
             'searchTerm' : this.getSearchTerm()
-        });
+        };
     };
 
     return Entity;

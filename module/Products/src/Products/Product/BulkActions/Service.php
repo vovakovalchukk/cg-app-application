@@ -21,7 +21,7 @@ class Service
         $searchView = $this->getViewModelFactory()->newInstance(
             [
                 'name' => 'searchTerm',
-                'class' => '',
+                'class' => 'product-search-text',
                 'placeholder' => 'Search',
                 'value' => 'Search for...'
             ]
@@ -31,7 +31,7 @@ class Service
         $searchButton = $this->getViewModelFactory()->newInstance(
             [
                 'type' => 'Submit',
-                'class' => '',
+                'class' => 'product-search-button',
                 'value' => 'Search',
                 'id' => 'searchSubmit',
                 'buttons' => 'search'

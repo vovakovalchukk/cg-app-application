@@ -7,6 +7,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Products\Product\Service as ProductService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG\Product\Entity as ProductEntity;
+use CG\Product\Filter\Mapper as FilterMapper;
 
 class ProductsJsonController extends AbstractActionController
 {
@@ -15,19 +16,22 @@ class ProductsJsonController extends AbstractActionController
 
     protected $productService;
     protected $jsonModelFactory;
+    protected $filterMapper;
 
-    public function __construct(ProductService $productService, JsonModelFactory $jsonModelFactory)
+    public function __construct(ProductService $productService, JsonModelFactory $jsonModelFactory, FilterMapper $filterMapper)
     {
-        $this->setProductsService($productService)
-            ->setJsonModelFactory($jsonModelFactory);
+        $this->setProductService($productService)
+            ->setJsonModelFactory($jsonModelFactory)
+            ->setFilterMapper($filterMapper);
     }
 
     public function ajaxAction()
     {
         $view = $this->getJsonModelFactory()->newInstance();
+        $requestFilter = $this->getFilterMapper()->fromArray($this->params()->fromPost('filter', []));
         $productsArray = [];
         try {
-            $products = $this->getProductsService()->fetchProducts();
+            $products = $this->getProductService()->fetchProducts($requestFilter);
             foreach ($products as $product) {
                 $productsArray[] = $this->toArrayProductEntityWithEmbeddedData($product);
             }
@@ -60,7 +64,7 @@ class ProductsJsonController extends AbstractActionController
 
     public function stockUpdateAction()
     {
-        $stockLocation = $this->getProductsService()->updateStock(
+        $stockLocation = $this->getProductService()->updateStock(
             $this->params()->fromPost('stockLocationId'),
             $this->params()->fromPost('eTag'),
             $this->params()->fromPost('totalQuantity')
@@ -68,17 +72,6 @@ class ProductsJsonController extends AbstractActionController
         $view = $this->getJsonModelFactory()->newInstance();
         $view->setVariable('eTag', $stockLocation->getETag());
         return $view;
-    }
-
-    protected function setProductsService(ProductService $productService)
-    {
-        $this->productService = $productService;
-        return $this;
-    }
-
-    protected function getProductsService()
-    {
-        return $this->productService;
     }
 
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -90,5 +83,27 @@ class ProductsJsonController extends AbstractActionController
     protected function getJsonModelFactory()
     {
         return $this->jsonModelFactory;
+    }
+
+    protected function setProductService(ProductService $productService)
+    {
+        $this->productService = $productService;
+        return $this;
+    }
+
+    protected function getProductService()
+    {
+        return $this->productService;
+    }
+
+    protected function setFilterMapper(FilterMapper $filterMapper)
+    {
+        $this->filterMapper = $filterMapper;
+        return $this;
+    }
+
+    protected function getFilterMapper()
+    {
+        return $this->filterMapper;
     }
 }
