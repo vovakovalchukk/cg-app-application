@@ -29,7 +29,7 @@ class ProductsJsonController extends AbstractActionController
         try {
             $products = $this->getProductsService()->fetchProducts();
             foreach ($products as $product) {
-                $productsArray[] = $this->toArrayProductEntityWithEmbedData($product);
+                $productsArray[] = $this->toArrayProductEntityWithEmbeddedData($product);
             }
         } catch(NotFound $e) {
             //noop
@@ -37,7 +37,7 @@ class ProductsJsonController extends AbstractActionController
         return $view->setVariable('products', $productsArray);
     }
 
-    protected function toArrayProductEntityWithEmbedData(ProductEntity $productEntity)
+    protected function toArrayProductEntityWithEmbeddedData(ProductEntity $productEntity)
     {
         $product = $productEntity->toArray();
         $product = array_merge($product, [
@@ -49,7 +49,7 @@ class ProductsJsonController extends AbstractActionController
             'locations' => $stockEntity->getLocations()->toArray()
         ]);
         foreach ($productEntity->getVariations() as $variation) {
-            $product['variations'][] = $this->toArrayProductEntityWithEmbedData($variation);
+            $product['variations'][] = $this->toArrayProductEntityWithEmbeddedData($variation);
         }
         foreach ($product['stock']['locations'] as $stockLocationIndex => $stockLocation) {
             $stockLocationId = $product['stock']['locations'][$stockLocationIndex]['id'];
@@ -92,6 +92,3 @@ class ProductsJsonController extends AbstractActionController
         return $this->jsonModelFactory;
     }
 }
-
-
-
