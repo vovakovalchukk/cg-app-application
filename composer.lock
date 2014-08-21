@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8880bee86e02865ca0747b903705c5ea",
+    "hash": "415915081ae9b12b877b6f410225e0e4",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1025,21 +1025,16 @@
         },
         {
             "name": "channelgrabber/zf2-channel",
-            "version": "1.0.2",
+            "version": "dev-CGIV-2923-ChannelType",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/channel-module.git",
-                "reference": "9356889fe550bb5ec92cf45278bcd42c28098777"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-channel-1.0.2-b05216.zip",
-                "reference": "9356889fe550bb5ec92cf45278bcd42c28098777",
-                "shasum": "3b7446db50ce4c73c480f9da33bdaf6d4075d49e"
+                "reference": "15e34dc219a317e6bbbf36c213c6a2e0457aedb3"
             },
             "require": {
-                "channelgrabber/channel": ">=1.1.5",
+                "channelgrabber/channel": ">=1.4.2,<2.0.0",
                 "channelgrabber/constants": "dev-master",
+                "channelgrabber/zf2-v4-ui": ">=1.0.1,<2.0.0",
                 "zendframework/zend-config": "2.*",
                 "zendframework/zend-form": "2.*",
                 "zendframework/zend-loader": "2.*",
@@ -1059,7 +1054,7 @@
                 ]
             },
             "description": "Channel module",
-            "time": "2014-08-15 11:17:44"
+            "time": "2014-08-21 08:34:21"
         },
         {
             "name": "channelgrabber/zf2-ebay",
@@ -1412,6 +1407,38 @@
             "time": "2014-08-04 12:19:29"
         },
         {
+            "name": "channelgrabber/zf2-royalmail",
+            "version": "dev-CGIV-2923-CreateModule",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/royalmail-module.git",
+                "reference": "4fff0f3516950674268c0d6477067ab9f8f8ede5"
+            },
+            "require": {
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/zf2-channel": "dev-CGIV-2923-ChannelType as 1.0.3",
+                "zendframework/zend-config": "2.*",
+                "zendframework/zend-form": "2.*",
+                "zendframework/zend-loader": "2.*",
+                "zendframework/zend-modulemanager": "2.*",
+                "zendframework/zend-view": "2.*"
+            },
+            "type": "zf2-module",
+            "extra": {
+                "zf2-module": "CG_RoyalMail"
+            },
+            "autoload": {
+                "psr-4": {
+                    "CG_RoyalMail\\": "src/"
+                },
+                "classmap": [
+                    "./Module.php"
+                ]
+            },
+            "description": "Royal Mail module",
+            "time": "2014-08-21 09:05:33"
+        },
+        {
             "name": "channelgrabber/zf2-sessions",
             "version": "1.0.3",
             "source": {
@@ -1562,17 +1589,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.27",
+            "version": "1.12.31",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e45a202512b6df3ef4e07e26bd49f1c11ef3f86a"
+                "reference": "5ec9a004545c8c3f33876df3db8b99687ad087f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.27-cb2d12.zip",
-                "reference": "e45a202512b6df3ef4e07e26bd49f1c11ef3f86a",
-                "shasum": "1f1af32aaeceaf178975342b0e9dc42f036e1349"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.31-50c088.zip",
+                "reference": "5ec9a004545c8c3f33876df3db8b99687ad087f2",
+                "shasum": "9f489e625ed57e1a4d6db1ad8cf62c50c57e9c1b"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1602,7 +1629,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-08-14 14:38:55"
+            "time": "2014-08-21 07:20:53"
         },
         {
             "name": "cilex/cilex",
@@ -4113,11 +4140,24 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.0.3",
+            "alias_normalized": "1.0.3.0",
+            "version": "dev-CGIV-2923-ChannelType",
+            "package": "channelgrabber/zf2-channel"
+        },
+        {
+            "alias": "1.0.0",
+            "alias_normalized": "1.0.0.0",
+            "version": "dev-CGIV-2923-CreateModule",
+            "package": "channelgrabber/zf2-royalmail"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-channel": 20,
+        "channelgrabber/zf2-royalmail": 20,
         "phpspec/phpspec": 20
     },
     "prefer-stable": false,
