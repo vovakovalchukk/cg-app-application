@@ -1,6 +1,6 @@
 define([
     'jquery',
-    'Product/Service'
+    'Variation/Service'
 ], function(
     $,
     service
@@ -14,14 +14,19 @@ define([
     };
 
     DomListener.SELECTOR_PRODUCT_CONTAINER = '.product-container';
-    DomListener.SELECTOR_EXPAND_BUTTON = '.product-variation-expand-button';
+    DomListener.CLASS_EXPAND_BUTTON = 'product-variation-expand-button';
 
     DomListener.prototype.init = function()
     {
         var self = this;
-        $(DomListener.SELECTOR_EXPAND_BUTTON).off('click').on('click', function() {
+        $(document).off('click', '.' + DomListener.CLASS_EXPAND_BUTTON).on('click', '.' + DomListener.CLASS_EXPAND_BUTTON, function() {
             self.getService().toggleVariations($(this).closest(DomListener.SELECTOR_PRODUCT_CONTAINER));
         });
+    };
+
+    DomListener.prototype.getClassExpandButton = function()
+    {
+        return DomListener.CLASS_EXPAND_BUTTON;
     };
 
     return new DomListener();
