@@ -143,7 +143,12 @@ define([
     DomManipulator.prototype.resetCheckbox = function(selector)
     {
         $(selector).prop('checked', false);
-    }
+    };
+
+    DomManipulator.prototype.setValue = function(selector, value)
+    {
+        $(selector).val(value);
+    };
 
     DomManipulator.prototype.getOffset = function(selector)
     {
