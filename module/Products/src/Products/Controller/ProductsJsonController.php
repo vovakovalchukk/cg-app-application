@@ -13,6 +13,7 @@ class ProductsJsonController extends AbstractActionController
 {
     const ROUTE_AJAX = 'AJAX';
     const ROUTE_STOCK_UPDATE = 'stockupdate';
+    const ROUTE_DELETE = 'Delete';
 
     protected $productService;
     protected $jsonModelFactory;
@@ -72,6 +73,11 @@ class ProductsJsonController extends AbstractActionController
         $view = $this->getJsonModelFactory()->newInstance();
         $view->setVariable('eTag', $stockLocation->getETag());
         return $view;
+    }
+
+    public function deleteAction()
+    {
+var_dump($this->params()->fromPost('productIds'));
     }
 
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)

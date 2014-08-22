@@ -52,7 +52,17 @@ return [
                                 'action' => 'stockUpdate'
                             ]
                         ],
-                    ]
+                    ],
+                    ProductsJsonController::ROUTE_DELETE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/delete',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'delete'
+                            ]
+                        ],
+                    ],
                 ]
             ]
         ]

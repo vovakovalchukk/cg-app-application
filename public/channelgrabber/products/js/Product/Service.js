@@ -3,13 +3,15 @@ define([
     'Product/Filter/Mapper',
     'Product/Storage/Ajax',
     'DomManipulator',
-    'Variation/DomListener'
+    'Variation/DomListener',
+    'BulkActionAbstract'
 ], function (
     CGMustache,
     productFilterMapper,
     productStorage,
     domManipulator,
-    variationDomListener
+    variationDomListener,
+    BulkActionAbstract
 ) {
     var Service = function ()
     {
@@ -56,6 +58,7 @@ define([
     {
         var self = this;
         var productUrlMap = {
+            checkbox: '/channelgrabber/zf2-v4-ui/templates/elements/checkbox.mustache',
             buttons: '/channelgrabber/zf2-v4-ui/templates/elements/buttons.mustache',
             inlineText: '/channelgrabber/zf2-v4-ui/templates/elements/inline-text.mustache',
             variationTable: '/channelgrabber/products/template/product/variationTable.mustache',
@@ -77,6 +80,7 @@ define([
 
     Service.prototype.renderProduct = function(product, templates)
     {
+        var checkbox = this.getCheckboxView(product, templates);
         var expandButton = '';
         if (product['variations'] != undefined && product['variations'].length) {
             var productContent = this.getVariationView(product, templates);
@@ -90,7 +94,11 @@ define([
             'status': 'active',
             'id': product['id'],
             'image': this.getPrimaryImage(product['images'])
-        }, 'product', {'productContent': productContent, 'expandButton': expandButton});
+        }, 'product', {
+            'productContent': productContent,
+            'expandButton': expandButton,
+            'checkbox': checkbox
+        });
         return productView;
     };
 
@@ -164,6 +172,14 @@ define([
             'value': 'Expand Variations',
             'action': 'Contract Variations'
         }, 'buttons');
+    };
+
+    Service.prototype.getCheckboxView = function(product, templates)
+    {
+        return CGMustache.get().renderTemplate(templates, {
+            'id': 'product-checkbox-input-' + product['id'],
+            'class': BulkActionAbstract.CLASS_CHECKBOX
+        }, 'checkbox');
     };
 
     Service.prototype.renderNoProduct = function()
