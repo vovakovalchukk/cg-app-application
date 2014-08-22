@@ -136,13 +136,14 @@ class ShippingController extends AbstractActionController
         $view->addChild($this->getTextView($alias), 'text');
         $view->addChild($this->getDeleteButtonView($alias), 'deleteButton');
         $view->addChild($this->getMultiSelectExpandedView($alias), 'multiSelectExpanded');
-        $view->addChild($this->getCustomSelectView($alias), 'customSelect');
+        $view->addChild($this->getAccountCustomSelectView($alias), 'accountCustomSelect');
+        $view->addChild($this->getServiceCustomSelectView($alias), 'serviceCustomSelect');
         $view->setTemplate('ShippingAlias/alias.mustache');
 
         return $view;
     }
 
-    protected function getCustomSelectView(AliasEntity $alias)
+    protected function getAccountCustomSelectView(AliasEntity $alias)
     {
         try {
             $shippingAccounts = $this->getShippingAccounts();
@@ -155,12 +156,27 @@ class ShippingController extends AbstractActionController
             $options[] = [
                 'title' => $account->getDisplayName(),
                 'value' => $account->getId(),
-                'selected' => false
+                'selected' => $alias->getAccountId() == $account->getId()
             ];
         }
 
         $customSelect = $this->getViewModelFactory()->newInstance([
-            'name' => 'shippingServiceMultiSelect-'.$alias->getId(),
+            'name' => 'shipping-account-custom-select-' . $alias->getId(),
+            'id' => 'shipping-account-custom-select-' . $alias->getId(),
+            'class' => 'shipping-account-select',
+            'options' => $options
+        ]);
+        $customSelect->setTemplate('elements/custom-select.mustache');
+        return $customSelect;
+    }
+
+    protected function getServiceCustomSelectView(AliasEntity $alias)
+    {
+        $options = [];
+        $customSelect = $this->getViewModelFactory()->newInstance([
+            'name' => 'shipping-service-custom-select-' . $alias->getId(),
+            'id' => 'shipping-service-custom-select-' . $alias->getId(),
+            'class' => 'shipping-service-select',
             'options' => $options
         ]);
         $customSelect->setTemplate('elements/custom-select.mustache');

@@ -56,17 +56,26 @@ define([
                     'name': 'aliasMultiSelect-' + aliasNo}, "multiSelect");
             var multiSelectExpanded = cgmustache.renderTemplate(templates, {}, "multiSelectExpanded", {'multiSelect' : multiSelect});
 
-            var customSelect = cgmustache.renderTemplate(templates, {
+            var accountCustomSelect = cgmustache.renderTemplate(templates, {
                 isOptional: 'true',
-                id: 'shippingServiceMultiSelect-' + aliasNo,
-                name: 'shippingServiceMultiSelect-' + aliasNo,
+                id: 'shipping-account-custom-select-'+aliasNo,
+                name: 'shipping-account-custom-select-'+aliasNo,
                 class: 'shipping-account-select',
                 options: accountCollection.getItems()
             }, "customSelect");
 
+            var serviceCustomSelect = cgmustache.renderTemplate(templates, {
+                isOptional: 'true',
+                id: 'shipping-service-custom-select-'+aliasNo,
+                name: 'shipping-service-custom-select-'+aliasNo,
+                class: 'shipping-service-select',
+                options: []
+            }, "customSelect");
+
             var alias = cgmustache.renderTemplate(templates, {'id' : 'shipping-alias-new-' + aliasNo}, "alias", {
                 'multiSelectExpanded' : multiSelectExpanded,
-                'customSelect': customSelect,
+                'accountCustomSelect': accountCustomSelect,
+                'serviceCustomSelect': serviceCustomSelect,
                 'deleteButton' : deleteButton,
                 'text' : text
             });
