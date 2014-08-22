@@ -73,10 +73,6 @@ define([
         var cssStyle = this.getDomStyles(element).join('; ');
         var htmlContents = this.getHtmlContents(element);
 
-        console.log('element');
-        console.log(element);
-        console.log(element.isResizable());
-
         var templateUrl = MapperAbstract.ELEMENT_TEMPLATE_PATH+'abstract.mustache';
         var data = {
             id: domId,
