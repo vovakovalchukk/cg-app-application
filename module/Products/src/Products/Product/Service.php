@@ -82,6 +82,15 @@ class Service implements LoggerAwareInterface
         return $stockEntity;
     }
 
+    public function deleteProductsById(array $productIds)
+    {
+        $filter = new ProductFilter(static::ACCOUNTS_LIMIT, static::PAGE, [], null, [], $productIds);
+        $products = $this->getProductService()->fetchCollectionByFilter($filter);
+        foreach ($products as $product) {
+            $this->getProductService()->remove($product);
+        }
+    }
+
     public function isSidebarVisible()
     {
         $preference = $this->getActiveUserPreference()->getPreference();

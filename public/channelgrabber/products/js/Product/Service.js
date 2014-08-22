@@ -185,9 +185,9 @@ define([
     Service.prototype.renderNoProduct = function()
     {
         var noProductsUrlMap = {
-            noProduct: '/channelgrabber/products/template/elements/noProduct.mustache'
+            noProduct: '/channelgrabber/products/template/elements/noProduct.Mustache'
         };
-        CGMustache.get().get().fetchTemplates(noProductsUrlMap, function(templates)
+        CGMustache.get().fetchTemplates(noProductsUrlMap, function(templates)
         {
             var html = CGMustache.get().renderTemplate(templates, {}, 'noProduct');
             domManipulator.setHtml(Service.DOM_SELECTOR_PRODUCT_CONTAINER, html);

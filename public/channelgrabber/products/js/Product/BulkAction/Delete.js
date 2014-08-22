@@ -17,7 +17,7 @@ define([
 
     Delete.prototype = Object.create(BulkActionAbstract.prototype);
 
-    Delete.URL = '/product/delete';
+    Delete.URL = '/products/delete';
     Delete.MESSAGE_SUCCESS = 'Products deleted successfully';
 
     Delete.prototype.invoke = function()
@@ -30,7 +30,7 @@ define([
         }
         domIds.forEach(function(domId)
         {
-            productIds.push(self.getLastPartOfHyphenatedString(domId)); 
+            productIds.push(parseInt(self.getLastPartOfHyphenatedString(domId)));
         });
 
         var data = {productIds: productIds};

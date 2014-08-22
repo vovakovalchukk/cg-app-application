@@ -77,7 +77,17 @@ class ProductsJsonController extends AbstractActionController
 
     public function deleteAction()
     {
-var_dump($this->params()->fromPost('productIds'));
+        $view = $this->getJsonModelFactory()->newInstance();
+
+        $productIds = $this->params()->fromPost('productIds');
+        if (empty($productIds)){
+            $view->setVariable('deleted', false);
+            return $view;
+        }
+
+        $this->getProductService()->deleteProductsById($productIds);
+        $view->setVariable('deleted', true);
+        return $view;
     }
 
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
