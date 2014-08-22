@@ -98,7 +98,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             $bulkAction,
             'afterActions'
         );
-        
+
         $view->addChild($bulkActions, 'bulkItems');
         $view->addChild($this->getFilterBar(), 'filters');
         $view->addChild($this->getStatusFilters(), 'statusFiltersSidebar');
@@ -111,7 +111,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->addChild($this->getBatches(), 'batches');
         $view->setVariable('isSidebarVisible', $this->getOrderService()->isSidebarVisible());
         $view->setVariable('isHeaderBarVisible', $this->getOrderService()->isFilterBarVisible());
-        $view->setVariable('filterNames', $this->getOrderService()->getFilterService()->getFilterNames());         
+        $view->setVariable('filterNames', $this->getOrderService()->getFilterService()->getFilterNames());
         return $view;
     }
 
@@ -177,7 +177,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         }
         $carrierSelect = $this->getViewModelFactory()->newInstance(["options" => $options]);
         $carrierSelect->setTemplate("elements/custom-select.mustache");
-        $carrierSelect->setVariable("name", "carrier");        
+        $carrierSelect->setVariable("name", "carrier");
         $carrierSelect->setVariable("id", "carrier");
         $carrierSelect->setVariable("blankOption", true);
         return $carrierSelect;
@@ -221,12 +221,12 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $sidebar->setTemplate('orders/orders/sidebar/navbar');
 
         $links = [
-            'order-status-details' => 'Order Status',
-            'bulk-actions' => 'Bulk Actions',
             'timeline' => 'Timeline',
+            'bulk-actions' => 'Bulk Actions',
             'order-alert' => 'Alert',
             'order-buyer-message' => 'Buyer Message',
             'addressInformation' => 'Address Information',
+            'tracking-information' => 'Shipping',
             'product-payment-table' => 'Payment Information',
             'order-notes' => 'Notes'
 

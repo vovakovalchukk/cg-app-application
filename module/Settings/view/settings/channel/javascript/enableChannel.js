@@ -12,7 +12,7 @@ require(
             "#<?= $tableId ?>",
             "input.toggle",
             {
-                url: "<?= urldecode($this->url($route, ['account' => '{{id}}'])) ?>"
+                url: "<?= urldecode($this->url($route, ['account' => '{{id}}', 'type' => '{{type}}'])) ?>"
             },
             {
                 info: "<?= $this->translate('Updating Sales Channel Status') ?>",

@@ -657,7 +657,7 @@ return [
             ],
             'OrdersDateColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Order Date'],
+                    'variables' => ['value' => 'Ordered'],
                     'template' => 'value.phtml',
                 ],
             ],

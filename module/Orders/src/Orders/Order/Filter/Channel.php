@@ -12,9 +12,13 @@ class Channel implements SelectOptionsInterface
     protected $activeUserContainer;
     protected $accountService;
 
-    public function __construct(ActiveUserInterface $activeUserContainer, AccountService $accountService)
+    public function __construct(
+        ActiveUserInterface $activeUserContainer,
+        AccountService $accountService
+    )
     {
-        $this->setActiveUserContainer($activeUserContainer)->setAccountService($accountService);
+        $this->setActiveUserContainer($activeUserContainer)
+            ->setAccountService($accountService);
     }
 
     public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
