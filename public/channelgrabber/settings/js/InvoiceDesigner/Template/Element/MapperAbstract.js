@@ -73,6 +73,10 @@ define([
         var cssStyle = this.getDomStyles(element).join('; ');
         var htmlContents = this.getHtmlContents(element);
 
+        console.log('element');
+        console.log(element);
+        console.log(element.isResizable());
+
         var templateUrl = MapperAbstract.ELEMENT_TEMPLATE_PATH+'abstract.mustache';
         var data = {
             id: domId,
@@ -80,7 +84,8 @@ define([
             wrapperClasses: wrapperCssClasses,
             classes: cssClasses,
             styles: cssStyle,
-            contents: htmlContents
+            contents: htmlContents,
+            resizable: element.isResizable()
         };
         var html = this.renderMustacheTemplate(templateUrl, data);
 
