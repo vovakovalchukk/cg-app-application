@@ -360,6 +360,16 @@ return [
                                     ]
                                 ]
                             ],
+                            ShippingController::ROUTE_SERVICES => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/services/fetch',
+                                    'defaults' => [
+                                        'action' => 'servicesFetch'
+                                    ]
+                                ],
+                                'may_terminate' => true
+                            ]
                         ]
                     ]
                 ]
