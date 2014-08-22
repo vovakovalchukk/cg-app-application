@@ -20,7 +20,7 @@ class ShippingController extends AbstractActionController
     const ROUTE_ALIASES_REMOVE = 'Shipping Alias Remove';
     const FIRST_PAGE = 1;
     const LIMIT = 'all';
-    CONST TYPE_SHIPPING = 'shipping';
+    const TYPE_SHIPPING = 'shipping';
 
     protected $viewModelFactory;
     protected $conversionService;
