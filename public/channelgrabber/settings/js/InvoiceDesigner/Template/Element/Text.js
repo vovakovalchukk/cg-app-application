@@ -1,5 +1,8 @@
-define(['InvoiceDesigner/Template/Element/TextAbstract'], function(TextAbstract)
-{
+define([
+    'InvoiceDesigner/Template/Element/TextAbstract'
+], function(
+    TextAbstract
+) {
     var Text = function()
     {
         TextAbstract.call(this);

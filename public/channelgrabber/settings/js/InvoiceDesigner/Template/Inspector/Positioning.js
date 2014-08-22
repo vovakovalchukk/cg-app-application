@@ -40,9 +40,9 @@ define([
         };
         CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache)
         {
-            var sizeAsOptions = (typeof element.getSizeOptions() != 'undefined');
+            var isSizeAsOptions = (typeof element.getSizeOptions() != 'undefined');
             var sizeFieldType = 'text';
-            if (sizeAsOptions) {
+            if (isSizeAsOptions) {
                 sizeFieldType = 'hidden';
             }
 
@@ -53,7 +53,7 @@ define([
             var sizeOptions = cgmustache.renderTemplate(templates, self.getSizeViewData(element), "select");
 
             var data = {
-                'setSizeOptions': sizeAsOptions
+                'isSizeAsOptions': isSizeAsOptions
             };
 
             var positioning = cgmustache.renderTemplate(templates, data, "positioning", {

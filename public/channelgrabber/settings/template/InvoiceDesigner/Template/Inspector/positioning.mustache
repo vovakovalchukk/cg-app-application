@@ -14,13 +14,15 @@
         </div>
     </div>
     <div class="inspector-group-holder">
-        {{#setSizeOptions}}
+        {{#isSizeAsOptions}}
+        <div class="positioning-secondrow">
             <span class="positioning-square heading-small">Size</span>
-            {{> sizeOptions}}
-            {{> width}}
-            {{> height}}
-        {{/setSizeOptions}}
-        {{^setSizeOptions}}
+        </div>
+        {{> sizeOptions}}
+        {{> width}}
+        {{> height}}
+        {{/isSizeAsOptions}}
+        {{^isSizeAsOptions}}
         <div class="positioning-secondrow">
             <span class="positioning-square heading-small">Width</span>
             <span class="positioning-square heading-small">Height</span>
@@ -33,6 +35,6 @@
                 <span class="positioning-input">{{> height}}</span><span class="positioning-mm">mm</span>
             </span>
         </div>
-        {{/setSizeOptions}}
+        {{/isSizeAsOptions}}
     </div>
 </div>

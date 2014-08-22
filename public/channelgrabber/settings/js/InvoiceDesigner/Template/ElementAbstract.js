@@ -242,7 +242,6 @@ define([
         json.height = Number(json.height).mmToPt();
         json.width = Number(json.width).mmToPt();
         json.borderWidth = (json.borderWidth ? Number(json.borderWidth).mmToPt() : json.borderWidth);
-        json.sizeOptions = (json.sizeOptions);
         return json;
     };
 

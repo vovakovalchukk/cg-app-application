@@ -1,5 +1,6 @@
 define(['InvoiceDesigner/Template/Element/MapperAbstract'], function(MapperAbstract) {
-    var PPI = function() {
+    var PPI = function()
+    {
         MapperAbstract.call(this);
 
         var images = {
@@ -9,7 +10,8 @@ define(['InvoiceDesigner/Template/Element/MapperAbstract'], function(MapperAbstr
             4: 'option-4.jpg'
         };
 
-        this.getImage = function(option) {
+        this.getImage = function(option)
+        {
             return images[option];
         };
     };
@@ -18,7 +20,8 @@ define(['InvoiceDesigner/Template/Element/MapperAbstract'], function(MapperAbstr
 
     PPI.prototype = Object.create(MapperAbstract.prototype);
 
-    PPI.prototype.getHtmlContents = function(element) {
+    PPI.prototype.getHtmlContents = function(element)
+    {
         var image = this.getImage(element.getOption());
 
         if (typeof(image) === 'undefined') {
