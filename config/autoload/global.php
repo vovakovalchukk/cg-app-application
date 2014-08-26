@@ -12,6 +12,11 @@
  */
 
 use Zend\Config\Config;
+use Zend\Di\Config as DiConfig;
+use Zend\Di\Di;
+use Zend\Di\InstanceManager;
+use CG\Zend\Stdlib\Di\Definition\RuntimeDefinition;
+use CG\Zend\Stdlib\Di\DefinitionList;
 use CG\Cache\EventManagerInterface;
 use CG\Zend\Stdlib\Cache\EventManager;
 use Zend\ServiceManager\ServiceManager;
@@ -22,15 +27,16 @@ return array(
             'Zend\Di\Di' => function($serviceManager) {
                 $configuration = $serviceManager->get('config');
 
-                $definition = new CG\Di\Definition\RuntimeDefinition(
+                $runtimeDefinition = new RuntimeDefinition(
                     null,
-                    include 'bin/complete_classmap.php'
+                    require dirname(dirname(__DIR__)) . '/bin/complete_classmap.php'
                 );
-                $definitionList = new Zend\Di\DefinitionList([$definition]);
-                $im = new Zend\Di\InstanceManager();
-                $di = new Zend\Di\Di($definitionList, $im, new Zend\Di\Config(
-                    isset($configuration['di']) ? $configuration['di'] : array()
-                ));
+
+                $definitionList = new DefinitionList([$runtimeDefinition]);
+                $im = new InstanceManager();
+                $config = new DiConfig(isset($configuration['di']) ? $configuration['di'] : array());
+
+                $di = new Di($definitionList, $im, $config);
 
                 if (isset($configuration['db'], $configuration['db']['adapters'])) {
                     foreach (array_keys($configuration['db']['adapters']) as $adapter) {

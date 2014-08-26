@@ -3,13 +3,15 @@
 /config/autoload/di.guzzle.global.php
 /config/autoload/di.memcached.global.php
 /config/autoload/di.redis.global.php
+/config/di/modules_classmap.php
 /config/di/vendor_components.php
 /config/host.php
 /data/certificates
 /data/di
 /tests/*/*Guy.php
 /tests/_log
+/tools/post_deploy.sh
 /vendor
 public/channelgrabber/zf2-logclient
+public/channelgrabber/zf2-login
 public/channelgrabber/zf2-v4-ui
-/tools/post_deploy.sh
