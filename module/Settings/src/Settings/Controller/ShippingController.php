@@ -22,7 +22,7 @@ class ShippingController extends AbstractActionController
     const ROUTE_SERVICES = 'Shipping Services';
     const FIRST_PAGE = 1;
     const LIMIT = 'all';
-    const TYPE_SHIPPING = 'shipping';
+    const TYPE = 'shipping';
 
     protected $viewModelFactory;
     protected $conversionService;
@@ -329,7 +329,7 @@ class ShippingController extends AbstractActionController
         return $this;
     }
 
-    public function getAccountService()
+    protected function getAccountService()
     {
         return $this->accountService;
     }
