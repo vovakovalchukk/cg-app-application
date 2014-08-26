@@ -363,10 +363,13 @@ return [
                             ShippingController::ROUTE_SERVICES => [
                                 'type' => Literal::class,
                                 'options' => [
-                                    'route' => '/services/fetch',
+                                    'route' => '/services/fetch/:account',
                                     'defaults' => [
                                         'action' => 'servicesFetch'
-                                    ]
+                                    ],
+                                    'constraints' => [
+                                        'account' => '[0-9]*'
+                                    ],
                                 ],
                                 'may_terminate' => true
                             ]

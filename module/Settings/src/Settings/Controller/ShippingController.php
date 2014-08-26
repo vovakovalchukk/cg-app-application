@@ -1,6 +1,7 @@
 <?php
 namespace Settings\Controller;
 
+use CG\Channel\ShippingServiceFactory;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -30,6 +31,7 @@ class ShippingController extends AbstractActionController
     protected $activeUser;
     protected $organisationUnitService;
     protected $accountService;
+    protected $shippingServiceFactory;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -38,7 +40,8 @@ class ShippingController extends AbstractActionController
         JsonModelFactory $jsonModelFactory,
         ActiveUserInterface $activeUser,
         OrganisationUnitService $organisationUnitService,
-        AccountService $accountService
+        AccountService $accountService,
+        ShippingServiceFactory $shippingServiceFactory
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setConversionService($conversionService)
@@ -46,7 +49,8 @@ class ShippingController extends AbstractActionController
             ->setJsonModelFactory($jsonModelFactory)
             ->setActiveUser($activeUser)
             ->setOrganisationUnitService($organisationUnitService)
-            ->setAccountService($accountService);
+            ->setAccountService($accountService)
+            ->setShippingServiceFactory($shippingServiceFactory);
     }
 
     public function aliasAction()
@@ -86,7 +90,11 @@ class ShippingController extends AbstractActionController
 
     public function servicesFetch()
     {
-        //TODO: implement shit
+        $accountId = $this->params('account');
+        $account = $this->getAccountService()->fetch($accountId);
+        $shippingService = $this->getShippingServiceFactory()->createShippingService($account);
+        return $this->getJsonModelFactory()->newInstance(
+            ['shippingServices' =>  $shippingService->getShippingServices()]);
     }
 
     protected function getAddButtonView()
@@ -324,5 +332,16 @@ class ShippingController extends AbstractActionController
     public function getAccountService()
     {
         return $this->accountService;
+    }
+
+    public function setShippingServiceFactory($shippingServiceFactory)
+    {
+        $this->shippingServiceFactory = $shippingServiceFactory;
+        return $this;
+    }
+
+    protected function getShippingServiceFactory()
+    {
+        return $this->shippingServiceFactory;
     }
 }
