@@ -64,18 +64,9 @@ define([
                 options: accountCollection.getItems()
             }, "customSelect");
 
-            var serviceCustomSelect = cgmustache.renderTemplate(templates, {
-                isOptional: 'true',
-                id: 'shipping-service-custom-select-'+aliasNo,
-                name: 'shipping-service-custom-select-'+aliasNo,
-                class: 'shipping-service-select',
-                options: []
-            }, "customSelect");
-
             var alias = cgmustache.renderTemplate(templates, {'id' : 'shipping-alias-new-' + aliasNo}, "alias", {
                 'multiSelectExpanded' : multiSelectExpanded,
                 'accountCustomSelect': accountCustomSelect,
-                'serviceCustomSelect': serviceCustomSelect,
                 'deleteButton' : deleteButton,
                 'text' : text
             });
@@ -144,6 +135,29 @@ define([
             self.updateOtherAliasMethodCheckboxes(checkedElement);
         });
     };
+
+    DomManipulator.prototype.updateServicesCustomSelect = function(aliasId, services)
+    {
+        var aliasUrlMap = {
+            customSelect: '/channelgrabber/zf2-v4-ui/templates/elements/custom-select.mustache'
+        };
+        CGMustache.get().fetchTemplates(aliasUrlMap, function(templates, cgmustache)
+        {
+            var serviceCustomSelect = cgmustache.renderTemplate(templates, {
+                isOptional: 'true',
+                id: 'shipping-service-custom-select-' + aliasId,
+                name: 'shipping-service-custom-select-' + aliasId,
+                class: 'shipping-service-select',
+                options: services
+            }, "customSelect");
+
+            if($("#shipping-alias-" + aliasId).length) {
+                $("#shipping-alias-" + aliasId).find("#services-custom-select").html(serviceCustomSelect);
+            } else if($("#shipping-alias-new-" + aliasId).length) {
+                $("#shipping-alias-new-" + aliasId).find("#services-custom-select").html(serviceCustomSelect);
+            }
+        });
+    }
 
     DomManipulator.prototype.remove = function(id, html)
     {
