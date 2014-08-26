@@ -29,7 +29,7 @@
         "channelgrabber/settings": "~1.0.11",
         "channelgrabber/sso": "~1.2.0",
         "channelgrabber/stdlib": "~2.7.4",
-        "channelgrabber/template": "dev-CGIV-2960-added-element-preset-sizes as 1.2.24",
+        "channelgrabber/template": "dev-CGIV-2960-element-preset-sizes as 1.2.24",
         "channelgrabber/usage": "~1.0.2",
         "channelgrabber/user": "~1.16.0",
         "channelgrabber/userpreference": "~1.2.0",
