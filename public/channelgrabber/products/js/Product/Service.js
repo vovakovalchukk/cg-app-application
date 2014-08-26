@@ -82,9 +82,11 @@ define([
     {
         var checkbox = this.getCheckboxView(product, templates);
         var expandButton = '';
+        var hasVariations = false;
         if (product['variations'] != undefined && product['variations'].length) {
             var productContent = this.getVariationView(product, templates);
             expandButton = this.getExpandButtonView(product, templates);
+            hasVariations = true;
         } else {
             var productContent = this.getStockTableView(product, templates);
         }
@@ -93,7 +95,8 @@ define([
             'sku': product['sku'],
             'status': 'active',
             'id': product['id'],
-            'image': this.getPrimaryImage(product['images'])
+            'image': this.getPrimaryImage(product['images']),
+            'hasVariations': hasVariations
         }, 'product', {
             'productContent': productContent,
             'expandButton': expandButton,
