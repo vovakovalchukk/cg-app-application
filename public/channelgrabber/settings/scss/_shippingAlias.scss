@@ -1,5 +1,5 @@
 .shipping-alias-wrapper {
-    width: 925px;
+    width: 1050px;
     float: left;
     clear:both;
 }
@@ -12,6 +12,7 @@
     padding: 15px;
     @include border-radius(5px);
     margin: 20px 0px 0px 0px;
+    @include box-sizing(border);
     .shipping-alias-name-holder {
         width: 50%;
         float: left;
