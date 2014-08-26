@@ -237,7 +237,7 @@ class ShippingController extends AbstractActionController
                                   ->getActiveUserRootOrganisationUnitId();
         return $this->getAccountService()->fetchByOUAndType(
             [$organisationUnitId],
-            static::TYPE_SHIPPING,
+            static::TYPE,
             static::LIMIT,
             static::FIRST_PAGE
         );
