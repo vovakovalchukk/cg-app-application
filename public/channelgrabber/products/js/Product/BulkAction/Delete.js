@@ -37,7 +37,9 @@ define([
         this.sendAjaxRequest(
             Delete.URL,
             data,
-            this.handleSuccess
+            this.handleSuccess,
+            null,
+            this
         );
     };
 
