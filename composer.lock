@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2ea08452c875025ade3fe62255e6decf",
+    "hash": "3724fa020ad32b59215401cbfa41b392",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -641,17 +641,11 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.2.4",
+            "version": "dev-CGIV-2850-product-delete-bulk-action",
             "source": {
                 "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "998022dde6386d9405a1db4dc46739586eb10c9d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.2.4-cdbd60.zip",
-                "reference": "998022dde6386d9405a1db4dc46739586eb10c9d",
-                "shasum": "b4955c40d94b3b9c10a3ecb3813b63f76c204e18"
+                "url": "/home/shoniqua/repos/cg-product",
+                "reference": "050342cd0ce61d3fc5706a5c185ab222a8c52334"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -675,7 +669,7 @@
                     "CG\\Product\\": ""
                 }
             },
-            "time": "2014-08-21 11:11:42"
+            "time": "2014-08-26 10:28:22"
         },
         {
             "name": "channelgrabber/redis",
@@ -4268,6 +4262,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.2.4",
+            "alias_normalized": "1.2.4.0",
+            "version": "dev-CGIV-2850-product-delete-bulk-action",
+            "package": "channelgrabber/product"
+        },
+        {
             "alias": "1.12.33",
             "alias_normalized": "1.12.33.0",
             "version": "dev-CGIV-2850-product-delete-bulk-action",
@@ -4277,6 +4277,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/product": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "phpspec/phpspec": 20
     },

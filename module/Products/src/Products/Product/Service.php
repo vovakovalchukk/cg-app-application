@@ -2,7 +2,7 @@
 namespace Products\Product;
 
 use CG\ETag\Exception\NotModified;
-use CG\Product\Service as ProductService;
+use CG\Product\Shared\Service as ProductService;
 use CG_UI\View\Table;
 use CG\User\ActiveUserInterface;
 use Zend\Di\Di;
