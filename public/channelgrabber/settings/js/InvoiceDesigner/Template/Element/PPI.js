@@ -49,6 +49,17 @@ define([
             this.set('option', newOption);
             return this;
         };
+
+        this.getSizeOptions = function()
+        {
+            return this.get('sizeOptions');
+        };
+
+        this.setSizeOptions = function(newSizeOptions)
+        {
+            this.set('sizeOptions', newSizeOptions);
+            return this;
+        };
     };
 
     PPI.prototype = Object.create(ElementAbstract.prototype);
