@@ -4,26 +4,25 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b1b590e8131671acf8250bb369775eb6",
+    "hash": "cf10b7590d42addea202ed93da9ca027",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "1.3.2",
+            "version": "1.3.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "29295f618ac770d48e070549577c1046949acf94"
+                "reference": "4c2a5b8ef89a25bf2cf4b7c45b88f518f44d6d9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.3.2-703192.zip",
-                "reference": "29295f618ac770d48e070549577c1046949acf94",
-                "shasum": "a53423994ba4ddd854e1c54ae8b1e8f6d1e675e0"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.3.3-a517bc.zip",
+                "reference": "4c2a5b8ef89a25bf2cf4b7c45b88f518f44d6d9c",
+                "shasum": "36a2d9663865b7b962a4c8768beef608162776e6"
             },
             "require": {
-                "channelgrabber/account": ">=1.0.23",
                 "channelgrabber/cache": ">=1.2.1",
-                "channelgrabber/channel": "~1.5.1",
+                "channelgrabber/channel": ">=1.5.1",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": ">=1.1.0",
                 "channelgrabber/http": ">=1.2.6",
@@ -44,7 +43,7 @@
                     "CG\\Amazon\\": ""
                 }
             },
-            "time": "2014-08-14 16:10:11"
+            "time": "2014-08-27 13:24:59"
         },
         {
             "name": "channelgrabber/billing",
@@ -113,7 +112,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "5b5645b8353dfd898b3eb1ebd1b865ea91951106"
+                "reference": "92971de7911bf51524200004a4e30c752ac5046b"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -149,7 +148,7 @@
                     "CG\\Account\\Test\\": "tests/Account"
                 }
             },
-            "time": "2014-08-27 09:34:21"
+            "time": "2014-08-27 12:54:46"
         },
         {
             "name": "channelgrabber/constants",
@@ -172,27 +171,26 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.1.40",
+            "version": "1.1.41",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "11863714a5ba688a4fc401e3623c3b0fdf6848fa"
+                "reference": "b9c4a62990f5a8900ffed33b361e83a32361b135"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.1.40-554e18.zip",
-                "reference": "11863714a5ba688a4fc401e3623c3b0fdf6848fa",
-                "shasum": "24b6004a6489c296d1a06ecfe9f429a0c36fb986"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.1.41-35518f.zip",
+                "reference": "b9c4a62990f5a8900ffed33b361e83a32361b135",
+                "shasum": "e69392ef610950bead784438b47d4986097b02fc"
             },
             "require": {
-                "channelgrabber/account": ">=1.0.23",
-                "channelgrabber/channel": "~1.5.1",
+                "channelgrabber/channel": ">=1.5.1",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": ">=1.1.0",
                 "channelgrabber/http": ">=1.2.2",
                 "channelgrabber/log": ">=1.5.0",
                 "channelgrabber/order": ">=1.5.22",
-                "channelgrabber/stdlib": "~2.7.10",
+                "channelgrabber/stdlib": ">=2.7.10",
                 "ext-gearman": "~1.1.0",
                 "guzzle/guzzle": "~3.7",
                 "zendframework/zend-di": ">=2.2.5",
@@ -208,7 +206,7 @@
                     "CG\\Ebay\\": ""
                 }
             },
-            "time": "2014-08-15 11:32:32"
+            "time": "2014-08-27 13:33:17"
         },
         {
             "name": "channelgrabber/email",
@@ -1467,9 +1465,10 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/royalmail-module.git",
-                "reference": "97b15d5978af3e0a94ee0c366489332312c4d98a"
+                "reference": "6e3c89a9ee3dbf8a0bd0c3e13a917b99d93393dd"
             },
             "require": {
+                "channelgrabber/channel": ">=1.6.0,<2.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/zf2-channel": "dev-CGIV-2923-ChannelType as 1.0.3",
                 "zendframework/zend-config": "2.*",
@@ -1491,7 +1490,7 @@
                 ]
             },
             "description": "Royal Mail module",
-            "time": "2014-08-27 09:46:35"
+            "time": "2014-08-27 12:55:44"
         },
         {
             "name": "channelgrabber/zf2-sessions",
@@ -4196,8 +4195,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.5.4",
-            "alias_normalized": "1.5.4.0",
+            "alias": "1.6.1",
+            "alias_normalized": "1.6.1.0",
             "version": "dev-CGIV-2923-RoyalMailIntegration",
             "package": "channelgrabber/channel"
         },
