@@ -139,7 +139,11 @@ define([
     DomManipulator.prototype.updateServicesCustomSelect = function(aliasId, services)
     {
         if(services.length === 0) {
-            $("#shipping-alias-" + aliasId).find("#services-custom-select").html('');
+            if($("#shipping-alias-" + aliasId).length) {
+                $("#shipping-alias-" + aliasId).find("#services-custom-select").html('');
+            } else if($("#shipping-alias-new-" + aliasId).length) {
+                $("#shipping-alias-new-" + aliasId).find("#services-custom-select").html('');
+            }
             return;
         }
 
