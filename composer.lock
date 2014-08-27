@@ -113,7 +113,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "ddab6061ee98d5e442edb4db626790d54f4dfb91"
+                "reference": "5b5645b8353dfd898b3eb1ebd1b865ea91951106"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -149,7 +149,7 @@
                     "CG\\Account\\Test\\": "tests/Account"
                 }
             },
-            "time": "2014-08-21 10:51:16"
+            "time": "2014-08-27 09:34:21"
         },
         {
             "name": "channelgrabber/constants",
@@ -1467,7 +1467,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/royalmail-module.git",
-                "reference": "4fff0f3516950674268c0d6477067ab9f8f8ede5"
+                "reference": "97b15d5978af3e0a94ee0c366489332312c4d98a"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -1491,7 +1491,7 @@
                 ]
             },
             "description": "Royal Mail module",
-            "time": "2014-08-21 09:05:33"
+            "time": "2014-08-27 09:46:35"
         },
         {
             "name": "channelgrabber/zf2-sessions",
