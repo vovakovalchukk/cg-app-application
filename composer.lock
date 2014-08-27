@@ -589,7 +589,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-royalmail.git",
-                "reference": "3377bbf74bb87a832956fba15f1a7185241b720e"
+                "reference": "d0c360facc1c4212d2ab9957be3bc4bb0460a50a"
             },
             "require": {
                 "channelgrabber/channel": ">=1.5.3, <2.0.0",
@@ -601,7 +601,7 @@
                     "CG\\RoyalMail\\": "src"
                 }
             },
-            "time": "2014-08-21 12:39:08"
+            "time": "2014-08-27 09:56:25"
         },
         {
             "name": "channelgrabber/settings",
