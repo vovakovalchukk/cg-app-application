@@ -2,6 +2,9 @@
     width: 925px;
     float: left;
     clear:both;
+    .heading-large {
+        min-width: 960px;
+    }
 }
 .shipping-alias {
     width: 100%;
@@ -31,35 +34,36 @@
         border: 1px solid $color-lgrey;
     }
     .channel-shipping-methods {
-        width: 48%;
+        width: 50%;
         height: 170px;
         float: left;
         clear:both;
-        padding: 5px 0px 5px 13px;
+        padding: 5px 20px 5px 15px;
         @include box-sizing(border);
         border-right: 1px solid $color-lgrey;
     }
     .shipping-services {
-        width: 48%;
+        width: 50%;
         float: left;
-        padding: 5px 13px 5px 13px;
+        padding: 5px 15px 5px 18px;
+        @include box-sizing(border);
         .shipping-account-select {
             width: 100%;
             float: left;
             clear:both;
             margin-top: 10px;
-            .custom-select{
-                &.shipping-account{
-                    width: 48%;
-                    float: left;
-                    clear:both;
-                }
-                &.shipping-service{
-                    width: 48%;
-                    float: left;
-                    margin-left: 18px;
-                }
-            }
+        }
+        .shipping-account{
+            width: 50%;
+            float: left;
+            clear:both;
+        }
+        .shipping-service{
+            width: 50%;
+            float: left;
+        }
+        .shipping-account, .shipping-service {
+            margin-top: 10px;
         }
     }
 }
