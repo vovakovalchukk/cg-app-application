@@ -112,7 +112,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "92971de7911bf51524200004a4e30c752ac5046b"
+                "reference": "3aae3edcb754f20fa9dc08998a059dbb17e1ec75"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -148,7 +148,7 @@
                     "CG\\Account\\Test\\": "tests/Account"
                 }
             },
-            "time": "2014-08-27 12:54:46"
+            "time": "2014-08-27 14:04:57"
         },
         {
             "name": "channelgrabber/constants",
