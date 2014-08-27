@@ -53,10 +53,16 @@ class Service implements LoggerAwareInterface
             $batchCollection = $this->getBatchClient()->fetchCollectionByPagination(static::DEFAULT_LIMIT,
                 static::DEFAULT_PAGE, $organisationUnitIds, static::ACTIVE);
             $batches = $batchCollection->toArray();
+            usort($batches, array($this, "compare"));
         } catch (NotFound $exception) {
             $batches = array();
         }
         return $batches;
+    }
+
+    protected function compare($a, $b)
+    {
+        return strnatcmp($a['name'], $b['name']);
     }
 
     /**
