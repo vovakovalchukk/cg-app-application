@@ -83,7 +83,6 @@ define(['element/moreButton', 'element/ElementCollection'], function(MoreButton,
         for (var filterName in filters) {
             var filterOptions = filters[filterName];
             var filter = elementCollection.get(filterName);
-            
             if (!filter) {
                 var template = optionalFilters[filterName]['template'];
                 var variables = optionalFilters[filterName]['variables'];

@@ -30,7 +30,7 @@ return [
                         'controller' => ProductsController::class,
                         'action' => 'index',
                         'breadcrumbs' => false,
-                        'sidebar' => 'products/products/sidebar'
+                        'sidebar' => false
                     ]
                 ],
                 'may_terminate' => true,

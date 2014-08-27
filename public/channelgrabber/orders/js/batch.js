@@ -3,12 +3,11 @@ define(function() {
         var template;
         var mustacheInstance;
 
-        var synchronous = true;
         cgMustache.get().fetchTemplate($(selector).attr('data-mustacheTemplate'),
             function(batchTemplate, batchMustacheInstance) {
                 template = batchTemplate;
                 mustacheInstance = batchMustacheInstance;
-        }, synchronous);
+        });
 
         this.getNotifications = function() {
             return notifications;
