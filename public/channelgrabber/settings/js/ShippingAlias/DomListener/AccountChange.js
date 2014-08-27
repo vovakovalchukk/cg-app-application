@@ -25,27 +25,8 @@ function(domManipulator)
                     domManipulator.updateServicesCustomSelect(aliasId, servicesOptions);
                 }
             });
-
         });
-
     };
-
-    AccountChange.prototype.populateServicesCustomSelect = function()
-    {
-        $('input[class=shipping-account-select][type=hidden]').each(function(){
-            var services = self.fetchServices(this.val(), function(services){
-                if(services !== null) {
-                    var servicesOptions = [];
-                    for (var service in services) {
-                        if(services.hasOwnProperty(service)) {
-                            servicesOptions.push({title:services[service], value: service});
-                        }
-                    }
-                    domManipulator.updateServicesCustomSelect(aliasId, servicesOptions);
-                }
-            });
-        });
-    }
 
     AccountChange.prototype.fetchServices = function(accountId, callback)
     {

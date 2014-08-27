@@ -92,15 +92,7 @@ class ShippingController extends AbstractActionController
     public function servicesFetchAction()
     {
         $accountId = $this->params('account');
-        $account = $this->getAccountService()->fetch($accountId);
-        $shippingServices = [];
-        try {
-            $shippingService = $this->getShippingServiceFactory()->createShippingService($account);
-            $shippingServices = $shippingService->getShippingServices();
-        } catch (ClassNotFoundException $e) {
-
-        }
-        return $this->getJsonModelFactory()->newInstance(['shippingServices' =>  $shippingServices]);
+        return $this->getJsonModelFactory()->newInstance(['shippingServices' => $this->getShippingServices($accountId)]);
     }
 
     protected function getAddButtonView()
@@ -157,7 +149,10 @@ class ShippingController extends AbstractActionController
         $view->addChild($this->getDeleteButtonView($alias), 'deleteButton');
         $view->addChild($this->getMultiSelectExpandedView($alias), 'multiSelectExpanded');
         $view->addChild($this->getAccountCustomSelectView($alias), 'accountCustomSelect');
-        $view->addChild($this->getServiceCustomSelectView($alias), 'serviceCustomSelect');
+        $serviceCustomSelect = $this->getServiceCustomSelectView($alias);
+        if(!is_null($serviceCustomSelect)) {
+            $view->addChild($this->getServiceCustomSelectView($alias), 'serviceCustomSelect');
+        }
         $view->setTemplate('ShippingAlias/alias.mustache');
 
         return $view;
@@ -192,7 +187,20 @@ class ShippingController extends AbstractActionController
 
     protected function getServiceCustomSelectView(AliasEntity $alias)
     {
+        $shippingServices = $this->getShippingServices($alias->getAccountId());
         $options = [];
+        foreach($shippingServices as $serviceKey => $serviceVal) {
+            $options[] = [
+                'title' => $serviceKey,
+                'value' => $serviceVal,
+                'selected' => $alias->getShippingService() == $serviceVal
+            ];
+        }
+
+        if(count($options) == 0) {
+            return null;
+        }
+
         $customSelect = $this->getViewModelFactory()->newInstance([
             'name' => 'shipping-service-custom-select-' . $alias->getId(),
             'id' => 'shipping-service-custom-select-' . $alias->getId(),
@@ -261,6 +269,19 @@ class ShippingController extends AbstractActionController
             static::LIMIT,
             static::FIRST_PAGE
         );
+    }
+
+    protected function getShippingServices($accountId)
+    {
+        $account = $this->getAccountService()->fetch($accountId);
+        $shippingServices = [];
+        try {
+            $shippingService = $this->getShippingServiceFactory()->createShippingService($account);
+            $shippingServices = $shippingService->getShippingServices();
+        } catch (ClassNotFoundException $e) {
+            // Ignore
+        }
+        return $shippingServices;
     }
 
     protected function getViewModelFactory()

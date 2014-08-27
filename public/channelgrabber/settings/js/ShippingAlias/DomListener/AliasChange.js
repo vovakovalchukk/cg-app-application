@@ -84,6 +84,10 @@ function(domManipulator, eventCollator)
         var hiddenCheckBoxes = aliasInUse.find('.channel-shipping-methods input[type=hidden]');
         var checkBoxValues = [];
 
+        if(aliasService === undefined) {
+            aliasService = '';
+        }
+
         hiddenCheckBoxes.each(function (index) {
             checkBoxValues[index] = $(this).val();
         });
