@@ -66,7 +66,7 @@ class ShippingController extends AbstractActionController
         $view = $this->getViewModelFactory()->newInstance();
         $view->setVariable('title', static::ROUTE_ALIASES);
         $view->setVariable('shippingMethods', $shippingMethods->toArray());
-        $view->setVariable('shippingAccounts', $this->getShippingAccounts()->toArray());
+        $view->setVariable('shippingAccounts', is_array($this->getShippingAccounts()) ? [] : $this->getShippingAccounts()->toArray());
         $view->setVariable('rootOuId', $this->getActiveUser()->getActiveUserRootOrganisationUnitId());
         $view->addChild($this->getAliasView(), 'aliases');
         $view->addChild($this->getAddButtonView(), 'addButton');
@@ -160,11 +160,7 @@ class ShippingController extends AbstractActionController
 
     protected function getAccountCustomSelectView(AliasEntity $alias)
     {
-        try {
-            $shippingAccounts = $this->getShippingAccounts();
-        } catch (NotFound $e) {
-            // Don't show any shipping accounts
-        }
+        $shippingAccounts = $this->getShippingAccounts();
 
         $options = [];
         foreach($shippingAccounts as $account) {
@@ -263,12 +259,18 @@ class ShippingController extends AbstractActionController
     {
         $organisationUnitId = $this->getActiveUser()
                                   ->getActiveUserRootOrganisationUnitId();
-        return $this->getAccountService()->fetchByOUAndType(
-            [$organisationUnitId],
-            static::TYPE,
-            static::LIMIT,
-            static::FIRST_PAGE
-        );
+        $shippingAccounts = [];
+        try {
+            $shippingAccounts = $this->getAccountService()->fetchByOUAndType(
+                                    [$organisationUnitId],
+                                    static::TYPE,
+                                    static::LIMIT,
+                                    static::FIRST_PAGE
+                                );
+        } catch (NotFound $e) {
+            // Ignore if there are no shipping accounts
+        }
+        return $shippingAccounts;
     }
 
     protected function getShippingServices($accountId)
