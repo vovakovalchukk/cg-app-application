@@ -29,8 +29,10 @@ use CG\Template\Repository as TemplateRepository;
 use Settings\Factory\SidebarNavFactory;
 use CG\Order\Client\Shipping\Method\Storage\Api as ShippingMethodStorage;
 use CG\Order\Service\Shipping\Method\Service as ShippingMethodService;
-use CG\Settings\Alias\Storage\Api as ShippingAliasStorage;
-use CG\Settings\Alias\Service as ShippingAliasService;
+
+use CG\Settings\Shipping\Alias\Storage\Api as ShippingAliasStorage;
+use CG\Settings\Shipping\Alias\Service as ShippingAliasService;
+
 use Zend\Mvc\Router\Http\Segment;
 use Zend\Mvc\Router\Http\Literal;
 use CG\Channel\Type;
