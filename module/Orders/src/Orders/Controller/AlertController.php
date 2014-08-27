@@ -39,6 +39,7 @@ class AlertController extends AbstractActionController
         $alert = is_null($alert) ? $this->create() : $this->update($alert);
         $view = $this->getJsonModelFactory()->newInstance();
         $view->setVariable('eTag', $alert->getETag());
+        
         return $view;
     }
 
@@ -65,8 +66,7 @@ class AlertController extends AbstractActionController
                 'organisationUnitId' => $order->getOrganisationUnitId()
             )
         );
-        $this->getService()->save($alert);
-        return $alert;
+        return $this->getMapper()->fromHal($this->getService()->save($alert));
     }
 
     protected function update(AlertEntity $alert)
@@ -75,8 +75,7 @@ class AlertController extends AbstractActionController
             ->setUserId($this->getActiveUserContainer()->getActiveUser()->getId())
             ->setTimestamp(date(DateTime::FORMAT, time()));
         $alert->setStoredETag($this->params()->fromPost('eTag'));
-        $this->getService()->save($alert);
-        return $alert;
+        return $this->getMapper()->fromHal($this->getService()->save($alert));
     }
 
     protected function fetchAlert()
