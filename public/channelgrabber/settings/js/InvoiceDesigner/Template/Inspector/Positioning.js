@@ -40,8 +40,8 @@ define([
         };
         CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache)
         {
-            var isSizeAsOptions = (typeof element.getSizeOptions() != 'undefined');
             var sizeFieldType = 'text';
+            var isSizeAsOptions = (typeof element.getSizeOptions == 'function');
             if (isSizeAsOptions) {
                 sizeFieldType = 'hidden';
             }
@@ -93,6 +93,10 @@ define([
 
         var sizeOptions = [];
         var selectedElement = concatenate(element.getWidth(), element.getHeight());
+
+        if (typeof element.getSizeOptions != 'function') {
+            return {};
+        }
 
         for (var key in element.getSizeOptions()) {
             var value = concatenate(element.getSizeOptions()[key].width, element.getSizeOptions()[key].height);

@@ -21,8 +21,7 @@ define([
             y: 0,
             backgroundColour: undefined,
             borderWidth: 1,
-            borderColour: 'black',
-            sizeOptions: undefined
+            borderColour: 'black'
         };
         var baseInspectableAttributes = [];
         for (var field in data) {
@@ -185,17 +184,6 @@ define([
             return this;
         };
 
-        this.getSizeOptions = function()
-        {
-            return this.get('sizeOptions');
-        };
-
-        this.setSizeOptions = function(newSizeOptions)
-        {
-            this.set('sizeOptions', newSizeOptions);
-            return this;
-        };
-
         this.getBaseInspectableAttributes = function()
         {
             return baseInspectableAttributes;
@@ -265,7 +253,6 @@ define([
         this.setX(data.x, populating);
         this.setY(data.y, populating);
         this.setBorderWidth(data.borderWidth, populating);
-        this.setSizeOptions(data.sizeOptions, populating);
     };
 
     return ElementAbstract;
