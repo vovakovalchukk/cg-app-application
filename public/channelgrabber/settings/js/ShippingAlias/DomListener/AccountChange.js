@@ -1,5 +1,6 @@
 define([
-    'ShippingAlias/DomManipulator'
+    'ShippingAlias/DomManipulator',
+    'jquery'
 ],
 function(domManipulator)
 {
@@ -11,9 +12,8 @@ function(domManipulator)
     {
         var self = this;
         $(document).on('change', AccountChange.ACCOUNT_SELECTOR, function(e){
-            var accountId = $('#' + e.target.id).find('input[class=shipping-account-select][type=hidden]').val();
-            var aliasId = e.target.id.split('-');
-            aliasId = aliasId[aliasId.length - 1];
+            var accountId = $(this).find('input[class=shipping-account-select][type=hidden]').val();
+            var aliasId = e.target.id.split('-').pop();
             var services = self.fetchServices(accountId, function(services){
                 if(services !== null) {
                     var servicesOptions = [];
@@ -31,7 +31,7 @@ function(domManipulator)
     AccountChange.prototype.fetchServices = function(accountId, callback)
     {
         $.ajax({
-            'url': '/settings/shipping/services/fetch/' + accountId,
+            'url': '/settings/shipping/services/' + accountId,
             'method': 'GET',
             'success': function(data) {
                 callback(data['shippingServices']);
@@ -42,7 +42,7 @@ function(domManipulator)
                 callback(null);
             }
         });
-    }
+    };
 
     return new AccountChange();
 });

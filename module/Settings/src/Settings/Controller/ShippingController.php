@@ -89,7 +89,7 @@ class ShippingController extends AbstractActionController
         return $this->getJsonModelFactory()->newInstance(["alias" => $alias]);
     }
 
-    public function servicesFetchAction()
+    public function getServicesAction()
     {
         $accountId = $this->params('account');
         return $this->getJsonModelFactory()->newInstance(['shippingServices' => $this->getShippingServices($accountId)]);

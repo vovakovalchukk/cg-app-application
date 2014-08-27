@@ -17,8 +17,12 @@
         </div>
         <div class="shipping-services">
             <span class="inputbox-label">Default Shipping Service</span>
-            {{> accountCustomSelect}}
-            <div id="services-custom-select">{{> serviceCustomSelect}}</div>
+            <div class="shipping-account">
+                {{> accountCustomSelect}}
+            </div>
+            <div id="services-custom-select" class="shipping-service">
+                {{> serviceCustomSelect}}
+            </div>
         </div>
     </div>
 </div>

@@ -363,9 +363,9 @@ return [
                             ShippingController::ROUTE_SERVICES => [
                                 'type' => Segment::class,
                                 'options' => [
-                                    'route' => '/services/fetch/:account',
+                                    'route' => '/services/:account',
                                     'defaults' => [
-                                        'action' => 'servicesFetch'
+                                        'action' => 'getServices'
                                     ]
                                 ],
                                 'constraints' => [

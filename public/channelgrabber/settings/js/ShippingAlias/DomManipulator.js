@@ -138,6 +138,11 @@ define([
 
     DomManipulator.prototype.updateServicesCustomSelect = function(aliasId, services)
     {
+        if(services.length === 0) {
+            $("#shipping-alias-" + aliasId).find("#services-custom-select").html('');
+            return;
+        }
+
         var aliasUrlMap = {
             customSelect: '/channelgrabber/zf2-v4-ui/templates/elements/custom-select.mustache'
         };
