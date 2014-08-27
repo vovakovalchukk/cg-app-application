@@ -1,0 +1,15 @@
+<span class="status {{decidedStatus}}">{{decidedStatus}}</span>
+<div class="product-listing-status-dropdown">
+    <table>
+        <tr>
+            <td>Status</td>
+            <td>Account</td>
+        </tr>
+        {{#listings}}
+        <tr>
+            <td><span class="status {{status}}">{{status}}</span></td>
+            <td>{{account}}</td>
+        </tr>
+        {{/listings}}
+    </table>
+</div>

@@ -14,6 +14,7 @@ use CG\Stdlib\Log\LogTrait;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stock\Location\Service as StockLocationService;
 use CG\Product\Filter as ProductFilter;
+use CG\Listing\Collection as ListingCollection;
 
 class Service implements LoggerAwareInterface
 {
@@ -80,6 +81,25 @@ class Service implements LoggerAwareInterface
             //No changes do nothing
         }
         return $stockEntity;
+    }
+
+    public function productStatusDecider(ListingCollection $listings)
+    {
+        $statusPrecedence = [
+            "inactive" => 1,
+            "active" => 2,
+            "pending" => 3,
+            "paused" => 4,
+            "error" => 5,
+        ];
+        reset($statusPrecedence);
+        $status = key($statusPrecedence);
+        foreach ($listings as $listing) {
+            $listingStatus = $listing->getStatus();
+            if($statusPrecedence[$listingStatus] > $statusPrecedence[$status])
+                $status = $listingStatus;
+        }
+        return $status;
     }
 
     public function isSidebarVisible()
