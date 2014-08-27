@@ -29,7 +29,11 @@ class ProductsJsonController extends AbstractActionController
     public function ajaxAction()
     {
         $view = $this->getJsonModelFactory()->newInstance();
-        $requestFilter = $this->getFilterMapper()->fromArray($this->params()->fromPost('filter', []));
+        $filterParams = $this->params()->fromPost('filter', []);
+        if (!array_key_exists('deleted', $filterParams)) {
+            $filterParams['deleted'] = false;
+        }
+        $requestFilter = $this->getFilterMapper()->fromArray($filterParams);
         $productsArray = [];
         try {
             $products = $this->getProductService()->fetchProducts($requestFilter);
