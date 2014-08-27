@@ -4,6 +4,7 @@ namespace Settings\Controller;
 use CG\Channel\ShippingServiceFactory;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG_UI\View\Prototyper\JsonModelFactory;
+use Zend\Di\Exception\ClassNotFoundException;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG\Order\Shared\Shipping\Conversion\Service as ConversionService;
@@ -88,13 +89,18 @@ class ShippingController extends AbstractActionController
         return $this->getJsonModelFactory()->newInstance(["alias" => $alias]);
     }
 
-    public function servicesFetch()
+    public function servicesFetchAction()
     {
         $accountId = $this->params('account');
         $account = $this->getAccountService()->fetch($accountId);
-        $shippingService = $this->getShippingServiceFactory()->createShippingService($account);
-        return $this->getJsonModelFactory()->newInstance(
-            ['shippingServices' =>  $shippingService->getShippingServices()]);
+        $shippingServices = [];
+        try {
+            $shippingService = $this->getShippingServiceFactory()->createShippingService($account);
+            $shippingServices = $shippingService->getShippingServices();
+        } catch (ClassNotFoundException $e) {
+
+        }
+        return $this->getJsonModelFactory()->newInstance(['shippingServices' =>  $shippingServices]);
     }
 
     protected function getAddButtonView()
@@ -251,7 +257,7 @@ class ShippingController extends AbstractActionController
                                   ->getActiveUserRootOrganisationUnitId();
         return $this->getAccountService()->fetchByOUAndType(
             [$organisationUnitId],
-            static::TYPE_SHIPPING,
+            static::TYPE,
             static::LIMIT,
             static::FIRST_PAGE
         );

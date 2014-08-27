@@ -361,15 +361,15 @@ return [
                                 ]
                             ],
                             ShippingController::ROUTE_SERVICES => [
-                                'type' => Literal::class,
+                                'type' => Segment::class,
                                 'options' => [
                                     'route' => '/services/fetch/:account',
                                     'defaults' => [
                                         'action' => 'servicesFetch'
-                                    ],
-                                    'constraints' => [
-                                        'account' => '[0-9]*'
-                                    ],
+                                    ]
+                                ],
+                                'constraints' => [
+                                    'account' => '[0-9]*'
                                 ],
                                 'may_terminate' => true
                             ]
