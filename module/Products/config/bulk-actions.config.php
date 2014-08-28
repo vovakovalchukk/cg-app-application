@@ -27,7 +27,9 @@ return [
                     ],
                 ],
                 'injections' => [
-                    Action\Delete::class
+                    'addAction' => [
+                        ['action' => Action\Delete::class]
+                    ]
                 ],
             ],
             Action\Delete::class => [
