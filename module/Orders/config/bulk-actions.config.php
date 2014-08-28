@@ -7,6 +7,20 @@ use Orders\Order\BulkActions\SubAction;
 
 return [
     'di' => [
+        'definition' => [
+            'class' => [
+                Action\Batch::class => [
+                    'methods' => [
+                        'addSubAction' => [
+                            'subAction' => [
+                                'required' => true,
+                                'type' => BulkActions\SubAction::class
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
         'instance' => [
             'aliases' => [
                 'BulkActions' => BulkActions::class,
@@ -45,11 +59,13 @@ return [
                     ],
                 ],
                 'injections' => [
-                    Action\Invoice::class,
-                    Action\Dispatch::class,
-                    Action\Tag::class,
-                    Action\Batch::class,
-                    Action\Archive::class
+                    'addAction' => [
+                        ['action' => Action\Invoice::class],
+                        ['action' => Action\Dispatch::class],
+                        ['action' => Action\Tag::class],
+                        ['action' => Action\Batch::class],
+                        ['action' => Action\Archive::class],
+                    ],
                 ],
             ],
             'OrderDetailBulkActions' => [
@@ -60,11 +76,13 @@ return [
                     ],
                 ],
                 'injections' => [
-                    Action\Invoice::class,
-                    Action\Dispatch::class,
-                    Action\Tag::class,
-                    Action\Cancel::class,
-                    Action\Refund::class,
+                    'addAction' => [
+                        ['action' => Action\Invoice::class],
+                        ['action' => Action\Dispatch::class],
+                        ['action' => Action\Tag::class],
+                        ['action' => Action\Cancel::class],
+                        ['action' => Action\Refund::class],
+                    ],
                 ],
             ],
             Action\Invoice::class => [
@@ -123,7 +141,9 @@ return [
             ],
             BulkActions\CourierAction::class => [
                 'injections' => [
-                    'RoyalMailBulkAction',
+                    'addSubAction' => [
+                        ['subAction' => 'RoyalMailBulkAction'],
+                    ],
                 ],
             ],
             'RoyalMailBulkAction' => [
@@ -141,7 +161,9 @@ return [
                     'javascript' => 'BatchJavascript',
                 ],
                 'injections' => [
-                    'RemoveBatchBulkAction',
+                    'addSubAction' => [
+                        ['subAction' => 'RemoveBatchBulkAction'],
+                    ],
                 ],
             ],
             'BatchJavascript' => [
