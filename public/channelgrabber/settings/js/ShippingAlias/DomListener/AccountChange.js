@@ -1,8 +1,8 @@
 define([
-    'ShippingAlias/DomManipulator',
-    'jquery'
+    'jquery',
+    'ShippingAlias/DomManipulator'
 ],
-function(domManipulator)
+function($,domManipulator)
 {
     var AccountChange = function() { };
 
