@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "564b4e8b25840b26d380223c1359bd98",
+    "hash": "bee676b64628848cdeded94c2ada2c2f",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -572,6 +572,32 @@
                 }
             },
             "time": "2013-12-17 17:45:58"
+        },
+        {
+            "name": "channelgrabber/royalmail",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-royalmail.git",
+                "reference": "61b5efb32a932856fafb62b8d824d8693bbe7fa2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-royalmail-1.0.0-0fa9b5.zip",
+                "reference": "61b5efb32a932856fafb62b8d824d8693bbe7fa2",
+                "shasum": "568fbf700bf523e2a536ff0afa6dc4a1054a92a5"
+            },
+            "require": {
+                "channelgrabber/channel": ">=1.5.3, <2.0.0",
+                "channelgrabber/constants": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\RoyalMail\\": "src"
+                }
+            },
+            "time": "2014-08-20 15:16:56"
         },
         {
             "name": "channelgrabber/settings",
@@ -1593,17 +1619,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.37",
+            "version": "1.12.38",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "9a905249c65ca4a0a381a35b73981750fc15d422"
+                "reference": "64f45e6af8f48b0edeb734e160c413451fa4165b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.37-497dc6.zip",
-                "reference": "9a905249c65ca4a0a381a35b73981750fc15d422",
-                "shasum": "08d99089b4d9e79a52faf2f3a6279400b717994e"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.38-b3f75a.zip",
+                "reference": "64f45e6af8f48b0edeb734e160c413451fa4165b",
+                "shasum": "00e059734b61df81968f1650c269389f0f0b72be"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
@@ -1633,7 +1659,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-08-28 08:06:40"
+            "time": "2014-08-28 08:35:34"
         },
         {
             "name": "cilex/cilex",
@@ -1847,21 +1873,21 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "4.1.8",
+            "version": "4.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "e196b8f44f9492a11261ea8f7b9724613a198daf"
+                "reference": "095cf4db559bebc78d967890eb93280d8ceb5a08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/e196b8f44f9492a11261ea8f7b9724613a198daf",
-                "reference": "e196b8f44f9492a11261ea8f7b9724613a198daf",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/095cf4db559bebc78d967890eb93280d8ceb5a08",
+                "reference": "095cf4db559bebc78d967890eb93280d8ceb5a08",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "guzzlehttp/streams": "~1.4",
+                "guzzlehttp/streams": "~1.0",
                 "php": ">=5.4.0"
             },
             "require-dev": {
@@ -1875,7 +1901,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.1-dev"
+                    "dev-master": "4.1.x-dev"
                 }
             },
             "autoload": {
@@ -1908,20 +1934,20 @@
                 "rest",
                 "web service"
             ],
-            "time": "2014-08-14 20:29:51"
+            "time": "2014-06-18 18:22:41"
         },
         {
             "name": "guzzlehttp/streams",
-            "version": "1.5.1",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/streams.git",
-                "reference": "fb0d1ee29987c2bdc59867bffaade6fc88c2675f"
+                "reference": "cf0c8c33ca95cc147efba4c714f630ee44767180"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/streams/zipball/fb0d1ee29987c2bdc59867bffaade6fc88c2675f",
-                "reference": "fb0d1ee29987c2bdc59867bffaade6fc88c2675f",
+                "url": "https://api.github.com/repos/guzzle/streams/zipball/cf0c8c33ca95cc147efba4c714f630ee44767180",
+                "reference": "cf0c8c33ca95cc147efba4c714f630ee44767180",
                 "shasum": ""
             },
             "require": {
@@ -1933,7 +1959,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.5-dev"
+                    "dev-master": "1.0.x-dev"
                 }
             },
             "autoload": {
@@ -1961,7 +1987,7 @@
                 "Guzzle",
                 "stream"
             ],
-            "time": "2014-08-10 23:57:01"
+            "time": "2014-04-03 04:48:24"
         },
         {
             "name": "mustache/mustache",
