@@ -45,23 +45,6 @@ define([
         this.set('height', sizeOptions[sizeIndex].height, true);
         this.setResizable(false);
 
-        var setParentWidth = this.setWidth;
-        this.setWidth = function(newWidth, populating)
-        {
-            setParentWidth.call(this, newWidth, populating);
-
-            var option = 1;
-            for (var index in sizeOptions) {
-                if (sizeOptions[index].width == newWidth) {
-                    option = parseInt(index) + 1;
-                    break;
-                }
-            }
-
-            this.setOption(option);
-            return this;
-        };
-
         this.getOption = function()
         {
             return this.get('option');
@@ -81,6 +64,23 @@ define([
         this.setSizeOptions = function(newSizeOptions)
         {
             this.set('sizeOptions', newSizeOptions);
+            return this;
+        };
+
+        var setParentWidth = this.setWidth;
+        this.setWidth = function(newWidth, populating)
+        {
+            setParentWidth.call(this, newWidth, populating);
+
+            var option = 1;
+            for (var index in sizeOptions) {
+                if (sizeOptions[index].width == newWidth) {
+                    option = parseInt(index) + 1;
+                    break;
+                }
+            }
+
+            this.setOption(option);
             return this;
         };
     };
