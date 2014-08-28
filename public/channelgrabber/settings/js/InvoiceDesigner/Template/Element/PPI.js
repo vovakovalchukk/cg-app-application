@@ -67,20 +67,26 @@ define([
             return this;
         };
 
-        var setParentWidth = this.setWidth;
-        this.setWidth = function(newWidth, populating)
+        this.getOptionFromCurrentWidth = function()
         {
-            setParentWidth.call(this, newWidth, populating);
-
             var option = 1;
+            var width = this.getWidth();
+
             for (var index in sizeOptions) {
-                if (sizeOptions[index].width == newWidth) {
+                if (sizeOptions[index].width == width) {
                     option = parseInt(index) + 1;
                     break;
                 }
             }
 
-            this.setOption(option);
+            return option;
+        };
+
+        var setParentWidth = this.setWidth;
+        this.setWidth = function(newWidth, populating)
+        {
+            setParentWidth.call(this, newWidth, populating);
+            this.setOption(this.getOptionFromCurrentWidth());
             return this;
         };
     };
