@@ -6,7 +6,7 @@ define([
     var PPI = function(additionalData)
     {
         var data = {
-            option: undefined
+            option: 1
         };
 
         for (var field in additionalData) {
@@ -17,6 +17,7 @@ define([
 
         this.disableBaseInspectors(['backgroundColour', 'borderWidth', 'borderColour']);
 
+        var sizeIndex = (data.option - 1);
         var sizeOptions = [
             {
                 "name": "Small",
@@ -36,8 +37,8 @@ define([
         this.set('type', 'PPI', true);
         this.set('borderWidth', undefined, true);
         this.set('sizeOptions', sizeOptions, true);
-        this.set('width', sizeOptions[0].width, true);
-        this.set('height', sizeOptions[0].height, true);
+        this.set('width', sizeOptions[sizeIndex].width, true);
+        this.set('height', sizeOptions[sizeIndex].height, true);
         this.setResizable(false);
 
         this.getOption = function()
