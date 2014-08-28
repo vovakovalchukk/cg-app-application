@@ -25,7 +25,7 @@ return [
             Module::ROUTE => [
                 'type' => Literal::class,
                 'options' => [
-                    'route' => '/products',
+                    'route' => ProductsController::ROUTE_INDEX_URL,
                     'defaults' => [
                         'controller' => ProductsController::class,
                         'action' => 'index',
@@ -58,7 +58,7 @@ return [
                     ListingsController::ROUTE_INDEX => [
                         'type' => Literal::class,
                         'options' => [
-                            'route' => '/listing/import',
+                            'route' => ListingsController::ROUTE_INDEX_URL,
                             'defaults' => [
                                 'controller' => ListingsController::class,
                                 'action' => 'index'
@@ -75,7 +75,8 @@ return [
                                     ]
                                 ],
                             ]
-                        ]
+                        ],
+                        'may_terminate' => true,
                     ]
                 ]
             ]
@@ -170,13 +171,26 @@ return [
         ],
     ],
     'navigation' => array(
-        'application-navigation' => array(
-            'products' => array(
+        'application-navigation' => [
+            'products' => [
                 'label'  => 'Products',
                 'route'  => 'Products',
                 'sprite' => 'sprite-products-18-white',
-                'order'  => 5
-            )
-        )
+                'order'  => 5,
+                'pages'  => [
+                    'importListings' => [
+                        'id'    => 'importListings',
+                        'label' => 'Import Listings',
+                        'uri'   => implode(
+                            '',
+                            [
+                                ProductsController::ROUTE_INDEX_URL,
+                                ListingsController::ROUTE_INDEX_URL
+                            ]
+                        )
+                    ]
+                ]
+            ]
+        ]
     ),
 ];

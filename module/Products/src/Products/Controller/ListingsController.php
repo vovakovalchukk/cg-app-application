@@ -12,7 +12,8 @@ class ListingsController extends AbstractActionController implements LoggerAware
 {
     use LogTrait;
 
-    const ROUTE_INDEX = 'listings';
+    const ROUTE_INDEX = 'listingsImport';
+    const ROUTE_INDEX_URL = '/listing/import';
 
     protected $viewModelFactory;
     protected $listingService;
@@ -31,19 +32,15 @@ class ListingsController extends AbstractActionController implements LoggerAware
     public function indexAction()
     {
         $view = $this->getViewModelFactory()->newInstance();
-        $view->addChild($this->getDetailsSidebar(), 'sidebarLinks');
 
         $bulkActions = $this->getBulkActionsService()->getListPageBulkActions();
-        $bulkAction = $this->getViewModelFactory()->newInstance()->setTemplate('products/products/bulk-actions/index');
+        $bulkAction = $this->getViewModelFactory()->newInstance()->setTemplate('products/listings/bulk-actions/index');
         $bulkActions->addChild(
             $bulkAction,
             'afterActions'
         );
         $view->addChild($bulkActions, 'bulkItems');
         $bulkAction->setVariable('isHeaderBarVisible', $this->getListingService()->isFilterBarVisible());
-        $view->setVariable('isSidebarVisible', $this->getListingService()->isSidebarVisible());
-        $view->setVariable('isHeaderBarVisible', false);
-        $view->setVariable('subHeaderHide', true);
         return $view;
     }
 
