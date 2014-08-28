@@ -20,17 +20,21 @@ define([
         var sizeIndex = (data.option - 1);
         var sizeOptions = [
             {
-                "name": "Small",
-                "height": 14,
-                "width": 35
-            }, {
-                "name": "Medium",
-                "height": 14,
-                "width": 54
-            }, {
-                "name": "Large",
+                "name": "14mm",
                 "height": 14,
                 "width": 79.5
+            }, {
+                "name": "22mm",
+                "height": 22,
+                "width": 117
+            }, {
+                "name": "26mm",
+                "height": 26,
+                "width": 136
+            }, {
+                "name": "30mm",
+                "height": 30,
+                "width": 106.5
             }
         ];
 
