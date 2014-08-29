@@ -180,7 +180,6 @@ class Service
      */
     public function getResponseFromOrderCollection(Collection $orderCollection, Template $template = null)
     {
-        $this->markOrdersAsPrintedFromOrderCollection($orderCollection);
         return $this->getDi()->get(
             Response::class,
             [

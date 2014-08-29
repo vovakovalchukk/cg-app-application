@@ -203,9 +203,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function invoiceOrderIdsAction()
     {
         try {
-            return $this->invoiceOrders(
-                $this->getOrdersFromOrderIds()
-            );
+            $orders = $this->getOrdersFromOrderIds();
+            return $this->markOrdersAsPrinted($orders)->invoiceOrders($orders);
         } catch (NotFound $exception) {
             return $this->redirect()->toRoute('Orders');
         }
@@ -241,6 +240,12 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
                 )
             );
         }
+    }
+
+    public function markOrdersAsPrinted(OrderCollection $orderCollection)
+    {
+        $this->getInvoiceService()->markOrdersAsPrintedFromOrderCollection($orderCollection);
+        return $this;
     }
 
     public function invoiceOrders(OrderCollection $orders, Template $template = null)
