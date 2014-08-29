@@ -85,7 +85,7 @@ define([
         this.getDomManipulator().setValue('#'+Positioning.POSITIONING_INSPECTOR_HEIGHT_ID, size.height.pxToMm().roundToNearest(0.5));
     };
 
-    Positioning.prototype.concatenateSize(width, height)
+    Positioning.prototype.concatenateSize = function(width, height)
     {
         return width + 'x' + height;
     };
