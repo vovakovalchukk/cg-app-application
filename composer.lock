@@ -798,7 +798,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "faba1cd1063c0ec5ae138a173a34fa44e2dae49b"
+                "reference": "1c4ce0013d79ffd083367590c38cd36e1be39e22"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -824,7 +824,7 @@
                     "CG\\Template\\": ""
                 }
             },
-            "time": "2014-08-27 14:05:52"
+            "time": "2014-08-29 11:24:14"
         },
         {
             "name": "channelgrabber/transaction",
