@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5111656f97094ccda5de6c49d62dc63a",
+    "hash": "c0d4d6dfead97075cac3ebd133d15f44",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1707,22 +1707,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.38",
+            "version": "dev-CGIV-3068-module-installer-bug",
             "source": {
                 "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "64f45e6af8f48b0edeb734e160c413451fa4165b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.38-b3f75a.zip",
-                "reference": "64f45e6af8f48b0edeb734e160c413451fa4165b",
-                "shasum": "00e059734b61df81968f1650c269389f0f0b72be"
+                "url": "/home/shoniqua/repos/zf2-v4-ui",
+                "reference": "1007a0c3d42ff4ad77338c01f6e41353b0cec226"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
                 "channelgrabber/log": ">=1.4.2",
                 "channelgrabber/stdlib": ">=2.7.4,<3.0.0",
+                "channelgrabber/zf2-installer": ">=1.0.3",
                 "channelgrabber/zf2-mustache": ">=1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
                 "zendframework/zend-config": "2.*",
@@ -1747,7 +1742,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-08-28 08:35:34"
+            "time": "2014-08-28 16:17:00"
         },
         {
             "name": "cilex/cilex",
@@ -4259,11 +4254,17 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.12.38",
+            "alias_normalized": "1.12.38.0",
+            "version": "dev-CGIV-3068-module-installer-bug",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpspec/phpspec": 20
     },
     "prefer-stable": false,
