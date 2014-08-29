@@ -64,11 +64,11 @@ define([
             var customSelect = elementCollection.get(inspector.getPositioningInspectorSizeId());
 
             var values = customSelect.getValue().split('x',2);
-            var xPosition = parseFloat(values[0]);
-            var yPosition = parseFloat(values[1]);
+            var width = parseFloat(values[0]);
+            var height = parseFloat(values[1]);
 
-            $('#' + inspector.getPositioningInspectorWidthId()).val(xPosition);
-            $('#' + inspector.getPositioningInspectorHeightId()).val(yPosition);
+            $('#' + inspector.getPositioningInspectorWidthId()).val(width);
+            $('#' + inspector.getPositioningInspectorHeightId()).val(height);
 
             self.set('#' + inspector.getPositioningInspectorWidthId(), inspector, element);
             self.set('#' + inspector.getPositioningInspectorHeightId(), inspector, element);
