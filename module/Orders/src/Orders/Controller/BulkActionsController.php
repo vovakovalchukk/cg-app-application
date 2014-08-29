@@ -225,9 +225,11 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     {
         try {
             $orders = $this->getOrderService()->getPreviewOrder();
-            $template = $this->getInvoiceService()->createTemplate(
-                (array) json_decode($this->params()->fromPost('template'), true)
-            );
+            $templateData = (array) json_decode($this->params()->fromPost('template'), true);
+            if (!isset($templateData['name'])) {
+                $templateData['name'] = 'Preview';
+            }
+            $template = $this->getInvoiceService()->createTemplate($templateData);
             return $this->invoiceOrders($orders, $template);
         }  catch (NotFound $exception) {
             return $this->redirect()->toRoute(
