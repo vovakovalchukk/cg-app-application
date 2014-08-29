@@ -24,7 +24,7 @@ define([
         this.setupInputFieldsHandler(inspector, element);
         this.setupSizeDropdownHandler(inspector, element);
         this.initResizeMoveListeners(inspector);
-    }
+    };
 
     Positioning.prototype.setupInputFieldsHandler = function(inspector, element)
     {
@@ -55,7 +55,7 @@ define([
             inspector.updateSize(size);
             inspector.updatePosition(position);
         });
-    }
+    };
 
     Positioning.prototype.setupSizeDropdownHandler = function(inspector, element)
     {
