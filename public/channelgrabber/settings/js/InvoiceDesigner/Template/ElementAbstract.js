@@ -229,7 +229,7 @@ define([
         json.y = Number(json.y).mmToPt();
         json.height = Number(json.height).mmToPt();
         json.width = Number(json.width).mmToPt();
-        json.borderWidth = (json.borderWidth ? Number(json.borderWidth).mmToPt() : json.borderWidth); 
+        json.borderWidth = (json.borderWidth ? Number(json.borderWidth).mmToPt() : json.borderWidth);
         return json;
     };
 
