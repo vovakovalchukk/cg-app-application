@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "993580f733cb61c4fd97310156c915e2",
+    "hash": "9366f049a733de6d859067af6e17454d",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -794,11 +794,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-2960-element-preset-sizes",
+            "version": "1.2.24",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "1c4ce0013d79ffd083367590c38cd36e1be39e22"
+                "reference": "558e5c7ad9b519807c4e7d9c5f8b8f227dd760d1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.24-f94fdb.zip",
+                "reference": "558e5c7ad9b519807c4e7d9c5f8b8f227dd760d1",
+                "shasum": "355dae77d76cd9e25ef95e0775363f40cc8a5709"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -824,7 +830,7 @@
                     "CG\\Template\\": ""
                 }
             },
-            "time": "2014-08-29 11:24:14"
+            "time": "2014-08-29 12:49:30"
         },
         {
             "name": "channelgrabber/transaction",
@@ -4179,17 +4185,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.2.24",
-            "alias_normalized": "1.2.24.0",
-            "version": "dev-CGIV-2960-element-preset-sizes",
-            "package": "channelgrabber/template"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/template": 20,
         "phpspec/phpspec": 20
     },
     "prefer-stable": false,
