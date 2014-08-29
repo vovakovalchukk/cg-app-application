@@ -85,21 +85,22 @@ define([
         this.getDomManipulator().setValue('#'+Positioning.POSITIONING_INSPECTOR_HEIGHT_ID, size.height.pxToMm().roundToNearest(0.5));
     };
 
+    Positioning.prototype.concatenateSize(width, height)
+    {
+        return width + 'x' + height;
+    };
+
     Positioning.prototype.getSizeViewData = function(element)
     {
-        function concatenate(width, height) {
-            return width + 'x' + height;
-        }
-
         var sizeOptions = [];
-        var selectedElement = concatenate(element.getWidth(), element.getHeight());
+        var selectedElement = this.concatenateSize(element.getWidth(), element.getHeight());
 
         if (typeof element.getSizeOptions != 'function') {
             return {};
         }
 
         for (var key in element.getSizeOptions()) {
-            var value = concatenate(element.getSizeOptions()[key].width, element.getSizeOptions()[key].height);
+            var value = this.concatenateSize(element.getSizeOptions()[key].width, element.getSizeOptions()[key].height);
 
             sizeOptions.push({
                 'title': element.getSizeOptions()[key].name,
