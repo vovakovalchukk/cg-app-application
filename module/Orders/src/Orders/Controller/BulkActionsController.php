@@ -243,9 +243,9 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         }
     }
 
-    public function invoiceOrders(OrderCollection $orders)
+    public function invoiceOrders(OrderCollection $orders, Template $template = null)
     {
-        return $this->getInvoiceService()->getResponseFromOrderCollection($orders);
+        return $this->getInvoiceService()->getResponseFromOrderCollection($orders, $template);
     }
 
     public function checkInvoicePrintingAllowedAction()
