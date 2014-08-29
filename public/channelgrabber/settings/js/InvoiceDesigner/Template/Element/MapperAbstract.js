@@ -80,7 +80,8 @@ define([
             wrapperClasses: wrapperCssClasses,
             classes: cssClasses,
             styles: cssStyle,
-            contents: htmlContents
+            contents: htmlContents,
+            resizable: element.isResizable()
         };
         var html = this.renderMustacheTemplate(templateUrl, data);
 

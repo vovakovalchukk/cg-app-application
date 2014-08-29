@@ -38,6 +38,7 @@ define([
         this.set('sizeOptions', sizeOptions, true);
         this.set('width', sizeOptions[0].width, true);
         this.set('height', sizeOptions[0].height, true);
+        this.setResizable(false);
 
         this.getOption = function()
         {

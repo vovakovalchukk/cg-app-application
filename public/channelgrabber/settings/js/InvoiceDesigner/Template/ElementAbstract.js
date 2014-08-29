@@ -36,6 +36,7 @@ define([
         }
 
         var editable = true;
+        var resizable = true;
 
         this.getId = function()
         {
@@ -169,6 +170,17 @@ define([
         this.setEditable = function(newEditable)
         {
             editable = newEditable;
+            return this;
+        };
+
+        this.isResizable = function()
+        {
+            return resizable;
+        };
+
+        this.setResizable = function(newResizable)
+        {
+            resizable = newResizable;
             return this;
         };
 
