@@ -7,6 +7,20 @@ use Orders\Order\BulkActions\SubAction;
 
 return [
     'di' => [
+        'definition' => [
+            'class' => [
+                Action\Batch::class => [
+                    'methods' => [
+                        'addSubAction' => [
+                            'subAction' => [
+                                'required' => true,
+                                'type' => BulkActions\SubAction::class
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
         'instance' => [
             'aliases' => [
                 'BulkActions' => BulkActions::class,
@@ -127,7 +141,9 @@ return [
             ],
             BulkActions\CourierAction::class => [
                 'injections' => [
-                    'RoyalMailBulkAction',
+                    'addSubAction' => [
+                        ['subAction' => 'RoyalMailBulkAction'],
+                    ],
                 ],
             ],
             'RoyalMailBulkAction' => [
@@ -145,7 +161,9 @@ return [
                     'javascript' => 'BatchJavascript',
                 ],
                 'injections' => [
-                    'RemoveBatchBulkAction',
+                    'addSubAction' => [
+                        ['subAction' => 'RemoveBatchBulkAction'],
+                    ],
                 ],
             ],
             'BatchJavascript' => [
