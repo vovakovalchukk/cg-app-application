@@ -34,7 +34,7 @@ class Service implements LoggerAwareInterface
     {
         $listingFilter->setLimit(static::LIMIT)
             ->setPage(static::PAGE)
-            ->setOrganisationUnitId($this->getActiveUserContainer()->getActiveUser()->getOuList());
+            ->setOrganisationUnitId($this->getActiveUser()->getOuList());
         return $this->getListingService()->fetchByFilter($listingFilter);
     }
 

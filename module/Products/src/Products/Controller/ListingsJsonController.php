@@ -30,12 +30,14 @@ class ListingsJsonController extends AbstractActionController
     {
         $view = $this->getJsonModelFactory()->newInstance();
         $requestFilter = $this->getFilterMapper()->fromArray($this->params()->fromPost('filter', []));
+        $listingArray = [];
         try {
             $listings = $this->getListingService()->fetchListings($requestFilter);
+            $listingArray = $listings->toArray();
         } catch(NotFound $e) {
             //noop
         }
-        return $view->setVariable('listings', $listings->toArray());
+        return $view->setVariable('listings', $listingArray);
     }
 
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
