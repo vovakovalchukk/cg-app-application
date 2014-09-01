@@ -41,6 +41,7 @@ class ListingsController extends AbstractActionController implements LoggerAware
         );
         $view->addChild($bulkActions, 'bulkItems');
         $bulkAction->setVariable('isHeaderBarVisible', $this->getListingService()->isFilterBarVisible());
+        $view->setVariable('isHeaderBarVisible', $this->getListingService()->isFilterBarVisible());
         return $view;
     }
 

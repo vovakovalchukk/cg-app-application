@@ -1,5 +1,6 @@
 <?php
-use Products\Product\BulkActions\Service;
+use Products\Product\BulkActions\Service as ProductBulkActionsService;
+use Products\Listing\BulkActions\Service as ListingBulkActionsService;
 use CG_UI\View\BulkActions;
 use Zend\View\Model\ViewModel;
 use Products\Product\BulkActions\Action;
@@ -10,13 +11,21 @@ return [
             'aliases' => [
                 'ProductListBulkActions' => BulkActions::class,
                 'ProductDetailBulkActions' => BulkActions::class,
+                'ListingListBulkActions' => BulkActions::class,
+                'ListingDetailBulkActions' => BulkActions::class,
                 'DeleteJSViewModel' => ViewModel::class,
                 'UrlDataViewSearch' => ViewModel::class
             ],
-            Service::class => [
+            ProductBulkActionsService::class => [
                 'parameters' => [
                     'listPageBulkActions' => 'ProductListBulkActions',
                     'detailPageBulkActions' => 'ProductDetailBulkActions',
+                ],
+            ],
+            ListingBulkActionsService::class => [
+                'parameters' => [
+                    'listPageBulkActions' => 'ListingListBulkActions',
+                    'detailPageBulkActions' => 'ListingDetailBulkActions',
                 ],
             ],
             'ProductListBulkActions' => [
@@ -32,6 +41,19 @@ return [
                     ]
                 ],
             ],
+            'ListingListBulkActions' => [
+                'parameters' => [
+                    'variables' => [
+                        'id' => 'bulk-actions',
+                        'class' => ['fixed-scroll'],
+                    ],
+                ],
+                'injections' => [
+                    'addAction' => [
+
+                    ]
+                ],
+            ],
             Action\Delete::class => [
                 'parameters' => [
                     'javascript' => 'DeleteJSViewModel'
@@ -43,6 +65,14 @@ return [
                 ],
             ],
             'ProductDetailBulkActions' => [
+                'parameters' => [
+                    'variables' => [
+                        'id' => 'bulk-actions',
+                        'class' => ['bulk-actions-inline'],
+                    ],
+                ]
+            ],
+            'ListingDetailBulkActions' => [
                 'parameters' => [
                     'variables' => [
                         'id' => 'bulk-actions',

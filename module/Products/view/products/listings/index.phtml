@@ -1,5 +1,10 @@
 <?php $this->inlineScript()->captureStart(); ?>
-
+require([
+    "showHideFilters"
+],
+function(showHideFilters) {
+    var showHideFilters = new showHideFilters();
+});
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#main.class')->append('full-width'); ?>
 <?php $this->headLink()->appendStylesheet($this->basePath() . Orders\Module::PUBLIC_FOLDER . 'css/orders.css') ?>
