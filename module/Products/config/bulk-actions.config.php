@@ -1,6 +1,6 @@
 <?php
 use Products\Product\BulkActions\Service;
-use CG_UI\View\ProductBulkActions as BulkActions;
+use CG_UI\View\BulkActions;
 use Zend\View\Model\ViewModel;
 use Products\Product\BulkActions\Action;
 
@@ -27,7 +27,9 @@ return [
                     ],
                 ],
                 'injections' => [
-                    Action\Delete::class
+                    'addAction' => [
+                        ['action' => Action\Delete::class]
+                    ]
                 ],
             ],
             Action\Delete::class => [

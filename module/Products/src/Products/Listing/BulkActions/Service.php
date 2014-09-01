@@ -1,7 +1,7 @@
 <?php
 namespace Products\Listing\BulkActions;
 
-use CG_UI\View\ProductBulkActions as BulkActions;
+use CG_UI\View\BulkActions;
 use CG_UI\View\Prototyper\ViewModelFactory;
 
 class Service
