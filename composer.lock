@@ -177,6 +177,56 @@
             "time": "2014-06-06 16:14:24"
         },
         {
+            "name": "channelgrabber/di",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-di.git",
+                "reference": "c1159256782e7f877a9e754798727fe718c21f05"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-di-1.0.1-322fb4.zip",
+                "reference": "c1159256782e7f877a9e754798727fe718c21f05",
+                "shasum": "f3d6598057024b11102eb600c91d0e2a677c14eb"
+            },
+            "require": {
+                "composer-plugin-api": "1.0.0",
+                "zendframework/zend-di": ">=2.2,<3.0"
+            },
+            "require-dev": {
+                "composer/composer": "1.0.*@dev"
+            },
+            "bin": [
+                "bin/di_test.php",
+                "bin/di_compile.php"
+            ],
+            "type": "composer-plugin",
+            "extra": {
+                "class": [
+                    "CG\\Di\\Installer\\Plugin"
+                ]
+            },
+            "autoload": {
+                "psr-4": {
+                    "CG\\Di\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Di\\Test\\": "tests"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Nick Peirson",
+                    "email": "nickpeirson@gmail.com"
+                }
+            ],
+            "description": "Dependency injection wrappers and compilation",
+            "time": "2014-08-29 09:44:02"
+        },
+        {
             "name": "channelgrabber/ebay",
             "version": "1.1.41",
             "source": {
@@ -799,12 +849,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "7e88385013e17f7fa197717e7f9f6f7a8363653b"
+                "reference": "8cceda81d5ad05c69edf137e6e56222b0edaa1dc"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.1,<2.0.0",
                 "channelgrabber/channel": ">=1.6.0,<2.0.0",
                 "channelgrabber/constants": "dev-master",
+                "channelgrabber/di": ">=1.0.1,<2.0.0",
                 "channelgrabber/order": ">=1.7.0,<2.0.0",
                 "channelgrabber/settings": ">=1.1.0,<2.0.0",
                 "channelgrabber/stdlib": ">=2.7.0,<3.0.0",
@@ -819,18 +870,18 @@
                 "channelgrabber/phpunit": ">=1.0.0",
                 "phpunit/phpunit": "~3.7.28"
             },
-            "type": "library",
+            "type": "di-definition",
             "extra": {
                 "branch-alias": {
                     "dev-CGIV-2957PpiRenderer": "1.2.x-dev"
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "CG\\Template\\": ""
+                "psr-4": {
+                    "CG\\Template\\": "CG/Template/"
                 }
             },
-            "time": "2014-09-01 13:51:18"
+            "time": "2014-09-01 14:11:19"
         },
         {
             "name": "channelgrabber/transaction",
