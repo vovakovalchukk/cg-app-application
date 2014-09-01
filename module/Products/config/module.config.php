@@ -18,6 +18,8 @@ use CG\Listing\Storage\Api as ListingApiStorage;
 use CG\Image\Storage\Api as ImageApiStorage;
 use Products\Controller\ListingsController;
 use Products\Controller\ListingsJsonController;
+use CG\Listing\Unimported\Service as UnimportedListingService;
+use CG\Listing\Unimported\Storage\Api as UnimportedListingApiStorage;
 
 return [
     'router' => [
@@ -132,6 +134,12 @@ return [
                     'repository' => ImageApiStorage::class
                 ]
             ],
+            UnimportedListingService::class => [
+                'parameter' => [
+                    'repository' => UnimportedListingApiStorage::class,
+                    'imageStorage' => ImageService::class
+                ]
+            ],
             StockApiStorage::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
@@ -174,6 +182,11 @@ return [
                 ]
             ],
             LocationApiStorage::class => [
+                'parameter' => [
+                    'client' => 'cg_app_guzzle',
+                ]
+            ],
+            UnimportedListingApiStorage::class => [
                 'parameter' => [
                     'client' => 'cg_app_guzzle',
                 ]

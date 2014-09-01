@@ -5,22 +5,37 @@ use CG\User\ActiveUserInterface;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\UserPreference\Client\Service as UserPreferenceService;
+use CG\Listing\Unimported\Service as ListingService;
+use CG\Listing\Unimported\Filter as ListingFilter;
 
 class Service implements LoggerAwareInterface
 {
     use LogTrait;
 
     const LISTING_FILTER_BAR_STATE_KEY = 'listing-filter-bar-state';
+    const LIMIT = 'all';
+    const PAGE = 1;
 
     protected $activeUserContainer;
     protected $userPreferenceService;
+    protected $listingService;
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
-        UserPreferenceService $userPreferenceService
+        UserPreferenceService $userPreferenceService,
+        ListingService $listingService
     ) {
         $this->setActiveUserContainer($activeUserContainer)
-            ->setUserPreferenceService($userPreferenceService);
+            ->setUserPreferenceService($userPreferenceService)
+            ->setListingService($listingService);
+    }
+
+    public function fetchListings(ListingFilter $listingFilter)
+    {
+        $listingFilter->setLimit(static::LIMIT)
+            ->setPage(static::PAGE)
+            ->setOrganisationUnitId($this->getActiveUserContainer()->getActiveUser()->getOuList());
+        return $this->getListingService()->fetchByFilter($listingFilter);
     }
 
     public function isFilterBarVisible()
@@ -65,5 +80,16 @@ class Service implements LoggerAwareInterface
     protected function getActiveUserContainer()
     {
         return $this->activeUserContainer;
+    }
+
+    protected function setListingService(ListingService $listingService)
+    {
+        $this->listingService = $listingService;
+        return $this;
+    }
+
+    protected function getListingService()
+    {
+        return $this->listingService;
     }
 }

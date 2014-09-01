@@ -16,8 +16,11 @@ class ListingsJsonController extends AbstractActionController
     protected $jsonModelFactory;
     protected $filterMapper;
 
-    public function __construct(ListingService $listingService, JsonModelFactory $jsonModelFactory, FilterMapper $filterMapper)
-    {
+    public function __construct(
+        ListingService $listingService,
+        JsonModelFactory $jsonModelFactory,
+        FilterMapper $filterMapper
+    ) {
         $this->setListingService($listingService)
             ->setJsonModelFactory($jsonModelFactory)
             ->setFilterMapper($filterMapper);
@@ -27,16 +30,12 @@ class ListingsJsonController extends AbstractActionController
     {
         $view = $this->getJsonModelFactory()->newInstance();
         $requestFilter = $this->getFilterMapper()->fromArray($this->params()->fromPost('filter', []));
-        $productsArray = [];
         try {
-            $products = $this->getListingService()->fetchProducts($requestFilter);
-            foreach ($products as $product) {
-                $productsArray[] = $this->toArrayProductEntityWithEmbeddedData($product);
-            }
+            $listings = $this->getListingService()->fetchListings($requestFilter);
         } catch(NotFound $e) {
             //noop
         }
-        return $view->setVariable('products', $productsArray);
+        return $view->setVariable('listings', $listings->toArray());
     }
 
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
