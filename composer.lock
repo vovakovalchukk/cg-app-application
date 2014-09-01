@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ef317f6ec99df8dab680a8fdbea394f2",
+    "hash": "5cd2983f441e35c524e66921e1e06f99",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -845,11 +845,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-2957PpiRenderer",
+            "version": "1.2.25",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "8cceda81d5ad05c69edf137e6e56222b0edaa1dc"
+                "reference": "d5be54703222f2c10f4d2b4945c578bf7742fefd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.25-dbe326.zip",
+                "reference": "d5be54703222f2c10f4d2b4945c578bf7742fefd",
+                "shasum": "b58f9c018221ea246243a917955389dd336b34f2"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.1,<2.0.0",
@@ -871,17 +877,12 @@
                 "phpunit/phpunit": "~3.7.28"
             },
             "type": "di-definition",
-            "extra": {
-                "branch-alias": {
-                    "dev-CGIV-2957PpiRenderer": "1.2.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
-                    "CG\\Template\\": "CG/Template/"
+                    "CG\\Template\\": "src/"
                 }
             },
-            "time": "2014-09-01 14:11:19"
+            "time": "2014-09-01 14:39:38"
         },
         {
             "name": "channelgrabber/transaction",
@@ -4276,17 +4277,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.2.25",
-            "alias_normalized": "1.2.25.0",
-            "version": "dev-CGIV-2957PpiRenderer",
-            "package": "channelgrabber/template"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/template": 20,
         "phpspec/phpspec": 20
     },
     "prefer-stable": false,
