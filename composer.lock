@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5cd2983f441e35c524e66921e1e06f99",
+    "hash": "57d18d06a835b9a47afcf10fcc0f5ae1",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -228,20 +228,20 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.1.41",
+            "version": "1.1.42",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "b9c4a62990f5a8900ffed33b361e83a32361b135"
+                "reference": "86da7afb662bb0355ab2ac36f7c707e939612281"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.1.41-35518f.zip",
-                "reference": "b9c4a62990f5a8900ffed33b361e83a32361b135",
-                "shasum": "e69392ef610950bead784438b47d4986097b02fc"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.1.42-2fbe73.zip",
+                "reference": "86da7afb662bb0355ab2ac36f7c707e939612281",
+                "shasum": "5e4666ee22db67e25b96157a5fc0e6ef9f25b9a5"
             },
             "require": {
-                "channelgrabber/channel": ">=1.5.1",
+                "channelgrabber/channel": ">=1.7.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": ">=1.1.0",
                 "channelgrabber/http": ">=1.2.2",
@@ -263,7 +263,7 @@
                     "CG\\Ebay\\": ""
                 }
             },
-            "time": "2014-08-27 13:33:17"
+            "time": "2014-08-27 15:30:30"
         },
         {
             "name": "channelgrabber/email",
