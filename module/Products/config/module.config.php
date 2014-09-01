@@ -5,7 +5,7 @@ use Products\Controller;
 use Products\Controller\ProductsController;
 use Zend\Mvc\Router\Http\Literal;
 use Products\Controller\ProductsJsonController;
-use CG\Product\Service as ProductService;
+use CG\Product\Client\Service as ProductService;
 use CG\Product\Storage\Api as ProductApiStorage;
 use CG_UI\View\DataTable;
 use CG\Stock\Service as StockService;
@@ -52,7 +52,17 @@ return [
                                 'action' => 'stockUpdate'
                             ]
                         ],
-                    ]
+                    ],
+                    ProductsJsonController::ROUTE_DELETE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/delete',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'delete'
+                            ]
+                        ],
+                    ],
                 ]
             ]
         ]

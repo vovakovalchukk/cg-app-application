@@ -10,7 +10,7 @@ return [
             'aliases' => [
                 'ProductListBulkActions' => BulkActions::class,
                 'ProductDetailBulkActions' => BulkActions::class,
-                'UrlDataViewDelete' => ViewModel::class,
+                'DeleteJSViewModel' => ViewModel::class,
                 'UrlDataViewSearch' => ViewModel::class
             ],
             Service::class => [
@@ -27,20 +27,19 @@ return [
                     ],
                 ],
                 'injections' => [
-                    Action\Delete::class
+                    'addAction' => [
+                        ['action' => Action\Delete::class]
+                    ]
                 ],
             ],
             Action\Delete::class => [
                 'parameters' => [
-                    'urlView' => 'UrlDataViewInvoice',
-                    'elementData' => [
-                        'datatable' => 'datatable',
-                    ]
+                    'javascript' => 'DeleteJSViewModel'
                 ]
             ],
-            'UrlDataViewDelete' => [
+            'DeleteJSViewModel' => [
                 'parameters' => [
-                    'template' => 'products/products/bulk-actions/data-url',
+                    'template' => 'products/products/bulk-actions/delete-js',
                 ],
             ],
             'ProductDetailBulkActions' => [

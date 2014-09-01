@@ -2,7 +2,7 @@
 namespace Products\Product;
 
 use CG\ETag\Exception\NotModified;
-use CG\Product\Service as ProductService;
+use CG\Product\Client\Service as ProductService;
 use CG_UI\View\Table;
 use CG\User\ActiveUserInterface;
 use Zend\Di\Di;
@@ -80,6 +80,15 @@ class Service implements LoggerAwareInterface
             //No changes do nothing
         }
         return $stockEntity;
+    }
+
+    public function deleteProductsById(array $productIds)
+    {
+        $filter = new ProductFilter(static::ACCOUNTS_LIMIT, static::PAGE, [], null, [], $productIds);
+        $products = $this->getProductService()->fetchCollectionByFilter($filter);
+        foreach ($products as $product) {
+            $this->getProductService()->remove($product);
+        }
     }
 
     public function isSidebarVisible()

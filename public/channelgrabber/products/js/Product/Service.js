@@ -3,13 +3,15 @@ define([
     'Product/Filter/Mapper',
     'Product/Storage/Ajax',
     'DomManipulator',
-    'Variation/DomListener'
+    'Variation/DomListener',
+    'BulkActionAbstract'
 ], function (
     CGMustache,
     productFilterMapper,
     productStorage,
     domManipulator,
-    variationDomListener
+    variationDomListener,
+    BulkActionAbstract
 ) {
     var Service = function ()
     {
@@ -56,6 +58,7 @@ define([
     {
         var self = this;
         var productUrlMap = {
+            checkbox: '/channelgrabber/zf2-v4-ui/templates/elements/checkbox.mustache',
             buttons: '/channelgrabber/zf2-v4-ui/templates/elements/buttons.mustache',
             inlineText: '/channelgrabber/zf2-v4-ui/templates/elements/inline-text.mustache',
             variationTable: '/channelgrabber/products/template/product/variationTable.mustache',
@@ -77,10 +80,13 @@ define([
 
     Service.prototype.renderProduct = function(product, templates)
     {
+        var checkbox = this.getCheckboxView(product, templates);
         var expandButton = '';
+        var hasVariations = false;
         if (product['variations'] != undefined && product['variations'].length) {
             var productContent = this.getVariationView(product, templates);
             expandButton = this.getExpandButtonView(product, templates);
+            hasVariations = true;
         } else {
             var productContent = this.getStockTableView(product, templates);
         }
@@ -89,8 +95,13 @@ define([
             'sku': product['sku'],
             'status': 'active',
             'id': product['id'],
-            'image': this.getPrimaryImage(product['images'])
-        }, 'product', {'productContent': productContent, 'expandButton': expandButton});
+            'image': this.getPrimaryImage(product['images']),
+            'hasVariations': hasVariations
+        }, 'product', {
+            'productContent': productContent,
+            'expandButton': expandButton,
+            'checkbox': checkbox
+        });
         return productView;
     };
 
@@ -166,12 +177,20 @@ define([
         }, 'buttons');
     };
 
+    Service.prototype.getCheckboxView = function(product, templates)
+    {
+        return CGMustache.get().renderTemplate(templates, {
+            'id': 'product-checkbox-input-' + product['id'],
+            'class': BulkActionAbstract.CLASS_CHECKBOX
+        }, 'checkbox');
+    };
+
     Service.prototype.renderNoProduct = function()
     {
         var noProductsUrlMap = {
-            noProduct: '/channelgrabber/products/template/elements/noProduct.mustache'
+            noProduct: '/channelgrabber/products/template/elements/noProduct.Mustache'
         };
-        CGMustache.get().get().fetchTemplates(noProductsUrlMap, function(templates)
+        CGMustache.get().fetchTemplates(noProductsUrlMap, function(templates)
         {
             var html = CGMustache.get().renderTemplate(templates, {}, 'noProduct');
             domManipulator.setHtml(Service.DOM_SELECTOR_PRODUCT_CONTAINER, html);

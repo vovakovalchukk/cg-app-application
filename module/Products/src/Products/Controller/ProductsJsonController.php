@@ -13,6 +13,7 @@ class ProductsJsonController extends AbstractActionController
 {
     const ROUTE_AJAX = 'AJAX';
     const ROUTE_STOCK_UPDATE = 'stockupdate';
+    const ROUTE_DELETE = 'Delete';
 
     protected $productService;
     protected $jsonModelFactory;
@@ -28,7 +29,11 @@ class ProductsJsonController extends AbstractActionController
     public function ajaxAction()
     {
         $view = $this->getJsonModelFactory()->newInstance();
-        $requestFilter = $this->getFilterMapper()->fromArray($this->params()->fromPost('filter', []));
+        $filterParams = $this->params()->fromPost('filter', []);
+        if (!array_key_exists('deleted', $filterParams)) {
+            $filterParams['deleted'] = false;
+        }
+        $requestFilter = $this->getFilterMapper()->fromArray($filterParams);
         $productsArray = [];
         try {
             $products = $this->getProductService()->fetchProducts($requestFilter);
@@ -71,6 +76,21 @@ class ProductsJsonController extends AbstractActionController
         );
         $view = $this->getJsonModelFactory()->newInstance();
         $view->setVariable('eTag', $stockLocation->getETag());
+        return $view;
+    }
+
+    public function deleteAction()
+    {
+        $view = $this->getJsonModelFactory()->newInstance();
+
+        $productIds = $this->params()->fromPost('productIds');
+        if (empty($productIds)){
+            $view->setVariable('deleted', false);
+            return $view;
+        }
+
+        $this->getProductService()->deleteProductsById($productIds);
+        $view->setVariable('deleted', true);
         return $view;
     }
 
