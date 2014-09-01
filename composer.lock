@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "71f1bcec34b6497325c6d5d4e48c6f59",
+    "hash": "9ab52577b7f6c8b6fe219f042d0fd590",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1609,22 +1609,23 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.33",
+            "version": "1.12.40",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "8c428eb729af5a689d3df6533a47f6a06779232d"
+                "reference": "d5890c4c23e556c17923a65bf240b72d1c9e171e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.33-36d5a8.zip",
-                "reference": "8c428eb729af5a689d3df6533a47f6a06779232d",
-                "shasum": "f2210d8337c3bb0b0a9c01033e721bd9ee2b5ec3"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.40-82e5f5.zip",
+                "reference": "d5890c4c23e556c17923a65bf240b72d1c9e171e",
+                "shasum": "bc8a5b5e15936498f4be6aaaf1e66fb1511ea917"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.2",
                 "channelgrabber/log": ">=1.4.2",
                 "channelgrabber/stdlib": ">=2.7.4,<3.0.0",
+                "channelgrabber/zf2-installer": ">=1.0.3",
                 "channelgrabber/zf2-mustache": ">=1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
                 "zendframework/zend-config": "2.*",
@@ -1649,7 +1650,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-08-21 12:53:36"
+            "time": "2014-09-01 09:45:30"
         },
         {
             "name": "cilex/cilex",
