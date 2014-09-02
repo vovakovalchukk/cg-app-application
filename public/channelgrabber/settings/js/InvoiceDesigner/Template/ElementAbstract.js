@@ -191,46 +191,46 @@ define([
         this.getMinWidth = function()
         {
             return minWidth;
-        }
+        };
 
         this.getMaxWidth = function()
         {
             return maxWidth;
-        }
+        };
 
         this.getMinHeight = function()
         {
             return minHeight;
-        }
+        };
 
         this.getMaxHeight = function()
         {
             return maxHeight;
-        }
+        };
         
         this.setMinWidth = function(newMinWidth)
         {
             minWidth = newMinWidth;
             return this;
-        }
+        };
         
         this.setMinHeight = function(newMinHeight)
         {
             minHeight = newMinHeight;
             return this;
-        }
+        };
 
         this.setMaxWidth = function(newMaxWidth)
         {
             maxWidth = newMaxWidth;
             return this;
-        }
+        };
 
         this.setMaxHeight = function(newMaxHeight)
         {
             maxHeight = newMaxHeight;
             return this;
-        }
+        };
 
         this.getBaseInspectableAttributes = function()
         {
