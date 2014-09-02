@@ -37,6 +37,11 @@ define([
 
         var editable = true;
 
+        var minWidth = null;
+        var maxWidth = null;
+        var minHeight = null;
+        var maxHeight = null;
+
         this.getId = function()
         {
             if (!this.get('id')) {
@@ -171,6 +176,61 @@ define([
             editable = newEditable;
             return this;
         };
+
+        this.isResizable = function()
+        {
+            return resizable;
+        };
+
+        this.setResizable = function(newResizable)
+        {
+            resizable = newResizable;
+            return this;
+        };
+
+        this.getMinWidth = function()
+        {
+            return minWidth;
+        }
+
+        this.getMaxWidth = function()
+        {
+            return maxWidth;
+        }
+
+        this.getMinHeight = function()
+        {
+            return minHeight;
+        }
+
+        this.getMaxHeight = function()
+        {
+            return maxHeight;
+        }
+        
+        this.setMinWidth = function(newMinWidth)
+        {
+            minWidth = newMinWidth;
+            return this;
+        }
+        
+        this.setMinHeight = function(newMinHeight)
+        {
+            minHeight = newMinHeight;
+            return this;
+        }
+
+        this.setMaxWidth = function(newMaxWidth)
+        {
+            maxWidth = newMaxWidth;
+            return this;
+        }
+
+        this.setMaxHeight = function(newMaxHeight)
+        {
+            maxHeight = newMaxHeight;
+            return this;
+        }
 
         this.getBaseInspectableAttributes = function()
         {
