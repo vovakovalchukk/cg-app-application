@@ -45,6 +45,11 @@ class Service implements LoggerAwareInterface
         return filter_var($visible, FILTER_VALIDATE_BOOLEAN);
     }
 
+    public function getListingList()
+    {
+
+    }
+
     protected function getActiveUserPreference()
     {
         if (!isset($this->activeUserPreference)) {
