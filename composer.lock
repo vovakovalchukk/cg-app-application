@@ -4,25 +4,25 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e65d571ed03fe63b3780bfdc1f0c9f9c",
+    "hash": "3861d1b08dcfec17bd6e7f2c4e6b25d4",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "1.3.3",
+            "version": "1.3.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "4c2a5b8ef89a25bf2cf4b7c45b88f518f44d6d9c"
+                "reference": "483e27442d54b51aa3eb6169ef80099849a7b2a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.3.3-a517bc.zip",
-                "reference": "4c2a5b8ef89a25bf2cf4b7c45b88f518f44d6d9c",
-                "shasum": "36a2d9663865b7b962a4c8768beef608162776e6"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.3.4-2b5272.zip",
+                "reference": "483e27442d54b51aa3eb6169ef80099849a7b2a6",
+                "shasum": "b7b9c48a3c50e828792573c9a721c914342a97ed"
             },
             "require": {
                 "channelgrabber/cache": ">=1.2.1",
-                "channelgrabber/channel": ">=1.5.1",
+                "channelgrabber/channel": ">=1.7.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": ">=1.1.0",
                 "channelgrabber/http": ">=1.2.6",
@@ -43,7 +43,7 @@
                     "CG\\Amazon\\": ""
                 }
             },
-            "time": "2014-08-27 13:24:59"
+            "time": "2014-08-27 15:31:44"
         },
         {
             "name": "channelgrabber/billing",
@@ -108,17 +108,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.7.2",
+            "version": "1.7.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "80055ab90a20c96db29d7f5cef62bc1fc39a35c4"
+                "reference": "b87adc58387fad5fca7c8b472cba9f3de4ecefe9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.7.2-e7f3a8.zip",
-                "reference": "80055ab90a20c96db29d7f5cef62bc1fc39a35c4",
-                "shasum": "eb737b134638e30f6598c218e2e1ce2f0174456e"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.7.3-85b15b.zip",
+                "reference": "b87adc58387fad5fca7c8b472cba9f3de4ecefe9",
+                "shasum": "8036c5ef6663ff88eef1120d6a98f1ace1910e32"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -155,7 +155,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2014-08-29 10:13:19"
+            "time": "2014-09-01 15:31:58"
         },
         {
             "name": "channelgrabber/constants",
@@ -371,13 +371,6 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -454,17 +447,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.8.6",
+            "version": "1.8.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "fb0a1d855f1f2372b8319133e18241c9e5775fed"
+                "reference": "7bd4d3d97f3a01d5016a9ee847a3784285e0ee21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.8.6-19ee85.zip",
-                "reference": "fb0a1d855f1f2372b8319133e18241c9e5775fed",
-                "shasum": "35532a9801a0bf0102508e0ae5282b524ec935ff"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.8.7-7d45f9.zip",
+                "reference": "7bd4d3d97f3a01d5016a9ee847a3784285e0ee21",
+                "shasum": "9d25d0f74b9a9f059ed0cff5130957b11f43ba9e"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -496,7 +489,7 @@
                     "CG\\Order\\": ""
                 }
             },
-            "time": "2014-08-26 14:07:05"
+            "time": "2014-08-29 15:35:16"
         },
         {
             "name": "channelgrabber/permission",
@@ -666,32 +659,34 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.1.2",
+            "version": "1.1.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "3bb76d91391d34960af656f4aa35761d2fb964f7"
+                "reference": "2ee626cf56c5b20f56c302fe6c7e2a1f5ad955f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.1.2-0739c4.zip",
-                "reference": "3bb76d91391d34960af656f4aa35761d2fb964f7",
-                "shasum": "bed9a0dc2c298cb04ab432cbef22d88ed827e2c9"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.1.3-737399.zip",
+                "reference": "2ee626cf56c5b20f56c302fe6c7e2a1f5ad955f5",
+                "shasum": "67cd9a66bf9ffa7dbc893e36f60aef0dec3a5b79"
             },
             "require": {
                 "channelgrabber/cache": ">=1.2.4",
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/di": ">=1.0.1",
                 "channelgrabber/etag": ">=1.4.3",
                 "channelgrabber/http": ">=1.2.3",
                 "channelgrabber/stdlib": ">=2.5.26",
                 "channelgrabber/template": ">=1.2.15"
             },
-            "type": "library",
+            "type": "di-definition",
             "autoload": {
                 "psr-4": {
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2014-08-27 07:13:41"
+            "time": "2014-09-01 09:42:12"
         },
         {
             "name": "channelgrabber/slim",
@@ -992,17 +987,17 @@
         },
         {
             "name": "channelgrabber/userpreference",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-userpreference.git",
-                "reference": "628c690fa13d6796e0cc574f0420bdd01459e8c1"
+                "reference": "a21d67868703ffda3559e215e29952fb70cc284b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-userpreference-1.2.0-af5290.zip",
-                "reference": "628c690fa13d6796e0cc574f0420bdd01459e8c1",
-                "shasum": "3d57fdfe4fc2b9841674179209c75865c6fea971"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-userpreference-1.2.1-319b30.zip",
+                "reference": "a21d67868703ffda3559e215e29952fb70cc284b",
+                "shasum": "c5265b3d32640ce6b29b22918bbf7ef39ad11cd3"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -1017,7 +1012,7 @@
                     "CG\\UserPreference\\": ""
                 }
             },
-            "time": "2014-07-11 08:24:33"
+            "time": "2014-08-29 13:12:48"
         },
         {
             "name": "channelgrabber/validation",
@@ -1495,13 +1490,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "cd2e8af27811d7d696bd116af5ef01ff88cc0db2"
+                "reference": "8c2a68afb605e418aaacb834114f99645eaaf5ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.19.1-3cb9c5.zip",
-                "reference": "cd2e8af27811d7d696bd116af5ef01ff88cc0db2",
-                "shasum": "8cef94e5e0e7e9ef21c97218c2fe2efccb7fb3a3"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.19-b75a53.zip",
+                "reference": "8c2a68afb605e418aaacb834114f99645eaaf5ff",
+                "shasum": "2e3b93ba1086698431f1ae4e400056bfbeaf85fd"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -1533,7 +1528,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2014-08-04 12:19:29"
+            "time": "2014-08-01 07:54:14"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -3575,7 +3570,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -3908,45 +3904,44 @@
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "1.2.2",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "ad4e1e23ae01b483c16f600ff1bebec184588e32"
+                "reference": "f8d5d08c56de5cfd592b3340424a81733259a876"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/ad4e1e23ae01b483c16f600ff1bebec184588e32",
-                "reference": "ad4e1e23ae01b483c16f600ff1bebec184588e32",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/f8d5d08c56de5cfd592b3340424a81733259a876",
+                "reference": "f8d5d08c56de5cfd592b3340424a81733259a876",
                 "shasum": ""
             },
             "require": {
                 "ext-tokenizer": "*",
                 "php": ">=5.3.3"
             },
+            "require-dev": {
+                "phpunit/phpunit": "~4.2"
+            },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2-dev"
+                    "dev-master": "1.3-dev"
                 }
             },
             "autoload": {
                 "classmap": [
-                    "PHP/"
+                    "src/"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
-            "include-path": [
-                ""
-            ],
             "license": [
                 "BSD-3-Clause"
             ],
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sb@sebastian-bergmann.de",
-                    "role": "lead"
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Wrapper around PHP's tokenizer extension.",
@@ -3954,7 +3949,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2014-03-03 05:10:30"
+            "time": "2014-08-31 06:12:13"
         },
         {
             "name": "phpunit/phpunit",
