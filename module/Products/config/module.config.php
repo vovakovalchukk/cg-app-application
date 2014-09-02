@@ -16,6 +16,10 @@ use CG\Listing\Service as ListingService;
 use CG\Image\Service as ImageService;
 use CG\Listing\Storage\Api as ListingApiStorage;
 use CG\Image\Storage\Api as ImageApiStorage;
+use Products\Controller\ListingsController;
+use Products\Controller\ListingsJsonController;
+use CG\Listing\Unimported\Service as UnimportedListingService;
+use CG\Listing\Unimported\Storage\Api as UnimportedListingApiStorage;
 
 return [
     'router' => [
@@ -23,7 +27,7 @@ return [
             Module::ROUTE => [
                 'type' => Literal::class,
                 'options' => [
-                    'route' => '/products',
+                    'route' => ProductsController::ROUTE_INDEX_URL,
                     'defaults' => [
                         'controller' => ProductsController::class,
                         'action' => 'index',
@@ -52,6 +56,29 @@ return [
                                 'action' => 'stockUpdate'
                             ]
                         ],
+                    ],
+                    ListingsController::ROUTE_INDEX => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => ListingsController::ROUTE_INDEX_URL,
+                            'defaults' => [
+                                'controller' => ListingsController::class,
+                                'action' => 'index'
+                            ]
+                        ],
+                        'child_routes' => [
+                            ListingsJsonController::ROUTE_AJAX => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/ajax',
+                                    'defaults' => [
+                                        'controller' => ListingsJsonController::class,
+                                        'action' => 'ajax'
+                                    ]
+                                ],
+                            ]
+                        ],
+                        'may_terminate' => true,
                     ],
                     ProductsJsonController::ROUTE_DELETE => [
                         'type' => Literal::class,
@@ -107,6 +134,12 @@ return [
                     'repository' => ImageApiStorage::class
                 ]
             ],
+            UnimportedListingService::class => [
+                'parameter' => [
+                    'repository' => UnimportedListingApiStorage::class,
+                    'imageStorage' => ImageService::class
+                ]
+            ],
             StockApiStorage::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
@@ -153,16 +186,34 @@ return [
                     'client' => 'cg_app_guzzle',
                 ]
             ],
+            UnimportedListingApiStorage::class => [
+                'parameter' => [
+                    'client' => 'cg_app_guzzle',
+                ]
+            ],
         ],
     ],
     'navigation' => array(
-        'application-navigation' => array(
-            'products' => array(
+        'application-navigation' => [
+            'products' => [
                 'label'  => 'Products',
                 'route'  => 'Products',
                 'sprite' => 'sprite-products-18-white',
-                'order'  => 5
-            )
-        )
+                'order'  => 5,
+                'pages'  => [
+                    'importListings' => [
+                        'id'    => 'importListings',
+                        'label' => 'Import Listings',
+                        'uri'   => implode(
+                            '',
+                            [
+                                ProductsController::ROUTE_INDEX_URL,
+                                ListingsController::ROUTE_INDEX_URL
+                            ]
+                        )
+                    ]
+                ]
+            ]
+        ]
     ),
 ];
