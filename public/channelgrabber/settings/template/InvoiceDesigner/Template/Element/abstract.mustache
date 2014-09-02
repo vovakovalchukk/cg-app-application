@@ -17,6 +17,7 @@ function(
     $('#{{id}}-wrapper').resizable({
         alsoResize: '#{{id}}',
         containment: 'parent',
+        {{^resizable}}disabled:true,{{/resizable}}
         handles: 'all',
         minHeight: 1,
         minWidth: 1,

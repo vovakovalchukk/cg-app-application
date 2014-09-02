@@ -36,6 +36,7 @@ define([
         }
 
         var editable = true;
+        var resizable = true;
 
         this.getId = function()
         {
@@ -172,10 +173,40 @@ define([
             return this;
         };
 
+        this.isResizable = function()
+        {
+            return resizable;
+        };
+
+        this.setResizable = function(newResizable)
+        {
+            resizable = newResizable;
+            return this;
+        };
+
         this.getBaseInspectableAttributes = function()
         {
             return baseInspectableAttributes;
         };
+
+        this.disableBaseInspector = function(inspector)
+        {
+            var index = baseInspectableAttributes.indexOf(inspector);
+            if (index >= 0) {
+                baseInspectableAttributes.splice(index, 1);
+            }
+        };
+
+        this.disableBaseInspectors = function(inspectors)
+        {
+            if (typeof(inspectors) !== 'object') {
+                return this.disableBaseInspector(inspectors);
+            }
+
+            for (var key in inspectors) {
+                this.disableBaseInspector(inspectors[key]);
+            }
+        }
 
         /**
          * Sub-classes can override this to provide extra inspectable attributes for themselves
@@ -210,7 +241,7 @@ define([
         json.y = Number(json.y).mmToPt();
         json.height = Number(json.height).mmToPt();
         json.width = Number(json.width).mmToPt();
-        json.borderWidth = (json.borderWidth ? Number(json.borderWidth).mmToPt() : json.borderWidth); 
+        json.borderWidth = (json.borderWidth ? Number(json.borderWidth).mmToPt() : json.borderWidth);
         return json;
     };
 

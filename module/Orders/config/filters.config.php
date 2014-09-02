@@ -5,6 +5,7 @@ use Orders\Order\FilterService;
 use Orders\Order\TableService\OrdersTableTagColumns;
 use Orders\Order\Filter\Channel;
 use Orders\Order\Filter\Account;
+use Orders\Order\Filter\Batch;
 use Orders\Order\Filter\Shipping;
 use Orders\Controller\OrdersController;
 use CG\Order\Shared\Status;
@@ -218,6 +219,19 @@ return [
                                 'options' => []
                             ],
                             'optionsProvider' => Account::class,
+                        ],
+                        [
+                            'filterType' => 'customSelectGroup',
+                            'visible' => false,
+                            'variables' => [
+                                'name' => 'batch',
+                                'title' => 'Batch',
+                                'searchField' => true,
+                                'isOptional' => true,
+                                'concatenate' => true,
+                                'options' => []
+                            ],
+                            'optionsProvider' => Batch::class,
                         ],
                         [
                             'filterType' => 'customSelectGroup',

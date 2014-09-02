@@ -10,6 +10,8 @@
 /config/autoload/di.redis.global.php
 /config/autoload/di.smtp.global.php
 /config/autoload/orders.global.php
+/config/di/modules_classmap.php
+/config/di/vendor_components.php
 /config/host.php
 /config/module/*
 /data/certificates
@@ -23,10 +25,9 @@
 /tests/api.suite.yml
 /tools/post_deploy.sh
 /vendor
-config/di/modules_classmap.php
-config/di/vendor_components.php
 phinx/migrations/channelgrabber/zf2-sessions
 public/channelgrabber/zf2-channel
 public/channelgrabber/zf2-login
+public/channelgrabber/zf2-royalmail
 public/channelgrabber/zf2-usage
 public/channelgrabber/zf2-v4-ui

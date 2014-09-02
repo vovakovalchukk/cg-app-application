@@ -15,5 +15,14 @@
             <span class="inputbox-label">Channel Shipping Methods</span>
             {{> multiSelectExpanded}}
         </div>
+        <div class="shipping-services">
+            <span class="inputbox-label">Default Shipping Service</span>
+            <div class="shipping-account">
+                {{> accountCustomSelect}}
+            </div>
+            <div id="services-custom-select" class="shipping-service">
+                {{> serviceCustomSelect}}
+            </div>
+        </div>
     </div>
 </div>

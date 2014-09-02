@@ -551,8 +551,10 @@ return [
                     'ordersTable' => 'OrdersTable',
                 ],
                 'injections' => [
-                    TableService\OrdersTableMustacheFormatters::class,
-                    TableService\OrdersTableTagColumns::class,
+                    'addOrderTableModifier' => [
+                        ['orderTableModifier' => TableService\OrdersTableMustacheFormatters::class],
+                        ['orderTableModifier' => TableService\OrdersTableTagColumns::class],
+                    ],
                 ],
             ],
             TableService\OrdersTableMustacheFormatters::class => [
@@ -657,7 +659,7 @@ return [
             ],
             'OrdersDateColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Order Date'],
+                    'variables' => ['value' => 'Ordered'],
                     'template' => 'value.phtml',
                 ],
             ],
