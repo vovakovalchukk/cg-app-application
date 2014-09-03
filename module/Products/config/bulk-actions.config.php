@@ -50,7 +50,7 @@ return [
                 ],
                 'injections' => [
                     'addAction' => [
-
+                        ['action' => Orders\Order\BulkActions\Action\Invoice::class]
                     ]
                 ],
             ],

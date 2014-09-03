@@ -7,6 +7,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Products\Listing\Service as ListingService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG\Listing\Unimported\Filter\Mapper as FilterMapper;
+use CG\Listing\Unimported\Mapper as ListingMapper;
 
 class ListingsJsonController extends AbstractActionController
 {
@@ -15,29 +16,47 @@ class ListingsJsonController extends AbstractActionController
     protected $listingService;
     protected $jsonModelFactory;
     protected $filterMapper;
+    protected $listingMapper;
 
     public function __construct(
         ListingService $listingService,
         JsonModelFactory $jsonModelFactory,
-        FilterMapper $filterMapper
+        FilterMapper $filterMapper,
+        ListingMapper $listingMapper
     ) {
         $this->setListingService($listingService)
             ->setJsonModelFactory($jsonModelFactory)
-            ->setFilterMapper($filterMapper);
+            ->setFilterMapper($filterMapper)
+            ->setListingMapper($listingMapper);
     }
 
     public function ajaxAction()
     {
-        $view = $this->getJsonModelFactory()->newInstance();
-        $requestFilter = $this->getFilterMapper()->fromArray($this->params()->fromPost('filter', []));
-        $listingArray = [];
+        $data = [
+            'iTotalRecords' => 0,
+            'iTotalDisplayRecords' => 0,
+            'sEcho' => (int) $this->params()->fromPost('sEcho'),
+            'Records' => [],
+        ];
         try {
+            $requestFilter = $this->getFilterMapper()->fromArray($this->params()->fromPost('filter', []));
+            $limit = 'all';
+            $page = 1;
+            if ($this->params()->fromPost('iDisplayLength') > 0) {
+                $limit = $this->params()->fromPost('iDisplayLength');
+                $page += floor($this->params()->fromPost('iDisplayStart') / $limit);
+            }
+            $requestFilter->setPage($page)
+                ->setLimit($limit);
             $listings = $this->getListingService()->fetchListings($requestFilter);
-            $listingArray = $listings->toArray();
+            $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) $listings->getTotal();
+            foreach ($listings as $listing) {
+                $data['Records'][] = $this->getListingMapper()->toDataTableArray($listing);
+            }
         } catch(NotFound $e) {
             //noop
         }
-        return $view->setVariable('listings', $listingArray);
+        return $this->getJsonModelFactory()->newInstance($data);
     }
 
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -71,5 +90,16 @@ class ListingsJsonController extends AbstractActionController
     protected function getFilterMapper()
     {
         return $this->filterMapper;
+    }
+
+    protected function setListingMapper(ListingMapper $listingMapper)
+    {
+        $this->listingMapper = $listingMapper;
+        return $this;
+    }
+
+    protected function getListingMapper()
+    {
+        return $this->listingMapper;
     }
 }

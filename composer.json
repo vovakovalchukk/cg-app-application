@@ -16,6 +16,7 @@
         "channelgrabber/ebay": "~1.1.34",
         "channelgrabber/gearman": "~1.1.0",
         "channelgrabber/http": "~1.2.24",
+        "channelgrabber/listing": "~1.0.4",
         "channelgrabber/log": "~2.0.2",
         "channelgrabber/order": "~1.8.6",
         "channelgrabber/permission": "~1.0.1",

@@ -9,13 +9,13 @@ use Products\Listing\Service as ListingService;
 use Products\Listing\BulkActions\Service as BulkActionsService;
 use Products\Module;
 use CG_UI\View\DataTable;
+use Products\Controller\ListingsJsonController;
 
 class ListingsController extends AbstractActionController implements LoggerAwareInterface
 {
     use LogTrait;
 
     const ROUTE_INDEX = 'listingsImport';
-    const ROUTE_AJAX = 'ajax';
     const ROUTE_INDEX_URL = '/listing/import';
 
     protected $viewModelFactory;
@@ -38,7 +38,6 @@ class ListingsController extends AbstractActionController implements LoggerAware
     public function indexAction()
     {
         $view = $this->getViewModelFactory()->newInstance();
-
         $bulkActions = $this->getBulkActionsService()->getListPageBulkActions();
         $bulkAction = $this->getViewModelFactory()->newInstance()->setTemplate('products/listings/bulk-actions/index');
         $bulkActions->addChild(
@@ -48,7 +47,7 @@ class ListingsController extends AbstractActionController implements LoggerAware
         $view->addChild($bulkActions, 'bulkItems');
         $bulkAction->setVariable('isHeaderBarVisible', $this->getListingService()->isFilterBarVisible());
         $view->setVariable('isHeaderBarVisible', $this->getListingService()->isFilterBarVisible());
-        $view->addChild($this->getListingList(), 'listings');
+        $view->addChild($this->getListingListView(), 'listings');
         return $view;
     }
 
@@ -57,7 +56,7 @@ class ListingsController extends AbstractActionController implements LoggerAware
         $listingList = $this->getListingList();
         $settings = $listingList->getVariable('settings');
         $settings->setSource(
-            $this->url()->fromRoute(Module::ROUTE . '/' . static::ROUTE_INDEX . '/' . static::ROUTE_AJAX)
+            $this->url()->fromRoute(Module::ROUTE . '/' . static::ROUTE_INDEX . '/' . ListingsJsonController::ROUTE_AJAX)
         );
         $settings->setTemplateUrlMap($this->mustacheTemplateMap('listingList'));
         return $listingList;

@@ -7,7 +7,6 @@ function(showHideFilters) {
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#main.class')->append('full-width'); ?>
-<?php $this->headLink()->appendStylesheet($this->basePath() . Orders\Module::PUBLIC_FOLDER . 'css/orders.css') ?>
 <div id="main" class="transition-preload module clearfix<?= $this->placeholder('#main.class')->setPrefix(' ')->setIndent(1) ?>">
     <?= $this->breadcrumbs; ?>
     <?= $this->bulkItems; ?>
@@ -25,5 +24,9 @@ function(showHideFilters) {
     #main-wrapper {
         margin-left:0px;
         width:100%;
+    }
+
+    #listings-list {
+        margin-top:50px;
     }
 </style>

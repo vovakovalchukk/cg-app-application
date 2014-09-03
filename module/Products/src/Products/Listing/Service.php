@@ -35,7 +35,7 @@ class Service implements LoggerAwareInterface
         $listingFilter->setLimit(static::LIMIT)
             ->setPage(static::PAGE)
             ->setOrganisationUnitId($this->getActiveUser()->getOuList());
-        return $this->getListingService()->fetchByFilter($listingFilter);
+        return $this->getListingService()->fetchCollectionByFilter($listingFilter);
     }
 
     public function isFilterBarVisible()
