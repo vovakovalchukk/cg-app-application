@@ -82,6 +82,7 @@ define([
     Service.prototype.renderProduct = function(product, templates)
     {
         var checkbox = this.getCheckboxView(product, templates);
+        var statusLozenge = this.getStatusView(product, templates);
         var expandButton = '';
         var hasVariations = false;
         if (product['variations'] != undefined && product['variations'].length) {
@@ -94,7 +95,7 @@ define([
         var productView = CGMustache.get().renderTemplate(templates, {
             'title': product['name'],
             'sku': product['sku'],
-            'status': 'active',
+            'statusLozenge': statusLozenge,
             'id': product['id'],
             'image': this.getPrimaryImage(product['images']),
             'hasVariations': hasVariations
