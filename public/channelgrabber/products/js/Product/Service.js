@@ -66,7 +66,8 @@ define([
             variationStock: '/channelgrabber/products/template/product/variationStock.mustache',
             stockTable: '/channelgrabber/products/template/product/stockTable.mustache',
             stockRow: '/channelgrabber/products/template/product/stockRow.mustache',
-            product: '/channelgrabber/products/template/elements/product.mustache'
+            product: '/channelgrabber/products/template/elements/product.mustache',
+            statusLozenge: '/channelgrabber/products/template/elements/statusLozenge.mustache'
         };
         CGMustache.get().fetchTemplates(productUrlMap, function(templates)
         {
@@ -183,6 +184,27 @@ define([
             'id': 'product-checkbox-input-' + product['id'],
             'class': BulkActionAbstract.CLASS_CHECKBOX
         }, 'checkbox');
+    };
+
+    Service.prototype.getStatusListingData = function(product)
+    {
+        var mustacheFormattedData = { 'listings' : [] };
+        for (var listing in product['listings']) {
+            if (product['listing'].hasOwnProperty(listing)) {
+                mustacheFormattedData['listing'].push({
+                    'status' : listing['status'],
+                    'channel' : listing['channel']
+                });
+            }
+        }
+        return mustacheFormattedData;
+    };
+
+    Service.prototype.getStatusView = function(product, templates)
+    {
+        return CGMustache.get().renderTemplate(templates, {
+            'listings': this.getStatusListingData(product)
+        }, 'statusLozenge');
     };
 
     Service.prototype.renderNoProduct = function()
