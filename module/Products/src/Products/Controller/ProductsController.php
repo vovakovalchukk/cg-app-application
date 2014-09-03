@@ -14,6 +14,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
 {
     use LogTrait;
 
+    const ROUTE_INDEX_URL = '/products';
+
     protected $viewModelFactory;
     protected $productService;
     protected $bulkActionsService;
