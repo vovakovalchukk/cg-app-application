@@ -67,6 +67,7 @@ class Service implements LoggerAwareInterface
             ->setOrganisationUnitId($this->getActiveUserContainer()->getActiveUser()->getOuList())
             ->setParentProductId($parentProductIds);
         $products = $this->getProductService()->fetchCollectionByFilter($productFilter);
+//        die("eh"); 
         return $products;
     }
 
