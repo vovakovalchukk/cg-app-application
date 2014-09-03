@@ -1,6 +1,7 @@
 <?php
-use Products\Product\BulkActions\Service;
-use CG_UI\View\ProductBulkActions as BulkActions;
+use Products\Product\BulkActions\Service as ProductBulkActionsService;
+use Products\Listing\BulkActions\Service as ListingBulkActionsService;
+use CG_UI\View\BulkActions;
 use Zend\View\Model\ViewModel;
 use Products\Product\BulkActions\Action;
 
@@ -10,13 +11,21 @@ return [
             'aliases' => [
                 'ProductListBulkActions' => BulkActions::class,
                 'ProductDetailBulkActions' => BulkActions::class,
-                'UrlDataViewDelete' => ViewModel::class,
+                'ListingListBulkActions' => BulkActions::class,
+                'ListingDetailBulkActions' => BulkActions::class,
+                'DeleteJSViewModel' => ViewModel::class,
                 'UrlDataViewSearch' => ViewModel::class
             ],
-            Service::class => [
+            ProductBulkActionsService::class => [
                 'parameters' => [
                     'listPageBulkActions' => 'ProductListBulkActions',
                     'detailPageBulkActions' => 'ProductDetailBulkActions',
+                ],
+            ],
+            ListingBulkActionsService::class => [
+                'parameters' => [
+                    'listPageBulkActions' => 'ListingListBulkActions',
+                    'detailPageBulkActions' => 'ListingDetailBulkActions',
                 ],
             ],
             'ProductListBulkActions' => [
@@ -27,23 +36,43 @@ return [
                     ],
                 ],
                 'injections' => [
-                    Action\Delete::class
+                    'addAction' => [
+                        ['action' => Action\Delete::class]
+                    ]
+                ],
+            ],
+            'ListingListBulkActions' => [
+                'parameters' => [
+                    'variables' => [
+                        'id' => 'bulk-actions',
+                        'class' => ['fixed-scroll'],
+                    ],
+                ],
+                'injections' => [
+                    'addAction' => [
+
+                    ]
                 ],
             ],
             Action\Delete::class => [
                 'parameters' => [
-                    'urlView' => 'UrlDataViewInvoice',
-                    'elementData' => [
-                        'datatable' => 'datatable',
-                    ]
+                    'javascript' => 'DeleteJSViewModel'
                 ]
             ],
-            'UrlDataViewDelete' => [
+            'DeleteJSViewModel' => [
                 'parameters' => [
-                    'template' => 'products/products/bulk-actions/data-url',
+                    'template' => 'products/products/bulk-actions/delete-js',
                 ],
             ],
             'ProductDetailBulkActions' => [
+                'parameters' => [
+                    'variables' => [
+                        'id' => 'bulk-actions',
+                        'class' => ['bulk-actions-inline'],
+                    ],
+                ]
+            ],
+            'ListingDetailBulkActions' => [
                 'parameters' => [
                     'variables' => [
                         'id' => 'bulk-actions',

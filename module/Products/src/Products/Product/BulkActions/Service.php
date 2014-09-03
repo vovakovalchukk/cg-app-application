@@ -1,7 +1,7 @@
 <?php
 namespace Products\Product\BulkActions;
 
-use CG_UI\View\ProductBulkActions as BulkActions;
+use CG_UI\View\BulkActions;
 use CG_UI\View\BulkActions\SubAction;
 use CG_UI\View\BulkActions\Action;
 use CG\Product\Entity as ProductEntity;

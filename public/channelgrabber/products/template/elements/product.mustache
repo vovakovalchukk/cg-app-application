@@ -1,14 +1,7 @@
 <div class="product-container {{#hasVariations}}product-variations-container{{/hasVariations}}" id="product-container-{{id}}">
     <input type="hidden" value="{{id}}" name="id">
     <div class="checkbox-container">
-        <div class="checkbox-holder">
-            <a class="std-checkbox">
-                <input type="checkbox"{{#selected}} checked="checked"{{/selected}}/>
-                <label>
-                    <span class="checkbox_label"></span>
-                </label>
-            </a>
-        </div>
+        {{> checkbox}}
     </div>
     <div class="product-holder">
         <div class="product-image-container">
