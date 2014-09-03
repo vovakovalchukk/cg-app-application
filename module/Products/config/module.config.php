@@ -260,7 +260,7 @@ return [
             ],
             'ListingCheckboxCheckAll' => [
                 'parameters' => [
-                    'checkboxes' => '.listing-id',
+                    'checkboxes' => '.checkbox-id',
                 ],
             ],
             'ListingChannelColumnView' => [
