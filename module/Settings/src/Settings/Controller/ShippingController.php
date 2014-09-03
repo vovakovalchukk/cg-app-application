@@ -10,8 +10,8 @@ use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG\Order\Shared\Shipping\Conversion\Service as ConversionService;
 use CG\Settings\Shipping\Alias\Service as ShippingService;
-use CG\Settings\Shipping\Alias\Entity as AliasEntity;
 use CG\User\ActiveUserInterface;
+use CG\Settings\Shipping\Alias\Entity as AliasEntity;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Account\Client\Service as AccountService;
 
