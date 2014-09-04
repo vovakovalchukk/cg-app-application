@@ -35,7 +35,7 @@ class Service implements LoggerAwareInterface
         $listingFilter->setLimit(static::LIMIT)
             ->setPage(static::PAGE)
             ->setOrganisationUnitId($this->getActiveUser()->getOuList());
-        return $this->getListingService()->fetchByFilter($listingFilter);
+        return $this->getListingService()->fetchCollectionByFilter($listingFilter);
     }
 
     public function isFilterBarVisible()
@@ -43,6 +43,11 @@ class Service implements LoggerAwareInterface
         $preference = $this->getActiveUserPreference()->getPreference();
         $visible = isset($preference[static::LISTING_FILTER_BAR_STATE_KEY]) ? $preference[static::LISTING_FILTER_BAR_STATE_KEY] : true;
         return filter_var($visible, FILTER_VALIDATE_BOOLEAN);
+    }
+
+    public function getListingList()
+    {
+
     }
 
     protected function getActiveUserPreference()
