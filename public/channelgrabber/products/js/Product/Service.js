@@ -32,7 +32,6 @@ define([
 
     Service.prototype.init = function(baseUrl)
     {
-        console.log("Satr2");
         this.setBaseUrl(baseUrl);
         this.refresh();
     };
@@ -73,7 +72,6 @@ define([
         CGMustache.get().fetchTemplates(productUrlMap, function(templates)
         {
             var html = "";
-            console.log("2");
             for (var index in products) {
                 html += self.renderProduct(products[index], templates);
             }
@@ -81,48 +79,21 @@ define([
         });
     };
 
-    Service.prototype.productStatusDecider = function(product)
-    {
-        var statusPrecedence = {
-            'inactive': 1,
-            'active': 2,
-            'pending': 3,
-            'paused': 4,
-            'error': 5,
-        };
-        
-        var status = status['inactive'];
-        for (var listing in product['listings']) {
-            var listingStatus = listing['status'];
-            if(statusPrecedence[listingStatus] > statusPrecedence[status])
-                status = listingStatus;
-        }
-        return status;
-    }
-
     Service.prototype.renderProduct = function(product, templates)
     {
         var checkbox = this.getCheckboxView(product, templates);
         var expandButton = '';
         var hasVariations = false;
-        var hasMultipleListings = false;
-        console.log("pl " + product['listings'].length);
+        
         if (product['variations'] != undefined && product['variations'].length) {
             var productContent = this.getVariationView(product, templates);
-//            console.log("its " + statusLozenge);
             expandButton = this.getExpandButtonView(product, templates);
             hasVariations = true;
         } else {
             var productContent = this.getStockTableView(product, templates);
         }
-        if (product['listings'].length) {
-            hasMultipleListings = true;
-            console.log("TREEEEEE"); 
-        }
-        else {
-            console.log("else =-- " + product['listings'].length);
-        }
-        var statusLozenge = this.getStatusView(product, templates, hasMultipleListings);
+        
+        var statusLozenge = this.getStatusView(product, templates);
         var productView = CGMustache.get().renderTemplate(templates, {
             'title': product['name'],
             'sku': product['sku'],
@@ -220,33 +191,60 @@ define([
 
     Service.prototype.getStatusListingData = function(product)
     {
-        console.log("gSLD");
-        console.log(product);
         var mustacheFormattedData = { 'listings' : [] };
         for (var listing in product['listings']) {
-            console.log("listingstat " + listing['status']);
             if (product['listings'].hasOwnProperty(listing)) {
-
                 mustacheFormattedData['listings'].push({
-                    'status' : listing['status'],
-                    'channel' : listing['channel']
+                    'status' : product['listings'][listing]['status'],
+                    'channel' : product['listings'][listing]['channel']
                 });
             }
         }
         return mustacheFormattedData;
     };
 
-    Service.prototype.getStatusView = function(product, templates, hasMultipleListings)
+    Service.prototype.getStatusView = function(product, templates)
     {
-        console.log("gSV");
-        if(hasMultipleListings) {
-            console.log("listings====");
+        var hasMultipleListings = false;
+        if (product['listings'].length) {
+            hasMultipleListings = true;
         }
         return CGMustache.get().renderTemplate(templates, {
-            'listings': this.getStatusListingData(product),
+            'listings': this.getStatusListingData(product)['listings'],
             'hasMultipleListings': hasMultipleListings,
-            'decidedStatus': 'active'
+            'decidedStatus': this.productStatusDecider(product)
         }, 'statusLozenge');
+    };
+
+    Service.prototype.productStatusDecider = function(product)
+    {
+        var statusPrecedence = {
+            'inactive': 1,
+            'delete': 1,
+            'paid': 2,
+            'active': 2,
+            'new': 2,
+            'refunding': 3,
+            'cancelling': 3,
+            'dispatching': 3,
+            'processing': 3,
+            'connecting': 3,
+            'awaiting': 3,
+            'payment': 3,
+            'paused': 4,
+            'cancelled': 5,
+            'refunded': 5,
+            'expired': 5
+        };
+
+        var status = 'inactive';
+        for (var listing in product['listings']) {
+            var listingStatus = product['listings'][listing]['status'];
+            if(statusPrecedence[listingStatus] > statusPrecedence[status]) {
+                status = listingStatus;
+            }
+        }
+        return status;
     };
 
     Service.prototype.renderNoProduct = function()
