@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ac3e8b1a0079899874259bb774712a49",
+    "hash": "840078ee83385d2c9cd8d0b403f51f6d",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1773,19 +1773,14 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.42",
+            "version": "dev-EPIC-CGIV-2884-import-listing",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e306c2c545189542b38af7b5284a829163e526b6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.42-540c2f.zip",
-                "reference": "e306c2c545189542b38af7b5284a829163e526b6",
-                "shasum": "391753c0e5eb7364cae7b3d71efebedf93c0f627"
+                "reference": "9541bfecd0a97283bdda2e6d26f8eb6fcc5a7430"
             },
             "require": {
+                "channelgrabber/di": ">=1.0.1",
                 "channelgrabber/etag": ">=1.4.2",
                 "channelgrabber/log": ">=1.4.2",
                 "channelgrabber/stdlib": ">=2.7.4,<3.0.0",
@@ -1797,6 +1792,7 @@
                 "zendframework/zend-i18n": "2.*",
                 "zendframework/zend-modulemanager": "2.*",
                 "zendframework/zend-mvc": "2.*",
+                "zendframework/zend-navigation": "2.*",
                 "zendframework/zend-view": "2.*"
             },
             "replace": {
@@ -1807,14 +1803,14 @@
                 "zf2-module": "CG_UI"
             },
             "autoload": {
-                "psr-0": {
-                    "CG_UI": "src/"
+                "psr-4": {
+                    "CG_UI\\": "src"
                 },
                 "classmap": [
                     "./Module.php"
                 ]
             },
-            "time": "2014-09-02 07:56:31"
+            "time": "2014-09-04 08:58:51"
         },
         {
             "name": "cilex/cilex",
@@ -4325,11 +4321,17 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.12.39",
+            "alias_normalized": "1.12.39.0",
+            "version": "dev-EPIC-CGIV-2884-import-listing",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "phpspec/phpspec": 20
     },
     "prefer-stable": false,
