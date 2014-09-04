@@ -1,3 +1,4 @@
+
 {
     "repositories": [
         {
@@ -9,42 +10,46 @@
             "type": "composer"
         }
     ],
+    "autoload": {
+        "psr-0": {
+            "": "library/"
+        }
+    },
     "require": {
         "channelgrabber/amazon": "~1.3.0",
         "channelgrabber/channel": "~1.5.2",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/ebay": "~1.1.34",
         "channelgrabber/gearman": "~1.1.0",
-        "channelgrabber/http": "~1.2.24",
+        "channelgrabber/http": "~1.2.18",
         "channelgrabber/log": "~2.0.2",
-        "channelgrabber/order": "~1.8.6",
+        "channelgrabber/order": "~1.8.4",
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/phinx": "~0.3.2.3",
-        "channelgrabber/product": "~1.3.0",
         "channelgrabber/redis": "~0.1.0",
-        "channelgrabber/settings": "~1.1.0",
+        "channelgrabber/settings": "~1.0.11",
         "channelgrabber/sso": "~1.2.0",
-        "channelgrabber/stdlib": "~2.7.15",
-        "channelgrabber/stock": "~1.0.7",
+        "channelgrabber/stdlib": "~2.7.4",
         "channelgrabber/template": "~1.2.21",
         "channelgrabber/usage": "~1.0.2",
         "channelgrabber/user": "~1.16.0",
-        "channelgrabber/userpreference": "~1.2.1",
+        "channelgrabber/userpreference": "~1.2.0",
         "channelgrabber/zendesk": "~1.0.0",
         "channelgrabber/zf2-amazon": "~1.0.2",
         "channelgrabber/zf2-ebay": "~1.0.2",
         "channelgrabber/zf2-email-template": "~1.0.1",
         "channelgrabber/zf2-hal": "~1.0.4",
+        "channelgrabber/zf2-installer": "~1.0.3",
         "channelgrabber/zf2-logclient": "~1.4.0",
         "channelgrabber/zf2-login": "~1.4.11",
-        "channelgrabber/zf2-mustache": "~1.0.1",
+        "channelgrabber/zf2-mustache": "~1.0.0",
         "channelgrabber/zf2-permission": "~1.1.1",
-        "channelgrabber/zf2-register": "~1.4.19.1",
-        "channelgrabber/zf2-sessions": "~1.0.4",
+        "channelgrabber/zf2-register": "~1.4.19",
+        "channelgrabber/zf2-sessions": "~1.0.3",
         "channelgrabber/zf2-ssoclient": "~1.4.0",
-        "channelgrabber/zf2-stdlib": "~1.1.14",
+        "channelgrabber/zf2-stdlib": "~1.1.13",
         "channelgrabber/zf2-usage": "~1.0.1",
-        "channelgrabber/zf2-v4-ui": "~1.12.46",
+        "channelgrabber/zf2-v4-ui": "~1.12.33",
         "guzzle/guzzle": "~3.7",
         "nocarrier/hal": "~0.9.3",
         "php": ">=5.3.3",

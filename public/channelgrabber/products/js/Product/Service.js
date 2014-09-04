@@ -225,9 +225,9 @@ define([
         var mustacheFormattedData = { 'listings' : [] };
         for (var listing in product['listings']) {
             console.log("listingstat " + listing['status']);
-            if (product['listing'].hasOwnProperty(listing)) {
+            if (product['listings'].hasOwnProperty(listing)) {
 
-                mustacheFormattedData['listing'].push({
+                mustacheFormattedData['listings'].push({
                     'status' : listing['status'],
                     'channel' : listing['channel']
                 });
