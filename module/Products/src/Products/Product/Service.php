@@ -14,7 +14,6 @@ use CG\Stdlib\Log\LogTrait;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stock\Location\Service as StockLocationService;
 use CG\Product\Filter as ProductFilter;
-use CG\Listing\Collection as ListingCollection;
 
 class Service implements LoggerAwareInterface
 {
