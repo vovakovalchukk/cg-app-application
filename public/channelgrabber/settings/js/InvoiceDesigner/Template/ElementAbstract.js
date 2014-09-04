@@ -37,6 +37,7 @@ define([
 
         var editable = true;
 
+        var resizable = true;
         var minWidth = null;
         var maxWidth = null;
         var minHeight = null;
