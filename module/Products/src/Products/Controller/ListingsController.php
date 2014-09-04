@@ -7,6 +7,9 @@ use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use Products\Listing\Service as ListingService;
 use Products\Listing\BulkActions\Service as BulkActionsService;
+use Products\Module;
+use CG_UI\View\DataTable;
+use Products\Controller\ListingsJsonController;
 
 class ListingsController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -18,21 +21,23 @@ class ListingsController extends AbstractActionController implements LoggerAware
     protected $viewModelFactory;
     protected $listingService;
     protected $bulkActionsService;
+    protected $listingList;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         ListingService $listingService,
-        BulkActionsService $bulkActionsService
+        BulkActionsService $bulkActionsService,
+        DataTable $listingList
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setListingService($listingService)
-            ->setBulkActionsService($bulkActionsService);
+            ->setBulkActionsService($bulkActionsService)
+            ->setListingList($listingList);
     }
 
     public function indexAction()
     {
         $view = $this->getViewModelFactory()->newInstance();
-
         $bulkActions = $this->getBulkActionsService()->getListPageBulkActions();
         $bulkAction = $this->getViewModelFactory()->newInstance()->setTemplate('products/listings/bulk-actions/index');
         $bulkActions->addChild(
@@ -42,7 +47,19 @@ class ListingsController extends AbstractActionController implements LoggerAware
         $view->addChild($bulkActions, 'bulkItems');
         $bulkAction->setVariable('isHeaderBarVisible', $this->getListingService()->isFilterBarVisible());
         $view->setVariable('isHeaderBarVisible', $this->getListingService()->isFilterBarVisible());
+        $view->addChild($this->getListingListView(), 'listings');
         return $view;
+    }
+
+    protected function getListingListView()
+    {
+        $listingList = $this->getListingList();
+        $settings = $listingList->getVariable('settings');
+        $settings->setSource(
+            $this->url()->fromRoute(Module::ROUTE . '/' . static::ROUTE_INDEX . '/' . ListingsJsonController::ROUTE_AJAX)
+        );
+        $settings->setTemplateUrlMap($this->mustacheTemplateMap('listingList'));
+        return $listingList;
     }
 
     protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
@@ -76,5 +93,16 @@ class ListingsController extends AbstractActionController implements LoggerAware
     protected function getListingService()
     {
         return $this->listingService;
+    }
+
+    protected function setListingList(Datatable $listingList)
+    {
+        $this->listingList = $listingList;
+        return $this;
+    }
+
+    protected function getListingList()
+    {
+        return $this->listingList;
     }
 }

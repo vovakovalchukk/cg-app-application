@@ -74,22 +74,10 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     public function indexAction()
     {
         $view = $this->getViewModelFactory()->newInstance();
-
-        $templateUrlMap = [];
-        $webRoot = PROJECT_ROOT . '/public';
-        $templates = new DirectoryIterator($webRoot . Module::PUBLIC_FOLDER . 'template/columns');
-        foreach ($templates as $template) {
-            if (!$template->isFile()) {
-                continue;
-            }
-            $templateUrlMap[$template->getBasename('.html')]
-                = $this->basePath() . str_replace($webRoot, '', $template->getPathname());
-        }
-
         $ordersTable = $this->getOrderService()->getOrdersTable();
         $settings = $ordersTable->getVariable('settings');
         $settings->setSource($this->url()->fromRoute('Orders/ajax'));
-        $settings->setTemplateUrlMap($templateUrlMap);
+        $settings->setTemplateUrlMap($this->mustacheTemplateMap('orderList'));
         $view->addChild($ordersTable, 'ordersTable');
         $bulkActions = $this->getBulkActionsService()->getBulkActions();
         $bulkAction = $this->getViewModelFactory()->newInstance()->setTemplate('orders/orders/bulk-actions/index');

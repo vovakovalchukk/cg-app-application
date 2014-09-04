@@ -20,6 +20,7 @@ use Products\Controller\ListingsController;
 use Products\Controller\ListingsJsonController;
 use CG\Listing\Unimported\Service as UnimportedListingService;
 use CG\Listing\Unimported\Storage\Api as UnimportedListingApiStorage;
+use Zend\View\Model\ViewModel;
 
 return [
     'router' => [
@@ -105,6 +106,32 @@ return [
     ],
     'di' => [
         'instance' => [
+            'aliases' => [
+                'ListingList' => DataTable::class,
+                'ListingListSettings' => DataTable\Settings::class,
+                'ListingCheckboxColumnView' => ViewModel::class,
+                'ListingCheckboxColumn' => DataTable\Column::class,
+                'ListingCheckboxCheckAll' => DataTable\CheckAll::class,
+                'ListingChannelColumnView' => ViewModel::class,
+                'ListingChannelColumn' => DataTable\Column::class,
+                'ListingAccountColumnView' => ViewModel::class,
+                'ListingAccountColumn' => DataTable\Column::class,
+                'ListingSkuColumnView' => ViewModel::class,
+                'ListingSkuColumn' => DataTable\Column::class,
+                'ListingImageColumnView' => ViewModel::class,
+                'ListingImageColumn' => DataTable\Column::class,
+                'ListingTitleColumnView' => ViewModel::class,
+                'ListingTitleColumn' => DataTable\Column::class,
+                'ListingFoundColumnView' => ViewModel::class,
+                'ListingFoundColumn' => DataTable\Column::class,
+                'ListingStatusColumnView' => ViewModel::class,
+                'ListingStatusColumn' => DataTable\Column::class,
+            ],
+            ListingsController::class => [
+                'parameters' => [
+                    'listingList' => 'ListingList'
+                ]
+            ],
             ProductService::class => [
                 'parameters' => [
                     'repository' => ProductApiStorage::class,
@@ -191,6 +218,149 @@ return [
                     'client' => 'cg_app_guzzle',
                 ]
             ],
+            'ListingList' => [
+                'parameters' => [
+                    'variables' => [
+                        'sortable' => 'false',
+                        'id' => 'accounts',
+                        'class' => 'fixed-header fixed-footer',
+                        'width' => '100%'
+                    ],
+                ],
+                'injections' => [
+                    'addColumn' => [
+                        ['column' => 'ListingCheckboxColumn'],
+                        ['column' => 'ListingChannelColumn'],
+                        ['column' => 'ListingAccountColumn'],
+                        ['column' => 'ListingSkuColumn'],
+                        ['column' => 'ListingImageColumn'],
+                        ['column' => 'ListingTitleColumn'],
+                        ['column' => 'ListingFoundColumn'],
+                        ['column' => 'ListingStatusColumn']
+                    ],
+                ],
+                'setVariable' => [
+                    ['name' => 'settings', 'value' => 'ListingListSettings']
+                ],
+            ],
+            'ListingCheckboxColumnView' => [
+                'parameters' => [
+                    'template' => 'orders/orders/table/header/checkbox.phtml',
+                ],
+            ],
+            'ListingCheckboxColumn' => [
+                'parameters' => [
+                    'column' => 'id',
+                    'viewModel' => 'ListingCheckboxColumnView',
+                    'class' => 'checkbox',
+                    'sortable' => false,
+                    'hideable' => false,
+                    'checkAll' => 'ListingCheckboxCheckAll'
+                ],
+            ],
+            'ListingCheckboxCheckAll' => [
+                'parameters' => [
+                    'checkboxes' => '.checkbox-id',
+                ],
+            ],
+            'ListingChannelColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Channel'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'ListingChannelColumn' => [
+                'parameters' => [
+                    'column' => 'channel',
+                    'viewModel' => 'ListingChannelColumnView',
+                    'class' => 'channel-col',
+                ],
+            ],
+            'ListingAccountColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Account'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'ListingAccountColumn' => [
+                'parameters' => [
+                    'column' => 'account',
+                    'viewModel' => 'ListingAccountColumnView',
+                    'class' => 'account-col',
+                ],
+            ],
+            'ListingSkuColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Sku'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'ListingSkuColumn' => [
+                'parameters' => [
+                    'column' => 'sku',
+                    'viewModel' => 'ListingSkuColumnView',
+                    'class' => 'sku-col',
+                ],
+            ],
+            'ListingImageColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Image'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'ListingImageColumn' => [
+                'parameters' => [
+                    'column' => 'image',
+                    'viewModel' => 'ListingImageColumnView',
+                    'class' => 'image-col',
+                ],
+            ],
+            'ListingTitleColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Title'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'ListingTitleColumn' => [
+                'parameters' => [
+                    'column' => 'title',
+                    'viewModel' => 'ListingTitleColumnView',
+                    'class' => 'title-col',
+                ],
+            ],
+            'ListingFoundColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Found'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'ListingFoundColumn' => [
+                'parameters' => [
+                    'column' => 'found',
+                    'viewModel' => 'ListingFoundColumnView',
+                    'class' => 'found-col',
+                ],
+            ],
+            'ListingStatusColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Status'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'ListingStatusColumn' => [
+                'parameters' => [
+                    'column' => 'status',
+                    'viewModel' => 'ListingStatusColumnView',
+                    'class' => 'statuc-col',
+                ],
+            ],
+            'ListingListSettings' => [
+                'parameters' => [
+                    'scrollHeightAuto' => true,
+                    'footer' => true,
+                    'tableOptions' => 'rt<"table-footer" pil <"auto-refresh">>'
+                ]
+            ]
         ],
     ],
     'navigation' => array(
