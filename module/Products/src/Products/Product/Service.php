@@ -67,7 +67,6 @@ class Service implements LoggerAwareInterface
             ->setOrganisationUnitId($this->getActiveUserContainer()->getActiveUser()->getOuList())
             ->setParentProductId($parentProductIds);
         $products = $this->getProductService()->fetchCollectionByFilter($productFilter);
-//        die("eh"); 
         return $products;
     }
 
@@ -82,25 +81,6 @@ class Service implements LoggerAwareInterface
             //No changes do nothing
         }
         return $stockEntity;
-    }
-
-    public function productStatusDecider(ListingCollection $listings)
-    {
-        $statusPrecedence = [
-            "inactive" => 1,
-            "active" => 2,
-            "pending" => 3,
-            "paused" => 4,
-            "error" => 5,
-        ];
-        reset($statusPrecedence);
-        $status = key($statusPrecedence);
-        foreach ($listings as $listing) {
-            $listingStatus = $listing->getStatus();
-            if($statusPrecedence[$listingStatus] > $statusPrecedence[$status])
-                $status = $listingStatus;
-        }
-        return $status;
     }
 
     public function deleteProductsById(array $productIds)
