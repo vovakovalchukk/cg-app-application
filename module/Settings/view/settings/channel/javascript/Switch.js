@@ -1,23 +1,23 @@
 require.config({
     paths: {
-        enableChannel: "<?= Settings\Module::PUBLIC_FOLDER ?>js/enableChannel"
+        ajaxSwitch: "<?= Settings\Module::PUBLIC_FOLDER ?>js/ajaxSwitch"
     }
 });
 
 require(
-    ["enableChannel"],
-    function(enableChannel) {
-        var ajaxCheckbox = enableChannel(
+    ["ajaxSwitch"],
+    function(ajaxSwitch) {
+        var ajaxCheckbox = ajaxSwitch(
             n,
             "#<?= $tableId ?>",
-            "input.toggle",
+            ".<?= $switchClass; ?> input.toggle",
             {
                 url: "<?= urldecode($this->url($route, ['account' => '{{id}}', 'type' => '{{type}}'])) ?>"
             },
             {
-                info: "<?= $this->translate('Updating Sales Channel Status') ?>",
-                error: "<?= $this->translate('Updating Sales Channel Status') ?>",
-                success: "<?= $this->translate('Sales Channel Status Updated') ?>"
+                info: "<?= $this->translate('Updating Sales Channel <?= $switchType ?>') ?>",
+                error: "<?= $this->translate('Failed To Update Sales Channel <?= $switchType ?>') ?>",
+                success: "<?= $this->translate('Sales Channel <?= $switchType ?> Updated') ?>"
             }
         );
 
