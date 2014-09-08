@@ -628,7 +628,7 @@ return [
             ],
             'OrdersCheckboxCheckAll' => [
                 'parameters' => [
-                    'checkboxes' => '.order-id',
+                    'checkboxes' => '.checkbox-id',
                 ],
             ],
             'OrdersChannelColumnView' => [

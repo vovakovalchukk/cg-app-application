@@ -41,6 +41,9 @@ foreach ($componentTypes as $type => $components) {
         $diCompiler = new CG\Zend\Stdlib\Di\Definition\RuntimeCompiler;
         $dir = dirname(__DIR__) . '/' . $type . '/' . stripslashes(preg_replace('|(?<!\\\\)_|', '/', $component));
         echo "Compiling ".$type." ".$dir."\n";
+        if (!is_dir($dir)) {
+            continue;
+        }
         $diCompiler->addDirectory($dir);
         $diCompiler->setAllowReflectionExceptions();
         $diCompiler->compile();

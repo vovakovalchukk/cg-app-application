@@ -66,7 +66,8 @@ define([
             variationStock: '/channelgrabber/products/template/product/variationStock.mustache',
             stockTable: '/channelgrabber/products/template/product/stockTable.mustache',
             stockRow: '/channelgrabber/products/template/product/stockRow.mustache',
-            product: '/channelgrabber/products/template/elements/product.mustache'
+            product: '/channelgrabber/products/template/elements/product.mustache',
+            statusLozenge: '/channelgrabber/products/template/elements/statusLozenge.mustache'
         };
         CGMustache.get().fetchTemplates(productUrlMap, function(templates)
         {
@@ -83,6 +84,7 @@ define([
         var checkbox = this.getCheckboxView(product, templates);
         var expandButton = '';
         var hasVariations = false;
+        
         if (product['variations'] != undefined && product['variations'].length) {
             var productContent = this.getVariationView(product, templates);
             expandButton = this.getExpandButtonView(product, templates);
@@ -90,15 +92,17 @@ define([
         } else {
             var productContent = this.getStockTableView(product, templates);
         }
+        
+        var statusLozenge = this.getStatusView(product, templates);
         var productView = CGMustache.get().renderTemplate(templates, {
             'title': product['name'],
             'sku': product['sku'],
-            'status': 'active',
             'id': product['id'],
             'image': this.getPrimaryImage(product['images']),
             'hasVariations': hasVariations
         }, 'product', {
             'productContent': productContent,
+            'statusLozenge': statusLozenge,
             'expandButton': expandButton,
             'checkbox': checkbox
         });
@@ -183,6 +187,53 @@ define([
             'id': 'product-checkbox-input-' + product['id'],
             'class': BulkActionAbstract.CLASS_CHECKBOX
         }, 'checkbox');
+    };
+
+    Service.prototype.getStatusListingData = function(product)
+    {
+        var mustacheFormattedData = { 'listings' : [] };
+        for (var listing in product['listings']) {
+            if (product['listings'].hasOwnProperty(listing)) {
+                mustacheFormattedData['listings'].push({
+                    'status' : product['listings'][listing]['status'],
+                    'channel' : product['listings'][listing]['channel']
+                });
+            }
+        }
+        return mustacheFormattedData;
+    };
+
+    Service.prototype.getStatusView = function(product, templates)
+    {
+        var hasMultipleListings = false;
+        if (product['listings'].length) {
+            hasMultipleListings = true;
+        }
+        return CGMustache.get().renderTemplate(templates, {
+            'listings': this.getStatusListingData(product)['listings'],
+            'hasMultipleListings': hasMultipleListings,
+            'decidedStatus': this.productStatusDecider(product)
+        }, 'statusLozenge');
+    };
+
+    Service.prototype.productStatusDecider = function(product)
+    {
+        var statusPrecedence = {
+            'inactive': 1,
+            'active': 2,
+            'pending': 3,
+            'paused': 4,
+            'error': 5
+        };
+
+        var status = 'inactive';
+        for (var listing in product['listings']) {
+            var listingStatus = product['listings'][listing]['status'];
+            if(statusPrecedence[listingStatus] > statusPrecedence[status]) {
+                status = listingStatus;
+            }
+        }
+        return status;
     };
 
     Service.prototype.renderNoProduct = function()

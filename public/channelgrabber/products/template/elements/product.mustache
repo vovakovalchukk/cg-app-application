@@ -19,31 +19,7 @@
                 {{#sku}}({{sku}}){{/sku}}
             </span>
             <span class="product-status-holder">
-                <span class="status {{status}}">{{status}}</span>
-                <!--<div class="product-listing-status-dropdown">
-                    <table>
-                        <tr>
-                            <td>Status</td>
-                            <td>Account</td>
-                        </tr>
-                        <tr>
-                            <td><span class="status active">Active</span></td>
-                            <td>eBay 1</td>
-                        </tr>
-                        <tr>
-                            <td><span class="status active">Active</span></td>
-                            <td>Amazon UK</td>
-                        </tr>
-                        <tr>
-                            <td><span class="status active">Active</span></td>
-                            <td>Play</td>
-                        </tr>
-                        <tr>
-                            <td><span class="status active">Active</span></td>
-                            <td>eBay 2</td>
-                        </tr>
-                    </table>
-                </div>-->
+                {{>statusLozenge}}
             </span>
         </div>
 
