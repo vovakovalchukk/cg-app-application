@@ -228,23 +228,25 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.1.41",
+            "version": "1.1.46",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "b9c4a62990f5a8900ffed33b361e83a32361b135"
+                "reference": "1a6bf27d2b13b0a103f27d3a0b069d4d4f957290"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.1.41-35518f.zip",
-                "reference": "b9c4a62990f5a8900ffed33b361e83a32361b135",
-                "shasum": "e69392ef610950bead784438b47d4986097b02fc"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.1.46-e65dc2.zip",
+                "reference": "1a6bf27d2b13b0a103f27d3a0b069d4d4f957290",
+                "shasum": "72cf512b083969214658ad77faabe4a55c217d1c"
             },
             "require": {
-                "channelgrabber/channel": ">=1.5.1",
+                "channelgrabber/channel": ">=1.7.0",
                 "channelgrabber/constants": "dev-master",
+                "channelgrabber/di": ">=1.0.1",
                 "channelgrabber/gearman": ">=1.1.0",
                 "channelgrabber/http": ">=1.2.2",
+                "channelgrabber/listing": ">=1.1.0",
                 "channelgrabber/log": ">=1.5.0",
                 "channelgrabber/order": ">=1.5.22",
                 "channelgrabber/stdlib": ">=2.7.10",
@@ -257,13 +259,18 @@
                 "channelgrabber/phpunit": ">=1.0.0",
                 "phpunit/phpunit": "~3.7.28"
             },
-            "type": "library",
+            "type": "di-definition",
             "autoload": {
-                "psr-0": {
-                    "CG\\Ebay\\": ""
+                "psr-4": {
+                    "CG\\Ebay\\": "src/"
                 }
             },
-            "time": "2014-08-27 13:33:17"
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Ebay\\Test\\": "tests/Test/"
+                }
+            },
+            "time": "2014-09-08 07:55:58"
         },
         {
             "name": "channelgrabber/email",
@@ -372,6 +379,13 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -409,6 +423,83 @@
                 }
             },
             "time": "2014-08-28 15:10:09"
+        },
+        {
+            "name": "channelgrabber/image",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-image.git",
+                "reference": "55ac2a8a8edffd59db86b6423c143ad106d8209f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-1.0.3-0e4d79.zip",
+                "reference": "55ac2a8a8edffd59db86b6423c143ad106d8209f",
+                "shasum": "edf8310476be1d271c2d1258368957aa76866ef7"
+            },
+            "require": {
+                "channelgrabber/cache": ">=1.3.0,<2.0.0",
+                "channelgrabber/channel": ">=1.3.2,<2.0.0",
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/di": ">=1.0.1",
+                "channelgrabber/etag": ">=1.4.3,<2.0.0",
+                "channelgrabber/http": ">=1.2.18,<2.0.0",
+                "channelgrabber/permission": ">=1.0.1,<2.0.0",
+                "channelgrabber/slim": ">=1.9.2,<2.0.0",
+                "channelgrabber/stdlib": ">=2.7.5,<3.0.0"
+            },
+            "type": "di-definition",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Image\\": "src"
+                }
+            },
+            "time": "2014-09-03 10:52:47"
+        },
+        {
+            "name": "channelgrabber/listing",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
+                "reference": "f299680a9bbd8d35f18f9f30e5950088f4cfe6ac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.1.0-69ab52.zip",
+                "reference": "f299680a9bbd8d35f18f9f30e5950088f4cfe6ac",
+                "shasum": "9ebc05475468bb1ba08de45e9c4dd3184224180f"
+            },
+            "require": {
+                "channelgrabber/cache": ">=1.3.0,<2.0.0",
+                "channelgrabber/channel": ">=1.3.2,<2.0.0",
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/di": ">=1.0.1",
+                "channelgrabber/etag": ">=1.4.3,<2.0.0",
+                "channelgrabber/http": ">=1.2.18,<2.0.0",
+                "channelgrabber/image": ">=1.00,<2.0.0",
+                "channelgrabber/permission": ">=1.0.1,<2.0.0",
+                "channelgrabber/stdlib": ">=2.7.5,<3.0.0",
+                "nocarrier/hal": "~0.9.4"
+            },
+            "require-dev": {
+                "channelgrabber/gearman": ">=1.1.0,<2.0.0",
+                "channelgrabber/phpunit": ">=1.0.0",
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "di-definition",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Listing\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Listing\\Test\\": "tests"
+                }
+            },
+            "time": "2014-09-05 09:19:53"
         },
         {
             "name": "channelgrabber/log",
@@ -593,6 +684,13 @@
                 "predis/predis": "v0.8.3"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Predis\\": ""
@@ -1712,17 +1810,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.45",
+            "version": "1.12.48",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "fe1ed8b8a551a5caf08d1b0f24198adf36a3f97e"
+                "reference": "f6e585495e8e9f32382a442d9e04dfcf2f2f29e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.45-343efa.zip",
-                "reference": "fe1ed8b8a551a5caf08d1b0f24198adf36a3f97e",
-                "shasum": "827f1f7901cddbdd49dd1b42fb1ffc6c129c7fc3"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.48-ccd1d2.zip",
+                "reference": "f6e585495e8e9f32382a442d9e04dfcf2f2f29e9",
+                "shasum": "754c8e77b76639101f5ac6a38e0c5d739b633bba"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
@@ -1755,7 +1853,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-09-03 10:18:39"
+            "time": "2014-09-08 09:17:42"
         },
         {
             "name": "cilex/cilex",
@@ -2213,9 +2311,7 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -2303,8 +2399,7 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com",
-                    "role": "Developer"
+                    "homepage": "http://benramsey.com"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
@@ -3567,8 +3662,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
