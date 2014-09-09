@@ -7,7 +7,9 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
 
         ElementAbstract.call(this);
         this.set('type', 'OrderTable', true);
-        this.setMinWidth(elementWidth)
+        this.setWidth(elementWidth.pxToMm())
+            .setHeight(minHeight.pxToMm())
+            .setMinWidth(elementWidth)
             .setMaxWidth(elementWidth)
             .setMinHeight(minHeight);
     };
