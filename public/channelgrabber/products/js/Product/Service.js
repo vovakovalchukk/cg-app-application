@@ -220,21 +220,10 @@ define([
     {
         var statusPrecedence = {
             'inactive': 1,
-            'delete': 1,
-            'paid': 2,
             'active': 2,
-            'new': 2,
-            'refunding': 3,
-            'cancelling': 3,
-            'dispatching': 3,
-            'processing': 3,
-            'connecting': 3,
-            'awaiting': 3,
-            'payment': 3,
+            'pending': 3,
             'paused': 4,
-            'cancelled': 5,
-            'refunded': 5,
-            'expired': 5
+            'error': 5
         };
 
         var status = 'inactive';

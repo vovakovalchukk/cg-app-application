@@ -40,6 +40,10 @@ use Orders\Order\Batch\Service as OrderBatchService;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
+use CG\Location\Service as LocationService;
+use CG\Location\Storage\Api as LocationApi;
+use CG\Location\Mapper as LocationMapper;
+
 return array(
     'service_manager' => array(
         'factories' => array(
@@ -148,6 +152,17 @@ return array(
                     'repository' => InvoiceSettingsApiStorage::class
                 )
             ),
+            LocationService::class => [
+                'parameters' => [
+                    'repository' => LocationApi::class,
+                    'mapper' => LocationMapper::class
+                ]
+            ],
+            LocationApi::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
         ),
     ),
     'view_manager' => [
