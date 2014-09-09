@@ -1341,20 +1341,21 @@
         },
         {
             "name": "channelgrabber/zf2-hal",
-            "version": "1.0.5.1",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgzf2hal.git",
-                "reference": "f30249a27722ee1f8ad160dd5377ceea57149b97"
+                "reference": "ea570ebaefd2372b91cb13aa90249418cb2621ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-hal-1.0.5.1-d37363.zip",
-                "reference": "f30249a27722ee1f8ad160dd5377ceea57149b97",
-                "shasum": "ab664df10676af324966dde993aa78376bff238a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-hal-1.0.6-50d47b.zip",
+                "reference": "ea570ebaefd2372b91cb13aa90249418cb2621ec",
+                "shasum": "ecf108ab86e8f477c4157670d17844455389e025"
             },
             "require": {
-                "channelgrabber/http": "~1.2.0",
+                "channelgrabber/di": ">=1.0.1",
+                "channelgrabber/http": ">=1.2.0",
                 "nocarrier/hal": "0.9.*",
                 "php": ">=5.4.0",
                 "zendframework/zend-eventmanager": ">=2.2,<3.0",
@@ -1364,13 +1365,13 @@
                 "zendframework/zend-stdlib": ">=2.2,<3.0",
                 "zendframework/zend-view": ">=2.2,<3.0"
             },
-            "type": "library",
+            "type": "di-definition",
             "autoload": {
-                "psr-0": {
-                    "CG\\Zend\\Hal": ""
+                "psr-4": {
+                    "CG\\Zend\\Hal\\": "src"
                 }
             },
-            "time": "2014-06-05 13:32:03"
+            "time": "2014-09-05 09:31:01"
         },
         {
             "name": "channelgrabber/zf2-installer",
@@ -3622,7 +3623,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
