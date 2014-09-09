@@ -33,7 +33,7 @@ define([
     ImageUpload.prototype.imageElementFileSelected = function(elementDomId, file)
     {
         var self = this;
-        var paperPage = this.getTemplate().getPaperPage()
+        var paperPage = this.getTemplate().getPaperPage();
         var elementId = ElementMapperAbstract.getElementIdFromDomId(elementDomId);
         var element = this.getTemplate().getElements().getById(elementId);
         var format = file.type.replace('image/', '');
@@ -82,12 +82,12 @@ define([
             return {
                 width: scale.width,
                 height: bounds.height
-            }
+            };
         } else {
             return {
                 width: bounds.width,
                 height: scale.height
-            }
+            };
         }
     };
 
