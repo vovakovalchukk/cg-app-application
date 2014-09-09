@@ -33,6 +33,7 @@ define([
     ImageUpload.prototype.imageElementFileSelected = function(elementDomId, file)
     {
         var self = this;
+        var paperPage = this.getTemplate().getPaperPage()
         var elementId = ElementMapperAbstract.getElementIdFromDomId(elementDomId);
         var element = this.getTemplate().getElements().getById(elementId);
         var format = file.type.replace('image/', '');
@@ -42,21 +43,52 @@ define([
             element.setFormat(format);
             element.setSource(btoa(data));
 
-            var image = new Image();
-            image.src = 'data:image/' + element.getFormat().toLowerCase() + ';base64,' + element.getSource();
-
             self.getDomManipulator().triggerElementResizedEvent(
                 element.getId(),
                 {
                     top: Number(element.getX()).mmToPx,
                     left: Number(element.getY()).mmToPx
                 },
-                {
-                    width: image.naturalWidth,
-                    height: image.naturalHeight
-                }
+                self.getElementSize(paperPage, element)
             );
         });
+    };
+
+    ImageUpload.prototype.getElementSize = function(paperPage, element)
+    {
+        var bounds = {
+            width: Number(paperPage.getWidth() - element.getX()).mmToPx(),
+            height: Number(paperPage.getHeight() - element.getY()).mmToPx()
+        };
+
+        var image = new Image();
+        image.src = 'data:image/' + element.getFormat().toLowerCase() + ';base64,' + element.getSource();
+
+        var size = {
+            width: image.naturalWidth,
+            height: image.naturalHeight
+        };
+
+        if (size.width <= bounds.width && size.height <= bounds.height) {
+            return size;
+        }
+
+        var scale = {
+            width: (image.naturalWidth / image.naturalHeight) * bounds.height,
+            height: (image.naturalHeight / image.naturalWidth) * bounds.width
+        };
+
+        if (scale.width >= scale.height && scale.width <= bounds.width) {
+            return {
+                width: scale.width,
+                height: bounds.height
+            }
+        } else {
+            return {
+                width: bounds.width,
+                height: scale.height
+            }
+        }
     };
 
     return new ImageUpload();
