@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4f4f4147735098b99c695280970d75a8",
+    "hash": "3e9d82c769faf44a0e3069d231b7881c",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -370,13 +370,6 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -598,13 +591,6 @@
                 "predis/predis": "v0.8.3"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Predis\\": ""
@@ -1235,20 +1221,21 @@
         },
         {
             "name": "channelgrabber/zf2-hal",
-            "version": "1.0.5.1",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgzf2hal.git",
-                "reference": "f30249a27722ee1f8ad160dd5377ceea57149b97"
+                "reference": "ea570ebaefd2372b91cb13aa90249418cb2621ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-hal-1.0.5.1-d37363.zip",
-                "reference": "f30249a27722ee1f8ad160dd5377ceea57149b97",
-                "shasum": "ab664df10676af324966dde993aa78376bff238a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-hal-1.0.6-50d47b.zip",
+                "reference": "ea570ebaefd2372b91cb13aa90249418cb2621ec",
+                "shasum": "ecf108ab86e8f477c4157670d17844455389e025"
             },
             "require": {
-                "channelgrabber/http": "~1.2.0",
+                "channelgrabber/di": ">=1.0.1",
+                "channelgrabber/http": ">=1.2.0",
                 "nocarrier/hal": "0.9.*",
                 "php": ">=5.4.0",
                 "zendframework/zend-eventmanager": ">=2.2,<3.0",
@@ -1258,13 +1245,13 @@
                 "zendframework/zend-stdlib": ">=2.2,<3.0",
                 "zendframework/zend-view": ">=2.2,<3.0"
             },
-            "type": "library",
+            "type": "di-definition",
             "autoload": {
-                "psr-0": {
-                    "CG\\Zend\\Hal": ""
+                "psr-4": {
+                    "CG\\Zend\\Hal\\": "src"
                 }
             },
-            "time": "2014-06-05 13:32:03"
+            "time": "2014-09-05 09:31:01"
         },
         {
             "name": "channelgrabber/zf2-installer",
@@ -2159,7 +2146,9 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -2247,7 +2236,8 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com"
+                    "homepage": "http://benramsey.com",
+                    "role": "Developer"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
@@ -3510,7 +3500,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
