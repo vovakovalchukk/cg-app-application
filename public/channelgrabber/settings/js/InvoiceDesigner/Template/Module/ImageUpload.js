@@ -46,8 +46,8 @@ define([
             self.getDomManipulator().triggerElementResizedEvent(
                 element.getId(),
                 {
-                    top: Number(element.getX()).mmToPx,
-                    left: Number(element.getY()).mmToPx
+                    left: Number(element.getX()).mmToPx(),
+                    top: Number(element.getY()).mmToPx()
                 },
                 self.getElementSize(paperPage, element)
             );
