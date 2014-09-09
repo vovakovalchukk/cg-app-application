@@ -40,29 +40,30 @@ define([
 
         this.getFileUpload().loadBinaryDataFromFile(file, function(data)
         {
-            element.setFormat(format);
-            element.setSource(btoa(data));
+            var image = new Image();
+            image.src = 'data:image/' + format.toLowerCase() + ';base64,' + btoa(data);
+            image.onload = function() {
+                self.getDomManipulator().triggerElementResizedEvent(
+                    element.getId(),
+                    {
+                        left: Number(element.getX()).mmToPx(),
+                        top: Number(element.getY()).mmToPx()
+                    },
+                    self.getElementSize(image, paperPage, element)
+                );
 
-            self.getDomManipulator().triggerElementResizedEvent(
-                element.getId(),
-                {
-                    left: Number(element.getX()).mmToPx(),
-                    top: Number(element.getY()).mmToPx()
-                },
-                self.getElementSize(paperPage, element)
-            );
+                element.setFormat(format);
+                element.setSource(btoa(data));
+            };
         });
     };
 
-    ImageUpload.prototype.getElementSize = function(paperPage, element)
+    ImageUpload.prototype.getElementSize = function(image, paperPage, element)
     {
         var bounds = {
             width: Number(paperPage.getWidth() - element.getX()).mmToPx(),
             height: Number(paperPage.getHeight() - element.getY()).mmToPx()
         };
-
-        var image = new Image();
-        image.src = 'data:image/' + element.getFormat().toLowerCase() + ';base64,' + element.getSource();
 
         var size = {
             width: image.naturalWidth,
