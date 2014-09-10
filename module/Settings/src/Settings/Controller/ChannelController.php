@@ -333,7 +333,8 @@ class ChannelController extends AbstractActionController
             "active" => false,
             "deleted" => false,
             "expiryDate" => null,
-            "type" => $this->params('type')
+            "type" => $this->params('type'),
+            "stockManagement" => false,
         ));
         $view = $this->getJsonModelFactory()->newInstance();
         $url = $this->getAccountFactory()->createRedirect($accountEntity, Module::ROUTE . '/' . static::ROUTE . '/' . ChannelController::ROUTE_CHANNELS,

@@ -26,6 +26,7 @@ function(domManipulator, eventCollator)
 
     AliasChange.SHIPPING_METHOD_SELECTOR = '.channel-shipping-methods .custom-select-item';
     AliasChange.ALIAS_NAME_INPUT_SELECTOR = '.shipping-alias-name-holder .inputbox';
+    AliasChange.SHIPPING_SERVICES_CUSTOM_SELECT_SELECTOR = '.shipping-services';
 
     AliasChange.prototype.init = function(rootOuId)
     {
@@ -34,6 +35,10 @@ function(domManipulator, eventCollator)
 
         $(document).on("click", AliasChange.SHIPPING_METHOD_SELECTOR, function() {
             self.getDomManipulator().updateOtherAliasMethodCheckboxes(this);
+            self.triggerRequestMadeEvent(this);
+        });
+
+        $(document).on("click", AliasChange.SHIPPING_SERVICES_CUSTOM_SELECT_SELECTOR, function() {
             self.triggerRequestMadeEvent(this);
         });
 
@@ -74,14 +79,28 @@ function(domManipulator, eventCollator)
         var aliasID = aliasInUse.find('input[name=shipping-alias-id]').val();
         var storedETag = aliasInUse.find('input[name=shipping-alias-storedETag]').val();
         var aliasName = aliasInUse.find('.shipping-alias-name-holder .inputbox').val();
+        var aliasAccount = aliasInUse.find('input[class=shipping-account-select][type=hidden]').val();
+        var aliasService = aliasInUse.find('input[class=shipping-service-select][type=hidden]').val();
         var hiddenCheckBoxes = aliasInUse.find('.channel-shipping-methods input[type=hidden]');
         var checkBoxValues = [];
+
+        if(aliasService === undefined) {
+            aliasService = '';
+        }
 
         hiddenCheckBoxes.each(function (index) {
             checkBoxValues[index] = $(this).val();
         });
 
-        var singleAlias = {storedEtag: storedETag, id: aliasID, name: aliasName, organisationUnitId: this.getRootOuId(), methodIds: checkBoxValues};
+        var singleAlias = {
+            storedEtag: storedETag,
+            id: aliasID,
+            name: aliasName,
+            organisationUnitId: this.getRootOuId(),
+            accountId: aliasAccount,
+            shippingService: aliasService,
+            methodIds: checkBoxValues
+        };
 
         $.ajax({
             'url' : '/settings/shipping/alias/save',
@@ -89,9 +108,11 @@ function(domManipulator, eventCollator)
             'method' : 'POST',
             'dataType' : 'json',
             'success' : function(data) {
-                var parsedData = $.parseJSON(data['alias']);
-                aliasInUse.find('input[name=shipping-alias-id]').val(parsedData.id);
-                aliasInUse.find('input[name=shipping-alias-storedETag]').val(parsedData.storedETag);
+                if(data.hasOwnProperty('alias')) {
+                    var parsedData = $.parseJSON(data['alias']);
+                    aliasInUse.find('input[name=shipping-alias-id]').val(parsedData.id);
+                    aliasInUse.find('input[name=shipping-alias-storedETag]').val(parsedData.storedETag);
+                }
             },
             'error' : function () {
                 n.error('Unable to save shipping aliases');
