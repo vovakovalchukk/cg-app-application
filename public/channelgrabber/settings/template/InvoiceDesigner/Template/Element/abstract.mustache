@@ -18,8 +18,10 @@ function(
         alsoResize: '#{{id}}',
         containment: 'parent',
         handles: 'all',
-        minHeight: 1,
-        minWidth: 1,
+        minHeight: {{#minHeight}}{{minHeight}}{{/minHeight}}{{^minHeight}}1{{/minHeight}},
+        minWidth: {{#minWidth}}{{minWidth}}{{/minWidth}}{{^minWidth}}1{{/minWidth}},
+        {{#maxHeight}}maxHeight: {{maxHeight}},{{/maxHeight}}
+        {{#maxWidth}}maxWidth: {{maxWidth}},{{/maxWidth}}
         stop: function(event, $ui)
         {
             var position = elementService.addDomWrapperGapToDimensions($ui.position);
