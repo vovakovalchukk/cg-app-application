@@ -2,6 +2,7 @@
 namespace Orders\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use CG_UI\View\Filter\Service as FiltersService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Orders\Order\Service as OrderService;
@@ -11,10 +12,6 @@ use Orders\Filter\Service as FilterService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Order\Shared\Entity as OrderEntity;
 use Orders\Order\BulkActions\Service as BulkActionsService;
-use Orders\Module;
-use DirectoryIterator;
-use CG\Http\Rpc\Exception as RpcException;
-use Orders\Order\FilterService as FiltersService;
 use Orders\Order\StoredFilters\Service as StoredFiltersService;
 use ArrayObject;
 use CG\Stdlib\PageLimit;
@@ -199,7 +196,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected function getFilterBar()
     {
         $filterValues = $this->getFilterService()->getPersistentFilter();
-        $filters = $this->getOrderService()->getFilterService()->getOrderFilters($filterValues);
+        $filters = $this->getFiltersService()->getFilters('order', $filterValues);
         return $filters->prepare();
     }
 

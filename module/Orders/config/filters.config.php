@@ -1,7 +1,7 @@
 <?php
+use CG_UI\View\Filter\Service as FilterService;
 use Orders\Order\CountryService;
 use Orders\Order\CurrencyService;
-use Orders\Order\FilterService;
 use Orders\Order\TableService\OrdersTableTagColumns;
 use Orders\Order\Filter\Channel;
 use Orders\Order\Filter\Account;
