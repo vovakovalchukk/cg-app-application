@@ -27,7 +27,7 @@
         "channelgrabber/stdlib": "~2.7.16",
         "channelgrabber/template": "~1.2.28",
         "channelgrabber/usage": "~1.0.2",
-        "channelgrabber/user": "~1.16.3",
+        "channelgrabber/user": "~1.17.0",
         "channelgrabber/userpreference": "~1.2.0",
         "channelgrabber/zendesk": "~1.0.0",
         "channelgrabber/zf2-amazon": "~1.0.2",
