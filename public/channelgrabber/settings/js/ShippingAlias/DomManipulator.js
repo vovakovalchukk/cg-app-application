@@ -31,6 +31,11 @@ define([
     DomManipulator.DOM_SELECTOR_ALIAS_NONE = '.shipping-alias-none';
     DomManipulator.SHIPPING_METHOD_SELECTOR = '.channel-shipping-methods .custom-select-item';
 
+    DomManipulator.prototype.generatePromise = function()
+    {
+        return $(window).promise();
+    };
+
     DomManipulator.prototype.prependAlias = function()
     {
         var self = this;
