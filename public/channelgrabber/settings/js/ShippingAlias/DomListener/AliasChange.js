@@ -6,7 +6,7 @@ function(domManipulator, eventCollator)
 {
     var AliasChange = function() {
         var rootOuId;
-        var saveHandlers = [];
+        var savePipe = [];
 
         this.setRootOuId = function(newRootOuId)
         {
@@ -19,18 +19,13 @@ function(domManipulator, eventCollator)
             return rootOuId;
         };
 
-        this.setSaveHandler = function(alias, handler)
+        this.getSavePipe = function(alias)
         {
-            saveHandlers[alias] = handler;
-        };
-
-        this.getSaveHandler = function(alias)
-        {
-            if (!(alias in saveHandlers)) {
-                saveHandlers[alias] = domManipulator.generatePromise();
+            if (!(alias in savePipe)) {
+                savePipe[alias] = domManipulator.deferred();
             }
 
-            return saveHandlers[alias];
+            return savePipe[alias];
         };
 
         this.getDomManipulator = function()
@@ -85,8 +80,8 @@ function(domManipulator, eventCollator)
                 n.error('Please set a shipping alias name');
                 return;
             }
-            this.getSaveHandler(aliasDomIds[index]).done(function() {
-                self.save(aliasDomIds[index]);
+            this.getSavePipe(aliasDomIds[index]).then(function() {
+                return self.save(aliasDomIds[index]);
             });
         }
     };
@@ -120,7 +115,7 @@ function(domManipulator, eventCollator)
             methodIds: checkBoxValues
         };
 
-        var saveHandler = $.ajax({
+        return $.ajax({
             'url' : '/settings/shipping/alias/save',
             'data' : {'alias' : JSON.stringify(singleAlias)},
             'method' : 'POST',
@@ -136,8 +131,6 @@ function(domManipulator, eventCollator)
                 n.error('Unable to save shipping aliases');
             }
         });
-
-        this.setSaveHandler(alias, saveHandler);
     };
 
     return new AliasChange();
