@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "984848d1fb172cad7930e1167fbdd652",
+    "hash": "a21d89e5e97fe7f64fc4e10dc0e461d0",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -388,13 +388,6 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -740,13 +733,6 @@
                 "predis/predis": "v0.8.3"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Predis\\": ""
@@ -1028,17 +1014,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.2.28",
+            "version": "1.2.29",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "3ef3dcdc4e71f0b314e554ea714a714c27a18d22"
+                "reference": "cc01f22dfbc0965466398643323de89e234f490f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.28-7cc703.zip",
-                "reference": "3ef3dcdc4e71f0b314e554ea714a714c27a18d22",
-                "shasum": "bbc77d617250c80fb4ea7d96b78fb319da1d12c9"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.29-e873c4.zip",
+                "reference": "cc01f22dfbc0965466398643323de89e234f490f",
+                "shasum": "579fbde8738cef3cb8e6ca63d93a1b92d0a4757b"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.1,<2.0.0",
@@ -1065,7 +1051,7 @@
                     "CG\\Template\\": "src/"
                 }
             },
-            "time": "2014-09-09 11:04:57"
+            "time": "2014-09-11 09:52:03"
         },
         {
             "name": "channelgrabber/transaction",
@@ -2420,7 +2406,9 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -2508,7 +2496,8 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com"
+                    "homepage": "http://benramsey.com",
+                    "role": "Developer"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
@@ -3772,7 +3761,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
