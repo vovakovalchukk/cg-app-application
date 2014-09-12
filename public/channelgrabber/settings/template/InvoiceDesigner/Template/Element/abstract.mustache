@@ -14,31 +14,34 @@ function(
     domManipulator,
     elementService
 ) {
-    $('#{{id}}-wrapper').resizable({
-        alsoResize: '#{{id}}',
-        containment: 'parent',
-        {{^resizable}}disabled:true,{{/resizable}}
-        handles: 'all',
-        minHeight: {{#minHeight}}{{minHeight}}{{/minHeight}}{{^minHeight}}1{{/minHeight}},
-        minWidth: {{#minWidth}}{{minWidth}}{{/minWidth}}{{^minWidth}}1{{/minWidth}},
-        {{#maxHeight}}maxHeight: {{maxHeight}},{{/maxHeight}}
-        {{#maxWidth}}maxWidth: {{maxWidth}},{{/maxWidth}}
-        stop: function(event, $ui)
-        {
-            var position = elementService.addDomWrapperGapToDimensions($ui.position);
-            var size = {
-                width: $('#{{id}}').outerWidth(),
-                height: $('#{{id}}').outerHeight()
-            };
-            domManipulator.triggerElementResizedEvent('{{id}}', position, size);
-        }
-    }).draggable({
-        containment: 'parent',
-        stop: function(event, $ui)
-        {
-            var position = elementService.addDomWrapperGapToDimensions($ui.position);
-            domManipulator.triggerElementMovedEvent('{{id}}', position);
-        }
-    });
+    $('#{{id}}-wrapper')
+    {{#resizable}}
+        .resizable({
+            alsoResize: '#{{id}}',
+            containment: 'parent',
+            handles: 'all',
+            minHeight: {{#minHeight}}{{minHeight}}{{/minHeight}}{{^minHeight}}1{{/minHeight}},
+            minWidth: {{#minWidth}}{{minWidth}}{{/minWidth}}{{^minWidth}}1{{/minWidth}},
+            {{#maxHeight}}maxHeight: {{maxHeight}},{{/maxHeight}}
+            {{#maxWidth}}maxWidth: {{maxWidth}},{{/maxWidth}}
+            stop: function(event, $ui)
+            {
+                var position = elementService.addDomWrapperGapToDimensions($ui.position);
+                var size = {
+                    width: $('#{{id}}').outerWidth(),
+                    height: $('#{{id}}').outerHeight()
+                };
+                domManipulator.triggerElementResizedEvent('{{id}}', position, size);
+            }
+        })
+    {{/resizable}}
+        .draggable({
+            containment: 'parent',
+            stop: function(event, $ui)
+            {
+                var position = elementService.addDomWrapperGapToDimensions($ui.position);
+                domManipulator.triggerElementMovedEvent('{{id}}', position);
+            }
+        });
 });
 </script>
