@@ -110,7 +110,7 @@ function(domManipulator, eventCollator)
             id: aliasID,
             name: aliasName,
             organisationUnitId: this.getRootOuId(),
-            accountId: aliasAccount,
+            accountId: aliasAccount.length ? aliasAccount : null,
             shippingService: aliasService,
             methodIds: checkBoxValues
         };
