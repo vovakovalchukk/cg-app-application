@@ -203,9 +203,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function invoiceOrderIdsAction()
     {
         try {
-            return $this->invoiceOrders(
-                $this->getOrdersFromOrderIds()
-            );
+            $orders = $this->getOrdersFromOrderIds();
+            return $this->markOrdersAsPrinted($orders)->invoiceOrders($orders);
         } catch (NotFound $exception) {
             return $this->redirect()->toRoute('Orders');
         }
@@ -226,9 +225,11 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     {
         try {
             $orders = $this->getOrderService()->getPreviewOrder();
-            $template = $this->getInvoiceService()->createTemplate(
-                (array) json_decode($this->params()->fromPost('template'), true)
-            );
+            $templateData = (array) json_decode($this->params()->fromPost('template'), true);
+            if (!isset($templateData['name'])) {
+                $templateData['name'] = 'Preview';
+            }
+            $template = $this->getInvoiceService()->createTemplate($templateData);
             return $this->invoiceOrders($orders, $template);
         }  catch (NotFound $exception) {
             return $this->redirect()->toRoute(
@@ -243,9 +244,15 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         }
     }
 
-    public function invoiceOrders(OrderCollection $orders)
+    public function markOrdersAsPrinted(OrderCollection $orderCollection)
     {
-        return $this->getInvoiceService()->getResponseFromOrderCollection($orders);
+        $this->getInvoiceService()->markOrdersAsPrintedFromOrderCollection($orderCollection);
+        return $this;
+    }
+
+    public function invoiceOrders(OrderCollection $orders, Template $template = null)
+    {
+        return $this->getInvoiceService()->getResponseFromOrderCollection($orders, $template);
     }
 
     public function checkInvoicePrintingAllowedAction()
