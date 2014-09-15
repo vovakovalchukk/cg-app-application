@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d18245161850ab7e79f5d4a5c7b24787",
+    "hash": "f901a35d30b9d44000122b799d77a879",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -388,13 +388,6 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -594,17 +587,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.8.7.1",
+            "version": "1.8.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "3d6770b5d1bd2b6244e1778db584946cd28847bc"
+                "reference": "6fb42965e99714ec69b552d3df670af7b95e2009"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.8.7.1-2455fd.zip",
-                "reference": "3d6770b5d1bd2b6244e1778db584946cd28847bc",
-                "shasum": "6d3037ea06cb7cee1d43ee7bde30cf0620c38057"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.8.9-120baa.zip",
+                "reference": "6fb42965e99714ec69b552d3df670af7b95e2009",
+                "shasum": "d7a0ffae6b51bb99e66e7edcbf51685400e077f5"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -615,7 +608,7 @@
                 "channelgrabber/http": ">=1.2.17",
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/settings": ">=1.1.0,<2.0.0",
-                "channelgrabber/slim": ">=1.6.0,<2.0.0",
+                "channelgrabber/slim": ">=1.9.7,<2.0.0",
                 "channelgrabber/stdlib": ">=2.7.0,<3.0.0",
                 "channelgrabber/stock": ">=1.0.9,<2.0.0",
                 "channelgrabber/transaction": ">=1.1.0,<2.0.0",
@@ -624,6 +617,8 @@
                 "ext-mongo": ">=1.4.4",
                 "guzzle/guzzle": "~3.7",
                 "nocarrier/hal": "~0.9.4",
+                "php-jsonpatch/php-jsonpatch": "@dev",
+                "php-jsonpointer/php-jsonpointer": "@dev",
                 "zendframework/zend-di": ">=2.2.5"
             },
             "require-dev": {
@@ -636,7 +631,7 @@
                     "CG\\Order\\": ""
                 }
             },
-            "time": "2014-09-02 13:30:09"
+            "time": "2014-09-15 07:50:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -740,13 +735,6 @@
                 "predis/predis": "v0.8.3"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Predis\\": ""
@@ -877,17 +865,17 @@
         },
         {
             "name": "channelgrabber/slim",
-            "version": "1.9.6",
+            "version": "1.9.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgslim.git",
-                "reference": "f60c4a7e95053b75949318f4b330e70ab6811474"
+                "reference": "a1aa1d1d64663ef0336951405ac33e43d50660a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-slim-1.9.6-e4387e.zip",
-                "reference": "f60c4a7e95053b75949318f4b330e70ab6811474",
-                "shasum": "a3d6f4224e6f70e6bd98b22a734d55ab430f908c"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-slim-1.9.7-f85bb8.zip",
+                "reference": "a1aa1d1d64663ef0336951405ac33e43d50660a5",
+                "shasum": "8600fbe1acc5bc72863c867e341475a1aa8c53e9"
             },
             "require": {
                 "channelgrabber/etag": ">=1.4.3,<2.0.0",
@@ -900,6 +888,8 @@
                 "cilex/cilex": "1.0.1",
                 "nocarrier/hal": "~0.9.4",
                 "php": ">=5.4.0",
+                "php-jsonpatch/php-jsonpatch": "dev-master",
+                "php-jsonpointer/php-jsonpointer": "@dev",
                 "rhumsaa/vnderror": "1.0.0",
                 "slim/slim": "2.3.*",
                 "zendframework/zend-eventmanager": ">=2.2.5,<3.0"
@@ -913,7 +903,7 @@
                     "CG\\Slim": ""
                 }
             },
-            "time": "2014-08-13 16:29:06"
+            "time": "2014-09-12 08:15:34"
         },
         {
             "name": "channelgrabber/sso",
@@ -2084,6 +2074,74 @@
             "time": "2012-12-19 10:50:58"
         },
         {
+            "name": "composer/composer",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/composer/composer.git",
+                "reference": "d79f2b0fd33ee9b89f3d9f1969f43dc3d570a33a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/composer/composer/zipball/d79f2b0fd33ee9b89f3d9f1969f43dc3d570a33a",
+                "reference": "d79f2b0fd33ee9b89f3d9f1969f43dc3d570a33a",
+                "shasum": ""
+            },
+            "require": {
+                "justinrainbow/json-schema": "~1.1",
+                "php": ">=5.3.2",
+                "seld/jsonlint": "1.*",
+                "symfony/console": "~2.3",
+                "symfony/finder": "~2.2",
+                "symfony/process": "~2.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~3.7"
+            },
+            "suggest": {
+                "ext-openssl": "Enabling the openssl extension allows you to access https URLs for repositories and packages",
+                "ext-zip": "Enabling the zip extension allows you to unzip archives, and allows gzip compression of all internet traffic"
+            },
+            "bin": [
+                "bin/composer"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Composer": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nils Adermann",
+                    "email": "naderman@naderman.de",
+                    "homepage": "http://www.naderman.de"
+                },
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "http://seld.be"
+                }
+            ],
+            "description": "Composer helps you declare, manage and install dependencies of PHP projects, ensuring you have the right stack everywhere.",
+            "homepage": "http://getcomposer.org/",
+            "keywords": [
+                "autoload",
+                "dependency",
+                "package"
+            ],
+            "time": "2014-09-10 15:11:05"
+        },
+        {
             "name": "guzzle/guzzle",
             "version": "v3.9.2",
             "source": {
@@ -2294,6 +2352,72 @@
             "time": "2014-08-10 23:57:01"
         },
         {
+            "name": "justinrainbow/json-schema",
+            "version": "1.3.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/justinrainbow/json-schema.git",
+                "reference": "87b54b460febed69726c781ab67462084e97a105"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/justinrainbow/json-schema/zipball/87b54b460febed69726c781ab67462084e97a105",
+                "reference": "87b54b460febed69726c781ab67462084e97a105",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "json-schema/json-schema-test-suite": "1.1.0",
+                "phpdocumentor/phpdocumentor": "~2",
+                "phpunit/phpunit": "~3.7"
+            },
+            "bin": [
+                "bin/validate-json"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "JsonSchema": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Bruno Prieto Reis",
+                    "email": "bruno.p.reis@gmail.com"
+                },
+                {
+                    "name": "Justin Rainbow",
+                    "email": "justin.rainbow@gmail.com"
+                },
+                {
+                    "name": "Igor Wiedler",
+                    "email": "igor@wiedler.ch"
+                },
+                {
+                    "name": "Robert Schönthal",
+                    "email": "seroscho@googlemail.com"
+                }
+            ],
+            "description": "A library to validate a json schema.",
+            "homepage": "https://github.com/justinrainbow/json-schema",
+            "keywords": [
+                "json",
+                "schema"
+            ],
+            "time": "2014-08-25 02:48:14"
+        },
+        {
             "name": "mustache/mustache",
             "version": "v2.7.0",
             "source": {
@@ -2387,6 +2511,104 @@
             "time": "2014-06-13 10:59:16"
         },
         {
+            "name": "php-jsonpatch/php-jsonpatch",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/raphaelstolt/php-jsonpatch.git",
+                "reference": "b20aed60f049c93f94a774455569bf8809d157c5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpatch/zipball/b20aed60f049c93f94a774455569bf8809d157c5",
+                "reference": "b20aed60f049c93f94a774455569bf8809d157c5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "php-jsonpointer/php-jsonpointer": "dev-master"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Rs\\Json": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Raphael Stolt",
+                    "email": "raphael.stolt@gmail.com",
+                    "homepage": "http://raphaelstolt.blogspot.com/"
+                }
+            ],
+            "description": "Implementation of JSON Patch (http://tools.ietf.org/html/rfc6902)",
+            "homepage": "https://github.com/raphaelstolt/php-jsonpatch",
+            "keywords": [
+                "json",
+                "json modification",
+                "json patch"
+            ],
+            "time": "2013-10-28 16:11:14"
+        },
+        {
+            "name": "php-jsonpointer/php-jsonpointer",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/raphaelstolt/php-jsonpointer.git",
+                "reference": "d9e9ac1202b8f5a3baa0e17db8265a60f3b9a9c4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpointer/zipball/d9e9ac1202b8f5a3baa0e17db8265a60f3b9a9c4",
+                "reference": "d9e9ac1202b8f5a3baa0e17db8265a60f3b9a9c4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "seld/jsonlint": "1.1.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Rs\\Json": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Raphael Stolt",
+                    "email": "raphael.stolt@gmail.com",
+                    "homepage": "http://raphaelstolt.blogspot.com/"
+                }
+            ],
+            "description": "Implementation of JSON Pointer (http://tools.ietf.org/html/rfc6901)",
+            "homepage": "https://github.com/raphaelstolt/php-jsonpointer",
+            "keywords": [
+                "json",
+                "json pointer",
+                "json traversal"
+            ],
+            "time": "2013-10-28 16:00:39"
+        },
+        {
             "name": "pimple/pimple",
             "version": "v1.0.2",
             "source": {
@@ -2421,7 +2643,9 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -2509,7 +2733,8 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com"
+                    "homepage": "http://benramsey.com",
+                    "role": "Developer"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
@@ -2522,6 +2747,53 @@
                 "xml"
             ],
             "time": "2012-07-17 22:17:31"
+        },
+        {
+            "name": "seld/jsonlint",
+            "version": "1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Seldaek/jsonlint.git",
+                "reference": "7cd4c4965e17e6e4c07f26d566619a4c76f8c672"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Seldaek/jsonlint/zipball/7cd4c4965e17e6e4c07f26d566619a4c76f8c672",
+                "reference": "7cd4c4965e17e6e4c07f26d566619a4c76f8c672",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "bin": [
+                "bin/jsonlint"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Seld\\JsonLint": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "http://seld.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "JSON Linter",
+            "keywords": [
+                "json",
+                "linter",
+                "parser",
+                "validator"
+            ],
+            "time": "2013-11-04 15:41:11"
         },
         {
             "name": "slim/slim",
@@ -3773,7 +4045,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -4480,6 +4753,9 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "composer/composer": 20,
+        "php-jsonpatch/php-jsonpatch": 20,
+        "php-jsonpointer/php-jsonpointer": 20,
         "phpspec/phpspec": 20
     },
     "prefer-stable": false,
