@@ -302,6 +302,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             $requestFilter['archived'] = [false];
         }
 
+        $requestFilter['hasItems'] = [true];
+
         if (isset($requestFilter[static::FILTER_SHIPPING_ALIAS_NAME])) {
             $methodNames = $this->getShippingConversionService()->fromAliasIdsToMethodNames($requestFilter[static::FILTER_SHIPPING_ALIAS_NAME]);
             $requestFilter[static::FILTER_SHIPPING_METHOD_NAME] = $methodNames;
