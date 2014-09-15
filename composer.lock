@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f127f5457b7d73b8765a2f629f527e7e",
+    "hash": "b4dd1d4c26152d202e6e8e95a656be8c",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -834,11 +834,17 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "dev-CGIV-3172-saving-invoice-settings",
+            "version": "1.1.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "95b80a939ffb5e2c35578a7d9485b19919e131e4"
+                "reference": "d815570186ba921f0219da9d52ebd5a71a902649"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.1.5-c72b25.zip",
+                "reference": "d815570186ba921f0219da9d52ebd5a71a902649",
+                "shasum": "5c0a043a0062dea7e54f8daf73fe94344b9a0d20"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0",
@@ -856,7 +862,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2014-09-11 15:06:04"
+            "time": "2014-09-12 15:48:09"
         },
         {
             "name": "channelgrabber/slim",
@@ -1011,17 +1017,23 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-3172-removed-library-restriction",
+            "version": "1.2.30",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "7c76649c3a9878661693514c3b811b35d0aa1bfb"
+                "reference": "03cfadd6b609ffc7871a79b6bdc0cecc868ca9c8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.30-9f448e.zip",
+                "reference": "03cfadd6b609ffc7871a79b6bdc0cecc868ca9c8",
+                "shasum": "d09dc8d2be430c8fc95849d11217ac018e4c7367"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.1,<2.0.0",
                 "channelgrabber/channel": ">=1.6.0,<2.0.0",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/di": ">=1.0.1",
+                "channelgrabber/di": ">=2.0.0",
                 "channelgrabber/order": ">=1.7.0,<2.0.0",
                 "channelgrabber/settings": ">=1.1.4,<2.0.0",
                 "channelgrabber/stdlib": ">=2.7.0,<3.0.0",
@@ -1043,7 +1055,7 @@
                     "CG\\Template\\": "src/"
                 }
             },
-            "time": "2014-09-11 15:34:37"
+            "time": "2014-09-12 15:49:30"
         },
         {
             "name": "channelgrabber/transaction",
@@ -4636,24 +4648,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.1.5",
-            "alias_normalized": "1.1.5.0",
-            "version": "dev-CGIV-3172-saving-invoice-settings",
-            "package": "channelgrabber/settings"
-        },
-        {
-            "alias": "1.2.28",
-            "alias_normalized": "1.2.28.0",
-            "version": "dev-CGIV-3172-removed-library-restriction",
-            "package": "channelgrabber/template"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/settings": 20,
-        "channelgrabber/template": 20,
         "composer/composer": 20,
         "phpspec/phpspec": 20
     },
