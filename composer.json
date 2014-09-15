@@ -65,16 +65,20 @@
             "php vendor/zendframework/zendframework/bin/classmap_generator.php -l module -o config/di/modules_classmap.php --overwrite",
             "php bin/update_di_components.php",
             "php -d memory_limit=512M bin/compile_di.php",
-            "rm -r vendor/channelgrabber/zf2-v4-ui/public/css/* && compass compile vendor/channelgrabber/zf2-v4-ui",
-            "rm -r public/channelgrabber/settings/css/* && compass compile public/channelgrabber/settings"
+            "if [ -d \"vendor/channelgrabber/zf2-v4-ui/public/css\" ]; then rm -r vendor/channelgrabber/zf2-v4-ui/public/css; fi",
+            "if [ -d \"public/channelgrabber/settings/css\" ]; then rm -r public/channelgrabber/settings/css; fi",
+            "compass compile vendor/channelgrabber/zf2-v4-ui",
+            "compass compile public/channelgrabber/settings"
         ],
         "post-update-cmd": [
             "composer -o dump-autoload",
             "php vendor/zendframework/zendframework/bin/classmap_generator.php -l module -o config/di/modules_classmap.php --overwrite",
             "php bin/update_di_components.php",
             "php -d memory_limit=512M bin/compile_di.php",
-            "rm -r vendor/channelgrabber/zf2-v4-ui/public/css/* && compass compile vendor/channelgrabber/zf2-v4-ui",
-            "rm -r public/channelgrabber/settings/css/* && compass compile public/channelgrabber/settings"
+            "if [ -d \"vendor/channelgrabber/zf2-v4-ui/public/css\" ]; then rm -r vendor/channelgrabber/zf2-v4-ui/public/css; fi",
+            "if [ -d \"public/channelgrabber/settings/css\" ]; then rm -r public/channelgrabber/settings/css; fi",
+            "compass compile vendor/channelgrabber/zf2-v4-ui",
+            "compass compile public/channelgrabber/settings"
         ]
     }
 }
