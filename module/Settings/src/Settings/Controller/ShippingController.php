@@ -262,12 +262,14 @@ class ShippingController extends AbstractActionController
                                   ->getActiveUserRootOrganisationUnitId();
         $shippingAccounts = [];
         try {
-            $shippingAccounts = $this->getAccountService()->fetchByOUAndType(
-                                    [$organisationUnitId],
-                                    static::TYPE,
-                                    static::LIMIT,
-                                    static::FIRST_PAGE
-                                );
+            $shippingAccounts = $this->getAccountService()->fetchByOUAndStatus(
+                [$organisationUnitId],
+                null,
+                false,
+                static::LIMIT,
+                static::FIRST_PAGE,
+                static::TYPE
+            );
         } catch (NotFound $e) {
             // Ignore if there are no shipping accounts
         }
