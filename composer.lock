@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ba444fe487d4115cd1483dc8380f2fe3",
+    "hash": "e9ffccdc3adff7ddf524b1ba27fb7ea9",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1955,20 +1955,29 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-EPIC-CGIV-2884-import-listing",
+            "version": "1.12.54",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "ad0c4418c9aa459112217140850b30cedb4b76aa"
+                "reference": "98944487f3ea367d811d8719183a68f514d108b7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.54-813152.zip",
+                "reference": "98944487f3ea367d811d8719183a68f514d108b7",
+                "shasum": "53623c8ea4e8c10c6f548daaa351c37c83b65f5c"
             },
             "require": {
-                "channelgrabber/di": ">=1.0.1",
+                "channelgrabber/di": ">=2.0.0",
                 "channelgrabber/etag": ">=1.4.2",
                 "channelgrabber/log": ">=1.4.2",
                 "channelgrabber/stdlib": ">=2.7.4,<3.0.0",
                 "channelgrabber/zf2-installer": ">=1.0.3",
                 "channelgrabber/zf2-mustache": ">=1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
+                "composer/composer": "@dev",
+                "php-jsonpatch/php-jsonpatch": "@dev",
+                "php-jsonpointer/php-jsonpointer": "@dev",
                 "zendframework/zend-config": "2.*",
                 "zendframework/zend-form": ">=2.3,<3.0",
                 "zendframework/zend-i18n": "2.*",
@@ -1992,7 +2001,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-09-16 09:41:26"
+            "time": "2014-09-16 15:41:38"
         },
         {
             "name": "cilex/cilex",
@@ -4786,17 +4795,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.12.54",
-            "alias_normalized": "1.12.54.0",
-            "version": "dev-EPIC-CGIV-2884-import-listing",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
