@@ -1,5 +1,6 @@
 <?php
 use CG_UI\View\Filters\Service as FilterService;
+use Filters\Options\Channel;
 use Products\Controller\ListingsController;
 
 return [
@@ -22,6 +23,7 @@ return [
                             'filterType' => 'date-range',
                             'variables' => [
                                 'name' => 'createdDate',
+                                'title' => 'Found',
                                 'time' => [
                                     'hours' => '23',
                                     'minutes' => '59'
@@ -57,6 +59,17 @@ return [
                                     ]
                                 ]
                             ]
+                        ],
+                        [
+                            'filterType' => 'customSelectGroup',
+                            'variables' => [
+                                'name' => 'channel',
+                                'title' => 'Channel',
+                                'searchField' => true,
+                                'concatenate' => true,
+                                'options' => []
+                            ],
+                            'optionsProvider' => Channel::class,
                         ],
                     ]
                 ]
