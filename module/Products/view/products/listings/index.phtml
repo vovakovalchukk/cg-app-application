@@ -7,6 +7,7 @@ function(showHideFilters) {
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#main.class')->append('full-width'); ?>
+<?php $this->placeholder('#sub-header')->append($filters); ?>
 <div id="main" class="transition-preload module clearfix<?= $this->placeholder('#main.class')->setPrefix(' ')->setIndent(1) ?>">
     <?= $this->breadcrumbs; ?>
     <?= $this->bulkItems; ?>

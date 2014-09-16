@@ -9,7 +9,9 @@ use Products\Listing\Service as ListingService;
 use Products\Listing\BulkActions\Service as BulkActionsService;
 use Products\Module;
 use CG_UI\View\DataTable;
+use CG_UI\View\Filters\Service as UIFiltersService;
 use Products\Controller\ListingsJsonController;
+use Products\Listing\Filter\Service as FilterService;
 
 class ListingsController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -17,22 +19,29 @@ class ListingsController extends AbstractActionController implements LoggerAware
 
     const ROUTE_INDEX = 'listingsImport';
     const ROUTE_INDEX_URL = '/listing/import';
+    const FILTER_TYPE = 'listingsImport';
 
     protected $viewModelFactory;
     protected $listingService;
     protected $bulkActionsService;
     protected $listingList;
+    protected $filterService;
+    protected $uiFiltersService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         ListingService $listingService,
         BulkActionsService $bulkActionsService,
-        DataTable $listingList
+        DataTable $listingList,
+        FilterService $filterService,
+        UIFiltersService $uiFiltersService
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setListingService($listingService)
             ->setBulkActionsService($bulkActionsService)
-            ->setListingList($listingList);
+            ->setListingList($listingList)
+            ->setFilterService($filterService)
+            ->setUIFiltersService($uiFiltersService);
     }
 
     public function indexAction()
@@ -45,9 +54,11 @@ class ListingsController extends AbstractActionController implements LoggerAware
             'afterActions'
         );
         $view->addChild($bulkActions, 'bulkItems');
+        $view->addChild($this->getFilterBar(), 'filters');
         $bulkAction->setVariable('isHeaderBarVisible', $this->getListingService()->isFilterBarVisible());
         $view->setVariable('isHeaderBarVisible', $this->getListingService()->isFilterBarVisible());
         $view->addChild($this->getListingListView(), 'listings');
+        $view->setVariable('filterNames', $this->getUIFiltersService()->getFilterNames(static::FILTER_TYPE));
         return $view;
     }
 
@@ -60,6 +71,13 @@ class ListingsController extends AbstractActionController implements LoggerAware
         );
         $settings->setTemplateUrlMap($this->mustacheTemplateMap('listingList'));
         return $listingList;
+    }
+
+    protected function getFilterBar()
+    {
+        $filterValues = $this->getFilterService()->getPersistentFilter();
+        $filters = $this->getUIFiltersService()->getFilters(static::FILTER_TYPE, $filterValues);
+        return $filters->prepare();
     }
 
     protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
@@ -104,5 +122,33 @@ class ListingsController extends AbstractActionController implements LoggerAware
     protected function getListingList()
     {
         return $this->listingList;
+    }
+
+    protected function setFilterService(FilterService $filterService)
+    {
+        $this->filterService = $filterService;
+        return $this;
+    }
+
+    /**
+     * @return FilterService
+     */
+    protected function getFilterService()
+    {
+        return $this->filterService;
+    }
+
+    protected function setUIFiltersService(UIFiltersService $uiFiltersService)
+    {
+        $this->uiFiltersService = $uiFiltersService;
+        return $this;
+    }
+
+    /**
+     * @return UIFiltersService
+     */
+    protected function getUIFiltersService()
+    {
+        return $this->uiFiltersService;
     }
 }

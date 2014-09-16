@@ -2,7 +2,7 @@
 namespace Orders\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use CG_UI\View\Filters\Service as FiltersService;
+use CG_UI\View\Filters\Service as UIFiltersService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Orders\Order\Service as OrderService;
@@ -37,7 +37,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected $bulkActionsService;
     protected $jsonModelFactory;
     protected $viewModelFactory;
-    protected $filtersService;
+    protected $uiFiltersService;
     protected $storedFiltersService;
     protected $usageService;
     protected $shippingConversionService;
@@ -50,7 +50,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         TimelineService $timelineService,
         BatchService $batchService,
         BulkActionsService $bulkActionsService,
-        FiltersService $filtersService,
+        UIFiltersService $uiFiltersService,
         StoredFiltersService $storedFiltersService,
         UsageService $usageService,
         ShippingConversionService $shippingConversionService
@@ -63,7 +63,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             ->setTimelineService($timelineService)
             ->setBatchService($batchService)
             ->setBulkActionsService($bulkActionsService)
-            ->setFiltersService($filtersService)
+            ->setUIFiltersService($uiFiltersService)
             ->setStoredFiltersService($storedFiltersService)
             ->setUsageService($usageService)
             ->setShippingConversionService($shippingConversionService);
@@ -97,7 +97,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->addChild($this->getBatches(), 'batches');
         $view->setVariable('isSidebarVisible', $this->getOrderService()->isSidebarVisible());
         $view->setVariable('isHeaderBarVisible', $this->getOrderService()->isFilterBarVisible());
-        $view->setVariable('filterNames', $this->getFiltersService()->getFilterNames(static::FILTER_TYPE));
+        $view->setVariable('filterNames', $this->getUIFiltersService()->getFilterNames(static::FILTER_TYPE));
         return $view;
     }
 
@@ -105,7 +105,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     {
         $view = $this->getViewModelFactory()->newInstance(
             [
-                'filters' => $this->getFiltersService()->getFilterConfig('stateFilters')
+                'filters' => $this->getUIFiltersService()->getFilterConfig('stateFilters')
             ]
         );
         $view->setTemplate('orders/orders/sidebar/statusFilters');
@@ -197,7 +197,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected function getFilterBar()
     {
         $filterValues = $this->getFilterService()->getPersistentFilter();
-        $filters = $this->getFiltersService()->getFilters(static::FILTER_TYPE, $filterValues);
+        $filters = $this->getUIFiltersService()->getFilters(static::FILTER_TYPE, $filterValues);
         return $filters->prepare();
     }
 
@@ -489,18 +489,18 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $this->bulkActionsService;
     }
 
-    protected function setFiltersService(FiltersService $filtersService)
+    protected function setUIFiltersService(UIFiltersService $uiFiltersService)
     {
-        $this->filtersService = $filtersService;
+        $this->uiFiltersService = $uiFiltersService;
         return $this;
     }
 
     /**
-     * @return FiltersService
+     * @return UIFiltersService
      */
-    protected function getFiltersService()
+    protected function getUIFiltersService()
     {
-        return $this->filtersService;
+        return $this->uiFiltersService;
     }
 
     protected function setStoredFiltersService(StoredFiltersService $storedFiltersService)

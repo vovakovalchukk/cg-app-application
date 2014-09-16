@@ -21,7 +21,7 @@ return [
         ]
     ],
     'filters' => [
-        'orders' => [
+        OrdersController::FILTER_TYPE => [
             'rows' => [
                 [
                     'type' => 'Row',
