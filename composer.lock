@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ef579528f60941cfd1de350ac4dedaec",
+    "hash": "6aeedac203b2690ece08fcdb173ae32e",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -464,26 +464,25 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.1.0",
+            "version": "1.1.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "f299680a9bbd8d35f18f9f30e5950088f4cfe6ac"
+                "reference": "75acb5f0d765f8fde2258b90634c1e11c16d75ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.1.0-69ab52.zip",
-                "reference": "f299680a9bbd8d35f18f9f30e5950088f4cfe6ac",
-                "shasum": "9ebc05475468bb1ba08de45e9c4dd3184224180f"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.1.3-6bcf36.zip",
+                "reference": "75acb5f0d765f8fde2258b90634c1e11c16d75ed",
+                "shasum": "42aeb34bda079823de034106a4a73909ac5fe904"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
-                "channelgrabber/channel": ">=1.3.2,<2.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=1.0.1",
                 "channelgrabber/etag": ">=1.4.3,<2.0.0",
                 "channelgrabber/http": ">=1.2.18,<2.0.0",
-                "channelgrabber/image": ">=1.00,<2.0.0",
+                "channelgrabber/image": ">=1.0.4,<2.0.0",
                 "channelgrabber/permission": ">=1.0.1,<2.0.0",
                 "channelgrabber/stdlib": ">=2.7.5,<3.0.0",
                 "nocarrier/hal": "~0.9.4"
@@ -504,7 +503,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2014-09-05 09:19:53"
+            "time": "2014-09-16 08:59:50"
         },
         {
             "name": "channelgrabber/location",
