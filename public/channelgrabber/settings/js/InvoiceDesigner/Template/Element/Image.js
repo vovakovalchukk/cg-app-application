@@ -35,15 +35,20 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
 
     Image.prototype = Object.create(ElementAbstract.prototype);
 
+    Object.defineProperty(Image.prototype, 'dpi', {
+        enumerable: true,
+        value: 300
+    });
+
     Image.prototype.resizeImageData = function()
     {
         var jsImage = new window.Image();
         jsImage.src = 'data:image/' + this.getFormat().toLowerCase() + ';base64,' + this.getSource();
         var canvas = document.createElement('canvas');
         var canvasContext = canvas.getContext('2d');
-        canvas.width = Number(this.getWidth()).mmToPx();
-        canvas.height = Number(this.getHeight()).mmToPx();
-        canvasContext.drawImage(jsImage, 0, 0, Number(this.getWidth()).mmToPx(), Number(this.getHeight()).mmToPx());
+        canvas.width = Number(this.getWidth()).mmToPx() * (this.dpi / 75);
+        canvas.height = Number(this.getHeight()).mmToPx() * (this.dpi / 75);
+        canvasContext.drawImage(jsImage, 0, 0, canvas.width, canvas.height);
         return canvas.toDataURL('image/' + this.getFormat().toLowerCase()).split(',')[1];
     };
 

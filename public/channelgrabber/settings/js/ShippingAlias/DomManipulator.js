@@ -1,11 +1,13 @@
 define([
     'jquery',
     'cg-mustache',
-    'ShippingAlias/MethodCollection'
+    'ShippingAlias/MethodCollection',
+    'ShippingAlias/AccountCollection'
 ], function(
     $,
     CGMustache,
-    methodCollection
+    methodCollection,
+    accountCollection
 ) {
     var DomManipulator = function()
     {
@@ -29,6 +31,13 @@ define([
     DomManipulator.DOM_SELECTOR_ALIAS_NONE = '.shipping-alias-none';
     DomManipulator.SHIPPING_METHOD_SELECTOR = '.channel-shipping-methods .custom-select-item';
 
+    DomManipulator.prototype.deferred = function()
+    {
+        var deferred = $.Deferred();
+        deferred.resolve();
+        return deferred;
+    };
+
     DomManipulator.prototype.prependAlias = function()
     {
         var self = this;
@@ -37,7 +46,8 @@ define([
             deleteButton: '/channelgrabber/zf2-v4-ui/templates/elements/buttons.mustache',
             multiSelect: '/channelgrabber/zf2-v4-ui/templates/elements/custom-select-group.mustache',
             multiSelectExpanded: '/channelgrabber/zf2-v4-ui/templates/elements/multiselectexpanded.mustache',
-            alias: '/channelgrabber/settings/template/ShippingAlias/alias.mustache'
+            alias: '/channelgrabber/settings/template/ShippingAlias/alias.mustache',
+            customSelect: '/channelgrabber/zf2-v4-ui/templates/elements/custom-select.mustache'
         };
         CGMustache.get().fetchTemplates(aliasUrlMap, function(templates, cgmustache)
         {
@@ -52,8 +62,18 @@ define([
             var multiSelect = cgmustache.renderTemplate(templates, {'options': methodCollection.getItems(),
                     'name': 'aliasMultiSelect-' + aliasNo}, "multiSelect");
             var multiSelectExpanded = cgmustache.renderTemplate(templates, {}, "multiSelectExpanded", {'multiSelect' : multiSelect});
+
+            var accountCustomSelect = cgmustache.renderTemplate(templates, {
+                isOptional: 'true',
+                id: 'shipping-account-custom-select-'+aliasNo,
+                name: 'shipping-account-custom-select-'+aliasNo,
+                class: 'shipping-account-select',
+                options: accountCollection.getItems()
+            }, "customSelect");
+
             var alias = cgmustache.renderTemplate(templates, {'id' : 'shipping-alias-new-' + aliasNo}, "alias", {
                 'multiSelectExpanded' : multiSelectExpanded,
+                'accountCustomSelect': accountCustomSelect,
                 'deleteButton' : deleteButton,
                 'text' : text
             });
@@ -122,6 +142,38 @@ define([
             self.updateOtherAliasMethodCheckboxes(checkedElement);
         });
     };
+
+    DomManipulator.prototype.updateServicesCustomSelect = function(aliasId, services)
+    {
+        if(services.length === 0) {
+            if($("#shipping-alias-" + aliasId).length) {
+                $("#shipping-alias-" + aliasId).find("#services-custom-select").html('');
+            } else if($("#shipping-alias-new-" + aliasId).length) {
+                $("#shipping-alias-new-" + aliasId).find("#services-custom-select").html('');
+            }
+            return;
+        }
+
+        var aliasUrlMap = {
+            customSelect: '/channelgrabber/zf2-v4-ui/templates/elements/custom-select.mustache'
+        };
+        CGMustache.get().fetchTemplates(aliasUrlMap, function(templates, cgmustache)
+        {
+            var serviceCustomSelect = cgmustache.renderTemplate(templates, {
+                isOptional: 'true',
+                id: 'shipping-service-custom-select-' + aliasId,
+                name: 'shipping-service-custom-select-' + aliasId,
+                class: 'shipping-service-select',
+                options: services
+            }, "customSelect");
+
+            if($("#shipping-alias-" + aliasId).length) {
+                $("#shipping-alias-" + aliasId).find("#services-custom-select").html(serviceCustomSelect);
+            } else if($("#shipping-alias-new-" + aliasId).length) {
+                $("#shipping-alias-new-" + aliasId).find("#services-custom-select").html(serviceCustomSelect);
+            }
+        });
+    }
 
     DomManipulator.prototype.remove = function(id, html)
     {
