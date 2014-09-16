@@ -7,11 +7,14 @@ require.config({
     }
 });
 require([
-    "showHideFilters", "Product/DomListener/Search"
+    "showHideFilters", "Product/DomListener/Search", "jquery"
 ],
-function(ShowHideFilters, searchDomListener) {
-    var hideFilters = new ShowHideFilters();
-    searchDomListener.init('.product-search-text', '.product-search-button', '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img');
+function(ShowHideFilters, searchDomListener, $) {
+    $(document).ready(function()
+    {
+        var hideFilters = new ShowHideFilters();
+        searchDomListener.init('.product-search-text', '.product-search-button', '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img');
+    });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#main.class')->append('full-width'); ?>
