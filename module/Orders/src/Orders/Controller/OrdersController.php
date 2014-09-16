@@ -2,7 +2,7 @@
 namespace Orders\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use CG_UI\View\Filter\Service as FiltersService;
+use CG_UI\View\Filters\Service as FiltersService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Orders\Order\Service as OrderService;
@@ -28,6 +28,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
     const FILTER_SHIPPING_METHOD_NAME = "shippingMethod";
     const FILTER_SHIPPING_ALIAS_NAME = "shippingAliasId";
+    const FILTER_TYPE = "orders";
 
     protected $orderService;
     protected $filterService;
@@ -96,7 +97,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->addChild($this->getBatches(), 'batches');
         $view->setVariable('isSidebarVisible', $this->getOrderService()->isSidebarVisible());
         $view->setVariable('isHeaderBarVisible', $this->getOrderService()->isFilterBarVisible());
-        $view->setVariable('filterNames', $this->getOrderService()->getFilterService()->getFilterNames());
+        $view->setVariable('filterNames', $this->getFiltersService()->getFilterNames(static::FILTER_TYPE));
         return $view;
     }
 
@@ -196,7 +197,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected function getFilterBar()
     {
         $filterValues = $this->getFilterService()->getPersistentFilter();
-        $filters = $this->getFiltersService()->getFilters('order', $filterValues);
+        $filters = $this->getFiltersService()->getFilters(static::FILTER_TYPE, $filterValues);
         return $filters->prepare();
     }
 

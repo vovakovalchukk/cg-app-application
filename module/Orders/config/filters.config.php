@@ -1,5 +1,5 @@
 <?php
-use CG_UI\View\Filter\Service as FilterService;
+use CG_UI\View\Filters\Service as FilterService;
 use Orders\Order\CountryService;
 use Orders\Order\CurrencyService;
 use Orders\Order\TableService\OrdersTableTagColumns;

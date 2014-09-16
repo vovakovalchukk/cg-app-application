@@ -2,6 +2,7 @@
 namespace Orders\Order;
 
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG_UI\View\Filters\Service as FilterService;
 use CG_UI\View\Table;
 use CG_UI\View\Table\Column as TableColumn;
 use CG_UI\View\Table\Rows as TableRows;
