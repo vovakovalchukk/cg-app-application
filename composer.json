@@ -49,7 +49,7 @@
         "channelgrabber/zf2-ssoclient": "~1.4.0",
         "channelgrabber/zf2-stdlib": "~1.1.14",
         "channelgrabber/zf2-usage": "~1.0.1",
-        "channelgrabber/zf2-v4-ui": "dev-EPIC-CGIV-2884-import-listing as 1.12.53",
+        "channelgrabber/zf2-v4-ui": "dev-EPIC-CGIV-2884-import-listing as 1.12.54",
         "composer/composer": "@dev",
         "guzzle/guzzle": "~3.7",
         "nocarrier/hal": "~0.9.3",
