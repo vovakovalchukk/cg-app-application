@@ -1,5 +1,7 @@
 <?php
 use CG_UI\View\Filters\Service as FilterService;
+use CG\Listing\Unimported\Status as UnimportedListingStatus;
+use Filters\Options\Account;
 use Filters\Options\Channel;
 use Products\Controller\ListingsController;
 
@@ -70,6 +72,88 @@ return [
                                 'options' => []
                             ],
                             'optionsProvider' => Channel::class,
+                        ],
+                        [
+                            'filterType' => 'customSelectGroup',
+                            'variables' => [
+                                'name' => 'accountId',
+                                'title' => 'Account',
+                                'searchField' => true,
+                                'concatenate' => true,
+                                'options' => []
+                            ],
+                            'optionsProvider' => Account::class,
+                        ],
+                        [
+                            'filterType' => 'customSelectGroup',
+                            'variables' => [
+                                'name' => 'status',
+                                'title' => 'Status',
+                                'id' => 'filter-status',
+                                'searchField' => true,
+                                'concatenate' => true,
+                                'options' => [
+                                    [
+                                        'title' => ucwords(UnimportedListingStatus::NOT_STARTED),
+                                        'value' => UnimportedListingStatus::NOT_STARTED
+                                    ],
+                                    [
+                                        'title' => ucwords(UnimportedListingStatus::IMPORTING),
+                                        'value' => UnimportedListingStatus::IMPORTING
+                                    ],
+                                    [
+                                        'title' => ucwords(UnimportedListingStatus::ERROR),
+                                        'value' => UnimportedListingStatus::ERROR
+                                    ],
+                                ],
+                            ],
+                        ],
+                        [
+                            'filterType' => 'customSelectGroup',
+                            'variables' => [
+                                'isBoolean' => true,
+                                'name' => 'hidden',
+                                'title' => 'Show Hidden',
+                                'emptyValue' => true,
+                                'options' => [
+                                    [
+                                        'value' => true,
+                                        'title' => 'Yes'
+                                    ],
+                                    [
+                                        'value' => false,
+                                        'title' => 'No',
+                                        'selected' => true
+                                    ],
+                                ]
+                            ],
+                        ],
+                        [
+                            'filterType' => 'search',
+                            'variables' => [
+                                'name' => 'searchTerm',
+                                'placeholder' => 'Search for...',
+                                'class' => '',
+                                'value' => ''
+                            ],
+                        ],
+                        [
+                            'filterType' => 'buttons',
+                            'variables' => [
+                                'name' => 'buttons',
+                                'buttons' => [
+                                    [
+                                        'name' => 'apply-filters',
+                                        'value' => 'Apply Filters',
+                                        'action' => 'apply-filters',
+                                    ],
+                                    [
+                                        'name' => 'clear-filters',
+                                        'value' => 'Clear',
+                                        'action' => 'clear-filters',
+                                    ],
+                                ],
+                            ]
                         ],
                     ]
                 ]
