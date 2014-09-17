@@ -39,7 +39,12 @@ class ListingsJsonController extends AbstractActionController
             'Records' => [],
         ];
         try {
-            $requestFilter = $this->getFilterMapper()->fromArray($this->params()->fromPost('filter', []));
+            $requestFilter = $this->params()->fromPost('filter', []);
+            if (!isset($requestFilter['hidden']) || $requestFilter['hidden'] == 'No') {
+                $requestFilter['hidden'] = [false];
+            }
+
+            $requestFilter = $this->getFilterMapper()->fromArray($requestFilter);
             $limit = 'all';
             $page = 1;
             if ($this->params()->fromPost('iDisplayLength') > 0) {
