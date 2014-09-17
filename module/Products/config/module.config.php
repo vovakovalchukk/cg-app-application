@@ -222,7 +222,7 @@ return [
                 'parameters' => [
                     'variables' => [
                         'sortable' => 'false',
-                        'id' => 'accounts',
+                        'id' => 'datatable',
                         'class' => 'fixed-header fixed-footer',
                         'width' => '100%'
                     ],

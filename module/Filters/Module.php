@@ -7,6 +7,8 @@ use Zend\Mvc\MvcEvent;
 
 class Module implements DependencyIndicatorInterface
 {
+    const PUBLIC_FOLDER = '/channelgrabber/filters/';
+
     public function onBootstrap(MvcEvent $event)
     {
     }
