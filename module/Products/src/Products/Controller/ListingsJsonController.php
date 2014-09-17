@@ -8,26 +8,49 @@ use Products\Listing\Service as ListingService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG\Listing\Unimported\Filter\Mapper as FilterMapper;
 use CG\Listing\Unimported\Mapper as ListingMapper;
+use CG\Channel\ListingImportFactory;
+use CG\Account\Client\Filter as AccountFilter;
+use CG\Account\Client\Service as AccountService;
+use CG\User\ActiveUserInterface;
+use \GearmanClient;
 
 class ListingsJsonController extends AbstractActionController
 {
     const ROUTE_AJAX = 'AJAX';
+    const ROUTE_REFRESH = 'refresh';
+    const ACTIVE = 1;
+    const DEFAULT_LIMIT = 'all';
+    const DEFAULT_PAGE = 1;
+    const DEFAULT_TYPE = 'sales';
+    const ONE_SECOND_DELAY = 1;
 
     protected $listingService;
     protected $jsonModelFactory;
     protected $filterMapper;
     protected $listingMapper;
+    protected $listingImportFactory;
+    protected $accountService;
+    protected $activeUserContainer;
+    protected $gearmanClient;
 
     public function __construct(
         ListingService $listingService,
         JsonModelFactory $jsonModelFactory,
         FilterMapper $filterMapper,
-        ListingMapper $listingMapper
+        ListingMapper $listingMapper,
+        ListingImportFactory $listingImportFactory,
+        AccountService $accountService,
+        ActiveUserInterface $activeUserContainer,
+        \GearmanClient $gearmanClient
     ) {
         $this->setListingService($listingService)
             ->setJsonModelFactory($jsonModelFactory)
             ->setFilterMapper($filterMapper)
-            ->setListingMapper($listingMapper);
+            ->setListingMapper($listingMapper)
+            ->setListingImportFactory($listingImportFactory)
+            ->setAccountService($accountService)
+            ->setActiveUserContainer($activeUserContainer)
+            ->setGearmanClient($gearmanClient);
     }
 
     public function ajaxAction()
@@ -57,6 +80,37 @@ class ListingsJsonController extends AbstractActionController
             //noop
         }
         return $this->getJsonModelFactory()->newInstance($data);
+    }
+
+    public function refreshAction()
+    {
+        $view = $this->getJsonModelFactory()->newInstance();
+        $filter = new AccountFilter();
+        $filter->setActive(static::ACTIVE)
+            ->setLimit(static::DEFAULT_LIMIT)
+            ->setPage(static::DEFAULT_PAGE)
+            ->setType(static::DEFAULT_TYPE)
+            ->setOus($this->getActiveUserContainer()->getActiveUser()->getOuList());
+        $accounts = $this->getAccountService()->fetchByFilter($filter);
+        $gearmanJobs = [];
+        foreach ($accounts as $account) {
+            $importer = $this->getListingImportFactory()->createListingImport($account);
+            $gearmanJobs[] = $importer($account);
+        }
+        do {
+            sleep(static::ONE_SECOND_DELAY);
+        } while($this->checkGearmanJobStatus($gearmanJobs));
+        return $view;
+    }
+
+    protected function checkGearmanJobStatus(array $gearmanJobs)
+    {
+        foreach ($gearmanJobs as $gearmanJob) {
+            if ($this->getGearmanClient()->jobStatus($gearmanJob)[0]) {
+                return true;
+            }
+        }
+        return false;
     }
 
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -101,5 +155,49 @@ class ListingsJsonController extends AbstractActionController
     protected function getListingMapper()
     {
         return $this->listingMapper;
+    }
+
+    protected function setListingImportFactory(ListingImportFactory $listingImportFactory)
+    {
+        $this->listingImportFactory = $listingImportFactory;
+        return $this;
+    }
+
+    protected function getListingImportFactory()
+    {
+        return $this->listingImportFactory;
+    }
+
+    protected function setAccountService(AccountService $accountService)
+    {
+        $this->accountService = $accountService;
+        return $this;
+    }
+
+    protected function getAccountService()
+    {
+        return $this->accountService;
+    }
+
+    protected function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
+    {
+        $this->activeUserContainer = $activeUserContainer;
+        return $this;
+    }
+
+    protected function getActiveUserContainer()
+    {
+        return $this->activeUserContainer;
+    }
+
+    protected function setGearmanClient(\GearmanClient $gearmanClient)
+    {
+        $this->gearmanClient = $gearmanClient;
+        return $this;
+    }
+
+    protected function getGearmanClient()
+    {
+        return $this->gearmanClient;
     }
 }
