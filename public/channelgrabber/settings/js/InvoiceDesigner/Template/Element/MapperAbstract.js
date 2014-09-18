@@ -124,13 +124,13 @@ define([
     MapperAbstract.prototype.getDomWrapperStyles = function(element)
     {
         var position = {
-            top: element.getY(),
-            left: element.getX()
+            top: element.getY().mmToPx(),
+            left: element.getX().mmToPx()
         };
         position = this.getService().removeDomWrapperGapFromDimensions(position);
         var domStyles = [
-            'top: '+position.top+'mm',
-            'left: '+position.left+'mm'
+            'top: ' + position.top.pxToMm() + 'mm',
+            'left: ' + position.left.pxToMm() + 'mm'
         ];
         return domStyles;
     };
@@ -145,10 +145,17 @@ define([
 
     MapperAbstract.prototype.getDomStyles = function(element)
     {
+        var size = {
+            width: element.getWidth().mmToPx(),
+            height: element.getHeight().mmToPx()
+        };
+        size = this.getService().addDomWrapperGapToDimensions(size);
+        size = this.getService().addDomWrapperGapToDimensions(size);
         var domStyles = [
-            'width: '+element.getWidth()+'mm',
-            'height: '+element.getHeight()+'mm'
+            'width: ' + size.width.pxToMm() + 'mm',
+            'height: ' + size.height.pxToMm() + 'mm'
         ];
+
         var optionalAttribs = this.getOptionalAttribs();
         domStyles = this.addOptionalDomStyles(element, optionalAttribs, domStyles);
         var extraDomStyles = this.getExtraDomStyles(element);
