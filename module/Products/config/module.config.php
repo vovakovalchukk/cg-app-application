@@ -336,7 +336,7 @@ return [
             ],
             'ListingFoundColumn' => [
                 'parameters' => [
-                    'column' => 'found',
+                    'column' => 'createdDate',
                     'viewModel' => 'ListingFoundColumnView',
                     'class' => 'found-col',
                 ],
