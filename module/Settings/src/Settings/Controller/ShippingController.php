@@ -1,8 +1,11 @@
 <?php
 namespace Settings\Controller;
 
+use CG\Channel\ShippingServiceFactory;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Zend\Stdlib\View\Model\Exception;
 use CG_UI\View\Prototyper\JsonModelFactory;
+use Zend\Di\Exception\ClassNotFoundException;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG\Order\Shared\Shipping\Conversion\Service as ConversionService;
@@ -10,6 +13,7 @@ use CG\Settings\Shipping\Alias\Service as ShippingService;
 use CG\User\ActiveUserInterface;
 use CG\Settings\Shipping\Alias\Entity as AliasEntity;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Account\Client\Service as AccountService;
 
 class ShippingController extends AbstractActionController
 {
@@ -17,8 +21,10 @@ class ShippingController extends AbstractActionController
     const ROUTE_ALIASES = "Shipping Aliases";
     const ROUTE_ALIASES_SAVE = 'Shipping Alias Save';
     const ROUTE_ALIASES_REMOVE = 'Shipping Alias Remove';
+    const ROUTE_SERVICES = 'Shipping Services';
     const FIRST_PAGE = 1;
     const LIMIT = 'all';
+    const TYPE = 'shipping';
 
     protected $viewModelFactory;
     protected $conversionService;
@@ -26,6 +32,8 @@ class ShippingController extends AbstractActionController
     protected $jsonModelFactory;
     protected $activeUser;
     protected $organisationUnitService;
+    protected $accountService;
+    protected $shippingServiceFactory;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -33,26 +41,33 @@ class ShippingController extends AbstractActionController
         ShippingService $shippingService,
         JsonModelFactory $jsonModelFactory,
         ActiveUserInterface $activeUser,
-        OrganisationUnitService $organisationUnitService
+        OrganisationUnitService $organisationUnitService,
+        AccountService $accountService,
+        ShippingServiceFactory $shippingServiceFactory
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setConversionService($conversionService)
             ->setShippingService($shippingService)
             ->setJsonModelFactory($jsonModelFactory)
             ->setActiveUser($activeUser)
-            ->setOrganisationUnitService($organisationUnitService);
+            ->setOrganisationUnitService($organisationUnitService)
+            ->setAccountService($accountService)
+            ->setShippingServiceFactory($shippingServiceFactory);
     }
 
     public function aliasAction()
     {
         $organisationUnit = $this->getOrganisationUnitService()
-                                 ->fetch($this->getActiveUser()
-                                              ->getActiveUserRootOrganisationUnitId()
-            );
+                                ->fetch(
+                                    $this->getActiveUser()
+                                        ->getActiveUserRootOrganisationUnitId()
+                                );
+
         $shippingMethods = $this->getConversionService()->fetchMethods($organisationUnit);
         $view = $this->getViewModelFactory()->newInstance();
         $view->setVariable('title', static::ROUTE_ALIASES);
         $view->setVariable('shippingMethods', $shippingMethods->toArray());
+        $view->setVariable('shippingAccounts', is_array($this->getShippingAccounts()) ? [] : $this->getShippingAccounts()->toArray());
         $view->setVariable('rootOuId', $this->getActiveUser()->getActiveUserRootOrganisationUnitId());
         $view->addChild($this->getAliasView(), 'aliases');
         $view->addChild($this->getAddButtonView(), 'addButton');
@@ -73,6 +88,12 @@ class ShippingController extends AbstractActionController
         $decodedAlias = json_decode($alias, true);
         $this->getShippingService()->removeById($decodedAlias['id']);
         return $this->getJsonModelFactory()->newInstance(["alias" => $alias]);
+    }
+
+    public function getServicesAction()
+    {
+        $accountId = $this->params('account');
+        return $this->getJsonModelFactory()->newInstance(['shippingServices' => $this->getShippingServices($accountId)]);
     }
 
     protected function getAddButtonView()
@@ -128,9 +149,63 @@ class ShippingController extends AbstractActionController
         $view->addChild($this->getTextView($alias), 'text');
         $view->addChild($this->getDeleteButtonView($alias), 'deleteButton');
         $view->addChild($this->getMultiSelectExpandedView($alias), 'multiSelectExpanded');
+        $view->addChild($this->getAccountCustomSelectView($alias), 'accountCustomSelect');
+        $serviceCustomSelect = $this->getServiceCustomSelectView($alias);
+        if(!is_null($serviceCustomSelect)) {
+            $view->addChild($this->getServiceCustomSelectView($alias), 'serviceCustomSelect');
+        }
         $view->setTemplate('ShippingAlias/alias.mustache');
 
         return $view;
+    }
+
+    protected function getAccountCustomSelectView(AliasEntity $alias)
+    {
+        $shippingAccounts = $this->getShippingAccounts();
+
+        $options = [];
+        foreach($shippingAccounts as $account) {
+            $options[] = [
+                'title' => $account->getDisplayName(),
+                'value' => $account->getId(),
+                'selected' => $alias->getAccountId() == $account->getId()
+            ];
+        }
+
+        $customSelect = $this->getViewModelFactory()->newInstance([
+            'name' => 'shipping-account-custom-select-' . $alias->getId(),
+            'id' => 'shipping-account-custom-select-' . $alias->getId(),
+            'class' => 'shipping-account-select',
+            'options' => $options
+        ]);
+        $customSelect->setTemplate('elements/custom-select.mustache');
+        return $customSelect;
+    }
+
+    protected function getServiceCustomSelectView(AliasEntity $alias)
+    {
+        $shippingServices = $this->getShippingServices($alias->getAccountId());
+        $options = [];
+        foreach($shippingServices as $serviceKey => $serviceVal) {
+            $options[] = [
+                'title' => $serviceKey,
+                'value' => $serviceVal,
+                'selected' => $alias->getShippingService() == $serviceVal
+            ];
+        }
+
+        if(count($options) == 0) {
+            return null;
+        }
+
+        $customSelect = $this->getViewModelFactory()->newInstance([
+            'name' => 'shipping-service-custom-select-' . $alias->getId(),
+            'id' => 'shipping-service-custom-select-' . $alias->getId(),
+            'class' => 'shipping-service-select',
+            'options' => $options
+        ]);
+        $customSelect->setTemplate('elements/custom-select.mustache');
+        return $customSelect;
     }
 
     protected function getDeleteButtonView(AliasEntity $alias)
@@ -179,6 +254,43 @@ class ShippingController extends AbstractActionController
         $multiSelectExpanded->addChild($multiSelect, 'multiSelect');
         $multiSelectExpanded->setTemplate('elements/multiselectexpanded.mustache');
         return $multiSelectExpanded;
+    }
+
+    protected function getShippingAccounts()
+    {
+        $organisationUnitId = $this->getActiveUser()
+                                  ->getActiveUserRootOrganisationUnitId();
+        $shippingAccounts = [];
+        try {
+            $shippingAccounts = $this->getAccountService()->fetchByOUAndStatus(
+                [$organisationUnitId],
+                null,
+                false,
+                static::LIMIT,
+                static::FIRST_PAGE,
+                static::TYPE
+            );
+        } catch (NotFound $e) {
+            // Ignore if there are no shipping accounts
+        }
+        return $shippingAccounts;
+    }
+
+    protected function getShippingServices($accountId)
+    {
+        $shippingServices = [];
+        try {
+            $account = $this->getAccountService()->fetch($accountId);
+        } catch (NotFound $e) {
+            return $shippingServices;
+        }
+        try {
+            $shippingService = $this->getShippingServiceFactory()->createShippingService($account);
+            $shippingServices = $shippingService->getShippingServices();
+        } catch (ClassNotFoundException $e) {
+            // Ignore
+        }
+        return $shippingServices;
     }
 
     protected function getViewModelFactory()
@@ -245,5 +357,27 @@ class ShippingController extends AbstractActionController
     {
         $this->organisationUnitService = $organisationUnitService;
         return $this;
+    }
+
+    public function setAccountService(AccountService $accountService)
+    {
+        $this->accountService = $accountService;
+        return $this;
+    }
+
+    protected function getAccountService()
+    {
+        return $this->accountService;
+    }
+
+    public function setShippingServiceFactory($shippingServiceFactory)
+    {
+        $this->shippingServiceFactory = $shippingServiceFactory;
+        return $this;
+    }
+
+    protected function getShippingServiceFactory()
+    {
+        return $this->shippingServiceFactory;
     }
 }

@@ -59,8 +59,9 @@ class Channel implements SelectOptionsInterface
 
     protected function getAccounts(User $user)
     {
-        return $this->getAccountService()->fetchByOU(
+        return $this->getAccountService()->fetchByOUAndType(
             $user->getOuList(),
+            'sales',
             'all'
         );
     }

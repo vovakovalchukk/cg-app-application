@@ -28,10 +28,8 @@ use CG\Template\Repository as TemplateRepository;
 use Settings\Factory\SidebarNavFactory;
 use CG\Order\Client\Shipping\Method\Storage\Api as ShippingMethodStorage;
 use CG\Order\Service\Shipping\Method\Service as ShippingMethodService;
-
 use CG\Settings\Shipping\Alias\Storage\Api as ShippingAliasStorage;
 use CG\Settings\Shipping\Alias\Service as ShippingAliasService;
-
 use Zend\Mvc\Router\Http\Segment;
 use Zend\Mvc\Router\Http\Literal;
 use CG\Channel\Type;
@@ -58,8 +56,6 @@ return [
                             'type' => Type::SALES
                         ]
                     ],
-                    /**
-                     * Commented this out to achieve a 'Dark Deploy' TODO: Remove this comment.
                     Type::SHIPPING . ' ' . ChannelController::ROUTE_CHANNELS => [
                         'label' => ucwords(Type::SHIPPING) . ' ' . ChannelController::ROUTE_CHANNELS,
                         'title' => ucwords(Type::SHIPPING) . ' ' . ChannelController::ROUTE_CHANNELS,
@@ -67,7 +63,7 @@ return [
                         'params' => [
                             'type' => Type::SHIPPING
                         ]
-                    ]*/
+                    ],
                 ]
             ],
             'Invoices' => [
@@ -370,6 +366,19 @@ return [
                                     ]
                                 ]
                             ],
+                            ShippingController::ROUTE_SERVICES => [
+                                'type' => Segment::class,
+                                'options' => [
+                                    'route' => '/services/:account',
+                                    'defaults' => [
+                                        'action' => 'getServices'
+                                    ]
+                                ],
+                                'constraints' => [
+                                    'account' => '[0-9]*'
+                                ],
+                                'may_terminate' => true
+                            ]
                         ]
                     ]
                 ]
