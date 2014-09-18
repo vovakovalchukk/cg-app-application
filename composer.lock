@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a03b9753e24dd2fe1c98ae81048f0edb",
+    "hash": "8317ccf95bf778a5c403411704584b90",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -467,8 +467,8 @@
             "version": "dev-CGIV-3027-import-listings-filters",
             "source": {
                 "type": "git",
-                "url": "/home/shoniqua/repos/cg-listing",
-                "reference": "cc1bf3260718a79a0fceffec6dfc8a345aa187f2"
+                "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
+                "reference": "78171825e850a3c489ebc281f30d76c42ba8dd95"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -498,7 +498,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2014-09-18 10:57:38"
+            "time": "2014-09-18 14:15:24"
         },
         {
             "name": "channelgrabber/location",
@@ -586,8 +586,8 @@
             "version": "dev-CGIV-3027-import-listings-filters",
             "source": {
                 "type": "git",
-                "url": "/home/shoniqua/repos/cg-order",
-                "reference": "0af5122bdbdb26bf31267f19005d9d906004bfa5"
+                "url": "git@bitbucket.org:channelgrabber/cg-order.git",
+                "reference": "af5c71160f1715646b6328b195d5e4efbec3ad0d"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -628,7 +628,7 @@
                     "CG\\Order\\Test\\": "tests/src"
                 }
             },
-            "time": "2014-09-17 15:35:38"
+            "time": "2014-09-17 15:52:23"
         },
         {
             "name": "channelgrabber/permission",
@@ -945,8 +945,8 @@
             "version": "dev-CGIV-3027-import-listings-filters",
             "source": {
                 "type": "git",
-                "url": "/home/shoniqua/repos/cgstdlib",
-                "reference": "69a4037d908f4c51bd6a1a8a0f7d3ef6a68447f8"
+                "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
+                "reference": "c13e496a2f399d621553f8b9be7588fe5d3a4537"
             },
             "require": {
                 "zendframework/zend-db": ">=2.2,<3.0"
@@ -964,7 +964,7 @@
                     "src/Utilities.php"
                 ]
             },
-            "time": "2014-09-17 14:00:14"
+            "time": "2014-09-17 15:51:41"
         },
         {
             "name": "channelgrabber/stock",
@@ -1911,8 +1911,8 @@
             "version": "dev-CGIV-3027-import-listings-filters",
             "source": {
                 "type": "git",
-                "url": "/home/shoniqua/repos/zf2-v4-ui",
-                "reference": "74521d76d162ccc98452129acf186a907408bc31"
+                "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
+                "reference": "b2e038f98d9eec614f98a05aa00d33b2bec31111"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
@@ -1945,7 +1945,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-09-16 14:13:47"
+            "time": "2014-09-18 12:42:59"
         },
         {
             "name": "cilex/cilex",
