@@ -1,12 +1,18 @@
 <?php
 namespace Products\Listing;
 
+use CG\Account\Client\Service as AccountService;
+use CG\Channel\Type as ChannelType;
 use CG\User\ActiveUserInterface;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\UserPreference\Client\Service as UserPreferenceService;
 use CG\Listing\Unimported\Service as ListingService;
 use CG\Listing\Unimported\Filter as ListingFilter;
+use CG\Listing\Unimported\Collection as ListingCollection;
+use Settings\Module as SettingsModule;
+use Settings\Controller\ChannelController;
+use Zend\Mvc\MvcEvent;
 
 class Service implements LoggerAwareInterface
 {
@@ -19,15 +25,18 @@ class Service implements LoggerAwareInterface
     protected $activeUserContainer;
     protected $userPreferenceService;
     protected $listingService;
+    protected $accountService;
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
         UserPreferenceService $userPreferenceService,
-        ListingService $listingService
+        ListingService $listingService,
+        AccountService $accountService
     ) {
         $this->setActiveUserContainer($activeUserContainer)
             ->setUserPreferenceService($userPreferenceService)
-            ->setListingService($listingService);
+            ->setListingService($listingService)
+            ->setAccountService($accountService);
     }
 
     public function fetchListings(ListingFilter $listingFilter)
@@ -48,6 +57,39 @@ class Service implements LoggerAwareInterface
     public function getListingList()
     {
 
+    }
+
+    public function alterListingTable(ListingCollection $listingCollection, MvcEvent $event)
+    {
+        $listings = $listingCollection->toArray();
+        $listings = $this->addAccountDetailsToListings($listings, $event);
+
+        return $listings;
+    }
+
+    public function addAccountDetailsToListings(array $listings, MvcEvent $event)
+    {
+        $accounts = $this->getAccountService()->fetchByOUAndStatus(
+            $this->getActiveUser()->getOuList(),
+            null,
+            null,
+            static::LIMIT,
+            static::PAGE,
+            ChannelType::SALES
+        );
+
+        foreach($listings as &$listing) {
+            $accountEntity = $accounts->getById($listing['accountId']);
+            if ($accountEntity) {
+                $listing['accountName'] = $accountEntity->getDisplayName();
+            }
+
+            $listing['accountLink'] = $event->getRouter()->assemble(
+                ['account' => $listing['accountId'], 'type' => ChannelType::SALES],
+                ['name' => SettingsModule::ROUTE . '/' . ChannelController::ROUTE . '/' .ChannelController::ROUTE_CHANNELS.'/'. ChannelController::ROUTE_ACCOUNT]
+            );
+        }
+        return $listings;
     }
 
     protected function getActiveUserPreference()
@@ -96,5 +138,16 @@ class Service implements LoggerAwareInterface
     protected function getListingService()
     {
         return $this->listingService;
+    }
+
+    protected function getAccountService()
+    {
+        return $this->accountService;
+    }
+
+    protected function setAccountService($accountService)
+    {
+        $this->accountService = $accountService;
+        return $this;
     }
 }

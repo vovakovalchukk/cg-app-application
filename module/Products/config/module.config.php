@@ -284,7 +284,7 @@ return [
             ],
             'ListingAccountColumn' => [
                 'parameters' => [
-                    'column' => 'account',
+                    'column' => 'accountId',
                     'viewModel' => 'ListingAccountColumnView',
                     'class' => 'account-col',
                 ],

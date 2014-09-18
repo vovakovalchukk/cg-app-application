@@ -55,8 +55,9 @@ class ListingsJsonController extends AbstractActionController
                 ->setLimit($limit);
             $listings = $this->getListingService()->fetchListings($requestFilter);
             $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) $listings->getTotal();
+            $listings = $this->getListingService()->alterListingTable($listings, $this->getEvent());
             foreach ($listings as $listing) {
-                $data['Records'][] = $this->getListingMapper()->toDataTableArray($listing);
+                $data['Records'][] = $listing;
             }
         } catch(NotFound $e) {
             //noop
