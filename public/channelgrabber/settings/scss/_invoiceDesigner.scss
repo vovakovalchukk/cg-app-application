@@ -1,3 +1,6 @@
+#content {
+    min-width: 1360px!important;
+}
 .invoice-template {
     margin-left: 48px;
     margin-right: 250px;
@@ -5,7 +8,10 @@
         overflow-x: auto;
     }
 }
-
+.save-template-inner {
+    min-width: 860px;
+    z-index: 1;
+}
 .template-element-wrapper{
     position: absolute;
     float: left;

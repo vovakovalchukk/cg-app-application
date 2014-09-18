@@ -7,13 +7,11 @@ $enableChannelRoute = implode(
         Module::ROUTE,
         ChannelController::ROUTE,
         ChannelController::ROUTE_CHANNELS,
-        ChannelController::ACCOUNT_ROUTE,
-        ChannelController::ACCOUNT_STATUS_ROUTE,
+        ChannelController::ROUTE_ACCOUNT,
+        ChannelController::ROUTE_ACCOUNT_STATUS,
     ]
 );
 ?>
-<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
-<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
 <?php $this->inlineScript()->captureStart(); ?>
 $(document).ready(function()
 {
@@ -37,7 +35,7 @@ require(
             ".account-status .mustache",
             "input.toggle",
             {
-                url: "<?= $this->url($enableChannelRoute, ['account' => $account['id']]) ?>"
+                url: "<?= $this->url($enableChannelRoute, ['account' => $account['id'], 'type' => $type]) ?>"
             },
             {
                 info: "<?= $this->translate('Updating Sales Channel Status') ?>",

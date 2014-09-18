@@ -1,5 +1,3 @@
-<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
-<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
 <?php $this->inlineScript()->captureStart(); ?>
     $('form').submit(function() {
         return false;
@@ -11,16 +9,18 @@ require([
         "orderDetails/OrderDetailsSidebar",
         "address/Address",
         "alert/Alert",
-        "orderDetails/OrderDetailsPage"
+        "orderDetails/OrderDetailsPage",
+        "tracking/Tracking"
     ],
-    function(NoteDomAccess, Notes, Note, OrderDetailsSidebar, Address, Alert, OrderDetailsPage) {
+    function(NoteDomAccess, Notes, Note, OrderDetailsSidebar, Address, Alert, OrderDetailsPage, Tracking) {
         //References to n need to be migrated, it is the notification library
         var noteDomAccess = new NoteDomAccess('#notes', '#note-input', CGMustache);
         var notes = new Notes(noteDomAccess, n, Note);
         var sidebar = new OrderDetailsSidebar();
         var address = new Address(n, '#addressInformation');
+        var tracking = new Tracking(n, '#trackingInformation');
         var alert = new Alert(n, '#alert');
-        var orderDetailsPage = new OrderDetailsPage(sidebar, address, notes, alert);
+        var orderDetailsPage = new OrderDetailsPage(sidebar, address, notes, alert, tracking);
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
@@ -219,6 +219,37 @@ require([
         </form>
     </div>
 </div>
+<div class="module clearfix section-separator" id="tracking-information">
+    <span class="heading-large heading-spacing"><?= $this->translate('Shipping'); ?></span>
+    <form id="trackingInformation" data-url="<?= $this->url('Orders/order/tracking', array('order' => $order->getId())); ?>"
+              data-actionMessage="<?= $this->translate('Updating tracking info'); ?>" data-successMessage="<?= $this->translate('Tracking info updated'); ?>">
+        <div class="half">
+        <?php
+            $trackings = $order->getTrackings();
+            $trackings->rewind();
+            $tracking = $trackings->current();
+        ?>
+        <label>
+            <span class="inputbox-label"><?= $this->translate('Carrier'); ?></span>
+            <div class="order-inputbox-holder">
+                <?= $this->carrierSelect ?>
+            </div>
+        </label>
+        <label>
+        <span class="inputbox-label"><?= $this->translate('Tracking Number'); ?></span>
+            <div class="order-inputbox-holder">
+                <input class="inputbox" id="trackingNumber" type="text" name="trackingNumber" value="<?= ($tracking) ? $tracking->getNumber() : ""; ?>">
+            </div>
+        </label>
+        <input type="hidden" value="<?= ($tracking) ? $tracking->getETag() : ""; ?>" id="eTag" name="eTag"/>
+        <div class="half" style="clear:both; padding-top:0px;">
+            <div class="order-inputbox-holder">
+                <input type="submit" name="save" class="button form-button tracking-button" value="<?= $this->translate('Save'); ?>">
+            </div>
+        </div>
+        </div>
+    </form>
+</div>
 <div id="product-payment-table" class="module clearfix section-separator">
     <span class="heading-large heading-spacing"><?= $this->translate('Product & Payment Information'); ?></span>
     <?php if(count($order->getItems())):?>
@@ -228,22 +259,22 @@ require([
     <?php endif;?>
     <table class="no-borders">
         <tr>
-            <td colspan="2" class="left">
+            <td class="leftcell" class="left">
                 <?php if ($order->getPaymentMethod()): ?>
-                    <?= $this->translate('Paid Via'); ?>: <strong><?= $order->getPaymentMethod() ?></strong>
+                    <strong><?= $this->translate('Paid Via'); ?>:</strong> <?= $order->getPaymentMethod() ?>
                 <?php endif; ?>
             </td>
-            <td class="right"><strong><?= $this->translate('Postage'); ?>:</strong></td>
-            <td class="right"><strong><?= $this->currencyFormat($order->getShippingPrice(), $order->getCurrencyCode()); ?></strong></td>
+            <td class="midcell"><strong><?= $this->translate('Postage'); ?>:</strong></td>
+            <td class="rightcell"><?= $this->currencyFormat($order->getShippingPrice(), $order->getCurrencyCode()); ?></td>
         </tr>
         <tr>
-            <td colspan="2" class="left">
+            <td class="leftcell">
                 <?php if ($order->getPaymentReference()): ?>
                     <?= $this->translate('Reference'); ?>: <strong><?= $order->getPaymentReference() ?></strong>
                 <?php endif; ?>
             </td>
-            <td class="right"><strong><?= $this->translate('Total'); ?>:</strong></td>
-            <td class="right"><strong><?= $this->currencyFormat($order->getTotal(), $order->getCurrencyCode()); ?></strong></td>
+            <td class="midcell"><strong><?= $this->translate('Total'); ?>:</strong></td>
+            <td class="rightcell"><?= $this->currencyFormat($order->getTotal(), $order->getCurrencyCode()); ?></strong></td>
         </tr>
     </table>
 </div>

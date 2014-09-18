@@ -35,6 +35,8 @@ use Exception;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Order\Shared\Status as OrderStatus;
+use CG\Channel\Type;
+use CG\Channel\Carrier;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 
 class Service implements LoggerAwareInterface
@@ -61,6 +63,7 @@ class Service implements LoggerAwareInterface
     protected $orderDispatcher;
     protected $orderCanceller;
     protected $shippingConversionService;
+    protected $carriers;
     protected $organisationUnitService;
 
     public function __construct(
@@ -76,6 +79,7 @@ class Service implements LoggerAwareInterface
         OrderDispatcher $orderDispatcher,
         OrderCanceller $orderCanceller,
         ShippingConversionService $shippingConversionService,
+        Carrier $carriers,
         OrganisationUnitService $organisationUnitService
     )
     {
@@ -93,6 +97,7 @@ class Service implements LoggerAwareInterface
             ->setOrderDispatcher($orderDispatcher)
             ->setOrderCanceller($orderCanceller)
             ->setShippingConversionService($shippingConversionService)
+            ->setCarriers($carriers)
             ->setOrganisationUnitService($organisationUnitService);
     }
 
@@ -138,7 +143,8 @@ class Service implements LoggerAwareInterface
             null,
             null,
             static::ACCOUNTS_LIMIT,
-            static::ACCOUNTS_PAGE
+            static::ACCOUNTS_PAGE,
+            Type::SALES
         );
 
         foreach($orders as $index => $order) {
@@ -148,8 +154,8 @@ class Service implements LoggerAwareInterface
             }
 
             $order['accountLink'] = $event->getRouter()->assemble(
-                ['account' => $order['accountId']],
-                ['name' => SettingsModule::ROUTE . '/' . ChannelController::ROUTE . '/' .ChannelController::ROUTE_CHANNELS.'/'. ChannelController::ACCOUNT_ROUTE]
+                ['account' => $order['accountId'], 'type' => Type::SALES],
+                ['name' => SettingsModule::ROUTE . '/' . ChannelController::ROUTE . '/' .ChannelController::ROUTE_CHANNELS.'/'. ChannelController::ROUTE_ACCOUNT]
             );
 
             $orders[$index] = $order;
@@ -704,6 +710,11 @@ class Service implements LoggerAwareInterface
         );
     }
 
+    public function getCarriersData()
+    {
+        return $this->getCarriers()->getAllCarriers();
+    }
+
     public function setAccountService(AccountService $accountService)
     {
         $this->accountService = $accountService;
@@ -755,6 +766,15 @@ class Service implements LoggerAwareInterface
     protected function getShippingConversionService()
     {
         return $this->shippingConversionService;
+    }
+
+    protected function getCarriers() {
+        return $this->carriers;
+    }
+
+    protected function setCarriers(Carrier $carriers) {
+        $this->carriers = $carriers;
+        return $this;
     }
 
     protected function getOrganisationUnitService()

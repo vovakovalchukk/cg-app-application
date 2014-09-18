@@ -13,7 +13,7 @@ use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Template\ReplaceManager\OrderContent as OrderTagManager;
 use CG\Template\Service as TemplateService;
 use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
-use CG\Zend\Stdlib\View\Model\Exception as ViewModelException;
+use CG\Zend\Stdlib\View\Model\UserException as ViewModelUserException;
 use Zend\I18n\Translator\Translator;
 use CG\Stdlib\Log\LogTrait;
 
@@ -117,6 +117,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setVariable('eTag', $invoiceSettings->getStoredEtag())
             ->addChild($this->getInvoiceSettingsDefaultSelectView($invoiceSettings, $invoices), 'defaultCustomSelect')
             ->addChild($this->getTradingCompanyInvoiceSettingsDataTable(), 'invoiceSettingsDataTable');
+        $view->setVariable('isHeaderBarVisible', false);
+        $view->setVariable('subHeaderHide', true);    
         return $view;
     }
 
@@ -148,6 +150,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         $view->addChild($this->getTemplateDiscardButtonView(), 'templateDiscardButton');
         $view->addChild($this->getTemplateSaveButtonView(), 'templateSaveButton');
         $view->addChild($this->getTemplateNameInputView(), 'templateName');
+        $view->setVariable('isHeaderBarVisible', false);
+        $view->setVariable('subHeaderHide', true);
 
         $rootOu = $this->getUserOrganisationUnitService()->getRootOuByActiveUser();
         $view->setVariable('rootOuId', $rootOu->getId());
@@ -264,11 +268,10 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     {
         $status = $this->getJsonModelFactory()->newInstance();
         $status->setVariable('valid', false);
-        throw new ViewModelException(
+        throw new ViewModelUserException(
             $status,
             $this->getTranslator()->translate($message),
-            $e->getCode(),
-            $e
+            $e->getCode()
         );
     }
 
@@ -384,7 +387,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         $this->translator = $translator;
         return $this;
     }
-    
+
     protected function setConfig(Config $config)
     {
         $this->config = $config;

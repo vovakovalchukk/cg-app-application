@@ -24,7 +24,6 @@ datatable.on("fnServerData", function(event, sSource, aoData, fnCallback, oSetti
         });
     });
 
-    aoData.push({"name": "filter[batch]", "value": $('#hidden_batch_filter').val()});
 });
 
 datatable.on("jqXHRBeforeSend", function(event, request, settings) {
@@ -47,13 +46,10 @@ datatable.on("fnRowCallback", function(event, nRow, aData, iDisplayIndex, iDispl
 });
 
 require([
-    "preference/Preference",
-    "order/OrderPage"
+"showHideFilters"
 ],
-function(Preference, OrderPage) {
-    //References to n need to be migrated, it is the notification library
-    var preference = new Preference(n);
-    var orderPage = new OrderPage(preference);
+function(showHideFilters) {
+var orderPage = new showHideFilters();
 });
 require.config({
     paths: {
@@ -71,8 +67,6 @@ require(["Filters/FilterCollection"], function(filterCollection) {
     filterCollection.setFilters(filterNames);
 });
 <?php $this->inlineScript()->captureEnd(); ?>
-<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
-<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/jqueryPlugin/cg-pjax.js'); ?>
 <?php $this->placeholder('#main.class')->append('full-width'); ?>
 <?php $this->placeholder('#sub-header')->append($filters); ?>

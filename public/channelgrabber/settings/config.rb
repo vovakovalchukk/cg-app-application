@@ -8,3 +8,6 @@ javascripts_dir = "js"
 output_style = :expanded
 line_comments = false
 relative_assets = true
+
+# Plugins
+require "animate"
