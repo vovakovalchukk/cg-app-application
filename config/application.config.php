@@ -20,6 +20,7 @@ return array (
     15 => 'CG_Channel',
     16 => 'CG_Sessions',
     17 => 'CG_Usage',
+    18 => 'CG_RoyalMail',
   ),
   'module_listener_options' => 
   array (
