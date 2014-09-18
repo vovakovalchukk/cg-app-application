@@ -1,10 +1,9 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
-        "This file is @generated automatically"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "5abcfdd775f9558f461aeccc464abf1b",
+    "hash": "7a4484b438036a89af7cfc7844afb816",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1915,26 +1914,29 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.53",
+            "version": "1.12.55",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "d62985e55259ec6a29634005cb5be23417cd5f71"
+                "reference": "bc7d9593adc2914a597715a624a93bd5c53fb978"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.53-ccb8fb.zip",
-                "reference": "d62985e55259ec6a29634005cb5be23417cd5f71",
-                "shasum": "1181f3e3956f9eb29f3040db42eb684c81bcdd56"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.55-d9191a.zip",
+                "reference": "bc7d9593adc2914a597715a624a93bd5c53fb978",
+                "shasum": "d7047071e704b6069922286a2753af85c9346534"
             },
             "require": {
-                "channelgrabber/di": ">=1.0.1",
+                "channelgrabber/di": ">=2.0.0",
                 "channelgrabber/etag": ">=1.4.2",
                 "channelgrabber/log": ">=1.4.2",
                 "channelgrabber/stdlib": ">=2.7.4,<3.0.0",
                 "channelgrabber/zf2-installer": ">=1.0.3",
                 "channelgrabber/zf2-mustache": ">=1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
+                "composer/composer": "@dev",
+                "php-jsonpatch/php-jsonpatch": "@dev",
+                "php-jsonpointer/php-jsonpointer": "@dev",
                 "zendframework/zend-config": "2.*",
                 "zendframework/zend-form": ">=2.3,<3.0",
                 "zendframework/zend-i18n": "2.*",
@@ -1958,7 +1960,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-09-16 09:23:00"
+            "time": "2014-09-17 16:18:27"
         },
         {
             "name": "cilex/cilex",
@@ -4760,7 +4762,6 @@
         "php-jsonpointer/php-jsonpointer": 20,
         "phpspec/phpspec": 20
     },
-    "prefer-stable": false,
     "platform": {
         "php": ">=5.3.3"
     },
