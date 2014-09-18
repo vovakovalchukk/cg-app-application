@@ -7,6 +7,7 @@ use CG\Order\Shared\Entity as OrderEntity;
 use CG\Settings\Invoice\Shared\Entity as InvoiceSettingsEntity;
 use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
 use CG\Stdlib\DateTime;
+use CG\Template\Entity as Template;
 use CG\Template\Element\Factory as ElementFactory;
 use CG\Template\PaperPage;
 use Orders\Order\Invoice\Renderer\ServiceInterface as RendererService;
@@ -177,15 +178,14 @@ class Service
      * @param Collection $orderCollection
      * @return Response
      */
-    public function getResponseFromOrderCollection(Collection $orderCollection)
+    public function getResponseFromOrderCollection(Collection $orderCollection, Template $template = null)
     {
-        $this->markOrdersAsPrintedFromOrderCollection($orderCollection);
         return $this->getDi()->get(
             Response::class,
             [
                 'mimeType' => $this->getRendererService()->getMimeType(),
                 'filename' => $this->getRendererService()->getFileName(),
-                'content' => $this->generateInvoiceFromOrderCollection($orderCollection)
+                'content' => $this->generateInvoiceFromOrderCollection($orderCollection, $template)
             ]
         );
     }
@@ -219,13 +219,13 @@ class Service
         return $this->templates[$templateId];
     }
 
-    public function generateInvoiceFromOrderCollection(Collection $orderCollection)
+    public function generateInvoiceFromOrderCollection(Collection $orderCollection, Template $template = null)
     {
         $renderedContent = [];
         foreach ($orderCollection as $order) {
             $renderedContent[] = $this->getRendererService()->renderOrderTemplate(
                 $order,
-                $this->getTemplate($order)
+                $template ?: $this->getTemplate($order)
             );
         }
         return $this->getRendererService()->combine($renderedContent);

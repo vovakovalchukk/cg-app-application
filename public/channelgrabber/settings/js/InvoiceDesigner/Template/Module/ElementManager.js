@@ -30,6 +30,8 @@ define([
                 element: 'OrderTable'
             },{ value: 'Box',
                 element: 'Box'
+            },{ value: 'PPI',
+                element: 'PPI'
             }
         ]};
 

@@ -36,6 +36,12 @@ define([
         }
 
         var editable = true;
+        var resizable = true;
+
+        var minWidth = null;
+        var maxWidth = null;
+        var minHeight = null;
+        var maxHeight = null;
 
         this.getId = function()
         {
@@ -69,6 +75,14 @@ define([
 
         this.setHeight = function(newHeight, populating)
         {
+            var min = Number(minHeight).pxToMm();
+            var max = Number(maxHeight).pxToMm();
+            if (minHeight != null && min > newHeight) {
+                newHeight = min;
+            }
+            if (maxHeight != null && max < newHeight) {
+                newHeight = max;
+            }
             this.set('height', Number(newHeight).roundToNearest(0.5), populating);
             return this;
         };
@@ -80,6 +94,14 @@ define([
 
         this.setWidth = function(newWidth, populating)
         {
+            var min = Number(minWidth).pxToMm();
+            var max = Number(maxWidth).pxToMm();
+            if (minWidth != null && min > newWidth) {
+                newWidth = min;
+            }
+            if (maxWidth != null && max < newWidth) {
+                newWidth = max;
+            }
             this.set('width', Number(newWidth).roundToNearest(0.5), populating);
             return this;
         };
@@ -172,10 +194,95 @@ define([
             return this;
         };
 
+        this.isResizable = function()
+        {
+            return resizable;
+        };
+
+        this.setResizable = function(newResizable)
+        {
+            resizable = newResizable;
+            return this;
+        };
+
+        this.getMinWidth = function()
+        {
+            return minWidth;
+        };
+
+        this.getMaxWidth = function()
+        {
+            return maxWidth;
+        };
+
+        this.getMinHeight = function()
+        {
+            return minHeight;
+        };
+
+        this.getMaxHeight = function()
+        {
+            return maxHeight;
+        };
+        
+        this.setMinWidth = function(newMinWidth)
+        {
+            minWidth = newMinWidth;
+            return this;
+        };
+        
+        this.setMinHeight = function(newMinHeight)
+        {
+            minHeight = newMinHeight;
+            return this;
+        };
+
+        this.setMaxWidth = function(newMaxWidth)
+        {
+            maxWidth = newMaxWidth;
+            return this;
+        };
+
+        this.setMaxHeight = function(newMaxHeight)
+        {
+            maxHeight = newMaxHeight;
+            return this;
+        };
+
+        this.isResizable = function()
+        {
+            return resizable;
+        };
+
+        this.setResizable = function(newResizable)
+        {
+            resizable = newResizable;
+            return this;
+        };
+
         this.getBaseInspectableAttributes = function()
         {
             return baseInspectableAttributes;
         };
+
+        this.disableBaseInspector = function(inspector)
+        {
+            var index = baseInspectableAttributes.indexOf(inspector);
+            if (index >= 0) {
+                baseInspectableAttributes.splice(index, 1);
+            }
+        };
+
+        this.disableBaseInspectors = function(inspectors)
+        {
+            if (typeof(inspectors) !== 'object') {
+                return this.disableBaseInspector(inspectors);
+            }
+
+            for (var key in inspectors) {
+                this.disableBaseInspector(inspectors[key]);
+            }
+        }
 
         /**
          * Sub-classes can override this to provide extra inspectable attributes for themselves
@@ -210,7 +317,7 @@ define([
         json.y = Number(json.y).mmToPt();
         json.height = Number(json.height).mmToPt();
         json.width = Number(json.width).mmToPt();
-        json.borderWidth = (json.borderWidth ? Number(json.borderWidth).mmToPt() : json.borderWidth); 
+        json.borderWidth = (json.borderWidth ? Number(json.borderWidth).mmToPt() : json.borderWidth);
         return json;
     };
 
