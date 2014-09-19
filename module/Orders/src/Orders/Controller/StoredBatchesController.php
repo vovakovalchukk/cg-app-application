@@ -39,10 +39,7 @@ class StoredBatchesController extends AbstractActionController
 
         return $jsonModel->setVariable('removed', true);
     }
-
-    /**
-     * @return BatchService
-     */
+    
     protected function getBatchService()
     {
         return $this->batchService;
