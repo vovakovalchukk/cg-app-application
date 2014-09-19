@@ -5,6 +5,7 @@ namespace Products\Controller;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use Zend\Mvc\Controller\AbstractActionController;
 use Products\Listing\Service as ListingService;
+use Products\Listing\Filter\Service as FilterService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG\Listing\Unimported\Filter\Mapper as FilterMapper;
 use CG\Listing\Unimported\Mapper as ListingMapper;
@@ -17,17 +18,20 @@ class ListingsJsonController extends AbstractActionController
     protected $jsonModelFactory;
     protected $filterMapper;
     protected $listingMapper;
+    protected $filterService;
 
     public function __construct(
         ListingService $listingService,
         JsonModelFactory $jsonModelFactory,
         FilterMapper $filterMapper,
-        ListingMapper $listingMapper
+        ListingMapper $listingMapper,
+        FilterService $filterService
     ) {
         $this->setListingService($listingService)
             ->setJsonModelFactory($jsonModelFactory)
             ->setFilterMapper($filterMapper)
-            ->setListingMapper($listingMapper);
+            ->setListingMapper($listingMapper)
+            ->setFilterService($filterService);
     }
 
     public function ajaxAction()
@@ -53,6 +57,8 @@ class ListingsJsonController extends AbstractActionController
             }
             $requestFilter->setPage($page)
                 ->setLimit($limit);
+            $this->getFilterService()->setPersistentFilter($requestFilter);
+
             $listings = $this->getListingService()->fetchListings($requestFilter);
             $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) $listings->getTotal();
             $listings = $this->getListingService()->alterListingTable($listings, $this->getEvent());
@@ -107,5 +113,16 @@ class ListingsJsonController extends AbstractActionController
     protected function getListingMapper()
     {
         return $this->listingMapper;
+    }
+
+    protected function getFilterService()
+    {
+        return $this->filterService;
+    }
+
+    protected function setFilterService($filterService)
+    {
+        $this->filterService = $filterService;
+        return $this;
     }
 }

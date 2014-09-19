@@ -1,7 +1,7 @@
 <?php
 namespace Products\Listing\Filter;
 
-use CG\Listing\Filter;
+use CG\Listing\Unimported\Filter;
 use Products\Controller\ListingsController;
 use Zend\Session\ManagerInterface;
 
