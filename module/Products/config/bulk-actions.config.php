@@ -3,7 +3,8 @@ use Products\Product\BulkActions\Service as ProductBulkActionsService;
 use Products\Listing\BulkActions\Service as ListingBulkActionsService;
 use CG_UI\View\BulkActions;
 use Zend\View\Model\ViewModel;
-use Products\Product\BulkActions\Action;
+use Products\Product\BulkActions\Action as ProductAction;
+use Products\Listing\BulkActions\Action as ListingAction;
 
 return [
     'di' => [
@@ -37,7 +38,7 @@ return [
                 ],
                 'injections' => [
                     'addAction' => [
-                        ['action' => Action\Delete::class]
+                        ['action' => ProductAction\Delete::class]
                     ]
                 ],
             ],
@@ -50,11 +51,11 @@ return [
                 ],
                 'injections' => [
                     'addAction' => [
-                        ['action' => Orders\Order\BulkActions\Action\Invoice::class]
+                        ['action' => ListingAction\Hide::class]
                     ]
                 ],
             ],
-            Action\Delete::class => [
+            ProductAction\Delete::class => [
                 'parameters' => [
                     'javascript' => 'DeleteJSViewModel'
                 ]
