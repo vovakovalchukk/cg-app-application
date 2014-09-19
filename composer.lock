@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5c082c64769a564facaf64624e641165",
+    "hash": "f8d0f1d3f36159b3ba3bcc25536be3eb",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1203,17 +1203,17 @@
         },
         {
             "name": "channelgrabber/validation",
-            "version": "1.2.4",
+            "version": "1.2.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-validation.git",
-                "reference": "e27a3c380481243946f4fe25b08c28e1d55301f6"
+                "reference": "b924031879f3e382a7f36d0c2e2c85bbd4c2fcd7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-validation-1.2.4-f5a5f2.zip",
-                "reference": "e27a3c380481243946f4fe25b08c28e1d55301f6",
-                "shasum": "a99c353485ddcfd63040d672e18e6e96d070e7d8"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-validation-1.2.5-006bd0.zip",
+                "reference": "b924031879f3e382a7f36d0c2e2c85bbd4c2fcd7",
+                "shasum": "aab48d2ac1e1926ebe414ce45115fc261482c10d"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
@@ -1226,7 +1226,7 @@
                     "CG\\Validation\\": "src"
                 }
             },
-            "time": "2014-09-10 15:49:46"
+            "time": "2014-09-16 09:21:43"
         },
         {
             "name": "channelgrabber/vnderror",
@@ -1917,11 +1917,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-EPIC-CGIV-2884-import-listing",
+            "version": "1.12.55",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "c98548ce43c57dadddd26d1770ead81367fbf469"
+                "reference": "bc7d9593adc2914a597715a624a93bd5c53fb978"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.55-d9191a.zip",
+                "reference": "bc7d9593adc2914a597715a624a93bd5c53fb978",
+                "shasum": "d7047071e704b6069922286a2753af85c9346534"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -1957,7 +1963,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-09-18 15:01:59"
+            "time": "2014-09-17 16:18:27"
         },
         {
             "name": "cilex/cilex",
@@ -4751,17 +4757,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.12.51",
-            "alias_normalized": "1.12.51.0",
-            "version": "dev-EPIC-CGIV-2884-import-listing",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
