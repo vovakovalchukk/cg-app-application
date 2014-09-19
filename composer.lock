@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "77ae698100b971652acf2fae1e4e1129",
+    "hash": "effffafc4bd3266b0bf35c6399530d07",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1960,17 +1960,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.55",
+            "version": "dev-CGIV-3319-GeneralPolishSCSS",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "bc7d9593adc2914a597715a624a93bd5c53fb978"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.55-d9191a.zip",
-                "reference": "bc7d9593adc2914a597715a624a93bd5c53fb978",
-                "shasum": "d7047071e704b6069922286a2753af85c9346534"
+                "reference": "4d1e8da04abcbcdfa268cf3a1abef1a10e9cd220"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2006,7 +2000,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-09-17 16:18:27"
+            "time": "2014-09-18 15:44:30"
         },
         {
             "name": "cilex/cilex",
@@ -4798,11 +4792,17 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.12.55",
+            "alias_normalized": "1.12.55.0",
+            "version": "dev-CGIV-3319-GeneralPolishSCSS",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
