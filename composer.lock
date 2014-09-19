@@ -1802,17 +1802,17 @@
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
-            "version": "1.4.0",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-sso-client.git",
-                "reference": "5e25dd75b9381ea3724e77e9fd64ab237ee7aa66"
+                "reference": "fc6e8564fbe7ecaa193951774699a8e27c0599fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ssoclient-1.4.0-2a36ec.zip",
-                "reference": "5e25dd75b9381ea3724e77e9fd64ab237ee7aa66",
-                "shasum": "89b8a9432d1ba535837b0b47c9af4871206a4f88"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ssoclient-1.4.1-9cf8a2.zip",
+                "reference": "fc6e8564fbe7ecaa193951774699a8e27c0599fc",
+                "shasum": "2705b052a14a0332acbaff08aac580ad25400b68"
             },
             "require": {
                 "channelgrabber/http": ">=1.2.0",
@@ -1834,7 +1834,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-07-11 08:27:31"
+            "time": "2014-09-18 15:12:18"
         },
         {
             "name": "channelgrabber/zf2-stdlib",
