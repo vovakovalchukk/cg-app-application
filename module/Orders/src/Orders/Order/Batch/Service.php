@@ -169,10 +169,7 @@ class Service implements LoggerAwareInterface
         $this->batchClient = $batchClient;
         return $this;
     }
-
-    /**
-     * @return BatchClient
-     */
+    
     public function getBatchClient()
     {
         return $this->batchClient;
