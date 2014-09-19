@@ -15,6 +15,7 @@ return [
                 'ListingListBulkActions' => BulkActions::class,
                 'ListingDetailBulkActions' => BulkActions::class,
                 'DeleteJSViewModel' => ViewModel::class,
+                'HideJSViewModel' => ViewModel::class,
                 'UrlDataViewSearch' => ViewModel::class
             ],
             ProductBulkActionsService::class => [
@@ -72,6 +73,16 @@ return [
                         'class' => ['bulk-actions-inline'],
                     ],
                 ]
+            ],
+            ListingAction\Hide::class => [
+                'parameters' => [
+                    'javascript' => 'HideJSViewModel'
+                ]
+            ],
+            'HideJSViewModel' => [
+                'parameters' => [
+                    'template' => 'products/listings/bulk-actions/hide-js',
+                ],
             ],
             'ListingDetailBulkActions' => [
                 'parameters' => [

@@ -12,6 +12,7 @@ use CG\Listing\Unimported\Mapper as ListingMapper;
 class ListingsJsonController extends AbstractActionController
 {
     const ROUTE_AJAX = 'AJAX';
+    const ROUTE_HIDE = 'HIDE';
 
     protected $listingService;
     protected $jsonModelFactory;
@@ -57,6 +58,21 @@ class ListingsJsonController extends AbstractActionController
             //noop
         }
         return $this->getJsonModelFactory()->newInstance($data);
+    }
+
+    public function hideAction()
+    {
+        $view = $this->getJsonModelFactory()->newInstance();
+
+        $listingIds = $this->params()->fromPost('listingIds');
+        if (empty($listingIds)){
+            $view->setVariable('hidden', false);
+            return $view;
+        }
+
+        $this->getListingService()->hideListingsById($listingIds);
+        $view->setVariable('hidden', true);
+        return $view;
     }
 
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)

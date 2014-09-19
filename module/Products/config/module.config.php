@@ -77,7 +77,17 @@ return [
                                         'action' => 'ajax'
                                     ]
                                 ],
-                            ]
+                            ],
+                            ListingsJsonController::ROUTE_HIDE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/hide',
+                                    'defaults' => [
+                                        'controller' => ListingsJsonController::class,
+                                        'action' => 'hide'
+                                    ]
+                                ],
+                            ],
                         ],
                         'may_terminate' => true,
                     ],

@@ -50,6 +50,17 @@ class Service implements LoggerAwareInterface
 
     }
 
+    public function hideListingsById(array $listingIds)
+    {
+        $filter = new ListingFilter(static::LIMIT, static::PAGE);
+        $filter->setId($listingIds); 
+        $listings = $this->getListingService()->fetchCollectionByFilter($filter);
+        foreach ($listings as $listing) {
+            $listing->setHidden(true);
+            $this->getListingService()->save($listing);
+        }
+    }
+
     protected function getActiveUserPreference()
     {
         if (!isset($this->activeUserPreference)) {

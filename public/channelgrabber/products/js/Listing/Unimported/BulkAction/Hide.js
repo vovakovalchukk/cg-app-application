@@ -1,11 +1,9 @@
 define([
-    'BulkActionAbstract',
-    'Product/Service'
+    'BulkActionAbstract'
 ], function(
-    BulkActionAbstract,
-    service
+    BulkActionAbstract
 ) {
-    var Delete = function()
+    var Hide = function()
     {
         BulkActionAbstract.call(this);
 
@@ -15,27 +13,27 @@ define([
         };
     };
 
-    Delete.prototype = Object.create(BulkActionAbstract.prototype);
+    Hide.prototype = Object.create(BulkActionAbstract.prototype);
 
-    Delete.URL = '/products/delete';
-    Delete.MESSAGE_SUCCESS = 'Products deleted successfully';
+    Hide.URL = '/products/listing/import/hide';
+    Hide.MESSAGE_SUCCESS = 'Listings hidden successfully';
 
-    Delete.prototype.invoke = function()
+    Hide.prototype.invoke = function()
     {
         var self = this;
-        var productIds = [];
+        var listingIds = [];
         var domIds = this.getSelectedIds();
         if (domIds.length == 0) {
             return;
         }
         domIds.forEach(function(domId)
         {
-            productIds.push(parseInt(self.getLastPartOfHyphenatedString(domId)));
+            listingIds.push(parseInt(self.getLastPartOfHyphenatedString(domId)));
         });
 
-        var data = {productIds: productIds};
+        var data = {listingIds: listingIds};
         this.sendAjaxRequest(
-            Delete.URL,
+            Hide.URL,
             data,
             this.handleSuccess,
             null,
@@ -43,11 +41,12 @@ define([
         );
     };
 
-    Delete.prototype.handleSuccess = function()
+    Hide.prototype.handleSuccess = function()
     {
-        this.getNotificationHandler().success(Delete.MESSAGE_SUCCESS);
-        this.getService().refresh();
+        this.getNotificationHandler().success(Hide.MESSAGE_SUCCESS);
+        // TODO: once we have filters call apply-filters here instead to force a reload over ajax
+        window.location.reload();
     };
 
-    return new Delete();
+    return new Hide();
 });
