@@ -1914,11 +1914,25 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
+<<<<<<< HEAD
             "version": "dev-CGIV-3319-GeneralPolishSCSS",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
                 "reference": "4d1e8da04abcbcdfa268cf3a1abef1a10e9cd220"
+=======
+            "version": "1.12.55",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
+                "reference": "bc7d9593adc2914a597715a624a93bd5c53fb978"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.55-d9191a.zip",
+                "reference": "bc7d9593adc2914a597715a624a93bd5c53fb978",
+                "shasum": "d7047071e704b6069922286a2753af85c9346534"
+>>>>>>> develop
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -1954,7 +1968,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-09-18 15:44:30"
+            "time": "2014-09-17 16:18:27"
         },
         {
             "name": "cilex/cilex",
