@@ -1,9 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
-    "hash": "7a4484b438036a89af7cfc7844afb816",
+    "hash": "979cac544ab4d8028cb585cdf8855d99",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -183,22 +184,19 @@
         },
         {
             "name": "channelgrabber/di",
-            "version": "2.0.1",
+            "version": "dev-CGIV-3327-CachedDefinitions",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-di.git",
-                "reference": "7e96e97e27bc2cba531ea336ae250af66edd8851"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-di-2.0.1-15645c.zip",
-                "reference": "7e96e97e27bc2cba531ea336ae250af66edd8851",
-                "shasum": "20d94dcd635aba3248be882ee4402b978885a3e3"
+                "reference": "d5847596c375cdfeb27bdb23069627d14255b4c0"
             },
             "require": {
+                "channelgrabber/spork": "~0.2",
+                "channelgrabber/stdlib": ">=2.7.16",
                 "cilex/cilex": "~1.0.1",
                 "composer-plugin-api": "1.0.0",
                 "composer/composer": "1.0.*@dev",
+                "zendframework/zend-cache": ">=2.2,<3.0",
                 "zendframework/zend-di": ">=2.2,<3.0"
             },
             "require-dev": {
@@ -230,7 +228,7 @@
                 }
             ],
             "description": "Dependency injection wrappers and compilation",
-            "time": "2014-09-11 15:11:43"
+            "time": "2014-09-20 10:39:31"
         },
         {
             "name": "channelgrabber/ebay",
@@ -907,6 +905,53 @@
                 }
             },
             "time": "2014-09-12 16:24:49"
+        },
+        {
+            "name": "channelgrabber/spork",
+            "version": "v0.2.1",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:channelgrabber/spork.git",
+                "reference": "5fcf29931ee0574c6177e41c218c2e132e4f9e02"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-spork-v0.2.1-5e3e04.zip",
+                "reference": "5fcf29931ee0574c6177e41c218c2e132e4f9e02",
+                "shasum": "905806f14db1d76d43a29056482d537eab3ca44a"
+            },
+            "require": {
+                "ext-pcntl": "*",
+                "ext-posix": "*",
+                "php": ">=5.3.0",
+                "symfony/event-dispatcher": "*"
+            },
+            "replace": {
+                "kriswallsmith/spork": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Spork": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kris Wallsmith",
+                    "email": "kris.wallsmith@gmail.com",
+                    "homepage": "http://kriswallsmith.net/"
+                },
+                {
+                    "name": "Nick Peirson",
+                    "email": "nickpeirson@gmail.com"
+                }
+            ],
+            "description": "Asynchronous PHP",
+            "homepage": "https://github.com/channelgrabber/spork",
+            "time": "2014-09-16 11:12:42"
         },
         {
             "name": "channelgrabber/sso",
@@ -4052,8 +4097,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -4755,16 +4799,23 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "2.1.1",
+            "alias_normalized": "2.1.1.0",
+            "version": "dev-CGIV-3327-CachedDefinitions",
+            "package": "channelgrabber/di"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/di": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpspec/phpspec": 20
     },
+    "prefer-stable": false,
     "platform": {
         "php": ">=5.3.3"
     },
