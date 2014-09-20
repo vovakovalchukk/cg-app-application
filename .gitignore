@@ -7,7 +7,7 @@
 /config/di/vendor_components.php
 /config/host.php
 /data/certificates
-/data/di
+/data/di/definitions/
 /tests/*/*Guy.php
 /tests/_log
 /tools/post_deploy.sh
