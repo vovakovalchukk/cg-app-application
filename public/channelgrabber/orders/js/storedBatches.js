@@ -10,7 +10,6 @@ define(
 
                 filtersList.on("click.batch", 'li .close', function(event) {
                     self.deleteBatch.call(self, $(this).closest("li"));
-                    event.stopPropagation();
                 });
             };
 
@@ -63,7 +62,7 @@ define(
             if (!this.getFilterList().find("li").not(".empty-list").length) {
                 this.getFilterList().find(".empty-list").removeClass("hidden");
             }
-            this.getNotifications().success("Filter Removed");
+            this.getNotifications().success("Batch Removed");
         };
 
         StoredBatches.prototype.handleAjaxSuccess = function(json, listElement) {
