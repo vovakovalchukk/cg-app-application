@@ -10,8 +10,9 @@ define(
                 var self = this;
                 var filterList = self.getFilterList();
 
-                filterList.on("click.storedFilters", "li .close", function() {
+                filterList.on("click.storedFilters", "li .close", function(event) {
                     self.deleteFilter.call(self, $(this).closest("li"));
+                    event.stopImmediatePropagation();
                 });
 
                 popup = new Popup(

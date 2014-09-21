@@ -10,6 +10,7 @@ define(
 
                 filtersList.on("click.batch", 'li .close', function(event) {
                     self.deleteBatch.call(self, $(this).closest("li"));
+                    event.stopImmediatePropagation();
                 });
             };
 
