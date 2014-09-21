@@ -1,9 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
-    "hash": "7a4484b438036a89af7cfc7844afb816",
+    "hash": "a3b97ebce8cc2256d24b708eef77745d",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1914,17 +1915,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.55",
+            "version": "dev-CGIV-3332-DataTableColumnResize",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "bc7d9593adc2914a597715a624a93bd5c53fb978"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.55-d9191a.zip",
-                "reference": "bc7d9593adc2914a597715a624a93bd5c53fb978",
-                "shasum": "d7047071e704b6069922286a2753af85c9346534"
+                "reference": "9d2b3480d28b7c35175775456406abcd68f965b0"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -1960,7 +1955,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-09-17 16:18:27"
+            "time": "2014-09-21 13:40:17"
         },
         {
             "name": "cilex/cilex",
@@ -4052,8 +4047,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -4755,16 +4749,23 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.12.56",
+            "alias_normalized": "1.12.56.0",
+            "version": "dev-CGIV-3332-DataTableColumnResize",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpspec/phpspec": 20
     },
+    "prefer-stable": false,
     "platform": {
         "php": ">=5.3.3"
     },
