@@ -25,7 +25,7 @@
         "channelgrabber/settings": "~1.1.5",
         "channelgrabber/sso": "~1.2.0",
         "channelgrabber/stdlib": "~2.7.16",
-        "channelgrabber/template": "~1.2.31",
+        "channelgrabber/template": "~1.2.32",
         "channelgrabber/usage": "~1.0.2",
         "channelgrabber/user": "~1.17.0",
         "channelgrabber/userpreference": "~1.2.0",
