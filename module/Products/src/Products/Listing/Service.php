@@ -1,7 +1,6 @@
 <?php
 namespace Products\Listing;
 
-use CG\Account\Client\Service as AccountService;
 use CG\Channel\Type as ChannelType;
 use CG\User\ActiveUserInterface;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -13,38 +12,80 @@ use CG\Listing\Unimported\Collection as ListingCollection;
 use Settings\Module as SettingsModule;
 use Settings\Controller\ChannelController;
 use Zend\Mvc\MvcEvent;
+use CG\Channel\ListingImportFactory;
+use CG\Account\Client\Filter as AccountFilter;
+use CG\Account\Client\Service as AccountService;
+use \GearmanClient;
 
 class Service implements LoggerAwareInterface
 {
     use LogTrait;
 
     const LISTING_FILTER_BAR_STATE_KEY = 'listing-filter-bar-state';
-    const LIMIT = 'all';
-    const PAGE = 1;
+    const ACTIVE = 1;
+    const DEFAULT_LIMIT = 'all';
+    const DEFAULT_PAGE = 1;
+    const DEFAULT_TYPE = 'sales';
+    const ONE_SECOND_DELAY = 1;
 
     protected $activeUserContainer;
     protected $userPreferenceService;
     protected $listingService;
+    protected $listingImportFactory;
     protected $accountService;
+    protected $gearmanClient;
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
         UserPreferenceService $userPreferenceService,
         ListingService $listingService,
-        AccountService $accountService
+        ListingImportFactory $listingImportFactory,
+        AccountService $accountService,
+        GearmanClient $gearmanClient
     ) {
         $this->setActiveUserContainer($activeUserContainer)
             ->setUserPreferenceService($userPreferenceService)
             ->setListingService($listingService)
-            ->setAccountService($accountService);
+            ->setListingImportFactory($listingImportFactory)
+            ->setAccountService($accountService)
+            ->setGearmanClient($gearmanClient);
     }
 
     public function fetchListings(ListingFilter $listingFilter)
     {
-        $listingFilter->setLimit(static::LIMIT)
-            ->setPage(static::PAGE)
+        $listingFilter->setLimit(static::DEFAULT_LIMIT)
+            ->setPage(static::DEFAULT_PAGE)
             ->setOrganisationUnitId($this->getActiveUser()->getOuList());
         return $this->getListingService()->fetchCollectionByFilter($listingFilter);
+    }
+
+    public function refresh()
+    {
+        $filter = new AccountFilter();
+        $filter->setActive(static::ACTIVE)
+            ->setLimit(static::DEFAULT_LIMIT)
+            ->setPage(static::DEFAULT_PAGE)
+            ->setType(static::DEFAULT_TYPE)
+            ->setOus($this->getActiveUserContainer()->getActiveUser()->getOuList());
+        $accounts = $this->getAccountService()->fetchByFilter($filter);
+        $gearmanJobs = [];
+        foreach ($accounts as $account) {
+            $importer = $this->getListingImportFactory()->createListingImport($account);
+            $gearmanJobs[] = $importer($account);
+        }
+        do {
+            sleep(static::ONE_SECOND_DELAY);
+        } while($this->checkGearmanJobStatus($gearmanJobs));
+    }
+
+    protected function checkGearmanJobStatus(array $gearmanJobs)
+    {
+        foreach ($gearmanJobs as $gearmanJob) {
+            if ($this->getGearmanClient()->jobStatus($gearmanJob)[0]) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public function isFilterBarVisible()
@@ -52,11 +93,6 @@ class Service implements LoggerAwareInterface
         $preference = $this->getActiveUserPreference()->getPreference();
         $visible = isset($preference[static::LISTING_FILTER_BAR_STATE_KEY]) ? $preference[static::LISTING_FILTER_BAR_STATE_KEY] : true;
         return filter_var($visible, FILTER_VALIDATE_BOOLEAN);
-    }
-
-    public function getListingList()
-    {
-
     }
 
     public function alterListingTable(ListingCollection $listingCollection, MvcEvent $event)
@@ -149,5 +185,28 @@ class Service implements LoggerAwareInterface
     {
         $this->accountService = $accountService;
         return $this;
+    }
+
+
+    protected function setGearmanClient(GearmanClient $gearmanClient)
+    {
+        $this->gearmanClient = $gearmanClient;
+        return $this;
+    }
+
+    protected function getGearmanClient()
+    {
+        return $this->gearmanClient;
+    }
+
+    protected function setListingImportFactory(ListingImportFactory $listingImportFactory)
+    {
+        $this->listingImportFactory = $listingImportFactory;
+        return $this;
+    }
+
+    protected function getListingImportFactory()
+    {
+        return $this->listingImportFactory;
     }
 }

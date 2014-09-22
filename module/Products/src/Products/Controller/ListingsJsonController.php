@@ -13,6 +13,7 @@ use CG\Listing\Unimported\Mapper as ListingMapper;
 class ListingsJsonController extends AbstractActionController
 {
     const ROUTE_AJAX = 'AJAX';
+    const ROUTE_REFRESH = 'refresh';
 
     protected $listingService;
     protected $jsonModelFactory;
@@ -69,6 +70,13 @@ class ListingsJsonController extends AbstractActionController
             //noop
         }
         return $this->getJsonModelFactory()->newInstance($data);
+    }
+
+    public function refreshAction()
+    {
+        $view = $this->getJsonModelFactory()->newInstance();
+        $this->getListingService()->refresh();
+        return $view;
     }
 
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)

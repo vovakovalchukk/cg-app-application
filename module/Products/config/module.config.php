@@ -77,6 +77,16 @@ return [
                                         'action' => 'ajax'
                                     ]
                                 ],
+                            ],
+                            ListingsJsonController::ROUTE_REFRESH => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/refresh',
+                                    'defaults' => [
+                                        'controller' => ListingsJsonController::class,
+                                        'action' => 'refresh'
+                                    ]
+                                ],
                             ]
                         ],
                         'may_terminate' => true,
