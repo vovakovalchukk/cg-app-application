@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "857f2f50ad5c52f02959f8f3c2a22524",
+    "hash": "cd7f3aba901d13d099104a2b9e25a641",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -184,11 +184,17 @@
         },
         {
             "name": "channelgrabber/di",
-            "version": "dev-CGIV-3327-CachedDefinitions",
+            "version": "2.1.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-di.git",
-                "reference": "9ed7c4f6545f5904495b58022bfc54f6602ef56e"
+                "reference": "a324c33edf58452379edf5bc9bb4329753f8950b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-di-2.1.1-4a06ae.zip",
+                "reference": "a324c33edf58452379edf5bc9bb4329753f8950b",
+                "shasum": "1aa4d1bd7ef63469911da771117039613fc7d319"
             },
             "require": {
                 "channelgrabber/spork": "~0.2",
@@ -228,7 +234,7 @@
                 }
             ],
             "description": "Dependency injection wrappers and compilation",
-            "time": "2014-09-20 11:52:06"
+            "time": "2014-09-22 13:32:50"
         },
         {
             "name": "channelgrabber/ebay",
@@ -4800,17 +4806,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "2.1.1",
-            "alias_normalized": "2.1.1.0",
-            "version": "dev-CGIV-3327-CachedDefinitions",
-            "package": "channelgrabber/di"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/di": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
