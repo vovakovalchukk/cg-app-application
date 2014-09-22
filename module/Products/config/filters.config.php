@@ -94,7 +94,7 @@ return [
                                 'concatenate' => true,
                                 'options' => [
                                     [
-                                        'title' => ucwords(UnimportedListingStatus::NOT_STARTED),
+                                        'title' => ucwords(str_replace("_", " ", UnimportedListingStatus::NOT_STARTED)),
                                         'value' => UnimportedListingStatus::NOT_STARTED
                                     ],
                                     [
