@@ -109,8 +109,8 @@ class Service implements LoggerAwareInterface
             $this->getActiveUser()->getOuList(),
             null,
             null,
-            static::LIMIT,
-            static::PAGE,
+            static::DEFAULT_LIMIT,
+            static::DEFAULT_PAGE,
             ChannelType::SALES
         );
 
@@ -130,7 +130,7 @@ class Service implements LoggerAwareInterface
 
     public function hideListingsById(array $listingIds)
     {
-        $filter = new ListingFilter(static::LIMIT, static::PAGE);
+        $filter = new ListingFilter(static::DEFAULT_LIMIT, static::DEFAULT_PAGE);
         $filter->setId($listingIds); 
         $listings = $this->getListingService()->fetchCollectionByFilter($filter);
         foreach ($listings as $listing) {
