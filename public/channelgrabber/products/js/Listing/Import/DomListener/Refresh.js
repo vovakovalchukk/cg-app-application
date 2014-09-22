@@ -1,8 +1,6 @@
 define([
-    'jquery',
     'Listing/Import/Service'
 ], function (
-    $,
     service
 ) {
     var Refresh = function ()

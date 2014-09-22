@@ -1,12 +1,17 @@
 <?php
 namespace Products\Listing;
 
+use CG\Channel\Type as ChannelType;
 use CG\User\ActiveUserInterface;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\UserPreference\Client\Service as UserPreferenceService;
 use CG\Listing\Unimported\Service as ListingService;
 use CG\Listing\Unimported\Filter as ListingFilter;
+use CG\Listing\Unimported\Collection as ListingCollection;
+use Settings\Module as SettingsModule;
+use Settings\Controller\ChannelController;
+use Zend\Mvc\MvcEvent;
 use CG\Channel\ListingImportFactory;
 use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
@@ -90,6 +95,39 @@ class Service implements LoggerAwareInterface
         return filter_var($visible, FILTER_VALIDATE_BOOLEAN);
     }
 
+    public function alterListingTable(ListingCollection $listingCollection, MvcEvent $event)
+    {
+        $listings = $listingCollection->toArray();
+        $listings = $this->addAccountDetailsToListings($listings, $event);
+
+        return $listings;
+    }
+
+    public function addAccountDetailsToListings(array $listings, MvcEvent $event)
+    {
+        $accounts = $this->getAccountService()->fetchByOUAndStatus(
+            $this->getActiveUser()->getOuList(),
+            null,
+            null,
+            static::LIMIT,
+            static::PAGE,
+            ChannelType::SALES
+        );
+
+        foreach($listings as &$listing) {
+            $accountEntity = $accounts->getById($listing['accountId']);
+            if ($accountEntity) {
+                $listing['accountName'] = $accountEntity->getDisplayName();
+            }
+
+            $listing['accountLink'] = $event->getRouter()->assemble(
+                ['account' => $listing['accountId'], 'type' => ChannelType::SALES],
+                ['name' => SettingsModule::ROUTE . '/' . ChannelController::ROUTE . '/' .ChannelController::ROUTE_CHANNELS.'/'. ChannelController::ROUTE_ACCOUNT]
+            );
+        }
+        return $listings;
+    }
+
     protected function getActiveUserPreference()
     {
         if (!isset($this->activeUserPreference)) {
@@ -138,16 +176,17 @@ class Service implements LoggerAwareInterface
         return $this->listingService;
     }
 
-    protected function setAccountService(AccountService $accountService)
+    protected function getAccountService()
+    {
+        return $this->accountService;
+    }
+
+    protected function setAccountService($accountService)
     {
         $this->accountService = $accountService;
         return $this;
     }
 
-    protected function getAccountService()
-    {
-        return $this->accountService;
-    }
 
     protected function setGearmanClient(GearmanClient $gearmanClient)
     {

@@ -1,6 +1,6 @@
 $("#<?= $tableId ?>").on("renderColumn", function(event, cgmustache, template, column, data) {
-    data.formatCurrency = cgmustache.formatCurrency(data);
-    data.formatDateTime = cgmustache.formatDateTime(data);
+    data.formatCurrency = cgmustache.formatCurrency(data, column.mData);
+    data.formatDateTime = cgmustache.formatDateTime(data, column.mData);
     data.formatAdditionalOrderItems = function()
     {
         return function(variable, render) {

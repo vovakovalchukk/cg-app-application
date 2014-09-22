@@ -2,6 +2,7 @@
 namespace Orders\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use CG_UI\View\Filters\Service as UIFiltersService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Orders\Order\Service as OrderService;
@@ -11,10 +12,6 @@ use Orders\Filter\Service as FilterService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Order\Shared\Entity as OrderEntity;
 use Orders\Order\BulkActions\Service as BulkActionsService;
-use Orders\Module;
-use DirectoryIterator;
-use CG\Http\Rpc\Exception as RpcException;
-use Orders\Order\FilterService as FiltersService;
 use Orders\Order\StoredFilters\Service as StoredFiltersService;
 use ArrayObject;
 use CG\Stdlib\PageLimit;
@@ -31,6 +28,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
     const FILTER_SHIPPING_METHOD_NAME = "shippingMethod";
     const FILTER_SHIPPING_ALIAS_NAME = "shippingAliasId";
+    const FILTER_TYPE = "orders";
 
     protected $orderService;
     protected $filterService;
@@ -39,7 +37,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected $bulkActionsService;
     protected $jsonModelFactory;
     protected $viewModelFactory;
-    protected $filtersService;
+    protected $uiFiltersService;
     protected $storedFiltersService;
     protected $usageService;
     protected $shippingConversionService;
@@ -52,7 +50,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         TimelineService $timelineService,
         BatchService $batchService,
         BulkActionsService $bulkActionsService,
-        FiltersService $filtersService,
+        UIFiltersService $uiFiltersService,
         StoredFiltersService $storedFiltersService,
         UsageService $usageService,
         ShippingConversionService $shippingConversionService
@@ -65,7 +63,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             ->setTimelineService($timelineService)
             ->setBatchService($batchService)
             ->setBulkActionsService($bulkActionsService)
-            ->setFiltersService($filtersService)
+            ->setUIFiltersService($uiFiltersService)
             ->setStoredFiltersService($storedFiltersService)
             ->setUsageService($usageService)
             ->setShippingConversionService($shippingConversionService);
@@ -99,7 +97,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->addChild($this->getBatches(), 'batches');
         $view->setVariable('isSidebarVisible', $this->getOrderService()->isSidebarVisible());
         $view->setVariable('isHeaderBarVisible', $this->getOrderService()->isFilterBarVisible());
-        $view->setVariable('filterNames', $this->getOrderService()->getFilterService()->getFilterNames());
+        $view->setVariable('filterNames', $this->getUIFiltersService()->getFilterNames(static::FILTER_TYPE));
         return $view;
     }
 
@@ -107,7 +105,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     {
         $view = $this->getViewModelFactory()->newInstance(
             [
-                'filters' => $this->getFiltersService()->getFilterConfig('stateFilters')
+                'filters' => $this->getUIFiltersService()->getFilterConfig('stateFilters')
             ]
         );
         $view->setTemplate('orders/orders/sidebar/statusFilters');
@@ -199,7 +197,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected function getFilterBar()
     {
         $filterValues = $this->getFilterService()->getPersistentFilter();
-        $filters = $this->getOrderService()->getFilterService()->getOrderFilters($filterValues);
+        $filters = $this->getUIFiltersService()->getFilters(static::FILTER_TYPE, $filterValues);
         return $filters->prepare();
     }
 
@@ -491,18 +489,18 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $this->bulkActionsService;
     }
 
-    protected function setFiltersService(FiltersService $filtersService)
+    protected function setUIFiltersService(UIFiltersService $uiFiltersService)
     {
-        $this->filtersService = $filtersService;
+        $this->uiFiltersService = $uiFiltersService;
         return $this;
     }
 
     /**
-     * @return FiltersService
+     * @return UIFiltersService
      */
-    protected function getFiltersService()
+    protected function getUIFiltersService()
     {
-        return $this->filtersService;
+        return $this->uiFiltersService;
     }
 
     protected function setStoredFiltersService(StoredFiltersService $storedFiltersService)

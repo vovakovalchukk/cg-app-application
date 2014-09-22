@@ -8,18 +8,32 @@ function(showHideFilters) {
 require.config({
     paths: {
         'Listing': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>/js/Listing',
+        'Filters': "<?= $this->basePath() . Filters\Module::PUBLIC_FOLDER . 'js';?>"
     }
+});
+require(["Filters/FilterCollection"], function(filterCollection) {
+    var filterNames = {
+<?php
+    foreach ($filterNames as $index => $filterName) {
+        echo $filterName . ": '" . $filterName . "', ";
+    }
+?>
+    };
+    filterCollection.setFilters(filterNames);
 });
 require(['Listing/Import/DomListener/Refresh'], function(domListener)
 {
     domListener.init();
 });
 <?php $this->inlineScript()->captureEnd(); ?>
+<?php $this->headScript()->appendFile($this->basePath() . Filters\Module::PUBLIC_FOLDER . 'js/dataTableFilters.js'); ?>
+<?php $this->headScript()->appendFile($this->basePath() . Products\Module::PUBLIC_FOLDER . 'js/Listing/mustache-formatters.js'); ?>
 <?php $this->placeholder('#main.class')->append('full-width'); ?>
+<?php $this->placeholder('#sub-header')->append($filters); ?>
 <div id="main" class="transition-preload module clearfix<?= $this->placeholder('#main.class')->setPrefix(' ')->setIndent(1) ?>">
     <?= $this->breadcrumbs; ?>
     <?= $this->bulkItems; ?>
-    <div id="listings-list">
+    <div id="datatable-container">
         <?= $this->listings; ?>
     </div>
 </div>
@@ -31,9 +45,5 @@ require(['Listing/Import/DomListener/Refresh'], function(domListener)
     #main-wrapper {
         margin-left:0px;
         width:100%;
-    }
-
-    #listings-list {
-        margin-top:50px;
     }
 </style>
