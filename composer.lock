@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "979cac544ab4d8028cb585cdf8855d99",
+    "hash": "857f2f50ad5c52f02959f8f3c2a22524",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -188,7 +188,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-di.git",
-                "reference": "d5847596c375cdfeb27bdb23069627d14255b4c0"
+                "reference": "9ed7c4f6545f5904495b58022bfc54f6602ef56e"
             },
             "require": {
                 "channelgrabber/spork": "~0.2",
@@ -228,7 +228,7 @@
                 }
             ],
             "description": "Dependency injection wrappers and compilation",
-            "time": "2014-09-20 10:39:31"
+            "time": "2014-09-20 11:52:06"
         },
         {
             "name": "channelgrabber/ebay",
@@ -1066,17 +1066,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.2.31",
+            "version": "1.2.32",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "1894ef88c2e6e52aa2c0b09f32e8ad98d6496ced"
+                "reference": "9903e0ed6f100a1694c1e22d5df242255058214b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.31-0c9b31.zip",
-                "reference": "1894ef88c2e6e52aa2c0b09f32e8ad98d6496ced",
-                "shasum": "ad39a7c7b7816bc48418a20fb0a081c5c7abcae1"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.32-81cab5.zip",
+                "reference": "9903e0ed6f100a1694c1e22d5df242255058214b",
+                "shasum": "b3071bb89f98abe988cdde6d4de2ccedbb6b6d3a"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.1,<2.0.0",
@@ -1104,7 +1104,7 @@
                     "CG\\Template\\": "src/"
                 }
             },
-            "time": "2014-09-15 15:20:01"
+            "time": "2014-09-18 15:34:43"
         },
         {
             "name": "channelgrabber/transaction",
@@ -4097,7 +4097,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
