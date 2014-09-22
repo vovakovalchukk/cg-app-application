@@ -258,12 +258,10 @@ class ShippingController extends AbstractActionController
 
     protected function getShippingAccounts()
     {
-        $organisationUnitId = $this->getActiveUser()
-                                  ->getActiveUserRootOrganisationUnitId();
         $shippingAccounts = [];
         try {
             $shippingAccounts = $this->getAccountService()->fetchByOUAndStatus(
-                [$organisationUnitId],
+                $this->getActiveUser()->getActiveUser()->getOuList(),
                 null,
                 false,
                 static::LIMIT,
@@ -348,6 +346,9 @@ class ShippingController extends AbstractActionController
         return $this->activeUser;
     }
 
+    /**
+     * @return OrganisationUnitService
+     */
     protected function getOrganisationUnitService()
     {
         return $this->organisationUnitService;

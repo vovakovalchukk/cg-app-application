@@ -13,7 +13,7 @@ return [
                     'sku' => Module::PUBLIC_FOLDER . 'template/columns/sku.mustache',
                     'image' => Module::PUBLIC_FOLDER . 'template/columns/image.mustache',
                     'title' => Module::PUBLIC_FOLDER . 'template/columns/title.mustache',
-                    'found' => Module::PUBLIC_FOLDER . 'template/columns/found.mustache',
+                    'createdDate' => Module::PUBLIC_FOLDER . 'template/columns/found.mustache',
                     'status' => Module::PUBLIC_FOLDER . 'template/columns/status.mustache'
                 ],
             ],

@@ -88,6 +88,16 @@ return [
                                     ]
                                 ],
                             ],
+                            ListingsJsonController::ROUTE_REFRESH => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/refresh',
+                                    'defaults' => [
+                                        'controller' => ListingsJsonController::class,
+                                        'action' => 'refresh'
+                                    ]
+                                ],
+                            ]
                         ],
                         'may_terminate' => true,
                     ],
@@ -232,7 +242,7 @@ return [
                 'parameters' => [
                     'variables' => [
                         'sortable' => 'false',
-                        'id' => 'accounts',
+                        'id' => 'datatable',
                         'class' => 'fixed-header fixed-footer',
                         'width' => '100%'
                     ],
@@ -294,7 +304,7 @@ return [
             ],
             'ListingAccountColumn' => [
                 'parameters' => [
-                    'column' => 'account',
+                    'column' => 'accountId',
                     'viewModel' => 'ListingAccountColumnView',
                     'class' => 'account-col',
                 ],
@@ -346,7 +356,7 @@ return [
             ],
             'ListingFoundColumn' => [
                 'parameters' => [
-                    'column' => 'found',
+                    'column' => 'createdDate',
                     'viewModel' => 'ListingFoundColumnView',
                     'class' => 'found-col',
                 ],

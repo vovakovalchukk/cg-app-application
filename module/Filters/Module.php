@@ -1,5 +1,5 @@
 <?php
-namespace Products;
+namespace Filters;
 
 use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
 use Zend\Config\Factory as ConfigFactory;
@@ -7,8 +7,7 @@ use Zend\Mvc\MvcEvent;
 
 class Module implements DependencyIndicatorInterface
 {
-    const PUBLIC_FOLDER = '/channelgrabber/products/';
-    const ROUTE = 'Products';
+    const PUBLIC_FOLDER = '/channelgrabber/filters/';
 
     public function onBootstrap(MvcEvent $event)
     {
@@ -35,8 +34,7 @@ class Module implements DependencyIndicatorInterface
     public function getModuleDependencies()
     {
         return [
-            'CG_UI',
-            'Filters'
+            'CG_UI'
         ];
     }
 }
