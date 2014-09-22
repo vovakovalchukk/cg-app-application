@@ -11,6 +11,7 @@ use CG\Order\Service\Filter;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
 use CG\Order\Shared\Entity;
 use CG\Order\Shared\Item\Entity as ItemEntity;
+use CG\Order\Shared\Item\StorageInterface as OrderItemClient;
 use Zend\Di\Di;
 use Zend\I18n\View\Helper\CurrencyFormat;
 use CG\User\Service as UserService;
@@ -50,6 +51,7 @@ class Service implements LoggerAwareInterface
     const ACCOUNTS_LIMIT = 'all';
 
     protected $orderClient;
+    protected $orderItemClient;
     protected $tableService;
     protected $filterService;
     protected $userService;
@@ -66,6 +68,7 @@ class Service implements LoggerAwareInterface
 
     public function __construct(
         StorageInterface $orderClient,
+        OrderItemClient $orderItemClient,
         TableService $tableService,
         FilterService $filterService,
         UserService $userService,
@@ -82,6 +85,7 @@ class Service implements LoggerAwareInterface
     {
         $this
             ->setOrderClient($orderClient)
+            ->setOrderItemClient($orderItemClient)
             ->setTableService($tableService)
             ->setFilterService($filterService)
             ->setUserService($userService)
@@ -607,6 +611,10 @@ class Service implements LoggerAwareInterface
         $order = $this->saveOrder(
             $order->setStatus(OrderStatus::DISPATCHING)
         );
+        foreach ($order->getItems() as $item) {
+            $item->setStatus(OrderStatus::DISPATCHING);
+        }
+        $this->getOrderItemClient()->saveCollection($order->getItems());
 
         $this->getOrderDispatcher()->generateJob($account, $order);
     }
@@ -663,6 +671,10 @@ class Service implements LoggerAwareInterface
         $order = $this->saveOrder(
             $order->setStatus($status)
         );
+        foreach ($order->getItems() as $item) {
+            $item->setStatus($status);
+        }
+        $this->getOrderItemClient()->saveCollection($order->getItems());
 
         $this->getOrderCanceller()->generateJob($account, $order, $cancel);
     }
@@ -774,5 +786,16 @@ class Service implements LoggerAwareInterface
     {
         $this->organisationUnitService = $organisationUnitService;
         return $this;
+    }
+
+    protected function setOrderItemClient(OrderItemClient $orderItemClient)
+    {
+        $this->orderItemClient = $orderItemClient;
+        return $this;
+    }
+
+    protected function getOrderItemClient()
+    {
+        return $this->orderItemClient;
     }
 }
