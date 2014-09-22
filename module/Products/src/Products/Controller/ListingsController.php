@@ -40,6 +40,7 @@ class ListingsController extends AbstractActionController implements LoggerAware
         $view = $this->getViewModelFactory()->newInstance();
         $bulkActions = $this->getBulkActionsService()->getListPageBulkActions();
         $bulkAction = $this->getViewModelFactory()->newInstance()->setTemplate('products/listings/bulk-actions/index');
+        $bulkAction->addChild($this->getRefreshButtonView(), 'refreshButton');
         $bulkActions->addChild(
             $bulkAction,
             'afterActions'
@@ -49,6 +50,19 @@ class ListingsController extends AbstractActionController implements LoggerAware
         $view->setVariable('isHeaderBarVisible', $this->getListingService()->isFilterBarVisible());
         $view->addChild($this->getListingListView(), 'listings');
         return $view;
+    }
+
+    protected function getRefreshButtonView()
+    {
+        $refresh = $this->getViewModelFactory()->newInstance([
+            'buttons' => true,
+            'value' => 'Refresh',
+            'id' => 'refresh-button',
+            'disabled' => false,
+            'icon' => 'sprite-refresh-14-black'
+        ]);
+        $refresh->setTemplate('elements/buttons.mustache');
+        return $refresh;
     }
 
     protected function getListingListView()
