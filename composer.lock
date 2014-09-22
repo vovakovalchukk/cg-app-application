@@ -1165,17 +1165,17 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.18.1",
+            "version": "1.18.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "36e3c38947e020550e4e2a99f676d5fd3e1836b3"
+                "reference": "773a775b13a594a4f03a40fc21b7af0207130f2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.18.1-02c894.zip",
-                "reference": "36e3c38947e020550e4e2a99f676d5fd3e1836b3",
-                "shasum": "25b972b5f92d2acf367677af7af07da6e4d6e939"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.18.2-668f06.zip",
+                "reference": "773a775b13a594a4f03a40fc21b7af0207130f2d",
+                "shasum": "3c31b4a772b90972c6f0317a751f624200b8061c"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -1840,17 +1840,17 @@
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
-            "version": "1.4.0",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-sso-client.git",
-                "reference": "5e25dd75b9381ea3724e77e9fd64ab237ee7aa66"
+                "reference": "fc6e8564fbe7ecaa193951774699a8e27c0599fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ssoclient-1.4.0-2a36ec.zip",
-                "reference": "5e25dd75b9381ea3724e77e9fd64ab237ee7aa66",
-                "shasum": "89b8a9432d1ba535837b0b47c9af4871206a4f88"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ssoclient-1.4.1-9cf8a2.zip",
+                "reference": "fc6e8564fbe7ecaa193951774699a8e27c0599fc",
+                "shasum": "2705b052a14a0332acbaff08aac580ad25400b68"
             },
             "require": {
                 "channelgrabber/http": ">=1.2.0",
@@ -1872,7 +1872,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-07-11 08:27:31"
+            "time": "2014-09-18 15:12:18"
         },
         {
             "name": "channelgrabber/zf2-stdlib",
