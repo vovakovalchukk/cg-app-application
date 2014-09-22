@@ -35,5 +35,6 @@ $this->placeholder('#sidebar')
 <div id="main" class="transition-preload module clearfix<?= $this->placeholder('#main.class')->setPrefix(' ')->setIndent(1) ?>">
 <?= $this->breadcrumbs; ?>
 <?= $this->bulkItems; ?>
-<?= $this->ordersTable; ?>
+<div id="datatable-container">
+    <?= $this->ordersTable; ?>
 </div>

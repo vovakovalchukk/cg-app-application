@@ -1,7 +1,5 @@
 define([
-    'jquery'
 ], function (
-    $
 ) {
     var Ajax = function ()
     {

@@ -33,7 +33,7 @@ require(['Listing/Import/DomListener/Refresh'], function(domListener)
 <div id="main" class="transition-preload module clearfix<?= $this->placeholder('#main.class')->setPrefix(' ')->setIndent(1) ?>">
     <?= $this->breadcrumbs; ?>
     <?= $this->bulkItems; ?>
-    <div id="listings-list">
+    <div id="datatable-container">
         <?= $this->listings; ?>
     </div>
 </div>
@@ -45,9 +45,5 @@ require(['Listing/Import/DomListener/Refresh'], function(domListener)
     #main-wrapper {
         margin-left:0px;
         width:100%;
-    }
-
-    #listings-list {
-        margin-top:50px;
     }
 </style>

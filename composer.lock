@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e2498429aeb2ddccf8c9b154464696a0",
+    "hash": "e7afe2f5e1f48249857a8b0402b13891",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -992,7 +992,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "59579f3547e356a3c88ccf3a77384732cb8b51d3"
+                "reference": "5974f843108dc612176b83fff7b3afbd3815f7dd"
             },
             "require": {
                 "zendframework/zend-db": ">=2.2,<3.0"
@@ -1010,7 +1010,7 @@
                     "src/Utilities.php"
                 ]
             },
-            "time": "2014-09-22 08:52:17"
+            "time": "2014-09-22 09:17:04"
         },
         {
             "name": "channelgrabber/stock",
@@ -1954,11 +1954,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-develop",
+            "version": "dev-EPIC-CGIV-2884-import-listing",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "8f3a0297c21c1e71edb82c0990d0885abb1b2d10"
+                "reference": "e37f66613c0fcf434a73d3100e914574d91a6106"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -1994,7 +1994,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-09-22 08:48:43"
+            "time": "2014-09-22 08:47:47"
         },
         {
             "name": "cilex/cilex",
@@ -4859,7 +4859,7 @@
         {
             "alias": "1.12.54",
             "alias_normalized": "1.12.54.0",
-            "version": "dev-develop",
+            "version": "dev-EPIC-CGIV-2884-import-listing",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
