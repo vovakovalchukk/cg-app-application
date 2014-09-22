@@ -16,7 +16,7 @@
     ],
     "require": {
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/di": "dev-CGIV-3327-CachedDefinitions as 2.1.1",
+        "channelgrabber/di": "~2.1.1",
         "channelgrabber/http": "~1.2.0",
         "channelgrabber/log": "~1.4.3",
         "channelgrabber/redis": "~0.1.0",

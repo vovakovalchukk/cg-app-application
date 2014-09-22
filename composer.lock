@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6783d2eccc2d3293e0877d2cd3265262",
+    "hash": "00ff8e266f9495f8ea9233328dc16136",
     "packages": [
         {
             "name": "channelgrabber/cache",
@@ -64,11 +64,17 @@
         },
         {
             "name": "channelgrabber/di",
-            "version": "dev-CGIV-3327-CachedDefinitions",
+            "version": "2.1.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-di.git",
-                "reference": "d5847596c375cdfeb27bdb23069627d14255b4c0"
+                "reference": "a324c33edf58452379edf5bc9bb4329753f8950b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-di-2.1.1-4a06ae.zip",
+                "reference": "a324c33edf58452379edf5bc9bb4329753f8950b",
+                "shasum": "1aa4d1bd7ef63469911da771117039613fc7d319"
             },
             "require": {
                 "channelgrabber/spork": "~0.2",
@@ -108,7 +114,12 @@
                 }
             ],
             "description": "Dependency injection wrappers and compilation",
-            "time": "2014-09-20 10:39:31"
+            "transport-options": {
+                "ssl": {
+                    "local_cert": "composer.pem"
+                }
+            },
+            "time": "2014-09-22 13:32:50"
         },
         {
             "name": "channelgrabber/email",
@@ -231,14 +242,16 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
-                }
-            },
-            "transport-options": {
-                "ssl": {
-                    "local_cert": "composer.pem"
                 }
             },
             "time": "2013-10-29 14:49:23"
@@ -369,14 +382,16 @@
                 "predis/predis": "v0.8.3"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Predis\\": ""
-                }
-            },
-            "transport-options": {
-                "ssl": {
-                    "local_cert": "composer.pem"
                 }
             },
             "time": "2013-07-09 15:10:32"
@@ -402,11 +417,6 @@
             "autoload": {
                 "psr-0": {
                     "CG\\Redis\\": ""
-                }
-            },
-            "transport-options": {
-                "ssl": {
-                    "local_cert": "composer.pem"
                 }
             },
             "time": "2013-12-17 17:45:58"
@@ -897,11 +907,6 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "transport-options": {
-                "ssl": {
-                    "local_cert": "composer.pem"
-                }
-            },
             "time": "2014-02-24 17:08:51"
         },
         {
@@ -947,11 +952,6 @@
                 ]
             },
             "description": "module to register a new user account",
-            "transport-options": {
-                "ssl": {
-                    "local_cert": "composer.pem"
-                }
-            },
             "time": "2014-03-18 13:21:30"
         },
         {
@@ -1069,11 +1069,6 @@
                 "classmap": [
                     "./Module.php"
                 ]
-            },
-            "transport-options": {
-                "ssl": {
-                    "local_cert": "composer.pem"
-                }
             },
             "time": "2014-02-06 17:10:48"
         },
@@ -1201,12 +1196,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "2cb64c8a7254b748617baeff4316654bcf6bb551"
+                "reference": "1fff2afa1faf38b781618faeb6b96c5643baefeb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/2cb64c8a7254b748617baeff4316654bcf6bb551",
-                "reference": "2cb64c8a7254b748617baeff4316654bcf6bb551",
+                "url": "https://api.github.com/repos/composer/composer/zipball/1fff2afa1faf38b781618faeb6b96c5643baefeb",
+                "reference": "1fff2afa1faf38b781618faeb6b96c5643baefeb",
                 "shasum": ""
             },
             "require": {
@@ -1261,7 +1256,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2014-09-18 15:58:10"
+            "time": "2014-09-22 14:19:53"
         },
         {
             "name": "davedevelopment/phpmig",
@@ -2864,7 +2859,7 @@
                 {
                     "name": "Anthon Pang",
                     "email": "apang@softwaredevelopment.ca",
-                    "role": "developer"
+                    "role": "Fork Maintainer"
                 }
             ],
             "description": "PHP WebDriver for Selenium 2",
@@ -3021,8 +3016,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -3724,17 +3718,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "2.1.1",
-            "alias_normalized": "2.1.1.0",
-            "version": "dev-CGIV-3327-CachedDefinitions",
-            "package": "channelgrabber/di"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/di": 20,
         "composer/composer": 20,
         "widmogrod/zf2-mustache-module": 20,
         "phpspec/phpspec": 20
