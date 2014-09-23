@@ -15,7 +15,7 @@
 /config/host.php
 /config/module/*
 /data/certificates
-/data/di
+/data/di/definitions/
 /data/mustache
 /module/Orders/src/Orders/Controller/tmp
 /nbproject
