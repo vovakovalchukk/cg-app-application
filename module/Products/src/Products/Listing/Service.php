@@ -16,6 +16,8 @@ use CG\Channel\ListingImportFactory;
 use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
 use \GearmanClient;
+use CG\Channel\Gearman\Workload\ImportListing as ImportListingWorkload;
+use CG\Listing\Unimported\Status as UnimportedStatus;
 
 class Service implements LoggerAwareInterface
 {
@@ -109,8 +111,8 @@ class Service implements LoggerAwareInterface
             $this->getActiveUser()->getOuList(),
             null,
             null,
-            static::LIMIT,
-            static::PAGE,
+            static::DEFAULT_LIMIT,
+            static::DEFAULT_PAGE,
             ChannelType::SALES
         );
 
@@ -126,6 +128,40 @@ class Service implements LoggerAwareInterface
             );
         }
         return $listings;
+    }
+
+    public function hideListingsById(array $listingIds)
+    {
+        $filter = new ListingFilter(static::DEFAULT_LIMIT, static::DEFAULT_PAGE);
+        $filter->setId($listingIds); 
+        $listings = $this->getListingService()->fetchCollectionByFilter($filter);
+        foreach ($listings as $listing) {
+            $listing->setHidden(true);
+        }
+        $this->getListingService()->saveCollection($listings);
+    }
+
+    public function importListingsById(array $listingIds)
+    {
+        $filter = new ListingFilter(static::DEFAULT_LIMIT, static::DEFAULT_PAGE);
+        $filter->setId($listingIds);
+        $listings = $this->getListingService()->fetchCollectionByFilter($filter);
+        $accounts = $this->getAccountService()->fetchByOUAndStatus(
+            $this->getActiveUser()->getOuList(),
+            null,
+            null,
+            static::DEFAULT_LIMIT,
+            static::DEFAULT_PAGE,
+            ChannelType::SALES
+        );
+
+        foreach ($listings as $listing) {
+            $gearmanJob = $listing->getChannel() . 'ImportListing';
+            $workload = new ImportListingWorkload($accounts->getById($listing->getAccountId()), $listing);
+            $this->getGearmanClient()->doBackground($gearmanJob, serialize($workload), 'importListing' . $listing->getId());
+            $listing->setStatus(UnimportedStatus::IMPORTING);
+        }
+        $this->getListingService()->saveCollection($listings);
     }
 
     protected function getActiveUserPreference()

@@ -1,4 +1,9 @@
 <?php $this->inlineScript()->captureStart(); ?>
+require.config({
+    paths: {
+        'Listing': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>/js/Listing'
+    }
+});
 require([
     "showHideFilters"
 ],
@@ -10,6 +15,14 @@ require.config({
         'Listing': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>/js/Listing',
         'Filters': "<?= $this->basePath() . Filters\Module::PUBLIC_FOLDER . 'js';?>"
     }
+});
+require(['Listing/Import/Service'], function(listingService)
+{
+    $(document).ready(function() {
+        $('#datatable').on('after-cgdatatable-init', function(event, dataTable) {
+            listingService.setDataTable(dataTable);
+        });
+    });
 });
 require(["Filters/FilterCollection"], function(filterCollection) {
     var filterNames = {

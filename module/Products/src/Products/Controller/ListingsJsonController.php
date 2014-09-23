@@ -13,7 +13,9 @@ use CG\Listing\Unimported\Mapper as ListingMapper;
 class ListingsJsonController extends AbstractActionController
 {
     const ROUTE_AJAX = 'AJAX';
+    const ROUTE_HIDE = 'HIDE';
     const ROUTE_REFRESH = 'refresh';
+    const ROUTE_IMPORT = 'import';
 
     protected $listingService;
     protected $jsonModelFactory;
@@ -45,10 +47,15 @@ class ListingsJsonController extends AbstractActionController
         ];
         try {
             $requestFilter = $this->params()->fromPost('filter', []);
-            if (!isset($requestFilter['hidden']) || $requestFilter['hidden'] == 'No') {
+
+            if (!isset($requestFilter['hidden'])) {
                 $requestFilter['hidden'] = [false];
             }
-
+            foreach ($requestFilter['hidden'] as $index => $hidden) {
+                if ($hidden == 'No') {
+                    $requestFilter['hidden'][$index] = false;
+                }
+            }
             $requestFilter = $this->getFilterMapper()->fromArray($requestFilter);
             $limit = 'all';
             $page = 1;
@@ -72,10 +79,38 @@ class ListingsJsonController extends AbstractActionController
         return $this->getJsonModelFactory()->newInstance($data);
     }
 
+    public function hideAction()
+    {
+        $view = $this->getJsonModelFactory()->newInstance();
+
+        $listingIds = $this->params()->fromPost('listingIds');
+        if (empty($listingIds)){
+            $view->setVariable('hidden', false);
+            return $view;
+        }
+
+        $this->getListingService()->hideListingsById($listingIds);
+        $view->setVariable('hidden', true);
+        return $view;
+    }
+
     public function refreshAction()
     {
         $view = $this->getJsonModelFactory()->newInstance();
         $this->getListingService()->refresh();
+        return $view;
+    }
+
+    public function importAction()
+    {
+        $view = $this->getJsonModelFactory()->newInstance();
+        $listingIds = $this->params()->fromPost('listingIds');
+        if (empty($listingIds)){
+            $view->setVariable('import', false);
+            return $view;
+        }
+        $this->getListingService()->importListingsById($listingIds);
+        $view->setVariable('import', true);
         return $view;
     }
 

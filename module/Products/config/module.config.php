@@ -78,6 +78,16 @@ return [
                                     ]
                                 ],
                             ],
+                            ListingsJsonController::ROUTE_HIDE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/hide',
+                                    'defaults' => [
+                                        'controller' => ListingsJsonController::class,
+                                        'action' => 'hide'
+                                    ]
+                                ],
+                            ],
                             ListingsJsonController::ROUTE_REFRESH => [
                                 'type' => Literal::class,
                                 'options' => [
@@ -85,6 +95,16 @@ return [
                                     'defaults' => [
                                         'controller' => ListingsJsonController::class,
                                         'action' => 'refresh'
+                                    ]
+                                ],
+                            ],
+                            ListingsJsonController::ROUTE_IMPORT => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/import',
+                                    'defaults' => [
+                                        'controller' => ListingsJsonController::class,
+                                        'action' => 'import'
                                     ]
                                 ],
                             ]
