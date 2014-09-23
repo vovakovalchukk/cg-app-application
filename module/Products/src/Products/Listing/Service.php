@@ -50,7 +50,8 @@ class Service implements LoggerAwareInterface
             ->setListingService($listingService)
             ->setListingImportFactory($listingImportFactory)
             ->setAccountService($accountService)
-            ->setGearmanClient($gearmanClient);
+            ->setGearmanClient($gearmanClient)
+            ->setListingImportService($listingImportService);
     }
 
     public function fetchListings(ListingFilter $listingFilter)
@@ -160,8 +161,8 @@ class Service implements LoggerAwareInterface
             $workload = new ImportListingWorkload($accounts->getById($listing->getAccountId()), $listing);
             $this->getGearmanClient()->doBackground($gearmanJob, serialize($workload), 'importListing' . $listing->getId());
             $listing->setStatus(UnimportedStatus::IMPORTING);
-            $this->getListingService()->save($listing);
         }
+        $this->getListingService()->saveCollection($listings);
     }
 
     protected function getActiveUserPreference()
