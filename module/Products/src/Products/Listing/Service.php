@@ -138,8 +138,8 @@ class Service implements LoggerAwareInterface
         $listings = $this->getListingService()->fetchCollectionByFilter($filter);
         foreach ($listings as $listing) {
             $listing->setHidden(true);
-            $this->getListingService()->save($listing);
         }
+        $this->getListingService()->saveCollection($listings);
     }
 
     public function importListingsById(array $listingIds)
