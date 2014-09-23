@@ -5,7 +5,7 @@ define([
     BulkActionAbstract,
     service
 ) {
-    var Hide = function()
+    var Import = function()
     {
         BulkActionAbstract.call(this);
 
@@ -15,12 +15,12 @@ define([
         };
     };
 
-    Hide.prototype = Object.create(BulkActionAbstract.prototype);
+    Import.prototype = Object.create(BulkActionAbstract.prototype);
 
-    Hide.URL = '/products/listing/import/hide';
-    Hide.MESSAGE_SUCCESS = 'Listings hidden successfully';
+    Import.URL = '/products/listing/import/import';
+    Import.MESSAGE_SUCCESS = 'Listings imported successfully';
 
-    Hide.prototype.invoke = function()
+    Import.prototype.invoke = function()
     {
         var self = this;
         var listingIds = [];
@@ -35,7 +35,7 @@ define([
 
         var data = {listingIds: listingIds};
         this.sendAjaxRequest(
-            Hide.URL,
+            Import.URL,
             data,
             this.handleSuccess,
             null,
@@ -43,11 +43,11 @@ define([
         );
     };
 
-    Hide.prototype.handleSuccess = function()
+    Import.prototype.handleSuccess = function()
     {
-        this.getNotificationHandler().success(Hide.MESSAGE_SUCCESS);
+        this.getNotificationHandler().success(Import.MESSAGE_SUCCESS);
         this.getService().refreshDatatable();
     };
 
-    return new Hide();
+    return new Import();
 });
