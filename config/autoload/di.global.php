@@ -8,6 +8,7 @@ use Zend\Di\Config;
 use Zend\Di\Di;
 use Zend\Di\InstanceManager;
 use Zend\Di\LocatorInterface;
+use Zend\EventManager\EventManagerInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\ServiceManager;
 
@@ -48,6 +49,10 @@ return [
                 $im->addSharedInstance($serviceManager, ServiceManager::class);
                 $im->addSharedInstance($di->get('config', array('array' => $configuration)), 'config');
                 $im->addSharedInstance($di->get(ZendConfig::class, array('array' => $configuration)), 'app_config');
+
+                $eventManager = $serviceManager->get('EventManager');
+                $im->addTypePreference(EventManagerInterface::class, get_class($eventManager));
+                $im->addSharedInstance($eventManager, get_class($eventManager));
 
                 return $di;
             },
