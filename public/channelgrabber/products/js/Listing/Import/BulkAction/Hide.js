@@ -1,7 +1,9 @@
 define([
-    'BulkActionAbstract'
+    'BulkActionAbstract',
+    'Listing/Import/Service'
 ], function(
-    BulkActionAbstract
+    BulkActionAbstract,
+    service
 ) {
     var Hide = function()
     {
@@ -44,8 +46,7 @@ define([
     Hide.prototype.handleSuccess = function()
     {
         this.getNotificationHandler().success(Hide.MESSAGE_SUCCESS);
-        // TODO: once we have filters call apply-filters here instead to force a reload over ajax
-        window.location.reload();
+        this.getService().refresh();
     };
 
     return new Hide();
