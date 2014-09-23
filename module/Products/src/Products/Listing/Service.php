@@ -50,8 +50,7 @@ class Service implements LoggerAwareInterface
             ->setListingService($listingService)
             ->setListingImportFactory($listingImportFactory)
             ->setAccountService($accountService)
-            ->setGearmanClient($gearmanClient)
-            ->setListingImportService($listingImportService);
+            ->setGearmanClient($gearmanClient);
     }
 
     public function fetchListings(ListingFilter $listingFilter)
