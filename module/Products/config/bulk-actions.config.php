@@ -16,6 +16,7 @@ return [
                 'ListingDetailBulkActions' => BulkActions::class,
                 'DeleteJSViewModel' => ViewModel::class,
                 'HideJSViewModel' => ViewModel::class,
+                'ImportJSViewModel' => ViewModel::class,
                 'UrlDataViewSearch' => ViewModel::class
             ],
             ProductBulkActionsService::class => [
@@ -52,7 +53,8 @@ return [
                 ],
                 'injections' => [
                     'addAction' => [
-                        ['action' => ListingAction\Hide::class]
+                        ['action' => ListingAction\Hide::class],
+                        ['action' => ListingAction\Import::class]
                     ]
                 ],
             ],
@@ -79,9 +81,19 @@ return [
                     'javascript' => 'HideJSViewModel'
                 ]
             ],
+            ListingAction\Import::class => [
+                'parameters' => [
+                    'javascript' => 'ImportJSViewModel'
+                ]
+            ],
             'HideJSViewModel' => [
                 'parameters' => [
                     'template' => 'products/listings/bulk-actions/hide-js',
+                ],
+            ],
+            'ImportJSViewModel' => [
+                'parameters' => [
+                    'template' => 'products/listings/bulk-actions/import-js',
                 ],
             ],
             'ListingDetailBulkActions' => [

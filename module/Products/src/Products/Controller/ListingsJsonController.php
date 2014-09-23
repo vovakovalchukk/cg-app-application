@@ -15,6 +15,7 @@ class ListingsJsonController extends AbstractActionController
     const ROUTE_AJAX = 'AJAX';
     const ROUTE_HIDE = 'HIDE';
     const ROUTE_REFRESH = 'refresh';
+    const ROUTE_IMPORT = 'import';
 
     protected $listingService;
     protected $jsonModelFactory;
@@ -97,6 +98,19 @@ class ListingsJsonController extends AbstractActionController
     {
         $view = $this->getJsonModelFactory()->newInstance();
         $this->getListingService()->refresh();
+        return $view;
+    }
+
+    public function importAction()
+    {
+        $view = $this->getJsonModelFactory()->newInstance();
+        $listingIds = $this->params()->fromPost('listingIds');
+        if (empty($listingIds)){
+            $view->setVariable('import', false);
+            return $view;
+        }
+        $this->getListingService()->importListingsById($listingIds);
+        $view->setVariable('import', true);
         return $view;
     }
 

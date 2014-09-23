@@ -7,6 +7,17 @@ define([
 ) {
     var Service = function ()
     {
+        var dataTable;
+
+        this.getDataTable = function()
+        {
+            return dataTable;
+        };
+
+        this.setDataTable = function(newDataTable)
+        {
+            dataTable = newDataTable;
+        };
     };
 
     Service.SELECTOR_REFRESH_BUTTON_SHADOW = '#refresh-button-shadow';
@@ -22,6 +33,11 @@ define([
         storage.refresh(function() {
             self.refreshState();
         });
+    };
+
+    Service.prototype.refreshDatatable = function()
+    {
+        this.getDataTable().redraw();
     };
 
     Service.prototype.refreshingState = function()

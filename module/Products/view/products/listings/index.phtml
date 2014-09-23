@@ -16,6 +16,14 @@ require.config({
         'Filters': "<?= $this->basePath() . Filters\Module::PUBLIC_FOLDER . 'js';?>"
     }
 });
+require(['Listing/Import/Service'], function(listingService)
+{
+    $(document).ready(function() {
+        $('#datatable').on('after-cgdatatable-init', function(event, dataTable) {
+            listingService.setDataTable(dataTable);
+        });
+    });
+});
 require(["Filters/FilterCollection"], function(filterCollection) {
     var filterNames = {
 <?php

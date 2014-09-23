@@ -97,6 +97,16 @@ return [
                                         'action' => 'refresh'
                                     ]
                                 ],
+                            ],
+                            ListingsJsonController::ROUTE_IMPORT => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/import',
+                                    'defaults' => [
+                                        'controller' => ListingsJsonController::class,
+                                        'action' => 'import'
+                                    ]
+                                ],
                             ]
                         ],
                         'may_terminate' => true,
