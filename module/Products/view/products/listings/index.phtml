@@ -1,4 +1,9 @@
 <?php $this->inlineScript()->captureStart(); ?>
+require.config({
+    paths: {
+        'Listing': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>/js/Listing'
+    }
+});
 require([
     "showHideFilters"
 ],

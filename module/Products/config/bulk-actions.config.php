@@ -3,7 +3,8 @@ use Products\Product\BulkActions\Service as ProductBulkActionsService;
 use Products\Listing\BulkActions\Service as ListingBulkActionsService;
 use CG_UI\View\BulkActions;
 use Zend\View\Model\ViewModel;
-use Products\Product\BulkActions\Action;
+use Products\Product\BulkActions\Action as ProductAction;
+use Products\Listing\BulkActions\Action as ListingAction;
 
 return [
     'di' => [
@@ -14,6 +15,7 @@ return [
                 'ListingListBulkActions' => BulkActions::class,
                 'ListingDetailBulkActions' => BulkActions::class,
                 'DeleteJSViewModel' => ViewModel::class,
+                'HideJSViewModel' => ViewModel::class,
                 'UrlDataViewSearch' => ViewModel::class
             ],
             ProductBulkActionsService::class => [
@@ -37,7 +39,7 @@ return [
                 ],
                 'injections' => [
                     'addAction' => [
-                        ['action' => Action\Delete::class]
+                        ['action' => ProductAction\Delete::class]
                     ]
                 ],
             ],
@@ -50,11 +52,11 @@ return [
                 ],
                 'injections' => [
                     'addAction' => [
-                        ['action' => Orders\Order\BulkActions\Action\Invoice::class]
+                        ['action' => ListingAction\Hide::class]
                     ]
                 ],
             ],
-            Action\Delete::class => [
+            ProductAction\Delete::class => [
                 'parameters' => [
                     'javascript' => 'DeleteJSViewModel'
                 ]
@@ -71,6 +73,16 @@ return [
                         'class' => ['bulk-actions-inline'],
                     ],
                 ]
+            ],
+            ListingAction\Hide::class => [
+                'parameters' => [
+                    'javascript' => 'HideJSViewModel'
+                ]
+            ],
+            'HideJSViewModel' => [
+                'parameters' => [
+                    'template' => 'products/listings/bulk-actions/hide-js',
+                ],
             ],
             'ListingDetailBulkActions' => [
                 'parameters' => [

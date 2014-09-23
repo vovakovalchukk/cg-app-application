@@ -78,6 +78,16 @@ return [
                                     ]
                                 ],
                             ],
+                            ListingsJsonController::ROUTE_HIDE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/hide',
+                                    'defaults' => [
+                                        'controller' => ListingsJsonController::class,
+                                        'action' => 'hide'
+                                    ]
+                                ],
+                            ],
                             ListingsJsonController::ROUTE_REFRESH => [
                                 'type' => Literal::class,
                                 'options' => [
