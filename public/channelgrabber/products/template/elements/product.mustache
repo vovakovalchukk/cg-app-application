@@ -1,0 +1,34 @@
+<div class="product-container {{#hasVariations}}product-variations-container{{/hasVariations}}" id="product-container-{{id}}">
+    <input type="hidden" value="{{id}}" name="id">
+    <div class="checkbox-container">
+        {{> checkbox}}
+    </div>
+    <div class="product-holder">
+        <div class="product-image-container">
+            <div class="product-image">
+                <span>
+                    <img src="{{image}}">
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="product-info-container">
+        <div class="product-header">
+            {{#title}}<b>{{title}}</b>{{/title}}
+            <span class="product-sku">
+                {{#sku}}({{sku}}){{/sku}}
+            </span>
+            <span class="product-status-holder">
+                {{>statusLozenge}}
+            </span>
+        </div>
+
+        <div class="product-content-container">
+            {{> productContent}}
+        </div>
+    </div>
+
+    <div class="product-footer">
+        {{> expandButton}}
+    </div>
+</div>

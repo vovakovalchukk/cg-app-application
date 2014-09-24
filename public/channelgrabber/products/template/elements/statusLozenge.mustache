@@ -1,0 +1,17 @@
+<span class="status {{decidedStatus}}">{{decidedStatus}}</span>
+{{#hasMultipleListings}}
+    <div class="product-listing-status-dropdown {{hasMultipleListings}}">
+        <table>
+            <tr>
+                <td>Status</td>
+                <td>Account</td>
+            </tr>
+            {{#listings}}
+            <tr>
+                <td><span class="status {{status}}">{{status}}</span></td>
+                <td>{{channel}}</td>
+            </tr>
+            {{/listings}}
+        </table>
+    </div>
+{{/hasMultipleListings}}

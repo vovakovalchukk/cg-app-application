@@ -28,6 +28,7 @@ class ChannelController extends AbstractActionController
 {
     const ROUTE_ACCOUNT = "Manage";
     const ROUTE_ACCOUNT_STATUS = 'Status';
+    const ROUTE_ACCOUNT_STOCK_MANAGEMENT = 'Stock Management';
     const ROUTE_ACCOUNT_DELETE = "Delete";
     const ROUTE_ACCOUNT_AJAX = "Sales Channel Item Ajax";
     const ROUTE = "Channel Management";
@@ -370,6 +371,23 @@ class ChannelController extends AbstractActionController
             );
         }
 
+        return $response->setVariable('updated', true);
+    }
+
+    public function stockManagementAjaxAction()
+    {
+        $response = $this->getJsonModelFactory()->newInstance(['updated' => false]);
+        $account = $this->getAccountService()->fetch($this->params()->fromRoute('account'));
+        $stockManagement = filter_var(
+            $this->params()->fromPost('active', false),
+            FILTER_VALIDATE_BOOLEAN
+        );
+
+        $this->getAccountService()->save($account->setStockManagement($stockManagement));
+        $response->setVariable(
+            'account',
+            $this->getMapper()->toDataTableArray($account, $this->url(), $this->params('type'))
+        );
         return $response->setVariable('updated', true);
     }
 
