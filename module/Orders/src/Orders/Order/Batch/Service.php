@@ -46,12 +46,12 @@ class Service implements LoggerAwareInterface
             ->setRedisClient($redisClient);
     }
 
-    public function getBatches()
+    public function getBatches($active = true)
     {
         $organisationUnitIds = $this->getOrganisationUnitService()->getAncestorOrganisationUnitIdsByActiveUser();
         try {
             $batchCollection = $this->getBatchClient()->fetchCollectionByPagination(static::DEFAULT_LIMIT,
-                static::DEFAULT_PAGE, $organisationUnitIds, static::ACTIVE);
+                static::DEFAULT_PAGE, $organisationUnitIds, $active);
             $batches = $batchCollection->toArray();
             usort($batches, array($this, "compare"));
         } catch (NotFound $exception) {
@@ -114,28 +114,6 @@ class Service implements LoggerAwareInterface
         $this->updateOrders($orders, $batch->getName());
     }
 
-    public function removeForOrders(array $orderIds)
-    {
-        $this->unsetBatch(
-            $this->getOrderClient()->fetchCollectionByFilter(
-                $this->getOrderFilter($orderIds)
-            )
-        );
-    }
-
-    public function removeForFilterId($filterId)
-    {
-        $this->unsetBatch(
-            $this->getOrderClient()->fetchCollectionByFilterId(
-                $filterId,
-                'all',
-                1,
-                null,
-                null
-            )
-        );
-    }
-
     public function remove(Orders $orders)
     {
         if (empty($orders)) {
@@ -178,10 +156,12 @@ class Service implements LoggerAwareInterface
         return $rootOu . "-" . $increment;
     }
 
-    public function delete($batchId)
+    public function setInactive($batchId)
     {
-        $entity = $this->getBatchClient()->fetch($batchId);
-        $this->getBatchClient()->remove($entity);
+        $batch = $this->getBatchClient()->fetch($batchId);
+        $batch->setActive(false);
+        $this->getBatchClient()->remove($batch);
+        $this->getBatchClient()->save($batch);
     }
 
     public function setBatchClient(BatchClient $batchClient)
@@ -190,9 +170,6 @@ class Service implements LoggerAwareInterface
         return $this;
     }
 
-    /**
-     * @return BatchClient
-     */
     public function getBatchClient()
     {
         return $this->batchClient;

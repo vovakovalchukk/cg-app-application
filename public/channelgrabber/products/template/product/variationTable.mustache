@@ -1,0 +1,16 @@
+<div class="variation-table">
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>SKU</th>
+                {{#attributes}}
+                <th>{{.}}</th>
+                {{/attributes}}
+            </tr>
+        </thead>
+        <tbody>
+            {{> variations}}
+        </tbody>
+    </table>
+</div>

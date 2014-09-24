@@ -1,10 +1,10 @@
 <?php
+use CG_UI\View\Filters\Service as FilterService;
 use Orders\Order\CountryService;
 use Orders\Order\CurrencyService;
-use Orders\Order\FilterService;
 use Orders\Order\TableService\OrdersTableTagColumns;
-use Orders\Order\Filter\Channel;
-use Orders\Order\Filter\Account;
+use Filters\Options\Channel;
+use Filters\Options\Account;
 use Orders\Order\Filter\Batch;
 use Orders\Order\Filter\Shipping;
 use Orders\Controller\OrdersController;
@@ -21,7 +21,7 @@ return [
         ]
     ],
     'filters' => [
-        'orders' => [
+        OrdersController::FILTER_TYPE => [
             'rows' => [
                 [
                     'type' => 'Row',

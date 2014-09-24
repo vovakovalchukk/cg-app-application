@@ -13,7 +13,6 @@ use Settings\Controller\AmazonController;
 use Settings\Controller\InvoiceController;
 use Settings\Controller\ShippingController;
 use CG_UI\View\DataTable;
-use Settings\Channel\Service as ChannelService;
 use Settings\Invoice\Service as InvoiceService;
 use Zend\View\Model\ViewModel;
 use CG\Account\Client\StorageInterface as AccountStorageInterface;
@@ -232,6 +231,15 @@ return [
                                                     ]
                                                 ],
                                             ],
+                                            ChannelController::ROUTE_ACCOUNT_STOCK_MANAGEMENT => [
+                                                'type' => Literal::class,
+                                                'options' => [
+                                                    'route' => '/stockManagement',
+                                                    'defaults' => [
+                                                        'action' => 'stockManagementAjax',
+                                                    ]
+                                                ],
+                                            ],
                                         ],
                                     ],
                                 ],
@@ -375,7 +383,7 @@ return [
                     ]
                 ]
             ]
-        ],
+        ], 
     ],
     'view_manager' => [
         'template_path_stack' => [
@@ -402,7 +410,8 @@ return [
                 'InvoiceSettingsDataTableSettings' => DataTable\Settings::class,
                 'AccountListSettings' => DataTable\Settings::class,
                 'ChannelTokenStatusMustacheJS' => ViewModel::class,
-                'ChannelStatusJS' => viewModel::class,
+                'ChannelStatusJS' => ViewModel::class,
+                'ChannelStockManagementJS' => ViewModel::class,
                 'ChannelDeleteJavascript' => ViewModel::class,
                 'InvoiceTradingCompanyColumn' => DataTable\Column::class,
                 'InvoiceAssignedInvoiceColumn' => DataTable\Column::class,
@@ -415,6 +424,7 @@ return [
                 'AccountTradingCompanyColumn' => DataTable\Column::class,
                 'AccountTokenStatusColumn' => DataTable\Column::class,
                 'AccountManageColumn' => DataTable\Column::class,
+                'AccountStockManagementColumn' => DataTable\Column::class,
                 'AccountEnableColumnView' => ViewModel::class,
                 'AccountStatusColumnView' => ViewModel::class,
                 'AccountChannelColumnView' => ViewModel::class,
@@ -422,6 +432,7 @@ return [
                 'AccountTradingCompanyColumnView' => ViewModel::class,
                 'AccountTokenStatusColumnView' => ViewModel::class,
                 'AccountManageColumnView' => ViewModel::class,
+                'AccountStockManagementColumnView' => ViewModel::class,
             ],
             InvoiceController::class => [
                 'parameters' => [
@@ -493,6 +504,7 @@ return [
                     'addChild' => [
                         ['child' => 'ChannelTokenStatusMustacheJS', 'captureTo' => 'javascript', 'append' => true],
                         ['child' => 'ChannelStatusJS', 'captureTo' => 'javascript', 'append' => true],
+                        ['child' => 'ChannelStockManagementJS', 'captureTo' => 'javascript', 'append' => true],
                         ['child' => 'ChannelDeleteJavascript', 'captureTo' => 'javascript', 'append' => true],
                     ],
                     'addColumn' => [
@@ -502,6 +514,7 @@ return [
                         ['column' => 'AccountAccountColumn'],
                         ['column' => 'AccountTradingCompanyColumn'],
                         ['column' => 'AccountTokenStatusColumn'],
+                        ['column' => 'AccountStockManagementColumn'],
                         ['column' => 'AccountManageColumn'],
                     ],
                     'setVariable' => [
@@ -548,7 +561,7 @@ return [
             ],
             'ChannelStatusJS' => [
                 'parameters' => [
-                    'template' => 'settings/channel/javascript/enableChannel.js',
+                    'template' => 'settings/channel/javascript/Switch.js',
                     'variables' => [
                         'route' => implode(
                             '/',
@@ -560,6 +573,8 @@ return [
                                 ChannelController::ROUTE_ACCOUNT_STATUS,
                             ]
                         ),
+                        'switchClass' => 'enable_switch',
+                        'switchType' => 'Status'
                     ],
                 ],
             ],
@@ -568,7 +583,25 @@ return [
                     'template' => 'settings/channel/javascript/deleteChannel.js',
                 ],
             ],
-
+            'ChannelStockManagementJS' => [
+                'parameters' => [
+                    'template' => 'settings/channel/javascript/Switch.js',
+                    'variables' => [
+                        'route' => implode(
+                            '/',
+                            [
+                                Module::ROUTE,
+                                ChannelController::ROUTE,
+                                ChannelController::ROUTE_CHANNELS,
+                                ChannelController::ROUTE_ACCOUNT,
+                                ChannelController::ROUTE_ACCOUNT_STOCK_MANAGEMENT,
+                            ]
+                        ),
+                        'switchClass' => 'stockManagement_switch',
+                        'switchType' => 'Stock Management'
+                    ],
+                ],
+            ],
             'InvoiceTradingCompanyColumn' => [
                 'parameters' => [
                     'templateId' => 'tradingCompany',
@@ -658,6 +691,14 @@ return [
                     'hideable' => false,
                 ],
             ],
+            'AccountStockManagementColumn' => [
+                'parameters' => [
+                    'templateId' => 'stockManagement',
+                    'viewModel' => 'AccountStockManagementColumnView',
+                    'sortable' => false,
+                    'hideable' => false,
+                ],
+            ],
             'AccountEnableColumnView' => [
                 'parameters' => [
                     'variables' => ['value' => 'Enable'],
@@ -697,6 +738,12 @@ return [
             'AccountManageColumnView' => [
                 'parameters' => [
                     'variables' => ['value' => 'Manage'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'AccountStockManagementColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Stock Management'],
                     'template' => 'value.phtml',
                 ],
             ],

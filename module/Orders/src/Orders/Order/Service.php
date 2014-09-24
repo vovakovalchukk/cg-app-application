@@ -1,42 +1,45 @@
 <?php
 namespace Orders\Order;
 
+use CG\Account\Client\Service as AccountService;
+use CG\Channel\Carrier;
+use CG\Channel\Gearman\Generator\Order\Cancel as OrderCanceller;
+use CG\Channel\Gearman\Generator\Order\Dispatch as OrderDispatcher;
+use CG\Channel\Type;
+use CG\Http\Exception\Exception3xx\NotModified as NotModifiedException;
+use CG\Order\Client\Collection as FilteredCollection;
+use CG\Order\Service\Filter;
+use CG\Order\Shared\Cancel\Value as CancelValue;
+use CG\Order\Shared\Cancel\Item as CancelItem;
+use CG\Order\Shared\Collection as OrderCollection;
+use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\Item\Entity as ItemEntity;
+use CG\Order\Shared\Mapper as OrderMapper;
+use CG\Order\Shared\Note\Collection as OrderNoteCollection;
+use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
+use CG\Order\Shared\Status as OrderStatus;
+use CG\Order\Shared\StorageInterface;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG_UI\View\Filters\Service as FilterService;
 use CG_UI\View\Table;
 use CG_UI\View\Table\Column as TableColumn;
 use CG_UI\View\Table\Rows as TableRows;
-use CG\Order\Shared\StorageInterface;
 use CG\User\ActiveUserInterface;
-use CG\Order\Service\Filter;
-use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
 use CG\Order\Shared\Entity;
-use CG\Order\Shared\Item\Entity as ItemEntity;
-use Zend\Di\Di;
-use Zend\I18n\View\Helper\CurrencyFormat;
-use CG\User\Service as UserService;
-use CG\Order\Shared\Entity as Order;
-use CG\Order\Shared\Collection as OrderCollection;
-use CG\Order\Shared\Note\Collection as OrderNoteCollection;
-use CG\UserPreference\Client\Service as UserPreferenceService;
-use Settings\Module as SettingsModule;
-use Settings\Controller\ChannelController;
-use CG\Account\Client\Service as AccountService;
-use Zend\Mvc\MvcEvent;
-use CG\Stdlib\DateTime;
-use CG\Order\Client\Collection as FilteredCollection;
-use CG\Order\Shared\Mapper as OrderMapper;
-use CG\Order\Shared\Cancel\Value as CancelValue;
-use CG\Order\Shared\Cancel\Item as CancelItem;
-use CG\Channel\Gearman\Generator\Order\Dispatch as OrderDispatcher;
-use CG\Channel\Gearman\Generator\Order\Cancel as OrderCanceller;
-use Orders\Order\Exception\MultiException;
-use Exception;
+use CG\Order\Shared\Item\StorageInterface as OrderItemClient;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
-use CG\Order\Shared\Status as OrderStatus;
-use CG\Channel\Type;
-use CG\Channel\Carrier;
-use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\User\Service as UserService;
+use CG\UserPreference\Client\Service as UserPreferenceService;
+use Exception;
+use Orders\Order\Exception\MultiException;
+use Settings\Controller\ChannelController;
+use Settings\Module as SettingsModule;
+use Zend\Di\Di;
+use Zend\I18n\View\Helper\CurrencyFormat;
+use Zend\Mvc\MvcEvent;
 
 class Service implements LoggerAwareInterface
 {
@@ -50,6 +53,7 @@ class Service implements LoggerAwareInterface
     const ACCOUNTS_LIMIT = 'all';
 
     protected $orderClient;
+    protected $orderItemClient;
     protected $tableService;
     protected $filterService;
     protected $userService;
@@ -66,6 +70,7 @@ class Service implements LoggerAwareInterface
 
     public function __construct(
         StorageInterface $orderClient,
+        OrderItemClient $orderItemClient,
         TableService $tableService,
         FilterService $filterService,
         UserService $userService,
@@ -82,6 +87,7 @@ class Service implements LoggerAwareInterface
     {
         $this
             ->setOrderClient($orderClient)
+            ->setOrderItemClient($orderItemClient)
             ->setTableService($tableService)
             ->setFilterService($filterService)
             ->setUserService($userService)
@@ -358,7 +364,7 @@ class Service implements LoggerAwareInterface
         return filter_var($visible, FILTER_VALIDATE_BOOLEAN);
     }
 
-    public function getOrderItemTable(Entity $order)
+    public function getOrderItemTable(Order $order)
     {
         $getDiscountTotal = function (ItemEntity $entity) {
             return $entity->getIndividualItemDiscountPrice() * $entity->getItemQuantity();
@@ -607,6 +613,10 @@ class Service implements LoggerAwareInterface
         $order = $this->saveOrder(
             $order->setStatus(OrderStatus::DISPATCHING)
         );
+        foreach ($order->getItems() as $item) {
+            $item->setStatus(OrderStatus::DISPATCHING);
+        }
+        $this->getOrderItemClient()->saveCollection($order->getItems());
 
         $this->getOrderDispatcher()->generateJob($account, $order);
     }
@@ -621,10 +631,13 @@ class Service implements LoggerAwareInterface
             } catch (Exception $orderException) {
                 $exception->addOrderException($order->getId(), $orderException);
                 $this->logException($orderException, 'error', __NAMESPACE__);
+                if (! $orderException instanceof NotModifiedException) {
+                    $throw = true;
+                }
             }
         }
 
-        if (count($exception) > 0) {
+        if (isset($throw)) {
             throw $exception;
         }
     }
@@ -663,6 +676,10 @@ class Service implements LoggerAwareInterface
         $order = $this->saveOrder(
             $order->setStatus($status)
         );
+        foreach ($order->getItems() as $item) {
+            $item->setStatus($status);
+        }
+        $this->getOrderItemClient()->saveCollection($order->getItems());
 
         $this->getOrderCanceller()->generateJob($account, $order, $cancel);
     }
@@ -774,5 +791,16 @@ class Service implements LoggerAwareInterface
     {
         $this->organisationUnitService = $organisationUnitService;
         return $this;
+    }
+
+    protected function setOrderItemClient(OrderItemClient $orderItemClient)
+    {
+        $this->orderItemClient = $orderItemClient;
+        return $this;
+    }
+
+    protected function getOrderItemClient()
+    {
+        return $this->orderItemClient;
     }
 }
