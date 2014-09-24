@@ -46,7 +46,7 @@ define(function() {
         if ($("#" + this.datatable + "-select-all").is(":checked")) {
             ajax.url += "/" + $('#' + this.datatable).data("filterId");
         } else {
-            var orders = $('#' + this.datatable).cgDataTable('selected', '.order-id');
+            var orders = $('#' + this.datatable).cgDataTable('selected', '.checkbox-id');
             if (!orders.length) {
                 return;
             }
@@ -103,7 +103,7 @@ define(function() {
         if ($("#" + this.datatable + "-select-all").is(":checked")) {
             ajax.url += "/" + $('#' + this.datatable).data("filterId");
         } else {
-            var orders = $('#' + this.datatable).cgDataTable('selected', '.order-id');
+            var orders = $('#' + this.datatable).cgDataTable('selected', '.checkbox-id');
             if (!orders.length) {
                 return;
             }

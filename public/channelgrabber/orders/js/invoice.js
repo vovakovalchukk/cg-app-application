@@ -40,7 +40,7 @@ define(function() {
         if (orders) {
             return orders;
         }
-        return this.getDataTableElement().cgDataTable("selected", ".order-id");
+        return this.getDataTableElement().cgDataTable("selected", ".checkbox-id");
     };
 
     InvoiceBulkAction.prototype.getFilterId = function() {
