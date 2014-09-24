@@ -12,8 +12,6 @@ $enableChannelRoute = implode(
     ]
 );
 ?>
-<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/mustache.js'); ?>
-<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/cg-mustache.js'); ?>
 <?php $this->inlineScript()->captureStart(); ?>
 $(document).ready(function()
 {

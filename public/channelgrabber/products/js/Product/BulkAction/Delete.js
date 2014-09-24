@@ -1,0 +1,53 @@
+define([
+    'BulkActionAbstract',
+    'Product/Service'
+], function(
+    BulkActionAbstract,
+    service
+) {
+    var Delete = function()
+    {
+        BulkActionAbstract.call(this);
+
+        this.getService = function()
+        {
+            return service;
+        };
+    };
+
+    Delete.prototype = Object.create(BulkActionAbstract.prototype);
+
+    Delete.URL = '/products/delete';
+    Delete.MESSAGE_SUCCESS = 'Products deleted successfully';
+
+    Delete.prototype.invoke = function()
+    {
+        var self = this;
+        var productIds = [];
+        var domIds = this.getSelectedIds();
+        if (domIds.length == 0) {
+            return;
+        }
+        domIds.forEach(function(domId)
+        {
+            productIds.push(parseInt(self.getLastPartOfHyphenatedString(domId)));
+        });
+
+        var data = {productIds: productIds};
+        this.sendAjaxRequest(
+            Delete.URL,
+            data,
+            this.handleSuccess,
+            null,
+            this
+        );
+    };
+
+    Delete.prototype.handleSuccess = function()
+    {
+        this.getNotificationHandler().success(Delete.MESSAGE_SUCCESS);
+        this.getService().refresh();
+    };
+
+    return new Delete();
+});
