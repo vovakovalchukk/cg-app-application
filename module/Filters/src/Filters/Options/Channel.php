@@ -1,5 +1,5 @@
 <?php
-namespace Orders\Order\Filter;
+namespace Filters\Options;
 
 use CG_UI\View\Filters\SelectOptionsInterface;
 use CG\User\ActiveUserInterface;

@@ -1,5 +1,5 @@
 <?php
-namespace Orders\Order\Filter;
+namespace Filters\Options;
 
 use CG\Stdlib\Exception\Runtime\NotFound;
 

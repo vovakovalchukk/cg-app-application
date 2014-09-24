@@ -1,0 +1,16 @@
+<?php $this->inlineScript()->captureStart(); ?>
+require([
+    "preference/Preference",
+    "slideableSidebar"
+],
+function(Preference, SlideableSidebar) {
+    //References to n need to be migrated, it is the notification library
+    var preference = new Preference(n);
+    var slideableSidebar = new SlideableSidebar();
+    slideableSidebar.registerClick(preference, "#sidebar .slideable-toggle");
+});
+<?php $this->inlineScript()->captureEnd(); ?>
+<div id="sidebar" class="slideable clearfix fixed-scroll">
+    <span class="slideable-toggle" data-preference-key="<?= Products\Product\Service::PRODUCT_SIDEBAR_STATE_KEY; ?>">&raquo;</span>
+    <?= $this->placeholder('#sidebar') ?>
+</div>
