@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "34f72782a9ceb081c12a6985b51b61fd",
+    "hash": "73486974c263a93f171d1ab82b2ae01f",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1909,17 +1909,11 @@
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
-            "version": "1.4.2",
+            "version": "dev-CGIV-3365-RemoteLogoutBug",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-sso-client.git",
-                "reference": "cf2fd039245acc19000c1c30cb854bb2c883af72"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ssoclient-1.4.2-23ad46.zip",
-                "reference": "cf2fd039245acc19000c1c30cb854bb2c883af72",
-                "shasum": "cc45c89e35efb8a1151891204b0f51d6ceb944b4"
+                "reference": "a3645c6f89ba33a86fa354c5c6633fe8aed81066"
             },
             "require": {
                 "channelgrabber/http": ">=1.2.0,<2.0.0",
@@ -1947,7 +1941,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-09-24 08:39:57"
+            "time": "2014-09-24 14:10:43"
         },
         {
             "name": "channelgrabber/zf2-stdlib",
@@ -4926,11 +4920,17 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.4.2.1",
+            "alias_normalized": "1.4.2.1",
+            "version": "dev-CGIV-3365-RemoteLogoutBug",
+            "package": "channelgrabber/zf2-ssoclient"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-ssoclient": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
