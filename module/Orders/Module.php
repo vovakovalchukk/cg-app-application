@@ -45,7 +45,8 @@ class Module implements DependencyIndicatorInterface
     public function getModuleDependencies()
     {
         return [
-            'CG_UI'
+            'CG_UI',
+            'Filters'
         ];
     }
 

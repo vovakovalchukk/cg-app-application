@@ -24,21 +24,17 @@ function(
             minWidth: {{#minWidth}}{{minWidth}}{{/minWidth}}{{^minWidth}}1{{/minWidth}},
             {{#maxHeight}}maxHeight: {{maxHeight}},{{/maxHeight}}
             {{#maxWidth}}maxWidth: {{maxWidth}},{{/maxWidth}}
-            stop: function(event, $ui)
-            {
+            stop: function(event, $ui) {
                 var position = elementService.addDomWrapperGapToDimensions($ui.position);
-                var size = {
-                    width: $('#{{id}}').outerWidth(),
-                    height: $('#{{id}}').outerHeight()
-                };
+                var size = elementService.removeDomWrapperGapFromDimensions($ui.size);
+                size = elementService.removeDomWrapperGapFromDimensions(size);
                 domManipulator.triggerElementResizedEvent('{{id}}', position, size);
             }
         })
     {{/resizable}}
         .draggable({
             containment: 'parent',
-            stop: function(event, $ui)
-            {
+            stop: function(event, $ui) {
                 var position = elementService.addDomWrapperGapToDimensions($ui.position);
                 domManipulator.triggerElementMovedEvent('{{id}}', position);
             }

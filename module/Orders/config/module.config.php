@@ -398,11 +398,23 @@ return [
                                 'options' => [
                                     'route' => '/:filterId',
                                     'constraints' => [
-                                        'filterId' => '.+'
+                                        'filterId' => '[^/]+'
                                     ],
                                     'defaults' => [
                                         'action' => 'invoiceFilterId',
                                     ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    'invoice_check' => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/check',
+                                            'defaults' => [
+                                                'action' => 'checkInvoicePrintingAllowed'
+                                            ]
+                                        ],
+                                    ],
                                 ],
                             ],
                             'invoice_demo' => [
@@ -639,7 +651,7 @@ return [
             ],
             'OrdersCheckboxCheckAll' => [
                 'parameters' => [
-                    'checkboxes' => '.order-id',
+                    'checkboxes' => '.checkbox-id',
                 ],
             ],
             'OrdersChannelColumnView' => [

@@ -11,12 +11,6 @@
  * file.
  */
 
-use Zend\Config\Config;
-use Zend\Di\Config as DiConfig;
-use Zend\Di\Di;
-use Zend\Di\InstanceManager;
-use CG\Zend\Stdlib\Di\Definition\RuntimeDefinition;
-use CG\Zend\Stdlib\Di\DefinitionList;
 use CG\Cache\EventManagerInterface;
 use CG\Zend\Stdlib\Cache\EventManager;
 use CG\Order\Shared\StorageInterface as OrderStorage;
@@ -40,54 +34,14 @@ use Orders\Order\Batch\Service as OrderBatchService;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
+use CG\Location\Service as LocationService;
+use CG\Location\Storage\Api as LocationApi;
+use CG\Location\Mapper as LocationMapper;
+
 return array(
-    'service_manager' => array(
-        'factories' => array(
-            'Zend\Di\Di' => function($serviceManager) {
-                $configuration = $serviceManager->get('config');
-
-                $runtimeDefinition = new RuntimeDefinition(
-                    null,
-                    require dirname(dirname(__DIR__)) . '/bin/complete_classmap.php'
-                );
-
-                $definitionList = new DefinitionList([$runtimeDefinition]);
-                $im = new InstanceManager();
-                $config = new DiConfig(isset($configuration['di']) ? $configuration['di'] : array());
-
-                $di = new Di($definitionList, $im, $config);
-
-                if (isset($configuration['db'], $configuration['db']['adapters'])) {
-                    foreach (array_keys($configuration['db']['adapters']) as $adapter) {
-                        $im->addAlias($adapter, 'Zend\Db\Adapter\Adapter');
-                        $im->addSharedInstance($serviceManager->get($adapter), $adapter);
-                    }
-                }
-                $im->addSharedInstance($di, 'Zend\Di\Di');
-                $im->addSharedInstance($di->get('config', array('array' => $configuration)), 'config');
-                $im->addSharedInstance($serviceManager, ServiceManager::class);
-                $im->addSharedInstance($di->get(Config::class, array('array' => $configuration)), 'app_config');
-                $im->addSharedInstance($serviceManager, ServiceManager::class);
-
-                return $di;
-            }
-        ),
-        'shared' => array(
-            'Zend\Di\Di' => true
-        ),
-        'aliases' => array(
-            'Di' => 'Zend\Di\Di'
-        )
-    ),
     'di' => array(
         'instance' => array(
-            'aliases' => array(
-                'Di' => 'Zend\Di\Di',
-                'config' => Config::class,
-                'app_config' => Config::class
-            ),
             'preferences' => array(
-                'Zend\Di\LocatorInterface' => 'Zend\Di\Di',
                 EventManagerInterface::class => EventManager::class,
                 OrderStorage::class => OrderApiClient::class,
                 ItemStorage::class => ItemApiClient::class,
@@ -99,6 +53,11 @@ return array(
                 ServiceLocatorInterface::class => ServiceManager::class
             ),
             OrderApiClient::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
+            ItemApiClient::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
                 ]
@@ -148,6 +107,17 @@ return array(
                     'repository' => InvoiceSettingsApiStorage::class
                 )
             ),
+            LocationService::class => [
+                'parameters' => [
+                    'repository' => LocationApi::class,
+                    'mapper' => LocationMapper::class
+                ]
+            ],
+            LocationApi::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
         ),
     ),
     'view_manager' => [

@@ -4,8 +4,9 @@ namespace Orders\Order\Filter;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use Orders\Order\Batch\Service as BatchService;
 use CG\Order\Shared\Batch\Mapper as BatchMapper;
+use CG_UI\View\Filters\SelectOptionsInterface;
 
-class Batch extends Channel
+class Batch implements SelectOptionsInterface
 {
     protected $batchService;
     protected $batchMapper;
