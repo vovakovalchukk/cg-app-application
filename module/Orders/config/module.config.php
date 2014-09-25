@@ -631,7 +631,10 @@ return [
             ],
             'OrdersTableSettings' => [
                 'parameters' => [
-                    'infiniteScroll' => 'OrdersTableInfiniteScroll'
+                    'infiniteScroll' => 'OrdersTableInfiniteScroll',
+                    'language' => [
+                        'sProcessing' => 'Loading More Orders',
+                    ],
                 ],
             ],
             'OrdersCheckboxColumnView' => [
