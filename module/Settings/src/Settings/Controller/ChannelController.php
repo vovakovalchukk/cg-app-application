@@ -2,27 +2,28 @@
 namespace Settings\Controller;
 
 use CG\Account\Client\Entity as AccountEntity;
+use CG\Account\Client\Service as AccountService;
 use CG\Channel\AccountFactory;
+use CG\Channel\Service as ChannelService;
+use CG\Channel\Type;
+use CG\Http\Exception\Exception3xx\NotModified;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
+use CG\User\Entity as User;
+use CG\Zend\Stdlib\View\Model\UserException as ViewModelUserException;
+use CG_Mustache\View\Renderer as MustacheRenderer;
+use CG_UI\Form\Factory as FormFactory;
 use CG_UI\View\Prototyper\JsonModelFactory;
+use CG_UI\View\Prototyper\ViewModelFactory;
+use Settings\Channel\Service;
+use Settings\Channel\Mapper;
 use Settings\Module;
 use Zend\Di\Di;
 use Zend\Mvc\Controller\AbstractActionController;
-use Settings\Channel\Service;
-use Settings\Channel\Mapper;
-use CG_UI\View\Prototyper\ViewModelFactory;
-use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
-use CG\Channel\Service as ChannelService;
-use CG_Mustache\View\Renderer as MustacheRenderer;
-use CG_UI\Form\Factory as FormFactory;
-use CG\Zend\Stdlib\View\Model\UserException as ViewModelUserException;
-use CG\Stdlib\Exception\Runtime\NotFound;
+use Zend\View\Model\ViewModel;
 use Zend\I18n\Translator\Translator;
-use CG\Http\Exception\Exception3xx\NotModified;
-use CG\Account\Client\Service as AccountService;
-use CG\User\Entity as User;
-use CG\Channel\Type;
 
 class ChannelController extends AbstractActionController
 {
@@ -52,6 +53,7 @@ class ChannelController extends AbstractActionController
     protected $mustacheRenderer;
     protected $formFactory;
     protected $translator;
+    protected $organisationUnitService;
 
     public function __construct(
         Di $di,
@@ -65,7 +67,8 @@ class ChannelController extends AbstractActionController
         ChannelService $channelService,
         MustacheRenderer $mustacheRenderer,
         FormFactory $formFactory,
-        Translator $translator
+        Translator $translator,
+        OrganisationUnitService $organisationUnitService
     ) {
         $this->setDi($di)
             ->setJsonModelFactory($jsonModelFactory)
@@ -78,7 +81,8 @@ class ChannelController extends AbstractActionController
             ->setChannelService($channelService)
             ->setMustacheRenderer($mustacheRenderer)
             ->setFormFactory($formFactory)
-            ->setTranslator($translator);
+            ->setTranslator($translator)
+            ->setOrganisationUnitService($organisationUnitService);
     }
 
     public function setService(Service $service)
@@ -261,6 +265,12 @@ class ChannelController extends AbstractActionController
     protected function addTradingCompaniesView($accountEntity, $view)
     {
         $tradingCompanies = $this->getService()->getTradingCompanyOptionsForAccount($accountEntity);
+
+        $organisationUnit = $this->getOrganisationUnitService()->fetch(
+            $this->getActiveUser()->getOrganisationUnitId()
+        );
+        array_unshift($tradingCompanies, $organisationUnit);
+
         $tradingCompanyOptions = [];
 
         foreach ($tradingCompanies as $tradingCompany) {
@@ -275,7 +285,6 @@ class ChannelController extends AbstractActionController
         $tradingCompanyView->setTemplate('elements/custom-select');
         $tradingCompanyView->setVariable('name', 'organisationUnitId');
         $tradingCompanyView->setVariable('options', $tradingCompanyOptions);
-        $tradingCompanyView->setVariable('blankOption', true);
         $view->setVariable('tradingCompanySelect', $this->getMustacheRenderer()->render($tradingCompanyView));
         return $this;
     }
@@ -531,5 +540,17 @@ class ChannelController extends AbstractActionController
     public function setTranslator(Translator $translator)
     {
         $this->translator = $translator;
+        return $this;
+    }
+
+    public function getOrganisationUnitService()
+    {
+        return $this->organisationUnitService;
+    }
+
+    public function setOrganisationUnitService(OrganisationUnitService $organisationUnitService)
+    {
+        $this->organisationUnitService = $organisationUnitService;
+        return $this;
     }
 }
