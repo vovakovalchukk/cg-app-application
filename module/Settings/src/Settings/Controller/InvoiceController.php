@@ -133,7 +133,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             )
         );
         $settings->setTemplateUrlMap([
-            'tradingCompany' => '/channelgrabber/settings/template/columns/tradingCompany.html',
+            'tradingCompany' => '/channelgrabber/settings/template/columns/tradingCompany.mustache',
             'assignedInvoice' => \CG_UI\Module::PUBLIC_FOLDER . '/templates/elements/custom-select.mustache',
         ]);
         return $datatables;
