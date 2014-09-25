@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8ac76ab7559e6bce95b5b0fbf195a6d1",
+    "hash": "28aa89e32bc1abf465cae7992fdc2511",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1140,17 +1140,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.2.32",
+            "version": "1.2.33",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "9903e0ed6f100a1694c1e22d5df242255058214b"
+                "reference": "26e81b31bfb1eb055e5e93c62a761c4f2eaf7232"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.32-81cab5.zip",
-                "reference": "9903e0ed6f100a1694c1e22d5df242255058214b",
-                "shasum": "b3071bb89f98abe988cdde6d4de2ccedbb6b6d3a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.33-17ccc9.zip",
+                "reference": "26e81b31bfb1eb055e5e93c62a761c4f2eaf7232",
+                "shasum": "2d17087364bb374b502088b49db4a20b9d72165a"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.1,<2.0.0",
@@ -1178,7 +1178,7 @@
                     "CG\\Template\\": "src/"
                 }
             },
-            "time": "2014-09-18 15:34:43"
+            "time": "2014-09-24 14:52:57"
         },
         {
             "name": "channelgrabber/transaction",
@@ -1243,17 +1243,17 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.18.2",
+            "version": "1.18.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "773a775b13a594a4f03a40fc21b7af0207130f2d"
+                "reference": "5763a1bbd82226c4b6ab836ea0f408ec80e74846"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.18.2-668f06.zip",
-                "reference": "773a775b13a594a4f03a40fc21b7af0207130f2d",
-                "shasum": "3c31b4a772b90972c6f0317a751f624200b8061c"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.18.3-70be66.zip",
+                "reference": "5763a1bbd82226c4b6ab836ea0f408ec80e74846",
+                "shasum": "0fdacbfe4842ab7975db0c3e99d4f3ccfc7aa2e9"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -1286,7 +1286,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2014-09-17 14:46:54"
+            "time": "2014-09-24 14:49:54"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -1918,11 +1918,17 @@
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
-            "version": "dev-CGIV-3365-RemoteLogoutBug",
+            "version": "1.4.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-sso-client.git",
-                "reference": "a3645c6f89ba33a86fa354c5c6633fe8aed81066"
+                "reference": "e6312fbf21cf1c0bd2a146416877c77cbd30e399"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ssoclient-1.4.2.1-61ad28.zip",
+                "reference": "e6312fbf21cf1c0bd2a146416877c77cbd30e399",
+                "shasum": "163c58ba013f13c8dd3538f46c438ff98e0c3241"
             },
             "require": {
                 "channelgrabber/http": ">=1.2.0,<2.0.0",
@@ -1950,7 +1956,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-09-24 14:10:43"
+            "time": "2014-09-24 14:04:40"
         },
         {
             "name": "channelgrabber/zf2-stdlib",
@@ -4929,17 +4935,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.4.2.1",
-            "alias_normalized": "1.4.2.1",
-            "version": "dev-CGIV-3365-RemoteLogoutBug",
-            "package": "channelgrabber/zf2-ssoclient"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-ssoclient": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

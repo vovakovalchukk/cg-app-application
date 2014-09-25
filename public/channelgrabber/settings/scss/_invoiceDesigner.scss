@@ -1,6 +1,11 @@
 #content {
     min-width: 1360px!important;
 }
+.button {
+  font-family: $fonts-default;
+  font-size: 13px;
+  font-weight: 400;
+}
 .invoice-template {
     margin-left: 48px;
     margin-right: 250px;
@@ -11,6 +16,10 @@
 .save-template-inner {
     min-width: 860px;
     z-index: 1;
+    .button {
+      margin-top: 6px;
+      margin-right: 10px;
+    }
 }
 .template-element-wrapper{
     position: absolute;
@@ -229,7 +238,9 @@
     padding:20px 20px 10px 20px;
     height:80px;
     .button {
-        float:left;
+      width: 100%;
+      float:left;
+      padding: 4px!important;
     }
 }
 
@@ -263,12 +274,12 @@
     clear:both;
 }
 .template-new-btn {
-    width: auto;
+    width: 100px;
     float: left;
     clear:both;
 }
 .template-dup-btn {
-    width: auto;
+    width: 100px;
     float: right;
 }
 .pdf-btn {

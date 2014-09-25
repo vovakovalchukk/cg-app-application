@@ -33,7 +33,7 @@ define(function() {
             if ($("#" + datatable + "-select-all").is(":checked")) {
                 ajax.url += "/" + $("#" + datatable).data("filterId");
             } else {
-                var orders = $("#" + datatable).cgDataTable("selected", ".order-id");
+                var orders = $("#" + datatable).cgDataTable("selected", ".checkbox-id");
                 if (!orders.length) {
                     return;
                 }
