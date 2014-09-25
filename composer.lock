@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c5d2ebf74abd2634187ac3c4390e4a8f",
+    "hash": "da1b3cfdb1048970cf27e5363ae9c237",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -399,13 +399,6 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -766,13 +759,6 @@
                 "predis/predis": "v0.8.3"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Predis\\": ""
@@ -2053,17 +2039,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.59",
+            "version": "dev-CGIV-3374-fixed-blank-line-on-custom-select",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "389a26f2aeac03c23327563fd7395cddbffade9a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.59-8cd41c.zip",
-                "reference": "389a26f2aeac03c23327563fd7395cddbffade9a",
-                "shasum": "af6876e55d603abc259f57a348b7f945e5b3ad88"
+                "reference": "419cfaf0d448bd5d130f31ee0a9c001f776f2d76"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2099,7 +2079,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-09-25 09:28:00"
+            "time": "2014-09-25 13:41:37"
         },
         {
             "name": "cilex/cilex",
@@ -2847,7 +2827,9 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -2935,7 +2917,8 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com"
+                    "homepage": "http://benramsey.com",
+                    "role": "Developer"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
@@ -4401,7 +4384,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -4945,11 +4929,17 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.12.62",
+            "alias_normalized": "1.12.62.0",
+            "version": "dev-CGIV-3374-fixed-blank-line-on-custom-select",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
