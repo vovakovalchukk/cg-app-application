@@ -303,16 +303,16 @@ class ChannelController extends AbstractActionController
 
         try {
             $this->getService()->updateAccount($id, compact('displayName', 'organisationUnitId'));
-            $response = $this->getJsonModelFactory()->newInstance();
-            $response->setVariable('valid', true);
-            $response->setVariable('status', 'Channel account updated');
-            $response->setVariable('type', $this->params('type'));
-            return $response;
         } catch (NotFound $e) {
-            $this->handleAccountUpdateException($e, 'That channel account could not be found and so could not be updated');
+            return $this->handleAccountUpdateException($e, 'That channel account could not be found and so could not be updated');
         } catch (NotModified $e) {
-            $this->handleAccountUpdateException($e, 'There were no changes to be saved');
+            // display saved message
         }
+        $response = $this->getJsonModelFactory()->newInstance();
+        $response->setVariable('valid', true);
+        $response->setVariable('status', 'Channel account updated');
+        $response->setVariable('type', $this->params('type'));
+        return $response;
     }
 
     protected function handleAccountUpdateException(\Exception $e, $message)

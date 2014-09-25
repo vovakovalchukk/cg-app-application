@@ -21,6 +21,7 @@ use Products\Controller\ListingsJsonController;
 use CG\Listing\Unimported\Service as UnimportedListingService;
 use CG\Listing\Unimported\Storage\Api as UnimportedListingApiStorage;
 use Zend\View\Model\ViewModel;
+use CG\Amazon\ListingImport as AmazonListingImport;
 
 return [
     'router' => [
@@ -246,6 +247,11 @@ return [
             UnimportedListingApiStorage::class => [
                 'parameter' => [
                     'client' => 'cg_app_guzzle',
+                ]
+            ],
+            AmazonListingImport::class => [
+                'parameter' => [
+                    'cryptor' => 'amazon_cryptor'
                 ]
             ],
             'ListingList' => [
