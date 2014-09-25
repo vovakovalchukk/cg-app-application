@@ -1,33 +1,34 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
-    "hash": "494b1ebd2c04a4ae1911951591439c17",
+    "hash": "86ab37175cb945095369c7a2bfb1f565",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "1.5.4",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "357125d2a0a69ac1e0d98a7768521e17bf9b6372"
+                "reference": "63fd7bc560aa34ce4cd8b0f9c3582a724ea88a95"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.5.4-6fccba.zip",
-                "reference": "357125d2a0a69ac1e0d98a7768521e17bf9b6372",
-                "shasum": "3adf5fa05b6478ef9935067282231337474086c5"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.6.1-463202.zip",
+                "reference": "63fd7bc560aa34ce4cd8b0f9c3582a724ea88a95",
+                "shasum": "fe97385f549e24d9fd4a74a3f3f0a4232a0a9a96"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.4",
-                "channelgrabber/channel": ">=1.8.2",
+                "channelgrabber/channel": ">=1.8.8",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.1.0",
                 "channelgrabber/gearman": ">=1.1.0",
                 "channelgrabber/http": ">=1.2.6",
                 "channelgrabber/image": ">=1.0.5",
-                "channelgrabber/listing": ">=1.1.0",
+                "channelgrabber/listing": ">=1.2.0",
                 "channelgrabber/log": ">=1.5.0",
                 "channelgrabber/order": ">=1.8.7",
                 "channelgrabber/scraper": ">=1.0.0,<2.0.0",
@@ -47,7 +48,7 @@
                     "CG\\Amazon\\": "src"
                 }
             },
-            "time": "2014-09-23 15:11:27"
+            "time": "2014-09-25 14:35:01"
         },
         {
             "name": "channelgrabber/billing",
@@ -113,17 +114,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.8.6.1",
+            "version": "1.9.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "ec889e6e155467d6400f916c55ba1f1b265b8435"
+                "reference": "b5de59d0ff46884097a5eebf28abd8de95583929"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.8.6.1-2869f9.zip",
-                "reference": "ec889e6e155467d6400f916c55ba1f1b265b8435",
-                "shasum": "2ba5c55de9adefa46b20ec8dc78718c945e42105"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.9.2-a45f6e.zip",
+                "reference": "b5de59d0ff46884097a5eebf28abd8de95583929",
+                "shasum": "95df8c3d675e1a6510a42adc2edee36645a3a132"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -132,16 +133,19 @@
                 "channelgrabber/etag": ">=1.4.1, <2.0.0",
                 "channelgrabber/image": ">=1.0.4,<2.0.0",
                 "channelgrabber/listing": ">=1.1.2, <2.0.0",
+                "channelgrabber/location": ">=1.0.0,<2.0.0",
                 "channelgrabber/order": ">=1.8.0,<2.0.0",
                 "channelgrabber/permission": ">=1.0.1, <2.0.0",
                 "channelgrabber/product": ">=1.3.5, <2.0.0",
                 "channelgrabber/scraper": ">=1.0.0,<2.0.0",
-                "channelgrabber/slim": ">=1.5.5,<2.0.0",
+                "channelgrabber/slim": ">=1.9.7,<2.0.0",
                 "channelgrabber/stdlib": "~2.7.14",
                 "composer/composer": "@dev",
                 "ext-gearman": "~1.1.0",
                 "guzzle/guzzle": "~3.7",
                 "nocarrier/hal": "~0.9.4",
+                "php-jsonpatch/php-jsonpatch": "dev-master",
+                "php-jsonpointer/php-jsonpointer": "@dev",
                 "zendframework/zend-di": ">=2.2.5,<3.0"
             },
             "replace": {
@@ -166,7 +170,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2014-09-16 17:11:36"
+            "time": "2014-09-25 14:32:18"
         },
         {
             "name": "channelgrabber/constants",
@@ -3748,9 +3752,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "shasum": ""
+                "url": "https://packages.zendframework.com/composer/zendframework-zendxml-559b34f426d33a11c3db118e00ce14bb8dc64e5f-zip-6cf7a2.zip",
+                "reference": "1.0.0",
+                "shasum": "39abc614b5c26bcbf8102e203c52dee73c4460a8"
             },
             "require": {
                 "php": ">=5.3.3"
@@ -3770,7 +3774,6 @@
                     "ZendXml": "library/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -3781,6 +3784,10 @@
                 "xml",
                 "zf2"
             ],
+            "support": {
+                "source": "https://github.com/zendframework/ZendXml/tree/master",
+                "issues": "https://github.com/zendframework/ZendXml/issues"
+            },
             "time": "2014-03-05 22:25:44"
         }
     ],
@@ -4229,7 +4236,7 @@
                 {
                     "name": "Anthon Pang",
                     "email": "apang@softwaredevelopment.ca",
-                    "role": "developer"
+                    "role": "Fork Maintainer"
                 }
             ],
             "description": "PHP WebDriver for Selenium 2",
@@ -4941,6 +4948,7 @@
         "php-jsonpointer/php-jsonpointer": 20,
         "phpspec/phpspec": 20
     },
+    "prefer-stable": false,
     "platform": {
         "php": ">=5.3.3"
     },
