@@ -19,6 +19,7 @@ define([
 
     Import.URL = '/products/listing/import/import';
     Import.MESSAGE_SUCCESS = 'Listings imported successfully';
+    Import.MESSAGE_PENDING = 'Importing listings';
 
     Import.prototype.invoke = function()
     {
@@ -33,6 +34,7 @@ define([
             listingIds.push(parseInt(self.getLastPartOfHyphenatedString(domId)));
         });
 
+        this.getNotificationHandler().success(Import.MESSAGE_PENDING);
         var data = {listingIds: listingIds};
         this.sendAjaxRequest(
             Import.URL,

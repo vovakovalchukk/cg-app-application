@@ -19,6 +19,7 @@ define([
 
     Delete.URL = '/products/delete';
     Delete.MESSAGE_SUCCESS = 'Products deleted successfully';
+    Delete.MESSAGE_PENDING = 'Deleting products';
 
     Delete.prototype.invoke = function()
     {
@@ -33,6 +34,7 @@ define([
             productIds.push(parseInt(self.getLastPartOfHyphenatedString(domId)));
         });
 
+        this.getNotificationHandler().success(Delete.MESSAGE_PENDING);
         var data = {productIds: productIds};
         this.sendAjaxRequest(
             Delete.URL,
