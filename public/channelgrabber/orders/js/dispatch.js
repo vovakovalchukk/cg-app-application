@@ -18,7 +18,7 @@ define(function() {
                 ajax.url += "/" + $("#" + datatable).data("filterId");
             } else {
                 if (!orders && datatable) {
-                    orders = $("#" + datatable).cgDataTable("selected", ".order-id");
+                    orders = $("#" + datatable).cgDataTable("selected", ".checkbox-id");
                 }
 
                 if (!orders.length) {

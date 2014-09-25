@@ -21,6 +21,7 @@ use CG\Order\Service\Filter\StorageInterface as FilterStorageInterface;
 use CG\Order\Client\Filter\Storage\Api as FilterStorage;
 use Orders\Controller\BulkActionsController;
 use Orders\Controller\CancelController;
+use Orders\Controller\StoredBatchesController;
 use CG\Settings\Alias\Storage\Api as ShippingAliasStorage;
 use CG\Order\Client\Tracking\Storage\Api as TrackingStorageApi;
 use CG\Order\Service\Tracking\Service as TrackingService;
@@ -456,6 +457,16 @@ return [
                             ]
                         ]
                     ],
+                    StoredBatchesController::ROUTE_REMOVE => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => 'batch/remove',
+                            'defaults' => [
+                                'controller' => StoredBatchesController::class,
+                                'action' => 'removeBatch'
+                            ]
+                        ]
+                    ]
                 ],
             ],
         ],

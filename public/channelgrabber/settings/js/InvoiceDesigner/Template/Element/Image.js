@@ -49,7 +49,8 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
         canvas.width = Number(this.getWidth()).mmToPx() * (this.dpi / 75);
         canvas.height = Number(this.getHeight()).mmToPx() * (this.dpi / 75);
         canvasContext.drawImage(jsImage, 0, 0, canvas.width, canvas.height);
-        return canvas.toDataURL('image/' + this.getFormat().toLowerCase()).split(',')[1];
+
+        return canvas.toDataURL('image/jpeg').split(',')[1];
     };
 
     Image.prototype.toJson = function()
