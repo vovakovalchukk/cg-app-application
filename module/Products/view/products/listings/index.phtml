@@ -43,7 +43,7 @@ require(['Listing/Import/DomListener/Refresh'], function(domListener)
 <?php $this->headScript()->appendFile($this->basePath() . Products\Module::PUBLIC_FOLDER . 'js/Listing/mustache-formatters.js'); ?>
 <?php $this->placeholder('#main.class')->append('full-width'); ?>
 <?php $this->placeholder('#sub-header')->append($filters); ?>
-<div id="main" class="transition-preload module clearfix<?= $this->placeholder('#main.class')->setPrefix(' ')->setIndent(1) ?>">
+<div id="main" class="transition-preload module no-sidebar clearfix<?= $this->placeholder('#main.class')->setPrefix(' ')->setIndent(1) ?>">
     <?= $this->breadcrumbs; ?>
     <?= $this->bulkItems; ?>
     <div id="datatable-container">

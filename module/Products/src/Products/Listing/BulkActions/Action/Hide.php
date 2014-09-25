@@ -7,7 +7,7 @@ use SplObjectStorage;
 
 class Hide extends Action
 {
-    const ICON = 'sprite-hide-20-black';
+    const ICON = 'sprite-hide-22-black';
     const TYPE = 'hide';
 
     public function __construct(

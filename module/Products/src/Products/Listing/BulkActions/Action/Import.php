@@ -7,7 +7,7 @@ use SplObjectStorage;
 
 class Import extends Action
 {
-    const ICON = 'sprite-import-20-black';
+    const ICON = 'sprite-import-22-black';
     const TYPE = 'import';
 
     public function __construct(
