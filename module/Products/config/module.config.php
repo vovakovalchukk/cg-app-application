@@ -394,6 +394,7 @@ return [
                 'parameters' => [
                     'scrollHeightAuto' => true,
                     'footer' => true,
+                    'pagination' => true,
                     'tableOptions' => 'rt<"table-footer" pil>'
                 ]
             ]
