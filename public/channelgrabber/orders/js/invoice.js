@@ -1,25 +1,33 @@
 define(function() {
-    var InvoiceBulkAction = function(notifications, message) {
+    var InvoiceBulkAction = function(notifications, message)
+    {
         var element;
 
-        this.getElement = function () {
+        this.getElement = function ()
+        {
             return $(element);
         };
 
-        this.setElement = function(newElement) {
+        this.setElement = function(newElement)
+        {
             element = newElement;
         };
 
-        this.getNotifications = function() {
+        this.getNotifications = function()
+        {
             return notifications;
         };
 
-        this.getMessage = function() {
+        this.getMessage = function()
+        {
             return message;
         };
     };
 
-    InvoiceBulkAction.prototype.getDataTableElement = function() {
+    InvoiceBulkAction.prototype.notifyTimeoutHandle = null;
+
+    InvoiceBulkAction.prototype.getDataTableElement = function()
+    {
         var dataTable = this.getElement().data("datatable");
         if (!dataTable) {
             return $();
@@ -27,7 +35,8 @@ define(function() {
         return $("#" + dataTable);
     };
 
-    InvoiceBulkAction.prototype.isDataTableCheckedAll = function() {
+    InvoiceBulkAction.prototype.isDataTableCheckedAll = function()
+    {
         var dataTable = this.getElement().data("datatable");
         if (!dataTable) {
             return false;
@@ -35,7 +44,8 @@ define(function() {
         return $("#" + dataTable + "-select-all").is(":checked");
     };
 
-    InvoiceBulkAction.prototype.getOrders = function() {
+    InvoiceBulkAction.prototype.getOrders = function()
+    {
         var orders = this.getElement().data("orders");
         if (orders) {
             return orders;
@@ -43,11 +53,13 @@ define(function() {
         return this.getDataTableElement().cgDataTable("selected", ".checkbox-id");
     };
 
-    InvoiceBulkAction.prototype.getFilterId = function() {
+    InvoiceBulkAction.prototype.getFilterId = function()
+    {
         return this.getDataTableElement().data("filterId");
     };
 
-    InvoiceBulkAction.prototype.getUrl = function() {
+    InvoiceBulkAction.prototype.getUrl = function()
+    {
         var url = this.getElement().data("url") || "";
         if (this.isDataTableCheckedAll()) {
             url += "/" + this.getFilterId();
@@ -55,7 +67,8 @@ define(function() {
         return url;
     };
 
-    InvoiceBulkAction.prototype.getFormElement = function(orders) {
+    InvoiceBulkAction.prototype.getFormElement = function(orders)
+    {
         var form = $("<form></form>").attr("action", this.getUrl()).attr("method", "POST").hide();
         for (var index in orders) {
             form.append(function() {
@@ -65,7 +78,8 @@ define(function() {
         return form;
     };
 
-    InvoiceBulkAction.prototype.action = function(event) {
+    InvoiceBulkAction.prototype.action = function(event)
+    {
         var orders = [];
         if (!this.isDataTableCheckedAll()) {
             orders = this.getOrders();
@@ -73,6 +87,8 @@ define(function() {
                 return;
             }
         }
+
+        this.getNotifications().notice('Preparing to generate invoices', true);
 
         $.ajax({
             context: this,
@@ -84,7 +100,11 @@ define(function() {
                     return this.getNotifications().error('You do not have permission to do that');
                 }
 
-                this.getNotifications().success(this.getMessage());
+                if (orders.length > 6) {
+                    this.notifyTimeoutHandle = this.notifyProgress(orders.length);
+                } else {
+                    this.getNotifications().notice(this.getMessage(), true);
+                }
 
                 var form = this.getFormElement(orders);
                 $("body").append(form);
@@ -94,6 +114,24 @@ define(function() {
                 return this.getNotifications().ajaxError(error, textStatus, errorThrown);
             }
         });
+    };
+
+    InvoiceBulkAction.prototype.notifyProgress = function(total)
+    {
+        var self = this;
+        var current = 0;
+        var notifyTimeoutDelay = (total * 0.5 + 2) * 1000;
+        var notifyTimeoutMessageFrequency = 5;
+
+        return setInterval(function() {
+            var string = 'Processing ('+current+'/'+total+')';
+            self.getNotifications().notice(string, true);
+
+            current += notifyTimeoutMessageFrequency;
+            if (current > total) {
+                clearTimeout(self.notifyTimeoutHandle);
+            }
+        }, notifyTimeoutDelay);
     };
 
     return InvoiceBulkAction;
