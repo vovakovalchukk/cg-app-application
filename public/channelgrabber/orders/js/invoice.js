@@ -124,7 +124,7 @@ define(function() {
         var notifyTimeoutMessageFrequency = 5;
 
         return setInterval(function() {
-            var string = 'Processing ('+current+'/'+total+')';
+            var string = 'Generated '+current+' of '+total+'';
             self.getNotifications().notice(string, true);
 
             current += notifyTimeoutMessageFrequency;
