@@ -35,7 +35,7 @@ define([
         });
 
         var data = {listingIds: listingIds};
-        this.getNotificationHandler().success(Hide.MESSAGE_PENDING);
+        this.getNotificationHandler().notice(Hide.MESSAGE_PENDING);
         this.sendAjaxRequest(
             Hide.URL,
             data,

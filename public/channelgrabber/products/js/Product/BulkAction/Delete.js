@@ -34,7 +34,7 @@ define([
             productIds.push(parseInt(self.getLastPartOfHyphenatedString(domId)));
         });
 
-        this.getNotificationHandler().success(Delete.MESSAGE_PENDING);
+        this.getNotificationHandler().notice(Delete.MESSAGE_PENDING);
         var data = {productIds: productIds};
         this.sendAjaxRequest(
             Delete.URL,

@@ -34,7 +34,7 @@ define([
             listingIds.push(parseInt(self.getLastPartOfHyphenatedString(domId)));
         });
 
-        this.getNotificationHandler().success(Import.MESSAGE_PENDING);
+        this.getNotificationHandler().notice(Import.MESSAGE_PENDING);
         var data = {listingIds: listingIds};
         this.sendAjaxRequest(
             Import.URL,
