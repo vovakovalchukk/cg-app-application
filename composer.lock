@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b7aace98388f966e1bd26ff3e328683c",
+    "hash": "78ae43ec7c936083041ef07418fb0632",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2042,11 +2042,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-3406-RestrictedInfiniteScroll",
+            "version": "1.12.63",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "77cb9bb00ae7f5eea3415b92d043afaceddd1894"
+                "reference": "49789c3e59ac3d63e108c4de0479ae90aac4ac17"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.63-83065f.zip",
+                "reference": "49789c3e59ac3d63e108c4de0479ae90aac4ac17",
+                "shasum": "97d32226bba470fdab7978de8680f566721e43f2"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2082,7 +2088,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-09-26 07:47:10"
+            "time": "2014-09-26 08:08:19"
         },
         {
             "name": "cilex/cilex",
@@ -4932,17 +4938,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.12.63",
-            "alias_normalized": "1.12.63.0",
-            "version": "dev-CGIV-3406-RestrictedInfiniteScroll",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
