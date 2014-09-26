@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e2cd2710602f2d33bc5ec95c0250f41d",
+    "hash": "629a0892b30baf1ac27c2641b5c6bef7",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1676,17 +1676,11 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.4.13",
+            "version": "dev-CGIV-3387-register-page-redesign",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "e2bb9cec72028ea7275a0ee9629f8113b8fdf386"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.13-a8e9fe.zip",
-                "reference": "e2bb9cec72028ea7275a0ee9629f8113b8fdf386",
-                "shasum": "8e4311fabf7d7119eedbaac9ee1eda94f0bcea9b"
+                "reference": "2d16cbe5951c8dd62b2351e5325cea4fbed30871"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
@@ -1723,7 +1717,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2014-09-04 15:22:47"
+            "time": "2014-09-26 20:30:25"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -2042,7 +2036,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e3505e03242649d96d9414f28c997656ece4f9a3"
+                "reference": "a59a8e90138f13aaf14ad13e48c5e983c874b147"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2078,7 +2072,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-09-26 13:55:10"
+            "time": "2014-09-26 20:20:49"
         },
         {
             "name": "cilex/cilex",
@@ -4929,14 +4923,20 @@
     ],
     "aliases": [
         {
+            "alias": "1.4.13",
+            "alias_normalized": "1.4.13.0",
+            "version": "dev-CGIV-3387-register-page-redesign",
+            "package": "channelgrabber/zf2-login"
+        },
+        {
             "alias": "1.4.21",
             "alias_normalized": "1.4.21.0",
             "version": "dev-CGIV-3459-RegisterPage",
             "package": "channelgrabber/zf2-register"
         },
         {
-            "alias": "1.12.68",
-            "alias_normalized": "1.12.68.0",
+            "alias": "1.12.71",
+            "alias_normalized": "1.12.71.0",
             "version": "dev-CGIV-3459-RegisterPageSCSS",
             "package": "channelgrabber/zf2-v4-ui"
         }
@@ -4944,6 +4944,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-login": 20,
         "channelgrabber/zf2-register": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
