@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "75c971dcc297770b0c7ad6453bcc2a6c",
+    "hash": "f623b5fb1469881cd68650945adb880c",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2042,11 +2042,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-3368-invoice-designer-broken-inspectors",
+            "version": "1.12.64",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "70fef1b890722929880d3f21d9b39154b2584f6b"
+                "reference": "cd1af972030fdb17542625212106f8f116886395"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.64-19ca83.zip",
+                "reference": "cd1af972030fdb17542625212106f8f116886395",
+                "shasum": "a624273ffb99dbd697481100c59cfdae04c8e581"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2082,7 +2088,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-09-26 08:57:20"
+            "time": "2014-09-26 09:42:06"
         },
         {
             "name": "cilex/cilex",
@@ -4932,17 +4938,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.12.64",
-            "alias_normalized": "1.12.64.0",
-            "version": "dev-CGIV-3368-invoice-designer-broken-inspectors",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
