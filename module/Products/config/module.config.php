@@ -210,7 +210,7 @@ return [
             ],
             ImageApiStorage::class => [
                 'parameters' => [
-                    'client' => 'cg_app_guzzle'
+                    'client' => 'image_guzzle'
                 ]
             ],
             LocationService::class => [
