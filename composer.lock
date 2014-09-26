@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c77d4b499d71daf820c6778c1fc55e42",
+    "hash": "e2cd2710602f2d33bc5ec95c0250f41d",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1800,17 +1800,11 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.4.20",
+            "version": "dev-CGIV-3459-RegisterPage",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "04fac4fb032ed4949ee294dbe148f687c154aa3e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.20-1c8350.zip",
-                "reference": "04fac4fb032ed4949ee294dbe148f687c154aa3e",
-                "shasum": "98a97a0df7697140136f8b74c1d3d1afe3774e75"
+                "reference": "704b12af09a233ca5b501323bd9275c24f18ec73"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -1844,7 +1838,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2014-09-05 09:08:35"
+            "time": "2014-09-26 13:47:48"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -2044,17 +2038,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.67",
+            "version": "dev-CGIV-3459-RegisterPageSCSS",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "531a7eab6b152d7135b310ade8f8d4e4cede5a18"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.67-be028e.zip",
-                "reference": "531a7eab6b152d7135b310ade8f8d4e4cede5a18",
-                "shasum": "5323961f2ee827d06a408af8d25e5281e612a665"
+                "reference": "e3505e03242649d96d9414f28c997656ece4f9a3"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2090,7 +2078,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-09-26 16:58:26"
+            "time": "2014-09-26 13:55:10"
         },
         {
             "name": "cilex/cilex",
@@ -4940,11 +4928,24 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.4.21",
+            "alias_normalized": "1.4.21.0",
+            "version": "dev-CGIV-3459-RegisterPage",
+            "package": "channelgrabber/zf2-register"
+        },
+        {
+            "alias": "1.12.68",
+            "alias_normalized": "1.12.68.0",
+            "version": "dev-CGIV-3459-RegisterPageSCSS",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-register": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
