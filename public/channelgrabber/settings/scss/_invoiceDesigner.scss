@@ -7,6 +7,7 @@
   font-weight: 400;
 }
 .invoice-template {
+    line-height:1.0;
     margin-left: 48px;
     margin-right: 250px;
     .invoice-template-container {
@@ -240,7 +241,7 @@
     .button {
       width: 100%;
       float:left;
-      padding: 4px!important;
+      padding: 4px 8px 4px 8px!important;
     }
 }
 
