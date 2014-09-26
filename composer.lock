@@ -1,9 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
-    "hash": "78ae43ec7c936083041ef07418fb0632",
+    "hash": "75c971dcc297770b0c7ad6453bcc2a6c",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2041,17 +2042,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.63",
+            "version": "dev-CGIV-3368-invoice-designer-broken-inspectors",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "49789c3e59ac3d63e108c4de0479ae90aac4ac17"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.63-83065f.zip",
-                "reference": "49789c3e59ac3d63e108c4de0479ae90aac4ac17",
-                "shasum": "97d32226bba470fdab7978de8680f566721e43f2"
+                "reference": "70fef1b890722929880d3f21d9b39154b2584f6b"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2087,7 +2082,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-09-26 08:08:19"
+            "time": "2014-09-26 08:57:20"
         },
         {
             "name": "cilex/cilex",
@@ -3751,9 +3746,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "shasum": ""
+                "url": "https://packages.zendframework.com/composer/zendframework-zendxml-559b34f426d33a11c3db118e00ce14bb8dc64e5f-zip-6cf7a2.zip",
+                "reference": "1.0.0",
+                "shasum": "39abc614b5c26bcbf8102e203c52dee73c4460a8"
             },
             "require": {
                 "php": ">=5.3.3"
@@ -3773,7 +3768,6 @@
                     "ZendXml": "library/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -3784,6 +3778,10 @@
                 "xml",
                 "zf2"
             ],
+            "support": {
+                "source": "https://github.com/zendframework/ZendXml/tree/master",
+                "issues": "https://github.com/zendframework/ZendXml/issues"
+            },
             "time": "2014-03-05 22:25:44"
         }
     ],
@@ -4232,7 +4230,7 @@
                 {
                     "name": "Anthon Pang",
                     "email": "apang@softwaredevelopment.ca",
-                    "role": "developer"
+                    "role": "Fork Maintainer"
                 }
             ],
             "description": "PHP WebDriver for Selenium 2",
@@ -4934,16 +4932,23 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.12.64",
+            "alias_normalized": "1.12.64.0",
+            "version": "dev-CGIV-3368-invoice-designer-broken-inspectors",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpspec/phpspec": 20
     },
+    "prefer-stable": false,
     "platform": {
         "php": ">=5.3.3"
     },
