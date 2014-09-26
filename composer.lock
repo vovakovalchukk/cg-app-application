@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "78ae43ec7c936083041ef07418fb0632",
+    "hash": "13cb2cd8dc9ad56124b0fbcf13883b26",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2041,17 +2041,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.63",
+            "version": "dev-CGIV-3397-UnimportedListingTables",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "49789c3e59ac3d63e108c4de0479ae90aac4ac17"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.63-83065f.zip",
-                "reference": "49789c3e59ac3d63e108c4de0479ae90aac4ac17",
-                "shasum": "97d32226bba470fdab7978de8680f566721e43f2"
+                "reference": "9f5b8d4fa4c0bf56587afc65b8a3633208feaec4"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2087,7 +2081,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-09-26 08:08:19"
+            "time": "2014-09-26 07:51:04"
         },
         {
             "name": "cilex/cilex",
@@ -4935,8 +4929,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.12.62",
-            "alias_normalized": "1.12.62.0",
+            "alias": "1.12.64",
+            "alias_normalized": "1.12.64.0",
             "version": "dev-CGIV-3397-UnimportedListingTables",
             "package": "channelgrabber/zf2-v4-ui"
         }
