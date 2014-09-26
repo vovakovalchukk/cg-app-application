@@ -120,8 +120,10 @@ define(function() {
     {
         var self = this;
         var current = 0;
-        var notifyTimeoutDelay = (total * 0.5 + 2) * 1000;
         var notifyTimeoutMessageFrequency = 5;
+
+        var estTotalTime = (total * 0.5 + 2) * 1000;
+        var notifyTimeoutDelay = estTotalTime * (notifyTimeoutMessageFrequency / total);
 
         return setInterval(function() {
             var string = 'Generated '+current+' of '+total+'';
