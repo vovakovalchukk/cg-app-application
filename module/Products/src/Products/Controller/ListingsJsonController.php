@@ -2,7 +2,9 @@
 
 namespace Products\Controller;
 
+use ArrayObject;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\PageLimit;
 use Zend\Mvc\Controller\AbstractActionController;
 use Products\Listing\Service as ListingService;
 use Products\Listing\Filter\Service as FilterService;
@@ -37,45 +39,66 @@ class ListingsJsonController extends AbstractActionController
             ->setFilterService($filterService);
     }
 
+    protected function getPageLimit()
+    {
+        $pageLimit = new PageLimit();
+
+        if ($this->params()->fromPost('iDisplayLength') > 0) {
+            $pageLimit
+                ->setLimit($this->params()->fromPost('iDisplayLength'))
+                ->setPageFromOffset($this->params()->fromPost('iDisplayStart'));
+        }
+
+        return $pageLimit;
+    }
+
+    protected function getDefaultJsonData()
+    {
+        return new ArrayObject(
+            [
+                'iTotalRecords' => 0,
+                'iTotalDisplayRecords' => 0,
+                'sEcho' => (int) $this->params()->fromPost('sEcho'),
+                'Records' => [],
+            ]
+        );
+    }
+
     public function ajaxAction()
     {
-        $data = [
-            'iTotalRecords' => 0,
-            'iTotalDisplayRecords' => 0,
-            'sEcho' => (int) $this->params()->fromPost('sEcho'),
-            'Records' => [],
-        ];
+        $data = $this->getDefaultJsonData();
+        $pageLimit = $this->getPageLimit();
+
         try {
             $requestFilter = $this->params()->fromPost('filter', []);
 
             if (!isset($requestFilter['hidden'])) {
                 $requestFilter['hidden'] = [false];
             }
+
             foreach ($requestFilter['hidden'] as $index => $hidden) {
                 if ($hidden == 'No') {
                     $requestFilter['hidden'][$index] = false;
                 }
             }
-            $requestFilter = $this->getFilterMapper()->fromArray($requestFilter);
-            $limit = 'all';
-            $page = 1;
-            if ($this->params()->fromPost('iDisplayLength') > 0) {
-                $limit = $this->params()->fromPost('iDisplayLength');
-                $page += floor($this->params()->fromPost('iDisplayStart') / $limit);
-            }
-            $requestFilter->setPage($page)
-                ->setLimit($limit);
+
+            $requestFilter = $this->getFilterMapper()->fromArray($requestFilter)
+                ->setPage($pageLimit->getPage())
+                ->setLimit($pageLimit->getLimit());
+
             $this->getFilterService()->setPersistentFilter($requestFilter);
 
             $listings = $this->getListingService()->fetchListings($requestFilter);
             $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) $listings->getTotal();
             $listings = $this->getListingService()->alterListingTable($listings, $this->getEvent());
-            foreach ($listings as $listing) {
+
+            foreach ($pageLimit->getPageData($listings) as $listing) {
                 $data['Records'][] = $listing;
             }
         } catch(NotFound $e) {
             //noop
         }
+
         return $this->getJsonModelFactory()->newInstance($data);
     }
 

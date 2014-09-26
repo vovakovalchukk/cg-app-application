@@ -55,9 +55,7 @@ class Service implements LoggerAwareInterface
 
     public function fetchListings(ListingFilter $listingFilter)
     {
-        $listingFilter->setLimit(static::DEFAULT_LIMIT)
-            ->setPage(static::DEFAULT_PAGE)
-            ->setOrganisationUnitId($this->getActiveUser()->getOuList());
+        $listingFilter->setOrganisationUnitId($this->getActiveUser()->getOuList());
         return $this->getListingService()->fetchCollectionByFilter($listingFilter);
     }
 
