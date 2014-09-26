@@ -395,6 +395,8 @@ return [
                     'scrollHeightAuto' => true,
                     'footer' => true,
                     'pagination' => true,
+                    'rowsPerPage' => 200,
+                    'rowsPerPageList' => [50, 100, 200, 500],
                     'tableOptions' => 'rt<"table-footer" pil>'
                 ]
             ]
