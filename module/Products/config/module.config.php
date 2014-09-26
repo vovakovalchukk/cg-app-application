@@ -274,9 +274,9 @@ return [
                         ['column' => 'ListingFoundColumn'],
                         ['column' => 'ListingStatusColumn']
                     ],
-                ],
-                'setVariable' => [
-                    ['name' => 'settings', 'value' => 'ListingListSettings']
+                    'setVariable' => [
+                        ['name' => 'settings', 'value' => 'ListingListSettings']
+                    ],
                 ],
             ],
             'ListingCheckboxColumnView' => [
@@ -394,7 +394,7 @@ return [
                 'parameters' => [
                     'scrollHeightAuto' => true,
                     'footer' => true,
-                    'tableOptions' => 'rt<"table-footer" pil <"auto-refresh">>'
+                    'tableOptions' => 'rt<"table-footer" pil>'
                 ]
             ]
         ],
