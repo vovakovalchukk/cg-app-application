@@ -19,6 +19,7 @@ define([
 
     Hide.URL = '/products/listing/import/hide';
     Hide.MESSAGE_SUCCESS = 'Listings hidden successfully';
+    Hide.MESSAGE_PENDING = 'Hiding listings';
 
     Hide.prototype.invoke = function()
     {
@@ -34,6 +35,7 @@ define([
         });
 
         var data = {listingIds: listingIds};
+        this.getNotificationHandler().notice(Hide.MESSAGE_PENDING);
         this.sendAjaxRequest(
             Hide.URL,
             data,
