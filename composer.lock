@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4be20f49927cdd601062536ba4ffd71c",
+    "hash": "b06d0c486c266625f3a4cedfe9f42075",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2210,12 +2210,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "69afedb49c48239e4bb7219ec1bc2e1ee5b83595"
+                "reference": "31eadc6920cd1866bc061fb0087798c37e2b7d14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/69afedb49c48239e4bb7219ec1bc2e1ee5b83595",
-                "reference": "69afedb49c48239e4bb7219ec1bc2e1ee5b83595",
+                "url": "https://api.github.com/repos/composer/composer/zipball/31eadc6920cd1866bc061fb0087798c37e2b7d14",
+                "reference": "31eadc6920cd1866bc061fb0087798c37e2b7d14",
                 "shasum": ""
             },
             "require": {
@@ -2270,7 +2270,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2014-09-24 18:19:25"
+            "time": "2014-09-25 17:49:51"
         },
         {
             "name": "fabpot/goutte",
@@ -4935,8 +4935,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.12.69",
-            "alias_normalized": "1.12.69.0",
+            "alias": "1.12.70",
+            "alias_normalized": "1.12.70.0",
             "version": "dev-CGIV-2998-ColumnToggle",
             "package": "channelgrabber/zf2-v4-ui"
         }
