@@ -9,6 +9,8 @@ use Zend\Di\Di;
 use CG\User\Service as UserService;
 use CG\UserPreference\Client\Service as UserPreferenceService;
 use CG\Account\Client\Service as AccountService;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stock\Location\Service as StockLocationService;
 use CG\Stock\Service as StockService;
@@ -17,8 +19,10 @@ use CG\Product\Filter\Mapper as ProductFilterMapper;
 use CG\Product\Entity as Product;
 use CG\Stdlib\Exception\Runtime\NotFound;
 
-class Service
+class Service  implements LoggerAwareInterface
 {
+    use LogTrait;
+
     const PRODUCT_TABLE_COL_PREF_KEY = 'product-columns';
     const PRODUCT_TABLE_COL_POS_PREF_KEY = 'product-column-positions';
     const PRODUCT_SIDEBAR_STATE_KEY = 'product-sidebar-state';
