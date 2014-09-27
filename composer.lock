@@ -8,17 +8,17 @@
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "1.6.4",
+            "version": "1.6.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "a244d406c9b77132a3a9d21167edef65bb1dac9d"
+                "reference": "8c7445f6e0beca0ec03c1b5e75689c4e72f24316"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.6.4-41c989.zip",
-                "reference": "a244d406c9b77132a3a9d21167edef65bb1dac9d",
-                "shasum": "7f582fe5672ad6c1e8f9cd2950925d8f48b5e9c3"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.6.5-3b817e.zip",
+                "reference": "8c7445f6e0beca0ec03c1b5e75689c4e72f24316",
+                "shasum": "0eff938b7f85ff984dbda36b59b4c2803fde8210"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.4",
@@ -48,7 +48,7 @@
                     "CG\\Amazon\\": "src"
                 }
             },
-            "time": "2014-09-26 15:49:09"
+            "time": "2014-09-27 11:14:13"
         },
         {
             "name": "channelgrabber/billing",

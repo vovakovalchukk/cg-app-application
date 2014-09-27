@@ -82,14 +82,14 @@ class Service implements LoggerAwareInterface
     public function updateStock($stockLocationId, $eTag, $totalQuantity)
     {
         try {
-            $stockEntity = $this->getStockLocationService()->fetch($stockLocationId);
-            $stockEntity->setStoredEtag($eTag)
+            $stockLocationEntity = $this->getStockLocationService()->fetch($stockLocationId);
+            $stockLocationEntity->setStoredEtag($eTag)
                 ->setOnHand($totalQuantity);
-            $this->getStockLocationService()->save($stockEntity);
+            $this->getStockLocationService()->save($stockLocationEntity);
         } catch (NotModified $e) {
             //No changes do nothing
         }
-        return $stockEntity;
+        return $stockLocationEntity;
     }
 
     public function deleteProductsById(array $productIds)
@@ -270,7 +270,7 @@ class Service implements LoggerAwareInterface
         return $this;
     }
 
-    protected function setStockLocationService($stockLocationService)
+    protected function setStockLocationService(StockLocationService $stockLocationService)
     {
         $this->stockLocationService = $stockLocationService;
         return $this;
