@@ -170,6 +170,10 @@ class Service implements LoggerAwareInterface
         );
 
         foreach ($listings as $listing) {
+            //Don't import listing without skus
+            if (!$listing->getSku) {
+                continue;
+            }
             $gearmanJob = $listing->getChannel() . 'ImportListing';
             $workload = new ImportListingWorkload($accounts->getById($listing->getAccountId()), $listing);
             $this->getGearmanClient()->doBackground($gearmanJob, serialize($workload), 'importListing' . $listing->getId());
