@@ -5,7 +5,6 @@ use CG\ETag\Exception\NotModified;
 use CG\Product\Client\Service as ProductService;
 use CG_UI\View\Table;
 use CG\User\ActiveUserInterface;
-use Composer\DependencyResolver\Transaction;
 use Zend\Di\Di;
 use CG\User\Service as UserService;
 use CG\UserPreference\Client\Service as UserPreferenceService;
@@ -16,12 +15,8 @@ use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stock\Service as StockService;
 use CG\Stock\Location\Service as StockLocationService;
 use CG\Product\Filter as ProductFilter;
-use CG\CGLib\Gearman\WorkerFunction\StockAdjustment as StockAdjustmentWorker;
-use CG\CGLib\Gearman\Workload\StockAdjustment as StockAdjustmentWorkload;
 use GearmanClient;
 use CG\Stock\Adjustment as StockAdjustment;
-use CG\Stock\Source;
-use SplObjectStorage;
 
 class Service implements LoggerAwareInterface
 {
@@ -36,10 +31,6 @@ class Service implements LoggerAwareInterface
     const LIMIT = 200;
     const PAGE = 1;
 
-    const LOG_CODE = 'productsService';
-    const LOG_GENERATING_JOBS = 'Generating gearman jobs for stock Id %s';
-    const LOG_FINISHED_GENERATING_JOBS = 'Finished generating gearman jobs for stock Id %s, now saving to our database';
-
     protected $userService;
     protected $activeUserContainer;
     protected $di;
@@ -49,9 +40,6 @@ class Service implements LoggerAwareInterface
     protected $organisationUnitService;
     protected $productService;
     protected $stockLocationService;
-    protected $stockService;
-    protected $stockAdjustmentWorker;
-    protected $gearmanClient;
 
     public function __construct(
         UserService $userService,
@@ -61,10 +49,7 @@ class Service implements LoggerAwareInterface
         AccountService $accountService,
         OrganisationUnitService $organisationUnitService,
         ProductService $productService,
-        StockLocationService $stockLocationService,
-        StockService $stockService,
-        StockAdjustmentWorker $stockAdjustmentWorker,
-        GearmanClient $gearmanClient
+        StockLocationService $stockLocationService
     ) {
         $this->setProductService($productService)
             ->setUserService($userService)
@@ -73,10 +58,7 @@ class Service implements LoggerAwareInterface
             ->setUserPreferenceService($userPreferenceService)
             ->setAccountService($accountService)
             ->setOrganisationUnitService($organisationUnitService)
-            ->setStockLocationService($stockLocationService)
-            ->setStockService($stockService)
-            ->setStockAdjustmentWorker($stockAdjustmentWorker)
-            ->setGearmanClient($gearmanClient);
+            ->setStockLocationService($stockLocationService);
     }
 
     public function fetchProducts(ProductFilter $productFilter)
@@ -94,34 +76,9 @@ class Service implements LoggerAwareInterface
     {
         try {
             $stockLocationEntity = $this->getStockLocationService()->fetch($stockLocationId);
-            $currentQuantity = $stockLocationEntity->getOnHand();
-            $adjustQuantity = $totalQuantity - $currentQuantity;
-            $sign = $adjustQuantity < 0 ? StockAdjustment::OPERATOR_DEC : StockAdjustment::OPERATOR_INC;
-
-            $stockEntity = $this->getStockService()->fetch($stockLocationEntity->getStockId());
-            $this->logDebug(static::LOG_GENERATING_JOBS, [$stockEntity->getId()], static::LOG_CODE);
-
-            $stockAdjustment = new StockAdjustment(StockAdjustment::TYPE_ONHAND, $adjustQuantity, $sign);
-
-            $activeUser = $this->getActiveUserContainer()->getActiveUser();
-
-            $userId = $activeUser->getId();
-
-            $stockSource = new Source('user', $userId);
-
-            $stockAdjustmentSplObj = new SplObjectStorage();
-            $stockAdjustmentSplObj->attach($stockAdjustment);
-
-            $workload = new StockAdjustmentWorkload(
-                $stockEntity,
-                $stockSource,
-                $stockAdjustmentSplObj,
-                $stockLocationEntity->getLocationId()
-            );
-
-            $this->getGearmanClient()->doBackground('stockAdjustment', serialize($workload));
-
-            $this->logDebug(static::LOG_GENERATING_JOBS, [$stockEntity->getId()], static::LOG_CODE);
+            $stockLocationEntity->setStoredEtag($eTag)
+                ->setOnHand($totalQuantity);
+            $this->getStockLocationService()->save($stockLocationEntity);
         } catch (NotModified $e) {
             //No changes do nothing
         }
@@ -278,7 +235,7 @@ class Service implements LoggerAwareInterface
         return $this;
     }
 
-    protected function setStockLocationService($stockLocationService)
+    protected function setStockLocationService(StockLocationService $stockLocationService)
     {
         $this->stockLocationService = $stockLocationService;
         return $this;
@@ -287,38 +244,5 @@ class Service implements LoggerAwareInterface
     protected function getStockLocationService()
     {
         return $this->stockLocationService;
-    }
-
-    protected function getStockService()
-    {
-        return $this->stockService;
-    }
-
-    public function setStockService(StockService $stockService)
-    {
-        $this->stockService = $stockService;
-        return $this;
-    }
-
-    protected function getStockAdjustmentWorker()
-    {
-        return $this->stockAdjustmentWorker;
-    }
-
-    public function setStockAdjustmentWorker(StockAdjustmentWorker $stockAdjustmentWorker)
-    {
-        $this->stockAdjustmentWorker = $stockAdjustmentWorker;
-        return $this;
-    }
-
-    protected function getGearmanClient()
-    {
-        return $this->gearmanClient;
-    }
-
-    public function setGearmanClient(GearmanClient $gearmanClient)
-    {
-        $this->gearmanClient = $gearmanClient;
-        return $this;
     }
 }
