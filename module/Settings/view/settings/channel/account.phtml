@@ -23,37 +23,24 @@ $(document).ready(function()
 
     $('#account_details_form div.button').click(function(e)
     {
-        var response = false;
         n.notice('Updating channel account');
         $('#settings_account_form_royal_mail').submit();
-        $('#account_details_form').submit();
 
         $('#settings_account_form_royal_mail').on('success', function() {
-            if (response == false) {
-                response = true;
-            } else {
-                n.success(response);
-            }
+            $('#account_details_form').submit();
         });
 
         $('#account_details_form').on('success', function(e, json) {
-            if (response == false) {
-                response = json.status;
-            } else {
-                n.success(json.status);
-            }
+            n.success(json.status);
         });
 
         $(document).on('fail', '#settings_account_form_royal_mail', function(e, json) {
             n.error(json.message);
-            response = false;
         });
 
         $(document).on('fail', '#account_details_form',  function(e, json) {
             n.error(json.message);
-            response = false;
         });
-        return false;
     });
 });
 
