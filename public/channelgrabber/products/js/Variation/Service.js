@@ -64,11 +64,10 @@ define([
 
     Service.prototype.toggleButton = function(buttonSelector)
     {
-        var oldValue = this.getDomManipulator().getValue(buttonSelector);
-        var newValue = this.getDomManipulator().getAttribute(buttonSelector, 'data-action');
-        this.getDomManipulator()
-            .setValue(buttonSelector, newValue)
-            .setAttribute(buttonSelector, 'data-action', oldValue);
+        var oldValue = this.getDomManipulator().getHtml(buttonSelector + ' .action .title');
+        var newValue = this.getDomManipulator().getAttribute(buttonSelector + ' .action', 'data-action');
+        this.getDomManipulator().setHtml(buttonSelector + ' .action .title', newValue);
+        this.getDomManipulator().setAttribute(buttonSelector + ' .action', 'data-action', oldValue);
     };
 
     Service.prototype.calculateMaxProductContainerHeight = function(productContainer)
