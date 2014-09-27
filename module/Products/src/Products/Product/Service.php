@@ -119,7 +119,7 @@ class Service implements LoggerAwareInterface
                 $stockEntity,
                 $stockSource,
                 $stockAdjustmentSplObj,
-                $stockLocationId
+                $stockLocationEntity->getLocationId()
             );
 
             $this->getGearmanClient()->doBackground('stockAdjustment', serialize($workload));
