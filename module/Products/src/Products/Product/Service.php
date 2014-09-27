@@ -95,11 +95,8 @@ class Service implements LoggerAwareInterface
         try {
             $stockLocationEntity = $this->getStockLocationService()->fetch($stockLocationId);
             $currentQuantity = $stockLocationEntity->getOnHand();
-            $stockLocationEntity->setStoredEtag($eTag)
-                ->setOnHand($totalQuantity);
             $adjustQuantity = $totalQuantity - $currentQuantity;
             $sign = $adjustQuantity < 0 ? StockAdjustment::OPERATOR_DEC : StockAdjustment::OPERATOR_INC;
-            $this->getStockLocationService()->save($stockLocationEntity);
 
             $stockEntity = $this->getStockService()->fetch($stockLocationEntity->getStockId());
             $this->logDebug(static::LOG_GENERATING_JOBS, [$stockEntity->getId()], static::LOG_CODE);
