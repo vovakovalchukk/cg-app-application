@@ -46,7 +46,7 @@ require(['Listing/Import/DomListener/Refresh'], function(domListener)
 <div id="main" class="transition-preload module no-sidebar clearfix<?= $this->placeholder('#main.class')->setPrefix(' ')->setIndent(1) ?>">
     <?= $this->breadcrumbs; ?>
     <?= $this->bulkItems; ?>
-    <div id="datatable-container">
+    <div id="datatable-container" class="import-listings-datatable">
         <?= $this->listings; ?>
     </div>
 </div>

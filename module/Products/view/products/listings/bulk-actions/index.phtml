@@ -1,3 +1,4 @@
+<span class="bulk-action-seperator"></span>
 <?= $refreshButton; ?>
 <div class="hide-filters double-arrow vertical up" data-target="body" data-toggle-class="headerbar-hidden"
      data-preference-key="<?= Products\Listing\Service::LISTING_FILTER_BAR_STATE_KEY; ?>"
@@ -5,4 +6,3 @@
      data-preference-hide="<?= $this->translate('Hide Filters'); ?>">
     <?= $isHeaderBarVisible ? $this->translate('Hide Filters') : $this->translate('Show Filters'); ?>
 </div>
-

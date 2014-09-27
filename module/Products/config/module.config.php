@@ -274,9 +274,9 @@ return [
                         ['column' => 'ListingFoundColumn'],
                         ['column' => 'ListingStatusColumn']
                     ],
-                ],
-                'setVariable' => [
-                    ['name' => 'settings', 'value' => 'ListingListSettings']
+                    'setVariable' => [
+                        ['name' => 'settings', 'value' => 'ListingListSettings']
+                    ],
                 ],
             ],
             'ListingCheckboxColumnView' => [
@@ -297,6 +297,7 @@ return [
             'ListingCheckboxCheckAll' => [
                 'parameters' => [
                     'checkboxes' => '.checkbox-id',
+                    'sortable' => false,
                 ],
             ],
             'ListingChannelColumnView' => [
@@ -310,6 +311,7 @@ return [
                     'column' => 'channel',
                     'viewModel' => 'ListingChannelColumnView',
                     'class' => 'channel-col',
+                    'sortable' => false,
                 ],
             ],
             'ListingAccountColumnView' => [
@@ -323,6 +325,7 @@ return [
                     'column' => 'accountId',
                     'viewModel' => 'ListingAccountColumnView',
                     'class' => 'account-col',
+                    'sortable' => false,
                 ],
             ],
             'ListingSkuColumnView' => [
@@ -336,6 +339,7 @@ return [
                     'column' => 'sku',
                     'viewModel' => 'ListingSkuColumnView',
                     'class' => 'sku-col',
+                    'sortable' => false,
                 ],
             ],
             'ListingImageColumnView' => [
@@ -349,6 +353,7 @@ return [
                     'column' => 'image',
                     'viewModel' => 'ListingImageColumnView',
                     'class' => 'image-col',
+                    'sortable' => false,
                 ],
             ],
             'ListingTitleColumnView' => [
@@ -362,6 +367,7 @@ return [
                     'column' => 'title',
                     'viewModel' => 'ListingTitleColumnView',
                     'class' => 'title-col',
+                    'sortable' => false,
                 ],
             ],
             'ListingFoundColumnView' => [
@@ -375,6 +381,7 @@ return [
                     'column' => 'createdDate',
                     'viewModel' => 'ListingFoundColumnView',
                     'class' => 'found-col',
+                    'sortable' => false,
                 ],
             ],
             'ListingStatusColumnView' => [
@@ -388,13 +395,20 @@ return [
                     'column' => 'status',
                     'viewModel' => 'ListingStatusColumnView',
                     'class' => 'statuc-col',
+                    'sortable' => false,
                 ],
             ],
             'ListingListSettings' => [
                 'parameters' => [
                     'scrollHeightAuto' => true,
                     'footer' => true,
-                    'tableOptions' => 'rt<"table-footer" pil <"auto-refresh">>'
+                    'pagination' => true,
+                    'rowsPerPage' => 200,
+                    'rowsPerPageList' => [50, 100, 200, 500],
+                    'tableOptions' => 'rt<"table-footer" pil>',
+                    'language' => [
+                      'sLengthMenu' => '<span class="show">Show</span> _MENU_'
+                    ],
                 ]
             ]
         ],
