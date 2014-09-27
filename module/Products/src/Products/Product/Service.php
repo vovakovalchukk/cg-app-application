@@ -12,11 +12,8 @@ use CG\Account\Client\Service as AccountService;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
-use CG\Stock\Service as StockService;
 use CG\Stock\Location\Service as StockLocationService;
 use CG\Product\Filter as ProductFilter;
-use GearmanClient;
-use CG\Stock\Adjustment as StockAdjustment;
 
 class Service implements LoggerAwareInterface
 {
