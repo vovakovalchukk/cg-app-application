@@ -19,7 +19,7 @@ use CG\Product\Filter\Mapper as ProductFilterMapper;
 use CG\Product\Entity as Product;
 use CG\Stdlib\Exception\Runtime\NotFound;
 
-class Service  implements LoggerAwareInterface
+class Service implements LoggerAwareInterface
 {
     use LogTrait;
 
