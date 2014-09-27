@@ -101,11 +101,11 @@ class Service implements LoggerAwareInterface
     {
         $listings = $listingCollection->toArray();
         $listings = $this->addAccountDetailsToListings($listings, $event);
-
+        $listings = $this->addImagesToListings($listings, $listingCollection);
         return $listings;
     }
 
-    public function addAccountDetailsToListings(array $listings, MvcEvent $event)
+    protected function addAccountDetailsToListings(array $listings, MvcEvent $event)
     {
         $accounts = $this->getAccountService()->fetchByOUAndStatus(
             $this->getActiveUser()->getOuList(),
@@ -126,6 +126,20 @@ class Service implements LoggerAwareInterface
                 ['account' => $listing['accountId'], 'type' => ChannelType::SALES],
                 ['name' => SettingsModule::ROUTE . '/' . ChannelController::ROUTE . '/' .ChannelController::ROUTE_CHANNELS.'/'. ChannelController::ROUTE_ACCOUNT]
             );
+        }
+        return $listings;
+    }
+
+    protected function addImagesToListings(array $listings, ListingCollection $listingCollection)
+    {
+        foreach ($listings as $index => $listing) {
+            $listingEntity = $listingCollection->getById($listing['id']);
+            if (!($listingEntity->getImage())) {
+                $listings[$index]['image'] = "";
+                continue;
+            }
+
+            $listings[$index]['image'] = $listingEntity->getImage()->getUrl();
         }
         return $listings;
     }
@@ -156,6 +170,10 @@ class Service implements LoggerAwareInterface
         );
 
         foreach ($listings as $listing) {
+            //Don't import listing without skus
+            if (!$listing->getSku()) {
+                continue;
+            }
             $gearmanJob = $listing->getChannel() . 'ImportListing';
             $workload = new ImportListingWorkload($accounts->getById($listing->getAccountId()), $listing);
             $this->getGearmanClient()->doBackground($gearmanJob, serialize($workload), 'importListing' . $listing->getId());
