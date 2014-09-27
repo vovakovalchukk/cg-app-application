@@ -1852,7 +1852,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/royalmail-module.git",
-                "reference": "ce72d485d275af54ab7936ceadfeddaae79bf746"
+                "reference": "efaf18cd4594e7313f608881924580c3b80f02eb"
             },
             "require": {
                 "channelgrabber/channel": ">=1.6.0,<2.0.0",
@@ -1877,7 +1877,7 @@
                 ]
             },
             "description": "Royal Mail module",
-            "time": "2014-09-27 14:57:06"
+            "time": "2014-09-27 16:59:35"
         },
         {
             "name": "channelgrabber/zf2-sessions",
