@@ -171,7 +171,7 @@ class Service implements LoggerAwareInterface
 
         foreach ($listings as $listing) {
             //Don't import listing without skus
-            if (!$listing->getSku) {
+            if (!$listing->getSku()) {
                 continue;
             }
             $gearmanJob = $listing->getChannel() . 'ImportListing';
