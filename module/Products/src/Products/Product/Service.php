@@ -94,18 +94,10 @@ class Service
         $products = $this->getProductService()->fetchCollectionByFilter($filter);
         foreach ($products as $product) {
             if($this->isLastOfStock($product)) {
-                $stock = $this->getStockService()->fetchCollectionBySKUs(
+                $stock = $this->getStockService()->fetchBySku(
                     $product->getSku(),
                     $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()
                 );
-                try {
-                    $stockLocations = $this->getStockLocationService()->fetchCollectionByStockIds([$stock->getId()]);
-                    if($stockLocations) {
-                        $this->getStockLocationService()->removeCollection($stockLocations);
-                    }
-                } catch (NotFound $ex) {
-                    // Do nothing
-                }
                 $this->getStockService()->remove($stock);
             }
             $this->getProductService()->remove($product);
@@ -117,7 +109,7 @@ class Service
         $filter = $this->getProductFilterMapper()->fromArray([
             'limit' => 2,
             'page' => 1,
-            'organisationUnitId' => [], //$this->getActiveUserContainer()->getActiveUser()->getOuList(),
+            'organisationUnitId' => $this->getActiveUserContainer()->getActiveUser()->getOuList(),
             'searchTerm' => null,
             'parentProductId' => [],
             'id' => [],
