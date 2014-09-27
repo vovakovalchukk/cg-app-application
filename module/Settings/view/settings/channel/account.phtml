@@ -15,24 +15,28 @@ $enableChannelRoute = implode(
 <?php $this->inlineScript()->captureStart(); ?>
 $(document).ready(function()
 {
-    $('#account_details_form input[type="submit"]').click(function()
+    $('#account_details_form input[type="submit"]').click(function(e)
     {
+        e.preventDefault();
+        n.notice('Updating channel account');
         $('#settings_account_form_royal_mail').submit();
 
-        $(document).on('success', '#settings_account_form_royal_mail', function() {
-            n.notice('success! form 2...');
+        $('#settings_account_form_royal_mail').on('success', function() {
             $('#account_details_form').submit();
         });
-        $(document).on('fail', '#settings_account_form_royal_mail',  function() {
-            n.notice('FAILED!');
-            return false;
+
+        $('#account_details_form').on('success', function(e, json) {
+            n.success(json.status);
+        });
+
+        $(document).on('fail', '#settings_account_form_royal_mail', function(e, json) {
+            n.error(json.message);
+        });
+
+        $(document).on('fail', '#account_details_form',  function(e, json) {
+            n.error(json.message);
         });
         return false;
-    });
-
-    $('#account_details_form').submit(function()
-    {
-        n.notice('Updating channel account');
     });
 });
 

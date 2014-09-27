@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7dc889de1b014877f8cc39ce0719b797",
+    "hash": "2bf7de6dbc0283478238b2911b78b4f0",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1848,17 +1848,11 @@
         },
         {
             "name": "channelgrabber/zf2-royalmail",
-            "version": "1.0.0",
+            "version": "dev-CGIV-3408-remove-save-from-settings-channel",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/royalmail-module.git",
-                "reference": "647ee8cd5d89209a0fdec8e6227f22f0de58ea13"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-royalmail-1.0.0-1e74e9.zip",
-                "reference": "647ee8cd5d89209a0fdec8e6227f22f0de58ea13",
-                "shasum": "62fac4a31c9a8a376c18001375c56b3747693182"
+                "reference": "ce72d485d275af54ab7936ceadfeddaae79bf746"
             },
             "require": {
                 "channelgrabber/channel": ">=1.6.0,<2.0.0",
@@ -1883,7 +1877,7 @@
                 ]
             },
             "description": "Royal Mail module",
-            "time": "2014-08-28 13:48:12"
+            "time": "2014-09-27 14:57:06"
         },
         {
             "name": "channelgrabber/zf2-sessions",
@@ -4940,11 +4934,17 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.0.1",
+            "alias_normalized": "1.0.1.0",
+            "version": "dev-CGIV-3408-remove-save-from-settings-channel",
+            "package": "channelgrabber/zf2-royalmail"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-royalmail": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
