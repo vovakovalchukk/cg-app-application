@@ -1,12 +1,13 @@
 define([
     'ShippingAlias/DomManipulator',
-    'EventCollator'
+    'EventCollator',
+    'DeferredQueue'
 ],
-function(domManipulator, eventCollator)
+function(domManipulator, eventCollator, DeferredQueue)
 {
     var AliasChange = function() {
         var rootOuId;
-        var savePipe = [];
+        var deferredQueue = new DeferredQueue();
 
         this.setRootOuId = function(newRootOuId)
         {
@@ -19,18 +20,14 @@ function(domManipulator, eventCollator)
             return rootOuId;
         };
 
-        this.getSavePipe = function(alias)
-        {
-            if (!(alias in savePipe)) {
-                savePipe[alias] = domManipulator.deferred();
-            }
-
-            return savePipe[alias];
-        };
-
         this.getDomManipulator = function()
         {
             return domManipulator;
+        };
+
+        this.getDeferredQueue = function()
+        {
+            return deferredQueue;
         };
     };
 
@@ -80,7 +77,7 @@ function(domManipulator, eventCollator)
                 n.error('Please set a shipping alias name');
                 return;
             }
-            this.getSavePipe(aliasDomIds[index]).then(function() {
+            this.getDeferredQueue().queue(function() {
                 return self.save(aliasDomIds[index]);
             });
         }
