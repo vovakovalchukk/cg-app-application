@@ -125,6 +125,7 @@ function(domManipulator, eventCollator)
                     var parsedData = $.parseJSON(data['alias']);
                     aliasInUse.find('input[name=shipping-alias-id]').val(parsedData.id);
                     aliasInUse.find('input[name=shipping-alias-storedETag]').val(parsedData.storedETag);
+                    n.success('Saved shipping aliases');
                 }
             },
             'error' : function () {
