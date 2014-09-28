@@ -23,14 +23,14 @@ $(document).ready(function()
 
 require.config({
     paths: {
-        enableChannel: "<?= Settings\Module::PUBLIC_FOLDER ?>js/enableChannel"
+        ajaxSwitch: "<?= Settings\Module::PUBLIC_FOLDER ?>js/ajaxSwitch"
     }
 });
 
 require(
-    ["enableChannel"],
-    function(enableChannel) {
-        var ajaxCheckbox = enableChannel(
+    ["ajaxSwitch"],
+    function(ajaxSwitch) {
+        var ajaxCheckbox = ajaxSwitch(
             n,
             ".account-status .mustache",
             "input.toggle",
@@ -38,9 +38,9 @@ require(
                 url: "<?= $this->url($enableChannelRoute, ['account' => $account['id'], 'type' => $type]) ?>"
             },
             {
-                info: "<?= $this->translate('Updating Sales Channel Status') ?>",
-                error: "<?= $this->translate('Updating Sales Channel Status') ?>",
-                success: "<?= $this->translate('Sales Channel Status Updated') ?>"
+                info: "<?= $this->translate('Updating Channel Status') ?>",
+                error: "<?= $this->translate('Updating Channel Status') ?>",
+                success: "<?= $this->translate('Channel Status Updated') ?>"
             }
         );
 
