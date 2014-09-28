@@ -1,24 +1,23 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
-        "This file is @generated automatically"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "b920fe2d36c34a9c58e444147ac6d279",
+    "hash": "fbb2e0c09c74cfe2a78fc2af0c713ef4",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "1.6.5",
+            "version": "1.6.5.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "8c7445f6e0beca0ec03c1b5e75689c4e72f24316"
+                "reference": "b884696c074960fc1a957cbbbf91c6e21581c0b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.6.5-3b817e.zip",
-                "reference": "8c7445f6e0beca0ec03c1b5e75689c4e72f24316",
-                "shasum": "0eff938b7f85ff984dbda36b59b4c2803fde8210"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.6.5.1-01ea67.zip",
+                "reference": "b884696c074960fc1a957cbbbf91c6e21581c0b2",
+                "shasum": "2a725f164e772f611232bf6c4540b1b4846f7133"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.4",
@@ -48,7 +47,7 @@
                     "CG\\Amazon\\": "src"
                 }
             },
-            "time": "2014-09-27 11:14:13"
+            "time": "2014-09-27 18:53:40"
         },
         {
             "name": "channelgrabber/billing",
@@ -247,17 +246,17 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.2.5",
+            "version": "1.2.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "a71718ecf3060d097cac9f6d7059f1e561fdb0e0"
+                "reference": "0aa1eca4addae6a83cea434fe24565a48b657612"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.2.5-5d9800.zip",
-                "reference": "a71718ecf3060d097cac9f6d7059f1e561fdb0e0",
-                "shasum": "395d99db8a58c1916aab7ba8d8db5da0ca0247b7"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.2.6-acab03.zip",
+                "reference": "0aa1eca4addae6a83cea434fe24565a48b657612",
+                "shasum": "e5d829c15726a13f4ca18bca25bed3ae54554223"
             },
             "require": {
                 "channelgrabber/channel": ">=1.9.2",
@@ -293,7 +292,7 @@
                     "CG\\Ebay\\Test\\": "tests/Test/"
                 }
             },
-            "time": "2014-09-27 16:39:43"
+            "time": "2014-09-27 18:47:42"
         },
         {
             "name": "channelgrabber/email",
@@ -404,13 +403,6 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -771,13 +763,6 @@
                 "predis/predis": "v0.8.3"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Predis\\": ""
@@ -2058,17 +2043,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.71",
+            "version": "dev-CGIV-3537-CenterTagChecks",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "dd0ede2c6d65042774cb9267f5eecbc940d4c2e8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.71-a724bf.zip",
-                "reference": "dd0ede2c6d65042774cb9267f5eecbc940d4c2e8",
-                "shasum": "725aac96827ab0612fb6bf494a505b8fb6a909b3"
+                "reference": "96b87757c9ef4cb07372dce575c5c3be14ba2844"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2104,7 +2083,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-09-27 16:45:38"
+            "time": "2014-09-28 13:26:09"
         },
         {
             "name": "cilex/cilex",
@@ -2852,7 +2831,9 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -2940,7 +2921,8 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com"
+                    "homepage": "http://benramsey.com",
+                    "role": "Developer"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
@@ -3765,9 +3747,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packages.zendframework.com/composer/zendframework-zendxml-559b34f426d33a11c3db118e00ce14bb8dc64e5f-zip-6cf7a2.zip",
-                "reference": "1.0.0",
-                "shasum": "39abc614b5c26bcbf8102e203c52dee73c4460a8"
+                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
+                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
@@ -3787,6 +3769,7 @@
                     "ZendXml": "library/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -3797,10 +3780,6 @@
                 "xml",
                 "zf2"
             ],
-            "support": {
-                "source": "https://github.com/zendframework/ZendXml/tree/master",
-                "issues": "https://github.com/zendframework/ZendXml/issues"
-            },
             "time": "2014-03-05 22:25:44"
         }
     ],
@@ -4249,7 +4228,7 @@
                 {
                     "name": "Anthon Pang",
                     "email": "apang@softwaredevelopment.ca",
-                    "role": "Fork Maintainer"
+                    "role": "developer"
                 }
             ],
             "description": "PHP WebDriver for Selenium 2",
@@ -4406,7 +4385,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -4950,17 +4930,22 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.12.71",
+            "alias_normalized": "1.12.71.0",
+            "version": "dev-CGIV-3537-CenterTagChecks",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpspec/phpspec": 20
     },
-    "prefer-stable": false,
     "platform": {
         "php": ">=5.3.3"
     },
