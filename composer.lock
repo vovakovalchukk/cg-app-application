@@ -1798,7 +1798,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "704b12af09a233ca5b501323bd9275c24f18ec73"
+                "reference": "148a3cff378e694de2a552a134e21f9cb55369b5"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -1832,7 +1832,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2014-09-26 13:47:48"
+            "time": "2014-09-28 16:36:17"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -4377,8 +4377,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
