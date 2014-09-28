@@ -253,7 +253,9 @@ require([
 <div id="product-payment-table" class="module clearfix section-separator">
     <span class="heading-large heading-spacing"><?= $this->translate('Product & Payment Information'); ?></span>
     <?php if(count($order->getItems())):?>
-        <?= $this->productPaymentTable; ?>
+        <div id="products-table">
+          <?= $this->productPaymentTable; ?>
+        </div>
     <?php else: ?>
         <p><?= $this->translate('This order has no items'); ?></p>
     <?php endif;?>
