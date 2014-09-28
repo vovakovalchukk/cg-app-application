@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c7098bfe0ec52b11ae6af08016249a76",
+    "hash": "66145273fe7d93256ff3158efd92683a",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2044,11 +2044,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-3532-BlueBackground",
+            "version": "1.12.72",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "198e3cb472a9d2614979805a9b932fed10a909d0"
+                "reference": "4cf6df2df8546e467e85e68d480a9648f6e0f36e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.72-91c350.zip",
+                "reference": "4cf6df2df8546e467e85e68d480a9648f6e0f36e",
+                "shasum": "fe67f70e810bfd9bd8f330c55aab507715cbe25e"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2084,7 +2090,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-09-28 16:49:41"
+            "time": "2014-09-28 17:21:53"
         },
         {
             "name": "cilex/cilex",
@@ -4933,17 +4939,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.12.72",
-            "alias_normalized": "1.12.72.0",
-            "version": "dev-CGIV-3532-BlueBackground",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
