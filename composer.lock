@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fca86d9daacf16e2e3e188097d577331",
+    "hash": "962bf328acf54e035ea2e751cd6f9c57",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2044,17 +2044,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.76",
+            "version": "1.12.78",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "6eefb66a26f47375933392ac47c47b2853475418"
+                "reference": "9db331903bde2fb937113f01edb298c97e006935"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.76-2a5fc6.zip",
-                "reference": "6eefb66a26f47375933392ac47c47b2853475418",
-                "shasum": "c25ada21d15564b7910f0c45b75d982861835511"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.78-176d3a.zip",
+                "reference": "9db331903bde2fb937113f01edb298c97e006935",
+                "shasum": "7b6617bb83e17dc63b823dcaf7b3089572806adb"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2090,7 +2090,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-09-29 16:11:39"
+            "time": "2014-09-29 18:59:24"
         },
         {
             "name": "cilex/cilex",
@@ -3754,9 +3754,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "shasum": ""
+                "url": "https://packages.zendframework.com/composer/zendframework-zendxml-559b34f426d33a11c3db118e00ce14bb8dc64e5f-zip-6cf7a2.zip",
+                "reference": "1.0.0",
+                "shasum": "39abc614b5c26bcbf8102e203c52dee73c4460a8"
             },
             "require": {
                 "php": ">=5.3.3"
@@ -3776,7 +3776,6 @@
                     "ZendXml": "library/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -3787,6 +3786,10 @@
                 "xml",
                 "zf2"
             ],
+            "support": {
+                "source": "https://github.com/zendframework/ZendXml/tree/master",
+                "issues": "https://github.com/zendframework/ZendXml/issues"
+            },
             "time": "2014-03-05 22:25:44"
         }
     ],
@@ -4235,7 +4238,7 @@
                 {
                     "name": "Anthon Pang",
                     "email": "apang@softwaredevelopment.ca",
-                    "role": "developer"
+                    "role": "Fork Maintainer"
                 }
             ],
             "description": "PHP WebDriver for Selenium 2",
