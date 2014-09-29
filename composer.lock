@@ -1798,7 +1798,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "df4a2f05fa0b2248583387eed5498452de0caa11"
+                "reference": "c40f00c6f880808b08727b0389f16f5f78cb0f08"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -1832,7 +1832,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2014-09-29 10:17:08"
+            "time": "2014-09-29 12:14:49"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -2036,7 +2036,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "b92b77379d0e6a4fcd6910e878c2f9a2141630e0"
+                "reference": "8ae81be61b548f8715f8d61113647509ba3848af"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2072,7 +2072,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-09-29 08:34:06"
+            "time": "2014-09-29 11:16:48"
         },
         {
             "name": "cilex/cilex",
