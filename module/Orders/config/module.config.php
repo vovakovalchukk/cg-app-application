@@ -445,6 +445,15 @@ return [
                                     ]
                                 ],
                             ],
+                            'invoice_progress' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/progress',
+                                    'defaults' => [
+                                        'action' => 'checkInvoiceGenerationProgress'
+                                    ]
+                                ],
+                            ],
                         ]
                     ],
                     StoredFiltersController::ROUTE_SAVE => [

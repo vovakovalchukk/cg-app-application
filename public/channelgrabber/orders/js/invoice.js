@@ -24,8 +24,7 @@ define(function() {
         };
     };
 
-//    InvoiceBulkAction.MIN_INVOICES_FOR_NOTIFICATION = 7;
-    InvoiceBulkAction.MIN_INVOICES_FOR_NOTIFICATION = 1; // FOR TESTING
+    InvoiceBulkAction.MIN_INVOICES_FOR_NOTIFICATION = 7;
     InvoiceBulkAction.NOTIFICATION_FREQ_MS = 5000;
 
     InvoiceBulkAction.prototype.notifyTimeoutHandle = null;
@@ -139,7 +138,7 @@ define(function() {
                 data: {progressKey: progressKey},
                 dataType: 'json',
                 success : function(data) {
-                    if (!data.progressCount) {
+                    if (!data.hasOwnProperty('progressCount')) {
                         return this.getNotifications().error('Unable to determine the number of processed invoices');
                     }
 
@@ -148,6 +147,7 @@ define(function() {
 
                     if (data.progressCount == total) {
                         clearTimeout(this.notifyTimeoutHandle);
+                        this.getNotifications().success('Finished generating invoices', fadeOut);
                     }
                 },
                 error: function(error, textStatus, errorThrown) {

@@ -261,6 +261,6 @@ class Service
 
     public function checkInvoiceGenerationProgress($key)
     {
-        return $this->getProgressStorage()->getProgress($key);
+        return (int)$this->getProgressStorage()->getProgress($key);
     }
 }
