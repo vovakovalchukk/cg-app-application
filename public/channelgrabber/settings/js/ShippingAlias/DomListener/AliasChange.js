@@ -1,12 +1,13 @@
 define([
     'ShippingAlias/DomManipulator',
-    'EventCollator'
+    'EventCollator',
+    'DeferredQueue'
 ],
-function(domManipulator, eventCollator)
+function(domManipulator, eventCollator, DeferredQueue)
 {
     var AliasChange = function() {
         var rootOuId;
-        var savePipe = [];
+        var deferredQueue = new DeferredQueue();
 
         this.setRootOuId = function(newRootOuId)
         {
@@ -19,24 +20,20 @@ function(domManipulator, eventCollator)
             return rootOuId;
         };
 
-        this.getSavePipe = function(alias)
-        {
-            if (!(alias in savePipe)) {
-                savePipe[alias] = domManipulator.deferred();
-            }
-
-            return savePipe[alias];
-        };
-
         this.getDomManipulator = function()
         {
             return domManipulator;
+        };
+
+        this.getDeferredQueue = function()
+        {
+            return deferredQueue;
         };
     };
 
     AliasChange.SHIPPING_METHOD_SELECTOR = '.channel-shipping-methods .custom-select-item';
     AliasChange.ALIAS_NAME_INPUT_SELECTOR = '.shipping-alias-name-holder .inputbox';
-    AliasChange.SHIPPING_SERVICES_CUSTOM_SELECT_SELECTOR = '.shipping-services';
+    AliasChange.SHIPPING_SERVICES_CUSTOM_SELECT_SELECTOR = '.shipping-services .custom-select';
 
     AliasChange.prototype.init = function(rootOuId)
     {
@@ -48,7 +45,7 @@ function(domManipulator, eventCollator)
             self.triggerRequestMadeEvent(this);
         });
 
-        $(document).on("click", AliasChange.SHIPPING_SERVICES_CUSTOM_SELECT_SELECTOR, function() {
+        $(document).on("change", AliasChange.SHIPPING_SERVICES_CUSTOM_SELECT_SELECTOR, function() {
             self.triggerRequestMadeEvent(this);
         });
 
@@ -80,7 +77,7 @@ function(domManipulator, eventCollator)
                 n.error('Please set a shipping alias name');
                 return;
             }
-            this.getSavePipe(aliasDomIds[index]).then(function() {
+            this.getDeferredQueue().queue(function() {
                 return self.save(aliasDomIds[index]);
             });
         }
@@ -125,6 +122,7 @@ function(domManipulator, eventCollator)
                     var parsedData = $.parseJSON(data['alias']);
                     aliasInUse.find('input[name=shipping-alias-id]').val(parsedData.id);
                     aliasInUse.find('input[name=shipping-alias-storedETag]').val(parsedData.storedETag);
+                    n.success('Saved shipping aliases');
                 }
             },
             'error' : function () {
