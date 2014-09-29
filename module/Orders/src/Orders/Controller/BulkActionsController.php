@@ -143,6 +143,11 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         return $this->params()->fromRoute('filterId', '');
     }
 
+    protected function getProgressKey()
+    {
+        return $this->params()->fromPost('progressKey', null);
+    }
+
     protected function getOrdersFromOrderIds()
     {
         $orderIds = $this->getOrderIds();
@@ -204,7 +209,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     {
         try {
             $orders = $this->getOrdersFromOrderIds();
-            return $this->markOrdersAsPrinted($orders)->invoiceOrders($orders);
+            $progressKey = $this->getProgressKey();
+            return $this->markOrdersAsPrinted($orders)->invoiceOrders($orders, null, $progressKey);
         } catch (NotFound $exception) {
             return $this->redirect()->toRoute('Orders');
         }
@@ -213,8 +219,9 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function invoiceFilterIdAction()
     {
         try {
+            $progressKey = $this->getProgressKey();
             return $this->invoiceOrders(
-                $this->getOrdersFromFilterId()
+                $this->getOrdersFromFilterId(), null, $progressKey
             );
         } catch (NotFound $exception) {
             return $this->redirect()->toRoute('Orders');
@@ -250,9 +257,9 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         return $this;
     }
 
-    public function invoiceOrders(OrderCollection $orders, Template $template = null)
+    public function invoiceOrders(OrderCollection $orders, Template $template = null, $progressKey = null)
     {
-        return $this->getInvoiceService()->getResponseFromOrderCollection($orders, $template);
+        return $this->getInvoiceService()->getResponseFromOrderCollection($orders, $template, $progressKey);
     }
 
     public function checkInvoicePrintingAllowedAction()
@@ -260,7 +267,16 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         $this->checkUsage();
 
         return $this->getJsonModelFactory()->newInstance(
-            ["allowed" => true]
+            ["allowed" => true, "guid" => uniqid('', true)]
+        );
+    }
+
+    public function checkInvoiceGenerationProgressAction()
+    {
+        $progressKey = $this->getProgressKey();
+        $count = $this->getInvoiceService()->checkInvoiceGenerationProgress($progressKey);
+        return $this->getJsonModelFactory()->newInstance(
+            ["progressCount" => $count]
         );
     }
 

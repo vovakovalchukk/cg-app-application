@@ -47,7 +47,7 @@ require(
         CGMustache.get().fetchTemplates(
             {
                 enable: "<?= Module::PUBLIC_FOLDER ?>template/columns/enable.mustache",
-                status: "<?= Module::PUBLIC_FOLDER ?>template/columns/status.mustache"
+                status: "<?= Module::PUBLIC_FOLDER ?>template/columns/accountStatus.mustache"
             },
             function(template, cgmustache) {
                 ajaxCheckbox.bindAjaxResponse(function(event, data) {
