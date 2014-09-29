@@ -107,11 +107,10 @@ define(function() {
                 if (!data.allowed) {
                     return this.getNotifications().error('You do not have permission to do that');
                 }
+                this.getNotifications().notice(this.getMessage(), true);
 
                 if (orderCount >= InvoiceBulkAction.MIN_INVOICES_FOR_NOTIFICATION) {
                     this.notifyTimeoutHandle = this.setupProgressCheck(orderCount, data.guid);
-                } else {
-                    this.getNotifications().notice(this.getMessage(), true);
                 }
 
                 var form = this.getFormElement(orders);
@@ -142,11 +141,12 @@ define(function() {
                         return;
                     }
 
-                    var fadeOut = true;
+                    var fadeOut = false;
                     this.getNotifications().notice('Generated ' + data.progressCount + ' of ' + total, fadeOut);
 
-                    if (data.progressCount >= (total - InvoiceBulkAction.MIN_INVOICES_FOR_NOTIFICATION)) {
+                    if (data.progressCount == total) {
                         clearTimeout(this.notifyTimeoutHandle);
+                        fadeOut = true;
                         this.getNotifications().success('Finished generating invoices', fadeOut);
                     }
                 },
