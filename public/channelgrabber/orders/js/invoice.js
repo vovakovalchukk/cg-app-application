@@ -139,13 +139,13 @@ define(function() {
                 dataType: 'json',
                 success : function(data) {
                     if (!data.hasOwnProperty('progressCount')) {
-                        return this.getNotifications().error('Unable to determine the number of processed invoices');
+                        return;
                     }
 
                     var fadeOut = true;
                     this.getNotifications().notice('Generated ' + data.progressCount + ' of ' + total, fadeOut);
 
-                    if (data.progressCount == total) {
+                    if (data.progressCount >= (total - InvoiceBulkAction.MIN_INVOICES_FOR_NOTIFICATION)) {
                         clearTimeout(this.notifyTimeoutHandle);
                         this.getNotifications().success('Finished generating invoices', fadeOut);
                     }

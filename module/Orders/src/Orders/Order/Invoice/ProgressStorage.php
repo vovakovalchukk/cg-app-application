@@ -6,7 +6,7 @@ use Predis\Client as Predis;
 class ProgressStorage
 {
     const KEY_PREFIX = 'OrderInvoiceProgress:';
-    const KEY_EXPIRY_SEC = 86400; // 1 day
+    const KEY_EXPIRY_SEC = 30;
 
     protected $predis;
 
