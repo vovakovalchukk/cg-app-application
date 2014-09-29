@@ -104,7 +104,7 @@ class Service implements LoggerAwareInterface
                 );
                 $this->getStockService()->remove($stock);
             }
-            $this->getProductService()->remove($product);
+            $this->getProductService()->hardRemove($product);
         }
     }
 
