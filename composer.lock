@@ -3,23 +3,6 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-<<<<<<< HEAD
-    "hash": "67d0990d794e2bd9385e445c4ab14763",
-    "packages": [
-        {
-            "name": "channelgrabber/amazon",
-            "version": "1.6.5.2",
-            "source": {
-                "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "fb976a6b1f3bd60263da1e1a5dc51c92e88701e8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.6.5.2-41fd4d.zip",
-                "reference": "fb976a6b1f3bd60263da1e1a5dc51c92e88701e8",
-                "shasum": "7ceb488171c2d8726ed4160a271a23634ab75133"
-=======
     "hash": "918a899a4d489d0ba873f6089fb1e11b",
     "packages": [
         {
@@ -35,7 +18,6 @@
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.6.6-57f05f.zip",
                 "reference": "89d97060a239794bf25a69438340ae8fbf8c3024",
                 "shasum": "81966d31485ceb1775134e8b3856f7c4362f6395"
->>>>>>> develop
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.4",
@@ -65,11 +47,7 @@
                     "CG\\Amazon\\": "src"
                 }
             },
-<<<<<<< HEAD
-            "time": "2014-09-28 13:51:54"
-=======
             "time": "2014-09-28 17:27:02"
->>>>>>> develop
         },
         {
             "name": "channelgrabber/billing",
@@ -268,19 +246,6 @@
         },
         {
             "name": "channelgrabber/ebay",
-<<<<<<< HEAD
-            "version": "1.2.6",
-            "source": {
-                "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "0aa1eca4addae6a83cea434fe24565a48b657612"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.2.6-acab03.zip",
-                "reference": "0aa1eca4addae6a83cea434fe24565a48b657612",
-                "shasum": "e5d829c15726a13f4ca18bca25bed3ae54554223"
-=======
             "version": "1.2.7",
             "source": {
                 "type": "git",
@@ -292,7 +257,6 @@
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.2.7-8b1b53.zip",
                 "reference": "e405a2e14ad40c11a5b0610647d4242e9a99ec78",
                 "shasum": "174bba1391e20811ab6f0821c65c66ad2f4cd56f"
->>>>>>> develop
             },
             "require": {
                 "channelgrabber/channel": ">=1.9.2",
@@ -328,11 +292,7 @@
                     "CG\\Ebay\\Test\\": "tests/Test/"
                 }
             },
-<<<<<<< HEAD
-            "time": "2014-09-27 18:47:42"
-=======
             "time": "2014-09-28 17:36:18"
->>>>>>> develop
         },
         {
             "name": "channelgrabber/email",
@@ -2083,13 +2043,6 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-<<<<<<< HEAD
-            "version": "dev-CGIV-3540-ZindexFix",
-            "source": {
-                "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "6586d7063680a9c5792987b9584aaac07d39db24"
-=======
             "version": "1.12.73",
             "source": {
                 "type": "git",
@@ -2101,7 +2054,6 @@
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.73-62663e.zip",
                 "reference": "54c1cd2ca917ebbcad5ad5ad74f07499000883a0",
                 "shasum": "5ff9e8a4e8bd2c0fe1734857a3002676a2c57998"
->>>>>>> develop
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2137,11 +2089,7 @@
                     "./Module.php"
                 ]
             },
-<<<<<<< HEAD
-            "time": "2014-09-28 14:07:37"
-=======
             "time": "2014-09-29 07:32:34"
->>>>>>> develop
         },
         {
             "name": "cilex/cilex",
@@ -4988,17 +4936,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.12.71",
-            "alias_normalized": "1.12.71.0",
-            "version": "dev-CGIV-3540-ZindexFix",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
