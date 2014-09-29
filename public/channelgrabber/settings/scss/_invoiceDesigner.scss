@@ -193,7 +193,6 @@
 .template-element-image{
     background-color: $color-lgrey;
     border: solid 1px $color-mgrey;
-
     img{
         width: 100%;
         height: 100%;
@@ -202,13 +201,19 @@
     .placeholder{
         margin-top: 50%;
         text-align: center;
-
+        background-color: rgba(255,255,255, 0.95);
+        border-top: 0px;
+        border-left: 1px solid $color-lgrey;
+        border-right: 1px solid $color-lgrey;
+        border-bottom: 1px solid $color-lgrey;
+        padding: 10px 0px 10px 0px;
+        @include border-radius(0px 0px 5px 5px);
         input[type=file]{
             display: none;
         }
 
         input[type=button]{
-            margin: auto;
+            margin: 10px auto 0px auto;
         }
     }
 }
