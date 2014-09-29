@@ -12,6 +12,7 @@ use CG\Template\Element\Factory as ElementFactory;
 use CG\Template\PaperPage;
 use Orders\Order\Invoice\Renderer\ServiceInterface as RendererService;
 use Orders\Order\Invoice\Template\Factory as TemplateFactory;
+use Orders\Order\Invoice\ProgressStorage;
 use Orders\Order\Service as OrderService;
 use Zend\Di\Di;
 
@@ -23,6 +24,7 @@ class Service
     protected $elementFactory;
     protected $rendererService;
     protected $invoiceSettingsService;
+    protected $progressStorage;
     protected $templates = [];
 
     public function __construct(
@@ -31,7 +33,8 @@ class Service
         TemplateFactory $templateFactory,
         ElementFactory $elementFactory,
         RendererService $rendererService,
-        InvoiceSettingsService $invoiceSettingsService
+        InvoiceSettingsService $invoiceSettingsService,
+        ProgressStorage $progressStorage
     ) {
         $this
             ->setDi($di)
@@ -39,7 +42,8 @@ class Service
             ->setTemplateFactory($templateFactory)
             ->setElementFactory($elementFactory)
             ->setRendererService($rendererService)
-            ->setInvoiceSettingsService($invoiceSettingsService);
+            ->setInvoiceSettingsService($invoiceSettingsService)
+            ->setProgressStorage($progressStorage);
     }
 
     public function setDi(Di $di)
@@ -126,6 +130,17 @@ class Service
         return $this->rendererService;
     }
 
+    protected function getProgressStorage()
+    {
+        return $this->progressStorage;
+    }
+
+    protected function setProgressStorage(ProgressStorage $progressStorage)
+    {
+        $this->progressStorage = $progressStorage;
+        return $this;
+    }
+
     /**
      * @param array $orderIds
      * @return Response
@@ -178,14 +193,14 @@ class Service
      * @param Collection $orderCollection
      * @return Response
      */
-    public function getResponseFromOrderCollection(Collection $orderCollection, Template $template = null)
+    public function getResponseFromOrderCollection(Collection $orderCollection, Template $template = null, $progressKey = null)
     {
         return $this->getDi()->get(
             Response::class,
             [
                 'mimeType' => $this->getRendererService()->getMimeType(),
                 'filename' => $this->getRendererService()->getFileName(),
-                'content' => $this->generateInvoiceFromOrderCollection($orderCollection, $template)
+                'content' => $this->generateInvoiceFromOrderCollection($orderCollection, $template, $progressKey)
             ]
         );
     }
@@ -219,15 +234,33 @@ class Service
         return $this->templates[$templateId];
     }
 
-    public function generateInvoiceFromOrderCollection(Collection $orderCollection, Template $template = null)
+    public function generateInvoiceFromOrderCollection(Collection $orderCollection, Template $template = null, $progressKey = null)
     {
+        $count = 0;
+        $this->updateInvoiceGenerationProgress($progressKey, $count);
+
         $renderedContent = [];
         foreach ($orderCollection as $order) {
             $renderedContent[] = $this->getRendererService()->renderOrderTemplate(
                 $order,
                 $template ?: $this->getTemplate($order)
             );
+            $this->updateInvoiceGenerationProgress($progressKey, ++$count);
         }
         return $this->getRendererService()->combine($renderedContent);
+    }
+
+    protected function updateInvoiceGenerationProgress($key, $count)
+    {
+        if (!$key) {
+            return;
+        }
+        $this->getProgressStorage()->setProgress($key, $count);
+        return $this;
+    }
+
+    public function checkInvoiceGenerationProgress($key)
+    {
+        return (int)$this->getProgressStorage()->getProgress($key);
     }
 }
