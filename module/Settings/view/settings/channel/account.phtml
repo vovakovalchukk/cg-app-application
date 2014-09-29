@@ -15,9 +15,32 @@ $enableChannelRoute = implode(
 <?php $this->inlineScript()->captureStart(); ?>
 $(document).ready(function()
 {
-    $('#account_details_form').submit(function()
+    $('#account_details_form input[type="submit"]').click(function(e)
+    {
+        e.preventDefault();
+        return false;
+    });
+
+    $('#account_details_form div.button').click(function(e)
     {
         n.notice('Updating channel account');
+        $('#settings_account_form_royal_mail').submit();
+
+        $('#settings_account_form_royal_mail').on('success', function() {
+            $('#account_details_form').submit();
+        });
+
+        $('#account_details_form').on('success', function(e, json) {
+            n.success(json.status);
+        });
+
+        $(document).on('fail', '#settings_account_form_royal_mail', function(e, json) {
+            n.error(json.message);
+        });
+
+        $(document).on('fail', '#account_details_form',  function(e, json) {
+            n.error(json.message);
+        });
     });
 });
 
@@ -82,8 +105,6 @@ require(
 </div>
 <div id="manage-account-channel-form" class="module clearfix section-separator">
     <?= $this->channelSpecificForm;?>
-</div>
-<div class="module clearfix section-separator">
     <?php
     $detailsForm->prepare();
     $detailsForm->setAttribute('class', 'ajaxPost');

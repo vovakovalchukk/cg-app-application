@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "962bf328acf54e035ea2e751cd6f9c57",
+    "hash": "bd5a8890c58db37c0517421dc86d9c63",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1848,17 +1848,17 @@
         },
         {
             "name": "channelgrabber/zf2-royalmail",
-            "version": "1.0.1",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/royalmail-module.git",
-                "reference": "f8cfd8eb2fe584fa0ed8b35d68db25e946a8b792"
+                "reference": "195bb180f0ed0ce621b91a0c1648fe17436fcb03"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-royalmail-1.0.1-18bdff.zip",
-                "reference": "f8cfd8eb2fe584fa0ed8b35d68db25e946a8b792",
-                "shasum": "96fcec02ed2f33439baf78532e97fdfcd97d0fe4"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-royalmail-1.1.0-1ff0b3.zip",
+                "reference": "195bb180f0ed0ce621b91a0c1648fe17436fcb03",
+                "shasum": "2da9d6be1bcb66cf41d15ef8a10ef8d824acef8b"
             },
             "require": {
                 "channelgrabber/channel": ">=1.6.0,<2.0.0",
@@ -1883,7 +1883,7 @@
                 ]
             },
             "description": "Royal Mail module",
-            "time": "2014-09-26 16:20:57"
+            "time": "2014-09-27 19:05:08"
         },
         {
             "name": "channelgrabber/zf2-sessions",
