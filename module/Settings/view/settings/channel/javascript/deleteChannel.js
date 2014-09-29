@@ -4,7 +4,7 @@ require(
     function(AjaxLink) {
         var ajaxLink = new AjaxLink(n, "#<?= $tableId ?>", ".manage .delete");
         $(ajaxLink).bind("clicked", function(event, clicked) {
-            this.getNotifications().notice("<?= $this->translate('Deleting Sales Channel') ?>");
+            this.getNotifications().notice("<?= $this->translate('Deleting Channel') ?>");
         });
         $(ajaxLink).bind("response", function(event, json) {
             if (!json.deleted && json.exception) {
@@ -15,7 +15,7 @@ require(
                 return;
             }
 
-            this.getNotifications().success("<?= $this->translate('Sales Channel Deleted') ?>");
+            this.getNotifications().success("<?= $this->translate('Channel Deleted') ?>");
             $("#<?= $tableId ?>").cgDataTable("redraw");
         });
     }
