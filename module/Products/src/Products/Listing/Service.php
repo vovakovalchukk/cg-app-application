@@ -2,6 +2,7 @@
 namespace Products\Listing;
 
 use CG\Channel\Type as ChannelType;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
@@ -67,7 +68,11 @@ class Service implements LoggerAwareInterface
             ->setPage(static::DEFAULT_PAGE)
             ->setType(static::DEFAULT_TYPE)
             ->setOus($this->getActiveUserContainer()->getActiveUser()->getOuList());
-        $accounts = $this->getAccountService()->fetchByFilter($filter);
+        try {
+            $accounts = $this->getAccountService()->fetchByFilter($filter);
+        } catch (NotFound $e) {
+            return;
+        }
         $gearmanJobs = [];
         foreach ($accounts as $account) {
             $importer = $this->getListingImportFactory()->createListingImport($account);
