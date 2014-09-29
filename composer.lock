@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "fe08b8aa2037792ed18f32ff920d3f13",
+    "hash": "918a899a4d489d0ba873f6089fb1e11b",
     "packages": [
         {
             "name": "channelgrabber/amazon",
