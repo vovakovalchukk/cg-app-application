@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8f012131f94bd8afedd86e600ec63d49",
+    "hash": "7af2ef4974e5774725031945cf4a62e5",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1763,17 +1763,17 @@
         },
         {
             "name": "channelgrabber/zf2-permission",
-            "version": "1.1.5",
+            "version": "1.1.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/permission-module.git",
-                "reference": "eb902ea0f175dd6734ed1213ea2016365d65827b"
+                "reference": "3893b77980b49978e2b0992afbe042f6c4564f6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.1.5-d4deb3.zip",
-                "reference": "eb902ea0f175dd6734ed1213ea2016365d65827b",
-                "shasum": "e0e3825ce4b69e903155c3934524e407314a3a2a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.1.6-6758f8.zip",
+                "reference": "3893b77980b49978e2b0992afbe042f6c4564f6b",
+                "shasum": "e3e835ace52445ba2998e5c774bb1473ef5099b4"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -1796,7 +1796,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-09-12 12:49:25"
+            "time": "2014-09-29 14:00:19"
         },
         {
             "name": "channelgrabber/zf2-register",
