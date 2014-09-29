@@ -6,7 +6,7 @@ require.config({
 require(
     ["InvoiceBulkAction"],
     function(InvoiceBulkAction) {
-        var invoiceBulkAction = new InvoiceBulkAction(n, "<?= $this->translate('Generating Invoice...') ?>");
+        var invoiceBulkAction = new InvoiceBulkAction(n, "<?= $this->translate('Generating invoices...') ?>");
         $("#<?= $id ?>").bulkActions("set", "<?= $action ?>", function() {
             invoiceBulkAction.setElement(this);
             invoiceBulkAction.action();

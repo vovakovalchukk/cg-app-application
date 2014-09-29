@@ -26,6 +26,7 @@ use CG\Settings\Alias\Storage\Api as ShippingAliasStorage;
 use CG\Order\Client\Tracking\Storage\Api as TrackingStorageApi;
 use CG\Order\Service\Tracking\Service as TrackingService;
 use CG\Account\Client\Storage\Api as AccountStorageApi;
+use Orders\Order\Invoice\ProgressStorage as OrderInvoiceProgressStorage;
 
 return [
     'router' => [
@@ -415,6 +416,15 @@ return [
                                             ]
                                         ],
                                     ],
+                                    'invoice_progress' => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/progress',
+                                            'defaults' => [
+                                                'action' => 'checkInvoiceGenerationProgress'
+                                            ]
+                                        ],
+                                    ],
                                 ],
                             ],
                             'invoice_demo' => [
@@ -432,6 +442,15 @@ return [
                                     'route' => '/check',
                                     'defaults' => [
                                         'action' => 'checkInvoicePrintingAllowed'
+                                    ]
+                                ],
+                            ],
+                            'invoice_progress' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/progress',
+                                    'defaults' => [
+                                        'action' => 'checkInvoiceGenerationProgress'
                                     ]
                                 ],
                             ],
@@ -922,6 +941,11 @@ return [
             Controller\OrdersController::class => [
                 'parameters' => [
                     'usageService' => 'order_count_usage_service'
+                ]
+            ],
+            OrderInvoiceProgressStorage::class => [
+                'parameters' => [
+                    'predis' => 'unreliable_redis'
                 ]
             ]
         ],
