@@ -31,6 +31,7 @@ define([
         var self = this;
         this.refreshingState();
         storage.refresh(function() {
+            self.refreshDatatable();
             self.refreshState();
         });
     };

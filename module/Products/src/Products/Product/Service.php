@@ -13,7 +13,11 @@ use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stock\Location\Service as StockLocationService;
+use CG\Stock\Service as StockService;
 use CG\Product\Filter as ProductFilter;
+use CG\Product\Filter\Mapper as ProductFilterMapper;
+use CG\Product\Entity as Product;
+use CG\Stdlib\Exception\Runtime\NotFound;
 
 class Service implements LoggerAwareInterface
 {
@@ -36,6 +40,8 @@ class Service implements LoggerAwareInterface
     protected $accountService;
     protected $organisationUnitService;
     protected $productService;
+    protected $productFilterMapper;
+    protected $stockService;
     protected $stockLocationService;
 
     public function __construct(
@@ -45,16 +51,20 @@ class Service implements LoggerAwareInterface
         UserPreferenceService $userPreferenceService,
         AccountService $accountService,
         OrganisationUnitService $organisationUnitService,
+        ProductFilterMapper $productFilterMapper,
         ProductService $productService,
-        StockLocationService $stockLocationService
+        StockLocationService $stockLocationService,
+        StockService $stockService
     ) {
         $this->setProductService($productService)
             ->setUserService($userService)
+            ->setProductFilterMapper($productFilterMapper)
             ->setActiveUserContainer($activeUserContainer)
             ->setDi($di)
             ->setUserPreferenceService($userPreferenceService)
             ->setAccountService($accountService)
             ->setOrganisationUnitService($organisationUnitService)
+            ->setStockService($stockService)
             ->setStockLocationService($stockLocationService);
     }
 
@@ -72,14 +82,14 @@ class Service implements LoggerAwareInterface
     public function updateStock($stockLocationId, $eTag, $totalQuantity)
     {
         try {
-            $stockEntity = $this->getStockLocationService()->fetch($stockLocationId);
-            $stockEntity->setStoredEtag($eTag)
+            $stockLocationEntity = $this->getStockLocationService()->fetch($stockLocationId);
+            $stockLocationEntity->setStoredEtag($eTag)
                 ->setOnHand($totalQuantity);
-            $this->getStockLocationService()->save($stockEntity);
+            $this->getStockLocationService()->save($stockLocationEntity);
         } catch (NotModified $e) {
             //No changes do nothing
         }
-        return $stockEntity;
+        return $stockLocationEntity;
     }
 
     public function deleteProductsById(array $productIds)
@@ -87,8 +97,36 @@ class Service implements LoggerAwareInterface
         $filter = new ProductFilter(static::ACCOUNTS_LIMIT, static::PAGE, [], null, [], $productIds);
         $products = $this->getProductService()->fetchCollectionByFilter($filter);
         foreach ($products as $product) {
+            if($this->isLastOfStock($product)) {
+                $stock = $this->getStockService()->fetchBySku(
+                    $product->getSku(),
+                    $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()
+                );
+                $this->getStockService()->remove($stock);
+            }
             $this->getProductService()->remove($product);
         }
+    }
+
+    protected function isLastOfStock(Product $product)
+    {
+        $filter = $this->getProductFilterMapper()->fromArray([
+            'limit' => 2,
+            'page' => 1,
+            'organisationUnitId' => $this->getActiveUserContainer()->getActiveUser()->getOuList(),
+            'searchTerm' => null,
+            'parentProductId' => [],
+            'id' => [],
+            'deleted' => null,
+            'sku' => [$product->getSku()]
+        ]);
+        $products = $this->getProductService()->fetchCollectionByFilter($filter);
+
+        if(count($products) == 1) {
+            return true;
+        }
+
+        return false;
     }
 
     public function isSidebarVisible()
@@ -232,7 +270,7 @@ class Service implements LoggerAwareInterface
         return $this;
     }
 
-    protected function setStockLocationService($stockLocationService)
+    protected function setStockLocationService(StockLocationService $stockLocationService)
     {
         $this->stockLocationService = $stockLocationService;
         return $this;
@@ -241,5 +279,27 @@ class Service implements LoggerAwareInterface
     protected function getStockLocationService()
     {
         return $this->stockLocationService;
+    }
+
+    protected function setStockService(StockService $stockService)
+    {
+        $this->stockService = $stockService;
+        return $this;
+    }
+
+    protected function getStockService()
+    {
+        return $this->stockService;
+    }
+
+    protected function setProductFilterMapper(ProductFilterMapper $productFilterMapper)
+    {
+        $this->productFilterMapper = $productFilterMapper;
+        return $this;
+    }
+
+    protected function getProductFilterMapper()
+    {
+        return $this->productFilterMapper;
     }
 }

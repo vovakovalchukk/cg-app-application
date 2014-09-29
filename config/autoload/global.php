@@ -38,6 +38,9 @@ use CG\Location\Service as LocationService;
 use CG\Location\Storage\Api as LocationApi;
 use CG\Location\Mapper as LocationMapper;
 
+use CG\Stock\Location\Storage\Api as LocationApiStorage;
+use CG\Stock\Location\StorageInterface as LocationStorageInterface;
+
 return array(
     'di' => array(
         'instance' => array(
@@ -50,7 +53,8 @@ return array(
                 OrderBatchStorage::class => OrderBatchApiClient::class,
                 OrganisationUnitStorage::class => OrganisationUnitClient::class,
                 SessionManagerInterface::class => SessionManager::class,
-                ServiceLocatorInterface::class => ServiceManager::class
+                ServiceLocatorInterface::class => ServiceManager::class,
+                LocationStorageInterface::class => LocationApiStorage::class
             ),
             OrderApiClient::class => [
                 'parameters' => [
@@ -114,6 +118,11 @@ return array(
                 ]
             ],
             LocationApi::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
+            LocationApiStorage::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
                 ]
