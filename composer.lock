@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "918a899a4d489d0ba873f6089fb1e11b",
+    "hash": "0eac8978abcd77db72b4c954618a3057",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2043,17 +2043,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.73",
+            "version": "dev-CGIV-3554-RemoveHoverOnLogos",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "54c1cd2ca917ebbcad5ad5ad74f07499000883a0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.73-62663e.zip",
-                "reference": "54c1cd2ca917ebbcad5ad5ad74f07499000883a0",
-                "shasum": "5ff9e8a4e8bd2c0fe1734857a3002676a2c57998"
+                "reference": "a15102ee9eb8e2fbdb916951b40f096585d22dd0"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2089,7 +2083,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-09-29 07:32:34"
+            "time": "2014-09-29 09:02:49"
         },
         {
             "name": "cilex/cilex",
@@ -4936,11 +4930,17 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.12.73",
+            "alias_normalized": "1.12.73.0",
+            "version": "dev-CGIV-3554-RemoveHoverOnLogos",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
