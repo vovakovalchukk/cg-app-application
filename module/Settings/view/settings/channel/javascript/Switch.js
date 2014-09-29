@@ -15,9 +15,9 @@ require(
                 url: "<?= urldecode($this->url($route, ['account' => '{{id}}', 'type' => '{{type}}'])) ?>"
             },
             {
-                info: "<?= $this->translate('Updating Sales Channel <?= $switchType ?>') ?>",
-                error: "<?= $this->translate('Failed To Update Sales Channel <?= $switchType ?>') ?>",
-                success: "<?= $this->translate('Sales Channel <?= $switchType ?> Updated') ?>"
+                info: "<?= $this->translate('Updating Channel <?= $switchType ?>') ?>",
+                error: "<?= $this->translate('Failed To Update Channel <?= $switchType ?>') ?>",
+                success: "<?= $this->translate('Channel <?= $switchType ?> Updated') ?>"
             }
         );
 
