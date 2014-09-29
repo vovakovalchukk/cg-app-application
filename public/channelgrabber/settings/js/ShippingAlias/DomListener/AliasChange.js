@@ -36,7 +36,7 @@ function(domManipulator, eventCollator)
 
     AliasChange.SHIPPING_METHOD_SELECTOR = '.channel-shipping-methods .custom-select-item';
     AliasChange.ALIAS_NAME_INPUT_SELECTOR = '.shipping-alias-name-holder .inputbox';
-    AliasChange.SHIPPING_SERVICES_CUSTOM_SELECT_SELECTOR = '.shipping-services';
+    AliasChange.SHIPPING_SERVICES_CUSTOM_SELECT_SELECTOR = '.shipping-services .custom-select';
 
     AliasChange.prototype.init = function(rootOuId)
     {
@@ -48,7 +48,7 @@ function(domManipulator, eventCollator)
             self.triggerRequestMadeEvent(this);
         });
 
-        $(document).on("click", AliasChange.SHIPPING_SERVICES_CUSTOM_SELECT_SELECTOR, function() {
+        $(document).on("change", AliasChange.SHIPPING_SERVICES_CUSTOM_SELECT_SELECTOR, function() {
             self.triggerRequestMadeEvent(this);
         });
 
@@ -125,6 +125,7 @@ function(domManipulator, eventCollator)
                     var parsedData = $.parseJSON(data['alias']);
                     aliasInUse.find('input[name=shipping-alias-id]').val(parsedData.id);
                     aliasInUse.find('input[name=shipping-alias-storedETag]').val(parsedData.storedETag);
+                    n.success('Saved shipping aliases');
                 }
             },
             'error' : function () {
