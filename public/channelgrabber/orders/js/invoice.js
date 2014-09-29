@@ -24,6 +24,10 @@ define(function() {
         };
     };
 
+//    InvoiceBulkAction.MIN_INVOICES_FOR_NOTIFICATION = 7;
+    InvoiceBulkAction.MIN_INVOICES_FOR_NOTIFICATION = 1; // FOR TESTING
+    InvoiceBulkAction.NOTIFICATION_FREQ_MS = 5000;
+
     InvoiceBulkAction.prototype.notifyTimeoutHandle = null;
 
     InvoiceBulkAction.prototype.getDataTableElement = function()
@@ -69,7 +73,7 @@ define(function() {
 
     InvoiceBulkAction.prototype.getFormElement = function(orders)
     {
-        var form = $("<form></form>").attr("action", this.getUrl()).attr("method", "POST").hide();
+        var form = $("<form><input name='progressKey' value='' /></form>").attr("action", this.getUrl()).attr("method", "POST").hide();
         for (var index in orders) {
             form.append(function() {
                 return $("<input />").attr("name", "orders[]").val(orders[index]);
@@ -81,14 +85,19 @@ define(function() {
     InvoiceBulkAction.prototype.action = function(event)
     {
         var orders = [];
+        var orderCount = 0;
         if (!this.isDataTableCheckedAll()) {
             orders = this.getOrders();
             if (!orders.length) {
                 return;
             }
+            orderCount = orders.length;
+        } else {
+            orderCount = $('#datatable').dataTable().fnSettings().fnRecordsDisplay();
         }
 
-        this.getNotifications().notice('Preparing to generate invoices', true);
+        var fadeOut = true;
+        this.getNotifications().notice('Preparing to generate invoices', fadeOut);
 
         $.ajax({
             context: this,
@@ -100,13 +109,14 @@ define(function() {
                     return this.getNotifications().error('You do not have permission to do that');
                 }
 
-                if (orders.length > 6) {
-                    this.notifyTimeoutHandle = this.notifyProgress(orders.length);
+                if (orderCount >= InvoiceBulkAction.MIN_INVOICES_FOR_NOTIFICATION) {
+                    this.notifyTimeoutHandle = this.setupProgressCheck(orderCount, data.guid);
                 } else {
                     this.getNotifications().notice(this.getMessage(), true);
                 }
 
                 var form = this.getFormElement(orders);
+                form.find('input[name=progressKey]').val(data.guid);
                 $("body").append(form);
                 form.submit().remove();
             },
@@ -116,24 +126,36 @@ define(function() {
         });
     };
 
-    InvoiceBulkAction.prototype.notifyProgress = function(total)
+    InvoiceBulkAction.prototype.setupProgressCheck = function(total, progressKey)
     {
         var self = this;
-        var current = 0;
-        var notifyTimeoutMessageFrequency = 5;
 
-        var estTotalTime = (total * 0.5 + 2) * 1000;
-        var notifyTimeoutDelay = estTotalTime * (notifyTimeoutMessageFrequency / total);
+        return setInterval(function()
+        {
+            $.ajax({
+                context: self,
+                url: self.getUrl()+'/progress',
+                type: "POST",
+                data: {progressKey: progressKey},
+                dataType: 'json',
+                success : function(data) {
+                    if (!data.progressCount) {
+                        return this.getNotifications().error('Unable to determine the number of processed invoices');
+                    }
 
-        return setInterval(function() {
-            var string = 'Generated '+current+' of '+total+'';
-            self.getNotifications().notice(string, true);
+                    var fadeOut = true;
+                    this.getNotifications().notice('Generated ' + data.progressCount + ' of ' + total, fadeOut);
 
-            current += notifyTimeoutMessageFrequency;
-            if (current > total) {
-                clearTimeout(self.notifyTimeoutHandle);
-            }
-        }, notifyTimeoutDelay);
+                    if (data.progressCount == total) {
+                        clearTimeout(this.notifyTimeoutHandle);
+                    }
+                },
+                error: function(error, textStatus, errorThrown) {
+                    clearTimeout(this.notifyTimeoutHandle);
+                    return this.getNotifications().ajaxError(error, textStatus, errorThrown);
+                }
+            });
+        }, InvoiceBulkAction.NOTIFICATION_FREQ_MS);
     };
 
     return InvoiceBulkAction;
