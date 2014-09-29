@@ -48,7 +48,6 @@
                 }
             },
             "time": "2014-09-28 17:27:02"
-
         },
         {
             "name": "channelgrabber/billing",
@@ -4937,17 +4936,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.12.71",
-            "alias_normalized": "1.12.71.0",
-            "version": "dev-CGIV-3537-CenterTagChecks",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
