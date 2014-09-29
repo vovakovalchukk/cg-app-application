@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "8e0b765985d66e380a963f135a77fcd4",
+    "hash": "8f012131f94bd8afedd86e600ec63d49",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -931,17 +931,17 @@
         },
         {
             "name": "channelgrabber/slim",
-            "version": "1.10.7",
+            "version": "1.10.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgslim.git",
-                "reference": "24454b4dcc83bda29d9bf2a4f0f741bb25ea6a4d"
+                "reference": "82ca624277cb9822e318d6a2cdd4c750c44eb18a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-slim-1.10.7-10387c.zip",
-                "reference": "24454b4dcc83bda29d9bf2a4f0f741bb25ea6a4d",
-                "shasum": "5d9a58f01ad58aee014610bcd8fd0d1837af1941"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-slim-1.10.8-b282f0.zip",
+                "reference": "82ca624277cb9822e318d6a2cdd4c750c44eb18a",
+                "shasum": "fed646250d3058c4819c8aa041a28321ac40d937"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -980,7 +980,7 @@
                     "CG\\Slim\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2014-09-28 17:13:24"
+            "time": "2014-09-29 11:52:04"
         },
         {
             "name": "channelgrabber/spork",
@@ -2043,11 +2043,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-3561-StyleClearerSorting",
+            "version": "1.12.74",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "038a5554bfd628d13385b822be25b4bccf910ec6"
+                "reference": "76e9fe85df357a3b3a76375d395aa4f8a0864b86"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.74-f43cd4.zip",
+                "reference": "76e9fe85df357a3b3a76375d395aa4f8a0864b86",
+                "shasum": "5ebe5c9df4023999481f75dc6e090c70d6d7a396"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2083,7 +2089,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-09-29 10:42:53"
+            "time": "2014-09-29 11:50:26"
         },
         {
             "name": "cilex/cilex",
@@ -4930,17 +4936,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.12.73",
-            "alias_normalized": "1.12.73.0",
-            "version": "dev-CGIV-3561-StyleClearerSorting",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
