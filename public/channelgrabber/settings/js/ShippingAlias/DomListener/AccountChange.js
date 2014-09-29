@@ -6,7 +6,7 @@ function($,domManipulator)
 {
     var AccountChange = function() { };
 
-    AccountChange.ACCOUNT_SELECTOR = '[id^=shipping-account-custom-select-]';
+    AccountChange.ACCOUNT_SELECTOR = '.shipping-services .custom-select[id^=shipping-account-custom-select-]';
 
     AccountChange.prototype.init = function(module)
     {
@@ -14,7 +14,7 @@ function($,domManipulator)
         $(document).on('change', AccountChange.ACCOUNT_SELECTOR, function(e){
             var accountId = $(this).find('input[class=shipping-account-select][type=hidden]').val();
             var aliasId = e.target.id.split('-').pop();
-            var services = self.fetchServices(accountId, function(services){
+            self.fetchServices(accountId, function(services){
                 if(services !== null) {
                     var servicesOptions = [];
                     for (var service in services) {
@@ -35,7 +35,6 @@ function($,domManipulator)
             'method': 'GET',
             'success': function(data) {
                 callback(data['shippingServices']);
-
             },
             'error': function() {
                 n.error('An error has occurred. Please try again.');
