@@ -265,7 +265,7 @@ return [
                             'variables' => [
                                 'isBoolean' => true,
                                 'name' => 'archived',
-                                'title' => 'Show Archived',
+                                'title' => 'Is Archived',
                                 'isOptional' => true,
                                 'emptyValue' => true,
                                 'options' => [
@@ -287,7 +287,7 @@ return [
                             'variables' => [
                                 'isBoolean' => true,
                                 'name' => 'buyerMessage',
-                                'title' => 'Buyer Message',
+                                'title' => 'Has Buyer Message',
                                 'isOptional' => true,
                                 'options' => [
                                     [
