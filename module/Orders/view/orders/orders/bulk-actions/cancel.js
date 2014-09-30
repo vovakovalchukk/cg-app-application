@@ -9,6 +9,7 @@ require(
     function(Cancel) {
         var reasons = <?= $cancellationReasons ?>;
         var cancelBulkAction = new Cancel(n, reasons, '<?= $this->translate(ucwords($type)) ?>');
+        cancelBulkAction.init(<?= json_encode($this->templateMap) ?>);
         $("#<?= $id ?>").bulkActions("set", "<?= $action ?>", function() {
             cancelBulkAction.setSelector(this);
             cancelBulkAction.action();
