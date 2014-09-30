@@ -40,19 +40,12 @@ define(['popup/mustache'], function(Popup) {
         };
     };
 
-    Cancel.prototype.action = function(element) {
-        var templateMap = $(this.getSelector()).attr('data-popup');
-
-        popup = new Popup($.parseJSON(templateMap), {
+    Cancel.prototype.init = function(templateMap) {
+        popup = new Popup(templateMap, {
             title: this.getType() + " Reason",
             type: this.getType()
         }, "popup");
 
-        this.listen(popup);
-        popup.show();
-    };
-
-    Cancel.prototype.listen = function(popup) {
         var that = this;
         popup.getElement().on('mustacheRender', function(event, cgmustache, templates, data, templateId) {
             var reasons = [];
@@ -72,6 +65,15 @@ define(['popup/mustache'], function(Popup) {
                 'select'
             );
         });
+    };
+
+    Cancel.prototype.action = function(element) {
+        this.listen(popup);
+        popup.show();
+    };
+
+    Cancel.prototype.listen = function(popup) {
+        var that = this;
         popup.getElement().on("click", ".popup-cancel-button", function () {
             var reason = popup.getElement().find(".popup-cancel-drop-down:input").val();
             if (!reason.length) {
