@@ -400,7 +400,7 @@ return [
             ],
             'ListingListSettings' => [
                 'parameters' => [
-                    'scrollHeightAuto' => true,
+                    'scrollHeightAuto' => false,
                     'footer' => true,
                     'pagination' => true,
                     'rowsPerPage' => 200,
