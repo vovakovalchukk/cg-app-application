@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2c5b8e7f83276ac8d24a06a2c3336e3e",
+    "hash": "8db30422bfa39e6197f37f9c4d62ffe0",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1844,17 +1844,17 @@
         },
         {
             "name": "channelgrabber/zf2-royalmail",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/royalmail-module.git",
-                "reference": "195bb180f0ed0ce621b91a0c1648fe17436fcb03"
+                "reference": "4c563006c0acfe398f150fb1dd7161d5dd9c773f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-royalmail-1.1.0-1ff0b3.zip",
-                "reference": "195bb180f0ed0ce621b91a0c1648fe17436fcb03",
-                "shasum": "2da9d6be1bcb66cf41d15ef8a10ef8d824acef8b"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-royalmail-1.1.1-dca199.zip",
+                "reference": "4c563006c0acfe398f150fb1dd7161d5dd9c773f",
+                "shasum": "83f08d95651e2df65b25894335c36e6101406255"
             },
             "require": {
                 "channelgrabber/channel": ">=1.6.0,<2.0.0",
@@ -1879,7 +1879,7 @@
                 ]
             },
             "description": "Royal Mail module",
-            "time": "2014-09-27 19:05:08"
+            "time": "2014-09-30 16:53:18"
         },
         {
             "name": "channelgrabber/zf2-sessions",
@@ -2040,17 +2040,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.79",
+            "version": "1.12.82",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "6ffc7f1a6cbae544df6637d120f35910196bdd27"
+                "reference": "138b70eeaf118323618c5c496b5cf3e058741cf5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.79-40e5a8.zip",
-                "reference": "6ffc7f1a6cbae544df6637d120f35910196bdd27",
-                "shasum": "19dbe648549fb840cc68100ff13aa2f856f2fc05"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.82-8b4d0a.zip",
+                "reference": "138b70eeaf118323618c5c496b5cf3e058741cf5",
+                "shasum": "a7c2219035834a02de6aca3f2e7285d28d520023"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2086,7 +2086,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-09-30 10:59:09"
+            "time": "2014-09-30 17:08:46"
         },
         {
             "name": "cilex/cilex",
