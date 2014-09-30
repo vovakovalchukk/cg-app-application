@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c39f798d4e85e6be64aaa56ef7b92c07",
+    "hash": "2c5b8e7f83276ac8d24a06a2c3336e3e",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1802,17 +1802,11 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.4.22",
+            "version": "1.4.23",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "6aa036133f6dcf7c89689f0b04208e8c1df6262b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.22-89cac3.zip",
-                "reference": "6aa036133f6dcf7c89689f0b04208e8c1df6262b",
-                "shasum": "d8ce90a681f41c7a456b0a94203aaa2cb5aaa597"
+                "reference": "f30d7b3c4e05eda9560876f3c1ec36268dca265a"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -1846,7 +1840,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2014-09-30 11:01:19"
+            "time": "2014-09-30 14:38:58"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -3756,9 +3750,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "shasum": ""
+                "url": "https://packages.zendframework.com/composer/zendframework-zendxml-559b34f426d33a11c3db118e00ce14bb8dc64e5f-zip-6cf7a2.zip",
+                "reference": "1.0.0",
+                "shasum": "39abc614b5c26bcbf8102e203c52dee73c4460a8"
             },
             "require": {
                 "php": ">=5.3.3"
@@ -3778,7 +3772,6 @@
                     "ZendXml": "library/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -3789,6 +3782,10 @@
                 "xml",
                 "zf2"
             ],
+            "support": {
+                "source": "https://github.com/zendframework/ZendXml/tree/master",
+                "issues": "https://github.com/zendframework/ZendXml/issues"
+            },
             "time": "2014-03-05 22:25:44"
         }
     ],
@@ -4237,7 +4234,7 @@
                 {
                     "name": "Anthon Pang",
                     "email": "apang@softwaredevelopment.ca",
-                    "role": "developer"
+                    "role": "Fork Maintainer"
                 }
             ],
             "description": "PHP WebDriver for Selenium 2",
