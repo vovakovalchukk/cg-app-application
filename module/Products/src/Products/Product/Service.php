@@ -98,11 +98,17 @@ class Service implements LoggerAwareInterface
         $products = $this->getProductService()->fetchCollectionByFilter($filter);
         foreach ($products as $product) {
             if($this->isLastOfStock($product)) {
-                $stock = $this->getStockService()->fetchBySku(
-                    $product->getSku(),
-                    $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()
+                $ouList = $this->getActiveUserContainer()->getActiveUser()->getOuList();
+                $stock = $this->getStockService()->fetchCollectionByPaginationAndFilters(
+                    1,
+                    1,
+                    [],
+                    [$ouList],
+                    [$product->getSku()]
                 );
-                $this->getStockService()->remove($stock);
+                foreach($stock as $entity) {
+                    $this->getStockService()->remove($entity);
+                }
             }
             $this->getProductService()->hardRemove($product);
         }
