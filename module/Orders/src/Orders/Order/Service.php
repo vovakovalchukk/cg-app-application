@@ -2,6 +2,8 @@
 namespace Orders\Order;
 
 use CG\Account\Client\Service as AccountService;
+use CG\Channel\Action\Order\Service as ActionService;
+use CG\Channel\Action\Order\MapInterface as ActionMapInterface;
 use CG\Channel\Carrier;
 use CG\Channel\Gearman\Generator\Order\Cancel as OrderCanceller;
 use CG\Channel\Gearman\Generator\Order\Dispatch as OrderDispatcher;
@@ -51,6 +53,9 @@ class Service implements LoggerAwareInterface
     const ORDER_FILTER_BAR_STATE_KEY = 'order-filter-bar-state';
     const ACCOUNTS_PAGE = 1;
     const ACCOUNTS_LIMIT = 'all';
+    const LOG_CODE = 'OrderModuleService';
+    const LOG_UNDISPATCHABLE = 'Order %s has been flagged for dispatch but it is not in a dispatchable status (%s)';
+    const LOG_DISPATCHING = 'Dispatching Order %s';
 
     protected $orderClient;
     protected $orderItemClient;
@@ -67,6 +72,7 @@ class Service implements LoggerAwareInterface
     protected $shippingConversionService;
     protected $carriers;
     protected $organisationUnitService;
+    protected $actionService;
 
     public function __construct(
         StorageInterface $orderClient,
@@ -82,7 +88,8 @@ class Service implements LoggerAwareInterface
         OrderCanceller $orderCanceller,
         ShippingConversionService $shippingConversionService,
         Carrier $carriers,
-        OrganisationUnitService $organisationUnitService
+        OrganisationUnitService $organisationUnitService,
+        ActionService $actionService
     )
     {
         $this
@@ -100,7 +107,8 @@ class Service implements LoggerAwareInterface
             ->setOrderCanceller($orderCanceller)
             ->setShippingConversionService($shippingConversionService)
             ->setCarriers($carriers)
-            ->setOrganisationUnitService($organisationUnitService);
+            ->setOrganisationUnitService($organisationUnitService)
+            ->setActionService($actionService);
     }
 
     public function alterOrderTable(OrderCollection $orderCollection, MvcEvent $event)
@@ -608,6 +616,13 @@ class Service implements LoggerAwareInterface
 
     public function dispatchOrder(Order $order)
     {
+        $actions = $this->getActionService()->getAvailableActionsForOrder($order);
+        if (!array_key_exists(ActionMapInterface::DISPATCH, array_flip($actions))) {
+            $this->logWarning(static::LOG_UNDISPATCHABLE, [$order->getId(), $order->getStatus()], static::LOG_CODE);
+            return;
+        }
+        $this->logInfo(static::LOG_DISPATCHING, [$order->getId()], static::LOG_CODE);
+
         $account = $this->getAccountService()->fetch($order->getAccountId());
 
         $order = $this->saveOrder(
@@ -802,5 +817,16 @@ class Service implements LoggerAwareInterface
     protected function getOrderItemClient()
     {
         return $this->orderItemClient;
+    }
+
+    protected function getActionService()
+    {
+        return $this->actionService;
+    }
+
+    protected function setActionService(ActionService $actionService)
+    {
+        $this->actionService = $actionService;
+        return $this;
     }
 }
