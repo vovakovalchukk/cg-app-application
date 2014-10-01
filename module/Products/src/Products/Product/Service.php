@@ -100,10 +100,10 @@ class Service implements LoggerAwareInterface
             if($this->isLastOfStock($product)) {
                 $ouList = $this->getActiveUserContainer()->getActiveUser()->getOuList();
                 $stock = $this->getStockService()->fetchCollectionByPaginationAndFilters(
-                    1,
-                    1,
+                    null,
+                    null,
                     [],
-                    [$ouList],
+                    $ouList,
                     [$product->getSku()],
                     []
                 );
