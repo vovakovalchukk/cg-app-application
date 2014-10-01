@@ -208,7 +208,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
         $links = [
             'timeline' => 'Timeline',
-            'bulk-actions' => 'Bulk Actions',
             'order-alert' => 'Alert',
             'order-buyer-message' => 'Buyer Message',
             'addressInformation' => 'Address Information',
