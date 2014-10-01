@@ -57,7 +57,8 @@ define([
 
         this.setStoredETag = function(newStoredETag)
         {
-            this.set('storedETag', newStoredETag);
+            // Setting the eTag is not a user change so we never want to trigger the save bar for it
+            this.set('storedETag', newStoredETag, true);
             return this;
         };
 
@@ -68,7 +69,7 @@ define([
 
         this.setId = function(newId)
         {
-            this.set('id', newId);
+            this.set('id', newId, true);
             return this;
         };
 
@@ -90,7 +91,7 @@ define([
 
         this.setType = function(newType)
         {
-            this.set('type', newType);
+            this.set('type', newType, true);
             return this;
         };
 
@@ -101,7 +102,7 @@ define([
 
         this.setOrganisationUnitId = function(newOrganisationUnitId)
         {
-            this.set('organisationUnitId', newOrganisationUnitId);
+            this.set('organisationUnitId', newOrganisationUnitId, true);
             return this;
         };
 
@@ -134,7 +135,7 @@ define([
 
         this.setEditable = function(newEditable)
         {
-            this.set('editable', newEditable);
+            this.set('editable', newEditable, true);
             return this;
         };
 
