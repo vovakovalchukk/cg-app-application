@@ -104,7 +104,8 @@ class Service implements LoggerAwareInterface
                     1,
                     [],
                     [$ouList],
-                    [$product->getSku()]
+                    [$product->getSku()],
+                    []
                 );
                 foreach($stock as $entity) {
                     $this->getStockService()->remove($entity);
