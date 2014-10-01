@@ -53,14 +53,19 @@ class ProductsJsonController extends AbstractActionController
             'images' => $productEntity->getImages()->toArray(),
             'listings' => $productEntity->getListings()->toArray()
         ]);
-        $stockEntity = $productEntity->getStock();
 
-        $product['stock'] = array_merge($productEntity->getStock()->toArray(), [
-            'locations' => $stockEntity->getLocations()->toArray()
-        ]);
         foreach ($productEntity->getVariations() as $variation) {
             $product['variations'][] = $this->toArrayProductEntityWithEmbeddedData($variation);
         }
+
+        if (count($productEntity->getVariations())) {
+            return $product;
+        }
+
+        $stockEntity = $productEntity->getStock();
+        $product['stock'] = array_merge($productEntity->getStock()->toArray(), [
+            'locations' => $stockEntity->getLocations()->toArray()
+        ]);
         foreach ($product['stock']['locations'] as $stockLocationIndex => $stockLocation) {
             $stockLocationId = $product['stock']['locations'][$stockLocationIndex]['id'];
             $product['stock']['locations'][$stockLocationIndex]['eTag'] = $stockEntity->getLocations()->getById($stockLocationId)->getEtag();
