@@ -5,6 +5,14 @@
             "url": "git@github.com:channelgrabber/ZendPdf.git"
         },
         {
+            "type": "git",
+            "url": "git@bitbucket.org:channelgrabber/cg-ekm.git"
+        },
+        {
+            "type": "git",
+            "url": "git@bitbucket.org:channelgrabber/ekm-module.git"
+        },
+        {
             "url": "https://composer.build.channelgrabber.com",
             "type": "composer"
         }
@@ -16,6 +24,7 @@
         "channelgrabber/constants": "dev-master",
         "channelgrabber/di": "~2.1.1",
         "channelgrabber/ebay": "~1.2.11",
+        "channelgrabber/ekm": "dev-CGIV-3701-Credentials",
         "channelgrabber/gearman": "~1.1.0",
         "channelgrabber/http": "~1.2.24",
         "channelgrabber/listing": "~1.2.6",
@@ -40,6 +49,7 @@
         "channelgrabber/zf2-amazon": "~1.0.2",
         "channelgrabber/zf2-channel": "~1.0.3",
         "channelgrabber/zf2-ebay": "~1.0.2",
+        "channelgrabber/zf2-ekm": "dev-develop",
         "channelgrabber/zf2-email-template": "~1.0.1",
         "channelgrabber/zf2-logclient": "~1.4.0",
         "channelgrabber/zf2-login": "~1.4.14",
@@ -51,7 +61,7 @@
         "channelgrabber/zf2-ssoclient": "~1.4.2",
         "channelgrabber/zf2-stdlib": "~1.1.14",
         "channelgrabber/zf2-usage": "~1.0.1",
-        "channelgrabber/zf2-v4-ui": "1.12.84",
+        "channelgrabber/zf2-v4-ui": "dev-CGIV-3209 as 1.12.84",
         "composer/composer": "@dev",
         "guzzle/guzzle": "~3.7",
         "nocarrier/hal": "~0.9.3",

@@ -34,6 +34,8 @@ use Zend\Mvc\Router\Http\Segment;
 use Zend\Mvc\Router\Http\Literal;
 use CG\Channel\Type;
 use CG\Ebay\Account as EbayAccount;
+use CG\Ekm\Account as EkmAccount;
+use CG_Ekm\Controller\EkmController;
 
 return [
     'CG' => [
@@ -150,6 +152,17 @@ return [
                                 ],
                                 'may_terminate' => true,
                                 'child_routes' => [
+                                    EkmAccount::ROUTE => [
+                                        'type' => Literal::class,
+                                        'options' => [
+                                            'route' => '/ekm',
+                                            'defaults' => [
+                                                'controller' => EkmController::class,
+                                                'action' => 'index'
+                                            ],
+                                        ],
+                                        'may_terminate' => true
+                                    ],
                                     'Sales Channel Ebay' => [
                                         'type' => Literal::class,
                                         'options' => [
@@ -791,6 +804,11 @@ return [
             ShippingAliasStorage::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle',
+                ]
+            ],
+            EkmController::class => [
+                'parameters' => [
+                    'cryptor' => 'ekm_cryptor'
                 ]
             ],
             AmazonController::class => [
