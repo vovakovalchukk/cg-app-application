@@ -100,7 +100,7 @@ define(function() {
 
         $.ajax({
             context: this,
-            url: this.getUrl()+'/check',
+            url: '/orders/invoice/check',
             type: "POST",
             dataType: 'json',
             success : function(data) {
@@ -132,7 +132,7 @@ define(function() {
         {
             $.ajax({
                 context: self,
-                url: self.getUrl()+'/progress',
+                url: '/orders/invoice/progress',
                 type: "POST",
                 data: {progressKey: progressKey},
                 dataType: 'json',

@@ -35,7 +35,7 @@ return [
             'aliases' => [
                 'BulkActions' => BulkActions::class,
                 'OrderDetailBulkActions' => BulkActions::class,
-                'InvoiceBySkuBulkAction' => BulkActions\SubAction::class,
+                'InvoiceBySkuBulkAction' => SubAction\InvoiceBySku::class,
                 'InvoiceByTitleBulkAction' => BulkActions\SubAction::class,
                 'RoyalMailBulkAction' => BulkActions\SubAction::class,
                 'RemoveBatchBulkAction' => SubAction\Batch::class,

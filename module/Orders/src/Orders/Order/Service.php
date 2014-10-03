@@ -281,7 +281,7 @@ class Service implements LoggerAwareInterface
      * @throws NotFound
      * @return OrderCollection
      */
-    public function getOrdersById(array $orderIds)
+    public function getOrdersById(array $orderIds, $limit = 'all', $page = 1, $orderBy = null, $orderDirection = null)
     {
         if (empty($orderIds)) {
             throw new NotFound();
@@ -292,8 +292,10 @@ class Service implements LoggerAwareInterface
             [
                 'orderIds' => $orderIds,
                 'organisationUnitId' => $this->getActiveUser()->getOuList(),
-                'page' => 1,
-                'limit' => 'all',
+                'page' => $page,
+                'limit' => $limit,
+                'orderBy' => $orderBy,
+                'orderDirection' => $orderDirection
             ]
         );
 

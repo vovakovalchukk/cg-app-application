@@ -407,21 +407,12 @@ return [
                                 ],
                                 'may_terminate' => true,
                                 'child_routes' => [
-                                    'invoice_check' => [
+                                    'invoice_filter_bysku' => [
                                         'type' => 'Zend\Mvc\Router\Http\Literal',
                                         'options' => [
-                                            'route' => '/check',
+                                            'route' => '/bySku',
                                             'defaults' => [
-                                                'action' => 'checkInvoicePrintingAllowed'
-                                            ]
-                                        ],
-                                    ],
-                                    'invoice_progress' => [
-                                        'type' => 'Zend\Mvc\Router\Http\Literal',
-                                        'options' => [
-                                            'route' => '/progress',
-                                            'defaults' => [
-                                                'action' => 'checkInvoiceGenerationProgress'
+                                                'action' => 'invoiceFilterIdBySku'
                                             ]
                                         ],
                                     ],
@@ -451,6 +442,15 @@ return [
                                     'route' => '/progress',
                                     'defaults' => [
                                         'action' => 'checkInvoiceGenerationProgress'
+                                    ]
+                                ],
+                            ],
+                            'invoice_bysku' => [ 
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/bySku',
+                                    'defaults' => [
+                                        'action' => 'invoiceOrderIdsBySku'
                                     ]
                                 ],
                             ],
