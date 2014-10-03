@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8fbd86681fb4cc2c6bbd0ca74cdd5315",
+    "hash": "fbe5c5d6e952182a21ade7afbdcb1d7c",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -295,12 +295,6 @@
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
                 "reference": "45a3125509560106e44fecb0252ec90d1e632b17"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.2.12-590873.zip",
-                "reference": "45a3125509560106e44fecb0252ec90d1e632b17",
-                "shasum": "bc898807eeb211c91aa18d3c43b82d95b0695cf7"
             },
             "dist": {
                 "type": "zip",
@@ -2094,17 +2088,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.84",
+            "version": "dev-CGIV-3702-invoice-designer-tinymce-para-issue",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "cdd30aa182c598e92af7ae498eefc5156692fa05"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.84-0b4979.zip",
-                "reference": "cdd30aa182c598e92af7ae498eefc5156692fa05",
-                "shasum": "97fc848dbe7be60d0bc5592bc254e0bd8569a0f4"
+                "reference": "c1dd7efcd1b0a64742ca704b7c6235fe972266ec"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2140,8 +2128,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-10-01 15:53:34"
-
+            "time": "2014-10-03 12:54:30"
         },
         {
             "name": "cilex/cilex",
@@ -3805,9 +3792,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "shasum": ""
+                "url": "https://packages.zendframework.com/composer/zendframework-zendxml-559b34f426d33a11c3db118e00ce14bb8dc64e5f-zip-6cf7a2.zip",
+                "reference": "1.0.0",
+                "shasum": "39abc614b5c26bcbf8102e203c52dee73c4460a8"
             },
             "require": {
                 "php": ">=5.3.3"
@@ -3827,7 +3814,6 @@
                     "ZendXml": "library/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -3838,6 +3824,10 @@
                 "xml",
                 "zf2"
             ],
+            "support": {
+                "source": "https://github.com/zendframework/ZendXml/tree/master",
+                "issues": "https://github.com/zendframework/ZendXml/issues"
+            },
             "time": "2014-03-05 22:25:44"
         }
     ],
@@ -4286,7 +4276,7 @@
                 {
                     "name": "Anthon Pang",
                     "email": "apang@softwaredevelopment.ca",
-                    "role": "developer"
+                    "role": "Fork Maintainer"
                 }
             ],
             "description": "PHP WebDriver for Selenium 2",
@@ -4993,9 +4983,9 @@
     ],
     "aliases": [
         {
-            "alias": "1.12.82",
-            "alias_normalized": "1.12.82.0",
-            "version": "dev-CGIV-3650-SCSSReorderTableHeader",
+            "alias": "1.12.85",
+            "alias_normalized": "1.12.85.0",
+            "version": "dev-CGIV-3702-invoice-designer-tinymce-para-issue",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
