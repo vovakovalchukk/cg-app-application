@@ -158,7 +158,8 @@ return [
                                             'route' => '/ekm',
                                             'defaults' => [
                                                 'controller' => EkmController::class,
-                                                'action' => 'index'
+                                                'action' => 'index',
+                                                'sidebar' => false
                                             ],
                                         ],
                                         'may_terminate' => true
