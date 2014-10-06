@@ -216,6 +216,11 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         }
     }
 
+    public function invoiceOrderIdsBySkuAction()
+    {
+        return $this->invoiceOrderIdsAction('item.sku');
+    }
+
     public function invoiceFilterIdAction($orderBy = null, $orderDir = 'ASC')
     {
         try {
@@ -226,6 +231,11 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         } catch (NotFound $exception) {
             return $this->redirect()->toRoute('Orders');
         }
+    }
+
+    public function invoiceFilterIdBySkuAction()
+    {
+        return $this->invoiceFilterIdAction('item.itemSku');
     }
 
     public function previewInvoiceAction()
