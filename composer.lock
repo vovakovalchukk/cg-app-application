@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8fbd86681fb4cc2c6bbd0ca74cdd5315",
+    "hash": "2ac807c96440b979fed0c49515328d43",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -301,12 +301,6 @@
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.2.12-590873.zip",
                 "reference": "45a3125509560106e44fecb0252ec90d1e632b17",
                 "shasum": "bc898807eeb211c91aa18d3c43b82d95b0695cf7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.2.11-5402c8.zip",
-                "reference": "748db6dbe1550a8f3b937d5552dc4675f7feb36c",
-                "shasum": "b6364597316e484693f61e88c9ab1a2bcdb95c92"
             },
             "require": {
                 "channelgrabber/channel": ">=1.9.2",
@@ -2094,17 +2088,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.84",
+            "version": "1.12.85",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "cdd30aa182c598e92af7ae498eefc5156692fa05"
+                "reference": "2db945601da402f502fde8c3ffbd0e4e69eb6394"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.84-0b4979.zip",
-                "reference": "cdd30aa182c598e92af7ae498eefc5156692fa05",
-                "shasum": "97fc848dbe7be60d0bc5592bc254e0bd8569a0f4"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.85-7d84a9.zip",
+                "reference": "2db945601da402f502fde8c3ffbd0e4e69eb6394",
+                "shasum": "23a931b154977f4c3bb15f02176cadbcca69f140"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2140,8 +2134,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-10-01 15:53:34"
-
+            "time": "2014-10-03 15:33:04"
         },
         {
             "name": "cilex/cilex",
@@ -4992,17 +4985,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.12.82",
-            "alias_normalized": "1.12.82.0",
-            "version": "dev-CGIV-3650-SCSSReorderTableHeader",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
