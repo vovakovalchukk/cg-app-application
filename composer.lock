@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2ac807c96440b979fed0c49515328d43",
+    "hash": "ec58c3bf17697243c388399f0d65b746",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2009,17 +2009,11 @@
         },
         {
             "name": "channelgrabber/zf2-stdlib",
-            "version": "1.1.15",
+            "version": "dev-CGIV-3092-trait-for-exception-handling",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgzf2stdlib.git",
-                "reference": "2f8ace353af12d367c8bab3174b90ede870a0420"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-1.1.15-479c8c.zip",
-                "reference": "2f8ace353af12d367c8bab3174b90ede870a0420",
-                "shasum": "6d829c18eb2b30126b4db966f7b715834e53250d"
+                "reference": "b9b791dc70de8cffff899d18fb34cf2ee342c053"
             },
             "require": {
                 "channelgrabber/cache": ">=1.1.0,<2.0",
@@ -2039,7 +2033,7 @@
                     "CG\\Zend\\Stdlib\\": "src"
                 }
             },
-            "time": "2014-09-03 12:19:14"
+            "time": "2014-10-06 15:46:50"
         },
         {
             "name": "channelgrabber/zf2-usage",
@@ -4988,11 +4982,17 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.1.16",
+            "alias_normalized": "1.1.16.0",
+            "version": "dev-CGIV-3092-trait-for-exception-handling",
+            "package": "channelgrabber/zf2-stdlib"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-stdlib": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
