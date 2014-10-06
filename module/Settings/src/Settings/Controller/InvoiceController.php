@@ -258,9 +258,9 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             $view = $this->getJsonModelFactory()->newInstance(["template" => json_encode($template)]);
             return $view;
         } catch (NotModified $e) {
-            $this->exceptionToViewModelUserException($e, 'There were no changes to be saved');
+            throw $this->exceptionToViewModelUserException($e, 'There were no changes to be saved');
         } catch (Exception $e) {
-            $this->exceptionToViewModelUserException($e, 'Template could not be saved.');
+            throw $this->exceptionToViewModelUserException($e, 'Template could not be saved.');
             $this->logException($e, 'log:error', __NAMESPACE__);
         }
         return false;
