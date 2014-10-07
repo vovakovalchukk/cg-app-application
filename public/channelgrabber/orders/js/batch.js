@@ -1,4 +1,4 @@
-define(function() {
+define(['element/ElementCollection'], function(elementCollection) {
     var Batch = function(notifications, selector, cgMustache) {
         var template;
         var mustacheInstance;
@@ -23,6 +23,11 @@ define(function() {
 
         this.getMustacheInstance = function() {
             return mustacheInstance;
+        };
+
+        this.getElementCollection = function()
+        {
+            return elementCollection;
         };
     };
 
@@ -60,6 +65,7 @@ define(function() {
     };
 
     Batch.prototype.actionSuccess = function(data) {
+
         this.getNotifications().success('Orders successfully batched');
         this.redraw();
         $('#' + this.datatable).cgDataTable('redraw');
@@ -76,11 +82,17 @@ define(function() {
     };
 
     Batch.prototype.redrawSuccess = function(data) {
-        var that = this;
-        $(that.getSelector()).html('');
+        var self = this;
+        var batchOptions = [];
+        $(self.getSelector()).html('');
         $.each(data['batches'], function(index) {
-            $(that.getSelector()).append(that.getMustacheInstance().renderTemplate(that.getTemplate(), data['batches'][index]));
+            $(self.getSelector()).append(self.getMustacheInstance().renderTemplate(self.getTemplate(), data['batches'][index]));
+            batchOptions.push({
+                title: data['batches'][index].name,
+                value: data['batches'][index].name
+            });
         });
+        this.getElementCollection().get('batch').replaceOptions(batchOptions);
     };
 
     Batch.prototype.remove = function(element) {
