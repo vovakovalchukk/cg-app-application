@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2ac807c96440b979fed0c49515328d43",
+    "hash": "8c4026c4304afe55cbc08f04d57a438b",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2088,17 +2088,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.85",
+            "version": "1.12.86",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "2db945601da402f502fde8c3ffbd0e4e69eb6394"
+                "reference": "94a6a058c1258b4c491449e1d9bc233f83b96e9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.85-7d84a9.zip",
-                "reference": "2db945601da402f502fde8c3ffbd0e4e69eb6394",
-                "shasum": "23a931b154977f4c3bb15f02176cadbcca69f140"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.86-5a29d9.zip",
+                "reference": "94a6a058c1258b4c491449e1d9bc233f83b96e9e",
+                "shasum": "08aa763f71f4eb9a823a7ef1ec49c4264a22fbf8"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2134,7 +2134,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-10-03 15:33:04"
+            "time": "2014-10-06 15:55:48"
         },
         {
             "name": "cilex/cilex",
