@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c6ab429bc4a0484d797671249b603030",
+    "hash": "00880c7876bacbf65843c701ea48a0d7",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2085,7 +2085,7 @@
             "version": "dev-CGIV-3736-invoice-designer-transparent-images",
             "source": {
                 "type": "git",
-                "url": "/home/shoniqua/repos/zf2-v4-ui",
+                "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
                 "reference": "16c02821146295041ea15f1fd1afb34a7b9d60f1"
             },
             "require": {

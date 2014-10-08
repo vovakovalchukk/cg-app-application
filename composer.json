@@ -2,10 +2,6 @@
     "repositories": [
         {
             "type": "git",
-            "url": "/home/shoniqua/repos/zf2-v4-ui"
-        },
-        {
-            "type": "git",
             "url": "git@github.com:channelgrabber/ZendPdf.git"
         },
         {
