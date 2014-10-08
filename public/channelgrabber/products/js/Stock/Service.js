@@ -5,7 +5,7 @@ define([
     {
     };
 
-    Service.MIN_HHTP_CODE_ERROR = 400;
+    Service.MIN_HTTP_CODE_ERROR = 400;
 
     Service.prototype.save = function(stockLocationId, totalQuantity, eTag, eTagCallback)
     {
@@ -25,7 +25,7 @@ define([
                     return;
                 }
                 if (data.message) {
-                    if (data.code && parseInt(data.code) < Service.MIN_HHTP_CODE_ERROR) {
+                    if (data.code && parseInt(data.code) < Service.MIN_HTTP_CODE_ERROR) {
                         n.success(data.message);
                         return;
                     }
