@@ -405,18 +405,6 @@ return [
                                         'action' => 'invoiceFilterId',
                                     ]
                                 ],
-                                'may_terminate' => true,
-                                'child_routes' => [
-                                    'invoice_filter_bysku' => [
-                                        'type' => 'Zend\Mvc\Router\Http\Literal',
-                                        'options' => [
-                                            'route' => '/bySku',
-                                            'defaults' => [
-                                                'action' => 'invoiceFilterIdBySku'
-                                            ]
-                                        ],
-                                    ],
-                                ],
                             ],
                             'invoice_demo' => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
@@ -452,6 +440,21 @@ return [
                                     'defaults' => [
                                         'action' => 'invoiceOrderIdsBySku'
                                     ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    'invoice_filter_bysku' => [
+                                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => [
+                                            'route' => '/:filterId',
+                                            'constraints' => [
+                                                'filterId' => '[^/]+'
+                                            ],
+                                            'defaults' => [
+                                                'action' => 'invoiceFilterIdBySku'
+                                            ]
+                                        ],
+                                    ],
                                 ],
                             ],
                         ]
