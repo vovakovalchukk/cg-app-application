@@ -45,7 +45,7 @@ class AmazonController extends AbstractActionController
             $accountEntity = $this->getDi()->newInstance(AccountEntity::class, array(
                 "channel" => "amazon",
                 "organisationUnitId" => $this->getActiveUserContainer()->getActiveUser()->getOrganisationUnitId(),
-                "displayName" => "Amazon",
+                "displayName" => "Amazon " . $this->params()->fromRoute('region'),
                 "credentials" => "",
                 "active" => true,
                 "deleted" => false,
