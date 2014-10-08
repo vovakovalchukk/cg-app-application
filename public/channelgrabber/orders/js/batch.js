@@ -1,9 +1,7 @@
 define([
-    'element/ElementCollection',
-    'element/moreButton'
+    'element/ElementCollection'
 ], function(
-    elementCollection,
-    MoreButton
+    elementCollection
 ) {
     var Batch = function(notifications, selector, cgMustache) {
         var template;
@@ -99,11 +97,7 @@ define([
             });
         });
 
-        var filterMoreOptionData = $('#filter-more-batch').data('value');
-        filterMoreOptionData.variables.options = batchOptions;
-        $('#filter-more-batch').data('value', filterMoreOptionData);
-        MoreButton.removeFilter('batch');
-        MoreButton.addFilter('batch');
+        $(document).trigger('filterable-options-changed', ['batch', batchOptions]);
     };
 
     Batch.prototype.remove = function(element) {
