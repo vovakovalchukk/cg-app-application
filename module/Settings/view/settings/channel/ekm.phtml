@@ -1,0 +1,37 @@
+<?php
+use CG\Channel\Type;
+use Settings\Module;
+use Settings\Controller\ChannelController;
+$accountPageRoute = implode('/', [
+    Module::ROUTE,
+    ChannelController::ROUTE,
+    ChannelController::ROUTE_CHANNELS
+]);
+?>
+<style>
+    /**
+      This is a hack to hide the sidebar away for now TODO: Remove this
+    **/
+    #main-wrapper {
+        margin-left:0px;
+        width:100%;
+    }
+</style>
+<div>
+    <?= $this->translate('Email Address or Username'); ?>: <?= $username ?>
+</div>
+<div>
+    <?= $this->translate('Password'); ?>: <?= $password ?>
+</div>
+<?= $linkAccount ?>
+<a href='<?= $this->url($accountPageRoute, ['type' => Type::SALES]); ?>'><?= $goBack ?></a>
+<?php $this->inlineScript()->captureStart(); ?>
+    require.config({
+        paths: {
+            'Ekm': '<?= $this->basePath() . Settings\Module::PUBLIC_FOLDER; ?>/js/Channel/Ekm'
+        }
+    });
+    require(["Ekm/DomListener"], function(domListener) {
+        domListener.init(<?= $accountId; ?>);
+    });
+<?php $this->inlineScript()->captureEnd(); ?>

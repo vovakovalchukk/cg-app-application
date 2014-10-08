@@ -35,7 +35,7 @@ use Zend\Mvc\Router\Http\Literal;
 use CG\Channel\Type;
 use CG\Ebay\Account as EbayAccount;
 use CG\Ekm\Account as EkmAccount;
-use CG_Ekm\Controller\EkmController;
+use Settings\Controller\EkmController;
 
 return [
     'CG' => [
@@ -162,7 +162,18 @@ return [
                                                 'sidebar' => false
                                             ],
                                         ],
-                                        'may_terminate' => true
+                                        'may_terminate' => true,
+                                        'child_routes' => [
+                                            EkmController::ROUTE_AJAX => [
+                                                'type' => Literal::class,
+                                                'options' => [
+                                                    'route' => '/ajax',
+                                                    'defaults' => [
+                                                        'action' => 'save',
+                                                    ],
+                                                ],
+                                            ]
+                                        ]
                                     ],
                                     'Sales Channel Ebay' => [
                                         'type' => Literal::class,

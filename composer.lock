@@ -1634,7 +1634,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/ekm-module.git",
-                "reference": "e13bbee36b7f74946fc541d0e2940c3e2669a062"
+                "reference": "45ceac7c83e4e1ab55b6bb20cad2457b3d5cd09b"
             },
             "require": {
                 "channelgrabber/zf2-installer": ">=1.0.3,<2.0.0",
@@ -1657,7 +1657,7 @@
                 ]
             },
             "description": "Ekm module",
-            "time": "2014-10-06 15:04:11"
+            "time": "2014-10-06 15:45:21"
         },
         {
             "name": "channelgrabber/zf2-email-template",
