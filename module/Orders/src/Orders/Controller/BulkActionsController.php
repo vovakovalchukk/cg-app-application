@@ -218,7 +218,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     public function invoiceOrderIdsBySkuAction()
     {
-        return $this->invoiceOrderIdsAction('item.sku');
+        return $this->invoiceOrderIdsAction('item.itemSku'); 
     }
 
     public function invoiceFilterIdAction($orderBy = null, $orderDir = 'ASC')
