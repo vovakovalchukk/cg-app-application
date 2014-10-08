@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2c0b06b45762f5daae223a32d79a9104",
+    "hash": "c6ab429bc4a0484d797671249b603030",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2082,17 +2082,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.88",
+            "version": "dev-CGIV-3736-invoice-designer-transparent-images",
             "source": {
                 "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "cd17be6b4de933adeed9781095d9d29e5285b761"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.88-680be2.zip",
-                "reference": "cd17be6b4de933adeed9781095d9d29e5285b761",
-                "shasum": "22930761bda7cdabf65360a8db7b86879565f58c"
+                "url": "/home/shoniqua/repos/zf2-v4-ui",
+                "reference": "16c02821146295041ea15f1fd1afb34a7b9d60f1"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2128,7 +2122,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-10-08 11:03:47"
+            "time": "2014-10-08 14:21:24"
         },
         {
             "name": "cilex/cilex",
@@ -4979,11 +4973,17 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.12.88",
+            "alias_normalized": "1.12.88.0",
+            "version": "dev-CGIV-3736-invoice-designer-transparent-images",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
