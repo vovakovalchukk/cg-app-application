@@ -19,13 +19,23 @@ return [
                         ],
                     ],
                 ],
+                Action\Invoice::class => [
+                    'methods' => [
+                        'addSubAction' => [
+                            'subAction' => [
+                                'required' => true,
+                                'type' => BulkActions\SubAction::class
+                            ],
+                        ],
+                    ],
+                ],
             ],
         ],
         'instance' => [
             'aliases' => [
                 'BulkActions' => BulkActions::class,
                 'OrderDetailBulkActions' => BulkActions::class,
-                'InvoiceBySkuBulkAction' => BulkActions\SubAction::class,
+                'InvoiceBySkuBulkAction' => SubAction\InvoiceBySku::class,
                 'InvoiceByTitleBulkAction' => BulkActions\SubAction::class,
                 'RoyalMailBulkAction' => BulkActions\SubAction::class,
                 'RemoveBatchBulkAction' => SubAction\Batch::class,
@@ -38,6 +48,7 @@ return [
                 'CancelJavascript' => ViewModel::class,
                 'RefundJavascript' => ViewModel::class,
                 'UrlDataViewInvoice' => ViewModel::class,
+                'UrlDataViewInvoiceBySku' => ViewModel::class,
                 'UrlDataViewDispatch' => ViewModel::class,
                 'UrlDataViewTag' => ViewModel::class,
                 'UrlDataViewArchive' => ViewModel::class,
@@ -92,7 +103,12 @@ return [
                         'datatable' => 'datatable',
                     ],
                     'javascript' => 'InvoiceJavascript',
-                ]
+                ],
+                'injections' => [
+                    'addSubAction' => [
+                        ['subAction' => 'InvoiceBySkuBulkAction'],
+                    ],
+                ], 
             ],
             'InvoiceJavascript' => [
                 'parameters' => [
@@ -116,7 +132,12 @@ return [
             'InvoiceBySkuBulkAction' => [
                 'parameters' => [
                     'title' => 'by SKU',
-                    'action' => 'invoices-sku'
+                    'action' => 'invoices-sku',
+                    'urlView' => 'UrlDataViewInvoiceBySku',
+                    'elementData' => [
+                        'datatable' => 'datatable',
+                    ],
+                    'javascript' => 'InvoiceJavascript', 
                 ],
             ],
             'InvoiceByTitleBulkAction' => [
@@ -235,6 +256,11 @@ return [
                 ],
             ],
             'UrlDataViewInvoice' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/data-url',
+                ],
+            ],
+            'UrlDataViewInvoiceBySku' => [
                 'parameters' => [
                     'template' => 'orders/orders/bulk-actions/data-url',
                 ],
