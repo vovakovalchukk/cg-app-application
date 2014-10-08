@@ -1,4 +1,10 @@
-define(['element/ElementCollection'], function(elementCollection) {
+define([
+    'element/ElementCollection',
+    'element/moreButton'
+], function(
+    elementCollection,
+    MoreButton
+) {
     var Batch = function(notifications, selector, cgMustache) {
         var template;
         var mustacheInstance;
@@ -92,7 +98,12 @@ define(['element/ElementCollection'], function(elementCollection) {
                 value: data['batches'][index].name
             });
         });
-        this.getElementCollection().get('batch').replaceOptions(batchOptions);
+
+        var filterMoreOptionData = $('#filter-more-batch').data('value');
+        filterMoreOptionData.variables.options = batchOptions;
+        $('#filter-more-batch').data('value', filterMoreOptionData);
+        MoreButton.removeFilter('batch');
+        MoreButton.addFilter('batch');
     };
 
     Batch.prototype.remove = function(element) {
