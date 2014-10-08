@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "240e277161a100770a983a6a4c336fc2",
+    "hash": "2c0b06b45762f5daae223a32d79a9104",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2082,11 +2082,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-3720-new-batches-in-filter-dropdown",
+            "version": "1.12.88",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "bfa2f0dc1e5f60f8d97dffdd67e2806779cf7e03"
+                "reference": "cd17be6b4de933adeed9781095d9d29e5285b761"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.88-680be2.zip",
+                "reference": "cd17be6b4de933adeed9781095d9d29e5285b761",
+                "shasum": "22930761bda7cdabf65360a8db7b86879565f58c"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2122,7 +2128,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-10-08 09:11:09"
+            "time": "2014-10-08 11:03:47"
         },
         {
             "name": "cilex/cilex",
@@ -4973,17 +4979,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.12.86",
-            "alias_normalized": "1.12.86.0",
-            "version": "dev-CGIV-3720-new-batches-in-filter-dropdown",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
