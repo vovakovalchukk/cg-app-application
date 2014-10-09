@@ -31,6 +31,8 @@ class Service implements LoggerAwareInterface
     const ACCOUNTS_LIMIT = 'all';
     const LIMIT = 200;
     const PAGE = 1;
+    const LOG_CODE = 'ProductProductService';
+    const LOG_NO_STOCK_TO_DELETE = 'No stock found to remove for Product %s when deleting it';
 
     protected $userService;
     protected $activeUserContainer;
@@ -113,6 +115,10 @@ class Service implements LoggerAwareInterface
                     }
                 } catch (NotFound $e) {
                     // No stock to remove, no problem
+                    // If we were expecting there to be stock then log it
+                    if ($product->getParentProductId() > 0 || count($product->getVariations()) == 0) {
+                        $this->logNotice(static::LOG_NO_STOCK_TO_DELETE, [$product->getId()], static::LOG_CODE);
+                    }
                 }
             }
             $this->getProductService()->hardRemove($product);
