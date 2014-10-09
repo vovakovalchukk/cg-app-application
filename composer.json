@@ -49,7 +49,7 @@
         "channelgrabber/zf2-royalmail": "~1.1.1",
         "channelgrabber/zf2-sessions": "~1.0.4",
         "channelgrabber/zf2-ssoclient": "~1.4.2",
-        "channelgrabber/zf2-stdlib": "dev-CGIV-3092-trait-for-exception-handling as 1.1.16",
+        "channelgrabber/zf2-stdlib": "~1.1.16",
         "channelgrabber/zf2-usage": "~1.0.1",
         "channelgrabber/zf2-v4-ui": "~1.12.85",
         "composer/composer": "@dev",
