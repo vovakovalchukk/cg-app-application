@@ -11,7 +11,7 @@ use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
 use CG\User\Entity as User;
-use CG\Zend\Stdlib\View\Model\UserException as ViewModelUserException;
+use CG\Zend\Stdlib\Mvc\Controller\ExceptionToViewModelUserExceptionTrait;
 use CG_Mustache\View\Renderer as MustacheRenderer;
 use CG_UI\Form\Factory as FormFactory;
 use CG_UI\View\Prototyper\JsonModelFactory;
@@ -27,6 +27,8 @@ use Zend\I18n\Translator\Translator;
 
 class ChannelController extends AbstractActionController
 {
+    use ExceptionToViewModelUserExceptionTrait;
+
     const ROUTE_ACCOUNT = "Manage";
     const ROUTE_ACCOUNT_STATUS = 'Status';
     const ROUTE_ACCOUNT_STOCK_MANAGEMENT = 'Stock Management';
@@ -304,7 +306,7 @@ class ChannelController extends AbstractActionController
         try {
             $this->getService()->updateAccount($id, compact('displayName', 'organisationUnitId'));
         } catch (NotFound $e) {
-            return $this->handleAccountUpdateException($e, 'That channel account could not be found and so could not be updated');
+            throw $this->exceptionToViewModelUserException($e, 'That channel account could not be found and so could not be updated');
         } catch (NotModified $e) {
             // display saved message
         }
@@ -313,17 +315,6 @@ class ChannelController extends AbstractActionController
         $response->setVariable('status', 'Channel account updated');
         $response->setVariable('type', $this->params('type'));
         return $response;
-    }
-
-    protected function handleAccountUpdateException(\Exception $e, $message)
-    {
-        $status = $this->getJsonModelFactory()->newInstance();
-        $status->setVariable('valid', false);
-        throw new ViewModelUserException(
-            $status,
-            $this->getTranslator()->translate($message),
-            $e->getCode()
-        );
     }
 
     protected function getRouteName()

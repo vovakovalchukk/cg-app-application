@@ -5,6 +5,8 @@ define([
     {
     };
 
+    Service.MIN_HTTP_CODE_ERROR = 400;
+
     Service.prototype.save = function(stockLocationId, totalQuantity, eTag, eTagCallback)
     {
         $.ajax({
@@ -17,7 +19,21 @@ define([
                 'eTag': eTag
             },
             success: function(data) {
-                eTagCallback(data.eTag);
+                if (data.eTag) {
+                    eTagCallback(data.eTag);
+                    n.success('Stock was updated successfully');
+                    return;
+                }
+                if (data.message) {
+                    if (data.code && parseInt(data.code) < Service.MIN_HTTP_CODE_ERROR) {
+                        n.success(data.message);
+                        return;
+                    }
+
+                    n.error(data.message);
+                    return;
+                }
+                n.error('An unknown error occurred');
             },
             error: function(error, textStatus, errorThrown) {
                 n.ajaxError(error, textStatus, errorThrown);
