@@ -1,8 +1,7 @@
 <?php
 use CG\Account\Client\Storage\Api as AccountStorage;
 use CG\Account\Client\Service as AccountService;
-use CG\Amazon\Signer as AmazonSigner;
-USE CG\Amazon\Account as AmazonAccount;
+use CG\Amazon\Account as AmazonAccount;
 use CG\Ebay\Client\TradingApi;
 use Guzzle\Http\Client as GuzzleHttpClient;
 use Settings\Module;
@@ -460,7 +459,7 @@ return [
                 'AccountTradingCompanyColumnView' => ViewModel::class,
                 'AccountTokenStatusColumnView' => ViewModel::class,
                 'AccountManageColumnView' => ViewModel::class,
-                'AccountStockManagementColumnView' => ViewModel::class,
+                'AccountStockManagementColumnView' => ViewModel::class
             ],
             InvoiceController::class => [
                 'parameters' => [
@@ -477,12 +476,6 @@ return [
                     'baseUrl' => 'https://api.ebay.com/ws/api.dll'
                 ]
             ],
-            AmazonSigner::class => array(
-                'parameters' => array(
-                    'secretKey' => 'Tp6B7AEOI8piy6bbSN3n5fmIZgbqWDlTvaxuDBBD',
-                    'httpVerb' => 'GET'
-                )
-            ),
             TradingApi::class => [
                 'parameters' => [
                     'client' => 'EbayGuzzle',

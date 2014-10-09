@@ -405,27 +405,6 @@ return [
                                         'action' => 'invoiceFilterId',
                                     ]
                                 ],
-                                'may_terminate' => true,
-                                'child_routes' => [
-                                    'invoice_check' => [
-                                        'type' => 'Zend\Mvc\Router\Http\Literal',
-                                        'options' => [
-                                            'route' => '/check',
-                                            'defaults' => [
-                                                'action' => 'checkInvoicePrintingAllowed'
-                                            ]
-                                        ],
-                                    ],
-                                    'invoice_progress' => [
-                                        'type' => 'Zend\Mvc\Router\Http\Literal',
-                                        'options' => [
-                                            'route' => '/progress',
-                                            'defaults' => [
-                                                'action' => 'checkInvoiceGenerationProgress'
-                                            ]
-                                        ],
-                                    ],
-                                ],
                             ],
                             'invoice_demo' => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
@@ -452,6 +431,30 @@ return [
                                     'defaults' => [
                                         'action' => 'checkInvoiceGenerationProgress'
                                     ]
+                                ],
+                            ],
+                            'invoice_bysku' => [ 
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/bySku',
+                                    'defaults' => [
+                                        'action' => 'invoiceOrderIdsBySku'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    'invoice_filter_bysku' => [
+                                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => [
+                                            'route' => '/:filterId',
+                                            'constraints' => [
+                                                'filterId' => '[^/]+'
+                                            ],
+                                            'defaults' => [
+                                                'action' => 'invoiceFilterIdBySku'
+                                            ]
+                                        ],
+                                    ],
                                 ],
                             ],
                         ]
