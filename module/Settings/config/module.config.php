@@ -36,6 +36,9 @@ use CG\Channel\Type;
 use CG\Ebay\Account as EbayAccount;
 use CG\Ekm\Account as EkmAccount;
 use Settings\Controller\EkmController;
+use CG\Ekm\Account\CreationService as EkmAccountCreationService;
+use CG\Amazon\Account\CreationService as AmazonAccountCreationService;
+use CG\Ebay\Account\CreationService as EbayAccountCreationService;
 
 return [
     'CG' => [
@@ -820,27 +823,40 @@ return [
             ],
             EkmController::class => [
                 'parameters' => [
-                    'cryptor' => 'ekm_cryptor'
-                ]
-            ],
-            AmazonController::class => [
-                'parameters' => [
-                    'cryptor' => 'amazon_cryptor'
+                    'accountCreationService' => EkmAccountCreationService::class
                 ]
             ],
             EbayController::class => [
                 'parameters' => [
-                    'cryptor' => 'ebay_cryptor'
+                    'accountCreationService' => EbayAccountCreationService::class
+                ]
+            ],
+            AmazonController::class => [
+                'parameters' => [
+                    'accountCreationService' => AmazonAccountCreationService::class
+                ]
+            ],
+            EkmAccountCreationService::class => [
+                'parameters' => [
+                    'cryptor' => 'ekm_cryptor',
+                    'channelAccount' => EkmAccount::class
+                ]
+            ],
+            EbayAccountCreationService::class => [
+                'parameters' => [
+                    'cryptor' => 'ebay_cryptor',
+                    'channelAccount' => EbayAccount::class
+                ]
+            ],
+            AmazonAccountCreationService::class => [
+                'parameters' => [
+                    'cryptor' => 'amazon_cryptor',
+                    'channelAccount' => AmazonAccount::class
                 ]
             ],
             EbayAccount::class => [
                 'parameters' => [
                     'cryptor' => 'ebay_cryptor'
-                ]
-            ],
-            AmazonAccount::class => [
-                'parameters' => [
-                    'cryptor' => 'amazon_cryptor'
                 ]
             ]
         ]
