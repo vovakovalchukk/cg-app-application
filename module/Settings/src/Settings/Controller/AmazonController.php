@@ -11,7 +11,7 @@ class AmazonController extends ChannelControllerAbstract
         $accountEntity = $this->getAccountCreationService()->connectAccount(
             $this->getActiveUserContainer()->getActiveUser()->getOrganisationUnitId(),
             $this->params()->fromQuery('accountId'),
-            array_merge($this->params()->fromQuery(), $this->params()->fromRoute())
+            array_merge($this->params()->fromPost(), $this->params()->fromRoute())
         );
         $routeName = implode('/', [Module::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS, ChannelController::ROUTE_ACCOUNT]);
         $url = $this->plugin('url')->fromRoute($routeName, ["account" => $accountEntity->getId(), "type" => ChannelType::SALES]);

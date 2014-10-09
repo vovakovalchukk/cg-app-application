@@ -843,8 +843,7 @@ return [
             ],
             AmazonAccountCreationService::class => [
                 'parameters' => [
-                    'cryptor' => 'amazon_cryptor',
-                    'channelAccount' => AmazonAccount::class
+                    'cryptor' => 'amazon_cryptor'
                 ]
             ],
             EbayAccount::class => [
