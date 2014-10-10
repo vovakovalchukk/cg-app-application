@@ -1,0 +1,58 @@
+.account-form-holder {
+  width: 500px;
+  height: 300px;
+  clear:both;
+  position: absolute;
+  @include calc(top, "50% - 150px");
+  @include calc(left, "50% - 250px");
+  p {
+    width: 100%;
+    float: left;
+    clear:both;
+    margin: 30px 0px 30px 0px;
+  }
+  .account-field-holder {
+    width: 100%;
+    float: left;
+    clear:both;
+    margin-bottom: 20px;
+    .label {
+      width: 35%;
+      float: left;
+      clear:both;
+      position: relative;
+      top: 3px;
+    }
+    .text-field {
+      width: 50%;
+      float: left;
+    }
+  }
+  .account-form-buttons-holder {
+    width: 250px;
+    margin: 20px auto 20px auto;
+    clear:both;
+    position: relative;
+    top: 20px;
+    .button-holder {
+      float: left;
+      margin-right: 30px;
+    }
+    a {
+      float: right;
+    }
+  }
+}
+.account-logo {
+  width: 100%;
+  float: left;
+  clear:both;
+  .ekmpowershop {
+    width: 254px;
+    height: 48px;
+    margin: auto;
+    background-image: url(../img/Channel/ekmpowershop.png);
+    background-repeat: no-repeat;
+    display: block;
+  }
+}

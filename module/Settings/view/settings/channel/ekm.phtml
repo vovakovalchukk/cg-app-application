@@ -8,23 +8,35 @@ $accountPageRoute = implode('/', [
     ChannelController::ROUTE_CHANNELS
 ]);
 ?>
-<style>
-    /**
-      This is a hack to hide the sidebar away for now TODO: Remove this
-    **/
-    #main-wrapper {
-        margin-left:0px;
-        width:100%;
-    }
-</style>
-<div>
-    <?= $this->translate('Email Address or Username'); ?>: <?= $username ?>
+<div class="account-form-holder">
+  <div class="account-logo">
+    <span class="ekmpowershop"></span>
+  </div>
+  <div class="account-field-holder">
+    <p>
+      Sign in with your ekmPowershop account to link it with ChannelGrabber.com
+    </p>
+    <div class="label">
+      <?= $this->translate('Email Address or Username'); ?>:
+    </div>
+    <div class="text-field">
+      <?= $username ?>
+    </div>
+  </div>
+  <div class="account-field-holder">
+    <div class="label">
+      <?= $this->translate('Password'); ?>:
+    </div>
+    <div class="text-field">
+      <?= $password ?>
+    </div>
+  </div>
+  <div class="account-form-buttons-holder">
+    <?= $linkAccount ?>
+    <a href='<?= $this->url($accountPageRoute, ['type' => Type::SALES]); ?>'><?= $goBack ?></a>
+  </div>
+
 </div>
-<div>
-    <?= $this->translate('Password'); ?>: <?= $password ?>
-</div>
-<?= $linkAccount ?>
-<a href='<?= $this->url($accountPageRoute, ['type' => Type::SALES]); ?>'><?= $goBack ?></a>
 <?php $this->inlineScript()->captureStart(); ?>
     require.config({
         paths: {
