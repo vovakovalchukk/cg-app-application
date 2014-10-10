@@ -116,6 +116,7 @@ class Service implements LoggerAwareInterface
         $orders = $orderCollection->toArray();
         $orders = $this->getOrdersArrayWithShippingAliases($orders);
         $orders = $this->getOrdersArrayWithAccountDetails($orders, $event);
+        $orders = $this->getOrdersArrayWithSanitisedStatus($orders);
         
         $filterId = null;
         if ($orderCollection instanceof FilteredCollection) {
@@ -169,6 +170,15 @@ class Service implements LoggerAwareInterface
             );
 
             $orders[$index] = $order;
+        }
+        return $orders;
+    }
+
+    protected function getOrdersArrayWithSanitisedStatus(array $orders)
+    {
+        foreach ($orders as $index => $order) {
+            $orders[$index]['status'] = str_replace(['_', '-'], ' ', $orders[$index]['status']);
+            $orders[$index]['statusClass'] = str_replace(' ', '-', $orders[$index]['status']);
         }
         return $orders;
     }

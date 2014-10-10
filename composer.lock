@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6fc442fb5c48cfc6f773d9dde394afea",
+    "hash": "96db3d9462ec69ed493c1b1de0c9c738",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1854,12 +1854,6 @@
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
                 "reference": "f30d7b3c4e05eda9560876f3c1ec36268dca265a"
             },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.23-6c091b.zip",
-                "reference": "f30d7b3c4e05eda9560876f3c1ec36268dca265a",
-                "shasum": "7773a9e396a4595b6d14f7443344aa58f38a0cd1"
-            },
             "require": {
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=1.0.2",
@@ -2092,17 +2086,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.91",
+            "version": "dev-CGIV-3749-error-status",
             "source": {
                 "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "3c104e9fb78e71bb902838961ae23212fef79e5d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.91-49e410.zip",
-                "reference": "3c104e9fb78e71bb902838961ae23212fef79e5d",
-                "shasum": "d649aea08000dee5e4e72f6c594620c8e8ae6f94"
+                "url": "/home/shoniqua/repos/zf2-v4-ui",
+                "reference": "be2669beb8eb8a89f176c2b6f1874262a31906d2"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2138,7 +2126,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-10-10 12:43:09"
+            "time": "2014-10-10 15:24:44"
         },
         {
             "name": "cilex/cilex",
@@ -2264,12 +2252,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "73e9db5d9952d52a46ecbc20a269a8c5f9c5b011"
+                "reference": "b33da336ecb7f1c9b15a57285e5a9f09cf5f3dd2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/73e9db5d9952d52a46ecbc20a269a8c5f9c5b011",
-                "reference": "73e9db5d9952d52a46ecbc20a269a8c5f9c5b011",
+                "url": "https://api.github.com/repos/composer/composer/zipball/b33da336ecb7f1c9b15a57285e5a9f09cf5f3dd2",
+                "reference": "b33da336ecb7f1c9b15a57285e5a9f09cf5f3dd2",
                 "shasum": ""
             },
             "require": {
@@ -2324,7 +2312,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2014-10-07 15:03:19"
+            "time": "2014-09-30 15:28:01"
         },
         {
             "name": "fabpot/goutte",
@@ -4987,11 +4975,17 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.12.91",
+            "alias_normalized": "1.12.91.0",
+            "version": "dev-CGIV-3749-error-status",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

@@ -2,6 +2,10 @@
     "repositories": [
         {
             "type": "git",
+            "url": "/home/shoniqua/repos/zf2-v4-ui"
+        },
+        {
+            "type": "git",
             "url": "git@github.com:channelgrabber/ZendPdf.git"
         },
         {
@@ -51,7 +55,7 @@
         "channelgrabber/zf2-ssoclient": "~1.4.2",
         "channelgrabber/zf2-stdlib": "~1.1.16",
         "channelgrabber/zf2-usage": "~1.0.1",
-        "channelgrabber/zf2-v4-ui": "~1.12.91",
+        "channelgrabber/zf2-v4-ui": "dev-CGIV-3749-error-status as 1.12.91",
         "composer/composer": "@dev",
         "guzzle/guzzle": "~3.7",
         "nocarrier/hal": "~0.9.3",
