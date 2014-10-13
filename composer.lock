@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "96db3d9462ec69ed493c1b1de0c9c738",
+    "hash": "8e0b80bfa638495da3fcd242c056fb99",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2086,11 +2086,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-3749-error-status",
+            "version": "1.12.94",
             "source": {
                 "type": "git",
-                "url": "/home/shoniqua/repos/zf2-v4-ui",
-                "reference": "be2669beb8eb8a89f176c2b6f1874262a31906d2"
+                "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
+                "reference": "66c67664c13507352881d74f54c2cf4c19f81246"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.94-3fbeea.zip",
+                "reference": "66c67664c13507352881d74f54c2cf4c19f81246",
+                "shasum": "36a85730563446ececfbb003068be34ac039566b"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2126,7 +2132,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-10-10 15:24:44"
+            "time": "2014-10-13 15:22:46"
         },
         {
             "name": "cilex/cilex",
@@ -4974,18 +4980,10 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.12.91",
-            "alias_normalized": "1.12.91.0",
-            "version": "dev-CGIV-3749-error-status",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
@@ -4995,7 +4993,5 @@
     "platform": {
         "php": ">=5.3.3"
     },
-    "platform-dev": [
-
-    ]
+    "platform-dev": []
 }
