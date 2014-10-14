@@ -4,21 +4,21 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d671bb20fc8a650d909cc1f40ffa800c",
+    "hash": "e22d59c96884ea348652f1dfc22e7c55",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "1.6.14",
+            "version": "1.6.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "7e8bb775264d8b81bbd2cd4b05849d634a92240e"
+                "reference": "1b808be1a608d4d25dc52f86e483478b8c3ea361"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.6.14-5b6c42.zip",
-                "reference": "7e8bb775264d8b81bbd2cd4b05849d634a92240e",
-                "shasum": "a4949479ac0166e9096d4d81a0eb00995249b671"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.6.13-441d27.zip",
+                "reference": "1b808be1a608d4d25dc52f86e483478b8c3ea361",
+                "shasum": "f582921e861236e25d213d19b002669743c730b7"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.4",
@@ -50,7 +50,7 @@
                     "CG\\Amazon\\": "src"
                 }
             },
-            "time": "2014-10-09 14:21:21"
+            "time": "2014-10-09 07:13:01"
         },
         {
             "name": "channelgrabber/billing",
