@@ -14,12 +14,7 @@ define([
     Search.prototype.init = function(inputSelector, buttonSelector, baseUrl)
     {
         var self = this;
-        if (elementWatcher.isInitialised()) {
-            this.listen(inputSelector, buttonSelector, baseUrl);
-            return;
-        }
-
-        $(document).on(elementWatcher.getEventInitialised(), function() {
+        elementWatcher.onInitialise(function() {
             self.listen(inputSelector, buttonSelector, baseUrl);
         });
     };
