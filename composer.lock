@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e22d59c96884ea348652f1dfc22e7c55",
+    "hash": "49320d7bbfc4f5e3f9fa4f14d50fcfbf",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -651,11 +651,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-3770-NoDiMapper",
+            "version": "1.8.22",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "dc988574be323f2edd548ceb5a18d6cd355c4133"
+                "reference": "7322266083dd9e614ed73ee19a4a5f08218b7ee6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.8.22-f2a660.zip",
+                "reference": "7322266083dd9e614ed73ee19a4a5f08218b7ee6",
+                "shasum": "e6968b258cddcc462b6190b054d9287eac1ba31a"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -702,7 +708,7 @@
                     "CG\\Order\\Test\\": "tests/src"
                 }
             },
-            "time": "2014-10-14 07:45:33"
+            "time": "2014-10-14 09:01:15"
         },
         {
             "name": "channelgrabber/permission",
@@ -1290,11 +1296,17 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "dev-CGIV-3770-NoDiMapper",
+            "version": "1.18.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "1315ef8af78f9b5587fe8db18ec273cfadd0df5a"
+                "reference": "4af947b97ffc7faa1148c70cbbcfea7751839ec2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.18.5-861c80.zip",
+                "reference": "4af947b97ffc7faa1148c70cbbcfea7751839ec2",
+                "shasum": "9d6e6c58eb8d506cf408cde13d58496f2a6e94fa"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -1327,7 +1339,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2014-10-13 14:51:13"
+            "time": "2014-10-14 09:05:57"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -4969,24 +4981,11 @@
         }
     ],
     "aliases": [
-        {
-            "alias": "1.8.21",
-            "alias_normalized": "1.8.21.0",
-            "version": "dev-CGIV-3770-NoDiMapper",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.18.5",
-            "alias_normalized": "1.18.5.0",
-            "version": "dev-CGIV-3770-NoDiMapper",
-            "package": "channelgrabber/user"
-        }
+
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
-        "channelgrabber/user": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
