@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e22d59c96884ea348652f1dfc22e7c55",
+    "hash": "cfacc56575bf8bafd0ca4a4e04185aa4",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -651,17 +651,11 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.8.20",
+            "version": "dev-CGIV-3778-FetchOrders",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "ce9b1b724c7af044372eceae25f2f5e17b4f2073"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.8.20-87c829.zip",
-                "reference": "ce9b1b724c7af044372eceae25f2f5e17b4f2073",
-                "shasum": "5f2cb23c6013bbc3941807067292808974019e24"
+                "reference": "d1a9cbdd6f3c9c6fd9c3e4ebae7e3275c05ec924"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -708,7 +702,7 @@
                     "CG\\Order\\Test\\": "tests/src"
                 }
             },
-            "time": "2014-10-08 10:13:04"
+            "time": "2014-10-14 13:19:13"
         },
         {
             "name": "channelgrabber/permission",
@@ -1853,12 +1847,6 @@
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
                 "reference": "f30d7b3c4e05eda9560876f3c1ec36268dca265a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.23-6c091b.zip",
-                "reference": "f30d7b3c4e05eda9560876f3c1ec36268dca265a",
-                "shasum": "7773a9e396a4595b6d14f7443344aa58f38a0cd1"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -3800,9 +3788,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packages.zendframework.com/composer/zendframework-zendxml-559b34f426d33a11c3db118e00ce14bb8dc64e5f-zip-6cf7a2.zip",
-                "reference": "1.0.0",
-                "shasum": "39abc614b5c26bcbf8102e203c52dee73c4460a8"
+                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
+                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
@@ -3822,6 +3810,7 @@
                     "ZendXml": "library/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -3832,10 +3821,6 @@
                 "xml",
                 "zf2"
             ],
-            "support": {
-                "source": "https://github.com/zendframework/ZendXml/tree/master",
-                "issues": "https://github.com/zendframework/ZendXml/issues"
-            },
             "time": "2014-03-05 22:25:44"
         }
     ],
@@ -4284,7 +4269,7 @@
                 {
                     "name": "Anthon Pang",
                     "email": "apang@softwaredevelopment.ca",
-                    "role": "Fork Maintainer"
+                    "role": "developer"
                 }
             ],
             "description": "PHP WebDriver for Selenium 2",
@@ -4990,11 +4975,17 @@
         }
     ],
     "aliases": [
-
+        {
+            "alias": "1.8.23",
+            "alias_normalized": "1.8.23.0",
+            "version": "dev-CGIV-3778-FetchOrders",
+            "package": "channelgrabber/order"
+        }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
