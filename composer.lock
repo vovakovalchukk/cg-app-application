@@ -655,7 +655,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "cf2d99d1c4e48fa57a78dbd473bf5e2b4fa0b4f1"
+                "reference": "dc988574be323f2edd548ceb5a18d6cd355c4133"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -702,7 +702,7 @@
                     "CG\\Order\\Test\\": "tests/src"
                 }
             },
-            "time": "2014-10-13 15:48:27"
+            "time": "2014-10-14 07:45:33"
         },
         {
             "name": "channelgrabber/permission",
