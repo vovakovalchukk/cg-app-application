@@ -29,16 +29,12 @@ define(['popup/mustache'],function(Popup) {
             var datatable = $(this).data("datatable");
             var orders = $(this).data("orders");
 
-            if (datatable && $("#" + datatable + "-select-all").is(":checked")) {
-                orders = [];
-            } else {
-                if (!orders && datatable) {
-                    orders = $("#" + datatable).cgDataTable("selected", ".checkbox-id");
-                }
+            if (!orders && datatable) {
+                orders = $("#" + datatable).cgDataTable("selected", ".checkbox-id");
+            }
 
-                if (!orders.length) {
-                    return;
-                }
+            if (!orders.length) {
+                return;
             }
 
             var tag = $(this).data("tag");
@@ -94,11 +90,7 @@ define(['popup/mustache'],function(Popup) {
         };
 
         var getUrl = function(action, datatable) {
-            var url = Mustache.render($(this).data("url"), {action: action});
-            if (datatable && $("#" + datatable + "-select-all").is(":checked")) {
-                url += "/" + $("#" + datatable).data("filterId");
-            }
-            return url;
+            return Mustache.render($(this).data("url"), {action: action});
         };
 
         var apply = function(url, tag, orders, ajaxSettings) {
