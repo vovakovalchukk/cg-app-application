@@ -14,21 +14,17 @@ define(function() {
                 }
             };
 
-            if (datatable && $("#" + datatable + "-select-all").is(":checked")) {
-                ajax.url += "/" + $("#" + datatable).data("filterId");
-            } else {
-                if (!orders && datatable) {
-                    orders = $("#" + datatable).cgDataTable("selected", ".checkbox-id");
-                }
-
-                if (!orders.length) {
-                    return;
-                }
-
-                ajax.data = {
-                    'orders': orders
-                };
+            if (!orders && datatable) {
+                orders = $("#" + datatable).cgDataTable("selected", ".checkbox-id");
             }
+
+            if (!orders.length) {
+                return;
+            }
+
+            ajax.data = {
+                'orders': orders
+            };
 
             apply.call(this, orders, ajax);
         };
