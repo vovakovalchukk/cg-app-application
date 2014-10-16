@@ -349,7 +349,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "c8ef285e5f96ec36a3dcef29926e14a152d2a2f0"
+                "reference": "b134831ddeedc91334edc23b70795d27441e0b39"
             },
             "require": {
                 "channelgrabber/channel": ">=1.9.2",
@@ -386,7 +386,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2014-10-16 13:57:15"
+            "time": "2014-10-16 14:21:25"
         },
         {
             "name": "channelgrabber/email",
