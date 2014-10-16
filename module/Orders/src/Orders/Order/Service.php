@@ -303,7 +303,7 @@ class Service implements LoggerAwareInterface
             ]
         );
 
-        $this->getFilterClient()->save($filter);
+        $filter = $this->getFilterClient()->save($filter);
         return $this->getOrdersFromFilterId($filter->getId(), $limit, $page, $orderBy, $orderDirection);
     }
 
