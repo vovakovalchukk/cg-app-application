@@ -15,6 +15,7 @@ use CG\Order\Shared\Cancel\Value as CancelValue;
 use CG\Order\Shared\Cancel\Item as CancelItem;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
+use CG\Order\Service\Filter\StorageInterface as FilterClient;
 use CG\Order\Shared\Item\Entity as ItemEntity;
 use CG\Order\Shared\Mapper as OrderMapper;
 use CG\Order\Shared\Note\Collection as OrderNoteCollection;
@@ -59,6 +60,7 @@ class Service implements LoggerAwareInterface
 
     protected $orderClient;
     protected $orderItemClient;
+    protected $filterClient;
     protected $tableService;
     protected $filterService;
     protected $userService;
@@ -77,6 +79,7 @@ class Service implements LoggerAwareInterface
     public function __construct(
         StorageInterface $orderClient,
         OrderItemClient $orderItemClient,
+        FilterClient $filterClient,
         TableService $tableService,
         FilterService $filterService,
         UserService $userService,
@@ -95,6 +98,7 @@ class Service implements LoggerAwareInterface
         $this
             ->setOrderClient($orderClient)
             ->setOrderItemClient($orderItemClient)
+            ->setFilterClient($filterClient)
             ->setTableService($tableService)
             ->setFilterService($filterService)
             ->setUserService($userService)
@@ -299,7 +303,8 @@ class Service implements LoggerAwareInterface
             ]
         );
 
-        return $this->getOrders($filter);
+        $filter = $this->getFilterClient()->save($filter);
+        return $this->getOrdersFromFilterId($filter->getId(), $limit, $page, $orderBy, $orderDirection);
     }
 
     /**
@@ -819,6 +824,23 @@ class Service implements LoggerAwareInterface
     protected function getOrderItemClient()
     {
         return $this->orderItemClient;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setFilterClient(FilterClient $filterClient)
+    {
+        $this->filterClient = $filterClient;
+        return $this;
+    }
+
+    /**
+     * @return FilterClient
+     */
+    protected function getFilterClient()
+    {
+        return $this->filterClient;
     }
 
     protected function getActionService()
