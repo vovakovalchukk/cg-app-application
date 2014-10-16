@@ -38,15 +38,6 @@ define(function() {
         return $("#" + dataTable);
     };
 
-    InvoiceBulkAction.prototype.isDataTableCheckedAll = function()
-    {
-        var dataTable = this.getElement().data("datatable");
-        if (!dataTable) {
-            return false;
-        }
-        return $("#" + dataTable + "-select-all").is(":checked");
-    };
-
     InvoiceBulkAction.prototype.getOrders = function()
     {
         var orders = this.getElement().data("orders");
@@ -63,11 +54,7 @@ define(function() {
 
     InvoiceBulkAction.prototype.getUrl = function()
     {
-        var url = this.getElement().data("url") || "";
-        if (this.isDataTableCheckedAll()) {
-            url += "/" + this.getFilterId();
-        }
-        return url;
+        return this.getElement().data("url") || "";
     };
 
     InvoiceBulkAction.prototype.getFormElement = function(orders)
@@ -83,17 +70,11 @@ define(function() {
 
     InvoiceBulkAction.prototype.action = function(event)
     {
-        var orders = [];
-        var orderCount = 0;
-        if (!this.isDataTableCheckedAll()) {
-            orders = this.getOrders();
-            if (!orders.length) {
-                return;
-            }
-            orderCount = orders.length;
-        } else {
-            orderCount = $('#datatable').dataTable().fnSettings().fnRecordsDisplay();
+        var orders = this.getOrders();
+        if (!orders.length) {
+            return;
         }
+        var orderCount = orders.length;
 
         var fadeOut = true;
         this.getNotifications().notice('Preparing to generate invoices', fadeOut);

@@ -30,17 +30,13 @@ define(function() {
                 }
             };
 
-            if ($("#" + datatable + "-select-all").is(":checked")) {
-                ajax.url += "/" + $("#" + datatable).data("filterId");
-            } else {
-                var orders = $("#" + datatable).cgDataTable("selected", ".checkbox-id");
-                if (!orders.length) {
-                    return;
-                }
-                ajax.data = {
-                    orders: orders
-                };
+            var orders = $("#" + datatable).cgDataTable("selected", ".checkbox-id");
+            if (!orders.length) {
+                return;
             }
+            ajax.data = {
+                orders: orders
+            };
 
             notifications.notice("Archiving Orders");
             $.ajax(ajax);
