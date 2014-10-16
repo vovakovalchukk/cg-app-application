@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e9b7415ae51fa1d5e843e430de6d8208",
+    "hash": "76a8c2e2366067332ff62cc6aaf4ba2d",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2084,17 +2084,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.12.94",
+            "version": "dev-CGIV-3778-RemoveSavedFilters",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "66c67664c13507352881d74f54c2cf4c19f81246"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.12.94-3fbeea.zip",
-                "reference": "66c67664c13507352881d74f54c2cf4c19f81246",
-                "shasum": "36a85730563446ececfbb003068be34ac039566b"
+                "reference": "9e2e6d29b7ec33865330fff12aaae45de65afd90"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2130,7 +2124,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-10-13 15:22:46"
+            "time": "2014-10-16 08:16:40"
         },
         {
             "name": "cilex/cilex",
@@ -4984,12 +4978,19 @@
             "alias_normalized": "1.8.23.0",
             "version": "dev-CGIV-3778-FetchOrders",
             "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.12.95",
+            "alias_normalized": "1.12.95.0",
+            "version": "dev-CGIV-3778-RemoveSavedFilters",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/order": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
