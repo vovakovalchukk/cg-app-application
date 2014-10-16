@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0b62557cf024d20a0cada97287964b06",
+    "hash": "f626f4663cc2b2c1de12ebce6eb12e03",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1118,17 +1118,17 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.7.21",
+            "version": "2.7.22",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "84acba56455fae2487ca60c756298757d2dec5a6"
+                "reference": "c4b37d371a4bd27498c4833f3b19c2df0a638aa1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.7.21-a5648f.zip",
-                "reference": "84acba56455fae2487ca60c756298757d2dec5a6",
-                "shasum": "1a25efc5fcabfd1bad1e5870a29c08d58127d2b3"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.7.22-976cc7.zip",
+                "reference": "c4b37d371a4bd27498c4833f3b19c2df0a638aa1",
+                "shasum": "b7b8814ec8b470619a28eec90ff604d23d1ff1b5"
             },
             "require": {
                 "zendframework/zend-db": ">=2.2,<3.0"
@@ -1146,7 +1146,7 @@
                     "src/Utilities.php"
                 ]
             },
-            "time": "2014-10-01 11:17:28"
+            "time": "2014-10-16 11:16:05"
         },
         {
             "name": "channelgrabber/stock",
