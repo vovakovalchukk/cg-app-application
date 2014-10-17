@@ -16,7 +16,7 @@
         "channelgrabber/constants": "dev-master",
         "channelgrabber/di": "~2.1.1",
         "channelgrabber/ebay": "~1.2.13",
-        "channelgrabber/ekm": "dev-CGIV-3799-OrderActionMap as 1.0.0",
+        "channelgrabber/ekm": "~1.0.3",
         "channelgrabber/gearman": "~1.1.0",
         "channelgrabber/http": "~1.2.24",
         "channelgrabber/listing": "~1.2.6",

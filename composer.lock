@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dbc6f25e146f51bd408a9ba2c8ee5018",
+    "hash": "c5a4db6479d842743230a92c565287d1",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -345,11 +345,17 @@
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "dev-CGIV-3799-OrderActionMap",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "b134831ddeedc91334edc23b70795d27441e0b39"
+                "reference": "e05ddc96b7b2fec9c15f225a56a90d3f5f7246c0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.0.3-ffcd0f.zip",
+                "reference": "e05ddc96b7b2fec9c15f225a56a90d3f5f7246c0",
+                "shasum": "df7bb6c2e21c022d350abd2ba34922f689c2aef2"
             },
             "require": {
                 "channelgrabber/channel": ">=1.9.2",
@@ -386,7 +392,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2014-10-16 14:21:25"
+            "time": "2014-10-17 07:30:27"
         },
         {
             "name": "channelgrabber/email",
@@ -2563,16 +2569,16 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "5.0.0",
+            "version": "5.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "28b51e11237f25cdb0efaea8e45af26007831aa9"
+                "reference": "9e806208d9b418a58ec86c49078aa94385e64bbd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/28b51e11237f25cdb0efaea8e45af26007831aa9",
-                "reference": "28b51e11237f25cdb0efaea8e45af26007831aa9",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/9e806208d9b418a58ec86c49078aa94385e64bbd",
+                "reference": "9e806208d9b418a58ec86c49078aa94385e64bbd",
                 "shasum": ""
             },
             "require": {
@@ -2617,7 +2623,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2014-10-13 03:05:51"
+            "time": "2014-10-16 18:00:41"
         },
         {
             "name": "guzzlehttp/ringphp",
@@ -5156,18 +5162,10 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.0",
-            "alias_normalized": "1.0.0.0",
-            "version": "dev-CGIV-3799-OrderActionMap",
-            "package": "channelgrabber/ekm"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/ekm": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
