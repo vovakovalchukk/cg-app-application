@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6642d73a805d121aae26fd812c3b3ec1",
+    "hash": "15fea3f94a996af6aeb1e700bb5945d3",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -162,17 +162,11 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.9.12",
+            "version": "dev-CGIV-3812-FetchAccounts",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "cefd17a387b794a436dfcacf980ccd7050c8ddee"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.9.12-352e46.zip",
-                "reference": "cefd17a387b794a436dfcacf980ccd7050c8ddee",
-                "shasum": "9bb83c90055431d2cdaf41ee388efd569bf179a7"
+                "reference": "196b08a0f91e661c59e2f3e2175b53c14960eafc"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -218,7 +212,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2014-10-15 08:43:29"
+            "time": "2014-10-17 14:22:11"
         },
         {
             "name": "channelgrabber/constants",
@@ -5003,16 +4997,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "3.7.37",
+            "version": "3.7.38",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "ae6cefd7cc84586a5ef27e04bae11ee940ec63dc"
+                "reference": "38709dc22d519a3d1be46849868aa2ddf822bcf6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/ae6cefd7cc84586a5ef27e04bae11ee940ec63dc",
-                "reference": "ae6cefd7cc84586a5ef27e04bae11ee940ec63dc",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/38709dc22d519a3d1be46849868aa2ddf822bcf6",
+                "reference": "38709dc22d519a3d1be46849868aa2ddf822bcf6",
                 "shasum": ""
             },
             "require": {
@@ -5072,7 +5066,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-04-30 12:24:19"
+            "time": "2014-10-17 09:04:17"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -5162,9 +5156,17 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.9.11",
+            "alias_normalized": "1.9.11.0",
+            "version": "dev-CGIV-3812-FetchAccounts",
+            "package": "channelgrabber/channel"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
