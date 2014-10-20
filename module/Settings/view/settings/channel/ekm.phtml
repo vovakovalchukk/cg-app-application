@@ -1,0 +1,49 @@
+<?php
+use CG\Channel\Type;
+use Settings\Module;
+use Settings\Controller\ChannelController;
+$accountPageRoute = implode('/', [
+    Module::ROUTE,
+    ChannelController::ROUTE,
+    ChannelController::ROUTE_CHANNELS
+]);
+?>
+<div class="account-form-holder">
+  <div class="account-logo">
+    <span class="logo-large ekm"></span>
+  </div>
+  <div class="account-field-holder">
+    <p>
+      Sign in with your ekmPowershop account to link it with ChannelGrabber.com
+    </p>
+    <div class="label">
+      <?= $this->translate('Email Address or Username'); ?>:
+    </div>
+    <div class="text-field">
+      <?= $username ?>
+    </div>
+  </div>
+  <div class="account-field-holder">
+    <div class="label">
+      <?= $this->translate('Password'); ?>:
+    </div>
+    <div class="text-field">
+      <?= $password ?>
+    </div>
+  </div>
+  <div class="account-form-buttons-holder">
+    <?= $linkAccount ?>
+    <a href='<?= $this->url($accountPageRoute, ['type' => Type::SALES]); ?>'><?= $goBack ?></a>
+  </div>
+
+</div>
+<?php $this->inlineScript()->captureStart(); ?>
+    require.config({
+        paths: {
+            'Ekm': '<?= $this->basePath() . Settings\Module::PUBLIC_FOLDER; ?>/js/Channel/Ekm'
+        }
+    });
+    require(["Ekm/DomListener"], function(domListener) {
+        domListener.init(<?= $accountId; ?>);
+    });
+<?php $this->inlineScript()->captureEnd(); ?>
