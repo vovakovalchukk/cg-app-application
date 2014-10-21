@@ -295,17 +295,17 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.2.14.1",
+            "version": "1.2.15",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "fbd1de04b9a40b74b160fe299b6783e95a999858"
+                "reference": "bffd30807a6847858d38082acfaac39ec4d38283"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.2.14.1-3efe48.zip",
-                "reference": "fbd1de04b9a40b74b160fe299b6783e95a999858",
-                "shasum": "4a7c94756a5b487b741873a2ce3eefe767dc184e"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.2.15-5d4a97.zip",
+                "reference": "bffd30807a6847858d38082acfaac39ec4d38283",
+                "shasum": "1280c2581bce7bd3915c65629f2094bab798b2b4"
             },
             "require": {
                 "channelgrabber/channel": ">=1.9.2",
@@ -2232,7 +2232,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-10-17 15:53:41"
+            "time": "2014-10-20 16:28:53"
         },
         {
             "name": "cilex/cilex",
