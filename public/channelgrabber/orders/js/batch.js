@@ -52,17 +52,14 @@ define([
             }
         };
 
-        if ($("#" + this.datatable + "-select-all").is(":checked")) {
-            ajax.url += "/" + $('#' + this.datatable).data("filterId");
-        } else {
-            var orders = $('#' + this.datatable).cgDataTable('selected', '.checkbox-id');
-            if (!orders.length) {
-                return;
-            }
-            ajax.data = {
-                orders: orders
-            };
+        var orders = $('#' + this.datatable).cgDataTable('selected', '.checkbox-id');
+        if (!orders.length) {
+            return;
         }
+
+        ajax.data = {
+            orders: orders
+        };
 
         this.getNotifications().notice('Adding orders to a batch');
         $.ajax(ajax);
@@ -117,17 +114,14 @@ define([
             }
         };
 
-        if ($("#" + this.datatable + "-select-all").is(":checked")) {
-            ajax.url += "/" + $('#' + this.datatable).data("filterId");
-        } else {
-            var orders = $('#' + this.datatable).cgDataTable('selected', '.checkbox-id');
-            if (!orders.length) {
-                return;
-            }
-            ajax.data = {
-                orders: orders
-            };
+        var orders = $('#' + this.datatable).cgDataTable('selected', '.checkbox-id');
+        if (!orders.length) {
+            return;
         }
+
+        ajax.data = {
+            orders: orders
+        };
 
         this.getNotifications().notice('Removing orders from batch');
         $.ajax(ajax);
