@@ -162,17 +162,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.9.12",
+            "version": "1.10.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "cefd17a387b794a436dfcacf980ccd7050c8ddee"
+                "reference": "575cec03fe9e50c8905369c2a02e6c7eaf6b2c21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.9.12-352e46.zip",
-                "reference": "cefd17a387b794a436dfcacf980ccd7050c8ddee",
-                "shasum": "9bb83c90055431d2cdaf41ee388efd569bf179a7"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.10.1-b597d5.zip",
+                "reference": "575cec03fe9e50c8905369c2a02e6c7eaf6b2c21",
+                "shasum": "9312f064359180d54ad29c68e86e229ebf5ad783"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -218,7 +218,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2014-10-15 08:43:29"
+            "time": "2014-10-17 15:59:03"
         },
         {
             "name": "channelgrabber/constants",
@@ -341,7 +341,58 @@
                     "CG\\Ebay\\Test\\": "tests/Test/"
                 }
             },
-            "time": "2014-10-23 15:48:42"
+            "time": "2014-10-20 10:02:16"
+        },
+        {
+            "name": "channelgrabber/ekm",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
+                "reference": "dfd7e8265164a1d11b67e7fa5bccdf900f555bf4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.0.4-6fd663.zip",
+                "reference": "dfd7e8265164a1d11b67e7fa5bccdf900f555bf4",
+                "shasum": "ff5639ddd9e1fd61df3ef59eab9eeb0a8f478643"
+            },
+            "require": {
+                "channelgrabber/channel": ">=1.9.2",
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/di": ">=2.1.0",
+                "channelgrabber/gearman": ">=1.1.0",
+                "channelgrabber/http": ">=1.2.2",
+                "channelgrabber/listing": ">=1.2.0",
+                "channelgrabber/log": ">=2.0.0",
+                "channelgrabber/order": ">=1.9.1",
+                "channelgrabber/product": ">=1.3.5",
+                "channelgrabber/stdlib": ">=2.7.23",
+                "composer/composer": "@dev",
+                "ext-gearman": "~1.1.0",
+                "guzzle/guzzle": "~3.7",
+                "php-jsonpatch/php-jsonpatch": "dev-master",
+                "php-jsonpointer/php-jsonpointer": "dev-master",
+                "zendframework/zend-di": ">=2.2.5",
+                "zendframework/zend-eventmanager": ">=2.2.5"
+            },
+            "require-dev": {
+                "channelgrabber/phpunit": ">=1.0.0",
+                "phpunit/phpunit": "~3.7.28"
+            },
+            "type": "di-definition",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Ekm\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Ekm\\Test\\": "tests/",
+                    "CG\\Ekm\\TestAsset\\": "tests/assets/"
+                }
+            },
+            "time": "2014-10-17 15:55:19"
         },
         {
             "name": "channelgrabber/email",
@@ -711,6 +762,7 @@
                     "CG\\Order\\Test\\": "tests/src"
                 }
             },
+
             "time": "2014-10-24 14:48:00"
         },
         {
@@ -1583,6 +1635,43 @@
             },
             "description": "Ebay module",
             "time": "2014-08-15 11:15:15"
+        },
+        {
+            "name": "channelgrabber/zf2-ekm",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/ekm-module.git",
+                "reference": "151cbd49ed30b99700ea960abff0d7ccd79309f5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ekm-1.0.0-c4d30a.zip",
+                "reference": "151cbd49ed30b99700ea960abff0d7ccd79309f5",
+                "shasum": "4d527ce66c996d374f1beb9b9607077878945fa0"
+            },
+            "require": {
+                "channelgrabber/zf2-installer": ">=1.0.3,<2.0.0",
+                "zendframework/zend-config": "2.*",
+                "zendframework/zend-form": "2.*",
+                "zendframework/zend-loader": "2.*",
+                "zendframework/zend-modulemanager": "2.*",
+                "zendframework/zend-view": "2.*"
+            },
+            "type": "zf2-ekm",
+            "extra": {
+                "zf2-module": "CG_Ekm"
+            },
+            "autoload": {
+                "psr-0": {
+                    "CG_Ekm": "src/"
+                },
+                "classmap": [
+                    "./Module.php"
+                ]
+            },
+            "description": "Ekm module",
+            "time": "2014-10-09 14:54:33"
         },
         {
             "name": "channelgrabber/zf2-email-template",
