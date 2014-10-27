@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ab59a04a3b04bc0289981817ca3cfab9",
+    "hash": "112b31f0912b67e0d09ee5a58a6c58c9",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -54,11 +54,17 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.5.1",
+            "version": "1.5.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "bd84c94fb275022cb0d9f8d428f699371b3f7cab"
+                "reference": "b1164fd550f370f6c6a732ae3b676016d83cdc62"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.5.2-69664a.zip",
+                "reference": "b1164fd550f370f6c6a732ae3b676016d83cdc62",
+                "shasum": "a380290b58411c01260b249656d99bfa47e424f3"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.2",
@@ -78,7 +84,7 @@
                     "CG\\Billing\\": "src"
                 }
             },
-            "time": "2014-10-27 12:28:04"
+            "time": "2014-10-27 15:10:47"
         },
         {
             "name": "channelgrabber/cache",
@@ -157,17 +163,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.11.2",
+            "version": "1.11.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "309feeefd052d8071b7c97589de12b07d16842e5"
+                "reference": "c3e5b8f65d34d8f5310e927217d44bb4d1fef26b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.11.2-aef231.zip",
-                "reference": "309feeefd052d8071b7c97589de12b07d16842e5",
-                "shasum": "44fc7108a63992281b4633956de7a83d14c43d7b"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.11.2.1-fcf14e.zip",
+                "reference": "c3e5b8f65d34d8f5310e927217d44bb4d1fef26b",
+                "shasum": "ddf002a01798acc5da4ef7daa54378145a4fa34f"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -213,7 +219,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2014-10-27 14:43:17"
+            "time": "2014-10-27 15:30:26"
         },
         {
             "name": "channelgrabber/constants",
@@ -460,12 +466,6 @@
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-gearman.git",
                 "reference": "85e3b2d46fa762b7266b4194d4eedf25bff3dc52"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-1.1.7-3ad6a5.zip",
-                "reference": "85e3b2d46fa762b7266b4194d4eedf25bff3dc52",
-                "shasum": "6edef87765bd205881eda53f5ffcc7971cd861d7"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0,<3.0.0",
@@ -1109,12 +1109,6 @@
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgslim.git",
                 "reference": "d9ad09d934ac71a67eaa7482bad3fc75d02e6b9a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-slim-1.11.0-2502e0.zip",
-                "reference": "d9ad09d934ac71a67eaa7482bad3fc75d02e6b9a",
-                "shasum": "f4732468b3e51e85c82528fb0fff3192a626a0ce"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
