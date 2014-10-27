@@ -1,3 +1,43 @@
 form {
   margin-bottom: 0px !important;
 }
+.status-map-table {
+  width: 100%;
+  float: left;
+  clear:both;
+  padding-bottom: 30px;
+  border-top: 1px solid $color-lgrey;
+  /* Put it to the Bottom Hack */
+  position: absolute;
+  top: 500px;
+  left: 200px;
+  .heading-large {
+    position: relative;
+    margin: 20px 0px 20px 0px;
+    /* Hack */
+    left: 30px;
+  }
+  table {
+    width: 320px;
+    float: left;
+    clear:both;
+    overflow: hidden;
+    position: relative;
+    /* Hack */
+    left: 30px;
+    @include border-radius(5px);
+    tr {
+      background-color: $color-white;
+      &:nth-child(even) {
+        background-color: $color-xlblue;
+      }
+    }
+    span.status {
+      margin-right: 10px;
+    }
+    span.sprite-arrow-double-14-black {
+      @include rotate(180deg);
+      margin: 0px 10px 0px 10px;
+    }
+  }
+}
