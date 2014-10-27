@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "09a59e9f7c5df70fa558dd94b08abd89",
+    "hash": "f760dd069331d5a4f3970e46f9d1e185",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -162,17 +162,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.10.1",
+            "version": "1.10.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "575cec03fe9e50c8905369c2a02e6c7eaf6b2c21"
+                "reference": "a72cd14ff03a76a2c5340776a3b18e6561d7318c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.10.1-b597d5.zip",
-                "reference": "575cec03fe9e50c8905369c2a02e6c7eaf6b2c21",
-                "shasum": "9312f064359180d54ad29c68e86e229ebf5ad783"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.10.3-186bd0.zip",
+                "reference": "a72cd14ff03a76a2c5340776a3b18e6561d7318c",
+                "shasum": "c29d409d06b700559776b8b3fe8aa06eff5d5882"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -218,7 +218,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2014-10-17 15:59:03"
+            "time": "2014-10-22 16:13:01"
         },
         {
             "name": "channelgrabber/constants",
@@ -341,31 +341,32 @@
                     "CG\\Ebay\\Test\\": "tests/Test/"
                 }
             },
-            "time": "2014-10-20 10:02:16"
+            "time": "2014-10-23 15:48:42"
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "1.0.4",
+            "version": "1.0.7.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "dfd7e8265164a1d11b67e7fa5bccdf900f555bf4"
+                "reference": "f74ee300dd9d8db7450196bbd0b025b6866bd345"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.0.4-6fd663.zip",
-                "reference": "dfd7e8265164a1d11b67e7fa5bccdf900f555bf4",
-                "shasum": "ff5639ddd9e1fd61df3ef59eab9eeb0a8f478643"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.0.7.1-2c7acb.zip",
+                "reference": "f74ee300dd9d8db7450196bbd0b025b6866bd345",
+                "shasum": "2e1c9f81cd3eb54842da5cc8fe71f055ec21cf88"
             },
             "require": {
                 "channelgrabber/channel": ">=1.9.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.1.0",
-                "channelgrabber/gearman": ">=1.1.0",
+                "channelgrabber/gearman": ">=1.1.5,<2.0.0",
                 "channelgrabber/http": ">=1.2.2",
                 "channelgrabber/listing": ">=1.2.0",
                 "channelgrabber/log": ">=2.0.0",
                 "channelgrabber/order": ">=1.9.1",
+                "channelgrabber/php-phantomjs": ">=3.1.5",
                 "channelgrabber/product": ">=1.3.5",
                 "channelgrabber/stdlib": ">=2.7.23",
                 "composer/composer": "@dev",
@@ -392,7 +393,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2014-10-17 15:55:19"
+            "time": "2014-10-24 14:36:47"
         },
         {
             "name": "channelgrabber/email",
@@ -505,6 +506,13 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -762,7 +770,6 @@
                     "CG\\Order\\Test\\": "tests/src"
                 }
             },
-
             "time": "2014-10-24 14:48:00"
         },
         {
@@ -848,6 +855,70 @@
                 "phinx"
             ],
             "time": "2014-08-15 13:12:10"
+        },
+        {
+            "name": "channelgrabber/php-phantomjs",
+            "version": "v3.1.5",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:channelgrabber/php-phantomjs.git",
+                "reference": "957d80fa5c881c67e45ff7de1a5854ebaf5a4606"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-php-phantomjs-v3.1.5-375347.zip",
+                "reference": "957d80fa5c881c67e45ff7de1a5854ebaf5a4606",
+                "shasum": "990d8eb1ea9f25ce98e25472069ec20898719257"
+            },
+            "require": {
+                "jakoch/phantomjs-installer": "1.9.7",
+                "php": ">=5.3.0",
+                "symfony/config": "~2.3",
+                "symfony/dependency-injection": "~2.3",
+                "symfony/filesystem": "~2.3",
+                "symfony/yaml": "~2.3",
+                "twig/twig": "~1.16"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "bin": [
+                "bin/phantomloader"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "JonnyW\\PhantomJs\\": "src"
+                },
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "scripts": {
+                "post-install-cmd": [
+                    "PhantomInstaller\\Installer::installPhantomJS"
+                ],
+                "post-update-cmd": [
+                    "PhantomInstaller\\Installer::installPhantomJS"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonny Wenmoth",
+                    "email": "contact@jonnyw.me",
+                    "homepage": "http://jonnyw.me/"
+                }
+            ],
+            "description": "A PHP wrapper for loading pages through PhantomJS",
+            "keywords": [
+                "Headless Browser",
+                "PhantomJS",
+                "Testing"
+            ],
+            "time": "2014-10-23 08:40:50"
         },
         {
             "name": "channelgrabber/predis",
@@ -2629,16 +2700,16 @@
         },
         {
             "name": "guzzlehttp/ringphp",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/RingPHP.git",
-                "reference": "9e44b565d726d9614cd970319e6eea70ee15bff3"
+                "reference": "bdb67d6da3e2af33dee5c85c971203d4503c8540"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/RingPHP/zipball/9e44b565d726d9614cd970319e6eea70ee15bff3",
-                "reference": "9e44b565d726d9614cd970319e6eea70ee15bff3",
+                "url": "https://api.github.com/repos/guzzle/RingPHP/zipball/bdb67d6da3e2af33dee5c85c971203d4503c8540",
+                "reference": "bdb67d6da3e2af33dee5c85c971203d4503c8540",
                 "shasum": ""
             },
             "require": {
@@ -2675,7 +2746,7 @@
                     "homepage": "https://github.com/mtdowling"
                 }
             ],
-            "time": "2014-10-13 00:59:38"
+            "time": "2014-10-26 21:10:50"
         },
         {
             "name": "guzzlehttp/streams",
@@ -2726,6 +2797,47 @@
                 "stream"
             ],
             "time": "2014-10-12 19:18:40"
+        },
+        {
+            "name": "jakoch/phantomjs-installer",
+            "version": "1.9.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jakoch/phantomjs-installer.git",
+                "reference": "2431d7001a911c672b2ef04f447222a967134313"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jakoch/phantomjs-installer/zipball/2431d7001a911c672b2ef04f447222a967134313",
+                "reference": "2431d7001a911c672b2ef04f447222a967134313",
+                "shasum": ""
+            },
+            "require": {
+                "ext-openssl": "*"
+            },
+            "type": "custom-installer",
+            "autoload": {
+                "psr-0": {
+                    "PhantomInstaller\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jens-André Koch",
+                    "email": "jakoch@web.de"
+                }
+            ],
+            "description": "A Composer package which installs the PhantomJS binary (Linux, Windows, Mac) into `/bin` of your project.",
+            "keywords": [
+                "binaries",
+                "headless",
+                "phantomjs"
+            ],
+            "time": "2014-07-29 09:42:52"
         },
         {
             "name": "justinrainbow/json-schema",
@@ -3019,9 +3131,7 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -3153,8 +3263,7 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com",
-                    "role": "Developer"
+                    "homepage": "http://benramsey.com"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
@@ -3519,6 +3628,63 @@
             "time": "2014-10-09 16:00:03"
         },
         {
+            "name": "symfony/dependency-injection",
+            "version": "v2.5.6",
+            "target-dir": "Symfony/Component/DependencyInjection",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/DependencyInjection.git",
+                "reference": "fb40e4ea115d331346fbbc4da8f42825e524c7a0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/DependencyInjection/zipball/fb40e4ea115d331346fbbc4da8f42825e524c7a0",
+                "reference": "fb40e4ea115d331346fbbc4da8f42825e524c7a0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "symfony/config": "~2.2",
+                "symfony/expression-language": "~2.4",
+                "symfony/yaml": "~2.0"
+            },
+            "suggest": {
+                "symfony/config": "",
+                "symfony/proxy-manager-bridge": "Generate service proxies to lazy load them",
+                "symfony/yaml": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\DependencyInjection\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Symfony DependencyInjection Component",
+            "homepage": "http://symfony.com",
+            "time": "2014-10-01 05:50:18"
+        },
+        {
             "name": "symfony/dom-crawler",
             "version": "v2.5.6",
             "target-dir": "Symfony/Component/DomCrawler",
@@ -3817,6 +3983,63 @@
             "time": "2014-10-01 05:50:18"
         },
         {
+            "name": "twig/twig",
+            "version": "v1.16.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fabpot/Twig.git",
+                "reference": "42f758d9fe2146d1f0470604fc05ee43580873fc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/42f758d9fe2146d1f0470604fc05ee43580873fc",
+                "reference": "42f758d9fe2146d1f0470604fc05ee43580873fc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.16-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Twig_": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Armin Ronacher",
+                    "email": "armin.ronacher@active-4.com",
+                    "role": "Project Founder"
+                },
+                {
+                    "name": "Twig Team",
+                    "homepage": "https://github.com/fabpot/Twig/graphs/contributors",
+                    "role": "Contributors"
+                }
+            ],
+            "description": "Twig, the flexible, fast, and secure template language for PHP",
+            "homepage": "http://twig.sensiolabs.org",
+            "keywords": [
+                "templating"
+            ],
+            "time": "2014-10-17 12:53:44"
+        },
+        {
             "name": "zendframework/zendframework",
             "version": "2.3.3",
             "source": {
@@ -3979,9 +4202,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "shasum": ""
+                "url": "https://packages.zendframework.com/composer/zendframework-zendxml-559b34f426d33a11c3db118e00ce14bb8dc64e5f-zip-6cf7a2.zip",
+                "reference": "1.0.0",
+                "shasum": "39abc614b5c26bcbf8102e203c52dee73c4460a8"
             },
             "require": {
                 "php": ">=5.3.3"
@@ -4001,7 +4224,6 @@
                     "ZendXml": "library/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -4012,6 +4234,10 @@
                 "xml",
                 "zf2"
             ],
+            "support": {
+                "source": "https://github.com/zendframework/ZendXml/tree/master",
+                "issues": "https://github.com/zendframework/ZendXml/issues"
+            },
             "time": "2014-03-05 22:25:44"
         }
     ],
@@ -4460,7 +4686,7 @@
                 {
                     "name": "Anthon Pang",
                     "email": "apang@softwaredevelopment.ca",
-                    "role": "developer"
+                    "role": "Fork Maintainer"
                 }
             ],
             "description": "PHP WebDriver for Selenium 2",
@@ -4621,8 +4847,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
