@@ -21,11 +21,9 @@ form {
     width: 320px;
     float: left;
     clear:both;
-    overflow: hidden;
     position: relative;
     /* Hack */
     left: 30px;
-    @include border-radius(5px);
     tr {
       background-color: $color-white;
       &:nth-child(even) {
