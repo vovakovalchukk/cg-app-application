@@ -15,7 +15,7 @@
         "channelgrabber/channel": "~1.11.1",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/di": "~2.1.1",
-        "channelgrabber/ebay": "~1.4.0",
+        "channelgrabber/ebay": "~1.4.0.1",
         "channelgrabber/ekm": "~1.0.9",
         "channelgrabber/gearman": "~1.1.7",
         "channelgrabber/http": "~1.2.24",
