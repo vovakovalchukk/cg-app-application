@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ab59a04a3b04bc0289981817ca3cfab9",
+    "hash": "59dd4f374755b184936d89844f8a3cf1",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -54,11 +54,17 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.5.1",
+            "version": "1.5.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "bd84c94fb275022cb0d9f8d428f699371b3f7cab"
+                "reference": "b1164fd550f370f6c6a732ae3b676016d83cdc62"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.5.2-69664a.zip",
+                "reference": "b1164fd550f370f6c6a732ae3b676016d83cdc62",
+                "shasum": "a380290b58411c01260b249656d99bfa47e424f3"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.2",
@@ -78,7 +84,7 @@
                     "CG\\Billing\\": "src"
                 }
             },
-            "time": "2014-10-27 12:28:04"
+            "time": "2014-10-27 15:10:47"
         },
         {
             "name": "channelgrabber/cache",
@@ -157,17 +163,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.11.2",
+            "version": "1.11.2.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "309feeefd052d8071b7c97589de12b07d16842e5"
+                "reference": "ef6081217a930781c365a6cf15eb6d89b635c1a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.11.2-aef231.zip",
-                "reference": "309feeefd052d8071b7c97589de12b07d16842e5",
-                "shasum": "44fc7108a63992281b4633956de7a83d14c43d7b"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.11.2.2-9e9b78.zip",
+                "reference": "ef6081217a930781c365a6cf15eb6d89b635c1a5",
+                "shasum": "1c9af7e5d86987e3225c836767a92f4448bc2293"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -213,7 +219,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2014-10-27 14:43:17"
+            "time": "2014-10-27 16:10:36"
         },
         {
             "name": "channelgrabber/constants",
@@ -340,17 +346,17 @@
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "1.0.9",
+            "version": "1.0.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "a8efcb85234c0c8d806a6540690525e7f225b1d4"
+                "reference": "ebdb9bc2908c6659e59aeeaa12d5c120b44e7961"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.0.9-b8330e.zip",
-                "reference": "a8efcb85234c0c8d806a6540690525e7f225b1d4",
-                "shasum": "52abfb5f65d92c874386bf3c18f276c00108abab"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.0.10-c5e561.zip",
+                "reference": "ebdb9bc2908c6659e59aeeaa12d5c120b44e7961",
+                "shasum": "2eb3695d7fb507943b08dc041f591aac5d97630b"
             },
             "require": {
                 "channelgrabber/channel": ">=1.9.2",
@@ -388,7 +394,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2014-10-27 14:45:11"
+            "time": "2014-10-27 16:43:21"
         },
         {
             "name": "channelgrabber/email",
