@@ -88,11 +88,11 @@ class Service implements LoggerAwareInterface
     public function updateStock($stockLocationId, $eTag, $totalQuantity)
     {
         try {
+            $this->getStockAuditor()->userChange();
             $stockLocationEntity = $this->getStockLocationService()->fetch($stockLocationId);
             $stockLocationEntity->setStoredEtag($eTag)
                 ->setOnHand($totalQuantity);
             $this->getStockLocationService()->save($stockLocationEntity);
-            $this->getStockAuditor()->userChange();
         } catch (NotModified $e) {
             //No changes do nothing
         }

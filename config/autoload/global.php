@@ -41,6 +41,8 @@ use CG\Location\Mapper as LocationMapper;
 use CG\Stock\Location\Storage\Api as LocationApiStorage;
 use CG\Stock\Location\StorageInterface as LocationStorageInterface;
 
+use CG\Stock\Audit\Storage\Queue as StockAuditQueue;
+
 return array(
     'di' => array(
         'instance' => array(
@@ -127,6 +129,11 @@ return array(
                     'client' => 'cg_app_guzzle'
                 ]
             ],
+            StockAuditQueue::class => [
+                'parameters' => [
+                    'client' => 'reliable_redis'
+                ]
+            ]
         ),
     ),
     'view_manager' => [
