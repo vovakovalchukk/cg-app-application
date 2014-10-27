@@ -44,7 +44,7 @@
         "channelgrabber/zf2-logclient": "~1.4.0",
         "channelgrabber/zf2-login": "~1.4.14",
         "channelgrabber/zf2-mustache": "~1.0.1",
-        "channelgrabber/zf2-permission": "~1.1.6",
+        "channelgrabber/zf2-permission": "dev-CGIV-3824-Billing-Access as 1.1.7",
         "channelgrabber/zf2-register": "1.4.23",
         "channelgrabber/zf2-royalmail": "~1.1.1",
         "channelgrabber/zf2-sessions": "~1.0.4",
