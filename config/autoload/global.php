@@ -134,6 +134,11 @@ return array(
                     'client' => 'cg_app_guzzle'
                 ]
             ],
+            TransactionApiStorage::class => [
+                'parameter' => [
+                    'client' => 'billing_guzzle',
+                ],
+            ],
         ),
     ),
     'view_manager' => [
