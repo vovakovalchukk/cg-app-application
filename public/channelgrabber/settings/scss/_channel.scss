@@ -2,7 +2,7 @@ form {
   margin-bottom: 0px !important;
 }
 .status-map-table {
-  width: 100%;
+  @include calc(width, "100% - 200px");
   float: left;
   clear:both;
   padding-bottom: 30px;
@@ -16,6 +16,7 @@ form {
     margin: 20px 0px 20px 0px;
     /* Hack */
     left: 30px;
+    @include calc(width, "100% - 200px");
   }
   table {
     width: 320px;
