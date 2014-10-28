@@ -125,7 +125,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "2a91f7a3e580e1ef7ad82a28e4d194e77aef2f40"
+                "reference": "a18431b3389a0264fc7fd94653df955ee4daea18"
             },
             "require": {
                 "channelgrabber/channel": ">=1.8.6",
@@ -153,7 +153,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2014-10-27 17:06:04"
+            "time": "2014-10-27 17:38:56"
         },
         {
             "name": "channelgrabber/channel",
@@ -340,17 +340,17 @@
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "1.0.10",
+            "version": "1.0.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "ebdb9bc2908c6659e59aeeaa12d5c120b44e7961"
+                "reference": "4b79d7229dc30615ba71fe546f846039e2ad3bb3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.0.10-c5e561.zip",
-                "reference": "ebdb9bc2908c6659e59aeeaa12d5c120b44e7961",
-                "shasum": "2eb3695d7fb507943b08dc041f591aac5d97630b"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.0.12-2df70e.zip",
+                "reference": "4b79d7229dc30615ba71fe546f846039e2ad3bb3",
+                "shasum": "b9db963d70daaa80295544739f2160e32fa1cabb"
             },
             "require": {
                 "channelgrabber/channel": ">=1.9.2",
@@ -388,7 +388,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2014-10-27 16:43:21"
+            "time": "2014-10-28 10:06:43"
         },
         {
             "name": "channelgrabber/email",
@@ -708,17 +708,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.9.3",
+            "version": "1.9.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "2908eb3eb6dcd4e86af70f2d9454c51217fd302f"
+                "reference": "f492454ee893a5070f6078ec3f1d068bbc2801e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.9.3-f39976.zip",
-                "reference": "2908eb3eb6dcd4e86af70f2d9454c51217fd302f",
-                "shasum": "8c866c78cb9ffc7b1c2a1a88ababffc1e4e76fc1"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.9.4-a22ad4.zip",
+                "reference": "f492454ee893a5070f6078ec3f1d068bbc2801e3",
+                "shasum": "e8d06634f0495f84fab732a6e281ea3b315c987b"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -765,7 +765,7 @@
                     "CG\\Order\\Test\\": "tests/src"
                 }
             },
-            "time": "2014-10-24 14:48:00"
+            "time": "2014-10-28 10:12:38"
         },
         {
             "name": "channelgrabber/permission",
@@ -1274,7 +1274,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "3b986425003d6de44700c7f776524b9cf8154790"
+                "reference": "e556a2a0801ab5d3534b18f76db33136ee2bf549"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.0,<2.0.0",
@@ -1308,7 +1308,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2014-10-27 17:01:02"
+            "time": "2014-10-28 10:23:31"
         },
         {
             "name": "channelgrabber/template",
@@ -1699,17 +1699,17 @@
         },
         {
             "name": "channelgrabber/zf2-ekm",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/ekm-module.git",
-                "reference": "151cbd49ed30b99700ea960abff0d7ccd79309f5"
+                "reference": "85bc0421de34827127a936f29c823366066ed680"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ekm-1.0.0-c4d30a.zip",
-                "reference": "151cbd49ed30b99700ea960abff0d7ccd79309f5",
-                "shasum": "4d527ce66c996d374f1beb9b9607077878945fa0"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ekm-1.0.1-acaf0b.zip",
+                "reference": "85bc0421de34827127a936f29c823366066ed680",
+                "shasum": "71a44ba9da8fc769d6f17b082fa8f4cde5304bd4"
             },
             "require": {
                 "channelgrabber/zf2-installer": ">=1.0.3,<2.0.0",
@@ -1732,7 +1732,7 @@
                 ]
             },
             "description": "Ekm module",
-            "time": "2014-10-09 14:54:33"
+            "time": "2014-10-28 09:19:31"
         },
         {
             "name": "channelgrabber/zf2-email-template",
