@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1a179b60d01252600d64fbf5c32f89d3",
+    "hash": "6b4dc10663e1e525c6d5c1ec90e5f1e5",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -54,17 +54,17 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.5.3",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "d5414da9d4673345bc0e8c82ed3fb36f38c5f9a8"
+                "reference": "886e3f448335634d584425a1369470b0a684b170"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.5.3-e588a3.zip",
-                "reference": "d5414da9d4673345bc0e8c82ed3fb36f38c5f9a8",
-                "shasum": "bd16ae8048497fdece01cee33d05b3be1fc7ae29"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.6.0-3d603e.zip",
+                "reference": "886e3f448335634d584425a1369470b0a684b170",
+                "shasum": "e9b9b23129219aebbbeb6c9118cb1af6b5ec51c6"
             },
             "require": {
                 "channelgrabber/cache": ">=1.3.2",
@@ -84,7 +84,7 @@
                     "CG\\Billing\\": "src"
                 }
             },
-            "time": "2014-10-27 16:50:59"
+            "time": "2014-10-28 11:22:50"
         },
         {
             "name": "channelgrabber/cache",
@@ -346,17 +346,17 @@
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "1.0.11",
+            "version": "1.0.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "e476dc587cb2c12c60a1a69bee2a352893836c1e"
+                "reference": "2c3bc78d68fcd035f26a8cc4d9dc26b09718c486"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.0.11-544f70.zip",
-                "reference": "e476dc587cb2c12c60a1a69bee2a352893836c1e",
-                "shasum": "92780d8dbaf9919acffe0b81eb70fae6a2fd5940"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.0.13-7b66ac.zip",
+                "reference": "2c3bc78d68fcd035f26a8cc4d9dc26b09718c486",
+                "shasum": "3805d61f337c918d7e0329deea34c51fa88c654a"
             },
             "require": {
                 "channelgrabber/channel": ">=1.9.2",
@@ -394,7 +394,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2014-10-28 09:20:58"
+            "time": "2014-10-28 11:25:14"
         },
         {
             "name": "channelgrabber/email",
@@ -714,17 +714,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.9.3",
+            "version": "1.9.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "2908eb3eb6dcd4e86af70f2d9454c51217fd302f"
+                "reference": "f492454ee893a5070f6078ec3f1d068bbc2801e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.9.3-f39976.zip",
-                "reference": "2908eb3eb6dcd4e86af70f2d9454c51217fd302f",
-                "shasum": "8c866c78cb9ffc7b1c2a1a88ababffc1e4e76fc1"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.9.4-a22ad4.zip",
+                "reference": "f492454ee893a5070f6078ec3f1d068bbc2801e3",
+                "shasum": "e8d06634f0495f84fab732a6e281ea3b315c987b"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -771,7 +771,7 @@
                     "CG\\Order\\Test\\": "tests/src"
                 }
             },
-            "time": "2014-10-24 14:48:00"
+            "time": "2014-10-28 10:12:38"
         },
         {
             "name": "channelgrabber/permission",
