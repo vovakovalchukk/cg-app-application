@@ -117,6 +117,7 @@ class Service implements LoggerAwareInterface
     public function alterOrderTable(OrderCollection $orderCollection, MvcEvent $event)
     {
         $orders = $orderCollection->toArray();
+
         try {
             $orders = $this->getOrdersArrayWithShippingAliases($orders);
         } catch (NotFound $e) {
