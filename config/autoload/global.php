@@ -41,6 +41,12 @@ use CG\Location\Mapper as LocationMapper;
 use CG\Stock\Location\Storage\Api as LocationApiStorage;
 use CG\Stock\Location\StorageInterface as LocationStorageInterface;
 
+use CG\Billing\Transaction\StorageInterface as TransactionStorage;
+use CG\Billing\Transaction\Storage\Api as TransactionApiStorage;
+
+use CG_UI\Module as UI;
+use CG_Permission\Service as PermissionService;
+
 return array(
     'di' => array(
         'instance' => array(
@@ -54,7 +60,8 @@ return array(
                 OrganisationUnitStorage::class => OrganisationUnitClient::class,
                 SessionManagerInterface::class => SessionManager::class,
                 ServiceLocatorInterface::class => ServiceManager::class,
-                LocationStorageInterface::class => LocationApiStorage::class
+                LocationStorageInterface::class => LocationApiStorage::class,
+                TransactionStorage::class => TransactionApiStorage::class,
             ),
             OrderApiClient::class => [
                 'parameters' => [
@@ -127,6 +134,11 @@ return array(
                     'client' => 'cg_app_guzzle'
                 ]
             ],
+            TransactionApiStorage::class => [
+                'parameter' => [
+                    'client' => 'billing_guzzle',
+                ],
+            ],
         ),
     ),
     'view_manager' => [
@@ -144,4 +156,15 @@ return array(
             ),
         ),
     ),
+    'router' => [
+        'routes' => [
+            UI::NAVIGATION_ROUTE => [
+                'options' => [
+                    'defaults' => [
+                        PermissionService::ROUTE_WHITELIST => true,
+                    ],
+                ]
+            ],
+        ],
+    ],
 );
