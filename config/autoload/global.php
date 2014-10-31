@@ -46,6 +46,7 @@ use CG\Billing\Transaction\Storage\Api as TransactionApiStorage;
 
 use CG_UI\Module as UI;
 use CG_Permission\Service as PermissionService;
+use CG\Stock\Audit\Storage\Queue as StockAuditQueue;
 
 return array(
     'di' => array(
@@ -139,6 +140,11 @@ return array(
                     'client' => 'billing_guzzle',
                 ],
             ],
+            StockAuditQueue::class => [
+                'parameters' => [
+                    'client' => 'reliable_redis'
+                ]
+            ]
         ),
     ),
     'view_manager' => [

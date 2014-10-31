@@ -18,6 +18,7 @@ use CG\Product\Filter as ProductFilter;
 use CG\Product\Filter\Mapper as ProductFilterMapper;
 use CG\Product\Entity as Product;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stock\Auditor as StockAuditor;
 
 class Service implements LoggerAwareInterface
 {
@@ -45,6 +46,7 @@ class Service implements LoggerAwareInterface
     protected $productFilterMapper;
     protected $stockService;
     protected $stockLocationService;
+    protected $stockAuditor;
 
     public function __construct(
         UserService $userService,
@@ -56,7 +58,8 @@ class Service implements LoggerAwareInterface
         ProductFilterMapper $productFilterMapper,
         ProductService $productService,
         StockLocationService $stockLocationService,
-        StockService $stockService
+        StockService $stockService,
+        StockAuditor $stockAuditor
     ) {
         $this->setProductService($productService)
             ->setUserService($userService)
@@ -67,7 +70,8 @@ class Service implements LoggerAwareInterface
             ->setAccountService($accountService)
             ->setOrganisationUnitService($organisationUnitService)
             ->setStockService($stockService)
-            ->setStockLocationService($stockLocationService);
+            ->setStockLocationService($stockLocationService)
+            ->setStockAuditor($stockAuditor);
     }
 
     public function fetchProducts(ProductFilter $productFilter)
@@ -84,6 +88,7 @@ class Service implements LoggerAwareInterface
     public function updateStock($stockLocationId, $eTag, $totalQuantity)
     {
         try {
+            $this->getStockAuditor()->userChange();
             $stockLocationEntity = $this->getStockLocationService()->fetch($stockLocationId);
             $stockLocationEntity->setStoredEtag($eTag)
                 ->setOnHand($totalQuantity);
@@ -318,5 +323,22 @@ class Service implements LoggerAwareInterface
     protected function getProductFilterMapper()
     {
         return $this->productFilterMapper;
+    }
+
+    /**
+     * @return self
+     */
+    public function setStockAuditor(StockAuditor $stockAuditor)
+    {
+        $this->stockAuditor = $stockAuditor;
+        return $this;
+    }
+
+    /**
+     * @return StockAuditor
+     */
+    protected function getStockAuditor()
+    {
+        return $this->stockAuditor;
     }
 }
