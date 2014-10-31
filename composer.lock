@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5e1041914c5bacd30a82826269bc232a",
+    "hash": "ea9a8e5b1cf5b5985e320a89624bbbc0",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1404,17 +1404,17 @@
         },
         {
             "name": "channelgrabber/usage",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-usage.git",
-                "reference": "372e44b347040f92a19b1f9f8df9a9e79ef812cc"
+                "reference": "3fc463f3d08f0cafea392cc0f5e1432cf53d1ea9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-usage-1.0.3-4b73dc.zip",
-                "reference": "372e44b347040f92a19b1f9f8df9a9e79ef812cc",
-                "shasum": "8345ded44eade272c4f16a8c1cab074b65051f8b"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-usage-1.0.4-13ef18.zip",
+                "reference": "3fc463f3d08f0cafea392cc0f5e1432cf53d1ea9",
+                "shasum": "89076456f9ede69e6d04a397504b5518c63fd056"
             },
             "require": {
                 "channelgrabber/cache": ">=1.2.4",
@@ -1430,7 +1430,7 @@
                     "CG\\Usage\\": "src"
                 }
             },
-            "time": "2014-09-03 12:18:44"
+            "time": "2014-10-31 11:59:55"
         },
         {
             "name": "channelgrabber/user",
@@ -2229,17 +2229,17 @@
         },
         {
             "name": "channelgrabber/zf2-usage",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/usage-module.git",
-                "reference": "842d44820f4a7ad75bbd8e116ed1d54ad933e610"
+                "reference": "c54ff3d4fc0a068a18375f28a2011a1bf199ea18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-usage-1.0.1-f234de.zip",
-                "reference": "842d44820f4a7ad75bbd8e116ed1d54ad933e610",
-                "shasum": "7bc2605d5dac26f9fee763a0af3510f7980ed83c"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-usage-1.0.2-c0af5a.zip",
+                "reference": "c54ff3d4fc0a068a18375f28a2011a1bf199ea18",
+                "shasum": "6470d2005367c056ec715355a121e292fe3b4fe3"
             },
             "require": {
                 "channelgrabber/billing": ">=1.1.3",
@@ -2270,7 +2270,7 @@
                 ]
             },
             "description": "Usage module to determine if users are exceeding their limits",
-            "time": "2014-08-13 14:20:28"
+            "time": "2014-10-31 11:58:56"
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
