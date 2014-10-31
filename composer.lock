@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ea9a8e5b1cf5b5985e320a89624bbbc0",
+    "hash": "d61e7ced6a9b07dd039e17d551606a64",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -513,13 +513,6 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -2026,17 +2019,17 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.4.24",
+            "version": "1.4.25",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "27e2e839389eb941f8b0b48c156e4e3a6595878d"
+                "reference": "e285ab6b1d1af35853d8bfc50b071f54ab7d4445"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.24-fafd5b.zip",
-                "reference": "27e2e839389eb941f8b0b48c156e4e3a6595878d",
-                "shasum": "99fb36da002e47853971b4e051402f81a2953784"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.25-1b7a2d.zip",
+                "reference": "e285ab6b1d1af35853d8bfc50b071f54ab7d4445",
+                "shasum": "847fbf3fb5203363b01c79634eaee89f43d0e388"
             },
             "require": {
                 "channelgrabber/cglib": ">=1.1.4",
@@ -2074,7 +2067,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2014-10-29 13:23:59"
+            "time": "2014-10-31 11:57:20"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -3147,7 +3140,9 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -3279,7 +3274,8 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com"
+                    "homepage": "http://benramsey.com",
+                    "role": "Developer"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
@@ -4863,7 +4859,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
