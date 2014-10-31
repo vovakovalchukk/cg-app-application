@@ -19,10 +19,9 @@ return array (
     14 => 'CG_Amazon',
     15 => 'CG_Ebay',
     16 => 'CG_Channel',
-    17 => 'CG_Sessions',
-    18 => 'CG_Usage',
-    19 => 'CG_RoyalMail',
-    20 => 'CG_Ekm'
+    17 => 'CG_Usage',
+    18 => 'CG_RoyalMail',
+    19 => 'CG_Ekm'
   ),
   'module_listener_options' => 
   array (
