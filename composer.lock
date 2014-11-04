@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dbd92bb29e3ef055b4a5421f53b0fb04",
+    "hash": "0904bdb8ec0de5b9340ebf56bfeda7b7",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2114,11 +2114,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-zf2-sessions.git",
-                "reference": "fd6d3ada6e990577d3202d3268ed9f5b3137692f"
+                "reference": "65a78c6925326a04d51bb01559a6936609eb3e49"
             },
             "require": {
+                "channelgrabber/di": ">=2.1.0",
                 "channelgrabber/phinx": "~0.3.2.3",
                 "channelgrabber/stdlib": ">=2.6.0",
+                "composer/composer": "@dev",
                 "zendframework/zend-config": ">=2.2,<3.0",
                 "zendframework/zend-di": ">=2.2,<3.0",
                 "zendframework/zend-session": ">=2.2,<3.0"
@@ -2136,7 +2138,7 @@
                     "CG_Sessions\\": "src"
                 }
             },
-            "time": "2014-11-03 16:58:20"
+            "time": "2014-11-04 09:21:15"
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
