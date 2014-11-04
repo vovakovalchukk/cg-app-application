@@ -2114,7 +2114,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-zf2-sessions.git",
-                "reference": "65a78c6925326a04d51bb01559a6936609eb3e49"
+                "reference": "e863a8f6193914aed7729592aeefd2b56a6910b9"
             },
             "require": {
                 "channelgrabber/di": ">=2.1.0",
@@ -2138,7 +2138,7 @@
                     "CG_Sessions\\": "src"
                 }
             },
-            "time": "2014-11-04 09:21:15"
+            "time": "2014-11-04 10:10:51"
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
