@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0904bdb8ec0de5b9340ebf56bfeda7b7",
+    "hash": "0d4d3e7a4b91c5fbea47fd060c251726",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2110,11 +2110,17 @@
         },
         {
             "name": "channelgrabber/zf2-sessions",
-            "version": "dev-CGIV-3981-RedirectLoop",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-zf2-sessions.git",
-                "reference": "e863a8f6193914aed7729592aeefd2b56a6910b9"
+                "reference": "610e35f41fd4474d1974e2fb9af9bf8d21cccf10"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-sessions-1.1.0-9f916d.zip",
+                "reference": "610e35f41fd4474d1974e2fb9af9bf8d21cccf10",
+                "shasum": "7d4c0fe0c1663caa97fd2664292a213e2627a10f"
             },
             "require": {
                 "channelgrabber/di": ">=2.1.0",
@@ -2138,7 +2144,7 @@
                     "CG_Sessions\\": "src"
                 }
             },
-            "time": "2014-11-04 10:10:51"
+            "time": "2014-11-04 10:33:14"
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
@@ -5396,18 +5402,10 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.1.0",
-            "alias_normalized": "1.1.0.0",
-            "version": "dev-CGIV-3981-RedirectLoop",
-            "package": "channelgrabber/zf2-sessions"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-sessions": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
