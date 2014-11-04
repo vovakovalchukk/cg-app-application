@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "df6afbf422488196377f18d72ff4704a",
+    "hash": "8e2b3707958b20cc0decff1bb04b87c1",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -714,11 +714,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-3980-submit-orders-ajax-request-sooner",
+            "version": "1.9.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "0908129e33256130c8e1e4a54f6f71100d17d0f7"
+                "reference": "729112ea7843ae157624ac3d0c41227603e218c2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.9.5-72373f.zip",
+                "reference": "729112ea7843ae157624ac3d0c41227603e218c2",
+                "shasum": "20abd16883d34e8a373f5dfa0aa66af88911b51b"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -765,7 +771,7 @@
                     "CG\\Order\\Test\\": "tests/src"
                 }
             },
-            "time": "2014-11-04 13:38:17"
+            "time": "2014-11-04 15:38:07"
         },
         {
             "name": "channelgrabber/permission",
@@ -2103,6 +2109,44 @@
             "time": "2014-09-30 16:53:18"
         },
         {
+            "name": "channelgrabber/zf2-sessions",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-zf2-sessions.git",
+                "reference": "610e35f41fd4474d1974e2fb9af9bf8d21cccf10"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-sessions-1.1.0-9f916d.zip",
+                "reference": "610e35f41fd4474d1974e2fb9af9bf8d21cccf10",
+                "shasum": "7d4c0fe0c1663caa97fd2664292a213e2627a10f"
+            },
+            "require": {
+                "channelgrabber/di": ">=2.1.0",
+                "channelgrabber/phinx": "~0.3.2.3",
+                "channelgrabber/stdlib": ">=2.6.0",
+                "composer/composer": "@dev",
+                "zendframework/zend-config": ">=2.2,<3.0",
+                "zendframework/zend-di": ">=2.2,<3.0",
+                "zendframework/zend-session": ">=2.2,<3.0"
+            },
+            "require-dev": {
+                "channelgrabber/phpunit": ">=1.0.0",
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "zf2-module",
+            "autoload": {
+                "classmap": [
+                    "./Module.php"
+                ],
+                "psr-4": {
+                    "CG_Sessions\\": "src"
+                }
+            },
+            "time": "2014-11-04 10:33:14"
+        },
+        {
             "name": "channelgrabber/zf2-ssoclient",
             "version": "1.4.2.1",
             "source": {
@@ -2225,11 +2269,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-3980-submit-orders-ajax-request-sooner",
+            "version": "1.13.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "473215018bf1e75c88b747b5e34ca988f08f742d"
+                "reference": "e7a7b41aa95a38ac2c7fdf9fd87005e57238dab9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.13.1-1bc1d0.zip",
+                "reference": "e7a7b41aa95a38ac2c7fdf9fd87005e57238dab9",
+                "shasum": "76b24f2a6cef7c54032dee50c66a079e7d435ac8"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2265,7 +2315,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-11-04 13:50:54"
+            "time": "2014-11-04 15:40:06"
         },
         {
             "name": "cilex/cilex",
@@ -5355,25 +5405,10 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.9.5",
-            "alias_normalized": "1.9.5.0",
-            "version": "dev-CGIV-3980-submit-orders-ajax-request-sooner",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.13.1",
-            "alias_normalized": "1.13.1.0",
-            "version": "dev-CGIV-3980-submit-orders-ajax-request-sooner",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
