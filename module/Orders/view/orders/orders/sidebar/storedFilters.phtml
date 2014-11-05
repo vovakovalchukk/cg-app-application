@@ -1,8 +1,8 @@
 <?php $this->inlineScript()->captureStart(); ?>
 require.config({
     paths: {
-        filters: "<?= Orders\Module::PUBLIC_FOLDER ?>js/filters",
-        storedFilters: "<?= Orders\Module::PUBLIC_FOLDER ?>js/filters/stored"
+        filters: "<?= str_replace('channelgrabber', 'cg-built', Orders\Module::PUBLIC_FOLDER) ?>js/filters",
+        storedFilters: "<?= str_replace('channelgrabber', 'cg-built', Orders\Module::PUBLIC_FOLDER) ?>js/filters/stored"
     }
 });
 require([
