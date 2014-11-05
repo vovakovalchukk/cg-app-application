@@ -54,7 +54,7 @@
         "channelgrabber/zf2-ssoclient": "~1.4.2",
         "channelgrabber/zf2-stdlib": "~1.1.16",
         "channelgrabber/zf2-usage": "~1.0.2",
-        "channelgrabber/zf2-v4-ui": "~1.13.1",
+        "channelgrabber/zf2-v4-ui": "dev-CGIV-4032-products-page-loading-sooner as 1.13.2",
         "composer/composer": "@dev",
         "guzzle/guzzle": "~3.7",
         "nocarrier/hal": "~0.9.3",
