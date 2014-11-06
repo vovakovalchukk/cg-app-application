@@ -10,14 +10,8 @@
     modules: [{
         name: "main"
     }, {
-        name: "filters"
-    }, {
         name: "element/moreButton",
     }, {
         name: "popup/mustache",
-    }, {
-        name: "orders/js/filters"
-    }, {
-        name: "orders/js/filters/stored"
     }]
 })
