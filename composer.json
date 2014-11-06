@@ -2,10 +2,6 @@
     "repositories": [
         {
             "type": "git",
-            "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git"
-        },
-        {
-            "type": "git",
             "url": "git@github.com:channelgrabber/ZendPdf.git"
         },
         {
