@@ -76,7 +76,8 @@
             "if [ -d \"vendor/channelgrabber/zf2-v4-ui/public/css\" ]; then rm -rf vendor/channelgrabber/zf2-v4-ui/public/css/*; fi",
             "if [ -d \"public/channelgrabber/settings/css\" ]; then rm -rf public/channelgrabber/settings/css/*; fi",
             "compass compile vendor/channelgrabber/zf2-v4-ui",
-            "compass compile public/channelgrabber/settings"
+            "compass compile public/channelgrabber/settings",
+            "cd public-build && node r.js -o require-build.js && cd -"
         ],
         "post-update-cmd": [
             "composer -o dump-autoload",
@@ -84,7 +85,8 @@
             "if [ -d \"vendor/channelgrabber/zf2-v4-ui/public/css\" ]; then rm -rf vendor/channelgrabber/zf2-v4-ui/public/css/*; fi",
             "if [ -d \"public/channelgrabber/settings/css\" ]; then rm -rf public/channelgrabber/settings/css/*; fi",
             "compass compile vendor/channelgrabber/zf2-v4-ui",
-            "compass compile public/channelgrabber/settings"
+            "compass compile public/channelgrabber/settings",
+            "cd public-build && node r.js -o require-build.js && cd -"
         ]
     }
 }
