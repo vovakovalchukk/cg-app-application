@@ -1060,17 +1060,17 @@
         },
         {
             "name": "channelgrabber/scraper",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-scraper.git",
-                "reference": "a3e4ceac97367b6fe774e36a54bf9d9e79e03495"
+                "reference": "3fc7b2dcf46fd2acef0aa37fd7b62f360e2df362"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-scraper-1.0.1-daaf4b.zip",
-                "reference": "a3e4ceac97367b6fe774e36a54bf9d9e79e03495",
-                "shasum": "a9b569ca3a7f3522b99a0894a7bb500621f27842"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-scraper-1.0.2-4bb7d4.zip",
+                "reference": "3fc7b2dcf46fd2acef0aa37fd7b62f360e2df362",
+                "shasum": "33f2506dd8c01931bcbbe025f464f68764cdd2af"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.1",
@@ -1091,7 +1091,7 @@
             "autoload-dev": {
                 "CG\\Scraper\\Test\\": "tests"
             },
-            "time": "2014-09-16 15:46:41"
+            "time": "2014-11-10 16:41:55"
         },
         {
             "name": "channelgrabber/settings",
@@ -1299,17 +1299,17 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.3.4",
+            "version": "1.3.4.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "11f235a9b98926e83335d9ae7d0ab9ac8a639b4a"
+                "reference": "07e1f01b3084b95ce51e1e827290c1e2bd88123b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.3.4-c83adf.zip",
-                "reference": "11f235a9b98926e83335d9ae7d0ab9ac8a639b4a",
-                "shasum": "4731ef38bb928803d4570e86debe18a35d115568"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.3.4.1-2da134.zip",
+                "reference": "07e1f01b3084b95ce51e1e827290c1e2bd88123b",
+                "shasum": "a92dc1d089f7285c4c34752b00c6c53c11e948f7"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -1345,7 +1345,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2014-11-07 10:15:25"
+            "time": "2014-11-10 16:46:10"
         },
         {
             "name": "channelgrabber/template",
