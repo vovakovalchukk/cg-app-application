@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3fed592dd37b28b6e8a763691ba7953b",
+    "hash": "f8cb77ef990ee5dc4f68cff9db5dd1fc",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1230,17 +1230,17 @@
         },
         {
             "name": "channelgrabber/sso",
-            "version": "1.2.5",
+            "version": "1.2.5.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-sso.git",
-                "reference": "ae39792c0927b0b28fe8c8f9a62becb3b9b0a7b8"
+                "reference": "39ed540d9bc3aced77afd02fcd78867d4e53db2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-sso-1.2.5-cb4f7f.zip",
-                "reference": "ae39792c0927b0b28fe8c8f9a62becb3b9b0a7b8",
-                "shasum": "c797a66a49abab0a7081e290792c7e73e74ddd1f"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-sso-1.2.5.1-59a0c9.zip",
+                "reference": "39ed540d9bc3aced77afd02fcd78867d4e53db2d",
+                "shasum": "c50cd53e26c22c62f10767b39ce6566c7d10b61d"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -1263,21 +1263,21 @@
                     "CG\\Sso\\": ""
                 }
             },
-            "time": "2014-11-05 15:10:26"
+            "time": "2014-11-10 10:50:40"
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.7.27",
+            "version": "2.7.28.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "bd10417d9cee1895ce45342c80800ae1f070ad52"
+                "reference": "d98f011d524df8e9421138aebf3bac6d92d44461"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.7.27-6a7d90.zip",
-                "reference": "bd10417d9cee1895ce45342c80800ae1f070ad52",
-                "shasum": "161d4786eacf4920536574bd4aea939dde765d80"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.7.28.1-7564ad.zip",
+                "reference": "d98f011d524df8e9421138aebf3bac6d92d44461",
+                "shasum": "ecbf141455e2aab0d6e406c0f50260a3d89b71c9"
             },
             "require": {
                 "zendframework/zend-db": ">=2.2,<3.0"
@@ -1295,7 +1295,7 @@
                     "src/Utilities.php"
                 ]
             },
-            "time": "2014-11-06 10:19:07"
+            "time": "2014-11-10 11:03:10"
         },
         {
             "name": "channelgrabber/stock",
