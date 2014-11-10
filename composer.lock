@@ -1461,17 +1461,17 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.18.7",
+            "version": "1.18.7.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "1ba72d4cf33be7202436e23be5bb5176dc6bb49c"
+                "reference": "e135be945608181fa1e2a592b6b79f33600a6545"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.18.7-47a21f.zip",
-                "reference": "1ba72d4cf33be7202436e23be5bb5176dc6bb49c",
-                "shasum": "5f64bc1eb5a32faddd84443c011e4665425d41e6"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.18.7.1-b0171f.zip",
+                "reference": "e135be945608181fa1e2a592b6b79f33600a6545",
+                "shasum": "574463f9bf8faaa8432d93ad1827da5fdb699014"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -1507,7 +1507,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2014-11-06 15:57:41"
+            "time": "2014-11-10 15:44:21"
         },
         {
             "name": "channelgrabber/userpreference",
