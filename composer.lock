@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7aa45eef42a32c1a83e97cdfaec75925",
+    "hash": "914a774ea266199a1a06e18b4ac177da",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1095,17 +1095,17 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.3.0",
+            "version": "1.3.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "6c7d79dea0a3ae6d2852918ab982f612c59719f8"
+                "reference": "9c1028b5ac31eb5108f63f838f23580f2f41b917"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.3.0-66fc59.zip",
-                "reference": "6c7d79dea0a3ae6d2852918ab982f612c59719f8",
-                "shasum": "20f4c1adef85a2c6037f14dc2701c3b517f78530"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.3.0.1-8dfd79.zip",
+                "reference": "9c1028b5ac31eb5108f63f838f23580f2f41b917",
+                "shasum": "10b5209f123e1f47b43b103ef1bbb57c249463a4"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -1125,7 +1125,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2014-11-11 10:15:17"
+            "time": "2014-11-11 12:27:38"
         },
         {
             "name": "channelgrabber/slim",
