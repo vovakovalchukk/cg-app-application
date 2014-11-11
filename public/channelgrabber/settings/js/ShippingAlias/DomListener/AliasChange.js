@@ -104,7 +104,7 @@ function(domManipulator, eventCollator, DeferredQueue)
 
         var singleAlias = {
             storedEtag: storedETag,
-            id: aliasID,
+            id: aliasID ? aliasID : null,
             name: aliasName,
             organisationUnitId: this.getRootOuId(),
             accountId: aliasAccount.length ? aliasAccount : null,
