@@ -28,6 +28,7 @@ define([
     };
 
     Service.DOM_SELECTOR_PRODUCT_CONTAINER = '#products-list';
+    Service.DOM_SELECTOR_LOADING_MESSAGE = '#products-loading-message';
     Service.DEFAULT_IMAGE_URL = '/noproductsimage.png';
 
     Service.prototype.init = function(baseUrl)
@@ -40,7 +41,9 @@ define([
     {
         var self = this;
         var filter = productFilterMapper.fromDom();
+        domManipulator.setCssValue(Service.DOM_SELECTOR_LOADING_MESSAGE, 'display','block');
         this.fetchProducts(filter, function (products) {
+            domManipulator.setCssValue(Service.DOM_SELECTOR_LOADING_MESSAGE, 'display','none');
             if (!products.length) {
                 self.renderNoProduct();
                 return;
