@@ -14,6 +14,7 @@ define([
     Search.prototype.init = function(inputSelector, buttonSelector, baseUrl)
     {
         var self = this;
+        service.init(baseUrl);
         elementWatcher.onInitialise(function() {
             self.listen(inputSelector, buttonSelector, baseUrl);
         });
@@ -30,7 +31,6 @@ define([
         $(buttonSelector).off('click').on('click', function(event){
             self.search();
         });
-        service.init(baseUrl);
     };
 
     Search.prototype.search = function()
