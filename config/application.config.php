@@ -10,6 +10,7 @@ return array (
     5 => 'CG_Register',
     6 => 'Mustache',
     7 => 'CG_SSO',
+    8 => 'CG_Email_Template',
   ),
   'module_listener_options' => 
   array (
