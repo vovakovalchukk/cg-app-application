@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "42c0c427946a1400ae83d3018ff148ed",
+    "hash": "d169092e4e07ce08273063fc902e701b",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -254,6 +254,37 @@
                 }
             },
             "time": "2014-06-06 16:14:24"
+        },
+        {
+            "name": "channelgrabber/db",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "git@git.build.channelgrabber.com:channelgrabber/cgdb.git",
+                "reference": "43e89e742ddd9eedc34a925d2d373d8f3927fc2b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-db-1.0.2-6316b5.zip",
+                "reference": "43e89e742ddd9eedc34a925d2d373d8f3927fc2b",
+                "shasum": "43fa3a83518e587da58332cc8b09daaaf5f906a2"
+            },
+            "require": {
+                "channelgrabber/di": ">=2.1.0",
+                "channelgrabber/stdlib": ">=2.7.16",
+                "composer/composer": "@dev"
+            },
+            "require-dev": {
+                "channelgrabber/phpunit": ">=1.0.4",
+                "phpunit/phpunit": "~4.0.0"
+            },
+            "type": "di-definition",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Db\\": "src"
+                }
+            },
+            "time": "2014-11-20 16:39:48"
         },
         {
             "name": "channelgrabber/di",
@@ -728,23 +759,18 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.9.7",
+            "version": "dev-CGIV-4173-cache-toArray-response",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "606603aa7307f502f4f37a162c9ab015b96ec78c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.9.7-34a817.zip",
-                "reference": "606603aa7307f502f4f37a162c9ab015b96ec78c",
-                "shasum": "4fb022d0cc950fc454f794beafcb937d54b8fd86"
+                "reference": "40e733f9be9b8df7875da8b0a9f9099150c0fa24"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
                 "channelgrabber/cglib": ">=1.0.0,<2.0.0",
                 "channelgrabber/constants": "dev-master",
+                "channelgrabber/db": ">=1.0.2,<2.0.0",
                 "channelgrabber/di": ">=2.0.0,<3.0.0",
                 "channelgrabber/etag": ">=1.4.3",
                 "channelgrabber/gearman": ">=1.1.0,<2.0.0",
@@ -772,7 +798,7 @@
             "type": "di-definition",
             "extra": {
                 "branch-alias": {
-                    "dev-develop": "1.8.x-dev"
+                    "dev-develop": "1.12.x-dev"
                 }
             },
             "autoload": {
@@ -785,7 +811,7 @@
                     "CG\\Order\\Test\\": "tests/src"
                 }
             },
-            "time": "2014-11-14 16:52:09"
+            "time": "2014-11-21 10:29:11"
         },
         {
             "name": "channelgrabber/permission",
@@ -2480,12 +2506,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "8a40b2443eeb797254f9ecb48eb0e57d9a6a3174"
+                "reference": "ffffab37a294f3383c812d0329623f0a4ba45387"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/8a40b2443eeb797254f9ecb48eb0e57d9a6a3174",
-                "reference": "8a40b2443eeb797254f9ecb48eb0e57d9a6a3174",
+                "url": "https://api.github.com/repos/composer/composer/zipball/ffffab37a294f3383c812d0329623f0a4ba45387",
+                "reference": "ffffab37a294f3383c812d0329623f0a4ba45387",
                 "shasum": ""
             },
             "require": {
@@ -2540,7 +2566,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2014-11-19 16:25:43"
+            "time": "2014-11-05 06:04:18"
         },
         {
             "name": "fabpot/goutte",
@@ -4255,9 +4281,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "shasum": ""
+                "url": "https://packages.zendframework.com/composer/zendframework-zendxml-559b34f426d33a11c3db118e00ce14bb8dc64e5f-zip-6cf7a2.zip",
+                "reference": "1.0.0",
+                "shasum": "39abc614b5c26bcbf8102e203c52dee73c4460a8"
             },
             "require": {
                 "php": ">=5.3.3"
@@ -4277,7 +4303,6 @@
                     "ZendXml": "library/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -4288,6 +4313,10 @@
                 "xml",
                 "zf2"
             ],
+            "support": {
+                "source": "https://github.com/zendframework/ZendXml/tree/master",
+                "issues": "https://github.com/zendframework/ZendXml/issues"
+            },
             "time": "2014-03-05 22:25:44"
         }
     ],
@@ -4736,7 +4765,7 @@
                 {
                     "name": "Anthon Pang",
                     "email": "apang@softwaredevelopment.ca",
-                    "role": "developer"
+                    "role": "Fork Maintainer"
                 }
             ],
             "description": "PHP WebDriver for Selenium 2",
@@ -5441,10 +5470,18 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.12.2",
+            "alias_normalized": "1.12.2.0",
+            "version": "dev-CGIV-4173-cache-toArray-response",
+            "package": "channelgrabber/order"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
