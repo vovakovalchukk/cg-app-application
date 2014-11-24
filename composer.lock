@@ -256,6 +256,37 @@
             "time": "2014-06-06 16:14:24"
         },
         {
+            "name": "channelgrabber/db",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "git@git.build.channelgrabber.com:channelgrabber/cgdb.git",
+                "reference": "43e89e742ddd9eedc34a925d2d373d8f3927fc2b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-db-1.0.2-6316b5.zip",
+                "reference": "43e89e742ddd9eedc34a925d2d373d8f3927fc2b",
+                "shasum": "43fa3a83518e587da58332cc8b09daaaf5f906a2"
+            },
+            "require": {
+                "channelgrabber/di": ">=2.1.0",
+                "channelgrabber/stdlib": ">=2.7.16",
+                "composer/composer": "@dev"
+            },
+            "require-dev": {
+                "channelgrabber/phpunit": ">=1.0.4",
+                "phpunit/phpunit": "~4.0.0"
+            },
+            "type": "di-definition",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Db\\": "src"
+                }
+            },
+            "time": "2014-11-20 16:39:48"
+        },
+        {
             "name": "channelgrabber/di",
             "version": "2.1.1",
             "source": {
@@ -525,6 +556,13 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -600,17 +638,17 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.2.10",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "28258d54d5e19bc638fc247c0f980fe83c9bed09"
+                "reference": "4a189e8f2835cc6b44304935c3729f670ee05e2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.2.10-d91bd4.zip",
-                "reference": "28258d54d5e19bc638fc247c0f980fe83c9bed09",
-                "shasum": "763e44ef27b6862bd92c2b5cb9d1190e5a3aafd4"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.3.1-f7fc11.zip",
+                "reference": "4a189e8f2835cc6b44304935c3729f670ee05e2f",
+                "shasum": "a656dfad70186e6533594fc750fd45c56286df43"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -620,9 +658,11 @@
                 "channelgrabber/http": ">=1.2.18,<2.0.0",
                 "channelgrabber/image": ">=1.1.2,<2.0.0",
                 "channelgrabber/permission": ">=1.0.1,<2.0.0",
+                "channelgrabber/slim": ">=1.11.2, <2.0.0",
                 "channelgrabber/stdlib": ">=2.7.26,<3.0.0",
                 "composer/composer": "@dev",
-                "nocarrier/hal": "~0.9.4"
+                "nocarrier/hal": "~0.9.4",
+                "zendframework/zend-eventmanager": "2.3.*"
             },
             "require-dev": {
                 "channelgrabber/gearman": ">=1.1.0,<2.0.0",
@@ -640,7 +680,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2014-11-06 16:19:37"
+            "time": "2014-11-20 16:51:45"
         },
         {
             "name": "channelgrabber/location",
@@ -728,23 +768,24 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.9.7.1",
+            "version": "1.13.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "65d6f8b929d9b59c0d04f8fea754357d541cc279"
+                "reference": "302fe88530cad93e5f122fc340d818a6f778ad4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.9.7.1-287972.zip",
-                "reference": "65d6f8b929d9b59c0d04f8fea754357d541cc279",
-                "shasum": "aa535adeac62a540a733a57456fe3439ddc65d77"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.13.1-a149b5.zip",
+                "reference": "302fe88530cad93e5f122fc340d818a6f778ad4f",
+                "shasum": "431beceeddffb857c8294a6d8293ca3e6fa07420"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
                 "channelgrabber/cglib": ">=1.0.0,<2.0.0",
                 "channelgrabber/constants": "dev-master",
+                "channelgrabber/db": ">=1.0.2,<2.0.0",
                 "channelgrabber/di": ">=2.0.0,<3.0.0",
                 "channelgrabber/etag": ">=1.4.3",
                 "channelgrabber/gearman": ">=1.1.0,<2.0.0",
@@ -772,7 +813,7 @@
             "type": "di-definition",
             "extra": {
                 "branch-alias": {
-                    "dev-develop": "1.8.x-dev"
+                    "dev-develop": "1.12.x-dev"
                 }
             },
             "autoload": {
@@ -785,7 +826,7 @@
                     "CG\\Order\\Test\\": "tests/src"
                 }
             },
-            "time": "2014-11-17 11:34:00"
+            "time": "2014-11-21 15:14:11"
         },
         {
             "name": "channelgrabber/permission",
@@ -2158,7 +2199,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-sessions-1.1.0-9f916d.zip",
                 "reference": "610e35f41fd4474d1974e2fb9af9bf8d21cccf10",
-                "shasum": "7d4c0fe0c1663caa97fd2664292a213e2627a10f"
+                "shasum": "08e9d6f89171b180f8474f0456bf72400fe17d42"
             },
             "require": {
                 "channelgrabber/di": ">=2.1.0",
@@ -3181,9 +3222,7 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -3315,8 +3354,7 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com",
-                    "role": "Developer"
+                    "homepage": "http://benramsey.com"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
@@ -4900,8 +4938,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
