@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dd516b4112462f3b5c0ab7ddd8b0b1b1",
+    "hash": "8531a91f9bab01d19352d1cc2e8cf56d",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -761,17 +761,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.13.1",
+            "version": "1.13.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "302fe88530cad93e5f122fc340d818a6f778ad4f"
+                "reference": "e2a6e53106013a5d8b2a5b123a1b0e625f387975"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.13.1-a149b5.zip",
-                "reference": "302fe88530cad93e5f122fc340d818a6f778ad4f",
-                "shasum": "431beceeddffb857c8294a6d8293ca3e6fa07420"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.13.6-5a8241.zip",
+                "reference": "e2a6e53106013a5d8b2a5b123a1b0e625f387975",
+                "shasum": "3caaf977faa9537f9ebf1e026671283fc1b94975"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -794,7 +794,7 @@
                 "composer/composer": "@dev",
                 "ext-mongo": ">=1.4.4",
                 "guzzle/guzzle": "~3.7",
-                "nocarrier/hal": "~0.9.4",
+                "nocarrier/hal": "~0.9.10",
                 "php-jsonpatch/php-jsonpatch": "@dev",
                 "php-jsonpointer/php-jsonpointer": "@dev",
                 "zendframework/zend-di": ">=2.2.5"
@@ -819,7 +819,7 @@
                     "CG\\Order\\Test\\": "tests/src"
                 }
             },
-            "time": "2014-11-21 15:14:11"
+            "time": "2014-11-25 09:33:59"
         },
         {
             "name": "channelgrabber/permission",
@@ -3036,23 +3036,23 @@
         },
         {
             "name": "nocarrier/hal",
-            "version": "0.9.9",
+            "version": "0.9.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/blongden/hal.git",
-                "reference": "380e2bd836b347d28edd4245b2ad460b08f93825"
+                "reference": "4ff57176cb4ebde4245bda979ed662a0f8480b97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/blongden/hal/zipball/380e2bd836b347d28edd4245b2ad460b08f93825",
-                "reference": "380e2bd836b347d28edd4245b2ad460b08f93825",
+                "url": "https://api.github.com/repos/blongden/hal/zipball/4ff57176cb4ebde4245bda979ed662a0f8480b97",
+                "reference": "4ff57176cb4ebde4245bda979ed662a0f8480b97",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "4.1.*"
+                "phpunit/phpunit": "4.*"
             },
             "type": "library",
             "autoload": {
@@ -3080,7 +3080,7 @@
                 "rest",
                 "xml"
             ],
-            "time": "2014-09-09 08:47:13"
+            "time": "2014-11-24 11:48:52"
         },
         {
             "name": "php-jsonpatch/php-jsonpatch",
@@ -4289,9 +4289,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "shasum": ""
+                "url": "https://packages.zendframework.com/composer/zendframework-zendxml-559b34f426d33a11c3db118e00ce14bb8dc64e5f-zip-6cf7a2.zip",
+                "reference": "1.0.0",
+                "shasum": "39abc614b5c26bcbf8102e203c52dee73c4460a8"
             },
             "require": {
                 "php": ">=5.3.3"
@@ -4311,7 +4311,6 @@
                     "ZendXml": "library/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -4322,6 +4321,10 @@
                 "xml",
                 "zf2"
             ],
+            "support": {
+                "source": "https://github.com/zendframework/ZendXml/tree/master",
+                "issues": "https://github.com/zendframework/ZendXml/issues"
+            },
             "time": "2014-03-05 22:25:44"
         }
     ],
@@ -4770,7 +4773,7 @@
                 {
                     "name": "Anthon Pang",
                     "email": "apang@softwaredevelopment.ca",
-                    "role": "developer"
+                    "role": "Fork Maintainer"
                 }
             ],
             "description": "PHP WebDriver for Selenium 2",
