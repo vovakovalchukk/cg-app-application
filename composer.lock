@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1ee361db2b4ff1ee7a3ef469f72ec6e6",
+    "hash": "c0c5757aa843193ea010cbd70647346b",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -761,11 +761,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-4220-print-by-sku-error",
+            "version": "1.13.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "ab430cbaa906a31c08b3a02ec1ea575f1d112a8c"
+                "reference": "e24f087fc97828af4dfc3f9a42cd99cd14d3d9aa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.13.7-829cf1.zip",
+                "reference": "e24f087fc97828af4dfc3f9a42cd99cd14d3d9aa",
+                "shasum": "d21e3dc3f1c1819acb78b3ffe3d0cb64d2b834be"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -813,7 +819,7 @@
                     "CG\\Order\\Test\\": "tests/src"
                 }
             },
-            "time": "2014-11-25 10:48:54"
+            "time": "2014-11-25 16:10:28"
         },
         {
             "name": "channelgrabber/permission",
@@ -5472,18 +5478,10 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.13.5",
-            "alias_normalized": "1.13.5.0",
-            "version": "dev-CGIV-4220-print-by-sku-error",
-            "package": "channelgrabber/order"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
