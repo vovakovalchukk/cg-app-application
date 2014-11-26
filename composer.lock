@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "39d818f6ed96ddd62dfe5c637211fc20",
+    "hash": "a0c4b724a42557a3e3e93586d9315310",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -257,11 +257,17 @@
         },
         {
             "name": "channelgrabber/db",
-            "version": "dev-CGIV-4221-InsertDuplicateKeyUpdate",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "git@git.build.channelgrabber.com:channelgrabber/cgdb.git",
-                "reference": "11392fb3902d5db3531a4e487e2f845823dc1947"
+                "reference": "93444142f0bccc659a03f622745bef367fce488d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-db-1.0.3-90f777.zip",
+                "reference": "93444142f0bccc659a03f622745bef367fce488d",
+                "shasum": "2041f80b0ca14ae84973ae7625d9922ce2d2dc33"
             },
             "require": {
                 "channelgrabber/di": ">=2.1.0",
@@ -278,7 +284,7 @@
                     "CG\\Db\\": "src"
                 }
             },
-            "time": "2014-11-25 11:25:04"
+            "time": "2014-11-26 11:33:33"
         },
         {
             "name": "channelgrabber/di",
@@ -755,18 +761,24 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-4221-MySQLItemVariations",
+            "version": "1.13.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "81d5085aa094076603525e97945b5f6cbbe5998d"
+                "reference": "39e5a24c41cd3bfd94fac125a4969ec919aac5cc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.13.8-c7e931.zip",
+                "reference": "39e5a24c41cd3bfd94fac125a4969ec919aac5cc",
+                "shasum": "992b329d4f88645225ef42e07d25ff9aca33cfe9"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
                 "channelgrabber/cglib": ">=1.0.0,<2.0.0",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/db": "dev-CGIV-4221-InsertDuplicateKeyUpdate as 1.0.3",
+                "channelgrabber/db": ">=1.0.3,<2.0.0",
                 "channelgrabber/di": ">=2.0.0,<3.0.0",
                 "channelgrabber/etag": ">=1.4.3",
                 "channelgrabber/gearman": ">=1.1.0,<2.0.0",
@@ -807,7 +819,7 @@
                     "CG\\Order\\Test\\": "tests/src"
                 }
             },
-            "time": "2014-11-26 10:48:27"
+            "time": "2014-11-26 11:37:47"
         },
         {
             "name": "channelgrabber/permission",
@@ -5463,25 +5475,10 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.3",
-            "alias_normalized": "1.0.3.0",
-            "version": "dev-CGIV-4221-InsertDuplicateKeyUpdate",
-            "package": "channelgrabber/db"
-        },
-        {
-            "alias": "1.13.8",
-            "alias_normalized": "1.13.8.0",
-            "version": "dev-CGIV-4221-MySQLItemVariations",
-            "package": "channelgrabber/order"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/db": 20,
-        "channelgrabber/order": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
