@@ -57,7 +57,7 @@
         "channelgrabber/zf2-v4-ui": "~1.14.13",
         "composer/composer": "@dev",
         "guzzle/guzzle": "~3.7",
-        "nocarrier/hal": "~0.9.3",
+        "nocarrier/hal": "~0.9.10",
         "php": ">=5.3.3",
         "php-jsonpatch/php-jsonpatch": "@dev",
         "php-jsonpointer/php-jsonpointer": "@dev",
