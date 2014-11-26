@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2dbe5a35599097ebe44d5d689ccf3fe6",
+    "hash": "67443da2c0375815beb788a2918afe56",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2342,11 +2342,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-4236-RegisterFormResponsiveSCSS",
+            "version": "dev-CGIV-4252-ResponsiveLabelsSCSS",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "7de4942a25350621702dfe843f6895ce00ba6285"
+                "reference": "6414d5512cf2325a27d12c52754b7ba455f98b13"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2382,7 +2382,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-11-26 13:12:24"
+            "time": "2014-11-26 14:44:18"
         },
         {
             "name": "cilex/cilex",
@@ -5473,7 +5473,7 @@
         {
             "alias": "1.14.13",
             "alias_normalized": "1.14.13.0",
-            "version": "dev-CGIV-4236-RegisterFormResponsiveSCSS",
+            "version": "dev-CGIV-4252-ResponsiveLabelsSCSS",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
