@@ -148,7 +148,11 @@ define([
             var variation = product['variations'][index];
             var attributeValues = [];
             for (var attributeNameIndex in product['attributeNames']) {
-                attributeValues.push(variation['attributeValues'][product['attributeNames'][attributeNameIndex]]);
+                if(!($).isEmptyObject(variation['attributeValues'][product['attributeNames'][attributeNameIndex]])) {
+                    attributeValues.push(variation['attributeValues'][product['attributeNames'][attributeNameIndex]]);
+                } else {
+                    attributeValues.push('');
+                }
             }
             variations += CGMustache.get().renderTemplate(templates, {
                 'image': this.getPrimaryImage(variation['images']),
