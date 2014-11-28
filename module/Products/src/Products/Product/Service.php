@@ -88,7 +88,7 @@ class Service implements LoggerAwareInterface
     public function updateStock($stockLocationId, $eTag, $totalQuantity)
     {
         try {
-            $this->getStockAuditor()->userChange();
+            $this->auditStockUpdate();
             $stockLocationEntity = $this->getStockLocationService()->fetch($stockLocationId);
             $stockLocationEntity->setStoredEtag($eTag)
                 ->setOnHand($totalQuantity);
@@ -180,6 +180,15 @@ class Service implements LoggerAwareInterface
         $userPrefs->setPreference($userPrefsPref);
 
         $this->getUserPreferenceService()->save($userPrefs);
+    }
+
+    protected function auditStockUpdate()
+    {
+        $user = $this->getActiveUser();
+        $this->getStockAuditor()->userChange(
+            $user->getId(),
+            $user->getOrganisationUnitId()
+        );
     }
 
     protected function setProductService(ProductService $productService)
