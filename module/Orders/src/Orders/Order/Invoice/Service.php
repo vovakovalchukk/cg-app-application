@@ -208,11 +208,7 @@ class Service
     public function markOrdersAsPrintedFromOrderCollection(Collection $orderCollection)
     {
         $now = time();
-        foreach ($orderCollection as $order) {
-            $this->getOrderService()->saveOrder(
-                $order->setPrintedDate(date(DateTime::FORMAT, $now))
-            );
-        }
+        $this->getOrderService()->patchOrders($orderCollection, ['printedDate' => date(DateTime::FORMAT, $now)]);
     }
 
     protected function getTemplateId(OrderEntity $order)
