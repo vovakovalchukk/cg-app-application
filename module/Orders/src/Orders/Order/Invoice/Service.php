@@ -232,18 +232,22 @@ class Service
 
     public function generateInvoiceFromOrderCollection(Collection $orderCollection, Template $template = null, $progressKey = null)
     {
+        gc_disable();
         $count = 0;
         $this->updateInvoiceGenerationProgress($progressKey, $count);
 
-        $renderedContent = [];
+        //$renderedContent = [];
+        $this->getRendererService()->initNewDocument();
         foreach ($orderCollection as $order) {
-            $renderedContent[] = $this->getRendererService()->renderOrderTemplate(
+            $renderedContent = $this->getRendererService()->renderOrderTemplate(
                 $order,
                 $template ?: $this->getTemplate($order)
             );
+            $this->getRendererService()->addPage($renderedContent);
             $this->updateInvoiceGenerationProgress($progressKey, ++$count);
         }
-        return $this->getRendererService()->combine($renderedContent);
+        //return $this->getRendererService()->combine($renderedContent);
+        return $this->getRendererService()->renderDocument();
     }
 
     protected function updateInvoiceGenerationProgress($key, $count)
