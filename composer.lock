@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1a8954cf66c1a775875d9095c4cc69d9",
+    "hash": "a0db7add3235b7d830c8905d0942707c",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -125,17 +125,17 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "1.1.8",
+            "version": "1.3.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "9f9598508a54ef276e482059d778672e8f0d3ffe"
+                "reference": "748837367159550784f3647007de5f32f8886840"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.1.8-b5a22c.zip",
-                "reference": "9f9598508a54ef276e482059d778672e8f0d3ffe",
-                "shasum": "5d5862cdcb0569ea11239b283ab1ba53f70374e8"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.3.3-6daba7.zip",
+                "reference": "748837367159550784f3647007de5f32f8886840",
+                "shasum": "6b064ffe5f021786ada282ccadf02b97baa734c4"
             },
             "require": {
                 "channelgrabber/billing": ">=1.7.1",
@@ -143,11 +143,11 @@
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.1.0",
                 "channelgrabber/email": ">=1.0.5,<2.0.0",
-                "channelgrabber/listing": ">=1.1.3",
+                "channelgrabber/listing": "~1.3.0",
                 "channelgrabber/location": ">=1.1.1",
                 "channelgrabber/product": ">=1.3.14",
                 "channelgrabber/slim": ">=1.11.2",
-                "channelgrabber/stock": ">=1.3.4",
+                "channelgrabber/stock": ">=1.4.0",
                 "channelgrabber/user": ">=1.18.7",
                 "channelgrabber/zf2-email-template": ">=1.0.4,<2.0.0",
                 "composer/composer": "@dev",
@@ -174,7 +174,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2014-11-13 13:02:24"
+            "time": "2014-12-02 16:20:52"
         },
         {
             "name": "channelgrabber/channel",
@@ -1340,11 +1340,17 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "dev-CGIV-4258-ImprovementToStockManagementAuditing",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "be1f795696943d5adf39dea5575da6a1015b4193"
+                "reference": "22c00241f85da4e0691694eefb3b9d8ce5393645"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.4.0-b1f7bc.zip",
+                "reference": "22c00241f85da4e0691694eefb3b9d8ce5393645",
+                "shasum": "d96c6d6e081911c39aea75bb65d38d725526f209"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -1380,7 +1386,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2014-12-02 14:32:22"
+            "time": "2014-12-02 16:16:15"
         },
         {
             "name": "channelgrabber/template",
@@ -5475,18 +5481,10 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.4.0",
-            "alias_normalized": "1.4.0.0",
-            "version": "dev-CGIV-4258-ImprovementToStockManagementAuditing",
-            "package": "channelgrabber/stock"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/stock": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
