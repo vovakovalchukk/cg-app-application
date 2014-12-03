@@ -232,6 +232,7 @@ class Service
 
     public function generateInvoiceFromOrderCollection(Collection $orderCollection, Template $template = null, $progressKey = null)
     {
+        gc_collect_cycles();
         gc_disable();
         $count = 0;
         $this->updateInvoiceGenerationProgress($progressKey, $count);
