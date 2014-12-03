@@ -87,11 +87,10 @@ class Pdf implements ServiceInterface
         );
 
         $this->getTagReplacer()->render($orderTemplate, $order);
-        //return $this->getRenderer()->render($orderTemplate, $document);
-        return $this->getRenderer()->getUnrendered($orderTemplate, $document);
+        return $this->getRenderer()->renderPages($orderTemplate, $document);
     }
 
-    public function initNewDocument()
+    public function initializeNewDocument()
     {
         $this->pdf = new PdfDocument();
     }
@@ -116,5 +115,10 @@ class Pdf implements ServiceInterface
             }
         }
         return $pdf->render();
+    }
+
+    public function combinePages()
+    {
+        return $this->pdf->render();
     }
 }
