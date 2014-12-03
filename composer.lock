@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9978f46e8a1497a061cd3a6828d3888f",
+    "hash": "8e1da08832c7eac111c5db08686d09f9",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -999,17 +999,17 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.3.14",
+            "version": "1.3.15",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "138047ee10d3a20dfb54d17adfa38b1e9299e50a"
+                "reference": "8d27e41b41c3ef96614bbb956bb5bdcd8699b146"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.3.14-d3f7bd.zip",
-                "reference": "138047ee10d3a20dfb54d17adfa38b1e9299e50a",
-                "shasum": "0d5c6cad11cdc7535454f437a63a3003673fa527"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.3.15-16d0fe.zip",
+                "reference": "8d27e41b41c3ef96614bbb956bb5bdcd8699b146",
+                "shasum": "bc9b00cd894c879bd50ccb7a249b94901aae67dc"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -1037,7 +1037,7 @@
                     "CG\\Product\\": "src"
                 }
             },
-            "time": "2014-11-07 10:28:04"
+            "time": "2014-12-02 13:24:34"
         },
         {
             "name": "channelgrabber/redis",
@@ -1387,7 +1387,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "343bb02d237c62dcbeb088b314b3cb705f496ceb"
+                "reference": "9641ccf434368a77b4bf5baff79c02fd8cfe3e51"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -1417,7 +1417,7 @@
                     "CG\\Template\\": "src/"
                 }
             },
-            "time": "2014-12-03 11:40:43"
+            "time": "2014-12-03 15:21:10"
         },
         {
             "name": "channelgrabber/transaction",
