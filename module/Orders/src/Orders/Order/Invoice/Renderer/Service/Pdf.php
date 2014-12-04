@@ -105,6 +105,11 @@ class Pdf implements ServiceInterface
         return $this->pdf->render();
     }
 
+    public function countPages()
+    {
+        return count($this->pdf->pages);
+    }
+
     public function combine(array $renderedContent)
     {
         $pdf = new PdfDocument();

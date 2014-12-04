@@ -238,17 +238,33 @@ class Service
         $this->updateInvoiceGenerationProgress($progressKey, $count);
 
         $this->getRendererService()->initializeNewDocument();
+        $renderedDocs = [];
         foreach ($orderCollection as $order) {
             $renderedInvoice = $this->getRendererService()->renderOrderTemplate(
                 $order,
                 $template ?: $this->getTemplate($order)
             );
-            foreach($renderedInvoice->pages as $page) {
-                $this->getRendererService()->addPage($page);
+
+            if(count($renderedInvoice->pages) > 1) {
+                foreach($renderedInvoice->pages as $page) {
+                    $this->getRendererService()->addPage($page);
+                }
+
+                $renderedDocs[] = $this->getRendererService()->combinePages();
+                $this->getRendererService()->initializeNewDocument();
             }
+            else {
+                $this->getRendererService()->addPage($renderedInvoice->pages[0]);
+            }
+
             $this->updateInvoiceGenerationProgress($progressKey, ++$count);
         }
-        return $this->getRendererService()->combinePages();
+
+        if($this->getRendererService()->countPages() > 0) {
+            $renderedDocs[] = $this->getRendererService()->combinePages();
+        }
+
+        return count($renderedDocs) == 1 ? $renderedDocs[0] : $this->getRendererService()->combine($renderedDocs);
     }
 
     protected function updateInvoiceGenerationProgress($key, $count)
