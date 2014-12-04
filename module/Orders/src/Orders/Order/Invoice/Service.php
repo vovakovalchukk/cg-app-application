@@ -221,11 +221,11 @@ class Service
 
     protected function getTemplate(OrderEntity $order)
     {
-//        $templateId = $this->getTemplateId($order);
-//
-//        if (isset($this->templates[$templateId])) {
-//            return $this->templates[$templateId];
-//        }
+        $templateId = $this->getTemplateId($order);
+
+        if (isset($this->templates[$templateId])) {
+            return $this->templates[$templateId];
+        }
         $this->templates[$templateId] = $this->getTemplateFactory()->getTemplateById($templateId);
         return $this->templates[$templateId];
     }
@@ -246,15 +246,12 @@ class Service
             );
 
             if(count($renderedInvoice->pages) > 1) {
-                if($this->getRendererService()->countPages() > 0) {
-                    $renderedDocs[] = $this->getRendererService()->combinePages();
+                foreach($renderedInvoice->pages as $page) {
+                    $this->getRendererService()->addPage($page);
                 }
+
+                $renderedDocs[] = $this->getRendererService()->combinePages();
                 $this->getRendererService()->initializeNewDocument();
-
-                $renderedDocs[] = $renderedInvoice->render();
-
-//                $renderedDocs[] = $this->getRendererService()->combinePages();
-//                $this->getRendererService()->initializeNewDocument();
             }
             else {
                 $this->getRendererService()->addPage($renderedInvoice->pages[0]);
