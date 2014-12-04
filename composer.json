@@ -54,7 +54,7 @@
         "channelgrabber/zf2-ssoclient": "~1.4.2",
         "channelgrabber/zf2-stdlib": "~1.1.17",
         "channelgrabber/zf2-usage": "~1.0.2",
-        "channelgrabber/zf2-v4-ui": "1.14.15",
+        "channelgrabber/zf2-v4-ui": "dev-CGIV-4337-AccountJsRequireChannel as 1.14.17",
         "composer/composer": "@dev",
         "guzzle/guzzle": "~3.7",
         "nocarrier/hal": "~0.9.10",
