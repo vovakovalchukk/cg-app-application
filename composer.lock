@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9147995eaa61db224ddfa7c300f24990",
+    "hash": "990d98f3e52215fcad9e3d86a777e7dc",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -556,13 +556,6 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -1392,17 +1385,11 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.2.36",
+            "version": "dev-CGIV-4353-invoice-table-position",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "5920805b801542afaeac621ae6f512458f2df5fd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.36-c1cfaa.zip",
-                "reference": "5920805b801542afaeac621ae6f512458f2df5fd",
-                "shasum": "7778c92d9ba594a31e55fe46fbe8a2d88f167825"
+                "reference": "badacbc704d8db12848f8224a80b2bb1a351d9a0"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -1420,7 +1407,7 @@
                 "zendframework/zend-di": ">=2.2.5,<3.0",
                 "zendframework/zend-i18n": ">=2.2.5,<3.0",
                 "zendframework/zend-view": ">=2.2.6,<3.0",
-                "zendframework/zendpdf": "2.0.2.1"
+                "zendframework/zendpdf": "2.0.2.2"
             },
             "require-dev": {
                 "channelgrabber/phpunit": ">=1.0.0",
@@ -1432,7 +1419,7 @@
                     "CG\\Template\\": "src/"
                 }
             },
-            "time": "2014-11-06 17:07:10"
+            "time": "2014-12-05 15:55:16"
         },
         {
             "name": "channelgrabber/transaction",
@@ -3224,7 +3211,9 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -3356,7 +3345,8 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com"
+                    "homepage": "http://benramsey.com",
+                    "role": "Developer"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
@@ -4255,11 +4245,11 @@
         },
         {
             "name": "zendframework/zendpdf",
-            "version": "2.0.2.1",
+            "version": "2.0.2.2",
             "source": {
                 "type": "git",
                 "url": "git@github.com:channelgrabber/ZendPdf.git",
-                "reference": "f604dd6ace00c38c48a50cb2abc670bcdaa8f668"
+                "reference": "94890c3dfa81b906e66ee1d2e5bb4fedad0586a5"
             },
             "require": {
                 "php": ">=5.3.3",
@@ -4286,7 +4276,7 @@
                 "pdf",
                 "zf2"
             ],
-            "time": "2014-03-10 15:02:10"
+            "time": "2014-09-22 08:39:00"
         },
         {
             "name": "zendframework/zendxml",
@@ -4943,7 +4933,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -5486,10 +5477,18 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.2.38",
+            "alias_normalized": "1.2.38.0",
+            "version": "dev-CGIV-4353-invoice-table-position",
+            "package": "channelgrabber/template"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/template": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
