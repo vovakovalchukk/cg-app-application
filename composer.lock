@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "990d98f3e52215fcad9e3d86a777e7dc",
+    "hash": "738b4512c9d78c5e32a19e9addb24ad3",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -395,20 +395,20 @@
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "1.0.23",
+            "version": "1.0.28",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "501c1c1cbcc8ca9c8eddfbb1f347ca64528c93e4"
+                "reference": "ad71728fb28fddff740fc61b27fc22a53ee0815c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.0.23-351115.zip",
-                "reference": "501c1c1cbcc8ca9c8eddfbb1f347ca64528c93e4",
-                "shasum": "2feff48b852c99acc6a365addbc9abb028bb9df5"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.0.28-2e50c5.zip",
+                "reference": "ad71728fb28fddff740fc61b27fc22a53ee0815c",
+                "shasum": "57100ce9b0d1e3556f8370a2fb178b0537cb5272"
             },
             "require": {
-                "channelgrabber/channel": ">=1.9.2",
+                "channelgrabber/channel": ">=1.13.3",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.1.0",
                 "channelgrabber/gearman": ">=1.1.5,<2.0.0",
@@ -443,7 +443,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2014-11-25 11:49:50"
+            "time": "2014-12-03 10:40:40"
         },
         {
             "name": "channelgrabber/email",
@@ -1385,11 +1385,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-4353-invoice-table-position",
+            "version": "1.2.38",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "badacbc704d8db12848f8224a80b2bb1a351d9a0"
+                "reference": "975c761848972ffb740bfbcf6606e836ece0bf9a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.38-9f7b25.zip",
+                "reference": "975c761848972ffb740bfbcf6606e836ece0bf9a",
+                "shasum": "b306afac0fae68192bb74558b42bdf7f96819c8f"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -1419,7 +1425,7 @@
                     "CG\\Template\\": "src/"
                 }
             },
-            "time": "2014-12-05 15:55:16"
+            "time": "2014-12-05 16:21:24"
         },
         {
             "name": "channelgrabber/transaction",
@@ -5477,18 +5483,10 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.2.38",
-            "alias_normalized": "1.2.38.0",
-            "version": "dev-CGIV-4353-invoice-table-position",
-            "package": "channelgrabber/template"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/template": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
