@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d65049b24ca5096a34eee255826e4f3c",
+    "hash": "011780e188dfbe764651be9d27ac4e3b",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1894,7 +1894,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-installer.git",
-                "reference": "4ce6c49add58ba55f59869f39209b8ca4c9d7035"
+                "reference": "645c523d428a864ef8ff73554a8ef9b76d80dd9b"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
@@ -1914,7 +1914,8 @@
                     "CG\\Zend\\Installer\\": "src"
                 }
             },
-            "time": "2014-12-05 14:34:08"
+
+            "time": "2014-12-05 15:30:27"
         },
         {
             "name": "channelgrabber/zf2-logclient",
