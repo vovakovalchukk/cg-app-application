@@ -1914,7 +1914,6 @@
                     "CG\\Zend\\Installer\\": "src"
                 }
             },
-
             "time": "2014-12-05 15:30:27"
         },
         {
@@ -2343,7 +2342,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "bee9411dea4480ee17880a651eebebc3278f2ca7"
+                "reference": "05391856ef4d8d716c657a802764f76717fa5757"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2383,7 +2382,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-12-08 09:46:01"
+            "time": "2014-12-08 11:28:43"
         },
         {
             "name": "cilex/cilex",
