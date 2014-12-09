@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7a816247822e586692ad0ddfa3c7998c",
+    "hash": "f5c0ed24c2d01c6a20bdb2b8e727f266",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1890,11 +1890,17 @@
         },
         {
             "name": "channelgrabber/zf2-installer",
-            "version": "dev-CGIV-4338-old-browser-banner",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-installer.git",
-                "reference": "645c523d428a864ef8ff73554a8ef9b76d80dd9b"
+                "reference": "6371324516dd081f8c86deb38a02f4008517491c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-installer-1.0.5-a989c7.zip",
+                "reference": "6371324516dd081f8c86deb38a02f4008517491c",
+                "shasum": "53af4ebad4a03335a1b28ea0bb7fc03ac2e7bdd9"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
@@ -1914,7 +1920,7 @@
                     "CG\\Zend\\Installer\\": "src"
                 }
             },
-            "time": "2014-12-05 15:30:27"
+            "time": "2014-12-09 12:24:52"
         },
         {
             "name": "channelgrabber/zf2-logclient",
@@ -2338,18 +2344,24 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-4338-old-browser-banner",
+            "version": "1.14.21",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "34fad1c43cc87df9322ee50c102770731a9b7d8c"
+                "reference": "7d477f7cbe78edf7a018210e59bf49df8d8c978f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.21-07ef3c.zip",
+                "reference": "7d477f7cbe78edf7a018210e59bf49df8d8c978f",
+                "shasum": "5b83d749d94a0a12d2434e34bbb9136f21a94d3f"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
                 "channelgrabber/etag": ">=1.4.2",
                 "channelgrabber/log": ">=1.4.2",
                 "channelgrabber/stdlib": ">=2.7.4,<3.0.0",
-                "channelgrabber/zf2-installer": "dev-CGIV-4338-old-browser-banner as 1.0.3",
+                "channelgrabber/zf2-installer": "~1.0.5",
                 "channelgrabber/zf2-mustache": ">=1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
                 "composer/composer": "@dev",
@@ -2382,7 +2394,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-12-08 13:35:03"
+            "time": "2014-12-09 12:29:13"
         },
         {
             "name": "cilex/cilex",
@@ -5509,25 +5521,10 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.4",
-            "alias_normalized": "1.0.4.0",
-            "version": "dev-CGIV-4338-old-browser-banner",
-            "package": "channelgrabber/zf2-installer"
-        },
-        {
-            "alias": "1.14.20",
-            "alias_normalized": "1.14.20.0",
-            "version": "dev-CGIV-4338-old-browser-banner",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-installer": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
