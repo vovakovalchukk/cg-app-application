@@ -4,8 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-
-    "hash": "7074d14fa7c78231f6c579b509ddc228",
+    "hash": "7c45f5e2c72fe9df6540effd617b1b4c",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2345,17 +2344,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.14.22",
+            "version": "dev-CGIV-4409-MisalignedDelete",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e49fc40cc921511d56776e53f51881f5a3109f59"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.22-4c8337.zip",
-                "reference": "e49fc40cc921511d56776e53f51881f5a3109f59",
-                "shasum": "6a767240ae568d677583f117e398d51c6d2ac7ef"
+                "reference": "a79714b40fc128b5cb1c6f6d09add701f993549c"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2395,7 +2388,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-12-10 14:54:16"
+            "time": "2014-12-10 17:23:50"
         },
         {
             "name": "cilex/cilex",
@@ -2521,7 +2514,6 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-
                 "reference": "2131c8b48082a176565856d69c6273047c96a6dc"
             },
             "dist": {
@@ -4337,9 +4329,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packages.zendframework.com/composer/zendframework-zendxml-559b34f426d33a11c3db118e00ce14bb8dc64e5f-zip-6cf7a2.zip",
-                "reference": "1.0.0",
-                "shasum": "39abc614b5c26bcbf8102e203c52dee73c4460a8"
+                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
+                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
@@ -4359,6 +4351,7 @@
                     "ZendXml": "library/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -4369,10 +4362,6 @@
                 "xml",
                 "zf2"
             ],
-            "support": {
-                "source": "https://github.com/zendframework/ZendXml/tree/master",
-                "issues": "https://github.com/zendframework/ZendXml/issues"
-            },
             "time": "2014-03-05 22:25:44"
         }
     ],
@@ -4821,7 +4810,7 @@
                 {
                     "name": "Anthon Pang",
                     "email": "apang@softwaredevelopment.ca",
-                    "role": "Fork Maintainer"
+                    "role": "developer"
                 }
             ],
             "description": "PHP WebDriver for Selenium 2",
@@ -5526,10 +5515,18 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.14.22",
+            "alias_normalized": "1.14.22.0",
+            "version": "dev-CGIV-4409-MisalignedDelete",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
