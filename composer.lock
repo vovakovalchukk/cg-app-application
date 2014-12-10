@@ -4,7 +4,8 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "943a2e6e3d2b188115539017c7082831",
+
+    "hash": "7074d14fa7c78231f6c579b509ddc228",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -727,17 +728,17 @@
         },
         {
             "name": "channelgrabber/log",
-            "version": "2.0.8",
+            "version": "2.0.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-log.git",
-                "reference": "376f51889794f6bf4e47d314bf7ec6bdecc99075"
+                "reference": "4695bca0d3784abfa408ae03e93987664a528527"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-2.0.8-a44bf2.zip",
-                "reference": "376f51889794f6bf4e47d314bf7ec6bdecc99075",
-                "shasum": "6ef90ff16d0fa1129fa443668e271f0536ff8c5d"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-2.0.9-d4ce05.zip",
+                "reference": "4695bca0d3784abfa408ae03e93987664a528527",
+                "shasum": "14aa8361851e95ff324171f4b0aaa90f02fec844"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -759,7 +760,7 @@
                     "CG\\Log\\": "src/"
                 }
             },
-            "time": "2014-11-24 14:12:13"
+            "time": "2014-12-09 17:29:52"
         },
         {
             "name": "channelgrabber/order",
@@ -2344,17 +2345,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.14.21",
+            "version": "1.14.22",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "7d477f7cbe78edf7a018210e59bf49df8d8c978f"
+                "reference": "e49fc40cc921511d56776e53f51881f5a3109f59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.21-07ef3c.zip",
-                "reference": "7d477f7cbe78edf7a018210e59bf49df8d8c978f",
-                "shasum": "5b83d749d94a0a12d2434e34bbb9136f21a94d3f"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.22-4c8337.zip",
+                "reference": "e49fc40cc921511d56776e53f51881f5a3109f59",
+                "shasum": "6a767240ae568d677583f117e398d51c6d2ac7ef"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2394,7 +2395,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-12-09 12:29:13"
+            "time": "2014-12-10 14:54:16"
         },
         {
             "name": "cilex/cilex",
@@ -2520,12 +2521,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "37ec0bde9dd6826591308e7a1ad55cb5e38ef117"
+
+                "reference": "2131c8b48082a176565856d69c6273047c96a6dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/37ec0bde9dd6826591308e7a1ad55cb5e38ef117",
-                "reference": "37ec0bde9dd6826591308e7a1ad55cb5e38ef117",
+                "url": "https://api.github.com/repos/composer/composer/zipball/2131c8b48082a176565856d69c6273047c96a6dc",
+                "reference": "2131c8b48082a176565856d69c6273047c96a6dc",
                 "shasum": ""
             },
             "require": {
@@ -2580,7 +2582,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2014-12-03 15:33:35"
+            "time": "2014-12-09 22:40:08"
         },
         {
             "name": "fabpot/goutte",
