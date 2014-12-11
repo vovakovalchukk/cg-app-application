@@ -366,6 +366,12 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function batchOrders(OrderCollection $orders)
     {
         $this->getBatchService()->create($orders);
+        foreach ($orders as $order) {
+            $this->getStatsClient()->stat(
+                sprintf(static::STAT_ORDER_BATCH_CREATED, $order->getChannel()),
+                $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()
+            );
+        }
     }
 
     public function unBatchOrderIdsAction()

@@ -1,6 +1,8 @@
 <?php
 namespace Orders\Controller;
 
+use CG\Stats\StatsAwareInterface;
+use CG\Stats\StatsTrait;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG\Order\Service\Tracking\Service as TrackingService;
@@ -12,8 +14,12 @@ use CG\User\ActiveUserInterface;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Http\Exception\Exception3xx\NotModified;
 
-class TrackingController extends AbstractActionController
+class TrackingController extends AbstractActionController implements StatsAwareInterface
 {
+    use StatsTrait;
+
+    const STAT_ORDER_TRACKING_DETAILS_CREATED = 'order.trackingDetails.created.%s';
+
     protected $jsonModelFactory;
     protected $trackingService;
     protected $mustacheRenderer;
@@ -40,8 +46,13 @@ class TrackingController extends AbstractActionController
         $tracking = $this->fetchTracking();
         $tracking = $this->update($tracking);
         try {
+            $order = $this->fetchOrder();
             $this->getTrackingService()->save($tracking);
-            $this->getTrackingService()->createGearmanJob($this->fetchOrder());
+            $this->getTrackingService()->createGearmanJob();
+            $this->getStatsClient()->stat(
+                sprintf(static::STAT_ORDER_TRACKING_DETAILS_CREATED, $order->getChannel()),
+                $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()
+            );
         } catch (NotModified $ex) {
             // If not modified then noop
         }

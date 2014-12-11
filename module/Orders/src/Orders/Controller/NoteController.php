@@ -1,6 +1,8 @@
 <?php
 namespace Orders\Controller;
 
+use CG\Stats\StatsAwareInterface;
+use CG\Stats\StatsTrait;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG\Order\Service\Note\Service as NoteService;
@@ -10,8 +12,12 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
 use Orders\Order\Service as OrderService;
 
-class NoteController extends AbstractActionController
+class NoteController extends AbstractActionController implements StatsAwareInterface
 {
+    use StatsTrait;
+
+    const STAT_ORDER_NOTE_CREATED = 'order.note.created.%s';
+
     protected $jsonModelFactory;
     protected $service;
     protected $activeUserContainer;
@@ -58,6 +64,10 @@ class NoteController extends AbstractActionController
             )
         );
         $this->getService()->save($note);
+        $this->getStatsClient()->stat(
+            sprintf(static::STAT_ORDER_NOTE_CREATED, $order->getChannel()),
+            $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()
+        );
         return $this->view;
     }
 

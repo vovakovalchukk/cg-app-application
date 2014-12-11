@@ -10,6 +10,7 @@ use CG\Stdlib\DateTime;
 use CG\Template\Entity as Template;
 use CG\Template\Element\Factory as ElementFactory;
 use CG\Template\PaperPage;
+use CG\User\ActiveUserInterface;
 use Orders\Order\Invoice\Renderer\ServiceInterface as RendererService;
 use Orders\Order\Invoice\Template\Factory as TemplateFactory;
 use Orders\Order\Invoice\ProgressStorage;
@@ -18,6 +19,8 @@ use Zend\Di\Di;
 
 class Service
 {
+    const STAT_ORDER_PRINTED = 'order.printed.%s';
+
     protected $di;
     protected $orderService;
     protected $templateFactory;
@@ -26,6 +29,7 @@ class Service
     protected $invoiceSettingsService;
     protected $progressStorage;
     protected $templates = [];
+    protected $activeUserContainer;
 
     public function __construct(
         Di $di,
@@ -34,7 +38,8 @@ class Service
         ElementFactory $elementFactory,
         RendererService $rendererService,
         InvoiceSettingsService $invoiceSettingsService,
-        ProgressStorage $progressStorage
+        ProgressStorage $progressStorage,
+        ActiveUserInterface $activeUserContainer
     ) {
         $this
             ->setDi($di)
@@ -43,7 +48,8 @@ class Service
             ->setElementFactory($elementFactory)
             ->setRendererService($rendererService)
             ->setInvoiceSettingsService($invoiceSettingsService)
-            ->setProgressStorage($progressStorage);
+            ->setProgressStorage($progressStorage)
+            ->setActiveUserContainer($activeUserContainer);
     }
 
     public function setDi(Di $di)
@@ -212,6 +218,10 @@ class Service
             $this->getOrderService()->saveOrder(
                 $order->setPrintedDate(date(DateTime::FORMAT, $now))
             );
+            $this->getStatsClient()->stat(
+                sprintf(static::STAT_ORDER_PRINTED, $order->getChannel()),
+                $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()
+            );
         }
     }
 
@@ -262,5 +272,16 @@ class Service
     public function checkInvoiceGenerationProgress($key)
     {
         return (int)$this->getProgressStorage()->getProgress($key);
+    }
+
+    protected function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
+    {
+        $this->activeUserContainer = $activeUserContainer;
+        return $this;
+    }
+
+    protected function getActiveUserContainer()
+    {
+        return $this->activeUserContainer;
     }
 }

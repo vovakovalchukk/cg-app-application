@@ -24,6 +24,8 @@ use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
 use CG\Order\Shared\Status as OrderStatus;
 use CG\Order\Shared\StorageInterface;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Stats\StatsAwareInterface;
+use CG\Stats\StatsTrait;
 use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -42,10 +44,12 @@ use Settings\Module as SettingsModule;
 use Zend\Di\Di;
 use Zend\I18n\View\Helper\CurrencyFormat;
 use Zend\Mvc\MvcEvent;
+use CG\Order\Shared\Cancel\Value as Cancel;
 
-class Service implements LoggerAwareInterface
+class Service implements LoggerAwareInterface, StatsAwareInterface
 {
     use LogTrait;
+    use StatsTrait;
 
     const ORDER_TABLE_COL_PREF_KEY = 'order-columns';
     const ORDER_TABLE_COL_POS_PREF_KEY = 'order-column-positions';
@@ -56,6 +60,11 @@ class Service implements LoggerAwareInterface
     const LOG_CODE = 'OrderModuleService';
     const LOG_UNDISPATCHABLE = 'Order %s has been flagged for dispatch but it is not in a dispatchable status (%s)';
     const LOG_DISPATCHING = 'Dispatching Order %s';
+    const STAT_ORDER_DISPATCHED = 'order.dispatched.%s';
+    const STAT_ORDER_CANCELLED = 'order.cancelled.%s';
+    const STAT_ORDER_REFUNDED = 'order.refunded.%s';
+    const STAT_ORDER_ARCHIVED = 'order.archived.%s';
+    const STAT_ORDER_TAG_CREATED = 'order.tag.created.%s';
 
     protected $orderClient;
     protected $orderItemClient;
@@ -587,6 +596,10 @@ class Service implements LoggerAwareInterface
         $this->saveOrder(
             $order->setTags(array_keys($tags))
         );
+        $this->getStatsClient()->stat(
+            sprintf(static::STAT_ORDER_TAG_CREATED, $order->getChannel()),
+            $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()
+        );
     }
 
     public function unTagOrders($tag, OrderCollection $orders)
@@ -659,6 +672,10 @@ class Service implements LoggerAwareInterface
         $this->getOrderItemClient()->saveCollection($order->getItems());
 
         $this->getOrderDispatcher()->generateJob($account, $order);
+        $this->getStatsClient()->stat(
+            sprintf(static::STAT_ORDER_DISPATCHED, $order->getChannel()),
+            $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()
+        );
     }
 
     public function archiveOrders(OrderCollection $orders, $archive = true)
@@ -684,9 +701,14 @@ class Service implements LoggerAwareInterface
 
     public function archiveOrder(OrderEntity $order, $archive = true)
     {
-        return $this->getOrderClient()->archive(
+        $order = $this->getOrderClient()->archive(
             $order->setArchived($archive)
         );
+        $this->getStatsClient()->stat(
+            sprintf(static::STAT_ORDER_ARCHIVED, $order->getChannel()),
+            $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()
+        );
+        return $order;
     }
 
     public function cancelOrders(OrderCollection $orders, $type, $reason)
@@ -722,6 +744,10 @@ class Service implements LoggerAwareInterface
         $this->getOrderItemClient()->saveCollection($order->getItems());
 
         $this->getOrderCanceller()->generateJob($account, $order, $cancel);
+        $this->getStatsClient()->stat(
+            sprintf(($type == Cancel::CANCEL_TYPE) ? static::STAT_ORDER_CANCELLED : static::STAT_ORDER_REFUNDED, $order->getChannel()),
+            $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()
+        );
     }
 
     /**

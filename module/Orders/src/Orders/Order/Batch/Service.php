@@ -2,6 +2,9 @@
 namespace Orders\Order\Batch;
 
 use CG\Order\Shared\Batch\StorageInterface as BatchClient;
+use CG\Stats\StatsAwareInterface;
+use CG\Stats\StatsTrait;
+use CG\User\ActiveUserInterface;
 use CG\User\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Order\Service\Filter;
@@ -16,15 +19,19 @@ use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Stdlib\Log\LogTrait;
 use CG\Stdlib\Log\LoggerAwareInterface;
 
-class Service implements LoggerAwareInterface
+class Service implements LoggerAwareInterface, StatsAwareInterface
 {
     use LogTrait;
+    use StatsTrait;
+
+    const STAT_ORDER_BATCH_CREATED = 'order.batch.created.%s';
 
     protected $organisationUnitService;
     protected $batchClient;
     protected $orderClient;
     protected $di;
     protected $redisClient;
+    protected $activeUserContainer;
 
     const DEFAULT_LIMIT = "all";
     const DEFAULT_PAGE = 1;
@@ -37,13 +44,15 @@ class Service implements LoggerAwareInterface
         BatchClient $batchClient,
         OrderClient $orderClient,
         Di $di,
-        PredisClient $redisClient
+        PredisClient $redisClient,
+        ActiveUserInterface $activeUserContainer
     ) {
         $this->setOrganisationUnitService($organisationUnitService)
             ->setBatchClient($batchClient)
             ->setOrderClient($orderClient)
             ->setDi($di)
-            ->setRedisClient($redisClient);
+            ->setRedisClient($redisClient)
+            ->setActiveUserContainer($activeUserContainer);
     }
 
     public function getBatches($active = true)
@@ -125,13 +134,12 @@ class Service implements LoggerAwareInterface
 
     protected function createBatch()
     {
-        $userEntity = $this->getOrganisationUnitService()->getActiveUser();
-        $rootOu = $this->getOrganisationUnitService()->getRootOuByActiveUser();
-        $id = $this->getRedisClient()->incr(static::BATCH_KEY . $rootOu->getId());
+        $rootOuId = $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId();
+        $id = $this->getRedisClient()->incr(static::BATCH_KEY . $rootOuId);
         $batch = $this->getDi()->get(BatchEntity::class, array(
-            "organisationUnitId" => $userEntity->getOrganisationUnitId(),
+            "organisationUnitId" => $this->getActiveUserContainer()->getActiveUser()->getOrganisationUnitId(),
             "active" => true,
-            "id" => $this->generateBatchId($rootOu->getId(), $id),
+            "id" => $this->generateBatchId($rootOuId, $id),
             "name" => (string) $id
         ));
         $batch = $this->getBatchClient()->save($batch);
@@ -144,6 +152,10 @@ class Service implements LoggerAwareInterface
             try {
                 $this->getOrderClient()->save(
                     $order->setBatch($batch)
+                );
+                $this->getStatsClient()->stat(
+                    sprintf(static::STAT_ORDER_BATCH_CREATED, $order->getChannel()),
+                    $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()
                 );
             } catch (NotModified $exception) {
                 // Batch already correct - ignore
@@ -229,5 +241,16 @@ class Service implements LoggerAwareInterface
     public function getRedisClient()
     {
         return $this->redisClient;
+    }
+
+    protected function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
+    {
+        $this->activeUserContainer = $activeUserContainer;
+        return $this;
+    }
+
+    protected function getActiveUserContainer()
+    {
+        return $this->activeUserContainer;
     }
 }
