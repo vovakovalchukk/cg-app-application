@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7c45f5e2c72fe9df6540effd617b1b4c",
+    "hash": "578fdc2502cdcffa9d440b0df066eda9",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2344,11 +2344,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-4409-MisalignedDelete",
+            "version": "dev-QA",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "a79714b40fc128b5cb1c6f6d09add701f993549c"
+                "reference": "6bf436b39d8d7cdc158650906a4ace7a179a31ed"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2388,7 +2388,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-12-10 17:23:50"
+            "time": "2014-12-10 13:27:58"
         },
         {
             "name": "cilex/cilex",
@@ -5519,7 +5519,7 @@
         {
             "alias": "1.14.22",
             "alias_normalized": "1.14.22.0",
-            "version": "dev-CGIV-4409-MisalignedDelete",
+            "version": "dev-QA",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
