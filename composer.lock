@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6cb04034b5b6ee6b107c0ab1d4668b77",
+    "hash": "b0f472c53b3f0fae31e492649942716e",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2344,11 +2344,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-4420-TablesSCSSCleanup",
+            "version": "dev-QA",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "3b502cfeec890f52bccd432792e327185f1aec9b"
+                "reference": "cbbb932532819768dde4b444e3c0bf2a74f20c0e"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2388,7 +2388,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-12-12 09:16:19"
+            "time": "2014-12-12 13:47:03"
         },
         {
             "name": "cilex/cilex",
@@ -5519,7 +5519,7 @@
         {
             "alias": "1.14.23",
             "alias_normalized": "1.14.23.0",
-            "version": "dev-CGIV-4420-TablesSCSSCleanup",
+            "version": "dev-QA",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
