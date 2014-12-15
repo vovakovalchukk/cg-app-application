@@ -427,9 +427,16 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             return $numberFormat($value, $currencyCode);
         };
 
+        $linkFormatter = function (ItemEntity $entity, $value) {
+            if(empty($entity->getUrl())) {
+                return $value;
+            }
+            return '<a href="' . $entity->getUrl() . '" target="_blank">' . $value . '</a>';
+        };
+
         $columns = [
             ['name' => 'SKU', 'class' => '', 'getter' => 'getItemSku', 'callback' => null],
-            ['name' => 'Product Name', 'class' => '', 'getter' => 'getItemName', 'callback' => null],
+            ['name' => 'Product Name', 'class' => '', 'getter' => 'getItemName', 'callback' => $linkFormatter],
             ['name' => 'Quantity', 'class' => 'right', 'getter' => 'getItemQuantity', 'callback' => null],
             ['name' => 'Individual Price', 'class' => 'right', 'getter' => 'getIndividualItemPrice', 'callback' => $currencyFormatter],
             ['name' => 'Individual Discount', 'class' => 'right', 'getter' => 'getIndividualItemDiscountPrice', 'callback' => $currencyFormatter],
