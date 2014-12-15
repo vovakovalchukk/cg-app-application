@@ -16,7 +16,7 @@ class NoteController extends AbstractActionController implements StatsAwareInter
 {
     use StatsTrait;
 
-    const STAT_ORDER_NOTE_CREATED = 'order.note.created.%s';
+    const STAT_ORDER_ACTION_NOTED = 'orderAction.noted.%s.%d.%d';
 
     protected $jsonModelFactory;
     protected $service;
@@ -64,9 +64,12 @@ class NoteController extends AbstractActionController implements StatsAwareInter
             )
         );
         $this->getService()->save($note);
-        $this->getStatsClient()->stat(
-            sprintf(static::STAT_ORDER_NOTE_CREATED, $order->getChannel()),
-            $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()
+        $this->statsIncrement(
+            static::STAT_ORDER_ACTION_NOTED, [
+                $order->getChannel(),
+                $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId(),
+                $this->getActiveUserContainer()->getActiveUser()->getId()
+            ]
         );
         return $this->view;
     }

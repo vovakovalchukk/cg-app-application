@@ -60,11 +60,11 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     const LOG_CODE = 'OrderModuleService';
     const LOG_UNDISPATCHABLE = 'Order %s has been flagged for dispatch but it is not in a dispatchable status (%s)';
     const LOG_DISPATCHING = 'Dispatching Order %s';
-    const STAT_ORDER_DISPATCHED = 'order.dispatched.%s';
-    const STAT_ORDER_CANCELLED = 'order.cancelled.%s';
-    const STAT_ORDER_REFUNDED = 'order.refunded.%s';
-    const STAT_ORDER_ARCHIVED = 'order.archived.%s';
-    const STAT_ORDER_TAG_CREATED = 'order.tag.created.%s';
+    const STAT_ORDER_ACTION_DISPATCHED = 'orderAction.dispatched.%s.%d.%d';
+    const STAT_ORDER_ACTION_CANCELLED = 'orderAction.cancelled.%s.%d.%d';
+    const STAT_ORDER_ACTION_REFUNDED = 'orderAction.refunded.%s.%d.%d';
+    const STAT_ORDER_ACTION_ARCHIVED = 'orderAction.archived.%s.%d.%d';
+    const STAT_ORDER_ACTION_TAGGED = 'orderAction.tagged.%s.%d.%d';
 
     protected $orderClient;
     protected $orderItemClient;
@@ -603,9 +603,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->saveOrder(
             $order->setTags(array_keys($tags))
         );
-        $this->getStatsClient()->stat(
-            sprintf(static::STAT_ORDER_TAG_CREATED, $order->getChannel()),
-            $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()
+        $this->statsIncrement(
+            static::STAT_ORDER_ACTION_TAGGED, [
+                $order->getChannel(),
+                $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId(),
+                $this->getActiveUserContainer()->getActiveUser()->getId()
+            ]
         );
     }
 
@@ -679,9 +682,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->getOrderItemClient()->saveCollection($order->getItems());
 
         $this->getOrderDispatcher()->generateJob($account, $order);
-        $this->getStatsClient()->stat(
-            sprintf(static::STAT_ORDER_DISPATCHED, $order->getChannel()),
-            $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()
+        $this->statsIncrement(
+            static::STAT_ORDER_ACTION_DISPATCHED, [
+                $order->getChannel(),
+                $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId(),
+                $this->getActiveUserContainer()->getActiveUser()->getId()
+            ]
         );
     }
 
@@ -711,9 +717,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $order = $this->getOrderClient()->archive(
             $order->setArchived($archive)
         );
-        $this->getStatsClient()->stat(
-            sprintf(static::STAT_ORDER_ARCHIVED, $order->getChannel()),
-            $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()
+        $this->statsIncrement(
+            static::STAT_ORDER_ACTION_ARCHIVED, [
+                $order->getChannel(),
+                $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId(),
+                $this->getActiveUserContainer()->getActiveUser()->getId(),
+            ]
         );
         return $order;
     }
@@ -751,9 +760,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->getOrderItemClient()->saveCollection($order->getItems());
 
         $this->getOrderCanceller()->generateJob($account, $order, $cancel);
-        $this->getStatsClient()->stat(
-            sprintf(($type == Cancel::CANCEL_TYPE) ? static::STAT_ORDER_CANCELLED : static::STAT_ORDER_REFUNDED, $order->getChannel()),
-            $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()
+        $this->statsIncrement(
+            ($type == Cancel::CANCEL_TYPE) ? static::STAT_ORDER_ACTION_CANCELLED : static::STAT_ORDER_ACTION_REFUNDED, [
+                $order->getChannel(),
+                $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId(),
+                $this->getActiveUserContainer()->getActiveUser()->getId()
+            ]
         );
     }
 

@@ -24,7 +24,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     use LogTrait;
     use StatsTrait;
 
-    const STAT_ORDER_BATCH_CREATED = 'order.batch.created.%s';
+    const STAT_ORDER_ACTION_BATCHED = 'orderAction.batched.%s.%d.%d';
 
     protected $organisationUnitService;
     protected $batchClient;
@@ -153,9 +153,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
                 $this->getOrderClient()->save(
                     $order->setBatch($batch)
                 );
-                $this->getStatsClient()->stat(
-                    sprintf(static::STAT_ORDER_BATCH_CREATED, $order->getChannel()),
-                    $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()
+                $this->statsIncrement(
+                    static::STAT_ORDER_ACTION_BATCHED, [
+                        $order->getChannel(),
+                        $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId(),
+                        $this->getActiveUserContainer()->getActiveUser()->getId()
+                    ]
                 );
             } catch (NotModified $exception) {
                 // Batch already correct - ignore

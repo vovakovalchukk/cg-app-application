@@ -4,8 +4,9 @@ namespace Orders\Order\Invoice;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection;
 use CG\Order\Shared\Entity as OrderEntity;
-use CG\Settings\Invoice\Shared\Entity as InvoiceSettingsEntity;
 use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
+use CG\Stats\StatsAwareInterface;
+use CG\Stats\StatsTrait;
 use CG\Stdlib\DateTime;
 use CG\Template\Entity as Template;
 use CG\Template\Element\Factory as ElementFactory;
@@ -17,9 +18,11 @@ use Orders\Order\Invoice\ProgressStorage;
 use Orders\Order\Service as OrderService;
 use Zend\Di\Di;
 
-class Service
+class Service implements StatsAwareInterface
 {
-    const STAT_ORDER_PRINTED = 'order.printed.%s';
+    use StatsTrait;
+
+    const STAT_ORDER_ACTION_PRINTED = 'orderAction.printed.%s.%d.%d';
 
     protected $di;
     protected $orderService;
@@ -218,9 +221,12 @@ class Service
             $this->getOrderService()->saveOrder(
                 $order->setPrintedDate(date(DateTime::FORMAT, $now))
             );
-            $this->getStatsClient()->stat(
-                sprintf(static::STAT_ORDER_PRINTED, $order->getChannel()),
-                $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()
+            $this->statsIncrement(
+                static::STAT_ORDER_ACTION_PRINTED, [
+                    $order->getChannel(),
+                    $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId(),
+                    $this->getActiveUserContainer()->getActiveUser()->getId()
+                ]
             );
         }
     }

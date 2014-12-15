@@ -18,7 +18,7 @@ class TrackingController extends AbstractActionController implements StatsAwareI
 {
     use StatsTrait;
 
-    const STAT_ORDER_TRACKING_DETAILS_CREATED = 'order.trackingDetails.created.%s';
+    const STAT_ORDER_ACTION_TRACKED = 'orderAction.tracked.%s.%d.%d';
 
     protected $jsonModelFactory;
     protected $trackingService;
@@ -49,9 +49,12 @@ class TrackingController extends AbstractActionController implements StatsAwareI
             $order = $this->fetchOrder();
             $this->getTrackingService()->save($tracking);
             $this->getTrackingService()->createGearmanJob();
-            $this->getStatsClient()->stat(
-                sprintf(static::STAT_ORDER_TRACKING_DETAILS_CREATED, $order->getChannel()),
-                $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()
+            $this->statsIncrement(
+                static::STAT_ORDER_ACTION_TRACKED, [
+                    $order->getChannel(),
+                    $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId(),
+                    $this->getActiveUserContainer()->getActiveUser()->getId()
+                ]
             );
         } catch (NotModified $ex) {
             // If not modified then noop

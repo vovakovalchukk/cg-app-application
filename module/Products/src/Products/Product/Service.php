@@ -37,7 +37,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     const PAGE = 1;
     const LOG_CODE = 'ProductProductService';
     const LOG_NO_STOCK_TO_DELETE = 'No stock found to remove for Product %s when deleting it';
-    const STAT_STOCK_UPDATE_MANUAL = 'stock.update.manual';
+    const STAT_STOCK_UPDATE_MANUAL = 'stock.update.manual.%d.%d';
 
     protected $userService;
     protected $activeUserContainer;
@@ -97,9 +97,11 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             $stockLocationEntity->setStoredEtag($eTag)
                 ->setOnHand($totalQuantity);
             $this->getStockLocationService()->save($stockLocationEntity);
-            $this->getStatsClient()->stat(
-                static::STAT_STOCK_UPDATE_MANUAL,
-                $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()
+            $this->statsIncrement(
+                static::STAT_STOCK_UPDATE_MANUAL, [
+                    $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId(),
+                    $this->getActiveUserContainer()->getActiveUser()->getId()
+                ]
             );
         } catch (NotModified $e) {
             //No changes do nothing
