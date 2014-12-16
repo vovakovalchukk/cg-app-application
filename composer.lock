@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "084223be48a934d1323ba2a81aa2a8bb",
+    "hash": "48ab3624daec0c1ab155634d455e69e9",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2344,17 +2344,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.14.25",
+            "version": "dev-CGIV-4348-misaligning-order-table",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "dd3cf9d5139335f46a8043d11e5d6c5f75320b73"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.25-da9c63.zip",
-                "reference": "dd3cf9d5139335f46a8043d11e5d6c5f75320b73",
-                "shasum": "843399f7b0163d6a96091993d7554c7ba63ca641"
+                "reference": "c230f0e4d1daf4842195f6e13d1cd52049b468ba"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2394,7 +2388,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-12-16 14:21:49"
+            "time": "2014-12-16 15:27:56"
         },
         {
             "name": "cilex/cilex",
@@ -2520,12 +2514,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "331bda235c810787be90219f7625cc8a548aa92e"
+                "reference": "c54d6f93e3c5838092363447498ecb366e1e60a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/331bda235c810787be90219f7625cc8a548aa92e",
-                "reference": "331bda235c810787be90219f7625cc8a548aa92e",
+                "url": "https://api.github.com/repos/composer/composer/zipball/c54d6f93e3c5838092363447498ecb366e1e60a2",
+                "reference": "c54d6f93e3c5838092363447498ecb366e1e60a2",
                 "shasum": ""
             },
             "require": {
@@ -2580,7 +2574,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2014-12-16 11:12:13"
+            "time": "2014-12-16 14:28:51"
         },
         {
             "name": "fabpot/goutte",
@@ -4335,9 +4329,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "shasum": ""
+                "url": "https://packages.zendframework.com/composer/zendframework-zendxml-559b34f426d33a11c3db118e00ce14bb8dc64e5f-zip-6cf7a2.zip",
+                "reference": "1.0.0",
+                "shasum": "39abc614b5c26bcbf8102e203c52dee73c4460a8"
             },
             "require": {
                 "php": ">=5.3.3"
@@ -4357,7 +4351,6 @@
                     "ZendXml": "library/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -4368,6 +4361,10 @@
                 "xml",
                 "zf2"
             ],
+            "support": {
+                "source": "https://github.com/zendframework/ZendXml/tree/master",
+                "issues": "https://github.com/zendframework/ZendXml/issues"
+            },
             "time": "2014-03-05 22:25:44"
         }
     ],
@@ -4816,7 +4813,7 @@
                 {
                     "name": "Anthon Pang",
                     "email": "apang@softwaredevelopment.ca",
-                    "role": "developer"
+                    "role": "Fork Maintainer"
                 }
             ],
             "description": "PHP WebDriver for Selenium 2",
@@ -5521,10 +5518,18 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.14.27",
+            "alias_normalized": "1.14.27.0",
+            "version": "dev-CGIV-4348-misaligning-order-table",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
