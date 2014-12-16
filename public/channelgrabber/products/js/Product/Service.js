@@ -90,7 +90,7 @@ define([
 
         if (product['variations'] != undefined && product['variations'].length) {
             var productContent = this.getVariationView(product, templates);
-            if (product['variations'].length > 1) {
+            if (product['variations'].length > 2) {
               expandButton = this.getExpandButtonView(product, templates);
             }
             hasVariations = true;
