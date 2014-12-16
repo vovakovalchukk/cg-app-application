@@ -87,15 +87,17 @@ define([
         var checkbox = this.getCheckboxView(product, templates);
         var expandButton = '';
         var hasVariations = false;
-        
+
         if (product['variations'] != undefined && product['variations'].length) {
             var productContent = this.getVariationView(product, templates);
-            expandButton = this.getExpandButtonView(product, templates);
+            if (product['variations'].length > 1) {
+              expandButton = this.getExpandButtonView(product, templates);
+            }
             hasVariations = true;
         } else {
             var productContent = this.getStockTableView(product, templates);
         }
-        
+
         var statusLozenge = this.getStatusView(product, templates);
         var productView = CGMustache.get().renderTemplate(templates, {
             'title': product['name'],
@@ -121,7 +123,7 @@ define([
         var html = CGMustache.get().renderTemplate(templates, {}, 'stockTable', {'stockLocations': stockLocations});
         return html;
     };
-    
+
     Service.prototype.getStockTableLineView = function(location, templates)
     {
         var name = 'total-stock-' + location['id'];
