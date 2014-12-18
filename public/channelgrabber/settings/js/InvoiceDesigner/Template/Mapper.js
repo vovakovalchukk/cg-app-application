@@ -66,7 +66,7 @@ define([
         elementData.y = Number(elementData.y).ptToMm();
         elementData.height = Number(elementData.height).ptToMm();
         elementData.width = Number(elementData.width).ptToMm();
-        var element = createNewElement(elementType);
+        var element = this.createNewElement(elementType);
         if (elementData.padding) {
             elementData.padding = Number(elementData.padding).ptToMm();
         }
