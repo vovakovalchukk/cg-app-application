@@ -61,11 +61,37 @@ define([
         return template;
     };
 
-    Mapper.prototype.createNewElement = function(elementType)
+    Mapper.prototype.createNewElement = function(elementName)
     {
+        var elementType = this.getElementType(elementName);
+
         var elementClass = require(Mapper.PATH_TO_ELEMENT_TYPES + elementType);
-        return new elementClass();
+        var element = new elementClass();
+
+        return this.addElementSpecifics(element, elementName);
     };
+
+    Mapper.prototype.getElementType = function(elementName)
+    {
+        if (elementName == 'SellerAddress' || elementName == 'DeliveryAddress') {
+            elementName = 'Text';
+        }
+        return elementName;
+    };
+
+    Mapper.prototype.addElementSpecifics = function(element, elementName)
+    {
+        if (elementName == 'SellerAddress' || elementName == 'DeliveryAddress') {
+            var text = "%%organisationUnit.addressFullName%%\n%%organisationUnit.addressCompanyName%%\n%%organisationUnit.address1%%\n%%organisationUnit.address2%%\n%%organisationUnit.address3%%\n%%organisationUnit.addressCity%%\n%%organisationUnit.addressCounty%%\n%%organisationUnit.addressPostcode%%";
+            if (elementName == 'DeliveryAddress') {
+                text = text.replace(/organisationUnit/g, 'order').replace(/address/g, 'shippingAddress');
+            }
+            element.setWidth('100');
+            element.setHeight('40');
+            element.setText(text);
+        }
+        return element;
+    }
 
     Mapper.prototype.elementFromJson = function(elementData, populating)
     {
