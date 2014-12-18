@@ -66,8 +66,7 @@ define([
         elementData.y = Number(elementData.y).ptToMm();
         elementData.height = Number(elementData.height).ptToMm();
         elementData.width = Number(elementData.width).ptToMm();
-        var elementMapper = require(Mapper.PATH_TO_ELEMENT_TYPE_MAPPERS + elementType);
-        var element = elementMapper.createElement();
+        var element = createNewElement(elementType);
         if (elementData.padding) {
             elementData.padding = Number(elementData.padding).ptToMm();
         }
