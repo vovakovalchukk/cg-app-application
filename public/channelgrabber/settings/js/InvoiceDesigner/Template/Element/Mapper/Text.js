@@ -1,7 +1,9 @@
 define([
-    'InvoiceDesigner/Template/Element/Mapper/TextAbstract'
+    'InvoiceDesigner/Template/Element/Mapper/TextAbstract',
+    'InvoiceDesigner/Template/Element/Text'
 ], function(
-    TextAbstract
+    TextAbstract,
+    TextElement
 ) {
     var Text = function()
     {
@@ -9,6 +11,11 @@ define([
     };
 
     Text.prototype = Object.create(TextAbstract.prototype);
+
+    Text.prototype.createElement = function()
+    {
+        return new TextElement();
+    };
 
     return new Text();
 });

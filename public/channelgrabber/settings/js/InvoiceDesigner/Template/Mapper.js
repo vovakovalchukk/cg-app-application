@@ -1,22 +1,15 @@
 define([
     'require',
-    'InvoiceDesigner/Template/Entity',
-    'InvoiceDesigner/Template/Element/Box',
-    'InvoiceDesigner/Template/Element/DeliveryAddress',
-    'InvoiceDesigner/Template/Element/Image',
-    'InvoiceDesigner/Template/Element/OrderTable',
-    'InvoiceDesigner/Template/PaperPage/Entity',
-    'InvoiceDesigner/Template/Element/SellerAddress',
-    'InvoiceDesigner/Template/Element/Text',
-    'InvoiceDesigner/Template/Element/PPI',
     'InvoiceDesigner/Template/Element/Mapper/Box',
     'InvoiceDesigner/Template/Element/Mapper/DeliveryAddress',
     'InvoiceDesigner/Template/Element/Mapper/Image',
     'InvoiceDesigner/Template/Element/Mapper/OrderTable',
-    'InvoiceDesigner/Template/PaperPage/Mapper',
+    'InvoiceDesigner/Template/Element/Mapper/PPI',
     'InvoiceDesigner/Template/Element/Mapper/SellerAddress',
     'InvoiceDesigner/Template/Element/Mapper/Text',
-    'InvoiceDesigner/Template/Element/Mapper/PPI'
+    'InvoiceDesigner/Template/Entity',
+    'InvoiceDesigner/Template/PaperPage/Entity',
+    'InvoiceDesigner/Template/PaperPage/Mapper'
 ], function(require)
 {
     var Mapper = function()
@@ -25,7 +18,6 @@ define([
     };
 
     Mapper.PATH_TO_TEMPLATE_ENTITY = 'InvoiceDesigner/Template/Entity';
-    Mapper.PATH_TO_ELEMENT_TYPES = 'InvoiceDesigner/Template/Element/';
     Mapper.PATH_TO_ELEMENT_TYPE_MAPPERS = 'InvoiceDesigner/Template/Element/Mapper/';
     Mapper.PATH_TO_PAGE_ENTITY = 'InvoiceDesigner/Template/PaperPage/Entity';
     Mapper.PATH_TO_PAGE_MAPPER = 'InvoiceDesigner/Template/PaperPage/Mapper';
@@ -61,37 +53,11 @@ define([
         return template;
     };
 
-    Mapper.prototype.createNewElement = function(elementName)
+    Mapper.prototype.createNewElement = function(elementType)
     {
-        var elementType = this.getElementType(elementName);
-
-        var elementClass = require(Mapper.PATH_TO_ELEMENT_TYPES + elementType);
-        var element = new elementClass();
-
-        return this.addElementSpecifics(element, elementName);
+        var elementMapper = require(Mapper.PATH_TO_ELEMENT_TYPE_MAPPERS + elementType);
+        return elementMapper.createElement();
     };
-
-    Mapper.prototype.getElementType = function(elementName)
-    {
-        if (elementName == 'SellerAddress' || elementName == 'DeliveryAddress') {
-            elementName = 'Text';
-        }
-        return elementName;
-    };
-
-    Mapper.prototype.addElementSpecifics = function(element, elementName)
-    {
-        if (elementName == 'SellerAddress' || elementName == 'DeliveryAddress') {
-            var text = "%%organisationUnit.addressFullName%%\n%%organisationUnit.addressCompanyName%%\n%%organisationUnit.address1%%\n%%organisationUnit.address2%%\n%%organisationUnit.address3%%\n%%organisationUnit.addressCity%%\n%%organisationUnit.addressCounty%%\n%%organisationUnit.addressPostcode%%";
-            if (elementName == 'DeliveryAddress') {
-                text = text.replace(/organisationUnit/g, 'order').replace(/address/g, 'shippingAddress');
-            }
-            element.setWidth('100');
-            element.setHeight('40');
-            element.setText(text);
-        }
-        return element;
-    }
 
     Mapper.prototype.elementFromJson = function(elementData, populating)
     {
@@ -100,8 +66,8 @@ define([
         elementData.y = Number(elementData.y).ptToMm();
         elementData.height = Number(elementData.height).ptToMm();
         elementData.width = Number(elementData.width).ptToMm();
-        var elementClass = require(Mapper.PATH_TO_ELEMENT_TYPES + elementType);
-        var element = new elementClass();
+        var elementMapper = require(Mapper.PATH_TO_ELEMENT_TYPE_MAPPERS + elementType);
+        var element = elementMapper.createElement();
         if (elementData.padding) {
             elementData.padding = Number(elementData.padding).ptToMm();
         }

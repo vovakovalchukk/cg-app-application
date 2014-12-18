@@ -1,7 +1,9 @@
 define([
-    'InvoiceDesigner/Template/Element/MapperAbstract'
+    'InvoiceDesigner/Template/Element/MapperAbstract',
+    'InvoiceDesigner/Template/Element/Box'
 ], function(
-    MapperAbstract
+    MapperAbstract,
+    BoxElement
 ) {
     var Box = function()
     {
@@ -13,6 +15,11 @@ define([
     Box.prototype.getHtmlContents = function(element)
     {
         return '';
+    };
+
+    Box.prototype.createElement = function()
+    {
+        return new BoxElement();
     };
 
     return new Box();
