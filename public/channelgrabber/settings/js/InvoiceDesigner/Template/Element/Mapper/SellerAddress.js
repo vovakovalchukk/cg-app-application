@@ -16,12 +16,10 @@ define([
     {
         var element = new TextElement();
         var text = "%%organisationUnit.addressFullName%%\n%%organisationUnit.addressCompanyName%%\n%%organisationUnit.address1%%\n%%organisationUnit.address2%%\n%%organisationUnit.address3%%\n%%organisationUnit.addressCity%%\n%%organisationUnit.addressCounty%%\n%%organisationUnit.addressPostcode%%";
-        element
+        return element
             .setWidth('100')
             .setHeight('40')
             .setText(text);
-
-        return element;
     };
 
     return new SellerAddress();

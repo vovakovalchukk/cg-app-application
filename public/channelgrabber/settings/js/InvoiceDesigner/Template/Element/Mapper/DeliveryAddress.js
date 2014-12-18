@@ -20,7 +20,6 @@ define([
             .setWidth('100')
             .setHeight('40')
             .setText(text);
-        return element;
     };
 
     return new DeliveryAddress();
