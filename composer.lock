@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5947a92f386e44db9c05e3a2a06679b8",
+    "hash": "5d913ae53827ba1bb4614a16004bfc84",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -56,17 +56,17 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.7.1.1",
+            "version": "1.7.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "8a201d94f0d9832fa24cffe42225a12728799b34"
+                "reference": "976631b2c6a357857c1feff3b6587b1bab133ca9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.7.1.1-5ee27c.zip",
-                "reference": "8a201d94f0d9832fa24cffe42225a12728799b34",
-                "shasum": "6a49ab9465056622981d9c6dc958bd566a30931f"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.7.2-ced1d8.zip",
+                "reference": "976631b2c6a357857c1feff3b6587b1bab133ca9",
+                "shasum": "70cfb6810ce1f5c4027d3ddc41583c3abbdd7382"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -88,7 +88,7 @@
                     "CG\\Billing\\": "src"
                 }
             },
-            "time": "2014-11-12 10:22:36"
+            "time": "2014-12-17 10:55:45"
         },
         {
             "name": "channelgrabber/cache",
@@ -125,17 +125,17 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "1.3.5",
+            "version": "1.3.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "7f17015d1ac1f6a280486013937f01b5bec4f30b"
+                "reference": "4fccaa4a29bbd82f1e900281aae53d2f8ccbb53e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.3.5-fb4afe.zip",
-                "reference": "7f17015d1ac1f6a280486013937f01b5bec4f30b",
-                "shasum": "4bbd9f64bcf6e556a78cb166af393a01c7259f03"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.3.6-f1a3b6.zip",
+                "reference": "4fccaa4a29bbd82f1e900281aae53d2f8ccbb53e",
+                "shasum": "3ad41dc4dada5ff55dc57676b6025a0826dfaf91"
             },
             "require": {
                 "channelgrabber/billing": ">=1.7.1",
@@ -174,7 +174,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2014-12-08 12:28:06"
+            "time": "2014-12-17 11:10:59"
         },
         {
             "name": "channelgrabber/channel",
@@ -2514,12 +2514,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "331bda235c810787be90219f7625cc8a548aa92e"
+                "reference": "a422d67e2701860a44a4634f62f88b58b8636468"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/331bda235c810787be90219f7625cc8a548aa92e",
-                "reference": "331bda235c810787be90219f7625cc8a548aa92e",
+                "url": "https://api.github.com/repos/composer/composer/zipball/a422d67e2701860a44a4634f62f88b58b8636468",
+                "reference": "a422d67e2701860a44a4634f62f88b58b8636468",
                 "shasum": ""
             },
             "require": {
@@ -2574,7 +2574,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2014-12-16 11:12:13"
+            "time": "2014-12-18 10:37:32"
         },
         {
             "name": "fabpot/goutte",
@@ -5517,8 +5517,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.14.25",
-            "alias_normalized": "1.14.25.0",
+            "alias": "1.14.26",
+            "alias_normalized": "1.14.26.0",
             "version": "dev-CGIV-4472-1280Res",
             "package": "channelgrabber/zf2-v4-ui"
         }
