@@ -97,7 +97,7 @@ require([
             <input type="hidden" id="eTag" name="eTag" value="<?= $order->getUserChange() ? $order->getUserChange()->getEtag() : null; ?>">
             <div class="half" id="billing-information">
                 <span class="heading-large heading-spacing"><?= $this->translate('Billing Information'); ?>
-                    <a class="copy-address-to-clipboard" id="copy-billing-address"><?= $order->getBuyerMessage() ?: $this->translate("Copy address to clipboard"); ?></a>
+                    <a class="copy-address-to-clipboard" id="copy-billing-address"><?= $this->translate("Copy address to clipboard"); ?></a>
                 </span>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Buyer Name'); ?></span>
@@ -168,7 +168,7 @@ require([
             </div>
             <div class="half"  id="shipping-information">
                 <span class="heading-large heading-spacing"><?= $this->translate('Shipping Information'); ?>
-                    <a class="copy-address-to-clipboard" id="copy-shipping-address"><?= $order->getBuyerMessage() ?: $this->translate("Copy address to clipboard"); ?></a>
+                    <a class="copy-address-to-clipboard" id="copy-shipping-address"><?= $this->translate("Copy address to clipboard"); ?></a>
                 </span>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Recipient Name'); ?></span>
