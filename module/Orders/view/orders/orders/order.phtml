@@ -2,12 +2,6 @@
     $('form').submit(function() {
         return false;
     });
-
-require.config({
-    paths: {
-        'CGUI': "<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js';?>"
-    }
-});
 require([
         "note/NoteDomAccess",
         "note/Notes",
@@ -17,7 +11,7 @@ require([
         "alert/Alert",
         "orderDetails/OrderDetailsPage",
         "tracking/Tracking",
-        "<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js';?>/zeroclipboard/ZeroClipboard.min.js"
+        "zeroclipboard/ZeroClipboard"
     ],
     function(NoteDomAccess, Notes, Note, OrderDetailsSidebar, Address, Alert, OrderDetailsPage, Tracking, zeroClipboard) {
         //References to n need to be migrated, it is the notification library
@@ -29,12 +23,12 @@ require([
         var alert = new Alert(n, '#alert');
         var orderDetailsPage = new OrderDetailsPage(sidebar, address, notes, alert, tracking);
 
-        zeroClipboard.config( { swfPath: "/cg-built/zf2-v4-ui/js/zeroclipboard/ZeroClipboard.swf" } );
+        zeroClipboard.config( { swfPath: "<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js';?>/zeroclipboard/ZeroClipboard.swf" } );
         var ZeroClipboard = new zeroClipboard(document.querySelectorAll(".copy-address-to-clipboard"));
 
         ZeroClipboard.on("copy", function (event) {
             var address = [];
-            $(event.target).parent().parent().find('label input.inputbox').each(function() {
+            $(event.target).closest('.half').find('label input.copy-address').each(function() {
                 var content = $(this).val();
                 if (content != ""){
                     address[address.length] = content;
@@ -108,55 +102,55 @@ require([
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Buyer Name'); ?></span>
                     <div class="order-inputbox-holder">
-                        <input class="inputbox" type="text" name="billingAddressFullName" value="<?= $order->getCalculatedBillingAddressFullName(); ?>">
+                        <input class="inputbox copy-address" type="text" name="billingAddressFullName" value="<?= $order->getCalculatedBillingAddressFullName(); ?>">
                     </div>
                 </label>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Company Name'); ?></span>
                     <div class="order-inputbox-holder">
-                        <input class="inputbox" type="text" name="billingAddressCompanyName" value="<?= $order->getCalculatedBillingAddressCompanyName(); ?>">
+                        <input class="inputbox copy-address" type="text" name="billingAddressCompanyName" value="<?= $order->getCalculatedBillingAddressCompanyName(); ?>">
                     </div>
                 </label>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Address Line 1'); ?></span>
                     <div class="order-inputbox-holder">
-                        <input class="inputbox" type="text" name="billingAddress1" value="<?= $order->getCalculatedBillingAddress1(); ?>">
+                        <input class="inputbox copy-address" type="text" name="billingAddress1" value="<?= $order->getCalculatedBillingAddress1(); ?>">
                     </div>
                 </label>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Address Line 2'); ?></span>
                     <div class="order-inputbox-holder">
-                        <input class="inputbox" type="text" name="billingAddress2" value="<?= $order->getCalculatedBillingAddress2(); ?>">
+                        <input class="inputbox copy-address" type="text" name="billingAddress2" value="<?= $order->getCalculatedBillingAddress2(); ?>">
                     </div>
                 </label>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Address Line 3'); ?></span>
                     <div class="order-inputbox-holder">
-                        <input class="inputbox" type="text" name="billingAddress3" value="<?= $order->getCalculatedBillingAddress3(); ?>">
+                        <input class="inputbox copy-address" type="text" name="billingAddress3" value="<?= $order->getCalculatedBillingAddress3(); ?>">
                     </div>
                 </label>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('City'); ?></span>
                     <div class="order-inputbox-holder">
-                        <input class="inputbox" type="text" name="billingAddressCity" value="<?= $order->getCalculatedBillingAddressCity(); ?>">
+                        <input class="inputbox copy-address" type="text" name="billingAddressCity" value="<?= $order->getCalculatedBillingAddressCity(); ?>">
                     </div>
                 </label>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('County'); ?></span>
                     <div class="order-inputbox-holder">
-                        <input class="inputbox" type="text" name="billingAddressCounty" value="<?= $order->getCalculatedBillingAddressCounty(); ?>">
+                        <input class="inputbox copy-address" type="text" name="billingAddressCounty" value="<?= $order->getCalculatedBillingAddressCounty(); ?>">
                     </div>
                 </label>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Postcode'); ?></span>
                     <div class="order-inputbox-holder">
-                        <input class="inputbox" type="text" name="billingAddressPostcode" value="<?= $order->getCalculatedBillingAddressPostcode(); ?>">
+                        <input class="inputbox copy-address" type="text" name="billingAddressPostcode" value="<?= $order->getCalculatedBillingAddressPostcode(); ?>">
                     </div>
                 </label>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Country'); ?></span>
                     <div class="order-inputbox-holder">
-                        <input class="inputbox" type="text" name="billingAddressCountry" value="<?= $order->getCalculatedBillingAddressCountry(); ?>">
+                        <input class="inputbox copy-address" type="text" name="billingAddressCountry" value="<?= $order->getCalculatedBillingAddressCountry(); ?>">
                     </div>
                 </label>
                 <label>
@@ -179,55 +173,55 @@ require([
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Recipient Name'); ?></span>
                     <div class="order-inputbox-holder">
-                        <input class="inputbox" type="text" name="shippingAddressFullName" value="<?= $order->getCalculatedShippingAddressFullName(); ?>">
+                        <input class="inputbox copy-address" type="text" name="shippingAddressFullName" value="<?= $order->getCalculatedShippingAddressFullName(); ?>">
                     </div>
                 </label>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Company Name'); ?></span>
                     <div class="order-inputbox-holder">
-                        <input class="inputbox" type="text" name="shippingAddressCompanyName" value="<?= $order->getCalculatedShippingAddressCompanyName(); ?>">
+                        <input class="inputbox copy-address" type="text" name="shippingAddressCompanyName" value="<?= $order->getCalculatedShippingAddressCompanyName(); ?>">
                     </div>
                 </label>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Address Line 1'); ?></span>
                     <div class="order-inputbox-holder">
-                        <input class="inputbox" type="text" name="shippingAddress1" value="<?= $order->getCalculatedShippingAddress1(); ?>">
+                        <input class="inputbox copy-address" type="text" name="shippingAddress1" value="<?= $order->getCalculatedShippingAddress1(); ?>">
                     </div>
                 </label>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Address Line 2'); ?></span>
                     <div class="order-inputbox-holder">
-                        <input class="inputbox" type="text" name="shippingAddress2" value="<?= $order->getCalculatedShippingAddress2(); ?>">
+                        <input class="inputbox copy-address" type="text" name="shippingAddress2" value="<?= $order->getCalculatedShippingAddress2(); ?>">
                     </div>
                 </label>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Address Line 3'); ?></span>
                     <div class="order-inputbox-holder">
-                        <input class="inputbox" type="text" name="shippingAddress3" value="<?= $order->getCalculatedShippingAddress3(); ?>">
+                        <input class="inputbox copy-address" type="text" name="shippingAddress3" value="<?= $order->getCalculatedShippingAddress3(); ?>">
                     </div>
                 </label>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('City'); ?></span>
                     <div class="order-inputbox-holder">
-                        <input class="inputbox" type="text" name="shippingAddressCity" value="<?= $order->getCalculatedShippingAddressCity(); ?>">
+                        <input class="inputbox copy-address" type="text" name="shippingAddressCity" value="<?= $order->getCalculatedShippingAddressCity(); ?>">
                     </div>
                 </label>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('County'); ?></span>
                     <div class="order-inputbox-holder">
-                        <input class="inputbox" type="text" name="shippingAddressCounty" value="<?= $order->getCalculatedShippingAddressCounty(); ?>">
+                        <input class="inputbox copy-address" type="text" name="shippingAddressCounty" value="<?= $order->getCalculatedShippingAddressCounty(); ?>">
                     </div>
                 </label>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Postcode'); ?></span>
                     <div class="order-inputbox-holder">
-                        <input class="inputbox" type="text" name="shippingAddressPostcode" value="<?= $order->getCalculatedShippingAddressPostcode(); ?>">
+                        <input class="inputbox copy-address" type="text" name="shippingAddressPostcode" value="<?= $order->getCalculatedShippingAddressPostcode(); ?>">
                     </div>
                 </label>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Country'); ?></span>
                     <div class="order-inputbox-holder">
-                        <input class="inputbox" type="text" name="shippingAddressCountry" value="<?= $order->getCalculatedShippingAddressCountry(); ?>">
+                        <input class="inputbox copy-address" type="text" name="shippingAddressCountry" value="<?= $order->getCalculatedShippingAddressCountry(); ?>">
                     </div>
                 </label>
                 <label>
