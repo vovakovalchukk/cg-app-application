@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5eb365499fbe26a8fedbbc7b739fa2d3",
+    "hash": "eb0eaaad0b474e87d7a38f410f00ceea",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2344,17 +2344,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.14.26",
+            "version": "dev-CGIV-4479-clipboard-copying",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "43d5bf7e055d5795da67c5b2557373f190c28f0f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.26-df372a.zip",
-                "reference": "43d5bf7e055d5795da67c5b2557373f190c28f0f",
-                "shasum": "8dc54e481561ffba75f80118ef4edce4bd510460"
+                "reference": "6e4d5e04d8f66d3364eebd2451673055c143bfdf"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2374,7 +2368,8 @@
                 "zendframework/zend-modulemanager": "2.*",
                 "zendframework/zend-mvc": "2.*",
                 "zendframework/zend-navigation": "2.*",
-                "zendframework/zend-view": "2.*"
+                "zendframework/zend-view": "2.*",
+                "zeroclipboard/zeroclipboard": "2.1.6"
             },
             "replace": {
                 "channelgrabber/zf2-ui": "*"
@@ -2383,7 +2378,8 @@
             "extra": {
                 "zf2-module": "CG_UI",
                 "symlinks": {
-                    "./public/channelgrabber/zf2-v4-ui/js/whichbrowser": "./vendor/whichbrowser/whichbrowser"
+                    "./public/channelgrabber/zf2-v4-ui/js/whichbrowser": "./vendor/whichbrowser/whichbrowser",
+                    "./public/channelgrabber/zf2-v4-ui/js/zeroclipboard": "./vendor/zeroclipboard/zeroclipboard/dist"
                 }
             },
             "autoload": {
@@ -2394,7 +2390,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-12-17 11:00:07"
+            "time": "2014-12-19 09:52:59"
         },
         {
             "name": "cilex/cilex",
@@ -4372,6 +4368,52 @@
                 "issues": "https://github.com/zendframework/ZendXml/issues"
             },
             "time": "2014-03-05 22:25:44"
+        },
+        {
+            "name": "zeroclipboard/zeroclipboard",
+            "version": "2.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zeroclipboard/zeroclipboard.git",
+                "reference": "e4f6ab73861924341792aa671592cdcb45d6e5cc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zeroclipboard/zeroclipboard/zipball/e4f6ab73861924341792aa671592cdcb45d6e5cc",
+                "reference": "e4f6ab73861924341792aa671592cdcb45d6e5cc",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jon Rohan",
+                    "homepage": "http://jonrohan.me/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "James M. Greene",
+                    "email": "james.m.greene@gmail.com",
+                    "homepage": "http://jamesgreene.net/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "The ZeroClipboard library provides an easy way to copy text to the clipboard using an invisible Adobe Flash movie and a JavaScript interface.",
+            "homepage": "http://zeroclipboard.org/",
+            "keywords": [
+                "clip",
+                "clipboard",
+                "clippy",
+                "copy",
+                "cut",
+                "flash",
+                "paste",
+                "zclip"
+            ],
+            "time": "2014-07-27 06:38:43"
         }
     ],
     "packages-dev": [
@@ -5524,10 +5566,18 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.14.27",
+            "alias_normalized": "1.14.27.0",
+            "version": "dev-CGIV-4479-clipboard-copying",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
