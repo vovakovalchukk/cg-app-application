@@ -54,7 +54,8 @@ return [
                 'UrlDataViewArchive' => ViewModel::class,
                 'UrlDataViewBatch' => ViewModel::class,
                 'UrlDataViewBatchRemove' => ViewModel::class,
-                'UrlDataViewCancelRefund' => ViewModel::class
+                'UrlDataViewCancelRefund' => ViewModel::class,
+                'Invoice' => Action\Invoice::class
             ],
             Service::class => [
                 'parameters' => [
@@ -88,7 +89,7 @@ return [
                 ],
                 'injections' => [
                     'addAction' => [
-                        ['action' => Action\Invoice::class],
+                        ['action' => 'Invoice'],
                         ['action' => Action\Dispatch::class],
                         ['action' => Action\Tag::class],
                         ['action' => Action\Cancel::class],
@@ -113,6 +114,14 @@ return [
             'InvoiceJavascript' => [
                 'parameters' => [
                     'template' => 'orders/orders/bulk-actions/invoice.js',
+                ],
+            ],
+            'Invoice' => [
+                'parameters' => [
+                    'urlView' => 'UrlDataViewInvoice',
+                    'elementData' => [
+                        'datatable' => 'datatable',
+                    ],
                 ],
             ],
             Action\Dispatch::class => [

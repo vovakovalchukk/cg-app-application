@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "893f4ce8d2bfaedf11a3cc0608ffae86",
+    "hash": "753366da656bea20e59cca43661213a2",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2348,7 +2348,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "cf040d7de7b219e16da5e23fec9ed28c2fad4694"
+                "reference": "44b634b1184fcc7f8d49bbd7417bbf7188810aa1"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2390,7 +2390,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-12-19 16:57:30"
+            "time": "2014-12-19 17:23:36"
         },
         {
             "name": "cilex/cilex",
@@ -2516,12 +2516,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "c54d6f93e3c5838092363447498ecb366e1e60a2"
+                "reference": "55895ab494db249bc0fcd836237c3a23c9f36dfc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/c54d6f93e3c5838092363447498ecb366e1e60a2",
-                "reference": "c54d6f93e3c5838092363447498ecb366e1e60a2",
+                "url": "https://api.github.com/repos/composer/composer/zipball/55895ab494db249bc0fcd836237c3a23c9f36dfc",
+                "reference": "55895ab494db249bc0fcd836237c3a23c9f36dfc",
                 "shasum": ""
             },
             "require": {
@@ -2576,7 +2576,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2014-12-16 14:28:51"
+            "time": "2014-12-12 13:33:45"
         },
         {
             "name": "fabpot/goutte",
@@ -5568,8 +5568,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.14.27",
-            "alias_normalized": "1.14.27.0",
+            "alias": "1.14.29",
+            "alias_normalized": "1.14.29.0",
             "version": "dev-CGIV-4487-hide-copy-buttons",
             "package": "channelgrabber/zf2-v4-ui"
         }
