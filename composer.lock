@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "eb0eaaad0b474e87d7a38f410f00ceea",
+    "hash": "893f4ce8d2bfaedf11a3cc0608ffae86",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2344,11 +2344,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-4479-clipboard-copying",
+            "version": "dev-CGIV-4487-hide-copy-buttons",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "78d8044ccae8b26c95cab3dc4faef6e17746b958"
+                "reference": "cf040d7de7b219e16da5e23fec9ed28c2fad4694"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2390,7 +2390,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-12-19 15:07:02"
+            "time": "2014-12-19 16:57:30"
         },
         {
             "name": "cilex/cilex",
@@ -5570,7 +5570,7 @@
         {
             "alias": "1.14.27",
             "alias_normalized": "1.14.27.0",
-            "version": "dev-CGIV-4479-clipboard-copying",
+            "version": "dev-CGIV-4487-hide-copy-buttons",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],

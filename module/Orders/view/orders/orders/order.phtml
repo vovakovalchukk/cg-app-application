@@ -11,9 +11,9 @@ require([
         "alert/Alert",
         "orderDetails/OrderDetailsPage",
         "tracking/Tracking",
-        "zeroClipboard"
+        "Clipboard"
     ],
-    function(NoteDomAccess, Notes, Note, OrderDetailsSidebar, Address, Alert, OrderDetailsPage, Tracking, ZeroClipboard) {
+    function(NoteDomAccess, Notes, Note, OrderDetailsSidebar, Address, Alert, OrderDetailsPage, Tracking, Clipboard) {
         //References to n need to be migrated, it is the notification library
         var noteDomAccess = new NoteDomAccess('#notes', '#note-input', CGMustache);
         var notes = new Notes(noteDomAccess, n, Note);
@@ -22,7 +22,7 @@ require([
         var tracking = new Tracking(n, '#trackingInformation');
         var alert = new Alert(n, '#alert');
         var orderDetailsPage = new OrderDetailsPage(sidebar, address, notes, alert, tracking);
-        ZeroClipboard.ordersPageAddressCopying();
+        Clipboard.ordersPageAddressCopying();
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
