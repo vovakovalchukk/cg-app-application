@@ -9,7 +9,6 @@
     margin-right: 250px;
     .invoice-template-container {
         overflow-x: auto;
-        @include calc(width, "100% - 520px");
     }
 }
 .save-template-inner {
