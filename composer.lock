@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5d913ae53827ba1bb4614a16004bfc84",
+    "hash": "83f5969243c9dd791dd4b7dd9d6d5deb",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2344,11 +2344,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-4472-1280Res",
+            "version": "dev-QA",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "476dffcc37cd983315aafb1aa2c9a43c0eae4b96"
+                "reference": "333902b1728d76b9c9af28110181af60cbbecb43"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2368,7 +2368,8 @@
                 "zendframework/zend-modulemanager": "2.*",
                 "zendframework/zend-mvc": "2.*",
                 "zendframework/zend-navigation": "2.*",
-                "zendframework/zend-view": "2.*"
+                "zendframework/zend-view": "2.*",
+                "zeroclipboard/zeroclipboard": "2.1.6"
             },
             "replace": {
                 "channelgrabber/zf2-ui": "*"
@@ -2377,7 +2378,8 @@
             "extra": {
                 "zf2-module": "CG_UI",
                 "symlinks": {
-                    "./public/channelgrabber/zf2-v4-ui/js/whichbrowser": "./vendor/whichbrowser/whichbrowser"
+                    "./public/channelgrabber/zf2-v4-ui/js/whichbrowser": "./vendor/whichbrowser/whichbrowser",
+                    "./public/channelgrabber/zf2-v4-ui/js/zeroclipboard": "./vendor/zeroclipboard/zeroclipboard/dist"
                 }
             },
             "autoload": {
@@ -2388,7 +2390,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-12-18 10:46:26"
+            "time": "2014-12-19 16:04:16"
         },
         {
             "name": "cilex/cilex",
@@ -4363,6 +4365,52 @@
                 "zf2"
             ],
             "time": "2014-03-05 22:25:44"
+        },
+        {
+            "name": "zeroclipboard/zeroclipboard",
+            "version": "2.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zeroclipboard/zeroclipboard.git",
+                "reference": "e4f6ab73861924341792aa671592cdcb45d6e5cc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zeroclipboard/zeroclipboard/zipball/e4f6ab73861924341792aa671592cdcb45d6e5cc",
+                "reference": "e4f6ab73861924341792aa671592cdcb45d6e5cc",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jon Rohan",
+                    "homepage": "http://jonrohan.me/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "James M. Greene",
+                    "email": "james.m.greene@gmail.com",
+                    "homepage": "http://jamesgreene.net/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "The ZeroClipboard library provides an easy way to copy text to the clipboard using an invisible Adobe Flash movie and a JavaScript interface.",
+            "homepage": "http://zeroclipboard.org/",
+            "keywords": [
+                "clip",
+                "clipboard",
+                "clippy",
+                "copy",
+                "cut",
+                "flash",
+                "paste",
+                "zclip"
+            ],
+            "time": "2014-07-27 06:38:43"
         }
     ],
     "packages-dev": [
@@ -5519,7 +5567,7 @@
         {
             "alias": "1.14.26",
             "alias_normalized": "1.14.26.0",
-            "version": "dev-CGIV-4472-1280Res",
+            "version": "dev-QA",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
