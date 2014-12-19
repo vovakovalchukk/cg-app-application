@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5eb365499fbe26a8fedbbc7b739fa2d3",
+    "hash": "7de33890cf7bb48ac197ccbc70cc22ca",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2344,17 +2344,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.14.26",
+            "version": "1.14.28",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "43d5bf7e055d5795da67c5b2557373f190c28f0f"
+                "reference": "6cc75f3d6a815c3344ffe7a4cd6722f7d9edd9b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.26-df372a.zip",
-                "reference": "43d5bf7e055d5795da67c5b2557373f190c28f0f",
-                "shasum": "8dc54e481561ffba75f80118ef4edce4bd510460"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.28-8b2da1.zip",
+                "reference": "6cc75f3d6a815c3344ffe7a4cd6722f7d9edd9b9",
+                "shasum": "a67ab0c5fccb171044b5610098bd891d42047ad7"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2374,7 +2374,8 @@
                 "zendframework/zend-modulemanager": "2.*",
                 "zendframework/zend-mvc": "2.*",
                 "zendframework/zend-navigation": "2.*",
-                "zendframework/zend-view": "2.*"
+                "zendframework/zend-view": "2.*",
+                "zeroclipboard/zeroclipboard": "2.1.6"
             },
             "replace": {
                 "channelgrabber/zf2-ui": "*"
@@ -2383,7 +2384,8 @@
             "extra": {
                 "zf2-module": "CG_UI",
                 "symlinks": {
-                    "./public/channelgrabber/zf2-v4-ui/js/whichbrowser": "./vendor/whichbrowser/whichbrowser"
+                    "./public/channelgrabber/zf2-v4-ui/js/whichbrowser": "./vendor/whichbrowser/whichbrowser",
+                    "./public/channelgrabber/zf2-v4-ui/js/zeroclipboard": "./vendor/zeroclipboard/zeroclipboard/dist"
                 }
             },
             "autoload": {
@@ -2394,7 +2396,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-12-17 11:00:07"
+            "time": "2014-12-19 16:23:05"
         },
         {
             "name": "cilex/cilex",
@@ -2520,12 +2522,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "c54d6f93e3c5838092363447498ecb366e1e60a2"
+                "reference": "55895ab494db249bc0fcd836237c3a23c9f36dfc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/c54d6f93e3c5838092363447498ecb366e1e60a2",
-                "reference": "c54d6f93e3c5838092363447498ecb366e1e60a2",
+                "url": "https://api.github.com/repos/composer/composer/zipball/55895ab494db249bc0fcd836237c3a23c9f36dfc",
+                "reference": "55895ab494db249bc0fcd836237c3a23c9f36dfc",
                 "shasum": ""
             },
             "require": {
@@ -2580,7 +2582,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2014-12-16 14:28:51"
+            "time": "2014-12-12 13:33:45"
         },
         {
             "name": "fabpot/goutte",
@@ -4372,6 +4374,52 @@
                 "issues": "https://github.com/zendframework/ZendXml/issues"
             },
             "time": "2014-03-05 22:25:44"
+        },
+        {
+            "name": "zeroclipboard/zeroclipboard",
+            "version": "2.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zeroclipboard/zeroclipboard.git",
+                "reference": "e4f6ab73861924341792aa671592cdcb45d6e5cc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zeroclipboard/zeroclipboard/zipball/e4f6ab73861924341792aa671592cdcb45d6e5cc",
+                "reference": "e4f6ab73861924341792aa671592cdcb45d6e5cc",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jon Rohan",
+                    "homepage": "http://jonrohan.me/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "James M. Greene",
+                    "email": "james.m.greene@gmail.com",
+                    "homepage": "http://jamesgreene.net/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "The ZeroClipboard library provides an easy way to copy text to the clipboard using an invisible Adobe Flash movie and a JavaScript interface.",
+            "homepage": "http://zeroclipboard.org/",
+            "keywords": [
+                "clip",
+                "clipboard",
+                "clippy",
+                "copy",
+                "cut",
+                "flash",
+                "paste",
+                "zclip"
+            ],
+            "time": "2014-07-27 06:38:43"
         }
     ],
     "packages-dev": [
