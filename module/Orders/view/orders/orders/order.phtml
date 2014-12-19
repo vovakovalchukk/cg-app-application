@@ -11,9 +11,9 @@ require([
         "alert/Alert",
         "orderDetails/OrderDetailsPage",
         "tracking/Tracking",
-        "zeroclipboard/ZeroClipboard"
+        "zeroClipboard"
     ],
-    function(NoteDomAccess, Notes, Note, OrderDetailsSidebar, Address, Alert, OrderDetailsPage, Tracking, zeroClipboard) {
+    function(NoteDomAccess, Notes, Note, OrderDetailsSidebar, Address, Alert, OrderDetailsPage, Tracking, ZeroClipboard) {
         //References to n need to be migrated, it is the notification library
         var noteDomAccess = new NoteDomAccess('#notes', '#note-input', CGMustache);
         var notes = new Notes(noteDomAccess, n, Note);
@@ -22,24 +22,7 @@ require([
         var tracking = new Tracking(n, '#trackingInformation');
         var alert = new Alert(n, '#alert');
         var orderDetailsPage = new OrderDetailsPage(sidebar, address, notes, alert, tracking);
-
-        zeroClipboard.config( { swfPath: "<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js';?>/zeroclipboard/ZeroClipboard.swf" } );
-        var ZeroClipboard = new zeroClipboard(document.querySelectorAll(".copy-address-to-clipboard"));
-
-        ZeroClipboard.on("copy", function (event) {
-            var address = [];
-            $(event.target).closest('.half').find('label input.copy-address').each(function() {
-                var content = $(this).val();
-                if (content != ""){
-                    address[address.length] = content;
-                }
-            });
-            event.clipboardData.setData( "text/plain", address.join("\n"));
-        });
-
-        ZeroClipboard.on("aftercopy", function(){
-            n.success('Address Copied to clipboard');
-        });
+        ZeroClipboard.ordersPageAddressCopying();
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
@@ -97,7 +80,7 @@ require([
             <input type="hidden" id="eTag" name="eTag" value="<?= $order->getUserChange() ? $order->getUserChange()->getEtag() : null; ?>">
             <div class="half" id="billing-information">
                 <span class="heading-large heading-spacing"><?= $this->translate('Billing Information'); ?>
-                    <a class="copy-address-to-clipboard" id="copy-billing-address"><?= $order->getBuyerMessage() ?: $this->translate("Copy address to clipboard"); ?></a>
+                    <a class="copy-address-to-clipboard" id="copy-billing-address"><?= $this->translate("Copy address to clipboard"); ?></a>
                 </span>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Buyer Name'); ?></span>
@@ -168,7 +151,7 @@ require([
             </div>
             <div class="half"  id="shipping-information">
                 <span class="heading-large heading-spacing"><?= $this->translate('Shipping Information'); ?>
-                    <a class="copy-address-to-clipboard" id="copy-shipping-address"><?= $order->getBuyerMessage() ?: $this->translate("Copy address to clipboard"); ?></a>
+                    <a class="copy-address-to-clipboard" id="copy-shipping-address"><?= $this->translate("Copy address to clipboard"); ?></a>
                 </span>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Recipient Name'); ?></span>
