@@ -2522,12 +2522,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "c54d6f93e3c5838092363447498ecb366e1e60a2"
+                "reference": "55895ab494db249bc0fcd836237c3a23c9f36dfc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/c54d6f93e3c5838092363447498ecb366e1e60a2",
-                "reference": "c54d6f93e3c5838092363447498ecb366e1e60a2",
+                "url": "https://api.github.com/repos/composer/composer/zipball/55895ab494db249bc0fcd836237c3a23c9f36dfc",
+                "reference": "55895ab494db249bc0fcd836237c3a23c9f36dfc",
                 "shasum": ""
             },
             "require": {
@@ -2582,7 +2582,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2014-12-16 14:28:51"
+            "time": "2014-12-12 13:33:45"
         },
         {
             "name": "fabpot/goutte",
