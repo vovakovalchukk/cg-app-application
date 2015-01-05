@@ -58,6 +58,7 @@ class ProductsJsonController extends AbstractActionController
     protected function toArrayProductEntityWithEmbeddedData(ProductEntity $productEntity)
     {
         $product = $productEntity->toArray();
+
         $product = array_merge($product, [
             'images' => $productEntity->getImages()->toArray(),
             'listings' => $productEntity->getListings()->toArray()

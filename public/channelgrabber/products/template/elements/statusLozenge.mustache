@@ -9,7 +9,7 @@
             {{#listings}}
             <tr>
                 <td><span class="status {{status}}">{{status}}</span></td>
-                <td>{{channel}}</td>
+                <td>{{#url}}<a href='{{url}}'>{{/url}}{{channel}}{{#url}}</a>{{/url}}</td>
             </tr>
             {{/listings}}
         </table>
