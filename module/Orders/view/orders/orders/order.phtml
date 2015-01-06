@@ -23,27 +23,18 @@ require([
         var alert = new Alert(n, '#alert');
         var orderDetailsPage = new OrderDetailsPage(sidebar, address, notes, alert, tracking);
 
-        var clipboardSelector = ".copy-address-to-clipboard";
-
-        var clipboard = new Clipboard(
-            clipboardSelector,
-            function(event) {
-                var address = [];
-                $(event.target).closest('.half').find('label input.copy-address').each(function() {
-                    var content = $(this).val();
-                    if (content != ""){
-                        address[address.length] = content;
-                    }
-                });
-                return address.join("\r\n");
-            }, function() {
-                n.success('Address copied to clipboard');
-            }
+        var billingClipboard = new Clipboard(
+            '#copy-billing-address',
+            $('#billing-information').find('label input.copy-address')
         );
-
-        if (! clipboard.hasFlash()) {
-            $(clipboardSelector).hide();
+        var shippingClipboard = new Clipboard(
+            '#copy-shipping-address',
+            $('#shipping-information').find('label input.copy-address')
+        );
+        if (! billingClipboard.hasFlash()) {
+            $('.copy-address-to-clipboard').hide();
         }
+
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
