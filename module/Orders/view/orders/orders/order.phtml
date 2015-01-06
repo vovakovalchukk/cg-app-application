@@ -1,5 +1,4 @@
-<?php //$this->inlineScript()->captureStart(); ?>
-<script>
+<?php $this->inlineScript()->captureStart(); ?>
     $('form').submit(function() {
         return false;
     });
@@ -46,8 +45,7 @@ require([
             $(clipboardSelector).hide();
         }
 });
-</script>
-<?php //$this->inlineScript()->captureEnd(); ?>
+<?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
 
 
