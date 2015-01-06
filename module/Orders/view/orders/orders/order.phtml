@@ -23,7 +23,7 @@ require([
         var alert = new Alert(n, '#alert');
         var orderDetailsPage = new OrderDetailsPage(sidebar, address, notes, alert, tracking);
 
-        zeroClipboard.config( { swfPath: "<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js';?>/zeroclipboard/ZeroClipboard.swf" } );
+        zeroClipboard.config({ swfPath: "<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js';?>/zeroclipboard/ZeroClipboard.swf" });
         var ZeroClipboard = new zeroClipboard(document.querySelectorAll(".copy-address-to-clipboard"));
 
         ZeroClipboard.on("copy", function (event) {
@@ -34,11 +34,11 @@ require([
                     address[address.length] = content;
                 }
             });
-            event.clipboardData.setData( "text/plain", address.join("\n"));
+            event.clipboardData.setData("text/plain", address.join("\r\n"));
         });
 
         ZeroClipboard.on("aftercopy", function(){
-            n.success('Address Copied to clipboard');
+            n.success('Address copied to clipboard');
         });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
