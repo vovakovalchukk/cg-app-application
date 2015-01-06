@@ -43,6 +43,8 @@ use CG\Stock\Location\StorageInterface as LocationStorageInterface;
 
 use CG\Billing\Transaction\StorageInterface as TransactionStorage;
 use CG\Billing\Transaction\Storage\Api as TransactionApiStorage;
+use CG\Billing\BillingWindow\Storage\Api as BillingWindowStorage;
+use CG\Billing\BillingWindow\Service as BillingWindowService;
 
 use CG_UI\Module as UI;
 use CG_Permission\Service as PermissionService;
@@ -107,6 +109,16 @@ return array(
             InvoiceSettingsApiStorage::class => [
                 'parameter' => [
                     'client' => 'cg_app_guzzle'
+                ]
+            ],
+            BillingWindowStorage::class => [
+                'parameter' => [
+                    'client' => 'billing_guzzle'
+                ]
+            ],
+            BillingWindowService::class => [
+                'parameter' => [
+                    'repository' => BillingWindowStorage::class
                 ]
             ],
             UserPreferenceService::class => [

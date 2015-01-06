@@ -205,7 +205,8 @@ define([
             if (product['listings'].hasOwnProperty(listing)) {
                 mustacheFormattedData['listings'].push({
                     'status' : product['listings'][listing]['status'],
-                    'channel' : product['listings'][listing]['channel']
+                    'channel' : product['listings'][listing]['channel'],
+                    'url' : product['listings'][listing]['url']
                 });
             }
         }
