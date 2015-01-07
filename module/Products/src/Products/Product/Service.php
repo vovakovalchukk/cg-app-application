@@ -3,6 +3,8 @@ namespace Products\Product;
 
 use CG\ETag\Exception\NotModified;
 use CG\Product\Client\Service as ProductService;
+use CG\Stats\StatsAwareInterface;
+use CG\Stats\StatsTrait;
 use CG_UI\View\Table;
 use CG\User\ActiveUserInterface;
 use Zend\Di\Di;
@@ -20,9 +22,10 @@ use CG\Product\Entity as Product;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stock\Auditor as StockAuditor;
 
-class Service implements LoggerAwareInterface
+class Service implements LoggerAwareInterface, StatsAwareInterface
 {
     use LogTrait;
+    use StatsTrait;
 
     const PRODUCT_TABLE_COL_PREF_KEY = 'product-columns';
     const PRODUCT_TABLE_COL_POS_PREF_KEY = 'product-column-positions';
@@ -34,6 +37,7 @@ class Service implements LoggerAwareInterface
     const PAGE = 1;
     const LOG_CODE = 'ProductProductService';
     const LOG_NO_STOCK_TO_DELETE = 'No stock found to remove for Product %s when deleting it';
+    const STAT_STOCK_UPDATE_MANUAL = 'stock.update.manual.%d.%d';
 
     protected $userService;
     protected $activeUserContainer;
@@ -93,6 +97,12 @@ class Service implements LoggerAwareInterface
             $stockLocationEntity->setStoredEtag($eTag)
                 ->setOnHand($totalQuantity);
             $this->getStockLocationService()->save($stockLocationEntity);
+            $this->statsIncrement(
+                static::STAT_STOCK_UPDATE_MANUAL, [
+                    $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId(),
+                    $this->getActiveUserContainer()->getActiveUser()->getId()
+                ]
+            );
         } catch (NotModified $e) {
             //No changes do nothing
         }
