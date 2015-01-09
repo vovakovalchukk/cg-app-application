@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5355a663f6ece18bb4ac9850823413c3",
+    "hash": "41ecc4deed198224582d5cc1c5e7fc9f",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2400,17 +2400,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.14.33",
+            "version": "dev-CGIV-4486-UnimportedListingsCorrections",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "28cd411095eaae0d54bbf14970fe3fa60c46ef30"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.33-d36209.zip",
-                "reference": "28cd411095eaae0d54bbf14970fe3fa60c46ef30",
-                "shasum": "fa9f242c06fcfd6b4811a70c563fc44be6cc89f3"
+                "reference": "15ee4ab3f065b31d4d70d00a73048a4b766dfcf1"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2452,7 +2446,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-01-09 09:55:49"
+            "time": "2015-01-09 13:45:15"
         },
         {
             "name": "cilex/cilex",
@@ -5683,12 +5677,19 @@
             "alias_normalized": "1.4.3.0",
             "version": "dev-CGIV-4486-UnimportedListingsCorrections",
             "package": "channelgrabber/listing"
+        },
+        {
+            "alias": "1.14.34",
+            "alias_normalized": "1.14.34.0",
+            "version": "dev-CGIV-4486-UnimportedListingsCorrections",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/listing": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

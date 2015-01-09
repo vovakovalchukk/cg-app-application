@@ -10,6 +10,7 @@ use CG\UserPreference\Client\Service as UserPreferenceService;
 use CG\Listing\Unimported\Service as ListingService;
 use CG\Listing\Unimported\Filter as ListingFilter;
 use CG\Listing\Unimported\Collection as ListingCollection;
+use CG\Listing\Unimported\Status as ListingStatus;
 use Settings\Module as SettingsModule;
 use Settings\Controller\ChannelController;
 use Zend\Mvc\MvcEvent;
@@ -105,6 +106,7 @@ class Service implements LoggerAwareInterface
         $listings = $listingCollection->toArray();
         $listings = $this->addAccountDetailsToListings($listings, $event);
         $listings = $this->addImagesToListings($listings, $listingCollection);
+        $listings = $this->statusAlterations($listings);
         return $listings;
     }
 
@@ -147,6 +149,18 @@ class Service implements LoggerAwareInterface
         return $listings;
     }
 
+    protected function statusAlterations(array $listings)
+    {
+        foreach ($listings as &$listing) {
+            if ($listing['status'] == ListingStatus::CANNOT_IMPORT) {
+                $listing['sku'] = 'SKU(s) Not Found - Cannot Import';
+            }
+            $listing['statusClass'] = $listing['status'];
+            $listing['status'] = str_replace('_', ' ', $listing['status']);
+        }
+        return $listings;
+    }
+
     public function hideListingsById(array $listingIds)
     {
         $filter = new ListingFilter(static::DEFAULT_LIMIT, static::DEFAULT_PAGE);
@@ -173,8 +187,7 @@ class Service implements LoggerAwareInterface
         );
 
         foreach ($listings as $listing) {
-            //Don't import listing without skus
-            if (!$listing->getSku()) {
+            if ($listing->getStatus() == ListingStatus::CANNOT_IMPORT) {
                 continue;
             }
             $gearmanJob = $listing->getChannel() . 'ImportListing';
