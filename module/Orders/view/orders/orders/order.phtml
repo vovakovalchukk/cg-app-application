@@ -11,9 +11,9 @@ require([
         "alert/Alert",
         "orderDetails/OrderDetailsPage",
         "tracking/Tracking",
-        "zeroclipboard/ZeroClipboard"
+        "Clipboard"
     ],
-    function(NoteDomAccess, Notes, Note, OrderDetailsSidebar, Address, Alert, OrderDetailsPage, Tracking, zeroClipboard) {
+    function(NoteDomAccess, Notes, Note, OrderDetailsSidebar, Address, Alert, OrderDetailsPage, Tracking, Clipboard) {
         //References to n need to be migrated, it is the notification library
         var noteDomAccess = new NoteDomAccess('#notes', '#note-input', CGMustache);
         var notes = new Notes(noteDomAccess, n, Note);
@@ -23,23 +23,18 @@ require([
         var alert = new Alert(n, '#alert');
         var orderDetailsPage = new OrderDetailsPage(sidebar, address, notes, alert, tracking);
 
-        zeroClipboard.config({ swfPath: "<?= $this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js';?>/zeroclipboard/ZeroClipboard.swf" });
-        var ZeroClipboard = new zeroClipboard(document.querySelectorAll(".copy-address-to-clipboard"));
+        var billingClipboard = new Clipboard(
+            '#copy-billing-address',
+            $('#billing-information').find('label input.copy-address')
+        );
+        var shippingClipboard = new Clipboard(
+            '#copy-shipping-address',
+            $('#shipping-information').find('label input.copy-address')
+        );
+        if (! billingClipboard.hasFlash()) {
+            $('.copy-address-to-clipboard').hide();
+        }
 
-        ZeroClipboard.on("copy", function (event) {
-            var address = [];
-            $(event.target).closest('.half').find('label input.copy-address').each(function() {
-                var content = $(this).val();
-                if (content != ""){
-                    address[address.length] = content;
-                }
-            });
-            event.clipboardData.setData("text/plain", address.join("\r\n"));
-        });
-
-        ZeroClipboard.on("aftercopy", function(){
-            n.success('Address copied to clipboard');
-        });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->placeholder('#sidebar')->set($this->sidebar); ?>
