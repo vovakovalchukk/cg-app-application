@@ -246,5 +246,13 @@ define([
         throw 'RuntimeException: InvoiceDesigner\\Template\\Element\\MapperAbstract::getHtmlContents() should be overridden by sub-class';
     };
 
+    /**
+     * @abstract
+     */
+    MapperAbstract.prototype.createElement = function()
+    {
+        throw 'RuntimeException: InvoiceDesigner\\Template\\Element\\MapperAbstract::createElement() should be overridden by sub-class';
+    };
+
     return MapperAbstract;
 });

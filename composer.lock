@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0242b5d9d742c5652d5d2ab3a8cf0beb",
+    "hash": "b07e6a13341f8fe0ce78037e6f598a43",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1446,17 +1446,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.2.38",
+            "version": "1.2.39",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "975c761848972ffb740bfbcf6606e836ece0bf9a"
+                "reference": "d9a62310059e45209f2949611bd70d6893604025"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.38-9f7b25.zip",
-                "reference": "975c761848972ffb740bfbcf6606e836ece0bf9a",
-                "shasum": "659452321325398b6f8b4247fe869cc3646c34ff"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.39-55eafe.zip",
+                "reference": "d9a62310059e45209f2949611bd70d6893604025",
+                "shasum": "75aa3b70b6881ec64f39336ef163725c2f05061b"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -1486,7 +1486,7 @@
                     "CG\\Template\\": "src/"
                 }
             },
-            "time": "2014-12-05 16:21:24"
+            "time": "2015-01-09 09:52:36"
         },
         {
             "name": "channelgrabber/transaction",
@@ -5693,6 +5693,7 @@
         "phpspec/phpspec": 20
     },
     "prefer-stable": false,
+    "prefer-lowest": false,
     "platform": {
         "php": ">=5.3.3"
     },
