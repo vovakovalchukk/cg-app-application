@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "53e3af54c8c778888fa56725a67d7d18",
+    "hash": "db973c2fd7f6030c6ebe851d3e8681e9",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -293,14 +293,14 @@
             "version": "1.0.3",
             "source": {
                 "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/cg-db.git",
+                "url": "git@git.build.channelgrabber.com:channelgrabber/cgdb.git",
                 "reference": "93444142f0bccc659a03f622745bef367fce488d"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-db-1.0.3-90f777.zip",
                 "reference": "93444142f0bccc659a03f622745bef367fce488d",
-                "shasum": "31d6b017655db37a7a56fe6d8a12078c6f788f82"
+                "shasum": "2041f80b0ca14ae84973ae7625d9922ce2d2dc33"
             },
             "require": {
                 "channelgrabber/di": ">=2.1.0",
@@ -771,7 +771,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-2.0.9-d4ce05.zip",
                 "reference": "4695bca0d3784abfa408ae03e93987664a528527",
-                "shasum": "bdc0eda2265173cbd8d1d1b6193206af62c721e6"
+                "shasum": "14aa8361851e95ff324171f4b0aaa90f02fec844"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -1046,7 +1046,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.3.17-6e6d3b.zip",
                 "reference": "68ee9b30e8b22b30962476837f180d55f8897ebc",
-                "shasum": "86602119e2b32aa3cea06dcb6b6f001fae4c92a7"
+                "shasum": "d366dfbeefe46995d98c964581c24c0d20e59391"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -2406,17 +2406,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.14.34",
+            "version": "dev-CGIV-4547-invoice-mapping-datatables",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "d361540f2d4d8eb2becb3bf548a9bb8f54e6e5e4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.34-e592b9.zip",
-                "reference": "d361540f2d4d8eb2becb3bf548a9bb8f54e6e5e4",
-                "shasum": "1d8ef789d0b53083a8fa44681f6b8c306aede74d"
+                "reference": "ce3fbcd8420c03476263e1cf95c399a3e253d1ed"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2458,7 +2452,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-01-12 13:36:59"
+            "time": "2015-01-12 16:23:30"
         },
         {
             "name": "cilex/cilex",
@@ -5683,10 +5677,18 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.14.35",
+            "alias_normalized": "1.14.35.0",
+            "version": "dev-CGIV-4547-invoice-mapping-datatables",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
