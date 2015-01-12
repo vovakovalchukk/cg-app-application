@@ -1,22 +1,15 @@
 define([
     'require',
-    'InvoiceDesigner/Template/Entity',
-    'InvoiceDesigner/Template/Element/Box',
-    'InvoiceDesigner/Template/Element/DeliveryAddress',
-    'InvoiceDesigner/Template/Element/Image',
-    'InvoiceDesigner/Template/Element/OrderTable',
-    'InvoiceDesigner/Template/PaperPage/Entity',
-    'InvoiceDesigner/Template/Element/SellerAddress',
-    'InvoiceDesigner/Template/Element/Text',
-    'InvoiceDesigner/Template/Element/PPI',
     'InvoiceDesigner/Template/Element/Mapper/Box',
     'InvoiceDesigner/Template/Element/Mapper/DeliveryAddress',
     'InvoiceDesigner/Template/Element/Mapper/Image',
     'InvoiceDesigner/Template/Element/Mapper/OrderTable',
-    'InvoiceDesigner/Template/PaperPage/Mapper',
+    'InvoiceDesigner/Template/Element/Mapper/PPI',
     'InvoiceDesigner/Template/Element/Mapper/SellerAddress',
     'InvoiceDesigner/Template/Element/Mapper/Text',
-    'InvoiceDesigner/Template/Element/Mapper/PPI'
+    'InvoiceDesigner/Template/Entity',
+    'InvoiceDesigner/Template/PaperPage/Entity',
+    'InvoiceDesigner/Template/PaperPage/Mapper'
 ], function(require)
 {
     var Mapper = function()
@@ -25,7 +18,6 @@ define([
     };
 
     Mapper.PATH_TO_TEMPLATE_ENTITY = 'InvoiceDesigner/Template/Entity';
-    Mapper.PATH_TO_ELEMENT_TYPES = 'InvoiceDesigner/Template/Element/';
     Mapper.PATH_TO_ELEMENT_TYPE_MAPPERS = 'InvoiceDesigner/Template/Element/Mapper/';
     Mapper.PATH_TO_PAGE_ENTITY = 'InvoiceDesigner/Template/PaperPage/Entity';
     Mapper.PATH_TO_PAGE_MAPPER = 'InvoiceDesigner/Template/PaperPage/Mapper';
@@ -63,8 +55,8 @@ define([
 
     Mapper.prototype.createNewElement = function(elementType)
     {
-        var elementClass = require(Mapper.PATH_TO_ELEMENT_TYPES + elementType);
-        return new elementClass();
+        var elementMapper = require(Mapper.PATH_TO_ELEMENT_TYPE_MAPPERS + elementType);
+        return elementMapper.createElement();
     };
 
     Mapper.prototype.elementFromJson = function(elementData, populating)
@@ -74,8 +66,7 @@ define([
         elementData.y = Number(elementData.y).ptToMm();
         elementData.height = Number(elementData.height).ptToMm();
         elementData.width = Number(elementData.width).ptToMm();
-        var elementClass = require(Mapper.PATH_TO_ELEMENT_TYPES + elementType);
-        var element = new elementClass();
+        var element = this.createNewElement(elementType);
         if (elementData.padding) {
             elementData.padding = Number(elementData.padding).ptToMm();
         }

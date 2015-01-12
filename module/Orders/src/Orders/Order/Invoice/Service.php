@@ -4,20 +4,26 @@ namespace Orders\Order\Invoice;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection;
 use CG\Order\Shared\Entity as OrderEntity;
-use CG\Settings\Invoice\Shared\Entity as InvoiceSettingsEntity;
 use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
+use CG\Stats\StatsAwareInterface;
+use CG\Stats\StatsTrait;
 use CG\Stdlib\DateTime;
 use CG\Template\Entity as Template;
 use CG\Template\Element\Factory as ElementFactory;
 use CG\Template\PaperPage;
+use CG\User\ActiveUserInterface;
 use Orders\Order\Invoice\Renderer\ServiceInterface as RendererService;
 use Orders\Order\Invoice\Template\Factory as TemplateFactory;
 use Orders\Order\Invoice\ProgressStorage;
 use Orders\Order\Service as OrderService;
 use Zend\Di\Di;
 
-class Service
+class Service implements StatsAwareInterface
 {
+    use StatsTrait;
+
+    const STAT_ORDER_ACTION_PRINTED = 'orderAction.printed.%s.%d.%d';
+
     protected $di;
     protected $orderService;
     protected $templateFactory;
@@ -26,6 +32,7 @@ class Service
     protected $invoiceSettingsService;
     protected $progressStorage;
     protected $templates = [];
+    protected $activeUserContainer;
 
     public function __construct(
         Di $di,
@@ -34,7 +41,8 @@ class Service
         ElementFactory $elementFactory,
         RendererService $rendererService,
         InvoiceSettingsService $invoiceSettingsService,
-        ProgressStorage $progressStorage
+        ProgressStorage $progressStorage,
+        ActiveUserInterface $activeUserContainer
     ) {
         $this
             ->setDi($di)
@@ -43,7 +51,8 @@ class Service
             ->setElementFactory($elementFactory)
             ->setRendererService($rendererService)
             ->setInvoiceSettingsService($invoiceSettingsService)
-            ->setProgressStorage($progressStorage);
+            ->setProgressStorage($progressStorage)
+            ->setActiveUserContainer($activeUserContainer);
     }
 
     public function setDi(Di $di)
@@ -212,6 +221,13 @@ class Service
             $this->getOrderService()->saveOrder(
                 $order->setPrintedDate(date(DateTime::FORMAT, $now))
             );
+            $this->statsIncrement(
+                static::STAT_ORDER_ACTION_PRINTED, [
+                    $order->getChannel(),
+                    $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId(),
+                    $this->getActiveUserContainer()->getActiveUser()->getId()
+                ]
+            );
         }
     }
 
@@ -262,5 +278,16 @@ class Service
     public function checkInvoiceGenerationProgress($key)
     {
         return (int)$this->getProgressStorage()->getProgress($key);
+    }
+
+    protected function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
+    {
+        $this->activeUserContainer = $activeUserContainer;
+        return $this;
+    }
+
+    protected function getActiveUserContainer()
+    {
+        return $this->activeUserContainer;
     }
 }

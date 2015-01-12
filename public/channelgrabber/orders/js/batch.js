@@ -1,4 +1,8 @@
-define(function() {
+define([
+    'element/ElementCollection'
+], function(
+    elementCollection
+) {
     var Batch = function(notifications, selector, cgMustache) {
         var template;
         var mustacheInstance;
@@ -24,6 +28,11 @@ define(function() {
         this.getMustacheInstance = function() {
             return mustacheInstance;
         };
+
+        this.getElementCollection = function()
+        {
+            return elementCollection;
+        };
     };
 
     Batch.prototype.action = function(element) {
@@ -43,23 +52,21 @@ define(function() {
             }
         };
 
-        if ($("#" + this.datatable + "-select-all").is(":checked")) {
-            ajax.url += "/" + $('#' + this.datatable).data("filterId");
-        } else {
-            var orders = $('#' + this.datatable).cgDataTable('selected', '.checkbox-id');
-            if (!orders.length) {
-                return;
-            }
-            ajax.data = {
-                orders: orders
-            };
+        var orders = $('#' + this.datatable).cgDataTable('selected', '.checkbox-id');
+        if (!orders.length) {
+            return;
         }
+
+        ajax.data = {
+            orders: orders
+        };
 
         this.getNotifications().notice('Adding orders to a batch');
         $.ajax(ajax);
     };
 
     Batch.prototype.actionSuccess = function(data) {
+
         this.getNotifications().success('Orders successfully batched');
         this.redraw();
         $('#' + this.datatable).cgDataTable('redraw');
@@ -76,11 +83,18 @@ define(function() {
     };
 
     Batch.prototype.redrawSuccess = function(data) {
-        var that = this;
-        $(that.getSelector()).html('');
+        var self = this;
+        var batchOptions = [];
+        $(self.getSelector()).html('');
         $.each(data['batches'], function(index) {
-            $(that.getSelector()).append(that.getMustacheInstance().renderTemplate(that.getTemplate(), data['batches'][index]));
+            $(self.getSelector()).append(self.getMustacheInstance().renderTemplate(self.getTemplate(), data['batches'][index]));
+            batchOptions.push({
+                title: data['batches'][index].name,
+                value: data['batches'][index].name
+            });
         });
+
+        $(document).trigger('filterable-options-changed', ['batch', batchOptions]);
     };
 
     Batch.prototype.remove = function(element) {
@@ -100,17 +114,14 @@ define(function() {
             }
         };
 
-        if ($("#" + this.datatable + "-select-all").is(":checked")) {
-            ajax.url += "/" + $('#' + this.datatable).data("filterId");
-        } else {
-            var orders = $('#' + this.datatable).cgDataTable('selected', '.checkbox-id');
-            if (!orders.length) {
-                return;
-            }
-            ajax.data = {
-                orders: orders
-            };
+        var orders = $('#' + this.datatable).cgDataTable('selected', '.checkbox-id');
+        if (!orders.length) {
+            return;
         }
+
+        ajax.data = {
+            orders: orders
+        };
 
         this.getNotifications().notice('Removing orders from batch');
         $.ajax(ajax);

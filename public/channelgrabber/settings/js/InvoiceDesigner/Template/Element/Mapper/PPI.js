@@ -1,4 +1,10 @@
-define(['InvoiceDesigner/Template/Element/MapperAbstract'], function(MapperAbstract) {
+define([
+    'InvoiceDesigner/Template/Element/MapperAbstract',
+    'InvoiceDesigner/Template/Element/PPI'
+], function(
+    MapperAbstract,
+    PPIElement
+) {
     var PPI = function()
     {
         MapperAbstract.call(this);
@@ -34,6 +40,11 @@ define(['InvoiceDesigner/Template/Element/MapperAbstract'], function(MapperAbstr
         };
 
         return this.renderMustacheTemplate(templateUrl, data);
+    };
+
+    PPI.prototype.createElement = function()
+    {
+        return new PPIElement();
     };
 
     return new PPI();

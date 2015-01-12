@@ -3,6 +3,8 @@ namespace Products\Product;
 
 use CG\ETag\Exception\NotModified;
 use CG\Product\Client\Service as ProductService;
+use CG\Stats\StatsAwareInterface;
+use CG\Stats\StatsTrait;
 use CG_UI\View\Table;
 use CG\User\ActiveUserInterface;
 use Zend\Di\Di;
@@ -18,10 +20,12 @@ use CG\Product\Filter as ProductFilter;
 use CG\Product\Filter\Mapper as ProductFilterMapper;
 use CG\Product\Entity as Product;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stock\Auditor as StockAuditor;
 
-class Service implements LoggerAwareInterface
+class Service implements LoggerAwareInterface, StatsAwareInterface
 {
     use LogTrait;
+    use StatsTrait;
 
     const PRODUCT_TABLE_COL_PREF_KEY = 'product-columns';
     const PRODUCT_TABLE_COL_POS_PREF_KEY = 'product-column-positions';
@@ -31,6 +35,9 @@ class Service implements LoggerAwareInterface
     const ACCOUNTS_LIMIT = 'all';
     const LIMIT = 200;
     const PAGE = 1;
+    const LOG_CODE = 'ProductProductService';
+    const LOG_NO_STOCK_TO_DELETE = 'No stock found to remove for Product %s when deleting it';
+    const STAT_STOCK_UPDATE_MANUAL = 'stock.update.manual.%d.%d';
 
     protected $userService;
     protected $activeUserContainer;
@@ -43,6 +50,7 @@ class Service implements LoggerAwareInterface
     protected $productFilterMapper;
     protected $stockService;
     protected $stockLocationService;
+    protected $stockAuditor;
 
     public function __construct(
         UserService $userService,
@@ -54,7 +62,8 @@ class Service implements LoggerAwareInterface
         ProductFilterMapper $productFilterMapper,
         ProductService $productService,
         StockLocationService $stockLocationService,
-        StockService $stockService
+        StockService $stockService,
+        StockAuditor $stockAuditor
     ) {
         $this->setProductService($productService)
             ->setUserService($userService)
@@ -65,7 +74,8 @@ class Service implements LoggerAwareInterface
             ->setAccountService($accountService)
             ->setOrganisationUnitService($organisationUnitService)
             ->setStockService($stockService)
-            ->setStockLocationService($stockLocationService);
+            ->setStockLocationService($stockLocationService)
+            ->setStockAuditor($stockAuditor);
     }
 
     public function fetchProducts(ProductFilter $productFilter)
@@ -82,10 +92,17 @@ class Service implements LoggerAwareInterface
     public function updateStock($stockLocationId, $eTag, $totalQuantity)
     {
         try {
+            $this->auditStockUpdate();
             $stockLocationEntity = $this->getStockLocationService()->fetch($stockLocationId);
             $stockLocationEntity->setStoredEtag($eTag)
                 ->setOnHand($totalQuantity);
             $this->getStockLocationService()->save($stockLocationEntity);
+            $this->statsIncrement(
+                static::STAT_STOCK_UPDATE_MANUAL, [
+                    $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId(),
+                    $this->getActiveUserContainer()->getActiveUser()->getId()
+                ]
+            );
         } catch (NotModified $e) {
             //No changes do nothing
         }
@@ -98,17 +115,25 @@ class Service implements LoggerAwareInterface
         $products = $this->getProductService()->fetchCollectionByFilter($filter);
         foreach ($products as $product) {
             if($this->isLastOfStock($product)) {
-                $ouList = $this->getActiveUserContainer()->getActiveUser()->getOuList();
-                $stock = $this->getStockService()->fetchCollectionByPaginationAndFilters(
-                    null,
-                    null,
-                    [],
-                    $ouList,
-                    [$product->getSku()],
-                    []
-                );
-                foreach($stock as $entity) {
-                    $this->getStockService()->remove($entity);
+                try {
+                    $ouList = $this->getActiveUserContainer()->getActiveUser()->getOuList();
+                    $stock = $this->getStockService()->fetchCollectionByPaginationAndFilters(
+                        null,
+                        null,
+                        [],
+                        $ouList,
+                        [$product->getSku()],
+                        []
+                    );
+                    foreach($stock as $entity) {
+                        $this->getStockService()->remove($entity);
+                    }
+                } catch (NotFound $e) {
+                    // No stock to remove, no problem
+                    // If we were expecting there to be stock then log it
+                    if ($product->getParentProductId() > 0 || count($product->getVariations()) == 0) {
+                        $this->logNotice(static::LOG_NO_STOCK_TO_DELETE, [$product->getId()], static::LOG_CODE);
+                    }
                 }
             }
             $this->getProductService()->hardRemove($product);
@@ -165,6 +190,15 @@ class Service implements LoggerAwareInterface
         $userPrefs->setPreference($userPrefsPref);
 
         $this->getUserPreferenceService()->save($userPrefs);
+    }
+
+    protected function auditStockUpdate()
+    {
+        $user = $this->getActiveUser();
+        $this->getStockAuditor()->userChange(
+            $user->getId(),
+            $user->getOrganisationUnitId()
+        );
     }
 
     protected function setProductService(ProductService $productService)
@@ -308,5 +342,22 @@ class Service implements LoggerAwareInterface
     protected function getProductFilterMapper()
     {
         return $this->productFilterMapper;
+    }
+
+    /**
+     * @return self
+     */
+    public function setStockAuditor(StockAuditor $stockAuditor)
+    {
+        $this->stockAuditor = $stockAuditor;
+        return $this;
+    }
+
+    /**
+     * @return StockAuditor
+     */
+    protected function getStockAuditor()
+    {
+        return $this->stockAuditor;
     }
 }

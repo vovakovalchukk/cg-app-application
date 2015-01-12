@@ -148,19 +148,19 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         return $this->params()->fromPost('progressKey', null);
     }
 
-    protected function getOrdersFromOrderIds()
+    protected function getOrdersFromOrderIds($orderBy = null, $orderDir = null)
     {
         $orderIds = $this->getOrderIds();
         if (empty($orderIds)) {
             throw new NotFound('No orderIds provided');
         }
-        return $this->getOrderService()->getOrdersById($orderIds);
+        return $this->getOrderService()->getOrdersById($orderIds, 'all', 1, $orderBy, $orderDir);
     }
 
-    protected function getOrdersFromFilterId()
+    protected function getOrdersFromFilterId($orderBy = null, $orderDir = null)
     {
         return $this->getOrderService()->getOrdersFromFilterId(
-            $this->getFilterId()
+            $this->getFilterId(), 'all', 1, $orderBy, $orderDir
         );
     }
 
@@ -205,10 +205,10 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         return $response->setVariable($action, true);
     }
 
-    public function invoiceOrderIdsAction()
+    public function invoiceOrderIdsAction($orderBy = null, $orderDir = 'ASC')
     {
         try {
-            $orders = $this->getOrdersFromOrderIds();
+            $orders = $this->getOrdersFromOrderIds($orderBy, $orderDir);
             $progressKey = $this->getProgressKey();
             return $this->markOrdersAsPrinted($orders)->invoiceOrders($orders, null, $progressKey);
         } catch (NotFound $exception) {
@@ -216,16 +216,26 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         }
     }
 
-    public function invoiceFilterIdAction()
+    public function invoiceOrderIdsBySkuAction()
+    {
+        return $this->invoiceOrderIdsAction('itemSku');
+    }
+
+    public function invoiceFilterIdAction($orderBy = null, $orderDir = 'ASC')
     {
         try {
             $progressKey = $this->getProgressKey();
             return $this->invoiceOrders(
-                $this->getOrdersFromFilterId(), null, $progressKey
+                $this->getOrdersFromFilterId($orderBy, $orderDir), null, $progressKey
             );
         } catch (NotFound $exception) {
             return $this->redirect()->toRoute('Orders');
         }
+    }
+
+    public function invoiceFilterIdBySkuAction()
+    {
+        return $this->invoiceFilterIdAction('itemSku');
     }
 
     public function previewInvoiceAction()

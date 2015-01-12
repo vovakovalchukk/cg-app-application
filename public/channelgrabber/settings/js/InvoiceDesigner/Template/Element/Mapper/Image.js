@@ -1,7 +1,9 @@
 define([
-    'InvoiceDesigner/Template/Element/MapperAbstract'
+    'InvoiceDesigner/Template/Element/MapperAbstract',
+    'InvoiceDesigner/Template/Element/Image'
 ], function(
-    MapperAbstract
+    MapperAbstract,
+    ImageElement
 ) {
     var Image = function()
     {
@@ -27,6 +29,11 @@ define([
     Image.prototype.elementSourceToImageData = function(element)
     {
         return 'data:image/'+element.getFormat().toLowerCase()+';base64,'+element.getSource();
+    };
+
+    Image.prototype.createElement = function()
+    {
+        return new ImageElement();
     };
 
     return new Image();

@@ -1,7 +1,9 @@
 define([
-    'InvoiceDesigner/Template/Element/MapperAbstract'
+    'InvoiceDesigner/Template/Element/MapperAbstract',
+    'InvoiceDesigner/Template/Element/OrderTable'
 ], function(
-    MapperAbstract
+    MapperAbstract,
+    OrderTableElement
 ) {
     var OrderTable = function()
     {
@@ -35,6 +37,11 @@ define([
         var html = this.renderMustacheTemplate(templateUrl, data);
         
         return html;
+    };
+
+    OrderTable.prototype.createElement = function()
+    {
+        return new OrderTableElement();
     };
 
     return new OrderTable();

@@ -28,6 +28,7 @@ define([
     };
 
     Service.DOM_SELECTOR_PRODUCT_CONTAINER = '#products-list';
+    Service.DOM_SELECTOR_LOADING_MESSAGE = '#products-loading-message';
     Service.DEFAULT_IMAGE_URL = '/noproductsimage.png';
 
     Service.prototype.init = function(baseUrl)
@@ -40,7 +41,9 @@ define([
     {
         var self = this;
         var filter = productFilterMapper.fromDom();
+        domManipulator.setCssValue(Service.DOM_SELECTOR_LOADING_MESSAGE, 'display','block');
         this.fetchProducts(filter, function (products) {
+            domManipulator.setCssValue(Service.DOM_SELECTOR_LOADING_MESSAGE, 'display','none');
             if (!products.length) {
                 self.renderNoProduct();
                 return;
@@ -84,15 +87,17 @@ define([
         var checkbox = this.getCheckboxView(product, templates);
         var expandButton = '';
         var hasVariations = false;
-        
+
         if (product['variations'] != undefined && product['variations'].length) {
             var productContent = this.getVariationView(product, templates);
-            expandButton = this.getExpandButtonView(product, templates);
+            if (product['variations'].length > 2) {
+              expandButton = this.getExpandButtonView(product, templates);
+            }
             hasVariations = true;
         } else {
             var productContent = this.getStockTableView(product, templates);
         }
-        
+
         var statusLozenge = this.getStatusView(product, templates);
         var productView = CGMustache.get().renderTemplate(templates, {
             'title': product['name'],
@@ -118,7 +123,7 @@ define([
         var html = CGMustache.get().renderTemplate(templates, {}, 'stockTable', {'stockLocations': stockLocations});
         return html;
     };
-    
+
     Service.prototype.getStockTableLineView = function(location, templates)
     {
         var name = 'total-stock-' + location['id'];
@@ -145,7 +150,11 @@ define([
             var variation = product['variations'][index];
             var attributeValues = [];
             for (var attributeNameIndex in product['attributeNames']) {
-                attributeValues.push(variation['attributeValues'][product['attributeNames'][attributeNameIndex]]);
+                if(!($).isEmptyObject(variation['attributeValues'][product['attributeNames'][attributeNameIndex]])) {
+                    attributeValues.push(variation['attributeValues'][product['attributeNames'][attributeNameIndex]]);
+                } else {
+                    attributeValues.push('');
+                }
             }
             variations += CGMustache.get().renderTemplate(templates, {
                 'image': this.getPrimaryImage(variation['images']),
@@ -196,7 +205,8 @@ define([
             if (product['listings'].hasOwnProperty(listing)) {
                 mustacheFormattedData['listings'].push({
                     'status' : product['listings'][listing]['status'],
-                    'channel' : product['listings'][listing]['channel']
+                    'channel' : product['listings'][listing]['channel'],
+                    'url' : product['listings'][listing]['url']
                 });
             }
         }

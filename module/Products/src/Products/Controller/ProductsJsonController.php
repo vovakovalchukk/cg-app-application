@@ -8,6 +8,9 @@ use Products\Product\Service as ProductService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG\Product\Entity as ProductEntity;
 use CG\Product\Filter\Mapper as FilterMapper;
+use CG\Http\Exception\Exception3xx\NotModified;
+use CG\Http\StatusCode;
+use Zend\I18n\Translator\Translator;
 
 class ProductsJsonController extends AbstractActionController
 {
@@ -18,12 +21,18 @@ class ProductsJsonController extends AbstractActionController
     protected $productService;
     protected $jsonModelFactory;
     protected $filterMapper;
+    protected $translator;
 
-    public function __construct(ProductService $productService, JsonModelFactory $jsonModelFactory, FilterMapper $filterMapper)
-    {
+    public function __construct(
+        ProductService $productService,
+        JsonModelFactory $jsonModelFactory,
+        FilterMapper $filterMapper,
+        Translator $translator
+    ) {
         $this->setProductService($productService)
             ->setJsonModelFactory($jsonModelFactory)
-            ->setFilterMapper($filterMapper);
+            ->setFilterMapper($filterMapper)
+            ->setTranslator($translator);
     }
 
     public function ajaxAction()
@@ -49,6 +58,7 @@ class ProductsJsonController extends AbstractActionController
     protected function toArrayProductEntityWithEmbeddedData(ProductEntity $productEntity)
     {
         $product = $productEntity->toArray();
+
         $product = array_merge($product, [
             'images' => $productEntity->getImages()->toArray(),
             'listings' => $productEntity->getListings()->toArray()
@@ -75,13 +85,19 @@ class ProductsJsonController extends AbstractActionController
 
     public function stockUpdateAction()
     {
-        $stockLocation = $this->getProductService()->updateStock(
-            $this->params()->fromPost('stockLocationId'),
-            $this->params()->fromPost('eTag'),
-            $this->params()->fromPost('totalQuantity')
-        );
         $view = $this->getJsonModelFactory()->newInstance();
-        $view->setVariable('eTag', $stockLocation->getETag());
+        try {
+            $stockLocation = $this->getProductService()->updateStock(
+                $this->params()->fromPost('stockLocationId'),
+                $this->params()->fromPost('eTag'),
+                $this->params()->fromPost('totalQuantity')
+            );
+            $view->setVariable('eTag', $stockLocation->getETag());
+        } catch (NotModified $e) {
+            $view->setVariable('code', StatusCode::NOT_MODIFIED);
+            $view->setVariable('message', $this->getTranslator()->translate('There were no changes to be saved'));
+        }
+
         return $view;
     }
 
@@ -131,5 +147,16 @@ class ProductsJsonController extends AbstractActionController
     protected function getFilterMapper()
     {
         return $this->filterMapper;
+    }
+
+    protected function getTranslator()
+    {
+        return $this->translator;
+    }
+
+    protected function setTranslator(Translator $translator)
+    {
+        $this->translator = $translator;
+        return $this;
     }
 }

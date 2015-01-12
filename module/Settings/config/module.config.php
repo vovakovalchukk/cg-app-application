@@ -1,8 +1,7 @@
 <?php
 use CG\Account\Client\Storage\Api as AccountStorage;
 use CG\Account\Client\Service as AccountService;
-use CG\Amazon\Signer as AmazonSigner;
-USE CG\Amazon\Account as AmazonAccount;
+use CG\Amazon\Account as AmazonAccount;
 use CG\Ebay\Client\TradingApi;
 use Guzzle\Http\Client as GuzzleHttpClient;
 use Settings\Module;
@@ -34,6 +33,11 @@ use Zend\Mvc\Router\Http\Segment;
 use Zend\Mvc\Router\Http\Literal;
 use CG\Channel\Type;
 use CG\Ebay\Account as EbayAccount;
+use CG\Ekm\Account as EkmAccount;
+use Settings\Controller\EkmController;
+use CG\Ekm\Account\CreationService as EkmAccountCreationService;
+use CG\Amazon\Account\CreationService as AmazonAccountCreationService;
+use CG\Ebay\Account\CreationService as EbayAccountCreationService;
 
 return [
     'CG' => [
@@ -150,6 +154,29 @@ return [
                                 ],
                                 'may_terminate' => true,
                                 'child_routes' => [
+                                    EkmAccount::ROUTE => [
+                                        'type' => Literal::class,
+                                        'options' => [
+                                            'route' => '/ekm',
+                                            'defaults' => [
+                                                'controller' => EkmController::class,
+                                                'action' => 'index',
+                                                'sidebar' => false
+                                            ],
+                                        ],
+                                        'may_terminate' => true,
+                                        'child_routes' => [
+                                            EkmController::ROUTE_AJAX => [
+                                                'type' => Literal::class,
+                                                'options' => [
+                                                    'route' => '/ajax',
+                                                    'defaults' => [
+                                                        'action' => 'save',
+                                                    ],
+                                                ],
+                                            ]
+                                        ]
+                                    ],
                                     'Sales Channel Ebay' => [
                                         'type' => Literal::class,
                                         'options' => [
@@ -432,7 +459,7 @@ return [
                 'AccountTradingCompanyColumnView' => ViewModel::class,
                 'AccountTokenStatusColumnView' => ViewModel::class,
                 'AccountManageColumnView' => ViewModel::class,
-                'AccountStockManagementColumnView' => ViewModel::class,
+                'AccountStockManagementColumnView' => ViewModel::class
             ],
             InvoiceController::class => [
                 'parameters' => [
@@ -449,12 +476,6 @@ return [
                     'baseUrl' => 'https://api.ebay.com/ws/api.dll'
                 ]
             ],
-            AmazonSigner::class => array(
-                'parameters' => array(
-                    'secretKey' => 'Tp6B7AEOI8piy6bbSN3n5fmIZgbqWDlTvaxuDBBD',
-                    'httpVerb' => 'GET'
-                )
-            ),
             TradingApi::class => [
                 'parameters' => [
                     'client' => 'EbayGuzzle',
@@ -793,24 +814,41 @@ return [
                     'client' => 'cg_app_guzzle',
                 ]
             ],
-            AmazonController::class => [
+            EkmController::class => [
                 'parameters' => [
-                    'cryptor' => 'amazon_cryptor'
+                    'accountCreationService' => EkmAccountCreationService::class
                 ]
             ],
             EbayController::class => [
                 'parameters' => [
-                    'cryptor' => 'ebay_cryptor'
+                    'accountCreationService' => EbayAccountCreationService::class
+                ]
+            ],
+            AmazonController::class => [
+                'parameters' => [
+                    'accountCreationService' => AmazonAccountCreationService::class
+                ]
+            ],
+            EkmAccountCreationService::class => [
+                'parameters' => [
+                    'cryptor' => 'ekm_cryptor',
+                    'channelAccount' => EkmAccount::class
+                ]
+            ],
+            EbayAccountCreationService::class => [
+                'parameters' => [
+                    'cryptor' => 'ebay_cryptor',
+                    'channelAccount' => EbayAccount::class
+                ]
+            ],
+            AmazonAccountCreationService::class => [
+                'parameters' => [
+                    'cryptor' => 'amazon_cryptor'
                 ]
             ],
             EbayAccount::class => [
                 'parameters' => [
                     'cryptor' => 'ebay_cryptor'
-                ]
-            ],
-            AmazonAccount::class => [
-                'parameters' => [
-                    'cryptor' => 'amazon_cryptor'
                 ]
             ]
         ]

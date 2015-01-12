@@ -22,6 +22,7 @@ return array (
     17 => 'CG_Sessions',
     18 => 'CG_Usage',
     19 => 'CG_RoyalMail',
+    20 => 'CG_Ekm',
   ),
   'module_listener_options' => 
   array (

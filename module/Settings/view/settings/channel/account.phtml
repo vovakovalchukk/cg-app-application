@@ -105,12 +105,10 @@ require(
                     <div class="input"><?= $tradingCompanySelect; ?></div>
                 </div>
             </label>
-            <label>
-                <div class="order-inputbox-holder">
-                    <?= $this->formButton($detailsForm->get('save')); ?>
-                    <span class="loading">Saving</span>
-                </div>
-            </label>
+            <div class="order-inputbox-holder">
+              <?= $this->formButton($detailsForm->get('save')); ?>
+              <span class="loading">Saving</span>
+            </div>            
         </div>
     <?= $this->form()->closeTag(); ?>
 </div>

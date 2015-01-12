@@ -81,7 +81,7 @@ define([
         var fontFamilyOptions = [
             {'title': 'Courier New', 'value': 'Courier'},
             {'title': 'Helvetica', 'value': 'Helvetica'},
-            {'title': 'Times New Roman', 'value': 'Times'}
+            {'title': 'Times New Roman', 'value': 'TimesRoman'}
         ];
         for (var key in fontFamilyOptions) {
             if (fontFamilyOptions[key]['value'] == element.getFontFamily()) {

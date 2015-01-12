@@ -73,6 +73,12 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     {
         $view = $this->getViewModelFactory()->newInstance();
         $ordersTable = $this->getOrderService()->getOrdersTable();
+
+        $ordersTable->setVariable('filterValues',
+            $this->getFilterService()->getMapper()->toArray(
+                $this->getFilterService()->getPersistentFilter()
+            )
+        );
         $settings = $ordersTable->getVariable('settings');
         $settings->setSource($this->url()->fromRoute('Orders/ajax'));
         $settings->setTemplateUrlMap($this->mustacheTemplateMap('orderList'));

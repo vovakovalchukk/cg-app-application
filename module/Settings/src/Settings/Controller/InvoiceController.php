@@ -8,18 +8,19 @@ use CG\Stdlib\Log\LogTrait;
 use CG\Template\ReplaceManager\OrderContent as OrderTagManager;
 use CG\Template\Service as TemplateService;
 use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
-use CG\Zend\Stdlib\View\Model\UserException as ViewModelUserException;
+use CG\Zend\Stdlib\Mvc\Controller\ExceptionToViewModelUserExceptionTrait;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use Settings\Module;
 use Settings\Invoice\Service as InvoiceService;
 use Settings\Invoice\Mapper as InvoiceMapper;
+use Settings\Module;
 use Zend\Config\Config;
-use Zend\Mvc\Controller\AbstractActionController;
 use Zend\I18n\Translator\Translator;
+use Zend\Mvc\Controller\AbstractActionController;
 
 class InvoiceController extends AbstractActionController implements LoggerAwareInterface
 {
+    use ExceptionToViewModelUserExceptionTrait;
     use LogTrait;
 
     const ROUTE = 'Invoice';
@@ -265,23 +266,12 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             $view = $this->getJsonModelFactory()->newInstance(["template" => json_encode($template)]);
             return $view;
         } catch (NotModified $e) {
-            $this->handleAccountUpdateException($e, 'There were no changes to be saved');
+            throw $this->exceptionToViewModelUserException($e, 'There were no changes to be saved');
         } catch (Exception $e) {
-            $this->handleAccountUpdateException($e, 'Template could not be saved.');
+            throw $this->exceptionToViewModelUserException($e, 'Template could not be saved.');
             $this->logException($e, 'log:error', __NAMESPACE__);
         }
         return false;
-    }
-
-    protected function handleAccountUpdateException(\Exception $e, $message)
-    {
-        $status = $this->getJsonModelFactory()->newInstance();
-        $status->setVariable('valid', false);
-        throw new ViewModelUserException(
-            $status,
-            $this->getTranslator()->translate($message),
-            $e->getCode()
-        );
     }
 
     public function getViewModelFactory()
