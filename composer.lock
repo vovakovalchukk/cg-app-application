@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "41ecc4deed198224582d5cc1c5e7fc9f",
+    "hash": "848da375a3aaada083c2265c808070bd",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -669,7 +669,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "a2b7eabd191e770ac262c70ea4d8ea3bc015a975"
+                "reference": "71d7e3eae5fca1b9002c533421a9e39fb0e62b94"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -703,7 +703,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2015-01-09 10:47:32"
+            "time": "2015-01-12 09:11:53"
         },
         {
             "name": "channelgrabber/location",

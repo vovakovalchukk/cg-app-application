@@ -38,6 +38,9 @@ class Service implements LoggerAwareInterface
     protected $listingImportFactory;
     protected $accountService;
     protected $gearmanClient;
+    protected $nonImportableStatuses = [
+        ListingStatus::CANNOT_IMPORT_SKU => ListingStatus::CANNOT_IMPORT_SKU
+    ];
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
@@ -152,7 +155,7 @@ class Service implements LoggerAwareInterface
     protected function statusAlterations(array $listings)
     {
         foreach ($listings as &$listing) {
-            if ($listing['status'] == ListingStatus::CANNOT_IMPORT) {
+            if ($listing['status'] == ListingStatus::CANNOT_IMPORT_SKU) {
                 $listing['sku'] = 'SKU(s) Not Found - Cannot Import';
             }
             $listing['statusClass'] = $listing['status'];
@@ -187,7 +190,7 @@ class Service implements LoggerAwareInterface
         );
 
         foreach ($listings as $listing) {
-            if ($listing->getStatus() == ListingStatus::CANNOT_IMPORT) {
+            if (isset($this->nonImportableStatuses[$listing->getStatus()])) {
                 continue;
             }
             $gearmanJob = $listing->getChannel() . 'ImportListing';
