@@ -714,7 +714,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function archiveOrder(OrderEntity $order, $archive = true)
     {
-        $order = $this->getOrderClient()->archive(
+        $this->getOrderClient()->archive(
             $order->setArchived($archive)
         );
         $this->statsIncrement(
@@ -724,7 +724,6 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
                 $this->getActiveUserContainer()->getActiveUser()->getId(),
             ]
         );
-        return $order;
     }
 
     public function cancelOrders(OrderCollection $orders, $type, $reason)
