@@ -2,20 +2,20 @@
 namespace Settings\Controller;
 
 use CG\Http\Exception\Exception3xx\NotModified;
+use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Template\ReplaceManager\OrderContent as OrderTagManager;
 use CG\Template\Service as TemplateService;
 use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
-use CG\Zend\Stdlib\View\Model\UserException as ViewModelUserException;
 use CG\Zend\Stdlib\Mvc\Controller\ExceptionToViewModelUserExceptionTrait;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Settings\Invoice\Service as InvoiceService;
 use Settings\Invoice\Mapper as InvoiceMapper;
 use Settings\Module;
-use Zend\I18n\Translator\Translator;
 use Zend\Config\Config;
+use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class InvoiceController extends AbstractActionController implements LoggerAwareInterface
@@ -71,9 +71,17 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     public function saveMappingAction()
     {
-        $entity = $this->getInvoiceService()->saveSettings(
-            $this->params()->fromPost()
-        );
+        try {
+            $entity = $this->getInvoiceService()->saveSettings(
+                $this->params()->fromPost()
+            );
+        } catch (NotModified $e) {
+            // display saved message
+            $entity = $this->getInvoiceService()->getSettings();
+        } catch (Conflict $e) {
+            return $this->handleAccountUpdateException($e, "It looks like someone updated these settings while you were changing them. Please refresh and try again.");
+        }
+
         return $this->getJsonModelFactory()->newInstance([
             "invoiceSettings" => json_encode($entity),
             "eTag" => $entity->getETag()
