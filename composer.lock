@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "67645f71449dd40b3b52821cf2adb938",
+    "hash": "0370de0eb07960a57ff673b0367f0291",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -275,7 +275,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgconstants.git",
-                "reference": "64f6d87c61597541953e63ec523b66ab3ab117eb"
+                "reference": "2c33fb83d385917c4db853a8190521c034ae62cc"
             },
             "require": {
                 "php": ">=5.4.0"
@@ -286,7 +286,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-01-12 12:30:52"
+            "time": "2014-06-06 16:14:24"
         },
         {
             "name": "channelgrabber/db",
@@ -1114,7 +1114,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-royalmail-1.0.3-fe5089.zip",
                 "reference": "4332ef55f7b411005198fb7a56c63fda95ce9bab",
-                "shasum": "c6f3cae65e3f7a95874ee06760b754da3e6c7805"
+                "shasum": "390f1bdb83b86fad31bb6c7b83258c3c991b255b"
             },
             "require": {
                 "channelgrabber/channel": ">=1.5.3, <2.0.0",
@@ -1406,7 +1406,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.4.2-585c55.zip",
                 "reference": "c88510f17d088685f43776447cf1fe5e7cb4dc0a",
-                "shasum": "175d8f949932eb284285a0b8e4c14dd6b25f447b"
+                "shasum": "69d6ad28e811f14529d605b72ddcae918a34e090"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -1777,7 +1777,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-channel-1.0.4-d2a06e.zip",
                 "reference": "03fd34e13d4d06dcd5ba583f5eeb591144950a2e",
-                "shasum": "5a0b18fbbe160e0c76bd19caad782fb1a1dd8b97"
+                "shasum": "cacbea7821fd42976272580fae46ae0f63433f82"
             },
             "require": {
                 "channelgrabber/channel": ">=1.4.2,<2.0.0",
@@ -2027,17 +2027,11 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.4.17",
+            "version": "dev-CGIV-4581-DoubleSubmit",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "112259a734390651614b920f29357166e43207f5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.17-e1b2c9.zip",
-                "reference": "112259a734390651614b920f29357166e43207f5",
-                "shasum": "9b10ee4d6c6f48cbfa72b3f4e47816e666265e75"
+                "reference": "9f0b4f2f9287a836fdc00b7427de9ef57dacf09e"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
@@ -2075,7 +2069,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2015-01-07 17:05:56"
+            "time": "2015-01-26 14:41:55"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -2217,7 +2211,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-royalmail-1.1.1-dca199.zip",
                 "reference": "4c563006c0acfe398f150fb1dd7161d5dd9c773f",
-                "shasum": "83f08d95651e2df65b25894335c36e6101406255"
+                "shasum": "650da89c6141d4c520719489b79889b60370ba13"
             },
             "require": {
                 "channelgrabber/channel": ">=1.6.0,<2.0.0",
@@ -2584,16 +2578,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "8db7420f025b5c4705ce6f66b65c6d2b52d27813"
+                "reference": "55895ab494db249bc0fcd836237c3a23c9f36dfc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/8db7420f025b5c4705ce6f66b65c6d2b52d27813",
-                "reference": "8db7420f025b5c4705ce6f66b65c6d2b52d27813",
+                "url": "https://api.github.com/repos/composer/composer/zipball/55895ab494db249bc0fcd836237c3a23c9f36dfc",
+                "reference": "55895ab494db249bc0fcd836237c3a23c9f36dfc",
                 "shasum": ""
             },
             "require": {
-                "justinrainbow/json-schema": "~1.3",
+                "justinrainbow/json-schema": "~1.1",
                 "php": ">=5.3.2",
                 "seld/jsonlint": "~1.0",
                 "symfony/console": "~2.3",
@@ -2644,7 +2638,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-01-12 23:02:29"
+            "time": "2014-12-12 13:33:45"
         },
         {
             "name": "fabpot/goutte",
@@ -5683,10 +5677,18 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.4.18",
+            "alias_normalized": "1.4.18.0",
+            "version": "dev-CGIV-4581-DoubleSubmit",
+            "package": "channelgrabber/zf2-login"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-login": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
