@@ -17,7 +17,7 @@
     "require": {
         "channelgrabber/constants": "dev-master",
         "channelgrabber/di": "~2.1.1",
-        "channelgrabber/http": "~1.2.24",
+        "channelgrabber/http": "~1.2.28",
         "channelgrabber/log": "~2.0.7",
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/sso": "~1.2.5",
