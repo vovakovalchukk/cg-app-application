@@ -117,8 +117,10 @@ define([
     Service.prototype.getStockTableView = function(product, templates)
     {
         var stockLocations = "";
-        for (var index in product['stock']['locations']) {
-            stockLocations += this.getStockTableLineView(product['stock']['locations'][index], templates);
+        if (typeof(product['stock']) != 'undefined' && typeof(product['stock']['locations']) != 'undefined') {
+            for (var index in product['stock']['locations']) {
+                stockLocations += this.getStockTableLineView(product['stock']['locations'][index], templates);
+            }
         }
         var html = CGMustache.get().renderTemplate(templates, {}, 'stockTable', {'stockLocations': stockLocations});
         return html;
