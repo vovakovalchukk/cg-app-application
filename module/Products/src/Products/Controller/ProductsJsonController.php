@@ -68,7 +68,7 @@ class ProductsJsonController extends AbstractActionController
             $product['variations'][] = $this->toArrayProductEntityWithEmbeddedData($variation);
         }
 
-        if (count($productEntity->getVariations())) {
+        if (!$productEntity->getStock() || count($productEntity->getVariations())) {
             return $product;
         }
 
