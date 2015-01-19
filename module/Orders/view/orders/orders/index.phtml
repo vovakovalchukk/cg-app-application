@@ -1,8 +1,9 @@
-<?php $this->inlineScript()->captureStart(); ?>
+<?php //$this->inlineScript()->captureStart(); ?>
+<script>
 require([
-    "showHideFilters"
+    "dataTables", "showHideFilters"
 ],
-function(showHideFilters) {
+function(dataTables, showHideFilters) {
     var orderPage = new showHideFilters();
 });
 require.config({
@@ -20,7 +21,8 @@ require(["Filters/FilterCollection"], function(filterCollection) {
     };
     filterCollection.setFilters(filterNames);
 });
-<?php $this->inlineScript()->captureEnd(); ?>
+</script>
+<?php //$this->inlineScript()->captureEnd(); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/jqueryPlugin/cg-pjax.js'); ?>
 <?php $this->headScript()->appendFile($this->basePath() . Filters\Module::PUBLIC_FOLDER . 'js/dataTableFilters.js'); ?>
 <?php $this->placeholder('#main.class')->append('full-width'); ?>
