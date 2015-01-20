@@ -50,7 +50,7 @@ class ProductsJsonController extends AbstractActionController
         $productsArray = [];
         try {
             $products = $this->getProductService()->fetchProducts($requestFilter);
-            $accounts = $this->getIndexedAccounts($requestFilter->getOrganisationUnitId());
+            $accounts = $this->getAccountsIndexedById($requestFilter->getOrganisationUnitId());
 
             foreach ($products as $product) {
                 $productsArray[] = $this->toArrayProductEntityWithEmbeddedData($product, $accounts);
@@ -61,7 +61,7 @@ class ProductsJsonController extends AbstractActionController
         return $view->setVariable('products', $productsArray);
     }
 
-    protected function getIndexedAccounts($organisationUnitIds)
+    protected function getAccountsIndexedById($organisationUnitIds)
     {
         $accounts = $this->getAccountService()->fetchByOU($organisationUnitIds);
         $indexedAccounts = [];
