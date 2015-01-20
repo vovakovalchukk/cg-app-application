@@ -212,7 +212,6 @@ define([
                 });
             }
         };
-        console.log(product['accounts']);
         return mustacheFormattedData;
     };
 
