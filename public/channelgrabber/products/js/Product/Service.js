@@ -201,15 +201,18 @@ define([
     Service.prototype.getStatusListingData = function(product)
     {
         var mustacheFormattedData = { 'listings' : [] };
+        var accountId;
         for (var listing in product['listings']) {
             if (product['listings'].hasOwnProperty(listing)) {
+                accountId = product['listings'][listing]['accountId'];
                 mustacheFormattedData['listings'].push({
                     'status' : product['listings'][listing]['status'],
-                    'channel' : product['listings'][listing]['channel'],
+                    'channel' : product['accounts'][accountId]['displayName'],
                     'url' : product['listings'][listing]['url']
                 });
             }
-        }
+        };
+        console.log(product['accounts']);
         return mustacheFormattedData;
     };
 
