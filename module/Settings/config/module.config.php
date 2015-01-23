@@ -11,6 +11,7 @@ use Settings\Controller\EbayController;
 use Settings\Controller\AmazonController;
 use Settings\Controller\InvoiceController;
 use Settings\Controller\ShippingController;
+use Settings\Controller\PickListController;
 use CG_UI\View\DataTable;
 use Settings\Invoice\Service as InvoiceService;
 use Zend\View\Model\ViewModel;
@@ -98,6 +99,18 @@ return [
                         'title' => ShippingController::ROUTE_ALIASES,
                         'route' => Module::ROUTE . '/' . ShippingController::ROUTE . '/' . ShippingController::ROUTE_ALIASES
                     ],
+                ]
+            ],
+            'Picking Management' => [
+                'label' => 'Picking Management',
+                'uri' => '',
+                'class' => 'heading-medium',
+                'pages' => [
+                    [
+                        'label' => PickListController::ROUTE_PICK_LIST,
+                        'title' => PickListController::ROUTE_PICK_LIST,
+                        'route' => Module::ROUTE . '/' . PickListController::ROUTE . '/' . PickListController::ROUTE_PICK_LIST
+                    ]
                 ]
             ]
         ],
@@ -407,6 +420,41 @@ return [
                                     'account' => '[0-9]*'
                                 ],
                                 'may_terminate' => true
+                            ]
+                        ]
+                    ],
+                    PickListController::ROUTE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/picking',
+                            'defaults' => [
+                                'controller' => PickListController::class,
+                                'action' => 'index'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            PickListController::ROUTE_PICK_LIST => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/list',
+                                    'defaults' => [
+                                        'action' => 'pickList'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    PickListController::ROUTE_PICK_LIST_SAVE => [
+                                        'type' => Literal::class,
+                                        'options' => [
+                                            'route' => '/save',
+                                            'defaults' => [
+                                                'action' => 'save'
+                                            ]
+                                        ],
+                                        'may_terminate' => true
+                                    ]
+                                ]
                             ]
                         ]
                     ]
