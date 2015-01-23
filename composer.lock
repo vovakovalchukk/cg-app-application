@@ -18,7 +18,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.9.2-a0f79e.zip",
                 "reference": "742ed626da4c55feac3d6f430d1d2f7f1e452299",
-                "shasum": "a217839ca523fe4fcc81a0dd3328457c36e42764"
+                "shasum": "e34547cd2f3202f13c2a276e67ca97dff4327f3a"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -385,7 +385,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.4.6-b1b428.zip",
                 "reference": "68301aa383ab5044164f765a167d834be2e38c3a",
-                "shasum": "e31aa42f69aa0533cbc033e7c34834aa73632ef7"
+                "shasum": "31a5cb36547e06ac2b0c764fee231965d9d92217"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -1637,7 +1637,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-validation.git",
-                "reference": "7ece245300f9214e75d0a09335eda8404245cc8f"
+                "reference": "311a7eb60d32e84c144d465e6134310e964976b4"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
@@ -1650,7 +1650,7 @@
                     "CG\\Validation\\": "src"
                 }
             },
-            "time": "2015-01-22 15:26:53"
+            "time": "2015-01-23 14:44:21"
         },
         {
             "name": "channelgrabber/vnderror",
@@ -1766,7 +1766,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-channel-1.0.4-d2a06e.zip",
                 "reference": "03fd34e13d4d06dcd5ba583f5eeb591144950a2e",
-                "shasum": "cacbea7821fd42976272580fae46ae0f63433f82"
+                "shasum": "5a0b18fbbe160e0c76bd19caad782fb1a1dd8b97"
             },
             "require": {
                 "channelgrabber/channel": ">=1.4.2,<2.0.0",
@@ -4434,9 +4434,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "shasum": ""
+                "url": "https://packages.zendframework.com/composer/zendframework-zendxml-559b34f426d33a11c3db118e00ce14bb8dc64e5f-zip-6cf7a2.zip",
+                "reference": "1.0.0",
+                "shasum": "39abc614b5c26bcbf8102e203c52dee73c4460a8"
             },
             "require": {
                 "php": ">=5.3.3"
@@ -4456,7 +4456,6 @@
                     "ZendXml": "library/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -4467,6 +4466,10 @@
                 "xml",
                 "zf2"
             ],
+            "support": {
+                "source": "https://github.com/zendframework/ZendXml/tree/master",
+                "issues": "https://github.com/zendframework/ZendXml/issues"
+            },
             "time": "2014-03-05 22:25:44"
         },
         {
@@ -4961,7 +4964,7 @@
                 {
                     "name": "Anthon Pang",
                     "email": "apang@softwaredevelopment.ca",
-                    "role": "developer"
+                    "role": "Fork Maintainer"
                 }
             ],
             "description": "PHP WebDriver for Selenium 2",
