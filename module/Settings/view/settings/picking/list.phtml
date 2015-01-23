@@ -21,29 +21,39 @@
         });
     });
 <?php $this->inlineScript()->captureEnd(); ?>
-<div class="padded-content-holder">
-    <div class="heading-large" style="width: 100%; min-height: 20px; float: left; clear:both;">
-        <?= $this->translate($title) ?>
-    </div>
+
+<div id="breadcrumbs" class="floatLeftClear">
+  <span class="heading-large">
+    <?= $this->translate($title) ?>
+  </span>
+</div>
+<div class="module clearfix">
+  <form>
     <div class="pick-list-form">
-        <input type='hidden' value="<?= $eTag ?>" id="pick-list-eTag">
-        <div class="sortfield-drop" style="width: 100%; min-height: 20px; float: left; clear:both;">
+      <input type='hidden' value="<?= $eTag ?>" id="pick-list-eTag">
+      <div class="half">
+        <label>
+          <span class="inputbox-label">Sort by Column:</span>
+          <div class="order-inputbox-holder half-input">
             <?= $sortFieldCustomSelect; ?>
-        </div>
-        <div class="sortdirection-drop" style="width: 100%; min-height: 20px; float: left; clear:both;">
+          </div>
+          <div class="order-inputbox-holder half-input">
             <?= $sortDirectionCustomSelect; ?>
-        </div>
-        <div class="showpictures-check" style="width: 100%; min-height: 20px; float: left; clear:both;">
-             <?= $showPicturesCheckbox; ?>
-            <label for="show-pictures-checkbox">
-                <span class="checkbox_label">Show Pictures</span>
-            </label>
-        </div>
-        <div class="showskuless-check" style="width: 100%; min-height: 20px; float: left; clear:both;">
+          </div>
+        </label>
+        <label>
+          <span class="inputbox-label">Show SKUless:</span>
+          <div class="order-inputbox-holder">
+            <?= $showPicturesCheckbox; ?>
+          </div>
+        </label>
+        <label>
+          <span class="inputbox-label">Include SKUless Products:</span>
+          <div class="order-inputbox-holder">
             <?= $showSkulessCheckbox; ?>
-            <label for="show-skuless-checkbox">
-                <span class="checkbox_label">Show SKUless</span>
-            </label>
-        </div>
+          </div>
+        </label>
+      </div>
     </div>
+  </form>
 </div>

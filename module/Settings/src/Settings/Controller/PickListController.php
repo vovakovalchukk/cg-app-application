@@ -75,6 +75,8 @@ class PickListController extends AbstractActionController implements LoggerAware
 
         $view->addChild($this->getShowPicturesCheckbox($pickListSettings->getShowPictures()), 'showPicturesCheckbox');
         $view->addChild($this->getShowSkulessCheckbox($pickListSettings->getShowSkuless()), 'showSkulessCheckbox');
+        $view->setVariable('isHeaderBarVisible', false);
+        $view->setVariable('subHeaderHide', true);
         return $view;
     }
 
