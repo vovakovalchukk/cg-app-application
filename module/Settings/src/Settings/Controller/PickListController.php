@@ -4,16 +4,13 @@ namespace Settings\Controller;
 use Settings\Module;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\I18n\Translator\Translator;
-use CG\Zend\Stdlib\Mvc\Controller\ExceptionToViewModelUserExceptionTrait;
-use CG\Stdlib\Log\LoggerAwareInterface;
-use CG\Stdlib\Log\LogTrait;
-use CG\User\ActiveUserInterface as ActiveUserContainer;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use CG\Settings\PickList\Service as PickListService;
-use CG\Settings\PickList\Mapper as PickListMapper;
-use CG\Settings\PickList\Entity as PickList;
-use CG\Settings\PickList\SortValidator;
+use CG\Zend\Stdlib\Mvc\Controller\ExceptionToViewModelUserExceptionTrait;
+use CG\User\ActiveUserInterface as ActiveUserContainer;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
+use Settings\PickList\Service as PickListService;
 
 class PickListController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -25,7 +22,6 @@ class PickListController extends AbstractActionController implements LoggerAware
     protected $viewModelFactory;
     protected $translator;
     protected $pickListService;
-    protected $pickListMapper;
 
     const LOG_CODE = 'PickListController';
 
@@ -38,15 +34,13 @@ class PickListController extends AbstractActionController implements LoggerAware
         JsonModelFactory $jsonModelFactory,
         ViewModelFactory $viewModelFactory,
         Translator $translator,
-        PickListService $pickListService,
-        PickListMapper $pickListMapper
+        PickListService $pickListService
     ) {
         $this->setActiveUserContainer($activeUserContainer)
             ->setJsonModelFactory($jsonModelFactory)
             ->setViewModelFactory($viewModelFactory)
             ->setTranslator($translator)
-            ->setPickListService($pickListService)
-            ->setPickListMapper($pickListMapper);
+            ->setPickListService($pickListService);
     }
 
     public function indexAction()
@@ -56,7 +50,7 @@ class PickListController extends AbstractActionController implements LoggerAware
 
     public function pickListAction()
     {
-        $pickListSettings = $this->getPickListSettings();
+        $pickListSettings = $this->getPickListService()->getPickListSettings($this->getOrganisationUnitId());
         $view = $this->getViewModelFactory()->newInstance();
 
         $view->setTemplate('settings/picking/list');
@@ -64,12 +58,12 @@ class PickListController extends AbstractActionController implements LoggerAware
         $view->setVariable('eTag', $pickListSettings->getETag());
 
         $view->addChild(
-            $this->getSortFieldCustomSelect(SortValidator::getSortFieldsNames(), $pickListSettings->getSortField()),
+            $this->getSortFieldCustomSelect($this->getPickListService()->getSortFields(), $pickListSettings->getSortField()),
             'sortFieldCustomSelect'
         );
 
         $view->addChild(
-            $this->getSortDirectionCustomSelect(SortValidator::getSortDirectionsNames(), $pickListSettings->getSortDirection()),
+            $this->getSortDirectionCustomSelect($this->getPickListService()->getSortDirections(), $pickListSettings->getSortDirection()),
             'sortDirectionCustomSelect'
         );
 
@@ -83,33 +77,10 @@ class PickListController extends AbstractActionController implements LoggerAware
     public function saveAction()
     {
         $pickListSettings = $this->params()->fromPost();
-        $pickList = $this->savePickListSettings($pickListSettings);
+        $pickList = $this->getPickListService()->savePickListSettings($pickListSettings, $this->getOrganisationUnitId());
         return $this->getJsonModelFactory()->newInstance(['eTag' => $pickList->getETag()]);
     }
-
-    /**
-     * @return PickList
-     */
-    protected function getPickListSettings()
-    {
-        $organisationUnitId = $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId();
-        return $this->getPickListService()->fetch($organisationUnitId);
-    }
-
-    /**
-     * @return PickList
-     */
-    protected function savePickListSettings(array $pickListSettings)
-    {
-        $pickListSettings['showPictures'] = $pickListSettings['showPictures'] == 'true';
-        $pickListSettings['showSkuless'] = $pickListSettings['showSkuless'] == 'true';
-        $pickListSettings['id'] = $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId();
-        $pickList = $this->getPickListMapper()->fromArray($pickListSettings);
-        $pickList->setStoredETag($pickListSettings['eTag']);
-        $this->getPickListService()->save($pickList);
-        return $pickList;
-    }
-
+    
     protected function getSortFieldCustomSelect(array $sortFields, $selectedSortField)
     {
         $options = [];
@@ -170,6 +141,11 @@ class PickListController extends AbstractActionController implements LoggerAware
         return $checkbox;
     }
 
+    protected function getOrganisationUnitId()
+    {
+        return $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId();
+    }
+
     /**
      * @return PickListService
      */
@@ -185,24 +161,6 @@ class PickListController extends AbstractActionController implements LoggerAware
     public function setPickListService(PickListService $pickListService)
     {
         $this->pickListService = $pickListService;
-        return $this;
-    }
-
-    /**
-     * @return PickListMapper
-     */
-    protected function getPickListMapper()
-    {
-        return $this->pickListMapper;
-    }
-
-    /**
-     * @param PickListMapper $pickListMapper
-     * @return $this
-     */
-    public function setPickListMapper(PickListMapper $pickListMapper)
-    {
-        $this->pickListMapper = $pickListMapper;
         return $this;
     }
 
