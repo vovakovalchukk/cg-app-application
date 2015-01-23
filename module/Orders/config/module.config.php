@@ -459,6 +459,17 @@ return [
                             ],
                         ]
                     ],
+                    'pickList' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/pickList',
+                            'defaults' => [
+                                'controller' => BulkActionsController::class,
+                                'action' => 'pickListOrderIds'
+                            ]
+                        ],
+                        'may_terminate' => true
+                    ],
                     StoredFiltersController::ROUTE_SAVE => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [

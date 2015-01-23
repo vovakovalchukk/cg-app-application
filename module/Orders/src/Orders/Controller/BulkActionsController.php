@@ -456,6 +456,11 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         $this->getOrderService()->archiveOrders($orders);
     }
 
+    public function pickListOrderIdsAction($orderBy = null, $orderDir = 'ASC')
+    {
+        
+    }
+
     protected function checkUsage()
     {
         if ($this->getUsageService()->hasUsageBeenExceeded()) {

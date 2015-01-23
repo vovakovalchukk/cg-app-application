@@ -47,6 +47,7 @@ return [
                 'ArchiveJavascript' => ViewModel::class,
                 'CancelJavascript' => ViewModel::class,
                 'RefundJavascript' => ViewModel::class,
+                'PickListJavascript' => ViewModel::class,
                 'UrlDataViewInvoice' => ViewModel::class,
                 'UrlDataViewInvoiceBySku' => ViewModel::class,
                 'UrlDataViewDispatch' => ViewModel::class,
@@ -55,6 +56,7 @@ return [
                 'UrlDataViewBatch' => ViewModel::class,
                 'UrlDataViewBatchRemove' => ViewModel::class,
                 'UrlDataViewCancelRefund' => ViewModel::class,
+                'UrlDataViewPickList' => ViewModel::class,
                 'Invoice' => Action\Invoice::class
             ],
             Service::class => [
@@ -77,6 +79,7 @@ return [
                         ['action' => Action\Tag::class],
                         ['action' => Action\Batch::class],
                         ['action' => Action\Archive::class],
+                        ['action' => Action\PickList::class]
                     ],
                 ],
             ],
@@ -109,7 +112,7 @@ return [
                     'addSubAction' => [
                         ['subAction' => 'InvoiceBySkuBulkAction'],
                     ],
-                ], 
+                ],
             ],
             'InvoiceJavascript' => [
                 'parameters' => [
@@ -137,6 +140,11 @@ return [
                 'parameters' => [
                     'template' => 'orders/orders/bulk-actions/dispatch.js',
                 ],
+            ],
+            'PickListJavascript' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/pickList.js'
+                ]
             ],
             'InvoiceBySkuBulkAction' => [
                 'parameters' => [
@@ -254,6 +262,15 @@ return [
                     'javascript' => 'RefundJavascript',
                 ],
             ],
+            Action\PickList::class =>[
+                'parameters' => [
+                    'urlView' => 'UrlDataViewPickList',
+                    'elementData' => [
+                        'datatable' => 'datatable'
+                    ],
+                    'javascript' => 'PickListJavascript'
+                ]
+            ],
             'RefundJavascript' => [
                 'parameters' => [
                     'template' => 'orders/orders/bulk-actions/cancel.js',
@@ -299,6 +316,11 @@ return [
                     'template' => 'orders/orders/bulk-actions/data-url',
                 ],
             ],
+            'UrlDataViewPickList' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/data-url',
+                ]
+            ]
         ],
     ],
 ];
