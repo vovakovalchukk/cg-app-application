@@ -1,0 +1,51 @@
+<?php $this->inlineScript()->captureStart(); ?>
+<!--<script type="text/javascript"></-->
+    $(document).ready(function() {
+        require.config({
+            paths: {
+                'Settings': "<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js';?>"
+            }
+        });
+        require([
+            'Settings/PickList/PickList',
+            'element/Factory/Select'
+        ], function(
+            pickList,
+            select
+        ) {
+            pickList.init();
+
+            $(document).on('fnDrawCallback', function(event, data) {
+                select.init('sort-field-custom-select');
+                select.init('sort-direction-custom-select');
+            });
+        });
+    });
+<!--<script></-->
+<?php $this->inlineScript()->captureEnd(); ?>
+<div class="padded-content-holder">
+    <div class="heading-large" style="width: 100%; min-height: 20px; float: left; clear:both;">
+        <?= $this->translate($title) ?>
+    </div>
+    <div class="pick-list-form">
+        <input type='hidden' value="<?= $eTag ?>" id="pick-list-eTag">
+        <div class="sortfield-drop" style="width: 100%; min-height: 20px; float: left; clear:both;">
+            <?= $sortFieldCustomSelect; ?>
+        </div>
+        <div class="sortdirection-drop" style="width: 100%; min-height: 20px; float: left; clear:both;">
+            <?= $sortDirectionCustomSelect; ?>
+        </div>
+        <div class="showpictures-check" style="width: 100%; min-height: 20px; float: left; clear:both;">
+             <?= $showPicturesCheckbox; ?>
+            <label for="show-pictures-checkbox">
+                <span class="checkbox_label">Show Pictures</span>
+            </label>
+        </div>
+        <div class="showskuless-check" style="width: 100%; min-height: 20px; float: left; clear:both;">
+            <?= $showSkulessCheckbox; ?>
+            <label for="show-skuless-checkbox">
+                <span class="checkbox_label">Show SKUless</span>
+            </label>
+        </div>
+    </div>
+</div>
