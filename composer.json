@@ -35,7 +35,7 @@
         "channelgrabber/stock": "~1.4.0",
         "channelgrabber/template": "~1.2.39",
         "channelgrabber/usage": "~1.0.5",
-        "channelgrabber/user": "~1.18.7",
+        "channelgrabber/user": "~1.18.9",
         "channelgrabber/userpreference": "~1.2.2",
         "channelgrabber/validation": "~1.2.5",
         "channelgrabber/zendesk": "~1.0.0",
