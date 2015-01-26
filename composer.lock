@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e0c93149c1bb4f3d60988bdaeffb116a",
+    "hash": "3471ca9c4a9e3c7ee3abfd2feb30c91d",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2395,11 +2395,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-4651-PrettyPickingListSettingsForm",
+            "version": "dev-CGIV-4636-PickListBulkAction",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "6ab5ebe96ce65ff423686a9bbcbe2229c1396f41"
+                "reference": "ccd4479ba5ad70e63dddc1c95047980a4abc01b1"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2441,7 +2441,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-01-23 16:14:03"
+            "time": "2015-01-26 13:31:36"
         },
         {
             "name": "cilex/cilex",
@@ -5685,7 +5685,7 @@
         {
             "alias": "1.14.36",
             "alias_normalized": "1.14.36.0",
-            "version": "dev-CGIV-4651-PrettyPickingListSettingsForm",
+            "version": "dev-CGIV-4636-PickListBulkAction",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
