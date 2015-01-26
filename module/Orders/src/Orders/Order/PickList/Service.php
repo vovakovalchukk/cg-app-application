@@ -42,6 +42,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function getResponseFromOrderCollection(OrderCollection $orderCollection, $progressKey = null)
     {
+        //TODO: This is just a mock to simulate the generation of the pick list. Will be implemented in CGIV-4637.
         $count = 0;
         foreach ($orderCollection as $order) {
             sleep(1);
