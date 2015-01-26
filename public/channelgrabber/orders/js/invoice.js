@@ -24,7 +24,7 @@ define(function() {
         };
     };
 
-    InvoiceBulkAction.MIN_ORDERS_FOR_NOTIFICATION = 7;
+    InvoiceBulkAction.MIN_INVOICES_FOR_NOTIFICATION = 7;
     InvoiceBulkAction.NOTIFICATION_FREQ_MS = 5000;
 
     InvoiceBulkAction.prototype.notifyTimeoutHandle = null;
