@@ -57,17 +57,6 @@ define(function() {
         return this.getElement().data("url") || "";
     };
 
-    InvoiceBulkAction.prototype.getFormElement = function(orders)
-    {
-        var form = $("<form><input name='invoiceProgressKey' value='' /></form>").attr("action", this.getUrl()).attr("method", "POST").hide();
-        for (var index in orders) {
-            form.append(function() {
-                return $("<input />").attr("name", "orders[]").val(orders[index]);
-            });
-        }
-        return form;
-    };
-
     InvoiceBulkAction.prototype.action = function(event)
     {
         var orders = this.getOrders();

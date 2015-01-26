@@ -1,6 +1,7 @@
 require.config({
     paths: {
-        PickListBulkAction: "<?= $this->baseUrl . Orders\Module::PUBLIC_FOLDER . 'js/pickList' ?>"
+        PickListBulkAction: "<?= $this->baseUrl . Orders\Module::PUBLIC_FOLDER . 'js/pickList' ?>",
+        ProgressCheckAbstract: "<?= $this->baseUrl . Orders\Module::PUBLIC_FOLDER . 'js/ProgressCheckAbstract' ?>"
     }
 });
 require(

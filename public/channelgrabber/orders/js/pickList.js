@@ -1,71 +1,20 @@
-define(function() {
+define(['ProgressCheckAbstract'],
+    function(ProgressCheckAbstract) {
     var PickListBulkAction = function(notifications, message)
     {
-        var element;
-
-        this.getElement = function ()
-        {
-            return $(element);
-        };
-
-        this.setElement = function(newElement)
-        {
-            element = newElement;
-        };
-
-        this.getNotifications = function()
-        {
-            return notifications;
-        };
-
-        this.getMessage = function()
-        {
-            return message;
-        };
+        ProgressCheckAbstract.call(this, notifications, message);
     };
+
+    PickListBulkAction.prototype = Object.create(ProgressCheckAbstract.prototype);
 
     PickListBulkAction.MIN_ORDERS_FOR_NOTIFICATION = 7;
     PickListBulkAction.NOTIFICATION_FREQ_MS = 1000;
 
     PickListBulkAction.prototype.notifyTimeoutHandle = null;
 
-    PickListBulkAction.prototype.getDataTableElement = function()
+    PickListBulkAction.prototype.getParam = function()
     {
-        var dataTable = this.getElement().data("datatable");
-        if (!dataTable) {
-            return $();
-        }
-        return $("#" + dataTable);
-    };
-
-    PickListBulkAction.prototype.getOrders = function()
-    {
-        var orders = this.getElement().data("orders");
-        if (orders) {
-            return orders;
-        }
-        return this.getDataTableElement().cgDataTable("selected", ".checkbox-id");
-    };
-
-    PickListBulkAction.prototype.getFilterId = function()
-    {
-        return this.getDataTableElement().data("filterId");
-    };
-
-    PickListBulkAction.prototype.getUrl = function()
-    {
-        return this.getElement().data("url") || "";
-    };
-
-    PickListBulkAction.prototype.getFormElement = function(orders)
-    {
-        var form = $("<form><input name='pickListProgressKey' value='' /></form>").attr("action", this.getUrl()).attr("method", "POST").hide();
-        for (var index in orders) {
-            form.append(function() {
-                return $("<input />").attr("name", "orders[]").val(orders[index]);
-            });
-        }
-        return form;
+        return "pickListProgressKey"
     };
 
     PickListBulkAction.prototype.action = function(event)
@@ -95,7 +44,7 @@ define(function() {
                 }
 
                 var form = this.getFormElement(orders);
-                form.find('input[name=pickListProgressKey]').val(data.guid);
+                form.find('input[name='+ this.getParam() +']').val(data.guid);
                 $("body").append(form);
                 form.submit().remove();
             },
@@ -108,14 +57,15 @@ define(function() {
     PickListBulkAction.prototype.setupProgressCheck = function(total, progressKey)
     {
         var self = this;
-
+        var data = {};
+        data[this.getParam()] = progressKey;
         return setInterval(function()
         {
             $.ajax({
                 context: self,
                 url: '/orders/picklist/progress',
                 type: "POST",
-                data: {"pickListProgressKey": progressKey},
+                data: data,
                 dataType: 'json',
                 success : function(data) {
                     if (!data.hasOwnProperty('progressCount')) {
