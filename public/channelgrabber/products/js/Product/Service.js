@@ -117,8 +117,10 @@ define([
     Service.prototype.getStockTableView = function(product, templates)
     {
         var stockLocations = "";
-        for (var index in product['stock']['locations']) {
-            stockLocations += this.getStockTableLineView(product['stock']['locations'][index], templates);
+        if (typeof(product['stock']) != 'undefined' && typeof(product['stock']['locations']) != 'undefined') {
+            for (var index in product['stock']['locations']) {
+                stockLocations += this.getStockTableLineView(product['stock']['locations'][index], templates);
+            }
         }
         var html = CGMustache.get().renderTemplate(templates, {}, 'stockTable', {'stockLocations': stockLocations});
         return html;
@@ -201,15 +203,17 @@ define([
     Service.prototype.getStatusListingData = function(product)
     {
         var mustacheFormattedData = { 'listings' : [] };
+        var accountId;
         for (var listing in product['listings']) {
             if (product['listings'].hasOwnProperty(listing)) {
+                accountId = product['listings'][listing]['accountId'];
                 mustacheFormattedData['listings'].push({
                     'status' : product['listings'][listing]['status'],
-                    'channel' : product['listings'][listing]['channel'],
+                    'channel' : product['accounts'][accountId]['displayName'],
                     'url' : product['listings'][listing]['url']
                 });
             }
-        }
+        };
         return mustacheFormattedData;
     };
 
