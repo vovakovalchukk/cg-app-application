@@ -11,6 +11,7 @@ use CG\Product\Filter\Mapper as FilterMapper;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Http\StatusCode;
 use Zend\I18n\Translator\Translator;
+use CG\Account\Client\Service as AccountService;
 
 class ProductsJsonController extends AbstractActionController
 {
@@ -22,17 +23,20 @@ class ProductsJsonController extends AbstractActionController
     protected $jsonModelFactory;
     protected $filterMapper;
     protected $translator;
+    protected $accountService;
 
     public function __construct(
         ProductService $productService,
         JsonModelFactory $jsonModelFactory,
         FilterMapper $filterMapper,
-        Translator $translator
+        Translator $translator,
+        AccountService $accountService
     ) {
         $this->setProductService($productService)
             ->setJsonModelFactory($jsonModelFactory)
             ->setFilterMapper($filterMapper)
-            ->setTranslator($translator);
+            ->setTranslator($translator)
+            ->setAccountService($accountService);
     }
 
     public function ajaxAction()
@@ -46,8 +50,10 @@ class ProductsJsonController extends AbstractActionController
         $productsArray = [];
         try {
             $products = $this->getProductService()->fetchProducts($requestFilter);
+            $accounts = $this->getAccountsIndexedById($requestFilter->getOrganisationUnitId());
+
             foreach ($products as $product) {
-                $productsArray[] = $this->toArrayProductEntityWithEmbeddedData($product);
+                $productsArray[] = $this->toArrayProductEntityWithEmbeddedData($product, $accounts);
             }
         } catch(NotFound $e) {
             //noop
@@ -55,17 +61,28 @@ class ProductsJsonController extends AbstractActionController
         return $view->setVariable('products', $productsArray);
     }
 
-    protected function toArrayProductEntityWithEmbeddedData(ProductEntity $productEntity)
+    protected function getAccountsIndexedById($organisationUnitIds)
+    {
+        $accounts = $this->getAccountService()->fetchByOU($organisationUnitIds);
+        $indexedAccounts = [];
+        foreach($accounts as $account) {
+            $indexedAccounts[$account->getId()] = $account->toArray();
+        }
+        return $indexedAccounts;
+    }
+
+    protected function toArrayProductEntityWithEmbeddedData(ProductEntity $productEntity, $accounts)
     {
         $product = $productEntity->toArray();
 
         $product = array_merge($product, [
             'images' => $productEntity->getImages()->toArray(),
-            'listings' => $productEntity->getListings()->toArray()
+            'listings' => $productEntity->getListings()->toArray(),
+            'accounts' => $accounts
         ]);
 
         foreach ($productEntity->getVariations() as $variation) {
-            $product['variations'][] = $this->toArrayProductEntityWithEmbeddedData($variation);
+            $product['variations'][] = $this->toArrayProductEntityWithEmbeddedData($variation, $accounts);
         }
 
         if (!$productEntity->getStock() || count($productEntity->getVariations())) {
@@ -157,6 +174,17 @@ class ProductsJsonController extends AbstractActionController
     protected function setTranslator(Translator $translator)
     {
         $this->translator = $translator;
+        return $this;
+    }
+
+    protected function getAccountService()
+    {
+        return $this->accountService;
+    }
+
+    public function setAccountService(AccountService $accountService)
+    {
+        $this->accountService = $accountService;
         return $this;
     }
 }
