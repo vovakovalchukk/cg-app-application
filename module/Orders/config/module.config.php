@@ -27,6 +27,7 @@ use CG\Order\Client\Tracking\Storage\Api as TrackingStorageApi;
 use CG\Order\Service\Tracking\Service as TrackingService;
 use CG\Account\Client\Storage\Api as AccountStorageApi;
 use Orders\Order\Invoice\ProgressStorage as OrderInvoiceProgressStorage;
+use Orders\Order\PickList\ProgressStorage as OrderPickListProgressStorage;
 
 return [
     'router' => [
@@ -459,16 +460,48 @@ return [
                             ],
                         ]
                     ],
-                    'pickList' => [
+                    'pick_list' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [
-                            'route' => '/pickList',
+                            'route' => '/picklist',
                             'defaults' => [
                                 'controller' => BulkActionsController::class,
                                 'action' => 'pickListOrderIds'
                             ]
                         ],
-                        'may_terminate' => true
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            'filterId' => [
+                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                'options' => [
+                                    'route' => '/:filterId',
+                                    'constraints' => [
+                                        'filterId' => '[^/]+'
+                                    ],
+                                    'defaults' => [
+                                        'action' => 'pickListFilterId',
+                                    ]
+                                ]
+                            ],
+                            'pick_list_check' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/check',
+                                    'defaults' => [
+                                        'action' => 'checkPickListPrintingAllowed'
+                                    ]
+                                ]
+                            ],
+                            'pick_list_progress' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/progress',
+                                    'defaults' => [
+                                        'action' => 'checkPickListGenerationProgress'
+                                    ]
+                                ]
+                            ]
+                        ]
                     ],
                     StoredFiltersController::ROUTE_SAVE => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
@@ -958,6 +991,11 @@ return [
                 ]
             ],
             OrderInvoiceProgressStorage::class => [
+                'parameters' => [
+                    'predis' => 'unreliable_redis'
+                ]
+            ],
+            OrderPickListProgressStorage::class => [
                 'parameters' => [
                     'predis' => 'unreliable_redis'
                 ]

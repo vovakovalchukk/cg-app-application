@@ -16,6 +16,7 @@ use Orders\Controller\BulkActions\RuntimeException;
 use Orders\Order\Batch\Service as BatchService;
 use Orders\Order\Exception\MultiException;
 use Orders\Order\Invoice\Service as InvoiceService;
+use Orders\Order\PickList\Service as PickListService;
 use Settings\Module as Settings;
 use Settings\Controller\InvoiceController as InvoiceSettings;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -31,6 +32,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected $jsonModelFactory;
     protected $orderService;
     protected $invoiceService;
+    protected $pickListService;
     protected $batchService;
     protected $usageService;
     protected $typeMap = [
@@ -42,6 +44,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         JsonModelFactory $jsonModelFactory,
         OrderService $orderService,
         InvoiceService $invoiceService,
+        PickListService $pickListService,
         BatchService $batchService,
         UsageService $usageService
     ) {
@@ -49,6 +52,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             ->setJsonModelFactory($jsonModelFactory)
             ->setOrderService($orderService)
             ->setInvoiceService($invoiceService)
+            ->setPickListService($pickListService)
             ->setBatchService($batchService)
             ->setUsageService($usageService);
     }
@@ -102,6 +106,20 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     }
 
     /**
+     * @return PickListService
+     */
+    protected function getPickListService()
+    {
+        return $this->pickListService;
+    }
+
+    public function setPickListService(PickListService $pickListService)
+    {
+        $this->pickListService = $pickListService;
+        return $this;
+    }
+
+    /**
      * @return BatchService
      */
     public function getBatchService()
@@ -143,9 +161,9 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         return $this->params()->fromRoute('filterId', '');
     }
 
-    protected function getProgressKey()
+    protected function getInvoiceProgressKey()
     {
-        return $this->params()->fromPost('progressKey', null);
+        return $this->params()->fromPost('invoiceProgressKey', null);
     }
 
     protected function getOrdersFromOrderIds($orderBy = null, $orderDir = null)
@@ -209,7 +227,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     {
         try {
             $orders = $this->getOrdersFromOrderIds($orderBy, $orderDir);
-            $progressKey = $this->getProgressKey();
+            $progressKey = $this->getInvoiceProgressKey();
             return $this->markOrdersAsPrinted($orders)->invoiceOrders($orders, null, $progressKey);
         } catch (NotFound $exception) {
             return $this->redirect()->toRoute('Orders');
@@ -224,7 +242,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function invoiceFilterIdAction($orderBy = null, $orderDir = 'ASC')
     {
         try {
-            $progressKey = $this->getProgressKey();
+            $progressKey = $this->getInvoiceProgressKey();
             return $this->invoiceOrders(
                 $this->getOrdersFromFilterId($orderBy, $orderDir), null, $progressKey
             );
@@ -283,7 +301,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     public function checkInvoiceGenerationProgressAction()
     {
-        $progressKey = $this->getProgressKey();
+        $progressKey = $this->getInvoiceProgressKey();
         $count = $this->getInvoiceService()->checkInvoiceGenerationProgress($progressKey);
         return $this->getJsonModelFactory()->newInstance(
             ["progressCount" => $count]
@@ -458,7 +476,48 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     public function pickListOrderIdsAction($orderBy = null, $orderDir = 'ASC')
     {
-        
+        try {
+            $orders = $this->getOrdersFromOrderIds($orderBy, $orderDir);
+            $progressKey = $this->getPickListProgressKey();
+            return $this->pickListOrders($orders, $progressKey);
+        } catch (NotFound $exception) {
+            return $this->redirect()->toRoute('Orders');
+        }
+    }
+
+    public function pickListFilterIdAction($orderBy = null, $orderDir = 'ASC')
+    {
+        try {
+            $orders = $this->getOrdersFromFilterId($orderBy, $orderDir);
+            $progressKey = $this->getPickListProgressKey();
+            return $this->pickListOrders($orders, $progressKey);
+        } catch (NotFound $exception) {
+            return $this->redirect()->toRoute('Orders');
+        }
+    }
+
+    public function pickListOrders(OrderCollection $orders, $progressKey = null)
+    {
+        return $this->getPickListService()->getResponseFromOrderCollection($orders, $progressKey);
+    }
+
+    public function checkPickListPrintingAllowedAction()
+    {
+        return $this->checkInvoicePrintingAllowedAction();
+    }
+
+    public function checkPickListGenerationProgressAction()
+    {
+        $progressKey = $this->getPickListProgressKey();
+        $count = $this->getPickListService()->checkPickListGenerationProgress($progressKey);
+        return $this->getJsonModelFactory()->newInstance(
+            ["progressCount" => $count]
+        );
+    }
+
+    protected function getPickListProgressKey()
+    {
+        return $this->params()->fromPost('pickListProgressKey', null);
     }
 
     protected function checkUsage()

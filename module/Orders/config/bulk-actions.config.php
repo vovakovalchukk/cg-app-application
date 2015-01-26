@@ -75,11 +75,11 @@ return [
                 'injections' => [
                     'addAction' => [
                         ['action' => Action\Invoice::class],
+                        ['action' => Action\PickList::class],
                         ['action' => Action\Dispatch::class],
                         ['action' => Action\Tag::class],
                         ['action' => Action\Batch::class],
-                        ['action' => Action\Archive::class],
-                        ['action' => Action\PickList::class]
+                        ['action' => Action\Archive::class]
                     ],
                 ],
             ],

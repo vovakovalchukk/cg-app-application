@@ -24,7 +24,7 @@ define(function() {
         };
     };
 
-    InvoiceBulkAction.MIN_INVOICES_FOR_NOTIFICATION = 7;
+    InvoiceBulkAction.MIN_ORDERS_FOR_NOTIFICATION = 7;
     InvoiceBulkAction.NOTIFICATION_FREQ_MS = 5000;
 
     InvoiceBulkAction.prototype.notifyTimeoutHandle = null;
@@ -59,7 +59,7 @@ define(function() {
 
     InvoiceBulkAction.prototype.getFormElement = function(orders)
     {
-        var form = $("<form><input name='progressKey' value='' /></form>").attr("action", this.getUrl()).attr("method", "POST").hide();
+        var form = $("<form><input name='invoiceProgressKey' value='' /></form>").attr("action", this.getUrl()).attr("method", "POST").hide();
         for (var index in orders) {
             form.append(function() {
                 return $("<input />").attr("name", "orders[]").val(orders[index]);
@@ -90,12 +90,12 @@ define(function() {
                 }
                 this.getNotifications().notice(this.getMessage(), true);
 
-                if (orderCount >= InvoiceBulkAction.MIN_INVOICES_FOR_NOTIFICATION) {
+                if (orderCount >= InvoiceBulkAction.MIN_ORDERS_FOR_NOTIFICATION) {
                     this.notifyTimeoutHandle = this.setupProgressCheck(orderCount, data.guid);
                 }
 
                 var form = this.getFormElement(orders);
-                form.find('input[name=progressKey]').val(data.guid);
+                form.find('input[name=invoiceProgressKey]').val(data.guid);
                 $("body").append(form);
                 form.submit().remove();
             },
@@ -115,7 +115,7 @@ define(function() {
                 context: self,
                 url: '/orders/invoice/progress',
                 type: "POST",
-                data: {progressKey: progressKey},
+                data: {"invoiceProgressKey": progressKey},
                 dataType: 'json',
                 success : function(data) {
                     if (!data.hasOwnProperty('progressCount')) {
