@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ad400ed969fcdfa0020999f440d8ffca",
+    "hash": "9a308f42e1331040006693eb11202db9",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2406,17 +2406,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.14.38",
+            "version": "dev-QA",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e2f64a7d170b2b85d04bc8477f900ab6a522854e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.38-bae070.zip",
-                "reference": "e2f64a7d170b2b85d04bc8477f900ab6a522854e",
-                "shasum": "2eacdc7092a91d39ac0c82eeb874c92a49a6a9f7"
+                "reference": "c812be75e8579064a71bf00600d8b0f4c9e49bd8"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2458,7 +2452,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-01-27 13:09:24"
+            "time": "2015-01-27 15:41:04"
         },
         {
             "name": "cilex/cilex",
@@ -5685,9 +5679,9 @@
     ],
     "aliases": [
         {
-            "alias": "1.14.36",
-            "alias_normalized": "1.14.36.0",
-            "version": "dev-CGIV-4638-AddLinktoLogo",
+            "alias": "1.14.38",
+            "alias_normalized": "1.14.38.0",
+            "version": "dev-QA",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
