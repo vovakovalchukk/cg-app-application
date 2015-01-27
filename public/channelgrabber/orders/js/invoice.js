@@ -1,131 +1,42 @@
-define(function() {
-    var InvoiceBulkAction = function(notifications, message)
-    {
-        var element;
-
-        this.getElement = function ()
-        {
-            return $(element);
-        };
-
-        this.setElement = function(newElement)
-        {
-            element = newElement;
-        };
-
-        this.getNotifications = function()
-        {
-            return notifications;
-        };
-
-        this.getMessage = function()
-        {
-            return message;
-        };
+define(['ProgressCheckAbstract'],
+    function(ProgressCheckAbstract) {
+    var InvoiceBulkAction = function(
+        notifications,
+        startMessage,
+        progressMessage,
+        endMessage
+    ) {
+        ProgressCheckAbstract.call(this, notifications, startMessage, progressMessage, endMessage);
     };
 
     InvoiceBulkAction.MIN_INVOICES_FOR_NOTIFICATION = 7;
     InvoiceBulkAction.NOTIFICATION_FREQ_MS = 5000;
 
-    InvoiceBulkAction.prototype.notifyTimeoutHandle = null;
+    InvoiceBulkAction.prototype = Object.create(ProgressCheckAbstract.prototype);
 
-    InvoiceBulkAction.prototype.getDataTableElement = function()
+    InvoiceBulkAction.prototype.getParam = function()
     {
-        var dataTable = this.getElement().data("datatable");
-        if (!dataTable) {
-            return $();
-        }
-        return $("#" + dataTable);
+        return "invoiceProgressKey"
     };
 
-    InvoiceBulkAction.prototype.getOrders = function()
+    InvoiceBulkAction.prototype.getCheckUrl = function()
     {
-        var orders = this.getElement().data("orders");
-        if (orders) {
-            return orders;
-        }
-        return this.getDataTableElement().cgDataTable("selected", ".checkbox-id");
+        return "/orders/invoice/check";
     };
 
-    InvoiceBulkAction.prototype.getFilterId = function()
+    InvoiceBulkAction.prototype.getProgressUrl = function()
     {
-        return this.getDataTableElement().data("filterId");
+        return "/orders/invoice/progress";
     };
 
-    InvoiceBulkAction.prototype.getUrl = function()
+    InvoiceBulkAction.prototype.getMinOrders = function()
     {
-        return this.getElement().data("url") || "";
+        return InvoiceBulkAction.MIN_INVOICES_FOR_NOTIFICATION;
     };
 
-    InvoiceBulkAction.prototype.action = function(event)
+    InvoiceBulkAction.prototype.getFreq = function()
     {
-        var orders = this.getOrders();
-        if (!orders.length) {
-            return;
-        }
-        var orderCount = orders.length;
-
-        var fadeOut = true;
-        this.getNotifications().notice('Preparing to generate invoices', fadeOut);
-
-        $.ajax({
-            context: this,
-            url: '/orders/invoice/check',
-            type: "POST",
-            dataType: 'json',
-            success : function(data) {
-                if (!data.allowed) {
-                    return this.getNotifications().error('You do not have permission to do that');
-                }
-                this.getNotifications().notice(this.getMessage(), true);
-
-                if (orderCount >= InvoiceBulkAction.MIN_ORDERS_FOR_NOTIFICATION) {
-                    this.notifyTimeoutHandle = this.setupProgressCheck(orderCount, data.guid);
-                }
-
-                var form = this.getFormElement(orders);
-                form.find('input[name=invoiceProgressKey]').val(data.guid);
-                $("body").append(form);
-                form.submit().remove();
-            },
-            error: function(error, textStatus, errorThrown) {
-                return this.getNotifications().ajaxError(error, textStatus, errorThrown);
-            }
-        });
-    };
-
-    InvoiceBulkAction.prototype.setupProgressCheck = function(total, progressKey)
-    {
-        var self = this;
-
-        return setInterval(function()
-        {
-            $.ajax({
-                context: self,
-                url: '/orders/invoice/progress',
-                type: "POST",
-                data: {"invoiceProgressKey": progressKey},
-                dataType: 'json',
-                success : function(data) {
-                    if (!data.hasOwnProperty('progressCount')) {
-                        return;
-                    }
-
-                    var fadeOut = false;
-                    this.getNotifications().notice('Generated ' + data.progressCount + ' of ' + total, fadeOut);
-
-                    if (data.progressCount == total) {
-                        clearTimeout(this.notifyTimeoutHandle);
-                        fadeOut = true;
-                        this.getNotifications().success('Finished generating invoices', fadeOut);
-                    }
-                },
-                error: function(error, textStatus, errorThrown) {
-                    clearTimeout(this.notifyTimeoutHandle);
-                    return this.getNotifications().ajaxError(error, textStatus, errorThrown);
-                }
-            });
-        }, InvoiceBulkAction.NOTIFICATION_FREQ_MS);
+        return InvoiceBulkAction.NOTIFICATION_FREQ_MS;
     };
 
     return InvoiceBulkAction;
