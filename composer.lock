@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6d6ae1d0d82e6028690e2fcd458e016b",
+    "hash": "d394b2722cfeff0749e2c46101c42826",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -66,7 +66,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.7.2-ced1d8.zip",
                 "reference": "976631b2c6a357857c1feff3b6587b1bab133ca9",
-                "shasum": "70cfb6810ce1f5c4027d3ddc41583c3abbdd7382"
+                "shasum": "785600c20d8a55a30861b532d6658bb93bfa5dbc"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -249,7 +249,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cilex-1.1.0.2-dc8d2a.zip",
                 "reference": "22b62f8a1ae0f7a3060a691db38eeead4c3bdccc",
-                "shasum": "550338c14ec286d5cf1da491e547059340e606c6"
+                "shasum": "aeee5f74c5a4f3b8543874fb87780e9f942cd0c9"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
@@ -590,13 +590,6 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -1183,7 +1176,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.3.0.1-8dfd79.zip",
                 "reference": "9c1028b5ac31eb5108f63f838f23580f2f41b917",
-                "shasum": "10b5209f123e1f47b43b103ef1bbb57c249463a4"
+                "shasum": "815fb8ba3d0ac4c280494b2c013101e9bd8876ec"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -1655,7 +1648,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-validation-1.2.6-75ca55.zip",
                 "reference": "d65d58baa2d23c5a8ec920b42bba95d5bdf4dc5f",
-                "shasum": "edd14fd5ff38092ab7784ebed3eaf96c3eab0b38"
+                "shasum": "6235b73fddc292d5edd1d9a09f293012281afc3c"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
@@ -2263,7 +2256,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-sessions-1.1.0-9f916d.zip",
                 "reference": "610e35f41fd4474d1974e2fb9af9bf8d21cccf10",
-                "shasum": "08e9d6f89171b180f8474f0456bf72400fe17d42"
+                "shasum": "7d4c0fe0c1663caa97fd2664292a213e2627a10f"
             },
             "require": {
                 "channelgrabber/di": ">=2.1.0",
@@ -2413,17 +2406,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.14.37",
+            "version": "dev-CGIV-4638-AddLinktoLogo",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "6f57c3c25e46af6648150a775f8abc23a67ff6a7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.37-724069.zip",
-                "reference": "6f57c3c25e46af6648150a775f8abc23a67ff6a7",
-                "shasum": "76b7f30ce4daa9040d601c48b623e241909ae171"
+                "reference": "821e1decdf9151b3664085fbfa3a19444099af4e"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2465,7 +2452,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-01-21 16:18:41"
+            "time": "2015-01-22 10:19:35"
         },
         {
             "name": "cilex/cilex",
@@ -3341,7 +3328,9 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -3473,7 +3462,8 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com"
+                    "homepage": "http://benramsey.com",
+                    "role": "Developer"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
@@ -4257,16 +4247,16 @@
         },
         {
             "name": "whichbrowser/whichbrowser",
-            "version": "v1.0.1015",
+            "version": "v1.0.1016",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WhichBrowser/WhichBrowser.git",
-                "reference": "ad50325f812b292cd1ac5eba0e095720921826ff"
+                "reference": "6999fcc77855edf22d9fdac14db96989debedb24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WhichBrowser/WhichBrowser/zipball/ad50325f812b292cd1ac5eba0e095720921826ff",
-                "reference": "ad50325f812b292cd1ac5eba0e095720921826ff",
+                "url": "https://api.github.com/repos/WhichBrowser/WhichBrowser/zipball/6999fcc77855edf22d9fdac14db96989debedb24",
+                "reference": "6999fcc77855edf22d9fdac14db96989debedb24",
                 "shasum": ""
             },
             "require": {
@@ -4290,7 +4280,7 @@
                 "browser",
                 "useragent"
             ],
-            "time": "2015-01-25 19:48:48"
+            "time": "2015-01-27 11:09:27"
         },
         {
             "name": "zendframework/zendframework",
@@ -4455,9 +4445,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packages.zendframework.com/composer/zendframework-zendxml-559b34f426d33a11c3db118e00ce14bb8dc64e5f-zip-6cf7a2.zip",
-                "reference": "1.0.0",
-                "shasum": "39abc614b5c26bcbf8102e203c52dee73c4460a8"
+                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
+                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
@@ -4477,6 +4467,7 @@
                     "ZendXml": "library/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -4487,10 +4478,6 @@
                 "xml",
                 "zf2"
             ],
-            "support": {
-                "source": "https://github.com/zendframework/ZendXml/tree/master",
-                "issues": "https://github.com/zendframework/ZendXml/issues"
-            },
             "time": "2014-03-05 22:25:44"
         },
         {
@@ -4985,7 +4972,7 @@
                 {
                     "name": "Anthon Pang",
                     "email": "apang@softwaredevelopment.ca",
-                    "role": "Fork Maintainer"
+                    "role": "developer"
                 }
             ],
             "description": "PHP WebDriver for Selenium 2",
@@ -5146,7 +5133,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
