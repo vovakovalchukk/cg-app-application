@@ -10,6 +10,10 @@ use CG\Order\Client\Note\Storage\Api as NoteApi;
 use CG\Order\Service\UserChange\Service as UserChangeService;
 use CG\Order\Client\UserChange\Storage\Api as UserChangeApi;
 use CG\Order\Client\Storage\Api as OrderApi;
+use CG\Product\Service\Service as ProductService;
+use CG\Product\Storage\Api as ProductApiStorage;
+use CG\Settings\PickList\Service as PickListSettingsService;
+use CG\Settings\PickList\Storage\Api as PickListSettingsApiStorage;
 use Zend\View\Model\ViewModel;
 use Orders\Order\Service as OrderService;
 use CG\Http\Rpc\Json\Client as JsonRpcClient;
@@ -998,6 +1002,26 @@ return [
             OrderPickListProgressStorage::class => [
                 'parameters' => [
                     'predis' => 'unreliable_redis'
+                ]
+            ],
+            ProductApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
+            ProductService::class => [
+                'parameters' => [
+                    'repository' => ProductApiStorage::class
+                ]
+            ],
+            PickListSettingsApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
+            PickListSettingsService::class => [
+                'parameters' => [
+                    'repository' => PickListSettingsApiStorage::class
                 ]
             ]
         ],
