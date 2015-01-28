@@ -10,8 +10,12 @@ use CG\Product\Service\Service as ProductService;
 use CG\Product\Collection as ProductCollection;
 use CG\Product\Filter as ProductFilter;
 use CG\Product\Entity as Product;
+use CG\Image\Entity as Image;
+use CG\Template\Element\Image as ImageElement;
 use CG\Settings\PickList\Service as PickListSettingsService;
 use CG\Settings\PickList\Entity as PickListSettings;
+use CG\Settings\Picklist\SortValidator;
+use CG\PickList\Entity as PickList;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -47,70 +51,129 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function getResponseFromOrderCollection(OrderCollection $orderCollection, $progressKey = null)
     {
+        $pickListSettings = $this->getPickListSettings();
+        list($itemsBySku, $itemsByTitle) = $this->aggregateItems($orderCollection, $pickListSettings);
+
+        $products = $this->getProductsForSkus(array_keys($itemsBySku));
+
+        $pickListEntries = $this->convertToPickList($itemsBySku, $itemsByTitle, $products);
+
+        $pickListEntries = $this->sortEntries(
+            $pickListEntries,
+            SortValidator::getSortFieldsNames()[$pickListSettings->getSortField()],
+            $pickListSettings->getSortDirection() === SortValidator::SORT_DIRECTION_ASC
+        );
+
+        $this->logDebugDump($pickListEntries, 'Pick List', [], 'PICK LIST');
+        throw new NotFound();
         return null;
     }
 
-    protected function filterItems(OrderCollection $orderCollection, $skuless = false)
+
+    protected function aggregateItems(OrderCollection $orders, PickListSettings $pickListSettings)
     {
-        $items = new ItemCollection(Item::class, __FUNCTION__, []);
-        $skus = [];
-        $titles = [];
+        $itemsBySku = [];
+        $itemsByTitle = [];
 
         /** @var Order $order */
-        foreach($orderCollection as $order) {
+        foreach($orders as $order) {
             if($order->getItems()->count() !== 0) {
                 /** @var Item $item */
                 foreach($order->getItems() as $item) {
-                    if($skuless === true && ($item->getItemSku() === null || $item->getItemSku() === '')) {
-                        $items->attach($item);
-                        $titles[$item->getItemName()][] = $item->getId();
-                    } else {
-                        $skus[$item->getItemSku()][] = $item->getId();
-                        $items->attach($item);
+                    if($pickListSettings->getShowSkuless() === true && ($item->getItemSku() === null || $item->getItemSku() === '')) {
+                        $itemsByTitle[$item->getItemName()][] = $item;
+                    } elseif ($item->getItemSku() !== null && $item->getItemSku() !== '') {
+                        $itemsBySku[$item->getItemSku()][] = $item;
                     }
                 }
             }
         }
 
-        $products = $this->getProductsForSkus(array_keys($skus));
-        /** @var Product $product */
-
-        return [$items, $products];
+        return [$itemsBySku, $itemsByTitle];
     }
 
-    protected function aggregateItems(array $itemsIdsBySku, array $itemsIdsByTitle, ItemCollection $items, ProductCollection $products)
+    protected function convertToPickList(array $itemsBySku, array $itemsByTitle, ProductCollection $products)
     {
         $pickListEntries = [];
-        foreach($itemsIdsBySku as $sku => $itemsIds) {
+        foreach($itemsBySku as $sku => $matchingItems) {
             $productCollection = $products->getBy('sku', $sku);
             $productCollection->rewind();
             $matchingProduct = $productCollection->current();
-            $matchingItems = $items->getBy('id', $itemsIds);
+
             /** @var Product $matchingProduct */
             if($matchingProduct === null) {
                 $description = $this->getMostDescriptiveItemDetails($matchingItems);
                 $title = $description['title'];
-                $variation = implode("\n", $description['variationAttributes']);
+                $variation = $this->formatAttributes($description['variationAttributes']);
+                $image = null;
             } else {
-                $title = $matchingProduct->getName();
-                $variation = $this->mergeProductVariationAttributes($matchingProduct);
+                if(($matchingProduct->getName() === '' || $matchingProduct->getName() === null)
+                    && $matchingProduct->getParentProductId() !== 0
+                ) {
+                    $parentProduct = $this->getProductService()->fetch($matchingProduct->getParentProductId());
+                    $title = $parentProduct->getName();
+                } else {
+                    $title = $matchingProduct->getName();
+                }
+                $variation = $this->formatAttributes($matchingProduct->getAttributeValues());
+                $image = null;
+                if($matchingProduct->getImages() !== null && $matchingProduct->getImages()->count() !== 0) {
+                    $matchingProduct->getImages()->rewind();
+                    $image = $this->convertImageToTemplateElement($matchingProduct->getImages()->current());
+                }
             }
 
-            $pickListEntries[] = [
-                'title' => $title,
-                'variation' => $variation,
-                'quantity' => $this->sumQuantities($matchingItems),
-                'sku' => $sku,
-                'image' => '' //TODO
-            ];
+            $pickListEntries[] = new PickList(
+                $title,
+                $this->sumQuantities($matchingItems),
+                $sku,
+                $variation,
+                $image
+            );
         }
+
+        foreach($itemsByTitle as $title => $matchingItems) {
+            $pickListEntries[] = new PickList(
+                $title,
+                $this->sumQuantities($matchingItems),
+                '',
+                $this->formatAttributes($this->getMostDescriptiveItemDetails($matchingItems)['variationAttributes']),
+                null
+            );
+        }
+
+        return $pickListEntries;
     }
 
-    protected function getMostDescriptiveItemDetails(ItemCollection $matchingItems)
+    protected function sortEntries(array $pickListEntries, $field, $ascending = true)
     {
-        $matchingItems->rewind();
-        $bestTitle= $matchingItems->current()->getItemName();
-        $bestVariationAttributes = $matchingItems->current()->getItemVariationAttribute();
+        uasort($pickListEntries, function($a, $b) use ($field, $ascending) {
+            $getter = 'get' . ucfirst(strtolower($field));
+            $directionChanger = ($ascending === false) ? -1 : 1;
+
+            if(is_string($a->$getter())) {
+                return $directionChanger * strcasecmp($a->$getter(), $b->$getter());
+            }
+
+            return $directionChanger * ($a->$getter() - $b->$getter());
+        });
+
+        return $pickListEntries;
+    }
+
+    protected function formatAttributes(array $attributes)
+    {
+        $mergedKeyVals = [];
+        foreach($attributes as $attribute => $value) {
+            $mergedKeyVals[] = $attribute . ': ' . $value;
+        }
+        return implode("\n", $mergedKeyVals);
+    }
+
+    protected function getMostDescriptiveItemDetails(array $matchingItems)
+    {
+        $bestTitle= $matchingItems[0]->getItemName();
+        $bestVariationAttributes = $matchingItems[0]->getItemVariationAttribute();
 
         foreach($matchingItems as $item) {
             /** @var Item $item */
@@ -128,7 +191,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         ];
     }
 
-    protected function sumQuantities(ItemCollection $items)
+    protected function sumQuantities(array $items)
     {
         $sum = 0;
         foreach ($items as $item) {
@@ -137,40 +200,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $sum;
     }
 
-    protected function mergeProductVariationAttributes($matchingProduct)
+    protected function convertImageToTemplateElement(Image $image)
     {
-        return [];
-    }
-
-    protected function convertItemsToArray(ItemCollection $items)
-    {
-        $pickListEntries = [];
-        /** @var Item $item */
-        foreach($items as $item) {
-            $pickListEntries[] = [
-                "title" => $item->getItemName(),
-                "quantity" => $item->getItemQuantity(),
-                "sku" => $item->getItemSku(),
-                "variation" => $item->getItemVariationAttribute(),
-                "image" => ''
-            ];
-        }
-        return $pickListEntries;
-    }
-
-    protected function convertProductsToArray(ProductCollection $products)
-    {
-        $pickListEntries = [];
-        /** @var Product $product */
-        foreach($products as $product) {
-            $pickListEntries[] = [
-                "title" => $product->getName(),
-                "quantity" => 0, //TODO
-                "sku" => $product->getSku(),
-                "variation" => $product->getVariations(), //TODO
-                "image" => ''
-            ];
-        }
+        return new ImageElement(
+            base64_encode(file_get_contents($image->getUrl())),
+            strtolower(array_pop(explode('.', $image->getUrl())))
+        );
     }
 
     protected function getProductsForSkus(array $skus)
@@ -183,6 +218,11 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         } catch (NotFound $e) {
             return new ProductCollection(Product::class, __FUNCTION__, ['sku' => $skus]);
         }
+    }
+
+    protected function getParentProduct(Product $product)
+    {
+
     }
 
     public function checkPickListGenerationProgress($key)
