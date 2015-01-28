@@ -52,11 +52,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     public function getResponseFromOrderCollection(OrderCollection $orderCollection, $progressKey = null)
     {
         $pickListSettings = $this->getPickListSettings();
-        list($itemsBySku, $itemsByTitle) = $this->aggregateItems($orderCollection, $pickListSettings);
+
+        list($itemsBySku, $itemsByTitle) = $this->aggregateItems($orderCollection, $pickListSettings->getShowSkuless());
 
         $products = $this->getProductsForSkus(array_keys($itemsBySku));
 
-        $pickListEntries = $this->convertToPickList($itemsBySku, $itemsByTitle, $products);
+        $pickListEntries = $this->convertToPickList($itemsBySku, $itemsByTitle, $products, $pickListSettings->getShowPictures());
 
         $pickListEntries = $this->sortEntries(
             $pickListEntries,
@@ -70,7 +71,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     }
 
 
-    protected function aggregateItems(OrderCollection $orders, PickListSettings $pickListSettings)
+    protected function aggregateItems(OrderCollection $orders, $includeSkuless = false)
     {
         $itemsBySku = [];
         $itemsByTitle = [];
@@ -80,7 +81,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             if($order->getItems()->count() !== 0) {
                 /** @var Item $item */
                 foreach($order->getItems() as $item) {
-                    if($pickListSettings->getShowSkuless() === true && ($item->getItemSku() === null || $item->getItemSku() === '')) {
+                    if($includeSkuless === true && ($item->getItemSku() === null || $item->getItemSku() === '')) {
                         $itemsByTitle[$item->getItemName()][] = $item;
                     } elseif ($item->getItemSku() !== null && $item->getItemSku() !== '') {
                         $itemsBySku[$item->getItemSku()][] = $item;
@@ -92,9 +93,10 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return [$itemsBySku, $itemsByTitle];
     }
 
-    protected function convertToPickList(array $itemsBySku, array $itemsByTitle, ProductCollection $products)
+    protected function convertToPickList(array $itemsBySku, array $itemsByTitle, ProductCollection $products, $includeImages = true)
     {
         $pickListEntries = [];
+
         foreach($itemsBySku as $sku => $matchingItems) {
             $productCollection = $products->getBy('sku', $sku);
             $productCollection->rewind();
@@ -117,7 +119,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
                 }
                 $variation = $this->formatAttributes($matchingProduct->getAttributeValues());
                 $image = null;
-                if($matchingProduct->getImages() !== null && $matchingProduct->getImages()->count() !== 0) {
+                if($includeImages === true && $matchingProduct->getImages() !== null && $matchingProduct->getImages()->count() !== 0) {
                     $matchingProduct->getImages()->rewind();
                     $image = $this->convertImageToTemplateElement($matchingProduct->getImages()->current());
                 }
