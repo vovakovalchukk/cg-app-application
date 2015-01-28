@@ -21,7 +21,7 @@
         "channelgrabber/http": "dev-CGIV-4676-ImproveSourceAppId as 1.2.29",
         "channelgrabber/listing": "~1.4.3",
         "channelgrabber/location": "~1.1.1",
-        "channelgrabber/log": "~2.0.7",
+        "channelgrabber/log": "dev-CGIV-4676-ImproveSourceAppId as 2.0.13",
         "channelgrabber/order": "~1.15.0",
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/phinx": "~0.3.2.3",
