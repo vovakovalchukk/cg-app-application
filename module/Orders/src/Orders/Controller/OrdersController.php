@@ -136,6 +136,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             $this->getViewModelFactory()->newInstance()->setTemplate('orders/orders/bulk-actions/order'),
             'afterActions'
         );
+        $statusTemplate = $this->getStatus($order->getStatus());
+
+        $view->addChild($statusTemplate, 'status');
         $view->addChild($bulkActions, 'bulkActions');
         $view->addChild($this->getTimelineBoxes($order), 'timelineBoxes');
         $view->addChild($this->getOrderService()->getOrderItemTable($order), 'productPaymentTable');
@@ -146,6 +149,16 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->setVariable('carriers', $carriers);
         $view->addChild($this->getCarrierSelect(), 'carrierSelect');
         return $view;
+    }
+
+    protected function getStatus($statusText)
+    {
+        $status = $this->getViewModelFactory()->newInstance();
+        $status->setTemplate("columns/status.mustache");
+        $status->setVariable('status', $statusText);
+        $status->setVariable('statusClass', str_replace(' ', '-', $statusText));
+
+        return $status;
     }
 
     protected function getCarrierSelect()
