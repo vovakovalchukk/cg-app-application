@@ -610,7 +610,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cghttp.git",
-                "reference": "e6d67e60c6c0ce0e7b56f2a1507eeb4548e9c1d4"
+                "reference": "10ff3197482ce43a52506f415048f4c8366d0d6f"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
@@ -628,7 +628,7 @@
                     "CG\\Http\\": "src"
                 }
             },
-            "time": "2015-01-28 13:19:40"
+            "time": "2015-01-28 13:39:04"
         },
         {
             "name": "channelgrabber/image",
