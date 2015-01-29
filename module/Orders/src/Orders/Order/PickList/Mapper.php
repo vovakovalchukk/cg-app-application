@@ -121,8 +121,8 @@ class Mapper
 
     protected function searchProductTitle(Product $product)
     {
-        if(($product->getName() === '' || $product->getName() === null)
-            && $product->getParentProductId() !== 0
+        if($product->getParentProductId() !== 0 &&
+            ($product->getName() === '' || $product->getName() === null)
         ) {
             $parentProduct = $this->getProductService()->fetch($product->getParentProductId());
             return $parentProduct->getName();
