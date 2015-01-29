@@ -38,6 +38,8 @@ use CG\Settings\Alias\Storage\Api as ShippingAliasStorage;
 use CG\Order\Client\Tracking\Storage\Api as TrackingStorageApi;
 use CG\Order\Service\Tracking\Service as TrackingService;
 use CG\Account\Client\Storage\Api as AccountStorageApi;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\OrganisationUnit\Storage\Api as OrganisationUnitApiStorage;
 use Orders\Order\Invoice\ProgressStorage as OrderInvoiceProgressStorage;
 use Orders\Order\PickList\ProgressStorage as OrderPickListProgressStorage;
 
@@ -1095,6 +1097,16 @@ return [
             PickListSettingsService::class => [
                 'parameters' => [
                     'repository' => PickListSettingsApiStorage::class
+                ]
+            ],
+            OrganisationUnitApiStorage::class => [
+                'parameters' => [
+                    'client' => 'directory_guzzle'
+                ]
+            ],
+            OrganisationUnitService::class => [
+                'parameters' => [
+                    'repository' => OrganisationUnitApiStorage::class
                 ]
             ]
         ],

@@ -1,11 +1,7 @@
 <?php
 namespace Orders\Order\PickList;
 
-use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection as OrderCollection;
-use CG\Order\Shared\Entity as Order;
-use CG\Order\Shared\Item\Collection as ItemCollection;
-use CG\Order\Shared\Item\Entity as Item;
 use CG\Product\Service\Service as ProductService;
 use CG\Product\Collection as ProductCollection;
 use CG\Product\Filter as ProductFilter;
@@ -13,6 +9,9 @@ use CG\Product\Entity as Product;
 use CG\Settings\PickList\Service as PickListSettingsService;
 use CG\Settings\PickList\Entity as PickListSettings;
 use CG\Settings\Picklist\SortValidator;
+use CG\PickList\Service as PickListService;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -26,20 +25,26 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     use StatsTrait;
 
     protected $productService;
+    protected $pickListService;
     protected $pickListSettingsService;
+    protected $organisationUnitService;
     protected $mapper;
     protected $progressStorage;
     protected $activeUserContainer;
 
     public function __construct(
-        PickListSettingsService $pickListSettingsService,
         ProductService $productService,
+        PickListService $pickListService,
+        PickListSettingsService $pickListSettingsService,
+        OrganisationUnitService $organisationUnitService,
         Mapper $mapper,
         ProgressStorage $progressStorage,
         ActiveUserContainer $activeUserContainer
     ) {
         $this->setProductService($productService)
+            ->setPickListService($pickListService)
             ->setPickListSettingsService($pickListSettingsService)
+            ->setOrganisationUnitService($organisationUnitService)
             ->setMapper($mapper)
             ->setProgressStorage($progressStorage)
             ->setActiveUserContainer($activeUserContainer);
@@ -49,8 +54,9 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     {
         $pickListEntries = $this->getPickListEntries($orderCollection);
         $this->logDebugDump($pickListEntries, 'Pick List', [], 'PICK LIST');
-        throw new NotFound();
-        return null;
+
+        $rendered = $this->getPickListService()->renderTemplate($pickListEntries, $this->getOrganisationUnit());
+        return new Response('application/pdf', 'picklist.pdf', $rendered);
     }
 
     public function checkPickListGenerationProgress($key)
@@ -62,13 +68,20 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     {
         $pickListSettings = $this->getPickListSettings();
 
-        list($itemsBySku, $itemsByTitle) = $this->aggregateItems($orderCollection, $pickListSettings->getShowSkuless());
+        $aggregator = new ItemAggregator($orderCollection, $pickListSettings->getShowSkuless());
+        $aggregator();
 
-        $products = $this->getProductsForSkus(array_keys($itemsBySku));
+        $products = $this->getProductsForSkus($aggregator->getSkus());
 
         $pickListEntries = array_merge(
-            $this->getMapper()->fromItemsAndProductsBySku($itemsBySku, $products, $pickListSettings->getShowPictures()),
-            $this->getMapper()->fromItemsByTitle($itemsByTitle)
+            $this->getMapper()->fromItemsAndProductsBySku(
+                $aggregator->getItemsIndexedBySku(),
+                $products,
+                $pickListSettings->getShowPictures()
+            ),
+            $this->getMapper()->fromItemsByTitle(
+                $aggregator->getItemsIndexedByTitle()
+            )
         );
 
         $pickListEntries = $this->getMapper()->sortEntries(
@@ -78,30 +91,6 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         );
 
         return $pickListEntries;
-    }
-
-    protected function aggregateItems(OrderCollection $orders, $includeSkuless = false)
-    {
-        $itemsBySku = [];
-        $itemsByTitle = [];
-
-        /** @var Order $order */
-        foreach($orders as $order) {
-            if($order->getItems()->count() === 0) {
-                continue;
-            }
-
-            foreach($order->getItems() as $item) {
-                /** @var Item $item */
-                if($includeSkuless === true && ($item->getItemSku() === null || $item->getItemSku() === '')) {
-                    $itemsByTitle[$item->getItemName()][] = $item;
-                } elseif ($item->getItemSku() !== null && $item->getItemSku() !== '') {
-                    $itemsBySku[$item->getItemSku()][] = $item;
-                }
-            }
-        }
-
-        return [$itemsBySku, $itemsByTitle];
     }
 
     protected function getProductsForSkus(array $skus)
@@ -122,6 +111,15 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             return;
         }
         $this->getProgressStorage()->setProgress($key, $count);
+    }
+
+    /**
+     * @return OrganisationUnit
+     */
+    protected function getOrganisationUnit()
+    {
+        $organisationUnitId = $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId();
+        return $this->getOrganisationUnitService()->fetch($organisationUnitId);
     }
 
     /**
@@ -166,6 +164,42 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     public function setPickListSettingsService(PickListSettingsService $pickListSettingsService)
     {
         $this->pickListSettingsService = $pickListSettingsService;
+        return $this;
+    }
+
+    /**
+     * @return PickListService
+     */
+    protected function getPickListService()
+    {
+        return $this->pickListService;
+    }
+
+    /**
+     * @param PickListService $pickListService
+     * @return $this
+     */
+    public function setPickListService(PickListService $pickListService)
+    {
+        $this->pickListService = $pickListService;
+        return $this;
+    }
+
+    /**
+     * @return OrganisationUnitService
+     */
+    protected function getOrganisationUnitService()
+    {
+        return $this->organisationUnitService;
+    }
+
+    /**
+     * @param OrganisationUnitService $organisationUnitService
+     * @return $this
+     */
+    public function setOrganisationUnitService(OrganisationUnitService $organisationUnitService)
+    {
+        $this->organisationUnitService = $organisationUnitService;
         return $this;
     }
 
