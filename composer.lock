@@ -1012,7 +1012,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-picklist.git",
-                "reference": "beccfb4d2f42c81d28006bbb60c35773618af6a9"
+                "reference": "0f675e4650b7de5de1cf0297b6e19f93c34310ee"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -1040,7 +1040,7 @@
                     "CG\\PickList\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-01-27 17:49:59"
+            "time": "2015-01-29 11:54:18"
         },
         {
             "name": "channelgrabber/predis",
@@ -1481,7 +1481,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "929513b574b90a67aeb6e8e2473ba9257726f682"
+                "reference": "5f87e6c30bdfd4c4dfb2709981470a7979b4056c"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -1511,7 +1511,7 @@
                     "CG\\Template\\": "src/"
                 }
             },
-            "time": "2015-01-27 17:48:24"
+            "time": "2015-01-29 11:52:05"
         },
         {
             "name": "channelgrabber/transaction",
