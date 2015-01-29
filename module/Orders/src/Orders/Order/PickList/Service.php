@@ -54,7 +54,6 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     {
         $pickListEntries = $this->getPickListEntries($orderCollection);
         $this->logDebugDump($pickListEntries, 'Pick List', [], 'PICK LIST');
-
         $rendered = $this->getPickListService()->renderTemplate($pickListEntries, $this->getOrganisationUnit());
         return new Response('application/pdf', 'picklist.pdf', $rendered);
     }
@@ -84,13 +83,31 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             )
         );
 
-        $pickListEntries = $this->getMapper()->sortEntries(
+        $this->sortEntries(
             $pickListEntries,
             SortValidator::getSortFieldsNames()[$pickListSettings->getSortField()],
             $pickListSettings->getSortDirection() === SortValidator::SORT_DIRECTION_ASC
         );
 
         return $pickListEntries;
+    }
+
+    protected function sortEntries(array $pickListEntries, $field, $ascending = true)
+    {
+        usort($pickListEntries, function($a, $b) use ($field, $ascending) {
+            $getter = 'get' . ucfirst(strtolower($field));
+            $directionChanger = ($ascending === false) ? -1 : 1;
+
+            if(is_string($a->$getter())) {
+                return $directionChanger * strcasecmp($a->$getter(), $b->$getter());
+            }
+
+            if($a->$getter() === $b->$getter()) {
+                return 0;
+            }
+            $compareValue = ($a->$getter() > $b->$getter()) ? 1 : -1;
+            return $directionChanger * $compareValue;
+        });
     }
 
     protected function getProductsForSkus(array $skus)

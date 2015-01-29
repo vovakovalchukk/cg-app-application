@@ -68,26 +68,6 @@ class Mapper
         return $pickListEntries;
     }
 
-    public function sortEntries(array $pickListEntries, $field, $ascending = true)
-    {
-        usort($pickListEntries, function($a, $b) use ($field, $ascending) {
-            $getter = 'get' . ucfirst(strtolower($field));
-            $directionChanger = ($ascending === false) ? -1 : 1;
-
-            if(is_string($a->$getter())) {
-                return $directionChanger * strcasecmp($a->$getter(), $b->$getter());
-            }
-
-            if($a->$getter() === $b->$getter()) {
-                return 0;
-            }
-            $compareValue = ($a->$getter() > $b->$getter()) ? 1 : -1;
-            return $directionChanger * $compareValue;
-        });
-
-        return $pickListEntries;
-    }
-
     /**
      * @param Item[] $items
      * @return array
