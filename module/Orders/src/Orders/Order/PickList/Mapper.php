@@ -1,6 +1,7 @@
 <?php
 namespace Orders\Order\PickList;
 
+use CG\Order\Shared\Item\Entity as Item;
 use CG\Product\Service\Service as ProductService;
 use CG\Product\Collection as ProductCollection;
 use CG\Product\Entity as Product;
@@ -82,12 +83,16 @@ class Mapper
         return $pickListEntries;
     }
 
-    protected function getMostDescriptiveItemDetails(array $matchingItems)
+    /**
+     * @param Item[] $items
+     * @return array
+     */
+    protected function getMostDescriptiveItemDetails(array $items)
     {
-        $bestTitle= $matchingItems[0]->getItemName();
-        $bestVariationAttributes = $matchingItems[0]->getItemVariationAttribute();
+        $bestTitle= $items[0]->getItemName();
+        $bestVariationAttributes = $items[0]->getItemVariationAttribute();
 
-        foreach($matchingItems as $item) {
+        foreach($items as $item) {
             $bestTitle = (strlen($item->getItemName()) > strlen($bestTitle)) ? $item->getItemName() : $bestTitle;
 
             $bestVariationAttributes =
@@ -110,6 +115,10 @@ class Mapper
         return implode("\n", $mergedKeyVals);
     }
 
+    /**
+     * @param Item[] $items
+     * @return int
+     */
     protected function sumQuantities(array $items)
     {
         $sum = 0;
