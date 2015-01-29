@@ -156,9 +156,10 @@ class Mapper
 
     protected function convertImageToTemplateElement(Image $image)
     {
+        $explosion = explode('.', $image->getUrl());
         return new ImageElement(
             base64_encode(file_get_contents($image->getUrl())),
-            strtolower(array_pop(explode('.', $image->getUrl())))
+            strtolower($explosion[count($explosion) - 1])
         );
     }
 
