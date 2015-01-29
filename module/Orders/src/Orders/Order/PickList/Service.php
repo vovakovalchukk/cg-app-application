@@ -87,14 +87,16 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
         /** @var Order $order */
         foreach($orders as $order) {
-            if($order->getItems()->count() !== 0) {
+            if($order->getItems()->count() === 0) {
+                continue;
+            }
+
+            foreach($order->getItems() as $item) {
                 /** @var Item $item */
-                foreach($order->getItems() as $item) {
-                    if($includeSkuless === true && ($item->getItemSku() === null || $item->getItemSku() === '')) {
-                        $itemsByTitle[$item->getItemName()][] = $item;
-                    } elseif ($item->getItemSku() !== null && $item->getItemSku() !== '') {
-                        $itemsBySku[$item->getItemSku()][] = $item;
-                    }
+                if($includeSkuless === true && ($item->getItemSku() === null || $item->getItemSku() === '')) {
+                    $itemsByTitle[$item->getItemName()][] = $item;
+                } elseif ($item->getItemSku() !== null && $item->getItemSku() !== '') {
+                    $itemsBySku[$item->getItemSku()][] = $item;
                 }
             }
         }
