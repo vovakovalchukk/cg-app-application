@@ -17,7 +17,7 @@ class Mapper
         $this->setProductService($productService);
     }
 
-    public function fromItemsBySku(array $items, ProductCollection $products, $includeImages = true)
+    public function fromItemsAndProductsBySku(array $items, ProductCollection $products, $includeImages = true)
     {
         $pickListEntries = [];
 

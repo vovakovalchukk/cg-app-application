@@ -54,7 +54,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $products = $this->getProductsForSkus(array_keys($itemsBySku));
 
         $pickListEntries = array_merge(
-            $this->getMapper()->fromItemsBySku($itemsBySku, $products, $pickListSettings->getShowPictures()),
+            $this->getMapper()->fromItemsAndProductsBySku($itemsBySku, $products, $pickListSettings->getShowPictures()),
             $this->getMapper()->fromItemsByTitle($itemsByTitle)
         );
 
