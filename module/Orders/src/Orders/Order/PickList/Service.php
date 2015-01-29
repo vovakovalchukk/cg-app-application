@@ -47,6 +47,19 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function getResponseFromOrderCollection(OrderCollection $orderCollection, $progressKey = null)
     {
+        $pickListEntries = $this->getPickListEntries($orderCollection);
+        $this->logDebugDump($pickListEntries, 'Pick List', [], 'PICK LIST');
+        throw new NotFound();
+        return null;
+    }
+
+    public function checkPickListGenerationProgress($key)
+    {
+        return (int) $this->getProgressStorage()->getProgress($key);
+    }
+
+    protected function getPickListEntries(OrderCollection $orderCollection)
+    {
         $pickListSettings = $this->getPickListSettings();
 
         list($itemsBySku, $itemsByTitle) = $this->aggregateItems($orderCollection, $pickListSettings->getShowSkuless());
@@ -64,11 +77,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             $pickListSettings->getSortDirection() === SortValidator::SORT_DIRECTION_ASC
         );
 
-        $this->logDebugDump($pickListEntries, 'Pick List', [], 'PICK LIST');
-        throw new NotFound();
-        return null;
+        return $pickListEntries;
     }
-
 
     protected function aggregateItems(OrderCollection $orders, $includeSkuless = false)
     {
@@ -104,11 +114,6 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         }
     }
 
-    public function checkPickListGenerationProgress($key)
-    {
-        return (int) $this->getProgressStorage()->getProgress($key);
-    }
-
     protected function updatePickListGenerationProgress($key, $count)
     {
         if (!$key) {
@@ -120,7 +125,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     /**
      * @return PickListSettings
      */
-    public function getPickListSettings()
+    protected function getPickListSettings()
     {
         $organisationUnitId = $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId();
         return $this->getPickListSettingsService()->fetch($organisationUnitId);

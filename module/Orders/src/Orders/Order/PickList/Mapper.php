@@ -77,7 +77,12 @@ class Mapper
             if(is_string($a->$getter())) {
                 return $directionChanger * strcasecmp($a->$getter(), $b->$getter());
             }
-            return $directionChanger * ($a->$getter() - $b->$getter());
+
+            if($a->$getter() === $b->$getter()) {
+                return 0;
+            }
+            $compareValue = ($a->$getter() > $b->$getter()) ? 1 : -1;
+            return $directionChanger * $compareValue;
         });
 
         return $pickListEntries;
