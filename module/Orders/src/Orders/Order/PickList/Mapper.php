@@ -5,6 +5,7 @@ use CG\Order\Shared\Item\Entity as Item;
 use CG\Product\Collection as ProductCollection;
 use CG\Product\Entity as Product;
 use CG\Image\Entity as Image;
+use CG\Stdlib\Exception\Runtime\InvalidKey;
 use CG\Template\Element\Image as ImageElement;
 use CG\PickList\Entity as PickList;
 
@@ -138,9 +139,13 @@ class Mapper
             return null;
         }
 
-        return new ImageElement(
-            base64_encode($contents),
-            strtolower($explosion[count($explosion) - 1])
-        );
+        try {
+            return new ImageElement(
+                base64_encode($contents),
+                strtolower($explosion[count($explosion) - 1])
+            );
+        } catch(InvalidKey $e) {
+            return null;
+        }
     }
 }
