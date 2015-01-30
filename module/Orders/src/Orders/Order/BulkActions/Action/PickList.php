@@ -15,7 +15,7 @@ class PickList extends Action
         ViewModel $javascript = null,
         SplObjectStorage $subActions = null
     ) {
-        parent::__construct('sprite-picklist-21-black', 'Pick List', 'pickList', $elementData, $javascript, $subActions);
+        parent::__construct('sprite-picklist-22-black', 'Pick List', 'pickList', $elementData, $javascript, $subActions);
         $this->setUrlView($urlView)->configure();
     }
 

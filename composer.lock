@@ -18,7 +18,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.9.2-a0f79e.zip",
                 "reference": "742ed626da4c55feac3d6f430d1d2f7f1e452299",
-                "shasum": "e34547cd2f3202f13c2a276e67ca97dff4327f3a"
+                "shasum": "a217839ca523fe4fcc81a0dd3328457c36e42764"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -385,7 +385,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.4.6-b1b428.zip",
                 "reference": "68301aa383ab5044164f765a167d834be2e38c3a",
-                "shasum": "31a5cb36547e06ac2b0c764fee231965d9d92217"
+                "shasum": "e31aa42f69aa0533cbc033e7c34834aa73632ef7"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -2429,7 +2429,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "0a46a3c67253c6b989566ee7d37f1982bc05ed18"
+                "reference": "35d3de12a4f4b4d65757fe1cd8fbf92634ed7ad7"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2471,7 +2471,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-01-30 12:00:18"
+            "time": "2015-01-30 16:29:22"
         },
         {
             "name": "cilex/cilex",
@@ -2597,12 +2597,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "825b4b9c63a29c586d005de8dbbcfdfeb86bbf6f"
+                "reference": "cee89b5be404e6ff4039eed22e382c61f27fad17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/825b4b9c63a29c586d005de8dbbcfdfeb86bbf6f",
-                "reference": "825b4b9c63a29c586d005de8dbbcfdfeb86bbf6f",
+                "url": "https://api.github.com/repos/composer/composer/zipball/cee89b5be404e6ff4039eed22e382c61f27fad17",
+                "reference": "cee89b5be404e6ff4039eed22e382c61f27fad17",
                 "shasum": ""
             },
             "require": {
@@ -2657,7 +2657,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-01-20 16:39:06"
+            "time": "2015-01-30 10:58:26"
         },
         {
             "name": "fabpot/goutte",
