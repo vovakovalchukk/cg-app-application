@@ -32,10 +32,11 @@ class ItemAggregator
 
             foreach($order->getItems() as $item) {
                 /** @var Item $item */
-                if($this->includeSkuless === true && ($item->getItemSku() === null || $item->getItemSku() === '')) {
+                $sku = $item->getItemSku();
+                if($this->includeSkuless === true && ($sku === null || $sku === '')) {
                     $itemsByTitle[$item->getItemName()][] = $item;
-                } elseif ($item->getItemSku() !== null && $item->getItemSku() !== '') {
-                    $itemsBySku[$item->getItemSku()][] = $item;
+                } elseif ($sku !== null && $sku !== '') {
+                    $itemsBySku[$sku][] = $item;
                 }
             }
         }
