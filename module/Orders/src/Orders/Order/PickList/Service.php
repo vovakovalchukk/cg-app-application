@@ -115,8 +115,10 @@ class Service implements LoggerAwareInterface
 
     protected function getProductsForSkus(array $skus)
     {
+        $organisationUnitId = $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId();
         $filter = new ProductFilter();
         $filter->setSku($skus);
+        $filter->setOrganisationUnitId($organisationUnitId);
 
         try {
             return $this->getProductService()->fetchCollectionByFilter($filter);
@@ -129,13 +131,15 @@ class Service implements LoggerAwareInterface
     {
         $parentIds = [];
         foreach($products as $product) {
-            if($product->getParentProductId() !== 0) {
+            if ($product->getParentProductId() !== 0) {
                 $parentIds[] = $product->getParentProductId();
             }
         }
 
+        $organisationUnitId = $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId();
         $filter = new ProductFilter();
         $filter->setId($parentIds);
+        $filter->setOrganisationUnitId($organisationUnitId);
 
         try {
             return $this->getProductService()->fetchCollectionByFilter($filter);
