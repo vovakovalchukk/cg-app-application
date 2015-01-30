@@ -49,8 +49,13 @@ class Service implements LoggerAwareInterface
 
     public function getResponseFromOrderCollection(OrderCollection $orderCollection, $progressKey = null)
     {
-        $pickListEntries = $this->getPickListEntries($orderCollection);
-        $content = $this->getPickListService()->renderTemplate($pickListEntries, $this->getOrganisationUnit());
+        $pickListSettings = $this->getPickListSettings();
+        $pickListEntries = $this->getPickListEntries($orderCollection, $pickListSettings);
+        if($pickListSettings->getShowPictures()) {
+            $content = $this->getPickListService()->renderTemplate($pickListEntries, $this->getOrganisationUnit());
+        } else {
+            $content = $this->getPickListService()->renderTemplateWithoutImages($pickListEntries, $this->getOrganisationUnit());
+        }
         return new Response(PickListService::MIME_TYPE, PickListService::FILENAME, $content);
     }
 
@@ -59,19 +64,19 @@ class Service implements LoggerAwareInterface
         return (int) $this->getProgressStorage()->getProgress($key);
     }
 
-    protected function getPickListEntries(OrderCollection $orderCollection)
+    protected function getPickListEntries(OrderCollection $orderCollection, PickListSettings $pickListSettings)
     {
-        $pickListSettings = $this->getPickListSettings();
-
         $aggregator = new ItemAggregator($orderCollection, $pickListSettings->getShowSkuless());
         $aggregator();
 
         $products = $this->getProductsForSkus($aggregator->getSkus());
+        $parentProducts = $this->getParentProductsForProducts($products);
 
         $pickListEntries = array_merge(
             $this->getMapper()->fromItemsAndProductsBySku(
                 $aggregator->getItemsIndexedBySku(),
                 $products,
+                $parentProducts,
                 $pickListSettings->getShowPictures()
             ),
             $this->getMapper()->fromItemsByTitle(
@@ -79,7 +84,7 @@ class Service implements LoggerAwareInterface
             )
         );
 
-        $this->sortEntries(
+        $pickListEntries = $this->sortEntries(
             $pickListEntries,
             SortValidator::getSortFieldsNames()[$pickListSettings->getSortField()],
             $pickListSettings->getSortDirection() === SortValidator::SORT_DIRECTION_ASC
@@ -104,6 +109,8 @@ class Service implements LoggerAwareInterface
             $compareValue = ($a->$getter() > $b->$getter()) ? 1 : -1;
             return $directionChanger * $compareValue;
         });
+
+        return $pickListEntries;
     }
 
     protected function getProductsForSkus(array $skus)
@@ -115,6 +122,25 @@ class Service implements LoggerAwareInterface
             return $this->getProductService()->fetchCollectionByFilter($filter);
         } catch (NotFound $e) {
             return new ProductCollection(Product::class, __FUNCTION__, ['sku' => $skus]);
+        }
+    }
+
+    protected function getParentProductsForProducts(ProductCollection $products)
+    {
+        $parentIds = [];
+        foreach($products as $product) {
+            if($product->getParentProductId() !== 0) {
+                $parentIds[] = $product->getParentProductId();
+            }
+        }
+
+        $filter = new ProductFilter();
+        $filter->setId($parentIds);
+
+        try {
+            return $this->getProductService()->fetchCollectionByFilter($filter);
+        } catch (NotFound $e) {
+            return new ProductCollection(Product::class, __FUNCTION__, ['id' => $parentIds]);
         }
     }
 

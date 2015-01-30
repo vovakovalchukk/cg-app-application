@@ -2,7 +2,6 @@
 namespace Orders\Order\PickList;
 
 use CG\Order\Shared\Item\Entity as Item;
-use CG\Product\Service\Service as ProductService;
 use CG\Product\Collection as ProductCollection;
 use CG\Product\Entity as Product;
 use CG\Image\Entity as Image;
@@ -11,15 +10,12 @@ use CG\PickList\Entity as PickList;
 
 class Mapper
 {
-    protected $productService;
-
-    public function __construct(ProductService $productService)
-    {
-        $this->setProductService($productService);
-    }
-
-    public function fromItemsAndProductsBySku(array $items, ProductCollection $products, $includeImages = true)
-    {
+    public function fromItemsAndProductsBySku(
+        array $items,
+        ProductCollection $products,
+        ProductCollection $parentProducts,
+        $includeImages = true
+    ) {
         $pickListEntries = [];
 
         foreach($items as $sku => $matchingItems) {
@@ -34,7 +30,7 @@ class Mapper
                 $title = $description['title'];
                 $variation = $this->formatAttributes($description['variationAttributes']);
             } else {
-                $title = $this->searchProductTitle($matchingProduct);
+                $title = $this->searchProductTitle($matchingProduct, $parentProducts);
                 $variation = $this->formatAttributes($matchingProduct->getAttributeValues());
                 $image = ($includeImages === true) ? $this->getProductImage($matchingProduct) : null;
             }
@@ -113,12 +109,12 @@ class Mapper
         return $sum;
     }
 
-    protected function searchProductTitle(Product $product)
+    protected function searchProductTitle(Product $product, ProductCollection $parentProducts)
     {
         if($product->getParentProductId() !== 0 &&
             ($product->getName() === '' || $product->getName() === null)
         ) {
-            $parentProduct = $this->getProductService()->fetch($product->getParentProductId());
+            $parentProduct = $parentProducts->getById($product->getParentProductId());
             return $parentProduct->getName();
         }
 
@@ -137,27 +133,14 @@ class Mapper
     protected function convertImageToTemplateElement(Image $image)
     {
         $explosion = explode('.', $image->getUrl());
+        $contents = file_get_contents($image->getUrl());
+        if($contents === false) {
+            return null;
+        }
+
         return new ImageElement(
-            base64_encode(file_get_contents($image->getUrl())),
+            base64_encode($contents),
             strtolower($explosion[count($explosion) - 1])
         );
-    }
-
-    /**
-     * @return ProductService
-     */
-    protected function getProductService()
-    {
-        return $this->productService;
-    }
-
-    /**
-     * @param ProductService $productService
-     * @return $this
-     */
-    public function setProductService(ProductService $productService)
-    {
-        $this->productService = $productService;
-        return $this;
     }
 }
