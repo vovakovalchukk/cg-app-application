@@ -9,7 +9,7 @@ define(['ProgressCheckAbstract'],
         ProgressCheckAbstract.call(this, notifications, startMessage, progressMessage, endMessage);
     };
 
-    PickListBulkAction.MIN_ORDERS_FOR_NOTIFICATION = 5;
+    PickListBulkAction.MIN_ORDERS_FOR_NOTIFICATION = 99999999; //disable it temporarily
     PickListBulkAction.NOTIFICATION_FREQ_MS = 3000;
 
     PickListBulkAction.prototype = Object.create(ProgressCheckAbstract.prototype);
