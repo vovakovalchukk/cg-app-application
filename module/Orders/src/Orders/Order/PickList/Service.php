@@ -12,17 +12,14 @@ use CG\Settings\Picklist\SortValidator;
 use CG\PickList\Service as PickListService;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
-use CG\Stats\StatsAwareInterface;
-use CG\Stats\StatsTrait;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface as ActiveUserContainer;
 
-class Service implements LoggerAwareInterface, StatsAwareInterface
+class Service implements LoggerAwareInterface
 {
     use LogTrait;
-    use StatsTrait;
 
     protected $productService;
     protected $pickListService;
