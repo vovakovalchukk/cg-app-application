@@ -50,9 +50,8 @@ class Service implements LoggerAwareInterface
     public function getResponseFromOrderCollection(OrderCollection $orderCollection, $progressKey = null)
     {
         $pickListEntries = $this->getPickListEntries($orderCollection);
-        $this->logDebugDump($pickListEntries, 'Pick List', [], 'PICK LIST');
-        $rendered = $this->getPickListService()->renderTemplate($pickListEntries, $this->getOrganisationUnit());
-        return new Response('application/pdf', 'picklist.pdf', $rendered);
+        $content = $this->getPickListService()->renderTemplate($pickListEntries, $this->getOrganisationUnit());
+        return new Response(PickListService::MIME_TYPE, PickListService::FILENAME, $content);
     }
 
     public function checkPickListGenerationProgress($key)
