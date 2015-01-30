@@ -1395,17 +1395,17 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.8.3",
+            "version": "2.8.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "d63248c1d06cc7c1106e8794019a37e1b6a76df1"
+                "reference": "e74e21d39d5d7a52bf6a6f2663832924e912d23a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.8.3-b07aaa.zip",
-                "reference": "d63248c1d06cc7c1106e8794019a37e1b6a76df1",
-                "shasum": "144a67f2e1b76bb6b72b4812d315297e85f49022"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.8.4-8f1573.zip",
+                "reference": "e74e21d39d5d7a52bf6a6f2663832924e912d23a",
+                "shasum": "c9ec105046f71e93c9aa3fd3c40dd51ac28dea75"
             },
             "require": {
                 "zendframework/zend-db": ">=2.2,<3.0"
@@ -1423,7 +1423,7 @@
                     "src/Utilities.php"
                 ]
             },
-            "time": "2015-01-09 09:51:04"
+            "time": "2015-01-27 14:51:56"
         },
         {
             "name": "channelgrabber/stock",
@@ -2429,7 +2429,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "bd69f46a5559a2f0fe9e8e77f48e12a581cf310f"
+                "reference": "0a46a3c67253c6b989566ee7d37f1982bc05ed18"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2471,7 +2471,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-01-26 14:57:54"
+            "time": "2015-01-30 12:00:18"
         },
         {
             "name": "cilex/cilex",
@@ -4266,16 +4266,16 @@
         },
         {
             "name": "whichbrowser/whichbrowser",
-            "version": "v1.0.1015",
+            "version": "v1.0.1016",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WhichBrowser/WhichBrowser.git",
-                "reference": "ad50325f812b292cd1ac5eba0e095720921826ff"
+                "reference": "6999fcc77855edf22d9fdac14db96989debedb24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WhichBrowser/WhichBrowser/zipball/ad50325f812b292cd1ac5eba0e095720921826ff",
-                "reference": "ad50325f812b292cd1ac5eba0e095720921826ff",
+                "url": "https://api.github.com/repos/WhichBrowser/WhichBrowser/zipball/6999fcc77855edf22d9fdac14db96989debedb24",
+                "reference": "6999fcc77855edf22d9fdac14db96989debedb24",
                 "shasum": ""
             },
             "require": {
@@ -4299,7 +4299,7 @@
                 "browser",
                 "useragent"
             ],
-            "time": "2015-01-25 19:48:48"
+            "time": "2015-01-27 11:09:27"
         },
         {
             "name": "zendframework/zendframework",
