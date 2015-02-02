@@ -51,10 +51,11 @@ class Service implements LoggerAwareInterface
     {
         $pickListSettings = $this->getPickListSettings();
         $pickListEntries = $this->getPickListEntries($orderCollection, $pickListSettings);
+
         if($pickListSettings->getShowPictures()) {
-            $content = $this->getPickListService()->renderTemplate($pickListEntries, $this->getOrganisationUnit());
+            $content = $this->getPickListService()->renderTemplate($pickListEntries, $this->getActiveUserContainer()->getActiveUser());
         } else {
-            $content = $this->getPickListService()->renderTemplateWithoutImages($pickListEntries, $this->getOrganisationUnit());
+            $content = $this->getPickListService()->renderTemplateWithoutImages($pickListEntries, $this->getActiveUserContainer()->getActiveUser());
         }
         return new Response(PickListService::MIME_TYPE, PickListService::FILENAME, $content);
     }
@@ -115,6 +116,7 @@ class Service implements LoggerAwareInterface
 
     protected function getProductsForSkus(array $skus)
     {
+        $user = $this->getActiveUserContainer();
         $organisationUnitId = $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId();
         $filter = new ProductFilter();
         $filter->setSku($skus);

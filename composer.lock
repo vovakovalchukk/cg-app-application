@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c06c4749bbfc5f52649f362c8c84b29f",
+    "hash": "6760d3951bd543ff7846a3c5f862a3bb",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1008,17 +1008,17 @@
         },
         {
             "name": "channelgrabber/picklist",
-            "version": "dev-CGIV-4640-picking-list-pdf-service",
+            "version": "dev-CGIV-4704-picklist-user",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-picklist.git",
-                "reference": "692aabe70f354d4c58800ed3553d186863db201c"
+                "reference": "358d6e76ca218e61db75f97e8c51e04eb7648a89"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.0.0,<3.0.0",
                 "channelgrabber/settings": ">=1.3.0,<2.0.0",
-                "channelgrabber/template": "dev-CGIV-4640-picking-list-pdf-service as 1.3.0",
+                "channelgrabber/template": ">=1.3.0",
                 "composer/composer": "@dev",
                 "nocarrier/hal": "~0.9.10",
                 "php-jsonpatch/php-jsonpatch": "@dev",
@@ -1040,7 +1040,7 @@
                     "CG\\PickList\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-01-30 09:46:28"
+            "time": "2015-02-02 15:51:24"
         },
         {
             "name": "channelgrabber/predis",
@@ -1206,7 +1206,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "045486b74d2183c139aed9e2429c6ac43bb7dc7f"
+                "reference": "f8d97f530607a3b1865daee7977e6315d05f045e"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -1216,7 +1216,7 @@
                 "channelgrabber/http": ">=1.2.26",
                 "channelgrabber/slim": ">=1.11.2",
                 "channelgrabber/stdlib": ">=2.7.18",
-                "channelgrabber/validation": "dev-CGIV-4626-SortValidator as 1.2.6",
+                "channelgrabber/validation": ">=1.2.6",
                 "composer/composer": "@dev",
                 "php-jsonpatch/php-jsonpatch": "@dev",
                 "php-jsonpointer/php-jsonpointer": "@dev"
@@ -1227,7 +1227,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2015-01-23 16:03:32"
+            "time": "2015-02-02 15:37:37"
         },
         {
             "name": "channelgrabber/slim",
@@ -1477,11 +1477,11 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-4640-picking-list-pdf-service",
+            "version": "dev-CGIV-4704-picklist-user",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "31aac9f99c4ec7fd04d5623aa4b5833f55197ba8"
+                "reference": "a4c33cef5d62cab9b28f38b849de0f1a2ec79587"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -1511,7 +1511,7 @@
                     "CG\\Template\\": "src/"
                 }
             },
-            "time": "2015-01-30 11:27:55"
+            "time": "2015-02-02 15:50:46"
         },
         {
             "name": "channelgrabber/transaction",
@@ -1663,11 +1663,11 @@
         },
         {
             "name": "channelgrabber/validation",
-            "version": "dev-CGIV-4626-SortValidator",
+            "version": "dev-CGIV-4704-fixed-strict-error",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-validation.git",
-                "reference": "311a7eb60d32e84c144d465e6134310e964976b4"
+                "reference": "f526ca3d28e78f9e9d96cebea38162589ffded0a"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
@@ -1680,7 +1680,7 @@
                     "CG\\Validation\\": "src"
                 }
             },
-            "time": "2015-01-23 14:44:21"
+            "time": "2015-02-02 15:31:52"
         },
         {
             "name": "channelgrabber/vnderror",
@@ -4464,9 +4464,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packages.zendframework.com/composer/zendframework-zendxml-559b34f426d33a11c3db118e00ce14bb8dc64e5f-zip-6cf7a2.zip",
-                "reference": "1.0.0",
-                "shasum": "39abc614b5c26bcbf8102e203c52dee73c4460a8"
+                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
+                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
@@ -4486,6 +4486,7 @@
                     "ZendXml": "library/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -4496,10 +4497,6 @@
                 "xml",
                 "zf2"
             ],
-            "support": {
-                "source": "https://github.com/zendframework/ZendXml/tree/master",
-                "issues": "https://github.com/zendframework/ZendXml/issues"
-            },
             "time": "2014-03-05 22:25:44"
         },
         {
@@ -4994,7 +4991,7 @@
                 {
                     "name": "Anthon Pang",
                     "email": "apang@softwaredevelopment.ca",
-                    "role": "Fork Maintainer"
+                    "role": "developer"
                 }
             ],
             "description": "PHP WebDriver for Selenium 2",
@@ -5703,7 +5700,7 @@
         {
             "alias": "1.0",
             "alias_normalized": "1.0.0.0",
-            "version": "dev-CGIV-4640-picking-list-pdf-service",
+            "version": "dev-CGIV-4704-picklist-user",
             "package": "channelgrabber/picklist"
         },
         {
@@ -5715,13 +5712,13 @@
         {
             "alias": "1.3.0",
             "alias_normalized": "1.3.0.0",
-            "version": "dev-CGIV-4640-picking-list-pdf-service",
+            "version": "dev-CGIV-4704-picklist-user",
             "package": "channelgrabber/template"
         },
         {
             "alias": "1.2.6",
             "alias_normalized": "1.2.6.0",
-            "version": "dev-CGIV-4626-SortValidator",
+            "version": "dev-CGIV-4704-fixed-strict-error",
             "package": "channelgrabber/validation"
         },
         {
