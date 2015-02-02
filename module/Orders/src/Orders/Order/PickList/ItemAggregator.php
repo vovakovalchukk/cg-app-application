@@ -32,9 +32,13 @@ class ItemAggregator
 
             foreach($order->getItems() as $item) {
                 /** @var Item $item */
-                $sku = $item->getItemSku();
+                if($item->getItemQuantity() == 0) {
+                    continue;
+                }
+
+                $sku = trim($item->getItemSku());
                 if($this->includeSkuless === true && ($sku === null || $sku === '')) {
-                    $itemsByTitle[$item->getItemName()][] = $item;
+                    $itemsByTitle[trim($item->getItemName())][] = $item;
                 } elseif ($sku !== null && $sku !== '') {
                     $itemsBySku[$sku][] = $item;
                 }
