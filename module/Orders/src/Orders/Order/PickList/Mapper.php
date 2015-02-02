@@ -133,19 +133,25 @@ class Mapper
 
     protected function convertImageToTemplateElement(Image $image)
     {
-        $explosion = explode('.', $image->getUrl());
         $contents = file_get_contents($image->getUrl());
+        $encodedContents = base64_encode($contents);
         if($contents === false) {
             return null;
         }
 
         try {
             return new ImageElement(
-                base64_encode($contents),
-                strtolower($explosion[count($explosion) - 1])
+                $encodedContents,
+                $this->getImageType($encodedContents)
             );
         } catch(InvalidKey $e) {
             return null;
         }
+    }
+
+    protected function getImageType($encodedImage)
+    {
+        $uri = 'data://application/octet-stream;base64,' . $encodedImage;
+        return image_type_to_extension(exif_imagetype($uri), false);
     }
 }
