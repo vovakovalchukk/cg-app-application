@@ -116,7 +116,6 @@ class Service implements LoggerAwareInterface
 
     protected function getProductsForSkus(array $skus)
     {
-        $user = $this->getActiveUserContainer();
         $organisationUnitId = $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId();
         $filter = new ProductFilter();
         $filter->setSku($skus);
