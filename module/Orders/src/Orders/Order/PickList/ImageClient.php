@@ -28,14 +28,14 @@ class ImageClient
             foreach ($responses as $response) {
                 /** @var Response $response */
                 $url = $response->getEffectiveUrl();
-                $imagesContents[$imagesUrls[$url]] = $response->getBody(false);
+                $imagesContents[$imagesUrls[$url]] = $response->getBody(true);
             }
             return $imagesContents;
         } catch (MultiTransferException $e) {
             foreach($e->getSuccessfulRequests() as $request) {
                 /** @var Request $request */
                 $url = $request->getUrl();
-                $imagesContents[$imagesUrls[$url]] = $request->getResponse()->getBody(false);
+                $imagesContents[$imagesUrls[$url]] = $request->getResponse()->getBody(true);
             }
 
             foreach($e->getFailedRequests() as $request) {
