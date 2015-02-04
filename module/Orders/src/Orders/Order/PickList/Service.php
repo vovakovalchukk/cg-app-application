@@ -25,6 +25,7 @@ class Service implements LoggerAwareInterface
     protected $pickListService;
     protected $pickListSettingsService;
     protected $organisationUnitService;
+    protected $imageClient;
     protected $mapper;
     protected $progressStorage;
     protected $activeUserContainer;
@@ -34,6 +35,7 @@ class Service implements LoggerAwareInterface
         PickListService $pickListService,
         PickListSettingsService $pickListSettingsService,
         OrganisationUnitService $organisationUnitService,
+        ImageClient $imageClient,
         Mapper $mapper,
         ProgressStorage $progressStorage,
         ActiveUserContainer $activeUserContainer
@@ -42,6 +44,7 @@ class Service implements LoggerAwareInterface
             ->setPickListService($pickListService)
             ->setPickListSettingsService($pickListSettingsService)
             ->setOrganisationUnitService($organisationUnitService)
+            ->setImageClient($imageClient)
             ->setMapper($mapper)
             ->setProgressStorage($progressStorage)
             ->setActiveUserContainer($activeUserContainer);
@@ -78,7 +81,8 @@ class Service implements LoggerAwareInterface
                 $aggregator->getItemsIndexedBySku(),
                 $products,
                 $parentProducts,
-                $pickListSettings->getShowPictures()
+                $pickListSettings->getShowPictures(),
+                $this->getImagesForProducts($products)
             ),
             $this->getMapper()->fromItemsByTitle(
                 $aggregator->getItemsIndexedByTitle()
@@ -147,6 +151,22 @@ class Service implements LoggerAwareInterface
         } catch (NotFound $e) {
             return new ProductCollection(Product::class, __FUNCTION__, ['id' => $parentIds]);
         }
+    }
+
+    protected function getImagesForProducts(ProductCollection $products)
+    {
+        $urls = [];
+        foreach($products as $product) {
+            if($product->getImages() === null || $product->getImages()->count() === 0) {
+                continue;
+            }
+
+            $product->getImages()->rewind();
+            $image = $product->getImages()->current();
+            $urls[$product->getSku()] = $image->getUrl();
+        }
+
+        return $this->getImageClient()->fetchImages(array_flip($urls));
     }
 
     protected function updatePickListGenerationProgress($key, $count)
@@ -298,6 +318,24 @@ class Service implements LoggerAwareInterface
     public function setActiveUserContainer(ActiveUserContainer $activeUserContainer)
     {
         $this->activeUserContainer = $activeUserContainer;
+        return $this;
+    }
+
+    /**
+     * @return ImageClient
+     */
+    protected function getImageClient()
+    {
+        return $this->imageClient;
+    }
+
+    /**
+     * @param ImageClient $imageClient
+     * @return $this
+     */
+    public function setImageClient(ImageClient $imageClient)
+    {
+        $this->imageClient = $imageClient;
         return $this;
     }
 }

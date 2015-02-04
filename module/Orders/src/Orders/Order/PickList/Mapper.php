@@ -11,11 +11,19 @@ use CG\PickList\Entity as PickList;
 
 class Mapper
 {
+    protected $imageClient;
+
+    public function __construct(ImageClient $imageClient)
+    {
+        $this->imageClient = $imageClient;
+    }
+
     public function fromItemsAndProductsBySku(
         array $items,
         ProductCollection $products,
         ProductCollection $parentProducts,
-        $includeImages = true
+        $includeImages = false,
+        array $images = []
     ) {
         $pickListEntries = [];
 
@@ -33,7 +41,7 @@ class Mapper
             } else {
                 $title = $this->searchProductTitle($matchingProduct, $parentProducts);
                 $variation = $this->formatAttributes($matchingProduct->getAttributeValues());
-                $image = ($includeImages === true) ? $this->getProductImage($matchingProduct) : null;
+                $image = ($includeImages === true) ? $this->getProductImage($matchingProduct, $images) : null;
             }
 
             $pickListEntries[] = new PickList(
@@ -122,22 +130,28 @@ class Mapper
         return $product->getName();
     }
 
-    protected function getProductImage(Product $product)
+    protected function getProductImage(Product $product, array $images)
     {
-        if($product->getImages() === null || $product->getImages()->count() === 0) {
+        if(!isset($images[$product->getSku()])) {
             return null;
         }
-        $product->getImages()->rewind();
-        return $this->convertImageToTemplateElement($product->getImages()->current());
+        return $this->convertImageToTemplateElement($images[$product->getSku()]);
+//        if($product->getImages() === null || $product->getImages()->count() === 0) {
+//            return null;
+//        }
+//        $product->getImages()->rewind();
+//        return $this->convertImageToTemplateElement($product->getImages()->current());
     }
 
-    protected function convertImageToTemplateElement(Image $image)
+    protected function convertImageToTemplateElement($contents)
     {
-        $contents = file_get_contents($image->getUrl());
+//        $contents = $this->imageClient->fetchImage($image->getUrl());
+//        if($contents === false) {
+//            return null;
+//        }
+
         $encodedContents = base64_encode($contents);
-        if($contents === false) {
-            return null;
-        }
+
 
         try {
             return new ImageElement(
