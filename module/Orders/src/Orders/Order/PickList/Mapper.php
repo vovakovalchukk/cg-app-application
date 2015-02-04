@@ -34,7 +34,7 @@ class Mapper
 
             /** @var Product $matchingProduct */
             if($matchingProduct === null) {
-                $description = $this->getMostDescriptiveItemDetails($matchingItems);
+                $description = $this->searchMostDescriptiveItemDetails($matchingItems);
                 $title = $description['title'];
                 $variation = $this->formatAttributes($description['variationAttributes']);
             } else {
@@ -64,7 +64,7 @@ class Mapper
                 $title,
                 $this->sumQuantities($matchingItems),
                 '',
-                $this->formatAttributes($this->getMostDescriptiveItemDetails($matchingItems)['variationAttributes']),
+                $this->formatAttributes($this->searchMostDescriptiveItemDetails($matchingItems)['variationAttributes']),
                 null
             );
         }
@@ -76,7 +76,7 @@ class Mapper
      * @param Item[] $items
      * @return array
      */
-    protected function getMostDescriptiveItemDetails(array $items)
+    protected function searchMostDescriptiveItemDetails(array $items)
     {
         $bestTitle= $items[0]->getItemName();
         $bestVariationAttributes = $items[0]->getItemVariationAttribute();
