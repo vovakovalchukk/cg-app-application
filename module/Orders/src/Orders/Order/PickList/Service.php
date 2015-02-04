@@ -73,16 +73,16 @@ class Service implements LoggerAwareInterface
         $aggregator = new ItemAggregator($orderCollection, $pickListSettings->getShowSkuless());
         $aggregator();
 
-        $products = $this->getProductsForSkus($aggregator->getSkus());
-        $parentProducts = $this->getParentProductsForProducts($products);
+        $products = $this->fetchProductsForSkus($aggregator->getSkus());
+        $parentProducts = $this->fetchParentProductsForProducts($products);
+        $images = $this->fetchImagesForProducts($products);
 
         $pickListEntries = array_merge(
             $this->getMapper()->fromItemsAndProductsBySku(
                 $aggregator->getItemsIndexedBySku(),
                 $products,
                 $parentProducts,
-                $pickListSettings->getShowPictures(),
-                $this->getImagesForProducts($products)
+                ($pickListSettings->getShowPictures()) ? $images : []
             ),
             $this->getMapper()->fromItemsByTitle(
                 $aggregator->getItemsIndexedByTitle()
@@ -118,7 +118,7 @@ class Service implements LoggerAwareInterface
         return $pickListEntries;
     }
 
-    protected function getProductsForSkus(array $skus)
+    protected function fetchProductsForSkus(array $skus)
     {
         $organisationUnitId = $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId();
         $filter = new ProductFilter();
@@ -132,7 +132,7 @@ class Service implements LoggerAwareInterface
         }
     }
 
-    protected function getParentProductsForProducts(ProductCollection $products)
+    protected function fetchParentProductsForProducts(ProductCollection $products)
     {
         $parentIds = [];
         foreach($products as $product) {
@@ -153,7 +153,7 @@ class Service implements LoggerAwareInterface
         }
     }
 
-    protected function getImagesForProducts(ProductCollection $products)
+    protected function fetchImagesForProducts(ProductCollection $products)
     {
         $urls = [];
         foreach($products as $product) {
@@ -175,15 +175,6 @@ class Service implements LoggerAwareInterface
             return;
         }
         $this->getProgressStorage()->setProgress($key, $count);
-    }
-
-    /**
-     * @return OrganisationUnit
-     */
-    protected function getOrganisationUnit()
-    {
-        $organisationUnitId = $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId();
-        return $this->getOrganisationUnitService()->fetch($organisationUnitId);
     }
 
     /**

@@ -15,14 +15,6 @@ class ImageClient
         $this->setClient($client);
     }
 
-    public function fetchImage($imageUrl)
-    {
-        $request = $this->getClient()->get($imageUrl, []);
-        $request->setHeader('Accept', 'image/gif, image/jpeg, image/png');
-        $response = $request->send();
-        return $response->getBody(false);
-    }
-
     public function fetchImages(array $imagesUrls)
     {
         $requests = [];

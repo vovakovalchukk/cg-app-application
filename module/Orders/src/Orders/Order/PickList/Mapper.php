@@ -22,7 +22,6 @@ class Mapper
         array $items,
         ProductCollection $products,
         ProductCollection $parentProducts,
-        $includeImages = false,
         array $images = []
     ) {
         $pickListEntries = [];
@@ -41,7 +40,7 @@ class Mapper
             } else {
                 $title = $this->searchProductTitle($matchingProduct, $parentProducts);
                 $variation = $this->formatAttributes($matchingProduct->getAttributeValues());
-                $image = ($includeImages === true) ? $this->getProductImage($matchingProduct, $images) : null;
+                $image = (isset($images[$sku])) ? $this->convertImageToTemplateElement($images[$sku])  : null;
             }
 
             $pickListEntries[] = new PickList(
@@ -130,28 +129,9 @@ class Mapper
         return $product->getName();
     }
 
-    protected function getProductImage(Product $product, array $images)
+    protected function convertImageToTemplateElement($imageContents)
     {
-        if(!isset($images[$product->getSku()])) {
-            return null;
-        }
-        return $this->convertImageToTemplateElement($images[$product->getSku()]);
-//        if($product->getImages() === null || $product->getImages()->count() === 0) {
-//            return null;
-//        }
-//        $product->getImages()->rewind();
-//        return $this->convertImageToTemplateElement($product->getImages()->current());
-    }
-
-    protected function convertImageToTemplateElement($contents)
-    {
-//        $contents = $this->imageClient->fetchImage($image->getUrl());
-//        if($contents === false) {
-//            return null;
-//        }
-
-        $encodedContents = base64_encode($contents);
-
+        $encodedContents = base64_encode($imageContents);
 
         try {
             return new ImageElement(
