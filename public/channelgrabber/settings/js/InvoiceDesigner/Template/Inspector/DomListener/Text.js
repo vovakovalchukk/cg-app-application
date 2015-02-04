@@ -25,17 +25,27 @@ define([
             clearTimeout(timeoutId);
             timeoutId = setTimeout(function() {
                 self.styleText(textarea, inspector, element)
-                    .initDataFieldsChangeListener(inspector, element);
+                    .initDataFieldsChangeListener(inspector, element)
             }, timeout);
         });
+
+        self.initRemoveEmptyLinesToggleListener(inspector, element);
         return this;
     };
 
     Text.prototype.initDataFieldsChangeListener = function(inspector, element)
     {
-        $('#' + inspector.getTextInspectorDataFieldsId()).off('change').on('change', function(event, container, value)
-        {
+        $('#' + inspector.getTextInspectorDataFieldsId()).off('change').on('change', function(event, container, value) {
             inspector.dataFieldSelected(container, value);
+        });
+        return this;
+    };
+
+    Text.prototype.initRemoveEmptyLinesToggleListener = function(inspector, element)
+    {
+        $('#' + inspector.getRemoveBlankLinesId()).off('change').on('change', function(event, container, value) {
+            var isSelected = $('#' + inspector.getRemoveBlankLinesId()).is(":checked");
+            element.setRemoveBlankLines(isSelected);
         });
         return this;
     };

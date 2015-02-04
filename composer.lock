@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ad400ed969fcdfa0020999f440d8ffca",
+    "hash": "e6675b07546fef9dc42b05bd94709215",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1446,17 +1446,11 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.2.39",
+            "version": "dev-CGIV-4736-remove-blanks",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "d9a62310059e45209f2949611bd70d6893604025"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.39-55eafe.zip",
-                "reference": "d9a62310059e45209f2949611bd70d6893604025",
-                "shasum": "75aa3b70b6881ec64f39336ef163725c2f05061b"
+                "reference": "0a471c1edbf5358730988feba03756e9cb6ba117"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -1486,7 +1480,7 @@
                     "CG\\Template\\": "src/"
                 }
             },
-            "time": "2015-01-09 09:52:36"
+            "time": "2015-02-04 12:29:18"
         },
         {
             "name": "channelgrabber/transaction",
@@ -2406,17 +2400,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.14.38",
+            "version": "dev-CGIV-4736-remove-blanks",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e2f64a7d170b2b85d04bc8477f900ab6a522854e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.38-bae070.zip",
-                "reference": "e2f64a7d170b2b85d04bc8477f900ab6a522854e",
-                "shasum": "2eacdc7092a91d39ac0c82eeb874c92a49a6a9f7"
+                "reference": "a2ccd771b076ad1913bed5a8247189c644fe5e7f"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2458,7 +2446,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-01-27 13:09:24"
+            "time": "2015-02-04 12:27:20"
         },
         {
             "name": "cilex/cilex",
@@ -5683,10 +5671,25 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.2.40",
+            "alias_normalized": "1.2.40.0",
+            "version": "dev-CGIV-4736-remove-blanks",
+            "package": "channelgrabber/template"
+        },
+        {
+            "alias": "1.14.39",
+            "alias_normalized": "1.14.39.0",
+            "version": "dev-CGIV-4736-remove-blanks",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/template": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

@@ -296,17 +296,21 @@
     clear:both;
 }
 .paper-type-checkbox {
+  margin-bottom: 7px;
+}
+.paper-type-checkbox, .remove-blank-lines-checkbox{
     width: 100%;
     float: left;
     clear:both;
-    margin-bottom: 7px;
     .std-checkbox {
         left: -10px;
     }
     .checkbox_label {
-        top: 7px;
         left: 35px;
     }
+}
+.paper-type-checkbox .checkbox_label {
+  top: 7px;
 }
 #heading-inspector {
     width: 100%;
@@ -327,6 +331,7 @@
 }
 #text-inspector-data-fields {
     margin-top: 10px;
+    margin-bottom:15px;
 }
 
 .align_buttons {
