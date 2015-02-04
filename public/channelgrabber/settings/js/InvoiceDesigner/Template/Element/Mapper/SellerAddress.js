@@ -19,7 +19,8 @@ define([
         return element
             .setWidth('100')
             .setHeight('40')
-            .setText(text);
+            .setText(text)
+            .setRemoveBlankLines(true);
     };
 
     return new SellerAddress();
