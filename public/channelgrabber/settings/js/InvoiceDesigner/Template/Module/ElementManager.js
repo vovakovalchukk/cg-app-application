@@ -19,18 +19,25 @@ define([
         var elementOptions = {
             buttons: [{
                 value: 'Seller Address',
+                icon: 'sprite-align-left-1520-black',
                 element: 'SellerAddress'
             },{ value: 'Delivery Address',
+                icon: 'sprite-align-left-1520-black',
                 element: 'DeliveryAddress'
             },{ value: 'Image',
+                icon: 'sprite-image-15-black',
                 element: 'Image'
             },{ value: 'Text',
+                icon: 'sprite-text-element-1520-black',
                 element: 'Text'
             },{ value: 'Order Table',
+                icon: 'sprite-order-table-1520-black',
                 element: 'OrderTable'
             },{ value: 'Box',
+                icon: 'sprite-box-15-black',
                 element: 'Box'
             },{ value: 'PPI',
+                icon: 'sprite-ppi-15-black',
                 element: 'PPI'
             }
         ]};
