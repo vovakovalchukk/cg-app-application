@@ -118,6 +118,8 @@ class Service implements LoggerAwareInterface
     {
         $organisationUnitId = $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId();
         $filter = new ProductFilter();
+        $filter->setLimit('all');
+        $filter->setPage(1);
         $filter->setSku($skus);
         $filter->setOrganisationUnitId([$organisationUnitId]);
 
@@ -139,6 +141,8 @@ class Service implements LoggerAwareInterface
 
         $organisationUnitId = $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId();
         $filter = new ProductFilter();
+        $filter->setLimit('all');
+        $filter->setPage(1);
         $filter->setId($parentIds);
         $filter->setOrganisationUnitId([$organisationUnitId]);
 
