@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "058344703071420beebdb7cf2c1bab3f",
+    "hash": "04a98bf1fe3978cd1b3ce5fc04082a76",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -543,17 +543,17 @@
         },
         {
             "name": "channelgrabber/gearman",
-            "version": "1.1.14",
+            "version": "1.1.15",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-gearman.git",
-                "reference": "3235bd0f118ad898d3591679937af47fbb89194e"
+                "reference": "c21614ecfc9c7257f70166b1bcf0b202921070a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-1.1.14-09d1b5.zip",
-                "reference": "3235bd0f118ad898d3591679937af47fbb89194e",
-                "shasum": "0ab8ffdb2206b21da34762ef9242b1b843c0352a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-1.1.15-6ba13f.zip",
+                "reference": "c21614ecfc9c7257f70166b1bcf0b202921070a9",
+                "shasum": "075815c84470238bd2b0ca4968b10e68f21a3004"
             },
             "require": {
                 "channelgrabber/cilex": ">=1.1.0,<2.0.0",
@@ -570,7 +570,7 @@
                     "CG\\Gearman\\": "src"
                 }
             },
-            "time": "2015-01-05 16:14:11"
+            "time": "2015-02-05 11:05:25"
         },
         {
             "name": "channelgrabber/guzzle",
@@ -2406,11 +2406,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-QA",
+            "version": "1.14.41",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "3a75e5caddc4fd5e48979b3b25195d3f727fe501"
+                "reference": "5509674d8d2d5961aa6da3f2d01e866c9c557bec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.41-a237ee.zip",
+                "reference": "5509674d8d2d5961aa6da3f2d01e866c9c557bec",
+                "shasum": "130217cb750f1771082221337bebbeab2b5c2726"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2452,7 +2458,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-02-04 13:52:50"
+            "time": "2015-02-05 11:06:44"
         },
         {
             "name": "cilex/cilex",
@@ -4247,16 +4253,16 @@
         },
         {
             "name": "whichbrowser/whichbrowser",
-            "version": "v1.0.1016",
+            "version": "v1.0.1017",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WhichBrowser/WhichBrowser.git",
-                "reference": "6999fcc77855edf22d9fdac14db96989debedb24"
+                "reference": "07988299cdf64420a0160715ade6d53d709a111b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WhichBrowser/WhichBrowser/zipball/6999fcc77855edf22d9fdac14db96989debedb24",
-                "reference": "6999fcc77855edf22d9fdac14db96989debedb24",
+                "url": "https://api.github.com/repos/WhichBrowser/WhichBrowser/zipball/07988299cdf64420a0160715ade6d53d709a111b",
+                "reference": "07988299cdf64420a0160715ade6d53d709a111b",
                 "shasum": ""
             },
             "require": {
@@ -4280,7 +4286,7 @@
                 "browser",
                 "useragent"
             ],
-            "time": "2015-01-27 11:09:27"
+            "time": "2015-02-05 11:28:39"
         },
         {
             "name": "zendframework/zendframework",
@@ -5677,18 +5683,10 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.14.40",
-            "alias_normalized": "1.14.40.0",
-            "version": "dev-QA",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
