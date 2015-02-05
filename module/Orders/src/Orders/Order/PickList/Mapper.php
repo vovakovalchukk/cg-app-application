@@ -4,25 +4,18 @@ namespace Orders\Order\PickList;
 use CG\Order\Shared\Item\Entity as Item;
 use CG\Product\Collection as ProductCollection;
 use CG\Product\Entity as Product;
-use CG\Image\Entity as Image;
 use CG\Stdlib\Exception\Runtime\InvalidKey;
 use CG\Template\Element\Image as ImageElement;
 use CG\PickList\Entity as PickList;
+use Orders\Order\PickList\Image\Map as ImageMap;
 
 class Mapper
 {
-    protected $imageClient;
-
-    public function __construct(ImageClient $imageClient)
-    {
-        $this->imageClient = $imageClient;
-    }
-
     public function fromItemsAndProductsBySku(
         array $items,
         ProductCollection $products,
         ProductCollection $parentProducts,
-        array $images = []
+        ImageMap $imageMap = null
     ) {
         $pickListEntries = [];
 
@@ -40,7 +33,7 @@ class Mapper
             } else {
                 $title = $this->searchProductTitle($matchingProduct, $parentProducts);
                 $variation = $this->formatAttributes($matchingProduct->getAttributeValues());
-                $image = (isset($images[$sku])) ? $this->convertImageToTemplateElement($images[$sku])  : null;
+                $image = ($imageMap != null && $imageMap->contentExists($sku)) ? $this->convertImageToTemplateElement($imageMap->getContentsForSku($sku)) : null;
             }
 
             $pickListEntries[] = new PickList(
@@ -51,7 +44,6 @@ class Mapper
                 $image
             );
         }
-
         return $pickListEntries;
     }
 

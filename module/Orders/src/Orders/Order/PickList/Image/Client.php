@@ -1,49 +1,52 @@
 <?php
-namespace Orders\Order\PickList;
+namespace Orders\Order\PickList\Image;
 
-use Guzzle\Http\Client as Client;
+use Guzzle\Http\Client as GuzzleClient;
 use Guzzle\Http\Message\Response;
 use Guzzle\Http\Message\RequestInterface as Request;
 use Guzzle\Http\Exception\MultiTransferException;
 
-class ImageClient
+class Client
 {
     protected $client;
 
-    public function __construct(Client $client)
+    public function __construct(GuzzleClient $client)
     {
         $this->setClient($client);
     }
 
-    public function fetchImages(array $imagesUrls)
+    /**
+     * @param Map $imageMap
+     * @return Map
+     */
+    public function fetchImages(Map $imageMap)
     {
         $requests = [];
-        foreach($imagesUrls as $imageUrl => $sku) {
+        foreach($imageMap as $sku => $imageUrl) {
             $requests[] = $this->createRequest($imageUrl);
         }
 
-        $imagesContents = [];
         try {
             $responses = $this->getClient()->send($requests);
             foreach ($responses as $response) {
                 /** @var Response $response */
                 $url = $response->getEffectiveUrl();
-                $imagesContents[$imagesUrls[$url]] = $response->getBody(true);
+                $imageMap->setContentsForUrl($url, $response->getBody(true));
             }
-            return $imagesContents;
+            return $imageMap;
         } catch (MultiTransferException $e) {
             foreach($e->getSuccessfulRequests() as $request) {
                 /** @var Request $request */
                 $url = $request->getUrl();
-                $imagesContents[$imagesUrls[$url]] = $request->getResponse()->getBody(true);
+                $imageMap->setContentsForUrl($url, $request->getResponse()->getBody(true));
             }
 
             foreach($e->getFailedRequests() as $request) {
                 /** @var Request $request */
                 $url = $request->getUrl();
-                $imagesContents[$imagesUrls[$url]] = null;
+                $imageMap->setContentsForUrl($url, null);
             }
-            return $imagesContents;
+            return $imageMap;
         }
     }
 
@@ -55,7 +58,7 @@ class ImageClient
     }
 
     /**
-     * @return Client
+     * @return GuzzleClient
      */
     protected function getClient()
     {
@@ -63,10 +66,10 @@ class ImageClient
     }
 
     /**
-     * @param Client $client
+     * @param GuzzleClient $client
      * @return $this
      */
-    public function setClient(Client $client)
+    public function setClient(GuzzleClient $client)
     {
         $this->client = $client;
         return $this;

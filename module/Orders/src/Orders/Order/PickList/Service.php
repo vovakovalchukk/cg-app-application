@@ -10,12 +10,12 @@ use CG\Settings\PickList\Service as PickListSettingsService;
 use CG\Settings\PickList\Entity as PickListSettings;
 use CG\Settings\Picklist\SortValidator;
 use CG\PickList\Service as PickListService;
-use CG\OrganisationUnit\Service as OrganisationUnitService;
-use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface as ActiveUserContainer;
+use Orders\Order\PickList\Image\Client as ImageClient;
+use Orders\Order\PickList\Image\Map as ImageMap;
 
 class Service implements LoggerAwareInterface
 {
@@ -24,7 +24,6 @@ class Service implements LoggerAwareInterface
     protected $productService;
     protected $pickListService;
     protected $pickListSettingsService;
-    protected $organisationUnitService;
     protected $imageClient;
     protected $mapper;
     protected $progressStorage;
@@ -34,7 +33,6 @@ class Service implements LoggerAwareInterface
         ProductService $productService,
         PickListService $pickListService,
         PickListSettingsService $pickListSettingsService,
-        OrganisationUnitService $organisationUnitService,
         ImageClient $imageClient,
         Mapper $mapper,
         ProgressStorage $progressStorage,
@@ -43,7 +41,6 @@ class Service implements LoggerAwareInterface
         $this->setProductService($productService)
             ->setPickListService($pickListService)
             ->setPickListSettingsService($pickListSettingsService)
-            ->setOrganisationUnitService($organisationUnitService)
             ->setImageClient($imageClient)
             ->setMapper($mapper)
             ->setProgressStorage($progressStorage)
@@ -75,14 +72,13 @@ class Service implements LoggerAwareInterface
 
         $products = $this->fetchProductsForSkus($aggregator->getSkus());
         $parentProducts = $this->fetchParentProductsForProducts($products);
-        $images = $this->fetchImagesForProducts($products);
 
         $pickListEntries = array_merge(
             $this->getMapper()->fromItemsAndProductsBySku(
                 $aggregator->getItemsIndexedBySku(),
                 $products,
                 $parentProducts,
-                ($pickListSettings->getShowPictures()) ? $images : []
+                ($pickListSettings->getShowPictures()) ? $this->fetchImagesForProducts($products) : null
             ),
             $this->getMapper()->fromItemsByTitle(
                 $aggregator->getItemsIndexedByTitle()
@@ -155,7 +151,7 @@ class Service implements LoggerAwareInterface
 
     protected function fetchImagesForProducts(ProductCollection $products)
     {
-        $urls = [];
+        $imageMap = new ImageMap();
         foreach($products as $product) {
             if($product->getImages() === null || $product->getImages()->count() === 0) {
                 continue;
@@ -163,10 +159,10 @@ class Service implements LoggerAwareInterface
 
             $product->getImages()->rewind();
             $image = $product->getImages()->current();
-            $urls[$product->getSku()] = $image->getUrl();
+            $imageMap->setUrlForSku($product->getSku(), $image->getUrl());
         }
 
-        return $this->getImageClient()->fetchImages(array_flip($urls));
+        return $this->getImageClient()->fetchImages($imageMap);
     }
 
     protected function updatePickListGenerationProgress($key, $count)
@@ -237,24 +233,6 @@ class Service implements LoggerAwareInterface
     public function setPickListService(PickListService $pickListService)
     {
         $this->pickListService = $pickListService;
-        return $this;
-    }
-
-    /**
-     * @return OrganisationUnitService
-     */
-    protected function getOrganisationUnitService()
-    {
-        return $this->organisationUnitService;
-    }
-
-    /**
-     * @param OrganisationUnitService $organisationUnitService
-     * @return $this
-     */
-    public function setOrganisationUnitService(OrganisationUnitService $organisationUnitService)
-    {
-        $this->organisationUnitService = $organisationUnitService;
         return $this;
     }
 
