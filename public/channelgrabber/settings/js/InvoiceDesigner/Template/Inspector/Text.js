@@ -35,6 +35,7 @@ define([
     Text.TEXT_INSPECTOR_SELECTOR = '#text-inspector';
     Text.TEXT_INSPECTOR_TEXT_ID = 'text-inspector-text';
     Text.TEXT_INSPECTOR_DATA_FIELDS_ID = 'text-inspector-data-fields';
+    Text.TEXT_INSPECTOR_REMOVE_BLANK_LINES_ID = 'removeBlankLinesCheckbox';
 
     Text.prototype = Object.create(InspectorAbstract.prototype);
 
@@ -51,13 +52,16 @@ define([
             textarea: '/channelgrabber/zf2-v4-ui/templates/elements/textarea/bold-italic.mustache',
             dataFields: '/channelgrabber/zf2-v4-ui/templates/elements/custom-select.mustache',
             text: '/channelgrabber/settings/template/InvoiceDesigner/Template/Inspector/text.mustache',
+            removeBlankLines: '/channelgrabber/zf2-v4-ui/templates/elements/checkbox.mustache',
             collapsible: '/channelgrabber/zf2-v4-ui/templates/elements/collapsible.mustache'
         };
         CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache)
         {
             var textarea = cgmustache.renderTemplate(templates, self.getTextViewData(element), "textarea");
             var dataFields = cgmustache.renderTemplate(templates, self.getDataFieldsData(), "dataFields");
-            var text = cgmustache.renderTemplate(templates, {}, "text", {textarea: textarea, dataFields: dataFields});
+            var removeBlankLines = cgmustache.renderTemplate(templates, self.getRemoveBlankLinesData(element), "removeBlankLines");
+            var text = cgmustache.renderTemplate(templates, {}, "text", {textarea: textarea, dataFields: dataFields, removeBlankLines: removeBlankLines});
+
             var collapsible = cgmustache.renderTemplate(templates, {
                 'display': true,
                 'title': 'Text',
@@ -66,6 +70,17 @@ define([
             self.getDomManipulator().render(Text.TEXT_INSPECTOR_SELECTOR, collapsible);
             textDomListener.init(self, element);
         });
+    };
+
+    Text.prototype.getRemoveBlankLinesData = function(element)
+    {
+        return {
+            class: 'remove-blank-lines-checkbox',
+            selected: element.getRemoveBlankLines(),
+            id: this.getRemoveBlankLinesId(),
+            name: 'removeBlankLines',
+            label: 'Remove Blank Lines'
+        };
     };
 
     Text.prototype.getTextViewData = function(element)
@@ -114,6 +129,11 @@ define([
     Text.prototype.getTextInspectorDataFieldsId = function()
     {
         return Text.TEXT_INSPECTOR_DATA_FIELDS_ID;
+    };
+
+    Text.prototype.getRemoveBlankLinesId = function()
+    {
+        return Text.TEXT_INSPECTOR_REMOVE_BLANK_LINES_ID;
     };
 
     return new Text();
