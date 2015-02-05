@@ -419,7 +419,7 @@ return [
                 'label'  => 'Products',
                 'route'  => 'Products',
                 'sprite' => 'sprite-products-18-white',
-                'order'  => 5,
+                'order'  => 10,
                 'pages'  => [
                     'importListings' => [
                         'id'    => 'importListings',
