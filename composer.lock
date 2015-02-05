@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9b087ca9666eab4fd22153890794158e",
+    "hash": "106c015bd9900720f5bca2988925d50f",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2407,11 +2407,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-4739-AddInvoiceDesignerSprites",
+            "version": "dev-QA",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "a124d2dddcf8c270a3533535d265c6cd6a5b8096"
+                "reference": "fa2ed23ea145bd81509cddbfa9c704ac280aaa10"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2453,7 +2453,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-02-05 10:26:00"
+            "time": "2015-02-05 13:30:10"
         },
         {
             "name": "cilex/cilex",
@@ -5682,7 +5682,7 @@
         {
             "alias": "1.14.41",
             "alias_normalized": "1.14.41.0",
-            "version": "dev-CGIV-4739-AddInvoiceDesignerSprites",
+            "version": "dev-QA",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
