@@ -2,7 +2,7 @@
 namespace Orders\Order\PickList;
 
 use CG\Order\Shared\Collection as OrderCollection;
-use CG\Product\Service\Service as ProductService;
+use CG\Product\Client\Service as ProductService;
 use CG\Product\Collection as ProductCollection;
 use CG\Product\Filter as ProductFilter;
 use CG\Product\Entity as Product;

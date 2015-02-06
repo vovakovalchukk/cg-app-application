@@ -10,7 +10,7 @@ use CG\Order\Client\Note\Storage\Api as NoteApi;
 use CG\Order\Service\UserChange\Service as UserChangeService;
 use CG\Order\Client\UserChange\Storage\Api as UserChangeApi;
 use CG\Order\Client\Storage\Api as OrderApi;
-use CG\Product\Service\Service as ProductService;
+use CG\Product\Client\Service as ProductService;
 use CG\Product\Storage\Api as ProductApiStorage;
 use CG\Stock\Service as StockService;
 use CG\Stock\Storage\Api as StockApiStorage;
