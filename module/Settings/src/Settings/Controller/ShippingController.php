@@ -163,7 +163,13 @@ class ShippingController extends AbstractActionController
     {
         $shippingAccounts = $this->getShippingAccounts();
 
-        $options = [];
+        $options = [
+            [
+                'title' => 'None',
+                'value' => '0',
+                'selected' => (!$alias->getAccountId())
+            ]
+        ];
         foreach($shippingAccounts as $account) {
             $options[] = [
                 'title' => $account->getDisplayName(),
@@ -277,6 +283,9 @@ class ShippingController extends AbstractActionController
     protected function getShippingServices($accountId)
     {
         $shippingServices = [];
+        if ((int)$accountId < 1) {
+            return $shippingServices;
+        }
         try {
             $account = $this->getAccountService()->fetch($accountId);
         } catch (NotFound $e) {

@@ -30,7 +30,12 @@ $(document).ready(function() {
         $(document).ready(function()
         {
             methodCollection.setItems(mapper.fromCollectionToOptions(shippingMethods));
-            accountCollection.setItems(mapper.fromCollectionToOptions(shippingAccounts));
+            var accountOptions = mapper.fromCollectionToOptions(shippingAccounts);
+            accountOptions.unshift({
+                title: 'None',
+                value: '0'
+            });
+            accountCollection.setItems(accountOptions);
 
             addButtonListener.init();
             deleteButtonListener.init(rootOuId);
