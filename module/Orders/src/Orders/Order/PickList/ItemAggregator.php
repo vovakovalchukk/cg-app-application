@@ -37,7 +37,6 @@ class ItemAggregator
                 }
 
                 $sku = trim($item->getItemSku());
-
                 if($this->includeSkuless === true && ($sku === null || $sku === '')) {
                     $itemsByTitle[trim($item->getItemName())][] = $item;
                 } elseif ($sku !== null && $sku !== '') {
