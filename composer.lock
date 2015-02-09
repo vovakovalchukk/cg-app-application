@@ -4,7 +4,11 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "hash": "106c015bd9900720f5bca2988925d50f",
+=======
+    "hash": "41df11676b3acfbe26ff6ffd96218691",
+>>>>>>> develop
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -18,7 +22,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.9.2-a0f79e.zip",
                 "reference": "742ed626da4c55feac3d6f430d1d2f7f1e452299",
-                "shasum": "e34547cd2f3202f13c2a276e67ca97dff4327f3a"
+                "shasum": "a217839ca523fe4fcc81a0dd3328457c36e42764"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -275,7 +279,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgconstants.git",
-                "reference": "e5f047965a3b638071834c9d6eb9b51be4363eae"
+                "reference": "64f6d87c61597541953e63ec523b66ab3ab117eb"
             },
             "require": {
                 "php": ">=5.4.0"
@@ -286,7 +290,7 @@
                     "CG": ""
                 }
             },
-            "time": "2015-02-05 09:07:51"
+            "time": "2015-01-12 12:30:52"
         },
         {
             "name": "channelgrabber/db",
@@ -385,7 +389,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.4.6-b1b428.zip",
                 "reference": "68301aa383ab5044164f765a167d834be2e38c3a",
-                "shasum": "31a5cb36547e06ac2b0c764fee231965d9d92217"
+                "shasum": "e31aa42f69aa0533cbc033e7c34834aa73632ef7"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -2028,17 +2032,17 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.4.17",
+            "version": "1.4.18",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "112259a734390651614b920f29357166e43207f5"
+                "reference": "7269b55f939c2283ff8f852d9b55816522f57e2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.17-e1b2c9.zip",
-                "reference": "112259a734390651614b920f29357166e43207f5",
-                "shasum": "9b10ee4d6c6f48cbfa72b3f4e47816e666265e75"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.18-269748.zip",
+                "reference": "7269b55f939c2283ff8f852d9b55816522f57e2d",
+                "shasum": "16649a616f4016b46474381df9761c426c0c374b"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
@@ -2076,7 +2080,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2015-01-07 17:05:56"
+            "time": "2015-02-06 11:25:02"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -2579,12 +2583,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "07c644ac229a21df80180598d8bb9aaba232eecb"
+                "reference": "825b4b9c63a29c586d005de8dbbcfdfeb86bbf6f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/07c644ac229a21df80180598d8bb9aaba232eecb",
-                "reference": "07c644ac229a21df80180598d8bb9aaba232eecb",
+                "url": "https://api.github.com/repos/composer/composer/zipball/825b4b9c63a29c586d005de8dbbcfdfeb86bbf6f",
+                "reference": "825b4b9c63a29c586d005de8dbbcfdfeb86bbf6f",
                 "shasum": ""
             },
             "require": {
@@ -2639,7 +2643,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-02-03 12:51:10"
+            "time": "2015-01-20 16:39:06"
         },
         {
             "name": "fabpot/goutte",
