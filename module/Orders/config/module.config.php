@@ -448,7 +448,7 @@ return [
                                     ]
                                 ],
                             ],
-                            'invoice_bysku' => [ 
+                            'invoice_bysku' => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => [
                                     'route' => '/bySku',
@@ -1117,7 +1117,7 @@ return [
                 'label'  => 'Orders',
                 'route'  => 'Orders',
                 'sprite' => 'sprite-orders-18-white',
-                'order'  => 10
+                'order'  => 5
             )
         )
     ),

@@ -107,7 +107,7 @@ function(domManipulator, eventCollator, DeferredQueue)
             id: aliasID ? aliasID : null,
             name: aliasName,
             organisationUnitId: this.getRootOuId(),
-            accountId: aliasAccount.length ? aliasAccount : null,
+            accountId: (aliasAccount.length && parseInt(aliasAccount) > 0 ? aliasAccount : null),
             shippingService: aliasService,
             methodIds: checkBoxValues
         };
