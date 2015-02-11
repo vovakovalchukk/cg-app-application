@@ -6,9 +6,9 @@ use ArrayIterator;
 
 class Map implements IteratorAggregate
 {
-    protected $skusToUrl;
-    protected $urlsToSkus;
-    protected $skusToContents;
+    protected $skusToUrl = [];
+    protected $urlsToSkus = [];
+    protected $skusToContents = [];
 
     public function setContentsForUrl($url, $contents)
     {
@@ -62,6 +62,7 @@ class Map implements IteratorAggregate
 
     public function getIterator()
     {
+
         return new ArrayIterator($this->skusToUrl);
     }
 }
