@@ -1481,7 +1481,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "c72107b4b8e8e585c4748a406634bfdf68a84709"
+                "reference": "783ae36f26eed465c49f37a26e2d4cd883a06364"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -1511,7 +1511,7 @@
                     "CG\\Template\\": "src/"
                 }
             },
-            "time": "2015-02-06 15:32:09"
+            "time": "2015-02-11 10:54:58"
         },
         {
             "name": "channelgrabber/transaction",
@@ -2430,7 +2430,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "35d3de12a4f4b4d65757fe1cd8fbf92634ed7ad7"
+                "reference": "8b69afb48c366d775ec02a1acb23e940e793530f"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2472,7 +2472,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-01-30 16:29:22"
+            "time": "2015-02-11 10:55:38"
         },
         {
             "name": "cilex/cilex",
