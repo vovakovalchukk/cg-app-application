@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f4c7d0ca84ccdfcb3aa1be35bfa8211d",
+    "hash": "f24be70461ffe8d4fa87e8249a39d400",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2480,17 +2480,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.14.43",
+            "version": "dev-CGIV-4839-MessageCenterSASSIcons",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "24afefe351e2da862fc9be229f11309325391125"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.43-b27163.zip",
-                "reference": "24afefe351e2da862fc9be229f11309325391125",
-                "shasum": "b13af5c9ee68f2e381daf5d74e8ea67638ee6620"
+                "reference": "3d0090c165f93adceccbca295bc10c8a46e6c39c"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2532,7 +2526,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-02-11 10:58:58"
+            "time": "2015-02-13 16:02:15"
         },
         {
             "name": "cilex/cilex",
@@ -5757,10 +5751,18 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.14.43",
+            "alias_normalized": "1.14.43.0",
+            "version": "dev-CGIV-4839-MessageCenterSASSIcons",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
