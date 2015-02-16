@@ -1,23 +1,42 @@
 namespace :deploy do
-    before :publishing, 'hooks:deploy'
+  before :publishing, 'hooks:deploy'
+  after :finished, 'hooks:after_symlink'
 end
 
 namespace :hooks do
-    task :deploy do
-        on roles(:all), in: :parallel do
-            output = SSHKit.config.output
-            SSHKit.config.output = SSHKit::Formatter::PassThrough.new($stdout)
+  task :deploy do
+    on roles(:all), in: :parallel do
+      output = SSHKit.config.output
+      SSHKit.config.output = SSHKit::Formatter::PassThrough.new($stdout)
 
-            within release_path do
-                script = 'tools/post_deploy.sh'
-                if test '[', '-e', script, ']'
-                    execute script
-                else
-                    warn "[SKIPPING] Deployment Script Not Found - #{script}"
-                end
-            end
-
-            SSHKit.config.output = output
+      within release_path do
+        script = 'tools/post_deploy.sh'
+        if test '[', '-e', script, ']'
+          execute script
+        else
+          warn "[SKIPPING] Deployment Script Not Found - #{script}"
         end
+      end
+
+      SSHKit.config.output = output
     end
+  end
+
+  task :after_symlink do
+    on roles(:all), in: :parallel do
+      output = SSHKit.config.output
+      SSHKit.config.output = SSHKit::Formatter::PassThrough.new($stdout)
+
+      within release_path do
+        script = 'tools/post_symlink.sh'
+        if test '[', '-e', script, ']'
+          execute script
+        else
+          warn "[SKIPPING] Post Symlink Script Not Found - #{script}"
+        end
+      end
+
+      SSHKit.config.output = output
+    end
+  end
 end
