@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8b7fc84dc32761068f016b2406d4ae5c",
+    "hash": "98d4d4844c1f1549bcc7aca5525552c8",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1446,17 +1446,11 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.2.41",
+            "version": "dev-CGIV-4756-ordertable-discounts",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "57b43947afdaf76ebcd0947484e7568fda981340"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.41-4f7400.zip",
-                "reference": "57b43947afdaf76ebcd0947484e7568fda981340",
-                "shasum": "f4d08d9130c3c9319e7341605b8f651853827e5d"
+                "reference": "cef322a598163160a6ad2c9d104130a5e4be91f5"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -1486,7 +1480,7 @@
                     "CG\\Template\\": "src/"
                 }
             },
-            "time": "2015-02-10 09:52:09"
+            "time": "2015-02-13 10:17:32"
         },
         {
             "name": "channelgrabber/transaction",
@@ -5684,10 +5678,18 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.3.0",
+            "alias_normalized": "1.3.0.0",
+            "version": "dev-CGIV-4756-ordertable-discounts",
+            "package": "channelgrabber/template"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/template": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
