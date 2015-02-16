@@ -408,14 +408,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function getOrderItemTable(OrderEntity $order)
     {
+        $getPrice = function (ItemEntity $entity) {
+            return $entity->getIndividualItemPrice() + $entity->getIndividualItemDiscountPrice();
+        };
         $getDiscountTotal = function (ItemEntity $entity) {
-            return $entity->getIndividualItemDiscountPrice() * $entity->getItemQuantity();
+            return '-' . $entity->getIndividualItemDiscountPrice() * $entity->getItemQuantity();
         };
-
-        $getTaxTotal = function (ItemEntity $entity) {
-            return $entity->getItemTaxPercentage() * $entity->getItemQuantity();
-        };
-
         $getLineTotal = function (ItemEntity $entity) {
             return $entity->getIndividualItemPrice() * $entity->getItemQuantity();
         };
@@ -438,11 +436,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ['name' => 'SKU', 'class' => '', 'getter' => 'getItemSku', 'callback' => null],
             ['name' => 'Product Name', 'class' => '', 'getter' => 'getItemName', 'callback' => $linkFormatter],
             ['name' => 'Quantity', 'class' => 'right', 'getter' => 'getItemQuantity', 'callback' => null],
-            ['name' => 'Individual Price', 'class' => 'right', 'getter' => 'getIndividualItemPrice', 'callback' => $currencyFormatter],
-            ['name' => 'Individual Discount', 'class' => 'right', 'getter' => 'getIndividualItemDiscountPrice', 'callback' => $currencyFormatter],
-            ['name' => 'Tax', 'class' => 'right', 'getter' => 'getItemTaxPercentage', 'callback' => null],
+            ['name' => 'Price inc. VAT', 'class' => 'right', 'getter' => $getPrice, 'callback' => $currencyFormatter],
             ['name' => 'Discount Total', 'class' => 'right', 'getter' => $getDiscountTotal, 'callback' => $currencyFormatter],
-            ['name' => 'Tax Total', 'class' => 'right', 'getter' => $getTaxTotal, 'callback' => $currencyFormatter],
             ['name' => 'Line Total', 'class' => 'right', 'getter' => $getLineTotal, 'callback' => $currencyFormatter],
         ];
 
