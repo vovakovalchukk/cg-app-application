@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f24be70461ffe8d4fa87e8249a39d400",
+    "hash": "ab3de8e95af0f8bbd7fbea4583cbc462",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2480,11 +2480,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-4839-MessageCenterSASSIcons",
+            "version": "dev-QA",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "3d0090c165f93adceccbca295bc10c8a46e6c39c"
+                "reference": "d16e1da71f798e9ce526f0d2f17b5f49dbc3b722"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2526,7 +2526,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-02-13 16:02:15"
+            "time": "2015-02-16 09:32:55"
         },
         {
             "name": "cilex/cilex",
@@ -5755,7 +5755,7 @@
         {
             "alias": "1.14.43",
             "alias_normalized": "1.14.43.0",
-            "version": "dev-CGIV-4839-MessageCenterSASSIcons",
+            "version": "dev-QA",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
