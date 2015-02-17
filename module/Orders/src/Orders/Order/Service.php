@@ -435,10 +435,10 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $columns = [
             ['name' => 'SKU', 'class' => '', 'getter' => 'getItemSku', 'callback' => null],
             ['name' => 'Product Name', 'class' => '', 'getter' => 'getItemName', 'callback' => $linkFormatter],
-            ['name' => 'Quantity', 'class' => 'right', 'getter' => 'getItemQuantity', 'callback' => null],
-            ['name' => 'Price inc. VAT', 'class' => 'right', 'getter' => $getPrice, 'callback' => $currencyFormatter],
-            ['name' => 'Discount Total', 'class' => 'right', 'getter' => $getDiscountTotal, 'callback' => $currencyFormatter],
-            ['name' => 'Line Total', 'class' => 'right', 'getter' => $getLineTotal, 'callback' => $currencyFormatter],
+            ['name' => 'Quantity', 'class' => 'quantity', 'getter' => 'getItemQuantity', 'callback' => null],
+            ['name' => 'Price inc. VAT', 'class' => 'price right', 'getter' => $getPrice, 'callback' => $currencyFormatter],
+            ['name' => 'Discount Total', 'class' => 'price right', 'getter' => $getDiscountTotal, 'callback' => $currencyFormatter],
+            ['name' => 'Line Total', 'class' => 'price right', 'getter' => $getLineTotal, 'callback' => $currencyFormatter],
         ];
 
         $table = $this->getDi()->newInstance(Table::class);
@@ -449,6 +449,19 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         }
         $rows = $this->getDi()->newInstance(TableRows::class, ["data" => $order->getItems(), "mapping" => $mapping]);
         $table->setRows($rows);
+
+        $discount = '
+        <td colspan="5" style="text-align:right;border-right:none;background-color:#f8f8f8;font-weight:bold">
+        Order Discount:
+        </td>
+        <td class="right" style="border-left:none;background-color:#f8f8f8"">
+          -£2.00
+        </td>
+
+        ';
+
+        $table->setPostCustomRows([$discount]);
+
         $table->setTemplate('table/standard');
         return $table;
     }
