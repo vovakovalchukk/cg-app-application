@@ -1,0 +1,59 @@
+<?php $this->inlineScript()->captureStart(); ?>
+    $(document).ready(function() {
+        require.config({
+            paths: {
+                'Settings': "<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js';?>"
+            }
+        });
+        require([
+            'Settings/PickList/PickList',
+            'element/Factory/Select'
+        ], function(
+            pickList,
+            select
+        ) {
+            pickList.init();
+
+            $(document).on('fnDrawCallback', function(event, data) {
+                select.init('sort-field-custom-select');
+                select.init('sort-direction-custom-select');
+            });
+        });
+    });
+<?php $this->inlineScript()->captureEnd(); ?>
+
+<div id="breadcrumbs" class="floatLeftClear">
+  <span class="heading-large">
+    <?= $this->translate($title) ?>
+  </span>
+</div>
+<div class="module clearfix">
+  <form>
+    <div class="pick-list-form">
+      <input type='hidden' value="<?= $eTag ?>" id="pick-list-eTag">
+      <div class="half">
+        <label>
+          <span class="inputbox-label">Sort by Column:</span>
+          <div class="order-inputbox-holder half-input">
+            <?= $sortFieldCustomSelect; ?>
+          </div>
+          <div class="order-inputbox-holder half-input">
+            <?= $sortDirectionCustomSelect; ?>
+          </div>
+        </label>
+        <label>
+          <span class="inputbox-label">Show Pictures:</span>
+          <div class="order-inputbox-holder">
+            <?= $showPicturesCheckbox; ?>
+          </div>
+        </label>
+        <label>
+          <span class="inputbox-label">Include SKUless Products:</span>
+          <div class="order-inputbox-holder">
+            <?= $showSkulessCheckbox; ?>
+          </div>
+        </label>
+      </div>
+    </div>
+  </form>
+</div>
