@@ -450,20 +450,25 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $rows = $this->getDi()->newInstance(TableRows::class, ["data" => $order->getItems(), "mapping" => $mapping]);
         $table->setRows($rows);
 
-        $discount = '
-        <td colspan="5" class="discount" style="text-align:right;border-right:none;background-color:#f8f8f8;font-weight:bold">
-        Order Discount:
-        </td>
-        <td class="right" class="discount" style="border-left:none;background-color:#f8f8f8"">
-          -£2.00
-        </td>
-
-        ';
-
-        $table->setPostCustomRows([$discount]);
-
+        if ($order->getTotalDiscount()) {
+            $this->addOrderDiscount(
+                $table,
+                call_user_func($numberFormat, -$order->getTotalDiscount(), $currencyCode)
+            );
+        }
+        
         $table->setTemplate('table/standard');
         return $table;
+    }
+
+    protected function addOrderDiscount(Table $table, $discount)
+    {
+        $cells = [
+            $table->createCustomCell('Order Discount', null, 5),
+            $table->createCustomCell($discount, 'right')
+        ];
+        $row = $table->createCustomRow($cells, 'discount');
+        $table->setPostCustomRows([$row]);
     }
 
     public function getNamesFromOrderNotes(OrderNoteCollection $notes)
