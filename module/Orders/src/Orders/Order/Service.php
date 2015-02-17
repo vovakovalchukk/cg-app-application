@@ -451,10 +451,10 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $table->setRows($rows);
 
         $discount = '
-        <td colspan="5" style="text-align:right;border-right:none;background-color:#f8f8f8;font-weight:bold">
+        <td colspan="5" class="discount" style="text-align:right;border-right:none;background-color:#f8f8f8;font-weight:bold">
         Order Discount:
         </td>
-        <td class="right" style="border-left:none;background-color:#f8f8f8"">
+        <td class="right" class="discount" style="border-left:none;background-color:#f8f8f8"">
           -£2.00
         </td>
 

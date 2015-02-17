@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6b70ea0096842210e37df3b7b9c47ea6",
+    "hash": "774e5a0f2bb15b7e5336d75b4028fe58",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2517,17 +2517,11 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.14.44",
+            "version": "dev-CGIV-4768-order-details-discounts",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "91df2c2b959068b0887f53f172ce2be3c63bcaa1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.44-8fdb74.zip",
-                "reference": "91df2c2b959068b0887f53f172ce2be3c63bcaa1",
-                "shasum": "eb2adea60c6fead5184ee99e23068730a551983b"
+                "reference": "2f9a6f578545cb27dfbdd36c68293cf881e92d91"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2569,7 +2563,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-02-17 13:35:23"
+            "time": "2015-02-17 14:47:44"
         },
         {
             "name": "cilex/cilex",
@@ -5794,10 +5788,18 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.14.45",
+            "alias_normalized": "1.14.45.0",
+            "version": "dev-CGIV-4768-order-details-discounts",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
