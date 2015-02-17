@@ -32,7 +32,7 @@ return [
     'router' => [
         'routes' => [
             'Orders' => [
-                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'type' => 'literal',
                 'options' => [
                     'route' => '/orders',
                     'defaults' => [
@@ -957,9 +957,9 @@ return [
         'application-navigation' => array(
             'orders' => array(
                 'label'  => 'Orders',
-                'route'  => 'Orders',
                 'sprite' => 'sprite-orders-18-white',
-                'order'  => 5
+                'order'  => 5,
+                'uri'    => 'https://' . $_SERVER['HTTP_HOST'] . '/orders'
             )
         )
     ),

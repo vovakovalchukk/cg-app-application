@@ -102,9 +102,9 @@ return [
         'application-navigation' => [
             'settings' => [
                 'label'  => 'Settings',
-                'route'  => Module::ROUTE,
                 'sprite' => 'sprite-settings-18-white',
-                'order'  => 20
+                'order'  => 20,
+                'uri'    => 'https://' . $_SERVER['HTTP_HOST'] . '/settings'
             ]
         ]
     ],
