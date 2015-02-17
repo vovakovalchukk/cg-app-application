@@ -1,5 +1,10 @@
 {{#buttons}}
-    <div class='button' data-element='{{element}}'>
-        {{value}}
+    <div class='button {{#disabled}}disabled{{/disabled}} {{icon}} {{#icon}}icon{{/icon}}' data-element='{{element}}'>
+      <span class="action" data-action="{{action}}">
+        {{#icon}}
+        <span class="icon sprite-sprite {{icon}}">&nbsp;</span>
+        {{/icon}}
+        <span class="title">{{value}}</span>
+      </span>
     </div>
 {{/buttons}}
