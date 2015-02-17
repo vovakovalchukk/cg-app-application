@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fe6b43472266ad5ede2f7b294a633c17",
+    "hash": "6b70ea0096842210e37df3b7b9c47ea6",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -722,17 +722,17 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.0.1",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "22b855c0f1540aa3438259818166fc81002ce7f6"
+                "reference": "25732b2a08867e10d1f0a0e3c7153b1d1d2cff1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.1-2007be.zip",
-                "reference": "22b855c0f1540aa3438259818166fc81002ce7f6",
-                "shasum": "419234494d89d9a3699a49aefe888e65c3072f96"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.0-8b68cc.zip",
+                "reference": "25732b2a08867e10d1f0a0e3c7153b1d1d2cff1e",
+                "shasum": "9c7546241880601655f0d32c595d7a30bd8ae125"
             },
             "require": {
                 "php": ">=5.4.0"
@@ -743,7 +743,7 @@
                     "CG\\Locale\\": "src/"
                 }
             },
-            "time": "2015-02-13 13:45:49"
+            "time": "2015-02-05 13:14:40"
         },
         {
             "name": "channelgrabber/location",
@@ -1042,17 +1042,17 @@
         },
         {
             "name": "channelgrabber/picklist",
-            "version": "dev-CGIV-4640-picking-list-pdf-service",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-picklist.git",
-                "reference": "20d5f76462547bdc461082aafd5c494c79c7d4e5"
+                "reference": "eaf44f6c014baff8742780222c125d312a75e4e8"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.0.0,<3.0.0",
-                "channelgrabber/settings": ">=1.3.0,<2.0.0",
-                "channelgrabber/template": ">=1.3.0",
+                "channelgrabber/settings": ">=1.3.1,<2.0.0",
+                "channelgrabber/template": ">=1.2.42",
                 "composer/composer": "@dev",
                 "nocarrier/hal": "~0.9.10",
                 "php-jsonpatch/php-jsonpatch": "@dev",
@@ -1074,7 +1074,7 @@
                     "CG\\PickList\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-02-11 11:43:44"
+            "time": "2015-02-17 13:57:26"
         },
         {
             "name": "channelgrabber/predis",
@@ -1274,11 +1274,17 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "dev-CGIV-4626",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "f8d97f530607a3b1865daee7977e6315d05f045e"
+                "reference": "1373cbe4d17d04de0e3e5d5fab96216baf66a0e9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.3.1-8e44ca.zip",
+                "reference": "1373cbe4d17d04de0e3e5d5fab96216baf66a0e9",
+                "shasum": "2fa775bb3aaf427ea37f993d203ea32469eb10bf"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -1299,7 +1305,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2015-02-02 15:37:37"
+            "time": "2015-02-17 13:36:43"
         },
         {
             "name": "channelgrabber/slim",
@@ -1550,11 +1556,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-4640-picking-list-pdf-service",
+            "version": "1.2.42",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "c3f820e95b37093a9f2bdda12e90874f1efdaa54"
+                "reference": "862df99333827f03574e97834d297f6bb43bf155"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.42-85488f.zip",
+                "reference": "862df99333827f03574e97834d297f6bb43bf155",
+                "shasum": "89f4df56ce28721a39d90692f1646076fb368906"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -1584,7 +1596,7 @@
                     "CG\\Template\\": "src/"
                 }
             },
-            "time": "2015-02-11 11:56:42"
+            "time": "2015-02-17 13:37:58"
         },
         {
             "name": "channelgrabber/transaction",
@@ -1736,11 +1748,17 @@
         },
         {
             "name": "channelgrabber/validation",
-            "version": "dev-CGIV-4626-SortValidator",
+            "version": "1.2.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-validation.git",
-                "reference": "f526ca3d28e78f9e9d96cebea38162589ffded0a"
+                "reference": "d29f78e04288efea047e68d439900e4cc07b4164"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-validation-1.2.7-0509ac.zip",
+                "reference": "d29f78e04288efea047e68d439900e4cc07b4164",
+                "shasum": "863bf4d7c2c6fb0ca825eafd1a37b152d70b8d13"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
@@ -1753,7 +1771,7 @@
                     "CG\\Validation\\": "src"
                 }
             },
-            "time": "2015-02-02 15:31:52"
+            "time": "2015-02-17 13:39:48"
         },
         {
             "name": "channelgrabber/vnderror",
@@ -2499,11 +2517,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-4651-PrettyPickingListSettingsForm",
+            "version": "1.14.44",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "5290ef86f0a0ce44338940fa2416859bd1a57e8b"
+                "reference": "91df2c2b959068b0887f53f172ce2be3c63bcaa1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.44-8fdb74.zip",
+                "reference": "91df2c2b959068b0887f53f172ce2be3c63bcaa1",
+                "shasum": "eb2adea60c6fead5184ee99e23068730a551983b"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2545,7 +2569,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-02-17 09:58:56"
+            "time": "2015-02-17 13:35:23"
         },
         {
             "name": "cilex/cilex",
@@ -5770,46 +5794,10 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0",
-            "alias_normalized": "1.0.0.0",
-            "version": "dev-CGIV-4640-picking-list-pdf-service",
-            "package": "channelgrabber/picklist"
-        },
-        {
-            "alias": "1.3.0",
-            "alias_normalized": "1.3.0.0",
-            "version": "dev-CGIV-4626",
-            "package": "channelgrabber/settings"
-        },
-        {
-            "alias": "1.3.0",
-            "alias_normalized": "1.3.0.0",
-            "version": "dev-CGIV-4640-picking-list-pdf-service",
-            "package": "channelgrabber/template"
-        },
-        {
-            "alias": "1.2.6",
-            "alias_normalized": "1.2.6.0",
-            "version": "dev-CGIV-4626-SortValidator",
-            "package": "channelgrabber/validation"
-        },
-        {
-            "alias": "1.14.44",
-            "alias_normalized": "1.14.44.0",
-            "version": "dev-CGIV-4651-PrettyPickingListSettingsForm",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/picklist": 20,
-        "channelgrabber/settings": 20,
-        "channelgrabber/template": 20,
-        "channelgrabber/validation": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
