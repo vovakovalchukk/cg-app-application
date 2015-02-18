@@ -417,14 +417,14 @@ return [
         'application-navigation' => [
             'products' => [
                 'label'  => 'Products',
-                'route'  => 'Products',
+                'uri'    => 'https://' . $_SERVER['HTTP_HOST'] . '/products',
                 'sprite' => 'sprite-products-18-white',
                 'order'  => 10,
                 'pages'  => [
                     'importListings' => [
                         'id'    => 'importListings',
                         'label' => 'Import Listings',
-                        'uri'   => implode(
+                        'uri'   => 'https://' . $_SERVER['HTTP_HOST'] . implode(
                             '',
                             [
                                 ProductsController::ROUTE_INDEX_URL,
