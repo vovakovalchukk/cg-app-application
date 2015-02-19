@@ -2150,7 +2150,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "86cd83b39adfd3afa84b7b0542c240b3c4467b0b"
+                "reference": "bc66d62c49fbce757c9ececd5db6462b4969f1ba"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
@@ -2188,7 +2188,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2015-02-19 09:29:32"
+            "time": "2015-02-19 09:51:07"
         },
         {
             "name": "channelgrabber/zf2-mustache",
