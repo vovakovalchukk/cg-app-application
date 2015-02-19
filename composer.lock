@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cbda02388ae46ccd1a62d4fc62a863d7",
+    "hash": "e1e7357a23cbcfc253411c57a58bbeac",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -185,17 +185,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.15.2",
+            "version": "1.15.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "2973c4f2d70099f62600f8f247cda820dc0d792c"
+                "reference": "d5bd7df94f759e9c40324df2c5aea720b665e365"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.15.2-494150.zip",
-                "reference": "2973c4f2d70099f62600f8f247cda820dc0d792c",
-                "shasum": "41e60878b6c275a87237e1649b6958d75a949033"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.15.4-ede567.zip",
+                "reference": "d5bd7df94f759e9c40324df2c5aea720b665e365",
+                "shasum": "f0d0f89ac263cdc594d84027edb5a8292366c538"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -210,7 +210,7 @@
                 "channelgrabber/product": ">=1.3.5, <2.0.0",
                 "channelgrabber/scraper": ">=1.0.0,<2.0.0",
                 "channelgrabber/slim": ">=1.12.1,<2.0.0",
-                "channelgrabber/stats": ">=1.0.0,<2.0.0",
+                "channelgrabber/stats": ">=1.0.1,<2.0.0",
                 "channelgrabber/stdlib": ">=2.7.17",
                 "composer/composer": "@dev",
                 "ext-gearman": "~1.1.0",
@@ -242,7 +242,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-02-13 13:40:59"
+            "time": "2015-02-19 11:32:49"
         },
         {
             "name": "channelgrabber/cilex",
@@ -599,6 +599,13 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -1449,17 +1456,17 @@
         },
         {
             "name": "channelgrabber/stats",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stats.git",
-                "reference": "38f1297cc306b53feb0c42ac872d67f20e4dbfbc"
+                "reference": "58a676fbb35da488f26e7fb5aa5c156de49e25a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stats-1.0.0-6b5e64.zip",
-                "reference": "38f1297cc306b53feb0c42ac872d67f20e4dbfbc",
-                "shasum": "c0cb903c123dd6a308d36049fdc4d42c2c058e59"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stats-1.0.1-fedf8f.zip",
+                "reference": "58a676fbb35da488f26e7fb5aa5c156de49e25a2",
+                "shasum": "fa1a6b30d656cc37e56a881f78620e1c6394c68d"
             },
             "require": {
                 "liuggio/statsd-php-client": "~1.0.12"
@@ -1471,7 +1478,7 @@
                 }
             },
             "description": "ChannelGrabber application stat logging",
-            "time": "2015-01-07 17:02:30"
+            "time": "2015-02-18 11:19:38"
         },
         {
             "name": "channelgrabber/stdlib",
@@ -2139,17 +2146,17 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.4.18",
+            "version": "1.4.19",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "7269b55f939c2283ff8f852d9b55816522f57e2d"
+                "reference": "ba0135a338c8802b8ab570ad275666767fd1e831"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.18-269748.zip",
-                "reference": "7269b55f939c2283ff8f852d9b55816522f57e2d",
-                "shasum": "16649a616f4016b46474381df9761c426c0c374b"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.19-4583cf.zip",
+                "reference": "ba0135a338c8802b8ab570ad275666767fd1e831",
+                "shasum": "296869aab732c15351daedb51d69bced9f52386a"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
@@ -2187,7 +2194,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2015-02-06 11:25:02"
+            "time": "2015-02-19 11:31:05"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -2368,7 +2375,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-sessions-1.1.0-9f916d.zip",
                 "reference": "610e35f41fd4474d1974e2fb9af9bf8d21cccf10",
-                "shasum": "7d4c0fe0c1663caa97fd2664292a213e2627a10f"
+                "shasum": "08e9d6f89171b180f8474f0456bf72400fe17d42"
             },
             "require": {
                 "channelgrabber/di": ">=2.1.0",
@@ -2696,12 +2703,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "1d8f05f1dd0e390f253f79ea86cd505178360019"
+                "reference": "833ce984264204e7d6576ab082660105c7d8f04c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/1d8f05f1dd0e390f253f79ea86cd505178360019",
-                "reference": "1d8f05f1dd0e390f253f79ea86cd505178360019",
+                "url": "https://api.github.com/repos/composer/composer/zipball/833ce984264204e7d6576ab082660105c7d8f04c",
+                "reference": "833ce984264204e7d6576ab082660105c7d8f04c",
                 "shasum": ""
             },
             "require": {
@@ -2756,7 +2763,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-02-11 11:31:57"
+            "time": "2015-02-17 21:55:44"
         },
         {
             "name": "fabpot/goutte",
@@ -3446,9 +3453,7 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -3580,8 +3585,7 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com",
-                    "role": "Developer"
+                    "homepage": "http://benramsey.com"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
@@ -4563,9 +4567,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "shasum": ""
+                "url": "https://packages.zendframework.com/composer/zendframework-zendxml-559b34f426d33a11c3db118e00ce14bb8dc64e5f-zip-6cf7a2.zip",
+                "reference": "1.0.0",
+                "shasum": "39abc614b5c26bcbf8102e203c52dee73c4460a8"
             },
             "require": {
                 "php": ">=5.3.3"
@@ -4585,7 +4589,6 @@
                     "ZendXml": "library/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -4596,6 +4599,10 @@
                 "xml",
                 "zf2"
             ],
+            "support": {
+                "source": "https://github.com/zendframework/ZendXml/tree/master",
+                "issues": "https://github.com/zendframework/ZendXml/issues"
+            },
             "time": "2014-03-05 22:25:44"
         },
         {
@@ -5090,7 +5097,7 @@
                 {
                     "name": "Anthon Pang",
                     "email": "apang@softwaredevelopment.ca",
-                    "role": "developer"
+                    "role": "Fork Maintainer"
                 }
             ],
             "description": "PHP WebDriver for Selenium 2",
@@ -5251,8 +5258,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
