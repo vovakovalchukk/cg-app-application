@@ -3,9 +3,11 @@ define([
 ], function(
     elementCollection
 ) {
+
     var Batch = function(notifications, selector, cgMustache) {
         var template;
         var mustacheInstance;
+        var savedCheckboxes;
 
         cgMustache.get().fetchTemplate($(selector).attr('data-mustacheTemplate'),
             function(batchTemplate, batchMustacheInstance) {
@@ -32,6 +34,16 @@ define([
         this.getElementCollection = function()
         {
             return elementCollection;
+        };
+
+        this.getSavedCheckboxes = function()
+        {
+            return savedCheckboxes;
+        };
+
+        this.setSavedCheckboxes = function(checkboxes)
+        {
+            savedCheckboxes = checkboxes;
         };
     };
 
@@ -63,13 +75,21 @@ define([
 
         this.getNotifications().notice('Adding orders to a batch');
         $.ajax(ajax);
+        this.setSavedCheckboxes(ajax.data.orders);
     };
 
     Batch.prototype.actionSuccess = function(data) {
-
         this.getNotifications().success('Orders successfully batched');
         this.redraw();
         $('#' + this.datatable).cgDataTable('redraw');
+
+        this.getSavedCheckboxes().forEach(function(singleCheckbox) {
+            var checkboxObj = $('#checkbox-' + singleCheckbox);
+            checkboxObj.attr('checked', true);
+            checkboxObj.val('11111');
+            checkboxObj.closest('tr').addClass('selected');
+            console.log(checkboxObj);
+        });
     };
 
     Batch.prototype.redraw = function() {

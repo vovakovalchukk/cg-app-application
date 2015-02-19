@@ -220,6 +220,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
             throw new \Exception('Failed to update the following orders: ' . implode(', ', $failedOrderIds), 0, $exception);
         }
+        $this->logDebugDump($response, 'The response dumped:', [[]], 'PAULKEELAN');
         return $response->setVariable($action, true);
     }
 
