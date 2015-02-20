@@ -3,7 +3,7 @@ define([
     'Orders/SaveCheckboxes'
 ],function(
     Popup,
-    SaveCheckboxes
+    saveCheckboxes
 ) {
     var TagPopup = function(notifications, popupTemplate) {
         var self = this;
@@ -24,7 +24,7 @@ define([
                         if (datatable) {
                             var dataTableElement = $('#' + datatable);
                             dataTableElement.cgDataTable("redraw");
-                            SaveCheckboxes.refreshCheckboxes(dataTableElement);
+                            saveCheckboxes.refreshCheckboxes(dataTableElement);
                         }
                     }
                 }
@@ -112,7 +112,7 @@ define([
                     'orders': orders
                 },
                 success : function(data) {
-                    SaveCheckboxes.setSavedCheckboxes(orders);
+                    saveCheckboxes.setSavedCheckboxes(orders);
                     return notifications.success("Tagged Successfully");
                 },
                 error: function(error, textStatus, errorThrown) {
@@ -147,7 +147,7 @@ define([
 
         this.getSaveCheckboxes = function()
         {
-            return SaveCheckboxes;
+            return saveCheckboxes;
         };
 
         init();

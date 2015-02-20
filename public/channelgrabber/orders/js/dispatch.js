@@ -1,7 +1,7 @@
 define([
     'Orders/SaveCheckboxes'
 ], function(
-    SaveCheckboxes
+    saveCheckboxes
 ) {
     return function(notifications) {
         this.action = function(event) {
@@ -15,7 +15,7 @@ define([
                     if (datatable) {
                         var dataTableElement = $('#' + datatable);
                         dataTableElement.cgDataTable("redraw");
-                        SaveCheckboxes.refreshCheckboxes(dataTableElement);
+                        saveCheckboxes.refreshCheckboxes(dataTableElement);
                     }
                 }
             };
@@ -42,7 +42,7 @@ define([
                 dataType: 'json',
                 success : function(data) {
                     if (data.dispatching) {
-                        SaveCheckboxes.setSavedCheckboxes(orders);
+                        saveCheckboxes.setSavedCheckboxes(orders);
                         return notifications.success("Orders Marked for Dispatch");
                     } else if (!data.error) {
                         return notifications.error("Failed to marked Orders for Dispatch");

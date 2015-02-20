@@ -3,7 +3,7 @@ define([
     'Orders/SaveCheckboxes'
 ], function(
     elementCollection,
-    SaveCheckboxes
+    saveCheckboxes
 ) {
     var Batch = function(notifications, selector, cgMustache) {
         var template;
@@ -38,7 +38,7 @@ define([
 
         this.getSaveCheckboxes = function()
         {
-            return SaveCheckboxes;
+            return saveCheckboxes;
         };
     };
 
