@@ -7,7 +7,8 @@ function(showHideFilters) {
 });
 require.config({
     paths: {
-        'Filters': "<?= $this->basePath() . Filters\Module::PUBLIC_FOLDER . 'js';?>"
+        'Filters': "<?= $this->basePath() . Filters\Module::PUBLIC_FOLDER . 'js';?>",
+        'Orders': "<?= $this->basePath() . Orders\Module::PUBLIC_FOLDER . 'js';?>"
     }
 });
 require(["Filters/FilterCollection"], function(filterCollection) {

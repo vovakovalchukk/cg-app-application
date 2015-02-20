@@ -1,4 +1,8 @@
-define(function() {
+define([
+    'Orders/SaveCheckboxes'
+], function(
+    SaveCheckboxes
+) {
     return function(notifications) {
         this.action = function(event) {
             event.stopImmediatePropagation();
@@ -9,7 +13,9 @@ define(function() {
                 url: $(this).data("url"),
                 complete: function() {
                     if (datatable) {
-                        $("#" + datatable).cgDataTable("redraw");
+                        var dataTableElement = $('#' + datatable);
+                        dataTableElement.cgDataTable("redraw");
+                        SaveCheckboxes.refreshCheckboxes(dataTableElement);
                     }
                 }
             };
@@ -36,6 +42,7 @@ define(function() {
                 dataType: 'json',
                 success : function(data) {
                     if (data.dispatching) {
+                        SaveCheckboxes.setSavedCheckboxes(orders);
                         return notifications.success("Orders Marked for Dispatch");
                     } else if (!data.error) {
                         return notifications.error("Failed to marked Orders for Dispatch");

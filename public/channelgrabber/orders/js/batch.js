@@ -1,13 +1,13 @@
 define([
-    'element/ElementCollection'
+    'element/ElementCollection',
+    'Orders/SaveCheckboxes'
 ], function(
-    elementCollection
+    elementCollection,
+    SaveCheckboxes
 ) {
-
     var Batch = function(notifications, selector, cgMustache) {
         var template;
         var mustacheInstance;
-        var savedCheckboxes;
 
         cgMustache.get().fetchTemplate($(selector).attr('data-mustacheTemplate'),
             function(batchTemplate, batchMustacheInstance) {
@@ -36,14 +36,9 @@ define([
             return elementCollection;
         };
 
-        this.getSavedCheckboxes = function()
+        this.getSaveCheckboxes = function()
         {
-            return savedCheckboxes;
-        };
-
-        this.setSavedCheckboxes = function(checkboxes)
-        {
-            savedCheckboxes = checkboxes;
+            return SaveCheckboxes;
         };
     };
 
@@ -75,21 +70,15 @@ define([
 
         this.getNotifications().notice('Adding orders to a batch');
         $.ajax(ajax);
-        this.setSavedCheckboxes(ajax.data.orders);
+        this.getSaveCheckboxes().setSavedCheckboxes(ajax.data.orders);
     };
 
     Batch.prototype.actionSuccess = function(data) {
         this.getNotifications().success('Orders successfully batched');
         this.redraw();
-        $('#' + this.datatable).cgDataTable('redraw');
-
-        this.getSavedCheckboxes().forEach(function(singleCheckbox) {
-            var checkboxObj = $('#checkbox-' + singleCheckbox);
-            checkboxObj.attr('checked', true);
-            checkboxObj.val('11111');
-            checkboxObj.closest('tr').addClass('selected');
-            console.log(checkboxObj);
-        });
+        var dataTable = $('#' + this.datatable);
+        dataTable.cgDataTable('redraw');
+        this.getSaveCheckboxes().refreshCheckboxes(dataTable);
     };
 
     Batch.prototype.redraw = function() {
@@ -145,11 +134,15 @@ define([
 
         this.getNotifications().notice('Removing orders from batch');
         $.ajax(ajax);
+
+        this.getSaveCheckboxes().setSavedCheckboxes(ajax.data.orders);
     };
 
     Batch.prototype.removeSuccess = function(data) {
         this.getNotifications().success('Orders removed from batched');
-        $('#' + this.datatable).cgDataTable('redraw');
+        var dataTable = $('#' + this.datatable);
+        dataTable.cgDataTable('redraw');
+        this.getSaveCheckboxes().refreshCheckboxes(dataTable);
     };
 
     return Batch;
