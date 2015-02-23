@@ -176,12 +176,40 @@
 .addInvoiceElement {
     display:none;
     div.button {
-        width:75px !important;
-        display: inline-block;
-        min-width:initial;
-        vertical-align: top;
+      width:95px !important;
+      min-width:initial;
+      display: block;
+      float: left;
+      margin: 5px 0px 5px 0px;
+      padding: 6px 5px 6px 5px!important;
+      height: auto;
+      @include box-sizing(border);
+      &:nth-child(even) {
+        clear:both;
+      }
+      .action {
+        width: 100%;
+        height: 100%;
         float: left;
-        margin: 5px 0px 5px 0px;
+        clear:both;
+        position: relative;
+        .icon {
+          float: left;
+          clear:both;
+          position: absolute;
+          top: 50%;
+          margin-top: -9px;
+        }
+        .title {
+          width: 45px;
+          display: block;
+          float: left;
+          white-space: normal;
+          margin-left: 27px;
+          text-align: left;
+          font-size: 13px;
+        }
+      }
     }
     div.button:nth-child(odd) {
         margin-left: 10px;
@@ -296,17 +324,21 @@
     clear:both;
 }
 .paper-type-checkbox {
+  margin-bottom: 7px;
+}
+.paper-type-checkbox, .remove-blank-lines-checkbox{
     width: 100%;
     float: left;
     clear:both;
-    margin-bottom: 7px;
     .std-checkbox {
         left: -10px;
     }
     .checkbox_label {
-        top: 7px;
         left: 35px;
     }
+}
+.paper-type-checkbox .checkbox_label {
+  top: 7px;
 }
 #heading-inspector {
     width: 100%;
@@ -327,6 +359,7 @@
 }
 #text-inspector-data-fields {
     margin-top: 10px;
+    margin-bottom:15px;
 }
 
 .align_buttons {

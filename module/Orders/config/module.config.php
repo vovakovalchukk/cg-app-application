@@ -10,6 +10,18 @@ use CG\Order\Client\Note\Storage\Api as NoteApi;
 use CG\Order\Service\UserChange\Service as UserChangeService;
 use CG\Order\Client\UserChange\Storage\Api as UserChangeApi;
 use CG\Order\Client\Storage\Api as OrderApi;
+use CG\Product\Client\Service as ProductService;
+use CG\Product\Storage\Api as ProductApiStorage;
+use CG\Stock\Service as StockService;
+use CG\Stock\Storage\Api as StockApiStorage;
+use CG\Stock\Location\Service as LocationService;
+use CG\Stock\Location\Storage\Api as LocationApiStorage;
+use CG\Listing\Service as ListingService;
+use CG\Image\Service as ImageService;
+use CG\Listing\Storage\Api as ListingApiStorage;
+use CG\Image\Storage\Api as ImageApiStorage;
+use CG\Settings\PickList\Service as PickListSettingsService;
+use CG\Settings\PickList\Storage\Api as PickListSettingsApiStorage;
 use Zend\View\Model\ViewModel;
 use Orders\Order\Service as OrderService;
 use CG\Http\Rpc\Json\Client as JsonRpcClient;
@@ -26,7 +38,10 @@ use CG\Settings\Alias\Storage\Api as ShippingAliasStorage;
 use CG\Order\Client\Tracking\Storage\Api as TrackingStorageApi;
 use CG\Order\Service\Tracking\Service as TrackingService;
 use CG\Account\Client\Storage\Api as AccountStorageApi;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\OrganisationUnit\Storage\Api as OrganisationUnitApiStorage;
 use Orders\Order\Invoice\ProgressStorage as OrderInvoiceProgressStorage;
+use Orders\Order\PickList\ProgressStorage as OrderPickListProgressStorage;
 
 return [
     'router' => [
@@ -433,7 +448,7 @@ return [
                                     ]
                                 ],
                             ],
-                            'invoice_bysku' => [ 
+                            'invoice_bysku' => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => [
                                     'route' => '/bySku',
@@ -457,6 +472,49 @@ return [
                                     ],
                                 ],
                             ],
+                        ]
+                    ],
+                    'pick_list' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/picklist',
+                            'defaults' => [
+                                'controller' => BulkActionsController::class,
+                                'action' => 'pickListOrderIds'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            'filterId' => [
+                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                'options' => [
+                                    'route' => '/:filterId',
+                                    'constraints' => [
+                                        'filterId' => '[^/]+'
+                                    ],
+                                    'defaults' => [
+                                        'action' => 'pickListFilterId',
+                                    ]
+                                ]
+                            ],
+                            'pick_list_check' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/check',
+                                    'defaults' => [
+                                        'action' => 'checkPickListPrintingAllowed'
+                                    ]
+                                ]
+                            ],
+                            'pick_list_progress' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/progress',
+                                    'defaults' => [
+                                        'action' => 'checkPickListGenerationProgress'
+                                    ]
+                                ]
+                            ]
                         ]
                     ],
                     StoredFiltersController::ROUTE_SAVE => [
@@ -950,6 +1008,106 @@ return [
                 'parameters' => [
                     'predis' => 'unreliable_redis'
                 ]
+            ],
+            OrderPickListProgressStorage::class => [
+                'parameters' => [
+                    'predis' => 'unreliable_redis'
+                ]
+            ],
+            ProductApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
+            ProductService::class => [
+                'parameters' => [
+                    'repository' => ProductApiStorage::class,
+                    'stockStorage' => StockService::class,
+                    'listingStorage' => ListingService::class,
+                    'imageStorage' => ImageService::class
+                ]
+            ],
+            StockService::class => [
+                'parameter' => [
+                    'repository' => StockApiStorage::class,
+                    'locationStorage' => LocationService::class
+                ]
+            ],
+            ListingService::class => [
+                'parameter' => [
+                    'repository' => ListingApiStorage::class
+                ]
+            ],
+            ImageService::class => [
+                'parameter' => [
+                    'repository' => ImageApiStorage::class
+                ]
+            ],
+            StockApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
+            ListingApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
+            ImageApiStorage::class => [
+                'parameters' => [
+                    'client' => 'image_guzzle'
+                ]
+            ],
+            LocationService::class => [
+                'parameter' => [
+                    'repository' => LocationApiStorage::class
+                ]
+            ],
+            LocationApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
+            StockService::class => [
+                'parameter' => [
+                    'repository' => StockApiStorage::class,
+                    'locationStorage' => LocationService::class
+                ]
+            ],
+            StockApiStorage::class => [
+                'parameter' => [
+                    'client' => 'cg_app_guzzle',
+                ]
+            ],
+            LocationService::class => [
+                'parameter' => [
+                    'repository' => LocationApiStorage::class
+                ]
+            ],
+            LocationApiStorage::class => [
+                'parameter' => [
+                    'client' => 'cg_app_guzzle',
+                ]
+            ],
+            PickListSettingsApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
+            PickListSettingsService::class => [
+                'parameters' => [
+                    'repository' => PickListSettingsApiStorage::class
+                ]
+            ],
+            OrganisationUnitApiStorage::class => [
+                'parameters' => [
+                    'client' => 'directory_guzzle'
+                ]
+            ],
+            OrganisationUnitService::class => [
+                'parameters' => [
+                    'repository' => OrganisationUnitApiStorage::class
+                ]
             ]
         ],
     ],
@@ -959,7 +1117,7 @@ return [
                 'label'  => 'Orders',
                 'route'  => 'Orders',
                 'sprite' => 'sprite-orders-18-white',
-                'order'  => 10
+                'order'  => 5
             )
         )
     ),
