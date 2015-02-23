@@ -2368,11 +2368,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-sessions-1.1.0-9f916d.zip",
                 "reference": "610e35f41fd4474d1974e2fb9af9bf8d21cccf10",
-<<<<<<< HEAD
-                "shasum": "7d4c0fe0c1663caa97fd2664292a213e2627a10f"
-=======
                 "shasum": "a0e90cfa6938f3651727ebe80a96543bd32a0f3a"
->>>>>>> develop
             },
             "require": {
                 "channelgrabber/di": ">=2.1.0",
