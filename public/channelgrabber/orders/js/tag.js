@@ -1,4 +1,10 @@
-define(['popup/mustache'],function(Popup) {
+define([
+    'popup/mustache',
+    'Orders/SaveCheckboxes'
+],function(
+    Popup,
+    saveCheckboxes
+) {
     var TagPopup = function(notifications, popupTemplate) {
         var self = this;
         var popup = new Popup(popupTemplate);
@@ -16,7 +22,9 @@ define(['popup/mustache'],function(Popup) {
                 {
                     complete: function() {
                         if (datatable) {
-                            $("#" + datatable).cgDataTable("redraw");
+                            var dataTableElement = $('#' + datatable);
+                            dataTableElement.cgDataTable("redraw");
+                            saveCheckboxes.refreshCheckboxes(dataTableElement);
                         }
                     }
                 }
@@ -104,6 +112,7 @@ define(['popup/mustache'],function(Popup) {
                     'orders': orders
                 },
                 success : function(data) {
+                    saveCheckboxes.setSavedCheckboxes(orders);
                     return notifications.success("Tagged Successfully");
                 },
                 error: function(error, textStatus, errorThrown) {
@@ -117,7 +126,7 @@ define(['popup/mustache'],function(Popup) {
 
             notifications.notice("Updating Order Tag");
             return $.ajax(ajax);
-        }
+        };
 
         var init = function() {
             popup.getElement().on("keypress.createTag", "input#tag-name", function(event) {
@@ -135,6 +144,12 @@ define(['popup/mustache'],function(Popup) {
                 popup.hide();
             });
         };
+
+        this.getSaveCheckboxes = function()
+        {
+            return saveCheckboxes;
+        };
+
         init();
     };
 
