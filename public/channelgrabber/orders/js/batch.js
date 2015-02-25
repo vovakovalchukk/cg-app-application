@@ -1,7 +1,9 @@
 define([
-    'element/ElementCollection'
+    'element/ElementCollection',
+    'Orders/SaveCheckboxes'
 ], function(
-    elementCollection
+    elementCollection,
+    saveCheckboxes
 ) {
     var Batch = function(notifications, selector, cgMustache) {
         var template;
@@ -33,6 +35,11 @@ define([
         {
             return elementCollection;
         };
+
+        this.getSaveCheckboxes = function()
+        {
+            return saveCheckboxes;
+        };
     };
 
     Batch.prototype.action = function(element) {
@@ -63,13 +70,15 @@ define([
 
         this.getNotifications().notice('Adding orders to a batch');
         $.ajax(ajax);
+        this.getSaveCheckboxes().setSavedCheckboxes(ajax.data.orders);
     };
 
     Batch.prototype.actionSuccess = function(data) {
-
         this.getNotifications().success('Orders successfully batched');
         this.redraw();
-        $('#' + this.datatable).cgDataTable('redraw');
+        var dataTable = $('#' + this.datatable);
+        dataTable.cgDataTable('redraw');
+        this.getSaveCheckboxes().refreshCheckboxes(dataTable);
     };
 
     Batch.prototype.redraw = function() {
@@ -125,11 +134,15 @@ define([
 
         this.getNotifications().notice('Removing orders from batch');
         $.ajax(ajax);
+
+        this.getSaveCheckboxes().setSavedCheckboxes(ajax.data.orders);
     };
 
     Batch.prototype.removeSuccess = function(data) {
         this.getNotifications().success('Orders removed from batched');
-        $('#' + this.datatable).cgDataTable('redraw');
+        var dataTable = $('#' + this.datatable);
+        dataTable.cgDataTable('redraw');
+        this.getSaveCheckboxes().refreshCheckboxes(dataTable);
     };
 
     return Batch;
