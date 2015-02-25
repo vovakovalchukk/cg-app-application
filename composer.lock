@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a4a5874078c985d54cf1b52ea0ed8691",
+    "hash": "5a7b82f44bd4a566b69ae7ceea9f124d",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1089,7 +1089,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-predis-1.0.3-d5cfef.zip",
                 "reference": "cac3467658151bdeead8ca241191d16c90f51227",
-                "shasum": "08c9d7d47cb81e9b56915265fa1ea290f287c5b4"
+                "shasum": "77d45724d54714488a59ec79ee419823520bbc72"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0,<3.0.0",
@@ -2519,17 +2519,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.14.48",
+            "version": "dev-CGIV-4968-ProductListingDropdownMisalignment",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "05f08ea101ce39f6dae9f0a16946497d5a612aed"
+                "reference": "a2fc650ef8029129589badd2cf8f79e6035a605e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.48-eabe75.zip",
-                "reference": "05f08ea101ce39f6dae9f0a16946497d5a612aed",
-                "shasum": "400f58dfa9a07c656d43088af24a9fbafa774838"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-4968-ProductListingDropdownMisalignment-5cae6e.zip",
+                "reference": "a2fc650ef8029129589badd2cf8f79e6035a605e",
+                "shasum": "d03b778f7f6221b2c0168e25971c21dc485ae7df"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2571,7 +2571,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-02-24 15:02:56"
+            "time": "2015-02-25 14:13:52"
         },
         {
             "name": "cilex/cilex",
@@ -4374,9 +4374,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WhichBrowser/WhichBrowser/zipball/2d461bce30c9e9d6aa0968caf459b4904d7f517a",
+                "url": "https://composer.build.channelgrabber.com/dist/whichbrowser-whichbrowser-2d461bce30c9e9d6aa0968caf459b4904d7f517a-zip-35029e.zip",
                 "reference": "2d461bce30c9e9d6aa0968caf459b4904d7f517a",
-                "shasum": ""
+                "shasum": "7b9cc333fa738892db332f925697a6431bc490f9"
             },
             "require": {
                 "php": ">=5.3.0"
@@ -4411,9 +4411,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zf2/zipball/886063aa5aee7476b77c380e25ecfacb2ee5ff4c",
+                "url": "https://composer.build.channelgrabber.com/dist/zendframework-zendframework-886063aa5aee7476b77c380e25ecfacb2ee5ff4c-zip-d4c183.zip",
                 "reference": "886063aa5aee7476b77c380e25ecfacb2ee5ff4c",
-                "shasum": ""
+                "shasum": "973db35a1d0325e1c5e6e0e9c37d07cc1d568db2"
             },
             "require": {
                 "php": ">=5.3.23",
@@ -4878,7 +4878,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-codeception-1.1.48-856fa2.zip",
                 "reference": "02b7c5e2271cd28dc647ccb77a488fd0407905f3",
-                "shasum": "656258ba08561dd3307161ff752e1994ab0bfc80"
+                "shasum": "4d62fe7f3833fbc4865d657d59b4a1cd17516c43"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
@@ -5796,10 +5796,18 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.14.48",
+            "alias_normalized": "1.14.48.0",
+            "version": "dev-CGIV-4968-ProductListingDropdownMisalignment",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
