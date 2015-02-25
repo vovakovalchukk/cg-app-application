@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c7674b04ceae3dc913560de853432d29",
+    "hash": "229c9239332a34782f837de4d1e2728c",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2519,17 +2519,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.14.48",
+            "version": "dev-CGIV-4768-order-details-discounts",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "05f08ea101ce39f6dae9f0a16946497d5a612aed"
+                "reference": "1194c1384bb4aeea45914c048f89e375f12e4d98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.48-eabe75.zip",
-                "reference": "05f08ea101ce39f6dae9f0a16946497d5a612aed",
-                "shasum": "400f58dfa9a07c656d43088af24a9fbafa774838"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-4768-order-details-discounts-85342e.zip",
+                "reference": "1194c1384bb4aeea45914c048f89e375f12e4d98",
+                "shasum": "e639ebbc0b982be5320f351deaa655014b6af05b"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2571,7 +2571,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-02-24 15:02:56"
+            "time": "2015-02-25 13:36:13"
         },
         {
             "name": "cilex/cilex",
@@ -5802,12 +5802,19 @@
             "alias_normalized": "1.3.0.0",
             "version": "dev-CGIV-4756-ordertable-discounts",
             "package": "channelgrabber/template"
+        },
+        {
+            "alias": "1.14.49",
+            "alias_normalized": "1.14.49.0",
+            "version": "dev-CGIV-4768-order-details-discounts",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/template": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
