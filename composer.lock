@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5a7b82f44bd4a566b69ae7ceea9f124d",
+    "hash": "12ad733ad5b476f72454e6651bda13e5",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2519,17 +2519,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-4968-ProductListingDropdownMisalignment",
+            "version": "dev-QA",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "a2fc650ef8029129589badd2cf8f79e6035a605e"
+                "reference": "8333951224f7efca4f46c251be68c1d771eb984a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-4968-ProductListingDropdownMisalignment-5cae6e.zip",
-                "reference": "a2fc650ef8029129589badd2cf8f79e6035a605e",
-                "shasum": "d03b778f7f6221b2c0168e25971c21dc485ae7df"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-QA-7331da.zip",
+                "reference": "8333951224f7efca4f46c251be68c1d771eb984a",
+                "shasum": "365f40eb6e5c041e72e807fc7593b056cf99354a"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2571,7 +2571,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-02-25 14:13:52"
+            "time": "2015-02-26 12:13:45"
         },
         {
             "name": "cilex/cilex",
@@ -5800,7 +5800,7 @@
         {
             "alias": "1.14.48",
             "alias_normalized": "1.14.48.0",
-            "version": "dev-CGIV-4968-ProductListingDropdownMisalignment",
+            "version": "dev-QA",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
