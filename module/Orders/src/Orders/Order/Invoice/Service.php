@@ -217,11 +217,9 @@ class Service implements StatsAwareInterface
     public function markOrdersAsPrintedFromOrderCollection(Collection $orderCollection)
     {
         $now = time();
-        /*
+        $this->getOrderService()->patchOrders($orderCollection, ['printedDate' => date(DateTime::FORMAT, $now)]);
+
         foreach ($orderCollection as $order) {
-            $this->getOrderService()->saveOrder(
-                $order->setPrintedDate(date(DateTime::FORMAT, $now))
-            );
             $this->statsIncrement(
                 static::STAT_ORDER_ACTION_PRINTED, [
                     $order->getChannel(),
@@ -229,8 +227,7 @@ class Service implements StatsAwareInterface
                     $this->getActiveUserContainer()->getActiveUser()->getId()
                 ]
             );
-        }*/
-        $this->getOrderService()->patchOrders($orderCollection, ['printedDate' => date(DateTime::FORMAT, $now)]);
+        }
     }
 
     protected function getTemplateId(OrderEntity $order)

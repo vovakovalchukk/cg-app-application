@@ -87,22 +87,7 @@ class Pdf implements ServiceInterface
         );
 
         $this->getTagReplacer()->render($orderTemplate, $order);
-        return $this->getRenderer()->renderPages($orderTemplate, $document);
-    }
-
-    public function initializeNewDocument()
-    {
-        $this->pdf = new PdfDocument();
-    }
-
-    public function addPage($page)
-    {
-        $this->pdf->pages[] = clone $page;
-    }
-
-    public function renderDocument()
-    {
-        return $this->pdf->render();
+        return $this->getRenderer()->render($orderTemplate, $document);
     }
 
     public function initializeNewDocument()

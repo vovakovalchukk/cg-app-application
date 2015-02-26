@@ -227,7 +227,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     {
         try {
             $orders = $this->getOrdersFromOrderIds($orderBy, $orderDir);
-            $progressKey = $this->getProgressKey();
+            $progressKey = $this->getInvoiceProgressKey();
             $invoices = $this->invoiceOrders($orders, null, $progressKey);
             register_shutdown_function([$this, 'markOrdersAsPrinted'], $orders);
             return $invoices;
