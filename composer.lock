@@ -4,21 +4,21 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a4a5874078c985d54cf1b52ea0ed8691",
+    "hash": "65928a43501158442726d6328f4c8c30",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "1.12.17",
+            "version": "dev-CGIV-4499-AmazonMarketplaces",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "cbbdef224c99546f39fc14c25a634a1106e2728b"
+                "reference": "828ae335f75dae505cde77f4ce91c4fc8ace0b3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.12.17-a9302e.zip",
-                "reference": "cbbdef224c99546f39fc14c25a634a1106e2728b",
-                "shasum": "510bf95975eabf81c977a48342088d475685134b"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-4499-AmazonMarketplaces-fe9cf3.zip",
+                "reference": "828ae335f75dae505cde77f4ce91c4fc8ace0b3d",
+                "shasum": "e1c5749d1b6159586a4bbca4bea6753e9d9e344e"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -59,7 +59,7 @@
                     "CG\\Amazon\\Test\\": "tests"
                 }
             },
-            "time": "2015-02-18 11:08:06"
+            "time": "2015-02-26 11:45:09"
         },
         {
             "name": "channelgrabber/billing",
@@ -1089,7 +1089,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-predis-1.0.3-d5cfef.zip",
                 "reference": "cac3467658151bdeead8ca241191d16c90f51227",
-                "shasum": "08c9d7d47cb81e9b56915265fa1ea290f287c5b4"
+                "shasum": "77d45724d54714488a59ec79ee419823520bbc72"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0,<3.0.0",
@@ -2519,17 +2519,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.14.48",
+            "version": "1.14.49",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "05f08ea101ce39f6dae9f0a16946497d5a612aed"
+                "reference": "d2b12e16a751209d8ceb1e587812deaaad6509e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.48-eabe75.zip",
-                "reference": "05f08ea101ce39f6dae9f0a16946497d5a612aed",
-                "shasum": "400f58dfa9a07c656d43088af24a9fbafa774838"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.49-795314.zip",
+                "reference": "d2b12e16a751209d8ceb1e587812deaaad6509e6",
+                "shasum": "7b5b93463d43feb5f5243095bf1d34720a6e27d7"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2571,7 +2571,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-02-24 15:02:56"
+            "time": "2015-02-26 14:47:47"
         },
         {
             "name": "cilex/cilex",
@@ -2697,24 +2697,24 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "833ce984264204e7d6576ab082660105c7d8f04c"
+                "reference": "e5985a9b559747a5f3868361ff26c31818d8c184"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/833ce984264204e7d6576ab082660105c7d8f04c",
-                "reference": "833ce984264204e7d6576ab082660105c7d8f04c",
-                "shasum": ""
+                "url": "https://composer.build.channelgrabber.com/dist/composer-composer-e5985a9b559747a5f3868361ff26c31818d8c184-zip-87830b.zip",
+                "reference": "e5985a9b559747a5f3868361ff26c31818d8c184",
+                "shasum": "b16ff4c402375faf55a61f59aed72f9f52ffa892"
             },
             "require": {
                 "justinrainbow/json-schema": "~1.3",
                 "php": ">=5.3.2",
                 "seld/jsonlint": "~1.0",
-                "symfony/console": "~2.3",
+                "symfony/console": "~2.5",
                 "symfony/finder": "~2.2",
                 "symfony/process": "~2.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.0"
+                "phpunit/phpunit": "~4.5"
             },
             "suggest": {
                 "ext-openssl": "Enabling the openssl extension allows you to access https URLs for repositories and packages",
@@ -2757,7 +2757,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-02-17 21:55:44"
+            "time": "2015-02-25 19:44:34"
         },
         {
             "name": "fabpot/goutte",
@@ -4878,7 +4878,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-codeception-1.1.48-856fa2.zip",
                 "reference": "02b7c5e2271cd28dc647ccb77a488fd0407905f3",
-                "shasum": "656258ba08561dd3307161ff752e1994ab0bfc80"
+                "shasum": "4d62fe7f3833fbc4865d657d59b4a1cd17516c43"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
@@ -5796,9 +5796,17 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.12.10",
+            "alias_normalized": "1.12.10.0",
+            "version": "dev-CGIV-4499-AmazonMarketplaces",
+            "package": "channelgrabber/amazon"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
