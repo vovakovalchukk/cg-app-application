@@ -456,7 +456,6 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
                 call_user_func($numberFormat, -$order->getTotalDiscount(), $currencyCode)
             );
         }
-        
         $table->setTemplate('table/standard');
         return $table;
     }
@@ -503,6 +502,11 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     public function saveOrder(OrderEntity $entity)
     {
         return $this->getOrderClient()->save($entity);
+    }
+
+    public function patchOrders(OrderCollection $collection, $fields)
+    {
+        $this->getOrderClient()->patch($collection->getIds(), $fields);
     }
 
     public function updateUserPrefOrderColumns(array $updatedColumns)

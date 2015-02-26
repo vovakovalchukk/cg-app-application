@@ -16,6 +16,7 @@ class Pdf implements ServiceInterface
     protected $di;
     protected $tagReplacer;
     protected $renderer;
+    protected $pdf;
 
     public function __construct(Di $di, TagReplacer $tagReplacer, Renderer $renderer)
     {
@@ -89,6 +90,21 @@ class Pdf implements ServiceInterface
         return $this->getRenderer()->render($orderTemplate, $document);
     }
 
+    public function initializeNewDocument()
+    {
+        $this->pdf = new PdfDocument();
+    }
+
+    public function addPage($page)
+    {
+        $this->pdf->pages[] = clone $page;
+    }
+
+    public function renderDocument()
+    {
+        return $this->pdf->render();
+    }
+
     public function combine(array $renderedContent)
     {
         $pdf = new PdfDocument();
@@ -99,5 +115,10 @@ class Pdf implements ServiceInterface
             }
         }
         return $pdf->render();
+    }
+
+    public function combinePages()
+    {
+        return $this->pdf->render();
     }
 }
