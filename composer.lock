@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "12ad733ad5b476f72454e6651bda13e5",
+    "hash": "c76f366c537e7c7a95b11a1bc27229ab",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -5798,8 +5798,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.14.48",
-            "alias_normalized": "1.14.48.0",
+            "alias": "1.14.49",
+            "alias_normalized": "1.14.49.0",
             "version": "dev-QA",
             "package": "channelgrabber/zf2-v4-ui"
         }
