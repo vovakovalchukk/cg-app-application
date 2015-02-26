@@ -252,18 +252,22 @@ class Service implements StatsAwareInterface
 
     public function generateInvoiceFromOrderCollection(Collection $orderCollection, Template $template = null, $progressKey = null)
     {
+        gc_collect_cycles();
+        gc_disable();
         $count = 0;
-        $renderedContent = [];
         $this->updateInvoiceGenerationProgress($progressKey, $count);
         $this->getRendererService()->initializeNewDocument();
         foreach ($orderCollection as $order) {
-            $renderedContent[] = $this->getRendererService()->renderOrderTemplate(
+            $renderedInvoice = $this->getRendererService()->renderOrderTemplate(
                 $order,
                 $template ?: $this->getTemplate($order)
             );
+            foreach($renderedInvoice->pages as $page) {
+                $this->getRendererService()->addPage($page);
+            }
             $this->updateInvoiceGenerationProgress($progressKey, ++$count);
         }
-        return $this->getRendererService()->combine($renderedContent);
+        return $this->getRendererService()->combinePages();
     }
 
     protected function updateInvoiceGenerationProgress($key, $count)

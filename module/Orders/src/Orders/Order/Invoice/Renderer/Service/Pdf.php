@@ -115,4 +115,9 @@ class Pdf implements ServiceInterface
         }
         return $pdf->render();
     }
+
+    public function combinePages()
+    {
+        return $this->pdf->render();
+    }
 }
