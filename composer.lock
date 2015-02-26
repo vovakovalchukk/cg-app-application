@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c76f366c537e7c7a95b11a1bc27229ab",
+    "hash": "6951e9521869f3eaee06ded91c09353f",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1089,7 +1089,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-predis-1.0.3-d5cfef.zip",
                 "reference": "cac3467658151bdeead8ca241191d16c90f51227",
-                "shasum": "77d45724d54714488a59ec79ee419823520bbc72"
+                "shasum": "08c9d7d47cb81e9b56915265fa1ea290f287c5b4"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0,<3.0.0",
@@ -2519,17 +2519,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-QA",
+            "version": "1.14.49",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "8333951224f7efca4f46c251be68c1d771eb984a"
+                "reference": "d2b12e16a751209d8ceb1e587812deaaad6509e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-QA-7331da.zip",
-                "reference": "8333951224f7efca4f46c251be68c1d771eb984a",
-                "shasum": "365f40eb6e5c041e72e807fc7593b056cf99354a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.49-795314.zip",
+                "reference": "d2b12e16a751209d8ceb1e587812deaaad6509e6",
+                "shasum": "7b5b93463d43feb5f5243095bf1d34720a6e27d7"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
@@ -2571,7 +2571,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-02-26 12:13:45"
+            "time": "2015-02-26 14:47:47"
         },
         {
             "name": "cilex/cilex",
@@ -4878,7 +4878,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-codeception-1.1.48-856fa2.zip",
                 "reference": "02b7c5e2271cd28dc647ccb77a488fd0407905f3",
-                "shasum": "4d62fe7f3833fbc4865d657d59b4a1cd17516c43"
+                "shasum": "656258ba08561dd3307161ff752e1994ab0bfc80"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
@@ -5796,18 +5796,10 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.14.49",
-            "alias_normalized": "1.14.49.0",
-            "version": "dev-QA",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
