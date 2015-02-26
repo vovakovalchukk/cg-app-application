@@ -499,6 +499,11 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $this->getOrderClient()->save($entity);
     }
 
+    public function patchOrders(OrderCollection $collection, $fields)
+    {
+        $this->getOrderClient()->patch($collection->getIds(), $fields);
+    }
+
     public function updateUserPrefOrderColumns(array $updatedColumns)
     {
         $storedColumns = $this->fetchUserPrefOrderColumns();

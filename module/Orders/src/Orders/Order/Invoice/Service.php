@@ -217,6 +217,7 @@ class Service implements StatsAwareInterface
     public function markOrdersAsPrintedFromOrderCollection(Collection $orderCollection)
     {
         $now = time();
+        /*
         foreach ($orderCollection as $order) {
             $this->getOrderService()->saveOrder(
                 $order->setPrintedDate(date(DateTime::FORMAT, $now))
@@ -228,7 +229,8 @@ class Service implements StatsAwareInterface
                     $this->getActiveUserContainer()->getActiveUser()->getId()
                 ]
             );
-        }
+        }*/
+        $this->getOrderService()->patchOrders($orderCollection, ['printedDate' => date(DateTime::FORMAT, $now)]);
     }
 
     protected function getTemplateId(OrderEntity $order)
@@ -256,6 +258,7 @@ class Service implements StatsAwareInterface
         gc_disable();
         $count = 0;
         $this->updateInvoiceGenerationProgress($progressKey, $count);
+
         $this->getRendererService()->initializeNewDocument();
         foreach ($orderCollection as $order) {
             $renderedInvoice = $this->getRendererService()->renderOrderTemplate(
