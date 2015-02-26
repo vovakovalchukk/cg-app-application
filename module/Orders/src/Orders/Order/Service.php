@@ -454,6 +454,13 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         }
         $rows = $this->getDi()->newInstance(TableRows::class, ["data" => $order->getItems(), "mapping" => $mapping]);
         $table->setRows($rows);
+
+        if ($order->getTotalDiscount()) {
+            $this->addOrderDiscount(
+                $table,
+                call_user_func($numberFormat, -$order->getTotalDiscount(), $currencyCode)
+            );
+        }
         $table->setTemplate('table/standard');
         return $table;
     }
