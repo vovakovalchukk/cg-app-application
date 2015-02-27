@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3df770a5b6c552b045242d0cd1de54cb",
+    "hash": "df737d21a2583b9360050926829518ff",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1557,17 +1557,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.2.44",
+            "version": "dev-CGIV-4930-invoice-show-vat",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "bec2eb1939beac9643c2f51bde7e07b6fca1789a"
+                "reference": "e7693509cdc18bf0c3038e2510146d81d1541e20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.44-29f30f.zip",
-                "reference": "bec2eb1939beac9643c2f51bde7e07b6fca1789a",
-                "shasum": "576a87c78bd1bb7223f5fe8567eeabe67379f0db"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-4930-invoice-show-vat-2b6cca.zip",
+                "reference": "e7693509cdc18bf0c3038e2510146d81d1541e20",
+                "shasum": "a10f2287b53040a077a26ba9e5abf0789c1942c4"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -1597,7 +1597,7 @@
                     "CG\\Template\\": "src/"
                 }
             },
-            "time": "2015-02-27 10:10:44"
+            "time": "2015-02-27 16:28:11"
         },
         {
             "name": "channelgrabber/transaction",
@@ -5796,10 +5796,18 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.2.45",
+            "alias_normalized": "1.2.45.0",
+            "version": "dev-CGIV-4930-invoice-show-vat",
+            "package": "channelgrabber/template"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/template": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

@@ -9,7 +9,7 @@ define([
     {
         MapperAbstract.call(this);
 
-        var optionalAttribs = ['x', 'y'];
+        var optionalAttribs = ['x', 'y', 'showVat'];
         this.getOptionalAttribs = function()
         {
             return optionalAttribs;
@@ -35,7 +35,6 @@ define([
             tableDataStyles: cssStyle
         };
         var html = this.renderMustacheTemplate(templateUrl, data);
-        
         return html;
     };
 

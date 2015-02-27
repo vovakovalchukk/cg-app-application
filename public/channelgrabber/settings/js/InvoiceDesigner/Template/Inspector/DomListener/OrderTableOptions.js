@@ -16,10 +16,9 @@ define([
 
     OrderTableOptions.prototype.init = function(inspector, element)
     {
-        var that = this;
         $('#' + inspector.getShowVatId()).off('change').on('change', function(event, container, id) {
             var isSelected = $('#' + inspector.getShowVatId()).is(":checked");
-            element.setRemoveBlankLines(isSelected);
+            element.setShowVat(isSelected);
         });
     };
 

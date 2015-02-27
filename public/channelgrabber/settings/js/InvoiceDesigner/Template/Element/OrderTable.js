@@ -11,7 +11,6 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
 
         ElementAbstract.call(this, additionalData);
 
-        //ElementAbstract.call(this);
         this.set('type', 'OrderTable', true);
         this.setWidth(elementWidth.pxToMm())
             .setHeight(minHeight.pxToMm())
@@ -26,7 +25,7 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
 
         this.setShowVat = function(newShowVat)
         {
-            this.set('showVat', newShowVat);
+            this.set('showVat', !! newShowVat);
             return this;
         };
     };
