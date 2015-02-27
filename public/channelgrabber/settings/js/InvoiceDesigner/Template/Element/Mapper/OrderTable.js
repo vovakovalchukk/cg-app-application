@@ -9,7 +9,7 @@ define([
     {
         MapperAbstract.call(this);
 
-        var optionalAttribs = ['x', 'y', 'showVat'];
+        var optionalAttribs = ['x', 'y'];
         this.getOptionalAttribs = function()
         {
             return optionalAttribs;
