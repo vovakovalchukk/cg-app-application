@@ -2,6 +2,11 @@
     $('form').submit(function() {
         return false;
     });
+    require.config({
+        paths: {
+            'Orders': "<?= $this->basePath() . Orders\Module::PUBLIC_FOLDER . 'js';?>"
+        }
+    });
 require([
         "note/NoteDomAccess",
         "note/Notes",
