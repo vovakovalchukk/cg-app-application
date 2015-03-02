@@ -450,20 +450,25 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $rows = $this->getDi()->newInstance(TableRows::class, ["data" => $order->getItems(), "mapping" => $mapping]);
         $table->setRows($rows);
 
-        if ($order->getTotalDiscount()) {
+        if ($order->getTotalDiscount() || $order->getDiscountDescription()) {
             $this->addOrderDiscount(
                 $table,
-                call_user_func($numberFormat, -$order->getTotalDiscount(), $currencyCode)
+                call_user_func($numberFormat, -$order->getTotalDiscount(), $currencyCode),
+                $order->getDiscountDescription()
             );
         }
         $table->setTemplate('table/standard');
         return $table;
     }
 
-    protected function addOrderDiscount(Table $table, $discount)
+    protected function addOrderDiscount(Table $table, $discount, $discountDescription)
     {
+        if ($discountDescription) {
+            $discountDescription = "<b>Discount Summary</b><br />" . nl2br($discountDescription);
+        }
         $cells = [
-            $table->createCustomCell('Order Discount', null, 5),
+            $table->createCustomCell($discountDescription, null, 3),
+            $table->createCustomCell('Order Discount:', null, 2),
             $table->createCustomCell($discount, 'right')
         ];
         $row = $table->createCustomRow($cells, 'discount');
