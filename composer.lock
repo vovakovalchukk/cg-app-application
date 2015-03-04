@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3df770a5b6c552b045242d0cd1de54cb",
+    "hash": "6f9150adcb81ee06617f3e740ced06fe",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -921,17 +921,17 @@
         },
         {
             "name": "channelgrabber/phinx",
-            "version": "0.3.2.4",
+            "version": "dev-CGIV-4998-multi-server-support",
             "source": {
                 "type": "git",
                 "url": "git@github.com:channelgrabber/phinx.git",
-                "reference": "e541a83dad19c3fe733e5054643f382bcf7d718f"
+                "reference": "20cb565d60fb19ded817903c590ab5bea8bf048a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-phinx-0.3.2.4-c6a9d0.zip",
-                "reference": "e541a83dad19c3fe733e5054643f382bcf7d718f",
-                "shasum": "d6565726b1a40d11a22aa2ec44f4e8c0b9478a12"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-phinx-dev-CGIV-4998-multi-server-support-b4e850.zip",
+                "reference": "20cb565d60fb19ded817903c590ab5bea8bf048a",
+                "shasum": "f4e6a04b56eff5104b2dd577a9cfdd9ae2fa32fb"
             },
             "require": {
                 "php": ">=5.3.2",
@@ -975,7 +975,7 @@
                 "migrations",
                 "phinx"
             ],
-            "time": "2014-08-15 13:12:10"
+            "time": "2015-03-04 12:19:16"
         },
         {
             "name": "channelgrabber/php-phantomjs",
@@ -1149,17 +1149,17 @@
         },
         {
             "name": "channelgrabber/purge",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-purge.git",
-                "reference": "46d3ddb1fd6fca4e0ba9288f2fb2893023cb3800"
+                "reference": "044d757391c7e409557b222b4d810a8eb6d55225"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-purge-1.0.1-4bccf6.zip",
-                "reference": "46d3ddb1fd6fca4e0ba9288f2fb2893023cb3800",
-                "shasum": "8332d7157abef751986f363e9d04964a32874926"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-purge-1.0.2-551a31.zip",
+                "reference": "044d757391c7e409557b222b4d810a8eb6d55225",
+                "shasum": "8cfbff6a3f544c045c451cc7bf45c57f467fd250"
             },
             "require": {
                 "channelgrabber/gearman": ">=1.1.5,<2.0.0",
@@ -1183,7 +1183,7 @@
                     "CG\\Purge\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2015-02-24 08:39:20"
+            "time": "2015-02-26 16:35:41"
         },
         {
             "name": "channelgrabber/redis",
@@ -2449,7 +2449,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-1.1.17-a3c869.zip",
                 "reference": "b97c72de22ab8887d2ce5e01221f900c307b2627",
-                "shasum": "8b022ccbc4f4108668c8418bc05c369354630b0d"
+                "shasum": "cfc0ca665a76f88ab7c1536d7e2720d077e817c9"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -2975,9 +2975,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/RingPHP/zipball/a903f51b692427318bc813217c0e6505287e79a4",
+                "url": "https://composer.build.channelgrabber.com/dist/guzzlehttp-ringphp-a903f51b692427318bc813217c0e6505287e79a4-zip-30951f.zip",
                 "reference": "a903f51b692427318bc813217c0e6505287e79a4",
-                "shasum": ""
+                "shasum": "d352eb9064eba80f9e2de62953dde022b4aa3878"
             },
             "require": {
                 "guzzlehttp/streams": "~3.0",
@@ -5796,10 +5796,18 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "0.3.2.5",
+            "alias_normalized": "0.3.2.5",
+            "version": "dev-CGIV-4998-multi-server-support",
+            "package": "channelgrabber/phinx"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/phinx": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
