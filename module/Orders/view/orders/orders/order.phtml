@@ -2,6 +2,11 @@
     $('form').submit(function() {
         return false;
     });
+    require.config({
+        paths: {
+            'Orders': "<?= $this->basePath() . Orders\Module::PUBLIC_FOLDER . 'js';?>"
+        }
+    });
 require([
         "note/NoteDomAccess",
         "note/Notes",
@@ -287,7 +292,7 @@ require([
                     <strong><?= $this->translate('Paid Via'); ?>:</strong> <?= $order->getPaymentMethod() ?>
                 <?php endif; ?>
             </td>
-            <td class="midcell"><strong><?= $this->translate('Postage'); ?>:</strong></td>
+            <td class="midcell"><strong><?= $this->translate('Postage & Packing'); ?>:</strong></td>
             <td class="rightcell"><?= $this->currencyFormat($order->getShippingPrice(), $order->getCurrencyCode()); ?></td>
         </tr>
         <tr>
@@ -296,6 +301,11 @@ require([
                     <?= $this->translate('Reference'); ?>: <strong><?= $order->getPaymentReference() ?></strong>
                 <?php endif; ?>
             </td>
+            <td class="midcell"><strong><?= $this->translate('VAT'); ?>:</strong></td>
+            <td class="rightcell"><?= $this->currencyFormat($order->getTax(), $order->getCurrencyCode()); ?></strong></td>
+        </tr>
+        <tr>
+            <td class="leftcell"></td>
             <td class="midcell"><strong><?= $this->translate('Total'); ?>:</strong></td>
             <td class="rightcell"><?= $this->currencyFormat($order->getTotal(), $order->getCurrencyCode()); ?></strong></td>
         </tr>

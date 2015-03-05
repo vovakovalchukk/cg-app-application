@@ -217,10 +217,9 @@ class Service implements StatsAwareInterface
     public function markOrdersAsPrintedFromOrderCollection(Collection $orderCollection)
     {
         $now = time();
+        $this->getOrderService()->patchOrders($orderCollection, ['printedDate' => date(DateTime::FORMAT, $now)]);
+
         foreach ($orderCollection as $order) {
-            $this->getOrderService()->saveOrder(
-                $order->setPrintedDate(date(DateTime::FORMAT, $now))
-            );
             $this->statsIncrement(
                 static::STAT_ORDER_ACTION_PRINTED, [
                     $order->getChannel(),
@@ -252,18 +251,23 @@ class Service implements StatsAwareInterface
 
     public function generateInvoiceFromOrderCollection(Collection $orderCollection, Template $template = null, $progressKey = null)
     {
+        gc_collect_cycles();
+        gc_disable();
         $count = 0;
         $this->updateInvoiceGenerationProgress($progressKey, $count);
 
-        $renderedContent = [];
+        $this->getRendererService()->initializeNewDocument();
         foreach ($orderCollection as $order) {
-            $renderedContent[] = $this->getRendererService()->renderOrderTemplate(
+            $renderedInvoice = $this->getRendererService()->renderOrderTemplate(
                 $order,
                 $template ?: $this->getTemplate($order)
             );
+            foreach($renderedInvoice->pages as $page) {
+                $this->getRendererService()->addPage($page);
+            }
             $this->updateInvoiceGenerationProgress($progressKey, ++$count);
         }
-        return $this->getRendererService()->combine($renderedContent);
+        return $this->getRendererService()->combinePages();
     }
 
     protected function updateInvoiceGenerationProgress($key, $count)

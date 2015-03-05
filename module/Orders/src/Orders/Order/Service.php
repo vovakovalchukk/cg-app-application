@@ -408,14 +408,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function getOrderItemTable(OrderEntity $order)
     {
+        $getPrice = function (ItemEntity $entity) {
+            return $entity->getIndividualItemPrice() + $entity->getIndividualItemDiscountPrice();
+        };
         $getDiscountTotal = function (ItemEntity $entity) {
-            return $entity->getIndividualItemDiscountPrice() * $entity->getItemQuantity();
+            return '-' . $entity->getIndividualItemDiscountPrice() * $entity->getItemQuantity();
         };
-
-        $getTaxTotal = function (ItemEntity $entity) {
-            return $entity->getItemTaxPercentage() * $entity->getItemQuantity();
-        };
-
         $getLineTotal = function (ItemEntity $entity) {
             return $entity->getIndividualItemPrice() * $entity->getItemQuantity();
         };
@@ -437,13 +435,10 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $columns = [
             ['name' => 'SKU', 'class' => '', 'getter' => 'getItemSku', 'callback' => null],
             ['name' => 'Product Name', 'class' => '', 'getter' => 'getItemName', 'callback' => $linkFormatter],
-            ['name' => 'Quantity', 'class' => 'right', 'getter' => 'getItemQuantity', 'callback' => null],
-            ['name' => 'Individual Price', 'class' => 'right', 'getter' => 'getIndividualItemPrice', 'callback' => $currencyFormatter],
-            ['name' => 'Individual Discount', 'class' => 'right', 'getter' => 'getIndividualItemDiscountPrice', 'callback' => $currencyFormatter],
-            ['name' => 'Tax', 'class' => 'right', 'getter' => 'getItemTaxPercentage', 'callback' => null],
-            ['name' => 'Discount Total', 'class' => 'right', 'getter' => $getDiscountTotal, 'callback' => $currencyFormatter],
-            ['name' => 'Tax Total', 'class' => 'right', 'getter' => $getTaxTotal, 'callback' => $currencyFormatter],
-            ['name' => 'Line Total', 'class' => 'right', 'getter' => $getLineTotal, 'callback' => $currencyFormatter],
+            ['name' => 'Quantity', 'class' => 'quantity', 'getter' => 'getItemQuantity', 'callback' => null],
+            ['name' => 'Price inc. VAT', 'class' => 'price right', 'getter' => $getPrice, 'callback' => $currencyFormatter],
+            ['name' => 'Discount Total', 'class' => 'price right', 'getter' => $getDiscountTotal, 'callback' => $currencyFormatter],
+            ['name' => 'Line Total', 'class' => 'price right', 'getter' => $getLineTotal, 'callback' => $currencyFormatter],
         ];
 
         $table = $this->getDi()->newInstance(Table::class);
@@ -454,8 +449,25 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         }
         $rows = $this->getDi()->newInstance(TableRows::class, ["data" => $order->getItems(), "mapping" => $mapping]);
         $table->setRows($rows);
+
+        if ($order->getTotalDiscount()) {
+            $this->addOrderDiscount(
+                $table,
+                call_user_func($numberFormat, -$order->getTotalDiscount(), $currencyCode)
+            );
+        }
         $table->setTemplate('table/standard');
         return $table;
+    }
+
+    protected function addOrderDiscount(Table $table, $discount)
+    {
+        $cells = [
+            $table->createCustomCell('Order Discount', null, 5),
+            $table->createCustomCell($discount, 'right')
+        ];
+        $row = $table->createCustomRow($cells, 'discount');
+        $table->setPostCustomRows([$row]);
     }
 
     public function getNamesFromOrderNotes(OrderNoteCollection $notes)
@@ -490,6 +502,11 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     public function saveOrder(OrderEntity $entity)
     {
         return $this->getOrderClient()->save($entity);
+    }
+
+    public function patchOrders(OrderCollection $collection, $fields)
+    {
+        $this->getOrderClient()->patch($collection->getIds(), $fields);
     }
 
     public function updateUserPrefOrderColumns(array $updatedColumns)
