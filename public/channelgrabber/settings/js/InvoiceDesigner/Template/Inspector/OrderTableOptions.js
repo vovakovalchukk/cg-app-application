@@ -59,7 +59,7 @@ define([
             selected: element.getShowVat(),
             id: OrderTableOptions.ORDER_TABLE_SHOW_VAT_ID,
             name: 'show-vat',
-            label: 'Show Vat'
+            label: 'Show VAT'
         };
     };
 
