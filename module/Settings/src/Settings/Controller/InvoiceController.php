@@ -207,6 +207,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         $templateView->setVariable('name', 'template');
         $templateView->setVariable('initialTitle', $this->translate('Select Template'));
         $templateView->setVariable('id', static::TEMPLATE_SELECTOR_ID);
+        $templateView->setVariable('disabled', true);
         return $templateView;
     }
 
