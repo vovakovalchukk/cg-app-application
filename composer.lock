@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "56d0cf36e2ad811550ebb89182252310",
+    "hash": "a1258fe7e3e01396339bb4beb38c5051",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -436,17 +436,17 @@
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "1.3.16",
+            "version": "1.3.18",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "7910815ae1aa49f5dfbcc13d270249d68a2d952e"
+                "reference": "676a8ccaac357b6e01d659cdf68eae107d173c86"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.3.16-61a0fd.zip",
-                "reference": "7910815ae1aa49f5dfbcc13d270249d68a2d952e",
-                "shasum": "78a7b5bcf0b4eddca41b5161bdf62fd66870c5b1"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.3.18-9f1864.zip",
+                "reference": "676a8ccaac357b6e01d659cdf68eae107d173c86",
+                "shasum": "5e86d6054cc5f77a77e6fb2d6e4ac58d0c149c95"
             },
             "require": {
                 "channelgrabber/cglib": ">=1.4.0,<2.0.0",
@@ -457,10 +457,10 @@
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
                 "channelgrabber/listing": ">=1.4.3,<2.0.0",
                 "channelgrabber/log": ">=2.0.0",
-                "channelgrabber/order": ">=1.16.0,<2.0.0",
+                "channelgrabber/order": ">=1.16.5,<2.0.0",
                 "channelgrabber/php-phantomjs": ">=3.1.5",
                 "channelgrabber/product": ">=1.3.5",
-                "channelgrabber/stdlib": ">=2.8.5,<3.0.0",
+                "channelgrabber/stdlib": ">=2.10.2,<3.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.1.18,<2.0.0",
                 "composer/composer": "@dev",
                 "ext-gearman": "~1.1.0",
@@ -486,7 +486,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2015-02-27 10:17:13"
+            "time": "2015-03-06 11:46:57"
         },
         {
             "name": "channelgrabber/email",
@@ -940,17 +940,17 @@
         },
         {
             "name": "channelgrabber/phinx",
-            "version": "0.3.2.4",
+            "version": "0.3.2.5",
             "source": {
                 "type": "git",
                 "url": "git@github.com:channelgrabber/phinx.git",
-                "reference": "e541a83dad19c3fe733e5054643f382bcf7d718f"
+                "reference": "9b3ca473efa4635c9556bd7a1f9437e8889095b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-phinx-0.3.2.4-c6a9d0.zip",
-                "reference": "e541a83dad19c3fe733e5054643f382bcf7d718f",
-                "shasum": "d6565726b1a40d11a22aa2ec44f4e8c0b9478a12"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-phinx-0.3.2.5-b01046.zip",
+                "reference": "9b3ca473efa4635c9556bd7a1f9437e8889095b1",
+                "shasum": "6cdcbbdc3d66a5b021443e851186268463b8bea7"
             },
             "require": {
                 "php": ">=5.3.2",
@@ -994,7 +994,7 @@
                 "migrations",
                 "phinx"
             ],
-            "time": "2014-08-15 13:12:10"
+            "time": "2015-03-04 15:41:30"
         },
         {
             "name": "channelgrabber/php-phantomjs",
@@ -1098,21 +1098,21 @@
         },
         {
             "name": "channelgrabber/predis",
-            "version": "1.0.4",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgpredis.git",
-                "reference": "4459543516f2a4613e58b25be5673b2fc4d0f27e"
+                "reference": "cac3467658151bdeead8ca241191d16c90f51227"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-predis-1.0.4-00311d.zip",
-                "reference": "4459543516f2a4613e58b25be5673b2fc4d0f27e",
-                "shasum": "fd21250ec768924d866379c580bacab671a25f46"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-predis-1.0.3-d5cfef.zip",
+                "reference": "cac3467658151bdeead8ca241191d16c90f51227",
+                "shasum": "08c9d7d47cb81e9b56915265fa1ea290f287c5b4"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0,<3.0.0",
-                "channelgrabber/stdlib": ">=2.10.0,<3.0.0",
+                "channelgrabber/stdlib": ">=2.7.20",
                 "composer/composer": "@dev",
                 "predis/predis": "v0.8.3"
             },
@@ -1122,7 +1122,7 @@
                     "CG\\Predis\\": "src"
                 }
             },
-            "time": "2015-02-18 16:03:08"
+            "time": "2014-10-14 12:37:57"
         },
         {
             "name": "channelgrabber/product",
@@ -1583,13 +1583,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "d80a99bdde3df2b9304b33104d51427211142415"
+                "reference": "521ae76e94cbbcf295c59d35a6fb71e89549cb51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-4981-invoice-discount-descriptions-858f12.zip",
-                "reference": "d80a99bdde3df2b9304b33104d51427211142415",
-                "shasum": "9f540f21b8d9b9aff253e8d5f45c279bf926330e"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-4981-invoice-discount-descriptions-8dd850.zip",
+                "reference": "521ae76e94cbbcf295c59d35a6fb71e89549cb51",
+                "shasum": "d90cacdde27eb901d12d08bb8de3f08dfc6c8f6e"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -1619,7 +1619,7 @@
                     "CG\\Template\\": "src/"
                 }
             },
-            "time": "2015-03-06 12:37:26"
+            "time": "2015-03-09 16:03:23"
         },
         {
             "name": "channelgrabber/transaction",

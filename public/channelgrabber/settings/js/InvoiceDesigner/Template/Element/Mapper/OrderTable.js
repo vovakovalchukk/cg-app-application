@@ -35,7 +35,6 @@ define([
             tableDataStyles: cssStyle
         };
         var html = this.renderMustacheTemplate(templateUrl, data);
-        
         return html;
     };
 

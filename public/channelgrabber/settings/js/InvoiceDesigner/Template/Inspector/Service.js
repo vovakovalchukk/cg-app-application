@@ -5,7 +5,8 @@ define([
     'InvoiceDesigner/Template/Inspector/Heading',
     'InvoiceDesigner/Template/Inspector/Positioning',
     'InvoiceDesigner/Template/Inspector/Font',
-    'InvoiceDesigner/Template/Inspector/Border'
+    'InvoiceDesigner/Template/Inspector/Border',
+    'InvoiceDesigner/Template/Inspector/OrderTableOptions'
 ], function(
     Collection,
     // Inspector variables here
@@ -13,7 +14,8 @@ define([
     heading,
     positioning,
     font,
-    border
+    border,
+    orderTableOptions
 ) {
     var Service = function()
     {
@@ -49,7 +51,8 @@ define([
             text,
             positioning,
             font,
-            border
+            border,
+            orderTableOptions
         ];
 
         for (var key in inspectorsToAdd) {
@@ -67,6 +70,7 @@ define([
 
         var inspectors = this.getInspectors();
         var inspectedAttributes = inspector.getInspectedAttributes();
+
         for (var key in inspectedAttributes) {
             var attribute = inspectedAttributes[key];
             if (!inspectors[attribute]) {
