@@ -1098,21 +1098,21 @@
         },
         {
             "name": "channelgrabber/predis",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgpredis.git",
-                "reference": "cac3467658151bdeead8ca241191d16c90f51227"
+                "reference": "4459543516f2a4613e58b25be5673b2fc4d0f27e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-predis-1.0.3-d5cfef.zip",
-                "reference": "cac3467658151bdeead8ca241191d16c90f51227",
-                "shasum": "08c9d7d47cb81e9b56915265fa1ea290f287c5b4"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-predis-1.0.4-00311d.zip",
+                "reference": "4459543516f2a4613e58b25be5673b2fc4d0f27e",
+                "shasum": "fd21250ec768924d866379c580bacab671a25f46"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0,<3.0.0",
-                "channelgrabber/stdlib": ">=2.7.20",
+                "channelgrabber/stdlib": ">=2.10.0,<3.0.0",
                 "composer/composer": "@dev",
                 "predis/predis": "v0.8.3"
             },
@@ -1122,7 +1122,7 @@
                     "CG\\Predis\\": "src"
                 }
             },
-            "time": "2014-10-14 12:37:57"
+            "time": "2015-02-18 16:03:08"
         },
         {
             "name": "channelgrabber/product",
