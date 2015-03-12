@@ -1,10 +1,12 @@
 define([
     'InvoiceDesigner/Module/DomListenerAbstract',
-    'InvoiceDesigner/Template/DomManipulator'
+    'InvoiceDesigner/Template/DomManipulator',
+    'element/ElementCollection'
     
 ], function(
     DomListenerAbstract,
-    domManipulator
+    domManipulator,
+    ElementCollection
 ) {
 
     var TemplateSelector = function()
@@ -19,6 +21,9 @@ define([
 
     TemplateSelector.prototype.init = function(module)
     {
+        var element = ElementCollection.get('template');
+        element.enable();
+
         var self = this;
         DomListenerAbstract.prototype.init.call(this, module);
         $(templateSelectorId).on('change', function (event, selectBox, id) {
@@ -36,7 +41,6 @@ define([
         $(document).on(domManipulator.getTemplateSelectedEvent(), function (event, template) {
             self.getModule().setTemplate(template);
         });
-        
     };
 
     TemplateSelector.prototype.getDuplicateTemplateSelector = function()

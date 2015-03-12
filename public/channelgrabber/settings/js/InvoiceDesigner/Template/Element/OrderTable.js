@@ -5,13 +5,29 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
         var elementWidth = 700; // px
         var minHeight = 200; // px
 
-        ElementAbstract.call(this);
+        var additionalData = {
+            showVat: false
+        };
+
+        ElementAbstract.call(this, additionalData);
+
         this.set('type', 'OrderTable', true);
         this.setWidth(elementWidth.pxToMm())
             .setHeight(minHeight.pxToMm())
             .setMinWidth(elementWidth)
             .setMaxWidth(elementWidth)
             .setMinHeight(minHeight);
+
+        this.getShowVat = function()
+        {
+            return this.get('showVat');
+        };
+
+        this.setShowVat = function(newShowVat)
+        {
+            this.set('showVat', !! newShowVat);
+            return this;
+        };
     };
 
     OrderTable.prototype = Object.create(ElementAbstract.prototype);
