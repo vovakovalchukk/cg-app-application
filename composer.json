@@ -14,7 +14,7 @@
         }
     ],
     "require": {
-        "channelgrabber/amazon": "~1.12.9",
+        "channelgrabber/amazon": "dev-CGIV-4499-AmazonMarketplaces as 1.12.10",
         "channelgrabber/cache": "~2.0.1",
         "channelgrabber/channel": "~1.15.1",
         "channelgrabber/constants": "dev-master",

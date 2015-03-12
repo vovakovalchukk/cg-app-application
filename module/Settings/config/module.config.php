@@ -41,6 +41,7 @@ use Settings\Controller\EkmController;
 use CG\Ekm\Account\CreationService as EkmAccountCreationService;
 use CG\Amazon\Account\CreationService as AmazonAccountCreationService;
 use CG\Ebay\Account\CreationService as EbayAccountCreationService;
+use CG\Amazon\Marketplace\Participation\Service as  MarketplaceParticipationService;
 
 return [
     'CG' => [
@@ -892,6 +893,16 @@ return [
                 ]
             ],
             AmazonAccountCreationService::class => [
+                'parameters' => [
+                    'cryptor' => 'amazon_cryptor'
+                ]
+            ],
+            AmazonAccountCreationService::class => [
+                'parameters' => [
+                    'cryptor' => 'amazon_cryptor'
+                ]
+            ],
+            MarketplaceParticipationService::class => [
                 'parameters' => [
                     'cryptor' => 'amazon_cryptor'
                 ]
