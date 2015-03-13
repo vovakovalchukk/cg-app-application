@@ -4,21 +4,21 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c8d3a8b8fef96be7774374baf07db9e8",
+    "hash": "043398c7e79fe3f13cf4cc38da01d464",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "1.12.24",
+            "version": "1.12.25",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "7247b67bdac4d430a78410734fbf6be824c97647"
+                "reference": "1a105671704a1aa4a7f582e6ce6bb2c879c0c9f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.12.24-732f2d.zip",
-                "reference": "7247b67bdac4d430a78410734fbf6be824c97647",
-                "shasum": "6f0d8b5d44db852c9b2f2f47bd81731755b7c2f7"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.12.25-650024.zip",
+                "reference": "1a105671704a1aa4a7f582e6ce6bb2c879c0c9f1",
+                "shasum": "15e63363f927202fa240a96df62ed8f7d73c1cdd"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -59,7 +59,7 @@
                     "CG\\Amazon\\Test\\": "tests"
                 }
             },
-            "time": "2015-03-12 10:59:45"
+            "time": "2015-03-13 15:22:25"
         },
         {
             "name": "channelgrabber/billing",
@@ -599,6 +599,13 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -2392,7 +2399,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-sessions-1.1.0-9f916d.zip",
                 "reference": "610e35f41fd4474d1974e2fb9af9bf8d21cccf10",
-                "shasum": "7d4c0fe0c1663caa97fd2664292a213e2627a10f"
+                "shasum": "08e9d6f89171b180f8474f0456bf72400fe17d42"
             },
             "require": {
                 "channelgrabber/di": ">=2.1.0",
@@ -2720,24 +2727,24 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "e5985a9b559747a5f3868361ff26c31818d8c184"
+                "reference": "833ce984264204e7d6576ab082660105c7d8f04c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/composer-composer-e5985a9b559747a5f3868361ff26c31818d8c184-zip-87830b.zip",
-                "reference": "e5985a9b559747a5f3868361ff26c31818d8c184",
-                "shasum": "b16ff4c402375faf55a61f59aed72f9f52ffa892"
+                "url": "https://api.github.com/repos/composer/composer/zipball/833ce984264204e7d6576ab082660105c7d8f04c",
+                "reference": "833ce984264204e7d6576ab082660105c7d8f04c",
+                "shasum": ""
             },
             "require": {
                 "justinrainbow/json-schema": "~1.3",
                 "php": ">=5.3.2",
                 "seld/jsonlint": "~1.0",
-                "symfony/console": "~2.5",
+                "symfony/console": "~2.3",
                 "symfony/finder": "~2.2",
                 "symfony/process": "~2.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.5"
+                "phpunit/phpunit": "~4.0"
             },
             "suggest": {
                 "ext-openssl": "Enabling the openssl extension allows you to access https URLs for repositories and packages",
@@ -2780,7 +2787,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-02-25 19:44:34"
+            "time": "2015-02-17 21:55:44"
         },
         {
             "name": "fabpot/goutte",
@@ -3470,9 +3477,7 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -3604,8 +3609,7 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com",
-                    "role": "Developer"
+                    "homepage": "http://benramsey.com"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
@@ -4587,9 +4591,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "shasum": ""
+                "url": "https://packages.zendframework.com/composer/zendframework-zendxml-559b34f426d33a11c3db118e00ce14bb8dc64e5f-zip-6cf7a2.zip",
+                "reference": "1.0.0",
+                "shasum": "39abc614b5c26bcbf8102e203c52dee73c4460a8"
             },
             "require": {
                 "php": ">=5.3.3"
@@ -4609,7 +4613,6 @@
                     "ZendXml": "library/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -4620,6 +4623,10 @@
                 "xml",
                 "zf2"
             ],
+            "support": {
+                "source": "https://github.com/zendframework/ZendXml/tree/master",
+                "issues": "https://github.com/zendframework/ZendXml/issues"
+            },
             "time": "2014-03-05 22:25:44"
         },
         {
@@ -5114,7 +5121,7 @@
                 {
                     "name": "Anthon Pang",
                     "email": "apang@softwaredevelopment.ca",
-                    "role": "developer"
+                    "role": "Fork Maintainer"
                 }
             ],
             "description": "PHP WebDriver for Selenium 2",
@@ -5275,8 +5282,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",

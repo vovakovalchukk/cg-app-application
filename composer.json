@@ -14,7 +14,7 @@
         }
     ],
     "require": {
-        "channelgrabber/amazon": "~1.12.24",
+        "channelgrabber/amazon": "~1.12.25",
         "channelgrabber/cache": "~2.0.1",
         "channelgrabber/channel": "~1.15.1",
         "channelgrabber/constants": "dev-master",
