@@ -50,6 +50,11 @@ use CG_UI\Module as UI;
 use CG_Permission\Service as PermissionService;
 use CG\Stock\Audit\Storage\Queue as StockAuditQueue;
 
+use CG\Log\Shared\Storage\Redis\Channel as RedisChannel;
+
+use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\OrganisationUnit\Storage\Api as OrganisationUnitStorageApi;
+
 return array(
     'di' => array(
         'instance' => array(
@@ -155,6 +160,21 @@ return array(
             StockAuditQueue::class => [
                 'parameters' => [
                     'client' => 'reliable_redis'
+                ]
+            ],
+            RedisChannel::class => [
+                'parameters' => [
+                    'rootOrganisationUnitProvider' => OrganisationUnitService::class
+                ]
+            ],
+            OrganisationUnitService::class => [
+                'parameters' => [
+                    'repository' => OrganisationUnitStorageApi::class,
+                ]
+            ],
+            OrganisationUnitStorageApi::class => [
+                'parameters' => [
+                    'client' => 'directory_guzzle',
                 ]
             ]
         ),
