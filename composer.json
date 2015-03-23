@@ -15,6 +15,7 @@
         }
     ],
     "require": {
+        "channelgrabber/cilex": "~1.1.0",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/di": "~2.1.1",
         "channelgrabber/http": "~1.2.28",
@@ -29,6 +30,7 @@
         "channelgrabber/zf2-ssoclient": "~1.4.2",
         "channelgrabber/zf2-stdlib": "~1.1.17",
         "channelgrabber/zf2-v4-ui": "~1.14.8",
+        "cilex/cilex": "~1.0.1",
         "composer/composer": "@dev",
         "guzzle/guzzle": "~3.7",
         "nocarrier/hal": "~0.9.3",
