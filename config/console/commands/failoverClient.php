@@ -16,6 +16,13 @@ return [
                  */
                 $prioritiser = $di->get(Prioritiser::class);
                 $prioritiser($input, $output);
-            }
+            },
+        'arguments' => [
+            Prioritiser::ARGUMENT_HOSTS => [
+                'description' => 'List of hosts to be re-prioritised, if not set all hosts will be re-prioritised',
+                'required' => false,
+                'array' => true,
+            ],
+        ],
     ],
 ];
