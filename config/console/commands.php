@@ -1,5 +1,6 @@
 <?php
 $files = [
+    'failoverClient.php',
 ];
 
 $commands = [];
