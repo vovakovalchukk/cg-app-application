@@ -1,5 +1,5 @@
 <?php
-use CG\Http\Guzzle\Http\FailoverClient\Prioritiser\SymfonyConsole as Prioritiser;
+use CG\Http\Guzzle\Http\FailoverClient\StatusChecker\SymfonyConsole as StatusChecker;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Zend\Di\Di;
@@ -8,18 +8,18 @@ use Zend\Di\Di;
  * @var Di $di
  */
 return [
-    'failoverClient:prioritise' => [
-        'description' => 'Re-prioritise the failover client server list',
+    'failoverClient:checkStatus' => [
+        'description' => 'Check the status of the failover client server list',
         'command' => function(InputInterface $input, OutputInterface $output) use ($di) {
                 /**
-                 * @var Prioritiser $prioritiser
+                 * @var StatusChecker $statusChecker
                  */
-                $prioritiser = $di->get(Prioritiser::class);
-                $prioritiser($input, $output);
+                $statusChecker = $di->get(StatusChecker::class);
+                $statusChecker($input, $output);
             },
         'arguments' => [
-            Prioritiser::ARGUMENT_HOSTS => [
-                'description' => 'List of hosts to be re-prioritised, if not set all hosts will be re-prioritised',
+            StatusChecker::ARGUMENT_HOSTS => [
+                'description' => 'List of hosts to be checked, if not set all hosts will be checked',
                 'required' => false,
                 'array' => true,
             ],

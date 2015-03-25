@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bb9d703168246f0122194f54cbb2c916",
+    "hash": "5d57ebe81a5aca3e9a702c0d1ae4b2a1",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -614,13 +614,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cghttp.git",
-                "reference": "c0003eccdbe5bd63e157af0400b9719691941dd1"
+                "reference": "baab4ea8b2290576b8a5d0d603ad23eb152ad280"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-dev-CGIV-5023-GuzzleFailoverClient-50ced4.zip",
-                "reference": "c0003eccdbe5bd63e157af0400b9719691941dd1",
-                "shasum": "f5c8e987842fd408b0101fa8e63ccd6e2a43ce84"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-dev-CGIV-5023-GuzzleFailoverClient-b806a2.zip",
+                "reference": "baab4ea8b2290576b8a5d0d603ad23eb152ad280",
+                "shasum": "796c03085a42ec47931e3fbdf932763f88b6391d"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
@@ -652,7 +652,7 @@
                     "CG\\Http\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2015-03-23 12:30:41"
+            "time": "2015-03-25 11:22:39"
         },
         {
             "name": "channelgrabber/image",
