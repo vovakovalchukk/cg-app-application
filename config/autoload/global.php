@@ -55,6 +55,14 @@ use CG\Log\Shared\Storage\Redis\Channel as RedisChannel;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\OrganisationUnit\Storage\Api as OrganisationUnitStorageApi;
 
+// Discount
+use CG\Billing\Discount\StorageInterface as DiscountStorage;
+use CG\Billing\Discount\Storage\Api as DiscountApiStorage;
+
+// SubscriptionDiscount
+use CG\Billing\SubscriptionDiscount\StorageInterface as SubscriptionDiscountStorage;
+use CG\Billing\SubscriptionDiscount\Storage\Api as SubscriptionDiscountApiStorage;
+
 return array(
     'di' => array(
         'instance' => array(
@@ -70,6 +78,8 @@ return array(
                 ServiceLocatorInterface::class => ServiceManager::class,
                 LocationStorageInterface::class => LocationApiStorage::class,
                 TransactionStorage::class => TransactionApiStorage::class,
+                DiscountStorage::class => DiscountApiStorage::class,
+                SubscriptionDiscountStorage::class => SubscriptionDiscountApiStorage::class,
             ),
             OrderApiClient::class => [
                 'parameters' => [
@@ -176,7 +186,17 @@ return array(
                 'parameters' => [
                     'client' => 'directory_guzzle',
                 ]
-            ]
+            ],
+            DiscountApiStorage::class => [
+                'parameters' => [
+                    'client' => 'billing_guzzle'
+                ]
+            ],
+            SubscriptionDiscountApiStorage::class => [
+                'parameters' => [
+                    'client' => 'billing_guzzle'
+                ]
+            ],
         ),
     ),
     'view_manager' => [
