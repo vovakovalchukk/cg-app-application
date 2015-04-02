@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1d81f8ca8cf7cca666e3817ac7937ce4",
+    "hash": "c53556a24cc6840ed6f678a1a25a1ed9",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -694,17 +694,17 @@
         },
         {
             "name": "channelgrabber/intercom",
-            "version": "dev-CGIV-5247-intercom-user-service",
+            "version": "dev-EPIC-CGIV-5219-intercom",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-intercom.git",
-                "reference": "950f99d43f621b093f2f6626cb884b2d9716f10f"
+                "reference": "d8b293ac1c7134f6268f79a28fcd85ffaa370cda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-dev-CGIV-5247-intercom-user-service-77e6ea.zip",
-                "reference": "950f99d43f621b093f2f6626cb884b2d9716f10f",
-                "shasum": "ef8c476e6fc5ee3272213f8cdcb76d1b15a064f8"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-dev-EPIC-CGIV-5219-intercom-8098ce.zip",
+                "reference": "d8b293ac1c7134f6268f79a28fcd85ffaa370cda",
+                "shasum": "bcb2a164b2fac63cba9f8a62ef7834f4bbf7342f"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -723,7 +723,7 @@
                     "CG\\Intercom\\": "src"
                 }
             },
-            "time": "2015-04-02 11:12:31"
+            "time": "2015-04-02 13:01:16"
         },
         {
             "name": "channelgrabber/listing",
@@ -2212,23 +2212,23 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "dev-CGIV-5247-intercom-user-service",
+            "version": "dev-EPIC-CGIV-5219-intercom",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "ef3a7d7ffdac70e352c81186375f6847510b5f18"
+                "reference": "b50a36b994e6d99c5155ca757b637bf5597876c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-5247-intercom-user-service-b8f31e.zip",
-                "reference": "ef3a7d7ffdac70e352c81186375f6847510b5f18",
-                "shasum": "2f26367fd0f0f01aa7204c51368f05f171d7cc0a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-EPIC-CGIV-5219-intercom-dbd237.zip",
+                "reference": "b50a36b994e6d99c5155ca757b637bf5597876c5",
+                "shasum": "63bef5e72f475e15bfe17a6b6894ad7370bd0e2b"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=1.0.1",
-                "channelgrabber/intercom": "dev-CGIV-5247-intercom-user-service as 1.0.0",
+                "channelgrabber/intercom": "dev-EPIC-CGIV-5219-intercom as 1.0.0",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
                 "channelgrabber/stdlib": ">=2.2.0",
                 "channelgrabber/user": "dev-EPIC-CGIV-5219-intercom as 1.18.16",
@@ -2265,7 +2265,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2015-04-02 11:18:34"
+            "time": "2015-04-02 13:25:18"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -5923,7 +5923,7 @@
         {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
-            "version": "dev-CGIV-5247-intercom-user-service",
+            "version": "dev-EPIC-CGIV-5219-intercom",
             "package": "channelgrabber/intercom"
         },
         {
@@ -5935,7 +5935,7 @@
         {
             "alias": "1.4.21",
             "alias_normalized": "1.4.21.0",
-            "version": "dev-CGIV-5247-intercom-user-service",
+            "version": "dev-EPIC-CGIV-5219-intercom",
             "package": "channelgrabber/zf2-login"
         }
     ],
