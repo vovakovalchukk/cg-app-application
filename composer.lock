@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "983ecb450bedd9ed5022e63d98b01dde",
+    "hash": "2bef2ffe8833c15d79d1ccdf6fcb2105",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -63,39 +63,54 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.7.3",
+            "version": "1.8.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "484bae8c3629bd85ae476115cbf83c18a2305ed2"
+                "reference": "9105f0d8a8e3bee844dd5fbef5e530abef845294"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.7.3-c0e900.zip",
-                "reference": "484bae8c3629bd85ae476115cbf83c18a2305ed2",
-                "shasum": "01cfae827a59f5696c42b52dbdff77238e3e8b5a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.8.0-c5080f.zip",
+                "reference": "9105f0d8a8e3bee844dd5fbef5e530abef845294",
+                "shasum": "434fc4acee35b32fae9461ca275672a644381842"
             },
             "require": {
-                "channelgrabber/cache": ">=2.0.1,<3.0.0",
+                "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.1.1",
-                "channelgrabber/etag": ">=1.5.1, <1.6.0",
+                "channelgrabber/etag": "^1.5.4",
                 "channelgrabber/http": ">=1.2.12",
+                "channelgrabber/log": "^2.0.21",
                 "channelgrabber/permission": ">=1.0.1",
-                "channelgrabber/stdlib": ">=2.7.21",
+                "channelgrabber/stdlib": ">=2.10.6",
                 "channelgrabber/user": ">= 1.18.7",
                 "composer/composer": "@dev",
                 "php-jsonpatch/php-jsonpatch": "@dev",
                 "php-jsonpointer/php-jsonpointer": "@dev",
                 "zendframework/zend-di": ">=2.2.5"
             },
+            "require-dev": {
+                "channelgrabber/phpunit": "dev-develop",
+                "phpunit/phpunit": "4.2.*"
+            },
             "type": "di-definition",
             "autoload": {
                 "psr-4": {
                     "CG\\Billing\\": "src"
+                },
+                "autoload-dev": {
+                    "psr-4": {
+                        "CG\\Billing\\Test\\": "tests"
+                    }
                 }
             },
-            "time": "2015-02-13 13:43:38"
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Billing\\Test\\": "tests"
+                }
+            },
+            "time": "2015-03-23 13:20:03"
         },
         {
             "name": "channelgrabber/cache",
@@ -185,17 +200,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.15.8.2",
+            "version": "dev-EPIC-CGIV-5219-intercom",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "891baa774b834747579c3390c1fbd6bd6ff709cb"
+                "reference": "c9b9d8afa9257b22bf6032f580876f93e523c1d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.15.8.2-0ef952.zip",
-                "reference": "891baa774b834747579c3390c1fbd6bd6ff709cb",
-                "shasum": "93f5fb2968af9fe0692a0d3d3fb31328a8c0ca94"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-5219-intercom-60380e.zip",
+                "reference": "c9b9d8afa9257b22bf6032f580876f93e523c1d0",
+                "shasum": "9fe6f7fce1f4dee7d59fba22cbd8c18aa12ca38a"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -208,11 +223,11 @@
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": ">=1.15.9,<2.0.0",
                 "channelgrabber/permission": ">=1.0.1, <2.0.0",
-                "channelgrabber/product": ">=1.3.5, <2.0.0",
+                "channelgrabber/product": "^1.3.21",
                 "channelgrabber/scraper": ">=1.0.0,<2.0.0",
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stats": ">=1.0.1,<2.0.0",
-                "channelgrabber/stdlib": "^2.10.4",
+                "channelgrabber/stdlib": "^2.10.7",
                 "composer/composer": "@dev",
                 "ext-gearman": "~1.1.0",
                 "guzzle/guzzle": "~3.7",
@@ -243,7 +258,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-03-19 14:29:55"
+            "time": "2015-04-07 13:22:53"
         },
         {
             "name": "channelgrabber/cilex",
@@ -558,26 +573,29 @@
         },
         {
             "name": "channelgrabber/gearman",
-            "version": "1.1.15",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-gearman.git",
-                "reference": "c21614ecfc9c7257f70166b1bcf0b202921070a9"
+                "reference": "c83578b5001671d4d89dd327de843e79cff07c6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-1.1.15-6ba13f.zip",
-                "reference": "c21614ecfc9c7257f70166b1bcf0b202921070a9",
-                "shasum": "075815c84470238bd2b0ca4968b10e68f21a3004"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-1.2.2-56e329.zip",
+                "reference": "c83578b5001671d4d89dd327de843e79cff07c6a",
+                "shasum": "4a575c4a45853239a40787807cbc32646d5678c3"
             },
             "require": {
                 "channelgrabber/cilex": ">=1.1.0,<2.0.0",
                 "channelgrabber/di": ">=2.0.0,<3.0.0",
-                "channelgrabber/log": ">=1.5.0",
-                "channelgrabber/stdlib": ">=2.7.22,<3.0.0",
+                "channelgrabber/log": ">=2.0.17,<3.0.0",
+                "channelgrabber/stats": ">=1.0.3, <2.0.0",
+                "channelgrabber/stdlib": ">=2.10.1,<3.0.0",
                 "composer/composer": "@dev",
                 "ext-gearman": "*",
-                "guzzle/guzzle": "~3.7"
+                "guzzle/guzzle": "~3.7",
+                "php-jsonpatch/php-jsonpatch": "@dev",
+                "php-jsonpointer/php-jsonpointer": "@dev"
             },
             "type": "di-definition",
             "autoload": {
@@ -585,7 +603,7 @@
                     "CG\\Gearman\\": "src"
                 }
             },
-            "time": "2015-02-05 11:05:25"
+            "time": "2015-04-01 16:01:02"
         },
         {
             "name": "channelgrabber/guzzle",
@@ -691,23 +709,30 @@
         },
         {
             "name": "channelgrabber/intercom",
-            "version": "dev-CGIV-5255-IntercomJS",
+            "version": "dev-EPIC-CGIV-5219-intercom",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-intercom.git",
-                "reference": "a5e0482da92171a8c2710c359c57d047ea5226cb"
+                "reference": "b85ff3842e47c1c3e52112a6835c135b0156ae16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-dev-CGIV-5255-IntercomJS-6f2aff.zip",
-                "reference": "a5e0482da92171a8c2710c359c57d047ea5226cb",
-                "shasum": "68602146496ac206d9f6435ad8fd3ae2ecd7b01e"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-dev-EPIC-CGIV-5219-intercom-5cd6a4.zip",
+                "reference": "b85ff3842e47c1c3e52112a6835c135b0156ae16",
+                "shasum": "b1ae8efa84ff29622ffee168a10af829af018716"
             },
             "require": {
+                "channelgrabber/billing": ">=1.8.0, <2.0.0",
+                "channelgrabber/channel": "dev-EPIC-CGIV-5219-intercom as 1.15.11",
+                "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.1.0",
+                "channelgrabber/gearman": ">=1.2.0,<2.0.0",
                 "channelgrabber/stdlib": ">=2.10.0,<3.0.0",
+                "channelgrabber/user": "dev-EPIC-CGIV-5219-intercom as 1.18.16",
                 "composer/composer": "@dev",
-                "intercom/intercom-php": "~1.0.0-b12"
+                "intercom/intercom-php": "~1.0.0",
+                "php-jsonpatch/php-jsonpatch": "@dev",
+                "php-jsonpointer/php-jsonpointer": "@dev"
             },
             "type": "di-definition",
             "autoload": {
@@ -715,7 +740,7 @@
                     "CG\\Intercom\\": "src"
                 }
             },
-            "time": "2015-04-01 16:26:46"
+            "time": "2015-04-07 14:48:26"
         },
         {
             "name": "channelgrabber/listing",
@@ -1161,29 +1186,30 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.3.18",
+            "version": "1.3.22",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "29305fb737cf3c989b926ee3de7c777f619f95b3"
+                "reference": "e7c4f7064ea19cf78729dd94f86947adbe705fe6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.3.18-129448.zip",
-                "reference": "29305fb737cf3c989b926ee3de7c777f619f95b3",
-                "shasum": "288c28961b4170a98e2cffcc68e66097f16890be"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.3.22-d2c4cd.zip",
+                "reference": "e7c4f7064ea19cf78729dd94f86947adbe705fe6",
+                "shasum": "b144c1e911a5ceb579623659badaec9fa4c2d2ad"
             },
             "require": {
-                "channelgrabber/cache": ">=2.0.1,<3.0.0",
+                "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.0.1",
-                "channelgrabber/etag": ">=1.4.3",
+                "channelgrabber/etag": "^1.5.4",
                 "channelgrabber/http": ">=1.2.14",
                 "channelgrabber/image": ">=1.1.3,<2.0.0",
                 "channelgrabber/listing": ">=1.2.10",
+                "channelgrabber/log": "^2.0.21",
                 "channelgrabber/permission": ">=1.0.0",
-                "channelgrabber/slim": ">=1.11.2",
-                "channelgrabber/stdlib": ">=2.7.30,<3.0.0",
+                "channelgrabber/slim": "^1.13.2",
+                "channelgrabber/stdlib": "^2.10.7",
                 "channelgrabber/stock": ">=1.3.4",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "composer/composer": "@dev",
@@ -1199,7 +1225,7 @@
                     "CG\\Product\\": "src"
                 }
             },
-            "time": "2015-01-08 14:06:06"
+            "time": "2015-03-27 10:38:18"
         },
         {
             "name": "channelgrabber/purge",
@@ -1730,17 +1756,17 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "dev-CGIV-5253-UserCreatedDate",
+            "version": "dev-EPIC-CGIV-5219-intercom",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "ee144cb54f22bb2c3032db8af4ba8ea9c507106c"
+                "reference": "e852a2a0acd80dd92985b290ff6ad6bc7b945d4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-5253-UserCreatedDate-2345a9.zip",
-                "reference": "ee144cb54f22bb2c3032db8af4ba8ea9c507106c",
-                "shasum": "39b4534293bb149a57cdc4ea347550bfe59a2a21"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-EPIC-CGIV-5219-intercom-72f30b.zip",
+                "reference": "e852a2a0acd80dd92985b290ff6ad6bc7b945d4c",
+                "shasum": "efeec4bd7571b1a6fafcb634df1d388bef6636e2"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1777,7 +1803,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2015-04-01 14:34:04"
+            "time": "2015-04-07 14:40:35"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -2204,29 +2230,34 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.4.20",
+            "version": "dev-EPIC-CGIV-5219-intercom",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "2cbd6874b56304caa3e35c4530063411bd306a78"
+                "reference": "b50a36b994e6d99c5155ca757b637bf5597876c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.20-db0509.zip",
-                "reference": "2cbd6874b56304caa3e35c4530063411bd306a78",
-                "shasum": "d5badc9cb49af793cb572819c4b0d580da2f9415"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-EPIC-CGIV-5219-intercom-dbd237.zip",
+                "reference": "b50a36b994e6d99c5155ca757b637bf5597876c5",
+                "shasum": "63bef5e72f475e15bfe17a6b6894ad7370bd0e2b"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=1.0.1",
+                "channelgrabber/intercom": "dev-EPIC-CGIV-5219-intercom as 1.0.0",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
                 "channelgrabber/stdlib": ">=2.2.0",
-                "channelgrabber/user": ">=1.13.14",
+                "channelgrabber/user": "dev-EPIC-CGIV-5219-intercom as 1.18.16",
                 "channelgrabber/zf2-mustache": ">=1.0.0,<2.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.1",
                 "channelgrabber/zf2-v4-ui": ">=1.4.1",
+                "composer/composer": "@dev",
                 "guzzle/guzzle": "~3.7",
+                "intercom/intercom-php": "~1.0.0-b12",
+                "php-jsonpatch/php-jsonpatch": "@dev",
+                "php-jsonpointer/php-jsonpointer": "@dev",
                 "zendframework/zend-config": "2.*",
                 "zendframework/zend-di": "2.*",
                 "zendframework/zend-eventmanager": "2.*",
@@ -2252,7 +2283,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2015-02-24 15:35:22"
+            "time": "2015-04-02 13:25:18"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -2332,7 +2363,7 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-CGIV-5255-IntercomJS",
+            "version": "dev-EPIC-CGIV-5219-intercom",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
@@ -2340,9 +2371,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-5255-IntercomJS-f860d3.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-EPIC-CGIV-5219-intercom-f860d3.zip",
                 "reference": "fca2409d375c41d85469dffd3385365528800472",
-                "shasum": "972ac745607a5b4bb12a33ab2cc6f7d7af112eb2"
+                "shasum": "667e8c20d0b54dd8226d64ef4c04361ddf4604a9"
             },
             "require": {
                 "channelgrabber/cglib": ">=1.1.4",
@@ -2583,22 +2614,22 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-5255-IntercomJS",
+            "version": "dev-EPIC-CGIV-5219-intercom",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "b3b5bdf69335053ebbc343eb95134d82b916e498"
+                "reference": "b6a67f1da8eb724be3f23a6f3e28e54cb191f39c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5255-IntercomJS-6c49d8.zip",
-                "reference": "b3b5bdf69335053ebbc343eb95134d82b916e498",
-                "shasum": "210b1a097bccaabc931d6636922282f90da1fcde"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-5219-intercom-5afe83.zip",
+                "reference": "b6a67f1da8eb724be3f23a6f3e28e54cb191f39c",
+                "shasum": "027fd221f538a1f00a53ccb425c86575492de76f"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0",
                 "channelgrabber/etag": ">=1.4.2",
-                "channelgrabber/intercom": "dev-CGIV-5255-IntercomJS as 1.0",
+                "channelgrabber/intercom": "dev-EPIC-CGIV-5219-intercom as 1.0",
                 "channelgrabber/log": ">=1.4.2",
                 "channelgrabber/stdlib": ">=2.7.4,<3.0.0",
                 "channelgrabber/zf2-installer": "~1.0.5",
@@ -2636,7 +2667,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-04-02 08:12:06"
+            "time": "2015-04-07 15:02:03"
         },
         {
             "name": "cilex/cilex",
@@ -3132,17 +3163,17 @@
         },
         {
             "name": "intercom/intercom-php",
-            "version": "v1.0.0-b12",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/intercom/intercom-php.git",
-                "reference": "8fffc8f230bb6d260a2bae6364476898ccfb123f"
+                "reference": "a0a1bd91afbb6424fa4c003fe2dcd744fff24b51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/intercom-intercom-php-8fffc8f230bb6d260a2bae6364476898ccfb123f-zip-c7c766.zip",
-                "reference": "8fffc8f230bb6d260a2bae6364476898ccfb123f",
-                "shasum": "2ff02593e4dc51ad5cfe168a3a274a2f5c781929"
+                "url": "https://composer.build.channelgrabber.com/dist/intercom-intercom-php-a0a1bd91afbb6424fa4c003fe2dcd744fff24b51-zip-5b82bd.zip",
+                "reference": "a0a1bd91afbb6424fa4c003fe2dcd744fff24b51",
+                "shasum": "820721623b83914417fd77a96fe4a1b4226de23d"
             },
             "require": {
                 "guzzle/guzzle": "~3.9",
@@ -3174,7 +3205,7 @@
                 "intercom",
                 "intercom.io"
             ],
-            "time": "2015-01-21 11:29:44"
+            "time": "2015-04-03 12:10:19"
         },
         {
             "name": "jakoch/phantomjs-installer",
@@ -5909,39 +5940,52 @@
     ],
     "aliases": [
         {
+            "alias": "1.15.11",
+            "alias_normalized": "1.15.11.0",
+            "version": "dev-EPIC-CGIV-5219-intercom",
+            "package": "channelgrabber/channel"
+        },
+        {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
-            "version": "dev-CGIV-5255-IntercomJS",
+            "version": "dev-EPIC-CGIV-5219-intercom",
             "package": "channelgrabber/intercom"
         },
         {
-            "alias": "1.18.12",
-            "alias_normalized": "1.18.12.0",
-            "version": "dev-CGIV-5253-UserCreatedDate",
+            "alias": "1.18.16",
+            "alias_normalized": "1.18.16.0",
+            "version": "dev-EPIC-CGIV-5219-intercom",
             "package": "channelgrabber/user"
+        },
+        {
+            "alias": "1.4.21",
+            "alias_normalized": "1.4.21.0",
+            "version": "dev-EPIC-CGIV-5219-intercom",
+            "package": "channelgrabber/zf2-login"
         },
         {
             "alias": "1.4.29",
             "alias_normalized": "1.4.29.0",
-            "version": "dev-CGIV-5255-IntercomJS",
+            "version": "dev-EPIC-CGIV-5219-intercom",
             "package": "channelgrabber/zf2-register"
         },
         {
             "alias": "1.14.54",
             "alias_normalized": "1.14.54.0",
-            "version": "dev-CGIV-5255-IntercomJS",
+            "version": "dev-EPIC-CGIV-5219-intercom",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/intercom": 20,
         "channelgrabber/user": 20,
+        "channelgrabber/zf2-login": 20,
         "channelgrabber/zf2-register": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
-        "intercom/intercom-php": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpspec/phpspec": 20
