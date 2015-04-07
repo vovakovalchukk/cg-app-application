@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2bef2ffe8833c15d79d1ccdf6fcb2105",
+    "hash": "33d81e01ae944b2df8ae403d5b5e514a",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -262,17 +262,17 @@
         },
         {
             "name": "channelgrabber/cilex",
-            "version": "1.1.1",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cilex.git",
-                "reference": "e02811e0e6e6e7b1be83a3308a38435ab617175a"
+                "reference": "b27fc0d78fc9d988a3a9df4efed6bd1029418274"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cilex-1.1.1-427546.zip",
-                "reference": "e02811e0e6e6e7b1be83a3308a38435ab617175a",
-                "shasum": "f71f5b7fa202dcbf0ed47a552e7b805755a95d7b"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cilex-1.1.2-9e3266.zip",
+                "reference": "b27fc0d78fc9d988a3a9df4efed6bd1029418274",
+                "shasum": "9dcba24e15cdffe57265f11810975732ae32c49d"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
@@ -291,7 +291,7 @@
                     "CG\\Cilex\\": "src"
                 }
             },
-            "time": "2015-02-05 14:06:18"
+            "time": "2015-04-02 12:11:05"
         },
         {
             "name": "channelgrabber/constants",
@@ -632,25 +632,30 @@
         },
         {
             "name": "channelgrabber/http",
-            "version": "1.3.3",
+            "version": "1.3.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cghttp.git",
-                "reference": "ca4d6706c54b69322f43d53a091b7377dc196601"
+                "reference": "8c0e33387c9e6bcf144c8210716cb1c4fa382bcc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.3.3-3c23d7.zip",
-                "reference": "ca4d6706c54b69322f43d53a091b7377dc196601",
-                "shasum": "deba49c51f108414de6cf8c7ede57dc2b3b2f80d"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.3.7-ebad33.zip",
+                "reference": "8c0e33387c9e6bcf144c8210716cb1c4fa382bcc",
+                "shasum": "da426882eddc16e2f2cd51b47d54036cd3eab635"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
                 "channelgrabber/etag": ">=1.4.2,<2.0.0",
+                "channelgrabber/log": "^2.0.21",
                 "channelgrabber/stdlib": ">=2.10.0,<3.0.0",
                 "composer/composer": "@dev",
+                "ext-memcached": "*",
                 "guzzle/guzzle": "~3.7",
-                "nocarrier/hal": "~0.9.4"
+                "nocarrier/hal": "~0.9.4",
+                "php-jsonpatch/php-jsonpatch": "@dev",
+                "php-jsonpointer/php-jsonpointer": "@dev",
+                "symfony/console": "~2.5"
             },
             "replace": {
                 "channelgrabber/cghttp": "*"
@@ -668,10 +673,11 @@
             },
             "autoload-dev": {
                 "psr-4": {
-                    "CG\\Http\\Test\\": "tests/"
+                    "CG\\Http\\Test\\": "tests/",
+                    "CG\\Http\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2015-02-18 15:59:50"
+            "time": "2015-04-07 13:25:29"
         },
         {
             "name": "channelgrabber/image",
@@ -2367,20 +2373,20 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "fca2409d375c41d85469dffd3385365528800472"
+                "reference": "0c1a5ea24840b788758fcf1b4851d3abf670baed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-EPIC-CGIV-5219-intercom-f860d3.zip",
-                "reference": "fca2409d375c41d85469dffd3385365528800472",
-                "shasum": "667e8c20d0b54dd8226d64ef4c04361ddf4604a9"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-EPIC-CGIV-5219-intercom-414c5d.zip",
+                "reference": "0c1a5ea24840b788758fcf1b4851d3abf670baed",
+                "shasum": "3b6ec3379100a223c9dd0475c0a1271d2a60ec6b"
             },
             "require": {
                 "channelgrabber/cglib": ">=1.1.4",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.1.1",
                 "channelgrabber/slim": ">=1.11.0",
-                "channelgrabber/stdlib": ">=2.3.0",
+                "channelgrabber/stdlib": "^2.10.0",
                 "channelgrabber/user": ">=1.13.5",
                 "channelgrabber/zendesk": ">=1.0.0,<2.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
@@ -2411,7 +2417,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2015-04-01 14:24:40"
+            "time": "2015-04-07 15:11:26"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
