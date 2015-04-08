@@ -347,13 +347,19 @@ class ChannelController extends AbstractActionController
         $url = $this->getAccountFactory()->createRedirect($accountEntity, Module::ROUTE . '/' . static::ROUTE . '/' . ChannelController::ROUTE_CHANNELS,
             ["type" => $this->params('type')], $this->params()->fromPost('region'));
         $view->setVariable('url', $url);
-        $this->notifyOfCreate();
+        $this->notifyOfCreate($accountEntity);
         return $view;
     }
 
-    protected function notifyOfCreate()
+    protected function notifyOfCreate(AccountEntity $accountEntity)
     {
-        $event = new IntercomEvent(static::EVENT_ACCOUNT_ADDED, $this->getActiveUser()->getId());
+        $event = new IntercomEvent(
+            static::EVENT_ACCOUNT_ADDED,
+            $this->getActiveUser()->getId(),
+            [
+                'channel' => $accountEntity->getChannel()
+            ]
+        );
         $this->getIntercomEventService()->save($event);
     }
 

@@ -768,13 +768,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-intercom.git",
-                "reference": "b20cfd08a3852be110573178e3f26ebf127c5fd2"
+                "reference": "62c5191fa3ad090e2ae665a80d5a9477028ccf43"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-dev-CGIV-5290-intercom-events-general-8a73b4.zip",
-                "reference": "b20cfd08a3852be110573178e3f26ebf127c5fd2",
-                "shasum": "c011d96d446d13610211fab5ac210221877b94d7"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-dev-CGIV-5290-intercom-events-general-026d11.zip",
+                "reference": "62c5191fa3ad090e2ae665a80d5a9477028ccf43",
+                "shasum": "82e40c400efed4cdb143fd5a0d5227b20c87da35"
             },
             "require": {
                 "channelgrabber/billing": ">=1.8.0, <2.0.0",
@@ -795,7 +795,7 @@
                     "CG\\Intercom\\": "src"
                 }
             },
-            "time": "2015-04-08 12:26:22"
+            "time": "2015-04-08 13:01:17"
         },
         {
             "name": "channelgrabber/listing",
