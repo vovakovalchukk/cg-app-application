@@ -684,12 +684,11 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
                 $this->logException($orderException, 'error', __NAMESPACE__);
             }
         }
+        $this->notifyOfDispatch();
 
         if (count($exception) > 0) {
             throw $exception;
         }
-
-        $this->notifyOfDispatch();
     }
 
     public function dispatchOrder(OrderEntity $order)
@@ -773,12 +772,11 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
                 $this->logException($orderException, 'error', __NAMESPACE__);
             }
         }
+        $this->notifyOfCancel();
 
         if (count($exception) > 0) {
             throw $exception;
         }
-
-        $this->notifyOfCancel();
     }
 
     public function cancelOrder(OrderEntity $order, $type, $reason)
