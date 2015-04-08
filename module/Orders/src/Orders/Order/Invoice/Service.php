@@ -1,6 +1,8 @@
 <?php
 namespace Orders\Order\Invoice;
 
+use CG\Intercom\Event\Request as IntercomEvent;
+use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection;
 use CG\Order\Shared\Entity as OrderEntity;
@@ -23,6 +25,7 @@ class Service implements StatsAwareInterface
     use StatsTrait;
 
     const STAT_ORDER_ACTION_PRINTED = 'orderAction.printed.%s.%d.%d';
+    const EVENT_INVOICES_PRINTED = 'Invoices Printed';
 
     protected $di;
     protected $orderService;
@@ -33,6 +36,7 @@ class Service implements StatsAwareInterface
     protected $progressStorage;
     protected $templates = [];
     protected $activeUserContainer;
+    protected $intercomEventService;
 
     public function __construct(
         Di $di,
@@ -42,7 +46,8 @@ class Service implements StatsAwareInterface
         RendererService $rendererService,
         InvoiceSettingsService $invoiceSettingsService,
         ProgressStorage $progressStorage,
-        ActiveUserInterface $activeUserContainer
+        ActiveUserInterface $activeUserContainer,
+        IntercomEventService $intercomEventService
     ) {
         $this
             ->setDi($di)
@@ -52,7 +57,8 @@ class Service implements StatsAwareInterface
             ->setRendererService($rendererService)
             ->setInvoiceSettingsService($invoiceSettingsService)
             ->setProgressStorage($progressStorage)
-            ->setActiveUserContainer($activeUserContainer);
+            ->setActiveUserContainer($activeUserContainer)
+            ->setIntercomEventService($intercomEventService);
     }
 
     public function setDi(Di $di)
@@ -267,7 +273,9 @@ class Service implements StatsAwareInterface
             }
             $this->updateInvoiceGenerationProgress($progressKey, ++$count);
         }
-        return $this->getRendererService()->combinePages();
+        $result = $this->getRendererService()->combinePages();
+        $this->notifyOfGeneration();
+        return $result;
     }
 
     protected function updateInvoiceGenerationProgress($key, $count)
@@ -277,6 +285,12 @@ class Service implements StatsAwareInterface
         }
         $this->getProgressStorage()->setProgress($key, $count);
         return $this;
+    }
+
+    protected function notifyOfGeneration()
+    {
+        $event = new IntercomEvent(static::EVENT_INVOICES_PRINTED, $this->getActiveUserContainer()->getActiveUser()->getId());
+        $this->getIntercomEventService()->save($event);
     }
 
     public function checkInvoiceGenerationProgress($key)
@@ -293,5 +307,16 @@ class Service implements StatsAwareInterface
     protected function getActiveUserContainer()
     {
         return $this->activeUserContainer;
+    }
+
+    protected function getIntercomEventService()
+    {
+        return $this->intercomEventService;
+    }
+
+    protected function setIntercomEventService(IntercomEventService $intercomEventService)
+    {
+        $this->intercomEventService = $intercomEventService;
+        return $this;
     }
 }
