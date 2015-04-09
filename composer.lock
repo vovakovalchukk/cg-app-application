@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1fcd58577721c8162b04dbd1d0b1b7b1",
+    "hash": "77e72bf976d97eb5012bf2ae4856f017",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -764,17 +764,17 @@
         },
         {
             "name": "channelgrabber/intercom",
-            "version": "dev-EPIC-CGIV-5248-intercom-events",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-intercom.git",
-                "reference": "41b2321393d7c594716d4d4bdcea83427ca1f543"
+                "reference": "c5a3620b83e5f274fe1a369b1a46c1618b4e901f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-dev-EPIC-CGIV-5248-intercom-events-226ea9.zip",
-                "reference": "41b2321393d7c594716d4d4bdcea83427ca1f543",
-                "shasum": "dca65e3033b7499b2e41316c09b7e611e6c89df8"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-1.1.1-8e93fb.zip",
+                "reference": "c5a3620b83e5f274fe1a369b1a46c1618b4e901f",
+                "shasum": "ec96ceac7ff583c3926f472559533b1e79d08b36"
             },
             "require": {
                 "channelgrabber/billing": ">=1.8.0, <2.0.0",
@@ -795,7 +795,7 @@
                     "CG\\Intercom\\": "src"
                 }
             },
-            "time": "2015-04-08 13:24:55"
+            "time": "2015-04-09 08:58:44"
         },
         {
             "name": "channelgrabber/listing",
@@ -2287,23 +2287,23 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "dev-EPIC-CGIV-5248-intercom-events",
+            "version": "1.4.23",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "d8b6f7ca12481dae7c94167650e34ec0077f5612"
+                "reference": "5a8ae8f59bda38fb1f9d2ff00134348bf777a600"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-EPIC-CGIV-5248-intercom-events-232645.zip",
-                "reference": "d8b6f7ca12481dae7c94167650e34ec0077f5612",
-                "shasum": "54f79d28f1dc960f9061ee827ce0515d94b01bc9"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.23-b63277.zip",
+                "reference": "5a8ae8f59bda38fb1f9d2ff00134348bf777a600",
+                "shasum": "2e5db523c6c19d9996ec5ccac436bfa0beb5a583"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=1.0.1",
-                "channelgrabber/intercom": "dev-EPIC-CGIV-5248-intercom-events as 1.0.3",
+                "channelgrabber/intercom": ">=1.1.1,<2.0.0",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
                 "channelgrabber/stdlib": "^2.10.0",
                 "channelgrabber/user": ">=1.18.16,<2.0.0",
@@ -2339,7 +2339,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2015-04-08 13:57:40"
+            "time": "2015-04-09 09:03:50"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -5995,25 +5995,10 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.3",
-            "alias_normalized": "1.0.3.0",
-            "version": "dev-EPIC-CGIV-5248-intercom-events",
-            "package": "channelgrabber/intercom"
-        },
-        {
-            "alias": "1.4.23",
-            "alias_normalized": "1.4.23.0",
-            "version": "dev-EPIC-CGIV-5248-intercom-events",
-            "package": "channelgrabber/zf2-login"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/intercom": 20,
-        "channelgrabber/zf2-login": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
