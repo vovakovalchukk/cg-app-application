@@ -7,6 +7,8 @@ use CG\Channel\AccountFactory;
 use CG\Channel\Service as ChannelService;
 use CG\Channel\Type;
 use CG\Http\Exception\Exception3xx\NotModified;
+use CG\Intercom\Event\Request as IntercomEvent;
+use CG\Intercom\Event\Service as IntercomEventService;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
@@ -42,6 +44,7 @@ class ChannelController extends AbstractActionController
     const ACCOUNT_CHANNEL_FORM_BLANK_TEMPLATE = "Sales Channel Item Channel Form Blank";
     const ACCOUNT_DETAIL_FORM = "Sales Channel Item Detail";
     const ACCOUNT_TYPE_TO_LIST = 'sale';
+    const EVENT_ACCOUNT_ADDED = 'Account Added';
 
     protected $di;
     protected $jsonModelFactory;
@@ -56,6 +59,7 @@ class ChannelController extends AbstractActionController
     protected $formFactory;
     protected $translator;
     protected $organisationUnitService;
+    protected $intercomEventService;
 
     public function __construct(
         Di $di,
@@ -70,7 +74,8 @@ class ChannelController extends AbstractActionController
         MustacheRenderer $mustacheRenderer,
         FormFactory $formFactory,
         Translator $translator,
-        OrganisationUnitService $organisationUnitService
+        OrganisationUnitService $organisationUnitService,
+        IntercomEventService $intercomEventService
     ) {
         $this->setDi($di)
             ->setJsonModelFactory($jsonModelFactory)
@@ -84,7 +89,8 @@ class ChannelController extends AbstractActionController
             ->setMustacheRenderer($mustacheRenderer)
             ->setFormFactory($formFactory)
             ->setTranslator($translator)
-            ->setOrganisationUnitService($organisationUnitService);
+            ->setOrganisationUnitService($organisationUnitService)
+            ->setIntercomEventService($intercomEventService);
     }
 
     public function setService(Service $service)
@@ -341,7 +347,20 @@ class ChannelController extends AbstractActionController
         $url = $this->getAccountFactory()->createRedirect($accountEntity, Module::ROUTE . '/' . static::ROUTE . '/' . ChannelController::ROUTE_CHANNELS,
             ["type" => $this->params('type')], $this->params()->fromPost('region'));
         $view->setVariable('url', $url);
+        $this->notifyOfCreate($accountEntity);
         return $view;
+    }
+
+    protected function notifyOfCreate(AccountEntity $accountEntity)
+    {
+        $event = new IntercomEvent(
+            static::EVENT_ACCOUNT_ADDED,
+            $this->getActiveUser()->getId(),
+            [
+                'channel' => $accountEntity->getChannel()
+            ]
+        );
+        $this->getIntercomEventService()->save($event);
     }
 
     public function statusAjaxAction()
@@ -542,6 +561,17 @@ class ChannelController extends AbstractActionController
     public function setOrganisationUnitService(OrganisationUnitService $organisationUnitService)
     {
         $this->organisationUnitService = $organisationUnitService;
+        return $this;
+    }
+
+    protected function getIntercomEventService()
+    {
+        return $this->intercomEventService;
+    }
+
+    protected function setIntercomEventService(IntercomEventService $intercomEventService)
+    {
+        $this->intercomEventService = $intercomEventService;
         return $this;
     }
 }

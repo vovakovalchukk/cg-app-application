@@ -21,6 +21,8 @@ use CG\Product\Filter\Mapper as ProductFilterMapper;
 use CG\Product\Entity as Product;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stock\Auditor as StockAuditor;
+use CG\Intercom\Event\Request as IntercomEvent;
+use CG\Intercom\Event\Service as IntercomEventService;
 
 class Service implements LoggerAwareInterface, StatsAwareInterface
 {
@@ -38,6 +40,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     const LOG_CODE = 'ProductProductService';
     const LOG_NO_STOCK_TO_DELETE = 'No stock found to remove for Product %s when deleting it';
     const STAT_STOCK_UPDATE_MANUAL = 'stock.update.manual.%d.%d';
+    const EVENT_MANUAL_STOCK_CHANGE = 'Manual Stock Change';
 
     protected $userService;
     protected $activeUserContainer;
@@ -51,6 +54,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $stockService;
     protected $stockLocationService;
     protected $stockAuditor;
+    protected $intercomEventService;
 
     public function __construct(
         UserService $userService,
@@ -63,7 +67,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         ProductService $productService,
         StockLocationService $stockLocationService,
         StockService $stockService,
-        StockAuditor $stockAuditor
+        StockAuditor $stockAuditor,
+        IntercomEventService $intercomEventService
     ) {
         $this->setProductService($productService)
             ->setUserService($userService)
@@ -75,7 +80,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ->setOrganisationUnitService($organisationUnitService)
             ->setStockService($stockService)
             ->setStockLocationService($stockLocationService)
-            ->setStockAuditor($stockAuditor);
+            ->setStockAuditor($stockAuditor)
+            ->setIntercomEventService($intercomEventService);
     }
 
     public function fetchProducts(ProductFilter $productFilter)
@@ -103,10 +109,17 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
                     $this->getActiveUserContainer()->getActiveUser()->getId()
                 ]
             );
+            $this->notifyOfStockUpdate();
         } catch (NotModified $e) {
             //No changes do nothing
         }
         return $stockLocationEntity;
+    }
+
+    protected function notifyOfStockUpdate()
+    {
+        $event = new IntercomEvent(static::EVENT_MANUAL_STOCK_CHANGE, $this->getActiveUser()->getId());
+        $this->getIntercomEventService()->save($event);
     }
 
     public function deleteProductsById(array $productIds)
@@ -359,5 +372,16 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected function getStockAuditor()
     {
         return $this->stockAuditor;
+    }
+
+    protected function getIntercomEventService()
+    {
+        return $this->intercomEventService;
+    }
+
+    protected function setIntercomEventService(IntercomEventService $intercomEventService)
+    {
+        $this->intercomEventService = $intercomEventService;
+        return $this;
     }
 }

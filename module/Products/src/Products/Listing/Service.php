@@ -20,6 +20,8 @@ use CG\Account\Client\Service as AccountService;
 use \GearmanClient;
 use CG\Channel\Gearman\Workload\ImportListing as ImportListingWorkload;
 use CG\Listing\Unimported\Status as UnimportedStatus;
+use CG\Intercom\Event\Request as IntercomEvent;
+use CG\Intercom\Event\Service as IntercomEventService;
 
 class Service implements LoggerAwareInterface
 {
@@ -31,6 +33,7 @@ class Service implements LoggerAwareInterface
     const DEFAULT_PAGE = 1;
     const DEFAULT_TYPE = 'sales';
     const ONE_SECOND_DELAY = 1;
+    const EVENT_LISTINGS_IMPORTED = 'Listings Imported';
 
     protected $activeUserContainer;
     protected $userPreferenceService;
@@ -38,6 +41,7 @@ class Service implements LoggerAwareInterface
     protected $listingImportFactory;
     protected $accountService;
     protected $gearmanClient;
+    protected $intercomEventService;
     protected $nonImportableStatuses = [
         ListingStatus::CANNOT_IMPORT_SKU => ListingStatus::CANNOT_IMPORT_SKU
     ];
@@ -48,14 +52,16 @@ class Service implements LoggerAwareInterface
         ListingService $listingService,
         ListingImportFactory $listingImportFactory,
         AccountService $accountService,
-        GearmanClient $gearmanClient
+        GearmanClient $gearmanClient,
+        IntercomEventService $intercomEventService
     ) {
         $this->setActiveUserContainer($activeUserContainer)
             ->setUserPreferenceService($userPreferenceService)
             ->setListingService($listingService)
             ->setListingImportFactory($listingImportFactory)
             ->setAccountService($accountService)
-            ->setGearmanClient($gearmanClient);
+            ->setGearmanClient($gearmanClient)
+            ->setIntercomEventService($intercomEventService);
     }
 
     public function fetchListings(ListingFilter $listingFilter)
@@ -199,6 +205,13 @@ class Service implements LoggerAwareInterface
             $listing->setStatus(UnimportedStatus::IMPORTING);
         }
         $this->getListingService()->saveCollection($listings);
+        $this->notifyOfImport();
+    }
+
+    protected function notifyOfImport()
+    {
+        $event = new IntercomEvent(static::EVENT_LISTINGS_IMPORTED, $this->getActiveUser()->getId());
+        $this->getIntercomEventService()->save($event);
     }
 
     protected function getActiveUserPreference()
@@ -281,5 +294,16 @@ class Service implements LoggerAwareInterface
     protected function getListingImportFactory()
     {
         return $this->listingImportFactory;
+    }
+
+    protected function getIntercomEventService()
+    {
+        return $this->intercomEventService;
+    }
+
+    protected function setIntercomEventService(IntercomEventService $intercomEventService)
+    {
+        $this->intercomEventService = $intercomEventService;
+        return $this;
     }
 }

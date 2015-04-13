@@ -9,6 +9,8 @@ use CG\Channel\Gearman\Generator\Order\Cancel as OrderCanceller;
 use CG\Channel\Gearman\Generator\Order\Dispatch as OrderDispatcher;
 use CG\Channel\Type;
 use CG\Http\Exception\Exception3xx\NotModified as NotModifiedException;
+use CG\Intercom\Event\Request as IntercomEvent;
+use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Order\Client\Collection as FilteredCollection;
 use CG\Order\Service\Filter;
 use CG\Order\Service\Filter\StorageInterface as FilterClient;
@@ -65,6 +67,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     const STAT_ORDER_ACTION_REFUNDED = 'orderAction.refunded.%s.%d.%d';
     const STAT_ORDER_ACTION_ARCHIVED = 'orderAction.archived.%s.%d.%d';
     const STAT_ORDER_ACTION_TAGGED = 'orderAction.tagged.%s.%d.%d';
+    const EVENT_ORDERS_DISPATCHED = 'Dispatched Orders';
+    const EVENT_ORDER_CANCELLED = 'Refunded / Cancelled Orders';
 
     protected $orderClient;
     protected $orderItemClient;
@@ -83,6 +87,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $carriers;
     protected $organisationUnitService;
     protected $actionService;
+    protected $intercomEventService;
 
     public function __construct(
         StorageInterface $orderClient,
@@ -100,9 +105,9 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         ShippingConversionService $shippingConversionService,
         Carrier $carriers,
         OrganisationUnitService $organisationUnitService,
-        ActionService $actionService
-    )
-    {
+        ActionService $actionService,
+        IntercomEventService $intercomEventService
+    ) {
         $this
             ->setOrderClient($orderClient)
             ->setOrderItemClient($orderItemClient)
@@ -120,7 +125,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ->setShippingConversionService($shippingConversionService)
             ->setCarriers($carriers)
             ->setOrganisationUnitService($organisationUnitService)
-            ->setActionService($actionService);
+            ->setActionService($actionService)
+            ->setIntercomEventService($intercomEventService);
     }
 
     public function alterOrderTable(OrderCollection $orderCollection, MvcEvent $event)
@@ -678,6 +684,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
                 $this->logException($orderException, 'error', __NAMESPACE__);
             }
         }
+        $this->notifyOfDispatch();
 
         if (count($exception) > 0) {
             throw $exception;
@@ -711,6 +718,11 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
                 $this->getActiveUserContainer()->getActiveUser()->getId()
             ]
         );
+    }
+
+    protected function notifyOfDispatch()
+    {
+        $this->notifyIntercom(static::EVENT_ORDERS_DISPATCHED);
     }
 
     public function archiveOrders(OrderCollection $orders, $archive = true)
@@ -760,6 +772,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
                 $this->logException($orderException, 'error', __NAMESPACE__);
             }
         }
+        $this->notifyOfCancel();
 
         if (count($exception) > 0) {
             throw $exception;
@@ -788,6 +801,11 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
                 $this->getActiveUserContainer()->getActiveUser()->getId()
             ]
         );
+    }
+
+    protected function notifyOfCancel()
+    {
+        $this->notifyIntercom(static::EVENT_ORDER_CANCELLED);
     }
 
     /**
@@ -819,6 +837,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
                 'shippingAmount' => $order->getShippingPrice(),
             ]
         );
+    }
+
+    protected function notifyIntercom($eventName)
+    {
+        $event = new IntercomEvent($eventName, $this->getActiveUser()->getId());
+        $this->getIntercomEventService()->save($event);
     }
 
     public function getCarriersData()
@@ -935,6 +959,17 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected function setActionService(ActionService $actionService)
     {
         $this->actionService = $actionService;
+        return $this;
+    }
+
+    protected function getIntercomEventService()
+    {
+        return $this->intercomEventService;
+    }
+
+    protected function setIntercomEventService(IntercomEventService $intercomEventService)
+    {
+        $this->intercomEventService = $intercomEventService;
         return $this;
     }
 }

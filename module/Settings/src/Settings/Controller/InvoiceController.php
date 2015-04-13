@@ -2,6 +2,8 @@
 namespace Settings\Controller;
 
 use CG\Http\Exception\Exception3xx\NotModified;
+use CG\Intercom\Event\Request as IntercomEvent;
+use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
@@ -31,6 +33,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     const ROUTE_SAVE = 'Save';
     const TEMPLATE_SELECTOR_ID = 'template-selector';
     const PAPER_TYPE_DROPDOWN_ID = "paper-type-dropdown";
+    const EVENT_SAVED_INVOICE_CHANGES = 'Saved Invoice Changes';
 
     protected $viewModelFactory;
     protected $jsonModelFactory;
@@ -41,6 +44,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     protected $invoiceMapper;
     protected $translator;
     protected $config;
+    protected $intercomEventService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -51,7 +55,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         InvoiceService $invoiceService,
         InvoiceMapper $invoiceMapper,
         Translator $translator,
-        Config $config
+        Config $config,
+        IntercomEventService $intercomEventService
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
@@ -61,7 +66,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setInvoiceService($invoiceService)
             ->setInvoiceMapper($invoiceMapper)
             ->setTranslator($translator)
-            ->setConfig($config);
+            ->setConfig($config)
+            ->setIntercomEventService($intercomEventService);
     }
 
     public function indexAction()
@@ -264,6 +270,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     {
         try{
             $template = $this->getTemplateService()->saveFromJson($this->params()->fromPost('template'));
+            $this->notifyOfSave();
             $view = $this->getJsonModelFactory()->newInstance(["template" => json_encode($template)]);
             return $view;
         } catch (NotModified $e) {
@@ -273,6 +280,13 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             $this->logException($e, 'log:error', __NAMESPACE__);
         }
         return false;
+    }
+
+    protected function notifyOfSave()
+    {
+        $activeUser = $this->getUserOrganisationUnitService()->getActiveUser();
+        $event = new IntercomEvent(static::EVENT_SAVED_INVOICE_CHANGES, $activeUser->getId());
+        $this->getIntercomEventService()->save($event);
     }
 
     public function getViewModelFactory()
@@ -400,5 +414,16 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     protected function getConfig()
     {
         return $this->config;
+    }
+
+    protected function getIntercomEventService()
+    {
+        return $this->intercomEventService;
+    }
+
+    protected function setIntercomEventService(IntercomEventService $intercomEventService)
+    {
+        $this->intercomEventService = $intercomEventService;
+        return $this;
     }
 }

@@ -1,6 +1,8 @@
 <?php
 namespace Orders\Order\PickList;
 
+use CG\Intercom\Event\Request as IntercomEvent;
+use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Collection as ProductCollection;
@@ -21,6 +23,8 @@ class Service implements LoggerAwareInterface
 {
     use LogTrait;
 
+    const EVENT_PICKING_LIST_PRINTED = 'Picking List Printed';
+
     protected $productService;
     protected $pickListService;
     protected $pickListSettingsService;
@@ -28,6 +32,7 @@ class Service implements LoggerAwareInterface
     protected $mapper;
     protected $progressStorage;
     protected $activeUserContainer;
+    protected $intercomEventService;
 
     public function __construct(
         ProductService $productService,
@@ -36,7 +41,8 @@ class Service implements LoggerAwareInterface
         ImageClient $imageClient,
         Mapper $mapper,
         ProgressStorage $progressStorage,
-        ActiveUserContainer $activeUserContainer
+        ActiveUserContainer $activeUserContainer,
+        IntercomEventService $intercomEventService
     ) {
         $this->setProductService($productService)
             ->setPickListService($pickListService)
@@ -44,7 +50,8 @@ class Service implements LoggerAwareInterface
             ->setImageClient($imageClient)
             ->setMapper($mapper)
             ->setProgressStorage($progressStorage)
-            ->setActiveUserContainer($activeUserContainer);
+            ->setActiveUserContainer($activeUserContainer)
+            ->setIntercomEventService($intercomEventService);
     }
 
     public function getResponseFromOrderCollection(OrderCollection $orderCollection, $progressKey = null)
@@ -57,7 +64,9 @@ class Service implements LoggerAwareInterface
         } else {
             $content = $this->getPickListService()->renderTemplateWithoutImages($pickListEntries, $this->getActiveUserContainer()->getActiveUser());
         }
-        return new Response(PickListService::MIME_TYPE, PickListService::FILENAME, $content);
+        $response = new Response(PickListService::MIME_TYPE, PickListService::FILENAME, $content);
+        $this->notifyOfGeneration();
+        return $response;
     }
 
     public function checkPickListGenerationProgress($key)
@@ -186,6 +195,12 @@ class Service implements LoggerAwareInterface
         return $this->getPickListSettingsService()->fetch($organisationUnitId);
     }
 
+    protected function notifyOfGeneration()
+    {
+        $event = new IntercomEvent(static::EVENT_PICKING_LIST_PRINTED, $this->getActiveUserContainer()->getActiveUser()->getId());
+        $this->getIntercomEventService()->save($event);
+    }
+
     /**
      * @return ProductService
      */
@@ -309,6 +324,17 @@ class Service implements LoggerAwareInterface
     public function setImageClient(ImageClient $imageClient)
     {
         $this->imageClient = $imageClient;
+        return $this;
+    }
+
+    protected function getIntercomEventService()
+    {
+        return $this->intercomEventService;
+    }
+
+    protected function setIntercomEventService(IntercomEventService $intercomEventService)
+    {
+        $this->intercomEventService = $intercomEventService;
         return $this;
     }
 }
