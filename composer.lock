@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2698430a34338d404787b1d6331d7b14",
+    "hash": "c40a9a96885695e7733ad6a2e0d43f27",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -968,17 +968,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-5335-fulfilmentChannel-filter",
+            "version": "dev-EPIC-CGIV-5266-amazon-fba",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "93fb5b5af69c6709aa0697d7c773fd7d6660cbf4"
+                "reference": "b003f48ecfdcc8663748c35a16ed590d1e19befb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-5335-fulfilmentChannel-filter-5410bd.zip",
-                "reference": "93fb5b5af69c6709aa0697d7c773fd7d6660cbf4",
-                "shasum": "ee9b689ec65d75d49b2e29dc1bb4331c3021e758"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-CGIV-5266-amazon-fba-aa52be.zip",
+                "reference": "b003f48ecfdcc8663748c35a16ed590d1e19befb",
+                "shasum": "e3521c3529c9222ebe9bc9135b2a97b2b0651e8a"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1028,7 +1028,7 @@
                     "CG\\Order\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-04-14 14:09:21"
+            "time": "2015-04-14 14:37:26"
         },
         {
             "name": "channelgrabber/permission",
@@ -6035,7 +6035,7 @@
         {
             "alias": "1.18.2",
             "alias_normalized": "1.18.2.0",
-            "version": "dev-CGIV-5335-fulfilmentChannel-filter",
+            "version": "dev-EPIC-CGIV-5266-amazon-fba",
             "package": "channelgrabber/order"
         },
         {
