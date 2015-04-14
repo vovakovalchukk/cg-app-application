@@ -563,7 +563,7 @@ return [
                 return $controllerManager->getServiceLocator()->get(Controller\NoteController::class);
             },
             'Orders\Controller\Batch' => function($controllerManager) {
-                    return $controllerManager->getServiceLocator()->get(Controller\BatchController::class);
+                return $controllerManager->getServiceLocator()->get(Controller\BatchController::class);
             },
             'Orders\Controller\Address' => function($controllerManager) {
                 return $controllerManager->getServiceLocator()->get(Controller\AddressController::class);
@@ -641,6 +641,8 @@ return [
                 'OrdersPrintColumn' => DataTable\Column::class,
                 'OrdersTagColumnView' => ViewModel::class,
                 'OrdersTagColumn' => DataTable\Column::class,
+                'OrdersFulfilmentChannelColumnView' => ViewModel::class,
+                'OrdersFulfilmentChannelColumn' => DataTable\Column::class,
                 'OrdersOptionsColumnView' => ViewModel::class,
                 'OrdersOptionsColumn' => DataTable\Column::class,
                 'OrderRpcClient' => JsonRpcClient::class,
@@ -702,6 +704,7 @@ return [
                         ['column' => 'OrdersMessagesColumn'],
                         ['column' => 'OrdersShippingColumn'],
                         ['column' => 'OrdersTagColumn'],
+                        ['column' => 'OrdersFulfilmentChannelColumn'],
                         ['column' => 'OrdersOptionsColumn'],
                     ],
                     'setVariable' => [
@@ -904,6 +907,20 @@ return [
                     'column' => 'tag',
                     'viewModel' => 'OrdersTagColumnView',
                     'class' => 'tag-col',
+                ]
+            ],
+            'OrdersFulfilmentChannelColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Fulfilment Channel'],
+                    'template' => 'value.phtml',
+                ]
+            ],
+            'OrdersFulfilmentChannelColumn' => [
+                'parameters' => [
+                    'visible' => false,
+                    'column' => 'fulfilmentChannel',
+                    'viewModel' => 'OrdersFulfilmentChannelColumnView',
+                    'class' => 'order-fulfilment-col'
                 ]
             ],
             'OrdersOptionsColumnView' => [
