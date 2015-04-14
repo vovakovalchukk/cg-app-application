@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4e00c801aa698b7733570d8df64ad549",
+    "hash": "e9ba98c41a72ead668911d0aa90450f2",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -249,17 +249,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-EPIC-CGIV-5266-amazon-fba",
+            "version": "dev-CGIV-5321-amazon-fba-toggle",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "96b6f3fdd730392707c8bf2fc31c9f66be3293dd"
+                "reference": "fd628a30cc8d69569467b552c33fa4de8415bf33"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-5266-amazon-fba-3eee61.zip",
-                "reference": "96b6f3fdd730392707c8bf2fc31c9f66be3293dd",
-                "shasum": "625fcce41b9e59ac590a0d22d7553f665bed715e"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-5321-amazon-fba-toggle-e3bd0d.zip",
+                "reference": "fd628a30cc8d69569467b552c33fa4de8415bf33",
+                "shasum": "657885441bd90fe021d8c16cfafec8b1f1e9b52d"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -307,7 +307,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-04-14 09:28:42"
+            "time": "2015-04-14 11:04:34"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1996,17 +1996,17 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "1.0.3",
+            "version": "dev-CGIV-5321-amazon-fba-toggle",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "9931b74a1f475e6d63926091399352088623c5ec"
+                "reference": "97cd2ca7e47acc51102f1bba78c75cb1c6adb11b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.3-89b78d.zip",
-                "reference": "9931b74a1f475e6d63926091399352088623c5ec",
-                "shasum": "3076de58ba7afdd86b07fb323da0dad4e632b392"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-CGIV-5321-amazon-fba-toggle-00b481.zip",
+                "reference": "97cd2ca7e47acc51102f1bba78c75cb1c6adb11b",
+                "shasum": "6234bda0a015238946d7c2fc294f652765746c55"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
@@ -2034,7 +2034,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2014-09-03 12:21:49"
+            "time": "2015-04-14 14:57:14"
         },
         {
             "name": "channelgrabber/zf2-channel",
@@ -6016,9 +6016,9 @@
             "package": "channelgrabber/amazon"
         },
         {
-            "alias": "1.16.2",
-            "alias_normalized": "1.16.2.0",
-            "version": "dev-EPIC-CGIV-5266-amazon-fba",
+            "alias": "1.16.1",
+            "alias_normalized": "1.16.1.0",
+            "version": "dev-CGIV-5321-amazon-fba-toggle",
             "package": "channelgrabber/channel"
         },
         {
@@ -6038,6 +6038,12 @@
             "alias_normalized": "1.18.2.0",
             "version": "dev-CGIV-5333-IsStockManaged",
             "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.0.4",
+            "alias_normalized": "1.0.4.0",
+            "version": "dev-CGIV-5321-amazon-fba-toggle",
+            "package": "channelgrabber/zf2-amazon"
         }
     ],
     "minimum-stability": "stable",
@@ -6048,6 +6054,7 @@
         "channelgrabber/ebay": 20,
         "channelgrabber/ekm": 20,
         "channelgrabber/order": 20,
+        "channelgrabber/zf2-amazon": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
