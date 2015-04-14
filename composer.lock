@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8afb92755b7d7e700d259fa101c5cc09",
+    "hash": "0a899225da3d65957458517f46ec90e0",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -968,17 +968,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.18.1",
+            "version": "dev-CGIV-5333-IsStockManaged",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "de7ec31e38653d13f60d7816bfdb67322c6c2f7b"
+                "reference": "8ab88e2ccac2949cf3620ed2921ab1a191e9486a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.18.1-8f5af1.zip",
-                "reference": "de7ec31e38653d13f60d7816bfdb67322c6c2f7b",
-                "shasum": "17b8cd8ab1131674e0a4371ecd5102fb0b3a08fa"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-5333-IsStockManaged-9dbc15.zip",
+                "reference": "8ab88e2ccac2949cf3620ed2921ab1a191e9486a",
+                "shasum": "c28006acd4fcb47390f694bb15d05883a3e85234"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1028,7 +1028,7 @@
                     "CG\\Order\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-04-13 09:21:37"
+            "time": "2015-04-13 14:25:57"
         },
         {
             "name": "channelgrabber/permission",
@@ -1655,28 +1655,27 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.4.6",
+            "version": "dev-CGIV-5333-IsStockManaged",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "ad9daa967aa9d9fee04aab2eb59f3616812752be"
+                "reference": "b116b305af8ee2f66ccdc0eef2f84e4f4013cab1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.4.6-9782b1.zip",
-                "reference": "ad9daa967aa9d9fee04aab2eb59f3616812752be",
-                "shasum": "2e8093f015f60dc1610e415691d4e403a9bd4bab"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-5333-IsStockManaged-12e6a7.zip",
+                "reference": "b116b305af8ee2f66ccdc0eef2f84e4f4013cab1",
+                "shasum": "f2f098645331423c20e77d7e65bc40ef41e3a73c"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
-                "channelgrabber/channel": ">=1.11.5,<2.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.1.0",
                 "channelgrabber/etag": "^1.5.4",
                 "channelgrabber/gearman": ">=1.1.0,<2.0.0",
                 "channelgrabber/http": ">=1.2.18,<2.0.0",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": ">=1.9.6,<2.0.0",
+                "channelgrabber/order": "dev-CGIV-5333-IsStockManaged as 1.18.2",
                 "channelgrabber/permission": ">=1.0.1,<2.0.0",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/slim": "^1.13.2",
@@ -1702,7 +1701,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2015-03-19 16:16:12"
+            "time": "2015-04-13 15:44:29"
         },
         {
             "name": "channelgrabber/template",
@@ -6008,10 +6007,25 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.18.2",
+            "alias_normalized": "1.18.2.0",
+            "version": "dev-CGIV-5333-IsStockManaged",
+            "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.4.7",
+            "alias_normalized": "1.4.7.0",
+            "version": "dev-CGIV-5333-IsStockManaged",
+            "package": "channelgrabber/stock"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
+        "channelgrabber/stock": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
