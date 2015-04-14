@@ -14,14 +14,14 @@
         }
     ],
     "require": {
-        "channelgrabber/amazon": "dev-CGIV-5326-fba-bulk-actions-per-fulfilment-channel as 1.13.6",
+        "channelgrabber/amazon": "dev-EPIC-CGIV-5266-amazon-fba as 1.13.6",
         "channelgrabber/cache": "~2.0.6",
-        "channelgrabber/channel": "dev-CGIV-5326-fba-bulk-actions-per-fulfilment-channel as 1.16.2",
+        "channelgrabber/channel": "dev-EPIC-CGIV-5266-amazon-fba as 1.16.2",
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/di": "~2.1.1",
-        "channelgrabber/ebay": "dev-CGIV-5326-fba-bulk-actions-per-fulfilment-channel as 1.8.30",
-        "channelgrabber/ekm": "dev-CGIV-5326-fba-bulk-actions-per-fulfilment-channel as 1.4.5",
+        "channelgrabber/ebay": "dev-EPIC-CGIV-5266-amazon-fba as 1.8.30",
+        "channelgrabber/ekm": "dev-EPIC-CGIV-5266-amazon-fba as 1.4.5",
         "channelgrabber/gearman": "~1.2.0",
         "channelgrabber/http": "~1.3.6",
         "channelgrabber/intercom": "~1.1.1",
