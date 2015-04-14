@@ -27,7 +27,7 @@
         "channelgrabber/intercom": "~1.1.1",
         "channelgrabber/listing": "~1.6.1",
         "channelgrabber/location": "~1.1.2",
-        "channelgrabber/log": "~2.0.21",
+        "channelgrabber/log": "~2.0.23",
         "channelgrabber/order": "~1.18.1",
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/phinx": "~0.3.2",

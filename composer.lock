@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "24dd7ae2fcc7f372f09fea527c03c0ac",
+    "hash": "eabfe0f2239685fd9555f185d1c8797b",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -925,17 +925,17 @@
         },
         {
             "name": "channelgrabber/log",
-            "version": "2.0.22",
+            "version": "2.0.23",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-log.git",
-                "reference": "94d1eb3867880b4ec7180a1d415ee17c9022858a"
+                "reference": "b810032799f7f6d07eef0ae9670e33ca57bd6ad1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-2.0.22-336915.zip",
-                "reference": "94d1eb3867880b4ec7180a1d415ee17c9022858a",
-                "shasum": "c4d42099f2af8a4886d80d7990bc33b26f0b5360"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-2.0.23-f5cad6.zip",
+                "reference": "b810032799f7f6d07eef0ae9670e33ca57bd6ad1",
+                "shasum": "721d7287ded0325a6a59cbbf51cb7247dd195ccb"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -965,7 +965,7 @@
                     "CG\\Log\\Test\\": "tests/"
                 }
             },
-            "time": "2015-04-08 14:54:50"
+            "time": "2015-04-14 08:45:42"
         },
         {
             "name": "channelgrabber/order",
