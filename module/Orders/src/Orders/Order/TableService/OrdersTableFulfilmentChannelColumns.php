@@ -7,8 +7,6 @@ use CG_UI\View\Filters\SelectOptionsInterface;
 
 class OrdersTableFulfilmentChannelColumns implements SelectOptionsInterface
 {
-    const AMAZON_FBA_OPTION = 'Amazon FBA';
-
     protected $activeUserContainer;
 
     public function __construct(ActiveUserInterface $activeUserContainer)
@@ -17,14 +15,12 @@ class OrdersTableFulfilmentChannelColumns implements SelectOptionsInterface
     }
 
     /**
-     * TODO CGIV-5335 Options should be a dynamic list
      * {@inherit}
      */
     public function getSelectOptions()
     {
         return [
-            OrderEntity::DEFAULT_FULFILMENT_CHANNEL => OrderEntity::DEFAULT_FULFILMENT_CHANNEL,
-            static::AMAZON_FBA_OPTION => static::AMAZON_FBA_OPTION
+            OrderEntity::DEFAULT_FULFILMENT_CHANNEL => OrderEntity::DEFAULT_FULFILMENT_CHANNEL
         ];
     }
 
