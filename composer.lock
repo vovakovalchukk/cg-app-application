@@ -4,21 +4,21 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8afb92755b7d7e700d259fa101c5cc09",
+    "hash": "66c006f228442968da9ef8359f8d5480",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "1.13.5",
+            "version": "dev-CGIV-5326-fba-bulk-actions-per-fulfilment-channel",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "f557f360c392280156c7e2672c002046c7b2b88d"
+                "reference": "e3693328c805c1eac6865f3831d782937106344a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.13.5-6aff56.zip",
-                "reference": "f557f360c392280156c7e2672c002046c7b2b88d",
-                "shasum": "c7d9b9c9e001f9545550897bcb2ef11954fd042f"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-5326-fba-bulk-actions-per-fulfilment-channel-34c3a9.zip",
+                "reference": "e3693328c805c1eac6865f3831d782937106344a",
+                "shasum": "99718eb139a69819f36d3b44cf6051ef85211b5e"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -59,7 +59,7 @@
                     "CG\\Amazon\\Test\\": "tests"
                 }
             },
-            "time": "2015-04-01 08:25:09"
+            "time": "2015-04-14 08:39:25"
         },
         {
             "name": "channelgrabber/billing",
@@ -249,17 +249,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.15.11",
+            "version": "dev-CGIV-5326-fba-bulk-actions-per-fulfilment-channel",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "14f39593f88d1475cd140dd0c5676f6fc24c79e9"
+                "reference": "44e2c5aaeb1cf62ab16edbfbb0e9cb54cdd89ce9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.15.11-60cf0b.zip",
-                "reference": "14f39593f88d1475cd140dd0c5676f6fc24c79e9",
-                "shasum": "db82979654134278bce7082952399aed55fffb89"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-5326-fba-bulk-actions-per-fulfilment-channel-0ca5e1.zip",
+                "reference": "44e2c5aaeb1cf62ab16edbfbb0e9cb54cdd89ce9",
+                "shasum": "5ef185c165ed7a5de357e7fca99ec780339706be"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -270,7 +270,7 @@
                 "channelgrabber/listing": ">=1.3.0,<2.0.0",
                 "channelgrabber/location": ">=1.1.1,<2.0.0",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": ">=1.15.9,<2.0.0",
+                "channelgrabber/order": "dev-CGIV-5333-IsStockManaged as 1.18.2",
                 "channelgrabber/permission": ">=1.0.1, <2.0.0",
                 "channelgrabber/product": "^1.3.21",
                 "channelgrabber/scraper": ">=1.0.0,<2.0.0",
@@ -307,7 +307,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-04-07 15:43:45"
+            "time": "2015-04-14 08:42:37"
         },
         {
             "name": "channelgrabber/cilex",
@@ -448,17 +448,17 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.8.29",
+            "version": "dev-CGIV-5326-fba-bulk-actions-per-fulfilment-channel",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "a087025b12c45326fdccda9ca266427a717599af"
+                "reference": "ea760361c2c4ab909141c2212576a475158e8239"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.8.29-618ef3.zip",
-                "reference": "a087025b12c45326fdccda9ca266427a717599af",
-                "shasum": "203b89da662b588e61126a62bfe0ae45d19f8d9d"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-CGIV-5326-fba-bulk-actions-per-fulfilment-channel-325995.zip",
+                "reference": "ea760361c2c4ab909141c2212576a475158e8239",
+                "shasum": "cb2eef31b5736905844c49fb095f8632008aa3d6"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -499,21 +499,21 @@
                     "CG\\Ebay\\Test\\": "tests/Test/"
                 }
             },
-            "time": "2015-03-31 16:03:20"
+            "time": "2015-04-14 08:58:07"
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "1.4.4",
+            "version": "dev-CGIV-5326-fba-bulk-actions-per-fulfilment-channel",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "b636e4d6ac22d60d69b4181d59a3e7b383dbc192"
+                "reference": "f0a046b61bfcbe77bcf348d2571b75775b23981d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.4.4-e26f36.zip",
-                "reference": "b636e4d6ac22d60d69b4181d59a3e7b383dbc192",
-                "shasum": "3ebf618edfc8c456431fcb4a80153852f80e892c"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-dev-CGIV-5326-fba-bulk-actions-per-fulfilment-channel-edc565.zip",
+                "reference": "f0a046b61bfcbe77bcf348d2571b75775b23981d",
+                "shasum": "ff591a18c6b28cf373d339c57be5ef343d424f0b"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -555,7 +555,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2015-03-31 16:04:06"
+            "time": "2015-04-13 16:01:09"
         },
         {
             "name": "channelgrabber/email",
@@ -968,17 +968,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.18.1",
+            "version": "dev-CGIV-5333-IsStockManaged",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "de7ec31e38653d13f60d7816bfdb67322c6c2f7b"
+                "reference": "8ab88e2ccac2949cf3620ed2921ab1a191e9486a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.18.1-8f5af1.zip",
-                "reference": "de7ec31e38653d13f60d7816bfdb67322c6c2f7b",
-                "shasum": "17b8cd8ab1131674e0a4371ecd5102fb0b3a08fa"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-5333-IsStockManaged-9dbc15.zip",
+                "reference": "8ab88e2ccac2949cf3620ed2921ab1a191e9486a",
+                "shasum": "c28006acd4fcb47390f694bb15d05883a3e85234"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1028,7 +1028,7 @@
                     "CG\\Order\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-04-13 09:21:37"
+            "time": "2015-04-13 14:25:57"
         },
         {
             "name": "channelgrabber/permission",
@@ -1592,17 +1592,17 @@
         },
         {
             "name": "channelgrabber/stats",
-            "version": "1.0.4",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stats.git",
-                "reference": "42f063c9a9c84f1fb81a161c13e766be44bbe49f"
+                "reference": "8512eb8d1de505af0b3d1aa215bf56577ce9bb5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stats-1.0.4-0954b1.zip",
-                "reference": "42f063c9a9c84f1fb81a161c13e766be44bbe49f",
-                "shasum": "cafb255999bb6755b1106e233700d44dd9cc15e3"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stats-1.0.5-56e5d7.zip",
+                "reference": "8512eb8d1de505af0b3d1aa215bf56577ce9bb5c",
+                "shasum": "675df23189ba9cd3348329bbcd719b26abb74eda"
             },
             "require": {
                 "channelgrabber/stdlib": ">=2.10.1, <3.0.0",
@@ -1616,7 +1616,7 @@
                 }
             },
             "description": "ChannelGrabber application stat logging",
-            "time": "2015-03-06 15:31:51"
+            "time": "2015-04-13 11:44:52"
         },
         {
             "name": "channelgrabber/stdlib",
@@ -6008,10 +6008,46 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.13.6",
+            "alias_normalized": "1.13.6.0",
+            "version": "dev-CGIV-5326-fba-bulk-actions-per-fulfilment-channel",
+            "package": "channelgrabber/amazon"
+        },
+        {
+            "alias": "1.16.2",
+            "alias_normalized": "1.16.2.0",
+            "version": "dev-CGIV-5326-fba-bulk-actions-per-fulfilment-channel",
+            "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.8.30",
+            "alias_normalized": "1.8.30.0",
+            "version": "dev-CGIV-5326-fba-bulk-actions-per-fulfilment-channel",
+            "package": "channelgrabber/ebay"
+        },
+        {
+            "alias": "1.4.5",
+            "alias_normalized": "1.4.5.0",
+            "version": "dev-CGIV-5326-fba-bulk-actions-per-fulfilment-channel",
+            "package": "channelgrabber/ekm"
+        },
+        {
+            "alias": "1.18.2",
+            "alias_normalized": "1.18.2.0",
+            "version": "dev-CGIV-5333-IsStockManaged",
+            "package": "channelgrabber/order"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/amazon": 20,
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/ebay": 20,
+        "channelgrabber/ekm": 20,
+        "channelgrabber/order": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
