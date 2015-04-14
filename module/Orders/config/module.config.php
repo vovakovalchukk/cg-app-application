@@ -911,7 +911,7 @@ return [
             ],
             'OrdersFulfilmentChannelColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Order Fulfilment'],
+                    'variables' => ['value' => 'Fulfilment Channel'],
                     'template' => 'value.phtml',
                 ]
             ],
