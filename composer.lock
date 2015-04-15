@@ -4,21 +4,21 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d54cf9b79575e919438d95d39bfa5365",
+    "hash": "74389598f3b90e8c829007b9663a612b",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-EPIC-CGIV-5266-amazon-fba",
+            "version": "dev-CGIV-5353-amazon-fulfilment-mapping",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "54b2b179027fb93bcddc2f861853bd9e6fb978e5"
+                "reference": "4e54fb02a6bdaea480f5db80f52e2c9e362fdef6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-EPIC-CGIV-5266-amazon-fba-17f4a6.zip",
-                "reference": "54b2b179027fb93bcddc2f861853bd9e6fb978e5",
-                "shasum": "8c2d212f4f60a8c40dc794918baf755e5cf62140"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-5353-amazon-fulfilment-mapping-d43142.zip",
+                "reference": "4e54fb02a6bdaea480f5db80f52e2c9e362fdef6",
+                "shasum": "ae98e98867721c0904a219ee78694051548457e0"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -59,7 +59,7 @@
                     "CG\\Amazon\\Test\\": "tests"
                 }
             },
-            "time": "2015-04-14 09:32:26"
+            "time": "2015-04-15 11:19:57"
         },
         {
             "name": "channelgrabber/billing",
@@ -6015,7 +6015,7 @@
         {
             "alias": "1.13.6",
             "alias_normalized": "1.13.6.0",
-            "version": "dev-EPIC-CGIV-5266-amazon-fba",
+            "version": "dev-CGIV-5353-amazon-fulfilment-mapping",
             "package": "channelgrabber/amazon"
         },
         {
