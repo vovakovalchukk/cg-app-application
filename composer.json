@@ -14,7 +14,7 @@
         }
     ],
     "require": {
-        "channelgrabber/amazon": "dev-CGIV-5353-amazon-fulfilment-mapping as 1.13.6",
+        "channelgrabber/amazon": "dev-EPIC-CGIV-5266-amazon-fba as 1.13.6",
         "channelgrabber/cache": "~2.0.6",
         "channelgrabber/channel": "dev-EPIC-CGIV-5266-amazon-fba as 1.16.1",
         "channelgrabber/cilex": "~1.1.2",
