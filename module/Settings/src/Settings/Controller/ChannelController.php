@@ -421,7 +421,7 @@ class ChannelController extends AbstractActionController
             );
 
             $account->setDeleted(true);
-
+            $accountService->cleanAccountOnDeletion($account);
             $accountService->save($account);
         } catch (NotFound $exception) {
             return $response->setVariable(
