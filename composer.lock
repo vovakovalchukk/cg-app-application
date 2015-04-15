@@ -12,13 +12,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "4e54fb02a6bdaea480f5db80f52e2c9e362fdef6"
+                "reference": "e553dca0511eddf90938ee9ec947d500030df306"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-5353-amazon-fulfilment-mapping-d43142.zip",
-                "reference": "4e54fb02a6bdaea480f5db80f52e2c9e362fdef6",
-                "shasum": "ae98e98867721c0904a219ee78694051548457e0"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-5353-amazon-fulfilment-mapping-e6cda7.zip",
+                "reference": "e553dca0511eddf90938ee9ec947d500030df306",
+                "shasum": "8164f313de6353fe15a226ccff4f373562f389f8"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -59,7 +59,7 @@
                     "CG\\Amazon\\Test\\": "tests"
                 }
             },
-            "time": "2015-04-15 11:19:57"
+            "time": "2015-04-15 11:37:08"
         },
         {
             "name": "channelgrabber/billing",
