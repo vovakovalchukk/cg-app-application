@@ -4,21 +4,21 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d54cf9b79575e919438d95d39bfa5365",
+    "hash": "cb0ee35fede6466362f245e283bcf228",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-EPIC-CGIV-5266-amazon-fba",
+            "version": "dev-CGIV-5357-amazon-download-fba-only",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "54b2b179027fb93bcddc2f861853bd9e6fb978e5"
+                "reference": "f1f35af91c9344b91baed05ce4a7eff9e8bd2098"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-EPIC-CGIV-5266-amazon-fba-17f4a6.zip",
-                "reference": "54b2b179027fb93bcddc2f861853bd9e6fb978e5",
-                "shasum": "8c2d212f4f60a8c40dc794918baf755e5cf62140"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-5357-amazon-download-fba-only-9d9241.zip",
+                "reference": "f1f35af91c9344b91baed05ce4a7eff9e8bd2098",
+                "shasum": "a3b7d07a96fcf5c594f741ae0da2a4e47545a103"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -59,7 +59,7 @@
                     "CG\\Amazon\\Test\\": "tests"
                 }
             },
-            "time": "2015-04-14 09:32:26"
+            "time": "2015-04-15 10:19:42"
         },
         {
             "name": "channelgrabber/billing",
@@ -1995,21 +1995,21 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "dev-EPIC-CGIV-5266-amazon-fba",
+            "version": "dev-CGIV-5357-amazon-download-fba-only",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "824ff55ba0402974d7d57684debce97e8900fca5"
+                "reference": "25b2aa4d90c91466342b6932e0f69e80c2a95ffa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-EPIC-CGIV-5266-amazon-fba-4488ff.zip",
-                "reference": "824ff55ba0402974d7d57684debce97e8900fca5",
-                "shasum": "bdeb97826470d2c7e4ad501a6332e693f69959fb"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-CGIV-5357-amazon-download-fba-only-796a50.zip",
+                "reference": "25b2aa4d90c91466342b6932e0f69e80c2a95ffa",
+                "shasum": "feb3b1d9349ff60e1f168b4960959aa5e9bfd3be"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
-                "channelgrabber/amazon": ">=1.2.7",
+                "channelgrabber/amazon": "dev-CGIV-5357-amazon-download-fba-only as 1.13.6",
                 "channelgrabber/channel": "dev-EPIC-CGIV-5266-amazon-fba as 1.16.1",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=1.0.1",
@@ -2037,7 +2037,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2015-04-14 15:57:46"
+            "time": "2015-04-15 10:28:34"
         },
         {
             "name": "channelgrabber/zf2-channel",
@@ -6015,7 +6015,7 @@
         {
             "alias": "1.13.6",
             "alias_normalized": "1.13.6.0",
-            "version": "dev-EPIC-CGIV-5266-amazon-fba",
+            "version": "dev-CGIV-5357-amazon-download-fba-only",
             "package": "channelgrabber/amazon"
         },
         {
@@ -6051,7 +6051,7 @@
         {
             "alias": "1.0.4",
             "alias_normalized": "1.0.4.0",
-            "version": "dev-EPIC-CGIV-5266-amazon-fba",
+            "version": "dev-CGIV-5357-amazon-download-fba-only",
             "package": "channelgrabber/zf2-amazon"
         }
     ],
