@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4db5533ac28d974035186147a507472b",
+    "hash": "6ddeb4b312c2eb35e9d180cb48b5e693",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2440,17 +2440,17 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-CGIV-5375-RegistrationFormInvisible",
+            "version": "dev-QA",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "488ddca777f6eea909b8a6ed16e2fc48674a1e79"
+                "reference": "eab0e780ba417e3fb825373dbefbead2300a5855"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-5375-RegistrationFormInvisible-1a5344.zip",
-                "reference": "488ddca777f6eea909b8a6ed16e2fc48674a1e79",
-                "shasum": "459665e033f0c98bfe1e5e699d5601d5b16fe89e"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-QA-6e4a92.zip",
+                "reference": "eab0e780ba417e3fb825373dbefbead2300a5855",
+                "shasum": "8962c313147bca04f65a9ea2a7d1ca9ebfbae618"
             },
             "require": {
                 "channelgrabber/cglib": ">=1.1.4",
@@ -2488,7 +2488,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2015-04-16 13:20:15"
+            "time": "2015-04-16 15:05:55"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -2692,17 +2692,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.14.56.1",
+            "version": "1.14.57",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "1ade26cd81f3a430b02c8976eddb5db332799362"
+                "reference": "b1e6feb565778c534030f9e6fec489fc25fed55f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.56.1-97c055.zip",
-                "reference": "1ade26cd81f3a430b02c8976eddb5db332799362",
-                "shasum": "5a3fa4cd46204df18affce3dd7888bbb64c1e81e"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.57-2805c5.zip",
+                "reference": "b1e6feb565778c534030f9e6fec489fc25fed55f",
+                "shasum": "f950c78829fc72b8ae5310a0f6adf6c1dfab24e9"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2747,7 +2747,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-04-09 14:51:10"
+            "time": "2015-04-16 14:49:47"
         },
         {
             "name": "cilex/cilex",
@@ -6243,7 +6243,7 @@
         {
             "alias": "1.4.31",
             "alias_normalized": "1.4.31.0",
-            "version": "dev-CGIV-5375-RegistrationFormInvisible",
+            "version": "dev-QA",
             "package": "channelgrabber/zf2-register"
         }
     ],

@@ -60,7 +60,7 @@
         "channelgrabber/zf2-login": "~1.4.24",
         "channelgrabber/zf2-mustache": "~1.0.1",
         "channelgrabber/zf2-permission": "~1.1.7",
-        "channelgrabber/zf2-register": "dev-CGIV-5375-RegistrationFormInvisible as 1.4.31",
+        "channelgrabber/zf2-register": "dev-QA as 1.4.31",
         "channelgrabber/zf2-royalmail": "~1.1.1",
         "channelgrabber/zf2-sessions": "~1.1.1",
         "channelgrabber/zf2-ssoclient": "~1.4.2",
