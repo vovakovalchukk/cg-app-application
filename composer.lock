@@ -253,13 +253,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "2223c6f29a1390a8f7242256f2c4977927f08015"
+                "reference": "9cd233715306551784ef4171b08e819dd8b683ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-5309-DeleteListingWhenAccountDeleted-78926d.zip",
-                "reference": "2223c6f29a1390a8f7242256f2c4977927f08015",
-                "shasum": "b5cf95dd329952412830a0162a2f4ba6ebbd4600"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-5309-DeleteListingWhenAccountDeleted-4b4ac9.zip",
+                "reference": "9cd233715306551784ef4171b08e819dd8b683ea",
+                "shasum": "6562c6fe865260144975b9245c749644b5d0cbd6"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -307,7 +307,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-04-15 09:05:03"
+            "time": "2015-04-15 12:05:17"
         },
         {
             "name": "channelgrabber/cilex",
@@ -806,13 +806,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "9f1f6f2cdaa8111bcd5b2284373c35c9e1e59b1c"
+                "reference": "07206f820714098eb0cbd62ecd40164b5fcf963b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-CGIV-5309-DeleteListingWhenAccountDeleted-8967e7.zip",
-                "reference": "9f1f6f2cdaa8111bcd5b2284373c35c9e1e59b1c",
-                "shasum": "9728f6ac2f805b4c0da92207627e0a12acb2af21"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-CGIV-5309-DeleteListingWhenAccountDeleted-414cca.zip",
+                "reference": "07206f820714098eb0cbd62ecd40164b5fcf963b",
+                "shasum": "09ac27a4b791c40234d02b971f578ba81107a171"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -847,7 +847,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2015-04-15 09:02:27"
+            "time": "2015-04-15 10:47:20"
         },
         {
             "name": "channelgrabber/locale",
