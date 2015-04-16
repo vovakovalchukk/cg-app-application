@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a1f9f5500a388d7e7d99239a266676c4",
+    "hash": "f698e358083e153aaa15ba2051a0061f",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -622,17 +622,17 @@
         },
         {
             "name": "channelgrabber/gearman",
-            "version": "1.2.2",
+            "version": "dev-CGIV-5307-GearmanLazyLoader",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-gearman.git",
-                "reference": "c83578b5001671d4d89dd327de843e79cff07c6a"
+                "reference": "b2762c0b337d28c8dc5c8c43208c4da43293ad77"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-1.2.2-56e329.zip",
-                "reference": "c83578b5001671d4d89dd327de843e79cff07c6a",
-                "shasum": "4a575c4a45853239a40787807cbc32646d5678c3"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-dev-CGIV-5307-GearmanLazyLoader-5c2ff6.zip",
+                "reference": "b2762c0b337d28c8dc5c8c43208c4da43293ad77",
+                "shasum": "ccd0a909d34dbd00fd9a786097c5b00f7cec30d6"
             },
             "require": {
                 "channelgrabber/cilex": ">=1.1.0,<2.0.0",
@@ -652,7 +652,7 @@
                     "CG\\Gearman\\": "src"
                 }
             },
-            "time": "2015-04-01 16:01:02"
+            "time": "2015-04-16 07:49:07"
         },
         {
             "name": "channelgrabber/guzzle",
@@ -767,24 +767,24 @@
         },
         {
             "name": "channelgrabber/intercom",
-            "version": "1.1.1",
+            "version": "dev-CGIV-5307-GearmanOptional",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-intercom.git",
-                "reference": "c5a3620b83e5f274fe1a369b1a46c1618b4e901f"
+                "reference": "f002ce6029dca6f597f5f566c5c57b4c4510e6f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-1.1.1-8e93fb.zip",
-                "reference": "c5a3620b83e5f274fe1a369b1a46c1618b4e901f",
-                "shasum": "ec96ceac7ff583c3926f472559533b1e79d08b36"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-dev-CGIV-5307-GearmanOptional-9d59f9.zip",
+                "reference": "f002ce6029dca6f597f5f566c5c57b4c4510e6f3",
+                "shasum": "db493a82fa00c806cdd84b09ac0ea8caf99045d7"
             },
             "require": {
                 "channelgrabber/billing": ">=1.8.0, <2.0.0",
                 "channelgrabber/channel": ">=1.15.11,<2.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.1.0",
-                "channelgrabber/gearman": ">=1.2.0,<2.0.0",
+                "channelgrabber/gearman": "dev-CGIV-5307-GearmanLazyLoader as 1.2.4",
                 "channelgrabber/stdlib": ">=2.10.0,<3.0.0",
                 "channelgrabber/user": ">=1.18.16,<2.0.0",
                 "composer/composer": "@dev",
@@ -798,7 +798,7 @@
                     "CG\\Intercom\\": "src"
                 }
             },
-            "time": "2015-04-09 08:58:44"
+            "time": "2015-04-16 08:04:45"
         },
         {
             "name": "channelgrabber/listing",
@@ -2305,23 +2305,24 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.4.24",
+            "version": "dev-CGIV-5307-GearmanFailover",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "0e3a1e38445826013430a22b4346c61ab89949a1"
+                "reference": "ab8bd936215cc3949245f91f8022823da72fab45"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.24-b8aace.zip",
-                "reference": "0e3a1e38445826013430a22b4346c61ab89949a1",
-                "shasum": "2a939c734e36d599337e86817f5b5a7411268c45"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-5307-GearmanFailover-c8c0bd.zip",
+                "reference": "ab8bd936215cc3949245f91f8022823da72fab45",
+                "shasum": "0f12bed2823e7e7d7932960887e5bef684fb3ffd"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=1.0.1",
-                "channelgrabber/intercom": ">=1.1.1,<2.0.0",
+                "channelgrabber/gearman": "dev-CGIV-5307-GearmanLazyLoader as 1.2.4",
+                "channelgrabber/intercom": "dev-CGIV-5307-GearmanOptional as 1.1.2",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
                 "channelgrabber/stdlib": "^2.10.0",
                 "channelgrabber/user": ">=1.19.0,<2.0.0",
@@ -2357,7 +2358,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2015-04-09 13:59:35"
+            "time": "2015-04-16 10:00:49"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -6015,10 +6016,32 @@
             "time": "2012-12-21 11:40:51"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.2.4",
+            "alias_normalized": "1.2.4.0",
+            "version": "dev-CGIV-5307-GearmanLazyLoader",
+            "package": "channelgrabber/gearman"
+        },
+        {
+            "alias": "1.1.2",
+            "alias_normalized": "1.1.2.0",
+            "version": "dev-CGIV-5307-GearmanOptional",
+            "package": "channelgrabber/intercom"
+        },
+        {
+            "alias": "1.4.25",
+            "alias_normalized": "1.4.25.0",
+            "version": "dev-CGIV-5307-GearmanFailover",
+            "package": "channelgrabber/zf2-login"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/gearman": 20,
+        "channelgrabber/intercom": 20,
+        "channelgrabber/zf2-login": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
