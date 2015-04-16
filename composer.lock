@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "35afbfd0d811da2f49622ab5d8124262",
+    "hash": "da894d38b7f780c327ce562bf9642fd6",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2692,17 +2692,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-5372-AmazonFBAToggle",
+            "version": "1.14.57",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "decde34972d0525c87a63747c3da1f7e22293be5"
+                "reference": "b1e6feb565778c534030f9e6fec489fc25fed55f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5372-AmazonFBAToggle-a2c51a.zip",
-                "reference": "decde34972d0525c87a63747c3da1f7e22293be5",
-                "shasum": "70ce0ed3e03cac2a521c777570996b295d77f53f"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.57-2805c5.zip",
+                "reference": "b1e6feb565778c534030f9e6fec489fc25fed55f",
+                "shasum": "f950c78829fc72b8ae5310a0f6adf6c1dfab24e9"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2747,7 +2747,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-04-16 12:11:29"
+            "time": "2015-04-16 14:49:47"
         },
         {
             "name": "cilex/cilex",
@@ -6060,12 +6060,6 @@
             "alias_normalized": "1.0.4.0",
             "version": "dev-EPIC-CGIV-5266-amazon-fba",
             "package": "channelgrabber/zf2-amazon"
-        },
-        {
-            "alias": "1.14.56",
-            "alias_normalized": "1.14.56.0",
-            "version": "dev-CGIV-5372-AmazonFBAToggle",
-            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
@@ -6078,7 +6072,6 @@
         "channelgrabber/order": 20,
         "channelgrabber/stock": 20,
         "channelgrabber/zf2-amazon": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
