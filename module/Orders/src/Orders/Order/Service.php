@@ -89,6 +89,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $actionService;
     protected $intercomEventService;
 
+    protected $editableFulfilmentChannels = [OrderEntity::DEFAULT_FULFILMENT_CHANNEL => true];
+
     public function __construct(
         StorageInterface $orderClient,
         OrderItemClient $orderItemClient,
@@ -372,6 +374,11 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     public function getOrder($orderId)
     {
         return $this->getOrderClient()->fetch($orderId);
+    }
+
+    public function isOrderEditable(OrderEntity $order)
+    {
+        return (isset($this->editableFulfilmentChannels[$order->getFulfilmentChannel()]));
     }
 
     public function setUserPreferenceService(UserPreferenceService $userPreferenceService)
