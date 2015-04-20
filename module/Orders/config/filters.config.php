@@ -3,6 +3,7 @@ use CG_UI\View\Filters\Service as FilterService;
 use Orders\Order\CountryService;
 use Orders\Order\CurrencyService;
 use Orders\Order\TableService\OrdersTableTagColumns;
+use Orders\Order\TableService\OrdersTableFulfilmentChannelColumns;
 use Filters\Options\Channel;
 use Filters\Options\Account;
 use Orders\Order\Filter\Batch;
@@ -261,6 +262,19 @@ return [
                         ],
                         [
                             'filterType' => 'customSelectGroup',
+                            'visible' => true,
+                            'variables' => [
+                                'name' => 'fulfilmentChannel',
+                                'title' => 'Fulfilment Channel',
+                                'searchField' => false,
+                                'isOptional' => true,
+                                'concatenate' => true,
+                                'options' => []
+                            ],
+                            'optionsProvider' => OrdersTableFulfilmentChannelColumns::class,
+                        ],
+                        [
+                            'filterType' => 'customSelectGroup',
                             'visible' => false,
                             'variables' => [
                                 'isBoolean' => true,
@@ -306,6 +320,15 @@ return [
             ],
         ],
         'stateFilters' => [
+            [
+                'name' => 'All Orders',
+                'filter' => json_encode(
+                    [
+                        'status' => [
+                        ]
+                    ]
+                )
+            ],
             [
                 'name' => 'Awaiting Payment',
                 'filter' => json_encode(

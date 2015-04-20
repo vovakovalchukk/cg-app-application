@@ -420,9 +420,7 @@ class ChannelController extends AbstractActionController
                 $this->params()->fromRoute('account')
             );
 
-            $account->setDeleted(true);
-
-            $accountService->save($account);
+            $accountService->delete($account);
         } catch (NotFound $exception) {
             return $response->setVariable(
                 'error',

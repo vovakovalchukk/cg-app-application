@@ -63,6 +63,14 @@ use CG\Billing\Discount\Storage\Api as DiscountApiStorage;
 use CG\Billing\SubscriptionDiscount\StorageInterface as SubscriptionDiscountStorage;
 use CG\Billing\SubscriptionDiscount\Storage\Api as SubscriptionDiscountApiStorage;
 
+use CG\Account\Cleanup\Service as AccountCleanupService;
+use CG\Listing\Service\Service as ListingService;
+use CG\Listing\Unimported\Service as UnimportedListingService;
+use CG\Listing\Mapper as ListingMapper;
+use CG\Listing\Unimported\Mapper as UnimportedListingMapper;
+use CG\Listing\Storage\Api as ListingApi;
+use CG\Listing\Unimported\Storage\Api as UnimportedListingApi;
+
 return array(
     'di' => array(
         'instance' => array(
@@ -81,6 +89,10 @@ return array(
                 DiscountStorage::class => DiscountApiStorage::class,
                 SubscriptionDiscountStorage::class => SubscriptionDiscountApiStorage::class,
             ),
+            AccountCleanupService::class => [
+                'listingService' => ListingService::class,
+                'unimportedListingService' => UnimportedListingService::class
+            ],
             OrderApiClient::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
@@ -197,6 +209,28 @@ return array(
                     'client' => 'billing_guzzle'
                 ]
             ],
+            ListingService::class => [
+                'parameters' => [
+                    'repository' => ListingApi::class,
+                    'mapper' => ListingMapper::class
+                ]
+            ],
+            ListingApi::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
+            UnimportedListingService::class => [
+                'parameters' => [
+                    'repository' => UnimportedListingApi::class,
+                    'mapper' => UnimportedListingMapper::class
+                ]
+            ],
+            UnimportedListingApi::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ]
         ),
     ),
     'view_manager' => [
