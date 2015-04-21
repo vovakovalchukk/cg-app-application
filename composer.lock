@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e2f0fd638b3f44daba7f2dd9cd279089",
+    "hash": "834b4f586ff5fa0747d63753c4dade54",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -451,17 +451,17 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.9.0",
+            "version": "dev-CGIV-5363-ebay-active-out-of-stock-on-connection",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "39adb69fa82a2cb2cdde5810e83c84a42d1326c6"
+                "reference": "c632ad0ee1165344039f81dcaa8f2fe1e5cb1fd1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.9.0-397c93.zip",
-                "reference": "39adb69fa82a2cb2cdde5810e83c84a42d1326c6",
-                "shasum": "2f1b4b3a7a317d07a72d768ba54cf16a1933743c"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-CGIV-5363-ebay-active-out-of-stock-on-connection-327549.zip",
+                "reference": "c632ad0ee1165344039f81dcaa8f2fe1e5cb1fd1",
+                "shasum": "a56c5fad3a1b7dd9c4a7c91284e6196728025548"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -469,7 +469,7 @@
                 "channelgrabber/channel": ">=1.11.5",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.1.0",
-                "channelgrabber/gearman": ">=1.1.5,<2.0.0",
+                "channelgrabber/gearman": ">=1.2.4,<2.0.0",
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
                 "channelgrabber/listing": ">=1.6.0",
                 "channelgrabber/locale": "^1.0.4",
@@ -502,7 +502,7 @@
                     "CG\\Ebay\\Test\\": "tests/Test/"
                 }
             },
-            "time": "2015-04-17 10:16:02"
+            "time": "2015-04-21 13:42:29"
         },
         {
             "name": "channelgrabber/ekm",
@@ -684,17 +684,17 @@
         },
         {
             "name": "channelgrabber/http",
-            "version": "1.3.8",
+            "version": "1.3.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cghttp.git",
-                "reference": "85075cbc39e714e9c6966ef3a675ab97329b1d1b"
+                "reference": "6530c961e80499bc13b2c4e8f4f57109a8992dec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.3.8-aaa9e6.zip",
-                "reference": "85075cbc39e714e9c6966ef3a675ab97329b1d1b",
-                "shasum": "314a5a6fb80d3c982faaef86e69091ac541f08a9"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.3.9-1ef6a0.zip",
+                "reference": "6530c961e80499bc13b2c4e8f4f57109a8992dec",
+                "shasum": "af0d3b5123aab029716b9696d4cd6a85c26e68e1"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
@@ -729,7 +729,7 @@
                     "CG\\Http\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2015-04-14 11:39:49"
+            "time": "2015-04-17 16:02:12"
         },
         {
             "name": "channelgrabber/image",
@@ -6242,10 +6242,18 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.9.1",
+            "alias_normalized": "1.9.1.0",
+            "version": "dev-CGIV-5363-ebay-active-out-of-stock-on-connection",
+            "package": "channelgrabber/ebay"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/ebay": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
