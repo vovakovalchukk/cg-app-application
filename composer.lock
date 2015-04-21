@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "834b4f586ff5fa0747d63753c4dade54",
+    "hash": "2bd33155c9fa7e3e1345d009207d9dd9",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -451,7 +451,7 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-CGIV-5363-ebay-active-out-of-stock-on-connection",
+            "version": "dev-EPIC-CGIV-5360-ebay-out-of-stock",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
@@ -459,9 +459,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-CGIV-5363-ebay-active-out-of-stock-on-connection-327549.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-EPIC-CGIV-5360-ebay-out-of-stock-327549.zip",
                 "reference": "c632ad0ee1165344039f81dcaa8f2fe1e5cb1fd1",
-                "shasum": "a56c5fad3a1b7dd9c4a7c91284e6196728025548"
+                "shasum": "a04c95b919402479df625b8c1b52020b1796e8d1"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -6246,7 +6246,7 @@
         {
             "alias": "1.9.1",
             "alias_normalized": "1.9.1.0",
-            "version": "dev-CGIV-5363-ebay-active-out-of-stock-on-connection",
+            "version": "dev-EPIC-CGIV-5360-ebay-out-of-stock",
             "package": "channelgrabber/ebay"
         }
     ],

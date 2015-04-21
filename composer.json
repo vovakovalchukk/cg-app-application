@@ -23,7 +23,7 @@
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/di": "~2.1.1",
-        "channelgrabber/ebay": "dev-CGIV-5363-ebay-active-out-of-stock-on-connection as 1.9.1",
+        "channelgrabber/ebay": "dev-EPIC-CGIV-5360-ebay-out-of-stock as 1.9.1",
         "channelgrabber/ekm": "1.6.0",
         "channelgrabber/etag": "~1.5.5",
         "channelgrabber/gearman": "~1.2.4",
