@@ -32,7 +32,7 @@
         "channelgrabber/listing": "~1.6.2",
         "channelgrabber/location": "~1.1.2",
         "channelgrabber/log": "~2.0.23",
-        "channelgrabber/order": "~1.18.2",
+        "channelgrabber/order": "~1.18.3",
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/phinx": "~0.3.2",
         "channelgrabber/picklist": "~1.0.1",
