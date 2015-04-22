@@ -63,7 +63,7 @@ class ProductsJsonController extends AbstractActionController
 
     protected function getAccountsIndexedById($organisationUnitIds)
     {
-        $accounts = $this->getAccountService()->fetchByOU($organisationUnitIds);
+        $accounts = $this->getAccountService()->fetchByOU($organisationUnitIds, 'all');
         $indexedAccounts = [];
         foreach($accounts as $account) {
             $indexedAccounts[$account->getId()] = $account->toArray();
