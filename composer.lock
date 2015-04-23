@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "41483f473107af83ea097148126aad49",
+    "hash": "3a417c1f020fd23ee6e3ca3bb5047470",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -598,17 +598,17 @@
         },
         {
             "name": "channelgrabber/etag",
-            "version": "1.5.6",
+            "version": "1.5.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgetag.git",
-                "reference": "cbb05648053e589c98de49bea8a1ef0cc541a993"
+                "reference": "a27305cebda9b7cace08936cda82222b16e0d59e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-etag-1.5.6-5704ee.zip",
-                "reference": "cbb05648053e589c98de49bea8a1ef0cc541a993",
-                "shasum": "99225b9c0941aa3c1a19d5de32832b24bad74709"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-etag-1.5.7-238f9f.zip",
+                "reference": "a27305cebda9b7cace08936cda82222b16e0d59e",
+                "shasum": "c2ecfbcc78737e56d4a4117b86dfddf2c11566fb"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
@@ -621,7 +621,7 @@
                     "CG\\ETag\\": "src"
                 }
             },
-            "time": "2015-04-22 14:16:44"
+            "time": "2015-04-23 13:51:00"
         },
         {
             "name": "channelgrabber/gearman",
