@@ -34,7 +34,6 @@ class AddressController extends AbstractActionController
         $userChanges = $this->params()->fromPost();
         unset($userChanges['eTag']);
         $userChange = $this->fetchUserChange($order, $userChanges);
-        $userChange->setStoredETag($this->params()->fromPost('eTag'));
         $this->getService()->save($userChange);
 
         $view = $this->getJsonModelFactory()->newInstance();

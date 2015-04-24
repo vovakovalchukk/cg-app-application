@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "94ec32998121c7a48baafb5730267105",
+    "hash": "855a9813c230dfd752bb292fab5be24b",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -598,17 +598,17 @@
         },
         {
             "name": "channelgrabber/etag",
-            "version": "1.5.7",
+            "version": "dev-CGIV-5431-localETag",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgetag.git",
-                "reference": "a27305cebda9b7cace08936cda82222b16e0d59e"
+                "reference": "d8e4352b45afa472993a88dd3a5462f2f82389e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-etag-1.5.7-238f9f.zip",
-                "reference": "a27305cebda9b7cace08936cda82222b16e0d59e",
-                "shasum": "c2ecfbcc78737e56d4a4117b86dfddf2c11566fb"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-etag-dev-CGIV-5431-localETag-044497.zip",
+                "reference": "d8e4352b45afa472993a88dd3a5462f2f82389e6",
+                "shasum": "4c78b46125b3d0aa435de34787ea23aef3cbec37"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
@@ -621,7 +621,7 @@
                     "CG\\ETag\\": "src"
                 }
             },
-            "time": "2015-04-23 13:51:00"
+            "time": "2015-04-23 16:29:43"
         },
         {
             "name": "channelgrabber/gearman",
@@ -684,21 +684,21 @@
         },
         {
             "name": "channelgrabber/http",
-            "version": "1.3.9",
+            "version": "dev-CGIV-5431-localETag",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cghttp.git",
-                "reference": "6530c961e80499bc13b2c4e8f4f57109a8992dec"
+                "reference": "05c0985d8ea7903ef7aa9cea2f9ce26fbc962dc0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.3.9-1ef6a0.zip",
-                "reference": "6530c961e80499bc13b2c4e8f4f57109a8992dec",
-                "shasum": "af0d3b5123aab029716b9696d4cd6a85c26e68e1"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-dev-CGIV-5431-localETag-7ad2bc.zip",
+                "reference": "05c0985d8ea7903ef7aa9cea2f9ce26fbc962dc0",
+                "shasum": "c7ce21f8335c57de85476024b728c6b5a567a9a6"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
-                "channelgrabber/etag": ">=1.5.5,<2.0.0",
+                "channelgrabber/etag": "dev-CGIV-5431-localETag as 1.5.7",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/stdlib": ">=2.10.0,<3.0.0",
                 "composer/composer": "@dev",
@@ -729,7 +729,7 @@
                     "CG\\Http\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2015-04-17 16:02:12"
+            "time": "2015-04-24 14:49:13"
         },
         {
             "name": "channelgrabber/image",
@@ -972,17 +972,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.18.4",
+            "version": "dev-CGIV-5431-localETag",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "c9afb7afb5850234c88166b664d977dffa2320f1"
+                "reference": "6e17c45f2fcd1fc864edeba303c21ac3def9bcfe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.18.4-9d6e1b.zip",
-                "reference": "c9afb7afb5850234c88166b664d977dffa2320f1",
-                "shasum": "fa76167cff9bf9aab994469e26c42d7ecba971ef"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-5431-localETag-2a787f.zip",
+                "reference": "6e17c45f2fcd1fc864edeba303c21ac3def9bcfe",
+                "shasum": "ab3f04bbf29313f6f96eab8a907144c7d847ef15"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -991,9 +991,9 @@
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/db": ">=1.0.4,<2.0.0",
                 "channelgrabber/di": ">=2.0.0,<3.0.0",
-                "channelgrabber/etag": "^1.5.4",
+                "channelgrabber/etag": "dev-CGIV-5431-localETag as 1.5.7",
                 "channelgrabber/gearman": ">=1.1.0,<2.0.0",
-                "channelgrabber/http": ">=1.3.0,<2.0.0",
+                "channelgrabber/http": "dev-CGIV-5431-localETag as 1.3.10",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/settings": ">=1.2.4,<2.0.0",
@@ -1032,7 +1032,7 @@
                     "CG\\Order\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-04-22 14:15:54"
+            "time": "2015-04-24 13:46:21"
         },
         {
             "name": "channelgrabber/permission",
@@ -6242,10 +6242,32 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.5.7",
+            "alias_normalized": "1.5.7.0",
+            "version": "dev-CGIV-5431-localETag",
+            "package": "channelgrabber/etag"
+        },
+        {
+            "alias": "1.3.10",
+            "alias_normalized": "1.3.10.0",
+            "version": "dev-CGIV-5431-localETag",
+            "package": "channelgrabber/http"
+        },
+        {
+            "alias": "1.18.5",
+            "alias_normalized": "1.18.5.0",
+            "version": "dev-CGIV-5431-localETag",
+            "package": "channelgrabber/order"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/etag": 20,
+        "channelgrabber/http": 20,
+        "channelgrabber/order": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
