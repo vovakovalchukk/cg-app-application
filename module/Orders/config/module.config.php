@@ -517,6 +517,49 @@ return [
                             ]
                         ]
                     ],
+                    'to_csv' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/toCsv',
+                            'defaults' => [
+                                'controller' => BulkActionsController::class,
+                                'action' => 'toCsvOrderIds'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+//                            'filterId' => [
+//                                'type' => 'Zend\Mvc\Router\Http\Segment',
+//                                'options' => [
+//                                    'route' => '/:filterId',
+//                                    'constraints' => [
+//                                        'filterId' => '[^/]+'
+//                                    ],
+//                                    'defaults' => [
+//                                        'action' => 'toCsvFilterId',
+//                                    ]
+//                                ]
+//                            ],
+//                            'pick_list_check' => [
+//                                'type' => 'Zend\Mvc\Router\Http\Literal',
+//                                'options' => [
+//                                    'route' => '/check',
+//                                    'defaults' => [
+//                                        'action' => 'checkPickListPrintingAllowed'
+//                                    ]
+//                                ]
+//                            ],
+//                            'pick_list_progress' => [
+//                                'type' => 'Zend\Mvc\Router\Http\Literal',
+//                                'options' => [
+//                                    'route' => '/progress',
+//                                    'defaults' => [
+//                                        'action' => 'checkPickListGenerationProgress'
+//                                    ]
+//                                ]
+//                            ]
+                        ]
+                    ],
                     StoredFiltersController::ROUTE_SAVE => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [

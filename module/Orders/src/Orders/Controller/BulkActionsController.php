@@ -503,6 +503,16 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         return $this->getPickListService()->getResponseFromOrderCollection($orders, $progressKey);
     }
 
+    public function toCsvOrderIdsAction($orderBy = null, $orderDir = 'ASC')
+    {
+
+    }
+
+    public function toCsvFilterIdAction($orderBy, $orderDir = 'ASC')
+    {
+
+    }
+
     public function checkPickListPrintingAllowedAction()
     {
         return $this->checkInvoicePrintingAllowedAction();

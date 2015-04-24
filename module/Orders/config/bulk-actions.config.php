@@ -48,6 +48,7 @@ return [
                 'CancelJavascript' => ViewModel::class,
                 'RefundJavascript' => ViewModel::class,
                 'PickListJavascript' => ViewModel::class,
+                'ToCsvJavascript' => ViewModel::class,
                 'UrlDataViewInvoice' => ViewModel::class,
                 'UrlDataViewInvoiceBySku' => ViewModel::class,
                 'UrlDataViewDispatch' => ViewModel::class,
@@ -57,6 +58,7 @@ return [
                 'UrlDataViewBatchRemove' => ViewModel::class,
                 'UrlDataViewCancelRefund' => ViewModel::class,
                 'UrlDataViewPickList' => ViewModel::class,
+                'UrlDataViewToCsv' => ViewModel::class,
                 'Invoice' => Action\Invoice::class
             ],
             Service::class => [
@@ -77,6 +79,7 @@ return [
                         ['action' => Action\Invoice::class],
                         ['action' => Action\PickList::class],
                         ['action' => Action\Dispatch::class],
+                        ['action' => Action\ToCsv::class],
                         ['action' => Action\Tag::class],
                         ['action' => Action\Batch::class],
                         ['action' => Action\Archive::class]
@@ -262,13 +265,27 @@ return [
                     'javascript' => 'RefundJavascript',
                 ],
             ],
-            Action\PickList::class =>[
+            Action\PickList::class => [
                 'parameters' => [
                     'urlView' => 'UrlDataViewPickList',
                     'elementData' => [
                         'datatable' => 'datatable'
                     ],
                     'javascript' => 'PickListJavascript'
+                ]
+            ],
+            Action\ToCsv::class => [
+                'parameters' => [
+                    'urlView' => 'UrlDataViewToCsv',
+                    'elementData' => [
+                        'datatable' => 'datatable'
+                    ],
+                    'javascript' => 'ToCsvJavascript'
+                ]
+            ],
+            'ToCsvJavascript' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/toCsv.js'
                 ]
             ],
             'RefundJavascript' => [
@@ -317,6 +334,11 @@ return [
                 ],
             ],
             'UrlDataViewPickList' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/data-url',
+                ]
+            ],
+            'UrlDataViewToCsv' => [
                 'parameters' => [
                     'template' => 'orders/orders/bulk-actions/data-url',
                 ]
