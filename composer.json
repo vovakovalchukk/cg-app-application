@@ -44,7 +44,7 @@
         "channelgrabber/sso": "~1.2.7",
         "channelgrabber/stats": "~1.0.0",
         "channelgrabber/stdlib": "~2.10.10",
-        "channelgrabber/stock": "~1.4.7",
+        "channelgrabber/stock": "dev-CGIV-5431-localETag as 1.4.9",
         "channelgrabber/template": "~1.2.48",
         "channelgrabber/usage": "~1.0.6",
         "channelgrabber/user": "~1.19.0",

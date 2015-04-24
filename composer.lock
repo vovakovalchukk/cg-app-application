@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "855a9813c230dfd752bb292fab5be24b",
+    "hash": "7d66ea506e693eb1db39edbee1b59601",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1659,17 +1659,17 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.4.8",
+            "version": "dev-CGIV-5431-localETag",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "eaf298bc8b663b4638f1e62662425876555779e3"
+                "reference": "1b420be6392fc520958a7060b0be4d688da7660a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.4.8-b8b84d.zip",
-                "reference": "eaf298bc8b663b4638f1e62662425876555779e3",
-                "shasum": "2a9f45b90bc1f777e5de130d86cd9cda188bbfdb"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-5431-localETag-e5d4fb.zip",
+                "reference": "1b420be6392fc520958a7060b0be4d688da7660a",
+                "shasum": "fa5d6b43470fe63a037ab8ccf3ddda059e2ee4aa"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1705,7 +1705,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2015-04-17 15:27:37"
+            "time": "2015-04-24 15:08:42"
         },
         {
             "name": "channelgrabber/template",
@@ -6260,6 +6260,12 @@
             "alias_normalized": "1.18.5.0",
             "version": "dev-CGIV-5431-localETag",
             "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.4.9",
+            "alias_normalized": "1.4.9.0",
+            "version": "dev-CGIV-5431-localETag",
+            "package": "channelgrabber/stock"
         }
     ],
     "minimum-stability": "stable",
@@ -6268,6 +6274,7 @@
         "channelgrabber/etag": 20,
         "channelgrabber/http": 20,
         "channelgrabber/order": 20,
+        "channelgrabber/stock": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
