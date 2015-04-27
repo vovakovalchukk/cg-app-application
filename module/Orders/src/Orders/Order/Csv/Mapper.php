@@ -17,6 +17,7 @@ class Mapper
         'Shipping Price' => 'shippingPrice',
         'Shipping Method' => 'shippingMethod',
         'Currency Code' => 'currencyCode',
+        '_specific_headers' => null,
         'Billing Company Name' => 'billingAddressCompanyName',
         'Billing Buyer Name' => 'billingAddressFullName',
         'Billing Address Line 1' => 'billingAddress1',
@@ -138,7 +139,10 @@ class Mapper
 
     public function fromOrderAndItems(Order $order, $accountName)
     {
-
+        $orderArray = $order->toArray();
+        $line = [];
+        $headers = static::$commonHeaders;
+        
     }
 
     public function fromOrder(Order $order, $accountName)
