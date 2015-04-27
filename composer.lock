@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "50754d4202412ced1f861def1ad50b42",
+    "hash": "aa43c56362d10fb875d1d39b9cf119ac",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2695,17 +2695,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.14.60",
+            "version": "dev-CGIV-5473-ProductStatusDropdown",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "48dd89a937729179b7c492f18ef145546b13eb8c"
+                "reference": "b1e378a789f4fc66bbfb7be0faa5f2fff461529b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.60-21a85a.zip",
-                "reference": "48dd89a937729179b7c492f18ef145546b13eb8c",
-                "shasum": "f56dd364a2febd43b121c0ddef4d4ca103b4ed01"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5473-ProductStatusDropdown-ddce11.zip",
+                "reference": "b1e378a789f4fc66bbfb7be0faa5f2fff461529b",
+                "shasum": "7a51cf9f132c61344817b084e8b465a3a5fe35e0"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2750,7 +2750,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-04-24 15:49:27"
+            "time": "2015-04-27 14:53:38"
         },
         {
             "name": "cilex/cilex",
@@ -6242,10 +6242,18 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.14.60",
+            "alias_normalized": "1.14.60.0",
+            "version": "dev-CGIV-5473-ProductStatusDropdown",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
