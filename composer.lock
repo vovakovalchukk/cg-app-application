@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7d66ea506e693eb1db39edbee1b59601",
+    "hash": "ebf32d0512f4ede1be23a205ac4487e0",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -252,17 +252,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.16.3",
+            "version": "dev-CGIV-5329-remove-client-side-etag-generation",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "6d4dc82528fb6dd5563a81de2e6c46f33cd440f0"
+                "reference": "1ae2ff4911f2b8cc759563a3963e8c24a9c42597"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.16.3-94dc3a.zip",
-                "reference": "6d4dc82528fb6dd5563a81de2e6c46f33cd440f0",
-                "shasum": "48e8004d8cdef716c89eb264d5017770a29cf15a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-5329-remove-client-side-etag-generation-765504.zip",
+                "reference": "1ae2ff4911f2b8cc759563a3963e8c24a9c42597",
+                "shasum": "b70e98fdb44223b2792667ed6e8afb94edb6643f"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -310,7 +310,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-04-21 11:17:40"
+            "time": "2015-04-24 16:30:42"
         },
         {
             "name": "channelgrabber/cilex",
@@ -6244,6 +6244,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.16.6",
+            "alias_normalized": "1.16.6.0",
+            "version": "dev-CGIV-5329-remove-client-side-etag-generation",
+            "package": "channelgrabber/channel"
+        },
+        {
             "alias": "1.5.7",
             "alias_normalized": "1.5.7.0",
             "version": "dev-CGIV-5431-localETag",
@@ -6270,6 +6276,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/etag": 20,
         "channelgrabber/http": 20,

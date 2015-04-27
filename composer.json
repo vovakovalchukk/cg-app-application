@@ -19,7 +19,7 @@
     "require": {
         "channelgrabber/amazon": "~1.14.0",
         "channelgrabber/cache": "~2.0.6",
-        "channelgrabber/channel": "~1.16.2",
+        "channelgrabber/channel": "dev-CGIV-5329-remove-client-side-etag-generation as 1.16.6",
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/di": "~2.1.1",
