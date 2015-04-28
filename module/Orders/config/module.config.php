@@ -528,36 +528,36 @@ return [
                         ],
                         'may_terminate' => true,
                         'child_routes' => [
-//                            'filterId' => [
-//                                'type' => 'Zend\Mvc\Router\Http\Segment',
-//                                'options' => [
-//                                    'route' => '/:filterId',
-//                                    'constraints' => [
-//                                        'filterId' => '[^/]+'
-//                                    ],
-//                                    'defaults' => [
-//                                        'action' => 'toCsvFilterId',
-//                                    ]
-//                                ]
-//                            ],
-//                            'pick_list_check' => [
-//                                'type' => 'Zend\Mvc\Router\Http\Literal',
-//                                'options' => [
-//                                    'route' => '/check',
-//                                    'defaults' => [
-//                                        'action' => 'checkPickListPrintingAllowed'
-//                                    ]
-//                                ]
-//                            ],
-//                            'pick_list_progress' => [
-//                                'type' => 'Zend\Mvc\Router\Http\Literal',
-//                                'options' => [
-//                                    'route' => '/progress',
-//                                    'defaults' => [
-//                                        'action' => 'checkPickListGenerationProgress'
-//                                    ]
-//                                ]
-//                            ]
+                            'filterId' => [
+                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                'options' => [
+                                    'route' => '/:filterId',
+                                    'constraints' => [
+                                        'filterId' => '[^/]+'
+                                    ],
+                                    'defaults' => [
+                                        'action' => 'toCsvFilterId',
+                                    ]
+                                ]
+                            ],
+                            'to_csv_check' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/check',
+                                    'defaults' => [
+                                        'action' => 'checkToCsvPrintingAllowed'
+                                    ]
+                                ]
+                            ],
+                            'to_csv_progress' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/progress',
+                                    'defaults' => [
+                                        'action' => 'checkToCsvGenerationProgress'
+                                    ]
+                                ]
+                            ]
                         ]
                     ],
                     StoredFiltersController::ROUTE_SAVE => [

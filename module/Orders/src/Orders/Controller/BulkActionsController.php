@@ -17,6 +17,7 @@ use Orders\Order\Batch\Service as BatchService;
 use Orders\Order\Exception\MultiException;
 use Orders\Order\Invoice\Service as InvoiceService;
 use Orders\Order\PickList\Service as PickListService;
+use Orders\Order\Csv\Service as CsvService;
 use Settings\Module as Settings;
 use Settings\Controller\InvoiceController as InvoiceSettings;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -33,6 +34,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected $orderService;
     protected $invoiceService;
     protected $pickListService;
+    protected $csvService;
     protected $batchService;
     protected $usageService;
     protected $typeMap = [
@@ -45,6 +47,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         OrderService $orderService,
         InvoiceService $invoiceService,
         PickListService $pickListService,
+        CsvService $csvService,
         BatchService $batchService,
         UsageService $usageService
     ) {
@@ -53,6 +56,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             ->setOrderService($orderService)
             ->setInvoiceService($invoiceService)
             ->setPickListService($pickListService)
+            ->setCsvService($csvService)
             ->setBatchService($batchService)
             ->setUsageService($usageService);
     }
@@ -116,6 +120,24 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function setPickListService(PickListService $pickListService)
     {
         $this->pickListService = $pickListService;
+        return $this;
+    }
+
+    /**
+     * @return CsvService
+     */
+    protected function getCsvService()
+    {
+        return $this->csvService;
+    }
+
+    /**
+     * @param CsvService $csvService
+     * @return $this
+     */
+    public function setCsvService(CsvService $csvService)
+    {
+        $this->csvService = $csvService;
         return $this;
     }
 
@@ -505,12 +527,34 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     public function toCsvOrderIdsAction($orderBy = null, $orderDir = 'ASC')
     {
-
+        try {
+            $orders = $this->getOrdersFromOrderIds($orderBy, $orderDir);
+            return $this->ordersToCsv($orders);
+        } catch (NotFound $exception) {
+            return $this->redirect()->toRoute('Orders');
+        }
     }
 
     public function toCsvFilterIdAction($orderBy, $orderDir = 'ASC')
     {
 
+    }
+
+    public function ordersToCsv(OrderCollection $orders, $progressKey = null)
+    {
+        return $this->getCsvService()->getResponseFromOrderCollection($orders, $progressKey);
+    }
+
+    public function checkToCsvPrintingAllowedAction()
+    {
+        return $this->checkInvoicePrintingAllowedAction();
+    }
+
+    public function checkToCsvGenerationProgressAction()
+    {
+        return $this->getJsonModelFactory()->newInstance(
+            ["progressCount" => 10]
+        );
     }
 
     public function checkPickListPrintingAllowedAction()
