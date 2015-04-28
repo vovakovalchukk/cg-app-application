@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "aa43c56362d10fb875d1d39b9cf119ac",
+    "hash": "fc1a0aa20e829dc2d77085396827d251",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1418,17 +1418,17 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.3.2",
+            "version": "1.3.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "d3cdc359252d59d935e0c35f4d8d4d7fb62b3677"
+                "reference": "afebb1f725af35b0c8eecf546b8133b069de9639"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.3.2-f85076.zip",
-                "reference": "d3cdc359252d59d935e0c35f4d8d4d7fb62b3677",
-                "shasum": "1396726691168e4e8db7d9a27b0500cef1edb2c8"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.3.3-e1e682.zip",
+                "reference": "afebb1f725af35b0c8eecf546b8133b069de9639",
+                "shasum": "19097c2f0e58359e748162f0fdf4ddb565a12672"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1450,7 +1450,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2015-03-19 15:38:21"
+            "time": "2015-04-27 16:20:14"
         },
         {
             "name": "channelgrabber/slim",
@@ -2534,17 +2534,17 @@
         },
         {
             "name": "channelgrabber/zf2-sessions",
-            "version": "1.1.2",
+            "version": "1.1.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-zf2-sessions.git",
-                "reference": "6a16b0677850c8fcd9687af12d6d590ece16aa5a"
+                "reference": "89d6ca0cc099cd49ce3fa14dab1ff2d23480379e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-sessions-1.1.2-9fa2d2.zip",
-                "reference": "6a16b0677850c8fcd9687af12d6d590ece16aa5a",
-                "shasum": "b584c168ed480aae9c12b2ce6ed0362481f65bdd"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-sessions-1.1.3-484e86.zip",
+                "reference": "89d6ca0cc099cd49ce3fa14dab1ff2d23480379e",
+                "shasum": "9ac9ca761d67064bdc0d55ac0ef27ea78aec9f18"
             },
             "require": {
                 "channelgrabber/di": ">=2.1.0",
@@ -2569,7 +2569,7 @@
                     "CG_Sessions\\": "src"
                 }
             },
-            "time": "2015-04-27 08:58:12"
+            "time": "2015-04-27 16:21:19"
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
@@ -2695,17 +2695,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-5473-ProductStatusDropdown",
+            "version": "1.14.61",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "b1e378a789f4fc66bbfb7be0faa5f2fff461529b"
+                "reference": "badaf2295ca4a2a03e66dc79f5ff7923bec3a931"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5473-ProductStatusDropdown-ddce11.zip",
-                "reference": "b1e378a789f4fc66bbfb7be0faa5f2fff461529b",
-                "shasum": "7a51cf9f132c61344817b084e8b465a3a5fe35e0"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.61-3151f2.zip",
+                "reference": "badaf2295ca4a2a03e66dc79f5ff7923bec3a931",
+                "shasum": "0529bb7b092edabef6c6e4d50e95b9159faa50df"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2750,7 +2750,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-04-27 14:53:38"
+            "time": "2015-04-28 12:37:19"
         },
         {
             "name": "cilex/cilex",
@@ -3550,13 +3550,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/raphaelstolt/php-jsonpatch.git",
-                "reference": "4defbc5c4f914564339462fc0a95382ce2720bb9"
+                "reference": "f1dee675c9cc203c3831890726d14875fa1112c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpatch/zipball/4defbc5c4f914564339462fc0a95382ce2720bb9",
-                "reference": "4defbc5c4f914564339462fc0a95382ce2720bb9",
-                "shasum": ""
+                "url": "https://composer.build.channelgrabber.com/dist/php-jsonpatch-php-jsonpatch-f1dee675c9cc203c3831890726d14875fa1112c5-zip-58decb.zip",
+                "reference": "f1dee675c9cc203c3831890726d14875fa1112c5",
+                "shasum": "4a29d3675cca626ae253c6e68f9500610388a3fd"
             },
             "require": {
                 "php": ">=5.3.0",
@@ -3565,7 +3565,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1.x-dev"
+                    "dev-master": "1.2.x-dev"
                 }
             },
             "autoload": {
@@ -3591,7 +3591,7 @@
                 "json modification",
                 "json patch"
             ],
-            "time": "2014-12-02 20:26:19"
+            "time": "2015-04-27 21:48:39"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -3599,17 +3599,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/raphaelstolt/php-jsonpointer.git",
-                "reference": "60037a6f306db93d83962bd8bcf39fade4c65f65"
+                "reference": "c1b5443be0b6cfd271bfed3812f549bdabb49a6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpointer/zipball/60037a6f306db93d83962bd8bcf39fade4c65f65",
-                "reference": "60037a6f306db93d83962bd8bcf39fade4c65f65",
-                "shasum": ""
+                "url": "https://composer.build.channelgrabber.com/dist/php-jsonpointer-php-jsonpointer-c1b5443be0b6cfd271bfed3812f549bdabb49a6b-zip-e2b4f6.zip",
+                "reference": "c1b5443be0b6cfd271bfed3812f549bdabb49a6b",
+                "shasum": "ae3b0d126bfdad9589ef813f2862237d8ec0cd6f"
             },
             "require": {
-                "php": ">=5.3.0",
-                "seld/jsonlint": "1.1.*"
+                "php": ">=5.3.0"
             },
             "type": "library",
             "extra": {
@@ -3640,7 +3639,7 @@
                 "json pointer",
                 "json traversal"
             ],
-            "time": "2014-12-02 19:43:33"
+            "time": "2015-04-27 20:22:07"
         },
         {
             "name": "pimple/pimple",
@@ -3781,17 +3780,17 @@
         },
         {
             "name": "seld/jsonlint",
-            "version": "1.1.2",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/jsonlint.git",
-                "reference": "7cd4c4965e17e6e4c07f26d566619a4c76f8c672"
+                "reference": "863ae85c6d3ef60ca49cb12bd051c4a0648c40c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/jsonlint/zipball/7cd4c4965e17e6e4c07f26d566619a4c76f8c672",
-                "reference": "7cd4c4965e17e6e4c07f26d566619a4c76f8c672",
-                "shasum": ""
+                "url": "https://composer.build.channelgrabber.com/dist/seld-jsonlint-863ae85c6d3ef60ca49cb12bd051c4a0648c40c4-zip-e4be18.zip",
+                "reference": "863ae85c6d3ef60ca49cb12bd051c4a0648c40c4",
+                "shasum": "eca8c470e3415733ce9fad08451dd474a8bd32c7"
             },
             "require": {
                 "php": ">=5.3.0"
@@ -3801,8 +3800,8 @@
             ],
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Seld\\JsonLint": "src/"
+                "psr-4": {
+                    "Seld\\JsonLint\\": "src/Seld/JsonLint/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3813,8 +3812,7 @@
                 {
                     "name": "Jordi Boggiano",
                     "email": "j.boggiano@seld.be",
-                    "homepage": "http://seld.be",
-                    "role": "Developer"
+                    "homepage": "http://seld.be"
                 }
             ],
             "description": "JSON Linter",
@@ -3824,7 +3822,7 @@
                 "parser",
                 "validator"
             ],
-            "time": "2013-11-04 15:41:11"
+            "time": "2015-01-04 21:18:15"
         },
         {
             "name": "slim/slim",
@@ -5542,17 +5540,17 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "1.4.0",
+            "version": "v1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "8724cd239f8ef4c046f55a3b18b4d91cc7f3e4c5"
+                "reference": "3132b1f44c7bf2ec4c7eb2d3cb78fdeca760d373"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/phpspec-prophecy-8724cd239f8ef4c046f55a3b18b4d91cc7f3e4c5-zip-6996f2.zip",
-                "reference": "8724cd239f8ef4c046f55a3b18b4d91cc7f3e4c5",
-                "shasum": "4a9b128a71562bbcee9ce3464494da10a0358bb0"
+                "url": "https://composer.build.channelgrabber.com/dist/phpspec-prophecy-3132b1f44c7bf2ec4c7eb2d3cb78fdeca760d373-zip-511f85.zip",
+                "reference": "3132b1f44c7bf2ec4c7eb2d3cb78fdeca760d373",
+                "shasum": "ea68ee040b4470fb2592a95f5f674d7c7f12d124"
             },
             "require": {
                 "doctrine/instantiator": "^1.0.2",
@@ -5598,7 +5596,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2015-03-27 19:31:25"
+            "time": "2015-04-27 22:15:08"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -6242,18 +6240,10 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.14.60",
-            "alias_normalized": "1.14.60.0",
-            "version": "dev-CGIV-5473-ProductStatusDropdown",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
