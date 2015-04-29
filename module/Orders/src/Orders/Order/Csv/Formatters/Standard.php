@@ -1,52 +1,44 @@
 <?php
 namespace Orders\Order\Csv\Formatters;
 
-use CG\Order\Shared\Collection as OrderCollection;
+use CG\Order\Shared\Entity as Order;
 use Orders\Order\Csv\FormatterInterface;
 
 class Standard implements FormatterInterface
 {
-    protected $fieldNames;
+    protected $fieldName;
 
-    public function __construct(array $fieldNames)
+    public function __construct($fieldName)
     {
-        $this->fieldNames = $fieldNames;
+        $this->fieldName = $fieldName;
     }
 
-    public function __invoke(OrderCollection $orders)
+    public function __invoke(Order $order)
     {
-        $columns = [];
+        $column = [];
 
-        foreach($orders as $order) {
-            if($order->getItems()->count() === 0) {
-                foreach ($this->fieldNames as $header => $fieldName) {
-                    $getter = 'get' . ucfirst($fieldName);
-                    try {
-                        $columns[$header][] = $order->$getter();
-                    } catch (\BadMethodCallException $e) {
-                        $columns[$header][] = '';
-                    }
-                    continue;
-                }
-            }
-
-            foreach($order->getItems() as $item) {
-                foreach($this->fieldNames as $header => $fieldName) {
-                    $getter = 'get' . ucfirst($fieldName);
-                    try {
-                        $columns[$header][] = $order->$getter();
-                    } catch (\BadMethodCallException $e) {
-                        if(is_callable([$item, $getter])) {
-                            $columns[$header][] = $item->$getter();
-                        } else {
-                            $columns[$header][] = '';
-                        }
-                    }
-                }
-
+        if($order->getItems()->count() === 0) {
+            $getter = 'get' . ucfirst($this->fieldName);
+            try {
+                $column[] = $order->$getter();
+            } catch (\BadMethodCallException $e) {
+                $column[] = '';
             }
         }
 
-        return $columns;
+        foreach($order->getItems() as $item) {
+            $getter = 'get' . ucfirst($this->fieldName);
+            try {
+                $column[] = $order->$getter();
+            } catch (\BadMethodCallException $e) {
+                if(is_callable([$item, $getter])) {
+                    $column[] = $item->$getter();
+                } else {
+                    $column[] = '';
+                }
+            }
+        }
+
+        return $column;
     }
 }

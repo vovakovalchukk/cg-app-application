@@ -38,10 +38,13 @@ class Service implements LoggerAwareInterface
 
     public function getResponseFromOrderCollection(OrderCollection $orders, $progressKey = null)
     {
+        $orders->rewind();
         $csvWriter = CsvWriter::createFromFileObject(new \SplTempFileObject(-1));
-        $linesAll = $this->getMapper()->fromOrderCollection($orders);
         $csvWriter->insertOne($this->getMapper()->getOrderAndItemsHeaders());
-        $csvWriter->insertAll($linesAll);
+        $rowsGenerator = $this->getMapper()->fromOrderCollection($orders);
+        foreach($rowsGenerator as $rows) {
+            $csvWriter->insertAll($rows);
+        }
         $this->notifyOfGeneration();
         return new Response(static::MIME_TYPE, static::FILENAME, (string) $csvWriter);
     }

@@ -1,23 +1,22 @@
 <?php
 namespace Orders\Order\Csv\Formatters;
 
-use CG\Order\Shared\Collection as OrderCollection;
+use CG\Order\Shared\Entity as Order;
 use Orders\Order\Csv\FormatterInterface;
 
 class LineTotal implements FormatterInterface
 {
-    public function __invoke(OrderCollection $orders)
+    public function __invoke(Order $order)
     {
-        $column = [];
-        foreach($orders as $order) {
-            if($order->getItems()->count() === 0) {
-                $column[] = '';
-                continue;
-            }
-            foreach($order->getItems() as $item) {
-                $column[] = (float) $item->getItemQuantity() * (float) $item->getIndividualItemPrice();
-            }
+        if($order->getItems()->count() === 0) {
+            return [''];
         }
+
+        $column = [];
+        foreach($order->getItems() as $item) {
+            $column[] = (float) $item->getItemQuantity() * (float) $item->getIndividualItemPrice();
+        }
+
         return $column;
     }
 }

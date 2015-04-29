@@ -125,6 +125,7 @@ class Mapper
         ];
     }
 
+
     public function getOrderAndItemsHeaders()
     {
         return array_keys($this->getOrderAndItemsColumns());
@@ -138,21 +139,22 @@ class Mapper
     public function fromOrderCollection(OrderCollection $orderCollection)
     {
         $columnFormatters = $this->getOrderAndItemsColumns();
-        $columns = [];
-        $standardFormattedColumns = [];
-        foreach($columnFormatters as $header => $formatterName) {
-            if(class_exists($formatterName)) {
-                $formatter = $this->getDi()->get($formatterName);
-                $columns[$header] = $formatter($orderCollection);
+        $formatters = [];
+        foreach($columnFormatters as $header => $formatter) {
+            if(class_exists($formatter)) {
+                $formatters[$header] = $this->getDi()->get($formatter);
             } else {
-                $columns[$header] = [];
-                $standardFormattedColumns[$header] = $formatterName;
+                $formatters[$header] = new Standard($formatter);
             }
         }
-        $formatter = new Standard($standardFormattedColumns);
-        $columns = array_merge($columns, $formatter($orderCollection));
-        $rows = Stdlib\transposeArray($columns);
-        return $rows;
+
+        foreach($orderCollection as $order) {
+            $columns = [];
+            foreach ($formatters as $header => $formatter) {
+                $columns[] = $formatter($order);
+            }
+            yield Stdlib\transposeArray($columns);
+        }
     }
 
     /**
