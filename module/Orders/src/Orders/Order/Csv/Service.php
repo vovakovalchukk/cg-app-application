@@ -1,63 +1,81 @@
 <?php
 namespace Orders\Order\Csv;
 
-use CG\Account\Client\Service as AccountService;
 use CG\Order\Shared\Collection as OrderCollection;
-use CG\Order\Shared\Entity as Order;
 use CG\Stdlib\Log\LogTrait;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use League\Csv\Writer as CsvWriter;
+use Orders\Order\PickList\ProgressStorage;
 
 class Service implements LoggerAwareInterface
 {
     use LogTrait;
 
+    protected $mapper;
+    protected $progressStorage;
+
+    public function __construct(Mapper $mapper, ProgressStorage $progressStorage)
+    {
+        $this->setMapper($mapper)
+            ->setProgressStorage($progressStorage);
+    }
+
     const MIME_TYPE = 'text/csv';
     const FILENAME = 'orders.csv';
-
-    protected $accountService;
-
-    public function __construct(AccountService $accountService)
-    {
-        $this->setAccountService($accountService);
-    }
 
     public function getResponseFromOrderCollection(OrderCollection $orders, $progressKey = null)
     {
         $csvWriter = CsvWriter::createFromFileObject(new \SplTempFileObject(-1));
-        $mapper = new Mapper();
-        /** @var Order $order */
-        $linesAll = [];
-        foreach($orders as $key => $order) {
-            $linesAll = array_merge($linesAll, $mapper->fromOrderAndItems($order, 'account'));
-        }
-        $this->logDebugDump($linesAll, "CSV Lines", [], "CSV_DEBUG", []);
-        $csvWriter->insertOne($mapper->getOrderAndItemsHeadersNames());
-        $csvWriter->insertAll($linesAll);die();
-        return new Response(static::MIME_TYPE, static::FILENAME, $csvWriter->__toString());
+        $mapper = $this->getMapper();
+        $linesAll = $mapper->fromOrderCollection($orders);
+        $csvWriter->insertOne($mapper->getOrderAndItemsHeaders());
+        $csvWriter->insertAll($linesAll);
+        return new Response(static::MIME_TYPE, static::FILENAME, (string) $csvWriter);
     }
 
-    protected function fetchAccountName($accountId)
+    public function checkToCsvGenerationProgress($key)
     {
-        $account = $this->getAccountService()->fetch($accountId);
-        return $account->getDisplayName();
+        return (int) $this->getProgressStorage()->getProgress($key);
+    }
+
+    public function triggerIntercomEvent()
+    {
+        
     }
 
     /**
-     * @return AccountService
+     * @return Mapper
      */
-    protected function getAccountService()
+    protected function getMapper()
     {
-        return $this->accountService;
+        return $this->mapper;
     }
 
     /**
-     * @param AccountService $accountService
+     * @param Mapper $mapper
      * @return $this
      */
-    public function setAccountService(AccountService $accountService)
+    public function setMapper(Mapper $mapper)
     {
-        $this->accountService = $accountService;
+        $this->mapper = $mapper;
+        return $this;
+    }
+
+    /**
+     * @return ProgressStorage
+     */
+    protected function getProgressStorage()
+    {
+        return $this->progressStorage;
+    }
+
+    /**
+     * @param ProgressStorage $progressStorage
+     * @return $this
+     */
+    public function setProgressStorage(ProgressStorage $progressStorage)
+    {
+        $this->progressStorage = $progressStorage;
         return $this;
     }
 }

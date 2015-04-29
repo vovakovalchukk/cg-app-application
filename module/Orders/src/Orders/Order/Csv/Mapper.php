@@ -1,56 +1,35 @@
 <?php
 namespace Orders\Order\Csv;
 
-use CG\Order\Shared\Entity as Order;
+use Orders\Order\Csv\Formatters\GiftWrapMessage;
+use Orders\Order\Csv\Formatters\GiftWrapPrice;
+use Orders\Order\Csv\Formatters\GiftWrapType;
+use Orders\Order\Csv\Formatters\LineDiscount;
+use Orders\Order\Csv\Formatters\LineTotal;
+use Orders\Order\Csv\Formatters\ShippingPrice;
+use Orders\Order\Csv\Formatters\Standard;
+use Orders\Order\Csv\Formatters\TotalOrderDiscount;
+use Orders\Order\Csv\Formatters\TotalOrderDiscountSingle;
+use Orders\Order\Csv\Formatters\SalesChannelName;
 use CG\Order\Shared\Collection as OrderCollection;
-use CG\Order\Shared\Item\Entity as Item;
+use CG\Stdlib;
+use Zend\Di\Di;
 
 class Mapper
 {
-    protected static $commonHeaders = [
-        'Order ID' => 'externalId',
-        'Sales Channel Name' => 'accountId',
-        'Purchase Date' => 'purchaseDate',
-        'Payment Date' => 'paymentDate',
-        'Printed Date' => 'printedDate',
-        'Dispatch Date' => 'dispatchDate',
-        'Channel' => 'channel',
-        'Status' => 'status',
-        'Shipping Price' => 'shippingPrice',
-        'Shipping Method' => 'shippingMethod',
-        'Currency Code' => 'currencyCode',
-        'Billing Company Name' => 'billingAddressCompanyName',
-        'Billing Buyer Name' => 'billingAddressFullName',
-        'Billing Address Line 1' => 'billingAddress1',
-        'Billing Address Line 2' => 'billingAddress2',
-        'Billing Address Line 3' => 'billingAddress3',
-        'Billing City' => 'billingAddressCity',
-        'Billing County' => 'billingAddressCounty',
-        'Billing Country' => 'billingAddressCountry',
-        'Billing Country Code' => 'billingAddressCountryCode',
-        'Billing Postcode' => 'billingAddressPostcode',
-        'Billing Email' => 'billingEmailAddress',
-        'Billing Telephone' => 'billingPhoneNumber',
-        'Shipping Company Name' => 'shippingAddressCompanyName',
-        'Shipping Recipient Name' => 'shippingAddressFullName',
-        'Shipping Address Line 1' => 'shippingAddress1',
-        'Shipping Address Line 2' => 'shippingAddress2',
-        'Shipping Address Line 3' => 'shippingAddress3',
-        'Shipping City' => 'shippingAddressCity',
-        'Shipping County' => 'shippingAddressCounty',
-        'Shipping Country' => 'shippingAddressCountry',
-        'Shipping Country Code' => 'shippingAddressCountryCode',
-        'Shipping Postcode' => 'shippingAddressPostcode',
-        'Shipping Email' => 'shippingEmailAddress',
-        'Shipping Telephone' => 'shippingPhoneNumber',
-        'Buyer Message' => 'buyerMessage'
-    ];
+    protected $di;
 
-    public function getOrderOnlyHeaders()
+    public function __construct(Di $di)
     {
+        $this->setDi($di);
+    }
+
+    protected function getOrderColumns()
+    {
+        //TODO: CGIV-5377
         return [
             'Order ID' => 'externalId',
-            'Sales Channel Name' => 'accountId',
+            'Sales Channel Name' =>  SalesChannelName::class,
             'Purchase Date' => 'purchaseDate',
             'Payment Date' => 'paymentDate',
             'Printed Date' => 'printedDate',
@@ -60,15 +39,9 @@ class Mapper
             'Shipping Price' => 'shippingPrice',
             'Shipping Method' => 'shippingMethod',
             'Currency Code' => 'currencyCode',
-            'Subtotal' => function(OrderCollection $orders) {
-                $column = [];
-                foreach($orders as $order) {
-                    $column[] = $order->getSubtotal();
-                }
-                return $column;
-            },
+            'Subtotal' => 'subtotal',
             'Total VAT' => '',
-            'Total Discount' => 'totalDiscount',
+            'Total Discount' => TotalOrderDiscountSingle::class,
             'Total' => 'total',
             'Billing Company Name' => 'billingAddressCompanyName',
             'Billing Buyer Name' => 'billingAddressFullName',
@@ -98,23 +71,18 @@ class Mapper
         ];
     }
 
-    public function getOrderAndItemsHeaders()
+    protected function getOrderAndItemsColumns()
     {
         return [
             'Order ID' => 'externalId',
-            'Sales Channel Name' => 'accountId',
+            'Sales Channel Name' => SalesChannelName::class,
             'Purchase Date' => 'purchaseDate',
             'Payment Date' => 'paymentDate',
             'Printed Date' => 'printedDate',
             'Dispatch Date' => 'dispatchDate',
             'Channel' => 'channel',
             'Status' => 'status',
-            'Shipping Price' => function(Order $order, Item $item) {
-                if($order->getItems()->offsetGet($item) > 1) {
-                    return '';
-                }
-                return $order->getShippingPrice();
-            },
+            'Shipping Price' => ShippingPrice::class,
             'Shipping Method' => 'shippingMethod',
             'Currency Code' => 'currencyCode',
             'Item Name' => 'itemName',
@@ -122,109 +90,86 @@ class Mapper
             'Quantity' => 'itemQuantity',
             'SKU' => 'itemSku',
             'VAT %' => '',
-            'Line Discount' => function(Order $order, Item $item) {
-                return (float) $item->getItemQuantity() * (float) $item->getIndividualItemDiscountPrice();
-            },
+            'Line Discount' => LineDiscount::class,
             'Line Vat' => '',
-            'Total Order Discount' => function(Order $order, Item $item) {
-                $totalDiscount = $order->getTotalDiscount();
-                if($order->getItems()->count() === 0) {
-                    return $totalDiscount;
-                }
-                /** @var Item $item */
-                foreach($order->getItems() as $item) {
-                    $totalDiscount += $item->getIndividualItemDiscountPrice() * $item->getItemQuantity();
-                }
-                return $totalDiscount;
-            },
-            'Line Total' => function(Order $order, Item $item) {
-                return (float) $item->getItemQuantity() * (float) $item->getIndividualItemPrice();
-            },
-            'Billing Company Name' => 'billingAddressCompanyName',
-            'Billing Buyer Name' => 'billingAddressFullName',
-            'Billing Address Line 1' => 'billingAddress1',
-            'Billing Address Line 2' => 'billingAddress2',
-            'Billing Address Line 3' => 'billingAddress3',
-            'Billing City' => 'billingAddressCity',
-            'Billing County' => 'billingAddressCounty',
-            'Billing Country' => 'billingAddressCountry',
-            'Billing Country Code' => 'billingAddressCountryCode',
-            'Billing Postcode' => 'billingAddressPostcode',
-            'Billing Email' => 'billingEmailAddress',
-            'Billing Telephone' => 'billingPhoneNumber',
-            'Shipping Company Name' => 'shippingAddressCompanyName',
-            'Shipping Recipient Name' => 'shippingAddressFullName',
-            'Shipping Address Line 1' => 'shippingAddress1',
-            'Shipping Address Line 2' => 'shippingAddress2',
-            'Shipping Address Line 3' => 'shippingAddress3',
-            'Shipping City' => 'shippingAddressCity',
-            'Shipping County' => 'shippingAddressCounty',
-            'Shipping Country' => 'shippingAddressCountry',
-            'Shipping Country Code' => 'shippingAddressCountryCode',
-            'Shipping Postcode' => 'shippingAddressPostcode',
-            'Shipping Email' => 'shippingEmailAddress',
-            'Shipping Telephone' => 'shippingPhoneNumber',
+            'Total Order Discount' => TotalOrderDiscount::class,
+            'Line Total' => LineTotal::class,
+            'Billing Company Name' => 'calculatedBillingAddressCompanyName',
+            'Billing Buyer Name' => 'calculatedBillingAddressFullName',
+            'Billing Address Line 1' => 'calculatedBillingAddress1',
+            'Billing Address Line 2' => 'calculatedBillingAddress2',
+            'Billing Address Line 3' => 'calculatedBillingAddress3',
+            'Billing City' => 'calculatedBillingAddressCity',
+            'Billing County' => 'calculatedBillingAddressCounty',
+            'Billing Country' => 'calculatedBillingAddressCountry',
+            'Billing Country Code' => 'calculatedBillingAddressCountryCode',
+            'Billing Postcode' => 'calculatedBillingAddressPostcode',
+            'Billing Email' => 'calculatedBillingEmailAddress',
+            'Billing Telephone' => 'calculatedBillingPhoneNumber',
+            'Shipping Company Name' => 'calculatedShippingAddressCompanyName',
+            'Shipping Recipient Name' => 'calculatedShippingAddressFullName',
+            'Shipping Address Line 1' => 'calculatedShippingAddress1',
+            'Shipping Address Line 2' => 'calculatedShippingAddress2',
+            'Shipping Address Line 3' => 'calculatedShippingAddress3',
+            'Shipping City' => 'calculatedShippingAddressCity',
+            'Shipping County' => 'calculatedShippingAddressCounty',
+            'Shipping Country' => 'calculatedShippingAddressCountry',
+            'Shipping Country Code' => 'calculatedShippingAddressCountryCode',
+            'Shipping Postcode' => 'calculatedShippingAddressPostcode',
+            'Shipping Email' => 'calculatedShippingEmailAddress',
+            'Shipping Telephone' => 'calculatedShippingPhoneNumber',
             'Buyer Message' => 'buyerMessage',
-            'Gift Wrap Type' => function(Order $order, Item $item) {
-                if($item->getGiftWraps() == null || $item->getGiftWraps()->count() === 0) {
-                    return '';
-                }
-                $item->getGiftWraps()->rewind();
-                return $item->getGiftWraps()->current()->getGiftWrapType();
-            },
-            'Gift Wrap Message' => function(Order $order, Item $item) {
-                if($item->getGiftWraps() == null || $item->getGiftWraps()->count() === 0) {
-                    return '';
-                }
-                $item->getGiftWraps()->rewind();
-                return $item->getGiftWraps()->current()->getGiftWrapMessage();
-            },
-            'Gift Wrap Price' => function(Order $order, Item $item) {
-                if($item->getGiftWraps() == null || $item->getGiftWraps()->count() === 0) {
-                    return '';
-                }
-                $item->getGiftWraps()->rewind();
-                return $item->getGiftWraps()->current()->getGiftWrapPrice();
-            }
+            'Gift Wrap Type' => GiftWrapType::class,
+            'Gift Wrap Message' => GiftWrapMessage::class,
+            'Gift Wrap Price' => GiftWrapPrice::class
         ];
     }
 
-    public function getOrderAndItemsHeadersNames()
+    public function getOrderAndItemsHeaders()
     {
-        return array_keys($this->getOrderAndItemsHeaders());
+        return array_keys($this->getOrderAndItemsColumns());
     }
 
-    public function fromOrderAndItems(Order $order, $accountName)
+    public function getOrderHeaders()
     {
-        $headers = $this->getOrderAndItemsHeaders();
-        $orderArray = $order->toArray();
-        $lines = [];
-        $items = $order->getItems();
-        if($items != null && $items->count() !== 0) {
-            foreach($items as $item) {
-                $itemArray = $item->toArray();
-                $line = [];
-                foreach($headers as $headerName => $formatter) {
-                    if(is_string($formatter)) {
-                        if(isset($orderArray[$formatter])) {
-                            $line[] = $orderArray[$formatter];
-                        } elseif(isset($itemArray[$formatter])) {
-                            $line[] = $itemArray[$formatter];
-                        } else {
-                            $line[] = '';
-                        }
-                    } elseif(is_callable($formatter)) {
-                        $line[] = $formatter($order, $item);
-                    }
-                }
-                $lines[] = $line;
+        return array_keys($this->getOrderColumns());
+    }
+
+    public function fromOrderCollection(OrderCollection $orderCollection)
+    {
+        $columnFormatters = $this->getOrderAndItemsColumns();
+        $columns = [];
+        $standardFormattedColumns = [];
+        foreach($columnFormatters as $header => $formatterName) {
+            if(class_exists($formatterName)) {
+                $formatter = $this->getDi()->get($formatterName);
+                $columns[$header] = $formatter($orderCollection);
+            } else {
+                $columns[$header] = [];
+                $standardFormattedColumns[$header] = $formatterName;
             }
         }
-        return $lines;
+        $formatter = new Standard($standardFormattedColumns);
+        $columns = array_merge($columns, $formatter($orderCollection));
+        $rows = Stdlib\transposeArray($columns);
+        return $rows;
     }
 
-    public function fromOrder(Order $order, $accountName)
+    /**
+     * @return Di
+     */
+    protected function getDi()
     {
+        return $this->di;
+    }
 
+    /**
+     * @param Di $di
+     * @return $this
+     */
+    public function setDi(Di $di)
+    {
+        $this->di = $di;
+        return $this;
     }
 }
