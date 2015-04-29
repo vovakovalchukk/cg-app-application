@@ -572,7 +572,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     public function checkPickListGenerationProgressAction()
     {
-        $progressKey = $this->getPkListProgressKey();
+        $progressKey = $this->getPickListProgressKey();
         $count = $this->getPickListService()->checkPickListGenerationProgress($progressKey);
         return $this->getJsonModelFactory()->newInstance(
             ["progressCount" => $count]
