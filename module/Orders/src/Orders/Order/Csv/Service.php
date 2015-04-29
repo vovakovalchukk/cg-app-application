@@ -4,6 +4,9 @@ namespace Orders\Order\Csv;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Stdlib\Log\LogTrait;
 use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Intercom\Event\Request as IntercomEvent;
+use CG\Intercom\Event\Service as IntercomEventService;
+use CG\User\ActiveUserInterface as ActiveUserContainer;
 use League\Csv\Writer as CsvWriter;
 use Orders\Order\PickList\ProgressStorage;
 
@@ -11,25 +14,35 @@ class Service implements LoggerAwareInterface
 {
     use LogTrait;
 
-    protected $mapper;
-    protected $progressStorage;
-
-    public function __construct(Mapper $mapper, ProgressStorage $progressStorage)
-    {
-        $this->setMapper($mapper)
-            ->setProgressStorage($progressStorage);
-    }
+    const EVENT_CSV_GENERATED = 'Orders CSV Generated';
 
     const MIME_TYPE = 'text/csv';
     const FILENAME = 'orders.csv';
 
+    protected $mapper;
+    protected $progressStorage;
+    protected $activeUserContainer;
+    protected $intercomEventService;
+
+    public function __construct(
+        Mapper $mapper,
+        ProgressStorage $progressStorage,
+        ActiveUserContainer $activeUserContainer,
+        IntercomEventService $intercomEventService
+    ) {
+        $this->setMapper($mapper)
+            ->setProgressStorage($progressStorage)
+            ->setActiveUserContainer($activeUserContainer)
+            ->setIntercomEventService($intercomEventService);
+    }
+
     public function getResponseFromOrderCollection(OrderCollection $orders, $progressKey = null)
     {
         $csvWriter = CsvWriter::createFromFileObject(new \SplTempFileObject(-1));
-        $mapper = $this->getMapper();
-        $linesAll = $mapper->fromOrderCollection($orders);
-        $csvWriter->insertOne($mapper->getOrderAndItemsHeaders());
+        $linesAll = $this->getMapper()->fromOrderCollection($orders);
+        $csvWriter->insertOne($this->getMapper()->getOrderAndItemsHeaders());
         $csvWriter->insertAll($linesAll);
+        $this->notifyOfGeneration();
         return new Response(static::MIME_TYPE, static::FILENAME, (string) $csvWriter);
     }
 
@@ -38,9 +51,10 @@ class Service implements LoggerAwareInterface
         return (int) $this->getProgressStorage()->getProgress($key);
     }
 
-    public function triggerIntercomEvent()
+    protected function notifyOfGeneration()
     {
-        
+        $event = new IntercomEvent(static::EVENT_CSV_GENERATED, $this->getActiveUserContainer()->getActiveUser()->getId());
+        $this->getIntercomEventService()->save($event);
     }
 
     /**
@@ -76,6 +90,42 @@ class Service implements LoggerAwareInterface
     public function setProgressStorage(ProgressStorage $progressStorage)
     {
         $this->progressStorage = $progressStorage;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function getIntercomEventService()
+    {
+        return $this->intercomEventService;
+    }
+
+    /**
+     * @param IntercomEventService $intercomEventService
+     * @return $this
+     */
+    public function setIntercomEventService(IntercomEventService $intercomEventService)
+    {
+        $this->intercomEventService = $intercomEventService;
+        return $this;
+    }
+
+    /**
+     * @return ActiveUserContainer
+     */
+    protected function getActiveUserContainer()
+    {
+        return $this->activeUserContainer;
+    }
+
+    /**
+     * @param ActiveUserContainer $activeUserContainer
+     * @return $this
+     */
+    public function setActiveUserContainer(ActiveUserContainer $activeUserContainer)
+    {
+        $this->activeUserContainer = $activeUserContainer;
         return $this;
     }
 }
