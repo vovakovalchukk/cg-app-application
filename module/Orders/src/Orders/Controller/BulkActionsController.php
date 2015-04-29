@@ -537,7 +537,13 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     public function toCsvFilterIdAction($orderBy, $orderDir = 'ASC')
     {
-
+        try {
+            $orders = $this->getOrdersFromFilterId($orderBy, $orderDir);
+            $progressKey = $this->getToCsvProgressKey();
+            return $this->ordersToCsv($orders, $progressKey);
+        } catch (NotFound $exception) {
+            return $this->redirect()->toRoute('Orders');
+        }
     }
 
     public function ordersToCsv(OrderCollection $orders, $progressKey = null)
@@ -552,8 +558,10 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     public function checkToCsvGenerationProgressAction()
     {
+        $progressKey = $this->getToCsvProgressKey();
+        $count = $this->getPickListService()->checkPickListGenerationProgress($progressKey);
         return $this->getJsonModelFactory()->newInstance(
-            ["progressCount" => 10]
+            ["progressCount" => $count]
         );
     }
 
@@ -564,7 +572,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     public function checkPickListGenerationProgressAction()
     {
-        $progressKey = $this->getPickListProgressKey();
+        $progressKey = $this->getPkListProgressKey();
         $count = $this->getPickListService()->checkPickListGenerationProgress($progressKey);
         return $this->getJsonModelFactory()->newInstance(
             ["progressCount" => $count]
@@ -574,6 +582,11 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected function getPickListProgressKey()
     {
         return $this->params()->fromPost('pickListProgressKey', null);
+    }
+
+    protected function getToCsvProgressKey()
+    {
+        return $this->params()->fromPost('toCsvProgressKey', null);
     }
 
     protected function checkUsage()
