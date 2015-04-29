@@ -1713,13 +1713,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "5adc252ce8225b722cc3014c522c91f240b09f8a"
+                "reference": "1c11a1920f55ee38597b095c8ee362d91a3154c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-5382-vatNumber-tag-6481bf.zip",
-                "reference": "5adc252ce8225b722cc3014c522c91f240b09f8a",
-                "shasum": "8043e2f2cfbeca6fae3b8184bf9a47b2dac11328"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-5382-vatNumber-tag-477989.zip",
+                "reference": "1c11a1920f55ee38597b095c8ee362d91a3154c1",
+                "shasum": "37b86dee2e9b1c75996a4625e723fd27f5f5ec12"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1756,7 +1756,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-04-29 14:12:29"
+            "time": "2015-04-29 15:44:22"
         },
         {
             "name": "channelgrabber/transaction",
