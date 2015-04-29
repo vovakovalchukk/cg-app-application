@@ -4,21 +4,21 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fc1a0aa20e829dc2d77085396827d251",
+    "hash": "9102ac534072f99fcb6122f5e2f9ca76",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "1.14.3",
+            "version": "1.14.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "cc4aaa106febd0a338b8fb6eb2365cc567f36a1b"
+                "reference": "59df6316ae9e41ab2c3014b65fb5809e664b0a87"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.14.3-66acbe.zip",
-                "reference": "cc4aaa106febd0a338b8fb6eb2365cc567f36a1b",
-                "shasum": "af677e3ea9e3b4f87f5a083aed1ab4bae3a46c73"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.14.5-e811f5.zip",
+                "reference": "59df6316ae9e41ab2c3014b65fb5809e664b0a87",
+                "shasum": "d86798592cbd813baea313959ea3a95826203add"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -59,7 +59,7 @@
                     "CG\\Amazon\\Test\\": "tests"
                 }
             },
-            "time": "2015-04-27 10:14:37"
+            "time": "2015-04-29 07:34:55"
         },
         {
             "name": "channelgrabber/billing",
@@ -506,17 +506,17 @@
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "1.6.0",
+            "version": "1.6.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "6ce069e30dcff5b053994f5fd471f17dd7f20e89"
+                "reference": "5b04e5478f0c1f98ff0302d5429b412a9e26ffc0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.6.0-e4bae9.zip",
-                "reference": "6ce069e30dcff5b053994f5fd471f17dd7f20e89",
-                "shasum": "b2b14d93d0d600b86ba6d9c84b5886d6a113b761"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.6.4-286a42.zip",
+                "reference": "5b04e5478f0c1f98ff0302d5429b412a9e26ffc0",
+                "shasum": "b0114846eb7a5ba36feaf0b826642747e76b2795"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -558,7 +558,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2015-04-17 10:17:40"
+            "time": "2015-04-28 14:52:50"
         },
         {
             "name": "channelgrabber/email",
