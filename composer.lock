@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9e64c85bba4ede15a9d0db581c966cc7",
+    "hash": "52e12593ffd6d1c0de8802a27241b43c",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -972,17 +972,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.18.5",
+            "version": "dev-CGIV-5376-ToCsvBulkAction",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "a4c719fc9114fdb9b16f9b0279e7d85fe9317abe"
+                "reference": "7840d724dafe8cf8bb9ffa5c6bc215270fdf86d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.18.5-f7757d.zip",
-                "reference": "a4c719fc9114fdb9b16f9b0279e7d85fe9317abe",
-                "shasum": "8874d5309ccb7931264ae7ece862dc3a4e3a09ec"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-5376-ToCsvBulkAction-5ed9df.zip",
+                "reference": "7840d724dafe8cf8bb9ffa5c6bc215270fdf86d9",
+                "shasum": "cfd95bdbd7356d6cdef004bc734aa18a62f2ffb1"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1032,7 +1032,7 @@
                     "CG\\Order\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-04-27 10:22:38"
+            "time": "2015-04-28 14:52:57"
         },
         {
             "name": "channelgrabber/permission",
@@ -1624,17 +1624,17 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.10.13",
+            "version": "dev-CGIV-5376-ToCsvBulkAction",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "3dcabbeb3340e1ab8dd6e2121be377a068113b9c"
+                "reference": "12c42b4e8e3c66faea97b58beacd6cd041ea384f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.10.13-dcdfb5.zip",
-                "reference": "3dcabbeb3340e1ab8dd6e2121be377a068113b9c",
-                "shasum": "ce3ce6f17a92d4840a3357f463f495d7820d2ebb"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-CGIV-5376-ToCsvBulkAction-d6891c.zip",
+                "reference": "12c42b4e8e3c66faea97b58beacd6cd041ea384f",
+                "shasum": "94ff050e1cf800a4cf1f8669486bf8b6d8a43b2c"
             },
             "require": {
                 "zendframework/zend-db": ">=2.2,<3.0"
@@ -1655,7 +1655,7 @@
                     "src/Utilities.php"
                 ]
             },
-            "time": "2015-04-27 08:56:24"
+            "time": "2015-04-28 09:44:59"
         },
         {
             "name": "channelgrabber/stock",
@@ -2695,17 +2695,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.14.61",
+            "version": "dev-CGIV-5376-ToCsvBulkAction",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "badaf2295ca4a2a03e66dc79f5ff7923bec3a931"
+                "reference": "176ec8c1e87ff3918a9ea370fe94e4429a089cd3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.61-3151f2.zip",
-                "reference": "badaf2295ca4a2a03e66dc79f5ff7923bec3a931",
-                "shasum": "0529bb7b092edabef6c6e4d50e95b9159faa50df"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5376-ToCsvBulkAction-ca1483.zip",
+                "reference": "176ec8c1e87ff3918a9ea370fe94e4429a089cd3",
+                "shasum": "5119599f7cf9e098f87b0d3a0f4aa12c007511c8"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2750,7 +2750,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-04-28 12:37:19"
+            "time": "2015-04-24 13:01:50"
         },
         {
             "name": "cilex/cilex",
@@ -6296,10 +6296,32 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.18.3",
+            "alias_normalized": "1.18.3.0",
+            "version": "dev-CGIV-5376-ToCsvBulkAction",
+            "package": "channelgrabber/order"
+        },
+        {
+            "alias": "2.10.13",
+            "alias_normalized": "2.10.13.0",
+            "version": "dev-CGIV-5376-ToCsvBulkAction",
+            "package": "channelgrabber/stdlib"
+        },
+        {
+            "alias": "1.14.61",
+            "alias_normalized": "1.14.61.0",
+            "version": "dev-CGIV-5376-ToCsvBulkAction",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
+        "channelgrabber/stdlib": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
