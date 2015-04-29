@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9102ac534072f99fcb6122f5e2f9ca76",
+    "hash": "fc91dc80a688489cabe0fbfe62c3a87a",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1709,17 +1709,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.2.48",
+            "version": "dev-CGIV-5382-vatNumber-tag",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "516152e8416e3fefcfa37858a470ef407a6ad104"
+                "reference": "5adc252ce8225b722cc3014c522c91f240b09f8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.48-8f23c8.zip",
-                "reference": "516152e8416e3fefcfa37858a470ef407a6ad104",
-                "shasum": "a18cb1c86d82f6d5d39c3925da55ceabdb696018"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-5382-vatNumber-tag-6481bf.zip",
+                "reference": "5adc252ce8225b722cc3014c522c91f240b09f8a",
+                "shasum": "8043e2f2cfbeca6fae3b8184bf9a47b2dac11328"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1756,7 +1756,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-04-13 09:30:09"
+            "time": "2015-04-29 14:12:29"
         },
         {
             "name": "channelgrabber/transaction",
@@ -1833,17 +1833,17 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.19.2",
+            "version": "dev-EPIC-CGIV-5331-VAT",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "d049200776f7ca057b2f0b46cc4a3021e76b7855"
+                "reference": "46e277649af844d808efc3c4137270f9fe50661b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.19.2-8fed62.zip",
-                "reference": "d049200776f7ca057b2f0b46cc4a3021e76b7855",
-                "shasum": "10f3cc0aa344e32b042c773ccf6fe52d75afc64a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-EPIC-CGIV-5331-VAT-d7ae96.zip",
+                "reference": "46e277649af844d808efc3c4137270f9fe50661b",
+                "shasum": "522559437dd10579c1bcb3dd7b0c53f5c69de195"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1880,7 +1880,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2015-04-27 10:23:37"
+            "time": "2015-04-27 12:44:03"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -6240,10 +6240,25 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.2.49",
+            "alias_normalized": "1.2.49.0",
+            "version": "dev-CGIV-5382-vatNumber-tag",
+            "package": "channelgrabber/template"
+        },
+        {
+            "alias": "1.19.3",
+            "alias_normalized": "1.19.3.0",
+            "version": "dev-EPIC-CGIV-5331-VAT",
+            "package": "channelgrabber/user"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/template": 20,
+        "channelgrabber/user": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
