@@ -551,12 +551,12 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         return $this->getCsvService()->getResponseFromOrderCollection($orders, $progressKey);
     }
 
-    public function checkToCsvPrintingAllowedAction()
+    public function checkCsvGenerationAllowedAction()
     {
         return $this->checkInvoicePrintingAllowedAction();
     }
 
-    public function checkToCsvGenerationProgressAction()
+    public function checkCsvGenerationProgressAction()
     {
         $progressKey = $this->getToCsvProgressKey();
         $count = $this->getPickListService()->checkPickListGenerationProgress($progressKey);

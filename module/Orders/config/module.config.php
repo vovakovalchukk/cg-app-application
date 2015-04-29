@@ -545,7 +545,7 @@ return [
                                 'options' => [
                                     'route' => '/check',
                                     'defaults' => [
-                                        'action' => 'checkToCsvPrintingAllowed'
+                                        'action' => 'checkCsvGenerationAllowed'
                                     ]
                                 ]
                             ],
@@ -554,7 +554,7 @@ return [
                                 'options' => [
                                     'route' => '/progress',
                                     'defaults' => [
-                                        'action' => 'checkToCsvGenerationProgress'
+                                        'action' => 'checkCsvGenerationProgress'
                                     ]
                                 ]
                             ]
