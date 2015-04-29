@@ -29,7 +29,7 @@ class Mapper
         //TODO: CGIV-5377
         return [
             'Order ID' => 'externalId',
-            'Sales Channel Name' =>  SalesChannelName::class,
+            'Sales Channel Name' => $this->getDi()->get(SalesChannelName::class),
             'Purchase Date' => 'purchaseDate',
             'Payment Date' => 'paymentDate',
             'Printed Date' => 'printedDate',
@@ -41,7 +41,7 @@ class Mapper
             'Currency Code' => 'currencyCode',
             'Subtotal' => 'subtotal',
             'Total VAT' => '',
-            'Total Discount' => TotalOrderDiscountSingle::class,
+            'Total Discount' => new TotalOrderDiscountSingle(),
             'Total' => 'total',
             'Billing Company Name' => 'calculatedBillingAddressCompanyName',
             'Billing Buyer Name' => 'calculatedBillingAddressFullName',
@@ -75,14 +75,14 @@ class Mapper
     {
         return [
             'Order ID' => 'externalId',
-            'Sales Channel Name' => SalesChannelName::class,
+            'Sales Channel Name' => $this->getDi()->get(SalesChannelName::class),
             'Purchase Date' => 'purchaseDate',
             'Payment Date' => 'paymentDate',
             'Printed Date' => 'printedDate',
             'Dispatch Date' => 'dispatchDate',
             'Channel' => 'channel',
             'Status' => 'status',
-            'Shipping Price' => ShippingPrice::class,
+            'Shipping Price' => new ShippingPrice(),
             'Shipping Method' => 'shippingMethod',
             'Currency Code' => 'currencyCode',
             'Item Name' => 'itemName',
@@ -90,10 +90,10 @@ class Mapper
             'Quantity' => 'itemQuantity',
             'SKU' => 'itemSku',
             'VAT %' => '',
-            'Line Discount' => LineDiscount::class,
+            'Line Discount' => new LineDiscount(),
             'Line Vat' => '',
-            'Total Order Discount' => TotalOrderDiscount::class,
-            'Line Total' => LineTotal::class,
+            'Total Order Discount' => new TotalOrderDiscount(),
+            'Line Total' => new LineTotal(),
             'Billing Company Name' => 'calculatedBillingAddressCompanyName',
             'Billing Buyer Name' => 'calculatedBillingAddressFullName',
             'Billing Address Line 1' => 'calculatedBillingAddress1',
@@ -119,9 +119,9 @@ class Mapper
             'Shipping Email' => 'calculatedShippingEmailAddress',
             'Shipping Telephone' => 'calculatedShippingPhoneNumber',
             'Buyer Message' => 'buyerMessage',
-            'Gift Wrap Type' => GiftWrapType::class,
-            'Gift Wrap Message' => GiftWrapMessage::class,
-            'Gift Wrap Price' => GiftWrapPrice::class
+            'Gift Wrap Type' => new GiftWrapType(),
+            'Gift Wrap Message' => new GiftWrapMessage(),
+            'Gift Wrap Price' => new GiftWrapPrice()
         ];
     }
 
@@ -141,9 +141,7 @@ class Mapper
         $columnFormatters = $this->getOrderAndItemsColumns();
         $formatters = [];
         foreach($columnFormatters as $header => $formatter) {
-            if(class_exists($formatter)) {
-                $formatters[$header] = $this->getDi()->get($formatter);
-            } else {
+            if(!is_object($formatter)) {
                 $formatters[$header] = new Standard($formatter);
             }
         }
