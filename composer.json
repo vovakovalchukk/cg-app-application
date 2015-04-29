@@ -46,7 +46,7 @@
         "channelgrabber/stdlib": "~2.10.13",
         "channelgrabber/stock": "~1.4.7",
         "channelgrabber/template": "~1.2.49",
-        "channelgrabber/template": "dev-CGIV-5382-vatNumber-tag as 1.2.49",
+        "channelgrabber/template": "dev-EPIC-CGIV-5331-VAT as 1.2.49",
         "channelgrabber/usage": "~1.0.6",
         "channelgrabber/user": "~1.19.0",
         "channelgrabber/user": "dev-EPIC-CGIV-5331-VAT as 1.19.3",

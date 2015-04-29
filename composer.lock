@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fc91dc80a688489cabe0fbfe62c3a87a",
+    "hash": "55e6b18046866f4db7af2678099bdf07",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1709,7 +1709,7 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-5382-vatNumber-tag",
+            "version": "dev-EPIC-CGIV-5331-VAT",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
@@ -1717,9 +1717,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-5382-vatNumber-tag-87335e.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-EPIC-CGIV-5331-VAT-87335e.zip",
                 "reference": "78cfa0bab56239ef5d301a36b4cd9667b64d4436",
-                "shasum": "9c6c2efea71c4e634d85d943cfa7111b429e9a2b"
+                "shasum": "e99362ebc106368a8cb2619c0c0bc28a19e6eaaf"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -6244,7 +6244,7 @@
         {
             "alias": "1.2.49",
             "alias_normalized": "1.2.49.0",
-            "version": "dev-CGIV-5382-vatNumber-tag",
+            "version": "dev-EPIC-CGIV-5331-VAT",
             "package": "channelgrabber/template"
         },
         {
