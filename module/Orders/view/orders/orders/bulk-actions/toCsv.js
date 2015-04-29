@@ -10,7 +10,7 @@ require(
         var toCsvBulkAction = new ToCsvBulkAction(
             n,
             "<?= $this->translate('Preparing to export CSV') ?>",
-            "<?= $this->translate('Generating CSV...') ?>",
+            "<?= $this->translate('Generating CSV') ?>",
             "<?= $this->translate('Finished generating CSV') ?>"
         );
         $("#<?= $id ?>").bulkActions("set", "<?= $action ?>", function() {
