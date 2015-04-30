@@ -74,7 +74,6 @@ class AlertController extends AbstractActionController
         $alert->setAlert($this->params()->fromPost('alert'))
             ->setUserId($this->getActiveUserContainer()->getActiveUser()->getId())
             ->setTimestamp(date(DateTime::FORMAT, time()));
-        $alert->setStoredETag($this->params()->fromPost('eTag'));
         return $this->getMapper()->fromHal($this->getService()->save($alert));
     }
 
