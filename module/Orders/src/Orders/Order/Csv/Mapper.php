@@ -143,6 +143,8 @@ class Mapper
         foreach($columnFormatters as $header => $formatter) {
             if(!is_object($formatter)) {
                 $formatters[$header] = new Standard($formatter);
+            } else {
+                $formatters[$header] = $formatter;
             }
         }
 
