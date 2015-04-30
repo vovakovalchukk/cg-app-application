@@ -83,7 +83,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $settings->setSource($this->url()->fromRoute('Orders/ajax'));
         $settings->setTemplateUrlMap($this->mustacheTemplateMap('orderList'));
         $view->addChild($ordersTable, 'ordersTable');
-        $bulkActions = $this->getBulkActionsService()->getBulkActions();
+        $bulkActions = $this->getBulkActionsViewModel();
         $bulkAction = $this->getViewModelFactory()->newInstance()->setTemplate('orders/orders/bulk-actions/index');
         $bulkAction->setVariable('isHeaderBarVisible', $this->getOrderService()->isFilterBarVisible());
         $bulkActions->addChild(
@@ -116,6 +116,21 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         );
         $view->setTemplate('orders/orders/sidebar/statusFilters');
         return $view;
+    }
+
+    protected function getBulkActionsViewModel()
+    {
+        $bulkActionsViewModel = $this->getBulkActionsService()->getBulkActions();
+        if(!$this->getUsageService()->hasUsageBeenExceeded()) {
+            return $bulkActionsViewModel;
+        }
+
+        $actions = $bulkActionsViewModel->getActions();
+        foreach($actions as $action) {
+            $action->setEnabled(false);
+        }
+
+        return $bulkActionsViewModel;
     }
 
     public function orderAction()
