@@ -559,7 +559,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function checkCsvGenerationProgressAction()
     {
         $progressKey = $this->getToCsvProgressKey();
-        $count = $this->getPickListService()->checkPickListGenerationProgress($progressKey);
+        $count = $this->getCsvService()->checkToCsvGenerationProgress($progressKey);
         return $this->getJsonModelFactory()->newInstance(
             ["progressCount" => $count]
         );
