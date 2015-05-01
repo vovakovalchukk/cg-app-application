@@ -6,7 +6,7 @@ use Orders\Order\Csv\FormatterInterface;
 
 class ShippingPrice implements FormatterInterface
 {
-    public function __invoke(Order $order)
+    public function __invoke(Order $order, $fieldName)
     {
         $column = [];
         if($order->getItems()->count() < 2) {

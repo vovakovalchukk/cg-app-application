@@ -24,7 +24,7 @@ class SalesChannelName implements FormatterInterface, LoggerAwareInterface
         $this->cache = [];
     }
 
-    public function __invoke(Order $order)
+    public function __invoke(Order $order, $fieldName)
     {
         $accountName = $this->fetchAccountDisplayName($order->getAccountId());
         if($order->getItems()->count() === 0) {

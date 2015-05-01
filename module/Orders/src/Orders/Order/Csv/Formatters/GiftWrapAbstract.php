@@ -8,7 +8,7 @@ abstract class GiftWrapAbstract implements FormatterInterface
 {
     abstract protected function getFieldName();
 
-    public function __invoke(Order $order)
+    public function __invoke(Order $order, $fieldName)
     {
         $getter = 'get' . ucfirst($this->getFieldName());
 

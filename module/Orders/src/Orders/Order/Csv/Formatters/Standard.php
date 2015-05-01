@@ -6,16 +6,9 @@ use Orders\Order\Csv\FormatterInterface;
 
 class Standard implements FormatterInterface
 {
-    protected $fieldName;
-
-    public function __construct($fieldName)
+    public function __invoke(Order $order, $fieldName)
     {
-        $this->fieldName = $fieldName;
-    }
-
-    public function __invoke(Order $order)
-    {
-        $getter = 'get' . ucfirst($this->fieldName);
+        $getter = 'get' . ucfirst($fieldName);
         $column = [];
 
         if($order->getItems()->count() === 0) {

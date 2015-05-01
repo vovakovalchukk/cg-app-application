@@ -9,15 +9,30 @@ use Orders\Order\Csv\Formatters\Standard;
 use Orders\Order\Csv\Formatters\SalesChannelName;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Stdlib;
-use Zend\Di\Di;
 
 class Mapper
 {
-    protected $di;
+    protected $giftWrapMessage;
+    protected $giftWrapPrice;
+    protected $giftWrapType;
+    protected $shippingPrice;
+    protected $standard;
+    protected $salesChannelName;
 
-    public function __construct(Di $di)
-    {
-        $this->setDi($di);
+    public function __construct(
+        GiftWrapMessage $giftWrapMessage,
+        GiftWrapPrice $giftWrapPrice,
+        GiftWrapType $giftWrapType,
+        ShippingPrice $shippingPrice,
+        Standard $standard,
+        SalesChannelName $salesChannelName
+    ) {
+        $this->setGiftWrapMessage($giftWrapMessage)
+            ->setGiftWrapPrice($giftWrapPrice)
+            ->setGiftWrapType($giftWrapType)
+            ->setShippingPrice($shippingPrice)
+            ->setStandard($standard)
+            ->setSalesChannelName($salesChannelName);
     }
 
     protected function getOrderColumns()
@@ -25,7 +40,7 @@ class Mapper
         //TODO: CGIV-5377
         return [
             'Order ID' => 'externalId',
-            'Sales Channel Name' => $this->getDi()->get(SalesChannelName::class),
+            'Sales Channel Name' => $this->getSalesChannelName(),
             'Purchase Date' => 'purchaseDate',
             'Payment Date' => 'paymentDate',
             'Printed Date' => 'printedDate',
@@ -71,14 +86,14 @@ class Mapper
     {
         return [
             'Order ID' => 'externalId',
-            'Sales Channel Name' => $this->getDi()->get(SalesChannelName::class),
+            'Sales Channel Name' => $this->getSalesChannelName(),
             'Purchase Date' => 'purchaseDate',
             'Payment Date' => 'paymentDate',
             'Printed Date' => 'printedDate',
             'Dispatch Date' => 'dispatchDate',
             'Channel' => 'channel',
             'Status' => 'status',
-            'Shipping Price' => $this->getDi()->get(ShippingPrice::class),
+            'Shipping Price' => $this->getShippingPrice(),
             'Shipping Method' => 'shippingMethod',
             'Currency Code' => 'currencyCode',
             'Item Name' => 'itemName',
@@ -115,9 +130,9 @@ class Mapper
             'Shipping Email' => 'calculatedShippingEmailAddress',
             'Shipping Telephone' => 'calculatedShippingPhoneNumber',
             'Buyer Message' => 'buyerMessage',
-            'Gift Wrap Type' => $this->getDi()->get(GiftWrapType::class),
-            'Gift Wrap Message' => $this->getDi()->get(GiftWrapMessage::class),
-            'Gift Wrap Price' => $this->getDi()->get(GiftWrapPrice::class)
+            'Gift Wrap Type' => $this->getGiftWrapType(),
+            'Gift Wrap Message' => $this->getGiftWrapMessage(),
+            'Gift Wrap Price' => $this->getGiftWrapPrice()
         ];
     }
 
@@ -138,7 +153,7 @@ class Mapper
         $formatters = [];
         foreach($columnFormatters as $header => $formatter) {
             if(!is_object($formatter)) {
-                $formatters[$header] = $this->getDi()->newInstance(Standard::class, ['fieldName' => $formatter]);
+                $formatters[$header] = $this->getStandard();
             } else {
                 $formatters[$header] = $formatter;
             }
@@ -147,27 +162,117 @@ class Mapper
         foreach($orderCollection as $order) {
             $columns = [];
             foreach ($formatters as $header => $formatter) {
-                $columns[] = $formatter($order);
+                $columns[] = $formatter($order, $columnFormatters[$header]);
             }
             yield Stdlib\transposeArray($columns);
         }
     }
 
     /**
-     * @return Di
+     * @return GiftWrapMessage
      */
-    protected function getDi()
+    protected function getGiftWrapMessage()
     {
-        return $this->di;
+        return $this->giftWrapMessage;
     }
 
     /**
-     * @param Di $di
+     * @param GiftWrapMessage $giftWrapMessage
      * @return $this
      */
-    public function setDi(Di $di)
+    public function setGiftWrapMessage(GiftWrapMessage $giftWrapMessage)
     {
-        $this->di = $di;
+        $this->giftWrapMessage = $giftWrapMessage;
+        return $this;
+    }
+
+    /**
+     * @return GiftWrapPrice
+     */
+    protected function getGiftWrapPrice()
+    {
+        return $this->giftWrapPrice;
+    }
+
+    /**
+     * @param GiftWrapPrice $giftWrapPrice
+     * @return $this
+     */
+    public function setGiftWrapPrice(GiftWrapPrice $giftWrapPrice)
+    {
+        $this->giftWrapPrice = $giftWrapPrice;
+        return $this;
+    }
+
+    /**
+     * @return GiftWrapType
+     */
+    protected function getGiftWrapType()
+    {
+        return $this->giftWrapType;
+    }
+
+    /**
+     * @param GiftWrapType $giftWrapType
+     * @return $this
+     */
+    public function setGiftWrapType(GiftWrapType $giftWrapType)
+    {
+        $this->giftWrapType = $giftWrapType;
+        return $this;
+    }
+
+    /**
+     * @return ShippingPrice
+     */
+    protected function getShippingPrice()
+    {
+        return $this->shippingPrice;
+    }
+
+    /**
+     * @param ShippingPrice $shippingPrice
+     * @return $this
+     */
+    public function setShippingPrice(ShippingPrice $shippingPrice)
+    {
+        $this->shippingPrice = $shippingPrice;
+        return $this;
+    }
+
+    /**
+     * @return Standard
+     */
+    protected function getStandard()
+    {
+        return $this->standard;
+    }
+
+    /**
+     * @param Standard $standard
+     * @return $this
+     */
+    public function setStandard(Standard $standard)
+    {
+        $this->standard = $standard;
+        return $this;
+    }
+
+    /**
+     * @return SalesChannelName
+     */
+    protected function getSalesChannelName()
+    {
+        return $this->salesChannelName;
+    }
+
+    /**
+     * @param SalesChannelName $salesChannelName
+     * @return $this
+     */
+    public function setSalesChannelName(SalesChannelName $salesChannelName)
+    {
+        $this->salesChannelName = $salesChannelName;
         return $this;
     }
 }

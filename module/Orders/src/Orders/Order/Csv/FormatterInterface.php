@@ -5,5 +5,5 @@ use CG\Order\Shared\Entity as Order;
 
 interface FormatterInterface
 {
-    public function __invoke(Order $order);
+    public function __invoke(Order $order, $fieldName);
 }
