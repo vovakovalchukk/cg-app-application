@@ -314,15 +314,6 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         return $this->getInvoiceService()->getResponseFromOrderCollection($orders, $template, $progressKey);
     }
 
-    public function checkInvoicePrintingAllowedAction()
-    {
-        $this->checkUsage();
-
-        return $this->getJsonModelFactory()->newInstance(
-            ["allowed" => true, "guid" => uniqid('', true)]
-        );
-    }
-
     public function checkInvoiceGenerationProgressAction()
     {
         $progressKey = $this->getInvoiceProgressKey();
@@ -498,6 +489,11 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         $this->getOrderService()->archiveOrders($orders);
     }
 
+    public function checkInvoicePrintingAllowedAction()
+    {
+        return $this->getUsageViewModel();
+    }
+
     public function pickListOrderIdsAction($orderBy = null, $orderDir = 'ASC')
     {
         try {
@@ -553,7 +549,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     public function checkCsvGenerationAllowedAction()
     {
-        return $this->checkInvoicePrintingAllowedAction();
+        return $this->getUsageViewModel();
     }
 
     public function checkCsvGenerationProgressAction()
@@ -567,7 +563,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     public function checkPickListPrintingAllowedAction()
     {
-        return $this->checkInvoicePrintingAllowedAction();
+        return $this->getUsageViewModel();
     }
 
     public function checkPickListGenerationProgressAction()
@@ -587,6 +583,15 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected function getToCsvProgressKey()
     {
         return $this->params()->fromPost('toCsvProgressKey', null);
+    }
+
+    protected function getUsageViewModel()
+    {
+        $this->checkUsage();
+
+        return $this->getJsonModelFactory()->newInstance(
+            ["allowed" => true, "guid" => uniqid('', true)]
+        );
     }
 
     protected function checkUsage()
