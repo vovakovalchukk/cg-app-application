@@ -4,10 +4,17 @@ namespace Orders\Order\Csv\Formatters;
 use CG\Account\Client\Service as AccountService;
 use CG\Order\Shared\Entity as Order;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Log\LogTrait;
+use CG\Stdlib\Log\LoggerAwareInterface;
 use Orders\Order\Csv\FormatterInterface;
 
-class SalesChannelName implements FormatterInterface
+class SalesChannelName implements FormatterInterface, LoggerAwareInterface
 {
+    use LogTrait;
+
+    const LOG_CODE = 'CSV Generation Error';
+    const LOG_ACCOUNT_NOT_FOUND = 'Could not find account %s during CSV generation, please investigate';
+
     protected $accountService;
     protected $cache;
 
@@ -43,6 +50,7 @@ class SalesChannelName implements FormatterInterface
             $this->cache[$accountId] = $account->getDisplayName();
             return $account->getDisplayName();
         } catch (NotFound $e) {
+            $this->logWarning(static::LOG_ACCOUNT_NOT_FOUND, [$accountId], static::LOG_CODE);
             return '';
         }
     }
