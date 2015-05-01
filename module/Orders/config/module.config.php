@@ -563,21 +563,7 @@ return [
                                 'options' => [
                                     'route' => '/orderdata',
                                     'defaults' => [
-                                        'action' => 'toCsvOrderDataOnly'
-                                    ]
-                                ],
-                                'child_routes' => [
-                                    'filterId' => [
-                                        'type' => 'Zend\Mvc\Router\Http\Segment',
-                                        'options' => [
-                                            'route' => '/:filterId',
-                                            'constraints' => [
-                                                'filterId' => '[^/]+'
-                                            ],
-                                            'defaults' => [
-                                                'action' => 'toCsvOrderDataFilterId',
-                                            ]
-                                        ]
+                                        'action' => 'toCsvOrderIdsOrderDataOnly'
                                     ]
                                 ]
                             ]

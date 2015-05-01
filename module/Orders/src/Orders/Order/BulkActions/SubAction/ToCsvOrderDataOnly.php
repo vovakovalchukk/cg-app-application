@@ -8,7 +8,7 @@ class ToCsvOrderDataOnly extends SubAction
 {
     public function __construct(ViewModel $urlView, array $elementData = [], ViewModel $javascript = null)
     {
-        parent::__construct('ToCsv', 'Order Data Only', $elementData, $javascript);
+        parent::__construct('Order Data Only', 'toCsvOrderData', $elementData, $javascript);
         $this->setUrlView($urlView)
             ->configure();
     }
@@ -26,7 +26,7 @@ class ToCsvOrderDataOnly extends SubAction
     {
         $this->urlView->setVariables(
             [
-                'route' => 'Orders/to_csv',
+                'route' => 'Orders/to_csv/to_csv_orderdata',
                 'parameters' => []
             ]
         );
