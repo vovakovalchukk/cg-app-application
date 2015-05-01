@@ -4,8 +4,6 @@ namespace Orders\Order\Csv;
 use Orders\Order\Csv\Formatters\GiftWrapMessage;
 use Orders\Order\Csv\Formatters\GiftWrapPrice;
 use Orders\Order\Csv\Formatters\GiftWrapType;
-use Orders\Order\Csv\Formatters\LineDiscount;
-use Orders\Order\Csv\Formatters\LineTotal;
 use Orders\Order\Csv\Formatters\ShippingPrice;
 use Orders\Order\Csv\Formatters\Standard;
 use Orders\Order\Csv\Formatters\TotalOrderDiscount;
@@ -41,7 +39,7 @@ class Mapper
             'Currency Code' => 'currencyCode',
             'Subtotal' => 'subtotal',
             'Total VAT' => '',
-            'Total Discount' => new TotalOrderDiscountSingle(),
+            'Total Discount' => $this->getDi()->get(TotalOrderDiscountSingle::class),
             'Total' => 'total',
             'Billing Company Name' => 'calculatedBillingAddressCompanyName',
             'Billing Buyer Name' => 'calculatedBillingAddressFullName',
@@ -82,7 +80,7 @@ class Mapper
             'Dispatch Date' => 'dispatchDate',
             'Channel' => 'channel',
             'Status' => 'status',
-            'Shipping Price' => new ShippingPrice(),
+            'Shipping Price' => $this->getDi()->get(ShippingPrice::class),
             'Shipping Method' => 'shippingMethod',
             'Currency Code' => 'currencyCode',
             'Item Name' => 'itemName',
@@ -90,10 +88,10 @@ class Mapper
             'Quantity' => 'itemQuantity',
             'SKU' => 'itemSku',
             'VAT %' => '',
-            'Line Discount' => new LineDiscount(),
+            'Line Discount' => 'lineDiscount',
             'Line Vat' => '',
-            'Total Order Discount' => new TotalOrderDiscount(),
-            'Line Total' => new LineTotal(),
+            'Total Order Discount' => $this->getDi()->get(TotalOrderDiscount::class),
+            'Line Total' => 'lineTotal',
             'Billing Company Name' => 'calculatedBillingAddressCompanyName',
             'Billing Buyer Name' => 'calculatedBillingAddressFullName',
             'Billing Address Line 1' => 'calculatedBillingAddress1',
@@ -119,9 +117,9 @@ class Mapper
             'Shipping Email' => 'calculatedShippingEmailAddress',
             'Shipping Telephone' => 'calculatedShippingPhoneNumber',
             'Buyer Message' => 'buyerMessage',
-            'Gift Wrap Type' => new GiftWrapType(),
-            'Gift Wrap Message' => new GiftWrapMessage(),
-            'Gift Wrap Price' => new GiftWrapPrice()
+            'Gift Wrap Type' => $this->getDi()->get(GiftWrapType::class),
+            'Gift Wrap Message' => $this->getDi()->get(GiftWrapMessage::class),
+            'Gift Wrap Price' => $this->getDi()->get(GiftWrapPrice::class)
         ];
     }
 
@@ -142,7 +140,7 @@ class Mapper
         $formatters = [];
         foreach($columnFormatters as $header => $formatter) {
             if(!is_object($formatter)) {
-                $formatters[$header] = new Standard($formatter);
+                $formatters[$header] = $this->getDi()->newInstance(Standard::class, ['fieldName' => $formatter]);
             } else {
                 $formatters[$header] = $formatter;
             }
