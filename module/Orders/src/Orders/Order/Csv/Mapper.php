@@ -6,8 +6,6 @@ use Orders\Order\Csv\Formatters\GiftWrapPrice;
 use Orders\Order\Csv\Formatters\GiftWrapType;
 use Orders\Order\Csv\Formatters\ShippingPrice;
 use Orders\Order\Csv\Formatters\Standard;
-use Orders\Order\Csv\Formatters\TotalOrderDiscount;
-use Orders\Order\Csv\Formatters\TotalOrderDiscountSingle;
 use Orders\Order\Csv\Formatters\SalesChannelName;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Stdlib;
@@ -39,7 +37,7 @@ class Mapper
             'Currency Code' => 'currencyCode',
             'Subtotal' => 'subtotal',
             'Total VAT' => '',
-            'Total Discount' => $this->getDi()->get(TotalOrderDiscountSingle::class),
+            'Total Discount' => 'totalOrderAndItemsDiscount',
             'Total' => 'total',
             'Billing Company Name' => 'calculatedBillingAddressCompanyName',
             'Billing Buyer Name' => 'calculatedBillingAddressFullName',
@@ -90,7 +88,7 @@ class Mapper
             'VAT %' => '',
             'Line Discount' => 'lineDiscount',
             'Line Vat' => '',
-            'Total Order Discount' => $this->getDi()->get(TotalOrderDiscount::class),
+            'Total Order Discount' => 'totalOrderAndItemsDiscount',
             'Line Total' => 'lineTotal',
             'Billing Company Name' => 'calculatedBillingAddressCompanyName',
             'Billing Buyer Name' => 'calculatedBillingAddressFullName',

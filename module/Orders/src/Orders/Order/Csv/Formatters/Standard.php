@@ -15,10 +15,10 @@ class Standard implements FormatterInterface
 
     public function __invoke(Order $order)
     {
+        $getter = 'get' . ucfirst($this->fieldName);
         $column = [];
 
         if($order->getItems()->count() === 0) {
-            $getter = 'get' . ucfirst($this->fieldName);
             try {
                 $column[] = $order->$getter();
             } catch (\BadMethodCallException $e) {
@@ -27,7 +27,6 @@ class Standard implements FormatterInterface
         }
 
         foreach($order->getItems() as $item) {
-            $getter = 'get' . ucfirst($this->fieldName);
             try {
                 $column[] = $order->$getter();
             } catch (\BadMethodCallException $e) {
