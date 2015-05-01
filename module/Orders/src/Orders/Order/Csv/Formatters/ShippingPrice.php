@@ -9,7 +9,7 @@ class ShippingPrice implements FormatterInterface
     public function __invoke(Order $order)
     {
         $column = [];
-        if($order->getItems()->count() === 0 || $order->getItems()->count() === 1) {
+        if($order->getItems()->count() < 2) {
             $column[] = $order->getShippingPrice();
         }
 
