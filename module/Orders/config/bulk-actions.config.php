@@ -29,6 +29,16 @@ return [
                         ],
                     ],
                 ],
+                Action\ToCsv::class => [
+                    'methods' => [
+                        'addSubAction' => [
+                            'subAction' => [
+                                'required' => true,
+                                'type' => BulkActions\SubAction::class
+                            ],
+                        ],
+                    ],
+                ],
             ],
         ],
         'instance' => [
@@ -37,6 +47,7 @@ return [
                 'OrderDetailBulkActions' => BulkActions::class,
                 'InvoiceBySkuBulkAction' => SubAction\InvoiceBySku::class,
                 'InvoiceByTitleBulkAction' => BulkActions\SubAction::class,
+                'ToCsvOrderDataOnlyBulkAction' => SubAction\ToCsvOrderDataOnly::class,
                 'RoyalMailBulkAction' => BulkActions\SubAction::class,
                 'RemoveBatchBulkAction' => SubAction\Batch::class,
                 'InvoiceJavascript' => ViewModel::class,
@@ -59,6 +70,7 @@ return [
                 'UrlDataViewCancelRefund' => ViewModel::class,
                 'UrlDataViewPickList' => ViewModel::class,
                 'UrlDataViewToCsv' => ViewModel::class,
+                'UrlDataViewToCsvOrderDataOnly' => ViewModel::class,
                 'Invoice' => Action\Invoice::class
             ],
             Service::class => [
@@ -281,7 +293,21 @@ return [
                         'datatable' => 'datatable'
                     ],
                     'javascript' => 'ToCsvJavascript'
+                ],
+                'injections' => [
+                    'addSubAction' => [
+                        ['subAction' => 'ToCsvOrderDataOnlyBulkAction']
+                    ]
                 ]
+            ],
+            'ToCsvOrderDataOnlyBulkAction' => [
+                'parameters' => [
+                    'urlView' => 'UrlDataViewToCsvOrderDataOnly',
+                    'elementData' => [
+                        'datatable' => 'datatable'
+                    ],
+                    'javascript' => 'ToCsvJavascript'
+                ],
             ],
             'ToCsvJavascript' => [
                 'parameters' => [
@@ -339,6 +365,11 @@ return [
                 ]
             ],
             'UrlDataViewToCsv' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/data-url',
+                ]
+            ],
+            'UrlDataViewToCsvOrderDataOnly' => [
                 'parameters' => [
                     'template' => 'orders/orders/bulk-actions/data-url',
                 ]

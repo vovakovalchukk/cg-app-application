@@ -531,6 +531,11 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         }
     }
 
+    public function toCsvOrderIdOrderDataOnly($orderBy = null, $orderDir = 'ASC')
+    {
+        var_dump("called");die();
+    }
+
     public function toCsvFilterIdAction($orderBy, $orderDir = 'ASC')
     {
         try {

@@ -557,6 +557,29 @@ return [
                                         'action' => 'checkCsvGenerationProgress'
                                     ]
                                 ]
+                            ],
+                            'to_csv_orderdata' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/orderdata',
+                                    'defaults' => [
+                                        'action' => 'toCsvOrderDataOnly'
+                                    ]
+                                ],
+                                'child_routes' => [
+                                    'filterId' => [
+                                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => [
+                                            'route' => '/:filterId',
+                                            'constraints' => [
+                                                'filterId' => '[^/]+'
+                                            ],
+                                            'defaults' => [
+                                                'action' => 'toCsvOrderDataFilterId',
+                                            ]
+                                        ]
+                                    ]
+                                ]
                             ]
                         ]
                     ],
