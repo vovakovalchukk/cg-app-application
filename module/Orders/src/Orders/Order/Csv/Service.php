@@ -4,6 +4,7 @@ namespace Orders\Order\Csv;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Stdlib\Log\LogTrait;
 use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Zend\Stdlib\Http\FileResponse as Response;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
 use CG\User\ActiveUserInterface as ActiveUserContainer;
