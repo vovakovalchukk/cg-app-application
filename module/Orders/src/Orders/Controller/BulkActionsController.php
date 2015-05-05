@@ -499,7 +499,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         try {
             $orders = $this->getOrdersFromOrderIds($orderBy, $orderDir);
             $progressKey = $this->getPickListProgressKey();
-            return $this->pickListOrders($orders, $progressKey);
+            return $this->getPickListService()->getResponseFromOrderCollection($orders, $progressKey);
         } catch (NotFound $exception) {
             return $this->redirect()->toRoute('Orders');
         }
@@ -510,45 +510,17 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         try {
             $orders = $this->getOrdersFromFilterId($orderBy, $orderDir);
             $progressKey = $this->getPickListProgressKey();
-            return $this->pickListOrders($orders, $progressKey);
+            return $this->getPickListService()->getResponseFromOrderCollection($orders, $progressKey);
         } catch (NotFound $exception) {
             return $this->redirect()->toRoute('Orders');
         }
-    }
-
-    public function pickListOrders(OrderCollection $orders, $progressKey = null)
-    {
-        return $this->getPickListService()->getResponseFromOrderCollection($orders, $progressKey);
     }
 
     public function toCsvOrderIdsAction($orderBy = null, $orderDir = 'ASC')
     {
         try {
             $orders = $this->getOrdersFromOrderIds($orderBy, $orderDir);
-            return $this->ordersToCsv($orders);
-        } catch (NotFound $exception) {
-            return $this->redirect()->toRoute('Orders');
-        }
-    }
-
-    public function toCsvOrderDataOnlyOrderIdsAction($orderBy = null, $orderDir = 'ASC')
-    {
-        //TODO
-        try {
-            $orders = $this->getOrdersFromOrderIds($orderBy, $orderDir);
-            return $this->ordersToCsv($orders);
-        } catch (NotFound $exception) {
-            return $this->redirect()->toRoute('Orders');
-        }
-    }
-
-    public function toCsvOrderDataOnlyFilterIdAction($orderBy = null, $orderDir = 'ASC')
-    {
-        //TODO
-        try {
-            $orders = $this->getOrdersFromFilterId($orderBy, $orderDir);
-            $progressKey = $this->getToCsvProgressKey();
-            return $this->ordersToCsv($orders, $progressKey);
+            return $this->getCsvService()->getResponseFromOrderCollection($orders);
         } catch (NotFound $exception) {
             return $this->redirect()->toRoute('Orders');
         }
@@ -559,15 +531,31 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         try {
             $orders = $this->getOrdersFromFilterId($orderBy, $orderDir);
             $progressKey = $this->getToCsvProgressKey();
-            return $this->ordersToCsv($orders, $progressKey);
+            return $this->getCsvService()->getResponseFromOrderCollection($orders, false, $progressKey);
         } catch (NotFound $exception) {
             return $this->redirect()->toRoute('Orders');
         }
     }
 
-    public function ordersToCsv(OrderCollection $orders, $progressKey = null)
+    public function toCsvOrderDataOnlyOrderIdsAction($orderBy = null, $orderDir = 'ASC')
     {
-        return $this->getCsvService()->getResponseFromOrderCollection($orders, $progressKey);
+        try {
+            $orders = $this->getOrdersFromOrderIds($orderBy, $orderDir);
+            return $this->getCsvService()->getResponseFromOrderCollection($orders, true);
+        } catch (NotFound $exception) {
+            return $this->redirect()->toRoute('Orders');
+        }
+    }
+
+    public function toCsvOrderDataOnlyFilterIdAction($orderBy = null, $orderDir = 'ASC')
+    {
+        try {
+            $orders = $this->getOrdersFromFilterId($orderBy, $orderDir);
+            $progressKey = $this->getToCsvProgressKey();
+            return $this->getCsvService()->getResponseFromOrderCollection($orders, true, $progressKey);
+        } catch (NotFound $exception) {
+            return $this->redirect()->toRoute('Orders');
+        }
     }
 
     public function checkCsvGenerationAllowedAction()
