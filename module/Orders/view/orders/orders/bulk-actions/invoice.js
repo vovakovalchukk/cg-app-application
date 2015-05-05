@@ -10,7 +10,7 @@ require(
         var invoiceBulkAction = new InvoiceBulkAction(
             n,
             "<?= $this->translate('Preparing to generate invoices') ?>",
-            "<?= $this->translate('Generating invoices...') ?>",
+            "<?= $this->translate('Generating invoices') ?>",
             "<?= $this->translate('Finished generating invoices') ?>"
         );
         $("#<?= $id ?>").bulkActions("set", "<?= $action ?>", function() {
