@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "69e346d40e6c65531eae85f3cd84f2f8",
+    "hash": "1e1fac381c75a4dec305420f1dd1d87c",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -972,17 +972,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.18.7",
+            "version": "1.18.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "95d6edf15e378587c2fbcc514bac056aaead5df4"
+                "reference": "e0a777134b8218453c5eabef118ee2d84e8ab1e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.18.7-c8f5de.zip",
-                "reference": "95d6edf15e378587c2fbcc514bac056aaead5df4",
-                "shasum": "06b6095cb7dbd1d01756dfca934dd7972f866ef7"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.18.8-9a71ac.zip",
+                "reference": "e0a777134b8218453c5eabef118ee2d84e8ab1e8",
+                "shasum": "625cef954b0006f1a8c475a6d99db10e75320b71"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1032,7 +1032,7 @@
                     "CG\\Order\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-04-30 14:45:09"
+            "time": "2015-04-30 15:57:01"
         },
         {
             "name": "channelgrabber/permission",
@@ -2650,17 +2650,17 @@
         },
         {
             "name": "channelgrabber/zf2-usage",
-            "version": "1.0.4",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/usage-module.git",
-                "reference": "3dcfeb1d84bef2120819697d919b0cc5cd63158a"
+                "reference": "83e2afffe329c47f9be316c6ef9169f734ebb92b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-usage-1.0.4-9d7ee5.zip",
-                "reference": "3dcfeb1d84bef2120819697d919b0cc5cd63158a",
-                "shasum": "8a6e717c27cebc1379d95e9421102cd529a87c22"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-usage-1.0.5-16c009.zip",
+                "reference": "83e2afffe329c47f9be316c6ef9169f734ebb92b",
+                "shasum": "267c2ff13794ade533ccf5ae32f5779d266cf1bf"
             },
             "require": {
                 "channelgrabber/billing": ">=1.1.3",
@@ -2691,21 +2691,21 @@
                 ]
             },
             "description": "Usage module to determine if users are exceeding their limits",
-            "time": "2014-11-17 09:37:38"
+            "time": "2015-05-05 11:20:54"
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.14.61",
+            "version": "1.14.62",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "badaf2295ca4a2a03e66dc79f5ff7923bec3a931"
+                "reference": "e7523a11ffd4c03465a2704ec6bc6430c8edca32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.61-3151f2.zip",
-                "reference": "badaf2295ca4a2a03e66dc79f5ff7923bec3a931",
-                "shasum": "0529bb7b092edabef6c6e4d50e95b9159faa50df"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.62-fcc109.zip",
+                "reference": "e7523a11ffd4c03465a2704ec6bc6430c8edca32",
+                "shasum": "659645052722ca1e8dea72fa283d0d890f79d90d"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2750,7 +2750,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-04-28 12:37:19"
+            "time": "2015-05-05 11:19:15"
         },
         {
             "name": "cilex/cilex",
@@ -2876,13 +2876,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "2e73811211b7ea6de8de578fa50746fe679f2297"
+                "reference": "1cb427ff5c0b977468643a39436f3b0a356fc8eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/composer-composer-2e73811211b7ea6de8de578fa50746fe679f2297-zip-9f0d09.zip",
-                "reference": "2e73811211b7ea6de8de578fa50746fe679f2297",
-                "shasum": "5621961eaa5cfdf56306fc701b90a1f0e7afbcd5"
+                "url": "https://composer.build.channelgrabber.com/dist/composer-composer-1cb427ff5c0b977468643a39436f3b0a356fc8eb-zip-7ec5c5.zip",
+                "reference": "1cb427ff5c0b977468643a39436f3b0a356fc8eb",
+                "shasum": "03a97369d39b1f06e4ec005c3c62091cf7566513"
             },
             "require": {
                 "justinrainbow/json-schema": "~1.4",
@@ -2936,7 +2936,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-04-21 20:02:17"
+            "time": "2015-04-26 21:18:04"
         },
         {
             "name": "fabpot/goutte",
