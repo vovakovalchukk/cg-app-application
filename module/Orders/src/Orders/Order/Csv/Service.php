@@ -1,15 +1,16 @@
 <?php
 namespace Orders\Order\Csv;
 
+use Orders\Order\Csv\Mapper\Orders as OrdersMapper;
+use Orders\Order\Csv\Mapper\OrdersItems as OrdersItemsMapper;
 use CG\Order\Shared\Collection as OrderCollection;
-use CG\Stdlib\Log\LogTrait;
-use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\User\ActiveUserInterface as ActiveUserContainer;
 use CG\Zend\Stdlib\Http\FileResponse as Response;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
-use CG\User\ActiveUserInterface as ActiveUserContainer;
+use CG\Stdlib\Log\LogTrait;
+use CG\Stdlib\Log\LoggerAwareInterface;
 use League\Csv\Writer as CsvWriter;
-use Orders\Order\PickList\ProgressStorage;
 
 class Service implements LoggerAwareInterface
 {
@@ -20,18 +21,21 @@ class Service implements LoggerAwareInterface
     const MIME_TYPE = 'text/csv';
     const FILENAME = 'orders.csv';
 
-    protected $mapper;
+    protected $ordersMapper;
+    protected $ordersItemsMapper;
     protected $progressStorage;
     protected $activeUserContainer;
     protected $intercomEventService;
 
     public function __construct(
-        Mapper $mapper,
+        OrdersMapper $ordersMapper,
+        OrdersItemsMapper $ordersItemsMapper,
         ProgressStorage $progressStorage,
         ActiveUserContainer $activeUserContainer,
         IntercomEventService $intercomEventService
     ) {
-        $this->setMapper($mapper)
+        $this->setOrdersMapper($ordersMapper)
+            ->setOrdersItemsMapper($ordersItemsMapper)
             ->setProgressStorage($progressStorage)
             ->setActiveUserContainer($activeUserContainer)
             ->setIntercomEventService($intercomEventService);
@@ -39,15 +43,20 @@ class Service implements LoggerAwareInterface
 
     public function getResponseFromOrderCollection(OrderCollection $orders, $progressKey = null)
     {
-        $orders->rewind();
+        $csv = $this->generateCsv($orders, $this->getOrdersMapper());
+        $this->notifyOfGeneration();
+        return new Response(static::MIME_TYPE, static::FILENAME, $csv);
+    }
+
+    protected function generateCsv(OrderCollection $orders, MapperInterface $mapper)
+    {
         $csvWriter = CsvWriter::createFromFileObject(new \SplTempFileObject(-1));
-        $csvWriter->insertOne($this->getMapper()->getOrderAndItemsHeaders());
-        $rowsGenerator = $this->getMapper()->fromOrderCollection($orders);
+        $csvWriter->insertOne($mapper->getHeaders());
+        $rowsGenerator = $mapper->fromOrderCollection($orders);
         foreach($rowsGenerator as $rows) {
             $csvWriter->insertAll($rows);
         }
-        $this->notifyOfGeneration();
-        return new Response(static::MIME_TYPE, static::FILENAME, (string) $csvWriter);
+        return (string) $csvWriter;
     }
 
     public function checkToCsvGenerationProgress($key)
@@ -62,20 +71,38 @@ class Service implements LoggerAwareInterface
     }
 
     /**
-     * @return Mapper
+     * @return OrdersItemsMapper
      */
-    protected function getMapper()
+    protected function getOrdersItemsMapper()
     {
-        return $this->mapper;
+        return $this->ordersItemsMapper;
     }
 
     /**
-     * @param Mapper $mapper
+     * @param OrdersItemsMapper $ordersItemsMapper
      * @return $this
      */
-    public function setMapper(Mapper $mapper)
+    public function setOrdersItemsMapper(OrdersItemsMapper $ordersItemsMapper)
     {
-        $this->mapper = $mapper;
+        $this->ordersItemsMapper = $ordersItemsMapper;
+        return $this;
+    }
+
+    /**
+     * @return OrdersMapper
+     */
+    protected function getOrdersMapper()
+    {
+        return $this->ordersMapper;
+    }
+
+    /**
+     * @param OrdersMapper $ordersMapper
+     * @return $this
+     */
+    public function setOrdersMapper(OrdersMapper $ordersMapper)
+    {
+        $this->ordersMapper = $ordersMapper;
         return $this;
     }
 
