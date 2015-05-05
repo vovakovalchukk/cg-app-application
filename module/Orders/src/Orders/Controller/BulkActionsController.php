@@ -6,6 +6,7 @@ use CG\Order\Shared\Collection as OrderCollection;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use CG\Zend\Stdlib\Http\FileResponse;
 use CG\Template\Entity as Template;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_Usage\Service as UsageService;
@@ -520,7 +521,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     {
         try {
             $orders = $this->getOrdersFromOrderIds($orderBy, $orderDir);
-            return $this->getCsvService()->getResponseFromOrderCollection($orders);
+            $csv = $this->getCsvService()->generateCsvForOrdersAndItems($orders);
+            return new FileResponse(CsvService::MIME_TYPE, CsvService::FILENAME, (string) $csv);
         } catch (NotFound $exception) {
             return $this->redirect()->toRoute('Orders');
         }
@@ -531,7 +533,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         try {
             $orders = $this->getOrdersFromFilterId($orderBy, $orderDir);
             $progressKey = $this->getToCsvProgressKey();
-            return $this->getCsvService()->getResponseFromOrderCollection($orders, false, $progressKey);
+            $csv = $this->getCsvService()->generateCsvForOrdersAndItems($orders, $progressKey);
+            return new FileResponse(CsvService::MIME_TYPE, CsvService::FILENAME, (string) $csv);
         } catch (NotFound $exception) {
             return $this->redirect()->toRoute('Orders');
         }
@@ -541,7 +544,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     {
         try {
             $orders = $this->getOrdersFromOrderIds($orderBy, $orderDir);
-            return $this->getCsvService()->getResponseFromOrderCollection($orders, true);
+            $csv = $this->getCsvService()->generateCsvForOrders($orders);
+            return new FileResponse(CsvService::MIME_TYPE, CsvService::FILENAME, (string) $csv);
         } catch (NotFound $exception) {
             return $this->redirect()->toRoute('Orders');
         }
@@ -552,7 +556,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         try {
             $orders = $this->getOrdersFromFilterId($orderBy, $orderDir);
             $progressKey = $this->getToCsvProgressKey();
-            return $this->getCsvService()->getResponseFromOrderCollection($orders, true, $progressKey);
+            $csv = $this->getCsvService()->generateCsvForOrders($orders, $progressKey);
+            return new FileResponse(CsvService::MIME_TYPE, CsvService::FILENAME, (string) $csv);
         } catch (NotFound $exception) {
             return $this->redirect()->toRoute('Orders');
         }

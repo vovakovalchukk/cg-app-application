@@ -5,7 +5,6 @@ use Orders\Order\Csv\Mapper\Orders as OrdersMapper;
 use Orders\Order\Csv\Mapper\OrdersItems as OrdersItemsMapper;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\User\ActiveUserInterface as ActiveUserContainer;
-use CG\Zend\Stdlib\Http\FileResponse as Response;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Stdlib\Log\LogTrait;
@@ -41,11 +40,18 @@ class Service implements LoggerAwareInterface
             ->setIntercomEventService($intercomEventService);
     }
 
-    public function getResponseFromOrderCollection(OrderCollection $orders, $orderDataOnly = false, $progressKey = null)
+    public function generateCsvForOrders(OrderCollection $orders, $progressKey = null)
     {
-        $csv = $this->generateCsv($orders, $orderDataOnly ? $this->getOrdersMapper() : $this->getOrdersItemsMapper());
+        $csv = $this->generateCsv($orders, $this->getOrdersMapper());
         $this->notifyOfGeneration();
-        return new Response(static::MIME_TYPE, static::FILENAME, $csv);
+        return $csv;
+    }
+
+    public function generateCsvForOrdersAndItems(OrderCollection $orders, $progressKey = null)
+    {
+        $csv = $this->generateCsv($orders, $this->getOrdersItemsMapper());
+        $this->notifyOfGeneration();
+        return $csv;
     }
 
     protected function generateCsv(OrderCollection $orders, MapperInterface $mapper)
@@ -56,7 +62,7 @@ class Service implements LoggerAwareInterface
         foreach($rowsGenerator as $rows) {
             $csvWriter->insertAll($rows);
         }
-        return (string) $csvWriter;
+        return $csvWriter;
     }
 
     public function checkToCsvGenerationProgress($key)
