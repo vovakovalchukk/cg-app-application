@@ -1,6 +1,7 @@
 <?php
-namespace Orders\Order\Csv;
+namespace Orders\Order\Csv\Mapper;
 
+use Orders\Order\Csv\MapperInterface;
 use Orders\Order\Csv\Formatters\GiftWrapMessage;
 use Orders\Order\Csv\Formatters\GiftWrapPrice;
 use Orders\Order\Csv\Formatters\GiftWrapType;
@@ -10,7 +11,7 @@ use Orders\Order\Csv\Formatters\SalesChannelName;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Stdlib;
 
-class OrdersItemsMapper
+class OrdersItems implements MapperInterface
 {
     protected $giftWrapMessage;
     protected $giftWrapPrice;
@@ -89,11 +90,18 @@ class OrdersItemsMapper
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getHeaders()
     {
         return array_keys($this->getFormatters());
     }
 
+    /**
+     * @param OrderCollection $orderCollection
+     * @return \Generator
+     */
     public function fromOrderCollection(OrderCollection $orderCollection)
     {
         $columnFormatters = $this->getFormatters();
