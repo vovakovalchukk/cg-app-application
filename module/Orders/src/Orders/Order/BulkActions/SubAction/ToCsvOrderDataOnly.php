@@ -26,7 +26,7 @@ class ToCsvOrderDataOnly extends SubAction
     {
         $this->urlView->setVariables(
             [
-                'route' => 'Orders/to_csv/to_csv_orderdata',
+                'route' => 'Orders/to_csv/to_csv_order_data',
                 'parameters' => []
             ]
         );

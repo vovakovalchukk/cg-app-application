@@ -531,7 +531,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         }
     }
 
-    public function toCsvOrderIdsOrderDataOnlyAction($orderBy = null, $orderDir = 'ASC')
+    public function toCsvOrderDataOnlyOrderIdsAction($orderBy = null, $orderDir = 'ASC')
     {
         //TODO
         try {
@@ -542,7 +542,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         }
     }
 
-    public function toCsvOrderDataFilterIdAction($orderBy = null, $orderDir = 'ASC')
+    public function toCsvOrderDataOnlyFilterIdAction($orderBy = null, $orderDir = 'ASC')
     {
         //TODO
         try {

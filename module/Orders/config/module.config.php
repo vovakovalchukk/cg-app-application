@@ -558,12 +558,27 @@ return [
                                     ]
                                 ]
                             ],
-                            'to_csv_orderdata' => [
+                            'to_csv_order_data' => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => [
-                                    'route' => '/orderdata',
+                                    'route' => '/orderData',
                                     'defaults' => [
-                                        'action' => 'toCsvOrderIdsOrderDataOnly'
+                                        'action' => 'toCsvOrderDataOnlyOrderIds'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    'to_csv_filter_id' => [
+                                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => [
+                                            'route' => '/:filterId',
+                                            'constraints' => [
+                                                'filterId' => '[^/]+'
+                                            ],
+                                            'defaults' => [
+                                                'action' => 'toCsvOrderDataOnlyFilterId'
+                                            ]
+                                        ]
                                     ]
                                 ]
                             ]
