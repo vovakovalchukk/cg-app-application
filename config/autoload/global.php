@@ -71,6 +71,13 @@ use CG\Listing\Unimported\Mapper as UnimportedListingMapper;
 use CG\Listing\Storage\Api as ListingApi;
 use CG\Listing\Unimported\Storage\Api as UnimportedListingApi;
 
+// Tax
+use CG\Ekm\Product\TaxRate\Mapper as EkmTaxRateMapper;
+use CG\Ekm\Product\TaxRate\Storage\Cache as EkmTaxRateCache;
+use CG\Ekm\Product\TaxRate\Storage\Db as EkmTaxRateDb;
+use CG\Ekm\Product\TaxRate\Repository as EkmTaxRateRepository;
+use CG\Ekm\Product\TaxRate\Service as EkmTaxRateService;
+
 return array(
     'di' => array(
         'instance' => array(
@@ -230,7 +237,32 @@ return array(
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
                 ]
-            ]
+            ],
+            EkmTaxRateCache::class => [
+                'parameter' => [
+                    'mapper' => EkmTaxRateMapper::class
+                ]
+            ],
+            EkmTaxRateDb::class => array(
+                'parameters' => array(
+                    'readSql' => 'ReadSql',
+                    'fastReadSql' => 'FastReadSql',
+                    'writeSql' => 'WriteSql',
+                    'mapper' => EkmTaxRateMapper::class
+                )
+            ),
+            EkmTaxRateRepository::class => [
+                'parameters' => [
+                    'storage' => EkmTaxRateCache::class,
+                    'repository' => EkmTaxRateDb::class,
+                ]
+            ],
+            EkmTaxRateService::class => [
+                'parameters' => [
+                    'cryptor' => 'ekm_cryptor',
+                    'repository' => EkmTaxRateRepository::class
+                ]
+            ],
         ),
     ),
     'view_manager' => [
