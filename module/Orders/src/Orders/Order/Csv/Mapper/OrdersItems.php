@@ -2,52 +2,52 @@
 namespace Orders\Order\Csv\Mapper;
 
 use Orders\Order\Csv\MapperInterface;
-use Orders\Order\Csv\Formatters\GiftWrapMessage;
-use Orders\Order\Csv\Formatters\GiftWrapPrice;
-use Orders\Order\Csv\Formatters\GiftWrapType;
-use Orders\Order\Csv\Formatters\ShippingPrice;
-use Orders\Order\Csv\Formatters\Standard;
-use Orders\Order\Csv\Formatters\SalesChannelName;
+use Orders\Order\Csv\Formatters\GiftWrapMessage as GiftWrapMessageFormatter;
+use Orders\Order\Csv\Formatters\GiftWrapPrice as GiftWrapPriceFormatter;
+use Orders\Order\Csv\Formatters\GiftWrapType as GiftWrapTypeFormatter;
+use Orders\Order\Csv\Formatters\ShippingPrice as ShippingPriceFormatter;
+use Orders\Order\Csv\Formatters\SalesChannelName as SalesChannelNameFormatter;
+use Orders\Order\Csv\Formatters\Standard as StandardFormatter;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Stdlib;
 
 class OrdersItems implements MapperInterface
 {
-    protected $giftWrapMessage;
-    protected $giftWrapPrice;
-    protected $giftWrapType;
-    protected $shippingPrice;
-    protected $standard;
-    protected $salesChannelName;
+    protected $giftWrapMessageFormatter;
+    protected $giftWrapPriceFormatter;
+    protected $giftWrapTypeFormatter;
+    protected $shippingPriceFormatter;
+    protected $salesChannelNameFormatter;
+    protected $standardFormatter;
 
     public function __construct(
-        GiftWrapMessage $giftWrapMessage,
-        GiftWrapPrice $giftWrapPrice,
-        GiftWrapType $giftWrapType,
-        ShippingPrice $shippingPrice,
-        Standard $standard,
-        SalesChannelName $salesChannelName
+        GiftWrapMessageFormatter $giftWrapMessageFormatter,
+        GiftWrapPriceFormatter $giftWrapPriceFormatter,
+        GiftWrapTypeFormatter $giftWrapTypeFormatter,
+        ShippingPriceFormatter $shippingPriceFormatter,
+        SalesChannelNameFormatter $salesChannelNameFormatter,
+        StandardFormatter $standardFormatter
     ) {
-        $this->setGiftWrapMessage($giftWrapMessage)
-            ->setGiftWrapPrice($giftWrapPrice)
-            ->setGiftWrapType($giftWrapType)
-            ->setShippingPrice($shippingPrice)
-            ->setStandard($standard)
-            ->setSalesChannelName($salesChannelName);
+        $this->setGiftWrapMessageFormatter($giftWrapMessageFormatter)
+            ->setGiftWrapPriceFormatter($giftWrapPriceFormatter)
+            ->setGiftWrapTypeFormatter($giftWrapTypeFormatter)
+            ->setShippingPriceFormatter($shippingPriceFormatter)
+            ->setSalesChannelNameFormatter($salesChannelNameFormatter)
+            ->setStandardFormatter($standardFormatter);
     }
 
     protected function getFormatters()
     {
         return [
             'Order ID' => 'externalId',
-            'Sales Channel Name' => $this->getSalesChannelName(),
+            'Sales Channel Name' => $this->getSalesChannelNameFormatter(),
             'Purchase Date' => 'purchaseDate',
             'Payment Date' => 'paymentDate',
             'Printed Date' => 'printedDate',
             'Dispatch Date' => 'dispatchDate',
             'Channel' => 'channel',
             'Status' => 'status',
-            'Shipping Price' => $this->getShippingPrice(),
+            'Shipping Price' => $this->getShippingPriceFormatter(),
             'Shipping Method' => 'shippingMethod',
             'Currency Code' => 'currencyCode',
             'Item Name' => 'itemName',
@@ -84,9 +84,9 @@ class OrdersItems implements MapperInterface
             'Shipping Email' => 'calculatedShippingEmailAddress',
             'Shipping Telephone' => 'calculatedShippingPhoneNumber',
             'Buyer Message' => 'buyerMessage',
-            'Gift Wrap Type' => $this->getGiftWrapType(),
-            'Gift Wrap Message' => $this->getGiftWrapMessage(),
-            'Gift Wrap Price' => $this->getGiftWrapPrice()
+            'Gift Wrap Type' => $this->getGiftWrapTypeFormatter(),
+            'Gift Wrap Message' => $this->getGiftWrapMessageFormatter(),
+            'Gift Wrap Price' => $this->getGiftWrapPriceFormatter()
         ];
     }
 
@@ -106,15 +106,15 @@ class OrdersItems implements MapperInterface
     {
         $columnFormatters = $this->getFormatters();
         $formatters = [];
-        foreach($columnFormatters as $header => $formatter) {
-            if(!is_object($formatter)) {
-                $formatters[$header] = $this->getStandard();
+        foreach ($columnFormatters as $header => $formatter) {
+            if (!is_object($formatter)) {
+                $formatters[$header] = $this->getStandardFormatter();
             } else {
                 $formatters[$header] = $formatter;
             }
         }
 
-        foreach($orderCollection as $order) {
+        foreach ($orderCollection as $order) {
             $columns = [];
             foreach ($formatters as $header => $formatter) {
                 $columns[] = $formatter($order, $columnFormatters[$header]);
@@ -124,110 +124,110 @@ class OrdersItems implements MapperInterface
     }
 
     /**
-     * @return GiftWrapMessage
+     * @return GiftWrapMessageFormatter
      */
-    protected function getGiftWrapMessage()
+    protected function getGiftWrapMessageFormatter()
     {
-        return $this->giftWrapMessage;
+        return $this->giftWrapMessageFormatter;
     }
 
     /**
-     * @param GiftWrapMessage $giftWrapMessage
+     * @param GiftWrapMessageFormatter $giftWrapMessageFormatter
      * @return $this
      */
-    public function setGiftWrapMessage(GiftWrapMessage $giftWrapMessage)
+    public function setGiftWrapMessageFormatter(GiftWrapMessageFormatter $giftWrapMessageFormatter)
     {
-        $this->giftWrapMessage = $giftWrapMessage;
+        $this->giftWrapMessageFormatter = $giftWrapMessageFormatter;
         return $this;
     }
 
     /**
-     * @return GiftWrapPrice
+     * @return GiftWrapPriceFormatter
      */
-    protected function getGiftWrapPrice()
+    protected function getGiftWrapPriceFormatter()
     {
-        return $this->giftWrapPrice;
+        return $this->giftWrapPriceFormatter;
     }
 
     /**
-     * @param GiftWrapPrice $giftWrapPrice
+     * @param GiftWrapPriceFormatter $giftWrapPriceFormatter
      * @return $this
      */
-    public function setGiftWrapPrice(GiftWrapPrice $giftWrapPrice)
+    public function setGiftWrapPriceFormatter(GiftWrapPriceFormatter $giftWrapPriceFormatter)
     {
-        $this->giftWrapPrice = $giftWrapPrice;
+        $this->giftWrapPriceFormatter = $giftWrapPriceFormatter;
         return $this;
     }
 
     /**
-     * @return GiftWrapType
+     * @return GiftWrapTypeFormatter
      */
-    protected function getGiftWrapType()
+    protected function getGiftWrapTypeFormatter()
     {
-        return $this->giftWrapType;
+        return $this->giftWrapTypeFormatter;
     }
 
     /**
-     * @param GiftWrapType $giftWrapType
+     * @param GiftWrapTypeFormatter $giftWrapTypeFormatter
      * @return $this
      */
-    public function setGiftWrapType(GiftWrapType $giftWrapType)
+    public function setGiftWrapTypeFormatter(GiftWrapTypeFormatter $giftWrapTypeFormatter)
     {
-        $this->giftWrapType = $giftWrapType;
+        $this->giftWrapTypeFormatter = $giftWrapTypeFormatter;
         return $this;
     }
 
     /**
-     * @return ShippingPrice
+     * @return ShippingPriceFormatter
      */
-    protected function getShippingPrice()
+    protected function getShippingPriceFormatter()
     {
-        return $this->shippingPrice;
+        return $this->shippingPriceFormatter;
     }
 
     /**
-     * @param ShippingPrice $shippingPrice
+     * @param ShippingPriceFormatter $shippingPriceFormatter
      * @return $this
      */
-    public function setShippingPrice(ShippingPrice $shippingPrice)
+    public function setShippingPriceFormatter(ShippingPriceFormatter $shippingPriceFormatter)
     {
-        $this->shippingPrice = $shippingPrice;
+        $this->shippingPriceFormatter = $shippingPriceFormatter;
         return $this;
     }
 
     /**
-     * @return Standard
+     * @return SalesChannelNameFormatter
      */
-    protected function getStandard()
+    protected function getSalesChannelNameFormatter()
     {
-        return $this->standard;
+        return $this->salesChannelNameFormatter;
     }
 
     /**
-     * @param Standard $standard
+     * @param SalesChannelNameFormatter $salesChannelNameFormatter
      * @return $this
      */
-    public function setStandard(Standard $standard)
+    public function setSalesChannelNameFormatter(SalesChannelNameFormatter $salesChannelNameFormatter)
     {
-        $this->standard = $standard;
+        $this->salesChannelNameFormatter = $salesChannelNameFormatter;
         return $this;
     }
 
     /**
-     * @return SalesChannelName
+     * @return StandardFormatter
      */
-    protected function getSalesChannelName()
+    protected function getStandardFormatter()
     {
-        return $this->salesChannelName;
+        return $this->standardFormatter;
     }
 
     /**
-     * @param SalesChannelName $salesChannelName
+     * @param StandardFormatter $standardFormatter
      * @return $this
      */
-    public function setSalesChannelName(SalesChannelName $salesChannelName)
+    public function setStandardFormatter(StandardFormatter $standardFormatter)
     {
-        $this->salesChannelName = $salesChannelName;
+        $this->standardFormatter = $standardFormatter;
         return $this;
     }
 }

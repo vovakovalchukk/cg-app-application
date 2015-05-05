@@ -3,22 +3,27 @@ namespace Orders\Order\Csv\Mapper;
 
 use Orders\Order\Csv\MapperInterface;
 use CG\Order\Shared\Collection as OrderCollection;
-use Orders\Order\Csv\Formatters\StandardSingle as Standard;
+use Orders\Order\Csv\Formatters\StandardSingle as StandardFormatter;
+use Orders\Order\Csv\Formatters\SalesChannelNameSingle as SalesChannelNameFormatter;
 
 class Orders implements MapperInterface
 {
-    protected $standard;
+    protected $standardFormatter;
+    protected $salesChannelNameFormatter;
 
-    public function __construct(Standard $standard)
-    {
-        $this->setStandard($standard);
+    public function __construct(
+        StandardFormatter $standardFormatter,
+        SalesChannelNameFormatter $salesChannelNameFormatter
+    ) {
+        $this->setStandardFormatter($standardFormatter)
+            ->setSalesChannelNameFormatter($salesChannelNameFormatter);
     }
 
     protected function getFormatters()
     {
         return [
             'Order ID' => 'externalId',
-            'Sales Channel Name' => 'accountId',//TODO: $this->getSalesChannelName(),
+            'Sales Channel Name' => $this->getSalesChannelNameFormatter(),
             'Purchase Date' => 'purchaseDate',
             'Payment Date' => 'paymentDate',
             'Printed Date' => 'printedDate',
@@ -78,7 +83,7 @@ class Orders implements MapperInterface
         $formatters = [];
         foreach($columnFormatters as $header => $formatter) {
             if(!is_object($formatter)) {
-                $formatters[$header] = $this->getStandard();
+                $formatters[$header] = $this->getStandardFormatter();
             } else {
                 $formatters[$header] = $formatter;
             }
@@ -94,20 +99,38 @@ class Orders implements MapperInterface
     }
 
     /**
-     * @return Standard
+     * @return StandardFormatter
      */
-    protected function getStandard()
+    protected function getStandardFormatter()
     {
-        return $this->standard;
+        return $this->standardFormatter;
     }
 
     /**
-     * @param Standard $standard
+     * @param StandardFormatter $standardFormatter
      * @return $this
      */
-    public function setStandard(Standard $standard)
+    public function setStandardFormatter(StandardFormatter $standardFormatter)
     {
-        $this->standard = $standard;
+        $this->standardFormatter = $standardFormatter;
+        return $this;
+    }
+
+    /**
+     * @return SalesChannelNameFormatter
+     */
+    protected function getSalesChannelNameFormatter()
+    {
+        return $this->salesChannelNameFormatter;
+    }
+
+    /**
+     * @param SalesChannelNameFormatter $salesChannelNameFormatter
+     * @return $this
+     */
+    public function setSalesChannelNameFormatter(SalesChannelNameFormatter $salesChannelNameFormatter)
+    {
+        $this->salesChannelNameFormatter = $salesChannelNameFormatter;
         return $this;
     }
 }
