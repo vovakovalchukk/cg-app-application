@@ -976,13 +976,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "d9d6165ea0946e8053368d950a5e4963a1463cce"
+                "reference": "d780736fe463faf43c51f7fd99366f08904696c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-5376-ToCsvBulkAction-080295.zip",
-                "reference": "d9d6165ea0946e8053368d950a5e4963a1463cce",
-                "shasum": "cc5447ce40a6a8fe01aa46eaa54bbadfc893be7d"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-5376-ToCsvBulkAction-f38c50.zip",
+                "reference": "d780736fe463faf43c51f7fd99366f08904696c9",
+                "shasum": "ba542e9d6ee66432bd59cb8c0694ef9271cfdb0b"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1032,7 +1032,7 @@
                     "CG\\Order\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-04-30 15:48:53"
+            "time": "2015-05-05 13:17:48"
         },
         {
             "name": "channelgrabber/permission",
@@ -2699,13 +2699,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "9b2b7b65c36e2a5fc309ea1e943a74c65a9fc307"
+                "reference": "bc08e7a4b85e397fb5d568e6648e0d0c440ccbaf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5376-ToCsvBulkAction-e769ba.zip",
-                "reference": "9b2b7b65c36e2a5fc309ea1e943a74c65a9fc307",
-                "shasum": "4efa314aaf8000fbc8dc65844201b06297ab0a87"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5376-ToCsvBulkAction-0a0986.zip",
+                "reference": "bc08e7a4b85e397fb5d568e6648e0d0c440ccbaf",
+                "shasum": "dfaf2e28cdcb21f02da921723a86b18591a3ccc5"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2750,7 +2750,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-04-30 15:49:36"
+            "time": "2015-05-05 13:17:13"
         },
         {
             "name": "cilex/cilex",
