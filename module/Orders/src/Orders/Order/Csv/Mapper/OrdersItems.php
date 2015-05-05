@@ -2,12 +2,12 @@
 namespace Orders\Order\Csv\Mapper;
 
 use Orders\Order\Csv\MapperInterface;
-use Orders\Order\Csv\Formatters\GiftWrapMessage as GiftWrapMessageFormatter;
-use Orders\Order\Csv\Formatters\GiftWrapPrice as GiftWrapPriceFormatter;
-use Orders\Order\Csv\Formatters\GiftWrapType as GiftWrapTypeFormatter;
-use Orders\Order\Csv\Formatters\ShippingPrice as ShippingPriceFormatter;
-use Orders\Order\Csv\Formatters\SalesChannelName as SalesChannelNameFormatter;
-use Orders\Order\Csv\Formatters\Standard as StandardFormatter;
+use Orders\Order\Csv\Mapper\Formatter\GiftWrapMessage as GiftWrapMessageFormatter;
+use Orders\Order\Csv\Mapper\Formatter\GiftWrapPrice as GiftWrapPriceFormatter;
+use Orders\Order\Csv\Mapper\Formatter\GiftWrapType as GiftWrapTypeFormatter;
+use Orders\Order\Csv\Mapper\Formatter\ShippingPrice as ShippingPriceFormatter;
+use Orders\Order\Csv\Mapper\Formatter\SalesChannelName as SalesChannelNameFormatter;
+use Orders\Order\Csv\Mapper\Formatter\Standard as StandardFormatter;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Stdlib;
 

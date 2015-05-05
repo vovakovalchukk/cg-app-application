@@ -41,9 +41,9 @@ class Service implements LoggerAwareInterface
             ->setIntercomEventService($intercomEventService);
     }
 
-    public function getResponseFromOrderCollection(OrderCollection $orders, $progressKey = null)
+    public function getResponseFromOrderCollection(OrderCollection $orders, $orderDataOnly = false, $progressKey = null)
     {
-        $csv = $this->generateCsv($orders, $this->getOrdersMapper());
+        $csv = $this->generateCsv($orders, $orderDataOnly ? $this->getOrdersMapper() : $this->getOrdersItemsMapper());
         $this->notifyOfGeneration();
         return new Response(static::MIME_TYPE, static::FILENAME, $csv);
     }

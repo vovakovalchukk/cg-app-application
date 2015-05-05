@@ -1,12 +1,12 @@
 <?php
-namespace Orders\Order\Csv\Formatters;
+namespace Orders\Order\Csv\Mapper\Formatter;
 
 use CG\Account\Client\Service as AccountService;
 use CG\Order\Shared\Entity as Order;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LogTrait;
 use CG\Stdlib\Log\LoggerAwareInterface;
-use Orders\Order\Csv\FormatterInterface;
+use Orders\Order\Csv\Mapper\FormatterInterface;
 
 class SalesChannelName implements FormatterInterface, LoggerAwareInterface
 {

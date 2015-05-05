@@ -1,5 +1,5 @@
 <?php
-namespace Orders\Order\Csv;
+namespace Orders\Order\Csv\Mapper;
 
 use CG\Order\Shared\Entity as Order;
 

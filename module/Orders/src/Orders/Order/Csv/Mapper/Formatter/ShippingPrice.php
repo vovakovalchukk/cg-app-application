@@ -1,8 +1,8 @@
 <?php
-namespace Orders\Order\Csv\Formatters;
+namespace Orders\Order\Csv\Mapper\Formatter;
 
 use CG\Order\Shared\Entity as Order;
-use Orders\Order\Csv\FormatterInterface;
+use Orders\Order\Csv\Mapper\FormatterInterface;
 
 class ShippingPrice implements FormatterInterface
 {

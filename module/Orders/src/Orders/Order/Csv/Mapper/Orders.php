@@ -3,8 +3,8 @@ namespace Orders\Order\Csv\Mapper;
 
 use Orders\Order\Csv\MapperInterface;
 use CG\Order\Shared\Collection as OrderCollection;
-use Orders\Order\Csv\Formatters\StandardSingle as StandardFormatter;
-use Orders\Order\Csv\Formatters\SalesChannelNameSingle as SalesChannelNameFormatter;
+use Orders\Order\Csv\Mapper\Formatter\StandardSingle as StandardFormatter;
+use Orders\Order\Csv\Mapper\Formatter\SalesChannelNameSingle as SalesChannelNameFormatter;
 
 class Orders implements MapperInterface
 {

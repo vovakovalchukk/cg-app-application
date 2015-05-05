@@ -1,5 +1,5 @@
 <?php
-namespace Orders\Order\Csv\Formatters;
+namespace Orders\Order\Csv\Mapper\Formatter;
 
 class GiftWrapMessage extends GiftWrapAbstract
 {
