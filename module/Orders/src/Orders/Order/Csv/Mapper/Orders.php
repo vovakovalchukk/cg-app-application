@@ -18,7 +18,7 @@ class Orders implements MapperInterface
     {
         return [
             'Order ID' => 'externalId',
-            'Sales Channel Name' => 'accountId',//$this->getSalesChannelName(),
+            'Sales Channel Name' => 'accountId',//TODO: $this->getSalesChannelName(),
             'Purchase Date' => 'purchaseDate',
             'Payment Date' => 'paymentDate',
             'Printed Date' => 'printedDate',
@@ -89,7 +89,7 @@ class Orders implements MapperInterface
             foreach ($formatters as $header => $formatter) {
                 $row[] = $formatter($order, $columnFormatters[$header]);
             }
-            yield $row;
+            yield [$row];
         }
     }
 
