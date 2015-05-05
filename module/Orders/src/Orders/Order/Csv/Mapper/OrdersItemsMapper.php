@@ -10,7 +10,7 @@ use Orders\Order\Csv\Formatters\SalesChannelName;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Stdlib;
 
-class Mapper
+class OrdersItemsMapper
 {
     protected $giftWrapMessage;
     protected $giftWrapPrice;
@@ -35,54 +35,7 @@ class Mapper
             ->setSalesChannelName($salesChannelName);
     }
 
-    protected function getOrderColumns()
-    {
-        //TODO: CGIV-5377
-        return [
-            'Order ID' => 'externalId',
-            'Sales Channel Name' => $this->getSalesChannelName(),
-            'Purchase Date' => 'purchaseDate',
-            'Payment Date' => 'paymentDate',
-            'Printed Date' => 'printedDate',
-            'Dispatch Date' => 'dispatchDate',
-            'Channel' => 'channel',
-            'Status' => 'status',
-            'Shipping Price' => 'shippingPrice',
-            'Shipping Method' => 'shippingMethod',
-            'Currency Code' => 'currencyCode',
-            'Subtotal' => 'subtotal',
-            'Total VAT' => '',
-            'Total Discount' => 'totalOrderAndItemsDiscount',
-            'Total' => 'total',
-            'Billing Company Name' => 'calculatedBillingAddressCompanyName',
-            'Billing Buyer Name' => 'calculatedBillingAddressFullName',
-            'Billing Address Line 1' => 'calculatedBillingAddress1',
-            'Billing Address Line 2' => 'calculatedBillingAddress2',
-            'Billing Address Line 3' => 'calculatedBillingAddress3',
-            'Billing City' => 'calculatedBillingAddressCity',
-            'Billing County' => 'calculatedBillingAddressCounty',
-            'Billing Country' => 'calculatedBillingAddressCountry',
-            'Billing Country Code' => 'calculatedBillingAddressCountryCode',
-            'Billing Postcode' => 'calculatedBillingAddressPostcode',
-            'Billing Email' => 'calculatedBillingEmailAddress',
-            'Billing Telephone' => 'calculatedBillingPhoneNumber',
-            'Shipping Company Name' => 'calculatedShippingAddressCompanyName',
-            'Shipping Recipient Name' => 'calculatedShippingAddressFullName',
-            'Shipping Address Line 1' => 'calculatedShippingAddress1',
-            'Shipping Address Line 2' => 'calculatedShippingAddress2',
-            'Shipping Address Line 3' => 'calculatedShippingAddress3',
-            'Shipping City' => 'calculatedShippingAddressCity',
-            'Shipping County' => 'calculatedShippingAddressCounty',
-            'Shipping Country' => 'calculatedShippingAddressCountry',
-            'Shipping Country Code' => 'calculatedShippingAddressCountryCode',
-            'Shipping Postcode' => 'calculatedShippingAddressPostcode',
-            'Shipping Email' => 'calculatedShippingEmailAddress',
-            'Shipping Telephone' => 'calculatedShippingPhoneNumber',
-            'Buyer Message' => 'buyerMessage'
-        ];
-    }
-
-    protected function getOrderAndItemsColumns()
+    protected function getFormatters()
     {
         return [
             'Order ID' => 'externalId',
@@ -136,20 +89,14 @@ class Mapper
         ];
     }
 
-
-    public function getOrderAndItemsHeaders()
+    public function getHeaders()
     {
-        return array_keys($this->getOrderAndItemsColumns());
-    }
-
-    public function getOrderHeaders()
-    {
-        return array_keys($this->getOrderColumns());
+        return array_keys($this->getFormatters());
     }
 
     public function fromOrderCollection(OrderCollection $orderCollection)
     {
-        $columnFormatters = $this->getOrderAndItemsColumns();
+        $columnFormatters = $this->getFormatters();
         $formatters = [];
         foreach($columnFormatters as $header => $formatter) {
             if(!is_object($formatter)) {
