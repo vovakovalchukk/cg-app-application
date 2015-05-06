@@ -201,6 +201,7 @@ define([
             'id': 'product-tax-rate-custom-select-' + product['id'],
             'name': 'product-tax-rate-custom-select-' + product['id'],
             'class': 'product-tax-rate-custom-select',
+            'title': 'VAT',
             'options': [{'title':'option1', 'value': 'option1'}, {'title':'option2', 'value': 'option2',selected: true}]
         }, 'customSelect');
     };
