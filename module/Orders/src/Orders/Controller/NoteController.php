@@ -87,7 +87,6 @@ class NoteController extends AbstractActionController implements StatsAwareInter
         $note->setNote($this->params()->fromPost('note'))
             ->setUserId($this->getActiveUserContainer()->getActiveUser()->getId())
             ->setTimestamp(date(DateTime::FORMAT, time()));
-        $note->setStoredETag($this->params()->fromPost('eTag'));
         $this->getService()->save($note);
         return $this->view;
     }
