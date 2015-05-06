@@ -5,6 +5,7 @@ use CG\ETag\Exception\NotModified;
 use CG\Product\Client\Service as ProductService;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
+use CG\Stdlib\Exception\Runtime\Conflict;
 use CG_UI\View\Table;
 use CG\User\ActiveUserInterface;
 use Zend\Di\Di;
@@ -151,6 +152,18 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             }
             $this->getProductService()->hardRemove($product);
         }
+    }
+
+    public function saveProductTaxRateId($productId, $taxRateId)
+    {
+        try {
+            $product = $this->getProductService()->fetch($productId);
+        } catch(NotFound $e) {
+            // TODO: ?
+            return;
+        }
+        $product->setTaxRateId($taxRateId);
+        $this->getProductService()->save($product); //TODO: catch me maybe?
     }
 
     protected function isLastOfStock(Product $product)
