@@ -7,13 +7,15 @@ require.config({
     }
 });
 require([
-    "showHideFilters", "Product/DomListener/Search", "jquery"
+    "showHideFilters", "Product/DomListener/Search", 'Product/DomListener/TaxRate', "jquery"
 ],
-function(ShowHideFilters, searchDomListener, $) {
+function(ShowHideFilters, searchDomListener, taxRateDomListener, $) {
     $(document).ready(function()
     {
         var hideFilters = new ShowHideFilters();
         searchDomListener.init('.product-search-text', '.product-search-button', '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img');
+        taxRateDomListener.init('.tax-rate-custom-select-holder');
+        taxRateDomListener.listen();
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
