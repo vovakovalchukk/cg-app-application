@@ -197,12 +197,24 @@ define([
 
     Service.prototype.getTaxRateCustomSelectView = function(product, templates)
     {
+        var options = [];
+        for(var taxRate in product['taxRates']) {
+            if(!product['taxRates'].hasOwnProperty(taxRate)) {
+                continue;
+            }
+            options.push({
+                'title': product['taxRates'][taxRate],
+                'value': taxRate,
+                'selected': false
+            });
+        }
+
         return CGMustache.get().renderTemplate(templates, {
             'id': 'product-tax-rate-custom-select-' + product['id'],
             'name': 'product-tax-rate-custom-select-' + product['id'],
             'class': 'product-tax-rate-custom-select',
             'title': 'VAT',
-            'options': [{'title':'option1', 'value': 'option1'}, {'title':'option2', 'value': 'option2',selected: true}]
+            'options': options
         }, 'customSelect');
     };
 
