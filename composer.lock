@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f66f34b9e31118faaa3c4f313c71c501",
+    "hash": "c916c8d02cfa5abb64e914cc4b2faa5e",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1248,17 +1248,17 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.3.22",
+            "version": "dev-EPIC-CGIV-5331-VAT",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "e7c4f7064ea19cf78729dd94f86947adbe705fe6"
+                "reference": "ce240d05b54bf1168528507da9a6bfee8ba3a5d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.3.22-d2c4cd.zip",
-                "reference": "e7c4f7064ea19cf78729dd94f86947adbe705fe6",
-                "shasum": "b144c1e911a5ceb579623659badaec9fa4c2d2ad"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-EPIC-CGIV-5331-VAT-4c11af.zip",
+                "reference": "ce240d05b54bf1168528507da9a6bfee8ba3a5d9",
+                "shasum": "ad7ab06e0b2e8b3d2fe3cdc68a298f9da358c291"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1287,7 +1287,7 @@
                     "CG\\Product\\": "src"
                 }
             },
-            "time": "2015-03-27 10:38:18"
+            "time": "2015-04-27 16:38:16"
         },
         {
             "name": "channelgrabber/purge",
@@ -1706,6 +1706,47 @@
                 }
             },
             "time": "2015-04-30 14:49:50"
+        },
+        {
+            "name": "channelgrabber/tax",
+            "version": "dev-EPIC-CGIV-5331-VAT",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-tax.git",
+                "reference": "2fe365f73f79b0ccbce5cf60380a19ec4dd9fff6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-tax-dev-EPIC-CGIV-5331-VAT-f15627.zip",
+                "reference": "2fe365f73f79b0ccbce5cf60380a19ec4dd9fff6",
+                "shasum": "3688acc302513b81d5c1328c9463ec0bd2089089"
+            },
+            "require": {
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/di": "^2.1.1",
+                "channelgrabber/log": "^2.0.23",
+                "channelgrabber/stdlib": "^2.10.9",
+                "channelgrabber/user": "dev-EPIC-CGIV-5331-VAT as 1.19.3",
+                "composer/composer": "@dev",
+                "php-jsonpatch/php-jsonpatch": "dev-master",
+                "php-jsonpointer/php-jsonpointer": "@dev"
+            },
+            "require-dev": {
+                "channelgrabber/phpunit": ">=1.0.0",
+                "phpunit/phpunit": "4.6.*"
+            },
+            "type": "di-definition",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Tax\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Tax\\Test\\": "tests\\src"
+                }
+            },
+            "time": "2015-04-29 14:52:38"
         },
         {
             "name": "channelgrabber/template",
@@ -6242,6 +6283,18 @@
     ],
     "aliases": [
         {
+            "alias": "1.3.21",
+            "alias_normalized": "1.3.21.0",
+            "version": "dev-EPIC-CGIV-5331-VAT",
+            "package": "channelgrabber/product"
+        },
+        {
+            "alias": "1.0",
+            "alias_normalized": "1.0.0.0",
+            "version": "dev-EPIC-CGIV-5331-VAT",
+            "package": "channelgrabber/tax"
+        },
+        {
             "alias": "1.2.49",
             "alias_normalized": "1.2.49.0",
             "version": "dev-EPIC-CGIV-5331-VAT",
@@ -6257,6 +6310,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/product": 20,
+        "channelgrabber/tax": 20,
         "channelgrabber/template": 20,
         "channelgrabber/user": 20,
         "composer/composer": 20,
