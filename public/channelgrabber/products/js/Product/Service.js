@@ -4,18 +4,22 @@ define([
     'Product/Storage/Ajax',
     'DomManipulator',
     'Variation/DomListener',
-    'BulkActionAbstract'
+    'BulkActionAbstract',
+    'DeferredQueue'
 ], function (
     CGMustache,
     productFilterMapper,
     productStorage,
     domManipulator,
     variationDomListener,
-    BulkActionAbstract
+    BulkActionAbstract,
+    DeferredQueue
 ) {
     var Service = function ()
     {
         var baseUrl;
+        var deferredQueue = new DeferredQueue();
+
         this.getBaseUrl = function()
         {
             return baseUrl;
@@ -24,6 +28,11 @@ define([
         this.setBaseUrl = function(newBaseUrl)
         {
             baseUrl = newBaseUrl;
+        };
+
+        this.getDeferredQueue = function()
+        {
+            return deferredQueue;
         };
     };
 
@@ -285,6 +294,18 @@ define([
         {
             var html = CGMustache.get().renderTemplate(templates, {}, 'noProduct');
             domManipulator.setHtml(Service.DOM_SELECTOR_PRODUCT_CONTAINER, html);
+        });
+    };
+
+    Service.prototype.saveTaxRate = function(sourceCustomSelect, value)
+    {
+        var productId = $(sourceCustomSelect).closest(".product-container").find("input[type=hidden][name='id']").val();
+        if(productId === undefined || productId === '' || value === undefined && value === '') {
+            return;
+        }
+
+        this.getDeferredQueue().queue(function() {
+            return productStorage.saveTaxRate(productId, value);
         });
     };
 

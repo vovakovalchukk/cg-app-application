@@ -21,5 +21,21 @@ define([
         });
     };
 
+    Ajax.prototype.saveTaxRate = function(productId, taxRateId)
+    {
+        return $.ajax({
+            'url' : '/products/taxRate',
+            'data' : {productId: productId, taxRateId: taxRateId },
+            'method' : 'POST',
+            'dataType' : 'json',
+            'success' : function(data) {
+                console.log(data);
+            },
+            'error' : function () {
+
+            }
+        });
+    };
+
     return new Ajax();
 });
