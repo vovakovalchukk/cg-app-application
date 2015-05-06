@@ -63,6 +63,7 @@ define([
         var productUrlMap = {
             checkbox: '/channelgrabber/zf2-v4-ui/templates/elements/checkbox.mustache',
             buttons: '/channelgrabber/zf2-v4-ui/templates/elements/buttons.mustache',
+            customSelect: '/channelgrabber/zf2-v4-ui/templates/elements/custom-select.mustache',
             inlineText: '/channelgrabber/zf2-v4-ui/templates/elements/inline-text.mustache',
             variationTable: '/channelgrabber/products/template/product/variationTable.mustache',
             variationRow: '/channelgrabber/products/template/product/variationRow.mustache',
@@ -99,6 +100,7 @@ define([
         }
 
         var statusLozenge = this.getStatusView(product, templates);
+        var taxRateCustomSelect = this.getTaxRateCustomSelectView(product, templates);
         var productView = CGMustache.get().renderTemplate(templates, {
             'title': product['name'],
             'sku': product['sku'],
@@ -109,6 +111,7 @@ define([
             'productContent': productContent,
             'statusLozenge': statusLozenge,
             'expandButton': expandButton,
+            'taxRateCustomSelect': taxRateCustomSelect,
             'checkbox': checkbox
         });
         return productView;
@@ -190,6 +193,16 @@ define([
             'value': 'Expand Variations',
             'action': 'Contract Variations'
         }, 'buttons');
+    };
+
+    Service.prototype.getTaxRateCustomSelectView = function(product, templates)
+    {
+        return CGMustache.get().renderTemplate(templates, {
+            'id': 'product-tax-rate-custom-select-' + product['id'],
+            'name': 'product-tax-rate-custom-select-' + product['id'],
+            'class': 'product-tax-rate-custom-select',
+            'options': [{'title':'option1', 'value': 'option1'}, {'title':'option2', 'value': 'option2',selected: true}]
+        }, 'customSelect');
     };
 
     Service.prototype.getCheckboxView = function(product, templates)
