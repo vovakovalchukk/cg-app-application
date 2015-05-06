@@ -17,6 +17,7 @@ use Products\Product\TaxRate\Service as TaxRateService;
 class ProductsJsonController extends AbstractActionController
 {
     const ROUTE_AJAX = 'AJAX';
+    const ROUTE_AJAX_TAX_RATE = 'tax_rate';
     const ROUTE_STOCK_UPDATE = 'stockupdate';
     const ROUTE_DELETE = 'Delete';
 
@@ -137,6 +138,14 @@ class ProductsJsonController extends AbstractActionController
 
         $this->getProductService()->deleteProductsById($productIds);
         $view->setVariable('deleted', true);
+        return $view;
+    }
+
+    public function saveProductTaxRateAction()
+    {
+        $view = $this->getJsonModelFactory()->newInstance();
+        time_nanosleep(0, 400000000);
+        $view->setVariable('saved', true);
         return $view;
     }
 
