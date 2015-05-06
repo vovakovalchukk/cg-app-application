@@ -49,6 +49,16 @@ return [
                             ]
                         ],
                     ],
+                    ProductsJsonController::ROUTE_AJAX_TAX_RATE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/taxRate',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'saveProductTaxRate'
+                            ]
+                        ],
+                    ],
                     ProductsJsonController::ROUTE_STOCK_UPDATE => [
                         'type' => Literal::class,
                         'options' => [
