@@ -29,10 +29,10 @@ define([
             'method' : 'POST',
             'dataType' : 'json',
             'success' : function(data) {
-                console.log(data);
+                n.success('Product tax rate updated successfully');
             },
-            'error' : function () {
-
+            'error' : function(error, textStatus, errorThrown) {
+                n.ajaxError(error, textStatus, errorThrown);
             }
         });
     };
