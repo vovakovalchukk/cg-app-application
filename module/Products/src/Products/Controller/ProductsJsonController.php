@@ -47,6 +47,7 @@ class ProductsJsonController extends AbstractActionController
             $filterParams['deleted'] = false;
         }
         $requestFilter = $this->getFilterMapper()->fromArray($filterParams);
+        $requestFilter->setVariationLinks(true);
         $productsArray = [];
         try {
             $products = $this->getProductService()->fetchProducts($requestFilter);
@@ -81,8 +82,25 @@ class ProductsJsonController extends AbstractActionController
             'accounts' => $accounts
         ]);
 
-        foreach ($productEntity->getVariations() as $variation) {
-            $product['variations'][] = $this->toArrayProductEntityWithEmbeddedData($variation, $accounts);
+        $product['variationCount'] = $productEntity->getVariations()->count();
+        if ($product['variationCount'] > 0) {
+            try {
+                $variations = $this->getProductService()->fetchProducts(
+                    $this->getFilterMapper()->fromArray(
+                        [
+                            'id' => $productEntity->getVariations()->getIds(),
+                        ]
+                    ),
+                    [$productEntity->getId()],
+                    2
+                );
+
+                foreach ($variations as $variation) {
+                    $product['variations'][] = $this->toArrayProductEntityWithEmbeddedData($variation, $accounts);
+                }
+            } catch (NotFound $exception) {
+                // Noop
+            }
         }
 
         if (!$productEntity->getStock() || count($productEntity->getVariations())) {
