@@ -30,6 +30,7 @@ class Service
 
     public function getTaxRatesArrayForProduct(Product $product)
     {
+        //TODO: SLOW
         $organisationUnit = $this->getOrganisationUnitService()->fetch($product->getOrganisationUnitId());
 
         $decider = new MemberStateDecider();

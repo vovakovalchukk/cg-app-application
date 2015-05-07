@@ -86,7 +86,7 @@ class ProductsJsonController extends AbstractActionController
             'accounts' => $accounts
         ]);
 
-        $product['taxRates'] = $this->getTaxRateService()->getTaxRatesArrayForOrganisationUnit();
+        $product['taxRates'] = $this->getTaxRateService()->getTaxRatesArrayForProduct($productEntity);
 
         foreach ($productEntity->getVariations() as $variation) {
             $product['variations'][] = $this->toArrayProductEntityWithEmbeddedData($variation, $accounts);
@@ -143,8 +143,10 @@ class ProductsJsonController extends AbstractActionController
 
     public function saveProductTaxRateAction()
     {
+        $productId = (int) $this->params()->fromPost('productId');
+        $taxRateId = (string) $this->params()->fromPost('taxRateId');
         $view = $this->getJsonModelFactory()->newInstance();
-        time_nanosleep(0, 400000000);
+        $this->getProductService()->saveProductTaxRateId($productId, $taxRateId);
         $view->setVariable('saved', true);
         return $view;
     }
