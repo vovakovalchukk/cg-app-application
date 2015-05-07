@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b71493f524ca3840946ad4a3a37fbc58",
+    "hash": "58fb915d46757c27ff8671ada821a7ba",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1753,17 +1753,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-EPIC-CGIV-5331-VAT",
+            "version": "dev-CGIV-5381-correct-order-vat",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "78cfa0bab56239ef5d301a36b4cd9667b64d4436"
+                "reference": "1f3657aefe915113d3d67cc20db3fa3f71f039a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-EPIC-CGIV-5331-VAT-87335e.zip",
-                "reference": "78cfa0bab56239ef5d301a36b4cd9667b64d4436",
-                "shasum": "e99362ebc106368a8cb2619c0c0bc28a19e6eaaf"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-5381-correct-order-vat-c17a9f.zip",
+                "reference": "1f3657aefe915113d3d67cc20db3fa3f71f039a1",
+                "shasum": "f19c6edfbba220fe5f28321b5930e4687d50c8cd"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1771,10 +1771,10 @@
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.1.0",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": ">=1.18.1,<2.0.0",
+                "channelgrabber/order": "dev-CGIV-5381-correct-order-vat as 1.19.0",
                 "channelgrabber/settings": ">=1.1.4,<2.0.0",
                 "channelgrabber/stdlib": "^2.10.4",
-                "channelgrabber/user": ">=1.18.7",
+                "channelgrabber/user": "dev-EPIC-CGIV-5331-VAT as 1.19.4",
                 "composer/composer": "@dev",
                 "ext-gd": "*",
                 "php-jsonpatch/php-jsonpatch": "@dev",
@@ -1800,7 +1800,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-04-29 16:08:33"
+            "time": "2015-05-07 12:52:00"
         },
         {
             "name": "channelgrabber/transaction",
@@ -6318,7 +6318,7 @@
         {
             "alias": "1.2.49",
             "alias_normalized": "1.2.49.0",
-            "version": "dev-EPIC-CGIV-5331-VAT",
+            "version": "dev-CGIV-5381-correct-order-vat",
             "package": "channelgrabber/template"
         },
         {

@@ -299,6 +299,7 @@ require([
             <td class="midcell"><strong><?= $this->translate('Postage & Packing'); ?>:</strong></td>
             <td class="rightcell"><?= $this->currencyFormat($order->getShippingPrice(), $order->getCurrencyCode()); ?></td>
         </tr>
+        <?php if ($rootOu->isVatRegistered()): ?>
         <tr>
             <td class="leftcell">
                 <?php if ($order->getPaymentReference()): ?>
@@ -306,8 +307,9 @@ require([
                 <?php endif; ?>
             </td>
             <td class="midcell"><strong><?= $this->translate('VAT'); ?>:</strong></td>
-            <td class="rightcell"><?= $this->currencyFormat($order->getTax(), $order->getCurrencyCode()); ?></strong></td>
+            <td class="rightcell"><?= $this->currencyFormat($orderTax, $order->getCurrencyCode()); ?></strong></td>
         </tr>
+        <?php endif; ?>
         <tr>
             <td class="leftcell"></td>
             <td class="midcell"><strong><?= $this->translate('Total'); ?>:</strong></td>

@@ -11,6 +11,7 @@ use Orders\Order\Timeline\Service as TimelineService;
 use Orders\Filter\Service as FilterService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Order\Shared\Entity as OrderEntity;
+use CG\Order\Shared\Tax\Service as TaxService;
 use Orders\Order\BulkActions\Service as BulkActionsService;
 use Orders\Order\StoredFilters\Service as StoredFiltersService;
 use ArrayObject;
@@ -41,6 +42,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected $storedFiltersService;
     protected $usageService;
     protected $shippingConversionService;
+    protected $taxService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
@@ -53,7 +55,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         UIFiltersService $uiFiltersService,
         StoredFiltersService $storedFiltersService,
         UsageService $usageService,
-        ShippingConversionService $shippingConversionService
+        ShippingConversionService $shippingConversionService,
+        TaxService $taxService
     )
     {
         $this->setJsonModelFactory($jsonModelFactory)
@@ -66,7 +69,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             ->setUIFiltersService($uiFiltersService)
             ->setStoredFiltersService($storedFiltersService)
             ->setUsageService($usageService)
-            ->setShippingConversionService($shippingConversionService);
+            ->setShippingConversionService($shippingConversionService)
+            ->setTaxService($taxService);
     }
 
     public function indexAction()
@@ -164,6 +168,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->setVariable('carriers', $carriers);
         $view->addChild($this->getCarrierSelect(), 'carrierSelect');
         $view->setVariable('editable', $this->getOrderService()->isOrderEditable($order));
+        $view->setVariable('orderTax', $this->taxService->calculateTaxForOrder($order));
+        $view->setVariable('rootOu', $this->getOrderService()->getRootOrganisationUnitForOrder($order));
         return $view;
     }
 
@@ -560,5 +566,11 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected function getShippingConversionService()
     {
         return $this->shippingConversionService;
+    }
+
+    public function setTaxService(TaxService $taxService)
+    {
+        $this->taxService = $taxService;
+        return $this;
     }
 }

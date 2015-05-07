@@ -810,6 +810,15 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         );
     }
 
+    public function getRootOrganisationUnitForOrder(OrderEntity $order)
+    {
+        $ou = $this->getOrganisationUnitService()->fetch($order->getOrganisationUnitId());
+        if ($ou->isRoot()) {
+            return $ou;
+        }
+        return $this->getOrganisationUnitService()->fetch($ou->getRoot());
+    }
+
     protected function notifyOfCancel()
     {
         $this->notifyIntercom(static::EVENT_ORDER_CANCELLED);
