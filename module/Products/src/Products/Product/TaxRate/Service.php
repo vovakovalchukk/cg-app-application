@@ -8,6 +8,9 @@ use CG\Tax\Rates\Factory as TaxRatesFactory;
 
 class Service
 {
+    /**
+     * @var OrganisationUnitService $organisationUnitService
+     */
     protected $organisationUnitService;
     protected $cache;
 
@@ -38,7 +41,7 @@ class Service
 
     protected function fetchMemberStateForOuId($organisationUnitId)
     {
-        $organisationUnit = $this->getOrganisationUnitService()->fetch($organisationUnitId);
+        $organisationUnit = $this->organisationUnitService->fetch($organisationUnitId);
         $decider = new MemberStateDecider();
         return $decider($organisationUnit);
     }
@@ -69,14 +72,6 @@ class Service
 
         $ratesOptions[$product->getTaxRateId()]['selected'] = true;
         return $ratesOptions;
-    }
-
-    /**
-     * @return OrganisationUnitService
-     */
-    public function getOrganisationUnitService()
-    {
-        return $this->organisationUnitService;
     }
 
     /**
