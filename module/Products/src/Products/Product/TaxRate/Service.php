@@ -17,18 +17,7 @@ class Service
         $this->setOrganisationUnitService($organisationUnitService);
     }
 
-    protected function fetchMemberStateForOuId($organisationUnitId)
-    {
-        try {
-            $organisationUnit = $this->getOrganisationUnitService()->fetch($organisationUnitId);
-        } catch (NotFound $e) {
-            //TODO: log warning
-            return [];
-        }
-        return $organisationUnit->getMemberState();
-    }
-
-    public function getTaxRatesArrayForProduct(Product $product)
+    public function getTaxRatesOptionsForProduct(Product $product)
     {
         //TODO: SLOW
         $organisationUnit = $this->getOrganisationUnitService()->fetch($product->getOrganisationUnitId());
@@ -44,10 +33,10 @@ class Service
         foreach($ratesArray as $rateId => $rate) {
             $formattedRates[$rateId] = [
                 'name' => $rate->getName(),
+                'rate' => (int) ($rate->getCurrent() * 100),
                 'selected' => $product->getTaxRateId() === $rateId
             ];
         }
-
         return $formattedRates;
     }
 

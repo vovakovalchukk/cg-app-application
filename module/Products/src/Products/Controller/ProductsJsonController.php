@@ -86,7 +86,7 @@ class ProductsJsonController extends AbstractActionController
             'accounts' => $accounts
         ]);
 
-        $product['taxRates'] = $this->getTaxRateService()->getTaxRatesArrayForProduct($productEntity);
+        $product['taxRates'] = $this->getTaxRateService()->getTaxRatesOptionsForProduct($productEntity);
 
         foreach ($productEntity->getVariations() as $variation) {
             $product['variations'][] = $this->toArrayProductEntityWithEmbeddedData($variation, $accounts);
