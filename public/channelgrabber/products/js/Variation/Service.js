@@ -1,7 +1,13 @@
 define([
-    'DomManipulator'
+    'cg-mustache',
+    'DomManipulator',
+    'Product/Filter/Mapper',
+    'Product/Service'
 ], function (
-    domManipulator
+    CGMustache,
+    domManipulator,
+    productFilterMapper,
+    productService
 ) {
     var Service = function()
     {
@@ -9,11 +15,22 @@ define([
         {
             return domManipulator;
         };
+
+        this.getProductFilterMapper = function()
+        {
+            return productFilterMapper;
+        };
+
+        this.getProductService = function()
+        {
+            return productService;
+        };
     };
 
     Service.SELECTOR_CONTENT_CONTAINER = '.product-content-container';
     Service.SELECTOR_EXPAND_BUTTON = '.product-variation-expand-button';
     Service.SELECTOR_VARIATION_TABLE = '.variation-table';
+    Service.SELECTOR_ID = ':input[name=id]';
     Service.CLASS_AJAX = 'expand-button-ajax';
     Service.CLASS_EXPANDED = 'expanded';
     Service.DEFAULT_DISPLAY_VARIATIONS = 2;
@@ -29,15 +46,43 @@ define([
             var ajax = this.getDomManipulator().hasClass(containerSelector + ' ' + Service.SELECTOR_EXPAND_BUTTON, Service.CLASS_AJAX);
             if (ajax) {
                 this.loadAdditionalVariations(productContainer);
-                this.getDomManipulator().removeClass(containerSelector + ' ' + Service.SELECTOR_EXPAND_BUTTON, Service.CLASS_AJAX);
+            } else {
+                this.expandVariations(productContainer);
             }
-            this.expandVariations(productContainer);
         }
     };
 
     Service.prototype.loadAdditionalVariations = function(productContainer)
     {
+        var containerSelector = this.getSelectorForProductContainer(productContainer);
+        this.getDomManipulator().removeClass(containerSelector + ' ' + Service.SELECTOR_EXPAND_BUTTON, Service.CLASS_AJAX);
 
+        var self = this;
+        var productId = this.getDomManipulator().getValue(containerSelector + ' ' + Service.SELECTOR_ID);
+        var productFilter = this.getProductFilterMapper().fromProductId(productId);
+//        this.getProductService().fetchProducts(
+//            productFilter,
+//            function(variations) {
+//                var productUrlMap = {
+//                    checkbox: '/channelgrabber/zf2-v4-ui/templates/elements/checkbox.mustache',
+//                    buttons: '/channelgrabber/zf2-v4-ui/templates/elements/buttons.mustache',
+//                    inlineText: '/channelgrabber/zf2-v4-ui/templates/elements/inline-text.mustache',
+//                    variationTable: '/channelgrabber/products/template/product/variationTable.mustache',
+//                    variationRow: '/channelgrabber/products/template/product/variationRow.mustache',
+//                    variationStock: '/channelgrabber/products/template/product/variationStock.mustache',
+//                    stockTable: '/channelgrabber/products/template/product/stockTable.mustache',
+//                    stockRow: '/channelgrabber/products/template/product/stockRow.mustache',
+//                    product: '/channelgrabber/products/template/elements/product.mustache',
+//                    statusLozenge: '/channelgrabber/products/template/elements/statusLozenge.mustache'
+//                };
+//
+//                CGMustache.get().fetchTemplates(productUrlMap, function(templates) {
+//
+//                });
+//
+//                self.expandVariations(productContainer);
+//            }
+//        );
     };
 
     Service.prototype.expandVariations = function(productContainer)
