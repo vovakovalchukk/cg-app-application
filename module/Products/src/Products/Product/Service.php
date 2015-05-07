@@ -1,11 +1,10 @@
 <?php
 namespace Products\Product;
 
-use CG\ETag\Exception\NotModified;
+use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Product\Client\Service as ProductService;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
-use CG\Stdlib\Exception\Runtime\Conflict;
 use CG_UI\View\Table;
 use CG\User\ActiveUserInterface;
 use Zend\Di\Di;
@@ -42,6 +41,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     const LOG_NO_STOCK_TO_DELETE = 'No stock found to remove for Product %s when deleting it';
     const STAT_STOCK_UPDATE_MANUAL = 'stock.update.manual.%d.%d';
     const EVENT_MANUAL_STOCK_CHANGE = 'Manual Stock Change';
+    const LOG_PRODUCT_NOT_FOUND = 'Tried saving product %s with taxRateId %s but the product could not be found';
 
     protected $userService;
     protected $activeUserContainer;
@@ -158,12 +158,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     {
         try {
             $product = $this->getProductService()->fetch($productId);
-        } catch(NotFound $e) {
-            // TODO: ?
-            return;
+            $this->getProductService()->save($product->setTaxRateId($taxRateId));
+        } catch (NotFound $e) {
+            $this->logWarning(static::LOG_PRODUCT_NOT_FOUND, [$productId, $taxRateId], static::LOG_CODE);
+        }  catch (NotModified $e) {
+            // Do nothing
         }
-        $product->setTaxRateId($taxRateId);
-        $this->getProductService()->save($product); //TODO: catch me maybe?
     }
 
     protected function isLastOfStock(Product $product)
