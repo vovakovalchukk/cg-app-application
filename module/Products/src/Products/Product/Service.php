@@ -1,7 +1,8 @@
 <?php
 namespace Products\Product;
 
-use CG\Http\Exception\Exception3xx\NotModified;
+use CG\Http\Exception\Exception3xx\NotModified as HttpNotModified;
+use CG\ETag\Exception\NotModified;
 use CG\Product\Client\Service as ProductService;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
@@ -161,7 +162,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             $this->getProductService()->save($product->setTaxRateId($taxRateId));
         } catch (NotFound $e) {
             $this->logWarning(static::LOG_PRODUCT_NOT_FOUND, [$productId, $taxRateId], static::LOG_CODE);
-        }  catch (NotModified $e) {
+        }  catch (HttpNotModified $e) {
             // Do nothing
         }
     }
