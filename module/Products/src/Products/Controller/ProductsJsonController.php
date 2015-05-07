@@ -209,7 +209,7 @@ class ProductsJsonController extends AbstractActionController
     /**
      * @return TaxRateService
      */
-    protected function getTaxRateService()
+    public function getTaxRateService()
     {
         return $this->taxRateService;
     }
