@@ -21,19 +21,17 @@ define([
         });
     };
 
-    Ajax.prototype.saveTaxRate = function(productId, taxRateId)
+    Ajax.prototype.saveTaxRate = function(productId, taxRateId, callback)
     {
         return $.ajax({
             'url' : '/products/taxRate',
             'data' : {productId: productId, taxRateId: taxRateId },
             'method' : 'POST',
             'dataType' : 'json',
-            'success' : function(data) {
-                n.success('Product tax rate updated successfully');
+            'success' : function() {
+                callback(null);
             },
-            'error' : function(error, textStatus, errorThrown) {
-                n.ajaxError(error, textStatus, errorThrown);
-            }
+            'error' : callback
         });
     };
 

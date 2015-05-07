@@ -213,7 +213,7 @@ define([
                 continue;
             }
             options.push({
-                'title': product['taxRates'][taxRateId]['name'],
+                'title': product['taxRates'][taxRateId]['rate'] + '% (' + product['taxRates'][taxRateId]['name'] + ')',
                 'value': taxRateId,
                 'selected': product['taxRates'][taxRateId]['selected']
             });
@@ -308,7 +308,13 @@ define([
         }
 
         this.getDeferredQueue().queue(function() {
-            return productStorage.saveTaxRate(productId, value);
+            return productStorage.saveTaxRate(productId, value, function(error, textStatus, errorThrown) {
+                if(error === null) {
+                    n.success('Product tax rate updated successfully');
+                } else {
+                    n.ajaxError(error, textStatus, errorThrown);
+                }
+            });
         });
     };
 
