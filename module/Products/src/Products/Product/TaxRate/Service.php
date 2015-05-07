@@ -3,6 +3,8 @@ namespace Products\Product\TaxRate;
 
 use CG\Product\Entity as Product;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\OrganisationUnit\Entity as OrganisationUnit;
+use CG\OrganisationUnit\MemberState\Decider as MemberStateDecider;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Tax\Rates\Factory as TaxRatesFactory;
 
@@ -26,9 +28,26 @@ class Service
         return $organisationUnit->getMemberState();
     }
 
-    public function getTaxRatesArrayForOrganisationUnit()
+    public function getTaxRatesArrayForProduct(Product $product)
     {
-        return ['GB1' => 'Standard', 'GB2' => 'Reduced', 'GB3' => 'Zero'];
+        $organisationUnit = $this->getOrganisationUnitService()->fetch($product->getOrganisationUnitId());
+
+        $decider = new MemberStateDecider();
+        $memberState = $decider($organisationUnit);
+
+        $taxRateFactory = new TaxRatesFactory();
+        $rates = $taxRateFactory($memberState);
+        $ratesArray = $rates->getAll();
+
+        $formattedRates = [];
+        foreach($ratesArray as $rateId => $rate) {
+            $formattedRates[$rateId] = [
+                'name' => $rate->getName(),
+                'selected' => $product->getTaxRateId() === $rateId
+            ];
+        }
+
+        return $formattedRates;
     }
 
     /**

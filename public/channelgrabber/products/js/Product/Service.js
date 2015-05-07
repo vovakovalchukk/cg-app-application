@@ -208,14 +208,14 @@ define([
     Service.prototype.getTaxRateCustomSelectView = function(product, templates)
     {
         var options = [];
-        for(var taxRate in product['taxRates']) {
-            if(!product['taxRates'].hasOwnProperty(taxRate)) {
+        for(var taxRateId in product['taxRates']) {
+            if(!product['taxRates'].hasOwnProperty(taxRateId)) {
                 continue;
             }
             options.push({
-                'title': product['taxRates'][taxRate],
-                'value': taxRate,
-                'selected': false
+                'title': product['taxRates'][taxRateId]['name'],
+                'value': taxRateId,
+                'selected': product['taxRates'][taxRateId]['selected']
             });
         }
 
