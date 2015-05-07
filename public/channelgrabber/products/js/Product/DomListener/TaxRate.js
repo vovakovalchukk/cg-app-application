@@ -20,6 +20,11 @@ define([
         this.getEventCollator = function()
         {
             return eventCollator;
+        };
+
+        this.getService = function()
+        {
+            return service;
         }
     };
 
@@ -35,7 +40,7 @@ define([
         });
 
         $(document).on(eventCollator.getQueueTimeoutEventPrefix() + TaxRate.EVENT_COLLATOR_TYPE, function(event, data) {
-            self.save(data[0])
+            self.getService().saveTaxRate(data[0]);
         });
     };
 
@@ -45,11 +50,6 @@ define([
         $(document).trigger(this.getEventCollator().getRequestMadeEvent(), [
             TaxRate.EVENT_COLLATOR_TYPE, container, unique
         ]);
-    };
-
-    TaxRate.prototype.save = function(container)
-    {
-        service.saveTaxRate(container);
     };
 
     return new TaxRate();
