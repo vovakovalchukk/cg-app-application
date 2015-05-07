@@ -14,6 +14,7 @@ define([
     Service.SELECTOR_CONTENT_CONTAINER = '.product-content-container';
     Service.SELECTOR_EXPAND_BUTTON = '.product-variation-expand-button';
     Service.SELECTOR_VARIATION_TABLE = '.variation-table';
+    Service.CLASS_AJAX = 'expand-button-ajax';
     Service.CLASS_EXPANDED = 'expanded';
     Service.DEFAULT_DISPLAY_VARIATIONS = 2;
 
@@ -24,8 +25,19 @@ define([
         if (expanded) {
             this.collapseVariations(productContainer);
         } else {
+            var containerSelector = this.getSelectorForProductContainer(productContainer);
+            var ajax = this.getDomManipulator().hasClass(containerSelector + ' ' + Service.SELECTOR_EXPAND_BUTTON, Service.CLASS_AJAX);
+            if (ajax) {
+                this.loadAdditionalVariations(productContainer);
+                this.getDomManipulator().removeClass(containerSelector + ' ' + Service.SELECTOR_EXPAND_BUTTON, Service.CLASS_AJAX);
+            }
             this.expandVariations(productContainer);
         }
+    };
+
+    Service.prototype.loadAdditionalVariations = function(productContainer)
+    {
+
     };
 
     Service.prototype.expandVariations = function(productContainer)

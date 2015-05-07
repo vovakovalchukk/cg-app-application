@@ -15,6 +15,7 @@ define([
 
     DomListener.SELECTOR_PRODUCT_CONTAINER = '.product-container';
     DomListener.CLASS_EXPAND_BUTTON = 'product-variation-expand-button';
+    DomListener.CLASS_EXPAND_AJAX = 'expand-button-ajax';
 
     DomListener.prototype.init = function()
     {
@@ -26,7 +27,7 @@ define([
 
     DomListener.prototype.getClassExpandButton = function()
     {
-        return DomListener.CLASS_EXPAND_BUTTON;
+        return DomListener.CLASS_EXPAND_BUTTON + " " + DomListener.CLASS_EXPAND_AJAX;
     };
 
     return new DomListener();
