@@ -15,7 +15,6 @@ function(ShowHideFilters, searchDomListener, taxRateDomListener, $) {
         var hideFilters = new ShowHideFilters();
         searchDomListener.init('.product-search-text', '.product-search-button', '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img');
         taxRateDomListener.init('.tax-rate-custom-select-holder');
-        taxRateDomListener.listen();
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>

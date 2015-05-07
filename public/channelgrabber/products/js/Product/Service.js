@@ -39,6 +39,7 @@ define([
     Service.DOM_SELECTOR_PRODUCT_CONTAINER = '#products-list';
     Service.DOM_SELECTOR_LOADING_MESSAGE = '#products-loading-message';
     Service.DEFAULT_IMAGE_URL = '/noproductsimage.png';
+    Service.DOM_SELECTOR_TAX_RATE = 'product-tax-rate-custom-select';
 
     Service.prototype.init = function(baseUrl)
     {
@@ -219,9 +220,9 @@ define([
         }
 
         return CGMustache.get().renderTemplate(templates, {
-            'id': 'product-tax-rate-custom-select-' + product['id'],
-            'name': 'product-tax-rate-custom-select-' + product['id'],
-            'class': 'product-tax-rate-custom-select',
+            'id': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'],
+            'name': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'],
+            'class': Service.DOM_SELECTOR_TAX_RATE,
             'title': 'VAT',
             'options': options
         }, 'customSelect');
@@ -297,10 +298,12 @@ define([
         });
     };
 
-    Service.prototype.saveTaxRate = function(sourceCustomSelect, value)
+    Service.prototype.saveTaxRate = function(sourceCustomSelect)
     {
         var productId = $(sourceCustomSelect).closest(".product-container").find("input[type=hidden][name='id']").val();
-        if(productId === undefined || productId === '' || value === undefined && value === '') {
+        var value = $(sourceCustomSelect).find("input[type=hidden][class='" + Service.DOM_SELECTOR_TAX_RATE + "']").val();
+
+        if(productId === undefined || productId === '' || value === undefined || value === '') {
             return;
         }
 
