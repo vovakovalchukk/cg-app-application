@@ -25,14 +25,32 @@ class Service
             return $this->markRateOptionSelectedForProduct($product, $this->cache[$organisationUnitId]);
         }
 
+        $memberState = $this->fetchMemberStateForOuId($organisationUnitId);
+        $rates = $this->fetchTaxRatesForMemberState($memberState);
+        $ratesOptions = $this->buildRatesOptions($rates);
+
+        if(!isset($this->cache[$organisationUnitId])) {
+            $this->cache[$organisationUnitId] = $ratesOptions;
+        }
+
+        return $this->markRateOptionSelectedForProduct($product, $ratesOptions);
+    }
+
+    protected function fetchMemberStateForOuId($organisationUnitId)
+    {
         $organisationUnit = $this->getOrganisationUnitService()->fetch($organisationUnitId);
-
         $decider = new MemberStateDecider();
-        $memberState = $decider($organisationUnit);
+        return $decider($organisationUnit);
+    }
 
+    protected function fetchTaxRatesForMemberState($memberState)
+    {
         $taxRateFactory = new TaxRatesFactory();
-        $rates = $taxRateFactory($memberState)->getAll();
+        return $taxRateFactory($memberState)->getAll();
+    }
 
+    protected function buildRatesOptions($rates)
+    {
         $ratesOptions = [];
         foreach($rates as $rateId => $rate) {
             $ratesOptions[$rateId] = [
@@ -40,12 +58,7 @@ class Service
                 'rate' => (int) ($rate->getCurrent() * 100)
             ];
         }
-
-        if(!isset($this->cache[$organisationUnitId])) {
-            $this->cache[$organisationUnitId] = $ratesOptions;
-        }
-
-        return $this->markRateOptionSelectedForProduct($product, $ratesOptions);
+        return $ratesOptions;
     }
 
     protected function markRateOptionSelectedForProduct(Product $product, $ratesOptions)
@@ -61,7 +74,7 @@ class Service
     /**
      * @return OrganisationUnitService
      */
-    protected function getOrganisationUnitService()
+    public function getOrganisationUnitService()
     {
         return $this->organisationUnitService;
     }
