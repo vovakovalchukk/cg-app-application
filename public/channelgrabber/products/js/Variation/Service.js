@@ -90,8 +90,8 @@ define([
                         stockRows += self.renderStockRow(templates, variation['stock']['locations'][0]);
                     }
 
-                    self.getDomManipulator().setHtml(variationRows, variationTableBodySelector);
-                    self.getDomManipulator().setHtml(stockRows, stockTableBodySelector);
+                    self.getDomManipulator().setHtml(variationTableBodySelector, variationRows);
+                    self.getDomManipulator().setHtml(stockTableBodySelector, stockRows);
                 });
 
                 self.expandVariations(productContainer);
