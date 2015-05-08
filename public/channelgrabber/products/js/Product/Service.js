@@ -4,18 +4,22 @@ define([
     'Product/Storage/Ajax',
     'DomManipulator',
     'Variation/DomListener',
-    'BulkActionAbstract'
+    'BulkActionAbstract',
+    'DeferredQueue'
 ], function (
     CGMustache,
     productFilterMapper,
     productStorage,
     domManipulator,
     variationDomListener,
-    BulkActionAbstract
+    BulkActionAbstract,
+    DeferredQueue
 ) {
     var Service = function ()
     {
         var baseUrl;
+        var deferredQueue = new DeferredQueue();
+
         this.getBaseUrl = function()
         {
             return baseUrl;
@@ -25,11 +29,17 @@ define([
         {
             baseUrl = newBaseUrl;
         };
+
+        this.getDeferredQueue = function()
+        {
+            return deferredQueue;
+        };
     };
 
     Service.DOM_SELECTOR_PRODUCT_CONTAINER = '#products-list';
     Service.DOM_SELECTOR_LOADING_MESSAGE = '#products-loading-message';
     Service.DEFAULT_IMAGE_URL = '/noproductsimage.png';
+    Service.DOM_SELECTOR_TAX_RATE = 'product-tax-rate-custom-select';
 
     Service.prototype.init = function(baseUrl)
     {
@@ -63,6 +73,7 @@ define([
         var productUrlMap = {
             checkbox: '/channelgrabber/zf2-v4-ui/templates/elements/checkbox.mustache',
             buttons: '/channelgrabber/zf2-v4-ui/templates/elements/buttons.mustache',
+            customSelect: '/channelgrabber/zf2-v4-ui/templates/elements/custom-select.mustache',
             inlineText: '/channelgrabber/zf2-v4-ui/templates/elements/inline-text.mustache',
             variationTable: '/channelgrabber/products/template/product/variationTable.mustache',
             variationRow: '/channelgrabber/products/template/product/variationRow.mustache',
@@ -99,6 +110,7 @@ define([
         }
 
         var statusLozenge = this.getStatusView(product, templates);
+        var taxRateCustomSelect = this.getTaxRateCustomSelectView(product, templates);
         var productView = CGMustache.get().renderTemplate(templates, {
             'title': product['name'],
             'sku': product['sku'],
@@ -109,6 +121,7 @@ define([
             'productContent': productContent,
             'statusLozenge': statusLozenge,
             'expandButton': expandButton,
+            'taxRateCustomSelect': taxRateCustomSelect,
             'checkbox': checkbox
         });
         return productView;
@@ -192,6 +205,29 @@ define([
         }, 'buttons');
     };
 
+    Service.prototype.getTaxRateCustomSelectView = function(product, templates)
+    {
+        var options = [];
+        for(var taxRateId in product['taxRates']) {
+            if(!product['taxRates'].hasOwnProperty(taxRateId)) {
+                continue;
+            }
+            options.push({
+                'title': product['taxRates'][taxRateId]['rate'] + '% (' + product['taxRates'][taxRateId]['name'] + ')',
+                'value': taxRateId,
+                'selected': product['taxRates'][taxRateId]['selected']
+            });
+        }
+
+        return CGMustache.get().renderTemplate(templates, {
+            'id': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'],
+            'name': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'],
+            'class': Service.DOM_SELECTOR_TAX_RATE,
+            'title': 'VAT',
+            'options': options
+        }, 'customSelect');
+    };
+
     Service.prototype.getCheckboxView = function(product, templates)
     {
         return CGMustache.get().renderTemplate(templates, {
@@ -259,6 +295,26 @@ define([
         {
             var html = CGMustache.get().renderTemplate(templates, {}, 'noProduct');
             domManipulator.setHtml(Service.DOM_SELECTOR_PRODUCT_CONTAINER, html);
+        });
+    };
+
+    Service.prototype.saveTaxRate = function(sourceCustomSelect)
+    {
+        var productId = $(sourceCustomSelect).closest(".product-container").find("input[type=hidden][name='id']").val();
+        var value = $(sourceCustomSelect).find("input[type=hidden][class='" + Service.DOM_SELECTOR_TAX_RATE + "']").val();
+
+        if(productId === undefined || productId === '' || value === undefined || value === '') {
+            return;
+        }
+
+        this.getDeferredQueue().queue(function() {
+            return productStorage.saveTaxRate(productId, value, function(error, textStatus, errorThrown) {
+                if(error === null) {
+                    n.success('Product tax rate updated successfully');
+                } else {
+                    n.ajaxError(error, textStatus, errorThrown);
+                }
+            });
         });
     };
 

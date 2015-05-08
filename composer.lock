@@ -1716,6 +1716,47 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-tax.git",
+                "reference": "e54d948cec4356ec26e4f657f824712ef53e10fc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-tax-dev-EPIC-CGIV-5331-VAT-39d62c.zip",
+                "reference": "e54d948cec4356ec26e4f657f824712ef53e10fc",
+                "shasum": "4aafee4fff810b96cd95be0f85f0ab524097f93a"
+            },
+            "require": {
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/di": "^2.1.1",
+                "channelgrabber/log": "^2.0.23",
+                "channelgrabber/stdlib": "^2.10.9",
+                "channelgrabber/user": "dev-EPIC-CGIV-5331-VAT as 1.19.3",
+                "composer/composer": "@dev",
+                "php-jsonpatch/php-jsonpatch": "dev-master",
+                "php-jsonpointer/php-jsonpointer": "@dev"
+            },
+            "require-dev": {
+                "channelgrabber/phpunit": ">=1.0.0",
+                "phpunit/phpunit": "4.6.*"
+            },
+            "type": "di-definition",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Tax\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Tax\\Test\\": "tests\\src"
+                }
+            },
+            "time": "2015-05-07 11:35:59"
+        },
+        {
+            "name": "channelgrabber/template",
+            "version": "dev-EPIC-CGIV-5331-VAT",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-tax.git",
                 "reference": "6cfc3d8b5856710320b3ac8ba67f18bcb1af51f0"
             },
             "dist": {
@@ -2457,7 +2498,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.1.8-304c44.zip",
                 "reference": "d8628cd35bd98b00ad5cc7931041fec9d38a6854",
-                "shasum": "2bee98d5dee4f76881f3680f90cb67a4b897287b"
+                "shasum": "3a5809c268f467ab78e984eefb1dfac54489e438"
             },
             "require": {
                 "channelgrabber/billing": ">=1.3.7,<2.0.0",
@@ -2987,7 +3028,7 @@
             "version": "v1.0.7",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fabpot/Goutte.git",
+                "url": "https://github.com/FriendsOfPHP/Goutte.git",
                 "reference": "794b196e76bdd37b5155cdecbad311f0a3b07625"
             },
             "dist": {
@@ -3690,7 +3731,7 @@
             "version": "v1.0.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fabpot/Pimple.git",
+                "url": "https://github.com/silexphp/Pimple.git",
                 "reference": "ae11e57e8c2bb414b2ff93396dbbfc0eb92feb94"
             },
             "dist": {
@@ -3873,7 +3914,7 @@
             "version": "2.3.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/codeguy/Slim.git",
+                "url": "https://github.com/slimphp/Slim.git",
                 "reference": "3dec4f9ee2e9c204a9f334afd72abc174c1b792e"
             },
             "dist": {
@@ -4901,7 +4942,7 @@
             "version": "v1.5.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Behat/Mink.git",
+                "url": "https://github.com/minkphp/Mink.git",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe"
             },
             "dist": {
@@ -4956,7 +4997,7 @@
             "version": "v1.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Behat/MinkBrowserKitDriver.git",
+                "url": "https://github.com/minkphp/MinkBrowserKitDriver.git",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c"
             },
             "dist": {
@@ -5011,7 +5052,7 @@
             "version": "v1.0.9",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Behat/MinkGoutteDriver.git",
+                "url": "https://github.com/minkphp/MinkGoutteDriver.git",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8"
             },
             "dist": {
@@ -5062,7 +5103,7 @@
             "version": "v1.1.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Behat/MinkSelenium2Driver.git",
+                "url": "https://github.com/minkphp/MinkSelenium2Driver.git",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476"
             },
             "dist": {
