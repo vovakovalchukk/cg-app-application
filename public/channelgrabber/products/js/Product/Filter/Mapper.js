@@ -27,5 +27,12 @@ define([
         return entity;
     };
 
+    Mapper.prototype.fromId = function(id)
+    {
+        var entity = new Entity();
+        entity.setId(id);
+        return entity;
+    };
+
     return new Mapper();
 });

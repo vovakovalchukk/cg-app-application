@@ -44,7 +44,7 @@ class ProductsJsonController extends AbstractActionController
         $view = $this->getJsonModelFactory()->newInstance();
         $filterParams = $this->params()->fromPost('filter', []);
         $limit = 'all';
-        if (!array_key_exists('parentProductId', $filterParams)) {
+        if (!array_key_exists('parentProductId', $filterParams) && !array_key_exists('id', $filterParams)) {
             $filterParams['parentProductId'] = [0];
             $limit = ProductService::LIMIT;
         }
