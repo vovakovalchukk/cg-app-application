@@ -1713,13 +1713,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-tax.git",
-                "reference": "6cfc3d8b5856710320b3ac8ba67f18bcb1af51f0"
+                "reference": "e54d948cec4356ec26e4f657f824712ef53e10fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-tax-dev-EPIC-CGIV-5331-VAT-e2ebf5.zip",
-                "reference": "6cfc3d8b5856710320b3ac8ba67f18bcb1af51f0",
-                "shasum": "8fff422c134b4252a2221db956287c1584ed88ac"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-tax-dev-EPIC-CGIV-5331-VAT-39d62c.zip",
+                "reference": "e54d948cec4356ec26e4f657f824712ef53e10fc",
+                "shasum": "4aafee4fff810b96cd95be0f85f0ab524097f93a"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -1746,7 +1746,7 @@
                     "CG\\Tax\\Test\\": "tests\\src"
                 }
             },
-            "time": "2015-05-07 08:47:47"
+            "time": "2015-05-07 11:35:59"
         },
         {
             "name": "channelgrabber/template",
