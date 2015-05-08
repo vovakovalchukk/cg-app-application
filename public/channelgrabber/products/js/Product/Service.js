@@ -60,6 +60,18 @@ define([
     Service.prototype.renderProducts = function(products)
     {
         var self = this;
+        this.fetchProductTemplates(function(templates)
+        {
+            var html = "";
+            for (var index in products) {
+                html += self.renderProduct(products[index], templates);
+            }
+            domManipulator.setHtml(Service.DOM_SELECTOR_PRODUCT_CONTAINER, html);
+        });
+    };
+
+    Service.prototype.fetchProductTemplates = function(callable)
+    {
         var productUrlMap = {
             checkbox: '/channelgrabber/zf2-v4-ui/templates/elements/checkbox.mustache',
             buttons: '/channelgrabber/zf2-v4-ui/templates/elements/buttons.mustache',
@@ -74,11 +86,7 @@ define([
         };
         CGMustache.get().fetchTemplates(productUrlMap, function(templates)
         {
-            var html = "";
-            for (var index in products) {
-                html += self.renderProduct(products[index], templates);
-            }
-            domManipulator.setHtml(Service.DOM_SELECTOR_PRODUCT_CONTAINER, html);
+            callable(templates);
         });
     };
 
@@ -150,19 +158,7 @@ define([
         var stockLocations = "";
         for (var index in product['variations']) {
             var variation = product['variations'][index];
-            var attributeValues = [];
-            for (var attributeNameIndex in product['attributeNames']) {
-                if(!($).isEmptyObject(variation['attributeValues'][product['attributeNames'][attributeNameIndex]])) {
-                    attributeValues.push(variation['attributeValues'][product['attributeNames'][attributeNameIndex]]);
-                } else {
-                    attributeValues.push('');
-                }
-            }
-            variations += CGMustache.get().renderTemplate(templates, {
-                'image': this.getPrimaryImage(variation['images']),
-                'sku': variation['sku'],
-                'attributes': attributeValues
-            }, 'variationRow');
+            variations += this.getVariationLineView(templates, variation, product['attributeNames']);
             stockLocations += this.getStockTableLineView(variation['stock']['locations'][0], templates);
         }
         var variationTable = CGMustache.get().renderTemplate(templates, {
@@ -174,6 +170,24 @@ define([
             'stockTable': stockTable
         });
         return html;
+    };
+
+    Service.prototype.getVariationLineView = function(templates, variation, attributeNames)
+    {
+        var attributeValues = [];
+        for (var attributeNameIndex in attributeNames) {
+            if(!($).isEmptyObject(variation['attributeValues'][attributeNames[attributeNameIndex]])) {
+                attributeValues.push(variation['attributeValues'][attributeNames[attributeNameIndex]]);
+            } else {
+                attributeValues.push('');
+            }
+        }
+
+        return CGMustache.get().renderTemplate(templates, {
+            'image': this.getPrimaryImage(variation['images']),
+            'sku': variation['sku'],
+            'attributes': attributeValues
+        }, 'variationRow');
     };
 
     Service.prototype.getPrimaryImage = function(images)

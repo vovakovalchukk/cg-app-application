@@ -33,9 +33,9 @@ $this->placeholder('#sidebar')
     </div>
 </div>
 <script type="text/javascript">
-    require(['Variation/DomListener'], function(domListener)
+    require(['Variation/Service'], function(variationService)
     {
-        domListener.init();
+        variationService.init();
     });
 </script>
 <style>
