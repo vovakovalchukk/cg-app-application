@@ -27,6 +27,7 @@ define([
         };
     };
 
+    Service.SELECTOR_LOADING_MESSAGE = '#products-loading-message';
     Service.SELECTOR_CONTENT_CONTAINER = '.product-content-container';
     Service.SELECTOR_EXPAND_BUTTON = '.product-variation-expand-button';
     Service.SELECTOR_VARIATION_TABLE = '.variation-table';
@@ -57,6 +58,7 @@ define([
     {
         var containerSelector = this.getSelectorForProductContainer(productContainer);
         this.getDomManipulator().removeClass(containerSelector + ' ' + Service.SELECTOR_EXPAND_BUTTON, Service.CLASS_AJAX);
+        this.getDomManipulator().setCssValue(Service.SELECTOR_LOADING_MESSAGE, 'display', 'block');
 
         var self = this;
         var productId = this.getDomManipulator().getValue(containerSelector + ' ' + Service.SELECTOR_ID);
@@ -94,6 +96,7 @@ define([
                     self.getDomManipulator().setHtml(stockTableBodySelector, stockRows);
                 });
 
+                self.getDomManipulator().setCssValue(Service.SELECTOR_LOADING_MESSAGE, 'display', 'none');
                 self.expandVariations(productContainer);
             }
         );
