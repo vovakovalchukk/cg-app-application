@@ -60,7 +60,7 @@ define([
 
         var self = this;
         var productId = this.getDomManipulator().getValue(containerSelector + ' ' + Service.SELECTOR_ID);
-        var productFilter = this.getProductFilterMapper().fromProductId(productId);
+        var productFilter = this.getProductFilterMapper().fromParentProductId(productId);
         this.getProductStorage().fetchByFilter(
             productFilter,
             function(variations) {

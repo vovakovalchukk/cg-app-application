@@ -18,11 +18,11 @@ define([
         return entity;
     };
 
-    Mapper.prototype.fromProductId = function(productId)
+    Mapper.prototype.fromParentProductId = function(parentProductId)
     {
         var entity = new Entity(
             null,
-            productId
+            parentProductId
         );
         return entity;
     };

@@ -1,24 +1,33 @@
 define([
 ], function () {
-    var Entity = function (searchTerm, productId)
+    var Entity = function (searchTerm, parentProductId)
     {
         this.getSearchTerm = function()
         {
             return searchTerm;
         };
 
-        this.getProductId = function()
+        this.getParentProductId = function()
         {
-            return productId;
+            return parentProductId;
         };
     };
 
     Entity.prototype.toObject = function()
     {
-        return {
-            'searchTerm' : this.getSearchTerm(),
-            'productId'  : this.getProductId()
-        };
+        var object = {};
+
+        var searchTerm = this.getSearchTerm();
+        if (searchTerm) {
+            object['searchTerm'] = searchTerm;
+        }
+
+        var parentProductId = this.getParentProductId();
+        if (parentProductId) {
+            object['parentProductId'] = [parentProductId];
+        }
+
+        return object;
     };
 
     return Entity;
