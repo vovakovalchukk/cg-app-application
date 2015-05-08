@@ -81,11 +81,17 @@ define([
                 var stockTableBodySelector = self.getSelectorForProductContainer(productContainer, Service.SELECTOR_STOCK_TABLE + ' tbody');
 
                 CGMustache.get().fetchTemplates(productUrlMap, function(templates) {
+                    var variationRows = '';
+                    var stockRows = '';
+
                     for (var index in variations) {
                         var variation = variations[index];
-                        self.renderVariationRow(templates, variation, variationTableBodySelector + ' tr:last');
-                        self.renderStockRow(templates, variation['stock']['locations'][0], stockTableBodySelector);
+                        variationRows += self.renderVariationRow(templates, variation);
+                        stockRows += self.renderStockRow(templates, variation['stock']['locations'][0]);
                     }
+
+                    self.getDomManipulator().setHtml(variationRows, variationTableBodySelector);
+                    self.getDomManipulator().setHtml(stockRows, stockTableBodySelector);
                 });
 
                 self.expandVariations(productContainer);
@@ -93,17 +99,15 @@ define([
         );
     };
 
-    Service.prototype.renderVariationRow = function(templates, variation, tableBodySelector)
+    Service.prototype.renderVariationRow = function(templates, variation)
     {
         var attributeValues = [];
 
-        var variationRow =  CGMustache.get().renderTemplate(templates, {
+        return CGMustache.get().renderTemplate(templates, {
             'image': this.getPrimaryImage(variation['images']),
             'sku': variation['sku'],
             'attributes': attributeValues
         }, 'variationRow');
-
-        this.getDomManipulator().append(variationRow, tableBodySelector + ' tr:last');
     };
 
     Service.prototype.getPrimaryImage = function(images)
@@ -111,7 +115,7 @@ define([
         return images.length > 0 ? images[0]['url'] : this.getBaseUrl() + Service.DEFAULT_IMAGE_URL;
     };
 
-    Service.prototype.renderStockRow = function(templates, location, tableBodySelector)
+    Service.prototype.renderStockRow = function(templates, location)
     {
         var name = 'total-stock-' + location['id'];
         var quantityInlineText = CGMustache.get().renderTemplate(templates, {
@@ -121,15 +125,13 @@ define([
         }, 'inlineText', {});
         var available = location['onHand'] - location['allocated'];
 
-        var stockRow = CGMustache.get().renderTemplate(templates, {
+        return CGMustache.get().renderTemplate(templates, {
             'available': available,
             'allocated': location['allocated'],
             'totalName': name,
             'stockLocationId': location['id'],
             'eTag': location['eTag']
         }, 'stockRow', {'total': quantityInlineText});
-
-        this.getDomManipulator().append(stockRow, tableBodySelector + ' tr:last');
     };
 
     Service.prototype.expandVariations = function(productContainer)
