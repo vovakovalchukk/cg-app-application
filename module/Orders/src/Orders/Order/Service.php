@@ -812,11 +812,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function getRootOrganisationUnitForOrder(OrderEntity $order)
     {
-        $ou = $this->getOrganisationUnitService()->fetch($order->getOrganisationUnitId());
-        if ($ou->isRoot()) {
-            return $ou;
-        }
-        return $this->getOrganisationUnitService()->fetch($ou->getRoot());
+        return $this->getOrganisationUnitService()->getRootOuFromOuId($order->getOrganisationUnitId());
     }
 
     protected function notifyOfCancel()

@@ -49,7 +49,6 @@
         "channelgrabber/tax": "dev-EPIC-CGIV-5331-VAT as 1.0.0",
         "channelgrabber/template": "dev-CGIV-5381-correct-order-vat as 1.2.49",
         "channelgrabber/usage": "~1.0.6",
-        "channelgrabber/user": "~1.19.0",
         "channelgrabber/user": "dev-EPIC-CGIV-5331-VAT as 1.19.3",
         "channelgrabber/userpreference": "~1.2.4",
         "channelgrabber/validation": "~1.2.7",

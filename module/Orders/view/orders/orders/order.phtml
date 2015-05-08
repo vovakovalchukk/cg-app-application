@@ -307,7 +307,7 @@ require([
                 <?php endif; ?>
             </td>
             <td class="midcell"><strong><?= $this->translate('VAT'); ?>:</strong></td>
-            <td class="rightcell"><?= $this->currencyFormat($orderTax, $order->getCurrencyCode()); ?></strong></td>
+            <td class="rightcell"><?= $this->currencyFormat($order->getTax(), $order->getCurrencyCode()); ?></strong></td>
         </tr>
         <?php endif; ?>
         <tr>
