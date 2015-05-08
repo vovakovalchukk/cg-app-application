@@ -1,7 +1,9 @@
 define([
-    'jquery'
+    'jquery',
+    'Product/DomListener/Search'
 ], function(
-    $
+    $,
+    productDomListener
 ) {
     var DomListener = function()
     {
@@ -15,6 +17,10 @@ define([
     {
         $(document).off('click', '.' + DomListener.CLASS_EXPAND_BUTTON).on('click', '.' + DomListener.CLASS_EXPAND_BUTTON, function() {
             service.toggleVariations($(this).closest(DomListener.SELECTOR_PRODUCT_CONTAINER));
+        });
+        $(document).on(productDomListener.getProductsRenderedEvent(), function(event, products)
+        {
+            service.productsRendered(products);
         });
     };
 

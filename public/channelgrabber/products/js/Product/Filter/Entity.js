@@ -1,6 +1,6 @@
 define([
 ], function () {
-    var Entity = function (searchTerm, parentProductId)
+    var Entity = function (searchTerm, parentProductId, id)
     {
         this.getSearchTerm = function()
         {
@@ -10,6 +10,17 @@ define([
         this.getParentProductId = function()
         {
             return parentProductId;
+        };
+
+        this.getId = function()
+        {
+            return id;
+        };
+
+        this.setId = function(newId)
+        {
+            id = (newId instanceof Array ? newId : [newId]);
+            return this;
         };
     };
 
@@ -25,6 +36,11 @@ define([
         var parentProductId = this.getParentProductId();
         if (parentProductId) {
             object['parentProductId'] = [parentProductId];
+        }
+
+        var id = this.getId();
+        if (id) {
+            object['id'] = id;
         }
 
         return object;

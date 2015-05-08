@@ -1,5 +1,6 @@
 define([
     'cg-mustache',
+    'Product/DomListener/Search',
     'Product/Filter/Mapper',
     'Product/Storage/Ajax',
     'DomManipulator',
@@ -7,6 +8,7 @@ define([
     'BulkActionAbstract'
 ], function (
     CGMustache,
+    domListener,
     productFilterMapper,
     productStorage,
     domManipulator,
@@ -34,6 +36,7 @@ define([
     Service.prototype.init = function(baseUrl)
     {
         this.setBaseUrl(baseUrl);
+        domListener.init(this);
         this.refresh();
     };
 
@@ -67,6 +70,7 @@ define([
                 html += self.renderProduct(products[index], templates);
             }
             domManipulator.setHtml(Service.DOM_SELECTOR_PRODUCT_CONTAINER, html);
+            domListener.triggerProductsRenderedEvent(products);
         });
     };
 
