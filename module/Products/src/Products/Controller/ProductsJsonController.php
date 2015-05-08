@@ -43,6 +43,9 @@ class ProductsJsonController extends AbstractActionController
     {
         $view = $this->getJsonModelFactory()->newInstance();
         $filterParams = $this->params()->fromPost('filter', []);
+        if (!array_key_exists('parentProductId', $filterParams)) {
+            $filterParams['parentProductId'] = [0];
+        }
         if (!array_key_exists('deleted', $filterParams)) {
             $filterParams['deleted'] = false;
         }
@@ -50,7 +53,7 @@ class ProductsJsonController extends AbstractActionController
         $requestFilter->setVariationLinks(true);
         $productsArray = [];
         try {
-            $products = $this->getProductService()->fetchProducts($requestFilter);
+            $products = $this->getProductService()->fetchProducts($requestFilter, $requestFilter->getParentProductId());
             $accounts = $this->getAccountsIndexedById($requestFilter->getOrganisationUnitId());
 
             foreach ($products as $product) {
