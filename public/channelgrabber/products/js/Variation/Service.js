@@ -2,12 +2,12 @@ define([
     'cg-mustache',
     'DomManipulator',
     'Product/Filter/Mapper',
-    'Product/Service'
+    'Product/Storage/Ajax'
 ], function (
     CGMustache,
     domManipulator,
     productFilterMapper,
-    productService
+    productStorage
 ) {
     var Service = function()
     {
@@ -21,9 +21,9 @@ define([
             return productFilterMapper;
         };
 
-        this.getProductService = function()
+        this.getProductStorage = function()
         {
-            return productService;
+            return productStorage;
         };
     };
 
@@ -60,29 +60,47 @@ define([
         var self = this;
         var productId = this.getDomManipulator().getValue(containerSelector + ' ' + Service.SELECTOR_ID);
         var productFilter = this.getProductFilterMapper().fromProductId(productId);
-//        this.getProductService().fetchProducts(
-//            productFilter,
-//            function(variations) {
-//                var productUrlMap = {
-//                    checkbox: '/channelgrabber/zf2-v4-ui/templates/elements/checkbox.mustache',
-//                    buttons: '/channelgrabber/zf2-v4-ui/templates/elements/buttons.mustache',
-//                    inlineText: '/channelgrabber/zf2-v4-ui/templates/elements/inline-text.mustache',
-//                    variationTable: '/channelgrabber/products/template/product/variationTable.mustache',
-//                    variationRow: '/channelgrabber/products/template/product/variationRow.mustache',
-//                    variationStock: '/channelgrabber/products/template/product/variationStock.mustache',
-//                    stockTable: '/channelgrabber/products/template/product/stockTable.mustache',
-//                    stockRow: '/channelgrabber/products/template/product/stockRow.mustache',
-//                    product: '/channelgrabber/products/template/elements/product.mustache',
-//                    statusLozenge: '/channelgrabber/products/template/elements/statusLozenge.mustache'
-//                };
-//
-//                CGMustache.get().fetchTemplates(productUrlMap, function(templates) {
-//
-//                });
-//
-//                self.expandVariations(productContainer);
-//            }
-//        );
+        this.getProductStorage().fetchByFilter(
+            productFilter,
+            function(variations) {
+                var productUrlMap = {
+                    checkbox: '/channelgrabber/zf2-v4-ui/templates/elements/checkbox.mustache',
+                    buttons: '/channelgrabber/zf2-v4-ui/templates/elements/buttons.mustache',
+                    inlineText: '/channelgrabber/zf2-v4-ui/templates/elements/inline-text.mustache',
+                    variationTable: '/channelgrabber/products/template/product/variationTable.mustache',
+                    variationRow: '/channelgrabber/products/template/product/variationRow.mustache',
+                    variationStock: '/channelgrabber/products/template/product/variationStock.mustache',
+                    stockTable: '/channelgrabber/products/template/product/stockTable.mustache',
+                    stockRow: '/channelgrabber/products/template/product/stockRow.mustache',
+                    product: '/channelgrabber/products/template/elements/product.mustache',
+                    statusLozenge: '/channelgrabber/products/template/elements/statusLozenge.mustache'
+                };
+
+                var tableBodySelector = self.getSelectorForProductContainer(productContainer, Service.SELECTOR_VARIATION_TABLE + ' tbody');
+
+                CGMustache.get().fetchTemplates(productUrlMap, function(templates) {
+                    for (var index in variations) {
+                        var variation = variations[index];
+                        var attributeValues = [];
+
+                        var variationRow = CGMustache.get().renderTemplate(templates, {
+                            'image': self.getPrimaryImage(variation['images']),
+                            'sku': variation['sku'],
+                            'attributes': attributeValues
+                        }, 'variationRow');
+
+                        self.getDomManipulator().append(variationRow, tableBodySelector + ' tr:last');
+                    }
+                });
+
+                self.expandVariations(productContainer);
+            }
+        );
+    };
+
+    Service.prototype.getPrimaryImage = function(images)
+    {
+        return images.length > 0 ? images[0]['url'] : this.getBaseUrl() + Service.DEFAULT_IMAGE_URL;
     };
 
     Service.prototype.expandVariations = function(productContainer)
