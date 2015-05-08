@@ -86,7 +86,7 @@ define([
 
                     for (var index in variations) {
                         var variation = variations[index];
-                        variationRows += self.renderVariationRow(templates, variation);
+                        variationRows += self.renderVariationRow(productContainer, templates, variation);
                         stockRows += self.renderStockRow(templates, variation['stock']['locations'][0]);
                     }
 
@@ -99,15 +99,34 @@ define([
         );
     };
 
-    Service.prototype.renderVariationRow = function(templates, variation)
+    Service.prototype.renderVariationRow = function(productContainer, templates, variation)
     {
+        var attributeNamesSelector = this.getSelectorForProductContainer(productContainer, Service.SELECTOR_VARIATION_TABLE + ' thead th:nth-child(n+3)');
+        var attributeNames = this.getAttributeNamesFromDom(attributeNamesSelector);
         var attributeValues = [];
+
+        for (var attributeNameIndex in attributeNames) {
+            if(!($).isEmptyObject(variation['attributeValues'][attributeNames[attributeNameIndex]])) {
+                attributeValues.push(variation['attributeValues'][attributeNames[attributeNameIndex]]);
+            } else {
+                attributeValues.push('');
+            }
+        }
 
         return CGMustache.get().renderTemplate(templates, {
             'image': this.getPrimaryImage(variation['images']),
             'sku': variation['sku'],
             'attributes': attributeValues
         }, 'variationRow');
+    };
+
+    Service.prototype.getAttributeNamesFromDom = function(attributeNamesSelector)
+    {
+        var attributeNames = [];
+        this.getDomManipulator().each(attributeNamesSelector, function() {
+            attributeNames.push($.trim($(this).text()));
+        });
+        return attributeNames;
     };
 
     Service.prototype.getPrimaryImage = function(images)
