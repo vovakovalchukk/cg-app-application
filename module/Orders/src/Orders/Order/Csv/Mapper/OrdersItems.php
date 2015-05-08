@@ -7,6 +7,7 @@ use Orders\Order\Csv\Mapper\Formatter\GiftWrapPrice as GiftWrapPriceFormatter;
 use Orders\Order\Csv\Mapper\Formatter\GiftWrapType as GiftWrapTypeFormatter;
 use Orders\Order\Csv\Mapper\Formatter\ShippingPrice as ShippingPriceFormatter;
 use Orders\Order\Csv\Mapper\Formatter\SalesChannelName as SalesChannelNameFormatter;
+use Orders\Order\Csv\Mapper\Formatter\InvoiceDate as InvoiceDateFormatter;
 use Orders\Order\Csv\Mapper\Formatter\Standard as StandardFormatter;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Stdlib;
@@ -18,6 +19,7 @@ class OrdersItems implements MapperInterface
     protected $giftWrapTypeFormatter;
     protected $shippingPriceFormatter;
     protected $salesChannelNameFormatter;
+    protected $invoiceDateFormatter;
     protected $standardFormatter;
 
     public function __construct(
@@ -26,6 +28,7 @@ class OrdersItems implements MapperInterface
         GiftWrapTypeFormatter $giftWrapTypeFormatter,
         ShippingPriceFormatter $shippingPriceFormatter,
         SalesChannelNameFormatter $salesChannelNameFormatter,
+        InvoiceDateFormatter $invoiceDateFormatter,
         StandardFormatter $standardFormatter
     ) {
         $this->setGiftWrapMessageFormatter($giftWrapMessageFormatter)
@@ -33,6 +36,7 @@ class OrdersItems implements MapperInterface
             ->setGiftWrapTypeFormatter($giftWrapTypeFormatter)
             ->setShippingPriceFormatter($shippingPriceFormatter)
             ->setSalesChannelNameFormatter($salesChannelNameFormatter)
+            ->setInvoiceDateFormatter($invoiceDateFormatter)
             ->setStandardFormatter($standardFormatter);
     }
 
@@ -40,14 +44,15 @@ class OrdersItems implements MapperInterface
     {
         return [
             'Order ID' => 'externalId',
-            'Sales Channel Name' => $this->getSalesChannelNameFormatter(),
+            'Sales Channel Name' => $this->salesChannelNameFormatter,
             'Purchase Date' => 'purchaseDate',
             'Payment Date' => 'paymentDate',
             'Printed Date' => 'printedDate',
             'Dispatch Date' => 'dispatchDate',
+            'Invoice Date' => $this->invoiceDateFormatter,
             'Channel' => 'channel',
             'Status' => 'status',
-            'Shipping Price' => $this->getShippingPriceFormatter(),
+            'Shipping Price' => $this->shippingPriceFormatter,
             'Shipping Method' => 'shippingMethod',
             'Currency Code' => 'currencyCode',
             'Item Name' => 'itemName',
@@ -84,9 +89,9 @@ class OrdersItems implements MapperInterface
             'Shipping Email' => 'calculatedShippingEmailAddress',
             'Shipping Telephone' => 'calculatedShippingPhoneNumber',
             'Buyer Message' => 'buyerMessage',
-            'Gift Wrap Type' => $this->getGiftWrapTypeFormatter(),
-            'Gift Wrap Message' => $this->getGiftWrapMessageFormatter(),
-            'Gift Wrap Price' => $this->getGiftWrapPriceFormatter()
+            'Gift Wrap Type' => $this->giftWrapTypeFormatter,
+            'Gift Wrap Message' => $this->giftWrapMessageFormatter,
+            'Gift Wrap Price' => $this->giftWrapPriceFormatter
         ];
     }
 
@@ -108,7 +113,7 @@ class OrdersItems implements MapperInterface
         $formatters = [];
         foreach ($columnFormatters as $header => $formatter) {
             if (!is_object($formatter)) {
-                $formatters[$header] = $this->getStandardFormatter();
+                $formatters[$header] = $this->standardFormatter;
             } else {
                 $formatters[$header] = $formatter;
             }
@@ -124,14 +129,6 @@ class OrdersItems implements MapperInterface
     }
 
     /**
-     * @return GiftWrapMessageFormatter
-     */
-    protected function getGiftWrapMessageFormatter()
-    {
-        return $this->giftWrapMessageFormatter;
-    }
-
-    /**
      * @param GiftWrapMessageFormatter $giftWrapMessageFormatter
      * @return $this
      */
@@ -139,14 +136,6 @@ class OrdersItems implements MapperInterface
     {
         $this->giftWrapMessageFormatter = $giftWrapMessageFormatter;
         return $this;
-    }
-
-    /**
-     * @return GiftWrapPriceFormatter
-     */
-    protected function getGiftWrapPriceFormatter()
-    {
-        return $this->giftWrapPriceFormatter;
     }
 
     /**
@@ -160,14 +149,6 @@ class OrdersItems implements MapperInterface
     }
 
     /**
-     * @return GiftWrapTypeFormatter
-     */
-    protected function getGiftWrapTypeFormatter()
-    {
-        return $this->giftWrapTypeFormatter;
-    }
-
-    /**
      * @param GiftWrapTypeFormatter $giftWrapTypeFormatter
      * @return $this
      */
@@ -175,14 +156,6 @@ class OrdersItems implements MapperInterface
     {
         $this->giftWrapTypeFormatter = $giftWrapTypeFormatter;
         return $this;
-    }
-
-    /**
-     * @return ShippingPriceFormatter
-     */
-    protected function getShippingPriceFormatter()
-    {
-        return $this->shippingPriceFormatter;
     }
 
     /**
@@ -196,14 +169,6 @@ class OrdersItems implements MapperInterface
     }
 
     /**
-     * @return SalesChannelNameFormatter
-     */
-    protected function getSalesChannelNameFormatter()
-    {
-        return $this->salesChannelNameFormatter;
-    }
-
-    /**
      * @param SalesChannelNameFormatter $salesChannelNameFormatter
      * @return $this
      */
@@ -214,11 +179,13 @@ class OrdersItems implements MapperInterface
     }
 
     /**
-     * @return StandardFormatter
+     * @param InvoiceDateFormatter $invoiceDateFormatter
+     * @return $this
      */
-    protected function getStandardFormatter()
+    public function setInvoiceDateFormatter(InvoiceDateFormatter $invoiceDateFormatter)
     {
-        return $this->standardFormatter;
+        $this->invoiceDateFormatter = $invoiceDateFormatter;
+        return $this;
     }
 
     /**

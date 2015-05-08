@@ -5,29 +5,34 @@ use Orders\Order\Csv\MapperInterface;
 use CG\Order\Shared\Collection as OrderCollection;
 use Orders\Order\Csv\Mapper\Formatter\StandardSingle as StandardFormatter;
 use Orders\Order\Csv\Mapper\Formatter\SalesChannelNameSingle as SalesChannelNameFormatter;
+use Orders\Order\Csv\Mapper\Formatter\InvoiceDateSingle as InvoiceDateFormatter;
 
 class Orders implements MapperInterface
 {
     protected $standardFormatter;
     protected $salesChannelNameFormatter;
+    protected $invoiceDateFormatter;
 
     public function __construct(
         StandardFormatter $standardFormatter,
-        SalesChannelNameFormatter $salesChannelNameFormatter
+        SalesChannelNameFormatter $salesChannelNameFormatter,
+        InvoiceDateFormatter $invoiceDateFormatter
     ) {
         $this->setStandardFormatter($standardFormatter)
-            ->setSalesChannelNameFormatter($salesChannelNameFormatter);
+            ->setSalesChannelNameFormatter($salesChannelNameFormatter)
+            ->setInvoiceDateFormatter($invoiceDateFormatter);
     }
 
     protected function getFormatters()
     {
         return [
             'Order ID' => 'externalId',
-            'Sales Channel Name' => $this->getSalesChannelNameFormatter(),
+            'Sales Channel Name' => $this->salesChannelNameFormatter,
             'Purchase Date' => 'purchaseDate',
             'Payment Date' => 'paymentDate',
             'Printed Date' => 'printedDate',
             'Dispatch Date' => 'dispatchDate',
+            'Invoice Date' => $this->invoiceDateFormatter,
             'Channel' => 'channel',
             'Status' => 'status',
             'Shipping Price' => 'shippingPrice',
@@ -83,7 +88,7 @@ class Orders implements MapperInterface
         $formatters = [];
         foreach($columnFormatters as $header => $formatter) {
             if(!is_object($formatter)) {
-                $formatters[$header] = $this->getStandardFormatter();
+                $formatters[$header] = $this->standardFormatter;
             } else {
                 $formatters[$header] = $formatter;
             }
@@ -99,14 +104,6 @@ class Orders implements MapperInterface
     }
 
     /**
-     * @return StandardFormatter
-     */
-    protected function getStandardFormatter()
-    {
-        return $this->standardFormatter;
-    }
-
-    /**
      * @param StandardFormatter $standardFormatter
      * @return $this
      */
@@ -117,20 +114,22 @@ class Orders implements MapperInterface
     }
 
     /**
-     * @return SalesChannelNameFormatter
-     */
-    protected function getSalesChannelNameFormatter()
-    {
-        return $this->salesChannelNameFormatter;
-    }
-
-    /**
      * @param SalesChannelNameFormatter $salesChannelNameFormatter
      * @return $this
      */
     public function setSalesChannelNameFormatter(SalesChannelNameFormatter $salesChannelNameFormatter)
     {
         $this->salesChannelNameFormatter = $salesChannelNameFormatter;
+        return $this;
+    }
+
+    /**
+     * @param InvoiceDateFormatter $invoiceDateFormatter
+     * @return $this
+     */
+    public function setInvoiceDateFormatter(InvoiceDateFormatter $invoiceDateFormatter)
+    {
+        $this->invoiceDateFormatter = $invoiceDateFormatter;
         return $this;
     }
 }
