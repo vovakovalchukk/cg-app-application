@@ -12,7 +12,17 @@ define([
     Mapper.prototype.fromDom = function()
     {
         var entity = new Entity(
-            elementCollection.get('searchTerm').getValue()
+            elementCollection.get('searchTerm').getValue(),
+            null
+        );
+        return entity;
+    };
+
+    Mapper.prototype.fromParentProductId = function(parentProductId)
+    {
+        var entity = new Entity(
+            null,
+            parentProductId
         );
         return entity;
     };

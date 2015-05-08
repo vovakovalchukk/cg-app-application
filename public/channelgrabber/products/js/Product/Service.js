@@ -88,9 +88,9 @@ define([
         var expandButton = '';
         var hasVariations = false;
 
-        if (product['variations'] != undefined && product['variations'].length) {
+        if (product['variationCount'] != undefined && product['variationCount']) {
             var productContent = this.getVariationView(product, templates);
-            if (product['variations'].length > 2) {
+            if (product['variationCount'] > 2) {
               expandButton = this.getExpandButtonView(product, templates);
             }
             hasVariations = true;
