@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "hash": "297105faa30b292ec21deed7d6a983e5",
@@ -1263,13 +1263,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "f395ee26cb3c6a37536f7048f868336a908feb8c"
+                "reference": "c974e0731488717129827f25573f81c40a7ea2b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-EPIC-CGIV-5331-VAT-ee944d.zip",
-                "reference": "f395ee26cb3c6a37536f7048f868336a908feb8c",
-                "shasum": "2259dabe8274ef010a7e6c1c7b2267fa36be1f22"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-EPIC-CGIV-5331-VAT-dba220.zip",
+                "reference": "c974e0731488717129827f25573f81c40a7ea2b7",
+                "shasum": "b5aee6e688ee1f2ed292ca7c5396d612c95c2356"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1298,7 +1298,7 @@
                     "CG\\Product\\": "src"
                 }
             },
-            "time": "2015-05-11 12:23:39"
+            "time": "2015-05-11 14:16:45"
         },
         {
             "name": "channelgrabber/purge",
