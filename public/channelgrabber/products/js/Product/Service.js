@@ -1,5 +1,6 @@
 define([
     'cg-mustache',
+    'Product/DomListener/Search',
     'Product/Filter/Mapper',
     'Product/Storage/Ajax',
     'DomManipulator',
@@ -8,6 +9,7 @@ define([
     'DeferredQueue'
 ], function (
     CGMustache,
+    domListener,
     productFilterMapper,
     productStorage,
     domManipulator,
@@ -44,6 +46,7 @@ define([
     Service.prototype.init = function(baseUrl)
     {
         this.setBaseUrl(baseUrl);
+        domListener.init(this);
         this.refresh();
     };
 
@@ -58,6 +61,7 @@ define([
                 self.renderNoProduct();
                 return;
             }
+            domListener.triggerProductsFetchedEvent(products);
             self.renderProducts(products);
         });
     };
@@ -70,6 +74,19 @@ define([
     Service.prototype.renderProducts = function(products)
     {
         var self = this;
+        this.fetchProductTemplates(function(templates)
+        {
+            var html = "";
+            for (var index in products) {
+                html += self.renderProduct(products[index], templates);
+            }
+            domManipulator.setHtml(Service.DOM_SELECTOR_PRODUCT_CONTAINER, html);
+            domListener.triggerProductsRenderedEvent(products);
+        });
+    };
+
+    Service.prototype.fetchProductTemplates = function(callable)
+    {
         var productUrlMap = {
             checkbox: '/channelgrabber/zf2-v4-ui/templates/elements/checkbox.mustache',
             buttons: '/channelgrabber/zf2-v4-ui/templates/elements/buttons.mustache',
@@ -85,11 +102,7 @@ define([
         };
         CGMustache.get().fetchTemplates(productUrlMap, function(templates)
         {
-            var html = "";
-            for (var index in products) {
-                html += self.renderProduct(products[index], templates);
-            }
-            domManipulator.setHtml(Service.DOM_SELECTOR_PRODUCT_CONTAINER, html);
+            callable(templates);
         });
     };
 
@@ -99,9 +112,9 @@ define([
         var expandButton = '';
         var hasVariations = false;
 
-        if (product['variations'] != undefined && product['variations'].length) {
+        if (product['variationCount'] != undefined && product['variationCount']) {
             var productContent = this.getVariationView(product, templates);
-            if (product['variations'].length > 2) {
+            if (product['variationCount'] > 2) {
               expandButton = this.getExpandButtonView(product, templates);
             }
             hasVariations = true;
@@ -163,19 +176,7 @@ define([
         var stockLocations = "";
         for (var index in product['variations']) {
             var variation = product['variations'][index];
-            var attributeValues = [];
-            for (var attributeNameIndex in product['attributeNames']) {
-                if(!($).isEmptyObject(variation['attributeValues'][product['attributeNames'][attributeNameIndex]])) {
-                    attributeValues.push(variation['attributeValues'][product['attributeNames'][attributeNameIndex]]);
-                } else {
-                    attributeValues.push('');
-                }
-            }
-            variations += CGMustache.get().renderTemplate(templates, {
-                'image': this.getPrimaryImage(variation['images']),
-                'sku': variation['sku'],
-                'attributes': attributeValues
-            }, 'variationRow');
+            variations += this.getVariationLineView(templates, variation, product['attributeNames']);
             stockLocations += this.getStockTableLineView(variation['stock']['locations'][0], templates);
         }
         var variationTable = CGMustache.get().renderTemplate(templates, {
@@ -187,6 +188,24 @@ define([
             'stockTable': stockTable
         });
         return html;
+    };
+
+    Service.prototype.getVariationLineView = function(templates, variation, attributeNames)
+    {
+        var attributeValues = [];
+        for (var attributeNameIndex in attributeNames) {
+            if(!($).isEmptyObject(variation['attributeValues'][attributeNames[attributeNameIndex]])) {
+                attributeValues.push(variation['attributeValues'][attributeNames[attributeNameIndex]]);
+            } else {
+                attributeValues.push('');
+            }
+        }
+
+        return CGMustache.get().renderTemplate(templates, {
+            'image': this.getPrimaryImage(variation['images']),
+            'sku': variation['sku'],
+            'attributes': attributeValues
+        }, 'variationRow');
     };
 
     Service.prototype.getPrimaryImage = function(images)

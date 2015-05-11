@@ -29,6 +29,16 @@ return [
                         ],
                     ],
                 ],
+                Action\ToCsv::class => [
+                    'methods' => [
+                        'addSubAction' => [
+                            'subAction' => [
+                                'required' => true,
+                                'type' => BulkActions\SubAction::class
+                            ],
+                        ],
+                    ],
+                ],
             ],
         ],
         'instance' => [
@@ -37,6 +47,7 @@ return [
                 'OrderDetailBulkActions' => BulkActions::class,
                 'InvoiceBySkuBulkAction' => SubAction\InvoiceBySku::class,
                 'InvoiceByTitleBulkAction' => BulkActions\SubAction::class,
+                'ToCsvOrderDataOnlyBulkAction' => SubAction\ToCsvOrderDataOnly::class,
                 'RoyalMailBulkAction' => BulkActions\SubAction::class,
                 'RemoveBatchBulkAction' => SubAction\Batch::class,
                 'InvoiceJavascript' => ViewModel::class,
@@ -48,6 +59,7 @@ return [
                 'CancelJavascript' => ViewModel::class,
                 'RefundJavascript' => ViewModel::class,
                 'PickListJavascript' => ViewModel::class,
+                'ToCsvJavascript' => ViewModel::class,
                 'UrlDataViewInvoice' => ViewModel::class,
                 'UrlDataViewInvoiceBySku' => ViewModel::class,
                 'UrlDataViewDispatch' => ViewModel::class,
@@ -57,6 +69,8 @@ return [
                 'UrlDataViewBatchRemove' => ViewModel::class,
                 'UrlDataViewCancelRefund' => ViewModel::class,
                 'UrlDataViewPickList' => ViewModel::class,
+                'UrlDataViewToCsv' => ViewModel::class,
+                'UrlDataViewToCsvOrderDataOnly' => ViewModel::class,
                 'Invoice' => Action\Invoice::class
             ],
             Service::class => [
@@ -77,6 +91,7 @@ return [
                         ['action' => Action\Invoice::class],
                         ['action' => Action\PickList::class],
                         ['action' => Action\Dispatch::class],
+                        ['action' => Action\ToCsv::class],
                         ['action' => Action\Tag::class],
                         ['action' => Action\Batch::class],
                         ['action' => Action\Archive::class]
@@ -262,13 +277,41 @@ return [
                     'javascript' => 'RefundJavascript',
                 ],
             ],
-            Action\PickList::class =>[
+            Action\PickList::class => [
                 'parameters' => [
                     'urlView' => 'UrlDataViewPickList',
                     'elementData' => [
                         'datatable' => 'datatable'
                     ],
                     'javascript' => 'PickListJavascript'
+                ]
+            ],
+            Action\ToCsv::class => [
+                'parameters' => [
+                    'urlView' => 'UrlDataViewToCsv',
+                    'elementData' => [
+                        'datatable' => 'datatable'
+                    ],
+                    'javascript' => 'ToCsvJavascript'
+                ],
+                'injections' => [
+                    'addSubAction' => [
+                        ['subAction' => 'ToCsvOrderDataOnlyBulkAction']
+                    ]
+                ]
+            ],
+            'ToCsvOrderDataOnlyBulkAction' => [
+                'parameters' => [
+                    'urlView' => 'UrlDataViewToCsvOrderDataOnly',
+                    'elementData' => [
+                        'datatable' => 'datatable'
+                    ],
+                    'javascript' => 'ToCsvJavascript'
+                ],
+            ],
+            'ToCsvJavascript' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/toCsv.js'
                 ]
             ],
             'RefundJavascript' => [
@@ -317,6 +360,16 @@ return [
                 ],
             ],
             'UrlDataViewPickList' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/data-url',
+                ]
+            ],
+            'UrlDataViewToCsv' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/data-url',
+                ]
+            ],
+            'UrlDataViewToCsvOrderDataOnly' => [
                 'parameters' => [
                     'template' => 'orders/orders/bulk-actions/data-url',
                 ]

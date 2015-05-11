@@ -48,13 +48,19 @@ class ProductsJsonController extends AbstractActionController
     {
         $view = $this->getJsonModelFactory()->newInstance();
         $filterParams = $this->params()->fromPost('filter', []);
+        $limit = 'all';
+        if (!array_key_exists('parentProductId', $filterParams) && !array_key_exists('id', $filterParams)) {
+            $filterParams['parentProductId'] = [0];
+            $limit = ProductService::LIMIT;
+        }
         if (!array_key_exists('deleted', $filterParams)) {
             $filterParams['deleted'] = false;
         }
         $requestFilter = $this->getFilterMapper()->fromArray($filterParams);
+        $requestFilter->setEmbedVariationsAsLinks(true);
         $productsArray = [];
         try {
-            $products = $this->getProductService()->fetchProducts($requestFilter);
+            $products = $this->getProductService()->fetchProducts($requestFilter, $requestFilter->getParentProductId(), $limit);
             $accounts = $this->getAccountsIndexedById($requestFilter->getOrganisationUnitId());
 
             foreach ($products as $product) {
@@ -88,9 +94,8 @@ class ProductsJsonController extends AbstractActionController
 
         $product['taxRates'] = $this->taxRateService->getTaxRatesOptionsForProduct($productEntity);
 
-        foreach ($productEntity->getVariations() as $variation) {
-            $product['variations'][] = $this->toArrayProductEntityWithEmbeddedData($variation, $accounts);
-        }
+        $product['variationCount'] = count($productEntity->getVariationIds());
+        $product['variationIds'] = $productEntity->getVariationIds();
 
         if (!$productEntity->getStock() || count($productEntity->getVariations())) {
             return $product;

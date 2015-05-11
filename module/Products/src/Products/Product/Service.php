@@ -36,7 +36,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     const PRODUCT_FILTER_BAR_STATE_KEY = 'product-filter-bar-state';
     const ACCOUNTS_PAGE = 1;
     const ACCOUNTS_LIMIT = 'all';
-    const LIMIT = 200;
+    const LIMIT = 50;
     const PAGE = 1;
     const LOG_CODE = 'ProductProductService';
     const LOG_NO_STOCK_TO_DELETE = 'No stock found to remove for Product %s when deleting it';
@@ -86,10 +86,10 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ->setIntercomEventService($intercomEventService);
     }
 
-    public function fetchProducts(ProductFilter $productFilter)
+    public function fetchProducts(ProductFilter $productFilter, $parentProductIds = [0], $limit = self::LIMIT)
     {
-        $parentProductIds = [0];
-        $productFilter->setLimit(static::LIMIT)
+        $productFilter
+            ->setLimit($limit)
             ->setPage(static::PAGE)
             ->setOrganisationUnitId($this->getActiveUserContainer()->getActiveUser()->getOuList())
             ->setParentProductId($parentProductIds);

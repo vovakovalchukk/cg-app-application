@@ -7,13 +7,14 @@ require.config({
     }
 });
 require([
-    "showHideFilters", "Product/DomListener/Search", 'Product/DomListener/TaxRate', "jquery"
+    "showHideFilters", "Product/Service", "Variation/Service", 'Product/DomListener/TaxRate', "jquery"
 ],
-function(ShowHideFilters, searchDomListener, taxRateDomListener, $) {
+function(ShowHideFilters, productService, variationService, taxRateDomListener, $) {
     $(document).ready(function()
     {
         var hideFilters = new ShowHideFilters();
-        searchDomListener.init('.product-search-text', '.product-search-button', '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img');
+        productService.init('<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img');
+        variationService.init();
         taxRateDomListener.init('.tax-rate-custom-select-holder');
     });
 });
@@ -33,12 +34,6 @@ $this->placeholder('#sidebar')
         Loading products...
     </div>
 </div>
-<script type="text/javascript">
-    require(['Variation/DomListener'], function(domListener)
-    {
-        domListener.init();
-    });
-</script>
 <style>
 /**
   This is a hack to hide the sidebar away for now TODO: Remove this
