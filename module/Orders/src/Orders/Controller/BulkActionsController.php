@@ -6,6 +6,7 @@ use CG\Order\Shared\Collection as OrderCollection;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use CG\Zend\Stdlib\Http\FileResponse;
 use CG\Template\Entity as Template;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_Usage\Service as UsageService;
@@ -17,6 +18,7 @@ use Orders\Order\Batch\Service as BatchService;
 use Orders\Order\Exception\MultiException;
 use Orders\Order\Invoice\Service as InvoiceService;
 use Orders\Order\PickList\Service as PickListService;
+use Orders\Order\Csv\Service as CsvService;
 use Settings\Module as Settings;
 use Settings\Controller\InvoiceController as InvoiceSettings;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -33,6 +35,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected $orderService;
     protected $invoiceService;
     protected $pickListService;
+    protected $csvService;
     protected $batchService;
     protected $usageService;
     protected $typeMap = [
@@ -45,6 +48,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         OrderService $orderService,
         InvoiceService $invoiceService,
         PickListService $pickListService,
+        CsvService $csvService,
         BatchService $batchService,
         UsageService $usageService
     ) {
@@ -53,6 +57,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             ->setOrderService($orderService)
             ->setInvoiceService($invoiceService)
             ->setPickListService($pickListService)
+            ->setCsvService($csvService)
             ->setBatchService($batchService)
             ->setUsageService($usageService);
     }
@@ -116,6 +121,24 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function setPickListService(PickListService $pickListService)
     {
         $this->pickListService = $pickListService;
+        return $this;
+    }
+
+    /**
+     * @return CsvService
+     */
+    protected function getCsvService()
+    {
+        return $this->csvService;
+    }
+
+    /**
+     * @param CsvService $csvService
+     * @return $this
+     */
+    public function setCsvService(CsvService $csvService)
+    {
+        $this->csvService = $csvService;
         return $this;
     }
 
@@ -290,15 +313,6 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function invoiceOrders(OrderCollection $orders, Template $template = null, $progressKey = null)
     {
         return $this->getInvoiceService()->getResponseFromOrderCollection($orders, $template, $progressKey);
-    }
-
-    public function checkInvoicePrintingAllowedAction()
-    {
-        $this->checkUsage();
-
-        return $this->getJsonModelFactory()->newInstance(
-            ["allowed" => true, "guid" => uniqid('', true)]
-        );
     }
 
     public function checkInvoiceGenerationProgressAction()
@@ -476,12 +490,17 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         $this->getOrderService()->archiveOrders($orders);
     }
 
+    public function checkInvoicePrintingAllowedAction()
+    {
+        return $this->getUsageViewModel();
+    }
+
     public function pickListOrderIdsAction($orderBy = null, $orderDir = 'ASC')
     {
         try {
             $orders = $this->getOrdersFromOrderIds($orderBy, $orderDir);
             $progressKey = $this->getPickListProgressKey();
-            return $this->pickListOrders($orders, $progressKey);
+            return $this->getPickListService()->getResponseFromOrderCollection($orders, $progressKey);
         } catch (NotFound $exception) {
             return $this->redirect()->toRoute('Orders');
         }
@@ -492,20 +511,75 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         try {
             $orders = $this->getOrdersFromFilterId($orderBy, $orderDir);
             $progressKey = $this->getPickListProgressKey();
-            return $this->pickListOrders($orders, $progressKey);
+            return $this->getPickListService()->getResponseFromOrderCollection($orders, $progressKey);
         } catch (NotFound $exception) {
             return $this->redirect()->toRoute('Orders');
         }
     }
 
-    public function pickListOrders(OrderCollection $orders, $progressKey = null)
+    public function toCsvOrderIdsAction($orderBy = null, $orderDir = 'ASC')
     {
-        return $this->getPickListService()->getResponseFromOrderCollection($orders, $progressKey);
+        try {
+            $orders = $this->getOrdersFromOrderIds($orderBy, $orderDir);
+            $csv = $this->getCsvService()->generateCsvForOrdersAndItems($orders);
+            return new FileResponse(CsvService::MIME_TYPE, CsvService::FILENAME, (string) $csv);
+        } catch (NotFound $exception) {
+            return $this->redirect()->toRoute('Orders');
+        }
+    }
+
+    public function toCsvFilterIdAction($orderBy, $orderDir = 'ASC')
+    {
+        try {
+            $orders = $this->getOrdersFromFilterId($orderBy, $orderDir);
+            $progressKey = $this->getToCsvProgressKey();
+            $csv = $this->getCsvService()->generateCsvForOrdersAndItems($orders, $progressKey);
+            return new FileResponse(CsvService::MIME_TYPE, CsvService::FILENAME, (string) $csv);
+        } catch (NotFound $exception) {
+            return $this->redirect()->toRoute('Orders');
+        }
+    }
+
+    public function toCsvOrderDataOnlyOrderIdsAction($orderBy = null, $orderDir = 'ASC')
+    {
+        try {
+            $orders = $this->getOrdersFromOrderIds($orderBy, $orderDir);
+            $csv = $this->getCsvService()->generateCsvForOrders($orders);
+            return new FileResponse(CsvService::MIME_TYPE, CsvService::FILENAME, (string) $csv);
+        } catch (NotFound $exception) {
+            return $this->redirect()->toRoute('Orders');
+        }
+    }
+
+    public function toCsvOrderDataOnlyFilterIdAction($orderBy = null, $orderDir = 'ASC')
+    {
+        try {
+            $orders = $this->getOrdersFromFilterId($orderBy, $orderDir);
+            $progressKey = $this->getToCsvProgressKey();
+            $csv = $this->getCsvService()->generateCsvForOrders($orders, $progressKey);
+            return new FileResponse(CsvService::MIME_TYPE, CsvService::FILENAME, (string) $csv);
+        } catch (NotFound $exception) {
+            return $this->redirect()->toRoute('Orders');
+        }
+    }
+
+    public function checkCsvGenerationAllowedAction()
+    {
+        return $this->getUsageViewModel();
+    }
+
+    public function checkCsvGenerationProgressAction()
+    {
+        $progressKey = $this->getToCsvProgressKey();
+        $count = $this->getCsvService()->checkToCsvGenerationProgress($progressKey);
+        return $this->getJsonModelFactory()->newInstance(
+            ["progressCount" => $count]
+        );
     }
 
     public function checkPickListPrintingAllowedAction()
     {
-        return $this->checkInvoicePrintingAllowedAction();
+        return $this->getUsageViewModel();
     }
 
     public function checkPickListGenerationProgressAction()
@@ -520,6 +594,20 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected function getPickListProgressKey()
     {
         return $this->params()->fromPost('pickListProgressKey', null);
+    }
+
+    protected function getToCsvProgressKey()
+    {
+        return $this->params()->fromPost('toCsvProgressKey', null);
+    }
+
+    protected function getUsageViewModel()
+    {
+        $this->checkUsage();
+
+        return $this->getJsonModelFactory()->newInstance(
+            ["allowed" => true, "guid" => uniqid('', true)]
+        );
     }
 
     protected function checkUsage()

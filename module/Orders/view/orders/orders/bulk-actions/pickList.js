@@ -10,7 +10,7 @@ require(
         var pickListBulkAction = new PickListBulkAction(
             n,
             "<?= $this->translate('Preparing to generate pick list') ?>",
-            "<?= $this->translate('Generating pick list...') ?>",
+            "<?= $this->translate('Generating pick list') ?>",
             "<?= $this->translate('Finished generating the pick list') ?>"
         );
         $("#<?= $id ?>").bulkActions("set", "<?= $action ?>", function() {
