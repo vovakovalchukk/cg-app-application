@@ -39,7 +39,7 @@ class Orders implements MapperInterface
             'Shipping Method' => 'shippingMethod',
             'Currency Code' => 'currencyCode',
             'Subtotal' => 'subtotal',
-            'Total VAT' => '',
+            'Total VAT' => 'tax',
             'Total Discount' => 'totalOrderAndItemsDiscount',
             'Total' => 'total',
             'Billing Company Name' => 'calculatedBillingAddressCompanyName',

@@ -8,6 +8,7 @@ use Orders\Order\Csv\Mapper\Formatter\GiftWrapType as GiftWrapTypeFormatter;
 use Orders\Order\Csv\Mapper\Formatter\ShippingPrice as ShippingPriceFormatter;
 use Orders\Order\Csv\Mapper\Formatter\SalesChannelName as SalesChannelNameFormatter;
 use Orders\Order\Csv\Mapper\Formatter\InvoiceDate as InvoiceDateFormatter;
+use Orders\Order\Csv\Mapper\Formatter\VatRate as VatRateFormatter;
 use Orders\Order\Csv\Mapper\Formatter\Standard as StandardFormatter;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Stdlib;
@@ -20,6 +21,7 @@ class OrdersItems implements MapperInterface
     protected $shippingPriceFormatter;
     protected $salesChannelNameFormatter;
     protected $invoiceDateFormatter;
+    protected $vatRateFormatter;
     protected $standardFormatter;
 
     public function __construct(
@@ -29,6 +31,7 @@ class OrdersItems implements MapperInterface
         ShippingPriceFormatter $shippingPriceFormatter,
         SalesChannelNameFormatter $salesChannelNameFormatter,
         InvoiceDateFormatter $invoiceDateFormatter,
+        VatRateFormatter $vatRateFormatter,
         StandardFormatter $standardFormatter
     ) {
         $this->setGiftWrapMessageFormatter($giftWrapMessageFormatter)
@@ -37,6 +40,7 @@ class OrdersItems implements MapperInterface
             ->setShippingPriceFormatter($shippingPriceFormatter)
             ->setSalesChannelNameFormatter($salesChannelNameFormatter)
             ->setInvoiceDateFormatter($invoiceDateFormatter)
+            ->setVatRateFormatter($vatRateFormatter)
             ->setStandardFormatter($standardFormatter);
     }
 
@@ -59,9 +63,9 @@ class OrdersItems implements MapperInterface
             'Unit Price' => 'individualItemPrice',
             'Quantity' => 'itemQuantity',
             'SKU' => 'itemSku',
-            'VAT %' => '',
+            'VAT %' => $this->vatRateFormatter,
             'Line Discount' => 'lineDiscount',
-            'Line Vat' => '',
+            'Line VAT' => '',
             'Total Order Discount' => 'totalOrderAndItemsDiscount',
             'Line Total' => 'lineTotal',
             'Billing Company Name' => 'calculatedBillingAddressCompanyName',
@@ -185,6 +189,16 @@ class OrdersItems implements MapperInterface
     public function setInvoiceDateFormatter(InvoiceDateFormatter $invoiceDateFormatter)
     {
         $this->invoiceDateFormatter = $invoiceDateFormatter;
+        return $this;
+    }
+
+    /**
+     * @param VatRateFormatter $vatRateFormatter
+     * @return $this
+     */
+    public function setVatRateFormatter(VatRateFormatter $vatRateFormatter)
+    {
+        $this->vatRateFormatter = $vatRateFormatter;
         return $this;
     }
 
