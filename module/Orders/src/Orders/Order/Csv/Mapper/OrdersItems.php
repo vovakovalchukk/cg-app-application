@@ -65,7 +65,7 @@ class OrdersItems implements MapperInterface
             'SKU' => 'itemSku',
             'VAT %' => $this->vatRateFormatter,
             'Line Discount' => 'lineDiscount',
-            'Line VAT' => '',
+            'Line VAT' => 'lineTax',
             'Total Order Discount' => 'totalOrderAndItemsDiscount',
             'Line Total' => 'lineTotal',
             'Billing Company Name' => 'calculatedBillingAddressCompanyName',
