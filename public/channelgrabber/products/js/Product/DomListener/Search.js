@@ -21,6 +21,7 @@ define([
 
     Search.SELECTOR_INPUT = '.product-search-text';
     Search.SELECTOR_BUTTON = '.product-search-button';
+    Search.EVENT_PRODUCTS_FETCHED = 'products-fetched';
     Search.EVENT_PRODUCTS_RENDERED = 'products-rendered';
 
     Search.prototype.init = function(service)
@@ -50,9 +51,19 @@ define([
         this.getService().refresh();
     };
 
+    Search.prototype.triggerProductsFetchedEvent = function(products)
+    {
+        $(document).trigger(Search.EVENT_PRODUCTS_FETCHED, [products]);
+    };
+
     Search.prototype.triggerProductsRenderedEvent = function(products)
     {
         $(document).trigger(Search.EVENT_PRODUCTS_RENDERED, [products]);
+    };
+
+    Search.prototype.getProductsFetchedEvent = function()
+    {
+        return Search.EVENT_PRODUCTS_FETCHED;
     };
 
     Search.prototype.getProductsRenderedEvent = function()

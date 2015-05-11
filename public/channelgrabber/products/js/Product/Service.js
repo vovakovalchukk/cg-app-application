@@ -51,6 +51,7 @@ define([
                 self.renderNoProduct();
                 return;
             }
+            domListener.triggerProductsFetchedEvent(products);
             self.renderProducts(products);
         });
     };

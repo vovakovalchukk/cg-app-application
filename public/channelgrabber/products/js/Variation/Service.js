@@ -13,6 +13,9 @@ define([
 ) {
     var Service = function()
     {
+        var productsRendered = false;
+        var defaultDisplayVariations = {};
+
         this.getDomManipulator = function()
         {
             return domManipulator;
@@ -31,6 +34,28 @@ define([
         this.getProductService = function()
         {
             return productService;
+        };
+
+        this.isProductsRendered = function()
+        {
+            return productsRendered;
+        };
+
+        this.setProductsRendered = function(newFlag)
+        {
+            productsRendered = newFlag;
+            return this;
+        };
+
+        this.getDefaultDisplayVariations = function()
+        {
+            return defaultDisplayVariations;
+        };
+
+        this.setDefaultDisplayVariations = function(variations)
+        {
+            defaultDisplayVariations = variations;
+            return this;
         };
     };
 
@@ -175,13 +200,14 @@ define([
         return containerHeight + (rowHeight * newRowCount);
     };
 
-    Service.prototype.productsRendered = function(products)
+    Service.prototype.productsFetched = function(products)
     {
         this.loadDefaultDisplayVariations(products);
     };
 
     Service.prototype.loadDefaultDisplayVariations = function(products)
     {
+        var self = this;
         var defaultDisplayVarIds = [];
         products.forEach(function(product)
         {
@@ -198,18 +224,45 @@ define([
         this.getProductService().fetchProducts(
             productFilter,
             function(variations) {
-console.log(variations);
-// TODO: render the variations under their respective parents
-// Maybe find the productContainer and call: self.renderAdditionalVariations(productContainer, variations, templates) ?
-//                self.getProductService().fetchProductTemplates(function(templates)
-//                {
-//                    self.renderAdditionalVariations(productContainer, variations, templates);
-//                });
-//
-//                self.getDomManipulator().setCssValue(Service.SELECTOR_LOADING_MESSAGE, 'display', 'none');
-//                self.expandVariations(productContainer);
+                var variationsByParent = {};
+                for (var index in variations) {
+                    var variation = variations[index];
+                    if (!variationsByParent[variation.parentProductId]) {
+                        variationsByParent[variation.parentProductId] = [];
+                    }
+                    variationsByParent[variation.parentProductId].push(variation);
+                }
+                self.setDefaultDisplayVariations(variationsByParent);
+                self.renderDefaultDisplayVariations();
             }
         );
+    };
+
+    Service.prototype.productsRendered = function(products)
+    {
+        this.setProductsRendered(true);
+        this.renderDefaultDisplayVariations();
+    };
+
+    Service.prototype.renderDefaultDisplayVariations = function()
+    {
+        // Product rendering and variation fetching happen asynchronously, ensure both have completed
+        if (!this.isProductsRendered() || Object.getOwnPropertyNames(this.getDefaultDisplayVariations()).length == 0) {
+            return;
+        }
+
+        var self = this;
+        this.getProductService().fetchProductTemplates(function(templates)
+        {
+            var variationsByParent = self.getDefaultDisplayVariations();
+            for (var parentId in variationsByParent) {
+                var variations = variationsByParent[parentId];
+                var productContainer = document.getElementById('product-container-'+parentId);
+                self.renderAdditionalVariations(productContainer, variations, templates);
+            }
+            self.setProductsRendered(false);
+            self.setDefaultDisplayVariations({});
+        });
     };
 
     return new Service();
