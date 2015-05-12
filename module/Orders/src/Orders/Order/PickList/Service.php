@@ -15,6 +15,7 @@ use CG\PickList\Service as PickListService;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Zend\Stdlib\Http\FileResponse as Response;
 use CG\User\ActiveUserInterface as ActiveUserContainer;
 use Orders\Order\PickList\Image\Client as ImageClient;
 use Orders\Order\PickList\Image\Map as ImageMap;
