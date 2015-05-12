@@ -1,41 +1,74 @@
 define([
-    'Product/Service',
     'KeyPress',
     'ElementWatcher'
 ], function (
-    service,
     KeyPress,
     elementWatcher
 ) {
     var Search = function()
     {
+        var service;
+        this.setService = function(newService)
+        {
+            service = newService;
+            return this;
+        };
+        this.getService = function()
+        {
+            return service;
+        };
     };
 
-    Search.prototype.init = function(inputSelector, buttonSelector, baseUrl)
+    Search.SELECTOR_INPUT = '.product-search-text';
+    Search.SELECTOR_BUTTON = '.product-search-button';
+    Search.EVENT_PRODUCTS_FETCHED = 'products-fetched';
+    Search.EVENT_PRODUCTS_RENDERED = 'products-rendered';
+
+    Search.prototype.init = function(service)
     {
+        this.setService(service);
         var self = this;
-        service.init(baseUrl);
         elementWatcher.onInitialise(function() {
-            self.listen(inputSelector, buttonSelector, baseUrl);
+            self.listen();
         });
     };
 
-    Search.prototype.listen = function(inputSelector, buttonSelector, baseUrl)
+    Search.prototype.listen = function()
     {
         var self = this;
-        $(inputSelector).off('keypress').on('keypress', function(event){
+        $(Search.SELECTOR_INPUT).off('keypress').on('keypress', function(event){
             if (event.which == KeyPress.ENTER) {
                 self.search();
             }
         });
-        $(buttonSelector).off('click').on('click', function(event){
+        $(Search.SELECTOR_BUTTON).off('click').on('click', function(event){
             self.search();
         });
     };
 
     Search.prototype.search = function()
     {
-        service.refresh();
+        this.getService().refresh();
+    };
+
+    Search.prototype.triggerProductsFetchedEvent = function(products)
+    {
+        $(document).trigger(Search.EVENT_PRODUCTS_FETCHED, [products]);
+    };
+
+    Search.prototype.triggerProductsRenderedEvent = function(products)
+    {
+        $(document).trigger(Search.EVENT_PRODUCTS_RENDERED, [products]);
+    };
+
+    Search.prototype.getProductsFetchedEvent = function()
+    {
+        return Search.EVENT_PRODUCTS_FETCHED;
+    };
+
+    Search.prototype.getProductsRenderedEvent = function()
+    {
+        return Search.EVENT_PRODUCTS_RENDERED;
     };
 
     return new Search();

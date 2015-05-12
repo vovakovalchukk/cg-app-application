@@ -517,6 +517,73 @@ return [
                             ]
                         ]
                     ],
+                    'to_csv' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/toCsv',
+                            'defaults' => [
+                                'controller' => BulkActionsController::class,
+                                'action' => 'toCsvOrderIds'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            'filterId' => [
+                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                'options' => [
+                                    'route' => '/:filterId',
+                                    'constraints' => [
+                                        'filterId' => '[^/]+'
+                                    ],
+                                    'defaults' => [
+                                        'action' => 'toCsvFilterId',
+                                    ]
+                                ]
+                            ],
+                            'to_csv_check' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/check',
+                                    'defaults' => [
+                                        'action' => 'checkCsvGenerationAllowed'
+                                    ]
+                                ]
+                            ],
+                            'to_csv_progress' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/progress',
+                                    'defaults' => [
+                                        'action' => 'checkCsvGenerationProgress'
+                                    ]
+                                ]
+                            ],
+                            'to_csv_order_data' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/orderData',
+                                    'defaults' => [
+                                        'action' => 'toCsvOrderDataOnlyOrderIds'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    'to_csv_filter_id' => [
+                                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => [
+                                            'route' => '/:filterId',
+                                            'constraints' => [
+                                                'filterId' => '[^/]+'
+                                            ],
+                                            'defaults' => [
+                                                'action' => 'toCsvOrderDataOnlyFilterId'
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ],
                     StoredFiltersController::ROUTE_SAVE => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [

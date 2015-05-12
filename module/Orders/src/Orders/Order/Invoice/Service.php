@@ -18,6 +18,7 @@ use Orders\Order\Invoice\Renderer\ServiceInterface as RendererService;
 use Orders\Order\Invoice\Template\Factory as TemplateFactory;
 use Orders\Order\Invoice\ProgressStorage;
 use Orders\Order\Service as OrderService;
+use CG\Zend\Stdlib\Http\FileResponse as Response;
 use Zend\Di\Di;
 
 class Service implements StatsAwareInterface
