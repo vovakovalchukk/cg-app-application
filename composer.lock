@@ -2413,7 +2413,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.1.8-304c44.zip",
                 "reference": "d8628cd35bd98b00ad5cc7931041fec9d38a6854",
-                "shasum": "3a5809c268f467ab78e984eefb1dfac54489e438"
+                "shasum": "2bee98d5dee4f76881f3680f90cb67a4b897287b"
             },
             "require": {
                 "channelgrabber/billing": ">=1.3.7,<2.0.0",
@@ -2650,17 +2650,17 @@
         },
         {
             "name": "channelgrabber/zf2-usage",
-            "version": "1.0.5",
+            "version": "1.0.5.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/usage-module.git",
-                "reference": "83e2afffe329c47f9be316c6ef9169f734ebb92b"
+                "reference": "0011338e949b814f64927f34dca072c9e8c00945"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-usage-1.0.5-16c009.zip",
-                "reference": "83e2afffe329c47f9be316c6ef9169f734ebb92b",
-                "shasum": "267c2ff13794ade533ccf5ae32f5779d266cf1bf"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-usage-1.0.5.1-2eafff.zip",
+                "reference": "0011338e949b814f64927f34dca072c9e8c00945",
+                "shasum": "78b1e5584b21f10b35611852e4824325f5ec0374"
             },
             "require": {
                 "channelgrabber/billing": ">=1.1.3",
@@ -2691,7 +2691,7 @@
                 ]
             },
             "description": "Usage module to determine if users are exceeding their limits",
-            "time": "2015-05-05 11:20:54"
+            "time": "2015-05-19 11:15:34"
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
