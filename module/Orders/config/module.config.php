@@ -12,13 +12,16 @@ use CG\Order\Client\UserChange\Storage\Api as UserChangeApi;
 use CG\Order\Client\Storage\Api as OrderApi;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Storage\Api as ProductApiStorage;
+use CG\Product\StorageInterface as ProductStorage;
 use CG\Stock\Service as StockService;
 use CG\Stock\Storage\Api as StockApiStorage;
+use CG\Stock\StorageInterface as StockStorage;
 use CG\Stock\Location\Service as LocationService;
 use CG\Stock\Location\Storage\Api as LocationApiStorage;
 use CG\Listing\Service as ListingService;
 use CG\Image\Service as ImageService;
 use CG\Listing\Storage\Api as ListingApiStorage;
+use CG\Listing\StorageInterface as ListingStorage;
 use CG\Image\Storage\Api as ImageApiStorage;
 use CG\Settings\PickList\Service as PickListSettingsService;
 use CG\Settings\PickList\Storage\Api as PickListSettingsApiStorage;
@@ -717,6 +720,9 @@ return [
             'preferences' => [
                 InvoiceRendererService::class => PdfInvoiceRendererService::class,
                 FilterStorageInterface::class => FilterStorage::class,
+                ProductStorage::class => ProductApiStorage::class,
+                StockStorage::class => StockApiStorage::class,
+                ListingStorage::class => ListingApiStorage::class,
             ],
             TableService::class => [
                 'parameters' => [
