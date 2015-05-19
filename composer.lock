@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "hash": "c4cc25b17e3fd65a5eba2a84f935de2a",
@@ -2423,7 +2423,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.1.8-304c44.zip",
                 "reference": "d8628cd35bd98b00ad5cc7931041fec9d38a6854",
-                "shasum": "3a5809c268f467ab78e984eefb1dfac54489e438"
+                "shasum": "2bee98d5dee4f76881f3680f90cb67a4b897287b"
             },
             "require": {
                 "channelgrabber/billing": ">=1.3.7,<2.0.0",
@@ -2956,7 +2956,7 @@
             "version": "v1.0.7",
             "source": {
                 "type": "git",
-                "url": "https://github.com/FriendsOfPHP/Goutte.git",
+                "url": "https://github.com/fabpot/Goutte.git",
                 "reference": "794b196e76bdd37b5155cdecbad311f0a3b07625"
             },
             "dist": {
@@ -3715,7 +3715,7 @@
             "version": "v1.0.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/silexphp/Pimple.git",
+                "url": "https://github.com/fabpot/Pimple.git",
                 "reference": "ae11e57e8c2bb414b2ff93396dbbfc0eb92feb94"
             },
             "dist": {
@@ -3990,7 +3990,7 @@
             "version": "2.3.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/slimphp/Slim.git",
+                "url": "https://github.com/codeguy/Slim.git",
                 "reference": "3dec4f9ee2e9c204a9f334afd72abc174c1b792e"
             },
             "dist": {
@@ -5018,7 +5018,7 @@
             "version": "v1.5.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/minkphp/Mink.git",
+                "url": "https://github.com/Behat/Mink.git",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe"
             },
             "dist": {
@@ -5073,7 +5073,7 @@
             "version": "v1.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/minkphp/MinkBrowserKitDriver.git",
+                "url": "https://github.com/Behat/MinkBrowserKitDriver.git",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c"
             },
             "dist": {
@@ -5128,7 +5128,7 @@
             "version": "v1.0.9",
             "source": {
                 "type": "git",
-                "url": "https://github.com/minkphp/MinkGoutteDriver.git",
+                "url": "https://github.com/Behat/MinkGoutteDriver.git",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8"
             },
             "dist": {
@@ -5179,7 +5179,7 @@
             "version": "v1.1.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/minkphp/MinkSelenium2Driver.git",
+                "url": "https://github.com/Behat/MinkSelenium2Driver.git",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476"
             },
             "dist": {
