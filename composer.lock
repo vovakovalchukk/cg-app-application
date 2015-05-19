@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9ae5485b30b863360468d052fee9a0ca",
+    "hash": "5abd63cbde5baf56c3176689c086f1c9",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1767,13 +1767,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "b3e95084d6524ce20d2b085b2b27732ff87441e1"
+                "reference": "fcca8b7360ac14c184c37a73d23985d275e29327"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-5475-git-wrap-on-invoices-1e3e64.zip",
-                "reference": "b3e95084d6524ce20d2b085b2b27732ff87441e1",
-                "shasum": "e8707b3eff1d316d74b9f1d3059a4089155d2b9b"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-5475-git-wrap-on-invoices-9846d0.zip",
+                "reference": "fcca8b7360ac14c184c37a73d23985d275e29327",
+                "shasum": "e920be248181b6665bd4f2268a6966ec3304b4cc"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1810,7 +1810,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-05-18 14:02:06"
+            "time": "2015-05-19 15:00:45"
         },
         {
             "name": "channelgrabber/transaction",
