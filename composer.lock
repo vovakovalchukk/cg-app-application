@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "78d30ebd02af5e328d145f7bef8abf32",
+    "hash": "9ae5485b30b863360468d052fee9a0ca",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1709,17 +1709,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.2.48",
+            "version": "dev-CGIV-5475-git-wrap-on-invoices",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "516152e8416e3fefcfa37858a470ef407a6ad104"
+                "reference": "b3e95084d6524ce20d2b085b2b27732ff87441e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.48-8f23c8.zip",
-                "reference": "516152e8416e3fefcfa37858a470ef407a6ad104",
-                "shasum": "a18cb1c86d82f6d5d39c3925da55ceabdb696018"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-5475-git-wrap-on-invoices-1e3e64.zip",
+                "reference": "b3e95084d6524ce20d2b085b2b27732ff87441e1",
+                "shasum": "e8707b3eff1d316d74b9f1d3059a4089155d2b9b"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1756,7 +1756,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-04-13 09:30:09"
+            "time": "2015-05-18 14:02:06"
         },
         {
             "name": "channelgrabber/transaction",
@@ -2946,7 +2946,7 @@
             "version": "v1.0.7",
             "source": {
                 "type": "git",
-                "url": "https://github.com/FriendsOfPHP/Goutte.git",
+                "url": "https://github.com/fabpot/Goutte.git",
                 "reference": "794b196e76bdd37b5155cdecbad311f0a3b07625"
             },
             "dist": {
@@ -3662,7 +3662,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpointer/zipball/c1b5443be0b6cfd271bfed3812f549bdabb49a6b",
+                "url": "https://composer.build.channelgrabber.com/dist/php-jsonpointer-php-jsonpointer-c1b5443be0b6cfd271bfed3812f549bdabb49a6b-zip-e2b4f6.zip",
                 "reference": "c1b5443be0b6cfd271bfed3812f549bdabb49a6b",
                 "shasum": "ae3b0d126bfdad9589ef813f2862237d8ec0cd6f"
             },
@@ -3705,7 +3705,7 @@
             "version": "v1.0.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/silexphp/Pimple.git",
+                "url": "https://github.com/fabpot/Pimple.git",
                 "reference": "ae11e57e8c2bb414b2ff93396dbbfc0eb92feb94"
             },
             "dist": {
@@ -3980,7 +3980,7 @@
             "version": "2.3.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/slimphp/Slim.git",
+                "url": "https://github.com/codeguy/Slim.git",
                 "reference": "3dec4f9ee2e9c204a9f334afd72abc174c1b792e"
             },
             "dist": {
@@ -5008,7 +5008,7 @@
             "version": "v1.5.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/minkphp/Mink.git",
+                "url": "https://github.com/Behat/Mink.git",
                 "reference": "0769e6d9726c140a54dbf827a438c0f9912749fe"
             },
             "dist": {
@@ -5063,7 +5063,7 @@
             "version": "v1.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/minkphp/MinkBrowserKitDriver.git",
+                "url": "https://github.com/Behat/MinkBrowserKitDriver.git",
                 "reference": "63960c8fcad4529faad1ff33e950217980baa64c"
             },
             "dist": {
@@ -5118,7 +5118,7 @@
             "version": "v1.0.9",
             "source": {
                 "type": "git",
-                "url": "https://github.com/minkphp/MinkGoutteDriver.git",
+                "url": "https://github.com/Behat/MinkGoutteDriver.git",
                 "reference": "fa1b073b48761464feb0b05e6825da44b20118d8"
             },
             "dist": {
@@ -5169,7 +5169,7 @@
             "version": "v1.1.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/minkphp/MinkSelenium2Driver.git",
+                "url": "https://github.com/Behat/MinkSelenium2Driver.git",
                 "reference": "bcf1b537de37db6db0822d9e7bd97e600fd7a476"
             },
             "dist": {
@@ -6391,10 +6391,18 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.2.49",
+            "alias_normalized": "1.2.49.0",
+            "version": "dev-CGIV-5475-git-wrap-on-invoices",
+            "package": "channelgrabber/template"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/template": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
