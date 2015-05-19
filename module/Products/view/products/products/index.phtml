@@ -7,14 +7,15 @@ require.config({
     }
 });
 require([
-    "showHideFilters", "Product/Service", "Variation/Service", "jquery"
+    "showHideFilters", "Product/Service", "Variation/Service", 'Product/DomListener/TaxRate', "jquery"
 ],
-function(ShowHideFilters, productService, variationService, $) {
+function(ShowHideFilters, productService, variationService, taxRateDomListener, $) {
     $(document).ready(function()
     {
         var hideFilters = new ShowHideFilters();
         productService.init('<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img');
         variationService.init();
+        taxRateDomListener.init('.tax-rate-custom-select-holder');
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>

@@ -12,10 +12,12 @@ use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Http\StatusCode;
 use Zend\I18n\Translator\Translator;
 use CG\Account\Client\Service as AccountService;
+use Products\Product\TaxRate\Service as TaxRateService;
 
 class ProductsJsonController extends AbstractActionController
 {
     const ROUTE_AJAX = 'AJAX';
+    const ROUTE_AJAX_TAX_RATE = 'tax_rate';
     const ROUTE_STOCK_UPDATE = 'stockupdate';
     const ROUTE_DELETE = 'Delete';
 
@@ -24,19 +26,22 @@ class ProductsJsonController extends AbstractActionController
     protected $filterMapper;
     protected $translator;
     protected $accountService;
+    protected $taxRateService;
 
     public function __construct(
         ProductService $productService,
         JsonModelFactory $jsonModelFactory,
         FilterMapper $filterMapper,
         Translator $translator,
-        AccountService $accountService
+        AccountService $accountService,
+        TaxRateService $taxRateService
     ) {
         $this->setProductService($productService)
             ->setJsonModelFactory($jsonModelFactory)
             ->setFilterMapper($filterMapper)
             ->setTranslator($translator)
-            ->setAccountService($accountService);
+            ->setAccountService($accountService)
+            ->setTaxRateService($taxRateService);
     }
 
     public function ajaxAction()
@@ -87,6 +92,8 @@ class ProductsJsonController extends AbstractActionController
             'accounts' => $accounts
         ]);
 
+        $product['taxRates'] = $this->taxRateService->getTaxRatesOptionsForProduct($productEntity);
+
         $product['variationCount'] = count($productEntity->getVariationIds());
         $product['variationIds'] = $productEntity->getVariationIds();
 
@@ -98,6 +105,7 @@ class ProductsJsonController extends AbstractActionController
         $product['stock'] = array_merge($productEntity->getStock()->toArray(), [
             'locations' => $stockEntity->getLocations()->toArray()
         ]);
+
         foreach ($product['stock']['locations'] as $stockLocationIndex => $stockLocation) {
             $stockLocationId = $product['stock']['locations'][$stockLocationIndex]['id'];
             $product['stock']['locations'][$stockLocationIndex]['eTag'] = $stockEntity->getLocations()->getById($stockLocationId)->getEtag();
@@ -135,6 +143,16 @@ class ProductsJsonController extends AbstractActionController
 
         $this->getProductService()->deleteProductsById($productIds);
         $view->setVariable('deleted', true);
+        return $view;
+    }
+
+    public function saveProductTaxRateAction()
+    {
+        $productId = (int) $this->params()->fromPost('productId');
+        $taxRateId = (string) $this->params()->fromPost('taxRateId');
+        $view = $this->getJsonModelFactory()->newInstance();
+        $this->getProductService()->saveProductTaxRateId($productId, $taxRateId);
+        $view->setVariable('saved', true);
         return $view;
     }
 
@@ -190,6 +208,16 @@ class ProductsJsonController extends AbstractActionController
     public function setAccountService(AccountService $accountService)
     {
         $this->accountService = $accountService;
+        return $this;
+    }
+
+    /**
+     * @param TaxRateService $taxRateService
+     * @return $this
+     */
+    public function setTaxRateService(TaxRateService $taxRateService)
+    {
+        $this->taxRateService = $taxRateService;
         return $this;
     }
 }

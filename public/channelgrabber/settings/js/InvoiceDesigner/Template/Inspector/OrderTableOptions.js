@@ -12,7 +12,8 @@ define([
         InspectorAbstract.call(this);
 
         this.setId('orderTableOptions');
-        this.setInspectedAttributes(['showVat']);
+        // This Inspector used to handle a 'Show VAT?' option but that is now controlled by the OU's vatRegistered flag
+        //this.setInspectedAttributes(['showVat']);
     };
 
     OrderTableOptions.ORDER_TABLE_OPTIONS_INSPECTOR_SELECTOR = '#orderTableOptions-inspector';
