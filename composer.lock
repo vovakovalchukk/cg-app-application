@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5abd63cbde5baf56c3176689c086f1c9",
+    "hash": "3f6202e34d1b1d1d9059d7a958ef0bfb",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1765,17 +1765,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-5475-git-wrap-on-invoices",
+            "version": "dev-EPIC-CGIV-5455-gift-wrap",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "fcca8b7360ac14c184c37a73d23985d275e29327"
+                "reference": "66bcf42d185b0d1e62d9463e0e85f4eba4890641"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-5475-git-wrap-on-invoices-9846d0.zip",
-                "reference": "fcca8b7360ac14c184c37a73d23985d275e29327",
-                "shasum": "e920be248181b6665bd4f2268a6966ec3304b4cc"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-EPIC-CGIV-5455-gift-wrap-889e52.zip",
+                "reference": "66bcf42d185b0d1e62d9463e0e85f4eba4890641",
+                "shasum": "b7a3f5572a000ae02e5a22048377a5200dd0de22"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1812,7 +1812,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-05-19 15:00:45"
+            "time": "2015-05-20 12:58:30"
         },
         {
             "name": "channelgrabber/transaction",
@@ -6449,9 +6449,9 @@
     ],
     "aliases": [
         {
-            "alias": "1.2.49",
-            "alias_normalized": "1.2.49.0",
-            "version": "dev-CGIV-5475-git-wrap-on-invoices",
+            "alias": "1.2.50",
+            "alias_normalized": "1.2.50.0",
+            "version": "dev-EPIC-CGIV-5455-gift-wrap",
             "package": "channelgrabber/template"
         }
     ],

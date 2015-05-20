@@ -47,7 +47,7 @@
         "channelgrabber/stdlib": "~2.11.0",
         "channelgrabber/stock": "~1.4.10",
         "channelgrabber/tax": "~1.0.0",
-        "channelgrabber/template": "dev-CGIV-5475-git-wrap-on-invoices as 1.2.49",
+        "channelgrabber/template": "dev-EPIC-CGIV-5455-gift-wrap as 1.2.50",
         "channelgrabber/usage": "~1.0.6",
         "channelgrabber/user": "~1.19.4",
         "channelgrabber/userpreference": "~1.2.4",
