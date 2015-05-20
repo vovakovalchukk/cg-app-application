@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5bdf85c98304a9f1c993c5fbd67e70b3",
+    "hash": "c44bf7d3a1be2e18aa2d21ecf2d4f832",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -984,17 +984,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.18.11",
+            "version": "1.18.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "6b3c45648f7533668f5df292bd905990f4beb32f"
+                "reference": "f4d1b66a5f769034784d04946fdf0f32a188fcc5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.18.11-2dde0d.zip",
-                "reference": "6b3c45648f7533668f5df292bd905990f4beb32f",
-                "shasum": "d0ad2e49a0164deed95f8c162fe70071c0d575c6"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.18.13-bc7937.zip",
+                "reference": "f4d1b66a5f769034784d04946fdf0f32a188fcc5",
+                "shasum": "638b05c3bd5d127f3a3cb1b8eb705064cf00d7e4"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1047,7 +1047,7 @@
                     "CG\\Order\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-05-19 12:36:05"
+            "time": "2015-05-20 10:50:47"
         },
         {
             "name": "channelgrabber/permission",
@@ -2751,17 +2751,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.14.66",
+            "version": "dev-CGIV-5649-TableFooterIssue",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "18f2ba2148a2dab201b30c00a024cca11b12dbf0"
+                "reference": "288edf39f9ce33aae5806c7419909ea79b63ea48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.66-91b277.zip",
-                "reference": "18f2ba2148a2dab201b30c00a024cca11b12dbf0",
-                "shasum": "4ec6fa0326407708abf19dd48e8f85b9fcca2d93"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5649-TableFooterIssue-486790.zip",
+                "reference": "288edf39f9ce33aae5806c7419909ea79b63ea48",
+                "shasum": "a9e6dd16d5cba505916e8470d63b14307a3569d4"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2806,7 +2806,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-05-19 14:53:39"
+            "time": "2015-05-20 11:26:10"
         },
         {
             "name": "cilex/cilex",
@@ -3150,26 +3150,26 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "5.2.0",
+            "version": "5.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "475b29ccd411f2fa8a408e64576418728c032cfa"
+                "reference": "f3c8c22471cb55475105c14769644a49c3262b93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/475b29ccd411f2fa8a408e64576418728c032cfa",
-                "reference": "475b29ccd411f2fa8a408e64576418728c032cfa",
-                "shasum": ""
+                "url": "https://composer.build.channelgrabber.com/dist/guzzlehttp-guzzle-f3c8c22471cb55475105c14769644a49c3262b93-zip-8e2e15.zip",
+                "reference": "f3c8c22471cb55475105c14769644a49c3262b93",
+                "shasum": "33051a7a5891c105d2f85d082c5dffb7ca188fe3"
             },
             "require": {
-                "guzzlehttp/ringphp": "~1.0",
+                "guzzlehttp/ringphp": "^1.1",
                 "php": ">=5.4.0"
             },
             "require-dev": {
                 "ext-curl": "*",
-                "phpunit/phpunit": "~4.0",
-                "psr/log": "~1.0"
+                "phpunit/phpunit": "^4.0",
+                "psr/log": "^1.0"
             },
             "type": "library",
             "extra": {
@@ -3204,21 +3204,21 @@
                 "rest",
                 "web service"
             ],
-            "time": "2015-01-28 01:03:29"
+            "time": "2015-05-20 03:47:55"
         },
         {
             "name": "guzzlehttp/ringphp",
-            "version": "1.0.7",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/RingPHP.git",
-                "reference": "52d868f13570a9a56e5fce6614e0ec75d0f13ac2"
+                "reference": "dbbb91d7f6c191e5e405e900e3102ac7f261bc0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/guzzlehttp-ringphp-52d868f13570a9a56e5fce6614e0ec75d0f13ac2-zip-b28a92.zip",
-                "reference": "52d868f13570a9a56e5fce6614e0ec75d0f13ac2",
-                "shasum": "a90b0e0853f467550b8853a3143220c2bab27657"
+                "url": "https://composer.build.channelgrabber.com/dist/guzzlehttp-ringphp-dbbb91d7f6c191e5e405e900e3102ac7f261bc0b-zip-6654cd.zip",
+                "reference": "dbbb91d7f6c191e5e405e900e3102ac7f261bc0b",
+                "shasum": "8dab3a339bf624c4ec71dd14092c3b222e8fd1c4"
             },
             "require": {
                 "guzzlehttp/streams": "~3.0",
@@ -3235,7 +3235,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0-dev"
+                    "dev-master": "1.1-dev"
                 }
             },
             "autoload": {
@@ -3255,7 +3255,7 @@
                 }
             ],
             "description": "Provides a simple API and specification that abstracts away the details of HTTP into a single PHP function.",
-            "time": "2015-03-30 01:43:20"
+            "time": "2015-05-20 03:37:09"
         },
         {
             "name": "guzzlehttp/streams",
@@ -6447,10 +6447,18 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.14.66",
+            "alias_normalized": "1.14.66.0",
+            "version": "dev-CGIV-5649-TableFooterIssue",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
