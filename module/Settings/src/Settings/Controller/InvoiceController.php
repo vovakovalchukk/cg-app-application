@@ -84,13 +84,11 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         } catch (NotModified $e) {
             // display saved message
             $entity = $this->getInvoiceService()->getSettings();
-        } catch (Conflict $e) {
-            return $this->handleAccountUpdateException($e, "It looks like someone updated these settings while you were changing them. Please refresh and try again.");
         }
 
         return $this->getJsonModelFactory()->newInstance([
             "invoiceSettings" => json_encode($entity),
-            "eTag" => $entity->getETag()
+            "eTag" => $entity->getStoredETag()
         ]);
     }
 
