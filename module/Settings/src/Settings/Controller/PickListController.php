@@ -55,7 +55,7 @@ class PickListController extends AbstractActionController implements LoggerAware
 
         $view->setTemplate('settings/picking/list');
         $view->setVariable('title', 'Pick List');
-        $view->setVariable('eTag', $pickListSettings->getETag());
+        $view->setVariable('eTag', $pickListSettings->getStoredETag());
 
         $view->addChild(
             $this->getSortFieldCustomSelect($this->getPickListService()->getSortFields(), $pickListSettings->getSortField()),
@@ -78,7 +78,7 @@ class PickListController extends AbstractActionController implements LoggerAware
     {
         $pickListSettings = $this->params()->fromPost();
         $pickList = $this->getPickListService()->savePickListSettings($pickListSettings, $this->getOrganisationUnitId());
-        return $this->getJsonModelFactory()->newInstance(['eTag' => $pickList->getETag()]);
+        return $this->getJsonModelFactory()->newInstance(['eTag' => $pickList->getStoredETag()]);
     }
     
     protected function getSortFieldCustomSelect(array $sortFields, $selectedSortField)
