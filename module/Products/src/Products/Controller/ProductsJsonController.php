@@ -108,7 +108,7 @@ class ProductsJsonController extends AbstractActionController
 
         foreach ($product['stock']['locations'] as $stockLocationIndex => $stockLocation) {
             $stockLocationId = $product['stock']['locations'][$stockLocationIndex]['id'];
-            $product['stock']['locations'][$stockLocationIndex]['eTag'] = $stockEntity->getLocations()->getById($stockLocationId)->getEtag();
+            $product['stock']['locations'][$stockLocationIndex]['eTag'] = $stockEntity->getLocations()->getById($stockLocationId)->getStoredETag();
         }
         return $product;
     }
@@ -122,7 +122,7 @@ class ProductsJsonController extends AbstractActionController
                 $this->params()->fromPost('eTag'),
                 $this->params()->fromPost('totalQuantity')
             );
-            $view->setVariable('eTag', $stockLocation->getETag());
+            $view->setVariable('eTag', $stockLocation->getStoredETag());
         } catch (NotModified $e) {
             $view->setVariable('code', StatusCode::NOT_MODIFIED);
             $view->setVariable('message', $this->getTranslator()->translate('There were no changes to be saved'));

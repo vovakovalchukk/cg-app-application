@@ -493,7 +493,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $itemNotes = array();
         foreach ($notes as $note) {
             $itemNote = $note->toArray();
-            $itemNote["eTag"] = $note->getETag();
+            $itemNote["eTag"] = $note->getStoredETag();
             $itemNotes[] = $itemNote;
         }
         $userIds = array();

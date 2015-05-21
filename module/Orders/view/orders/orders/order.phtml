@@ -74,7 +74,7 @@ require([
             <div class="order-alert-inputholder">
                 <input type="text" class="inputbox" name="" value="<?= ($alert) ? $alert->getAlert() : ""; ?>" id="input"/>
             </div>
-            <input type="hidden" value="<?= ($alert) ? $alert->getETag() : ""; ?>" id="eTag"/>
+            <input type="hidden" value="<?= ($alert) ? $alert->getStoredETag() : ""; ?>" id="eTag"/>
             <div class="order-alert-button">
                 <input type="submit" class="button inline alert-save" value="<?= $this->translate('Save Alert'); ?>"/>
             </div>
@@ -94,7 +94,7 @@ require([
     <div id="detailsForm">
         <form id="addressInformation" data-url="<?= $this->url('Orders/order/address', array('order' => $order->getId())); ?>"
               data-actionMessage="<?= $this->translate('Updating address'); ?>" data-successMessage="<?= $this->translate('Address updated'); ?>">
-            <input type="hidden" id="eTag" name="eTag" value="<?= $order->getUserChange() ? $order->getUserChange()->getEtag() : null; ?>">
+            <input type="hidden" id="eTag" name="eTag" value="<?= $order->getUserChange() ? $order->getUserChange()->getStoredETag() : null; ?>">
             <div class="half" id="billing-information">
                 <span class="heading-large heading-spacing"><?= $this->translate('Billing Information'); ?>
                     <a class="copy-address-to-clipboard" id="copy-billing-address"><?= $this->translate("Copy address to clipboard"); ?></a>
@@ -270,7 +270,7 @@ require([
                 <input class="inputbox" id="trackingNumber" type="text" name="trackingNumber" value="<?= ($tracking) ? $tracking->getNumber() : ""; ?>">
             </div>
         </label>
-        <input type="hidden" value="<?= ($tracking) ? $tracking->getETag() : ""; ?>" id="eTag" name="eTag"/>
+        <input type="hidden" value="<?= ($tracking) ? $tracking->getStoredETag() : ""; ?>" id="eTag" name="eTag"/>
         <div class="half" style="clear:both; padding-top:0px;">
             <div class="order-inputbox-holder">
                 <input type="submit" name="save" class="button form-button tracking-button" value="<?= $this->translate('Save'); ?>">

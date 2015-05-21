@@ -60,7 +60,7 @@ class TrackingController extends AbstractActionController implements StatsAwareI
             // If not modified then noop
         }
         $view = $this->getJsonModelFactory()->newInstance();
-        $view->setVariable('eTag', $tracking->getETag());
+        $view->setVariable('eTag', $tracking->getStoredETag());
         return $view;
     }
 
