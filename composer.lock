@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3f6202e34d1b1d1d9059d7a958ef0bfb",
+    "hash": "1eb853aa0a6dddd22d803c8e9afc7222",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1765,17 +1765,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-EPIC-CGIV-5455-gift-wrap",
+            "version": "dev-CGIV-5584-AmazonGiftWrap",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "66bcf42d185b0d1e62d9463e0e85f4eba4890641"
+                "reference": "3eca692caba6c670198fc3d0d88b7a0809e6fd9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-EPIC-CGIV-5455-gift-wrap-889e52.zip",
-                "reference": "66bcf42d185b0d1e62d9463e0e85f4eba4890641",
-                "shasum": "b7a3f5572a000ae02e5a22048377a5200dd0de22"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-5584-AmazonGiftWrap-0f50ad.zip",
+                "reference": "3eca692caba6c670198fc3d0d88b7a0809e6fd9d",
+                "shasum": "5eb6c55bce4f5e5be9401484c00ecb74ec2a8211"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1812,7 +1812,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-05-20 12:58:30"
+            "time": "2015-05-21 10:02:07"
         },
         {
             "name": "channelgrabber/transaction",
@@ -6451,7 +6451,7 @@
         {
             "alias": "1.2.50",
             "alias_normalized": "1.2.50.0",
-            "version": "dev-EPIC-CGIV-5455-gift-wrap",
+            "version": "dev-CGIV-5584-AmazonGiftWrap",
             "package": "channelgrabber/template"
         }
     ],
