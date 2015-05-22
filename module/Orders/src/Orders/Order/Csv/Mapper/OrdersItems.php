@@ -1,6 +1,8 @@
 <?php
 namespace Orders\Order\Csv\Mapper;
 
+use CG\User\ActiveUserInterface;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
 use Orders\Order\Csv\MapperInterface;
 use Orders\Order\Csv\Mapper\Formatter\GiftWrapMessage as GiftWrapMessageFormatter;
 use Orders\Order\Csv\Mapper\Formatter\GiftWrapPrice as GiftWrapPriceFormatter;
@@ -23,6 +25,14 @@ class OrdersItems implements MapperInterface
     protected $invoiceDateFormatter;
     protected $vatRateFormatter;
     protected $standardFormatter;
+    /**
+     * @var ActiveUserInterface $activeUserContainer
+     */
+    protected $activeUserContainer;
+    /**
+     * @var OrganisationUnitService $organisationUnitService
+     */
+    protected $organisationUnitService;
 
     public function __construct(
         GiftWrapMessageFormatter $giftWrapMessageFormatter,
@@ -32,7 +42,9 @@ class OrdersItems implements MapperInterface
         SalesChannelNameFormatter $salesChannelNameFormatter,
         InvoiceDateFormatter $invoiceDateFormatter,
         VatRateFormatter $vatRateFormatter,
-        StandardFormatter $standardFormatter
+        StandardFormatter $standardFormatter,
+        ActiveUserInterface $activeUserContainer,
+        OrganisationUnitService $organisationUnitService
     ) {
         $this->setGiftWrapMessageFormatter($giftWrapMessageFormatter)
             ->setGiftWrapPriceFormatter($giftWrapPriceFormatter)
@@ -41,12 +53,14 @@ class OrdersItems implements MapperInterface
             ->setSalesChannelNameFormatter($salesChannelNameFormatter)
             ->setInvoiceDateFormatter($invoiceDateFormatter)
             ->setVatRateFormatter($vatRateFormatter)
-            ->setStandardFormatter($standardFormatter);
+            ->setStandardFormatter($standardFormatter)
+            ->setActiveUserContainer($activeUserContainer)
+            ->setOrganisationUnitService($organisationUnitService);
     }
 
     protected function getFormatters()
     {
-        return [
+        $formatters =  [
             'Order ID' => 'externalId',
             'Sales Channel Name' => $this->salesChannelNameFormatter,
             'Purchase Date' => 'purchaseDate',
@@ -97,6 +111,13 @@ class OrdersItems implements MapperInterface
             'Gift Wrap Message' => $this->giftWrapMessageFormatter,
             'Gift Wrap Price' => $this->giftWrapPriceFormatter
         ];
+
+        $rootOrganisationUnitId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+        $organisationUnit = $this->organisationUnitService->getRootOuFromOuId($rootOrganisationUnitId);
+        if(!$organisationUnit->isVatRegistered()) {
+            unset($formatters['VAT %'], $formatters['Line VAT']);
+        }
+        return $formatters;
     }
 
     /**
@@ -209,6 +230,26 @@ class OrdersItems implements MapperInterface
     public function setStandardFormatter(StandardFormatter $standardFormatter)
     {
         $this->standardFormatter = $standardFormatter;
+        return $this;
+    }
+
+    /**
+     * @param OrganisationUnitService $organisationUnitService
+     * @return $this
+     */
+    public function setOrganisationUnitService(OrganisationUnitService $organisationUnitService)
+    {
+        $this->organisationUnitService = $organisationUnitService;
+        return $this;
+    }
+
+    /**
+     * @param ActiveUserInterface $activeUserContainer
+     * @return $this
+     */
+    public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
+    {
+        $this->activeUserContainer = $activeUserContainer;
         return $this;
     }
 }
