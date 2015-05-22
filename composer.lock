@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3f6202e34d1b1d1d9059d7a958ef0bfb",
+    "hash": "2778b421a4998f42253d23e1ccff1132",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2751,17 +2751,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.14.66",
+            "version": "dev-CGIV-5476-gift-wrap-on-order-details",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "18f2ba2148a2dab201b30c00a024cca11b12dbf0"
+                "reference": "0539fcc66eb4d5bad263ab14a8b5c811c0c91543"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.66-91b277.zip",
-                "reference": "18f2ba2148a2dab201b30c00a024cca11b12dbf0",
-                "shasum": "4ec6fa0326407708abf19dd48e8f85b9fcca2d93"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5476-gift-wrap-on-order-details-939a81.zip",
+                "reference": "0539fcc66eb4d5bad263ab14a8b5c811c0c91543",
+                "shasum": "ef625563e61f9b3a8afe6dc98286a33fc4c5dff7"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2806,7 +2806,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-05-19 14:53:39"
+            "time": "2015-05-22 11:42:51"
         },
         {
             "name": "cilex/cilex",
@@ -6453,12 +6453,19 @@
             "alias_normalized": "1.2.50.0",
             "version": "dev-EPIC-CGIV-5455-gift-wrap",
             "package": "channelgrabber/template"
+        },
+        {
+            "alias": "1.14.67",
+            "alias_normalized": "1.14.67.0",
+            "version": "dev-CGIV-5476-gift-wrap-on-order-details",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/template": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
