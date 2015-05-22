@@ -23,17 +23,14 @@ class Mapper extends UIMapper
         self::COLUMN_SKU => ['getter' => 'getItemSku', 'callback' => null],
         self::COLUMN_PRODUCT => ['getter' => 'getItemName', 'callback' => 'formatItemLink'],
         self::COLUMN_QUANTITY => ['getter' => 'getItemQuantity', 'callback' => null],
-        self::COLUMN_PRICE => ['getter' => 'getItemPrice', 'callback' => 'formatItemCurrency'],
-        self::COLUMN_DISCOUNT => ['getter' => 'getItemDiscountTotal', 'callback' => 'formatItemCurrency'],
-        self::COLUMN_TOTAL => ['getter' => 'getItemLineTotal', 'callback' => 'formatItemCurrency'],
+        self::COLUMN_PRICE => ['getter' => 'getItemPrice', 'callback' => 'formatCurrency'],
+        self::COLUMN_DISCOUNT => ['getter' => 'getItemDiscountTotal', 'callback' => 'formatCurrency'],
+        self::COLUMN_TOTAL => ['getter' => 'getItemLineTotal', 'callback' => 'formatCurrency'],
     ];
     protected $mapDiscount = [
-        self::COLUMN_SKU => ['getter' => 'getItemSku', 'callback' => null],
-        self::COLUMN_PRODUCT => ['getter' => 'getItemName', 'callback' => 'formatItemLink'],
-        self::COLUMN_QUANTITY => ['getter' => 'getItemQuantity', 'callback' => null],
-        self::COLUMN_PRICE => ['getter' => 'getItemPrice', 'callback' => 'formatItemCurrency'],
-        self::COLUMN_DISCOUNT => ['getter' => 'getItemDiscountTotal', 'callback' => 'formatItemCurrency'],
-        self::COLUMN_TOTAL => ['getter' => 'getItemLineTotal', 'callback' => 'formatItemCurrency'],
+        self::COLUMN_SKU => ['getter' => 'getOrderDiscountSummary', 'callback' => null, 'colSpan' => 3],
+        self::COLUMN_PRICE => ['getter' => 'getOrderDiscountSubHeading', 'callback' => null, 'colSpan' => 2, 'class' => ''],
+        self::COLUMN_TOTAL => ['getter' => 'getOrderDiscountTotal', 'callback' => 'formatCurrency'],
     ];
 
     public function __construct(CurrencyFormat $currencyFormat)
@@ -44,18 +41,31 @@ class Mapper extends UIMapper
     public function fromItem(Item $item, Order $order, Columns $columns, $className = null)
     {
         $this->setOrder($order);
+        $map = $this->mapItem;
+        return $this->fromEntity($item, $map, $columns, $className);
+    }
+
+    public function fromOrderDiscount(Order $order, Columns $columns, $className = null)
+    {
+        $this->setOrder($order);
+        $map = $this->mapDiscount;
+        return $this->fromEntity($order, $map, $columns, $className);
+    }
+
+    protected function fromEntity($entity, $map, Columns $columns, $className = null)
+    {
         $rowData = [];
         foreach ($columns as $column) {
             $columnName = $column->getName();
-            if (!isset($this->mapItem[$columnName])) {
-                $rowData[] = '';
+            if (!isset($map[$columnName])) {
                 continue;
             }
-            $map = $this->mapItem[$columnName];
-            $value = $this->getCellValue($item, $map);
+            $columnMap = $map[$columnName];
+            $value = $this->getCellValue($entity, $columnMap);
             $rowData[] = [
-                'content' => $this->formatCellValue($value, $item, $map),
-                'class' => $column->getClass()
+                'content' => $this->formatCellValue($value, $entity, $columnMap),
+                'class' => (isset($columnMap['class']) ? $columnMap['class'] : $column->getClass()),
+                'colSpan' => (isset($columnMap['colSpan']) ? $columnMap['colSpan'] : null)
             ]; 
         }
         return $this->fromArray($rowData, $className);
@@ -63,6 +73,9 @@ class Mapper extends UIMapper
 
     protected function getCellValue($entity, array $map)
     {
+        if ($map['getter'] === null) {
+            return '';
+        }
         if (is_callable([$this, $map['getter']])) {
             return $this->{$map['getter']}($entity);
         }
@@ -92,6 +105,24 @@ class Mapper extends UIMapper
         return $item->getIndividualItemPrice() * $item->getItemQuantity();
     }
 
+    protected function getOrderDiscountSummary(Order $order)
+    {
+        if (!$order->getDiscountDescription()) {
+            return '';
+        }
+        return "<b>Discount Summary</b><br />" . nl2br($order->getDiscountDescription());
+    }
+
+    protected function getOrderDiscountSubHeading()
+    {
+        return 'Order Discount:';
+    }
+
+    protected function getOrderDiscountTotal(Order $order)
+    {
+        return 0 - $order->getTotalDiscount();
+    }
+
     protected function formatItemLink(Item $entity, $value)
     {
         if (empty($entity->getUrl())) {
@@ -100,7 +131,7 @@ class Mapper extends UIMapper
         return '<a href="' . $entity->getUrl() . '" target="_blank">' . $value . '</a>';
     }
 
-    protected function formatItemCurrency(Item $entity, $value)
+    protected function formatCurrency($entity, $value)
     {
         $currencyCode = $this->order->getCurrencyCode();
         $formatter = $this->currencyFormat;

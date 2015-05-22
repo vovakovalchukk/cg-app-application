@@ -448,18 +448,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             $tableRows->attach($tableRow);
         }
 
-        $table->setRows($tableRows);
-
         if ($order->getTotalDiscount() || $order->getDiscountDescription()) {
-            $numberFormat = $this->getDi()->get(CurrencyFormat::class);
-            $currencyCode = $order->getCurrencyCode();
-            $this->addOrderDiscount(
-                $table,
-                call_user_func($numberFormat, -$order->getTotalDiscount(), $currencyCode),
-                $order->getDiscountDescription()
-            );
+            $tableRow = $this->rowMapper->fromOrderDiscount($order, $tableColumns, 'discount');
+            $tableRows->attach($tableRow);
         }
-        $table->setTemplate('table/standard');
+
+        $table->setRows($tableRows);
         return $table;
     }
 
