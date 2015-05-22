@@ -28,6 +28,9 @@ class ProductsJsonController extends AbstractActionController
     protected $translator;
     protected $accountService;
     protected $taxRateService;
+    /**
+     * @var OrganisationUnitService $organisationUnitService
+     */
     protected $organisationUnitService;
 
     public function __construct(
@@ -68,7 +71,7 @@ class ProductsJsonController extends AbstractActionController
             $products = $this->getProductService()->fetchProducts($requestFilter, $requestFilter->getParentProductId(), $limit);
             $organisationUnitIds = $requestFilter->getOrganisationUnitId();
             $accounts = $this->getAccountsIndexedById($organisationUnitIds);
-            $rootOrganisationUnit = $this->getOrganisationUnitService()->getRootOuFromOuId(reset($organisationUnitIds));
+            $rootOrganisationUnit = $this->organisationUnitService->getRootOuFromOuId(reset($organisationUnitIds));
             $isVatRegistered = $rootOrganisationUnit->isVatRegistered();
 
             foreach ($products as $product) {
@@ -229,14 +232,6 @@ class ProductsJsonController extends AbstractActionController
     {
         $this->taxRateService = $taxRateService;
         return $this;
-    }
-
-    /**
-     * @return OrganisationUnitService
-     */
-    protected function getOrganisationUnitService()
-    {
-        return $this->organisationUnitService;
     }
 
     /**
