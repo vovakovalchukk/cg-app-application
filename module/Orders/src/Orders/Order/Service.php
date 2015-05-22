@@ -443,9 +443,19 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             $tableColumns->attach($tableColumn);
         }
         $tableRows = new TableRowCollection();
+        $itemCount = 0;
         foreach ($order->getItems() as $item) {
-            $tableRow = $this->rowMapper->fromItem($item, $order, $tableColumns);
+            $toggleClass = (++$itemCount % 2 == 0 ? 'even' : 'odd');
+            $className = 'item ' . $toggleClass;
+            if (count($item->getGiftWraps())) {
+                $className .= ' has-giftwrap';
+            }
+            $tableRow = $this->rowMapper->fromItem($item, $order, $tableColumns, $className);
             $tableRows->attach($tableRow);
+            foreach ($item->getGiftWraps() as $giftWrap) {
+                $tableRow = $this->rowMapper->fromGiftWrap($giftWrap, $order, $tableColumns, 'giftwrap ' . $toggleClass);
+                $tableRows->attach($tableRow);
+            }
         }
 
         if ($order->getTotalDiscount() || $order->getDiscountDescription()) {

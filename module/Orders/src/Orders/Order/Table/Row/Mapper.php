@@ -3,6 +3,7 @@ namespace Orders\Order\Table\Row;
 
 use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Item\Entity as Item;
+use CG\Order\Shared\Item\GiftWrap\Entity as GiftWrap;
 use CG_UI\View\Table\Column\Collection as Columns;
 use CG_UI\View\Table\Row\Mapper as UIMapper;
 use Zend\I18n\View\Helper\CurrencyFormat;
@@ -32,6 +33,14 @@ class Mapper extends UIMapper
         self::COLUMN_PRICE => ['getter' => 'getOrderDiscountSubHeading', 'callback' => null, 'colSpan' => 2, 'class' => ''],
         self::COLUMN_TOTAL => ['getter' => 'getOrderDiscountTotal', 'callback' => 'formatCurrency'],
     ];
+    protected $mapGiftWrap = [
+        self::COLUMN_SKU => ['getter' => 'getGiftWrapType', 'callback' => null],
+        self::COLUMN_PRODUCT => ['getter' => 'getGiftWrapMessage', 'callback' => null],
+        self::COLUMN_QUANTITY => ['getter' => null, 'callback' => null],
+        self::COLUMN_PRICE => ['getter' => 'getGiftWrapPrice', 'callback' => 'formatCurrency'],
+        self::COLUMN_DISCOUNT => ['getter' => null, 'callback' => null],
+        self::COLUMN_TOTAL => ['getter' => 'getGiftWrapPrice', 'callback' => 'formatCurrency'],
+    ];
 
     public function __construct(CurrencyFormat $currencyFormat)
     {
@@ -50,6 +59,13 @@ class Mapper extends UIMapper
         $this->setOrder($order);
         $map = $this->mapDiscount;
         return $this->fromEntity($order, $map, $columns, $className);
+    }
+
+    public function fromGiftWrap(GiftWrap $giftWrap, Order $order, Columns $columns, $className = null)
+    {
+        $this->setOrder($order);
+        $map = $this->mapGiftWrap;
+        return $this->fromEntity($giftWrap, $map, $columns, $className);
     }
 
     protected function fromEntity($entity, $map, Columns $columns, $className = null)
@@ -121,6 +137,19 @@ class Mapper extends UIMapper
     protected function getOrderDiscountTotal(Order $order)
     {
         return 0 - $order->getTotalDiscount();
+    }
+
+    protected function getGiftWrapType(GiftWrap $giftWrap)
+    {
+        return strtoupper($giftWrap->getGiftWrapType()) . ' GIFT WRAP';
+    }
+
+    protected function getGiftWrapMessage(GiftWrap $giftWrap)
+    {
+        if (!$giftWrap->getGiftWrapMessage()) {
+            return '';
+        }
+        return '<b>Message:</b> ' . nl2br($giftWrap->getGiftWrapMessage());
     }
 
     protected function formatItemLink(Item $entity, $value)
