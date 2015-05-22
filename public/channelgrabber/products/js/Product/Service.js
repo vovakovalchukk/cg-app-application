@@ -111,7 +111,6 @@ define([
         var checkbox = this.getCheckboxView(product, templates);
         var expandButton = '';
         var hasVariations = false;
-        var taxRateCustomSelect = null;
 
         if (product['variationCount'] != undefined && product['variationCount']) {
             var productContent = this.getVariationView(product, templates);
@@ -124,9 +123,7 @@ define([
         }
 
         var statusLozenge = this.getStatusView(product, templates);
-        if(product['taxRates']) {
-            taxRateCustomSelect = this.getTaxRateCustomSelectView(product, templates);
-        }
+        var taxRateCustomSelect = this.getTaxRateCustomSelectView(product, templates);
         var productView = CGMustache.get().renderTemplate(templates, {
             'title': product['name'],
             'sku': product['sku'],
