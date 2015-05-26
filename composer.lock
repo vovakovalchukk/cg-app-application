@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "499e22cf0ca12563242d4a3118c1b519",
+    "hash": "f8f4ff360dae24bcfb9fd37d7650ecb0",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1767,17 +1767,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-EPIC-CGIV-5455-gift-wrap",
+            "version": "1.2.50",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "3eca692caba6c670198fc3d0d88b7a0809e6fd9d"
+                "reference": "bd5bd33d81cfb8393bd90732bc9818c2e71ed23a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-EPIC-CGIV-5455-gift-wrap-0f50ad.zip",
-                "reference": "3eca692caba6c670198fc3d0d88b7a0809e6fd9d",
-                "shasum": "0ebeae538c2e572e0c78325abf023610843c5d9a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.50-1ef179.zip",
+                "reference": "bd5bd33d81cfb8393bd90732bc9818c2e71ed23a",
+                "shasum": "18194000b896cbc90826bc085a2ce5eb5cd32223"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1814,7 +1814,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-05-21 10:02:07"
+            "time": "2015-05-26 12:32:07"
         },
         {
             "name": "channelgrabber/transaction",
@@ -2753,17 +2753,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-EPIC-CGIV-5455-gift-wrap",
+            "version": "1.15.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "528426078ceacd51c0bc2c09ab221b8ab3d7e4ba"
+                "reference": "fd2fc53ca9760b97ff5e54b6ea4d10f7a18c814d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-5455-gift-wrap-6ddfa0.zip",
-                "reference": "528426078ceacd51c0bc2c09ab221b8ab3d7e4ba",
-                "shasum": "36bb79b4bb3694d2b0b34bf27ce398ab3398c5ed"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.15.0-5bbaa7.zip",
+                "reference": "fd2fc53ca9760b97ff5e54b6ea4d10f7a18c814d",
+                "shasum": "62f8dcfc5aae1cdf6f457e3f5a5660664dab393e"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2808,7 +2808,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-05-22 14:59:15"
+            "time": "2015-05-26 12:32:52"
         },
         {
             "name": "cilex/cilex",
@@ -6455,25 +6455,10 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.2.50",
-            "alias_normalized": "1.2.50.0",
-            "version": "dev-EPIC-CGIV-5455-gift-wrap",
-            "package": "channelgrabber/template"
-        },
-        {
-            "alias": "1.14.67",
-            "alias_normalized": "1.14.67.0",
-            "version": "dev-EPIC-CGIV-5455-gift-wrap",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/template": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
