@@ -38,9 +38,11 @@ use CG\UserPreference\Client\Service as UserPreferenceService;
 use CG_UI\View\Filters\Service as FilterService;
 use CG_UI\View\Table;
 use CG_UI\View\Table\Column as TableColumn;
-use CG_UI\View\Table\Rows as TableRows;
+use CG_UI\View\Table\Column\Collection as TableColumnCollection;
+use CG_UI\View\Table\Row\Collection as TableRowCollection;
 use Exception;
 use Orders\Order\Exception\MultiException;
+use Orders\Order\Table\Row\Mapper as RowMapper;
 use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
 use Zend\Di\Di;
@@ -88,6 +90,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $organisationUnitService;
     protected $actionService;
     protected $intercomEventService;
+    protected $rowMapper;
 
     protected $editableFulfilmentChannels = [OrderEntity::DEFAULT_FULFILMENT_CHANNEL => true];
 
@@ -108,7 +111,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         Carrier $carriers,
         OrganisationUnitService $organisationUnitService,
         ActionService $actionService,
-        IntercomEventService $intercomEventService
+        IntercomEventService $intercomEventService,
+        RowMapper $rowMapper
     ) {
         $this
             ->setOrderClient($orderClient)
@@ -128,7 +132,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ->setCarriers($carriers)
             ->setOrganisationUnitService($organisationUnitService)
             ->setActionService($actionService)
-            ->setIntercomEventService($intercomEventService);
+            ->setIntercomEventService($intercomEventService)
+            ->setRowMapper($rowMapper);
     }
 
     public function alterOrderTable(OrderCollection $orderCollection, MvcEvent $event)
@@ -421,56 +426,44 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function getOrderItemTable(OrderEntity $order)
     {
-        $getPrice = function (ItemEntity $entity) {
-            return $entity->getIndividualItemPrice() + $entity->getIndividualItemDiscountPrice();
-        };
-        $getDiscountTotal = function (ItemEntity $entity) {
-            return '-' . $entity->getIndividualItemDiscountPrice() * $entity->getItemQuantity();
-        };
-        $getLineTotal = function (ItemEntity $entity) {
-            return $entity->getIndividualItemPrice() * $entity->getItemQuantity();
-        };
-
-        $numberFormat = $this->getDi()->get(CurrencyFormat::class);
-        $currencyCode = $order->getCurrencyCode();
-        $currencyFormatter = function (ItemEntity $entity, $value) use ($numberFormat, $currencyCode) {
-            /** @var $numberFormat CurrencyFormat */
-            return $numberFormat($value, $currencyCode);
-        };
-
-        $linkFormatter = function (ItemEntity $entity, $value) {
-            if(empty($entity->getUrl())) {
-                return $value;
-            }
-            return '<a href="' . $entity->getUrl() . '" target="_blank">' . $value . '</a>';
-        };
-
         $columns = [
-            ['name' => 'SKU', 'class' => '', 'getter' => 'getItemSku', 'callback' => null],
-            ['name' => 'Product Name', 'class' => '', 'getter' => 'getItemName', 'callback' => $linkFormatter],
-            ['name' => 'Quantity', 'class' => 'quantity', 'getter' => 'getItemQuantity', 'callback' => null],
-            ['name' => 'Price inc. VAT', 'class' => 'price right', 'getter' => $getPrice, 'callback' => $currencyFormatter],
-            ['name' => 'Discount Total', 'class' => 'price right', 'getter' => $getDiscountTotal, 'callback' => $currencyFormatter],
-            ['name' => 'Line Total', 'class' => 'price right', 'getter' => $getLineTotal, 'callback' => $currencyFormatter],
+            ['name' => RowMapper::COLUMN_SKU,       'class' => ''],
+            ['name' => RowMapper::COLUMN_PRODUCT,   'class' => ''],
+            ['name' => RowMapper::COLUMN_QUANTITY,  'class' => 'quantity'],
+            ['name' => RowMapper::COLUMN_PRICE,     'class' => 'price right'],
+            ['name' => RowMapper::COLUMN_DISCOUNT,  'class' => 'price right'],
+            ['name' => RowMapper::COLUMN_TOTAL,     'class' => 'price right'],
         ];
 
-        $table = $this->getDi()->newInstance(Table::class);
-        $mapping = [];
+        $table = new Table();
+        $tableColumns = new TableColumnCollection();
         foreach ($columns as $column) {
-            $table->addColumn($this->getDi()->newInstance(TableColumn::class, ["name" => $column["name"], "class" => $column["class"]]));
-            $mapping[$column["name"]] = ["getter" => $column["getter"], "callback" => $column["callback"]];
+            $tableColumn = new TableColumn($column["name"], $column["class"]);
+            $table->addColumn($tableColumn);
+            $tableColumns->attach($tableColumn);
         }
-        $rows = $this->getDi()->newInstance(TableRows::class, ["data" => $order->getItems(), "mapping" => $mapping]);
-        $table->setRows($rows);
+        $tableRows = new TableRowCollection();
+        $itemCount = 0;
+        foreach ($order->getItems() as $item) {
+            $toggleClass = (++$itemCount % 2 == 0 ? 'even' : 'odd');
+            $className = 'item ' . $toggleClass;
+            if (count($item->getGiftWraps())) {
+                $className .= ' has-giftwrap';
+            }
+            $tableRow = $this->rowMapper->fromItem($item, $order, $tableColumns, $className);
+            $tableRows->attach($tableRow);
+            foreach ($item->getGiftWraps() as $giftWrap) {
+                $tableRow = $this->rowMapper->fromGiftWrap($giftWrap, $order, $tableColumns, 'giftwrap ' . $toggleClass);
+                $tableRows->attach($tableRow);
+            }
+        }
 
         if ($order->getTotalDiscount() || $order->getDiscountDescription()) {
-            $this->addOrderDiscount(
-                $table,
-                call_user_func($numberFormat, -$order->getTotalDiscount(), $currencyCode),
-                $order->getDiscountDescription()
-            );
+            $tableRow = $this->rowMapper->fromOrderDiscount($order, $tableColumns, 'discount');
+            $tableRows->attach($tableRow);
         }
-        $table->setTemplate('table/standard');
+
+        $table->setRows($tableRows);
         return $table;
     }
 
@@ -982,6 +975,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected function setIntercomEventService(IntercomEventService $intercomEventService)
     {
         $this->intercomEventService = $intercomEventService;
+        return $this;
+    }
+
+    public function setRowMapper(RowMapper $rowMapper)
+    {
+        $this->rowMapper = $rowMapper;
         return $this;
     }
 }

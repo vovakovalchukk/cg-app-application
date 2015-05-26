@@ -49,7 +49,7 @@
         "channelgrabber/stdlib": "~2.11.0",
         "channelgrabber/stock": "~1.4.10",
         "channelgrabber/tax": "~1.0.0",
-        "channelgrabber/template": "dev-CGIV-5329-remove-client-side-etag-generation as 1.2.49",
+        "channelgrabber/template": "dev-CGIV-5329-remove-client-side-etag-generation as 1.2.50",
         "channelgrabber/usage": "~1.0.6",
         "channelgrabber/user": "dev-CGIV-5329-remove-client-side-etag-generation as 1.19.4",
         "channelgrabber/userpreference": "~1.2.4",
