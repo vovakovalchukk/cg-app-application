@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0214947fce849c8f5c1929ef003b2377",
+    "hash": "0949ff3a11426bc221c550eb3e758cc7",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -64,17 +64,17 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.8.3",
+            "version": "dev-CGIV-5329-remove-client-side-etag-generation",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "26bbbd90e6c50601ac8cc90725f2234232dddf73"
+                "reference": "cbd808cc913bcafd6dc53d903202cbf69eae8533"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.8.3-1491ac.zip",
-                "reference": "26bbbd90e6c50601ac8cc90725f2234232dddf73",
-                "shasum": "133962c292f7d6a290183b2a31abed59422711c6"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-CGIV-5329-remove-client-side-etag-generation-034f86.zip",
+                "reference": "cbd808cc913bcafd6dc53d903202cbf69eae8533",
+                "shasum": "cbf62c1abac787fc52e92eb25101310785ac3151"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -111,7 +111,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2015-05-13 07:41:34"
+            "time": "2015-05-26 12:53:06"
         },
         {
             "name": "channelgrabber/cache",
@@ -257,13 +257,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "13e3aae32e29f45597861bba68c54268e069ea64"
+                "reference": "45ffe74c8bdcefbf4a26bfd39995a3a372fd6156"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-5329-remove-client-side-etag-generation-1e2294.zip",
-                "reference": "13e3aae32e29f45597861bba68c54268e069ea64",
-                "shasum": "491b0c89eb28e4e1bdedc63565b0425424d51dc2"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-5329-remove-client-side-etag-generation-7d3f9b.zip",
+                "reference": "45ffe74c8bdcefbf4a26bfd39995a3a372fd6156",
+                "shasum": "ba8fae199bc8c6297e1bc939d943b4008d4cae07"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -312,7 +312,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-05-19 13:13:22"
+            "time": "2015-05-26 12:53:40"
         },
         {
             "name": "channelgrabber/cilex",
@@ -737,17 +737,17 @@
         },
         {
             "name": "channelgrabber/image",
-            "version": "1.1.4.1",
+            "version": "dev-CGIV-5329-remove-client-side-etag-generation",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-image.git",
-                "reference": "08803e51a10c086d8a2f4d743b68bb7593827a30"
+                "reference": "d9974d7da136575b8ee221fdfadd56de7272a9a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-1.1.4.1-290655.zip",
-                "reference": "08803e51a10c086d8a2f4d743b68bb7593827a30",
-                "shasum": "c86e80283c18661e7883222f6674f46082f577ef"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-dev-CGIV-5329-remove-client-side-etag-generation-ae45e2.zip",
+                "reference": "d9974d7da136575b8ee221fdfadd56de7272a9a9",
+                "shasum": "8ba6b2eb64563075126d6ff3f7d121de786a7d27"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -770,7 +770,7 @@
                     "CG\\Image\\": "src"
                 }
             },
-            "time": "2015-03-19 14:51:19"
+            "time": "2015-05-22 15:40:30"
         },
         {
             "name": "channelgrabber/intercom",
@@ -984,17 +984,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.18.14",
+            "version": "dev-CGIV-5329-remove-client-side-etag-generation",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "54d75feb93eec6396ff12ae789837642b0251663"
+                "reference": "d8dbd50f60d0be897ddfbe7cafa2284c35ee3f51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.18.14-b7ca6c.zip",
-                "reference": "54d75feb93eec6396ff12ae789837642b0251663",
-                "shasum": "69a61ca5cc5a4a17a30403b8a06f29df44022202"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-5329-remove-client-side-etag-generation-e589a9.zip",
+                "reference": "d8dbd50f60d0be897ddfbe7cafa2284c35ee3f51",
+                "shasum": "0731bfc6ee09799a19494a6f2056003a95cd29e7"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1047,7 +1047,7 @@
                     "CG\\Order\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-05-21 08:36:20"
+            "time": "2015-05-26 12:56:34"
         },
         {
             "name": "channelgrabber/permission",
@@ -1263,17 +1263,17 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.4.0",
+            "version": "dev-CGIV-5329-remove-client-side-etag-generation",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "792483dbf8aca9a6a8bf85a1941ea2827b282a77"
+                "reference": "dc89b649be83de3d1d14eee9c9fcccc900281772"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.4.0-b5a2c7.zip",
-                "reference": "792483dbf8aca9a6a8bf85a1941ea2827b282a77",
-                "shasum": "c7e61c758c156852d49b5cf77910b15cf16ecf21"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-5329-remove-client-side-etag-generation-ad1694.zip",
+                "reference": "dc89b649be83de3d1d14eee9c9fcccc900281772",
+                "shasum": "2f24d9f0087c464825cf8222d892c71b7552ca6e"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1302,7 +1302,7 @@
                     "CG\\Product\\": "src"
                 }
             },
-            "time": "2015-05-19 12:21:04"
+            "time": "2015-05-22 15:08:41"
         },
         {
             "name": "channelgrabber/purge",
@@ -1437,13 +1437,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "2c61d1376716c37048509f2da17a3dcead92b5bd"
+                "reference": "a529db4d6074c72f6847b97b2f44cb3e908beb4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-5329-remove-client-side-etag-generation-15391d.zip",
-                "reference": "2c61d1376716c37048509f2da17a3dcead92b5bd",
-                "shasum": "22b6119b163d7a8914c5f0ed5aa1c869b89027d3"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-5329-remove-client-side-etag-generation-374e64.zip",
+                "reference": "a529db4d6074c72f6847b97b2f44cb3e908beb4e",
+                "shasum": "d2fced8143082459ca634526620756ced9bd9a5c"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1465,7 +1465,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2015-05-20 07:32:09"
+            "time": "2015-05-20 09:42:27"
         },
         {
             "name": "channelgrabber/slim",
@@ -1765,17 +1765,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.2.49",
+            "version": "dev-CGIV-5329-remove-client-side-etag-generation",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "da7da2c4dc5eb34a9fb690599edf43f19237018c"
+                "reference": "84d55e9477ec274eb8d537072d877231a724602f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.49-fe4f92.zip",
-                "reference": "da7da2c4dc5eb34a9fb690599edf43f19237018c",
-                "shasum": "e4d0f10fe82989782d88e698c050233cf4638825"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-5329-remove-client-side-etag-generation-da99c0.zip",
+                "reference": "84d55e9477ec274eb8d537072d877231a724602f",
+                "shasum": "0b5c9b8396f8c61d9eda3370647fec5f633c519b"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1812,7 +1812,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-05-19 12:46:53"
+            "time": "2015-05-26 12:56:58"
         },
         {
             "name": "channelgrabber/transaction",
@@ -1889,17 +1889,17 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.19.4",
+            "version": "dev-CGIV-5329-remove-client-side-etag-generation",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "a7e90aeac7e37ab7c7222defcbed7be6532b271e"
+                "reference": "d17679f3d749d7810620760aaf92680e406968a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.19.4-a4392d.zip",
-                "reference": "a7e90aeac7e37ab7c7222defcbed7be6532b271e",
-                "shasum": "42ebee1db12e6ec7e3a8bcf569aae9b29ea8c1db"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-5329-remove-client-side-etag-generation-74828a.zip",
+                "reference": "d17679f3d749d7810620760aaf92680e406968a3",
+                "shasum": "ef14006cad33b26cb6cad6c6051b5fdbcb55f0af"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1936,7 +1936,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2015-05-19 12:19:59"
+            "time": "2015-05-22 11:51:51"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -6449,23 +6449,65 @@
     ],
     "aliases": [
         {
+            "alias": "1.8.3",
+            "alias_normalized": "1.8.3.0",
+            "version": "dev-CGIV-5329-remove-client-side-etag-generation",
+            "package": "channelgrabber/billing"
+        },
+        {
             "alias": "1.16.12",
             "alias_normalized": "1.16.12.0",
             "version": "dev-CGIV-5329-remove-client-side-etag-generation",
             "package": "channelgrabber/channel"
         },
         {
+            "alias": "1.1.4",
+            "alias_normalized": "1.1.4.0",
+            "version": "dev-CGIV-5329-remove-client-side-etag-generation",
+            "package": "channelgrabber/image"
+        },
+        {
+            "alias": "1.18.12",
+            "alias_normalized": "1.18.12.0",
+            "version": "dev-CGIV-5329-remove-client-side-etag-generation",
+            "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.4.0",
+            "alias_normalized": "1.4.0.0",
+            "version": "dev-CGIV-5329-remove-client-side-etag-generation",
+            "package": "channelgrabber/product"
+        },
+        {
             "alias": "1.3.3",
             "alias_normalized": "1.3.3.0",
             "version": "dev-CGIV-5329-remove-client-side-etag-generation",
             "package": "channelgrabber/settings"
+        },
+        {
+            "alias": "1.2.49",
+            "alias_normalized": "1.2.49.0",
+            "version": "dev-CGIV-5329-remove-client-side-etag-generation",
+            "package": "channelgrabber/template"
+        },
+        {
+            "alias": "1.19.4",
+            "alias_normalized": "1.19.4.0",
+            "version": "dev-CGIV-5329-remove-client-side-etag-generation",
+            "package": "channelgrabber/user"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/billing": 20,
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/image": 20,
+        "channelgrabber/order": 20,
+        "channelgrabber/product": 20,
         "channelgrabber/settings": 20,
+        "channelgrabber/template": 20,
+        "channelgrabber/user": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
