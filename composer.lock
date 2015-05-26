@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e9d28ae3be54853cf03ada8b5b1b7704",
+    "hash": "ac9fb7979197eb86e1258b8fe5fabfdc",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -578,7 +578,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-email-1.0.5-8d9008.zip",
                 "reference": "3009dc193a406a4a6ee988fa8b581a22b29378e3",
-                "shasum": "d0045a60da9749b1e6630dad8ad7478a91c08c52"
+                "shasum": "c30661e280073b2c5b5b90e28230691eb1d362e9"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2753,17 +2753,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-5639-UnimportedListingsPagination",
+            "version": "1.14.67",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "c7c369cbc37d445a7b13fc41d9d2fa53880d89b9"
+                "reference": "e998f697aac05932cc6c63a100981b5be19e0ee5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5639-UnimportedListingsPagination-c02fda.zip",
-                "reference": "c7c369cbc37d445a7b13fc41d9d2fa53880d89b9",
-                "shasum": "95fdc746b7e88181681f1990bddde783c01b07bc"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.14.67-7d1a83.zip",
+                "reference": "e998f697aac05932cc6c63a100981b5be19e0ee5",
+                "shasum": "1eb75435717e8aa932c2622d17bea1d37fd7edb3"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2808,7 +2808,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-05-19 12:43:47"
+            "time": "2015-05-26 11:29:49"
         },
         {
             "name": "cilex/cilex",
@@ -6455,18 +6455,10 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.14.66",
-            "alias_normalized": "1.14.66.0",
-            "version": "dev-CGIV-5639-UnimportedListingsPagination",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
