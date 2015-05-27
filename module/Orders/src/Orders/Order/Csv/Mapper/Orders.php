@@ -6,7 +6,7 @@ use CG\Order\Shared\Collection as OrderCollection;
 use Orders\Order\Csv\Mapper\Formatter\StandardSingle as StandardFormatter;
 use Orders\Order\Csv\Mapper\Formatter\SalesChannelNameSingle as SalesChannelNameFormatter;
 use Orders\Order\Csv\Mapper\Formatter\InvoiceDateSingle as InvoiceDateFormatter;
-use Orders\Order\Csv\Mapper\Formatter\ShippingMethod as ShippingMethodFormatter;
+use Orders\Order\Csv\Mapper\Formatter\ShippingMethodSingle as ShippingMethodFormatter;
 
 class Orders implements MapperInterface
 {

@@ -19,9 +19,15 @@ class ShippingMethod implements FormatterInterface
     public function __invoke(Order $order, $fieldName)
     {
         $rows = max(1, count($order->getItems()));
+        $shippingMethod = $this->getShippingMethod($order);
+        return array_fill(0, $rows, $shippingMethod);
+    }
+
+    protected function getShippingMethod(Order $order)
+    {
         $ou = $this->getOuService()->fetch($order->getOrganisationUnitId());
         $alias = $this->getConversionService()->fromMethodToAlias($order->getShippingMethod(),$ou);
-        return array_fill(0, $rows, $alias ? $alias->getName() : $order->getShippingMethod());
+        return $alias ? $alias->getName() : $order->getShippingMethod();
     }
 
     /**
