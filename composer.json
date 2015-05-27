@@ -27,7 +27,7 @@
         "channelgrabber/ebay": "~1.9.3",
         "channelgrabber/ekm": "~1.7.0",
         "channelgrabber/etag": "~1.6.0",
-        "channelgrabber/gearman": "~1.2.7",
+        "channelgrabber/gearman": "~1.2.11",
         "channelgrabber/http": "~1.3.10",
         "channelgrabber/image": "dev-CGIV-5329-remove-client-side-etag-generation as 1.1.4", 
         "channelgrabber/intercom": "~1.1.2",
