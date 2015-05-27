@@ -6,6 +6,7 @@ use Orders\Order\Csv\Mapper\Formatter\GiftWrapMessage as GiftWrapMessageFormatte
 use Orders\Order\Csv\Mapper\Formatter\GiftWrapPrice as GiftWrapPriceFormatter;
 use Orders\Order\Csv\Mapper\Formatter\GiftWrapType as GiftWrapTypeFormatter;
 use Orders\Order\Csv\Mapper\Formatter\ShippingPrice as ShippingPriceFormatter;
+use Orders\Order\Csv\Mapper\Formatter\ShippingMethod as ShippingMethodFormatter;
 use Orders\Order\Csv\Mapper\Formatter\SalesChannelName as SalesChannelNameFormatter;
 use Orders\Order\Csv\Mapper\Formatter\InvoiceDate as InvoiceDateFormatter;
 use Orders\Order\Csv\Mapper\Formatter\VatRate as VatRateFormatter;
@@ -19,6 +20,7 @@ class OrdersItems implements MapperInterface
     protected $giftWrapPriceFormatter;
     protected $giftWrapTypeFormatter;
     protected $shippingPriceFormatter;
+    protected $shippingMethodFormatter;
     protected $salesChannelNameFormatter;
     protected $invoiceDateFormatter;
     protected $vatRateFormatter;
@@ -29,15 +31,18 @@ class OrdersItems implements MapperInterface
         GiftWrapPriceFormatter $giftWrapPriceFormatter,
         GiftWrapTypeFormatter $giftWrapTypeFormatter,
         ShippingPriceFormatter $shippingPriceFormatter,
+        ShippingMethodFormatter $shippingMethodFormatter,
         SalesChannelNameFormatter $salesChannelNameFormatter,
         InvoiceDateFormatter $invoiceDateFormatter,
         VatRateFormatter $vatRateFormatter,
         StandardFormatter $standardFormatter
     ) {
-        $this->setGiftWrapMessageFormatter($giftWrapMessageFormatter)
+        $this
+            ->setGiftWrapMessageFormatter($giftWrapMessageFormatter)
             ->setGiftWrapPriceFormatter($giftWrapPriceFormatter)
             ->setGiftWrapTypeFormatter($giftWrapTypeFormatter)
             ->setShippingPriceFormatter($shippingPriceFormatter)
+            ->setShippingMethodFormatter($shippingMethodFormatter)
             ->setSalesChannelNameFormatter($salesChannelNameFormatter)
             ->setInvoiceDateFormatter($invoiceDateFormatter)
             ->setVatRateFormatter($vatRateFormatter)
@@ -57,7 +62,7 @@ class OrdersItems implements MapperInterface
             'Channel' => 'channel',
             'Status' => 'status',
             'Shipping Price' => $this->shippingPriceFormatter,
-            'Shipping Method' => 'shippingMethod',
+            'Shipping Method' => $this->shippingMethodFormatter,
             'Currency Code' => 'currencyCode',
             'Item Name' => 'itemName',
             'Unit Price' => 'individualItemPrice',
@@ -134,7 +139,7 @@ class OrdersItems implements MapperInterface
 
     /**
      * @param GiftWrapMessageFormatter $giftWrapMessageFormatter
-     * @return $this
+     * @return self
      */
     public function setGiftWrapMessageFormatter(GiftWrapMessageFormatter $giftWrapMessageFormatter)
     {
@@ -144,7 +149,7 @@ class OrdersItems implements MapperInterface
 
     /**
      * @param GiftWrapPriceFormatter $giftWrapPriceFormatter
-     * @return $this
+     * @return self
      */
     public function setGiftWrapPriceFormatter(GiftWrapPriceFormatter $giftWrapPriceFormatter)
     {
@@ -154,7 +159,7 @@ class OrdersItems implements MapperInterface
 
     /**
      * @param GiftWrapTypeFormatter $giftWrapTypeFormatter
-     * @return $this
+     * @return self
      */
     public function setGiftWrapTypeFormatter(GiftWrapTypeFormatter $giftWrapTypeFormatter)
     {
@@ -164,7 +169,7 @@ class OrdersItems implements MapperInterface
 
     /**
      * @param ShippingPriceFormatter $shippingPriceFormatter
-     * @return $this
+     * @return self
      */
     public function setShippingPriceFormatter(ShippingPriceFormatter $shippingPriceFormatter)
     {
@@ -173,8 +178,26 @@ class OrdersItems implements MapperInterface
     }
 
     /**
+     * @param ShippingMethodFormatter $shippingMethodFormatter
+     * @return self
+     */
+    public function setShippingMethodFormatter(ShippingMethodFormatter $shippingMethodFormatter)
+    {
+        $this->shippingMethodFormatter = $shippingMethodFormatter;
+        return $this;
+    }
+
+    /**
+     * @return ShippingMethodFormatter
+     */
+    public function getShippingMethodFormatter()
+    {
+        return $this->shippingMethodFormatter;
+    }
+
+    /**
      * @param SalesChannelNameFormatter $salesChannelNameFormatter
-     * @return $this
+     * @return self
      */
     public function setSalesChannelNameFormatter(SalesChannelNameFormatter $salesChannelNameFormatter)
     {
@@ -184,7 +207,7 @@ class OrdersItems implements MapperInterface
 
     /**
      * @param InvoiceDateFormatter $invoiceDateFormatter
-     * @return $this
+     * @return self
      */
     public function setInvoiceDateFormatter(InvoiceDateFormatter $invoiceDateFormatter)
     {
@@ -194,7 +217,7 @@ class OrdersItems implements MapperInterface
 
     /**
      * @param VatRateFormatter $vatRateFormatter
-     * @return $this
+     * @return self
      */
     public function setVatRateFormatter(VatRateFormatter $vatRateFormatter)
     {
@@ -204,7 +227,7 @@ class OrdersItems implements MapperInterface
 
     /**
      * @param StandardFormatter $standardFormatter
-     * @return $this
+     * @return self
      */
     public function setStandardFormatter(StandardFormatter $standardFormatter)
     {
