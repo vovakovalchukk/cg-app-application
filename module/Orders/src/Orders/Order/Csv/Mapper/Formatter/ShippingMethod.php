@@ -26,7 +26,7 @@ class ShippingMethod implements FormatterInterface
     protected function getShippingMethod(Order $order)
     {
         $ou = $this->getOuService()->fetch($order->getOrganisationUnitId());
-        $alias = $this->getConversionService()->fromMethodToAlias($order->getShippingMethod(),$ou);
+        $alias = $this->getConversionService()->fromMethodToAlias($order->getShippingMethod(), $ou);
         return $alias ? $alias->getName() : $order->getShippingMethod();
     }
 
