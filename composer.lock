@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8fe30d4c9652efeab94d09520b1b8d91",
+    "hash": "425163c46544b585fbb58a1a55d98053",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -578,7 +578,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-email-1.0.5-8d9008.zip",
                 "reference": "3009dc193a406a4a6ee988fa8b581a22b29378e3",
-                "shasum": "c30661e280073b2c5b5b90e28230691eb1d362e9"
+                "shasum": "d0045a60da9749b1e6630dad8ad7478a91c08c52"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -986,17 +986,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-5704-Stupid",
+            "version": "1.18.18",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "8ac719c96fa0db25da8f689fa7f0c7bfbe3a09fd"
+                "reference": "f93210f8a8a5eac2ecf1ba0362c8a6ed199dc95f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-5704-Stupid-95a1f3.zip",
-                "reference": "8ac719c96fa0db25da8f689fa7f0c7bfbe3a09fd",
-                "shasum": "df2e5ca1f3c01b654ee0ab2771058db5d43cf59b"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.18.18-b0938d.zip",
+                "reference": "f93210f8a8a5eac2ecf1ba0362c8a6ed199dc95f",
+                "shasum": "2ca0c486204709de2386e51dee87160b15cf964c"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1049,7 +1049,7 @@
                     "CG\\Order\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-05-27 13:54:51"
+            "time": "2015-05-28 09:25:16"
         },
         {
             "name": "channelgrabber/permission",
@@ -6455,18 +6455,10 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.18.16",
-            "alias_normalized": "1.18.16.0",
-            "version": "dev-CGIV-5704-Stupid",
-            "package": "channelgrabber/order"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
