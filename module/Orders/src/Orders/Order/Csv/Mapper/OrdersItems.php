@@ -188,14 +188,6 @@ class OrdersItems implements MapperInterface
     }
 
     /**
-     * @return ShippingMethodFormatter
-     */
-    public function getShippingMethodFormatter()
-    {
-        return $this->shippingMethodFormatter;
-    }
-
-    /**
      * @param SalesChannelNameFormatter $salesChannelNameFormatter
      * @return self
      */
