@@ -13,6 +13,7 @@ use CG\Http\StatusCode;
 use Zend\I18n\Translator\Translator;
 use CG\Account\Client\Service as AccountService;
 use Products\Product\TaxRate\Service as TaxRateService;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
 
 class ProductsJsonController extends AbstractActionController
 {
@@ -27,6 +28,10 @@ class ProductsJsonController extends AbstractActionController
     protected $translator;
     protected $accountService;
     protected $taxRateService;
+    /**
+     * @var OrganisationUnitService $organisationUnitService
+     */
+    protected $organisationUnitService;
 
     public function __construct(
         ProductService $productService,
@@ -34,14 +39,16 @@ class ProductsJsonController extends AbstractActionController
         FilterMapper $filterMapper,
         Translator $translator,
         AccountService $accountService,
-        TaxRateService $taxRateService
+        TaxRateService $taxRateService,
+        OrganisationUnitService $organisationUnitService
     ) {
         $this->setProductService($productService)
             ->setJsonModelFactory($jsonModelFactory)
             ->setFilterMapper($filterMapper)
             ->setTranslator($translator)
             ->setAccountService($accountService)
-            ->setTaxRateService($taxRateService);
+            ->setTaxRateService($taxRateService)
+            ->setOrganisationUnitService($organisationUnitService);
     }
 
     public function ajaxAction()
@@ -62,9 +69,13 @@ class ProductsJsonController extends AbstractActionController
         try {
             $products = $this->getProductService()->fetchProducts($requestFilter, $requestFilter->getParentProductId(), $limit);
             $accounts = $this->getAccountsIndexedById($requestFilter->getOrganisationUnitId());
+            $organisationUnitIds = $requestFilter->getOrganisationUnitId();
+            $accounts = $this->getAccountsIndexedById($organisationUnitIds);
+            $rootOrganisationUnit = $this->organisationUnitService->getRootOuFromOuId(reset($organisationUnitIds));
+            $isVatRegistered = $rootOrganisationUnit->isVatRegistered();
 
             foreach ($products as $product) {
-                $productsArray[] = $this->toArrayProductEntityWithEmbeddedData($product, $accounts);
+                $productsArray[] = $this->toArrayProductEntityWithEmbeddedData($product, $accounts, $isVatRegistered);
             }
         } catch(NotFound $e) {
             //noop
@@ -82,7 +93,7 @@ class ProductsJsonController extends AbstractActionController
         return $indexedAccounts;
     }
 
-    protected function toArrayProductEntityWithEmbeddedData(ProductEntity $productEntity, $accounts)
+    protected function toArrayProductEntityWithEmbeddedData(ProductEntity $productEntity, $accounts, $isVatRegistered)
     {
         $product = $productEntity->toArray();
 
@@ -92,7 +103,9 @@ class ProductsJsonController extends AbstractActionController
             'accounts' => $accounts
         ]);
 
-        $product['taxRates'] = $this->taxRateService->getTaxRatesOptionsForProduct($productEntity);
+        if($isVatRegistered) {
+            $product['taxRates'] = $this->taxRateService->getTaxRatesOptionsForProduct($productEntity);
+        }
 
         $product['variationCount'] = count($productEntity->getVariationIds());
         $product['variationIds'] = $productEntity->getVariationIds();
@@ -218,6 +231,16 @@ class ProductsJsonController extends AbstractActionController
     public function setTaxRateService(TaxRateService $taxRateService)
     {
         $this->taxRateService = $taxRateService;
+        return $this;
+    }
+
+    /**
+     * @param OrganisationUnitService $organisationUnitService
+     * @return $this
+     */
+    public function setOrganisationUnitService(OrganisationUnitService $organisationUnitService)
+    {
+        $this->organisationUnitService = $organisationUnitService;
         return $this;
     }
 }

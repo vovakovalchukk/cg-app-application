@@ -1,12 +1,14 @@
 <?php
 namespace Orders\Order\Csv\Mapper;
 
+use CG\User\ActiveUserInterface;
 use Orders\Order\Csv\MapperInterface;
 use CG\Order\Shared\Collection as OrderCollection;
 use Orders\Order\Csv\Mapper\Formatter\StandardSingle as StandardFormatter;
 use Orders\Order\Csv\Mapper\Formatter\SalesChannelNameSingle as SalesChannelNameFormatter;
 use Orders\Order\Csv\Mapper\Formatter\InvoiceDateSingle as InvoiceDateFormatter;
 use Orders\Order\Csv\Mapper\Formatter\ShippingMethodSingle as ShippingMethodFormatter;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
 
 class Orders implements MapperInterface
 {
@@ -14,23 +16,35 @@ class Orders implements MapperInterface
     protected $salesChannelNameFormatter;
     protected $invoiceDateFormatter;
     protected $shippingMethodFormatter;
+    /**
+     * @var ActiveUserInterface $activeUserContainer
+     */
+    protected $activeUserContainer;
+    /**
+     * @var OrganisationUnitService $organisationUnitService
+     */
+    protected $organisationUnitService;
 
     public function __construct(
         StandardFormatter $standardFormatter,
         SalesChannelNameFormatter $salesChannelNameFormatter,
         InvoiceDateFormatter $invoiceDateFormatter,
-        ShippingMethodFormatter $shippingMethodFormatter
+        ShippingMethodFormatter $shippingMethodFormatter,
+        OrganisationUnitService $organisationUnitService,
+        ActiveUserInterface $activeUserContainer
     ) {
         $this
             ->setStandardFormatter($standardFormatter)
             ->setSalesChannelNameFormatter($salesChannelNameFormatter)
             ->setInvoiceDateFormatter($invoiceDateFormatter)
-            ->setShippingMethodFormatter($shippingMethodFormatter);
+            ->setShippingMethodFormatter($shippingMethodFormatter)
+            ->setOrganisationUnitService($organisationUnitService)
+            ->setActiveUserContainer($activeUserContainer);
     }
 
     protected function getFormatters()
     {
-        return [
+        $formatters = [
             'Order ID' => 'externalId',
             'Sales Channel Name' => $this->salesChannelNameFormatter,
             'Purchase Date' => 'purchaseDate',
@@ -73,6 +87,12 @@ class Orders implements MapperInterface
             'Shipping Telephone' => 'calculatedShippingPhoneNumber',
             'Buyer Message' => 'buyerMessage'
         ];
+        $rootOrganisationUnitId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+        $organisationUnit = $this->organisationUnitService->getRootOuFromOuId($rootOrganisationUnitId);
+        if(!$organisationUnit->isVatRegistered()) {
+            unset($formatters['Total VAT']);
+        }
+        return $formatters;
     }
 
     /**
@@ -145,6 +165,26 @@ class Orders implements MapperInterface
     public function setShippingMethodFormatter(ShippingMethodFormatter $shippingMethodFormatter)
     {
         $this->shippingMethodFormatter = $shippingMethodFormatter;
+        return $this;
+    }
+
+    /**
+     * @param OrganisationUnitService $organisationUnitService
+     * @return $this
+     */
+    public function setOrganisationUnitService(OrganisationUnitService $organisationUnitService)
+    {
+        $this->organisationUnitService = $organisationUnitService;
+        return $this;
+    }
+
+    /**
+     * @param ActiveUserInterface $activeUserContainer
+     * @return $this
+     */
+    public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
+    {
+        $this->activeUserContainer = $activeUserContainer;
         return $this;
     }
 }
