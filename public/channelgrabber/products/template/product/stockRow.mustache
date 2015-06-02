@@ -1,10 +1,10 @@
 <tr>
-    <td id='available-{{stockLocationId}}'>{{available}}</td>
-    <td id='allocated-{{stockLocationId}}'>{{allocated}}</td>
+    <td id='available-{{productId}}-{{stockLocationId}}'>{{available}}</td>
+    <td id='allocated-{{productId}}-{{stockLocationId}}'>{{allocated}}</td>
     <td>
         <div class="total-text-holder">
             {{>total}}
-            <input type='hidden' id='etag-{{stockLocationId}}' value='{{eTag}}'>
+            <input type='hidden' id='etag-{{productId}}-{{stockLocationId}}' value='{{eTag}}'>
             <script>
                 $(document).ready(function() {
                     require(['Stock/DomListener'], function(DomListener) {
@@ -12,9 +12,9 @@
                         domListener.init(
                             '.submit-inputbox[name="{{totalName}}"]',
                             '{{stockLocationId}}',
-                            '#etag-{{stockLocationId}}',
-                            '#available-{{stockLocationId}}',
-                            '#allocated-{{stockLocationId}}'
+                            '#etag-{{productId}}-{{stockLocationId}}',
+                            '#available-{{productId}}-{{stockLocationId}}',
+                            '#allocated-{{productId}}-{{stockLocationId}}'
                         );
                     });
                 });

@@ -148,16 +148,16 @@ define([
         var stockLocations = "";
         if (typeof(product['stock']) != 'undefined' && typeof(product['stock']['locations']) != 'undefined') {
             for (var index in product['stock']['locations']) {
-                stockLocations += this.getStockTableLineView(product['stock']['locations'][index], templates);
+                stockLocations += this.getStockTableLineView(product['id'], product['stock']['locations'][index], templates);
             }
         }
         var html = CGMustache.get().renderTemplate(templates, {}, 'stockTable', {'stockLocations': stockLocations});
         return html;
     };
 
-    Service.prototype.getStockTableLineView = function(location, templates)
+    Service.prototype.getStockTableLineView = function(productId, location, templates)
     {
-        var name = 'total-stock-' + location['id'];
+        var name = 'total-stock-' + productId + '-' + location['id'];
         var quantityInlineText = CGMustache.get().renderTemplate(templates, {
             'value': location['onHand'],
             'name': name,
@@ -165,6 +165,7 @@ define([
         }, 'inlineText', {});
         var available = location['onHand'] - location['allocated'];
         return CGMustache.get().renderTemplate(templates, {
+            'productId': productId,
             'available': available,
             'allocated': location['allocated'],
             'totalName': name,
@@ -180,7 +181,7 @@ define([
         for (var index in product['variations']) {
             var variation = product['variations'][index];
             variations += this.getVariationLineView(templates, variation, product['attributeNames']);
-            stockLocations += this.getStockTableLineView(variation['stock']['locations'][0], templates);
+            stockLocations += this.getStockTableLineView(variation['id'], variation['stock']['locations'][0], templates);
         }
         var variationTable = CGMustache.get().renderTemplate(templates, {
             'attributes': product['attributeNames']
