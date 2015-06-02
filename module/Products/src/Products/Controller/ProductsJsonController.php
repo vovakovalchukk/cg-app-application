@@ -12,10 +12,13 @@ use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Http\StatusCode;
 use Zend\I18n\Translator\Translator;
 use CG\Account\Client\Service as AccountService;
+use Products\Product\TaxRate\Service as TaxRateService;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
 
 class ProductsJsonController extends AbstractActionController
 {
     const ROUTE_AJAX = 'AJAX';
+    const ROUTE_AJAX_TAX_RATE = 'tax_rate';
     const ROUTE_STOCK_UPDATE = 'stockupdate';
     const ROUTE_DELETE = 'Delete';
 
@@ -24,19 +27,28 @@ class ProductsJsonController extends AbstractActionController
     protected $filterMapper;
     protected $translator;
     protected $accountService;
+    protected $taxRateService;
+    /**
+     * @var OrganisationUnitService $organisationUnitService
+     */
+    protected $organisationUnitService;
 
     public function __construct(
         ProductService $productService,
         JsonModelFactory $jsonModelFactory,
         FilterMapper $filterMapper,
         Translator $translator,
-        AccountService $accountService
+        AccountService $accountService,
+        TaxRateService $taxRateService,
+        OrganisationUnitService $organisationUnitService
     ) {
         $this->setProductService($productService)
             ->setJsonModelFactory($jsonModelFactory)
             ->setFilterMapper($filterMapper)
             ->setTranslator($translator)
-            ->setAccountService($accountService);
+            ->setAccountService($accountService)
+            ->setTaxRateService($taxRateService)
+            ->setOrganisationUnitService($organisationUnitService);
     }
 
     public function ajaxAction()
@@ -57,9 +69,13 @@ class ProductsJsonController extends AbstractActionController
         try {
             $products = $this->getProductService()->fetchProducts($requestFilter, $requestFilter->getParentProductId(), $limit);
             $accounts = $this->getAccountsIndexedById($requestFilter->getOrganisationUnitId());
+            $organisationUnitIds = $requestFilter->getOrganisationUnitId();
+            $accounts = $this->getAccountsIndexedById($organisationUnitIds);
+            $rootOrganisationUnit = $this->organisationUnitService->getRootOuFromOuId(reset($organisationUnitIds));
+            $isVatRegistered = $rootOrganisationUnit->isVatRegistered();
 
             foreach ($products as $product) {
-                $productsArray[] = $this->toArrayProductEntityWithEmbeddedData($product, $accounts);
+                $productsArray[] = $this->toArrayProductEntityWithEmbeddedData($product, $accounts, $isVatRegistered);
             }
         } catch(NotFound $e) {
             //noop
@@ -77,7 +93,7 @@ class ProductsJsonController extends AbstractActionController
         return $indexedAccounts;
     }
 
-    protected function toArrayProductEntityWithEmbeddedData(ProductEntity $productEntity, $accounts)
+    protected function toArrayProductEntityWithEmbeddedData(ProductEntity $productEntity, $accounts, $isVatRegistered)
     {
         $product = $productEntity->toArray();
 
@@ -86,6 +102,10 @@ class ProductsJsonController extends AbstractActionController
             'listings' => $productEntity->getListings()->toArray(),
             'accounts' => $accounts
         ]);
+
+        if($isVatRegistered) {
+            $product['taxRates'] = $this->taxRateService->getTaxRatesOptionsForProduct($productEntity);
+        }
 
         $product['variationCount'] = count($productEntity->getVariationIds());
         $product['variationIds'] = $productEntity->getVariationIds();
@@ -98,9 +118,10 @@ class ProductsJsonController extends AbstractActionController
         $product['stock'] = array_merge($productEntity->getStock()->toArray(), [
             'locations' => $stockEntity->getLocations()->toArray()
         ]);
+
         foreach ($product['stock']['locations'] as $stockLocationIndex => $stockLocation) {
             $stockLocationId = $product['stock']['locations'][$stockLocationIndex]['id'];
-            $product['stock']['locations'][$stockLocationIndex]['eTag'] = $stockEntity->getLocations()->getById($stockLocationId)->getEtag();
+            $product['stock']['locations'][$stockLocationIndex]['eTag'] = $stockEntity->getLocations()->getById($stockLocationId)->getStoredETag();
         }
         return $product;
     }
@@ -114,7 +135,7 @@ class ProductsJsonController extends AbstractActionController
                 $this->params()->fromPost('eTag'),
                 $this->params()->fromPost('totalQuantity')
             );
-            $view->setVariable('eTag', $stockLocation->getETag());
+            $view->setVariable('eTag', $stockLocation->getStoredETag());
         } catch (NotModified $e) {
             $view->setVariable('code', StatusCode::NOT_MODIFIED);
             $view->setVariable('message', $this->getTranslator()->translate('There were no changes to be saved'));
@@ -135,6 +156,16 @@ class ProductsJsonController extends AbstractActionController
 
         $this->getProductService()->deleteProductsById($productIds);
         $view->setVariable('deleted', true);
+        return $view;
+    }
+
+    public function saveProductTaxRateAction()
+    {
+        $productId = (int) $this->params()->fromPost('productId');
+        $taxRateId = (string) $this->params()->fromPost('taxRateId');
+        $view = $this->getJsonModelFactory()->newInstance();
+        $this->getProductService()->saveProductTaxRateId($productId, $taxRateId);
+        $view->setVariable('saved', true);
         return $view;
     }
 
@@ -190,6 +221,26 @@ class ProductsJsonController extends AbstractActionController
     public function setAccountService(AccountService $accountService)
     {
         $this->accountService = $accountService;
+        return $this;
+    }
+
+    /**
+     * @param TaxRateService $taxRateService
+     * @return $this
+     */
+    public function setTaxRateService(TaxRateService $taxRateService)
+    {
+        $this->taxRateService = $taxRateService;
+        return $this;
+    }
+
+    /**
+     * @param OrganisationUnitService $organisationUnitService
+     * @return $this
+     */
+    public function setOrganisationUnitService(OrganisationUnitService $organisationUnitService)
+    {
+        $this->organisationUnitService = $organisationUnitService;
         return $this;
     }
 }

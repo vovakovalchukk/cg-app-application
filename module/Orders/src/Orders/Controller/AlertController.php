@@ -38,7 +38,7 @@ class AlertController extends AbstractActionController
         $alert = $this->fetchAlert();
         $alert = is_null($alert) ? $this->create() : $this->update($alert);
         $view = $this->getJsonModelFactory()->newInstance();
-        $view->setVariable('eTag', $alert->getETag());
+        $view->setVariable('eTag', $alert->getStoredETag());
         
         return $view;
     }

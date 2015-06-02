@@ -37,7 +37,7 @@ class AddressController extends AbstractActionController
         $this->getService()->save($userChange);
 
         $view = $this->getJsonModelFactory()->newInstance();
-        $view->setVariable('eTag', $userChange->getETag());
+        $view->setVariable('eTag', $userChange->getStoredETag());
         return $view;
     }
 

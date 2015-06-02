@@ -5,7 +5,8 @@ define([
     'Product/Storage/Ajax',
     'DomManipulator',
     'Variation/DomListener',
-    'BulkActionAbstract'
+    'BulkActionAbstract',
+    'DeferredQueue'
 ], function (
     CGMustache,
     domListener,
@@ -13,11 +14,14 @@ define([
     productStorage,
     domManipulator,
     variationDomListener,
-    BulkActionAbstract
+    BulkActionAbstract,
+    DeferredQueue
 ) {
     var Service = function ()
     {
         var baseUrl;
+        var deferredQueue = new DeferredQueue();
+
         this.getBaseUrl = function()
         {
             return baseUrl;
@@ -27,11 +31,17 @@ define([
         {
             baseUrl = newBaseUrl;
         };
+
+        this.getDeferredQueue = function()
+        {
+            return deferredQueue;
+        };
     };
 
     Service.DOM_SELECTOR_PRODUCT_CONTAINER = '#products-list';
     Service.DOM_SELECTOR_LOADING_MESSAGE = '#products-loading-message';
     Service.DEFAULT_IMAGE_URL = '/noproductsimage.png';
+    Service.DOM_SELECTOR_TAX_RATE = 'product-tax-rate-custom-select';
 
     Service.prototype.init = function(baseUrl)
     {
@@ -80,6 +90,7 @@ define([
         var productUrlMap = {
             checkbox: '/channelgrabber/zf2-v4-ui/templates/elements/checkbox.mustache',
             buttons: '/channelgrabber/zf2-v4-ui/templates/elements/buttons.mustache',
+            customSelect: '/channelgrabber/zf2-v4-ui/templates/elements/custom-select.mustache',
             inlineText: '/channelgrabber/zf2-v4-ui/templates/elements/inline-text.mustache',
             variationTable: '/channelgrabber/products/template/product/variationTable.mustache',
             variationRow: '/channelgrabber/products/template/product/variationRow.mustache',
@@ -100,6 +111,7 @@ define([
         var checkbox = this.getCheckboxView(product, templates);
         var expandButton = '';
         var hasVariations = false;
+        var taxRateCustomSelect = null;
 
         if (product['variationCount'] != undefined && product['variationCount']) {
             var productContent = this.getVariationView(product, templates);
@@ -112,6 +124,9 @@ define([
         }
 
         var statusLozenge = this.getStatusView(product, templates);
+        if(product['taxRates']) {
+            taxRateCustomSelect = this.getTaxRateCustomSelectView(product, templates);
+        }
         var productView = CGMustache.get().renderTemplate(templates, {
             'title': product['name'],
             'sku': product['sku'],
@@ -122,6 +137,7 @@ define([
             'productContent': productContent,
             'statusLozenge': statusLozenge,
             'expandButton': expandButton,
+            'taxRateCustomSelect': taxRateCustomSelect,
             'checkbox': checkbox
         });
         return productView;
@@ -132,16 +148,16 @@ define([
         var stockLocations = "";
         if (typeof(product['stock']) != 'undefined' && typeof(product['stock']['locations']) != 'undefined') {
             for (var index in product['stock']['locations']) {
-                stockLocations += this.getStockTableLineView(product['stock']['locations'][index], templates);
+                stockLocations += this.getStockTableLineView(product['id'], product['stock']['locations'][index], templates);
             }
         }
         var html = CGMustache.get().renderTemplate(templates, {}, 'stockTable', {'stockLocations': stockLocations});
         return html;
     };
 
-    Service.prototype.getStockTableLineView = function(location, templates)
+    Service.prototype.getStockTableLineView = function(productId, location, templates)
     {
-        var name = 'total-stock-' + location['id'];
+        var name = 'total-stock-' + productId + '-' + location['id'];
         var quantityInlineText = CGMustache.get().renderTemplate(templates, {
             'value': location['onHand'],
             'name': name,
@@ -149,6 +165,7 @@ define([
         }, 'inlineText', {});
         var available = location['onHand'] - location['allocated'];
         return CGMustache.get().renderTemplate(templates, {
+            'productId': productId,
             'available': available,
             'allocated': location['allocated'],
             'totalName': name,
@@ -164,7 +181,7 @@ define([
         for (var index in product['variations']) {
             var variation = product['variations'][index];
             variations += this.getVariationLineView(templates, variation, product['attributeNames']);
-            stockLocations += this.getStockTableLineView(variation['stock']['locations'][0], templates);
+            stockLocations += this.getStockTableLineView(variation['id'], variation['stock']['locations'][0], templates);
         }
         var variationTable = CGMustache.get().renderTemplate(templates, {
             'attributes': product['attributeNames']
@@ -209,6 +226,29 @@ define([
             'value': 'Expand Variations',
             'action': 'Contract Variations'
         }, 'buttons');
+    };
+
+    Service.prototype.getTaxRateCustomSelectView = function(product, templates)
+    {
+        var options = [];
+        for(var taxRateId in product['taxRates']) {
+            if(!product['taxRates'].hasOwnProperty(taxRateId)) {
+                continue;
+            }
+            options.push({
+                'title': product['taxRates'][taxRateId]['rate'] + '% (' + product['taxRates'][taxRateId]['name'] + ')',
+                'value': taxRateId,
+                'selected': product['taxRates'][taxRateId]['selected']
+            });
+        }
+
+        return CGMustache.get().renderTemplate(templates, {
+            'id': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'],
+            'name': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'],
+            'class': Service.DOM_SELECTOR_TAX_RATE,
+            'title': 'VAT',
+            'options': options
+        }, 'customSelect');
     };
 
     Service.prototype.getCheckboxView = function(product, templates)
@@ -278,6 +318,26 @@ define([
         {
             var html = CGMustache.get().renderTemplate(templates, {}, 'noProduct');
             domManipulator.setHtml(Service.DOM_SELECTOR_PRODUCT_CONTAINER, html);
+        });
+    };
+
+    Service.prototype.saveTaxRate = function(sourceCustomSelect)
+    {
+        var productId = $(sourceCustomSelect).closest(".product-container").find("input[type=hidden][name='id']").val();
+        var value = $(sourceCustomSelect).find("input[type=hidden][class='" + Service.DOM_SELECTOR_TAX_RATE + "']").val();
+
+        if(productId === undefined || productId === '' || value === undefined || value === '') {
+            return;
+        }
+
+        this.getDeferredQueue().queue(function() {
+            return productStorage.saveTaxRate(productId, value, function(error, textStatus, errorThrown) {
+                if(error === null) {
+                    n.success('Product tax rate updated successfully');
+                } else {
+                    n.ajaxError(error, textStatus, errorThrown);
+                }
+            });
         });
     };
 

@@ -144,7 +144,7 @@ class ShippingController extends AbstractActionController
         $view = $this->getViewModelFactory()->newInstance([
             'id' => 'shipping-alias-' . $alias->getId(),
             'aliasId' => $alias->getId(),
-            'aliasEtag' => $alias->getETag()
+            'aliasEtag' => $alias->getStoredETag()
         ]);
         $view->addChild($this->getTextView($alias), 'text');
         $view->addChild($this->getDeleteButtonView($alias), 'deleteButton');

@@ -129,7 +129,7 @@ define([
                 templates, variation, attributeNames
             );
             stockRows += this.getProductService().getStockTableLineView(
-                variation['stock']['locations'][0], templates
+                variation['id'], variation['stock']['locations'][0], templates
             );
         }
 

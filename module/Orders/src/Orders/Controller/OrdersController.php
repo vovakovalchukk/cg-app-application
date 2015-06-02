@@ -164,6 +164,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->setVariable('carriers', $carriers);
         $view->addChild($this->getCarrierSelect(), 'carrierSelect');
         $view->setVariable('editable', $this->getOrderService()->isOrderEditable($order));
+        $view->setVariable('rootOu', $this->getOrderService()->getRootOrganisationUnitForOrder($order));
         return $view;
     }
 
