@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "59a9889d847cadd96db13aa6c383e550",
+    "hash": "f36e589b44e96f41562d943fa02680ff",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -200,31 +200,31 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "dev-CGIV-5589-pass-in-register-form-details",
+            "version": "1.6.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "635e693cb6073d4d8b9682cc680d78bfd9658c5d"
+                "reference": "960454cd7d8b48581fc9f1a38ec00f2177102cdb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-CGIV-5589-pass-in-register-form-details-b883ce.zip",
-                "reference": "635e693cb6073d4d8b9682cc680d78bfd9658c5d",
-                "shasum": "d781eb02049b0152d6fdf6653de4069c785ccaee"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.6.8-1efad7.zip",
+                "reference": "960454cd7d8b48581fc9f1a38ec00f2177102cdb",
+                "shasum": "05c3ec55325d97a5ef79e1515a7c73da76faeed4"
             },
             "require": {
                 "channelgrabber/billing": ">=1.8.2, <2.0.0",
                 "channelgrabber/channel": "^1.16.10",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.1.0",
-                "channelgrabber/email": "dev-CGIV-5589-pass-in-register-form-details as 1.0.6",
+                "channelgrabber/email": "~1.0.6",
                 "channelgrabber/listing": ">=1.5.0,<2.0.0",
                 "channelgrabber/location": ">=1.1.1",
                 "channelgrabber/product": ">=1.3.22",
                 "channelgrabber/slim": ">=1.13.0,<2.0.0",
                 "channelgrabber/stock": ">=1.4.0",
                 "channelgrabber/user": ">=1.18.7",
-                "channelgrabber/zf2-email-template": "dev-CGIV-5589-pass-in-register-form-details as 1.0.7",
+                "channelgrabber/zf2-email-template": "~1.0.7",
                 "composer/composer": "@dev",
                 "php-jsonpatch/php-jsonpatch": "@dev",
                 "php-jsonpointer/php-jsonpointer": "@dev"
@@ -249,7 +249,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2015-05-15 14:46:18"
+            "time": "2015-06-02 15:26:50"
         },
         {
             "name": "channelgrabber/channel",
@@ -568,17 +568,17 @@
         },
         {
             "name": "channelgrabber/email",
-            "version": "dev-CGIV-5589-pass-in-register-form-details",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-email.git",
-                "reference": "9d2f906d37aad33b812638a3dadd0d46542f6f90"
+                "reference": "6b449c5c981e48f49d4d39885fedb82063489614"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-email-dev-CGIV-5589-pass-in-register-form-details-4a1076.zip",
-                "reference": "9d2f906d37aad33b812638a3dadd0d46542f6f90",
-                "shasum": "10952dfd7f923426934e6093aa79076951858310"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-email-1.0.6-190c0f.zip",
+                "reference": "6b449c5c981e48f49d4d39885fedb82063489614",
+                "shasum": "1f0b8d12aa7720e346f0a2ae4f2b508be7477a5c"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -600,7 +600,7 @@
                     "CG\\Email\\": "src"
                 }
             },
-            "time": "2015-05-15 14:42:02"
+            "time": "2015-06-02 15:20:17"
         },
         {
             "name": "channelgrabber/etag",
@@ -2225,17 +2225,17 @@
         },
         {
             "name": "channelgrabber/zf2-email-template",
-            "version": "dev-CGIV-5589-pass-in-register-form-details",
+            "version": "1.0.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/email-template-module.git",
-                "reference": "eb65db51cf6a5abc1f47b435b0a0064bc8e0e052"
+                "reference": "a61d0b9d053bf189109db209b05306b5328eeca0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-dev-CGIV-5589-pass-in-register-form-details-e53010.zip",
-                "reference": "eb65db51cf6a5abc1f47b435b0a0064bc8e0e052",
-                "shasum": "1c35c7aead686e3aba828ae252776a09e9a647c0"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-1.0.7-5265b6.zip",
+                "reference": "a61d0b9d053bf189109db209b05306b5328eeca0",
+                "shasum": "743971a36010617abc91b6f7b2599a11fcc3a0eb"
             },
             "require": {
                 "guzzle/guzzle": "~3.7",
@@ -2255,7 +2255,7 @@
                 ]
             },
             "description": "email template module",
-            "time": "2015-05-14 14:38:21"
+            "time": "2015-06-02 15:21:16"
         },
         {
             "name": "channelgrabber/zf2-hal",
@@ -2502,20 +2502,20 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-CGIV-5589-pass-in-register-form-details",
+            "version": "1.4.34",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "2eda7b9f9d7611a94b7fb68f9acb36b6ed560b36"
+                "reference": "aa9a071bbda559915516351142cc814c74684ffe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-5589-pass-in-register-form-details-80c780.zip",
-                "reference": "2eda7b9f9d7611a94b7fb68f9acb36b6ed560b36",
-                "shasum": "809b9f6a6bf74582ffdac73c2da76556a260c2ad"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.34-295703.zip",
+                "reference": "aa9a071bbda559915516351142cc814c74684ffe",
+                "shasum": "928cbd71149d5cc426586a3c798bdc1404b30c4a"
             },
             "require": {
-                "channelgrabber/cglib": "dev-CGIV-5589-pass-in-register-form-details as 1.6.4",
+                "channelgrabber/cglib": "~1.6.8",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.1.1",
                 "channelgrabber/slim": ">=1.11.0",
@@ -2550,7 +2550,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2015-05-15 14:47:58"
+            "time": "2015-06-02 15:32:39"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -6456,39 +6456,10 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.6.4",
-            "alias_normalized": "1.6.4.0",
-            "version": "dev-CGIV-5589-pass-in-register-form-details",
-            "package": "channelgrabber/cglib"
-        },
-        {
-            "alias": "1.0.6",
-            "alias_normalized": "1.0.6.0",
-            "version": "dev-CGIV-5589-pass-in-register-form-details",
-            "package": "channelgrabber/email"
-        },
-        {
-            "alias": "1.0.7",
-            "alias_normalized": "1.0.7.0",
-            "version": "dev-CGIV-5589-pass-in-register-form-details",
-            "package": "channelgrabber/zf2-email-template"
-        },
-        {
-            "alias": "1.4.34",
-            "alias_normalized": "1.4.34.0",
-            "version": "dev-CGIV-5589-pass-in-register-form-details",
-            "package": "channelgrabber/zf2-register"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/cglib": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/email": 20,
-        "channelgrabber/zf2-email-template": 20,
-        "channelgrabber/zf2-register": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
