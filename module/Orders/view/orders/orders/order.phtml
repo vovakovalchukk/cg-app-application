@@ -299,6 +299,11 @@ require([
             <td class="midcell"><strong><?= $this->translate('Postage & Packing'); ?>:</strong></td>
             <td class="rightcell"><?= $this->currencyFormat($order->getShippingPrice(), $order->getCurrencyCode()); ?></td>
         </tr>
+        <tr>
+            <td class="leftcell"></td>
+            <td class="midcell"><strong><?= $this->translate('Subtotal'); ?>:</strong></td>
+            <td class="rightcell"><?= $this->currencyFormat($order->getSubtotal(), $order->getCurrencyCode()); ?></strong></td>
+        </tr>
         <?php if ($rootOu->isVatRegistered()): ?>
         <tr>
             <td class="leftcell">
