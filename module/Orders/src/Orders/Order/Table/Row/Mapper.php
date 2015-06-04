@@ -16,6 +16,7 @@ class Mapper extends UIMapper
     const COLUMN_PRICE = 'Price inc. VAT';
     const COLUMN_DISCOUNT = 'Discount Total';
     const COLUMN_TOTAL = 'Line Total';
+    const GIFT_SKU_HEADER = 'Gift';
 
     protected $currencyFormat;
     protected $order;
@@ -34,8 +35,8 @@ class Mapper extends UIMapper
         self::COLUMN_TOTAL => ['getter' => 'getOrderDiscountTotal', 'callback' => 'formatCurrency'],
     ];
     protected $mapGiftWrap = [
-        self::COLUMN_SKU => ['getter' => 'getGiftWrapType', 'callback' => null],
-        self::COLUMN_PRODUCT => ['getter' => 'getGiftWrapMessage', 'callback' => null],
+        self::COLUMN_SKU => ['getter' => 'getGiftWrapSkuColumnMessage', 'callback' => null],
+        self::COLUMN_PRODUCT => ['getter' => 'getGiftProductNameColumn', 'callback' => null],
         self::COLUMN_QUANTITY => ['getter' => null, 'callback' => null],
         self::COLUMN_PRICE => ['getter' => 'getGiftWrapPrice', 'callback' => 'formatCurrency'],
         self::COLUMN_DISCOUNT => ['getter' => null, 'callback' => null],
@@ -139,9 +140,24 @@ class Mapper extends UIMapper
         return 0 - $order->getTotalDiscount();
     }
 
+    protected function getGiftWrapSkuColumnMessage()
+    {
+        return static::GIFT_SKU_HEADER;
+    }
+
+    protected function getGiftProductNameColumn(Giftwrap $giftWrap)
+    {
+        $wrapType = $this->getGiftWrapType($giftWrap) . ((!empty($this->getGiftWrapType($giftWrap))) ? '<br>' : '');
+        $wrapMessage = $this->getGiftWrapMessage($giftWrap);
+        return $wrapType . $wrapMessage;
+    }
+
     protected function getGiftWrapType(GiftWrap $giftWrap)
     {
-        return strtoupper($giftWrap->getGiftWrapType()) . ' GIFT WRAP';
+        if(!$giftWrap->getGiftWrapType()) {
+            return '';
+        }
+        return '<b>Wrap:</b>' . strtoupper($giftWrap->getGiftWrapType());
     }
 
     protected function getGiftWrapMessage(GiftWrap $giftWrap)
