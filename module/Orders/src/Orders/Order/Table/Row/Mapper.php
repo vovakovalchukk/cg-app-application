@@ -16,7 +16,7 @@ class Mapper extends UIMapper
     const COLUMN_PRICE = 'Price inc. VAT';
     const COLUMN_DISCOUNT = 'Discount Total';
     const COLUMN_TOTAL = 'Line Total';
-    const GIFT_SKU_HEADER = 'Gift';
+    const GIFT_SKU_HEADER = 'GIFT';
 
     protected $currencyFormat;
     protected $order;
@@ -83,7 +83,7 @@ class Mapper extends UIMapper
                 'content' => $this->formatCellValue($value, $entity, $columnMap),
                 'class' => (isset($columnMap['class']) ? $columnMap['class'] : $column->getClass()),
                 'colSpan' => (isset($columnMap['colSpan']) ? $columnMap['colSpan'] : null)
-            ]; 
+            ];
         }
         return $this->fromArray($rowData, $className);
     }
@@ -157,7 +157,7 @@ class Mapper extends UIMapper
         if(!$giftWrap->getGiftWrapType()) {
             return '';
         }
-        return '<b>Wrap:</b>' . strtoupper($giftWrap->getGiftWrapType());
+        return '<div class="wrap-type-holder"><b>Wrap: </b>' . strtoupper($giftWrap->getGiftWrapType()) . '</div>';
     }
 
     protected function getGiftWrapMessage(GiftWrap $giftWrap)
@@ -165,7 +165,7 @@ class Mapper extends UIMapper
         if (!$giftWrap->getGiftWrapMessage()) {
             return '';
         }
-        return '<b>Message:</b> ' . nl2br($giftWrap->getGiftWrapMessage());
+        return '<div class="wrap-message-holder"><b>Message: </b> ' . nl2br($giftWrap->getGiftWrapMessage()) . '</div>';
     }
 
     protected function formatItemLink(Item $entity, $value)
@@ -173,7 +173,7 @@ class Mapper extends UIMapper
         if (empty($entity->getUrl())) {
             return $value;
         }
-        return '<a href="' . $entity->getUrl() . '" target="_blank">' . $value . '</a>';
+        return '<a class="product-table-item-link" href="' . $entity->getUrl() . '" target="_blank">' . $value . '</a>';
     }
 
     protected function formatCurrency($entity, $value)
