@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cd00504fdc74859113953155eb80bb5b",
+    "hash": "b35eaa061d46fb707ed805e2e6cc5282",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -510,22 +510,22 @@
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "1.7.2",
+            "version": "1.8.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "56169bb26f655ee2f11536dfaaf10d84c51e6a33"
+                "reference": "2a0ce16badcb8a871cc424ad207d5f811d7f5f05"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.7.2-dfd189.zip",
-                "reference": "56169bb26f655ee2f11536dfaaf10d84c51e6a33",
-                "shasum": "0a4c7f60650524d181e9cb48256d93548384dc1c"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.8.4-29e64e.zip",
+                "reference": "2a0ce16badcb8a871cc424ad207d5f811d7f5f05",
+                "shasum": "ae0496402dea7df5ff247433adad1b7c6c912389"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": ">=1.4.0,<2.0.0",
-                "channelgrabber/channel": "^1.16.12",
+                "channelgrabber/channel": "^1.16.16",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.1.0",
                 "channelgrabber/gearman": "^1.2.4",
@@ -564,7 +564,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2015-05-28 15:02:43"
+            "time": "2015-06-11 08:11:18"
         },
         {
             "name": "channelgrabber/email",
