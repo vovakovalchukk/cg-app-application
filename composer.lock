@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cd00504fdc74859113953155eb80bb5b",
+    "hash": "08dc6a6dea0956fdd7f2aa6f4b63b3a6",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -986,17 +986,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.18.24.1",
+            "version": "dev-EPIC-CGIV-5697-sequential-order-numbers",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "4c463f0556e55f928e482672abcd4e1b06589019"
+                "reference": "6d055bcb34883b0d4d3cfa1750575540fad7f3aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.18.24.1-4323af.zip",
-                "reference": "4c463f0556e55f928e482672abcd4e1b06589019",
-                "shasum": "3c8ec98f9c0c096b38988747d0bb8c1f195db574"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-CGIV-5697-sequential-order-numbers-6b8cc5.zip",
+                "reference": "6d055bcb34883b0d4d3cfa1750575540fad7f3aa",
+                "shasum": "eda52c551fcc964c94802f1147bffa552d4bc75d"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1050,7 +1050,7 @@
                     "CG\\Order\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-06-05 10:00:50"
+            "time": "2015-06-05 13:44:17"
         },
         {
             "name": "channelgrabber/permission",
@@ -1773,17 +1773,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.2.52",
+            "version": "dev-CGIV-5700-invoice-designer-numbers",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "28314482063cc5df31d306e5a966fd23c863f6ae"
+                "reference": "f5778e6d0dce95b27739383ee8efd7989346bfa3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.52-9728d9.zip",
-                "reference": "28314482063cc5df31d306e5a966fd23c863f6ae",
-                "shasum": "2662e0c2e2ebdf3b15cbeb2afd347ae8a42cfdf9"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-5700-invoice-designer-numbers-148eb6.zip",
+                "reference": "f5778e6d0dce95b27739383ee8efd7989346bfa3",
+                "shasum": "0ec73bde456809bc9806f333d0da1217e8b5ee5d"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1820,7 +1820,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-06-05 10:28:13"
+            "time": "2015-06-12 13:57:14"
         },
         {
             "name": "channelgrabber/transaction",
@@ -6449,10 +6449,25 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.18.25",
+            "alias_normalized": "1.18.25.0",
+            "version": "dev-EPIC-CGIV-5697-sequential-order-numbers",
+            "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.2.53",
+            "alias_normalized": "1.2.53.0",
+            "version": "dev-CGIV-5700-invoice-designer-numbers",
+            "package": "channelgrabber/template"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
+        "channelgrabber/template": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
