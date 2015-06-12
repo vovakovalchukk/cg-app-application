@@ -85,7 +85,8 @@ class Orders implements MapperInterface
             'Shipping Postcode' => 'calculatedShippingAddressPostcode',
             'Shipping Email' => 'calculatedShippingEmailAddress',
             'Shipping Telephone' => 'calculatedShippingPhoneNumber',
-            'Buyer Message' => 'buyerMessage'
+            'Buyer Message' => 'buyerMessage',
+            'Invoice Number' => 'invoiceNumber'
         ];
         $rootOrganisationUnitId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
         $organisationUnit = $this->organisationUnitService->getRootOuFromOuId($rootOrganisationUnitId);

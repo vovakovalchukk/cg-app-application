@@ -35,7 +35,7 @@
         "channelgrabber/locale": "~1.0.5",
         "channelgrabber/location": "~1.1.2",
         "channelgrabber/log": "~2.0.23",
-        "channelgrabber/order": "~1.18.24",
+        "channelgrabber/order": "dev-EPIC-CGIV-5697-sequential-order-numbers as 1.18.25",
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/phinx": "~0.3.2",
         "channelgrabber/picklist": "~1.0.1",
