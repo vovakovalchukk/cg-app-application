@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fa17a75b32f0252293e0fa02cd69af33",
+    "hash": "45cb319c3f9b85ea8a00a16f4bda8af4",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1477,17 +1477,17 @@
         },
         {
             "name": "channelgrabber/slim",
-            "version": "1.13.11",
+            "version": "1.13.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgslim.git",
-                "reference": "2ba77789750f929b7c12bf87afb651eb2117130e"
+                "reference": "884eb434b1c66a8a7bccd46adf53929d148cb97d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-slim-1.13.11-22d2f9.zip",
-                "reference": "2ba77789750f929b7c12bf87afb651eb2117130e",
-                "shasum": "2c14ff8ef437d47b2e601851cb1958f039319a8e"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-slim-1.13.12-0fae04.zip",
+                "reference": "884eb434b1c66a8a7bccd46adf53929d148cb97d",
+                "shasum": "1cafd262041aaff6eed79c797c7c8f30fb9e652b"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -1528,7 +1528,7 @@
                     "CG\\Slim\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2015-05-13 07:44:56"
+            "time": "2015-06-12 14:06:50"
         },
         {
             "name": "channelgrabber/spork",
@@ -2512,17 +2512,17 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-CGIV-5803-NewRegisterForm",
+            "version": "1.4.35",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "e71e02c4bead8221276a86349f8efbd2d66faf0a"
+                "reference": "a9e74899b12b9933c75d83ecd7e48b351fcd4fda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-5803-NewRegisterForm-1b225f.zip",
-                "reference": "e71e02c4bead8221276a86349f8efbd2d66faf0a",
-                "shasum": "9a06d651bb79cfe4146eeac0f075da45748d061d"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.35-0ddda9.zip",
+                "reference": "a9e74899b12b9933c75d83ecd7e48b351fcd4fda",
+                "shasum": "c8eb8f53bba611284a8efa1e7f6573eacbe16fc4"
             },
             "require": {
                 "channelgrabber/cglib": "~1.6.8",
@@ -2560,7 +2560,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2015-06-12 09:22:45"
+            "time": "2015-06-16 15:28:20"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -2764,17 +2764,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-5803-NewRegisterForm",
+            "version": "1.15.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "2c16ef671768b84956a061a12c35960a481658b7"
+                "reference": "6c9e903afd299a766f67a5d63d62d0e7e4dc50cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5803-NewRegisterForm-f63baa.zip",
-                "reference": "2c16ef671768b84956a061a12c35960a481658b7",
-                "shasum": "4f3e2d1f22e2e3020c0d5faeb4b2295d30c4557e"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.15.5-80085e.zip",
+                "reference": "6c9e903afd299a766f67a5d63d62d0e7e4dc50cf",
+                "shasum": "5d0aec24b0b298e43ba05ec85751f29298b4c3fe"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2819,7 +2819,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-06-12 08:51:06"
+            "time": "2015-06-16 15:25:30"
         },
         {
             "name": "cilex/cilex",
@@ -2945,13 +2945,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "24168d9d5c0ab0103cd6d17a86dea99c11196cd3"
+                "reference": "b2173d28fc8b56236eddc8aa10dcda61471633ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/composer-composer-24168d9d5c0ab0103cd6d17a86dea99c11196cd3-zip-697335.zip",
-                "reference": "24168d9d5c0ab0103cd6d17a86dea99c11196cd3",
-                "shasum": "08d0df61dd5d7c5502dc0a1c3f53179281373838"
+                "url": "https://composer.build.channelgrabber.com/dist/composer-composer-b2173d28fc8b56236eddc8aa10dcda61471633ec-zip-8ec6f7.zip",
+                "reference": "b2173d28fc8b56236eddc8aa10dcda61471633ec",
+                "shasum": "410db029cf292cbd7a164e283409afa872f28a9b"
             },
             "require": {
                 "justinrainbow/json-schema": "~1.4",
@@ -3008,7 +3008,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-06-11 17:32:31"
+            "time": "2015-06-16 10:43:55"
         },
         {
             "name": "fabpot/goutte",
@@ -3409,20 +3409,20 @@
         },
         {
             "name": "justinrainbow/json-schema",
-            "version": "1.4.1",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/justinrainbow/json-schema.git",
-                "reference": "2465fe486c864e30badaa4d005ebdf89dbc503f3"
+                "reference": "7dfe4f1db8a62be3dd35710efce663537d515653"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/justinrainbow-json-schema-2465fe486c864e30badaa4d005ebdf89dbc503f3-zip-911877.zip",
-                "reference": "2465fe486c864e30badaa4d005ebdf89dbc503f3",
-                "shasum": "1f010ff5f8962547f5b8ac5087b091a847fce215"
+                "url": "https://composer.build.channelgrabber.com/dist/justinrainbow-json-schema-7dfe4f1db8a62be3dd35710efce663537d515653-zip-c818b7.zip",
+                "reference": "7dfe4f1db8a62be3dd35710efce663537d515653",
+                "shasum": "176cd762831800979a4d9b0031061e22f21e3e40"
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=5.3.2"
             },
             "require-dev": {
                 "json-schema/json-schema-test-suite": "1.1.0",
@@ -3471,7 +3471,7 @@
                 "json",
                 "schema"
             ],
-            "time": "2015-03-27 16:41:39"
+            "time": "2015-06-14 20:01:28"
         },
         {
             "name": "league/csv",
@@ -5383,17 +5383,17 @@
         },
         {
             "name": "doctrine/instantiator",
-            "version": "1.0.4",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/instantiator.git",
-                "reference": "f976e5de371104877ebc89bd8fecb0019ed9c119"
+                "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/f976e5de371104877ebc89bd8fecb0019ed9c119",
-                "reference": "f976e5de371104877ebc89bd8fecb0019ed9c119",
-                "shasum": ""
+                "url": "https://composer.build.channelgrabber.com/dist/doctrine-instantiator-8e884e78f9f0eb1329e445619e04456e64d8051d-zip-681b88.zip",
+                "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d",
+                "shasum": "29cab3e5085315914f862084e02e1834d147d757"
             },
             "require": {
                 "php": ">=5.3,<8.0-DEV"
@@ -5403,7 +5403,7 @@
                 "ext-pdo": "*",
                 "ext-phar": "*",
                 "phpunit/phpunit": "~4.0",
-                "squizlabs/php_codesniffer": "2.0.*@ALPHA"
+                "squizlabs/php_codesniffer": "~2.0"
             },
             "type": "library",
             "extra": {
@@ -5412,8 +5412,8 @@
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Doctrine\\Instantiator\\": "src"
+                "psr-4": {
+                    "Doctrine\\Instantiator\\": "src/Doctrine/Instantiator/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -5433,7 +5433,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2014-10-13 12:58:55"
+            "time": "2015-06-14 21:17:01"
         },
         {
             "name": "facebook/webdriver",
@@ -5967,17 +5967,17 @@
         },
         {
             "name": "phpunit/php-timer",
-            "version": "1.0.5",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-timer.git",
-                "reference": "19689d4354b295ee3d8c54b4f42c3efb69cbc17c"
+                "reference": "83fe1bdc5d47658b727595c14da140da92b3d66d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-timer/zipball/19689d4354b295ee3d8c54b4f42c3efb69cbc17c",
-                "reference": "19689d4354b295ee3d8c54b4f42c3efb69cbc17c",
-                "shasum": ""
+                "url": "https://composer.build.channelgrabber.com/dist/phpunit-php-timer-83fe1bdc5d47658b727595c14da140da92b3d66d-zip-2368dc.zip",
+                "reference": "83fe1bdc5d47658b727595c14da140da92b3d66d",
+                "shasum": "371d3ec40daeee3f3db9e0a6d6ce0fb0a552d147"
             },
             "require": {
                 "php": ">=5.3.3"
@@ -5985,13 +5985,10 @@
             "type": "library",
             "autoload": {
                 "classmap": [
-                    "PHP/"
+                    "src/"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
-            "include-path": [
-                ""
-            ],
             "license": [
                 "BSD-3-Clause"
             ],
@@ -6007,7 +6004,7 @@
             "keywords": [
                 "timer"
             ],
-            "time": "2013-08-02 07:42:54"
+            "time": "2015-06-13 07:35:30"
         },
         {
             "name": "phpunit/php-token-stream",
@@ -6455,25 +6452,10 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.4.34",
-            "alias_normalized": "1.4.34.0",
-            "version": "dev-CGIV-5803-NewRegisterForm",
-            "package": "channelgrabber/zf2-register"
-        },
-        {
-            "alias": "1.15.4",
-            "alias_normalized": "1.15.4.0",
-            "version": "dev-CGIV-5803-NewRegisterForm",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-register": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
