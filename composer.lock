@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3f98bc2540c9de0340b3de483471fe36",
+    "hash": "605e6cf5e467d80768919ff34f365cdf",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -115,17 +115,17 @@
         },
         {
             "name": "channelgrabber/cache",
-            "version": "2.0.7",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgcache.git",
-                "reference": "1a86c50889f383a29a604c3ededfd4f4062d44eb"
+                "reference": "48bde339e74114c7776bb7e5913c582dc9441206"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cache-2.0.7-9b0608.zip",
-                "reference": "1a86c50889f383a29a604c3ededfd4f4062d44eb",
-                "shasum": "b04bc7f6ff03c3f9e0c2ee699c80071217769e26"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cache-2.1.0-133d63.zip",
+                "reference": "48bde339e74114c7776bb7e5913c582dc9441206",
+                "shasum": "cd9fb1632df3948eb0cc85445aac35d4c6d07a6e"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0,<3.0.0",
@@ -144,7 +144,7 @@
                     "CG\\Cache\\": "src"
                 }
             },
-            "time": "2015-03-25 10:41:24"
+            "time": "2015-06-18 07:39:20"
         },
         {
             "name": "channelgrabber/cg-predis",
@@ -995,17 +995,17 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "6d055bcb34883b0d4d3cfa1750575540fad7f3aa"
+                "reference": "598cf6239a281a770bfef83427f203815443eeeb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-CGIV-5697-sequential-order-numbers-6b8cc5.zip",
-                "reference": "6d055bcb34883b0d4d3cfa1750575540fad7f3aa",
-                "shasum": "eda52c551fcc964c94802f1147bffa552d4bc75d"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-CGIV-5697-sequential-order-numbers-a7fb02.zip",
+                "reference": "598cf6239a281a770bfef83427f203815443eeeb",
+                "shasum": "2a9f70f6d05ade212f0c65510278fce0ea787cf6"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
-                "channelgrabber/cache": "^2.0.6",
+                "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": ">=1.0.0,<2.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/db": ">=1.0.6",
@@ -1018,6 +1018,7 @@
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/product": "^1.4.0",
                 "channelgrabber/redis": ">=0.1.1",
+                "channelgrabber/sequential-numbering": "dev-EPIC-CGIV-5697-sequential-order-numbers as 1.0.0",
                 "channelgrabber/settings": ">=1.2.4,<2.0.0",
                 "channelgrabber/slim": ">=1.13.6,<2.0.0",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
@@ -1052,10 +1053,11 @@
             },
             "autoload-dev": {
                 "psr-4": {
-                    "CG\\Order\\Test\\": "tests/src"
+                    "CG\\Order\\Test\\": "tests/src",
+                    "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-06-05 13:44:17"
+            "time": "2015-06-19 14:39:52"
         },
         {
             "name": "channelgrabber/permission",
@@ -1270,6 +1272,60 @@
             "time": "2015-03-17 16:05:32"
         },
         {
+            "name": "channelgrabber/predis-async",
+            "version": "v0.2.3.2",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:channelgrabber/predis-async.git",
+                "reference": "27dbf1a362ff1e1ecb84cb42718ae9dadd97579d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-predis-async-v0.2.3.2-60bf12.zip",
+                "reference": "27dbf1a362ff1e1ecb84cb42718ae9dadd97579d",
+                "shasum": "15eab37ac5c78f81f49e1262ec6ca517823a88d9"
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "predis/predis": "0.8.*",
+                "react/event-loop": "0.3.*"
+            },
+            "replace": {
+                "predis/predis-async": "*"
+            },
+            "suggest": {
+                "ext-phpiredis": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Predis\\Async": "lib/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniele Alessandri",
+                    "email": "suppakilla@gmail.com",
+                    "homepage": "http://clorophilla.net"
+                },
+                {
+                    "name": "ChannelGrabber",
+                    "email": "dev@channelgrabber.com"
+                }
+            ],
+            "description": "Asynchronous version of Predis",
+            "homepage": "http://github.com/channelgrabber/predis-async",
+            "keywords": [
+                "nosql",
+                "predis",
+                "redis"
+            ],
+            "time": "2015-06-17 11:08:31"
+        },
+        {
             "name": "channelgrabber/product",
             "version": "1.4.6",
             "source": {
@@ -1438,6 +1494,37 @@
                 "CG\\Scraper\\Test\\": "tests"
             },
             "time": "2014-11-10 16:41:55"
+        },
+        {
+            "name": "channelgrabber/sequential-numbering",
+            "version": "dev-EPIC-CGIV-5697-sequential-order-numbers",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-sequential-numbering.git",
+                "reference": "4ccc9cf9d90f4757721bf7ddcd9e4b579a833691"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-sequential-numbering-dev-EPIC-CGIV-5697-sequential-order-numbers-8797e8.zip",
+                "reference": "4ccc9cf9d90f4757721bf7ddcd9e4b579a833691",
+                "shasum": "672a954f91395b4dd472632e83ab05580df7069d"
+            },
+            "require": {
+                "channelgrabber/di": ">=2.0.0,<3.0.0",
+                "channelgrabber/predis-async": "^0.2.3.2",
+                "channelgrabber/stats": "^1.0.6",
+                "channelgrabber/stdlib": "^2.12.2",
+                "composer/composer": "@dev",
+                "predis/predis": "~0.8.3"
+            },
+            "type": "di-definition",
+            "autoload": {
+                "psr-4": {
+                    "CG\\SequentialNumbering\\": "src"
+                }
+            },
+            "description": "Provides sequential number generators",
+            "time": "2015-06-18 17:16:11"
         },
         {
             "name": "channelgrabber/settings",
@@ -3823,6 +3910,49 @@
                 "dependency injection"
             ],
             "time": "2013-03-08 08:21:40"
+        },
+        {
+            "name": "react/event-loop",
+            "version": "v0.3.4",
+            "target-dir": "React/EventLoop",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/reactphp/event-loop.git",
+                "reference": "235cddfa999a392e7d63dc9bef2e042492608d9f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/react-event-loop-235cddfa999a392e7d63dc9bef2e042492608d9f-zip-bf72e7.zip",
+                "reference": "235cddfa999a392e7d63dc9bef2e042492608d9f",
+                "shasum": "3a2b7fdfed0ffd6d813faa9826d0500fbba106d8"
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "suggest": {
+                "ext-libev": "*",
+                "ext-libevent": ">=0.0.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "React\\EventLoop": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Event loop abstraction layer that libraries can use for evented I/O.",
+            "keywords": [
+                "event-loop"
+            ],
+            "time": "2013-07-21 02:23:09"
         },
         {
             "name": "react/promise",
@@ -6460,6 +6590,12 @@
             "package": "channelgrabber/order"
         },
         {
+            "alias": "1.0.0",
+            "alias_normalized": "1.0.0.0",
+            "version": "dev-EPIC-CGIV-5697-sequential-order-numbers",
+            "package": "channelgrabber/sequential-numbering"
+        },
+        {
             "alias": "1.2.53",
             "alias_normalized": "1.2.53.0",
             "version": "dev-EPIC-CGIV-5697-sequential-order-numbers",
@@ -6470,6 +6606,7 @@
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/order": 20,
+        "channelgrabber/sequential-numbering": 20,
         "channelgrabber/template": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
