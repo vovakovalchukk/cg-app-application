@@ -1782,13 +1782,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "f5778e6d0dce95b27739383ee8efd7989346bfa3"
+                "reference": "8d3ecd2a07fc76812abd4efa064a535a13eac090"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-EPIC-CGIV-5697-sequential-order-numbers-148eb6.zip",
-                "reference": "f5778e6d0dce95b27739383ee8efd7989346bfa3",
-                "shasum": "b2665203ef1b9df27de34ba6c9fb8a44c11cfee9"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-EPIC-CGIV-5697-sequential-order-numbers-d88ff3.zip",
+                "reference": "8d3ecd2a07fc76812abd4efa064a535a13eac090",
+                "shasum": "98e58c06c16b261dd62cd5395ff13d98270030b1"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1825,7 +1825,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-06-12 13:57:14"
+            "time": "2015-06-19 14:23:44"
         },
         {
             "name": "channelgrabber/transaction",
