@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "605e6cf5e467d80768919ff34f365cdf",
+    "hash": "675f967e426fc986c27db4590813c434",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -991,17 +991,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-EPIC-CGIV-5697-sequential-order-numbers",
+            "version": "1.19.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "598cf6239a281a770bfef83427f203815443eeeb"
+                "reference": "339c0c46e2de9f535151e38769e7953cd53336fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-CGIV-5697-sequential-order-numbers-a7fb02.zip",
-                "reference": "598cf6239a281a770bfef83427f203815443eeeb",
-                "shasum": "2a9f70f6d05ade212f0c65510278fce0ea787cf6"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.19.0-ae80ad.zip",
+                "reference": "339c0c46e2de9f535151e38769e7953cd53336fc",
+                "shasum": "ec400ad6a4d1f329dbe0e98c01f4d4f66b8129dc"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1018,7 +1018,7 @@
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/product": "^1.4.0",
                 "channelgrabber/redis": ">=0.1.1",
-                "channelgrabber/sequential-numbering": "dev-EPIC-CGIV-5697-sequential-order-numbers as 1.0.0",
+                "channelgrabber/sequential-numbering": "^1.0.0",
                 "channelgrabber/settings": ">=1.2.4,<2.0.0",
                 "channelgrabber/slim": ">=1.13.6,<2.0.0",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
@@ -1057,7 +1057,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-06-19 14:39:52"
+            "time": "2015-06-22 10:54:06"
         },
         {
             "name": "channelgrabber/permission",
@@ -1497,17 +1497,17 @@
         },
         {
             "name": "channelgrabber/sequential-numbering",
-            "version": "dev-EPIC-CGIV-5697-sequential-order-numbers",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-sequential-numbering.git",
-                "reference": "4ccc9cf9d90f4757721bf7ddcd9e4b579a833691"
+                "reference": "0e1707c74ae8f915f869270f186f1fd4f31c0e5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-sequential-numbering-dev-EPIC-CGIV-5697-sequential-order-numbers-8797e8.zip",
-                "reference": "4ccc9cf9d90f4757721bf7ddcd9e4b579a833691",
-                "shasum": "672a954f91395b4dd472632e83ab05580df7069d"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-sequential-numbering-1.0.0-e08ab1.zip",
+                "reference": "0e1707c74ae8f915f869270f186f1fd4f31c0e5a",
+                "shasum": "e285fde9831eb94043175db7c90a235627f31ba1"
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0,<3.0.0",
@@ -1524,7 +1524,7 @@
                 }
             },
             "description": "Provides sequential number generators",
-            "time": "2015-06-18 17:16:11"
+            "time": "2015-06-22 10:45:38"
         },
         {
             "name": "channelgrabber/settings",
@@ -1865,17 +1865,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-EPIC-CGIV-5697-sequential-order-numbers",
+            "version": "1.2.53",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "8d3ecd2a07fc76812abd4efa064a535a13eac090"
+                "reference": "e9c7a9a0479bf09a43d2fe9e00cfae516ee1f511"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-EPIC-CGIV-5697-sequential-order-numbers-d88ff3.zip",
-                "reference": "8d3ecd2a07fc76812abd4efa064a535a13eac090",
-                "shasum": "98e58c06c16b261dd62cd5395ff13d98270030b1"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.53-653c02.zip",
+                "reference": "e9c7a9a0479bf09a43d2fe9e00cfae516ee1f511",
+                "shasum": "81644ad0e657f90af0f9da1f109c4a0e8b16d6d0"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1912,7 +1912,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-06-19 14:23:44"
+            "time": "2015-06-22 10:44:04"
         },
         {
             "name": "channelgrabber/transaction",
@@ -6582,32 +6582,10 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.18.25",
-            "alias_normalized": "1.18.25.0",
-            "version": "dev-EPIC-CGIV-5697-sequential-order-numbers",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.0.0",
-            "alias_normalized": "1.0.0.0",
-            "version": "dev-EPIC-CGIV-5697-sequential-order-numbers",
-            "package": "channelgrabber/sequential-numbering"
-        },
-        {
-            "alias": "1.2.53",
-            "alias_normalized": "1.2.53.0",
-            "version": "dev-EPIC-CGIV-5697-sequential-order-numbers",
-            "package": "channelgrabber/template"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
-        "channelgrabber/sequential-numbering": 20,
-        "channelgrabber/template": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
