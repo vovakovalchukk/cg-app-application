@@ -71,6 +71,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     const STAT_ORDER_ACTION_TAGGED = 'orderAction.tagged.%s.%d.%d';
     const EVENT_ORDERS_DISPATCHED = 'Dispatched Orders';
     const EVENT_ORDER_CANCELLED = 'Refunded / Cancelled Orders';
+    const MAX_SHIPPING_METHOD_LENGTH = 15;
 
     protected $orderClient;
     protected $orderItemClient;
@@ -151,6 +152,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             // do nothing
         }
         $orders = $this->getOrdersArrayWithSanitisedStatus($orders);
+        $orders = $this->getOrdersArrayWithTruncatedShipping($orders);
         
         $filterId = null;
         if ($orderCollection instanceof FilteredCollection) {
@@ -213,6 +215,19 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         foreach ($orders as $index => $order) {
             $orders[$index]['status'] = str_replace(['_', '-'], ' ', $orders[$index]['status']);
             $orders[$index]['statusClass'] = str_replace(' ', '-', $orders[$index]['status']);
+        }
+        return $orders;
+    }
+
+    protected function getOrdersArrayWithTruncatedShipping(array $orders)
+    {
+        $ellipsis = '...';
+        $ellipsisLen = strlen($ellipsis);
+        foreach ($orders as $index => $order) {
+            if (strlen($order['shippingMethod']) <= (static::MAX_SHIPPING_METHOD_LENGTH + $ellipsisLen)) {
+                continue;
+            }
+            $orders[$index]['shippingMethod'] = substr($order['shippingMethod'], 0, static::MAX_SHIPPING_METHOD_LENGTH) . $ellipsis;
         }
         return $orders;
     }
