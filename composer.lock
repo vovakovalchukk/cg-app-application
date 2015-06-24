@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "02a1155cc2693e737aa090a2ee259d22",
+    "hash": "0eafa46d2f79093d93917a8dfde7af01",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -695,17 +695,17 @@
         },
         {
             "name": "channelgrabber/http",
-            "version": "1.3.12",
+            "version": "1.3.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cghttp.git",
-                "reference": "93bfd41cb8b1a87509af1da88b7544dc22a1af74"
+                "reference": "f75a3a0f273ffda28354f8aae8053d819deb5b72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.3.12-408b6b.zip",
-                "reference": "93bfd41cb8b1a87509af1da88b7544dc22a1af74",
-                "shasum": "84c041827cf5477e198616c46e6b1c8361e64fe3"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.3.14-7feabc.zip",
+                "reference": "f75a3a0f273ffda28354f8aae8053d819deb5b72",
+                "shasum": "0dd5926e6249835825ad36533a3fb64f942ed6d0"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
@@ -740,7 +740,7 @@
                     "CG\\Http\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2015-06-02 14:55:01"
+            "time": "2015-06-24 14:18:52"
         },
         {
             "name": "channelgrabber/image",
@@ -947,7 +947,7 @@
         },
         {
             "name": "channelgrabber/log",
-            "version": "2.0.23.1",
+            "version": "dev-EPIC-CGIV-5801-OrderHub",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-log.git",
@@ -955,9 +955,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-2.0.23.1-665ae0.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-dev-EPIC-CGIV-5801-OrderHub-665ae0.zip",
                 "reference": "3e00100aeabc7670564248b75a30a2bad178f209",
-                "shasum": "6d2635ef2461e802c819f8a6f295eeb8a7450ad7"
+                "shasum": "6c89c2336e8ca1522ce8d977c608e9bc28af9490"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -1902,17 +1902,17 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "dev-CGIV-5805-orderhub",
+            "version": "dev-EPIC-CGIV-5801-OrderHub",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "fd5d6a324fc33b50ba40e293b1becde683ba8309"
+                "reference": "fa5e37e7a6705a12e59b736a0a46d6179f7bfb60"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-5805-orderhub-0f79d2.zip",
-                "reference": "fd5d6a324fc33b50ba40e293b1becde683ba8309",
-                "shasum": "d20e6a41f5d663a8296f251d76e4c01e270d23f0"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-EPIC-CGIV-5801-OrderHub-2d2a34.zip",
+                "reference": "fa5e37e7a6705a12e59b736a0a46d6179f7bfb60",
+                "shasum": "5f6a856ef684f26f89d628caa977b698bb169540"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1921,7 +1921,7 @@
                 "channelgrabber/email": ">=1.0.1",
                 "channelgrabber/etag": "^1.5.4",
                 "channelgrabber/gearman": ">=1.0.11",
-                "channelgrabber/http": ">=1.2.0,<2.0.0",
+                "channelgrabber/http": "^1.3.14",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/permission": ">=1.0.1",
                 "channelgrabber/slim": "^1.13.2",
@@ -1949,7 +1949,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2015-06-15 16:37:49"
+            "time": "2015-06-24 15:16:56"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -2198,7 +2198,7 @@
         },
         {
             "name": "channelgrabber/zf2-ekm",
-            "version": "dev-CGIV-5805-orderhub",
+            "version": "dev-EPIC-CGIV-5801-OrderHub",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/ekm-module.git",
@@ -2229,17 +2229,17 @@
         },
         {
             "name": "channelgrabber/zf2-email-template",
-            "version": "dev-CGIV-5805-orderhub",
+            "version": "dev-EPIC-CGIV-5801-OrderHub",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/email-template-module.git",
-                "reference": "455dc988b0b8e6cd4ebb51a65bf1b95208f64666"
+                "reference": "3070536bf07043ba3a9a09b376d069774faa77d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-dev-CGIV-5805-orderhub-2a8fce.zip",
-                "reference": "455dc988b0b8e6cd4ebb51a65bf1b95208f64666",
-                "shasum": "f981d7cf23fec9bdf431465ed7b6aca269b98c6e"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-dev-EPIC-CGIV-5801-OrderHub-8fc8fa.zip",
+                "reference": "3070536bf07043ba3a9a09b376d069774faa77d2",
+                "shasum": "107af43528fab34450a988e3ec407d153b029dd5"
             },
             "require": {
                 "guzzle/guzzle": "~3.7",
@@ -2259,7 +2259,7 @@
                 ]
             },
             "description": "email template module",
-            "time": "2015-06-16 10:12:18"
+            "time": "2015-06-22 16:03:35"
         },
         {
             "name": "channelgrabber/zf2-hal",
@@ -2374,7 +2374,7 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "dev-CGIV-5805-orderhub",
+            "version": "dev-EPIC-CGIV-5801-OrderHub",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
@@ -2382,9 +2382,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-5805-orderhub-1ff214.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-EPIC-CGIV-5801-OrderHub-1ff214.zip",
                 "reference": "6366a477e9cd7f34dccead63f9050f3ede298672",
-                "shasum": "8a6d8e1671293581e0ebddb0f1c0e4c664f71c65"
+                "shasum": "d7dff58467f1268afb0a76e64cc8980ae49d251f"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
@@ -2506,17 +2506,17 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.4.34",
+            "version": "dev-EPIC-CGIV-5801-OrderHub",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "aa9a071bbda559915516351142cc814c74684ffe"
+                "reference": "a9e74899b12b9933c75d83ecd7e48b351fcd4fda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.34-295703.zip",
-                "reference": "aa9a071bbda559915516351142cc814c74684ffe",
-                "shasum": "928cbd71149d5cc426586a3c798bdc1404b30c4a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-EPIC-CGIV-5801-OrderHub-0ddda9.zip",
+                "reference": "a9e74899b12b9933c75d83ecd7e48b351fcd4fda",
+                "shasum": "447d001ecc37e4382db1c1696d4ef7863c8d19c6"
             },
             "require": {
                 "channelgrabber/cglib": "~1.6.8",
@@ -2554,7 +2554,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2015-06-02 15:32:39"
+            "time": "2015-06-16 15:28:20"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -2758,17 +2758,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-5805-orderhub",
+            "version": "dev-EPIC-CGIV-5801-OrderHub",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "9e9449b8f2c564240cf50b960fcd36671b161dea"
+                "reference": "0a0407e071dc286e9c20eb7fc86491f5fecc7260"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5805-orderhub-a9df06.zip",
-                "reference": "9e9449b8f2c564240cf50b960fcd36671b161dea",
-                "shasum": "563c3577c4998cd042d89a1f3c82efc2c67d0de3"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-5801-OrderHub-50569e.zip",
+                "reference": "0a0407e071dc286e9c20eb7fc86491f5fecc7260",
+                "shasum": "2d25b30f793b939d4814b3597adf3c109d6eb56d"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2813,7 +2813,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-06-16 10:34:51"
+            "time": "2015-06-24 15:45:53"
         },
         {
             "name": "cilex/cilex",
@@ -5384,9 +5384,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/f976e5de371104877ebc89bd8fecb0019ed9c119",
+                "url": "https://composer.build.channelgrabber.com/dist/doctrine-instantiator-f976e5de371104877ebc89bd8fecb0019ed9c119-zip-3f1f83.zip",
                 "reference": "f976e5de371104877ebc89bd8fecb0019ed9c119",
-                "shasum": ""
+                "shasum": "8b88cfa4218de45a6c953c34a7369d72cee3709c"
             },
             "require": {
                 "php": ">=5.3,<8.0-DEV"
@@ -5968,9 +5968,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-timer/zipball/19689d4354b295ee3d8c54b4f42c3efb69cbc17c",
+                "url": "https://composer.build.channelgrabber.com/dist/phpunit-php-timer-19689d4354b295ee3d8c54b4f42c3efb69cbc17c-zip-04e2aa.zip",
                 "reference": "19689d4354b295ee3d8c54b4f42c3efb69cbc17c",
-                "shasum": ""
+                "shasum": "79ad08135c5a9a3d236d371dd91c5d41ceaf70f4"
             },
             "require": {
                 "php": ">=5.3.3"
@@ -6450,43 +6450,57 @@
     ],
     "aliases": [
         {
-            "alias": "1.19.5",
-            "alias_normalized": "1.19.5.0",
-            "version": "dev-CGIV-5805-orderhub",
+            "alias": "2.0.24",
+            "alias_normalized": "2.0.24.0",
+            "version": "dev-EPIC-CGIV-5801-OrderHub",
+            "package": "channelgrabber/log"
+        },
+        {
+            "alias": "1.19.6",
+            "alias_normalized": "1.19.6.0",
+            "version": "dev-EPIC-CGIV-5801-OrderHub",
             "package": "channelgrabber/user"
         },
         {
             "alias": "1.0.2",
             "alias_normalized": "1.0.2.0",
-            "version": "dev-CGIV-5805-orderhub",
+            "version": "dev-EPIC-CGIV-5801-OrderHub",
             "package": "channelgrabber/zf2-ekm"
         },
         {
             "alias": "1.0.8",
             "alias_normalized": "1.0.8.0",
-            "version": "dev-CGIV-5805-orderhub",
+            "version": "dev-EPIC-CGIV-5801-OrderHub",
             "package": "channelgrabber/zf2-email-template"
         },
         {
             "alias": "1.4.27",
             "alias_normalized": "1.4.27.0",
-            "version": "dev-CGIV-5805-orderhub",
+            "version": "dev-EPIC-CGIV-5801-OrderHub",
             "package": "channelgrabber/zf2-login"
         },
         {
-            "alias": "1.15.5",
-            "alias_normalized": "1.15.5.0",
-            "version": "dev-CGIV-5805-orderhub",
+            "alias": "1.4.37",
+            "alias_normalized": "1.4.37.0",
+            "version": "dev-EPIC-CGIV-5801-OrderHub",
+            "package": "channelgrabber/zf2-register"
+        },
+        {
+            "alias": "1.15.8",
+            "alias_normalized": "1.15.8.0",
+            "version": "dev-EPIC-CGIV-5801-OrderHub",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/log": 20,
         "channelgrabber/user": 20,
         "channelgrabber/zf2-ekm": 20,
         "channelgrabber/zf2-email-template": 20,
         "channelgrabber/zf2-login": 20,
+        "channelgrabber/zf2-register": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
