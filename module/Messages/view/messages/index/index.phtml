@@ -1,0 +1,20 @@
+<?php $this->headLink()->appendStylesheet($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'css/common/subheader-hide.css'); ?>
+<?php $this->inlineScript()->captureStart(); ?>
+$(document).ready(function() {
+    require.config({
+        paths: {
+            'Messages': "<?=$this->basePath() . Messages\Module::PUBLIC_FOLDER . 'js/Messages';?>"
+        }
+    });
+    require([
+        'Messages/Application'
+    ], function(
+        MessagesApp
+    ) {
+        new MessagesApp(<?=$rootOuId;?>);
+    });
+});
+<?php $this->inlineScript()->captureEnd(); ?>
+
+<!-- To be completed in CGIV-5839 -->
+<h1>TODO</h1>
