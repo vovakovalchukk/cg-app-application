@@ -855,7 +855,7 @@ return [
                     'column' => 'purchaseDate',
                     'viewModel' => 'OrdersDateColumnView',
                     'class' => 'orderdate-col',
-                    'sortable' => false,
+                    'sortable' => true,
                 ],
             ],
             'OrdersIdColumnView' => [
