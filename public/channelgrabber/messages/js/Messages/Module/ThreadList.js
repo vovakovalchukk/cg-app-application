@@ -16,5 +16,16 @@ console.log('ThreadList initialised');
 
     ThreadList.prototype = Object.create(ModuleAbstract.prototype);
 
+    ThreadList.prototype.loadForFilter = function(filter)
+    {
+        var threads = this.getService().fetchCollectionByFilter(filter);
+        this.renderThreads(threads);
+    };
+
+    ThreadList.prototype.renderThreads = function(threads)
+    {
+        
+    };
+
     return ThreadList;
 });
