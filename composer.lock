@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4ab8d3f14bc5094a0a4f96f19a56f5b0",
+    "hash": "e5f7423d0c8442139657701542b31092",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -696,17 +696,17 @@
         },
         {
             "name": "channelgrabber/http",
-            "version": "1.3.12",
+            "version": "1.3.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cghttp.git",
-                "reference": "93bfd41cb8b1a87509af1da88b7544dc22a1af74"
+                "reference": "5f6c2e826b759eb0c6ecdfc94a51ca032970923d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.3.12-408b6b.zip",
-                "reference": "93bfd41cb8b1a87509af1da88b7544dc22a1af74",
-                "shasum": "84c041827cf5477e198616c46e6b1c8361e64fe3"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.3.13-bf0e0c.zip",
+                "reference": "5f6c2e826b759eb0c6ecdfc94a51ca032970923d",
+                "shasum": "a545b49335bedd770a1a58e6679dba13c39b1109"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
@@ -741,7 +741,7 @@
                     "CG\\Http\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2015-06-02 14:55:01"
+            "time": "2015-06-24 07:17:34"
         },
         {
             "name": "channelgrabber/image",
@@ -1410,21 +1410,21 @@
         },
         {
             "name": "channelgrabber/redis",
-            "version": "0.1.1",
+            "version": "0.1.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-redis.git",
-                "reference": "b5d60044a657dc83c43d91872a83507d784e390f"
+                "reference": "98cbcc1b5aab57c1f58e27102925461a2dc385a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-redis-0.1.1-e15731.zip",
-                "reference": "b5d60044a657dc83c43d91872a83507d784e390f",
-                "shasum": "1bf465ff0e2f71d9ca76a83c286b23ce6705666f"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-redis-0.1.2-888e69.zip",
+                "reference": "98cbcc1b5aab57c1f58e27102925461a2dc385a9",
+                "shasum": "554aaa637dbcd4167dc0e2be53149b20ae87479f"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
-                "predis/predis": "v0.8.3"
+                "predis/predis": "~0.8.3"
             },
             "type": "di-definition",
             "autoload": {
@@ -1432,7 +1432,7 @@
                     "CG\\Redis\\": "src"
                 }
             },
-            "time": "2014-09-03 11:34:25"
+            "time": "2015-06-24 07:21:01"
         },
         {
             "name": "channelgrabber/royalmail",
@@ -2600,17 +2600,17 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-CGIV-5841-ChangeAllLogosToOrderHub",
+            "version": "1.4.36",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "5ee5c8da8d662919ff61a2cc719c1dd7f4e772b1"
+                "reference": "5f9849bd0d78b76aeed40042ad92d93d771a0a20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-5841-ChangeAllLogosToOrderHub-cc4cd2.zip",
-                "reference": "5ee5c8da8d662919ff61a2cc719c1dd7f4e772b1",
-                "shasum": "1e43e5b2094be789b8ca18826ae2e04232f791e0"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.36-5d1470.zip",
+                "reference": "5f9849bd0d78b76aeed40042ad92d93d771a0a20",
+                "shasum": "df75e93514e404a834032595a43bb5a2e2b9893c"
             },
             "require": {
                 "channelgrabber/cglib": "~1.6.8",
@@ -2648,7 +2648,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2015-06-23 13:42:02"
+            "time": "2015-06-23 16:04:46"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -2852,17 +2852,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-5841-ChangeAllLogosToOrderHub",
+            "version": "1.15.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "2efe095c17285130fa538bdec41b1156610d7364"
+                "reference": "ecdd1f3359558613118da8d1b50fa7052d049278"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5841-ChangeAllLogosToOrderHub-756597.zip",
-                "reference": "2efe095c17285130fa538bdec41b1156610d7364",
-                "shasum": "a0655e2c34518cf39d07e9b66e50cba50b2ef0ac"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.15.6-55bd37.zip",
+                "reference": "ecdd1f3359558613118da8d1b50fa7052d049278",
+                "shasum": "7669dae443aba82f9b4b53c821a948f684b40579"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2907,7 +2907,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-06-23 13:53:26"
+            "time": "2015-06-23 16:03:39"
         },
         {
             "name": "cilex/cilex",
@@ -3033,13 +3033,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "c43a39f7334ae3df968cd36a6eff0436bea0da75"
+                "reference": "84661296ffe281b6238cc29b39526b31f26f3918"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/composer-composer-c43a39f7334ae3df968cd36a6eff0436bea0da75-zip-ab576f.zip",
-                "reference": "c43a39f7334ae3df968cd36a6eff0436bea0da75",
-                "shasum": "c0e91ab43ebd40303b58a8b24431af1e93efe4a8"
+                "url": "https://composer.build.channelgrabber.com/dist/composer-composer-84661296ffe281b6238cc29b39526b31f26f3918-zip-f358ff.zip",
+                "reference": "84661296ffe281b6238cc29b39526b31f26f3918",
+                "shasum": "8b06026f8f5e852b283b8cda361b01337a92d96e"
             },
             "require": {
                 "justinrainbow/json-schema": "~1.4",
@@ -3096,7 +3096,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-06-22 12:25:03"
+            "time": "2015-06-24 09:14:40"
         },
         {
             "name": "fabpot/goutte",
@@ -6583,25 +6583,10 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.4.35",
-            "alias_normalized": "1.4.35.0",
-            "version": "dev-CGIV-5841-ChangeAllLogosToOrderHub",
-            "package": "channelgrabber/zf2-register"
-        },
-        {
-            "alias": "1.15.5",
-            "alias_normalized": "1.15.5.0",
-            "version": "dev-CGIV-5841-ChangeAllLogosToOrderHub",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-register": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
