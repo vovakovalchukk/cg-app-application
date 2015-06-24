@@ -3,18 +3,18 @@ define([
 ], function(
     ModuleAbstract
 ) {
-    var MessageList = function(application)
+    var ThreadDetails = function(application)
     {
         ModuleAbstract.call(this, application);
 
         var init = function()
         {
-console.log('MessageList initialised');
+console.log('ThreadDetails initialised');
         };
         init.call(this);
     };
 
-    MessageList.prototype = Object.create(ModuleAbstract.prototype);
+    ThreadDetails.prototype = Object.create(ModuleAbstract.prototype);
 
-    return MessageList;
+    return ThreadDetails;
 });

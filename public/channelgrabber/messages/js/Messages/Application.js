@@ -1,21 +1,21 @@
 define([
     // Application Module requires here
     'Messages/Module/Filters',
-    'Messages/Module/MessageList',
-    'Messages/Module/MessageBody'
+    'Messages/Module/ThreadList',
+    'Messages/Module/ThreadDetails'
 ], function(
     // Application Module variables here
     Filters,
-    MessageList,
-    MessageBody
+    ThreadList,
+    ThreadDetails
 ) {
     var Application = function(organisationUnitId, userId)
     {
         var modulesClasses = [
             // Modules here
             Filters,
-            MessageList,
-            MessageBody
+            ThreadList,
+            ThreadDetails
         ];
         var modules = [];
 
