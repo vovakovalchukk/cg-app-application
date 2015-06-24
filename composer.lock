@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "30efb5f8bc33466a23173f2ba546c5ac",
+    "hash": "f57e2ca7e166f38d85c8f58aa16def66",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -696,17 +696,17 @@
         },
         {
             "name": "channelgrabber/http",
-            "version": "1.3.13",
+            "version": "1.3.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cghttp.git",
-                "reference": "5f6c2e826b759eb0c6ecdfc94a51ca032970923d"
+                "reference": "f75a3a0f273ffda28354f8aae8053d819deb5b72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.3.13-bf0e0c.zip",
-                "reference": "5f6c2e826b759eb0c6ecdfc94a51ca032970923d",
-                "shasum": "a545b49335bedd770a1a58e6679dba13c39b1109"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.3.14-7feabc.zip",
+                "reference": "f75a3a0f273ffda28354f8aae8053d819deb5b72",
+                "shasum": "0dd5926e6249835825ad36533a3fb64f942ed6d0"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
@@ -741,7 +741,7 @@
                     "CG\\Http\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2015-06-24 07:17:34"
+            "time": "2015-06-24 14:18:52"
         },
         {
             "name": "channelgrabber/image",
@@ -1917,17 +1917,17 @@
         },
         {
             "name": "channelgrabber/transaction",
-            "version": "1.1.6",
+            "version": "1.1.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-transaction.git",
-                "reference": "75fbdddd3bd90f11885d85663dcfbfd7f3e740a1"
+                "reference": "125e5251476fcf7fa0477cccf35082f411ecc804"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-transaction-1.1.6-163514.zip",
-                "reference": "75fbdddd3bd90f11885d85663dcfbfd7f3e740a1",
-                "shasum": "cf94ac3c21f80470b7f37c0bf08c6350e410d5eb"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-transaction-1.1.7-660a55.zip",
+                "reference": "125e5251476fcf7fa0477cccf35082f411ecc804",
+                "shasum": "f3decf678d354c575f0d00ba81fd5cc924b4a183"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1952,7 +1952,7 @@
                     "CG\\Transaction\\": "src"
                 }
             },
-            "time": "2015-05-13 15:43:01"
+            "time": "2015-06-24 14:20:19"
         },
         {
             "name": "channelgrabber/usage",
@@ -2852,17 +2852,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-5850-HorizontalScrollOrdersTabel",
+            "version": "1.15.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "a2ad25c2b5cd7dc7d38aa9d55c1c77570c636977"
+                "reference": "b6c4506ca9f6028b53bad9bbdd78dcc30a235f16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5850-HorizontalScrollOrdersTabel-697d93.zip",
-                "reference": "a2ad25c2b5cd7dc7d38aa9d55c1c77570c636977",
-                "shasum": "e62a62b888dd3665fe68054c4f556060fa513955"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.15.7-3974ef.zip",
+                "reference": "b6c4506ca9f6028b53bad9bbdd78dcc30a235f16",
+                "shasum": "2025ab05b3ebff3692cab0fae65fa14574cf4492"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2907,7 +2907,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-06-24 13:01:29"
+            "time": "2015-06-24 14:21:28"
         },
         {
             "name": "cilex/cilex",
@@ -6583,18 +6583,10 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.15.6",
-            "alias_normalized": "1.15.6.0",
-            "version": "dev-CGIV-5850-HorizontalScrollOrdersTabel",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
