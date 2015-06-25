@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5ef5d0e319f2309f6817dca7e8245b6d",
+    "hash": "315c71be89b9fb9491ea16480a5fbe2e",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1867,17 +1867,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.2.53",
+            "version": "dev-CGIV-5852-invoice-date",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "e9c7a9a0479bf09a43d2fe9e00cfae516ee1f511"
+                "reference": "8c19c9910bf2bbaa7d73a99817e64674682f491f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.2.53-653c02.zip",
-                "reference": "e9c7a9a0479bf09a43d2fe9e00cfae516ee1f511",
-                "shasum": "81644ad0e657f90af0f9da1f109c4a0e8b16d6d0"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-5852-invoice-date-e962e6.zip",
+                "reference": "8c19c9910bf2bbaa7d73a99817e64674682f491f",
+                "shasum": "0142d98901539e70d238a52dacbe1bbf6d89a918"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1914,7 +1914,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-06-22 10:44:04"
+            "time": "2015-06-25 12:24:41"
         },
         {
             "name": "channelgrabber/transaction",
@@ -6584,10 +6584,18 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.2.53",
+            "alias_normalized": "1.2.53.0",
+            "version": "dev-CGIV-5852-invoice-date",
+            "package": "channelgrabber/template"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/template": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
