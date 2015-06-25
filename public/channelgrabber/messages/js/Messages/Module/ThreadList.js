@@ -1,14 +1,32 @@
 define([
-    'Messages/ModuleAbstract'
+    'Messages/ModuleAbstract',
+    'Messages/Module/ThreadList/EventHandler',
+    'Messages/Thread/Service'
 ], function(
-    ModuleAbstract
+    ModuleAbstract,
+    EventHandler,
+    service
 ) {
     var ThreadList = function(application)
     {
         ModuleAbstract.call(this, application);
 
+        var eventHandler;
+
+        this.getService = function()
+        {
+            return service;
+        };
+
+        this.getEventHandler = function()
+        {
+            return eventHandler;
+        };
+
         var init = function()
         {
+            eventHandler = new EventHandler(this);
+
 console.log('ThreadList initialised');
         };
         init.call(this);
@@ -18,13 +36,16 @@ console.log('ThreadList initialised');
 
     ThreadList.prototype.loadForFilter = function(filter)
     {
-        var threads = this.getService().fetchCollectionByFilter(filter);
-        this.renderThreads(threads);
+        var self = this;
+        this.getService().fetchCollectionByFilter(filter, function(threads)
+        {
+            self.renderThreads(threads);
+        });
     };
 
     ThreadList.prototype.renderThreads = function(threads)
     {
-        
+        // TODO
     };
 
     return ThreadList;
