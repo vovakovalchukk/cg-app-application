@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "675f967e426fc986c27db4590813c434",
+    "hash": "70d68a78d2eb8bdfe730dba150052de2",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -351,6 +351,39 @@
                 }
             },
             "time": "2015-05-06 10:07:13"
+        },
+        {
+            "name": "channelgrabber/communication",
+            "version": "dev-CGIV-4698",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-communication.git",
+                "reference": "c8c69f2a5f2bd146ed79ecc58da3f0e9836a7bb9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-communication-dev-CGIV-4698-1c3d35.zip",
+                "reference": "c8c69f2a5f2bd146ed79ecc58da3f0e9836a7bb9",
+                "shasum": "e4487eb08c269d52d68d50580332c6fe56f0bfea"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Communication\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Communication\\Test\\": "tests"
+                }
+            },
+            "authors": [
+                {
+                    "name": "M King",
+                    "email": "matthew.king@channelgrabber.com"
+                }
+            ],
+            "time": "2015-06-23 16:06:31"
         },
         {
             "name": "channelgrabber/constants",
@@ -6582,9 +6615,17 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.0",
+            "alias_normalized": "1.0.0.0",
+            "version": "dev-CGIV-4698",
+            "package": "channelgrabber/communication"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/communication": 20,
         "channelgrabber/constants": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,

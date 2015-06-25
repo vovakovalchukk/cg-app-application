@@ -24,7 +24,7 @@ define([
     Ajax.prototype.fetchCollectionByFilter = function(filter, callback)
     {
         var self = this;
-        this.getRequester().sendRequest(Ajax.URL, filter, function(response)
+        this.getRequester().sendRequest(Ajax.URL, {filter: filter}, function(response)
         {
             var threads = new Collection();
             for (var index in response.threads) {

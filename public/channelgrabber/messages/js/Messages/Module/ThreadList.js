@@ -40,12 +40,14 @@ console.log('ThreadList initialised');
         this.getService().fetchCollectionByFilter(filter, function(threads)
         {
             self.renderThreads(threads);
+console.log('Threads loaded');
         });
     };
 
     ThreadList.prototype.renderThreads = function(threads)
     {
         // TODO
+console.log(threads.getItems());
     };
 
     return ThreadList;

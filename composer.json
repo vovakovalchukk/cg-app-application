@@ -22,6 +22,7 @@
         "channelgrabber/cache": "~2.1.0",
         "channelgrabber/channel": "~1.16.14",
         "channelgrabber/cilex": "~1.1.2",
+        "channelgrabber/communication": "dev-CGIV-4698 as 1.0.0",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/di": "~2.1.1",
         "channelgrabber/ebay": "~1.9.3",

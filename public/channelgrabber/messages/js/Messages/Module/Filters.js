@@ -36,6 +36,7 @@ define([
             var unassignedCount = 0;
             var assignedCount = 0;
             var resolvedCount = 0;
+            // We don't want to use the actual userId here as this is client-side and it could be changed maliciously
             var myMessages = new AssigneeFilter(this, 'active-user', myMessagesCount);
             myMessages.activate();
             filters.push(myMessages);

@@ -1,7 +1,8 @@
 <?php
 namespace Messages;
 
-use Messages\Controller\IndexController; 
+use Messages\Controller\IndexController;
+use Messages\Controller\ThreadJsonController;
 use Messages\Module;
 use Zend\Mvc\Router\Http\Literal;
 
@@ -31,6 +32,16 @@ return [
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
+                    ThreadJsonController::ROUTE_AJAX => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/ajax',
+                            'defaults' => [
+                                'controller' => ThreadJsonController::class,
+                                'action' => 'ajax'
+                            ]
+                        ],
+                    ],
                 ]
             ]
         ]
