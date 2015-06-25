@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "315c71be89b9fb9491ea16480a5fbe2e",
+    "hash": "b2acad9732ffdba120078a7d5dd2620a",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -993,17 +993,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.19.4",
+            "version": "dev-CGIV-5852-invoiceDate-method",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "363e9ae552008d41a4ac1f88814d3ce370df40ef"
+                "reference": "8d8370fbc72bbfff8234a03841dc4db2b8907a29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.19.4-106d20.zip",
-                "reference": "363e9ae552008d41a4ac1f88814d3ce370df40ef",
-                "shasum": "f5de61cb1d2f09f8382e694fb6e5249836a25c07"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-5852-invoiceDate-method-505dd3.zip",
+                "reference": "8d8370fbc72bbfff8234a03841dc4db2b8907a29",
+                "shasum": "96f3946f5c0f11002507b5ec00283f418f475adb"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1059,7 +1059,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-06-25 09:42:57"
+            "time": "2015-06-25 14:50:55"
         },
         {
             "name": "channelgrabber/permission",
@@ -1871,13 +1871,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "8c19c9910bf2bbaa7d73a99817e64674682f491f"
+                "reference": "fb35b003a21137291b1b246e97bcad6da3fd89b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-5852-invoice-date-e962e6.zip",
-                "reference": "8c19c9910bf2bbaa7d73a99817e64674682f491f",
-                "shasum": "0142d98901539e70d238a52dacbe1bbf6d89a918"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-5852-invoice-date-ab7e73.zip",
+                "reference": "fb35b003a21137291b1b246e97bcad6da3fd89b7",
+                "shasum": "a0852d15279f424be6a4eb86fc0da986578c9d0a"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1914,7 +1914,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-06-25 12:24:41"
+            "time": "2015-06-25 14:52:25"
         },
         {
             "name": "channelgrabber/transaction",
@@ -6586,6 +6586,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.19.6",
+            "alias_normalized": "1.19.6.0",
+            "version": "dev-CGIV-5852-invoiceDate-method",
+            "package": "channelgrabber/order"
+        },
+        {
             "alias": "1.2.53",
             "alias_normalized": "1.2.53.0",
             "version": "dev-CGIV-5852-invoice-date",
@@ -6595,6 +6601,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "channelgrabber/template": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
