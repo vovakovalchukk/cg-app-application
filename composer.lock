@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f57e2ca7e166f38d85c8f58aa16def66",
+    "hash": "837e90d4cf99da17903d2194ba8738e1",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2852,17 +2852,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.15.7",
+            "version": "dev-CGIV-5647-duplicate-intercom-icon",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "b6c4506ca9f6028b53bad9bbdd78dcc30a235f16"
+                "reference": "4b5687f80a2dcc26aac75e0553273898aa845736"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.15.7-3974ef.zip",
-                "reference": "b6c4506ca9f6028b53bad9bbdd78dcc30a235f16",
-                "shasum": "2025ab05b3ebff3692cab0fae65fa14574cf4492"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5647-duplicate-intercom-icon-00c103.zip",
+                "reference": "4b5687f80a2dcc26aac75e0553273898aa845736",
+                "shasum": "74ccb22530bdc5be95b9930108d71dc03a303277"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2907,7 +2907,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-06-24 14:21:28"
+            "time": "2015-06-25 09:22:25"
         },
         {
             "name": "cilex/cilex",
@@ -6583,10 +6583,18 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.15.8",
+            "alias_normalized": "1.15.8.0",
+            "version": "dev-CGIV-5647-duplicate-intercom-icon",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
