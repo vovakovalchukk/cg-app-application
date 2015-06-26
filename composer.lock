@@ -1995,13 +1995,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "fa5e37e7a6705a12e59b736a0a46d6179f7bfb60"
+                "reference": "388e0f43fcb2fc099863006271b0bca52c6eecbe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-EPIC-CGIV-5801-OrderHub-2d2a34.zip",
-                "reference": "fa5e37e7a6705a12e59b736a0a46d6179f7bfb60",
-                "shasum": "5f6a856ef684f26f89d628caa977b698bb169540"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-EPIC-CGIV-5801-OrderHub-bae2d0.zip",
+                "reference": "388e0f43fcb2fc099863006271b0bca52c6eecbe",
+                "shasum": "8201ccea1fa3e25241072875db8f78b04e401a02"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2038,7 +2038,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2015-06-24 15:16:56"
+            "time": "2015-06-26 09:26:18"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -2605,13 +2605,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "a9e74899b12b9933c75d83ecd7e48b351fcd4fda"
+                "reference": "5f9849bd0d78b76aeed40042ad92d93d771a0a20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-EPIC-CGIV-5801-OrderHub-0ddda9.zip",
-                "reference": "a9e74899b12b9933c75d83ecd7e48b351fcd4fda",
-                "shasum": "447d001ecc37e4382db1c1696d4ef7863c8d19c6"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-EPIC-CGIV-5801-OrderHub-5d1470.zip",
+                "reference": "5f9849bd0d78b76aeed40042ad92d93d771a0a20",
+                "shasum": "3807471461ac08a7dd821a04b7bfdb0231599e53"
             },
             "require": {
                 "channelgrabber/cglib": "~1.6.8",
@@ -2649,7 +2649,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2015-06-16 15:28:20"
+            "time": "2015-06-23 16:04:46"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
