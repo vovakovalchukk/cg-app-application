@@ -15,13 +15,7 @@ define([
     {
         ModuleAbstract.call(this, application);
 
-        var eventHandler;
         var filters = [];
-
-        this.getEventHandler = function()
-        {
-            return eventHandler;
-        };
 
         this.getFilters = function()
         {
@@ -30,8 +24,8 @@ define([
 
         var init = function()
         {
-            eventHandler = new EventHandler(this);
-            // TODO: get the counts from somewhere
+            this.setEventHandler(new EventHandler(this));
+            // TODO: CGIV-5839, get these counts from somewhere
             var myMessagesCount = 0;
             var unassignedCount = 0;
             var assignedCount = 0;
@@ -44,8 +38,6 @@ define([
             filters.push(new AssigneeFilter(this, 'assigned', assignedCount));
             filters.push(new StatusFilter(this, 'resolved', resolvedCount));
             filters.push(new SearchFilter(this));
-
-console.log('Filters initialised');
         };
         init.call(this);
     };

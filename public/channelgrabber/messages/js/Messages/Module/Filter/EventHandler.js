@@ -34,7 +34,6 @@ define([
     EventHandler.prototype.triggerApplyRequested = function(filter)
     {
         $(document).trigger(FilterEvents.APPLY_REQUESTED, [filter]);
-console.log('Triggered '+FilterEvents.APPLY_REQUESTED);
     };
 
     return EventHandler;

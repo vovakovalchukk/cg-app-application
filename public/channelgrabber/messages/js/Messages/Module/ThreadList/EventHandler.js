@@ -51,19 +51,11 @@ define([
     EventHandler.prototype.triggerThreadSelected = function(thread)
     {
         $(document).trigger(ThreadListEvents.THREAD_SELECTED, [thread]);
-console.log('Triggered '+ThreadListEvents.THREAD_SELECTED);
     };
 
     EventHandler.prototype.triggerThreadsRendered = function(threads)
     {
         $(document).trigger(ThreadListEvents.THREADS_RENDERED, [threads]);
-// TEST
-var self = this;
-threads.each(function(thread)
-{
-    self.getModule().threadSelected(thread.getId());
-    return false;
-});
     };
 
     return EventHandler;

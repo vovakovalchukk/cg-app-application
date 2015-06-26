@@ -11,17 +11,11 @@ define([
     {
         ModuleAbstract.call(this, application);
 
-        var eventHandler;
         var threads;
 
         this.getService = function()
         {
             return service;
-        };
-
-        this.getEventHandler = function()
-        {
-            return eventHandler;
         };
 
         this.getThreads = function()
@@ -37,9 +31,7 @@ define([
 
         var init = function()
         {
-            eventHandler = new EventHandler(this);
-
-console.log('ThreadList initialised');
+            this.setEventHandler(new EventHandler(this));
         };
         init.call(this);
     };
@@ -53,28 +45,25 @@ console.log('ThreadList initialised');
         {
             self.setThreads(threads);
             self.renderThreads(threads);
-console.log('Threads loaded');
         });
     };
 
     ThreadList.prototype.renderThreads = function(threads)
     {
-        // TODO
+        // TODO: CGIV-5839
         this.getEventHandler().triggerThreadsRendered(threads);
-console.log(threads.getItems());
     };
 
     ThreadList.prototype.threadSelected = function(id)
     {
-console.log('Thread '+id+' selected');
         if (!this.getThreads().containsId(id)) {
             return;
         }
         var thread = this.getThreads().getById(id);
-        // TODO: highlight this thread in the list
+        // TODO: CGIV-5839, highlight this thread in the list
+
         // The actual fetching and rendering of the thread in the right pane is handled by ThreadDetail
         this.getEventHandler().triggerThreadSelected(thread);
-console.log(thread);
     };
 
     return ThreadList;

@@ -50,7 +50,6 @@ define([
                 modules.push(module);
             }
             eventHandler.triggerInitialised();
-console.log('Application initialised');
         };
         init.call(this);
     };

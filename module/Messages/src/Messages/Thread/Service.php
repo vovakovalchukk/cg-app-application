@@ -79,13 +79,13 @@ class Service
 
     protected function filterByAssigned(ThreadFilter $threadFilter)
     {
-        //$threadFilter->setIsAssigned(true); // Not available yet
+        //$threadFilter->setIsAssigned(true); // Not available yet, needs CGIV-4698
         return $this;
     }
 
     protected function filterByUnassigned(ThreadFilter $threadFilter)
     {
-        //$threadFilter->setIsAssigned(false); // Not available yet
+        //$threadFilter->setIsAssigned(false); // Not available yet, needs CGIV-4698
         return $this;
     }
 

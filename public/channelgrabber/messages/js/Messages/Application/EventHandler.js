@@ -16,7 +16,6 @@ define([
     EventHandler.prototype.triggerInitialised = function()
     {
         $(document).trigger(Events.INITIALISED);
-console.log('Triggered '+Events.INITIALISED);
     };
 
     return EventHandler;

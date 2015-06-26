@@ -1,27 +1,28 @@
 define([
     'Messages/ModuleAbstract',
     'Messages/Module/ThreadDetails/EventHandler',
-    'Messages/Thread/Service'
+    'Messages/Thread/Service',
+    'Messages/Module/ThreadDetails/Panel/Controls',
+    'Messages/Module/ThreadDetails/Panel/Body',
+    'Messages/Module/ThreadDetails/Panel/Respond',
 ], function(
     ModuleAbstract,
     EventHandler,
-    service
+    service,
+    ControlsPanel,
+    BodyPanel,
+    RespondPanel
 ) {
     var ThreadDetails = function(application)
     {
         ModuleAbstract.call(this, application);
 
-        var eventHandler;
         var thread;
+        var panels = [];
 
         this.getService = function()
         {
             return service;
-        };
-
-        this.getEventHandler = function()
-        {
-            return eventHandler;
         };
 
         this.getThread = function()
@@ -35,11 +36,27 @@ define([
             return this;
         };
 
+        this.getPanels = function()
+        {
+            return panels;
+        };
+
+        this.addPanel = function(panel)
+        {
+            panels.push(panel);
+            return this;
+        };
+
+        this.resetPanels = function()
+        {
+            panels = [];
+            return this;
+        };
+
         var init = function()
         {
-            eventHandler = new EventHandler(this);
+            this.setEventHandler(new EventHandler(this));
 
-console.log('ThreadDetails initialised');
         };
         init.call(this);
     };
@@ -52,15 +69,16 @@ console.log('ThreadDetails initialised');
         this.getService().fetch(thread.getId(), function(thread)
         {
             self.setThread(thread);
-            self.renderThread(thread);
-console.log('Individual Thread loaded');
+            self.loadPanels(thread);
         });
     };
 
-    ThreadDetails.prototype.renderThread = function(thread)
+    ThreadDetails.prototype.loadPanels = function(thread)
     {
-        // TODO
-console.log(thread.getMessages().getItems());
+        this.resetPanels()
+            .addPanel(new ControlsPanel(thread))
+            .addPanel(new BodyPanel(thread))
+            .addPanel(new RespondPanel(thread));
     };
 
     return ThreadDetails;

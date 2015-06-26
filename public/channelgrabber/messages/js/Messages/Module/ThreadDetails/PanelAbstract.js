@@ -1,20 +1,15 @@
 define([
-    'Messages/Thread/Service'
+
 ], function(
-    service
+
 ) {
-    var ModuleAbstract = function(application)
+    var PanelAbstract = function(thread)
     {
         var eventHandler;
 
-        this.getApplication = function()
+        this.getThread = function()
         {
-            return application;
-        };
-
-        this.getService = function()
-        {
-            return service;
+            return thread;
         };
 
         this.getEventHandler = function()
@@ -29,5 +24,5 @@ define([
         };
     };
 
-    return ModuleAbstract;
+    return PanelAbstract;
 });
