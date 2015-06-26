@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d283740b5375982e79e35d17dbfee005",
+    "hash": "dabf317304f66f6fc1282d2a3fa209fa",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -993,17 +993,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.19.3",
+            "version": "1.19.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "5b49488306e93857da1c1fd3fc0a977f1cda51c3"
+                "reference": "a1c7bc3e44bcb4369c858f811bb31bf0aa9e4696"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.19.3-8da307.zip",
-                "reference": "5b49488306e93857da1c1fd3fc0a977f1cda51c3",
-                "shasum": "96b444f580dfd4e3faaf6c94aa07a179ed98ed6a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.19.5-3a1a54.zip",
+                "reference": "a1c7bc3e44bcb4369c858f811bb31bf0aa9e4696",
+                "shasum": "db318f48c56c01fa76a6a255a2bd7f46ee932a80"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1059,7 +1059,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-06-25 08:08:52"
+            "time": "2015-06-25 13:36:51"
         },
         {
             "name": "channelgrabber/permission",
