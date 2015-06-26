@@ -7,7 +7,8 @@ use Zend\Mvc\MvcEvent;
 
 class Module implements DependencyIndicatorInterface
 {
-    const PUBLIC_FOLDER = '/cg-built/messages/';
+    //const PUBLIC_FOLDER = '/cg-built/messages/';
+    const PUBLIC_FOLDER = '/channelgrabber/messages/'; // for testing only
     const ROUTE = 'Messages';
 
     public function onBootstrap(MvcEvent $event)

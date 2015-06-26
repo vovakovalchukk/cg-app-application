@@ -28,6 +28,9 @@ class IndexController extends AbstractActionController
         $rootOu = $this->userOrganisationUnitService->getRootOuByUserEntity($user);
         $view->setVariable('rootOuId', $rootOu->getId());
         $view->setVariable('userId', $user->getId());
+        $view->setVariable('isSidebarVisible', false);
+        $view->setVariable('isHeaderBarVisible', false);
+        $view->setVariable('subHeaderHide', true);
         return $view;
     }
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "70d68a78d2eb8bdfe730dba150052de2",
+    "hash": "cd18a3a56c05c045b30a4b8f0b891422",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2886,17 +2886,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.15.8",
+            "version": "dev-CGIV-5839-message-centre-ui",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "80a14ef054e93541ef61105b44f85259ba81cf6a"
+                "reference": "c6712f15fe52ec7fe132003a1f1587d279f7d2f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.15.8-11b8cc.zip",
-                "reference": "80a14ef054e93541ef61105b44f85259ba81cf6a",
-                "shasum": "0638d94840efa52b95e72b6a2c466214d5281ed7"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5839-message-centre-ui-cc68d0.zip",
+                "reference": "c6712f15fe52ec7fe132003a1f1587d279f7d2f0",
+                "shasum": "b2125206b218bdfaa3fbdedcdbef4fb88a75333e"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2941,7 +2941,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-06-26 09:47:51"
+            "time": "2015-06-26 16:18:02"
         },
         {
             "name": "cilex/cilex",
@@ -6623,12 +6623,19 @@
             "alias_normalized": "1.0.0.0",
             "version": "dev-CGIV-4698",
             "package": "channelgrabber/communication"
+        },
+        {
+            "alias": "1.15.9",
+            "alias_normalized": "1.15.9.0",
+            "version": "dev-CGIV-5839-message-centre-ui",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/communication": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

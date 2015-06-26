@@ -72,7 +72,7 @@
         "channelgrabber/zf2-ssoclient": "~1.4.2",
         "channelgrabber/zf2-stdlib": "~1.1.20",
         "channelgrabber/zf2-usage": "~1.0.6",
-        "channelgrabber/zf2-v4-ui": "~1.15.8",
+        "channelgrabber/zf2-v4-ui": "dev-CGIV-5839-message-centre-ui as 1.15.9",
         "cilex/cilex": "~1.0.1",
         "composer/composer": "@dev",
         "guzzle/guzzle": "~3.7",

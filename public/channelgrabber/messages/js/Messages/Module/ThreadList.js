@@ -1,11 +1,15 @@
 define([
     'Messages/ModuleAbstract',
     'Messages/Module/ThreadList/EventHandler',
-    'Messages/Thread/Service'
+    'Messages/Thread/Service',
+    'cg-mustache',
+    'DomManipulator'
 ], function(
     ModuleAbstract,
     EventHandler,
-    service
+    service,
+    CGMustache,
+    domManipulator
 ) {
     var ThreadList = function(application)
     {
@@ -16,6 +20,11 @@ define([
         this.getService = function()
         {
             return service;
+        };
+
+        this.getDomManipulator = function()
+        {
+            return domManipulator;
         };
 
         this.getThreads = function()
@@ -36,6 +45,10 @@ define([
         init.call(this);
     };
 
+    ThreadList.TEMPLATE_SUMMARY = '/channelgrabber/messages/template/Messages/Thread/summary.mustache';
+    ThreadList.SELECTOR_LIST = '.message-pane ul';
+    ThreadList.SELECTOR_LIST_ELEMENTS = '.message-pane ul li';
+
     ThreadList.prototype = Object.create(ModuleAbstract.prototype);
 
     ThreadList.prototype.loadForFilter = function(filter)
@@ -50,8 +63,24 @@ define([
 
     ThreadList.prototype.renderThreads = function(threads)
     {
-        // TODO: CGIV-5839
-        this.getEventHandler().triggerThreadsRendered(threads);
+        var self = this;
+        CGMustache.get().fetchTemplate(ThreadList.TEMPLATE_SUMMARY, function(template, cgmustache) {
+            self.getDomManipulator().remove(ThreadList.SELECTOR_LIST_ELEMENTS);
+            threads.each(function(thread)
+            {
+                var html = cgmustache.renderTemplate(template, {
+                    'id': thread.getId(),
+                    'channel': thread.getChannel(),
+                    'name': thread.getName(),
+                    'subject': thread.getSubject(),
+                    'created': thread.getCreated(),
+                    'updated': thread.getUpdated(),
+                    'status': thread.getStatus()
+                });
+                self.getDomManipulator().append(ThreadList.SELECTOR_LIST, html);
+            });
+            self.getEventHandler().triggerThreadsRendered(threads);
+        });
     };
 
     ThreadList.prototype.threadSelected = function(id)
