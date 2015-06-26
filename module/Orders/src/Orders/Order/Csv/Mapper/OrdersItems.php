@@ -114,7 +114,8 @@ class OrdersItems implements MapperInterface
             'Buyer Message' => 'buyerMessage',
             'Gift Wrap Type' => $this->giftWrapTypeFormatter,
             'Gift Wrap Message' => $this->giftWrapMessageFormatter,
-            'Gift Wrap Price' => $this->giftWrapPriceFormatter
+            'Gift Wrap Price' => $this->giftWrapPriceFormatter,
+            'Invoice Number' => 'invoiceNumber'
         ];
 
         $rootOrganisationUnitId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();

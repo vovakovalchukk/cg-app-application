@@ -713,6 +713,8 @@ return [
                 'OrdersTagColumn' => DataTable\Column::class,
                 'OrdersFulfilmentChannelColumnView' => ViewModel::class,
                 'OrdersFulfilmentChannelColumn' => DataTable\Column::class,
+                'OrdersInvoiceNumberColumnView' => ViewModel::class,
+                'OrdersInvoiceNumberColumn' => DataTable\Column::class,
                 'OrdersOptionsColumnView' => ViewModel::class,
                 'OrdersOptionsColumn' => DataTable\Column::class,
                 'OrderRpcClient' => JsonRpcClient::class,
@@ -778,6 +780,7 @@ return [
                         ['column' => 'OrdersShippingColumn'],
                         ['column' => 'OrdersTagColumn'],
                         ['column' => 'OrdersFulfilmentChannelColumn'],
+                        ['column' => 'OrdersInvoiceNumberColumn'],
                         ['column' => 'OrdersOptionsColumn'],
                     ],
                     'setVariable' => [
@@ -824,6 +827,7 @@ return [
                     'column' => 'channel',
                     'viewModel' => 'OrdersChannelColumnView',
                     'class' => 'channel-col',
+                    'sortable' => false,
                 ],
             ],
             'OrdersAccountColumnView' => [
@@ -837,6 +841,7 @@ return [
                     'column' => 'accountId',
                     'viewModel' => 'OrdersAccountColumnView',
                     'class' => 'account-col',
+                    'sortable' => false,
                 ],
             ],
             'OrdersDateColumnView' => [
@@ -850,6 +855,7 @@ return [
                     'column' => 'purchaseDate',
                     'viewModel' => 'OrdersDateColumnView',
                     'class' => 'orderdate-col',
+                    'sortable' => true,
                 ],
             ],
             'OrdersIdColumnView' => [
@@ -863,6 +869,7 @@ return [
                     'column' => 'externalId',
                     'viewModel' => 'OrdersIdColumnView',
                     'class' => 'orderid-col',
+                    'sortable' => false,
                 ],
             ],
             'OrdersTotalColumnView' => [
@@ -876,6 +883,7 @@ return [
                     'column' => 'total',
                     'viewModel' => 'OrdersTotalColumnView',
                     'class' => 'total-col',
+                    'sortable' => false,
                 ],
             ],
             'OrdersBuyerColumnView' => [
@@ -889,6 +897,7 @@ return [
                     'column' => 'billingAddressFullName',
                     'viewModel' => 'OrdersBuyerColumnView',
                     'class' => 'buyer-col',
+                    'sortable' => false,
                 ],
             ],
             'OrdersStatusColumnView' => [
@@ -902,6 +911,7 @@ return [
                     'column' => 'status',
                     'viewModel' => 'OrdersStatusColumnView',
                     'class' => 'status-col',
+                    'sortable' => false,
                 ],
             ],
             'OrdersBatchColumnView' => [
@@ -915,6 +925,7 @@ return [
                     'column' => 'batch',
                     'viewModel' => 'OrdersBatchColumnView',
                     'class' => 'batch-col',
+                    'sortable' => false,
                 ],
             ],
             'OrdersMessagesColumnView' => [
@@ -928,6 +939,7 @@ return [
                     'column' => 'buyerMessage',
                     'viewModel' => 'OrdersMessagesColumnView',
                     'class' => 'message-col',
+                    'sortable' => false,
                 ],
             ],
             'OrdersShippingColumnView' => [
@@ -941,6 +953,7 @@ return [
                     'column' => 'shippingMethod',
                     'viewModel' => 'OrdersShippingColumnView',
                     'class' => 'shipping-col',
+                    'sortable' => false,
                 ],
             ],
             'OrdersDispatchColumnView' => [
@@ -954,6 +967,7 @@ return [
                     'column' => 'dispatchDate',
                     'viewModel' => 'OrdersDispatchColumnView',
                     'class' => 'actions',
+                    'sortable' => false,
                 ],
             ],
             'OrdersPrintColumnView' => [
@@ -967,6 +981,7 @@ return [
                     'column' => 'printedDate',
                     'viewModel' => 'OrdersPrintColumnView',
                     'class' => 'actions',
+                    'sortable' => false,
                 ],
             ],
             'OrdersTagColumnView' => [
@@ -980,6 +995,7 @@ return [
                     'column' => 'tag',
                     'viewModel' => 'OrdersTagColumnView',
                     'class' => 'tag-col',
+                    'sortable' => false,
                 ]
             ],
             'OrdersFulfilmentChannelColumnView' => [
@@ -993,7 +1009,23 @@ return [
                     'visible' => false,
                     'column' => 'fulfilmentChannel',
                     'viewModel' => 'OrdersFulfilmentChannelColumnView',
-                    'class' => 'order-fulfilment-col'
+                    'class' => 'order-fulfilment-col',
+                    'sortable' => false,
+                ]
+            ],
+            'OrdersInvoiceNumberColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'InvoiceNumber'],
+                    'template' => 'value.phtml',
+                ]
+            ],
+            'OrdersInvoiceNumberColumn' => [
+                'parameters' => [
+                    'visible' => true,
+                    'column' => 'invoiceNumber',
+                    'viewModel' => 'OrdersInvoiceNumberColumnView',
+                    'class' => 'order-invoice-number-col',
+                    'sortable' => false,
                 ]
             ],
             'OrdersOptionsColumnView' => [
