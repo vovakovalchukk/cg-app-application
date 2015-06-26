@@ -17,14 +17,15 @@ define([
         };
     };
 
-    Ajax.URL = '/messages/ajax';
+    Ajax.URL_COLLECTION = '/messages/ajax';
+    Ajax.URL_ENTITY = '/messages/ajax/thread';
 
     Ajax.prototype = Object.create(StorageAbstract.prototype);
 
     Ajax.prototype.fetchCollectionByFilter = function(filter, callback)
     {
         var self = this;
-        this.getRequester().sendRequest(Ajax.URL, {filter: filter}, function(response)
+        this.getRequester().sendRequest(Ajax.URL_COLLECTION, {filter: filter}, function(response)
         {
             var threads = new Collection();
             for (var index in response.threads) {
@@ -32,6 +33,16 @@ define([
                 threads.attach(thread);
             }
             callback(threads);
+        });
+    };
+
+    Ajax.prototype.fetch = function(id, callback)
+    {
+        var self = this;
+        this.getRequester().sendRequest(Ajax.URL_ENTITY, {id: id}, function(response)
+        {
+            var thread = self.getMapper().fromJson(response.thread);
+            callback(thread);
         });
     };
 

@@ -16,5 +16,10 @@ define([
         return this.getStorage().fetchCollectionByFilter(filter, callback);
     };
 
+    Service.prototype.fetch = function(id, callback)
+    {
+        return this.getStorage().fetch(id, callback);
+    };
+
     return new Service();
 });

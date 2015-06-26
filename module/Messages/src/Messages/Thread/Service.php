@@ -46,7 +46,7 @@ class Service
 
         try {
             $threads = $this->threadService->fetchCollectionByFilter($threadFilter);
-            return $this->convertThreadObjectsToDataArray($threads);
+            return $this->convertThreadCollectionToArray($threads);
         } catch (Notfound $e) {
             return [];
         }
@@ -63,9 +63,10 @@ class Service
         return $this;
     }
 
-    protected function convertThreadObjectsToDataArray(ThreadCollection $threads)
+    protected function convertThreadCollectionToArray(ThreadCollection $threads)
     {
         // We may want to do some manipulation here but this will do for now
+        // Deliberately not including the Messages at this stage, we'll load those when an indivual thread is requested
         return $threads->toArray();
     }
 
@@ -86,6 +87,17 @@ class Service
     {
         //$threadFilter->setIsAssigned(false); // Not available yet
         return $this;
+    }
+
+    public function fetchThreadDataForId($id)
+    {
+        $thread = $this->threadService->fetch($id);
+        $threadData = $thread->toArray();
+        $threadData['messages'] = [];
+        foreach ($thread->getMessages() as $message) {
+            $threadData['messages'][] = $message->toArray();
+        }
+        return $threadData;
     }
 
     protected function setThreadService(ThreadService $threadService)

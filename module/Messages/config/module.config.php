@@ -35,14 +35,28 @@ return [
                     ThreadJsonController::ROUTE_AJAX => [
                         'type' => Literal::class,
                         'options' => [
-                            'route' => '/ajax',
+                            'route' => ThreadJsonController::ROUTE_AJAX_URL,
                             'defaults' => [
                                 'controller' => ThreadJsonController::class,
                                 'action' => 'ajax'
                             ]
                         ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            ThreadJsonController::ROUTE_THREAD => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => ThreadJsonController::ROUTE_THREAD_URL,
+                                    'defaults' => [
+                                        'controller' => ThreadJsonController::class,
+                                        'action' => 'thread'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                        ],
                     ],
-                ]
+                ],
             ]
         ]
     ],
