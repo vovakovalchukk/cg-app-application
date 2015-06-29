@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "81b199e4ddf16f259a7a0a6820d66e89",
+    "hash": "0e38f13a1809d6b90f6b3f8c95a392ae",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2601,17 +2601,17 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.4.36",
+            "version": "dev-CGIV-5870-RepsonsiveRegisterPage",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "5f9849bd0d78b76aeed40042ad92d93d771a0a20"
+                "reference": "f60ea75a68822c74c12fb95a0dc36758773528d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.36-5d1470.zip",
-                "reference": "5f9849bd0d78b76aeed40042ad92d93d771a0a20",
-                "shasum": "df75e93514e404a834032595a43bb5a2e2b9893c"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-5870-RepsonsiveRegisterPage-3511c8.zip",
+                "reference": "f60ea75a68822c74c12fb95a0dc36758773528d1",
+                "shasum": "0ef1cda0653692c8a96357b7e6ed42a0aed27d59"
             },
             "require": {
                 "channelgrabber/cglib": "~1.6.8",
@@ -2649,7 +2649,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2015-06-23 16:04:46"
+            "time": "2015-06-26 15:12:13"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -2853,17 +2853,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.15.8",
+            "version": "dev-CGIV-5870-RepsonsiveRegisterPage",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "80a14ef054e93541ef61105b44f85259ba81cf6a"
+                "reference": "38b02b31b9e2ee0c0a7a237bb5f71b9833880955"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.15.8-11b8cc.zip",
-                "reference": "80a14ef054e93541ef61105b44f85259ba81cf6a",
-                "shasum": "0638d94840efa52b95e72b6a2c466214d5281ed7"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5870-RepsonsiveRegisterPage-3a15d0.zip",
+                "reference": "38b02b31b9e2ee0c0a7a237bb5f71b9833880955",
+                "shasum": "4d3a4f4ab2e01ba53786fef902d8b529714491fa"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2908,7 +2908,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-06-26 09:47:51"
+            "time": "2015-06-26 15:41:14"
         },
         {
             "name": "cilex/cilex",
@@ -3034,13 +3034,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "84661296ffe281b6238cc29b39526b31f26f3918"
+                "reference": "943107cfe717a74aa791f57b87fa514c88582b0d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/composer-composer-84661296ffe281b6238cc29b39526b31f26f3918-zip-f358ff.zip",
-                "reference": "84661296ffe281b6238cc29b39526b31f26f3918",
-                "shasum": "8b06026f8f5e852b283b8cda361b01337a92d96e"
+                "url": "https://composer.build.channelgrabber.com/dist/composer-composer-943107cfe717a74aa791f57b87fa514c88582b0d-zip-84a142.zip",
+                "reference": "943107cfe717a74aa791f57b87fa514c88582b0d",
+                "shasum": "35b014622cbb8ab7622d00d8f79e994d4586351a"
             },
             "require": {
                 "justinrainbow/json-schema": "~1.4",
@@ -3097,7 +3097,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-06-24 09:14:40"
+            "time": "2015-06-26 13:40:26"
         },
         {
             "name": "fabpot/goutte",
@@ -6584,10 +6584,25 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.4.36",
+            "alias_normalized": "1.4.36.0",
+            "version": "dev-CGIV-5870-RepsonsiveRegisterPage",
+            "package": "channelgrabber/zf2-register"
+        },
+        {
+            "alias": "1.15.8",
+            "alias_normalized": "1.15.8.0",
+            "version": "dev-CGIV-5870-RepsonsiveRegisterPage",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-register": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
