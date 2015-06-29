@@ -25,18 +25,13 @@ define([
         var init = function()
         {
             this.setEventHandler(new EventHandler(this));
-            // TODO: CGIV-5839, get these counts from somewhere
-            var myMessagesCount = 0;
-            var unassignedCount = 0;
-            var assignedCount = 0;
-            var resolvedCount = 0;
             // We don't want to use the actual userId here as this is client-side and it could be changed maliciously
-            var myMessages = new AssigneeFilter(this, 'active-user', myMessagesCount);
+            var myMessages = new AssigneeFilter(this, 'active-user');
             myMessages.activate();
             filters.push(myMessages);
-            filters.push(new AssigneeFilter(this, 'unassigned', unassignedCount));
-            filters.push(new AssigneeFilter(this, 'assigned', assignedCount));
-            filters.push(new StatusFilter(this, 'resolved', resolvedCount));
+            filters.push(new AssigneeFilter(this, 'unassigned'));
+            filters.push(new AssigneeFilter(this, 'assigned'));
+            filters.push(new StatusFilter(this, 'resolved'));
             filters.push(new SearchFilter(this));
         };
         init.call(this);

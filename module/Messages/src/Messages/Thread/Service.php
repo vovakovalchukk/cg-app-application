@@ -133,13 +133,13 @@ class Service
 
     protected function filterByAssigned(ThreadFilter $threadFilter)
     {
-        //$threadFilter->setIsAssigned(true); // Not available yet, needs CGIV-4698
+        $threadFilter->setIsAssigned(true);
         return $this;
     }
 
     protected function filterByUnassigned(ThreadFilter $threadFilter)
     {
-        //$threadFilter->setIsAssigned(false); // Not available yet, needs CGIV-4698
+        $threadFilter->setIsAssigned(false);
         return $this;
     }
 
@@ -147,6 +147,46 @@ class Service
     {
         $thread = $this->threadService->fetch($id);
         return $this->formatThreadData($thread);
+    }
+
+    public function getAssigneeCount($assignee)
+    {
+        $threadFilter = $this->prepareFilterForCount();
+        $assignee = strtolower($assignee);
+        if (!isset($this->assigneeMethodMap[$assignee])) {
+            throw new \UnexpectedValueException(__METHOD__.' was passed unhandled assignee "' . $assignee . '"');
+        }
+        $method = $this->assigneeMethodMap[$assignee];
+        $this->$method($threadFilter);
+        return $this->getCountFromFilter($threadFilter);
+    }
+
+    public function getStatusCount($status)
+    {
+        $threadFilter = $this->prepareFilterForCount();
+        $threadFilter->setStatus((array)$status);
+        return $this->getCountFromFilter($threadFilter);
+    }
+
+    protected function prepareFilterForCount()
+    {
+        $ou = $this->userOuService->getRootOuByActiveUser();
+
+        $threadFilter = new ThreadFilter();
+        $threadFilter->setPage(1)
+            ->setLimit(1)
+            ->setOrganisationUnitId([$ou->getId()]);
+        return $threadFilter;
+    }
+
+    protected function getCountFromFilter(ThreadFilter $threadFilter)
+    {
+        try {
+            $threads = $this->threadService->fetchCollectionByFilter($threadFilter);
+            return $threads->getTotal();
+        } catch (Notfound $e) {
+            return 0;
+        }
     }
 
     protected function setThreadService(ThreadService $threadService)

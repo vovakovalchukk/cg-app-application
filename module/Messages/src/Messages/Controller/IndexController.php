@@ -1,9 +1,11 @@
 <?php
 namespace Messages\Controller;
 
+use CG\Communication\Thread\Status as ThreadStatus;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
 use Messages\Module;
+use Messages\Thread\Service;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class IndexController extends AbstractActionController
@@ -12,13 +14,16 @@ class IndexController extends AbstractActionController
 
     protected $viewModelFactory;
     protected $userOrganisationUnitService;
+    protected $service;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
-        UserOrganisationUnitService $userOrganisationUnitService
+        UserOrganisationUnitService $userOrganisationUnitService,
+        Service $service
     ) {
         $this->setViewModelFactory($viewModelFactory)
-            ->setUserOrganisationUnitService($userOrganisationUnitService);
+            ->setUserOrganisationUnitService($userOrganisationUnitService)
+            ->setService($service);
     }
 
     public function indexAction()
@@ -28,6 +33,10 @@ class IndexController extends AbstractActionController
         $rootOu = $this->userOrganisationUnitService->getRootOuByUserEntity($user);
         $view->setVariable('rootOuId', $rootOu->getId());
         $view->setVariable('userId', $user->getId());
+        $view->setVariable('myMessagesCount', $this->service->getAssigneeCount(Service::ASSIGNEE_ACTIVE_USER));
+        $view->setVariable('unassignedCount', $this->service->getAssigneeCount(Service::ASSIGNEE_UNASSIGNED));
+        $view->setVariable('assignedCount', $this->service->getAssigneeCount(Service::ASSIGNEE_ASSIGNED));
+        $view->setVariable('resolvedCount', $this->service->getStatusCount(ThreadStatus::RESOLVED));
         $view->setVariable('isSidebarVisible', false);
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
@@ -43,6 +52,12 @@ class IndexController extends AbstractActionController
     protected function setUserOrganisationUnitService(UserOrganisationUnitService $userOrganisationUnitService)
     {
         $this->userOrganisationUnitService = $userOrganisationUnitService;
+        return $this;
+    }
+
+    protected function setService(Service $service)
+    {
+        $this->service = $service;
         return $this;
     }
 }

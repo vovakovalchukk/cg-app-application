@@ -360,13 +360,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-communication.git",
-                "reference": "c8c69f2a5f2bd146ed79ecc58da3f0e9836a7bb9"
+                "reference": "7357635b11e427cb9da19c38886c1a3fd282e5d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-communication-dev-CGIV-4698-1c3d35.zip",
-                "reference": "c8c69f2a5f2bd146ed79ecc58da3f0e9836a7bb9",
-                "shasum": "e4487eb08c269d52d68d50580332c6fe56f0bfea"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-communication-dev-CGIV-4698-1f3d9d.zip",
+                "reference": "7357635b11e427cb9da19c38886c1a3fd282e5d4",
+                "shasum": "a1e12d699fe042c24fa31816af247c24eb488c93"
             },
             "type": "library",
             "autoload": {
@@ -385,7 +385,7 @@
                     "email": "matthew.king@channelgrabber.com"
                 }
             ],
-            "time": "2015-06-23 16:06:31"
+            "time": "2015-06-29 13:54:32"
         },
         {
             "name": "channelgrabber/constants",
@@ -3071,7 +3071,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/composer-composer-84661296ffe281b6238cc29b39526b31f26f3918-zip-f358ff.zip",
+                "url": "https://api.github.com/repos/composer/composer/zipball/943107cfe717a74aa791f57b87fa514c88582b0d",
                 "reference": "84661296ffe281b6238cc29b39526b31f26f3918",
                 "shasum": "8b06026f8f5e852b283b8cda361b01337a92d96e"
             },

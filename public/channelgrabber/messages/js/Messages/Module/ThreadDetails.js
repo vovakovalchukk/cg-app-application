@@ -73,14 +73,10 @@ define([
 
     ThreadDetails.prototype = Object.create(ModuleAbstract.prototype);
 
-    ThreadDetails.prototype.threadSelected = function(thread)
+    ThreadDetails.prototype.loadThread = function(thread)
     {
-        var self = this;
-        this.getService().fetch(thread.getId(), function(thread)
-        {
-            self.setThread(thread);
-            self.loadPanels(thread);
-        });
+        this.setThread(thread);
+        this.loadPanels(thread);
     };
 
     ThreadDetails.prototype.loadPanels = function(thread)
@@ -89,6 +85,15 @@ define([
             .addPanel(new ControlsPanel(thread))
             .addPanel(new BodyPanel(thread))
             .addPanel(new RespondPanel(thread));
+    };
+
+    ThreadDetails.prototype.refresh = function()
+    {
+        var self = this;
+        this.getService().fetch(this.getThread().getId(), function(thread)
+        {
+            self.loadThread(thread);
+        });
     };
 
     return ThreadDetails;

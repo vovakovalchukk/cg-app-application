@@ -48,16 +48,19 @@ define([
     ThreadList.TEMPLATE_SUMMARY = '/channelgrabber/messages/template/Messages/ThreadList/summary.mustache';
     ThreadList.SELECTOR_LIST = '.message-pane ul';
     ThreadList.SELECTOR_LIST_ELEMENTS = '.message-pane ul li';
+    ThreadList.SELECTOR_LOADING = '#threads-loading-message';
 
     ThreadList.prototype = Object.create(ModuleAbstract.prototype);
 
     ThreadList.prototype.loadForFilter = function(filter)
     {
         var self = this;
+        this.getDomManipulator().show(ThreadList.SELECTOR_LOADING);
         this.getService().fetchCollectionByFilter(filter, function(threads)
         {
             self.setThreads(threads);
             self.renderThreads(threads);
+            self.getDomManipulator().hide(ThreadList.SELECTOR_LOADING);
         });
     };
 

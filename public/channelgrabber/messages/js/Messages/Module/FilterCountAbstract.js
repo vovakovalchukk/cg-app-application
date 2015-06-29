@@ -1,17 +1,28 @@
 define([
-    'Messages/Module/FilterAbstract'
+    'Messages/Module/FilterAbstract',
+    'cg-mustache',
+    'DomManipulator'
 ], function(
-    FilterAbstract
+    FilterAbstract,
+    CGMustache,
+    domManipulator
 ) {
-    var FilterCountAbstract = function(filterModule, count)
+    var FilterCountAbstract = function(filterModule)
     {
         FilterAbstract.call(this, filterModule);
 
-        this.getCount = function()
+        this.setCount = function(count)
         {
-            return count;
+            domManipulator.setHtml(this.getFilterSelector()+' '+FilterCountAbstract.SELECTOR_COUNT, count);
+        };
+
+        this.getDomManipulator = function()
+        {
+            return domManipulator;
         };
     };
+
+    FilterCountAbstract.SELECTOR_COUNT = '.number-loz';
 
     FilterCountAbstract.prototype = Object.create(FilterAbstract.prototype);
 

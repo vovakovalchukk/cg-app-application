@@ -1,15 +1,32 @@
 define([
-    'Messages/Module/FilterAbstract'
+    'Messages/Module/FilterAbstract',
+    'cg-mustache',
+    'DomManipulator'
 ], function(
-    FilterAbstract
+    FilterAbstract,
+    CGMustache,
+    domManipulator
 ) {
     var Search = function(filterModule)
     {
+        var type = 'search';
+
+        this.getDomManipulator = function()
+        {
+            return domManipulator;
+        };
+
+        this.getType = function()
+        {
+            return type;
+        };
+
+        // Must have defined getType() before this as it depends on it
         FilterAbstract.call(this, filterModule);
     };
 
     Search.prototype = Object.create(FilterAbstract.prototype);
-
+    
     Search.prototype.getFilterData = function()
     {
         return {
