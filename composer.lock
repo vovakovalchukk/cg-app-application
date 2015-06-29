@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0e38f13a1809d6b90f6b3f8c95a392ae",
+    "hash": "4fa1adcabab429552e7be786335de609",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2601,17 +2601,17 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-CGIV-5870-RepsonsiveRegisterPage",
+            "version": "1.4.37",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "f60ea75a68822c74c12fb95a0dc36758773528d1"
+                "reference": "6811a13efbc5a6865e52d162db34d9310c4853dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-5870-RepsonsiveRegisterPage-3511c8.zip",
-                "reference": "f60ea75a68822c74c12fb95a0dc36758773528d1",
-                "shasum": "0ef1cda0653692c8a96357b7e6ed42a0aed27d59"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.37-12ed87.zip",
+                "reference": "6811a13efbc5a6865e52d162db34d9310c4853dc",
+                "shasum": "68032df17ddeda7b051b184a821f99e03848c344"
             },
             "require": {
                 "channelgrabber/cglib": "~1.6.8",
@@ -2649,7 +2649,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2015-06-26 15:12:13"
+            "time": "2015-06-29 15:02:37"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -2853,17 +2853,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-5870-RepsonsiveRegisterPage",
+            "version": "1.15.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "38b02b31b9e2ee0c0a7a237bb5f71b9833880955"
+                "reference": "802ea6c96b4e608d3816203fc99e058026540017"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5870-RepsonsiveRegisterPage-3a15d0.zip",
-                "reference": "38b02b31b9e2ee0c0a7a237bb5f71b9833880955",
-                "shasum": "4d3a4f4ab2e01ba53786fef902d8b529714491fa"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.15.9-e41a97.zip",
+                "reference": "802ea6c96b4e608d3816203fc99e058026540017",
+                "shasum": "77164de97fa29b5d6c5c6cb91ac890784034ed91"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2908,7 +2908,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-06-26 15:41:14"
+            "time": "2015-06-29 15:00:06"
         },
         {
             "name": "cilex/cilex",
@@ -6584,25 +6584,10 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.4.36",
-            "alias_normalized": "1.4.36.0",
-            "version": "dev-CGIV-5870-RepsonsiveRegisterPage",
-            "package": "channelgrabber/zf2-register"
-        },
-        {
-            "alias": "1.15.8",
-            "alias_normalized": "1.15.8.0",
-            "version": "dev-CGIV-5870-RepsonsiveRegisterPage",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-register": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
