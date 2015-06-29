@@ -7,6 +7,7 @@ define([
         id,
         accountId,
         created,
+        createdFuzzy,
         name,
         externalUsername,
         body,
@@ -42,6 +43,17 @@ define([
         this.setCreated = function(newCreated)
         {
             created = newCreated;
+            return this;
+        };
+
+        this.getCreatedFuzzy = function()
+        {
+            return createdFuzzy;
+        };
+
+        this.setCreatedFuzzy = function(newCreatedFuzzy)
+        {
+            createdFuzzy = newCreatedFuzzy;
             return this;
         };
 

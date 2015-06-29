@@ -1,11 +1,16 @@
 <?php
 namespace Messages\Thread;
 
+use CG\Account\Client\Service as AccountService;
+use CG\Communication\Message\Entity as Message;
 use CG\Communication\Thread\Collection as ThreadCollection;
+use CG\Communication\Thread\Entity as Thread;
 use CG\Communication\Thread\Filter as ThreadFilter;
 use CG\Communication\Thread\Service as ThreadService;
+use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\OrganisationUnit\Service as UserOuService;
+use CG\User\Service as UserService;
 
 class Service
 {
@@ -16,6 +21,8 @@ class Service
 
     protected $threadService;
     protected $userOuService;
+    protected $userService;
+    protected $accountService;
 
     protected $assigneeMethodMap = [
         self::ASSIGNEE_ACTIVE_USER => 'filterByActiveUser',
@@ -23,10 +30,16 @@ class Service
         self::ASSIGNEE_UNASSIGNED => 'filterByUnassigned',
     ];
 
-    public function __construct(ThreadService $threadService, UserOuService $userOuService)
-    {
+    public function __construct(
+        ThreadService $threadService,
+        UserOuService $userOuService,
+        UserService $userService,
+        AccountService $accountService
+    ) {
         $this->setThreadService($threadService)
-            ->setUserOuService($userOuService);
+            ->setUserOuService($userOuService)
+            ->setUserService($userService)
+            ->setAccountService($accountService);
     }
 
     public function fetchThreadDataForFilters(array $filters)
@@ -65,9 +78,50 @@ class Service
 
     protected function convertThreadCollectionToArray(ThreadCollection $threads)
     {
-        // We may want to do some manipulation here but this will do for now
-        // Deliberately not including the Messages at this stage, we'll load those when an indivual thread is requested
-        return $threads->toArray();
+        $threadsData = [];
+        foreach ($threads as $thread) {
+            $threadsData[] = $this->formatThreadData($thread);
+        }
+        return $threadsData;
+    }
+
+    protected function formatThreadData(Thread $thread)
+    {
+        $threadData = $thread->toArray();
+        $messages = [];
+        foreach ($thread->getMessages() as $message) {
+            $messageData = $this->formatMessageData($message);
+            $messages[$message->getCreated()] = $messageData;
+        }
+        ksort($messages);
+        $threadData['messages'] = array_values($messages);
+
+        $account = $this->accountService->fetch($thread->getAccountId());
+        $threadData['accountName'] = $account->getDisplayName();
+
+        $created = new StdlibDateTime($threadData['created']);
+        $updated = new StdlibDateTime($threadData['updated']);
+        $threadData['created'] = $created->uiFormat();
+        $threadData['createdFuzzy'] = $created->fuzzyFormat();
+        $threadData['updated'] = $updated->uiFormat();
+        $threadData['updatedFuzzy'] = $updated->fuzzyFormat();
+
+        $threadData['assignedUserName'] = '';
+        if ($threadData['assignedUserId']) {
+            $assignedUser = $this->userService->fetch($threadData['assignedUserId']);
+            $threadData['assignedUserName'] = $assignedUser->getFirstName() . ' ' . $assignedUser->getLastName();
+        }
+
+        return $threadData;
+    }
+
+    protected function formatMessageData(Message $message)
+    {
+        $messageData = $message->toArray();
+        $created = new StdlibDateTime($messageData['created']);
+        $messageData['created'] = $created->uiFormat();
+        $messageData['createdFuzzy'] = $created->fuzzyFormat();
+        return $messageData;
     }
 
     protected function filterByActiveUser(ThreadFilter $threadFilter)
@@ -92,12 +146,7 @@ class Service
     public function fetchThreadDataForId($id)
     {
         $thread = $this->threadService->fetch($id);
-        $threadData = $thread->toArray();
-        $threadData['messages'] = [];
-        foreach ($thread->getMessages() as $message) {
-            $threadData['messages'][] = $message->toArray();
-        }
-        return $threadData;
+        return $this->formatThreadData($thread);
     }
 
     protected function setThreadService(ThreadService $threadService)
@@ -106,9 +155,21 @@ class Service
         return $this;
     }
 
-    public function setUserOuService(UserOuService $userOuService)
+    protected function setUserOuService(UserOuService $userOuService)
     {
         $this->userOuService = $userOuService;
+        return $this;
+    }
+
+    protected function setUserService(UserService $userService)
+    {
+        $this->userService = $userService;
+        return $this;
+    }
+
+    protected  function setAccountService(AccountService $accountService)
+    {
+        $this->accountService = $accountService;
         return $this;
     }
 }

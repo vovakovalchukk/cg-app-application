@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cd18a3a56c05c045b30a4b8f0b891422",
+    "hash": "633d12c0550bf3089accd122c0bbb4fd",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1769,17 +1769,17 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.12.4",
+            "version": "dev-CGIV-5839-message-centre-ui",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "bfb5713d8287a83a8004e1c15a77809e327eda57"
+                "reference": "15d8cf3163b91d30efd8c759c28474a96a23b8bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.4-722652.zip",
-                "reference": "bfb5713d8287a83a8004e1c15a77809e327eda57",
-                "shasum": "66d80812abac679044e1a002c721613c2f5948fd"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-CGIV-5839-message-centre-ui-255fcf.zip",
+                "reference": "15d8cf3163b91d30efd8c759c28474a96a23b8bc",
+                "shasum": "e7d63caa5399a067ada13919b83151e783192caa"
             },
             "require": {
                 "zendframework/zend-db": ">=2.2,<3.0"
@@ -1805,7 +1805,7 @@
                     "CG\\Stdlib\\Test\\": "tests/CG/Stdlib"
                 }
             },
-            "time": "2015-06-10 12:31:15"
+            "time": "2015-06-29 11:20:34"
         },
         {
             "name": "channelgrabber/stock",
@@ -3805,7 +3805,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/php-jsonpatch-php-jsonpatch-7933990bcfea21bb3f093bc3df9ae621540b40ca-zip-e72ac3.zip",
+                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpatch/zipball/7933990bcfea21bb3f093bc3df9ae621540b40ca",
                 "reference": "7933990bcfea21bb3f093bc3df9ae621540b40ca",
                 "shasum": "5d8c37272322234bc03029520515c470ce7832c0"
             },
@@ -3857,7 +3857,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/php-jsonpointer-php-jsonpointer-fc3999d9ab5bf8f59dc829742c6dab6ccd2e1b6e-zip-ccf2bc.zip",
+                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpointer/zipball/fc3999d9ab5bf8f59dc829742c6dab6ccd2e1b6e",
                 "reference": "fc3999d9ab5bf8f59dc829742c6dab6ccd2e1b6e",
                 "shasum": "2515588a8d2d786e41d8e2c8b489250056848ebd"
             },
@@ -6625,6 +6625,12 @@
             "package": "channelgrabber/communication"
         },
         {
+            "alias": "2.12.5",
+            "alias_normalized": "2.12.5.0",
+            "version": "dev-CGIV-5839-message-centre-ui",
+            "package": "channelgrabber/stdlib"
+        },
+        {
             "alias": "1.15.9",
             "alias_normalized": "1.15.9.0",
             "version": "dev-CGIV-5839-message-centre-ui",
@@ -6635,6 +6641,7 @@
     "stability-flags": {
         "channelgrabber/communication": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/stdlib": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,

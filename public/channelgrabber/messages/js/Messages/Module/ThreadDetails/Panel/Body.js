@@ -34,7 +34,7 @@ define([
                 'name': message.getName(),
                 'externalUsername': message.getExternalUsername(),
                 'created': message.getCreated(),
-                'createdFuzzy': '<createdFuzzy>',
+                'createdFuzzy': message.getCreatedFuzzy(),
                 'body': message.getBody().nl2br()
             });
         });

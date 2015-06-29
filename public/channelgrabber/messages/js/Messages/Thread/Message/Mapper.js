@@ -19,6 +19,7 @@ define([
             json.id,
             json.accountId,
             json.created,
+            json.createdFuzzy,
             json.name,
             json.externalUsername,
             json.body,

@@ -78,7 +78,7 @@ define([
                     'updatedTime': updatedParts[1],
                     'status': thread.getStatus().toLowerCase(),
                     'statusText': thread.getStatus().replace(/_-/g, ' ').ucfirst(),
-                    'assignee': '<assignee>'
+                    'assignedUserName': thread.getAssignedUserName()
                 });
                 self.getDomManipulator().append(ThreadList.SELECTOR_LIST, html);
             });

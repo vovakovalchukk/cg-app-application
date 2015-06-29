@@ -7,12 +7,16 @@ define([
         id,
         channel,
         accountId,
+        accountName,
         status,
         created,
+        createdFuzzy,
         updated,
+        updatedFuzzy,
         name,
         externalUsername,
         assignedUserId,
+        assignedUserName,
         subject,
         externalId,
         messages
@@ -50,6 +54,17 @@ define([
             return this;
         };
 
+        this.getAccountName = function()
+        {
+            return accountName;
+        };
+
+        this.setAccountName = function(newAccountName)
+        {
+            accountName = newAccountName;
+            return this;
+        };
+
         this.getStatus = function()
         {
             return status;
@@ -72,6 +87,17 @@ define([
             return this;
         };
 
+        this.getCreatedFuzzy = function()
+        {
+            return createdFuzzy;
+        };
+
+        this.setCreatedFuzzy = function(newCreatedFuzzy)
+        {
+            createdFuzzy = newCreatedFuzzy;
+            return this;
+        };
+
         this.getUpdated = function()
         {
             return updated;
@@ -80,6 +106,17 @@ define([
         this.setUpdated = function(newUpdated)
         {
             updated = newUpdated;
+            return this;
+        };
+
+        this.getUpdatedFuzzy = function()
+        {
+            return updatedFuzzy;
+        };
+
+        this.setUpdatedFuzzy = function(newUpdatedFuzzy)
+        {
+            updatedFuzzy = newUpdatedFuzzy;
             return this;
         };
 
@@ -113,6 +150,17 @@ define([
         this.setAssignedUserId = function(newAssignedUserId)
         {
             assignedUserId = newAssignedUserId;
+            return this;
+        };
+
+        this.getAssignedUserName = function()
+        {
+            return assignedUserName;
+        };
+
+        this.setAssignedUserName = function(newAssignedUserName)
+        {
+            assignedUserName = newAssignedUserName;
             return this;
         };
 

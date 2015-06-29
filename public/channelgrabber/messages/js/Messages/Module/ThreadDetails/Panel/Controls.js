@@ -31,7 +31,7 @@ define([
             var html = cgmustache.renderTemplate(template, {
                 'subject': thread.getSubject(),
                 'channel': thread.getChannel(),
-                'account': '<account name>',
+                'accountName': thread.getAccountName(),
                 'name': thread.getName(),
                 'status': thread.getStatus().toLowerCase(),
                 'statusText': thread.getStatus().replace(/_-/g, ' ').ucfirst(),
