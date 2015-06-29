@@ -45,7 +45,7 @@ define([
         init.call(this);
     };
 
-    ThreadList.TEMPLATE_SUMMARY = '/channelgrabber/messages/template/Messages/Thread/summary.mustache';
+    ThreadList.TEMPLATE_SUMMARY = '/channelgrabber/messages/template/Messages/ThreadList/summary.mustache';
     ThreadList.SELECTOR_LIST = '.message-pane ul';
     ThreadList.SELECTOR_LIST_ELEMENTS = '.message-pane ul li';
 
@@ -68,14 +68,17 @@ define([
             self.getDomManipulator().remove(ThreadList.SELECTOR_LIST_ELEMENTS);
             threads.each(function(thread)
             {
+                var updatedParts = thread.getUpdated().split(' ');
                 var html = cgmustache.renderTemplate(template, {
                     'id': thread.getId(),
                     'channel': thread.getChannel(),
                     'name': thread.getName(),
                     'subject': thread.getSubject(),
-                    'created': thread.getCreated(),
-                    'updated': thread.getUpdated(),
-                    'status': thread.getStatus()
+                    'updatedDate': updatedParts[0],
+                    'updatedTime': updatedParts[1],
+                    'status': thread.getStatus().toLowerCase(),
+                    'statusText': thread.getStatus().replace(/_-/g, ' ').ucfirst(),
+                    'assignee': '<assignee>'
                 });
                 self.getDomManipulator().append(ThreadList.SELECTOR_LIST, html);
             });
@@ -88,9 +91,10 @@ define([
         if (!this.getThreads().containsId(id)) {
             return;
         }
-        var thread = this.getThreads().getById(id);
-        // TODO: CGIV-5839, highlight this thread in the list
+        this.getDomManipulator().removeClass(ThreadList.SELECTOR_LIST_ELEMENTS, 'active')
+            .addClass(ThreadList.SELECTOR_LIST_ELEMENTS+'[data-entity-id='+id+']', 'active')
 
+        var thread = this.getThreads().getById(id);
         // The actual fetching and rendering of the thread in the right pane is handled by ThreadDetail
         this.getEventHandler().triggerThreadSelected(thread);
     };

@@ -2,6 +2,7 @@ define([
     'Messages/ModuleAbstract',
     'Messages/Module/ThreadDetails/EventHandler',
     'Messages/Thread/Service',
+    'DomManipulator',
     'Messages/Module/ThreadDetails/Panel/Controls',
     'Messages/Module/ThreadDetails/Panel/Body',
     'Messages/Module/ThreadDetails/Panel/Respond',
@@ -9,6 +10,7 @@ define([
     ModuleAbstract,
     EventHandler,
     service,
+    domManipulator,
     ControlsPanel,
     BodyPanel,
     RespondPanel
@@ -23,6 +25,11 @@ define([
         this.getService = function()
         {
             return service;
+        };
+
+        this.getDomManipulator = function()
+        {
+            return domManipulator;
         };
 
         this.getThread = function()
@@ -50,6 +57,7 @@ define([
         this.resetPanels = function()
         {
             panels = [];
+            this.getDomManipulator().setHtml(ThreadDetails.SELECTOR, '');
             return this;
         };
 
@@ -60,6 +68,8 @@ define([
         };
         init.call(this);
     };
+
+    ThreadDetails.SELECTOR = '.message-preview';
 
     ThreadDetails.prototype = Object.create(ModuleAbstract.prototype);
 

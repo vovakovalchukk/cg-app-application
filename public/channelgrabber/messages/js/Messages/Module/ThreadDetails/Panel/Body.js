@@ -1,9 +1,11 @@
 define([
     'Messages/Module/ThreadDetails/PanelAbstract',
-    'Messages/Module/ThreadDetails/Panel/Body/EventHandler'
+    'Messages/Module/ThreadDetails/Panel/Body/EventHandler',
+    'cg-mustache'
 ], function(
     PanelAbstract,
-    EventHandler
+    EventHandler,
+    CGMustache
 ) {
     var Body = function(thread)
     {
@@ -17,11 +19,31 @@ define([
         init.call(this);
     };
 
+    Body.SELECTOR = '.message-section';
+    Body.TEMPLATE = '/channelgrabber/messages/template/Messages/ThreadDetails/Panel/body.mustache';
+
     Body.prototype = Object.create(PanelAbstract.prototype);
 
     Body.prototype.render = function(thread)
     {
-        // TODO: CGIV-5839
+        var self = this;
+        var messagesData = [];
+        thread.getMessages().each(function(message)
+        {
+            messagesData.push({
+                'name': message.getName(),
+                'externalUsername': message.getExternalUsername(),
+                'created': message.getCreated(),
+                'createdFuzzy': '<createdFuzzy>',
+                'body': message.getBody().nl2br()
+            });
+        });
+        CGMustache.get().fetchTemplate(Body.TEMPLATE, function(template, cgmustache) {
+            var html = cgmustache.renderTemplate(template, {
+                'messages': messagesData
+            });
+            self.getDomManipulator().append(PanelAbstract.SELECTOR_CONTAINER, html);
+        });
     };
 
     return Body;

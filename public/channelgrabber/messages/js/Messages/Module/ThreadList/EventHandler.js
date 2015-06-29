@@ -21,7 +21,7 @@ define([
         init.call(this);
     };
 
-    EventHandler.SELECTOR_THREAD = '.messages-thread-summary';
+    EventHandler.SELECTOR_THREAD = '.message-pane ul li';
 
     EventHandler.prototype = Object.create(EventHandlerAbstract.prototype);
 
@@ -38,7 +38,6 @@ define([
     EventHandler.prototype.listenForThreadDomSelection = function()
     {
         var self = this;
-        // TODO: this wont work until the UI is added in CGIV-5839
         $(document).on('click', EventHandler.SELECTOR_THREAD, function()
         {
             var selectedElement = this;
