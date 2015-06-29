@@ -61,5 +61,17 @@ define([
         this.applyFilter(filter);
     };
 
+    Filters.prototype.deactivateAll = function()
+    {
+        var filters = this.getFilters();
+        for (var key in filters) {
+            if (!filters[key].isActive()) {
+                continue;
+            }
+            filters[key].deactivate();
+        }
+        return this;
+    };
+
     return Filters;
 });

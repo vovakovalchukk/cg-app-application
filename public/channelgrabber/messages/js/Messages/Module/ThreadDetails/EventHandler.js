@@ -13,7 +13,8 @@ define([
 
         var init = function()
         {
-            this.listenForThreadSelection();
+            this.listenForThreadSelection()
+                .listenForThreadsRendered();
         };
         init.call(this);
     };
@@ -26,6 +27,16 @@ define([
         $(document).on(ThreadListEvents.THREAD_SELECTED, function(event, thread)
         {
             self.getModule().loadThread(thread);
+        });
+        return this;
+    };
+
+    EventHandler.prototype.listenForThreadsRendered = function()
+    {
+        var self = this;
+        $(document).on(ThreadListEvents.THREADS_RENDERED, function()
+        {
+            self.getModule().resetPanels();
         });
         return this;
     };

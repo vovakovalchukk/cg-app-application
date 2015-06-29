@@ -33,7 +33,7 @@ define([
                 'channel': thread.getChannel(),
                 'accountName': thread.getAccountName(),
                 'name': thread.getName(),
-                'status': thread.getStatus().toLowerCase(),
+                'status': thread.getStatus().replace(/ /g, '-').toLowerCase(),
                 'statusText': thread.getStatus().replace(/_-/g, ' ').ucfirst(),
                 'assignedUserId': thread.getAssignedUserId()
             });

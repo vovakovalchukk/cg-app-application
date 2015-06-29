@@ -25,8 +25,10 @@ define([
 
         this.activate = function()
         {
+            filterModule.deactivateAll();
             domManipulator.addClass(this.getFilterSelector(), 'active');
             active = true;
+            filterModule.applyActiveFilters();
             return this;
         };
 

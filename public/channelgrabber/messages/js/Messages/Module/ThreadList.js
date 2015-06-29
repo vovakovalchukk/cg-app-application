@@ -79,7 +79,7 @@ define([
                     'subject': thread.getSubject(),
                     'updatedDate': updatedParts[0],
                     'updatedTime': updatedParts[1],
-                    'status': thread.getStatus().toLowerCase(),
+                    'status': thread.getStatus().replace(/ /g, '-').toLowerCase(),
                     'statusText': thread.getStatus().replace(/_-/g, ' ').ucfirst(),
                     'assignedUserName': thread.getAssignedUserName()
                 });

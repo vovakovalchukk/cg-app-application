@@ -57,7 +57,8 @@ define([
         this.resetPanels = function()
         {
             panels = [];
-            this.getDomManipulator().setHtml(ThreadDetails.SELECTOR, '');
+            this.getDomManipulator().remove(ThreadDetails.SELECTOR+' > *:not('+ThreadDetails.SELECTOR_NO_MSG+')');
+            this.getDomManipulator().show(ThreadDetails.SELECTOR+' '+ThreadDetails.SELECTOR_NO_MSG);
             return this;
         };
 
@@ -70,6 +71,7 @@ define([
     };
 
     ThreadDetails.SELECTOR = '.message-preview';
+    ThreadDetails.SELECTOR_NO_MSG = '.no-messages-content';
 
     ThreadDetails.prototype = Object.create(ModuleAbstract.prototype);
 
@@ -85,6 +87,7 @@ define([
             .addPanel(new ControlsPanel(thread))
             .addPanel(new BodyPanel(thread))
             .addPanel(new RespondPanel(thread));
+        this.getDomManipulator().hide(ThreadDetails.SELECTOR+' '+ThreadDetails.SELECTOR_NO_MSG);
     };
 
     ThreadDetails.prototype.refresh = function()
