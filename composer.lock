@@ -360,13 +360,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-communication.git",
-                "reference": "7357635b11e427cb9da19c38886c1a3fd282e5d4"
+                "reference": "bc36b9603406649774da35e06dad3e2595f40fef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-communication-dev-CGIV-4698-1f3d9d.zip",
-                "reference": "7357635b11e427cb9da19c38886c1a3fd282e5d4",
-                "shasum": "a1e12d699fe042c24fa31816af247c24eb488c93"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-communication-dev-CGIV-4698-cd92cc.zip",
+                "reference": "bc36b9603406649774da35e06dad3e2595f40fef",
+                "shasum": "9e6adc983bc254263c79658f41d1c33355636949"
             },
             "type": "library",
             "autoload": {
@@ -385,7 +385,7 @@
                     "email": "matthew.king@channelgrabber.com"
                 }
             ],
-            "time": "2015-06-29 13:54:32"
+            "time": "2015-06-29 14:52:01"
         },
         {
             "name": "channelgrabber/constants",

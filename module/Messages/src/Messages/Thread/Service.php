@@ -7,6 +7,7 @@ use CG\Communication\Thread\Collection as ThreadCollection;
 use CG\Communication\Thread\Entity as Thread;
 use CG\Communication\Thread\Filter as ThreadFilter;
 use CG\Communication\Thread\Service as ThreadService;
+use CG\Communication\Thread\Status as ThreadStatus;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\OrganisationUnit\Service as UserOuService;
@@ -52,6 +53,8 @@ class Service
             ->setOrganisationUnitId([$ou->getId()]);
         if (isset($filters['status'])) {
             $threadFilter->setStatus((array)$filters['status']);
+        } else {
+            $this->filterByNotResolved($threadFilter);
         }
         if (isset($filters['assignee'])) {
             $this->filterByAssignee($threadFilter, $filters['assignee']);
@@ -73,6 +76,13 @@ class Service
         }
         $method = $this->assigneeMethodMap[$assignee];
         $this->$method($threadFilter);
+        return $this;
+    }
+
+    protected function filterByNotResolved(ThreadFilter $threadFilter)
+    {
+        $otherStatuses = array_diff(ThreadStatus::getStatuses(), [ThreadStatus::RESOLVED]);
+        $threadFilter->setStatus($otherStatuses);
         return $this;
     }
 
@@ -158,6 +168,7 @@ class Service
         }
         $method = $this->assigneeMethodMap[$assignee];
         $this->$method($threadFilter);
+        $this->filterByNotResolved($threadFilter);
         return $this->getCountFromFilter($threadFilter);
     }
 
