@@ -186,10 +186,14 @@ class Service
     public function updateThreadAndReturnData($id, $assignedUserId = null, $status = null)
     {
         $thread = $this->threadService->fetch($id);
-        if ($assignedUserId) {
+        // null is a valid assignee
+        if ($assignedUserId !== false) {
             if ($assignedUserId == static::ASSIGNEE_ACTIVE_USER) {
                 $user = $this->userOuService->getActiveUser();
                 $assignedUserId = $user->getId();
+            // null can come through as ''
+            } elseif ($assignedUserId == '') {
+                $assignedUserId = null;
             }
             $thread->setAssignedUserId($assignedUserId);
         }

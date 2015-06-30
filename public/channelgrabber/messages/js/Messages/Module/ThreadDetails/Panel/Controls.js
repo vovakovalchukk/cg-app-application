@@ -13,9 +13,11 @@ define([
     {
         PanelAbstract.call(this, thread);
 
-        this.getAssignableUsers = function()
+        var assignableUserOptions = [];
+
+        this.getAssignableUserOptions = function()
         {
-            return assignableUsers;
+            return assignableUserOptions;
         };
 
         this.getService = function()
@@ -26,6 +28,10 @@ define([
         var init = function()
         {
             this.setEventHandler(new EventHandler(this));
+            assignableUserOptions.push({value: null, title: 'Unassigned'});
+            for (var id in assignableUsers) {
+                assignableUserOptions.push({value: id, title: assignableUsers[id]});
+            }
             this.render(thread);
         };
         init.call(this);
@@ -33,6 +39,7 @@ define([
 
     Controls.SELECTOR = '.preview-header';
     Controls.TEMPLATE = '/channelgrabber/messages/template/Messages/ThreadDetails/Panel/controls.mustache';
+    Controls.TEMPLATE_SELECT = '/channelgrabber/zf2-v4-ui/templates/elements/custom-select.mustache';
 
     Controls.prototype = Object.create(PanelAbstract.prototype);
 
@@ -42,8 +49,14 @@ define([
     Controls.prototype.render = function(thread)
     {
         var self = this;
-        CGMustache.get().fetchTemplate(Controls.TEMPLATE, function(template, cgmustache) {
-            var html = cgmustache.renderTemplate(template, {
+        var assignableUserOptions = this.getAssignableUserOptionsForThread(thread);
+        CGMustache.get().fetchTemplates({main: Controls.TEMPLATE, select: Controls.TEMPLATE_SELECT}, function(templates, cgmustache) {
+            var selectHtml = cgmustache.renderTemplate(templates, {
+                'id': 'control-assignee',
+                'title': 'Assigned',
+                'options': assignableUserOptions
+            }, 'select');
+            var html = cgmustache.renderTemplate(templates, {
                 'subject': thread.getSubject(),
                 'channel': thread.getChannel(),
                 'accountName': thread.getAccountName(),
@@ -53,9 +66,23 @@ define([
                 'assignedUserId': thread.getAssignedUserId(),
                 'takable': !(self.nonTakableStatuses[thread.getStatus()]),
                 'resolvable': !(self.nonResolvableStatuses[thread.getStatus()])
-            });
+            }, 'main', {assigneeSelect: selectHtml});
             self.getDomManipulator().append(PanelAbstract.SELECTOR_CONTAINER, html);
         });
+    };
+
+    Controls.prototype.getAssignableUserOptionsForThread = function(thread)
+    {
+        // Clone the assignee options
+        var assigneeOptions = JSON.parse(JSON.stringify(this.getAssignableUserOptions()));
+        for (var key in assigneeOptions) {
+            if (assigneeOptions[key].value != thread.getAssignedUserId()) {
+                continue;
+            }
+            assigneeOptions[key].selected = true;
+            break;
+        }
+        return assigneeOptions;
     };
 
     Controls.prototype.take = function()
@@ -66,6 +93,22 @@ define([
             self.setThread(updatedThread);
             // TODO: update the asignee dropdown
             // Also need to update the summary data in the ThreadList
+            n.success('The assignee has been updated to you');
+        });
+    };
+
+    Controls.prototype.assign = function(userId)
+    {
+        var self = this;
+        if (isNaN(parseInt(userId))) {
+            userId = null;
+        }
+
+        this.getThread().setAssignedUserId(userId);
+        this.getService().saveAssigned(this.getThread(), function()
+        {
+            // TODO:  update the summary data in the ThreadList
+            n.success('The assignee has been updated successfully');
         });
     };
 

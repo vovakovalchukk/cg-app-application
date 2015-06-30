@@ -55,8 +55,8 @@ class ThreadJsonController extends AbstractActionController
         if (!$id) {
             throw new \InvalidArgumentException(__METHOD__ . ' requires an id in the POST data');
         }
-        $assignedUserId = $this->params()->fromPost('assignedUserId', null);
-        $status = $this->params()->fromPost('status', null);
+        $assignedUserId = $this->params()->fromPost('assignedUserId', false);
+        $status = $this->params()->fromPost('status', false);
 
         $threadData = $this->service->updateThreadAndReturnData($id, $assignedUserId, $status);
 

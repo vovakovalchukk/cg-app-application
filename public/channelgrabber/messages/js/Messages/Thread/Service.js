@@ -11,6 +11,8 @@ define([
         };
     };
 
+    Service.ASSIGNEE_ACTIVE_USER = 'active-user';
+
     Service.prototype.fetchCollectionByFilter = function(filter, callback)
     {
         this.getStorage().fetchCollectionByFilter(filter, callback);
@@ -25,7 +27,12 @@ define([
     {
         // Special value for the current user
         // callback will be passed the new version of the thread with the actual ID set
-        thread.setAssignedUserId('active-user');
+        thread.setAssignedUserId(Service.ASSIGNEE_ACTIVE_USER);
+        this.saveAssigned(thread, callback);
+    };
+
+    Service.prototype.saveAssigned = function(thread, callback)
+    {
         this.getStorage().saveAssigned(thread, callback);
     };
 

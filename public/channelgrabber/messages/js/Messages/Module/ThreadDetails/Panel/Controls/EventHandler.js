@@ -11,22 +11,35 @@ define([
 
         var init = function()
         {
-            this.listenForTakeClick();
+            this.listenForTakeClick()
+                .listenForAssigneeChange();
         };
         init.call(this);
     };
 
     EventHandler.SELECTOR_TAKE = '#control-take';
+    EventHandler.SELECTOR_ASSIGNEE = '#control-assignee';
 
     EventHandler.prototype = Object.create(EventHandlerAbstract.prototype);
 
     EventHandler.prototype.listenForTakeClick = function()
     {
         var panel = this.getPanel();
-        $(document).on('click', EventHandler.SELECTOR_TAKE, function()
+        $(document).off('click', EventHandler.SELECTOR_TAKE).on('click', EventHandler.SELECTOR_TAKE, function()
         {
             panel.take();
         });
+        return this;
+    };
+
+    EventHandler.prototype.listenForAssigneeChange = function()
+    {
+        var panel = this.getPanel();
+        $(document).off('change', EventHandler.SELECTOR_ASSIGNEE).on('change', EventHandler.SELECTOR_ASSIGNEE, function(event, select, value)
+        {
+            panel.assign(value);
+        });
+        return this;
     };
 
     return EventHandler;
