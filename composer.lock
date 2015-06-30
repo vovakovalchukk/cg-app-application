@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4fa1adcabab429552e7be786335de609",
+    "hash": "e2da570bd972f91eb0e465d0f264848d",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2808,17 +2808,17 @@
         },
         {
             "name": "channelgrabber/zf2-usage",
-            "version": "1.0.6.1",
+            "version": "dev-CGIV-5881-ExceptionHandler",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/usage-module.git",
-                "reference": "4c6532f4e4cbe10d0410e2f533636525a0897a6d"
+                "reference": "3ef2fba2406339b35ccca2daca096ff68bc192a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-usage-1.0.6.1-2a2cd9.zip",
-                "reference": "4c6532f4e4cbe10d0410e2f533636525a0897a6d",
-                "shasum": "00ae8c0cd37f8624073d42a7b9e59b5e35f7d73f"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-usage-dev-CGIV-5881-ExceptionHandler-a03f4e.zip",
+                "reference": "3ef2fba2406339b35ccca2daca096ff68bc192a6",
+                "shasum": "bf013896c80506da99c5687a404faa853dcb3f63"
             },
             "require": {
                 "channelgrabber/billing": ">=1.1.3",
@@ -2827,7 +2827,11 @@
                 "channelgrabber/stdlib": ">=2.7.0",
                 "channelgrabber/usage": ">=1.0.2",
                 "channelgrabber/user": ">=1.11.14",
+                "channelgrabber/zf2-v4-ui": "dev-CGIV-5881-ExceptionHandlerCleanup as 1.15.10",
+                "composer/composer": "@dev",
                 "guzzle/guzzle": "~3.7",
+                "php-jsonpatch/php-jsonpatch": "@dev",
+                "php-jsonpointer/php-jsonpointer": "@dev",
                 "zendframework/zend-config": "2.*",
                 "zendframework/zend-eventmanager": "2.*",
                 "zendframework/zend-form": "2.*",
@@ -2849,21 +2853,21 @@
                 ]
             },
             "description": "Usage module to determine if users are exceeding their limits",
-            "time": "2015-05-26 13:42:16"
+            "time": "2015-06-30 13:08:31"
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.15.9",
+            "version": "dev-CGIV-5881-ExceptionHandlerCleanup",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "802ea6c96b4e608d3816203fc99e058026540017"
+                "reference": "f2d02f17f303f6fbb93f2247318a95a956df45cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.15.9-e41a97.zip",
-                "reference": "802ea6c96b4e608d3816203fc99e058026540017",
-                "shasum": "77164de97fa29b5d6c5c6cb91ac890784034ed91"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5881-ExceptionHandlerCleanup-17265f.zip",
+                "reference": "f2d02f17f303f6fbb93f2247318a95a956df45cc",
+                "shasum": "8201031b4aa4bb263ce65e2416b18c62c5d7fe74"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2908,7 +2912,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-06-29 15:00:06"
+            "time": "2015-06-30 13:05:19"
         },
         {
             "name": "cilex/cilex",
@@ -6584,10 +6588,25 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.7",
+            "alias_normalized": "1.0.7.0",
+            "version": "dev-CGIV-5881-ExceptionHandler",
+            "package": "channelgrabber/zf2-usage"
+        },
+        {
+            "alias": "1.15.10",
+            "alias_normalized": "1.15.10.0",
+            "version": "dev-CGIV-5881-ExceptionHandlerCleanup",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-usage": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
