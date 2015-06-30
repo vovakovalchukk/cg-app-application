@@ -91,9 +91,9 @@ define([
         this.getService().assignToActiveUser(this.getThread(), function(updatedThread)
         {
             self.setThread(updatedThread);
-            // TODO: update the asignee dropdown
-            // Also need to update the summary data in the ThreadList
             n.success('The assignee has been updated to you');
+            // Expected to be picked up by Module\Filter\EventHandler
+            self.getEventHandler().triggerAssigneeChanged(updatedThread);
         });
     };
 
@@ -105,10 +105,12 @@ define([
         }
 
         this.getThread().setAssignedUserId(userId);
-        this.getService().saveAssigned(this.getThread(), function()
+        this.getService().saveAssigned(this.getThread(), function(thread)
         {
-            // TODO:  update the summary data in the ThreadList
             n.success('The assignee has been updated successfully');
+            // Need to update the ui, trigger an event.
+            // Expected to be picked up by Module\Filter\EventHandler
+            self.getEventHandler().triggerAssigneeChanged(thread);
         });
     };
 

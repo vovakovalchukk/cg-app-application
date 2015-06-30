@@ -39,13 +39,13 @@ define([
 
     Filters.prototype = Object.create(ModuleAbstract.prototype);
 
-    Filters.prototype.applyFilter = function(filter)
+    Filters.prototype.applyFilter = function(filter, selectedThread)
     {
         // Expected to be picked up by Messages/Module/ThreadList/EventHandler
-        this.getEventHandler().triggerApplyRequested(filter);
+        this.getEventHandler().triggerApplyRequested(filter, selectedThread);
     };
 
-    Filters.prototype.applyActiveFilters = function()
+    Filters.prototype.applyActiveFilters = function(selectedThread)
     {
         var filter = {};
         var filters = this.getFilters();
@@ -58,7 +58,7 @@ define([
                 filter[key2] = filterData[key2];
             }
         }
-        this.applyFilter(filter);
+        this.applyFilter(filter, selectedThread);
     };
 
     Filters.prototype.deactivateAll = function()

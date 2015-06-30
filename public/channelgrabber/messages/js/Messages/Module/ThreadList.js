@@ -52,19 +52,19 @@ define([
 
     ThreadList.prototype = Object.create(ModuleAbstract.prototype);
 
-    ThreadList.prototype.loadForFilter = function(filter)
+    ThreadList.prototype.loadForFilter = function(filter, selectedThread)
     {
         var self = this;
         this.getDomManipulator().show(ThreadList.SELECTOR_LOADING);
         this.getService().fetchCollectionByFilter(filter, function(threads)
         {
             self.setThreads(threads);
-            self.renderThreads(threads);
+            self.renderThreads(threads, selectedThread);
             self.getDomManipulator().hide(ThreadList.SELECTOR_LOADING);
         });
     };
 
-    ThreadList.prototype.renderThreads = function(threads)
+    ThreadList.prototype.renderThreads = function(threads, selectedThread)
     {
         var self = this;
         CGMustache.get().fetchTemplate(ThreadList.TEMPLATE_SUMMARY, function(template, cgmustache) {
@@ -85,7 +85,11 @@ define([
                 });
                 self.getDomManipulator().append(ThreadList.SELECTOR_LIST, html);
             });
+            // Tell listeners we've rendered. Expected to be picked up by Module/ThreadDetails/Eventhandler
             self.getEventHandler().triggerThreadsRendered(threads);
+            if (selectedThread) {
+                self.threadSelected(selectedThread.getId());
+            }
         });
     };
 

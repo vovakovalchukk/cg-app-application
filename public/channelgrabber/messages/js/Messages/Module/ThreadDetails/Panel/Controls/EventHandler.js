@@ -1,9 +1,11 @@
 define([
     'jquery',
-    'Messages/Module/ThreadDetails/Panel/EventHandlerAbstract'
+    'Messages/Module/ThreadDetails/Panel/EventHandlerAbstract',
+    'Messages/Module/ThreadDetails/Panel/Controls/Events'
 ], function(
     $,
-    EventHandlerAbstract
+    EventHandlerAbstract,
+    ControlEvents
 ) {
     var EventHandler = function(panel)
     {
@@ -40,6 +42,11 @@ define([
             panel.assign(value);
         });
         return this;
+    };
+
+    EventHandler.prototype.triggerAssigneeChanged = function(thread)
+    {
+        $(document).trigger(ControlEvents.ASSIGNEE_CHANGED, [thread]);
     };
 
     return EventHandler;

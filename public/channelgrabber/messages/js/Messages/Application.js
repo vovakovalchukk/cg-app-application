@@ -49,12 +49,11 @@ define([
                 var module = new modulesClasses[key](this);
                 modules.push(module);
             }
+            // Tell any listeners that we're ready. Expected to be picked up by Module\Filter\EventHandler
             eventHandler.triggerInitialised();
         };
         init.call(this);
     };
-
-    Application.EVENT_INITIALISED = 'application-initialised';
 
     return Application;
 });

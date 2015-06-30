@@ -48,17 +48,15 @@ define([
             return panels;
         };
 
-        this.addPanel = function(panel)
+        this.setPanels = function(newPanels)
         {
-            panels.push(panel);
+            panels = newPanels;
             return this;
         };
 
-        this.resetPanels = function()
+        this.addPanel = function(panel)
         {
-            panels = [];
-            this.getDomManipulator().remove(ThreadDetails.SELECTOR+' > *:not('+ThreadDetails.SELECTOR_NO_MSG+')');
-            this.getDomManipulator().show(ThreadDetails.SELECTOR+' '+ThreadDetails.SELECTOR_NO_MSG);
+            panels.push(panel);
             return this;
         };
 
@@ -89,6 +87,14 @@ define([
             .addPanel(new BodyPanel(thread))
             .addPanel(new RespondPanel(thread));
         this.getDomManipulator().hide(ThreadDetails.SELECTOR+' '+ThreadDetails.SELECTOR_NO_MSG);
+    };
+
+    ThreadDetails.prototype.resetPanels = function()
+    {
+        this.setPanels([]);
+        this.getDomManipulator().remove(ThreadDetails.SELECTOR+' > *:not('+ThreadDetails.SELECTOR_NO_MSG+')');
+        this.getDomManipulator().show(ThreadDetails.SELECTOR+' '+ThreadDetails.SELECTOR_NO_MSG);
+        return this;
     };
 
     ThreadDetails.prototype.refresh = function()
