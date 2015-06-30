@@ -45,22 +45,10 @@ $(document).ready(function() {
     </li>
     <li data-filter-type="search" class="message-search-holder">
         <div class="message-search-field">
-            <div data-element-name="searchTerm" data-cgtype="Search" class="med-element search-field">
-                <label for="filter-search-field">
-                    <div class="sprite-search-18-black"></div>
-                </label>
-                <input type="text" class=" search-field-input" placeholder="Search for..." name="searchTerm" id="filter-search-field">
-            </div>
+            <?=$filterSearchInput;?>
         </div>
         <div class="message-button-holder">
-          <span class="button-holder" data-cgtype="Button">
-                <div id="-shadow" class="button    ">
-                    <span data-action="clear-filters" class="action">
-                        <span class="title">Search</span>
-                    </span>
-                </div>
-                <input type="submit" style="display:none;" id="" data-action="clear-filters" value="Clear" class="button">
-          </span>
+            <?=$filterSearchButton;?>
       </div>
     </li>
 </ul>

@@ -40,6 +40,32 @@ class IndexController extends AbstractActionController
         $view->setVariable('isSidebarVisible', false);
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
+        $view->addChild($this->getFilterSearchInputView(), 'filterSearchInput');
+        $view->addChild($this->getFilterSearchButtonView(), 'filterSearchButton');
+        return $view;
+    }
+
+    protected function getFilterSearchInputView()
+    {
+        $view = $this->viewModelFactory->newInstance();
+        $view->setTemplate('elements/search.mustache');
+        $view->setVariable('name', 'searchTerm');
+        $view->setVariable('placeholder', 'Search for...');
+        return $view;
+    }
+
+    protected function getFilterSearchButtonView()
+    {
+        $view = $this->viewModelFactory->newInstance();
+        $view->setTemplate('elements/buttons.mustache');
+        $view->setVariable('buttons', [
+            [
+                'id' => 'filter-search-button',
+                'action' => 'search',
+                'value' => 'Search',
+                'type' => 'button',
+            ]
+        ]);
         return $view;
     }
 

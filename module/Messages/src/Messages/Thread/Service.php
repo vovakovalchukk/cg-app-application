@@ -53,11 +53,15 @@ class Service
             ->setOrganisationUnitId([$ou->getId()]);
         if (isset($filters['status'])) {
             $threadFilter->setStatus((array)$filters['status']);
-        } else {
-            $this->filterByNotResolved($threadFilter);
         }
         if (isset($filters['assignee'])) {
             $this->filterByAssignee($threadFilter, $filters['assignee']);
+        }
+        if (isset($filters['searchTerm'])) {
+            $threadFilter->setSearchTerm($filters['searchTerm']);
+        }
+        if (!isset($filters['status']) && !isset($filters['searchTerm'])) {
+            $this->filterByNotResolved($threadFilter);
         }
 
         try {

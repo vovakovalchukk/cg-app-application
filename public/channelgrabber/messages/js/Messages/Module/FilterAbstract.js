@@ -18,29 +18,41 @@ define([
             return this;
         };
 
+        this.getDomManipulator = function()
+        {
+            return domManipulator;
+        };
+
         this.isActive = function()
         {
             return active;
         };
 
-        this.activate = function()
+        // Don't call this directly, use activate() and deactivate()
+        this.setActive = function(isActive)
         {
-            filterModule.deactivateAll();
-            domManipulator.addClass(this.getFilterSelector(), 'active');
-            active = true;
-            filterModule.applyActiveFilters();
-            return this;
-        };
-
-        this.deactivate = function()
-        {
-            domManipulator.removeClass(this.getFilterSelector(), 'active');
-            active = false;
+            active = isActive;
             return this;
         };
     };
 
     FilterAbstract.SELECTOR_CONTAINER = '.message-center-nav ul';
+
+    FilterAbstract.prototype.activate = function()
+    {
+        this.getFilterModule().deactivateAll();
+        this.getDomManipulator().addClass(this.getFilterSelector(), 'active');
+        this.setActive(true);
+        this.getFilterModule().applyActiveFilters();
+        return this;
+    };
+
+    FilterAbstract.prototype.deactivate = function()
+    {
+        this.getDomManipulator().removeClass(this.getFilterSelector(), 'active');
+        this.setActive(false);
+        return this;
+    };
 
     FilterAbstract.prototype.getFilterSelector = function()
     {
