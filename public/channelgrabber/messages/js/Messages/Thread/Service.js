@@ -12,6 +12,7 @@ define([
     };
 
     Service.ASSIGNEE_ACTIVE_USER = 'active-user';
+    Service.STATUS_RESOLVED = 'resolved';
 
     Service.prototype.fetchCollectionByFilter = function(filter, callback)
     {
@@ -33,7 +34,20 @@ define([
 
     Service.prototype.saveAssigned = function(thread, callback)
     {
-        this.getStorage().saveAssigned(thread, callback);
+        var data = {id: thread.getId(), assignedUserId: thread.getAssignedUserId()};
+        this.getStorage().saveData(data, callback);
+    };
+
+    Service.prototype.resolve = function(thread, callback)
+    {
+        thread.setStatus(Service.STATUS_RESOLVED);
+        this.saveStatus(thread, callback);
+    };
+
+    Service.prototype.saveStatus = function(thread, callback)
+    {
+        var data = {id: thread.getId(), status: thread.getStatus()};
+        this.getStorage().saveData(data, callback);
     };
 
     return new Service();

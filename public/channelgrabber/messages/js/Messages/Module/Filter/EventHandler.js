@@ -18,7 +18,7 @@ define([
         var init = function()
         {
             this.listenForApplicationInitialised()
-                .listenForAssigneeChanged();
+                .listenForAssigneeOrStatusChanged();
         };
         init.call(this);
     };
@@ -36,10 +36,10 @@ define([
         return this;
     };
 
-    EventHandler.prototype.listenForAssigneeChanged = function()
+    EventHandler.prototype.listenForAssigneeOrStatusChanged = function()
     {
         var self = this;
-        $(document).on(ControlEvents.ASSIGNEE_CHANGED, function(event, thread)
+        $(document).on(ControlEvents.ASSIGNEE_CHANGED + ' ' + ControlEvents.STATUS_CHANGED, function(event, thread)
         {
             self.getModule().applyActiveFilters(thread)
                 .updateFilterCounts();

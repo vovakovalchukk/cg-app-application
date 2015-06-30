@@ -114,5 +114,17 @@ define([
         });
     };
 
+    Controls.prototype.resolve = function()
+    {
+        var self = this;
+        this.getService().resolve(this.getThread(), function(updatedThread)
+        {
+            self.setThread(updatedThread);
+            n.success('The status has been updated successfully');
+            // Expected to be picked up by Module\Filter\EventHandler
+            self.getEventHandler().triggerStatusChanged(updatedThread);
+        });
+    };
+
     return Controls;
 });

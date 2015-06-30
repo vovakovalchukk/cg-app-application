@@ -55,10 +55,9 @@ define([
         });
     };
 
-    Ajax.prototype.saveAssigned = function(thread, callback)
+    Ajax.prototype.saveData = function(data, callback)
     {
         var self = this;
-        var data = {id: thread.getId(), assignedUserId: thread.getAssignedUserId()};
         this.getRequester().sendRequest(Ajax.URL_SAVE, data, function(response)
         {
             if (response.message) {

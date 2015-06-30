@@ -14,12 +14,14 @@ define([
         var init = function()
         {
             this.listenForTakeClick()
+                .listenForResolveClick()
                 .listenForAssigneeChange();
         };
         init.call(this);
     };
 
     EventHandler.SELECTOR_TAKE = '#control-take';
+    EventHandler.SELECTOR_RESOLVE = '#control-resolve';
     EventHandler.SELECTOR_ASSIGNEE = '#control-assignee';
 
     EventHandler.prototype = Object.create(EventHandlerAbstract.prototype);
@@ -30,6 +32,16 @@ define([
         $(document).off('click', EventHandler.SELECTOR_TAKE).on('click', EventHandler.SELECTOR_TAKE, function()
         {
             panel.take();
+        });
+        return this;
+    };
+
+    EventHandler.prototype.listenForResolveClick = function()
+    {
+        var panel = this.getPanel();
+        $(document).off('click', EventHandler.SELECTOR_RESOLVE).on('click', EventHandler.SELECTOR_RESOLVE, function()
+        {
+            panel.resolve();
         });
         return this;
     };
@@ -47,6 +59,11 @@ define([
     EventHandler.prototype.triggerAssigneeChanged = function(thread)
     {
         $(document).trigger(ControlEvents.ASSIGNEE_CHANGED, [thread]);
+    };
+
+    EventHandler.prototype.triggerStatusChanged = function(thread)
+    {
+        $(document).trigger(ControlEvents.STATUS_CHANGED, [thread]);
     };
 
     return EventHandler;
