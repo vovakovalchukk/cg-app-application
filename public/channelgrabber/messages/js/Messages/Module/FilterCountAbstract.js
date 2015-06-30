@@ -15,11 +15,6 @@ define([
 
         var eventHandler;
 
-        this.setCount = function(count)
-        {
-            domManipulator.setHtml(this.getFilterSelector()+' '+FilterCountAbstract.SELECTOR_COUNT, count);
-        };
-
         this.getDomManipulator = function()
         {
             return domManipulator;
@@ -35,6 +30,11 @@ define([
     FilterCountAbstract.SELECTOR_COUNT = '.number-loz';
 
     FilterCountAbstract.prototype = Object.create(FilterAbstract.prototype);
+
+    FilterCountAbstract.prototype.setCount = function(count)
+    {
+        this.getDomManipulator().setHtml(this.getFilterSelector()+' '+FilterCountAbstract.SELECTOR_COUNT, count);
+    };
 
     return FilterCountAbstract;
 });

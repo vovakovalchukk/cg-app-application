@@ -3,7 +3,6 @@ namespace Messages\Thread;
 
 use CG\Account\Client\Service as AccountService;
 use CG\Communication\Message\Entity as Message;
-use CG\Communication\Headline\Service as HeadlineService;
 use CG\Communication\Thread\Collection as ThreadCollection;
 use CG\Communication\Thread\Entity as Thread;
 use CG\Communication\Thread\Filter as ThreadFilter;
@@ -23,7 +22,6 @@ class Service
     const ASSIGNEE_UNASSIGNED = 'unassigned';
 
     protected $threadService;
-    protected $headlineService;
     protected $userOuService;
     protected $userService;
     protected $accountService;
@@ -36,13 +34,11 @@ class Service
 
     public function __construct(
         ThreadService $threadService,
-        HeadlineService $headlineService,
         UserOuService $userOuService,
         UserService $userService,
         AccountService $accountService
     ) {
         $this->setThreadService($threadService)
-            ->setHeadlineService($headlineService)
             ->setUserOuService($userOuService)
             ->setUserService($userService)
             ->setAccountService($accountService);
@@ -168,22 +164,6 @@ class Service
         return $this->formatThreadData($thread);
     }
 
-    public function fetchHeadlineData()
-    {
-        $ou = $this->userOuService->getRootOuByActiveUser();
-        $user = $this->userOuService->getActiveUser();
-        $headline = $this->headlineService->fetch($ou->getId());
-        $headlineData = $headline->toArray();
-        if (!isset($headlineData['assigned'][$user->getId()])) {
-            $headlineData['assigned'][$user->getId()] = 0;
-        }
-        $headlineData['assignedTotal'] = 0;
-        foreach ($headlineData['assigned'] as $assignedCount) {
-            $headlineData['assignedTotal'] += $assignedCount;
-        }
-        return $headlineData;
-    }
-
     public function updateThreadAndReturnData($id, $assignedUserId = null, $status = null)
     {
         $thread = $this->threadService->fetch($id);
@@ -212,12 +192,6 @@ class Service
     protected function setThreadService(ThreadService $threadService)
     {
         $this->threadService = $threadService;
-        return $this;
-    }
-
-    protected function setHeadlineService(HeadlineService $headlineService)
-    {
-        $this->headlineService = $headlineService;
         return $this;
     }
 

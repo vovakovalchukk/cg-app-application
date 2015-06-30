@@ -3,23 +3,30 @@ define([
     'Messages/ModuleAbstract',
     'Messages/Module/Filter/Assignee',
     'Messages/Module/Filter/Status',
-    'Messages/Module/Filter/Search'
+    'Messages/Module/Filter/Search',
+    'Messages/Headline/Storage/Ajax'
 ], function(
     EventHandler,
     ModuleAbstract,
     AssigneeFilter,
     StatusFilter,
-    SearchFilter
+    SearchFilter,
+    headlineStorage
 ) {
     var Filters = function(application)
     {
         ModuleAbstract.call(this, application);
 
-        var filters = [];
+        var filters = {};
 
         this.getFilters = function()
         {
             return filters;
+        };
+
+        this.getHeadlineStorage = function()
+        {
+            return headlineStorage;
         };
 
         var init = function()
@@ -28,11 +35,11 @@ define([
             // We don't want to use the actual userId here as this is client-side and it could be changed maliciously
             var myMessages = new AssigneeFilter(this, 'active-user');
             myMessages.activate();
-            filters.push(myMessages);
-            filters.push(new AssigneeFilter(this, 'unassigned'));
-            filters.push(new AssigneeFilter(this, 'assigned'));
-            filters.push(new StatusFilter(this, 'resolved'));
-            filters.push(new SearchFilter(this));
+            filters.myMessages = myMessages;
+            filters.unassigned = new AssigneeFilter(this, 'unassigned');
+            filters.assigned = new AssigneeFilter(this, 'assigned');
+            filters.resolved = new StatusFilter(this, 'resolved');
+            filters.search = new SearchFilter(this);
         };
         init.call(this);
     };
@@ -59,6 +66,7 @@ define([
             }
         }
         this.applyFilter(filter, selectedThread);
+        return this;
     };
 
     Filters.prototype.deactivateAll = function()
@@ -70,6 +78,20 @@ define([
             }
             filters[key].deactivate();
         }
+        return this;
+    };
+
+    Filters.prototype.updateFilterCounts = function()
+    {
+        var self = this;
+        this.getHeadlineStorage().fetch(this.getApplication().getOrganisationUnitId(), function(headline)
+        {
+            var filters = self.getFilters();
+            filters.myMessages.setCount(headline.getMyMessages());
+            filters.unassigned.setCount(headline.getUnassigned());
+            filters.assigned.setCount(headline.getAssigned());
+            filters.resolved.setCount(headline.getResolved());
+        });
         return this;
     };
 

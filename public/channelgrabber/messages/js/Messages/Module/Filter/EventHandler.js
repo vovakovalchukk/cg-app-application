@@ -3,7 +3,7 @@ define([
     'Messages/Module/EventHandlerAbstract',
     'Messages/Application/Events',
     'Messages/Module/Filter/Events',
-    'Messages/Module/ThreadDetails/Panel/Controls/Events',
+    'Messages/Module/ThreadDetails/Panel/Controls/Events'
 ], function(
     $,
     EventHandlerAbstract,
@@ -30,7 +30,8 @@ define([
         var self = this;
         $(document).on(AppEvents.INITIALISED, function()
         {
-            self.getModule().applyActiveFilters();
+            self.getModule().applyActiveFilters()
+                .updateFilterCounts();
         });
         return this;
     };
@@ -40,7 +41,8 @@ define([
         var self = this;
         $(document).on(ControlEvents.ASSIGNEE_CHANGED, function(event, thread)
         {
-            self.getModule().applyActiveFilters(thread);
+            self.getModule().applyActiveFilters(thread)
+                .updateFilterCounts();
         });
         return this;
     };

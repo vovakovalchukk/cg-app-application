@@ -35,13 +35,8 @@ class IndexController extends AbstractActionController
         $view = $this->viewModelFactory->newInstance();
         $user = $this->userOrganisationUnitService->getActiveUser();
         $rootOu = $this->userOrganisationUnitService->getRootOuByUserEntity($user);
-        $headlineData = $this->service->fetchHeadlineData();
         $view->setVariable('rootOuId', $rootOu->getId());
         $view->setVariable('userId', $user->getId());
-        $view->setVariable('myMessagesCount', $headlineData['assigned'][$user->getId()]);
-        $view->setVariable('unassignedCount', $headlineData['unassigned']);
-        $view->setVariable('assignedCount', $headlineData['assignedTotal']);
-        $view->setVariable('resolvedCount', $headlineData['resolved']);
         $view->setVariable('assignableUsersArray', $this->getAssignableUsersArray($rootOu));
         $view->setVariable('isSidebarVisible', false);
         $view->setVariable('isHeaderBarVisible', false);
