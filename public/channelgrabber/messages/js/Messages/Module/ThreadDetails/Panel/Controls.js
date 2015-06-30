@@ -1,10 +1,12 @@
 define([
     'Messages/Module/ThreadDetails/PanelAbstract',
     'Messages/Module/ThreadDetails/Panel/Controls/EventHandler',
+    'Messages/Thread/Service',
     'cg-mustache'
 ], function(
     PanelAbstract,
     EventHandler,
+    service,
     CGMustache
 ) {
     var Controls = function(thread, assignableUsers)
@@ -14,6 +16,11 @@ define([
         this.getAssignableUsers = function()
         {
             return assignableUsers;
+        };
+
+        this.getService = function()
+        {
+            return service;
         };
 
         var init = function()
@@ -48,6 +55,17 @@ define([
                 'resolvable': !(self.nonResolvableStatuses[thread.getStatus()])
             });
             self.getDomManipulator().append(PanelAbstract.SELECTOR_CONTAINER, html);
+        });
+    };
+
+    Controls.prototype.take = function()
+    {
+        var self = this;
+        this.getService().assignToActiveUser(this.getThread(), function(updatedThread)
+        {
+            self.setThread(updatedThread);
+            // TODO: update the asignee dropdown
+            // Also need to update the summary data in the ThreadList
         });
     };
 

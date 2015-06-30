@@ -19,6 +19,7 @@ define([
 
     Ajax.URL_COLLECTION = '/messages/ajax';
     Ajax.URL_ENTITY = '/messages/ajax/thread';
+    Ajax.URL_SAVE = '/messages/ajax/save';
 
     Ajax.prototype = Object.create(StorageAbstract.prototype);
 
@@ -40,6 +41,17 @@ define([
     {
         var self = this;
         this.getRequester().sendRequest(Ajax.URL_ENTITY, {id: id}, function(response)
+        {
+            var thread = self.getMapper().fromJson(response.thread);
+            callback(thread);
+        });
+    };
+
+    Ajax.prototype.saveAssigned = function(thread, callback)
+    {
+        var self = this;
+        var data = {id: thread.getId(), assignedUserId: thread.getAssignedUserId()};
+        this.getRequester().sendRequest(Ajax.URL_SAVE, data, function(response)
         {
             var thread = self.getMapper().fromJson(response.thread);
             callback(thread);

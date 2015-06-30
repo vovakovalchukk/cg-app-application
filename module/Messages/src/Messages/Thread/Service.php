@@ -183,6 +183,23 @@ class Service
         return $headlineData;
     }
 
+    public function updateThreadAndReturnData($id, $assignedUserId = null, $status = null)
+    {
+        $thread = $this->threadService->fetch($id);
+        if ($assignedUserId) {
+            if ($assignedUserId == static::ASSIGNEE_ACTIVE_USER) {
+                $user = $this->userOuService->getActiveUser();
+                $assignedUserId = $user->getId();
+            }
+            $thread->setAssignedUserId($assignedUserId);
+        }
+        if ($status) {
+            $thread->setStatus($status);
+        }
+        $this->threadService->save($thread);
+        return $this->formatThreadData($thread);
+    }
+
     protected function setThreadService(ThreadService $threadService)
     {
         $this->threadService = $threadService;

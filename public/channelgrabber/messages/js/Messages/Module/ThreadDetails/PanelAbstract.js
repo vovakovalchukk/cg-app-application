@@ -12,6 +12,12 @@ define([
             return thread;
         };
 
+        this.setThread = function(newThread)
+        {
+            thread = newThread;
+            return this;
+        };
+
         this.getDomManipulator = function()
         {
             return domManipulator;

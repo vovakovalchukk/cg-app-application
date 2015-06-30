@@ -54,6 +54,17 @@ return [
                                 ],
                                 'may_terminate' => true,
                             ],
+                            ThreadJsonController::ROUTE_SAVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => ThreadJsonController::ROUTE_SAVE_URL,
+                                    'defaults' => [
+                                        'controller' => ThreadJsonController::class,
+                                        'action' => 'save'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
                         ],
                     ],
                 ],

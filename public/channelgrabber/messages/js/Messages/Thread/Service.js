@@ -13,12 +13,20 @@ define([
 
     Service.prototype.fetchCollectionByFilter = function(filter, callback)
     {
-        return this.getStorage().fetchCollectionByFilter(filter, callback);
+        this.getStorage().fetchCollectionByFilter(filter, callback);
     };
 
     Service.prototype.fetch = function(id, callback)
     {
-        return this.getStorage().fetch(id, callback);
+        this.getStorage().fetch(id, callback);
+    };
+
+    Service.prototype.assignToActiveUser = function(thread, callback)
+    {
+        // Special value for the current user
+        // callback will be passed the new version of the thread with the actual ID set
+        thread.setAssignedUserId('active-user');
+        this.getStorage().saveAssigned(thread, callback);
     };
 
     return new Service();
