@@ -3,6 +3,7 @@ namespace Messages\Thread;
 
 use CG\Account\Client\Service as AccountService;
 use CG\Communication\Message\Entity as Message;
+use CG\Communication\Headline\Service as HeadlineService;
 use CG\Communication\Thread\Collection as ThreadCollection;
 use CG\Communication\Thread\Entity as Thread;
 use CG\Communication\Thread\Filter as ThreadFilter;
@@ -21,6 +22,7 @@ class Service
     const ASSIGNEE_UNASSIGNED = 'unassigned';
 
     protected $threadService;
+    protected $headlineService;
     protected $userOuService;
     protected $userService;
     protected $accountService;
@@ -33,11 +35,13 @@ class Service
 
     public function __construct(
         ThreadService $threadService,
+        HeadlineService $headlineService,
         UserOuService $userOuService,
         UserService $userService,
         AccountService $accountService
     ) {
         $this->setThreadService($threadService)
+            ->setHeadlineService($headlineService)
             ->setUserOuService($userOuService)
             ->setUserService($userService)
             ->setAccountService($accountService);
@@ -163,50 +167,31 @@ class Service
         return $this->formatThreadData($thread);
     }
 
-    public function getAssigneeCount($assignee)
-    {
-        $threadFilter = $this->prepareFilterForCount();
-        $assignee = strtolower($assignee);
-        if (!isset($this->assigneeMethodMap[$assignee])) {
-            throw new \UnexpectedValueException(__METHOD__.' was passed unhandled assignee "' . $assignee . '"');
-        }
-        $method = $this->assigneeMethodMap[$assignee];
-        $this->$method($threadFilter);
-        $this->filterByNotResolved($threadFilter);
-        return $this->getCountFromFilter($threadFilter);
-    }
-
-    public function getStatusCount($status)
-    {
-        $threadFilter = $this->prepareFilterForCount();
-        $threadFilter->setStatus((array)$status);
-        return $this->getCountFromFilter($threadFilter);
-    }
-
-    protected function prepareFilterForCount()
+    public function fetchHeadlineData()
     {
         $ou = $this->userOuService->getRootOuByActiveUser();
-
-        $threadFilter = new ThreadFilter();
-        $threadFilter->setPage(1)
-            ->setLimit(1)
-            ->setOrganisationUnitId([$ou->getId()]);
-        return $threadFilter;
-    }
-
-    protected function getCountFromFilter(ThreadFilter $threadFilter)
-    {
-        try {
-            $threads = $this->threadService->fetchCollectionByFilter($threadFilter);
-            return $threads->getTotal();
-        } catch (Notfound $e) {
-            return 0;
+        $user = $this->userOuService->getActiveUser();
+        $headline = $this->headlineService->fetch($ou->getId());
+        $headlineData = $headline->toArray();
+        if (!isset($headlineData['assigned'][$user->getId()])) {
+            $headlineData['assigned'][$user->getId()] = 0;
         }
+        $headlineData['assignedTotal'] = 0;
+        foreach ($headlineData['assigned'] as $assignedCount) {
+            $headlineData['assignedTotal'] += $assignedCount;
+        }
+        return $headlineData;
     }
 
     protected function setThreadService(ThreadService $threadService)
     {
         $this->threadService = $threadService;
+        return $this;
+    }
+
+    protected function setHeadlineService(HeadlineService $headlineService)
+    {
+        $this->headlineService = $headlineService;
         return $this;
     }
 

@@ -83,8 +83,9 @@ define([
 
     ThreadDetails.prototype.loadPanels = function(thread)
     {
+        var assignableUsers = this.getApplication().getAssignableUsers();
         this.resetPanels()
-            .addPanel(new ControlsPanel(thread))
+            .addPanel(new ControlsPanel(thread, assignableUsers))
             .addPanel(new BodyPanel(thread))
             .addPanel(new RespondPanel(thread));
         this.getDomManipulator().hide(ThreadDetails.SELECTOR+' '+ThreadDetails.SELECTOR_NO_MSG);

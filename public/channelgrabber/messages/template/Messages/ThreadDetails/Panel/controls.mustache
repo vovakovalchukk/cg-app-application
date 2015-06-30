@@ -11,13 +11,17 @@
             <div class="message-status">
                 <span class="status {{status}}">{{statusText}}</span>
             </div>
-<!-- TODO
             <div class="action-nav">
                 <ul>
+                    {{#takable}}
                     <li>Take</li>
+                    {{/takable}}
+                    {{#resolvable}}
                     <li>Resolve</li>
+                    {{/resolvable}}
                 </ul>
             </div>
+<!-- TODO
             <div class="assign">
                 <div data-concatenate="true" data-element-name="assignee" data-group="true" data-cgtype="MultiSelect" class="custom-select custom-select-group large">
                     <div class="selected">

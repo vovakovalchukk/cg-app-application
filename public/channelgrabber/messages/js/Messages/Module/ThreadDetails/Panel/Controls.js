@@ -7,9 +7,14 @@ define([
     EventHandler,
     CGMustache
 ) {
-    var Controls = function(thread)
+    var Controls = function(thread, assignableUsers)
     {
         PanelAbstract.call(this, thread);
+
+        this.getAssignableUsers = function()
+        {
+            return assignableUsers;
+        };
 
         var init = function()
         {
@@ -24,6 +29,9 @@ define([
 
     Controls.prototype = Object.create(PanelAbstract.prototype);
 
+    Controls.prototype.nonTakableStatuses = {'resolved': true};
+    Controls.prototype.nonResolvableStatuses = {'resolved': true};
+
     Controls.prototype.render = function(thread)
     {
         var self = this;
@@ -35,7 +43,9 @@ define([
                 'name': thread.getName(),
                 'status': thread.getStatus().replace(/ /g, '-').toLowerCase(),
                 'statusText': thread.getStatus().replace(/_-/g, ' ').ucfirst(),
-                'assignedUserId': thread.getAssignedUserId()
+                'assignedUserId': thread.getAssignedUserId(),
+                'takable': !(self.nonTakableStatuses[thread.getStatus()]),
+                'resolvable': !(self.nonResolvableStatuses[thread.getStatus()])
             });
             self.getDomManipulator().append(PanelAbstract.SELECTOR_CONTAINER, html);
         });

@@ -11,7 +11,7 @@ define([
     ThreadList,
     ThreadDetails
 ) {
-    var Application = function(organisationUnitId, userId)
+    var Application = function(organisationUnitId, assignableUsers)
     {
         var modulesClasses = [
             // Modules here
@@ -37,9 +37,9 @@ define([
             return organisationUnitId;
         };
 
-        this.getUserId = function()
+        this.getAssignableUsers = function()
         {
-            return userId;
+            return assignableUsers;
         };
 
         var init = function()

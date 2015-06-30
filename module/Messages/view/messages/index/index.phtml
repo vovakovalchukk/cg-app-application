@@ -12,7 +12,8 @@ $(document).ready(function() {
     ], function(
         MessagesApp
     ) {
-        new MessagesApp(<?=$rootOuId;?>);
+        var assignableUsers = <?=json_encode($assignableUsersArray);?>;
+        new MessagesApp(<?=$rootOuId;?>, assignableUsers);
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>

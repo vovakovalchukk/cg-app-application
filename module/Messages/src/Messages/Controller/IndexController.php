@@ -4,6 +4,7 @@ namespace Messages\Controller;
 use CG\Communication\Thread\Status as ThreadStatus;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
+use CG\User\Service as UserService;
 use Messages\Module;
 use Messages\Thread\Service;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -14,15 +15,18 @@ class IndexController extends AbstractActionController
 
     protected $viewModelFactory;
     protected $userOrganisationUnitService;
+    protected $userService;
     protected $service;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         UserOrganisationUnitService $userOrganisationUnitService,
+        UserService $userService,
         Service $service
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setUserOrganisationUnitService($userOrganisationUnitService)
+            ->setUserService($userService)
             ->setService($service);
     }
 
@@ -31,18 +35,30 @@ class IndexController extends AbstractActionController
         $view = $this->viewModelFactory->newInstance();
         $user = $this->userOrganisationUnitService->getActiveUser();
         $rootOu = $this->userOrganisationUnitService->getRootOuByUserEntity($user);
+        $headlineData = $this->service->fetchHeadlineData();
         $view->setVariable('rootOuId', $rootOu->getId());
         $view->setVariable('userId', $user->getId());
-        $view->setVariable('myMessagesCount', $this->service->getAssigneeCount(Service::ASSIGNEE_ACTIVE_USER));
-        $view->setVariable('unassignedCount', $this->service->getAssigneeCount(Service::ASSIGNEE_UNASSIGNED));
-        $view->setVariable('assignedCount', $this->service->getAssigneeCount(Service::ASSIGNEE_ASSIGNED));
-        $view->setVariable('resolvedCount', $this->service->getStatusCount(ThreadStatus::RESOLVED));
+        $view->setVariable('myMessagesCount', $headlineData['assigned'][$user->getId()]);
+        $view->setVariable('unassignedCount', $headlineData['unassigned']);
+        $view->setVariable('assignedCount', $headlineData['assignedTotal']);
+        $view->setVariable('resolvedCount', $headlineData['resolved']);
+        $view->setVariable('assignableUsersArray', $this->getAssignableUsersArray($rootOu));
         $view->setVariable('isSidebarVisible', false);
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
         $view->addChild($this->getFilterSearchInputView(), 'filterSearchInput');
         $view->addChild($this->getFilterSearchButtonView(), 'filterSearchButton');
         return $view;
+    }
+
+    protected function getAssignableUsersArray($rootOu)
+    {
+        $users = $this->userService->fetchCollection('all', 1, $rootOu->getId());
+        $userArray = [];
+        foreach ($users as $user) {
+            $userArray[$user->getId()] = $user->getFirstName() . ' ' . $user->getLastName();
+        }
+        return $userArray;
     }
 
     protected function getFilterSearchInputView()
@@ -78,6 +94,12 @@ class IndexController extends AbstractActionController
     protected function setUserOrganisationUnitService(UserOrganisationUnitService $userOrganisationUnitService)
     {
         $this->userOrganisationUnitService = $userOrganisationUnitService;
+        return $this;
+    }
+
+    protected function setUserService(UserService $userService)
+    {
+        $this->userService = $userService;
         return $this;
     }
 
