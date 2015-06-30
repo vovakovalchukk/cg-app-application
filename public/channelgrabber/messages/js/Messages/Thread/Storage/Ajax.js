@@ -28,6 +28,10 @@ define([
         var self = this;
         this.getRequester().sendRequest(Ajax.URL_COLLECTION, {filter: filter}, function(response)
         {
+            if (response.message) {
+                n.error(response.message);
+                return;
+            }
             var threads = new Collection();
             for (var index in response.threads) {
                 var thread = self.getMapper().fromJson(response.threads[index]);
@@ -42,6 +46,10 @@ define([
         var self = this;
         this.getRequester().sendRequest(Ajax.URL_ENTITY, {id: id}, function(response)
         {
+            if (response.message) {
+                n.error(response.message);
+                return;
+            }
             var thread = self.getMapper().fromJson(response.thread);
             callback(thread);
         });
@@ -53,6 +61,10 @@ define([
         var data = {id: thread.getId(), assignedUserId: thread.getAssignedUserId()};
         this.getRequester().sendRequest(Ajax.URL_SAVE, data, function(response)
         {
+            if (response.message) {
+                n.error(response.message);
+                return;
+            }
             var thread = self.getMapper().fromJson(response.thread);
             callback(thread);
         });

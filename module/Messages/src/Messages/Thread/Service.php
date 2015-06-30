@@ -11,6 +11,7 @@ use CG\Communication\Thread\Service as ThreadService;
 use CG\Communication\Thread\Status as ThreadStatus;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Http\Exception\Exception3xx\NotModified;
 use CG\User\OrganisationUnit\Service as UserOuService;
 use CG\User\Service as UserService;
 
@@ -200,7 +201,11 @@ class Service
         if ($status) {
             $thread->setStatus($status);
         }
-        $this->threadService->save($thread);
+        try {
+            $this->threadService->save($thread);
+        } catch (NotModified $e) {
+            // NoOp
+        }
         return $this->formatThreadData($thread);
     }
 
