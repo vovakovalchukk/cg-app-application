@@ -31,6 +31,11 @@ class Service
         self::ASSIGNEE_ASSIGNED => 'filterByAssigned',
         self::ASSIGNEE_UNASSIGNED => 'filterByUnassigned',
     ];
+    protected $statusSortOrder = [
+        10 => ThreadStatus::NEW_THREAD,
+        20 => ThreadStatus::AWAITING_REPLY,
+        30 => ThreadStatus::RESOLVED,
+    ];
 
     public function __construct(
         ThreadService $threadService,
@@ -67,7 +72,8 @@ class Service
 
         try {
             $threads = $this->threadService->fetchCollectionByFilter($threadFilter);
-            return $this->convertThreadCollectionToArray($threads);
+            $sortedThreads = $this->sortThreadCollection($threads);
+            return $this->convertThreadCollectionToArray($sortedThreads);
         } catch (Notfound $e) {
             return [];
         }
@@ -137,6 +143,33 @@ class Service
         $messageData['created'] = $created->uiFormat();
         $messageData['createdFuzzy'] = $created->fuzzyFormat();
         return $messageData;
+    }
+
+    protected function sortThreadCollection(ThreadCollection $threads)
+    {
+        // Sort by status then updated date
+        $sortedCollection = new ThreadCollection(Thread::class, __FUNCTION__);
+        $threadsByStatus = [];
+        foreach ($this->statusSortOrder as $status)
+        {
+            $threadsByStatus[$status] = [];
+        }
+        foreach ($threads as $thread) {
+            // Handle any statuses not in the sort map by just adding them on to the end
+            if (!isset($threadsByStatus[$thread->getStatus()])) {
+                $threadsByStatus[$thread->getStatus()] = [];
+            }
+            // Append the ID to the updated date to make it unique but still sortable
+            $key = $thread->getUpdated() . ' ' . $thread->getId();
+            $threadsByStatus[$thread->getStatus()][$key] = $thread;
+        }
+        foreach ($threadsByStatus as $status => $threadsByUpdated) {
+            ksort($threadsByUpdated);
+            foreach ($threadsByUpdated as $thread) {
+                $sortedCollection->attach($thread);
+            }
+        }
+        return $sortedCollection;
     }
 
     protected function filterByActiveUser(ThreadFilter $threadFilter)
