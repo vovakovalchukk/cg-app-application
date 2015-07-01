@@ -28,10 +28,9 @@ define([
     EventHandler.prototype.listenForApplicationInitialised = function()
     {
         var self = this;
-        $(document).on(AppEvents.INITIALISED, function()
+        $(document).on(AppEvents.INITIALISED, function(event, selectedThreadId)
         {
-            self.getModule().applyActiveFilters()
-                .updateFilterCounts();
+            self.getModule().initialise(selectedThreadId);
         });
         return this;
     };
@@ -41,15 +40,15 @@ define([
         var self = this;
         $(document).on(ControlEvents.ASSIGNEE_CHANGED + ' ' + ControlEvents.STATUS_CHANGED, function(event, thread)
         {
-            self.getModule().applyActiveFilters(thread)
+            self.getModule().applyActiveFilters(thread.getId())
                 .updateFilterCounts();
         });
         return this;
     };
 
-    EventHandler.prototype.triggerApplyRequested = function(filter, selectedThread)
+    EventHandler.prototype.triggerApplyRequested = function(filter, selectedThreadId)
     {
-        $(document).trigger(FilterEvents.APPLY_REQUESTED, [filter, selectedThread]);
+        $(document).trigger(FilterEvents.APPLY_REQUESTED, [filter, selectedThreadId]);
     };
 
     return EventHandler;

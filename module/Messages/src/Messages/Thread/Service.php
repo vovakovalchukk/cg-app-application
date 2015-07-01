@@ -57,6 +57,9 @@ class Service
         $threadFilter->setPage(1)
             ->setLimit(isset($filters['limit']) ? $filters['limit'] : static::DEFAULT_LIMIT)
             ->setOrganisationUnitId([$ou->getId()]);
+        if (isset($filters['id'])) {
+            $threadFilter->setId((array)$filters['id']);
+        }
         if (isset($filters['status'])) {
             $threadFilter->setStatus((array)$filters['status']);
         }

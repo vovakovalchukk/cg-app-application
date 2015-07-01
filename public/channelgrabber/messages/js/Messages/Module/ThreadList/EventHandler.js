@@ -28,9 +28,9 @@ define([
     EventHandler.prototype.listenForFilterApplyRequested = function()
     {
         var self = this;
-        $(document).on(FilterEvents.APPLY_REQUESTED, function(event, filter, selectedThread)
+        $(document).on(FilterEvents.APPLY_REQUESTED, function(event, filter, selectedThreadId)
         {
-            self.getModule().loadForFilter(filter, selectedThread);
+            self.getModule().loadForFilter(filter, selectedThreadId);
         });
         return this;
     };

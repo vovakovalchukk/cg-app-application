@@ -52,19 +52,19 @@ define([
 
     ThreadList.prototype = Object.create(ModuleAbstract.prototype);
 
-    ThreadList.prototype.loadForFilter = function(filter, selectedThread)
+    ThreadList.prototype.loadForFilter = function(filter, selectedThreadId)
     {
         var self = this;
         this.getDomManipulator().show(ThreadList.SELECTOR_LOADING);
         this.getService().fetchCollectionByFilter(filter, function(threads)
         {
             self.setThreads(threads);
-            self.renderThreads(threads, selectedThread);
+            self.renderThreads(threads, selectedThreadId);
             self.getDomManipulator().hide(ThreadList.SELECTOR_LOADING);
         });
     };
 
-    ThreadList.prototype.renderThreads = function(threads, selectedThread)
+    ThreadList.prototype.renderThreads = function(threads, selectedThreadId)
     {
         var self = this;
         CGMustache.get().fetchTemplate(ThreadList.TEMPLATE_SUMMARY, function(template, cgmustache) {
@@ -87,8 +87,8 @@ define([
             });
             // Tell listeners we've rendered. Expected to be picked up by Module/ThreadDetails/Eventhandler
             self.getEventHandler().triggerThreadsRendered(threads);
-            if (selectedThread) {
-                self.threadSelected(selectedThread.getId());
+            if (selectedThreadId) {
+                self.threadSelected(selectedThreadId);
             }
         });
     };
@@ -103,6 +103,7 @@ define([
 
         var thread = this.getThreads().getById(id);
         // The actual fetching and rendering of the thread in the right pane is handled by ThreadDetail
+        // This will also be picked up by Application/EventHandler to change the URL
         this.getEventHandler().triggerThreadSelected(thread);
     };
 

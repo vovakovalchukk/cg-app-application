@@ -1,9 +1,11 @@
 define([
     'jquery',
-    'Messages/Application/Events'
+    'Messages/Application/Events',
+    'Messages/Module/ThreadList/Events'
 ], function(
     $,
-    Events
+    Events,
+    ThreadListEvents
 ) {
     var EventHandler = function(application)
     {
@@ -11,11 +13,27 @@ define([
         {
             return application;
         };
+
+        var init = function()
+        {
+            this.listenForThreadSelected();
+        };
+        init.call(this);
     };
 
-    EventHandler.prototype.triggerInitialised = function()
+    EventHandler.prototype.listenForThreadSelected = function()
     {
-        $(document).trigger(Events.INITIALISED);
+        var self = this;
+        $(document).on(ThreadListEvents.THREAD_SELECTED, function(event, thread)
+        {
+            self.getApplication().setUrlForThread(thread);
+        });
+        return this;
+    };
+
+    EventHandler.prototype.triggerInitialised = function(selectedThreadId)
+    {
+        $(document).trigger(Events.INITIALISED, [selectedThreadId]);
     };
 
     return EventHandler;

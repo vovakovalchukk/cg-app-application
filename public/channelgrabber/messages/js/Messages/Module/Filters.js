@@ -4,6 +4,7 @@ define([
     'Messages/Module/Filter/Assignee',
     'Messages/Module/Filter/Status',
     'Messages/Module/Filter/Search',
+    'Messages/Module/Filter/Id',
     'Messages/Headline/Storage/Ajax'
 ], function(
     EventHandler,
@@ -11,6 +12,7 @@ define([
     AssigneeFilter,
     StatusFilter,
     SearchFilter,
+    IdFilter,
     headlineStorage
 ) {
     var Filters = function(application)
@@ -46,13 +48,26 @@ define([
 
     Filters.prototype = Object.create(ModuleAbstract.prototype);
 
-    Filters.prototype.applyFilter = function(filter, selectedThread)
+    Filters.prototype.initialise = function(selectedThreadId)
+    {
+        this.updateFilterCounts();
+        if (selectedThreadId) {
+            var idFilter = new IdFilter(this, selectedThreadId);
+            this.getFilters().id = idFilter;
+            this.deactivateAll();
+            // Normally you should call activate() but this is a special filter
+            idFilter.setActive(true);
+        }
+        this.applyActiveFilters(selectedThreadId);
+    }
+
+    Filters.prototype.applyFilter = function(filter, selectedThreadId)
     {
         // Expected to be picked up by Messages/Module/ThreadList/EventHandler
-        this.getEventHandler().triggerApplyRequested(filter, selectedThread);
+        this.getEventHandler().triggerApplyRequested(filter, selectedThreadId);
     };
 
-    Filters.prototype.applyActiveFilters = function(selectedThread)
+    Filters.prototype.applyActiveFilters = function(selectedThreadId)
     {
         var filter = {};
         var filters = this.getFilters();
@@ -65,7 +80,7 @@ define([
                 filter[key2] = filterData[key2];
             }
         }
-        this.applyFilter(filter, selectedThread);
+        this.applyFilter(filter, selectedThreadId);
         return this;
     };
 

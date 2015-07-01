@@ -49,10 +49,21 @@ define([
                 var module = new modulesClasses[key](this);
                 modules.push(module);
             }
+            var selectedThreadId = this.getThreadIdFromUrl().trim();
             // Tell any listeners that we're ready. Expected to be picked up by Module\Filter\EventHandler
-            eventHandler.triggerInitialised();
+            eventHandler.triggerInitialised(selectedThreadId);
         };
         init.call(this);
+    };
+
+    Application.prototype.setUrlForThread = function(thread)
+    {
+        window.location.hash = thread.getId();
+    };
+
+    Application.prototype.getThreadIdFromUrl = function()
+    {
+        return window.location.hash.replace(/#/, '');
     };
 
     return Application;
