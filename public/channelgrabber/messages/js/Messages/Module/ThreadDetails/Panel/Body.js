@@ -30,12 +30,14 @@ define([
         var messagesData = [];
         thread.getMessages().each(function(message)
         {
+            var iconClass = (message.getPersonType() == 'staff' ? 'sprite-message-staff-21-blue' : 'sprite-message-customer-21-red');
             messagesData.push({
                 'name': message.getName(),
                 'externalUsername': message.getExternalUsername(),
                 'created': message.getCreated(),
                 'createdFuzzy': message.getCreatedFuzzy(),
-                'body': message.getBody().nl2br()
+                'body': message.getBody().nl2br(),
+                'iconClass': iconClass
             });
         });
         CGMustache.get().fetchTemplate(Body.TEMPLATE, function(template, cgmustache) {

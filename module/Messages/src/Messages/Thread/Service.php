@@ -2,7 +2,6 @@
 namespace Messages\Thread;
 
 use CG\Account\Client\Service as AccountService;
-use CG\Communication\Message\Entity as Message;
 use CG\Communication\Thread\Collection as ThreadCollection;
 use CG\Communication\Thread\Entity as Thread;
 use CG\Communication\Thread\Filter as ThreadFilter;
@@ -13,9 +12,12 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\User\OrganisationUnit\Service as UserOuService;
 use CG\User\Service as UserService;
+use Messages\Message\FormatMessageDataTrait;
 
 class Service
 {
+    use FormatMessageDataTrait;
+
     const DEFAULT_LIMIT = 50;
     const ASSIGNEE_ACTIVE_USER = 'active-user';
     const ASSIGNEE_ASSIGNED = 'assigned';
@@ -126,7 +128,7 @@ class Service
         $threadData = $thread->toArray();
         $messages = [];
         foreach ($thread->getMessages() as $message) {
-            $messageData = $this->formatMessageData($message);
+            $messageData = $this->formatMessageData($message, $thread);
             $messages[$message->getCreated()] = $messageData;
         }
         ksort($messages);
@@ -149,15 +151,6 @@ class Service
         }
 
         return $threadData;
-    }
-
-    protected function formatMessageData(Message $message)
-    {
-        $messageData = $message->toArray();
-        $created = new StdlibDateTime($messageData['created']);
-        $messageData['created'] = $created->uiFormat();
-        $messageData['createdFuzzy'] = $created->fuzzyFormat();
-        return $messageData;
     }
 
     protected function sortThreadCollection(ThreadCollection $threads)

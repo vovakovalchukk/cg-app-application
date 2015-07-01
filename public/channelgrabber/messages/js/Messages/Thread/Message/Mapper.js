@@ -23,7 +23,8 @@ define([
             json.name,
             json.externalUsername,
             json.body,
-            json.threadId
+            json.threadId,
+            json.personType
         );
         return message;
     };

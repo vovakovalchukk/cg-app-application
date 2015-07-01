@@ -1,16 +1,18 @@
 <?php
 namespace Messages\Message;
 
-use CG\Communication\Message\Entity as Message;
 use CG\Communication\Message\Mapper as MessageMapper;
 use CG\Communication\Message\Service as MessageService;
 use CG\Communication\Thread\Service as ThreadService;
 use CG\Communication\Thread\Status as ThreadStatus;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\User\OrganisationUnit\Service as UserOuService;
+use Messages\Message\FormatMessageDataTrait;
 
 class Service
 {
+    use FormatMessageDataTrait;
+
     protected $messageService;
     protected $messageMapper;
     protected $threadService;
@@ -50,16 +52,7 @@ $data['id'] = 'TEST';
             $thread->setStatus(ThreadStatus::AWAITING_REPLY);
             $this->threadService->save($thread);
         }
-        return $this->formatMessageData($message);
-    }
-
-    protected function formatMessageData(Message $message)
-    {
-        $messageData = $message->toArray();
-        $created = new StdlibDateTime($messageData['created']);
-        $messageData['created'] = $created->uiFormat();
-        $messageData['createdFuzzy'] = $created->fuzzyFormat();
-        return $messageData;
+        return $this->formatMessageData($message, $thread);
     }
 
     protected function setMessageService(MessageService $messageService)

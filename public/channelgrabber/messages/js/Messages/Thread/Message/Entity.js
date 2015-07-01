@@ -11,7 +11,8 @@ define([
         name,
         externalUsername,
         body,
-        threadId
+        threadId,
+        personType
     ) {
         this.getId = function()
         {
@@ -98,6 +99,17 @@ define([
         this.setThreadId = function(newThreadId)
         {
             threadId = newThreadId;
+            return this;
+        };
+
+        this.getPersonType = function()
+        {
+            return personType;
+        };
+
+        this.setPersonType = function(newPersonType)
+        {
+            personType = newPersonType;
             return this;
         };
     };
