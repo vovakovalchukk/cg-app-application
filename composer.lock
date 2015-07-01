@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4fa1adcabab429552e7be786335de609",
+    "hash": "1077de28d23224ebba35ed58326d553b",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -993,17 +993,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.19.5",
+            "version": "dev-CGIV-5887-InvoiceService",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "a1c7bc3e44bcb4369c858f811bb31bf0aa9e4696"
+                "reference": "9373e59c45d13b12cf39235ceae666a303700dc1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.19.5-3a1a54.zip",
-                "reference": "a1c7bc3e44bcb4369c858f811bb31bf0aa9e4696",
-                "shasum": "db318f48c56c01fa76a6a255a2bd7f46ee932a80"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-5887-InvoiceService-9d7e3a.zip",
+                "reference": "9373e59c45d13b12cf39235ceae666a303700dc1",
+                "shasum": "adedd9267cc2e7427da54e5166aa9e7686ee6df7"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1027,6 +1027,7 @@
                 "channelgrabber/stdlib": "^2.12.0",
                 "channelgrabber/stock": "^1.4.9",
                 "channelgrabber/tax": "^1.0.0",
+                "channelgrabber/template": "^1.2.53",
                 "channelgrabber/transaction": ">=1.1.3,<2.0.0",
                 "channelgrabber/user": "^1.19.4",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
@@ -1059,7 +1060,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-06-25 13:36:51"
+            "time": "2015-07-01 12:55:19"
         },
         {
             "name": "channelgrabber/permission",
@@ -6584,10 +6585,18 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.19.6",
+            "alias_normalized": "1.19.6.0",
+            "version": "dev-CGIV-5887-InvoiceService",
+            "package": "channelgrabber/order"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
