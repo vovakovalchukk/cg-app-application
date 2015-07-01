@@ -997,13 +997,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "1fc328730ab8698d0d43ed6dff5116ec3f8e48a6"
+                "reference": "5f72b95776e4b31d6cdb28d8e00dc45a48bd75ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-5852-invoiceDate-method-d9c5fe.zip",
-                "reference": "1fc328730ab8698d0d43ed6dff5116ec3f8e48a6",
-                "shasum": "e30c696428feed15345f8008ed795ee17661caab"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-5852-invoiceDate-method-1b9845.zip",
+                "reference": "5f72b95776e4b31d6cdb28d8e00dc45a48bd75ba",
+                "shasum": "f97bfbdc9ba40dc026a841c2c1645b8d9445df76"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1059,7 +1059,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-06-25 16:40:58"
+            "time": "2015-07-01 13:40:52"
         },
         {
             "name": "channelgrabber/permission",
