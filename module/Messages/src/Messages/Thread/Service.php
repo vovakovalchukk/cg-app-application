@@ -31,6 +31,11 @@ class Service
         self::ASSIGNEE_ASSIGNED => 'filterByAssigned',
         self::ASSIGNEE_UNASSIGNED => 'filterByUnassigned',
     ];
+    protected $filtersThatIncludeResolved = [
+        'status' => 'status',
+        'searchTerm' => 'searchTerm',
+        'id' => 'id'
+    ];
     protected $statusSortOrder = [
         10 => ThreadStatus::NEW_THREAD,
         20 => ThreadStatus::AWAITING_REPLY,
@@ -69,7 +74,14 @@ class Service
         if (isset($filters['searchTerm'])) {
             $threadFilter->setSearchTerm($filters['searchTerm']);
         }
-        if (!isset($filters['status']) && !isset($filters['searchTerm'])) {
+        $excludeResolved = true;
+        foreach ($this->filtersThatIncludeResolved as $filterType) {
+            if (isset($filters[$filterType])) {
+                $excludeResolved = false;
+                break;
+            }
+        }
+        if ($excludeResolved) {
             $this->filterByNotResolved($threadFilter);
         }
 
