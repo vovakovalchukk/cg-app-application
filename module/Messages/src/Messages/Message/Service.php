@@ -5,6 +5,7 @@ use CG\Communication\Message\Entity as Message;
 use CG\Communication\Message\Mapper as MessageMapper;
 use CG\Communication\Message\Service as MessageService;
 use CG\Communication\Thread\Service as ThreadService;
+use CG\Communication\Thread\Status as ThreadStatus;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\User\OrganisationUnit\Service as UserOuService;
 
@@ -45,6 +46,10 @@ class Service
 $data['id'] = 'TEST'; 
         $message = $this->messageMapper->fromArray($data);
 //        $message = $this->messageService->save($message);
+        if ($thread->getStatus() == ThreadStatus::NEW_THREAD) {
+            $thread->setStatus(ThreadStatus::AWAITING_REPLY);
+            $this->threadService->save($thread);
+        }
         return $this->formatMessageData($message);
     }
 

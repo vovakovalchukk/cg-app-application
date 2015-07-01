@@ -80,8 +80,8 @@ define([
         {
             self.getThread().getMessages().attach(message);
             n.success('Your message has been sent');
-            // Tell listeners a message has been added. Expected to be picked up by Modules/ThreadDetails/EventHandler
-            self.getEventHandler().triggerMessageAdded(message, resolve);
+            // Tell listeners a message has been added. Expected to be picked up by Module\Filter\EventHandler
+            self.getEventHandler().triggerMessageAdded(message, resolve, self.getThread());
         });
     };
 

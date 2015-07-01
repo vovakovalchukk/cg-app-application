@@ -2,10 +2,12 @@ define([
     'jquery',
     'Messages/Module/ThreadDetails/Panel/EventHandlerAbstract',
     'Messages/Module/ThreadDetails/Panel/Respond/Events',
+    'Messages/Module/ThreadDetails/Panel/Controls/Events',
 ], function(
     $,
     EventHandlerAbstract,
-    RespondEvents
+    RespondEvents,
+    ControlEvents
 ) {
     var EventHandler = function(panel)
     {
@@ -44,9 +46,11 @@ define([
         return this;
     };
 
-    EventHandler.prototype.triggerMessageAdded = function(message, resolve)
+    EventHandler.prototype.triggerMessageAdded = function(message, resolve, thread)
     {
         $(document).trigger(RespondEvents.MESSAGE_ADDED, [message, resolve]);
+        // The status is also likely to have changed
+        $(document).trigger(ControlEvents.STATUS_CHANGED, [thread]);
     };
 
     return EventHandler;

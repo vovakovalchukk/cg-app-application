@@ -16,8 +16,7 @@ define([
         var init = function()
         {
             this.listenForThreadSelection()
-                .listenForThreadsRendered()
-                .listenForMessageAdded();
+                .listenForThreadsRendered();
         };
         init.call(this);
     };
@@ -40,16 +39,6 @@ define([
         $(document).on(ThreadListEvents.THREADS_RENDERED, function()
         {
             self.getModule().resetPanels();
-        });
-        return this;
-    };
-
-    EventHandler.prototype.listenForMessageAdded = function()
-    {
-        var self = this;
-        $(document).on(RespondEvents.MESSAGE_ADDED, function()
-        {
-            self.getModule().refresh();
         });
         return this;
     };
