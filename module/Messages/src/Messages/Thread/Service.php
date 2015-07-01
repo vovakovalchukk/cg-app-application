@@ -4,12 +4,16 @@ namespace Messages\Thread;
 use CG\Communication\Thread\Collection as ThreadCollection;
 use CG\Communication\Thread\Filter as ThreadFilter;
 use CG\Communication\Thread\Service as ThreadService;
+use CG\Communication\Thread\Status as ThreadStatus;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\OrganisationUnit\Service as UserOuService;
 
 class Service
 {
     const DEFAULT_LIMIT = 50;
+    const KEY_HAS_NEW = 'messages-has-new';
+    //const TTL_HAS_NEW = 300;
+    const TTL_HAS_NEW = 30; //TEMP
     const ASSIGNEE_ACTIVE_USER = 'active-user';
     const ASSIGNEE_ASSIGNED = 'assigned';
     const ASSIGNEE_UNASSIGNED = 'unassigned';
@@ -98,6 +102,53 @@ class Service
             $threadData['messages'][] = $message->toArray();
         }
         return $threadData;
+    }
+
+    public function hasNew()
+    {
+        $success = false;
+        $cachedValue = apc_fetch(static::KEY_HAS_NEW, $success);
+        if ($success) {
+            return $cachedValue;
+        }
+
+        $ou = $this->userOuService->getRootOuByActiveUser();
+        $hasNew = ($this->hasNewUnassigned($ou) || $this->hasNewAssignedToActiveUser($ou));
+        apc_store(static::KEY_HAS_NEW, $hasNew, static::TTL_HAS_NEW);
+        return $hasNew;
+    }
+
+    protected function hasNewUnassigned($ou)
+    {
+        $threadFilter = new ThreadFilter();
+        $threadFilter->setPage(1)
+            ->setLimit(1)
+            ->setOrganisationUnitId([$ou->getId()])
+            ->setStatus([ThreadStatus::NEW_THREAD])
+            ->setIsAssigned(false);
+        try {
+            $this->threadService->fetchCollectionByFilter($threadFilter);
+            return true;
+        } catch (Notfound $e) {
+            return false;
+        }
+    }
+
+    protected function hasNewAssignedToActiveUser($ou)
+    {
+        $user = $this->userOuService->getActiveUser();
+        $threadFilter = new ThreadFilter();
+        $threadFilter->setPage(1)
+            ->setLimit(1)
+            ->setOrganisationUnitId([$ou->getId()])
+            ->setStatus([ThreadStatus::NEW_THREAD])
+            ->setAssignedUserId([$user->getId()]);
+        try {
+            $this->threadService->fetchCollectionByFilter($threadFilter);
+            return true;
+        } catch (Notfound $e) {
+            return false;
+        }
     }
 
     protected function setThreadService(ThreadService $threadService)
