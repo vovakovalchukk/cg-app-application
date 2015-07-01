@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f6fbaf48d9b73f23c101300bacaca2b4",
+    "hash": "fcdc6de3a90f8ad8312b7ae31a368433",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2605,13 +2605,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "5f9849bd0d78b76aeed40042ad92d93d771a0a20"
+                "reference": "6811a13efbc5a6865e52d162db34d9310c4853dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-EPIC-CGIV-5801-OrderHub-5d1470.zip",
-                "reference": "5f9849bd0d78b76aeed40042ad92d93d771a0a20",
-                "shasum": "3807471461ac08a7dd821a04b7bfdb0231599e53"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-EPIC-CGIV-5801-OrderHub-12ed87.zip",
+                "reference": "6811a13efbc5a6865e52d162db34d9310c4853dc",
+                "shasum": "67ca06fe8eb96265fad2a32b4a7a32a324d1dfc7"
             },
             "require": {
                 "channelgrabber/cglib": "~1.6.8",
@@ -2649,7 +2649,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2015-06-23 16:04:46"
+            "time": "2015-06-29 15:02:37"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -2857,13 +2857,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "0a0407e071dc286e9c20eb7fc86491f5fecc7260"
+                "reference": "10f7de7ecbfc32d651991acff3dcdb6f5befb96f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-5801-OrderHub-50569e.zip",
-                "reference": "0a0407e071dc286e9c20eb7fc86491f5fecc7260",
-                "shasum": "2d25b30f793b939d4814b3597adf3c109d6eb56d"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-5801-OrderHub-7035fe.zip",
+                "reference": "10f7de7ecbfc32d651991acff3dcdb6f5befb96f",
+                "shasum": "f1ce8d8ec7e9cf95ab1024ee93a3c84b94c40170"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2908,7 +2908,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-06-24 15:45:53"
+            "time": "2015-07-01 08:35:31"
         },
         {
             "name": "cilex/cilex",
@@ -3034,13 +3034,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "84661296ffe281b6238cc29b39526b31f26f3918"
+                "reference": "943107cfe717a74aa791f57b87fa514c88582b0d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/composer-composer-84661296ffe281b6238cc29b39526b31f26f3918-zip-f358ff.zip",
-                "reference": "84661296ffe281b6238cc29b39526b31f26f3918",
-                "shasum": "8b06026f8f5e852b283b8cda361b01337a92d96e"
+                "url": "https://composer.build.channelgrabber.com/dist/composer-composer-943107cfe717a74aa791f57b87fa514c88582b0d-zip-84a142.zip",
+                "reference": "943107cfe717a74aa791f57b87fa514c88582b0d",
+                "shasum": "35b014622cbb8ab7622d00d8f79e994d4586351a"
             },
             "require": {
                 "justinrainbow/json-schema": "~1.4",
@@ -3097,7 +3097,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-06-24 09:14:40"
+            "time": "2015-06-26 13:40:26"
         },
         {
             "name": "fabpot/goutte",
@@ -6616,14 +6616,14 @@
             "package": "channelgrabber/zf2-login"
         },
         {
-            "alias": "1.4.37",
-            "alias_normalized": "1.4.37.0",
+            "alias": "1.4.38",
+            "alias_normalized": "1.4.38.0",
             "version": "dev-EPIC-CGIV-5801-OrderHub",
             "package": "channelgrabber/zf2-register"
         },
         {
-            "alias": "1.15.8",
-            "alias_normalized": "1.15.8.0",
+            "alias": "1.15.10",
+            "alias_normalized": "1.15.10.0",
             "version": "dev-EPIC-CGIV-5801-OrderHub",
             "package": "channelgrabber/zf2-v4-ui"
         }
