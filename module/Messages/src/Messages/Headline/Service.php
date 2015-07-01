@@ -41,13 +41,15 @@ class Service
         $headlineData = $headline->toArray();
         $headlineData['myMessages'] = 0;
         if (isset($headlineData['assigned'][$user->getId()])) {
-            $headlineData['myMessages'] = $headlineData['assigned'][$user->getId()];
+            $headlineData['myMessages'] = number_format($headlineData['assigned'][$user->getId()]);
         }
         $assignedTotal = 0;
         foreach ($headlineData['assigned'] as $userId => $count) {
             $assignedTotal += $count;
         }
-        $headlineData['assigned'] = $assignedTotal;
+        $headlineData['assigned'] = number_format($assignedTotal);
+        $headlineData['unassigned'] = number_format($headlineData['unassigned']);
+        $headlineData['resolved'] = number_format($headlineData['resolved']);
         return $headlineData;
     }
 
