@@ -179,6 +179,7 @@ class Service
             $thread->setAssignedUserId($assignedUserId);
         }
         if ($status) {
+// TODO: if $status == 'resolved' then notify channel. Requires CGIV-4698
             $thread->setStatus($status);
         }
         try {

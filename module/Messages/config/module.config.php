@@ -1,9 +1,10 @@
 <?php
 namespace Messages;
 
-use Messages\Controller\IndexController;
-use Messages\Controller\ThreadJsonController;
 use Messages\Controller\HeadlineJsonController;
+use Messages\Controller\IndexController;
+use Messages\Controller\MessageJsonController;
+use Messages\Controller\ThreadJsonController;
 use Messages\Module;
 use Zend\Mvc\Router\Http\Literal;
 
@@ -73,6 +74,17 @@ return [
                                     'defaults' => [
                                         'controller' => HeadlineJsonController::class,
                                         'action' => 'headline'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                            MessageJsonController::ROUTE_ADD => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => MessageJsonController::ROUTE_ADD_URL,
+                                    'defaults' => [
+                                        'controller' => MessageJsonController::class,
+                                        'action' => 'add'
                                     ]
                                 ],
                                 'may_terminate' => true,
