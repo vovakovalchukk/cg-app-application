@@ -34,6 +34,7 @@ class Service implements LoggerAwareInterface
     const DEFAULT_TYPE = 'sales';
     const ONE_SECOND_DELAY = 1;
     const EVENT_LISTINGS_IMPORTED = 'Listings Imported';
+    const REFRESH_TIMEOUT = 300;
 
     protected $activeUserContainer;
     protected $userPreferenceService;
@@ -88,9 +89,10 @@ class Service implements LoggerAwareInterface
             $importer = $this->getListingImportFactory()->createListingImport($account);
             $gearmanJobs[] = $importer($account);
         }
+        $seconds = 0;
         do {
             sleep(static::ONE_SECOND_DELAY);
-        } while($this->checkGearmanJobStatus($gearmanJobs));
+        } while($this->checkGearmanJobStatus($gearmanJobs) && (++$seconds <= static::REFRESH_TIMEOUT));
     }
 
     protected function checkGearmanJobStatus(array $gearmanJobs)
@@ -173,7 +175,7 @@ class Service implements LoggerAwareInterface
     public function hideListingsById(array $listingIds)
     {
         $filter = new ListingFilter(static::DEFAULT_LIMIT, static::DEFAULT_PAGE);
-        $filter->setId($listingIds); 
+        $filter->setId($listingIds);
         $listings = $this->getListingService()->fetchCollectionByFilter($filter);
         foreach ($listings as $listing) {
             $listing->setHidden(true);
