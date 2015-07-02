@@ -21,7 +21,7 @@
         "preferred-install": "dist"
     },
     "require": {
-        "channelgrabber/amazon": "~1.14.5",
+        "channelgrabber/amazon": "~1.15.8",
         "channelgrabber/billing": "~1.8.6",
         "channelgrabber/cache": "~2.1.0",
         "channelgrabber/channel": "~1.16.20",
