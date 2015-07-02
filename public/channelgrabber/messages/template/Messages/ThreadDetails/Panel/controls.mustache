@@ -16,15 +16,18 @@
                     {{#takable}}
                     <li id="control-take">Take</li>
                     {{/takable}}
+                    {{#releasable}}
+                    <li id="control-release">Release</li>
+                    {{/releasable}}
                     {{#resolvable}}
                     <li id="control-resolve">Resolve</li>
                     {{/resolvable}}
                 </ul>
             </div>
             <div class="assign">
-                {{#takable}}
+                {{#assignable}}
                     {{> assigneeSelect}}
-                {{/takable}}
+                {{/assignable}}
             </div>
         </div>
     </div>

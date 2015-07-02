@@ -43,13 +43,18 @@ define([
 
     Controls.prototype = Object.create(PanelAbstract.prototype);
 
-    Controls.prototype.nonTakableStatuses = {'resolved': true};
+    Controls.prototype.nonAssignableStatuses = {'resolved': true};
     Controls.prototype.nonResolvableStatuses = {'resolved': true};
 
     Controls.prototype.render = function(thread)
     {
         var self = this;
+        var resolvable = !(this.nonResolvableStatuses[thread.getStatus()]);
+        var assignable = !(this.nonAssignableStatuses[thread.getStatus()]);
         var assignableUserOptions = this.getAssignableUserOptionsForThread(thread);
+        // global userId
+        var releasable = (assignable && thread.getAssignedUserId() == userId);
+        var takable = (assignable && !releasable);
         CGMustache.get().fetchTemplates({main: Controls.TEMPLATE, select: Controls.TEMPLATE_SELECT}, function(templates, cgmustache) {
             var selectHtml = cgmustache.renderTemplate(templates, {
                 'id': 'control-assignee',
@@ -64,8 +69,10 @@ define([
                 'status': thread.getStatus().replace(/ /g, '-').toLowerCase(),
                 'statusText': thread.getStatus().replace(/_-/g, ' ').ucfirst(),
                 'assignedUserId': thread.getAssignedUserId(),
-                'takable': !(self.nonTakableStatuses[thread.getStatus()]),
-                'resolvable': !(self.nonResolvableStatuses[thread.getStatus()])
+                'takable': takable,
+                'releasable': releasable,
+                'resolvable': resolvable,
+                'assignable': assignable
             }, 'main', {assigneeSelect: selectHtml});
             self.getDomManipulator().append(PanelAbstract.SELECTOR_CONTAINER, html);
         });
