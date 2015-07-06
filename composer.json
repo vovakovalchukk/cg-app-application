@@ -29,7 +29,7 @@
         "channelgrabber/communication": "dev-CGIV-4698 as 1.0.0",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/di": "~2.1.1",
-        "channelgrabber/ebay": "~1.9.3",
+        "channelgrabber/ebay": "dev-CGIV-4698 as 1.9.3",
         "channelgrabber/ekm": "~1.8.4",
         "channelgrabber/etag": "~1.6.0",
         "channelgrabber/gearman": "~1.2.11",
