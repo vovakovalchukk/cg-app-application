@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a078b9758b6356d2e2a6e0075d0701d1",
+    "hash": "d8346dd1217600d9d50bed7128ecab9f",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1868,7 +1868,7 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-5910-ObjectStorage",
+            "version": "dev-EPIC-CGIV-5854-EmailInvoice",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
@@ -1876,9 +1876,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-5910-ObjectStorage-7ba490.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-EPIC-CGIV-5854-EmailInvoice-7ba490.zip",
                 "reference": "776c40c473d2dda2735f87f956d9180f13ff814e",
-                "shasum": "53c0fffe02644b742479315dc3e34002b31b49bf"
+                "shasum": "61ae1792c7c871fc46d48034e08899066897e32b"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -6595,7 +6595,7 @@
         {
             "alias": "1.2.54",
             "alias_normalized": "1.2.54.0",
-            "version": "dev-CGIV-5910-ObjectStorage",
+            "version": "dev-EPIC-CGIV-5854-EmailInvoice",
             "package": "channelgrabber/template"
         }
     ],
