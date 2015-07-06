@@ -100,7 +100,7 @@ define([
             self.setThread(updatedThread);
             // global n, represents the notifications class from zf2-v4-ui
             n.success('The assignee has been updated to you');
-            // Expected to be picked up by Module\Filter\EventHandler
+            // Expected to be picked up by Module\Filter\EventHandler, Module\ThreadDetails\EventHandler
             self.getEventHandler().triggerAssigneeChanged(updatedThread);
         });
     };
@@ -122,7 +122,7 @@ define([
         {
             n.success('The assignee has been updated successfully');
             // Need to update the ui, trigger an event.
-            // Expected to be picked up by Module\Filter\EventHandler
+            // Expected to be picked up by Module\Filter\EventHandler, Module\ThreadDetails\EventHandler
             self.getEventHandler().triggerAssigneeChanged(thread);
         });
     };
@@ -134,7 +134,7 @@ define([
         {
             self.setThread(updatedThread);
             n.success('The status has been updated successfully');
-            // Expected to be picked up by Module\Filter\EventHandler
+            // Expected to be picked up by Module\Filter\EventHandler, Module\ThreadDetails\EventHandler
             self.getEventHandler().triggerStatusChanged(updatedThread);
         });
     };

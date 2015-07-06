@@ -23,7 +23,7 @@ define([
 
     Ajax.prototype = Object.create(StorageAbstract.prototype);
 
-    Ajax.prototype.fetchCollectionByFilter = function(filter, callback)
+    Ajax.prototype.fetchCollectionByFilter = function(filter, callback, failureCallback)
     {
         var self = this;
         this.getRequester().sendRequest(Ajax.URL_COLLECTION, {filter: filter}, function(response)
@@ -38,10 +38,10 @@ define([
                 threads.attach(thread);
             }
             callback(threads);
-        });
+        }, failureCallback);
     };
 
-    Ajax.prototype.fetch = function(id, callback)
+    Ajax.prototype.fetch = function(id, callback, failureCallback)
     {
         var self = this;
         this.getRequester().sendRequest(Ajax.URL_ENTITY, {id: id}, function(response)
@@ -52,7 +52,7 @@ define([
             }
             var thread = self.getMapper().fromJson(response.thread);
             callback(thread);
-        });
+        }, failureCallback);
     };
 
     Ajax.prototype.saveData = function(data, callback)

@@ -1,11 +1,13 @@
 define([
     'Messages/Application//EventHandler',
+    'DomManipulator',
     // Application Module requires here
     'Messages/Module/Filters',
     'Messages/Module/ThreadList',
     'Messages/Module/ThreadDetails'
 ], function(
     EventHandler,
+    domManipulator,
     // Application Module variables here
     Filters,
     ThreadList,
@@ -21,15 +23,32 @@ define([
         ];
         var eventHandler;
         var modules = [];
+        var busyCount = 0;
 
         this.getEventHandler = function()
         {
             return eventHandler;
         };
 
+        this.getDomManipulator = function()
+        {
+            return domManipulator;
+        };
+
         this.getModules = function()
         {
             return modules;
+        };
+
+        this.getBusyCount = function()
+        {
+            return busyCount;
+        };
+
+        this.setBusyCount = function(newBusyCount)
+        {
+            busyCount = newBusyCount;
+            return this;
         };
 
         this.getUri = function()
@@ -66,9 +85,33 @@ define([
         init.call(this);
     };
 
+    Application.SELECTOR_LOADING = '#threads-loading-message';
+
     Application.prototype.setUrlForThread = function(thread)
     {
         window.history.pushState({}, window.document.title, this.getUri() + '/' + thread.getId());
+    };
+
+    Application.prototype.busy = function()
+    {
+        var currentlyBusy = this.getBusyCount();
+        var nowBusy = currentlyBusy + 1;
+        this.setBusyCount(nowBusy);
+        if (nowBusy > 1) {
+            return;
+        }
+        this.getDomManipulator().show(Application.SELECTOR_LOADING);
+    };
+
+    Application.prototype.unbusy = function()
+    {
+        var currentlyBusy = this.getBusyCount();
+        var nowBusy = currentlyBusy - 1;
+        this.setBusyCount(nowBusy);
+        if (nowBusy > 0) {
+            return;
+        }
+        this.getDomManipulator().hide(Application.SELECTOR_LOADING);
     };
 
     return Application;

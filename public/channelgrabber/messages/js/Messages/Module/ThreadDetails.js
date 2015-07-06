@@ -73,8 +73,11 @@ define([
 
     ThreadDetails.prototype = Object.create(ModuleAbstract.prototype);
 
-    ThreadDetails.prototype.loadThread = function(thread)
+    ThreadDetails.prototype.loadThread = function(thread, force)
     {
+        if (!force && this.getThread() && this.getThread().getId() == thread.getId()) {
+            return;
+        }
         this.setThread(thread);
         this.loadPanels(thread);
     };
@@ -100,9 +103,15 @@ define([
     ThreadDetails.prototype.refresh = function()
     {
         var self = this;
+        this.getApplication().busy();
         this.getService().fetch(this.getThread().getId(), function(thread)
         {
-            self.loadThread(thread);
+            self.loadThread(thread, true);
+            self.getApplication().unbusy();
+        }, function(response)
+        {
+            self.getApplication().unbusy();
+            n.ajaxError(response);
         });
     };
 

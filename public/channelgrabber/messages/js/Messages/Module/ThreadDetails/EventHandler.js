@@ -2,12 +2,12 @@ define([
     'jquery',
     'Messages/Module/EventHandlerAbstract',
     'Messages/Module/ThreadList/Events',
-    'Messages/Module/ThreadDetails/Panel/Respond/Events'
+    'Messages/Module/ThreadDetails/Panel/Controls/Events'
 ], function(
     $,
     EventHandlerAbstract,
     ThreadListEvents,
-    RespondEvents
+    ControlEvents
 ) {
     var EventHandler = function(module)
     {
@@ -16,7 +16,7 @@ define([
         var init = function()
         {
             this.listenForThreadSelection()
-                .listenForThreadsRendered();
+                .listenForThreadChanges();
         };
         init.call(this);
     };
@@ -33,12 +33,12 @@ define([
         return this;
     };
 
-    EventHandler.prototype.listenForThreadsRendered = function()
+    EventHandler.prototype.listenForThreadChanges = function()
     {
         var self = this;
-        $(document).on(ThreadListEvents.THREADS_RENDERED, function()
+        $(document).on(ControlEvents.ASSIGNEE_CHANGED+' '+ControlEvents.STATUS_CHANGED, function()
         {
-            self.getModule().resetPanels();
+            self.getModule().refresh();
         });
         return this;
     };
