@@ -96,6 +96,9 @@ define([
     ThreadList.prototype.threadSelected = function(id)
     {
         if (!this.getThreads().containsId(id)) {
+            // The selected thread is not in the list so we can't highlight it.
+            // We still need to tell listeners that the user wants it selected though so fetch it
+            this.fetchSelectedThread(id);
             return;
         }
         this.getDomManipulator().removeClass(ThreadList.SELECTOR_LIST_ELEMENTS, 'active')
@@ -105,6 +108,15 @@ define([
         // The actual fetching and rendering of the thread in the right pane is handled by ThreadDetail
         // This will also be picked up by Application/EventHandler to change the URL
         this.getEventHandler().triggerThreadSelected(thread);
+    };
+
+    ThreadList.prototype.fetchSelectedThread = function(id)
+    {
+        var self = this;
+        this.getService().fetch(id, function(thread)
+        {
+            self.getEventHandler().triggerThreadSelected(thread);
+        });
     };
 
     return ThreadList;

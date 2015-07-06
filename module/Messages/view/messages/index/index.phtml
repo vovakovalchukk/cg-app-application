@@ -13,7 +13,7 @@ $(document).ready(function() {
         MessagesApp
     ) {
         var assignableUsers = <?=json_encode($assignableUsersArray);?>;
-        new MessagesApp(<?=$rootOuId;?>, assignableUsers);
+        new MessagesApp(<?=$this->jsString($uri);?>, <?=$rootOuId;?>, assignableUsers, <?=($threadId ? $this->jsString($threadId) : 'null');?>);
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>

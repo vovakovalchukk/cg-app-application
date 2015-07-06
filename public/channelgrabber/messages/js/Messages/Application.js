@@ -11,7 +11,7 @@ define([
     ThreadList,
     ThreadDetails
 ) {
-    var Application = function(organisationUnitId, assignableUsers)
+    var Application = function(uri, organisationUnitId, assignableUsers, selectedThreadId)
     {
         var modulesClasses = [
             // Modules here
@@ -32,6 +32,11 @@ define([
             return modules;
         };
 
+        this.getUri = function()
+        {
+            return uri;
+        };
+
         this.getOrganisationUnitId = function()
         {
             return organisationUnitId;
@@ -42,6 +47,11 @@ define([
             return assignableUsers;
         };
 
+        this.getSelectedThreadId = function()
+        {
+            return selectedThreadId;
+        };
+
         var init = function()
         {
             eventHandler = new EventHandler(this);
@@ -49,21 +59,16 @@ define([
                 var module = new modulesClasses[key](this);
                 modules.push(module);
             }
-            var selectedThreadId = this.getThreadIdFromUrl().trim();
+
             // Tell any listeners that we're ready. Expected to be picked up by Module\Filter\EventHandler
-            eventHandler.triggerInitialised(selectedThreadId);
+            eventHandler.triggerInitialised(this.getSelectedThreadId());
         };
         init.call(this);
     };
 
     Application.prototype.setUrlForThread = function(thread)
     {
-        window.location.hash = thread.getId();
-    };
-
-    Application.prototype.getThreadIdFromUrl = function()
-    {
-        return window.location.hash.replace(/#/, '');
+        window.history.pushState({}, window.document.title, this.getUri() + '/' + thread.getId());
     };
 
     return Application;

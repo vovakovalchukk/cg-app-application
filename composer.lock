@@ -2884,13 +2884,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "5b6c29558bb64df3f82082a4da489e19d7cebe23"
+                "reference": "c2556fb9d77125139a666b2f5f83d568be069c3f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5839-message-centre-ui-418c51.zip",
-                "reference": "5b6c29558bb64df3f82082a4da489e19d7cebe23",
-                "shasum": "f232da81247e4cf897a1b54266bfb4d9b3d71926"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5839-message-centre-ui-96ec44.zip",
+                "reference": "c2556fb9d77125139a666b2f5f83d568be069c3f",
+                "shasum": "94f60782c93e497dd6d1cdabb6986081fba63a12"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2935,7 +2935,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-06-29 15:45:23"
+            "time": "2015-07-06 09:24:58"
         },
         {
             "name": "cilex/cilex",

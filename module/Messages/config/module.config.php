@@ -7,6 +7,7 @@ use Messages\Controller\MessageJsonController;
 use Messages\Controller\ThreadJsonController;
 use Messages\Module;
 use Zend\Mvc\Router\Http\Literal;
+use Zend\Mvc\Router\Http\Segment;
 
 return [
     'navigation' => [
@@ -90,6 +91,17 @@ return [
                                 'may_terminate' => true,
                             ],
                         ],
+                    ],
+                    IndexController::ROUTE_THREAD => [
+                        'type' => Segment::class,
+                        'priority' => -100,
+                        'options' => [
+                            'route' => '/:threadId',
+                            'defaults' => [
+                                'action' => 'index',
+                            ]
+                        ],
+                        'may_terminate' => true,
                     ],
                 ],
             ]

@@ -12,6 +12,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 class IndexController extends AbstractActionController
 {
     const ROUTE_INDEX_URL = '/messages';
+    const ROUTE_THREAD = 'Thread';
 
     protected $viewModelFactory;
     protected $userOrganisationUnitService;
@@ -33,8 +34,11 @@ class IndexController extends AbstractActionController
     public function indexAction()
     {
         $view = $this->viewModelFactory->newInstance();
+        $threadId = $this->params('threadId');
         $user = $this->userOrganisationUnitService->getActiveUser();
         $rootOu = $this->userOrganisationUnitService->getRootOuByUserEntity($user);
+        $view->setVariable('uri', static::ROUTE_INDEX_URL);
+        $view->setVariable('threadId', $threadId);
         $view->setVariable('rootOuId', $rootOu->getId());
         $view->setVariable('userId', $user->getId());
         $view->setVariable('assignableUsersArray', $this->getAssignableUsersArray($rootOu));

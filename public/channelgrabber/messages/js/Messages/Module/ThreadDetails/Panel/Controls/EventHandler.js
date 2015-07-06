@@ -14,6 +14,7 @@ define([
         var init = function()
         {
             this.listenForTakeClick()
+                .listenForReleaseClick()
                 .listenForResolveClick()
                 .listenForAssigneeChange();
         };
@@ -21,6 +22,7 @@ define([
     };
 
     EventHandler.SELECTOR_TAKE = '#control-take';
+    EventHandler.SELECTOR_RELEASE = '#control-release';
     EventHandler.SELECTOR_RESOLVE = '#control-resolve';
     EventHandler.SELECTOR_ASSIGNEE = '#control-assignee';
 
@@ -32,6 +34,16 @@ define([
         $(document).off('click', EventHandler.SELECTOR_TAKE).on('click', EventHandler.SELECTOR_TAKE, function()
         {
             panel.take();
+        });
+        return this;
+    };
+
+    EventHandler.prototype.listenForReleaseClick = function()
+    {
+        var panel = this.getPanel();
+        $(document).off('click', EventHandler.SELECTOR_RELEASE).on('click', EventHandler.SELECTOR_RELEASE, function()
+        {
+            panel.release();
         });
         return this;
     };
