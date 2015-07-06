@@ -54,7 +54,7 @@
         "channelgrabber/stdlib": "~2.12.0",
         "channelgrabber/stock": "~1.4.15",
         "channelgrabber/tax": "~1.0.0",
-        "channelgrabber/template": "~1.2.53",
+        "channelgrabber/template": "dev-CGIV-5910-ObjectStorage as 1.2.54",
         "channelgrabber/usage": "~1.0.7",
         "channelgrabber/user": "~1.19.7",
         "channelgrabber/userpreference": "~1.2.4",

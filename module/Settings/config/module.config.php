@@ -21,7 +21,7 @@ use CG\OrganisationUnit\StorageInterface as OUStorageInterface;
 use CG\OrganisationUnit\Storage\Api as OUApiStorage;
 use CG\Stdlib\Log\LoggerInterface;
 use CG\Log\Logger;
-use CG\Template\Storage\Object as TemplateObjectStorage;
+use Orders\Order\Invoice\Template\ObjectStorage as TemplateObjectStorage;
 use CG\Template\Storage\Api as TemplateApiStorage;
 use CG\Template\Service as TemplateService;
 use CG\Template\Repository as TemplateRepository;
