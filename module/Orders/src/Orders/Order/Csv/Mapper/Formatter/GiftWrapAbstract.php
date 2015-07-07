@@ -27,7 +27,6 @@ abstract class GiftWrapAbstract implements FormatterInterface
             $column[] = $item->getGiftWraps()->current()->$getter();
         }
 
-
         return $column;
     }
 }
