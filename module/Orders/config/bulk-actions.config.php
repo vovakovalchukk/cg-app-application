@@ -46,11 +46,13 @@ return [
                 'BulkActions' => BulkActions::class,
                 'OrderDetailBulkActions' => BulkActions::class,
                 'InvoiceBySkuBulkAction' => SubAction\InvoiceBySku::class,
+                'InvoiceEmailBulkAction' => SubAction\EmailInvoice::class,
                 'InvoiceByTitleBulkAction' => BulkActions\SubAction::class,
                 'ToCsvOrderDataOnlyBulkAction' => SubAction\ToCsvOrderDataOnly::class,
                 'RoyalMailBulkAction' => BulkActions\SubAction::class,
                 'RemoveBatchBulkAction' => SubAction\Batch::class,
                 'InvoiceJavascript' => ViewModel::class,
+                'InvoiceEmailJavascript' => ViewModel::class,
                 'DispatchJavascript' => ViewModel::class,
                 'TagJavascript' => ViewModel::class,
                 'BatchJavascript' => ViewModel::class,
@@ -62,6 +64,7 @@ return [
                 'ToCsvJavascript' => ViewModel::class,
                 'UrlDataViewInvoice' => ViewModel::class,
                 'UrlDataViewInvoiceBySku' => ViewModel::class,
+                'UrlDataViewEmailInvoice' => ViewModel::class,
                 'UrlDataViewDispatch' => ViewModel::class,
                 'UrlDataViewTag' => ViewModel::class,
                 'UrlDataViewArchive' => ViewModel::class,
@@ -126,6 +129,7 @@ return [
                 'injections' => [
                     'addSubAction' => [
                         ['subAction' => 'InvoiceBySkuBulkAction'],
+                        ['subAction' => 'InvoiceEmailBulkAction'],
                     ],
                 ],
             ],
@@ -170,6 +174,20 @@ return [
                         'datatable' => 'datatable',
                     ],
                     'javascript' => 'InvoiceJavascript', 
+                ],
+            ],
+            'InvoiceEmailBulkAction' => [
+                'parameters' => [
+                    'urlView' => 'UrlDataViewEmailInvoice',
+                    'elementData' => [
+                        'datatable' => 'datatable',
+                    ],
+                    'javascript' => 'InvoiceEmailJavascript',
+                ],
+            ],
+            'InvoiceEmailJavascript' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/email-invoice.js',
                 ],
             ],
             'InvoiceByTitleBulkAction' => [
@@ -330,6 +348,11 @@ return [
                 ],
             ],
             'UrlDataViewInvoiceBySku' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/data-url',
+                ],
+            ],
+            'UrlDataViewEmailInvoice' => [
                 'parameters' => [
                     'template' => 'orders/orders/bulk-actions/data-url',
                 ],

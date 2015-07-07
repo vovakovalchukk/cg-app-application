@@ -475,6 +475,30 @@ return [
                                     ],
                                 ],
                             ],
+                            'invoice_email' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/email',
+                                    'defaults' => [
+                                        'action' => 'emailInvoice'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    'invoice_filter_email' => [
+                                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => [
+                                            'route' => '/:filterId',
+                                            'constraints' => [
+                                                'filterId' => '[^/]+'
+                                            ],
+                                            'defaults' => [
+                                                'action' => 'emailInvoiceFilter'
+                                            ]
+                                        ],
+                                    ],
+                                ],
+                            ],
                         ]
                     ],
                     'pick_list' => [

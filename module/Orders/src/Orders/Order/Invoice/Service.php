@@ -19,6 +19,8 @@ use CG\Template\PaperPage;
 use CG\User\ActiveUserInterface as ActiveUserContainer;
 use CG\Zend\Stdlib\Http\FileResponse as Response;
 use Orders\Order\Service as OrderService;
+use CG\Gearman\Client as GearmanClient;
+use CG\Order\Client\Gearman\Workload\EmailInvoice;
 
 class Service extends ClientService implements StatsAwareInterface
 {
@@ -48,6 +50,10 @@ class Service extends ClientService implements StatsAwareInterface
      */
     protected $activeUserContainer;
     /**
+     * @var GearmanClient $gearmanClient
+     */
+    protected $gearmanClient;
+    /**
      * @var string $key
      */
     protected $key;
@@ -64,7 +70,8 @@ class Service extends ClientService implements StatsAwareInterface
         InvoiceSettingsService $invoiceSettingsService,
         ProgressStorage $progressStorage,
         IntercomEventService $intercomEventService,
-        ActiveUserContainer $activeUserContainer
+        ActiveUserContainer $activeUserContainer,
+        GearmanClient $gearmanClient
     ) {
         parent::__construct($rendererService, $templateFactory, $invoiceSettingsService);
         $this
@@ -72,7 +79,8 @@ class Service extends ClientService implements StatsAwareInterface
             ->setElementFactory($elementFactory)
             ->setProgressStorage($progressStorage)
             ->setIntercomEventService($intercomEventService)
-            ->setActiveUserContainer($activeUserContainer);
+            ->setActiveUserContainer($activeUserContainer)
+            ->setGearmanClient($gearmanClient);
     }
 
     public function createTemplate(array $config)
@@ -157,6 +165,21 @@ class Service extends ClientService implements StatsAwareInterface
         }
     }
 
+    public function emailInvoicesForCollection(Collection $orders)
+    {
+        /**
+         * @var Order $order
+         */
+        foreach ($orders as $order) {
+            $workload = new EmailInvoice($order->getId());
+            $this->gearmanClient->doBackground(
+                $workload->getWorkerFunctionName(),
+                serialize($workload),
+                implode('-', [$workload->getWorkerFunctionName(), $order->getId()])
+            );
+        }
+    }
+
     public function generateInvoiceForCollection(Collection $collection, Template $template = null, $key = null)
     {
         $this->key = $key;
@@ -237,6 +260,15 @@ class Service extends ClientService implements StatsAwareInterface
     protected function setActiveUserContainer(ActiveUserContainer $activeUserContainer)
     {
         $this->activeUserContainer = $activeUserContainer;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setGearmanClient(GearmanClient $gearmanClient)
+    {
+        $this->gearmanClient = $gearmanClient;
         return $this;
     }
 }
