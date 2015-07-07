@@ -1,10 +1,12 @@
 <?php
 namespace Orders\Order\BulkActions\SubAction;
 
+use CG\Order\Shared\Entity as Order;
 use CG_UI\View\BulkActions\SubAction;
+use Orders\Order\BulkActions\OrderAwareInterface;
 use Zend\View\Model\ViewModel;
 
-class EmailInvoice extends SubAction
+class EmailInvoice extends SubAction implements OrderAwareInterface
 {
     /**
      * @var ViewModel $urlView
@@ -33,5 +35,10 @@ class EmailInvoice extends SubAction
     {
         $this->addElementView($this->urlView);
         return $this;
+    }
+
+    public function setOrder(Order $order)
+    {
+        $this->addElementData('orders', json_encode([$order->getId()]));
     }
 } 

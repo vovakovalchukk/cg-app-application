@@ -145,6 +145,11 @@ return [
                         'datatable' => 'datatable',
                     ],
                 ],
+                'injections' => [
+                    'addSubAction' => [
+                        ['subAction' => 'InvoiceEmailBulkAction'],
+                    ],
+                ],
             ],
             Action\Dispatch::class => [
                 'parameters' => [

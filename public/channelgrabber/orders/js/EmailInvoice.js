@@ -8,22 +8,28 @@ define([
             event.stopImmediatePropagation();
 
             var datatable = $(this).data("datatable");
-            var orders = $("#" + datatable).cgDataTable("selected", ".checkbox-id");
+            var orders = $(this).data("orders");
+            var ajax = {
+                url: $(this).data("url"),
+                complete: function() {
+                    if (datatable) {
+                        var dataTableElement = $('#' + datatable);
+                        dataTableElement.cgDataTable("redraw");
+                        saveCheckboxes.refreshCheckboxes(dataTableElement);
+                    }
+                }
+            };
+
+            if (!orders && datatable) {
+                orders = $("#" + datatable).cgDataTable("selected", ".checkbox-id");
+            }
 
             if (!orders.length) {
                 return;
             }
 
-            var ajax = {
-                url: $(this).data("url"),
-                data: {
-                    'orders': orders
-                },
-                complete: function() {
-                    var dataTableElement = $('#' + datatable);
-                    dataTableElement.cgDataTable("redraw");
-                    saveCheckboxes.refreshCheckboxes(dataTableElement);
-                }
+            ajax.data = {
+                'orders': orders
             };
 
             apply.call(this, orders, ajax);
