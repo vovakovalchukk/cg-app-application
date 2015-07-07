@@ -9,4 +9,9 @@ class GiftWrapPrice extends GiftWrapAbstract
     {
         return static::FIELD_NAME;
     }
+
+    protected function getDefault()
+    {
+        return "0.00";
+    }
 }
