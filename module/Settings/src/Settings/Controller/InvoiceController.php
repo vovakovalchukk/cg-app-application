@@ -219,7 +219,6 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
                 [
                     'id' => 'autoEmail',
                     'name' => 'autoEmail',
-                    'label' => 'Auto email invoices',
                     'selected' => (boolean) $invoiceSettings->getAutoEmail(),
                 ]
             )

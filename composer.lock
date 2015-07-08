@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "75ccd9fa36bc7d69eca4cece15362016",
+    "hash": "17fe8c029544c77d9b07f9310d29482f",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2850,17 +2850,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.15.10",
+            "version": "dev-CGIV-5914-invoice-email-ui",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "d9b03ae159d9f081cdf24b07f439a12baaac0a12"
+                "reference": "c7ac49789115f77c776e9e16caf93cdeef745ce6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.15.10-b83518.zip",
-                "reference": "d9b03ae159d9f081cdf24b07f439a12baaac0a12",
-                "shasum": "625c02163777e0b398636c5e1dc3948eff8943e7"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5914-invoice-email-ui-67c5c7.zip",
+                "reference": "c7ac49789115f77c776e9e16caf93cdeef745ce6",
+                "shasum": "75edb9d3b7b575cd3947c6e3aba6f1004370ec07"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2905,7 +2905,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-07-02 09:39:53"
+            "time": "2015-07-08 15:34:53"
         },
         {
             "name": "cilex/cilex",
@@ -3035,7 +3035,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/composer-composer-943107cfe717a74aa791f57b87fa514c88582b0d-zip-84a142.zip",
+                "url": "https://api.github.com/repos/composer/composer/zipball/d79427f1a7b15e8f4d46ce8124a4d0c58ba1479c",
                 "reference": "943107cfe717a74aa791f57b87fa514c88582b0d",
                 "shasum": "35b014622cbb8ab7622d00d8f79e994d4586351a"
             },
@@ -3769,7 +3769,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/php-jsonpatch-php-jsonpatch-7933990bcfea21bb3f093bc3df9ae621540b40ca-zip-e72ac3.zip",
+                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpatch/zipball/7933990bcfea21bb3f093bc3df9ae621540b40ca",
                 "reference": "7933990bcfea21bb3f093bc3df9ae621540b40ca",
                 "shasum": "5d8c37272322234bc03029520515c470ce7832c0"
             },
@@ -3821,7 +3821,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/php-jsonpointer-php-jsonpointer-fc3999d9ab5bf8f59dc829742c6dab6ccd2e1b6e-zip-ccf2bc.zip",
+                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpointer/zipball/fc3999d9ab5bf8f59dc829742c6dab6ccd2e1b6e",
                 "reference": "fc3999d9ab5bf8f59dc829742c6dab6ccd2e1b6e",
                 "shasum": "2515588a8d2d786e41d8e2c8b489250056848ebd"
             },
@@ -5113,9 +5113,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packages.zendframework.com/composer/zendframework-zendxml-559b34f426d33a11c3db118e00ce14bb8dc64e5f-zip-6cf7a2.zip",
-                "reference": "1.0.0",
-                "shasum": "39abc614b5c26bcbf8102e203c52dee73c4460a8"
+                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
+                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
@@ -5135,6 +5135,7 @@
                     "ZendXml": "library/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -5145,10 +5146,6 @@
                 "xml",
                 "zf2"
             ],
-            "support": {
-                "source": "https://github.com/zendframework/ZendXml/tree/master",
-                "issues": "https://github.com/zendframework/ZendXml/issues"
-            },
             "time": "2014-03-05 22:25:44"
         },
         {
@@ -5643,7 +5640,7 @@
                 {
                     "name": "Anthon Pang",
                     "email": "apang@softwaredevelopment.ca",
-                    "role": "Fork Maintainer"
+                    "role": "developer"
                 }
             ],
             "description": "PHP WebDriver for Selenium 2",
@@ -5808,7 +5805,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -6607,6 +6605,12 @@
             "alias_normalized": "1.2.54.0",
             "version": "dev-EPIC-CGIV-5854-EmailInvoice",
             "package": "channelgrabber/template"
+        },
+        {
+            "alias": "1.15.12",
+            "alias_normalized": "1.15.12.0",
+            "version": "dev-CGIV-5914-invoice-email-ui",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
@@ -6616,6 +6620,7 @@
         "channelgrabber/order": 20,
         "channelgrabber/settings": 20,
         "channelgrabber/template": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
