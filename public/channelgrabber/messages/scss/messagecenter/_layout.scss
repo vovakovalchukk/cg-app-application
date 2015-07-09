@@ -1,7 +1,7 @@
 .main-section {
   width: 100%;
-  @include calc(height, "100% - 105px");
+  @include calc(height, "100% - 55px");
   float: left;
   clear:both;
-  margin-top: 105px;
+  margin-top: 55px;
 }
