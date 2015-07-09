@@ -9,9 +9,9 @@ define([
     service,
     CGMustache
 ) {
-    var Controls = function(thread, assignableUsers)
+    var Controls = function(module, thread, assignableUsers)
     {
-        PanelAbstract.call(this, thread);
+        PanelAbstract.call(this, module, thread);
 
         var assignableUserOptions = [];
 

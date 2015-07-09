@@ -46,9 +46,9 @@ define([
         return this;
     };
 
-    EventHandler.prototype.triggerMessageAdded = function(message, resolve, thread)
+    EventHandler.prototype.triggerMessageAdded = function(message, thread)
     {
-        $(document).trigger(RespondEvents.MESSAGE_ADDED, [message, resolve]);
+        $(document).trigger(RespondEvents.MESSAGE_ADDED, [message]);
         // The status is also likely to have changed
         $(document).trigger(ControlEvents.STATUS_CHANGED, [thread]);
     };

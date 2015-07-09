@@ -20,7 +20,7 @@ define([
         ModuleAbstract.call(this, application);
 
         var thread;
-        var panels = [];
+        var panels = {};
 
         this.getService = function()
         {
@@ -54,10 +54,15 @@ define([
             return this;
         };
 
-        this.addPanel = function(panel)
+        this.addPanel = function(name, panel)
         {
-            panels.push(panel);
+            panels[name] = panel;
             return this;
+        };
+
+        this.getPanel = function(name)
+        {
+            return panels[name];
         };
 
         var init = function()
@@ -86,9 +91,9 @@ define([
     {
         var assignableUsers = this.getApplication().getAssignableUsers();
         this.resetPanels()
-            .addPanel(new ControlsPanel(thread, assignableUsers))
-            .addPanel(new BodyPanel(thread))
-            .addPanel(new RespondPanel(thread));
+            .addPanel('controls', new ControlsPanel(this, thread, assignableUsers))
+            .addPanel('body', new BodyPanel(this, thread))
+            .addPanel('respond', new RespondPanel(this, thread));
         this.getDomManipulator().hide(ThreadDetails.SELECTOR+' '+ThreadDetails.SELECTOR_NO_MSG);
     };
 
@@ -114,6 +119,8 @@ define([
             n.ajaxError(response);
         });
     };
+
+
 
     return ThreadDetails;
 });

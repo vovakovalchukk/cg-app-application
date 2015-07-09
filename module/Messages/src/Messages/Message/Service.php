@@ -2,6 +2,7 @@
 namespace Messages\Message;
 
 use CG\Communication\Message\Mapper as MessageMapper;
+use CG\Communication\Message\ReplyFactory as MessageReplyFactory;
 use CG\Communication\Message\Service as MessageService;
 use CG\Communication\Thread\Service as ThreadService;
 use CG\Communication\Thread\Status as ThreadStatus;
@@ -17,17 +18,20 @@ class Service
     protected $messageMapper;
     protected $threadService;
     protected $userOuService;
+    protected $messageReplyFactory;
 
     public function __construct(
         MessageService $messageService,
         MessageMapper $messageMapper,
         ThreadService $threadService,
-        UserOuService $userOuService
+        UserOuService $userOuService,
+        MessageReplyFactory $messageReplyFactory
     ) {
         $this->setMessageService($messageService)
             ->setMessageMapper($messageMapper)
             ->setThreadService($threadService)
-            ->setUserOuService($userOuService);
+            ->setUserOuService($userOuService)
+            ->setMessageReplyFactory($messageReplyFactory);
     }
 
     public function createMessageForThreadForActiveUser($threadId, $body, $resolve = false)
@@ -35,6 +39,7 @@ class Service
         $thread = $this->threadService->fetch($threadId);
         $user = $this->userOuService->getActiveUser();
         $data = [
+            'id' => 'TEMP', // Required by the mapper but will be replaced by the reply factory
             'threadId' => $threadId,
             'body' => $body,
             'created' => (new StdlibDateTime())->stdFormat(),
@@ -43,15 +48,9 @@ class Service
             'name' => $user->getFirstName(). ' ' . $user->getLastName(),
             'externalUsername' => $user->getUsername(),
         ];
-// TODO: call out to the channel library to send the message (passing along the $resolve flag)
-// and return it's ID, then we can save it to the API. Requires CGIV-4698
-$data['id'] = 'TEST'; 
         $message = $this->messageMapper->fromArray($data);
-//        $message = $this->messageService->save($message);
-        if ($thread->getStatus() == ThreadStatus::NEW_THREAD) {
-            $thread->setStatus(ThreadStatus::AWAITING_REPLY);
-            $this->threadService->save($thread);
-        }
+        $this->messageReplyFactory->sendReply($message, $thread);
+
         return $this->formatMessageData($message, $thread);
     }
 
@@ -76,6 +75,12 @@ $data['id'] = 'TEST';
     protected function setUserOuService(UserOuService $userOuService)
     {
         $this->userOuService = $userOuService;
+        return $this;
+    }
+
+    protected function setMessageReplyFactory(MessageReplyFactory $messageReplyFactory)
+    {
+        $this->messageReplyFactory = $messageReplyFactory;
         return $this;
     }
 }

@@ -3,9 +3,20 @@ define([
 ], function(
     domManipulator
 ) {
-    var PanelAbstract = function(thread)
+    var PanelAbstract = function(module, thread)
     {
         var eventHandler;
+
+        this.getModule = function()
+        {
+            return module;
+        };
+
+        this.setModule = function(newModule)
+        {
+            module = newModule;
+            return this;
+        };
 
         this.getThread = function()
         {

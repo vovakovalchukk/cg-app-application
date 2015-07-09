@@ -7,9 +7,9 @@ define([
     EventHandler,
     CGMustache
 ) {
-    var Body = function(thread)
+    var Body = function(module, thread)
     {
-        PanelAbstract.call(this, thread);
+        PanelAbstract.call(this, module, thread);
 
         var init = function()
         {

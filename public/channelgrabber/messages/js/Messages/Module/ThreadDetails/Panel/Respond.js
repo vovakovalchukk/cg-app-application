@@ -9,9 +9,9 @@ define([
     service,
     CGMustache
 ) {
-    var Respond = function(thread)
+    var Respond = function(module, thread)
     {
-        PanelAbstract.call(this, thread);
+        PanelAbstract.call(this, module, thread);
 
         this.getService = function()
         {
@@ -33,8 +33,14 @@ define([
 
     Respond.prototype = Object.create(PanelAbstract.prototype);
 
+    Respond.prototype.nonRespondableStatuses = {'resolved': true};
+
     Respond.prototype.render = function(thread)
     {
+        var respondable = !(this.nonRespondableStatuses[thread.getStatus()]);
+        if (!respondable) {
+            return;
+        }
         var self = this;
         CGMustache.get().fetchTemplates({main: Respond.TEMPLATE, buttons: Respond.TEMPLATE_BUTTONS}, function(templates, cgmustache) {
             var buttonHtml = cgmustache.renderTemplate(templates, {
@@ -76,13 +82,23 @@ define([
             return;
         }
         n.notice('Sending message');
-        this.getService().sendMessage(this.getThread(), messageBody, resolve, function(message)
+        this.getService().sendMessage(this.getThread(), messageBody, function(message)
         {
             self.getThread().getMessages().attach(message);
             n.success('Your message has been sent');
+            if (resolve) {
+                self.resolve();
+                return;
+            }
             // Tell listeners a message has been added. Expected to be picked up by Module\Filter\EventHandler
-            self.getEventHandler().triggerMessageAdded(message, resolve, self.getThread());
+            self.getEventHandler().triggerMessageAdded(message, self.getThread());
         });
+        return this;
+    };
+
+    Respond.prototype.resolve = function()
+    {
+        this.getModule().getPanel('controls').resolve();
     };
 
     return Respond;

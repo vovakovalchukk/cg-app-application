@@ -11,12 +11,9 @@ define([
         };
     };
 
-    Service.prototype.sendMessage = function(thread, messageBody, resolve, callback)
+    Service.prototype.sendMessage = function(thread, messageBody, callback)
     {
         var data = {threadId: thread.getId(), body: messageBody};
-        if (resolve) {
-            data.resolve = 1;
-        }
         this.getStorage().saveData(data, callback);
     };
 

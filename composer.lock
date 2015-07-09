@@ -360,13 +360,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-communication.git",
-                "reference": "a35eb5b51783a4d02878df381dd04626c9619286"
+                "reference": "a19351e6423b5ab8af27c876a2d79d2717184c30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-communication-dev-CGIV-4698-e736b4.zip",
-                "reference": "a35eb5b51783a4d02878df381dd04626c9619286",
-                "shasum": "3cc620385cfb21d7ec972c60e5ecd49ac83ea3be"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-communication-dev-CGIV-4698-6e5834.zip",
+                "reference": "a19351e6423b5ab8af27c876a2d79d2717184c30",
+                "shasum": "f3460d647d82e10263c5db19605f706edb80dae0"
             },
             "type": "library",
             "autoload": {
@@ -385,7 +385,7 @@
                     "email": "matthew.king@channelgrabber.com"
                 }
             ],
-            "time": "2015-06-30 09:42:22"
+            "time": "2015-07-09 13:50:39"
         },
         {
             "name": "channelgrabber/constants",
@@ -503,13 +503,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "930b3285096059b3f6d5ab6a2fcc23d32fa6a85c"
+                "reference": "af9e882ed2d5cfa9b39d714db2fc95a2d4db935d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-CGIV-4698-f50d61.zip",
-                "reference": "930b3285096059b3f6d5ab6a2fcc23d32fa6a85c",
-                "shasum": "78b1e6d698595e37ab5709cefb73d338677aefdf"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-CGIV-4698-3cb84d.zip",
+                "reference": "af9e882ed2d5cfa9b39d714db2fc95a2d4db935d",
+                "shasum": "caac9839fe51fb9b2ef75dd00c5569bb353e2389"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -552,7 +552,7 @@
                     "CG\\Ebay\\Test\\": "tests/Test/"
                 }
             },
-            "time": "2015-07-06 12:22:43"
+            "time": "2015-07-08 07:28:44"
         },
         {
             "name": "channelgrabber/ekm",
@@ -3077,7 +3077,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/composer-composer-dbdd4978a7dd4cd29d0d7dfc912aab404245b736-zip-638e54.zip",
+                "url": "https://api.github.com/repos/composer/composer/zipball/39e6f51bef3a4b148d9f35a0ae7a082e9aed97f4",
                 "reference": "dbdd4978a7dd4cd29d0d7dfc912aab404245b736",
                 "shasum": "3696697f7473090d1ff5e96e9dc48bacf28eab92"
             },
