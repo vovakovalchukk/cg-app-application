@@ -75,7 +75,7 @@ define([
         if (!messageBody) {
             return;
         }
-        n.notice('Sending message...');
+        n.notice('Sending message');
         this.getService().sendMessage(this.getThread(), messageBody, resolve, function(message)
         {
             self.getThread().getMessages().attach(message);

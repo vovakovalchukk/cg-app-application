@@ -95,10 +95,11 @@ define([
     Controls.prototype.take = function()
     {
         var self = this;
+        // global n, represents the notifications class from zf2-v4-ui
+        n.notice('Updating assigned user');
         this.getService().assignToActiveUser(this.getThread(), function(updatedThread)
         {
             self.setThread(updatedThread);
-            // global n, represents the notifications class from zf2-v4-ui
             n.success('The assignee has been updated to you');
             // Expected to be picked up by Module\Filter\EventHandler, Module\ThreadDetails\EventHandler
             self.getEventHandler().triggerAssigneeChanged(updatedThread);
@@ -118,6 +119,7 @@ define([
         }
 
         this.getThread().setAssignedUserId(userId);
+        n.notice('Updating assigned user');
         this.getService().saveAssigned(this.getThread(), function(thread)
         {
             n.success('The assignee has been updated successfully');
@@ -130,6 +132,7 @@ define([
     Controls.prototype.resolve = function()
     {
         var self = this;
+        n.notice('Updating status');
         this.getService().resolve(this.getThread(), function(updatedThread)
         {
             self.setThread(updatedThread);
