@@ -6,7 +6,6 @@ use Orders\Order\Csv\MapperInterface;
 use CG\Order\Shared\Collection as OrderCollection;
 use Orders\Order\Csv\Mapper\Formatter\StandardSingle as StandardFormatter;
 use Orders\Order\Csv\Mapper\Formatter\SalesChannelNameSingle as SalesChannelNameFormatter;
-use Orders\Order\Csv\Mapper\Formatter\InvoiceDateSingle as InvoiceDateFormatter;
 use Orders\Order\Csv\Mapper\Formatter\ShippingMethodSingle as ShippingMethodFormatter;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 
@@ -14,7 +13,6 @@ class Orders implements MapperInterface
 {
     protected $standardFormatter;
     protected $salesChannelNameFormatter;
-    protected $invoiceDateFormatter;
     protected $shippingMethodFormatter;
     /**
      * @var ActiveUserInterface $activeUserContainer
@@ -28,7 +26,6 @@ class Orders implements MapperInterface
     public function __construct(
         StandardFormatter $standardFormatter,
         SalesChannelNameFormatter $salesChannelNameFormatter,
-        InvoiceDateFormatter $invoiceDateFormatter,
         ShippingMethodFormatter $shippingMethodFormatter,
         OrganisationUnitService $organisationUnitService,
         ActiveUserInterface $activeUserContainer
@@ -36,7 +33,6 @@ class Orders implements MapperInterface
         $this
             ->setStandardFormatter($standardFormatter)
             ->setSalesChannelNameFormatter($salesChannelNameFormatter)
-            ->setInvoiceDateFormatter($invoiceDateFormatter)
             ->setShippingMethodFormatter($shippingMethodFormatter)
             ->setOrganisationUnitService($organisationUnitService)
             ->setActiveUserContainer($activeUserContainer);
@@ -51,7 +47,7 @@ class Orders implements MapperInterface
             'Payment Date' => 'paymentDate',
             'Printed Date' => 'printedDate',
             'Dispatch Date' => 'dispatchDate',
-            'Invoice Date' => $this->invoiceDateFormatter,
+            'Invoice Date' => 'invoiceDate',
             'Channel' => 'channel',
             'Status' => 'status',
             'Shipping Price' => 'shippingPrice',
@@ -146,16 +142,6 @@ class Orders implements MapperInterface
     public function setSalesChannelNameFormatter(SalesChannelNameFormatter $salesChannelNameFormatter)
     {
         $this->salesChannelNameFormatter = $salesChannelNameFormatter;
-        return $this;
-    }
-
-    /**
-     * @param InvoiceDateFormatter $invoiceDateFormatter
-     * @return self
-     */
-    public function setInvoiceDateFormatter(InvoiceDateFormatter $invoiceDateFormatter)
-    {
-        $this->invoiceDateFormatter = $invoiceDateFormatter;
         return $this;
     }
 
