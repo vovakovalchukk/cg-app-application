@@ -42,7 +42,6 @@ class IndexController extends AbstractActionController
         $view->setVariable('rootOuId', $rootOu->getId());
         $view->setVariable('userId', $user->getId());
         $view->setVariable('assignableUsersArray', $this->getAssignableUsersArray($rootOu));
-        $view->setVariable('isSidebarVisible', false);
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
         $view->addChild($this->getFilterSearchInputView(), 'filterSearchInput');
