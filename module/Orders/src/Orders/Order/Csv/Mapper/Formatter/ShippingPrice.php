@@ -10,9 +10,9 @@ class ShippingPrice implements FormatterInterface
     {
         $column = [];
 
-        $column[] = $order->getShippingPrice();
+        $column[] = $order->getShippingPriceString();
         for($i = 1; $i < $order->getItems()->count(); $i++) {
-            $column[] = '';
+            $column[] = '0.00';
         }
 
         return $column;
