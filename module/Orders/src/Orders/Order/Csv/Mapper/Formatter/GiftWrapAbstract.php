@@ -13,13 +13,13 @@ abstract class GiftWrapAbstract implements FormatterInterface
         $getter = 'get' . ucfirst($this->getFieldName());
 
         if($order->getItems()->count() === 0) {
-            return [''];
+            return [$this->getDefault()];
         }
 
         $column = [];
         foreach ($order->getItems() as $item) {
             if($item->getGiftWraps() == null || $item->getGiftWraps()->count() === 0) {
-                $column[] = '';
+                $column[] = $this->getDefault();
                 continue;
             }
 
@@ -27,7 +27,11 @@ abstract class GiftWrapAbstract implements FormatterInterface
             $column[] = $item->getGiftWraps()->current()->$getter();
         }
 
-
         return $column;
+    }
+
+    protected function getDefault()
+    {
+        return '';
     }
 }
