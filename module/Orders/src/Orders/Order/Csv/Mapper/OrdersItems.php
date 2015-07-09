@@ -10,7 +10,6 @@ use Orders\Order\Csv\Mapper\Formatter\GiftWrapType as GiftWrapTypeFormatter;
 use Orders\Order\Csv\Mapper\Formatter\ShippingPrice as ShippingPriceFormatter;
 use Orders\Order\Csv\Mapper\Formatter\ShippingMethod as ShippingMethodFormatter;
 use Orders\Order\Csv\Mapper\Formatter\SalesChannelName as SalesChannelNameFormatter;
-use Orders\Order\Csv\Mapper\Formatter\InvoiceDate as InvoiceDateFormatter;
 use Orders\Order\Csv\Mapper\Formatter\VatRate as VatRateFormatter;
 use Orders\Order\Csv\Mapper\Formatter\Standard as StandardFormatter;
 use CG\Order\Shared\Collection as OrderCollection;
@@ -24,7 +23,6 @@ class OrdersItems implements MapperInterface
     protected $shippingPriceFormatter;
     protected $shippingMethodFormatter;
     protected $salesChannelNameFormatter;
-    protected $invoiceDateFormatter;
     protected $vatRateFormatter;
     protected $standardFormatter;
     /**
@@ -43,7 +41,6 @@ class OrdersItems implements MapperInterface
         ShippingPriceFormatter $shippingPriceFormatter,
         ShippingMethodFormatter $shippingMethodFormatter,
         SalesChannelNameFormatter $salesChannelNameFormatter,
-        InvoiceDateFormatter $invoiceDateFormatter,
         VatRateFormatter $vatRateFormatter,
         StandardFormatter $standardFormatter,
         ActiveUserInterface $activeUserContainer,
@@ -56,7 +53,6 @@ class OrdersItems implements MapperInterface
             ->setShippingPriceFormatter($shippingPriceFormatter)
             ->setShippingMethodFormatter($shippingMethodFormatter)
             ->setSalesChannelNameFormatter($salesChannelNameFormatter)
-            ->setInvoiceDateFormatter($invoiceDateFormatter)
             ->setVatRateFormatter($vatRateFormatter)
             ->setStandardFormatter($standardFormatter)
             ->setActiveUserContainer($activeUserContainer)
@@ -72,21 +68,21 @@ class OrdersItems implements MapperInterface
             'Payment Date' => 'paymentDate',
             'Printed Date' => 'printedDate',
             'Dispatch Date' => 'dispatchDate',
-            'Invoice Date' => $this->invoiceDateFormatter,
+            'Invoice Date' => 'invoiceDate',
             'Channel' => 'channel',
             'Status' => 'status',
             'Shipping Price' => $this->shippingPriceFormatter,
             'Shipping Method' => $this->shippingMethodFormatter,
             'Currency Code' => 'currencyCode',
             'Item Name' => 'itemName',
-            'Unit Price' => 'individualItemPrice',
+            'Unit Price' => 'individualItemPriceString',
             'Quantity' => 'itemQuantity',
             'SKU' => 'itemSku',
             'VAT %' => $this->vatRateFormatter,
-            'Line Discount' => 'lineDiscount',
-            'Line VAT' => 'lineTax',
-            'Total Order Discount' => 'totalOrderAndItemsDiscount',
-            'Line Total' => 'lineTotal',
+            'Line Discount' => 'lineDiscountString',
+            'Line VAT' => 'lineTaxString',
+            'Total Order Discount' => 'totalOrderAndItemsDiscountString',
+            'Line Total' => 'lineTotalString',
             'Billing Company Name' => 'calculatedBillingAddressCompanyName',
             'Billing Buyer Name' => 'calculatedBillingAddressFullName',
             'Billing Address Line 1' => 'calculatedBillingAddress1',
@@ -216,16 +212,6 @@ class OrdersItems implements MapperInterface
     public function setSalesChannelNameFormatter(SalesChannelNameFormatter $salesChannelNameFormatter)
     {
         $this->salesChannelNameFormatter = $salesChannelNameFormatter;
-        return $this;
-    }
-
-    /**
-     * @param InvoiceDateFormatter $invoiceDateFormatter
-     * @return self
-     */
-    public function setInvoiceDateFormatter(InvoiceDateFormatter $invoiceDateFormatter)
-    {
-        $this->invoiceDateFormatter = $invoiceDateFormatter;
         return $this;
     }
 
