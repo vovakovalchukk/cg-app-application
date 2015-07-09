@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "17fe8c029544c77d9b07f9310d29482f",
+    "hash": "baf911a6bb3e0a9c595d02c723e7c245",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1917,7 +1917,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-07-06 11:59:38"
+            "time": "2015-07-06 11:57:34"
         },
         {
             "name": "channelgrabber/transaction",
@@ -2295,6 +2295,12 @@
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/ekm-module.git",
                 "reference": "f94dec8a21e145b685e297fecabb59235a44ba19"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ekm-1.0.2-2259f6.zip",
+                "reference": "f94dec8a21e145b685e297fecabb59235a44ba19",
+                "shasum": "7fe501aaac7a032163cb839cea071012e93cc318"
             },
             "require": {
                 "channelgrabber/zf2-installer": ">=1.0.3,<2.0.0",
@@ -2850,17 +2856,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-5914-invoice-email-ui",
+            "version": "dev-EPIC-CGIV-5854-EmailInvoice",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "c7ac49789115f77c776e9e16caf93cdeef745ce6"
+                "reference": "af7b71b476daed8c7d25cb20426c14517755dcd8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5914-invoice-email-ui-67c5c7.zip",
-                "reference": "c7ac49789115f77c776e9e16caf93cdeef745ce6",
-                "shasum": "75edb9d3b7b575cd3947c6e3aba6f1004370ec07"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-5854-EmailInvoice-ea06cc.zip",
+                "reference": "af7b71b476daed8c7d25cb20426c14517755dcd8",
+                "shasum": "6b5b0de2ebba1c17721c2a7b9fa929b5c93a6e50"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2905,7 +2911,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-07-08 15:34:53"
+            "time": "2015-07-09 09:29:28"
         },
         {
             "name": "cilex/cilex",
@@ -3035,7 +3041,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/d79427f1a7b15e8f4d46ce8124a4d0c58ba1479c",
+                "url": "https://composer.build.channelgrabber.com/dist/composer-composer-943107cfe717a74aa791f57b87fa514c88582b0d-zip-84a142.zip",
                 "reference": "943107cfe717a74aa791f57b87fa514c88582b0d",
                 "shasum": "35b014622cbb8ab7622d00d8f79e994d4586351a"
             },
@@ -3769,7 +3775,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpatch/zipball/7933990bcfea21bb3f093bc3df9ae621540b40ca",
+                "url": "https://composer.build.channelgrabber.com/dist/php-jsonpatch-php-jsonpatch-7933990bcfea21bb3f093bc3df9ae621540b40ca-zip-e72ac3.zip",
                 "reference": "7933990bcfea21bb3f093bc3df9ae621540b40ca",
                 "shasum": "5d8c37272322234bc03029520515c470ce7832c0"
             },
@@ -3821,7 +3827,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpointer/zipball/fc3999d9ab5bf8f59dc829742c6dab6ccd2e1b6e",
+                "url": "https://composer.build.channelgrabber.com/dist/php-jsonpointer-php-jsonpointer-fc3999d9ab5bf8f59dc829742c6dab6ccd2e1b6e-zip-ccf2bc.zip",
                 "reference": "fc3999d9ab5bf8f59dc829742c6dab6ccd2e1b6e",
                 "shasum": "2515588a8d2d786e41d8e2c8b489250056848ebd"
             },
@@ -6609,7 +6615,7 @@
         {
             "alias": "1.15.12",
             "alias_normalized": "1.15.12.0",
-            "version": "dev-CGIV-5914-invoice-email-ui",
+            "version": "dev-EPIC-CGIV-5854-EmailInvoice",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
