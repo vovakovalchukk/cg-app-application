@@ -5,6 +5,7 @@ use CG\Account\Client\Service as AccountService;
 use CG\Communication\Thread\Collection as ThreadCollection;
 use CG\Communication\Thread\Entity as Thread;
 use CG\Communication\Thread\Filter as ThreadFilter;
+use CG\Communication\Thread\ResolveFactory as ThreadResolveFactory;
 use CG\Communication\Thread\Service as ThreadService;
 use CG\Communication\Thread\Status as ThreadStatus;
 use CG\Stdlib\DateTime as StdlibDateTime;
@@ -27,6 +28,7 @@ class Service
     protected $userOuService;
     protected $userService;
     protected $accountService;
+    protected $threadResolveFactory;
 
     protected $assigneeMethodMap = [
         self::ASSIGNEE_ACTIVE_USER => 'filterByActiveUser',
@@ -48,12 +50,14 @@ class Service
         ThreadService $threadService,
         UserOuService $userOuService,
         UserService $userService,
-        AccountService $accountService
+        AccountService $accountService,
+        ThreadResolveFactory $threadResolveFactory
     ) {
         $this->setThreadService($threadService)
             ->setUserOuService($userOuService)
             ->setUserService($userService)
-            ->setAccountService($accountService);
+            ->setAccountService($accountService)
+            ->setThreadResolveFactory($threadResolveFactory);
     }
 
     public function fetchThreadDataForFilters(array $filters)
@@ -219,9 +223,12 @@ class Service
             }
             $thread->setAssignedUserId($assignedUserId);
         }
-        if ($status) {
-// TODO: if $status == 'resolved' then notify channel. Requires CGIV-4698
-            $thread->setStatus($status);
+        if ($status && $status != $thread->getStatus()) {
+            if ($status == ThreadStatus::RESOLVED) {
+                $this->threadResolveFactory->__invoke($thread);
+            } else {
+                $thread->setStatus($status);
+            }
         }
         try {
             $this->threadService->save($thread);
@@ -252,6 +259,12 @@ class Service
     protected  function setAccountService(AccountService $accountService)
     {
         $this->accountService = $accountService;
+        return $this;
+    }
+
+    protected function setThreadResolveFactory(ThreadResolveFactory $threadResolveFactory)
+    {
+        $this->threadResolveFactory = $threadResolveFactory;
         return $this;
     }
 }

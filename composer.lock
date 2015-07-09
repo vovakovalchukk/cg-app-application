@@ -360,15 +360,27 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-communication.git",
-                "reference": "a19351e6423b5ab8af27c876a2d79d2717184c30"
+                "reference": "a45db4309079c4d05365a1cb51834365c61521b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-communication-dev-CGIV-4698-6e5834.zip",
-                "reference": "a19351e6423b5ab8af27c876a2d79d2717184c30",
-                "shasum": "f3460d647d82e10263c5db19605f706edb80dae0"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-communication-dev-CGIV-4698-421537.zip",
+                "reference": "a45db4309079c4d05365a1cb51834365c61521b3",
+                "shasum": "70f824a7186aea407a7f53fad1ba8afb5bdc48a6"
             },
-            "type": "library",
+            "require": {
+                "channelgrabber/channel": "^1.16.20",
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/di": ">=2.1.0",
+                "channelgrabber/http": "^1.3.14",
+                "channelgrabber/stats": "^1.0.0",
+                "channelgrabber/stdlib": "^2.12.6",
+                "composer/composer": "@dev",
+                "php-jsonpatch/php-jsonpatch": "dev-master",
+                "php-jsonpointer/php-jsonpointer": "dev-master",
+                "zendframework/zend-di": ">=2.2.5"
+            },
+            "type": "di-definition",
             "autoload": {
                 "psr-4": {
                     "CG\\Communication\\": "src"
@@ -385,7 +397,7 @@
                     "email": "matthew.king@channelgrabber.com"
                 }
             ],
-            "time": "2015-07-09 13:50:39"
+            "time": "2015-07-09 15:07:43"
         },
         {
             "name": "channelgrabber/constants",
@@ -503,13 +515,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "af9e882ed2d5cfa9b39d714db2fc95a2d4db935d"
+                "reference": "1ca1a6c8c83fef0607a45d9e0613970f676fa7c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-CGIV-4698-3cb84d.zip",
-                "reference": "af9e882ed2d5cfa9b39d714db2fc95a2d4db935d",
-                "shasum": "caac9839fe51fb9b2ef75dd00c5569bb353e2389"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-CGIV-4698-76b033.zip",
+                "reference": "1ca1a6c8c83fef0607a45d9e0613970f676fa7c0",
+                "shasum": "d63971e3edd548d32ed538bf392d301e0daeffbf"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -552,7 +564,7 @@
                     "CG\\Ebay\\Test\\": "tests/Test/"
                 }
             },
-            "time": "2015-07-08 07:28:44"
+            "time": "2015-07-09 14:52:02"
         },
         {
             "name": "channelgrabber/ekm",
