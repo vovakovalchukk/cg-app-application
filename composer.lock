@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5c493997d3d32f1f5cb86979fc6ed999",
+    "hash": "6ae0401fe7c64b7c12e11e334c352445",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2904,17 +2904,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-5317-message-centre-nav",
+            "version": "dev-EPIC-CGIV-4580-message-center",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "1054d61e3744db98483fc1a6422837f232c7abb4"
+                "reference": "e6942144c9d3f7d95ad5b41f447125490d3b4455"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5317-message-centre-nav-2311b5.zip",
-                "reference": "1054d61e3744db98483fc1a6422837f232c7abb4",
-                "shasum": "a2004e3497aa7fe6c75b4cee270003f9bd2db91b"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-4580-message-center-6530e2.zip",
+                "reference": "e6942144c9d3f7d95ad5b41f447125490d3b4455",
+                "shasum": "85d0fcd6bc1bc64166ec22f70fc38237457b72f9"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2959,7 +2959,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-07-10 08:14:56"
+            "time": "2015-07-10 16:05:49"
         },
         {
             "name": "cilex/cilex",

@@ -76,7 +76,7 @@
         "channelgrabber/zf2-ssoclient": "~1.4.2",
         "channelgrabber/zf2-stdlib": "~1.1.20",
         "channelgrabber/zf2-usage": "~1.0.6",
-        "channelgrabber/zf2-v4-ui": "dev-CGIV-5317-message-centre-nav as 1.15.12",
+        "channelgrabber/zf2-v4-ui": "dev-EPIC-CGIV-4580-message-center as 1.15.12",
         "cilex/cilex": "~1.0.1",
         "composer/composer": "@dev",
         "guzzle/guzzle": "~3.7",
