@@ -209,33 +209,58 @@ class Service
         return $this->formatThreadData($thread);
     }
 
-    public function updateThreadAndReturnData($id, $assignedUserId = null, $status = null)
+    public function updateThreadAndReturnData($id, $assignedUserId = false, $status = null)
     {
         $thread = $this->threadService->fetch($id);
-        // null is a valid assignee
-        if ($assignedUserId !== false) {
-            if ($assignedUserId == static::ASSIGNEE_ACTIVE_USER) {
-                $user = $this->userOuService->getActiveUser();
-                $assignedUserId = $user->getId();
-            // null can come through as ''
-            } elseif ($assignedUserId == '') {
-                $assignedUserId = null;
-            }
-            $thread->setAssignedUserId($assignedUserId);
-        }
-        if ($status && $status != $thread->getStatus()) {
-            if ($status == ThreadStatus::RESOLVED) {
-                $this->threadResolveFactory->__invoke($thread);
-            } else {
-                $thread->setStatus($status);
-            }
-        }
+
+        $this->updateThreadAssignedUserId($thread, $assignedUserId)
+            ->updateThreadStatus($thread, $status);
+
         try {
             $this->threadService->save($thread);
         } catch (NotModified $e) {
             // NoOp
         }
         return $this->formatThreadData($thread);
+    }
+
+    protected function updateThreadAssignedUserId(Thread $thread, $assignedUserId) {
+        if (!$this->isAssignedUserIdProvided($assignedUserId)) {
+            return $this;
+        }
+        if ($assignedUserId == static::ASSIGNEE_ACTIVE_USER) {
+            $user = $this->userOuService->getActiveUser();
+            $assignedUserId = $user->getId();
+        // null, meaning unassign, can come through as ''
+        } elseif ($assignedUserId == '') {
+            $assignedUserId = null;
+        }
+        $thread->setAssignedUserId($assignedUserId);
+        return $this;
+    }
+
+    protected function isAssignedUserIdProvided($assignedUserId)
+    {
+        // As null is a valid value (it means unassign) we default to false when its not specified at all
+        return ($assignedUserId !== false);
+    }
+
+    protected function updateThreadStatus(Thread $thread, $status)
+    {
+        if (!$this->hasThreadStatusChanged($thread, $status)) {
+            return $this;
+        }
+        if ($status == ThreadStatus::RESOLVED) {
+            $this->threadResolveFactory->__invoke($thread);
+        } else {
+            $thread->setStatus($status);
+        }
+        return $this;
+    }
+
+    protected function hasThreadStatusChanged(Thread $thread, $status)
+    {
+        return ($status && $status != $thread->getStatus());
     }
 
     protected function setThreadService(ThreadService $threadService)
