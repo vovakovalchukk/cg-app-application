@@ -7,10 +7,12 @@ define([
         id,
         accountId,
         created,
+        createdFuzzy,
         name,
         externalUsername,
         body,
-        threadId
+        threadId,
+        personType
     ) {
         this.getId = function()
         {
@@ -42,6 +44,17 @@ define([
         this.setCreated = function(newCreated)
         {
             created = newCreated;
+            return this;
+        };
+
+        this.getCreatedFuzzy = function()
+        {
+            return createdFuzzy;
+        };
+
+        this.setCreatedFuzzy = function(newCreatedFuzzy)
+        {
+            createdFuzzy = newCreatedFuzzy;
             return this;
         };
 
@@ -86,6 +99,17 @@ define([
         this.setThreadId = function(newThreadId)
         {
             threadId = newThreadId;
+            return this;
+        };
+
+        this.getPersonType = function()
+        {
+            return personType;
+        };
+
+        this.setPersonType = function(newPersonType)
+        {
+            personType = newPersonType;
             return this;
         };
     };

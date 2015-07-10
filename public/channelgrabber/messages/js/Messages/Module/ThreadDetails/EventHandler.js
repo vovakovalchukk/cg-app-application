@@ -1,11 +1,13 @@
 define([
     'jquery',
     'Messages/Module/EventHandlerAbstract',
-    'Messages/Module/ThreadList/Events'
+    'Messages/Module/ThreadList/Events',
+    'Messages/Module/ThreadDetails/Panel/Controls/Events'
 ], function(
     $,
     EventHandlerAbstract,
-    ThreadListEvents
+    ThreadListEvents,
+    ControlEvents
 ) {
     var EventHandler = function(module)
     {
@@ -13,7 +15,8 @@ define([
 
         var init = function()
         {
-            this.listenForThreadSelection();
+            this.listenForThreadSelection()
+                .listenForThreadChanges();
         };
         init.call(this);
     };
@@ -25,7 +28,17 @@ define([
         var self = this;
         $(document).on(ThreadListEvents.THREAD_SELECTED, function(event, thread)
         {
-            self.getModule().threadSelected(thread);
+            self.getModule().loadThread(thread);
+        });
+        return this;
+    };
+
+    EventHandler.prototype.listenForThreadChanges = function()
+    {
+        var self = this;
+        $(document).on(ControlEvents.ASSIGNEE_CHANGED+' '+ControlEvents.STATUS_CHANGED, function()
+        {
+            self.getModule().refresh();
         });
         return this;
     };

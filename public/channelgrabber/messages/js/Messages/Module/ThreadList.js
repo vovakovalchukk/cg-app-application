@@ -1,11 +1,15 @@
 define([
     'Messages/ModuleAbstract',
     'Messages/Module/ThreadList/EventHandler',
-    'Messages/Thread/Service'
+    'Messages/Thread/Service',
+    'cg-mustache',
+    'DomManipulator'
 ], function(
     ModuleAbstract,
     EventHandler,
-    service
+    service,
+    CGMustache,
+    domManipulator
 ) {
     var ThreadList = function(application)
     {
@@ -16,6 +20,11 @@ define([
         this.getService = function()
         {
             return service;
+        };
+
+        this.getDomManipulator = function()
+        {
+            return domManipulator;
         };
 
         this.getThreads = function()
@@ -36,22 +45,55 @@ define([
         init.call(this);
     };
 
+    ThreadList.TEMPLATE_SUMMARY = '/channelgrabber/messages/template/Messages/ThreadList/summary.mustache';
+    ThreadList.SELECTOR_LIST = '.message-pane ul';
+    ThreadList.SELECTOR_LIST_ELEMENTS = '.message-pane ul li';
+
     ThreadList.prototype = Object.create(ModuleAbstract.prototype);
 
-    ThreadList.prototype.loadForFilter = function(filter)
+    ThreadList.prototype.loadForFilter = function(filter, selectedThreadId)
     {
         var self = this;
+        this.getApplication().busy();
         this.getService().fetchCollectionByFilter(filter, function(threads)
         {
             self.setThreads(threads);
-            self.renderThreads(threads);
+            self.renderThreads(threads, selectedThreadId);
+            self.getApplication().unbusy();
+        }, function(response)
+        {
+            self.getApplication().unbusy();
+            n.ajaxError(response);
         });
     };
 
-    ThreadList.prototype.renderThreads = function(threads)
+    ThreadList.prototype.renderThreads = function(threads, selectedThreadId)
     {
-        // TODO: CGIV-5839
-        this.getEventHandler().triggerThreadsRendered(threads);
+        var self = this;
+        CGMustache.get().fetchTemplate(ThreadList.TEMPLATE_SUMMARY, function(template, cgmustache) {
+            self.getDomManipulator().remove(ThreadList.SELECTOR_LIST_ELEMENTS);
+            threads.each(function(thread)
+            {
+                var updatedParts = thread.getUpdated().split(' ');
+                var html = cgmustache.renderTemplate(template, {
+                    'id': thread.getId(),
+                    'channel': thread.getChannel(),
+                    'name': thread.getName(),
+                    'subject': thread.getSubject(),
+                    'updatedDate': updatedParts[0],
+                    'updatedTime': updatedParts[1],
+                    'status': thread.getStatus().replace(/ /g, '-').toLowerCase(),
+                    'statusText': thread.getStatus().replace(/_-/g, ' ').ucfirst(),
+                    'assignedUserName': thread.getAssignedUserName()
+                });
+                self.getDomManipulator().append(ThreadList.SELECTOR_LIST, html);
+            });
+            // Tell listeners we've rendered. Expected to be picked up by Module/ThreadDetails/Eventhandler
+            self.getEventHandler().triggerThreadsRendered(threads);
+            if (selectedThreadId) {
+                self.threadSelected(selectedThreadId);
+            }
+        });
     };
 
     ThreadList.prototype.threadSelected = function(id)
@@ -59,10 +101,12 @@ define([
         if (!this.getThreads().containsId(id)) {
             return;
         }
-        var thread = this.getThreads().getById(id);
-        // TODO: CGIV-5839, highlight this thread in the list
+        this.getDomManipulator().removeClass(ThreadList.SELECTOR_LIST_ELEMENTS, 'active')
+            .addClass(ThreadList.SELECTOR_LIST_ELEMENTS+'[data-entity-id='+id+']', 'active')
 
+        var thread = this.getThreads().getById(id);
         // The actual fetching and rendering of the thread in the right pane is handled by ThreadDetail
+        // This will also be picked up by Application/EventHandler to change the URL
         this.getEventHandler().triggerThreadSelected(thread);
     };
 

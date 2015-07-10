@@ -12,9 +12,71 @@ $(document).ready(function() {
     ], function(
         MessagesApp
     ) {
-        new MessagesApp(<?=$rootOuId;?>);
+        var assignableUsers = <?=json_encode($assignableUsersArray);?>;
+        new MessagesApp(<?=$this->jsString($uri);?>, <?=$rootOuId;?>, assignableUsers, <?=($threadId ? $this->jsString($threadId) : 'null');?>);
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 
-<!-- To be completed in CGIV-5839 -->
+<div class="message-center-nav">
+<ul>
+    <li data-filter-type="active-user">
+        <div class="sprite-sprite sprite-mymessages-24-black"></div>
+        <div class="label">My Messages</div>
+        <div class="number-loz">?</div>
+        <div class="indicator"></div>
+    </li>
+    <li data-filter-type="unassigned">
+        <div class="sprite-sprite sprite-unassigned-24-black"></div>
+        <div class="label">Unassigned</div>
+        <div class="number-loz">?</div>
+        <div class="indicator"></div>
+    </li>
+    <li data-filter-type="assigned">
+        <div class="sprite-sprite sprite-assigned-24-black"></div>
+        <div class="label">Assigned</div>
+        <div class="number-loz">?</div>
+        <div class="indicator"></div>
+    </li>
+    <li data-filter-type="resolved">
+        <div class="sprite-sprite sprite-resolved-24-black"></div>
+        <div class="label">Resolved</div>
+        <div class="number-loz">?</div>
+        <div class="indicator"></div>
+    </li>
+    <li data-filter-type="search" class="message-search-holder">
+        <div class="message-search-field">
+            <?=$filterSearchInput;?>
+        </div>
+        <div class="message-button-holder">
+            <?=$filterSearchButton;?>
+      </div>
+    </li>
+</ul>
+</div>
+<div class="main-section">
+    <div class="message-pane">
+        <ul>
+            <!-- JS will add the thread summaries here -->
+            <div id="threads-loading-message" class="dataTables_processing">
+                Loading...
+            </div>
+        </ul>
+    </div>
+    <div class="message-preview">
+        <div class="no-messages-content">
+            <div class="paragraph">
+                <h1>No Conversations</h1>
+                <p>Please select a conversation from the left hand pane</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+<?php /* This is a hack to hide the sidebar away for now */ ?>
+#main-wrapper {
+    margin-left:0px;
+    width:100%;
+}
+</style>

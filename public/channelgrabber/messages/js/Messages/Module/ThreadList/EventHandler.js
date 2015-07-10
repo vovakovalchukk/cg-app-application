@@ -21,16 +21,16 @@ define([
         init.call(this);
     };
 
-    EventHandler.SELECTOR_THREAD = '.messages-thread-summary';
+    EventHandler.SELECTOR_THREAD = '.message-pane ul li';
 
     EventHandler.prototype = Object.create(EventHandlerAbstract.prototype);
 
     EventHandler.prototype.listenForFilterApplyRequested = function()
     {
         var self = this;
-        $(document).on(FilterEvents.APPLY_REQUESTED, function(event, filter)
+        $(document).on(FilterEvents.APPLY_REQUESTED, function(event, filter, selectedThreadId)
         {
-            self.getModule().loadForFilter(filter);
+            self.getModule().loadForFilter(filter, selectedThreadId);
         });
         return this;
     };
@@ -38,7 +38,6 @@ define([
     EventHandler.prototype.listenForThreadDomSelection = function()
     {
         var self = this;
-        // TODO: this wont work until the UI is added in CGIV-5839
         $(document).on('click', EventHandler.SELECTOR_THREAD, function()
         {
             var selectedElement = this;

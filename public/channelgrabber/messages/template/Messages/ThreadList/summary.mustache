@@ -1,0 +1,21 @@
+<li data-entity-id="{{id}}">
+    <div class="channel-logo-holder">
+      <span class="sprite-sprite sprite-messages-{{channel}}-36"></span>
+    </div>
+    <div class="message-details">
+        <div class="name-category-date">
+            <span class="name-category"><strong>{{name}}</strong> - {{subject}}</span>
+            <span class="date"><strong>{{updatedDate}}</strong><br>{{updatedTime}}</span>
+        </div>
+        <div class="status-assigned">
+            <div class="actual-status">
+                <div class="status-holder">
+                    <div class="status-center">
+                        <span class="status {{status}}">{{statusText}}</span>
+                    </div>
+                </div>
+            </div>
+            <span class="assigned"><strong>Assigned:</strong> {{#assignedUserName}}{{.}}{{/assignedUserName}}{{^assignedUserName}}N/A{{/assignedUserName}}</span>
+        </div>
+    </div>
+</li>

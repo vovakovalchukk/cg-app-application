@@ -19,10 +19,12 @@ define([
             json.id,
             json.accountId,
             json.created,
+            json.createdFuzzy,
             json.name,
             json.externalUsername,
             json.body,
-            json.threadId
+            json.threadId,
+            json.personType
         );
         return message;
     };

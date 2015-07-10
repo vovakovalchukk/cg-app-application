@@ -2,12 +2,14 @@ define([
     'jquery',
     'Messages/Module/EventHandlerAbstract',
     'Messages/Application/Events',
-    'Messages/Module/Filter/Events'
+    'Messages/Module/Filter/Events',
+    'Messages/Module/ThreadDetails/Panel/Controls/Events'
 ], function(
     $,
     EventHandlerAbstract,
     AppEvents,
-    FilterEvents
+    FilterEvents,
+    ControlEvents
 ) {
     var EventHandler = function(module)
     {
@@ -15,7 +17,8 @@ define([
 
         var init = function()
         {
-            this.listenForApplicationInitialised();
+            this.listenForApplicationInitialised()
+                .listenForAssigneeOrStatusChanged();
         };
         init.call(this);
     };
@@ -25,15 +28,27 @@ define([
     EventHandler.prototype.listenForApplicationInitialised = function()
     {
         var self = this;
-        $(document).on(AppEvents.INITIALISED, function()
+        $(document).on(AppEvents.INITIALISED, function(event, selectedThreadId)
         {
-            self.getModule().applyActiveFilters();
+            self.getModule().initialise(selectedThreadId);
         });
+        return this;
     };
 
-    EventHandler.prototype.triggerApplyRequested = function(filter)
+    EventHandler.prototype.listenForAssigneeOrStatusChanged = function()
     {
-        $(document).trigger(FilterEvents.APPLY_REQUESTED, [filter]);
+        var self = this;
+        $(document).on(ControlEvents.ASSIGNEE_CHANGED + ' ' + ControlEvents.STATUS_CHANGED, function(event, thread)
+        {
+            self.getModule().applyActiveFilters(thread.getId())
+                .updateFilterCounts();
+        });
+        return this;
+    };
+
+    EventHandler.prototype.triggerApplyRequested = function(filter, selectedThreadId)
+    {
+        $(document).trigger(FilterEvents.APPLY_REQUESTED, [filter, selectedThreadId]);
     };
 
     return EventHandler;

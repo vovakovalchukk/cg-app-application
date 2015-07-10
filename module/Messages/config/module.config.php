@@ -1,11 +1,14 @@
 <?php
 namespace Messages;
 
+use Messages\Controller\HeadlineJsonController;
 use Messages\Controller\IndexController;
+use Messages\Controller\MessageJsonController;
 use Messages\Controller\ThreadJsonController;
 use Messages\Module;
 use Messages\Thread\Service;
 use Zend\Mvc\Router\Http\Literal;
+use Zend\Mvc\Router\Http\Segment;
 
 return [
     'navigation' => [
@@ -61,7 +64,51 @@ return [
                                 ],
                                 'may_terminate' => true,
                             ],
+                            ThreadJsonController::ROUTE_SAVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => ThreadJsonController::ROUTE_SAVE_URL,
+                                    'defaults' => [
+                                        'controller' => ThreadJsonController::class,
+                                        'action' => 'save'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                            HeadlineJsonController::ROUTE_HEADLINE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => HeadlineJsonController::ROUTE_HEADLINE_URL,
+                                    'defaults' => [
+                                        'controller' => HeadlineJsonController::class,
+                                        'action' => 'headline'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                            MessageJsonController::ROUTE_ADD => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => MessageJsonController::ROUTE_ADD_URL,
+                                    'defaults' => [
+                                        'controller' => MessageJsonController::class,
+                                        'action' => 'add'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
                         ],
+                    ],
+                    IndexController::ROUTE_THREAD => [
+                        'type' => Segment::class,
+                        'priority' => -100,
+                        'options' => [
+                            'route' => '/:threadId',
+                            'defaults' => [
+                                'action' => 'index',
+                            ]
+                        ],
+                        'may_terminate' => true,
                     ],
                 ],
             ]

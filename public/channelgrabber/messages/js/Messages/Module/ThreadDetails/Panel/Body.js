@@ -1,13 +1,15 @@
 define([
     'Messages/Module/ThreadDetails/PanelAbstract',
-    'Messages/Module/ThreadDetails/Panel/Body/EventHandler'
+    'Messages/Module/ThreadDetails/Panel/Body/EventHandler',
+    'cg-mustache'
 ], function(
     PanelAbstract,
-    EventHandler
+    EventHandler,
+    CGMustache
 ) {
-    var Body = function(thread)
+    var Body = function(module, thread)
     {
-        PanelAbstract.call(this, thread);
+        PanelAbstract.call(this, module, thread);
 
         var init = function()
         {
@@ -17,11 +19,33 @@ define([
         init.call(this);
     };
 
+    Body.SELECTOR = '.message-section';
+    Body.TEMPLATE = '/channelgrabber/messages/template/Messages/ThreadDetails/Panel/body.mustache';
+
     Body.prototype = Object.create(PanelAbstract.prototype);
 
     Body.prototype.render = function(thread)
     {
-        // TODO: CGIV-5839
+        var self = this;
+        var messagesData = [];
+        thread.getMessages().each(function(message)
+        {
+            var iconClass = (message.getPersonType() == 'staff' ? 'sprite-message-staff-21-blue' : 'sprite-message-customer-21-red');
+            messagesData.push({
+                'name': message.getName(),
+                'externalUsername': message.getExternalUsername(),
+                'created': message.getCreated(),
+                'createdFuzzy': message.getCreatedFuzzy(),
+                'body': message.getBody().nl2br(),
+                'iconClass': iconClass
+            });
+        });
+        CGMustache.get().fetchTemplate(Body.TEMPLATE, function(template, cgmustache) {
+            var html = cgmustache.renderTemplate(template, {
+                'messages': messagesData
+            });
+            self.getDomManipulator().append(PanelAbstract.SELECTOR_CONTAINER, html);
+        });
     };
 
     return Body;

@@ -79,12 +79,12 @@ use CG\Ekm\Product\TaxRate\Repository as EkmTaxRateRepository;
 use CG\Ekm\Product\TaxRate\Service as EkmTaxRateService;
 
 // Communication
-use CG\Communication\Thread\Service as ThreadService;
-use CG\Communication\Thread\StorageInterface as ThreadStorage;
-use CG\Communication\Message\Service as MessageService;
+use CG\Communication\Headline\StorageInterface as HeadlineStorage;
+use CG\Communication\Headline\Storage\Api as HeadlineApi;
 use CG\Communication\Message\StorageInterface as MessageStorage;
-use CG\Communication\Thread\Storage\Api as ThreadApi;
 use CG\Communication\Message\Storage\Api as MessageApi;
+use CG\Communication\Thread\StorageInterface as ThreadStorage;
+use CG\Communication\Thread\Storage\Api as ThreadApi;
 
 return array(
     'di' => array(
@@ -105,6 +105,7 @@ return array(
                 SubscriptionDiscountStorage::class => SubscriptionDiscountApiStorage::class,
                 ThreadStorage::class => ThreadApi::class,
                 MessageStorage::class => MessageApi::class,
+                HeadlineStorage::class => HeadlineApi::class,
             ),
             AccountCleanupService::class => [
                 'listingService' => ListingService::class,
@@ -279,6 +280,11 @@ return array(
                 ]
             ],
             MessageApi::class => [
+                'parameters' => [
+                    'client' => 'communication_guzzle'
+                ]
+            ],
+            HeadlineApi::class => [
                 'parameters' => [
                     'client' => 'communication_guzzle'
                 ]

@@ -11,6 +11,8 @@ class ThreadJsonController extends AbstractActionController
     const ROUTE_AJAX_URL = '/ajax';
     const ROUTE_THREAD = 'Thread';
     const ROUTE_THREAD_URL = '/thread';
+    const ROUTE_SAVE = 'Save';
+    const ROUTE_SAVE_URL = '/save';
 
     protected $jsonModelFactory;
     protected $service;
@@ -42,6 +44,21 @@ class ThreadJsonController extends AbstractActionController
         }
 
         $threadData = $this->service->fetchThreadDataForId($id);
+
+        return $view->setVariable('thread', $threadData);
+    }
+
+    public function saveAction()
+    {
+        $view = $this->jsonModelFactory->newInstance();
+        $id = $this->params()->fromPost('id');
+        if (!$id) {
+            throw new \InvalidArgumentException(__METHOD__ . ' requires an id in the POST data');
+        }
+        $assignedUserId = $this->params()->fromPost('assignedUserId', false);
+        $status = $this->params()->fromPost('status', null);
+
+        $threadData = $this->service->updateThreadAndReturnData($id, $assignedUserId, $status);
 
         return $view->setVariable('thread', $threadData);
     }

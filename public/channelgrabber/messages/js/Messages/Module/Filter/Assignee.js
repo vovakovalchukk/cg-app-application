@@ -5,12 +5,18 @@ define([
 ) {
     var Assignee = function(filterModule, assignee, count)
     {
-        FilterCountAbstract.call(this, filterModule, count);
-
         this.getAssignee = function()
         {
             return assignee;
         };
+
+        this.getType = function()
+        {
+            return assignee;
+        };
+
+        // Must have defined getType() before this as it depends on it
+        FilterCountAbstract.call(this, filterModule, count);
     };
 
     Assignee.prototype = Object.create(FilterCountAbstract.prototype);
