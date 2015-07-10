@@ -11,13 +11,17 @@
         {
             "type": "git",
             "url": "git@bitbucket.org:channelgrabber/cg-picklist.git"
+        },
+        {
+            "type": "git",
+            "url": "git@bitbucket.org:channelgrabber/ekm-module.git"
         }
     ],
     "config": {
         "preferred-install": "dist"
     },
     "require": {
-        "channelgrabber/amazon": "~1.14.5",
+        "channelgrabber/amazon": "~1.15.8",
         "channelgrabber/billing": "~1.8.6",
         "channelgrabber/cache": "~2.1.0",
         "channelgrabber/channel": "~1.16.20",
@@ -60,13 +64,13 @@
         "channelgrabber/zf2-amazon": "~1.0.4",
         "channelgrabber/zf2-channel": "~1.0.6",
         "channelgrabber/zf2-ebay": "~1.0.2",
-        "channelgrabber/zf2-ekm": "~1.0.1",
-        "channelgrabber/zf2-email-template": "~1.0.7",
+        "channelgrabber/zf2-ekm": "~1.0.2",
+        "channelgrabber/zf2-email-template": "~1.0.8",
         "channelgrabber/zf2-logclient": "~1.4.2",
-        "channelgrabber/zf2-login": "~1.4.26",
+        "channelgrabber/zf2-login": "~1.4.27",
         "channelgrabber/zf2-mustache": "~1.0.1",
         "channelgrabber/zf2-permission": "~1.1.9",
-        "channelgrabber/zf2-register": "~1.4.37",
+        "channelgrabber/zf2-register": "~1.4.38",
         "channelgrabber/zf2-royalmail": "~1.1.1",
         "channelgrabber/zf2-sessions": "~1.1.4",
         "channelgrabber/zf2-ssoclient": "~1.4.2",
