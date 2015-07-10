@@ -7,13 +7,13 @@ use CG\Communication\Thread\Service as ThreadService;
 use CG\Communication\Thread\Status as ThreadStatus;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\OrganisationUnit\Service as UserOuService;
+use Zend\Navigation\Page\AbstractPage as NavPage;
 
 class Service
 {
     const DEFAULT_LIMIT = 50;
     const KEY_HAS_NEW = 'messages-has-new';
-    //const TTL_HAS_NEW = 300;
-    const TTL_HAS_NEW = 30; //TEMP
+    const TTL_HAS_NEW = 300;
     const ASSIGNEE_ACTIVE_USER = 'active-user';
     const ASSIGNEE_ASSIGNED = 'assigned';
     const ASSIGNEE_UNASSIGNED = 'unassigned';
@@ -33,6 +33,9 @@ class Service
             ->setUserOuService($userOuService);
     }
 
+    /**
+     * @return array
+     */
     public function fetchThreadDataForFilters(array $filters)
     {
         $ou = $this->userOuService->getRootOuByActiveUser();
@@ -93,6 +96,9 @@ class Service
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function fetchThreadDataForId($id)
     {
         $thread = $this->threadService->fetch($id);
@@ -104,6 +110,9 @@ class Service
         return $threadData;
     }
 
+    /**
+     * @return bool
+     */
     public function hasNew()
     {
         $success = false;
@@ -151,13 +160,21 @@ class Service
         }
     }
 
+    public function changeNavSpriteIfHasNew(NavPage $page)
+    {
+        if (!$this->hasNew()) {
+            return;
+        }
+        $page->set('sprite', 'sprite-messages-alert-18-white');
+    }
+
     protected function setThreadService(ThreadService $threadService)
     {
         $this->threadService = $threadService;
         return $this;
     }
 
-    public function setUserOuService(UserOuService $userOuService)
+    protected function setUserOuService(UserOuService $userOuService)
     {
         $this->userOuService = $userOuService;
         return $this;

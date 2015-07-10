@@ -4,6 +4,7 @@ namespace Messages;
 use Messages\Controller\IndexController;
 use Messages\Controller\ThreadJsonController;
 use Messages\Module;
+use Messages\Thread\Service;
 use Zend\Mvc\Router\Http\Literal;
 
 return [
@@ -14,6 +15,12 @@ return [
                 'uri'    => 'https://' . $_SERVER['HTTP_HOST'] . '/messages',
                 'sprite' => 'sprite-messages-18-white',
                 'order'  => 15,
+                'pre-render' => [
+                    'diLoad' => [
+                        'class' => Service::class,
+                        'method' => 'changeNavSpriteIfHasNew'
+                    ]
+                ],
             ]
         ]
     ],

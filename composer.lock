@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "70d68a78d2eb8bdfe730dba150052de2",
+    "hash": "5c493997d3d32f1f5cb86979fc6ed999",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -360,15 +360,27 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-communication.git",
-                "reference": "c8c69f2a5f2bd146ed79ecc58da3f0e9836a7bb9"
+                "reference": "a45db4309079c4d05365a1cb51834365c61521b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-communication-dev-CGIV-4698-1c3d35.zip",
-                "reference": "c8c69f2a5f2bd146ed79ecc58da3f0e9836a7bb9",
-                "shasum": "e4487eb08c269d52d68d50580332c6fe56f0bfea"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-communication-dev-CGIV-4698-421537.zip",
+                "reference": "a45db4309079c4d05365a1cb51834365c61521b3",
+                "shasum": "70f824a7186aea407a7f53fad1ba8afb5bdc48a6"
             },
-            "type": "library",
+            "require": {
+                "channelgrabber/channel": "^1.16.20",
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/di": ">=2.1.0",
+                "channelgrabber/http": "^1.3.14",
+                "channelgrabber/stats": "^1.0.0",
+                "channelgrabber/stdlib": "^2.12.6",
+                "composer/composer": "@dev",
+                "php-jsonpatch/php-jsonpatch": "dev-master",
+                "php-jsonpointer/php-jsonpointer": "dev-master",
+                "zendframework/zend-di": ">=2.2.5"
+            },
+            "type": "di-definition",
             "autoload": {
                 "psr-4": {
                     "CG\\Communication\\": "src"
@@ -385,7 +397,7 @@
                     "email": "matthew.king@channelgrabber.com"
                 }
             ],
-            "time": "2015-06-23 16:06:31"
+            "time": "2015-07-09 15:07:43"
         },
         {
             "name": "channelgrabber/constants",
@@ -394,6 +406,12 @@
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgconstants.git",
                 "reference": "2bba7dd2a124432258d1a81d6e42cc13708bf93a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-constants-dev-master-1ee173.zip",
+                "reference": "2bba7dd2a124432258d1a81d6e42cc13708bf93a",
+                "shasum": "829cfb41e8c6b36b6d952d01ba3fa44f8d4b47a6"
             },
             "require": {
                 "php": ">=5.4.0"
@@ -493,17 +511,17 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.9.13",
+            "version": "1.9.16.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "a3e75e2b71326f68b871481b30feea8a40bb0a6b"
+                "reference": "46919115acfde231ede1fab1a944c2d5e4d14f13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.9.13-e078bf.zip",
-                "reference": "a3e75e2b71326f68b871481b30feea8a40bb0a6b",
-                "shasum": "ab8604c9932db9ba2d31ebfad4fd1f205739f25f"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.9.16.2-3016a8.zip",
+                "reference": "46919115acfde231ede1fab1a944c2d5e4d14f13",
+                "shasum": "fbec0c10177ee5f235c2d12fa08acebf8830976e"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -546,7 +564,7 @@
                     "CG\\Ebay\\Test\\": "tests/Test/"
                 }
             },
-            "time": "2015-07-07 12:34:16"
+            "time": "2015-07-09 12:50:16"
         },
         {
             "name": "channelgrabber/ekm",
@@ -721,13 +739,6 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -1776,17 +1787,17 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.12.5",
+            "version": "2.12.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "db1941dd0f2b1709524b604b2ca2153914b378e7"
+                "reference": "579e25a8dcbdc51c45e19a600b30e4293a0a894f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.5-42becb.zip",
-                "reference": "db1941dd0f2b1709524b604b2ca2153914b378e7",
-                "shasum": "21c0d947042a989be917ea48e22dcce67afb6cae"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.6-078ab8.zip",
+                "reference": "579e25a8dcbdc51c45e19a600b30e4293a0a894f",
+                "shasum": "1dcaecf2ba6472bd646383d762fdbde070f192df"
             },
             "require": {
                 "zendframework/zend-db": ">=2.2,<3.0"
@@ -1812,7 +1823,7 @@
                     "CG\\Stdlib\\Test\\": "tests/CG/Stdlib"
                 }
             },
-            "time": "2015-07-07 14:46:51"
+            "time": "2015-07-08 15:32:42"
         },
         {
             "name": "channelgrabber/stock",
@@ -2893,17 +2904,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.15.11",
+            "version": "dev-CGIV-5317-message-centre-nav",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "9b00c7709b9d4207bd50f3fb3e5783b8a614afb2"
+                "reference": "1054d61e3744db98483fc1a6422837f232c7abb4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.15.11-9c057f.zip",
-                "reference": "9b00c7709b9d4207bd50f3fb3e5783b8a614afb2",
-                "shasum": "0c525cd5edcd3a26e77358b51a56bee9854b9807"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5317-message-centre-nav-2311b5.zip",
+                "reference": "1054d61e3744db98483fc1a6422837f232c7abb4",
+                "shasum": "a2004e3497aa7fe6c75b4cee270003f9bd2db91b"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2948,7 +2959,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-07-06 12:40:21"
+            "time": "2015-07-10 08:14:56"
         },
         {
             "name": "cilex/cilex",
@@ -3078,7 +3089,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/composer-composer-dbdd4978a7dd4cd29d0d7dfc912aab404245b736-zip-638e54.zip",
+                "url": "https://api.github.com/repos/composer/composer/zipball/39e6f51bef3a4b148d9f35a0ae7a082e9aed97f4",
                 "reference": "dbdd4978a7dd4cd29d0d7dfc912aab404245b736",
                 "shasum": "3696697f7473090d1ff5e96e9dc48bacf28eab92"
             },
@@ -3764,9 +3775,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/nocarrier-hal-4ff57176cb4ebde4245bda979ed662a0f8480b97-zip-86872c.zip",
+                "url": "https://api.github.com/repos/blongden/hal/zipball/4ff57176cb4ebde4245bda979ed662a0f8480b97",
                 "reference": "4ff57176cb4ebde4245bda979ed662a0f8480b97",
-                "shasum": "a7ed18f23544e54bcdf77849740940142c10800f"
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
@@ -3812,7 +3823,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/php-jsonpatch-php-jsonpatch-7933990bcfea21bb3f093bc3df9ae621540b40ca-zip-e72ac3.zip",
+                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpatch/zipball/7933990bcfea21bb3f093bc3df9ae621540b40ca",
                 "reference": "7933990bcfea21bb3f093bc3df9ae621540b40ca",
                 "shasum": "5d8c37272322234bc03029520515c470ce7832c0"
             },
@@ -3864,7 +3875,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/php-jsonpointer-php-jsonpointer-fc3999d9ab5bf8f59dc829742c6dab6ccd2e1b6e-zip-ccf2bc.zip",
+                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpointer/zipball/fc3999d9ab5bf8f59dc829742c6dab6ccd2e1b6e",
                 "reference": "fc3999d9ab5bf8f59dc829742c6dab6ccd2e1b6e",
                 "shasum": "2515588a8d2d786e41d8e2c8b489250056848ebd"
             },
@@ -3940,7 +3951,9 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -4004,9 +4017,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/react-promise-365fcee430dfa4ace1fbc75737ca60ceea7eeeef-zip-a3d677.zip",
+                "url": "https://api.github.com/repos/reactphp/promise/zipball/365fcee430dfa4ace1fbc75737ca60ceea7eeeef",
                 "reference": "365fcee430dfa4ace1fbc75737ca60ceea7eeeef",
-                "shasum": "bedbe98a72c9aba55d48eb56aa2af4d1204a9382"
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0"
@@ -4068,7 +4081,8 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com"
+                    "homepage": "http://benramsey.com",
+                    "role": "Developer"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
@@ -5153,9 +5167,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packages.zendframework.com/composer/zendframework-zendxml-559b34f426d33a11c3db118e00ce14bb8dc64e5f-zip-6cf7a2.zip",
-                "reference": "1.0.0",
-                "shasum": "39abc614b5c26bcbf8102e203c52dee73c4460a8"
+                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
+                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
@@ -5175,6 +5189,7 @@
                     "ZendXml": "library/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -5185,10 +5200,6 @@
                 "xml",
                 "zf2"
             ],
-            "support": {
-                "source": "https://github.com/zendframework/ZendXml/tree/master",
-                "issues": "https://github.com/zendframework/ZendXml/issues"
-            },
             "time": "2014-03-05 22:25:44"
         },
         {
@@ -5683,7 +5694,7 @@
                 {
                     "name": "Anthon Pang",
                     "email": "apang@softwaredevelopment.ca",
-                    "role": "Fork Maintainer"
+                    "role": "developer"
                 }
             ],
             "description": "PHP WebDriver for Selenium 2",
@@ -5848,7 +5859,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -6629,12 +6641,19 @@
             "alias_normalized": "1.0.0.0",
             "version": "dev-CGIV-4698",
             "package": "channelgrabber/communication"
+        },
+        {
+            "alias": "1.15.12",
+            "alias_normalized": "1.15.12.0",
+            "version": "dev-CGIV-5317-message-centre-nav",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/communication": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
