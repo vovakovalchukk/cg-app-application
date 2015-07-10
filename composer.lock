@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7770e18b0fed6ba01faaf4ad00671672",
+    "hash": "4f38cb33105d6c1803996ff927f93a08",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2042,17 +2042,17 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.19.7.1",
+            "version": "dev-CGIV-5839-message-centre-ui",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "09c71537c25e11ce9496ed7ad526b5cad46e7f75"
+                "reference": "881c36d13e73fa6dea2f562f223b7aad1a5a5104"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.19.7.1-2cc8c4.zip",
-                "reference": "09c71537c25e11ce9496ed7ad526b5cad46e7f75",
-                "shasum": "930f9eb4e5157084664968fb4ea34f3161bbd4c5"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-5839-message-centre-ui-233e17.zip",
+                "reference": "881c36d13e73fa6dea2f562f223b7aad1a5a5104",
+                "shasum": "9e3c06da4c25dd8706d710fabb0cbddfccc558d3"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2089,7 +2089,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2015-07-03 10:11:08"
+            "time": "2015-07-10 15:11:57"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -6655,6 +6655,12 @@
             "package": "channelgrabber/stdlib"
         },
         {
+            "alias": "1.19.8",
+            "alias_normalized": "1.19.8.0",
+            "version": "dev-CGIV-5839-message-centre-ui",
+            "package": "channelgrabber/user"
+        },
+        {
             "alias": "1.15.12",
             "alias_normalized": "1.15.12.0",
             "version": "dev-CGIV-5839-message-centre-ui",
@@ -6667,6 +6673,7 @@
         "channelgrabber/constants": 20,
         "channelgrabber/ebay": 20,
         "channelgrabber/stdlib": 20,
+        "channelgrabber/user": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,

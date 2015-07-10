@@ -41,22 +41,12 @@ class IndexController extends AbstractActionController
         $view->setVariable('threadId', $threadId);
         $view->setVariable('rootOuId', $rootOu->getId());
         $view->setVariable('userId', $user->getId());
-        $view->setVariable('assignableUsersArray', $this->getAssignableUsersArray($rootOu));
+        $view->setVariable('assignableUsersArray', $this->userService->getUserOptionsArray($rootOu));
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
         $view->addChild($this->getFilterSearchInputView(), 'filterSearchInput');
         $view->addChild($this->getFilterSearchButtonView(), 'filterSearchButton');
         return $view;
-    }
-
-    protected function getAssignableUsersArray($rootOu)
-    {
-        $users = $this->userService->fetchCollection('all', 1, $rootOu->getId());
-        $userArray = [];
-        foreach ($users as $user) {
-            $userArray[$user->getId()] = $user->getFirstName() . ' ' . $user->getLastName();
-        }
-        return $userArray;
     }
 
     protected function getFilterSearchInputView()

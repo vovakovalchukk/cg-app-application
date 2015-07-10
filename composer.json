@@ -53,7 +53,7 @@
         "channelgrabber/tax": "~1.0.0",
         "channelgrabber/template": "~1.2.54",
         "channelgrabber/usage": "~1.0.7",
-        "channelgrabber/user": "~1.19.6",
+        "channelgrabber/user": "dev-CGIV-5839-message-centre-ui as 1.19.8",
         "channelgrabber/userpreference": "~1.2.4",
         "channelgrabber/validation": "~1.2.7",
         "channelgrabber/zendesk": "~1.0.0",
