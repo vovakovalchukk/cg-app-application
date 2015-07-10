@@ -24,12 +24,8 @@ class HeadlineJsonController extends AbstractActionController
     public function headlineAction()
     {
         $view = $this->jsonModelFactory->newInstance();
-        $organisationUnitId = $this->params()->fromPost('organisationUnitId');
-        if (!$organisationUnitId) {
-            throw new \InvalidArgumentException(__METHOD__ . ' requires an organisationUnitId in the POST data');
-        }
 
-        $headlineData = $this->service->fetchHeadlineDataForOuId($organisationUnitId);
+        $headlineData = $this->service->fetchHeadlineDataForActiveUser();
 
         return $view->setVariable('headline', $headlineData);
     }

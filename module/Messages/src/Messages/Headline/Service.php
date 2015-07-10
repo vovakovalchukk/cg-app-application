@@ -23,15 +23,10 @@ class Service
             ->setUserOuService($userOuService);
     }
 
-    public function fetchHeadlineDataForOuId($organisationUnitId)
+    public function fetchHeadlineDataForActiveUser()
     {
-        // Security check
-        $requestedRootOu = $this->ouService->getRootOuFromOuId($organisationUnitId);
         $activeRootOu = $this->userOuService->getRootOuByActiveUser();
-        if ($requestedRootOu->getId() != $activeRootOu->getId()) {
-            throw new PermissionException();
-        }
-        $headline = $this->headlineService->fetch($organisationUnitId);
+        $headline = $this->headlineService->fetch($activeRootOu->getId());
         return $this->formatHeadlineData($headline);
     }
 
