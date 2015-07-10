@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4f38cb33105d6c1803996ff927f93a08",
+    "hash": "6ae0401fe7c64b7c12e11e334c352445",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1787,17 +1787,17 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "dev-CGIV-5839-message-centre-ui",
+            "version": "dev-EPIC-CGIV-4580-message-center",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "15d8cf3163b91d30efd8c759c28474a96a23b8bc"
+                "reference": "a12f5e7da8388247ee715f1a40872e249a81edac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-CGIV-5839-message-centre-ui-255fcf.zip",
-                "reference": "15d8cf3163b91d30efd8c759c28474a96a23b8bc",
-                "shasum": "e7d63caa5399a067ada13919b83151e783192caa"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-EPIC-CGIV-4580-message-center-d403f2.zip",
+                "reference": "a12f5e7da8388247ee715f1a40872e249a81edac",
+                "shasum": "4ba4fc906e5685f063633f812b9b2d01a5950e49"
             },
             "require": {
                 "zendframework/zend-db": ">=2.2,<3.0"
@@ -1823,7 +1823,7 @@
                     "CG\\Stdlib\\Test\\": "tests/CG/Stdlib"
                 }
             },
-            "time": "2015-06-29 11:20:34"
+            "time": "2015-07-10 15:56:58"
         },
         {
             "name": "channelgrabber/stock",
@@ -2042,7 +2042,7 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "dev-CGIV-5839-message-centre-ui",
+            "version": "dev-EPIC-CGIV-4580-message-center",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
@@ -2050,9 +2050,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-5839-message-centre-ui-233e17.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-EPIC-CGIV-4580-message-center-233e17.zip",
                 "reference": "881c36d13e73fa6dea2f562f223b7aad1a5a5104",
-                "shasum": "9e3c06da4c25dd8706d710fabb0cbddfccc558d3"
+                "shasum": "579ead76f7cdd4ae243aba0d91ef9591fd45f1d6"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2904,17 +2904,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-5839-message-centre-ui",
+            "version": "dev-EPIC-CGIV-4580-message-center",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "0bc7a11b0d9e42144d71ce63b2a92fa7904169df"
+                "reference": "abe2d9906521a5cf87c26b21e33a1b5c6bf5e8ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5839-message-centre-ui-f2b5c3.zip",
-                "reference": "0bc7a11b0d9e42144d71ce63b2a92fa7904169df",
-                "shasum": "5775810f4f7dccc5a7b03d9c3dfedab061d4c4fe"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-4580-message-center-160888.zip",
+                "reference": "abe2d9906521a5cf87c26b21e33a1b5c6bf5e8ad",
+                "shasum": "7ce41c1ba8762b6313976f9f8344ebe1900531e3"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2959,7 +2959,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-07-09 12:57:01"
+            "time": "2015-07-10 15:58:07"
         },
         {
             "name": "cilex/cilex",
@@ -6651,19 +6651,19 @@
         {
             "alias": "2.12.7",
             "alias_normalized": "2.12.7.0",
-            "version": "dev-CGIV-5839-message-centre-ui",
+            "version": "dev-EPIC-CGIV-4580-message-center",
             "package": "channelgrabber/stdlib"
         },
         {
             "alias": "1.19.8",
             "alias_normalized": "1.19.8.0",
-            "version": "dev-CGIV-5839-message-centre-ui",
+            "version": "dev-EPIC-CGIV-4580-message-center",
             "package": "channelgrabber/user"
         },
         {
             "alias": "1.15.12",
             "alias_normalized": "1.15.12.0",
-            "version": "dev-CGIV-5839-message-centre-ui",
+            "version": "dev-EPIC-CGIV-4580-message-center",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
