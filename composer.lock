@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1123e984799bfb230f0618cb3eb8ce96",
+    "hash": "0db6aa0e90e337e3bd23e554d8ead945",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2475,17 +2475,17 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.4.28",
+            "version": "1.4.28.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "b41150ceb92d9e48d09bc6f3df2f2879444e966d"
+                "reference": "fd99cff69ca1409077ced55e26a6b763ed5e2bbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.28-b8804a.zip",
-                "reference": "b41150ceb92d9e48d09bc6f3df2f2879444e966d",
-                "shasum": "b4d7675da1372b33d5dd1d3dd836c36bf8e96ed8"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.28.1-6358e2.zip",
+                "reference": "fd99cff69ca1409077ced55e26a6b763ed5e2bbf",
+                "shasum": "52b704e840b7f899d805669555a9cc4803af55cf"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
@@ -2527,7 +2527,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2015-07-11 09:33:43"
+            "time": "2015-07-11 10:06:03"
         },
         {
             "name": "channelgrabber/zf2-mustache",
