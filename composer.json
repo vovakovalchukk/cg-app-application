@@ -52,7 +52,7 @@
         "channelgrabber/sso": "~1.2.7",
         "channelgrabber/stats": "~1.0.0",
         "channelgrabber/stdlib": "~2.12.5",
-        "channelgrabber/stock": "~1.4.15",
+        "channelgrabber/stock": "dev-CGIV-5816-SeparateQueues as 1.4.16",
         "channelgrabber/tax": "~1.0.0",
         "channelgrabber/template": "~1.2.54",
         "channelgrabber/usage": "~1.0.7",
