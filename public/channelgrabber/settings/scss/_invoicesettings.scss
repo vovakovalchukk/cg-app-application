@@ -74,3 +74,10 @@
     float: left;
     clear:both;
 }
+.email-invoice-holder {
+    width: 300px;
+    float:left;
+    .std-checkbox {
+        top:-3px;
+    }
+}

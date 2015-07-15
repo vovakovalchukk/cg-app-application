@@ -23,24 +23,30 @@ $(document).ready(function() {
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <div class="invoiceSettings">
-    <input type='hidden' value="<?= $eTag ?>" id="setting-etag">
-    <div class="invoiceDefaultSettings module">
-        <div class="heading-large">Invoice Settings</div>
-        <div class="default-invoice-holder">
-            <div class="heading-medium">
-                Default Invoice
-            </div>
-            <div class="default-invoice-dropdown">
-                <?= $defaultCustomSelect; ?>
-            </div>
+    <form>
+        <input type='hidden' value="<?= $eTag ?>" id="setting-etag">
+        <div class="invoiceDefaultSettings module half">
+            <div class="heading-large">Invoice Mapping</div>
+            <label>
+                <span class="inputbox-label">Default Invoice:</span>
+                <div class="order-inputbox-holder half-input">
+                    <?= $defaultCustomSelect; ?>
+                </div>
+            </label>
+            <label>
+                <span class="inputbox-label">Auto email invoices:</span>
+                <div class="email-invoice-holder">
+                    <?= $emailCheckbox ?>
+                </div>
+            </label>
         </div>
-    </div>
-    <div class="invoiceTradingCompanySettings module section-separator">
-        <div class="heading-large">Trading Companies</div>
-        <?php if (empty($tradingCompanies)) : ?>
-            (No Trading companies exist)
-        <?php else : ?>
-            <?= $this->invoiceSettingsDataTable ?>
-        <?php endif; ?>
-    </div>
+        <div class="invoiceTradingCompanySettings module section-separator">
+            <div class="heading-large">Trading Companies</div>
+            <?php if (empty($tradingCompanies)) : ?>
+                (No Trading companies exist)
+            <?php else : ?>
+                <?= $this->invoiceSettingsDataTable ?>
+            <?php endif; ?>
+        </div>
+    </form>
 </div>

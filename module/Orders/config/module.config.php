@@ -28,8 +28,8 @@ use CG\Settings\PickList\Storage\Api as PickListSettingsApiStorage;
 use Zend\View\Model\ViewModel;
 use Orders\Order\Service as OrderService;
 use CG\Http\Rpc\Json\Client as JsonRpcClient;
-use Orders\Order\Invoice\Renderer\ServiceInterface as InvoiceRendererService;
-use Orders\Order\Invoice\Renderer\Service\Pdf as PdfInvoiceRendererService;
+use CG\Order\Client\Invoice\Renderer\ServiceInterface as InvoiceRendererService;
+use CG\Order\Client\Invoice\Renderer\Service\Pdf as PdfInvoiceRendererService;
 use Orders\Controller\StoredFiltersController;
 use CG\Order\Client\Service as OrderClientService;
 use CG\Order\Service\Filter\StorageInterface as FilterStorageInterface;
@@ -470,6 +470,30 @@ return [
                                             ],
                                             'defaults' => [
                                                 'action' => 'invoiceFilterIdBySku'
+                                            ]
+                                        ],
+                                    ],
+                                ],
+                            ],
+                            'invoice_email' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/email',
+                                    'defaults' => [
+                                        'action' => 'emailInvoice'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    'invoice_filter_email' => [
+                                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => [
+                                            'route' => '/:filterId',
+                                            'constraints' => [
+                                                'filterId' => '[^/]+'
+                                            ],
+                                            'defaults' => [
+                                                'action' => 'emailInvoiceFilter'
                                             ]
                                         ],
                                     ],

@@ -3,187 +3,91 @@ namespace Orders\Order\Invoice;
 
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
+use CG\Order\Client\Invoice\Renderer\ServiceInterface as RendererService;
+use CG\Order\Client\Invoice\Service as ClientService;
+use CG\Order\Client\Invoice\Template\Factory as TemplateFactory;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection;
-use CG\Order\Shared\Entity as OrderEntity;
+use CG\Order\Shared\Entity as Order;
 use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
 use CG\Stdlib\DateTime;
-use CG\Template\Entity as Template;
 use CG\Template\Element\Factory as ElementFactory;
+use CG\Template\Entity as Template;
 use CG\Template\PaperPage;
-use CG\User\ActiveUserInterface;
-use Orders\Order\Invoice\Renderer\ServiceInterface as RendererService;
-use Orders\Order\Invoice\Template\Factory as TemplateFactory;
-use Orders\Order\Invoice\ProgressStorage;
-use Orders\Order\Service as OrderService;
+use CG\User\ActiveUserInterface as ActiveUserContainer;
 use CG\Zend\Stdlib\Http\FileResponse as Response;
-use Zend\Di\Di;
+use Orders\Order\Service as OrderService;
+use CG\Gearman\Client as GearmanClient;
+use CG\Order\Client\Gearman\Workload\EmailInvoice;
 
-class Service implements StatsAwareInterface
+class Service extends ClientService implements StatsAwareInterface
 {
     use StatsTrait;
 
     const STAT_ORDER_ACTION_PRINTED = 'orderAction.printed.%s.%d.%d';
     const EVENT_INVOICES_PRINTED = 'Invoices Printed';
 
-    protected $di;
+    /**
+     * @var OrderService $orderService
+     */
     protected $orderService;
-    protected $templateFactory;
+    /**
+     * @var ElementFactory $elementFactory
+     */
     protected $elementFactory;
-    protected $rendererService;
-    protected $invoiceSettingsService;
+    /**
+     * @var ProgressStorage $progressStorage
+     */
     protected $progressStorage;
-    protected $templates = [];
-    protected $activeUserContainer;
+    /**
+     * @var IntercomEventService $intercomEventService
+     */
     protected $intercomEventService;
+    /**
+     * @var ActiveUserContainer $activeUserContainer
+     */
+    protected $activeUserContainer;
+    /**
+     * @var GearmanClient $gearmanClient
+     */
+    protected $gearmanClient;
+    /**
+     * @var string $key
+     */
+    protected $key;
+    /**
+     * @var int $count
+     */
+    protected $count = 0;
 
     public function __construct(
-        Di $di,
         OrderService $orderService,
+        RendererService $rendererService,
         TemplateFactory $templateFactory,
         ElementFactory $elementFactory,
-        RendererService $rendererService,
         InvoiceSettingsService $invoiceSettingsService,
         ProgressStorage $progressStorage,
-        ActiveUserInterface $activeUserContainer,
-        IntercomEventService $intercomEventService
+        IntercomEventService $intercomEventService,
+        ActiveUserContainer $activeUserContainer,
+        GearmanClient $gearmanClient
     ) {
+        parent::__construct($rendererService, $templateFactory, $invoiceSettingsService);
         $this
-            ->setDi($di)
             ->setOrderService($orderService)
-            ->setTemplateFactory($templateFactory)
             ->setElementFactory($elementFactory)
-            ->setRendererService($rendererService)
-            ->setInvoiceSettingsService($invoiceSettingsService)
             ->setProgressStorage($progressStorage)
+            ->setIntercomEventService($intercomEventService)
             ->setActiveUserContainer($activeUserContainer)
-            ->setIntercomEventService($intercomEventService);
-    }
-
-    public function setDi(Di $di)
-    {
-        $this->di = $di;
-        return $this;
-    }
-
-    /**
-     * @return Di
-     */
-    public function getDi()
-    {
-        return $this->di;
-    }
-
-    public function setOrderService(OrderService $orderService)
-    {
-        $this->orderService = $orderService;
-        return $this;
-    }
-
-    /**
-     * @return OrderService
-     */
-    public function getOrderService()
-    {
-        return $this->orderService;
-    }
-
-    public function setInvoiceSettingsService(InvoiceSettingsService $invoiceSettingsService)
-    {
-        $this->invoiceSettingsService = $invoiceSettingsService;
-        return $this;
-    }
-
-    /**
-     * @return InvoiceSettingsService
-     */
-    protected function getInvoiceSettingsService()
-    {
-        return $this->invoiceSettingsService;
-    }
-
-    public function setTemplateFactory(TemplateFactory $templateFactory)
-    {
-        $this->templateFactory = $templateFactory;
-        return $this;
-    }
-
-    /**
-     * @return TemplateFactory
-     */
-    public function getTemplateFactory()
-    {
-        return $this->templateFactory;
-    }
-
-    public function setElementFactory(ElementFactory $elementFactory)
-    {
-        $this->elementFactory = $elementFactory;
-        return $this;
-    }
-
-    /**
-     * @return ElementFactory
-     */
-    public function getElementFactory()
-    {
-        return $this->elementFactory;
-    }
-
-    public function setRendererService(RendererService $rendererService)
-    {
-        $this->rendererService = $rendererService;
-        return $this;
-    }
-
-    /**
-     * @return RendererService
-     */
-    public function getRendererService()
-    {
-        return $this->rendererService;
-    }
-
-    protected function getProgressStorage()
-    {
-        return $this->progressStorage;
-    }
-
-    protected function setProgressStorage(ProgressStorage $progressStorage)
-    {
-        $this->progressStorage = $progressStorage;
-        return $this;
-    }
-
-    /**
-     * @param array $orderIds
-     * @return Response
-     */
-    public function getResponseFromOrderIds(array $orderIds)
-    {
-        $filter = $this->getDi()->get(Filter::class, ['orderIds' => $orderIds]);
-        $orderCollection = $this->getOrderService()->getOrders($filter);
-        return $this->getResponseFromOrderCollection(
-            $orderCollection,
-            $this->getInvoiceSettings()
-        );
-    }
-
-    public function getResponseFromFilterId($filterId)
-    {
-        return $this->getResponseFromOrderCollection(
-            $this->getOrderService()->getOrdersFromFilterId($filterId),
-            $this->getInvoiceSettings()
-        );
+            ->setGearmanClient($gearmanClient);
     }
 
     public function createTemplate(array $config)
     {
         $config['elements'] = $this->createElements($config['elements']);
         $config['paperPage'] = $this->createPaperPage($config['paperPage']);
-        return $this->getTemplateFactory()->getTemplateForOrderEntity($config);
+        return $this->templateFactory->getTemplateFromConfig($config);
     }
 
     protected function createElements(array $elementConfigs)
@@ -197,127 +101,174 @@ class Service implements StatsAwareInterface
 
     protected function createElement(array $config)
     {
-        return $this->getElementFactory()->createElement($config);
+        return $this->elementFactory->createElement($config);
     }
 
     protected function createPaperPage(array $config)
     {
-        return $this->getDi()->newInstance(PaperPage::class, $config);
+        return new PaperPage(
+            $config['height'],
+            $config['width'],
+            $config['paperType'],
+            isset($config['inverse']) ? $config['inverse'] : false
+        );
+    }
+
+    /**
+     * @param array $orderIds
+     * @return Response
+     */
+    public function getResponseFromOrderIds(array $orderIds)
+    {
+        $filter = (new Filter())->setOrderIds($orderIds);
+        return $this->getResponseFromOrderCollection(
+            $this->orderService->getOrders($filter)
+        );
+    }
+
+    public function getResponseFromFilterId($filterId)
+    {
+        return $this->getResponseFromOrderCollection(
+            $this->orderService->getOrdersFromFilterId($filterId)
+        );
     }
 
     /**
      * @param Collection $orderCollection
      * @return Response
      */
-    public function getResponseFromOrderCollection(Collection $orderCollection, Template $template = null, $progressKey = null)
+    public function getResponseFromOrderCollection(Collection $collection, Template $template = null, $key = null)
     {
-        return $this->getDi()->get(
-            Response::class,
-            [
-                'mimeType' => $this->getRendererService()->getMimeType(),
-                'filename' => $this->getRendererService()->getFileName(),
-                'content' => $this->generateInvoiceFromOrderCollection($orderCollection, $template, $progressKey)
-            ]
+        return new Response(
+            $this->rendererService->getMimeType(),
+            $this->rendererService->getFileName(),
+            $this->generateInvoiceForCollection($collection, $template, $key)
         );
     }
 
     public function markOrdersAsPrintedFromOrderCollection(Collection $orderCollection)
     {
         $now = time();
-        $this->getOrderService()->patchOrders($orderCollection, ['printedDate' => date(DateTime::FORMAT, $now)]);
+        $this->orderService->patchOrders($orderCollection, ['printedDate' => date(DateTime::FORMAT, $now)]);
 
+        /**
+         * @var Order $order
+         */
         foreach ($orderCollection as $order) {
             $this->statsIncrement(
                 static::STAT_ORDER_ACTION_PRINTED, [
                     $order->getChannel(),
-                    $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId(),
-                    $this->getActiveUserContainer()->getActiveUser()->getId()
+                    $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
+                    $this->activeUserContainer->getActiveUser()->getId()
                 ]
             );
         }
     }
 
-    protected function getTemplateId(OrderEntity $order)
+    public function emailInvoicesForCollection(Collection $orders)
     {
-        return $this->getInvoiceSettingsService()->fetchTemplateIdFromOrganisationUnitId(
-            $this->getOrderService()->getActiveUser()->getOrganisationUnitId(),
-            $order->getOrganisationUnitId()
-        );
-    }
-
-    protected function getTemplate(OrderEntity $order)
-    {
-        $templateId = $this->getTemplateId($order);
-
-        if (isset($this->templates[$templateId])) {
-            return $this->templates[$templateId];
-        }
-        $this->templates[$templateId] = $this->getTemplateFactory()->getTemplateById($templateId);
-        return $this->templates[$templateId];
-    }
-
-    public function generateInvoiceFromOrderCollection(Collection $orderCollection, Template $template = null, $progressKey = null)
-    {
-        gc_collect_cycles();
-        gc_disable();
-        $count = 0;
-        $this->updateInvoiceGenerationProgress($progressKey, $count);
-
-        $this->getRendererService()->initializeNewDocument();
-        foreach ($orderCollection as $order) {
-            $renderedInvoice = $this->getRendererService()->renderOrderTemplate(
-                $order,
-                $template ?: $this->getTemplate($order)
+        /**
+         * @var Order $order
+         */
+        foreach ($orders as $order) {
+            $workload = new EmailInvoice($order->getId());
+            $this->gearmanClient->doBackground(
+                $workload->getWorkerFunctionName(),
+                serialize($workload),
+                implode('-', [$workload->getWorkerFunctionName(), $order->getId()])
             );
-            foreach($renderedInvoice->pages as $page) {
-                $this->getRendererService()->addPage($page);
-            }
-            $this->updateInvoiceGenerationProgress($progressKey, ++$count);
         }
-        $result = $this->getRendererService()->combinePages();
+    }
+
+    public function generateInvoiceForCollection(Collection $collection, Template $template = null, $key = null)
+    {
+        $this->key = $key;
+        $this->count = 0;
+        $this->updateInvoiceGenerationProgress();
+        $result = parent::generateInvoiceForCollection($collection, $template);
         $this->notifyOfGeneration();
         return $result;
     }
 
-    protected function updateInvoiceGenerationProgress($key, $count)
+    protected function generateInvoiceForOrder(Order $order, Template $template = null)
     {
-        if (!$key) {
-            return;
+        parent::generateInvoiceForOrder($order, $template);
+        $this->count++;
+        $this->updateInvoiceGenerationProgress();
+    }
+
+    protected function updateInvoiceGenerationProgress()
+    {
+        if (!$this->key) {
+            return $this;
         }
-        $this->getProgressStorage()->setProgress($key, $count);
+
+        $this->progressStorage->setProgress($this->key, $this->count);
         return $this;
     }
 
     protected function notifyOfGeneration()
     {
-        $event = new IntercomEvent(static::EVENT_INVOICES_PRINTED, $this->getActiveUserContainer()->getActiveUser()->getId());
-        $this->getIntercomEventService()->save($event);
+        $event = new IntercomEvent(static::EVENT_INVOICES_PRINTED, $this->activeUserContainer->getActiveUser()->getId());
+        $this->intercomEventService->save($event);
     }
 
     public function checkInvoiceGenerationProgress($key)
     {
-        return (int)$this->getProgressStorage()->getProgress($key);
+        return (int) $this->progressStorage->getProgress($key);
     }
 
-    protected function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
+    /**
+     * @return self
+     */
+    protected function setOrderService(OrderService $orderService)
+    {
+        $this->orderService = $orderService;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setElementFactory(ElementFactory $elementFactory)
+    {
+        $this->elementFactory = $elementFactory;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setProgressStorage(ProgressStorage $progressStorage)
+    {
+        $this->progressStorage = $progressStorage;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setIntercomEventService(IntercomEventService $intercomEventService)
+    {
+        $this->intercomEventService = $intercomEventService;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setActiveUserContainer(ActiveUserContainer $activeUserContainer)
     {
         $this->activeUserContainer = $activeUserContainer;
         return $this;
     }
 
-    protected function getActiveUserContainer()
+    /**
+     * @return self
+     */
+    protected function setGearmanClient(GearmanClient $gearmanClient)
     {
-        return $this->activeUserContainer;
-    }
-
-    protected function getIntercomEventService()
-    {
-        return $this->intercomEventService;
-    }
-
-    protected function setIntercomEventService(IntercomEventService $intercomEventService)
-    {
-        $this->intercomEventService = $intercomEventService;
+        $this->gearmanClient = $gearmanClient;
         return $this;
     }
 }

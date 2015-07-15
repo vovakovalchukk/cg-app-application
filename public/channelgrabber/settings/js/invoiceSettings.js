@@ -5,8 +5,9 @@ define(function() {
         this.errorMessage = 'Error: Settings could not be saved';
 
         var container = '.invoiceSettings';
-        var selector = container + ' .custom-select';
+        var selector = container + ' .custom-select, ' + container + ' input:checkbox';
         var defaultSettingsSelector = container + ' .invoiceDefaultSettings #defaultInvoiceCustomSelect input';
+        var autoEmailSettingsSelector = container + ' .invoiceDefaultSettings #autoEmail';
         var tradingCompaniesSelector = container + ' .invoiceTradingCompanySettings input.invoiceTradingCompaniesCustomSelect';
 
         var init = function() {
@@ -20,6 +21,7 @@ define(function() {
         {
             return {
                 'default': getDefault(),
+                'autoEmail': getAutoEmail(),
                 'tradingCompanies': getTradingCompanies(),
                 'eTag': $('#setting-etag').val()
             };
@@ -28,6 +30,11 @@ define(function() {
         var getDefault = function()
         {
             return $(defaultSettingsSelector).val();
+        };
+
+        var getAutoEmail = function()
+        {
+            return $(autoEmailSettingsSelector).is(':checked');
         };
 
         var getTradingCompanies = function()
