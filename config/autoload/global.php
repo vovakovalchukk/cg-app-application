@@ -13,6 +13,7 @@
 
 use CG\Cache\EventManagerInterface;
 use CG\Zend\Stdlib\Cache\EventManager;
+use CG\Zend\Stdlib\Db\Sql\Sql as CGSql;
 use CG\Order\Shared\StorageInterface as OrderStorage;
 use CG\Order\Client\StorageInterface as OrderClientStorage;
 use CG\Order\Shared\Item\StorageInterface as ItemStorage;
@@ -86,6 +87,13 @@ use CG\Communication\Message\Storage\Api as MessageApi;
 use CG\Communication\Thread\StorageInterface as ThreadStorage;
 use CG\Communication\Thread\Storage\Api as ThreadApi;
 
+// Amazon\Account\Additional
+use CG\Amazon\Account\Additional\Mapper as AmzAccountAdditionalMapper;
+use CG\Amazon\Account\Additional\Storage\Cache as AmzAccountAdditionalCache;
+use CG\Amazon\Account\Additional\Storage\Db as AmzAccountAdditionalDb;
+use CG\Amazon\Account\Additional\StorageInterface as AmzAccountAdditionalStorage;
+use CG\Amazon\Account\Additional\Repository as AmzAccountAdditionalRepository;
+
 return array(
     'di' => array(
         'instance' => array(
@@ -106,7 +114,16 @@ return array(
                 ThreadStorage::class => ThreadApi::class,
                 MessageStorage::class => MessageApi::class,
                 HeadlineStorage::class => HeadlineApi::class,
+                AmzAccountAdditionalStorage::class => AmzAccountAdditionalRepository::class,
             ),
+            'aliases' => [
+                'amazonWriteCGSql' => CGSql::class
+            ],
+            'amazonWriteCGSql' => [
+                'parameter' => [
+                    'adapter' => 'amazonWrite'
+                ]
+            ],
             AccountCleanupService::class => [
                 'listingService' => ListingService::class,
                 'unimportedListingService' => UnimportedListingService::class
@@ -287,6 +304,25 @@ return array(
             HeadlineApi::class => [
                 'parameters' => [
                     'client' => 'communication_guzzle'
+                ]
+            ],
+            AmzAccountAdditionalDb::class => [
+                'parameters' => [
+                    'readSql' => 'amazonReadSql',
+                    'fastReadSql' => 'amazonFastReadSql',
+                    'writeSql' => 'amazonWriteCGSql',
+                    'mapper' => AmzAccountAdditionalMapper::class,
+                ]
+            ],
+            AmzAccountAdditionalCache::class => [
+                'parameters' => [
+                    'mapper' => AmzAccountAdditionalMapper::class
+                ]
+            ],
+            AmzAccountAdditionalRepository::class => [
+                'parameters' => [
+                    'storage' => AmzAccountAdditionalCache::class,
+                    'repository' => AmzAccountAdditionalDb::class
                 ]
             ],
         ),

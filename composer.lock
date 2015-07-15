@@ -4,26 +4,27 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6ae0401fe7c64b7c12e11e334c352445",
+    "hash": "aaa4fd53876ede5c1016ede6c22757a2",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "1.15.11",
+            "version": "dev-CGIV-5942-message-center-amazon",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "360c5fdf4b37a1b34a6fabc9cb3de169058cabb6"
+                "reference": "b4e346b016cf4e8a8b6d39dfdef9efccf72971bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.15.11-07d647.zip",
-                "reference": "360c5fdf4b37a1b34a6fabc9cb3de169058cabb6",
-                "shasum": "58c281b4ce918ee809483c1f2239a058b6a07e9a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-5942-message-center-amazon-e95960.zip",
+                "reference": "b4e346b016cf4e8a8b6d39dfdef9efccf72971bf",
+                "shasum": "56bae4f2a7ea26fb50eea0a23016d88794f220db"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.6.4",
-                "channelgrabber/channel": "^1.6.17",
+                "channelgrabber/channel": "dev-CGIV-5942-message-center-amazon as 1.16.21",
+                "channelgrabber/communication": "dev-CGIV-4698 as 1.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.1.0",
                 "channelgrabber/gearman": "^1.2.10",
@@ -35,10 +36,12 @@
                 "channelgrabber/order": "^1.19.6",
                 "channelgrabber/product": "^1.3.25",
                 "channelgrabber/scraper": ">=1.0.2,<2.0.0",
+                "channelgrabber/stats": "^1.0.0",
                 "channelgrabber/stdlib": "^2.12.0",
                 "channelgrabber/stock": ">=1.3.4",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "composer/composer": "@dev",
+                "contextio/php-contextio": "~2.1",
                 "guzzle/guzzle": "~3.7",
                 "php-jsonpatch/php-jsonpatch": "@dev",
                 "php-jsonpointer/php-jsonpointer": "@dev",
@@ -60,7 +63,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-07-09 08:55:49"
+            "time": "2015-07-15 09:08:47"
         },
         {
             "name": "channelgrabber/billing",
@@ -253,17 +256,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.16.20",
+            "version": "dev-CGIV-5942-message-center-amazon",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "188f171bd5bff2edb76df7fd252c8e285b7ba1fb"
+                "reference": "e85b88424b705c9de6f9a01d3b73c13e199e69be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.16.20-f79b52.zip",
-                "reference": "188f171bd5bff2edb76df7fd252c8e285b7ba1fb",
-                "shasum": "3e69186fb4a6d6b7ddb8bddee64f0dcc83bb491e"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-5942-message-center-amazon-aecc70.zip",
+                "reference": "e85b88424b705c9de6f9a01d3b73c13e199e69be",
+                "shasum": "9caf00feee23a3a2474ed43082b32d3e39e90309"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -319,7 +322,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-06-25 08:04:03"
+            "time": "2015-07-15 08:58:58"
         },
         {
             "name": "channelgrabber/cilex",
@@ -3152,6 +3155,43 @@
                 "package"
             ],
             "time": "2015-07-14 12:37:15"
+        },
+        {
+            "name": "contextio/php-contextio",
+            "version": "2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/contextio/PHP-ContextIO.git",
+                "reference": "c9a99859f8e02df85d62c72a33628a0c19eaf252"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/contextio-php-contextio-c9a99859f8e02df85d62c72a33628a0c19eaf252-zip-9577da.zip",
+                "reference": "c9a99859f8e02df85d62c72a33628a0c19eaf252",
+                "shasum": "a3c2a5bb75f6ef0ef65b6d34fcb966925ea59718"
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "class.contextio.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Dominik Gehl"
+                }
+            ],
+            "description": "PHP Client Library for Context.IO API",
+            "homepage": "http://context.io/",
+            "keywords": [
+                "contextio",
+                "imap"
+            ],
+            "time": "2015-01-15 16:58:15"
         },
         {
             "name": "fabpot/goutte",
@@ -6640,6 +6680,18 @@
     ],
     "aliases": [
         {
+            "alias": "1.15.12",
+            "alias_normalized": "1.15.12.0",
+            "version": "dev-CGIV-5942-message-center-amazon",
+            "package": "channelgrabber/amazon"
+        },
+        {
+            "alias": "1.16.21",
+            "alias_normalized": "1.16.21.0",
+            "version": "dev-CGIV-5942-message-center-amazon",
+            "package": "channelgrabber/channel"
+        },
+        {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
             "version": "dev-CGIV-4698",
@@ -6664,14 +6716,16 @@
             "package": "channelgrabber/user"
         },
         {
-            "alias": "1.15.12",
-            "alias_normalized": "1.15.12.0",
+            "alias": "1.15.15",
+            "alias_normalized": "1.15.15.0",
             "version": "dev-EPIC-CGIV-4580-message-center",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/amazon": 20,
+        "channelgrabber/channel": 20,
         "channelgrabber/communication": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/ebay": 20,
