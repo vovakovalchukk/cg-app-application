@@ -12,13 +12,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "b4e346b016cf4e8a8b6d39dfdef9efccf72971bf"
+                "reference": "a2b7fbfa69ea5f05ae1f52ec31fa743c100efb5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-5942-message-center-amazon-e95960.zip",
-                "reference": "b4e346b016cf4e8a8b6d39dfdef9efccf72971bf",
-                "shasum": "56bae4f2a7ea26fb50eea0a23016d88794f220db"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-5942-message-center-amazon-0f72f6.zip",
+                "reference": "a2b7fbfa69ea5f05ae1f52ec31fa743c100efb5c",
+                "shasum": "4776e6dafda8cd4b045c384c2e4da54602793cf2"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -63,7 +63,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-07-15 09:08:47"
+            "time": "2015-07-15 11:04:13"
         },
         {
             "name": "channelgrabber/billing",
@@ -260,13 +260,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "e85b88424b705c9de6f9a01d3b73c13e199e69be"
+                "reference": "6a030f6194de60ab35eb27fc90b522654d08be11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-5942-message-center-amazon-aecc70.zip",
-                "reference": "e85b88424b705c9de6f9a01d3b73c13e199e69be",
-                "shasum": "9caf00feee23a3a2474ed43082b32d3e39e90309"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-5942-message-center-amazon-2dbb89.zip",
+                "reference": "6a030f6194de60ab35eb27fc90b522654d08be11",
+                "shasum": "bbb6b8abce8643e36a43d5ed5b23ba1595183748"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -322,7 +322,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-07-15 08:58:58"
+            "time": "2015-07-15 10:47:20"
         },
         {
             "name": "channelgrabber/cilex",
