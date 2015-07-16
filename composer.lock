@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a9ed2fcaee79386c52af3f41bb3426ab",
+    "hash": "0ac14eb6c7d9f7d57b5462e44e01ebe2",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -361,6 +361,12 @@
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgconstants.git",
                 "reference": "2bba7dd2a124432258d1a81d6e42cc13708bf93a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-constants-dev-master-1ee173.zip",
+                "reference": "2bba7dd2a124432258d1a81d6e42cc13708bf93a",
+                "shasum": "829cfb41e8c6b36b6d952d01ba3fa44f8d4b47a6"
             },
             "require": {
                 "php": ">=5.4.0"
@@ -1783,13 +1789,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "2859d5aeda28e24e7e686c02de8aa3ce2c1ef4d7"
+                "reference": "fc6f11accbffeca1b7d3d85901d5e1127f69e98e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-5816-SeparateQueues-e68316.zip",
-                "reference": "2859d5aeda28e24e7e686c02de8aa3ce2c1ef4d7",
-                "shasum": "107d53d956461d0e77af2b70f39ebd1573a03def"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-5816-SeparateQueues-f25cb5.zip",
+                "reference": "fc6f11accbffeca1b7d3d85901d5e1127f69e98e",
+                "shasum": "156f87bf1b16027a8d81a878bf0a730616352546"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1825,7 +1831,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2015-07-13 10:28:52"
+            "time": "2015-07-16 15:54:28"
         },
         {
             "name": "channelgrabber/tax",
