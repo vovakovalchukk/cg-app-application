@@ -264,6 +264,14 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         return $this->invoiceOrderIdsAction('itemSku');
     }
 
+    public function emailInvoiceAction()
+    {
+        return $this->performActionOnOrderIds(
+            'emailing',
+            [$this, 'emailInvoices']
+        );
+    }
+
     public function invoiceFilterIdAction($orderBy = null, $orderDir = 'ASC')
     {
         try {
@@ -279,6 +287,14 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function invoiceFilterIdBySkuAction()
     {
         return $this->invoiceFilterIdAction('itemSku');
+    }
+
+    public function emailInvoiceFilterAction()
+    {
+        return $this->performActionOnFilterId(
+            'emailing',
+            [$this, 'emailInvoices']
+        );
     }
 
     public function previewInvoiceAction()
@@ -313,6 +329,11 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function invoiceOrders(OrderCollection $orders, Template $template = null, $progressKey = null)
     {
         return $this->getInvoiceService()->getResponseFromOrderCollection($orders, $template, $progressKey);
+    }
+
+    public function emailInvoices(OrderCollection $orders)
+    {
+        $this->getInvoiceService()->emailInvoicesForCollection($orders);
     }
 
     public function checkInvoiceGenerationProgressAction()

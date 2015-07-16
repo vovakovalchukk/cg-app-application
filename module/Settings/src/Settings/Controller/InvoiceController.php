@@ -5,6 +5,7 @@ use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Stdlib\Exception\Runtime\Conflict;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Template\ReplaceManager\OrderContent as OrderTagManager;
@@ -19,6 +20,7 @@ use Settings\Module;
 use Zend\Config\Config;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
+use CG\Stdlib\DateTime;
 
 class InvoiceController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -78,9 +80,23 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     public function saveMappingAction()
     {
         try {
-            $entity = $this->getInvoiceService()->saveSettings(
-                $this->params()->fromPost()
-            );
+            $autoEmail = $this->getInvoiceService()->getSettings()->getAutoEmail();
+        } catch (NotFound $e) {
+            $autoEmail = false;
+        }
+
+        try {
+            $data = $this->params()->fromPost();
+
+            if (filter_var($data['autoEmail'], FILTER_VALIDATE_BOOLEAN) && $autoEmail) {
+                $data['autoEmail'] = $autoEmail;
+            } else if (filter_var($data['autoEmail'], FILTER_VALIDATE_BOOLEAN)) {
+                $data['autoEmail'] = (new DateTime())->stdFormat();
+            } else {
+                $data['autoEmail'] = null;
+            }
+
+            $entity = $this->getInvoiceService()->saveSettings($data);
         } catch (NotModified $e) {
             // display saved message
             $entity = $this->getInvoiceService()->getSettings();
@@ -130,6 +146,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setVariable('invoices', $invoices)
             ->setVariable('eTag', $invoiceSettings->getStoredETag())
             ->addChild($this->getInvoiceSettingsDefaultSelectView($invoiceSettings, $invoices), 'defaultCustomSelect')
+            ->addChild($this->getInvoiceSettingsAutoEmailCheckboxView($invoiceSettings, $invoices), 'emailCheckbox')
             ->addChild($this->getTradingCompanyInvoiceSettingsDataTable(), 'invoiceSettingsDataTable');
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);    
@@ -193,6 +210,19 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         };
         return $this->getViewModelFactory()->newInstance($customSelectConfig)
                                             ->setTemplate('elements/custom-select.mustache');
+    }
+
+    protected function getInvoiceSettingsAutoEmailCheckboxView($invoiceSettings)
+    {
+        return $this->getViewModelFactory()
+            ->newInstance(
+                [
+                    'id' => 'autoEmail',
+                    'name' => 'autoEmail',
+                    'selected' => (boolean) $invoiceSettings->getAutoEmail(),
+                ]
+            )
+            ->setTemplate('elements/checkbox.mustache');
     }
 
     protected function getTemplateSelectView()
