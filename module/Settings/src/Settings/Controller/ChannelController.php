@@ -253,8 +253,23 @@ class ChannelController extends AbstractActionController
             'account' => $accountEntity,
             'route' => $returnRoute
         ]);
+        $this->addAccountsChannelSpecificVariablesToChannelSpecificView($accountEntity, $channelSpecificView);
         $view->addChild($channelSpecificView, 'channelSpecificForm');
         return $this;
+    }
+
+    protected function addAccountsChannelSpecificVariablesToChannelSpecificView(AccountEntity $account, ViewModel $view)
+    {
+        $channelControllerClass = __NAMESPACE__ . '\\' . ucfirst($account->getChannel()) . 'Controller';
+        if (!class_exists($channelControllerClass)) {
+            return;
+        }
+        $channelController = $this->di->get($channelControllerClass);
+        // Don't use is_callable() as there's a magic __get() method that fools that
+        if (!method_exists($channelController, 'addAccountsChannelSpecificVariablesToChannelSpecificView')) {
+            return;
+        }
+        $channelController->addAccountsChannelSpecificVariablesToChannelSpecificView($account, $view);
     }
 
     protected function addAccountDetailsForm($accountEntity, $view)
