@@ -2225,13 +2225,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "0db06b96e9621871ccdd58ea77510abcc08f9096"
+                "reference": "25bcc54b854be165615c66043b7e57e0929b2691"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-CGIV-5942-message-center-amazon-6bc809.zip",
-                "reference": "0db06b96e9621871ccdd58ea77510abcc08f9096",
-                "shasum": "3d585d28c61f2b3d2f264d218411a1a05ec69a92"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-CGIV-5942-message-center-amazon-c5c356.zip",
+                "reference": "25bcc54b854be165615c66043b7e57e0929b2691",
+                "shasum": "b102abd5266789a5f6a319a3b83a9843372e0e8c"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
@@ -2263,7 +2263,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2015-07-15 15:42:52"
+            "time": "2015-07-16 11:16:27"
         },
         {
             "name": "channelgrabber/zf2-channel",
