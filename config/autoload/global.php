@@ -87,6 +87,13 @@ use CG\Communication\Message\Storage\Api as MessageApi;
 use CG\Communication\Thread\StorageInterface as ThreadStorage;
 use CG\Communication\Thread\Storage\Api as ThreadApi;
 
+// Amazon\Thread\Additional
+use CG\Amazon\Thread\Additional\Mapper as AmzThreadAdditionalMapper;
+use CG\Amazon\Thread\Additional\Storage\Cache as AmzThreadAdditionalCache;
+use CG\Amazon\Thread\Additional\Storage\Db as AmzThreadAdditionalDb;
+use CG\Amazon\Thread\Additional\StorageInterface as AmzThreadAdditionalStorage;
+use CG\Amazon\Thread\Additional\Repository as AmzThreadAdditionalRepository;
+
 return array(
     'di' => array(
         'instance' => array(
@@ -107,6 +114,7 @@ return array(
                 ThreadStorage::class => ThreadApi::class,
                 MessageStorage::class => MessageApi::class,
                 HeadlineStorage::class => HeadlineApi::class,
+                AmzThreadAdditionalStorage::class => AmzThreadAdditionalRepository::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class
@@ -296,6 +304,25 @@ return array(
             HeadlineApi::class => [
                 'parameters' => [
                     'client' => 'communication_guzzle'
+                ]
+            ],
+            AmzThreadAdditionalDb::class => [
+                'parameters' => [
+                    'readSql' => 'amazonReadSql',
+                    'fastReadSql' => 'amazonFastReadSql',
+                    'writeSql' => 'amazonWriteSql',
+                    'mapper' => AmzThreadAdditionalMapper::class,
+                ]
+            ],
+            AmzThreadAdditionalCache::class => [
+                'parameters' => [
+                    'mapper' => AmzThreadAdditionalMapper::class
+                ]
+            ],
+            AmzThreadAdditionalRepository::class => [
+                'parameters' => [
+                    'storage' => AmzThreadAdditionalCache::class,
+                    'repository' => AmzThreadAdditionalDb::class
                 ]
             ],
         ),

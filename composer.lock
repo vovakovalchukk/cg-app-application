@@ -12,13 +12,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "267e5c2fc0a75d85e55492fcae08aa89e3ffe407"
+                "reference": "91a4dddd04b55ef4d1c1b67d386f5616bf1d41ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-5942-message-center-amazon-e04db4.zip",
-                "reference": "267e5c2fc0a75d85e55492fcae08aa89e3ffe407",
-                "shasum": "9c3648b563aad44d5c46b942bd9a5ff043b7610f"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-5942-message-center-amazon-d7864f.zip",
+                "reference": "91a4dddd04b55ef4d1c1b67d386f5616bf1d41ea",
+                "shasum": "df87a4e128268d2e0e5d0b5ff0d6b2e9e2e5e2ce"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -65,7 +65,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-07-16 07:47:32"
+            "time": "2015-07-16 09:58:53"
         },
         {
             "name": "channelgrabber/billing",
