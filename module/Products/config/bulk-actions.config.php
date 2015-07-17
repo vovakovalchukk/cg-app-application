@@ -40,7 +40,8 @@ return [
                 ],
                 'injections' => [
                     'addAction' => [
-                        ['action' => ProductAction\Delete::class]
+                        ['action' => ProductAction\Delete::class],
+                        ['action' => ProductAction\StockExport::class]
                     ]
                 ],
             ],
