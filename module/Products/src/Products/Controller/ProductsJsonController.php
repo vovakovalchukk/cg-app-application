@@ -14,12 +14,15 @@ use Zend\I18n\Translator\Translator;
 use CG\Account\Client\Service as AccountService;
 use Products\Product\TaxRate\Service as TaxRateService;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Zend\Stdlib\Http\FileResponse;
+use Products\Stock\Csv\Service as StockCsvService;
 
 class ProductsJsonController extends AbstractActionController
 {
     const ROUTE_AJAX = 'AJAX';
     const ROUTE_AJAX_TAX_RATE = 'tax_rate';
     const ROUTE_STOCK_UPDATE = 'stockupdate';
+    const ROUTE_STOCK_CSV_EXPORT = 'stockCsvExport';
     const ROUTE_DELETE = 'Delete';
 
     protected $productService;
@@ -28,6 +31,7 @@ class ProductsJsonController extends AbstractActionController
     protected $translator;
     protected $accountService;
     protected $taxRateService;
+    protected $stockCsvService;
     /**
      * @var OrganisationUnitService $organisationUnitService
      */
@@ -40,7 +44,8 @@ class ProductsJsonController extends AbstractActionController
         Translator $translator,
         AccountService $accountService,
         TaxRateService $taxRateService,
-        OrganisationUnitService $organisationUnitService
+        OrganisationUnitService $organisationUnitService,
+        StockCsvService $stockCsvService
     ) {
         $this->setProductService($productService)
             ->setJsonModelFactory($jsonModelFactory)
@@ -48,7 +53,8 @@ class ProductsJsonController extends AbstractActionController
             ->setTranslator($translator)
             ->setAccountService($accountService)
             ->setTaxRateService($taxRateService)
-            ->setOrganisationUnitService($organisationUnitService);
+            ->setOrganisationUnitService($organisationUnitService)
+            ->setStockCsvService($stockCsvService);
     }
 
     public function ajaxAction()
@@ -169,6 +175,16 @@ class ProductsJsonController extends AbstractActionController
         return $view;
     }
 
+    public function stockCsvExportAction()
+    {
+        try {
+            $csv = $this->getStockCsvService()->generateCsvForActiveUser();
+            return new FileResponse(StockCsvService::MIME_TYPE, StockCsvService::FILENAME, (string) $csv);
+        } catch (NotFound $exception) {
+            return $this->redirect()->toRoute('Products');
+        }
+    }
+
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
     {
         $this->jsonModelFactory = $jsonModelFactory;
@@ -241,6 +257,15 @@ class ProductsJsonController extends AbstractActionController
     public function setOrganisationUnitService(OrganisationUnitService $organisationUnitService)
     {
         $this->organisationUnitService = $organisationUnitService;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    public function setStockCsvService(StockCsvService $stockCsvService)
+    {
+        $this->stockCsvService = $stockCsvService;
         return $this;
     }
 }

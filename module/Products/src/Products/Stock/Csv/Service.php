@@ -8,6 +8,9 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 
 class Service
 {
+    const MIME_TYPE = "text/csv";
+    const FILENAME = "stock.csv";
+
     protected $activeUserContainer;
     protected $stockService;
 
