@@ -41,7 +41,8 @@ return [
                 'injections' => [
                     'addAction' => [
                         ['action' => ProductAction\Delete::class],
-                        ['action' => ProductAction\StockExport::class]
+                        ['action' => ProductAction\StockExport::class],
+                        ['action' => ProductAction\StockImport::class]
                     ]
                 ],
             ],
