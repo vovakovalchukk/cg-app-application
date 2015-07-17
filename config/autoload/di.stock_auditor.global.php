@@ -1,7 +1,7 @@
 <?php
 
 use CG\Stock\Auditor;
-use CG\Stock\Audit\Storage\Queue;
+use CG\Stock\Audit\Queue;
 
 return [
     'di' => [

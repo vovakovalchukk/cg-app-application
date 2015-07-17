@@ -230,9 +230,9 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             $diff = $oldTotal - $newTotal;
             $operator = StockAdjustment::OPERATOR_DEC;
         }
-        $adjustment = new StockAdjustment(StockAdjustment::TYPE_ONHAND, $operator, $diff);
+        $adjustment = new StockAdjustment(StockAdjustment::TYPE_ONHAND, $diff, $operator);
         $stock = $this->stockService->fetch($stockLocationEntity->getStockId());
-        $this->getStockAuditor()->userChange(
+        $this->getStockAuditor()->userAdjustment(
             $adjustment,
             $stock->getSku(),
             $stock->getOrganisationUnitId()

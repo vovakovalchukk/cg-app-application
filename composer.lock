@@ -1789,13 +1789,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "fc6f11accbffeca1b7d3d85901d5e1127f69e98e"
+                "reference": "fe56dc6b0a3d150b2a2f0e7c38ce34f2ee4bc490"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-5816-SeparateQueues-f25cb5.zip",
-                "reference": "fc6f11accbffeca1b7d3d85901d5e1127f69e98e",
-                "shasum": "156f87bf1b16027a8d81a878bf0a730616352546"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-5816-SeparateQueues-0c7c35.zip",
+                "reference": "fe56dc6b0a3d150b2a2f0e7c38ce34f2ee4bc490",
+                "shasum": "cf11790a721f57eb0da722bd586b1562168e30f9"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1831,7 +1831,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2015-07-16 15:54:28"
+            "time": "2015-07-17 12:56:51"
         },
         {
             "name": "channelgrabber/tax",
@@ -3047,7 +3047,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/composer-composer-92faf1c7a83a73794fb914a990be435e1df373ca-zip-39339a.zip",
+                "url": "https://api.github.com/repos/composer/composer/zipball/417516098edb9b3c9d433c9b6527b0f1492362f4",
                 "reference": "92faf1c7a83a73794fb914a990be435e1df373ca",
                 "shasum": "5d960fb7de3d5ba423ffe685f12cb16ee627c66c"
             },
