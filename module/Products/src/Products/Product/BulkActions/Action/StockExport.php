@@ -7,7 +7,7 @@ use SplObjectStorage;
 
 class StockExport extends Action
 {
-    const ICON = 'sprite-cancel-22-black'; // TODO Change this to be the correct icon
+    const ICON = 'sprite-csv-download-22-black';
     const TYPE = 'stock export';
 
     public function __construct(
