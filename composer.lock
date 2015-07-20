@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "369b831f7c44624e94e70bce02ea2562",
+    "hash": "b5f040b55726052345dad26b2533ccc9",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2856,17 +2856,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.15.14",
+            "version": "dev-CGIV-5968-DatatablesPagination",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "393c76a8c4cd75c239034861dd318871a42f217b"
+                "reference": "7927153f5e68a3879b5647ef81522412ae87c0fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.15.14-b38f3e.zip",
-                "reference": "393c76a8c4cd75c239034861dd318871a42f217b",
-                "shasum": "b02901c4d50aac4b7c0aef2134e6802803b1541d"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5968-DatatablesPagination-06373f.zip",
+                "reference": "7927153f5e68a3879b5647ef81522412ae87c0fd",
+                "shasum": "6189ca24d7ff35cc30a897009338445a31d517af"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2911,7 +2911,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-07-14 13:03:00"
+            "time": "2015-07-20 12:20:14"
         },
         {
             "name": "cilex/cilex",
@@ -6587,10 +6587,18 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.15.15",
+            "alias_normalized": "1.15.15.0",
+            "version": "dev-CGIV-5968-DatatablesPagination",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
