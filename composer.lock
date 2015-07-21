@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e9475c494735eda66119469378711f01",
+    "hash": "dd16d8daf7dc709d96efa06bb15c072d",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "1.15.11",
+            "version": "1.15.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "360c5fdf4b37a1b34a6fabc9cb3de169058cabb6"
+                "reference": "fd8b4ecccaf69c3b1375fe85da0a6fb5d8ca3291"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.15.11-07d647.zip",
-                "reference": "360c5fdf4b37a1b34a6fabc9cb3de169058cabb6",
-                "shasum": "58c281b4ce918ee809483c1f2239a058b6a07e9a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.15.14-76e7da.zip",
+                "reference": "fd8b4ecccaf69c3b1375fe85da0a6fb5d8ca3291",
+                "shasum": "18bb509071d6080d6f1db6791883efc351380d17"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -60,7 +60,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-07-09 08:55:49"
+            "time": "2015-07-15 09:39:42"
         },
         {
             "name": "channelgrabber/billing",
@@ -253,17 +253,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.16.20",
+            "version": "1.16.22",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "188f171bd5bff2edb76df7fd252c8e285b7ba1fb"
+                "reference": "6e639c8e9156051607fca21caf8b3777c419b4cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.16.20-f79b52.zip",
-                "reference": "188f171bd5bff2edb76df7fd252c8e285b7ba1fb",
-                "shasum": "3e69186fb4a6d6b7ddb8bddee64f0dcc83bb491e"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.16.22-5d4441.zip",
+                "reference": "6e639c8e9156051607fca21caf8b3777c419b4cf",
+                "shasum": "a56a81b932307b1c97e7d57d1d6494d12dd7afb5"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -283,6 +283,7 @@
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stats": ">=1.0.1,<2.0.0",
                 "channelgrabber/stdlib": "^2.12.0",
+                "channelgrabber/stock": "^1.5.0",
                 "composer/composer": "@dev",
                 "ext-gearman": "~1.1.0",
                 "guzzle/guzzle": "~3.7",
@@ -319,7 +320,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-06-25 08:04:03"
+            "time": "2015-07-21 13:56:19"
         },
         {
             "name": "channelgrabber/cilex",
@@ -466,17 +467,17 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.9.17.6",
+            "version": "1.9.18",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "8277d27d888e5b8ee194af2b4c60503faa978702"
+                "reference": "1c6f8d015bdd1f273db6cdab58e6f43b7e3b458f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.9.17.6-809aaa.zip",
-                "reference": "8277d27d888e5b8ee194af2b4c60503faa978702",
-                "shasum": "d49e8f137b93f030637cc7b6f3af84ea9adc2eaf"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.9.18-1c4591.zip",
+                "reference": "1c6f8d015bdd1f273db6cdab58e6f43b7e3b458f",
+                "shasum": "09b3350fa72ba8d1045c7f404f7305b3f3c8de93"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -519,7 +520,7 @@
                     "CG\\Ebay\\Test\\": "tests/Test/"
                 }
             },
-            "time": "2015-07-14 12:10:00"
+            "time": "2015-07-21 13:49:31"
         },
         {
             "name": "channelgrabber/ekm",
@@ -1785,17 +1786,17 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "dev-EPIC-CGIV-4783-ImproveStockAuditLogs",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "387f60cacebd24a92ca1b7d3126382458a0650ff"
+                "reference": "22d7d3ff75b2cedd76c6b6fc88ed011600eb34bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-EPIC-CGIV-4783-ImproveStockAuditLogs-2e2756.zip",
-                "reference": "387f60cacebd24a92ca1b7d3126382458a0650ff",
-                "shasum": "14c22554b79066f52da264c869e27eabcedd7c28"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.5.0-1e7b52.zip",
+                "reference": "22d7d3ff75b2cedd76c6b6fc88ed011600eb34bd",
+                "shasum": "0a5538f25043fc0e1f312b9bbd95f5f0312cfcec"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1831,7 +1832,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2015-07-20 13:41:23"
+            "time": "2015-07-21 13:47:54"
         },
         {
             "name": "channelgrabber/tax",
@@ -2000,17 +2001,17 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.19.7.2",
+            "version": "1.19.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "449084e2986de158c04257c6754ee3de45989d5c"
+                "reference": "149d294843062b7ac08d4568cb6f2b9fa8c0ccfb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.19.7.2-51cd20.zip",
-                "reference": "449084e2986de158c04257c6754ee3de45989d5c",
-                "shasum": "516e71db1a8656bf8a27a354858001b77e8323ac"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.19.8-a59ccb.zip",
+                "reference": "149d294843062b7ac08d4568cb6f2b9fa8c0ccfb",
+                "shasum": "28bbbc875741c6c327eee841b42829317e88c741"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2047,7 +2048,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2015-07-09 14:21:53"
+            "time": "2015-07-16 13:05:28"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -6593,18 +6594,10 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.5.0",
-            "alias_normalized": "1.5.0.0",
-            "version": "dev-EPIC-CGIV-4783-ImproveStockAuditLogs",
-            "package": "channelgrabber/stock"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/stock": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
