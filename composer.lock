@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0ac14eb6c7d9f7d57b5462e44e01ebe2",
+    "hash": "e9475c494735eda66119469378711f01",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1785,17 +1785,17 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "dev-CGIV-5816-SeparateQueues",
+            "version": "dev-EPIC-CGIV-4783-ImproveStockAuditLogs",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "fe56dc6b0a3d150b2a2f0e7c38ce34f2ee4bc490"
+                "reference": "387f60cacebd24a92ca1b7d3126382458a0650ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-5816-SeparateQueues-0c7c35.zip",
-                "reference": "fe56dc6b0a3d150b2a2f0e7c38ce34f2ee4bc490",
-                "shasum": "cf11790a721f57eb0da722bd586b1562168e30f9"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-EPIC-CGIV-4783-ImproveStockAuditLogs-2e2756.zip",
+                "reference": "387f60cacebd24a92ca1b7d3126382458a0650ff",
+                "shasum": "14c22554b79066f52da264c869e27eabcedd7c28"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1831,7 +1831,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2015-07-17 12:56:51"
+            "time": "2015-07-20 13:41:23"
         },
         {
             "name": "channelgrabber/tax",
@@ -5125,9 +5125,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packages.zendframework.com/composer/zendframework-zendxml-559b34f426d33a11c3db118e00ce14bb8dc64e5f-zip-6cf7a2.zip",
-                "reference": "1.0.0",
-                "shasum": "39abc614b5c26bcbf8102e203c52dee73c4460a8"
+                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
+                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
@@ -5147,6 +5147,7 @@
                     "ZendXml": "library/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -5157,10 +5158,6 @@
                 "xml",
                 "zf2"
             ],
-            "support": {
-                "source": "https://github.com/zendframework/ZendXml/tree/master",
-                "issues": "https://github.com/zendframework/ZendXml/issues"
-            },
             "time": "2014-03-05 22:25:44"
         },
         {
@@ -5655,7 +5652,7 @@
                 {
                     "name": "Anthon Pang",
                     "email": "apang@softwaredevelopment.ca",
-                    "role": "Fork Maintainer"
+                    "role": "developer"
                 }
             ],
             "description": "PHP WebDriver for Selenium 2",
@@ -5820,7 +5817,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -6597,9 +6595,9 @@
     ],
     "aliases": [
         {
-            "alias": "1.4.16",
-            "alias_normalized": "1.4.16.0",
-            "version": "dev-CGIV-5816-SeparateQueues",
+            "alias": "1.5.0",
+            "alias_normalized": "1.5.0.0",
+            "version": "dev-EPIC-CGIV-4783-ImproveStockAuditLogs",
             "package": "channelgrabber/stock"
         }
     ],
