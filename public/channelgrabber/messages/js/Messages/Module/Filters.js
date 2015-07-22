@@ -84,11 +84,11 @@ define([
         return this;
     };
 
-    Filters.prototype.deactivateAll = function()
+    Filters.prototype.deactivateAll = function(excludeFilter)
     {
         var filters = this.getFilters();
         for (var key in filters) {
-            if (!filters[key].isActive()) {
+            if (!filters[key].isActive() || filters[key] == excludeFilter) {
                 continue;
             }
             filters[key].deactivate();

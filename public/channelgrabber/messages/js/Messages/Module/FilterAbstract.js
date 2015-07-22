@@ -40,7 +40,7 @@ define([
 
     FilterAbstract.prototype.activate = function()
     {
-        this.getFilterModule().deactivateAll();
+        this.getFilterModule().deactivateAll(this);
         this.getDomManipulator().addClass(this.getFilterSelector(), 'active');
         this.setActive(true);
         this.getFilterModule().applyActiveFilters();
