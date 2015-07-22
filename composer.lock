@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "57870c8169067b70c72e2a0ffb0becfa",
+    "hash": "006caa55510dd2a20e1439531377ca4a",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -366,13 +366,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-communication.git",
-                "reference": "40ec381e53a7c6368d772594bbc6274ed3b167c8"
+                "reference": "33834e728903f2920163c1f09aa3d589b032177b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-communication-dev-EPIC-CGIV-4580-message-center-144859.zip",
-                "reference": "40ec381e53a7c6368d772594bbc6274ed3b167c8",
-                "shasum": "976a13e44234609780769d99c898978b157a37da"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-communication-dev-EPIC-CGIV-4580-message-center-3ce16a.zip",
+                "reference": "33834e728903f2920163c1f09aa3d589b032177b",
+                "shasum": "698d84761f33f3330b090f87d83a471cd1fdbb0e"
             },
             "require": {
                 "channelgrabber/channel": "^1.16.20",
@@ -403,7 +403,7 @@
                     "email": "matthew.king@channelgrabber.com"
                 }
             ],
-            "time": "2015-07-20 15:37:13"
+            "time": "2015-07-21 14:31:22"
         },
         {
             "name": "channelgrabber/constants",
