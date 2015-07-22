@@ -12,13 +12,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "315da05b1d831e2b9044be5d6914a4729d3fc45a"
+                "reference": "e8e01e77ce35a6bd39886864aac50ebe9cdc7434"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-EPIC-CGIV-4580-message-center-1b9d77.zip",
-                "reference": "315da05b1d831e2b9044be5d6914a4729d3fc45a",
-                "shasum": "03798fd81184b80f864d4daa026ff7034730031a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-EPIC-CGIV-4580-message-center-99cc66.zip",
+                "reference": "e8e01e77ce35a6bd39886864aac50ebe9cdc7434",
+                "shasum": "943361b2400dd02900904b112a740589cc5ef552"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -65,7 +65,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-07-21 08:19:32"
+            "time": "2015-07-22 09:55:29"
         },
         {
             "name": "channelgrabber/billing",
@@ -262,13 +262,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "8dac8cb7e84dd14760b7ec69551681fb02d3f003"
+                "reference": "7759147e06b521ad4c7f5c12dc5abfeac667a938"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-4580-message-center-444f4b.zip",
-                "reference": "8dac8cb7e84dd14760b7ec69551681fb02d3f003",
-                "shasum": "f2dccefa9202a349e4fa3543cd7e9cc5711968e1"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-4580-message-center-ee9287.zip",
+                "reference": "7759147e06b521ad4c7f5c12dc5abfeac667a938",
+                "shasum": "58d4834155ad004ffb774f3547c83b7bdb21d8df"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -325,7 +325,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-07-22 08:03:09"
+            "time": "2015-07-22 10:02:16"
         },
         {
             "name": "channelgrabber/cilex",
@@ -366,13 +366,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-communication.git",
-                "reference": "70760601b97cc41bc3c715718a98e22ffd3e862d"
+                "reference": "c01927de8bd5baead0eaa67e21872ee4a58ec726"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-communication-dev-EPIC-CGIV-4580-message-center-df9dfc.zip",
-                "reference": "70760601b97cc41bc3c715718a98e22ffd3e862d",
-                "shasum": "22f5fa926097f006a3d87f6030cb2ebed6230961"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-communication-dev-EPIC-CGIV-4580-message-center-365bdf.zip",
+                "reference": "c01927de8bd5baead0eaa67e21872ee4a58ec726",
+                "shasum": "e573d5b43ebe2218d6e00facdd056349a72b4d6d"
             },
             "require": {
                 "channelgrabber/channel": "^1.16.20",
@@ -403,7 +403,7 @@
                     "email": "matthew.king@channelgrabber.com"
                 }
             ],
-            "time": "2015-07-22 10:47:07"
+            "time": "2015-07-22 11:22:58"
         },
         {
             "name": "channelgrabber/constants",
@@ -2917,13 +2917,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e6942144c9d3f7d95ad5b41f447125490d3b4455"
+                "reference": "65a989360dbae7fa7c04f43505f841c5eb0517f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-4580-message-center-6530e2.zip",
-                "reference": "e6942144c9d3f7d95ad5b41f447125490d3b4455",
-                "shasum": "85d0fcd6bc1bc64166ec22f70fc38237457b72f9"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-4580-message-center-be1385.zip",
+                "reference": "65a989360dbae7fa7c04f43505f841c5eb0517f8",
+                "shasum": "4ec6aca6471696861c32e9a7f7716ccf7d0a172a"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2968,7 +2968,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-07-10 16:05:49"
+            "time": "2015-07-22 12:10:56"
         },
         {
             "name": "cilex/cilex",
