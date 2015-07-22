@@ -288,6 +288,7 @@
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stats": ">=1.0.1,<2.0.0",
                 "channelgrabber/stdlib": "^2.12.0",
+                "channelgrabber/stock": "^1.5.0",
                 "composer/composer": "@dev",
                 "ext-gearman": "~1.1.0",
                 "guzzle/guzzle": "~3.7",
@@ -1835,17 +1836,17 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.4.16",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "088b846c0615e186301f6530e153379d87264fe8"
+                "reference": "22d7d3ff75b2cedd76c6b6fc88ed011600eb34bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.4.16-4dbf15.zip",
-                "reference": "088b846c0615e186301f6530e153379d87264fe8",
-                "shasum": "8747557b307cc062eb5fa0e4ccc2727b132758c6"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.5.0-1e7b52.zip",
+                "reference": "22d7d3ff75b2cedd76c6b6fc88ed011600eb34bd",
+                "shasum": "0a5538f25043fc0e1f312b9bbd95f5f0312cfcec"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1881,7 +1882,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2015-07-08 15:41:24"
+            "time": "2015-07-21 13:47:54"
         },
         {
             "name": "channelgrabber/tax",
