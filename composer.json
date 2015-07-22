@@ -26,7 +26,7 @@
         "channelgrabber/cache": "~2.1.0",
         "channelgrabber/channel": "dev-EPIC-CGIV-4580-message-center as 1.16.21",
         "channelgrabber/cilex": "~1.1.2",
-        "channelgrabber/communication": "dev-CGIV-5985-messages-reply-resolve-events as 1.0.0",
+        "channelgrabber/communication": "dev-EPIC-CGIV-4580-message-center as 1.0.0",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/di": "~2.1.1",
         "channelgrabber/ebay": "dev-EPIC-CGIV-4580-message-center as 1.9.3",
