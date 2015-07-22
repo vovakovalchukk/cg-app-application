@@ -33,29 +33,30 @@ define([
 
     Respond.prototype = Object.create(PanelAbstract.prototype);
 
-    Respond.prototype.nonRespondableStatuses = {'resolved': true};
-
     Respond.prototype.render = function(thread)
     {
-        var respondable = !(this.nonRespondableStatuses[thread.getStatus()]);
-        if (!respondable) {
-            return;
-        }
+        var nonResolvableStatuses = this.getModule().getPanel('controls').getNonResolvableStatuses();
+        var resolvable = !(nonResolvableStatuses[thread.getStatus()]);
         var self = this;
         CGMustache.get().fetchTemplates({main: Respond.TEMPLATE, buttons: Respond.TEMPLATE_BUTTONS}, function(templates, cgmustache) {
-            var buttonHtml = cgmustache.renderTemplate(templates, {
-                'buttons': [{
+            var buttons = [];
+            if (resolvable) {
+                buttons.push({
                     'id': 'respond-send-resolve',
                     'action': 'send-resolve',
                     'value': 'Send & Resolve',
                     'type': 'button',
                     'class': 'blue'
-                }, {
-                    'id': 'respond-send',
-                    'action': 'send',
-                    'value': 'Send',
-                    'type': 'button'
-                }]
+                });
+            }
+            buttons.push({
+                'id': 'respond-send',
+                'action': 'send',
+                'value': 'Send',
+                'type': 'button'
+            });
+            var buttonHtml = cgmustache.renderTemplate(templates, {
+                'buttons': buttons
             }, 'buttons');
             var html = cgmustache.renderTemplate(templates, {
                 'threadId': thread.getId()

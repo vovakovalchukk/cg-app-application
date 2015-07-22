@@ -142,5 +142,10 @@ define([
         });
     };
 
+    Controls.prototype.getNonResolvableStatuses = function()
+    {
+        return this.nonResolvableStatuses;
+    };
+
     return Controls;
 });
