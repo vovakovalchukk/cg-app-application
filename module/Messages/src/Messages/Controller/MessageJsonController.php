@@ -29,9 +29,8 @@ class MessageJsonController extends AbstractActionController
         if (!$threadId || !$body) {
             throw new \InvalidArgumentException(__METHOD__ . ' requires an threadId and body in the POST data');
         }
-        $resolve = $this->params()->fromPost('resolve', false);
 
-        $messageData = $this->service->createMessageForThreadForActiveUser($threadId, $body, $resolve);
+        $messageData = $this->service->createMessageForThreadForActiveUser($threadId, $body);
 
         // Don't call this return variable 'message' as that's used when there's an error
         return $view->setVariable('messageEntity', $messageData);

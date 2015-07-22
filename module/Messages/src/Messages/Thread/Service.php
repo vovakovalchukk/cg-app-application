@@ -8,6 +8,8 @@ use CG\Communication\Thread\Filter as ThreadFilter;
 use CG\Communication\Thread\ResolveFactory as ThreadResolveFactory;
 use CG\Communication\Thread\Service as ThreadService;
 use CG\Communication\Thread\Status as ThreadStatus;
+use CG\Intercom\Event\Request as IntercomEvent;
+use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Http\Exception\Exception3xx\NotModified;
@@ -26,12 +28,14 @@ class Service
     const ASSIGNEE_ACTIVE_USER = 'active-user';
     const ASSIGNEE_ASSIGNED = 'assigned';
     const ASSIGNEE_UNASSIGNED = 'unassigned';
+    const EVENT_THREAD_RESOLVED = 'Message Thread Resolved';
 
     protected $threadService;
     protected $userOuService;
     protected $userService;
     protected $accountService;
     protected $threadResolveFactory;
+    protected $intercomEventService;
 
     protected $assigneeMethodMap = [
         self::ASSIGNEE_ACTIVE_USER => 'filterByActiveUser',
@@ -54,13 +58,15 @@ class Service
         UserOuService $userOuService,
         UserService $userService,
         AccountService $accountService,
-        ThreadResolveFactory $threadResolveFactory
+        ThreadResolveFactory $threadResolveFactory,
+        IntercomEventService $intercomEventService
     ) {
         $this->setThreadService($threadService)
             ->setUserOuService($userOuService)
             ->setUserService($userService)
             ->setAccountService($accountService)
-            ->setThreadResolveFactory($threadResolveFactory);
+            ->setThreadResolveFactory($threadResolveFactory)
+            ->setIntercomEventService($intercomEventService);
     }
 
     /**
@@ -261,6 +267,7 @@ class Service
         }
         if ($status == ThreadStatus::RESOLVED) {
             $this->threadResolveFactory->__invoke($thread);
+            $this->notifyOfResolve();
         } else {
             $thread->setStatus($status);
         }
@@ -270,6 +277,13 @@ class Service
     protected function hasThreadStatusChanged(Thread $thread, $status)
     {
         return ($status && $status != $thread->getStatus());
+    }
+
+    protected function notifyOfResolve()
+    {
+        $user = $this->userOuService->getActiveUser();
+        $event = new IntercomEvent(static::EVENT_THREAD_RESOLVED, $user->getId());
+        $this->intercomEventService->save($event);
     }
 
     /**
@@ -357,6 +371,12 @@ class Service
     protected function setThreadResolveFactory(ThreadResolveFactory $threadResolveFactory)
     {
         $this->threadResolveFactory = $threadResolveFactory;
+        return $this;
+    }
+
+    protected function setIntercomEventService(IntercomEventService $intercomEventService)
+    {
+        $this->intercomEventService = $intercomEventService;
         return $this;
     }
 }
