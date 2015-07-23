@@ -15,6 +15,7 @@ use CG\Account\Client\Service as AccountService;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Stock\Adjustment as StockAdjustment;
 use CG\Stock\Location\Service as StockLocationService;
 use CG\Stock\Service as StockService;
 use CG\Product\Filter as ProductFilter;
@@ -100,8 +101,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     public function updateStock($stockLocationId, $eTag, $totalQuantity)
     {
         try {
-            $this->auditStockUpdate();
             $stockLocationEntity = $this->getStockLocationService()->fetch($stockLocationId);
+            $this->auditStockUpdate($stockLocationEntity, $totalQuantity);
             $stockLocationEntity->setStoredEtag($eTag)
                 ->setOnHand($totalQuantity);
             $this->getStockLocationService()->save($stockLocationEntity);
@@ -219,12 +220,22 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->getUserPreferenceService()->save($userPrefs);
     }
 
-    protected function auditStockUpdate()
+    protected function auditStockUpdate($stockLocationEntity, $newTotal)
     {
-        $user = $this->getActiveUser();
-        $this->getStockAuditor()->userChange(
-            $user->getId(),
-            $user->getOrganisationUnitId()
+        $oldTotal = $stockLocationEntity->getOnHand();
+        if ($newTotal > $oldTotal) {
+            $diff = $newTotal - $oldTotal;
+            $operator = StockAdjustment::OPERATOR_INC;
+        } else {
+            $diff = $oldTotal - $newTotal;
+            $operator = StockAdjustment::OPERATOR_DEC;
+        }
+        $adjustment = new StockAdjustment(StockAdjustment::TYPE_ONHAND, $diff, $operator);
+        $stock = $this->stockService->fetch($stockLocationEntity->getStockId());
+        $this->getStockAuditor()->userAdjustment(
+            $adjustment,
+            $stock->getSku(),
+            $stock->getOrganisationUnitId()
         );
     }
 
