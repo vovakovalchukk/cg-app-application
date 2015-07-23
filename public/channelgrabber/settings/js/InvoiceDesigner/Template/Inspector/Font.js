@@ -80,7 +80,7 @@ define([
     {
         var fontFamilyOptions = [
             {'title': 'Courier New', 'value': 'Courier'},
-            {'title': 'Helvetica', 'value': 'Helvetica'},
+            {'title': 'Arial', 'value': 'Arial'},
             {'title': 'Times New Roman', 'value': 'TimesRoman'}
         ];
         for (var key in fontFamilyOptions) {
