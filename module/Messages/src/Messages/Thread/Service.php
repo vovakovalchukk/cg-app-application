@@ -23,7 +23,7 @@ class Service
     use FormatMessageDataTrait;
 
     const DEFAULT_LIMIT = 50;
-    const KEY_HAS_NEW = 'messages-has-new';
+    const KEY_HAS_NEW = 'messages-has-new-user:';
     const TTL_HAS_NEW = 300;
     const ASSIGNEE_ACTIVE_USER = 'active-user';
     const ASSIGNEE_ASSIGNED = 'assigned';
@@ -292,14 +292,16 @@ class Service
     public function hasNew()
     {
         $success = false;
-        $cachedValue = apc_fetch(static::KEY_HAS_NEW, $success);
+        $user = $this->userOuService->getActiveUser();
+        $cacheKey = static::KEY_HAS_NEW . $user->getId();
+        $cachedValue = apc_fetch($cacheKey, $success);
         if ($success) {
             return $cachedValue;
         }
 
         $ou = $this->userOuService->getRootOuByActiveUser();
         $hasNew = ($this->hasNewUnassigned($ou) || $this->hasNewAssignedToActiveUser($ou));
-        apc_store(static::KEY_HAS_NEW, $hasNew, static::TTL_HAS_NEW);
+        apc_store($cacheKey, $hasNew, static::TTL_HAS_NEW);
         return $hasNew;
     }
 
