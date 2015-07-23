@@ -23,6 +23,7 @@ class ProductsJsonController extends AbstractActionController
     const ROUTE_AJAX_TAX_RATE = 'tax_rate';
     const ROUTE_STOCK_UPDATE = 'stockupdate';
     const ROUTE_STOCK_CSV_EXPORT = 'stockCsvExport';
+    const ROUTE_STOCK_CSV_IMPORT = 'stockCsvImport';
     const ROUTE_DELETE = 'Delete';
 
     protected $productService;

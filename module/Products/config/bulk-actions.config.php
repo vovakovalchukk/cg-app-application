@@ -15,9 +15,11 @@ return [
                 'ListingListBulkActions' => BulkActions::class,
                 'ListingDetailBulkActions' => BulkActions::class,
                 'DeleteJSViewModel' => ViewModel::class,
+                'StockImportJSViewModel' => ViewModel::class,
                 'HideJSViewModel' => ViewModel::class,
                 'ImportJSViewModel' => ViewModel::class,
-                'UrlDataViewSearch' => ViewModel::class
+                'UrlDataViewSearch' => ViewModel::class,
+                'UrlDataViewStockImport' => ViewModel::class
             ],
             ProductBulkActionsService::class => [
                 'parameters' => [
@@ -68,6 +70,22 @@ return [
             'DeleteJSViewModel' => [
                 'parameters' => [
                     'template' => 'products/products/bulk-actions/delete-js',
+                ],
+            ],
+            ProductAction\StockImport::class => [
+                'parameters' => [
+                    'urlView' => 'UrlDataViewStockImport',
+                    'javascript' => 'StockImportJSViewModel'
+                ]
+            ],
+            'StockImportJSViewModel' => [
+                'parameters' => [
+                    'template' => 'products/products/bulk-actions/stock-import',
+                ],
+            ],
+            'UrlDataViewStockImport' => [
+                'parameters' => [
+                    'template' => 'products/products/bulk-actions/data-url',
                 ],
             ],
             'ProductDetailBulkActions' => [

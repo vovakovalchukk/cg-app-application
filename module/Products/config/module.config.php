@@ -79,6 +79,16 @@ return [
                             ]
                         ],
                     ],
+                    ProductsJsonController::ROUTE_STOCK_CSV_IMPORT => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/stock/csv/import',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'stockCsvExport'
+                            ]
+                        ],
+                    ],
                     ListingsController::ROUTE_INDEX => [
                         'type' => Literal::class,
                         'options' => [

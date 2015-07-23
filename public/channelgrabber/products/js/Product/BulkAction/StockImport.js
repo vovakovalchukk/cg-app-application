@@ -1,4 +1,7 @@
+console.log("top of StockImport file");
+
 define(['popup/mustache'], function(Popup) {
+    console.log("top of StockImport define block");
     var StockImport = function(notifications) {
         var selector;
 
@@ -25,8 +28,9 @@ define(['popup/mustache'], function(Popup) {
     };
 
     StockImport.prototype.init = function(templateMap) {
+        console.log("top of StockImport init");
         popup = new Popup(templateMap, {
-            title: "Update Option"
+            title: "Update Option",
             type: "StockImport"
         }, "popup");
 
