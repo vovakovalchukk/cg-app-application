@@ -59,9 +59,9 @@ class StockImport extends Action
     protected function getUpdateOptions()
     {
         return [
-            static::SET_STOCK => static::SET_STOCK,
-            static::ADD_TO_STOCK => static::ADD_TO_STOCK,
-            static::REMOVE_FROM_STOCK => static::REMOVE_FROM_STOCK
+            ["title" => static::SET_STOCK],
+            ["title" => static::ADD_TO_STOCK],
+            ["title" => static::REMOVE_FROM_STOCK]
         ];
     }
 

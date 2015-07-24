@@ -12,6 +12,10 @@ define(['popup/mustache'], function(Popup) {
             return updateOptions;
         };
 
+        this.getNoticeMessage = function() {
+            return "Uploading stock levels";
+        }
+
         this.getSelector = function() {
             return selector;
         };

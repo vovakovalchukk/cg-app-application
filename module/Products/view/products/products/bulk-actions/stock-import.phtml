@@ -7,7 +7,7 @@ require.config({
 require(['Product/BulkAction/StockImport'], function(StockImport)
 {
     var updateOptions = <?= $updateOptions ?>;
-    var stockImportAction = new StockImport(null, updateOptions);
+    var stockImportAction = new StockImport(n, updateOptions);
     stockImportAction.init(<?= json_encode($this->templateMap) ?>);
     $("#<?= $id ?>").bulkActions("set", "<?= $action ?>", function() {
         stockImportAction.setSelector("<?= $selector ?>");
