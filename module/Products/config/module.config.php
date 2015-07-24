@@ -85,7 +85,7 @@ return [
                             'route' => '/stock/csv/import',
                             'defaults' => [
                                 'controller' => ProductsJsonController::class,
-                                'action' => 'stockCsvExport'
+                                'action' => 'stockCsvImport'
                             ]
                         ],
                     ],

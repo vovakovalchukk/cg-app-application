@@ -186,6 +186,16 @@ class ProductsJsonController extends AbstractActionController
         }
     }
 
+    public function stockCsvImportAction()
+    {
+        try {
+            $csv = $this->stockCsvService->generateCsvForActiveUser();
+            return new FileResponse(StockCsvService::MIME_TYPE, StockCsvService::FILENAME, (string) $csv);
+        } catch (NotFound $exception) {
+            return $this->redirect()->toRoute('Products');
+        }
+    }
+
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
     {
         $this->jsonModelFactory = $jsonModelFactory;
