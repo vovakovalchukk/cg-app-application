@@ -72,16 +72,31 @@ define(['popup/mustache'], function(Popup) {
                 return;
             }
 
+            var filesElement = popup.getElement().find("#popup-stock-import-file-upload-input")[0];
+            var files = filesElement.files;
+            if ((typeof files === "undefined") || !files.length) {
+                that.getNotifications().notice("Select a CSV file to upload");
+                return;
+            }
+
+            var data = new FormData();
+            data.append('updateOption', updateOption);
+
+            $.each(files, function(key, value) {
+                data.append(key, value);
+            });
+
             that.getNotifications().notice(that.getNoticeMessage());
             popup.hide();
+
             $.ajax({
                 context: that,
                 url: $(that.getSelector()).data("url"),
                 type: "POST",
                 dataType: 'json',
-                data: {
-                    'updateOption': updateOption,
-                },
+                data: data,
+                processData: false,
+                contentType: false,
                 success : function(data) {
                     return that.getNotifications().success("Uploading stock CSV...");
                 },
