@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "82bad72ebe1f68b30a75ba12d9a1e566",
+    "hash": "b19886ea1a8b1609af9fb79b9d105846",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2529,17 +2529,17 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.4.28.1",
+            "version": "dev-CGIV-6017-OrdreHubMakeover",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "fd99cff69ca1409077ced55e26a6b763ed5e2bbf"
+                "reference": "7885707cd8304ed1509d6af54c7219fc6e387373"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.28.1-6358e2.zip",
-                "reference": "fd99cff69ca1409077ced55e26a6b763ed5e2bbf",
-                "shasum": "52b704e840b7f899d805669555a9cc4803af55cf"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-6017-OrdreHubMakeover-d9c7ad.zip",
+                "reference": "7885707cd8304ed1509d6af54c7219fc6e387373",
+                "shasum": "56b60214ed06de7e693a4f2523ee4c38ef55530e"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
@@ -2581,7 +2581,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2015-07-11 10:06:03"
+            "time": "2015-07-24 08:46:50"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -6742,10 +6742,18 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.4.28",
+            "alias_normalized": "1.4.28.0",
+            "version": "dev-CGIV-6017-OrdreHubMakeover",
+            "package": "channelgrabber/zf2-login"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-login": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
