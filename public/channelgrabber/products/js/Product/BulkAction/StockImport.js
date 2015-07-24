@@ -1,8 +1,6 @@
-console.log("top of StockImport file");
 
 define(['popup/mustache'], function(Popup) {
-    console.log("top of StockImport define block");
-    var StockImport = function(notifications) {
+    var StockImport = function(notifications, updateOptions) {
         var selector;
         var popup;
 
@@ -11,11 +9,7 @@ define(['popup/mustache'], function(Popup) {
         };
 
         this.getUpdateOptions = function() {
-            return [
-                "Set stock",
-                "Add to stock",
-                "Remove from stock"
-            ];
+            return updateOptions;
         };
 
         this.getSelector = function() {
@@ -38,7 +32,6 @@ define(['popup/mustache'], function(Popup) {
     };
 
     StockImport.prototype.init = function(templateMap) {
-        console.log("top of StockImport init");
         var popup = new Popup(templateMap, {
             title: "Update Option",
             type: "StockImport"
@@ -46,7 +39,6 @@ define(['popup/mustache'], function(Popup) {
         this.setPopup(popup);
 
         var that = this;
-        console.log(popup.getElement());
         popup.getElement().on('mustacheRender', function(event, cgmustache, templates, data, templateId) {
             var updateOptions = that.getUpdateOptions();
 

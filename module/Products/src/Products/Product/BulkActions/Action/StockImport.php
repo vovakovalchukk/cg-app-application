@@ -10,6 +10,9 @@ use CG_UI\Module as CG_UI;
 class StockImport extends Action
 {
     const ICON = 'sprite-cancel-22-black'; // TODO Change this to be the correct icon
+    const SET_STOCK = "Set stock level";
+    const ADD_TO_STOCK = "Add to stock level";
+    const REMOVE_FROM_STOCK = "Remove from stock level";
 
     protected $urlView;
 
@@ -42,6 +45,7 @@ class StockImport extends Action
         $this->addElementView($this->getUrlView());
         $this->getJavascript()->setVariables(
             [
+                'updateOptions' => json_encode($this->getUpdateOptions()),
                 'type' => "stockImport",
                 'templateMap' => [
                     'popup' => Module::PUBLIC_FOLDER . 'template/popups/updateOptions.html',
@@ -50,6 +54,15 @@ class StockImport extends Action
             ]
         );
         return $this;
+    }
+
+    protected function getUpdateOptions()
+    {
+        return [
+            static::SET_STOCK => static::SET_STOCK,
+            static::ADD_TO_STOCK => static::ADD_TO_STOCK,
+            static::REMOVE_FROM_STOCK => static::REMOVE_FROM_STOCK
+        ];
     }
 
     /**
