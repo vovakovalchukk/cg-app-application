@@ -8,6 +8,8 @@ require(['Product/BulkAction/StockImport'], function(StockImport)
 {
     var stockImportAction = new StockImport();
     stockImportAction.init(<?= json_encode($this->templateMap) ?>);
-    stockImportAction.setSelector("<?= $selector ?>");
-    stockImportAction.action();
+    $("#<?= $id ?>").bulkActions("set", "<?= $action ?>", function() {
+        stockImportAction.setSelector("<?= $selector ?>");
+        stockImportAction.action();
+    });
 });

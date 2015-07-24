@@ -7,7 +7,7 @@ use Zend\Mvc\MvcEvent;
 
 class Module implements DependencyIndicatorInterface
 {
-    const PUBLIC_FOLDER = '/channelgrabber/products/';
+    const PUBLIC_FOLDER = '/channelgrabber/products/'; // TODO revert to /cg-built/products/
     const ROUTE = 'Products';
 
     public function onBootstrap(MvcEvent $event)
