@@ -13,6 +13,7 @@
 
 use CG\Cache\EventManagerInterface;
 use CG\Zend\Stdlib\Cache\EventManager;
+use CG\Zend\Stdlib\Db\Sql\Sql as CGSql;
 use CG\Order\Shared\StorageInterface as OrderStorage;
 use CG\Order\Client\StorageInterface as OrderClientStorage;
 use CG\Order\Shared\Item\StorageInterface as ItemStorage;
@@ -78,6 +79,21 @@ use CG\Ekm\Product\TaxRate\Storage\Db as EkmTaxRateDb;
 use CG\Ekm\Product\TaxRate\Repository as EkmTaxRateRepository;
 use CG\Ekm\Product\TaxRate\Service as EkmTaxRateService;
 
+// Communication
+use CG\Communication\Headline\StorageInterface as HeadlineStorage;
+use CG\Communication\Headline\Storage\Api as HeadlineApi;
+use CG\Communication\Message\StorageInterface as MessageStorage;
+use CG\Communication\Message\Storage\Api as MessageApi;
+use CG\Communication\Thread\StorageInterface as ThreadStorage;
+use CG\Communication\Thread\Storage\Api as ThreadApi;
+
+// Amazon\Thread\Additional
+use CG\Amazon\Thread\Additional\Mapper as AmzThreadAdditionalMapper;
+use CG\Amazon\Thread\Additional\Storage\Cache as AmzThreadAdditionalCache;
+use CG\Amazon\Thread\Additional\Storage\Db as AmzThreadAdditionalDb;
+use CG\Amazon\Thread\Additional\StorageInterface as AmzThreadAdditionalStorage;
+use CG\Amazon\Thread\Additional\Repository as AmzThreadAdditionalRepository;
+
 return array(
     'di' => array(
         'instance' => array(
@@ -95,7 +111,19 @@ return array(
                 TransactionStorage::class => TransactionApiStorage::class,
                 DiscountStorage::class => DiscountApiStorage::class,
                 SubscriptionDiscountStorage::class => SubscriptionDiscountApiStorage::class,
+                ThreadStorage::class => ThreadApi::class,
+                MessageStorage::class => MessageApi::class,
+                HeadlineStorage::class => HeadlineApi::class,
+                AmzThreadAdditionalStorage::class => AmzThreadAdditionalRepository::class,
             ),
+            'aliases' => [
+                'amazonWriteCGSql' => CGSql::class
+            ],
+            'amazonWriteCGSql' => [
+                'parameter' => [
+                    'adapter' => 'amazonWrite'
+                ]
+            ],
             AccountCleanupService::class => [
                 'listingService' => ListingService::class,
                 'unimportedListingService' => UnimportedListingService::class
@@ -261,6 +289,40 @@ return array(
                 'parameters' => [
                     'cryptor' => 'ekm_cryptor',
                     'repository' => EkmTaxRateRepository::class
+                ]
+            ],
+            ThreadApi::class => [
+                'parameters' => [
+                    'client' => 'communication_guzzle'
+                ]
+            ],
+            MessageApi::class => [
+                'parameters' => [
+                    'client' => 'communication_guzzle'
+                ]
+            ],
+            HeadlineApi::class => [
+                'parameters' => [
+                    'client' => 'communication_guzzle'
+                ]
+            ],
+            AmzThreadAdditionalDb::class => [
+                'parameters' => [
+                    'readSql' => 'amazonReadSql',
+                    'fastReadSql' => 'amazonFastReadSql',
+                    'writeSql' => 'amazonWriteSql',
+                    'mapper' => AmzThreadAdditionalMapper::class,
+                ]
+            ],
+            AmzThreadAdditionalCache::class => [
+                'parameters' => [
+                    'mapper' => AmzThreadAdditionalMapper::class
+                ]
+            ],
+            AmzThreadAdditionalRepository::class => [
+                'parameters' => [
+                    'storage' => AmzThreadAdditionalCache::class,
+                    'repository' => AmzThreadAdditionalDb::class
                 ]
             ],
         ),

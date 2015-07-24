@@ -1,0 +1,34 @@
+<div class="preview-header">
+    <div class="message-title">
+      <a href="">{{subject}}</a>
+    </div>
+    <div class="message-actions">
+        <div class="channel-company">
+            <span class="logo-large {{channel}}"></span>
+            <span class="company">{{accountName}}</span>
+        </div>
+        <div class="actions">
+            <div class="message-status">
+                <span class="status {{status}}">{{statusText}}</span>
+            </div>
+            <div class="action-nav">
+                <ul>
+                    {{#takable}}
+                    <li id="control-take">Take</li>
+                    {{/takable}}
+                    {{#releasable}}
+                    <li id="control-release">Release</li>
+                    {{/releasable}}
+                    {{#resolvable}}
+                    <li id="control-resolve">Resolve</li>
+                    {{/resolvable}}
+                </ul>
+            </div>
+            <div class="assign">
+                {{#assignable}}
+                    {{> assigneeSelect}}
+                {{/assignable}}
+            </div>
+        </div>
+    </div>
+</div>
