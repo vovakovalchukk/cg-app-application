@@ -12,38 +12,25 @@ define(function() {
     StockExport.prototype.action = function() {
         var that = this;
         $.ajax({
-            context: this,
-            url: this.getUrl(),
+            context: that,
+            url: that.getUrl(),
             type: "POST",
-            success: function(response, status, xhr) {
-                var filename = "stock.csv";
-                var type = xhr.getResponseHeader('Content-Type');
-                var blob = new Blob([response], { type: type  });
-                var URL = window.URL || window.webkitURL;
-                var downloadUrl = URL.createObjectURL(blob);
-
-                var a = document.createElement("a");
-
-                if (typeof a.download === 'undefined') {
-                    window.location = downloadUrl;
+            success : function(response, status, request) {
+                var disp = request.getResponseHeader('Content-Disposition');
+                if (!(disp && disp.search('attachment') != -1)) {
+                    that.getNotifications().error("Failed to download Stock CSV");
+                    return;
                 }
 
-                a.href = downloadUrl;
-                a.download = filename;
-                document.body.appendChild(a);
-                a.click();
+                var form = $('<form method="POST" action="' + that.getUrl() + '">');
+                $('body').append(form);
+                form.submit();
+                return that.getNotifications().success("Downloading Stock CSV...");
             },
             error: function(error, textStatus, errorThrown) {
                 return that.getNotifications().ajaxError(error, textStatus, errorThrown);
             }
-        })
-    };
-
-    StockExport.prototype.getFormElement = function(orders) {
-        return $("<form><input name='stockExport' value='' /></form>")
-            .attr("action", this.getUrl())
-            .attr("method", "POST")
-            .hide();
+        });
     };
 
     StockExport.prototype.getUrl = function() {
