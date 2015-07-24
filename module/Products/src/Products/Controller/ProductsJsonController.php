@@ -179,7 +179,7 @@ class ProductsJsonController extends AbstractActionController
     public function stockCsvExportAction()
     {
         try {
-            $csv = $this->getStockCsvService()->generateCsvForActiveUser();
+            $csv = $this->stockCsvService->generateCsvForActiveUser();
             return new FileResponse(StockCsvService::MIME_TYPE, StockCsvService::FILENAME, (string) $csv);
         } catch (NotFound $exception) {
             return $this->redirect()->toRoute('Products');

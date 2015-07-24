@@ -10,16 +10,20 @@ class Service
 {
     const MIME_TYPE = "text/csv";
     const FILENAME = "stock.csv";
+    const COLLECTION_SIZE = 200;
 
     protected $activeUserContainer;
     protected $stockService;
+    protected $mapper;
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
-        StockService $stockService
+        StockService $stockService,
+        Mapper $mapper
     ) {
         $this->setActiveUserInterface($activeUserContainer)
-            ->setStockService($stockService);
+            ->setStockService($stockService)
+            ->setMapper($mapper);
     }
 
     public function generateCsvForActiveUser()
@@ -52,7 +56,7 @@ class Service
                     [],
                     []
                 );
-                $csv->insertAll($this->getCsvMapper()->stockCollectionToCsvArray());
+                $csv->insertAll($this->mapper->stockCollectionToCsvArray($stock));
             }
         } catch (NotFound $e) {
             // Do nothing, end of pagination
@@ -82,6 +86,15 @@ class Service
     public function setStockService(StockService $stockService)
     {
         $this->stockService = $stockService;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    public function setMapper(Mapper $mapper)
+    {
+        $this->mapper = $mapper;
         return $this;
     }
 }
