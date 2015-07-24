@@ -68,7 +68,7 @@
         "channelgrabber/zf2-ekm": "~1.0.2",
         "channelgrabber/zf2-email-template": "~1.0.8",
         "channelgrabber/zf2-logclient": "~1.4.2",
-        "channelgrabber/zf2-login": "dev-CGIV-6017-OrdreHubMakeover as 1.4.28",
+        "channelgrabber/zf2-login": "~1.4.29",
         "channelgrabber/zf2-mustache": "~1.0.1",
         "channelgrabber/zf2-permission": "~1.1.9",
         "channelgrabber/zf2-register": "~1.4.38",
