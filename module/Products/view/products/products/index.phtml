@@ -7,9 +7,9 @@ require.config({
     }
 });
 require([
-    "showHideFilters", "Product/Service", "Variation/Service", 'Product/DomListener/TaxRate', "jquery"
+    "showHideFilters", "Product/Service", "Variation/Service", 'Product/DomListener/TaxRate'
 ],
-function(ShowHideFilters, productService, variationService, taxRateDomListener, $) {
+function(ShowHideFilters, productService, variationService, taxRateDomListener) {
     $(document).ready(function()
     {
         var hideFilters = new ShowHideFilters();

@@ -1,8 +1,6 @@
 define([
-    'jquery',
     'Product/DomListener/Search'
 ], function(
-    $,
     productDomListener
 ) {
     var DomListener = function()

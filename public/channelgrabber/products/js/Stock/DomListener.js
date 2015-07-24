@@ -1,10 +1,8 @@
 define([
-    'jquery',
     'Stock/Service',
     'element/DomListener/InlineText',
     'DomManipulator'
 ], function(
-    $,
     service,
     inlineTextListener,
     domManipulator

@@ -4,6 +4,7 @@ define(['popup/mustache'], function(Popup) {
     console.log("top of StockImport define block");
     var StockImport = function(notifications) {
         var selector;
+        var popup;
 
         this.getNotifications = function() {
             return notifications;
@@ -25,16 +26,27 @@ define(['popup/mustache'], function(Popup) {
             selector = newSelector;
             return this;
         };
+
+        this.getPopup = function() {
+            return popup;
+        };
+
+        this.setPopup = function(newPopup) {
+            popup = newPopup;
+            return this;
+        };
     };
 
     StockImport.prototype.init = function(templateMap) {
         console.log("top of StockImport init");
-        popup = new Popup(templateMap, {
+        var popup = new Popup(templateMap, {
             title: "Update Option",
             type: "StockImport"
         }, "popup");
+        this.setPopup(popup);
 
         var that = this;
+        console.log(popup.getElement());
         popup.getElement().on('mustacheRender', function(event, cgmustache, templates, data, templateId) {
             var updateOptions = that.getUpdateOptions();
 
@@ -50,7 +62,8 @@ define(['popup/mustache'], function(Popup) {
         });
     };
 
-    StockImport.prototype.action = function(element) {
+    StockImport.prototype.action = function() {
+        var popup = this.getPopup();
         this.listen(popup);
         popup.show();
     };

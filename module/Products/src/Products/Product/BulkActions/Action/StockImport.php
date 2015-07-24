@@ -10,10 +10,6 @@ use CG_UI\Module as CG_UI;
 class StockImport extends Action
 {
     const ICON = 'sprite-cancel-22-black'; // TODO Change this to be the correct icon
-    const TYPE = 'stock import';
-    const SET_STOCK = "Set stock level";
-    const ADD_TO_STOCK = "Add to stock level";
-    const REMOVE_FROM_STOCK = "Remove from stock level";
 
     protected $urlView;
 
@@ -23,7 +19,7 @@ class StockImport extends Action
         ViewModel $javascript = null,
         SplObjectStorage $subActions = null
     ) {
-        parent::__construct(static::ICON, ucwords(static::TYPE), static::TYPE, $elementData, $javascript, $subActions);
+        parent::__construct(static::ICON, "Stock Import", "stockImport", $elementData, $javascript, $subActions);
         $this->setUrlView($urlView)->configure();
     }
 
@@ -46,7 +42,7 @@ class StockImport extends Action
         $this->addElementView($this->getUrlView());
         $this->getJavascript()->setVariables(
             [
-                'type' => static::TYPE,
+                'type' => "stockImport",
                 'templateMap' => [
                     'popup' => Module::PUBLIC_FOLDER . 'template/popups/updateOptions.html',
                     'select' => CG_UI::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache',
