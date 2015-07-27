@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "95593cc15ec4bbbe6158ba14251dc004",
+    "hash": "91180eee75c665131f49ec9a72ebe2af",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1927,17 +1927,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-5971-TrueTypeFonts",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "7c4d1b023efb551da7207caa80b94c3669753cff"
+                "reference": "f585589bafe5925a005c1ad5929f64a57633655c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-5971-TrueTypeFonts-dda11b.zip",
-                "reference": "7c4d1b023efb551da7207caa80b94c3669753cff",
-                "shasum": "b9c66ceed2d10106c26d926c8ef9da0e9fdeae70"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.3.1-2ca7fb.zip",
+                "reference": "f585589bafe5925a005c1ad5929f64a57633655c",
+                "shasum": "72074ccfd4a4356d95b4bbb776ba7a960ace730d"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1974,7 +1974,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-07-23 09:34:40"
+            "time": "2015-07-27 15:30:46"
         },
         {
             "name": "channelgrabber/transaction",
@@ -6746,18 +6746,10 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.3.1",
-            "alias_normalized": "1.3.1.0",
-            "version": "dev-CGIV-5971-TrueTypeFonts",
-            "package": "channelgrabber/template"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/template": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
