@@ -11,6 +11,7 @@ use Zend\Di\LocatorInterface;
 use Zend\EventManager\EventManagerInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\ServiceManager;
+use Zend\View\Renderer\PhpRenderer;
 
 return [
     'service_manager' => [
@@ -49,6 +50,7 @@ return [
                 $im->addSharedInstance($serviceManager, ServiceManager::class);
                 $im->addSharedInstance($di->get('config', array('array' => $configuration)), 'config');
                 $im->addSharedInstance($di->get(ZendConfig::class, array('array' => $configuration)), 'app_config');
+                $im->addSharedInstance((new PhpRenderer())->setResolver($serviceManager->get('viewresolver')), PhpRenderer::class);
 
                 $eventManager = $serviceManager->get('EventManager');
                 $im->addTypePreference(EventManagerInterface::class, get_class($eventManager));
