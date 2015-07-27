@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "75c7d584e4c401d46d6c0f9eeb815146",
+    "hash": "db89c0ccd15fea231bf23d90db29c378",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2833,38 +2833,37 @@
         },
         {
             "name": "channelgrabber/zf2-stdlib",
-            "version": "1.1.20",
+            "version": "dev-CGIV-5999-CacheHash",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgzf2stdlib.git",
-                "reference": "056f15116929c395b85b3995f6ff83dec90c4031"
+                "reference": "556483970d74382ac49f916889b77fb4c7d2e039"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-1.1.20-3e3093.zip",
-                "reference": "056f15116929c395b85b3995f6ff83dec90c4031",
-                "shasum": "0f5baa86aa6c2534411d4708237629b7464c8bbc"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-dev-CGIV-5999-CacheHash-28c474.zip",
+                "reference": "556483970d74382ac49f916889b77fb4c7d2e039",
+                "shasum": "159c940bcb1508888bc9d6d9f8fcd417954477eb"
             },
             "require": {
-                "channelgrabber/cache": ">=2.0.1,<3.0.0",
-                "channelgrabber/di": ">=2.1.0",
-                "channelgrabber/stdlib": ">=2.10.13,<3.0",
+                "channelgrabber/cache": "^2.0.1",
+                "channelgrabber/stdlib": "^2.10.13",
                 "composer/composer": "@dev",
-                "zendframework/zend-db": ">=2.2,<3.0",
-                "zendframework/zend-di": ">=2.2,<3.0",
-                "zendframework/zend-eventmanager": ">=2.2,<3.0",
-                "zendframework/zend-http": ">=2.2,<3.0",
-                "zendframework/zend-mvc": ">=2.2,<3.0",
-                "zendframework/zend-servicemanager": ">=2.2,<3.0",
-                "zendframework/zend-view": ">=2.2,<3.0"
+                "zendframework/zend-cache": "^2.2",
+                "zendframework/zend-db": "^2.2",
+                "zendframework/zend-eventmanager": "^2.2",
+                "zendframework/zend-http": "^2.2",
+                "zendframework/zend-mvc": "^2.2",
+                "zendframework/zend-servicemanager": "^2.2",
+                "zendframework/zend-view": "^2.2"
             },
-            "type": "di-definition",
+            "type": "library",
             "autoload": {
                 "psr-4": {
                     "CG\\Zend\\Stdlib\\": "src"
                 }
             },
-            "time": "2015-05-08 13:19:42"
+            "time": "2015-07-24 14:46:17"
         },
         {
             "name": "channelgrabber/zf2-usage",
@@ -6746,10 +6745,18 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.2.0",
+            "alias_normalized": "1.2.0.0",
+            "version": "dev-CGIV-5999-CacheHash",
+            "package": "channelgrabber/zf2-stdlib"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-stdlib": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
