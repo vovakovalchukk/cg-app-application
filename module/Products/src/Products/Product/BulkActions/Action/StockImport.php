@@ -6,13 +6,11 @@ use Zend\View\Model\ViewModel;
 use SplObjectStorage;
 use Products\Module;
 use CG_UI\Module as CG_UI;
+use CG\Stock\Import\UpdateActions;
 
 class StockImport extends Action
 {
     const ICON = 'sprite-cancel-22-black'; // TODO Change this to be the correct icon
-    const SET_STOCK = "Set stock level";
-    const ADD_TO_STOCK = "Add to stock level";
-    const REMOVE_FROM_STOCK = "Remove from stock level";
 
     protected $urlView;
 
@@ -59,9 +57,9 @@ class StockImport extends Action
     protected function getUpdateOptions()
     {
         return [
-            ["title" => static::SET_STOCK],
-            ["title" => static::ADD_TO_STOCK],
-            ["title" => static::REMOVE_FROM_STOCK]
+            ["title" => UpdateOptions::SET_STOCK],
+            ["title" => UpdateOptions::ADD_TO_STOCK],
+            ["title" => UpdateOptions::REMOVE_FROM_STOCK]
         ];
     }
 

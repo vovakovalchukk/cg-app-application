@@ -16,6 +16,7 @@ use Products\Product\TaxRate\Service as TaxRateService;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Zend\Stdlib\Http\FileResponse;
 use Products\Stock\Csv\Service as StockCsvService;
+use CG\Stock\Import\UpdateOptions as StockImportUpdateOptions;
 
 class ProductsJsonController extends AbstractActionController
 {
@@ -188,12 +189,23 @@ class ProductsJsonController extends AbstractActionController
 
     public function stockCsvImportAction()
     {
-        try {
-            $csv = $this->stockCsvService->generateCsvForActiveUser();
-            return new FileResponse(StockCsvService::MIME_TYPE, StockCsvService::FILENAME, (string) $csv);
-        } catch (NotFound $exception) {
-            return $this->redirect()->toRoute('Products');
+        $request = $this->getRequest();
+        $files = $request->getFiles()->toArray();
+        $post = $request->getPost()->toArray();
+
+        if (empty($files)) {
+            throw new \RuntimeException("No File uploaded");
         }
+
+        if (!(isset($post["updateOption"]) && StockImportUpdateOptions::isValid($post["updateOption"]))) {
+            throw new \RuntimeException("Missing/Invalid update option provided");
+        }
+
+        $this->stockCsvService->uploadCsvForActiveUser($post["updateOption"], $file[0]);
+
+        $view = $this->getJsonModelFactory()->newInstance();
+        $view->setVariable("success", true);
+        return $view;
     }
 
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)

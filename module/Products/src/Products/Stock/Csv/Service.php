@@ -5,6 +5,9 @@ use CG\User\ActiveUserInterface;
 use League\Csv\Writer as CsvWriter;
 use CG\Stock\Service as StockService;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stock\Import\File\Storage\Db as ImportFileStorage;
+use CG\Stock\Import\File\Mapper as ImportFileMapper;
+use GearmanClient;
 
 class Service
 {
@@ -19,11 +22,51 @@ class Service
     public function __construct(
         ActiveUserInterface $activeUserContainer,
         StockService $stockService,
-        Mapper $mapper
+        Mapper $mapper,
+        ImportFileStorage $importFileStorage,
+        ImportFileMapper $importFileMapper,
+        GearmanClient $gearmanClient
     ) {
         $this->setActiveUserInterface($activeUserContainer)
             ->setStockService($stockService)
-            ->setMapper($mapper);
+            ->setMapper($mapper)
+            ->setImportFileStorage($importFileStorage)
+            ->setImportFileMapper($importFileMapper)
+            ->setGearmanClient($gearmanClient);
+    }
+
+    public function uploadCsvForActiveUser($updateOption, array $file)
+    {
+        return $this->uploadCsvForOu(
+            $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
+            $updateOption
+        );
+    }
+
+    public function uploadCsvForOu(
+        $organisationUnitId,
+        $updateOption,
+        array $file
+    ) {
+        $fileEntity = $this->saveFile($updateOption, $file);
+        $this->createJob($fileEntity, $organisationUnitId);
+    }
+
+    protected function saveFile($updateOption, array $file)
+    {
+        return $this->importFileStorage->save(
+            $this->importFileMapper->fromUpload($updateOption, $file)
+        );
+    }
+
+    protected function createJob(ImportFile $fileEntity, $organisationUnitId)
+    {
+        $fileId = $fileEntity->getId();
+        $this->gearmanClient->doBackground(
+            "stockImportFile",
+            new ImportWorkload($organisationUnitId, $fileId),
+            $fileId . "-" . $organisationUnitId
+        );
     }
 
     public function generateCsvForActiveUser()
@@ -95,6 +138,33 @@ class Service
     public function setMapper(Mapper $mapper)
     {
         $this->mapper = $mapper;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    public function setImportFileStorage(ImportFileStorage $importFileStorage)
+    {
+        $this->importFileStorage = $importFileStorage;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    public function setImportFileMapper(ImportFileMapper $importFileMapper)
+    {
+        $this->importFileMapper = $importFileMapper;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    public function setGearmanClient(GearmanClient $gearmanClient)
+    {
+        $this->gearmanClient = $gearmanClient;
         return $this;
     }
 }
