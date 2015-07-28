@@ -8,12 +8,16 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stock\Import\File\Storage\Db as ImportFileStorage;
 use CG\Stock\Import\File\Mapper as ImportFileMapper;
 use GearmanClient;
+use CG\Intercom\Event\Request as IntercomEvent;
+use CG\Intercom\Event\Service as IntercomEventService;
 
 class Service
 {
     const MIME_TYPE = "text/csv";
     const FILENAME = "stock.csv";
     const COLLECTION_SIZE = 200;
+    const EVENT_STOCK_IMPORT = "Stock Levels Imported";
+    const EVENT_STOCK_EXPORT = "Stock Levels Exported";
 
     protected $activeUserContainer;
     protected $stockService;
@@ -25,18 +29,21 @@ class Service
         Mapper $mapper,
         ImportFileStorage $importFileStorage,
         ImportFileMapper $importFileMapper,
-        GearmanClient $gearmanClient
+        GearmanClient $gearmanClient,
+        IntercomEventService $intercomEventService
     ) {
         $this->setActiveUserInterface($activeUserContainer)
             ->setStockService($stockService)
             ->setMapper($mapper)
             ->setImportFileStorage($importFileStorage)
             ->setImportFileMapper($importFileMapper)
-            ->setGearmanClient($gearmanClient);
+            ->setGearmanClient($gearmanClient)
+            ->setIntercomEventService($intercomEventService);
     }
 
     public function uploadCsvForActiveUser($updateOption, array $file)
     {
+        $this->notifyOfUpload();
         return $this->uploadCsvForOu(
             $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
             $updateOption
@@ -71,6 +78,7 @@ class Service
 
     public function generateCsvForActiveUser()
     {
+        $this->notifyOfExport();
         return $this->generateCsvForOu(
             $this->activeUserContainer->getActiveUserRootOrganisationUnitId()
         );
@@ -112,6 +120,22 @@ class Service
             "SKU",
             "stock on hand"
         ];
+    }
+
+    protected function notifyOfExport()
+    {
+        return $this->notifyIntercom(static::EVENT_STOCK_EXPORT);
+    }
+
+    protected function notifyOfUpload()
+    {
+        return $this->notifyIntercom(static::EVENT_STOCK_IMPORT);
+    }
+
+    protected function notifyIntercom($event)
+    {
+        $event = new IntercomEvent($event, $this->getActiveUserId());
+        $this->intercomEventService->save($event);
     }
 
     /**
@@ -165,6 +189,15 @@ class Service
     public function setGearmanClient(GearmanClient $gearmanClient)
     {
         $this->gearmanClient = $gearmanClient;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    public function setIntercomEventService(IntercomEventService $intercomEventService)
+    {
+        $this->intercomEventService = $intercomEventService;
         return $this;
     }
 }
