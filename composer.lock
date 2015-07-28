@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dd16d8daf7dc709d96efa06bb15c072d",
+    "hash": "5e569d23dadbf96d9db30c527755217d",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -363,12 +363,6 @@
                 "url": "git@bitbucket.org:channelgrabber/cgconstants.git",
                 "reference": "2bba7dd2a124432258d1a81d6e42cc13708bf93a"
             },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-constants-dev-master-1ee173.zip",
-                "reference": "2bba7dd2a124432258d1a81d6e42cc13708bf93a",
-                "shasum": "829cfb41e8c6b36b6d952d01ba3fa44f8d4b47a6"
-            },
             "require": {
                 "php": ">=5.4.0"
             },
@@ -695,6 +689,13 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
+            "extra": {
+                "context-options": {
+                    "ssl": {
+                        "local_cert": "composer.pem"
+                    }
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -1786,17 +1787,17 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.5.0",
+            "version": "dev-CGIV-5998-StockImport",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "22d7d3ff75b2cedd76c6b6fc88ed011600eb34bd"
+                "reference": "f6a5bd30c5e211f253652d1de04c5a6787896722"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.5.0-1e7b52.zip",
-                "reference": "22d7d3ff75b2cedd76c6b6fc88ed011600eb34bd",
-                "shasum": "0a5538f25043fc0e1f312b9bbd95f5f0312cfcec"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-5998-StockImport-4276df.zip",
+                "reference": "f6a5bd30c5e211f253652d1de04c5a6787896722",
+                "shasum": "5d171b633ccd121e303c8343e800d9e0f072ce8c"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1832,7 +1833,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2015-07-21 13:47:54"
+            "time": "2015-07-28 07:51:38"
         },
         {
             "name": "channelgrabber/tax",
@@ -3782,7 +3783,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpatch/zipball/7933990bcfea21bb3f093bc3df9ae621540b40ca",
+                "url": "https://composer.build.channelgrabber.com/dist/php-jsonpatch-php-jsonpatch-7933990bcfea21bb3f093bc3df9ae621540b40ca-zip-e72ac3.zip",
                 "reference": "7933990bcfea21bb3f093bc3df9ae621540b40ca",
                 "shasum": "5d8c37272322234bc03029520515c470ce7832c0"
             },
@@ -3834,7 +3835,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpointer/zipball/fc3999d9ab5bf8f59dc829742c6dab6ccd2e1b6e",
+                "url": "https://composer.build.channelgrabber.com/dist/php-jsonpointer-php-jsonpointer-fc3999d9ab5bf8f59dc829742c6dab6ccd2e1b6e-zip-ccf2bc.zip",
                 "reference": "fc3999d9ab5bf8f59dc829742c6dab6ccd2e1b6e",
                 "shasum": "2515588a8d2d786e41d8e2c8b489250056848ebd"
             },
@@ -3910,9 +3911,7 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -4040,8 +4039,7 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com",
-                    "role": "Developer"
+                    "homepage": "http://benramsey.com"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
@@ -5126,9 +5124,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "shasum": ""
+                "url": "https://packages.zendframework.com/composer/zendframework-zendxml-559b34f426d33a11c3db118e00ce14bb8dc64e5f-zip-6cf7a2.zip",
+                "reference": "1.0.0",
+                "shasum": "39abc614b5c26bcbf8102e203c52dee73c4460a8"
             },
             "require": {
                 "php": ">=5.3.3"
@@ -5148,7 +5146,6 @@
                     "ZendXml": "library/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -5159,6 +5156,10 @@
                 "xml",
                 "zf2"
             ],
+            "support": {
+                "source": "https://github.com/zendframework/ZendXml/tree/master",
+                "issues": "https://github.com/zendframework/ZendXml/issues"
+            },
             "time": "2014-03-05 22:25:44"
         },
         {
@@ -5653,7 +5654,7 @@
                 {
                     "name": "Anthon Pang",
                     "email": "apang@softwaredevelopment.ca",
-                    "role": "developer"
+                    "role": "Fork Maintainer"
                 }
             ],
             "description": "PHP WebDriver for Selenium 2",
@@ -5818,8 +5819,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -6594,10 +6594,18 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.5.4",
+            "alias_normalized": "1.5.4.0",
+            "version": "dev-CGIV-5998-StockImport",
+            "package": "channelgrabber/stock"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/stock": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

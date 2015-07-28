@@ -7,9 +7,11 @@ use CG\Stock\Service as StockService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stock\Import\File\Storage\Db as ImportFileStorage;
 use CG\Stock\Import\File\Mapper as ImportFileMapper;
+use CG\Stock\Import\File\Entity as ImportFile;
 use GearmanClient;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
+use CG\Stock\Gearman\Workload\StockImport as ImportWorkload;
 
 class Service
 {
@@ -46,7 +48,8 @@ class Service
         $this->notifyOfUpload();
         return $this->uploadCsvForOu(
             $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
-            $updateOption
+            $updateOption,
+            $file
         );
     }
 
@@ -71,7 +74,7 @@ class Service
         $fileId = $fileEntity->getId();
         $this->gearmanClient->doBackground(
             "stockImportFile",
-            new ImportWorkload($organisationUnitId, $fileId),
+            serialize(new ImportWorkload($organisationUnitId, $fileId)),
             $fileId . "-" . $organisationUnitId
         );
     }
@@ -136,6 +139,11 @@ class Service
     {
         $event = new IntercomEvent($event, $this->getActiveUserId());
         $this->intercomEventService->save($event);
+    }
+
+    protected function getActiveUserId()
+    {
+        return $this->activeUserContainer->getActiveUser()->getId();
     }
 
     /**

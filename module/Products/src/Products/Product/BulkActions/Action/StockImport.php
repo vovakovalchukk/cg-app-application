@@ -6,7 +6,7 @@ use Zend\View\Model\ViewModel;
 use SplObjectStorage;
 use Products\Module;
 use CG_UI\Module as CG_UI;
-use CG\Stock\Import\UpdateActions;
+use CG\Stock\Import\UpdateOptions;
 
 class StockImport extends Action
 {

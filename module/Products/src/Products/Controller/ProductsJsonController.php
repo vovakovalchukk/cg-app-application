@@ -201,7 +201,7 @@ class ProductsJsonController extends AbstractActionController
             throw new \RuntimeException("Missing/Invalid update option provided");
         }
 
-        $this->stockCsvService->uploadCsvForActiveUser($post["updateOption"], $file[0]);
+        $this->stockCsvService->uploadCsvForActiveUser($post["updateOption"], $files[0]);
 
         $view = $this->getJsonModelFactory()->newInstance();
         $view->setVariable("success", true);
