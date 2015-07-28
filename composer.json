@@ -70,7 +70,7 @@
         "channelgrabber/zf2-logclient": "~1.4.2",
         "channelgrabber/zf2-login": "~1.4.29",
         "channelgrabber/zf2-mustache": "~1.0.1",
-        "channelgrabber/zf2-permission": "~1.1.9",
+        "channelgrabber/zf2-permission": "~1.1.10",
         "channelgrabber/zf2-register": "~1.4.38",
         "channelgrabber/zf2-royalmail": "~1.1.1",
         "channelgrabber/zf2-sessions": "~1.1.4",

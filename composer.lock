@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "14de761f9fb3f1bcb581bb963ce88dc6",
+    "hash": "c9f2db27c3864462b86e054747a05946",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2621,17 +2621,17 @@
         },
         {
             "name": "channelgrabber/zf2-permission",
-            "version": "1.1.9",
+            "version": "1.1.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/permission-module.git",
-                "reference": "2fb229109b47a23a8adf16ccd915c05cb1971940"
+                "reference": "636753abc97ffaafa1dda40148cd833ef03d1331"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.1.9-ea8df0.zip",
-                "reference": "2fb229109b47a23a8adf16ccd915c05cb1971940",
-                "shasum": "9473c55c2bdbc23f2fac5d106bd5f488f4bc0185"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.1.10-65c2e3.zip",
+                "reference": "636753abc97ffaafa1dda40148cd833ef03d1331",
+                "shasum": "5cebc640639d23ccebbb2744fd91e030e1226841"
             },
             "require": {
                 "channelgrabber/billing": ">=1.3.7,<2.0.0",
@@ -2657,7 +2657,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-05-21 15:03:38"
+            "time": "2015-07-28 13:00:13"
         },
         {
             "name": "channelgrabber/zf2-register",
@@ -3934,7 +3934,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpatch/zipball/b1d0dbe9b59826511196793673ff54d59d2c0336",
+                "url": "https://composer.build.channelgrabber.com/dist/php-jsonpatch-php-jsonpatch-f008d127008dc432ef3df9c1660d18539276fee4-zip-41d0fa.zip",
                 "reference": "f008d127008dc432ef3df9c1660d18539276fee4",
                 "shasum": "43368232e1dc257a2886c8bb1f1a47ab8f0b3be4"
             },
@@ -3986,7 +3986,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpointer/zipball/064f65b05d1381d4999113f442af93949cc7c29a",
+                "url": "https://composer.build.channelgrabber.com/dist/php-jsonpointer-php-jsonpointer-064f65b05d1381d4999113f442af93949cc7c29a-zip-a7425b.zip",
                 "reference": "064f65b05d1381d4999113f442af93949cc7c29a",
                 "shasum": "1982d83a6b5c301565c6af5e5acfe9f11e43776b"
             },
