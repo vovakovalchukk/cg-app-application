@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5e569d23dadbf96d9db30c527755217d",
+    "hash": "3bf89274fbcb12c1c6872658cb47ff8e",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1787,7 +1787,7 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "dev-CGIV-5998-StockImport",
+            "version": "dev-EPIC-CGIV-5955-StockImportExport",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
@@ -1795,9 +1795,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-5998-StockImport-4276df.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-EPIC-CGIV-5955-StockImportExport-4276df.zip",
                 "reference": "f6a5bd30c5e211f253652d1de04c5a6787896722",
-                "shasum": "5d171b633ccd121e303c8343e800d9e0f072ce8c"
+                "shasum": "7de25e4fc3be0d97e14ad636d4c639e3ae646d0d"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -6598,7 +6598,7 @@
         {
             "alias": "1.5.4",
             "alias_normalized": "1.5.4.0",
-            "version": "dev-CGIV-5998-StockImport",
+            "version": "dev-EPIC-CGIV-5955-StockImportExport",
             "package": "channelgrabber/stock"
         }
     ],
