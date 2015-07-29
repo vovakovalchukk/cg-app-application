@@ -94,6 +94,10 @@ use CG\Amazon\Thread\Additional\Storage\Db as AmzThreadAdditionalDb;
 use CG\Amazon\Thread\Additional\StorageInterface as AmzThreadAdditionalStorage;
 use CG\Amazon\Thread\Additional\Repository as AmzThreadAdditionalRepository;
 
+// ApiCredentials
+use CG\ApiCredentials\StorageInterface as ApiCredentialsStorage;
+use CG\ApiCredentials\Storage\Api as ApiCredentialsApi;
+
 return array(
     'di' => array(
         'instance' => array(
@@ -115,6 +119,7 @@ return array(
                 MessageStorage::class => MessageApi::class,
                 HeadlineStorage::class => HeadlineApi::class,
                 AmzThreadAdditionalStorage::class => AmzThreadAdditionalRepository::class,
+                ApiCredentialsStorage::class => ApiCredentialsApi::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class
@@ -323,6 +328,11 @@ return array(
                 'parameters' => [
                     'storage' => AmzThreadAdditionalCache::class,
                     'repository' => AmzThreadAdditionalDb::class
+                ]
+            ],
+            ApiCredentialsApi::class => [
+                'parameters' => [
+                    'client' => 'directory_guzzle'
                 ]
             ],
         ),

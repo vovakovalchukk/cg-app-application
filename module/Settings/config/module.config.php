@@ -12,6 +12,7 @@ use Settings\Controller\AmazonController;
 use Settings\Controller\InvoiceController;
 use Settings\Controller\ShippingController;
 use Settings\Controller\PickListController;
+use Settings\Controller\ApiController;
 use CG_UI\View\DataTable;
 use Settings\Invoice\Service as InvoiceService;
 use Zend\View\Model\ViewModel;
@@ -111,6 +112,18 @@ return [
                         'label' => PickListController::ROUTE_PICK_LIST,
                         'title' => PickListController::ROUTE_PICK_LIST,
                         'route' => Module::ROUTE . '/' . PickListController::ROUTE . '/' . PickListController::ROUTE_PICK_LIST
+                    ]
+                ]
+            ],
+            'Advanced' => [
+                'label' => 'Advanced',
+                'uri' => '',
+                'class' => 'heading-medium',
+                'pages' => [
+                    [
+                        'label' => ApiController::ROUTE_API,
+                        'title' => ApiController::ROUTE_API,
+                        'route' => Module::ROUTE . '/' . ApiController::ROUTE . '/' . ApiController::ROUTE_API
                     ]
                 ]
             ]
@@ -456,6 +469,29 @@ return [
                                         'may_terminate' => true
                                     ]
                                 ]
+                            ]
+                        ]
+                    ],
+                    ApiController::ROUTE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/advanced',
+                            'defaults' => [
+                                'controller' => ApiController::class,
+                                'action' => 'index'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            ApiController::ROUTE_API => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/api',
+                                    'defaults' => [
+                                        'action' => 'details'
+                                    ]
+                                ],
+                                'may_terminate' => true,
                             ]
                         ]
                     ]

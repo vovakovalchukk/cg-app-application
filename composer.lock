@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c9f2db27c3864462b86e054747a05946",
+    "hash": "6ad7fd719ca9764a7d2ea08bd971b613",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2051,17 +2051,17 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.19.9",
+            "version": "dev-CGIV-6003-public-api-credential-generation",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "68becd2e04d2357a3b3c5583600c0ea72383e2dc"
+                "reference": "55601bbfc6cecbaf61c63c5c1eb40d592e484f0d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.19.9-30e17a.zip",
-                "reference": "68becd2e04d2357a3b3c5583600c0ea72383e2dc",
-                "shasum": "196b55ee71fd30c0e9f853b9d93e070400c679f9"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-6003-public-api-credential-generation-6aedef.zip",
+                "reference": "55601bbfc6cecbaf61c63c5c1eb40d592e484f0d",
+                "shasum": "60166b6cb875140b6e67b794e6387d7f1b8c364a"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2098,7 +2098,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2015-07-23 13:21:40"
+            "time": "2015-07-29 14:38:55"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -3934,7 +3934,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/php-jsonpatch-php-jsonpatch-f008d127008dc432ef3df9c1660d18539276fee4-zip-41d0fa.zip",
+                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpatch/zipball/b1d0dbe9b59826511196793673ff54d59d2c0336",
                 "reference": "f008d127008dc432ef3df9c1660d18539276fee4",
                 "shasum": "43368232e1dc257a2886c8bb1f1a47ab8f0b3be4"
             },
@@ -3986,7 +3986,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/php-jsonpointer-php-jsonpointer-064f65b05d1381d4999113f442af93949cc7c29a-zip-a7425b.zip",
+                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpointer/zipball/064f65b05d1381d4999113f442af93949cc7c29a",
                 "reference": "064f65b05d1381d4999113f442af93949cc7c29a",
                 "shasum": "1982d83a6b5c301565c6af5e5acfe9f11e43776b"
             },
@@ -6746,10 +6746,18 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.19.10",
+            "alias_normalized": "1.19.10.0",
+            "version": "dev-CGIV-6003-public-api-credential-generation",
+            "package": "channelgrabber/user"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/user": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
