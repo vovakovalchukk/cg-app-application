@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c9f2db27c3864462b86e054747a05946",
+    "hash": "d22555dd855b6700f18e3e0027a6d840",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2917,17 +2917,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.1",
+            "version": "dev-CGIV-6044-AddAllColumns",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "d70d952faae1d4634a9de259e1c8c1ff25b3ba27"
+                "reference": "5885fe8f2ea81e90e04968de2947d71718e63529"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.1-192a78.zip",
-                "reference": "d70d952faae1d4634a9de259e1c8c1ff25b3ba27",
-                "shasum": "fd7b86654b336edb15185a534b7896cc1427bb62"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6044-AddAllColumns-341fed.zip",
+                "reference": "5885fe8f2ea81e90e04968de2947d71718e63529",
+                "shasum": "711147921652094099caf5eabb27afdf8785155c"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2972,7 +2972,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-07-24 12:11:29"
+            "time": "2015-07-29 13:01:50"
         },
         {
             "name": "cilex/cilex",
@@ -3934,7 +3934,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/php-jsonpatch-php-jsonpatch-f008d127008dc432ef3df9c1660d18539276fee4-zip-41d0fa.zip",
+                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpatch/zipball/b1d0dbe9b59826511196793673ff54d59d2c0336",
                 "reference": "f008d127008dc432ef3df9c1660d18539276fee4",
                 "shasum": "43368232e1dc257a2886c8bb1f1a47ab8f0b3be4"
             },
@@ -3986,7 +3986,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/php-jsonpointer-php-jsonpointer-064f65b05d1381d4999113f442af93949cc7c29a-zip-a7425b.zip",
+                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpointer/zipball/064f65b05d1381d4999113f442af93949cc7c29a",
                 "reference": "064f65b05d1381d4999113f442af93949cc7c29a",
                 "shasum": "1982d83a6b5c301565c6af5e5acfe9f11e43776b"
             },
@@ -6746,10 +6746,18 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.16.2",
+            "alias_normalized": "1.16.2.0",
+            "version": "dev-CGIV-6044-AddAllColumns",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
