@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8d400793c8a193815c5bc1fbbe86fffe",
+    "hash": "ff0b24ff8ad449b20a09c1ee8a6094e6",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1843,22 +1843,23 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "dev-EPIC-CGIV-5955-StockImportExport",
+            "version": "dev-CGIV-6027-StockImportGearman",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "c566e730ed931e23bca6f3d09ec9d602bca87b0e"
+                "reference": "ef1b1ef998296785a43a95424cba1376b594c86b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-EPIC-CGIV-5955-StockImportExport-637501.zip",
-                "reference": "c566e730ed931e23bca6f3d09ec9d602bca87b0e",
-                "shasum": "20fca8e0804dc02e074fe0695fa8da09e60b6c28"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-6027-StockImportGearman-bdf624.zip",
+                "reference": "ef1b1ef998296785a43a95424cba1376b594c86b",
+                "shasum": "c6df7d408fd92598db609aeb1da588c3c511fcdc"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.1.0",
+                "channelgrabber/email": "^1.0.8",
                 "channelgrabber/etag": "^1.6.0",
                 "channelgrabber/gearman": ">=1.1.0,<2.0.0",
                 "channelgrabber/http": "^1.3.14",
@@ -1889,7 +1890,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2015-07-28 08:15:34"
+            "time": "2015-07-29 12:34:11"
         },
         {
             "name": "channelgrabber/tax",
@@ -6756,7 +6757,7 @@
         {
             "alias": "1.5.4",
             "alias_normalized": "1.5.4.0",
-            "version": "dev-EPIC-CGIV-5955-StockImportExport",
+            "version": "dev-CGIV-6027-StockImportGearman",
             "package": "channelgrabber/stock"
         }
     ],
