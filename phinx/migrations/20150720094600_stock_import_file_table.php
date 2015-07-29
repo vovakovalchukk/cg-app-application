@@ -9,7 +9,7 @@ class StockImportFileTable extends AbstractMigration
         $this->table("stockImportFiles", ['id' => false])
             ->addColumn('status', 'string')
             ->addColumn('type', 'string')
-            ->addColumn('fileContents', 'longtext')
+            ->addColumn('fileContents', 'text')
             ->addColumn('timestamp', 'datetime')
             ->addColumn('initiatingItid', 'string')
             ->addColumn('id', 'string')
