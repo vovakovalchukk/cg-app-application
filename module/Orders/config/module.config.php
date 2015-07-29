@@ -107,6 +107,16 @@ return [
                         ],
                         'may_terminate' => true
                     ],
+                    'update-column-order' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/update-column-order',
+                            'defaults' => [
+                                'action' => 'updateColumnOrder'
+                            ]
+                        ],
+                        'may_terminate' => true
+                    ],
                     'batch' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => array(
@@ -701,6 +711,7 @@ return [
         ],
         'instance' => [
             'aliases' => [
+                'SaveColumnOrder' => ViewModel::class,
                 'MustacheFormatters' => ViewModel::class,
                 'MustacheTags' => ViewModel::class,
                 'OrdersTable' => DataTable::class,
@@ -756,9 +767,21 @@ return [
                 ],
                 'injections' => [
                     'addOrderTableModifier' => [
+                        ['orderTableModifier' => TableService\OrdersTableSaveColumnOrder::class],
                         ['orderTableModifier' => TableService\OrdersTableMustacheFormatters::class],
                         ['orderTableModifier' => TableService\OrdersTableTagColumns::class],
                     ],
+                ],
+            ],
+            TableService\OrdersTableSaveColumnOrder::class => [
+                'parameters' => [
+                    'javascript' => 'SaveColumnOrder',
+                ],
+            ],
+            'SaveColumnOrder' => [
+                'parameters' => [
+                    'variables' => ['route' => 'Orders/update-column-order'],
+                    'template' => 'orders/orders/table/javascript/update-column-order.js',
                 ],
             ],
             TableService\OrdersTableMustacheFormatters::class => [

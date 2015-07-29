@@ -338,7 +338,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         }
 
         $this->getFilterService()->setPersistentFilter($filter);
-        $this->updateColumnPositions();
 
         try {
             $orders = $this->getOrderService()->getOrders($filter);
@@ -362,8 +361,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $filterId = $this->params()->fromRoute('filterId');
 
         $this->logDebugDump($filterId, "Filter id: ");
-
-        $this->updateColumnPositions();
 
         try {
             $orders = $this->getOrderService()->getOrdersFromFilterId(
@@ -397,6 +394,13 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
         $this->getOrderService()->updateUserPrefOrderColumns($updatedColumns);
 
+        return $response->setVariable('updated', true);
+    }
+
+    public function updateColumnOrderAction()
+    {
+        $response = $this->getJsonModelFactory()->newInstance(['updated' => false]);
+        $this->updateColumnPositions();
         return $response->setVariable('updated', true);
     }
 
