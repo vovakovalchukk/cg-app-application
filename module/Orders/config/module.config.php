@@ -711,7 +711,7 @@ return [
         ],
         'instance' => [
             'aliases' => [
-                'SaveColumnOrder' => ViewModel::class,
+                'UpdateColumnOrder' => ViewModel::class,
                 'MustacheFormatters' => ViewModel::class,
                 'MustacheTags' => ViewModel::class,
                 'OrdersTable' => DataTable::class,
@@ -767,18 +767,18 @@ return [
                 ],
                 'injections' => [
                     'addOrderTableModifier' => [
-                        ['orderTableModifier' => TableService\OrdersTableSaveColumnOrder::class],
+                        ['orderTableModifier' => TableService\OrdersTableUpdateColumnOrder::class],
                         ['orderTableModifier' => TableService\OrdersTableMustacheFormatters::class],
                         ['orderTableModifier' => TableService\OrdersTableTagColumns::class],
                     ],
                 ],
             ],
-            TableService\OrdersTableSaveColumnOrder::class => [
+            TableService\OrdersTableUpdateColumnOrder::class => [
                 'parameters' => [
-                    'javascript' => 'SaveColumnOrder',
+                    'javascript' => 'UpdateColumnOrder',
                 ],
             ],
-            'SaveColumnOrder' => [
+            'UpdateColumnOrder' => [
                 'parameters' => [
                     'variables' => ['route' => 'Orders/update-column-order'],
                     'template' => 'orders/orders/table/javascript/update-column-order.js',

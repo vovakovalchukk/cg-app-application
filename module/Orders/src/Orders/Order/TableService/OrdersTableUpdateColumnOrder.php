@@ -4,7 +4,7 @@ namespace Orders\Order\TableService;
 use CG_UI\View\DataTable;
 use Zend\View\Model\ViewModel;
 
-class OrdersTableSaveColumnOrder implements OrdersTableModifierInterface
+class OrdersTableUpdateColumnOrder implements OrdersTableModifierInterface
 {
     /** @var ViewModel $javascript */
     protected $javascript;
