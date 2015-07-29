@@ -36,6 +36,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     const TEMPLATE_SELECTOR_ID = 'template-selector';
     const PAPER_TYPE_DROPDOWN_ID = "paper-type-dropdown";
     const EVENT_SAVED_INVOICE_CHANGES = 'Saved Invoice Changes';
+    const EVENT_EMAIL_INVOICE_CHANGES = 'Enable/Disable Email Invoice';
 
     protected $viewModelFactory;
     protected $jsonModelFactory;
@@ -88,12 +89,16 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         try {
             $data = $this->params()->fromPost();
 
-            if (filter_var($data['autoEmail'], FILTER_VALIDATE_BOOLEAN) && $autoEmail) {
+            $data['autoEmail'] = filter_var($data['autoEmail'], FILTER_VALIDATE_BOOLEAN);
+            if ($data['autoEmail'] && $autoEmail) {
                 $data['autoEmail'] = $autoEmail;
-            } else if (filter_var($data['autoEmail'], FILTER_VALIDATE_BOOLEAN)) {
+                // Value unchanged so don't tell intercom
+            } else if ($data['autoEmail']) {
                 $data['autoEmail'] = (new DateTime())->stdFormat();
+                $this->notifyOfAutoEmailChange(true);
             } else {
                 $data['autoEmail'] = null;
+                $this->notifyOfAutoEmailChange(false);
             }
 
             $entity = $this->getInvoiceService()->saveSettings($data);
@@ -314,6 +319,13 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     {
         $activeUser = $this->getUserOrganisationUnitService()->getActiveUser();
         $event = new IntercomEvent(static::EVENT_SAVED_INVOICE_CHANGES, $activeUser->getId());
+        $this->getIntercomEventService()->save($event);
+    }
+
+    protected function notifyOfAutoEmailChange($enabled)
+    {
+        $activeUser = $this->getUserOrganisationUnitService()->getActiveUser();
+        $event = new IntercomEvent(static::EVENT_EMAIL_INVOICE_CHANGES, $activeUser->getId(), ['email-invoice' => (boolean) $enabled]);
         $this->getIntercomEventService()->save($event);
     }
 
