@@ -566,21 +566,23 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         }
 
         $columnPrefs = $this->fetchUserPrefOrderColumns();
-        foreach ($columnPrefs as $name => $on) {
-            if (!isset($associativeColumns[$name])) {
+        foreach ($associativeColumns as $name => $column) {
+            if (!isset($columnPrefs[$name])) {
                 continue;
             }
             $associativeColumns[$name]->setVisible(
-                filter_var($on, FILTER_VALIDATE_BOOLEAN)
+                filter_var($columnPrefs[$name], FILTER_VALIDATE_BOOLEAN)
             );
         }
 
         $columnPosPrefs = $this->fetchUserPrefOrderColumnPositions();
-        foreach ($columnPosPrefs as $name => $pos) {
-            if (!isset($associativeColumns[$name])) {
-                continue;
+        $unknownPosition = count($associativeColumns);
+        foreach ($associativeColumns as $name => $column) {
+            if (isset($columnPosPrefs[$name])) {
+                $column->setOrder($columnPosPrefs[$name]);
+            } else if (!$column->getOrder()) {
+                $column->setOrder($unknownPosition++);
             }
-            $associativeColumns[$name]->setOrder($pos);
         }
         $this->getOrdersTable()->reorderColumns();
 
