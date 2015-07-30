@@ -21,9 +21,20 @@ class Service
     const EVENT_STOCK_IMPORT = "Stock Levels Imported";
     const EVENT_STOCK_EXPORT = "Stock Levels Exported";
 
+    /** @var ActiveUserInterface $activeUserContainer */
     protected $activeUserContainer;
+    /** @var StockService $stockService */
     protected $stockService;
+    /** @var Mapper $mapper */
     protected $mapper;
+    /** @var ImportFileStorage $importFileStorage */
+    protected $importFileStorage;
+    /** @var ImportFileMapper $importFileMapper */
+    protected $importFileMapper;
+    /** @var GearmanClient $gearmanClient */
+    protected $gearmanClient;
+    /** @var IntercomEventService $intercomEventService */
+    protected $intercomEventService;
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
@@ -34,7 +45,8 @@ class Service
         GearmanClient $gearmanClient,
         IntercomEventService $intercomEventService
     ) {
-        $this->setActiveUserInterface($activeUserContainer)
+        $this
+            ->setActiveUserInterface($activeUserContainer)
             ->setStockService($stockService)
             ->setMapper($mapper)
             ->setImportFileStorage($importFileStorage)
@@ -45,21 +57,23 @@ class Service
 
     public function uploadCsvForActiveUser($updateOption, array $file)
     {
-        $this->notifyOfUpload();
-        return $this->uploadCsvForOu(
+        return $this->uploadCsv(
+            $this->getActiveUserId(),
             $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
             $updateOption,
             $file
         );
     }
 
-    public function uploadCsvForOu(
+    public function uploadCsv(
+        $userId,
         $organisationUnitId,
         $updateOption,
         array $file
     ) {
+        $this->notifyOfUpload($userId);
         $fileEntity = $this->saveFile($updateOption, $file);
-        $this->createJob($fileEntity, $organisationUnitId);
+        $this->createJob($fileEntity, $organisationUnitId, $userId);
     }
 
     protected function saveFile($updateOption, array $file)
@@ -69,7 +83,7 @@ class Service
         );
     }
 
-    protected function createJob(ImportFile $fileEntity, $organisationUnitId)
+    protected function createJob(ImportFile $fileEntity, $organisationUnitId, $userId)
     {
         $fileId = $fileEntity->getId();
         $this->gearmanClient->doBackground(
@@ -81,14 +95,16 @@ class Service
 
     public function generateCsvForActiveUser()
     {
-        $this->notifyOfExport();
-        return $this->generateCsvForOu(
+        return $this->generateCsv(
+            $this->getActiveUserId(),
             $this->activeUserContainer->getActiveUserRootOrganisationUnitId()
         );
     }
 
-    public function generateCsvForOu($organisationUnitId)
+    public function generateCsv($userId, $organisationUnitId)
     {
+        $this->notifyOfExport($userId);
+
         $csv = CsvWriter::createFromFileObject(new \SplTempFileObject(-1));
         $csv->insertOne($this->getHeaders());
 
@@ -121,24 +137,25 @@ class Service
     {
         return [
             "SKU",
-            "stock on hand"
+            "Stock on Hand"
         ];
     }
 
-    protected function notifyOfExport()
+    protected function notifyOfExport($userId)
     {
-        return $this->notifyIntercom(static::EVENT_STOCK_EXPORT);
+        return $this->notifyIntercom(static::EVENT_STOCK_EXPORT, $userId);
     }
 
-    protected function notifyOfUpload()
+    protected function notifyOfUpload($userId)
     {
-        return $this->notifyIntercom(static::EVENT_STOCK_IMPORT);
+        return $this->notifyIntercom(static::EVENT_STOCK_IMPORT, $userId);
     }
 
-    protected function notifyIntercom($event)
+    protected function notifyIntercom($event, $userId)
     {
-        $event = new IntercomEvent($event, $this->getActiveUserId());
-        $this->intercomEventService->save($event);
+        $this->intercomEventService->save(
+            new IntercomEvent($event, $userId)
+        );
     }
 
     protected function getActiveUserId()
