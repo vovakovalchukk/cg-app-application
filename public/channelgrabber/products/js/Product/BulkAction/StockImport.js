@@ -35,7 +35,9 @@ define(['popup/mustache'], function(Popup) {
         };
     };
 
-    StockImport.prototype.init = function(templateMap) {
+    StockImport.prototype.init = function(templateMap, selector) {
+        this.setSelector(selector);
+
         var popup = new Popup(templateMap, {
             title: "Update Option",
             type: "StockImport"
@@ -56,12 +58,12 @@ define(['popup/mustache'], function(Popup) {
                 'select'
             );
         });
+
+        this.listen(popup);
     };
 
     StockImport.prototype.action = function() {
-        var popup = this.getPopup();
-        this.listen(popup);
-        popup.show();
+        this.getPopup().show();
     };
 
     StockImport.prototype.listen = function(popup) {
