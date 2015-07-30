@@ -10,7 +10,7 @@ class StockImportFileTable extends AbstractMigration
             ->addColumn('status', 'string')
             ->addColumn('type', 'string')
             ->addColumn('fileContents', 'text')
-            ->addColumn('timestamp', 'datetime')
+            ->addColumn('timestamp', 'integer')
             ->addColumn('initiatingItid', 'string')
             ->addColumn('id', 'string')
             ->addIndex(['id'])
