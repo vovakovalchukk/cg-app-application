@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "41a71109c029c0d5c2e38aeabaf23759",
+    "hash": "540a9cc136615a4437e99af715ad676c",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2834,38 +2834,37 @@
         },
         {
             "name": "channelgrabber/zf2-stdlib",
-            "version": "1.1.20",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgzf2stdlib.git",
-                "reference": "056f15116929c395b85b3995f6ff83dec90c4031"
+                "reference": "265829c68ecfab9c6ffff67b3f8fcdb94da8db7f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-1.1.20-3e3093.zip",
-                "reference": "056f15116929c395b85b3995f6ff83dec90c4031",
-                "shasum": "0f5baa86aa6c2534411d4708237629b7464c8bbc"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-stdlib-1.2.0-d764a5.zip",
+                "reference": "265829c68ecfab9c6ffff67b3f8fcdb94da8db7f",
+                "shasum": "7f6112eaefb133cf6b4b996639ad27868ca9b6b2"
             },
             "require": {
-                "channelgrabber/cache": ">=2.0.1,<3.0.0",
-                "channelgrabber/di": ">=2.1.0",
-                "channelgrabber/stdlib": ">=2.10.13,<3.0",
+                "channelgrabber/cache": "^2.0.1",
+                "channelgrabber/stdlib": "^2.10.13",
                 "composer/composer": "@dev",
-                "zendframework/zend-db": ">=2.2,<3.0",
-                "zendframework/zend-di": ">=2.2,<3.0",
-                "zendframework/zend-eventmanager": ">=2.2,<3.0",
-                "zendframework/zend-http": ">=2.2,<3.0",
-                "zendframework/zend-mvc": ">=2.2,<3.0",
-                "zendframework/zend-servicemanager": ">=2.2,<3.0",
-                "zendframework/zend-view": ">=2.2,<3.0"
+                "zendframework/zend-cache": "^2.2",
+                "zendframework/zend-db": "^2.2",
+                "zendframework/zend-eventmanager": "^2.2",
+                "zendframework/zend-http": "^2.2",
+                "zendframework/zend-mvc": "^2.2",
+                "zendframework/zend-servicemanager": "^2.2",
+                "zendframework/zend-view": "^2.2"
             },
-            "type": "di-definition",
+            "type": "library",
             "autoload": {
                 "psr-4": {
                     "CG\\Zend\\Stdlib\\": "src"
                 }
             },
-            "time": "2015-05-08 13:19:42"
+            "time": "2015-07-29 14:45:11"
         },
         {
             "name": "channelgrabber/zf2-usage",
@@ -2918,17 +2917,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.2",
+            "version": "1.16.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "3d22bd55c10bff32603c6d4b6828701457eda137"
+                "reference": "d70d952faae1d4634a9de259e1c8c1ff25b3ba27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.2-f556e2.zip",
-                "reference": "3d22bd55c10bff32603c6d4b6828701457eda137",
-                "shasum": "05bf52b08503d4f4a9626391a7da1850e8f73681"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.1-192a78.zip",
+                "reference": "d70d952faae1d4634a9de259e1c8c1ff25b3ba27",
+                "shasum": "fd7b86654b336edb15185a534b7896cc1427bb62"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2973,7 +2972,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-07-30 10:03:10"
+            "time": "2015-07-24 12:11:29"
         },
         {
             "name": "cilex/cilex",

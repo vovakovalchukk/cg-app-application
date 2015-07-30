@@ -2,9 +2,10 @@
 namespace Settings\Controller;
 
 use CG\Http\Exception\Exception3xx\NotModified;
+use CG\Intercom\Company\Service as IntercomCompanyService;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
-use CG\Stdlib\Exception\Runtime\Conflict;
+use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
@@ -14,13 +15,12 @@ use CG\User\OrganisationUnit\Service as UserOrganisationUnitService;
 use CG\Zend\Stdlib\Mvc\Controller\ExceptionToViewModelUserExceptionTrait;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use Settings\Invoice\Service as InvoiceService;
 use Settings\Invoice\Mapper as InvoiceMapper;
+use Settings\Invoice\Service as InvoiceService;
 use Settings\Module;
 use Zend\Config\Config;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
-use CG\Stdlib\DateTime;
 
 class InvoiceController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -36,6 +36,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     const TEMPLATE_SELECTOR_ID = 'template-selector';
     const PAPER_TYPE_DROPDOWN_ID = "paper-type-dropdown";
     const EVENT_SAVED_INVOICE_CHANGES = 'Saved Invoice Changes';
+    const EVENT_EMAIL_INVOICE_CHANGES = 'Enable/Disable Email Invoice';
 
     protected $viewModelFactory;
     protected $jsonModelFactory;
@@ -47,6 +48,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     protected $translator;
     protected $config;
     protected $intercomEventService;
+    protected $intercomCompanyService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -58,7 +60,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         InvoiceMapper $invoiceMapper,
         Translator $translator,
         Config $config,
-        IntercomEventService $intercomEventService
+        IntercomEventService $intercomEventService,
+        IntercomCompanyService $intercomCompanyService
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
@@ -69,7 +72,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setInvoiceMapper($invoiceMapper)
             ->setTranslator($translator)
             ->setConfig($config)
-            ->setIntercomEventService($intercomEventService);
+            ->setIntercomEventService($intercomEventService)
+            ->setIntercomCompanyService($intercomCompanyService);
     }
 
     public function indexAction()
@@ -88,12 +92,16 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         try {
             $data = $this->params()->fromPost();
 
-            if (filter_var($data['autoEmail'], FILTER_VALIDATE_BOOLEAN) && $autoEmail) {
+            $data['autoEmail'] = filter_var($data['autoEmail'], FILTER_VALIDATE_BOOLEAN);
+            if ($data['autoEmail'] && $autoEmail) {
                 $data['autoEmail'] = $autoEmail;
-            } else if (filter_var($data['autoEmail'], FILTER_VALIDATE_BOOLEAN)) {
+                // Value unchanged so don't tell intercom
+            } else if ($data['autoEmail']) {
                 $data['autoEmail'] = (new DateTime())->stdFormat();
+                $this->notifyOfAutoEmailChange(true);
             } else {
                 $data['autoEmail'] = null;
+                $this->notifyOfAutoEmailChange(false);
             }
 
             $entity = $this->getInvoiceService()->saveSettings($data);
@@ -317,6 +325,14 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         $this->getIntercomEventService()->save($event);
     }
 
+    protected function notifyOfAutoEmailChange($enabled)
+    {
+        $activeUser = $this->getUserOrganisationUnitService()->getActiveUser();
+        $event = new IntercomEvent(static::EVENT_EMAIL_INVOICE_CHANGES, $activeUser->getId(), ['email-invoice' => (boolean) $enabled]);
+        $this->getIntercomEventService()->save($event);
+        $this->getIntercomCompanyService()->save($this->getUserOrganisationUnitService()->getRootOuByUserEntity($activeUser));
+    }
+
     public function getViewModelFactory()
     {
         return $this->viewModelFactory;
@@ -453,5 +469,22 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     {
         $this->intercomEventService = $intercomEventService;
         return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setIntercomCompanyService(IntercomCompanyService $intercomCompanyService)
+    {
+        $this->intercomCompanyService = $intercomCompanyService;
+        return $this;
+    }
+
+    /**
+     * @return IntercomCompanyService
+     */
+    protected function getIntercomCompanyService()
+    {
+        return $this->intercomCompanyService;
     }
 }
