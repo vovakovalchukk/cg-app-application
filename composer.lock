@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "045045217391a55028a6f52cbe91bd50",
+    "hash": "ef9345401fd8c2b4698847616da615d0",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1836,17 +1836,17 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "dev-EPIC-CGIV-5955-StockImportExport",
+            "version": "dev-CGIV-6050-EmailUser",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "d18eb8d8976b5ac8124aeddbff96e449ea696299"
+                "reference": "ddb4befa5eba4464a689398b1cf0f8594b2a5a65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-EPIC-CGIV-5955-StockImportExport-3cc3cc.zip",
-                "reference": "d18eb8d8976b5ac8124aeddbff96e449ea696299",
-                "shasum": "09d3b97af23cf7e5a787f5b09c4a4e5bfa8258e1"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-6050-EmailUser-572329.zip",
+                "reference": "ddb4befa5eba4464a689398b1cf0f8594b2a5a65",
+                "shasum": "194cf7f23995fcc30273b0717027b5ae6616c809"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1873,6 +1873,11 @@
                 "phpunit/phpunit": "~4.0.0"
             },
             "type": "di-definition",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "1.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Stock\\": "src"
@@ -1883,7 +1888,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2015-07-30 13:13:02"
+            "time": "2015-07-30 15:49:55"
         },
         {
             "name": "channelgrabber/tax",
@@ -6750,7 +6755,7 @@
         {
             "alias": "1.5.5",
             "alias_normalized": "1.5.5.0",
-            "version": "dev-EPIC-CGIV-5955-StockImportExport",
+            "version": "dev-CGIV-6050-EmailUser",
             "package": "channelgrabber/stock"
         },
         {

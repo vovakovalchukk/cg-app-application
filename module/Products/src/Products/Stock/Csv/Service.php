@@ -88,7 +88,7 @@ class Service
         $fileId = $fileEntity->getId();
         $this->gearmanClient->doBackground(
             "stockImportFile",
-            serialize(new ImportWorkload($organisationUnitId, $fileId)),
+            serialize(new ImportWorkload($userId, $organisationUnitId, $fileId)),
             $fileId . "-" . $organisationUnitId
         );
     }
