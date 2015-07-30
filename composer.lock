@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ff0b24ff8ad449b20a09c1ee8a6094e6",
+    "hash": "41a71109c029c0d5c2e38aeabaf23759",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -745,13 +745,6 @@
                 "guzzle/guzzle": "~3.7"
             },
             "type": "library",
-            "extra": {
-                "context-options": {
-                    "ssl": {
-                        "local_cert": "composer.pem"
-                    }
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "CG\\Guzzle\\": ""
@@ -1843,17 +1836,17 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "dev-CGIV-6027-StockImportGearman",
+            "version": "dev-EPIC-CGIV-5955-StockImportExport",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "a2559508330a1c3aba21be82d9c394421dfd1b80"
+                "reference": "d18eb8d8976b5ac8124aeddbff96e449ea696299"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-6027-StockImportGearman-86a6c6.zip",
-                "reference": "a2559508330a1c3aba21be82d9c394421dfd1b80",
-                "shasum": "971dd411f22684fd12f8f2fbd9257d636d100146"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-EPIC-CGIV-5955-StockImportExport-3cc3cc.zip",
+                "reference": "d18eb8d8976b5ac8124aeddbff96e449ea696299",
+                "shasum": "09d3b97af23cf7e5a787f5b09c4a4e5bfa8258e1"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1890,7 +1883,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2015-07-30 09:09:36"
+            "time": "2015-07-30 13:13:02"
         },
         {
             "name": "channelgrabber/tax",
@@ -2925,17 +2918,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.1",
+            "version": "1.16.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "d70d952faae1d4634a9de259e1c8c1ff25b3ba27"
+                "reference": "3d22bd55c10bff32603c6d4b6828701457eda137"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.1-192a78.zip",
-                "reference": "d70d952faae1d4634a9de259e1c8c1ff25b3ba27",
-                "shasum": "fd7b86654b336edb15185a534b7896cc1427bb62"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.2-f556e2.zip",
+                "reference": "3d22bd55c10bff32603c6d4b6828701457eda137",
+                "shasum": "05bf52b08503d4f4a9626391a7da1850e8f73681"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2980,7 +2973,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-07-24 12:11:29"
+            "time": "2015-07-30 10:03:10"
         },
         {
             "name": "cilex/cilex",
@@ -3942,7 +3935,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/php-jsonpatch-php-jsonpatch-f008d127008dc432ef3df9c1660d18539276fee4-zip-41d0fa.zip",
+                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpatch/zipball/b1d0dbe9b59826511196793673ff54d59d2c0336",
                 "reference": "f008d127008dc432ef3df9c1660d18539276fee4",
                 "shasum": "43368232e1dc257a2886c8bb1f1a47ab8f0b3be4"
             },
@@ -3994,7 +3987,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/php-jsonpointer-php-jsonpointer-064f65b05d1381d4999113f442af93949cc7c29a-zip-a7425b.zip",
+                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpointer/zipball/064f65b05d1381d4999113f442af93949cc7c29a",
                 "reference": "064f65b05d1381d4999113f442af93949cc7c29a",
                 "shasum": "1982d83a6b5c301565c6af5e5acfe9f11e43776b"
             },
@@ -4070,7 +4063,9 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 }
             ],
             "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
@@ -4198,7 +4193,8 @@
             "authors": [
                 {
                     "name": "Ben Ramsey",
-                    "homepage": "http://benramsey.com"
+                    "homepage": "http://benramsey.com",
+                    "role": "Developer"
                 }
             ],
             "description": "application/vnd.error builder / formatter for PHP 5.3+",
@@ -5283,9 +5279,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packages.zendframework.com/composer/zendframework-zendxml-559b34f426d33a11c3db118e00ce14bb8dc64e5f-zip-6cf7a2.zip",
-                "reference": "1.0.0",
-                "shasum": "39abc614b5c26bcbf8102e203c52dee73c4460a8"
+                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
+                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
@@ -5305,6 +5301,7 @@
                     "ZendXml": "library/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -5315,10 +5312,6 @@
                 "xml",
                 "zf2"
             ],
-            "support": {
-                "source": "https://github.com/zendframework/ZendXml/tree/master",
-                "issues": "https://github.com/zendframework/ZendXml/issues"
-            },
             "time": "2014-03-05 22:25:44"
         },
         {
@@ -5813,7 +5806,7 @@
                 {
                     "name": "Anthon Pang",
                     "email": "apang@softwaredevelopment.ca",
-                    "role": "Fork Maintainer"
+                    "role": "developer"
                 }
             ],
             "description": "PHP WebDriver for Selenium 2",
@@ -5978,7 +5971,8 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton"
+                    "homepage": "http://github.com/chrisboulton",
+                    "role": "Original developer"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
@@ -6755,9 +6749,9 @@
     ],
     "aliases": [
         {
-            "alias": "1.5.4",
-            "alias_normalized": "1.5.4.0",
-            "version": "dev-CGIV-6027-StockImportGearman",
+            "alias": "1.5.5",
+            "alias_normalized": "1.5.5.0",
+            "version": "dev-EPIC-CGIV-5955-StockImportExport",
             "package": "channelgrabber/stock"
         }
     ],
