@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6ad7fd719ca9764a7d2ea08bd971b613",
+    "hash": "3c51070ccf3799297dd34bdfe929a1b0",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2051,17 +2051,17 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "dev-CGIV-6003-public-api-credential-generation",
+            "version": "dev-EPIC-CGIV-6001-public-api",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "55601bbfc6cecbaf61c63c5c1eb40d592e484f0d"
+                "reference": "97198656427e051ea314d9d801204cabddf9ef3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-6003-public-api-credential-generation-6aedef.zip",
-                "reference": "55601bbfc6cecbaf61c63c5c1eb40d592e484f0d",
-                "shasum": "60166b6cb875140b6e67b794e6387d7f1b8c364a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-EPIC-CGIV-6001-public-api-09729e.zip",
+                "reference": "97198656427e051ea314d9d801204cabddf9ef3d",
+                "shasum": "ce20d2ca35a03c8f4f0194b521e7c7abfc9defc0"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2098,7 +2098,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2015-07-29 14:38:55"
+            "time": "2015-07-29 15:45:47"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -6750,7 +6750,7 @@
         {
             "alias": "1.19.10",
             "alias_normalized": "1.19.10.0",
-            "version": "dev-CGIV-6003-public-api-credential-generation",
+            "version": "dev-EPIC-CGIV-6001-public-api",
             "package": "channelgrabber/user"
         }
     ],

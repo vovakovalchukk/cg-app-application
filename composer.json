@@ -58,7 +58,7 @@
         "channelgrabber/tax": "~1.0.0",
         "channelgrabber/template": "~1.3.2",
         "channelgrabber/usage": "~1.0.7",
-        "channelgrabber/user": "dev-CGIV-6003-public-api-credential-generation as 1.19.10",
+        "channelgrabber/user": "dev-EPIC-CGIV-6001-public-api as 1.19.10",
         "channelgrabber/userpreference": "~1.2.4",
         "channelgrabber/validation": "~1.2.7",
         "channelgrabber/zendesk": "~1.0.0",
