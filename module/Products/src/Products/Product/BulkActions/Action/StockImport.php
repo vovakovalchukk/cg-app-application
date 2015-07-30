@@ -10,7 +10,7 @@ use CG\Stock\Import\UpdateOptions;
 
 class StockImport extends Action
 {
-    const ICON = 'sprite-cancel-22-black'; // TODO Change this to be the correct icon
+    const ICON = 'sprite-csv-upload-22-black';
 
     protected $urlView;
 

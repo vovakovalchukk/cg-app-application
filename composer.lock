@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "540a9cc136615a4437e99af715ad676c",
+    "hash": "045045217391a55028a6f52cbe91bd50",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2917,17 +2917,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.1",
+            "version": "dev-CGIV-6050-ImportExportIcons",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "d70d952faae1d4634a9de259e1c8c1ff25b3ba27"
+                "reference": "e41f3312bb3b3465956747545e9a25a739cb4a48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.1-192a78.zip",
-                "reference": "d70d952faae1d4634a9de259e1c8c1ff25b3ba27",
-                "shasum": "fd7b86654b336edb15185a534b7896cc1427bb62"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6050-ImportExportIcons-33ee0b.zip",
+                "reference": "e41f3312bb3b3465956747545e9a25a739cb4a48",
+                "shasum": "6b0c9fe40178c52fdeb88e697a95370625ba791e"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2972,7 +2972,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-07-24 12:11:29"
+            "time": "2015-07-30 14:53:42"
         },
         {
             "name": "cilex/cilex",
@@ -6752,12 +6752,19 @@
             "alias_normalized": "1.5.5.0",
             "version": "dev-EPIC-CGIV-5955-StockImportExport",
             "package": "channelgrabber/stock"
+        },
+        {
+            "alias": "1.16.3",
+            "alias_normalized": "1.16.3.0",
+            "version": "dev-CGIV-6050-ImportExportIcons",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/stock": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
