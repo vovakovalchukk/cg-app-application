@@ -3,13 +3,25 @@ $("#<?= $tableId ?>").on("fnPreDrawCallback", function(event, oSettings) {
         return;
     }
 
+    var columnOrder = {};
+    $("th", oSettings.nTHead).each(function(position, column) {
+        columnOrder[position] = $(column).data("columnIndex");
+    });
+
+    var match = true;
     var columnData = {};
-    for (var position in oSettings.aoColumnsOrder) {
+    for (var position in columnOrder) {
         var column = oSettings.aoColumns[position];
         if (!column || !column.mData) {
             continue;
+        } else if (columnOrder[position] != oSettings.aoColumnsOrder[position]) {
+            match = false;
         }
         columnData['mDataProp_' + position] = column.mData;
+    }
+
+    if (match) {
+        return;
     }
 
     $.ajax({
