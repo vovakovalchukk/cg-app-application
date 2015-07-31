@@ -208,6 +208,10 @@
   padding: 10px 15px 10px 15px;
   font-size: 12px;
   @include box-sizing(border);
+  .message-print {
+    float: right;
+    text-decoration: underline;
+  }
 }
 .reply-section {
   width: 100%;
