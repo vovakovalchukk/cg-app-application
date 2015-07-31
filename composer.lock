@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "02644c2755f1a7255ebe7adb0fffa3a2",
+    "hash": "5e3c0a493a1a214c2018e8b011c9cf98",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2926,13 +2926,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e41f3312bb3b3465956747545e9a25a739cb4a48"
+                "reference": "c61e66b09bf573152075f7413090ec44d97a5c67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6050-ImportExportIcons-33ee0b.zip",
-                "reference": "e41f3312bb3b3465956747545e9a25a739cb4a48",
-                "shasum": "6b0c9fe40178c52fdeb88e697a95370625ba791e"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6050-ImportExportIcons-19cbac.zip",
+                "reference": "c61e66b09bf573152075f7413090ec44d97a5c67",
+                "shasum": "d784ce7ea4d6db70f18513aa6631a1a24580f694"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2977,7 +2977,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-07-30 14:53:42"
+            "time": "2015-07-31 10:15:24"
         },
         {
             "name": "cilex/cilex",
