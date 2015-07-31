@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c1fa741840c88a9be1f0f01f3118a57e",
+    "hash": "27ba47f5f03fe6f0d6bb7edc5a8b3d5e",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1836,17 +1836,17 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.5.1",
+            "version": "1.5.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "73a3c13d73ead309ba8512b947e51eaa2465ac07"
+                "reference": "b14766689a7479fd1992065048350f44cdb81a03"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.5.1-79d4f7.zip",
-                "reference": "73a3c13d73ead309ba8512b947e51eaa2465ac07",
-                "shasum": "932c28206b07db5f6da056541fe8a9a071f7541c"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.5.4-4c2c33.zip",
+                "reference": "b14766689a7479fd1992065048350f44cdb81a03",
+                "shasum": "efebdff5f044982406817d2652439c403ee66a0c"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1882,7 +1882,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2015-07-21 15:56:12"
+            "time": "2015-07-30 10:09:32"
         },
         {
             "name": "channelgrabber/tax",
@@ -2916,17 +2916,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-6044-AddAllColumns",
+            "version": "1.16.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "41ec683b13b91b0fb0d69f769ee67b911fd3b4e4"
+                "reference": "c88838d14046a1b180955932e1f25b69a3669b24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6044-AddAllColumns-c4454a.zip",
-                "reference": "41ec683b13b91b0fb0d69f769ee67b911fd3b4e4",
-                "shasum": "40e729bcfc92f80ffea49efe481021e07b86ef74"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.3-6919e3.zip",
+                "reference": "c88838d14046a1b180955932e1f25b69a3669b24",
+                "shasum": "a41eac926a9a9f5c636643419b81dad7260928ae"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2971,7 +2971,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-07-30 11:05:07"
+            "time": "2015-07-31 07:51:47"
         },
         {
             "name": "cilex/cilex",
@@ -6745,18 +6745,10 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.16.3",
-            "alias_normalized": "1.16.3.0",
-            "version": "dev-CGIV-6044-AddAllColumns",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
