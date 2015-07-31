@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ef9345401fd8c2b4698847616da615d0",
+    "hash": "02644c2755f1a7255ebe7adb0fffa3a2",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -6759,8 +6759,8 @@
             "package": "channelgrabber/stock"
         },
         {
-            "alias": "1.16.3",
-            "alias_normalized": "1.16.3.0",
+            "alias": "1.16.4",
+            "alias_normalized": "1.16.4.0",
             "version": "dev-CGIV-6050-ImportExportIcons",
             "package": "channelgrabber/zf2-v4-ui"
         }
