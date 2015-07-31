@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5e3c0a493a1a214c2018e8b011c9cf98",
+    "hash": "4b0af0a9aa8c26c8855eb74701682a06",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1836,17 +1836,17 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "dev-CGIV-6050-EmailUser",
+            "version": "dev-EPIC-CGIV-5955-StockImportExport",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "ddb4befa5eba4464a689398b1cf0f8594b2a5a65"
+                "reference": "4518a72cae99a0b19773c61de8845d684245ecfe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-6050-EmailUser-572329.zip",
-                "reference": "ddb4befa5eba4464a689398b1cf0f8594b2a5a65",
-                "shasum": "194cf7f23995fcc30273b0717027b5ae6616c809"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-EPIC-CGIV-5955-StockImportExport-16b0b8.zip",
+                "reference": "4518a72cae99a0b19773c61de8845d684245ecfe",
+                "shasum": "be1ad284efacfb6e63fbc95454d360f6ff183532"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1888,7 +1888,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2015-07-30 15:49:55"
+            "time": "2015-07-31 13:34:19"
         },
         {
             "name": "channelgrabber/tax",
@@ -2922,17 +2922,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-6050-ImportExportIcons",
+            "version": "dev-EPIC-CGIV-5955-StockImportExport",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "a91e489c15861a63ece9e0d9b9321bfa048f0a64"
+                "reference": "efc006b5f229cd2ea36e43b1e075c52a4e435cb3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6050-ImportExportIcons-0e2f04.zip",
-                "reference": "a91e489c15861a63ece9e0d9b9321bfa048f0a64",
-                "shasum": "0c6dd6687811eb7febbc0257391d9eccefed4d3f"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-5955-StockImportExport-c5617d.zip",
+                "reference": "efc006b5f229cd2ea36e43b1e075c52a4e435cb3",
+                "shasum": "d8ed5d2e29c5167da035b2e09356b96acb1e2d5e"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2977,7 +2977,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-07-31 12:12:46"
+            "time": "2015-07-31 13:38:06"
         },
         {
             "name": "cilex/cilex",
@@ -6753,15 +6753,15 @@
     ],
     "aliases": [
         {
-            "alias": "1.5.5",
-            "alias_normalized": "1.5.5.0",
-            "version": "dev-CGIV-6050-EmailUser",
+            "alias": "1.5.6",
+            "alias_normalized": "1.5.6.0",
+            "version": "dev-EPIC-CGIV-5955-StockImportExport",
             "package": "channelgrabber/stock"
         },
         {
             "alias": "1.16.4",
             "alias_normalized": "1.16.4.0",
-            "version": "dev-CGIV-6050-ImportExportIcons",
+            "version": "dev-EPIC-CGIV-5955-StockImportExport",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
