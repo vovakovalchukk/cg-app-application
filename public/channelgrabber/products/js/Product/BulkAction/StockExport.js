@@ -1,15 +1,19 @@
-define(function() {
-    var StockExport = function(notifications, selector) {
-        this.getNotifications = function() {
-            return notifications;
-        };
+define(['BulkActionAbstract'], function(BulkActionAbstract) {
+    var StockExport = function(selector) {
+        BulkActionAbstract.call(this);
 
         this.getSelector = function() {
             return selector;
         };
     };
 
-    StockExport.prototype.action = function() {
+    StockExport.prototype = Object.create(BulkActionAbstract.prototype);
+
+    StockExport.prototype.init = function() {
+        BulkActionAbstract.prototype.init.call(this, this.getSelector());
+    };
+
+    StockExport.prototype.invoke = function() {
         var that = this;
         $.ajax({
             context: that,
@@ -18,17 +22,17 @@ define(function() {
             success : function(response, status, request) {
                 var disp = request.getResponseHeader('Content-Disposition');
                 if (!(disp && disp.search('attachment') != -1)) {
-                    that.getNotifications().error("Failed to download Stock CSV");
+                    that.getNotificationHandler().error("Failed to download Stock CSV");
                     return;
                 }
 
                 var form = $('<form method="POST" action="' + that.getUrl() + '">');
                 $('body').append(form);
                 form.submit();
-                that.getNotifications().success("Downloading Stock CSV...");
+                that.getNotificationHandler().success("Downloading Stock CSV...");
             },
             error: function(error, textStatus, errorThrown) {
-                that.getNotifications().ajaxError(error, textStatus, errorThrown);
+                that.getNotificationHandler().ajaxError(error, textStatus, errorThrown);
             }
         });
     };

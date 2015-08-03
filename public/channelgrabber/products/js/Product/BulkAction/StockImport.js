@@ -1,41 +1,30 @@
-define(['popup/mustache'], function(Popup) {
-    var StockImport = function(notifications, updateOptions) {
-        var selector;
-        var popup;
+define(['BulkActionAbstract', 'popup/mustache'], function(BulkActionAbstract, Popup) {
+    var StockImport = function(selector, updateOptions) {
+        BulkActionAbstract.call(this);
 
-        this.getNotifications = function() {
-            return notifications;
+        this.getSelector = function() {
+            return selector;
         };
 
         this.getUpdateOptions = function() {
             return updateOptions;
         };
 
-        this.getNoticeMessage = function() {
-            return "Uploading stock levels";
-        };
-
-        this.getSelector = function() {
-            return selector;
-        };
-
-        this.setSelector = function(newSelector) {
-            selector = newSelector;
+        var popup;
+        this.setPopup = function(newPopup) {
+            popup = newPopup;
             return this;
         };
 
         this.getPopup = function() {
             return popup;
         };
-
-        this.setPopup = function(newPopup) {
-            popup = newPopup;
-            return this;
-        };
     };
 
-    StockImport.prototype.init = function(templateMap, selector) {
-        this.setSelector(selector);
+    StockImport.prototype = Object.create(BulkActionAbstract.prototype);
+
+    StockImport.prototype.init = function(templateMap) {
+        BulkActionAbstract.prototype.init.call(this, this.getSelector());
 
         var popup = new Popup(templateMap, {
             title: "Update Option",
@@ -61,7 +50,7 @@ define(['popup/mustache'], function(Popup) {
         this.listen(popup);
     };
 
-    StockImport.prototype.action = function() {
+    StockImport.prototype.invoke = function() {
         this.getPopup().show();
     };
 
@@ -76,7 +65,7 @@ define(['popup/mustache'], function(Popup) {
             var filesElement = popup.getElement().find("#popup-stock-import-file-upload-input")[0];
             var files = filesElement.files;
             if ((typeof files === "undefined") || !files.length) {
-                that.getNotifications().notice("Select a CSV file to upload");
+                that.getNotificationHandler().notice("Select a CSV file to upload");
                 return;
             }
 
@@ -87,7 +76,7 @@ define(['popup/mustache'], function(Popup) {
                 data.append(key, value);
             });
 
-            that.getNotifications().notice(that.getNoticeMessage());
+            that.getNotificationHandler().notice("Uploading stock levels");
             popup.hide();
 
             $.ajax({
@@ -99,10 +88,10 @@ define(['popup/mustache'], function(Popup) {
                 processData: false,
                 contentType: false,
                 success : function() {
-                    that.getNotifications().success("Uploading stock CSV...");
+                    that.getNotificationHandler().success("Uploading stock CSV...");
                 },
                 error: function(error, textStatus, errorThrown) {
-                    that.getNotifications().ajaxError(error, textStatus, errorThrown);
+                    that.getNotificationHandler().ajaxError(error, textStatus, errorThrown);
                 }
             });
         });

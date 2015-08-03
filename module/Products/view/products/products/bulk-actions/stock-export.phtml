@@ -6,8 +6,6 @@ require.config({
 
 require(["Product/BulkAction/StockExport"], function(StockExport)
 {
-    var stockExportAction = new StockExport(n, "<?= $selector ?>");
-    $("#<?= $id ?>").bulkActions("set", "<?= $action ?>", function() {
-        stockExportAction.action();
-    });
+    var stockExportAction = new StockExport("<?= $selector ?>");
+    stockExportAction.init();
 });
