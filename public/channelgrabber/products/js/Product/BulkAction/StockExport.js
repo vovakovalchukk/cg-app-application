@@ -2,11 +2,11 @@ define(function() {
     var StockExport = function(notifications, selector) {
         this.getNotifications = function() {
             return notifications;
-        }
+        };
 
         this.getSelector = function() {
             return selector;
-        }
+        };
     };
 
     StockExport.prototype.action = function() {
@@ -25,10 +25,10 @@ define(function() {
                 var form = $('<form method="POST" action="' + that.getUrl() + '">');
                 $('body').append(form);
                 form.submit();
-                return that.getNotifications().success("Downloading Stock CSV...");
+                that.getNotifications().success("Downloading Stock CSV...");
             },
             error: function(error, textStatus, errorThrown) {
-                return that.getNotifications().ajaxError(error, textStatus, errorThrown);
+                that.getNotifications().ajaxError(error, textStatus, errorThrown);
             }
         });
     };

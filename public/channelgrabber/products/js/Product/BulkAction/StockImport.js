@@ -1,4 +1,3 @@
-
 define(['popup/mustache'], function(Popup) {
     var StockImport = function(notifications, updateOptions) {
         var selector;
@@ -14,7 +13,7 @@ define(['popup/mustache'], function(Popup) {
 
         this.getNoticeMessage = function() {
             return "Uploading stock levels";
-        }
+        };
 
         this.getSelector = function() {
             return selector;
@@ -99,11 +98,11 @@ define(['popup/mustache'], function(Popup) {
                 data: data,
                 processData: false,
                 contentType: false,
-                success : function(data) {
-                    return that.getNotifications().success("Uploading stock CSV...");
+                success : function() {
+                    that.getNotifications().success("Uploading stock CSV...");
                 },
                 error: function(error, textStatus, errorThrown) {
-                    return that.getNotifications().ajaxError(error, textStatus, errorThrown);
+                    that.getNotifications().ajaxError(error, textStatus, errorThrown);
                 }
             });
         });
