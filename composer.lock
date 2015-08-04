@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "31cbefbe21937faeebe62274f9394534",
+    "hash": "4b0af0a9aa8c26c8855eb74701682a06",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2922,7 +2922,7 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-6058-StockFileUpload",
+            "version": "dev-EPIC-CGIV-5955-StockImportExport",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
@@ -2930,9 +2930,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6058-StockFileUpload-ee2050.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-5955-StockImportExport-ee2050.zip",
                 "reference": "08f9c8e1296efc5915be3a7f710604d5130e4d78",
-                "shasum": "a581d64e3040443e7740a6a990ea392261d3a3af"
+                "shasum": "dffdb6a2b27f80b0a8ecfea1cd70bfed189f2c5f"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -6761,7 +6761,7 @@
         {
             "alias": "1.16.4",
             "alias_normalized": "1.16.4.0",
-            "version": "dev-CGIV-6058-StockFileUpload",
+            "version": "dev-EPIC-CGIV-5955-StockImportExport",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
