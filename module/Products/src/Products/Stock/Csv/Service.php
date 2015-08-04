@@ -55,13 +55,13 @@ class Service
             ->setIntercomEventService($intercomEventService);
     }
 
-    public function uploadCsvForActiveUser($updateOption, array $file)
+    public function uploadCsvForActiveUser($updateOption, $fileContents)
     {
         return $this->uploadCsv(
             $this->getActiveUserId(),
             $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
             $updateOption,
-            $file
+            $fileContents
         );
     }
 
@@ -69,17 +69,17 @@ class Service
         $userId,
         $organisationUnitId,
         $updateOption,
-        array $file
+        $fileContents
     ) {
         $this->notifyOfUpload($userId);
-        $fileEntity = $this->saveFile($updateOption, $file);
+        $fileEntity = $this->saveFile($updateOption, $fileContents);
         $this->createJob($fileEntity, $organisationUnitId, $userId);
     }
 
-    protected function saveFile($updateOption, array $file)
+    protected function saveFile($updateOption, $fileContents)
     {
         return $this->importFileStorage->save(
-            $this->importFileMapper->fromUpload($updateOption, $file)
+            $this->importFileMapper->fromUpload($updateOption, $fileContents)
         );
     }
 

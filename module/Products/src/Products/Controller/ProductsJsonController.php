@@ -27,17 +27,22 @@ class ProductsJsonController extends AbstractActionController
     const ROUTE_STOCK_CSV_IMPORT = 'stockCsvImport';
     const ROUTE_DELETE = 'Delete';
 
+    /** @var ProductService $productService */
     protected $productService;
+    /** @var JsonModelFactory $jsonModelFactory */
     protected $jsonModelFactory;
+    /** @var FilterMapper $filterMapper */
     protected $filterMapper;
+    /** @var Translator $translator */
     protected $translator;
+    /** @var AccountService $accountService */
     protected $accountService;
+    /** @var TaxRateService $taxRateService */
     protected $taxRateService;
-    protected $stockCsvService;
-    /**
-     * @var OrganisationUnitService $organisationUnitService
-     */
+    /** @var OrganisationUnitService $organisationUnitService */
     protected $organisationUnitService;
+    /** @var StockCsvService $stockCsvService */
+    protected $stockCsvService;
 
     public function __construct(
         ProductService $productService,
@@ -190,73 +195,102 @@ class ProductsJsonController extends AbstractActionController
     public function stockCsvImportAction()
     {
         $request = $this->getRequest();
-        $files = $request->getFiles()->toArray();
         $post = $request->getPost()->toArray();
-
-        if (empty($files)) {
-            throw new \RuntimeException("No File uploaded");
-        }
 
         if (!(isset($post["updateOption"]) && StockImportUpdateOptions::isValid($post["updateOption"]))) {
             throw new \RuntimeException("Missing/Invalid update option provided");
         }
 
-        $this->stockCsvService->uploadCsvForActiveUser($post["updateOption"], $files[0]);
+        if (!isset($post['stockUploadFile'])) {
+            throw new \RuntimeException("No File uploaded");
+        }
+
+        $this->stockCsvService->uploadCsvForActiveUser($post["updateOption"], $post['stockUploadFile']);
 
         $view = $this->getJsonModelFactory()->newInstance();
         $view->setVariable("success", true);
         return $view;
     }
 
+    /**
+     * @return self
+     */
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
     {
         $this->jsonModelFactory = $jsonModelFactory;
         return $this;
     }
 
+    /**
+     * @return JsonModelFactory
+     */
     protected function getJsonModelFactory()
     {
         return $this->jsonModelFactory;
     }
 
+    /**
+     * @return self
+     */
     protected function setProductService(ProductService $productService)
     {
         $this->productService = $productService;
         return $this;
     }
 
+    /**
+     * @return ProductService
+     */
     protected function getProductService()
     {
         return $this->productService;
     }
 
+    /**
+     * @return self
+     */
     protected function setFilterMapper(FilterMapper $filterMapper)
     {
         $this->filterMapper = $filterMapper;
         return $this;
     }
 
+    /**
+     * @return FilterMapper
+     */
     protected function getFilterMapper()
     {
         return $this->filterMapper;
     }
 
+    /**
+     * @return Translator
+     */
     protected function getTranslator()
     {
         return $this->translator;
     }
 
+    /**
+     * @return self
+     */
     protected function setTranslator(Translator $translator)
     {
         $this->translator = $translator;
         return $this;
     }
 
+    /**
+     * @return AccountService
+     */
     protected function getAccountService()
     {
         return $this->accountService;
     }
 
+    /**
+     * @return self
+     */
     public function setAccountService(AccountService $accountService)
     {
         $this->accountService = $accountService;
@@ -265,7 +299,7 @@ class ProductsJsonController extends AbstractActionController
 
     /**
      * @param TaxRateService $taxRateService
-     * @return $this
+     * @return self
      */
     public function setTaxRateService(TaxRateService $taxRateService)
     {
@@ -274,8 +308,7 @@ class ProductsJsonController extends AbstractActionController
     }
 
     /**
-     * @param OrganisationUnitService $organisationUnitService
-     * @return $this
+     * @return self
      */
     public function setOrganisationUnitService(OrganisationUnitService $organisationUnitService)
     {
