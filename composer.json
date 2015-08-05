@@ -71,7 +71,7 @@
         "channelgrabber/zf2-login": "~1.4.29",
         "channelgrabber/zf2-mustache": "~1.0.1",
         "channelgrabber/zf2-permission": "~1.1.10",
-        "channelgrabber/zf2-register": "dev-CGIV-6073-GoogleAnalytics as 1.4.39",
+        "channelgrabber/zf2-register": "~1.4.39",
         "channelgrabber/zf2-royalmail": "~1.1.1",
         "channelgrabber/zf2-sessions": "~1.1.4",
         "channelgrabber/zf2-ssoclient": "~1.4.2",

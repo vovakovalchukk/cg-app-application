@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cad671dfb1e6abb8ec361658e6694c4a",
+    "hash": "f37f5f12505b467ee987886dc7123bf1",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2667,17 +2667,17 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-CGIV-6073-GoogleAnalytics",
+            "version": "1.4.39",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "46a9a1251b661416aaa2d48ae84ee2ac46eb2b0e"
+                "reference": "23eef51e1b0770748e1f3a3cdc6f424572b5d7ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-6073-GoogleAnalytics-dfffc8.zip",
-                "reference": "46a9a1251b661416aaa2d48ae84ee2ac46eb2b0e",
-                "shasum": "95a39d4bb76f5da35451134d1f964c5cce7e1b52"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.39-51ceb4.zip",
+                "reference": "23eef51e1b0770748e1f3a3cdc6f424572b5d7ee",
+                "shasum": "695d49985c4bbb1a29c8861be7f516b50df15fda"
             },
             "require": {
                 "channelgrabber/cglib": "~1.6.8",
@@ -2715,7 +2715,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2015-08-05 13:12:14"
+            "time": "2015-08-05 14:56:36"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -6751,18 +6751,10 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.4.39",
-            "alias_normalized": "1.4.39.0",
-            "version": "dev-CGIV-6073-GoogleAnalytics",
-            "package": "channelgrabber/zf2-register"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-register": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
