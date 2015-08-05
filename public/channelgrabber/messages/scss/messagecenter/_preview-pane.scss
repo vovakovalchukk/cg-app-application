@@ -1,5 +1,8 @@
 .message-preview {
   @include calc(width, "100% - 362px");
+  @include print() {
+    width: 100%;
+  };
   height: 100%;
   float: left;
   display: block;
@@ -39,6 +42,12 @@
 }
 .preview-header {
   @include calc(width, "100% - 362px");
+  @include print() {
+    width: 100%;
+    a[href]:after {
+      content: "";
+    }
+  };
   float: left;
   clear:both;
   border-bottom: 1px solid $color-lgrey;
@@ -117,6 +126,7 @@
   }
   .actions {
     @include calc(width, "100% - 360px");
+    @include no-print();
     float: right;
     margin: 0px;
     .assign {
@@ -141,6 +151,11 @@
           border-right: 1px solid $color-lgrey;
           cursor: pointer;
           @include gradient-no-img($color-white, $color-xlgrey);
+          @include print() {
+            :not(.print-message) {
+              display: none !important;
+            }
+          };
           &:last-child {
             border-right: none;
           }
@@ -214,6 +229,7 @@
   }
 }
 .reply-section {
+  @include no-print();
   width: 100%;
   min-width: 880px;
   float: left;
