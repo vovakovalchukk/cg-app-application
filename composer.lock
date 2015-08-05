@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "12ea9134b2f9ebd378bac610b246a944",
+    "hash": "3f3a83a497c50d22364eea3d9b638840",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1836,17 +1836,17 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "dev-EPIC-CGIV-5955-StockImportExport",
+            "version": "1.5.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "f17c5a95166db85206cb635010d198dcc3cfc3c7"
+                "reference": "a7fe72fca75ac51a5b49bc54a3b77ed263b649fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-EPIC-CGIV-5955-StockImportExport-a7915b.zip",
-                "reference": "f17c5a95166db85206cb635010d198dcc3cfc3c7",
-                "shasum": "db171fd706b54afa944dc860b565377c89cff4cf"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.5.6-8c84ee.zip",
+                "reference": "a7fe72fca75ac51a5b49bc54a3b77ed263b649fc",
+                "shasum": "0f40e8d9082b2df0b1c36a0cde834c18ad92fd4e"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1888,7 +1888,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2015-08-05 10:27:16"
+            "time": "2015-08-05 12:29:17"
         },
         {
             "name": "channelgrabber/tax",
@@ -2922,17 +2922,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-6066-FirefoxFixes",
+            "version": "1.16.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "75e0d0fa14f5bfc6a1a3a2843263513290bf36f8"
+                "reference": "7a4c1ef990297cd6fdd5edefed6b984b98cdc4b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6066-FirefoxFixes-328540.zip",
-                "reference": "75e0d0fa14f5bfc6a1a3a2843263513290bf36f8",
-                "shasum": "c529369b658604ae0afed1b0407907543ccfdb9a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.4-94d14e.zip",
+                "reference": "7a4c1ef990297cd6fdd5edefed6b984b98cdc4b0",
+                "shasum": "879a1865e1300d7419c2b7ae8c90ba00fc2556a7"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2977,7 +2977,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-08-05 08:12:49"
+            "time": "2015-08-05 12:25:49"
         },
         {
             "name": "cilex/cilex",
@@ -6751,25 +6751,10 @@
             "time": "2015-01-24 09:48:32"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.5.6",
-            "alias_normalized": "1.5.6.0",
-            "version": "dev-EPIC-CGIV-5955-StockImportExport",
-            "package": "channelgrabber/stock"
-        },
-        {
-            "alias": "1.16.4",
-            "alias_normalized": "1.16.4.0",
-            "version": "dev-CGIV-6066-FirefoxFixes",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/stock": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
