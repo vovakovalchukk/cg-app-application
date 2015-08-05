@@ -1,4 +1,4 @@
-<?php $this->headLink()->appendStylesheet($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'css/common/subheader-hide.css'); ?>
+<?php $this->headLink()->appendStylesheet($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'css/common/subheader-hide.css', ['screen', 'print']); ?>
 <?php $this->inlineScript()->captureStart(); ?>
 $(document).ready(function() {
     require.config({
