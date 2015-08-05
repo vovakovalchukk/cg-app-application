@@ -2,6 +2,8 @@
   @include calc(width, "100% - 362px");
   @include print() {
     width: 100%;
+    height: auto;
+    overflow: auto;
   };
   height: 100%;
   float: left;
@@ -100,6 +102,15 @@
         @include border-radius(5px);
         border-bottom: 1px solid $color-lgrey;
       }
+      &.print-message {
+        @include print() {
+          @include border-radius(5px);
+          border-bottom: 1px solid $color-lgrey;
+        }
+      }
+      &:not(.print-message) {
+        @include no-print();
+      }
     }
   }
 }
@@ -151,11 +162,6 @@
           border-right: 1px solid $color-lgrey;
           cursor: pointer;
           @include gradient-no-img($color-white, $color-xlgrey);
-          @include print() {
-            :not(.print-message) {
-              display: none !important;
-            }
-          };
           &:last-child {
             border-right: none;
           }
@@ -226,6 +232,7 @@
   .message-print {
     float: right;
     text-decoration: underline;
+    @include no-print();
   }
 }
 .reply-section {
