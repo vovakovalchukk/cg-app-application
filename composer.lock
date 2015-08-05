@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "12ea9134b2f9ebd378bac610b246a944",
+    "hash": "3e71939bfc8386d0326fb9509e975645",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1836,17 +1836,17 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "dev-EPIC-CGIV-5955-StockImportExport",
+            "version": "dev-CGIV-6071-MissingCode",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "4518a72cae99a0b19773c61de8845d684245ecfe"
+                "reference": "4cfda2ca6b68052c0c694a197fc084925d611ff3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-EPIC-CGIV-5955-StockImportExport-16b0b8.zip",
-                "reference": "4518a72cae99a0b19773c61de8845d684245ecfe",
-                "shasum": "be1ad284efacfb6e63fbc95454d360f6ff183532"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-6071-MissingCode-2a099a.zip",
+                "reference": "4cfda2ca6b68052c0c694a197fc084925d611ff3",
+                "shasum": "9e4aca288531065f7149d226e6fff924a0c3892a"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1888,7 +1888,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2015-07-31 13:34:19"
+            "time": "2015-08-05 09:18:54"
         },
         {
             "name": "channelgrabber/tax",
@@ -6755,7 +6755,7 @@
         {
             "alias": "1.5.6",
             "alias_normalized": "1.5.6.0",
-            "version": "dev-EPIC-CGIV-5955-StockImportExport",
+            "version": "dev-CGIV-6071-MissingCode",
             "package": "channelgrabber/stock"
         },
         {
