@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4b0af0a9aa8c26c8855eb74701682a06",
+    "hash": "12ea9134b2f9ebd378bac610b246a944",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2922,17 +2922,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-EPIC-CGIV-5955-StockImportExport",
+            "version": "dev-CGIV-6066-FirefoxFixes",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "08f9c8e1296efc5915be3a7f710604d5130e4d78"
+                "reference": "75e0d0fa14f5bfc6a1a3a2843263513290bf36f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-5955-StockImportExport-ee2050.zip",
-                "reference": "08f9c8e1296efc5915be3a7f710604d5130e4d78",
-                "shasum": "dffdb6a2b27f80b0a8ecfea1cd70bfed189f2c5f"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6066-FirefoxFixes-328540.zip",
+                "reference": "75e0d0fa14f5bfc6a1a3a2843263513290bf36f8",
+                "shasum": "c529369b658604ae0afed1b0407907543ccfdb9a"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2977,7 +2977,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-08-04 12:42:52"
+            "time": "2015-08-05 08:12:49"
         },
         {
             "name": "cilex/cilex",
@@ -6761,7 +6761,7 @@
         {
             "alias": "1.16.4",
             "alias_normalized": "1.16.4.0",
-            "version": "dev-EPIC-CGIV-5955-StockImportExport",
+            "version": "dev-CGIV-6066-FirefoxFixes",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
