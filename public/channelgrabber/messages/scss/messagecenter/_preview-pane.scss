@@ -46,9 +46,6 @@
   @include calc(width, "100% - 362px");
   @include print() {
     width: 100%;
-    a[href]:after {
-      content: "";
-    }
   };
   float: left;
   clear:both;
