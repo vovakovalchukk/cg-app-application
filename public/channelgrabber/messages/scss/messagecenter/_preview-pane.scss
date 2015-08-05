@@ -46,6 +46,7 @@
   @include calc(width, "100% - 362px");
   @include print() {
     width: 100%;
+    position: relative;
   };
   float: left;
   clear:both;
@@ -73,6 +74,9 @@
   padding: 20px;
   overflow: hidden;
   @include box-sizing(border);
+  @include print() {
+    margin-top: 0px;
+  };
   ul {
     width: 100%;
     float: left;
