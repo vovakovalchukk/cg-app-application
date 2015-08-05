@@ -111,10 +111,6 @@ define(['BulkActionAbstract', 'popup/mustache', 'element/FileUploadAbstract'], f
             });
         });
         fileUpload.watchForFileSelection(function(file) {
-            if (file.type != "text/csv") {
-                return;
-            }
-
             $(".popup-stock-import-file-name", popup.getElement()).html("<img src=\"cg-built/zf2-v4-ui/img/loading-transparent.gif\" >");
 
             var reader = new FileReader();
