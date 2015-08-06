@@ -3,6 +3,7 @@
   @include print() {
     width: 100%;
     height: auto;
+    display: table;
     overflow: auto;
   };
   height: 100%;
@@ -45,8 +46,9 @@
 .preview-header {
   @include calc(width, "100% - 362px");
   @include print() {
-    width: 100%;
+    display: table-header-group;
     position: relative;
+    float: initial;
   };
   float: left;
   clear:both;
@@ -75,7 +77,8 @@
   overflow: hidden;
   @include box-sizing(border);
   @include print() {
-    margin-top: 0px;
+    display: table-row-group;
+    float: initial;
   };
   ul {
     width: 100%;
@@ -83,6 +86,10 @@
     clear:both;
     padding: 0px;
     margin: 0px;
+    @include print() {
+      @include calc(width, "100% - 40px");
+      margin: 20px;
+    }
     li {
       width: 100%;
       min-width: 880px;
