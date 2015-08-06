@@ -45,6 +45,9 @@ class ChannelController extends AbstractActionController
     const ACCOUNT_DETAIL_FORM = "Sales Channel Item Detail";
     const ACCOUNT_TYPE_TO_LIST = 'sale';
     const EVENT_ACCOUNT_ADDED = 'Account Added';
+    const EVENT_ACCOUNT_STATUS_CHANGED = 'Account Status Changed';
+    const EVENT_ACCOUNT_STOCK_MANAGEMENT_CHANGED = 'Account Stock Management Changed';
+    const EVENT_ACCOUNT_DELETED = 'Account Deleted';
 
     protected $di;
     protected $jsonModelFactory;
@@ -345,6 +348,21 @@ class ChannelController extends AbstractActionController
         return end($routeParts);
     }
 
+    protected function notifyOfChange($change, AccountEntity $accountEntity)
+    {
+        $event = new IntercomEvent(
+            $change,
+            $this->getActiveUser()->getId(),
+            [
+                'id' => $accountEntity->getId(),
+                'channel' => $accountEntity->getChannel(),
+                'status' => $accountEntity->getStatus(),
+                'stockManagement' => $accountEntity->getStockManagement(),
+            ]
+        );
+        $this->getIntercomEventService()->save($event);
+    }
+
     public function createAction()
     {
         $accountEntity = $this->getDi()->newInstance(AccountEntity::class, array(
@@ -362,20 +380,8 @@ class ChannelController extends AbstractActionController
         $url = $this->getAccountFactory()->createRedirect($accountEntity, Module::ROUTE . '/' . static::ROUTE . '/' . ChannelController::ROUTE_CHANNELS,
             ["type" => $this->params('type')], $this->params()->fromPost('region'));
         $view->setVariable('url', $url);
-        $this->notifyOfCreate($accountEntity);
+        $this->notifyOfChange(static::EVENT_ACCOUNT_ADDED, $accountEntity);
         return $view;
-    }
-
-    protected function notifyOfCreate(AccountEntity $accountEntity)
-    {
-        $event = new IntercomEvent(
-            static::EVENT_ACCOUNT_ADDED,
-            $this->getActiveUser()->getId(),
-            [
-                'channel' => $accountEntity->getChannel()
-            ]
-        );
-        $this->getIntercomEventService()->save($event);
     }
 
     public function statusAjaxAction()
@@ -394,6 +400,7 @@ class ChannelController extends AbstractActionController
             );
 
             $accountService->save($account->setActive($active));
+            $this->notifyOfChange(static::EVENT_ACCOUNT_STATUS_CHANGED, $account);
             $response->setVariable(
                 'account',
                 $this->getMapper()->toDataTableArray($account, $this->url(), $this->params('type'))
@@ -418,6 +425,7 @@ class ChannelController extends AbstractActionController
         );
 
         $this->getAccountService()->save($account->setStockManagement($stockManagement));
+        $this->notifyOfChange(static::EVENT_ACCOUNT_STOCK_MANAGEMENT_CHANGED, $account);
         $response->setVariable(
             'account',
             $this->getMapper()->toDataTableArray($account, $this->url(), $this->params('type'))
@@ -434,8 +442,8 @@ class ChannelController extends AbstractActionController
             $account = $accountService->fetch(
                 $this->params()->fromRoute('account')
             );
-
             $accountService->delete($account);
+            $this->notifyOfChange(static::EVENT_ACCOUNT_DELETED, $account);
         } catch (NotFound $exception) {
             return $response->setVariable(
                 'error',
