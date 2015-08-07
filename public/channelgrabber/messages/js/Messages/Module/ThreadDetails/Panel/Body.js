@@ -20,6 +20,7 @@ define([
     };
 
     Body.SELECTOR = '.message-section';
+    Body.PRINT_CLASS = 'print-message';
     Body.TEMPLATE = '/channelgrabber/messages/template/Messages/ThreadDetails/Panel/body.mustache';
 
     Body.prototype = Object.create(PanelAbstract.prototype);
@@ -46,6 +47,14 @@ define([
             });
             self.getDomManipulator().append(PanelAbstract.SELECTOR_CONTAINER, html);
         });
+    };
+
+    Body.prototype.print = function(message)
+    {
+        var self = this;
+        self.getDomManipulator().removeClass(Body.SELECTOR + " ." + Body.PRINT_CLASS, Body.PRINT_CLASS);
+        self.getDomManipulator().addClass(message, Body.PRINT_CLASS);
+        window.print();
     };
 
     return Body;

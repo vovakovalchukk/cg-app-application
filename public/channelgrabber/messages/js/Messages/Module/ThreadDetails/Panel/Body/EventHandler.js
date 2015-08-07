@@ -11,12 +11,24 @@ define([
 
         var init = function()
         {
-            // TODO: CGIV-5839, listen to DOM events for this panel
+            this.listenForPrintClick();
         };
         init.call(this);
     };
 
+    EventHandler.SELECTOR_PRINT = '.message-print';
+
     EventHandler.prototype = Object.create(EventHandlerAbstract.prototype);
+
+    EventHandler.prototype.listenForPrintClick = function()
+    {
+        var panel = this.getPanel();
+        $(document).off('click', EventHandler.SELECTOR_PRINT).on('click', EventHandler.SELECTOR_PRINT, function()
+        {
+            panel.print($(this).closest("li"));
+        });
+        return this;
+    };
 
     return EventHandler;
 });
