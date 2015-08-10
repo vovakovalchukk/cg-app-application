@@ -14,24 +14,35 @@ use Zend\I18n\Translator\Translator;
 use CG\Account\Client\Service as AccountService;
 use Products\Product\TaxRate\Service as TaxRateService;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Zend\Stdlib\Http\FileResponse;
+use Products\Stock\Csv\Service as StockCsvService;
+use CG\Stock\Import\UpdateOptions as StockImportUpdateOptions;
 
 class ProductsJsonController extends AbstractActionController
 {
     const ROUTE_AJAX = 'AJAX';
     const ROUTE_AJAX_TAX_RATE = 'tax_rate';
     const ROUTE_STOCK_UPDATE = 'stockupdate';
+    const ROUTE_STOCK_CSV_EXPORT = 'stockCsvExport';
+    const ROUTE_STOCK_CSV_IMPORT = 'stockCsvImport';
     const ROUTE_DELETE = 'Delete';
 
+    /** @var ProductService $productService */
     protected $productService;
+    /** @var JsonModelFactory $jsonModelFactory */
     protected $jsonModelFactory;
+    /** @var FilterMapper $filterMapper */
     protected $filterMapper;
+    /** @var Translator $translator */
     protected $translator;
+    /** @var AccountService $accountService */
     protected $accountService;
+    /** @var TaxRateService $taxRateService */
     protected $taxRateService;
-    /**
-     * @var OrganisationUnitService $organisationUnitService
-     */
+    /** @var OrganisationUnitService $organisationUnitService */
     protected $organisationUnitService;
+    /** @var StockCsvService $stockCsvService */
+    protected $stockCsvService;
 
     public function __construct(
         ProductService $productService,
@@ -40,7 +51,8 @@ class ProductsJsonController extends AbstractActionController
         Translator $translator,
         AccountService $accountService,
         TaxRateService $taxRateService,
-        OrganisationUnitService $organisationUnitService
+        OrganisationUnitService $organisationUnitService,
+        StockCsvService $stockCsvService
     ) {
         $this->setProductService($productService)
             ->setJsonModelFactory($jsonModelFactory)
@@ -48,7 +60,8 @@ class ProductsJsonController extends AbstractActionController
             ->setTranslator($translator)
             ->setAccountService($accountService)
             ->setTaxRateService($taxRateService)
-            ->setOrganisationUnitService($organisationUnitService);
+            ->setOrganisationUnitService($organisationUnitService)
+            ->setStockCsvService($stockCsvService);
     }
 
     public function ajaxAction()
@@ -169,55 +182,115 @@ class ProductsJsonController extends AbstractActionController
         return $view;
     }
 
+    public function stockCsvExportAction()
+    {
+        try {
+            $csv = $this->stockCsvService->generateCsvForActiveUser();
+            return new FileResponse(StockCsvService::MIME_TYPE, StockCsvService::FILENAME, (string) $csv);
+        } catch (NotFound $exception) {
+            return $this->redirect()->toRoute('Products');
+        }
+    }
+
+    public function stockCsvImportAction()
+    {
+        $request = $this->getRequest();
+        $post = $request->getPost()->toArray();
+
+        if (!(isset($post["updateOption"]) && StockImportUpdateOptions::isValid($post["updateOption"]))) {
+            throw new \RuntimeException("Missing/Invalid update option provided");
+        }
+
+        if (!isset($post['stockUploadFile'])) {
+            throw new \RuntimeException("No File uploaded");
+        }
+
+        $this->stockCsvService->uploadCsvForActiveUser($post["updateOption"], $post['stockUploadFile']);
+
+        $view = $this->getJsonModelFactory()->newInstance();
+        $view->setVariable("success", true);
+        return $view;
+    }
+
+    /**
+     * @return self
+     */
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
     {
         $this->jsonModelFactory = $jsonModelFactory;
         return $this;
     }
 
+    /**
+     * @return JsonModelFactory
+     */
     protected function getJsonModelFactory()
     {
         return $this->jsonModelFactory;
     }
 
+    /**
+     * @return self
+     */
     protected function setProductService(ProductService $productService)
     {
         $this->productService = $productService;
         return $this;
     }
 
+    /**
+     * @return ProductService
+     */
     protected function getProductService()
     {
         return $this->productService;
     }
 
+    /**
+     * @return self
+     */
     protected function setFilterMapper(FilterMapper $filterMapper)
     {
         $this->filterMapper = $filterMapper;
         return $this;
     }
 
+    /**
+     * @return FilterMapper
+     */
     protected function getFilterMapper()
     {
         return $this->filterMapper;
     }
 
+    /**
+     * @return Translator
+     */
     protected function getTranslator()
     {
         return $this->translator;
     }
 
+    /**
+     * @return self
+     */
     protected function setTranslator(Translator $translator)
     {
         $this->translator = $translator;
         return $this;
     }
 
+    /**
+     * @return AccountService
+     */
     protected function getAccountService()
     {
         return $this->accountService;
     }
 
+    /**
+     * @return self
+     */
     public function setAccountService(AccountService $accountService)
     {
         $this->accountService = $accountService;
@@ -226,7 +299,7 @@ class ProductsJsonController extends AbstractActionController
 
     /**
      * @param TaxRateService $taxRateService
-     * @return $this
+     * @return self
      */
     public function setTaxRateService(TaxRateService $taxRateService)
     {
@@ -235,12 +308,20 @@ class ProductsJsonController extends AbstractActionController
     }
 
     /**
-     * @param OrganisationUnitService $organisationUnitService
-     * @return $this
+     * @return self
      */
     public function setOrganisationUnitService(OrganisationUnitService $organisationUnitService)
     {
         $this->organisationUnitService = $organisationUnitService;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    public function setStockCsvService(StockCsvService $stockCsvService)
+    {
+        $this->stockCsvService = $stockCsvService;
         return $this;
     }
 }

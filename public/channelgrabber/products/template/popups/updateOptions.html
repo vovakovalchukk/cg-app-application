@@ -1,0 +1,26 @@
+<div class="popup-stock-import clearfix">
+    <div class="popup-stock-import-header-box">
+        <div class="popup-stock-import-header">
+            {{title}}
+        </div>
+    </div>
+    <div class="popup-stock-import-content-box">
+        <div class="popup-stock-import-selection">
+            <div class="popup-stock-import-label label">Stock Action:</div>
+            <div class="popup-stock-import-drop-down">{{{updateOptions}}}</div>
+        </div>
+        <div class="popup-stock-import-file">
+            <input type="hidden" name="stockUploadFile" id="popup-stock-import-file-upload-hidden-input"/>
+            <input style="display: none;" type="file" id="popup-stock-import-file-upload-input"/>
+            <div class="center">
+                <input type="button" class="button inline popup-stock-import-file-button" value="Choose File">
+            </div>
+            <span class="popup-stock-import-file-name">No file chosen</span>
+        </div>
+    </div>
+    <div class="popup-stock-import-button-box">
+        <div class="center">
+            <input type="button" class="button inline popup-stock-import-button" value="Confirm">
+        </div>
+    </div>
+</div>

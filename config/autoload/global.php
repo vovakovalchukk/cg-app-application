@@ -79,6 +79,10 @@ use CG\Ekm\Product\TaxRate\Storage\Db as EkmTaxRateDb;
 use CG\Ekm\Product\TaxRate\Repository as EkmTaxRateRepository;
 use CG\Ekm\Product\TaxRate\Service as EkmTaxRateService;
 
+// Stock Import
+use CG\Stock\Import\File\Storage\Db as StockImportFileDb;
+use CG\Stock\Import\File\Mapper as StockImportFileMapper;
+
 // Communication
 use CG\Communication\Headline\StorageInterface as HeadlineStorage;
 use CG\Communication\Headline\Storage\Api as HeadlineApi;
@@ -294,6 +298,14 @@ return array(
                 'parameters' => [
                     'cryptor' => 'ekm_cryptor',
                     'repository' => EkmTaxRateRepository::class
+                ]
+            ],
+            StockImportFileDb::class => [
+                'parameter' => [
+                    'readSql' => 'appReadSql',
+                    'fastReadSql' => 'appFastReadSql',
+                    'writeSql' => 'appWriteSql',
+                    'mapper' => StockImportFileMapper::class
                 ]
             ],
             ThreadApi::class => [

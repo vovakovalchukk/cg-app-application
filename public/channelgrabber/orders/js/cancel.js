@@ -74,7 +74,7 @@ define(['popup/mustache'], function(Popup) {
 
     Cancel.prototype.listen = function(popup) {
         var that = this;
-        popup.getElement().on("click", ".popup-cancel-button", function () {
+        popup.getElement().off("click", ".popup-cancel-button").on("click", ".popup-cancel-button", function () {
             var reason = popup.getElement().find(".popup-cancel-drop-down:input").val();
             if (!reason.length) {
                 return;
