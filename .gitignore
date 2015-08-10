@@ -28,6 +28,7 @@
 phinx/migrations/channelgrabber/zf2-sessions
 public/cg-built
 public/channelgrabber/zf2-amazon
+public/channelgrabber/zf2-api
 public/channelgrabber/zf2-channel
 public/channelgrabber/zf2-login
 public/channelgrabber/zf2-register
