@@ -56,17 +56,13 @@ class Mapper
         $dataTableArray['status'] = $entity->getStatus($now);
         $dataTableArray['organisationUnit'] = $this->getOrganisationUnitCompanyName($entity->getOrganisationUnitId());
         $dataTableArray['manageLinks'] = $this->getManageLinks($entity->getId(), $type, $urlPlugin);
+        $dataTableArray['channelImgUrl'] = $entity->getImageUrl();
 
         $dataTableArray['expiryDate'] = 'N/A';
         $expiryDate = $entity->getExpiryDateAsDateTime();
         if ($expiryDate instanceof DateTime) {
             $timeToExpiry = $expiryDate->getTimestamp() - $now->getTimestamp();
             $dataTableArray['expiryDate'] = ($timeToExpiry > 0) ? $expiryDate->format('jS F Y') : 'Expired';
-        }
-
-        $externalData = $entity->getExternalData();
-        if (isset($externalData['imageUrl']) && !empty($externalData['imageUrl'])) {
-            $dataTableArray['channelImgUrl'] = $externalData['imageUrl'];
         }
 
         return $dataTableArray;

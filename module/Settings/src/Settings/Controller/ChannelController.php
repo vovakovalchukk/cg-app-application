@@ -244,13 +244,10 @@ class ChannelController extends AbstractActionController
 
     protected function addChannelLogo($accountEntity, $view)
     {
-        $externalData = $accountEntity->getExternalData();
         $logoView = $this->getViewModelFactory()->newInstance();
         $logoView->setTemplate("elements/channel-large.mustache");
         $logoView->setVariable('channel', $accountEntity->getChannel());
-        if (isset($externalData['imageUrl']) && !empty($externalData['imageUrl'])) {
-            $logoView->setVariable('channelImgUrl', $externalData['imageUrl']);
-        }
+        $logoView->setVariable('channelImgUrl', $accountEntity->getImageUrl());
 
         $view->addChild($logoView, 'channel');
         return $this;
