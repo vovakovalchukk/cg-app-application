@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dd16d8daf7dc709d96efa06bb15c072d",
+    "hash": "d5469ad872dda517596109bf2ef20028",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2611,17 +2611,17 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.4.38.2",
+            "version": "1.4.39.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "8dd1ec2fef4f154e3efc0d6e113f2bb865a98dc6"
+                "reference": "5606592ebb87ed6be1171d37b0dd0f9bce504708"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.38.2-88bcfb.zip",
-                "reference": "8dd1ec2fef4f154e3efc0d6e113f2bb865a98dc6",
-                "shasum": "4264bac17f772ee0bf950616f9c1a2b3813e0210"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.39.1-915c0f.zip",
+                "reference": "5606592ebb87ed6be1171d37b0dd0f9bce504708",
+                "shasum": "fb26d096bb716643bceed479a070a60c969b46c5"
             },
             "require": {
                 "channelgrabber/cglib": "~1.6.8",
@@ -2659,7 +2659,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2015-07-09 14:31:23"
+            "time": "2015-08-11 10:54:00"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
