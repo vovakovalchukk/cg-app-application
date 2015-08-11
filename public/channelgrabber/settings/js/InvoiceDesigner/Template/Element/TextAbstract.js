@@ -6,7 +6,7 @@ define(['InvoiceDesigner/Template/ElementAbstract'], function(ElementAbstract)
             height: 7,
             borderWidth: undefined,
             fontSize: 12,
-            fontFamily: 'Helvetica',
+            fontFamily: 'Arial',
             fontColour: 'black',
             text: 'Enter your text here.',
             padding: undefined,

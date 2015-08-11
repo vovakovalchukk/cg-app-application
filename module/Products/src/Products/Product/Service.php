@@ -130,28 +130,6 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $filter = new ProductFilter(static::ACCOUNTS_LIMIT, static::PAGE, [], null, [], $productIds);
         $products = $this->getProductService()->fetchCollectionByFilter($filter);
         foreach ($products as $product) {
-            if($this->isLastOfStock($product)) {
-                try {
-                    $ouList = $this->getActiveUserContainer()->getActiveUser()->getOuList();
-                    $stock = $this->getStockService()->fetchCollectionByPaginationAndFilters(
-                        null,
-                        null,
-                        [],
-                        $ouList,
-                        [$product->getSku()],
-                        []
-                    );
-                    foreach($stock as $entity) {
-                        $this->getStockService()->remove($entity);
-                    }
-                } catch (NotFound $e) {
-                    // No stock to remove, no problem
-                    // If we were expecting there to be stock then log it
-                    if ($product->getParentProductId() > 0 || count($product->getVariations()) == 0) {
-                        $this->logNotice(static::LOG_NO_STOCK_TO_DELETE, [$product->getId()], static::LOG_CODE);
-                    }
-                }
-            }
             $this->getProductService()->hardRemove($product);
         }
     }
@@ -166,27 +144,6 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         }  catch (HttpNotModified $e) {
             // Do nothing
         }
-    }
-
-    protected function isLastOfStock(Product $product)
-    {
-        $filter = $this->getProductFilterMapper()->fromArray([
-            'limit' => 2,
-            'page' => 1,
-            'organisationUnitId' => $this->getActiveUserContainer()->getActiveUser()->getOuList(),
-            'searchTerm' => null,
-            'parentProductId' => [],
-            'id' => [],
-            'deleted' => null,
-            'sku' => [$product->getSku()]
-        ]);
-        $products = $this->getProductService()->fetchCollectionByFilter($filter);
-
-        if(count($products) == 1) {
-            return true;
-        }
-
-        return false;
     }
 
     public function isSidebarVisible()

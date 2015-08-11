@@ -1,0 +1,21 @@
+<div class="message-section">
+    <ul>
+    {{#messages}}
+        <li>
+            <div class="message-head">
+                <span class="sprite-sprite {{iconClass}}"></span>
+                <div class="name-user">
+                    <span class="name">{{name}}</span> - <span class="user">{{externalUsername}}</span>
+                </div>
+                <div class="date-time">
+                    <span class="date">{{created}}</span> - ({{createdFuzzy}})
+                </div>
+            </div>
+            <div class="message-body">
+                <div class="message-print"><a href="#">Print Message</a></div>
+                {{{body}}}
+            </div>
+        </li>
+    {{/messages}}
+    </ul>
+</div>

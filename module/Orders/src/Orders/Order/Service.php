@@ -64,6 +64,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     const LOG_CODE = 'OrderModuleService';
     const LOG_UNDISPATCHABLE = 'Order %s has been flagged for dispatch but it is not in a dispatchable status (%s)';
     const LOG_DISPATCHING = 'Dispatching Order %s';
+    const LOG_ALREADY_CANCELLED = '%s requested for Order %s but its already in status %s';
     const STAT_ORDER_ACTION_DISPATCHED = 'orderAction.dispatched.%s.%d.%d';
     const STAT_ORDER_ACTION_CANCELLED = 'orderAction.cancelled.%s.%d.%d';
     const STAT_ORDER_ACTION_REFUNDED = 'orderAction.refunded.%s.%d.%d';
@@ -798,6 +799,10 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     {
         $account = $this->getAccountService()->fetch($order->getAccountId());
         $status = OrderMapper::calculateOrderStatusFromCancelType($type);
+        if ($order->getStatus() == OrderStatus::getInActionWithCompletedStatuses()[$status]) {
+            $this->logDebug(static::LOG_ALREADY_CANCELLED, [ucwords($type), $order->getId(), $order->getStatus()]);
+            return;
+        }
         $cancel = $this->getCancelValue($order, $type, $reason);
 
         $order = $this->saveOrder(

@@ -1,8 +1,4 @@
-define([
-    'jquery'
-], function (
-    $
-) {
+define(function () {
     var Ajax = function () {};
 
     Ajax.prototype.fetchByFilter = function(filter, callback)
