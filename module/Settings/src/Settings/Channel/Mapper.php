@@ -64,6 +64,11 @@ class Mapper
             $dataTableArray['expiryDate'] = ($timeToExpiry > 0) ? $expiryDate->format('jS F Y') : 'Expired';
         }
 
+        $externalData = $entity->getExternalData();
+        if (isset($externalData['imageUrl']) && !empty($externalData['imageUrl'])) {
+            $dataTableArray['channelImgUrl'] = $externalData['imageUrl'];
+        }
+
         return $dataTableArray;
     }
 

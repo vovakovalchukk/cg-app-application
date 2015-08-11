@@ -233,12 +233,27 @@ class ChannelController extends AbstractActionController
         $view->setVariable('account', $this->getMapper()->toDataTableArray($accountEntity, $this->url(), $this->params('type')));
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
-        $this->addAccountsChannelSpecificView($accountEntity, $view)
+        $this->addChannelLogo($accountEntity, $view)
+            ->addAccountsChannelSpecificView($accountEntity, $view)
             ->addAccountDetailsForm($accountEntity, $view)
             ->addTradingCompaniesView($accountEntity, $view);
         $view->setVariable('type', $this->params('type'));
 
         return $view;
+    }
+
+    protected function addChannelLogo($accountEntity, $view)
+    {
+        $externalData = $accountEntity->getExternalData();
+        $logoView = $this->getViewModelFactory()->newInstance();
+        $logoView->setTemplate("elements/channel-large.mustache");
+        $logoView->setVariable('channel', $accountEntity->getChannel());
+        if (isset($externalData['imageUrl']) && !empty($externalData['imageUrl'])) {
+            $logoView->setVariable('channelImgUrl', $externalData['imageUrl']);
+        }
+
+        $view->addChild($logoView, 'channel');
+        return $this;
     }
 
     protected function addAccountsChannelSpecificView($accountEntity, $view)

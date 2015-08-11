@@ -136,6 +136,10 @@ class Service implements LoggerAwareInterface
             $accountEntity = $accounts->getById($listing['accountId']);
             if ($accountEntity) {
                 $listing['accountName'] = $accountEntity->getDisplayName();
+                $externalData = $accountEntity->getExternalData();
+                if (isset($externalData['imageUrl']) && !empty($externalData['imageUrl'])) {
+                    $listing['channelImgUrl'] = $externalData['imageUrl'];
+                }
             }
 
             $listing['accountLink'] = $event->getRouter()->assemble(

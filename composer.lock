@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "330b9b56095da18eb80d8f9da89a0c6e",
+    "hash": "dfeb9fb99c1fb8a208329889913b21e2",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3003,17 +3003,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.5",
+            "version": "dev-CGIV-6033-public-api-accounts-endpoint",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "9c27770e94298896cc23836223d9de22b1c4dd58"
+                "reference": "c1010b1be2b6732ac5054ef8e9995a31598bf062"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.5-4ea972.zip",
-                "reference": "9c27770e94298896cc23836223d9de22b1c4dd58",
-                "shasum": "d43d97b061ac46cd504e4f7b7803b78143b48a28"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6033-public-api-accounts-endpoint-129791.zip",
+                "reference": "c1010b1be2b6732ac5054ef8e9995a31598bf062",
+                "shasum": "09358806ed99129e8face74689a0bab94906bc2f"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -3058,7 +3058,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-08-06 10:52:21"
+            "time": "2015-08-11 10:48:35"
         },
         {
             "name": "cilex/cilex",
@@ -6856,6 +6856,12 @@
             "alias_normalized": "1.0.0.0",
             "version": "dev-CGIV-6033-public-api-accounts-endpoint",
             "package": "channelgrabber/zf2-api"
+        },
+        {
+            "alias": "1.16.6",
+            "alias_normalized": "1.16.6.0",
+            "version": "dev-CGIV-6033-public-api-accounts-endpoint",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
@@ -6865,6 +6871,7 @@
         "channelgrabber/constants": 20,
         "channelgrabber/user": 20,
         "channelgrabber/zf2-api": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
