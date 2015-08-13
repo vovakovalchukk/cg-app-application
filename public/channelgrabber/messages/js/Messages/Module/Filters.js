@@ -35,13 +35,23 @@ define([
         {
             this.setEventHandler(new EventHandler(this));
             // We don't want to use the actual userId here as this is client-side and it could be changed maliciously
-            var myMessages = new AssigneeFilter(this, 'active-user');
-            myMessages.activate();
-            filters.myMessages = myMessages;
+            filters.myMessages = new AssigneeFilter(this, 'active-user');
             filters.unassigned = new AssigneeFilter(this, 'unassigned');
             filters.assigned = new AssigneeFilter(this, 'assigned');
             filters.resolved = new StatusFilter(this, 'resolved');
+            filters.open = new StatusFilter(this, ['new', 'awaiting-reply']);
             filters.search = new SearchFilter(this);
+
+            this.updateFilterCounts();
+            if (this.getApplication().getSingleUserMode() && filters.open.getCount() > 0) {
+                filters.open.activate();
+            } else if (filters.myMessages.getCount() > 0) {
+                filters.myMessages.activate();
+            } else if (filters.unassigned.getCount() > 0) {
+                filters.unassigned.activate();
+            } else {
+                filters.resolved.activate();
+            }
         };
         init.call(this);
     };
@@ -50,7 +60,6 @@ define([
 
     Filters.prototype.initialise = function(selectedThreadId)
     {
-        this.updateFilterCounts();
         if (selectedThreadId) {
             var idFilter = new IdFilter(this, selectedThreadId);
             this.getFilters().id = idFilter;
@@ -59,7 +68,7 @@ define([
             idFilter.setActive(true);
         }
         this.applyActiveFilters(selectedThreadId);
-    }
+    };
 
     Filters.prototype.applyFilter = function(filter, selectedThreadId)
     {
@@ -106,6 +115,7 @@ define([
             filters.unassigned.setCount(headline.getUnassigned());
             filters.assigned.setCount(headline.getAssigned());
             filters.resolved.setCount(headline.getResolved());
+            filters.open.setCount(parseInt(headline.getMyMessages()) + parseInt(headline.getUnassigned()) + parseInt(headline.getAssigned()));
         });
         return this;
     };

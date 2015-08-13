@@ -16,12 +16,14 @@ define([
         var init = function()
         {
             this.listenForFilterApplyRequested()
-                .listenForThreadDomSelection();
+                .listenForThreadDomSelection()
+                .listenForThreadNextPage();
         };
         init.call(this);
     };
 
     EventHandler.SELECTOR_THREAD = '.message-pane ul li';
+    EventHandler.SELECTOR_NEXT_PAGE = '.message-pane #next-page';
 
     EventHandler.prototype = Object.create(EventHandlerAbstract.prototype);
 
@@ -47,6 +49,16 @@ define([
         return this;
     };
 
+    EventHandler.prototype.listenForThreadNextPage = function()
+    {
+        var self = this;
+        $(document).on('click', EventHandler.SELECTOR_NEXT_PAGE, function()
+        {
+            self.getModule().loadNextPage();
+        });
+        return this;
+    };
+
     EventHandler.prototype.triggerThreadSelected = function(thread)
     {
         $(document).trigger(ThreadListEvents.THREAD_SELECTED, [thread]);
@@ -55,6 +67,11 @@ define([
     EventHandler.prototype.triggerThreadsRendered = function(threads)
     {
         $(document).trigger(ThreadListEvents.THREADS_RENDERED, [threads]);
+    };
+
+    EventHandler.prototype.getSelectorNextPage = function()
+    {
+        return EventHandler.SELECTOR_NEXT_PAGE;
     };
 
     return EventHandler;

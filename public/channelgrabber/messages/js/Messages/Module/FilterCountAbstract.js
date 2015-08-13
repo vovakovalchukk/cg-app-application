@@ -36,5 +36,10 @@ define([
         this.getDomManipulator().setHtml(this.getFilterSelector()+' '+FilterCountAbstract.SELECTOR_COUNT, count);
     };
 
+    FilterCountAbstract.prototype.getCount = function(count)
+    {
+        return this.getDomManipulator().getHtml(this.getFilterSelector()+' '+FilterCountAbstract.SELECTOR_COUNT, count);
+    };
+
     return FilterCountAbstract;
 });

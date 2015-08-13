@@ -16,6 +16,8 @@ define([
         ModuleAbstract.call(this, application);
 
         var threads;
+        var page = 1;
+        var previousFilter;
 
         this.getService = function()
         {
@@ -38,6 +40,28 @@ define([
             return this;
         };
 
+        this.setPage = function(newPage)
+        {
+            page = newPage;
+            return this;
+        };
+
+        this.getPage = function()
+        {
+            return page;
+        };
+
+        this.setPreviousFilter = function(newPreviousFilter)
+        {
+            previousFilter = newPreviousFilter;
+            return this;
+        };
+
+        this.getPreviousFilter = function()
+        {
+            return previousFilter;
+        };
+
         var init = function()
         {
             this.setEventHandler(new EventHandler(this));
@@ -51,12 +75,29 @@ define([
 
     ThreadList.prototype = Object.create(ModuleAbstract.prototype);
 
-    ThreadList.prototype.loadForFilter = function(filter, selectedThreadId)
+    ThreadList.prototype.loadForFilter = function(filter, selectedThreadId, isNextPage)
     {
         var self = this;
+
+        if (!isNextPage) {
+            this.setPage(1);
+        }
+        this.setPreviousFilter(filter);
         this.getApplication().busy();
-        this.getService().fetchCollectionByFilter(filter, function(threads)
+        this.getService().fetchCollectionByFilter(filter, this.getPage(), function(threads)
         {
+            if (threads.count() == 100) {
+                self.getDomManipulator().show(self.getEventHandler().getSelectorNextPage());
+            } else {
+                self.getDomManipulator().hide(self.getEventHandler().getSelectorNextPage());
+            }
+            if (isNextPage) {
+                var currentThreads = self.getThreads();
+                threads.each(function(thread) {
+                    currentThreads.attach(thread);
+                });
+                threads = currentThreads;
+            }
             self.setThreads(threads);
             self.renderThreads(threads, selectedThreadId);
             self.getApplication().unbusy();
@@ -65,6 +106,12 @@ define([
             self.getApplication().unbusy();
             n.ajaxError(response);
         });
+    };
+
+    ThreadList.prototype.loadNextPage = function()
+    {
+        this.setPage(this.getPage() + 1);
+        this.loadForFilter(this.getPreviousFilter(), null, true);
     };
 
     ThreadList.prototype.renderThreads = function(threads, selectedThreadId)
@@ -84,7 +131,8 @@ define([
                     'updatedTime': updatedParts[1],
                     'status': thread.getStatus().replace(/ /g, '-').toLowerCase(),
                     'statusText': thread.getStatus().replace(/_-/g, ' ').ucfirst(),
-                    'assignedUserName': thread.getAssignedUserName()
+                    'assignedUserName': thread.getAssignedUserName(),
+                    'singleUserMode': self.getApplication().getSingleUserMode()
                 });
                 self.getDomManipulator().append(ThreadList.SELECTOR_LIST, html);
             });
