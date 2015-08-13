@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8485c5c338cb62aff8ec3ab73271e63a",
+    "hash": "7060fe784b2daead1adbd40b56c458b4",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -840,17 +840,17 @@
         },
         {
             "name": "channelgrabber/intercom",
-            "version": "1.1.4",
+            "version": "1.1.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-intercom.git",
-                "reference": "508f3b0489660d2527424b8b9819490092575544"
+                "reference": "39ee05feba2aebfa82ca8c95b2372aa670693dc1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-1.1.4-b88a21.zip",
-                "reference": "508f3b0489660d2527424b8b9819490092575544",
-                "shasum": "5a94ee4e148375879f77b1b703002a3741a10920"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-1.1.5-a71d50.zip",
+                "reference": "39ee05feba2aebfa82ca8c95b2372aa670693dc1",
+                "shasum": "92413f87531b968fdf228cfc039c72e2d6ff429b"
             },
             "require": {
                 "channelgrabber/billing": ">=1.8.0, <2.0.0",
@@ -872,7 +872,7 @@
                     "CG\\Intercom\\": "src"
                 }
             },
-            "time": "2015-07-30 10:13:08"
+            "time": "2015-08-11 12:49:45"
         },
         {
             "name": "channelgrabber/listing",
@@ -1627,17 +1627,17 @@
         },
         {
             "name": "channelgrabber/slim",
-            "version": "1.13.12",
+            "version": "1.13.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgslim.git",
-                "reference": "884eb434b1c66a8a7bccd46adf53929d148cb97d"
+                "reference": "7365b12c9b5cdfd420b9a4b040638c47e1682db7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-slim-1.13.12-0fae04.zip",
-                "reference": "884eb434b1c66a8a7bccd46adf53929d148cb97d",
-                "shasum": "1cafd262041aaff6eed79c797c7c8f30fb9e652b"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-slim-1.13.13-9cf943.zip",
+                "reference": "7365b12c9b5cdfd420b9a4b040638c47e1682db7",
+                "shasum": "8a66ab34fe2e97642a6c3d24fb61a2510bca34c8"
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -1678,7 +1678,7 @@
                     "CG\\Slim\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2015-06-12 14:06:50"
+            "time": "2015-08-11 13:04:58"
         },
         {
             "name": "channelgrabber/spork",
@@ -2536,17 +2536,17 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.4.29",
+            "version": "1.4.29.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "b1aa817cf0a7b896fedd3b7df0fee54a31ed77ac"
+                "reference": "e0d71f71cc9b65442ef8f82a0be3a6abc1bf522d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.29-88f329.zip",
-                "reference": "b1aa817cf0a7b896fedd3b7df0fee54a31ed77ac",
-                "shasum": "3e77ab587acf1b0fd6b3e1f12d9afebe7cafa36e"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.29.1-cd7d32.zip",
+                "reference": "e0d71f71cc9b65442ef8f82a0be3a6abc1bf522d",
+                "shasum": "e8845c7d7178018cf287881b601f4a160fd157b7"
             },
             "require": {
                 "channelgrabber/cghttp": ">=1.0.2",
@@ -2588,7 +2588,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2015-07-24 15:02:52"
+            "time": "2015-08-13 10:45:47"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -2668,17 +2668,17 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.4.39.1",
+            "version": "1.4.39.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "5606592ebb87ed6be1171d37b0dd0f9bce504708"
+                "reference": "1bdadf5fc3a106f876e7c818337187df7e7fcf84"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.39.1-915c0f.zip",
-                "reference": "5606592ebb87ed6be1171d37b0dd0f9bce504708",
-                "shasum": "fb26d096bb716643bceed479a070a60c969b46c5"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.39.2-456a6b.zip",
+                "reference": "1bdadf5fc3a106f876e7c818337187df7e7fcf84",
+                "shasum": "55a9172d498da968a059eedcb82cb4caf1d4411e"
             },
             "require": {
                 "channelgrabber/cglib": "~1.6.8",
@@ -2716,7 +2716,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2015-08-11 10:54:00"
+            "time": "2015-08-13 10:43:41"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -3104,13 +3104,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "a979cc78ed141855a76b7f196d24205c41107bbc"
+                "reference": "a4fb4dbcea018af0493d648db11f5f2720fb7fa2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/composer-composer-a979cc78ed141855a76b7f196d24205c41107bbc-zip-a4977f.zip",
-                "reference": "a979cc78ed141855a76b7f196d24205c41107bbc",
-                "shasum": "333cbd780f64f129368b7bcc857fa05eb92db715"
+                "url": "https://composer.build.channelgrabber.com/dist/composer-composer-a4fb4dbcea018af0493d648db11f5f2720fb7fa2-zip-6dfc48.zip",
+                "reference": "a4fb4dbcea018af0493d648db11f5f2720fb7fa2",
+                "shasum": "bf3a324569d272940bf814a7807f178e236f0c19"
             },
             "require": {
                 "composer/spdx-licenses": "~1.0",
@@ -3168,7 +3168,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-08-11 10:20:39"
+            "time": "2015-08-12 11:50:07"
         },
         {
             "name": "composer/spdx-licenses",
@@ -5029,17 +5029,17 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.19.0",
+            "version": "v1.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "edbeaf43b0a606cdaadc32a11d2673614a377b90"
+                "reference": "1ea4e5f81c6d005fe84d0b38e1c4f1955eb86844"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/twig-twig-edbeaf43b0a606cdaadc32a11d2673614a377b90-zip-ccfb85.zip",
-                "reference": "edbeaf43b0a606cdaadc32a11d2673614a377b90",
-                "shasum": "97a54edbe85c412c8b2588d0d6f42669aea8921f"
+                "url": "https://composer.build.channelgrabber.com/dist/twig-twig-1ea4e5f81c6d005fe84d0b38e1c4f1955eb86844-zip-04c8d3.zip",
+                "reference": "1ea4e5f81c6d005fe84d0b38e1c4f1955eb86844",
+                "shasum": "aaa6777d6a47705fce9142ef90d0ee29a225f8e1"
             },
             "require": {
                 "php": ">=5.2.7"
@@ -5047,7 +5047,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.19-dev"
+                    "dev-master": "1.20-dev"
                 }
             },
             "autoload": {
@@ -5082,7 +5082,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-07-31 13:45:26"
+            "time": "2015-08-12 15:56:39"
         },
         {
             "name": "whichbrowser/whichbrowser",
@@ -6058,17 +6058,17 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "v1.4.1",
+            "version": "v1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "3132b1f44c7bf2ec4c7eb2d3cb78fdeca760d373"
+                "reference": "4745ded9307786b730d7a60df5cb5a6c43cf95f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/phpspec-prophecy-3132b1f44c7bf2ec4c7eb2d3cb78fdeca760d373-zip-511f85.zip",
-                "reference": "3132b1f44c7bf2ec4c7eb2d3cb78fdeca760d373",
-                "shasum": "ea68ee040b4470fb2592a95f5f674d7c7f12d124"
+                "url": "https://composer.build.channelgrabber.com/dist/phpspec-prophecy-4745ded9307786b730d7a60df5cb5a6c43cf95f7-zip-682471.zip",
+                "reference": "4745ded9307786b730d7a60df5cb5a6c43cf95f7",
+                "shasum": "85e53e6af0972ef6721c0383c32d2bfc9255f956"
             },
             "require": {
                 "doctrine/instantiator": "^1.0.2",
@@ -6114,7 +6114,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2015-04-27 22:15:08"
+            "time": "2015-08-13 10:07:40"
         },
         {
             "name": "phpunit/php-code-coverage",
