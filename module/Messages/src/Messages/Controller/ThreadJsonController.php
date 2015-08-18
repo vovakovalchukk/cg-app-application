@@ -29,8 +29,9 @@ class ThreadJsonController extends AbstractActionController
     {
         $view = $this->jsonModelFactory->newInstance();
         $filters = $this->params()->fromPost('filter', []);
+        $page = $this->params()->fromPost('page');
 
-        $threadsData = $this->service->fetchThreadDataForFilters($filters);
+        $threadsData = $this->service->fetchThreadDataForFilters($filters, $page);
 
         return $view->setVariable('threads', $threadsData);
     }

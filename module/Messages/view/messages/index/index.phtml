@@ -13,32 +13,41 @@ $(document).ready(function() {
         MessagesApp
     ) {
         var assignableUsers = <?=json_encode($assignableUsersArray);?>;
-        new MessagesApp(<?=$this->jsString($uri);?>, <?=$rootOuId;?>, assignableUsers, <?=($threadId ? $this->jsString($threadId) : 'null');?>);
+        new MessagesApp(<?=$this->jsString($uri);?>, <?=$rootOuId;?>, assignableUsers, <?=($threadId ? $this->jsString($threadId) : 'null');?>, <?= (count($assignableUsersArray) == 1) ? 1 : 0; ?>);
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 
 <div class="message-center-nav">
 <ul>
-    <li data-filter-type="active-user">
+    <?php if (count($assignableUsersArray) == 1) : ?>
+    <li data-filter-type="new,awaiting-reply" id="open">
+        <div class="sprite-sprite sprite-mymessages-24-black"></div>
+        <div class="label">Open</div>
+        <div class="number-loz">?</div>
+        <div class="indicator"></div>
+    </li>
+    <?php else: ?>
+    <li data-filter-type="active-user" id="active-user">
         <div class="sprite-sprite sprite-mymessages-24-black"></div>
         <div class="label">My Messages</div>
         <div class="number-loz">?</div>
         <div class="indicator"></div>
     </li>
-    <li data-filter-type="unassigned">
+    <li data-filter-type="unassigned" id="unassigned">
         <div class="sprite-sprite sprite-unassigned-24-black"></div>
         <div class="label">Unassigned</div>
         <div class="number-loz">?</div>
         <div class="indicator"></div>
     </li>
-    <li data-filter-type="assigned">
+    <li data-filter-type="assigned" id="assigned">
         <div class="sprite-sprite sprite-assigned-24-black"></div>
         <div class="label">Assigned</div>
         <div class="number-loz">?</div>
         <div class="indicator"></div>
     </li>
-    <li data-filter-type="resolved">
+    <?php endif; ?>
+    <li data-filter-type="resolved" id="resolved">
         <div class="sprite-sprite sprite-resolved-24-black"></div>
         <div class="label">Resolved</div>
         <div class="number-loz">?</div>
@@ -62,6 +71,7 @@ $(document).ready(function() {
                 Loading...
             </div>
         </ul>
+        <div id="next-page"><a href="#">Load more messages</a></div>
     </div>
     <div class="message-preview">
         <div class="no-messages-content">

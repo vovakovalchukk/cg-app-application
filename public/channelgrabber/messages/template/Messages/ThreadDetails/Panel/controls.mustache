@@ -13,22 +13,26 @@
             </div>
             <div class="action-nav">
                 <ul>
-                    {{#takable}}
-                    <li id="control-take">Take</li>
-                    {{/takable}}
-                    {{#releasable}}
-                    <li id="control-release">Release</li>
-                    {{/releasable}}
+                    {{^singleUserMode}}
+                        {{#takable}}
+                        <li id="control-take">Take</li>
+                        {{/takable}}
+                        {{#releasable}}
+                        <li id="control-release">Release</li>
+                        {{/releasable}}
+                    {{/singleUserMode}}
                     {{#resolvable}}
-                    <li id="control-resolve">Resolve</li>
+                        <li id="control-resolve">Resolve</li>
                     {{/resolvable}}
                 </ul>
             </div>
-            <div class="assign">
-                {{#assignable}}
-                    {{> assigneeSelect}}
-                {{/assignable}}
-            </div>
+            {{^singleUserMode}}
+                <div class="assign">
+                    {{#assignable}}
+                        {{> assigneeSelect}}
+                    {{/assignable}}
+                </div>
+            {{/singleUserMode}}
         </div>
     </div>
 </div>
