@@ -72,7 +72,8 @@ define([
                 'takable': takable,
                 'releasable': releasable,
                 'resolvable': resolvable,
-                'assignable': assignable
+                'assignable': assignable,
+                'singleUserMode': self.getModule().getApplication().getSingleUserMode()
             }, 'main', {assigneeSelect: selectHtml});
             self.getDomManipulator().append(PanelAbstract.SELECTOR_CONTAINER, html);
         });

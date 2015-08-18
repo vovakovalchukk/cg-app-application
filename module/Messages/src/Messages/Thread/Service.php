@@ -22,7 +22,7 @@ class Service
 {
     use FormatMessageDataTrait;
 
-    const DEFAULT_LIMIT = 50;
+    const DEFAULT_LIMIT = 100;
     const KEY_HAS_NEW = 'messages-has-new-user:';
     const TTL_HAS_NEW = 300;
     const ASSIGNEE_ACTIVE_USER = 'active-user';
@@ -72,14 +72,14 @@ class Service
     /**
      * @return array
      */
-    public function fetchThreadDataForFilters(array $filters)
+    public function fetchThreadDataForFilters(array $filters, $page = 1)
     {
         $ou = $this->userOuService->getRootOuByActiveUser();
 
         $threadFilter = new ThreadFilter();
-        $threadFilter->setPage(1)
-            ->setLimit(isset($filters['limit']) ? $filters['limit'] : static::DEFAULT_LIMIT)
-            ->setOrganisationUnitId([$ou->getId()]);
+        $threadFilter->setLimit(isset($filters['limit']) ? $filters['limit'] : static::DEFAULT_LIMIT)
+            ->setOrganisationUnitId([$ou->getId()])
+            ->setPage($page);
         if (isset($filters['id'])) {
             $threadFilter->setId((array)$filters['id']);
         }

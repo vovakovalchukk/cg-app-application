@@ -13,7 +13,7 @@ define([
     ThreadList,
     ThreadDetails
 ) {
-    var Application = function(uri, organisationUnitId, assignableUsers, selectedThreadId)
+    var Application = function(uri, organisationUnitId, assignableUsers, selectedThreadId, singleUserMode)
     {
         var modulesClasses = [
             // Modules here
@@ -69,6 +69,11 @@ define([
         this.getSelectedThreadId = function()
         {
             return selectedThreadId;
+        };
+
+        this.getSingleUserMode = function()
+        {
+            return singleUserMode;
         };
 
         var init = function()
