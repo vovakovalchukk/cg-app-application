@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a4321dfa2ef06548e54b101a0723cec5",
+    "hash": "89e52ed2dbd06e8a32e33127a6d0bdee",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3004,7 +3004,7 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-6121-public-api-image-fixes",
+            "version": "dev-EPIC-CGIV-6001-public-api",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
@@ -3012,9 +3012,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6121-public-api-image-fixes-df5bac.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-6001-public-api-df5bac.zip",
                 "reference": "ec2357eedd0a30efc6f91e27d23d8493a35d32ca",
-                "shasum": "18129afcb46b7bdb181cae3568002200d71c005e"
+                "shasum": "91c299b33c5bb0e4ca1ed40c56bb1d4828dbbc60"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -6862,7 +6862,7 @@
         {
             "alias": "1.16.6",
             "alias_normalized": "1.16.6.0",
-            "version": "dev-CGIV-6121-public-api-image-fixes",
+            "version": "dev-EPIC-CGIV-6001-public-api",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
