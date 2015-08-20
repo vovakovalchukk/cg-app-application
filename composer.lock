@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "387500420b6641662b9db70e44c762ad",
+    "hash": "a4321dfa2ef06548e54b101a0723cec5",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3004,17 +3004,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-EPIC-CGIV-6001-public-api",
+            "version": "dev-CGIV-6121-public-api-image-fixes",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "c1010b1be2b6732ac5054ef8e9995a31598bf062"
+                "reference": "ec2357eedd0a30efc6f91e27d23d8493a35d32ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-6001-public-api-129791.zip",
-                "reference": "c1010b1be2b6732ac5054ef8e9995a31598bf062",
-                "shasum": "8a4c28368d6ccb7bde8c707ddeebc0a8f8ea92ee"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6121-public-api-image-fixes-df5bac.zip",
+                "reference": "ec2357eedd0a30efc6f91e27d23d8493a35d32ca",
+                "shasum": "18129afcb46b7bdb181cae3568002200d71c005e"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -3059,7 +3059,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-08-11 10:48:35"
+            "time": "2015-08-20 10:26:24"
         },
         {
             "name": "cilex/cilex",
@@ -6862,7 +6862,7 @@
         {
             "alias": "1.16.6",
             "alias_normalized": "1.16.6.0",
-            "version": "dev-EPIC-CGIV-6001-public-api",
+            "version": "dev-CGIV-6121-public-api-image-fixes",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],

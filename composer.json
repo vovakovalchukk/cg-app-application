@@ -79,7 +79,7 @@
         "channelgrabber/zf2-ssoclient": "~1.4.2",
         "channelgrabber/zf2-stdlib": "~1.2.0",
         "channelgrabber/zf2-usage": "~1.0.7",
-        "channelgrabber/zf2-v4-ui": "dev-EPIC-CGIV-6001-public-api as 1.16.6",
+        "channelgrabber/zf2-v4-ui": "dev-CGIV-6121-public-api-image-fixes as 1.16.6",
         "cilex/cilex": "~1.0.1",
         "composer/composer": "@dev",
         "guzzle/guzzle": "~3.7",
