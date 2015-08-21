@@ -28,8 +28,8 @@ class Standard implements FormatterInterface
     protected function getCallbackValueForField($fieldName, Order $order, OrderItem $orderItem = null)
     {
         if (is_array($fieldName)) {
-            list($fieldName, $fieldType) = $fieldName;
-            return $this->getCallbackValueForFieldType($fieldName, $fieldType, $order, $orderItem);
+            list($type, $name) = $fieldName;
+            return $this->getCallbackValueForFieldType($type, $name, $order, $orderItem);
         }
 
         $getter = 'get' . ucfirst($fieldName);
@@ -54,7 +54,7 @@ class Standard implements FormatterInterface
         };
     }
 
-    protected function getCallbackValueForFieldType($fieldName, $fieldType, Order $order, OrderItem $orderItem = null)
+    protected function getCallbackValueForFieldType($fieldType, $fieldName, Order $order, OrderItem $orderItem = null)
     {
         $getter = 'get' . ucfirst($fieldName);
         return function() use($getter, $fieldType, $order, $orderItem) {
