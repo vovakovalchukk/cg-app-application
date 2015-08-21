@@ -63,6 +63,7 @@ class OrdersItems implements MapperInterface
     {
         $formatters =  [
             'Order ID' => 'externalId',
+            'Order Item ID' => ['item', 'externalId'],
             'Sales Channel Name' => $this->salesChannelNameFormatter,
             'Purchase Date' => 'purchaseDate',
             'Payment Date' => 'paymentDate',
