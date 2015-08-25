@@ -98,6 +98,13 @@ use CG\Amazon\Thread\Additional\Storage\Db as AmzThreadAdditionalDb;
 use CG\Amazon\Thread\Additional\StorageInterface as AmzThreadAdditionalStorage;
 use CG\Amazon\Thread\Additional\Repository as AmzThreadAdditionalRepository;
 
+// Dataplug
+use CG\Dataplug\Carrier\Service as DataplugCarrierService;
+use CG\Channel\ShippingOptionsProviderInterface as ChannelShippingOptionsProviderInterface;
+use CG_Dataplug\Controller\AccountController as DataplugAccountController;
+use Settings\Module as SettingsModule;
+use Settings\Controller\ChannelController;
+
 return array(
     'di' => array(
         'instance' => array(
@@ -119,6 +126,7 @@ return array(
                 MessageStorage::class => MessageApi::class,
                 HeadlineStorage::class => HeadlineApi::class,
                 AmzThreadAdditionalStorage::class => AmzThreadAdditionalRepository::class,
+                ChannelShippingOptionsProviderInterface::class => DataplugCarrierService::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class
@@ -337,6 +345,41 @@ return array(
                     'repository' => AmzThreadAdditionalDb::class
                 ]
             ],
+            DataplugCarrierService::class => [
+                'parameters' => [
+                    'carriersConfig' => [
+                        [
+                            'channelName' => 'dhl',
+                            'displayName' => 'DHL',
+                            'fields' => [
+                                ['name' => 'Domestic Account no'],
+                                ['name' => 'International Account no'],
+                                ['name' => 'Site ID'],
+                                ['name' => 'Password', 'inputType' => 'password'],
+                            ],
+                            'services' => [] // TBC
+                        ],
+                        [
+                            'channelName' => 'dpd',
+                            'displayName' => 'DPD',
+                            'fields' => [
+                                ['name' => 'Account no'],
+                                ['name' => 'User ID'],
+                                ['name' => 'SLID'],
+                                ['name' => 'Authorisation Code'],
+                                ['name' => 'Start Sequence'],
+                                ['name' => 'End Sequence'],
+                            ],
+                            'services' => [] // TBC
+                        ],
+                    ]
+                ]
+            ],
+            DataplugAccountController::class => [
+                'parameters' => [
+                    'accountRoute' => implode('/', [SettingsModule::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS])
+                ]
+            ]
         ),
     ),
     'view_manager' => [

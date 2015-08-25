@@ -8,7 +8,7 @@
         <?php foreach ($channels as $name => $channel): ?>
             <li>
                 <a href="#">
-                    <?= $this->channelName($channel["channel"], $channel["region"]) ?>
+                    <?= $this->channelName($channel["channel"], $channel["region"], $name) ?>
                     <input type="hidden" value="<?= $channel["channel"] ?>" name="channel">
                     <input type="hidden" value="<?= $channel["region"] ?>" name="region">
                 </a>

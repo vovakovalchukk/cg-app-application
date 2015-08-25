@@ -24,6 +24,7 @@ return array (
     19 => 'CG_Usage',
     20 => 'CG_RoyalMail',
     21 => 'CG_Ekm',
+    22 => 'CG_Dataplug',
   ),
   'module_listener_options' => 
   array (
