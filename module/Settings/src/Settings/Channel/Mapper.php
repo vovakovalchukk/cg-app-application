@@ -56,6 +56,7 @@ class Mapper
         $dataTableArray['status'] = $entity->getStatus($now);
         $dataTableArray['organisationUnit'] = $this->getOrganisationUnitCompanyName($entity->getOrganisationUnitId());
         $dataTableArray['manageLinks'] = $this->getManageLinks($entity->getId(), $type, $urlPlugin);
+        $dataTableArray['channelImgUrl'] = $entity->getImageUrl();
 
         $dataTableArray['expiryDate'] = 'N/A';
         $expiryDate = $entity->getExpiryDateAsDateTime();

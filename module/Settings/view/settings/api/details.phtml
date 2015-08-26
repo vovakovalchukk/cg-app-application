@@ -1,0 +1,26 @@
+<?php $this->headLink()->appendStylesheet($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'css/common/subheader-hide.css'); ?>
+<div id="breadcrumbs" class="floatLeftClear">
+    <span class="heading-large"><?= $this->translate('API Credentials'); ?>
+</div>
+<div class="module clearfix">
+    <form>
+        <label>
+            <span class="inputbox-label">Key:</span>
+            <div class="order-inputbox-holder">
+                <div class='api-credentials-key'><?=$credentialsKey;?></div>
+            </div>
+        </label>
+        <label>
+            <span class="inputbox-label">Secret:</span>
+            <div class="order-inputbox-holder">
+                <div class='api-credentials-secret'><?=$credentialsSecret;?></div>
+            </div>
+        </label>
+        <label>
+            <span class="inputbox-label">Documentation:</span>
+            <div class="order-inputbox-holder">
+                <div class='api-documentation'><a href="<?=$this->remoteUrl('/api', 'developer');?>" target="_blank"><?=$this->remoteUrl('/api', 'developer');?></a></div>
+            </div>
+        </label>
+    </form>
+</div>
