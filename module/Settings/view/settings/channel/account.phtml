@@ -65,7 +65,7 @@ require(
 );
 <?php $this->inlineScript()->captureEnd(); ?>
 <div id="breadcrumbs" class="floatLeftClear">
-    <span class="heading-large"><?= $account['displayName'] ?><span class="logo-large <?= $account['channel'] ?>"></span></span>
+    <span class="heading-large"><?= $account['displayName'] ?><?= $this->channel ;?></span>
 </div>
 <div class="module clearfix">
     <form class="account-status">

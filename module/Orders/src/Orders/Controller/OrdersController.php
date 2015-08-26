@@ -1,6 +1,7 @@
 <?php
 namespace Orders\Controller;
 
+use CG\Account\Client\Service as AccountService;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\Filters\Service as UIFiltersService;
 use CG_UI\View\Prototyper\JsonModelFactory;
@@ -41,6 +42,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected $storedFiltersService;
     protected $usageService;
     protected $shippingConversionService;
+    protected $accountService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
@@ -53,9 +55,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         UIFiltersService $uiFiltersService,
         StoredFiltersService $storedFiltersService,
         UsageService $usageService,
-        ShippingConversionService $shippingConversionService
-    )
-    {
+        ShippingConversionService $shippingConversionService,
+        AccountService $accountService
+    ) {
         $this->setJsonModelFactory($jsonModelFactory)
             ->setViewModelFactory($viewModelFactory)
             ->setOrderService($orderService)
@@ -66,7 +68,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             ->setUIFiltersService($uiFiltersService)
             ->setStoredFiltersService($storedFiltersService)
             ->setUsageService($usageService)
-            ->setShippingConversionService($shippingConversionService);
+            ->setShippingConversionService($shippingConversionService)
+            ->setAccountService($accountService);
     }
 
     public function indexAction()
@@ -151,8 +154,10 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             $this->getViewModelFactory()->newInstance()->setTemplate('orders/orders/bulk-actions/order'),
             'afterActions'
         );
+        $channelLogoTemplate = $this->getChannelLogo($order);
         $statusTemplate = $this->getStatus($order->getStatus());
 
+        $view->addChild($channelLogoTemplate, 'channel');
         $view->addChild($statusTemplate, 'status');
         $view->addChild($bulkActions, 'bulkActions');
         $view->addChild($this->getTimelineBoxes($order), 'timelineBoxes');
@@ -165,6 +170,20 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->addChild($this->getCarrierSelect(), 'carrierSelect');
         $view->setVariable('editable', $this->getOrderService()->isOrderEditable($order));
         $view->setVariable('rootOu', $this->getOrderService()->getRootOrganisationUnitForOrder($order));
+        return $view;
+    }
+
+    protected function getChannelLogo(OrderEntity $order)
+    {
+        $account = $this->accountService->fetch($order->getAccountId());
+        $externalData = $account->getExternalData();
+        $view = $this->getViewModelFactory()->newInstance();
+        $view->setTemplate("elements/channel-large.mustache");
+        $view->setVariable('channel', $order->getChannel());
+        if (isset($externalData['imageUrl']) && !empty($externalData['imageUrl'])) {
+            $view->setVariable('channelImgUrl', $externalData['imageUrl']);
+        }
+
         return $view;
     }
 
@@ -565,5 +584,11 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected function getShippingConversionService()
     {
         return $this->shippingConversionService;
+    }
+
+    public function setAccountService(AccountService $accountService)
+    {
+        $this->accountService = $accountService;
+        return $this;
     }
 }

@@ -98,6 +98,10 @@ use CG\Amazon\Thread\Additional\Storage\Db as AmzThreadAdditionalDb;
 use CG\Amazon\Thread\Additional\StorageInterface as AmzThreadAdditionalStorage;
 use CG\Amazon\Thread\Additional\Repository as AmzThreadAdditionalRepository;
 
+// ApiCredentials
+use CG\ApiCredentials\StorageInterface as ApiCredentialsStorage;
+use CG\ApiCredentials\Storage\Api as ApiCredentialsApi;
+
 // Dataplug
 use CG\Dataplug\Carrier\Service as DataplugCarrierService;
 use CG\Channel\ShippingOptionsProviderInterface as ChannelShippingOptionsProviderInterface;
@@ -126,6 +130,7 @@ return array(
                 MessageStorage::class => MessageApi::class,
                 HeadlineStorage::class => HeadlineApi::class,
                 AmzThreadAdditionalStorage::class => AmzThreadAdditionalRepository::class,
+                ApiCredentialsStorage::class => ApiCredentialsApi::class,
                 ChannelShippingOptionsProviderInterface::class => DataplugCarrierService::class,
             ),
             'aliases' => [
@@ -345,6 +350,11 @@ return array(
                     'repository' => AmzThreadAdditionalDb::class
                 ]
             ],
+            ApiCredentialsApi::class => [
+                'parameters' => [
+                    'client' => 'directory_guzzle'
+                ]
+            ],
             DataplugCarrierService::class => [
                 'parameters' => [
                     'carriersConfig' => [
@@ -379,7 +389,7 @@ return array(
                 'parameters' => [
                     'accountRoute' => implode('/', [SettingsModule::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS])
                 ]
-            ]
+            ],
         ),
     ),
     'view_manager' => [
