@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "29c4435278831e86dcef75475a1bd7f8",
+    "hash": "229b654b891ed669948edf679d1428c8",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -302,17 +302,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-5993-dataplug-auth-and-auth",
+            "version": "dev-EPIC-CGIV-5992-dataplug",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "819824379c19edc2a14f52e225dc3418e53afa04"
+                "reference": "de11763085b5876807601469c707107246624ff3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-5993-dataplug-auth-and-auth-7fb0c9.zip",
-                "reference": "819824379c19edc2a14f52e225dc3418e53afa04",
-                "shasum": "316ec54cf5881e92ce87422d0b03e7ee4d19e7b3"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-5992-dataplug-ad4869.zip",
+                "reference": "de11763085b5876807601469c707107246624ff3",
+                "shasum": "4019691782e71cbf3eb3ff82182102fc24d043df"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -369,7 +369,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-08-27 10:04:23"
+            "time": "2015-08-27 12:45:47"
         },
         {
             "name": "channelgrabber/cilex",
@@ -476,22 +476,23 @@
         },
         {
             "name": "channelgrabber/dataplug",
-            "version": "dev-CGIV-5993-dataplug-auth-and-auth",
+            "version": "dev-EPIC-CGIV-5992-dataplug",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "4465af81ab7947112d4b62106dedd004f74605e0"
+                "reference": "d627073a9b347235910004c156861eb112cfea58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-5993-dataplug-auth-and-auth-d52bbc.zip",
-                "reference": "4465af81ab7947112d4b62106dedd004f74605e0",
-                "shasum": "78f4076eb87905956d2e9fbf69b67158ea45a6cf"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-EPIC-CGIV-5992-dataplug-716314.zip",
+                "reference": "d627073a9b347235910004c156861eb112cfea58",
+                "shasum": "ea936024b1175c1cc73ba0df3e4eab390a02de10"
             },
             "require": {
-                "channelgrabber/channel": "dev-CGIV-5993-dataplug-auth-and-auth as 1.17.1",
+                "channelgrabber/channel": "dev-EPIC-CGIV-5992-dataplug as 1.17.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.1.0",
+                "channelgrabber/product": "dev-EPIC-CGIV-5992-dataplug as 1.5.0",
                 "channelgrabber/stats": "^1.0.0",
                 "channelgrabber/stdlib": "^2.12.6",
                 "composer/composer": "@dev",
@@ -516,7 +517,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2015-08-26 10:30:01"
+            "time": "2015-08-27 15:27:24"
         },
         {
             "name": "channelgrabber/db",
@@ -1139,17 +1140,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.19.18",
+            "version": "1.19.19",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "65a78062a03a588ee47cae9e9d78f6fdaa2ce7ea"
+                "reference": "47548ebd181b803900016028f990a8c27c2e1715"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.19.18-306e05.zip",
-                "reference": "65a78062a03a588ee47cae9e9d78f6fdaa2ce7ea",
-                "shasum": "6a1794a61386eab84b8b6660c5b739c65d026842"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.19.19-13754f.zip",
+                "reference": "47548ebd181b803900016028f990a8c27c2e1715",
+                "shasum": "caa7c7223b86fd31c635754c9a05a53251087f23"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1208,7 +1209,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-07-30 10:16:32"
+            "time": "2015-08-26 12:54:58"
         },
         {
             "name": "channelgrabber/permission",
@@ -2442,25 +2443,25 @@
         },
         {
             "name": "channelgrabber/zf2-dataplug",
-            "version": "dev-CGIV-5993-dataplug-auth-and-auth",
+            "version": "dev-EPIC-CGIV-5992-dataplug",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/dataplug-module.git",
-                "reference": "6d8abfcc9ce23c010526c5b0e20ba9dd22c3164b"
+                "reference": "0a74497f54ec9a97cf8e6ab308acaa3f7697af6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-dataplug-dev-CGIV-5993-dataplug-auth-and-auth-d735a9.zip",
-                "reference": "6d8abfcc9ce23c010526c5b0e20ba9dd22c3164b",
-                "shasum": "f9833cef2555386a6b294d92889d3c1980890563"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-dataplug-dev-EPIC-CGIV-5992-dataplug-77eba3.zip",
+                "reference": "0a74497f54ec9a97cf8e6ab308acaa3f7697af6a",
+                "shasum": "b5c69286e824dfb19e0f0f7029c8d43157507523"
             },
             "require": {
-                "channelgrabber/channel": "dev-CGIV-5993-dataplug-auth-and-auth as 1.17.1",
+                "channelgrabber/channel": "dev-EPIC-CGIV-5992-dataplug as 1.17.1",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/dataplug": "dev-CGIV-5993-dataplug-auth-and-auth as 1.0.0",
+                "channelgrabber/dataplug": "dev-EPIC-CGIV-5992-dataplug as 1.0.0",
                 "channelgrabber/product": "dev-EPIC-CGIV-5992-dataplug as 1.5.0",
                 "channelgrabber/zf2-installer": ">=1.0.3,<2.0.0",
-                "channelgrabber/zf2-v4-ui": "dev-CGIV-5993-dataplug-auth-and-auth as 1.16.7",
+                "channelgrabber/zf2-v4-ui": "dev-EPIC-CGIV-5992-dataplug as 1.16.7",
                 "composer/composer": "@dev",
                 "php-jsonpatch/php-jsonpatch": "dev-master",
                 "php-jsonpointer/php-jsonpointer": "dev-master",
@@ -2484,7 +2485,7 @@
                 ]
             },
             "description": "Dataplug module",
-            "time": "2015-08-27 08:51:30"
+            "time": "2015-08-27 15:35:04"
         },
         {
             "name": "channelgrabber/zf2-ebay",
@@ -3097,20 +3098,20 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-5993-dataplug-auth-and-auth",
+            "version": "dev-EPIC-CGIV-5992-dataplug",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e6ead232c87f5bd8005b52340aae9c30f5a40d4b"
+                "reference": "aecef00dccf880d5dcda0c16b048605bbfc63597"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5993-dataplug-auth-and-auth-6b59f4.zip",
-                "reference": "e6ead232c87f5bd8005b52340aae9c30f5a40d4b",
-                "shasum": "5262d970b8832e39f6d81a1d695deeaeeda2d8e7"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-5992-dataplug-47dd75.zip",
+                "reference": "aecef00dccf880d5dcda0c16b048605bbfc63597",
+                "shasum": "08c5383f07784368b894ccac01dc74b768aa2e6d"
             },
             "require": {
-                "channelgrabber/channel": "dev-CGIV-5993-dataplug-auth-and-auth as 1.17.1",
+                "channelgrabber/channel": "^1.17.1",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.0.0",
                 "channelgrabber/etag": ">=1.4.2",
@@ -3153,7 +3154,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-08-27 12:36:44"
+            "time": "2015-08-27 15:32:02"
         },
         {
             "name": "cilex/cilex",
@@ -7099,13 +7100,13 @@
         {
             "alias": "1.17.2",
             "alias_normalized": "1.17.2.0",
-            "version": "dev-CGIV-5993-dataplug-auth-and-auth",
+            "version": "dev-EPIC-CGIV-5992-dataplug",
             "package": "channelgrabber/channel"
         },
         {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
-            "version": "dev-CGIV-5993-dataplug-auth-and-auth",
+            "version": "dev-EPIC-CGIV-5992-dataplug",
             "package": "channelgrabber/dataplug"
         },
         {
@@ -7117,13 +7118,13 @@
         {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
-            "version": "dev-CGIV-5993-dataplug-auth-and-auth",
+            "version": "dev-EPIC-CGIV-5992-dataplug",
             "package": "channelgrabber/zf2-dataplug"
         },
         {
             "alias": "1.16.8",
             "alias_normalized": "1.16.8.0",
-            "version": "dev-CGIV-5993-dataplug-auth-and-auth",
+            "version": "dev-EPIC-CGIV-5992-dataplug",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
