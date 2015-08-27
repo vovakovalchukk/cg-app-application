@@ -31,9 +31,9 @@ define([
         return this;
     };
 
-    EventHandler.prototype.triggerInitialised = function(selectedThreadId)
+    EventHandler.prototype.triggerInitialised = function(selectedThreadId, selectedFilter, selectedFilterValue)
     {
-        $(document).trigger(Events.INITIALISED, [selectedThreadId]);
+        $(document).trigger(Events.INITIALISED, [selectedThreadId, selectedFilter, selectedFilterValue]);
     };
 
     return EventHandler;
