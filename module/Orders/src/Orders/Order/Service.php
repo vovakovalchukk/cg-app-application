@@ -154,8 +154,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         }
         $orders = $this->getOrdersArrayWithSanitisedStatus($orders);
         $orders = $this->getOrdersArrayWithTruncatedShipping($orders);
-        $orders = $this->getOrdersArrayWithSanitisedOrderItemNames($orders);
-
+        
         $filterId = null;
         if ($orderCollection instanceof FilteredCollection) {
             $filterId = $orderCollection->getFilterId();
@@ -231,16 +230,6 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
                 continue;
             }
             $orders[$index]['shippingMethod'] = substr($order['shippingMethod'], 0, static::MAX_SHIPPING_METHOD_LENGTH) . $ellipsis;
-        }
-        return $orders;
-    }
-
-    public function getOrdersArrayWithSanitisedOrderItemNames(array $orders)
-    {
-        foreach ($orders as &$order) {
-            foreach ($order['items'] as &$item) {
-                $item['itemName'] = explode(PHP_EOL, htmlentities($item['itemName'], ENT_QUOTES | ENT_HTML401));
-            }
         }
         return $orders;
     }

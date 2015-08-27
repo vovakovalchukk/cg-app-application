@@ -172,11 +172,15 @@ class Mapper extends UIMapper
     {
         $value = htmlentities($value, ENT_QUOTES | ENT_HTML401);
 
-        if (empty($entity->getUrl())) {
-            return '<div class="product-table-item">' . nl2br($value) . '</div>';
+        $values = explode(PHP_EOL, $value);
+        for ($i = 1; $i < count($values); $i++) {
+            $values[$i] = sprintf('<i>%s</i>', $values[$i]);
         }
 
-        $values = explode(PHP_EOL, $value);
+        if (empty($entity->getUrl())) {
+            return '<div class="product-table-item">' . nl2br(implode(PHP_EOL, $values)) . '</div>';
+        }
+
         return '<a class="product-table-item-link" href="' . $entity->getUrl() . '" target="_blank">' . array_shift($values) . '</a>'
             . '<div class="product-table-item">' . nl2br(implode(PHP_EOL, $values)) . '</div>';
     }
