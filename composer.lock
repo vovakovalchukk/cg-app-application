@@ -3101,13 +3101,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "5bba86d8077e3a9d291b4e4b39d4120253729fb9"
+                "reference": "e6ead232c87f5bd8005b52340aae9c30f5a40d4b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5993-dataplug-auth-and-auth-818aa4.zip",
-                "reference": "5bba86d8077e3a9d291b4e4b39d4120253729fb9",
-                "shasum": "fe0ed42ecae6032b18cb67731fddab0d8bdabe8c"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5993-dataplug-auth-and-auth-6b59f4.zip",
+                "reference": "e6ead232c87f5bd8005b52340aae9c30f5a40d4b",
+                "shasum": "5262d970b8832e39f6d81a1d695deeaeeda2d8e7"
             },
             "require": {
                 "channelgrabber/channel": "dev-CGIV-5993-dataplug-auth-and-auth as 1.17.1",
@@ -3153,7 +3153,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-08-27 10:41:28"
+            "time": "2015-08-27 12:36:44"
         },
         {
             "name": "cilex/cilex",

@@ -394,6 +394,90 @@ return array(
                             ],
                             'services' => [] // TBC
                         ],
+                        [
+                            'channelName' => 'myhermes',
+                            'displayName' => 'myHermes',
+                            'fields' => [
+                                ['name' => 'Client ID'],
+                                ['name' => 'Username'],
+                                ['name' => 'Password', 'inputType' => 'password'],
+                            ],
+                            'services' => [] // TBC
+                        ],
+                        [
+                            'channelName' => 'parcelforce',
+                            'displayName' => 'Parcelforce',
+                            'fields' => [
+                                ['name' => 'Account no'],
+                                ['name' => 'Contract no'],
+                                ['name' => 'User ID'],
+                                ['name' => 'Password', 'inputType' => 'password'],
+                            ],
+                            'services' => [] // TBC
+                        ],
+                        [
+                            'channelName' => 'royal-mail-oba',
+                            'displayName' => 'Royal Mail OBA',
+                            'fields' => [
+                                ['name' => 'Account no'],
+                                ['name' => 'PPI Account no'],
+                                ['name' => 'Wire no'],
+                                ['name' => 'Contract no'],
+                                ['name' => 'Hub no'],
+                                ['name' => 'Posting Location no'],
+                            ],
+                            'services' => [] // TBC
+                        ],
+                        [
+                            'channelName' => 'tnt',
+                            'displayName' => 'TNT',
+                            'fields' => [
+                                ['name' => 'ExpressConnect Account no'],
+                                ['name' => 'ExpressConnect Customer ID'],
+                                ['name' => 'ExpressConnect Password', 'inputType' => 'password'],
+                                ['name' => 'ExpressLabel User'],
+                                ['name' => 'ExpressLabel Password', 'inputType' => 'password'],
+                            ],
+                            'services' => [] // TBC
+                        ],
+                        [
+                            'channelName' => 'uk-mail',
+                            'displayName' => 'UK Mail',
+                            'fields' => [
+                                ['name' => 'Account no (Item Rates)'],
+                                ['name' => 'Account no (KG Rates)'],
+                                ['name' => 'User ID'],
+                            ],
+                            'services' => [] // TBC
+                        ],
+                        [
+                            'channelName' => 'ups',
+                            'displayName' => 'UPS',
+                            'fields' => [
+                                ['name' => 'Account no'],
+                                ['name' => 'Book no'],
+                                ['name' => 'Username'],
+                                ['name' => 'Prefix'],
+                                ['name' => 'Start Sequence'],
+                                ['name' => 'End Sequence'],
+                            ],
+                            'services' => [] // TBC
+                        ],
+                        [
+                            'channelName' => 'yodel',
+                            'displayName' => 'Yodel',
+                            'fields' => [
+                                ['name' => 'Account no'],
+                                ['name' => 'Meter no'],
+                                ['name' => 'Contract no'],
+                                ['name' => 'Schedule no'],
+                                ['name' => 'Username'],
+                                ['name' => 'Licence Plate Prefix'],
+                                ['name' => 'Start Sequence'],
+                                ['name' => 'End Sequence'],
+                            ],
+                            'services' => [] // TBC
+                        ],
                     ]
                 ]
             ],
