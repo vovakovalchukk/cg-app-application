@@ -1062,7 +1062,7 @@ return [
             ],
             'OrdersInvoiceNumberColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'InvoiceNumber'],
+                    'variables' => ['value' => 'Inv'],
                     'template' => 'value.phtml',
                 ]
             ],

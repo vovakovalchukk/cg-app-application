@@ -6,7 +6,7 @@
         </div>
         <div class="productinfo">
             <span class="subtitle">
-                {{items.0.itemQuantity}} x {{items.0.itemName}}
+                {{items.0.itemQuantity}} x {{#items.0.itemSku}}({{items.0.itemSku}}) - {{/items.0.itemSku}}{{items.0.itemName}}
             </span>
         </div>
         {{#items.1}}
