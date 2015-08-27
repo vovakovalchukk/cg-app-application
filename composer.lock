@@ -2446,19 +2446,24 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/dataplug-module.git",
-                "reference": "6110bdae941ccaeb1cb63712f616fc80ac11210a"
+                "reference": "6d8abfcc9ce23c010526c5b0e20ba9dd22c3164b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-dataplug-dev-CGIV-5993-dataplug-auth-and-auth-3978ae.zip",
-                "reference": "6110bdae941ccaeb1cb63712f616fc80ac11210a",
-                "shasum": "fbd2abc85cb11c150964b88ce82e72eccc6a3d84"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-dataplug-dev-CGIV-5993-dataplug-auth-and-auth-d735a9.zip",
+                "reference": "6d8abfcc9ce23c010526c5b0e20ba9dd22c3164b",
+                "shasum": "f9833cef2555386a6b294d92889d3c1980890563"
             },
             "require": {
                 "channelgrabber/channel": "dev-CGIV-5993-dataplug-auth-and-auth as 1.17.1",
+                "channelgrabber/constants": "dev-master",
                 "channelgrabber/dataplug": "dev-CGIV-5993-dataplug-auth-and-auth as 1.0.0",
+                "channelgrabber/product": "dev-EPIC-CGIV-5992-dataplug as 1.5.0",
                 "channelgrabber/zf2-installer": ">=1.0.3,<2.0.0",
                 "channelgrabber/zf2-v4-ui": "dev-CGIV-5993-dataplug-auth-and-auth as 1.16.7",
+                "composer/composer": "@dev",
+                "php-jsonpatch/php-jsonpatch": "dev-master",
+                "php-jsonpointer/php-jsonpointer": "dev-master",
                 "zendframework/zend-config": "2.*",
                 "zendframework/zend-form": "2.*",
                 "zendframework/zend-loader": "2.*",
@@ -2479,7 +2484,7 @@
                 ]
             },
             "description": "Dataplug module",
-            "time": "2015-08-26 10:03:14"
+            "time": "2015-08-27 08:51:30"
         },
         {
             "name": "channelgrabber/zf2-ebay",
@@ -3096,13 +3101,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "31806aada48393de6193047a3f8f2a2e5d3c5fa7"
+                "reference": "fd66a164ca009b48df0f40d88ecb4b0d92be68f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5993-dataplug-auth-and-auth-fe9cb0.zip",
-                "reference": "31806aada48393de6193047a3f8f2a2e5d3c5fa7",
-                "shasum": "4be24f5287608b05109f4c7af2a75dec736a8412"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-5993-dataplug-auth-and-auth-02e8a3.zip",
+                "reference": "fd66a164ca009b48df0f40d88ecb4b0d92be68f8",
+                "shasum": "f2c8b74617d2b88cf38438283d621b0c1e6e47f9"
             },
             "require": {
                 "channelgrabber/channel": "dev-CGIV-5993-dataplug-auth-and-auth as 1.17.1",
@@ -3148,7 +3153,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-08-26 14:39:46"
+            "time": "2015-08-27 09:30:00"
         },
         {
             "name": "cilex/cilex",
