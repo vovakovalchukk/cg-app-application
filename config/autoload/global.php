@@ -382,6 +382,18 @@ return array(
                             ],
                             'services' => [] // TBC
                         ],
+                        [
+                            'channelName' => 'fedex',
+                            'displayName' => 'FedEx',
+                            'fields' => [
+                                ['name' => 'Account no'],
+                                ['name' => 'Key'],
+                                ['name' => 'Password', 'inputType' => 'password'],
+                                ['name' => 'Trans ID'],
+                                ['name' => 'Meter No'],
+                            ],
+                            'services' => [] // TBC
+                        ],
                     ]
                 ]
             ],
