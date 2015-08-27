@@ -306,13 +306,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "44803492f6820545fdfb58e27dbfe246612363bd"
+                "reference": "819824379c19edc2a14f52e225dc3418e53afa04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-5993-dataplug-auth-and-auth-792753.zip",
-                "reference": "44803492f6820545fdfb58e27dbfe246612363bd",
-                "shasum": "3650179cb5f0caa8ff2e7c3c5bc1d31aaec51e6f"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-5993-dataplug-auth-and-auth-7fb0c9.zip",
+                "reference": "819824379c19edc2a14f52e225dc3418e53afa04",
+                "shasum": "316ec54cf5881e92ce87422d0b03e7ee4d19e7b3"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -369,7 +369,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-08-26 14:39:01"
+            "time": "2015-08-27 10:04:23"
         },
         {
             "name": "channelgrabber/cilex",
