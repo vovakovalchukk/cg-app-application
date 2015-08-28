@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2750031867615b13bb35dcaaddee0671",
+    "hash": "73d85282c823f9bb8b01087360dff228",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1095,17 +1095,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-6143-orders-externalUsername",
+            "version": "1.19.20",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "4782ce1644349ed9083fdfbd3d5cdc6d13758050"
+                "reference": "e33b78cfbd522b52c2dbb5f0c295400a48d11988"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6143-orders-externalUsername-dd5eaa.zip",
-                "reference": "4782ce1644349ed9083fdfbd3d5cdc6d13758050",
-                "shasum": "6d4a2697666b32cdc1aa613096e72ac1d5869c25"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.19.20-e64f0f.zip",
+                "reference": "e33b78cfbd522b52c2dbb5f0c295400a48d11988",
+                "shasum": "efc5a75b8bf12e09c77effd135239575fc99d982"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1164,7 +1164,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-08-27 13:33:23"
+            "time": "2015-08-28 12:27:30"
         },
         {
             "name": "channelgrabber/permission",
@@ -7004,18 +7004,10 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.19.20",
-            "alias_normalized": "1.19.20.0",
-            "version": "dev-CGIV-6143-orders-externalUsername",
-            "package": "channelgrabber/order"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
