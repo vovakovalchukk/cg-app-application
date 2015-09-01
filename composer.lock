@@ -920,17 +920,17 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.6.11",
+            "version": "1.6.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "ce0c933d6254c9197fc4de0791ad4f684fd0214b"
+                "reference": "02245b47eb988edea58608d0680c31c5422ca100"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.6.11-5ba6c8.zip",
-                "reference": "ce0c933d6254c9197fc4de0791ad4f684fd0214b",
-                "shasum": "e08801eb6d8d2a6f829d390c4d76838e9ae4dc69"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.6.12-b30f22.zip",
+                "reference": "02245b47eb988edea58608d0680c31c5422ca100",
+                "shasum": "5abc1d50ac16495cdb9a0a0380ffe13f4defdbca"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -965,7 +965,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2015-07-28 14:06:36"
+            "time": "2015-09-01 11:27:08"
         },
         {
             "name": "channelgrabber/locale",
