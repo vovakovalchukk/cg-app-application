@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a863e81922b9804bd5fb32f334df4105",
+    "hash": "057c471bd47ccd38d5abff92866a784d",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2882,17 +2882,17 @@
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
-            "version": "1.4.2.1",
+            "version": "1.4.2.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-sso-client.git",
-                "reference": "e6312fbf21cf1c0bd2a146416877c77cbd30e399"
+                "reference": "660f164ec31daf7f158dc9bf89144dee21f01413"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ssoclient-1.4.2.1-61ad28.zip",
-                "reference": "e6312fbf21cf1c0bd2a146416877c77cbd30e399",
-                "shasum": "600fdacd4b52d52a44fd18ed405adc39decb782a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ssoclient-1.4.2.2-c0e7df.zip",
+                "reference": "660f164ec31daf7f158dc9bf89144dee21f01413",
+                "shasum": "eebb4009192b4c28be0a6a4af3fcae74e3b6cfc1"
             },
             "require": {
                 "channelgrabber/http": ">=1.2.0,<2.0.0",
@@ -2920,7 +2920,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-09-24 14:04:40"
+            "time": "2015-09-02 16:22:38"
         },
         {
             "name": "channelgrabber/zf2-stdlib",
