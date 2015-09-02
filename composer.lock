@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f30fce4587876f517d139d87cd2c248f",
+    "hash": "016e4262fa463adab034804e64cc32e9",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2276,17 +2276,17 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "dev-CGIV-6138-messages-amazon-forward-email",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "24bd460c4c4b324e93b3051f67fe14e4b1844cf9"
+                "reference": "38ba084a9371605ad84d7942afde9f2c34a5e1fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-CGIV-6138-messages-amazon-forward-email-53ae83.zip",
-                "reference": "24bd460c4c4b324e93b3051f67fe14e4b1844cf9",
-                "shasum": "4e93a7fe6dd335609b5c4269713503c5c772d683"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.6-19dc36.zip",
+                "reference": "38ba084a9371605ad84d7942afde9f2c34a5e1fc",
+                "shasum": "1692da908846195d76cbcb2fd19ea335449154aa"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
@@ -2318,7 +2318,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2015-09-01 10:14:05"
+            "time": "2015-09-02 07:25:53"
         },
         {
             "name": "channelgrabber/zf2-api",
@@ -7004,18 +7004,10 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.6",
-            "alias_normalized": "1.0.6.0",
-            "version": "dev-CGIV-6138-messages-amazon-forward-email",
-            "package": "channelgrabber/zf2-amazon"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-amazon": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
