@@ -199,6 +199,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             $accountEntity = $accounts->getById($order['accountId']);
             if ($accountEntity) {
                 $order['accountName'] = $accountEntity->getDisplayName();
+                $order['channelImgUrl'] = $accountEntity->getImageUrl();
             }
 
             $order['accountLink'] = $event->getRouter()->assemble(

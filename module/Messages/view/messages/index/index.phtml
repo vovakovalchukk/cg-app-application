@@ -13,7 +13,16 @@ $(document).ready(function() {
         MessagesApp
     ) {
         var assignableUsers = <?=json_encode($assignableUsersArray);?>;
-        new MessagesApp(<?=$this->jsString($uri);?>, <?=$rootOuId;?>, assignableUsers, <?=($threadId ? $this->jsString($threadId) : 'null');?>, <?= (count($assignableUsersArray) == 1) ? 1 : 0; ?>);
+        var singleUserMode = <?= (count($assignableUsersArray) == 1) ? 1 : 0; ?>;
+        new MessagesApp(
+            <?=$this->jsString($uri);?>,
+            <?=$rootOuId;?>,
+            assignableUsers,
+            singleUserMode,
+            <?=($threadId ? $this->jsString($threadId) : 'null');?>,
+            <?=($filter ? $this->jsString($filter) : 'null');?>,
+            <?=($filterValue ? $this->jsString($filterValue) : 'null');?>
+        );
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>

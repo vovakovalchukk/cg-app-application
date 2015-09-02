@@ -63,6 +63,7 @@ class OrdersItems implements MapperInterface
     {
         $formatters =  [
             'Order ID' => 'externalId',
+            'Order Item ID' => ['item', 'externalId'],
             'Sales Channel Name' => $this->salesChannelNameFormatter,
             'Purchase Date' => 'purchaseDate',
             'Payment Date' => 'paymentDate',
@@ -111,7 +112,8 @@ class OrdersItems implements MapperInterface
             'Gift Wrap Type' => $this->giftWrapTypeFormatter,
             'Gift Wrap Message' => $this->giftWrapMessageFormatter,
             'Gift Wrap Price' => $this->giftWrapPriceFormatter,
-            'Invoice Number' => 'invoiceNumber'
+            'Invoice Number' => 'invoiceNumber',
+            'Billing Username' => 'externalUsername', 
         ];
 
         $rootOrganisationUnitId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();

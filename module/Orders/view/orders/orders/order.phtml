@@ -47,7 +47,7 @@ require([
 
 <div class="bulk-actions-section clearfix section-seperator">
     <div class="orderid-logo-holder">
-        <span class="logo-large <?=$order->getChannel()?>"></span>
+        <?= $this->channel ;?>
         <span class="orderid"><strong><?= $this->translate('Order ID'); ?>: </strong><?= $order->getExternalId(); ?></span>
         <?= $this->status; ?>
     </div>

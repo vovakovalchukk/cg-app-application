@@ -1,1 +1,2 @@
-<a href="mailto:{{billingEmailAddress}}" class="capital">{{billingAddressFullName}}</a>
+<a href='/messages?f=eu&fv={{#externalUsername}}{{.}}{{/externalUsername}}{{^externalUsername}}{{billingEmailAddress}}{{/externalUsername}}'>{{billingAddressFullName}}
+{{#externalUsername}}<br />({{.}}){{/externalUsername}}</a>

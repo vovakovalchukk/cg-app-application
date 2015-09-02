@@ -45,7 +45,8 @@ class Service
     protected $filtersThatIncludeResolved = [
         'status' => 'status',
         'searchTerm' => 'searchTerm',
-        'id' => 'id'
+        'id' => 'id',
+        'externalUsername' => 'externalUsername'
     ];
     protected $statusSortOrder = [
         10 => ThreadStatus::NEW_THREAD,
@@ -82,6 +83,9 @@ class Service
             ->setPage($page);
         if (isset($filters['id'])) {
             $threadFilter->setId((array)$filters['id']);
+        }
+        if (isset($filters['externalUsername'])) {
+            $threadFilter->setExternalUsername((array)$filters['externalUsername']);
         }
         if (isset($filters['status'])) {
             $threadFilter->setStatus((array)$filters['status']);

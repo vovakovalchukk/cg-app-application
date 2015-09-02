@@ -170,10 +170,19 @@ class Mapper extends UIMapper
 
     protected function formatItemLink(Item $entity, $value)
     {
-        if (empty($entity->getUrl())) {
-            return $value;
+        $value = htmlentities($value, ENT_QUOTES | ENT_HTML401);
+
+        $values = explode(PHP_EOL, $value);
+        for ($i = 1; $i < count($values); $i++) {
+            $values[$i] = sprintf('<i>%s</i>', $values[$i]);
         }
-        return '<a class="product-table-item-link" href="' . $entity->getUrl() . '" target="_blank">' . $value . '</a>';
+
+        if (empty($entity->getUrl())) {
+            return '<div class="product-table-item">' . nl2br(implode(PHP_EOL, $values)) . '</div>';
+        }
+
+        return '<a class="product-table-item-link" href="' . $entity->getUrl() . '" target="_blank">' . array_shift($values) . '</a>'
+            . '<div class="product-table-item">' . nl2br(implode(PHP_EOL, $values)) . '</div>';
     }
 
     protected function formatCurrency($entity, $value)
