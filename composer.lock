@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3b1da5b400d64e3c0511ec28f5103dc0",
+    "hash": "b4cf5a2982a11fa1d48cc93e4babf645",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -302,17 +302,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-6113-ExpireTokenOnDisable",
+            "version": "1.17.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "05cd0e9e4b9b68d0a09ab37c0809f973c644e960"
+                "reference": "aa50a85036af5dcd183a9c76b39e4a679514f02b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6113-ExpireTokenOnDisable-b294f9.zip",
-                "reference": "05cd0e9e4b9b68d0a09ab37c0809f973c644e960",
-                "shasum": "50408c3e3dc5c2c6e30d6a0fa137677057256518"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.17.3-a7d1e7.zip",
+                "reference": "aa50a85036af5dcd183a9c76b39e4a679514f02b",
+                "shasum": "fb85180f6bef21ee64e7289e32e6be9d7cec7fd3"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -369,7 +369,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-09-02 14:46:38"
+            "time": "2015-09-02 15:45:23"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2882,17 +2882,17 @@
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
-            "version": "1.4.2.1",
+            "version": "1.4.2.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-sso-client.git",
-                "reference": "e6312fbf21cf1c0bd2a146416877c77cbd30e399"
+                "reference": "660f164ec31daf7f158dc9bf89144dee21f01413"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ssoclient-1.4.2.1-61ad28.zip",
-                "reference": "e6312fbf21cf1c0bd2a146416877c77cbd30e399",
-                "shasum": "163c58ba013f13c8dd3538f46c438ff98e0c3241"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-ssoclient-1.4.2.2-c0e7df.zip",
+                "reference": "660f164ec31daf7f158dc9bf89144dee21f01413",
+                "shasum": "eebb4009192b4c28be0a6a4af3fcae74e3b6cfc1"
             },
             "require": {
                 "channelgrabber/http": ">=1.2.0,<2.0.0",
@@ -2920,7 +2920,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2014-09-24 14:04:40"
+            "time": "2015-09-02 16:22:38"
         },
         {
             "name": "channelgrabber/zf2-stdlib",
@@ -7004,17 +7004,9 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.17.4",
-            "alias_normalized": "1.17.4.0",
-            "version": "dev-CGIV-6113-ExpireTokenOnDisable",
-            "package": "channelgrabber/channel"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
