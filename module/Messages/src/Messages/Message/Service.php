@@ -9,6 +9,7 @@ use CG\Communication\Thread\Status as ThreadStatus;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Stdlib\DateTime as StdlibDateTime;
+use CG_UI\View\Helper\DateFormat;
 use CG\User\OrganisationUnit\Service as UserOuService;
 use Messages\Message\FormatMessageDataTrait;
 
@@ -24,6 +25,7 @@ class Service
     protected $userOuService;
     protected $messageReplyFactory;
     protected $intercomEventService;
+    protected $dateFormatter;
 
     public function __construct(
         MessageService $messageService,
@@ -31,14 +33,16 @@ class Service
         ThreadService $threadService,
         UserOuService $userOuService,
         MessageReplyFactory $messageReplyFactory,
-        IntercomEventService $intercomEventService
+        IntercomEventService $intercomEventService,
+        DateFormat $dateFormatter
     ) {
         $this->setMessageService($messageService)
             ->setMessageMapper($messageMapper)
             ->setThreadService($threadService)
             ->setUserOuService($userOuService)
             ->setMessageReplyFactory($messageReplyFactory)
-            ->setIntercomEventService($intercomEventService);
+            ->setIntercomEventService($intercomEventService)
+            ->setDateFormatter($dateFormatter);
     }
 
     public function createMessageForThreadForActiveUser($threadId, $body)
@@ -103,5 +107,17 @@ class Service
     {
         $this->intercomEventService = $intercomEventService;
         return $this;
+    }
+
+    protected function setDateFormatter(DateFormat $dateFormatter)
+    {
+        $this->dateFormatter = $dateFormatter;
+        return $this;
+    }
+
+    // Required by FormatMessageDataTrait
+    protected function getDateFormatter()
+    {
+        return $this->dateFormatter;
     }
 }

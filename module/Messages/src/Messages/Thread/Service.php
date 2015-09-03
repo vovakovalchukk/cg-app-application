@@ -13,6 +13,7 @@ use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Http\Exception\Exception3xx\NotModified;
+use CG_UI\View\Helper\DateFormat;
 use CG\User\OrganisationUnit\Service as UserOuService;
 use CG\User\Service as UserService;
 use Messages\Message\FormatMessageDataTrait;
@@ -36,6 +37,7 @@ class Service
     protected $accountService;
     protected $threadResolveFactory;
     protected $intercomEventService;
+    protected $dateFormatter;
 
     protected $assigneeMethodMap = [
         self::ASSIGNEE_ACTIVE_USER => 'filterByActiveUser',
@@ -60,14 +62,16 @@ class Service
         UserService $userService,
         AccountService $accountService,
         ThreadResolveFactory $threadResolveFactory,
-        IntercomEventService $intercomEventService
+        IntercomEventService $intercomEventService,
+        DateFormat $dateFormatter
     ) {
         $this->setThreadService($threadService)
             ->setUserOuService($userOuService)
             ->setUserService($userService)
             ->setAccountService($accountService)
             ->setThreadResolveFactory($threadResolveFactory)
-            ->setIntercomEventService($intercomEventService);
+            ->setIntercomEventService($intercomEventService)
+            ->setDateFormatter($dateFormatter);
     }
 
     /**
@@ -157,6 +161,9 @@ class Service
         $account = $this->accountService->fetch($thread->getAccountId());
         $threadData['accountName'] = $account->getDisplayName();
 
+        $dateFormatter = $this->dateFormatter;
+        $threadData['created'] = $dateFormatter($threadData['created'], StdlibDateTime::FORMAT);
+        $threadData['updated'] = $dateFormatter($threadData['updated'], StdlibDateTime::FORMAT);
         $created = new StdlibDateTime($threadData['created']);
         $updated = new StdlibDateTime($threadData['updated']);
         $threadData['created'] = $created->uiFormat();
@@ -384,5 +391,17 @@ class Service
     {
         $this->intercomEventService = $intercomEventService;
         return $this;
+    }
+
+    protected function setDateFormatter(DateFormat $dateFormatter)
+    {
+        $this->dateFormatter = $dateFormatter;
+        return $this;
+    }
+
+    // Required by FormatMessageDataTrait
+    protected function getDateFormatter()
+    {
+        return $this->dateFormatter;
     }
 }
