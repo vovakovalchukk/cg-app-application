@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "016e4262fa463adab034804e64cc32e9",
+    "hash": "bc47fbfed5d1875f8a78aa62baf51c6c",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1316,17 +1316,18 @@
         },
         {
             "name": "channelgrabber/picklist",
-            "version": "1.0.1",
+            "version": "dev-CGIV-6109-local-datetimes",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-picklist.git",
-                "reference": "e37d2351d87d303f08c97e13b17ac28d4cb78c3b"
+                "reference": "2ea6b5938908f59d9d0c1056a869987d4ba0cfcc"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.0.0,<3.0.0",
                 "channelgrabber/settings": ">=1.3.1,<2.0.0",
-                "channelgrabber/template": ">=1.2.44",
+                "channelgrabber/template": "dev-CGIV-6109-local-datetimes as 1.3.3",
+                "channelgrabber/user": "dev-CGIV-6109-local-datetimes as 1.20.0",
                 "composer/composer": "@dev",
                 "nocarrier/hal": "~0.9.10",
                 "php-jsonpatch/php-jsonpatch": "@dev",
@@ -1348,7 +1349,7 @@
                     "CG\\PickList\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-02-27 10:23:17"
+            "time": "2015-09-03 11:48:38"
         },
         {
             "name": "channelgrabber/predis",
@@ -1981,17 +1982,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.3.2",
+            "version": "dev-CGIV-6109-local-datetimes",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "1a58f1134ab2b4721c3c836c31930623d90bc544"
+                "reference": "0a8fbb7f57d34f62c72ae117226c8267e2263130"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.3.2-c405a5.zip",
-                "reference": "1a58f1134ab2b4721c3c836c31930623d90bc544",
-                "shasum": "a2cbb1c9c89258356cf007127c92ef9306ff8ba9"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-6109-local-datetimes-d52e84.zip",
+                "reference": "0a8fbb7f57d34f62c72ae117226c8267e2263130",
+                "shasum": "9bd13e67b35b26534855fbd2c7ef6c335175bc2c"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2002,7 +2003,7 @@
                 "channelgrabber/order": "^1.19.8",
                 "channelgrabber/settings": ">=1.1.4,<2.0.0",
                 "channelgrabber/stdlib": "^2.10.4",
-                "channelgrabber/user": "^1.19.4",
+                "channelgrabber/user": "dev-CGIV-6109-local-datetimes as 1.20.0",
                 "composer/composer": "@dev",
                 "ext-gd": "*",
                 "php-jsonpatch/php-jsonpatch": "@dev",
@@ -2028,7 +2029,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-07-28 10:34:54"
+            "time": "2015-09-03 11:41:58"
         },
         {
             "name": "channelgrabber/transaction",
@@ -2105,17 +2106,17 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.19.10",
+            "version": "dev-CGIV-6109-local-datetimes",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "86052208f33482bd8262a710376fa4f2be69d330"
+                "reference": "e51e8dc2f0e35ae8579237f4c5e0020b6c69027b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.19.10-5bf1a5.zip",
-                "reference": "86052208f33482bd8262a710376fa4f2be69d330",
-                "shasum": "39ffaffdda0624c18455baae5238824144204081"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-6109-local-datetimes-aa8689.zip",
+                "reference": "e51e8dc2f0e35ae8579237f4c5e0020b6c69027b",
+                "shasum": "2477f4b5d2a2aee5ba96792f1fd336e257b9305c"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2152,7 +2153,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2015-08-26 13:18:17"
+            "time": "2015-09-02 11:05:21"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -3007,17 +3008,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.8",
+            "version": "dev-CGIV-6109-local-datetimes",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "2aa3423fc990347868fe3e6dff7c6f0f08ef9c0b"
+                "reference": "89211e3f50cb10db2f24ab39bbecf6649b21e122"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.8-1ac11a.zip",
-                "reference": "2aa3423fc990347868fe3e6dff7c6f0f08ef9c0b",
-                "shasum": "9101534907ecd59d5508d9353bc590ac1297aad3"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6109-local-datetimes-adc664.zip",
+                "reference": "89211e3f50cb10db2f24ab39bbecf6649b21e122",
+                "shasum": "c91f5af6c36cf6cd8cd41e05cab546a1dacb6577"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -3026,7 +3027,7 @@
                 "channelgrabber/intercom": ">=1.0.0,<2.0.0",
                 "channelgrabber/log": ">=1.4.2",
                 "channelgrabber/stdlib": ">=2.7.4,<3.0.0",
-                "channelgrabber/user": ">=1.19.0, <2.0.0",
+                "channelgrabber/user": "dev-CGIV-6109-local-datetimes as 1.20.0",
                 "channelgrabber/zf2-installer": "~1.0.5",
                 "channelgrabber/zf2-mustache": ">=1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
@@ -3062,7 +3063,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-08-28 09:47:58"
+            "time": "2015-09-03 10:52:09"
         },
         {
             "name": "cilex/cilex",
@@ -4139,7 +4140,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/php-jsonpatch-php-jsonpatch-b1d0dbe9b59826511196793673ff54d59d2c0336-zip-48bbd5.zip",
+                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpatch/zipball/e57b7e02224d0266d5f7de970964b5302501125b",
                 "reference": "b1d0dbe9b59826511196793673ff54d59d2c0336",
                 "shasum": "349c05ff9bc999b5863aa291751967500e6666c3"
             },
@@ -7004,10 +7005,39 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.2",
+            "alias_normalized": "1.0.2.0",
+            "version": "dev-CGIV-6109-local-datetimes",
+            "package": "channelgrabber/picklist"
+        },
+        {
+            "alias": "1.3.3",
+            "alias_normalized": "1.3.3.0",
+            "version": "dev-CGIV-6109-local-datetimes",
+            "package": "channelgrabber/template"
+        },
+        {
+            "alias": "1.20.0",
+            "alias_normalized": "1.20.0.0",
+            "version": "dev-CGIV-6109-local-datetimes",
+            "package": "channelgrabber/user"
+        },
+        {
+            "alias": "1.16.8",
+            "alias_normalized": "1.16.8.0",
+            "version": "dev-CGIV-6109-local-datetimes",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/picklist": 20,
+        "channelgrabber/template": 20,
+        "channelgrabber/user": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

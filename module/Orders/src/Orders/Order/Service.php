@@ -28,7 +28,7 @@ use CG\Order\Shared\StorageInterface;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
-use CG\Stdlib\DateTime;
+use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
@@ -49,6 +49,7 @@ use Zend\Di\Di;
 use Zend\I18n\View\Helper\CurrencyFormat;
 use Zend\Mvc\MvcEvent;
 use CG\Order\Shared\Cancel\Value as Cancel;
+use CG_UI\View\Helper\DateFormat as DateFormatHelper;
 
 class Service implements LoggerAwareInterface, StatsAwareInterface
 {
@@ -93,6 +94,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $actionService;
     protected $intercomEventService;
     protected $rowMapper;
+    protected $dateFormatHelper;
 
     protected $editableFulfilmentChannels = [OrderEntity::DEFAULT_FULFILMENT_CHANNEL => true];
 
@@ -114,7 +116,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         OrganisationUnitService $organisationUnitService,
         ActionService $actionService,
         IntercomEventService $intercomEventService,
-        RowMapper $rowMapper
+        RowMapper $rowMapper,
+        DateFormatHelper $dateFormatHelper
     ) {
         $this
             ->setOrderClient($orderClient)
@@ -135,7 +138,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ->setOrganisationUnitService($organisationUnitService)
             ->setActionService($actionService)
             ->setIntercomEventService($intercomEventService)
-            ->setRowMapper($rowMapper);
+            ->setRowMapper($rowMapper)
+            ->setDateFormatHelper($dateFormatHelper);
     }
 
     public function alterOrderTable(OrderCollection $orderCollection, MvcEvent $event)
@@ -154,6 +158,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         }
         $orders = $this->getOrdersArrayWithSanitisedStatus($orders);
         $orders = $this->getOrdersArrayWithTruncatedShipping($orders);
+        $orders = $this->getOrdersArrayWithFormattedDates($orders);
         
         $filterId = null;
         if ($orderCollection instanceof FilteredCollection) {
@@ -230,6 +235,19 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
                 continue;
             }
             $orders[$index]['shippingMethod'] = substr($order['shippingMethod'], 0, static::MAX_SHIPPING_METHOD_LENGTH) . $ellipsis;
+        }
+        return $orders;
+    }
+
+    protected function getOrdersArrayWithFormattedDates(array $orders)
+    {
+        $dateFormatter = $this->dateFormatHelper;
+        foreach ($orders as $index => $order) {
+            // Keep the dates in Y-m-d H:i:s, the Mustache template will change them to a human-friendly format
+            $orders[$index]['purchaseDate'] = $dateFormatter($orders[$index]['purchaseDate'], StdlibDateTime::FORMAT);
+            $orders[$index]['paymentDate'] = $dateFormatter($orders[$index]['paymentDate'], StdlibDateTime::FORMAT);
+            $orders[$index]['printedDate'] = $dateFormatter($orders[$index]['printedDate'], StdlibDateTime::FORMAT);
+            $orders[$index]['dispatchDate'] = $dateFormatter($orders[$index]['dispatchDate'], StdlibDateTime::FORMAT);
         }
         return $orders;
     }
@@ -500,10 +518,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
     public function getNamesFromOrderNotes(OrderNoteCollection $notes)
     {
+        $dateFormatter = $this->dateFormatHelper;
         $itemNotes = array();
         foreach ($notes as $note) {
             $itemNote = $note->toArray();
             $itemNote["eTag"] = $note->getStoredETag();
+            $itemNote["timestamp"] = $dateFormatter($itemNote["timestamp"]);
             $itemNotes[] = $itemNote;
         }
         $userIds = array();
@@ -857,7 +877,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             CancelValue::class,
             [
                 'type' => $type,
-                'timestamp' => date(DateTime::FORMAT),
+                'timestamp' => date(StdlibDateTime::FORMAT),
                 'reason' => $reason,
                 'items' => $items,
                 'shippingAmount' => $order->getShippingPrice(),
@@ -999,9 +1019,15 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $this;
     }
 
-    public function setRowMapper(RowMapper $rowMapper)
+    protected function setRowMapper(RowMapper $rowMapper)
     {
         $this->rowMapper = $rowMapper;
+        return $this;
+    }
+
+    protected function setDateFormatHelper(DateFormatHelper $dateFormatHelper)
+    {
+        $this->dateFormatHelper = $dateFormatHelper;
         return $this;
     }
 }

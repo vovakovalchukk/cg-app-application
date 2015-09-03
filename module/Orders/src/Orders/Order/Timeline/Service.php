@@ -3,10 +3,12 @@ namespace Orders\Order\Timeline;
 
 use CG\Order\Shared\Entity as OrderEntity;
 use CG\Stdlib\Timings;
+use CG_UI\View\Helper\DateFormat as DateFormatHelper;
 
 class Service
 {
     protected $timings;
+    protected $dateFormatHelper;
     protected $timelineHeadings = [
         [
             "get" => "getPurchaseDate",
@@ -35,9 +37,10 @@ class Service
         ]
     ];
 
-    public function __construct(Timings $timings)
+    public function __construct(Timings $timings, DateFormatHelper $dateFormatHelper)
     {
-        $this->setTimings($timings);
+        $this->setTimings($timings)
+            ->setDateFormatHelper($dateFormatHelper);
     }
 
     public function getTimeline(OrderEntity $order)
@@ -77,11 +80,12 @@ class Service
 
     protected function getTimelineBox(OrderEntity $order, array $timelineHeading)
     {
+        $dateFormatter = $this->dateFormatHelper;
         $unixTime = strtotime($order->$timelineHeading["get"]()) ?: null;
         $timelineBox = [
             'title' => $timelineHeading["title"],
-            'subtitle' => $unixTime ? date("jS M Y", $unixTime) : "N/A",
-            'extraText' => $unixTime ? date("h:ia", $unixTime) : "",
+            'subtitle' => $unixTime ? $dateFormatter($unixTime, "jS M Y") : "N/A",
+            'extraText' => $unixTime ? $dateFormatter($unixTime, "h:ia") : "",
             'colour' => $unixTime ? "green" : "light-grey",
             'unixTime' => $unixTime
         ];
@@ -182,6 +186,12 @@ class Service
     protected function getTimings()
     {
         return $this->timings;
+    }
+
+    protected function setDateFormatHelper(DateFormatHelper $dateFormatHelper)
+    {
+        $this->dateFormatHelper = $dateFormatHelper;
+        return $this;
     }
 
     protected function setTimelineHeadings(array $timelineHeadings)

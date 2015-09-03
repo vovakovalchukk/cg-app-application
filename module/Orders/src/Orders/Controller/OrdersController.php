@@ -22,6 +22,7 @@ use CG\Stdlib\Log\LogTrait;
 use CG_Usage\Service as UsageService;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
+use CG\Stdlib\DateTime as StdlibDateTime;
 
 class OrdersController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -77,11 +78,16 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view = $this->getViewModelFactory()->newInstance();
         $ordersTable = $this->getOrderService()->getOrdersTable();
 
-        $ordersTable->setVariable('filterValues',
-            $this->getFilterService()->getMapper()->toArray(
-                $this->getFilterService()->getPersistentFilter()
-            )
+        $filterValues = $this->getFilterService()->getMapper()->toArray(
+            $this->getFilterService()->getPersistentFilter()
         );
+        if (isset($filterValues['purchaseDate']['from'])) {
+            $filterValues['purchaseDate']['from'] = $this->dateFormatOutput($filterValues['purchaseDate']['from'], StdlibDateTime::FORMAT);
+        }
+        if (isset($filterValues['purchaseDate']['to'])) {
+            $filterValues['purchaseDate']['to'] = $this->dateFormatOutput($filterValues['purchaseDate']['to'], StdlibDateTime::FORMAT);
+        }
+        $ordersTable->setVariable('filterValues', $filterValues);
         $settings = $ordersTable->getVariable('settings');
         $settings->setSource($this->url()->fromRoute('Orders/ajax'));
         $settings->setTemplateUrlMap($this->mustacheTemplateMap('orderList'));
@@ -357,6 +363,13 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         }
 
         $this->getFilterService()->setPersistentFilter($filter);
+        // Must reformat dates *after* persisting otherwise it'll happen again when its reloaded
+        if ($filter->getPurchaseDateFrom()) {
+            $filter->setPurchaseDateFrom($this->dateFormatInput($filter->getPurchaseDateFrom()));
+        }
+        if ($filter->getPurchaseDateTo()) {
+            $filter->setPurchaseDateTo($this->dateFormatInput($filter->getPurchaseDateTo()));
+        }
 
         try {
             $orders = $this->getOrderService()->getOrders($filter);

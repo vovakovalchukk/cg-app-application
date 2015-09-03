@@ -88,6 +88,14 @@ class ListingsJsonController extends AbstractActionController
 
             $this->getFilterService()->setPersistentFilter($requestFilter);
 
+            // Must reformat dates *after* persisting otherwise it'll happen again when its reloaded
+            if ($requestFilter->getCreatedDateFrom()) {
+                $requestFilter->setCreatedDateFrom($this->dateFormatInput($requestFilter->getCreatedDateFrom()));
+            }
+            if ($requestFilter->getCreatedDateTo()) {
+                $requestFilter->setCreatedDateTo($this->dateFormatInput($requestFilter->getCreatedDateTo()));
+            }
+
             $listings = $this->getListingService()->fetchListings($requestFilter);
             $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) $listings->getTotal();
             $listings = $this->getListingService()->alterListingTable($listings, $this->getEvent());

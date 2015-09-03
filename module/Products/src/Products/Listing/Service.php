@@ -22,6 +22,8 @@ use CG\Channel\Gearman\Workload\ImportListing as ImportListingWorkload;
 use CG\Listing\Unimported\Status as UnimportedStatus;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
+use CG_UI\View\Helper\DateFormat as DateFormatHelper;
+use CG\Stdlib\DateTime as StdlibDateTime;
 
 class Service implements LoggerAwareInterface
 {
@@ -43,6 +45,7 @@ class Service implements LoggerAwareInterface
     protected $accountService;
     protected $gearmanClient;
     protected $intercomEventService;
+    protected $dateFormatHelper;
     protected $nonImportableStatuses = [
         ListingStatus::CANNOT_IMPORT_SKU => ListingStatus::CANNOT_IMPORT_SKU
     ];
@@ -54,7 +57,8 @@ class Service implements LoggerAwareInterface
         ListingImportFactory $listingImportFactory,
         AccountService $accountService,
         GearmanClient $gearmanClient,
-        IntercomEventService $intercomEventService
+        IntercomEventService $intercomEventService,
+        DateFormatHelper $dateFormatHelper
     ) {
         $this->setActiveUserContainer($activeUserContainer)
             ->setUserPreferenceService($userPreferenceService)
@@ -62,7 +66,8 @@ class Service implements LoggerAwareInterface
             ->setListingImportFactory($listingImportFactory)
             ->setAccountService($accountService)
             ->setGearmanClient($gearmanClient)
-            ->setIntercomEventService($intercomEventService);
+            ->setIntercomEventService($intercomEventService)
+            ->setDateFormatHelper($dateFormatHelper);
     }
 
     public function fetchListings(ListingFilter $listingFilter)
@@ -118,6 +123,7 @@ class Service implements LoggerAwareInterface
         $listings = $this->addAccountDetailsToListings($listings, $event);
         $listings = $this->addImagesToListings($listings, $listingCollection);
         $listings = $this->statusAlterations($listings);
+        $listings = $this->getListingsArrayWithFormattedDates($listings);
         return $listings;
     }
 
@@ -169,6 +175,16 @@ class Service implements LoggerAwareInterface
             }
             $listing['statusClass'] = $listing['status'];
             $listing['status'] = str_replace('_', ' ', $listing['status']);
+        }
+        return $listings;
+    }
+
+    protected function getListingsArrayWithFormattedDates(array $listings)
+    {
+        $dateFormatter = $this->dateFormatHelper;
+        foreach ($listings as $index => $listing) {
+            // Keep the dates in Y-m-d H:i:s, the Mustache template will change them to a human-friendly format
+            $listings[$index]['createdDate'] = $dateFormatter($listings[$index]['createdDate'], StdlibDateTime::FORMAT);
         }
         return $listings;
     }
@@ -307,6 +323,12 @@ class Service implements LoggerAwareInterface
     protected function setIntercomEventService(IntercomEventService $intercomEventService)
     {
         $this->intercomEventService = $intercomEventService;
+        return $this;
+    }
+
+    protected function setDateFormatHelper(DateFormatHelper $dateFormatHelper)
+    {
+        $this->dateFormatHelper = $dateFormatHelper;
         return $this;
     }
 }
