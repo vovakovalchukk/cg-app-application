@@ -750,6 +750,8 @@ return [
                 'OrdersFulfilmentChannelColumn' => DataTable\Column::class,
                 'OrdersInvoiceNumberColumnView' => ViewModel::class,
                 'OrdersInvoiceNumberColumn' => DataTable\Column::class,
+                'OrdersAlertColumnView' => ViewModel::class,
+                'OrdersAlertColumn' => DataTable\Column::class,
                 'OrdersOptionsColumnView' => ViewModel::class,
                 'OrdersOptionsColumn' => DataTable\Column::class,
                 'OrderRpcClient' => JsonRpcClient::class,
@@ -828,6 +830,7 @@ return [
                         ['column' => 'OrdersTagColumn'],
                         ['column' => 'OrdersFulfilmentChannelColumn'],
                         ['column' => 'OrdersInvoiceNumberColumn'],
+                        ['column' => 'OrdersAlertColumn'],
                         ['column' => 'OrdersOptionsColumn'],
                     ],
                     'setVariable' => [
@@ -1072,6 +1075,21 @@ return [
                     'column' => 'invoiceNumber',
                     'viewModel' => 'OrdersInvoiceNumberColumnView',
                     'class' => 'order-invoice-number-col',
+                    'sortable' => false,
+                ]
+            ],
+            'OrdersAlertColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Alerts'],
+                    'template' => 'value.phtml',
+                ]
+            ],
+            'OrdersAlertColumn' => [
+                'parameters' => [
+                    'visible' => false,
+                    'column' => 'alerts',
+                    'viewModel' => 'OrdersAlertColumnView',
+                    'class' => 'order-alert-col',
                     'sortable' => false,
                 ]
             ],
