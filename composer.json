@@ -25,7 +25,7 @@
         "channelgrabber/api-lib": "~1.0.0",
         "channelgrabber/billing": "~1.8.6",
         "channelgrabber/cache": "~2.1.0",
-        "channelgrabber/channel": "~1.17.3",
+        "channelgrabber/channel": "dev-CGIV-6219-AccountApplication as 1.17.6",
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/communication": "~1.0.0",
         "channelgrabber/constants": "dev-master",
