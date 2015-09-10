@@ -21,7 +21,8 @@ return [
                     'shippingMethod' => Module::PUBLIC_FOLDER . 'template/columns/shippingMethod.mustache',
                     'status' => Module::PUBLIC_FOLDER . 'template/columns/status.mustache',
                     'tag' => Module::PUBLIC_FOLDER . 'template/columns/tag.mustache',
-                    'total' => Module::PUBLIC_FOLDER . 'template/columns/total.mustache'
+                    'total' => Module::PUBLIC_FOLDER . 'template/columns/total.mustache',
+                    'alerts' => Module::PUBLIC_FOLDER . 'template/columns/alerts.mustache',
                 ],
             ],
         ],

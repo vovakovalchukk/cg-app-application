@@ -4,6 +4,8 @@ namespace Orders\Order\Csv\Mapper;
 use CG\User\ActiveUserInterface;
 use Orders\Order\Csv\MapperInterface;
 use CG\Order\Shared\Collection as OrderCollection;
+use Orders\Order\Csv\Mapper\Formatter\DateSingle as DateFormatter;
+use Orders\Order\Csv\Mapper\Formatter\InvoiceDateSingle as InvoiceDateFormatter;
 use Orders\Order\Csv\Mapper\Formatter\StandardSingle as StandardFormatter;
 use Orders\Order\Csv\Mapper\Formatter\SalesChannelNameSingle as SalesChannelNameFormatter;
 use Orders\Order\Csv\Mapper\Formatter\ShippingMethodSingle as ShippingMethodFormatter;
@@ -14,6 +16,8 @@ class Orders implements MapperInterface
     protected $standardFormatter;
     protected $salesChannelNameFormatter;
     protected $shippingMethodFormatter;
+    protected $dateFormatter;
+    protected $invoiceDateFormatter;
     /**
      * @var ActiveUserInterface $activeUserContainer
      */
@@ -27,6 +31,8 @@ class Orders implements MapperInterface
         StandardFormatter $standardFormatter,
         SalesChannelNameFormatter $salesChannelNameFormatter,
         ShippingMethodFormatter $shippingMethodFormatter,
+        DateFormatter $dateFormatter,
+        InvoiceDateFormatter $invoiceDateFormatter,
         OrganisationUnitService $organisationUnitService,
         ActiveUserInterface $activeUserContainer
     ) {
@@ -34,6 +40,8 @@ class Orders implements MapperInterface
             ->setStandardFormatter($standardFormatter)
             ->setSalesChannelNameFormatter($salesChannelNameFormatter)
             ->setShippingMethodFormatter($shippingMethodFormatter)
+            ->setDateFormatter($dateFormatter)
+            ->setInvoiceDateFormatter($invoiceDateFormatter)
             ->setOrganisationUnitService($organisationUnitService)
             ->setActiveUserContainer($activeUserContainer);
     }
@@ -43,11 +51,11 @@ class Orders implements MapperInterface
         $formatters = [
             'Order ID' => 'externalId',
             'Sales Channel Name' => $this->salesChannelNameFormatter,
-            'Purchase Date' => 'purchaseDate',
-            'Payment Date' => 'paymentDate',
-            'Printed Date' => 'printedDate',
-            'Dispatch Date' => 'dispatchDate',
-            'Invoice Date' => 'invoiceDate',
+            'Purchase Date' => ['field' => 'purchaseDate', 'formatter' => $this->dateFormatter],
+            'Payment Date' => ['field' => 'paymentDate', 'formatter' => $this->dateFormatter],
+            'Printed Date' => ['field' => 'printedDate', 'formatter' => $this->dateFormatter],
+            'Dispatch Date' => ['field' => 'dispatchDate', 'formatter' => $this->dateFormatter],
+            'Invoice Date' => ['field' => 'invoiceDate', 'formatter' => $this->invoiceDateFormatter],
             'Channel' => 'channel',
             'Status' => 'status',
             'Shipping Price' => 'shippingPrice',
@@ -82,7 +90,8 @@ class Orders implements MapperInterface
             'Shipping Email' => 'calculatedShippingEmailAddress',
             'Shipping Telephone' => 'calculatedShippingPhoneNumber',
             'Buyer Message' => 'buyerMessage',
-            'Invoice Number' => 'invoiceNumber'
+            'Invoice Number' => 'invoiceNumber',
+            'Billing Username' => 'externalUsername',
         ];
         $rootOrganisationUnitId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
         $organisationUnit = $this->organisationUnitService->getRootOuFromOuId($rootOrganisationUnitId);
@@ -108,18 +117,24 @@ class Orders implements MapperInterface
     {
         $columnFormatters = $this->getFormatters();
         $formatters = [];
+        $fieldNames = [];
         foreach($columnFormatters as $header => $formatter) {
-            if(!is_object($formatter)) {
-                $formatters[$header] = $this->standardFormatter;
-            } else {
+            if(is_object($formatter)) {
                 $formatters[$header] = $formatter;
+                $fieldNames[$header] = '';
+            } elseif (is_array($formatter) && isset($formatter['formatter'], $formatter['field'])) {
+                $formatters[$header] = $formatter['formatter'];
+                $fieldNames[$header] = $formatter['field'];
+            } else {
+                $formatters[$header] = $this->standardFormatter;
+                $fieldNames[$header] = $formatter;
             }
         }
 
         foreach($orderCollection as $order) {
             $row = [];
             foreach ($formatters as $header => $formatter) {
-                $row[] = $formatter($order, $columnFormatters[$header]);
+                $row[] = $formatter($order, $fieldNames[$header]); 
             }
             yield [$row];
         }
@@ -152,6 +167,18 @@ class Orders implements MapperInterface
     public function setShippingMethodFormatter(ShippingMethodFormatter $shippingMethodFormatter)
     {
         $this->shippingMethodFormatter = $shippingMethodFormatter;
+        return $this;
+    }
+
+    protected function setDateFormatter(DateFormatter $dateFormatter)
+    {
+        $this->dateFormatter = $dateFormatter;
+        return $this;
+    }
+
+    protected function setInvoiceDateFormatter(InvoiceDateFormatter $invoiceDateFormatter)
+    {
+        $this->invoiceDateFormatter = $invoiceDateFormatter;
         return $this;
     }
 

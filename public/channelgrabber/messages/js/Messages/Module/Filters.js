@@ -5,6 +5,7 @@ define([
     'Messages/Module/Filter/Status',
     'Messages/Module/Filter/Search',
     'Messages/Module/Filter/Id',
+    'Messages/Module/Filter/ExternalUsername',
     'Messages/Headline/Storage/Ajax'
 ], function(
     EventHandler,
@@ -13,6 +14,7 @@ define([
     StatusFilter,
     SearchFilter,
     IdFilter,
+    ExternalUsernameFilter,
     headlineStorage
 ) {
     var Filters = function(application)
@@ -41,33 +43,42 @@ define([
             filters.resolved = new StatusFilter(this, 'resolved');
             filters.open = new StatusFilter(this, ['new', 'awaiting-reply']);
             filters.search = new SearchFilter(this);
+            // 'Hidden' filters
+            filters.id = new IdFilter(this, '');
+            filters.externalUsername = new ExternalUsernameFilter(this, '');
 
             this.updateFilterCounts();
-            if (this.getApplication().getSingleUserMode() && filters.open.getCount() > 0) {
-                filters.open.activate();
-            } else if (filters.myMessages.getCount() > 0) {
-                filters.myMessages.activate();
-            } else if (filters.unassigned.getCount() > 0) {
-                filters.unassigned.activate();
-            } else {
-                filters.resolved.activate();
-            }
         };
         init.call(this);
     };
 
     Filters.prototype = Object.create(ModuleAbstract.prototype);
 
-    Filters.prototype.initialise = function(selectedThreadId)
+    Filters.prototype.initialise = function(selectedThreadId, selectedFilter, selectedFilterValue)
     {
         if (selectedThreadId) {
-            var idFilter = new IdFilter(this, selectedThreadId);
-            this.getFilters().id = idFilter;
-            this.deactivateAll();
-            // Normally you should call activate() but this is a special filter
-            idFilter.setActive(true);
+            selectedFilter = 'id';
+            selectedFilterValue = selectedThreadId;
         }
-        this.applyActiveFilters(selectedThreadId);
+        this.decideFilterAndActivate(selectedFilter, selectedFilterValue);
+    };
+
+    Filters.prototype.decideFilterAndActivate = function(selectedFilter, selectedFilterValue)
+    {
+        var filters = this.getFilters();
+        if (selectedFilter && filters[selectedFilter]) {
+            var filter = filters[selectedFilter];
+            filter.setValue(selectedFilterValue);
+            filter.activate();
+        } else if (this.getApplication().getSingleUserMode() && filters.open.getCount() > 0) {
+            filters.open.activate();
+        } else if (filters.myMessages.getCount() > 0) {
+            filters.myMessages.activate();
+        } else if (filters.unassigned.getCount() > 0) {
+            filters.unassigned.activate();
+        } else {
+            filters.resolved.activate();
+        }
     };
 
     Filters.prototype.applyFilter = function(filter, selectedThreadId)

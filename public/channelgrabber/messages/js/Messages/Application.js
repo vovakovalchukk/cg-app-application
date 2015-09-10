@@ -13,8 +13,15 @@ define([
     ThreadList,
     ThreadDetails
 ) {
-    var Application = function(uri, organisationUnitId, assignableUsers, selectedThreadId, singleUserMode)
-    {
+    var Application = function(
+        uri,
+        organisationUnitId,
+        assignableUsers,
+        singleUserMode,
+        selectedThreadId,
+        selectedFilter,
+        selectedFilterValue
+    ) {
         var modulesClasses = [
             // Modules here
             Filters,
@@ -76,6 +83,16 @@ define([
             return singleUserMode;
         };
 
+        this.getSelectedFilter = function()
+        {
+            return selectedFilter;
+        };
+
+        this.getSelectedFilterValue = function()
+        {
+            return selectedFilterValue;
+        };
+
         var init = function()
         {
             eventHandler = new EventHandler(this);
@@ -85,7 +102,9 @@ define([
             }
 
             // Tell any listeners that we're ready. Expected to be picked up by Module\Filter\EventHandler
-            eventHandler.triggerInitialised(this.getSelectedThreadId());
+            eventHandler.triggerInitialised(
+                this.getSelectedThreadId(), this.getSelectedFilter(), this.getSelectedFilterValue()
+            );
         };
         init.call(this);
     };

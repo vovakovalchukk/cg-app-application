@@ -12,6 +12,12 @@ define([
             return id;
         };
 
+        this.setId = function(newId)
+        {
+            id = newId;
+            return this;
+        };
+
         this.getType = function()
         {
             return type;
@@ -28,6 +34,22 @@ define([
         return {
             id: this.getId()
         };
+    };
+
+    Id.prototype.setValue = function(value)
+    {
+        this.setId(value);
+        return this;
+    };
+
+    // Overridden to pass the ID along to applyActiveFilters()
+    Id.prototype.activate = function()
+    {
+        this.getFilterModule().deactivateAll(this);
+        this.getDomManipulator().addClass(this.getFilterSelector(), 'active');
+        this.setActive(true);
+        this.getFilterModule().applyActiveFilters(this.getId());
+        return this;
     };
 
     return Id;

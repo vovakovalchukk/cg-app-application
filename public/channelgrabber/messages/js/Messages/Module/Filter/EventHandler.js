@@ -28,9 +28,9 @@ define([
     EventHandler.prototype.listenForApplicationInitialised = function()
     {
         var self = this;
-        $(document).on(AppEvents.INITIALISED, function(event, selectedThreadId)
+        $(document).on(AppEvents.INITIALISED, function(event, selectedThreadId, selectedFilter, selectedFilterValue)
         {
-            self.getModule().initialise(selectedThreadId);
+            self.getModule().initialise(selectedThreadId, selectedFilter, selectedFilterValue);
         });
         return this;
     };

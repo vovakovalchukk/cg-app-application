@@ -19,6 +19,10 @@ class IndexController extends AbstractActionController
     protected $userService;
     protected $service;
 
+    protected $filterNameMap = [
+        'eu' => 'externalUsername'
+    ];
+
     public function __construct(
         ViewModelFactory $viewModelFactory,
         UserOrganisationUnitService $userOrganisationUnitService,
@@ -35,10 +39,17 @@ class IndexController extends AbstractActionController
     {
         $view = $this->viewModelFactory->newInstance();
         $threadId = $this->params('threadId');
+        $filter = $this->params()->fromQuery('f');
+        if ($filter && isset($this->filterNameMap[$filter])) {
+            $filter = $this->filterNameMap[$filter];
+        }
+        $filterValue = $this->params()->fromQuery('fv');
         $user = $this->userOrganisationUnitService->getActiveUser();
         $rootOu = $this->userOrganisationUnitService->getRootOuByUserEntity($user);
         $view->setVariable('uri', static::ROUTE_INDEX_URL);
         $view->setVariable('threadId', $threadId);
+        $view->setVariable('filter', $filter);
+        $view->setVariable('filterValue', $filterValue);
         $view->setVariable('rootOuId', $rootOu->getId());
         $view->setVariable('userId', $user->getId());
         $view->setVariable('assignableUsersArray', $this->userService->getUserOptionsArray($rootOu));

@@ -79,5 +79,11 @@ define([
         throw 'Messages/Module/FilterAbstract::getType() should be overridden by subclasses';
     };
 
+    FilterAbstract.prototype.setValue = function(value)
+    {
+        // Only certain filters allow setting the value, for those override this method
+        return this;
+    };
+
     return FilterAbstract;
 });
