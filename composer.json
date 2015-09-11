@@ -81,7 +81,7 @@
         "channelgrabber/zf2-ssoclient": "~1.4.2.2",
         "channelgrabber/zf2-stdlib": "~1.2.0",
         "channelgrabber/zf2-usage": "~1.0.7",
-        "channelgrabber/zf2-v4-ui": "dev-EPIC-CGIV-5992-dataplug as 1.16.10",
+        "channelgrabber/zf2-v4-ui": "dev-CGIV-6151-dataplug-courier-booking-interface as 1.16.10",
         "cilex/cilex": "~1.0.1",
         "composer/composer": "@dev",
         "guzzle/guzzle": "~3.7",

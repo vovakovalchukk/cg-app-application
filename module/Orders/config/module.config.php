@@ -46,10 +46,14 @@ use CG\OrganisationUnit\Storage\Api as OrganisationUnitApiStorage;
 use Orders\Order\Invoice\ProgressStorage as OrderInvoiceProgressStorage;
 use Orders\Order\PickList\ProgressStorage as OrderPickListProgressStorage;
 
+// Courier
+use Orders\Controller\CourierController;
+use Orders\Controller\CourierJsonController;
+
 return [
     'router' => [
         'routes' => [
-            'Orders' => [
+            Module::ROUTE => [
                 'type' => 'literal',
                 'options' => [
                     'route' => '/orders',
@@ -621,6 +625,45 @@ return [
                             ]
                         ]
                     ],
+                    CourierController::ROUTE => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => CourierController::ROUTE_URI,
+                            'defaults' => [
+                                'controller' => CourierController::class,
+                                'action' => 'index'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            CourierController::ROUTE_REVIEW => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => CourierController::ROUTE_REVIEW_URI,
+                                    'defaults' => [
+                                        'action' => 'review',
+                                        'breadcrumbs' => false,
+                                        'sidebar' => false,
+                                        'subHeader' => false,
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    CourierJsonController::ROUTE_REVIEW_LIST => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => CourierJsonController::ROUTE_REVIEW_LIST_URI,
+                                            'defaults' => [
+                                                'controller' => CourierJsonController::class,
+                                                'action' => 'reviewList',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ],
                     StoredFiltersController::ROUTE_SAVE => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [
@@ -755,6 +798,20 @@ return [
                 'OrdersOptionsColumnView' => ViewModel::class,
                 'OrdersOptionsColumn' => DataTable\Column::class,
                 'OrderRpcClient' => JsonRpcClient::class,
+                'CourierReviewTable' => DataTable::class,
+                'CourierReviewTableSettings' => DataTable\Settings::class,
+                'CourierReviewBuyerOrderColumnView' => ViewModel::class,
+                'CourierReviewBuyerOrderColumn' => DataTable\Column::class,
+                'CourierReviewShippingMethodColumnView' => ViewModel::class,
+                'CourierReviewShippingMethodColumn' => DataTable\Column::class,
+                'CourierReviewCourierColumnView' => ViewModel::class,
+                'CourierReviewCourierColumn' => DataTable\Column::class,
+                'CourierReviewServiceColumnView' => ViewModel::class,
+                'CourierReviewServiceColumn' => DataTable\Column::class,
+                'CourierReviewItemColumnView' => ViewModel::class,
+                'CourierReviewItemColumn' => DataTable\Column::class,
+                'CourierReviewQuantityColumnView' => ViewModel::class,
+                'CourierReviewQuantityColumn' => DataTable\Column::class,
             ],
             'preferences' => [
                 InvoiceRendererService::class => PdfInvoiceRendererService::class,
@@ -1295,7 +1352,130 @@ return [
                 'parameters' => [
                     'repository' => OrganisationUnitApiStorage::class
                 ]
-            ]
+            ],
+            CourierController::class => [
+                'parameters' => [
+                    'reviewTable' => 'CourierReviewTable',
+                ]
+            ],
+            'CourierReviewTable' => [
+                'parameters' => [
+                    'variables' => [
+                        'sortable' => 'false',
+                        'id' => 'datatable',
+                        'class' => 'fixed-header fixed-footer',
+                        'width' => '100%'
+                    ],
+                ],
+                'injections' => [
+                    'addColumn' => [
+                        ['column' => 'CourierReviewBuyerOrderColumn'],
+                        ['column' => 'CourierReviewShippingMethodColumn'],
+                        ['column' => 'CourierReviewCourierColumn'],
+                        ['column' => 'CourierReviewServiceColumn'],
+                        ['column' => 'CourierReviewItemColumn'],
+                        ['column' => 'CourierReviewQuantityColumn'],
+                    ],
+                    'setVariable' => [
+                        ['name' => 'settings', 'value' => 'CourierReviewTableSettings']
+                    ],
+                ],
+            ],
+            'CourierReviewTableSettings' => [
+                'parameters' => [
+                    'scrollHeightAuto' => false,
+                    'footer' => true,
+                    'pagination' => false,
+                    'tableOptions' => 'rt<"table-footer" ilp>',
+                    'language' => [
+                      'sLengthMenu' => '<span class="show">Show</span> _MENU_'
+                    ],
+                ]
+            ],
+            'CourierReviewBuyerOrderColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Buyer / Order ID'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierReviewBuyerOrderColumn' => [
+                'parameters' => [
+                    'column' => 'buyerOrder',
+                    'viewModel' => 'CourierReviewBuyerOrderColumnView',
+                    'class' => 'buyerOrder-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierReviewShippingMethodColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Shipping Method'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierReviewShippingMethodColumn' => [
+                'parameters' => [
+                    'column' => 'shippingMethod',
+                    'viewModel' => 'CourierReviewShippingMethodColumnView',
+                    'class' => 'shippingMethod-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierReviewCourierColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Courier'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierReviewCourierColumn' => [
+                'parameters' => [
+                    'column' => 'courier',
+                    'viewModel' => 'CourierReviewCourierColumnView',
+                    'class' => 'courier-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierReviewServiceColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Service'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierReviewServiceColumn' => [
+                'parameters' => [
+                    'column' => 'service',
+                    'viewModel' => 'CourierReviewServiceColumnView',
+                    'class' => 'service-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierReviewItemColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Item'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierReviewItemColumn' => [
+                'parameters' => [
+                    'column' => 'item',
+                    'viewModel' => 'CourierReviewItemColumnView',
+                    'class' => 'item-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierReviewQuantityColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'QTY'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierReviewQuantityColumn' => [
+                'parameters' => [
+                    'column' => 'quantity',
+                    'viewModel' => 'CourierReviewQuantityColumnView',
+                    'class' => 'quantity-col',
+                    'sortable' => false,
+                ],
+            ],
         ],
     ],
     'navigation' => array(

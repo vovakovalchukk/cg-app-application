@@ -1,0 +1,19 @@
+<div id="main" class="no-sidebar courier-review">
+    <span class="heading-large">
+        <?= $this->translate('Review Orders') ?>
+        <div class="heading-buttons">
+            <?= $this->continueButton; ?>
+        </div>
+    </span>
+    <div id="datatable-container">
+        <?= $this->reviewTable; ?>
+    </div>
+</div>
+
+<style>
+<?php /* This is a hack to hide the sidebar away for now */ ?>
+#main-wrapper {
+    margin-left:0px;
+    width:100%;
+}
+</style>
