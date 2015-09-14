@@ -1,3 +1,27 @@
+<script type="text/javascript">
+$(document).ready(function()
+{
+    $('#datatable').on('before-cgdatatable-init', function()
+    {
+        $('#datatable').on("fnServerData", function(event, sSource, aoData, fnCallback, oSettings)
+        {
+            var orderIds = <?=json_encode($this->orderIds);?>;
+            for (var count in orderIds)
+            {
+                aoData.push({
+                    'name': 'order['+count+']',
+                    'value': orderIds[count]
+                });
+            }
+        });
+    });
+
+    require(['<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Review/Service.js'], function(Service)
+    {
+        var service = new Service($('#datatable'));
+    });
+});
+</script>
 <div id="main" class="no-sidebar courier-review">
     <span class="heading-large">
         <?= $this->translate('Review Orders') ?>
