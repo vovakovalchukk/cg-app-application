@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6c69c0af2a9ea57e92cf39c57e4120b8",
+    "hash": "8ff6002987a01c5645aa39b95dd1ea1d",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "1.15.25.1",
+            "version": "1.15.26",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "968363166a6b41e0cae607279137cfacc379679e"
+                "reference": "c4d330273997d936fd6c9aabe7e9e939c94a5b54"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.15.25.1-909cb2.zip",
-                "reference": "968363166a6b41e0cae607279137cfacc379679e",
-                "shasum": "32bb41aaae5e27b6533be9e5dcfe0de457ad8951"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.15.26-b9aa5c.zip",
+                "reference": "c4d330273997d936fd6c9aabe7e9e939c94a5b54",
+                "shasum": "132b1c904313ff9cbccd84474776f59b95ea1ca3"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -65,7 +65,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-09-11 08:18:48"
+            "time": "2015-09-14 14:01:46"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -304,17 +304,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-6219-AccountApplication",
+            "version": "1.17.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "25322a6d0b4d84c1e2fccda90db44e483c120b2f"
+                "reference": "363274e97c40c6ff3b49577af873b0d82e0ffe22"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6219-AccountApplication-512d85.zip",
-                "reference": "25322a6d0b4d84c1e2fccda90db44e483c120b2f",
-                "shasum": "064e63046a9dbc33431cfc82106cd132c55b0d43"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.17.8-65a528.zip",
+                "reference": "363274e97c40c6ff3b49577af873b0d82e0ffe22",
+                "shasum": "bb5f151aac131574a58c10ae76443016c9182255"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -371,7 +371,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-09-14 11:47:52"
+            "time": "2015-09-15 10:02:45"
         },
         {
             "name": "channelgrabber/cilex",
@@ -3257,13 +3257,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "013a748cb9790e524490349a49b9f663cde4e0ab"
+                "reference": "7267b2ed9063ef64e7dda86421a928a802558fdb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/composer-composer-013a748cb9790e524490349a49b9f663cde4e0ab-zip-73749d.zip",
-                "reference": "013a748cb9790e524490349a49b9f663cde4e0ab",
-                "shasum": "f92fcf8fe1ddfc4b0d05b66536ec01d751ef41b9"
+                "url": "https://composer.build.channelgrabber.com/dist/composer-composer-7267b2ed9063ef64e7dda86421a928a802558fdb-zip-010363.zip",
+                "reference": "7267b2ed9063ef64e7dda86421a928a802558fdb",
+                "shasum": "db277532543f86a05418ad5e76fb4ac9e4e70a05"
             },
             "require": {
                 "composer/spdx-licenses": "~1.0",
@@ -3322,7 +3322,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-14 10:42:03"
+            "time": "2015-09-14 14:48:45"
         },
         {
             "name": "composer/spdx-licenses",
@@ -5351,17 +5351,17 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.22.0",
+            "version": "v1.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "204a6c94907c2c2225322c267e09adbb2b1c04fd"
+                "reference": "b7fc2469fa009897871fb95b68237286fc54a5ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/twig-twig-204a6c94907c2c2225322c267e09adbb2b1c04fd-zip-03cba0.zip",
-                "reference": "204a6c94907c2c2225322c267e09adbb2b1c04fd",
-                "shasum": "debc9023b70e1b06a46ec3102a8f1ff915e50504"
+                "url": "https://composer.build.channelgrabber.com/dist/twig-twig-b7fc2469fa009897871fb95b68237286fc54a5ad-zip-aeb3ee.zip",
+                "reference": "b7fc2469fa009897871fb95b68237286fc54a5ad",
+                "shasum": "2a207f7d78d4af1d51eabbe367044c78542e34a1"
             },
             "require": {
                 "php": ">=5.2.7"
@@ -5408,7 +5408,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-09-13 17:12:38"
+            "time": "2015-09-15 06:50:16"
         },
         {
             "name": "whichbrowser/whichbrowser",
@@ -7078,17 +7078,9 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.17.8",
-            "alias_normalized": "1.17.8.0",
-            "version": "dev-CGIV-6219-AccountApplication",
-            "package": "channelgrabber/channel"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
