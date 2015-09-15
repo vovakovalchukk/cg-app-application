@@ -1384,7 +1384,7 @@ return [
             'CourierReviewTableSettings' => [
                 'parameters' => [
                     'scrollHeightAuto' => false,
-                    'footer' => true,
+                    'footer' => false,
                     'pagination' => false,
                     'tableOptions' => 'rt<"table-footer" ilp>',
                     'language' => [

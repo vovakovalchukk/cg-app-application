@@ -1,9 +1,8 @@
 <?php
 namespace Orders\Controller;
 
-use CG\Order\Client\Service as OrderService;
-use CG\Order\Service\Filter as OrderFilter;
 use CG_UI\View\Prototyper\JsonModelFactory;
+use Orders\Courier\Service;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class CourierJsonController extends AbstractActionController
@@ -12,27 +11,27 @@ class CourierJsonController extends AbstractActionController
     const ROUTE_REVIEW_LIST_URI = '/ajax';
 
     protected $jsonModelFactory;
-    protected $orderService;
+    protected $service;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
-        OrderService $orderService
+        Service $service
     ) {
         $this->setJsonModelFactory($jsonModelFactory)
-            ->setOrderService($orderService);
+            ->setService($service);
     }
 
+    /**
+     * @return \Zend\View\Model\JsonModel
+     */
     public function reviewListAction()
     {
         $data = $this->getDefaultJsonData();
-        $orderIds = $this->params('order', []);
-
-        $filter = new OrderFilter();
-        $filter->setLimit('all')
-            ->setPage(1)
-            ->setId($orderIds);
-        $orders = $this->orderService->fetchCollectionByFilter($filter);
-        // TODO: populate $data['Records'] from $orders
+        $orderIds = $this->params()->fromPost('order', []);
+        $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = count($orderIds);
+        if (!empty($orderIds)) {
+            $data['Records'] = $this->service->getReviewListData($orderIds);
+        }
 
         return $this->jsonModelFactory->newInstance($data);
     }
@@ -53,9 +52,9 @@ class CourierJsonController extends AbstractActionController
         return $this;
     }
 
-    protected function setOrderService(OrderService $orderService)
+    protected function setService(Service $service)
     {
-        $this->orderService = $orderService;
+        $this->service = $service;
         return $this;
     }
 }

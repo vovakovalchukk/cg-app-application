@@ -1,6 +1,7 @@
 <script type="text/javascript">
 $(document).ready(function()
 {
+    // This needs to happen immediately, can't wait for require()
     $('#datatable').on('before-cgdatatable-init', function()
     {
         $('#datatable').on("fnServerData", function(event, sSource, aoData, fnCallback, oSettings)
@@ -12,6 +13,20 @@ $(document).ready(function()
                     'name': 'order['+count+']',
                     'value': orderIds[count]
                 });
+            }
+        });
+        var courierOptions = <?=json_encode(array_values($this->courierOptions));?>;
+        $('#datatable').on('xhr', function(event, settings, json)
+        {
+            for (var count in json.Records) {
+                json.Records[count].courierOptions = [];
+                for (var key in courierOptions) {
+                    var current = courierOptions[key];
+                    if (json.Records[count].courier == key) {
+                        current.selected = true;
+                    }
+                    json.Records[count].courierOptions.push(current);
+                }
             }
         });
     });

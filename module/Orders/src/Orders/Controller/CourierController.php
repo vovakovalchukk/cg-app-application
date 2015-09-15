@@ -4,6 +4,7 @@ namespace Orders\Controller;
 use CG_UI\View\DataTable;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Orders\Module;
+use Orders\Courier\Service;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class CourierController extends AbstractActionController
@@ -15,13 +16,17 @@ class CourierController extends AbstractActionController
 
     protected $viewModelFactory;
     protected $reviewTable;
+    /** @var Service */
+    protected $service;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
-        DataTable $reviewTable
+        DataTable $reviewTable,
+        Service $service
     ) {
         $this->setViewModelFactory($viewModelFactory)
-            ->setReviewTable($reviewTable);
+            ->setReviewTable($reviewTable)
+            ->setService($service);
     }
 
     public function indexAction()
@@ -32,10 +37,12 @@ class CourierController extends AbstractActionController
     public function reviewAction()
     {
         $orderIds = $this->params('order', []);
+$orderIds = ['2-286', '2-143']; // TEST
         $view = $this->viewModelFactory->newInstance();
         $this->prepReviewTable();
 
         $view->setVariable('orderIds', $orderIds);
+        $view->setVariable('courierOptions', $this->service->getCourierOptions());
         $view->addChild($this->reviewTable, 'reviewTable');
         $view->addChild($this->getReviewContinueButton(), 'continueButton');
         $view->setVariable('isHeaderBarVisible', false);
@@ -52,6 +59,7 @@ class CourierController extends AbstractActionController
                 Module::ROUTE . '/' . static::ROUTE . '/' . static::ROUTE_REVIEW . '/' . CourierJsonController::ROUTE_REVIEW_LIST
             )
         );
+        $settings->setTemplateUrlMap($this->mustacheTemplateMap('courierReview'));
     }
 
     protected function getReviewContinueButton()
@@ -76,6 +84,12 @@ class CourierController extends AbstractActionController
     protected function setReviewTable(DataTable $reviewTable)
     {
         $this->reviewTable = $reviewTable;
+        return $this;
+    }
+
+    protected function setService(Service $service)
+    {
+        $this->service = $service;
         return $this;
     }
 }

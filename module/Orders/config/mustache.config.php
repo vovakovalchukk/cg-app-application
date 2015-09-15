@@ -24,6 +24,12 @@ return [
                     'total' => Module::PUBLIC_FOLDER . 'template/columns/total.mustache',
                     'alerts' => Module::PUBLIC_FOLDER . 'template/columns/alerts.mustache',
                 ],
+                'courierReview' => [
+                    'buyerOrder' => Module::PUBLIC_FOLDER . 'template/courier/columns/buyerOrder.mustache',
+                    'courier' => Module::PUBLIC_FOLDER . 'template/courier/columns/courier.mustache',
+                    'service' => Module::PUBLIC_FOLDER . 'template/courier/columns/service.mustache',
+                    'item' => Module::PUBLIC_FOLDER . 'template/courier/columns/item.mustache',
+                ],
             ],
         ],
     ],
