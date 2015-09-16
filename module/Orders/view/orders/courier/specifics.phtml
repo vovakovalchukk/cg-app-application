@@ -1,0 +1,28 @@
+<?php /* The following script can't be loaded with require() as that happens asynchronously and we need this NOW */ ?>
+<script type="text/javascript" src="<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Review/DataTable.js"></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+    var orderIds = <?=json_encode($this->orderIds);?>;
+    var reviewDataTable = new CourierReviewDataTable($('#datatable'), orderIds);
+
+//    require(['<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Review/Service.js'], function(Service)
+//    {
+//        var service = new Service($('#datatable'));
+//    });
+});
+</script>
+<div id="main" class="no-sidebar courier-specifics">
+    <span class="heading-large">
+        <?= $this->translate('Orders') ?>
+        <div class="heading-buttons">
+            <?= $this->createAllLabelsButton; ?>
+        </div>
+    </span>
+    <div id="datatable-container">
+        <?= $this->reviewTable; ?>
+    </div>
+    <div style="display:none">
+        <?=$this->serviceSelects;?>
+    </div>
+</div>

@@ -49,8 +49,27 @@ use Orders\Order\PickList\ProgressStorage as OrderPickListProgressStorage;
 // Courier
 use Orders\Controller\CourierController;
 use Orders\Controller\CourierJsonController;
+use Orders\Courier\Service as CourierService;
+use Settings\Factory\SidebarNavFactory;
 
 return [
+    'service_manager' => [
+        'factories' => [
+            'courier-specifics-navigation'  => SidebarNavFactory::class,
+        ]
+    ],
+    'navigation' => [
+        'courier-specifics-navigation' => [
+            'couriers' => [
+                'label' => 'Courier Labels',
+                'uri' => '',
+                'class' => 'heading-medium',
+                'pages' => [
+                    // Leave this here. Entries will be added dynamically.
+                ]
+            ]
+        ]
+    ],
     'router' => [
         'routes' => [
             Module::ROUTE => [
@@ -663,13 +682,13 @@ return [
                                 ]
                             ],
                             CourierController::ROUTE_SPECIFICS => [
-                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'type' => 'Zend\Mvc\Router\Http\Segment',
                                 'options' => [
                                     'route' => CourierController::ROUTE_SPECIFICS_URI,
                                     'defaults' => [
                                         'action' => 'specifics',
                                         'breadcrumbs' => false,
-                                        'sidebar' => false,
+                                        'sidebar' => true,
                                         'subHeader' => false,
                                     ]
                                 ],
@@ -825,6 +844,20 @@ return [
                 'CourierReviewItemColumn' => DataTable\Column::class,
                 'CourierReviewQuantityColumnView' => ViewModel::class,
                 'CourierReviewQuantityColumn' => DataTable\Column::class,
+                'CourierSpecificsTable' => DataTable::class,
+                'CourierSpecificsTableSettings' => DataTable\Settings::class,
+                'CourierSpecificsBuyerOrderColumnView' => ViewModel::class,
+                'CourierSpecificsBuyerOrderColumn' => DataTable\Column::class,
+                'CourierSpecificsShippingMethodColumnView' => ViewModel::class,
+                'CourierSpecificsShippingMethodColumn' => DataTable\Column::class,
+                'CourierSpecificsServiceColumnView' => ViewModel::class,
+                'CourierSpecificsServiceColumn' => DataTable\Column::class,
+                'CourierSpecificsParcelsColumnView' => ViewModel::class,
+                'CourierSpecificsParcelsColumn' => DataTable\Column::class,
+                'CourierSpecificsItemColumnView' => ViewModel::class,
+                'CourierSpecificsItemColumn' => DataTable\Column::class,
+                'CourierSpecificsQuantityColumnView' => ViewModel::class,
+                'CourierSpecificsQuantityColumn' => DataTable\Column::class,
             ],
             'preferences' => [
                 InvoiceRendererService::class => PdfInvoiceRendererService::class,
@@ -1366,6 +1399,12 @@ return [
                     'repository' => OrganisationUnitApiStorage::class
                 ]
             ],
+
+            CourierService::class => [
+                'parameters' => [
+                    'config' => 'app_config',
+                ]
+            ],
             CourierController::class => [
                 'parameters' => [
                     'reviewTable' => 'CourierReviewTable',
@@ -1485,6 +1524,125 @@ return [
                 'parameters' => [
                     'column' => 'quantity',
                     'viewModel' => 'CourierReviewQuantityColumnView',
+                    'class' => 'quantity-col',
+                    'sortable' => false,
+                ],
+            ],
+
+            'CourierSpecificsTable' => [
+                'parameters' => [
+                    'variables' => [
+                        'sortable' => 'false',
+                        'id' => 'datatable',
+                        'class' => 'fixed-header fixed-footer',
+                        'width' => '100%'
+                    ],
+                ],
+                'injections' => [
+                    'addColumn' => [
+                        ['column' => 'CourierSpecificsBuyerOrderColumn'],
+                        ['column' => 'CourierSpecificsShippingMethodColumn'],
+                        ['column' => 'CourierSpecificsServiceColumn'],
+                        ['column' => 'CourierSpecificsParcelsColumn'],
+                        ['column' => 'CourierSpecificsItemColumn'],
+                        ['column' => 'CourierSpecificsQuantityColumn'],
+                    ],
+                    'setVariable' => [
+                        ['name' => 'settings', 'value' => 'CourierSpecificsTableSettings']
+                    ],
+                ],
+            ],
+            'CourierSpecificsTableSettings' => [
+                'parameters' => [
+                    'scrollHeightAuto' => false,
+                    'footer' => false,
+                    'pagination' => false,
+                    'tableOptions' => 'rt<"table-footer" ilp>',
+                    'language' => [
+                      'sLengthMenu' => '<span class="show">Show</span> _MENU_'
+                    ],
+                ]
+            ],
+            'CourierSpecificsBuyerOrderColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Buyer / Order ID'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsBuyerOrderColumn' => [
+                'parameters' => [
+                    'column' => 'buyerOrder',
+                    'viewModel' => 'CourierSpecificsBuyerOrderColumnView',
+                    'class' => 'buyerOrder-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsShippingMethodColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Shipping Method'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsShippingMethodColumn' => [
+                'parameters' => [
+                    'column' => 'shippingMethod',
+                    'viewModel' => 'CourierSpecificsShippingMethodColumnView',
+                    'class' => 'shippingMethod-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsCourierColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Courier'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsCourierColumn' => [
+                'parameters' => [
+                    'column' => 'courier',
+                    'viewModel' => 'CourierSpecificsCourierColumnView',
+                    'class' => 'courier-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsServiceColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Service'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsServiceColumn' => [
+                'parameters' => [
+                    'column' => 'service',
+                    'viewModel' => 'CourierSpecificsServiceColumnView',
+                    'class' => 'service-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsItemColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Item'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsItemColumn' => [
+                'parameters' => [
+                    'column' => 'item',
+                    'viewModel' => 'CourierSpecificsItemColumnView',
+                    'class' => 'item-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsQuantityColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'QTY'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsQuantityColumn' => [
+                'parameters' => [
+                    'column' => 'quantity',
+                    'viewModel' => 'CourierSpecificsQuantityColumnView',
                     'class' => 'quantity-col',
                     'sortable' => false,
                 ],

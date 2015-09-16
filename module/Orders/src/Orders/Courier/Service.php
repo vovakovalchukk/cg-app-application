@@ -17,6 +17,7 @@ use CG\Product\Client\Service as ProductService;
 use CG\Product\Collection as ProductCollection;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\User\OrganisationUnit\Service as UserOUService;
+use Zend\Config\Config;
 
 class Service
 {
@@ -32,6 +33,8 @@ class Service
     protected $accountService;
     /** @var ShippingServiceFactory */
     protected $shippingServiceFactory;
+    /** @var Config */
+    protected $config;
 
     protected $shippingAccounts;
 
@@ -41,14 +44,16 @@ class Service
         ShippingConversionService $shippingConversionService,
         ProductService $productService,
         AccountService $accountService,
-        ShippingServiceFactory $shippingServiceFactory
+        ShippingServiceFactory $shippingServiceFactory,
+        Config $config
     ) {
         $this->setOrderService($orderService)
             ->setUserOuService($userOuService)
             ->setShippingConversionService($shippingConversionService)
             ->setProductService($productService)
             ->setAccountService($accountService)
-            ->setShippingServiceFactory($shippingServiceFactory);
+            ->setShippingServiceFactory($shippingServiceFactory)
+            ->setConfig($config);
     }
     
     /**
@@ -155,9 +160,6 @@ if (!$order instanceof Order) {
         $itemData = [];
         $itemCount = 0;
         foreach ($items as $item) {
-if (!$item instanceof \CG\Order\Shared\Item\Entity) {
-continue;
-}
             if ($itemCount == 0) {
                 $rowData = $orderData;
             } else {
@@ -219,6 +221,28 @@ continue;
         return $imageUrl;
     }
 
+    public function setSidebarNavForSelectedAccounts($accountIds, $route)
+    {
+        $filter = (new AccountFilter())
+            ->setLimit('all')
+            ->setPage(1)
+            ->setId($accountIds);
+        $accounts =  $this->accountService->fetchByFilter($filter);
+
+        $navPagesConfig = $this->config['navigation']['courier-specifics-navigation']['couriers']['pages'];
+        foreach ($accounts as $account) {
+            $navPagesConfig[$account->getDisplayName()] = [
+                'label' => $account->getDisplayName(),
+                'title' => $account->getDisplayName(),
+                'route' => $route,
+                'params' => [
+                    'account' => $account->getId()
+                ]
+            ];
+        }
+        $this->config['navigation']['courier-specifics-navigation']['couriers']['pages'] = $navPagesConfig;
+    }
+
     protected function setOrderService(OrderService $orderService)
     {
         $this->orderService = $orderService;
@@ -252,6 +276,12 @@ continue;
     protected function setShippingServiceFactory(ShippingServiceFactory $shippingServiceFactory)
     {
         $this->shippingServiceFactory = $shippingServiceFactory;
+        return $this;
+    }
+
+    protected function setConfig(Config $config)
+    {
+        $this->config = $config;
         return $this;
     }
 }

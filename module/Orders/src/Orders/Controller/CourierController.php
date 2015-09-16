@@ -15,7 +15,7 @@ class CourierController extends AbstractActionController
     const ROUTE_REVIEW = 'Review';
     const ROUTE_REVIEW_URI = '/review';
     const ROUTE_SPECIFICS = 'Specifics';
-    const ROUTE_SPECIFICS_URI = '/specifics';
+    const ROUTE_SPECIFICS_URI = '/specifics[/:account]';
 
     protected $viewModelFactory;
     protected $reviewTable;
@@ -37,6 +37,9 @@ class CourierController extends AbstractActionController
         return $this->redirect()->toRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_REVIEW);
     }
 
+    /**
+     * @return ViewModel
+     */
     public function reviewAction()
     {
         $orderIds = $this->params()->fromPost('order', []);
@@ -113,6 +116,35 @@ class CourierController extends AbstractActionController
             ]
         ]);
         $view->setTemplate('elements/buttons.mustache');
+        return $view;
+    }
+
+    /**
+     * @return ViewModel
+     */
+    public function specificsAction()
+    {
+        $orderIds = $this->params()->fromPost('order', []);
+        $selectedCourier = $this->params()->fromRoute('account');
+        $courierIds = [];
+        $orderCouriers = [];
+        foreach ($orderIds as $orderId) {
+            $courierId = $this->params()->fromPost('courier_'.$orderId);
+            if (!$courierId) {
+                throw new \InvalidArgumentException('Order '.$orderId.' provided but no matching courier option was found');
+            }
+            $courierIds[] = $courierId;
+            $orderCouriers[$orderId] = $courierId;
+        }
+
+        $route = Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_SPECIFICS;
+        $this->service->setSidebarNavForSelectedAccounts($courierIds, $route);
+
+        // TODO: stuff for $selectedCourier
+
+        $view = $this->viewModelFactory->newInstance();
+        $view->setVariable('orderIds', $orderIds);
+
         return $view;
     }
 
