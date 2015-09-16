@@ -25,6 +25,7 @@ return array (
     20 => 'CG_RoyalMail',
     21 => 'CG_Ekm',
     22 => 'CG_Api',
+    23 => 'CG_WooCommerce',
   ),
   'module_listener_options' => 
   array (
