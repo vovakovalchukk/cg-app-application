@@ -58,9 +58,9 @@ class Service
         $shippingAccounts = $this->accountService->fetchByFilter($filter);
         $courierOptions = [];
         foreach ($shippingAccounts as $shippingAccount) {
-            $courierOptions[(string)$shippingAccount->getId()] = [
-                'id' => $shippingAccount->getId(),
-                'name' => $shippingAccount->getDisplayName(),
+            $courierOptions[] = [
+                'value' => $shippingAccount->getId(),
+                'title' => $shippingAccount->getDisplayName(),
             ];
         }
         return $courierOptions;

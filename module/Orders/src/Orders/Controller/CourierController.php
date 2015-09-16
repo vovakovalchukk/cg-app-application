@@ -42,7 +42,7 @@ $orderIds = ['2-286', '2-143']; // TEST
         $this->prepReviewTable();
 
         $view->setVariable('orderIds', $orderIds);
-        $view->setVariable('courierOptions', $this->service->getCourierOptions());
+        $view->addChild($this->getCourierSelectView(), 'courierSelect');
         $view->addChild($this->reviewTable, 'reviewTable');
         $view->addChild($this->getReviewContinueButton(), 'continueButton');
         $view->setVariable('isHeaderBarVisible', false);
@@ -60,6 +60,20 @@ $orderIds = ['2-286', '2-143']; // TEST
             )
         );
         $settings->setTemplateUrlMap($this->mustacheTemplateMap('courierReview'));
+    }
+
+    protected function getCourierSelectView()
+    {
+        $courierOptions = $this->service->getCourierOptions();
+        $view = $this->viewModelFactory->newInstance([
+            'id' => 'courier-review-courier-select',
+            'class' => 'courier-review-courier-select',
+            'blankOption' => false,
+            'searchField' => false,
+            'options' => $courierOptions,
+        ]);
+        $view->setTemplate('elements/custom-select.mustache');
+        return $view;
     }
 
     protected function getReviewContinueButton()

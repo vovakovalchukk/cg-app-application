@@ -1,35 +1,10 @@
+<?php /* The following script can't be loaded with require() as that happens asynchronously and we need this NOW */ ?>
+<script type="text/javascript" src="<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Review/DataTable.js"></script>
 <script type="text/javascript">
 $(document).ready(function()
 {
-    // This needs to happen immediately, can't wait for require()
-    $('#datatable').on('before-cgdatatable-init', function()
-    {
-        $('#datatable').on("fnServerData", function(event, sSource, aoData, fnCallback, oSettings)
-        {
-            var orderIds = <?=json_encode($this->orderIds);?>;
-            for (var count in orderIds)
-            {
-                aoData.push({
-                    'name': 'order['+count+']',
-                    'value': orderIds[count]
-                });
-            }
-        });
-        var courierOptions = <?=json_encode(array_values($this->courierOptions));?>;
-        $('#datatable').on('xhr', function(event, settings, json)
-        {
-            for (var count in json.Records) {
-                json.Records[count].courierOptions = [];
-                for (var key in courierOptions) {
-                    var current = courierOptions[key];
-                    if (json.Records[count].courier == key) {
-                        current.selected = true;
-                    }
-                    json.Records[count].courierOptions.push(current);
-                }
-            }
-        });
-    });
+    var orderIds = <?=json_encode($this->orderIds);?>;
+    var reviewDataTable = new CourierReviewDataTable($('#datatable'), orderIds);
 
     require(['<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Review/Service.js'], function(Service)
     {
@@ -46,6 +21,9 @@ $(document).ready(function()
     </span>
     <div id="datatable-container">
         <?= $this->reviewTable; ?>
+    </div>
+    <div style="display:none">
+        <?=$this->courierSelect;?>
     </div>
 </div>
 
