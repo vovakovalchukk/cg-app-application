@@ -16,44 +16,51 @@ $savePageRoute = implode('/', [
     WooCommerceController::ROUTE_AJAX
 ]);
 ?>
-<form id="woocommerce-form" action="<?= $this->url($savePageRoute, ['type' => Type::SALES]) ?>" method="POST">
-    <?= $this->mustache('elements/text.mustache', ['id' => 'woocommerce-accountId', 'name' => 'accountId', 'value' => $accountId, 'type' => 'hidden']) ?>
-    <div class="account-form-holder">
-        <div class="account-logo">
-            <span class="logo-large woocommerce"></span>
+<div class="account-form-holder">
+    <div class="account-logo">
+        <span class="logo-large woocommerce"></span>
+    </div>
+    <div class="account-field-holder">
+        <p>
+            Enter your WooCommerce credentials to link your account with OrderHub.io
+        </p>
+        <div class="label">
+            <?= $this->translate('Host') ?>:
         </div>
-        <div class="account-field-holder">
-            <p>
-                Enter your WooCommerce credentials to link your account with OrderHub.io
-            </p>
-            <div class="label">
-                <?= $this->translate('Host') ?>:
-            </div>
-            <div class="text-field">
-                <?= $this->mustache('elements/text.mustache', ['id' => 'woocommerce-host', 'name' => 'host', 'type' => 'url']) ?>
-            </div>
-        </div>
-        <div class="account-field-holder">
-            <div class="label">
-                <?= $this->translate('API Key') ?>:
-            </div>
-            <div class="text-field">
-                <?= $this->mustache('elements/text.mustache', ['id' => 'woocommerce-key', 'name' => 'key']) ?>
-            </div>
-        </div>
-        <div class="account-field-holder">
-            <div class="label">
-                <?= $this->translate('API Secret') ?>:
-            </div>
-            <div class="text-field">
-                <?= $this->mustache('elements/text.mustache', ['id' => 'woocommerce-secret', 'name' => 'secret']) ?>
-            </div>
-        </div>
-        <div class="account-form-buttons-holder">
-            <?= $this->mustache('elements/buttons.mustache', ['id' => 'woocommerce-link-account', 'buttons' => true, 'value' => 'Link Account']) ?>
-            <a href='<?= $this->url($accountPageRoute, ['type' => Type::SALES]) ?>'>
-                <?= $this->mustache('elements/buttons.mustache', ['id' => 'woocommerce-go-back', 'buttons' => true, 'type' => 'button', 'value' => 'Go Back']) ?>
-            </a>
+        <div class="text-field">
+            <?= $this->mustache('elements/text.mustache', ['id' => 'woocommerce-host', 'name' => 'host', 'type' => 'url']) ?>
         </div>
     </div>
-</form>
+    <div class="account-field-holder">
+        <div class="label">
+            <?= $this->translate('API Key') ?>:
+        </div>
+        <div class="text-field">
+            <?= $this->mustache('elements/text.mustache', ['id' => 'woocommerce-key', 'name' => 'key']) ?>
+        </div>
+    </div>
+    <div class="account-field-holder">
+        <div class="label">
+            <?= $this->translate('API Secret') ?>:
+        </div>
+        <div class="text-field">
+            <?= $this->mustache('elements/text.mustache', ['id' => 'woocommerce-secret', 'name' => 'secret']) ?>
+        </div>
+    </div>
+    <div class="account-form-buttons-holder">
+        <?= $this->mustache('elements/buttons.mustache', ['id' => 'woocommerce-link-account', 'buttons' => true, 'value' => 'Link Account']) ?>
+        <a href='<?= $this->url($accountPageRoute, ['type' => Type::SALES]) ?>'>
+            <?= $this->mustache('elements/buttons.mustache', ['id' => 'woocommerce-go-back', 'buttons' => true, 'value' => 'Go Back']) ?>
+        </a>
+    </div>
+</div>
+<?php $this->inlineScript()->captureStart(); ?>
+    require.config({
+        paths: {
+            'WooCommerce': '<?= $this->basePath() . Settings\Module::PUBLIC_FOLDER; ?>/js/Channel/WooCommerce'
+        }
+    });
+    require(["WooCommerce/DomListener"], function(domListener) {
+        domListener.init('<?= $this->url($savePageRoute, ['type' => Type::SALES]) ?>', <?= $accountId ?: 'undefined' ?>);
+    });
+<?php $this->inlineScript()->captureEnd(); ?>
