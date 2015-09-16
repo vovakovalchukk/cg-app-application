@@ -1,0 +1,49 @@
+<?php
+use CG\Channel\Type;
+use Settings\Controller\ChannelController;
+use Settings\Module;
+
+$accountPageRoute = implode('/', [
+    Module::ROUTE,
+    ChannelController::ROUTE,
+    ChannelController::ROUTE_CHANNELS
+]);
+?>
+<div class="account-form-holder">
+    <div class="account-logo">
+        <span class="logo-large woocommerce"></span>
+    </div>
+    <div class="account-field-holder">
+        <p>
+            Enter your WooCommerce credentials to link your account with OrderHub.io
+        </p>
+        <div class="label">
+            <?= $this->translate('Host') ?>:
+        </div>
+        <div class="text-field">
+            <?= $this->mustache('elements/text.mustache', ['id' => 'woocommerce-host', 'name' => 'woocommerce-host', 'type' => 'url']) ?>
+        </div>
+    </div>
+    <div class="account-field-holder">
+        <div class="label">
+            <?= $this->translate('API Key') ?>:
+        </div>
+        <div class="text-field">
+            <?= $this->mustache('elements/text.mustache', ['id' => 'woocommerce-key', 'name' => 'woocommerce-key']) ?>
+        </div>
+    </div>
+    <div class="account-field-holder">
+        <div class="label">
+            <?= $this->translate('API Secret') ?>:
+        </div>
+        <div class="text-field">
+            <?= $this->mustache('elements/text.mustache', ['id' => 'woocommerce-secret', 'name' => 'woocommerce-secret']) ?>
+        </div>
+    </div>
+    <div class="account-form-buttons-holder">
+        <?= $this->mustache('elements/buttons.mustache', ['id' => 'woocommerce-link-account', 'buttons' => true, 'value' => 'Link Account']) ?>
+        <a href='<?= $this->url($accountPageRoute, ['type' => Type::SALES]) ?>'>
+            <?= $this->mustache('elements/buttons.mustache', ['id' => 'woocommerce-go-back', 'buttons' => true, 'value' => 'Go Back']) ?>
+        </a>
+    </div>
+</div>
