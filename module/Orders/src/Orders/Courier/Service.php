@@ -3,6 +3,7 @@ namespace Orders\Courier;
 
 use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
+use CG\Channel\ShippingServiceFactory;
 use CG\Channel\Type as ChannelType;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter as OrderFilter;
@@ -29,19 +30,25 @@ class Service
     protected $productService;
     /** @var AccountService */
     protected $accountService;
+    /** @var ShippingServiceFactory */
+    protected $shippingServiceFactory;
+
+    protected $shippingAccounts;
 
     public function __construct(
         OrderService $orderService,
         UserOUService $userOuService,
         ShippingConversionService $shippingConversionService,
         ProductService $productService,
-        AccountService $accountService
+        AccountService $accountService,
+        ShippingServiceFactory $shippingServiceFactory
     ) {
         $this->setOrderService($orderService)
             ->setUserOuService($userOuService)
             ->setShippingConversionService($shippingConversionService)
             ->setProductService($productService)
-            ->setAccountService($accountService);
+            ->setAccountService($accountService)
+            ->setShippingServiceFactory($shippingServiceFactory);
     }
     
     /**
@@ -49,13 +56,7 @@ class Service
      */
     public function getCourierOptions()
     {
-        $ouIds = $this->userOuService->getAncestorOrganisationUnitIdsByActiveUser();
-        $filter = (new AccountFilter())
-            ->setLimit('all')
-            ->setPage(1)
-            ->setOrganisationUnitId($ouIds)
-            ->setType(ChannelType::SHIPPING);
-        $shippingAccounts = $this->accountService->fetchByFilter($filter);
+        $shippingAccounts = $this->getShippingAccounts();
         $courierOptions = [];
         foreach ($shippingAccounts as $shippingAccount) {
             $courierOptions[] = [
@@ -64,6 +65,39 @@ class Service
             ];
         }
         return $courierOptions;
+    }
+
+    public function getCourierServiceOptions()
+    {
+        $shippingServicesByAccount = [];
+        $shippingAccounts = $this->getShippingAccounts();
+        foreach ($shippingAccounts as $account) {
+            $shippingServicesByAccount[$account->getId()] = [];
+            $shippingService = $this->shippingServiceFactory->createShippingService($account);
+            $shippingServices = $shippingService->getShippingServices();
+            foreach ($shippingServices as $value => $name) {
+                $shippingServicesByAccount[$account->getId()][] = [
+                    'value' => $value,
+                    'title' => $name,
+                ];
+            }
+        }
+        return $shippingServicesByAccount;
+    }
+
+    protected function getShippingAccounts()
+    {
+        if ($this->shippingAccounts) {
+            return $this->shippingAccounts;
+        }
+        $ouIds = $this->userOuService->getAncestorOrganisationUnitIdsByActiveUser();
+        $filter = (new AccountFilter())
+            ->setLimit('all')
+            ->setPage(1)
+            ->setOrganisationUnitId($ouIds)
+            ->setType(ChannelType::SHIPPING);
+        $this->shippingAccounts =  $this->accountService->fetchByFilter($filter);
+        return $this->shippingAccounts;
     }
 
     /**
@@ -212,6 +246,12 @@ continue;
     protected function setAccountService(AccountService $accountService)
     {
         $this->accountService = $accountService;
+        return $this;
+    }
+
+    protected function setShippingServiceFactory(ShippingServiceFactory $shippingServiceFactory)
+    {
+        $this->shippingServiceFactory = $shippingServiceFactory;
         return $this;
     }
 }

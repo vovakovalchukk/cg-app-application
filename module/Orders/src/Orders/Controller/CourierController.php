@@ -6,6 +6,7 @@ use CG_UI\View\Prototyper\ViewModelFactory;
 use Orders\Module;
 use Orders\Courier\Service;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
 
 class CourierController extends AbstractActionController
 {
@@ -43,6 +44,7 @@ $orderIds = ['2-286', '2-143']; // TEST
 
         $view->setVariable('orderIds', $orderIds);
         $view->addChild($this->getCourierSelectView(), 'courierSelect');
+        $this->addCourierServiceViews($view);
         $view->addChild($this->reviewTable, 'reviewTable');
         $view->addChild($this->getReviewContinueButton(), 'continueButton');
         $view->setVariable('isHeaderBarVisible', false);
@@ -71,6 +73,29 @@ $orderIds = ['2-286', '2-143']; // TEST
             'blankOption' => false,
             'searchField' => false,
             'options' => $courierOptions,
+        ]);
+        $view->setTemplate('elements/custom-select.mustache');
+        return $view;
+    }
+
+    protected function addCourierServiceViews(ViewModel $view)
+    {
+        $courierServiceOptions = $this->service->getCourierServiceOptions();
+        foreach ($courierServiceOptions as $accountId => $options)
+        {
+            $optionsView = $this->getCourierServiceView($accountId, $options);
+            $view->addChild($optionsView, 'serviceSelects', true);
+        }
+    }
+
+    protected function getCourierServiceView($courierId, array $options)
+    {
+        $view = $this->viewModelFactory->newInstance([
+            'id' => 'courier-review-service-select-'.$courierId,
+            'class' => 'courier-review-courier-select',
+            'blankOption' => false,
+            'searchField' => false,
+            'options' => $options,
         ]);
         $view->setTemplate('elements/custom-select.mustache');
         return $view;

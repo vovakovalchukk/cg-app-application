@@ -1,4 +1,6 @@
-{{#service}}
-{{.}}
-{{/service}}
-{{^service}}&nbsp;{{/service}}
+{{^childRow}}
+<div class="courier-service-options">
+    {{{serviceOptions}}}
+</div>
+{{/childRow}}
+{{#childRow}}&nbsp;{{/childRow}}

@@ -25,6 +25,7 @@ function CourierReviewDataTable(dataTable, orderIds)
 CourierReviewDataTable.COLUMN_COURIER = 'courier';
 CourierReviewDataTable.COLUMN_SERVICE = 'service';
 CourierReviewDataTable.SELECTOR_COURIER_SELECT = '#courier-review-courier-select';
+CourierReviewDataTable.SELECTOR_SERVICE_SELECT_PREFIX = '#courier-review-service-select-';
 
 CourierReviewDataTable.prototype.addOrderIdsToAjaxRequest = function()
 {
@@ -51,7 +52,7 @@ CourierReviewDataTable.prototype.addCustomSelectsToCourierAndServiceColumns = fu
             return self.addCustomSelectsToCourierColumn(data);
         }
         if (column.mData == CourierReviewDataTable.COLUMN_SERVICE) {
-            // TODO
+            return self.addCustomSelectsToServiceColumn(data);
         }
     });
     return this;
@@ -65,9 +66,27 @@ CourierReviewDataTable.prototype.addCustomSelectsToCourierColumn = function(temp
     $('input[type=hidden]', courierSelectCopy).attr('name', name);
     if (templateData.courier) {
         $('input[type=hidden]', courierSelectCopy).val(templateData.courier);
-        $('ul li[data-value='+templateData.courier+']', courierSelectCopy).addClass('active');
+        $('ul li[data-value="'+templateData.courier+'"]', courierSelectCopy).addClass('active');
     }
 
     templateData.courierOptions = $('<div>').append(courierSelectCopy).html();
     return this; 
+};
+
+CourierReviewDataTable.prototype.addCustomSelectsToServiceColumn = function(templateData)
+{
+    if (!templateData.courier) {
+        return;
+    }
+    var serviceSelectCopy = $(CourierReviewDataTable.SELECTOR_SERVICE_SELECT_PREFIX+templateData.courier).clone();
+    var name = 'service_'+templateData.orderId;
+    serviceSelectCopy.removeAttr('id').attr('data-element-name', name);
+    $('input[type=hidden]', serviceSelectCopy).attr('name', name);
+    if (templateData.service) {
+        $('input[type=hidden]', serviceSelectCopy).val(templateData.service);
+        $('ul li[data-value="'+templateData.service+'"]', serviceSelectCopy).addClass('active');
+    }
+
+    templateData.serviceOptions = $('<div>').append(serviceSelectCopy).html();
+    return this;
 };
