@@ -1,6 +1,8 @@
 <?php
 use CG\Channel\Type;
+use CG\WooCommerce\Account as WooCommerceAccount;
 use Settings\Controller\ChannelController;
+use Settings\Controller\WooCommerceController;
 use Settings\Module;
 
 $accountPageRoute = implode('/', [
@@ -8,8 +10,13 @@ $accountPageRoute = implode('/', [
     ChannelController::ROUTE,
     ChannelController::ROUTE_CHANNELS
 ]);
+$savePageRoute = implode('/', [
+    $accountPageRoute,
+    WooCommerceAccount::ROUTE,
+    WooCommerceController::ROUTE_AJAX
+]);
 ?>
-<form id="woocommerce-form" action="" method="POST">
+<form id="woocommerce-form" action="<?= $this->url($savePageRoute, ['type' => Type::SALES]) ?>" method="POST">
     <?= $this->mustache('elements/text.mustache', ['id' => 'woocommerce-accountId', 'name' => 'accountId', 'value' => $accountId, 'type' => 'hidden']) ?>
     <div class="account-form-holder">
         <div class="account-logo">
