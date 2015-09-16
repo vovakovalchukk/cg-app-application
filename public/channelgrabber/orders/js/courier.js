@@ -18,7 +18,7 @@ define([], function()
 
         var inputsHtml = '';
         for (var count in orders) {
-            inputsHtml += '<input name="order[]" value="'+orders[count]+'" />';
+            inputsHtml += '<input name="order[]" value="'+orders[count]+'" type="hidden" />';
         }
         // TODO: pjax
         $('<form method="POST" action="'+url+'" target="_top">'+inputsHtml+'</form>').appendTo('body').submit().remove();

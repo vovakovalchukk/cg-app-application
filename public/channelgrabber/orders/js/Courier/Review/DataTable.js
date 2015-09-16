@@ -62,7 +62,7 @@ CourierReviewDataTable.prototype.addCustomSelectsToCourierColumn = function(temp
 {
     var courierSelectCopy = $(CourierReviewDataTable.SELECTOR_COURIER_SELECT).clone();
     var name = 'courier_'+templateData.orderId;
-    courierSelectCopy.removeAttr('id').attr('data-element-name', name);
+    courierSelectCopy.removeAttr('id').attr('data-element-name', name).addClass('courier-courier-custom-select');
     $('input[type=hidden]', courierSelectCopy).attr('name', name);
     if (templateData.courier) {
         $('input[type=hidden]', courierSelectCopy).val(templateData.courier);
@@ -80,7 +80,7 @@ CourierReviewDataTable.prototype.addCustomSelectsToServiceColumn = function(temp
     }
     var serviceSelectCopy = $(CourierReviewDataTable.SELECTOR_SERVICE_SELECT_PREFIX+templateData.courier).clone();
     var name = 'service_'+templateData.orderId;
-    serviceSelectCopy.removeAttr('id').attr('data-element-name', name);
+    serviceSelectCopy.removeAttr('id').attr('data-element-name', name).addClass('courier-service-custom-select');
     $('input[type=hidden]', serviceSelectCopy).attr('name', name);
     if (templateData.service) {
         $('input[type=hidden]', serviceSelectCopy).val(templateData.service);
