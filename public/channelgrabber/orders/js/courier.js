@@ -21,7 +21,7 @@ define([], function()
             inputsHtml += '<input name="order[]" value="'+orders[count]+'" />';
         }
         // TODO: pjax
-        $('<form method="POST" action="'+url+'" target="_top">'+inputsHtml+'</form>').submit();
+        $('<form method="POST" action="'+url+'" target="_top">'+inputsHtml+'</form>').appendTo('body').submit().remove();
     };
 
     return Courier;
