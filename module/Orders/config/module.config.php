@@ -661,7 +661,20 @@ return [
                                         'may_terminate' => true,
                                     ]
                                 ]
-                            ]
+                            ],
+                            CourierController::ROUTE_SPECIFICS => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => CourierController::ROUTE_SPECIFICS_URI,
+                                    'defaults' => [
+                                        'action' => 'specifics',
+                                        'breadcrumbs' => false,
+                                        'sidebar' => false,
+                                        'subHeader' => false,
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
                         ]
                     ],
                     StoredFiltersController::ROUTE_SAVE => [

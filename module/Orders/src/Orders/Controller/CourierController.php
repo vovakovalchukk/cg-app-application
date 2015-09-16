@@ -14,6 +14,8 @@ class CourierController extends AbstractActionController
     const ROUTE_URI = '/courier';
     const ROUTE_REVIEW = 'Review';
     const ROUTE_REVIEW_URI = '/review';
+    const ROUTE_SPECIFICS = 'Specifics';
+    const ROUTE_SPECIFICS_URI = '/specifics';
 
     protected $viewModelFactory;
     protected $reviewTable;
@@ -42,6 +44,7 @@ class CourierController extends AbstractActionController
         $this->prepReviewTable();
 
         $view->setVariable('orderIds', $orderIds);
+        $view->setVariable('specificsUrl', $this->url()->fromRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_SPECIFICS));
         $view->addChild($this->getCourierSelectView(), 'courierSelect');
         $this->addCourierServiceViews($view);
         $view->addChild($this->reviewTable, 'reviewTable');

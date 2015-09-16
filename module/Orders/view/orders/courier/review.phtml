@@ -19,9 +19,11 @@ $(document).ready(function()
             <?= $this->continueButton; ?>
         </div>
     </span>
-    <div id="datatable-container">
-        <?= $this->reviewTable; ?>
-    </div>
+    <form id="continue-form" method="POST" action="<?=$this->specificsUrl;?>">
+        <div id="datatable-container">
+            <?= $this->reviewTable; ?>
+        </div>
+    </form>
     <div style="display:none">
         <?=$this->courierSelect;?>
         <?=$this->serviceSelects;?>
