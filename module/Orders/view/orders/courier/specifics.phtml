@@ -6,10 +6,10 @@ $(document).ready(function()
     var orderIds = <?=json_encode($this->orderIds);?>;
     var reviewDataTable = new CourierReviewDataTable($('#datatable'), orderIds);
 
-//    require(['<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Review/Service.js'], function(Service)
-//    {
-//        var service = new Service($('#datatable'));
-//    });
+    require(['<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Specifics/Service.js'], function(Service)
+    {
+        var service = new Service($('#datatable'));
+    });
 });
 </script>
 <div id="main" class="padded-content-holder courier-specifics">
