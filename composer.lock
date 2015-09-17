@@ -3177,16 +3177,23 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/woocommerce-module.git",
-                "reference": "230f8c9e63b9f402394aa82662acc818c02f36b7"
+                "reference": "15b7eb0450265e1f34e88e504491b1b96bbe96e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-woocommerce-dev-CGIV-6244-AuthAuth-903b57.zip",
-                "reference": "230f8c9e63b9f402394aa82662acc818c02f36b7",
-                "shasum": "ef6cc7d3aca4599a777cc3bc37d573c9fc4cf35a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-woocommerce-dev-CGIV-6244-AuthAuth-29faca.zip",
+                "reference": "15b7eb0450265e1f34e88e504491b1b96bbe96e3",
+                "shasum": "432f63d39324269f8b7cb6ee999923510bf54352"
             },
             "require": {
-                "channelgrabber/zf2-installer": ">=1.0.3,<2.0.0",
+                "channelgrabber/channel": "dev-CGIV-6244-AuthAuth as 1.17.9",
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/woocommerce": "dev-CGIV-6244-AuthAuth as 1.0.0",
+                "channelgrabber/zf2-channel": "^1.0.6",
+                "channelgrabber/zf2-installer": "^1.0.3",
+                "composer/composer": "@dev",
+                "php-jsonpatch/php-jsonpatch": "dev-master",
+                "php-jsonpointer/php-jsonpointer": "dev-master",
                 "zendframework/zend-config": "2.*",
                 "zendframework/zend-form": "2.*",
                 "zendframework/zend-loader": "2.*",
@@ -3206,7 +3213,7 @@
                 ]
             },
             "description": "CG_WooCommerce module",
-            "time": "2015-09-17 08:38:13"
+            "time": "2015-09-17 10:07:56"
         },
         {
             "name": "cilex/cilex",

@@ -10,11 +10,16 @@ $accountPageRoute = implode('/', [
     ChannelController::ROUTE,
     ChannelController::ROUTE_CHANNELS
 ]);
+
 $savePageRoute = implode('/', [
     $accountPageRoute,
     WooCommerceAccount::ROUTE,
     WooCommerceController::ROUTE_AJAX
 ]);
+
+if ($accountId) {
+    $accountPageRoute .= '/' . ChannelController::ROUTE_ACCOUNT;
+}
 ?>
 <div class="account-form-holder">
     <div class="account-logo">
@@ -49,7 +54,7 @@ $savePageRoute = implode('/', [
     </div>
     <div class="account-form-buttons-holder">
         <?= $this->mustache('elements/buttons.mustache', ['id' => 'woocommerce-link-account', 'buttons' => true, 'value' => 'Link Account']) ?>
-        <a href='<?= $this->url($accountPageRoute, ['type' => Type::SALES]) ?>'>
+        <a href='<?= $this->url($accountPageRoute, ['type' => Type::SALES, 'account' => $accountId]) ?>'>
             <?= $this->mustache('elements/buttons.mustache', ['id' => 'woocommerce-go-back', 'buttons' => true, 'value' => 'Go Back']) ?>
         </a>
     </div>
