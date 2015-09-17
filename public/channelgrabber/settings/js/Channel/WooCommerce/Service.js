@@ -9,9 +9,9 @@ define(['DomManipulator', 'WooCommerce/Ajax'], function(domManipulator, storage)
         storage.save(
             url,
             accountId,
-            domManipulator.getValue(Storage.DOM_SELECTOR_HOST),
-            domManipulator.getValue(Storage.DOM_SELECTOR_KEY),
-            domManipulator.getValue(Storage.DOM_SELECTOR_SECRET)
+            domManipulator.getValue(Service.DOM_SELECTOR_HOST),
+            domManipulator.getValue(Service.DOM_SELECTOR_KEY),
+            domManipulator.getValue(Service.DOM_SELECTOR_SECRET)
         );
     };
 

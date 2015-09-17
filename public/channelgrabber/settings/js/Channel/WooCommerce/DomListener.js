@@ -8,7 +8,7 @@ define(['WooCommerce/Service', 'KeyPress'], function(service, KeyPress) {
             service.save(saveUrl, accountId);
         });
 
-        $([service.getDomSelectorHost(), service.getDomSelectorKey(), service.getDomSelectorSecret()]).each(function(selector) {
+        $([service.getDomSelectorHost(), service.getDomSelectorKey(), service.getDomSelectorSecret()]).each(function(index, selector) {
             $(selector).off('keypress').on('keypress', function(event) {
                 if (event.which != KeyPress.ENTER) {
                     return;
