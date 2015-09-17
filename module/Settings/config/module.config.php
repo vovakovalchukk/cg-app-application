@@ -999,6 +999,7 @@ return [
             WooCommerceClientFactory::class => [
                 'parameters' => [
                     'cryptor' => 'woocommerce_cryptor',
+                    'guzzle' => 'woocommerce_guzzle',
                 ]
             ],
         ]

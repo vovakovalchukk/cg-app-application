@@ -85,6 +85,7 @@
         "cilex/cilex": "~1.0.1",
         "composer/composer": "@dev",
         "guzzle/guzzle": "~3.7",
+        "guzzlehttp/guzzle": "~5.0",
         "league/csv": "~7.1.0",
         "nocarrier/hal": "~0.9.10",
         "php": ">=5.3.3",
