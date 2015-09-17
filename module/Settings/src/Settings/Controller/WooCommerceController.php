@@ -31,7 +31,7 @@ class WooCommerceController extends ChannelControllerAbstract
         $route = implode('/', [Module::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS, ChannelController::ROUTE_ACCOUNT]);
         return $save->setVariable(
             'redirectUrl',
-            $this->url()->fromRoute($route, ['type' => ChannelType::SALES, 'accountId' => $account->getId()])
+            $this->url()->fromRoute($route, ['type' => ChannelType::SALES, 'account' => $account->getId()])
         );
     }
 

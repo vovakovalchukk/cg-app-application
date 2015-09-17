@@ -308,13 +308,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "d008d76e9b77033247e7ca6713871053c1193c02"
+                "reference": "909a922399c39a6925f0288cfb31ba875abfdd18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6244-AuthAuth-ca7c85.zip",
-                "reference": "d008d76e9b77033247e7ca6713871053c1193c02",
-                "shasum": "431644ba3f1191f5d8f26bb5cfc5f30113824923"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6244-AuthAuth-706574.zip",
+                "reference": "909a922399c39a6925f0288cfb31ba875abfdd18",
+                "shasum": "25be01d6644e9ae256c90ce4d2c4a407b6a760d7"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -371,7 +371,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-09-16 13:16:49"
+            "time": "2015-09-17 09:21:06"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2304,13 +2304,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "163ddeb65fa83db956f68e4860da067c1ea452cc"
+                "reference": "a91e46a20a4481eb73d7d39b23363b8ded858f26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-CGIV-6244-AuthAuth-bf11a8.zip",
-                "reference": "163ddeb65fa83db956f68e4860da067c1ea452cc",
-                "shasum": "f167f6297bf52d26e590a52eeb578495e75242c8"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-CGIV-6244-AuthAuth-470370.zip",
+                "reference": "a91e46a20a4481eb73d7d39b23363b8ded858f26",
+                "shasum": "f2d43ff62af52f5f3f80ed92c438ea26c6833bc1"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.8",
@@ -2334,7 +2334,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2015-09-17 08:53:36"
+            "time": "2015-09-17 09:18:48"
         },
         {
             "name": "channelgrabber/zendesk",
