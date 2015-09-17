@@ -1,0 +1,19 @@
+<div id="sidebar" class="filter-module clearfix">
+    <form method="POST" id="courier-specifics-nav-form">
+        <?php foreach ($this->orderIds as $orderId): ?>
+        <input type="hidden" name="order[]" value="<?=$orderId;?>" />
+        <input type="hidden" name="courier_<?=$orderId;?>" value="<?=$this->orderCouriers[$orderId];?>" />
+        <input type="hidden" name="service_<?=$orderId;?>" value="<?=$this->orderServices[$orderId];?>" />
+        <?php endforeach; ?>
+    </form>
+    <span class="heading-medium"><?=$this->translate('Courier Labels');?></span>
+    <ul id="section-nav-links" class="module-content nav">
+        <li>
+            <?php foreach($this->navLinks as $url => $label): ?>
+                <ul>
+                    <li><a href="<?=$url;?>" class="courier-specifics-nav-link"><?=$label;?></a></li>
+                </ul>
+            <?php endforeach;?>
+        </li>
+    </ul>
+</div>

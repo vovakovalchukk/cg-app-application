@@ -688,7 +688,7 @@ return [
                                     'defaults' => [
                                         'action' => 'specifics',
                                         'breadcrumbs' => false,
-                                        'sidebar' => true,
+                                        'sidebar' => 'orders/courier/specifics/sidebar',
                                         'subHeader' => false,
                                     ]
                                 ],

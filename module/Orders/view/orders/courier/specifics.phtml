@@ -12,9 +12,9 @@ $(document).ready(function()
 //    });
 });
 </script>
-<div id="main" class="no-sidebar courier-specifics">
+<div id="main" class="padded-content-holder courier-specifics">
     <span class="heading-large">
-        <?= $this->translate('Orders') ?>
+        <?= $this->selectedCourier->getDisplayName().' '.$this->translate('Orders') ?>
         <div class="heading-buttons">
             <?= $this->createAllLabelsButton; ?>
         </div>

@@ -1,6 +1,7 @@
 <?php
 namespace Orders\Controller;
 
+use CG\Account\Shared\Collection as AccountCollection;
 use CG_UI\View\DataTable;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Orders\Module;
@@ -125,27 +126,53 @@ class CourierController extends AbstractActionController
     public function specificsAction()
     {
         $orderIds = $this->params()->fromPost('order', []);
-        $selectedCourier = $this->params()->fromRoute('account');
+        $selectedCourierId = $this->params()->fromRoute('account');
         $courierIds = [];
         $orderCouriers = [];
+        $orderServices = [];
         foreach ($orderIds as $orderId) {
             $courierId = $this->params()->fromPost('courier_'.$orderId);
-            if (!$courierId) {
-                throw new \InvalidArgumentException('Order '.$orderId.' provided but no matching courier option was found');
+            $serviceId = $this->params()->fromPost('service_'.$orderId);
+            if (!$courierId || !$serviceId) {
+                throw new \InvalidArgumentException('Order '.$orderId.' provided but no matching courier or service option was found');
             }
             $courierIds[] = $courierId;
             $orderCouriers[$orderId] = $courierId;
+            $orderServices[$orderId] = $serviceId;
         }
 
-        $route = Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_SPECIFICS;
-        $this->service->setSidebarNavForSelectedAccounts($courierIds, $route);
+        $courierAccounts = $this->service->fetchAccountsById($courierIds);
+        if ($selectedCourierId) {
+            $selectedCourier = $courierAccounts->getById($selectedCourierId);
+        } else {
+            $courierAccounts->rewind();
+            $selectedCourier = $courierAccounts->current();
+        }
+        $navLinks = $this->getSidebarNavLinksForSelectedAccounts($courierAccounts);
 
         // TODO: stuff for $selectedCourier
 
         $view = $this->viewModelFactory->newInstance();
-        $view->setVariable('orderIds', $orderIds);
+        $view->setVariable('orderIds', $orderIds)
+            ->setVariable('orderCouriers', $orderCouriers)
+            ->setVariable('orderServices', $orderServices)
+            ->setVariable('navLinks', $navLinks)
+            ->setVariable('selectedCourier', $selectedCourier)
+            ->setVariable('isHeaderBarVisible', false)
+            ->setVariable('subHeaderHide', true);
 
         return $view;
+    }
+
+    public function getSidebarNavLinksForSelectedAccounts(AccountCollection $accounts)
+    {
+        $route = Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_SPECIFICS;
+        $nav = [];
+        foreach ($accounts as $account) {
+            $url = $this->url()->fromRoute($route, ['account' => $account->getId()]);
+            $nav[$url] = $account->getDisplayName();
+        }
+        return $nav;
     }
 
     protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
