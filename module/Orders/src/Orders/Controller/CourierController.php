@@ -20,16 +20,19 @@ class CourierController extends AbstractActionController
 
     protected $viewModelFactory;
     protected $reviewTable;
+    protected $specificsTable;
     /** @var Service */
     protected $service;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         DataTable $reviewTable,
+        DataTable $specificsTable,
         Service $service
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setReviewTable($reviewTable)
+            ->setSpecificsTable($specificsTable)
             ->setService($service);
     }
 
@@ -151,6 +154,7 @@ class CourierController extends AbstractActionController
         $navLinks = $this->getSidebarNavLinksForSelectedAccounts($courierAccounts);
 
         // TODO: stuff for $selectedCourier
+        $this->service->alterSpecificsTableForSelectedCourier($this->specificsTable, $selectedCourier);
 
         $view = $this->viewModelFactory->newInstance();
         $view->setVariable('orderIds', $orderIds)
@@ -158,6 +162,8 @@ class CourierController extends AbstractActionController
             ->setVariable('orderServices', $orderServices)
             ->setVariable('navLinks', $navLinks)
             ->setVariable('selectedCourier', $selectedCourier)
+            ->addChild($this->getSpecificsCreateAllLabelsButton(), 'createAllLabelsButton')
+            ->addChild($this->specificsTable, 'specificsTable')
             ->setVariable('isHeaderBarVisible', false)
             ->setVariable('subHeaderHide', true);
 
@@ -175,6 +181,19 @@ class CourierController extends AbstractActionController
         return $nav;
     }
 
+    protected function getSpecificsCreateAllLabelsButton()
+    {
+        $view = $this->viewModelFactory->newInstance([
+            'buttons' => [
+                'value' => 'Create all labels',
+                'id' => 'create-all-button',
+                'disabled' => false,
+            ]
+        ]);
+        $view->setTemplate('elements/buttons.mustache');
+        return $view;
+    }
+
     protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
     {
         $this->viewModelFactory = $viewModelFactory;
@@ -184,6 +203,12 @@ class CourierController extends AbstractActionController
     protected function setReviewTable(DataTable $reviewTable)
     {
         $this->reviewTable = $reviewTable;
+        return $this;
+    }
+
+    public function setSpecificsTable(DataTable $specificsTable)
+    {
+        $this->specificsTable = $specificsTable;
         return $this;
     }
 

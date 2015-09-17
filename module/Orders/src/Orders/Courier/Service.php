@@ -3,8 +3,10 @@ namespace Orders\Courier;
 
 use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
+use CG\Account\Shared\Entity as Account;
 use CG\Channel\ShippingServiceFactory;
 use CG\Channel\Type as ChannelType;
+use CG\Dataplug\Carrier\Service as CarrierService;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Shared\Collection as OrderCollection;
@@ -16,10 +18,21 @@ use CG\Product\Filter as ProductFilter;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Collection as ProductCollection;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
+use CG_UI\View\DataTable;
 use CG\User\OrganisationUnit\Service as UserOUService;
+use Zend\Di\Di;
+use Zend\Di\Exception\ClassNotFoundException;
 
-class Service
+class Service implements LoggerAwareInterface
 {
+    use LogTrait;
+
+    const OPTION_COLUMN_ALIAS = 'CourierSpecifics%sColumn';
+    const LOG_CODE = 'OrderCourierService';
+    const LOG_OPTION_COLUMN_NOT_FOUND = 'No column alias called %s found for Account %d, channel %s';
+
     /** @var OrderService */
     protected $orderService;
     /** @var UserOUService */
@@ -32,6 +45,10 @@ class Service
     protected $accountService;
     /** @var ShippingServiceFactory */
     protected $shippingServiceFactory;
+    /** @var CarrierService */
+    protected $carrierService;
+    /** @var Di */
+    protected $di;
 
     protected $shippingAccounts;
 
@@ -41,14 +58,18 @@ class Service
         ShippingConversionService $shippingConversionService,
         ProductService $productService,
         AccountService $accountService,
-        ShippingServiceFactory $shippingServiceFactory
+        ShippingServiceFactory $shippingServiceFactory,
+        CarrierService $carrierService,
+        Di $di
     ) {
         $this->setOrderService($orderService)
             ->setUserOuService($userOuService)
             ->setShippingConversionService($shippingConversionService)
             ->setProductService($productService)
             ->setAccountService($accountService)
-            ->setShippingServiceFactory($shippingServiceFactory);
+            ->setShippingServiceFactory($shippingServiceFactory)
+            ->setCarrierService($carrierService)
+            ->setDi($di);
     }
     
     /**
@@ -119,9 +140,6 @@ class Service
         $rootOu = $this->userOuService->getRootOuByActiveUser();
         $products = $this->getProductsForOrders($orders, $rootOu);
         foreach ($orders as $order) {
-if (!$order instanceof Order) {
-    continue;
-}
             $shippingAlias = $this->shippingConversionService->fromMethodToAlias($order->getShippingMethod(), $rootOu);
             $shippingDescription = $order->getShippingMethod();
             $courierId = null;
@@ -225,6 +243,25 @@ if (!$order instanceof Order) {
         return $this->accountService->fetchByFilter($filter);
     }
 
+    public function alterSpecificsTableForSelectedCourier(DataTable $specificsTable, Account $selectedCourier)
+    {
+        $carrier = $this->carrierService->getCarrierForAccount($selectedCourier);
+        $options = array_merge($this->carrierService->getDefaultOptions(), $carrier->getOptions());
+        $requiredOptions = array_keys(array_filter($options));
+        // We always need the actions column but it must go last
+        array_push($requiredOptions, 'actions');
+        foreach ($requiredOptions as $option) {
+            $columnAlias = sprintf(static::OPTION_COLUMN_ALIAS, ucfirst($option));
+            try {
+                $column = $this->di->get($columnAlias);
+                $specificsTable->addColumn($column);
+            } catch (ClassNotFoundException $e) {
+                $this->logNotice(static::LOG_OPTION_COLUMN_NOT_FOUND, [$columnAlias, $selectedCourier->getId(), $selectedCourier->getChannel()], static::LOG_CODE);
+                // No-op, allow for options with no matching column
+            }
+        }
+    }
+
     protected function setOrderService(OrderService $orderService)
     {
         $this->orderService = $orderService;
@@ -258,6 +295,18 @@ if (!$order instanceof Order) {
     protected function setShippingServiceFactory(ShippingServiceFactory $shippingServiceFactory)
     {
         $this->shippingServiceFactory = $shippingServiceFactory;
+        return $this;
+    }
+
+    protected function setCarrierService(CarrierService $carrierService)
+    {
+        $this->carrierService = $carrierService;
+        return $this;
+    }
+
+    protected function setDi(Di $di)
+    {
+        $this->di = $di;
         return $this;
     }
 }

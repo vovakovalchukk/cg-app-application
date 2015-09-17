@@ -858,6 +858,25 @@ return [
                 'CourierSpecificsItemColumn' => DataTable\Column::class,
                 'CourierSpecificsQuantityColumnView' => ViewModel::class,
                 'CourierSpecificsQuantityColumn' => DataTable\Column::class,
+                'CourierSpecificsActionsColumnView' => ViewModel::class,
+                'CourierSpecificsActionsColumn' => DataTable\Column::class,
+                // Optional columns, added to table dynamically as required
+                'CourierSpecificsWeightColumnView' => ViewModel::class,
+                'CourierSpecificsWeightColumn' => DataTable\Column::class,
+                'CourierSpecificsHeightColumnView' => ViewModel::class,
+                'CourierSpecificsHeightColumn' => DataTable\Column::class,
+                'CourierSpecificsWidthColumnView' => ViewModel::class,
+                'CourierSpecificsWidthColumn' => DataTable\Column::class,
+                'CourierSpecificsLengthColumnView' => ViewModel::class,
+                'CourierSpecificsLengthColumn' => DataTable\Column::class,
+                'CourierSpecificsInsuranceColumnView' => ViewModel::class,
+                'CourierSpecificsInsuranceColumn' => DataTable\Column::class,
+                'CourierSpecificsInsuranceMonetaryColumnView' => ViewModel::class,
+                'CourierSpecificsInsuranceMonetaryColumn' => DataTable\Column::class,
+                'CourierSpecificsSignatureColumnView' => ViewModel::class,
+                'CourierSpecificsSignatureColumn' => DataTable\Column::class,
+                'CourierSpecificsDeliveryInstructionsColumnView' => ViewModel::class,
+                'CourierSpecificsDeliveryInstructionsColumn' => DataTable\Column::class,
             ],
             'preferences' => [
                 InvoiceRendererService::class => PdfInvoiceRendererService::class,
@@ -1408,6 +1427,7 @@ return [
             CourierController::class => [
                 'parameters' => [
                     'reviewTable' => 'CourierReviewTable',
+                    'specificsTable' => 'CourierSpecificsTable',
                 ]
             ],
             'CourierReviewTable' => [
@@ -1591,20 +1611,6 @@ return [
                     'sortable' => false,
                 ],
             ],
-            'CourierSpecificsCourierColumnView' => [
-                'parameters' => [
-                    'variables' => ['value' => 'Courier'],
-                    'template' => 'value.phtml',
-                ],
-            ],
-            'CourierSpecificsCourierColumn' => [
-                'parameters' => [
-                    'column' => 'courier',
-                    'viewModel' => 'CourierSpecificsCourierColumnView',
-                    'class' => 'courier-col',
-                    'sortable' => false,
-                ],
-            ],
             'CourierSpecificsServiceColumnView' => [
                 'parameters' => [
                     'variables' => ['value' => 'Service'],
@@ -1616,6 +1622,20 @@ return [
                     'column' => 'service',
                     'viewModel' => 'CourierSpecificsServiceColumnView',
                     'class' => 'service-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsParcelsColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'No. Parcels'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsParcelsColumn' => [
+                'parameters' => [
+                    'column' => 'parcels',
+                    'viewModel' => 'CourierSpecificsParcelsColumnView',
+                    'class' => 'parcels-col',
                     'sortable' => false,
                 ],
             ],
@@ -1644,6 +1664,133 @@ return [
                     'column' => 'quantity',
                     'viewModel' => 'CourierSpecificsQuantityColumnView',
                     'class' => 'quantity-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsActionsColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Actions'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsActionsColumn' => [
+                'parameters' => [
+                    'column' => 'actions',
+                    'viewModel' => 'CourierSpecificsActionsColumnView',
+                    'class' => 'actions-col',
+                    'sortable' => false,
+                ],
+            ],
+            // Optional columns, will be added to table dynamically as required
+            'CourierSpecificsWeightColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Weight'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsWeightColumn' => [
+                'parameters' => [
+                    'column' => 'weight',
+                    'viewModel' => 'CourierSpecificsWeightColumnView',
+                    'class' => 'weight-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsHeightColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Height'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsHeightColumn' => [
+                'parameters' => [
+                    'column' => 'height',
+                    'viewModel' => 'CourierSpecificsHeightColumnView',
+                    'class' => 'height-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsWidthColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Height'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsWidthColumn' => [
+                'parameters' => [
+                    'column' => 'height',
+                    'viewModel' => 'CourierSpecificsWidthColumnView',
+                    'class' => 'height-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsLengthColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Length'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsLengthColumn' => [
+                'parameters' => [
+                    'column' => 'length',
+                    'viewModel' => 'CourierSpecificsLengthColumnView',
+                    'class' => 'length-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsInsuranceColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Insurance?'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsInsuranceColumn' => [
+                'parameters' => [
+                    'column' => 'insurance',
+                    'viewModel' => 'CourierSpecificsInsuranceColumnView',
+                    'class' => 'insurance-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsInsuranceMonetaryColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Insurance Amount'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsInsuranceMonetaryColumn' => [
+                'parameters' => [
+                    'column' => 'insuranceMonetary',
+                    'viewModel' => 'CourierSpecificsInsuranceMonetaryColumnView',
+                    'class' => 'insuranceMonetary-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsSignatureColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Signature?'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsSignatureColumn' => [
+                'parameters' => [
+                    'column' => 'signature',
+                    'viewModel' => 'CourierSpecificsSignatureColumnView',
+                    'class' => 'signature-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsDeliveryInstructionsColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Delivery Instructions'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsDeliveryInstructionsColumn' => [
+                'parameters' => [
+                    'column' => 'deliveryInstructions',
+                    'viewModel' => 'CourierSpecificsDeliveryInstructionsColumnView',
+                    'class' => 'deliveryInstructions-col',
                     'sortable' => false,
                 ],
             ],

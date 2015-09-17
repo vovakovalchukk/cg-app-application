@@ -12,7 +12,7 @@ $(document).ready(function()
     });
 });
 </script>
-<div id="main" class="padded-content-holder courier-specifics">
+<div id="main" class="courier-specifics">
     <span class="heading-large">
         <?= $this->selectedCourier->getDisplayName().' '.$this->translate('Orders') ?>
         <div class="heading-buttons">
@@ -20,7 +20,7 @@ $(document).ready(function()
         </div>
     </span>
     <div id="datatable-container">
-        <?= $this->reviewTable; ?>
+        <?= $this->specificsTable; ?>
     </div>
     <div style="display:none">
         <?=$this->serviceSelects;?>
