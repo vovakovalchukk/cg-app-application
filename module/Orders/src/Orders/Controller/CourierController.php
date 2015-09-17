@@ -87,7 +87,7 @@ class CourierController extends AbstractActionController
         return $view;
     }
 
-    protected function addCourierServiceViews(ViewModel $view)
+    protected function addCourierServiceViews(ViewModel $view, $selectedCourierId = null)
     {
         $courierServiceOptions = $this->service->getCourierServiceOptions();
         foreach ($courierServiceOptions as $accountId => $options)
@@ -100,8 +100,8 @@ class CourierController extends AbstractActionController
     protected function getCourierServiceView($courierId, array $options)
     {
         $view = $this->viewModelFactory->newInstance([
-            'id' => 'courier-review-service-select-'.$courierId,
-            'class' => 'courier-review-courier-select',
+            'id' => 'courier-service-select-'.$courierId,
+            'class' => 'courier-service-select',
             'blankOption' => false,
             'searchField' => false,
             'options' => $options,
@@ -131,6 +131,7 @@ class CourierController extends AbstractActionController
         $orderIds = $this->params()->fromPost('order', []);
         $selectedCourierId = $this->params()->fromRoute('account');
         $courierIds = [];
+        $courierOrders = [];
         $orderCouriers = [];
         $orderServices = [];
         foreach ($orderIds as $orderId) {
@@ -140,6 +141,10 @@ class CourierController extends AbstractActionController
                 throw new \InvalidArgumentException('Order '.$orderId.' provided but no matching courier or service option was found');
             }
             $courierIds[] = $courierId;
+            if (!isset($courierOrders[$courierId])) {
+                $courierOrders[$courierId] = [];
+            }
+            $courierOrders[$courierId][] = $orderId;
             $orderCouriers[$orderId] = $courierId;
             $orderServices[$orderId] = $serviceId;
         }
@@ -150,24 +155,40 @@ class CourierController extends AbstractActionController
         } else {
             $courierAccounts->rewind();
             $selectedCourier = $courierAccounts->current();
+            $selectedCourierId = $selectedCourier->getId();
         }
+        $this->prepSpecificsTable($selectedCourierId);
         $navLinks = $this->getSidebarNavLinksForSelectedAccounts($courierAccounts);
 
-        // TODO: stuff for $selectedCourier
         $this->service->alterSpecificsTableForSelectedCourier($this->specificsTable, $selectedCourier);
 
         $view = $this->viewModelFactory->newInstance();
         $view->setVariable('orderIds', $orderIds)
+            ->setVariable('courierOrderIds', $courierOrders[$selectedCourierId])
             ->setVariable('orderCouriers', $orderCouriers)
             ->setVariable('orderServices', $orderServices)
             ->setVariable('navLinks', $navLinks)
             ->setVariable('selectedCourier', $selectedCourier)
             ->addChild($this->getSpecificsCreateAllLabelsButton(), 'createAllLabelsButton')
             ->addChild($this->specificsTable, 'specificsTable')
+            ->addChild($this->getSpecificsActionsButtons(), 'actionsButtons')
             ->setVariable('isHeaderBarVisible', false)
             ->setVariable('subHeaderHide', true);
+        $this->addCourierServiceViewForSelectedCourier($view, $selectedCourierId);
 
         return $view;
+    }
+
+    protected function prepSpecificsTable($selectedCourierId)
+    {
+        $settings = $this->specificsTable->getVariable('settings');
+        $settings->setSource(
+            $this->url()->fromRoute(
+                Module::ROUTE . '/' . static::ROUTE . '/' . static::ROUTE_SPECIFICS . '/' . CourierJsonController::ROUTE_SPECIFICS_LIST,
+                ['account' => $selectedCourierId]
+            )
+        );
+        $settings->setTemplateUrlMap($this->mustacheTemplateMap('courierSpecifics'));
     }
 
     public function getSidebarNavLinksForSelectedAccounts(AccountCollection $accounts)
@@ -192,6 +213,27 @@ class CourierController extends AbstractActionController
         ]);
         $view->setTemplate('elements/buttons.mustache');
         return $view;
+    }
+
+    protected function getSpecificsActionsButtons()
+    {
+        $view = $this->viewModelFactory->newInstance([
+            'buttons' => [
+                'value' => 'Create label',
+                'id' => 'create-label-button',
+                'disabled' => false,
+            ]
+        ]);
+        $view->setTemplate('elements/buttons.mustache');
+        return $view;
+    }
+
+    protected function addCourierServiceViewForSelectedCourier(ViewModel $view, $selectedCourierId)
+    {
+        $courierServiceOptions = $this->service->getCourierServiceOptions();
+        $options = $courierServiceOptions[$selectedCourierId];
+        $optionsView = $this->getCourierServiceView($selectedCourierId, $options);
+        $view->addChild($optionsView, 'serviceSelect', true);
     }
 
     protected function setViewModelFactory(ViewModelFactory $viewModelFactory)

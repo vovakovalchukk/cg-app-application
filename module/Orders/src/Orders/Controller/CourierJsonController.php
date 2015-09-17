@@ -9,6 +9,8 @@ class CourierJsonController extends AbstractActionController
 {
     const ROUTE_REVIEW_LIST = 'Review List';
     const ROUTE_REVIEW_LIST_URI = '/ajax';
+    const ROUTE_SPECIFICS_LIST = 'Specifics List';
+    const ROUTE_SPECIFICS_LIST_URI = '/ajax';
 
     protected $jsonModelFactory;
     protected $service;
@@ -31,6 +33,22 @@ class CourierJsonController extends AbstractActionController
         $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = count($orderIds);
         if (!empty($orderIds)) {
             $data['Records'] = $this->service->getReviewListData($orderIds);
+        }
+
+        return $this->jsonModelFactory->newInstance($data);
+    }
+
+    /**
+     * @return \Zend\View\Model\JsonModel
+     */
+    public function specificsListAction()
+    {
+        $data = $this->getDefaultJsonData();
+        $orderIds = $this->params()->fromPost('order', []);
+        $courierId = $this->params()->fromRoute('account');
+        $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = count($orderIds);
+        if (!empty($orderIds)) {
+            $data['Records'] = $this->service->getSpecificsListData($orderIds, $courierId);
         }
 
         return $this->jsonModelFactory->newInstance($data);

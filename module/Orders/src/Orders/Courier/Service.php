@@ -140,29 +140,35 @@ class Service implements LoggerAwareInterface
         $rootOu = $this->userOuService->getRootOuByActiveUser();
         $products = $this->getProductsForOrders($orders, $rootOu);
         foreach ($orders as $order) {
-            $shippingAlias = $this->shippingConversionService->fromMethodToAlias($order->getShippingMethod(), $rootOu);
-            $shippingDescription = $order->getShippingMethod();
-            $courierId = null;
-            $service = null;
-            if ($shippingAlias) {
-                $shippingDescription = $shippingAlias->getName();
-                $courierId = $shippingAlias->getAccountId();
-                $service = $shippingAlias->getShippingService();
-            }
-
-            $orderData = [
-                'orderId' => $order->getId(),
-                'buyerName' => $order->getBillingAddress()->getAddressFullName(),
-                'shippingCountry' => $order->getShippingAddress()->getAddressCountry(),
-                'orderNumber' => $order->getExternalId(),
-                'shippingMethod' => $shippingDescription,
-                'courier' => (string)$courierId,
-                'service' => $service,
-            ];
+            $orderData = $this->getCommonOrderListData($order, $rootOu);
             $itemData = $this->formatOrderItemsAsReviewListData($order->getItems(), $orderData, $products);
             $data = array_merge($data, $itemData);
         }
         return $data;
+    }
+
+    protected function getCommonOrderListData($order, $rootOu)
+    {
+        $shippingAlias = $this->shippingConversionService->fromMethodToAlias($order->getShippingMethod(), $rootOu);
+        $shippingDescription = $order->getShippingMethod();
+        $courierId = null;
+        $service = null;
+        if ($shippingAlias) {
+            $shippingDescription = $shippingAlias->getName();
+            $courierId = $shippingAlias->getAccountId();
+            $service = $shippingAlias->getShippingService();
+        }
+
+        $orderData = [
+            'orderId' => $order->getId(),
+            'buyerName' => $order->getBillingAddress()->getAddressFullName(),
+            'shippingCountry' => $order->getShippingAddress()->getAddressCountry(),
+            'orderNumber' => $order->getExternalId(),
+            'shippingMethod' => $shippingDescription,
+            'courier' => (string)$courierId,
+            'service' => $service,
+        ];
+        return $orderData;
     }
 
     protected function formatOrderItemsAsReviewListData(
@@ -173,31 +179,43 @@ class Service implements LoggerAwareInterface
         $itemData = [];
         $itemCount = 0;
         foreach ($items as $item) {
+            $rowData = null;
             if ($itemCount == 0) {
                 $rowData = $orderData;
-            } else {
-                $rowData = [
-                    'orderId' => $orderData['orderId'],
-                    'childRow' => true,
-                    'buyerName' => '',
-                    'buyerCountry' => '',
-                    'orderNumber' => '',
-                    'shippingMethod' => '',
-                    'courier' => '',
-                    'service' => '',
-                ];
             }
-            $itemSpecifics = [
-                'itemId' => $item->getId(),
-                'itemImage' => $this->getImageUrlForOrderItem($item, $products),
-                'itemName' => $item->getItemName(),
-                'itemSku' => $item->getItemSku(),
-                'quantity' => $item->getItemQuantity(),
-            ];
-            $itemData[] = array_merge($rowData, $itemSpecifics);
+            $itemData[] = $this->getCommonItemListData($item, $products, $rowData);
             $itemCount++;
         }
         return $itemData;
+    }
+
+    protected function getCommonItemListData(Item $item, ProductCollection $products, array $rowData = null)
+    {
+        if (!$rowData) {
+            $rowData = $this->getChildRowListData($item->getOrderId());
+        }
+        $itemSpecifics = [
+            'itemId' => $item->getId(),
+            'itemImage' => $this->getImageUrlForOrderItem($item, $products),
+            'itemName' => $item->getItemName(),
+            'itemSku' => $item->getItemSku(),
+            'quantity' => $item->getItemQuantity(),
+        ];
+        return array_merge($rowData, $itemSpecifics);
+    }
+
+    protected function getChildRowListData($orderId)
+    {
+        return [
+            'orderId' => $orderId,
+            'childRow' => true,
+            'buyerName' => '',
+            'buyerCountry' => '',
+            'orderNumber' => '',
+            'shippingMethod' => '',
+            'courier' => '',
+            'service' => '',
+        ];
     }
 
     protected function getProductsForOrders(OrderCollection $orders, OrganisationUnit $rootOu)
@@ -245,12 +263,10 @@ class Service implements LoggerAwareInterface
 
     public function alterSpecificsTableForSelectedCourier(DataTable $specificsTable, Account $selectedCourier)
     {
-        $carrier = $this->carrierService->getCarrierForAccount($selectedCourier);
-        $options = array_merge($this->carrierService->getDefaultOptions(), $carrier->getOptions());
-        $requiredOptions = array_keys(array_filter($options));
+        $options = $this->getCarrierOptions($selectedCourier);
         // We always need the actions column but it must go last
-        array_push($requiredOptions, 'actions');
-        foreach ($requiredOptions as $option) {
+        array_push($options, 'actions');
+        foreach ($options as $option) {
             $columnAlias = sprintf(static::OPTION_COLUMN_ALIAS, ucfirst($option));
             try {
                 $column = $this->di->get($columnAlias);
@@ -260,6 +276,123 @@ class Service implements LoggerAwareInterface
                 // No-op, allow for options with no matching column
             }
         }
+    }
+
+    protected function getCarrierOptions(Account $account)
+    {
+        $carrier = $this->carrierService->getCarrierForAccount($account);
+        $options = array_merge($this->carrierService->getDefaultOptions(), $carrier->getOptions());
+        return array_keys(array_filter($options));
+    }
+
+    /**
+     * @return array
+     */
+    public function getSpecificsListData(array $orderIds, $courierAccountId)
+    {
+        $filter = new OrderFilter();
+        $filter->setLimit('all')
+            ->setPage(1)
+            ->setOrderIds($orderIds);
+        $orders = $this->orderService->fetchCollectionByFilter($filter);
+        $courierAccount = $this->accountService->fetch($courierAccountId);
+        return $this->formatOrdersAsSpecificsListData($orders, $courierAccount);
+    }
+
+    protected function formatOrdersAsSpecificsListData(OrderCollection $orders, Account $courierAccount)
+    {
+        $data = [];
+        $rootOu = $this->userOuService->getRootOuByActiveUser();
+        $products = $this->getProductsForOrders($orders, $rootOu);
+        $options = $this->getCarrierOptions($courierAccount);
+        foreach ($orders as $order) {
+            $orderData = $this->getCommonOrderListData($order, $rootOu);
+            unset($orderData['courier']);
+            $specificsOrderData = $this->getSpecificsOrderListData($order, $options);
+            $orderData = array_merge($orderData, $specificsOrderData);
+            $itemsData = $this->formatOrderItemsAsSpecificsListData($order->getItems(), $orderData, $products, $options);
+            $parcelData = $this->getParcelOrderListData($order, $options);
+            if ($parcelData) {
+                array_push($itemsData, $parcelData);
+            }
+            $data = array_merge($data, $itemsData);
+        }
+        return $data;
+    }
+
+    protected function getSpecificsOrderListData(Order $order, array $options)
+    {
+        $data = [
+            'parcels' => 1,
+            'multiLine' => (count($order->getItems()) > 1),
+        ];
+        foreach ($options as $option) {
+            $data[$option] = '';
+        }
+        return $data;
+    }
+
+    protected function formatOrderItemsAsSpecificsListData(
+        ItemCollection $items,
+        array $orderData,
+        ProductCollection $products,
+        array $options
+    ) {
+        $itemsData = [];
+        $itemCount = 0;
+        foreach ($items as $item) {
+            $rowData = null;
+            if ($itemCount == 0) {
+                $rowData = $orderData;
+            }
+            $itemData = $this->getCommonItemListData($item, $products, $rowData);
+            $specificsItemData = $this->getSpecificsItemListData($item, $options, $rowData);
+            $specificsItemData['multiLine'] = $orderData['multiLine'];
+            $itemsData[] = array_merge($itemData, $specificsItemData);
+            $itemCount++;
+        }
+        return $itemsData;
+    }
+
+    protected function getSpecificsItemListData(Item $item, array $options, array $rowData = null)
+    {
+        if ($rowData) {
+            return [];
+        }
+        $data = [
+            'parcels' => '',
+        ];
+        foreach ($options as $option) {
+            $data[$option] = '';
+        }
+        return $data;
+    }
+
+    protected function getParcelOrderListData(Order $order, array $options)
+    {
+        if (count($order->getItems()) <= 1) {
+            return [];
+        }
+
+        $data = $this->getChildRowListData($order->getId());
+        $data['multiLine'] = false;
+        foreach ($options as $option) {
+            $data[$option] = '';
+        }
+        $optionKeys = array_flip($options);
+        if (isset($optionKeys['weight']) || isset($optionKeys['width']) || isset($optionKeys['height']) || isset($optionKeys['length'])) {
+            $itemImageText = 'Total package ';
+            $itemImageTextAdtnl = [];
+            if (isset($optionKeys['weight'])) {
+                $itemImageTextAdtnl[] = 'weight';
+            }
+            if (isset($optionKeys['width']) || isset($optionKeys['height']) || isset($optionKeys['length'])) {
+                $itemImageTextAdtnl[] = 'dimensions';
+            }
+            $itemImageText .= implode(' and ', $itemImageTextAdtnl);
+            $data['itemImageText'] = $itemImageText;
+        }
+        return $data;
     }
 
     protected function setOrderService(OrderService $orderService)

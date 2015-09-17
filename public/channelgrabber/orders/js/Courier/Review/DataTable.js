@@ -1,14 +1,6 @@
 function CourierReviewDataTable(dataTable, orderIds)
 {
-    this.getDataTable = function()
-    {
-        return dataTable;
-    };
-
-    this.getOrderIds = function()
-    {
-        return orderIds;
-    };
+    CourierDataTableAbstract.call(this, dataTable, orderIds);
 
     var init = function()
     {
@@ -25,23 +17,9 @@ function CourierReviewDataTable(dataTable, orderIds)
 CourierReviewDataTable.COLUMN_COURIER = 'courier';
 CourierReviewDataTable.COLUMN_SERVICE = 'service';
 CourierReviewDataTable.SELECTOR_COURIER_SELECT = '#courier-review-courier-select';
-CourierReviewDataTable.SELECTOR_SERVICE_SELECT_PREFIX = '#courier-review-service-select-';
+CourierReviewDataTable.SELECTOR_SERVICE_SELECT_PREFIX = '#courier-service-select-';
 
-CourierReviewDataTable.prototype.addOrderIdsToAjaxRequest = function()
-{
-    var orderIds = this.getOrderIds();
-    this.getDataTable().on("fnServerData", function(event, sSource, aoData, fnCallback, oSettings)
-    {
-        for (var count in orderIds)
-        {
-            aoData.push({
-                'name': 'order['+count+']',
-                'value': orderIds[count]
-            });
-        }
-    });
-    return this;
-};
+CourierReviewDataTable.prototype = Object.create(CourierDataTableAbstract.prototype);
 
 CourierReviewDataTable.prototype.addCustomSelectsToCourierAndServiceColumns = function()
 {
@@ -60,15 +38,11 @@ CourierReviewDataTable.prototype.addCustomSelectsToCourierAndServiceColumns = fu
 
 CourierReviewDataTable.prototype.addCustomSelectsToCourierColumn = function(templateData)
 {
-    var courierSelectCopy = $(CourierReviewDataTable.SELECTOR_COURIER_SELECT).clone();
     var name = 'courier_'+templateData.orderId;
-    courierSelectCopy.removeAttr('id').attr('data-element-name', name).addClass('courier-courier-custom-select');
-    $('input[type=hidden]', courierSelectCopy).attr('name', name);
-    if (templateData.courier) {
-        $('input[type=hidden]', courierSelectCopy).val(templateData.courier);
-        $('ul li[data-value="'+templateData.courier+'"]', courierSelectCopy).addClass('active');
-    }
-
+    var templateSelector = CourierReviewDataTable.SELECTOR_COURIER_SELECT;
+    var courierSelectCopy = this.cloneCustomSelectElement(
+        templateSelector, name, 'courier-courier-custom-select', templateData.courier
+    );
     templateData.courierOptions = $('<div>').append(courierSelectCopy).html();
     return this; 
 };
@@ -78,15 +52,11 @@ CourierReviewDataTable.prototype.addCustomSelectsToServiceColumn = function(temp
     if (!templateData.courier) {
         return;
     }
-    var serviceSelectCopy = $(CourierReviewDataTable.SELECTOR_SERVICE_SELECT_PREFIX+templateData.courier).clone();
     var name = 'service_'+templateData.orderId;
-    serviceSelectCopy.removeAttr('id').attr('data-element-name', name).addClass('courier-service-custom-select');
-    $('input[type=hidden]', serviceSelectCopy).attr('name', name);
-    if (templateData.service) {
-        $('input[type=hidden]', serviceSelectCopy).val(templateData.service);
-        $('ul li[data-value="'+templateData.service+'"]', serviceSelectCopy).addClass('active');
-    }
-
+    var templateSelector = CourierReviewDataTable.SELECTOR_SERVICE_SELECT_PREFIX+templateData.courier;
+    var serviceSelectCopy = this.cloneCustomSelectElement(
+        templateSelector, name, 'courier-service-custom-select', templateData.service
+    );
     templateData.serviceOptions = $('<div>').append(serviceSelectCopy).html();
     return this;
 };

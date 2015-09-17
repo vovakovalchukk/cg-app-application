@@ -1,10 +1,13 @@
-<?php /* The following script can't be loaded with require() as that happens asynchronously and we need this NOW */ ?>
-<script type="text/javascript" src="<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Review/DataTable.js"></script>
+<?php /* The following scripts can't be loaded with require() as that happens asynchronously and we need this NOW */ ?>
+<script type="text/javascript" src="<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/DataTableAbstract.js"></script>
+<script type="text/javascript" src="<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Specifics/DataTable.js"></script>
 <script type="text/javascript">
 $(document).ready(function()
 {
-    var orderIds = <?=json_encode($this->orderIds);?>;
-    var reviewDataTable = new CourierReviewDataTable($('#datatable'), orderIds);
+    var courierOrderIds = <?=json_encode($this->courierOrderIds);?>;
+    var courierId = <?=$this->selectedCourier->getId();?>;
+    var orderServices = <?=json_encode($this->orderServices);?>;
+    var specificsDataTable = new CourierSpecificsDataTable($('#datatable'), courierOrderIds, courierId, orderServices);
 
     require(['<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Specifics/Service.js'], function(Service)
     {
@@ -23,6 +26,9 @@ $(document).ready(function()
         <?= $this->specificsTable; ?>
     </div>
     <div style="display:none">
-        <?=$this->serviceSelects;?>
+        <?=$this->serviceSelect;?>
+        <div id="courier-action-buttons">
+            <?=$this->actionsButtons;?>
+        </div>
     </div>
 </div>

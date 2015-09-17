@@ -27,7 +27,7 @@ define(['./EventHandler.js'], function(EventHandler)
         init.call(this);
     }
 
-    Service.SELECTOR_SERVICE_SELECT_PREFIX = '#courier-review-service-select-';
+    Service.SELECTOR_SERVICE_SELECT_PREFIX = '#courier-service-select-';
     Service.SELECTOR_ORDER_SERVICE_CONTAINER_PREFIX = '#courier-service-options-';
     Service.SELECTOR_ORDER_ROWS = '#datatable tbody tr';
     Service.SELECTOR_ORDER_FORM = '#continue-form';
@@ -62,12 +62,12 @@ define(['./EventHandler.js'], function(EventHandler)
         {
             var row = this;
             var courierSelect = $(EventHandler.SELECTOR_COURIER_SELECT, row);
-            if (courierSelect.length == 0 || !$('input', courierSelect).val()) {
+            if (courierSelect.length > 0 && !$('input', courierSelect).val()) {
                 allSet = false;
                 return false;
             }
             var serviceSelect = $(EventHandler.SELECTOR_SERVICE_SELECT, row);
-            if (serviceSelect.length == 0 || !$('input', serviceSelect).val()) {
+            if (serviceSelect.length > 0 && !$('input', serviceSelect).val()) {
                 allSet = false;
                 return false;
             }

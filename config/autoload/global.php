@@ -462,7 +462,9 @@ return array(
                                 ['name' => 'Standard Proof Of Delivery Parcel'],
                             ],
                             'options' => [
-                                'dimensions' => false,
+                                'width' => false,
+                                'height' => false,
+                                'length' => false,
                                 'insuranceMonetary' => false,
                                 'signature' => false,
                             ],

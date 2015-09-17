@@ -693,6 +693,19 @@ return [
                                     ]
                                 ],
                                 'may_terminate' => true,
+                                'child_routes' => [
+                                    CourierJsonController::ROUTE_SPECIFICS_LIST => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => CourierJsonController::ROUTE_SPECIFICS_LIST_URI,
+                                            'defaults' => [
+                                                'controller' => CourierJsonController::class,
+                                                'action' => 'specificsList',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ]
+                                ]
                             ],
                         ]
                     ],
@@ -1712,15 +1725,15 @@ return [
             ],
             'CourierSpecificsWidthColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Height'],
+                    'variables' => ['value' => 'Width'],
                     'template' => 'value.phtml',
                 ],
             ],
             'CourierSpecificsWidthColumn' => [
                 'parameters' => [
-                    'column' => 'height',
+                    'column' => 'width',
                     'viewModel' => 'CourierSpecificsWidthColumnView',
-                    'class' => 'height-col',
+                    'class' => 'width-col',
                     'sortable' => false,
                 ],
             ],
