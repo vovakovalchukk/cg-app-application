@@ -378,7 +378,11 @@ return array(
                                 ['name' => 'Domestic Express Parcel'],
                                 ['name' => 'Domestic Express 09:00am Parcel'],
                                 ['name' => 'Domestic Express 12:00noon Parcel'],
-                            ]
+                            ],
+                            'options' => [
+                                'insuranceMonetary' => false,
+                                'signature' => false,
+                            ],
                         ],
                         [
                             'channelName' => 'dpd',
@@ -414,7 +418,11 @@ return array(
                                 ['name' => 'Saturday 12:00noon Pallet'],
                                 ['name' => 'Saturday 10:00am Pallet'],
                                 ['name' => 'Classic Air'],
-                            ]
+                            ],
+                            'options' => [
+                                'insuranceMonetary' => false,
+                                'signature' => false,
+                            ],
                         ],
                         [
                             'channelName' => 'fedex',
@@ -433,7 +441,11 @@ return array(
                                 ['name' => 'International Economy Pak'],
                                 ['name' => 'International Priority 10KG Box'],
                                 ['name' => 'International Priority 25KG Box'],
-                            ]
+                            ],
+                            'options' => [
+                                'insuranceMonetary' => false,
+                                'signature' => false,
+                            ],
                         ],
                         [
                             'channelName' => 'myhermes',
@@ -448,7 +460,12 @@ return array(
                                 ['name' => 'Standard Parcel'],
                                 ['name' => 'Next Day Proof Of Delivery Parcel'],
                                 ['name' => 'Standard Proof Of Delivery Parcel'],
-                            ]
+                            ],
+                            'options' => [
+                                'dimensions' => false,
+                                'insuranceMonetary' => false,
+                                'signature' => false,
+                            ],
                         ],
                         [
                             'channelName' => 'parcelforce',
@@ -477,7 +494,11 @@ return array(
                                 ['name' => 'Express 24 Saturday Parcel'],
                                 ['name' => 'Express 48 Saturday Parcel'],
                                 ['name' => 'Express 48 Saturday Large Parcel'],
-                            ]
+                            ],
+                            'options' => [
+                                'insuranceMonetary' => false,
+                                'signature' => false,
+                            ],
                         ],
                         [
                             'channelName' => 'royal-mail-oba',
@@ -716,7 +737,11 @@ return array(
                                 ['name' => 'Royal Mail Tracked 24 Letterboxable High Volume Parcel'],
                                 ['name' => 'Royal Mail Tracked 24 Letterboxable Parcel'],
                                 ['name' => 'Royal Mail Tracked 48 Letterboxable Parcel'],
-                            ]
+                            ],
+                            'options' => [
+                                'insuranceMonetary' => false,
+                                'signature' => false,
+                            ],
                         ],
                         [
                             'channelName' => 'tnt',
@@ -740,7 +765,11 @@ return array(
                                 ['name' => 'Saturday 09:00am Parcel'],
                                 ['name' => 'Saturday 10:00am Parcel'],
                                 ['name' => 'Saturday 12:00noon Parcel'],
-                            ]
+                            ],
+                            'options' => [
+                                'insuranceMonetary' => false,
+                                'signature' => false,
+                            ],
                         ],
                         [
                             'channelName' => 'uk-mail',
@@ -779,7 +808,11 @@ return array(
                                 ['name' => 'Extra Large Bag it Next Day by 10:30am'],
                                 ['name' => 'Extra Large Bag it Next day by 09:00am'],
                                 ['name' => 'Extra Large Bag it Saturday'],
-                            ]
+                            ],
+                            'options' => [
+                                'insuranceMonetary' => false,
+                                'signature' => false,
+                            ],
                         ],
                         [
                             'channelName' => 'ups',
@@ -805,7 +838,10 @@ return array(
                                 ['name' => 'Express Plus Parcel'],
                                 ['name' => 'Express Plus Letter'],
                                 ['name' => 'Express Plus Pak'],
-                            ]
+                            ],
+                            'options' => [
+                                'insuranceMonetary' => false,
+                            ],
                         ],
                         [
                             'channelName' => 'yodel',
@@ -850,8 +886,22 @@ return array(
                                 ['name' => 'Express Saturday Parcel'],
                                 ['name' => '@Home Saturday Parcel'],
                                 ['name' => '@Home Pack Parcel'],
-                            ]
+                            ],
+                            'options' => [
+                                'insuranceMonetary' => false,
+                                'signature' => false,
+                            ],
                         ],
+                    ],
+                    'defaultOptions' => [
+                        'weight' => true,
+                        'height' => true,
+                        'width' => true,
+                        'length' => true,
+                        'insurance' => true,
+                        'insuranceMonetary' => true,
+                        'signature' => true,
+                        'deliveryInstructions' => true,
                     ]
                 ]
             ],
