@@ -9,12 +9,14 @@ define([], function()
 
         var init = function()
         {
-            this.listenToNavLinkClicks();
+            this.listenToNavLinkClicks()
+                .listenToParcelsChange();
         };
         init.call(this);
     }
 
     EventHandler.SELECTOR_NAV_LINKS = 'a.courier-specifics-nav-link';
+    EventHandler.SELECTOR_PARCEL_INPUT = 'input.courier-parcels-input';
 
     EventHandler.prototype.listenToNavLinkClicks = function()
     {
@@ -25,6 +27,18 @@ define([], function()
             var element = this;
             service.courierLinkChosen($(element).attr('href'));
         });
+        return this;
+    };
+
+    EventHandler.prototype.listenToParcelsChange = function()
+    {
+        var service = this.getService();
+        $(document).on('save', EventHandler.SELECTOR_PARCEL_INPUT, function(event, value, element)
+        {
+            var name = $(element).attr('name');
+            service.parcelsChanged(name, value);
+        });
+        return this;
     };
 
     return EventHandler;

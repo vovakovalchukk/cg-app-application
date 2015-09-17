@@ -25,8 +25,10 @@ function CourierSpecificsDataTable(dataTable, orderIds, courierId, orderServices
 }
 
 CourierSpecificsDataTable.COLUMN_SERVICE = 'service';
+CourierSpecificsDataTable.COLUMN_PARCELS = 'parcels';
 CourierSpecificsDataTable.COLUMN_ACTIONS = 'actions';
 CourierSpecificsDataTable.SELECTOR_SERVICE_SELECT_PREFIX = '#courier-service-select-';
+CourierSpecificsDataTable.SELECTOR_PARCELS_ELEMENT = '.submit-input';
 CourierSpecificsDataTable.SELECTOR_ACTION_BUTTONS = '#courier-action-buttons .button-holder';
 
 CourierSpecificsDataTable.prototype = Object.create(CourierDataTableAbstract.prototype);
@@ -38,6 +40,9 @@ CourierSpecificsDataTable.prototype.addElementsToColumns = function()
     {
         if (column.mData == CourierSpecificsDataTable.COLUMN_SERVICE) {
             return self.addCustomSelectToServiceColumn(data);
+        }
+        if (column.mData == CourierSpecificsDataTable.COLUMN_PARCELS) {
+            return self.addInlineTextToParcelsColumn(data);
         }
         if (column.mData == CourierSpecificsDataTable.COLUMN_ACTIONS) {
             return self.addButtonsToActionsColumn(data);
@@ -56,6 +61,18 @@ CourierSpecificsDataTable.prototype.addCustomSelectToServiceColumn = function(te
     );
     templateData.serviceOptions = $('<div>').append(serviceSelectCopy).html();
     return this;
+};
+
+CourierSpecificsDataTable.prototype.addInlineTextToParcelsColumn = function(templateData)
+{
+    if (templateData.childRow) {
+        return;
+    }
+    var elementCopy = $(CourierSpecificsDataTable.SELECTOR_PARCELS_ELEMENT).clone();
+    var name = 'parcels_' + templateData.orderId;
+    $(elementCopy).attr('data-element-name', name);
+    $('input', elementCopy).attr('name', name).val(templateData.parcels);
+    templateData.input = $('<div>').append(elementCopy).html();
 };
 
 CourierSpecificsDataTable.prototype.addButtonsToActionsColumn = function(templateData)

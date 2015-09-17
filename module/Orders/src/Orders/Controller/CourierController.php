@@ -18,6 +18,9 @@ class CourierController extends AbstractActionController
     const ROUTE_SPECIFICS = 'Specifics';
     const ROUTE_SPECIFICS_URI = '/specifics[/:account]';
 
+    const MIN_PARCELS = 1;
+    const MAX_PARCELS = 10;
+
     protected $viewModelFactory;
     protected $reviewTable;
     protected $specificsTable;
@@ -172,6 +175,7 @@ class CourierController extends AbstractActionController
             ->addChild($this->getSpecificsCreateAllLabelsButton(), 'createAllLabelsButton')
             ->addChild($this->specificsTable, 'specificsTable')
             ->addChild($this->getSpecificsActionsButtons(), 'actionsButtons')
+            ->addChild($this->getSpecificsParcelsElement(), 'parcelsElement')
             ->setVariable('isHeaderBarVisible', false)
             ->setVariable('subHeaderHide', true);
         $this->addCourierServiceViewForSelectedCourier($view, $selectedCourierId);
@@ -225,6 +229,19 @@ class CourierController extends AbstractActionController
             ]
         ]);
         $view->setTemplate('elements/buttons.mustache');
+        return $view;
+    }
+
+    protected function getSpecificsParcelsElement()
+    {
+        $view = $this->viewModelFactory->newInstance([
+            'type' => 'number',
+            'value' => 1,
+            'class' => 'courier-parcels-input',
+            'min' => static::MIN_PARCELS,
+            'max' => static::MAX_PARCELS,
+        ]);
+        $view->setTemplate('elements/inline-text.mustache');
         return $view;
     }
 

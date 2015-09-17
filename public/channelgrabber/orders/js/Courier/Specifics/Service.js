@@ -28,5 +28,10 @@ define(['./EventHandler.js'], function(EventHandler)
         $(Service.SELECTOR_NAV_FORM).attr('action', courierUrl).submit();
     };
 
+    Service.prototype.parcelsChanged = function(name, value)
+    {
+console.log(name, value);
+    };
+
     return Service;
 });
