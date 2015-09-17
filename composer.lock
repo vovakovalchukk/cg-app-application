@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "669732cd3038cebe984b661ae0818df5",
+    "hash": "6581e7a7be81121b9bb38eee9c13e599",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3114,17 +3114,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.9",
+            "version": "dev-CGIV-6244-AuthAuth",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "6c0abe16d09d181952de2b4aa6dfee248c6ba501"
+                "reference": "b6b28f6c420c9f13a142bf711473644fde76c587"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.9-6bb673.zip",
-                "reference": "6c0abe16d09d181952de2b4aa6dfee248c6ba501",
-                "shasum": "0010a241a977d1a6f8402865edbecc8b1ac3452d"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6244-AuthAuth-7c2a44.zip",
+                "reference": "b6b28f6c420c9f13a142bf711473644fde76c587",
+                "shasum": "c71f4e5fcfbe849eb8c867330b640593be77dc32"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -3169,7 +3169,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-09-08 14:21:40"
+            "time": "2015-09-17 10:36:46"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7174,6 +7174,12 @@
             "package": "channelgrabber/woocommerce"
         },
         {
+            "alias": "1.16.10",
+            "alias_normalized": "1.16.10.0",
+            "version": "dev-CGIV-6244-AuthAuth",
+            "package": "channelgrabber/zf2-v4-ui"
+        },
+        {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
             "version": "dev-CGIV-6244-AuthAuth",
@@ -7185,6 +7191,7 @@
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/woocommerce": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "channelgrabber/zf2-woocommerce": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
