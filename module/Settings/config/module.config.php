@@ -46,6 +46,7 @@ use Settings\Module;
 use Zend\Mvc\Router\Http\Literal;
 use Zend\Mvc\Router\Http\Segment;
 use Zend\View\Model\ViewModel;
+use CG\WooCommerce\Client\Factory as WooCommerceClientFactory;
 
 return [
     'CG' => [
@@ -994,7 +995,12 @@ return [
                 'parameters' => [
                     'repository' => PickListStorage::class
                 ]
-            ]
+            ],
+            WooCommerceClientFactory::class => [
+                'parameters' => [
+                    'cryptor' => 'woocommerce_cryptor',
+                ]
+            ],
         ]
     ]
 ];
