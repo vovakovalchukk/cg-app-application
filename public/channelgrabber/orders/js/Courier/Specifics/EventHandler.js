@@ -16,7 +16,7 @@ define([], function()
     }
 
     EventHandler.SELECTOR_NAV_LINKS = 'a.courier-specifics-nav-link';
-    EventHandler.SELECTOR_PARCEL_INPUT = 'input.courier-parcels-input';
+    EventHandler.SELECTOR_PARCEL_INPUT = '.courier-parcels .courier-parcels-input';
 
     EventHandler.prototype.listenToNavLinkClicks = function()
     {
@@ -35,8 +35,7 @@ define([], function()
         var service = this.getService();
         $(document).on('save', EventHandler.SELECTOR_PARCEL_INPUT, function(event, value, element)
         {
-            var name = $(element).attr('name');
-            service.parcelsChanged(name, value);
+            service.parcelsChanged();
         });
         return this;
     };

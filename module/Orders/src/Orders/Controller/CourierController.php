@@ -237,6 +237,7 @@ class CourierController extends AbstractActionController
         $view = $this->viewModelFactory->newInstance([
             'type' => 'number',
             'value' => 1,
+            'id' => 'courier-parcels-input',
             'class' => 'courier-parcels-input',
             'min' => static::MIN_PARCELS,
             'max' => static::MAX_PARCELS,
