@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ef6891af327b6c08bc234fa1b7ca36a5",
+    "hash": "c73349c00a597cb8b6071d9c8fb28d50",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -304,17 +304,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-6244-AuthAuth",
+            "version": "dev-EPIC-CGIV-6175-WooCommerce",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "031bbb1e6f1b35e4a3abfde7a294ecef943ec16f"
+                "reference": "a5730519f84b88bdc8e8f703159aa0c179b39931"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6244-AuthAuth-ff3ff6.zip",
-                "reference": "031bbb1e6f1b35e4a3abfde7a294ecef943ec16f",
-                "shasum": "29206fc66dc16c751438c8b020d2fe486f121306"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-6175-WooCommerce-9aee80.zip",
+                "reference": "a5730519f84b88bdc8e8f703159aa0c179b39931",
+                "shasum": "de9d29e598dec41b29aee9e701bce0ca1abe879a"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -371,7 +371,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-09-17 14:37:00"
+            "time": "2015-09-18 09:08:22"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2300,17 +2300,17 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "dev-CGIV-6244-AuthAuth",
+            "version": "dev-EPIC-CGIV-6175-WooCommerce",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "2c14598586d1494e97f6920e9ac030297a04bd81"
+                "reference": "e5864f9d8cc744124ac9827fa268154bb831cdb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-CGIV-6244-AuthAuth-1185f6.zip",
-                "reference": "2c14598586d1494e97f6920e9ac030297a04bd81",
-                "shasum": "859890a3a2801f06e51f311901ba0dbf4d40dd95"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-EPIC-CGIV-6175-WooCommerce-31d5a1.zip",
+                "reference": "e5864f9d8cc744124ac9827fa268154bb831cdb5",
+                "shasum": "04a96a1131d02961107c2d792352d462186adbff"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.8",
@@ -2339,7 +2339,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2015-09-18 08:06:05"
+            "time": "2015-09-18 09:18:55"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -3119,17 +3119,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-6244-AuthAuth",
+            "version": "dev-EPIC-CGIV-6175-WooCommerce",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "b6b28f6c420c9f13a142bf711473644fde76c587"
+                "reference": "b78962bcd33467fe809fd8061a48570a9a119711"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6244-AuthAuth-7c2a44.zip",
-                "reference": "b6b28f6c420c9f13a142bf711473644fde76c587",
-                "shasum": "c71f4e5fcfbe849eb8c867330b640593be77dc32"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-6175-WooCommerce-7556ea.zip",
+                "reference": "b78962bcd33467fe809fd8061a48570a9a119711",
+                "shasum": "33694d32a6c4158b494eb437a9e977545e5fcd6b"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -3174,26 +3174,26 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-09-17 10:36:46"
+            "time": "2015-09-18 09:30:33"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
-            "version": "dev-CGIV-6244-AuthAuth",
+            "version": "dev-EPIC-CGIV-6175-WooCommerce",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/woocommerce-module.git",
-                "reference": "15b7eb0450265e1f34e88e504491b1b96bbe96e3"
+                "reference": "fd2b3da74e8662a98ae9f3c94932606005271323"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-woocommerce-dev-CGIV-6244-AuthAuth-29faca.zip",
-                "reference": "15b7eb0450265e1f34e88e504491b1b96bbe96e3",
-                "shasum": "432f63d39324269f8b7cb6ee999923510bf54352"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-woocommerce-dev-EPIC-CGIV-6175-WooCommerce-59e1c6.zip",
+                "reference": "fd2b3da74e8662a98ae9f3c94932606005271323",
+                "shasum": "edcb34768e4738dd02aaf2f39a58db76f1293324"
             },
             "require": {
-                "channelgrabber/channel": "dev-CGIV-6244-AuthAuth as 1.17.9",
+                "channelgrabber/channel": "dev-EPIC-CGIV-6175-WooCommerce as 1.17.10",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/woocommerce": "dev-CGIV-6244-AuthAuth as 1.0.0",
+                "channelgrabber/woocommerce": "dev-EPIC-CGIV-6175-WooCommerce as 1.0.0",
                 "channelgrabber/zf2-channel": "^1.0.6",
                 "channelgrabber/zf2-installer": "^1.0.3",
                 "composer/composer": "@dev",
@@ -3218,7 +3218,7 @@
                 ]
             },
             "description": "CG_WooCommerce module",
-            "time": "2015-09-17 10:07:56"
+            "time": "2015-09-18 09:28:00"
         },
         {
             "name": "cilex/cilex",
@@ -7218,27 +7218,27 @@
     ],
     "aliases": [
         {
-            "alias": "1.17.9",
-            "alias_normalized": "1.17.9.0",
-            "version": "dev-CGIV-6244-AuthAuth",
+            "alias": "1.17.10",
+            "alias_normalized": "1.17.10.0",
+            "version": "dev-EPIC-CGIV-6175-WooCommerce",
             "package": "channelgrabber/channel"
         },
         {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
-            "version": "dev-CGIV-6244-AuthAuth",
+            "version": "dev-EPIC-CGIV-6175-WooCommerce",
             "package": "channelgrabber/woocommerce"
         },
         {
             "alias": "1.16.10",
             "alias_normalized": "1.16.10.0",
-            "version": "dev-CGIV-6244-AuthAuth",
+            "version": "dev-EPIC-CGIV-6175-WooCommerce",
             "package": "channelgrabber/zf2-v4-ui"
         },
         {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
-            "version": "dev-CGIV-6244-AuthAuth",
+            "version": "dev-EPIC-CGIV-6175-WooCommerce",
             "package": "channelgrabber/zf2-woocommerce"
         }
     ],
