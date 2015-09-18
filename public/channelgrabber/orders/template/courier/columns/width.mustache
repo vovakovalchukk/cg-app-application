@@ -1,4 +1,4 @@
-{{^multiLine}}
-<input type="number" value="{{width}}" placeholder="cm" name="width_{{orderId}}" id="courier-order-width-{{orderId}}" class="inputbox number courier-order-width" />
-{{/multiLine}}
-{{#multiLine}}&nbsp;{{/multiLine}}
+{{#parcelRow}}
+<input type="number" value="{{width}}" placeholder="cm" name="width_{{orderId}}_parcel_{{parcelNumber}}" id="courier-order-width-{{orderId}}-{{parcelNumber}}" class="inputbox number courier-order-width" />
+{{/parcelRow}}
+{{^parcelRow}}&nbsp;{{/parcelRow}}

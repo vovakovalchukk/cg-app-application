@@ -17,7 +17,9 @@ use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
 use CG\Product\Filter as ProductFilter;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Collection as ProductCollection;
+use CG\Product\Entity as Product;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG_UI\View\DataTable;
@@ -30,6 +32,9 @@ class Service implements LoggerAwareInterface
     use LogTrait;
 
     const OPTION_COLUMN_ALIAS = 'CourierSpecifics%sColumn';
+    const DEFAULT_PARCELS = 1;
+    const MIN_PARCELS = 1;
+    const MAX_PARCELS = 10;
     const LOG_CODE = 'OrderCourierService';
     const LOG_OPTION_COLUMN_NOT_FOUND = 'No column alias called %s found for Account %d, channel %s';
 
@@ -160,6 +165,7 @@ class Service implements LoggerAwareInterface
         }
 
         $orderData = [
+            'orderRow' => true,
             'orderId' => $order->getId(),
             'buyerName' => $order->getBillingAddress()->getAddressFullName(),
             'shippingCountry' => $order->getShippingAddress()->getAddressCountry(),
@@ -207,8 +213,8 @@ class Service implements LoggerAwareInterface
     protected function getChildRowListData($orderId)
     {
         return [
+            'orderRow' => false,
             'orderId' => $orderId,
-            'childRow' => true,
             'buyerName' => '',
             'buyerCountry' => '',
             'orderNumber' => '',
@@ -234,7 +240,11 @@ class Service implements LoggerAwareInterface
             ->setPage(1)
             ->setOrganisationUnitId(array_keys($ouIds))
             ->setSku($productSkus);
-        return $this->productService->fetchCollectionByFilter($filter);
+        try {
+            return $this->productService->fetchCollectionByFilter($filter);
+        } catch (NotFound $e) {
+            return new ProductCollection(Product::class, 'empty');
+        }
     }
 
     protected function getImageUrlForOrderItem(Item $item, ProductCollection $products)
@@ -288,7 +298,7 @@ class Service implements LoggerAwareInterface
     /**
      * @return array
      */
-    public function getSpecificsListData(array $orderIds, $courierAccountId)
+    public function getSpecificsListData(array $orderIds, $courierAccountId, array $orderParcels)
     {
         $filter = new OrderFilter();
         $filter->setLimit('all')
@@ -296,10 +306,10 @@ class Service implements LoggerAwareInterface
             ->setOrderIds($orderIds);
         $orders = $this->orderService->fetchCollectionByFilter($filter);
         $courierAccount = $this->accountService->fetch($courierAccountId);
-        return $this->formatOrdersAsSpecificsListData($orders, $courierAccount);
+        return $this->formatOrdersAsSpecificsListData($orders, $courierAccount, $orderParcels);
     }
 
-    protected function formatOrdersAsSpecificsListData(OrderCollection $orders, Account $courierAccount)
+    protected function formatOrdersAsSpecificsListData(OrderCollection $orders, Account $courierAccount, array $orderParcels)
     {
         $data = [];
         $rootOu = $this->userOuService->getRootOuByActiveUser();
@@ -308,11 +318,17 @@ class Service implements LoggerAwareInterface
         foreach ($orders as $order) {
             $orderData = $this->getCommonOrderListData($order, $rootOu);
             unset($orderData['courier']);
-            $specificsOrderData = $this->getSpecificsOrderListData($order, $options);
+            $parcels = (int)($orderParcels[$order->getId()] ?: static::DEFAULT_PARCELS);
+            if ($parcels < static::MIN_PARCELS) {
+                $parcels = static::MIN_PARCELS;
+            } elseif ($parcels > static::MAX_PARCELS) {
+                $parcels = static::MAX_PARCELS;
+            }
+            $specificsOrderData = $this->getSpecificsOrderListData($order, $options, $parcels);
             $orderData = array_merge($orderData, $specificsOrderData);
             $itemsData = $this->formatOrderItemsAsSpecificsListData($order->getItems(), $orderData, $products, $options);
-            $parcelData = $this->getParcelOrderListData($order, $options);
-            if ($parcelData) {
+            $parcelsData = $this->getParcelOrderListData($order, $options, $parcels);
+            foreach ($parcelsData as $parcelData) {
                 array_push($itemsData, $parcelData);
             }
             $data = array_merge($data, $itemsData);
@@ -320,11 +336,15 @@ class Service implements LoggerAwareInterface
         return $data;
     }
 
-    protected function getSpecificsOrderListData(Order $order, array $options)
+    protected function getSpecificsOrderListData(Order $order, array $options, $parcels)
     {
+        $singleRow = ($parcels == 1 && count($order->getItems()) == 1);
         $data = [
-            'parcels' => 1,
-            'multiLine' => (count($order->getItems()) > 1),
+            'parcels' => $parcels,
+            // The order row will always be parcel 1, only parcel rows might be other numbers
+            'parcelNumber' => 1,
+            'parcelRow' => $singleRow,
+            'actionRow' => $singleRow,
         ];
         foreach ($options as $option) {
             $data[$option] = '';
@@ -347,7 +367,6 @@ class Service implements LoggerAwareInterface
             }
             $itemData = $this->getCommonItemListData($item, $products, $rowData);
             $specificsItemData = $this->getSpecificsItemListData($item, $options, $rowData);
-            $specificsItemData['multiLine'] = $orderData['multiLine'];
             $itemsData[] = array_merge($itemData, $specificsItemData);
             $itemCount++;
         }
@@ -368,31 +387,38 @@ class Service implements LoggerAwareInterface
         return $data;
     }
 
-    protected function getParcelOrderListData(Order $order, array $options)
+    protected function getParcelOrderListData(Order $order, array $options, $parcels)
     {
-        if (count($order->getItems()) <= 1) {
+        if (count($order->getItems()) <= 1 && $parcels <= 1) {
             return [];
         }
 
-        $data = $this->getChildRowListData($order->getId());
-        $data['multiLine'] = false;
-        foreach ($options as $option) {
-            $data[$option] = '';
-        }
-        $optionKeys = array_flip($options);
-        if (isset($optionKeys['weight']) || isset($optionKeys['width']) || isset($optionKeys['height']) || isset($optionKeys['length'])) {
-            $itemImageText = 'Total package ';
-            $itemImageTextAdtnl = [];
-            if (isset($optionKeys['weight'])) {
-                $itemImageTextAdtnl[] = 'weight';
+        $parcelsData = [];
+        for ($parcel = 1; $parcel <= $parcels; $parcel++) {
+            $parcelData = $this->getChildRowListData($order->getId(), $parcel);
+            $parcelData['parcelNumber'] = $parcel;
+            $parcelData['parcelRow'] = true;
+            $parcelData['actionRow'] = ($parcel == $parcels);
+            foreach ($options as $option) {
+                $parcelData[$option] = '';
             }
-            if (isset($optionKeys['width']) || isset($optionKeys['height']) || isset($optionKeys['length'])) {
-                $itemImageTextAdtnl[] = 'dimensions';
+            $optionKeys = array_flip($options);
+            if (isset($optionKeys['weight']) || isset($optionKeys['width']) || isset($optionKeys['height']) || isset($optionKeys['length'])) {
+                $itemImageText = 'Total package ';
+                $itemImageTextAdtnl = [];
+                if (isset($optionKeys['weight'])) {
+                    $itemImageTextAdtnl[] = 'weight';
+                }
+                if (isset($optionKeys['width']) || isset($optionKeys['height']) || isset($optionKeys['length'])) {
+                    $itemImageTextAdtnl[] = 'dimensions';
+                }
+                $itemImageText .= implode(' and ', $itemImageTextAdtnl);
+                $parcelData['itemImageText'] = $itemImageText;
             }
-            $itemImageText .= implode(' and ', $itemImageTextAdtnl);
-            $data['itemImageText'] = $itemImageText;
+
+            $parcelsData[] = $parcelData;
         }
-        return $data;
+        return $parcelsData;
     }
 
     protected function setOrderService(OrderService $orderService)

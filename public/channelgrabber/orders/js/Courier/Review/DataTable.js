@@ -49,7 +49,7 @@ CourierReviewDataTable.prototype.addCustomSelectsToCourierColumn = function(temp
 
 CourierReviewDataTable.prototype.addCustomSelectsToServiceColumn = function(templateData)
 {
-    if (!templateData.courier) {
+    if (!templateData.orderRow) {
         return;
     }
     var name = 'service_'+templateData.orderId;

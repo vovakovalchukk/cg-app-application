@@ -18,9 +18,6 @@ class CourierController extends AbstractActionController
     const ROUTE_SPECIFICS = 'Specifics';
     const ROUTE_SPECIFICS_URI = '/specifics[/:account]';
 
-    const MIN_PARCELS = 1;
-    const MAX_PARCELS = 10;
-
     protected $viewModelFactory;
     protected $reviewTable;
     protected $specificsTable;
@@ -239,8 +236,8 @@ class CourierController extends AbstractActionController
             'value' => 1,
             'id' => 'courier-parcels-input',
             'class' => 'courier-parcels-input',
-            'min' => static::MIN_PARCELS,
-            'max' => static::MAX_PARCELS,
+            'min' => Service::MIN_PARCELS,
+            'max' => Service::MAX_PARCELS,
         ]);
         $view->setTemplate('elements/inline-text.mustache');
         return $view;

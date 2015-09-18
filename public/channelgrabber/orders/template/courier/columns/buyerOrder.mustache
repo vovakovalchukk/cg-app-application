@@ -1,9 +1,9 @@
-{{^childRow}}
+{{#orderRow}}
 <input type="hidden" name="order[]" value="{{orderId}}" />
 <div class="courier-buyer-name">
     <strong>{{buyerName}}</strong>
 </div>
 <div class="courier-buyer-shipping-country">{{shippingCountry}}</div>
 <div class="courier-order-number">{{orderNumber}}</div>
-{{/childRow}}
-{{#childRow}}&nbsp;{{/childRow}}
+{{/orderRow}}
+{{^orderRow}}&nbsp;{{/orderRow}}

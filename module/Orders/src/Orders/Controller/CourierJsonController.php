@@ -46,9 +46,13 @@ class CourierJsonController extends AbstractActionController
         $data = $this->getDefaultJsonData();
         $orderIds = $this->params()->fromPost('order', []);
         $courierId = $this->params()->fromRoute('account');
+        $orderParcels = [];
+        foreach ($orderIds as $orderId) {
+            $orderParcels[$orderId] = $this->params()->fromPost('parcels_'.$orderId);
+        }
         $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = count($orderIds);
         if (!empty($orderIds)) {
-            $data['Records'] = $this->service->getSpecificsListData($orderIds, $courierId);
+            $data['Records'] = $this->service->getSpecificsListData($orderIds, $courierId, $orderParcels);
         }
 
         return $this->jsonModelFactory->newInstance($data);

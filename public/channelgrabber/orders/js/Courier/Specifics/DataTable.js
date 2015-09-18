@@ -65,7 +65,7 @@ CourierSpecificsDataTable.prototype.addCustomSelectToServiceColumn = function(te
 
 CourierSpecificsDataTable.prototype.addInlineTextToParcelsColumn = function(templateData)
 {
-    if (templateData.childRow || templateData.parcelsInput) {
+    if (!templateData.orderRow || templateData.parcelsInput) {
         return;
     }
     var elementCopy = $(CourierSpecificsDataTable.SELECTOR_PARCELS_ELEMENT).clone();
@@ -76,13 +76,14 @@ CourierSpecificsDataTable.prototype.addInlineTextToParcelsColumn = function(temp
         .attr('id', id)
         .attr('name', name)
         .attr('data-element-name', name)
-        .val(templateData.parcels);
+        // .val() doesn't work here, possibly because its not part of the DOM yet
+        .attr('value', templateData.parcels);
     templateData.parcelsInput = $('<div>').append(elementCopy).html();
 };
 
 CourierSpecificsDataTable.prototype.addButtonsToActionsColumn = function(templateData)
 {
-    if (templateData.multiLine) {
+    if (!templateData.actionRow) {
         return;
     }
     var buttonsHtml = '';
