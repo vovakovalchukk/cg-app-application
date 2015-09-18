@@ -108,6 +108,8 @@ use CG\Channel\ShippingOptionsProviderInterface as ChannelShippingOptionsProvide
 use CG_Dataplug\Controller\AccountController as DataplugAccountController;
 use Settings\Module as SettingsModule;
 use Settings\Controller\ChannelController;
+use CG\Order\Shared\Label\StorageInterface as OrderLabelStorage;
+use CG\Order\Client\Label\Storage\Api as OrderLabelApiStorage;
 
 return array(
     'di' => array(
@@ -132,6 +134,7 @@ return array(
                 AmzThreadAdditionalStorage::class => AmzThreadAdditionalRepository::class,
                 ApiCredentialsStorage::class => ApiCredentialsApi::class,
                 ChannelShippingOptionsProviderInterface::class => DataplugCarrierService::class,
+                OrderLabelStorage::class => OrderLabelApiStorage::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class
@@ -353,6 +356,11 @@ return array(
             ApiCredentialsApi::class => [
                 'parameters' => [
                     'client' => 'directory_guzzle'
+                ]
+            ],
+            OrderLabelApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
                 ]
             ],
             DataplugCarrierService::class => [

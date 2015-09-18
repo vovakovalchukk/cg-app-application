@@ -8,6 +8,11 @@ use CG\Channel\ShippingServiceFactory;
 use CG\Channel\Type as ChannelType;
 use CG\Dataplug\Carrier\Service as CarrierService;
 use CG\Order\Client\Service as OrderService;
+use CG\Order\Shared\Label\Collection as OrderLabelCollection;
+use CG\Order\Shared\Label\Entity as OrderLabel;
+use CG\Order\Shared\Label\Filter as OrderLabelFilter;
+use CG\Order\Shared\Label\Status as OrderLabelStatus;
+use CG\Order\Shared\Label\StorageInterface as OrderLabelStorage;
 use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
@@ -52,6 +57,8 @@ class Service implements LoggerAwareInterface
     protected $shippingServiceFactory;
     /** @var CarrierService */
     protected $carrierService;
+    /** @var OrderLabelStorage */
+    protected $orderLabelStorage;
     /** @var Di */
     protected $di;
 
@@ -65,6 +72,7 @@ class Service implements LoggerAwareInterface
         AccountService $accountService,
         ShippingServiceFactory $shippingServiceFactory,
         CarrierService $carrierService,
+        OrderLabelStorage $orderLabelStorage,
         Di $di
     ) {
         $this->setOrderService($orderService)
@@ -74,6 +82,7 @@ class Service implements LoggerAwareInterface
             ->setAccountService($accountService)
             ->setShippingServiceFactory($shippingServiceFactory)
             ->setCarrierService($carrierService)
+            ->setOrderLabelStorage($orderLabelStorage)
             ->setDi($di);
     }
     
@@ -318,11 +327,18 @@ class Service implements LoggerAwareInterface
         $data = [];
         $rootOu = $this->userOuService->getRootOuByActiveUser();
         $products = $this->getProductsForOrders($orders, $rootOu);
+        $labels = $this->getOrderLabelsForOrders($orders);
         $options = $this->getCarrierOptions($courierAccount);
         foreach ($orders as $order) {
             $orderData = $this->getCommonOrderListData($order, $rootOu);
             unset($orderData['courier']);
-            $specificsOrderData = $this->getSpecificsOrderListDataDefaults($order, $options);
+            $orderLabel = null;
+            $orderLabels = $labels->getBy('orderId', $order->getId());
+            if (count($orderLabels) > 0) {
+                $orderLabels->rewind();
+                $orderLabel = $orderLabels->current();
+            }
+            $specificsOrderData = $this->getSpecificsOrderListDataDefaults($order, $options, $orderLabel);
             $inputData = (isset($ordersData[$order->getId()]) ? $ordersData[$order->getId()] : []);
             $parcelsInputData = (isset($ordersParcelsData[$order->getId()]) ? $ordersParcelsData[$order->getId()] : []);
             $orderData = array_merge($orderData, $specificsOrderData, $inputData);
@@ -337,13 +353,14 @@ class Service implements LoggerAwareInterface
         return $data;
     }
 
-    protected function getSpecificsOrderListDataDefaults(Order $order, array $options)
+    protected function getSpecificsOrderListDataDefaults(Order $order, array $options, OrderLabel $orderLabel = null)
     {
         $data = [
             'collectionDate' => date('d/m/Y'),
             'parcels' => static::DEFAULT_PARCELS,
             // The order row will always be parcel 1, only parcel rows might be other numbers
             'parcelNumber' => 1,
+            'labelStatus' => ($orderLabel ? $orderLabel->getStatus() : OrderLabelStatus::NOT_PRINTED),
         ];
         foreach ($options as $option) {
             $data[$option] = '';
@@ -369,6 +386,24 @@ class Service implements LoggerAwareInterface
             $orderData = array_merge($orderData, $singleParcelData);
         }
         return $orderData;
+    }
+
+    protected function getOrderLabelsForOrders(OrderCollection $orders)
+    {
+        $orderIds = [];
+        foreach ($orders as $order) {
+            $orderIds[] = $order->getId();
+        }
+        $filter = (new OrderLabelFilter())
+            ->setLimit('all')
+            ->setPage(1)
+            ->setOrderId($orderIds);
+        try {
+            $orderLabels = $this->orderLabelStorage->fetchCollectionByFilter($filter);
+        } catch (NotFound $e) {
+            $orderLabels = new OrderLabelCollection(OrderLabel::class, 'empty');
+        }
+        return $orderLabels;
     }
 
     protected function formatOrderItemsAsSpecificsListData(
@@ -421,6 +456,7 @@ class Service implements LoggerAwareInterface
             $parcelData['parcelRow'] = true;
             $parcelData['showWeight'] = true;
             $parcelData['actionRow'] = ($parcel == $parcels);
+            $parcelData['labelStatus'] = $orderData['labelStatus'];
             foreach ($options as $option) {
                 $parcelData[$option] = (isset($orderData[$option]) ? $orderData[$option] : '');
             }
@@ -486,6 +522,12 @@ class Service implements LoggerAwareInterface
     protected function setCarrierService(CarrierService $carrierService)
     {
         $this->carrierService = $carrierService;
+        return $this;
+    }
+
+    protected function setOrderLabelStorage(OrderLabelStorage $orderLabelStorage)
+    {
+        $this->orderLabelStorage = $orderLabelStorage;
         return $this;
     }
 
