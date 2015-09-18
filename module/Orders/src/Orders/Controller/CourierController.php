@@ -220,9 +220,21 @@ class CourierController extends AbstractActionController
     {
         $view = $this->viewModelFactory->newInstance([
             'buttons' => [
-                'value' => 'Create label',
-                'id' => 'create-label-button',
-                'disabled' => false,
+                [
+                    'value' => 'Create label',
+                    'id' => 'create-label-button',
+                    'disabled' => false,
+                ],
+                [
+                    'value' => 'Print label',
+                    'id' => 'print-label-button',
+                    'disabled' => false,
+                ],
+                [
+                    'value' => 'Cancel',
+                    'id' => 'cancel-label-button',
+                    'disabled' => false,
+                ],
             ]
         ]);
         $view->setTemplate('elements/buttons.mustache');

@@ -11,7 +11,6 @@ use CG\Order\Client\Service as OrderService;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\Filter as OrderLabelFilter;
-use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\Order\Shared\Label\StorageInterface as OrderLabelStorage;
 use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Shared\Collection as OrderCollection;
@@ -360,7 +359,7 @@ class Service implements LoggerAwareInterface
             'parcels' => static::DEFAULT_PARCELS,
             // The order row will always be parcel 1, only parcel rows might be other numbers
             'parcelNumber' => 1,
-            'labelStatus' => ($orderLabel ? $orderLabel->getStatus() : OrderLabelStatus::NOT_PRINTED),
+            'labelStatus' => ($orderLabel ? $orderLabel->getStatus() : ''),
         ];
         foreach ($options as $option) {
             $data[$option] = '';

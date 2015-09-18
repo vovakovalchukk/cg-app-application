@@ -37,6 +37,13 @@ CourierSpecificsDataTable.SELECTOR_ACTION_BUTTONS = '#courier-action-buttons .bu
 
 CourierSpecificsDataTable.prototype = Object.create(CourierDataTableAbstract.prototype);
 
+CourierSpecificsDataTable.prototype.labelStatusActions = {
+    '': {'create': true},
+    'not printed': {'print': true, 'cancel': true},
+    'printed': {'print': true},
+    'cancelled': {'create': true}
+};
+
 CourierSpecificsDataTable.prototype.addElementsToColumns = function()
 {
     var self = this;
@@ -94,12 +101,18 @@ CourierSpecificsDataTable.prototype.addButtonsToActionsColumn = function(templat
     if (!templateData.actionRow) {
         return;
     }
+    var actions = this.labelStatusActions[templateData.labelStatus];
     var buttonsHtml = '';
     $(CourierSpecificsDataTable.SELECTOR_ACTION_BUTTONS).each(function()
     {
         var buttonTemplate = this;
+        var id = $('input.button', buttonTemplate).attr('id')
+        var action = id.split('-')[0];
+        if (!actions[action]) {
+            return true; //continue
+        }
         var buttonCopy = $(buttonTemplate).clone();
-        var id = $('input.button', buttonCopy).attr('id') + '-' + templateData.orderId;
+        id += '-' + templateData.orderId;
         $('input.button', buttonCopy).attr('id', id);
         $('div.button', buttonCopy).attr('id', id+'-shadow');
         buttonsHtml += $('<div>').append(buttonCopy).html();
