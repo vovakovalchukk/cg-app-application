@@ -35,7 +35,7 @@ define([], function()
         var service = this.getService();
         $(document).on('save', EventHandler.SELECTOR_PARCEL_INPUT, function(event, value, element)
         {
-            service.parcelsChanged();
+            service.refresh();
         });
         return this;
     };

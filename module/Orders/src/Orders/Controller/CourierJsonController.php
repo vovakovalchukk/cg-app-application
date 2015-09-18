@@ -46,13 +46,14 @@ class CourierJsonController extends AbstractActionController
         $data = $this->getDefaultJsonData();
         $orderIds = $this->params()->fromPost('order', []);
         $courierId = $this->params()->fromRoute('account');
-        $orderParcels = [];
-        foreach ($orderIds as $orderId) {
-            $orderParcels[$orderId] = $this->params()->fromPost('parcels_'.$orderId);
-        }
+        $ordersData = $this->params()->fromPost('orderData', []);
+        $ordersParcelsData = $this->params()->fromPost('parcelData', []);
+        $this->sanitiseInputArray($ordersData);
+        $this->sanitiseInputArray($ordersParcelsData);
+
         $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = count($orderIds);
         if (!empty($orderIds)) {
-            $data['Records'] = $this->service->getSpecificsListData($orderIds, $courierId, $orderParcels);
+            $data['Records'] = $this->service->getSpecificsListData($orderIds, $courierId, $ordersData, $ordersParcelsData);
         }
 
         return $this->jsonModelFactory->newInstance($data);
@@ -66,6 +67,17 @@ class CourierJsonController extends AbstractActionController
             'sEcho' => (int) $this->params()->fromPost('sEcho'),
             'Records' => [],
         ];
+    }
+
+    protected function sanitiseInputArray(array &$inputArray)
+    {
+        foreach ($inputArray as &$array) {
+            foreach ($array as $key => $value) {
+                if (is_numeric($value)) {
+                    $array[$key] = (float)$value;
+                }
+            }
+        }
     }
 
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)

@@ -12,6 +12,10 @@ function CourierSpecificsDataTable(dataTable, orderIds, courierId, orderServices
         return orderServices;
     };
 
+    this.unsetOrderService = function(orderId) {
+        delete orderServices[orderId];
+    };
+
     var init = function()
     {
         var self = this;
@@ -53,9 +57,13 @@ CourierSpecificsDataTable.prototype.addElementsToColumns = function()
 
 CourierSpecificsDataTable.prototype.addCustomSelectToServiceColumn = function(templateData)
 {
-    var name = 'service_'+templateData.orderId;
+    var name = 'orderData['+templateData.orderId+'][service]';
     var templateSelector = CourierSpecificsDataTable.SELECTOR_SERVICE_SELECT_PREFIX+this.getCourierId();
-    var service = this.getOrderServices()[templateData.orderId];
+    // Unset the local service once we've got it so we don't override it after future changes
+    var service = this.getAndUnsetOrderService(templateData.orderId);
+    if (!service) {
+        service = templateData.service;
+    }
     var serviceSelectCopy = this.cloneCustomSelectElement(
         templateSelector, name, 'courier-service-custom-select', service
     );
@@ -69,7 +77,7 @@ CourierSpecificsDataTable.prototype.addInlineTextToParcelsColumn = function(temp
         return;
     }
     var elementCopy = $(CourierSpecificsDataTable.SELECTOR_PARCELS_ELEMENT).clone();
-    var name = 'parcels_' + templateData.orderId;
+    var name = 'orderData[' + templateData.orderId+'][parcels]';
     var id = $('input', elementCopy).attr('id') + '-' + templateData.orderId;
     $(elementCopy).attr('id', id+'-container');
     $('input', elementCopy)
@@ -97,4 +105,11 @@ CourierSpecificsDataTable.prototype.addButtonsToActionsColumn = function(templat
         buttonsHtml += $('<div>').append(buttonCopy).html();
     });
     templateData.actions = buttonsHtml;
+};
+
+CourierSpecificsDataTable.prototype.getAndUnsetOrderService = function(orderId)
+{
+    var service = this.getOrderServices()[orderId];
+    this.unsetOrderService(orderId);
+    return service;
 };

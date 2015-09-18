@@ -1,4 +1,4 @@
 {{#actionRow}}
-<input type="text" value="{{deliveryInstructions}}" name="deliveryInstructions_{{orderId}}" id="courier-order-deliveryInstructions-{{orderId}}" class="inputbox courier-order-deliveryInstructions" />
+<input type="text" value="{{deliveryInstructions}}" name="orderData[{{orderId}}][deliveryInstructions]" id="courier-order-deliveryInstructions-{{orderId}}" class="inputbox courier-order-deliveryInstructions" />
 {{/actionRow}}
 {{^actionRow}}&nbsp;{{/actionRow}}

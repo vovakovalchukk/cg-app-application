@@ -867,6 +867,8 @@ return [
                 'CourierSpecificsServiceColumn' => DataTable\Column::class,
                 'CourierSpecificsParcelsColumnView' => ViewModel::class,
                 'CourierSpecificsParcelsColumn' => DataTable\Column::class,
+                'CourierSpecificsCollectionDateColumnView' => ViewModel::class,
+                'CourierSpecificsCollectionDateColumn' => DataTable\Column::class,
                 'CourierSpecificsItemColumnView' => ViewModel::class,
                 'CourierSpecificsItemColumn' => DataTable\Column::class,
                 'CourierSpecificsQuantityColumnView' => ViewModel::class,
@@ -1577,6 +1579,7 @@ return [
                         ['column' => 'CourierSpecificsShippingMethodColumn'],
                         ['column' => 'CourierSpecificsServiceColumn'],
                         ['column' => 'CourierSpecificsParcelsColumn'],
+                        ['column' => 'CourierSpecificsCollectionDateColumn'],
                         ['column' => 'CourierSpecificsItemColumn'],
                         ['column' => 'CourierSpecificsQuantityColumn'],
                     ],
@@ -1649,6 +1652,20 @@ return [
                     'column' => 'parcels',
                     'viewModel' => 'CourierSpecificsParcelsColumnView',
                     'class' => 'parcels-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsCollectionDateColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Collection'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsCollectionDateColumn' => [
+                'parameters' => [
+                    'column' => 'collectionDate',
+                    'viewModel' => 'CourierSpecificsCollectionDateColumnView',
+                    'class' => 'collectionDate-col',
                     'sortable' => false,
                 ],
             ],

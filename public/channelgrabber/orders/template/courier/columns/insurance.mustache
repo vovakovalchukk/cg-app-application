@@ -1,7 +1,7 @@
 {{#actionRow}}
 <div class="checkbox-holder courier-insurance">
     <a class="std-checkbox">
-        <input type="checkbox" id="courier-insurance-{{orderId}}" name="insurance_{{orderId}}"/>
+        <input type="checkbox" id="courier-insurance-{{orderId}}" name="orderData[{{orderId}}][insurance]"{{#insurance}} checked="checked"{{/insurance}}/>
         <label for="courier-insurance-{{orderId}}">
             <span class="checkbox_label"></span>
         </label>

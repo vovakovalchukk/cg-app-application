@@ -1,1 +1,1 @@
-<input type="number" value="{{weight}}" placeholder="kg" {{^multiLine}}name="weight_{{orderId}}_parcel_{{parcelNumber}}" id="courier-order-weight-{{orderId}}-{{parcelNumber}}"{{/multiLine}} class="inputbox number courier-order-weight{{#multiLine}} courier-item-weight{{/multiLine}}" />
+<input type="number" value="{{weight}}" placeholder="kg" {{#actionRow}}name="parcelData[{{orderId}}][{{parcelNumber}}][weight]" id="courier-order-weight-{{orderId}}-{{parcelNumber}}"{{/actionRow}} class="inputbox number courier-order-weight{{#multiLine}} courier-item-weight{{/multiLine}}" />

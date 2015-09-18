@@ -35,6 +35,7 @@ return [
                     'service' => Module::PUBLIC_FOLDER . 'template/courier/columns/service.mustache',
                     'item' => Module::PUBLIC_FOLDER . 'template/courier/columns/item.mustache',
                     'parcels' => Module::PUBLIC_FOLDER . 'template/courier/columns/parcels.mustache',
+                    'collectionDate' => Module::PUBLIC_FOLDER . 'template/courier/columns/collectionDate.mustache',
                     'weight' => Module::PUBLIC_FOLDER . 'template/courier/columns/weight.mustache',
                     'width' => Module::PUBLIC_FOLDER . 'template/courier/columns/width.mustache',
                     'height' => Module::PUBLIC_FOLDER . 'template/courier/columns/height.mustache',

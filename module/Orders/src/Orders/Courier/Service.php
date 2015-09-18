@@ -298,7 +298,7 @@ class Service implements LoggerAwareInterface
     /**
      * @return array
      */
-    public function getSpecificsListData(array $orderIds, $courierAccountId, array $orderParcels)
+    public function getSpecificsListData(array $orderIds, $courierAccountId, array $ordersData, array $ordersParcelsData)
     {
         $filter = new OrderFilter();
         $filter->setLimit('all')
@@ -306,11 +306,15 @@ class Service implements LoggerAwareInterface
             ->setOrderIds($orderIds);
         $orders = $this->orderService->fetchCollectionByFilter($filter);
         $courierAccount = $this->accountService->fetch($courierAccountId);
-        return $this->formatOrdersAsSpecificsListData($orders, $courierAccount, $orderParcels);
+        return $this->formatOrdersAsSpecificsListData($orders, $courierAccount, $ordersData, $ordersParcelsData);
     }
 
-    protected function formatOrdersAsSpecificsListData(OrderCollection $orders, Account $courierAccount, array $orderParcels)
-    {
+    protected function formatOrdersAsSpecificsListData(
+        OrderCollection $orders,
+        Account $courierAccount,
+        array $ordersData,
+        array $ordersParcelsData
+    ) {
         $data = [];
         $rootOu = $this->userOuService->getRootOuByActiveUser();
         $products = $this->getProductsForOrders($orders, $rootOu);
@@ -318,16 +322,13 @@ class Service implements LoggerAwareInterface
         foreach ($orders as $order) {
             $orderData = $this->getCommonOrderListData($order, $rootOu);
             unset($orderData['courier']);
-            $parcels = (int)($orderParcels[$order->getId()] ?: static::DEFAULT_PARCELS);
-            if ($parcels < static::MIN_PARCELS) {
-                $parcels = static::MIN_PARCELS;
-            } elseif ($parcels > static::MAX_PARCELS) {
-                $parcels = static::MAX_PARCELS;
-            }
-            $specificsOrderData = $this->getSpecificsOrderListData($order, $options, $parcels);
-            $orderData = array_merge($orderData, $specificsOrderData);
+            $specificsOrderData = $this->getSpecificsOrderListDataDefaults($order, $options);
+            $inputData = (isset($ordersData[$order->getId()]) ? $ordersData[$order->getId()] : []);
+            $parcelsInputData = (isset($ordersParcelsData[$order->getId()]) ? $ordersParcelsData[$order->getId()] : []);
+            $orderData = array_merge($orderData, $specificsOrderData, $inputData);
+            $orderData = $this->checkOrderDataParcels($orderData, $parcelsInputData, $order);
             $itemsData = $this->formatOrderItemsAsSpecificsListData($order->getItems(), $orderData, $products, $options);
-            $parcelsData = $this->getParcelOrderListData($order, $options, $parcels);
+            $parcelsData = $this->getParcelOrderListData($order, $options, $orderData, $parcelsInputData);
             foreach ($parcelsData as $parcelData) {
                 array_push($itemsData, $parcelData);
             }
@@ -336,20 +337,36 @@ class Service implements LoggerAwareInterface
         return $data;
     }
 
-    protected function getSpecificsOrderListData(Order $order, array $options, $parcels)
+    protected function getSpecificsOrderListDataDefaults(Order $order, array $options)
     {
-        $singleRow = ($parcels == 1 && count($order->getItems()) == 1);
         $data = [
-            'parcels' => $parcels,
+            'collectionDate' => date('d/m/Y'),
+            'parcels' => static::DEFAULT_PARCELS,
             // The order row will always be parcel 1, only parcel rows might be other numbers
             'parcelNumber' => 1,
-            'parcelRow' => $singleRow,
-            'actionRow' => $singleRow,
         ];
         foreach ($options as $option) {
             $data[$option] = '';
         }
         return $data;
+    }
+
+    protected function checkOrderDataParcels(array $orderData, array $parcelsData, Order $order)
+    {
+        if ($orderData['parcels'] < static::MIN_PARCELS) {
+            $orderData['parcels'] = static::MIN_PARCELS;
+        } elseif ($orderData['parcels'] > static::MAX_PARCELS) {
+            $orderData['parcels'] = static::MAX_PARCELS;
+        }
+
+        $singleRow = ($orderData['parcels'] == 1 && count($order->getItems()) == 1);
+        $orderData['parcelRow'] = $singleRow;
+        $orderData['actionRow'] = $singleRow;
+        if ($singleRow && !empty($parcelsData)) {
+            $singleParcelData = array_shift($parcelsData);
+            $orderData = array_merge($orderData, $singleParcelData);
+        }
+        return $orderData;
     }
 
     protected function formatOrderItemsAsSpecificsListData(
@@ -387,8 +404,9 @@ class Service implements LoggerAwareInterface
         return $data;
     }
 
-    protected function getParcelOrderListData(Order $order, array $options, $parcels)
+    protected function getParcelOrderListData(Order $order, array $options, array $orderData, array $parcelsInputData)
     {
+        $parcels = $orderData['parcels'];
         if (count($order->getItems()) <= 1 && $parcels <= 1) {
             return [];
         }
@@ -400,7 +418,7 @@ class Service implements LoggerAwareInterface
             $parcelData['parcelRow'] = true;
             $parcelData['actionRow'] = ($parcel == $parcels);
             foreach ($options as $option) {
-                $parcelData[$option] = '';
+                $parcelData[$option] = (isset($orderData[$option]) ? $orderData[$option] : '');
             }
             $optionKeys = array_flip($options);
             if (isset($optionKeys['weight']) || isset($optionKeys['width']) || isset($optionKeys['height']) || isset($optionKeys['length'])) {
@@ -414,6 +432,10 @@ class Service implements LoggerAwareInterface
                 }
                 $itemImageText .= implode(' and ', $itemImageTextAdtnl);
                 $parcelData['itemImageText'] = $itemImageText;
+            }
+
+            if (isset($parcelsInputData[$parcel])) {
+                $parcelData = array_merge($parcelData, $parcelsInputData[$parcel]);
             }
 
             $parcelsData[] = $parcelData;

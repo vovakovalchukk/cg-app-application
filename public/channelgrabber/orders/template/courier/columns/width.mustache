@@ -1,4 +1,4 @@
 {{#parcelRow}}
-<input type="number" value="{{width}}" placeholder="cm" name="width_{{orderId}}_parcel_{{parcelNumber}}" id="courier-order-width-{{orderId}}-{{parcelNumber}}" class="inputbox number courier-order-width" />
+<input type="number" value="{{width}}" placeholder="cm" name="parcelData[{{orderId}}][{{parcelNumber}}][width]" id="courier-order-width-{{orderId}}-{{parcelNumber}}" class="inputbox number courier-order-width" />
 {{/parcelRow}}
 {{^parcelRow}}&nbsp;{{/parcelRow}}
