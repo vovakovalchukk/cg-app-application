@@ -358,6 +358,8 @@ class Service implements LoggerAwareInterface
         } elseif ($orderData['parcels'] > static::MAX_PARCELS) {
             $orderData['parcels'] = static::MAX_PARCELS;
         }
+        // Mustache is logic-less so any logic, however basic, has to be done here
+        $orderData['showWeight'] = ($orderData['parcels'] == 1);
 
         $singleRow = ($orderData['parcels'] == 1 && count($order->getItems()) == 1);
         $orderData['parcelRow'] = $singleRow;
@@ -384,6 +386,7 @@ class Service implements LoggerAwareInterface
             }
             $itemData = $this->getCommonItemListData($item, $products, $rowData);
             $specificsItemData = $this->getSpecificsItemListData($item, $options, $rowData);
+            $specificsItemData['showWeight'] = $orderData['showWeight'];
             $itemsData[] = array_merge($itemData, $specificsItemData);
             $itemCount++;
         }
@@ -416,6 +419,7 @@ class Service implements LoggerAwareInterface
             $parcelData = $this->getChildRowListData($order->getId(), $parcel);
             $parcelData['parcelNumber'] = $parcel;
             $parcelData['parcelRow'] = true;
+            $parcelData['showWeight'] = true;
             $parcelData['actionRow'] = ($parcel == $parcels);
             foreach ($options as $option) {
                 $parcelData[$option] = (isset($orderData[$option]) ? $orderData[$option] : '');

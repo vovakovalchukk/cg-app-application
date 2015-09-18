@@ -62,5 +62,30 @@ define(['./EventHandler.js'], function(EventHandler)
         this.getDataTable().cgDataTable('redraw');
     };
 
+    Service.prototype.orderWeightChanged = function(weightElement)
+    {
+        var prefix = EventHandler.SELECTOR_ITEM_WEIGHT_INPUT.replace('.', '') + '_';
+        var prefixRegex = new RegExp('^'+prefix);
+        var cssClasses = weightElement.className.split(' ');
+        var orderClass = '';
+        for (var count in cssClasses) {
+            if (!cssClasses[count].match(prefixRegex)) {
+                continue;
+            }
+            orderClass = cssClasses[count];
+        }
+        if (!orderClass) {
+            return;
+        }
+        var sum = 0;
+        $('.'+orderClass).each(function()
+        {
+            var weightElement = this;
+            sum += parseFloat($(weightElement).val()) || 0;
+        });
+        var orderId = orderClass.replace(prefix, '');
+        $(EventHandler.SELECTOR_ORDER_WEIGHT_INPUT_PREFIX + orderId + '-1').val(sum);
+    };
+
     return Service;
 });
