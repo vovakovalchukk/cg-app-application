@@ -21,6 +21,10 @@ use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
 use CG\Product\Filter as ProductFilter;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Collection as ProductCollection;
+use CG\Product\Detail\Collection as ProductDetailCollection;
+use CG\Product\Detail\Entity as ProductDetail;
+use CG\Product\Detail\Filter as ProductDetailFilter;
+use CG\Product\Detail\Service as ProductDetailService;
 use CG\Product\Entity as Product;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Stdlib\Exception\Runtime\NotFound;
@@ -58,6 +62,8 @@ class Service implements LoggerAwareInterface
     protected $carrierService;
     /** @var OrderLabelStorage */
     protected $orderLabelStorage;
+    /** @var ProductDetailService */
+    protected $productDetailService;
     /** @var Di */
     protected $di;
 
@@ -72,6 +78,7 @@ class Service implements LoggerAwareInterface
         ShippingServiceFactory $shippingServiceFactory,
         CarrierService $carrierService,
         OrderLabelStorage $orderLabelStorage,
+        ProductDetailService $productDetailService,
         Di $di
     ) {
         $this->setOrderService($orderService)
@@ -82,6 +89,7 @@ class Service implements LoggerAwareInterface
             ->setShippingServiceFactory($shippingServiceFactory)
             ->setCarrierService($carrierService)
             ->setOrderLabelStorage($orderLabelStorage)
+            ->setProductDetailService($productDetailService)
             ->setDi($di);
     }
     
@@ -326,6 +334,7 @@ class Service implements LoggerAwareInterface
         $data = [];
         $rootOu = $this->userOuService->getRootOuByActiveUser();
         $products = $this->getProductsForOrders($orders, $rootOu);
+        $productDetails = $this->getProductDetailsForOrders($orders, $rootOu);
         $labels = $this->getOrderLabelsForOrders($orders);
         $options = $this->getCarrierOptions($courierAccount);
         foreach ($orders as $order) {
@@ -342,7 +351,7 @@ class Service implements LoggerAwareInterface
             $parcelsInputData = (isset($ordersParcelsData[$order->getId()]) ? $ordersParcelsData[$order->getId()] : []);
             $orderData = array_merge($orderData, $specificsOrderData, $inputData);
             $orderData = $this->checkOrderDataParcels($orderData, $parcelsInputData, $order);
-            $itemsData = $this->formatOrderItemsAsSpecificsListData($order->getItems(), $orderData, $products, $options);
+            $itemsData = $this->formatOrderItemsAsSpecificsListData($order->getItems(), $orderData, $products, $productDetails, $options);
             $parcelsData = $this->getParcelOrderListData($order, $options, $orderData, $parcelsInputData);
             foreach ($parcelsData as $parcelData) {
                 array_push($itemsData, $parcelData);
@@ -405,10 +414,34 @@ class Service implements LoggerAwareInterface
         return $orderLabels;
     }
 
+    protected function getProductDetailsForOrders(OrderCollection $orders, OrganisationUnit $rootOu)
+    {
+        $productSkus = [];
+        $ouIds = [$rootOu->getId() => true];
+        foreach ($orders as $order) {
+            $ouIds[$order->getOrganisationUnitId()] = true;
+            foreach ($order->getItems() as $item) {
+                $productSkus[] = $item->getItemSku();
+            }
+        }
+
+        $filter = (new ProductDetailFilter())
+            ->setLimit('all')
+            ->setPage(1)
+            ->setOrganisationUnitId(array_keys($ouIds))
+            ->setSku($productSkus);
+        try {
+            return $this->productDetailService->fetchCollectionByFilter($filter);
+        } catch (NotFound $e) {
+            return new ProductDetailCollection(ProductDetail::class, 'empty');
+        }
+    }
+
     protected function formatOrderItemsAsSpecificsListData(
         ItemCollection $items,
         array $orderData,
         ProductCollection $products,
+        ProductDetailCollection $productDetails,
         array $options
     ) {
         $itemsData = [];
@@ -419,7 +452,7 @@ class Service implements LoggerAwareInterface
                 $rowData = $orderData;
             }
             $itemData = $this->getCommonItemListData($item, $products, $rowData);
-            $specificsItemData = $this->getSpecificsItemListData($item, $options, $rowData);
+            $specificsItemData = $this->getSpecificsItemListData($item, $productDetails, $options, $rowData);
             $specificsItemData['showWeight'] = $orderData['showWeight'];
             $itemsData[] = array_merge($itemData, $specificsItemData);
             $itemCount++;
@@ -427,16 +460,30 @@ class Service implements LoggerAwareInterface
         return $itemsData;
     }
 
-    protected function getSpecificsItemListData(Item $item, array $options, array $rowData = null)
-    {
-        if ($rowData) {
-            return [];
+    protected function getSpecificsItemListData(
+        Item $item,
+        ProductDetailCollection $productDetails,
+        array $options,
+        array $rowData = null
+    ) {
+        $data = ($rowData ?: []);
+        $productDetail = null;
+        $matchingProductDetails = $productDetails->getBy('sku', $item->getItemSku());
+        if (count($matchingProductDetails) > 0) {
+            $matchingProductDetails->rewind();
+            $productDetail = $matchingProductDetails->current();
         }
-        $data = [
-            'parcels' => '',
-        ];
+
         foreach ($options as $option) {
-            $data[$option] = '';
+            if (!isset($data[$option])) {
+                $data[$option] = '';
+            }
+            if ($productDetail) {
+                $getter = 'get'.ucfirst($option);
+                if (is_callable([$productDetail, $getter])) {
+                    $data[$option] = $productDetail->$getter();
+                }
+            }
         }
         return $data;
     }
@@ -527,6 +574,12 @@ class Service implements LoggerAwareInterface
     protected function setOrderLabelStorage(OrderLabelStorage $orderLabelStorage)
     {
         $this->orderLabelStorage = $orderLabelStorage;
+        return $this;
+    }
+
+    protected function setProductDetailService(ProductDetailService $productDetailService)
+    {
+        $this->productDetailService = $productDetailService;
         return $this;
     }
 
