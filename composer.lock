@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "081e3c85cc31e3455e072097b987d710",
+    "hash": "afb6bada0ac53c3681ed7968fabedbfa",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2304,13 +2304,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "e32c97b64c25f134a3c72fa5a862af4753a88883"
+                "reference": "54a3a3bddedfe7c03e9fd035350b3229161dbb11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-CGIV-6249-Imports-8922e5.zip",
-                "reference": "e32c97b64c25f134a3c72fa5a862af4753a88883",
-                "shasum": "ad6657480084fc792a6f316c195d3fe16473f67a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-CGIV-6249-Imports-83c0d1.zip",
+                "reference": "54a3a3bddedfe7c03e9fd035350b3229161dbb11",
+                "shasum": "67ed9e06745b1f4a332d5cea5e32a3655582de56"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.8",
@@ -2341,7 +2341,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2015-09-21 11:31:38"
+            "time": "2015-09-21 14:12:36"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -7294,9 +7294,9 @@
         "channelgrabber/zf2-v4-ui": 20,
         "channelgrabber/zf2-woocommerce": 20,
         "composer/composer": 20,
-        "phpish/link_header": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
+        "phpish/link_header": 20,
         "phpspec/phpspec": 20
     },
     "prefer-stable": false,
