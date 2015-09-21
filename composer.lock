@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c73349c00a597cb8b6071d9c8fb28d50",
+    "hash": "081e3c85cc31e3455e072097b987d710",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2300,26 +2300,28 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "dev-EPIC-CGIV-6175-WooCommerce",
+            "version": "dev-CGIV-6249-Imports",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "e5864f9d8cc744124ac9827fa268154bb831cdb5"
+                "reference": "e32c97b64c25f134a3c72fa5a862af4753a88883"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-EPIC-CGIV-6175-WooCommerce-31d5a1.zip",
-                "reference": "e5864f9d8cc744124ac9827fa268154bb831cdb5",
-                "shasum": "04a96a1131d02961107c2d792352d462186adbff"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-CGIV-6249-Imports-8922e5.zip",
+                "reference": "e32c97b64c25f134a3c72fa5a862af4753a88883",
+                "shasum": "ad6657480084fc792a6f316c195d3fe16473f67a"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.8",
                 "channelgrabber/constants": "dev-master",
+                "channelgrabber/gearman": "^1.2.0",
                 "channelgrabber/http": "^1.2.0",
                 "composer/composer": "@dev",
                 "guzzlehttp/guzzle": ">=4.1,<6.0",
                 "php-jsonpatch/php-jsonpatch": "dev-master",
                 "php-jsonpointer/php-jsonpointer": "dev-master",
+                "phpish/link_header": "@dev",
                 "zendframework/zend-di": "^2.2"
             },
             "require-dev": {
@@ -2339,7 +2341,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2015-09-18 09:18:55"
+            "time": "2015-09-21 11:31:38"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -4390,6 +4392,48 @@
             "time": "2015-07-22 08:39:53"
         },
         {
+            "name": "phpish/link_header",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpish/link_header.git",
+                "reference": "c3f1aaa47511d4d774456f888081f16a53dd0133"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/phpish-link_header-c3f1aaa47511d4d774456f888081f16a53dd0133-zip-a449a9.zip",
+                "reference": "c3f1aaa47511d4d774456f888081f16a53dd0133",
+                "shasum": "a1bb80defcfdc7dcce7119d5865a7ad54b49468a"
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "link_header.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sandeep Shetty",
+                    "email": "sandeep.shetty@gmail.com",
+                    "homepage": "http://sandeep.shetty.in",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Link header (RFC 5988) parser",
+            "homepage": "https://github.com/phpish/link_header",
+            "keywords": [
+                "http"
+            ],
+            "time": "2013-08-25 18:04:46"
+        },
+        {
             "name": "pimple/pimple",
             "version": "v1.0.2",
             "source": {
@@ -6189,7 +6233,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/guzzlehttp-oauth-subscriber-03f1ebe31d3112526106d0570c80eba6820e86e5-zip-fc843a.zip",
+                "url": "https://api.github.com/repos/guzzle/oauth-subscriber/zipball/03f1ebe31d3112526106d0570c80eba6820e86e5",
                 "reference": "03f1ebe31d3112526106d0570c80eba6820e86e5",
                 "shasum": "2f53534dba0aec77819129910e038a0114d77007"
             },
@@ -7224,9 +7268,9 @@
             "package": "channelgrabber/channel"
         },
         {
-            "alias": "1.0.0",
-            "alias_normalized": "1.0.0.0",
-            "version": "dev-EPIC-CGIV-6175-WooCommerce",
+            "alias": "dev-EPIC-CGIV-6175-WooCommerce",
+            "alias_normalized": "dev-EPIC-CGIV-6175-WooCommerce",
+            "version": "dev-CGIV-6249-Imports",
             "package": "channelgrabber/woocommerce"
         },
         {
@@ -7250,6 +7294,7 @@
         "channelgrabber/zf2-v4-ui": 20,
         "channelgrabber/zf2-woocommerce": 20,
         "composer/composer": 20,
+        "phpish/link_header": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpspec/phpspec": 20
