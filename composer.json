@@ -62,7 +62,7 @@
         "channelgrabber/user": "~1.20.0",
         "channelgrabber/userpreference": "~1.2.4",
         "channelgrabber/validation": "~1.2.7",
-        "channelgrabber/woocommerce": "dev-CGIV-6249-Imports as dev-EPIC-CGIV-6175-WooCommerce",
+        "channelgrabber/woocommerce": "dev-EPIC-CGIV-6175-WooCommerce as 1.0.0",
         "channelgrabber/zendesk": "~1.0.0",
         "channelgrabber/zf2-amazon": "~1.0.6",
         "channelgrabber/zf2-api": "~1.0.0",

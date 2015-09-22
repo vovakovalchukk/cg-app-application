@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "afb6bada0ac53c3681ed7968fabedbfa",
+    "hash": "808ea261dd0dc760b469a98760ababdc",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2300,17 +2300,17 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "dev-CGIV-6249-Imports",
+            "version": "dev-EPIC-CGIV-6175-WooCommerce",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "54a3a3bddedfe7c03e9fd035350b3229161dbb11"
+                "reference": "3ddbfb84d91cb48ff2e57b8982453e0ac216e755"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-CGIV-6249-Imports-83c0d1.zip",
-                "reference": "54a3a3bddedfe7c03e9fd035350b3229161dbb11",
-                "shasum": "67ed9e06745b1f4a332d5cea5e32a3655582de56"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-EPIC-CGIV-6175-WooCommerce-30c1ba.zip",
+                "reference": "3ddbfb84d91cb48ff2e57b8982453e0ac216e755",
+                "shasum": "60758b6dc1c1dc5bb0af6f123c657813b12542f1"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.8",
@@ -2341,7 +2341,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2015-09-21 14:12:36"
+            "time": "2015-09-22 07:53:29"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -7268,9 +7268,9 @@
             "package": "channelgrabber/channel"
         },
         {
-            "alias": "dev-EPIC-CGIV-6175-WooCommerce",
-            "alias_normalized": "dev-EPIC-CGIV-6175-WooCommerce",
-            "version": "dev-CGIV-6249-Imports",
+            "alias": "1.0.0",
+            "alias_normalized": "1.0.0.0",
+            "version": "dev-EPIC-CGIV-6175-WooCommerce",
             "package": "channelgrabber/woocommerce"
         },
         {
