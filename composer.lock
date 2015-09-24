@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "808ea261dd0dc760b469a98760ababdc",
+    "hash": "a528989ac5451a0a4769f29137f65952",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -304,17 +304,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-EPIC-CGIV-6175-WooCommerce",
+            "version": "dev-CGIV-6259-ActionDecider",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "a5730519f84b88bdc8e8f703159aa0c179b39931"
+                "reference": "d98ed2a1cc0791d54b3f5552983c5295f480b2da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-6175-WooCommerce-9aee80.zip",
-                "reference": "a5730519f84b88bdc8e8f703159aa0c179b39931",
-                "shasum": "de9d29e598dec41b29aee9e701bce0ca1abe879a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6259-ActionDecider-8c273f.zip",
+                "reference": "d98ed2a1cc0791d54b3f5552983c5295f480b2da",
+                "shasum": "d3dcf72cba440e1808ad4f19180d80177a208b24"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -355,7 +355,8 @@
             "type": "di-definition",
             "extra": {
                 "branch-alias": {
-                    "dev-develop": "1.x-dev"
+                    "dev-develop": "1.x-dev",
+                    "dev-CGIV-6259-ActionDecider": "1.17.10-dev"
                 }
             },
             "autoload": {
@@ -371,7 +372,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-09-18 09:08:22"
+            "time": "2015-09-24 10:54:41"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2304,13 +2305,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "3ddbfb84d91cb48ff2e57b8982453e0ac216e755"
+                "reference": "b0953b250fe50fe9b4ae008d0960aeed165a7082"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-EPIC-CGIV-6175-WooCommerce-30c1ba.zip",
-                "reference": "3ddbfb84d91cb48ff2e57b8982453e0ac216e755",
-                "shasum": "60758b6dc1c1dc5bb0af6f123c657813b12542f1"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-EPIC-CGIV-6175-WooCommerce-618045.zip",
+                "reference": "b0953b250fe50fe9b4ae008d0960aeed165a7082",
+                "shasum": "96712c97383b6e56a0b0170d48d5edb6bfe704ba"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.8",
@@ -2341,7 +2342,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2015-09-22 07:53:29"
+            "time": "2015-09-23 12:30:30"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -7262,9 +7263,9 @@
     ],
     "aliases": [
         {
-            "alias": "1.17.10",
-            "alias_normalized": "1.17.10.0",
-            "version": "dev-EPIC-CGIV-6175-WooCommerce",
+            "alias": "dev-EPIC-CGIV-6175-WooCommerce",
+            "alias_normalized": "dev-EPIC-CGIV-6175-WooCommerce",
+            "version": "dev-CGIV-6259-ActionDecider",
             "package": "channelgrabber/channel"
         },
         {
