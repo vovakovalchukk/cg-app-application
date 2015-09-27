@@ -108,6 +108,8 @@ use CG\Channel\ShippingOptionsProviderInterface as ChannelShippingOptionsProvide
 use CG_Dataplug\Controller\AccountController as DataplugAccountController;
 use Settings\Module as SettingsModule;
 use Settings\Controller\ChannelController;
+use CG\Dataplug\Account\Service as DataplugAccountService;
+use CG\Dataplug\Account\Storage\Api as DataplugAccountApi;
 
 return array(
     'di' => array(
@@ -353,6 +355,16 @@ return array(
             ApiCredentialsApi::class => [
                 'parameters' => [
                     'client' => 'directory_guzzle'
+                ]
+            ],
+            DataplugAccountService::class => [
+                'parameters' => [
+                    'repository' => DataplugAccountApi::class
+                ]
+            ],
+            DataplugAccountApi::class => [
+                'parameters' => [
+                    'client' => 'account_guzzle'
                 ]
             ],
             DataplugCarrierService::class => [
