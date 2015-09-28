@@ -194,9 +194,9 @@ class ShippingController extends AbstractActionController
         $options = [];
         foreach($shippingServices as $serviceKey => $serviceVal) {
             $options[] = [
-                'title' => $serviceKey,
-                'value' => $serviceVal,
-                'selected' => $alias->getShippingService() == $serviceVal
+                'title' => $serviceVal,
+                'value' => $serviceKey,
+                'selected' => $alias->getShippingService() == $serviceKey
             ];
         }
 
