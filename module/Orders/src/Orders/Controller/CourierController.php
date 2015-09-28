@@ -17,6 +17,8 @@ class CourierController extends AbstractActionController
     const ROUTE_REVIEW_URI = '/review';
     const ROUTE_SPECIFICS = 'Specifics';
     const ROUTE_SPECIFICS_URI = '/specifics[/:account]';
+    const ROUTE_LABEL = 'Label';
+    const ROUTE_LABEL_URI = '/label';
 
     protected $viewModelFactory;
     protected $reviewTable;
@@ -223,16 +225,19 @@ class CourierController extends AbstractActionController
                 [
                     'value' => 'Create label',
                     'id' => 'create-label-button',
+                    'class' => 'courier-create-label-button',
                     'disabled' => false,
                 ],
                 [
                     'value' => 'Print label',
                     'id' => 'print-label-button',
+                    'class' => 'courier-print-label-button',
                     'disabled' => false,
                 ],
                 [
                     'value' => 'Cancel',
                     'id' => 'cancel-label-button',
+                    'class' => 'courier-cancel-label-button',
                     'disabled' => false,
                 ],
             ]

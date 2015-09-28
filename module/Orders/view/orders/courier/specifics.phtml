@@ -5,13 +5,13 @@
 $(document).ready(function()
 {
     var courierOrderIds = <?=json_encode($this->courierOrderIds);?>;
-    var courierId = <?=$this->selectedCourier->getId();?>;
+    var courierAccountId = <?=$this->selectedCourier->getId();?>;
     var orderServices = <?=json_encode($this->orderServices);?>;
-    var specificsDataTable = new CourierSpecificsDataTable($('#datatable'), courierOrderIds, courierId, orderServices);
+    var specificsDataTable = new CourierSpecificsDataTable($('#datatable'), courierOrderIds, courierAccountId, orderServices);
 
     require(['<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Specifics/Service.js'], function(Service)
     {
-        var service = new Service($('#datatable'));
+        var service = new Service($('#datatable'), courierAccountId);
     });
 });
 </script>

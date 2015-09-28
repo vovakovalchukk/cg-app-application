@@ -707,6 +707,29 @@ return [
                                     ]
                                 ]
                             ],
+
+                            CourierController::ROUTE_LABEL => [
+                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                'options' => [
+                                    'route' => CourierController::ROUTE_LABEL_URI,
+                                    'defaults' => [
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    CourierJsonController::ROUTE_LABEL_CREATE => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => CourierJsonController::ROUTE_LABEL_CREATE_URI,
+                                            'defaults' => [
+                                                'controller' => CourierJsonController::class,
+                                                'action' => 'createLabel',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ]
+                                ]
+                            ],
                         ]
                     ],
                     StoredFiltersController::ROUTE_SAVE => [

@@ -1,10 +1,10 @@
-function CourierSpecificsDataTable(dataTable, orderIds, courierId, orderServices)
+function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderServices)
 {
     CourierDataTableAbstract.call(this, dataTable, orderIds);
 
-    this.getCourierId = function()
+    this.getCourierAccountId = function()
     {
-        return courierId;
+        return courierAccountId;
     };
 
     this.getOrderServices = function()
@@ -70,7 +70,7 @@ CourierSpecificsDataTable.prototype.addElementsToColumns = function()
 CourierSpecificsDataTable.prototype.addCustomSelectToServiceColumn = function(templateData)
 {
     var name = 'orderData['+templateData.orderId+'][service]';
-    var templateSelector = CourierSpecificsDataTable.SELECTOR_SERVICE_SELECT_PREFIX+this.getCourierId();
+    var templateSelector = CourierSpecificsDataTable.SELECTOR_SERVICE_SELECT_PREFIX+this.getCourierAccountId();
     // Unset the local service once we've got it so we don't override it after future changes
     var service = this.getAndUnsetOrderService(templateData.orderId);
     if (!service) {
@@ -90,7 +90,7 @@ CourierSpecificsDataTable.prototype.addInlineTextToParcelsColumn = function(temp
     }
     var elementCopy = $(CourierSpecificsDataTable.SELECTOR_PARCELS_ELEMENT).clone();
     var name = 'orderData[' + templateData.orderId+'][parcels]';
-    var id = $('input', elementCopy).attr('id') + '-' + templateData.orderId;
+    var id = $('input', elementCopy).attr('id') + '_' + templateData.orderId;
     $(elementCopy).attr('id', id+'-container');
     $('input', elementCopy)
         .attr('id', id)
@@ -117,7 +117,7 @@ CourierSpecificsDataTable.prototype.addButtonsToActionsColumn = function(templat
             return true; //continue
         }
         var buttonCopy = $(buttonTemplate).clone();
-        id += '-' + templateData.orderId;
+        id += '_' + templateData.orderId;
         $('input.button', buttonCopy).attr('id', id);
         $('div.button', buttonCopy).attr('id', id+'-shadow');
         buttonsHtml += $('<div>').append(buttonCopy).html();

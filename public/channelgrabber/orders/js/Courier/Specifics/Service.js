@@ -1,12 +1,17 @@
-define(['./EventHandler.js'], function(EventHandler)
+define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxRequester)
 {
-    function Service(dataTable)
+    function Service(dataTable, courierAccountId)
     {
         var eventHandler;
 
         this.getDataTable = function()
         {
             return dataTable;
+        };
+
+        this.getCourierAccountId = function()
+        {
+            return courierAccountId;
         };
 
         this.getEventHandler = function()
@@ -19,6 +24,16 @@ define(['./EventHandler.js'], function(EventHandler)
             eventHandler = newEventHandler;
         };
 
+        this.getAjaxRequester = function()
+        {
+            return ajaxRequester;
+        };
+
+        this.getNotifications = function()
+        {
+            return n;
+        };
+
         var init = function()
         {
             this.setEventHandler(new EventHandler(this));
@@ -27,6 +42,7 @@ define(['./EventHandler.js'], function(EventHandler)
     }
 
     Service.SELECTOR_NAV_FORM = '#courier-specifics-nav-form';
+    Service.URI_CREATE_LABEL = '/orders/courier/label/create';
 
     Service.prototype.courierLinkChosen = function(courierUrl)
     {
@@ -35,8 +51,21 @@ define(['./EventHandler.js'], function(EventHandler)
 
     Service.prototype.refresh = function()
     {
+        var inputData = this.getInputData('#datatable td input');
+        // Using one() instead of on() as this data will change each time
+        this.getDataTable().one("fnServerData", function(event, sSource, aoData, fnCallback, oSettings)
+        {
+            for (var count in inputData) {
+                aoData.push(inputData[count]);
+            }
+        });
+        this.getDataTable().cgDataTable('redraw');
+    };
+
+    Service.prototype.getInputData = function(selector)
+    {
         var inputData = [];
-        $('#datatable td input').each(function()
+        $(selector).each(function()
         {
             var input = this;
             var name = $(input).attr('name');
@@ -52,14 +81,7 @@ define(['./EventHandler.js'], function(EventHandler)
                 value: value
             });
         });
-        // Using one() instead of on() as this data will change each time
-        this.getDataTable().one("fnServerData", function(event, sSource, aoData, fnCallback, oSettings)
-        {
-            for (var count in inputData) {
-                aoData.push(inputData[count]);
-            }
-        });
-        this.getDataTable().cgDataTable('redraw');
+        return inputData;
     };
 
     Service.prototype.orderWeightChanged = function(weightElement)
@@ -85,6 +107,27 @@ define(['./EventHandler.js'], function(EventHandler)
         });
         var orderId = orderClass.replace(prefix, '');
         $(EventHandler.SELECTOR_ORDER_WEIGHT_INPUT_PREFIX + orderId + '-1').val(sum);
+    };
+
+    Service.prototype.createLabelForOrder = function(orderId)
+    {
+        var self = this;
+        var notifications = this.getNotifications();
+        notifications.notice('Creating label');
+
+        var inputDataSelector = '#datatable td input[name^="orderData['+orderId+']"], #datatable td input[name^="parcelData['+orderId+']"]';
+        var inputData = this.getInputData(inputDataSelector);
+        var data = {"account": this.getCourierAccountId(), "order": orderId};
+        for (var count in inputData) {
+            var name = inputData[count].name;
+            var value = inputData[count].value;
+            data[name] = value;
+        }
+        this.getAjaxRequester().sendRequest(Service.URI_CREATE_LABEL, data, function()
+        {
+            notifications.success('Label created successfully');
+            self.refresh();
+        });
     };
 
     return Service;

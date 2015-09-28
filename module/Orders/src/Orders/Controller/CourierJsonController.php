@@ -2,6 +2,7 @@
 namespace Orders\Controller;
 
 use CG_UI\View\Prototyper\JsonModelFactory;
+use Orders\Courier\Label\Service as LabelService;
 use Orders\Courier\Service;
 use Zend\Mvc\Controller\AbstractActionController;
 
@@ -11,16 +12,23 @@ class CourierJsonController extends AbstractActionController
     const ROUTE_REVIEW_LIST_URI = '/ajax';
     const ROUTE_SPECIFICS_LIST = 'Specifics List';
     const ROUTE_SPECIFICS_LIST_URI = '/ajax';
+    const ROUTE_LABEL_CREATE = 'Create';
+    const ROUTE_LABEL_CREATE_URI = '/create';
 
     protected $jsonModelFactory;
+    /** @var Service */
     protected $service;
+    /** @var LabelService */
+    protected $labelService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
-        Service $service
+        Service $service,
+        LabelService $labelService
     ) {
         $this->setJsonModelFactory($jsonModelFactory)
-            ->setService($service);
+            ->setService($service)
+            ->setLabelService($labelService);
     }
 
     /**
@@ -80,6 +88,21 @@ class CourierJsonController extends AbstractActionController
         }
     }
 
+    public function createLabelAction()
+    {
+        $accountId = $this->params()->fromPost('account');
+        $orderId = $this->params()->fromPost('order');
+        $ordersData = $this->params()->fromPost('orderData', []);
+        $ordersParcelsData = $this->params()->fromPost('parcelData', []);
+        $this->sanitiseInputArray($ordersData);
+        $this->sanitiseInputArray($ordersParcelsData);
+        $orderData = $ordersData[$orderId];
+        $parcelsData = $ordersParcelsData[$orderId];
+        $this->labelService->createForOrderData($orderId, $orderData, $parcelsData, $accountId);
+
+        return $this->jsonModelFactory->newInstance([]);
+    }
+
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
     {
         $this->jsonModelFactory = $jsonModelFactory;
@@ -89,6 +112,12 @@ class CourierJsonController extends AbstractActionController
     protected function setService(Service $service)
     {
         $this->service = $service;
+        return $this;
+    }
+
+    public function setLabelService(LabelService $labelService)
+    {
+        $this->labelService = $labelService;
         return $this;
     }
 }
