@@ -475,9 +475,10 @@ class Service implements LoggerAwareInterface
         }
 
         foreach ($options as $option) {
-            if (!isset($data[$option])) {
-                $data[$option] = '';
+            if (isset($data[$option]) && $data[$option] != '') {
+                continue;
             }
+            $data[$option] = '';
             if ($productDetail) {
                 $getter = 'get'.ucfirst($option);
                 if (is_callable([$productDetail, $getter])) {
