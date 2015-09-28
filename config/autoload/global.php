@@ -111,6 +111,7 @@ use Settings\Controller\ChannelController;
 use CG\Dataplug\Account\Service as DataplugAccountService;
 use CG\Dataplug\Account\Storage\Api as DataplugAccountApi;
 use CG\Dataplug\Request\Factory\CreateCarrier as DataplugCreateCarrierRequestFactory;
+use CG\Dataplug\Carriers;
 
 return array(
     'di' => array(
@@ -377,7 +378,7 @@ return array(
                 'parameters' => [
                     'carriersConfig' => [
                         [
-                            'channelName' => 'dhl',
+                            'channelName' => Carriers::DHL,
                             'displayName' => 'DHL',
                             'fields' => [
                                 ['name' => 'Domestic Account no'],
@@ -399,7 +400,7 @@ return array(
                             ]
                         ],
                         [
-                            'channelName' => 'dpd',
+                            'channelName' => Carriers::DPD,
                             'displayName' => 'DPD',
                             'fields' => [
                                 ['name' => 'Account no'],
@@ -438,7 +439,7 @@ return array(
                             ]
                         ],
                         [
-                            'channelName' => 'fedex',
+                            'channelName' => Carriers::FEDEX,
                             'displayName' => 'FedEx',
                             'fields' => [
                                 ['name' => 'Account no'],
@@ -460,7 +461,7 @@ return array(
                             ]
                         ],
                         [
-                            'channelName' => 'interlink',
+                            'channelName' => Carriers::INTERLINK,
                             'displayName' => 'Interlink',
                             'fields' => [
                                 ['name' => 'Account no'],
@@ -482,7 +483,7 @@ return array(
                             ]
                         ],
                         [
-                            'channelName' => 'myhermes',
+                            'channelName' => Carriers::MYHERMES,
                             'displayName' => 'myHermes',
                             'fields' => [
                                 ['name' => 'Client ID'],
@@ -497,7 +498,7 @@ return array(
                             ]
                         ],
                         [
-                            'channelName' => 'parcelforce',
+                            'channelName' => Carriers::PARCELFORCE,
                             'displayName' => 'Parcelforce',
                             'fields' => [
                                 ['name' => 'Account no'],
@@ -520,7 +521,7 @@ return array(
                             ]
                         ],
                         [
-                            'channelName' => 'royal-mail-oba',
+                            'channelName' => Carriers::ROYAL_MAIL_OBA,
                             'displayName' => 'Royal Mail OBA',
                             'fields' => [
                                 ['name' => 'Account no'],
@@ -602,7 +603,7 @@ return array(
                             ]
                         ],
                         [
-                            'channelName' => 'tnt',
+                            'channelName' => Carriers::TNT,
                             'displayName' => 'TNT',
                             'fields' => [
                                 ['name' => 'Domestic Account no'],
@@ -630,7 +631,7 @@ return array(
                             ]
                         ],
                         [
-                            'channelName' => 'uk-mail',
+                            'channelName' => Carriers::UK_MAIL,
                             'displayName' => 'UK Mail',
                             'fields' => [
                                 ['name' => 'Account no (Item Rates)'],
@@ -672,7 +673,7 @@ return array(
                             ]
                         ],
                         [
-                            'channelName' => 'ups',
+                            'channelName' => Carriers::UPS,
                             'displayName' => 'UPS',
                             'fields' => [
                                 ['name' => 'Account no'],
@@ -699,7 +700,7 @@ return array(
                             ]
                         ],
                         [
-                            'channelName' => 'yodel',
+                            'channelName' => Carriers::YODEL,
                             'displayName' => 'Yodel',
                             'fields' => [
                                 ['name' => 'Account no'],

@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "130c2dc3203ce784cef5b577583ad8cc",
+    "hash": "4e5c11ab88210c71b98fc1e289a4df08",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -308,13 +308,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "e3a898dc8693f8f6b4fa10a1f5e8e95fdeec9b59"
+                "reference": "6e0aaef7e4bd3bef2c8aaf35500e76a585a6b363"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-5992-dataplug-7c68fd.zip",
-                "reference": "e3a898dc8693f8f6b4fa10a1f5e8e95fdeec9b59",
-                "shasum": "111a0400fec7eaf6b9f9a6a23d8282f88a5d1999"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-5992-dataplug-f783cd.zip",
+                "reference": "6e0aaef7e4bd3bef2c8aaf35500e76a585a6b363",
+                "shasum": "8927935d8ff313c76c2abb26f62404c17fcfc85e"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -324,13 +324,13 @@
                 "channelgrabber/etag": "^1.5.4",
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": ">=1.1.2,<2.0.0",
-                "channelgrabber/listing": ">=1.6.2,<2.0.0",
+                "channelgrabber/listing": "^1.6.12",
                 "channelgrabber/location": ">=1.1.1,<2.0.0",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.18.1",
                 "channelgrabber/permission": ">=1.0.1, <2.0.0",
-                "channelgrabber/product": "dev-EPIC-CGIV-5992-dataplug as 1.5.0",
                 "channelgrabber/predis": "^1.0.6",
+                "channelgrabber/product": "dev-EPIC-CGIV-5992-dataplug as 1.5.0",
                 "channelgrabber/scraper": ">=1.0.0,<2.0.0",
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stats": ">=1.0.1,<2.0.0",
@@ -371,7 +371,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-09-27 09:41:50"
+            "time": "2015-09-28 12:18:16"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1536,13 +1536,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "bf3da7a6f33ce54684226eb485614b6a8191e897"
+                "reference": "48f024b4cd3fd5df4509797c497d6ae2c30a223a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-EPIC-CGIV-5992-dataplug-804f1d.zip",
-                "reference": "bf3da7a6f33ce54684226eb485614b6a8191e897",
-                "shasum": "2a5f06d6ce4d7cfbee32fddad878b848452f21b3"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-EPIC-CGIV-5992-dataplug-37b92b.zip",
+                "reference": "48f024b4cd3fd5df4509797c497d6ae2c30a223a",
+                "shasum": "ebef449da3d2afd613ecce511767c8a1b0c5340f"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1577,7 +1577,7 @@
                     "CG\\Product\\": "src"
                 }
             },
-            "time": "2015-08-24 11:07:02"
+            "time": "2015-09-28 08:47:26"
         },
         {
             "name": "channelgrabber/purge",
@@ -3172,13 +3172,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "f8d4dacb57668eebc7315662b40d49b45b6f054c"
+                "reference": "f0231f3ad04dd44dcd990f3a888938b172a20dcd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-5992-dataplug-bdc160.zip",
-                "reference": "f8d4dacb57668eebc7315662b40d49b45b6f054c",
-                "shasum": "f2baedf6cc8eb7138816a60a59c760b821a211ba"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-5992-dataplug-c157ff.zip",
+                "reference": "f0231f3ad04dd44dcd990f3a888938b172a20dcd",
+                "shasum": "e1b194cd32d81d78ae2bd3135e18d0b16b8ff4f3"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3224,7 +3224,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-09-25 10:23:11"
+            "time": "2015-09-28 12:20:12"
         },
         {
             "name": "cilex/cilex",
@@ -3350,16 +3350,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "15face5432d7b7334db6ac69fac0190971cafa6e"
+                "reference": "c41079192f38f0fc446b17baa8f628dcb3b61e7d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/composer-composer-15face5432d7b7334db6ac69fac0190971cafa6e-zip-e1493a.zip",
-                "reference": "15face5432d7b7334db6ac69fac0190971cafa6e",
-                "shasum": "960097e4a2c410a6a2506f50913267bed1b0c9be"
+                "url": "https://composer.build.channelgrabber.com/dist/composer-composer-c41079192f38f0fc446b17baa8f628dcb3b61e7d-zip-2f144b.zip",
+                "reference": "c41079192f38f0fc446b17baa8f628dcb3b61e7d",
+                "shasum": "557f4fb72b06f29ad2f07f44ce744b703b7cea9a"
             },
             "require": {
-                "composer/spdx-licenses": "~1.0",
+                "composer/semver": "^1.0",
+                "composer/spdx-licenses": "^1.0",
                 "justinrainbow/json-schema": "^1.4.4",
                 "php": ">=5.3.2",
                 "seld/cli-prompt": "~1.0",
@@ -3415,7 +3416,68 @@
                 "dependency",
                 "package"
             ],
-            "time": "2015-09-23 17:46:25"
+            "time": "2015-09-28 09:38:16"
+        },
+        {
+            "name": "composer/semver",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/composer/semver.git",
+                "reference": "d0e1ccc6d44ab318b758d709e19176037da6b1ba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/composer-semver-d0e1ccc6d44ab318b758d709e19176037da6b1ba-zip-4ead97.zip",
+                "reference": "d0e1ccc6d44ab318b758d709e19176037da6b1ba",
+                "shasum": "46071a964b51f459c3b75b8eafa9635b8059567c"
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.5",
+                "phpunit/phpunit-mock-objects": "~2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Composer\\Semver\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rob Bast",
+                    "email": "rob.bast@gmail.com"
+                },
+                {
+                    "name": "Nils Adermann",
+                    "email": "naderman@naderman.de",
+                    "homepage": "http://www.naderman.de"
+                },
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "http://seld.be"
+                }
+            ],
+            "description": "Semver library that offers utilities, version constraint parsing and validation.",
+            "keywords": [
+                "semantic",
+                "semver",
+                "validation",
+                "versioning"
+            ],
+            "time": "2015-09-21 09:42:36"
         },
         {
             "name": "composer/spdx-licenses",
@@ -7172,8 +7234,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.17.4",
-            "alias_normalized": "1.17.4.0",
+            "alias": "1.17.9",
+            "alias_normalized": "1.17.9.0",
             "version": "dev-EPIC-CGIV-5992-dataplug",
             "package": "channelgrabber/channel"
         },
