@@ -50,6 +50,7 @@ define([], function()
         {
             service.orderWeightChanged(this);
         });
+        return this;
     };
 
     return EventHandler;

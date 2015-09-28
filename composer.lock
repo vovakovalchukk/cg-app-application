@@ -2211,17 +2211,17 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.20.0",
+            "version": "1.20.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "5e782f3931f8511cc25e1e29ed83fdd01e975e41"
+                "reference": "83a583c013f6eb7d0c0c67977ad95e3536ab7b61"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.20.0-05f4d7.zip",
-                "reference": "5e782f3931f8511cc25e1e29ed83fdd01e975e41",
-                "shasum": "aa23d4174b57ddbbebc295258a9792f2858d591f"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.20.1-f46ded.zip",
+                "reference": "83a583c013f6eb7d0c0c67977ad95e3536ab7b61",
+                "shasum": "d23399795ad5d92ebb5e101aaad5481d8cd8a674"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2258,7 +2258,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2015-09-08 14:14:35"
+            "time": "2015-09-27 09:43:48"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -3173,13 +3173,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "ea1945cc5c3ab31f9486191a1f5afbd74ae4caca"
+                "reference": "cda4777a5073a760c7d14a7cc2268391a87cda09"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6151-dataplug-courier-booking-interface-cffcd9.zip",
-                "reference": "ea1945cc5c3ab31f9486191a1f5afbd74ae4caca",
-                "shasum": "d07a156a7a206415fc56cac63b3cb881584d35bf"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6151-dataplug-courier-booking-interface-ee1438.zip",
+                "reference": "cda4777a5073a760c7d14a7cc2268391a87cda09",
+                "shasum": "29ee59f281bc3513cc403ff14f1a1c170ae0dec4"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3225,7 +3225,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-09-28 08:42:37"
+            "time": "2015-09-28 11:07:40"
         },
         {
             "name": "cilex/cilex",

@@ -24,6 +24,10 @@ function CourierSpecificsDataTable(dataTable, orderIds, courierId, orderServices
             self.addOrderIdsToAjaxRequest()
                 .addElementsToColumns();
         });
+        dataTable.on('fnDrawCallback', function()
+        {
+            self.triggerInitialItemWeightKeypress();
+        });
     };
     init.call(this);
 }
@@ -34,6 +38,7 @@ CourierSpecificsDataTable.COLUMN_ACTIONS = 'actions';
 CourierSpecificsDataTable.SELECTOR_SERVICE_SELECT_PREFIX = '#courier-service-select-';
 CourierSpecificsDataTable.SELECTOR_PARCELS_ELEMENT = '#courier-parcels-input-container';
 CourierSpecificsDataTable.SELECTOR_ACTION_BUTTONS = '#courier-action-buttons .button-holder';
+CourierSpecificsDataTable.SELECTOR_ITEM_WEIGHT_INPUT = '.courier-item-weight';
 
 CourierSpecificsDataTable.prototype = Object.create(CourierDataTableAbstract.prototype);
 
@@ -118,6 +123,15 @@ CourierSpecificsDataTable.prototype.addButtonsToActionsColumn = function(templat
         buttonsHtml += $('<div>').append(buttonCopy).html();
     });
     templateData.actions = buttonsHtml;
+};
+
+CourierSpecificsDataTable.prototype.triggerInitialItemWeightKeypress = function()
+{
+    $(CourierSpecificsDataTable.SELECTOR_ITEM_WEIGHT_INPUT).each(function()
+    {
+        $(this).trigger('keyup');
+    });
+    return this;
 };
 
 CourierSpecificsDataTable.prototype.getAndUnsetOrderService = function(orderId)

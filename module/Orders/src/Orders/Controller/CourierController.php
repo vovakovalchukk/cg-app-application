@@ -244,7 +244,7 @@ class CourierController extends AbstractActionController
     protected function getSpecificsParcelsElement()
     {
         $view = $this->viewModelFactory->newInstance([
-            'type' => 'number',
+            'type' => 'text',
             'value' => 1,
             'id' => 'courier-parcels-input',
             'class' => 'courier-parcels-input',
