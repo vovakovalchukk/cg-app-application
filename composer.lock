@@ -330,11 +330,12 @@
                 "channelgrabber/order": "^1.18.1",
                 "channelgrabber/permission": ">=1.0.1, <2.0.0",
                 "channelgrabber/product": "dev-EPIC-CGIV-5992-dataplug as 1.5.0",
+                "channelgrabber/predis": "^1.0.6",
                 "channelgrabber/scraper": ">=1.0.0,<2.0.0",
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stats": ">=1.0.1,<2.0.0",
                 "channelgrabber/stdlib": "^2.12.0",
-                "channelgrabber/stock": "^1.5.0",
+                "channelgrabber/stock": "^1.5.9",
                 "composer/composer": "@dev",
                 "ext-gearman": "~1.1.0",
                 "guzzle/guzzle": "~3.7",
@@ -354,8 +355,7 @@
             "type": "di-definition",
             "extra": {
                 "branch-alias": {
-                    "dev-develop": "1.x-dev",
-                    "dev-CGIV-5793-EnforceRemoveByField": "1.16.18-dev"
+                    "dev-develop": "1.x-dev"
                 }
             },
             "autoload": {
@@ -1191,22 +1191,23 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.19.21",
+            "version": "1.19.22.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "630163e9699c567949208e5d2e966ebf2c20f009"
+                "reference": "7c0bd1b886896371672b29e8d75464591b9768ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.19.21-0dc5ff.zip",
-                "reference": "630163e9699c567949208e5d2e966ebf2c20f009",
-                "shasum": "603205d67c16e24139cfcb2e1cedcab48f7ed12d"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.19.22.1-ef4c1b.zip",
+                "reference": "7c0bd1b886896371672b29e8d75464591b9768ed",
+                "shasum": "654244a2ecf3f74b4925cec6089ebde7900ba002"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": ">=1.0.0,<2.0.0",
+                "channelgrabber/channel": "^1.17.7",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/db": ">=1.0.6",
                 "channelgrabber/di": ">=2.0.0,<3.0.0",
@@ -1216,15 +1217,16 @@
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/locale": "^1.0.5",
                 "channelgrabber/log": "^2.0.21",
+                "channelgrabber/notification": "^1.0.0",
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/product": "^1.4.0",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/sequential-numbering": "^1.0.0",
-                "channelgrabber/settings": "^1.3.6",
+                "channelgrabber/settings": "^1.3.7",
                 "channelgrabber/slim": ">=1.13.6,<2.0.0",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
                 "channelgrabber/stdlib": "^2.12.7",
-                "channelgrabber/stock": "^1.5.0",
+                "channelgrabber/stock": "^1.5.9",
                 "channelgrabber/tax": "^1.0.0",
                 "channelgrabber/template": "^1.2.53",
                 "channelgrabber/transaction": ">=1.1.3,<2.0.0",
@@ -1246,7 +1248,7 @@
             "type": "di-definition",
             "extra": {
                 "branch-alias": {
-                    "dev-develop": "1.18.x-dev"
+                    "dev-develop": "1.19.x-dev"
                 }
             },
             "autoload": {
@@ -1260,7 +1262,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-08-28 14:51:19"
+            "time": "2015-09-14 10:59:46"
         },
         {
             "name": "channelgrabber/permission",
@@ -1544,6 +1546,7 @@
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
+                "channelgrabber/channel": "^1.17.7",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.0.1",
                 "channelgrabber/etag": "^1.5.4",
@@ -1551,10 +1554,10 @@
                 "channelgrabber/image": ">=1.1.3,<2.0.0",
                 "channelgrabber/listing": ">=1.2.10",
                 "channelgrabber/log": "^2.0.21",
+                "channelgrabber/notification": "^1.0.0",
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stdlib": "^2.12.6",
-                "channelgrabber/stock": "^1.4.10",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "composer/composer": "@dev",
                 "guzzle/guzzle": "~3.7",
@@ -1564,6 +1567,11 @@
                 "zendframework/zend-di": ">=2.2.5"
             },
             "type": "di-definition",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "1.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Product\\": "src"
