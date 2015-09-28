@@ -110,7 +110,7 @@ use Settings\Module as SettingsModule;
 use Settings\Controller\ChannelController;
 use CG\Dataplug\Account\Service as DataplugAccountService;
 use CG\Dataplug\Account\Storage\Api as DataplugAccountApi;
-use CG\Dataplug\Request\CreateCarrier as DataplugCreateCarrierRequest;
+use CG\Dataplug\Request\Factory\CreateCarrier as DataplugCreateCarrierRequestFactory;
 
 return array(
     'di' => array(
@@ -358,7 +358,7 @@ return array(
                     'client' => 'directory_guzzle'
                 ]
             ],
-            DataplugCreateCarrierRequest::class => [
+            DataplugCreateCarrierRequestFactory::class => [
                 'parameters' => [
                     'cryptor' => 'dataplug_cryptor'
                 ]
