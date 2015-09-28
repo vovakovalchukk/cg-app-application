@@ -110,6 +110,7 @@ use Settings\Module as SettingsModule;
 use Settings\Controller\ChannelController;
 use CG\Dataplug\Account\Service as DataplugAccountService;
 use CG\Dataplug\Account\Storage\Api as DataplugAccountApi;
+use CG\Dataplug\Request\CreateCarrier as DataplugCreateCarrierRequest;
 
 return array(
     'di' => array(
@@ -357,6 +358,11 @@ return array(
                     'client' => 'directory_guzzle'
                 ]
             ],
+            DataplugCreateCarrierRequest::class => [
+                'parameters' => [
+                    'cryptor' => 'dataplug_cryptor'
+                ]
+            ],
             DataplugAccountService::class => [
                 'parameters' => [
                     'repository' => DataplugAccountApi::class
@@ -376,8 +382,7 @@ return array(
                             'fields' => [
                                 ['name' => 'Domestic Account no'],
                                 ['name' => 'International Account no'],
-                                ['name' => 'Site ID'],
-                                ['name' => 'Password', 'inputType' => 'password'],
+                                ['name' => 'Site ID']
                             ],
                             'services' => [
                                 ['value' => 'DHLEXPWW00PA', 'name' => 'Express Worldwide Parcel'],
@@ -460,10 +465,11 @@ return array(
                             'fields' => [
                                 ['name' => 'Account no'],
                                 ['name' => 'User ID'],
-                                ['name' => 'SLID'],
                                 ['name' => 'Authorisation Code'],
                                 ['name' => 'Start Sequence'],
                                 ['name' => 'End Sequence'],
+                                ['name' => 'Order Start Sequence'],
+                                ['name' => 'Order End Sequence']
                             ],
                             'services' => [
                                 ['value' => 'INTNEXTDAYPA0930', 'name' => 'Next Day 9.30am Parcel'],
@@ -523,6 +529,9 @@ return array(
                                 ['name' => 'Contract no'],
                                 ['name' => 'Hub no'],
                                 ['name' => 'Posting Location no'],
+                                ['name' => 'Username OBA'],
+                                ['name' => 'Password OBA', 'inputType' => 'password'],
+                                ['name' => 'Access Code'],
                             ],
                             'services' => [
                                 ['value' => 'RMIIE10000PA', 'name' => 'International Business Zone Sort Priority Parcel'],
@@ -596,8 +605,9 @@ return array(
                             'channelName' => 'tnt',
                             'displayName' => 'TNT',
                             'fields' => [
-                                ['name' => 'ExpressConnect Account no'],
-                                ['name' => 'ExpressConnect Customer ID'],
+                                ['name' => 'Domestic Account no'],
+                                ['name' => 'International Account no'],
+                                ['name' => 'ExpressConnect User'],
                                 ['name' => 'ExpressConnect Password', 'inputType' => 'password'],
                                 ['name' => 'ExpressLabel User'],
                                 ['name' => 'ExpressLabel Password', 'inputType' => 'password'],
@@ -626,6 +636,7 @@ return array(
                                 ['name' => 'Account no (Item Rates)'],
                                 ['name' => 'Account no (KG Rates)'],
                                 ['name' => 'User ID'],
+                                ['name' => 'Password', 'inputType' => 'password']
                             ],
                             'services' => [
                                 ['value' => 'UKMNEXTDAYPA', 'name' => 'Parcel Next Day'],
@@ -667,6 +678,7 @@ return array(
                                 ['name' => 'Account no'],
                                 ['name' => 'Book no'],
                                 ['name' => 'Username'],
+                                ['name' => 'Password', 'inputType' => 'password'],
                                 ['name' => 'Prefix'],
                                 ['name' => 'Start Sequence'],
                                 ['name' => 'End Sequence'],
@@ -695,6 +707,7 @@ return array(
                                 ['name' => 'Contract no'],
                                 ['name' => 'Schedule no'],
                                 ['name' => 'Username'],
+                                ['name' => 'Password', 'inputType' => 'password'],
                                 ['name' => 'Licence Plate Prefix'],
                                 ['name' => 'Start Sequence'],
                                 ['name' => 'End Sequence'],
