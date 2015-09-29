@@ -106,7 +106,7 @@ class Mapper
         foreach ($order->getItems() as $orderItem) {
             $descriptions[] = $orderItem->getItemSku() . ': ' . $orderItem->getItemName() . ' x ' . $orderItem->getItemQuantity();
         }
-        return preg_replace('/[^a-zA-Z0-9 \-\.:;\/\[\]\\\\]/', '', implode('; ', $descriptions));
+        return implode('; ', $descriptions);
     }
 
     protected function getCompanyName($address)

@@ -483,13 +483,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "24ceba425fe32c224f226ca95a818f86dc7f923a"
+                "reference": "fba84bf2e9014af8a14f290423d98e303d7d872e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6151-dataplug-courier-booking-interface-4be7f7.zip",
-                "reference": "24ceba425fe32c224f226ca95a818f86dc7f923a",
-                "shasum": "8489bf2f259e12706dedc2570b0659744fdac97e"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6151-dataplug-courier-booking-interface-9d09d5.zip",
+                "reference": "fba84bf2e9014af8a14f290423d98e303d7d872e",
+                "shasum": "6c845892cfe7a29a8471489d94f19d1a9c7524aa"
             },
             "require": {
                 "channelgrabber/channel": "dev-EPIC-CGIV-5992-dataplug as 1.17.2",
@@ -521,7 +521,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2015-09-29 12:33:19"
+            "time": "2015-09-29 16:16:14"
         },
         {
             "name": "channelgrabber/db",
