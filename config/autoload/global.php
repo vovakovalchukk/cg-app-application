@@ -111,6 +111,7 @@ use Settings\Controller\ChannelController;
 use CG\Dataplug\Account\Service as DataplugAccountService;
 use CG\Dataplug\Account\Storage\Api as DataplugAccountApi;
 use CG\Dataplug\Request\Factory\CreateCarrier as DataplugCreateCarrierRequestFactory;
+use CG\Dataplug\Request\Factory\UpdateCarrier as  DataplugUpdateCarrierRequestFactory;
 use CG\Dataplug\Carriers;
 
 return array(
@@ -360,6 +361,11 @@ return array(
                 ]
             ],
             DataplugCreateCarrierRequestFactory::class => [
+                'parameters' => [
+                    'cryptor' => 'dataplug_cryptor'
+                ]
+            ],
+            DataplugUpdateCarrierRequestFactory::class => [
                 'parameters' => [
                     'cryptor' => 'dataplug_cryptor'
                 ]
