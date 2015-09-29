@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ea274a8f72cf106d324c11a801342c6a",
-    "content-hash": "ca8821391be022fc97b49da91d7f74ba",
+    "hash": "3a3dbf1d8c0b7e26e785e6a9b4c979e5",
+    "content-hash": "0831f2f2069eff980032a387f4c550a3",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -483,13 +483,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "adb925779eee6e757974e70cf0d508a5b30c2ec9"
+                "reference": "24ceba425fe32c224f226ca95a818f86dc7f923a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6151-dataplug-courier-booking-interface-28c205.zip",
-                "reference": "adb925779eee6e757974e70cf0d508a5b30c2ec9",
-                "shasum": "64b79e01820f36c2e041009d92460fcf6183f328"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6151-dataplug-courier-booking-interface-4be7f7.zip",
+                "reference": "24ceba425fe32c224f226ca95a818f86dc7f923a",
+                "shasum": "8489bf2f259e12706dedc2570b0659744fdac97e"
             },
             "require": {
                 "channelgrabber/channel": "dev-EPIC-CGIV-5992-dataplug as 1.17.2",
@@ -521,7 +521,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2015-09-28 08:26:52"
+            "time": "2015-09-29 12:33:19"
         },
         {
             "name": "channelgrabber/db",
@@ -1192,17 +1192,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-EPIC-CGIV-5992-dataplug",
+            "version": "dev-CGIV-6151-dataplug-courier-booking-interface",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "5deae18dd8b98b02f5434c9e561261ec71c5a4bc"
+                "reference": "8b0ceed5c66ca9fce7ea61dc7ac65dd71958d70c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-CGIV-5992-dataplug-102bf2.zip",
-                "reference": "5deae18dd8b98b02f5434c9e561261ec71c5a4bc",
-                "shasum": "f090379b8ce7b803ff0904aece3b6f80f505c514"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6151-dataplug-courier-booking-interface-bd0e15.zip",
+                "reference": "8b0ceed5c66ca9fce7ea61dc7ac65dd71958d70c",
+                "shasum": "8bf4bc0c595b3b275251cbde31c8bfacedd7517b"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1249,7 +1249,7 @@
             "type": "di-definition",
             "extra": {
                 "branch-alias": {
-                    "dev-develop": "1.18.x-dev"
+                    "dev-develop": "1.19.x-dev"
                 }
             },
             "autoload": {
@@ -1263,7 +1263,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-09-18 14:37:13"
+            "time": "2015-09-29 13:49:21"
         },
         {
             "name": "channelgrabber/permission",
@@ -7188,7 +7188,7 @@
         {
             "alias": "1.19.22",
             "alias_normalized": "1.19.22.0",
-            "version": "dev-EPIC-CGIV-5992-dataplug",
+            "version": "dev-CGIV-6151-dataplug-courier-booking-interface",
             "package": "channelgrabber/order"
         },
         {

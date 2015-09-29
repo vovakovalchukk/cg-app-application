@@ -1,10 +1,12 @@
 <?php
 namespace Orders\Courier\Label;
 
+use CG\Dataplug\Request\CancelOrder as DataplugCancelOrderRequest;
 use CG\Dataplug\Request\CreateOrders as DataplugCreateRequest;
 use CG\Dataplug\Request\CreateOrders\Order as DataplugCreateRequestOrder;
 use CG\Dataplug\Request\CreateOrders\Item as DataplugCreateRequestItem;
 use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 
 class Mapper
@@ -129,5 +131,12 @@ class Mapper
     protected function getContactName($address)
     {
         return ($address->getAddressFullName() ?: $address->getAddressCompanyName());
+    }
+
+    public function orderLabelToDataplugCancelRequest(OrderLabel $orderLabel)
+    {
+        $request = new DataplugCancelOrderRequest();
+        $request->setOrderNumber($orderLabel->getExternalId());
+        return $request;
     }
 }

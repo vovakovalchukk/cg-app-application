@@ -11,6 +11,7 @@ use CG\Order\Client\Service as OrderService;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\Filter as OrderLabelFilter;
+use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\Order\Shared\Label\StorageInterface as OrderLabelStorage;
 use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Shared\Collection as OrderCollection;
@@ -346,7 +347,7 @@ class Service implements LoggerAwareInterface
                 $orderLabels->rewind();
                 $orderLabel = $orderLabels->current();
             }
-            $specificsOrderData = $this->getSpecificsOrderListDataDefaults($order, $options, $orderLabel);
+            $specificsOrderData = $this->getSpecificsOrderListDataDefaults($order, $courierAccount, $options, $orderLabel);
             $inputData = (isset($ordersData[$order->getId()]) ? $ordersData[$order->getId()] : []);
             $parcelsInputData = (isset($ordersParcelsData[$order->getId()]) ? $ordersParcelsData[$order->getId()] : []);
             $orderData = array_merge($orderData, $specificsOrderData, $inputData);
@@ -361,14 +362,20 @@ class Service implements LoggerAwareInterface
         return $data;
     }
 
-    protected function getSpecificsOrderListDataDefaults(Order $order, array $options, OrderLabel $orderLabel = null)
-    {
+    protected function getSpecificsOrderListDataDefaults(
+        Order $order,
+        Account $courierAccount,
+        array $options,
+        OrderLabel $orderLabel = null
+    ) {
+        $carrier = $this->carrierService->getCarrierForAccount($courierAccount);
         $data = [
             'collectionDate' => date('d/m/Y'),
             'parcels' => static::DEFAULT_PARCELS,
             // The order row will always be parcel 1, only parcel rows might be other numbers
             'parcelNumber' => 1,
             'labelStatus' => ($orderLabel ? $orderLabel->getStatus() : ''),
+            'cancellable' => $carrier->getAllowsCancellation(),
         ];
         foreach ($options as $option) {
             $data[$option] = '';
@@ -402,10 +409,13 @@ class Service implements LoggerAwareInterface
         foreach ($orders as $order) {
             $orderIds[] = $order->getId();
         }
+        $labelStatuses = OrderLabelStatus::getAllStatuses();
+        $labelStatusesNotCancelled = array_diff($labelStatuses, [OrderLabelStatus::CANCELLED]);
         $filter = (new OrderLabelFilter())
             ->setLimit('all')
             ->setPage(1)
-            ->setOrderId($orderIds);
+            ->setOrderId($orderIds)
+            ->setStatus($labelStatusesNotCancelled);
         try {
             $orderLabels = $this->orderLabelStorage->fetchCollectionByFilter($filter);
         } catch (NotFound $e) {
@@ -504,6 +514,7 @@ class Service implements LoggerAwareInterface
             $parcelData['showWeight'] = true;
             $parcelData['actionRow'] = ($parcel == $parcels);
             $parcelData['labelStatus'] = $orderData['labelStatus'];
+            $parcelData['cancellable'] = $orderData['cancellable'];
             foreach ($options as $option) {
                 $parcelData[$option] = (isset($orderData[$option]) ? $orderData[$option] : '');
             }

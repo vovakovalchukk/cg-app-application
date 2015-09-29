@@ -708,12 +708,12 @@ return [
                                     ]
                                 ]
                             ],
-
                             CourierController::ROUTE_LABEL => [
                                 'type' => 'Zend\Mvc\Router\Http\Segment',
                                 'options' => [
                                     'route' => CourierController::ROUTE_LABEL_URI,
                                     'defaults' => [
+                                        'controller' => CourierJsonController::class,
                                     ]
                                 ],
                                 'may_terminate' => true,
@@ -723,12 +723,21 @@ return [
                                         'options' => [
                                             'route' => CourierJsonController::ROUTE_LABEL_CREATE_URI,
                                             'defaults' => [
-                                                'controller' => CourierJsonController::class,
                                                 'action' => 'createLabel',
                                             ]
                                         ],
                                         'may_terminate' => true,
-                                    ]
+                                    ],
+                                    CourierJsonController::ROUTE_LABEL_CANCEL => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => CourierJsonController::ROUTE_LABEL_CANCEL_URI,
+                                            'defaults' => [
+                                                'action' => 'cancel',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
                                 ]
                             ],
                         ]

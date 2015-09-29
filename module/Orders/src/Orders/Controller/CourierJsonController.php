@@ -2,7 +2,8 @@
 namespace Orders\Controller;
 
 use CG_UI\View\Prototyper\JsonModelFactory;
-use Orders\Courier\Label\Service as LabelService;
+use Orders\Courier\Label\CancelService as LabelCancelService;
+use Orders\Courier\Label\CreateService as LabelCreateService;
 use Orders\Courier\Service;
 use Zend\Mvc\Controller\AbstractActionController;
 
@@ -14,21 +15,27 @@ class CourierJsonController extends AbstractActionController
     const ROUTE_SPECIFICS_LIST_URI = '/ajax';
     const ROUTE_LABEL_CREATE = 'Create';
     const ROUTE_LABEL_CREATE_URI = '/create';
+    const ROUTE_LABEL_CANCEL = 'Cancel';
+    const ROUTE_LABEL_CANCEL_URI = '/cancel';
 
     protected $jsonModelFactory;
     /** @var Service */
     protected $service;
-    /** @var LabelService */
-    protected $labelService;
+    /** @var LabelCreateService */
+    protected $labelCreateService;
+    /** @var LabelCancelService */
+    protected $labelCancelService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         Service $service,
-        LabelService $labelService
+        LabelCreateService $labelCreateService,
+        LabelCancelService $labelCancelService
     ) {
         $this->setJsonModelFactory($jsonModelFactory)
             ->setService($service)
-            ->setLabelService($labelService);
+            ->setLabelCreateService($labelCreateService)
+            ->setLabelCancelService($labelCancelService);
     }
 
     /**
@@ -98,8 +105,15 @@ class CourierJsonController extends AbstractActionController
         $this->sanitiseInputArray($ordersParcelsData);
         $orderData = $ordersData[$orderId];
         $parcelsData = $ordersParcelsData[$orderId];
-        $this->labelService->createForOrderData($orderId, $orderData, $parcelsData, $accountId);
+        $this->labelCreateService->createForOrderData($orderId, $orderData, $parcelsData, $accountId);
+        return $this->jsonModelFactory->newInstance([]);
+    }
 
+    public function cancelAction()
+    {
+        $accountId = $this->params()->fromPost('account');
+        $orderId = $this->params()->fromPost('order');
+        $this->labelCancelService->cancelForOrderData($orderId, $accountId);
         return $this->jsonModelFactory->newInstance([]);
     }
 
@@ -115,9 +129,15 @@ class CourierJsonController extends AbstractActionController
         return $this;
     }
 
-    public function setLabelService(LabelService $labelService)
+    protected function setLabelCreateService(LabelCreateService $labelCreateService)
     {
-        $this->labelService = $labelService;
+        $this->labelCreateService = $labelCreateService;
+        return $this;
+    }
+
+    protected function setLabelCancelService(LabelCancelService $labelCancelService)
+    {
+        $this->labelCancelService = $labelCancelService;
         return $this;
     }
 }

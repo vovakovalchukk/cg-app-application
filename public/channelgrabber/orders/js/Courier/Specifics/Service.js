@@ -43,6 +43,7 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
 
     Service.SELECTOR_NAV_FORM = '#courier-specifics-nav-form';
     Service.URI_CREATE_LABEL = '/orders/courier/label/create';
+    Service.URI_CANCEL = '/orders/courier/label/cancel';
 
     Service.prototype.courierLinkChosen = function(courierUrl)
     {
@@ -126,6 +127,20 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         this.getAjaxRequester().sendRequest(Service.URI_CREATE_LABEL, data, function()
         {
             notifications.success('Label created successfully');
+            self.refresh();
+        });
+    };
+
+    Service.prototype.cancelForOrder = function(orderId)
+    {
+        var self = this;
+        var notifications = this.getNotifications();
+        notifications.notice('Cancelling');
+
+        var data = {"account": this.getCourierAccountId(), "order": orderId};
+        this.getAjaxRequester().sendRequest(Service.URI_CANCEL, data, function()
+        {
+            notifications.success('Shipping order cancelled successfully');
             self.refresh();
         });
     };

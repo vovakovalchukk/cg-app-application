@@ -12,7 +12,8 @@ define([], function()
             this.listenToNavLinkClicks()
                 .listenToParcelsChange()
                 .listenToItemWeightKeypress()
-                .listenToCreateLabelButton();
+                .listenToCreateLabelButtons()
+                .listenToCancelButtons();
         };
         init.call(this);
     }
@@ -22,6 +23,7 @@ define([], function()
     EventHandler.SELECTOR_ITEM_WEIGHT_INPUT = '.courier-item-weight';
     EventHandler.SELECTOR_ORDER_WEIGHT_INPUT_PREFIX = '#courier-order-weight-';
     EventHandler.SELECTOR_CREATE_LABEL_BUTTON = '.courier-create-label-button';
+    EventHandler.SELECTOR_CANCEL_BUTTON = '.courier-cancel-label-button';
 
     EventHandler.prototype.listenToNavLinkClicks = function()
     {
@@ -55,13 +57,24 @@ define([], function()
         return this;
     };
 
-    EventHandler.prototype.listenToCreateLabelButton = function()
+    EventHandler.prototype.listenToCreateLabelButtons = function()
     {
         var service = this.getService();
         $(document).on('click', EventHandler.SELECTOR_CREATE_LABEL_BUTTON, function()
         {
             var orderId = $(this).attr('id').replace('-shadow', '').split('_').pop();
             service.createLabelForOrder(orderId);
+        });
+        return this;
+    };
+
+    EventHandler.prototype.listenToCancelButtons = function()
+    {
+        var service = this.getService();
+        $(document).on('click', EventHandler.SELECTOR_CANCEL_BUTTON, function()
+        {
+            var orderId = $(this).attr('id').replace('-shadow', '').split('_').pop();
+            service.cancelForOrder(orderId);
         });
         return this;
     };

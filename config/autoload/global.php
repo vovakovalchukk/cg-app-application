@@ -389,6 +389,7 @@ return array(
                         [
                             'channelName' => 'dhl',
                             'displayName' => 'DHL',
+                            'allowsCancellation' => false,
                             'fields' => [
                                 ['name' => 'Domestic Account no'],
                                 ['name' => 'International Account no'],
@@ -416,6 +417,7 @@ return array(
                         [
                             'channelName' => 'dpd',
                             'displayName' => 'DPD',
+                            'allowsCancellation' => false,
                             'fields' => [
                                 ['name' => 'Account no'],
                                 ['name' => 'User ID'],
@@ -459,6 +461,7 @@ return array(
                         [
                             'channelName' => 'fedex',
                             'displayName' => 'FedEx',
+                            'allowsCancellation' => false,
                             'fields' => [
                                 ['name' => 'Account no'],
                                 ['name' => 'Key'],
@@ -485,6 +488,7 @@ return array(
                         [
                             'channelName' => 'interlink',
                             'displayName' => 'Interlink',
+                            'allowsCancellation' => false,
                             'fields' => [
                                 ['name' => 'Account no'],
                                 ['name' => 'User ID'],
@@ -642,6 +646,7 @@ return array(
                         [
                             'channelName' => 'tnt',
                             'displayName' => 'TNT',
+                            'allowsCancellation' => false,
                             'fields' => [
                                 ['name' => 'ExpressConnect Account no'],
                                 ['name' => 'ExpressConnect Customer ID'],
@@ -673,6 +678,7 @@ return array(
                         [
                             'channelName' => 'uk-mail',
                             'displayName' => 'UK Mail',
+                            'allowsCancellation' => false,
                             'fields' => [
                                 ['name' => 'Account no (Item Rates)'],
                                 ['name' => 'Account no (KG Rates)'],

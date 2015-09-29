@@ -107,6 +107,9 @@ CourierSpecificsDataTable.prototype.addButtonsToActionsColumn = function(templat
         return;
     }
     var actions = this.labelStatusActions[templateData.labelStatus];
+    if (actions['cancel'] && !templateData.cancellable) {
+        delete actions['cancel'];
+    }
     var buttonsHtml = '';
     $(CourierSpecificsDataTable.SELECTOR_ACTION_BUTTONS).each(function()
     {
