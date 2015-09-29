@@ -39,6 +39,7 @@ use Orders\Controller\CancelController;
 use Orders\Controller\StoredBatchesController;
 use CG\Settings\Alias\Storage\Api as ShippingAliasStorage;
 use CG\Order\Client\Tracking\Storage\Api as TrackingStorageApi;
+use CG\Order\Shared\Tracking\StorageInterface as TrackingStorage;
 use CG\Order\Service\Tracking\Service as TrackingService;
 use CG\Account\Client\Storage\Api as AccountStorageApi;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
@@ -922,6 +923,7 @@ return [
                 ProductStorage::class => ProductApiStorage::class,
                 StockStorage::class => StockApiStorage::class,
                 ListingStorage::class => ListingApiStorage::class,
+                TrackingStorage::class => TrackingStorageApi::class,
             ],
             TableService::class => [
                 'parameters' => [
