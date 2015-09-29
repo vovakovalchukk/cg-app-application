@@ -113,7 +113,7 @@ class CourierJsonController extends AbstractActionController
     {
         $accountId = $this->params()->fromPost('account');
         $orderId = $this->params()->fromPost('order');
-        $this->labelCancelService->cancelForOrderData($orderId, $accountId);
+        $this->labelCancelService->cancelForOrder($orderId, $accountId);
         return $this->jsonModelFactory->newInstance([]);
     }
 

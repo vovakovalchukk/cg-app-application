@@ -728,6 +728,17 @@ return [
                                         ],
                                         'may_terminate' => true,
                                     ],
+                                    CourierController::ROUTE_LABEL_PRINT => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => CourierController::ROUTE_LABEL_PRINT_URI,
+                                            'defaults' => [
+                                                'controller' => CourierController::class,
+                                                'action' => 'printLabel',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
                                     CourierJsonController::ROUTE_LABEL_CANCEL => [
                                         'type' => 'Zend\Mvc\Router\Http\Literal',
                                         'options' => [

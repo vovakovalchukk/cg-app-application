@@ -42,7 +42,9 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
     }
 
     Service.SELECTOR_NAV_FORM = '#courier-specifics-nav-form';
+    Service.SELECTOR_LABEL_FORM = '#courier-specifics-label-form';
     Service.URI_CREATE_LABEL = '/orders/courier/label/create';
+    Service.URI_PRINT_LABEL = '/orders/courier/label/print';
     Service.URI_CANCEL = '/orders/courier/label/cancel';
 
     Service.prototype.courierLinkChosen = function(courierUrl)
@@ -129,6 +131,15 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
             notifications.success('Label created successfully');
             self.refresh();
         });
+    };
+
+    Service.prototype.printLabelForOrder = function(orderId)
+    {
+        this.getNotifications().notice('Generating label', true);
+
+        $(Service.SELECTOR_LABEL_FORM + ' input[name="order"]').val(orderId);
+        $(Service.SELECTOR_LABEL_FORM + ' input[name="account"]').val(this.getCourierAccountId());
+        $(Service.SELECTOR_LABEL_FORM).submit();
     };
 
     Service.prototype.cancelForOrder = function(orderId)

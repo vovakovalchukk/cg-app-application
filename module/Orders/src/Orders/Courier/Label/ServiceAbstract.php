@@ -5,8 +5,11 @@ use CG\Account\Client\Service as AccountService;
 use CG\Dataplug\Client as DataplugClient;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Tracking\Service as OrderTrackingService;
+use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\Label\Filter as OrderLabelFilter;
 use CG\Order\Shared\Label\Mapper as OrderLabelMapper;
 use CG\Order\Shared\Label\Service as OrderLabelService;
+use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\Order\Shared\Tracking\Mapper as OrderTrackingMapper;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
@@ -55,6 +58,20 @@ abstract class ServiceAbstract implements LoggerAwareInterface
             ->setOrderLabelService($orderLabelService)
             ->setOrderTrackingMapper($orderTrackingMapper)
             ->setOrderTrackingService($orderTrackingService);
+    }
+
+    protected function getOrderLabelForOrder(Order $order)
+    {
+        $labelStatuses = OrderLabelStatus::getAllStatuses();
+        $labelStatusesNotCancelled = array_diff($labelStatuses, [OrderLabelStatus::CANCELLED]);
+        $filter = (new OrderLabelFilter())
+            ->setLimit(1)
+            ->setPage(1)
+            ->setOrderId([$order->getId()])
+            ->setStatus($labelStatusesNotCancelled);
+        $orderLabels = $this->orderLabelService->fetchCollectionByFilter($filter);
+        $orderLabels->rewind();
+        return $orderLabels->current();
     }
 
     protected function setMapper(Mapper $mapper)

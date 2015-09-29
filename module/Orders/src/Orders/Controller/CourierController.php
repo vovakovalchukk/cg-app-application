@@ -4,7 +4,9 @@ namespace Orders\Controller;
 use CG\Account\Shared\Collection as AccountCollection;
 use CG_UI\View\DataTable;
 use CG_UI\View\Prototyper\ViewModelFactory;
+use CG\Zend\Stdlib\Http\FileResponse;
 use Orders\Module;
+use Orders\Courier\Label\PrintService as LabelPrintService;
 use Orders\Courier\Service;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -19,23 +21,31 @@ class CourierController extends AbstractActionController
     const ROUTE_SPECIFICS_URI = '/specifics[/:account]';
     const ROUTE_LABEL = 'Label';
     const ROUTE_LABEL_URI = '/label';
+    const ROUTE_LABEL_PRINT = 'Print';
+    const ROUTE_LABEL_PRINT_URI = '/print';
+
+    const LABEL_MINE_TYPE = 'application/pdf';
 
     protected $viewModelFactory;
     protected $reviewTable;
     protected $specificsTable;
     /** @var Service */
     protected $service;
+    /** @var LabelPrintService */
+    protected $labelPrintService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         DataTable $reviewTable,
         DataTable $specificsTable,
-        Service $service
+        Service $service,
+        LabelPrintService $labelPrintService
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setReviewTable($reviewTable)
             ->setSpecificsTable($specificsTable)
-            ->setService($service);
+            ->setService($service)
+            ->setLabelPrintService($labelPrintService);
     }
 
     public function indexAction()
@@ -268,6 +278,13 @@ class CourierController extends AbstractActionController
         $view->addChild($optionsView, 'serviceSelect', true);
     }
 
+    public function printLabelAction()
+    {
+        $orderId = $this->params()->fromPost('order');
+        $pdfData = $this->labelPrintService->getPdfLabelDataForOrder($orderId);
+        return new FileResponse(static::LABEL_MINE_TYPE, 'Label_' . $orderId . '.pdf', $pdfData);
+    }
+
     protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
     {
         $this->viewModelFactory = $viewModelFactory;
@@ -289,6 +306,12 @@ class CourierController extends AbstractActionController
     protected function setService(Service $service)
     {
         $this->service = $service;
+        return $this;
+    }
+
+    protected function setLabelPrintService(LabelPrintService $labelPrintService)
+    {
+        $this->labelPrintService = $labelPrintService;
         return $this;
     }
 }

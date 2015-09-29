@@ -3,7 +3,6 @@ namespace Orders\Courier\Label;
 
 use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Label\Entity as OrderLabel;
-use CG\Order\Shared\Label\Filter as OrderLabelFilter;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
 
 class CancelService extends ServiceAbstract
@@ -15,7 +14,7 @@ class CancelService extends ServiceAbstract
     const LOG_UPDATE = 'Updating OrderLabel to cancelled for Order %s';
     const LOG_REMOVE_TRACKING = 'Removing tracking numbers for Order %s.';
 
-    public function cancelForOrderData($orderId, $shippingAccountId)
+    public function cancelForOrder($orderId, $shippingAccountId)
     {
         $rootOu = $this->userOUService->getRootOuByActiveUser();
         $this->addGlobalLogEventParam('order', $orderId)->addGlobalLogEventParam('account', $shippingAccountId)->addGlobalLogEventParam('ou', $rootOu->getId());
@@ -30,20 +29,6 @@ class CancelService extends ServiceAbstract
         $this->removeOrderTracking($order);
         $this->logDebug(static::LOG_CANCEL_DONE, [$orderId, $shippingAccountId], static::LOG_CODE);
         $this->removeGlobalLogEventParam('order')->removeGlobalLogEventParam('account')->removeGlobalLogEventParam('ou');
-    }
-
-    protected function getOrderLabelForOrder(Order $order)
-    {
-        $labelStatuses = OrderLabelStatus::getAllStatuses();
-        $labelStatusesNotCancelled = array_diff($labelStatuses, [OrderLabelStatus::CANCELLED]);
-        $filter = (new OrderLabelFilter())
-            ->setLimit(1)
-            ->setPage(1)
-            ->setOrderId([$order->getId()])
-            ->setStatus($labelStatusesNotCancelled);
-        $orderLabels = $this->orderLabelService->fetchCollectionByFilter($filter);
-        $orderLabels->rewind();
-        return $orderLabels->current();
     }
 
     protected function cancelOrderLabel(OrderLabel $orderLabel)

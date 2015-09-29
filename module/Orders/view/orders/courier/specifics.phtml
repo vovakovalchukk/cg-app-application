@@ -31,5 +31,9 @@ $(document).ready(function()
         <div id="courier-action-buttons">
             <?=$this->actionsButtons;?>
         </div>
+        <form method="POST" action="/orders/courier/label/print" id="courier-specifics-label-form">
+            <input type="hidden" name="order" value="" />
+            <input type="hidden" name="account" value="" />
+        </form>
     </div>
 </div>
