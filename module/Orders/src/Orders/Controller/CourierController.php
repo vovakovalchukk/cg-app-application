@@ -181,7 +181,7 @@ class CourierController extends AbstractActionController
             ->setVariable('orderServices', $orderServices)
             ->setVariable('navLinks', $navLinks)
             ->setVariable('selectedCourier', $selectedCourier)
-            ->addChild($this->getSpecificsCreateAllLabelsButton(), 'createAllLabelsButton')
+            ->addChild($this->getSpecificsBulkActionsButtons(), 'bulkActionsButtons')
             ->addChild($this->specificsTable, 'specificsTable')
             ->addChild($this->getSpecificsActionsButtons(), 'actionsButtons')
             ->addChild($this->getSpecificsParcelsElement(), 'parcelsElement')
@@ -215,13 +215,28 @@ class CourierController extends AbstractActionController
         return $nav;
     }
 
-    protected function getSpecificsCreateAllLabelsButton()
+    protected function getSpecificsBulkActionsButtons()
     {
         $view = $this->viewModelFactory->newInstance([
             'buttons' => [
-                'value' => 'Create all labels',
-                'id' => 'create-all-button',
-                'disabled' => false,
+                [
+                    'value' => 'Create all labels',
+                    'id' => 'create-all-labels-button',
+                    'class' => 'courier-create-all-labels-button',
+                    'disabled' => false,
+                ],
+                [
+                    'value' => 'Print all labels',
+                    'id' => 'print-all-labels-button',
+                    'class' => 'courier-print-all-labels-button',
+                    'disabled' => false,
+                ],
+                [
+                    'value' => 'Cancel all',
+                    'id' => 'cancel-all-labels-button',
+                    'class' => 'courier-cancel-all-labels-button',
+                    'disabled' => false,
+                ],
             ]
         ]);
         $view->setTemplate('elements/buttons.mustache');

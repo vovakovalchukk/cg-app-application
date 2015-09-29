@@ -18,8 +18,8 @@ $(document).ready(function()
 <div id="main" class="courier-specifics">
     <span class="heading-large">
         <?= $this->selectedCourier->getDisplayName().' '.$this->translate('Orders') ?>
-        <div class="heading-buttons">
-            <?= $this->createAllLabelsButton; ?>
+        <div class="heading-buttons" style="display:none">
+            <?=$this->bulkActionsButtons;?>
         </div>
     </span>
     <div id="datatable-container">
