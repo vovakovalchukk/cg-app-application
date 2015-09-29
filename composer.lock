@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f2889cb0a82835c5289789f61ab947ae",
+    "hash": "fecb14aa33d8fb47ed9b84cf8c73c498",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -304,17 +304,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-EPIC-CGIV-6175-WooCommerce",
+            "version": "1.17.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "a2c67ae58862dfc76efe98003fd02a7c17b5fb41"
+                "reference": "0f0448ab236c42228451541cf22d6b37b27ea67c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-6175-WooCommerce-ae395d.zip",
-                "reference": "a2c67ae58862dfc76efe98003fd02a7c17b5fb41",
-                "shasum": "f9f13c197d31222f249d248d64bc664fee627b40"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.17.10-245e94.zip",
+                "reference": "0f0448ab236c42228451541cf22d6b37b27ea67c",
+                "shasum": "e12541e02f6903173996e72c6c96e98ea06c9b19"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -371,7 +371,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-09-24 13:16:38"
+            "time": "2015-09-29 07:33:27"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2300,28 +2300,31 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "dev-EPIC-CGIV-6175-WooCommerce",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "1904801709d41fce8610c5abcc6625cd49f09aa4"
+                "reference": "02fc01f1d84aec8766e25d362a4a7eb2bea0f96a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-EPIC-CGIV-6175-WooCommerce-d6c2ee.zip",
-                "reference": "1904801709d41fce8610c5abcc6625cd49f09aa4",
-                "shasum": "f6e8632879a8c1df69f371b60562c522bc7740dc"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.0.0-df16e2.zip",
+                "reference": "02fc01f1d84aec8766e25d362a4a7eb2bea0f96a",
+                "shasum": "6766bc38d2e630575eb9d62f236cd5f1bc0705e3"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.8",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.0",
                 "channelgrabber/http": "^1.2.0",
+                "channelgrabber/stdlib": "^2.12.0",
+                "channelgrabber/zf2-stdlib": "^1.2.1",
                 "composer/composer": "@dev",
                 "guzzlehttp/guzzle": ">=4.1,<6.0",
                 "php-jsonpatch/php-jsonpatch": "dev-master",
                 "php-jsonpointer/php-jsonpointer": "dev-master",
                 "phpish/link_header": "@dev",
+                "zendframework/zend-db": "^2.2",
                 "zendframework/zend-di": "^2.2"
             },
             "require-dev": {
@@ -2341,7 +2344,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2015-09-25 08:37:33"
+            "time": "2015-09-29 07:37:29"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -3121,17 +3124,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-EPIC-CGIV-6175-WooCommerce",
+            "version": "1.16.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "b78962bcd33467fe809fd8061a48570a9a119711"
+                "reference": "037e1e0bee630941b31b2a20f35700a2738e79bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-6175-WooCommerce-7556ea.zip",
-                "reference": "b78962bcd33467fe809fd8061a48570a9a119711",
-                "shasum": "33694d32a6c4158b494eb437a9e977545e5fcd6b"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.10-9f0c71.zip",
+                "reference": "037e1e0bee630941b31b2a20f35700a2738e79bb",
+                "shasum": "201740eaaaaf0f8f590fc011eacd022fd79cb094"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -3176,31 +3179,32 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-09-18 09:30:33"
+            "time": "2015-09-29 07:49:41"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
-            "version": "dev-EPIC-CGIV-6175-WooCommerce",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/woocommerce-module.git",
-                "reference": "fd2b3da74e8662a98ae9f3c94932606005271323"
+                "reference": "29f7f48b291d87f0add0dd5ca8c4c9f6a165924d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-woocommerce-dev-EPIC-CGIV-6175-WooCommerce-59e1c6.zip",
-                "reference": "fd2b3da74e8662a98ae9f3c94932606005271323",
-                "shasum": "edcb34768e4738dd02aaf2f39a58db76f1293324"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-woocommerce-1.0.0-df9996.zip",
+                "reference": "29f7f48b291d87f0add0dd5ca8c4c9f6a165924d",
+                "shasum": "bf4025a57823314563833af17ab5a7418bb11895"
             },
             "require": {
-                "channelgrabber/channel": "dev-EPIC-CGIV-6175-WooCommerce as 1.17.10",
+                "channelgrabber/channel": "^1.17.10",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/woocommerce": "dev-EPIC-CGIV-6175-WooCommerce as 1.0.0",
+                "channelgrabber/woocommerce": "^1.0.0",
                 "channelgrabber/zf2-channel": "^1.0.6",
                 "channelgrabber/zf2-installer": "^1.0.3",
                 "composer/composer": "@dev",
                 "php-jsonpatch/php-jsonpatch": "dev-master",
                 "php-jsonpointer/php-jsonpointer": "dev-master",
+                "phpish/link_header": "@dev",
                 "zendframework/zend-config": "2.*",
                 "zendframework/zend-form": "2.*",
                 "zendframework/zend-loader": "2.*",
@@ -3220,7 +3224,7 @@
                 ]
             },
             "description": "CG_WooCommerce module",
-            "time": "2015-09-18 09:28:00"
+            "time": "2015-09-29 07:47:15"
         },
         {
             "name": "cilex/cilex",
@@ -4800,7 +4804,7 @@
             "version": "v2.7.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/BrowserKit.git",
+                "url": "https://github.com/symfony/browser-kit.git",
                 "reference": "277a2457776d4cc25706fbdd9d1e4ab2dac884e4"
             },
             "dist": {
@@ -4855,7 +4859,7 @@
             "version": "v2.7.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/ClassLoader.git",
+                "url": "https://github.com/symfony/class-loader.git",
                 "reference": "d957ea6295d7016e20d7eff33a6c1deef819c0d4"
             },
             "dist": {
@@ -4905,7 +4909,7 @@
             "version": "v2.7.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Config.git",
+                "url": "https://github.com/symfony/config.git",
                 "reference": "5ab9ff48b3cb5b40951a607f77fc1cbfd29edba8"
             },
             "dist": {
@@ -4955,7 +4959,7 @@
             "version": "v2.7.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Console.git",
+                "url": "https://github.com/symfony/console.git",
                 "reference": "9ff9032151186bd66ecee727d728f1319f52d1d8"
             },
             "dist": {
@@ -5012,7 +5016,7 @@
             "version": "v2.7.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/CssSelector.git",
+                "url": "https://github.com/symfony/css-selector.git",
                 "reference": "ffb5f3b8a75f8d1b9801e74dc6789a0751a670ad"
             },
             "dist": {
@@ -5065,7 +5069,7 @@
             "version": "v2.7.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/DependencyInjection.git",
+                "url": "https://github.com/symfony/dependency-injection.git",
                 "reference": "c0a3a97b9450d77cd8eff81c5825efb3624c255b"
             },
             "dist": {
@@ -5125,7 +5129,7 @@
             "version": "v2.7.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/DomCrawler.git",
+                "url": "https://github.com/symfony/dom-crawler.git",
                 "reference": "2a161e4ee2b2f33d4153be58df4f6f2a5506936e"
             },
             "dist": {
@@ -5178,7 +5182,7 @@
             "version": "v2.7.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/EventDispatcher.git",
+                "url": "https://github.com/symfony/event-dispatcher.git",
                 "reference": "b58c916f1db03a611b72dd702564f30ad8fe83fa"
             },
             "dist": {
@@ -5236,7 +5240,7 @@
             "version": "v2.7.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Filesystem.git",
+                "url": "https://github.com/symfony/filesystem.git",
                 "reference": "f079e9933799929584200b9a926f72f29e291654"
             },
             "dist": {
@@ -7209,39 +7213,10 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.17.10",
-            "alias_normalized": "1.17.10.0",
-            "version": "dev-EPIC-CGIV-6175-WooCommerce",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.0.0",
-            "alias_normalized": "1.0.0.0",
-            "version": "dev-EPIC-CGIV-6175-WooCommerce",
-            "package": "channelgrabber/woocommerce"
-        },
-        {
-            "alias": "1.16.10",
-            "alias_normalized": "1.16.10.0",
-            "version": "dev-EPIC-CGIV-6175-WooCommerce",
-            "package": "channelgrabber/zf2-v4-ui"
-        },
-        {
-            "alias": "1.0.0",
-            "alias_normalized": "1.0.0.0",
-            "version": "dev-EPIC-CGIV-6175-WooCommerce",
-            "package": "channelgrabber/zf2-woocommerce"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/woocommerce": 20,
-        "channelgrabber/zf2-v4-ui": 20,
-        "channelgrabber/zf2-woocommerce": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
