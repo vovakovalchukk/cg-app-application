@@ -4,6 +4,7 @@ namespace Orders\Courier\Label;
 use CG\Account\Client\Service as AccountService;
 use CG\Dataplug\Client as DataplugClient;
 use CG\Order\Client\Service as OrderService;
+use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Service\Tracking\Service as OrderTrackingService;
 use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Label\Filter as OrderLabelFilter;
@@ -58,6 +59,15 @@ abstract class ServiceAbstract implements LoggerAwareInterface
             ->setOrderLabelService($orderLabelService)
             ->setOrderTrackingMapper($orderTrackingMapper)
             ->setOrderTrackingService($orderTrackingService);
+    }
+
+    protected function getOrdersByIds(array $orderIds)
+    {
+        $filter = (new OrderFilter())
+            ->setLimit('all')
+            ->setPage(1)
+            ->setOrderIds($orderIds);
+        return $this->orderService->fetchCollectionByFilter($filter);
     }
 
     protected function getOrderLabelForOrder(Order $order)

@@ -98,14 +98,12 @@ class CourierJsonController extends AbstractActionController
     public function createLabelAction()
     {
         $accountId = $this->params()->fromPost('account');
-        $orderId = $this->params()->fromPost('order');
+        $orderIds = $this->params()->fromPost('order', []);
         $ordersData = $this->params()->fromPost('orderData', []);
         $ordersParcelsData = $this->params()->fromPost('parcelData', []);
         $this->sanitiseInputArray($ordersData);
         $this->sanitiseInputArray($ordersParcelsData);
-        $orderData = $ordersData[$orderId];
-        $parcelsData = $ordersParcelsData[$orderId];
-        $this->labelCreateService->createForOrderData($orderId, $orderData, $parcelsData, $accountId);
+        $this->labelCreateService->createForOrdersData($orderIds, $ordersData, $ordersParcelsData, $accountId);
         return $this->jsonModelFactory->newInstance([]);
     }
 

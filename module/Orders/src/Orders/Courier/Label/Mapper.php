@@ -5,20 +5,25 @@ use CG\Dataplug\Request\CancelOrder as DataplugCancelOrderRequest;
 use CG\Dataplug\Request\CreateOrders as DataplugCreateRequest;
 use CG\Dataplug\Request\CreateOrders\Order as DataplugCreateRequestOrder;
 use CG\Dataplug\Request\CreateOrders\Item as DataplugCreateRequestItem;
+use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 
 class Mapper
 {
-    public function orderAndDataToDataplugCreateRequest(
-        Order $order,
-        array $orderData,
-        array $parcelsData,
+    public function ordersAndDataToDataplugCreateRequest(
+        OrderCollection $orders,
+        array $ordersData,
+        array $orderParcelsData,
         OrganisationUnit $organisationUnit
     ) {
         $request = new DataplugCreateRequest();
-        $request->addOrder($this->orderAndDataToDataplugCreateRequestOrder($order, $orderData, $parcelsData, $organisationUnit));
+        foreach ($orders as $order) {
+            $orderData = $ordersData[$order->getId()];
+            $parcelsData = $orderParcelsData[$order->getId()];
+            $request->addOrder($this->orderAndDataToDataplugCreateRequestOrder($order, $orderData, $parcelsData, $organisationUnit));
+        }
         return $request;
     }
 

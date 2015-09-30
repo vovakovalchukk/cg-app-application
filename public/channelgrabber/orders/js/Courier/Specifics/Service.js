@@ -43,6 +43,7 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
 
     Service.SELECTOR_NAV_FORM = '#courier-specifics-nav-form';
     Service.SELECTOR_LABEL_FORM = '#courier-specifics-label-form';
+    Service.SELECTOR_ORDER_ID_INPUT = '#datatable input[name="order[]"]';
     Service.URI_CREATE_LABEL = '/orders/courier/label/create';
     Service.URI_PRINT_LABEL = '/orders/courier/label/print';
     Service.URI_CANCEL = '/orders/courier/label/cancel';
@@ -87,6 +88,23 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         return inputData;
     };
 
+    Service.prototype.getInputDataForOrder = function(orderId)
+    {
+        var inputDataSelector = '#datatable td input[name^="orderData['+orderId+']"], #datatable td input[name^="parcelData['+orderId+']"]';
+        return this.getInputData(inputDataSelector);
+    };
+
+    Service.prototype.convertInputDataToAjaxData = function(inputData)
+    {
+        var ajaxData = {};
+        for (var count in inputData) {
+            var name = inputData[count].name;
+            var value = inputData[count].value;
+            ajaxData[name] = value;
+        }
+        return ajaxData;
+    };
+
     Service.prototype.orderWeightChanged = function(weightElement)
     {
         var prefix = EventHandler.SELECTOR_ITEM_WEIGHT_INPUT.replace('.', '') + '_';
@@ -118,14 +136,11 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         var notifications = this.getNotifications();
         notifications.notice('Creating label');
 
-        var inputDataSelector = '#datatable td input[name^="orderData['+orderId+']"], #datatable td input[name^="parcelData['+orderId+']"]';
-        var inputData = this.getInputData(inputDataSelector);
-        var data = {"account": this.getCourierAccountId(), "order": orderId};
-        for (var count in inputData) {
-            var name = inputData[count].name;
-            var value = inputData[count].value;
-            data[name] = value;
-        }
+        var inputData = this.getInputDataForOrder(orderId);
+        var data = this.convertInputDataToAjaxData(inputData);
+        data.account = this.getCourierAccountId();
+        data.order = [orderId];
+
         this.getAjaxRequester().sendRequest(Service.URI_CREATE_LABEL, data, function()
         {
             notifications.success('Label created successfully');
@@ -152,6 +167,32 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         this.getAjaxRequester().sendRequest(Service.URI_CANCEL, data, function()
         {
             notifications.success('Shipping order cancelled successfully');
+            self.refresh();
+        });
+    };
+
+    Service.prototype.createAllLabels = function()
+    {
+        var self = this;
+        var notifications = this.getNotifications();
+        notifications.notice('Creating labels');
+
+        var data = {"account": this.getCourierAccountId(), "order": []};
+        $(Service.SELECTOR_ORDER_ID_INPUT).each(function()
+        {
+            var element = this;
+            var orderId = $(element).val();
+            data.order.push(orderId);
+            var orderInputData = self.getInputDataForOrder(orderId);
+            var orderData = self.convertInputDataToAjaxData(orderInputData);
+            for (var key in orderData) {
+                data[key] = orderData[key];
+            }
+        });
+
+        this.getAjaxRequester().sendRequest(Service.URI_CREATE_LABEL, data, function()
+        {
+            notifications.success('Labels created successfully');
             self.refresh();
         });
     };

@@ -16,11 +16,12 @@ class CreateService extends ServiceAbstract
     const LABEL_ATTEMPT_INTERVAL_SEC = 1;
 
     const LOG_CODE = 'OrderCourierLabelCreateService';
-    const LOG_CREATE = 'Create label request for Order %s, shipping Account %d';
-    const LOG_CREATE_SEND = 'Sending create request to Dataplug for Order %s, shipping Account %d';
-    const LOG_CREATE_MISSING_REF = 'Dataplug response from create request missing Order->OrderNumber for Order %s, shipping Account %d';
-    const LOG_CREATE_REF = 'Successfully created order with Dataplug and got order number %s for Order %s, shipping Account %d';
-    const LOG_CREATE_DONE = 'Completed create label request for Order %s, shipping Account %d';
+    const LOG_CREATE = 'Create label request for Order(s) %s, shipping Account %d';
+    const LOG_CREATE_SEND = 'Sending create request to Dataplug for Order(s) %s, shipping Account %d';
+    const LOG_CREATE_UNEXPECTED_RESPONSE = 'Dataplug response from create request missing Order nodes for Order(s) %s, shipping Account %d';
+    const LOG_CREATE_MISSING_REF = 'Dataplug response from create request missing Order->OrderNumber for one or more Orders (of set: %s), shipping Account %d';
+    const LOG_CREATE_REF = 'Successfully created order(s) with Dataplug and got order number(s) %s for Orders %s, shipping Account %d';
+    const LOG_CREATE_DONE = 'Completed create label request for Order(s) %s, shipping Account %d';
     const LOG_GET_LABEL_ATTEMPT = 'Attempt %d to get label data for order number %s, Order %s, shipping Account %d';
     const LOG_GET_LABEL_RETRY = 'No label data found on this attempt, will retry for order number %s, Order %s, shipping Account %d. Giving up.';
     const LOG_GET_LABEL_FAILED = 'Max attempts (%d) to get label data reached for order number %s, Order %s, shipping Account %d. Giving up.';
@@ -35,25 +36,35 @@ class CreateService extends ServiceAbstract
     const LOG_PDF_MERGE_WRITE_FAIL = 'Error writing PDF data to file';
     const LOG_PDF_MERGE_FAIL = 'Error merging PDF data';
 
-    public function createForOrderData($orderId, array $orderData, array $parcelData, $shippingAccountId)
+    public function createForOrdersData(array $orderIds, array $ordersData, array $orderParcelsData, $shippingAccountId)
     {
+        $orderIdsString = implode(',', $orderIds);
         $rootOu = $this->userOUService->getRootOuByActiveUser();
-        $this->addGlobalLogEventParam('order', $orderId)->addGlobalLogEventParam('account', $shippingAccountId)->addGlobalLogEventParam('ou', $rootOu->getId());
-        $this->logDebug(static::LOG_CREATE, [$orderId, $shippingAccountId], static::LOG_CODE);
+        $this->addGlobalLogEventParam('account', $shippingAccountId)->addGlobalLogEventParam('ou', $rootOu->getId());
+        $this->logDebug(static::LOG_CREATE, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
         $shippingAccount = $this->accountService->fetch($shippingAccountId);
-        $order = $this->orderService->fetch($orderId);
-        $request = $this->mapper->orderAndDataToDataplugCreateRequest($order, $orderData, $parcelData, $rootOu);
-        $this->logDebug(static::LOG_CREATE_SEND, [$orderId, $shippingAccountId], static::LOG_CODE);
+        $orders = $this->getOrdersByIds($orderIds);
+        $request = $this->mapper->ordersAndDataToDataplugCreateRequest($orders, $ordersData, $orderParcelsData, $rootOu);
+        $this->logDebug(static::LOG_CREATE_SEND, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
         $response = $this->dataplugClient->sendRequest($request, $shippingAccount);
-        if (!isset($response->Order, $response->Order->OrderNumber)) {
-            throw new RuntimeException(vsprintf(static::LOG_CREATE_MISSING_REF, [$orderId, $shippingAccountId]));
+        if (!isset($response->Order)) {
+            throw new RuntimeException(vsprintf(static::LOG_CREATE_UNEXPECTED_RESPONSE, [$orderIdsString, $shippingAccountId]));
         }
-        $orderNumber = (string)$response->Order->OrderNumber;
-        $this->logDebug(static::LOG_CREATE_REF, [$orderNumber, $orderId, $shippingAccountId], static::LOG_CODE);
+        $orderNumbers = [];
+        foreach ($response->Order as $responseOrder) {
+            if (!isset($responseOrder->OrderNumber, $responseOrder->Reference)) {
+                throw new RuntimeException(vsprintf(static::LOG_CREATE_MISSING_REF, [$orderIdsString, $shippingAccountId]));
+            }
+            $orderNumbers[(string)$responseOrder->Reference] = (string)$responseOrder->OrderNumber;
+        }
+        $this->logDebug(static::LOG_CREATE_REF, [implode(',', $orderNumbers), $orderIdsString, $shippingAccountId], static::LOG_CODE);
 
-        $this->getAndProcessDataplugOrderDetails($order, $shippingAccount, $orderNumber);
-        $this->logDebug(static::LOG_CREATE_DONE, [$orderId, $shippingAccountId], static::LOG_CODE);
-        $this->removeGlobalLogEventParam('order')->removeGlobalLogEventParam('account')->removeGlobalLogEventParam('ou');
+        foreach ($orders as $order) {
+            $orderNumber = $orderNumbers[$order->getId()];
+            $this->getAndProcessDataplugOrderDetails($order, $shippingAccount, $orderNumber);
+        }
+        $this->logDebug(static::LOG_CREATE_DONE, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
+        $this->removeGlobalLogEventParam('account')->removeGlobalLogEventParam('ou');
     }
 
     protected function getAndProcessDataplugOrderDetails(Order $order, Account $shippingAccount, $orderNumber, $attempt = 1)

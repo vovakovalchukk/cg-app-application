@@ -1196,13 +1196,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "8b0ceed5c66ca9fce7ea61dc7ac65dd71958d70c"
+                "reference": "03a8769264dae5a2ca3fb7eb737c2d663d00bef0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6151-dataplug-courier-booking-interface-bd0e15.zip",
-                "reference": "8b0ceed5c66ca9fce7ea61dc7ac65dd71958d70c",
-                "shasum": "8bf4bc0c595b3b275251cbde31c8bfacedd7517b"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6151-dataplug-courier-booking-interface-0cff72.zip",
+                "reference": "03a8769264dae5a2ca3fb7eb737c2d663d00bef0",
+                "shasum": "e58de63b8eadc81a22ed31f47940f98a90cadb66"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1263,7 +1263,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-09-29 13:49:21"
+            "time": "2015-09-30 13:07:38"
         },
         {
             "name": "channelgrabber/permission",
