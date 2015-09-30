@@ -15,7 +15,8 @@ define([], function()
                 .listenToCreateLabelButtons()
                 .listenToPrintLabelButtons()
                 .listenToCancelButtons()
-                .listenToCreateAllLabelsButtons();
+                .listenToCreateAllLabelsButtons()
+                .listenToCancelAllLabelsButtons();
         };
         init.call(this);
     }
@@ -27,7 +28,8 @@ define([], function()
     EventHandler.SELECTOR_CREATE_LABEL_BUTTON = '.courier-create-label-button';
     EventHandler.SELECTOR_PRINT_LABEL_BUTTON = '.courier-print-label-button';
     EventHandler.SELECTOR_CANCEL_BUTTON = '.courier-cancel-label-button';
-    EventHandler.SELECTOR_CREATE_ALL_LABELS_BUTTON = '.courier-create-all-labels-button';
+    EventHandler.SELECTOR_CREATE_ALL_LABELS_BUTTON = '#create-all-labels-button';
+    EventHandler.SELECTOR_CANCEL_ALL_LABELS_BUTTON = '#cancel-all-labels-button';
 
     EventHandler.prototype.listenToNavLinkClicks = function()
     {
@@ -100,6 +102,16 @@ define([], function()
         $(document).on('click', EventHandler.SELECTOR_CREATE_ALL_LABELS_BUTTON, function()
         {
             service.createAllLabels();
+        });
+        return this;
+    };
+
+    EventHandler.prototype.listenToCancelAllLabelsButtons = function()
+    {
+        var service = this.getService();
+        $(document).on('click', EventHandler.SELECTOR_CANCEL_ALL_LABELS_BUTTON, function()
+        {
+            service.cancelAllLabels();
         });
         return this;
     };

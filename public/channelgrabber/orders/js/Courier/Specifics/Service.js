@@ -44,6 +44,7 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
     Service.SELECTOR_NAV_FORM = '#courier-specifics-nav-form';
     Service.SELECTOR_LABEL_FORM = '#courier-specifics-label-form';
     Service.SELECTOR_ORDER_ID_INPUT = '#datatable input[name="order[]"]';
+    Service.SELECTOR_ORDER_LABEL_STATUS_TPL = '#datatable input[name="order[_orderId_][labelStatus]"]';
     Service.URI_CREATE_LABEL = '/orders/courier/label/create';
     Service.URI_PRINT_LABEL = '/orders/courier/label/print';
     Service.URI_CANCEL = '/orders/courier/label/cancel';
@@ -92,6 +93,32 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
     {
         var inputDataSelector = '#datatable td input[name^="orderData['+orderId+']"], #datatable td input[name^="parcelData['+orderId+']"]';
         return this.getInputData(inputDataSelector);
+    };
+
+    Service.prototype.getInputDataForOrdersOfLabelStatuses = function(labelStatuses, idsOnly)
+    {
+        var self = this;
+        var data = {"account": this.getCourierAccountId(), "order": []};
+        $(Service.SELECTOR_ORDER_ID_INPUT).each(function()
+        {
+            var element = this;
+            var orderId = $(element).val();
+            var labelStatusSelector = Service.SELECTOR_ORDER_LABEL_STATUS_TPL.replace('_orderId_', orderId);
+            var labelStatus = $(labelStatusSelector).val();
+            if (!labelStatuses[labelStatus] && labelStatuses.indexOf(labelStatus) == -1) {
+                return true; // continue
+            }
+            data.order.push(orderId);
+            if (idsOnly) {
+                return true; // continue
+            }
+            var orderInputData = self.getInputDataForOrder(orderId);
+            var orderData = self.convertInputDataToAjaxData(orderInputData);
+            for (var key in orderData) {
+                data[key] = orderData[key];
+            }
+        });
+        return data;
     };
 
     Service.prototype.convertInputDataToAjaxData = function(inputData)
@@ -163,7 +190,7 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         var notifications = this.getNotifications();
         notifications.notice('Cancelling');
 
-        var data = {"account": this.getCourierAccountId(), "order": orderId};
+        var data = {"account": this.getCourierAccountId(), "order": [orderId]};
         this.getAjaxRequester().sendRequest(Service.URI_CANCEL, data, function()
         {
             notifications.success('Shipping order cancelled successfully');
@@ -175,24 +202,26 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
     {
         var self = this;
         var notifications = this.getNotifications();
-        notifications.notice('Creating labels');
+        notifications.notice('Creating all labels');
 
-        var data = {"account": this.getCourierAccountId(), "order": []};
-        $(Service.SELECTOR_ORDER_ID_INPUT).each(function()
-        {
-            var element = this;
-            var orderId = $(element).val();
-            data.order.push(orderId);
-            var orderInputData = self.getInputDataForOrder(orderId);
-            var orderData = self.convertInputDataToAjaxData(orderInputData);
-            for (var key in orderData) {
-                data[key] = orderData[key];
-            }
-        });
-
+        var data = this.getInputDataForOrdersOfLabelStatuses(['', 'cancelled']);
         this.getAjaxRequester().sendRequest(Service.URI_CREATE_LABEL, data, function()
         {
             notifications.success('Labels created successfully');
+            self.refresh();
+        });
+    };
+
+    Service.prototype.cancelAllLabels = function()
+    {
+        var self = this;
+        var notifications = this.getNotifications();
+        notifications.notice('Cancelling all');
+
+        var data = this.getInputDataForOrdersOfLabelStatuses(['not printed', 'printed'], true);
+        this.getAjaxRequester().sendRequest(Service.URI_CANCEL, data, function()
+        {
+            notifications.success('Shipping orders cancelled successfully');
             self.refresh();
         });
     };
