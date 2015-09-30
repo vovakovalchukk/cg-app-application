@@ -13,6 +13,8 @@ use CG\Order\Shared\Label\Mapper as OrderLabelMapper;
 use CG\Order\Shared\Label\Service as OrderLabelService;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\Order\Shared\Tracking\Mapper as OrderTrackingMapper;
+use CG\Product\Detail\Mapper as ProductDetailMapper;
+use CG\Product\Detail\Service as ProductDetailService;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\OrganisationUnit\Service as UserOUService;
@@ -45,6 +47,10 @@ abstract class ServiceAbstract implements LoggerAwareInterface
     protected $orderTrackingMapper;
     /** @var OrderTrackingService */
     protected $orderTrackingService;
+    /** @var ProductDetailMapper */
+    protected $productDetailMapper;
+    /** @var ProductDetailService */
+    protected $productDetailService;
 
     public function __construct(
         Mapper $mapper,
@@ -55,7 +61,9 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         OrderLabelMapper $orderLabelMapper,
         OrderLabelService $orderLabelService,
         OrderTrackingMapper $orderTrackingMapper,
-        OrderTrackingService $orderTrackingService
+        OrderTrackingService $orderTrackingService,
+        ProductDetailMapper $productDetailMapper,
+        ProductDetailService $productDetailService
     ) {
         $this->setMapper($mapper)
             ->setUserOUService($userOuService)
@@ -65,7 +73,9 @@ abstract class ServiceAbstract implements LoggerAwareInterface
             ->setOrderLabelMapper($orderLabelMapper)
             ->setOrderLabelService($orderLabelService)
             ->setOrderTrackingMapper($orderTrackingMapper)
-            ->setOrderTrackingService($orderTrackingService);
+            ->setOrderTrackingService($orderTrackingService)
+            ->setProductDetailMapper($productDetailMapper)
+            ->setProductDetailService($productDetailService);
     }
 
     protected function getOrdersByIds(array $orderIds)
@@ -183,6 +193,18 @@ abstract class ServiceAbstract implements LoggerAwareInterface
     protected function setOrderTrackingService(OrderTrackingService $orderTrackingService)
     {
         $this->orderTrackingService = $orderTrackingService;
+        return $this;
+    }
+
+    protected function setProductDetailMapper(ProductDetailMapper $productDetailMapper)
+    {
+        $this->productDetailMapper = $productDetailMapper;
+        return $this;
+    }
+
+    protected function setProductDetailService(ProductDetailService $productDetailService)
+    {
+        $this->productDetailService = $productDetailService;
         return $this;
     }
 }

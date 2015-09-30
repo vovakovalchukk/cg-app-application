@@ -33,17 +33,20 @@ use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG_UI\View\DataTable;
 use CG\User\OrganisationUnit\Service as UserOUService;
+use Orders\Courier\GetProductDetailsForOrdersTrait;
 use Zend\Di\Di;
 use Zend\Di\Exception\ClassNotFoundException;
 
 class Service implements LoggerAwareInterface
 {
     use LogTrait;
+    use GetProductDetailsForOrdersTrait;
 
     const OPTION_COLUMN_ALIAS = 'CourierSpecifics%sColumn';
     const DEFAULT_PARCELS = 1;
     const MIN_PARCELS = 1;
     const MAX_PARCELS = 10;
+    const CM_PER_M = 100;
     const LOG_CODE = 'OrderCourierService';
     const LOG_OPTION_COLUMN_NOT_FOUND = 'No column alias called %s found for Account %d, channel %s';
 
@@ -424,29 +427,6 @@ class Service implements LoggerAwareInterface
         return $orderLabels;
     }
 
-    protected function getProductDetailsForOrders(OrderCollection $orders, OrganisationUnit $rootOu)
-    {
-        $productSkus = [];
-        $ouIds = [$rootOu->getId() => true];
-        foreach ($orders as $order) {
-            $ouIds[$order->getOrganisationUnitId()] = true;
-            foreach ($order->getItems() as $item) {
-                $productSkus[] = $item->getItemSku();
-            }
-        }
-
-        $filter = (new ProductDetailFilter())
-            ->setLimit('all')
-            ->setPage(1)
-            ->setOrganisationUnitId(array_keys($ouIds))
-            ->setSku($productSkus);
-        try {
-            return $this->productDetailService->fetchCollectionByFilter($filter);
-        } catch (NotFound $e) {
-            return new ProductDetailCollection(ProductDetail::class, 'empty');
-        }
-    }
-
     protected function formatOrderItemsAsSpecificsListData(
         ItemCollection $items,
         array $orderData,
@@ -492,7 +472,12 @@ class Service implements LoggerAwareInterface
             if ($productDetail) {
                 $getter = 'get'.ucfirst($option);
                 if (is_callable([$productDetail, $getter])) {
-                    $data[$option] = $productDetail->$getter();
+                    $value = $productDetail->$getter();
+                    if ($option != 'weight') {
+                        // Dimensions stored in metres but displayed in centimetres
+                        $value *= static::CM_PER_M;
+                    }
+                    $data[$option] = $value;
                 }
             }
         }
@@ -599,5 +584,11 @@ class Service implements LoggerAwareInterface
     {
         $this->di = $di;
         return $this;
+    }
+
+    // Required by GetProductDetailsForOrdersTrait
+    protected function getProductDetailService()
+    {
+        return $this->productDetailService;
     }
 }
