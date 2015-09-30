@@ -167,7 +167,12 @@ CourierSpecificsDataTable.prototype.trackDistinctStatusActions = function(action
 CourierSpecificsDataTable.prototype.setBulkActionButtons = function()
 {
     $(CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS).hide();
-    for (var action in this.distinctStatusActions) {
+    var actions = this.distinctStatusActions;
+    // If there's items still left to be created then only show 'Create all'
+    if (actions.create) {
+        actions = {"create": true};
+    }
+    for (var action in actions) {
         $('#' + action + CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS_SUFFIX).show();
     }
     $(CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS_CONTAINER).show();
