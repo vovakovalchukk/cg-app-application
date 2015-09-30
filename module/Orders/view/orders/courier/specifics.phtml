@@ -18,7 +18,7 @@ $(document).ready(function()
 <div id="main" class="courier-specifics">
     <span class="heading-large">
         <?= $this->selectedCourier->getDisplayName().' '.$this->translate('Orders') ?>
-        <div class="heading-buttons" style="display:none">
+        <div class="heading-buttons" id="courier-specifics-bulk-actions" style="display:none">
             <?=$this->bulkActionsButtons;?>
         </div>
     </span>

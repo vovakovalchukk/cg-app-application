@@ -24,9 +24,14 @@ function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderS
             self.addOrderIdsToAjaxRequest()
                 .addElementsToColumns();
         });
+        dataTable.on('fnPreDrawCallback', function()
+        {
+            self.distinctStatusActions = {};
+        });
         dataTable.on('fnDrawCallback', function()
         {
-            self.triggerInitialItemWeightKeypress();
+            self.setBulkActionButtons()
+                .triggerInitialItemWeightKeypress();
         });
     };
     init.call(this);
@@ -39,15 +44,26 @@ CourierSpecificsDataTable.SELECTOR_SERVICE_SELECT_PREFIX = '#courier-service-sel
 CourierSpecificsDataTable.SELECTOR_PARCELS_ELEMENT = '#courier-parcels-input-container';
 CourierSpecificsDataTable.SELECTOR_ACTION_BUTTONS = '#courier-action-buttons .button-holder';
 CourierSpecificsDataTable.SELECTOR_ITEM_WEIGHT_INPUT = '.courier-item-weight';
+CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS_CONTAINER = '#courier-specifics-bulk-actions';
+CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS = '#courier-specifics-bulk-actions div.button';
+CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS_SUFFIX = '-all-labels-button-shadow';
 
 CourierSpecificsDataTable.prototype = Object.create(CourierDataTableAbstract.prototype);
 
+/**
+ * @protected
+ */
 CourierSpecificsDataTable.prototype.labelStatusActions = {
     '': {'create': true},
     'not printed': {'print': true, 'cancel': true},
     'printed': {'print': true},
     'cancelled': {'create': true}
 };
+
+/**
+ * @protected
+ */
+CourierSpecificsDataTable.prototype.distinctStatusActions = {};
 
 CourierSpecificsDataTable.prototype.addElementsToColumns = function()
 {
@@ -99,6 +115,7 @@ CourierSpecificsDataTable.prototype.addInlineTextToParcelsColumn = function(temp
         // .val() doesn't work here, possibly because its not part of the DOM yet
         .attr('value', templateData.parcels);
     templateData.parcelsInput = $('<div>').append(elementCopy).html();
+    return this;
 };
 
 CourierSpecificsDataTable.prototype.addButtonsToActionsColumn = function(templateData)
@@ -106,10 +123,8 @@ CourierSpecificsDataTable.prototype.addButtonsToActionsColumn = function(templat
     if (!templateData.actionRow) {
         return;
     }
-    var actions = this.labelStatusActions[templateData.labelStatus];
-    if (actions['cancel'] && !templateData.cancellable) {
-        delete actions['cancel'];
-    }
+    var actions = this.getActionsFromRowData(templateData);
+    this.trackDistinctStatusActions(actions);
     var buttonsHtml = '';
     $(CourierSpecificsDataTable.SELECTOR_ACTION_BUTTONS).each(function()
     {
@@ -126,6 +141,37 @@ CourierSpecificsDataTable.prototype.addButtonsToActionsColumn = function(templat
         buttonsHtml += $('<div>').append(buttonCopy).html();
     });
     templateData.actions = buttonsHtml;
+    return this;
+};
+
+CourierSpecificsDataTable.prototype.getActionsFromRowData = function(rowData)
+{
+    var actions = this.labelStatusActions[rowData.labelStatus];
+    if (actions['cancel'] && !rowData.cancellable) {
+        delete actions['cancel'];
+    }
+    return actions;
+};
+
+CourierSpecificsDataTable.prototype.trackDistinctStatusActions = function(actions)
+{
+    for (var action in actions) {
+        if (this.distinctStatusActions[action]) {
+            continue;
+        }
+        this.distinctStatusActions[action] = true;
+    }
+    return this;
+};
+
+CourierSpecificsDataTable.prototype.setBulkActionButtons = function()
+{
+    $(CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS).hide();
+    for (var action in this.distinctStatusActions) {
+        $('#' + action + CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS_SUFFIX).show();
+    }
+    $(CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS_CONTAINER).show();
+    return this;
 };
 
 CourierSpecificsDataTable.prototype.triggerInitialItemWeightKeypress = function()
