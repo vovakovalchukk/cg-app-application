@@ -1,6 +1,7 @@
 {{#orderRow}}
 <input type="hidden" name="order[]" value="{{orderId}}" />
 <input type="hidden" name="order[{{orderId}}][labelStatus]" value="{{labelStatus}}" />
+<input type="hidden" name="order[{{orderId}}][cancellable]" value="{{#cancellable}}1{{/cancellable}}{{^cancellable}}0{{/cancellable}}" />
 <div class="courier-buyer-name">
     <strong>{{buyerName}}</strong>
 </div>

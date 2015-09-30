@@ -295,9 +295,9 @@ class CourierController extends AbstractActionController
 
     public function printLabelAction()
     {
-        $orderId = $this->params()->fromPost('order');
-        $pdfData = $this->labelPrintService->getPdfLabelDataForOrder($orderId);
-        return new FileResponse(static::LABEL_MINE_TYPE, 'Label_' . $orderId . '.pdf', $pdfData);
+        $orderIds = $this->params()->fromPost('order', []);
+        $pdfData = $this->labelPrintService->getPdfLabelDataForOrders($orderIds);
+        return new FileResponse(static::LABEL_MINE_TYPE, 'Labels.pdf', $pdfData);
     }
 
     protected function setViewModelFactory(ViewModelFactory $viewModelFactory)

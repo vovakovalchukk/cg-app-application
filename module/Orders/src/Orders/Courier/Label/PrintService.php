@@ -4,19 +4,24 @@ namespace Orders\Courier\Label;
 class PrintService extends ServiceAbstract
 {
     const LOG_CODE = 'OrderCourierLabelPrintService';
-    const LOG_PRINT = 'Print request for Order %s';
-    const LOG_PRINT_DONE = 'Completed print request for Order %s';
+    const LOG_PRINT = 'Print request for Order(s) %s';
+    const LOG_PRINT_DONE = 'Completed print request for Order(s) %s';
 
-    public function getPdfLabelDataForOrder($orderId)
+    public function getPdfLabelDataForOrders(array $orderIds)
     {
+        $orderIdsString = implode(',', $orderIds);
         $rootOu = $this->userOUService->getRootOuByActiveUser();
-        $this->addGlobalLogEventParam('order', $orderId)->addGlobalLogEventParam('ou', $rootOu->getId());
-        $this->logDebug(static::LOG_PRINT, [$orderId], static::LOG_CODE);
-        $order = $this->orderService->fetch($orderId);
-        $orderLabel = $this->getOrderLabelForOrder($order);
-        $pdfData = base64_decode($orderLabel->getLabel());
-        $this->logDebug(static::LOG_PRINT_DONE, [$orderId], static::LOG_CODE);
-        $this->removeGlobalLogEventParam('order')->removeGlobalLogEventParam('ou');
+        $this->addGlobalLogEventParam('ou', $rootOu->getId());
+        $this->logDebug(static::LOG_PRINT, [$orderIdsString], static::LOG_CODE);
+        $orders = $this->getOrdersByIds($orderIds);
+        $orderLabels = $this->getOrderLabelsForOrders($orders);
+        $pdfsData = [];
+        foreach ($orderLabels as $orderLabel) {
+            $pdfsData[] = base64_decode($orderLabel->getLabel());
+        }
+        $pdfData = $this->mergePdfData($pdfsData);
+        $this->logDebug(static::LOG_PRINT_DONE, [$orderIdsString], static::LOG_CODE);
+        $this->removeGlobalLogEventParam('ou');
         return $pdfData;
     }
 }

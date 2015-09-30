@@ -6,6 +6,7 @@ use CG\Dataplug\Client as DataplugClient;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Service\Tracking\Service as OrderTrackingService;
+use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Label\Filter as OrderLabelFilter;
 use CG\Order\Shared\Label\Mapper as OrderLabelMapper;
@@ -15,10 +16,16 @@ use CG\Order\Shared\Tracking\Mapper as OrderTrackingMapper;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\OrganisationUnit\Service as UserOUService;
+use RuntimeException;
 
 abstract class ServiceAbstract implements LoggerAwareInterface
 {
     use LogTrait;
+
+    const LOG_CODE = 'OrderCourierLabelService';
+    const LOG_PDF_MERGE = 'Merging multiple label PDFs into one';
+    const LOG_PDF_MERGE_WRITE_FAIL = 'Error writing PDF data to file';
+    const LOG_PDF_MERGE_FAIL = 'Error merging PDF data';
 
     /** @var Mapper */
     protected $mapper;
@@ -72,16 +79,57 @@ abstract class ServiceAbstract implements LoggerAwareInterface
 
     protected function getOrderLabelForOrder(Order $order)
     {
-        $labelStatuses = OrderLabelStatus::getAllStatuses();
-        $labelStatusesNotCancelled = array_diff($labelStatuses, [OrderLabelStatus::CANCELLED]);
-        $filter = (new OrderLabelFilter())
-            ->setLimit(1)
-            ->setPage(1)
-            ->setOrderId([$order->getId()])
-            ->setStatus($labelStatusesNotCancelled);
-        $orderLabels = $this->orderLabelService->fetchCollectionByFilter($filter);
+        $orders = new OrderCollection(Order::class, __FUNCTION__);
+        $orders->attach($order);
+        $orderLabels = $this->getOrderLabelsForOrders($orders);
         $orderLabels->rewind();
         return $orderLabels->current();
+    }
+
+    protected function getOrderLabelsForOrders(OrderCollection $orders)
+    {
+        $labelStatuses = OrderLabelStatus::getAllStatuses();
+        $labelStatusesNotCancelled = array_diff($labelStatuses, [OrderLabelStatus::CANCELLED]);
+        $orderIds = $orders->getArrayOf('id');
+        $filter = (new OrderLabelFilter())
+            ->setLimit('all')
+            ->setPage(1)
+            ->setOrderId($orderIds)
+            ->setStatus($labelStatusesNotCancelled);
+        return $this->orderLabelService->fetchCollectionByFilter($filter);
+    }
+
+    protected function mergePdfData(array $pdfsData)
+    {
+        if (count($pdfsData) == 1) {
+            return $pdfsData[0];
+        }
+        $this->logDebug(static::LOG_PDF_MERGE, [], static::LOG_CODE);
+        $fileNames = [];
+        foreach ($pdfsData as $pdfData) {
+            $fileName = '/tmp/label-data-'.microtime(true).'.pdf';
+            $result = file_put_contents($fileName, $pdfData);
+            if (!$result) {
+                throw new RuntimeException(static::LOG_PDF_MERGE_WRITE_FAIL);
+            }
+            $fileNames[] = $fileName;
+        }
+
+        $outputFileName = '/tmp/label-data-merged-'.microtime(true).'.pdf';
+        $cmd = 'gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=' . $outputFileName . ' ' . implode(' ', $fileNames);
+        $output = null;
+        $retVal = null;
+        exec($cmd, $output, $retVal);
+        if ($retVal > 0) {
+            $this->logDebugDump($output, 'PDF merge failed, output follows', [], static::LOG_CODE);
+            throw new RuntimeException(static::LOG_PDF_MERGE_FAIL);
+        }
+        $mergedPdfData = file_get_contents($outputFileName);
+        unlink($outputFileName);
+        foreach ($fileNames as $fileName) {
+            unlink($fileName);
+        }
+        return $mergedPdfData;
     }
 
     protected function setMapper(Mapper $mapper)

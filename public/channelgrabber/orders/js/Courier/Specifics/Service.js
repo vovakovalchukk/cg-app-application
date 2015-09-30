@@ -45,6 +45,7 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
     Service.SELECTOR_LABEL_FORM = '#courier-specifics-label-form';
     Service.SELECTOR_ORDER_ID_INPUT = '#datatable input[name="order[]"]';
     Service.SELECTOR_ORDER_LABEL_STATUS_TPL = '#datatable input[name="order[_orderId_][labelStatus]"]';
+    Service.SELECTOR_ORDER_CANCELLABLE_TPL = '#datatable input[name="order[_orderId_][cancellable]"]';
     Service.URI_CREATE_LABEL = '/orders/courier/label/create';
     Service.URI_PRINT_LABEL = '/orders/courier/label/print';
     Service.URI_CANCEL = '/orders/courier/label/cancel';
@@ -95,7 +96,7 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         return this.getInputData(inputDataSelector);
     };
 
-    Service.prototype.getInputDataForOrdersOfLabelStatuses = function(labelStatuses, idsOnly)
+    Service.prototype.getInputDataForOrdersOfLabelStatuses = function(labelStatuses, idsOnly, cancellableOnly)
     {
         var self = this;
         var data = {"account": this.getCourierAccountId(), "order": []};
@@ -107,6 +108,12 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
             var labelStatus = $(labelStatusSelector).val();
             if (!labelStatuses[labelStatus] && labelStatuses.indexOf(labelStatus) == -1) {
                 return true; // continue
+            }
+            if (cancellableOnly) {
+                var cancellableSelector = Service.SELECTOR_ORDER_CANCELLABLE_TPL.replace('_orderId_', orderId);
+                if (!$(cancellableSelector).val()) {
+                    return true; // continue
+                }
             }
             data.order.push(orderId);
             if (idsOnly) {
@@ -178,9 +185,15 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
     Service.prototype.printLabelForOrder = function(orderId)
     {
         this.getNotifications().notice('Generating label', true);
+        this.printLabelsForOrders([orderId]);
+    };
 
-        $(Service.SELECTOR_LABEL_FORM + ' input[name="order"]').val(orderId);
-        $(Service.SELECTOR_LABEL_FORM + ' input[name="account"]').val(this.getCourierAccountId());
+    Service.prototype.printLabelsForOrders = function(orderIds)
+    {
+        $(Service.SELECTOR_LABEL_FORM + ' input[name="order[]"]').remove();
+        for (var count in orderIds) {
+            $('<input type="hidden" name="order[]" value="' + orderIds[count] + '" />').appendTo(Service.SELECTOR_LABEL_FORM);
+        }
         $(Service.SELECTOR_LABEL_FORM).submit();
     };
 
@@ -212,13 +225,21 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         });
     };
 
-    Service.prototype.cancelAllLabels = function()
+    Service.prototype.printAllLabels = function()
+    {
+        this.getNotifications().notice('Generating all labels', true);
+
+        var data = this.getInputDataForOrdersOfLabelStatuses(['not printed', 'printed'], true, false);
+        this.printLabelsForOrders(data.order);
+    };
+
+    Service.prototype.cancelAll = function()
     {
         var self = this;
         var notifications = this.getNotifications();
         notifications.notice('Cancelling all');
 
-        var data = this.getInputDataForOrdersOfLabelStatuses(['not printed', 'printed'], true);
+        var data = this.getInputDataForOrdersOfLabelStatuses(['not printed', 'printed'], true, true);
         this.getAjaxRequester().sendRequest(Service.URI_CANCEL, data, function()
         {
             notifications.success('Shipping orders cancelled successfully');
