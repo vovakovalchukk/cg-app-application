@@ -1,48 +1,52 @@
 <?php
-use CG\Account\Client\Storage\Api as AccountStorage;
 use CG\Account\Client\Service as AccountService;
-use CG\Amazon\Account as AmazonAccount;
-use CG\Ebay\Client\TradingApi;
-use Guzzle\Http\Client as GuzzleHttpClient;
-use Settings\Module;
-use Settings\Controller\IndexController;
-use Settings\Controller\ChannelController;
-use Settings\Controller\EbayController;
-use Settings\Controller\AmazonController;
-use Settings\Controller\InvoiceController;
-use Settings\Controller\ShippingController;
-use Settings\Controller\PickListController;
-use Settings\Controller\ApiController;
-use CG_UI\View\DataTable;
-use Settings\Invoice\Service as InvoiceService;
-use Zend\View\Model\ViewModel;
-use CG\Account\Client\StorageInterface as AccountStorageInterface;
+use CG\Account\Client\Storage\Api as AccountStorage;
 use CG\Account\Client\Storage\Api as AccountApiStorage;
-use CG\OrganisationUnit\StorageInterface as OUStorageInterface;
-use CG\OrganisationUnit\Storage\Api as OUApiStorage;
-use CG\Stdlib\Log\LoggerInterface;
-use CG\Log\Logger;
-use Orders\Order\Invoice\Template\ObjectStorage as TemplateObjectStorage;
-use CG\Template\Storage\Api as TemplateApiStorage;
-use CG\Template\Service as TemplateService;
-use CG\Template\Repository as TemplateRepository;
-use Settings\Factory\SidebarNavFactory;
-use CG\Order\Client\Shipping\Method\Storage\Api as ShippingMethodStorage;
-use CG\Order\Service\Shipping\Method\Service as ShippingMethodService;
-use CG\Settings\Shipping\Alias\Storage\Api as ShippingAliasStorage;
-use CG\Settings\Shipping\Alias\Service as ShippingAliasService;
-use CG\Settings\PickList\Storage\Api as PickListStorage;
-use CG\Settings\PickList\Service as PickListService;
-use Zend\Mvc\Router\Http\Segment;
-use Zend\Mvc\Router\Http\Literal;
+use CG\Account\Client\StorageInterface as AccountStorageInterface;
+use CG\Amazon\Account as AmazonAccount;
+use CG\Amazon\Account\CreationService as AmazonAccountCreationService;
+use CG\Amazon\Marketplace\Participation\Service as MarketplaceParticipationService;
 use CG\Channel\Type;
 use CG\Ebay\Account as EbayAccount;
-use CG\Ekm\Account as EkmAccount;
-use Settings\Controller\EkmController;
-use CG\Ekm\Account\CreationService as EkmAccountCreationService;
-use CG\Amazon\Account\CreationService as AmazonAccountCreationService;
 use CG\Ebay\Account\CreationService as EbayAccountCreationService;
-use CG\Amazon\Marketplace\Participation\Service as  MarketplaceParticipationService;
+use CG\Ebay\Client\TradingApi;
+use CG\Ekm\Account as EkmAccount;
+use CG\Ekm\Account\CreationService as EkmAccountCreationService;
+use CG\Log\Logger;
+use CG\Order\Client\Shipping\Method\Storage\Api as ShippingMethodStorage;
+use CG\Order\Service\Shipping\Method\Service as ShippingMethodService;
+use CG\OrganisationUnit\Storage\Api as OUApiStorage;
+use CG\OrganisationUnit\StorageInterface as OUStorageInterface;
+use CG\Settings\PickList\Service as PickListService;
+use CG\Settings\PickList\Storage\Api as PickListStorage;
+use CG\Settings\Shipping\Alias\Service as ShippingAliasService;
+use CG\Settings\Shipping\Alias\Storage\Api as ShippingAliasStorage;
+use CG\Stdlib\Log\LoggerInterface;
+use CG\Template\Repository as TemplateRepository;
+use CG\Template\Service as TemplateService;
+use CG\Template\Storage\Api as TemplateApiStorage;
+use CG\WooCommerce\Account as WooCommerceAccount;
+use CG\WooCommerce\Account\CreationService as WooCommerceAccountCreationService;
+use CG_UI\View\DataTable;
+use Guzzle\Http\Client as GuzzleHttpClient;
+use Orders\Order\Invoice\Template\ObjectStorage as TemplateObjectStorage;
+use Settings\Controller\AmazonController;
+use Settings\Controller\ApiController;
+use Settings\Controller\ChannelController;
+use Settings\Controller\EbayController;
+use Settings\Controller\EkmController;
+use Settings\Controller\IndexController;
+use Settings\Controller\InvoiceController;
+use Settings\Controller\PickListController;
+use Settings\Controller\ShippingController;
+use Settings\Controller\WooCommerceController;
+use Settings\Factory\SidebarNavFactory;
+use Settings\Invoice\Service as InvoiceService;
+use Settings\Module;
+use Zend\Mvc\Router\Http\Literal;
+use Zend\Mvc\Router\Http\Segment;
+use Zend\View\Model\ViewModel;
+use CG\WooCommerce\Client\Factory as WooCommerceClientFactory;
 
 return [
     'CG' => [
@@ -196,6 +200,29 @@ return [
                                         'may_terminate' => true,
                                         'child_routes' => [
                                             EkmController::ROUTE_AJAX => [
+                                                'type' => Literal::class,
+                                                'options' => [
+                                                    'route' => '/ajax',
+                                                    'defaults' => [
+                                                        'action' => 'save',
+                                                    ],
+                                                ],
+                                            ]
+                                        ]
+                                    ],
+                                    WooCommerceAccount::ROUTE => [
+                                        'type' => Literal::class,
+                                        'options' => [
+                                            'route' => '/woocommerce',
+                                            'defaults' => [
+                                                'controller' => WooCommerceController::class,
+                                                'action' => 'index',
+                                                'sidebar' => false
+                                            ],
+                                        ],
+                                        'may_terminate' => true,
+                                        'child_routes' => [
+                                            WooCommerceController::ROUTE_AJAX => [
                                                 'type' => Literal::class,
                                                 'options' => [
                                                     'route' => '/ajax',
@@ -901,6 +928,11 @@ return [
                     'client' => 'cg_app_guzzle',
                 ]
             ],
+            WooCommerceController::class => [
+                'parameters' => [
+                    'accountCreationService' => WooCommerceAccountCreationService::class
+                ],
+            ],
             EkmController::class => [
                 'parameters' => [
                     'accountCreationService' => EkmAccountCreationService::class
@@ -914,6 +946,12 @@ return [
             AmazonController::class => [
                 'parameters' => [
                     'accountCreationService' => AmazonAccountCreationService::class
+                ]
+            ],
+            WooCommerceAccountCreationService::class => [
+                'parameters' => [
+                    'cryptor' => 'woocommerce_cryptor',
+                    'channelAccount' => WooCommerceAccount::class
                 ]
             ],
             EkmAccountCreationService::class => [
@@ -957,7 +995,13 @@ return [
                 'parameters' => [
                     'repository' => PickListStorage::class
                 ]
-            ]
+            ],
+            WooCommerceClientFactory::class => [
+                'parameters' => [
+                    'cryptor' => 'woocommerce_cryptor',
+                    'guzzle' => function() { return 'woocommerce_guzzle'; },
+                ]
+            ],
         ]
     ]
 ];

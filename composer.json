@@ -20,12 +20,17 @@
     "config": {
         "preferred-install": "dist"
     },
+    "autoload": {
+        "psr-0": {
+            "": "library/"
+        }
+    },
     "require": {
         "channelgrabber/amazon": "~1.15.15",
         "channelgrabber/api-lib": "~1.0.0",
         "channelgrabber/billing": "~1.8.6",
         "channelgrabber/cache": "~2.1.0",
-        "channelgrabber/channel": "dev-EPIC-CGIV-5992-dataplug as 1.17.9",
+        "channelgrabber/channel": "dev-EPIC-CGIV-5992-dataplug as 1.17.11",
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/communication": "~1.0.0",
         "channelgrabber/constants": "dev-master",
@@ -63,6 +68,7 @@
         "channelgrabber/user": "~1.20.0",
         "channelgrabber/userpreference": "~1.2.4",
         "channelgrabber/validation": "~1.2.7",
+        "channelgrabber/woocommerce": "~1.0.0",
         "channelgrabber/zendesk": "~1.0.0",
         "channelgrabber/zf2-amazon": "~1.0.6",
         "channelgrabber/zf2-api": "~1.0.0",
@@ -81,15 +87,18 @@
         "channelgrabber/zf2-ssoclient": "~1.4.2.2",
         "channelgrabber/zf2-stdlib": "~1.2.0",
         "channelgrabber/zf2-usage": "~1.0.7",
-        "channelgrabber/zf2-v4-ui": "dev-EPIC-CGIV-5992-dataplug as 1.16.10",
+        "channelgrabber/zf2-v4-ui": "dev-EPIC-CGIV-5992-dataplug as 1.16.11",
+        "channelgrabber/zf2-woocommerce": "~1.0.0",
         "cilex/cilex": "~1.0.1",
         "composer/composer": "@dev",
         "guzzle/guzzle": "~3.7",
+        "guzzlehttp/guzzle": "~5.0",
         "league/csv": "~7.1.0",
         "nocarrier/hal": "~0.9.10",
         "php": ">=5.3.3",
         "php-jsonpatch/php-jsonpatch": "@dev",
         "php-jsonpointer/php-jsonpointer": "@dev",
+        "phpish/link_header": "@dev",
         "zendframework/zendframework": "2.3.*"
     },
     "require-dev": {
