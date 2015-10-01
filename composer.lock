@@ -3173,13 +3173,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "56230a143ae95a0bc8c5edac68fbdf83566dbad8"
+                "reference": "8cfd4a5d9d1b104396760bc1ab571e9791889979"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6151-dataplug-courier-booking-interface-1c027d.zip",
-                "reference": "56230a143ae95a0bc8c5edac68fbdf83566dbad8",
-                "shasum": "8b6b21c958c46fc9e7b86d3e27fae62cc17c1d21"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6151-dataplug-courier-booking-interface-173687.zip",
+                "reference": "8cfd4a5d9d1b104396760bc1ab571e9791889979",
+                "shasum": "16b4543049d90fb25417abae82ee38860e1d7bfc"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3225,7 +3225,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-09-30 09:02:51"
+            "time": "2015-10-01 10:59:41"
         },
         {
             "name": "cilex/cilex",

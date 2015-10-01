@@ -16,12 +16,7 @@ define([], function()
             return;
         }
 
-        var inputsHtml = '';
-        for (var count in orders) {
-            inputsHtml += '<input name="order[]" value="'+orders[count]+'" type="hidden" />';
-        }
-        // TODO: pjax
-        $('<form method="POST" action="'+url+'" target="_top">'+inputsHtml+'</form>').appendTo('body').submit().remove();
+        $('<a href="' + url + '" />').cgPjax('post', {"order": orders});
     };
 
     return Courier;

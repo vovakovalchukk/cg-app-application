@@ -44,8 +44,8 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
     Service.SELECTOR_NAV_FORM = '#courier-specifics-nav-form';
     Service.SELECTOR_LABEL_FORM = '#courier-specifics-label-form';
     Service.SELECTOR_ORDER_ID_INPUT = '#datatable input[name="order[]"]';
-    Service.SELECTOR_ORDER_LABEL_STATUS_TPL = '#datatable input[name="order[_orderId_][labelStatus]"]';
-    Service.SELECTOR_ORDER_CANCELLABLE_TPL = '#datatable input[name="order[_orderId_][cancellable]"]';
+    Service.SELECTOR_ORDER_LABEL_STATUS_TPL = '#datatable input[name="orderInfo[_orderId_][labelStatus]"]';
+    Service.SELECTOR_ORDER_CANCELLABLE_TPL = '#datatable input[name="orderInfo[_orderId_][cancellable]"]';
     Service.URI_CREATE_LABEL = '/orders/courier/label/create';
     Service.URI_PRINT_LABEL = '/orders/courier/label/print';
     Service.URI_CANCEL = '/orders/courier/label/cancel';

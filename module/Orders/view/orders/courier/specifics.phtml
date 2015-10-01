@@ -19,6 +19,9 @@ $(document).ready(function()
     <span class="heading-large">
         <?= $this->selectedCourier->getDisplayName().' '.$this->translate('Orders') ?>
         <div class="heading-buttons" id="courier-specifics-bulk-actions" style="display:none">
+            <div class="backorders_btn button-holder">
+                <a href="/orders" class="button"><?=$this->translate('Back To Orders');?></a>
+            </div>
             <?=$this->bulkActionsButtons;?>
         </div>
     </span>
