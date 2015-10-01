@@ -24,6 +24,8 @@ abstract class ServiceAbstract implements LoggerAwareInterface
 {
     use LogTrait;
 
+    const PDF_LABEL_DIR = '/tmp/dataplug-labels';
+
     const LOG_CODE = 'OrderCourierLabelService';
     const LOG_PDF_MERGE = 'Merging multiple label PDFs into one';
     const LOG_PDF_MERGE_WRITE_FAIL = 'Error writing PDF data to file';
@@ -115,9 +117,12 @@ abstract class ServiceAbstract implements LoggerAwareInterface
             return $pdfsData[0];
         }
         $this->logDebug(static::LOG_PDF_MERGE, [], static::LOG_CODE);
+        $rootOu = $this->userOUService->getRootOuByActiveUser();
+        $fileDir = static::PDF_LABEL_DIR . '/' . $rootOu->getId();
+        $this->ensureDir($fileDir);
         $fileNames = [];
         foreach ($pdfsData as $pdfData) {
-            $fileName = '/tmp/label-data-'.microtime(true).'.pdf';
+            $fileName = $fileDir . '/' . microtime(true) . '.pdf';
             $result = file_put_contents($fileName, $pdfData);
             if (!$result) {
                 throw new RuntimeException(static::LOG_PDF_MERGE_WRITE_FAIL);
@@ -125,7 +130,7 @@ abstract class ServiceAbstract implements LoggerAwareInterface
             $fileNames[] = $fileName;
         }
 
-        $outputFileName = '/tmp/label-data-merged-'.microtime(true).'.pdf';
+        $outputFileName = $fileDir . '/merged-' . microtime(true) . '.pdf';
         $cmd = 'gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=' . $outputFileName . ' ' . implode(' ', $fileNames);
         $output = null;
         $retVal = null;
@@ -140,6 +145,14 @@ abstract class ServiceAbstract implements LoggerAwareInterface
             unlink($fileName);
         }
         return $mergedPdfData;
+    }
+
+    protected function ensureDir($dir)
+    {
+        if (file_exists($dir)) {
+            return;
+        }
+        mkdir($dir, '0777', true);
     }
 
     protected function setMapper(Mapper $mapper)

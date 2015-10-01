@@ -16,8 +16,7 @@ use Zend\View\Model\ViewModel;
 
 class Module implements DependencyIndicatorInterface
 {
-    //const PUBLIC_FOLDER = '/cg-built/orders/';
-    const PUBLIC_FOLDER = '/channelgrabber/orders/'; // TEMP!
+    const PUBLIC_FOLDER = '/cg-built/orders/';
     const ROUTE = 'Orders';
 
     public function onBootstrap(MvcEvent $event)

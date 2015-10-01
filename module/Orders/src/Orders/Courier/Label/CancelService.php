@@ -24,6 +24,7 @@ class CancelService extends ServiceAbstract
         $shippingAccount = $this->accountService->fetch($shippingAccountId);
         $orders = $this->getOrdersByIds($orderIds);
         foreach ($orders as $order) {
+            $this->addGlobalLogEventParam('order', $order->getId());
             $orderLabel = $this->getOrderLabelForOrder($order);
             $request = $this->mapper->orderLabelToDataplugCancelRequest($orderLabel);
             $this->logDebug(static::LOG_CANCEL_SEND, [$order->getId(), $shippingAccountId], static::LOG_CODE);

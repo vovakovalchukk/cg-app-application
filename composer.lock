@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3a3dbf1d8c0b7e26e785e6a9b4c979e5",
-    "content-hash": "0831f2f2069eff980032a387f4c550a3",
+    "hash": "d24806f4de1ca8b05f9841e59944e005",
+    "content-hash": "aeb634d2f0e9163db6b5670d607a4597",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -305,23 +305,23 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-EPIC-CGIV-5992-dataplug",
+            "version": "dev-CGIV-6151-dataplug-courier-booking-interface",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "fe1508033e7506b60c12f71e8e3f1fa393b6e048"
+                "reference": "25156033fbb6bcce84d747151724aa04c600570c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-5992-dataplug-37229d.zip",
-                "reference": "fe1508033e7506b60c12f71e8e3f1fa393b6e048",
-                "shasum": "ae4b1d63cf37719b480e368338c1fb174c78fe3c"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6151-dataplug-courier-booking-interface-a8ecf0.zip",
+                "reference": "25156033fbb6bcce84d747151724aa04c600570c",
+                "shasum": "a44e3bf43b08bc249cc9044c41333b02ff40d5e1"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cilex": "^1.1.4",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/dataplug": "dev-EPIC-CGIV-5992-dataplug as 1.0.0",
+                "channelgrabber/dataplug": "dev-CGIV-6151-dataplug-courier-booking-interface as 1.0.0",
                 "channelgrabber/di": ">=2.1.0",
                 "channelgrabber/etag": "^1.5.4",
                 "channelgrabber/http": "^1.3.14",
@@ -373,7 +373,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-09-29 09:07:08"
+            "time": "2015-10-01 13:13:42"
         },
         {
             "name": "channelgrabber/cilex",
@@ -484,16 +484,16 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "fba84bf2e9014af8a14f290423d98e303d7d872e"
+                "reference": "cf5b88501142ccb374e017e33e75a0aaed32c17d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6151-dataplug-courier-booking-interface-9d09d5.zip",
-                "reference": "fba84bf2e9014af8a14f290423d98e303d7d872e",
-                "shasum": "6c845892cfe7a29a8471489d94f19d1a9c7524aa"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6151-dataplug-courier-booking-interface-037563.zip",
+                "reference": "cf5b88501142ccb374e017e33e75a0aaed32c17d",
+                "shasum": "39db83cd954261323cb41f427c0f912c0c157fab"
             },
             "require": {
-                "channelgrabber/channel": "dev-EPIC-CGIV-5992-dataplug as 1.17.2",
+                "channelgrabber/channel": "dev-CGIV-6151-dataplug-courier-booking-interface as 1.17.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.1.0",
                 "channelgrabber/product": "dev-EPIC-CGIV-5992-dataplug as 1.5.0",
@@ -522,7 +522,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2015-09-29 16:16:14"
+            "time": "2015-10-01 13:34:51"
         },
         {
             "name": "channelgrabber/db",
@@ -2557,16 +2557,16 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/dataplug-module.git",
-                "reference": "d43663771cc4eb9f650412fa9123274cfd896ae2"
+                "reference": "24a27bb4af5cfabf48610dff9eb3c42c64bfd57d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-dataplug-dev-CGIV-6151-dataplug-courier-booking-interface-1703f1.zip",
-                "reference": "d43663771cc4eb9f650412fa9123274cfd896ae2",
-                "shasum": "b0a6f6eaad738a330629cd8f7475bc7f375db7c0"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-dataplug-dev-CGIV-6151-dataplug-courier-booking-interface-67e036.zip",
+                "reference": "24a27bb4af5cfabf48610dff9eb3c42c64bfd57d",
+                "shasum": "e942c5534c272e84ce0b296770171f76469e08c3"
             },
             "require": {
-                "channelgrabber/channel": "dev-EPIC-CGIV-5992-dataplug as 1.17.1",
+                "channelgrabber/channel": "dev-CGIV-6151-dataplug-courier-booking-interface as 1.17.1",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/dataplug": "dev-CGIV-6151-dataplug-courier-booking-interface as 1.0.0",
                 "channelgrabber/product": "dev-EPIC-CGIV-5992-dataplug as 1.5.0",
@@ -3222,13 +3222,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "8cfd4a5d9d1b104396760bc1ab571e9791889979"
+                "reference": "3a5532c90b1ad749f1f261ba99f73c2e4a93f919"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6151-dataplug-courier-booking-interface-173687.zip",
-                "reference": "8cfd4a5d9d1b104396760bc1ab571e9791889979",
-                "shasum": "16b4543049d90fb25417abae82ee38860e1d7bfc"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6151-dataplug-courier-booking-interface-686298.zip",
+                "reference": "3a5532c90b1ad749f1f261ba99f73c2e4a93f919",
+                "shasum": "ced8dfbacf0b383c2af35895f480550ad35a6ed4"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3274,7 +3274,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-10-01 10:59:41"
+            "time": "2015-10-01 13:37:35"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -4459,7 +4459,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpatch/zipball/e57b7e02224d0266d5f7de970964b5302501125b",
+                "url": "https://composer.build.channelgrabber.com/dist/php-jsonpatch-php-jsonpatch-e57b7e02224d0266d5f7de970964b5302501125b-zip-b2b315.zip",
                 "reference": "e57b7e02224d0266d5f7de970964b5302501125b",
                 "shasum": "691f4c32e8522bbb20fb4baec578d0eab498b683"
             },
@@ -7372,9 +7372,9 @@
     ],
     "aliases": [
         {
-            "alias": "1.17.9",
-            "alias_normalized": "1.17.9.0",
-            "version": "dev-EPIC-CGIV-5992-dataplug",
+            "alias": "1.17.11",
+            "alias_normalized": "1.17.11.0",
+            "version": "dev-CGIV-6151-dataplug-courier-booking-interface",
             "package": "channelgrabber/channel"
         },
         {
@@ -7384,16 +7384,16 @@
             "package": "channelgrabber/dataplug"
         },
         {
-            "alias": "1.19.22",
-            "alias_normalized": "1.19.22.0",
-            "version": "dev-CGIV-6151-dataplug-courier-booking-interface",
-            "package": "channelgrabber/order"
-        },
-        {
             "alias": "1.3.17",
             "alias_normalized": "1.3.17.0",
             "version": "dev-EPIC-CGIV-5992-dataplug",
             "package": "channelgrabber/http"
+        },
+        {
+            "alias": "1.19.22",
+            "alias_normalized": "1.19.22.0",
+            "version": "dev-CGIV-6151-dataplug-courier-booking-interface",
+            "package": "channelgrabber/order"
         },
         {
             "alias": "1.5.0",
@@ -7408,8 +7408,8 @@
             "package": "channelgrabber/zf2-dataplug"
         },
         {
-            "alias": "1.16.10",
-            "alias_normalized": "1.16.10.0",
+            "alias": "1.16.11",
+            "alias_normalized": "1.16.11.0",
             "version": "dev-CGIV-6151-dataplug-courier-booking-interface",
             "package": "channelgrabber/zf2-v4-ui"
         }
@@ -7419,8 +7419,8 @@
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/dataplug": 20,
-        "channelgrabber/order": 20,
         "channelgrabber/http": 20,
+        "channelgrabber/order": 20,
         "channelgrabber/product": 20,
         "channelgrabber/zf2-dataplug": 20,
         "channelgrabber/zf2-v4-ui": 20,
