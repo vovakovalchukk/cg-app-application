@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "54194bb5692b6cc80e664fe913055ec6",
-    "content-hash": "fea472268094c926ac85dfc790027749",
+    "hash": "fb3456bda289b20dee85f72b0b0a27fd",
+    "content-hash": "f8d93434089dac3e3cccf5d8e49299bf",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1193,17 +1193,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-EPIC-CGIV-5992-dataplug",
+            "version": "dev-CGIV-6158-dataplug-label-reprinting",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "03a8769264dae5a2ca3fb7eb737c2d663d00bef0"
+                "reference": "a6a14bc588474f031e18e76b1669b7c5e4e7e37a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-CGIV-5992-dataplug-0cff72.zip",
-                "reference": "03a8769264dae5a2ca3fb7eb737c2d663d00bef0",
-                "shasum": "165de98daa5b8a8f119c45f32be776bd830cc307"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6158-dataplug-label-reprinting-54035c.zip",
+                "reference": "a6a14bc588474f031e18e76b1669b7c5e4e7e37a",
+                "shasum": "7104c9a3b20581cf6aba29615312c9d9b55b176c"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1264,7 +1264,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-09-30 13:07:38"
+            "time": "2015-10-01 14:43:09"
         },
         {
             "name": "channelgrabber/permission",
@@ -7392,7 +7392,7 @@
         {
             "alias": "1.19.22",
             "alias_normalized": "1.19.22.0",
-            "version": "dev-EPIC-CGIV-5992-dataplug",
+            "version": "dev-CGIV-6158-dataplug-label-reprinting",
             "package": "channelgrabber/order"
         },
         {

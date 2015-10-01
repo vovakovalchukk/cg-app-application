@@ -1,28 +1,32 @@
 <?php
 namespace Orders\Controller;
 
+use ArrayObject;
 use CG\Account\Client\Service as AccountService;
-use Zend\Mvc\Controller\AbstractActionController;
+use CG\Order\Shared\Entity as OrderEntity;
+use CG\Order\Shared\Label\Filter as OrderLabelFilter;
+use CG\Order\Shared\Label\Service as OrderLabelService;
+use CG\Order\Shared\Label\Status as OrderLabelStatus;
+use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
+use CG\Stdlib\DateTime as StdlibDateTime;
+use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
+use CG\Stdlib\OrderBy;
+use CG\Stdlib\PageLimit;
 use CG_UI\View\Filters\Service as UIFiltersService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use Orders\Order\Service as OrderService;
-use Orders\Order\Batch\Service as BatchService;
-use Orders\Order\Timeline\Service as TimelineService;
-use Orders\Filter\Service as FilterService;
-use CG\Stdlib\Exception\Runtime\NotFound;
-use CG\Order\Shared\Entity as OrderEntity;
-use Orders\Order\BulkActions\Service as BulkActionsService;
-use Orders\Order\StoredFilters\Service as StoredFiltersService;
-use ArrayObject;
-use CG\Stdlib\PageLimit;
-use CG\Stdlib\OrderBy;
-use CG\Stdlib\Log\LoggerAwareInterface;
-use CG\Stdlib\Log\LogTrait;
-use CG_Usage\Service as UsageService;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
-use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
-use CG\Stdlib\DateTime as StdlibDateTime;
+use CG_Usage\Service as UsageService;
+use Orders\Filter\Service as FilterService;
+use Orders\Order\Batch\Service as BatchService;
+use Orders\Order\BulkActions\Service as BulkActionsService;
+use Orders\Order\Service as OrderService;
+use Orders\Order\StoredFilters\Service as StoredFiltersService;
+use Orders\Order\Timeline\Service as TimelineService;
+use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
 
 class OrdersController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -44,6 +48,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected $usageService;
     protected $shippingConversionService;
     protected $accountService;
+    /** @var OrderLabelService */
+    protected $orderLabelService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
@@ -57,7 +63,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         StoredFiltersService $storedFiltersService,
         UsageService $usageService,
         ShippingConversionService $shippingConversionService,
-        AccountService $accountService
+        AccountService $accountService,
+        OrderLabelService $orderLabelService
     ) {
         $this->setJsonModelFactory($jsonModelFactory)
             ->setViewModelFactory($viewModelFactory)
@@ -70,7 +77,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             ->setStoredFiltersService($storedFiltersService)
             ->setUsageService($usageService)
             ->setShippingConversionService($shippingConversionService)
-            ->setAccountService($accountService);
+            ->setAccountService($accountService)
+            ->setOrderLabelService($orderLabelService);
     }
 
     public function indexAction()
@@ -176,6 +184,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->addChild($this->getCarrierSelect(), 'carrierSelect');
         $view->setVariable('editable', $this->getOrderService()->isOrderEditable($order));
         $view->setVariable('rootOu', $this->getOrderService()->getRootOrganisationUnitForOrder($order));
+        $this->addLabelPrintButtonToView($view, $order);
         return $view;
     }
 
@@ -228,6 +237,38 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $carrierSelect->setVariable("id", "carrier");
         $carrierSelect->setVariable("blankOption", true);
         return $carrierSelect;
+    }
+
+    protected function addLabelPrintButtonToView(ViewModel $view, OrderEntity $order)
+    {
+        try {
+            $this->getPrintableOrderLabelForOrder($order);
+        } catch (NotFound $e) {
+            return;
+        }
+        $buttons = $this->viewModelFactory->newInstance([
+            'buttons' => [
+                'value' => 'Print Label',
+                'id' => 'print-shipping-label-button',
+                'disabled' => false,
+                'action' => $order->getId(),
+            ]
+        ]);
+        $buttons->setTemplate('elements/buttons.mustache');
+        $view->addChild($buttons, 'printShippingLabelButton');
+    }
+
+    protected function getPrintableOrderLabelForOrder(OrderEntity $order)
+    {
+        $labelStatuses = OrderLabelStatus::getPrintableStatuses();
+        $filter = (new OrderLabelFilter())
+            ->setLimit(1)
+            ->setPage(1)
+            ->setOrderId([$order->getId()])
+            ->setStatus($labelStatuses);
+        $orderLabels = $this->orderLabelService->fetchCollectionByFilter($filter);
+        $orderLabels->rewind();
+        return $orderLabels->current();
     }
 
     protected function getBatches()
@@ -602,6 +643,12 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     public function setAccountService(AccountService $accountService)
     {
         $this->accountService = $accountService;
+        return $this;
+    }
+
+    protected function setOrderLabelService(OrderLabelService $orderLabelService)
+    {
+        $this->orderLabelService = $orderLabelService;
         return $this;
     }
 }
