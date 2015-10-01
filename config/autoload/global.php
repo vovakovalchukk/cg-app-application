@@ -114,6 +114,9 @@ use CG\Product\Detail\StorageInterface as ProductDetailStorage;
 use CG\Product\Detail\Storage\Api as ProductDetailApiStorage;
 use CG\Dataplug\Account\Service as DataplugAccountService;
 use CG\Dataplug\Account\Storage\Api as DataplugAccountApi;
+use CG\Dataplug\Request\Factory\CreateCarrier as DataplugCreateCarrierRequestFactory;
+use CG\Dataplug\Request\Factory\UpdateCarrier as  DataplugUpdateCarrierRequestFactory;
+use CG\Dataplug\Carriers;
 
 return array(
     'di' => array(
@@ -373,6 +376,16 @@ return array(
                     'client' => 'cg_app_guzzle'
                 ]
             ],
+            DataplugCreateCarrierRequestFactory::class => [
+                'parameters' => [
+                    'cryptor' => 'dataplug_cryptor'
+                ]
+            ],
+            DataplugUpdateCarrierRequestFactory::class => [
+                'parameters' => [
+                    'cryptor' => 'dataplug_cryptor'
+                ]
+            ],
             DataplugAccountService::class => [
                 'parameters' => [
                     'repository' => DataplugAccountApi::class
@@ -387,14 +400,13 @@ return array(
                 'parameters' => [
                     'carriersConfig' => [
                         [
-                            'channelName' => 'dhl',
+                            'channelName' => Carriers::DHL,
                             'displayName' => 'DHL',
                             'allowsCancellation' => false,
                             'fields' => [
                                 ['name' => 'Domestic Account no'],
                                 ['name' => 'International Account no'],
-                                ['name' => 'Site ID'],
-                                ['name' => 'Password', 'inputType' => 'password'],
+                                ['name' => 'Site ID']
                             ],
                             'services' => [
                                 ['value' => 'DHLEXPWW00PA', 'name' => 'Express Worldwide Parcel'],
@@ -415,7 +427,7 @@ return array(
                             ],
                         ],
                         [
-                            'channelName' => 'dpd',
+                            'channelName' => Carriers::DPD,
                             'displayName' => 'DPD',
                             'allowsCancellation' => false,
                             'fields' => [
@@ -459,7 +471,7 @@ return array(
                             ],
                         ],
                         [
-                            'channelName' => 'fedex',
+                            'channelName' => Carriers::FEDEX,
                             'displayName' => 'FedEx',
                             'allowsCancellation' => false,
                             'fields' => [
@@ -486,16 +498,17 @@ return array(
                             ],
                         ],
                         [
-                            'channelName' => 'interlink',
+                            'channelName' => Carriers::INTERLINK,
                             'displayName' => 'Interlink',
                             'allowsCancellation' => false,
                             'fields' => [
                                 ['name' => 'Account no'],
                                 ['name' => 'User ID'],
-                                ['name' => 'SLID'],
                                 ['name' => 'Authorisation Code'],
                                 ['name' => 'Start Sequence'],
                                 ['name' => 'End Sequence'],
+                                ['name' => 'Order Start Sequence'],
+                                ['name' => 'Order End Sequence']
                             ],
                             'services' => [
                                 ['value' => 'INTNEXTDAYPA0930', 'name' => 'Next Day 9.30am Parcel'],
@@ -512,7 +525,7 @@ return array(
                             ],
                         ],
                         [
-                            'channelName' => 'myhermes',
+                            'channelName' => Carriers::MYHERMES,
                             'displayName' => 'myHermes',
                             'fields' => [
                                 ['name' => 'Client ID'],
@@ -534,7 +547,7 @@ return array(
                             ],
                         ],
                         [
-                            'channelName' => 'parcelforce',
+                            'channelName' => Carriers::PARCELFORCE,
                             'displayName' => 'Parcelforce',
                             'fields' => [
                                 ['name' => 'Account no'],
@@ -561,7 +574,7 @@ return array(
                             ],
                         ],
                         [
-                            'channelName' => 'royal-mail-oba',
+                            'channelName' => Carriers::ROYAL_MAIL_OBA,
                             'displayName' => 'Royal Mail OBA',
                             'fields' => [
                                 ['name' => 'Account no'],
@@ -570,6 +583,9 @@ return array(
                                 ['name' => 'Contract no'],
                                 ['name' => 'Hub no'],
                                 ['name' => 'Posting Location no'],
+                                ['name' => 'Username OBA'],
+                                ['name' => 'Password OBA', 'inputType' => 'password'],
+                                ['name' => 'Access Code'],
                             ],
                             'services' => [
                                 ['value' => 'RMIIE10000PA', 'name' => 'International Business Zone Sort Priority Parcel'],
@@ -644,12 +660,13 @@ return array(
                             ],
                         ],
                         [
-                            'channelName' => 'tnt',
+                            'channelName' => Carriers::TNT,
                             'displayName' => 'TNT',
                             'allowsCancellation' => false,
                             'fields' => [
-                                ['name' => 'ExpressConnect Account no'],
-                                ['name' => 'ExpressConnect Customer ID'],
+                                ['name' => 'Domestic Account no'],
+                                ['name' => 'International Account no'],
+                                ['name' => 'ExpressConnect User'],
                                 ['name' => 'ExpressConnect Password', 'inputType' => 'password'],
                                 ['name' => 'ExpressLabel User'],
                                 ['name' => 'ExpressLabel Password', 'inputType' => 'password'],
@@ -676,13 +693,14 @@ return array(
                             ],
                         ],
                         [
-                            'channelName' => 'uk-mail',
+                            'channelName' => Carriers::UK_MAIL,
                             'displayName' => 'UK Mail',
                             'allowsCancellation' => false,
                             'fields' => [
                                 ['name' => 'Account no (Item Rates)'],
                                 ['name' => 'Account no (KG Rates)'],
                                 ['name' => 'User ID'],
+                                ['name' => 'Password', 'inputType' => 'password']
                             ],
                             'services' => [
                                 ['value' => 'UKMNEXTDAYPA', 'name' => 'Parcel Next Day'],
@@ -722,12 +740,13 @@ return array(
                             ],
                         ],
                         [
-                            'channelName' => 'ups',
+                            'channelName' => Carriers::UPS,
                             'displayName' => 'UPS',
                             'fields' => [
                                 ['name' => 'Account no'],
                                 ['name' => 'Book no'],
                                 ['name' => 'Username'],
+                                ['name' => 'Password', 'inputType' => 'password'],
                                 ['name' => 'Prefix'],
                                 ['name' => 'Start Sequence'],
                                 ['name' => 'End Sequence'],
@@ -751,7 +770,7 @@ return array(
                             ],
                         ],
                         [
-                            'channelName' => 'yodel',
+                            'channelName' => Carriers::YODEL,
                             'displayName' => 'Yodel',
                             'fields' => [
                                 ['name' => 'Account no'],
@@ -759,6 +778,7 @@ return array(
                                 ['name' => 'Contract no'],
                                 ['name' => 'Schedule no'],
                                 ['name' => 'Username'],
+                                ['name' => 'Password', 'inputType' => 'password'],
                                 ['name' => 'Licence Plate Prefix'],
                                 ['name' => 'Start Sequence'],
                                 ['name' => 'End Sequence'],
