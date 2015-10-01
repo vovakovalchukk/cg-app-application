@@ -277,7 +277,7 @@ class CourierController extends AbstractActionController
             'type' => 'text',
             'value' => 1,
             'id' => 'courier-parcels-input',
-            'class' => 'courier-parcels-input',
+            'class' => 'courier-parcels-input required',
             'min' => Service::MIN_PARCELS,
             'max' => Service::MAX_PARCELS,
         ]);

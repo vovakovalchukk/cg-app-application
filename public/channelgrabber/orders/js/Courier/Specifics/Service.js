@@ -57,7 +57,7 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
 
     Service.prototype.refresh = function()
     {
-        var inputData = this.getInputData('#datatable td input');
+        var inputData = this.getInputData('#datatable td input', false);
         // Using one() instead of on() as this data will change each time
         this.getDataTable().one("fnServerData", function(event, sSource, aoData, fnCallback, oSettings)
         {
@@ -68,9 +68,14 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         this.getDataTable().cgDataTable('redraw');
     };
 
-    Service.prototype.getInputData = function(selector)
+    Service.prototype.getInputData = function(selector, validate)
     {
+        if (validate === undefined) {
+            validate = true;
+        }
+        var self = this;
         var inputData = [];
+        var valid = true;
         $(selector).each(function()
         {
             var input = this;
@@ -82,12 +87,35 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
             if ($(input).attr('type') == 'checkbox') {
                 value = ($(input).is(':checked') ? 1 : 0);
             }
+            if (validate && !self.isInputValid(input)) {
+                valid = false;
+                return false; // break
+            }
             inputData.push({
                 name: name,
                 value: value
             });
         });
+        if (!valid) {
+            this.getNotifications().error('Please complete all required fields in the correct format');
+            return false;
+        }
         return inputData;
+    };
+
+    Service.prototype.isInputValid = function(input)
+    {
+        var value = $(input).val();
+        if ($(input).hasClass('required') && !value) {
+            return false;
+        }
+        if (($(input).hasClass('number') || $(input).attr('type') == 'number') && parseFloat(value) === NaN) {
+            return false;
+        }
+        if ($(input).hasClass('courier-order-collectionDate') && !value.match(/\d{2}\/\d{2}\/\d{4}/)) {
+            return false;
+        }
+        return true;
     };
 
     Service.prototype.getInputDataForOrder = function(orderId)
@@ -120,6 +148,10 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
                 return true; // continue
             }
             var orderInputData = self.getInputDataForOrder(orderId);
+            if (!orderInputData) {
+                data = false;
+                return false; // break
+            }
             var orderData = self.convertInputDataToAjaxData(orderInputData);
             for (var key in orderData) {
                 data[key] = orderData[key];
@@ -171,6 +203,9 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         notifications.notice('Creating label');
 
         var inputData = this.getInputDataForOrder(orderId);
+        if (!inputData) {
+            return;
+        }
         var data = this.convertInputDataToAjaxData(inputData);
         data.account = this.getCourierAccountId();
         data.order = [orderId];
@@ -218,6 +253,9 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         notifications.notice('Creating all labels');
 
         var data = this.getInputDataForOrdersOfLabelStatuses(['', 'cancelled']);
+        if (!data) {
+            return;
+        }
         this.getAjaxRequester().sendRequest(Service.URI_CREATE_LABEL, data, function()
         {
             notifications.success('Labels created successfully');
@@ -230,6 +268,9 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         this.getNotifications().notice('Generating all labels', true);
 
         var data = this.getInputDataForOrdersOfLabelStatuses(['not printed', 'printed'], true, false);
+        if (!data) {
+            return;
+        }
         this.printLabelsForOrders(data.order);
     };
 
@@ -240,6 +281,9 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         notifications.notice('Cancelling all');
 
         var data = this.getInputDataForOrdersOfLabelStatuses(['not printed', 'printed'], true, true);
+        if (!data) {
+            return;
+        }
         this.getAjaxRequester().sendRequest(Service.URI_CANCEL, data, function()
         {
             notifications.success('Shipping orders cancelled successfully');
