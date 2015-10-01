@@ -22,7 +22,8 @@ function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderS
         dataTable.on('before-cgdatatable-init', function()
         {
             self.addOrderIdsToAjaxRequest()
-                .addElementsToColumns();
+                .addElementsToColumns()
+                .disableInputsForCreatedLabels();
         });
         dataTable.on('fnPreDrawCallback', function()
         {
@@ -162,6 +163,17 @@ CourierSpecificsDataTable.prototype.trackDistinctStatusActions = function(action
         this.distinctStatusActions[action] = true;
     }
     return this;
+};
+
+CourierSpecificsDataTable.prototype.disableInputsForCreatedLabels = function()
+{
+    this.getDataTable().on('fnRowCallback', function(event, nRow, aData)
+    {
+        if (aData.labelStatus == '' || aData.labelStatus == 'cancelled') {
+            return;
+        }
+        $('input, .custom-select', nRow).attr('disabled', 'disabled').addClass('disabled');
+    });
 };
 
 CourierSpecificsDataTable.prototype.setBulkActionButtons = function()
