@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fb3456bda289b20dee85f72b0b0a27fd",
-    "content-hash": "f8d93434089dac3e3cccf5d8e49299bf",
+    "hash": "54194bb5692b6cc80e664fe913055ec6",
+    "content-hash": "fea472268094c926ac85dfc790027749",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1193,7 +1193,7 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-6158-dataplug-label-reprinting",
+            "version": "dev-EPIC-CGIV-5992-dataplug",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
@@ -1201,9 +1201,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6158-dataplug-label-reprinting-54035c.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-CGIV-5992-dataplug-54035c.zip",
                 "reference": "a6a14bc588474f031e18e76b1669b7c5e4e7e37a",
-                "shasum": "7104c9a3b20581cf6aba29615312c9d9b55b176c"
+                "shasum": "309e27adc952e4f7a0344b43aaad50acea41905d"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -3222,13 +3222,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "63ed6f0b777cc4bde47aef91c044757c0afa3fb6"
+                "reference": "a2e0869db86ef4937402b3e75a149131a754d1fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-5992-dataplug-4c2b94.zip",
-                "reference": "63ed6f0b777cc4bde47aef91c044757c0afa3fb6",
-                "shasum": "0de8d4236984ec761180ac92d1b7affb28d1a012"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-5992-dataplug-9d8aa1.zip",
+                "reference": "a2e0869db86ef4937402b3e75a149131a754d1fc",
+                "shasum": "c37fa8edeac522593f779157b81825590ec7c634"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3274,7 +3274,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-10-01 13:37:19"
+            "time": "2015-10-01 15:20:25"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7392,7 +7392,7 @@
         {
             "alias": "1.19.22",
             "alias_normalized": "1.19.22.0",
-            "version": "dev-CGIV-6158-dataplug-label-reprinting",
+            "version": "dev-EPIC-CGIV-5992-dataplug",
             "package": "channelgrabber/order"
         },
         {
