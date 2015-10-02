@@ -1,6 +1,8 @@
 <?php
 namespace Orders\Courier\Label;
 
+use CG\Stdlib;
+
 class PrintService extends ServiceAbstract
 {
     const LOG_CODE = 'OrderCourierLabelPrintService';
@@ -19,7 +21,7 @@ class PrintService extends ServiceAbstract
         foreach ($orderLabels as $orderLabel) {
             $pdfsData[] = base64_decode($orderLabel->getLabel());
         }
-        $pdfData = $this->mergePdfData($pdfsData);
+        $pdfData = Stdlib\mergePdfData($pdfsData);
         $this->logDebug(static::LOG_PRINT_DONE, [$orderIdsString], static::LOG_CODE);
         $this->removeGlobalLogEventParam('ou');
         return $pdfData;
