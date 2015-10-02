@@ -76,15 +76,20 @@ class CreateService extends ServiceAbstract
         }
         $this->logDebug(static::LOG_CREATE_REF, [implode(',', $orderNumbers), $orderIdsString, $shippingAccountId], static::LOG_CODE);
 
+        $successCount = 0;
         foreach ($orders as $order) {
             $orderNumber = $orderNumbers[$order->getId()];
             $orderLabel = $orderLabels[$order->getId()];
-            $this->getAndProcessDataplugOrderDetails(
+            $success = $this->getAndProcessDataplugOrderDetails(
                 $order, $shippingAccount, $orderNumber, $orderLabel, $user
             );
+            if ($success) {
+                $successCount++;
+            }
         }
         $this->logDebug(static::LOG_CREATE_DONE, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
         $this->removeGlobalLogEventParam('account')->removeGlobalLogEventParam('ou');
+        return $successCount;
     }
 
     protected function persistDimensionsForOrders(OrderCollection $orders, array $orderParcelsData, OrganisationUnit $rootOu)
@@ -203,10 +208,12 @@ class CreateService extends ServiceAbstract
             $this->dataplugOrderService->getAndProcessDataplugOrderDetails(
                 $order, $shippingAccount, $orderNumber, $orderLabel, $user
             );
+            return true;
         } catch (LabelMissingException $e) {
             $this->createJobToGetAndProcessDataplugOrderDetails(
                 $order, $shippingAccount, $orderNumber, $orderLabel, $user
             );
+            return false;
         }
     }
 

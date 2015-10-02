@@ -103,8 +103,12 @@ class CourierJsonController extends AbstractActionController
         $ordersParcelsData = $this->params()->fromPost('parcelData', []);
         $this->sanitiseInputArray($ordersData);
         $this->sanitiseInputArray($ordersParcelsData);
-        $this->labelCreateService->createForOrdersData($orderIds, $ordersData, $ordersParcelsData, $accountId);
-        return $this->jsonModelFactory->newInstance([]);
+        $successCount = $this->labelCreateService->createForOrdersData($orderIds, $ordersData, $ordersParcelsData, $accountId);
+        $delayedCount = count($orderIds) - $successCount;
+        return $this->jsonModelFactory->newInstance([
+            'successCount' => $successCount,
+            'delayedCount' => $delayedCount
+        ]);
     }
 
     public function cancelAction()

@@ -210,9 +210,13 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         data.account = this.getCourierAccountId();
         data.order = [orderId];
 
-        this.getAjaxRequester().sendRequest(Service.URI_CREATE_LABEL, data, function()
+        this.getAjaxRequester().sendRequest(Service.URI_CREATE_LABEL, data, function(response)
         {
-            notifications.success('Label created successfully');
+            if (!response || response.delayedCount == 0) {
+                notifications.success('Label created successfully');
+            } else {
+                notifications.notice('Label create request sent successfully, your label will be ready soon, please wait');
+            }
             self.refresh();
         });
     };
@@ -256,9 +260,15 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         if (!data) {
             return;
         }
-        this.getAjaxRequester().sendRequest(Service.URI_CREATE_LABEL, data, function()
+        this.getAjaxRequester().sendRequest(Service.URI_CREATE_LABEL, data, function(response)
         {
-            notifications.success('Labels created successfully');
+            if (!response || response.delayedCount == 0) {
+                notifications.success('Labels created successfully');
+            } else if (response.successCount == 0) {
+                notifications.notice('Label create requests sent successfully, your labels will be ready soon, please wait');
+            } else {
+                notifications.notice('Label create requests sent successfully, ' + response.successCount + ' labels are ready now, ' + response.delayedCount + ' labels will be ready soon, please wait');
+            }
             self.refresh();
         });
     };
