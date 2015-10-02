@@ -58,7 +58,8 @@ CourierSpecificsDataTable.prototype.labelStatusActions = {
     '': {'create': true},
     'not printed': {'print': true, 'cancel': true},
     'printed': {'print': true},
-    'cancelled': {'create': true}
+    'cancelled': {'create': true},
+    'creating': {}
 };
 
 /**
@@ -124,6 +125,9 @@ CourierSpecificsDataTable.prototype.addButtonsToActionsColumn = function(templat
     if (!templateData.actionRow) {
         return;
     }
+    if (templateData.labelStatus == 'creating') {
+        return this.addCreatingMessageToActionsColumn(templateData);
+    }
     var actions = this.getActionsFromRowData(templateData);
     this.trackDistinctStatusActions(actions);
     var buttonsHtml = '';
@@ -142,6 +146,12 @@ CourierSpecificsDataTable.prototype.addButtonsToActionsColumn = function(templat
         buttonsHtml += $('<div>').append(buttonCopy).html();
     });
     templateData.actions = buttonsHtml;
+    return this;
+};
+
+CourierSpecificsDataTable.prototype.addCreatingMessageToActionsColumn = function(rowData)
+{
+    rowData.actions = '<span class="status processing">Creating</span>';
     return this;
 };
 
