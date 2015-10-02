@@ -4,6 +4,7 @@ namespace Orders\Controller;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Orders\Courier\Label\CancelService as LabelCancelService;
 use Orders\Courier\Label\CreateService as LabelCreateService;
+use Orders\Courier\Label\ReadyService as LabelReadyService;
 use Orders\Courier\Service;
 use Zend\Mvc\Controller\AbstractActionController;
 
@@ -17,6 +18,8 @@ class CourierJsonController extends AbstractActionController
     const ROUTE_LABEL_CREATE_URI = '/create';
     const ROUTE_LABEL_CANCEL = 'Cancel';
     const ROUTE_LABEL_CANCEL_URI = '/cancel';
+    const ROUTE_LABEL_READY_CHECK = 'Ready Check';
+    const ROUTE_LABEL_READY_CHECK_URI = '/readyCheck';
 
     protected $jsonModelFactory;
     /** @var Service */
@@ -25,17 +28,21 @@ class CourierJsonController extends AbstractActionController
     protected $labelCreateService;
     /** @var LabelCancelService */
     protected $labelCancelService;
+    /** @var LabelReadyService */
+    protected $labelReadyService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         Service $service,
         LabelCreateService $labelCreateService,
-        LabelCancelService $labelCancelService
+        LabelCancelService $labelCancelService,
+        LabelReadyService $labelReadyService
     ) {
         $this->setJsonModelFactory($jsonModelFactory)
             ->setService($service)
             ->setLabelCreateService($labelCreateService)
-            ->setLabelCancelService($labelCancelService);
+            ->setLabelCancelService($labelCancelService)
+            ->setLabelReadyService($labelReadyService);
     }
 
     /**
@@ -103,11 +110,20 @@ class CourierJsonController extends AbstractActionController
         $ordersParcelsData = $this->params()->fromPost('parcelData', []);
         $this->sanitiseInputArray($ordersData);
         $this->sanitiseInputArray($ordersParcelsData);
-        $successCount = $this->labelCreateService->createForOrdersData($orderIds, $ordersData, $ordersParcelsData, $accountId);
-        $delayedCount = count($orderIds) - $successCount;
+        $labelReadyStatuses = $this->labelCreateService->createForOrdersData($orderIds, $ordersData, $ordersParcelsData, $accountId);
+        $readyCount = 0;
+        $notReadyCount = 0;
+        foreach ($labelReadyStatuses as $labelReadyStatus) {
+            if ($labelReadyStatus) {
+                $readyCount++;
+            } else {
+                $notReadyCount++;
+            }
+        }
         return $this->jsonModelFactory->newInstance([
-            'successCount' => $successCount,
-            'delayedCount' => $delayedCount
+            'readyStatuses' => $labelReadyStatuses,
+            'readyCount' => $readyCount,
+            'notReadyCount' => $notReadyCount,
         ]);
     }
 
@@ -117,6 +133,15 @@ class CourierJsonController extends AbstractActionController
         $orderIds = $this->params()->fromPost('order');
         $this->labelCancelService->cancelForOrders($orderIds, $accountId);
         return $this->jsonModelFactory->newInstance([]);
+    }
+
+    public function readyCheckAction()
+    {
+        $orderIds = $this->params()->fromPost('order');
+        $readyOrderIds = $this->labelReadyService->checkForOrders($orderIds);
+        return $this->jsonModelFactory->newInstance([
+            'readyOrders' => $readyOrderIds,
+        ]);
     }
 
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -140,6 +165,12 @@ class CourierJsonController extends AbstractActionController
     protected function setLabelCancelService(LabelCancelService $labelCancelService)
     {
         $this->labelCancelService = $labelCancelService;
+        return $this;
+    }
+
+    protected function setLabelReadyService(LabelReadyService $labelReadyService)
+    {
+        $this->labelReadyService = $labelReadyService;
         return $this;
     }
 }

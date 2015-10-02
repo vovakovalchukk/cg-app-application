@@ -749,6 +749,16 @@ return [
                                         ],
                                         'may_terminate' => true,
                                     ],
+                                    CourierJsonController::ROUTE_LABEL_READY_CHECK => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => CourierJsonController::ROUTE_LABEL_READY_CHECK_URI,
+                                            'defaults' => [
+                                                'action' => 'readyCheck',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
                                 ]
                             ],
                         ]

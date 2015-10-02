@@ -49,18 +49,15 @@ CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS_CONTAINER = '#courier-specifics-
 CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS = '#courier-specifics-bulk-actions div.button';
 CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS_SUFFIX = '-all-labels-button-shadow';
 
-CourierSpecificsDataTable.prototype = Object.create(CourierDataTableAbstract.prototype);
-
-/**
- * @protected
- */
-CourierSpecificsDataTable.prototype.labelStatusActions = {
+CourierSpecificsDataTable.labelStatusActions = {
     '': {'create': true},
     'not printed': {'print': true, 'cancel': true},
     'printed': {'print': true},
     'cancelled': {'create': true},
     'creating': {}
 };
+
+CourierSpecificsDataTable.prototype = Object.create(CourierDataTableAbstract.prototype);
 
 /**
  * @protected
@@ -157,11 +154,7 @@ CourierSpecificsDataTable.prototype.addCreatingMessageToActionsColumn = function
 
 CourierSpecificsDataTable.prototype.getActionsFromRowData = function(rowData)
 {
-    var actions = this.labelStatusActions[rowData.labelStatus];
-    if (actions['cancel'] && !rowData.cancellable) {
-        delete actions['cancel'];
-    }
-    return actions;
+    return CourierSpecificsDataTable.getActionsFromLabelStatus(rowData.labelStatus, rowData.cancellable);
 };
 
 CourierSpecificsDataTable.prototype.trackDistinctStatusActions = function(actions)
@@ -215,4 +208,34 @@ CourierSpecificsDataTable.prototype.getAndUnsetOrderService = function(orderId)
     var service = this.getOrderServices()[orderId];
     this.unsetOrderService(orderId);
     return service;
+};
+
+// The following methods are static so they can be accessed here and in the Service
+CourierSpecificsDataTable.getButtonsHtmlForActions = function(actions, orderId)
+{
+    var buttonsHtml = '';
+    $(CourierSpecificsDataTable.SELECTOR_ACTION_BUTTONS).each(function()
+    {
+        var buttonTemplate = this;
+        var id = $('input.button', buttonTemplate).attr('id')
+        var action = id.split('-')[0];
+        if (!actions[action]) {
+            return true; //continue
+        }
+        var buttonCopy = $(buttonTemplate).clone();
+        id += '_' + orderId;
+        $('input.button', buttonCopy).attr('id', id);
+        $('div.button', buttonCopy).attr('id', id+'-shadow');
+        buttonsHtml += $('<div>').append(buttonCopy).html();
+    });
+    return buttonsHtml;
+};
+
+CourierSpecificsDataTable.getActionsFromLabelStatus = function(labelStatus, cancellable)
+{
+    var actions = this.labelStatusActions[labelStatus];
+    if (actions['cancel'] && !cancellable) {
+        delete actions['cancel'];
+    }
+    return actions;
 };

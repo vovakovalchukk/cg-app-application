@@ -1,8 +1,10 @@
 define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxRequester)
 {
+    // Also requires global CourierSpecificsDataTable class to be present
     function Service(dataTable, courierAccountId)
     {
         var eventHandler;
+        var delayedLabelsOrderIds;
 
         this.getDataTable = function()
         {
@@ -29,6 +31,17 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
             return ajaxRequester;
         };
 
+        this.getDelayedLabelsOrderIds = function()
+        {
+            return delayedLabelsOrderIds;
+        };
+
+        this.setDelayedLabelsOrderIds = function(newDelayedLabelsOrderIds)
+        {
+            delayedLabelsOrderIds = newDelayedLabelsOrderIds;
+            return this;
+        };
+
         this.getNotifications = function()
         {
             return n;
@@ -46,9 +59,12 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
     Service.SELECTOR_ORDER_ID_INPUT = '#datatable input[name="order[]"]';
     Service.SELECTOR_ORDER_LABEL_STATUS_TPL = '#datatable input[name="orderInfo[_orderId_][labelStatus]"]';
     Service.SELECTOR_ORDER_CANCELLABLE_TPL = '#datatable input[name="orderInfo[_orderId_][cancellable]"]';
+    Service.SELECTOR_ACTIONS_PREFIX = '#courier-actions-';
     Service.URI_CREATE_LABEL = '/orders/courier/label/create';
     Service.URI_PRINT_LABEL = '/orders/courier/label/print';
     Service.URI_CANCEL = '/orders/courier/label/cancel';
+    Service.URI_READY_CHECK = '/orders/courier/label/readyCheck';
+    Service.DELAYED_LABEL_POLL_INTERVAL_MS = 5000;
 
     Service.prototype.courierLinkChosen = function(courierUrl)
     {
@@ -212,10 +228,11 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
 
         this.getAjaxRequester().sendRequest(Service.URI_CREATE_LABEL, data, function(response)
         {
-            if (!response || response.delayedCount == 0) {
+            if (!response || response.notReadyCount == 0) {
                 notifications.success('Label created successfully');
             } else {
                 notifications.notice('Label create request sent successfully, your label will be ready soon, please wait');
+                self.setupDelayedLabelPoll(response.readyStatuses);
             }
             self.refresh();
         });
@@ -262,15 +279,80 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         }
         this.getAjaxRequester().sendRequest(Service.URI_CREATE_LABEL, data, function(response)
         {
-            if (!response || response.delayedCount == 0) {
+            if (!response || response.notReadyCount == 0) {
                 notifications.success('Labels created successfully');
-            } else if (response.successCount == 0) {
-                notifications.notice('Label create requests sent successfully, your labels will be ready soon, please wait');
-            } else {
-                notifications.notice('Label create requests sent successfully, ' + response.successCount + ' labels are ready now, ' + response.delayedCount + ' labels will be ready soon, please wait');
+            } else { 
+                if (response.readyCount == 0) {
+                    notifications.notice('Label create requests sent successfully, your labels will be ready soon, please wait');
+                } else {
+                    notifications.notice('Label create requests sent successfully, ' + response.readyCount + ' labels are ready now, ' + response.notReadyCount + ' labels will be ready soon, please wait');
+                }
+                self.setupDelayedLabelPoll(response.readyStatuses);
             }
             self.refresh();
         });
+    };
+
+    Service.prototype.setupDelayedLabelPoll = function(orderLabelReadyStatuses)
+    {
+        var self = this;
+        var delayedOrderIds = [];
+        for (var orderId in orderLabelReadyStatuses) {
+            if (orderLabelReadyStatuses[orderId]) {
+                continue;
+            }
+            delayedOrderIds.push(orderId);
+        }
+        this.setDelayedLabelsOrderIds(delayedOrderIds);
+        // Let the DataTable refresh first else if it takes a while the poll will kick in before its ready
+        this.getDataTable().one('fnDrawCallback', function()
+        {
+            self.pollForDelayedLabels();
+        });
+        return this;
+    };
+
+    Service.prototype.pollForDelayedLabels = function()
+    {
+        var self = this;
+        var delayedOrderIds = this.getDelayedLabelsOrderIds();
+        var data = {"order": delayedOrderIds};
+        this.getAjaxRequester().sendRequest(Service.URI_READY_CHECK, data, function(response)
+        {
+            var readyOrderIds = response.readyOrders;
+            for (var count in readyOrderIds) {
+                var orderId = readyOrderIds[count];
+                var index = delayedOrderIds.indexOf(orderId);
+                if (index < 0) {
+                    continue;
+                }
+                delayedOrderIds.splice(index, 1);
+                self.markOrderLabelAsReady(orderId);
+            }
+            self.setDelayedLabelsOrderIds(delayedOrderIds);
+            if (delayedOrderIds.length == 0) {
+                self.getNotifications().success('All labels are now ready');
+                return;
+            }
+            // Still more not ready yet, set up the next poll
+            setTimeout(
+                function() { self.pollForDelayedLabels(); },
+                Service.DELAYED_LABEL_POLL_INTERVAL_MS
+            );
+        });
+        return this;
+    };
+
+    Service.prototype.markOrderLabelAsReady = function(orderId)
+    {
+        var labelStatus = 'not printed';
+        var labelStatusSelector = Service.SELECTOR_ORDER_LABEL_STATUS_TPL.replace('_orderId_', orderId);
+        $(labelStatusSelector).val(labelStatus);
+        var cancellableSelector = Service.SELECTOR_ORDER_CANCELLABLE_TPL.replace('_orderId_', orderId);
+        var cancellable = $(cancellableSelector).val();
+        var actionsForOrder = CourierSpecificsDataTable.getActionsFromLabelStatus(labelStatus, cancellable);
+        var actionHtml = CourierSpecificsDataTable.getButtonsHtmlForActions(actionsForOrder, orderId);
+        $(Service.SELECTOR_ACTIONS_PREFIX + orderId).html(actionHtml);
     };
 
     Service.prototype.printAllLabels = function()
