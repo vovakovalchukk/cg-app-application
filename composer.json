@@ -35,7 +35,7 @@
         "channelgrabber/communication": "~1.0.0",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/di": "~2.1.1",
-        "channelgrabber/ebay": "~1.9.19",
+        "channelgrabber/ebay": "dev-CGIV-6307-EbayMessageDownload as 1.9.24",
         "channelgrabber/ekm": "~1.8.10",
         "channelgrabber/email": "~1.0.8",
         "channelgrabber/etag": "~1.6.0",
