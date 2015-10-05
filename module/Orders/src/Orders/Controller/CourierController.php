@@ -185,6 +185,7 @@ class CourierController extends AbstractActionController
             ->addChild($this->specificsTable, 'specificsTable')
             ->addChild($this->getSpecificsActionsButtons(), 'actionsButtons')
             ->addChild($this->getSpecificsParcelsElement(), 'parcelsElement')
+            ->addChild($this->getSpecificsCollectionDateElement(), 'collectionDateElement')
             ->setVariable('isHeaderBarVisible', false)
             ->setVariable('subHeaderHide', true);
         $this->addCourierServiceViewForSelectedCourier($view, $selectedCourierId);
@@ -282,6 +283,19 @@ class CourierController extends AbstractActionController
             'max' => Service::MAX_PARCELS,
         ]);
         $view->setTemplate('elements/inline-text.mustache');
+        return $view;
+    }
+
+    protected function getSpecificsCollectionDateElement()
+    {
+        $view = $this->viewModelFactory->newInstance([
+            'value' => date('Y-m-d'),
+            'displayValue' => date('d/m/Y'),
+            'id' => 'courier-order-collectionDate',
+            'placeholder' => 'DD/MM/YYYY',
+            'class' => 'courier-order-collectionDate required',
+        ]);
+        $view->setTemplate('elements/date.mustache');
         return $view;
     }
 

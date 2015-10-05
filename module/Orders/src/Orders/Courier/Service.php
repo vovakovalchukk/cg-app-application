@@ -373,7 +373,7 @@ class Service implements LoggerAwareInterface
     ) {
         $carrier = $this->carrierService->getCarrierForAccount($courierAccount);
         $data = [
-            'collectionDate' => date('d/m/Y'),
+            'collectionDate' => date('Y-m-d'),
             'parcels' => static::DEFAULT_PARCELS,
             // The order row will always be parcel 1, only parcel rows might be other numbers
             'parcelNumber' => 1,

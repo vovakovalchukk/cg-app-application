@@ -40,9 +40,11 @@ function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderS
 
 CourierSpecificsDataTable.COLUMN_SERVICE = 'service';
 CourierSpecificsDataTable.COLUMN_PARCELS = 'parcels';
+CourierSpecificsDataTable.COLUMN_COLLECTION_DATE = 'collectionDate';
 CourierSpecificsDataTable.COLUMN_ACTIONS = 'actions';
 CourierSpecificsDataTable.SELECTOR_SERVICE_SELECT_PREFIX = '#courier-service-select-';
 CourierSpecificsDataTable.SELECTOR_PARCELS_ELEMENT = '#courier-parcels-input-container';
+CourierSpecificsDataTable.SELECTOR_DATEPICKER_ELEMENT = '#courier-order-collectionDate-container';
 CourierSpecificsDataTable.SELECTOR_ACTION_BUTTONS = '#courier-action-buttons .button-holder';
 CourierSpecificsDataTable.SELECTOR_ITEM_WEIGHT_INPUT = '.courier-item-weight';
 CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS_CONTAINER = '#courier-specifics-bulk-actions';
@@ -74,6 +76,9 @@ CourierSpecificsDataTable.prototype.addElementsToColumns = function()
         }
         if (column.mData == CourierSpecificsDataTable.COLUMN_PARCELS) {
             return self.addInlineTextToParcelsColumn(data);
+        }
+        if (column.mData == CourierSpecificsDataTable.COLUMN_COLLECTION_DATE) {
+            return self.addDatePickerToCollectionDateColumn(data);
         }
         if (column.mData == CourierSpecificsDataTable.COLUMN_ACTIONS) {
             return self.addButtonsToActionsColumn(data);
@@ -114,6 +119,26 @@ CourierSpecificsDataTable.prototype.addInlineTextToParcelsColumn = function(temp
         // .val() doesn't work here, possibly because its not part of the DOM yet
         .attr('value', templateData.parcels);
     templateData.parcelsInput = $('<div>').append(elementCopy).html();
+    return this;
+};
+
+CourierSpecificsDataTable.prototype.addDatePickerToCollectionDateColumn = function(templateData)
+{
+    if (!templateData.orderRow || templateData.collectionDatePicker) {
+        return;
+    }
+    var elementCopy = $(CourierSpecificsDataTable.SELECTOR_DATEPICKER_ELEMENT).clone();
+    var name = 'orderData[' + templateData.orderId+'][collectionDate]';
+    var id = $('input[type="hidden"]', elementCopy).attr('id') + '_' + templateData.orderId;
+    $(elementCopy).attr('id', id+'-container');
+    $('input[type="hidden"]', elementCopy)
+        .attr('id', id)
+        .attr('name', name)
+        .attr('value', templateData.collectionDate);
+    $('input[type!="hidden"]', elementCopy)
+        .attr('data-element-name', name)
+        .attr('value', templateData.collectionDate.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3/$2/$1'));
+    templateData.collectionDatePicker = $('<div>').append(elementCopy).html();
     return this;
 };
 
