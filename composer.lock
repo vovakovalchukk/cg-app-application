@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8b79f9c18d89b9f044e2a48dd6749890",
-    "content-hash": "bd0f1d74559d4f15af02393a6e07e285",
+    "hash": "5c5ccf8738713325e28ef984ab50cc28",
+    "content-hash": "f7facc3a79831f034b6c75d03b1f09ca",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3220,17 +3220,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-6285-dataplug-collection-date-picker",
+            "version": "dev-EPIC-CGIV-5992-dataplug",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "b78179f0fd3bb2307cae55b581eedd491242ff4a"
+                "reference": "f97739dea09de908aa0170088b27e033dbce99c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6285-dataplug-collection-date-picker-6a5e91.zip",
-                "reference": "b78179f0fd3bb2307cae55b581eedd491242ff4a",
-                "shasum": "a997e263c8d30b6a6ceeaf4166876607f0c618c3"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-5992-dataplug-547e3c.zip",
+                "reference": "f97739dea09de908aa0170088b27e033dbce99c5",
+                "shasum": "06efe5b6176be63a65e560b21d8644fc53786a92"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3266,9 +3266,6 @@
                 "symlinks": {
                     "./public/channelgrabber/zf2-v4-ui/js/whichbrowser": "./vendor/whichbrowser/whichbrowser",
                     "./public/channelgrabber/zf2-v4-ui/js/zeroclipboard": "./vendor/zeroclipboard/zeroclipboard/dist"
-                },
-                "branch-alias": {
-                    "dev-CGIV-6285-dataplug-collection-date-picker": "1.16.7-dev"
                 }
             },
             "autoload": {
@@ -3279,7 +3276,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-10-05 13:13:11"
+            "time": "2015-10-05 14:04:11"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7419,9 +7416,9 @@
             "package": "channelgrabber/zf2-dataplug"
         },
         {
-            "alias": "dev-EPIC-CGIV-5992-dataplug",
-            "alias_normalized": "dev-EPIC-CGIV-5992-dataplug",
-            "version": "dev-CGIV-6285-dataplug-collection-date-picker",
+            "alias": "1.16.11",
+            "alias_normalized": "1.16.11.0",
+            "version": "dev-EPIC-CGIV-5992-dataplug",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
