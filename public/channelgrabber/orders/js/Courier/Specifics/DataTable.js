@@ -136,8 +136,10 @@ CourierSpecificsDataTable.prototype.addDatePickerToCollectionDateColumn = functi
         .attr('name', name)
         .attr('value', templateData.collectionDate);
     $('input[type!="hidden"]', elementCopy)
+        .attr('id', id+'-datepicker')
         .attr('data-element-name', name)
-        .attr('value', templateData.collectionDate.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3/$2/$1'));
+        .attr('value', templateData.collectionDate.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3/$2/$1'))
+        .removeClass('hasDatepicker');
     templateData.collectionDatePicker = $('<div>').append(elementCopy).html();
     return this;
 };
