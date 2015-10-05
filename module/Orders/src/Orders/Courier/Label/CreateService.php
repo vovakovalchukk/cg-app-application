@@ -204,8 +204,7 @@ class CreateService extends ServiceAbstract
     ) {
         try {
             $this->dataplugOrderService->getAndProcessDataplugOrderDetails(
-                $order, $shippingAccount, $orderNumber, $orderLabel, $user,
-1,1
+                $order, $shippingAccount, $orderNumber, $orderLabel, $user
             );
             return true;
         } catch (LabelMissingException $e) {
