@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5c5ccf8738713325e28ef984ab50cc28",
-    "content-hash": "f7facc3a79831f034b6c75d03b1f09ca",
+    "hash": "a550fcba4e3ff2401bfe34a1f3c04a16",
+    "content-hash": "2f0df6d7a0307ab2b35c3aa0025c044d",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3220,17 +3220,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-EPIC-CGIV-5992-dataplug",
+            "version": "dev-CGIV-6310-courier-booking-row-colours",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "f97739dea09de908aa0170088b27e033dbce99c5"
+                "reference": "b51b3691047078c5a1bfe71c5fda16383659c7d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-5992-dataplug-547e3c.zip",
-                "reference": "f97739dea09de908aa0170088b27e033dbce99c5",
-                "shasum": "06efe5b6176be63a65e560b21d8644fc53786a92"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6310-courier-booking-row-colours-ce74f2.zip",
+                "reference": "b51b3691047078c5a1bfe71c5fda16383659c7d4",
+                "shasum": "52d61777f6b5b608597c8bb13a06b97d5c5d4e79"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3266,6 +3266,9 @@
                 "symlinks": {
                     "./public/channelgrabber/zf2-v4-ui/js/whichbrowser": "./vendor/whichbrowser/whichbrowser",
                     "./public/channelgrabber/zf2-v4-ui/js/zeroclipboard": "./vendor/zeroclipboard/zeroclipboard/dist"
+                },
+                "branch-alias": {
+                    "dev-CGIV-6310-courier-booking-row-colours": "1.16.11-dev"
                 }
             },
             "autoload": {
@@ -3276,7 +3279,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-10-05 14:04:11"
+            "time": "2015-10-05 14:45:41"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7416,9 +7419,9 @@
             "package": "channelgrabber/zf2-dataplug"
         },
         {
-            "alias": "1.16.11",
-            "alias_normalized": "1.16.11.0",
-            "version": "dev-EPIC-CGIV-5992-dataplug",
+            "alias": "dev-EPIC-CGIV-5992-dataplug",
+            "alias_normalized": "dev-EPIC-CGIV-5992-dataplug",
+            "version": "dev-CGIV-6310-courier-booking-row-colours",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
