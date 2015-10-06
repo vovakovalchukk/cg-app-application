@@ -46,8 +46,8 @@ class TrackingController extends AbstractActionController implements StatsAwareI
         $tracking = $this->fetchTracking();
         $tracking = $this->update($tracking);
         try {
-            $order = $this->fetchOrder();
             $this->getTrackingService()->save($tracking);
+            $order = $this->fetchOrder();
             $this->getTrackingService()->createGearmanJob($order);
             $this->statsIncrement(
                 static::STAT_ORDER_ACTION_TRACKED, [
