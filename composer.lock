@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d72602c21cbebb17814c61126f059971",
+    "hash": "ac0668117b18b9b6db32bbfe7a29a85c",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -563,17 +563,17 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-CGIV-6307-EbayMessageDownload",
+            "version": "1.9.24",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "fc1d8cfe364a3b0e210e9b5f21dae0a3a422b3a4"
+                "reference": "0922d1ebe45425e6cb4407f368bee30a6a20fa42"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-CGIV-6307-EbayMessageDownload-d5dccb.zip",
-                "reference": "fc1d8cfe364a3b0e210e9b5f21dae0a3a422b3a4",
-                "shasum": "a34e5e6f1600a0e825a16d4c6aa5a59e5c5eeb5f"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.9.24-2b64c0.zip",
+                "reference": "0922d1ebe45425e6cb4407f368bee30a6a20fa42",
+                "shasum": "ba9127d41138efd7204a17d629c73d2f6598ec87"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -617,7 +617,7 @@
                     "CG\\Ebay\\Test\\": "tests/Test/"
                 }
             },
-            "time": "2015-10-05 12:39:32"
+            "time": "2015-10-06 07:30:14"
         },
         {
             "name": "channelgrabber/ekm",
@@ -7214,18 +7214,10 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.9.24",
-            "alias_normalized": "1.9.24.0",
-            "version": "dev-CGIV-6307-EbayMessageDownload",
-            "package": "channelgrabber/ebay"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/ebay": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
