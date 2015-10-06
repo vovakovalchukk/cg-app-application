@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c9c81d9dee1c0d64484675c7020b59f8",
+    "hash": "642fb000ae2d8049e5579bf3ffca48e9",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1491,13 +1491,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "5de4555c1846b44b13a6a1c9f41325234295beb5"
+                "reference": "7d4b57bf464b1a1fe4e8e4d5db0fee9d60cba6d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-6316-PaginationTotal-4d1f0a.zip",
-                "reference": "5de4555c1846b44b13a6a1c9f41325234295beb5",
-                "shasum": "c75ff5c332498f05edf92d49413f59d5d059e9ef"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-6316-PaginationTotal-dc2c62.zip",
+                "reference": "7d4b57bf464b1a1fe4e8e4d5db0fee9d60cba6d7",
+                "shasum": "45a97b5930aba8c9eb87e2bb5be3e3cdbb0e9e7a"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1532,7 +1532,7 @@
                     "CG\\Product\\": "src"
                 }
             },
-            "time": "2015-10-06 10:51:38"
+            "time": "2015-10-06 12:05:39"
         },
         {
             "name": "channelgrabber/purge",
