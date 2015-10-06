@@ -564,22 +564,23 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.9.23",
+            "version": "1.9.24",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "6ad63f12544afe4007d879fbfe41f4ee7310d725"
+                "reference": "0922d1ebe45425e6cb4407f368bee30a6a20fa42"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.9.23-891073.zip",
-                "reference": "6ad63f12544afe4007d879fbfe41f4ee7310d725",
-                "shasum": "88013d8cd9ce886dd65ff6cb2e8da1e398bd80ed"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.9.24-2b64c0.zip",
+                "reference": "0922d1ebe45425e6cb4407f368bee30a6a20fa42",
+                "shasum": "ba9127d41138efd7204a17d629c73d2f6598ec87"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": ">=1.4.0,<2.0.0",
                 "channelgrabber/channel": "^1.16.16",
+                "channelgrabber/communication": "^1.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.1.0",
                 "channelgrabber/gearman": "^1.2.13",
@@ -617,7 +618,7 @@
                     "CG\\Ebay\\Test\\": "tests/Test/"
                 }
             },
-            "time": "2015-08-28 12:34:34"
+            "time": "2015-10-06 07:30:14"
         },
         {
             "name": "channelgrabber/ekm",
