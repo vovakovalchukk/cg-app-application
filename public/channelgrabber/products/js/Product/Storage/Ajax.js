@@ -9,7 +9,7 @@ define(function () {
             'method' : 'POST',
             'dataType' : 'json',
             'success' : function(data) {
-                callback(data['products']);
+                callback(data);
             },
             'error' : function () {
                 throw 'Unable to load products';

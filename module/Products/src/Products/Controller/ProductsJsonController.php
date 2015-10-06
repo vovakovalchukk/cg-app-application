@@ -68,9 +68,9 @@ class ProductsJsonController extends AbstractActionController
     {
         $view = $this->getJsonModelFactory()->newInstance();
         $filterParams = $this->params()->fromPost('filter', []);
-        $limit = 'all';
+        $page = (isset($filterParams['page']) ? $filterParams['page'] : ProductService::PAGE);
+        $limit = (isset($filterParams['limit']) ? $filterParams['limit'] : ProductService::LIMIT);
         if (!array_key_exists('parentProductId', $filterParams) && !array_key_exists('id', $filterParams)) {
-            $limit = ProductService::LIMIT;
             $filterParams['replaceVariationWithParent'] = true;
         }
         if (!array_key_exists('deleted', $filterParams)) {
@@ -80,7 +80,7 @@ class ProductsJsonController extends AbstractActionController
         $requestFilter->setEmbedVariationsAsLinks(true);
         $productsArray = [];
         try {
-            $products = $this->getProductService()->fetchProducts($requestFilter, $limit);
+            $products = $this->getProductService()->fetchProducts($requestFilter, $limit, $page);
             $organisationUnitIds = $requestFilter->getOrganisationUnitId();
             $accounts = $this->getAccountsIndexedById($organisationUnitIds);
             $rootOrganisationUnit = $this->organisationUnitService->getRootOuFromOuId(reset($organisationUnitIds));
@@ -92,7 +92,9 @@ class ProductsJsonController extends AbstractActionController
         } catch(NotFound $e) {
             //noop
         }
-        return $view->setVariable('products', $productsArray);
+        $view->setVariable('products', $productsArray)
+            ->setVariable('pagination', ['page' => $page, 'limit' => $limit, 'total' => $products->getTotal()]);
+        return $view;
     }
 
     protected function getAccountsIndexedById($organisationUnitIds)

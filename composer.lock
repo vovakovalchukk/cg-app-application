@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "642fb000ae2d8049e5579bf3ffca48e9",
+    "hash": "468ccf848720454286af631253097d9f",
+    "content-hash": "78a3e59c7ec32f8eec754955384a45d9",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3125,17 +3126,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.10",
+            "version": "dev-CGIV-6163-products-pagination",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "037e1e0bee630941b31b2a20f35700a2738e79bb"
+                "reference": "be0202b2fe5971c75b75167b1920608bad19ae8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.10-9f0c71.zip",
-                "reference": "037e1e0bee630941b31b2a20f35700a2738e79bb",
-                "shasum": "201740eaaaaf0f8f590fc011eacd022fd79cb094"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6163-products-pagination-5fcc17.zip",
+                "reference": "be0202b2fe5971c75b75167b1920608bad19ae8d",
+                "shasum": "4c6456282de1a1b7c4bb8cc9118327c3a515c5fd"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -3180,7 +3181,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-09-29 07:49:41"
+            "time": "2015-10-06 16:14:08"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7220,12 +7221,19 @@
             "alias_normalized": "1.4.12.0",
             "version": "dev-CGIV-6316-PaginationTotal",
             "package": "channelgrabber/product"
+        },
+        {
+            "alias": "1.16.11",
+            "alias_normalized": "1.16.11.0",
+            "version": "dev-CGIV-6163-products-pagination",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/product": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

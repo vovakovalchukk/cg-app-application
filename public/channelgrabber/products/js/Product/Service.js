@@ -42,6 +42,8 @@ define([
     Service.DOM_SELECTOR_LOADING_MESSAGE = '#products-loading-message';
     Service.DEFAULT_IMAGE_URL = '/noproductsimage.png';
     Service.DOM_SELECTOR_TAX_RATE = 'product-tax-rate-custom-select';
+    Service.DOM_SELECTOR_PAGINATION = '#product-pagination-container';
+    Service.PAGINATION_PAGE_LINK_COUNT = 5;
 
     Service.prototype.init = function(baseUrl)
     {
@@ -55,14 +57,16 @@ define([
         var self = this;
         var filter = productFilterMapper.fromDom();
         domManipulator.setCssValue(Service.DOM_SELECTOR_LOADING_MESSAGE, 'display','block');
-        this.fetchProducts(filter, function (products) {
+        this.fetchProducts(filter, function (data) {
+            var products = data.products;
             domManipulator.setCssValue(Service.DOM_SELECTOR_LOADING_MESSAGE, 'display','none');
             if (!products.length) {
                 self.renderNoProduct();
                 return;
             }
             domListener.triggerProductsFetchedEvent(products);
-            self.renderProducts(products);
+            self.renderProducts(products, data.pagination);
+            self.renderPagination(data.pagination);
         });
     };
 
@@ -71,7 +75,7 @@ define([
         return productStorage.fetchByFilter(filter, callable);
     };
 
-    Service.prototype.renderProducts = function(products)
+    Service.prototype.renderProducts = function(products, pagination)
     {
         var self = this;
         this.fetchProductTemplates(function(templates)
@@ -81,6 +85,7 @@ define([
                 html += self.renderProduct(products[index], templates);
             }
             domManipulator.setHtml(Service.DOM_SELECTOR_PRODUCT_CONTAINER, html);
+            self.renderPagination(pagination, templates);
             domListener.triggerProductsRenderedEvent(products);
         });
     };
@@ -98,7 +103,8 @@ define([
             stockTable: '/channelgrabber/products/template/product/stockTable.mustache',
             stockRow: '/channelgrabber/products/template/product/stockRow.mustache',
             product: '/channelgrabber/products/template/elements/product.mustache',
-            statusLozenge: '/channelgrabber/products/template/elements/statusLozenge.mustache'
+            statusLozenge: '/channelgrabber/products/template/elements/statusLozenge.mustache',
+            pagination: '/channelgrabber/zf2-v4-ui/templates/elements/pagination.mustache'
         };
         CGMustache.get().fetchTemplates(productUrlMap, function(templates)
         {
@@ -319,6 +325,46 @@ define([
             var html = CGMustache.get().renderTemplate(templates, {}, 'noProduct');
             domManipulator.setHtml(Service.DOM_SELECTOR_PRODUCT_CONTAINER, html);
         });
+    };
+
+    Service.prototype.renderPagination = function(pagination, templates)
+    {
+        var lastRecord = pagination.page * pagination.limit;
+        var firstRecord = lastRecord - pagination.limit + 1;
+        if (lastRecord > pagination.total) {
+            lastRecord = pagination.total;
+        }
+        var pageLinks = this.getPageLinksFromPaginationData(pagination);
+        var html = CGMustache.get().renderTemplate(templates, {
+            'id': 'product-pagination',
+            'firstRecord': firstRecord,
+            'lastRecord': lastRecord,
+            'total': pagination.total,
+            'pageLinks': pageLinks
+        }, 'pagination');
+        $(Service.DOM_SELECTOR_PAGINATION).empty().append(html);
+    };
+
+    Service.prototype.getPageLinksFromPaginationData = function(pagination)
+    {
+        var maxPages = Math.ceil(pagination.total / pagination.limit);
+        var pageLinks = [];
+        var firstPageLink = pagination.page - Math.floor(Service.PAGINATION_PAGE_LINK_COUNT / 2);
+        var lastPageLink = pagination.page + Math.floor(Service.PAGINATION_PAGE_LINK_COUNT / 2)
+        if (firstPageLink < 1) {
+            firstPageLink = 1;
+            lastPageLink = (Service.PAGINATION_PAGE_LINK_COUNT <= maxPages ? Service.PAGINATION_PAGE_LINK_COUNT : maxPages);
+        } else if (lastPageLink >= maxPages) {
+            firstPageLink = maxPages - Service.PAGINATION_PAGE_LINK_COUNT;
+            lastPageLink = maxPages;
+        }
+        for (var count = firstPageLink; count <= lastPageLink; count++) {
+            pageLinks.push({
+                text: count,
+                selected: (count == pagination.page)
+            });
+        }
+        return pageLinks;
     };
 
     Service.prototype.saveTaxRate = function(sourceCustomSelect)
