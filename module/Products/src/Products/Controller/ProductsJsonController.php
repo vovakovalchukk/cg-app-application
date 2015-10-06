@@ -70,8 +70,8 @@ class ProductsJsonController extends AbstractActionController
         $filterParams = $this->params()->fromPost('filter', []);
         $limit = 'all';
         if (!array_key_exists('parentProductId', $filterParams) && !array_key_exists('id', $filterParams)) {
-            $filterParams['parentProductId'] = [0];
             $limit = ProductService::LIMIT;
+            $filterParams['replaceVariationWithParent'] = true;
         }
         if (!array_key_exists('deleted', $filterParams)) {
             $filterParams['deleted'] = false;
@@ -80,8 +80,7 @@ class ProductsJsonController extends AbstractActionController
         $requestFilter->setEmbedVariationsAsLinks(true);
         $productsArray = [];
         try {
-            $products = $this->getProductService()->fetchProducts($requestFilter, $requestFilter->getParentProductId(), $limit);
-            $accounts = $this->getAccountsIndexedById($requestFilter->getOrganisationUnitId());
+            $products = $this->getProductService()->fetchProducts($requestFilter, $limit);
             $organisationUnitIds = $requestFilter->getOrganisationUnitId();
             $accounts = $this->getAccountsIndexedById($organisationUnitIds);
             $rootOrganisationUnit = $this->organisationUnitService->getRootOuFromOuId(reset($organisationUnitIds));
