@@ -1,6 +1,7 @@
 define([
     'cg-mustache',
     'Product/DomListener/Search',
+    'Product/DomListener/Pagination',
     'Product/Filter/Mapper',
     'Product/Storage/Ajax',
     'DomManipulator',
@@ -10,6 +11,7 @@ define([
 ], function (
     CGMustache,
     domListener,
+    PaginationDomListener,
     productFilterMapper,
     productStorage,
     domManipulator,
@@ -21,6 +23,7 @@ define([
     {
         var baseUrl;
         var deferredQueue = new DeferredQueue();
+        var paginationDomListener = new PaginationDomListener(this);
 
         this.getBaseUrl = function()
         {
@@ -51,10 +54,13 @@ define([
         this.refresh();
     };
 
-    Service.prototype.refresh = function()
+    Service.prototype.refresh = function(page)
     {
         var self = this;
         var filter = productFilterMapper.fromDom();
+        if (page) {
+            filter.setPage(page);
+        }
         domManipulator.setCssValue(Service.DOM_SELECTOR_LOADING_MESSAGE, 'display','block');
         this.fetchProducts(filter, function (data) {
             var products = data.products;
@@ -348,6 +354,11 @@ define([
                 }
             });
         });
+    };
+
+    Service.prototype.pageSelected = function(page)
+    {
+        this.refresh(page);
     };
 
     return new Service();

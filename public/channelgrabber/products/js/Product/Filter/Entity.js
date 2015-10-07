@@ -2,6 +2,8 @@ define([
 ], function () {
     var Entity = function (searchTerm, parentProductId, id)
     {
+        var page = 1;
+
         this.getSearchTerm = function()
         {
             return searchTerm;
@@ -22,11 +24,24 @@ define([
             id = (newId instanceof Array ? newId : [newId]);
             return this;
         };
+
+        this.getPage = function()
+        {
+            return page;
+        };
+
+        this.setPage = function(newPage)
+        {
+            page = newPage;
+            return this;
+        };
     };
 
     Entity.prototype.toObject = function()
     {
-        var object = {};
+        var object = {
+            "page": this.getPage()
+        };
 
         var searchTerm = this.getSearchTerm();
         if (searchTerm) {
