@@ -46,6 +46,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         );
         $view->addChild($bulkActions, 'bulkItems');
         $bulkAction->setVariable('isHeaderBarVisible', $this->getProductService()->isFilterBarVisible());
+        $view->addChild($this->getPaginationView(), 'pagination');
         $view->setVariable('isSidebarVisible', $this->getProductService()->isSidebarVisible());
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
@@ -61,6 +62,18 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $sidebar->setVariable('links', $links);
 
         return $sidebar;
+    }
+
+    protected function getPaginationView()
+    {
+        $view = $this->getViewModelFactory()->newInstance();
+        $view->setTemplate('elements/pagination.mustache');
+        $view->setVariable('id', 'product-pagination')
+            ->setVariable('firstRecord', 0)
+            ->setVariable('lastRecord', 0)
+            ->setVariable('total', 0)
+            ->setVariable('pageLinks', [['selected' => true, 'text' => '1']]);
+        return $view;
     }
 
     protected function setViewModelFactory(ViewModelFactory $viewModelFactory)

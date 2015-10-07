@@ -1,6 +1,7 @@
 define([
     'cg-mustache',
     'Product/DomListener/Search',
+    'Product/DomListener/Pagination',
     'Product/Filter/Mapper',
     'Product/Storage/Ajax',
     'DomManipulator',
@@ -10,6 +11,7 @@ define([
 ], function (
     CGMustache,
     domListener,
+    PaginationDomListener,
     productFilterMapper,
     productStorage,
     domManipulator,
@@ -21,6 +23,7 @@ define([
     {
         var baseUrl;
         var deferredQueue = new DeferredQueue();
+        var paginationDomListener = new PaginationDomListener(this);
 
         this.getBaseUrl = function()
         {
@@ -42,6 +45,7 @@ define([
     Service.DOM_SELECTOR_LOADING_MESSAGE = '#products-loading-message';
     Service.DEFAULT_IMAGE_URL = '/noproductsimage.png';
     Service.DOM_SELECTOR_TAX_RATE = 'product-tax-rate-custom-select';
+    Service.DOM_SELECTOR_PAGINATION = '#product-pagination';
 
     Service.prototype.init = function(baseUrl)
     {
@@ -50,19 +54,23 @@ define([
         this.refresh();
     };
 
-    Service.prototype.refresh = function()
+    Service.prototype.refresh = function(page)
     {
         var self = this;
         var filter = productFilterMapper.fromDom();
+        if (page) {
+            filter.setPage(page);
+        }
         domManipulator.setCssValue(Service.DOM_SELECTOR_LOADING_MESSAGE, 'display','block');
-        this.fetchProducts(filter, function (products) {
+        this.fetchProducts(filter, function (data) {
+            var products = data.products;
             domManipulator.setCssValue(Service.DOM_SELECTOR_LOADING_MESSAGE, 'display','none');
             if (!products.length) {
                 self.renderNoProduct();
                 return;
             }
             domListener.triggerProductsFetchedEvent(products);
-            self.renderProducts(products);
+            self.renderProducts(products, data.pagination);
         });
     };
 
@@ -71,7 +79,7 @@ define([
         return productStorage.fetchByFilter(filter, callable);
     };
 
-    Service.prototype.renderProducts = function(products)
+    Service.prototype.renderProducts = function(products, pagination)
     {
         var self = this;
         this.fetchProductTemplates(function(templates)
@@ -81,6 +89,7 @@ define([
                 html += self.renderProduct(products[index], templates);
             }
             domManipulator.setHtml(Service.DOM_SELECTOR_PRODUCT_CONTAINER, html);
+            self.updatePagination(pagination);
             domListener.triggerProductsRenderedEvent(products);
         });
     };
@@ -319,6 +328,13 @@ define([
             var html = CGMustache.get().renderTemplate(templates, {}, 'noProduct');
             domManipulator.setHtml(Service.DOM_SELECTOR_PRODUCT_CONTAINER, html);
         });
+        $(Service.DOM_SELECTOR_PAGINATION).parent().hide();
+    };
+
+    Service.prototype.updatePagination = function(pagination)
+    {
+        $(Service.DOM_SELECTOR_PAGINATION).trigger('update', [pagination]);
+        $(Service.DOM_SELECTOR_PAGINATION).parent().show();
     };
 
     Service.prototype.saveTaxRate = function(sourceCustomSelect)
@@ -339,6 +355,11 @@ define([
                 }
             });
         });
+    };
+
+    Service.prototype.pageSelected = function(page)
+    {
+        this.refresh(page);
     };
 
     return new Service();

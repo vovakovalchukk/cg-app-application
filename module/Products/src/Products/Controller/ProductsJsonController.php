@@ -68,20 +68,21 @@ class ProductsJsonController extends AbstractActionController
     {
         $view = $this->getJsonModelFactory()->newInstance();
         $filterParams = $this->params()->fromPost('filter', []);
+        $page = (isset($filterParams['page']) ? $filterParams['page'] : ProductService::PAGE);
         $limit = 'all';
         if (!array_key_exists('parentProductId', $filterParams) && !array_key_exists('id', $filterParams)) {
-            $filterParams['parentProductId'] = [0];
-            $limit = ProductService::LIMIT;
+            $limit = (isset($filterParams['limit']) ? $filterParams['limit'] : ProductService::LIMIT);
+            $filterParams['replaceVariationWithParent'] = true;
         }
         if (!array_key_exists('deleted', $filterParams)) {
             $filterParams['deleted'] = false;
         }
         $requestFilter = $this->getFilterMapper()->fromArray($filterParams);
         $requestFilter->setEmbedVariationsAsLinks(true);
+        $total = 0;
         $productsArray = [];
         try {
-            $products = $this->getProductService()->fetchProducts($requestFilter, $requestFilter->getParentProductId(), $limit);
-            $accounts = $this->getAccountsIndexedById($requestFilter->getOrganisationUnitId());
+            $products = $this->getProductService()->fetchProducts($requestFilter, $limit, $page);
             $organisationUnitIds = $requestFilter->getOrganisationUnitId();
             $accounts = $this->getAccountsIndexedById($organisationUnitIds);
             $rootOrganisationUnit = $this->organisationUnitService->getRootOuFromOuId(reset($organisationUnitIds));
@@ -90,10 +91,13 @@ class ProductsJsonController extends AbstractActionController
             foreach ($products as $product) {
                 $productsArray[] = $this->toArrayProductEntityWithEmbeddedData($product, $accounts, $isVatRegistered);
             }
+            $total = $products->getTotal();
         } catch(NotFound $e) {
             //noop
         }
-        return $view->setVariable('products', $productsArray);
+        $view->setVariable('products', $productsArray)
+            ->setVariable('pagination', ['page' => (int)$page, 'limit' => (int)$limit, 'total' => (int)$total]);
+        return $view;
     }
 
     protected function getAccountsIndexedById($organisationUnitIds)

@@ -102,7 +102,8 @@ define([
         var productFilter = this.getProductFilterMapper().fromParentProductId(productId);
         this.getProductService().fetchProducts(
             productFilter,
-            function(variations) {
+            function(data) {
+                var variations = data.products;
                 self.getProductService().fetchProductTemplates(function(templates)
                 {
                     self.renderAdditionalVariations(productContainer, variations, templates);
@@ -223,7 +224,8 @@ define([
         var productFilter = this.getProductFilterMapper().fromId(defaultDisplayVarIds);
         this.getProductService().fetchProducts(
             productFilter,
-            function(variations) {
+            function(data) {
+                var variations = data.products;
                 var variationsByParent = {};
                 for (var index in variations) {
                     var variation = variations[index];
