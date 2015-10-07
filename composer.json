@@ -52,7 +52,7 @@
         "channelgrabber/phinx": "~0.3.2",
         "channelgrabber/picklist": "~1.0.2",
         "channelgrabber/predis": "~1.0.5",
-        "channelgrabber/product": "dev-CGIV-6316-PaginationTotal as 1.4.12",
+        "channelgrabber/product": "~1.4.12",
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/royalmail": "~1.0.1",
         "channelgrabber/sequential-numbering": "~1.0.0",
