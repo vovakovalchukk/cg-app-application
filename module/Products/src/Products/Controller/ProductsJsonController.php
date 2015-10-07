@@ -69,8 +69,9 @@ class ProductsJsonController extends AbstractActionController
         $view = $this->getJsonModelFactory()->newInstance();
         $filterParams = $this->params()->fromPost('filter', []);
         $page = (isset($filterParams['page']) ? $filterParams['page'] : ProductService::PAGE);
-        $limit = (isset($filterParams['limit']) ? $filterParams['limit'] : ProductService::LIMIT);
+        $limit = 'all';
         if (!array_key_exists('parentProductId', $filterParams) && !array_key_exists('id', $filterParams)) {
+            $limit = (isset($filterParams['limit']) ? $filterParams['limit'] : ProductService::LIMIT);
             $filterParams['replaceVariationWithParent'] = true;
         }
         if (!array_key_exists('deleted', $filterParams)) {

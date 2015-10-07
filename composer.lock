@@ -1488,17 +1488,17 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-CGIV-6316-PaginationTotal",
+            "version": "1.4.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "7d4b57bf464b1a1fe4e8e4d5db0fee9d60cba6d7"
+                "reference": "62d85c4e7b956191354a96ec77896e4919e36862"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-6316-PaginationTotal-dc2c62.zip",
-                "reference": "7d4b57bf464b1a1fe4e8e4d5db0fee9d60cba6d7",
-                "shasum": "45a97b5930aba8c9eb87e2bb5be3e3cdbb0e9e7a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.4.12-fa723a.zip",
+                "reference": "62d85c4e7b956191354a96ec77896e4919e36862",
+                "shasum": "45374ea6cc1fbbc46ec412eef3d3f7aaca0ba8d7"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1533,7 +1533,7 @@
                     "CG\\Product\\": "src"
                 }
             },
-            "time": "2015-10-06 12:05:39"
+            "time": "2015-10-07 10:14:59"
         },
         {
             "name": "channelgrabber/purge",
@@ -7217,12 +7217,6 @@
     ],
     "aliases": [
         {
-            "alias": "1.4.12",
-            "alias_normalized": "1.4.12.0",
-            "version": "dev-CGIV-6316-PaginationTotal",
-            "package": "channelgrabber/product"
-        },
-        {
             "alias": "1.16.12",
             "alias_normalized": "1.16.12.0",
             "version": "dev-CGIV-6163-products-pagination",
@@ -7232,7 +7226,6 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/product": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
