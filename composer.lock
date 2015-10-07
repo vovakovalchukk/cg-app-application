@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "468ccf848720454286af631253097d9f",
-    "content-hash": "78a3e59c7ec32f8eec754955384a45d9",
+    "hash": "2a52ff87fd42ebc63476d403888eaff7",
+    "content-hash": "a8bb96d0c1b7915303f14df318f9a034",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3130,13 +3130,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "be0202b2fe5971c75b75167b1920608bad19ae8d"
+                "reference": "02a30f43eafc15a547825357bc92668481bfb01c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6163-products-pagination-5fcc17.zip",
-                "reference": "be0202b2fe5971c75b75167b1920608bad19ae8d",
-                "shasum": "4c6456282de1a1b7c4bb8cc9118327c3a515c5fd"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6163-products-pagination-aefadb.zip",
+                "reference": "02a30f43eafc15a547825357bc92668481bfb01c",
+                "shasum": "67299ddcbe0ed0659bbad9f38a9ddbcb46b0444d"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -3181,7 +3181,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-10-06 16:14:08"
+            "time": "2015-10-07 11:12:37"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7223,8 +7223,8 @@
             "package": "channelgrabber/product"
         },
         {
-            "alias": "1.16.11",
-            "alias_normalized": "1.16.11.0",
+            "alias": "1.16.12",
+            "alias_normalized": "1.16.12.0",
             "version": "dev-CGIV-6163-products-pagination",
             "package": "channelgrabber/zf2-v4-ui"
         }

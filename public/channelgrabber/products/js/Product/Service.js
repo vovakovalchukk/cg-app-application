@@ -42,8 +42,7 @@ define([
     Service.DOM_SELECTOR_LOADING_MESSAGE = '#products-loading-message';
     Service.DEFAULT_IMAGE_URL = '/noproductsimage.png';
     Service.DOM_SELECTOR_TAX_RATE = 'product-tax-rate-custom-select';
-    Service.DOM_SELECTOR_PAGINATION = '#product-pagination-container';
-    Service.PAGINATION_PAGE_LINK_COUNT = 5;
+    Service.DOM_SELECTOR_PAGINATION = '#product-pagination';
 
     Service.prototype.init = function(baseUrl)
     {
@@ -66,7 +65,6 @@ define([
             }
             domListener.triggerProductsFetchedEvent(products);
             self.renderProducts(products, data.pagination);
-            self.renderPagination(data.pagination);
         });
     };
 
@@ -85,7 +83,7 @@ define([
                 html += self.renderProduct(products[index], templates);
             }
             domManipulator.setHtml(Service.DOM_SELECTOR_PRODUCT_CONTAINER, html);
-            self.renderPagination(pagination, templates);
+            self.updatePagination(pagination);
             domListener.triggerProductsRenderedEvent(products);
         });
     };
@@ -103,8 +101,7 @@ define([
             stockTable: '/channelgrabber/products/template/product/stockTable.mustache',
             stockRow: '/channelgrabber/products/template/product/stockRow.mustache',
             product: '/channelgrabber/products/template/elements/product.mustache',
-            statusLozenge: '/channelgrabber/products/template/elements/statusLozenge.mustache',
-            pagination: '/channelgrabber/zf2-v4-ui/templates/elements/pagination.mustache'
+            statusLozenge: '/channelgrabber/products/template/elements/statusLozenge.mustache'
         };
         CGMustache.get().fetchTemplates(productUrlMap, function(templates)
         {
@@ -327,44 +324,10 @@ define([
         });
     };
 
-    Service.prototype.renderPagination = function(pagination, templates)
+    Service.prototype.updatePagination = function(pagination)
     {
-        var lastRecord = pagination.page * pagination.limit;
-        var firstRecord = lastRecord - pagination.limit + 1;
-        if (lastRecord > pagination.total) {
-            lastRecord = pagination.total;
-        }
-        var pageLinks = this.getPageLinksFromPaginationData(pagination);
-        var html = CGMustache.get().renderTemplate(templates, {
-            'id': 'product-pagination',
-            'firstRecord': firstRecord,
-            'lastRecord': lastRecord,
-            'total': pagination.total,
-            'pageLinks': pageLinks
-        }, 'pagination');
-        $(Service.DOM_SELECTOR_PAGINATION).empty().append(html);
-    };
-
-    Service.prototype.getPageLinksFromPaginationData = function(pagination)
-    {
-        var maxPages = Math.ceil(pagination.total / pagination.limit);
-        var pageLinks = [];
-        var firstPageLink = pagination.page - Math.floor(Service.PAGINATION_PAGE_LINK_COUNT / 2);
-        var lastPageLink = pagination.page + Math.floor(Service.PAGINATION_PAGE_LINK_COUNT / 2)
-        if (firstPageLink < 1) {
-            firstPageLink = 1;
-            lastPageLink = (Service.PAGINATION_PAGE_LINK_COUNT <= maxPages ? Service.PAGINATION_PAGE_LINK_COUNT : maxPages);
-        } else if (lastPageLink >= maxPages) {
-            firstPageLink = maxPages - Service.PAGINATION_PAGE_LINK_COUNT;
-            lastPageLink = maxPages;
-        }
-        for (var count = firstPageLink; count <= lastPageLink; count++) {
-            pageLinks.push({
-                text: count,
-                selected: (count == pagination.page)
-            });
-        }
-        return pageLinks;
+        $(Service.DOM_SELECTOR_PAGINATION).trigger('update', [pagination]);
+        $(Service.DOM_SELECTOR_PAGINATION).parent().show();
     };
 
     Service.prototype.saveTaxRate = function(sourceCustomSelect)
