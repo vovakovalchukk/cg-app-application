@@ -87,13 +87,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ->setIntercomEventService($intercomEventService);
     }
 
-    public function fetchProducts(ProductFilter $productFilter, $parentProductIds = [0], $limit = self::LIMIT)
+    public function fetchProducts(ProductFilter $productFilter, $limit = self::LIMIT)
     {
         $productFilter
             ->setLimit($limit)
             ->setPage(static::PAGE)
-            ->setOrganisationUnitId($this->getActiveUserContainer()->getActiveUser()->getOuList())
-            ->setParentProductId($parentProductIds);
+            ->setOrganisationUnitId($this->getActiveUserContainer()->getActiveUser()->getOuList());
         $products = $this->getProductService()->fetchCollectionByFilter($productFilter);
         return $products;
     }
