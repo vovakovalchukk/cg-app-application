@@ -79,6 +79,7 @@ class ProductsJsonController extends AbstractActionController
         }
         $requestFilter = $this->getFilterMapper()->fromArray($filterParams);
         $requestFilter->setEmbedVariationsAsLinks(true);
+        $total = 0;
         $productsArray = [];
         try {
             $products = $this->getProductService()->fetchProducts($requestFilter, $limit, $page);
@@ -90,11 +91,12 @@ class ProductsJsonController extends AbstractActionController
             foreach ($products as $product) {
                 $productsArray[] = $this->toArrayProductEntityWithEmbeddedData($product, $accounts, $isVatRegistered);
             }
+            $total = $products->getTotal();
         } catch(NotFound $e) {
             //noop
         }
         $view->setVariable('products', $productsArray)
-            ->setVariable('pagination', ['page' => $page, 'limit' => $limit, 'total' => $products->getTotal()]);
+            ->setVariable('pagination', ['page' => $page, 'limit' => $limit, 'total' => $total]);
         return $view;
     }
 

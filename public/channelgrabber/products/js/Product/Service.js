@@ -328,6 +328,7 @@ define([
             var html = CGMustache.get().renderTemplate(templates, {}, 'noProduct');
             domManipulator.setHtml(Service.DOM_SELECTOR_PRODUCT_CONTAINER, html);
         });
+        $(Service.DOM_SELECTOR_PAGINATION).parent().hide();
     };
 
     Service.prototype.updatePagination = function(pagination)
