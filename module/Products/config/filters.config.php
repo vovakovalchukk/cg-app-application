@@ -1,8 +1,9 @@
 <?php
-use CG_UI\View\Filters\Service as FilterService;
 use CG\Listing\Unimported\Status as UnimportedListingStatus;
+use CG_UI\View\Filters\Service as FilterService;
 use Filters\Options\Account;
 use Filters\Options\Channel;
+use Filters\Options\Marketplace;
 use Products\Controller\ListingsController;
 
 return [
@@ -83,6 +84,17 @@ return [
                                 'options' => []
                             ],
                             'optionsProvider' => Account::class,
+                        ],
+                        [
+                            'filterType' => 'customSelectGroup',
+                            'variables' => [
+                                'name' => 'marketplace',
+                                'title' => 'Marketplace',
+                                'searchField' => true,
+                                'concatenate' => true,
+                                'options' => []
+                            ],
+                            'optionsProvider' => Marketplace::class,
                         ],
                         [
                             'filterType' => 'customSelectGroup',
