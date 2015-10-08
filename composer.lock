@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d86a40fc74b2fcde09afb882f2f843d7",
-    "content-hash": "d6512c46b6608683bd1d7acbf769afd1",
+    "hash": "15688c3aa8d14a0c1fd38c01c890cf26",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3126,17 +3125,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.12",
+            "version": "dev-CGIV-6342-UnimportedListingMarketplace",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "04be3f0cb2381103394aa86aa3d8b742a6684c43"
+                "reference": "5afc938e46fde98a052502ba76eccf374f673acb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.12-a17dcc.zip",
-                "reference": "04be3f0cb2381103394aa86aa3d8b742a6684c43",
-                "shasum": "d47feb89ecd2bbf5cfba2ecf7e77584c5c509748"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6342-UnimportedListingMarketplace-0eccff.zip",
+                "reference": "5afc938e46fde98a052502ba76eccf374f673acb",
+                "shasum": "0a8ea092967956945730dd933f65370608c8216c"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -3181,7 +3180,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-10-07 14:50:41"
+            "time": "2015-10-08 11:09:28"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7215,10 +7214,18 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.16.13",
+            "alias_normalized": "1.16.13.0",
+            "version": "dev-CGIV-6342-UnimportedListingMarketplace",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

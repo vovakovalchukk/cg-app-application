@@ -177,6 +177,8 @@ return [
                 'ListingChannelColumn' => DataTable\Column::class,
                 'ListingAccountColumnView' => ViewModel::class,
                 'ListingAccountColumn' => DataTable\Column::class,
+                'ListingMarketplaceColumnView' => ViewModel::class,
+                'ListingMarketplaceColumn' => DataTable\Column::class,
                 'ListingSkuColumnView' => ViewModel::class,
                 'ListingSkuColumn' => DataTable\Column::class,
                 'ListingImageColumnView' => ViewModel::class,
@@ -298,6 +300,7 @@ return [
                         ['column' => 'ListingCheckboxColumn'],
                         ['column' => 'ListingChannelColumn'],
                         ['column' => 'ListingAccountColumn'],
+                        ['column' => 'ListingMarketplaceColumn'],
                         ['column' => 'ListingSkuColumn'],
                         ['column' => 'ListingImageColumn'],
                         ['column' => 'ListingTitleColumn'],
@@ -355,6 +358,20 @@ return [
                     'column' => 'accountId',
                     'viewModel' => 'ListingAccountColumnView',
                     'class' => 'account-col',
+                    'sortable' => false,
+                ],
+            ],
+            'ListingMarketplaceColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Marketplace'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'ListingMarketplaceColumn' => [
+                'parameters' => [
+                    'column' => 'marketplace',
+                    'viewModel' => 'ListingMarketplaceColumnView',
+                    'class' => 'marketplace-col',
                     'sortable' => false,
                 ],
             ],
