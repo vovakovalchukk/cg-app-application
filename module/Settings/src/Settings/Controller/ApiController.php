@@ -4,17 +4,13 @@ namespace Settings\Controller;
 use CG\ApiCredentials\Service as ApiCredentialsService;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface as ActiveUserContainer;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use Settings\Module;
-use Zend\Mvc\Controller\AbstractActionController;
 
-class ApiController extends AbstractActionController implements LoggerAwareInterface
+class ApiController extends AdvancedController
 {
-    use LogTrait;
-
     protected $activeUserContainer;
     protected $viewModelFactory;
     protected $apiCredentialsService;
@@ -23,7 +19,6 @@ class ApiController extends AbstractActionController implements LoggerAwareInter
     const LOG_CODE = 'ApiController';
     const LOG_CREDENTIALS_GEN = 'Public API credentials not found for OU %d, will generate';
 
-    const ROUTE = 'Advanced';
     const ROUTE_API = 'API';
 
     public function __construct(
