@@ -7,7 +7,6 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface as ActiveUserContainer;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use Settings\Module;
 
 class ApiController extends AdvancedController
 {
@@ -31,11 +30,6 @@ class ApiController extends AdvancedController
             ->setViewModelFactory($viewModelFactory)
             ->setApiCredentialsService($apiCredentialsService)
             ->setOrganisationUnitService($organisationUnitService);
-    }
-
-    public function indexAction()
-    {
-        return $this->redirect()->toRoute(Module::ROUTE . '/' . static::ROUTE.'/' . static::ROUTE_API);
     }
 
     public function detailsAction()
