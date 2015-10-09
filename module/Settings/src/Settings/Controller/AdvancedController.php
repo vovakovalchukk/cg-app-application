@@ -6,7 +6,7 @@ use CG\Stdlib\Log\LogTrait;
 use Settings\Module;
 use Zend\Mvc\Controller\AbstractActionController;
 
-abstract class AdvancedController extends AbstractActionController implements LoggerAwareInterface
+class AdvancedController extends AbstractActionController implements LoggerAwareInterface
 {
     use LogTrait;
 
