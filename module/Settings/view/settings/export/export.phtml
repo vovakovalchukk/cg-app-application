@@ -3,4 +3,7 @@
     <span class="heading-large"><?= $this->translate('Export Data'); ?>
 </div>
 <div class="module clearfix">
+    <a href="<?= $this->url($route . '/' . $orderItemsRoute) ?>"><?= ucfirst(strtolower($orderItemsRoute)) ?></a>
+    or
+    <a href="<?= $this->url($route . '/' . $ordersRoute) ?>"><?= strtolower($ordersRoute) ?></a>
 </div>

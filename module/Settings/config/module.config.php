@@ -538,6 +538,28 @@ return [
                                     ]
                                 ],
                                 'may_terminate' => true,
+                                'child_routes' => [
+                                    ExportController::ROUTE_EXPORT_ORDER => [
+                                        'type' => Literal::class,
+                                        'options' => [
+                                            'route' => '/orders',
+                                            'defaults' => [
+                                                'action' => 'exportOrder'
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
+                                    ExportController::ROUTE_EXPORT_ORDER_ITEM => [
+                                        'type' => Literal::class,
+                                        'options' => [
+                                            'route' => '/orderItems',
+                                            'defaults' => [
+                                                'action' => 'exportOrderItem'
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
+                                ],
                             ]
                         ]
                     ]
