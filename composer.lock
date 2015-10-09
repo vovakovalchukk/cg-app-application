@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e4401d01b2e3fd57616d94308d53de77",
-    "content-hash": "5ddb34c34dcd296d38afb8ac6555e31d",
+    "hash": "06117807261321cfc8498286efdc1ccc",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -924,17 +923,17 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "dev-CGIV-6342-UnimportedListingMarketplace",
+            "version": "1.6.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "3bacdcd2a75cfc9c7821fc4ab1cbd523e125b11c"
+                "reference": "8800210b294851ac0df78c74be26f82c0150d0a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-CGIV-6342-UnimportedListingMarketplace-d962f8.zip",
-                "reference": "3bacdcd2a75cfc9c7821fc4ab1cbd523e125b11c",
-                "shasum": "908192310bd99af02d2e7ff13a5c06e03b77a3a0"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.6.13-0bd2a9.zip",
+                "reference": "8800210b294851ac0df78c74be26f82c0150d0a0",
+                "shasum": "4c5f9203e75215b8bb7c276dc12a894bd1ed11a4"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -969,7 +968,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2015-10-08 16:00:21"
+            "time": "2015-10-09 10:48:28"
         },
         {
             "name": "channelgrabber/locale",
@@ -3126,17 +3125,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-6342-UnimportedListingMarketplace",
+            "version": "1.16.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "5afc938e46fde98a052502ba76eccf374f673acb"
+                "reference": "c48cfdde4729fae152e5975e9ee38e350939b97c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6342-UnimportedListingMarketplace-0eccff.zip",
-                "reference": "5afc938e46fde98a052502ba76eccf374f673acb",
-                "shasum": "0a8ea092967956945730dd933f65370608c8216c"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.13-808a34.zip",
+                "reference": "c48cfdde4729fae152e5975e9ee38e350939b97c",
+                "shasum": "2e20f1f34d3c3eb871e36777d96798de37c61227"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -3181,7 +3180,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-10-08 11:09:28"
+            "time": "2015-10-09 10:51:17"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7215,25 +7214,10 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.6.13",
-            "alias_normalized": "1.6.13.0",
-            "version": "dev-CGIV-6342-UnimportedListingMarketplace",
-            "package": "channelgrabber/listing"
-        },
-        {
-            "alias": "1.16.13",
-            "alias_normalized": "1.16.13.0",
-            "version": "dev-CGIV-6342-UnimportedListingMarketplace",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/listing": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
