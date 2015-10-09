@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "15688c3aa8d14a0c1fd38c01c890cf26",
+    "hash": "e4401d01b2e3fd57616d94308d53de77",
+    "content-hash": "5ddb34c34dcd296d38afb8ac6555e31d",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -923,17 +924,17 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.6.12.1",
+            "version": "dev-CGIV-6342-UnimportedListingMarketplace",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "6472d36495c1d4d9b294688e28fa743bae1b7cbd"
+                "reference": "3bacdcd2a75cfc9c7821fc4ab1cbd523e125b11c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.6.12.1-897bef.zip",
-                "reference": "6472d36495c1d4d9b294688e28fa743bae1b7cbd",
-                "shasum": "ddbf5b59592c20ec3b47e039ee60df31459fe8d4"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-CGIV-6342-UnimportedListingMarketplace-d962f8.zip",
+                "reference": "3bacdcd2a75cfc9c7821fc4ab1cbd523e125b11c",
+                "shasum": "908192310bd99af02d2e7ff13a5c06e03b77a3a0"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -950,7 +951,7 @@
                 "nocarrier/hal": "~0.9.4",
                 "php-jsonpatch/php-jsonpatch": "@dev",
                 "php-jsonpointer/php-jsonpointer": "@dev",
-                "zendframework/zend-eventmanager": "2.3.*"
+                "zendframework/zend-eventmanager": "~2.3"
             },
             "require-dev": {
                 "channelgrabber/gearman": ">=1.1.0,<2.0.0",
@@ -968,7 +969,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2015-09-01 13:43:49"
+            "time": "2015-10-08 16:00:21"
         },
         {
             "name": "channelgrabber/locale",
@@ -7216,6 +7217,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.6.13",
+            "alias_normalized": "1.6.13.0",
+            "version": "dev-CGIV-6342-UnimportedListingMarketplace",
+            "package": "channelgrabber/listing"
+        },
+        {
             "alias": "1.16.13",
             "alias_normalized": "1.16.13.0",
             "version": "dev-CGIV-6342-UnimportedListingMarketplace",
@@ -7225,6 +7232,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/listing": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
