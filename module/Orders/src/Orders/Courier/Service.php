@@ -41,6 +41,8 @@ class Service implements LoggerAwareInterface
 {
     use LogTrait;
     use GetProductDetailsForOrdersTrait;
+    use GetShippingAccountsTrait;
+    use GetShippingAccountOptionsTrait;
 
     const OPTION_COLUMN_ALIAS = 'CourierSpecifics%sColumn';
     const DEFAULT_PARCELS = 1;
@@ -71,8 +73,6 @@ class Service implements LoggerAwareInterface
     /** @var Di */
     protected $di;
 
-    protected $shippingAccounts;
-
     public function __construct(
         OrderService $orderService,
         UserOUService $userOuService,
@@ -102,15 +102,7 @@ class Service implements LoggerAwareInterface
      */
     public function getCourierOptions()
     {
-        $shippingAccounts = $this->getShippingAccounts();
-        $courierOptions = [];
-        foreach ($shippingAccounts as $shippingAccount) {
-            $courierOptions[] = [
-                'value' => $shippingAccount->getId(),
-                'title' => $shippingAccount->getDisplayName(),
-            ];
-        }
-        return $courierOptions;
+        return $this->getShippingAccountOptions();
     }
 
     public function getCourierServiceOptions()
@@ -129,21 +121,6 @@ class Service implements LoggerAwareInterface
             }
         }
         return $shippingServicesByAccount;
-    }
-
-    protected function getShippingAccounts()
-    {
-        if ($this->shippingAccounts) {
-            return $this->shippingAccounts;
-        }
-        $ouIds = $this->userOuService->getAncestorOrganisationUnitIdsByActiveUser();
-        $filter = (new AccountFilter())
-            ->setLimit('all')
-            ->setPage(1)
-            ->setOrganisationUnitId($ouIds)
-            ->setType(ChannelType::SHIPPING);
-        $this->shippingAccounts =  $this->accountService->fetchByFilter($filter);
-        return $this->shippingAccounts;
     }
 
     /**
@@ -590,5 +567,15 @@ class Service implements LoggerAwareInterface
     protected function getProductDetailService()
     {
         return $this->productDetailService;
+    }
+
+    // Required by GetShippingAccountsTrait
+    protected function getAccountService()
+    {
+        return $this->accountService;
+    }
+    protected function getUserOuService()
+    {
+        return $this->userOuService;
     }
 }

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5c5ccf8738713325e28ef984ab50cc28",
-    "content-hash": "f7facc3a79831f034b6c75d03b1f09ca",
+    "hash": "2def0d4d653e96ed7e977e4721c0543c",
+    "content-hash": "fedea69600ec76e057995abdf0d3ca7f",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -480,17 +480,17 @@
         },
         {
             "name": "channelgrabber/dataplug",
-            "version": "dev-EPIC-CGIV-5992-dataplug",
+            "version": "dev-CGIV-6335-dataplug-manifest-ui",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "d7d3840a9a4ee3d5e5fb746fa1f4fce0f8c92a32"
+                "reference": "0b1e16070b6636d64f51b88d11278214594ef311"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-EPIC-CGIV-5992-dataplug-6da342.zip",
-                "reference": "d7d3840a9a4ee3d5e5fb746fa1f4fce0f8c92a32",
-                "shasum": "dc3e92ed6814b88e8165284b38f9c43d734d2f9c"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6335-dataplug-manifest-ui-72aba0.zip",
+                "reference": "0b1e16070b6636d64f51b88d11278214594ef311",
+                "shasum": "85510e0c5703ccd0118f751901ab964a8bcfd1ea"
             },
             "require": {
                 "channelgrabber/channel": "dev-EPIC-CGIV-5992-dataplug as 1.17.11",
@@ -508,6 +508,11 @@
                 "zendframework/zend-di": ">=2.2.5"
             },
             "type": "di-definition",
+            "extra": {
+                "branch-alias": {
+                    "dev-CGIV-6335-dataplug-manifest-ui": "1.0.0-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Dataplug\\": "src"
@@ -524,7 +529,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2015-10-05 09:15:49"
+            "time": "2015-10-09 15:19:01"
         },
         {
             "name": "channelgrabber/db",
@@ -3221,17 +3226,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-EPIC-CGIV-5992-dataplug",
+            "version": "dev-CGIV-6335-dataplug-manifest-ui",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "98939dbee574294c47b0b7f3fbe377408fc56ba5"
+                "reference": "2cb6af13ed03ced4d1763e2c34d2b948cc7a0216"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-5992-dataplug-8eadba.zip",
-                "reference": "98939dbee574294c47b0b7f3fbe377408fc56ba5",
-                "shasum": "aab351803f04ca21007e29bf68ffdb09ed2eca00"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6335-dataplug-manifest-ui-5ad577.zip",
+                "reference": "2cb6af13ed03ced4d1763e2c34d2b948cc7a0216",
+                "shasum": "7a75c2af1b50b375c69239d086874100e74463e0"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3267,6 +3272,9 @@
                 "symlinks": {
                     "./public/channelgrabber/zf2-v4-ui/js/whichbrowser": "./vendor/whichbrowser/whichbrowser",
                     "./public/channelgrabber/zf2-v4-ui/js/zeroclipboard": "./vendor/zeroclipboard/zeroclipboard/dist"
+                },
+                "branch-alias": {
+                    "dev-CGIV-6335-dataplug-manifest-ui": "1.16.14-dev"
                 }
             },
             "autoload": {
@@ -3277,7 +3285,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-10-05 15:09:22"
+            "time": "2015-10-09 16:30:59"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7375,15 +7383,15 @@
     ],
     "aliases": [
         {
-            "alias": "1.17.11",
-            "alias_normalized": "1.17.11.0",
+            "alias": "1.17.12",
+            "alias_normalized": "1.17.12.0",
             "version": "dev-EPIC-CGIV-5992-dataplug",
             "package": "channelgrabber/channel"
         },
         {
-            "alias": "1.0.0",
-            "alias_normalized": "1.0.0.0",
-            "version": "dev-EPIC-CGIV-5992-dataplug",
+            "alias": "dev-EPIC-CGIV-5992-dataplug",
+            "alias_normalized": "dev-EPIC-CGIV-5992-dataplug",
+            "version": "dev-CGIV-6335-dataplug-manifest-ui",
             "package": "channelgrabber/dataplug"
         },
         {
@@ -7417,9 +7425,9 @@
             "package": "channelgrabber/zf2-dataplug"
         },
         {
-            "alias": "1.16.11",
-            "alias_normalized": "1.16.11.0",
-            "version": "dev-EPIC-CGIV-5992-dataplug",
+            "alias": "dev-EPIC-CGIV-5992-dataplug",
+            "alias_normalized": "dev-EPIC-CGIV-5992-dataplug",
+            "version": "dev-CGIV-6335-dataplug-manifest-ui",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],

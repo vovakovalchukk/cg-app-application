@@ -761,6 +761,40 @@ return [
                                     ],
                                 ]
                             ],
+                            CourierController::ROUTE_MANIFEST => [
+                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                'options' => [
+                                    'route' => CourierController::ROUTE_MANIFEST_URI,
+                                    'defaults' => [
+                                        'controller' => CourierJsonController::class,
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    CourierJsonController::ROUTE_MANIFEST_ACCOUNTS => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => CourierJsonController::ROUTE_MANIFEST_ACCOUNTS_URI,
+                                            'defaults' => [
+                                                'controller' => CourierJsonController::class,
+                                                'action' => 'manifestAccounts',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
+                                    CourierJsonController::ROUTE_MANIFEST_DETAILS => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => CourierJsonController::ROUTE_MANIFEST_DETAILS_URI,
+                                            'defaults' => [
+                                                'controller' => CourierJsonController::class,
+                                                'action' => 'manifestDetails',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
+                                ]
+                            ],
                         ]
                     ],
                     StoredFiltersController::ROUTE_SAVE => [

@@ -1,0 +1,140 @@
+define([
+    './EventHandler/CourierManifest.js',
+    'AjaxRequester',
+    'popup/generic',
+    'cg-mustache'
+], function(
+    EventHandler,
+    ajaxRequester,
+    Popup,
+    CGMustache
+) {
+    function CourierManifest(templateMap)
+    {
+        var eventHandler;
+        var templates;
+        var popup;
+
+        this.getTemplateMap = function()
+        {
+            return templateMap;
+        };
+
+        this.getEventHandler = function()
+        {
+            return eventHandler;
+        };
+
+        this.getAjaxRequester = function()
+        {
+            return ajaxRequester;
+        };
+
+        this.getTemplates = function()
+        {
+            return templates;
+        };
+
+        this.setTemplates = function(newTemplates)
+        {
+            templates = newTemplates;
+            return this;
+        };
+
+        this.getPopup = function()
+        {
+            return popup;
+        };
+
+        this.setPopup = function(newPopup)
+        {
+            popup = newPopup;
+            return this;
+        };
+
+        var init = function()
+        {
+            eventHandler = new EventHandler(this);
+        };
+        init.call(this);
+    }
+
+    CourierManifest.URL_GET_ACCOUNTS = '/orders/courier/manifest/accounts';
+    CourierManifest.URL_GET_DETAILS = '/orders/courier/manifest/details';
+    CourierManifest.POPUP_WIDTH_PX = 450;
+    CourierManifest.POPUP_HEIGHT_PX = 200;
+    CourierManifest.SELECTOR_GENERATE_SECTION = '.courier-manifest-generate';
+
+    CourierManifest.prototype.action = function(element)
+    {
+        if (this.getPopup()) {
+            this.getPopup().show();
+            return;
+        }
+        this.createPopup();
+    };
+
+    CourierManifest.prototype.createPopup = function()
+    {
+        var self = this;
+        var popup = new Popup('', CourierManifest.POPUP_WIDTH_PX, CourierManifest.POPUP_HEIGHT_PX);
+        this.setPopup(popup);
+        popup.displayLoader();
+        popup.show();
+
+        this.getAjaxRequester().sendRequest(CourierManifest.URL_GET_ACCOUNTS, {}, function(response)
+        {
+            self.renderPopup(response);
+        });
+    };
+
+    CourierManifest.prototype.renderPopup = function(data)
+    {
+        var self = this;
+        CGMustache.get().fetchTemplates(this.getTemplateMap(), function(templates, cgMustache)
+        {
+            self.setTemplates(templates);
+            var accountSelect = cgMustache.renderTemplate(templates, {
+                "id": "courier-manifest-account-select",
+                "name": "courier-manifest-account-select",
+                "options": data.accounts
+            }, 'select');
+            var content = cgMustache.renderTemplate(templates, {}, 'popup', {"accountSelect": accountSelect});
+
+            self.getPopup().htmlContent(content);
+        });
+    };
+
+    CourierManifest.prototype.accountSelected = function(accountId)
+    {
+        var self = this;
+        this.showLoading(CourierManifest.SELECTOR_GENERATE_SECTION);
+        this.getAjaxRequester().sendRequest(CourierManifest.URL_GET_DETAILS, {"account": accountId}, function(response)
+        {
+            self.renderDetails(response);
+        });
+    };
+    
+    CourierManifest.prototype.showLoading = function(selector)
+    {
+        var loader = '<img src="/channelgrabber/zf2-v4-ui/img/loading.gif" class="b-loader" />';
+        $(selector).empty().append(loader);
+    };
+
+    CourierManifest.prototype.renderDetails = function(details)
+    {
+        var templates = this.getTemplates();
+        var generateButton = CGMustache.get().renderTemplate(templates, {
+            "buttons": [{
+                "id": EventHandler.SELECTOR_GENERATE_BUTTON.replace('#', ''),
+                "value": "Generate Manifest",
+                "disabled": (details.openOrders == 0 || (details.oncePerDay && details.manifestedToday))
+            }]
+        }, 'buttons');
+        var content = CGMustache.get().renderTemplate(templates, {"openOrders": details.openOrders}, 'popupGenerate', {"generateButton": generateButton});
+
+        $(CourierManifest.SELECTOR_GENERATE_SECTION).html(content);
+    };
+
+    return CourierManifest;
+});

@@ -576,6 +576,7 @@ return array(
                         [
                             'channelName' => Carriers::ROYAL_MAIL_OBA,
                             'displayName' => 'Royal Mail OBA',
+                            'manifestOncePerDay' => true,
                             'fields' => [
                                 ['name' => 'Account no'],
                                 ['name' => 'PPI Account no'],

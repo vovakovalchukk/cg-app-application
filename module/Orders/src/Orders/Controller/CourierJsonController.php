@@ -5,6 +5,7 @@ use CG_UI\View\Prototyper\JsonModelFactory;
 use Orders\Courier\Label\CancelService as LabelCancelService;
 use Orders\Courier\Label\CreateService as LabelCreateService;
 use Orders\Courier\Label\ReadyService as LabelReadyService;
+use Orders\Courier\Manifest\Service as ManifestService;
 use Orders\Courier\Service;
 use Zend\Mvc\Controller\AbstractActionController;
 
@@ -20,6 +21,10 @@ class CourierJsonController extends AbstractActionController
     const ROUTE_LABEL_CANCEL_URI = '/cancel';
     const ROUTE_LABEL_READY_CHECK = 'Ready Check';
     const ROUTE_LABEL_READY_CHECK_URI = '/readyCheck';
+    const ROUTE_MANIFEST_ACCOUNTS = 'Accounts';
+    const ROUTE_MANIFEST_ACCOUNTS_URI = '/accounts';
+    const ROUTE_MANIFEST_DETAILS = 'Details';
+    const ROUTE_MANIFEST_DETAILS_URI = '/details';
 
     protected $jsonModelFactory;
     /** @var Service */
@@ -30,19 +35,23 @@ class CourierJsonController extends AbstractActionController
     protected $labelCancelService;
     /** @var LabelReadyService */
     protected $labelReadyService;
+    /** @var ManifestService */
+    protected $manifestService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         Service $service,
         LabelCreateService $labelCreateService,
         LabelCancelService $labelCancelService,
-        LabelReadyService $labelReadyService
+        LabelReadyService $labelReadyService,
+        ManifestService $manifestService
     ) {
         $this->setJsonModelFactory($jsonModelFactory)
             ->setService($service)
             ->setLabelCreateService($labelCreateService)
             ->setLabelCancelService($labelCancelService)
-            ->setLabelReadyService($labelReadyService);
+            ->setLabelReadyService($labelReadyService)
+            ->setManifestService($manifestService);
     }
 
     /**
@@ -144,6 +153,19 @@ class CourierJsonController extends AbstractActionController
         ]);
     }
 
+    public function manifestAccountsAction()
+    {
+        $accountOptions = $this->manifestService->getShippingAccountOptions();
+        return $this->jsonModelFactory->newInstance(['accounts' => $accountOptions]);
+    }
+
+    public function manifestDetailsAction()
+    {
+        $accountId = $this->params()->fromPost('account');
+        $details = $this->manifestService->getDetailsForShippingAccount($accountId);
+        return $this->jsonModelFactory->newInstance($details);
+    }
+
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
     {
         $this->jsonModelFactory = $jsonModelFactory;
@@ -171,6 +193,12 @@ class CourierJsonController extends AbstractActionController
     protected function setLabelReadyService(LabelReadyService $labelReadyService)
     {
         $this->labelReadyService = $labelReadyService;
+        return $this;
+    }
+
+    protected function setManifestService(ManifestService $manifestService)
+    {
+        $this->manifestService = $manifestService;
         return $this;
     }
 }

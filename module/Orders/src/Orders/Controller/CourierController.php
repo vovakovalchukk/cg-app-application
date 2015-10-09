@@ -23,6 +23,8 @@ class CourierController extends AbstractActionController
     const ROUTE_LABEL_URI = '/label';
     const ROUTE_LABEL_PRINT = 'Print';
     const ROUTE_LABEL_PRINT_URI = '/print';
+    const ROUTE_MANIFEST = 'Manifest';
+    const ROUTE_MANIFEST_URI = '/manifest';
 
     const LABEL_MINE_TYPE = 'application/pdf';
 
