@@ -1,9 +1,19 @@
 <?php $this->headLink()->appendStylesheet($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'css/common/subheader-hide.css'); ?>
+<?php $this->inlineScript()->captureStart(); ?>
+    require.config({
+        paths: {
+            'Settings': "<?= $this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js';?>"
+        }
+    });
+    require(["Settings/Export/DomListener"], function(domListener) {
+        domListener.init();
+    });
+<?php $this->inlineScript()->captureEnd(); ?>
 <div id="breadcrumbs" class="floatLeftClear">
     <span class="heading-large"><?= $this->translate('Export Data'); ?>
 </div>
 <div class="module clearfix">
-    <a href="<?= $this->url($route . '/' . $orderItemsRoute) ?>"><?= ucfirst(strtolower($orderItemsRoute)) ?></a>
+    <a class="csvExport" href="<?= $this->url($route . '/' . $orderItemsRoute) ?>"><?= ucfirst(strtolower($orderItemsRoute)) ?></a>
     or
-    <a href="<?= $this->url($route . '/' . $ordersRoute) ?>"><?= strtolower($ordersRoute) ?></a>
+    <a class="csvExport" href="<?= $this->url($route . '/' . $ordersRoute) ?>"><?= strtolower($ordersRoute) ?></a>
 </div>

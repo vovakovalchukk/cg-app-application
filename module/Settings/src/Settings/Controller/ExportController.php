@@ -46,6 +46,8 @@ class ExportController extends AdvancedController
                 'route' => implode('/', [Module::ROUTE, static::ROUTE, static::ROUTE_EXPORT]),
                 'ordersRoute' => static::ROUTE_EXPORT_ORDER,
                 'orderItemsRoute' => static::ROUTE_EXPORT_ORDER_ITEM,
+                'isHeaderBarVisible' => false,
+                'subHeaderHide' => true,
             ]
         );
     }
