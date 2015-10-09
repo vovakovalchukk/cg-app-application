@@ -89,7 +89,7 @@ return [
                             'filterType' => 'customSelectGroup',
                             'variables' => [
                                 'name' => 'marketplace',
-                                'title' => 'Marketplace',
+                                'title' => 'Site',
                                 'searchField' => true,
                                 'concatenate' => true,
                                 'options' => []

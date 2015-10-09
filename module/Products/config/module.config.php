@@ -363,7 +363,7 @@ return [
             ],
             'ListingMarketplaceColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Marketplace'],
+                    'variables' => ['value' => 'Site'],
                     'template' => 'value.phtml',
                 ],
             ],
