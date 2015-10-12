@@ -4,12 +4,15 @@ namespace Orders\Courier\Manifest;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
+use CG\Account\Shared\Manifest\Filter as AccountManifestFilter;
 use CG\Account\Shared\Manifest\Mapper as AccountManifestMapper;
 use CG\Account\Shared\Manifest\Service as AccountManifestService;
 use CG\Account\Shared\Manifest\Status as AccountManifestStatus;
 use CG\Dataplug\Carrier\Service as CarrierService;
 use CG\Dataplug\Manifest\Service as DataplugManifestService;
 use CG\Stdlib\DateTime as StdlibDateTime;
+use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Exception\Storage as StorageException;
 use CG\User\OrganisationUnit\Service as UserOUService;
 use Orders\Courier\GetShippingAccountsTrait;
 use Orders\Courier\GetShippingAccountOptionsTrait;
@@ -77,11 +80,62 @@ class Service
         $openOrders = $this->dataplugManifestService->getOpenOrderCountFromRetrieveResponse($dataplugManifests);
         $latestManifestDate = $this->dataplugManifestService->getLatestManifestDateFromRetrieveResponse($dataplugManifests);
 
+        $historicManifestYears = $this->getHistoricManifestPeriods($account, 'Y');
+
         return [
             'openOrders' => $openOrders,
             'oncePerDay' => $carrier->getManifestOncePerDay(),
             'manifestedToday' => ($latestManifestDate != null && date('Y-m-d', strtotime($latestManifestDate)) == date('Y-m-d')),
+            'historicYearOptions' => $historicManifestYears,
         ];
+    }
+
+    protected function getHistoricManifestPeriods(
+        Account $account,
+        $periodValueDateLetter,
+        $periodTextDateLetter = null,
+        $createdFrom = null,
+        $createdTo = null
+    ) {
+        $periodTextDateLetter = ($periodTextDateLetter ?: $periodValueDateLetter);
+        $periodOptions = [];
+        try {
+            $knownPeriods = [];
+            $accountManifests = $this->getHistoricManifests($account, $createdFrom, $createdTo);
+            foreach ($accountManifests as $accountManifest) {
+                $currentPeriod = date($periodValueDateLetter, strtotime($accountManifest->getCreated()));
+                if (isset($knownPeriods[$currentPeriod])) {
+                    continue;
+                }
+                $knownPeriods[$currentPeriod] = $accountManifest->getCreated();
+            }
+            asort($knownPeriods, SORT_DESC);
+            foreach ($knownPeriods as $period => $date) {
+                $periodOptions[] = [
+                    'value' => $period,
+                    'title' => date($periodTextDateLetter, strtotime($date)),
+                ];
+            }
+        } catch (NotFound $e) {
+            // No-op
+        }
+        return $periodOptions;
+    }
+
+    protected function getHistoricManifests(Account $account, $createdFrom = null, $createdTo = null)
+    {
+        $filter = (new AccountManifestFilter())
+            ->setLimit('all')
+            ->setPage(1)
+            ->setAccountId([$account->getId()])
+            ->setStatus(array_values(AccountManifestStatus::getPrintableStatuses()));
+        if ($createdFrom) {
+            $filter->setCreatedFrom($createdFrom);
+        }
+        if ($createdTo) {
+            $filter->setCreatedTo($createdTo);
+        }
+        return $this->accountManifestService->fetchCollectionByFilter($filter);
     }
 
     /**
@@ -91,9 +145,14 @@ class Service
     {
         $account = $this->accountService->fetch($accountId);
         $accountManifest = $this->createAccountManifest($account);
+        try {
+            $pdfData = $this->dataplugManifestService->createManifestForAccount($account, $accountManifest);
+            return base64_decode($pdfData);
 // TODO: deal with potential ManifestMissingException by catching and creating a Gearman job to try again
-        $pdfData = $this->dataplugManifestService->createManifestForAccount($account, $accountManifest);
-        return base64_decode($pdfData);
+        } catch (StorageException $e) {
+            $this->accountManifestService->remove($accountManifest);
+            throw $e;
+        }
     }
 
     protected function createAccountManifest(Account $account)
@@ -107,6 +166,29 @@ class Service
         ]);
         $hal = $this->accountManifestService->save($accountManifest);
         return $this->accountManifestMapper->fromHal($hal);
+    }
+
+    public function getHistoricManifestYearsForShippingAccount($accountId)
+    {
+        $account = $this->accountService->fetch($accountId);
+        return $this->getHistoricManifestPeriods($account, 'Y');
+    }
+
+    public function getHistoricManifestMonthsForShippingAccount($accountId, $year)
+    {
+        $account = $this->accountService->fetch($accountId);
+        $createdFrom = $year . '-01-01 00:00:00';
+        $createdTo = $year . '-12-31 23:59:59';
+        return $this->getHistoricManifestPeriods($account, 'm', 'M', $createdFrom, $createdTo);
+    }
+
+    public function getHistoricManifestDatesForShippingAccount($accountId, $year, $month)
+    {
+        $account = $this->accountService->fetch($accountId);
+        $createdFrom = $year . '-' . $month . '-01 00:00:00';
+        $lastDayOfMonth = date('t', strtotime($year . '-' . $month . '-01'));
+        $createdTo = $year . '-' . $month . '-' . $lastDayOfMonth . ' 23:59:59';
+        return $this->getHistoricManifestPeriods($account, 'd', 'd', $createdFrom, $createdTo);
     }
 
     protected function setAccountService(AccountService $accountService)

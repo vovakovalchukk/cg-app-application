@@ -25,6 +25,8 @@ class CourierJsonController extends AbstractActionController
     const ROUTE_MANIFEST_ACCOUNTS_URI = '/accounts';
     const ROUTE_MANIFEST_DETAILS = 'Details';
     const ROUTE_MANIFEST_DETAILS_URI = '/details';
+    const ROUTE_MANIFEST_HISTORIC = 'Historic';
+    const ROUTE_MANIFEST_HISTORIC_URI = '/historic';
 
     protected $jsonModelFactory;
     /** @var Service */
@@ -164,6 +166,21 @@ class CourierJsonController extends AbstractActionController
         $accountId = $this->params()->fromPost('account');
         $details = $this->manifestService->getDetailsForShippingAccount($accountId);
         return $this->jsonModelFactory->newInstance($details);
+    }
+
+    public function historicManifestsAction()
+    {
+        $accountId = $this->params()->fromPost('account');
+        $year = $this->params()->fromPost('year');
+        $month = $this->params()->fromPost('month');
+        if (!$year) {
+            $data = ['historicYearOptions' => $this->manifestService->getHistoricManifestYearsForShippingAccount($accountId)];
+        } elseif (!$month) {
+            $data = ['historicMonthOptions' => $this->manifestService->getHistoricManifestMonthsForShippingAccount($accountId, $year)];
+        } else {
+            $data = ['historicDateOptions' => $this->manifestService->getHistoricManifestDatesForShippingAccount($accountId, $year, $month)];
+        }
+        return $this->jsonModelFactory->newInstance($data);
     }
 
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)

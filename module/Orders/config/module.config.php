@@ -802,6 +802,16 @@ return [
                                         ],
                                         'may_terminate' => true,
                                     ],
+                                    CourierJsonController::ROUTE_MANIFEST_HISTORIC => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => CourierJsonController::ROUTE_MANIFEST_HISTORIC_URI,
+                                            'defaults' => [
+                                                'action' => 'historicManifests',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
                                 ]
                             ],
                         ]

@@ -9,11 +9,11 @@
                 </div>
             </label>
         </div>
-        <div class="courier-manifest-generate">
+        <div class="courier-manifest-generate clearfix">
              {{> generate}}
         </div>
-        <div class="courier-manifest-print-historic">
-             {{> historic}}
+        <div class="courier-manifest-historic clearfix">
+            {{> historic}}
         </div>
     </div>
     <form class="courier-manifest-generate-form" method="POST" action="/orders/courier/manifest/create" style="display:none">
