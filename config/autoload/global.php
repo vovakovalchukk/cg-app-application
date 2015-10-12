@@ -411,6 +411,7 @@ return array(
                             'channelName' => Carriers::DHL,
                             'displayName' => 'DHL',
                             'allowsCancellation' => false,
+                            'allowsManifesting' => false,
                             'fields' => [
                                 ['name' => 'Domestic Account no'],
                                 ['name' => 'International Account no'],
@@ -438,6 +439,7 @@ return array(
                             'channelName' => Carriers::DPD,
                             'displayName' => 'DPD',
                             'allowsCancellation' => false,
+                            'allowsManifesting' => false,
                             'fields' => [
                                 ['name' => 'Account no'],
                                 ['name' => 'User ID'],
@@ -482,6 +484,7 @@ return array(
                             'channelName' => Carriers::FEDEX,
                             'displayName' => 'FedEx',
                             'allowsCancellation' => false,
+                            'allowsManifesting' => false,
                             'fields' => [
                                 ['name' => 'Account no'],
                                 ['name' => 'Key'],
@@ -509,6 +512,7 @@ return array(
                             'channelName' => Carriers::INTERLINK,
                             'displayName' => 'Interlink',
                             'allowsCancellation' => false,
+                            'allowsManifesting' => false,
                             'fields' => [
                                 ['name' => 'Account no'],
                                 ['name' => 'User ID'],
@@ -672,6 +676,7 @@ return array(
                             'channelName' => Carriers::TNT,
                             'displayName' => 'TNT',
                             'allowsCancellation' => false,
+                            'allowsManifesting' => false,
                             'fields' => [
                                 ['name' => 'Domestic Account no'],
                                 ['name' => 'International Account no'],
@@ -705,6 +710,7 @@ return array(
                             'channelName' => Carriers::UK_MAIL,
                             'displayName' => 'UK Mail',
                             'allowsCancellation' => false,
+                            'allowsManifesting' => false,
                             'fields' => [
                                 ['name' => 'Account no (Item Rates)'],
                                 ['name' => 'Account no (KG Rates)'],

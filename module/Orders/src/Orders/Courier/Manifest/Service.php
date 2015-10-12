@@ -2,6 +2,7 @@
 namespace Orders\Courier\Manifest;
 
 use CG\Account\Client\Service as AccountService;
+use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
 use CG\Account\Shared\Manifest\Mapper as AccountManifestMapper;
 use CG\Account\Shared\Manifest\Service as AccountManifestService;
@@ -15,7 +16,9 @@ use Orders\Courier\GetShippingAccountOptionsTrait;
 
 class Service
 {
-    use GetShippingAccountsTrait;
+    use GetShippingAccountsTrait {
+        getShippingAccounts as traitGetShippingAccounts;
+    }
     use GetShippingAccountOptionsTrait;
 
     /** @var AccountService */
@@ -45,6 +48,21 @@ class Service
             ->setDataplugManifestService($dataplugManifestService)
             ->setAccountManifestMapper($accountManifestMapper)
             ->setAccountManifestService($accountManifestService);
+    }
+
+    public function getShippingAccounts()
+    {
+        $accounts = $this->traitGetShippingAccounts();
+        $manifestableAccounts = new AccountCollection(Account::class, __FUNCTION__);
+        foreach ($accounts as $account)
+        {
+            $carrier = $this->carrierService->getCarrierForAccount($account);
+            if (!$carrier->getAllowsManifesting()) {
+                continue;
+            }
+            $manifestableAccounts->attach($account);
+        }
+        return $manifestableAccounts;
     }
 
     /**
