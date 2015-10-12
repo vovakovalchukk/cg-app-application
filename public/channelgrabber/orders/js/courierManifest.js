@@ -2,11 +2,13 @@ define([
     './EventHandler/CourierManifest.js',
     'AjaxRequester',
     'popup/generic',
+    'popup/confirm',
     'cg-mustache'
 ], function(
     EventHandler,
     ajaxRequester,
     Popup,
+    Confirm,
     CGMustache
 ) {
     function CourierManifest(templateMap)
@@ -15,6 +17,7 @@ define([
         var templates;
         var popup;
         var selectedAccountId;
+        var selectedAccountDetails;
 
         this.getTemplateMap = function()
         {
@@ -61,6 +64,17 @@ define([
         this.setSelectedAccountId = function(newSelectedAccountId)
         {
             selectedAccountId = newSelectedAccountId;
+            return this;
+        };
+
+        this.getSelectedAccountDetails = function()
+        {
+            return selectedAccountDetails;
+        };
+
+        this.setSelectedAccountDetails = function(newSelectedAccountDetails)
+        {
+            selectedAccountDetails = newSelectedAccountDetails;
             return this;
         };
 
@@ -130,6 +144,7 @@ define([
         this.showLoading(CourierManifest.SELECTOR_GENERATE_SECTION);
         this.getAjaxRequester().sendRequest(CourierManifest.URL_GET_DETAILS, {"account": accountId}, function(response)
         {
+            self.setSelectedAccountDetails(response);
             self.renderDetails(response);
         });
     };
@@ -158,9 +173,35 @@ define([
     CourierManifest.prototype.generateManifest = function()
     {
         var accountId = this.getSelectedAccountId();
-        if (!accountId) {
+        var accountDetails = this.getSelectedAccountDetails();
+        if (!accountId || !accountDetails) {
             return;
         }
+        if (accountDetails.oncePerDay) {
+            this.confirmSendingGenerateManifestRequest();
+        } else {
+            this.sendGenerateManifestRequest();
+        }
+    };
+
+    CourierManifest.prototype.confirmSendingGenerateManifestRequest = function()
+    {
+        var self = this;
+        new Confirm(
+            'You can only generate a manifest once a day for this carrier are sure you wish to proceed?',
+            function(answer)
+            {
+                if (answer != Confirm.VALUE_YES) {
+                    return;
+                }
+                self.sendGenerateManifestRequest();
+            }
+        );
+    };
+
+    CourierManifest.prototype.sendGenerateManifestRequest = function()
+    {
+        var accountId = this.getSelectedAccountId();
         this.getNotifications().notice('Generating manifest', true);
         $(CourierManifest.SELECTOR_GENERATE_FORM + ' input').val(accountId);
         $(CourierManifest.SELECTOR_GENERATE_FORM).submit();

@@ -14,6 +14,7 @@ use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Entity as ProductDetail;
 use CG\Stdlib\DateTime as StdlibDateTime;
+use CG\Stdlib\Exception\Storage as StorageException;
 use CG\User\Entity as User;
 use Orders\Courier\GetProductDetailsForOrdersTrait;
 
@@ -212,6 +213,9 @@ class CreateService extends ServiceAbstract
                 $order, $shippingAccount, $orderNumber, $orderLabel, $user
             );
             return false;
+        } catch (StorageException $e) {
+            $this->orderLabelService->remove($orderLabel);
+            throw $e;
         }
     }
 
