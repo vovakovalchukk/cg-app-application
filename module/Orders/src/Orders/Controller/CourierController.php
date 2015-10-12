@@ -7,6 +7,7 @@ use CG_UI\View\Prototyper\ViewModelFactory;
 use CG\Zend\Stdlib\Http\FileResponse;
 use Orders\Module;
 use Orders\Courier\Label\PrintService as LabelPrintService;
+use Orders\Courier\Manifest\Service as ManifestService;
 use Orders\Courier\Service;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -25,8 +26,11 @@ class CourierController extends AbstractActionController
     const ROUTE_LABEL_PRINT_URI = '/print';
     const ROUTE_MANIFEST = 'Manifest';
     const ROUTE_MANIFEST_URI = '/manifest';
+    const ROUTE_MANIFEST_CREATE = 'Create';
+    const ROUTE_MANIFEST_CREATE_URI = '/create';
 
-    const LABEL_MINE_TYPE = 'application/pdf';
+    const LABEL_MIME_TYPE = 'application/pdf';
+    const MANIFEST_MIME_TYPE = 'application/pdf';
 
     protected $viewModelFactory;
     protected $reviewTable;
@@ -35,19 +39,23 @@ class CourierController extends AbstractActionController
     protected $service;
     /** @var LabelPrintService */
     protected $labelPrintService;
+    /** @var ManifestService */
+    protected $manifestService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         DataTable $reviewTable,
         DataTable $specificsTable,
         Service $service,
-        LabelPrintService $labelPrintService
+        LabelPrintService $labelPrintService,
+        ManifestService $manifestService
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setReviewTable($reviewTable)
             ->setSpecificsTable($specificsTable)
             ->setService($service)
-            ->setLabelPrintService($labelPrintService);
+            ->setLabelPrintService($labelPrintService)
+            ->setManifestService($manifestService);
     }
 
     public function indexAction()
@@ -313,7 +321,14 @@ class CourierController extends AbstractActionController
     {
         $orderIds = $this->params()->fromPost('order', []);
         $pdfData = $this->labelPrintService->getPdfLabelDataForOrders($orderIds);
-        return new FileResponse(static::LABEL_MINE_TYPE, 'Labels.pdf', $pdfData);
+        return new FileResponse(static::LABEL_MIME_TYPE, 'Labels.pdf', $pdfData);
+    }
+
+    public function createManifestAction()
+    {
+        $accountId = $this->params()->fromPost('account');
+        $pdfData = $this->manifestService->generateManifestForShippingAccount($accountId);
+        return new FileResponse(static::MANIFEST_MIME_TYPE, 'Manifest.pdf', $pdfData);
     }
 
     protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
@@ -343,6 +358,12 @@ class CourierController extends AbstractActionController
     protected function setLabelPrintService(LabelPrintService $labelPrintService)
     {
         $this->labelPrintService = $labelPrintService;
+        return $this;
+    }
+
+    protected function setManifestService(ManifestService $manifestService)
+    {
+        $this->manifestService = $manifestService;
         return $this;
     }
 }

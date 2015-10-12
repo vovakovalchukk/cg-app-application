@@ -117,6 +117,8 @@ use CG\Dataplug\Account\Storage\Api as DataplugAccountApi;
 use CG\Dataplug\Request\Factory\CreateCarrier as DataplugCreateCarrierRequestFactory;
 use CG\Dataplug\Request\Factory\UpdateCarrier as  DataplugUpdateCarrierRequestFactory;
 use CG\Dataplug\Carriers;
+use CG\Account\Shared\Manifest\StorageInterface as AccountManifestStorage;
+use CG\Account\Client\Manifest\Storage\Api as AccountManifestApiStorage;
 
 return array(
     'di' => array(
@@ -143,6 +145,7 @@ return array(
                 ChannelShippingOptionsProviderInterface::class => DataplugCarrierService::class,
                 OrderLabelStorage::class => OrderLabelApiStorage::class,
                 ProductDetailStorage::class => ProductDetailApiStorage::class,
+                AccountManifestStorage::class => AccountManifestApiStorage::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class
@@ -392,6 +395,11 @@ return array(
                 ]
             ],
             DataplugAccountApi::class => [
+                'parameters' => [
+                    'client' => 'account_guzzle'
+                ]
+            ],
+            AccountManifestApiStorage::class => [
                 'parameters' => [
                     'client' => 'account_guzzle'
                 ]

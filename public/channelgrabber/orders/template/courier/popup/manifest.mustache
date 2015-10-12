@@ -1,7 +1,7 @@
 <div class="courier-manifest-popup">
     <div class="header-large">Manifests</div>
     <div class="content">
-        <div class="courier-manifest-account">
+        <div class="courier-manifest-account clearfix">
             <label>
                 <span class="inputbox-label">Choose an account:</span>
                 <div class="order-inputbox-holder">
@@ -16,4 +16,7 @@
              {{> historic}}
         </div>
     </div>
+    <form class="courier-manifest-generate-form" method="POST" action="/orders/courier/manifest/create" style="display:none">
+        <input type="hidden" name="account" value="" />
+    </form>
 </div>

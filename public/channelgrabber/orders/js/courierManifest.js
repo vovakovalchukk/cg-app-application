@@ -14,6 +14,7 @@ define([
         var eventHandler;
         var templates;
         var popup;
+        var selectedAccountId;
 
         this.getTemplateMap = function()
         {
@@ -52,6 +53,22 @@ define([
             return this;
         };
 
+        this.getSelectedAccountId = function()
+        {
+            return selectedAccountId;
+        };
+
+        this.setSelectedAccountId = function(newSelectedAccountId)
+        {
+            selectedAccountId = newSelectedAccountId;
+            return this;
+        };
+
+        this.getNotifications = function()
+        {
+            return n;
+        };
+
         var init = function()
         {
             eventHandler = new EventHandler(this);
@@ -64,6 +81,7 @@ define([
     CourierManifest.POPUP_WIDTH_PX = 450;
     CourierManifest.POPUP_HEIGHT_PX = 200;
     CourierManifest.SELECTOR_GENERATE_SECTION = '.courier-manifest-generate';
+    CourierManifest.SELECTOR_GENERATE_FORM = '.courier-manifest-generate-form';
 
     CourierManifest.prototype.action = function(element)
     {
@@ -108,6 +126,7 @@ define([
     CourierManifest.prototype.accountSelected = function(accountId)
     {
         var self = this;
+        this.setSelectedAccountId(accountId);
         this.showLoading(CourierManifest.SELECTOR_GENERATE_SECTION);
         this.getAjaxRequester().sendRequest(CourierManifest.URL_GET_DETAILS, {"account": accountId}, function(response)
         {
@@ -134,6 +153,17 @@ define([
         var content = CGMustache.get().renderTemplate(templates, {"openOrders": details.openOrders}, 'popupGenerate', {"generateButton": generateButton});
 
         $(CourierManifest.SELECTOR_GENERATE_SECTION).html(content);
+    };
+
+    CourierManifest.prototype.generateManifest = function()
+    {
+        var accountId = this.getSelectedAccountId();
+        if (!accountId) {
+            return;
+        }
+        this.getNotifications().notice('Generating manifest', true);
+        $(CourierManifest.SELECTOR_GENERATE_FORM + ' input').val(accountId);
+        $(CourierManifest.SELECTOR_GENERATE_FORM).submit();
     };
 
     return CourierManifest;
