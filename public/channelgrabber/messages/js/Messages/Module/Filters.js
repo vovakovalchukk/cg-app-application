@@ -41,7 +41,7 @@ define([
             filters.unassigned = new AssigneeFilter(this, 'unassigned');
             filters.assigned = new AssigneeFilter(this, 'assigned');
             filters.resolved = new StatusFilter(this, 'resolved');
-            filters.open = new StatusFilter(this, ['new', 'awaiting-reply']);
+            filters.open = new StatusFilter(this, ['new', 'awaiting reply']);
             filters.search = new SearchFilter(this);
             // 'Hidden' filters
             filters.id = new IdFilter(this, '');
