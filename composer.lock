@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b9315760854c50a4ce15494aed76b718",
+    "hash": "6c55f730c55ccf313518636483a8d55a",
+    "content-hash": "4b023385d34fea1a39340e622fde062b",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2041,17 +2042,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.3.3.1",
+            "version": "dev-CGIV-6385-ForceWordWrap",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "ebcd9cd66184836c12016f6304d2a632c95ea622"
+                "reference": "c3c57cb48bf26bd598fa94299db081af714549fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.3.3.1-2b58a9.zip",
-                "reference": "ebcd9cd66184836c12016f6304d2a632c95ea622",
-                "shasum": "eea85631e867a4a7e3dded20ae6f1c984f65c4cb"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-6385-ForceWordWrap-6f19ee.zip",
+                "reference": "c3c57cb48bf26bd598fa94299db081af714549fe",
+                "shasum": "8a41319d39825da8aabb0458e2492f56e8596939"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2088,7 +2089,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-09-24 14:28:41"
+            "time": "2015-10-13 15:40:52"
         },
         {
             "name": "channelgrabber/transaction",
@@ -7214,10 +7215,18 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.3.4",
+            "alias_normalized": "1.3.4.0",
+            "version": "dev-CGIV-6385-ForceWordWrap",
+            "package": "channelgrabber/template"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/template": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
