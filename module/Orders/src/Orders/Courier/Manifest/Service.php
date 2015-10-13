@@ -109,13 +109,7 @@ class Service
                 }
                 $knownPeriods[$currentPeriod] = $accountManifest->getCreated();
             }
-            asort($knownPeriods, SORT_DESC);
-            foreach ($knownPeriods as $period => $date) {
-                $periodOptions[] = [
-                    'value' => $period,
-                    'title' => date($periodTextDateLetter, strtotime($date)),
-                ];
-            }
+            $periodOptions = $this->getHistoricManifestPeriodOptions($knownPeriods, $periodTextDateLetter);
         } catch (NotFound $e) {
             // No-op
         }
@@ -138,17 +132,30 @@ class Service
         return $this->accountManifestService->fetchCollectionByFilter($filter);
     }
 
+    protected function getHistoricManifestPeriodOptions(array $periods, $periodTextDateLetter)
+    {
+        asort($periods, SORT_DESC);
+        $periodOptions = [];
+        foreach ($periods as $period => $date) {
+            $periodOptions[] = [
+                'value' => $period,
+                'title' => date($periodTextDateLetter, strtotime($date)),
+            ];
+        }
+        return $periodOptions;
+    }
+
     /**
      * @return string PDF manifest data
      */
-    public function generateManifestForShippingAccount($accountId)
+    public function generateManifestPdfForShippingAccount($accountId)
     {
         $account = $this->accountService->fetch($accountId);
         $accountManifest = $this->createAccountManifest($account);
         try {
             $pdfData = $this->dataplugManifestService->createManifestForAccount($account, $accountManifest);
             return base64_decode($pdfData);
-// TODO: deal with potential ManifestMissingException by catching and creating a Gearman job to try again
+
         } catch (StorageException $e) {
             $this->accountManifestService->remove($accountManifest);
             throw $e;
@@ -188,7 +195,19 @@ class Service
         $createdFrom = $year . '-' . $month . '-01 00:00:00';
         $lastDayOfMonth = date('t', strtotime($year . '-' . $month . '-01'));
         $createdTo = $year . '-' . $month . '-' . $lastDayOfMonth . ' 23:59:59';
-        return $this->getHistoricManifestPeriods($account, 'd', 'd', $createdFrom, $createdTo);
+
+        $accountManifests = $this->getHistoricManifests($account, $createdFrom, $createdTo);
+        $periods = [];
+        foreach ($accountManifests as $accountManifest) {
+            $periods[$accountManifest->getId()] = $accountManifest->getCreated();
+        }
+        return $this->getHistoricManifestPeriodOptions($periods, 'd @ H:i');
+    }
+
+    public function getManifestPdfForAccountManifest($accountManifestId)
+    {
+        $accountManifest = $this->accountManifestService->fetch($accountManifestId);
+        return base64_decode($accountManifest->getManifest());
     }
 
     protected function setAccountService(AccountService $accountService)

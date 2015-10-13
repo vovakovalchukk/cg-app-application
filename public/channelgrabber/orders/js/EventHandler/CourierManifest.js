@@ -66,9 +66,7 @@ define([], function()
         var service = this.getService();
         $(CourierManifest.SELECTOR_HISTORIC_DATES).off('change').on('change', function(event, element, value)
         {
-            var year = $(CourierManifest.SELECTOR_HISTORIC_YEARS + ' input').val();
-            var month = $(CourierManifest.SELECTOR_HISTORIC_MONTHS + ' input').val();
-            service.historicDateSelected(value, month, year);
+            service.historicManifestSelected(value);
         });
         return this;
     };

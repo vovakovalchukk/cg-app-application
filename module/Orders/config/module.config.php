@@ -766,7 +766,8 @@ return [
                                 'options' => [
                                     'route' => CourierController::ROUTE_MANIFEST_URI,
                                     'defaults' => [
-                                        'controller' => CourierJsonController::class,
+                                        'controller' => CourierController::class,
+                                        'action' => 'createManifest',
                                     ]
                                 ],
                                 'may_terminate' => true,
@@ -776,6 +777,7 @@ return [
                                         'options' => [
                                             'route' => CourierJsonController::ROUTE_MANIFEST_ACCOUNTS_URI,
                                             'defaults' => [
+                                                'controller' => CourierJsonController::class,
                                                 'action' => 'manifestAccounts',
                                             ]
                                         ],
@@ -786,18 +788,8 @@ return [
                                         'options' => [
                                             'route' => CourierJsonController::ROUTE_MANIFEST_DETAILS_URI,
                                             'defaults' => [
+                                                'controller' => CourierJsonController::class,
                                                 'action' => 'manifestDetails',
-                                            ]
-                                        ],
-                                        'may_terminate' => true,
-                                    ],
-                                    CourierController::ROUTE_MANIFEST_CREATE => [
-                                        'type' => 'Zend\Mvc\Router\Http\Literal',
-                                        'options' => [
-                                            'route' => CourierController::ROUTE_MANIFEST_CREATE_URI,
-                                            'defaults' => [
-                                                'controller' => CourierController::class,
-                                                'action' => 'createManifest',
                                             ]
                                         ],
                                         'may_terminate' => true,
@@ -807,7 +799,23 @@ return [
                                         'options' => [
                                             'route' => CourierJsonController::ROUTE_MANIFEST_HISTORIC_URI,
                                             'defaults' => [
+                                                'controller' => CourierJsonController::class,
                                                 'action' => 'historicManifests',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
+                                    CourierController::ROUTE_MANIFEST_PRINT => [
+                                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                                        'priority' => -100,
+                                        'options' => [
+                                            'route' => CourierController::ROUTE_MANIFEST_PRINT_URI,
+                                            'constraints' => [
+                                                'manifestId' => '.+'
+                                            ],
+                                            'defaults' => [
+                                                'controller' => CourierController::class,
+                                                'action' => 'printManifest',
                                             ]
                                         ],
                                         'may_terminate' => true,

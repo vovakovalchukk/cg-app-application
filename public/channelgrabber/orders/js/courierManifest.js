@@ -93,6 +93,7 @@ define([
     CourierManifest.URL_GET_ACCOUNTS = '/orders/courier/manifest/accounts';
     CourierManifest.URL_GET_DETAILS = '/orders/courier/manifest/details';
     CourierManifest.URL_GET_HISTORIC = '/orders/courier/manifest/historic';
+    CourierManifest.URL_GENERATE = '/orders/courier/manifest';
     CourierManifest.POPUP_WIDTH_PX = 500;
     CourierManifest.POPUP_HEIGHT_PX = 180;
     CourierManifest.SELECTOR_GENERATE_SECTION = '.courier-manifest-generate';
@@ -100,6 +101,7 @@ define([
     CourierManifest.SELECTOR_HISTORIC_SECTION = '.courier-manifest-historic';
     CourierManifest.SELECTOR_HISTORIC_MONTHS = '.courier-manifest-historic-months';
     CourierManifest.SELECTOR_HISTORIC_DATES = '.courier-manifest-historic-dates';
+    CourierManifest.SELECTOR_PRINT_FORM = '.courier-manifest-print-form';
 
     CourierManifest.prototype.action = function(element)
     {
@@ -231,11 +233,13 @@ define([
         );
     };
 
-    CourierManifest.prototype.sendGenerateManifestRequest = function()
+    CourierManifest.prototype.sendGenerateManifestRequest = function(manifestId)
     {
         var accountId = this.getSelectedAccountId();
         this.getNotifications().notice('Generating manifest', true);
-        $(CourierManifest.SELECTOR_GENERATE_FORM + ' input').val(accountId);
+        var uri = CourierManifest.URL_GENERATE + (manifestId ? '/'+manifestId : '');
+        $(CourierManifest.SELECTOR_GENERATE_FORM).attr('action', uri);
+        $(CourierManifest.SELECTOR_GENERATE_FORM + ' input[name="account"').val(accountId);
         $(CourierManifest.SELECTOR_GENERATE_FORM).submit();
     };
 
@@ -243,6 +247,7 @@ define([
     {
         var self = this;
         this.showLoading(CourierManifest.SELECTOR_HISTORIC_MONTHS);
+        $(CourierManifest.SELECTOR_HISTORIC_DATES).empty();
         var data = {
             "account": this.getSelectedAccountId(),
             "year": year
@@ -300,10 +305,9 @@ define([
         this.getEventHandler().listenForHistoricDateSelect();
     };
 
-    CourierManifest.prototype.historicDateSelected = function(date, month, year)
+    CourierManifest.prototype.historicManifestSelected = function(manifestId)
     {
-// TODO
-console.log(date, month, year);
+        this.sendGenerateManifestRequest(manifestId);
     };
 
     return CourierManifest;
