@@ -561,6 +561,8 @@ return array(
                         [
                             'channelName' => Carriers::PARCELFORCE,
                             'displayName' => 'Parcelforce',
+                            'allowsCancellation' => false,
+                            'allowsManifesting' => false,
                             'fields' => [
                                 ['name' => 'Account no'],
                                 ['name' => 'Contract no'],
