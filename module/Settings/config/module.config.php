@@ -27,14 +27,17 @@ use CG\Template\Service as TemplateService;
 use CG\Template\Storage\Api as TemplateApiStorage;
 use CG\WooCommerce\Account as WooCommerceAccount;
 use CG\WooCommerce\Account\CreationService as WooCommerceAccountCreationService;
+use CG\WooCommerce\Client\Factory as WooCommerceClientFactory;
 use CG_UI\View\DataTable;
 use Guzzle\Http\Client as GuzzleHttpClient;
 use Orders\Order\Invoice\Template\ObjectStorage as TemplateObjectStorage;
+use Settings\Controller\AdvancedController;
 use Settings\Controller\AmazonController;
 use Settings\Controller\ApiController;
 use Settings\Controller\ChannelController;
 use Settings\Controller\EbayController;
 use Settings\Controller\EkmController;
+use Settings\Controller\ExportController;
 use Settings\Controller\IndexController;
 use Settings\Controller\InvoiceController;
 use Settings\Controller\PickListController;
@@ -46,7 +49,6 @@ use Settings\Module;
 use Zend\Mvc\Router\Http\Literal;
 use Zend\Mvc\Router\Http\Segment;
 use Zend\View\Model\ViewModel;
-use CG\WooCommerce\Client\Factory as WooCommerceClientFactory;
 
 return [
     'CG' => [
@@ -127,7 +129,12 @@ return [
                     [
                         'label' => ApiController::ROUTE_API,
                         'title' => ApiController::ROUTE_API,
-                        'route' => Module::ROUTE . '/' . ApiController::ROUTE . '/' . ApiController::ROUTE_API
+                        'route' => Module::ROUTE . '/' . AdvancedController::ROUTE . '/' . ApiController::ROUTE_API
+                    ],
+                    [
+                        'label' => ExportController::ROUTE_EXPORT,
+                        'title' => ExportController::ROUTE_EXPORT,
+                        'route' => Module::ROUTE . '/' . AdvancedController::ROUTE . '/' . ExportController::ROUTE_EXPORT
                     ]
                 ]
             ]
@@ -499,12 +506,12 @@ return [
                             ]
                         ]
                     ],
-                    ApiController::ROUTE => [
+                    AdvancedController::ROUTE => [
                         'type' => Literal::class,
                         'options' => [
                             'route' => '/advanced',
                             'defaults' => [
-                                'controller' => ApiController::class,
+                                'controller' => AdvancedController::class,
                                 'action' => 'index'
                             ]
                         ],
@@ -515,10 +522,44 @@ return [
                                 'options' => [
                                     'route' => '/api',
                                     'defaults' => [
+                                        'controller' => ApiController::class,
                                         'action' => 'details'
                                     ]
                                 ],
                                 'may_terminate' => true,
+                            ],
+                            ExportController::ROUTE_EXPORT => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/export',
+                                    'defaults' => [
+                                        'controller' => ExportController::class,
+                                        'action' => 'export'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    ExportController::ROUTE_EXPORT_ORDER => [
+                                        'type' => Literal::class,
+                                        'options' => [
+                                            'route' => '/orders',
+                                            'defaults' => [
+                                                'action' => 'exportOrder'
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
+                                    ExportController::ROUTE_EXPORT_ORDER_ITEM => [
+                                        'type' => Literal::class,
+                                        'options' => [
+                                            'route' => '/orderItems',
+                                            'defaults' => [
+                                                'action' => 'exportOrderItem'
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
+                                ],
                             ]
                         ]
                     ]

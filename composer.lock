@@ -973,17 +973,17 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.6.12.2",
+            "version": "1.6.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "37763d497edb6a717d0cb27c8d9d042c9160ce9e"
+                "reference": "8800210b294851ac0df78c74be26f82c0150d0a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.6.12.2-78a67c.zip",
-                "reference": "37763d497edb6a717d0cb27c8d9d042c9160ce9e",
-                "shasum": "05357f4b8cfc28d52e1960941bb9cdef9b61dc6a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.6.13-0bd2a9.zip",
+                "reference": "8800210b294851ac0df78c74be26f82c0150d0a0",
+                "shasum": "4c5f9203e75215b8bb7c276dc12a894bd1ed11a4"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1018,7 +1018,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2015-09-23 10:39:01"
+            "time": "2015-10-09 10:48:28"
         },
         {
             "name": "channelgrabber/locale",
@@ -2434,22 +2434,22 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "1.0.7",
+            "version": "1.0.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "4a1ab6b45346c49de301a7f22cdab851e230379b"
+                "reference": "19980db2de92aed8ae3eed04ee38e58d91fc5e48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.7-0a2e02.zip",
-                "reference": "4a1ab6b45346c49de301a7f22cdab851e230379b",
-                "shasum": "72831d56f059787e1ce80b6ad57cd560d7bb13f6"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.8-1f5e4e.zip",
+                "reference": "19980db2de92aed8ae3eed04ee38e58d91fc5e48",
+                "shasum": "dafb06566ad295514ff8448be39ace6d182315df"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
                 "channelgrabber/amazon": "^1.14.0",
-                "channelgrabber/channel": "^1.17.1",
+                "channelgrabber/channel": "^1.17.12",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=1.0.1",
                 "channelgrabber/http": ">=1.2.0,<2.0.0",
@@ -2476,7 +2476,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2015-10-07 07:59:32"
+            "time": "2015-10-13 08:52:27"
         },
         {
             "name": "channelgrabber/zf2-api",
