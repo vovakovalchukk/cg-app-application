@@ -8,6 +8,7 @@ use CG\Account\Shared\Manifest\Filter as AccountManifestFilter;
 use CG\Account\Shared\Manifest\Mapper as AccountManifestMapper;
 use CG\Account\Shared\Manifest\Service as AccountManifestService;
 use CG\Account\Shared\Manifest\Status as AccountManifestStatus;
+use CG\Dataplug\Carriers;
 use CG\Dataplug\Carrier\Service as CarrierService;
 use CG\Dataplug\Manifest\Service as DataplugManifestService;
 use CG\Stdlib\DateTime as StdlibDateTime;
@@ -68,6 +69,26 @@ class Service
         return $manifestableAccounts;
     }
 
+    public function getShippingAccountOptions()
+    {
+        $shippingAccounts = $this->getShippingAccounts();
+        $selectedAccountId = null;
+        // If there's only one account select it, otherwise select OBA if present
+        if (count($shippingAccounts) == 1) {
+            $shippingAccounts->rewind();
+            $selectedAccountId = $shippingAccounts->current()->getId();
+        } else {
+            foreach ($shippingAccounts as $shippingAccount) {
+                $carrier = $this->carrierService->getCarrierForAccount($shippingAccount);
+                if ($carrier->getChannelName() != Carriers::ROYAL_MAIL_OBA) {
+                    continue;
+                }
+                $selectedAccountId = $shippingAccount->getId();
+            }
+        }
+        return $this->convertShippingAccountsToOptions($shippingAccounts, $selectedAccountId);
+    }
+
     /**
      * @return array ['openOrders' => int, 'oncePerDay' => bool, 'manifestedToday' => bool]
      */
@@ -80,13 +101,10 @@ class Service
         $openOrders = $this->dataplugManifestService->getOpenOrderCountFromRetrieveResponse($dataplugManifests);
         $latestManifestDate = $this->dataplugManifestService->getLatestManifestDateFromRetrieveResponse($dataplugManifests);
 
-        $historicManifestYears = $this->getHistoricManifestPeriods($account, 'Y');
-
         return [
             'openOrders' => $openOrders,
             'oncePerDay' => $carrier->getManifestOncePerDay(),
             'manifestedToday' => ($latestManifestDate != null && date('Y-m-d', strtotime($latestManifestDate)) == date('Y-m-d')),
-            'historicYearOptions' => $historicManifestYears,
         ];
     }
 
@@ -132,14 +150,19 @@ class Service
         return $this->accountManifestService->fetchCollectionByFilter($filter);
     }
 
-    protected function getHistoricManifestPeriodOptions(array $periods, $periodTextDateLetter)
+    protected function getHistoricManifestPeriodOptions(array $periods, $periodTextDateLetter, $selectSingle = true)
     {
         asort($periods, SORT_DESC);
+        $selected = false;
+        if ($selectSingle && count($periods) == 1) {
+            $selected = true;
+        }
         $periodOptions = [];
         foreach ($periods as $period => $date) {
             $periodOptions[] = [
                 'value' => $period,
                 'title' => date($periodTextDateLetter, strtotime($date)),
+                'selected' => $selected,
             ];
         }
         return $periodOptions;
@@ -201,7 +224,7 @@ class Service
         foreach ($accountManifests as $accountManifest) {
             $periods[$accountManifest->getId()] = $accountManifest->getCreated();
         }
-        return $this->getHistoricManifestPeriodOptions($periods, 'd @ H:i');
+        return $this->getHistoricManifestPeriodOptions($periods, 'd @ H:i', false);
     }
 
     public function getManifestPdfForAccountManifest($accountManifestId)

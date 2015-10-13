@@ -158,14 +158,30 @@ class CourierJsonController extends AbstractActionController
     public function manifestAccountsAction()
     {
         $accountOptions = $this->manifestService->getShippingAccountOptions();
-        return $this->jsonModelFactory->newInstance(['accounts' => $accountOptions]);
+        $data = ['accounts' => $accountOptions];
+        foreach ($accountOptions as $accountOption) {
+            if (!isset($accountOption['selected']) || $accountOption['selected'] == false) {
+                continue;
+            }
+            $data['selectedAccount'] = $accountOption['value'];
+            $data = array_merge($data, $this->getManifestDetailsForShippingAccount($accountOption['value']));
+        }
+        return $this->jsonModelFactory->newInstance($data);
     }
 
     public function manifestDetailsAction()
     {
         $accountId = $this->params()->fromPost('account');
-        $details = $this->manifestService->getDetailsForShippingAccount($accountId);
+        $details = $this->getManifestDetailsForShippingAccount($accountId);
         return $this->jsonModelFactory->newInstance($details);
+    }
+
+    protected function getManifestDetailsForShippingAccount($accountId)
+    {
+        $details = $this->manifestService->getDetailsForShippingAccount($accountId);
+        $data = ['details' => $details];
+        $data = array_merge($data, $this->getHistoricManifestPeriodOptionsForShippingAccount($accountId));
+        return $data;
     }
 
     public function historicManifestsAction()
@@ -173,14 +189,38 @@ class CourierJsonController extends AbstractActionController
         $accountId = $this->params()->fromPost('account');
         $year = $this->params()->fromPost('year');
         $month = $this->params()->fromPost('month');
-        if (!$year) {
-            $data = ['historicYearOptions' => $this->manifestService->getHistoricManifestYearsForShippingAccount($accountId)];
-        } elseif (!$month) {
-            $data = ['historicMonthOptions' => $this->manifestService->getHistoricManifestMonthsForShippingAccount($accountId, $year)];
-        } else {
-            $data = ['historicDateOptions' => $this->manifestService->getHistoricManifestDatesForShippingAccount($accountId, $year, $month)];
-        }
+        $data = $this->getHistoricManifestPeriodOptionsForShippingAccount($accountId, $year, $month);
         return $this->jsonModelFactory->newInstance($data);
+    }
+
+    protected function getHistoricManifestPeriodOptionsForShippingAccount($shippingAccountId, $year = null, $month = null)
+    {
+        $data = ['historic' => []];
+        if (!$year) {
+            $data['historic']['yearOptions'] = $this->manifestService->getHistoricManifestYearsForShippingAccount($shippingAccountId);
+            foreach ($data['historic']['yearOptions'] as $yearOption) {
+                if (!isset($yearOption['selected']) || $yearOption['selected'] == false) {
+                    continue;
+                }
+                $year = $yearOption['value'];
+                break;
+            }
+        }
+        if ($year && !$month) {
+
+            $data['historic']['monthOptions'] = $this->manifestService->getHistoricManifestMonthsForShippingAccount($shippingAccountId, $year);
+            foreach ($data['historic']['monthOptions'] as $monthOption) {
+                if (!isset($monthOption['selected']) || $monthOption['selected'] == false) {
+                    continue;
+                }
+                $month = $monthOption['value'];
+                break;
+            }
+        }
+        if ($year && $month) {
+            $data['historic']['dateOptions'] = $this->manifestService->getHistoricManifestDatesForShippingAccount($shippingAccountId, $year, $month);
+        }
+        return $data;
     }
 
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)

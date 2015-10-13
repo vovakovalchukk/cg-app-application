@@ -123,6 +123,9 @@ define([
         this.getAjaxRequester().sendRequest(CourierManifest.URL_GET_ACCOUNTS, {}, function(response)
         {
             self.renderPopup(response);
+        }, function(response)
+        {
+            self.ajaxError(response);
         });
     };
 
@@ -141,6 +144,12 @@ define([
 
             self.getPopup().htmlContent(content);
             self.getEventHandler().listenForAccountSelect();
+            if (data.selectedAccount) {
+                self.setSelectedAccountId(data.selectedAccount);
+            }
+            if (data.details) {
+                self.renderDetails(data);
+            }
         });
     };
 
@@ -152,8 +161,10 @@ define([
         $(CourierManifest.SELECTOR_HISTORIC_SECTION).empty();
         this.getAjaxRequester().sendRequest(CourierManifest.URL_GET_DETAILS, {"account": accountId}, function(response)
         {
-            self.setSelectedAccountDetails(response);
             self.renderDetails(response);
+        }, function(response)
+        {
+            self.ajaxError(response);
         });
     };
     
@@ -163,10 +174,11 @@ define([
         $(selector).empty().append(loader);
     };
 
-    CourierManifest.prototype.renderDetails = function(details)
+    CourierManifest.prototype.renderDetails = function(data)
     {
-        this.renderGenerateSection(details)
-            .renderHistoricSection(details);
+        this.setSelectedAccountDetails(data.details)
+            .renderGenerateSection(data.details)
+            .renderHistoricSection(data.historic);
     };
 
     CourierManifest.prototype.renderGenerateSection = function(details)
@@ -186,21 +198,24 @@ define([
         return this;
     };
 
-    CourierManifest.prototype.renderHistoricSection = function(details)
+    CourierManifest.prototype.renderHistoricSection = function(historic)
     {
-        if (!details.historicYearOptions || details.historicYearOptions.length == 0) {
+        if (!historic.yearOptions || historic.yearOptions.length == 0) {
             return this;
         }
         var templates = this.getTemplates();
         var historicYearSelect = CGMustache.get().renderTemplate(templates, {
             "id": EventHandler.SELECTOR_HISTORIC_YEARS.replace('#', ''),
             "name": EventHandler.SELECTOR_HISTORIC_YEARS.replace('#', ''),
-            "options": details.historicYearOptions
+            "options": historic.yearOptions
         }, 'select');
 
         var content = CGMustache.get().renderTemplate(templates, {}, 'popupHistoric', {"historicYearSelect": historicYearSelect});
         $(CourierManifest.SELECTOR_HISTORIC_SECTION).html(content);
         this.getEventHandler().listenForHistoricYearSelect();
+        if (historic.monthOptions) {
+            this.renderHistoricMonths(historic);
+        }
         return this;
     };
 
@@ -254,24 +269,30 @@ define([
         };
         this.getAjaxRequester().sendRequest(CourierManifest.URL_GET_HISTORIC, data, function(response)
         {
-            self.renderHistoricMonths(response);
+            self.renderHistoricMonths(response.historic);
+        }, function(response)
+        {
+            self.ajaxError(response);
         });
     };
 
     CourierManifest.prototype.renderHistoricMonths = function(data)
     {
-        if (!data.historicMonthOptions || data.historicMonthOptions.length == 0) {
+        if (!data.monthOptions || data.monthOptions.length == 0) {
             return this;
         }
         var templates = this.getTemplates();
         var historicMonthSelect = CGMustache.get().renderTemplate(templates, {
             "id": EventHandler.SELECTOR_HISTORIC_MONTHS.replace('#', ''),
             "name": EventHandler.SELECTOR_HISTORIC_MONTHS.replace('#', ''),
-            "options": data.historicMonthOptions
+            "options": data.monthOptions
         }, 'select');
 
         $(CourierManifest.SELECTOR_HISTORIC_MONTHS).html(historicMonthSelect);
         this.getEventHandler().listenForHistoricMonthSelect();
+        if (data.dateOptions) {
+            this.renderHistoricDates(data);
+        }
     };
 
     CourierManifest.prototype.historicMonthSelected = function(month, year)
@@ -285,20 +306,23 @@ define([
         };
         this.getAjaxRequester().sendRequest(CourierManifest.URL_GET_HISTORIC, data, function(response)
         {
-            self.renderHistoricDates(response);
+            self.renderHistoricDates(response.historic);
+        }, function(response)
+        {
+            self.ajaxError(response);
         });
     };
 
     CourierManifest.prototype.renderHistoricDates = function(data)
     {
-        if (!data.historicDateOptions || data.historicDateOptions.length == 0) {
+        if (!data.dateOptions || data.dateOptions.length == 0) {
             return this;
         }
         var templates = this.getTemplates();
         var historicDateSelect = CGMustache.get().renderTemplate(templates, {
             "id": EventHandler.SELECTOR_HISTORIC_DATES.replace('#', ''),
             "name": EventHandler.SELECTOR_HISTORIC_DATES.replace('#', ''),
-            "options": data.historicDateOptions
+            "options": data.dateOptions
         }, 'select');
 
         $(CourierManifest.SELECTOR_HISTORIC_DATES).html(historicDateSelect);
@@ -308,6 +332,13 @@ define([
     CourierManifest.prototype.historicManifestSelected = function(manifestId)
     {
         this.sendGenerateManifestRequest(manifestId);
+    };
+
+    CourierManifest.prototype.ajaxError = function(response)
+    {
+        this.getPopup().hide().getElement().remove();
+        this.setPopup(null);
+        this.getNotifications().ajaxError(response);
     };
 
     return CourierManifest;
