@@ -91,8 +91,9 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
         try {
             $data = $this->params()->fromPost();
-
             $data['autoEmail'] = filter_var($data['autoEmail'], FILTER_VALIDATE_BOOLEAN);
+            $data['productImages'] = filter_var($data['productImages'], FILTER_VALIDATE_BOOLEAN);
+
             if ($data['autoEmail'] && $autoEmail) {
                 $data['autoEmail'] = $autoEmail;
                 // Value unchanged so don't tell intercom
@@ -241,7 +242,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
                 [
                     'id' => 'productImages',
                     'name' => 'productImages',
-                    'selected' => false,
+                    'selected' => $invoiceSettings->getProductImages(),
                 ]
             )
             ->setTemplate('elements/checkbox.mustache');

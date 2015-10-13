@@ -8,6 +8,7 @@ define(function() {
         var selector = container + ' .custom-select, ' + container + ' input:checkbox';
         var defaultSettingsSelector = container + ' .invoiceDefaultSettings #defaultInvoiceCustomSelect input';
         var autoEmailSettingsSelector = container + ' .invoiceDefaultSettings #autoEmail';
+        var productImagesSettingsSelector = container + ' .invoiceDefaultSettings #productImages';
         var tradingCompaniesSelector = container + ' .invoiceTradingCompanySettings input.invoiceTradingCompaniesCustomSelect';
 
         var init = function() {
@@ -22,6 +23,7 @@ define(function() {
             return {
                 'default': getDefault(),
                 'autoEmail': getAutoEmail(),
+                'productImages': getProductImages(),
                 'tradingCompanies': getTradingCompanies(),
                 'eTag': $('#setting-etag').val()
             };
@@ -35,6 +37,11 @@ define(function() {
         var getAutoEmail = function()
         {
             return $(autoEmailSettingsSelector).is(':checked');
+        };
+
+        var getProductImages = function()
+        {
+            return $(productImagesSettingsSelector).is(':checked');
         };
 
         var getTradingCompanies = function()
