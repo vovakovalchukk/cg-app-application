@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "242b68698403273177b2662b98e4680f",
-    "content-hash": "dc3c7bfb2fa33da3dccc40ec0b1c0c09",
+    "hash": "b9315760854c50a4ce15494aed76b718",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -305,17 +304,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-6377-AmazonFulfillmentFix",
+            "version": "1.17.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "5420c047c7a4ce838dcedc5dd2b94ed58bed2179"
+                "reference": "033a1658ff2c0a7e2569e93120161c8e9c04585a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6377-AmazonFulfillmentFix-2d3a0e.zip",
-                "reference": "5420c047c7a4ce838dcedc5dd2b94ed58bed2179",
-                "shasum": "2dce07ea4a21ef6643e1bca6bcbea41f99e09efe"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.17.12-ef84ec.zip",
+                "reference": "033a1658ff2c0a7e2569e93120161c8e9c04585a",
+                "shasum": "1735caf4eb0cfe04b35eda10c00538cbd5e826c1"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -372,7 +371,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-10-12 14:18:10"
+            "time": "2015-10-13 08:43:13"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2385,22 +2384,22 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "dev-CGIV-6377-AmazonFulfillmentFix",
+            "version": "1.0.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "13257f6481ea55e1d8e43b68a98bfd9271304057"
+                "reference": "19980db2de92aed8ae3eed04ee38e58d91fc5e48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-CGIV-6377-AmazonFulfillmentFix-6109c6.zip",
-                "reference": "13257f6481ea55e1d8e43b68a98bfd9271304057",
-                "shasum": "574109b9a7c6c0a8ac305442889fc013e9021b0c"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.8-1f5e4e.zip",
+                "reference": "19980db2de92aed8ae3eed04ee38e58d91fc5e48",
+                "shasum": "dafb06566ad295514ff8448be39ace6d182315df"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
                 "channelgrabber/amazon": "^1.14.0",
-                "channelgrabber/channel": "dev-CGIV-6377-AmazonFulfillmentFix as 1.17.12",
+                "channelgrabber/channel": "^1.17.12",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=1.0.1",
                 "channelgrabber/http": ">=1.2.0,<2.0.0",
@@ -2427,7 +2426,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2015-10-12 15:23:01"
+            "time": "2015-10-13 08:52:27"
         },
         {
             "name": "channelgrabber/zf2-api",
@@ -7215,25 +7214,10 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.17.12",
-            "alias_normalized": "1.17.12.0",
-            "version": "dev-CGIV-6377-AmazonFulfillmentFix",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.0.8",
-            "alias_normalized": "1.0.8.0",
-            "version": "dev-CGIV-6377-AmazonFulfillmentFix",
-            "package": "channelgrabber/zf2-amazon"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-amazon": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
