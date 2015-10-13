@@ -4,7 +4,9 @@ namespace Settings\Controller;
 use CG\Account\Client\Entity as AccountEntity;
 use CG\Account\Client\Service as AccountService;
 use CG\Channel\AccountFactory;
+use CG\Channel\GetNamespacePartForAccountTrait;
 use CG\Channel\Service as ChannelService;
+use CG\Channel\ShippingOptionsProviderInterface;
 use CG\Channel\Type;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Intercom\Event\Request as IntercomEvent;
@@ -30,6 +32,7 @@ use Zend\I18n\Translator\Translator;
 class ChannelController extends AbstractActionController
 {
     use ExceptionToViewModelUserExceptionTrait;
+    use GetNamespacePartForAccountTrait;
 
     const ROUTE_ACCOUNT = "Manage";
     const ROUTE_ACCOUNT_STATUS = 'Status';
@@ -63,6 +66,8 @@ class ChannelController extends AbstractActionController
     protected $translator;
     protected $organisationUnitService;
     protected $intercomEventService;
+    /** @var ShippingOptionsProviderInterface */
+    protected $shippingOptionsProvider;
 
     public function __construct(
         Di $di,
@@ -78,7 +83,8 @@ class ChannelController extends AbstractActionController
         FormFactory $formFactory,
         Translator $translator,
         OrganisationUnitService $organisationUnitService,
-        IntercomEventService $intercomEventService
+        IntercomEventService $intercomEventService,
+        ShippingOptionsProviderInterface $shippingOptionsProvider
     ) {
         $this->setDi($di)
             ->setJsonModelFactory($jsonModelFactory)
@@ -93,7 +99,8 @@ class ChannelController extends AbstractActionController
             ->setFormFactory($formFactory)
             ->setTranslator($translator)
             ->setOrganisationUnitService($organisationUnitService)
-            ->setIntercomEventService($intercomEventService);
+            ->setIntercomEventService($intercomEventService)
+            ->setShippingOptionsProvider($shippingOptionsProvider);
     }
 
     public function setService(Service $service)
@@ -275,7 +282,7 @@ class ChannelController extends AbstractActionController
 
     protected function addAccountsChannelSpecificVariablesToChannelSpecificView(AccountEntity $account, ViewModel $view)
     {
-        $channelControllerClass = __NAMESPACE__ . '\\' . ucfirst($account->getChannel()) . 'Controller';
+        $channelControllerClass = __NAMESPACE__ . '\\' . $this->getNamespacePartForAccount($account) . 'Controller';
         if (!class_exists($channelControllerClass)) {
             return;
         }
@@ -606,5 +613,17 @@ class ChannelController extends AbstractActionController
     {
         $this->intercomEventService = $intercomEventService;
         return $this;
+    }
+
+    protected function setShippingOptionsProvider(ShippingOptionsProviderInterface $shippingOptionsProvider)
+    {
+        $this->shippingOptionsProvider = $shippingOptionsProvider;
+        return $this;
+    }
+
+    // Required by GetNamespacePartForAccountTrait
+    protected function getShippingOptionsProvider()
+    {
+        return $this->shippingOptionsProvider;
     }
 }
