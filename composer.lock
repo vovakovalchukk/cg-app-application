@@ -2565,13 +2565,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/dataplug-module.git",
-                "reference": "6dc207cad0e5ee6e3100d4341bd2be0276d47b08"
+                "reference": "9223e35d200e0a7f735f8eccbbde6278a021a04d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-dataplug-dev-CGIV-6340-dataplug-manifest-automatically-4551ef.zip",
-                "reference": "6dc207cad0e5ee6e3100d4341bd2be0276d47b08",
-                "shasum": "263ee157b89a8e8f76accb07b813db1b761f1a25"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-dataplug-dev-CGIV-6340-dataplug-manifest-automatically-b15107.zip",
+                "reference": "9223e35d200e0a7f735f8eccbbde6278a021a04d",
+                "shasum": "b5a9482a4d1b67ed6e00387b23425c7b82c8776e"
             },
             "require": {
                 "channelgrabber/channel": "dev-EPIC-CGIV-5992-dataplug as 1.17.1",
@@ -2603,7 +2603,7 @@
                 ]
             },
             "description": "Dataplug module",
-            "time": "2015-10-13 15:46:34"
+            "time": "2015-10-14 09:20:57"
         },
         {
             "name": "channelgrabber/zf2-ebay",
