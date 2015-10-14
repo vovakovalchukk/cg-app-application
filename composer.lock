@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "add9dbbc2bf252bb16016bac69ac8b29",
-    "content-hash": "3121c7404d3715721dc5c642bd545ee8",
+    "hash": "71054a5c7ec3417f1e1be46d08eddb6b",
+    "content-hash": "3c59e3f15f96111df4a5a000ac421a3e",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -309,13 +309,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "f241c39c6f2cce05e44521b97a7be1e563c3a5b3"
+                "reference": "7f43b71cb76585d893cc330cb5e64507e7a3f12f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6340-dataplug-manifest-automatically-0ddaef.zip",
-                "reference": "f241c39c6f2cce05e44521b97a7be1e563c3a5b3",
-                "shasum": "09aff7d482b4549c8d23f18eedc3ca7e88668bd9"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6340-dataplug-manifest-automatically-8c9445.zip",
+                "reference": "7f43b71cb76585d893cc330cb5e64507e7a3f12f",
+                "shasum": "95a68e45c6e0c2e5939b0b10bd0688156656f392"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -373,7 +373,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-10-14 13:04:39"
+            "time": "2015-10-14 13:15:47"
         },
         {
             "name": "channelgrabber/cilex",
@@ -480,17 +480,17 @@
         },
         {
             "name": "channelgrabber/dataplug",
-            "version": "dev-CGIV-6335-dataplug-manifest-ui",
+            "version": "dev-CGIV-6340-dataplug-manifest-automatically",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "f57bc2dd850b6f431d62c45b8fec7cbf86f17fe4"
+                "reference": "d123ddb99b1240a10a2472c4b1b2c5e0acd8654b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6335-dataplug-manifest-ui-3f452f.zip",
-                "reference": "f57bc2dd850b6f431d62c45b8fec7cbf86f17fe4",
-                "shasum": "df4093824d03ab4a72b0f364565c333191f33eb5"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6340-dataplug-manifest-automatically-e27446.zip",
+                "reference": "d123ddb99b1240a10a2472c4b1b2c5e0acd8654b",
+                "shasum": "b5c89fc396a23d62662b7026761bbebaae59cdd1"
             },
             "require": {
                 "channelgrabber/channel": "dev-EPIC-CGIV-5992-dataplug as 1.17.11",
@@ -510,7 +510,7 @@
             "type": "di-definition",
             "extra": {
                 "branch-alias": {
-                    "dev-CGIV-6335-dataplug-manifest-ui": "1.0.0-dev"
+                    "dev-CGIV-6340-dataplug-manifest-automatically": "1.0.0-dev"
                 }
             },
             "autoload": {
@@ -529,7 +529,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2015-10-12 11:49:31"
+            "time": "2015-10-14 13:25:08"
         },
         {
             "name": "channelgrabber/db",
@@ -7391,7 +7391,7 @@
         {
             "alias": "dev-EPIC-CGIV-5992-dataplug",
             "alias_normalized": "dev-EPIC-CGIV-5992-dataplug",
-            "version": "dev-CGIV-6335-dataplug-manifest-ui",
+            "version": "dev-CGIV-6340-dataplug-manifest-automatically",
             "package": "channelgrabber/dataplug"
         },
         {

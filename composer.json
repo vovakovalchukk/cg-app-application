@@ -34,7 +34,7 @@
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/communication": "~1.0.0",
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/dataplug": "dev-CGIV-6335-dataplug-manifest-ui as dev-EPIC-CGIV-5992-dataplug",
+        "channelgrabber/dataplug": "dev-CGIV-6340-dataplug-manifest-automatically as dev-EPIC-CGIV-5992-dataplug",
         "channelgrabber/di": "~2.1.1",
         "channelgrabber/ebay": "~1.9.24",
         "channelgrabber/ekm": "~1.8.10",
