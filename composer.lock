@@ -309,13 +309,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "a2d394564ae3bc6ea508ec945a4f39bacd816b49"
+                "reference": "f241c39c6f2cce05e44521b97a7be1e563c3a5b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6340-dataplug-manifest-automatically-eb4a4f.zip",
-                "reference": "a2d394564ae3bc6ea508ec945a4f39bacd816b49",
-                "shasum": "fe20978cb2f7704f6c92d5f31538180d15d08805"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6340-dataplug-manifest-automatically-0ddaef.zip",
+                "reference": "f241c39c6f2cce05e44521b97a7be1e563c3a5b3",
+                "shasum": "09aff7d482b4549c8d23f18eedc3ca7e88668bd9"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -373,7 +373,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-10-13 14:06:45"
+            "time": "2015-10-14 13:04:39"
         },
         {
             "name": "channelgrabber/cilex",
