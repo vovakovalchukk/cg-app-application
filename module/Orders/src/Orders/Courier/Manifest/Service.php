@@ -80,10 +80,10 @@ class Service
         } else {
             foreach ($shippingAccounts as $shippingAccount) {
                 $carrier = $this->carrierService->getCarrierForAccount($shippingAccount);
-                if ($carrier->getChannelName() != Carriers::ROYAL_MAIL_OBA) {
-                    continue;
+                if ($carrier->getChannelName() == Carriers::ROYAL_MAIL_OBA) {
+                    $selectedAccountId = $shippingAccount->getId();
+                    break;
                 }
-                $selectedAccountId = $shippingAccount->getId();
             }
         }
         return $this->convertShippingAccountsToOptions($shippingAccounts, $selectedAccountId);
