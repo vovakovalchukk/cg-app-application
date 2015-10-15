@@ -761,12 +761,12 @@ return [
                                     ],
                                 ]
                             ],
-                            CourierController::ROUTE_MANIFEST => [
+                            CourierJsonController::ROUTE_MANIFEST => [
                                 'type' => 'Zend\Mvc\Router\Http\Segment',
                                 'options' => [
-                                    'route' => CourierController::ROUTE_MANIFEST_URI,
+                                    'route' => CourierJsonController::ROUTE_MANIFEST_URI,
                                     'defaults' => [
-                                        'controller' => CourierController::class,
+                                        'controller' => CourierJsonController::class,
                                         'action' => 'createManifest',
                                     ]
                                 ],

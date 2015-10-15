@@ -214,6 +214,7 @@ class CreateService extends ServiceAbstract
             );
             return false;
         } catch (StorageException $e) {
+            // Remove label so we don't get a label stuck in 'creating', preventing creation of new labels
             $this->orderLabelService->remove($orderLabel);
             throw $e;
         }
