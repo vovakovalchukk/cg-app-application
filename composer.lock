@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "71054a5c7ec3417f1e1be46d08eddb6b",
-    "content-hash": "3c59e3f15f96111df4a5a000ac421a3e",
+    "hash": "dfa2a740020676d04607abe4a777f60a",
+    "content-hash": "39f75f7b9bb776b5c1c9bb8c67fe5a43",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -305,17 +305,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-6340-dataplug-manifest-automatically",
+            "version": "dev-EPIC-CGIV-5992-dataplug",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "7f43b71cb76585d893cc330cb5e64507e7a3f12f"
+                "reference": "c63af2c4ecaf00e5de1e2d62e890a78b80a7a649"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6340-dataplug-manifest-automatically-8c9445.zip",
-                "reference": "7f43b71cb76585d893cc330cb5e64507e7a3f12f",
-                "shasum": "95a68e45c6e0c2e5939b0b10bd0688156656f392"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-5992-dataplug-299592.zip",
+                "reference": "c63af2c4ecaf00e5de1e2d62e890a78b80a7a649",
+                "shasum": "f5ef94975da521fa2f104c03a07ebb9fb7751201"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -355,11 +355,6 @@
                 "phpunit/phpunit": "3.7.*"
             },
             "type": "di-definition",
-            "extra": {
-                "branch-alias": {
-                    "dev-CGIV-6340-dataplug-manifest-automatically": "1.17.13-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "CG\\Channel\\": "src/Channel",
@@ -373,7 +368,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-10-14 13:15:47"
+            "time": "2015-10-15 12:37:31"
         },
         {
             "name": "channelgrabber/cilex",
@@ -480,17 +475,17 @@
         },
         {
             "name": "channelgrabber/dataplug",
-            "version": "dev-CGIV-6340-dataplug-manifest-automatically",
+            "version": "dev-EPIC-CGIV-5992-dataplug",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "d123ddb99b1240a10a2472c4b1b2c5e0acd8654b"
+                "reference": "7c39c8e9d0db330f41279e1ddc9d1c01f361717e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6340-dataplug-manifest-automatically-e27446.zip",
-                "reference": "d123ddb99b1240a10a2472c4b1b2c5e0acd8654b",
-                "shasum": "b5c89fc396a23d62662b7026761bbebaae59cdd1"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-EPIC-CGIV-5992-dataplug-fe5961.zip",
+                "reference": "7c39c8e9d0db330f41279e1ddc9d1c01f361717e",
+                "shasum": "179e0b40f59002babc35e4dde7d25642a1915fa7"
             },
             "require": {
                 "channelgrabber/channel": "dev-EPIC-CGIV-5992-dataplug as 1.17.11",
@@ -508,11 +503,6 @@
                 "zendframework/zend-di": ">=2.2.5"
             },
             "type": "di-definition",
-            "extra": {
-                "branch-alias": {
-                    "dev-CGIV-6340-dataplug-manifest-automatically": "1.0.0-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "CG\\Dataplug\\": "src"
@@ -529,7 +519,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2015-10-14 13:25:08"
+            "time": "2015-10-15 12:36:19"
         },
         {
             "name": "channelgrabber/db",
@@ -2561,7 +2551,7 @@
         },
         {
             "name": "channelgrabber/zf2-dataplug",
-            "version": "dev-CGIV-6340-dataplug-manifest-automatically",
+            "version": "dev-EPIC-CGIV-5992-dataplug",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/dataplug-module.git",
@@ -2569,9 +2559,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-dataplug-dev-CGIV-6340-dataplug-manifest-automatically-b15107.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-dataplug-dev-EPIC-CGIV-5992-dataplug-b15107.zip",
                 "reference": "9223e35d200e0a7f735f8eccbbde6278a021a04d",
-                "shasum": "b5a9482a4d1b67ed6e00387b23425c7b82c8776e"
+                "shasum": "3d9b1e8d8fb4d4332ecf5165070e80616ca352a2"
             },
             "require": {
                 "channelgrabber/channel": "dev-EPIC-CGIV-5992-dataplug as 1.17.1",
@@ -7383,15 +7373,15 @@
     ],
     "aliases": [
         {
-            "alias": "dev-EPIC-CGIV-5992-dataplug",
-            "alias_normalized": "dev-EPIC-CGIV-5992-dataplug",
-            "version": "dev-CGIV-6340-dataplug-manifest-automatically",
+            "alias": "1.17.14",
+            "alias_normalized": "1.17.14.0",
+            "version": "dev-EPIC-CGIV-5992-dataplug",
             "package": "channelgrabber/channel"
         },
         {
-            "alias": "dev-EPIC-CGIV-5992-dataplug",
-            "alias_normalized": "dev-EPIC-CGIV-5992-dataplug",
-            "version": "dev-CGIV-6340-dataplug-manifest-automatically",
+            "alias": "1.0.0",
+            "alias_normalized": "1.0.0.0",
+            "version": "dev-EPIC-CGIV-5992-dataplug",
             "package": "channelgrabber/dataplug"
         },
         {
@@ -7421,7 +7411,7 @@
         {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
-            "version": "dev-CGIV-6340-dataplug-manifest-automatically",
+            "version": "dev-EPIC-CGIV-5992-dataplug",
             "package": "channelgrabber/zf2-dataplug"
         },
         {
