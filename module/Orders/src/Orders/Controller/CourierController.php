@@ -24,8 +24,6 @@ class CourierController extends AbstractActionController
     const ROUTE_LABEL_URI = '/label';
     const ROUTE_LABEL_PRINT = 'Print';
     const ROUTE_LABEL_PRINT_URI = '/print';
-    const ROUTE_MANIFEST = 'Manifest';
-    const ROUTE_MANIFEST_URI = '/manifest';
     const ROUTE_MANIFEST_PRINT = 'Print';
     const ROUTE_MANIFEST_PRINT_URI = '/:manifestId';
 
@@ -322,13 +320,6 @@ class CourierController extends AbstractActionController
         $orderIds = $this->params()->fromPost('order', []);
         $pdfData = $this->labelPrintService->getPdfLabelDataForOrders($orderIds);
         return new FileResponse(static::LABEL_MIME_TYPE, 'Labels.pdf', $pdfData);
-    }
-
-    public function createManifestAction()
-    {
-        $accountId = $this->params()->fromPost('account');
-        $pdfData = $this->manifestService->generateManifestPdfForShippingAccount($accountId);
-        return new FileResponse(static::MANIFEST_MIME_TYPE, 'Manifest.pdf', $pdfData);
     }
 
     public function printManifestAction()

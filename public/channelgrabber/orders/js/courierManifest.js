@@ -248,11 +248,26 @@ define([
         );
     };
 
-    CourierManifest.prototype.sendGenerateManifestRequest = function(manifestId)
+    CourierManifest.prototype.sendGenerateManifestRequest = function()
+    {
+        var self = this;
+        var accountId = this.getSelectedAccountId();
+        this.getNotifications().notice('Generating manifest, this might take a few moments');
+        this.getPopup().hide();
+        this.getAjaxRequester().sendRequest(CourierManifest.URL_GENERATE, {"account": accountId}, function(response)
+        {
+            self.getNotifications().success('Manifest generated successfully, now downloading...');
+            self.sendPrintManifestRequest(response.id);
+        }, function(response)
+        {
+            self.ajaxError(response);
+        });
+    };
+
+    CourierManifest.prototype.sendPrintManifestRequest = function(manifestId)
     {
         var accountId = this.getSelectedAccountId();
-        this.getNotifications().notice('Generating manifest', true);
-        var uri = CourierManifest.URL_GENERATE + (manifestId ? '/'+manifestId : '');
+        var uri = CourierManifest.URL_GENERATE + '/' + manifestId;
         $(CourierManifest.SELECTOR_GENERATE_FORM).attr('action', uri);
         $(CourierManifest.SELECTOR_GENERATE_FORM + ' input[name="account"').val(accountId);
         $(CourierManifest.SELECTOR_GENERATE_FORM).submit();
@@ -331,7 +346,9 @@ define([
 
     CourierManifest.prototype.historicManifestSelected = function(manifestId)
     {
-        this.sendGenerateManifestRequest(manifestId);
+        this.getNotifications().notice('Downloading manifest', true);
+        this.getPopup().hide();
+        this.sendPrintManifestRequest(manifestId);
     };
 
     CourierManifest.prototype.ajaxError = function(response)

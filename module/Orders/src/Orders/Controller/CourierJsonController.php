@@ -21,6 +21,8 @@ class CourierJsonController extends AbstractActionController
     const ROUTE_LABEL_CANCEL_URI = '/cancel';
     const ROUTE_LABEL_READY_CHECK = 'Ready Check';
     const ROUTE_LABEL_READY_CHECK_URI = '/readyCheck';
+    const ROUTE_MANIFEST = 'Manifest';
+    const ROUTE_MANIFEST_URI = '/manifest';
     const ROUTE_MANIFEST_ACCOUNTS = 'Accounts';
     const ROUTE_MANIFEST_ACCOUNTS_URI = '/accounts';
     const ROUTE_MANIFEST_DETAILS = 'Details';
@@ -221,6 +223,13 @@ class CourierJsonController extends AbstractActionController
             $data['historic']['dateOptions'] = $this->manifestService->getHistoricManifestDatesForShippingAccount($shippingAccountId, $year, $month);
         }
         return $data;
+    }
+
+    public function createManifestAction()
+    {
+        $accountId = $this->params()->fromPost('account');
+        $accountManifest = $this->manifestService->generateManifestForShippingAccount($accountId);
+        return $this->jsonModelFactory->newInstance(['id' => $accountManifest->getId()]);
     }
 
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
