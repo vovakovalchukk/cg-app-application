@@ -42,6 +42,8 @@ use Settings\Controller\IndexController;
 use Settings\Controller\InvoiceController;
 use Settings\Controller\PickListController;
 use Settings\Controller\ShippingController;
+use Settings\Controller\StockController;
+use Settings\Controller\StockJsonController;
 use Settings\Controller\WooCommerceController;
 use Settings\Factory\SidebarNavFactory;
 use Settings\Invoice\Service as InvoiceService;
@@ -119,6 +121,18 @@ return [
                         'title' => PickListController::ROUTE_PICK_LIST,
                         'route' => Module::ROUTE . '/' . PickListController::ROUTE . '/' . PickListController::ROUTE_PICK_LIST
                     ]
+                ]
+            ],
+            'Product Management' => [
+                'label' => 'Product Management',
+                'uri' => '',
+                'class' => 'heading-medium',
+                'pages' => [
+                    [
+                        'label' => StockController::ROUTE,
+                        'title' => PickListController::ROUTE,
+                        'route' => Module::ROUTE . '/' . StockController::ROUTE,
+                    ],
                 ]
             ],
             'Advanced' => [
@@ -562,7 +576,31 @@ return [
                                 ],
                             ]
                         ]
-                    ]
+                    ],
+                    StockController::ROUTE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => StockController::ROUTE_URI,
+                            'defaults' => [
+                                'controller' => StockController::class,
+                                'action' => 'index'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            StockJsonController::ROUTE_SAVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => StockJsonController::ROUTE_SAVE_URI,
+                                    'defaults' => [
+                                        'controller' => StockJsonController::class,
+                                        'action' => 'save'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                        ]
+                    ],
                 ]
             ]
         ], 

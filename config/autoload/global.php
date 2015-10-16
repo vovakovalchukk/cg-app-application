@@ -25,8 +25,6 @@ use CG\Order\Client\Item\Storage\Api as ItemApiClient;
 use CG\Order\Client\Tag\Storage\Api as OrderTagApiClient;
 use CG\Order\Client\Batch\Storage\Api as OrderBatchApiClient;
 use CG\OrganisationUnit\Storage\Api as OrganisationUnitClient;
-use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
-use CG\Settings\Invoice\Client\Storage\Api as InvoiceSettingsApiStorage;
 use CG\UserPreference\Client\Service as UserPreferenceService;
 use CG\UserPreference\Client\Storage\Api as UserPreferenceStorage;
 use Zend\Session\ManagerInterface as SessionManagerInterface;
@@ -55,6 +53,12 @@ use CG\Log\Shared\Storage\Redis\Channel as RedisChannel;
 
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\OrganisationUnit\Storage\Api as OrganisationUnitStorageApi;
+
+// Settings
+use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
+use CG\Settings\Invoice\Client\Storage\Api as InvoiceSettingsApiStorage;
+use CG\Settings\Product\StorageInterface as ProductSettingsStorage;
+use CG\Settings\Product\Storage\Api as ProductSettingsStorageApi;
 
 // Discount
 use CG\Billing\Discount\StorageInterface as DiscountStorage;
@@ -124,6 +128,7 @@ return array(
                 HeadlineStorage::class => HeadlineApi::class,
                 AmzThreadAdditionalStorage::class => AmzThreadAdditionalRepository::class,
                 ApiCredentialsStorage::class => ApiCredentialsApi::class,
+                ProductSettingsStorage::class => ProductSettingsStorageApi::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class
@@ -345,6 +350,11 @@ return array(
             ApiCredentialsApi::class => [
                 'parameters' => [
                     'client' => 'directory_guzzle'
+                ]
+            ],
+            ProductSettingsStorageApi::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
                 ]
             ],
         ),
