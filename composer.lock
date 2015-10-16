@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0559d5ba9b0b34bdd2374cb89e2546e2",
-    "content-hash": "089417c199af0a12c3c728e20b29caf2",
+    "hash": "cb79b09b74482672e0086c88f1a6cab9",
+    "content-hash": "0ac088e7bae75c70a635fb7431ea6c32",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -305,17 +305,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.17.13",
+            "version": "dev-EPIC-CGIV-6243-StockLevels",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "1c7f32b8dca7f03e5abac43ab5b2b605f9ab649b"
+                "reference": "d12bc23c88b262c5bcd10832badce93ba6d102cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.17.13-41163a.zip",
-                "reference": "1c7f32b8dca7f03e5abac43ab5b2b605f9ab649b",
-                "shasum": "4391181fe250b981fd15b90db8af985ecdb47a2d"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-6243-StockLevels-1fefaf.zip",
+                "reference": "d12bc23c88b262c5bcd10832badce93ba6d102cc",
+                "shasum": "db8166b39e6553347c3792bb6a9e210f227bc8fa"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -372,7 +372,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-10-16 07:45:32"
+            "time": "2015-10-16 08:21:14"
         },
         {
             "name": "channelgrabber/cilex",
@@ -7279,6 +7279,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.17.14",
+            "alias_normalized": "1.17.14.0",
+            "version": "dev-EPIC-CGIV-6243-StockLevels",
+            "package": "channelgrabber/channel"
+        },
+        {
             "alias": "1.4.13",
             "alias_normalized": "1.4.13.0",
             "version": "dev-CGIV-6366-fixed-stock-settings-page",
@@ -7293,6 +7299,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/product": 20,
         "channelgrabber/settings": 20,

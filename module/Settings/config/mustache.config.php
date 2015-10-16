@@ -16,6 +16,12 @@ return [
                     'tradingCompany' => Module::PUBLIC_FOLDER . 'template/columns/tradingCompany.mustache',
                     'stockManagement' => Module::PUBLIC_FOLDER . 'template/columns/stockManagement.mustache',
                 ],
+                'stockAccountList' => [
+                    'channel' => UiModule::PUBLIC_FOLDER . 'templates/columns/channel.mustache',
+                    'account' => Module::PUBLIC_FOLDER . 'template/columns/account.mustache',
+                    'max'     => Module::PUBLIC_FOLDER . 'template/Stock/columns/max.mustache',
+                    'fixed'   => Module::PUBLIC_FOLDER . 'template/Stock/columns/fixed.mustache',
+                ],
             ],
         ],
     ],

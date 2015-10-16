@@ -5,12 +5,15 @@ use CG\Product\StockMode;
 use CG\Settings\Product\Service as ProductSettingsService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG\User\OrganisationUnit\Service as UserOUService;
+use Settings\Stock\Service;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class StockJsonController extends AbstractActionController
 {
     const ROUTE_SAVE = 'Save';
     const ROUTE_SAVE_URI = '/save';
+    const ROUTE_ACCOUNTS = 'Accounts';
+    const ROUTE_ACCOUNTS_URI = '/accounts';
 
     /** @var JsonModelFactory */
     protected $jsonModelFactory;
@@ -18,15 +21,19 @@ class StockJsonController extends AbstractActionController
     protected $productSettingsService;
     /** @var UserOUService */
     protected $userOUService;
+    /** @var Service */
+    protected $service;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         ProductSettingsService $productSettingsService,
-        UserOUService $userOUService
+        UserOUService $userOUService,
+        Service $service
     ) {
         $this->setJsonModelFactory($jsonModelFactory)
             ->setProductSettingsService($productSettingsService)
-            ->setUserOUService($userOUService);
+            ->setUserOUService($userOUService)
+            ->setService($service);
     }
 
     public function saveAction()
@@ -45,6 +52,27 @@ class StockJsonController extends AbstractActionController
         return $this->jsonModelFactory->newInstance(['valid' => true, 'status' => 'Settings saved successfully']);
     }
 
+    public function accountsListAction()
+    {
+        $data = $this->getDefaultJsonData();
+        $rootOu = $this->userOUService->getRootOuByActiveUser();
+        $accountsData = $this->service->getAccountListData($rootOu);
+        $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = count($accountsData);
+        $data['Records'] = $accountsData;
+
+        return $this->jsonModelFactory->newInstance($data);
+    }
+
+    protected function getDefaultJsonData()
+    {
+        return [
+            'iTotalRecords' => 0,
+            'iTotalDisplayRecords' => 0,
+            'sEcho' => (int) $this->params()->fromPost('sEcho'),
+            'Records' => [],
+        ];
+    }
+
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
     {
         $this->jsonModelFactory = $jsonModelFactory;
@@ -60,6 +88,12 @@ class StockJsonController extends AbstractActionController
     protected function setUserOUService(UserOUService $userOUService)
     {
         $this->userOUService = $userOUService;
+        return $this;
+    }
+
+    protected function setService(Service $service)
+    {
+        $this->service = $service;
         return $this;
     }
 }
