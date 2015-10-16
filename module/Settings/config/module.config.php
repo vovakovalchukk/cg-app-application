@@ -609,6 +609,19 @@ return [
                                     ]
                                 ],
                                 'may_terminate' => true,
+                                'child_routes' => [
+                                    StockJsonController::ROUTE_ACCOUNTS_SAVE => [
+                                        'type' => Literal::class,
+                                        'options' => [
+                                            'route' => StockJsonController::ROUTE_ACCOUNTS_SAVE_URI,
+                                            'defaults' => [
+                                                'controller' => StockJsonController::class,
+                                                'action' => 'accountsSave'
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
+                                ]
                             ],
                         ]
                     ],

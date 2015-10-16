@@ -2,7 +2,7 @@
 namespace Settings\Controller;
 
 use CG\Product\StockMode;
-use CG\Settings\Product\Service as ProductSettingsService;
+
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG\User\OrganisationUnit\Service as UserOUService;
 use Settings\Stock\Service;
@@ -14,11 +14,11 @@ class StockJsonController extends AbstractActionController
     const ROUTE_SAVE_URI = '/save';
     const ROUTE_ACCOUNTS = 'Accounts';
     const ROUTE_ACCOUNTS_URI = '/accounts';
+    const ROUTE_ACCOUNTS_SAVE = 'Save';
+    const ROUTE_ACCOUNTS_SAVE_URI = '/save';
 
     /** @var JsonModelFactory */
     protected $jsonModelFactory;
-    /** @var ProductSettingsService */
-    protected $productSettingsService;
     /** @var UserOUService */
     protected $userOUService;
     /** @var Service */
@@ -26,12 +26,10 @@ class StockJsonController extends AbstractActionController
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
-        ProductSettingsService $productSettingsService,
         UserOUService $userOUService,
         Service $service
     ) {
         $this->setJsonModelFactory($jsonModelFactory)
-            ->setProductSettingsService($productSettingsService)
             ->setUserOUService($userOUService)
             ->setService($service);
     }
@@ -44,10 +42,7 @@ class StockJsonController extends AbstractActionController
             throw new \InvalidArgumentException('Default stock level must be a number >= 0');
         }
         $rootOu = $this->userOUService->getRootOuByActiveUser();
-        $productSettings = $this->productSettingsService->fetch($rootOu->getId());
-        $productSettings->setDefaultStockMode($defaultStockMode)
-            ->setDefaultStockLevel($defaultStockLevel);
-        $this->productSettingsService->save($productSettings);
+        $this->service->saveDefaults($rootOu, $defaultStockMode, $defaultStockLevel);
 
         return $this->jsonModelFactory->newInstance(['valid' => true, 'status' => 'Settings saved successfully']);
     }
@@ -63,6 +58,13 @@ class StockJsonController extends AbstractActionController
         return $this->jsonModelFactory->newInstance($data);
     }
 
+    public function accountsSaveAction()
+    {
+        $accountsSettings = $this->params()->fromPost('account', []);
+        $this->service->saveAccountsStockSettings($accountsSettings);
+        return $this->jsonModelFactory->newInstance(['valid' => true, 'status' => 'Settings saved successfully']);
+    }
+
     protected function getDefaultJsonData()
     {
         return [
@@ -76,12 +78,6 @@ class StockJsonController extends AbstractActionController
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
     {
         $this->jsonModelFactory = $jsonModelFactory;
-        return $this;
-    }
-
-    protected function setProductSettingsService(ProductSettingsService $productSettingsService)
-    {
-        $this->productSettingsService = $productSettingsService;
         return $this;
     }
 
