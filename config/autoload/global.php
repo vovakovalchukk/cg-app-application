@@ -102,6 +102,10 @@ use CG\Amazon\Thread\Additional\Repository as AmzThreadAdditionalRepository;
 use CG\ApiCredentials\StorageInterface as ApiCredentialsStorage;
 use CG\ApiCredentials\Storage\Api as ApiCredentialsApi;
 
+// Invoice Image Client
+use CG\Template\Image\ClientInterface as ImageClient;
+use CG\Template\Image\Client\Guzzle as ImageGuzzleClient;
+
 return array(
     'di' => array(
         'instance' => array(
@@ -124,6 +128,7 @@ return array(
                 HeadlineStorage::class => HeadlineApi::class,
                 AmzThreadAdditionalStorage::class => AmzThreadAdditionalRepository::class,
                 ApiCredentialsStorage::class => ApiCredentialsApi::class,
+                ImageClient::class => ImageGuzzleClient::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class
