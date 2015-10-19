@@ -479,13 +479,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "7c39c8e9d0db330f41279e1ddc9d1c01f361717e"
+                "reference": "8b0d3a40dee61e885c641a488b9e2cda1ac1cc9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-EPIC-CGIV-5992-dataplug-fe5961.zip",
-                "reference": "7c39c8e9d0db330f41279e1ddc9d1c01f361717e",
-                "shasum": "179e0b40f59002babc35e4dde7d25642a1915fa7"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-EPIC-CGIV-5992-dataplug-77f9dd.zip",
+                "reference": "8b0d3a40dee61e885c641a488b9e2cda1ac1cc9e",
+                "shasum": "6e44d4a75ec04e2ad3893c3a80a8152ea19f34c0"
             },
             "require": {
                 "channelgrabber/channel": "dev-EPIC-CGIV-5992-dataplug as 1.17.11",
@@ -519,7 +519,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2015-10-15 12:36:19"
+            "time": "2015-10-19 14:00:07"
         },
         {
             "name": "channelgrabber/db",
