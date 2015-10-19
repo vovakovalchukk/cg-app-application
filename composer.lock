@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dfa2a740020676d04607abe4a777f60a",
-    "content-hash": "39f75f7b9bb776b5c1c9bb8c67fe5a43",
+    "hash": "9e709684fb3d969d277ab0eac43d4978",
+    "content-hash": "6bb4a7c712b94e4f9964414d67217762",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -309,13 +309,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "c63af2c4ecaf00e5de1e2d62e890a78b80a7a649"
+                "reference": "478209c057e651c2e94c0bc1a786bc4db6c357c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-5992-dataplug-299592.zip",
-                "reference": "c63af2c4ecaf00e5de1e2d62e890a78b80a7a649",
-                "shasum": "f5ef94975da521fa2f104c03a07ebb9fb7751201"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-5992-dataplug-ddc855.zip",
+                "reference": "478209c057e651c2e94c0bc1a786bc4db6c357c0",
+                "shasum": "cc0433057405b3aa2108014917c1a12b520250be"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -368,7 +368,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-10-15 12:37:31"
+            "time": "2015-10-19 15:05:15"
         },
         {
             "name": "channelgrabber/cilex",
@@ -850,13 +850,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cghttp.git",
-                "reference": "88fd63a51711f602235fbaf9c288eea7a86a2591"
+                "reference": "9bd31c0800d27e465ff751a00e5b6cde74690899"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-dev-EPIC-CGIV-5992-dataplug-1c11ab.zip",
-                "reference": "88fd63a51711f602235fbaf9c288eea7a86a2591",
-                "shasum": "3bbc80d6f0ef223e86c36b4a86b4e5e44e8e1772"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-dev-EPIC-CGIV-5992-dataplug-ec15c6.zip",
+                "reference": "9bd31c0800d27e465ff751a00e5b6cde74690899",
+                "shasum": "a3b69c94c7cd5b7f61b08f2fbcfece97da6fc25f"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
@@ -891,7 +891,7 @@
                     "CG\\Http\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2015-09-28 12:16:04"
+            "time": "2015-10-19 15:16:24"
         },
         {
             "name": "channelgrabber/image",
@@ -1195,13 +1195,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "6ae6d02f10e740d51efe0a07473d027e62639acc"
+                "reference": "246b80d07167e06d477d8d911718dd87bc2d604b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-CGIV-5992-dataplug-abeaa7.zip",
-                "reference": "6ae6d02f10e740d51efe0a07473d027e62639acc",
-                "shasum": "dc6d57901e3ac0e6f206f1c75cc9b97cec6a4042"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-CGIV-5992-dataplug-115987.zip",
+                "reference": "246b80d07167e06d477d8d911718dd87bc2d604b",
+                "shasum": "8b784b42ae32b527ad62b716bb4f16322a7374e6"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1263,7 +1263,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-10-01 15:46:45"
+            "time": "2015-10-19 15:09:45"
         },
         {
             "name": "channelgrabber/permission",
@@ -1537,13 +1537,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "48f024b4cd3fd5df4509797c497d6ae2c30a223a"
+                "reference": "a6bfe842094a1f96cd3dcb300e721887f63d7044"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-EPIC-CGIV-5992-dataplug-37b92b.zip",
-                "reference": "48f024b4cd3fd5df4509797c497d6ae2c30a223a",
-                "shasum": "ebef449da3d2afd613ecce511767c8a1b0c5340f"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-EPIC-CGIV-5992-dataplug-5115dc.zip",
+                "reference": "a6bfe842094a1f96cd3dcb300e721887f63d7044",
+                "shasum": "f1ef7025e7ce62f82170b96d4f64ed9a1d547f67"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1578,7 +1578,7 @@
                     "CG\\Product\\": "src"
                 }
             },
-            "time": "2015-09-28 08:47:26"
+            "time": "2015-10-19 15:12:39"
         },
         {
             "name": "channelgrabber/purge",
