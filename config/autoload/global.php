@@ -102,6 +102,10 @@ use CG\Amazon\Thread\Additional\Repository as AmzThreadAdditionalRepository;
 use CG\ApiCredentials\StorageInterface as ApiCredentialsStorage;
 use CG\ApiCredentials\Storage\Api as ApiCredentialsApi;
 
+// Invoice Image Client
+use CG\Template\Image\ClientInterface as ImageTemplateClient;
+use CG\Template\Image\Client\Guzzle as ImageTemplateGuzzleClient;
+
 // Dataplug
 use CG\Dataplug\Carrier\Service as DataplugCarrierService;
 use CG\Channel\ShippingOptionsProviderInterface as ChannelShippingOptionsProviderInterface;
@@ -142,6 +146,7 @@ return array(
                 HeadlineStorage::class => HeadlineApi::class,
                 AmzThreadAdditionalStorage::class => AmzThreadAdditionalRepository::class,
                 ApiCredentialsStorage::class => ApiCredentialsApi::class,
+                ImageTemplateClient::class => ImageTemplateGuzzleClient::class,
                 ChannelShippingOptionsProviderInterface::class => DataplugCarrierService::class,
                 OrderLabelStorage::class => OrderLabelApiStorage::class,
                 ProductDetailStorage::class => ProductDetailApiStorage::class,

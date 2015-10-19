@@ -4,21 +4,21 @@ namespace Orders\Order\PickList;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Order\Shared\Collection as OrderCollection;
+use CG\PickList\Service as PickListService;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Collection as ProductCollection;
-use CG\Product\Filter as ProductFilter;
 use CG\Product\Entity as Product;
-use CG\Settings\PickList\Service as PickListSettingsService;
+use CG\Product\Filter as ProductFilter;
 use CG\Settings\PickList\Entity as PickListSettings;
+use CG\Settings\PickList\Service as PickListSettingsService;
 use CG\Settings\Picklist\SortValidator;
-use CG\PickList\Service as PickListService;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
-use CG\Stdlib\Exception\Runtime\NotFound;
-use CG\Zend\Stdlib\Http\FileResponse as Response;
+use CG\Template\Image\ClientInterface as ImageClient;
+use CG\Template\Image\Map as ImageMap;
 use CG\User\ActiveUserInterface as ActiveUserContainer;
-use Orders\Order\PickList\Image\Client as ImageClient;
-use Orders\Order\PickList\Image\Map as ImageMap;
+use CG\Zend\Stdlib\Http\FileResponse as Response;
 
 class Service implements LoggerAwareInterface
 {
@@ -176,7 +176,8 @@ class Service implements LoggerAwareInterface
             $imageMap->setUrlForSku($product->getSku(), $image->getUrl());
         }
 
-        return $this->getImageClient()->fetchImages($imageMap);
+        $this->getImageClient()->fetchImages($imageMap);
+        return $imageMap;
     }
 
     protected function updatePickListGenerationProgress($key, $count)
