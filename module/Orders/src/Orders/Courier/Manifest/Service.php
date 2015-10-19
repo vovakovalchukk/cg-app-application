@@ -98,7 +98,7 @@ class Service
         $carrier = $this->carrierService->getCarrierForAccount($account);
 
         $dataplugManifests = $this->dataplugManifestService->retrieveDataplugManifestsForAccount($account);
-        $openOrders = $this->dataplugManifestService->getOpenOrderCountFromRetrieveResponse($dataplugManifests);
+        $openOrders = $this->dataplugManifestService->getOpenOrderCountFromRetrieveResponse($dataplugManifests, $account);
         $latestManifestDate = $this->dataplugManifestService->getLatestManifestDateFromRetrieveResponse($dataplugManifests);
 
         return [
