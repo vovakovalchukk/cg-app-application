@@ -1731,7 +1731,7 @@ return [
             ],
             'CourierSpecificsShippingMethodColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Shipping Method'],
+                    'variables' => ['value' => 'Shipping<br/>Method'],
                     'template' => 'value.phtml',
                 ],
             ],
@@ -1759,7 +1759,7 @@ return [
             ],
             'CourierSpecificsParcelsColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'No. Parcels'],
+                    'variables' => ['value' => 'No.<br/>Parcels'],
                     'template' => 'value.phtml',
                 ],
             ],
@@ -1769,6 +1769,7 @@ return [
                     'viewModel' => 'CourierSpecificsParcelsColumnView',
                     'class' => 'parcels-col',
                     'sortable' => false,
+                    'width' => '100px',
                 ],
             ],
             'CourierSpecificsCollectionDateColumnView' => [
@@ -1900,7 +1901,7 @@ return [
             ],
             'CourierSpecificsInsuranceMonetaryColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Insurance Amount'],
+                    'variables' => ['value' => 'Insurance<br/>Amount'],
                     'template' => 'value.phtml',
                 ],
             ],
@@ -1928,7 +1929,7 @@ return [
             ],
             'CourierSpecificsDeliveryInstructionsColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Delivery Instructions'],
+                    'variables' => ['value' => 'Delivery<br/>Instructions'],
                     'template' => 'value.phtml',
                 ],
             ],
@@ -1938,6 +1939,7 @@ return [
                     'viewModel' => 'CourierSpecificsDeliveryInstructionsColumnView',
                     'class' => 'deliveryInstructions-col',
                     'sortable' => false,
+                    'width' => '150px',
                 ],
             ],
         ],
