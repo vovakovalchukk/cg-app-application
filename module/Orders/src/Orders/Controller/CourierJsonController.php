@@ -1,6 +1,7 @@
 <?php
 namespace Orders\Controller;
 
+use CG\Stdlib\Exception\Storage as StorageException;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Orders\Courier\Label\CancelService as LabelCancelService;
 use Orders\Courier\Label\CreateService as LabelCreateService;
@@ -123,7 +124,13 @@ class CourierJsonController extends AbstractActionController
         $ordersParcelsData = $this->params()->fromPost('parcelData', []);
         $this->sanitiseInputArray($ordersData);
         $this->sanitiseInputArray($ordersParcelsData);
-        $labelReadyStatuses = $this->labelCreateService->createForOrdersData($orderIds, $ordersData, $ordersParcelsData, $accountId);
+        try {
+            $labelReadyStatuses = $this->labelCreateService->createForOrdersData($orderIds, $ordersData, $ordersParcelsData, $accountId);
+        } catch (StorageException $e) {
+            throw new \RuntimeException(
+                'Failed to create label(s), please check the details you\'ve entered and try again', $e->getCode(), $e
+            );
+        }
         $readyCount = 0;
         $notReadyCount = 0;
         foreach ($labelReadyStatuses as $labelReadyStatus) {
@@ -144,8 +151,14 @@ class CourierJsonController extends AbstractActionController
     {
         $accountId = $this->params()->fromPost('account');
         $orderIds = $this->params()->fromPost('order');
-        $this->labelCancelService->cancelForOrders($orderIds, $accountId);
-        return $this->jsonModelFactory->newInstance([]);
+        try {
+            $this->labelCancelService->cancelForOrders($orderIds, $accountId);
+            return $this->jsonModelFactory->newInstance([]);
+        } catch (StorageException $e) {
+            throw new \RuntimeException(
+                'Failed to cancel shipping order(s), please try again', $e->getCode(), $e
+            );
+        }
     }
 
     public function readyCheckAction()
@@ -228,8 +241,14 @@ class CourierJsonController extends AbstractActionController
     public function createManifestAction()
     {
         $accountId = $this->params()->fromPost('account');
-        $accountManifest = $this->manifestService->generateManifestForShippingAccount($accountId);
-        return $this->jsonModelFactory->newInstance(['id' => $accountManifest->getId()]);
+        try {
+            $accountManifest = $this->manifestService->generateManifestForShippingAccount($accountId);
+            return $this->jsonModelFactory->newInstance(['id' => $accountManifest->getId()]);
+        } catch (StorageException $e) {
+            throw new \RuntimeException(
+                'Failed to generate manifest, please check the details you\'ve entered and try again', $e->getCode(), $e
+            );
+        }
     }
 
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
