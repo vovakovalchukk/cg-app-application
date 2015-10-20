@@ -482,7 +482,7 @@ class Service implements LoggerAwareInterface
             }
             $optionKeys = array_flip($options);
             if (isset($optionKeys['weight']) || isset($optionKeys['width']) || isset($optionKeys['height']) || isset($optionKeys['length'])) {
-                $itemImageText = 'Total package ';
+                $itemImageText = 'Package ' . $parcel . ' ';
                 $itemImageTextAdtnl = [];
                 if (isset($optionKeys['weight'])) {
                     $itemImageTextAdtnl[] = 'weight';
