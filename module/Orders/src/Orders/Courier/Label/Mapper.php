@@ -109,9 +109,10 @@ class Mapper
     {
         $descriptions = [];
         foreach ($order->getItems() as $orderItem) {
-            $descriptions[] = $orderItem->getItemSku() . ': ' . $orderItem->getItemName() . ' x ' . $orderItem->getItemQuantity();
+            $itemDesc = (trim($orderItem->getItemSku()) ?: $orderItem->getItemName());
+            $descriptions[] = $orderItem->getItemQuantity() . ' x ' . $itemDesc;
         }
-        return implode('; ', $descriptions);
+        return implode('/ ', $descriptions);
     }
 
     protected function getCompanyName($address)
