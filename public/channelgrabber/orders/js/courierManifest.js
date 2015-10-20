@@ -115,10 +115,9 @@ define([
     CourierManifest.prototype.createPopup = function()
     {
         var self = this;
+        this.getNotifications().notice('Loading manifest details');
         var popup = new Popup('', CourierManifest.POPUP_WIDTH_PX, CourierManifest.POPUP_HEIGHT_PX);
         this.setPopup(popup);
-        popup.displayLoader();
-        popup.show();
 
         this.getAjaxRequester().sendRequest(CourierManifest.URL_GET_ACCOUNTS, {}, function(response)
         {
@@ -150,6 +149,8 @@ define([
             if (data.details) {
                 self.renderDetails(data);
             }
+            self.getPopup().show();
+            self.getNotifications().clearNotifications();
         });
     };
 
@@ -157,11 +158,13 @@ define([
     {
         var self = this;
         this.setSelectedAccountId(accountId);
-        this.showLoading(CourierManifest.SELECTOR_GENERATE_SECTION);
+        this.getNotifications().notice('Loading courier manifest details');
+        $(CourierManifest.SELECTOR_GENERATE_SECTION).empty();
         $(CourierManifest.SELECTOR_HISTORIC_SECTION).empty();
         this.getAjaxRequester().sendRequest(CourierManifest.URL_GET_DETAILS, {"account": accountId}, function(response)
         {
             self.renderDetails(response);
+            self.getNotifications().clearNotifications();
         }, function(response)
         {
             self.ajaxError(response);
@@ -276,7 +279,8 @@ define([
     CourierManifest.prototype.historicYearSelected = function(year)
     {
         var self = this;
-        this.showLoading(CourierManifest.SELECTOR_HISTORIC_MONTHS);
+        this.getNotifications().notice('Loading historic manifest month options');
+        $(CourierManifest.SELECTOR_HISTORIC_MONTHS).empty();
         $(CourierManifest.SELECTOR_HISTORIC_DATES).empty();
         var data = {
             "account": this.getSelectedAccountId(),
@@ -285,6 +289,7 @@ define([
         this.getAjaxRequester().sendRequest(CourierManifest.URL_GET_HISTORIC, data, function(response)
         {
             self.renderHistoricMonths(response.historic);
+            self.getNotifications().clearNotifications();
         }, function(response)
         {
             self.ajaxError(response);
@@ -313,7 +318,8 @@ define([
     CourierManifest.prototype.historicMonthSelected = function(month, year)
     {
         var self = this;
-        this.showLoading(CourierManifest.SELECTOR_HISTORIC_DATES);
+        this.getNotifications().notice('Loading historic manifest date options');
+        $(CourierManifest.SELECTOR_HISTORIC_DATES).empty();
         var data = {
             "account": this.getSelectedAccountId(),
             "year": year,
@@ -322,6 +328,7 @@ define([
         this.getAjaxRequester().sendRequest(CourierManifest.URL_GET_HISTORIC, data, function(response)
         {
             self.renderHistoricDates(response.historic);
+            self.getNotifications().clearNotifications();
         }, function(response)
         {
             self.ajaxError(response);
