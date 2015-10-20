@@ -103,6 +103,7 @@ class CreateService extends ServiceAbstract
             }
             $suitableOrders->attach($order);
         }
+
         $productDetails = $this->getProductDetailsForOrders($suitableOrders, $rootOu);
         foreach ($suitableOrders as $order) {
             $parcelsData = $orderParcelsData[$order->getId()];
@@ -118,7 +119,8 @@ class CreateService extends ServiceAbstract
                 $this->updateProductDetailFromParcelData($itemProductDetail, $parcelData);
             } else {
                 $this->logDebug(static::LOG_PROD_DET_CREATE, [$item->getItemSku(), $rootOu->getId(), $order->getId()], static::LOG_CODE);
-                $this->createProductDetailFromParcelData($parcelData, $item->getItemSku(), $rootOu);
+                $productDetail = $this->createProductDetailFromParcelData($parcelData, $item->getItemSku(), $rootOu);
+                $productDetails->attach($productDetail);
             }
         }
     }
@@ -159,7 +161,8 @@ class CreateService extends ServiceAbstract
             $productDetailData[$field] = $value;
         }
         $productDetail = $this->productDetailMapper->fromArray($productDetailData);
-        $this->productDetailService->save($productDetail);
+        $hal = $this->productDetailService->save($productDetail);
+        return $this->productDetailMapper->fromHal($hal);
     }
 
     protected function getProductDetailValueFromParcelData($field, array $parcelData)
