@@ -28,11 +28,13 @@ return [
                     'buyerOrder' => Module::PUBLIC_FOLDER . 'template/courier/columns/buyerOrder.mustache',
                     'courier' => Module::PUBLIC_FOLDER . 'template/courier/columns/courier.mustache',
                     'service' => Module::PUBLIC_FOLDER . 'template/courier/columns/service.mustache',
+                    'itemImage' => Module::PUBLIC_FOLDER . 'template/courier/columns/itemImage.mustache',
                     'item' => Module::PUBLIC_FOLDER . 'template/courier/columns/item.mustache',
                 ],
                 'courierSpecifics' => [
                     'buyerOrder' => Module::PUBLIC_FOLDER . 'template/courier/columns/buyerOrder.mustache',
                     'service' => Module::PUBLIC_FOLDER . 'template/courier/columns/service.mustache',
+                    'itemImage' => Module::PUBLIC_FOLDER . 'template/courier/columns/itemImage.mustache',
                     'item' => Module::PUBLIC_FOLDER . 'template/courier/columns/item.mustache',
                     'parcels' => Module::PUBLIC_FOLDER . 'template/courier/columns/parcels.mustache',
                     'collectionDate' => Module::PUBLIC_FOLDER . 'template/courier/columns/collectionDate.mustache',

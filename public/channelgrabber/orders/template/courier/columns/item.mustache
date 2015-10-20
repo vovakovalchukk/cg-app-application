@@ -1,8 +1,6 @@
 {{^itemImageText}}
-<div class="courier-item courier-item-image">
-    {{#itemImage}}<img src="{{itemImage}}" height="50" />{{/itemImage}}
-    {{^itemImage}}&nbsp;{{/itemImage}}
-</div>
-<div class="courier-item courier-item-name">{{itemName}}</div>
+    <div class="courier-item courier-item-name">{{quantity}} x {{itemName}}</div>
 {{/itemImageText}}
-{{#itemImageText}}<strong>{{.}}</strong>{{/itemImageText}}
+{{#itemImageText}}
+    <div class="courier-parcel-title">{{.}}</div>
+{{/itemImageText}}

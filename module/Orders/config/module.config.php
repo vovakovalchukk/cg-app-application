@@ -968,10 +968,10 @@ return [
                 'CourierReviewCourierColumn' => DataTable\Column::class,
                 'CourierReviewServiceColumnView' => ViewModel::class,
                 'CourierReviewServiceColumn' => DataTable\Column::class,
+                'CourierReviewItemImageColumnView' => ViewModel::class,
+                'CourierReviewItemImageColumn' => DataTable\Column::class,
                 'CourierReviewItemColumnView' => ViewModel::class,
                 'CourierReviewItemColumn' => DataTable\Column::class,
-                'CourierReviewQuantityColumnView' => ViewModel::class,
-                'CourierReviewQuantityColumn' => DataTable\Column::class,
                 'CourierSpecificsTable' => DataTable::class,
                 'CourierSpecificsTableSettings' => DataTable\Settings::class,
                 'CourierSpecificsBuyerOrderColumnView' => ViewModel::class,
@@ -984,10 +984,10 @@ return [
                 'CourierSpecificsParcelsColumn' => DataTable\Column::class,
                 'CourierSpecificsCollectionDateColumnView' => ViewModel::class,
                 'CourierSpecificsCollectionDateColumn' => DataTable\Column::class,
+                'CourierSpecificsItemImageColumnView' => ViewModel::class,
+                'CourierSpecificsItemImageColumn' => DataTable\Column::class,
                 'CourierSpecificsItemColumnView' => ViewModel::class,
                 'CourierSpecificsItemColumn' => DataTable\Column::class,
-                'CourierSpecificsQuantityColumnView' => ViewModel::class,
-                'CourierSpecificsQuantityColumn' => DataTable\Column::class,
                 'CourierSpecificsActionsColumnView' => ViewModel::class,
                 'CourierSpecificsActionsColumn' => DataTable\Column::class,
                 // Optional columns, added to table dynamically as required
@@ -1576,8 +1576,8 @@ return [
                         ['column' => 'CourierReviewShippingMethodColumn'],
                         ['column' => 'CourierReviewCourierColumn'],
                         ['column' => 'CourierReviewServiceColumn'],
+                        ['column' => 'CourierReviewItemImageColumn'],
                         ['column' => 'CourierReviewItemColumn'],
-                        ['column' => 'CourierReviewQuantityColumn'],
                     ],
                     'setVariable' => [
                         ['name' => 'settings', 'value' => 'CourierReviewTableSettings']
@@ -1651,6 +1651,20 @@ return [
                     'sortable' => false,
                 ],
             ],
+            'CourierReviewItemImageColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => ''],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierReviewItemImageColumn' => [
+                'parameters' => [
+                    'column' => 'itemImage',
+                    'viewModel' => 'CourierReviewItemImageColumnView',
+                    'class' => 'itemImage-col',
+                    'sortable' => false,
+                ],
+            ],
             'CourierReviewItemColumnView' => [
                 'parameters' => [
                     'variables' => ['value' => 'Item'],
@@ -1662,20 +1676,6 @@ return [
                     'column' => 'item',
                     'viewModel' => 'CourierReviewItemColumnView',
                     'class' => 'item-col',
-                    'sortable' => false,
-                ],
-            ],
-            'CourierReviewQuantityColumnView' => [
-                'parameters' => [
-                    'variables' => ['value' => 'QTY'],
-                    'template' => 'value.phtml',
-                ],
-            ],
-            'CourierReviewQuantityColumn' => [
-                'parameters' => [
-                    'column' => 'quantity',
-                    'viewModel' => 'CourierReviewQuantityColumnView',
-                    'class' => 'quantity-col',
                     'sortable' => false,
                 ],
             ],
@@ -1696,8 +1696,8 @@ return [
                         ['column' => 'CourierSpecificsServiceColumn'],
                         ['column' => 'CourierSpecificsParcelsColumn'],
                         ['column' => 'CourierSpecificsCollectionDateColumn'],
+                        ['column' => 'CourierSpecificsItemImageColumn'],
                         ['column' => 'CourierSpecificsItemColumn'],
-                        ['column' => 'CourierSpecificsQuantityColumn'],
                     ],
                     'setVariable' => [
                         ['name' => 'settings', 'value' => 'CourierSpecificsTableSettings']
@@ -1786,6 +1786,20 @@ return [
                     'sortable' => false,
                 ],
             ],
+            'CourierSpecificsItemImageColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => ''],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsItemImageColumn' => [
+                'parameters' => [
+                    'column' => 'itemImage',
+                    'viewModel' => 'CourierSpecificsItemImageColumnView',
+                    'class' => 'itemImage-col',
+                    'sortable' => false,
+                ],
+            ],
             'CourierSpecificsItemColumnView' => [
                 'parameters' => [
                     'variables' => ['value' => 'Item'],
@@ -1797,20 +1811,6 @@ return [
                     'column' => 'item',
                     'viewModel' => 'CourierSpecificsItemColumnView',
                     'class' => 'item-col',
-                    'sortable' => false,
-                ],
-            ],
-            'CourierSpecificsQuantityColumnView' => [
-                'parameters' => [
-                    'variables' => ['value' => 'QTY'],
-                    'template' => 'value.phtml',
-                ],
-            ],
-            'CourierSpecificsQuantityColumn' => [
-                'parameters' => [
-                    'column' => 'quantity',
-                    'viewModel' => 'CourierSpecificsQuantityColumnView',
-                    'class' => 'quantity-col',
                     'sortable' => false,
                 ],
             ],
