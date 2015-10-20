@@ -6,6 +6,7 @@ use CG\Account\Shared\Entity as Account;
 use CG\Dataplug\Gearman\WorkerFunction\GetLabelData as GetLabelDataGF;
 use CG\Dataplug\Gearman\Workload\GetLabelData as GetLabelDataWorkload;
 use CG\Dataplug\Order\LabelMissingException;
+use CG\Dataplug\Request\CreateOrders as DataplugCreateRequest;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
@@ -64,18 +65,7 @@ class CreateService extends ServiceAbstract
         $orderLabels = $this->createOrderLabelsForOrders($orders);
         $request = $this->mapper->ordersAndDataToDataplugCreateRequest($orders, $ordersData, $orderParcelsData, $rootOu);
         $this->logDebug(static::LOG_CREATE_SEND, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
-        $response = $this->dataplugClient->sendRequest($request, $shippingAccount);
-        if (!isset($response->Order)) {
-            throw new RuntimeException(vsprintf(static::LOG_CREATE_UNEXPECTED_RESPONSE, [$orderIdsString, $shippingAccountId]));
-        }
-        $orderNumbers = [];
-        foreach ($response->Order as $responseOrder) {
-            if (!isset($responseOrder->OrderNumber, $responseOrder->Reference)) {
-                throw new RuntimeException(vsprintf(static::LOG_CREATE_MISSING_REF, [$orderIdsString, $shippingAccountId]));
-            }
-            $orderNumbers[(string)$responseOrder->Reference] = (string)$responseOrder->OrderNumber;
-        }
-        $this->logDebug(static::LOG_CREATE_REF, [implode(',', $orderNumbers), $orderIdsString, $shippingAccountId], static::LOG_CODE);
+        $orderNumbers = $this->sendCreateOrdersRequest($request, $shippingAccount, $orderIds, $orderLabels);
 
         $labelReadyStatuses = [];
         foreach ($orders as $order) {
@@ -197,6 +187,36 @@ class CreateService extends ServiceAbstract
         $orderLabel = $this->orderLabelMapper->fromArray($orderLabelData);
         $hal = $this->orderLabelService->save($orderLabel);
         return $this->orderLabelMapper->fromHal($hal);
+    }
+
+    protected function sendCreateOrdersRequest(
+        DataplugCreateRequest $request,
+        Account $shippingAccount,
+        array $orderIds,
+        array $orderLabels
+    ) {
+        $orderIdsString = implode(',', $orderIds);
+        try {
+            $response = $this->dataplugClient->sendRequest($request, $shippingAccount);
+            if (!isset($response->Order)) {
+                throw new RuntimeException(vsprintf(static::LOG_CREATE_UNEXPECTED_RESPONSE, [$orderIdsString, $shippingAccount->getId()]));
+            }
+            $orderNumbers = [];
+            foreach ($response->Order as $responseOrder) {
+                if (!isset($responseOrder->OrderNumber, $responseOrder->Reference)) {
+                    throw new RuntimeException(vsprintf(static::LOG_CREATE_MISSING_REF, [$orderIdsString, $shippingAccount->getId()]));
+                }
+                $orderNumbers[(string)$responseOrder->Reference] = (string)$responseOrder->OrderNumber;
+            }
+            $this->logDebug(static::LOG_CREATE_REF, [implode(',', $orderNumbers), $orderIdsString, $shippingAccount->getId()], static::LOG_CODE);
+            return $orderNumbers;
+        } catch (\Exception $e) {
+            // Remove labels so we don't get a label stuck in 'creating', preventing creation of new labels
+            foreach ($orderLabels as $orderLabel) {
+                $this->orderLabelService->remove($orderLabel);
+            }
+            throw $e;
+        }
     }
 
     protected function getAndProcessDataplugOrderDetails(
