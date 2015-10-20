@@ -2563,13 +2563,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/dataplug-module.git",
-                "reference": "9223e35d200e0a7f735f8eccbbde6278a021a04d"
+                "reference": "539f0214afff553e998004fde9c00b530361ac9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-dataplug-dev-EPIC-CGIV-5992-dataplug-b15107.zip",
-                "reference": "9223e35d200e0a7f735f8eccbbde6278a021a04d",
-                "shasum": "3d9b1e8d8fb4d4332ecf5165070e80616ca352a2"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-dataplug-dev-EPIC-CGIV-5992-dataplug-1a8884.zip",
+                "reference": "539f0214afff553e998004fde9c00b530361ac9f",
+                "shasum": "123fe044d5527fdd9df152e890f2b8206cb1e5cb"
             },
             "require": {
                 "channelgrabber/channel": "dev-EPIC-CGIV-5992-dataplug as 1.17.1",
@@ -2601,7 +2601,7 @@
                 ]
             },
             "description": "Dataplug module",
-            "time": "2015-10-14 09:20:57"
+            "time": "2015-10-20 11:17:48"
         },
         {
             "name": "channelgrabber/zf2-ebay",
@@ -3228,13 +3228,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "175e91ff41a3fc954a0d195fed846f90e16120b4"
+                "reference": "f9576c039f34bb719d630829cf195c7884c23722"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-5992-dataplug-e0b614.zip",
-                "reference": "175e91ff41a3fc954a0d195fed846f90e16120b4",
-                "shasum": "53de4dc9ff50dd3323e6902f36f629600c6dced6"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-5992-dataplug-7ad778.zip",
+                "reference": "f9576c039f34bb719d630829cf195c7884c23722",
+                "shasum": "fa1697de718fecc279fd4f33bd3a059a316a31f0"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3283,7 +3283,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-10-12 16:05:43"
+            "time": "2015-10-20 15:53:38"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
