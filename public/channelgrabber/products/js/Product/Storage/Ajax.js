@@ -31,5 +31,22 @@ define(function () {
         });
     };
 
+    Ajax.prototype.saveStockMode = function(productId, stockMode, callback)
+    {
+        return $.ajax({
+            'url' : '/products/stockMode',
+            'data' : {id: productId, stockMode: stockMode },
+            'method' : 'POST',
+            'dataType' : 'json',
+            'success' : function(response) {
+                callback(response);
+            },
+            'error' : function(response)
+            {
+                n.ajaxError(response);
+            }
+        });
+    };
+
     return new Ajax();
 });

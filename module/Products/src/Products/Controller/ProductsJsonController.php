@@ -23,6 +23,7 @@ class ProductsJsonController extends AbstractActionController
 {
     const ROUTE_AJAX = 'AJAX';
     const ROUTE_AJAX_TAX_RATE = 'tax_rate';
+    const ROUTE_STOCK_MODE = 'Stock Mode';
     const ROUTE_STOCK_UPDATE = 'stockupdate';
     const ROUTE_STOCK_CSV_EXPORT = 'stockCsvExport';
     const ROUTE_STOCK_CSV_IMPORT = 'stockCsvImport';
@@ -190,6 +191,17 @@ class ProductsJsonController extends AbstractActionController
         $this->getProductService()->saveProductTaxRateId($productId, $taxRateId);
         $view->setVariable('saved', true);
         return $view;
+    }
+
+    public function saveProductStockModeAction()
+    {
+        $productId = $this->params()->fromPost('id');
+        $stockMode = $this->params()->fromPost('stockMode');
+        if ($stockMode === 'null') {
+            $stockMode = null;
+        }
+        $this->stockSettingsService->saveProductStockMode($productId, $stockMode);
+        return $this->jsonModelFactory->newInstance(['valid' => true, 'status' => 'Stock mode saved successfully']);
     }
 
     public function stockCsvExportAction()

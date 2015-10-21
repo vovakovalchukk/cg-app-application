@@ -2,6 +2,7 @@ define([
     'cg-mustache',
     'Product/DomListener/Search',
     'Product/DomListener/Pagination',
+    'Product/DomListener/StockMode',
     'Product/DomListener/TaxRate',
     'Product/Filter/Mapper',
     'Product/Storage/Ajax',
@@ -13,6 +14,7 @@ define([
     CGMustache,
     SearchDomListener,
     PaginationDomListener,
+    StockModeDomListener,
     TaxRateDomListener,
     productFilterMapper,
     productStorage,
@@ -27,6 +29,7 @@ define([
         var deferredQueue;
         var searchDomListener;
         var paginationDomListener;
+        var stockModeDomListener;
         var taxRateDomListener;
 
         this.getBaseImgUrl = function()
@@ -55,6 +58,7 @@ define([
             deferredQueue = new DeferredQueue();
             searchDomListener = new SearchDomListener(this);
             paginationDomListener = new PaginationDomListener(this);
+            stockModeDomListener = new StockModeDomListener(this);
             taxRateDomListener = new TaxRateDomListener(this);
 
             this.setBaseImgUrl(baseImgUrl)
@@ -382,6 +386,15 @@ define([
                 } else {
                     n.ajaxError(error, textStatus, errorThrown);
                 }
+            });
+        });
+    };
+
+    Service.prototype.saveStockModeForProduct = function(productId, value)
+    {
+        this.getDeferredQueue().queue(function() {
+            return productStorage.saveStockMode(productId, value, function() {
+                n.success('Product stock mode updated successfully');
             });
         });
     };

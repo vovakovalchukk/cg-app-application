@@ -59,6 +59,16 @@ return [
                             ]
                         ],
                     ],
+                    ProductsJsonController::ROUTE_STOCK_MODE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/stockMode',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'saveProductStockMode'
+                            ]
+                        ],
+                    ],
                     ProductsJsonController::ROUTE_STOCK_UPDATE => [
                         'type' => Literal::class,
                         'options' => [
