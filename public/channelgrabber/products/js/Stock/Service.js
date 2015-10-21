@@ -1,8 +1,17 @@
 define([
+    'Stock/DomListener'
 ], function (
+    DomListener
 ) {
     var Service = function()
     {
+        var domListener;
+
+        var init = function()
+        {
+            domListener = new DomListener(this);
+        };
+        init.call(this);
     };
 
     Service.MIN_HTTP_CODE_ERROR = 400;
@@ -41,5 +50,5 @@ define([
         });
     };
 
-    return new Service();
+    return Service;
 });

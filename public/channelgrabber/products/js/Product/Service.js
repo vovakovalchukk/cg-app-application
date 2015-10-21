@@ -189,7 +189,7 @@ define([
 
     Service.prototype.getStockTableLineView = function(product, location, templates)
     {
-        var name = 'total-stock-' + product.id + '-' + location['id'];
+        var name = 'total-stock_' + product.id + '_' + location['id'];
         var quantityInlineText = this.getStockTotalView(name, location, templates);
         var available = location['onHand'] - location['allocated'];
         var showStockLevel = (product.stockLevel !== null);
@@ -215,7 +215,9 @@ define([
     {
         return CGMustache.get().renderTemplate(templates, {
             'value': location['onHand'],
+            'id': name,
             'name': name,
+            'class': 'product-stock-total',
             'type': 'number'
         }, 'inlineText', {});
     };

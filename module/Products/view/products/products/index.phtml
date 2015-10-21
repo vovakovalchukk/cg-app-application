@@ -7,14 +7,15 @@ require.config({
     }
 });
 require([
-    "showHideFilters", "Product/Service", "Variation/Service", 'Product/DomListener/TaxRate'
+    "showHideFilters", "Product/Service", "Variation/Service", 'Stock/Service'
 ],
-function(ShowHideFilters, ProductService, VariationService) {
+function(ShowHideFilters, ProductService, VariationService, StockService) {
     $(document).ready(function()
     {
         var hideFilters = new ShowHideFilters();
         var productService = new ProductService('<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img');
         var variationService = new VariationService(productService);
+        var stockService = new StockService();
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
