@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "761738baec5e7f00cc02822488db7e52",
-    "content-hash": "382602e1e8c9e478f95fe1679941aa99",
+    "hash": "d7958541d3906c3f5e525821ec203420",
+    "content-hash": "6c0e22ed405e4c40a04b5ad08130d27e",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1489,17 +1489,17 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-CGIV-6366-fixed-stock-settings-page",
+            "version": "dev-EPIC-CGIV-6243-StockLevels",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "04b677de4e8fe3aeed384c3c5c225e0a759d0477"
+                "reference": "ab2a7fc26b2de4a05b3a2e42af9e1d49f275705e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-6366-fixed-stock-settings-page-8f811a.zip",
-                "reference": "04b677de4e8fe3aeed384c3c5c225e0a759d0477",
-                "shasum": "041255ead0769a5fc06cba256a670fc28acf025d"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-EPIC-CGIV-6243-StockLevels-7b3bc2.zip",
+                "reference": "ab2a7fc26b2de4a05b3a2e42af9e1d49f275705e",
+                "shasum": "c5a4cdd0309ee8088211948435fed74758ae9044"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1534,7 +1534,7 @@
                     "CG\\Product\\": "src"
                 }
             },
-            "time": "2015-10-16 09:18:31"
+            "time": "2015-10-19 11:13:38"
         },
         {
             "name": "channelgrabber/purge",
@@ -1696,17 +1696,17 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "dev-CGIV-6366-fixed-stock-settings-page",
+            "version": "dev-EPIC-CGIV-6243-StockLevels",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "ccb0287e3ef362da2bcad1a144a4518527981811"
+                "reference": "0697430b1638dfc1f6a5b9fefa75875722fed420"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-6366-fixed-stock-settings-page-11f24c.zip",
-                "reference": "ccb0287e3ef362da2bcad1a144a4518527981811",
-                "shasum": "2189fc9e3461c4b8f6b63bcb09d84630800ce309"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-EPIC-CGIV-6243-StockLevels-539f1e.zip",
+                "reference": "0697430b1638dfc1f6a5b9fefa75875722fed420",
+                "shasum": "5cfe6a2f67ebc407fc131f330dd11c2507467d91"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1728,7 +1728,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2015-10-16 10:07:07"
+            "time": "2015-10-21 07:44:29"
         },
         {
             "name": "channelgrabber/slim",
@@ -3134,7 +3134,7 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-6366-fixed-stock-settings-page",
+            "version": "dev-EPIC-CGIV-6243-StockLevels",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
@@ -3142,9 +3142,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6366-fixed-stock-settings-page-3dd9b0.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-6243-StockLevels-3dd9b0.zip",
                 "reference": "f5cc952de96811f4bf89be004835e76445e80e78",
-                "shasum": "7943254f14be963a90e3ee3cc5ae5ddcb0de29b2"
+                "shasum": "bac69de898e803c50d70ae3915932b33290572f6"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -6153,6 +6153,67 @@
             "time": "2013-11-15 02:57:56"
         },
         {
+            "name": "composer/semver",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/composer/semver.git",
+                "reference": "d0e1ccc6d44ab318b758d709e19176037da6b1ba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/composer-semver-d0e1ccc6d44ab318b758d709e19176037da6b1ba-zip-4ead97.zip",
+                "reference": "d0e1ccc6d44ab318b758d709e19176037da6b1ba",
+                "shasum": "46071a964b51f459c3b75b8eafa9635b8059567c"
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.5",
+                "phpunit/phpunit-mock-objects": "~2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Composer\\Semver\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rob Bast",
+                    "email": "rob.bast@gmail.com"
+                },
+                {
+                    "name": "Nils Adermann",
+                    "email": "naderman@naderman.de",
+                    "homepage": "http://www.naderman.de"
+                },
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "http://seld.be"
+                }
+            ],
+            "description": "Semver library that offers utilities, version constraint parsing and validation.",
+            "keywords": [
+                "semantic",
+                "semver",
+                "validation",
+                "versioning"
+            ],
+            "time": "2015-09-21 09:42:36"
+        },
+        {
             "name": "doctrine/instantiator",
             "version": "1.0.5",
             "source": {
@@ -7233,19 +7294,19 @@
         {
             "alias": "1.4.13",
             "alias_normalized": "1.4.13.0",
-            "version": "dev-CGIV-6366-fixed-stock-settings-page",
+            "version": "dev-EPIC-CGIV-6243-StockLevels",
             "package": "channelgrabber/product"
         },
         {
-            "alias": "1.3.8",
-            "alias_normalized": "1.3.8.0",
-            "version": "dev-CGIV-6366-fixed-stock-settings-page",
+            "alias": "1.3.9",
+            "alias_normalized": "1.3.9.0",
+            "version": "dev-EPIC-CGIV-6243-StockLevels",
             "package": "channelgrabber/settings"
         },
         {
             "alias": "1.16.14",
             "alias_normalized": "1.16.14.0",
-            "version": "dev-CGIV-6366-fixed-stock-settings-page",
+            "version": "dev-EPIC-CGIV-6243-StockLevels",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
