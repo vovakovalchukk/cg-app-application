@@ -2043,17 +2043,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.3.4",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "2faecb70ba2fdfee92ae05d73d9729c03683c2c7"
+                "reference": "56e101bf2fc2f6d3f74fece6a0a056a5252e4c10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.3.4-8a447c.zip",
-                "reference": "2faecb70ba2fdfee92ae05d73d9729c03683c2c7",
-                "shasum": "18500a979b4abb9ef36a2b671d10a064285bee16"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.0-3208b1.zip",
+                "reference": "56e101bf2fc2f6d3f74fece6a0a056a5252e4c10",
+                "shasum": "bb818fa51ed28b7b7ef1c8a4c4209ddbf94bef15"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2062,11 +2062,13 @@
                 "channelgrabber/di": ">=2.1.0",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.19.8",
-                "channelgrabber/settings": ">=1.1.4,<2.0.0",
+                "channelgrabber/product": "^1.2.0",
+                "channelgrabber/settings": "^1.3.8",
                 "channelgrabber/stdlib": "^2.10.4",
                 "channelgrabber/user": "^1.20.0",
                 "composer/composer": "@dev",
                 "ext-gd": "*",
+                "guzzle/guzzle": "~3.7",
                 "php-jsonpatch/php-jsonpatch": "@dev",
                 "php-jsonpointer/php-jsonpointer": "@dev",
                 "zendframework/zend-di": ">=2.2.5,<3.0",
@@ -2079,6 +2081,11 @@
                 "phpunit/phpunit": "~3.7.28"
             },
             "type": "di-definition",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "1.4.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Template\\": "src"
@@ -2090,7 +2097,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-10-14 10:35:25"
+            "time": "2015-10-16 14:23:16"
         },
         {
             "name": "channelgrabber/transaction",
@@ -6144,67 +6151,6 @@
                 "unit testing"
             ],
             "time": "2013-11-15 02:57:56"
-        },
-        {
-            "name": "composer/semver",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/composer/semver.git",
-                "reference": "d0e1ccc6d44ab318b758d709e19176037da6b1ba"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/composer-semver-d0e1ccc6d44ab318b758d709e19176037da6b1ba-zip-4ead97.zip",
-                "reference": "d0e1ccc6d44ab318b758d709e19176037da6b1ba",
-                "shasum": "46071a964b51f459c3b75b8eafa9635b8059567c"
-            },
-            "require": {
-                "php": ">=5.3.2"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.5",
-                "phpunit/phpunit-mock-objects": "~2.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Composer\\Semver\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Rob Bast",
-                    "email": "rob.bast@gmail.com"
-                },
-                {
-                    "name": "Nils Adermann",
-                    "email": "naderman@naderman.de",
-                    "homepage": "http://www.naderman.de"
-                },
-                {
-                    "name": "Jordi Boggiano",
-                    "email": "j.boggiano@seld.be",
-                    "homepage": "http://seld.be"
-                }
-            ],
-            "description": "Semver library that offers utilities, version constraint parsing and validation.",
-            "keywords": [
-                "semantic",
-                "semver",
-                "validation",
-                "versioning"
-            ],
-            "time": "2015-09-21 09:42:36"
         },
         {
             "name": "doctrine/instantiator",

@@ -91,8 +91,9 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
         try {
             $data = $this->params()->fromPost();
-
             $data['autoEmail'] = filter_var($data['autoEmail'], FILTER_VALIDATE_BOOLEAN);
+            $data['productImages'] = filter_var($data['productImages'], FILTER_VALIDATE_BOOLEAN);
+
             if ($data['autoEmail'] && $autoEmail) {
                 $data['autoEmail'] = $autoEmail;
                 // Value unchanged so don't tell intercom
@@ -154,7 +155,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setVariable('invoices', $invoices)
             ->setVariable('eTag', $invoiceSettings->getStoredETag())
             ->addChild($this->getInvoiceSettingsDefaultSelectView($invoiceSettings, $invoices), 'defaultCustomSelect')
-            ->addChild($this->getInvoiceSettingsAutoEmailCheckboxView($invoiceSettings, $invoices), 'emailCheckbox')
+            ->addChild($this->getInvoiceSettingsAutoEmailCheckboxView($invoiceSettings), 'emailCheckbox')
+            ->addChild($this->getInvoiceSettingsProductImagesCheckboxView($invoiceSettings), 'productImagesCheckbox')
             ->addChild($this->getTradingCompanyInvoiceSettingsDataTable(), 'invoiceSettingsDataTable');
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);    
@@ -228,6 +230,19 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
                     'id' => 'autoEmail',
                     'name' => 'autoEmail',
                     'selected' => (boolean) $invoiceSettings->getAutoEmail(),
+                ]
+            )
+            ->setTemplate('elements/checkbox.mustache');
+    }
+
+    protected function getInvoiceSettingsProductImagesCheckboxView($invoiceSettings)
+    {
+        return $this->getViewModelFactory()
+            ->newInstance(
+                [
+                    'id' => 'productImages',
+                    'name' => 'productImages',
+                    'selected' => $invoiceSettings->getProductImages(),
                 ]
             )
             ->setTemplate('elements/checkbox.mustache');
