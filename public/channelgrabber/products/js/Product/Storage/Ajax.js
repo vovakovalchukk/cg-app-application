@@ -31,11 +31,11 @@ define(function () {
         });
     };
 
-    Ajax.prototype.saveStockMode = function(productId, stockMode, callback)
+    Ajax.prototype.saveStockMode = function(productId, stockMode, eTag, callback)
     {
         return $.ajax({
             'url' : '/products/stockMode',
-            'data' : {id: productId, stockMode: stockMode },
+            'data' : { id: productId, stockMode: stockMode, eTag: eTag },
             'method' : 'POST',
             'dataType' : 'json',
             'success' : function(response) {

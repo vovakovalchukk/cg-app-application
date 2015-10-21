@@ -121,10 +121,13 @@ class ProductsJsonController extends AbstractActionController
         $product = $productEntity->toArray();
 
         $product = array_merge($product, [
+            'eTag' => $productEntity->getStoredETag(),
             'images' => $productEntity->getImages()->toArray(),
             'listings' => $productEntity->getListings()->toArray(),
             'accounts' => $accounts,
-            'stockModes' => $this->stockSettingsService->getProductStockModeOptions($productEntity),
+            'stockModeDesc' => $this->stockSettingsService->getStockModeDecriptionForProduct($productEntity),
+            'stockModeOptions' => $this->stockSettingsService->getStockModeOptionsForProduct($productEntity),
+            'stockLevel' => $this->stockSettingsService->getStockLevelForProduct($productEntity),
         ]);
 
         if($isVatRegistered) {
@@ -196,12 +199,13 @@ class ProductsJsonController extends AbstractActionController
     public function saveProductStockModeAction()
     {
         $productId = $this->params()->fromPost('id');
+        $eTag = $this->params()->fromPost('eTag');
         $stockMode = $this->params()->fromPost('stockMode');
         if ($stockMode === 'null') {
             $stockMode = null;
         }
-        $this->stockSettingsService->saveProductStockMode($productId, $stockMode);
-        return $this->jsonModelFactory->newInstance(['valid' => true, 'status' => 'Stock mode saved successfully']);
+        $newEtag = $this->stockSettingsService->saveProductStockMode($productId, $stockMode, $eTag);
+        return $this->jsonModelFactory->newInstance(['valid' => true, 'status' => 'Stock mode saved successfully', 'eTag' => $newEtag]);
     }
 
     public function stockCsvExportAction()

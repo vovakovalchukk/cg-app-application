@@ -1,5 +1,6 @@
 <div class="product-container {{#hasVariations}}product-variations-container{{/hasVariations}}" id="product-container-{{id}}">
     <input type="hidden" value="{{id}}" name="id">
+    <input type="hidden" value="{{eTag}}" name="product[{{id}}][eTag]">
     <div class="checkbox-container">
         {{> checkbox}}
     </div>
@@ -36,7 +37,7 @@
             {{> taxRateCustomSelect}}
         </div>
         <div class="stock-mode-holder">
-            {{> stockModes}}
+            {{> stockModeOptions}}
         </div>
     </div>
 </div>

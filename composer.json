@@ -52,7 +52,7 @@
         "channelgrabber/phinx": "~0.3.2",
         "channelgrabber/picklist": "~1.0.2",
         "channelgrabber/predis": "~1.0.5",
-        "channelgrabber/product": "dev-EPIC-CGIV-6243-StockLevels as 1.4.13",
+        "channelgrabber/product": "dev-CGIV-6301-product-stock-fixed-max-ui as 1.4.13",
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/royalmail": "~1.0.1",
         "channelgrabber/sequential-numbering": "~1.0.0",

@@ -21,4 +21,11 @@
             </script>
         </div>
     </td>
+    {{#showStockLevel}}
+    <td>
+        <div class="stock-level-holder">
+            {{>stockLevel}}
+        </div>
+    </td>
+    {{/showStockLevel}}
 </tr>

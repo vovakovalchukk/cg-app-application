@@ -161,13 +161,14 @@ define([
             'title': product['name'],
             'sku': product['sku'],
             'id': product['id'],
+            'eTag': product['eTag'],
             'image': this.getPrimaryImage(product['images']),
             'hasVariations': hasVariations
         }, 'product', {
             'productContent': productContent,
             'statusLozenge': statusLozenge,
             'expandButton': expandButton,
-            'stockModes': stockModesCustomSelect,
+            'stockModeOptions': stockModesCustomSelect,
             'taxRateCustomSelect': taxRateCustomSelect,
             'checkbox': checkbox
         });
@@ -179,30 +180,55 @@ define([
         var stockLocations = "";
         if (typeof(product['stock']) != 'undefined' && typeof(product['stock']['locations']) != 'undefined') {
             for (var index in product['stock']['locations']) {
-                stockLocations += this.getStockTableLineView(product['id'], product['stock']['locations'][index], templates);
+                stockLocations += this.getStockTableLineView(product, product['stock']['locations'][index], templates);
             }
         }
-        var html = CGMustache.get().renderTemplate(templates, {}, 'stockTable', {'stockLocations': stockLocations});
+        var html = CGMustache.get().renderTemplate(templates, {'showStockLevel': (product.stockLevel !== null), 'stockModeDesc': product.stockModeDesc}, 'stockTable', {'stockLocations': stockLocations});
         return html;
     };
 
-    Service.prototype.getStockTableLineView = function(productId, location, templates)
+    Service.prototype.getStockTableLineView = function(product, location, templates)
     {
-        var name = 'total-stock-' + productId + '-' + location['id'];
-        var quantityInlineText = CGMustache.get().renderTemplate(templates, {
+        var name = 'total-stock-' + product.id + '-' + location['id'];
+        var quantityInlineText = this.getStockTotalView(name, location, templates);
+        var available = location['onHand'] - location['allocated'];
+        var showStockLevel = (product.stockLevel !== null);
+        var stockLevel = null;
+        if (showStockLevel) {
+            stockLevel = this.getStockLevelView(product, templates);
+        }
+        return CGMustache.get().renderTemplate(templates, {
+            'productId': product.id,
+            'available': available,
+            'allocated': location['allocated'],
+            'totalName': name,
+            'showStockLevel': showStockLevel,
+            'stockLocationId': location['id'],
+            'eTag': location['eTag']
+        }, 'stockRow', {
+            'total': quantityInlineText,
+            'stockLevel': stockLevel
+        });
+    };
+
+    Service.prototype.getStockTotalView = function(name, location, templates)
+    {
+        return CGMustache.get().renderTemplate(templates, {
             'value': location['onHand'],
             'name': name,
             'type': 'number'
         }, 'inlineText', {});
-        var available = location['onHand'] - location['allocated'];
+    };
+
+    Service.prototype.getStockLevelView = function(product, templates)
+    {
         return CGMustache.get().renderTemplate(templates, {
-            'productId': productId,
-            'available': available,
-            'allocated': location['allocated'],
-            'totalName': name,
-            'stockLocationId': location['id'],
-            'eTag': location['eTag']
-        }, 'stockRow', {'total': quantityInlineText});
+            'id': 'product-stock-level-' + product.id,
+            'value': product.stockLevel,
+            'name': 'product[' + product.id + '][stockLevel]',
+            'class': 'product-stock-level',
+            'type': 'number'
+        }, 'inlineText', {});
     };
 
     Service.prototype.getVariationView = function(product, templates)
@@ -212,12 +238,12 @@ define([
         for (var index in product['variations']) {
             var variation = product['variations'][index];
             variations += this.getVariationLineView(templates, variation, product['attributeNames']);
-            stockLocations += this.getStockTableLineView(variation['id'], variation['stock']['locations'][0], templates);
+            stockLocations += this.getStockTableLineView(variation, variation['stock']['locations'][0], templates);
         }
         var variationTable = CGMustache.get().renderTemplate(templates, {
             'attributes': product['attributeNames']
         }, 'variationTable', {'variations': variations});
-        var stockTable = CGMustache.get().renderTemplate(templates, {}, 'stockTable', {'stockLocations': stockLocations});
+        var stockTable = CGMustache.get().renderTemplate(templates, {'showStockLevel': (product.stockLevel !== null), 'stockModeDesc': product.stockModeDesc}, 'stockTable', {'stockLocations': stockLocations});
         var html = CGMustache.get().renderTemplate(templates, {}, 'variationStock', {
             'variationTable': variationTable,
             'stockTable': stockTable
@@ -289,7 +315,7 @@ define([
             'name': 'product[' + product['id'] + '][stockMode]',
             'class': Service.STOCK_MODE_ID_PREFIX,
             'title': 'Stock',
-            'options': product.stockModes
+            'options': product.stockModeOptions
         }, 'customSelect');
     };
 
@@ -392,8 +418,10 @@ define([
 
     Service.prototype.saveStockModeForProduct = function(productId, value)
     {
+        var eTag = $('input[name="product[' + productId + '][eTag]"]').val();
         this.getDeferredQueue().queue(function() {
-            return productStorage.saveStockMode(productId, value, function() {
+            return productStorage.saveStockMode(productId, value, eTag, function(response) {
+                $('input[name="product[' + productId + '][eTag]"]').val(response.eTag);
                 n.success('Product stock mode updated successfully');
             });
         });

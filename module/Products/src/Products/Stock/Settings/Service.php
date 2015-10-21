@@ -4,6 +4,7 @@ namespace Products\Stock\Settings;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Entity as Product;
+use CG\Product\Filter as ProductFilter;
 use CG\Product\StockMode;
 use CG\Settings\Product\Service as ProductSettingsService;
 use CG\User\OrganisationUnit\Service as UserOUService;
@@ -17,6 +18,7 @@ class Service
     /** @var ProductService */
     protected $productService;
 
+    protected $productSettings;
     protected $stockModeOptions;
 
     public function __construct(
@@ -29,7 +31,10 @@ class Service
             ->setProductService($productService);
     }
 
-    public function getProductStockModeOptions(Product $product)
+    /**
+     * @return array
+     */
+    public function getStockModeOptionsForProduct(Product $product)
     {
         $options = $this->getStockModeOptions();
         $productOption = ($product->getStockMode() ?: 'null');
@@ -48,8 +53,7 @@ class Service
             return $this->stockModeOptions;
         }
         $options = StockMode::getStockModesAsSelectOptions();
-        $rootOu = $this->userOUService->getRootOuByActiveUser();
-        $productSettings = $this->productSettingsService->fetch($rootOu->getId());
+        $productSettings = $this->getProductSettings();
         $defaultStockMode = ($productSettings->getDefaultStockMode() ?: StockMode::LIST_ALL);
         $defaultStockModeTitle = '';
         foreach ($options as $option) {
@@ -65,17 +69,81 @@ class Service
         return $this->stockModeOptions;
     }
 
-    public function saveProductStockMode($productId, $stockMode)
+    protected function getProductSettings()
+    {
+        if ($this->productSettings) {
+            return $this->productSettings;
+        }
+        $rootOu = $this->userOUService->getRootOuByActiveUser();
+        $this->productSettings = $this->productSettingsService->fetch($rootOu->getId());
+        return $this->productSettings;
+    }
+
+    public function getStockModeDecriptionForProduct(Product $product)
+    {
+        if ($product->getStockMode()) {
+            $stockMode = $product->getStockMode();
+        } else {
+            $productSettings = $this->getProductSettings();
+            $stockMode = $productSettings->getDefaultStockMode();
+        }
+        if (!$stockMode) {
+            return null;
+        }
+        return StockMode::getStockModeDescription($stockMode);
+    }
+
+    /**
+     * @return int|null Null returned if stockLevel is not applicable to this Product
+     */
+    public function getStockLevelForProduct(Product $product)
+    {
+        if ($product->getStockMode() != null && $product->getStockMode() != StockMode::LIST_ALL) {
+            return ($product->getStockLevel() ?: 0);
+        }
+        if ($product->getStockMode() == StockMode::LIST_ALL) {
+            return null;
+        }
+        $productSettings = $this->getProductSettings();
+        if ($productSettings->getDefaultStockMode() != null && $productSettings->getDefaultStockMode() != StockMode::LIST_ALL) {
+            return ($productSettings->getDefaultStockLevel() ?: 0);
+        }
+        return null;
+    }
+
+    public function saveProductStockMode($productId, $stockMode, $eTag = null)
     {
         if ($stockMode !== null && !StockMode::isValid($stockMode)) {
             throw new \InvalidArgumentException('"' . $stockMode . '" is not a valid stock mode option');
         }
-        $product = $this->productService->fetch($productId);
-        $product->setStockMode($stockMode);
         try {
+            $product = $this->productService->fetch($productId);
+            $product->setStockMode($stockMode);
+            if ($eTag) {
+                $product->setStoredEtag($eTag);
+            }
             $this->productService->save($product);
+            $this->saveProductStockModeForVariations($product, $stockMode);
         } catch (NotModified $e) {
             // No-op
+        }
+        return $product->getStoredEtag();
+    }
+
+    protected function saveProductStockModeForVariations($product, $stockMode)
+    {
+        if (!$product->isParent()) {
+            return;
+        }
+        // Fetch the variations rather than getting them straight off the parent otherwise we'll be missing their eTags
+        $filter = (new ProductFilter())
+            ->setLimit('all')
+            ->setPage(1)
+            ->setId($product->getVariationIds());
+        $variations = $this->productService->fetchCollectionByFilter($filter);
+        foreach ($variations as $variation) {
+            $variation->setStockMode($stockMode);
+            $this->productService->save($variation);
         }
     }
 

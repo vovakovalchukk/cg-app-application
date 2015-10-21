@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "affc8c689ca2c35d6b6e9aa50b7dd637",
-    "content-hash": "6d9071857425f268f4f1df3e9e37d892",
+    "hash": "a4a9f2e25d2b8912dec8df305c48582b",
+    "content-hash": "c7c3b663731bc3510fb9bbdd62d031e5",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1489,17 +1489,17 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-EPIC-CGIV-6243-StockLevels",
+            "version": "dev-CGIV-6301-product-stock-fixed-max-ui",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "ab2a7fc26b2de4a05b3a2e42af9e1d49f275705e"
+                "reference": "343540458f7a24a8d194739e4d2146fb2fd7400a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-EPIC-CGIV-6243-StockLevels-7b3bc2.zip",
-                "reference": "ab2a7fc26b2de4a05b3a2e42af9e1d49f275705e",
-                "shasum": "c5a4cdd0309ee8088211948435fed74758ae9044"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-6301-product-stock-fixed-max-ui-c82b99.zip",
+                "reference": "343540458f7a24a8d194739e4d2146fb2fd7400a",
+                "shasum": "46fd04d7836052ec9dd11a36e021508ed83b3c6b"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1534,7 +1534,7 @@
                     "CG\\Product\\": "src"
                 }
             },
-            "time": "2015-10-19 11:13:38"
+            "time": "2015-10-21 12:55:22"
         },
         {
             "name": "channelgrabber/purge",
@@ -3138,13 +3138,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "3a0421bc2d95d7654e6fd7e9a09d599abc84b148"
+                "reference": "d1277dbc1246206eeabececfd5ecc0b8b4aae589"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6301-product-stock-fixed-max-ui-3651d8.zip",
-                "reference": "3a0421bc2d95d7654e6fd7e9a09d599abc84b148",
-                "shasum": "6dccb1cd9c28e99bd999787163fd42707d8fae51"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6301-product-stock-fixed-max-ui-08a76b.zip",
+                "reference": "d1277dbc1246206eeabececfd5ecc0b8b4aae589",
+                "shasum": "4489415d7ac3af5a054281cdaac7377a0408e4dc"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -3189,7 +3189,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-10-21 09:20:06"
+            "time": "2015-10-21 13:36:07"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7294,7 +7294,7 @@
         {
             "alias": "1.4.13",
             "alias_normalized": "1.4.13.0",
-            "version": "dev-EPIC-CGIV-6243-StockLevels",
+            "version": "dev-CGIV-6301-product-stock-fixed-max-ui",
             "package": "channelgrabber/product"
         },
         {
