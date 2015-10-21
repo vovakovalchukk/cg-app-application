@@ -44,6 +44,7 @@ define([
     Service.DOM_SELECTOR_PRODUCT_CONTAINER = '#products-list';
     Service.DOM_SELECTOR_LOADING_MESSAGE = '#products-loading-message';
     Service.DEFAULT_IMAGE_URL = '/noproductsimage.png';
+    Service.DOM_SELECTOR_STOCK_MODE = 'product-stock-mode';
     Service.DOM_SELECTOR_TAX_RATE = 'product-tax-rate-custom-select';
     Service.DOM_SELECTOR_PAGINATION = '#product-pagination';
 
@@ -133,7 +134,8 @@ define([
         }
 
         var statusLozenge = this.getStatusView(product, templates);
-        if(product['taxRates']) {
+        var stockModesCustomSelect = this.getStockModesCustomSelectView(product, templates);
+        if (product['taxRates']) {
             taxRateCustomSelect = this.getTaxRateCustomSelectView(product, templates);
         }
         var productView = CGMustache.get().renderTemplate(templates, {
@@ -146,6 +148,7 @@ define([
             'productContent': productContent,
             'statusLozenge': statusLozenge,
             'expandButton': expandButton,
+            'stockModes': stockModesCustomSelect,
             'taxRateCustomSelect': taxRateCustomSelect,
             'checkbox': checkbox
         });
@@ -257,6 +260,17 @@ define([
             'class': Service.DOM_SELECTOR_TAX_RATE,
             'title': 'VAT',
             'options': options
+        }, 'customSelect');
+    };
+
+    Service.prototype.getStockModesCustomSelectView = function(product, templates)
+    {
+        return CGMustache.get().renderTemplate(templates, {
+            'id': Service.DOM_SELECTOR_STOCK_MODE + '-' + product['id'],
+            'name': 'product[' + product['id'] + '][stockMode]',
+            'class': Service.DOM_SELECTOR_STOCK_MODE,
+            'title': 'Stock',
+            'options': product.stockModes
         }, 'customSelect');
     };
 

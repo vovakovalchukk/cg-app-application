@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d7958541d3906c3f5e525821ec203420",
-    "content-hash": "6c0e22ed405e4c40a04b5ad08130d27e",
+    "hash": "affc8c689ca2c35d6b6e9aa50b7dd637",
+    "content-hash": "6d9071857425f268f4f1df3e9e37d892",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3134,17 +3134,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-EPIC-CGIV-6243-StockLevels",
+            "version": "dev-CGIV-6301-product-stock-fixed-max-ui",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "f5cc952de96811f4bf89be004835e76445e80e78"
+                "reference": "3a0421bc2d95d7654e6fd7e9a09d599abc84b148"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-6243-StockLevels-3dd9b0.zip",
-                "reference": "f5cc952de96811f4bf89be004835e76445e80e78",
-                "shasum": "bac69de898e803c50d70ae3915932b33290572f6"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6301-product-stock-fixed-max-ui-3651d8.zip",
+                "reference": "3a0421bc2d95d7654e6fd7e9a09d599abc84b148",
+                "shasum": "6dccb1cd9c28e99bd999787163fd42707d8fae51"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -3189,7 +3189,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-10-19 10:42:15"
+            "time": "2015-10-21 09:20:06"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7306,7 +7306,7 @@
         {
             "alias": "1.16.14",
             "alias_normalized": "1.16.14.0",
-            "version": "dev-EPIC-CGIV-6243-StockLevels",
+            "version": "dev-CGIV-6301-product-stock-fixed-max-ui",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],

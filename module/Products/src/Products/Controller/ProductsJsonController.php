@@ -16,6 +16,7 @@ use Products\Product\TaxRate\Service as TaxRateService;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Zend\Stdlib\Http\FileResponse;
 use Products\Stock\Csv\Service as StockCsvService;
+use Products\Stock\Settings\Service as StockSettingsService;
 use CG\Stock\Import\UpdateOptions as StockImportUpdateOptions;
 
 class ProductsJsonController extends AbstractActionController
@@ -43,6 +44,8 @@ class ProductsJsonController extends AbstractActionController
     protected $organisationUnitService;
     /** @var StockCsvService $stockCsvService */
     protected $stockCsvService;
+    /** @var StockSettingsService */
+    protected $stockSettingsService;
 
     public function __construct(
         ProductService $productService,
@@ -52,7 +55,8 @@ class ProductsJsonController extends AbstractActionController
         AccountService $accountService,
         TaxRateService $taxRateService,
         OrganisationUnitService $organisationUnitService,
-        StockCsvService $stockCsvService
+        StockCsvService $stockCsvService,
+        StockSettingsService $stockSettingsService
     ) {
         $this->setProductService($productService)
             ->setJsonModelFactory($jsonModelFactory)
@@ -61,7 +65,8 @@ class ProductsJsonController extends AbstractActionController
             ->setAccountService($accountService)
             ->setTaxRateService($taxRateService)
             ->setOrganisationUnitService($organisationUnitService)
-            ->setStockCsvService($stockCsvService);
+            ->setStockCsvService($stockCsvService)
+            ->setStockSettingsService($stockSettingsService);
     }
 
     public function ajaxAction()
@@ -117,7 +122,8 @@ class ProductsJsonController extends AbstractActionController
         $product = array_merge($product, [
             'images' => $productEntity->getImages()->toArray(),
             'listings' => $productEntity->getListings()->toArray(),
-            'accounts' => $accounts
+            'accounts' => $accounts,
+            'stockModes' => $this->stockSettingsService->getProductStockModeOptions($productEntity),
         ]);
 
         if($isVatRegistered) {
@@ -326,6 +332,12 @@ class ProductsJsonController extends AbstractActionController
     public function setStockCsvService(StockCsvService $stockCsvService)
     {
         $this->stockCsvService = $stockCsvService;
+        return $this;
+    }
+
+    protected function setStockSettingsService(StockSettingsService $stockSettingsService)
+    {
+        $this->stockSettingsService = $stockSettingsService;
         return $this;
     }
 }
