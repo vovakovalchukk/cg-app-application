@@ -1053,7 +1053,7 @@ return [
             ],
             'StockSettingsAccountsMaxColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Maximum'],
+                    'variables' => ['value' => 'List up to a maximum of'],
                     'template' => 'value.phtml',
                 ],
             ],
@@ -1068,7 +1068,7 @@ return [
             ],
             'StockSettingsAccountsFixedColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Fixed'],
+                    'variables' => ['value' => 'Fix the level at'],
                     'template' => 'value.phtml',
                 ],
             ],
