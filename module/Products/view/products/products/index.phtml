@@ -9,13 +9,12 @@ require.config({
 require([
     "showHideFilters", "Product/Service", "Variation/Service", 'Product/DomListener/TaxRate'
 ],
-function(ShowHideFilters, productService, variationService, taxRateDomListener) {
+function(ShowHideFilters, ProductService, VariationService) {
     $(document).ready(function()
     {
         var hideFilters = new ShowHideFilters();
-        productService.init('<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img');
-        variationService.init();
-        taxRateDomListener.init('.tax-rate-custom-select-holder');
+        var productService = new ProductService('<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img');
+        var variationService = new VariationService(productService);
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>

@@ -2,6 +2,7 @@ define([
     'cg-mustache',
     'Product/DomListener/Search',
     'Product/DomListener/Pagination',
+    'Product/DomListener/TaxRate',
     'Product/Filter/Mapper',
     'Product/Storage/Ajax',
     'DomManipulator',
@@ -10,50 +11,64 @@ define([
     'DeferredQueue'
 ], function (
     CGMustache,
-    domListener,
+    SearchDomListener,
     PaginationDomListener,
+    TaxRateDomListener,
     productFilterMapper,
     productStorage,
     domManipulator,
-    variationDomListener,
+    VariationDomListener,
     BulkActionAbstract,
     DeferredQueue
 ) {
-    var Service = function ()
+    var Service = function (baseImgUrl)
     {
-        var baseUrl;
-        var deferredQueue = new DeferredQueue();
-        var paginationDomListener = new PaginationDomListener(this);
+        var baseImgUrl;
+        var deferredQueue;
+        var searchDomListener;
+        var paginationDomListener;
+        var taxRateDomListener;
 
-        this.getBaseUrl = function()
+        this.getBaseImgUrl = function()
         {
-            return baseUrl;
+            return baseImgUrl;
         };
 
-        this.setBaseUrl = function(newBaseUrl)
+        this.setBaseImgUrl = function(newBaseImgUrl)
         {
-            baseUrl = newBaseUrl;
+            baseImgUrl = newBaseImgUrl;
+            return this;
         };
 
         this.getDeferredQueue = function()
         {
             return deferredQueue;
         };
+
+        this.getSearchDomListener = function()
+        {
+            return searchDomListener;
+        };
+
+        var init = function()
+        {
+            deferredQueue = new DeferredQueue();
+            searchDomListener = new SearchDomListener(this);
+            paginationDomListener = new PaginationDomListener(this);
+            taxRateDomListener = new TaxRateDomListener(this);
+
+            this.setBaseImgUrl(baseImgUrl)
+                .refresh();
+        };
+        init.call(this);
     };
 
     Service.DOM_SELECTOR_PRODUCT_CONTAINER = '#products-list';
     Service.DOM_SELECTOR_LOADING_MESSAGE = '#products-loading-message';
     Service.DEFAULT_IMAGE_URL = '/noproductsimage.png';
-    Service.DOM_SELECTOR_STOCK_MODE = 'product-stock-mode';
     Service.DOM_SELECTOR_TAX_RATE = 'product-tax-rate-custom-select';
     Service.DOM_SELECTOR_PAGINATION = '#product-pagination';
-
-    Service.prototype.init = function(baseUrl)
-    {
-        this.setBaseUrl(baseUrl);
-        domListener.init(this);
-        this.refresh();
-    };
+    Service.STOCK_MODE_ID_PREFIX = 'product-stock-mode';
 
     Service.prototype.refresh = function(page)
     {
@@ -70,7 +85,7 @@ define([
                 self.renderNoProduct();
                 return;
             }
-            domListener.triggerProductsFetchedEvent(products);
+            self.getSearchDomListener().triggerProductsFetchedEvent(products);
             self.renderProducts(products, data.pagination);
         });
     };
@@ -91,7 +106,7 @@ define([
             }
             domManipulator.setHtml(Service.DOM_SELECTOR_PRODUCT_CONTAINER, html);
             self.updatePagination(pagination);
-            domListener.triggerProductsRenderedEvent(products);
+            self.getSearchDomListener().triggerProductsRenderedEvent(products);
         });
     };
 
@@ -226,7 +241,7 @@ define([
 
     Service.prototype.getPrimaryImage = function(images)
     {
-        return images.length > 0 ? images[0]['url'] : this.getBaseUrl() + Service.DEFAULT_IMAGE_URL;
+        return images.length > 0 ? images[0]['url'] : this.getBaseImgUrl() + Service.DEFAULT_IMAGE_URL;
     };
 
     Service.prototype.getExpandButtonView = function(product, templates)
@@ -234,7 +249,7 @@ define([
         return CGMustache.get().renderTemplate(templates, {
             'buttons': true,
             'id': 'product-variation-expand-button-' + product['id'],
-            'class': variationDomListener.getClassExpandButton(),
+            'class': VariationDomListener.CLASS_EXPAND_BUTTON + " " + VariationDomListener.CLASS_EXPAND_AJAX,
             'value': 'Expand Variations',
             'action': 'Contract Variations'
         }, 'buttons');
@@ -266,9 +281,9 @@ define([
     Service.prototype.getStockModesCustomSelectView = function(product, templates)
     {
         return CGMustache.get().renderTemplate(templates, {
-            'id': Service.DOM_SELECTOR_STOCK_MODE + '-' + product['id'],
+            'id': Service.STOCK_MODE_ID_PREFIX + '-' + product['id'],
             'name': 'product[' + product['id'] + '][stockMode]',
-            'class': Service.DOM_SELECTOR_STOCK_MODE,
+            'class': Service.STOCK_MODE_ID_PREFIX,
             'title': 'Stock',
             'options': product.stockModes
         }, 'customSelect');
@@ -376,5 +391,5 @@ define([
         this.refresh(page);
     };
 
-    return new Service();
+    return Service;
 });
