@@ -36,10 +36,12 @@ define([
     };
 
     Service.MIN_HTTP_CODE_ERROR = 400;
+    Service.SELECTOR_STOCK_TABLE = '.stock-table';
     Service.SELECTOR_STOCK_ROW_PREFIX = '#stock-row-';
 
     Service.prototype.save = function(stockLocationId, totalQuantity, eTag, eTagCallback)
     {
+        n.notice('Saving stock total');
         $.ajax({
             url: 'products/stock/update',
             type: 'POST',
@@ -72,17 +74,21 @@ define([
         });
     };
 
-    Service.prototype.saveStockLevel = function(productId, value, etagElement)
+    Service.prototype.saveStockLevel = function(productId, stockLevel)
     {
-        if (parseInt(value) == NaN || parseInt(value) < 0) {
+        if (parseInt(stockLevel) == NaN || parseInt(stockLevel) < 0) {
             n.error('Stock level must be a number greater than or equal to zero.');
             return;
         }
+        n.notice('Saving stock level');
         var self = this;
-        var eTag = etagElement.val();
+        var eTag = $('#etag_'+productId).val();
         this.getDeferredQueue().queue(function() {
-            return self.getStorage().saveStockLevel(productId, value, eTag, function(response) {
-                etagElement.val(response.eTag);
+            return self.getStorage().saveStockLevel(productId, stockLevel, eTag, function(response) {
+                for (var id in response.eTags) {
+                    $('#etag_'+id).val(response.eTags[id]);
+                    $('#product-stock-level-'+id).val(stockLevel);
+                }
                 n.success('Product stock level updated successfully');
             });
         });
@@ -90,6 +96,7 @@ define([
 
     Service.prototype.saveStockModeForProduct = function(productId, value, eTagElement)
     {
+        n.notice('Saving stock mode');
         var self = this;
         var eTag = eTagElement.val();
         this.getDeferredQueue().queue(function() {

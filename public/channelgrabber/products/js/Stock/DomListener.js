@@ -28,6 +28,7 @@ define([
     DomListener.SELECTOR_STOCK_ALLOCATED = '.product-stock-allocated';
     DomListener.SELECTOR_STOCK_LOC_ETAG = '.product-stock-location-etag';
     DomListener.SELECTOR_STOCK_LEVEL = '.product-stock-level';
+    DomListener.SELECTOR_STOCK_LEVEL_HOLDER = '.stock-level-holder';
     DomListener.SELECTOR_STOCK_PROD_ETAG = '.product-stock-product-etag';
     DomListener.SELECTOR_STOCK_MODE = '.stock-mode-holder';
 
@@ -55,10 +56,8 @@ define([
         var service = this.getService();
         $(document).on('save', DomListener.SELECTOR_STOCK_LEVEL, function(event, value) {
             var element = this;
-            var productId = $(element).attr('id').split('-').pop();
-            var row = $(element).closest('tr');
-            var etagElement = row.find(DomListener.SELECTOR_STOCK_PROD_ETAG);
-            service.saveStockLevel(productId, value, etagElement);
+            var productId = $(element).closest(DomListener.SELECTOR_STOCK_LEVEL_HOLDER).data('productId');
+            service.saveStockLevel(productId, value);
         });
         return this;
     };

@@ -223,8 +223,12 @@ class ProductsJsonController extends AbstractActionController
         $eTag = $this->params()->fromPost('eTag');
         $stockLevel = $this->params()->fromPost('stockLevel');
 
-        $newEtag = $this->stockSettingsService->saveProductStockLevel($productId, $stockLevel, $eTag);
-        return $this->jsonModelFactory->newInstance(['valid' => true, 'status' => 'Stock level saved successfully', 'eTag' => $newEtag]);
+        $affectedProducts = $this->stockSettingsService->saveProductStockLevel($productId, $stockLevel, $eTag);
+        $data = ['eTags' => []];
+        foreach ($affectedProducts as $product) {
+            $data['eTags'][$product->getId()] = $product->getStoredEtag();
+        }
+        return $this->jsonModelFactory->newInstance($data);
     }
 
     public function stockCsvExportAction()

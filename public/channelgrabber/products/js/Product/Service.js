@@ -265,7 +265,7 @@ define([
             'class': 'product-stock-level',
             'type': 'number'
         }, 'inlineText', {});
-        return CGMustache.get().renderTemplate(templates, {}, 'stockLevelCell', {stockLevel: stockLevel});
+        return CGMustache.get().renderTemplate(templates, {id: product.id}, 'stockLevelCell', {stockLevel: stockLevel});
     };
 
     Service.prototype.getVariationView = function(product, templates)
@@ -478,7 +478,7 @@ define([
             $(Service.DOM_SELECTOR_PRODUCT_CONTAINER_PREFIX + productId + ' ' + Service.DOM_SELECTOR_STOCK_TABLE + ' tbody tr').each(function()
             {
                 var row = this;
-                var productId = $(row).attr('id').split('-').pop();
+                var productId = $(row).data('productId');
                 var stockLevelCell = self.getStockLevelCell({id: productId, stockLevel: stockLevel}, templates);
                 $(row).append(stockLevelCell);
             });

@@ -3,6 +3,7 @@ namespace Products\Stock\Settings;
 
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Product\Client\Service as ProductService;
+use CG\Product\Collection as ProductCollection;
 use CG\Product\Entity as Product;
 use CG\Product\Filter as ProductFilter;
 use CG\Product\StockMode;
@@ -142,16 +143,21 @@ class Service
             return;
         }
         // Fetch the variations rather than getting them straight off the parent otherwise we'll be missing their eTags
-        $filter = (new ProductFilter())
-            ->setLimit('all')
-            ->setPage(1)
-            ->setId($product->getVariationIds());
-        $variations = $this->productService->fetchCollectionByFilter($filter);
+        $variations = $this->getVariationsForParentId($product->getId());
         foreach ($variations as $variation) {
             $variation->setStockMode($stockMode);
             $this->productService->save($variation);
         }
         $product->setVariations($variations);
+    }
+
+    protected function getVariationsForParentId($parentId)
+    {
+        $filter = (new ProductFilter())
+            ->setLimit('all')
+            ->setPage(1)
+            ->setParentProductId([$parentId]);
+        return $this->productService->fetchCollectionByFilter($filter);
     }
 
     /**
@@ -160,16 +166,58 @@ class Service
     public function saveProductStockLevel($productId, $stockLevel, $eTag)
     {
         try {
+            $affectedProducts = null;
             $product = $this->productService->fetch($productId);
             $product->setStockLevel($stockLevel);
             if ($eTag) {
                 $product->setStoredEtag($eTag);
             }
             $this->productService->save($product);
+            $affectedProducts = $this->saveProductStockLevelForSiblingVariations($product, $stockLevel);
         } catch (NotModified $e) {
             // No-op
         }
-        return $product->getStoredEtag();
+        if (!$affectedProducts) {
+            $affectedProducts = new ProductCollection(Product::class, __FUNCTION__);
+            $affectedProducts->attach($product);
+        }
+        return $affectedProducts;
+    }
+
+    protected function saveProductStockLevelForSiblingVariations(Product $variation, $stockLevel)
+    {
+        if (!$variation->isVariation()) {
+            return null;
+        }
+        $siblings = $this->getVariationsForParentId($variation->getParentProductId());
+        $allZero = $this->checkAllSiblingsHaveZeroStockLevel($variation, $siblings);
+        if (!$allZero) {
+            return null;
+        }
+        foreach ($siblings as $sibling) {
+            if ($sibling->getId() == $variation->getId()) {
+                continue;
+            }
+            $sibling->setStockLevel($stockLevel);
+            // Not setting the eTag as we don't have it. As the initial variation saved OK we'll assume it's fine to save the rest
+            $this->productService->save($sibling);
+        }
+        return $siblings;
+    }
+
+    protected function checkAllSiblingsHaveZeroStockLevel(Product $variation, ProductCollection $siblings)
+    {
+        $allZero = true;
+        foreach ($siblings as $sibling) {
+            if ($sibling->getId() == $variation->getId()) {
+                continue;
+            }
+            if ($sibling->getStockLevel() != 0) {
+                $allZero = false;
+                break;
+            }
+        }
+        return $allZero;
     }
 
     protected function setUserOUService(UserOUService $userOUService)
