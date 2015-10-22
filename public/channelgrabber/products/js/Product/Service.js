@@ -28,6 +28,7 @@ define([
         var searchDomListener;
         var paginationDomListener;
         var productDomListener;
+        var templates;
 
         this.getBaseImgUrl = function()
         {
@@ -50,6 +51,17 @@ define([
             return searchDomListener;
         };
 
+        this.getTemplates = function()
+        {
+            return templates;
+        };
+
+        this.setTemplates = function(newTemplates)
+        {
+            templates = newTemplates;
+            return this;
+        };
+
         var init = function()
         {
             deferredQueue = new DeferredQueue();
@@ -63,12 +75,15 @@ define([
         init.call(this);
     };
 
-    Service.DOM_SELECTOR_PRODUCT_CONTAINER = '#products-list';
+    Service.DOM_SELECTOR_PRODUCTS_CONTAINER = '#products-list';
+    Service.DOM_SELECTOR_PRODUCT_CONTAINER_PREFIX = '#product-container-';
     Service.DOM_SELECTOR_LOADING_MESSAGE = '#products-loading-message';
     Service.DEFAULT_IMAGE_URL = '/noproductsimage.png';
     Service.DOM_SELECTOR_TAX_RATE = 'product-tax-rate-custom-select';
     Service.DOM_SELECTOR_PAGINATION = '#product-pagination';
     Service.STOCK_MODE_ID_PREFIX = 'product-stock-mode';
+    Service.DOM_SELECTOR_STOCK_LEVEL_COL = '.product-stock-level-col';
+    Service.DOM_SELECTOR_STOCK_TABLE = '.stock-table';
 
     Service.prototype.refresh = function(page)
     {
@@ -104,7 +119,7 @@ define([
             for (var index in products) {
                 html += self.renderProduct(products[index], templates);
             }
-            domManipulator.setHtml(Service.DOM_SELECTOR_PRODUCT_CONTAINER, html);
+            domManipulator.setHtml(Service.DOM_SELECTOR_PRODUCTS_CONTAINER, html);
             self.updatePagination(pagination);
             self.getSearchDomListener().triggerProductsRenderedEvent(products);
         });
@@ -112,6 +127,11 @@ define([
 
     Service.prototype.fetchProductTemplates = function(callable)
     {
+        if (this.getTemplates()) {
+            callable(this.getTemplates());
+            return;
+        }
+        var self = this;
         var productUrlMap = {
             checkbox: '/channelgrabber/zf2-v4-ui/templates/elements/checkbox.mustache',
             buttons: '/channelgrabber/zf2-v4-ui/templates/elements/buttons.mustache',
@@ -122,11 +142,14 @@ define([
             variationStock: '/channelgrabber/products/template/product/variationStock.mustache',
             stockTable: '/channelgrabber/products/template/product/stockTable.mustache',
             stockRow: '/channelgrabber/products/template/product/stockRow.mustache',
+            stockLevelHeader: '/channelgrabber/products/template/product/stockLevelHeader.mustache',
+            stockLevelCell: '/channelgrabber/products/template/product/stockLevelCell.mustache',
             product: '/channelgrabber/products/template/elements/product.mustache',
             statusLozenge: '/channelgrabber/products/template/elements/statusLozenge.mustache'
         };
         CGMustache.get().fetchTemplates(productUrlMap, function(templates)
         {
+            self.setTemplates(templates);
             callable(templates);
         });
     };
@@ -179,7 +202,16 @@ define([
                 stockLocations += this.getStockTableLineView(product, product['stock']['locations'][index], templates);
             }
         }
-        var html = CGMustache.get().renderTemplate(templates, {'showStockLevel': (product.stockLevel !== null), 'stockModeDesc': product.stockModeDesc}, 'stockTable', {'stockLocations': stockLocations});
+        return this.renderStockTableView(product, stockLocations, templates);
+    };
+
+    Service.prototype.renderStockTableView = function(product, stockLocations, templates)
+    {
+        var stockLevelHeader = null;
+        if (product.stockLevel !== null) {
+            stockLevelHeader = this.getStockLevelHeader(product.stockModeDesc, templates);
+        }
+        var html = CGMustache.get().renderTemplate(templates, {}, 'stockTable', {'stockLevelHeader': stockLevelHeader, 'stockLocations': stockLocations});
         return html;
     };
 
@@ -189,9 +221,9 @@ define([
         var quantityInlineText = this.getStockTotalView(name, location, templates);
         var available = location['onHand'] - location['allocated'];
         var showStockLevel = (product.stockLevel !== null);
-        var stockLevel = null;
+        var stockLevelCell = null;
         if (showStockLevel) {
-            stockLevel = this.getStockLevelView(product, templates);
+            stockLevelCell = this.getStockLevelCell(product, templates);
         }
         return CGMustache.get().renderTemplate(templates, {
             'productId': product.id,
@@ -204,7 +236,7 @@ define([
             'stockLocETag': location['eTag']
         }, 'stockRow', {
             'total': quantityInlineText,
-            'stockLevel': stockLevel
+            'stockLevelCell': stockLevelCell
         });
     };
 
@@ -219,15 +251,21 @@ define([
         }, 'inlineText', {});
     };
 
-    Service.prototype.getStockLevelView = function(product, templates)
+    Service.prototype.getStockLevelHeader = function(stockModeDesc, templates)
     {
-        return CGMustache.get().renderTemplate(templates, {
+        return CGMustache.get().renderTemplate(templates, {stockModeDesc: stockModeDesc}, 'stockLevelHeader', {});
+    };
+
+    Service.prototype.getStockLevelCell = function(product, templates)
+    {
+        var stockLevel = CGMustache.get().renderTemplate(templates, {
             'id': 'product-stock-level-' + product.id,
             'value': product.stockLevel,
             'name': 'product[' + product.id + '][stockLevel]',
             'class': 'product-stock-level',
             'type': 'number'
         }, 'inlineText', {});
+        return CGMustache.get().renderTemplate(templates, {}, 'stockLevelCell', {stockLevel: stockLevel});
     };
 
     Service.prototype.getVariationView = function(product, templates)
@@ -242,7 +280,7 @@ define([
         var variationTable = CGMustache.get().renderTemplate(templates, {
             'attributes': product['attributeNames']
         }, 'variationTable', {'variations': variations});
-        var stockTable = CGMustache.get().renderTemplate(templates, {'showStockLevel': (product.stockLevel !== null), 'stockModeDesc': product.stockModeDesc}, 'stockTable', {'stockLocations': stockLocations});
+        var stockTable = this.renderStockTableView(product, stockLocations, templates);
         var html = CGMustache.get().renderTemplate(templates, {}, 'variationStock', {
             'variationTable': variationTable,
             'stockTable': stockTable
@@ -384,7 +422,7 @@ define([
         CGMustache.get().fetchTemplates(noProductsUrlMap, function(templates)
         {
             var html = CGMustache.get().renderTemplate(templates, {}, 'noProduct');
-            domManipulator.setHtml(Service.DOM_SELECTOR_PRODUCT_CONTAINER, html);
+            domManipulator.setHtml(Service.DOM_SELECTOR_PRODUCTS_CONTAINER, html);
         });
         $(Service.DOM_SELECTOR_PAGINATION).parent().hide();
     };
@@ -411,6 +449,38 @@ define([
                 } else {
                     n.ajaxError(error, textStatus, errorThrown);
                 }
+            });
+        });
+    };
+
+    Service.prototype.stockModeChanged = function(productId, stockMode, stockModeDesc, stockLevel)
+    {
+        var showStockLevel = (stockLevel !== null);
+        if (!showStockLevel) {
+            $(Service.DOM_SELECTOR_PRODUCT_CONTAINER_PREFIX + productId + ' ' + Service.DOM_SELECTOR_STOCK_LEVEL_COL).remove();
+            return;
+        }
+        var stockLevelHeader = $(Service.DOM_SELECTOR_PRODUCT_CONTAINER_PREFIX + productId + ' th' + Service.DOM_SELECTOR_STOCK_LEVEL_COL);
+        if (stockLevelHeader.length > 0) {
+            stockLevelHeader.html(stockModeDesc);
+            return;
+        }
+        this.addStockLevelColumnToProduct(productId, stockMode, stockModeDesc, stockLevel);
+    }
+
+    Service.prototype.addStockLevelColumnToProduct = function(productId, stockMode, stockModeDesc, stockLevel)
+    {
+        var self = this;
+        this.fetchProductTemplates(function(templates)
+        {
+            var header = self.getStockLevelHeader(stockModeDesc, templates);
+            $(Service.DOM_SELECTOR_PRODUCT_CONTAINER_PREFIX + productId + ' ' + Service.DOM_SELECTOR_STOCK_TABLE + ' thead tr').append(header);
+            $(Service.DOM_SELECTOR_PRODUCT_CONTAINER_PREFIX + productId + ' ' + Service.DOM_SELECTOR_STOCK_TABLE + ' tbody tr').each(function()
+            {
+                var row = this;
+                var productId = $(row).attr('id').split('-').pop();
+                var stockLevelCell = self.getStockLevelCell({id: productId, stockLevel: 0}, templates);
+                $(row).append(stockLevelCell);
             });
         });
     };

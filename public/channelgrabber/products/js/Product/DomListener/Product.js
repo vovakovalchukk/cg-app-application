@@ -1,6 +1,6 @@
-define([], function ()
+define(['Stock/DomListener'], function (StockDomListener)
 {
-    var TaxRate = function(service)
+    var Product = function(service)
     {
         this.getService = function()
         {
@@ -9,21 +9,31 @@ define([], function ()
 
         var init = function()
         {
-            this.listenForVatRateChange();
+            this.listenForVatRateChange()
+                .listenForStockModeChange();
         };
         init.call(this);
     };
 
-    TaxRate.SELECTOR = '.tax-rate-custom-select-holder';
+    Product.SELECTOR_TAX_RATE = '.tax-rate-custom-select-holder';
 
-    TaxRate.prototype.listenForVatRateChange = function()
+    Product.prototype.listenForVatRateChange = function()
     {
         var self = this;
-        $(document).on("change", TaxRate.SELECTOR, function(event, container) {
+        $(document).on("change", Product.SELECTOR_TAX_RATE, function(event, container) {
             self.getService().saveTaxRate(container);
         });
         return this;
     };
 
-    return TaxRate;
+    Product.prototype.listenForStockModeChange = function()
+    {
+        var self = this;
+        $(document).on(StockDomListener.EVENT_STOCK_MODE_CHANGED, function(event, productId, stockMode, stockModeDesc, stockLevel)
+        {
+            self.getService().stockModeChanged(productId, stockMode, stockModeDesc, stockLevel);
+        });
+    };
+
+    return Product;
 });

@@ -1493,13 +1493,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "343540458f7a24a8d194739e4d2146fb2fd7400a"
+                "reference": "5dd75c517720cb82a3425f4b4c023169d7ecc448"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-6301-product-stock-fixed-max-ui-c82b99.zip",
-                "reference": "343540458f7a24a8d194739e4d2146fb2fd7400a",
-                "shasum": "46fd04d7836052ec9dd11a36e021508ed83b3c6b"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-6301-product-stock-fixed-max-ui-553917.zip",
+                "reference": "5dd75c517720cb82a3425f4b4c023169d7ecc448",
+                "shasum": "cf88b7e45f452d8f2ac3ee6075d6f95fece2f31c"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1534,7 +1534,7 @@
                     "CG\\Product\\": "src"
                 }
             },
-            "time": "2015-10-21 12:55:22"
+            "time": "2015-10-22 09:00:06"
         },
         {
             "name": "channelgrabber/purge",

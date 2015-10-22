@@ -205,8 +205,13 @@ class ProductsJsonController extends AbstractActionController
         if ($stockMode === 'null') {
             $stockMode = null;
         }
-        $newEtag = $this->stockSettingsService->saveProductStockMode($productId, $stockMode, $eTag);
-        return $this->jsonModelFactory->newInstance(['valid' => true, 'status' => 'Stock mode saved successfully', 'eTag' => $newEtag]);
+        $product = $this->stockSettingsService->saveProductStockMode($productId, $stockMode, $eTag);
+        $data = [
+            'eTag' => $product->getStoredEtag(),
+            'stockModeDesc' => $this->stockSettingsService->getStockModeDecriptionForProduct($product),
+            'stockLevel' => $this->stockSettingsService->getStockLevelForProduct($product),
+        ];
+        return $this->jsonModelFactory->newInstance($data);
     }
 
     public function saveProductStockLevelAction()

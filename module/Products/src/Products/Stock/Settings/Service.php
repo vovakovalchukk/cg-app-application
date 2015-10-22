@@ -79,6 +79,9 @@ class Service
         return $this->productSettings;
     }
 
+    /**
+     * @return string
+     */
     public function getStockModeDecriptionForProduct(Product $product)
     {
         if ($product->getStockMode()) {
@@ -111,6 +114,9 @@ class Service
         return null;
     }
 
+    /**
+     * @return Product
+     */
     public function saveProductStockMode($productId, $stockMode, $eTag = null)
     {
         if ($stockMode !== null && !StockMode::isValid($stockMode)) {
@@ -127,7 +133,7 @@ class Service
         } catch (NotModified $e) {
             // No-op
         }
-        return $product->getStoredEtag();
+        return $product;
     }
 
     protected function saveProductStockModeForVariations($product, $stockMode)
@@ -147,6 +153,9 @@ class Service
         }
     }
 
+    /**
+     * @return string
+     */
     public function saveProductStockLevel($productId, $stockLevel, $eTag)
     {
         try {

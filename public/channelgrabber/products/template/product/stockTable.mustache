@@ -5,9 +5,7 @@
                 <th>Available for Sale</th>
                 <th>Awaiting Dispatch</th>
                 <th>Total Stock</th>
-                {{#showStockLevel}}
-                <th>{{stockModeDesc}}</th>
-                {{/showStockLevel}}
+                {{>stockLevelHeader}}
             </tr>
         </thead>
         <tbody>

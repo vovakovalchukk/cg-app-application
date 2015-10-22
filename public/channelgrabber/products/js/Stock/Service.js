@@ -17,6 +17,11 @@ define([
             return storage;
         };
 
+        this.getDomListener = function()
+        {
+            return domListener;
+        };
+
         this.getDeferredQueue = function()
         {
             return deferredQueue;
@@ -89,6 +94,7 @@ define([
         this.getDeferredQueue().queue(function() {
             return self.getStorage().saveStockMode(productId, value, eTag, function(response) {
                 eTagElement.val(response.eTag);
+                self.getDomListener().triggerStockModeChangedEvent(productId, value, response.stockModeDesc, response.stockLevel);
                 n.success('Product stock mode updated successfully');
             });
         });

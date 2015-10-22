@@ -1,4 +1,4 @@
-<tr>
+<tr id="stock-row-{{productId}}">
     <td id='available_{{productId}}_{{stockLocationId}}' class="product-stock-available">{{available}}</td>
     <td id='allocated_{{productId}}_{{stockLocationId}}' class="product-stock-allocated">{{allocated}}</td>
     <td>
@@ -8,11 +8,5 @@
             <input type='hidden' id='etag_{{productId}}_{{stockLocationId}}' class="product-stock-location-etag" value='{{stockLocETag}}'>
         </div>
     </td>
-    {{#showStockLevel}}
-    <td>
-        <div class="stock-level-holder">
-            {{>stockLevel}}
-        </div>
-    </td>
-    {{/showStockLevel}}
+    {{>stockLevelCell}}
 </tr>
