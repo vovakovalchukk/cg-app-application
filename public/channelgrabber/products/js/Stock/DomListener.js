@@ -22,7 +22,7 @@ define([
     };
 
     DomListener.EVENT_INLINE_TEXT_SAVE = inlineTextListener.EVENT_INLINE_TEXT_SAVE;
-    DomListener.EVENT_STOCK_MODE_CHANGED = 'product-stock-mode-change';
+    DomListener.EVENT_STOCK_MODE_UPDATED = 'product-stock-mode-change';
     DomListener.SELECTOR_STOCK_TOTAL = '.product-stock-total';
     DomListener.SELECTOR_STOCK_AVAILABLE = '.product-stock-available';
     DomListener.SELECTOR_STOCK_ALLOCATED = '.product-stock-allocated';
@@ -74,10 +74,10 @@ define([
         return this;
     };
 
-    DomListener.prototype.triggerStockModeChangedEvent = function(productId, stockMode, stockModeDesc, stockLevel)
+    DomListener.prototype.triggerStockModeUpdatedEvent = function(productId, stockMode, stockModeDesc, stockLevel)
     {
         // Expected to be picked up by Product/DomListener/Product
-        $(document).trigger(DomListener.EVENT_STOCK_MODE_CHANGED, [productId, stockMode, stockModeDesc, stockLevel]);
+        $(document).trigger(DomListener.EVENT_STOCK_MODE_UPDATED, [productId, stockMode, stockModeDesc, stockLevel]);
         return this;
     };
 

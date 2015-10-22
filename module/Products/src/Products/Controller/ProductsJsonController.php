@@ -207,10 +207,13 @@ class ProductsJsonController extends AbstractActionController
         }
         $product = $this->stockSettingsService->saveProductStockMode($productId, $stockMode, $eTag);
         $data = [
-            'eTag' => $product->getStoredEtag(),
+            'eTags' => [$product->getId() => $product->getStoredEtag()],
             'stockModeDesc' => $this->stockSettingsService->getStockModeDecriptionForProduct($product),
             'stockLevel' => $this->stockSettingsService->getStockLevelForProduct($product),
         ];
+        foreach ($product->getVariations() as $variation) {
+            $data['eTags'][$variation->getId()] = $variation->getStoredEtag();
+        }
         return $this->jsonModelFactory->newInstance($data);
     }
 

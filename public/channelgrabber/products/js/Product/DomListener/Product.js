@@ -10,7 +10,7 @@ define(['Stock/DomListener'], function (StockDomListener)
         var init = function()
         {
             this.listenForVatRateChange()
-                .listenForStockModeChange();
+                .listenForStockModeUpdate();
         };
         init.call(this);
     };
@@ -26,12 +26,12 @@ define(['Stock/DomListener'], function (StockDomListener)
         return this;
     };
 
-    Product.prototype.listenForStockModeChange = function()
+    Product.prototype.listenForStockModeUpdate = function()
     {
         var self = this;
-        $(document).on(StockDomListener.EVENT_STOCK_MODE_CHANGED, function(event, productId, stockMode, stockModeDesc, stockLevel)
+        $(document).on(StockDomListener.EVENT_STOCK_MODE_UPDATED, function(event, productId, stockMode, stockModeDesc, stockLevel)
         {
-            self.getService().stockModeChanged(productId, stockMode, stockModeDesc, stockLevel);
+            self.getService().stockModeUpdated(productId, stockMode, stockModeDesc, stockLevel);
         });
     };
 

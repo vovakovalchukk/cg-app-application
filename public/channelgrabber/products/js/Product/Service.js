@@ -453,7 +453,7 @@ define([
         });
     };
 
-    Service.prototype.stockModeChanged = function(productId, stockMode, stockModeDesc, stockLevel)
+    Service.prototype.stockModeUpdated = function(productId, stockMode, stockModeDesc, stockLevel)
     {
         var showStockLevel = (stockLevel !== null);
         if (!showStockLevel) {
@@ -479,7 +479,7 @@ define([
             {
                 var row = this;
                 var productId = $(row).attr('id').split('-').pop();
-                var stockLevelCell = self.getStockLevelCell({id: productId, stockLevel: 0}, templates);
+                var stockLevelCell = self.getStockLevelCell({id: productId, stockLevel: stockLevel}, templates);
                 $(row).append(stockLevelCell);
             });
         });

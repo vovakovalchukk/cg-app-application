@@ -36,6 +36,7 @@ define([
     };
 
     Service.MIN_HTTP_CODE_ERROR = 400;
+    Service.SELECTOR_STOCK_ROW_PREFIX = '#stock-row-';
 
     Service.prototype.save = function(stockLocationId, totalQuantity, eTag, eTagCallback)
     {
@@ -93,8 +94,12 @@ define([
         var eTag = eTagElement.val();
         this.getDeferredQueue().queue(function() {
             return self.getStorage().saveStockMode(productId, value, eTag, function(response) {
-                eTagElement.val(response.eTag);
-                self.getDomListener().triggerStockModeChangedEvent(productId, value, response.stockModeDesc, response.stockLevel);
+                eTagElement.val(response.eTags.productId);
+                for (var variationId in response.eTags) {
+                    var eTag = response.eTags[variationId];
+                    $(Service.SELECTOR_STOCK_ROW_PREFIX + variationId + ' ' + DomListener.SELECTOR_STOCK_PROD_ETAG).val(eTag);
+                }
+                self.getDomListener().triggerStockModeUpdatedEvent(productId, value, response.stockModeDesc, response.stockLevel);
                 n.success('Product stock mode updated successfully');
             });
         });

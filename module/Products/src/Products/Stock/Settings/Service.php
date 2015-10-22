@@ -136,7 +136,7 @@ class Service
         return $product;
     }
 
-    protected function saveProductStockModeForVariations($product, $stockMode)
+    protected function saveProductStockModeForVariations(Product $product, $stockMode)
     {
         if (!$product->isParent()) {
             return;
@@ -151,6 +151,7 @@ class Service
             $variation->setStockMode($stockMode);
             $this->productService->save($variation);
         }
+        $product->setVariations($variations);
     }
 
     /**
