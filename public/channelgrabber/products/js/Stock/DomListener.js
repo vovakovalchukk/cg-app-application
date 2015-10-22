@@ -14,7 +14,8 @@ define([
 
         var init = function()
         {
-            this.listenForStockTotalSave();
+            this.listenForStockTotalSave()
+                .listenForStockLevelSave();
         };
         init.call(this);
     };
@@ -24,6 +25,8 @@ define([
     DomListener.SELECTOR_STOCK_AVAILABLE = '.product-stock-available';
     DomListener.SELECTOR_STOCK_ALLOCATED = '.product-stock-allocated';
     DomListener.SELECTOR_STOCK_LOC_ETAG = '.product-stock-location-etag';
+    DomListener.SELECTOR_STOCK_LEVEL = '.product-stock-level';
+    DomListener.SELECTOR_STOCK_PROD_ETAG = '.product-stock-product-etag';
 
     DomListener.prototype.listenForStockTotalSave = function()
     {
@@ -32,13 +35,27 @@ define([
             var element = this;
             var idParts = $(element).attr('id').split('_');
             var stockLocationId = idParts.pop();
-            var availableElement = $(element).closest('tr').find(DomListener.SELECTOR_STOCK_AVAILABLE);
-            var allocatedElement = $(element).closest('tr').find(DomListener.SELECTOR_STOCK_ALLOCATED);
-            var etagElement = $(element).closest('tr').find(DomListener.SELECTOR_STOCK_LOC_ETAG);
+            var row = $(element).closest('tr');
+            var availableElement = row.find(DomListener.SELECTOR_STOCK_AVAILABLE);
+            var allocatedElement = row.find(DomListener.SELECTOR_STOCK_ALLOCATED);
+            var etagElement = row.find(DomListener.SELECTOR_STOCK_LOC_ETAG);
             domManipulator.setHtml(availableElement.get(0), value - allocatedElement.html());
             service.save(stockLocationId, value, etagElement.val(), function(eTag){
                 etagElement.val(eTag);
             });
+        });
+        return this;
+    };
+
+    DomListener.prototype.listenForStockLevelSave = function()
+    {
+        var service = this.getService();
+        $(document).on('save', DomListener.SELECTOR_STOCK_LEVEL, function(event, value) {
+            var element = this;
+            var productId = $(element).attr('id').split('-').pop();
+            var row = $(element).closest('tr');
+            var etagElement = row.find(DomListener.SELECTOR_STOCK_PROD_ETAG);
+            service.saveStockLevel(productId, value, etagElement);
         });
         return this;
     };

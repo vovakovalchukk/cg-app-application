@@ -1,15 +1,31 @@
 define([
-    'Stock/DomListener'
+    'Stock/DomListener',
+    'Product/Storage/Ajax',
+    'DeferredQueue'
 ], function (
-    DomListener
+    DomListener,
+    storage,
+    DeferredQueue
 ) {
     var Service = function()
     {
         var domListener;
+        var deferredQueue;
+
+        this.getStorage = function()
+        {
+            return storage;
+        };
+
+        this.getDeferredQueue = function()
+        {
+            return deferredQueue;
+        };
 
         var init = function()
         {
             domListener = new DomListener(this);
+            deferredQueue = new DeferredQueue();
         };
         init.call(this);
     };
@@ -47,6 +63,22 @@ define([
             error: function(error, textStatus, errorThrown) {
                 n.ajaxError(error, textStatus, errorThrown);
             }
+        });
+    };
+
+    Service.prototype.saveStockLevel = function(productId, value, etagElement)
+    {
+        if (parseInt(value) == NaN || parseInt(value) < 0) {
+            n.error('Stock level must be a number greater than or equal to zero.');
+            return;
+        }
+        var self = this;
+        var eTag = etagElement.val();
+        this.getDeferredQueue().queue(function() {
+            return self.getStorage().saveStockLevel(productId, value, eTag, function(response) {
+                etagElement.val(response.eTag);
+                n.success('Product stock level updated successfully');
+            });
         });
     };
 

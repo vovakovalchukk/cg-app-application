@@ -147,6 +147,21 @@ class Service
         }
     }
 
+    public function saveProductStockLevel($productId, $stockLevel, $eTag)
+    {
+        try {
+            $product = $this->productService->fetch($productId);
+            $product->setStockLevel($stockLevel);
+            if ($eTag) {
+                $product->setStoredEtag($eTag);
+            }
+            $this->productService->save($product);
+        } catch (NotModified $e) {
+            // No-op
+        }
+        return $product->getStoredEtag();
+    }
+
     protected function setUserOUService(UserOUService $userOUService)
     {
         $this->userOUService = $userOUService;

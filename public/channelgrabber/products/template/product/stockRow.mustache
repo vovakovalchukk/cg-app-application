@@ -4,7 +4,8 @@
     <td>
         <div class="total-text-holder">
             {{>total}}
-            <input type='hidden' id='etag_{{productId}}_{{stockLocationId}}' class="product-stock-location-etag" value='{{eTag}}'>
+            <input type='hidden' id='etag_{{productId}}' class="product-stock-product-etag" value='{{eTag}}'>
+            <input type='hidden' id='etag_{{productId}}_{{stockLocationId}}' class="product-stock-location-etag" value='{{stockLocETag}}'>
         </div>
     </td>
     {{#showStockLevel}}

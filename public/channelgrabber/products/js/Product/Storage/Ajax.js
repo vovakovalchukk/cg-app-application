@@ -48,5 +48,22 @@ define(function () {
         });
     };
 
+    Ajax.prototype.saveStockLevel = function(productId, stockLevel, eTag, callback)
+    {
+        return $.ajax({
+            'url' : '/products/stockLevel',
+            'data' : { id: productId, stockLevel: stockLevel, eTag: eTag },
+            'method' : 'POST',
+            'dataType' : 'json',
+            'success' : function(response) {
+                callback(response);
+            },
+            'error' : function(response)
+            {
+                n.ajaxError(response);
+            }
+        });
+    };
+
     return new Ajax();
 });

@@ -199,12 +199,13 @@ define([
         }
         return CGMustache.get().renderTemplate(templates, {
             'productId': product.id,
+            'eTag': product.eTag,
             'available': available,
             'allocated': location['allocated'],
             'totalName': name,
             'showStockLevel': showStockLevel,
             'stockLocationId': location['id'],
-            'eTag': location['eTag']
+            'stockLocETag': location['eTag']
         }, 'stockRow', {
             'total': quantityInlineText,
             'stockLevel': stockLevel

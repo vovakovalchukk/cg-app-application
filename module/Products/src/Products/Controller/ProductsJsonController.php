@@ -24,6 +24,7 @@ class ProductsJsonController extends AbstractActionController
     const ROUTE_AJAX = 'AJAX';
     const ROUTE_AJAX_TAX_RATE = 'tax_rate';
     const ROUTE_STOCK_MODE = 'Stock Mode';
+    const ROUTE_STOCK_LEVEL = 'Stock Level';
     const ROUTE_STOCK_UPDATE = 'stockupdate';
     const ROUTE_STOCK_CSV_EXPORT = 'stockCsvExport';
     const ROUTE_STOCK_CSV_IMPORT = 'stockCsvImport';
@@ -206,6 +207,16 @@ class ProductsJsonController extends AbstractActionController
         }
         $newEtag = $this->stockSettingsService->saveProductStockMode($productId, $stockMode, $eTag);
         return $this->jsonModelFactory->newInstance(['valid' => true, 'status' => 'Stock mode saved successfully', 'eTag' => $newEtag]);
+    }
+
+    public function saveProductStockLevelAction()
+    {
+        $productId = $this->params()->fromPost('id');
+        $eTag = $this->params()->fromPost('eTag');
+        $stockLevel = $this->params()->fromPost('stockLevel');
+
+        $newEtag = $this->stockSettingsService->saveProductStockLevel($productId, $stockLevel, $eTag);
+        return $this->jsonModelFactory->newInstance(['valid' => true, 'status' => 'Stock level saved successfully', 'eTag' => $newEtag]);
     }
 
     public function stockCsvExportAction()
