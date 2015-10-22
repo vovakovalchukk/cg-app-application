@@ -2,7 +2,7 @@ define([
     'cg-mustache',
     'Product/DomListener/Search',
     'Product/DomListener/Pagination',
-    'Product/DomListener/TaxRate',
+    'Product/DomListener/Product',
     'Product/Filter/Mapper',
     'Product/Storage/Ajax',
     'DomManipulator',
@@ -13,7 +13,7 @@ define([
     CGMustache,
     SearchDomListener,
     PaginationDomListener,
-    TaxRateDomListener,
+    ProductDomListener,
     productFilterMapper,
     productStorage,
     domManipulator,
@@ -27,7 +27,7 @@ define([
         var deferredQueue;
         var searchDomListener;
         var paginationDomListener;
-        var taxRateDomListener;
+        var productDomListener;
 
         this.getBaseImgUrl = function()
         {
@@ -55,7 +55,7 @@ define([
             deferredQueue = new DeferredQueue();
             searchDomListener = new SearchDomListener(this);
             paginationDomListener = new PaginationDomListener(this);
-            taxRateDomListener = new TaxRateDomListener(this);
+            productDomListener = new ProductDomListener(this);
 
             this.setBaseImgUrl(baseImgUrl)
                 .refresh();
