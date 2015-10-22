@@ -126,6 +126,9 @@ class Service
         try {
             $product = $this->productService->fetch($productId);
             $product->setStockMode($stockMode);
+            if ($stockMode == null || $stockMode == StockMode::LIST_ALL) {
+                $product->setStockLevel(null);
+            }
             if ($eTag) {
                 $product->setStoredEtag($eTag);
             }
@@ -146,6 +149,9 @@ class Service
         $variations = $this->getVariationsForParentId($product->getId());
         foreach ($variations as $variation) {
             $variation->setStockMode($stockMode);
+            if ($stockMode == null || $stockMode == StockMode::LIST_ALL) {
+                $variation->setStockLevel(null);
+            }
             $this->productService->save($variation);
         }
         $product->setVariations($variations);
