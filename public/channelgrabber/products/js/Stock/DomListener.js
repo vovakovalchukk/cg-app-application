@@ -15,7 +15,8 @@ define([
         var init = function()
         {
             this.listenForStockTotalSave()
-                .listenForStockLevelSave();
+                .listenForStockLevelSave()
+                .listenForStockModeChange();
         };
         init.call(this);
     };
@@ -27,6 +28,7 @@ define([
     DomListener.SELECTOR_STOCK_LOC_ETAG = '.product-stock-location-etag';
     DomListener.SELECTOR_STOCK_LEVEL = '.product-stock-level';
     DomListener.SELECTOR_STOCK_PROD_ETAG = '.product-stock-product-etag';
+    DomListener.SELECTOR_STOCK_MODE = '.stock-mode-holder';
 
     DomListener.prototype.listenForStockTotalSave = function()
     {
@@ -56,6 +58,17 @@ define([
             var row = $(element).closest('tr');
             var etagElement = row.find(DomListener.SELECTOR_STOCK_PROD_ETAG);
             service.saveStockLevel(productId, value, etagElement);
+        });
+        return this;
+    };
+
+    DomListener.prototype.listenForStockModeChange = function()
+    {
+        var service = this.getService();;
+        $(document).on('change', DomListener.SELECTOR_STOCK_MODE, function(event, element, value) {
+            var productId = $(element).attr('id').split('-').pop();
+            var eTagElement = $('input[name="product[' + productId + '][eTag]"]');
+            service.saveStockModeForProduct(productId, value, eTagElement);
         });
         return this;
     };

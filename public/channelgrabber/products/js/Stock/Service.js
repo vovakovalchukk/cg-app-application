@@ -82,5 +82,17 @@ define([
         });
     };
 
+    Service.prototype.saveStockModeForProduct = function(productId, value, eTagElement)
+    {
+        var self = this;
+        var eTag = eTagElement.val();
+        this.getDeferredQueue().queue(function() {
+            return self.getStorage().saveStockMode(productId, value, eTag, function(response) {
+                eTagElement.val(response.eTag);
+                n.success('Product stock mode updated successfully');
+            });
+        });
+    };
+
     return Service;
 });
