@@ -256,7 +256,7 @@ define([
         var self = this;
         var accountId = this.getSelectedAccountId();
         this.getNotifications().notice('Generating manifest, this might take a few moments');
-        this.getPopup().hide();
+        this.removePopup();
         this.getAjaxRequester().sendRequest(CourierManifest.URL_GENERATE, {"account": accountId}, function(response)
         {
             self.getNotifications().success('Manifest generated successfully, now downloading...');
@@ -360,9 +360,15 @@ define([
 
     CourierManifest.prototype.ajaxError = function(response)
     {
+        this.removePopup();
+        this.getNotifications().ajaxError(response);
+    };
+
+    CourierManifest.prototype.removePopup = function()
+    {
         this.getPopup().hide().getElement().remove();
         this.setPopup(null);
-        this.getNotifications().ajaxError(response);
+        return this;
     };
 
     return CourierManifest;
