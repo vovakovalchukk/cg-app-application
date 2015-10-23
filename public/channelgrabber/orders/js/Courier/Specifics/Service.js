@@ -217,15 +217,14 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         if ($(button).hasClass('disabled')) {
             return;
         }
-        $(button).addClass('disabled');
-        var self = this;
-        var notifications = this.getNotifications();
-        notifications.notice('Creating label');
-
         var inputData = this.getInputDataForOrder(orderId);
         if (!inputData) {
             return;
         }
+        $(button).addClass('disabled');
+        var self = this;
+        var notifications = this.getNotifications();
+        notifications.notice('Creating label');
         var data = this.convertInputDataToAjaxData(inputData);
         data.account = this.getCourierAccountId();
         data.order = [orderId];
@@ -280,15 +279,15 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         if ($(button).hasClass('disabled')) {
             return;
         }
+        var data = this.getInputDataForOrdersOfLabelStatuses(['', 'cancelled']);
+        if (!data) {
+            return;
+        }
         $(button).addClass('disabled');
         var self = this;
         var notifications = this.getNotifications();
         notifications.notice('Creating all labels');
 
-        var data = this.getInputDataForOrdersOfLabelStatuses(['', 'cancelled']);
-        if (!data) {
-            return;
-        }
         this.getAjaxRequester().sendRequest(Service.URI_CREATE_LABEL, data, function(response)
         {
             if (!response || response.notReadyCount == 0) {
@@ -384,15 +383,15 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         if ($(button).hasClass('disabled')) {
             return;
         }
+        var data = this.getInputDataForOrdersOfLabelStatuses(['not printed', 'printed'], true, true);
+        if (!data) {
+            return;
+        }
         $(button).addClass('disabled');
         var self = this;
         var notifications = this.getNotifications();
         notifications.notice('Cancelling all');
 
-        var data = this.getInputDataForOrdersOfLabelStatuses(['not printed', 'printed'], true, true);
-        if (!data) {
-            return;
-        }
         this.getAjaxRequester().sendRequest(Service.URI_CANCEL, data, function()
         {
             notifications.success('Shipping orders cancelled successfully');
