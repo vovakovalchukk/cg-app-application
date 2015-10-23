@@ -212,8 +212,12 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         $(EventHandler.SELECTOR_ORDER_WEIGHT_INPUT_PREFIX + orderId + '-1').val(sum);
     };
 
-    Service.prototype.createLabelForOrder = function(orderId)
+    Service.prototype.createLabelForOrder = function(orderId, button)
     {
+        if ($(button).hasClass('disabled')) {
+            return;
+        }
+        $(button).addClass('disabled');
         var self = this;
         var notifications = this.getNotifications();
         notifications.notice('Creating label');
@@ -253,8 +257,12 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         $(Service.SELECTOR_LABEL_FORM).submit();
     };
 
-    Service.prototype.cancelForOrder = function(orderId)
+    Service.prototype.cancelForOrder = function(orderId, button)
     {
+        if ($(button).hasClass('disabled')) {
+            return;
+        }
+        $(button).addClass('disabled');
         var self = this;
         var notifications = this.getNotifications();
         notifications.notice('Cancelling');
@@ -267,8 +275,12 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         });
     };
 
-    Service.prototype.createAllLabels = function()
+    Service.prototype.createAllLabels = function(button)
     {
+        if ($(button).hasClass('disabled')) {
+            return;
+        }
+        $(button).addClass('disabled');
         var self = this;
         var notifications = this.getNotifications();
         notifications.notice('Creating all labels');
@@ -290,6 +302,7 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
                 self.setupDelayedLabelPoll(response.readyStatuses);
             }
             self.refresh();
+            $(button).removeClass('disabled');
         });
     };
 
@@ -366,8 +379,12 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         this.printLabelsForOrders(data.order);
     };
 
-    Service.prototype.cancelAll = function()
+    Service.prototype.cancelAll = function(button)
     {
+        if ($(button).hasClass('disabled')) {
+            return;
+        }
+        $(button).addClass('disabled');
         var self = this;
         var notifications = this.getNotifications();
         notifications.notice('Cancelling all');
@@ -380,6 +397,7 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         {
             notifications.success('Shipping orders cancelled successfully');
             self.refresh();
+            $(button).removeClass('disabled');
         });
     };
 

@@ -29,9 +29,9 @@ define([], function()
     EventHandler.SELECTOR_CREATE_LABEL_BUTTON = '.courier-create-label-button';
     EventHandler.SELECTOR_PRINT_LABEL_BUTTON = '.courier-print-label-button';
     EventHandler.SELECTOR_CANCEL_BUTTON = '.courier-cancel-label-button';
-    EventHandler.SELECTOR_CREATE_ALL_LABELS_BUTTON = '#create-all-labels-button';
-    EventHandler.SELECTOR_PRINT_ALL_LABELS_BUTTON = '#print-all-labels-button';
-    EventHandler.SELECTOR_CANCEL_ALL_LABELS_BUTTON = '#cancel-all-labels-button';
+    EventHandler.SELECTOR_CREATE_ALL_LABELS_BUTTON = '#create-all-labels-button-shadow';
+    EventHandler.SELECTOR_PRINT_ALL_LABELS_BUTTON = '#print-all-labels-button-shadow';
+    EventHandler.SELECTOR_CANCEL_ALL_LABELS_BUTTON = '#cancel-all-labels-button-shadow';
 
     EventHandler.prototype.listenToNavLinkClicks = function()
     {
@@ -70,8 +70,9 @@ define([], function()
         var service = this.getService();
         $(document).on('click', EventHandler.SELECTOR_CREATE_LABEL_BUTTON, function()
         {
-            var orderId = $(this).attr('id').replace('-shadow', '').split('_').pop();
-            service.createLabelForOrder(orderId);
+            var button = this;
+            var orderId = $(button).attr('id').replace('-shadow', '').split('_').pop();
+            service.createLabelForOrder(orderId, button);
         });
         return this;
     };
@@ -81,7 +82,8 @@ define([], function()
         var service = this.getService();
         $(document).on('click', EventHandler.SELECTOR_PRINT_LABEL_BUTTON, function()
         {
-            var orderId = $(this).attr('id').replace('-shadow', '').split('_').pop();
+            var button = this;
+            var orderId = $(button).attr('id').replace('-shadow', '').split('_').pop();
             service.printLabelForOrder(orderId);
         });
         return this;
@@ -92,8 +94,9 @@ define([], function()
         var service = this.getService();
         $(document).on('click', EventHandler.SELECTOR_CANCEL_BUTTON, function()
         {
-            var orderId = $(this).attr('id').replace('-shadow', '').split('_').pop();
-            service.cancelForOrder(orderId);
+            var button = this;
+            var orderId = $(button).attr('id').replace('-shadow', '').split('_').pop();
+            service.cancelForOrder(orderId, button);
         });
         return this;
     };
@@ -103,7 +106,8 @@ define([], function()
         var service = this.getService();
         $(document).on('click', EventHandler.SELECTOR_CREATE_ALL_LABELS_BUTTON, function()
         {
-            service.createAllLabels();
+            var button = this;
+            service.createAllLabels(button);
         });
         return this;
     };
@@ -113,6 +117,7 @@ define([], function()
         var service = this.getService();
         $(document).on('click', EventHandler.SELECTOR_PRINT_ALL_LABELS_BUTTON, function()
         {
+            var button = this;
             service.printAllLabels();
         });
         return this;
@@ -123,7 +128,8 @@ define([], function()
         var service = this.getService();
         $(document).on('click', EventHandler.SELECTOR_CANCEL_ALL_LABELS_BUTTON, function()
         {
-            service.cancelAll();
+            var button = this;
+            service.cancelAll(button);
         });
         return this;
     };
