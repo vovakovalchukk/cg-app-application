@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9e709684fb3d969d277ab0eac43d4978",
-    "content-hash": "6bb4a7c712b94e4f9964414d67217762",
+    "hash": "f2df2bc6b9029a9595c0f2f28cc9664f",
+    "content-hash": "672b251cc8268fe2895947c5f29d6234",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -305,17 +305,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-EPIC-CGIV-5992-dataplug",
+            "version": "dev-CGIV-6428-courier-booking-fixes-and-improvements-2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "478209c057e651c2e94c0bc1a786bc4db6c357c0"
+                "reference": "a1a074be49d7996bf556ff65ef0c6352017e8167"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-5992-dataplug-ddc855.zip",
-                "reference": "478209c057e651c2e94c0bc1a786bc4db6c357c0",
-                "shasum": "cc0433057405b3aa2108014917c1a12b520250be"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6428-courier-booking-fixes-and-improvements-2-0e43e0.zip",
+                "reference": "a1a074be49d7996bf556ff65ef0c6352017e8167",
+                "shasum": "0c18408146162a3a1658f25c5b58044de3a2a223"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -355,6 +355,11 @@
                 "phpunit/phpunit": "3.7.*"
             },
             "type": "di-definition",
+            "extra": {
+                "branch-alias": {
+                    "dev-CGIV-6428-courier-booking-fixes-and-improvements-2": "1.17.14-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Channel\\": "src/Channel",
@@ -368,7 +373,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-10-19 15:05:15"
+            "time": "2015-10-23 14:52:38"
         },
         {
             "name": "channelgrabber/cilex",
@@ -7381,9 +7386,9 @@
     ],
     "aliases": [
         {
-            "alias": "1.17.14",
-            "alias_normalized": "1.17.14.0",
-            "version": "dev-EPIC-CGIV-5992-dataplug",
+            "alias": "dev-EPIC-CGIV-5992-dataplug",
+            "alias_normalized": "dev-EPIC-CGIV-5992-dataplug",
+            "version": "dev-CGIV-6428-courier-booking-fixes-and-improvements-2",
             "package": "channelgrabber/channel"
         },
         {
