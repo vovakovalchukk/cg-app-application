@@ -238,6 +238,10 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
                 self.setupDelayedLabelPoll(response.readyStatuses);
             }
             self.refresh();
+        }, function(response)
+        {
+            $(button).removeClass('disabled');
+            notifications.ajaxError(response);
         });
     };
 
@@ -271,6 +275,10 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         {
             notifications.success('Shipping order cancelled successfully');
             self.refresh();
+        }, function(response)
+        {
+            $(button).removeClass('disabled');
+            notifications.ajaxError(response);
         });
     };
 
@@ -284,6 +292,7 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
             return;
         }
         $(button).addClass('disabled');
+        $(EventHandler.SELECTOR_CREATE_LABEL_BUTTON).addClass('disabled');
         var self = this;
         var notifications = this.getNotifications();
         notifications.notice('Creating all labels');
@@ -302,6 +311,11 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
             }
             self.refresh();
             $(button).removeClass('disabled');
+        }, function(response)
+        {
+            $(button).removeClass('disabled');
+            $(EventHandler.SELECTOR_CREATE_LABEL_BUTTON).removeClass('disabled');
+            notifications.ajaxError(response);
         });
     };
 
@@ -388,6 +402,7 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
             return;
         }
         $(button).addClass('disabled');
+        $(EventHandler.SELECTOR_CANCEL_BUTTON).addClass('disabled');
         var self = this;
         var notifications = this.getNotifications();
         notifications.notice('Cancelling all');
@@ -397,6 +412,11 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
             notifications.success('Shipping orders cancelled successfully');
             self.refresh();
             $(button).removeClass('disabled');
+        }, function(response)
+        {
+            $(button).removeClass('disabled');
+            $(EventHandler.SELECTOR_CANCEL_BUTTON).removeClass('disabled');
+            notifications.ajaxError(response);
         });
     };
 
