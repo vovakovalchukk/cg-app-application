@@ -4,27 +4,27 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "25fc6b9f94fc51902fe1e9b5455dde2b",
-    "content-hash": "aff4d7b08ee37928b225fddd5b409dcf",
+    "hash": "7dba57c53b8a12ffd0456d9eccadc5b4",
+    "content-hash": "0842cff8cc0ba2bf0256ed48eb3cd1b7",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-CGIV-6421-disable-accounts-after-multiple-failures",
+            "version": "1.15.32",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "30f22e08d6434a4937c7dec280582bb875e5303c"
+                "reference": "227bb0697ed5a1463cd3baf540225854dbc3a3d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-6421-disable-accounts-after-multiple-failures-7442df.zip",
-                "reference": "30f22e08d6434a4937c7dec280582bb875e5303c",
-                "shasum": "86982948d5c09cfc4ba62db0cdefd2ed89f408e1"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.15.32-9b7998.zip",
+                "reference": "227bb0697ed5a1463cd3baf540225854dbc3a3d6",
+                "shasum": "7119fba1c85e824f31e2409ca970ea91a9a9cdbf"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.6.4",
-                "channelgrabber/channel": "dev-CGIV-6421-disable-accounts-after-multiple-failures as 1.18.0",
+                "channelgrabber/channel": "^1.18.0",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.1.0",
@@ -36,7 +36,6 @@
                 "channelgrabber/locale": "^1.0.5",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.19.6",
-                "channelgrabber/predis": "dev-CGIV-6421-disable-accounts-after-multiple-failures as 1.0.7",
                 "channelgrabber/product": "^1.3.25",
                 "channelgrabber/scraper": ">=1.0.2,<2.0.0",
                 "channelgrabber/stats": "^1.0.0",
@@ -67,7 +66,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-10-23 12:57:27"
+            "time": "2015-10-26 09:49:07"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -306,17 +305,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-6421-disable-accounts-after-multiple-failures",
+            "version": "1.18.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "debe5bb87ed0d20ec0c887b41e4bd331a40e6bb4"
+                "reference": "5184362285fd9caea126113e3fd6ccdf5e88bb17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6421-disable-accounts-after-multiple-failures-43c3e3.zip",
-                "reference": "debe5bb87ed0d20ec0c887b41e4bd331a40e6bb4",
-                "shasum": "443065e55411fe780488f6193da55d3d936ebe4a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.18.0-bbf398.zip",
+                "reference": "5184362285fd9caea126113e3fd6ccdf5e88bb17",
+                "shasum": "191f9522f73f65b64b0037565248ff1b60ee217a"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -331,7 +330,7 @@
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.18.1",
                 "channelgrabber/permission": ">=1.0.1, <2.0.0",
-                "channelgrabber/predis": "dev-CGIV-6421-disable-accounts-after-multiple-failures as 1.0.7",
+                "channelgrabber/predis": "^1.0.7",
                 "channelgrabber/product": "^1.4.0",
                 "channelgrabber/scraper": ">=1.0.0,<2.0.0",
                 "channelgrabber/slim": "^1.13.2",
@@ -373,7 +372,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-10-23 09:11:24"
+            "time": "2015-10-26 09:40:01"
         },
         {
             "name": "channelgrabber/cilex",
@@ -565,22 +564,22 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "dev-CGIV-6421-disable-accounts-after-multiple-failures",
+            "version": "1.9.27",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "7edb851d5a9642b5c9f5513c4da81b61615a9b46"
+                "reference": "0e994c706fa5ea6884a30cecef493c7f78c50fcb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-dev-CGIV-6421-disable-accounts-after-multiple-failures-f1909d.zip",
-                "reference": "7edb851d5a9642b5c9f5513c4da81b61615a9b46",
-                "shasum": "0882217ef1252f1d216ee9f6a0a84b431b8e12d3"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.9.27-2710c3.zip",
+                "reference": "0e994c706fa5ea6884a30cecef493c7f78c50fcb",
+                "shasum": "15c8cf99943000c23a3f42fd2b7b50d94a095966"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": ">=1.4.0,<2.0.0",
-                "channelgrabber/channel": "dev-CGIV-6421-disable-accounts-after-multiple-failures as 1.18.0",
+                "channelgrabber/channel": "^1.18.0",
                 "channelgrabber/communication": "^1.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.1.0",
@@ -590,7 +589,6 @@
                 "channelgrabber/locale": "^1.0.5",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.19.20",
-                "channelgrabber/predis": "dev-CGIV-6421-disable-accounts-after-multiple-failures as 1.0.7",
                 "channelgrabber/product": "^1.4.0",
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stdlib": "^2.12.0",
@@ -620,26 +618,26 @@
                     "CG\\Ebay\\Test\\": "tests/Test/"
                 }
             },
-            "time": "2015-10-23 12:55:46"
+            "time": "2015-10-26 09:51:52"
         },
         {
             "name": "channelgrabber/ekm",
-            "version": "dev-CGIV-6421-disable-accounts-after-multiple-failures",
+            "version": "1.8.18",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ekm.git",
-                "reference": "2b880f94453d4a5bb787b744f523e824e09ec775"
+                "reference": "2d612716f3f7a672b92c7aa052e2639e9d0883b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-dev-CGIV-6421-disable-accounts-after-multiple-failures-9cdc8c.zip",
-                "reference": "2b880f94453d4a5bb787b744f523e824e09ec775",
-                "shasum": "110511532a1c08b5d4c319c274846832ff43be10"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.8.18-a6bfb7.zip",
+                "reference": "2d612716f3f7a672b92c7aa052e2639e9d0883b4",
+                "shasum": "fafa4b20c7f71f52b7980823257ecf7beb4168bb"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cglib": "^1.6.8",
-                "channelgrabber/channel": "dev-CGIV-6421-disable-accounts-after-multiple-failures as 1.18.0",
+                "channelgrabber/channel": "^1.18.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.1.0",
                 "channelgrabber/gearman": "^1.2.4",
@@ -649,7 +647,6 @@
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.19.6",
                 "channelgrabber/php-phantomjs": ">=3.1.5",
-                "channelgrabber/predis": "dev-CGIV-6421-disable-accounts-after-multiple-failures as 1.0.7",
                 "channelgrabber/product": "^1.4.0",
                 "channelgrabber/stats": ">=1.0.4, <2.0.0",
                 "channelgrabber/stdlib": "^2.12.7",
@@ -679,7 +676,7 @@
                     "CG\\Ekm\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2015-10-23 10:11:57"
+            "time": "2015-10-26 10:06:58"
         },
         {
             "name": "channelgrabber/email",
@@ -1410,17 +1407,17 @@
         },
         {
             "name": "channelgrabber/predis",
-            "version": "dev-CGIV-6421-disable-accounts-after-multiple-failures",
+            "version": "1.0.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgpredis.git",
-                "reference": "0a8a0b50fad1ecbc0258612f63571c9361144e04"
+                "reference": "5d4660ca8752d6555d2ee8396d8d4aef9795efce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-predis-dev-CGIV-6421-disable-accounts-after-multiple-failures-5d42d8.zip",
-                "reference": "0a8a0b50fad1ecbc0258612f63571c9361144e04",
-                "shasum": "564da7294fab106738dca6abf293a17f58264e38"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-predis-1.0.7-255bc3.zip",
+                "reference": "5d4660ca8752d6555d2ee8396d8d4aef9795efce",
+                "shasum": "f580dffcf80e0ec2849f2b2ef4776bb0044a20c2"
             },
             "require": {
                 "channelgrabber/cg-predis": "~0.8.7",
@@ -1434,7 +1431,7 @@
                     "CG\\Predis\\": "src"
                 }
             },
-            "time": "2015-10-22 15:54:31"
+            "time": "2015-10-26 09:04:17"
         },
         {
             "name": "channelgrabber/predis-async",
@@ -2313,24 +2310,23 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "dev-CGIV-6421-disable-accounts-after-multiple-failures",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "90133729c27a3d094ad01e63f1bf17aec9737c06"
+                "reference": "2c1b4e790170735b3d5776da9137cf3cb1adfdab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-CGIV-6421-disable-accounts-after-multiple-failures-b64c75.zip",
-                "reference": "90133729c27a3d094ad01e63f1bf17aec9737c06",
-                "shasum": "d2fa1655cae9c18118225d07007babeaf7a8e542"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.1.1-0de189.zip",
+                "reference": "2c1b4e790170735b3d5776da9137cf3cb1adfdab",
+                "shasum": "b4b186e21d8ce88dc353e58c20e3a7bbca333ffe"
             },
             "require": {
-                "channelgrabber/channel": "dev-CGIV-6421-disable-accounts-after-multiple-failures as 1.18.0",
+                "channelgrabber/channel": "^1.18.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.0",
                 "channelgrabber/http": "^1.2.0",
-                "channelgrabber/predis": "dev-CGIV-6421-disable-accounts-after-multiple-failures as 1.0.7",
                 "channelgrabber/stdlib": "^2.12.0",
                 "channelgrabber/zf2-stdlib": "^1.2.1",
                 "composer/composer": "@dev",
@@ -2358,7 +2354,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2015-10-23 15:26:20"
+            "time": "2015-10-26 10:09:06"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -7288,53 +7284,10 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.15.32",
-            "alias_normalized": "1.15.32.0",
-            "version": "dev-CGIV-6421-disable-accounts-after-multiple-failures",
-            "package": "channelgrabber/amazon"
-        },
-        {
-            "alias": "1.18.0",
-            "alias_normalized": "1.18.0.0",
-            "version": "dev-CGIV-6421-disable-accounts-after-multiple-failures",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.9.27",
-            "alias_normalized": "1.9.27.0",
-            "version": "dev-CGIV-6421-disable-accounts-after-multiple-failures",
-            "package": "channelgrabber/ebay"
-        },
-        {
-            "alias": "1.8.18",
-            "alias_normalized": "1.8.18.0",
-            "version": "dev-CGIV-6421-disable-accounts-after-multiple-failures",
-            "package": "channelgrabber/ekm"
-        },
-        {
-            "alias": "1.0.7",
-            "alias_normalized": "1.0.7.0",
-            "version": "dev-CGIV-6421-disable-accounts-after-multiple-failures",
-            "package": "channelgrabber/predis"
-        },
-        {
-            "alias": "1.1.1",
-            "alias_normalized": "1.1.1.0",
-            "version": "dev-CGIV-6421-disable-accounts-after-multiple-failures",
-            "package": "channelgrabber/woocommerce"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/amazon": 20,
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/ebay": 20,
-        "channelgrabber/ekm": 20,
-        "channelgrabber/predis": 20,
-        "channelgrabber/woocommerce": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
