@@ -438,6 +438,7 @@ return array(
                             'options' => [
                                 'insuranceMonetary' => false,
                                 'signature' => false,
+                                'deliveryInstructions' => false,
                             ],
                         ],
                         [
@@ -511,6 +512,7 @@ return array(
                             'options' => [
                                 'insuranceMonetary' => false,
                                 'signature' => false,
+                                'deliveryInstructions' => false,
                             ],
                         ],
                         [
@@ -561,6 +563,7 @@ return array(
                                 'length' => false,
                                 'insuranceMonetary' => false,
                                 'signature' => false,
+                                'deliveryInstructions' => false,
                             ],
                         ],
                         [
@@ -714,6 +717,7 @@ return array(
                             'options' => [
                                 'insuranceMonetary' => false,
                                 'signature' => false,
+                                'deliveryInstructions' => false,
                             ],
                         ],
                         [
@@ -762,6 +766,7 @@ return array(
                             'options' => [
                                 'insuranceMonetary' => false,
                                 'signature' => false,
+                                'deliveryInstructions' => false,
                             ],
                         ],
                         [
@@ -792,6 +797,7 @@ return array(
                             ],
                             'options' => [
                                 'insuranceMonetary' => false,
+                                'deliveryInstructions' => false,
                             ],
                         ],
                         [
@@ -842,6 +848,7 @@ return array(
                             'options' => [
                                 'insuranceMonetary' => false,
                                 'signature' => false,
+                                'deliveryInstructions' => false,
                             ],
                         ],
                     ],
