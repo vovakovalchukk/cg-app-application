@@ -27,10 +27,11 @@ if ($accountId) {
     </div>
     <div class="account-field-holder">
         <p>
-            Enter your WooCommerce credentials to link your account with OrderHub.io
+            Enter your WooCommerce details to link your account with OrderHub.io -
+            <a href="http://help.orderhub.io/hc/en-us/articles/205004612-11-Connecting-your-WooCommerce-account-to-OrderHub" target="_blank">Need help?</a>
         </p>
         <div class="label">
-            <?= $this->translate('Host') ?>:
+            <?= $this->translate('Your Website URL: (www.example.com)') ?>:
         </div>
         <div class="text-field">
             <?= $this->mustache('elements/text.mustache', ['id' => 'woocommerce-host', 'name' => 'host']) ?>
@@ -38,7 +39,7 @@ if ($accountId) {
     </div>
     <div class="account-field-holder">
         <div class="label">
-            <?= $this->translate('API Key') ?>:
+            <?= $this->translate('Consumer Key') ?>:
         </div>
         <div class="text-field">
             <?= $this->mustache('elements/text.mustache', ['id' => 'woocommerce-key', 'name' => 'key']) ?>
@@ -46,7 +47,7 @@ if ($accountId) {
     </div>
     <div class="account-field-holder">
         <div class="label">
-            <?= $this->translate('API Secret') ?>:
+            <?= $this->translate('Consumer Secret') ?>:
         </div>
         <div class="text-field">
             <?= $this->mustache('elements/text.mustache', ['id' => 'woocommerce-secret', 'name' => 'secret']) ?>
