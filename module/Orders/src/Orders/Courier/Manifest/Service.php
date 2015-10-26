@@ -60,6 +60,9 @@ class Service
         $manifestableAccounts = new AccountCollection(Account::class, __FUNCTION__);
         foreach ($accounts as $account)
         {
+            if (!$this->carrierService->isProvidedChannel($account->getChannel())) {
+                continue;
+            }
             $carrier = $this->carrierService->getCarrierForAccount($account);
             if (!$carrier->getAllowsManifesting()) {
                 continue;
