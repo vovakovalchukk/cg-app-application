@@ -126,6 +126,7 @@ class ProductsJsonController extends AbstractActionController
             'images' => $productEntity->getImages()->toArray(),
             'listings' => $productEntity->getListings()->toArray(),
             'accounts' => $accounts,
+            'stockModeDefault' => $this->stockSettingsService->getStockModeDefault(),
             'stockModeDesc' => $this->stockSettingsService->getStockModeDecriptionForProduct($productEntity),
             'stockModeOptions' => $this->stockSettingsService->getStockModeOptionsForProduct($productEntity),
             'stockLevel' => $this->stockSettingsService->getStockLevelForProduct($productEntity),
@@ -208,6 +209,7 @@ class ProductsJsonController extends AbstractActionController
         $product = $this->stockSettingsService->saveProductStockMode($productId, $stockMode, $eTag);
         $data = [
             'eTags' => [$product->getId() => $product->getStoredEtag()],
+            'stockModeDefault' => $this->stockSettingsService->getStockModeDefault(),
             'stockModeDesc' => $this->stockSettingsService->getStockModeDecriptionForProduct($product),
             'stockLevel' => $this->stockSettingsService->getStockLevelForProduct($product),
         ];

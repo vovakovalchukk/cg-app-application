@@ -106,7 +106,8 @@ define([
                     var eTag = response.eTags[variationId];
                     $(Service.SELECTOR_STOCK_ROW_PREFIX + variationId + ' ' + DomListener.SELECTOR_STOCK_PROD_ETAG).val(eTag);
                 }
-                self.getDomListener().triggerStockModeUpdatedEvent(productId, value, response.stockModeDesc, response.stockLevel);
+                var stockMode = (value !== 'null' ? value : null);
+                self.getDomListener().triggerStockModeUpdatedEvent(productId, stockMode, response.stockModeDefault, response.stockModeDesc, response.stockLevel);
                 n.success('Product stock mode updated successfully');
             });
         });

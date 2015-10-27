@@ -29,9 +29,9 @@ define(['Stock/DomListener'], function (StockDomListener)
     Product.prototype.listenForStockModeUpdate = function()
     {
         var self = this;
-        $(document).on(StockDomListener.EVENT_STOCK_MODE_UPDATED, function(event, productId, stockMode, stockModeDesc, stockLevel)
+        $(document).on(StockDomListener.EVENT_STOCK_MODE_UPDATED, function(event, productId, stockMode, stockModeDefault, stockModeDesc, stockLevel)
         {
-            self.getService().stockModeUpdated(productId, stockMode, stockModeDesc, stockLevel);
+            self.getService().stockModeUpdated(productId, stockMode, stockModeDefault, stockModeDesc, stockLevel);
         });
     };
 

@@ -88,13 +88,18 @@ class Service
         if ($product->getStockMode()) {
             $stockMode = $product->getStockMode();
         } else {
-            $productSettings = $this->getProductSettings();
-            $stockMode = $productSettings->getDefaultStockMode();
+            $stockMode = $this->getStockModeDefault();
         }
         if (!$stockMode) {
             return null;
         }
         return StockMode::getStockModeDescription($stockMode);
+    }
+
+    public function getStockModeDefault()
+    {
+        $productSettings = $this->getProductSettings();
+        return $productSettings->getDefaultStockMode();
     }
 
     /**

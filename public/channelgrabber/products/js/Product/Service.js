@@ -84,6 +84,7 @@ define([
     Service.STOCK_MODE_ID_PREFIX = 'product-stock-mode';
     Service.DOM_SELECTOR_STOCK_LEVEL_COL = '.product-stock-level-col';
     Service.DOM_SELECTOR_STOCK_TABLE = '.stock-table';
+    Service.DOM_SELECTOR_STOCK_LEVEL_INPUT = '.product-stock-level';
 
     Service.prototype.refresh = function(page)
     {
@@ -258,14 +259,21 @@ define([
 
     Service.prototype.getStockLevelCell = function(product, templates)
     {
+        var disabled = this.shouldDisableStockLevel(product.stockMode, product.stockModeDefault);
         var stockLevel = CGMustache.get().renderTemplate(templates, {
-            'id': 'product-stock-level-' + product.id,
+            'id': Service.STOCK_LEVEL_INPUT_ID_PREFIX + product.id,
             'value': product.stockLevel,
             'name': 'product[' + product.id + '][stockLevel]',
             'class': 'product-stock-level',
+            'disabled': disabled,
             'type': 'number'
         }, 'inlineText', {});
         return CGMustache.get().renderTemplate(templates, {id: product.id}, 'stockLevelCell', {stockLevel: stockLevel});
+    };
+
+    Service.prototype.shouldDisableStockLevel = function(stockMode, stockModeDefault)
+    {
+        return (stockMode == null && stockModeDefault != null && stockModeDefault != 'all');
     };
 
     Service.prototype.getVariationView = function(product, templates)
@@ -453,7 +461,7 @@ define([
         });
     };
 
-    Service.prototype.stockModeUpdated = function(productId, stockMode, stockModeDesc, stockLevel)
+    Service.prototype.stockModeUpdated = function(productId, stockMode, stockModeDefault, stockModeDesc, stockLevel)
     {
         var showStockLevel = (stockLevel !== null);
         if (!showStockLevel) {
@@ -463,12 +471,28 @@ define([
         var stockLevelHeader = $(Service.DOM_SELECTOR_PRODUCT_CONTAINER_PREFIX + productId + ' th' + Service.DOM_SELECTOR_STOCK_LEVEL_COL);
         if (stockLevelHeader.length > 0) {
             stockLevelHeader.html(stockModeDesc);
+            this.updateStockLevelColumnForProduct(productId, stockMode, stockModeDefault, stockLevel);
             return;
         }
-        this.addStockLevelColumnToProduct(productId, stockMode, stockModeDesc, stockLevel);
-    }
+        this.addStockLevelColumnToProduct(productId, stockMode, stockModeDefault, stockModeDesc, stockLevel);
+    };
 
-    Service.prototype.addStockLevelColumnToProduct = function(productId, stockMode, stockModeDesc, stockLevel)
+    Service.prototype.updateStockLevelColumnForProduct = function(productId, stockMode, stockModeDefault, stockLevel)
+    {
+        var productContainer = $(Service.DOM_SELECTOR_PRODUCT_CONTAINER_PREFIX + productId);
+        productContainer.find(Service.DOM_SELECTOR_STOCK_LEVEL_INPUT).val(stockLevel);
+        var disable = this.shouldDisableStockLevel(stockMode, stockModeDefault);
+        if (disable) {
+            productContainer.find(Service.DOM_SELECTOR_STOCK_LEVEL_INPUT).attr('disabled', 'disabled');
+            productContainer.find(Service.DOM_SELECTOR_STOCK_LEVEL_INPUT).closest('.submit-input').addClass('disabled');
+        } else {
+            productContainer.find(Service.DOM_SELECTOR_STOCK_LEVEL_INPUT).removeAttr('disabled');
+            productContainer.find(Service.DOM_SELECTOR_STOCK_LEVEL_INPUT).closest('.submit-input').removeClass('disabled');
+        }
+        return this;
+    };
+
+    Service.prototype.addStockLevelColumnToProduct = function(productId, stockMode, stockModeDefault, stockModeDesc, stockLevel)
     {
         var self = this;
         this.fetchProductTemplates(function(templates)
@@ -479,7 +503,9 @@ define([
             {
                 var row = this;
                 var productId = $(row).data('productId');
-                var stockLevelCell = self.getStockLevelCell({id: productId, stockLevel: stockLevel}, templates);
+                var stockLevelCell = self.getStockLevelCell({
+                    id: productId, stockLevel: stockLevel, stockMode: stockMode, stockModeDefault: stockModeDefault
+                }, templates);
                 $(row).append(stockLevelCell);
             });
         });

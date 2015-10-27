@@ -73,10 +73,10 @@ define([
         return this;
     };
 
-    DomListener.prototype.triggerStockModeUpdatedEvent = function(productId, stockMode, stockModeDesc, stockLevel)
+    DomListener.prototype.triggerStockModeUpdatedEvent = function(productId, stockMode, stockModeDefault, stockModeDesc, stockLevel)
     {
         // Expected to be picked up by Product/DomListener/Product
-        $(document).trigger(DomListener.EVENT_STOCK_MODE_UPDATED, [productId, stockMode, stockModeDesc, stockLevel]);
+        $(document).trigger(DomListener.EVENT_STOCK_MODE_UPDATED, [productId, stockMode, stockModeDefault, stockModeDesc, stockLevel]);
         return this;
     };
 
