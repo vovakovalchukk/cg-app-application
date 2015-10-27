@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f2df2bc6b9029a9595c0f2f28cc9664f",
-    "content-hash": "672b251cc8268fe2895947c5f29d6234",
+    "hash": "d37365276327f387ab8cceb2bf996dcb",
+    "content-hash": "64eda63bddeda2380954ef67568b5dec",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -305,17 +305,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-6428-courier-booking-fixes-and-improvements-2",
+            "version": "dev-EPIC-CGIV-5992-dataplug",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "a1a074be49d7996bf556ff65ef0c6352017e8167"
+                "reference": "a42aee615e4ed8d2ca6f49d8329ddf3fe9c06689"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6428-courier-booking-fixes-and-improvements-2-0e43e0.zip",
-                "reference": "a1a074be49d7996bf556ff65ef0c6352017e8167",
-                "shasum": "0c18408146162a3a1658f25c5b58044de3a2a223"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-5992-dataplug-05e108.zip",
+                "reference": "a42aee615e4ed8d2ca6f49d8329ddf3fe9c06689",
+                "shasum": "8dec9ca4e4acce817a76fad3cb2aad5b91f75575"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -331,7 +331,7 @@
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.18.1",
                 "channelgrabber/permission": ">=1.0.1, <2.0.0",
-                "channelgrabber/predis": "^1.0.6",
+                "channelgrabber/predis": "^1.0.7",
                 "channelgrabber/product": "dev-EPIC-CGIV-5992-dataplug as 1.5.0",
                 "channelgrabber/scraper": ">=1.0.0,<2.0.0",
                 "channelgrabber/slim": "^1.13.2",
@@ -355,11 +355,6 @@
                 "phpunit/phpunit": "3.7.*"
             },
             "type": "di-definition",
-            "extra": {
-                "branch-alias": {
-                    "dev-CGIV-6428-courier-booking-fixes-and-improvements-2": "1.17.14-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "CG\\Channel\\": "src/Channel",
@@ -373,7 +368,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-10-23 14:52:38"
+            "time": "2015-10-27 10:54:51"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1456,17 +1451,17 @@
         },
         {
             "name": "channelgrabber/predis",
-            "version": "1.0.6",
+            "version": "1.0.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgpredis.git",
-                "reference": "2cf4fbc5cb4855d586adf8eefb875968a2a118ba"
+                "reference": "5d4660ca8752d6555d2ee8396d8d4aef9795efce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-predis-1.0.6-acffcb.zip",
-                "reference": "2cf4fbc5cb4855d586adf8eefb875968a2a118ba",
-                "shasum": "ff0f96c380d7bb68cddb75dd883bed18009124ae"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-predis-1.0.7-255bc3.zip",
+                "reference": "5d4660ca8752d6555d2ee8396d8d4aef9795efce",
+                "shasum": "f580dffcf80e0ec2849f2b2ef4776bb0044a20c2"
             },
             "require": {
                 "channelgrabber/cg-predis": "~0.8.7",
@@ -1480,7 +1475,7 @@
                     "CG\\Predis\\": "src"
                 }
             },
-            "time": "2015-09-08 12:57:46"
+            "time": "2015-10-26 09:04:17"
         },
         {
             "name": "channelgrabber/predis-async",
@@ -2359,20 +2354,20 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "fd5d863181bd2c89033bc33992b195d49f56f515"
+                "reference": "2c1b4e790170735b3d5776da9137cf3cb1adfdab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.1.0-f22717.zip",
-                "reference": "fd5d863181bd2c89033bc33992b195d49f56f515",
-                "shasum": "c8599d69629a067ee6d3bc9f6b0a3c290d85f8a2"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.1.1-0de189.zip",
+                "reference": "2c1b4e790170735b3d5776da9137cf3cb1adfdab",
+                "shasum": "b4b186e21d8ce88dc353e58c20e3a7bbca333ffe"
             },
             "require": {
-                "channelgrabber/channel": "~1.17.13",
+                "channelgrabber/channel": "^1.18.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.0",
                 "channelgrabber/http": "^1.2.0",
@@ -2403,7 +2398,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2015-10-16 07:53:38"
+            "time": "2015-10-26 10:09:06"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -3233,13 +3228,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "f9576c039f34bb719d630829cf195c7884c23722"
+                "reference": "75cc13249ee23437cd692005112adc0a760d8854"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-5992-dataplug-7ad778.zip",
-                "reference": "f9576c039f34bb719d630829cf195c7884c23722",
-                "shasum": "fa1697de718fecc279fd4f33bd3a059a316a31f0"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-5992-dataplug-cf2a6d.zip",
+                "reference": "75cc13249ee23437cd692005112adc0a760d8854",
+                "shasum": "c90837e28414ab58b13c332f49f3e9345f514566"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3288,7 +3283,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-10-20 15:53:38"
+            "time": "2015-10-27 09:49:59"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7386,9 +7381,9 @@
     ],
     "aliases": [
         {
-            "alias": "dev-EPIC-CGIV-5992-dataplug",
-            "alias_normalized": "dev-EPIC-CGIV-5992-dataplug",
-            "version": "dev-CGIV-6428-courier-booking-fixes-and-improvements-2",
+            "alias": "1.18.1",
+            "alias_normalized": "1.18.1.0",
+            "version": "dev-EPIC-CGIV-5992-dataplug",
             "package": "channelgrabber/channel"
         },
         {
