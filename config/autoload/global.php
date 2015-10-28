@@ -32,6 +32,8 @@ use Zend\Session\SessionManager;
 use Orders\Order\Batch\Service as OrderBatchService;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use CG_UI\View\DataTable;
+use Zend\View\Model\ViewModel;
 
 use CG\Location\Service as LocationService;
 use CG\Location\Storage\Api as LocationApi;
@@ -136,7 +138,17 @@ return array(
                 ProductSettingsStorage::class => ProductSettingsStorageApi::class,
             ),
             'aliases' => [
-                'amazonWriteCGSql' => CGSql::class
+                'amazonWriteCGSql' => CGSql::class,
+                'StockSettingsAccountsTable' => DataTable::class,
+                'StockSettingsAccountsTableSettings' => DataTable\Settings::class,
+                'StockSettingsAccountsChannelColumn' => DataTable\Column::class,
+                'StockSettingsAccountsAccountColumn' => DataTable\Column::class,
+                'StockSettingsAccountsMaxColumn' => DataTable\Column::class,
+                'StockSettingsAccountsFixedColumn' => DataTable\Column::class,
+                'StockSettingsAccountsChannelColumnView' => ViewModel::class,
+                'StockSettingsAccountsAccountColumnView' => ViewModel::class,
+                'StockSettingsAccountsMaxColumnView' => ViewModel::class,
+                'StockSettingsAccountsFixedColumnView' => ViewModel::class,
             ],
             'amazonWriteCGSql' => [
                 'parameter' => [
@@ -361,6 +373,92 @@ return array(
                 'parameters' => [
                     'client' => 'cg_app_guzzle'
                 ]
+            ],
+
+            'StockSettingsAccountsTable' => [
+                'parameters' => [
+                    'variables' => [
+                        'id' => 'accounts-table',
+                        'sortable' => 'false',
+                        'class' => 'fixed-header fixed-footer',
+                        'width' => '100%',
+                    ],
+                ],
+                'injections' => [
+                    'addColumn' => [
+                        ['column' => 'StockSettingsAccountsChannelColumn'],
+                        ['column' => 'StockSettingsAccountsAccountColumn'],
+                        ['column' => 'StockSettingsAccountsMaxColumn'],
+                        ['column' => 'StockSettingsAccountsFixedColumn'],
+                    ],
+                    'setVariable' => [
+                        ['name' => 'settings', 'value' => 'StockSettingsAccountsTableSettings']
+                    ],
+                ]
+            ],
+            'StockSettingsAccountsTableSettings' => [
+                'parameters' => [
+                    'scrollHeightAuto' => true,
+                    'footer' => false,
+                ]
+            ],
+            'StockSettingsAccountsChannelColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Channel'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'StockSettingsAccountsChannelColumn' => [
+                'parameters' => [
+                    'column' => 'channel',
+                    'viewModel' => 'StockSettingsAccountsChannelColumnView',
+                    'class' => 'channel-col',
+                    'sortable' => false,
+                ],
+            ],
+            'StockSettingsAccountsAccountColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Account'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'StockSettingsAccountsAccountColumn' => [
+                'parameters' => [
+                    'column' => 'account',
+                    'viewModel' => 'StockSettingsAccountsAccountColumnView',
+                    'class' => 'account-col',
+                    'sortable' => false,
+                ],
+            ],
+            'StockSettingsAccountsMaxColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'List up to a maximum of'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'StockSettingsAccountsMaxColumn' => [
+                'parameters' => [
+                    'column' => 'max',
+                    'viewModel' => 'StockSettingsAccountsMaxColumnView',
+                    'class' => 'max-col',
+                    'sortable' => false,
+                    'width' => '100px',
+                ],
+            ],
+            'StockSettingsAccountsFixedColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Fix the level at'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'StockSettingsAccountsFixedColumn' => [
+                'parameters' => [
+                    'column' => 'fixed',
+                    'viewModel' => 'StockSettingsAccountsFixedColumnView',
+                    'class' => 'fixed-col',
+                    'sortable' => false,
+                    'width' => '100px',
+                ],
             ],
         ),
     ),

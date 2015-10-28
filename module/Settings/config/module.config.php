@@ -637,6 +637,7 @@ return [
         'template_map' => [
             ChannelController::ACCOUNT_TEMPLATE => dirname(__DIR__) . '/view/settings/channel/account.phtml',
             ChannelController::ACCOUNT_CHANNEL_FORM_BLANK_TEMPLATE => dirname(__DIR__) . '/view/settings/channel/account/channel_form_blank.phtml',
+            StockController::ACCOUNT_SETTINGS_TABLE_TEMPLATE => dirname(__DIR__) . '/view/settings/stock/accountStockSettingsTable.phtml',
         ]
     ],
     'di' => [
@@ -677,16 +678,6 @@ return [
                 'AccountTokenStatusColumnView' => ViewModel::class,
                 'AccountManageColumnView' => ViewModel::class,
                 'AccountStockManagementColumnView' => ViewModel::class,
-                'StockSettingsAccountsTable' => DataTable::class,
-                'StockSettingsAccountsTableSettings' => DataTable\Settings::class,
-                'StockSettingsAccountsChannelColumn' => DataTable\Column::class,
-                'StockSettingsAccountsAccountColumn' => DataTable\Column::class,
-                'StockSettingsAccountsMaxColumn' => DataTable\Column::class,
-                'StockSettingsAccountsFixedColumn' => DataTable\Column::class,
-                'StockSettingsAccountsChannelColumnView' => ViewModel::class,
-                'StockSettingsAccountsAccountColumnView' => ViewModel::class,
-                'StockSettingsAccountsMaxColumnView' => ViewModel::class,
-                'StockSettingsAccountsFixedColumnView' => ViewModel::class,
             ],
             InvoiceController::class => [
                 'parameters' => [
@@ -996,92 +987,6 @@ return [
                 ],
             ],
 
-            'StockSettingsAccountsTable' => [
-                'parameters' => [
-                    'variables' => [
-                        'id' => 'accounts-table',
-                        'sortable' => 'false',
-                        'class' => 'fixed-header fixed-footer',
-                        'width' => '100%',
-                    ],
-                ],
-                'injections' => [
-                    'addColumn' => [
-                        ['column' => 'StockSettingsAccountsChannelColumn'],
-                        ['column' => 'StockSettingsAccountsAccountColumn'],
-                        ['column' => 'StockSettingsAccountsMaxColumn'],
-                        ['column' => 'StockSettingsAccountsFixedColumn'],
-                    ],
-                    'setVariable' => [
-                        ['name' => 'settings', 'value' => 'StockSettingsAccountsTableSettings']
-                    ],
-                ]
-            ],
-            'StockSettingsAccountsTableSettings' => [
-                'parameters' => [
-                    'scrollHeightAuto' => true,
-                    'footer' => false,
-                ]
-            ],
-            'StockSettingsAccountsChannelColumnView' => [
-                'parameters' => [
-                    'variables' => ['value' => 'Channel'],
-                    'template' => 'value.phtml',
-                ],
-            ],
-            'StockSettingsAccountsChannelColumn' => [
-                'parameters' => [
-                    'column' => 'channel',
-                    'viewModel' => 'StockSettingsAccountsChannelColumnView',
-                    'class' => 'channel-col',
-                    'sortable' => false,
-                ],
-            ],
-            'StockSettingsAccountsAccountColumnView' => [
-                'parameters' => [
-                    'variables' => ['value' => 'Account'],
-                    'template' => 'value.phtml',
-                ],
-            ],
-            'StockSettingsAccountsAccountColumn' => [
-                'parameters' => [
-                    'column' => 'account',
-                    'viewModel' => 'StockSettingsAccountsAccountColumnView',
-                    'class' => 'account-col',
-                    'sortable' => false,
-                ],
-            ],
-            'StockSettingsAccountsMaxColumnView' => [
-                'parameters' => [
-                    'variables' => ['value' => 'List up to a maximum of'],
-                    'template' => 'value.phtml',
-                ],
-            ],
-            'StockSettingsAccountsMaxColumn' => [
-                'parameters' => [
-                    'column' => 'max',
-                    'viewModel' => 'StockSettingsAccountsMaxColumnView',
-                    'class' => 'max-col',
-                    'sortable' => false,
-                    'width' => '100px',
-                ],
-            ],
-            'StockSettingsAccountsFixedColumnView' => [
-                'parameters' => [
-                    'variables' => ['value' => 'Fix the level at'],
-                    'template' => 'value.phtml',
-                ],
-            ],
-            'StockSettingsAccountsFixedColumn' => [
-                'parameters' => [
-                    'column' => 'fixed',
-                    'viewModel' => 'StockSettingsAccountsFixedColumnView',
-                    'class' => 'fixed-col',
-                    'sortable' => false,
-                    'width' => '100px',
-                ],
-            ],
-
             AccountStorage::class => [
                 'parameters' => [
                     'client' => 'account_guzzle'
@@ -1204,9 +1109,9 @@ return [
             ],
             StockController::class => [
                 'parameters' => [
-                    'accountsTable' => 'StockSettingsAccountsTable',
+                    'accountsTable' => 'StockSettingsAccountsTable', // defined in global.php
                 ]
-            ]
+            ],
         ]
     ]
 ];

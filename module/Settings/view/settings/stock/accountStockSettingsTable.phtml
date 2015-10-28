@@ -1,0 +1,13 @@
+    <span class="heading-large heading-spacing"><?=$this->translate('Enable / disable "List up to a maximum of" or "Fix the level at" rules by account');?></span>
+    <div style="max-width: 600px; clear: both;">
+        <?=$this->accountStockSettingsTable;?>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            require(['<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/Stock/Accounts/Service.js';?>'], function(Service)
+            {
+                var service = new Service(n);
+            });
+        });
+    </script>

@@ -8,11 +8,15 @@ use CG_UI\View\DataTable;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG\User\OrganisationUnit\Service as UserOUService;
 use Settings\Controller\StockJsonController;
+use Settings\Controller\Stock\AccountTableTrait;
 use Settings\Module;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class StockController extends AbstractActionController
 {
+    use AccountTableTrait;
+
+    const ACCOUNT_SETTINGS_TABLE_TEMPLATE = 'Account Settings Table';
     const ROUTE = 'Stock';
     const ROUTE_URI = '/stock';
 
@@ -39,7 +43,6 @@ class StockController extends AbstractActionController
 
     public function indexAction()
     {
-        $this->prepAccountsTable();
         $rootOu = $this->userOUService->getRootOuByActiveUser();
         $productSettings = $this->productSettingsService->fetch($rootOu->getId());
         $saveUri = $this->url()->fromRoute(
@@ -51,19 +54,10 @@ class StockController extends AbstractActionController
             ->setVariable('saveUri', $saveUri)
             ->addChild($this->getDefaultStockModeSelect($productSettings), 'defaultStockModeSelect')
             ->setVariable('defaultStockLevel', (int)$productSettings->getDefaultStockLevel())
-            ->addChild($this->getSaveButton(), 'saveButton')
-            ->addChild($this->accountsTable, 'accountsTable');
+            ->addChild($this->getSaveButton(), 'saveButton');
+        $this->addAccountStockSettingsTableToView($view);
 
         return $view;
-    }
-
-    protected function prepAccountsTable()
-    {
-        $settings = $this->accountsTable->getVariable('settings');
-        $settings->setSource(
-            $this->url()->fromRoute(Module::ROUTE . '/' . static::ROUTE . '/' . StockJsonController::ROUTE_ACCOUNTS)
-        );
-        $settings->setTemplateUrlMap($this->mustacheTemplateMap('stockAccountList'));
     }
 
     protected function getDefaultStockModeSelect(ProductSettings $productSettings)
@@ -116,5 +110,15 @@ class StockController extends AbstractActionController
     {
         $this->accountsTable = $accountsTable;
         return $this;
+    }
+
+    // Required by AccountTableTrait
+    protected function getAccountStockSettingsTable()
+    {
+        return $this->accountsTable;
+    }
+    protected function getViewModelFactory()
+    {
+        return $this->viewModelFactory;
     }
 }
