@@ -256,11 +256,12 @@ define([
         var self = this;
         var accountId = this.getSelectedAccountId();
         this.getNotifications().notice('Generating manifest, this might take a few moments');
-        this.removePopup();
+        this.getPopup().hide();
         this.getAjaxRequester().sendRequest(CourierManifest.URL_GENERATE, {"account": accountId}, function(response)
         {
             self.getNotifications().success('Manifest generated successfully, now downloading...');
             self.sendPrintManifestRequest(response.id);
+            self.removePopup();
         }, function(response)
         {
             self.ajaxError(response);
