@@ -12,6 +12,8 @@ use Zend\Di\Di;
 use CG\User\Service as UserService;
 use CG\UserPreference\Client\Service as UserPreferenceService;
 use CG\Account\Client\Service as AccountService;
+use CG\Account\Client\Filter as AccountFilter;
+use CG\Channel\Type as ChannelType;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
@@ -21,6 +23,7 @@ use CG\Stock\Service as StockService;
 use CG\Product\Filter as ProductFilter;
 use CG\Product\Filter\Mapper as ProductFilterMapper;
 use CG\Product\Entity as Product;
+use CG\Product\StockMode;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stock\Auditor as StockAuditor;
 use CG\Intercom\Event\Request as IntercomEvent;
@@ -46,10 +49,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     const LOG_PRODUCT_NOT_FOUND = 'Tried saving product %s with taxRateId %s but the product could not be found';
 
     protected $userService;
+    /** @var ActiveUserInterface */
     protected $activeUserContainer;
     protected $di;
     protected $activeUserPreference;
     protected $userPreferenceService;
+    /** @var AccountService */
     protected $accountService;
     protected $organisationUnitService;
     protected $productService;
@@ -193,6 +198,40 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             $stock->getSku(),
             $stock->getOrganisationUnitId()
         );
+    }
+
+    public function getAccountStockSettingsEnabledStatus()
+    {
+        $statuses = [StockMode::LIST_ALL => true, StockMode::LIST_FIXED => false, StockMode::LIST_MAX => false];
+        try {
+            $accounts = $this->getSalesAccounts();
+            foreach ($accounts as $account) {
+                if ($statuses[StockMode::LIST_FIXED] == true && $statuses[StockMode::LIST_MAX] == true) {
+                    break;
+                }
+                if ($account->getStockFixedEnabled()) {
+                    $statuses[StockMode::LIST_FIXED] = true;
+                }
+                if ($account->getStockMaximumEnabled()) {
+                    $statuses[StockMode::LIST_MAX] = true;
+                }
+            }
+        } catch (NotFound $e) {
+            // No-op
+        }
+        return $statuses;
+    }
+
+    protected function getSalesAccounts()
+    {
+        $rootOuId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+        $filter = (new AccountFilter())
+            ->setLimit('all')
+            ->setPage(1)
+            ->setType(ChannelType::SALES)
+            ->setOrganisationUnitId([$rootOuId])
+            ->setDeleted(false);
+        return $this->accountService->fetchByFilter($filter);
     }
 
     protected function setProductService(ProductService $productService)

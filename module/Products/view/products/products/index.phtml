@@ -15,7 +15,7 @@ function(ShowHideFilters, ProductService, VariationService, StockService) {
         var hideFilters = new ShowHideFilters();
         var productService = new ProductService('<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img');
         var variationService = new VariationService(productService);
-        var stockService = new StockService();
+        var stockService = new StockService(<?= json_encode($this->accountStockModesEnabled); ?>);
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
@@ -35,6 +35,9 @@ $this->placeholder('#sidebar')
     </div>
     <div id="product-pagination-container" style="display:none">
         <?=$this->pagination;?>
+    </div>
+    <div id="account-stock-settings-table-container" style="display:none">
+        <?=$this->accountStockSettingsTableView;?>
     </div>
 </div>
 <style>

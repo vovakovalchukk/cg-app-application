@@ -477,7 +477,12 @@ return [
                       'sLengthMenu' => '<span class="show">Show</span> _MENU_'
                     ],
                 ]
-            ]
+            ],
+            ProductsController::class => [
+                'parameters' => [
+                    'accountStockSettingsTable' => 'StockSettingsAccountsTable', // defined in global.php
+                ]
+            ],
         ],
     ],
     'navigation' => array(

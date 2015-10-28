@@ -1,9 +1,11 @@
 define([
     'element/DomListener/InlineText',
-    'DomManipulator'
+    'DomManipulator',
+    '/channelgrabber/settings/js/Stock/Accounts/EventHandler.js'
 ], function(
     inlineTextListener,
-    domManipulator
+    domManipulator,
+    AccountStockSettingsEventHandler
 ) {
     var DomListener = function(service)
     {
@@ -16,7 +18,8 @@ define([
         {
             this.listenForStockTotalSave()
                 .listenForStockLevelSave()
-                .listenForStockModeChange();
+                .listenForStockModeChange()
+                .listenForAccountStockSettingsSave();
         };
         init.call(this);
     };
@@ -64,11 +67,21 @@ define([
 
     DomListener.prototype.listenForStockModeChange = function()
     {
-        var service = this.getService();;
+        var service = this.getService();
         $(document).on('change', DomListener.SELECTOR_STOCK_MODE, function(event, element, value) {
             var productId = $(element).attr('id').split('-').pop();
             var eTagElement = $('input[name="product[' + productId + '][eTag]"]');
             service.saveStockModeForProduct(productId, value, eTagElement);
+        });
+        return this;
+    };
+
+    DomListener.prototype.listenForAccountStockSettingsSave = function()
+    {
+        var service = this.getService();
+        $(document).on(AccountStockSettingsEventHandler.EVENT_ACCOUNT_SETTINGS_SAVED, function(event, data)
+        {
+            service.accountStockSettingsChanged(data);
         });
         return this;
     };

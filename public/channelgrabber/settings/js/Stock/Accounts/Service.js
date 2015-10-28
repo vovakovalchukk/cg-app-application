@@ -29,6 +29,11 @@ define([
             return deferredQueue;
         };
 
+        this.getEventHandler = function()
+        {
+            return eventHandler;
+        };
+
         this.getNotifications = function()
         {
             return notifications;
@@ -54,6 +59,7 @@ define([
 
     Service.prototype.saveAccountSettings = function(accountIds)
     {
+        var self = this;
         var notifications = this.getNotifications();
         notifications.notice('Saving account settings');
         var data = {};
@@ -75,6 +81,7 @@ define([
             return ajaxRequester.sendRequest(Service.URI_SAVE_ACCOUNTS, data, function()
             {
                 notifications.success('Changes saved successfully');
+                self.getEventHandler().triggerAccountSettingsSavedEvent(data);
             });
         });
     };
