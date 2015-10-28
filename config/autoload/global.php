@@ -543,9 +543,12 @@ return array(
                                 'signature' => false,
                             ],
                         ],
+
+                        /*
+                        // Not going live with Hermes but will need this in the near future so leaving this here
                         [
                             'channelName' => Carriers::MYHERMES,
-                            'displayName' => 'myHermes',
+                            'displayName' => 'Hermes corporate',
                             'fields' => [
                                 ['name' => 'Client ID'],
                                 ['name' => 'Username'],
@@ -558,14 +561,13 @@ return array(
                                 ['value' => 'HRMSTD0PODPA', 'name' => 'Standard Proof Of Delivery Parcel'],
                             ],
                             'options' => [
-                                'width' => false,
-                                'height' => false,
-                                'length' => false,
                                 'insuranceMonetary' => false,
                                 'signature' => false,
                                 'deliveryInstructions' => false,
                             ],
                         ],
+                        */
+
                         [
                             'channelName' => Carriers::PARCELFORCE,
                             'displayName' => 'Parcelforce',
@@ -782,18 +784,18 @@ return array(
                                 ['name' => 'End Sequence'],
                             ],
                             'services' => [
-                                ['value' => 'UPSEXP0000PA', 'name' => 'Express Parcel'],
-                                ['value' => 'UPSEXP0000LT', 'name' => 'Express Letter'],
-                                ['value' => 'UPSEXP0000PK', 'name' => 'Express Pak'],
-                                ['value' => 'UPSEXPSAV0PA', 'name' => 'Express Saver Parcel'],
-                                ['value' => 'UPSEXPSAV0LT', 'name' => 'Express Saver Letter'],
-                                ['value' => 'UPSEXPSAV0PK', 'name' => 'Express Saver Pak'],
-                                ['value' => 'UPSSTDSINGPA', 'name' => 'Standard Single Parcel'],
-                                ['value' => 'UPSSTDMUTIPA', 'name' => 'Standard Multi Parcel'],
-                                ['value' => 'UPSEXPD000PA', 'name' => 'Expedited Parcel'],
-                                ['value' => 'UPSEXPPL00PA', 'name' => 'Express Plus Parcel'],
-                                ['value' => 'UPSEXPPL00LT', 'name' => 'Express Plus Letter'],
-                                ['value' => 'UPSEXPPL00PK', 'name' => 'Express Plus Pak'],
+                                ['value' => 'UPSEXPRESSPA', 'name' => 'Express Parcel'],
+                                ['value' => 'UPSEXPRESSLT', 'name' => 'Express Letter'],
+                                ['value' => 'UPSEXPRESSPK', 'name' => 'Express Pak'],
+                                ['value' => 'UPSEXPSAVEPA', 'name' => 'Express Saver Parcel'],
+                                ['value' => 'UPSEXPSAVELT', 'name' => 'Express Saver Letter'],
+                                ['value' => 'UPSEXPSAVEPK', 'name' => 'Express Saver Pak'],
+                                ['value' => 'UPSSTANSINPA', 'name' => 'Standard Single Parcel'],
+                                ['value' => 'UPSSTANMTIPA', 'name' => 'Standard Multi Parcel'],
+                                ['value' => 'UPSEXPITEDPA', 'name' => 'Expedited Parcel'],
+                                ['value' => 'UPSEXPPLUSPA', 'name' => 'Express Plus Parcel'],
+                                ['value' => 'UPSEXPPLUSLT', 'name' => 'Express Plus Letter'],
+                                ['value' => 'UPSEXPPLUSPK', 'name' => 'Express Plus Pak'],
                             ],
                             'options' => [
                                 'insuranceMonetary' => false,
