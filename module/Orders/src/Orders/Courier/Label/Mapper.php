@@ -33,7 +33,6 @@ class Mapper
         array $parcelsData,
         OrganisationUnit $organisationUnit
     ) {
-        $deliveryAddress = $order->getShippingAddress();
         $collectionDate = $this->sanitiseCollectionDate($orderData['collectionDate']);
 
         $dataplugOrder = new DataplugCreateRequestOrder();
@@ -45,25 +44,25 @@ class Mapper
             ->setDeliveryInstructions($this->getOptionalParam('deliveryInstructions', $orderData))
             ->setAdultSignature($this->getOptionalParam('signature', $orderData))
             ->setPremiumInsurance($this->getOptionalParam('insurance', $orderData))
-            ->setCollectionCompanyName($this->getCompanyName($organisationUnit))
+            ->setCollectionCompanyName(($organisationUnit->getAddressCompanyName() ?: $organisationUnit->getAddressFullName()))
             ->setCollectionAddressLine1($organisationUnit->getAddress1())
             ->setCollectionAddressLine2($organisationUnit->getAddress2())
             ->setCollectionCity($this->getCity($organisationUnit))
             ->setCollectionCounty($organisationUnit->getAddressCounty())
             ->setCollectionPostalCode($organisationUnit->getAddressPostcode())
             ->setCollectionCountryCode($organisationUnit->getAddressCountryCode())
-            ->setCollectionContactName($this->getContactName($organisationUnit))
+            ->setCollectionContactName(($organisationUnit->getAddressFullName() ?: $organisationUnit->getAddressCompanyName()))
             ->setCollectionEmail($organisationUnit->getEmailAddress())
             ->setCollectionPhoneNumber($organisationUnit->getPhoneNumber())
-            ->setDeliveryCompanyName($this->getCompanyName($deliveryAddress))
-            ->setDeliveryAddressLine1($deliveryAddress->getAddress1())
-            ->setDeliveryAddressLine2($deliveryAddress->getAddress2())
-            ->setDeliveryCity($this->getCity($deliveryAddress))
-            ->setDeliveryPostalCode($deliveryAddress->getAddressPostcode())
-            ->setDeliveryCountryCode($deliveryAddress->getAddressCountryCode())
-            ->setDeliveryContactName($this->getContactName($deliveryAddress))
-            ->setDeliveryEmail($deliveryAddress->getEmailAddress())
-            ->setDeliveryPhoneNumber($deliveryAddress->getPhoneNumber())
+            ->setDeliveryCompanyName(($order->getCalculatedShippingAddressCompanyName() ?: $order->getCalculatedShippingAddressFullName()))
+            ->setDeliveryAddressLine1($order->getCalculatedShippingAddress1())
+            ->setDeliveryAddressLine2($order->getCalculatedShippingAddress2())
+            ->setDeliveryCity($this->getCity($order, 'CalculatedShipping'))
+            ->setDeliveryPostalCode($order->getCalculatedShippingAddressPostcode())
+            ->setDeliveryCountryCode($order->getCalculatedShippingAddressCountryCode())
+            ->setDeliveryContactName(($order->getCalculatedShippingAddressFullName() ?: $order->getCalculatedShippingAddressCompanyName()))
+            ->setDeliveryEmail($order->getCalculatedShippingEmailAddress())
+            ->setDeliveryPhoneNumber($order->getCalculatedShippingPhoneNumber())
             ->setNumberOfPieces(count($parcelsData));
 
         $totalWeight = 0;
@@ -115,28 +114,21 @@ class Mapper
         return implode('/ ', $descriptions);
     }
 
-    protected function getCompanyName($address)
+    protected function getCity($address, $prefix = '')
     {
-        return ($address->getAddressCompanyName() ?: $address->getAddressFullName());
-    }
-
-    protected function getCity($address)
-    {
-        if ($address->getAddressCity()) {
-            return $address->getAddressCity();
+        $cityGetter = 'get' . ucfirst($prefix) . 'AddressCity';
+        if ($address->$cityGetter()) {
+            return $address->$cityGetter();
         }
-        if ($address->getAddress3()) {
-            return $address->getAddress3();
+        $line3Getter = 'get' . ucfirst($prefix) . 'Address3';
+        if ($address->$line3Getter()) {
+            return $address->$line3Getter();
         }
-        if ($address->getAddress2()) {
-            return $address->getAddress2();
+        $line2Getter = 'get' . ucfirst($prefix) . 'Address2';
+        if ($address->$line2Getter()) {
+            return $address->$line2Getter();
         }
         return '';
-    }
-
-    protected function getContactName($address)
-    {
-        return ($address->getAddressFullName() ?: $address->getAddressCompanyName());
     }
 
     public function orderLabelToDataplugCancelRequest(OrderLabel $orderLabel)
