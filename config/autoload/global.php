@@ -34,6 +34,7 @@ use Zend\Session\SessionManager;
 use Orders\Order\Batch\Service as OrderBatchService;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use CG\Channel\AccountDisabler;
 
 use CG\Location\Service as LocationService;
 use CG\Location\Storage\Api as LocationApi;
@@ -372,6 +373,11 @@ return array(
             ApiCredentialsApi::class => [
                 'parameters' => [
                     'client' => 'directory_guzzle'
+                ]
+            ],
+            AccountDisabler::class => [
+                'parameters' => [
+                    'predisClient' => 'unreliable_redis'
                 ]
             ],
             OrderLabelApiStorage::class => [
