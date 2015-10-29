@@ -2,6 +2,7 @@
 namespace Orders\Controller;
 
 use CG\Stdlib\Exception\Storage as StorageException;
+use CG\Stdlib\Exception\Runtime\ValidationMessagesException;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Orders\Courier\Label\CancelService as LabelCancelService;
 use Orders\Courier\Label\CreateService as LabelCreateService;
@@ -130,6 +131,9 @@ class CourierJsonController extends AbstractActionController
             throw new \RuntimeException(
                 'Failed to create label(s), please check the details you\'ve entered and try again', $e->getCode(), $e
             );
+        } catch (ValidationMessagesException $e) {
+            $message = $this->validationExceptionToMessage($e);
+            throw new \RuntimeException($message);
         }
         $readyCount = 0;
         $notReadyCount = 0;
@@ -145,6 +149,36 @@ class CourierJsonController extends AbstractActionController
             'readyCount' => $readyCount,
             'notReadyCount' => $notReadyCount,
         ]);
+    }
+
+    protected function validationExceptionToMessage(ValidationMessagesException $e)
+    {
+        $message = 'Failed to create label(s), for the following reasons: <div><ul>';
+        $orderFieldErrors = [];
+        foreach ($e->getErrors() as $field => $errorMessage) {
+            $fieldParts = explode(':', $field);
+            if (count($fieldParts) > 1) {
+                $orderNumber = $fieldParts[0];
+                $fieldName = $fieldParts[1];
+            } else {
+                $orderNumber = '';
+                $fieldName = $field;
+            }
+            if (!isset($orderFieldErrors[$orderNumber])) {
+                $orderFieldErrors[$orderNumber] = [];
+            }
+            $orderFieldErrors[$orderNumber][$fieldName] = $errorMessage;
+        }
+
+        foreach ($orderFieldErrors as $orderNumber => $errorFields) {
+            $message .= '<li>' . $orderNumber . ':<ul>';
+            foreach ($errorFields as $fieldName => $errorMessage) {
+                $message .= '<li>' . $fieldName . ': ' . $errorMessage . '</li>';
+            }
+            $message . '</ul></li>';
+        }
+        $message .= '</ul></div>';
+        return $message;
     }
 
     public function cancelAction()
