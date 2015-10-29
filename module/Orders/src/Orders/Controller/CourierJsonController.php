@@ -158,8 +158,8 @@ class CourierJsonController extends AbstractActionController
         foreach ($e->getErrors() as $field => $errorMessage) {
             $fieldParts = explode(':', $field);
             if (count($fieldParts) > 1) {
-                $orderNumber = $fieldParts[0];
-                $fieldName = $fieldParts[1];
+                $orderNumber = trim($fieldParts[0]);
+                $fieldName = trim($fieldParts[1]);
             } else {
                 $orderNumber = '';
                 $fieldName = $field;
@@ -173,9 +173,9 @@ class CourierJsonController extends AbstractActionController
         foreach ($orderFieldErrors as $orderNumber => $errorFields) {
             $message .= '<li>' . $orderNumber . ':<ul>';
             foreach ($errorFields as $fieldName => $errorMessage) {
-                $message .= '<li>' . $fieldName . ': ' . $errorMessage . '</li>';
+                $message .= '<li>' . ($fieldName ? $fieldName . ': ' : '') . $errorMessage . '</li>';
             }
-            $message . '</ul></li>';
+            $message .= '</ul></li>';
         }
         $message .= '</ul></div>';
         return $message;
