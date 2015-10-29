@@ -206,14 +206,15 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         try {
             $accounts = $this->getSalesAccounts();
             foreach ($accounts as $account) {
-                if ($statuses[StockMode::LIST_FIXED] == true && $statuses[StockMode::LIST_MAX] == true) {
-                    break;
-                }
+                
                 if ($account->getStockFixedEnabled()) {
                     $statuses[StockMode::LIST_FIXED] = true;
                 }
                 if ($account->getStockMaximumEnabled()) {
                     $statuses[StockMode::LIST_MAX] = true;
+                }
+                if ($statuses[StockMode::LIST_FIXED] == true && $statuses[StockMode::LIST_MAX] == true) {
+                    break;
                 }
             }
         } catch (NotFound $e) {
