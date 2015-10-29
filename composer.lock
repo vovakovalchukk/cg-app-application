@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d37365276327f387ab8cceb2bf996dcb",
-    "content-hash": "64eda63bddeda2380954ef67568b5dec",
+    "hash": "24f05416c14ea7971e881f518ca6cad7",
+    "content-hash": "4f3bbe3e5dbb24065558f571511255b0",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -479,13 +479,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "8b0d3a40dee61e885c641a488b9e2cda1ac1cc9e"
+                "reference": "8d1ee7e1b3f00fc16c57e3b96b9ca5a1450c33b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-EPIC-CGIV-5992-dataplug-77f9dd.zip",
-                "reference": "8b0d3a40dee61e885c641a488b9e2cda1ac1cc9e",
-                "shasum": "6e44d4a75ec04e2ad3893c3a80a8152ea19f34c0"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-EPIC-CGIV-5992-dataplug-5b3b35.zip",
+                "reference": "8d1ee7e1b3f00fc16c57e3b96b9ca5a1450c33b4",
+                "shasum": "f1849da031d0fe3c392c29518d17dccc538b60aa"
             },
             "require": {
                 "channelgrabber/channel": "dev-EPIC-CGIV-5992-dataplug as 1.17.11",
@@ -519,7 +519,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2015-10-19 14:00:07"
+            "time": "2015-10-29 14:37:37"
         },
         {
             "name": "channelgrabber/db",
@@ -3228,13 +3228,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "75cc13249ee23437cd692005112adc0a760d8854"
+                "reference": "6f200a5cc112b1e2c31718012c15ee705591577b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-5992-dataplug-cf2a6d.zip",
-                "reference": "75cc13249ee23437cd692005112adc0a760d8854",
-                "shasum": "c90837e28414ab58b13c332f49f3e9345f514566"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-5992-dataplug-1c382e.zip",
+                "reference": "6f200a5cc112b1e2c31718012c15ee705591577b",
+                "shasum": "6fac9cb10cca02782cfcdd0d5ae9d1b2995eb7a3"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3283,7 +3283,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-10-27 09:49:59"
+            "time": "2015-10-29 14:59:43"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -6307,67 +6307,6 @@
                 "unit testing"
             ],
             "time": "2013-11-15 02:57:56"
-        },
-        {
-            "name": "composer/semver",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/composer/semver.git",
-                "reference": "d0e1ccc6d44ab318b758d709e19176037da6b1ba"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/composer-semver-d0e1ccc6d44ab318b758d709e19176037da6b1ba-zip-4ead97.zip",
-                "reference": "d0e1ccc6d44ab318b758d709e19176037da6b1ba",
-                "shasum": "46071a964b51f459c3b75b8eafa9635b8059567c"
-            },
-            "require": {
-                "php": ">=5.3.2"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.5",
-                "phpunit/phpunit-mock-objects": "~2.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Composer\\Semver\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Rob Bast",
-                    "email": "rob.bast@gmail.com"
-                },
-                {
-                    "name": "Nils Adermann",
-                    "email": "naderman@naderman.de",
-                    "homepage": "http://www.naderman.de"
-                },
-                {
-                    "name": "Jordi Boggiano",
-                    "email": "j.boggiano@seld.be",
-                    "homepage": "http://seld.be"
-                }
-            ],
-            "description": "Semver library that offers utilities, version constraint parsing and validation.",
-            "keywords": [
-                "semantic",
-                "semver",
-                "validation",
-                "versioning"
-            ],
-            "time": "2015-09-21 09:42:36"
         },
         {
             "name": "doctrine/instantiator",
