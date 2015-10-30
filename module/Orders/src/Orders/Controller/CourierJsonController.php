@@ -158,7 +158,8 @@ class CourierJsonController extends AbstractActionController
         foreach ($e->getErrors() as $field => $errorMessage) {
             $fieldParts = explode(':', $field);
             if (count($fieldParts) > 1) {
-                $orderNumber = trim($fieldParts[0]);
+                $orderId = trim($fieldParts[0]);
+                $orderNumber = preg_replace('/^[0-9]+-/', '', $orderId);
                 $fieldName = trim($fieldParts[1]);
             } else {
                 $orderNumber = '';
