@@ -34,6 +34,7 @@ use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use CG_UI\View\DataTable;
 use Zend\View\Model\ViewModel;
+use CG\Channel\AccountDisabler;
 
 use CG\Location\Service as LocationService;
 use CG\Location\Storage\Api as LocationApi;
@@ -374,7 +375,6 @@ return array(
                     'client' => 'cg_app_guzzle'
                 ]
             ],
-
             'StockSettingsAccountsTable' => [
                 'parameters' => [
                     'variables' => [
@@ -459,6 +459,11 @@ return array(
                     'sortable' => false,
                     'width' => '100px',
                 ],
+            ],
+            AccountDisabler::class => [
+                'parameters' => [
+                    'predisClient' => 'unreliable_redis'
+                ]
             ],
         ),
     ),
