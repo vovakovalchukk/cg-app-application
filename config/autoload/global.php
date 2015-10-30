@@ -506,8 +506,6 @@ return array(
                                 ['name' => 'Meter No'],
                             ],
                             'services' => [
-                                ['value' => 'FDXEUR1ST0PA', 'name' => 'Europe First Parcel'],
-                                ['value' => 'FDXINT1ST0PA', 'name' => 'International First Parcel'],
                                 ['value' => 'FDXINTPRIOPA', 'name' => 'International Priority Parcel'],
                                 ['value' => 'FDXINTECONPA', 'name' => 'International Economy Parcel'],
                                 ['value' => 'FDXINTPRIOLT', 'name' => 'International Priority Letter'],
