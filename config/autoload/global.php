@@ -842,7 +842,7 @@ return array(
                                 ['value' => 'YDLHOMBT48PA', 'name' => '@Home 48 (BT) Parcel'],
                                 ['value' => 'YDLHOMCAT0PA', 'name' => '@Home 24 Catalogue Parcel'],
                                 ['value' => 'YDLHOM0072PA', 'name' => '@Home 72 Parcel '],
-                                ['value' => 'YDLHOM0072PA', 'name' => '@Home 72 (NI) Parcel'],
+                                ['value' => 'YDLHOMNI72PA', 'name' => '@Home 72 (NI) Parcel'],
                                 ['value' => 'YDLEXPNI48PA', 'name' => 'Express 48 (NI) Parcel'],
                                 ['value' => 'YDLHOM0024PA', 'name' => '@Home 24 Parcel'],
                                 ['value' => 'YDLHOM0048PA', 'name' => '@Home 48 Parcel'],
