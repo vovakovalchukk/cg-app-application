@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9aa3bdeaeec09a823107fa7a64112db4",
-    "content-hash": "d21a0e42be2cdc632ee667881f42cdf7",
+    "hash": "a89cc4699ea789bfd553babf72b873d7",
+    "content-hash": "5393ac29ae559d49953ffc0df5322d55",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -479,17 +479,17 @@
         },
         {
             "name": "channelgrabber/db",
-            "version": "1.0.6",
+            "version": "1.0.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-db.git",
-                "reference": "94e92ec67aa9fa55c2e4b1cd96f91b5df75ed826"
+                "reference": "a0aef908dc672bd13b5fc588b3073fd4a20f7d08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-db-1.0.6-a7f20b.zip",
-                "reference": "94e92ec67aa9fa55c2e4b1cd96f91b5df75ed826",
-                "shasum": "375895312d4dca48e72cb749cb28a788b2e48544"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-db-1.0.7-75ebcb.zip",
+                "reference": "a0aef908dc672bd13b5fc588b3073fd4a20f7d08",
+                "shasum": "96b5c830b6a216e19cf36822c0211bb632fdb46b"
             },
             "require": {
                 "channelgrabber/di": ">=2.1.0",
@@ -506,7 +506,7 @@
                     "CG\\Db\\": "src"
                 }
             },
-            "time": "2015-05-28 14:49:10"
+            "time": "2015-10-27 10:42:29"
         },
         {
             "name": "channelgrabber/di",
@@ -1147,17 +1147,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.19.25",
+            "version": "dev-CGIV-6445-ShippingCacheKeys",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "14f49b0eed883a7ebd408505ac8dcf063a0eff5a"
+                "reference": "53660a519378deba01107d2a26079ec72c631bcc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.19.25-34f57e.zip",
-                "reference": "14f49b0eed883a7ebd408505ac8dcf063a0eff5a",
-                "shasum": "d73ea9d7c952a94889bc0b6803323dd042254c9b"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6445-ShippingCacheKeys-d089e9.zip",
+                "reference": "53660a519378deba01107d2a26079ec72c631bcc",
+                "shasum": "bf82eacda139f2e010423a5d38ac51cbbcc95f83"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1166,7 +1166,7 @@
                 "channelgrabber/channel": "^1.17.7",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/db": ">=1.0.6",
+                "channelgrabber/db": "^1.0.7",
                 "channelgrabber/di": ">=2.0.0,<3.0.0",
                 "channelgrabber/email": "^1.0.7",
                 "channelgrabber/etag": "^1.6.0",
@@ -1179,7 +1179,7 @@
                 "channelgrabber/product": "^1.4.0",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/sequential-numbering": "^1.0.0",
-                "channelgrabber/settings": "^1.3.7",
+                "channelgrabber/settings": "dev-CGIV-6445-ShippingCacheKeys as 1.3.9",
                 "channelgrabber/slim": ">=1.13.6,<2.0.0",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
                 "channelgrabber/stdlib": "^2.12.7",
@@ -1219,7 +1219,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-10-15 13:21:16"
+            "time": "2015-10-29 10:45:01"
         },
         {
             "name": "channelgrabber/permission",
@@ -1696,17 +1696,17 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.3.8",
+            "version": "dev-CGIV-6445-ShippingCacheKeys",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "3308d6db58dd3f49a77761bc1a76ce2ee116e6b0"
+                "reference": "6b41c92eaeccae6b4e69982b4b8b467fde118698"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.3.8-294fc6.zip",
-                "reference": "3308d6db58dd3f49a77761bc1a76ce2ee116e6b0",
-                "shasum": "e09b3691421c5b20846ae746be46f5a1ec548b97"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-6445-ShippingCacheKeys-0dcf01.zip",
+                "reference": "6b41c92eaeccae6b4e69982b4b8b467fde118698",
+                "shasum": "1b8fe4b2fd6cead91c4732ac61afa317fcd8f10a"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1728,7 +1728,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2015-10-16 14:12:56"
+            "time": "2015-10-29 10:43:21"
         },
         {
             "name": "channelgrabber/slim",
@@ -7286,6 +7286,18 @@
     ],
     "aliases": [
         {
+            "alias": "1.19.27",
+            "alias_normalized": "1.19.27.0",
+            "version": "dev-CGIV-6445-ShippingCacheKeys",
+            "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.3.9",
+            "alias_normalized": "1.3.9.0",
+            "version": "dev-CGIV-6445-ShippingCacheKeys",
+            "package": "channelgrabber/settings"
+        },
+        {
             "alias": "2.12.13",
             "alias_normalized": "2.12.13.0",
             "version": "dev-CGIV-6439-StockLogFractionalTimes",
@@ -7307,6 +7319,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
+        "channelgrabber/settings": 20,
         "channelgrabber/stdlib": 20,
         "channelgrabber/stock": 20,
         "channelgrabber/woocommerce": 20,
