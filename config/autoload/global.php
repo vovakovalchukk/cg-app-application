@@ -124,6 +124,7 @@ use CG\Dataplug\Request\Factory\UpdateCarrier as  DataplugUpdateCarrierRequestFa
 use CG\Dataplug\Carriers;
 use CG\Account\Shared\Manifest\StorageInterface as AccountManifestStorage;
 use CG\Account\Client\Manifest\Storage\Api as AccountManifestApiStorage;
+use CG\Dataplug\Request\Carrier as DataplugCarrier;
 
 return array(
     'di' => array(
@@ -421,6 +422,7 @@ return array(
                         [
                             'channelName' => Carriers::DHL,
                             'displayName' => 'DHL',
+                            'code' => DataplugCarrier\Dhl::CODE,
                             'allowsCancellation' => false,
                             'allowsManifesting' => false,
                             'fields' => [
@@ -451,6 +453,7 @@ return array(
                         [
                             'channelName' => Carriers::DPD,
                             'displayName' => 'DPD',
+                            'code' => DataplugCarrier\Dpd::CODE,
                             'allowsCancellation' => false,
                             'allowsManifesting' => false,
                             'fields' => [
@@ -496,6 +499,7 @@ return array(
                         [
                             'channelName' => Carriers::FEDEX,
                             'displayName' => 'FedEx',
+                            'code' => DataplugCarrier\Fedex::CODE,
                             'allowsCancellation' => false,
                             'allowsManifesting' => false,
                             'fields' => [
@@ -523,6 +527,7 @@ return array(
                         [
                             'channelName' => Carriers::INTERLINK,
                             'displayName' => 'Interlink',
+                            'code' => DataplugCarrier\Interlink::CODE,
                             'allowsCancellation' => false,
                             'allowsManifesting' => false,
                             'fields' => [
@@ -554,6 +559,7 @@ return array(
                         [
                             'channelName' => Carriers::MYHERMES,
                             'displayName' => 'Hermes corporate',
+                            'code' => DataplugCarrier\Myhermes::CODE,
                             'fields' => [
                                 ['name' => 'Client ID'],
                                 ['name' => 'Username'],
@@ -576,6 +582,7 @@ return array(
                         [
                             'channelName' => Carriers::PARCELFORCE,
                             'displayName' => 'Parcelforce',
+                            'code' => DataplugCarrier\Parcelforce::CODE,
                             'allowsCancellation' => false,
                             'allowsManifesting' => false,
                             'fields' => [
@@ -605,6 +612,7 @@ return array(
                         [
                             'channelName' => Carriers::ROYAL_MAIL_OBA,
                             'displayName' => 'Royal Mail OBA',
+                            'code' => DataplugCarrier\RoyalMailOba::CODE,
                             'manifestOncePerDay' => true,
                             'fields' => [
                                 ['name' => 'Account no'],
@@ -695,6 +703,7 @@ return array(
                         [
                             'channelName' => Carriers::TNT,
                             'displayName' => 'TNT',
+                            'code' => DataplugCarrier\Tnt::CODE,
                             'allowsCancellation' => false,
                             'allowsManifesting' => false,
                             'fields' => [
@@ -732,6 +741,7 @@ return array(
                         [
                             'channelName' => Carriers::UK_MAIL,
                             'displayName' => 'UK Mail',
+                            'code' => DataplugCarrier\UkMail::CODE,
                             'allowsCancellation' => false,
                             'allowsManifesting' => false,
                             'fields' => [
@@ -782,6 +792,7 @@ return array(
                         [
                             'channelName' => Carriers::UPS,
                             'displayName' => 'UPS',
+                            'code' => DataplugCarrier\UPS::CODE,
                             'fields' => [
                                 ['name' => 'Account no'],
                                 ['name' => 'Book no'],
@@ -813,6 +824,7 @@ return array(
                         [
                             'channelName' => Carriers::YODEL,
                             'displayName' => 'Yodel',
+                            'code' => DataplugCarrier\Yodel::CODE,
                             'fields' => [
                                 ['name' => 'Account no'],
                                 ['name' => 'Meter no'],
