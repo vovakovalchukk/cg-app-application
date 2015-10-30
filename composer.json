@@ -67,7 +67,7 @@
         "channelgrabber/user": "~1.20.0",
         "channelgrabber/userpreference": "~1.2.4",
         "channelgrabber/validation": "~1.2.7",
-        "channelgrabber/woocommerce": "~1.1.1",
+        "channelgrabber/woocommerce": "dev-CGIV-6441-RetryOnRedirect as 1.1.2",
         "channelgrabber/zendesk": "~1.0.0",
         "channelgrabber/zf2-amazon": "~1.0.8",
         "channelgrabber/zf2-api": "~1.0.0",

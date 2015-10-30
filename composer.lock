@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cc9a2cebd2fd4cef388c762a15518dad",
-    "content-hash": "12d1d093b1329bd4a652af7d8e84bbd0",
+    "hash": "9aa3bdeaeec09a823107fa7a64112db4",
+    "content-hash": "d21a0e42be2cdc632ee667881f42cdf7",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1909,13 +1909,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "4c08b5f9a1be2e0704c4ab7b538747c4e2926afd"
+                "reference": "614abb1aa9ddf2efe62d21bf5026f49e4781eead"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-CGIV-6439-StockLogFractionalTimes-6b897c.zip",
-                "reference": "4c08b5f9a1be2e0704c4ab7b538747c4e2926afd",
-                "shasum": "f752591304dccf4d02e4d07aca6d9f729283c832"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-CGIV-6439-StockLogFractionalTimes-43a54c.zip",
+                "reference": "614abb1aa9ddf2efe62d21bf5026f49e4781eead",
+                "shasum": "3e26820e3773c7c39a0ff0903fe378c6c71465cd"
             },
             "require": {
                 "zendframework/zend-db": ">=2.2,<3.0"
@@ -1941,7 +1941,7 @@
                     "CG\\Stdlib\\Test\\": "tests/CG/Stdlib"
                 }
             },
-            "time": "2015-10-27 16:42:05"
+            "time": "2015-10-28 09:04:40"
         },
         {
             "name": "channelgrabber/stock",
@@ -1949,13 +1949,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "e7ac2d5546d1d9f238698fa8a72a6b22dbbfc3e8"
+                "reference": "7b4e67d3378702014915310398519e1fb034476d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-6439-StockLogFractionalTimes-66f390.zip",
-                "reference": "e7ac2d5546d1d9f238698fa8a72a6b22dbbfc3e8",
-                "shasum": "4beabdaf7ef6f4e05e81b6337fdc4ce18c8b3181"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-6439-StockLogFractionalTimes-8da3dc.zip",
+                "reference": "7b4e67d3378702014915310398519e1fb034476d",
+                "shasum": "b3d4d40bcac0325da63b6b72b9f5915ad682437c"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1998,7 +1998,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2015-10-27 16:49:57"
+            "time": "2015-10-28 09:10:21"
         },
         {
             "name": "channelgrabber/tax",
@@ -2310,17 +2310,17 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "1.1.1",
+            "version": "dev-CGIV-6441-RetryOnRedirect",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "2c1b4e790170735b3d5776da9137cf3cb1adfdab"
+                "reference": "5822f15a12aa653071590ec34f5a876bac7d0ddd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.1.1-0de189.zip",
-                "reference": "2c1b4e790170735b3d5776da9137cf3cb1adfdab",
-                "shasum": "b4b186e21d8ce88dc353e58c20e3a7bbca333ffe"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-CGIV-6441-RetryOnRedirect-1c8244.zip",
+                "reference": "5822f15a12aa653071590ec34f5a876bac7d0ddd",
+                "shasum": "ee6b0938ed250ac6cb65ddd7af42f0b9f6421945"
             },
             "require": {
                 "channelgrabber/channel": "^1.18.0",
@@ -2354,7 +2354,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2015-10-26 10:09:06"
+            "time": "2015-10-28 12:16:46"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -7296,6 +7296,12 @@
             "alias_normalized": "1.5.13.0",
             "version": "dev-CGIV-6439-StockLogFractionalTimes",
             "package": "channelgrabber/stock"
+        },
+        {
+            "alias": "1.1.2",
+            "alias_normalized": "1.1.2.0",
+            "version": "dev-CGIV-6441-RetryOnRedirect",
+            "package": "channelgrabber/woocommerce"
         }
     ],
     "minimum-stability": "stable",
@@ -7303,6 +7309,7 @@
         "channelgrabber/constants": 20,
         "channelgrabber/stdlib": 20,
         "channelgrabber/stock": 20,
+        "channelgrabber/woocommerce": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
