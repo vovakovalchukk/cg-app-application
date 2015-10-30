@@ -3,6 +3,7 @@ namespace Orders\Courier\Label;
 
 use CG\Account\Client\Service as AccountService;
 use CG\Dataplug\Client as DataplugClient;
+use CG\Dataplug\Order\Mapper;
 use CG\Dataplug\Order\Service as DataplugOrderService;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter as OrderFilter;
