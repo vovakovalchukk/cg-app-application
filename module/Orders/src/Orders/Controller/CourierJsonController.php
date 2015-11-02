@@ -132,6 +132,10 @@ class CourierJsonController extends AbstractActionController
                 'Failed to create label(s), please check the details you\'ve entered and try again', $e->getCode(), $e
             );
         } catch (ValidationMessagesException $e) {
+            $services = $this->labelCreateService->checkForUnavailableServiceErrorAndGetAvailableServices($e);
+            if ($services) {
+                return $this->jsonModelFactory->newInstance(['services' => $services]);
+            }
             $message = 'Failed to create label(s), for the following reasons: ';
             $message .= $this->validationExceptionToPerOrderErrorList($e);
             throw new \RuntimeException($message);
