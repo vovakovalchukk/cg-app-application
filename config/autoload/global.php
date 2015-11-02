@@ -426,6 +426,7 @@ return array(
                             'fields' => [
                                 ['name' => 'Domestic Account no'],
                                 ['name' => 'International Account no'],
+                                ['name' => 'Password', 'inputType' => 'password'],
                                 ['name' => 'Site ID']
                             ],
                             'services' => [
