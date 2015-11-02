@@ -299,24 +299,44 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
 
         this.getAjaxRequester().sendRequest(Service.URI_CREATE_LABEL, data, function(response)
         {
-            if (!response || response.notReadyCount == 0) {
+            if (!response || (response.notReadyCount == 0 && response.errorCount == 0)) {
                 notifications.success('Labels created successfully');
             } else { 
-                if (response.readyCount == 0) {
-                    notifications.notice('Label create requests sent successfully, your labels will be ready soon, please wait');
-                } else {
-                    notifications.notice('Label create requests sent successfully, ' + response.readyCount + ' labels are ready now, ' + response.notReadyCount + ' labels will be ready soon, please wait');
-                }
-                self.setupDelayedLabelPoll(response.readyStatuses);
+                self.handleNotReadysAndErrors(response);
             }
             self.refresh();
             $(button).removeClass('disabled');
+            $(EventHandler.SELECTOR_CREATE_LABEL_BUTTON).removeClass('disabled');
         }, function(response)
         {
             $(button).removeClass('disabled');
             $(EventHandler.SELECTOR_CREATE_LABEL_BUTTON).removeClass('disabled');
             notifications.ajaxError(response);
         });
+    };
+
+    Service.prototype.handleNotReadysAndErrors = function(response)
+    {
+        var message = '';
+        var type = 'notice';
+        if (response.notReadyCount > 0) {
+            if (response.readyCount == 0 && response.errorCount == 0) {
+                message = 'Label create requests sent successfully, your labels will be ready soon, please wait.';
+            } else {
+                message = 'Label create requests sent successfully, ' + response.readyCount + ' label(s) are ready now, ' + response.notReadyCount + ' labels will be ready soon, please wait.';
+            }
+            this.setupDelayedLabelPoll(response.readyStatuses);
+        }
+        if (response.errorCount > 0) {
+            if (message) {
+                message += '<br /><br />';
+            }
+            message += response.partialErrorMessage;
+            type = 'error';
+        }
+        var notifications = this.getNotifications();
+        notifications[type](message);
+        return this;
     };
 
     Service.prototype.setupDelayedLabelPoll = function(orderLabelReadyStatuses)

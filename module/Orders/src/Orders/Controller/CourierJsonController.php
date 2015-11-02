@@ -132,28 +132,37 @@ class CourierJsonController extends AbstractActionController
                 'Failed to create label(s), please check the details you\'ve entered and try again', $e->getCode(), $e
             );
         } catch (ValidationMessagesException $e) {
-            $message = $this->validationExceptionToMessage($e);
+            $message = 'Failed to create label(s), for the following reasons: ';
+            $message .= $this->validationExceptionToPerOrderErrorList($e);
             throw new \RuntimeException($message);
         }
         $readyCount = 0;
         $notReadyCount = 0;
-        foreach ($labelReadyStatuses as $labelReadyStatus) {
-            if ($labelReadyStatus) {
+        $errorCount = 0;
+        $partialErrorMessage = 'Some labels could not be created for the following reasons: <div><ul>';
+        foreach ($labelReadyStatuses as $orderId => $labelReadyStatus) {
+            if ($labelReadyStatus instanceof ValidationMessagesException) {
+                $errorCount++;
+                $partialErrorMessage .= $this->validationExceptionToPerOrderErrorList($labelReadyStatus);
+            } elseif ($labelReadyStatus === true) {
                 $readyCount++;
             } else {
                 $notReadyCount++;
             }
         }
+        $partialErrorMessage .= '</ul></div>';
         return $this->jsonModelFactory->newInstance([
             'readyStatuses' => $labelReadyStatuses,
             'readyCount' => $readyCount,
             'notReadyCount' => $notReadyCount,
+            'errorCount' => $errorCount,
+            'partialErrorMessage' => $partialErrorMessage,
         ]);
     }
 
-    protected function validationExceptionToMessage(ValidationMessagesException $e)
+    protected function validationExceptionToPerOrderErrorList(ValidationMessagesException $e)
     {
-        $message = 'Failed to create label(s), for the following reasons: <div><ul>';
+        $message = '<div><ul>';
         $orderFieldErrors = [];
         foreach ($e->getErrors() as $field => $errorMessage) {
             $fieldParts = explode(':', $field);
@@ -171,6 +180,14 @@ class CourierJsonController extends AbstractActionController
             $orderFieldErrors[$orderNumber][$fieldName] = $errorMessage;
         }
 
+        $message .= $this->orderErrorFieldsToListItems($orderFieldErrors);
+        $message .= '</ul></div>';
+        return $message;
+    }
+
+    protected function orderErrorFieldsToListItems(array $orderFieldErrors)
+    {
+        $message = '';
         foreach ($orderFieldErrors as $orderNumber => $errorFields) {
             $message .= '<li>' . $orderNumber . ':<ul>';
             foreach ($errorFields as $fieldName => $errorMessage) {
@@ -178,7 +195,6 @@ class CourierJsonController extends AbstractActionController
             }
             $message .= '</ul></li>';
         }
-        $message .= '</ul></div>';
         return $message;
     }
 

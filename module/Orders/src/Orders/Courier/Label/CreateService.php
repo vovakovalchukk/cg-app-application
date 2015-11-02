@@ -15,6 +15,7 @@ use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Entity as ProductDetail;
 use CG\Stdlib\DateTime as StdlibDateTime;
+use CG\Stdlib\Exception\Runtime\ValidationMessagesException;
 use CG\Stdlib\Exception\Storage as StorageException;
 use CG\User\Entity as User;
 use Orders\Courier\GetProductDetailsForOrdersTrait;
@@ -32,8 +33,8 @@ class CreateService extends ServiceAbstract
     const LOG_CREATE = 'Create label request for Order(s) %s, shipping Account %d';
     const LOG_CREATE_SEND = 'Sending create request to Dataplug for Order(s) %s, shipping Account %d';
     const LOG_CREATE_UNEXPECTED_RESPONSE = 'Dataplug response from create request missing Order nodes for Order(s) %s, shipping Account %d';
-    const LOG_CREATE_MISSING_REF = 'Dataplug response from create request missing Order->OrderNumber for one or more Orders (of set: %s), shipping Account %d';
-    const LOG_CREATE_REF = 'Successfully created order(s) with Dataplug and got order number(s) %s for Orders %s, shipping Account %d';
+    const LOG_CREATE_MISSING_REF = 'Dataplug response from create request missing Order->Reference for one or more Orders (of set: %s), shipping Account %d';
+    const LOG_CREATE_REF = 'Successfully created %d/%d order(s) with Dataplug for Orders %s, shipping Account %d';
     const LOG_CREATE_DONE = 'Completed create label request for Order(s) %s, shipping Account %d';
     const LOG_PROD_DET_PERSIST = 'Looking for dimensions to save to ProductDetails';
     const LOG_PROD_DET_UPDATE = 'Updating ProductDetail for SKU %s, OU %d from data for Order %s';
@@ -71,10 +72,14 @@ class CreateService extends ServiceAbstract
         foreach ($orders as $order) {
             $orderNumber = $orderNumbers[$order->getId()];
             $orderLabel = $orderLabels[$order->getId()];
-            $success = $this->getAndProcessDataplugOrderDetails(
-                $order, $shippingAccount, $orderNumber, $orderLabel, $user
-            );
-            $labelReadyStatuses[$order->getId()] = $success;
+            if ($orderNumber instanceof ValidationMessagesException) {
+                $labelReadyStatuses[$order->getId()] = $orderNumber;
+            } else {
+                $success = $this->getAndProcessDataplugOrderDetails(
+                    $order, $shippingAccount, $orderNumber, $orderLabel, $user
+                );
+                $labelReadyStatuses[$order->getId()] = $success;
+            }
         }
         $this->logDebug(static::LOG_CREATE_DONE, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
         $this->removeGlobalLogEventParam('account')->removeGlobalLogEventParam('ou');
@@ -202,13 +207,20 @@ class CreateService extends ServiceAbstract
                 throw new RuntimeException(vsprintf(static::LOG_CREATE_UNEXPECTED_RESPONSE, [$orderIdsString, $shippingAccount->getId()]));
             }
             $orderNumbers = [];
+            $successCount = 0;
             foreach ($response->Order as $responseOrder) {
-                if (!isset($responseOrder->OrderNumber, $responseOrder->Reference)) {
+                if (!isset($responseOrder->Reference)) {
                     throw new RuntimeException(vsprintf(static::LOG_CREATE_MISSING_REF, [$orderIdsString, $shippingAccount->getId()]));
                 }
-                $orderNumbers[(string)$responseOrder->Reference] = (string)$responseOrder->OrderNumber;
+                if (isset($responseOrder->OrderNumber)) {
+                    $orderNumbers[(string)$responseOrder->Reference] = (string)$responseOrder->OrderNumber;
+                    $successCount++;
+                } else {
+                    $orderNumbers[(string)$responseOrder->Reference] = $this->checkForOrderErrors($responseOrder);
+                    $this->orderLabelService->remove($orderLabels[(string)$responseOrder->Reference]);
+                }
             }
-            $this->logDebug(static::LOG_CREATE_REF, [implode(',', $orderNumbers), $orderIdsString, $shippingAccount->getId()], static::LOG_CODE);
+            $this->logDebug(static::LOG_CREATE_REF, [$successCount, count($orderNumbers), $orderIdsString, $shippingAccount->getId()], static::LOG_CODE);
             return $orderNumbers;
         } catch (\Exception $e) {
             // Remove labels so we don't get a label stuck in 'creating', preventing creation of new labels
@@ -217,6 +229,14 @@ class CreateService extends ServiceAbstract
             }
             throw $e;
         }
+    }
+
+    protected function checkForOrderErrors(\SimpleXMLElement $responseOrder)
+    {
+        $errorFields = $this->dataplugClient->parseErrorMessagesFromResponseNode($responseOrder);
+        $exception = new ValidationMessagesException('Validation error');
+        $exception->addErrors($errorFields);
+        return $exception;
     }
 
     protected function getAndProcessDataplugOrderDetails(
