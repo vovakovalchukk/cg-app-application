@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "13fef068ef17aa410f65a1fdc91a9d8f",
-    "content-hash": "4d89874cdba2ff64ef49e83246bee84a",
+    "hash": "9c68a483af9910962fcb2737eb6571bf",
+    "content-hash": "9a584d7f2456e09c020d30de860ef477",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -475,17 +475,17 @@
         },
         {
             "name": "channelgrabber/dataplug",
-            "version": "dev-CGIV-6449-dataplug-service-availability",
+            "version": "dev-CGIV-6459-dataplug-label-creation-partial-success",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "69478818a91b64c3c1e6f36bc5d9ae412ecf65d9"
+                "reference": "4b8e352649568548262aede69d85ee2f6a4398c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6449-dataplug-service-availability-833c53.zip",
-                "reference": "69478818a91b64c3c1e6f36bc5d9ae412ecf65d9",
-                "shasum": "5f438c4e014d18885db243ea2d2d7b452dc04fe8"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6459-dataplug-label-creation-partial-success-5c5a3d.zip",
+                "reference": "4b8e352649568548262aede69d85ee2f6a4398c2",
+                "shasum": "cd178a38e76646b4bc3dafe43ad597531803bce9"
             },
             "require": {
                 "channelgrabber/channel": "dev-EPIC-CGIV-5992-dataplug as 1.17.11",
@@ -505,7 +505,7 @@
             "type": "di-definition",
             "extra": {
                 "branch-alias": {
-                    "dev-CGIV-6449-dataplug-service-availability": "1.0.0-dev"
+                    "dev-CGIV-6459-dataplug-label-creation-partial-success": "1.0.0-dev"
                 }
             },
             "autoload": {
@@ -524,7 +524,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2015-10-30 10:58:55"
+            "time": "2015-11-02 14:24:43"
         },
         {
             "name": "channelgrabber/db",
@@ -7394,7 +7394,7 @@
         {
             "alias": "dev-EPIC-CGIV-5992-dataplug",
             "alias_normalized": "dev-EPIC-CGIV-5992-dataplug",
-            "version": "dev-CGIV-6449-dataplug-service-availability",
+            "version": "dev-CGIV-6459-dataplug-label-creation-partial-success",
             "package": "channelgrabber/dataplug"
         },
         {

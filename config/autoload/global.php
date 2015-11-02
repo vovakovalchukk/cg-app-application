@@ -727,6 +727,8 @@ return array(
                                 'deliveryInstructions' => false,
                             ],
                         ],
+                        /*
+                        // Not going live with UKMail but will need this in the near future so leaving this here
                         [
                             'channelName' => Carriers::UK_MAIL,
                             'displayName' => 'UK Mail',
@@ -776,6 +778,7 @@ return array(
                                 'deliveryInstructions' => false,
                             ],
                         ],
+                        */
                         [
                             'channelName' => Carriers::UPS,
                             'displayName' => 'UPS',
