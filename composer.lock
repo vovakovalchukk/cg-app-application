@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a89cc4699ea789bfd553babf72b873d7",
-    "content-hash": "5393ac29ae559d49953ffc0df5322d55",
+    "hash": "f94a2cc4fff7450f85179c20c70690a5",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1147,17 +1146,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-6445-ShippingCacheKeys",
+            "version": "1.19.27",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "53660a519378deba01107d2a26079ec72c631bcc"
+                "reference": "623a64beef7a58d068814d641bb424a178e95127"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6445-ShippingCacheKeys-d089e9.zip",
-                "reference": "53660a519378deba01107d2a26079ec72c631bcc",
-                "shasum": "bf82eacda139f2e010423a5d38ac51cbbcc95f83"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.19.27-b46c01.zip",
+                "reference": "623a64beef7a58d068814d641bb424a178e95127",
+                "shasum": "333d8918d81b6fa3896d42960bc791ba22307ee7"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1179,7 +1178,7 @@
                 "channelgrabber/product": "^1.4.0",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/sequential-numbering": "^1.0.0",
-                "channelgrabber/settings": "dev-CGIV-6445-ShippingCacheKeys as 1.3.9",
+                "channelgrabber/settings": "^1.3.9",
                 "channelgrabber/slim": ">=1.13.6,<2.0.0",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
                 "channelgrabber/stdlib": "^2.12.7",
@@ -1219,7 +1218,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-10-29 10:45:01"
+            "time": "2015-11-02 16:00:01"
         },
         {
             "name": "channelgrabber/permission",
@@ -1696,17 +1695,17 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "dev-CGIV-6445-ShippingCacheKeys",
+            "version": "1.3.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "6b41c92eaeccae6b4e69982b4b8b467fde118698"
+                "reference": "0f6b25b217f5afabcc8bdcdd2343cd11a424be2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-6445-ShippingCacheKeys-0dcf01.zip",
-                "reference": "6b41c92eaeccae6b4e69982b4b8b467fde118698",
-                "shasum": "1b8fe4b2fd6cead91c4732ac61afa317fcd8f10a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.3.9-aff9da.zip",
+                "reference": "0f6b25b217f5afabcc8bdcdd2343cd11a424be2f",
+                "shasum": "379ad4fa3d7a11c71c68d235c26af73086f8d512"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1728,7 +1727,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2015-10-29 10:43:21"
+            "time": "2015-11-02 15:53:26"
         },
         {
             "name": "channelgrabber/slim",
@@ -1905,17 +1904,17 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "dev-CGIV-6439-StockLogFractionalTimes",
+            "version": "2.12.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "614abb1aa9ddf2efe62d21bf5026f49e4781eead"
+                "reference": "159dd41a26eefaf8e8779df935bb5c50be1de30b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-CGIV-6439-StockLogFractionalTimes-43a54c.zip",
-                "reference": "614abb1aa9ddf2efe62d21bf5026f49e4781eead",
-                "shasum": "3e26820e3773c7c39a0ff0903fe378c6c71465cd"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.13-f82e35.zip",
+                "reference": "159dd41a26eefaf8e8779df935bb5c50be1de30b",
+                "shasum": "3bae35b72f4b0ac0c86537cdfa0a5a17ca3c773a"
             },
             "require": {
                 "zendframework/zend-db": ">=2.2,<3.0"
@@ -1941,21 +1940,21 @@
                     "CG\\Stdlib\\Test\\": "tests/CG/Stdlib"
                 }
             },
-            "time": "2015-10-28 09:04:40"
+            "time": "2015-11-02 15:37:07"
         },
         {
             "name": "channelgrabber/stock",
-            "version": "dev-CGIV-6439-StockLogFractionalTimes",
+            "version": "1.5.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "7b4e67d3378702014915310398519e1fb034476d"
+                "reference": "a9842ec5114040ec6c39b0e8db8ffc7713384de3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-6439-StockLogFractionalTimes-8da3dc.zip",
-                "reference": "7b4e67d3378702014915310398519e1fb034476d",
-                "shasum": "b3d4d40bcac0325da63b6b72b9f5915ad682437c"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.5.13-a4c873.zip",
+                "reference": "a9842ec5114040ec6c39b0e8db8ffc7713384de3",
+                "shasum": "524e9205db86d79e2f0fa521a47af62cc09b28b0"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1971,7 +1970,7 @@
                 "channelgrabber/permission": ">=1.0.1,<2.0.0",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/slim": "^1.13.2",
-                "channelgrabber/stdlib": "dev-CGIV-6439-StockLogFractionalTimes as 2.12.13",
+                "channelgrabber/stdlib": "^2.12.13",
                 "channelgrabber/transaction": ">=1.1.3, <2.0.0",
                 "composer/composer": "@dev",
                 "nocarrier/hal": "~0.9.4",
@@ -1998,7 +1997,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2015-10-28 09:10:21"
+            "time": "2015-11-02 15:44:32"
         },
         {
             "name": "channelgrabber/tax",
@@ -2310,17 +2309,17 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "dev-CGIV-6441-RetryOnRedirect",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "5822f15a12aa653071590ec34f5a876bac7d0ddd"
+                "reference": "5dc07c7a58e459f0f0bca8580ec370c2886b9100"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-CGIV-6441-RetryOnRedirect-1c8244.zip",
-                "reference": "5822f15a12aa653071590ec34f5a876bac7d0ddd",
-                "shasum": "ee6b0938ed250ac6cb65ddd7af42f0b9f6421945"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.1.2-00e911.zip",
+                "reference": "5dc07c7a58e459f0f0bca8580ec370c2886b9100",
+                "shasum": "de65e174d8da5cda6f6aff82127a0d1402118bb4"
             },
             "require": {
                 "channelgrabber/channel": "^1.18.0",
@@ -2354,7 +2353,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2015-10-28 12:16:46"
+            "time": "2015-11-02 15:49:19"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -6153,67 +6152,6 @@
             "time": "2013-11-15 02:57:56"
         },
         {
-            "name": "composer/semver",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/composer/semver.git",
-                "reference": "d0e1ccc6d44ab318b758d709e19176037da6b1ba"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/composer-semver-d0e1ccc6d44ab318b758d709e19176037da6b1ba-zip-4ead97.zip",
-                "reference": "d0e1ccc6d44ab318b758d709e19176037da6b1ba",
-                "shasum": "46071a964b51f459c3b75b8eafa9635b8059567c"
-            },
-            "require": {
-                "php": ">=5.3.2"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.5",
-                "phpunit/phpunit-mock-objects": "~2.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Composer\\Semver\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Rob Bast",
-                    "email": "rob.bast@gmail.com"
-                },
-                {
-                    "name": "Nils Adermann",
-                    "email": "naderman@naderman.de",
-                    "homepage": "http://www.naderman.de"
-                },
-                {
-                    "name": "Jordi Boggiano",
-                    "email": "j.boggiano@seld.be",
-                    "homepage": "http://seld.be"
-                }
-            ],
-            "description": "Semver library that offers utilities, version constraint parsing and validation.",
-            "keywords": [
-                "semantic",
-                "semver",
-                "validation",
-                "versioning"
-            ],
-            "time": "2015-09-21 09:42:36"
-        },
-        {
             "name": "doctrine/instantiator",
             "version": "1.0.5",
             "source": {
@@ -7284,46 +7222,10 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.19.27",
-            "alias_normalized": "1.19.27.0",
-            "version": "dev-CGIV-6445-ShippingCacheKeys",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.3.9",
-            "alias_normalized": "1.3.9.0",
-            "version": "dev-CGIV-6445-ShippingCacheKeys",
-            "package": "channelgrabber/settings"
-        },
-        {
-            "alias": "2.12.13",
-            "alias_normalized": "2.12.13.0",
-            "version": "dev-CGIV-6439-StockLogFractionalTimes",
-            "package": "channelgrabber/stdlib"
-        },
-        {
-            "alias": "1.5.13",
-            "alias_normalized": "1.5.13.0",
-            "version": "dev-CGIV-6439-StockLogFractionalTimes",
-            "package": "channelgrabber/stock"
-        },
-        {
-            "alias": "1.1.2",
-            "alias_normalized": "1.1.2.0",
-            "version": "dev-CGIV-6441-RetryOnRedirect",
-            "package": "channelgrabber/woocommerce"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
-        "channelgrabber/settings": 20,
-        "channelgrabber/stdlib": 20,
-        "channelgrabber/stock": 20,
-        "channelgrabber/woocommerce": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
