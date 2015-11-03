@@ -1,9 +1,7 @@
 define(
     ["ajaxCheckbox", "mustache"],
     function(AjaxCheckbox, Mustache) {
-        console.log('ajaxSwitch pulled in');
         return function(notifications, baseSelector, selector, ajaxOptions, messages, blockAction) {
-            console.log("ajaxSwitch", blockAction);
             var ajaxCheckbox = new AjaxCheckbox(notifications, baseSelector, selector, ajaxOptions, blockAction);
 
             ajaxCheckbox.bindAjax(function() {
