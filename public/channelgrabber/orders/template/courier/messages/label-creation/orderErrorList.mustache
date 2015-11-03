@@ -1,0 +1,13 @@
+<div>
+    <ul>
+        {{#orderErrors}}
+        <li>{{orderNumber}}:
+            <ul>
+                {{#errorFields}}
+                <li>{{fieldName}}{{errorMessage}}</li>
+                {{/errorFields}}
+            </ul>
+        </li>
+        {{/orderErrors}}
+    </ul>
+</div>
