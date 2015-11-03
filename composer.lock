@@ -1,10 +1,11 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d81907a1fb304d55c51832fb5d4275b7",
+    "hash": "ee714d531b3b6fd1b6e77471603aad43",
+    "content-hash": "8d6c6414d788c447acab0c8450e54c0a",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3133,17 +3134,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.13.2",
+            "version": "dev-CGIV-6346-Stock-management-confirmation-before-enabling",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "27e677b7be04dbdb7a1c249d932d53c8df6a0a16"
+                "reference": "7a289a41de8765aa65b3b8972f8f5cd6cd63a2a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.13.2-7c7dee.zip",
-                "reference": "27e677b7be04dbdb7a1c249d932d53c8df6a0a16",
-                "shasum": "32ce507e596654121cd9b9da78c4be147157b33a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6346-Stock-management-confirmation-before-enabling-4083c6.zip",
+                "reference": "7a289a41de8765aa65b3b8972f8f5cd6cd63a2a3",
+                "shasum": "a68116d559997b1a435c05718e0b4e80a7a98dfb"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -3188,7 +3189,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-10-27 17:26:09"
+            "time": "2015-11-02 16:01:48"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7282,10 +7283,18 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.16.14",
+            "alias_normalized": "1.16.14.0",
+            "version": "dev-CGIV-6346-Stock-management-confirmation-before-enabling",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
