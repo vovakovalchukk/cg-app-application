@@ -3,7 +3,9 @@ namespace Orders\Controller;
 
 use CG\Stdlib\Exception\Storage as StorageException;
 use CG\Stdlib\Exception\Runtime\ValidationMessagesException;
+use CG_UI\View\Helper\Mustache as MustacheViewHelper;
 use CG_UI\View\Prototyper\JsonModelFactory;
+use CG_UI\View\Prototyper\ViewModelFactory;
 use Orders\Courier\Label\CancelService as LabelCancelService;
 use Orders\Courier\Label\CreateService as LabelCreateService;
 use Orders\Courier\Label\ReadyService as LabelReadyService;
@@ -32,7 +34,10 @@ class CourierJsonController extends AbstractActionController
     const ROUTE_MANIFEST_HISTORIC = 'Historic';
     const ROUTE_MANIFEST_HISTORIC_URI = '/historic';
 
+    /** @var JsonModelFactory */
     protected $jsonModelFactory;
+    /** @var ViewModelFactory */
+    protected $viewModelFactory;
     /** @var Service */
     protected $service;
     /** @var LabelCreateService */
@@ -46,6 +51,7 @@ class CourierJsonController extends AbstractActionController
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
+        ViewModelFactory $viewModelFactory,
         Service $service,
         LabelCreateService $labelCreateService,
         LabelCancelService $labelCancelService,
@@ -53,6 +59,7 @@ class CourierJsonController extends AbstractActionController
         ManifestService $manifestService
     ) {
         $this->setJsonModelFactory($jsonModelFactory)
+            ->setViewModelFactory($viewModelFactory)
             ->setService($service)
             ->setLabelCreateService($labelCreateService)
             ->setLabelCancelService($labelCancelService)
@@ -136,25 +143,25 @@ class CourierJsonController extends AbstractActionController
             if ($services) {
                 return $this->jsonModelFactory->newInstance(['services' => $services]);
             }
-            $message = 'Failed to create label(s), for the following reasons: ';
-            $message .= $this->validationExceptionToPerOrderErrorList($e);
+            $orderFieldErrors = $this->validationExceptionToPerOrderErrorList($e);
+            $message = $this->getValidationFailureMessage($orderFieldErrors);
             throw new \RuntimeException($message);
         }
         $readyCount = 0;
         $notReadyCount = 0;
         $errorCount = 0;
-        $partialErrorMessage = 'Some labels could not be created for the following reasons: <div><ul>';
+        $orderFieldErrors = [];
         foreach ($labelReadyStatuses as $orderId => $labelReadyStatus) {
             if ($labelReadyStatus instanceof ValidationMessagesException) {
                 $errorCount++;
-                $partialErrorMessage .= $this->validationExceptionToPerOrderErrorList($labelReadyStatus);
+                $orderFieldErrors = array_merge($orderFieldErrors, $this->validationExceptionToPerOrderErrorList($labelReadyStatus));
             } elseif ($labelReadyStatus === true) {
                 $readyCount++;
             } else {
                 $notReadyCount++;
             }
         }
-        $partialErrorMessage .= '</ul></div>';
+        $partialErrorMessage = $this->getPartialErrorMessage($orderFieldErrors);
         return $this->jsonModelFactory->newInstance([
             'readyStatuses' => $labelReadyStatuses,
             'readyCount' => $readyCount,
@@ -166,7 +173,6 @@ class CourierJsonController extends AbstractActionController
 
     protected function validationExceptionToPerOrderErrorList(ValidationMessagesException $e)
     {
-        $message = '<div><ul>';
         $orderFieldErrors = [];
         foreach ($e->getErrors() as $field => $errorMessage) {
             $fieldParts = explode(':', $field);
@@ -179,27 +185,51 @@ class CourierJsonController extends AbstractActionController
                 $fieldName = $field;
             }
             if (!isset($orderFieldErrors[$orderNumber])) {
-                $orderFieldErrors[$orderNumber] = [];
+                $orderFieldErrors[$orderNumber] = [
+                    'orderNumber' => $orderNumber,
+                    'errorFields' => []
+                ];
             }
-            $orderFieldErrors[$orderNumber][$fieldName] = $errorMessage;
+            $orderFieldErrors[$orderNumber]['errorFields'][] = [
+                'fieldName' => ($fieldName ? $fieldName. ': ' : ''),
+                'errorMessage' => $errorMessage
+            ];
         }
+        return $orderFieldErrors;
+    }
 
-        $message .= $this->orderErrorFieldsToListItems($orderFieldErrors);
-        $message .= '</ul></div>';
+    protected function getValidationFailureMessage(array $orderFieldErrors)
+    {
+        $template = 'courier/messages/label-creation/failure.mustache';
+        return $this->getErrorMessageFromOrderFieldErrors($orderFieldErrors, $template);
+    }
+
+    protected function getPartialErrorMessage(array $orderFieldErrors)
+    {
+        $template = 'courier/messages/label-creation/partialError.mustache';
+        return $this->getErrorMessageFromOrderFieldErrors($orderFieldErrors, $template);
+    }
+
+    protected function getErrorMessageFromOrderFieldErrors(array $orderFieldErrors, $template)
+    {
+        if (empty($orderFieldErrors)) {
+            return '';
+        }
+        $view = $this->viewModelFactory->newInstance();
+        $view->setVariable('orderErrorList', $this->getErrorMessagePartialFromOrderFieldErrors($orderFieldErrors))
+            ->setTemplate($template);
+        $viewRender = $this->getServiceLocator()->get(MustacheViewHelper::class);
+        $message = $viewRender($view);
         return $message;
     }
 
-    protected function orderErrorFieldsToListItems(array $orderFieldErrors)
+    protected function getErrorMessagePartialFromOrderFieldErrors(array $orderFieldErrors)
     {
-        $message = '';
-        foreach ($orderFieldErrors as $orderNumber => $errorFields) {
-            $message .= '<li>' . $orderNumber . ':<ul>';
-            foreach ($errorFields as $fieldName => $errorMessage) {
-                $message .= '<li>' . ($fieldName ? $fieldName . ': ' : '') . $errorMessage . '</li>';
-            }
-            $message .= '</ul></li>';
-        }
-        return $message;
+        $orderErrorsView = $this->viewModelFactory->newInstance();
+        $orderErrorsView->setVariable('orderErrors', array_values($orderFieldErrors))
+            ->setTemplate('courier/messages/label-creation/orderErrorList.mustache');
+        $viewRender = $this->getServiceLocator()->get(MustacheViewHelper::class);
+        return $viewRender($orderErrorsView);
     }
 
     public function cancelAction()
@@ -309,6 +339,12 @@ class CourierJsonController extends AbstractActionController
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
     {
         $this->jsonModelFactory = $jsonModelFactory;
+        return $this;
+    }
+
+    protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
+    {
+        $this->viewModelFactory = $viewModelFactory;
         return $this;
     }
 
