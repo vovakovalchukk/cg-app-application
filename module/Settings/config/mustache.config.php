@@ -14,8 +14,8 @@ return [
                     'status' => Module::PUBLIC_FOLDER . 'template/columns/accountStatus.mustache',
                     'tokenStatus' => Module::PUBLIC_FOLDER . 'template/columns/tokenStatus.mustache',
                     'tradingCompany' => Module::PUBLIC_FOLDER . 'template/columns/tradingCompany.mustache',
-                    'stockManagement' => Module::PUBLIC_FOLDER . 'template/columns/stockManagement.mustache',
-                ],
+                    'stockManagement' => Module::PUBLIC_FOLDER . 'template/columns/stockManagement.mustache'
+                 ],
             ],
         ],
     ],
