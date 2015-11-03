@@ -3138,13 +3138,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "eb03c6aebf79a5539a049e286369e759b0fb681d"
+                "reference": "e98c153bed1012fc8e6534c4683fc7cdb0d603c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6346-Stock-management-confirmation-before-enabling-eaaa46.zip",
-                "reference": "eb03c6aebf79a5539a049e286369e759b0fb681d",
-                "shasum": "e18e6494be2830ad068dd65735cc6d95415469dd"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6346-Stock-management-confirmation-before-enabling-63fe5c.zip",
+                "reference": "e98c153bed1012fc8e6534c4683fc7cdb0d603c1",
+                "shasum": "f0f7056c4bd56e800d98e0194c8eab49c7376382"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -3189,7 +3189,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-11-03 09:54:03"
+            "time": "2015-11-03 11:41:12"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
