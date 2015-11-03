@@ -32,7 +32,7 @@ require(
                     ajaxCheckbox.saveStatus(ajaxOptions, input);
                     return;
                 }
-                //get status of toggle switch before user interacts
+               
 
                 if (!$(this).is(':checked')) {
                     input.prop("disabled", false);
@@ -43,7 +43,6 @@ require(
 
 
                 var message = "<strong>Stock Management Confirmation</strong><br/>";
-                //message +="<ul>";
                 message += "<p><strong>1.</strong> If any of your products have missing SKUs we will not be able to manage the stock for these products.<br/>";
                 message += "We ignore any product without a SKU.</p>";
                 message += "<p><strong>2.</strong> If your SKUs are incorrect/duplicated and/or do not match across your channels, we will not be able to manage\n";
