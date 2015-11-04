@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "13fef068ef17aa410f65a1fdc91a9d8f",
-    "content-hash": "4d89874cdba2ff64ef49e83246bee84a",
+    "hash": "24f05416c14ea7971e881f518ca6cad7",
+    "content-hash": "4f3bbe3e5dbb24065558f571511255b0",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -475,17 +475,17 @@
         },
         {
             "name": "channelgrabber/dataplug",
-            "version": "dev-CGIV-6449-dataplug-service-availability",
+            "version": "dev-EPIC-CGIV-5992-dataplug",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "abf09cb2df01232cf25212ceada6ecd24e25b6a3"
+                "reference": "a3354688285bd057e1ceeb770fd943ba72a0b39d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6449-dataplug-service-availability-d8c152.zip",
-                "reference": "abf09cb2df01232cf25212ceada6ecd24e25b6a3",
-                "shasum": "153b4d163560b73b56121ec660092908bd14b16c"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-EPIC-CGIV-5992-dataplug-ca9ef9.zip",
+                "reference": "a3354688285bd057e1ceeb770fd943ba72a0b39d",
+                "shasum": "f3e16dcff1a84d87361158bf98381ce6998230ce"
             },
             "require": {
                 "channelgrabber/channel": "dev-EPIC-CGIV-5992-dataplug as 1.17.11",
@@ -503,11 +503,6 @@
                 "zendframework/zend-di": ">=2.2.5"
             },
             "type": "di-definition",
-            "extra": {
-                "branch-alias": {
-                    "dev-CGIV-6449-dataplug-service-availability": "1.0.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "CG\\Dataplug\\": "src"
@@ -524,7 +519,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2015-11-04 15:39:40"
+            "time": "2015-11-04 16:22:50"
         },
         {
             "name": "channelgrabber/db",
@@ -7392,9 +7387,9 @@
             "package": "channelgrabber/channel"
         },
         {
-            "alias": "dev-EPIC-CGIV-5992-dataplug",
-            "alias_normalized": "dev-EPIC-CGIV-5992-dataplug",
-            "version": "dev-CGIV-6449-dataplug-service-availability",
+            "alias": "1.0.0",
+            "alias_normalized": "1.0.0.0",
+            "version": "dev-EPIC-CGIV-5992-dataplug",
             "package": "channelgrabber/dataplug"
         },
         {
