@@ -231,11 +231,10 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
 
         this.getAjaxRequester().sendRequest(Service.URI_CREATE_LABEL, data, function(response)
         {
-            if (!response || response.notReadyCount == 0) {
+            if (!response || (response.notReadyCount == 0 && response.errorCount == 0)) {
                 notifications.success('Label created successfully');
             } else {
-                notifications.notice('Label create request sent successfully, your label will be ready soon, please wait');
-                self.setupDelayedLabelPoll(response.readyStatuses);
+                self.handleNotReadysAndErrors(response);
             }
             self.refresh();
         }, function(response)
@@ -321,7 +320,7 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         var type = 'notice';
         if (response.notReadyCount > 0) {
             if (response.readyCount == 0 && response.errorCount == 0) {
-                message = 'Label create requests sent successfully, your labels will be ready soon, please wait.';
+                message = 'Label create requests sent successfully, your label(s) will be ready soon, please wait.';
             } else {
                 message = 'Label create requests sent successfully, ' + response.readyCount + ' label(s) are ready now, ' + response.notReadyCount + ' labels will be ready soon, please wait.';
             }

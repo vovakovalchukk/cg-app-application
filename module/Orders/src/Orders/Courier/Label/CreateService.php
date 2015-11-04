@@ -17,7 +17,6 @@ use CG\Product\Detail\Entity as ProductDetail;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\ValidationMessagesException;
 use CG\Stdlib\Exception\Storage as StorageException;
-use CG\Stdlib\Exception\Runtime\ValidationMessagesException;
 use CG\User\Entity as User;
 use Orders\Courier\GetProductDetailsForOrdersTrait;
 
