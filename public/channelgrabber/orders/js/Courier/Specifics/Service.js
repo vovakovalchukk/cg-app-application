@@ -60,6 +60,7 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
     Service.SELECTOR_ORDER_LABEL_STATUS_TPL = '#datatable input[name="orderInfo[_orderId_][labelStatus]"]';
     Service.SELECTOR_ORDER_CANCELLABLE_TPL = '#datatable input[name="orderInfo[_orderId_][cancellable]"]';
     Service.SELECTOR_ACTIONS_PREFIX = '#courier-actions-';
+    Service.SELECTOR_SERVICE_PREFIX = '#courier-service-options-';
     Service.URI_CREATE_LABEL = '/orders/courier/label/create';
     Service.URI_PRINT_LABEL = '/orders/courier/label/print';
     Service.URI_CANCEL = '/orders/courier/label/cancel';
@@ -222,26 +223,11 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
             return;
         }
         $(button).addClass('disabled');
-        var self = this;
-        var notifications = this.getNotifications();
-        notifications.notice('Creating label');
+        this.getNotifications().notice('Creating label');
         var data = this.convertInputDataToAjaxData(inputData);
         data.account = this.getCourierAccountId();
         data.order = [orderId];
-
-        this.getAjaxRequester().sendRequest(Service.URI_CREATE_LABEL, data, function(response)
-        {
-            if (!response || (response.notReadyCount == 0 && response.errorCount == 0)) {
-                notifications.success('Label created successfully');
-            } else {
-                self.handleNotReadysAndErrors(response);
-            }
-            self.refresh();
-        }, function(response)
-        {
-            $(button).removeClass('disabled');
-            notifications.ajaxError(response);
-        });
+        this.sendCreateLabelsRequest(data);
     };
 
     Service.prototype.printLabelForOrder = function(orderId)
@@ -292,50 +278,87 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         }
         $(button).addClass('disabled');
         $(EventHandler.SELECTOR_CREATE_LABEL_BUTTON).addClass('disabled');
-        var self = this;
-        var notifications = this.getNotifications();
-        notifications.notice('Creating all labels');
+        this.getNotifications().notice('Creating all labels');
+        this.sendCreateLabelsRequest(data);
+    };
 
+    Service.prototype.sendCreateLabelsRequest = function(data)
+    {
+        var self = this;
         this.getAjaxRequester().sendRequest(Service.URI_CREATE_LABEL, data, function(response)
         {
-            if (!response || (response.notReadyCount == 0 && response.errorCount == 0)) {
-                notifications.success('Labels created successfully');
-            } else { 
-                self.handleNotReadysAndErrors(response);
-            }
+            // Process the response after the table has refreshed
+            self.getDataTable().one('fnDrawCallback', function()
+            {
+                self.processCreateLabelsResponse(response);
+            });
             self.refresh();
-            $(button).removeClass('disabled');
-            $(EventHandler.SELECTOR_CREATE_LABEL_BUTTON).removeClass('disabled');
         }, function(response)
         {
-            $(button).removeClass('disabled');
+            $(EventHandler.SELECTOR_CREATE_ALL_LABELS_BUTTON).removeClass('disabled');
             $(EventHandler.SELECTOR_CREATE_LABEL_BUTTON).removeClass('disabled');
-            notifications.ajaxError(response);
+            self.getNotifications().ajaxError(response);
         });
+    };
+
+    Service.prototype.processCreateLabelsResponse = function(response)
+    {
+        if (!response || (response.notReadyCount == 0 && response.errorCount == 0)) {
+            this.getNotifications().success('Label(s) created successfully');
+        } else {
+            this.handleNotReadysAndErrors(response);
+        }
+        $(EventHandler.SELECTOR_CREATE_ALL_LABELS_BUTTON).removeClass('disabled');
+        $(EventHandler.SELECTOR_CREATE_LABEL_BUTTON).removeClass('disabled');
     };
 
     Service.prototype.handleNotReadysAndErrors = function(response)
     {
         var message = '';
-        var type = 'notice';
-        if (response.notReadyCount > 0) {
-            if (response.readyCount == 0 && response.errorCount == 0) {
-                message = 'Label create requests sent successfully, your label(s) will be ready soon, please wait.';
-            } else {
-                message = 'Label create requests sent successfully, ' + response.readyCount + ' label(s) are ready now, ' + response.notReadyCount + ' labels will be ready soon, please wait.';
-            }
-            this.setupDelayedLabelPoll(response.readyStatuses);
+        message += this.getLabelsNotReadyMessageForResponse(response);
+        message += this.getLabelsErroredMessageForResponse(response, message);
+        var notificationType = this.getNotificationTypeForResponse(response);
+        var notifications = this.getNotifications();
+        notifications[notificationType](message);
+        this.updateOrderServicesFromResponse(response);
+        return this;
+    };
+
+    Service.prototype.getLabelsNotReadyMessageForResponse = function(response)
+    {
+        var message = '';
+        if (response.notReadyCount == 0) {
+            return message;
         }
+        if (response.readyCount == 0 && response.errorCount == 0) {
+            message = 'Label create requests sent successfully, your label(s) will be ready soon, please wait.';
+        } else {
+            message = 'Label create requests sent successfully, ' + response.readyCount + ' label(s) are ready now, ' + response.notReadyCount + ' labels will be ready soon, please wait.';
+        }
+        this.setupDelayedLabelPoll(response.readyStatuses);
+        return message;
+    };
+
+    Service.prototype.getLabelsErroredMessageForResponse = function(response, existingMessage)
+    {
+        var message = '';
+        if (response.errorCount == 0) {
+            return message;
+        }
+        if (existingMessage != '') {
+            message += '<br /><br />';
+        }
+        message += response.partialErrorMessage;
+        return message;
+    };
+
+    Service.prototype.getNotificationTypeForResponse = function(response)
+    {
+        var type = 'notice';
         if (response.errorCount > 0) {
-            if (message) {
-                message += '<br /><br />';
-            }
-            message += response.partialErrorMessage;
             type = 'error';
         }
-        var notifications = this.getNotifications();
-        notifications[type](message);
-        return this;
+        return type;
     };
 
     Service.prototype.setupDelayedLabelPoll = function(orderLabelReadyStatuses)
@@ -386,6 +409,32 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
             );
         });
         return this;
+    };
+
+    Service.prototype.updateOrderServicesFromResponse = function(response)
+    {
+        if (!response.orderServices) {
+            return;
+        }
+        for (var orderId in response.orderServices) {
+            this.updateOrderServices(orderId, response.orderServices[orderId]);
+        }
+    };
+
+    Service.prototype.updateOrderServices = function(orderId, services)
+    {
+        var select = $(Service.SELECTOR_SERVICE_PREFIX + orderId);
+        select.find('ul li').each(function()
+        {
+            var serviceOption = this;
+            var code = serviceOption.dataset.value;
+            if (services[code]) {
+                return true; // continue
+            }
+            $(serviceOption).remove();
+        });
+        select.find('input[type="hidden"]').val('');
+        select.find('.selected-content').text('');
     };
 
     Service.prototype.markOrderLabelAsReady = function(orderId)
