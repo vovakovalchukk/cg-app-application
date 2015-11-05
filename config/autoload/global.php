@@ -125,6 +125,7 @@ use CG\Dataplug\Carriers;
 use CG\Account\Shared\Manifest\StorageInterface as AccountManifestStorage;
 use CG\Account\Client\Manifest\Storage\Api as AccountManifestApiStorage;
 use CG\Dataplug\Request\Carrier as DataplugCarrier;
+use CG\Channel\ShippingChannelsProviderInterface as ChannelShippingChannelsProviderInterface;
 
 return array(
     'di' => array(
@@ -150,6 +151,7 @@ return array(
                 ApiCredentialsStorage::class => ApiCredentialsApi::class,
                 ImageTemplateClient::class => ImageTemplateGuzzleClient::class,
                 ChannelShippingOptionsProviderInterface::class => DataplugCarrierService::class,
+                ChannelShippingChannelsProviderInterface::class => Carriers::class,
                 OrderLabelStorage::class => OrderLabelApiStorage::class,
                 ProductDetailStorage::class => ProductDetailApiStorage::class,
                 AccountManifestStorage::class => AccountManifestApiStorage::class,
