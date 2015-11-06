@@ -11,7 +11,9 @@ use Zend\View\Renderer\PhpRenderer;
 
 class Module
 {
-    const PUBLIC_FOLDER = '/cg-built/settings/';
+    //CHNAGE THIS MOTHER FUCKETR
+    //const PUBLIC_FOLDER = '/cg-built/settings/';
+    const PUBLIC_FOLDER = '/channelgrabber/settings/';
     const ROUTE = 'Settings';
     const SUBHEADER_TEMPLATE = 'settings/sub-header';
     const SIDEBAR_TEMPLATE = 'settings/sidebar';
