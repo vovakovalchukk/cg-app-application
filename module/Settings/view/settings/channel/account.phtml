@@ -65,7 +65,6 @@ require(
 );
 <?php $this->inlineScript()->captureEnd(); ?>
 <div id="breadcrumbs" class="floatLeftClear">
-    IM IN THIS VIEW
     <span class="heading-large"><?= $account['displayName'] ?><?= $this->channel ;?></span>
 </div>
 <div class="module clearfix">
@@ -82,12 +81,9 @@ require(
     </form>
 </div>
 <div id="manage-account-channel-form" class="module clearfix section-separator">
-    HERE TIS
     <?= $this->channelSpecificForm;?>
-   
-</div>
+   </div>
 <div class="module clearfix section-separator">
-     HERE TISNT
     <?php
     $detailsForm->prepare();
     $detailsForm->setAttribute('class', 'ajaxPost');
