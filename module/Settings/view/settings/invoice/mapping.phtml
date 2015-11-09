@@ -12,7 +12,7 @@ $(document).ready(function() {
         InvoiceSettings,
         select
     ) {
-        new InvoiceSettings;
+        new InvoiceSettings(<?= $hasAmazonAccount;?>);
 
         $(document).on('fnDrawCallback', function(event, data) {
             $('.invoiceTradingCompaniesCustomSelect').each(function() {
@@ -25,6 +25,7 @@ $(document).ready(function() {
 <div class="invoiceSettings">
     <form>
         <input type='hidden' value="<?= $eTag ?>" id="setting-etag">
+        <div id ="andyTests"><?= $hasAmazonAccount;?></div>
         <div class="invoiceDefaultSettings module half">
             <div class="heading-large">Invoice Mapping</div>
             <label>
@@ -56,7 +57,3 @@ $(document).ready(function() {
         </div>
     </form>
 </div>
-
-<!--<script>
-$('#autoEmail').click(function(){alert("just to let you know I clicked the checkbox");});
-</script>-->

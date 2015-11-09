@@ -140,7 +140,14 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
                 $invoiceSettings
             );
         }
+        
         return $this->getJsonModelFactory()->newInstance($data);
+    }
+
+    public function checkIfUserHasAmazonAccount(){
+
+        return false;
+
     }
 
     public function mappingAction()
@@ -154,6 +161,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setVariable('tradingCompanies', $tradingCompanies)
             ->setVariable('invoices', $invoices)
             ->setVariable('eTag', $invoiceSettings->getStoredETag())
+            ->setVariable('hasAmazonAccount',$this->checkIfUserHasAmazonAccount())
             ->addChild($this->getInvoiceSettingsDefaultSelectView($invoiceSettings, $invoices), 'defaultCustomSelect')
             ->addChild($this->getInvoiceSettingsAutoEmailCheckboxView($invoiceSettings), 'emailCheckbox')
             ->addChild($this->getInvoiceSettingsProductImagesCheckboxView($invoiceSettings), 'productImagesCheckbox')

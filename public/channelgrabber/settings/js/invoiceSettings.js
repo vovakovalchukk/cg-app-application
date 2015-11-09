@@ -1,6 +1,6 @@
 define(
     ["popup/confirm","cg-mustache"], function (Confirm, CGMustache){
-    var InvoiceSettings = function ()
+    var InvoiceSettings = function (hasAmazonAccount)
     {
         this.successMessage = 'Settings Saved';
         this.errorMessage = 'Error: Settings could not be saved';
@@ -15,7 +15,7 @@ define(
         var init = function () {
             var self = this;
             $(document).on('change', selector, function () {
-                if (this.id == "autoEmail" && getElementOnClickCheckedStatus(this.id)) {
+                if (this.id == "autoEmail" && getElementOnClickCheckedStatus(this.id) && hasAmazonAccount == true) {
                     showConfirmationMessageForAmazonAccount(self);
                 } else {
                     ajaxSave(self);
@@ -25,8 +25,9 @@ define(
         
 
         function showConfirmationMessageForAmazonAccount(self) {
-            
               var templateUrlMap = {
+
+                  ////CHANGE THIS BACK TO CG-BUILD MUTHA FOOKER
                  message: '/channelgrabber/settings/template/Warnings/amazonEmailWarning.mustache'
             };
 
