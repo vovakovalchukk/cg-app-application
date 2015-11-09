@@ -15,6 +15,8 @@ define(function () {
             var self = this;
             $(document).on('change', selector, function () {
                 if (this.id == "autoEmail" && getElementOnClickCheckedStatus(this.id)) {
+
+                    //properConfirmationBox(self);
                     showConfirmationMessageForAmazonAccount(self);
                 } else {
                     ajaxSave(self);
@@ -23,9 +25,38 @@ define(function () {
         };
 
 
+
+        function elementController() {
+            //e.g. take logic control from init and place here
+
+        }
+
+        function properConfirmationBox(self) {
+
+
+            var templateUrlMap = {
+                message: '<?= Settings\Module::PUBLIC_FOLDER ?>template/Warnings/amazonEmailWarnings.mustache'
+            };
+
+            CGMustache.get().fetchTemplates(templateUrlMap, function (templates, cgmustache) {
+                var messageHTML = cgmustache.renderTemplate(templates, {}, "message");
+                var confirm = new Confirm("hey", function (response) {
+                    if (response == "Yes") {
+                        ajaxSave(self);
+
+                    } else {
+                        $('#autoEmail').attr('checked', false);
+                    }
+                });
+
+            });
+
+        }
+
+
         function showConfirmationMessageForAmazonAccount(self) {
-           //put in proper confirm dialogue here instead of confirm
-            var r = confirm("Please confirm you understand this load of tosh");
+            //put in proper confirm dialogue here instead of confirm
+            var r = confirm("Please confirm you understand this message about amazon");
             if (r == true) {
                 ajaxSave(self);
             } else {
@@ -42,9 +73,9 @@ define(function () {
         function getElementOnClickCheckedStatus(elementID) {
             if ($('#' + elementID).is(":checked")) {
                 return true;
-            } else {
-                return false;
             }
+            return false;
+
         }
 
 
