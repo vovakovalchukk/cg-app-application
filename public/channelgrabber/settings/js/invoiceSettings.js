@@ -55,7 +55,6 @@ define(
                 return true;
             }
             return false;
-
         }
 
 

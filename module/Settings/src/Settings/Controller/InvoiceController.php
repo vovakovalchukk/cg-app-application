@@ -51,7 +51,6 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     protected $config;
     protected $intercomEventService;
     protected $intercomCompanyService;
-
     protected $accountService;
 
     public function __construct(
@@ -66,7 +65,6 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         Config $config,
         IntercomEventService $intercomEventService,
         IntercomCompanyService $intercomCompanyService,
-
         AccountService $accountService
 
     ) {
@@ -81,10 +79,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setConfig($config)
             ->setIntercomEventService($intercomEventService)
             ->setIntercomCompanyService($intercomCompanyService)
-
-            ->setAccountService($accountService)
-                ;
-    }
+            ->setAccountService($accountService);
+        }
 
     public function indexAction()
     {
@@ -155,12 +151,11 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     }
 
     public function checkIfUserHasAmazonAccount(){
-     
-        try {
+         try{
             if(!empty($this->accountService->fetchByChannel("amazon"))){
             return true;
             }
-        }catch (NotFound $exception) {
+        }catch (NotFound $exception){
           return false;
         }
         return false;
@@ -527,12 +522,12 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         return $this->intercomCompanyService;
     }
 
-       public function setAccountService(AccountService $accountService)
+    public function setAccountService(AccountService $accountService)
     {
         $this->accountService = $accountService;
     }
 
-      public function getAccountService()
+    public function getAccountService()
     {
         return $this->accountService;
     }
