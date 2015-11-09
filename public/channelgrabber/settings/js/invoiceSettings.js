@@ -25,7 +25,7 @@ define(
         
         function showConfirmationMessageForAmazonAccount(self) {
             var templateUrlMap = {
-                 message: '/cg-built/settings/template/Warnings/amazonEmailWarning.mustache'
+                message: '/cg-built/settings/template/Warnings/amazonEmailWarning.mustache'
             };
 
             CGMustache.get().fetchTemplates(templateUrlMap, function (templates, cgmustache) {
