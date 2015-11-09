@@ -1,4 +1,5 @@
-define(function () {
+define(
+    ["popup/confirm","cg-mustache"], function (Confirm, CGMustache){
     var InvoiceSettings = function ()
     {
         this.successMessage = 'Settings Saved';
@@ -15,36 +16,28 @@ define(function () {
             var self = this;
             $(document).on('change', selector, function () {
                 if (this.id == "autoEmail" && getElementOnClickCheckedStatus(this.id)) {
-
-                    //properConfirmationBox(self);
                     showConfirmationMessageForAmazonAccount(self);
                 } else {
                     ajaxSave(self);
                 }
             });
         };
+        
 
-
-
-        function elementController() {
-            //e.g. take logic control from init and place here
-
-        }
-
-        function properConfirmationBox(self) {
-
-
-            var templateUrlMap = {
-                message: '<?= Settings\Module::PUBLIC_FOLDER ?>template/Warnings/amazonEmailWarnings.mustache'
+        function showConfirmationMessageForAmazonAccount(self) {
+            
+              var templateUrlMap = {
+                 message: '/channelgrabber/settings/template/Warnings/amazonEmailWarning.mustache'
             };
 
             CGMustache.get().fetchTemplates(templateUrlMap, function (templates, cgmustache) {
-                var messageHTML = cgmustache.renderTemplate(templates, {}, "message");
-                var confirm = new Confirm("hey", function (response) {
+               var messageHTML = cgmustache.renderTemplate(templates, {}, "message");
+               var confirm = new Confirm(messageHTML, function (response) {
                     if (response == "Yes") {
-                        ajaxSave(self);
+                        $('#autoEmail').attr('checked', true);
+                        ajaxSave(self);}
 
-                    } else {
+                     if (response == "No") {
                         $('#autoEmail').attr('checked', false);
                     }
                 });
@@ -52,18 +45,6 @@ define(function () {
             });
 
         }
-
-
-        function showConfirmationMessageForAmazonAccount(self) {
-            //put in proper confirm dialogue here instead of confirm
-            var r = confirm("Please confirm you understand this message about amazon");
-            if (r == true) {
-                ajaxSave(self);
-            } else {
-                $('#autoEmail').attr('checked', false);
-            }
-        }
-
 
         function ajaxSave(object) {
             object.save();
