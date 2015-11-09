@@ -22,6 +22,8 @@ use Zend\Config\Config;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
 
+use CG\Account\Client\Service as AccountService;
+
 class InvoiceController extends AbstractActionController implements LoggerAwareInterface
 {
     use ExceptionToViewModelUserExceptionTrait;
@@ -50,6 +52,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     protected $intercomEventService;
     protected $intercomCompanyService;
 
+    protected $accountService;
+
     public function __construct(
         ViewModelFactory $viewModelFactory,
         JsonModelFactory $jsonModelFactory,
@@ -61,7 +65,10 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         Translator $translator,
         Config $config,
         IntercomEventService $intercomEventService,
-        IntercomCompanyService $intercomCompanyService
+        IntercomCompanyService $intercomCompanyService,
+
+        AccountService $accountService
+
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
@@ -73,7 +80,10 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setTranslator($translator)
             ->setConfig($config)
             ->setIntercomEventService($intercomEventService)
-            ->setIntercomCompanyService($intercomCompanyService);
+            ->setIntercomCompanyService($intercomCompanyService)
+
+            ->setAccountService($accountService)
+                ;
     }
 
     public function indexAction()
@@ -145,9 +155,15 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     }
 
     public function checkIfUserHasAmazonAccount(){
-
+     
+        try {
+            if(!empty($this->accountService->fetchByChannel("amazon"))){
+            return true;
+            }
+        }catch (NotFound $exception) {
+          return false;
+        }
         return false;
-
     }
 
     public function mappingAction()
@@ -509,5 +525,15 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     protected function getIntercomCompanyService()
     {
         return $this->intercomCompanyService;
+    }
+
+       public function setAccountService(AccountService $accountService)
+    {
+        $this->accountService = $accountService;
+    }
+
+      public function getAccountService()
+    {
+        return $this->accountService;
     }
 }
