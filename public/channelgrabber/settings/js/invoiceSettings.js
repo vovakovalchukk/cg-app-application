@@ -23,9 +23,8 @@ define(
             });
         };
         
-
         function showConfirmationMessageForAmazonAccount(self) {
-              var templateUrlMap = {
+            var templateUrlMap = {
                  message: '/cg-built/settings/template/Warnings/amazonEmailWarning.mustache'
             };
 
@@ -34,21 +33,18 @@ define(
                var confirm = new Confirm(messageHTML, function (response) {
                     if (response == "Yes") {
                         $('#autoEmail').attr('checked', true);
-                        ajaxSave(self);}
-
-                     if (response == "No") {
+                        ajaxSave(self);
+                    }
+                    if (response == "No") {
                         $('#autoEmail').attr('checked', false);
                     }
                 });
-
             });
-
         }
 
         function ajaxSave(object) {
             object.save();
         }
-
 
         function getElementOnClickCheckedStatus(elementID) {
             if ($('#' + elementID).is(":checked")) {
@@ -56,7 +52,6 @@ define(
             }
             return false;
         }
-
 
         this.getInvoiceSettingsEntity = function ()
         {
