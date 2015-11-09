@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "03db2ebf579a3567ea2d368db6eb8463",
-    "content-hash": "165abdb87b673cd8d3d13d8c591e68d4",
+    "hash": "c65a2d8194c164c290a9cb21f48c562d",
+    "content-hash": "27176542871117df03b41df4ad2dbdbb",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -802,17 +802,17 @@
         },
         {
             "name": "channelgrabber/http",
-            "version": "dev-CGIV-6477-fix-stock-duplication",
+            "version": "1.3.19",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cghttp.git",
-                "reference": "efe6458236ab1602b1396630f0d791d1089f7377"
+                "reference": "c648aab30132e95b5fc74f08978c682dcff25aef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-dev-CGIV-6477-fix-stock-duplication-5b7557.zip",
-                "reference": "efe6458236ab1602b1396630f0d791d1089f7377",
-                "shasum": "256406f6a3e19c5157b6ccfbe0f7cee820370a54"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.3.19-5abf5c.zip",
+                "reference": "c648aab30132e95b5fc74f08978c682dcff25aef",
+                "shasum": "7bc8875fdff9bfaca22c2bf80e0b38c51a12b053"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
@@ -847,7 +847,7 @@
                     "CG\\Http\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2015-11-05 16:07:01"
+            "time": "2015-11-10 08:47:19"
         },
         {
             "name": "channelgrabber/image",
@@ -1905,17 +1905,17 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "dev-CGIV-6477-fix-stock-duplication",
+            "version": "2.12.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "14698c3271fe2b1097bb40b1054b92435868bb38"
+                "reference": "fb4209151bec47596f919e5403c2c9f54bc78352"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-CGIV-6477-fix-stock-duplication-8aad99.zip",
-                "reference": "14698c3271fe2b1097bb40b1054b92435868bb38",
-                "shasum": "8696ac0e6459a0d0688bc14d30fd88317eda5500"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.14-d59d2e.zip",
+                "reference": "fb4209151bec47596f919e5403c2c9f54bc78352",
+                "shasum": "4c76bb713f6e5c2cf37e1f93b9c9b118822d938e"
             },
             "require": {
                 "zendframework/zend-db": ">=2.2,<3.0"
@@ -1941,21 +1941,21 @@
                     "CG\\Stdlib\\Test\\": "tests/CG/Stdlib"
                 }
             },
-            "time": "2015-11-06 09:34:09"
+            "time": "2015-11-10 08:51:08"
         },
         {
             "name": "channelgrabber/stock",
-            "version": "dev-CGIV-6477-fix-stock-duplication",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "66c4f590e3bc105bbe27d374391a5b63b3668389"
+                "reference": "04f6d2f7d7003ddd1541c21f27d035e2131c302f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-6477-fix-stock-duplication-0a3dde.zip",
-                "reference": "66c4f590e3bc105bbe27d374391a5b63b3668389",
-                "shasum": "a0e88593d85717f06a4fc57a064f02810d3ae42c"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.6.0-a36f2c.zip",
+                "reference": "04f6d2f7d7003ddd1541c21f27d035e2131c302f",
+                "shasum": "7ad4614e28472539de044b841c131aa787fe8102"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1964,14 +1964,14 @@
                 "channelgrabber/email": "^1.0.8",
                 "channelgrabber/etag": "^1.6.0",
                 "channelgrabber/gearman": ">=1.1.0,<2.0.0",
-                "channelgrabber/http": "dev-CGIV-6477-fix-stock-duplication as 1.3.19",
+                "channelgrabber/http": "^1.3.19",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/notification": "^1.0.0",
                 "channelgrabber/order": "^1.18.2",
                 "channelgrabber/permission": ">=1.0.1,<2.0.0",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/slim": "^1.13.2",
-                "channelgrabber/stdlib": "dev-CGIV-6477-fix-stock-duplication as 2.12.13",
+                "channelgrabber/stdlib": "^2.12.14",
                 "channelgrabber/transaction": ">=1.1.3, <2.0.0",
                 "composer/composer": "@dev",
                 "nocarrier/hal": "~0.9.4",
@@ -1998,7 +1998,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2015-11-09 11:18:03"
+            "time": "2015-11-10 08:55:18"
         },
         {
             "name": "channelgrabber/tax",
@@ -7285,32 +7285,10 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.3.19",
-            "alias_normalized": "1.3.19.0",
-            "version": "dev-CGIV-6477-fix-stock-duplication",
-            "package": "channelgrabber/http"
-        },
-        {
-            "alias": "2.12.14",
-            "alias_normalized": "2.12.14.0",
-            "version": "dev-CGIV-6477-fix-stock-duplication",
-            "package": "channelgrabber/stdlib"
-        },
-        {
-            "alias": "1.5.15",
-            "alias_normalized": "1.5.15.0",
-            "version": "dev-CGIV-6477-fix-stock-duplication",
-            "package": "channelgrabber/stock"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/http": 20,
-        "channelgrabber/stdlib": 20,
-        "channelgrabber/stock": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
