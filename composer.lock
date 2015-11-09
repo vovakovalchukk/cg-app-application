@@ -2397,13 +2397,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "70c3a82a024b49fe956ea73d2e0e524d4d141563"
+                "reference": "a559659b68f113b1380fb3a9629594e258d4a929"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-CGIV-6358-Add-better-explanation-about-emailing-invoices-69ac93.zip",
-                "reference": "70c3a82a024b49fe956ea73d2e0e524d4d141563",
-                "shasum": "35f6ada27d2b9ade39c6c6e80c32b04befbcfdfd"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-CGIV-6358-Add-better-explanation-about-emailing-invoices-bbafec.zip",
+                "reference": "a559659b68f113b1380fb3a9629594e258d4a929",
+                "shasum": "ff645746b122c312897187790fef034b5a6f569e"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
@@ -2435,7 +2435,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2015-11-09 14:02:23"
+            "time": "2015-11-09 15:47:36"
         },
         {
             "name": "channelgrabber/zf2-api",
