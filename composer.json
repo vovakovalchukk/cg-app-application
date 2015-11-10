@@ -69,7 +69,7 @@
         "channelgrabber/validation": "~1.2.7",
         "channelgrabber/woocommerce": "~1.1.2",
         "channelgrabber/zendesk": "~1.0.0",
-        "channelgrabber/zf2-amazon": "dev-CGIV-6358-Add-better-explanation-about-emailing-invoices as 1.0.8",
+        "channelgrabber/zf2-amazon": "dev-CGIV-6358-Add-better-explanation-about-emailing-invoices as 1.0.9",
         "channelgrabber/zf2-api": "~1.0.0",
         "channelgrabber/zf2-channel": "~1.0.6",
         "channelgrabber/zf2-ebay": "~1.0.2",
