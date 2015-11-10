@@ -43,7 +43,7 @@ require(
                 var confirm = new Confirm(messageHTML, function (response) {
                     if (response == "Yes") {
                         ajaxCheckbox.saveStatus(ajaxOptions, input);
-                    }else{
+                    }else {
                        $('#'+toggleID).attr("checked", false);
                        n.clearNotifications($("#main-notifications"));
                        input.prop("disabled", false);
