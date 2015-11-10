@@ -149,7 +149,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     public function checkIfUserHasAmazonAccount(){
         try {
             if(!empty($this->accountService->fetchByChannel("amazon"))) {
-            return true;
+                return true;
             }
         } catch (NotFound $exception) {
           return false;
