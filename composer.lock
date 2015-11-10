@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a7f0bd37969901b262cc657bcf2a07b8",
-    "content-hash": "5ed36589647d50cf228fc0dc97b69739",
+    "hash": "9e243027ca8412df9871380efc96f623",
+    "content-hash": "424d189f727555794f3a5c93d9aa1240",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3134,17 +3134,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.13.4",
+            "version": "dev-CGIV-6346-Stock-management-confirmation-before-enabling",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "f61cc30d0d39e7cd647beeb41c2cd1382b7b7f8f"
+                "reference": "bffb47ad9cb1da774d4167b811be2af5bebd4454"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.13.4-a7d561.zip",
-                "reference": "f61cc30d0d39e7cd647beeb41c2cd1382b7b7f8f",
-                "shasum": "13596ca4dd149e62c9e48228e925a6c316aaae8e"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6346-Stock-management-confirmation-before-enabling-207bc7.zip",
+                "reference": "bffb47ad9cb1da774d4167b811be2af5bebd4454",
+                "shasum": "823a1920d9d84ce089ef366023f599eee90a7c41"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -3189,7 +3189,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-11-04 15:05:46"
+            "time": "2015-11-04 11:37:25"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7224,16 +7224,23 @@
     ],
     "aliases": [
         {
-            "alias": "1.0.8",
-            "alias_normalized": "1.0.8.0",
+            "alias": "1.0.9",
+            "alias_normalized": "1.0.9.0",
             "version": "dev-CGIV-6358-Add-better-explanation-about-emailing-invoices",
             "package": "channelgrabber/zf2-amazon"
+        },
+        {
+            "alias": "1.16.13.4",
+            "alias_normalized": "1.16.13.4",
+            "version": "dev-CGIV-6346-Stock-management-confirmation-before-enabling",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-amazon": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
