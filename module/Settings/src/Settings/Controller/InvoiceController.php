@@ -152,7 +152,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
                 return true;
             }
         } catch (NotFound $exception) {
-          return false;
+            return false;
         }
         return false;
     }
