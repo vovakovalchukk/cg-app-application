@@ -802,17 +802,17 @@
         },
         {
             "name": "channelgrabber/http",
-            "version": "1.3.18",
+            "version": "1.3.19",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cghttp.git",
-                "reference": "b82c17c6f69faced5fa1fc85c41e8cda0c36e08e"
+                "reference": "c648aab30132e95b5fc74f08978c682dcff25aef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.3.18-670912.zip",
-                "reference": "b82c17c6f69faced5fa1fc85c41e8cda0c36e08e",
-                "shasum": "063f802f25d721ef684de7497be11a1d4c359369"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.3.19-5abf5c.zip",
+                "reference": "c648aab30132e95b5fc74f08978c682dcff25aef",
+                "shasum": "7bc8875fdff9bfaca22c2bf80e0b38c51a12b053"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
@@ -847,7 +847,7 @@
                     "CG\\Http\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2015-10-02 12:56:45"
+            "time": "2015-11-10 08:47:19"
         },
         {
             "name": "channelgrabber/image",
@@ -1147,17 +1147,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.19.27",
+            "version": "1.19.28.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "623a64beef7a58d068814d641bb424a178e95127"
+                "reference": "27b0f747829d881667bade685dc98c8b1a629d20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.19.27-b46c01.zip",
-                "reference": "623a64beef7a58d068814d641bb424a178e95127",
-                "shasum": "333d8918d81b6fa3896d42960bc791ba22307ee7"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.19.28.2-9e95e1.zip",
+                "reference": "27b0f747829d881667bade685dc98c8b1a629d20",
+                "shasum": "5bee06d7bcec0dca6962da077bb3df116f9aa392"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1219,7 +1219,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-11-02 16:00:01"
+            "time": "2015-11-06 16:16:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -1905,17 +1905,17 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.12.13",
+            "version": "2.12.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "159dd41a26eefaf8e8779df935bb5c50be1de30b"
+                "reference": "fb4209151bec47596f919e5403c2c9f54bc78352"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.13-f82e35.zip",
-                "reference": "159dd41a26eefaf8e8779df935bb5c50be1de30b",
-                "shasum": "3bae35b72f4b0ac0c86537cdfa0a5a17ca3c773a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.14-d59d2e.zip",
+                "reference": "fb4209151bec47596f919e5403c2c9f54bc78352",
+                "shasum": "4c76bb713f6e5c2cf37e1f93b9c9b118822d938e"
             },
             "require": {
                 "zendframework/zend-db": ">=2.2,<3.0"
@@ -1941,21 +1941,21 @@
                     "CG\\Stdlib\\Test\\": "tests/CG/Stdlib"
                 }
             },
-            "time": "2015-11-02 15:37:07"
+            "time": "2015-11-10 08:51:08"
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.5.13",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "a9842ec5114040ec6c39b0e8db8ffc7713384de3"
+                "reference": "04f6d2f7d7003ddd1541c21f27d035e2131c302f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.5.13-a4c873.zip",
-                "reference": "a9842ec5114040ec6c39b0e8db8ffc7713384de3",
-                "shasum": "524e9205db86d79e2f0fa521a47af62cc09b28b0"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.6.0-a36f2c.zip",
+                "reference": "04f6d2f7d7003ddd1541c21f27d035e2131c302f",
+                "shasum": "7ad4614e28472539de044b841c131aa787fe8102"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1964,14 +1964,14 @@
                 "channelgrabber/email": "^1.0.8",
                 "channelgrabber/etag": "^1.6.0",
                 "channelgrabber/gearman": ">=1.1.0,<2.0.0",
-                "channelgrabber/http": "^1.3.14",
+                "channelgrabber/http": "^1.3.19",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/notification": "^1.0.0",
                 "channelgrabber/order": "^1.18.2",
                 "channelgrabber/permission": ">=1.0.1,<2.0.0",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/slim": "^1.13.2",
-                "channelgrabber/stdlib": "^2.12.13",
+                "channelgrabber/stdlib": "^2.12.14",
                 "channelgrabber/transaction": ">=1.1.3, <2.0.0",
                 "composer/composer": "@dev",
                 "nocarrier/hal": "~0.9.4",
@@ -1998,7 +1998,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2015-11-02 15:44:32"
+            "time": "2015-11-10 08:55:18"
         },
         {
             "name": "channelgrabber/tax",
@@ -6150,6 +6150,68 @@
                 "unit testing"
             ],
             "time": "2013-11-15 02:57:56"
+        },
+        {
+            "name": "composer/semver",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/composer/semver.git",
+                "reference": "7486d83e924729a2cb7d90a7337da1b291adb706"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/composer-semver-7486d83e924729a2cb7d90a7337da1b291adb706-zip-cffa21.zip",
+                "reference": "7486d83e924729a2cb7d90a7337da1b291adb706",
+                "shasum": "89662dc55122f66fff5ab97134d9c610bfbf4bbb"
+            },
+            "require": {
+                "php": "^5.3.2 || ^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.5 || ^5.0.5",
+                "phpunit/phpunit-mock-objects": "2.3.0 || ^3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Composer\\Semver\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nils Adermann",
+                    "email": "naderman@naderman.de",
+                    "homepage": "http://www.naderman.de"
+                },
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "http://seld.be"
+                },
+                {
+                    "name": "Rob Bast",
+                    "email": "rob.bast@gmail.com",
+                    "homepage": "http://robbast.nl"
+                }
+            ],
+            "description": "Semver library that offers utilities, version constraint parsing and validation.",
+            "keywords": [
+                "semantic",
+                "semver",
+                "validation",
+                "versioning"
+            ],
+            "time": "2015-11-03 20:15:49"
         },
         {
             "name": "doctrine/instantiator",
