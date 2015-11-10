@@ -21,7 +21,6 @@ use Settings\Module;
 use Zend\Config\Config;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
-
 use CG\Account\Client\Service as AccountService;
 
 class InvoiceController extends AbstractActionController implements LoggerAwareInterface
@@ -66,8 +65,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         IntercomEventService $intercomEventService,
         IntercomCompanyService $intercomCompanyService,
         AccountService $accountService
-
-    ) {
+     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
             ->setTemplateService($templateService)
@@ -146,12 +144,11 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
                 $invoiceSettings
             );
         }
-        
         return $this->getJsonModelFactory()->newInstance($data);
     }
 
     public function checkIfUserHasAmazonAccount(){
-         try{
+        try{
             if(!empty($this->accountService->fetchByChannel("amazon"))){
             return true;
             }
