@@ -6,7 +6,7 @@ require.config({
 
 require(
     ["ajaxSwitch", "popup/confirm","cg-mustache"],
-    function (ajaxSwitch, Confirm,CGMustache) {
+    function (ajaxSwitch, Confirm, CGMustache) {
         var ajaxCheckbox = ajaxSwitch(
             n,
             "#<?= $tableId ?>",
@@ -41,10 +41,9 @@ require(
             CGMustache.get().fetchTemplates(templateUrlMap, function(templates, cgmustache){
                 var messageHTML = cgmustache.renderTemplate(templates, {}, "message");
                 var confirm = new Confirm(messageHTML, function (response) {
-                     if (response == "Yes") {
+                    if (response == "Yes") {
                         ajaxCheckbox.saveStatus(ajaxOptions, input);
-                     }
-                     if (response == "No") {
+                    }else{
                        $('#'+toggleID).attr("checked", false);
                        n.clearNotifications($("#main-notifications"));
                        input.prop("disabled", false);
