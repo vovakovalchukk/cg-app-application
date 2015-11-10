@@ -42,6 +42,7 @@ define(['./EventHandler.js'], function(EventHandler)
         $('input[type=hidden]', serviceSelectCopy).attr('name', name);
 
         $(Service.SELECTOR_ORDER_SERVICE_CONTAINER_PREFIX+orderId).append(serviceSelectCopy);
+        this.getDataTable().cgDataTable('adjustTable');
         return this;
     };
 
