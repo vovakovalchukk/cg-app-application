@@ -65,7 +65,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         IntercomEventService $intercomEventService,
         IntercomCompanyService $intercomCompanyService,
         AccountService $accountService
-     ) {
+    ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
             ->setTemplateService($templateService)
@@ -78,7 +78,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setIntercomEventService($intercomEventService)
             ->setIntercomCompanyService($intercomCompanyService)
             ->setAccountService($accountService);
-        }
+    }
 
     public function indexAction()
     {
@@ -121,7 +121,6 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         ]);
     }
 
-
     public function ajaxMappingAction()
     {
         $invoiceSettings = $this->getInvoiceService()->getSettings();
@@ -148,11 +147,11 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     }
 
     public function checkIfUserHasAmazonAccount(){
-        try{
-            if(!empty($this->accountService->fetchByChannel("amazon"))){
+        try {
+            if(!empty($this->accountService->fetchByChannel("amazon"))) {
             return true;
             }
-        }catch (NotFound $exception){
+        } catch (NotFound $exception) {
           return false;
         }
         return false;
