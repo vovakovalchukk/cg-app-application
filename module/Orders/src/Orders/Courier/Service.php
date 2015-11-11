@@ -422,6 +422,7 @@ class Service implements LoggerAwareInterface
             $itemData = $this->getCommonItemListData($item, $products, $rowData);
             $specificsItemData = $this->getSpecificsItemListData($item, $productDetails, $options, $rowData);
             $specificsItemData['showWeight'] = $orderData['showWeight'];
+            $specificsItemData['labelStatus'] = $orderData['labelStatus'];
             $itemsData[] = array_merge($itemData, $specificsItemData);
             $itemCount++;
         }
