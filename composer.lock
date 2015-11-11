@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4d5ccb3e6c4a50bb016261f54cf9e9c5",
-    "content-hash": "87643741ca4edbd7c890cd90d8fad9ea",
+    "hash": "e56a490dc4d3b2b385e761d0a53f2538",
+    "content-hash": "94596a4dfdf859b7b33cd7794e49c5a0",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3134,17 +3134,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-6346-Stock-management-confirmation-before-enabling",
+            "version": "1.16.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e98c153bed1012fc8e6534c4683fc7cdb0d603c1"
+                "reference": "ffc40f644ecff5c9f3c5412982e2bfad98aa208b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6346-Stock-management-confirmation-before-enabling-63fe5c.zip",
-                "reference": "e98c153bed1012fc8e6534c4683fc7cdb0d603c1",
-                "shasum": "f0f7056c4bd56e800d98e0194c8eab49c7376382"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.14-42cb95.zip",
+                "reference": "ffc40f644ecff5c9f3c5412982e2bfad98aa208b",
+                "shasum": "557f1a6a0073631b448b6d213059435b5931f244"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -3189,7 +3189,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-11-03 11:41:12"
+            "time": "2015-11-11 12:05:39"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -6152,68 +6152,6 @@
             "time": "2013-11-15 02:57:56"
         },
         {
-            "name": "composer/semver",
-            "version": "1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/composer/semver.git",
-                "reference": "7486d83e924729a2cb7d90a7337da1b291adb706"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/composer-semver-7486d83e924729a2cb7d90a7337da1b291adb706-zip-cffa21.zip",
-                "reference": "7486d83e924729a2cb7d90a7337da1b291adb706",
-                "shasum": "89662dc55122f66fff5ab97134d9c610bfbf4bbb"
-            },
-            "require": {
-                "php": "^5.3.2 || ^7.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.5 || ^5.0.5",
-                "phpunit/phpunit-mock-objects": "2.3.0 || ^3.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Composer\\Semver\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nils Adermann",
-                    "email": "naderman@naderman.de",
-                    "homepage": "http://www.naderman.de"
-                },
-                {
-                    "name": "Jordi Boggiano",
-                    "email": "j.boggiano@seld.be",
-                    "homepage": "http://seld.be"
-                },
-                {
-                    "name": "Rob Bast",
-                    "email": "rob.bast@gmail.com",
-                    "homepage": "http://robbast.nl"
-                }
-            ],
-            "description": "Semver library that offers utilities, version constraint parsing and validation.",
-            "keywords": [
-                "semantic",
-                "semver",
-                "validation",
-                "versioning"
-            ],
-            "time": "2015-11-03 20:15:49"
-        },
-        {
             "name": "doctrine/instantiator",
             "version": "1.0.5",
             "source": {
@@ -7284,18 +7222,10 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.16.14",
-            "alias_normalized": "1.16.14.0",
-            "version": "dev-CGIV-6346-Stock-management-confirmation-before-enabling",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
