@@ -22,6 +22,7 @@ use Zend\Config\Config;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG\Account\Client\Service as AccountService;
+use CG\Account\Client\Filter;
 
 class InvoiceController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -51,6 +52,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     protected $intercomEventService;
     protected $intercomCompanyService;
     protected $accountService;
+    protected $filter;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -65,6 +67,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         IntercomEventService $intercomEventService,
         IntercomCompanyService $intercomCompanyService,
         AccountService $accountService
+        
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
@@ -78,6 +81,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setIntercomEventService($intercomEventService)
             ->setIntercomCompanyService($intercomCompanyService)
             ->setAccountService($accountService);
+        
     }
 
     public function indexAction()
@@ -148,7 +152,11 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
 
     public function checkIfUserHasAmazonAccount(){
         try {
-            if(!empty($this->accountService->fetchByChannel("amazon"))) {
+            $filter = new Filter();
+            $filter->setOrganisationUnitId($this->userOrganisationUnitService->getAncestorOrganisationUnitIdsByActiveUser());
+            $filter->setChannel(["amazon"]);
+            $filter->setLimit("all");
+            if(!empty($this->accountService->fetchByFilter($filter))) {
                 return true;
             }
         } catch (NotFound $exception) {
@@ -518,10 +526,11 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         return $this->intercomCompanyService;
     }
 
-    public function setAccountService(AccountService $accountService)
+    protected function setAccountService(AccountService $accountService)
     {
         $this->accountService = $accountService;
     }
+
 
     public function getAccountService()
     {
