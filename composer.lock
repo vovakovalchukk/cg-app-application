@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d884e2ff564557608824b3560720d051",
-    "content-hash": "fcb4073713d07720be7427c0a27f8117",
+    "hash": "d16e0999aa8038baad0e43f1b740a625",
+    "content-hash": "541eb977d1f60c52563c09f9519cab45",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -475,17 +475,17 @@
         },
         {
             "name": "channelgrabber/dataplug",
-            "version": "dev-CGIV-6499-courier-booking-fixes-and-improvements-4",
+            "version": "dev-EPIC-CGIV-5992-dataplug",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "33fa0107c269c5a557f1b8262b1540eb6cd4ead6"
+                "reference": "85b7c294531760685a8f10a7bf44196cf301f286"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6499-courier-booking-fixes-and-improvements-4-c7a196.zip",
-                "reference": "33fa0107c269c5a557f1b8262b1540eb6cd4ead6",
-                "shasum": "6329ed64501407f89aa777f1040f80d82bc2bd3e"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-EPIC-CGIV-5992-dataplug-d61be6.zip",
+                "reference": "85b7c294531760685a8f10a7bf44196cf301f286",
+                "shasum": "ea1122c494fac4f2c16ec1d20b2505ef811c2494"
             },
             "require": {
                 "channelgrabber/channel": "dev-EPIC-CGIV-5992-dataplug as 1.17.11",
@@ -496,7 +496,7 @@
                 "channelgrabber/product": "dev-EPIC-CGIV-5992-dataplug as 1.5.0",
                 "channelgrabber/stats": "^1.0.0",
                 "channelgrabber/stdlib": "dev-EPIC-CGIV-5992-dataplug as 2.12.13",
-                "channelgrabber/user": "dev-CGIV-6499-courier-booking-fixes-and-improvements-4 as 1.20.2",
+                "channelgrabber/user": "dev-EPIC-CGIV-5992-dataplug as 1.20.2",
                 "composer/composer": "@dev",
                 "php-jsonpatch/php-jsonpatch": "dev-master",
                 "php-jsonpointer/php-jsonpointer": "dev-master",
@@ -524,7 +524,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2015-11-10 15:40:53"
+            "time": "2015-11-11 13:22:59"
         },
         {
             "name": "channelgrabber/db",
@@ -2223,7 +2223,7 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "dev-CGIV-6499-courier-booking-fixes-and-improvements-4",
+            "version": "dev-EPIC-CGIV-5992-dataplug",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
@@ -2231,9 +2231,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-6499-courier-booking-fixes-and-improvements-4-c892b9.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-EPIC-CGIV-5992-dataplug-c892b9.zip",
                 "reference": "e929120b6765a42c2e757f217b448fd176eeb4c9",
-                "shasum": "a96fbc79075b704b89443dd1be6a5284b10af89c"
+                "shasum": "8b2b35a213918eb9609eb3a7ade46a79945c61fa"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -7392,9 +7392,9 @@
             "package": "channelgrabber/channel"
         },
         {
-            "alias": "dev-EPIC-CGIV-5992-dataplug",
-            "alias_normalized": "dev-EPIC-CGIV-5992-dataplug",
-            "version": "dev-CGIV-6499-courier-booking-fixes-and-improvements-4",
+            "alias": "1.0.0",
+            "alias_normalized": "1.0.0.0",
+            "version": "dev-EPIC-CGIV-5992-dataplug",
             "package": "channelgrabber/dataplug"
         },
         {
@@ -7424,7 +7424,7 @@
         {
             "alias": "1.20.2",
             "alias_normalized": "1.20.2.0",
-            "version": "dev-CGIV-6499-courier-booking-fixes-and-improvements-4",
+            "version": "dev-EPIC-CGIV-5992-dataplug",
             "package": "channelgrabber/user"
         },
         {
