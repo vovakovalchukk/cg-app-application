@@ -448,7 +448,7 @@ class Service implements LoggerAwareInterface
                 continue;
             }
             $data[$option] = '';
-            if ($productDetail) {
+            if ($productDetail && $item->getItemQuantity() == 1) {
                 $getter = 'get'.ucfirst($option);
                 if (is_callable([$productDetail, $getter])) {
                     $value = $productDetail->$getter();

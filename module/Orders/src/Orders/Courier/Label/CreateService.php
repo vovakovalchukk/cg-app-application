@@ -53,8 +53,13 @@ class CreateService extends ServiceAbstract
 
     protected $productDimensionFields = ['weight', 'width', 'height', 'length'];
 
-    public function createForOrdersData(array $orderIds, array $ordersData, array $orderParcelsData, $shippingAccountId)
-    {
+    public function createForOrdersData(
+        array $orderIds,
+        array $ordersData,
+        array $orderParcelsData,
+        array $ordersItemsData,
+        $shippingAccountId
+    ) {
         $orderIdsString = implode(',', $orderIds);
         $rootOu = $this->userOUService->getRootOuByActiveUser();
         $user = $this->userOUService->getActiveUser();
@@ -62,7 +67,7 @@ class CreateService extends ServiceAbstract
         $this->logDebug(static::LOG_CREATE, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
         $shippingAccount = $this->accountService->fetch($shippingAccountId);
         $orders = $this->getOrdersByIds($orderIds);
-        $this->persistDimensionsForOrders($orders, $orderParcelsData, $rootOu);
+        $this->persistDimensionsForOrders($orders, $orderParcelsData, $ordersItemsData, $rootOu);
         $orderLabels = $this->createOrderLabelsForOrders($orders);
         $request = $this->mapper->ordersAndDataToDataplugCreateRequest($orders, $ordersData, $orderParcelsData, $rootOu);
         $this->logDebug(static::LOG_CREATE_SEND, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
@@ -86,14 +91,22 @@ class CreateService extends ServiceAbstract
         return $labelReadyStatuses;
     }
 
-    protected function persistDimensionsForOrders(OrderCollection $orders, array $orderParcelsData, OrganisationUnit $rootOu)
-    {
+    protected function persistDimensionsForOrders(
+        OrderCollection $orders,
+        array $orderParcelsData,
+        array $ordersItemsData,
+        OrganisationUnit $rootOu
+    ) {
         $this->logDebug(static::LOG_PROD_DET_PERSIST, [], static::LOG_CODE);
         $suitableOrders = new OrderCollection(Order::class, __FUNCTION__);
         foreach ($orders as $order) {
             $parcelsData = $orderParcelsData[$order->getId()];
-            // if there's multiple items or parcels we won't know which the dimensions relate to directly
-            if (count($order->getItems()) > 1 || count($parcelsData) > 1) {
+            // if there's multiple parcels we won't know which products the dimensions relate to directly
+            if (count($parcelsData) > 1) {
+                continue;
+            }
+            // If there's multiple items and we don't have specific data for each then we don't know how the parcel data is made up
+            if (count($order->getItems()) > 1 && !isset($ordersItemsData[$order->getId()])) {
                 continue;
             }
             $suitableOrders->attach($order);
@@ -103,31 +116,36 @@ class CreateService extends ServiceAbstract
         foreach ($suitableOrders as $order) {
             $parcelsData = $orderParcelsData[$order->getId()];
             $parcelData = array_pop($parcelsData);
+            $itemData = (isset($ordersItemsData[$order->getId()]) ? $ordersItemsData[$order->getId()] : []);
             $items = $order->getItems();
-            $items->rewind();
-            $item = $items->current();
-            $itemProductDetails = $productDetails->getBy('sku', $item->getItemSku());
-            if (count($itemProductDetails) > 0) {
-                $itemProductDetails->rewind();
-                $itemProductDetail = $itemProductDetails->current();
-                $this->logDebug(static::LOG_PROD_DET_UPDATE, [$itemProductDetail->getSku(), $itemProductDetail->getOrganisationUnitId(), $order->getId()], static::LOG_CODE);
-                $this->updateProductDetailFromParcelData($itemProductDetail, $parcelData);
-            } else {
-                $this->logDebug(static::LOG_PROD_DET_CREATE, [$item->getItemSku(), $rootOu->getId(), $order->getId()], static::LOG_CODE);
-                $productDetail = $this->createProductDetailFromParcelData($parcelData, $item->getItemSku(), $rootOu);
-                $productDetails->attach($productDetail);
+            foreach ($items as $item) {
+                if ($item->getItemQuantity() > 1) {
+                    continue;
+                }
+                $itemDimensionData = (isset($itemData[$item->getId()]) ? $itemData[$item->getId()] : $parcelData);
+                $itemProductDetails = $productDetails->getBy('sku', $item->getItemSku());
+                if (count($itemProductDetails) > 0) {
+                    $itemProductDetails->rewind();
+                    $itemProductDetail = $itemProductDetails->current();
+                    $this->logDebug(static::LOG_PROD_DET_UPDATE, [$itemProductDetail->getSku(), $itemProductDetail->getOrganisationUnitId(), $order->getId()], static::LOG_CODE);
+                    $this->updateProductDetailFromInputDimensionData($itemProductDetail, $itemDimensionData);
+                } else {
+                    $this->logDebug(static::LOG_PROD_DET_CREATE, [$item->getItemSku(), $rootOu->getId(), $order->getId()], static::LOG_CODE);
+                    $productDetail = $this->createProductDetailFromInputDimensionData($itemDimensionData, $item->getItemSku(), $rootOu);
+                    $productDetails->attach($productDetail);
+                }
             }
         }
     }
 
-    protected function updateProductDetailFromParcelData(ProductDetail $productDetail, array $parcelData)
+    protected function updateProductDetailFromInputDimensionData(ProductDetail $productDetail, array $itemDimensionData)
     {
         $changes = false;
         foreach ($this->productDimensionFields as $field) {
-            if (!isset($parcelData[$field]) || $parcelData[$field] == '') {
+            if (!isset($itemDimensionData[$field]) || $itemDimensionData[$field] == '') {
                 continue;
             }
-            $value = $this->getProductDetailValueFromParcelData($field, $parcelData);
+            $value = $this->getProductDetailValueFromInputDimensionData($field, $itemDimensionData);
             $setter = 'set' . ucfirst($field);
             $productDetail->$setter($value);
             $changes = true;
@@ -142,17 +160,17 @@ class CreateService extends ServiceAbstract
         }
     }
 
-    protected function createProductDetailFromParcelData(array $parcelData, $sku, OrganisationUnit $rootOu)
+    protected function createProductDetailFromInputDimensionData(array $itemDimensionData, $sku, OrganisationUnit $rootOu)
     {
         $productDetailData = [
             'sku' => $sku,
             'organisationUnitId' => $rootOu->getId(),
         ];
         foreach ($this->productDimensionFields as $field) {
-            if (!isset($parcelData[$field]) || $parcelData[$field] == '') {
+            if (!isset($itemDimensionData[$field]) || $itemDimensionData[$field] == '') {
                 continue;
             }
-            $value = $this->getProductDetailValueFromParcelData($field, $parcelData);
+            $value = $this->getProductDetailValueFromInputDimensionData($field, $itemDimensionData);
             $productDetailData[$field] = $value;
         }
         $productDetail = $this->productDetailMapper->fromArray($productDetailData);
@@ -160,9 +178,9 @@ class CreateService extends ServiceAbstract
         return $this->productDetailMapper->fromHal($hal);
     }
 
-    protected function getProductDetailValueFromParcelData($field, array $parcelData)
+    protected function getProductDetailValueFromInputDimensionData($field, array $itemDimensionData)
     {
-        $value = $parcelData[$field];
+        $value = $itemDimensionData[$field];
         if ($field != 'weight') {
             // Dimensions entered in centimetres but stored in metres
             $value /= static::CM_PER_M;

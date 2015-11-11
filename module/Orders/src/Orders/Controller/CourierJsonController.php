@@ -139,10 +139,13 @@ class CourierJsonController extends AbstractActionController
         $orderIds = $this->params()->fromPost('order', []);
         $ordersData = $this->params()->fromPost('orderData', []);
         $ordersParcelsData = $this->params()->fromPost('parcelData', []);
+        $ordersItemsData = $this->params()->fromPost('itemData', []);
         $this->sanitiseInputArray($ordersData);
         $this->sanitiseInputArray($ordersParcelsData);
         try {
-            $labelReadyStatuses = $this->labelCreateService->createForOrdersData($orderIds, $ordersData, $ordersParcelsData, $accountId);
+            $labelReadyStatuses = $this->labelCreateService->createForOrdersData(
+                $orderIds, $ordersData, $ordersParcelsData, $ordersItemsData, $accountId
+            );
         } catch (StorageException $e) {
             throw new \RuntimeException(
                 'Failed to create label(s), please check the details you\'ve entered and try again', $e->getCode(), $e

@@ -97,7 +97,7 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         {
             var input = this;
             var name = $(input).attr('name');
-            if (!name || (!name.match(/^orderData/) && !name.match(/^parcelData/))) {
+            if (!name || (!name.match(/^orderData/) && !name.match(/^parcelData/) && !name.match(/^itemData/))) {
                 return true; // continue
             }
             var value = $(input).val();
@@ -137,7 +137,9 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
 
     Service.prototype.getInputDataForOrder = function(orderId)
     {
-        var inputDataSelector = '#datatable td input[name^="orderData['+orderId+']"], #datatable td input[name^="parcelData['+orderId+']"]';
+        var inputDataSelector = '#datatable td input[name^="orderData['+orderId+']"], ';
+        inputDataSelector +=    '#datatable td input[name^="parcelData['+orderId+']"], ';
+        inputDataSelector +=    '#datatable td input[name^="itemData['+orderId+']"]';
         return this.getInputData(inputDataSelector);
     };
 
