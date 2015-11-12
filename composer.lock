@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9e243027ca8412df9871380efc96f623",
-    "content-hash": "424d189f727555794f3a5c93d9aa1240",
+    "hash": "9035dcda035222102d724ddefab45b36",
+    "content-hash": "58fdd2f2f7373d8590782f060bfa2ec0",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2393,7 +2393,7 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "dev-CGIV-6358-Add-better-explanation-about-emailing-invoices",
+            "version": "1.0.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
@@ -2401,9 +2401,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-CGIV-6358-Add-better-explanation-about-emailing-invoices-e302d4.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.9-e302d4.zip",
                 "reference": "d6b97f0f7ad1158b747bfb4839b20d2f630c8cb6",
-                "shasum": "f94e3306deafda0007cad4a5396501e4f5824a31"
+                "shasum": "8241900d00b920c694a0a370f37c9ef906548c28"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
@@ -3134,17 +3134,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-6346-Stock-management-confirmation-before-enabling",
+            "version": "1.16.14",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "bffb47ad9cb1da774d4167b811be2af5bebd4454"
+                "reference": "ffc40f644ecff5c9f3c5412982e2bfad98aa208b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6346-Stock-management-confirmation-before-enabling-207bc7.zip",
-                "reference": "bffb47ad9cb1da774d4167b811be2af5bebd4454",
-                "shasum": "823a1920d9d84ce089ef366023f599eee90a7c41"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.14-42cb95.zip",
+                "reference": "ffc40f644ecff5c9f3c5412982e2bfad98aa208b",
+                "shasum": "557f1a6a0073631b448b6d213059435b5931f244"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -3189,7 +3189,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-11-04 11:37:25"
+            "time": "2015-11-11 12:05:39"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7222,25 +7222,10 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.9",
-            "alias_normalized": "1.0.9.0",
-            "version": "dev-CGIV-6358-Add-better-explanation-about-emailing-invoices",
-            "package": "channelgrabber/zf2-amazon"
-        },
-        {
-            "alias": "1.16.13.4",
-            "alias_normalized": "1.16.13.4",
-            "version": "dev-CGIV-6346-Stock-management-confirmation-before-enabling",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-amazon": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
