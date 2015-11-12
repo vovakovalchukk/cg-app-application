@@ -1,6 +1,7 @@
 define(['popup/mustache'], function(Popup) {
     var Cancel = function(notifications, reasons, type) {
         var selector;
+        var popup;
 
         this.getNotifications = function() {
             return notifications;
@@ -23,6 +24,15 @@ define(['popup/mustache'], function(Popup) {
             return this;
         };
 
+        this.getPopup = function() {
+            return popup;
+        };
+
+        this.setPopup = function(newPopup) {
+            popup = newPopup;
+            return this;
+        };
+
         this.getNoticeMessage = function() {
             var noticeMessage = {
                 'Cancel' : 'Cancelling order',
@@ -41,13 +51,13 @@ define(['popup/mustache'], function(Popup) {
     };
 
     Cancel.prototype.init = function(templateMap) {
-        popup = new Popup(templateMap, {
+        this.setPopup(new Popup(templateMap, {
             title: this.getType() + " Reason",
             type: this.getType()
-        }, "popup");
+        }, "popup"));
 
         var that = this;
-        popup.getElement().on('mustacheRender', function(event, cgmustache, templates, data, templateId) {
+        this.getPopup().getElement().on('mustacheRender', function(event, cgmustache, templates, data, templateId) {
             var reasons = [];
             $.each(that.getReasons(), function(index, reason) {
                 reasons.push({
@@ -68,8 +78,8 @@ define(['popup/mustache'], function(Popup) {
     };
 
     Cancel.prototype.action = function(element) {
-        this.listen(popup);
-        popup.show();
+        this.listen(this.getPopup());
+        this.getPopup().show();
     };
 
     Cancel.prototype.listen = function(popup) {
