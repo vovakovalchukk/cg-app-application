@@ -16,6 +16,7 @@ use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stock\Adjustment as StockAdjustment;
+use CG\Stock\Adjustment\Service as StockAdjustmentService;
 use CG\Stock\Location\Service as StockLocationService;
 use CG\Stock\Service as StockService;
 use CG\Product\Filter as ProductFilter;
@@ -58,6 +59,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $stockLocationService;
     protected $stockAuditor;
     protected $intercomEventService;
+    /** @var StockAdjustmentService */
+    protected $stockAdjustmentService;
 
     public function __construct(
         UserService $userService,
@@ -71,7 +74,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         StockLocationService $stockLocationService,
         StockService $stockService,
         StockAuditor $stockAuditor,
-        IntercomEventService $intercomEventService
+        IntercomEventService $intercomEventService,
+        StockAdjustmentService $stockAdjustmentService
     ) {
         $this->setProductService($productService)
             ->setUserService($userService)
@@ -84,7 +88,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ->setStockService($stockService)
             ->setStockLocationService($stockLocationService)
             ->setStockAuditor($stockAuditor)
-            ->setIntercomEventService($intercomEventService);
+            ->setIntercomEventService($intercomEventService)
+            ->setStockAdjustmentService($stockAdjustmentService);
     }
 
     public function fetchProducts(ProductFilter $productFilter, $limit = self::LIMIT, $page = self::PAGE)
@@ -101,10 +106,10 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     {
         try {
             $stockLocationEntity = $this->getStockLocationService()->fetch($stockLocationId);
-            $this->auditStockUpdate($stockLocationEntity, $totalQuantity);
-            $stockLocationEntity->setStoredEtag($eTag)
-                ->setOnHand($totalQuantity);
-            $this->getStockLocationService()->save($stockLocationEntity);
+
+            $adjustment = $this->createAndAuditStockAdjustment($stockLocationEntity, $totalQuantity);
+            $stockLocationEntity->setStoredEtag($eTag);
+            $this->stockAdjustmentService->applyAdjustmentAndSave($adjustment, $stockLocationEntity);
             $this->statsIncrement(
                 static::STAT_STOCK_UPDATE_MANUAL, [
                     $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId(),
@@ -176,7 +181,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->getUserPreferenceService()->save($userPrefs);
     }
 
-    protected function auditStockUpdate($stockLocationEntity, $newTotal)
+    protected function createAndAuditStockAdjustment($stockLocationEntity, $newTotal)
     {
         $oldTotal = $stockLocationEntity->getOnHand();
         if ($newTotal > $oldTotal) {
@@ -186,13 +191,14 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             $diff = $oldTotal - $newTotal;
             $operator = StockAdjustment::OPERATOR_DEC;
         }
-        $adjustment = new StockAdjustment(StockAdjustment::TYPE_ONHAND, $diff, $operator);
+        $adjustment = $this->stockAdjustmentService->createAdjustment(StockAdjustment::TYPE_ONHAND, $diff, $operator);
         $stock = $this->stockService->fetch($stockLocationEntity->getStockId());
         $this->getStockAuditor()->userAdjustment(
             $adjustment,
             $stock->getSku(),
             $stock->getOrganisationUnitId()
         );
+        return $adjustment;
     }
 
     protected function setProductService(ProductService $productService)
@@ -363,6 +369,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected function setIntercomEventService(IntercomEventService $intercomEventService)
     {
         $this->intercomEventService = $intercomEventService;
+        return $this;
+    }
+
+    protected function setStockAdjustmentService(StockAdjustmentService $stockAdjustmentService)
+    {
+        $this->stockAdjustmentService = $stockAdjustmentService;
         return $this;
     }
 }

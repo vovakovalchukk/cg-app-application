@@ -21,6 +21,8 @@ use Settings\Module;
 use Zend\Config\Config;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\AbstractActionController;
+use CG\Account\Client\Service as AccountService;
+use CG\Account\Client\Filter;
 
 class InvoiceController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -49,6 +51,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     protected $config;
     protected $intercomEventService;
     protected $intercomCompanyService;
+    protected $accountService;
+    protected $filter;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -61,7 +65,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         Translator $translator,
         Config $config,
         IntercomEventService $intercomEventService,
-        IntercomCompanyService $intercomCompanyService
+        IntercomCompanyService $intercomCompanyService,
+        AccountService $accountService
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
@@ -73,7 +78,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setTranslator($translator)
             ->setConfig($config)
             ->setIntercomEventService($intercomEventService)
-            ->setIntercomCompanyService($intercomCompanyService);
+            ->setIntercomCompanyService($intercomCompanyService)
+            ->setAccountService($accountService);
     }
 
     public function indexAction()
@@ -117,7 +123,6 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         ]);
     }
 
-
     public function ajaxMappingAction()
     {
         $invoiceSettings = $this->getInvoiceService()->getSettings();
@@ -143,6 +148,21 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         return $this->getJsonModelFactory()->newInstance($data);
     }
 
+    public function checkIfUserHasAmazonAccount(){
+        try {
+            $filter = (new Filter())
+                ->setOrganisationUnitId($this->userOrganisationUnitService->getAncestorOrganisationUnitIdsByActiveUser())
+                ->setChannel(["amazon"])
+                ->setLimit("all");
+            if(!empty($this->accountService->fetchByFilter($filter))) {
+                return true;
+            }
+        } catch (NotFound $exception) {
+            return false;
+        }
+        return false;
+    }
+
     public function mappingAction()
     {
         $invoiceSettings = $this->getInvoiceService()->getSettings();
@@ -154,6 +174,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
             ->setVariable('tradingCompanies', $tradingCompanies)
             ->setVariable('invoices', $invoices)
             ->setVariable('eTag', $invoiceSettings->getStoredETag())
+            ->setVariable('hasAmazonAccount',$this->checkIfUserHasAmazonAccount())
             ->addChild($this->getInvoiceSettingsDefaultSelectView($invoiceSettings, $invoices), 'defaultCustomSelect')
             ->addChild($this->getInvoiceSettingsAutoEmailCheckboxView($invoiceSettings), 'emailCheckbox')
             ->addChild($this->getInvoiceSettingsProductImagesCheckboxView($invoiceSettings), 'productImagesCheckbox')
@@ -501,5 +522,15 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     protected function getIntercomCompanyService()
     {
         return $this->intercomCompanyService;
+    }
+
+    protected function setAccountService(AccountService $accountService)
+    {
+        $this->accountService = $accountService;
+    }
+
+    public function getAccountService()
+    {
+        return $this->accountService;
     }
 }

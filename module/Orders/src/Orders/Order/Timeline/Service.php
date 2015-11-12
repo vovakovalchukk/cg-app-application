@@ -30,9 +30,16 @@ class Service
         ],
         [
             "get" => "getPrintedDate",
-            "title" => "Printed Date",
+            "title" => "Invoice Printed",
             "extraText" => "Printed",
             "sort" => 40,
+            "sortByDate" => true
+        ],
+        [
+            "get" => "getEmailDate",
+            "title" => "Invoice Emailed",
+            "extraText" => "Invoice Emailed",
+            "sort" => 50,
             "sortByDate" => true
         ]
     ];
