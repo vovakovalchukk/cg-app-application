@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d16e0999aa8038baad0e43f1b740a625",
-    "content-hash": "541eb977d1f60c52563c09f9519cab45",
+    "hash": "a7397504e75e7f37699fea9b6bb07c01",
+    "content-hash": "e61d101099331d8faf9da05ebd555920",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -309,20 +309,20 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "e2e9eb5ef24fc8814001c35dcdcbb83d152092f0"
+                "reference": "9a2d8b7f0a7df75626fbb3782a8324602bd1c9af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-5992-dataplug-fbe0f4.zip",
-                "reference": "e2e9eb5ef24fc8814001c35dcdcbb83d152092f0",
-                "shasum": "49db0c2c0ec4e4e30c80796487b8de0e3d404ef5"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-5992-dataplug-cabc40.zip",
+                "reference": "9a2d8b7f0a7df75626fbb3782a8324602bd1c9af",
+                "shasum": "485ea4ffaa8e636f76a75b0b1c3fa597615190a2"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
                 "channelgrabber/cilex": "^1.1.4",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/dataplug": "dev-EPIC-CGIV-5992-dataplug as 1.0.0",
                 "channelgrabber/di": ">=2.1.0",
+                "channelgrabber/email": "^1.0.8",
                 "channelgrabber/etag": "^1.5.4",
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": ">=1.1.2,<2.0.0",
@@ -338,6 +338,7 @@
                 "channelgrabber/stats": ">=1.0.1,<2.0.0",
                 "channelgrabber/stdlib": "^2.12.0",
                 "channelgrabber/stock": "^1.5.9",
+                "channelgrabber/zf2-email-template": "^1.0.12",
                 "composer/composer": "@dev",
                 "ext-gearman": "~1.1.0",
                 "guzzle/guzzle": "~3.7",
@@ -368,7 +369,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-11-05 09:53:17"
+            "time": "2015-11-13 11:40:40"
         },
         {
             "name": "channelgrabber/cilex",
@@ -855,13 +856,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cghttp.git",
-                "reference": "9bd31c0800d27e465ff751a00e5b6cde74690899"
+                "reference": "a2e6c60792d28938c6f0dfb0952826861d63ea3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-dev-EPIC-CGIV-5992-dataplug-ec15c6.zip",
-                "reference": "9bd31c0800d27e465ff751a00e5b6cde74690899",
-                "shasum": "a3b69c94c7cd5b7f61b08f2fbcfece97da6fc25f"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-dev-EPIC-CGIV-5992-dataplug-508954.zip",
+                "reference": "a2e6c60792d28938c6f0dfb0952826861d63ea3b",
+                "shasum": "b701ee68100052bed01f435a3fb7a201a20eb49b"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
@@ -896,7 +897,7 @@
                     "CG\\Http\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2015-10-19 15:16:24"
+            "time": "2015-11-13 11:37:59"
         },
         {
             "name": "channelgrabber/image",
@@ -1200,13 +1201,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "246b80d07167e06d477d8d911718dd87bc2d604b"
+                "reference": "70915f4c1ab74862b315de3de8a878aa602a1cac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-CGIV-5992-dataplug-115987.zip",
-                "reference": "246b80d07167e06d477d8d911718dd87bc2d604b",
-                "shasum": "8b784b42ae32b527ad62b716bb4f16322a7374e6"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-CGIV-5992-dataplug-814a7d.zip",
+                "reference": "70915f4c1ab74862b315de3de8a878aa602a1cac",
+                "shasum": "569b5e2d39cd29879dd56806e5aab59805eea07b"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1268,7 +1269,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-10-19 15:09:45"
+            "time": "2015-11-13 11:36:02"
         },
         {
             "name": "channelgrabber/permission",
@@ -1958,13 +1959,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "419611adc7eaedcbb846c5d478575d1c39431156"
+                "reference": "ed9dfd2981861ec3a4e4ba5a03e0d691f6ffca0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-EPIC-CGIV-5992-dataplug-173959.zip",
-                "reference": "419611adc7eaedcbb846c5d478575d1c39431156",
-                "shasum": "ebaf80da1750e475e52fbdcd45667f52de6c86c0"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-EPIC-CGIV-5992-dataplug-7f8ce1.zip",
+                "reference": "ed9dfd2981861ec3a4e4ba5a03e0d691f6ffca0f",
+                "shasum": "b852b59b2efa1b724e1eebd3946a383623e228be"
             },
             "require": {
                 "zendframework/zend-db": ">=2.2,<3.0"
@@ -1990,7 +1991,7 @@
                     "CG\\Stdlib\\Test\\": "tests/CG/Stdlib"
                 }
             },
-            "time": "2015-10-02 09:33:28"
+            "time": "2015-11-10 11:56:24"
         },
         {
             "name": "channelgrabber/stock",
@@ -2687,17 +2688,17 @@
         },
         {
             "name": "channelgrabber/zf2-email-template",
-            "version": "1.0.10.1",
+            "version": "1.0.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/email-template-module.git",
-                "reference": "7ef02bc602ec09659fc7aed6c296081bc1f7957c"
+                "reference": "828e8de6d584e0ae6cf2b18c2eaf08661f20d1cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-1.0.10.1-170714.zip",
-                "reference": "7ef02bc602ec09659fc7aed6c296081bc1f7957c",
-                "shasum": "1c418fa8a5b69798f7aba1947dbc2b2ceb544bd3"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-1.0.12-1f68e4.zip",
+                "reference": "828e8de6d584e0ae6cf2b18c2eaf08661f20d1cd",
+                "shasum": "b06221cdfbe3a2cac085257e5096a7bce455f12d"
             },
             "require": {
                 "guzzle/guzzle": "~3.7",
@@ -2717,7 +2718,7 @@
                 ]
             },
             "description": "email template module",
-            "time": "2015-08-11 10:49:01"
+            "time": "2015-11-12 14:10:09"
         },
         {
             "name": "channelgrabber/zf2-hal",
@@ -7398,8 +7399,8 @@
             "package": "channelgrabber/dataplug"
         },
         {
-            "alias": "1.3.17",
-            "alias_normalized": "1.3.17.0",
+            "alias": "1.3.20",
+            "alias_normalized": "1.3.20.0",
             "version": "dev-EPIC-CGIV-5992-dataplug",
             "package": "channelgrabber/http"
         },
@@ -7416,8 +7417,8 @@
             "package": "channelgrabber/product"
         },
         {
-            "alias": "2.12.13",
-            "alias_normalized": "2.12.13.0",
+            "alias": "2.12.15",
+            "alias_normalized": "2.12.15.0",
             "version": "dev-EPIC-CGIV-5992-dataplug",
             "package": "channelgrabber/stdlib"
         },
@@ -7434,8 +7435,8 @@
             "package": "channelgrabber/zf2-dataplug"
         },
         {
-            "alias": "1.16.14",
-            "alias_normalized": "1.16.14.0",
+            "alias": "1.16.15",
+            "alias_normalized": "1.16.15.0",
             "version": "dev-EPIC-CGIV-5992-dataplug",
             "package": "channelgrabber/zf2-v4-ui"
         }
