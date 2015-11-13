@@ -1,8 +1,8 @@
 define(
     ["ajaxCheckbox", "mustache"],
     function(AjaxCheckbox, Mustache) {
-        return function(notifications, baseSelector, selector, ajaxOptions, messages) {
-            var ajaxCheckbox = new AjaxCheckbox(notifications, baseSelector, selector, ajaxOptions);
+        return function(notifications, baseSelector, selector, ajaxOptions, messages, preventAjaxRequest) {
+            var ajaxCheckbox = new AjaxCheckbox(notifications, baseSelector, selector, ajaxOptions, preventAjaxRequest);
 
             ajaxCheckbox.bindAjax(function() {
                 if (messages.info !== undefined) {
