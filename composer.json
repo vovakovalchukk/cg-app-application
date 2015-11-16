@@ -62,7 +62,7 @@
         "channelgrabber/stdlib": "~2.12.14",
         "channelgrabber/stock": "~1.6.0",
         "channelgrabber/tax": "~1.0.0",
-        "channelgrabber/template": "~1.4.0",
+        "channelgrabber/template": "dev-CGIV-6282-Invoice-generation-is-using-ridiculous-amount-of-space as 1.4.0",
         "channelgrabber/usage": "~1.0.7",
         "channelgrabber/user": "~1.20.0",
         "channelgrabber/userpreference": "~1.2.4",

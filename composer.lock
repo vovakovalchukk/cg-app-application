@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9035dcda035222102d724ddefab45b36",
-    "content-hash": "58fdd2f2f7373d8590782f060bfa2ec0",
+    "hash": "8ccf944a1185f902fceec798ff6fb30f",
+    "content-hash": "443e0671a52545046bf778c683fdb31a",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2043,17 +2043,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.4.0",
+            "version": "dev-CGIV-6282-Invoice-generation-is-using-ridiculous-amount-of-space",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "56e101bf2fc2f6d3f74fece6a0a056a5252e4c10"
+                "reference": "9bdfd8d4b0f02dd2e2ef69999b3ee2baf41450ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.0-3208b1.zip",
-                "reference": "56e101bf2fc2f6d3f74fece6a0a056a5252e4c10",
-                "shasum": "bb818fa51ed28b7b7ef1c8a4c4209ddbf94bef15"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-6282-Invoice-generation-is-using-ridiculous-amount-of-space-3e4ac6.zip",
+                "reference": "9bdfd8d4b0f02dd2e2ef69999b3ee2baf41450ad",
+                "shasum": "4c25ef300614abcc361b7378b136636c82147448"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2097,7 +2097,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-10-16 14:23:16"
+            "time": "2015-11-16 09:37:34"
         },
         {
             "name": "channelgrabber/transaction",
@@ -5559,7 +5559,7 @@
             "version": "v1.0.1025",
             "source": {
                 "type": "git",
-                "url": "https://github.com/WhichBrowser/WhichBrowser.git",
+                "url": "https://github.com/WhichBrowser/Legacy.git",
                 "reference": "34d47e59add91a2da23d4bb22783f2884427611e"
             },
             "dist": {
@@ -7222,10 +7222,18 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.4.0",
+            "alias_normalized": "1.4.0.0",
+            "version": "dev-CGIV-6282-Invoice-generation-is-using-ridiculous-amount-of-space",
+            "package": "channelgrabber/template"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/template": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
