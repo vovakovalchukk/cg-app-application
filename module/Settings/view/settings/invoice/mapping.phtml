@@ -12,7 +12,7 @@ $(document).ready(function() {
         InvoiceSettings,
         select
     ) {
-        new InvoiceSettings;
+        new InvoiceSettings(<?= $hasAmazonAccount;?>);
 
         $(document).on('fnDrawCallback', function(event, data) {
             $('.invoiceTradingCompaniesCustomSelect').each(function() {
