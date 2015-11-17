@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4a820e4928207e1794e559c17cff65a3",
-    "content-hash": "08a40724cfa49949b10c00038767a665",
+    "hash": "a508854e8fd4fc87f4795b66f27bbddf",
+    "content-hash": "f703307ceb6d810f67f91842c4e4542f",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2312,17 +2312,17 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "1.1.2",
+            "version": "1.1.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "5dc07c7a58e459f0f0bca8580ec370c2886b9100"
+                "reference": "06a4e143af735c7371ba401ced48a3710d72bbe4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.1.2-00e911.zip",
-                "reference": "5dc07c7a58e459f0f0bca8580ec370c2886b9100",
-                "shasum": "de65e174d8da5cda6f6aff82127a0d1402118bb4"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.1.2.1-01f7c9.zip",
+                "reference": "06a4e143af735c7371ba401ced48a3710d72bbe4",
+                "shasum": "b4fd6280d8deb3ba6814563c15e99d004ee70549"
             },
             "require": {
                 "channelgrabber/channel": "^1.18.0",
@@ -2356,7 +2356,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2015-11-02 15:49:19"
+            "time": "2015-11-17 12:49:48"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -3140,13 +3140,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "1c7b5874d9a8dd45b0ed032a47080813231db37e"
+                "reference": "8b4b70a69c1eae6c582cf23b6b33795e4856ea92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-6243-StockLevels-dfc595.zip",
-                "reference": "1c7b5874d9a8dd45b0ed032a47080813231db37e",
-                "shasum": "d6ccd145dcc3a3c62be0b6ddb5055380fb666a98"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-6243-StockLevels-516bd1.zip",
+                "reference": "8b4b70a69c1eae6c582cf23b6b33795e4856ea92",
+                "shasum": "923ed0c95f70c8748732d974134670a606e2335b"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -3191,7 +3191,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-11-16 12:22:31"
+            "time": "2015-11-17 15:10:33"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7245,8 +7245,8 @@
             "package": "channelgrabber/settings"
         },
         {
-            "alias": "1.16.15",
-            "alias_normalized": "1.16.15.0",
+            "alias": "1.16.16",
+            "alias_normalized": "1.16.16.0",
             "version": "dev-EPIC-CGIV-6243-StockLevels",
             "package": "channelgrabber/zf2-v4-ui"
         }
