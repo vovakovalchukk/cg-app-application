@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "babc7ce8d2dc7b14cfcfdf24dfee9223",
-    "content-hash": "2b66f2e0b96804a5b8ee3eda6de3c0f5",
+    "hash": "6f9f346e58404a44f2e20823cdd452c9",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -309,13 +308,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "bf38b2845d3b0d7bdb317006a203ca92664f8354"
+                "reference": "be54e250c5c8dae2d32d08896ec023db39f82810"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6500-RenameChannelGearmanJobs-cd90cd.zip",
-                "reference": "bf38b2845d3b0d7bdb317006a203ca92664f8354",
-                "shasum": "51f6dfbab270b30ed3062382b28c2d97a6809952"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6500-RenameChannelGearmanJobs-a442b1.zip",
+                "reference": "be54e250c5c8dae2d32d08896ec023db39f82810",
+                "shasum": "e10422c9dbf72bdff34894534611c4b3a278f996"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -324,7 +323,7 @@
                 "channelgrabber/di": ">=2.1.0",
                 "channelgrabber/email": "^1.0.8",
                 "channelgrabber/etag": "^1.5.4",
-                "channelgrabber/gearman": "dev-CGIV-6500-RenameChannelGearmanJobs as 1.2.18",
+                "channelgrabber/gearman": "dev-CGIV-6500-RenameChannelGearmanJobs as 1.2.19",
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": ">=1.1.2,<2.0.0",
                 "channelgrabber/listing": "^1.6.12",
@@ -339,6 +338,7 @@
                 "channelgrabber/stats": ">=1.0.1,<2.0.0",
                 "channelgrabber/stdlib": "^2.12.0",
                 "channelgrabber/stock": "^1.5.9",
+                "channelgrabber/user": "^1.20.2",
                 "channelgrabber/zf2-email-template": "^1.0.12",
                 "composer/composer": "@dev",
                 "ext-gearman": "~1.1.0",
@@ -375,7 +375,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-11-17 10:40:21"
+            "time": "2015-11-18 16:26:31"
         },
         {
             "name": "channelgrabber/cilex",
@@ -750,13 +750,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-gearman.git",
-                "reference": "aa07af38fd1b5c440884e19a9cc4a81fb74737dd"
+                "reference": "62ec7cc5a21d60228d6790be564e3d73cf1f4885"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-dev-CGIV-6500-RenameChannelGearmanJobs-202b66.zip",
-                "reference": "aa07af38fd1b5c440884e19a9cc4a81fb74737dd",
-                "shasum": "6dc761299bce2600b474b3e32588e6467d884345"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-dev-CGIV-6500-RenameChannelGearmanJobs-a955ec.zip",
+                "reference": "62ec7cc5a21d60228d6790be564e3d73cf1f4885",
+                "shasum": "d6065f27ee940e900aab9a1f94caf0818cf24d01"
             },
             "require": {
                 "channelgrabber/cilex": ">=1.1.0,<2.0.0",
@@ -776,7 +776,7 @@
                     "CG\\Gearman\\": "src"
                 }
             },
-            "time": "2015-11-17 10:04:50"
+            "time": "2015-11-18 16:21:51"
         },
         {
             "name": "channelgrabber/guzzle",
@@ -2177,17 +2177,17 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.20.0",
+            "version": "1.20.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "5e782f3931f8511cc25e1e29ed83fdd01e975e41"
+                "reference": "179373c844ed0d44677fc267accb3674d492d64b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.20.0-05f4d7.zip",
-                "reference": "5e782f3931f8511cc25e1e29ed83fdd01e975e41",
-                "shasum": "aa23d4174b57ddbbebc295258a9792f2858d591f"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.20.2-0177c5.zip",
+                "reference": "179373c844ed0d44677fc267accb3674d492d64b",
+                "shasum": "f73fdcd041869ab45919ee5698e07bbf8a54ffed"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2224,7 +2224,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2015-09-08 14:14:35"
+            "time": "2015-11-18 14:06:58"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -2317,18 +2317,18 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "3051d64d42f2b02934ba9b279e82f8821f90700b"
+                "reference": "801775e2d0385b83d5e3b19dfe7ab60a7e693017"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-CGIV-6500-RenameChannelGearmanJobs-95e4e6.zip",
-                "reference": "3051d64d42f2b02934ba9b279e82f8821f90700b",
-                "shasum": "a682ab3fe464af037ac7d8c447740e52655ffad9"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-CGIV-6500-RenameChannelGearmanJobs-e5af07.zip",
+                "reference": "801775e2d0385b83d5e3b19dfe7ab60a7e693017",
+                "shasum": "c5ec119503ebb4ff7d98d26937104d0ed534663d"
             },
             "require": {
-                "channelgrabber/channel": "dev-CGIV-6500-RenameChannelGearmanJobs as 1.18.2",
+                "channelgrabber/channel": "dev-CGIV-6500-RenameChannelGearmanJobs as 1.18.3",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/gearman": "dev-CGIV-6500-RenameChannelGearmanJobs as 1.2.18",
+                "channelgrabber/gearman": "dev-CGIV-6500-RenameChannelGearmanJobs as 1.2.19",
                 "channelgrabber/http": "^1.2.0",
                 "channelgrabber/stdlib": "^2.12.0",
                 "channelgrabber/zf2-stdlib": "^1.2.1",
@@ -2357,7 +2357,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2015-11-17 10:27:31"
+            "time": "2015-11-18 16:30:31"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -7228,14 +7228,14 @@
     ],
     "aliases": [
         {
-            "alias": "1.18.2",
-            "alias_normalized": "1.18.2.0",
+            "alias": "1.18.3",
+            "alias_normalized": "1.18.3.0",
             "version": "dev-CGIV-6500-RenameChannelGearmanJobs",
             "package": "channelgrabber/channel"
         },
         {
-            "alias": "1.2.18",
-            "alias_normalized": "1.2.18.0",
+            "alias": "1.2.19",
+            "alias_normalized": "1.2.19.0",
             "version": "dev-CGIV-6500-RenameChannelGearmanJobs",
             "package": "channelgrabber/gearman"
         },
