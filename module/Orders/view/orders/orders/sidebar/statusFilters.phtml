@@ -34,9 +34,9 @@ function(Filters) {
     $( document ).ready(function() {
 
 
-        getLastestOrderStatusCounts();
         
-        function getLatestOrderStatusCounts(){
+        
+      
 
         //ajax goes here, on success, gets the json file like below.
 
@@ -57,6 +57,8 @@ var json =' { '
 var statusArray = JSON.parse(json);
 var status = statusArray.status;
 
+
+
      $('#allOrdersCount').html(status.allOrders);
      $('#awaitingPaymentCount').html(status.awaitingPayment);
      $('#newOrdersCount').html(status.newOrders);
@@ -64,11 +66,7 @@ var status = statusArray.status;
      $('#dispatchedCount').html(status.dispatched);
      $('#cancelledAndRefundedCount').html(status.cancelledAndRefunded);
 
-        }
 
-
-
-///ajax will go here
 
      
 });
