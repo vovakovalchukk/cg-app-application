@@ -2047,13 +2047,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "9bdfd8d4b0f02dd2e2ef69999b3ee2baf41450ad"
+                "reference": "a47f23f91a4bd8f969943cdd201c42b9f4c1a41f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-6282-Invoice-generation-is-using-ridiculous-amount-of-space-3e4ac6.zip",
-                "reference": "9bdfd8d4b0f02dd2e2ef69999b3ee2baf41450ad",
-                "shasum": "4c25ef300614abcc361b7378b136636c82147448"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-6282-Invoice-generation-is-using-ridiculous-amount-of-space-2b6ce5.zip",
+                "reference": "a47f23f91a4bd8f969943cdd201c42b9f4c1a41f",
+                "shasum": "6af5a4e427fd138bf9ec5192c948e8fde69224f8"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2097,7 +2097,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-11-16 09:37:34"
+            "time": "2015-11-16 11:35:45"
         },
         {
             "name": "channelgrabber/transaction",
