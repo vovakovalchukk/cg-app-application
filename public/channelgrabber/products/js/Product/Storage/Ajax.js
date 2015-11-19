@@ -31,5 +31,39 @@ define(function () {
         });
     };
 
+    Ajax.prototype.saveStockMode = function(productId, stockMode, eTag, callback)
+    {
+        return $.ajax({
+            'url' : '/products/stockMode',
+            'data' : { id: productId, stockMode: stockMode, eTag: eTag },
+            'method' : 'POST',
+            'dataType' : 'json',
+            'success' : function(response) {
+                callback(response);
+            },
+            'error' : function(response)
+            {
+                n.ajaxError(response);
+            }
+        });
+    };
+
+    Ajax.prototype.saveStockLevel = function(productId, stockLevel, eTag, callback)
+    {
+        return $.ajax({
+            'url' : '/products/stockLevel',
+            'data' : { id: productId, stockLevel: stockLevel, eTag: eTag },
+            'method' : 'POST',
+            'dataType' : 'json',
+            'success' : function(response) {
+                callback(response);
+            },
+            'error' : function(response)
+            {
+                n.ajaxError(response);
+            }
+        });
+    };
+
     return new Ajax();
 });
