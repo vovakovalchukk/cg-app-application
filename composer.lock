@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a7397504e75e7f37699fea9b6bb07c01",
-    "content-hash": "e61d101099331d8faf9da05ebd555920",
+    "hash": "d9ec932fcb63fe12707604c088ed855a",
+    "content-hash": "a5959e79d7d9865222e0e19e12a571bf",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -309,13 +309,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "9a2d8b7f0a7df75626fbb3782a8324602bd1c9af"
+                "reference": "d9762980cc7f9f93650f829ffb64897842f83f0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-5992-dataplug-cabc40.zip",
-                "reference": "9a2d8b7f0a7df75626fbb3782a8324602bd1c9af",
-                "shasum": "485ea4ffaa8e636f76a75b0b1c3fa597615190a2"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-5992-dataplug-a08519.zip",
+                "reference": "d9762980cc7f9f93650f829ffb64897842f83f0a",
+                "shasum": "7787282eeb0dc6cd68a7abd7f9acf8afefbeb104"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -338,6 +338,7 @@
                 "channelgrabber/stats": ">=1.0.1,<2.0.0",
                 "channelgrabber/stdlib": "^2.12.0",
                 "channelgrabber/stock": "^1.5.9",
+                "channelgrabber/user": "^1.20.2",
                 "channelgrabber/zf2-email-template": "^1.0.12",
                 "composer/composer": "@dev",
                 "ext-gearman": "~1.1.0",
@@ -369,7 +370,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-11-13 11:40:40"
+            "time": "2015-11-19 09:28:06"
         },
         {
             "name": "channelgrabber/cilex",
@@ -2228,13 +2229,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "e929120b6765a42c2e757f217b448fd176eeb4c9"
+                "reference": "c1296bf1838eee7658776cb6808eddaa96d69fb9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-EPIC-CGIV-5992-dataplug-c892b9.zip",
-                "reference": "e929120b6765a42c2e757f217b448fd176eeb4c9",
-                "shasum": "8b2b35a213918eb9609eb3a7ade46a79945c61fa"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-EPIC-CGIV-5992-dataplug-5ecd78.zip",
+                "reference": "c1296bf1838eee7658776cb6808eddaa96d69fb9",
+                "shasum": "1b8e678868606eeb8543b5b697a1d4a6c57e3538"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2271,7 +2272,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2015-11-10 16:00:36"
+            "time": "2015-11-19 09:29:37"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -2360,17 +2361,17 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "1.1.2",
+            "version": "1.1.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "5dc07c7a58e459f0f0bca8580ec370c2886b9100"
+                "reference": "06a4e143af735c7371ba401ced48a3710d72bbe4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.1.2-00e911.zip",
-                "reference": "5dc07c7a58e459f0f0bca8580ec370c2886b9100",
-                "shasum": "de65e174d8da5cda6f6aff82127a0d1402118bb4"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.1.2.1-01f7c9.zip",
+                "reference": "06a4e143af735c7371ba401ced48a3710d72bbe4",
+                "shasum": "b4fd6280d8deb3ba6814563c15e99d004ee70549"
             },
             "require": {
                 "channelgrabber/channel": "^1.18.0",
@@ -2404,7 +2405,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2015-11-02 15:49:19"
+            "time": "2015-11-17 12:49:48"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -3234,13 +3235,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e96fbb3de637fdbda298a04a73937116a7804fd5"
+                "reference": "3e07a4fb7ca23f4b5be8a221a4c7da20886f35a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-5992-dataplug-35643c.zip",
-                "reference": "e96fbb3de637fdbda298a04a73937116a7804fd5",
-                "shasum": "abff79def0a83880054f31f7112ed1c605f31477"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-5992-dataplug-f51988.zip",
+                "reference": "3e07a4fb7ca23f4b5be8a221a4c7da20886f35a3",
+                "shasum": "0e57de1ee46db0be249549b1c582a2546693e1e9"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3289,7 +3290,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-11-03 10:02:06"
+            "time": "2015-11-19 09:29:04"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -5722,7 +5723,7 @@
             "version": "v1.0.1026",
             "source": {
                 "type": "git",
-                "url": "https://github.com/WhichBrowser/WhichBrowser.git",
+                "url": "https://github.com/WhichBrowser/Legacy.git",
                 "reference": "9fc2e74fe28c912731dc78d8b2e16fd4d7abcd51"
             },
             "dist": {
@@ -7387,8 +7388,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.18.1",
-            "alias_normalized": "1.18.1.0",
+            "alias": "1.18.4",
+            "alias_normalized": "1.18.4.0",
             "version": "dev-EPIC-CGIV-5992-dataplug",
             "package": "channelgrabber/channel"
         },
@@ -7435,8 +7436,8 @@
             "package": "channelgrabber/zf2-dataplug"
         },
         {
-            "alias": "1.16.15",
-            "alias_normalized": "1.16.15.0",
+            "alias": "1.16.16",
+            "alias_normalized": "1.16.16.0",
             "version": "dev-EPIC-CGIV-5992-dataplug",
             "package": "channelgrabber/zf2-v4-ui"
         }
