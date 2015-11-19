@@ -63,7 +63,7 @@
         "channelgrabber/stdlib": "dev-EPIC-CGIV-5992-dataplug as 2.12.15",
         "channelgrabber/stock": "~1.6.0",
         "channelgrabber/tax": "~1.0.0",
-        "channelgrabber/template": "~1.4.0",
+        "channelgrabber/template": "dev-CGIV-6527-courier-booking-labels-on-invoices as 1.4.1",
         "channelgrabber/usage": "~1.0.7",
         "channelgrabber/user": "dev-EPIC-CGIV-5992-dataplug as 1.20.2",
         "channelgrabber/userpreference": "~1.2.4",

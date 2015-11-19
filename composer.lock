@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d9ec932fcb63fe12707604c088ed855a",
-    "content-hash": "a5959e79d7d9865222e0e19e12a571bf",
+    "hash": "0786e9af74ad609faacbc41f9323d42b",
+    "content-hash": "614befb9e564a71260d2e22d9e05597e",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2094,17 +2094,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.4.0",
+            "version": "dev-CGIV-6527-courier-booking-labels-on-invoices",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "56e101bf2fc2f6d3f74fece6a0a056a5252e4c10"
+                "reference": "f86d0e08ac9ace6508079ec6823edd920ad33d58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.0-3208b1.zip",
-                "reference": "56e101bf2fc2f6d3f74fece6a0a056a5252e4c10",
-                "shasum": "bb818fa51ed28b7b7ef1c8a4c4209ddbf94bef15"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-6527-courier-booking-labels-on-invoices-15b81b.zip",
+                "reference": "f86d0e08ac9ace6508079ec6823edd920ad33d58",
+                "shasum": "e8ccb4a53877f52d5ee8f7d37a5a0fa4028ff7aa"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2148,7 +2148,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-10-16 14:23:16"
+            "time": "2015-11-19 11:45:11"
         },
         {
             "name": "channelgrabber/transaction",
@@ -7424,6 +7424,12 @@
             "package": "channelgrabber/stdlib"
         },
         {
+            "alias": "1.4.1",
+            "alias_normalized": "1.4.1.0",
+            "version": "dev-CGIV-6527-courier-booking-labels-on-invoices",
+            "package": "channelgrabber/template"
+        },
+        {
             "alias": "1.20.2",
             "alias_normalized": "1.20.2.0",
             "version": "dev-EPIC-CGIV-5992-dataplug",
@@ -7451,6 +7457,7 @@
         "channelgrabber/order": 20,
         "channelgrabber/product": 20,
         "channelgrabber/stdlib": 20,
+        "channelgrabber/template": 20,
         "channelgrabber/user": 20,
         "channelgrabber/zf2-dataplug": 20,
         "channelgrabber/zf2-v4-ui": 20,
