@@ -372,7 +372,7 @@ return [
                 )
             ],
             [
-                'name' => 'Cancelled & Refunded',
+                'name' => 'Cancelled & Refunded**',
                 'filter' => json_encode(
                     [
                         'status' => [
