@@ -322,6 +322,7 @@ return [
         'stateFilters' => [
             [
                 'name' => 'All Orders',
+                'id' => 'allOrdersCount',
                 'filter' => json_encode(
                     [
                         'status' => [
@@ -331,6 +332,7 @@ return [
             ],
             [
                 'name' => 'Awaiting Payment',
+                'id' => 'awaitingPaymentCount',
                 'filter' => json_encode(
                     [
                         'status' => [
@@ -341,6 +343,7 @@ return [
             ],
             [
                 'name' => 'New Orders',
+                'id' => 'newOrdersCount',
                 'filter' => json_encode(
                     [
                         'status' => [
@@ -351,6 +354,7 @@ return [
             ],
             [
                 'name' => 'Processing',
+                'id' => 'processingCount',
                 'filter' => json_encode(
                     [
                         'status' => [
@@ -363,6 +367,7 @@ return [
             ],
             [
                 'name' => 'Dispatched',
+                'id' => 'dispatchedCount',
                 'filter' => json_encode(
                     [
                         'status' => [
@@ -372,7 +377,8 @@ return [
                 )
             ],
             [
-                'name' => 'Cancelled & Refunded**',
+                'name' => 'Cancelled & Refunded',
+                'id' => 'cancelledAndRefundedCount',
                 'filter' => json_encode(
                     [
                         'status' => [
