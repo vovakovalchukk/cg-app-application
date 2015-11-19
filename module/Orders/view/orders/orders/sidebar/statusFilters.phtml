@@ -11,6 +11,7 @@ function(Filters) {
     new Filters("#filters", "#statusFilters");
 });
 <?php $this->inlineScript()->captureEnd(); ?>
+
 <div class="filter-module clearfix navbar-content">
     <ul class="module-content nav">
         <li>
@@ -23,5 +24,54 @@ function(Filters) {
             </ul>
         </li>
     </ul>
-    <div>HERE I AM</div>
+    <div></div>
 </div>
+
+
+
+<script>
+
+    $( document ).ready(function() {
+
+
+        getLastestOrderStatusCounts();
+        
+        function getLatestOrderStatusCounts(){
+
+        //ajax goes here, on success, gets the json file like below.
+
+
+var json =' { '
+  +'"status": {'
+  +'  "organisationUnitID": 1,'
+   +' "allOrders": 26,'
+  +'  "awaitingPayment": 2,'
+  +'  "newOrders": 2,'
+  +'  "processing": 6,'
+   +' "dispatched": 2,'
+  +'  "cancelledAndRefunded": 4'
+  +'}'
+ +'}';
+
+
+var statusArray = JSON.parse(json);
+var status = statusArray.status;
+
+     $('#allOrdersCount').html(status.allOrders);
+     $('#awaitingPaymentCount').html(status.awaitingPayment);
+     $('#newOrdersCount').html(status.newOrders);
+     $('#processingCount').html(status.processing);
+     $('#dispatchedCount').html(status.dispatched);
+     $('#cancelledAndRefundedCount').html(status.cancelledAndRefunded);
+
+        }
+
+
+
+///ajax will go here
+
+     
+});
+
+    
+</script>
