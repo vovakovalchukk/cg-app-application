@@ -1,9 +1,11 @@
 define([
-    'InvoiceDesigner/Template/ElementAbstract'
+    'InvoiceDesigner/Template/ElementAbstract',
+    'InvoiceDesigner/Template/Element/SizeOptionsAbstract'
 ], function(
-    ElementAbstract
+    ElementAbstract,
+    SizeOptionsAbstract
 ) {
-    var Label = function()
+    function Label()
     {
         var data = {
             sizeOption: 1
@@ -11,42 +13,38 @@ define([
         var sizeIndex = parseInt(data.sizeOption) - 1;
 
         ElementAbstract.call(this, data);
-
-        this.getSizeOption = function()
-        {
-            return this.get('sizeOption');
-        };
-
-        this.setSizeOption = function(newOption)
-        {
-            this.set('sizeOption', parseInt(newOption));
-            return this;
-        };
+        SizeOptionsAbstract.call(this);
 
         var init = function()
         {
+            var sizeOptions = [{
+                    "name": "6\" x 4\" (152mm x 101mm)",
+                    "height": 101.6,
+                    "width": 152.4
+                }, {
+                    "name": "4\" x 6\" (101mm x 152mm)",
+                    "height": 152.4,
+                    "width": 101.6
+            }];
+
+            this.disableBaseInspectors(['backgroundColour', 'borderWidth', 'borderColour']);
             this.set('type', 'Label', true);
             this.set('borderWidth', undefined, true);
-            this.set('sizeOptions', this.sizeOptions, true);
-            this.set('width', this.sizeOptions[sizeIndex].width, true);
-            this.set('height', this.sizeOptions[sizeIndex].height, true);
+            this.set('sizeOptions', sizeOptions, true);
+            this.set('width', sizeOptions[sizeIndex].width, true);
+            this.set('height', sizeOptions[sizeIndex].height, true);
             this.setResizable(false);
         };
         init.call(this);
-    };
+    }
 
     Label.prototype = Object.create(ElementAbstract.prototype);
-
-    // Names are in inches but actual dimensions are in mm
-    Label.prototype.sizeOptions = [{
-            "name": "6\" x 4\"",
-            "height": 101.6,
-            "width": 152.4
-        }, {
-            "name": "4\" x 6\"",
-            "height": 152.4,
-            "width": 101.6
-    }];
+    for (var key in SizeOptionsAbstract.prototype) {
+        if (typeof SizeOptionsAbstract.prototype[key] != 'function') {
+            return;
+        }
+        Label.prototype[key] = SizeOptionsAbstract.prototype[key];
+    }
 
     return Label;
 });

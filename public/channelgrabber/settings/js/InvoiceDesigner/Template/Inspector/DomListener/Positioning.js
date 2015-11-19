@@ -63,12 +63,12 @@ define([
         $('#' + inspector.getPositioningInspectorSizeId()).off(Positioning.DROPDOWN_EVENTS).on(Positioning.DROPDOWN_EVENTS, function(event) {
             var customSelect = elementCollection.get(inspector.getPositioningInspectorSizeId());
 
-            var values = customSelect.getValue().split('x',2);
-            var width = parseFloat(values[0]);
-            var height = parseFloat(values[1]);
+            var option = customSelect.getValue();
+            var dimensions = element.getDimensionsForSizeOption(option);
+            element.setSizeOption(option);
 
-            $('#' + inspector.getPositioningInspectorWidthId()).val(width);
-            $('#' + inspector.getPositioningInspectorHeightId()).val(height);
+            $('#' + inspector.getPositioningInspectorWidthId()).val(dimensions.width);
+            $('#' + inspector.getPositioningInspectorHeightId()).val(dimensions.height);
 
             self.set('#' + inspector.getPositioningInspectorWidthId(), inspector, element);
             self.set('#' + inspector.getPositioningInspectorHeightId(), inspector, element);

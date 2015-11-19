@@ -5,10 +5,10 @@ define([
     MapperAbstract,
     LabelElement
 ) {
-    var Label = function()
+    function Label()
     {
         MapperAbstract.call(this);
-    };
+    }
 
     Label.IMAGE_PATH = '/channelgrabber/settings/img/InvoiceDesigner/Template/Label/';
 

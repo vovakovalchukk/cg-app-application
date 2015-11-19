@@ -1,7 +1,9 @@
 define([
-    'InvoiceDesigner/Template/ElementAbstract'
+    'InvoiceDesigner/Template/ElementAbstract',
+    'InvoiceDesigner/Template/Element/SizeOptionsAbstract'
 ], function(
-    ElementAbstract
+    ElementAbstract,
+    SizeOptionsAbstract
 ) {
     var PPI = function(additionalData)
     {
@@ -55,43 +57,26 @@ define([
             this.set('option', parseInt(newOption));
             return this;
         };
-
-        this.getSizeOptions = function()
-        {
-            return this.get('sizeOptions');
-        };
-
-        this.setSizeOptions = function(newSizeOptions)
-        {
-            this.set('sizeOptions', newSizeOptions);
-            return this;
-        };
-
-        this.getOptionFromCurrentWidth = function()
-        {
-            var option = 1;
-            var width = this.getWidth();
-
-            for (var index in sizeOptions) {
-                if (sizeOptions[index].width == width) {
-                    option = parseInt(index) + 1;
-                    break;
-                }
-            }
-
-            return option;
-        };
-
-        var setParentWidth = this.setWidth;
-        this.setWidth = function(newWidth, populating)
-        {
-            setParentWidth.call(this, newWidth, populating);
-            this.setOption(this.getOptionFromCurrentWidth());
-            return this;
-        };
     };
 
     PPI.prototype = Object.create(ElementAbstract.prototype);
+    for (var key in SizeOptionsAbstract.prototype) {
+        if (typeof SizeOptionsAbstract.prototype[key] != 'function') {
+            return;
+        }
+        PPI.prototype[key] = SizeOptionsAbstract.prototype[key];
+    }
+
+    PPI.prototype.getSizeOption = function()
+    {
+        return this.getOption();
+    };
+
+    PPI.prototype.setSizeOption = function(newSizeOption)
+    {
+        this.setOption(newSizeOption);
+        return this;
+    };
 
     return PPI;
 });
