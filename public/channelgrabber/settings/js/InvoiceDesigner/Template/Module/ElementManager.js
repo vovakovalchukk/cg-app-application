@@ -39,6 +39,9 @@ define([
             },{ value: 'PPI',
                 icon: 'sprite-ppi-15-black',
                 element: 'PPI'
+            },{ value: 'Courier Label',
+                icon: 'sprite-ppi-15-black',
+                element: 'Label'
             }
         ]};
 
