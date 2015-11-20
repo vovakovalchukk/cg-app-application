@@ -137,7 +137,9 @@ class Service
 
                 try {
                     $products = $this->productService->fetchCollectionByFilter(
-                        (new ProductFilter('all'))->setSku(array_values($stock->getArrayOf('sku')))
+                        (new ProductFilter('all'))
+                            ->setOrganisationUnitId([$organisationUnitId])
+                            ->setSku(array_values($stock->getArrayOf('sku')))
                     );
                 } catch (NotFound $exception) {
                     $products = null;
