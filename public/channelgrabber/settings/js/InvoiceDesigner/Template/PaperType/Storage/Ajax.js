@@ -20,7 +20,7 @@ define(['InvoiceDesigner/Template/PaperType/StorageAbstract', 'jquery'], functio
             },
             {
                 id: 2,
-                name: "Single Style C",
+                name: "Forms Plus FPS-3",
                 height: "297",
                 width: "210",
                 backgroundImage: "/channelgrabber/settings/img/InvoiceDesigner/Template/PaperType/style-c-label.png",
