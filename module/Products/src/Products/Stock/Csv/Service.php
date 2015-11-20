@@ -169,7 +169,7 @@ class Service
         return [
             "SKU",
             "Product Name",
-            "Stock on Hand"
+            "Total Stock"
         ];
     }
 
