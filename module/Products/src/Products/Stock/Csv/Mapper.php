@@ -29,7 +29,8 @@ class Mapper
 
         $product->rewind();
         if ($product->current()->isVariation()) {
-            return $products->getById($product->current()->getParentProductId())->getName();
+            return $products->getById($product->current()->getParentProductId())->getName()
+                . ' (' . implode('/', $product->current()->getAttributeValues()) . ')';
         }
         return $product->current()->getName();
     }
