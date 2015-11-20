@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0786e9af74ad609faacbc41f9323d42b",
-    "content-hash": "614befb9e564a71260d2e22d9e05597e",
+    "hash": "b7665705acc2ace9b853aba490bbdc6a",
+    "content-hash": "fea55ece9af2ac81d6aa321b6b79a9e3",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1198,17 +1198,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-EPIC-CGIV-5992-dataplug",
+            "version": "dev-CGIV-6527-courier-booking-labels-on-invoices",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "70915f4c1ab74862b315de3de8a878aa602a1cac"
+                "reference": "a4426687862c3e947e18aed0a1d1157df153cacf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-CGIV-5992-dataplug-814a7d.zip",
-                "reference": "70915f4c1ab74862b315de3de8a878aa602a1cac",
-                "shasum": "569b5e2d39cd29879dd56806e5aab59805eea07b"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6527-courier-booking-labels-on-invoices-b5f4ad.zip",
+                "reference": "a4426687862c3e947e18aed0a1d1157df153cacf",
+                "shasum": "7e4fe484166848a420d890f4fd3f1c6570a511cd"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1256,7 +1256,7 @@
             "type": "di-definition",
             "extra": {
                 "branch-alias": {
-                    "dev-develop": "1.19.x-dev"
+                    "dev-CGIV-6527-courier-booking-labels-on-invoices": "1.19.x-dev"
                 }
             },
             "autoload": {
@@ -1270,7 +1270,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-11-13 11:36:02"
+            "time": "2015-11-20 09:54:01"
         },
         {
             "name": "channelgrabber/permission",
@@ -7406,9 +7406,9 @@
             "package": "channelgrabber/http"
         },
         {
-            "alias": "1.19.22",
-            "alias_normalized": "1.19.22.0",
-            "version": "dev-EPIC-CGIV-5992-dataplug",
+            "alias": "dev-EPIC-CGIV-5992-dataplug",
+            "alias_normalized": "dev-EPIC-CGIV-5992-dataplug",
+            "version": "dev-CGIV-6527-courier-booking-labels-on-invoices",
             "package": "channelgrabber/order"
         },
         {
