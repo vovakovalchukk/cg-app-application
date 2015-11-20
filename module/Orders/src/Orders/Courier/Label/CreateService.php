@@ -7,6 +7,7 @@ use CG\Dataplug\Gearman\WorkerFunction\GetLabelData as GetLabelDataGF;
 use CG\Dataplug\Gearman\Workload\GetLabelData as GetLabelDataWorkload;
 use CG\Dataplug\Order\LabelMissingException;
 use CG\Dataplug\Request\CreateOrders as DataplugCreateRequest;
+use CG\Dataplug\Request\RetrieveOrders as DataplugRetrieveRequest;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
@@ -264,14 +265,29 @@ class CreateService extends ServiceAbstract
         OrderLabel $orderLabel,
         User $user
     ) {
+        $labelFormatPDF = DataplugRetrieveRequest::LABEL_FORMAT_PDF;
+        $saveTrackingNumbersPDF = true;
+        $labelFormatPNG = DataplugRetrieveRequest::LABEL_FORMAT_PNG;
+        $saveTrackingNumbersPNG = false;
         try {
+            // PDF
             $this->dataplugOrderService->getAndProcessDataplugOrderDetails(
-                $order, $shippingAccount, $orderNumber, $orderLabel, $user
+                $order, $shippingAccount, $orderNumber, $orderLabel, $user, $labelFormatPDF, $saveTrackingNumbersPDF
+            );
+            // Queue up fetching the PNG version as we only need that for invoices
+            $this->createJobToGetAndProcessDataplugOrderDetails(
+                $order, $shippingAccount, $orderNumber, $orderLabel, $user, $labelFormatPNG, $saveTrackingNumbersPNG
             );
             return true;
         } catch (LabelMissingException $e) {
+            // Label not currently present, queue up a job to keep trying
+            // PDF
             $this->createJobToGetAndProcessDataplugOrderDetails(
-                $order, $shippingAccount, $orderNumber, $orderLabel, $user
+                $order, $shippingAccount, $orderNumber, $orderLabel, $user, $labelFormatPDF, $saveTrackingNumbersPDF
+            );
+            // PNG
+            $this->createJobToGetAndProcessDataplugOrderDetails(
+                $order, $shippingAccount, $orderNumber, $orderLabel, $user, $labelFormatPNG, $saveTrackingNumbersPNG
             );
             return false;
         } catch (StorageException $e) {
@@ -286,12 +302,20 @@ class CreateService extends ServiceAbstract
         Account $shippingAccount,
         $orderNumber,
         OrderLabel $orderLabel,
-        User $user
+        User $user,
+        $labelFormat,
+        $saveTrackingNumbers
     ) {
         $workload = new GetLabelDataWorkload(
-            $order->getId(), $shippingAccount->getId(), $orderLabel->getId(), $user->getId(), $orderNumber
+            $order->getId(),
+            $shippingAccount->getId(),
+            $orderLabel->getId(),
+            $user->getId(),
+            $orderNumber,
+            $labelFormat,
+            $saveTrackingNumbers
         );
-        $handle = GetLabelDataGF::FUNCTION_NAME . '-' . $order->getId();
+        $handle = GetLabelDataGF::FUNCTION_NAME . '-' . $order->getId() . '-' . $labelFormat;
         $this->gearmanClient->doBackground(GetLabelDataGF::FUNCTION_NAME, serialize($workload), $handle);
     }
 
