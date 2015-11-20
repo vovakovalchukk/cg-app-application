@@ -28,6 +28,9 @@ class Mapper
         }
 
         $product->rewind();
+        if ($product->current()->isVariation()) {
+            return $products->getById($product->current()->getParentProductId())->getName();
+        }
         return $product->current()->getName();
     }
 }

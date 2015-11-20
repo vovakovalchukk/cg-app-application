@@ -4,6 +4,7 @@ namespace Products\Stock\Csv;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Product\Client\Service as ProductService;
+use CG\Product\Entity as Product;
 use CG\Product\Filter as ProductFilter;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stock\Collection as Stock;
@@ -138,9 +139,18 @@ class Service
                 try {
                     $products = $this->productService->fetchCollectionByFilter(
                         (new ProductFilter('all'))
+                            ->setReplaceVariationWithParent(true)
                             ->setOrganisationUnitId([$organisationUnitId])
                             ->setSku(array_values($stock->getArrayOf('sku')))
                     );
+
+                    /** @var Product $product */
+                    foreach ((clone $products) as $product) {
+                        if (!$product->isParent()) {
+                            continue;
+                        }
+                        $products->addAll($product->getVariations());
+                    }
                 } catch (NotFound $exception) {
                     $products = null;
                 }
