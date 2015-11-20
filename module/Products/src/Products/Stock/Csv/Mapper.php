@@ -10,7 +10,7 @@ class Mapper
         $csvData = [];
 
         foreach ($stocks as $stock) {
-            $csvData[] = [$stock->getSku(), $stock->getTotalOnHand()];
+            $csvData[] = [$stock->getSku(), '', $stock->getTotalOnHand()];
         }
 
         return $csvData;
