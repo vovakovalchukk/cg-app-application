@@ -1,17 +1,21 @@
 <?php
 namespace Products\Stock\Csv;
 
-use CG\User\ActiveUserInterface;
-use League\Csv\Writer as CsvWriter;
-use CG\Stock\Service as StockService;
-use CG\Stdlib\Exception\Runtime\NotFound;
-use CG\Stock\Import\File\Storage\Db as ImportFileStorage;
-use CG\Stock\Import\File\Mapper as ImportFileMapper;
-use CG\Stock\Import\File\Entity as ImportFile;
-use GearmanClient;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
+use CG\Product\Client\Service as ProductService;
+use CG\Product\Entity as Product;
+use CG\Product\Filter as ProductFilter;
+use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stock\Collection as Stock;
 use CG\Stock\Gearman\Workload\StockImport as ImportWorkload;
+use CG\Stock\Import\File\Entity as ImportFile;
+use CG\Stock\Import\File\Mapper as ImportFileMapper;
+use CG\Stock\Import\File\Storage\Db as ImportFileStorage;
+use CG\Stock\Service as StockService;
+use CG\User\ActiveUserInterface;
+use GearmanClient;
+use League\Csv\Writer as CsvWriter;
 
 class Service
 {
@@ -25,6 +29,8 @@ class Service
     protected $activeUserContainer;
     /** @var StockService $stockService */
     protected $stockService;
+    /** @var ProductService $productService */
+    protected $productService;
     /** @var Mapper $mapper */
     protected $mapper;
     /** @var ImportFileStorage $importFileStorage */
@@ -39,6 +45,7 @@ class Service
     public function __construct(
         ActiveUserInterface $activeUserContainer,
         StockService $stockService,
+        ProductService $productService,
         Mapper $mapper,
         ImportFileStorage $importFileStorage,
         ImportFileMapper $importFileMapper,
@@ -48,6 +55,7 @@ class Service
         $this
             ->setActiveUserInterface($activeUserContainer)
             ->setStockService($stockService)
+            ->setProductService($productService)
             ->setMapper($mapper)
             ->setImportFileStorage($importFileStorage)
             ->setImportFileMapper($importFileMapper)
@@ -57,7 +65,7 @@ class Service
 
     public function uploadCsvForActiveUser($updateOption, $fileContents)
     {
-        return $this->uploadCsv(
+        $this->uploadCsv(
             $this->getActiveUserId(),
             $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
             $updateOption,
@@ -118,6 +126,7 @@ class Service
         try {
             $page = 1;
             while (true) {
+                /** @var Stock $stock */
                 $stock = $this->stockService->fetchCollectionByPaginationAndFilters(
                     static::COLLECTION_SIZE,
                     $page++,
@@ -126,7 +135,29 @@ class Service
                     [],
                     []
                 );
-                $csv->insertAll($this->mapper->stockCollectionToCsvArray($stock));
+
+                try {
+                    $products = $this->productService->fetchCollectionByFilter(
+                        (new ProductFilter('all'))
+                            ->setReplaceVariationWithParent(true)
+                            ->setOrganisationUnitId([$organisationUnitId])
+                            ->setSku(array_values($stock->getArrayOf('sku')))
+                    );
+
+                    /** @var Product $product */
+                    foreach ((clone $products) as $product) {
+                        if (!$product->isParent()) {
+                            continue;
+                        }
+                        $products->addAll($product->getVariations());
+                    }
+                } catch (NotFound $exception) {
+                    $products = null;
+                }
+
+                $csv->insertAll(
+                    $this->mapper->stockCollectionToCsvArray($stock, $products)
+                );
             }
         } catch (NotFound $e) {
             // Do nothing, end of pagination
@@ -137,18 +168,19 @@ class Service
     {
         return [
             "SKU",
-            "Stock on Hand"
+            "Product Name",
+            "Total Stock"
         ];
     }
 
     protected function notifyOfExport($userId)
     {
-        return $this->notifyIntercom(static::EVENT_STOCK_EXPORT, $userId);
+        $this->notifyIntercom(static::EVENT_STOCK_EXPORT, $userId);
     }
 
     protected function notifyOfUpload($userId)
     {
-        return $this->notifyIntercom(static::EVENT_STOCK_IMPORT, $userId);
+        $this->notifyIntercom(static::EVENT_STOCK_IMPORT, $userId);
     }
 
     protected function notifyIntercom($event, $userId)
@@ -178,6 +210,15 @@ class Service
     public function setStockService(StockService $stockService)
     {
         $this->stockService = $stockService;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setProductService(ProductService $productService)
+    {
+        $this->productService = $productService;
         return $this;
     }
 
