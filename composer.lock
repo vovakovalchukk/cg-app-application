@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d42433c8d776d44abf702debe76b0f05",
-    "content-hash": "3723c79d953749e69b041be202356175",
+    "hash": "315c39169c84df6f87ec1d8b0e33e340",
+    "content-hash": "3f56bd2a494a5ee920e4a36bcf4c5075",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2047,17 +2047,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "dev-CGIV-6537-default-invoice-template-forms-plus",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "65f269afb63a192790601d8b01579463fde19a61"
+                "reference": "dafa8e10740f56e84747c673879b6765a91ef648"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-6537-default-invoice-template-forms-plus-9d874d.zip",
-                "reference": "65f269afb63a192790601d8b01579463fde19a61",
-                "shasum": "2dbee3251026320ff809d31242a98551d1d5feb2"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.1-0fccf1.zip",
+                "reference": "dafa8e10740f56e84747c673879b6765a91ef648",
+                "shasum": "8e4f05a311e5984a8d7c12c8b7995b4037683d63"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2101,7 +2101,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-11-20 16:12:53"
+            "time": "2015-11-23 09:44:47"
         },
         {
             "name": "channelgrabber/transaction",
@@ -7289,18 +7289,10 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.4.1",
-            "alias_normalized": "1.4.1.0",
-            "version": "dev-CGIV-6537-default-invoice-template-forms-plus",
-            "package": "channelgrabber/template"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/template": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
