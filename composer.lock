@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5cc12ded3fc70ddbb96720aacb61229a",
-    "content-hash": "e2f10c96805ab022264279091dc3c366",
+    "hash": "caf7e7f7a22a923a42b70b6dc8a4bc11",
+    "content-hash": "6065a298e77c2838bda8ac86058af03c",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -794,17 +794,17 @@
         },
         {
             "name": "channelgrabber/gearman",
-            "version": "1.2.14",
+            "version": "1.2.18",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-gearman.git",
-                "reference": "4e3134924be07552663b3874d60727607efb0391"
+                "reference": "639d24f0bd92c9013b7f5b06bbf7656ca8e16d61"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-1.2.14-db6fa7.zip",
-                "reference": "4e3134924be07552663b3874d60727607efb0391",
-                "shasum": "0fbbc1a42968e5911132f1e153b1fcdc8ae924bc"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-1.2.18-2df498.zip",
+                "reference": "639d24f0bd92c9013b7f5b06bbf7656ca8e16d61",
+                "shasum": "e469dd2403fec26a55a039945a0e9cfc38a52231"
             },
             "require": {
                 "channelgrabber/cilex": ">=1.1.0,<2.0.0",
@@ -824,7 +824,7 @@
                     "CG\\Gearman\\": "src"
                 }
             },
-            "time": "2015-07-16 08:23:19"
+            "time": "2015-11-18 14:55:14"
         },
         {
             "name": "channelgrabber/guzzle",
@@ -869,6 +869,7 @@
                 "channelgrabber/di": ">=1.0.1",
                 "channelgrabber/etag": "^1.6.0",
                 "channelgrabber/log": "^2.0.21",
+                "channelgrabber/stats": ">=1.0.6",
                 "channelgrabber/stdlib": ">=2.10.0,<3.0.0",
                 "composer/composer": "@dev",
                 "ext-memcached": "*",
@@ -1747,17 +1748,17 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.3.9",
+            "version": "1.3.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "0f6b25b217f5afabcc8bdcdd2343cd11a424be2f"
+                "reference": "2e3c3ec7ad540d7a1f707e545590c5331378820e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.3.9-aff9da.zip",
-                "reference": "0f6b25b217f5afabcc8bdcdd2343cd11a424be2f",
-                "shasum": "379ad4fa3d7a11c71c68d235c26af73086f8d512"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.3.10-9b3f44.zip",
+                "reference": "2e3c3ec7ad540d7a1f707e545590c5331378820e",
+                "shasum": "f3b4f303b068c4b3ba98697cfcd78000334d503c"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1779,7 +1780,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2015-11-02 15:53:26"
+            "time": "2015-11-19 13:15:41"
         },
         {
             "name": "channelgrabber/slim",
@@ -2098,13 +2099,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "01127450ca1b8f68b907d5411429e5bd88b19b3f"
+                "reference": "e18d95e90623e8e07dd463c2983c2d32927faa8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-6527-courier-booking-labels-on-invoices-94cb02.zip",
-                "reference": "01127450ca1b8f68b907d5411429e5bd88b19b3f",
-                "shasum": "2a210a744f98653d6f89ad2b0d976b0f1b267082"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-6527-courier-booking-labels-on-invoices-1791b8.zip",
+                "reference": "e18d95e90623e8e07dd463c2983c2d32927faa8d",
+                "shasum": "26c8ae3f1c6d5ae27e1f76d4b0592178c959091a"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2148,7 +2149,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-11-20 12:39:18"
+            "time": "2015-11-23 11:28:15"
         },
         {
             "name": "channelgrabber/transaction",
@@ -7388,8 +7389,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.18.4",
-            "alias_normalized": "1.18.4.0",
+            "alias": "1.18.5",
+            "alias_normalized": "1.18.5.0",
             "version": "dev-EPIC-CGIV-5992-dataplug",
             "package": "channelgrabber/channel"
         },
@@ -7424,8 +7425,8 @@
             "package": "channelgrabber/stdlib"
         },
         {
-            "alias": "1.4.1",
-            "alias_normalized": "1.4.1.0",
+            "alias": "1.4.2",
+            "alias_normalized": "1.4.2.0",
             "version": "dev-CGIV-6527-courier-booking-labels-on-invoices",
             "package": "channelgrabber/template"
         },
@@ -7442,8 +7443,8 @@
             "package": "channelgrabber/zf2-dataplug"
         },
         {
-            "alias": "1.16.16",
-            "alias_normalized": "1.16.16.0",
+            "alias": "1.16.17",
+            "alias_normalized": "1.16.17.0",
             "version": "dev-EPIC-CGIV-5992-dataplug",
             "package": "channelgrabber/zf2-v4-ui"
         }

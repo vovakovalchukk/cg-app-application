@@ -1,24 +1,12 @@
-<tr>
-    <td id='available-{{productId}}-{{stockLocationId}}'>{{available}}</td>
-    <td id='allocated-{{productId}}-{{stockLocationId}}'>{{allocated}}</td>
+<tr id="stock-row-{{productId}}" data-product-id="{{productId}}">
+    <td id='available_{{productId}}_{{stockLocationId}}' class="product-stock-available">{{available}}</td>
+    <td id='allocated_{{productId}}_{{stockLocationId}}' class="product-stock-allocated">{{allocated}}</td>
     <td>
         <div class="total-text-holder">
             {{>total}}
-            <input type='hidden' id='etag-{{productId}}-{{stockLocationId}}' value='{{eTag}}'>
-            <script>
-                $(document).ready(function() {
-                    require(['Stock/DomListener'], function(DomListener) {
-                        var domListener = new DomListener();
-                        domListener.init(
-                            '.submit-inputbox[name="{{totalName}}"]',
-                            '{{stockLocationId}}',
-                            '#etag-{{productId}}-{{stockLocationId}}',
-                            '#available-{{productId}}-{{stockLocationId}}',
-                            '#allocated-{{productId}}-{{stockLocationId}}'
-                        );
-                    });
-                });
-            </script>
+            <input type='hidden' id='etag_{{productId}}' class="product-stock-product-etag" value='{{eTag}}'>
+            <input type='hidden' id='etag_{{productId}}_{{stockLocationId}}' class="product-stock-location-etag" value='{{stockLocETag}}'>
         </div>
     </td>
+    {{>stockLevelCell}}
 </tr>
