@@ -1,0 +1,12 @@
+    <div style="max-width: 600px; clear: both;">
+        <?=$this->accountStockSettingsTable;?>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            require(['<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/Stock/Accounts/Service.js';?>'], function(Service)
+            {
+                var service = new Service(n);
+            });
+        });
+    </script>
