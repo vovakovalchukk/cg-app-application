@@ -382,9 +382,9 @@ return [
                 )
             ],
             [
-                'name' => 'Cancelled & Refunded',
+                'name' => 'Cancelled',
                 'id' => 'cancelledAndRefundedCount',
-                'statusColourClass' => 'cancelled-bg',
+                'statusColourClass' => 'cancelled',
                 'filter' => json_encode(
                     [
                         'status' => [

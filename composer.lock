@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "13ca0c4217447ea87315f00cce039750",
-    "content-hash": "0f6a1245c4ad3a879f77700a2982cb1a",
+    "hash": "3fa48b7a0061ed2740aa690c62938178",
+    "content-hash": "6515cd4e7e98f9404efbe4f6c9d9cbcd",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1158,17 +1158,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.19.29",
+            "version": "dev-CGIV-6341-show-number-orders-per-filter",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "15498253de47ee246c8819477d0bab61faa149d4"
+                "reference": "22528308fc7c406bf7233575163cb33489e04f8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.19.29-8b16ad.zip",
-                "reference": "15498253de47ee246c8819477d0bab61faa149d4",
-                "shasum": "ab8f80954a195ebc7af889089ed9c2630a51ff96"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6341-show-number-orders-per-filter-7b29be.zip",
+                "reference": "22528308fc7c406bf7233575163cb33489e04f8a",
+                "shasum": "0f050486283f59915ada145149a6cd3664d06e08"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1230,7 +1230,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-11-12 16:18:50"
+            "time": "2015-11-24 10:14:15"
         },
         {
             "name": "channelgrabber/permission",
@@ -7280,6 +7280,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.19.27",
+            "alias_normalized": "1.19.27.0",
+            "version": "dev-CGIV-6341-show-number-orders-per-filter",
+            "package": "channelgrabber/order"
+        },
+        {
             "alias": "1.16.15",
             "alias_normalized": "1.16.15.0",
             "version": "dev-CGIV-6341-show-number-orders-per-filter",
@@ -7289,6 +7295,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,

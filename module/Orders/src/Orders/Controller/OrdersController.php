@@ -24,6 +24,10 @@ use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
 use CG\Stdlib\DateTime as StdlibDateTime;
 
+use CG\Order\Shared\OrderCounts\Storage\Api as OrderCountsAPI;
+use CG\Order\Shared\OrderCounts\Filter as OrderCountsFilter;
+
+
 class OrdersController extends AbstractActionController implements LoggerAwareInterface
 {
     use LogTrait;
@@ -44,6 +48,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected $usageService;
     protected $shippingConversionService;
     protected $accountService;
+    protected $orderCountsApi;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
@@ -57,7 +62,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         StoredFiltersService $storedFiltersService,
         UsageService $usageService,
         ShippingConversionService $shippingConversionService,
-        AccountService $accountService
+        AccountService $accountService,
+        OrderCountsApi $orderCountsApi
     ) {
         $this->setJsonModelFactory($jsonModelFactory)
             ->setViewModelFactory($viewModelFactory)
@@ -70,7 +76,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             ->setStoredFiltersService($storedFiltersService)
             ->setUsageService($usageService)
             ->setShippingConversionService($shippingConversionService)
-            ->setAccountService($accountService);
+            ->setAccountService($accountService)
+            ->setOrderCountsApi($orderCountsApi)
+                ;
     }
 
     public function indexAction()
@@ -419,23 +427,11 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     public function orderCountsAjaxWithOUIDAction()
     {
         $OUId = $this->params()->fromRoute('OUId');
-
-        $data[] = $OUId;
-        $data[] = "THIS WORKED WITH OUID";
-
+        $orderCountsAPI = $this->orderCountsApi;
+        $entity = $orderCountsAPI->fetch($OUId);
+        $data = $entity->toArray();
         return $this->getJsonModelFactory()->newInstance($data);
-
     }
-
-    public function orderCountsAjaxAction(){
-
-        $data[] = "THIS WORKED WITHOUT OUID";
-        return $this->getJsonModelFactory()->newInstance($data);
-
-    }
-
-
-
 
     public function updateColumnsAction()
     {
@@ -626,4 +622,10 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $this->accountService = $accountService;
         return $this;
     }
+
+    public function setOrderCountsApi(OrderCountsApi $orderCountsApi)
+    {
+        $this->orderCountsApi = $orderCountsApi;
+        return $this;
+    }  
 }

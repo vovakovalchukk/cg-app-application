@@ -57,6 +57,10 @@ use CG\Log\Shared\Storage\Redis\Channel as RedisChannel;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\OrganisationUnit\Storage\Api as OrganisationUnitStorageApi;
 
+
+//Order Counts
+use CG\Order\Shared\OrderCounts\Storage\Api as OrderCountsApi;
+
 // Discount
 use CG\Billing\Discount\StorageInterface as DiscountStorage;
 use CG\Billing\Discount\Storage\Api as DiscountApiStorage;
@@ -176,6 +180,11 @@ return array(
             OrganisationUnitClient::class => [
                 'parameter' => [
                     'client' => 'directory_guzzle'
+                ]
+            ],
+            OrderCountsApi::class => [
+                'parameter' => [
+                    'client' => 'cg_app_guzzle'
                 ]
             ],
             UserPreferenceStorage::class => [
