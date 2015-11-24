@@ -1,15 +1,18 @@
 <?php $this->inlineScript()->captureStart(); ?>
 require.config({
     paths: {
-        filters: "<?= Orders\Module::PUBLIC_FOLDER ?>js/filters"
+        filters: "<?= Orders\Module::PUBLIC_FOLDER ?>js/filters",
+        orderCounts: "<?= Orders\Module::PUBLIC_FOLDER ?>js/orderCounts"
     }
 });
 require([
-    'filters'
+    'filters','orderCounts'
 ],
-function(Filters) {
+function(Filters, orderCounts) {
     new Filters("#filters", "#statusFilters");
+    orderCounts.displayCounts();
 });
+
 <?php $this->inlineScript()->captureEnd(); ?>
 
 <div class="filter-module clearfix navbar-content">
@@ -30,16 +33,9 @@ function(Filters) {
 
 
 <script>
+    if(1 === 2){
 
     $( document ).ready(function() {
-
-
-        
-        
-      
-
-        //ajax goes here, on success, gets the json file like below.
-
 
 var json =' { '
   +'"status": {'
@@ -50,26 +46,32 @@ var json =' { '
   +'  "processing": 6,'
    +' "dispatched": 2,'
   +'  "cancelledAndRefunded": 4'
-  +'}'
+  +'},'
+  +'"batches":{"2-1":10,"2-2":20,"2-3":40,"2-4":50,"2-5":60}'
  +'}';
 
 
-var statusArray = JSON.parse(json);
-var status = statusArray.status;
+    var jsonArray = JSON.parse(json);
+    var status = jsonArray.status;
 
+    $('#allOrdersCount').html(status.allOrders);
+    $('#awaitingPaymentCount').html(status.awaitingPayment);
+    $('#newOrdersCount').html(status.newOrders);
+    $('#processingCount').html(status.processing);
+    $('#dispatchedCount').html(status.dispatched);
+    $('#cancelledAndRefundedCount').html(status.cancelledAndRefunded);
 
+    var batches = jsonArray.batches;
+    var batchesKeys = Object.keys(batches);
 
-     $('#allOrdersCount').html(status.allOrders);
-     $('#awaitingPaymentCount').html(status.awaitingPayment);
-     $('#newOrdersCount').html(status.newOrders);
-     $('#processingCount').html(status.processing);
-     $('#dispatchedCount').html(status.dispatched);
-     $('#cancelledAndRefundedCount').html(status.cancelledAndRefunded);
-
-
-
-     
+    for(var b = 0; b < batchesKeys.length; b++){
+        var batchId = batchesKeys[b];
+        var batchesSpanId = "batchCount-"+batchId;
+        var count = batches[batchId];
+        $('#' + batchesSpanId).html(count);
+    }
 });
+    }
 
     
 </script>
