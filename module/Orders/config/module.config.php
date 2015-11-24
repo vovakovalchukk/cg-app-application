@@ -96,6 +96,27 @@ return [
                             ],
                         ],
                     ],
+                    'orderCounts' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/orderCounts',
+                            'defaults' => [
+                                'action' => 'orderCountsAjax',
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            'OUId' => [
+                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                'options' => [
+                                    'route' => '/:OUId',
+                                    'defaults' => [
+                                        'action' => 'orderCountsAjaxWithOUID',
+                                    ]
+                                ],
+                            ],
+                        ],
+                    ],
                     'update-columns' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
 

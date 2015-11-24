@@ -415,6 +415,28 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $this->getJsonModelFactory()->newInstance($data);
     }
 
+
+    public function orderCountsAjaxWithOUIDAction()
+    {
+        $OUId = $this->params()->fromRoute('OUId');
+
+        $data[] = $OUId;
+        $data[] = "THIS WORKED WITH OUID";
+
+        return $this->getJsonModelFactory()->newInstance($data);
+
+    }
+
+    public function orderCountsAjaxAction(){
+
+        $data[] = "THIS WORKED WITHOUT OUID";
+        return $this->getJsonModelFactory()->newInstance($data);
+
+    }
+
+
+
+
     public function updateColumnsAction()
     {
         $response = $this->getJsonModelFactory()->newInstance(['updated' => false]);
