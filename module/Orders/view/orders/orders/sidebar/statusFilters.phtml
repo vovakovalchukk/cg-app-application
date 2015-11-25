@@ -65,21 +65,38 @@ function displayCounts(json) {
     $('#dispatchedCount').html(status.dispatched);
     $('#cancelledAndRefundedCount').html(status.cancelledAndRefunded);
 
+    var maxCount = 0;
     var batches = json.batches;
     var batchesKeys = Object.keys(batches);
     for (var b = 0; b < batchesKeys.length; b++) {
         var batchId = batchesKeys[b];
         var batchesSpanId = "batchCount-" + batchId;
         var count = batches[batchId];
+        if(count > maxCount){maxCount = count;}
         $('#' + batchesSpanId).html(count);
     }
+
+changeMarginOfDeleteCrossBasedOnBatchCountStringLength(maxCount);
+
+}
+
+
+
+function changeMarginOfDeleteCrossBasedOnBatchCountStringLength(maxCount){
+
+var currentRight = $('.deletebatch').css("right").slice(0,-2);
+alert("currentRight:" + currentRight);
+var length = maxCount.toString().length;
+
+ //$('.deletebatch').css("right","100px");
+
 
 }
 
   $( document ).ready(function() {
 
        orderCountsByAjax(2);
-
+      
     });
     
 </script>

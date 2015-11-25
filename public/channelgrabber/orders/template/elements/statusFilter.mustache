@@ -1,6 +1,8 @@
 <li data-name="{{name}}" data-filter="{{filter}}">
     <div class='statusNameAndValueContainer'>
-        <div class='statusNameContainer'><a href="#">{{name}}</a></div>
-        <div class='statusValueContainer'><span class ="statusCountPillBox {{statusColourClass}}' id="{{id}}"></span></div>
+        <a href="#">
+        <span class='statusNameContainer'>{{name}}</span>
+        <span class ="status statusCountPillBox {{statusColourClass}}" id="{{id}}"></span>
+        </a>
     </div>
 </li>
