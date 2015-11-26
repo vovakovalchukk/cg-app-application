@@ -67,7 +67,7 @@
         "channelgrabber/user": "~1.20.0",
         "channelgrabber/userpreference": "~1.2.4",
         "channelgrabber/validation": "~1.2.7",
-        "channelgrabber/woocommerce": "~1.1.4",
+        "channelgrabber/woocommerce": "dev-CGIV-6466-LookupEntities as 1.2.0",
         "channelgrabber/zendesk": "~1.0.0",
         "channelgrabber/zf2-amazon": "~1.0.9",
         "channelgrabber/zf2-api": "~1.0.0",

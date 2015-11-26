@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6048abaf75f06304a3c70c3deba976f9",
+    "hash": "309db12d7641bb41e814561f67f1254a",
+    "content-hash": "9a0d02ea9e955c42098bec38e0acfb7a",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2314,17 +2315,17 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "1.1.4",
+            "version": "dev-CGIV-6466-LookupEntities",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "60a40b01739ce006f3bd05f7432d42c638fbea1f"
+                "reference": "716918453d6390ff515debe3cebce5df34df02bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.1.4-2c1d6d.zip",
-                "reference": "60a40b01739ce006f3bd05f7432d42c638fbea1f",
-                "shasum": "bafc946d72911944977fd01aee346906d975c00e"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-CGIV-6466-LookupEntities-faf281.zip",
+                "reference": "716918453d6390ff515debe3cebce5df34df02bd",
+                "shasum": "64ec29bd4ca5c61423f4eb316fc186340aae3a26"
             },
             "require": {
                 "channelgrabber/channel": "^1.18.5",
@@ -2358,7 +2359,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2015-11-23 15:28:00"
+            "time": "2015-11-26 16:41:23"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -7227,10 +7228,18 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.2.0",
+            "alias_normalized": "1.2.0.0",
+            "version": "dev-CGIV-6466-LookupEntities",
+            "package": "channelgrabber/woocommerce"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/woocommerce": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
