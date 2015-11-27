@@ -309,13 +309,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "d9762980cc7f9f93650f829ffb64897842f83f0a"
+                "reference": "8be8fd754f2aaf5eff459fdc52a751742149721c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-5992-dataplug-a08519.zip",
-                "reference": "d9762980cc7f9f93650f829ffb64897842f83f0a",
-                "shasum": "7787282eeb0dc6cd68a7abd7f9acf8afefbeb104"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-5992-dataplug-febb75.zip",
+                "reference": "8be8fd754f2aaf5eff459fdc52a751742149721c",
+                "shasum": "88a1d95fe2e11c5e3bb08b22f41b4c4cde1b9199"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -371,7 +371,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-11-19 09:28:06"
+            "time": "2015-11-27 13:53:59"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1546,13 +1546,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "a6bfe842094a1f96cd3dcb300e721887f63d7044"
+                "reference": "bbdfe9640198d5caa1b94fd1a77aceefa621e5d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-EPIC-CGIV-5992-dataplug-5115dc.zip",
-                "reference": "a6bfe842094a1f96cd3dcb300e721887f63d7044",
-                "shasum": "f1ef7025e7ce62f82170b96d4f64ed9a1d547f67"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-EPIC-CGIV-5992-dataplug-0556ed.zip",
+                "reference": "bbdfe9640198d5caa1b94fd1a77aceefa621e5d2",
+                "shasum": "47a4148a07d1b09a71cebfef63deec5f83d6b4b7"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1587,7 +1587,7 @@
                     "CG\\Product\\": "src"
                 }
             },
-            "time": "2015-10-19 15:12:39"
+            "time": "2015-11-20 16:20:50"
         },
         {
             "name": "channelgrabber/purge",
