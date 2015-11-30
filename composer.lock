@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "33cd56b0affb99ff1289a54f7936b938",
-    "content-hash": "23976cb340ddfdd21d32d6282ec4f278",
+    "hash": "cbc4467b8c45e38953ef5e9619a0c382",
+    "content-hash": "6c3e0eefbbc22ce4476ef1d2a43a283d",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -858,13 +858,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cghttp.git",
-                "reference": "a2e6c60792d28938c6f0dfb0952826861d63ea3b"
+                "reference": "1f519978508ee95aaf268ccc396f6c7ec7fbc49f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-dev-EPIC-CGIV-5992-dataplug-508954.zip",
-                "reference": "a2e6c60792d28938c6f0dfb0952826861d63ea3b",
-                "shasum": "b701ee68100052bed01f435a3fb7a201a20eb49b"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-dev-EPIC-CGIV-5992-dataplug-5e1a8a.zip",
+                "reference": "1f519978508ee95aaf268ccc396f6c7ec7fbc49f",
+                "shasum": "708923256748efcb4fd4d9dfe73d4439eb6efb36"
             },
             "require": {
                 "channelgrabber/di": ">=1.0.1",
@@ -900,7 +900,7 @@
                     "CG\\Http\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2015-11-13 11:37:59"
+            "time": "2015-11-30 13:50:07"
         },
         {
             "name": "channelgrabber/image",
@@ -1204,13 +1204,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "000283f98f2874be89ef4d7efddd18ce958e3dde"
+                "reference": "bfb6feb5df3e35c1a1bc620ea260ed0a9ca2b123"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-CGIV-5992-dataplug-fb5d21.zip",
-                "reference": "000283f98f2874be89ef4d7efddd18ce958e3dde",
-                "shasum": "26a095525bec5b22f1b1918e0293c706a5c7d6f7"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-EPIC-CGIV-5992-dataplug-eb5ace.zip",
+                "reference": "bfb6feb5df3e35c1a1bc620ea260ed0a9ca2b123",
+                "shasum": "6aea61a82951bc8a74ca7f0266942fdb1ea19fea"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1272,7 +1272,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-11-23 17:04:54"
+            "time": "2015-11-30 13:48:37"
         },
         {
             "name": "channelgrabber/permission",
@@ -1962,13 +1962,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "ed9dfd2981861ec3a4e4ba5a03e0d691f6ffca0f"
+                "reference": "fdb439fc087395676c0d460cd63111df72bc3675"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-EPIC-CGIV-5992-dataplug-7f8ce1.zip",
-                "reference": "ed9dfd2981861ec3a4e4ba5a03e0d691f6ffca0f",
-                "shasum": "b852b59b2efa1b724e1eebd3946a383623e228be"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-EPIC-CGIV-5992-dataplug-155745.zip",
+                "reference": "fdb439fc087395676c0d460cd63111df72bc3675",
+                "shasum": "d278f7f40c7a33091ddefa8a7229cfd87a2e7124"
             },
             "require": {
                 "zendframework/zend-db": ">=2.2,<3.0"
@@ -1994,7 +1994,7 @@
                     "CG\\Stdlib\\Test\\": "tests/CG/Stdlib"
                 }
             },
-            "time": "2015-11-10 11:56:24"
+            "time": "2015-11-30 13:51:55"
         },
         {
             "name": "channelgrabber/stock",
@@ -3237,13 +3237,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "3e07a4fb7ca23f4b5be8a221a4c7da20886f35a3"
+                "reference": "076d258303dae33e232cba8196b109694985abb1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-5992-dataplug-f51988.zip",
-                "reference": "3e07a4fb7ca23f4b5be8a221a4c7da20886f35a3",
-                "shasum": "0e57de1ee46db0be249549b1c582a2546693e1e9"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-5992-dataplug-8fc1b6.zip",
+                "reference": "076d258303dae33e232cba8196b109694985abb1",
+                "shasum": "636e6a3dc5174dce9bafc8371492adf42ae582c2"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3292,7 +3292,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-11-19 09:29:04"
+            "time": "2015-11-30 13:53:49"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -3533,29 +3533,29 @@
         },
         {
             "name": "composer/semver",
-            "version": "1.0.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/semver.git",
-                "reference": "d0e1ccc6d44ab318b758d709e19176037da6b1ba"
+                "reference": "0faeb6e433f6b352f0dc55ec1faf5c6b605a35d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/composer-semver-d0e1ccc6d44ab318b758d709e19176037da6b1ba-zip-4ead97.zip",
-                "reference": "d0e1ccc6d44ab318b758d709e19176037da6b1ba",
-                "shasum": "46071a964b51f459c3b75b8eafa9635b8059567c"
+                "url": "https://composer.build.channelgrabber.com/dist/composer-semver-0faeb6e433f6b352f0dc55ec1faf5c6b605a35d3-zip-5e9026.zip",
+                "reference": "0faeb6e433f6b352f0dc55ec1faf5c6b605a35d3",
+                "shasum": "51d9839a716d8cc64275d456198ef944c19ff0ed"
             },
             "require": {
-                "php": ">=5.3.2"
+                "php": "^5.3.2 || ^7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.5",
-                "phpunit/phpunit-mock-objects": "~2.3"
+                "phpunit/phpunit": "^4.5 || ^5.0.5",
+                "phpunit/phpunit-mock-objects": "2.3.0 || ^3.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.1-dev"
+                    "dev-master": "1.x-dev"
                 }
             },
             "autoload": {
@@ -3569,10 +3569,6 @@
             ],
             "authors": [
                 {
-                    "name": "Rob Bast",
-                    "email": "rob.bast@gmail.com"
-                },
-                {
                     "name": "Nils Adermann",
                     "email": "naderman@naderman.de",
                     "homepage": "http://www.naderman.de"
@@ -3581,6 +3577,11 @@
                     "name": "Jordi Boggiano",
                     "email": "j.boggiano@seld.be",
                     "homepage": "http://seld.be"
+                },
+                {
+                    "name": "Rob Bast",
+                    "email": "rob.bast@gmail.com",
+                    "homepage": "http://robbast.nl"
                 }
             ],
             "description": "Semver library that offers utilities, version constraint parsing and validation.",
@@ -3590,7 +3591,7 @@
                 "validation",
                 "versioning"
             ],
-            "time": "2015-09-21 09:42:36"
+            "time": "2015-11-10 11:17:42"
         },
         {
             "name": "composer/spdx-licenses",
