@@ -51,7 +51,7 @@
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/phinx": "~0.3.2",
         "channelgrabber/picklist": "~1.0.2",
-        "channelgrabber/predis": "dev-CGIV-6555-RetryRedisOnConnectionError as 1.0.9",
+        "channelgrabber/predis": "~1.0.9",
         "channelgrabber/product": "~1.4.14",
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/royalmail": "~1.0.1",
