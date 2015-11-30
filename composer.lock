@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6048abaf75f06304a3c70c3deba976f9",
+    "hash": "1673b0cf75d6284dc7c3931bfe138f4d",
+    "content-hash": "9991b5010eb2a836298afc0e646e8142",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1411,17 +1412,17 @@
         },
         {
             "name": "channelgrabber/predis",
-            "version": "1.0.7",
+            "version": "dev-CGIV-6555-RetryRedisOnConnectionError",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgpredis.git",
-                "reference": "5d4660ca8752d6555d2ee8396d8d4aef9795efce"
+                "reference": "fd1582b31686edb2e36431de30869d050b72c521"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-predis-1.0.7-255bc3.zip",
-                "reference": "5d4660ca8752d6555d2ee8396d8d4aef9795efce",
-                "shasum": "f580dffcf80e0ec2849f2b2ef4776bb0044a20c2"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-predis-dev-CGIV-6555-RetryRedisOnConnectionError-2ee447.zip",
+                "reference": "fd1582b31686edb2e36431de30869d050b72c521",
+                "shasum": "a7ebe8cd961420a4d33260ff769bfdbd5577baff"
             },
             "require": {
                 "channelgrabber/cg-predis": "~0.8.7",
@@ -1435,7 +1436,7 @@
                     "CG\\Predis\\": "src"
                 }
             },
-            "time": "2015-10-26 09:04:17"
+            "time": "2015-11-27 16:51:58"
         },
         {
             "name": "channelgrabber/predis-async",
@@ -7227,10 +7228,18 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.9",
+            "alias_normalized": "1.0.9.0",
+            "version": "dev-CGIV-6555-RetryRedisOnConnectionError",
+            "package": "channelgrabber/predis"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/predis": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
