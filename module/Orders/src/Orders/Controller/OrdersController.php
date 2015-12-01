@@ -159,13 +159,15 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             return $this;
         }
         foreach ($bulkActionsViewModel->getActions() as $action) {
-            if ($action instanceof CourierBulkAction) {
-                foreach ($action->getSubActions() as $subAction) {
-                    if ($subAction instanceof CourierManifestBulkAction) {
-                        $action->getSubActions()->detach($subAction);
-                        break;
-                    }
+            if (!($action instanceof CourierBulkAction)) {
+                continue;
+            }
+            foreach ($action->getSubActions() as $subAction) {
+                if (!($subAction instanceof CourierManifestBulkAction)) {
+                    continue;
                 }
+                $action->getSubActions()->detach($subAction);
+                break 2;
             }
         }
 
