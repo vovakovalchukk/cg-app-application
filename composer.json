@@ -30,7 +30,7 @@
         "channelgrabber/api-lib": "~1.0.0",
         "channelgrabber/billing": "~1.8.6",
         "channelgrabber/cache": "~2.1.0",
-        "channelgrabber/channel": "dev-EPIC-CGIV-5992-dataplug as 1.18.5",
+        "channelgrabber/channel": "dev-CGIV-6572-dataplug-dark-deploy as dev-EPIC-CGIV-5992-dataplug",
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/communication": "~1.0.2",
         "channelgrabber/constants": "dev-master",
