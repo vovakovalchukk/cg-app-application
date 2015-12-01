@@ -8,7 +8,7 @@ trait GetShippingAccountsTrait
 {
     protected $shippingAccounts;
 
-    protected function getShippingAccounts()
+    public function getShippingAccounts()
     {
         if ($this->shippingAccounts) {
             return $this->shippingAccounts;

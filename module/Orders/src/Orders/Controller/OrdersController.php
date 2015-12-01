@@ -21,6 +21,7 @@ use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG_Usage\Service as UsageService;
 use Orders\Courier\Manifest\Service as ManifestService;
+use Orders\Courier\Service as CourierService;
 use Orders\Filter\Service as FilterService;
 use Orders\Order\BulkActions\Action\Courier as CourierBulkAction;
 use Orders\Order\BulkActions\SubAction\CourierManifest as CourierManifestBulkAction;
@@ -56,6 +57,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected $orderLabelService;
     /** @var ManifestService */
     protected $manifestService;
+    /** @var CourierService */
+    protected $courierService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
@@ -71,7 +74,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         ShippingConversionService $shippingConversionService,
         AccountService $accountService,
         OrderLabelService $orderLabelService,
-        ManifestService $manifestService
+        ManifestService $manifestService,
+        CourierService $courierService
     ) {
         $this->setJsonModelFactory($jsonModelFactory)
             ->setViewModelFactory($viewModelFactory)
@@ -86,7 +90,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             ->setShippingConversionService($shippingConversionService)
             ->setAccountService($accountService)
             ->setOrderLabelService($orderLabelService)
-            ->setManifestService($manifestService);
+            ->setManifestService($manifestService)
+            ->setCourierService($courierService);
     }
 
     public function indexAction()
@@ -154,13 +159,18 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
     protected function amendBulkActionsForCouriers(BulkActionsViewModel $bulkActionsViewModel)
     {
-        $manifestableAccounts = $this->manifestService->getShippingAccounts();
-        if (count($manifestableAccounts) > 0) {
+        $courierAccountsPresent = $this->hasCourierAccounts();
+        $manifestableAccountsPresent = $this->hasManifestableCourierAccounts();
+        if ($courierAccountsPresent && $manifestableAccountsPresent) {
             return $this;
         }
         foreach ($bulkActionsViewModel->getActions() as $action) {
             if (!($action instanceof CourierBulkAction)) {
                 continue;
+            }
+            if (!$courierAccountsPresent) {
+                $bulkActionsViewModel->getActions()->detach($action);
+                break;
             }
             foreach ($action->getSubActions() as $subAction) {
                 if (!($subAction instanceof CourierManifestBulkAction)) {
@@ -172,6 +182,26 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         }
 
         return $this;
+    }
+
+    protected function hasCourierAccounts()
+    {
+        try {
+            $courierAccounts = $this->courierService->getShippingAccounts();
+            return (count($courierAccounts) > 0);
+        } catch (NotFound $e) {
+            return false;
+        }
+    }
+
+    protected function hasManifestableCourierAccounts()
+    {
+        try {
+            $manifestableAccounts = $this->manifestService->getShippingAccounts();
+            return (count($manifestableAccounts) > 0);
+        } catch (NotFound $e) {
+            return false;
+        }
     }
 
     protected function amendBulkActionsForUsage(BulkActionsViewModel $bulkActionsViewModel)
@@ -692,6 +722,12 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected function setManifestService(ManifestService $manifestService)
     {
         $this->manifestService = $manifestService;
+        return $this;
+    }
+
+    protected function setCourierService(CourierService $courierService)
+    {
+        $this->courierService = $courierService;
         return $this;
     }
 }
