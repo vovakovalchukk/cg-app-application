@@ -14,12 +14,16 @@ use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Stdlib\OrderBy;
 use CG\Stdlib\PageLimit;
+use CG_UI\View\BulkActions as BulkActionsViewModel;
 use CG_UI\View\Filters\Service as UIFiltersService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG_Usage\Service as UsageService;
+use Orders\Courier\Manifest\Service as ManifestService;
 use Orders\Filter\Service as FilterService;
+use Orders\Order\BulkActions\Action\Courier as CourierBulkAction;
+use Orders\Order\BulkActions\SubAction\CourierManifest as CourierManifestBulkAction;
 use Orders\Order\Batch\Service as BatchService;
 use Orders\Order\BulkActions\Service as BulkActionsService;
 use Orders\Order\Service as OrderService;
@@ -50,6 +54,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected $accountService;
     /** @var OrderLabelService */
     protected $orderLabelService;
+    /** @var ManifestService */
+    protected $manifestService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
@@ -64,7 +70,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         UsageService $usageService,
         ShippingConversionService $shippingConversionService,
         AccountService $accountService,
-        OrderLabelService $orderLabelService
+        OrderLabelService $orderLabelService,
+        ManifestService $manifestService
     ) {
         $this->setJsonModelFactory($jsonModelFactory)
             ->setViewModelFactory($viewModelFactory)
@@ -78,7 +85,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             ->setUsageService($usageService)
             ->setShippingConversionService($shippingConversionService)
             ->setAccountService($accountService)
-            ->setOrderLabelService($orderLabelService);
+            ->setOrderLabelService($orderLabelService)
+            ->setManifestService($manifestService);
     }
 
     public function indexAction()
@@ -138,16 +146,43 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected function getBulkActionsViewModel()
     {
         $bulkActionsViewModel = $this->getBulkActionsService()->getBulkActions();
+        $this->amendBulkActionsForCouriers($bulkActionsViewModel)
+            ->amendBulkActionsForUsage($bulkActionsViewModel);
+
+        return $bulkActionsViewModel;
+    }
+
+    protected function amendBulkActionsForCouriers(BulkActionsViewModel $bulkActionsViewModel)
+    {
+        $manifestableAccounts = $this->manifestService->getShippingAccounts();
+        if (count($manifestableAccounts) > 0) {
+            return $this;
+        }
+        foreach ($bulkActionsViewModel->getActions() as $action) {
+            if ($action instanceof CourierBulkAction) {
+                foreach ($action->getSubActions() as $subAction) {
+                    if ($subAction instanceof CourierManifestBulkAction) {
+                        $action->getSubActions()->detach($subAction);
+                        break;
+                    }
+                }
+            }
+        }
+
+        return $this;
+    }
+
+    protected function amendBulkActionsForUsage(BulkActionsViewModel $bulkActionsViewModel)
+    {
         if(!$this->getUsageService()->hasUsageBeenExceeded()) {
-            return $bulkActionsViewModel;
+            return $this;
         }
 
         $actions = $bulkActionsViewModel->getActions();
         foreach($actions as $action) {
             $action->setEnabled(false);
         }
-
-        return $bulkActionsViewModel;
+        return $this;
     }
 
     public function orderAction()
@@ -649,6 +684,12 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected function setOrderLabelService(OrderLabelService $orderLabelService)
     {
         $this->orderLabelService = $orderLabelService;
+        return $this;
+    }
+
+    protected function setManifestService(ManifestService $manifestService)
+    {
+        $this->manifestService = $manifestService;
         return $this;
     }
 }
