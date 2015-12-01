@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "09845b355abc11447b60055f2f132c6a",
-    "content-hash": "38aab189049ac341d76d28bb7adebc6f",
+    "hash": "094f4f2219ab6fd00fa127e237c1fc1d",
+    "content-hash": "a467e5ccb5a764ae37d06cb34d62b0b1",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -305,17 +305,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-6572-dataplug-dark-deploy",
+            "version": "dev-EPIC-CGIV-5992-dataplug",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "f4195f717585abd7b7b401c4891c9015dfaa9bf4"
+                "reference": "9ac8032287b13bf87df60c134244406015e72ec1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6572-dataplug-dark-deploy-789230.zip",
-                "reference": "f4195f717585abd7b7b401c4891c9015dfaa9bf4",
-                "shasum": "0e05f7c939a43aec42091cc85414d97af0a462cd"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-5992-dataplug-a51bb0.zip",
+                "reference": "9ac8032287b13bf87df60c134244406015e72ec1",
+                "shasum": "1e58d55af1ba6638c52cf844ce8a7e99c518b2bd"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -358,11 +358,6 @@
                 "phpunit/phpunit": "3.7.*"
             },
             "type": "di-definition",
-            "extra": {
-                "branch-alias": {
-                    "dev-CGIV-6572-dataplug-dark-deploy": "1.18.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "CG\\Channel\\": "src/Channel",
@@ -376,7 +371,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-12-01 16:24:51"
+            "time": "2015-12-01 16:46:39"
         },
         {
             "name": "channelgrabber/cilex",
@@ -7396,9 +7391,9 @@
     ],
     "aliases": [
         {
-            "alias": "dev-EPIC-CGIV-5992-dataplug",
-            "alias_normalized": "dev-EPIC-CGIV-5992-dataplug",
-            "version": "dev-CGIV-6572-dataplug-dark-deploy",
+            "alias": "1.18.7",
+            "alias_normalized": "1.18.7.0",
+            "version": "dev-EPIC-CGIV-5992-dataplug",
             "package": "channelgrabber/channel"
         },
         {
