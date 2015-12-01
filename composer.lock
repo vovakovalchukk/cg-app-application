@@ -1162,13 +1162,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "22528308fc7c406bf7233575163cb33489e04f8a"
+                "reference": "888ed40e5723a7e367d33f783b945cfc9c0f79e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6341-show-number-orders-per-filter-7b29be.zip",
-                "reference": "22528308fc7c406bf7233575163cb33489e04f8a",
-                "shasum": "0f050486283f59915ada145149a6cd3664d06e08"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6341-show-number-orders-per-filter-02c9a2.zip",
+                "reference": "888ed40e5723a7e367d33f783b945cfc9c0f79e0",
+                "shasum": "ca7dbc8302f0d743a9deba45853f1e5fd2badabf"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1230,7 +1230,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-11-24 10:14:15"
+            "time": "2015-11-26 13:25:36"
         },
         {
             "name": "channelgrabber/permission",
@@ -3149,13 +3149,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "ede271351af9f350785ca02766b34304d82b2682"
+                "reference": "a8775468a6efebac0e4473d8882824bcb0f32051"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6341-show-number-orders-per-filter-a3c517.zip",
-                "reference": "ede271351af9f350785ca02766b34304d82b2682",
-                "shasum": "cef6c5ef78b2d35ef165e4660f6ce9ab01f789e7"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6341-show-number-orders-per-filter-f4540f.zip",
+                "reference": "a8775468a6efebac0e4473d8882824bcb0f32051",
+                "shasum": "1f58f51b847798e8f9ce1867cf15da01589501b4"
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -3200,7 +3200,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-11-25 11:35:44"
+            "time": "2015-12-01 10:17:27"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",

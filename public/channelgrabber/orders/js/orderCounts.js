@@ -8,6 +8,9 @@ define([], function() {
         var init = function() {
             var self = this;
             self.ajax();
+            $('#datatable').on('fnDrawCallback', function() {
+                self.ajax();
+            });
         };
 
         init.call(this);
@@ -16,15 +19,11 @@ define([], function() {
     OrderCounts.prototype.ajax = function ()
     {
         var self = this;
-        var d = new Date();
-        var n = d.getTime();
-        var dataString = +'&time=' + n;
-
+       
         $.ajax
             ({
-                type: 'POST',
-                url: '/orders/orderCounts/' + this.organisationUnitId,
-                data: dataString,
+                type: 'GET',
+                url: '/orders/orderCounts/' + this.organisationUnitId, 
                 cache: false,
                 success: function (json)
                 {
@@ -65,14 +64,14 @@ define([], function() {
         var maxBatchCountCharacterLengthAllowed = 4;
         var pixelsPerCharacter = 5;
         var maxCountLength = maxCount.toString().length;
-            if(maxCountLength > maxBatchCountCharacterLengthAllowed){
-                var difference = maxCountLength - maxBatchCountCharacterLengthAllowed;
-                var pixelsToMoveCross = difference * pixelsPerCharacter;
-                var currentRight = $('.deletebatch').css("right").slice(0,-2);
-                var newRight = parseInt(currentRight) + parseInt(pixelsToMoveCross);
-                var cssPixels = newRight + "px";
-                $('.deletebatch').css("right",cssPixels);
-            };
+        if(maxCountLength > maxBatchCountCharacterLengthAllowed){
+            var difference = maxCountLength - maxBatchCountCharacterLengthAllowed;
+            var pixelsToMoveCross = difference * pixelsPerCharacter;
+            var currentRight = $('.deletebatch').css("right").slice(0,-2);
+            var newRight = parseInt(currentRight) + parseInt(pixelsToMoveCross);
+            var cssPixels = newRight + "px";
+            $('.deletebatch').css("right",cssPixels);
+        }
     };
     
     return OrderCounts;
