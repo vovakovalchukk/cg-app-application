@@ -3,6 +3,7 @@ namespace Orders\Courier;
 
 use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
+use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\ShippingServiceFactory;
 use CG\Channel\Type as ChannelType;
@@ -41,7 +42,9 @@ class Service implements LoggerAwareInterface
 {
     use LogTrait;
     use GetProductDetailsForOrdersTrait;
-    use GetShippingAccountsTrait;
+    use GetShippingAccountsTrait {
+        getShippingAccounts as traitGetShippingAccounts;
+    }
     use GetShippingAccountOptionsTrait;
 
     const OPTION_COLUMN_ALIAS = 'CourierSpecifics%sColumn';
@@ -103,6 +106,20 @@ class Service implements LoggerAwareInterface
     public function getCourierOptions()
     {
         return $this->getShippingAccountOptions();
+    }
+
+    public function getShippingAccounts()
+    {
+        $accounts = $this->traitGetShippingAccounts();
+        $carrierAccounts = new AccountCollection(Account::class, __FUNCTION__);
+        foreach ($accounts as $account)
+        {
+            if (!$this->carrierService->isProvidedChannel($account->getChannel())) {
+                continue;
+            }
+            $carrierAccounts->attach($account);
+        }
+        return $carrierAccounts;
     }
 
     public function getCourierServiceOptions()
