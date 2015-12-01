@@ -1,0 +1,38 @@
+<?php $this->headLink()->appendStylesheet($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'css/common/subheader-hide.css'); ?>
+<div id="breadcrumbs" class="floatLeftClear">
+    <span class="heading-large"><?= $this->translate('Stock'); ?>
+</div>
+<div class="module clearfix">
+    <form id="settings-stock-form" method="POST" action="<?=$this->saveUri;?>">
+        <div class="half">
+            <label>
+                <span class="inputbox-label"><?= $this->translate('Default Stock Mode');?>:</span>
+                <div class="order-inputbox-holder">
+                    <?=$this->defaultStockModeSelect;?>
+                </div>
+            </label>
+            <label>
+                <span class="inputbox-label"><?= $this->translate('Max / Fixed Amount');?>:</span>
+                <div class="order-inputbox-holder">
+                    <input id="settings-stock-default-stock-level" name="defaultStockLevel" type="number" step="1" min="0" class="inputbox number" value="<?=$this->defaultStockLevel;?>" />
+                </div>
+            </label>
+            <div class="order-inputbox-holder">
+                <?=$this->saveButton;?>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="module clearfix section-separator">
+    <span class="heading-large heading-spacing"><?=$this->translate('Enable / disable "List up to a maximum of" or "Fix the level at" rules by account');?></span>
+    <?=$this->accountStockSettingsTableView;?>
+</div>
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        require(['<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/Stock/Service.js';?>'], function(Service)
+        {
+            var service = new Service(n);
+        });
+    });
+</script>

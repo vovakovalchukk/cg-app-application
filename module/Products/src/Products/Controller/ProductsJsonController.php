@@ -16,12 +16,15 @@ use Products\Product\TaxRate\Service as TaxRateService;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Zend\Stdlib\Http\FileResponse;
 use Products\Stock\Csv\Service as StockCsvService;
+use Products\Stock\Settings\Service as StockSettingsService;
 use CG\Stock\Import\UpdateOptions as StockImportUpdateOptions;
 
 class ProductsJsonController extends AbstractActionController
 {
     const ROUTE_AJAX = 'AJAX';
     const ROUTE_AJAX_TAX_RATE = 'tax_rate';
+    const ROUTE_STOCK_MODE = 'Stock Mode';
+    const ROUTE_STOCK_LEVEL = 'Stock Level';
     const ROUTE_STOCK_UPDATE = 'stockupdate';
     const ROUTE_STOCK_CSV_EXPORT = 'stockCsvExport';
     const ROUTE_STOCK_CSV_IMPORT = 'stockCsvImport';
@@ -43,6 +46,8 @@ class ProductsJsonController extends AbstractActionController
     protected $organisationUnitService;
     /** @var StockCsvService $stockCsvService */
     protected $stockCsvService;
+    /** @var StockSettingsService */
+    protected $stockSettingsService;
 
     public function __construct(
         ProductService $productService,
@@ -52,7 +57,8 @@ class ProductsJsonController extends AbstractActionController
         AccountService $accountService,
         TaxRateService $taxRateService,
         OrganisationUnitService $organisationUnitService,
-        StockCsvService $stockCsvService
+        StockCsvService $stockCsvService,
+        StockSettingsService $stockSettingsService
     ) {
         $this->setProductService($productService)
             ->setJsonModelFactory($jsonModelFactory)
@@ -61,7 +67,8 @@ class ProductsJsonController extends AbstractActionController
             ->setAccountService($accountService)
             ->setTaxRateService($taxRateService)
             ->setOrganisationUnitService($organisationUnitService)
-            ->setStockCsvService($stockCsvService);
+            ->setStockCsvService($stockCsvService)
+            ->setStockSettingsService($stockSettingsService);
     }
 
     public function ajaxAction()
@@ -115,9 +122,14 @@ class ProductsJsonController extends AbstractActionController
         $product = $productEntity->toArray();
 
         $product = array_merge($product, [
+            'eTag' => $productEntity->getStoredETag(),
             'images' => $productEntity->getImages()->toArray(),
             'listings' => $productEntity->getListings()->toArray(),
-            'accounts' => $accounts
+            'accounts' => $accounts,
+            'stockModeDefault' => $this->stockSettingsService->getStockModeDefault(),
+            'stockModeDesc' => $this->stockSettingsService->getStockModeDecriptionForProduct($productEntity),
+            'stockModeOptions' => $this->stockSettingsService->getStockModeOptionsForProduct($productEntity),
+            'stockLevel' => $this->stockSettingsService->getStockLevelForProduct($productEntity),
         ]);
 
         if($isVatRegistered) {
@@ -184,6 +196,41 @@ class ProductsJsonController extends AbstractActionController
         $this->getProductService()->saveProductTaxRateId($productId, $taxRateId);
         $view->setVariable('saved', true);
         return $view;
+    }
+
+    public function saveProductStockModeAction()
+    {
+        $productId = $this->params()->fromPost('id');
+        $eTag = $this->params()->fromPost('eTag');
+        $stockMode = $this->params()->fromPost('stockMode');
+        if ($stockMode === 'null') {
+            $stockMode = null;
+        }
+        $product = $this->stockSettingsService->saveProductStockMode($productId, $stockMode, $eTag);
+        $data = [
+            'eTags' => [$product->getId() => $product->getStoredEtag()],
+            'stockModeDefault' => $this->stockSettingsService->getStockModeDefault(),
+            'stockModeDesc' => $this->stockSettingsService->getStockModeDecriptionForProduct($product),
+            'stockLevel' => $this->stockSettingsService->getStockLevelForProduct($product),
+        ];
+        foreach ($product->getVariations() as $variation) {
+            $data['eTags'][$variation->getId()] = $variation->getStoredEtag();
+        }
+        return $this->jsonModelFactory->newInstance($data);
+    }
+
+    public function saveProductStockLevelAction()
+    {
+        $productId = $this->params()->fromPost('id');
+        $eTag = $this->params()->fromPost('eTag');
+        $stockLevel = $this->params()->fromPost('stockLevel');
+
+        $affectedProducts = $this->stockSettingsService->saveProductStockLevel($productId, $stockLevel, $eTag);
+        $data = ['eTags' => []];
+        foreach ($affectedProducts as $product) {
+            $data['eTags'][$product->getId()] = $product->getStoredEtag();
+        }
+        return $this->jsonModelFactory->newInstance($data);
     }
 
     public function stockCsvExportAction()
@@ -326,6 +373,12 @@ class ProductsJsonController extends AbstractActionController
     public function setStockCsvService(StockCsvService $stockCsvService)
     {
         $this->stockCsvService = $stockCsvService;
+        return $this;
+    }
+
+    protected function setStockSettingsService(StockSettingsService $stockSettingsService)
+    {
+        $this->stockSettingsService = $stockSettingsService;
         return $this;
     }
 }

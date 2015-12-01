@@ -5,33 +5,27 @@ define([
     KeyPress,
     elementWatcher
 ) {
-    var Search = function()
+    var Search = function(service)
     {
-        var service;
-        this.setService = function(newService)
-        {
-            service = newService;
-            return this;
-        };
         this.getService = function()
         {
             return service;
         };
+
+        var init = function()
+        {
+            var self = this;
+            elementWatcher.onInitialise(function() {
+                self.listen();
+            });
+        };
+        init.call(this);
     };
 
     Search.SELECTOR_INPUT = '.product-search-text';
     Search.SELECTOR_BUTTON = '.product-search-button';
     Search.EVENT_PRODUCTS_FETCHED = 'products-fetched';
     Search.EVENT_PRODUCTS_RENDERED = 'products-rendered';
-
-    Search.prototype.init = function(service)
-    {
-        this.setService(service);
-        var self = this;
-        elementWatcher.onInitialise(function() {
-            self.listen();
-        });
-    };
 
     Search.prototype.listen = function()
     {
@@ -71,5 +65,5 @@ define([
         return Search.EVENT_PRODUCTS_RENDERED;
     };
 
-    return new Search();
+    return Search;
 });
