@@ -39,6 +39,7 @@ use Orders\Controller\CancelController;
 use Orders\Controller\StoredBatchesController;
 use CG\Settings\Alias\Storage\Api as ShippingAliasStorage;
 use CG\Order\Client\Tracking\Storage\Api as TrackingStorageApi;
+use CG\Order\Shared\Tracking\StorageInterface as TrackingStorage;
 use CG\Order\Service\Tracking\Service as TrackingService;
 use CG\Account\Client\Storage\Api as AccountStorageApi;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
@@ -46,10 +47,33 @@ use CG\OrganisationUnit\Storage\Api as OrganisationUnitApiStorage;
 use Orders\Order\Invoice\ProgressStorage as OrderInvoiceProgressStorage;
 use Orders\Order\PickList\ProgressStorage as OrderPickListProgressStorage;
 
+// Courier
+use Orders\Controller\CourierController;
+use Orders\Controller\CourierJsonController;
+use Orders\Courier\Service as CourierService;
+use Settings\Factory\SidebarNavFactory;
+
 return [
+    'service_manager' => [
+        'factories' => [
+            'courier-specifics-navigation'  => SidebarNavFactory::class,
+        ]
+    ],
+    'navigation' => [
+        'courier-specifics-navigation' => [
+            'couriers' => [
+                'label' => 'Courier Labels',
+                'uri' => '',
+                'class' => 'heading-medium',
+                'pages' => [
+                    // Leave this here. Entries will be added dynamically.
+                ]
+            ]
+        ]
+    ],
     'router' => [
         'routes' => [
-            'Orders' => [
+            Module::ROUTE => [
                 'type' => 'literal',
                 'options' => [
                     'route' => '/orders',
@@ -621,6 +645,185 @@ return [
                             ]
                         ]
                     ],
+                    CourierController::ROUTE => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => CourierController::ROUTE_URI,
+                            'defaults' => [
+                                'controller' => CourierController::class,
+                                'action' => 'index'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            CourierController::ROUTE_REVIEW => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => CourierController::ROUTE_REVIEW_URI,
+                                    'defaults' => [
+                                        'action' => 'review',
+                                        'breadcrumbs' => false,
+                                        'sidebar' => false,
+                                        'subHeader' => false,
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    CourierJsonController::ROUTE_REVIEW_LIST => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => CourierJsonController::ROUTE_REVIEW_LIST_URI,
+                                            'defaults' => [
+                                                'controller' => CourierJsonController::class,
+                                                'action' => 'reviewList',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ]
+                                ]
+                            ],
+                            CourierController::ROUTE_SPECIFICS => [
+                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                'options' => [
+                                    'route' => CourierController::ROUTE_SPECIFICS_URI,
+                                    'defaults' => [
+                                        'action' => 'specifics',
+                                        'breadcrumbs' => false,
+                                        'sidebar' => 'orders/courier/specifics/sidebar',
+                                        'subHeader' => false,
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    CourierJsonController::ROUTE_SPECIFICS_LIST => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => CourierJsonController::ROUTE_SPECIFICS_LIST_URI,
+                                            'defaults' => [
+                                                'controller' => CourierJsonController::class,
+                                                'action' => 'specificsList',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ]
+                                ]
+                            ],
+                            CourierController::ROUTE_LABEL => [
+                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                'options' => [
+                                    'route' => CourierController::ROUTE_LABEL_URI,
+                                    'defaults' => [
+                                        'controller' => CourierJsonController::class,
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    CourierJsonController::ROUTE_LABEL_CREATE => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => CourierJsonController::ROUTE_LABEL_CREATE_URI,
+                                            'defaults' => [
+                                                'action' => 'createLabel',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
+                                    CourierController::ROUTE_LABEL_PRINT => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => CourierController::ROUTE_LABEL_PRINT_URI,
+                                            'defaults' => [
+                                                'controller' => CourierController::class,
+                                                'action' => 'printLabel',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
+                                    CourierJsonController::ROUTE_LABEL_CANCEL => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => CourierJsonController::ROUTE_LABEL_CANCEL_URI,
+                                            'defaults' => [
+                                                'action' => 'cancel',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
+                                    CourierJsonController::ROUTE_LABEL_READY_CHECK => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => CourierJsonController::ROUTE_LABEL_READY_CHECK_URI,
+                                            'defaults' => [
+                                                'action' => 'readyCheck',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
+                                ]
+                            ],
+                            CourierJsonController::ROUTE_MANIFEST => [
+                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                'options' => [
+                                    'route' => CourierJsonController::ROUTE_MANIFEST_URI,
+                                    'defaults' => [
+                                        'controller' => CourierJsonController::class,
+                                        'action' => 'createManifest',
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    CourierJsonController::ROUTE_MANIFEST_ACCOUNTS => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => CourierJsonController::ROUTE_MANIFEST_ACCOUNTS_URI,
+                                            'defaults' => [
+                                                'controller' => CourierJsonController::class,
+                                                'action' => 'manifestAccounts',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
+                                    CourierJsonController::ROUTE_MANIFEST_DETAILS => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => CourierJsonController::ROUTE_MANIFEST_DETAILS_URI,
+                                            'defaults' => [
+                                                'controller' => CourierJsonController::class,
+                                                'action' => 'manifestDetails',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
+                                    CourierJsonController::ROUTE_MANIFEST_HISTORIC => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => CourierJsonController::ROUTE_MANIFEST_HISTORIC_URI,
+                                            'defaults' => [
+                                                'controller' => CourierJsonController::class,
+                                                'action' => 'historicManifests',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
+                                    CourierController::ROUTE_MANIFEST_PRINT => [
+                                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                                        'priority' => -100,
+                                        'options' => [
+                                            'route' => CourierController::ROUTE_MANIFEST_PRINT_URI,
+                                            'constraints' => [
+                                                'manifestId' => '.+'
+                                            ],
+                                            'defaults' => [
+                                                'controller' => CourierController::class,
+                                                'action' => 'printManifest',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
+                                ]
+                            ],
+                        ]
+                    ],
                     StoredFiltersController::ROUTE_SAVE => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [
@@ -755,6 +958,55 @@ return [
                 'OrdersOptionsColumnView' => ViewModel::class,
                 'OrdersOptionsColumn' => DataTable\Column::class,
                 'OrderRpcClient' => JsonRpcClient::class,
+                'CourierReviewTable' => DataTable::class,
+                'CourierReviewTableSettings' => DataTable\Settings::class,
+                'CourierReviewBuyerOrderColumnView' => ViewModel::class,
+                'CourierReviewBuyerOrderColumn' => DataTable\Column::class,
+                'CourierReviewShippingMethodColumnView' => ViewModel::class,
+                'CourierReviewShippingMethodColumn' => DataTable\Column::class,
+                'CourierReviewCourierColumnView' => ViewModel::class,
+                'CourierReviewCourierColumn' => DataTable\Column::class,
+                'CourierReviewServiceColumnView' => ViewModel::class,
+                'CourierReviewServiceColumn' => DataTable\Column::class,
+                'CourierReviewItemImageColumnView' => ViewModel::class,
+                'CourierReviewItemImageColumn' => DataTable\Column::class,
+                'CourierReviewItemColumnView' => ViewModel::class,
+                'CourierReviewItemColumn' => DataTable\Column::class,
+                'CourierSpecificsTable' => DataTable::class,
+                'CourierSpecificsTableSettings' => DataTable\Settings::class,
+                'CourierSpecificsBuyerOrderColumnView' => ViewModel::class,
+                'CourierSpecificsBuyerOrderColumn' => DataTable\Column::class,
+                'CourierSpecificsShippingMethodColumnView' => ViewModel::class,
+                'CourierSpecificsShippingMethodColumn' => DataTable\Column::class,
+                'CourierSpecificsServiceColumnView' => ViewModel::class,
+                'CourierSpecificsServiceColumn' => DataTable\Column::class,
+                'CourierSpecificsParcelsColumnView' => ViewModel::class,
+                'CourierSpecificsParcelsColumn' => DataTable\Column::class,
+                'CourierSpecificsCollectionDateColumnView' => ViewModel::class,
+                'CourierSpecificsCollectionDateColumn' => DataTable\Column::class,
+                'CourierSpecificsItemImageColumnView' => ViewModel::class,
+                'CourierSpecificsItemImageColumn' => DataTable\Column::class,
+                'CourierSpecificsItemColumnView' => ViewModel::class,
+                'CourierSpecificsItemColumn' => DataTable\Column::class,
+                'CourierSpecificsActionsColumnView' => ViewModel::class,
+                'CourierSpecificsActionsColumn' => DataTable\Column::class,
+                // Optional columns, added to table dynamically as required
+                'CourierSpecificsWeightColumnView' => ViewModel::class,
+                'CourierSpecificsWeightColumn' => DataTable\Column::class,
+                'CourierSpecificsHeightColumnView' => ViewModel::class,
+                'CourierSpecificsHeightColumn' => DataTable\Column::class,
+                'CourierSpecificsWidthColumnView' => ViewModel::class,
+                'CourierSpecificsWidthColumn' => DataTable\Column::class,
+                'CourierSpecificsLengthColumnView' => ViewModel::class,
+                'CourierSpecificsLengthColumn' => DataTable\Column::class,
+                'CourierSpecificsInsuranceColumnView' => ViewModel::class,
+                'CourierSpecificsInsuranceColumn' => DataTable\Column::class,
+                'CourierSpecificsInsuranceMonetaryColumnView' => ViewModel::class,
+                'CourierSpecificsInsuranceMonetaryColumn' => DataTable\Column::class,
+                'CourierSpecificsSignatureColumnView' => ViewModel::class,
+                'CourierSpecificsSignatureColumn' => DataTable\Column::class,
+                'CourierSpecificsDeliveryInstructionsColumnView' => ViewModel::class,
+                'CourierSpecificsDeliveryInstructionsColumn' => DataTable\Column::class,
             ],
             'preferences' => [
                 InvoiceRendererService::class => PdfInvoiceRendererService::class,
@@ -762,6 +1014,7 @@ return [
                 ProductStorage::class => ProductApiStorage::class,
                 StockStorage::class => StockApiStorage::class,
                 ListingStorage::class => ListingApiStorage::class,
+                TrackingStorage::class => TrackingStorageApi::class,
             ],
             TableService::class => [
                 'parameters' => [
@@ -1295,7 +1548,400 @@ return [
                 'parameters' => [
                     'repository' => OrganisationUnitApiStorage::class
                 ]
-            ]
+            ],
+
+            CourierService::class => [
+                'parameters' => [
+                    'config' => 'app_config',
+                ]
+            ],
+            CourierController::class => [
+                'parameters' => [
+                    'reviewTable' => 'CourierReviewTable',
+                    'specificsTable' => 'CourierSpecificsTable',
+                ]
+            ],
+            'CourierReviewTable' => [
+                'parameters' => [
+                    'variables' => [
+                        'sortable' => 'false',
+                        'id' => 'datatable',
+                        'class' => 'fixed-header fixed-footer',
+                        'width' => '100%'
+                    ],
+                ],
+                'injections' => [
+                    'addColumn' => [
+                        ['column' => 'CourierReviewBuyerOrderColumn'],
+                        ['column' => 'CourierReviewShippingMethodColumn'],
+                        ['column' => 'CourierReviewCourierColumn'],
+                        ['column' => 'CourierReviewServiceColumn'],
+                        ['column' => 'CourierReviewItemImageColumn'],
+                        ['column' => 'CourierReviewItemColumn'],
+                    ],
+                    'setVariable' => [
+                        ['name' => 'settings', 'value' => 'CourierReviewTableSettings']
+                    ],
+                ],
+            ],
+            'CourierReviewTableSettings' => [
+                'parameters' => [
+                    'scrollHeightAuto' => false,
+                    'footer' => false,
+                    'pagination' => false,
+                    'tableOptions' => 'rt<"table-footer" ilp>',
+                    'language' => [
+                      'sLengthMenu' => '<span class="show">Show</span> _MENU_'
+                    ],
+                ]
+            ],
+            'CourierReviewBuyerOrderColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Buyer / Order ID'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierReviewBuyerOrderColumn' => [
+                'parameters' => [
+                    'column' => 'buyerOrder',
+                    'viewModel' => 'CourierReviewBuyerOrderColumnView',
+                    'class' => 'buyerOrder-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierReviewShippingMethodColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Shipping Method'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierReviewShippingMethodColumn' => [
+                'parameters' => [
+                    'column' => 'shippingMethod',
+                    'viewModel' => 'CourierReviewShippingMethodColumnView',
+                    'class' => 'shippingMethod-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierReviewCourierColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Courier'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierReviewCourierColumn' => [
+                'parameters' => [
+                    'column' => 'courier',
+                    'viewModel' => 'CourierReviewCourierColumnView',
+                    'class' => 'courier-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierReviewServiceColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Service'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierReviewServiceColumn' => [
+                'parameters' => [
+                    'column' => 'service',
+                    'viewModel' => 'CourierReviewServiceColumnView',
+                    'class' => 'service-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierReviewItemImageColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => ''],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierReviewItemImageColumn' => [
+                'parameters' => [
+                    'column' => 'itemImage',
+                    'viewModel' => 'CourierReviewItemImageColumnView',
+                    'class' => 'itemImage-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierReviewItemColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Item'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierReviewItemColumn' => [
+                'parameters' => [
+                    'column' => 'item',
+                    'viewModel' => 'CourierReviewItemColumnView',
+                    'class' => 'item-col',
+                    'sortable' => false,
+                ],
+            ],
+
+            'CourierSpecificsTable' => [
+                'parameters' => [
+                    'variables' => [
+                        'sortable' => 'false',
+                        'id' => 'datatable',
+                        'class' => 'fixed-header fixed-footer',
+                        'width' => '100%'
+                    ],
+                ],
+                'injections' => [
+                    'addColumn' => [
+                        ['column' => 'CourierSpecificsBuyerOrderColumn'],
+                        ['column' => 'CourierSpecificsShippingMethodColumn'],
+                        ['column' => 'CourierSpecificsServiceColumn'],
+                        ['column' => 'CourierSpecificsParcelsColumn'],
+                        ['column' => 'CourierSpecificsCollectionDateColumn'],
+                        ['column' => 'CourierSpecificsItemImageColumn'],
+                        ['column' => 'CourierSpecificsItemColumn'],
+                    ],
+                    'setVariable' => [
+                        ['name' => 'settings', 'value' => 'CourierSpecificsTableSettings']
+                    ],
+                ],
+            ],
+            'CourierSpecificsTableSettings' => [
+                'parameters' => [
+                    'scrollHeightAuto' => false,
+                    'footer' => false,
+                    'pagination' => false,
+                    'tableOptions' => 'rt<"table-footer" ilp>',
+                    'language' => [
+                      'sLengthMenu' => '<span class="show">Show</span> _MENU_'
+                    ],
+                ]
+            ],
+            'CourierSpecificsBuyerOrderColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Buyer / Order ID'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsBuyerOrderColumn' => [
+                'parameters' => [
+                    'column' => 'buyerOrder',
+                    'viewModel' => 'CourierSpecificsBuyerOrderColumnView',
+                    'class' => 'buyerOrder-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsShippingMethodColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Shipping<br/>Method'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsShippingMethodColumn' => [
+                'parameters' => [
+                    'column' => 'shippingMethod',
+                    'viewModel' => 'CourierSpecificsShippingMethodColumnView',
+                    'class' => 'shippingMethod-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsServiceColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Service'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsServiceColumn' => [
+                'parameters' => [
+                    'column' => 'service',
+                    'viewModel' => 'CourierSpecificsServiceColumnView',
+                    'class' => 'service-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsParcelsColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'No.<br/>Parcels'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsParcelsColumn' => [
+                'parameters' => [
+                    'column' => 'parcels',
+                    'viewModel' => 'CourierSpecificsParcelsColumnView',
+                    'class' => 'parcels-col',
+                    'sortable' => false,
+                    'width' => '100px',
+                ],
+            ],
+            'CourierSpecificsCollectionDateColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Collection'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsCollectionDateColumn' => [
+                'parameters' => [
+                    'column' => 'collectionDate',
+                    'viewModel' => 'CourierSpecificsCollectionDateColumnView',
+                    'class' => 'collectionDate-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsItemImageColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => ''],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsItemImageColumn' => [
+                'parameters' => [
+                    'column' => 'itemImage',
+                    'viewModel' => 'CourierSpecificsItemImageColumnView',
+                    'class' => 'itemImage-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsItemColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Item'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsItemColumn' => [
+                'parameters' => [
+                    'column' => 'item',
+                    'viewModel' => 'CourierSpecificsItemColumnView',
+                    'class' => 'item-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsActionsColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Actions'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsActionsColumn' => [
+                'parameters' => [
+                    'column' => 'actions',
+                    'viewModel' => 'CourierSpecificsActionsColumnView',
+                    'class' => 'actions-col',
+                    'sortable' => false,
+                ],
+            ],
+            // Optional columns, will be added to table dynamically as required
+            'CourierSpecificsWeightColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Weight'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsWeightColumn' => [
+                'parameters' => [
+                    'column' => 'weight',
+                    'viewModel' => 'CourierSpecificsWeightColumnView',
+                    'class' => 'weight-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsHeightColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Height'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsHeightColumn' => [
+                'parameters' => [
+                    'column' => 'height',
+                    'viewModel' => 'CourierSpecificsHeightColumnView',
+                    'class' => 'height-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsWidthColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Width'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsWidthColumn' => [
+                'parameters' => [
+                    'column' => 'width',
+                    'viewModel' => 'CourierSpecificsWidthColumnView',
+                    'class' => 'width-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsLengthColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Length'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsLengthColumn' => [
+                'parameters' => [
+                    'column' => 'length',
+                    'viewModel' => 'CourierSpecificsLengthColumnView',
+                    'class' => 'length-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsInsuranceColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Insurance?'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsInsuranceColumn' => [
+                'parameters' => [
+                    'column' => 'insurance',
+                    'viewModel' => 'CourierSpecificsInsuranceColumnView',
+                    'class' => 'insurance-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsInsuranceMonetaryColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Insurance<br/>Amount'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsInsuranceMonetaryColumn' => [
+                'parameters' => [
+                    'column' => 'insuranceMonetary',
+                    'viewModel' => 'CourierSpecificsInsuranceMonetaryColumnView',
+                    'class' => 'insuranceMonetary-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsSignatureColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Signature?'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsSignatureColumn' => [
+                'parameters' => [
+                    'column' => 'signature',
+                    'viewModel' => 'CourierSpecificsSignatureColumnView',
+                    'class' => 'signature-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsDeliveryInstructionsColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Delivery<br/>Instructions'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsDeliveryInstructionsColumn' => [
+                'parameters' => [
+                    'column' => 'deliveryInstructions',
+                    'viewModel' => 'CourierSpecificsDeliveryInstructionsColumnView',
+                    'class' => 'deliveryInstructions-col',
+                    'sortable' => false,
+                    'width' => '150px',
+                ],
+            ],
         ],
     ],
     'navigation' => array(

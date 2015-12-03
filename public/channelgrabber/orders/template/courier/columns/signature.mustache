@@ -1,0 +1,11 @@
+{{#actionRow}}
+<div class="checkbox-holder courier-signature">
+    <a class="std-checkbox">
+        <input type="checkbox" id="courier-signature-{{orderId}}" name="orderData[{{orderId}}][signature]"{{#signature}} checked="checked"{{/signature}}/>
+        <label for="courier-signature-{{orderId}}">
+            <span class="checkbox_label"></span>
+        </label>
+    </a>
+</div>
+{{/actionRow}}
+{{^actionRow}}&nbsp;{{/actionRow}}

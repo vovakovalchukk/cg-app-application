@@ -253,6 +253,14 @@ require([
     <form id="trackingInformation" data-url="<?= $this->url('Orders/order/tracking', array('order' => $order->getId())); ?>"
               data-actionMessage="<?= $this->translate('Updating tracking info'); ?>" data-successMessage="<?= $this->translate('Tracking info updated'); ?>">
         <div class="half">
+        <?php if (isset($this->printShippingLabelButton)): ?>
+        <label>
+            <span class="inputbox-label"><?= $this->translate('Label'); ?></span>
+            <div class="alternate-input">
+                <?= $this->printShippingLabelButton ?>
+            </div>
+        </label>
+        <?php endif; ?>
         <?php
             $trackings = $order->getTrackings();
             $trackings->rewind();
