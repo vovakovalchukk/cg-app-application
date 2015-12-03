@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4a1d222fb99e3d3fc657397e07935639",
-    "content-hash": "3214016f400680a53ef68a4e02f2cb93",
+    "hash": "8421b64dd7a3dac216fd755f2a0b7b4e",
+    "content-hash": "3d5eb14b60e60b14b1e71eae887dfed7",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2553,17 +2553,17 @@
         },
         {
             "name": "channelgrabber/zf2-dataplug",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/dataplug-module.git",
-                "reference": "b9e0702ea5a5b39572fa2300e237fb571db65dc3"
+                "reference": "0899abad3c00e4b2e2651dc423dce4d2c1adeb63"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-dataplug-1.0.0-c1a219.zip",
-                "reference": "b9e0702ea5a5b39572fa2300e237fb571db65dc3",
-                "shasum": "345b4cfadb31f7112ec341952eda06762d641444"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-dataplug-1.0.1-bca606.zip",
+                "reference": "0899abad3c00e4b2e2651dc423dce4d2c1adeb63",
+                "shasum": "1f6fc53f3937cf717ab2bae4fbb0234c00ccfc7a"
             },
             "require": {
                 "channelgrabber/channel": "^1.19.0",
@@ -2595,7 +2595,7 @@
                 ]
             },
             "description": "Dataplug module",
-            "time": "2015-12-03 10:55:57"
+            "time": "2015-12-03 14:12:56"
         },
         {
             "name": "channelgrabber/zf2-ebay",
