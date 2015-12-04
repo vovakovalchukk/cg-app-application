@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ae5105f4a326c8aa325df8fbd314a91c",
-    "content-hash": "b0bf6c95319a3e56f2dae62920b3aba2",
+    "hash": "9208d25f92982420c5dd133ece3105ee",
+    "content-hash": "fd7265aeccc69b66e3281a6dd0e5c54d",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2348,17 +2348,17 @@
         },
         {
             "name": "channelgrabber/woocommerce",
-            "version": "dev-CGIV-6466-LookupEntities",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-woocommerce.git",
-                "reference": "21841b089368a18fcd7a86476b9739996014f336"
+                "reference": "60495752aea598f0c690729b2243b4b9c69a5a8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-dev-CGIV-6466-LookupEntities-1e22f3.zip",
-                "reference": "21841b089368a18fcd7a86476b9739996014f336",
-                "shasum": "15acf2feff30564c46e8f93dff6d59f33c4054db"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-woocommerce-1.2.0-bf1cc8.zip",
+                "reference": "60495752aea598f0c690729b2243b4b9c69a5a8f",
+                "shasum": "0fbf06c18398d62cc3901b5e789b87ac620de824"
             },
             "require": {
                 "channelgrabber/channel": "^1.18.5",
@@ -2392,7 +2392,7 @@
                     "CG\\WooCommerce\\Test\\": "tests/"
                 }
             },
-            "time": "2015-12-01 08:59:23"
+            "time": "2015-12-04 12:04:36"
         },
         {
             "name": "channelgrabber/zendesk",
@@ -2553,17 +2553,17 @@
         },
         {
             "name": "channelgrabber/zf2-dataplug",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/dataplug-module.git",
-                "reference": "b9e0702ea5a5b39572fa2300e237fb571db65dc3"
+                "reference": "0899abad3c00e4b2e2651dc423dce4d2c1adeb63"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-dataplug-1.0.0-c1a219.zip",
-                "reference": "b9e0702ea5a5b39572fa2300e237fb571db65dc3",
-                "shasum": "345b4cfadb31f7112ec341952eda06762d641444"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-dataplug-1.0.1-bca606.zip",
+                "reference": "0899abad3c00e4b2e2651dc423dce4d2c1adeb63",
+                "shasum": "1f6fc53f3937cf717ab2bae4fbb0234c00ccfc7a"
             },
             "require": {
                 "channelgrabber/channel": "^1.19.0",
@@ -2595,7 +2595,7 @@
                 ]
             },
             "description": "Dataplug module",
-            "time": "2015-12-03 10:55:57"
+            "time": "2015-12-03 14:12:56"
         },
         {
             "name": "channelgrabber/zf2-ebay",
@@ -7371,18 +7371,10 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.2.0",
-            "alias_normalized": "1.2.0.0",
-            "version": "dev-CGIV-6466-LookupEntities",
-            "package": "channelgrabber/woocommerce"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/woocommerce": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

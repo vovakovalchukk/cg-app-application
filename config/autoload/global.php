@@ -116,9 +116,6 @@ use CG\Template\Image\Client\Guzzle as ImageTemplateGuzzleClient;
 // Dataplug
 use CG\Dataplug\Carrier\Service as DataplugCarrierService;
 use CG\Channel\ShippingOptionsProviderInterface as ChannelShippingOptionsProviderInterface;
-use CG_Dataplug\Controller\AccountController as DataplugAccountController;
-use Settings\Module as SettingsModule;
-use Settings\Controller\ChannelController;
 use CG\Order\Shared\Label\StorageInterface as OrderLabelStorage;
 use CG\Order\Client\Label\Storage\Api as OrderLabelApiStorage;
 use CG\Product\Detail\StorageInterface as ProductDetailStorage;
@@ -993,11 +990,6 @@ return array(
                         'signature' => true,
                         'deliveryInstructions' => true,
                     ]
-                ]
-            ],
-            DataplugAccountController::class => [
-                'parameters' => [
-                    'accountRoute' => implode('/', [SettingsModule::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS])
                 ]
             ],
         ),
