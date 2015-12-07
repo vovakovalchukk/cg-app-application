@@ -81,20 +81,6 @@ return [
                             ]
                         ],
                         'may_terminate' => true,
-                        'child_routes' => [
-                            'filterId' => [
-                                'type' => 'Zend\Mvc\Router\Http\Segment',
-                                'options' => [
-                                    'route' => '/:filterId',
-                                    'constraints' => [
-                                        'filterId' => '.+'
-                                    ],
-                                    'defaults' => [
-                                        'action' => 'jsonFilterId',
-                                    ]
-                                ],
-                            ],
-                        ],
                     ],
                     'orderCounts' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
