@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d858371b1c9bbadb34ea3f555959a1b2",
-    "content-hash": "7632f78e2c980ca82e1c69f482d7fad0",
+    "hash": "86174de385c4b981b1f43a62d78ec974",
+    "content-hash": "15df80bb52a8d579d83d8dea7ebf4c2c",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1195,17 +1195,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.19.30",
+            "version": "dev-CGIV-6282-Invoice-generation-is-using-ridiculous-amount-of-space",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "0cd0c6d5cf723d8f122b76067301c34986b1abae"
+                "reference": "99711c307dfcd33f00cc8433da5d9343942cf9bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.19.30-7a7d8e.zip",
-                "reference": "0cd0c6d5cf723d8f122b76067301c34986b1abae",
-                "shasum": "49a8c70f94d6a53c5c86e699e9e1be350b70293c"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6282-Invoice-generation-is-using-ridiculous-amount-of-space-ff5e37.zip",
+                "reference": "99711c307dfcd33f00cc8433da5d9343942cf9bc",
+                "shasum": "e4cb49b9bb475ef22b33563e85ee7eb9ef85dc50"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1262,7 +1262,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-12-03 09:55:20"
+            "time": "2015-12-07 16:07:54"
         },
         {
             "name": "channelgrabber/permission",
@@ -7373,6 +7373,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.20.0",
+            "alias_normalized": "1.20.0.0",
+            "version": "dev-CGIV-6282-Invoice-generation-is-using-ridiculous-amount-of-space",
+            "package": "channelgrabber/order"
+        },
+        {
             "alias": "1.4.3",
             "alias_normalized": "1.4.3.0",
             "version": "dev-CGIV-6282-Invoice-generation-is-using-ridiculous-amount-of-space",
@@ -7382,6 +7388,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "channelgrabber/template": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
