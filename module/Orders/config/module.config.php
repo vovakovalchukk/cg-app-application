@@ -81,6 +81,20 @@ return [
                             ]
                         ],
                         'may_terminate' => true,
+                        'child_routes' => [
+                            'filterId' => [
+                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                'options' => [
+                                    'route' => '/:filterId',
+                                    'constraints' => [
+                                        'filterId' => '.+'
+                                    ],
+                                    'defaults' => [
+                                        'action' => 'jsonFilterId',
+                                    ]
+                                ],
+                            ],
+                        ],
                     ],
                     'orderCounts' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
@@ -91,17 +105,6 @@ return [
                             ]
                         ],
                         'may_terminate' => true,
-                        'child_routes' => [
-                            'OUId' => [
-                                'type' => 'Zend\Mvc\Router\Http\Segment',
-                                'options' => [
-                                    'route' => '/:OUId',
-                                    'defaults' => [
-                                        'action' => 'orderCountsAjaxWithOUID',
-                                    ]
-                                ],
-                            ],
-                        ],
                     ],
                     'update-columns' => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
