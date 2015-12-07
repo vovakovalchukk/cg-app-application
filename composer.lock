@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "86174de385c4b981b1f43a62d78ec974",
+    "hash": "793f3bfad05c073fb203a897d8d85076",
     "content-hash": "15df80bb52a8d579d83d8dea7ebf4c2c",
     "packages": [
         {
@@ -1199,13 +1199,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "99711c307dfcd33f00cc8433da5d9343942cf9bc"
+                "reference": "cd4e2c63a6481cfaa3262e87a287dd8590c58c9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6282-Invoice-generation-is-using-ridiculous-amount-of-space-ff5e37.zip",
-                "reference": "99711c307dfcd33f00cc8433da5d9343942cf9bc",
-                "shasum": "e4cb49b9bb475ef22b33563e85ee7eb9ef85dc50"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6282-Invoice-generation-is-using-ridiculous-amount-of-space-b88a70.zip",
+                "reference": "cd4e2c63a6481cfaa3262e87a287dd8590c58c9e",
+                "shasum": "49fb474b9454dd595523e87e7d781b1a49ac6443"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1262,7 +1262,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-12-07 16:07:54"
+            "time": "2015-12-07 16:33:31"
         },
         {
             "name": "channelgrabber/permission",
