@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3fa48b7a0061ed2740aa690c62938178",
-    "content-hash": "6515cd4e7e98f9404efbe4f6c9d9cbcd",
+    "hash": "6809b957dd15dda4563e91fc18cd5419",
+    "content-hash": "86186a532396af45be1625ea4a136c7d",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -378,7 +378,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-11-19 13:10:51"
+            "time": "2015-11-23 15:17:52"
         },
         {
             "name": "channelgrabber/cilex",
@@ -3201,7 +3201,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-11-19 13:21:41"
+            "time": "2015-12-01 10:17:27"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",

@@ -1,10 +1,6 @@
 define([], function() {
-
     var OrderCounts = function()
     {
-        ///organisationUnitId is taken from global
-        this.organisationUnitId = organisationUnitId;
-
         var init = function() {
             var self = this;
             self.ajax();
@@ -20,20 +16,19 @@ define([], function() {
     {
         var self = this;
        
-        $.ajax
-            ({
-                type: 'GET',
-                url: '/orders/orderCounts/' + this.organisationUnitId, 
-                cache: false,
-                success: function (json)
-                {
-                    self.displayCounts(json);
-                },
-                error: function()
-                {
-                    alert('Order count request failed');
-                }
-            });
+        $.ajax  ({
+            type: 'GET',
+            url: '/orders/orderCounts/',
+            cache: false,
+            success: function (json)
+            {
+                self.displayCounts(json);
+            },
+            error: function()
+            {
+                alert('Order count request failed');
+            }
+        });
     };
 
     OrderCounts.prototype.displayCounts = function (json)

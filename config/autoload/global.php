@@ -57,8 +57,6 @@ use CG\Log\Shared\Storage\Redis\Channel as RedisChannel;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\OrganisationUnit\Storage\Api as OrganisationUnitStorageApi;
 
-
-
 //Order Counts
 use CG\Order\Shared\OrderCounts\Storage\Api as OrderCountsApi;
 
@@ -67,7 +65,6 @@ use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
 use CG\Settings\Invoice\Client\Storage\Api as InvoiceSettingsApiStorage;
 use CG\Settings\Product\StorageInterface as ProductSettingsStorage;
 use CG\Settings\Product\Storage\Api as ProductSettingsStorageApi;
-
 
 // Discount
 use CG\Billing\Discount\StorageInterface as DiscountStorage;

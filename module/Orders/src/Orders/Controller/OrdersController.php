@@ -77,8 +77,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             ->setUsageService($usageService)
             ->setShippingConversionService($shippingConversionService)
             ->setAccountService($accountService)
-            ->setOrderCountsApi($orderCountsApi)
-                ;
+            ->setOrderCountsApi($orderCountsApi);
     }
 
     public function indexAction()
@@ -427,8 +426,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     public function orderCountsAjaxWithOUIDAction()
     {
         $OUId = $this->params()->fromRoute('OUId');
-        $orderCountsAPI = $this->orderCountsApi;
-        $entity = $orderCountsAPI->fetch($OUId);
+        $entity = $this->orderCountsApi->fetch($OUId);
         $data = $entity->toArray();
         return $this->getJsonModelFactory()->newInstance($data);
     }
