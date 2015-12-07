@@ -7,6 +7,8 @@ use CG\Amazon\Account as AmazonAccount;
 use CG\Amazon\Account\CreationService as AmazonAccountCreationService;
 use CG\Amazon\Marketplace\Participation\Service as MarketplaceParticipationService;
 use CG\Channel\Type;
+use CG\Dataplug\Account as DataplugAccount;
+use CG\Dataplug\Account\CreationService as DataplugAccountCreationService;
 use CG\Ebay\Account as EbayAccount;
 use CG\Ebay\Account\CreationService as EbayAccountCreationService;
 use CG\Ebay\Client\TradingApi;
@@ -35,6 +37,7 @@ use Settings\Controller\AdvancedController;
 use Settings\Controller\AmazonController;
 use Settings\Controller\ApiController;
 use Settings\Controller\ChannelController;
+use Settings\Controller\DataplugController;
 use Settings\Controller\EbayController;
 use Settings\Controller\EkmController;
 use Settings\Controller\ExportController;
@@ -42,6 +45,8 @@ use Settings\Controller\IndexController;
 use Settings\Controller\InvoiceController;
 use Settings\Controller\PickListController;
 use Settings\Controller\ShippingController;
+use Settings\Controller\StockController;
+use Settings\Controller\StockJsonController;
 use Settings\Controller\WooCommerceController;
 use Settings\Factory\SidebarNavFactory;
 use Settings\Invoice\Service as InvoiceService;
@@ -119,6 +124,18 @@ return [
                         'title' => PickListController::ROUTE_PICK_LIST,
                         'route' => Module::ROUTE . '/' . PickListController::ROUTE . '/' . PickListController::ROUTE_PICK_LIST
                     ]
+                ]
+            ],
+            'Product Management' => [
+                'label' => 'Product Management',
+                'uri' => '',
+                'class' => 'heading-medium',
+                'pages' => [
+                    [
+                        'label' => StockController::ROUTE,
+                        'title' => PickListController::ROUTE,
+                        'route' => Module::ROUTE . '/' . StockController::ROUTE,
+                    ],
                 ]
             ],
             'Advanced' => [
@@ -562,7 +579,55 @@ return [
                                 ],
                             ]
                         ]
-                    ]
+                    ],
+                    StockController::ROUTE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => StockController::ROUTE_URI,
+                            'defaults' => [
+                                'controller' => StockController::class,
+                                'action' => 'index'
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            StockJsonController::ROUTE_SAVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => StockJsonController::ROUTE_SAVE_URI,
+                                    'defaults' => [
+                                        'controller' => StockJsonController::class,
+                                        'action' => 'save'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                            StockJsonController::ROUTE_ACCOUNTS => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => StockJsonController::ROUTE_ACCOUNTS_URI,
+                                    'defaults' => [
+                                        'controller' => StockJsonController::class,
+                                        'action' => 'accountsList'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    StockJsonController::ROUTE_ACCOUNTS_SAVE => [
+                                        'type' => Literal::class,
+                                        'options' => [
+                                            'route' => StockJsonController::ROUTE_ACCOUNTS_SAVE_URI,
+                                            'defaults' => [
+                                                'controller' => StockJsonController::class,
+                                                'action' => 'accountsSave'
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
+                                ]
+                            ],
+                        ]
+                    ],
                 ]
             ]
         ], 
@@ -575,6 +640,7 @@ return [
         'template_map' => [
             ChannelController::ACCOUNT_TEMPLATE => dirname(__DIR__) . '/view/settings/channel/account.phtml',
             ChannelController::ACCOUNT_CHANNEL_FORM_BLANK_TEMPLATE => dirname(__DIR__) . '/view/settings/channel/account/channel_form_blank.phtml',
+            StockController::ACCOUNT_SETTINGS_TABLE_TEMPLATE => dirname(__DIR__) . '/view/settings/stock/accountStockSettingsTable.phtml',
         ]
     ],
     'di' => [
@@ -614,7 +680,7 @@ return [
                 'AccountTradingCompanyColumnView' => ViewModel::class,
                 'AccountTokenStatusColumnView' => ViewModel::class,
                 'AccountManageColumnView' => ViewModel::class,
-                'AccountStockManagementColumnView' => ViewModel::class
+                'AccountStockManagementColumnView' => ViewModel::class,
             ],
             InvoiceController::class => [
                 'parameters' => [
@@ -923,6 +989,7 @@ return [
                     'template' => 'value.phtml',
                 ],
             ],
+
             AccountStorage::class => [
                 'parameters' => [
                     'client' => 'account_guzzle'
@@ -989,6 +1056,11 @@ return [
                     'accountCreationService' => AmazonAccountCreationService::class
                 ]
             ],
+            DataplugController::class => [
+                'parameters' => [
+                    'accountCreationService' => DataplugAccountCreationService::class
+                ]
+            ],
             WooCommerceAccountCreationService::class => [
                 'parameters' => [
                     'cryptor' => 'woocommerce_cryptor',
@@ -1017,6 +1089,12 @@ return [
                     'cryptor' => 'amazon_cryptor'
                 ]
             ],
+            DataplugAccountCreationService::class => [
+                'parameters' => [
+                    'cryptor' => 'dataplug_cryptor',
+                    'channelAccount' => DataplugAccount::class
+                ]
+            ],
             MarketplaceParticipationService::class => [
                 'parameters' => [
                     'cryptor' => 'amazon_cryptor'
@@ -1041,6 +1119,11 @@ return [
                 'parameters' => [
                     'cryptor' => 'woocommerce_cryptor',
                     'guzzle' => function() { return 'woocommerce_guzzle'; },
+                ]
+            ],
+            StockController::class => [
+                'parameters' => [
+                    'accountsTable' => 'StockSettingsAccountsTable', // defined in global.php
                 ]
             ],
         ]

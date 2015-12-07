@@ -59,6 +59,26 @@ return [
                             ]
                         ],
                     ],
+                    ProductsJsonController::ROUTE_STOCK_MODE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/stockMode',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'saveProductStockMode'
+                            ]
+                        ],
+                    ],
+                    ProductsJsonController::ROUTE_STOCK_LEVEL => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/stockLevel',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'saveProductStockLevel'
+                            ]
+                        ],
+                    ],
                     ProductsJsonController::ROUTE_STOCK_UPDATE => [
                         'type' => Literal::class,
                         'options' => [
@@ -457,7 +477,12 @@ return [
                       'sLengthMenu' => '<span class="show">Show</span> _MENU_'
                     ],
                 ]
-            ]
+            ],
+            ProductsController::class => [
+                'parameters' => [
+                    'accountStockSettingsTable' => 'StockSettingsAccountsTable', // defined in global.php
+                ]
+            ],
         ],
     ],
     'navigation' => array(

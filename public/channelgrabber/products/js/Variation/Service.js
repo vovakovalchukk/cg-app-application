@@ -2,17 +2,16 @@ define([
     'cg-mustache',
     'DomManipulator',
     'Variation/DomListener',
-    'Product/Filter/Mapper',
-    'Product/Service'
+    'Product/Filter/Mapper'
 ], function (
     CGMustache,
     domManipulator,
-    domListener,
-    productFilterMapper,
-    productService
+    DomListener,
+    productFilterMapper
 ) {
-    var Service = function()
+    var Service = function(productService)
     {
+        var domListener;
         var productsRendered = false;
         var defaultDisplayVariations = {};
 
@@ -57,6 +56,12 @@ define([
             defaultDisplayVariations = variations;
             return this;
         };
+
+        var init = function()
+        {
+            domListener = new DomListener(this);
+        };
+        init.call(this);
     };
 
     Service.SELECTOR_LOADING_MESSAGE = '#products-loading-message';
@@ -68,11 +73,6 @@ define([
     Service.CLASS_AJAX = 'expand-button-ajax';
     Service.CLASS_EXPANDED = 'expanded';
     Service.DEFAULT_DISPLAY_VARIATIONS = 2;
-
-    Service.prototype.init = function()
-    {
-        this.getDomListener().init(this);
-    };
 
     Service.prototype.toggleVariations = function(productContainer)
     {
@@ -130,7 +130,7 @@ define([
                 templates, variation, attributeNames
             );
             stockRows += this.getProductService().getStockTableLineView(
-                variation['id'], variation['stock']['locations'][0], templates
+                variation, variation['stock']['locations'][0], templates
             );
         }
 
@@ -267,5 +267,5 @@ define([
         });
     };
 
-    return new Service();
+    return Service;
 });

@@ -2,17 +2,19 @@
 namespace Products\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use CG_UI\View\DataTable;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use CG\Http\Rpc\Exception as RpcException;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use Products\Product\Service as ProductService;
 use Products\Product\BulkActions\Service as BulkActionsService;
+use Settings\Controller\Stock\AccountTableTrait as AccountStockSettingsTableTrait;
 use Zend\I18n\Translator\Translator;
 
 class ProductsController extends AbstractActionController implements LoggerAwareInterface
 {
     use LogTrait;
+    use AccountStockSettingsTableTrait;
 
     const ROUTE_INDEX_URL = '/products';
 
@@ -20,17 +22,21 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected $productService;
     protected $bulkActionsService;
     protected $translator;
+    /** @var DataTable */
+    protected $accountStockSettingsTable;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         ProductService $productService,
         BulkActionsService $bulkActionsService,
-        Translator $translator
+        Translator $translator,
+        DataTable $accountStockSettingsTable
     ) {
         $this->setViewModelFactory($viewModelFactory)
              ->setProductService($productService)
              ->setBulkActionsService($bulkActionsService)
-             ->setTranslator($translator);
+             ->setTranslator($translator)
+            ->setAccountStockSettingsTable($accountStockSettingsTable);
     }
 
     public function indexAction()
@@ -50,6 +56,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('isSidebarVisible', $this->getProductService()->isSidebarVisible());
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
+        $this->addAccountStockSettingsTableToView($view);
+        $this->addAccountStockSettingsEnabledStatusToView($view);
         return $view;
     }
 
@@ -74,6 +82,12 @@ class ProductsController extends AbstractActionController implements LoggerAware
             ->setVariable('total', 0)
             ->setVariable('pageLinks', [['selected' => true, 'text' => '1']]);
         return $view;
+    }
+
+    protected function addAccountStockSettingsEnabledStatusToView($view)
+    {
+        $accountStockSettingsEnabledStatus = $this->productService->getAccountStockSettingsEnabledStatus();
+        $view->setVariable('accountStockModesEnabled', $accountStockSettingsEnabledStatus);
     }
 
     protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
@@ -124,5 +138,17 @@ class ProductsController extends AbstractActionController implements LoggerAware
     {
         $this->translator = $translator;
         return $this;
+    }
+
+    protected function setAccountStockSettingsTable(DataTable $accountStockSettingsTable)
+    {
+        $this->accountStockSettingsTable = $accountStockSettingsTable;
+        return $this;
+    }
+
+    // Required by AccountTableTrait
+    protected function getAccountStockSettingsTable()
+    {
+        return $this->accountStockSettingsTable;
     }
 }

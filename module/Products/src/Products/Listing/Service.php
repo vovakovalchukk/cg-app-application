@@ -218,7 +218,7 @@ class Service implements LoggerAwareInterface
             if (isset($this->nonImportableStatuses[$listing->getStatus()])) {
                 continue;
             }
-            $gearmanJob = $listing->getChannel() . 'ImportListing';
+            $gearmanJob = \CG\Stdlib\hyphenToCamelCase($listing->getChannel()) . 'ImportListing';
             $workload = new ImportListingWorkload($accounts->getById($listing->getAccountId()), $listing);
             $this->getGearmanClient()->doBackground($gearmanJob, serialize($workload), 'importListing' . $listing->getId());
             $listing->setStatus(UnimportedStatus::IMPORTING);
