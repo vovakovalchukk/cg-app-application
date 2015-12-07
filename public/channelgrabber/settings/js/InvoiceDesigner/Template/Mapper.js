@@ -5,6 +5,7 @@ define([
     'InvoiceDesigner/Template/Element/Mapper/Image',
     'InvoiceDesigner/Template/Element/Mapper/OrderTable',
     'InvoiceDesigner/Template/Element/Mapper/PPI',
+    'InvoiceDesigner/Template/Element/Mapper/Label',
     'InvoiceDesigner/Template/Element/Mapper/SellerAddress',
     'InvoiceDesigner/Template/Element/Mapper/Text',
     'InvoiceDesigner/Template/Entity',

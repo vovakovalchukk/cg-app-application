@@ -39,6 +39,16 @@ return [
                         ],
                     ],
                 ],
+                Action\Courier::class => [
+                    'methods' => [
+                        'addSubAction' => [
+                            'subAction' => [
+                                'required' => true,
+                                'type' => BulkActions\SubAction::class
+                            ],
+                        ],
+                    ],
+                ],
             ],
         ],
         'instance' => [
@@ -51,6 +61,7 @@ return [
                 'ToCsvOrderDataOnlyBulkAction' => SubAction\ToCsvOrderDataOnly::class,
                 'RoyalMailBulkAction' => BulkActions\SubAction::class,
                 'RemoveBatchBulkAction' => SubAction\Batch::class,
+                'CourierManifestAction' => SubAction\CourierManifest::class,
                 'InvoiceJavascript' => ViewModel::class,
                 'InvoiceEmailJavascript' => ViewModel::class,
                 'DispatchJavascript' => ViewModel::class,
@@ -62,6 +73,8 @@ return [
                 'RefundJavascript' => ViewModel::class,
                 'PickListJavascript' => ViewModel::class,
                 'ToCsvJavascript' => ViewModel::class,
+                'CourierJavascript' => ViewModel::class,
+                'CourierManifestJavascript' => ViewModel::class,
                 'UrlDataViewInvoice' => ViewModel::class,
                 'UrlDataViewInvoiceBySku' => ViewModel::class,
                 'UrlDataViewEmailInvoice' => ViewModel::class,
@@ -74,6 +87,8 @@ return [
                 'UrlDataViewPickList' => ViewModel::class,
                 'UrlDataViewToCsv' => ViewModel::class,
                 'UrlDataViewToCsvOrderDataOnly' => ViewModel::class,
+                'UrlDataViewCourier' => ViewModel::class,
+                'UrlDataViewCourierManifest' => ViewModel::class,
                 'Invoice' => Action\Invoice::class
             ],
             Service::class => [
@@ -94,6 +109,7 @@ return [
                         ['action' => Action\Invoice::class],
                         ['action' => Action\PickList::class],
                         ['action' => Action\Dispatch::class],
+                        ['action' => Action\Courier::class],
                         ['action' => Action\ToCsv::class],
                         ['action' => Action\Tag::class],
                         ['action' => Action\Batch::class],
@@ -337,6 +353,51 @@ return [
                     'template' => 'orders/orders/bulk-actions/toCsv.js'
                 ]
             ],
+
+            Action\Courier::class => [
+                'parameters' => [
+                    'urlView' => 'UrlDataViewCourier',
+                    'elementData' => [
+                        'datatable' => 'datatable'
+                    ],
+                    'javascript' => 'CourierJavascript',
+                ],
+                'injections' => [
+                    'addSubAction' => [
+                        ['subAction' => 'CourierManifestAction']
+                    ]
+                ]
+            ],
+            'UrlDataViewCourier' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/data-url',
+                ],
+            ],
+            'CourierJavascript' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/courier.js'
+                ]
+            ],
+            'CourierManifestAction' => [
+                'parameters' => [
+                    'urlView' => 'UrlDataViewCourierManifest',
+                    'elementData' => [
+                        'datatable' => 'datatable'
+                    ],
+                    'javascript' => 'CourierManifestJavascript'
+                ],
+            ],
+            'UrlDataViewCourierManifest' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/data-url',
+                ],
+            ],
+            'CourierManifestJavascript' => [
+                'parameters' => [
+                    'template' => 'orders/orders/bulk-actions/courierManifest.js'
+                ]
+            ],
+
             'RefundJavascript' => [
                 'parameters' => [
                     'template' => 'orders/orders/bulk-actions/cancel.js',

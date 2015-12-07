@@ -1,0 +1,11 @@
+{{#orderRow}}
+<input type="hidden" name="order[]" value="{{orderId}}" />
+<input type="hidden" name="orderInfo[{{orderId}}][labelStatus]" value="{{labelStatus}}" />
+<input type="hidden" name="orderInfo[{{orderId}}][cancellable]" value="{{#cancellable}}1{{/cancellable}}{{^cancellable}}0{{/cancellable}}" />
+<div class="courier-buyer-name">
+    <strong>{{buyerName}}</strong>
+</div>
+<div class="courier-buyer-shipping-country">{{shippingCountry}} ({{postcode}})</div>
+<div class="courier-order-number">{{orderNumber}}</div>
+{{/orderRow}}
+{{^orderRow}}&nbsp;{{/orderRow}}

@@ -7,6 +7,8 @@ use CG\Amazon\Account as AmazonAccount;
 use CG\Amazon\Account\CreationService as AmazonAccountCreationService;
 use CG\Amazon\Marketplace\Participation\Service as MarketplaceParticipationService;
 use CG\Channel\Type;
+use CG\Dataplug\Account as DataplugAccount;
+use CG\Dataplug\Account\CreationService as DataplugAccountCreationService;
 use CG\Ebay\Account as EbayAccount;
 use CG\Ebay\Account\CreationService as EbayAccountCreationService;
 use CG\Ebay\Client\TradingApi;
@@ -35,6 +37,7 @@ use Settings\Controller\AdvancedController;
 use Settings\Controller\AmazonController;
 use Settings\Controller\ApiController;
 use Settings\Controller\ChannelController;
+use Settings\Controller\DataplugController;
 use Settings\Controller\EbayController;
 use Settings\Controller\EkmController;
 use Settings\Controller\ExportController;
@@ -1053,6 +1056,11 @@ return [
                     'accountCreationService' => AmazonAccountCreationService::class
                 ]
             ],
+            DataplugController::class => [
+                'parameters' => [
+                    'accountCreationService' => DataplugAccountCreationService::class
+                ]
+            ],
             WooCommerceAccountCreationService::class => [
                 'parameters' => [
                     'cryptor' => 'woocommerce_cryptor',
@@ -1079,6 +1087,12 @@ return [
             AmazonAccountCreationService::class => [
                 'parameters' => [
                     'cryptor' => 'amazon_cryptor'
+                ]
+            ],
+            DataplugAccountCreationService::class => [
+                'parameters' => [
+                    'cryptor' => 'dataplug_cryptor',
+                    'channelAccount' => DataplugAccount::class
                 ]
             ],
             MarketplaceParticipationService::class => [

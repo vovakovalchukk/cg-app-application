@@ -93,19 +93,23 @@ define([
     Positioning.prototype.getSizeViewData = function(element)
     {
         var sizeOptions = [];
-        var selectedElement = this.concatenateSize(element.getWidth(), element.getHeight());
+        var selectedOption = null;
 
+        // No interfaces in JS, have to rely on 'duck typing'
         if (typeof element.getSizeOptions != 'function') {
             return {};
         }
+        if (typeof element.getSizeOptionFromCurrentDimensions == 'function') {
+            selectedOption = element.getSizeOptionFromCurrentDimensions();
+        }
 
         for (var key in element.getSizeOptions()) {
-            var value = this.concatenateSize(element.getSizeOptions()[key].width, element.getSizeOptions()[key].height);
+            var value = parseInt(key) + 1;
 
             sizeOptions.push({
                 'title': element.getSizeOptions()[key].name,
                 'value': value,
-                'selected': (value == selectedElement)
+                'selected': (value == selectedOption)
             });
         };
 
@@ -113,8 +117,8 @@ define([
             'id': this.getPositioningInspectorSizeId(),
             'name': this.getPositioningInspectorSizeId(),
             'options': sizeOptions
-        }
-    }
+        };
+    };
 
     Positioning.prototype.getPositioningInspectorLeftId = function()
     {

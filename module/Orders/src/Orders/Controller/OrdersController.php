@@ -1,20 +1,34 @@
 <?php
 namespace Orders\Controller;
 
+use ArrayObject;
 use CG\Account\Client\Service as AccountService;
-use Zend\Mvc\Controller\AbstractActionController;
+use CG\Order\Shared\Entity as OrderEntity;
+use CG\Order\Shared\Label\Filter as OrderLabelFilter;
+use CG\Order\Shared\Label\Service as OrderLabelService;
+use CG\Order\Shared\Label\Status as OrderLabelStatus;
+use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
+use CG\Stdlib\DateTime as StdlibDateTime;
+use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
+use CG\Stdlib\OrderBy;
+use CG\Stdlib\PageLimit;
+use CG_UI\View\BulkActions as BulkActionsViewModel;
 use CG_UI\View\Filters\Service as UIFiltersService;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use Orders\Order\Service as OrderService;
-use Orders\Order\Batch\Service as BatchService;
-use Orders\Order\Timeline\Service as TimelineService;
+use CG_Usage\Exception\Exceeded as UsageExceeded;
+use CG_Usage\Service as UsageService;
+use Orders\Courier\Manifest\Service as ManifestService;
+use Orders\Courier\Service as CourierService;
 use Orders\Filter\Service as FilterService;
-use CG\Stdlib\Exception\Runtime\NotFound;
-use CG\Order\Shared\Entity as OrderEntity;
+use Orders\Order\BulkActions\Action\Courier as CourierBulkAction;
+use Orders\Order\BulkActions\SubAction\CourierManifest as CourierManifestBulkAction;
+use Orders\Order\Batch\Service as BatchService;
 use Orders\Order\BulkActions\Service as BulkActionsService;
+use Orders\Order\Service as OrderService;
 use Orders\Order\StoredFilters\Service as StoredFiltersService;
-use ArrayObject;
 use CG\Stdlib\PageLimit;
 use CG\Stdlib\OrderBy;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -26,6 +40,9 @@ use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Order\Shared\OrderCounts\Storage\Api as OrderCountsAPI;
 use CG\Order\Shared\OrderCounts\Filter as OrderCountsFilter;
 use CG\User\ActiveUserInterface;
+use Orders\Order\Timeline\Service as TimelineService;
+use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
 
 
 class OrdersController extends AbstractActionController implements LoggerAwareInterface
@@ -51,6 +68,14 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected $orderCountsApi;
     protected $activeUserContainer;
 
+    /** @var OrderLabelService */
+    protected $orderLabelService;
+    /** @var ManifestService */
+    protected $manifestService;
+    /** @var CourierService */
+    protected $courierService;
+
+
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         ViewModelFactory $viewModelFactory,
@@ -65,7 +90,11 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         ShippingConversionService $shippingConversionService,
         AccountService $accountService,
         OrderCountsApi $orderCountsApi,
-        ActiveUserInterface $activeUserContainer
+        ActiveUserInterface $activeUserContainer,
+        OrderLabelService $orderLabelService,
+        ManifestService $manifestService,
+        CourierService $courierService
+
     ) {
         $this->setJsonModelFactory($jsonModelFactory)
             ->setViewModelFactory($viewModelFactory)
@@ -80,7 +109,10 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             ->setShippingConversionService($shippingConversionService)
             ->setAccountService($accountService)
             ->setOrderCountsApi($orderCountsApi)
-            ->setActiveUserContainer($activeUserContainer);
+            ->setActiveUserContainer($activeUserContainer)
+            ->setOrderLabelService($orderLabelService)
+            ->setManifestService($manifestService)
+            ->setCourierService($courierService);
     }
 
     public function indexAction()
@@ -140,16 +172,70 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected function getBulkActionsViewModel()
     {
         $bulkActionsViewModel = $this->getBulkActionsService()->getBulkActions();
+        $this->amendBulkActionsForCouriers($bulkActionsViewModel)
+            ->amendBulkActionsForUsage($bulkActionsViewModel);
+
+        return $bulkActionsViewModel;
+    }
+
+    protected function amendBulkActionsForCouriers(BulkActionsViewModel $bulkActionsViewModel)
+    {
+        $courierAccountsPresent = $this->hasCourierAccounts();
+        $manifestableAccountsPresent = $this->hasManifestableCourierAccounts();
+        if ($courierAccountsPresent && $manifestableAccountsPresent) {
+            return $this;
+        }
+        foreach ($bulkActionsViewModel->getActions() as $action) {
+            if (!($action instanceof CourierBulkAction)) {
+                continue;
+            }
+            if (!$courierAccountsPresent) {
+                $bulkActionsViewModel->getActions()->detach($action);
+                break;
+            }
+            foreach ($action->getSubActions() as $subAction) {
+                if (!($subAction instanceof CourierManifestBulkAction)) {
+                    continue;
+                }
+                $action->getSubActions()->detach($subAction);
+                break 2;
+            }
+        }
+
+        return $this;
+    }
+
+    protected function hasCourierAccounts()
+    {
+        try {
+            $courierAccounts = $this->courierService->getShippingAccounts();
+            return (count($courierAccounts) > 0);
+        } catch (NotFound $e) {
+            return false;
+        }
+    }
+
+    protected function hasManifestableCourierAccounts()
+    {
+        try {
+            $manifestableAccounts = $this->manifestService->getShippingAccounts();
+            return (count($manifestableAccounts) > 0);
+        } catch (NotFound $e) {
+            return false;
+        }
+    }
+
+    protected function amendBulkActionsForUsage(BulkActionsViewModel $bulkActionsViewModel)
+    {
         if(!$this->getUsageService()->hasUsageBeenExceeded()) {
-            return $bulkActionsViewModel;
+            return $this;
         }
 
         $actions = $bulkActionsViewModel->getActions();
         foreach($actions as $action) {
             $action->setEnabled(false);
         }
-
-        return $bulkActionsViewModel;
+        return $this;
     }
 
     public function orderAction()
@@ -186,6 +272,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->addChild($this->getCarrierSelect(), 'carrierSelect');
         $view->setVariable('editable', $this->getOrderService()->isOrderEditable($order));
         $view->setVariable('rootOu', $this->getOrderService()->getRootOrganisationUnitForOrder($order));
+        $this->addLabelPrintButtonToView($view, $order);
         return $view;
     }
 
@@ -238,6 +325,38 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $carrierSelect->setVariable("id", "carrier");
         $carrierSelect->setVariable("blankOption", true);
         return $carrierSelect;
+    }
+
+    protected function addLabelPrintButtonToView(ViewModel $view, OrderEntity $order)
+    {
+        try {
+            $this->getPrintableOrderLabelForOrder($order);
+        } catch (NotFound $e) {
+            return;
+        }
+        $buttons = $this->viewModelFactory->newInstance([
+            'buttons' => [
+                'value' => 'Print Label',
+                'id' => 'print-shipping-label-button',
+                'disabled' => false,
+                'action' => $order->getId(),
+            ]
+        ]);
+        $buttons->setTemplate('elements/buttons.mustache');
+        $view->addChild($buttons, 'printShippingLabelButton');
+    }
+
+    protected function getPrintableOrderLabelForOrder(OrderEntity $order)
+    {
+        $labelStatuses = OrderLabelStatus::getPrintableStatuses();
+        $filter = (new OrderLabelFilter())
+            ->setLimit(1)
+            ->setPage(1)
+            ->setOrderId([$order->getId()])
+            ->setStatus($labelStatuses);
+        $orderLabels = $this->orderLabelService->fetchCollectionByFilter($filter);
+        $orderLabels->rewind();
+        return $orderLabels->current();
     }
 
     protected function getBatches()
@@ -632,6 +751,23 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
     {
         $this->activeUserContainer = $activeUserContainer;
+    }
+
+    protected function setOrderLabelService(OrderLabelService $orderLabelService)
+    {
+        $this->orderLabelService = $orderLabelService;
+        return $this;
+    }
+
+    protected function setManifestService(ManifestService $manifestService)
+    {
+        $this->manifestService = $manifestService;
+        return $this;
+    }
+
+    protected function setCourierService(CourierService $courierService)
+    {
+        $this->courierService = $courierService;
         return $this;
     }
 }

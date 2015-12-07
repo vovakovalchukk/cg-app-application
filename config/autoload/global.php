@@ -116,6 +116,23 @@ use CG\ApiCredentials\Storage\Api as ApiCredentialsApi;
 use CG\Template\Image\ClientInterface as ImageTemplateClient;
 use CG\Template\Image\Client\Guzzle as ImageTemplateGuzzleClient;
 
+// Dataplug
+use CG\Dataplug\Carrier\Service as DataplugCarrierService;
+use CG\Channel\ShippingOptionsProviderInterface as ChannelShippingOptionsProviderInterface;
+use CG\Order\Shared\Label\StorageInterface as OrderLabelStorage;
+use CG\Order\Client\Label\Storage\Api as OrderLabelApiStorage;
+use CG\Product\Detail\StorageInterface as ProductDetailStorage;
+use CG\Product\Detail\Storage\Api as ProductDetailApiStorage;
+use CG\Dataplug\Account\Service as DataplugAccountService;
+use CG\Dataplug\Account\Storage\Api as DataplugAccountApi;
+use CG\Dataplug\Request\Factory\CreateCarrier as DataplugCreateCarrierRequestFactory;
+use CG\Dataplug\Request\Factory\UpdateCarrier as  DataplugUpdateCarrierRequestFactory;
+use CG\Dataplug\Carriers;
+use CG\Account\Shared\Manifest\StorageInterface as AccountManifestStorage;
+use CG\Account\Client\Manifest\Storage\Api as AccountManifestApiStorage;
+use CG\Dataplug\Request\Carrier as DataplugCarrier;
+use CG\Channel\ShippingChannelsProviderInterface as ChannelShippingChannelsProviderInterface;
+
 return array(
     'di' => array(
         'instance' => array(
@@ -140,6 +157,11 @@ return array(
                 ApiCredentialsStorage::class => ApiCredentialsApi::class,
                 ImageTemplateClient::class => ImageTemplateGuzzleClient::class,
                 ProductSettingsStorage::class => ProductSettingsStorageApi::class,
+                ChannelShippingOptionsProviderInterface::class => DataplugCarrierService::class,
+                ChannelShippingChannelsProviderInterface::class => Carriers::class,
+                OrderLabelStorage::class => OrderLabelApiStorage::class,
+                ProductDetailStorage::class => ProductDetailApiStorage::class,
+                AccountManifestStorage::class => AccountManifestApiStorage::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,
@@ -471,6 +493,511 @@ return array(
             AccountDisabler::class => [
                 'parameters' => [
                     'predisClient' => 'unreliable_redis'
+                ]
+            ],
+            OrderLabelApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
+            ProductDetailApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
+            DataplugCreateCarrierRequestFactory::class => [
+                'parameters' => [
+                    'cryptor' => 'dataplug_cryptor'
+                ]
+            ],
+            DataplugUpdateCarrierRequestFactory::class => [
+                'parameters' => [
+                    'cryptor' => 'dataplug_cryptor'
+                ]
+            ],
+            DataplugAccountService::class => [
+                'parameters' => [
+                    'repository' => DataplugAccountApi::class
+                ]
+            ],
+            DataplugAccountApi::class => [
+                'parameters' => [
+                    'client' => 'account_guzzle'
+                ]
+            ],
+            AccountManifestApiStorage::class => [
+                'parameters' => [
+                    'client' => 'account_guzzle'
+                ]
+            ],
+            DataplugCarrierService::class => [
+                'parameters' => [
+                    'carriersConfig' => [
+                        [
+                            'channelName' => Carriers::DHL,
+                            'displayName' => 'DHL',
+                            'code' => DataplugCarrier\Dhl::CODE,
+                            'allowsCancellation' => false,
+                            'allowsManifesting' => false,
+                            'fields' => [
+                                ['name' => 'Domestic Account no'],
+                                ['name' => 'International Account no'],
+                                ['name' => 'Password', 'inputType' => 'password'],
+                                ['name' => 'Site ID']
+                            ],
+                            'services' => [
+                                ['value' => 'DHLEXPWW00PA', 'name' => 'Express Worldwide Parcel'],
+                                ['value' => 'DHLEXPWW00DC', 'name' => 'Express Worldwide Docs'],
+                                ['value' => 'DHLECONSELPA', 'name' => 'Economy Select Parcel'],
+                                ['value' => 'DHLECONSELDC', 'name' => 'Economy Select Docs'],
+                                ['value' => 'DHLEXP0000PA0900', 'name' => 'Express 09:00am Parcel'],
+                                ['value' => 'DHLEXP0000DC0900', 'name' => 'Express 09:00am Docs'],
+                                ['value' => 'DHLEXP0000PA1200', 'name' => 'Express 12:00noon Parcel'],
+                                ['value' => 'DHLEXP0000DC1200', 'name' => 'Express 12:00noon Docs'],
+                                ['value' => 'DHLDOMEXP0PA', 'name' => 'Domestic Express Parcel'],
+                                ['value' => 'DHLDOMEXP0PA0900', 'name' => 'Domestic Express 09:00am Parcel'],
+                                ['value' => 'DHLDOMEXP0PA1200', 'name' => 'Domestic Express 12:00noon Parcel']
+                            ],
+                            'options' => [
+                                'insuranceMonetary' => false,
+                                'signature' => false,
+                                'deliveryInstructions' => false,
+                            ],
+                        ],
+                        [
+                            'channelName' => Carriers::DPD,
+                            'displayName' => 'DPD',
+                            'code' => DataplugCarrier\Dpd::CODE,
+                            'allowsCancellation' => false,
+                            'allowsManifesting' => false,
+                            'fields' => [
+                                ['name' => 'Account no'],
+                                ['name' => 'User ID'],
+                                ['name' => 'SLID'],
+                                ['name' => 'Authorisation Code'],
+                                ['name' => 'Start Sequence'],
+                                ['name' => 'End Sequence'],
+                            ],
+                            'services' => [
+                                ['value' => 'DPDEXPR000PA', 'name' => 'Express Parcel'],
+                                ['value' => 'DPDEXPDOC0PA', 'name' => 'Express Document'],
+                                ['value' => 'DPDEXP00EUPA', 'name' => 'Express EU Parcel'],
+                                ['value' => 'DPDTWODAY0PA', 'name' => 'Two Day Parcel'],
+                                ['value' => 'DPDNEXTDAYPA', 'name' => 'Next Day Parcel'],
+                                ['value' => 'DPDNEXTDAYPA1200', 'name' => 'Next Day 12:00noon Parcel'],
+                                ['value' => 'DPDNEXTDAYPA1000', 'name' => 'Next Day 10:00am Parcel'],
+                                ['value' => 'DPDSAT0000PA', 'name' => 'Saturday Parcel'],
+                                ['value' => 'DPDSAT0000PA1200', 'name' => 'Saturday 12:00noon Parcel'],
+                                ['value' => 'DPDSAT0000PA1000', 'name' => 'Saturday 10:00am Parcel'],
+                                ['value' => 'DPDCLASSICPA', 'name' => 'Classic Parcel'],
+                                ['value' => 'DPDNEXTDAYPK', 'name' => 'Next day Express Pack'],
+                                ['value' => 'DPDNEXTDAYPK1200', 'name' => 'Next day 12:00noon Express Pack'],
+                                ['value' => 'DPDNEXTDAYPK1000', 'name' => 'Next day 10:00am Express Pack'],
+                                ['value' => 'DPDTWODAY0PL', 'name' => 'Two Day Pallet'],
+                                ['value' => 'DPDNEXTDAYPL', 'name' => 'Next Day Pallet'],
+                                ['value' => 'DPDNEXTDAYPL1200', 'name' => 'Next Day 12:00noon Pallet'],
+                                ['value' => 'DPDNEXTDAYPL1000', 'name' => 'Next Day 10:00am Pallet'],
+                                ['value' => 'DPDSAT0000PL', 'name' => 'Saturday Pallet'],
+                                ['value' => 'DPDSAT0000PL1200', 'name' => 'Saturday 12:00noon Pallet'],
+                                ['value' => 'DPDSAT0000PL1000', 'name' => 'Saturday 10:00am Pallet'],
+                                ['value' => 'DPDCLASAIRPA', 'name' => 'Classic Air Parcel'],
+                                ['value' => 'DPDSAT0000PK', 'name' => 'Saturday Express Pack'],
+                                ['value' => 'DPDSAT0000PK1000', 'name' => 'Saturday 10:00am Express Pack'],
+                                ['value' => 'DPDSAT0000PK1200', 'name' => 'Saturday 12:00noon Express Pack']
+                            ],
+                            'options' => [
+                                'insuranceMonetary' => false,
+                                'signature' => false,
+                            ],
+                        ],
+                        [
+                            'channelName' => Carriers::FEDEX,
+                            'displayName' => 'FedEx',
+                            'code' => DataplugCarrier\Fedex::CODE,
+                            'allowsCancellation' => false,
+                            'allowsManifesting' => false,
+                            'fields' => [
+                                ['name' => 'Account no'],
+                                ['name' => 'Key'],
+                                ['name' => 'Password', 'inputType' => 'password'],
+                                ['name' => 'Trans ID'],
+                                ['name' => 'Meter No'],
+                            ],
+                            'services' => [
+                                ['value' => 'FDXINTPRIOPA', 'name' => 'International Priority Parcel'],
+                                ['value' => 'FDXINTECONPA', 'name' => 'International Economy Parcel'],
+                                ['value' => 'FDXINTPRIOLT', 'name' => 'International Priority Letter'],
+                                ['value' => 'FDXINTPRIOPK', 'name' => 'International Priority Pak'],
+                                ['value' => 'FDXINTECONPK', 'name' => 'International Economy Pak'],
+                                ['value' => 'FDXINTPRIO10', 'name' => 'International Priority 10KG Box'],
+                                ['value' => 'FDXINTPRIO25', 'name' => 'International Priority 25KG Box'],
+                            ],
+                            'options' => [
+                                'insuranceMonetary' => false,
+                                'signature' => false,
+                                'deliveryInstructions' => false,
+                            ],
+                        ],
+                        [
+                            'channelName' => Carriers::INTERLINK,
+                            'displayName' => 'Interlink',
+                            'code' => DataplugCarrier\Interlink::CODE,
+                            'allowsCancellation' => false,
+                            'allowsManifesting' => false,
+                            'fields' => [
+                                ['name' => 'Account no'],
+                                ['name' => 'User ID'],
+                                ['name' => 'Authorisation Code'],
+                                ['name' => 'Start Sequence'],
+                                ['name' => 'End Sequence'],
+                                ['name' => 'Order Start Sequence'],
+                                ['name' => 'Order End Sequence']
+                            ],
+                            'services' => [
+                                ['value' => 'INTNEXTDAYPA0930', 'name' => 'Next Day 9.30am Parcel'],
+                                ['value' => 'INTNEXTDAYPA1200', 'name' => 'Next Day 12.00noon Parcel'],
+                                ['value' => 'INTNEXTDAYPA', 'name' => 'Next Day Parcel'],
+                                ['value' => 'INTSATUDAYPA1000', 'name' => 'Saturday 10.00am Parcel'],
+                                ['value' => 'INTSATUDAYPA1200', 'name' => 'Saturday 12.00noon Parcel'],
+                                ['value' => 'INTTWODAY0PA', 'name' => 'Two Day Parcel'],
+                                ['value' => 'INTHOMECALPA', 'name' => 'Homecall Parcel']
+                            ],
+                            'options' => [
+                                'insuranceMonetary' => false,
+                                'signature' => false,
+                            ],
+                        ],
+
+                        /*
+                        // Not going live with Hermes but will need this in the near future so leaving this here
+                        [
+                            'channelName' => Carriers::MYHERMES,
+                            'displayName' => 'Hermes corporate',
+                            'code' => DataplugCarrier\Myhermes::CODE,
+                            'fields' => [
+                                ['name' => 'Client ID'],
+                                ['name' => 'Username'],
+                                ['name' => 'Password', 'inputType' => 'password'],
+                            ],
+                            'services' => [
+                                ['value' => 'HRMNEXT000PA', 'name' => 'Next Day Parcel'],
+                                ['value' => 'HRMSTD0000PA', 'name' => 'Standard Parcel'],
+                                ['value' => 'HRMNEXTPODPA', 'name' => 'Next Day Proof Of Delivery Parcel'],
+                                ['value' => 'HRMSTD0PODPA', 'name' => 'Standard Proof Of Delivery Parcel'],
+                            ],
+                            'options' => [
+                                'insuranceMonetary' => false,
+                                'signature' => false,
+                                'deliveryInstructions' => false,
+                            ],
+                        ],
+                        */
+
+                        [
+                            'channelName' => Carriers::PARCELFORCE,
+                            'displayName' => 'Parcelforce',
+                            'code' => DataplugCarrier\Parcelforce::CODE,
+                            'allowsCancellation' => false,
+                            'allowsManifesting' => false,
+                            'fields' => [
+                                ['name' => 'Account no'],
+                                ['name' => 'Contract no'],
+                                ['name' => 'User ID'],
+                                ['name' => 'Password', 'inputType' => 'password'],
+                            ],
+                            'services' => [
+                                ['value' => 'PFWEXP0024PA0900', 'name' => 'Express 9 Parcel'],
+                                ['value' => 'PFWEXP0024PA1000', 'name' => 'Express 10 Parcel'],
+                                ['value' => 'PFWEXP00AMPA', 'name' => 'Express AM Parcel'],
+                                ['value' => 'PFWEXP0024PA', 'name' => 'Express 24 Parcel'],
+                                ['value' => 'PFWEXP0048PA', 'name' => 'Express 48 Parcel'],
+                                ['value' => 'PFWEXPLG48PA', 'name' => 'Express 48 Large Parcel'],
+                                ['value' => 'PFWGLOBEXPPA', 'name' => 'Global Express Parcel'],
+                                ['value' => 'PFWEUPHOMEPA', 'name' => 'Europriority Home Parcel'],
+                                ['value' => 'PFWEUPBUSSPA', 'name' => 'Europriority Business Parcel'],
+                                ['value' => 'PFWGLOPRI0PA', 'name' => 'Global Priority Parcel'],
+                                ['value' => 'PFWGLOVAL0PA', 'name' => 'Global Value Parcel']
+                            ],
+                            'options' => [
+                                'insuranceMonetary' => false,
+                                'signature' => false,
+                            ],
+                        ],
+                        [
+                            'channelName' => Carriers::ROYAL_MAIL_OBA,
+                            'displayName' => 'Royal Mail OBA',
+                            'code' => DataplugCarrier\RoyalMailOba::CODE,
+                            'manifestOncePerDay' => true,
+                            'fields' => [
+                                ['name' => 'Account no'],
+                                ['name' => 'PPI Account no'],
+                                ['name' => 'Wire no'],
+                                ['name' => 'Contract no'],
+                                ['name' => 'Hub no'],
+                                ['name' => 'Posting Location no'],
+                                ['name' => 'Username OBA'],
+                                ['name' => 'Password OBA', 'inputType' => 'password'],
+                                ['name' => 'Access Code'],
+                            ],
+                            'services' => [
+                                ['value' => 'RMIIE10000PA', 'name' => 'International Business Zone Sort Priority Parcel'],
+                                ['value' => 'RMIIG10000LT', 'name' => 'International Business Mail Large Letter Zone Sort Priority Letter'],
+                                ['value' => 'RMIIP10000LT', 'name' => 'International Business Mail Letter Zone Sort Priority Letter'],
+                                ['value' => 'RMIOLA0000PA', 'name' => 'International Standard On Account Parcel'],
+                                ['value' => 'RMIOLA0000LT', 'name' => 'International Standard On Account Letter'],
+                                ['value' => 'RMIOLA0000LL', 'name' => 'International Standard On Account Large Letter'],
+                                ['value' => 'RMICRL2400LT', 'name' => 'Domestic RM24 Standard Letter'],
+                                ['value' => 'RMICRL2400LL', 'name' => 'Domestic RM24 Standard Large Letter'],
+                                ['value' => 'RMICRL2400SP', 'name' => 'Domestic RM24 Standard Small Parcel'],
+                                ['value' => 'RMICRL2400MP', 'name' => 'Domestic RM24 Standard Medium Parcel'],
+                                ['value' => 'RMICRL4800LT', 'name' => 'Domestic RM48 Standard Letter'],
+                                ['value' => 'RMICRL4800LL', 'name' => 'Domestic RM48 Standard Large Letter'],
+                                ['value' => 'RMICRL4800SP', 'name' => 'Domestic RM48 Standard Small Parcel'],
+                                ['value' => 'RMICRL4800MP', 'name' => 'Domestic RM48 Standard Medium Parcel'],
+                                ['value' => 'RMISTL1000LT', 'name' => 'Domestic 1st Class Account Mail Letter'],
+                                ['value' => 'RMISTL1000LL', 'name' => 'Domestic 1st Class Account Mail Large Letter'],
+                                ['value' => 'RMISTL1000SP', 'name' => 'Domestic 1st Class Account Mail Small Parcel'],
+                                ['value' => 'RMISTL1000MP', 'name' => 'Domestic 1st Class Account Mail Medium Parcel'],
+                                ['value' => 'RMISTL2000LT', 'name' => 'Domestic 2nd Class Account Mail Letter'],
+                                ['value' => 'RMISTL2000LL', 'name' => 'Domestic 2nd Class Account Mail Large Letter'],
+                                ['value' => 'RMISTL2000SP', 'name' => 'Domestic 2nd Class Account Mail Small Parcel'],
+                                ['value' => 'RMISTL2000MP', 'name' => 'Domestic 2nd Class Account Mail Medium Parcel'],
+                                /*
+                                // The following services are not currently in use as they require extra work but we may add them in later
+                                ['value' => 'RMIMP10000PA', 'name' => 'International Business Parcel Tracked'],
+                                ['value' => 'RMIMP40000PA', 'name' => 'International Business Parcel Tracked Extra Compensation'],
+                                ['value' => 'RMIMP50000PA', 'name' => 'International Business Parcel Signed'],
+                                ['value' => 'RMIMP60000PA', 'name' => 'International Business Parcel Signed Extra Compensation'],
+                                ['value' => 'RMIMTA0000PA', 'name' => 'International Business Parcel Tracked & Signed'],
+                                ['value' => 'RMIMTB0000PA', 'name' => 'International Business Parcel Tracked & Signed Extra Compensation'],
+                                ['value' => 'RMIMTC0000LL', 'name' => 'International Business Mail Tracked & Signed Large Letter'],
+                                ['value' => 'RMIMTC0000LT', 'name' => 'International Business Mail Tracked & Signed Letter'],
+                                ['value' => 'RMIMTD0000LL', 'name' => 'International Business Mail Tracked & Signed Extra Compensation Large Letter'],
+                                ['value' => 'RMIMTD0000LT', 'name' => 'International Business Mail Tracked & Signed Extra Compensation Letter'],
+                                ['value' => 'RMIMTI0000LT', 'name' => 'International Business Mail Tracked Large Letter'],
+                                ['value' => 'RMIMTI0000LL', 'name' => 'International Business Mail Tracked Letter'],
+                                ['value' => 'RMIMTJ0000LL', 'name' => 'International Business Mail Tracked Extra Compensation Large Letter'],
+                                ['value' => 'RMIMTJ0000LT', 'name' => 'International Business Mail Tracked Extra Compensation Letter'],
+                                ['value' => 'RMIMTM0000LL', 'name' => 'International Business Mail Signed Large Letter'],
+                                ['value' => 'RMIMTM0000LT', 'name' => 'International Business Mail Signed Letter'],
+                                ['value' => 'RMIMTN0000LL', 'name' => 'International Business Mail Signed Extra Compensation Large Letter'],
+                                ['value' => 'RMIMTN0000LT', 'name' => 'International Business Mail Signed Extra Compensation Letter'],
+                                ['value' => 'RMISD10000LT', 'name' => 'Domestic Special Delivery Guaranteed by 1pm Letter'],
+                                ['value' => 'RMISD10000LL', 'name' => 'Domestic Special Delivery Guaranteed by 1pm Large Letter'],
+                                ['value' => 'RMISD10000SP', 'name' => 'Domestic Special Delivery Guaranteed by 1pm Small Parcel'],
+                                ['value' => 'RMISD10000MP', 'name' => 'Domestic Special Delivery Guaranteed by 1pm Medium Parcel'],
+                                ['value' => 'RMISD40000LT', 'name' => 'Domestic Special Delivery Guaranteed by 9am Letter'],
+                                ['value' => 'RMISD40000LL', 'name' => 'Domestic Special Delivery Guaranteed by 9am Large Letter'],
+                                ['value' => 'RMISD40000SP', 'name' => 'Domestic Special Delivery Guaranteed by 9am Small Parcel'],
+                                ['value' => 'RMISD40000MP', 'name' => 'Domestic Special Delivery Guaranteed by 9am Medium Parcel'],
+                                ['value' => 'RMICRL24S0LT', 'name' => 'Domestic RM24 Signed For Letter'],
+                                ['value' => 'RMICRL24S0LL', 'name' => 'Domestic RM24 Signed For Large Letter'],
+                                ['value' => 'RMICRL24S0SP', 'name' => 'Domestic RM24 Signed For Small Parcel'],
+                                ['value' => 'RMICRL24S0MP', 'name' => 'Domestic RM24 Signed For Medium Parcel'],
+                                ['value' => 'RMICRL48S0LT', 'name' => 'Domestic RM48 Signed For Letter'],
+                                ['value' => 'RMICRL48S0LL', 'name' => 'Domestic RM48 Signed For Large Letter'],
+                                ['value' => 'RMICRL48S0SP', 'name' => 'Domestic RM48 Signed For Small Parcel'],
+                                ['value' => 'RMICRL48S0MP', 'name' => 'Domestic RM48 Signed For Medium Parcel'],
+                                ['value' => 'RMIOSA0000PA', 'name' => 'International Signed On Account Parcel'],
+                                ['value' => 'RMIOSA0000LT', 'name' => 'International Signed On Account Letter'],
+                                ['value' => 'RMIOSA0000LL', 'name' => 'International Signed On Account Large Letter'],
+                                ['value' => 'RMIOTA0000PA', 'name' => 'International Tracked On Account Parcel'],
+                                ['value' => 'RMIOTA0000LT', 'name' => 'International Tracked On Account Letter'],
+                                ['value' => 'RMIOTA0000LL', 'name' => 'International Tracked On Account Large Letter'],
+                                ['value' => 'RMIOTC0000PA', 'name' => 'International Tracked & Signed On Account Parcel'],
+                                ['value' => 'RMIOTC0000LT', 'name' => 'International Tracked & Signed On Account Letter'],
+                                ['value' => 'RMIOTC0000LL', 'name' => 'International Tracked & Signed On Account Large Letter'],
+                                */
+                            ],
+                            'options' => [
+                                'insuranceMonetary' => false,
+                                'signature' => false,
+                            ],
+                        ],
+                        [
+                            'channelName' => Carriers::TNT,
+                            'displayName' => 'TNT',
+                            'code' => DataplugCarrier\Tnt::CODE,
+                            'allowsCancellation' => false,
+                            'allowsManifesting' => false,
+                            'fields' => [
+                                ['name' => 'Domestic Account no'],
+                                ['name' => 'International Account no'],
+                                ['name' => 'ExpressConnect User'],
+                                ['name' => 'ExpressConnect Password', 'inputType' => 'password'],
+                                ['name' => 'ExpressLabel User'],
+                                ['name' => 'ExpressLabel Password', 'inputType' => 'password'],
+                            ],
+                            'services' => [
+                                ['value' => 'TNTEXP0000PA', 'name' => 'Express Parcel'],
+                                ['value' => 'TNTEXPECONPA', 'name' => 'Economy Express Parcel'],
+                                ['value' => 'TNTNEXTDAYPA0900', 'name' => 'Next Day 09:00am Parcel'],
+                                ['value' => 'TNTNEXTDAYPA1000', 'name' => 'Next Day 10:00am Parcel'],
+                                ['value' => 'TNTNEXTDAYPA1200', 'name' => 'Next Day 12:00noon Parcel'],
+                                ['value' => 'TNTNEXTDAYPA1700', 'name' => 'Next Day 17:00pm Parcel'],
+                                ['value' => 'TNTSAT0000PA', 'name' => 'Saturday Parcel'],
+                                ['value' => 'TNTSAT0000PA0900', 'name' => 'Saturday 09:00am Parcel'],
+                                ['value' => 'TNTSAT0000PA1000', 'name' => 'Saturday 10:00am Parcel'],
+                                ['value' => 'TNTSAT0000PA1200', 'name' => 'Saturday 12:00noon Parcel'],
+                                ['value' => 'TNTEXP0000PA0900', 'name' => '09:00am Parcel'],
+                                ['value' => 'TNTEXP0000PA1000', 'name' => '10:00am Parcel'],
+                                ['value' => 'TNTEXP0000PA1200', 'name' => '12:00noon Parcel'],
+                                ['value' => 'TNTEXPECONPA1200', 'name' => '12:00noon Economy Parcel']
+                            ],
+                            'options' => [
+                                'insuranceMonetary' => false,
+                                'signature' => false,
+                                'deliveryInstructions' => false,
+                            ],
+                        ],
+                        /*
+                        // Not going live with UKMail but will need this in the near future so leaving this here
+                        [
+                            'channelName' => Carriers::UK_MAIL,
+                            'displayName' => 'UK Mail',
+                            'code' => DataplugCarrier\UkMail::CODE,
+                            'allowsCancellation' => false,
+                            'allowsManifesting' => false,
+                            'fields' => [
+                                ['name' => 'Account no (Item Rates)'],
+                                ['name' => 'Account no (KG Rates)'],
+                                ['name' => 'User ID'],
+                                ['name' => 'Password', 'inputType' => 'password']
+                            ],
+                            'services' => [
+                                ['value' => 'UKMNEXTDAYPA', 'name' => 'Parcel Next Day'],
+                                ['value' => 'UKMNEXTDAYPA1200', 'name' => 'Parcel Next Day by 12:00noon'],
+                                ['value' => 'UKMNEXTDAYPA1030', 'name' => 'Parcel Next Day by 10:30am'],
+                                ['value' => 'UKMNEXTDAYPA0900', 'name' => 'Parcel Next day by 09:00am'],
+                                ['value' => 'UKMSAT0000PA', 'name' => 'Parcel Saturday'],
+                                ['value' => 'UKMSAT0000PA1030', 'name' => 'Parcel Saturday by 10:30am'],
+                                ['value' => 'UKMSAT0000PA0900', 'name' => 'Parcel Saturday by 09:00am'],
+                                ['value' => 'UKMEXP4800PA', 'name' => 'Parcel 48 Hr'],
+                                ['value' => 'UMKEXP7200PA', 'name' => 'Parcel 72 Hour'],
+                                ['value' => 'UKMPREM480PA', 'name' => 'Premier Parcel 48 Hour'],
+                                ['value' => 'UKMNEXTDAYSB', 'name' => 'Small Bag it Next Day'],
+                                ['value' => 'UKMNEXTDAYSB1200', 'name' => 'Small Bag it Next Day by 12:00noon'],
+                                ['value' => 'UKMNEXTDAYSB1030', 'name' => 'Small Bag it Next Day by 10:30am'],
+                                ['value' => 'UKMNEXTDAYSB0900', 'name' => 'Small Bag it Next day by 09:00am'],
+                                ['value' => 'UKMSAT0000SB', 'name' => 'Small Bag it Saturday'],
+                                ['value' => 'UKMNEXTDAYMB', 'name' => 'Medium Bag it Next Day'],
+                                ['value' => 'UKMNEXTDAYMB1200', 'name' => 'Medium Bag it Next Day by 12:00noon'],
+                                ['value' => 'UKMNEXTDAYMB1030', 'name' => 'Medium Bag it Next Day by 10:30am'],
+                                ['value' => 'UKMNEXTDAYMB0900', 'name' => 'Medium Bag it Next day by 09:00am'],
+                                ['value' => 'UKMSAT0000MB', 'name' => 'Medium Bag it Saturday'],
+                                ['value' => 'UKMNEXTDAYLB', 'name' => 'Large Bag it Next Day'],
+                                ['value' => 'UKMNEXTDAYLB1200', 'name' => 'Large Bag it Next Day by 12:00noon'],
+                                ['value' => 'UKMNEXTDAYLB1030', 'name' => 'Large Bag it Next Day by 10:30am'],
+                                ['value' => 'UKMNEXTDAYLB0900', 'name' => 'Large Bag it Next day by 09:00am'],
+                                ['value' => 'UKMSAT0000LB', 'name' => 'Large Bag it Saturday'],
+                                ['value' => 'UKMNEXTDAYXL', 'name' => 'Extra Large Bag it Next Day'],
+                                ['value' => 'UKMNEXTDAYXL1200', 'name' => 'Extra Large Bag it Next Day by 12:00noon'],
+                                ['value' => 'UKMNEXTDAYXL1030', 'name' => 'Extra Large Bag it Next Day by 10:30am'],
+                                ['value' => 'UKMNEXTDAYXL0900', 'name' => 'Extra Large Bag it Next day by 09:00am'],
+                                ['value' => 'UKMSAT0000XL', 'name' => 'Extra Large Bag it Saturday'],
+                            ],
+                            'options' => [
+                                'insuranceMonetary' => false,
+                                'signature' => false,
+                                'deliveryInstructions' => false,
+                            ],
+                        ],
+                        */
+                        [
+                            'channelName' => Carriers::UPS,
+                            'displayName' => 'UPS',
+                            'code' => DataplugCarrier\UPS::CODE,
+                            'fields' => [
+                                ['name' => 'Account no'],
+                                ['name' => 'Book no'],
+                                ['name' => 'Username'],
+                                ['name' => 'Password', 'inputType' => 'password'],
+                                ['name' => 'Prefix'],
+                                ['name' => 'Start Sequence'],
+                                ['name' => 'End Sequence'],
+                            ],
+                            'services' => [
+                                ['value' => 'UPSEXPRESSPA', 'name' => 'Express Parcel'],
+                                ['value' => 'UPSEXPRESSLT', 'name' => 'Express Letter'],
+                                ['value' => 'UPSEXPRESSPK', 'name' => 'Express Pak'],
+                                ['value' => 'UPSEXPSAVEPA', 'name' => 'Express Saver Parcel'],
+                                ['value' => 'UPSEXPSAVELT', 'name' => 'Express Saver Letter'],
+                                ['value' => 'UPSEXPSAVEPK', 'name' => 'Express Saver Pak'],
+                                ['value' => 'UPSSTANSINPA', 'name' => 'Standard Single Parcel'],
+                                ['value' => 'UPSSTANMTIPA', 'name' => 'Standard Multi Parcel'],
+                                ['value' => 'UPSEXPITEDPA', 'name' => 'Expedited Parcel'],
+                                ['value' => 'UPSEXPPLUSPA', 'name' => 'Express Plus Parcel'],
+                                ['value' => 'UPSEXPPLUSLT', 'name' => 'Express Plus Letter'],
+                                ['value' => 'UPSEXPPLUSPK', 'name' => 'Express Plus Pak'],
+                            ],
+                            'options' => [
+                                'insuranceMonetary' => false,
+                                'deliveryInstructions' => false,
+                            ],
+                        ],
+                        [
+                            'channelName' => Carriers::YODEL,
+                            'displayName' => 'Yodel',
+                            'code' => DataplugCarrier\Yodel::CODE,
+                            'fields' => [
+                                ['name' => 'Account no'],
+                                ['name' => 'Meter no'],
+                                ['name' => 'Contract no'],
+                                ['name' => 'Schedule no'],
+                                ['name' => 'Username'],
+                                ['name' => 'Password', 'inputType' => 'password'],
+                                ['name' => 'Licence Plate Prefix'],
+                                ['name' => 'Start Sequence'],
+                                ['name' => 'End Sequence'],
+                            ],
+                            'services' => [
+                                ['value' => 'YDLPRIO000PA1200', 'name' => 'Priority 12:00noon Parcel'],
+                                ['value' => 'YDLEXP0024PA', 'name' => 'Express 24 Parcel'],
+                                ['value' => 'YDLEXP0048PA', 'name' => 'Express 48 Parcel'],
+                                ['value' => 'YDLSATPRIOPA1200', 'name' => 'Saturday Priority 12:00noon Parcel'],
+                                ['value' => 'YDLEXPNI24PA', 'name' => 'Express 24 (NI) Parcel'],
+                                ['value' => 'YDLEXPIS24PA', 'name' => 'Express (Isle) Parcel'],
+                                ['value' => 'YDLEXPRT24PA', 'name' => 'Express 24 Return Parcel'],
+                                ['value' => 'YDLPRIONI0PA1000', 'name' => 'Priority 10:00am (NI) Parcel'],
+                                ['value' => 'YDLPRIO000PA1000', 'name' => 'Priority 10:00am Parcel'],
+                                ['value' => 'YDLSAT0000PA1000', 'name' => 'Saturday 10:00am Parcel'],
+                                ['value' => 'YDLEXPNT24PA', 'name' => 'Express 24 (NI INT) Parcel'],
+                                ['value' => 'YDLEXPUK24PA', 'name' => 'Express 24 (UK) Parcel'],
+                                ['value' => 'YDLEXPUK48PA', 'name' => 'Express 48 (UK) Parcel'],
+                                ['value' => 'YDLHOMNI24PA', 'name' => '@Home 24 (NI) Parcel'],
+                                ['value' => 'YDLHOMNI48PA', 'name' => '@Home 48 (NI) Parcel'],
+                                ['value' => 'YDLHOMBT24PA', 'name' => '@Home 24 (BT) Parcel'],
+                                ['value' => 'YDLHOMBT48PA', 'name' => '@Home 48 (BT) Parcel'],
+                                ['value' => 'YDLHOMCAT0PA', 'name' => '@Home 24 Catalogue Parcel'],
+                                ['value' => 'YDLHOM0072PA', 'name' => '@Home 72 Parcel '],
+                                ['value' => 'YDLHOMNI72PA', 'name' => '@Home 72 (NI) Parcel'],
+                                ['value' => 'YDLEXPNI48PA', 'name' => 'Express 48 (NI) Parcel'],
+                                ['value' => 'YDLHOM0024PA', 'name' => '@Home 24 Parcel'],
+                                ['value' => 'YDLHOM0048PA', 'name' => '@Home 48 Parcel'],
+                                ['value' => 'YDLHOMRET0PA', 'name' => '@Home Return Parcel'],
+                                ['value' => 'YDLGRN0000PA', 'name' => 'GRN Next Day Parcel'],
+                                ['value' => 'YDLSTEC000PA', 'name' => 'STEC Parcel'],
+                                ['value' => 'YDLSRTN000PA', 'name' => 'SRTN Parcel'],
+                                ['value' => 'YDLSATEXP0PA', 'name' => 'Express Saturday Parcel'],
+                                ['value' => 'YDLSATHOM0PA', 'name' => '@Home Saturday Parcel']
+                            ],
+                            'options' => [
+                                'insuranceMonetary' => false,
+                                'signature' => false,
+                                'deliveryInstructions' => false,
+                            ],
+                        ],
+                    ],
+                    'defaultOptions' => [
+                        'weight' => true,
+                        'height' => true,
+                        'width' => true,
+                        'length' => true,
+                        'insurance' => true,
+                        'insuranceMonetary' => true,
+                        'signature' => true,
+                        'deliveryInstructions' => true,
+                    ]
                 ]
             ],
         ),

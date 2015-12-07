@@ -1,0 +1,43 @@
+<?php /* The following scripts can't be loaded with require() as that happens asynchronously and we need this NOW */ ?>
+<script type="text/javascript" src="<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/DataTableAbstract.js"></script>
+<script type="text/javascript" src="<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Review/DataTable.js"></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+    var orderIds = <?=json_encode($this->orderIds);?>;
+    var reviewDataTable = new CourierReviewDataTable($('#datatable'), orderIds);
+
+    require(['<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Review/Service.js'], function(Service)
+    {
+        var service = new Service($('#datatable'));
+    });
+});
+</script>
+<div id="main" class="no-sidebar courier-review">
+    <span class="heading-large">
+        <?= $this->translate('Review Orders') ?>
+        <div class="heading-buttons">
+            <div class="backorders_btn button-holder">
+                <a href="/orders" class="button"><?=$this->translate('Back To Orders');?></a>
+            </div>
+            <?= $this->continueButton; ?>
+        </div>
+    </span>
+    <form id="continue-form" method="POST" action="<?=$this->specificsUrl;?>">
+        <div id="datatable-container">
+            <?= $this->reviewTable; ?>
+        </div>
+    </form>
+    <div style="display:none">
+        <?=$this->courierSelect;?>
+        <?=$this->serviceSelects;?>
+    </div>
+</div>
+
+<style>
+<?php /* This is a hack to hide the sidebar away for now */ ?>
+#main-wrapper {
+    margin-left:0px;
+    width:100%;
+}
+</style>
