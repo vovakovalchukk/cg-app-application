@@ -23,9 +23,9 @@ use CG_Usage\Service as UsageService;
 use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
 use CG\Stdlib\DateTime as StdlibDateTime;
-
 use CG\Order\Shared\OrderCounts\Storage\Api as OrderCountsAPI;
 use CG\Order\Shared\OrderCounts\Filter as OrderCountsFilter;
+use CG\User\ActiveUserInterface;
 
 
 class OrdersController extends AbstractActionController implements LoggerAwareInterface
@@ -49,6 +49,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     protected $shippingConversionService;
     protected $accountService;
     protected $orderCountsApi;
+    protected $activeUserContainer;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
@@ -63,7 +64,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         UsageService $usageService,
         ShippingConversionService $shippingConversionService,
         AccountService $accountService,
-        OrderCountsApi $orderCountsApi
+        OrderCountsApi $orderCountsApi,
+        ActiveUserInterface $activeUserContainer
     ) {
         $this->setJsonModelFactory($jsonModelFactory)
             ->setViewModelFactory($viewModelFactory)
@@ -77,7 +79,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             ->setUsageService($usageService)
             ->setShippingConversionService($shippingConversionService)
             ->setAccountService($accountService)
-            ->setOrderCountsApi($orderCountsApi);
+            ->setOrderCountsApi($orderCountsApi)
+            ->setActiveUserContainer($activeUserContainer);
     }
 
     public function indexAction()
@@ -425,8 +428,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
     public function orderCountsAjaxWithOUIDAction()
     {
-        $OUId = $this->params()->fromRoute('OUId');
-        $entity = $this->orderCountsApi->fetch($OUId);
+        $entity = $this->orderCountsApi->fetch($this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId());
         $data = $entity->toArray();
         return $this->getJsonModelFactory()->newInstance($data);
     }
@@ -625,5 +627,11 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     {
         $this->orderCountsApi = $orderCountsApi;
         return $this;
-    }  
+    }
+
+    public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
+    {
+        $this->activeUserContainer = $activeUserContainer;
+        return $this;
+    }
 }
