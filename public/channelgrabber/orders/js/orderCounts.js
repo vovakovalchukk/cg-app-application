@@ -15,10 +15,10 @@ define([], function() {
     OrderCounts.prototype.ajax = function ()
     {
         var self = this;
-       
+
         $.ajax  ({
             type: 'GET',
-            url: '/orders/orderCounts/',
+            url: '/orders/orderCounts',
             cache: false,
             success: function (json)
             {

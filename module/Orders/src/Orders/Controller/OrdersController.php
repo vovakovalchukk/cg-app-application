@@ -536,9 +536,13 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     }
 
 
-    public function orderCountsAjaxWithOUIDAction()
+    public function orderCountsAjaxAction()
     {
-        $entity = $this->orderCountsApi->fetch($this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId());
+        $this->logInfo("TIGER A AJAX:%s",[time()]);
+        $organisationUnitId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+        $this->logInfo("TIGER B AJAX:%s",$organisationUnitId);
+        $entity = $this->orderCountsApi->fetch($organisationUnitId);
+        $this->logInfo("TIGER C AJAX:%s",[time()]); 
         $data = $entity->toArray();
         return $this->getJsonModelFactory()->newInstance($data);
     }
@@ -742,6 +746,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
     {
         $this->activeUserContainer = $activeUserContainer;
+        return $this;
     }
 
     protected function setOrderLabelService(OrderLabelService $orderLabelService)
