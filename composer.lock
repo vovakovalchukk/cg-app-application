@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "793f3bfad05c073fb203a897d8d85076",
+    "hash": "86174de385c4b981b1f43a62d78ec974",
     "content-hash": "15df80bb52a8d579d83d8dea7ebf4c2c",
     "packages": [
         {
@@ -1199,13 +1199,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "cd4e2c63a6481cfaa3262e87a287dd8590c58c9e"
+                "reference": "c8dfde8a998523db506e89c341828297830c7c40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6282-Invoice-generation-is-using-ridiculous-amount-of-space-b88a70.zip",
-                "reference": "cd4e2c63a6481cfaa3262e87a287dd8590c58c9e",
-                "shasum": "49fb474b9454dd595523e87e7d781b1a49ac6443"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6282-Invoice-generation-is-using-ridiculous-amount-of-space-7bf4b0.zip",
+                "reference": "c8dfde8a998523db506e89c341828297830c7c40",
+                "shasum": "34f1e98facd9541c0fa2a86b2ed4c56c64be6419"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1231,9 +1231,9 @@
                 "channelgrabber/slim": ">=1.13.6,<2.0.0",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
                 "channelgrabber/stdlib": "^2.12.7",
-                "channelgrabber/stock": "^1.5.9",
+                "channelgrabber/stock": "^1.6.2",
                 "channelgrabber/tax": "^1.0.0",
-                "channelgrabber/template": "^1.2.53",
+                "channelgrabber/template": "dev-CGIV-6282-Invoice-generation-is-using-ridiculous-amount-of-space as 1.4.3",
                 "channelgrabber/transaction": ">=1.1.3,<2.0.0",
                 "channelgrabber/user": "^1.19.4",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
@@ -1251,6 +1251,11 @@
                 "phpunit/phpunit": "4.6.*"
             },
             "type": "di-definition",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "1.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Order\\": "src"
@@ -1262,7 +1267,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-12-07 16:33:31"
+            "time": "2015-12-08 11:30:05"
         },
         {
             "name": "channelgrabber/permission",
@@ -1988,17 +1993,17 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.6.0",
+            "version": "1.6.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "04f6d2f7d7003ddd1541c21f27d035e2131c302f"
+                "reference": "7fea2fc42be59a880f3bf777db8510b56eddc941"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.6.0-a36f2c.zip",
-                "reference": "04f6d2f7d7003ddd1541c21f27d035e2131c302f",
-                "shasum": "7ad4614e28472539de044b841c131aa787fe8102"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.6.2-323bcf.zip",
+                "reference": "7fea2fc42be59a880f3bf777db8510b56eddc941",
+                "shasum": "e809a07edef0d731654e896d2f8cc89caedcb84e"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2041,7 +2046,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2015-11-10 08:55:18"
+            "time": "2015-12-08 08:44:25"
         },
         {
             "name": "channelgrabber/tax",
