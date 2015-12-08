@@ -538,11 +538,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
     public function orderCountsAjaxAction()
     {
-        $this->logInfo("TIGER A AJAX:%s",[time()]);
         $organisationUnitId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
-        $this->logInfo("TIGER B AJAX:%s",$organisationUnitId);
         $entity = $this->orderCountsApi->fetch($organisationUnitId);
-        $this->logInfo("TIGER C AJAX:%s",[time()]); 
         $data = $entity->toArray();
         return $this->getJsonModelFactory()->newInstance($data);
     }
