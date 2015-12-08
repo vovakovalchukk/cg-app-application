@@ -33,7 +33,7 @@ use Orders\Order\StoredFilters\Service as StoredFiltersService;
 use Orders\Order\Timeline\Service as TimelineService;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use CG\Order\OrderCounts\Storage\Api as OrderCountsApi;
+use CG\Order\Shared\OrderCounts\Storage\Api as OrderCountsApi;
 
 
 class OrdersController extends AbstractActionController implements LoggerAwareInterface
