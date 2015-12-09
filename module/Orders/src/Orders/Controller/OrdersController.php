@@ -66,7 +66,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     /** @var CourierService */
     protected $courierService;
 
-
     public function __construct(
         JsonModelFactory $jsonModelFactory,
         ViewModelFactory $viewModelFactory,
@@ -85,7 +84,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         OrderLabelService $orderLabelService,
         ManifestService $manifestService,
         CourierService $courierService
-
     ) {
         $this->setJsonModelFactory($jsonModelFactory)
             ->setViewModelFactory($viewModelFactory)
