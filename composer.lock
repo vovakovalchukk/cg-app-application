@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b3301842fbbb1bdca6704da1c1876228",
-    "content-hash": "d86435ba568e47797ff33289945863cc",
+    "hash": "3f0d25861b3c1301001517c6b08647a5",
+    "content-hash": "7562a6b6b79fd0b820c5cf3697f75470",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1195,17 +1195,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.20.0.1",
+            "version": "dev-CGIV-6575-incorrect-tracking-carriers",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "c336fd36f118d1d1069abee6c094cd984fe48760"
+                "reference": "20a461fc2e019d40860df3af0f2b71b1b979b8c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.20.0.1-14498f.zip",
-                "reference": "c336fd36f118d1d1069abee6c094cd984fe48760",
-                "shasum": "cc6b21a13e6a53abd378b6e121798d53e57e8d60"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6575-incorrect-tracking-carriers-66eac0.zip",
+                "reference": "20a461fc2e019d40860df3af0f2b71b1b979b8c1",
+                "shasum": "2e7075e138c8d16b3865a758711b7b7535244c18"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1267,7 +1267,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-12-09 09:07:11"
+            "time": "2015-12-09 12:14:16"
         },
         {
             "name": "channelgrabber/permission",
@@ -7376,10 +7376,18 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.20.1",
+            "alias_normalized": "1.20.1.0",
+            "version": "dev-CGIV-6575-incorrect-tracking-carriers",
+            "package": "channelgrabber/order"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

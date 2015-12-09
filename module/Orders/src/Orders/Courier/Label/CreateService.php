@@ -69,7 +69,7 @@ class CreateService extends ServiceAbstract
         $shippingAccount = $this->accountService->fetch($shippingAccountId);
         $orders = $this->getOrdersByIds($orderIds);
         $this->persistDimensionsForOrders($orders, $orderParcelsData, $ordersItemsData, $rootOu);
-        $orderLabels = $this->createOrderLabelsForOrders($orders);
+        $orderLabels = $this->createOrderLabelsForOrders($orders, $shippingAccount);
         $request = $this->mapper->ordersAndDataToDataplugCreateRequest($orders, $ordersData, $orderParcelsData, $rootOu);
         $this->logDebug(static::LOG_CREATE_SEND, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
         $orderNumbers = $this->sendCreateOrdersRequest($request, $shippingAccount, $orderIds, $orderLabels);
@@ -189,21 +189,22 @@ class CreateService extends ServiceAbstract
         return $value;
     }
 
-    protected function createOrderLabelsForOrders(OrderCollection $orders)
+    protected function createOrderLabelsForOrders(OrderCollection $orders, Account $shippingAccount)
     {
         $orderLabels = [];
         foreach ($orders as $order) {
-            $orderLabels[$order->getId()] = $this->createOrderLabelForOrder($order);
+            $orderLabels[$order->getId()] = $this->createOrderLabelForOrder($order, $shippingAccount);
         }
         return $orderLabels;
     }
 
-    protected function createOrderLabelForOrder(Order $order)
+    protected function createOrderLabelForOrder(Order $order, Account $shippingAccount)
     {
         $this->logDebug(static::LOG_CREATE_ORDER_LABEL, [$order->getId()], static::LOG_CODE);
         $date = new StdlibDateTime();
         $orderLabelData = [
             'organisationUnitId' => $order->getOrganisationUnitId(),
+            'shippingAccountId' => $shippingAccount->getId(),
             'orderId' => $order->getId(),
             'status' => OrderLabelStatus::CREATING,
             'created' => $date->stdFormat(),
