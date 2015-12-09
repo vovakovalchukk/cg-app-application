@@ -665,6 +665,7 @@ return array(
                         [
                             'channelName' => Carriers::MYHERMES,
                             'displayName' => 'Hermes corporate',
+                            'salesChannelName' => 'Hermes',
                             'code' => DataplugCarrier\Myhermes::CODE,
                             'fields' => [
                                 ['name' => 'Client ID'],
@@ -718,6 +719,7 @@ return array(
                         [
                             'channelName' => Carriers::ROYAL_MAIL_OBA,
                             'displayName' => 'Royal Mail OBA',
+                            'salesChannelName' => 'Royal Mail',
                             'code' => DataplugCarrier\RoyalMailOba::CODE,
                             'manifestOncePerDay' => true,
                             'fields' => [

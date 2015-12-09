@@ -2,6 +2,7 @@
 namespace Orders\Courier\Label;
 
 use CG\Account\Client\Service as AccountService;
+use CG\Dataplug\Carrier\Service as DataplugCarrierService;
 use CG\Dataplug\Client as DataplugClient;
 use CG\Dataplug\Order\Mapper;
 use CG\Dataplug\Order\Service as DataplugOrderService;
@@ -56,6 +57,8 @@ abstract class ServiceAbstract implements LoggerAwareInterface
     protected $dataplugOrderService;
     /** @var GearmanClient */
     protected $gearmanClient;
+    /** @var DataplugCarrierService */
+    protected $dataplugCarrierService;
 
     public function __construct(
         Mapper $mapper,
@@ -69,7 +72,8 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         ProductDetailMapper $productDetailMapper,
         ProductDetailService $productDetailService,
         DataplugOrderService $dataplugOrderService,
-        GearmanClient $gearmanClient
+        GearmanClient $gearmanClient,
+        DataplugCarrierService $dataplugCarrierService
     ) {
         $this->setMapper($mapper)
             ->setUserOUService($userOuService)
@@ -82,7 +86,8 @@ abstract class ServiceAbstract implements LoggerAwareInterface
             ->setProductDetailMapper($productDetailMapper)
             ->setProductDetailService($productDetailService)
             ->setDataplugOrderService($dataplugOrderService)
-            ->setGearmanClient($gearmanClient);
+            ->setGearmanClient($gearmanClient)
+            ->setDataplugCarrierService($dataplugCarrierService);
     }
 
     protected function getOrdersByIds(array $orderIds)
@@ -185,6 +190,12 @@ abstract class ServiceAbstract implements LoggerAwareInterface
     protected function setGearmanClient(GearmanClient $gearmanClient)
     {
         $this->gearmanClient = $gearmanClient;
+        return $this;
+    }
+
+    public function setDataplugCarrierService(DataplugCarrierService $dataplugCarrierService)
+    {
+        $this->dataplugCarrierService = $dataplugCarrierService;
         return $this;
     }
 }

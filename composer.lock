@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3f0d25861b3c1301001517c6b08647a5",
-    "content-hash": "7562a6b6b79fd0b820c5cf3697f75470",
+    "hash": "49f661e8822131cfcd1f15035b8665ab",
+    "content-hash": "17634b9b6e0490631fac642625d34e28",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -478,17 +478,17 @@
         },
         {
             "name": "channelgrabber/dataplug",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "1f0ce981d83c90628470d9b086abd68ace500f5f"
+                "reference": "83929456e5fa5ff43a84718f920be7a045127333"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-1.0.0-fe3ee7.zip",
-                "reference": "1f0ce981d83c90628470d9b086abd68ace500f5f",
-                "shasum": "d574499cf169c56385a302a2010d704567baa7f5"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-1.0.1-611248.zip",
+                "reference": "83929456e5fa5ff43a84718f920be7a045127333",
+                "shasum": "62559a8310c70975511de94b0ddca130c213af62"
             },
             "require": {
                 "channelgrabber/channel": "^1.19.0",
@@ -522,7 +522,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2015-12-03 10:37:13"
+            "time": "2015-12-10 10:16:01"
         },
         {
             "name": "channelgrabber/db",
@@ -1195,17 +1195,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-6575-incorrect-tracking-carriers",
+            "version": "1.20.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "20a461fc2e019d40860df3af0f2b71b1b979b8c1"
+                "reference": "167b815e8cdbc037df76b0f4bf7d55c47378e909"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6575-incorrect-tracking-carriers-66eac0.zip",
-                "reference": "20a461fc2e019d40860df3af0f2b71b1b979b8c1",
-                "shasum": "2e7075e138c8d16b3865a758711b7b7535244c18"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.20.1-183b73.zip",
+                "reference": "167b815e8cdbc037df76b0f4bf7d55c47378e909",
+                "shasum": "bec1b4a54e4d45699ae7e662e40db40021ff5611"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1267,7 +1267,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-12-09 12:14:16"
+            "time": "2015-12-10 10:20:35"
         },
         {
             "name": "channelgrabber/permission",
@@ -7376,18 +7376,10 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.20.1",
-            "alias_normalized": "1.20.1.0",
-            "version": "dev-CGIV-6575-incorrect-tracking-carriers",
-            "package": "channelgrabber/order"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

@@ -3,6 +3,7 @@
 namespace Orders\Courier\Label;
 
 use CG\Account\Shared\Entity as Account;
+use CG\Dataplug\Carrier\Entity as Carrier;
 use CG\Dataplug\Gearman\WorkerFunction\GetLabelData as GetLabelDataGF;
 use CG\Dataplug\Gearman\Workload\GetLabelData as GetLabelDataWorkload;
 use CG\Dataplug\Order\LabelMissingException;
@@ -67,6 +68,7 @@ class CreateService extends ServiceAbstract
         $this->addGlobalLogEventParam('account', $shippingAccountId)->addGlobalLogEventParam('ou', $rootOu->getId());
         $this->logDebug(static::LOG_CREATE, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
         $shippingAccount = $this->accountService->fetch($shippingAccountId);
+        $carrier = $this->dataplugCarrierService->getCarrierForAccount($shippingAccount);
         $orders = $this->getOrdersByIds($orderIds);
         $this->persistDimensionsForOrders($orders, $orderParcelsData, $ordersItemsData, $rootOu);
         $orderLabels = $this->createOrderLabelsForOrders($orders, $shippingAccount);
@@ -82,7 +84,7 @@ class CreateService extends ServiceAbstract
                 $labelReadyStatuses[$order->getId()] = $orderNumber;
             } else {
                 $success = $this->getAndProcessDataplugOrderDetails(
-                    $order, $shippingAccount, $orderNumber, $orderLabel, $user
+                    $order, $shippingAccount, $carrier, $orderNumber, $orderLabel, $user
                 );
                 $labelReadyStatuses[$order->getId()] = $success;
             }
@@ -262,18 +264,20 @@ class CreateService extends ServiceAbstract
     protected function getAndProcessDataplugOrderDetails(
         Order $order,
         Account $shippingAccount,
+        Carrier $carrier,
         $orderNumber,
         OrderLabel $orderLabel,
         User $user
     ) {
         $labelFormatPDF = DataplugRetrieveRequest::LABEL_FORMAT_PDF;
         $saveTrackingNumbersPDF = true;
+        $trackingCarrierName = $carrier->getSalesChannelName();
         $labelFormatPNG = DataplugRetrieveRequest::LABEL_FORMAT_PNG;
         $saveTrackingNumbersPNG = false;
         try {
             // PDF
             $this->dataplugOrderService->getAndProcessDataplugOrderDetails(
-                $order, $shippingAccount, $orderNumber, $orderLabel, $user, $labelFormatPDF, $saveTrackingNumbersPDF
+                $order, $shippingAccount, $orderNumber, $orderLabel, $user, $labelFormatPDF, $saveTrackingNumbersPDF, $trackingCarrierName
             );
             // Queue up fetching the PNG version as we only need that for invoices
             $this->createJobToGetAndProcessDataplugOrderDetails(
@@ -284,7 +288,7 @@ class CreateService extends ServiceAbstract
             // Label not currently present, queue up a job to keep trying
             // PDF
             $this->createJobToGetAndProcessDataplugOrderDetails(
-                $order, $shippingAccount, $orderNumber, $orderLabel, $user, $labelFormatPDF, $saveTrackingNumbersPDF
+                $order, $shippingAccount, $orderNumber, $orderLabel, $user, $labelFormatPDF, $saveTrackingNumbersPDF, $trackingCarrierName
             );
             // PNG
             $this->createJobToGetAndProcessDataplugOrderDetails(
@@ -305,7 +309,8 @@ class CreateService extends ServiceAbstract
         OrderLabel $orderLabel,
         User $user,
         $labelFormat,
-        $saveTrackingNumbers
+        $saveTrackingNumbers,
+        $trackingCarrierName = null
     ) {
         $workload = new GetLabelDataWorkload(
             $order->getId(),
@@ -314,7 +319,8 @@ class CreateService extends ServiceAbstract
             $user->getId(),
             $orderNumber,
             $labelFormat,
-            $saveTrackingNumbers
+            $saveTrackingNumbers,
+            $trackingCarrierName
         );
         $handle = GetLabelDataGF::FUNCTION_NAME . '-' . $order->getId() . '-' . $labelFormat;
         $this->gearmanClient->doBackground(GetLabelDataGF::FUNCTION_NAME, serialize($workload), $handle);
