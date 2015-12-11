@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "49f661e8822131cfcd1f15035b8665ab",
-    "content-hash": "17634b9b6e0490631fac642625d34e28",
+    "hash": "b710891e5d64633d6419637189fc97ee",
+    "content-hash": "c0dc38b7cc78320084bfdc660a142779",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -305,17 +305,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.19.0",
+            "version": "dev-CGIV-6104-improve-listing-importing",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "bd1a3b12d4cf750111b7a81d20beabbc2f19607f"
+                "reference": "4ae98a3035fd212d1870b15b3785b858e9fcd9c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.19.0-79a5b8.zip",
-                "reference": "bd1a3b12d4cf750111b7a81d20beabbc2f19607f",
-                "shasum": "8b3524500547daf8e5450eb2d01a994832515734"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6104-improve-listing-importing-db0da7.zip",
+                "reference": "4ae98a3035fd212d1870b15b3785b858e9fcd9c4",
+                "shasum": "e6d8743ce7320b948748042b1222e91748b21577"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -327,7 +327,7 @@
                 "channelgrabber/gearman": "^1.2.19",
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": ">=1.1.2,<2.0.0",
-                "channelgrabber/listing": "^1.6.12",
+                "channelgrabber/listing": "dev-CGIV-6104-improve-listing-importing as 1.7.2",
                 "channelgrabber/location": ">=1.1.1,<2.0.0",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.18.1",
@@ -371,7 +371,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-12-03 10:13:39"
+            "time": "2015-12-11 11:58:01"
         },
         {
             "name": "channelgrabber/cilex",
@@ -899,17 +899,17 @@
         },
         {
             "name": "channelgrabber/image",
-            "version": "1.1.6",
+            "version": "1.1.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-image.git",
-                "reference": "45b3ea6a2a1aaeb9339331c324e5498cea593056"
+                "reference": "6a6b681730d894f0e0699a47a41c733ecb9101d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-1.1.6-42eb26.zip",
-                "reference": "45b3ea6a2a1aaeb9339331c324e5498cea593056",
-                "shasum": "144305bca2bd90bfe11d07500efeec487a27841a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-1.1.7-05f72c.zip",
+                "reference": "6a6b681730d894f0e0699a47a41c733ecb9101d8",
+                "shasum": "70bed91dafc31ddee4f49fe9b1b73f7f6164889a"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -932,7 +932,7 @@
                     "CG\\Image\\": "src"
                 }
             },
-            "time": "2015-06-25 08:05:29"
+            "time": "2015-12-07 08:48:57"
         },
         {
             "name": "channelgrabber/intercom",
@@ -972,17 +972,17 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.6.14",
+            "version": "dev-CGIV-6104-improve-listing-importing",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "6eb2a6bc5b90ac2dbc0a290839161dce9a0f45ba"
+                "reference": "deea873b97ac1c72fa12b711012b5fddb3bfe5c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.6.14-8a0ef2.zip",
-                "reference": "6eb2a6bc5b90ac2dbc0a290839161dce9a0f45ba",
-                "shasum": "3d9701b79110301573772a5deae22fdb2ee0c20b"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-CGIV-6104-improve-listing-importing-2814e0.zip",
+                "reference": "deea873b97ac1c72fa12b711012b5fddb3bfe5c1",
+                "shasum": "e7410ace44b13a5f7eb94a6eafe82b2fe0d06556"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -990,11 +990,12 @@
                 "channelgrabber/di": ">=2.1.0,<3.0.0",
                 "channelgrabber/etag": "^1.6.0",
                 "channelgrabber/http": "^1.3.14",
-                "channelgrabber/image": ">=1.1.2,<2.0.0",
+                "channelgrabber/image": "^1.1.7",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/permission": ">=1.0.1,<2.0.0",
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stdlib": "^2.12.6",
+                "channelgrabber/user": "^1.20.2",
                 "composer/composer": "@dev",
                 "nocarrier/hal": "~0.9.4",
                 "php-jsonpatch/php-jsonpatch": "@dev",
@@ -1017,7 +1018,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2015-10-13 09:12:10"
+            "time": "2015-12-11 12:16:36"
         },
         {
             "name": "channelgrabber/locale",
@@ -7376,10 +7377,25 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.19.3",
+            "alias_normalized": "1.19.3.0",
+            "version": "dev-CGIV-6104-improve-listing-importing",
+            "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.8.0",
+            "alias_normalized": "1.8.0.0",
+            "version": "dev-CGIV-6104-improve-listing-importing",
+            "package": "channelgrabber/listing"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/listing": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
