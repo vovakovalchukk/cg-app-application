@@ -41,6 +41,12 @@ define([], function() {
         $('#processingCount').html(status.processing);
         $('#dispatchedCount').html(status.dispatched);
         $('#cancelledAndRefundedCount').html(status.cancelledAndRefunded);
+        $('#allOrdersCountSub').html(status.allOrders);
+        $('#awaitingPaymentCountSub').html(status.awaitingPayment);
+        $('#newOrdersCountSub').html(status.newOrders);
+        $('#processingCountSub').html(status.processing);
+        $('#dispatchedCountSub').html(status.dispatched);
+        $('#cancelledAndRefundedCountSub').html(status.cancelledAndRefunded);
         var maxCount = 0;
         var batches = json.batches;
         var batchesKeys = Object.keys(batches);

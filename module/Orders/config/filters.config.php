@@ -323,6 +323,7 @@ return [
             [
                 'name' => 'All Orders',
                 'id' => 'allOrdersCount',
+                'subid' => 'allOrdersCountSub',
                 'statusColourClass' => '',
                 'filter' => json_encode(
                     [
@@ -334,6 +335,7 @@ return [
             [
                 'name' => 'Awaiting Payment',
                 'id' => 'awaitingPaymentCount',
+                'subid' => 'awaitingPaymentCountSub',
                 'statusColourClass' => 'awaiting-payment',
                 'filter' => json_encode(
                     [
@@ -346,6 +348,7 @@ return [
             [
                 'name' => 'New Orders',
                 'id' => 'newOrdersCount',
+                'subid' => 'newOrdersCountSub',
                 'statusColourClass' => 'new',
                 'filter' => json_encode(
                     [
@@ -358,6 +361,7 @@ return [
             [
                 'name' => 'Processing',
                 'id' => 'processingCount',
+                'subid' => 'processingCountSub',
                 'statusColourClass' => 'processing',
                 'filter' => json_encode(
                     [
@@ -372,6 +376,7 @@ return [
             [
                 'name' => 'Dispatched',
                 'id' => 'dispatchedCount',
+                'subid' => 'dispatchedCountSub',
                 'statusColourClass' => 'dispatched',
                 'filter' => json_encode(
                     [
@@ -384,6 +389,7 @@ return [
             [
                 'name' => 'Cancelled',
                 'id' => 'cancelledAndRefundedCount',
+                'subid' => 'cancelledAndRefundedSub',
                 'statusColourClass' => 'cancelled',
                 'filter' => json_encode(
                     [
