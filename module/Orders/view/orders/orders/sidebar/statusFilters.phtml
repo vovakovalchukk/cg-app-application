@@ -10,7 +10,7 @@ require([
     'filters','orderCounts'
 ],
 function(Filters, OrderCounts) {
-    new Filters("#filters", "#statusFilters");
+    new Filters("#filters", "#statusFilters, #statusFiltersNumbersOnly");
     new OrderCounts();
 });
 
@@ -30,11 +30,10 @@ function(Filters, OrderCounts) {
     </ul>
 </div>
 
-<div class="filter-module-numbers-only clearfix navbar-content">
+<div class="filter-module-numbers-only clearfix navbar-content statusCountNumberOnlySpacer">
     <ul class="module-content nav">
         <li>
             <ul id="statusFiltersNumbersOnly">
-                <li class='empty-list<?= count($filters) ? ' hidden' : '' ?>'><?= $this->translate('No status filters') ?></li>
                 <?php if (count($filters)) : ?>
                     <?= $this->mustacheLoop('elements/statusFilterNumbersOnly.mustache', $filters) ?>
                 <?php endif; ?>
