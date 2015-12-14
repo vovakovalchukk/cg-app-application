@@ -389,7 +389,7 @@ return [
             [
                 'name' => 'Cancelled',
                 'id' => 'cancelledAndRefundedCount',
-                'subid' => 'cancelledAndRefundedSub',
+                'subid' => 'cancelledAndRefundedCountSub',
                 'statusColourClass' => 'cancelled',
                 'filter' => json_encode(
                     [
