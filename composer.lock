@@ -480,17 +480,17 @@
         },
         {
             "name": "channelgrabber/dataplug",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "1f0ce981d83c90628470d9b086abd68ace500f5f"
+                "reference": "83929456e5fa5ff43a84718f920be7a045127333"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-1.0.0-fe3ee7.zip",
-                "reference": "1f0ce981d83c90628470d9b086abd68ace500f5f",
-                "shasum": "d574499cf169c56385a302a2010d704567baa7f5"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-1.0.1-611248.zip",
+                "reference": "83929456e5fa5ff43a84718f920be7a045127333",
+                "shasum": "62559a8310c70975511de94b0ddca130c213af62"
             },
             "require": {
                 "channelgrabber/channel": "^1.19.0",
@@ -524,7 +524,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2015-12-03 10:37:13"
+            "time": "2015-12-10 10:16:01"
         },
         {
             "name": "channelgrabber/db",
