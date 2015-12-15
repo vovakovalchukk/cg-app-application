@@ -1,6 +1,7 @@
 <?php
 namespace Orders\Controller;
 
+use CG\Account\Shared\Entity as Account;
 use CG\Account\Shared\Collection as AccountCollection;
 use CG_UI\View\DataTable;
 use CG_UI\View\Prototyper\ViewModelFactory;
@@ -189,7 +190,7 @@ class CourierController extends AbstractActionController
             ->setVariable('orderServices', $orderServices)
             ->setVariable('navLinks', $navLinks)
             ->setVariable('selectedCourier', $selectedCourier)
-            ->addChild($this->getSpecificsBulkActionsButtons(), 'bulkActionsButtons')
+            ->addChild($this->getSpecificsBulkActionsButtons($courierAccounts, $selectedCourier), 'bulkActionsButtons')
             ->addChild($this->specificsTable, 'specificsTable')
             ->addChild($this->getSpecificsActionsButtons(), 'actionsButtons')
             ->addChild($this->getSpecificsParcelsElement(), 'parcelsElement')
@@ -218,38 +219,73 @@ class CourierController extends AbstractActionController
         $route = Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_SPECIFICS;
         $nav = [];
         foreach ($accounts as $account) {
-            $url = $this->url()->fromRoute($route, ['account' => $account->getId()]);
-            $nav[$url] = $account->getDisplayName();
+            list($url, $linkText) = $this->getSidebarNavLinkForSelectedAccount($account);
+            $nav[$url] = $linkText;
         }
         return $nav;
     }
 
-    protected function getSpecificsBulkActionsButtons()
+    protected function getSidebarNavLinkForSelectedAccount(Account $account)
     {
-        $view = $this->viewModelFactory->newInstance([
+        $route = Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_SPECIFICS;
+        $url = $this->url()->fromRoute($route, ['account' => $account->getId()]);
+        return [$url, $account->getDisplayName()];
+    }
+
+    protected function getSpecificsBulkActionsButtons(AccountCollection $accounts, Account $selectedAccount)
+    {
+        $viewConfig = [
             'buttons' => [
                 [
                     'value' => 'Create all labels',
                     'id' => 'create-all-labels-button',
-                    'class' => 'courier-create-all-labels-button',
+                    'class' => 'courier-create-all-labels-button courier-status-all-labels-button',
                     'disabled' => false,
                 ],
                 [
                     'value' => 'Print all labels',
                     'id' => 'print-all-labels-button',
-                    'class' => 'courier-print-all-labels-button',
+                    'class' => 'courier-print-all-labels-button courier-status-all-labels-button',
                     'disabled' => false,
                 ],
                 [
                     'value' => 'Cancel all',
                     'id' => 'cancel-all-labels-button',
-                    'class' => 'courier-cancel-all-labels-button',
+                    'class' => 'courier-cancel-all-labels-button courier-status-all-labels-button',
                     'disabled' => false,
                 ],
             ]
-        ]);
+        ];
+        if (count($accounts) > 1 && $nextCourierButtonConfig = $this->getNextCourierButtonConfig($accounts, $selectedAccount)) {
+            array_unshift($viewConfig['buttons'], $nextCourierButtonConfig);
+        }
+
+        $view = $this->viewModelFactory->newInstance($viewConfig);
         $view->setTemplate('elements/buttons.mustache');
         return $view;
+    }
+
+    protected function getNextCourierButtonConfig(AccountCollection $accounts, Account $selectedAccount)
+    {
+        $nextCourier = null;
+        foreach ($accounts as $account) {
+            if ($account->getId() == $selectedAccount->getId()) {
+                $accounts->next();
+                $nextCourier = $accounts->current();
+                break;
+            }
+        }
+        if (!$nextCourier) {
+            return null;
+        }
+        list($nextCourierUrl, ) = $this->getSidebarNavLinkForSelectedAccount($nextCourier);
+        return [
+            'value' => 'Next Courier',
+            'id' => 'next-courier-button',
+            'class' => 'courier-next-courier-button',
+            'disabled' => false,
+            'action' => $nextCourierUrl,
+        ];
     }
 
     protected function getSpecificsActionsButtons()

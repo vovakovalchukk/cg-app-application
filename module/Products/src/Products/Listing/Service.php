@@ -1,6 +1,7 @@
 <?php
 namespace Products\Listing;
 
+use CG\Channel\Gearman\Generator\UnimportedListing\Import as UnimportedListingImportGenerator;
 use CG\Channel\Type as ChannelType;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
@@ -46,6 +47,8 @@ class Service implements LoggerAwareInterface
     protected $gearmanClient;
     protected $intercomEventService;
     protected $dateFormatHelper;
+    /** @var UnimportedListingImportGenerator */
+    protected $unimportedListingImportGenerator;
     protected $nonImportableStatuses = [
         ListingStatus::CANNOT_IMPORT_SKU => ListingStatus::CANNOT_IMPORT_SKU
     ];
@@ -58,7 +61,8 @@ class Service implements LoggerAwareInterface
         AccountService $accountService,
         GearmanClient $gearmanClient,
         IntercomEventService $intercomEventService,
-        DateFormatHelper $dateFormatHelper
+        DateFormatHelper $dateFormatHelper,
+        UnimportedListingImportGenerator $unimportedListingImportGenerator
     ) {
         $this->setActiveUserContainer($activeUserContainer)
             ->setUserPreferenceService($userPreferenceService)
@@ -67,7 +71,8 @@ class Service implements LoggerAwareInterface
             ->setAccountService($accountService)
             ->setGearmanClient($gearmanClient)
             ->setIntercomEventService($intercomEventService)
-            ->setDateFormatHelper($dateFormatHelper);
+            ->setDateFormatHelper($dateFormatHelper)
+            ->setUnimportedListingImportGenerator($unimportedListingImportGenerator);
     }
 
     public function fetchListings(ListingFilter $listingFilter)
@@ -218,9 +223,8 @@ class Service implements LoggerAwareInterface
             if (isset($this->nonImportableStatuses[$listing->getStatus()])) {
                 continue;
             }
-            $gearmanJob = \CG\Stdlib\hyphenToCamelCase($listing->getChannel()) . 'ImportListing';
-            $workload = new ImportListingWorkload($accounts->getById($listing->getAccountId()), $listing);
-            $this->getGearmanClient()->doBackground($gearmanJob, serialize($workload), 'importListing' . $listing->getId());
+            $account = $accounts->getById($listing->getAccountId());
+            $this->unimportedListingImportGenerator->__invoke($listing, $account);
             $listing->setStatus(UnimportedStatus::IMPORTING);
         }
         $this->getListingService()->saveCollection($listings);
@@ -329,6 +333,12 @@ class Service implements LoggerAwareInterface
     protected function setDateFormatHelper(DateFormatHelper $dateFormatHelper)
     {
         $this->dateFormatHelper = $dateFormatHelper;
+        return $this;
+    }
+
+    protected function setUnimportedListingImportGenerator(UnimportedListingImportGenerator $unimportedListingImportGenerator)
+    {
+        $this->unimportedListingImportGenerator = $unimportedListingImportGenerator;
         return $this;
     }
 }

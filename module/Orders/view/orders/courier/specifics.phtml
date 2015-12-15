@@ -17,7 +17,7 @@ $(document).ready(function()
 </script>
 <div id="main" class="courier-specifics">
     <span class="heading-large">
-        <?= $this->selectedCourier->getDisplayName().' '.$this->translate('Orders') ?>
+        <div style="float:left"><span class="logo-large <?=$this->selectedCourier->getChannel();?>"></span></div>
         <div class="heading-buttons" id="courier-specifics-bulk-actions" style="display:none">
             <div class="backorders_btn button-holder">
                 <a href="/orders" class="button"><?=$this->translate('Back To Orders');?></a>
