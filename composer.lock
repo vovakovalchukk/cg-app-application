@@ -3234,13 +3234,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "c3477a0d930308ab7b1d3b69c025fb7c3a7cc1ea"
+                "reference": "0cf8acbb37689fcfcb00ead87629c1b9f069cc2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6341-show-number-orders-per-filter-b6bcf3.zip",
-                "reference": "c3477a0d930308ab7b1d3b69c025fb7c3a7cc1ea",
-                "shasum": "c93a6c8a287290b6a5d2197eb7b374c28de0efd1"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6341-show-number-orders-per-filter-8b6039.zip",
+                "reference": "0cf8acbb37689fcfcb00ead87629c1b9f069cc2e",
+                "shasum": "68ffb03d7a6c33800c65e4fb4c4c87fd6b5cc7a6"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3286,7 +3286,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-12-15 14:49:48"
+            "time": "2015-12-15 15:15:42"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
