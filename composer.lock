@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "424f0c7810aac250f519b1f5f9009992",
-    "content-hash": "1af5e92f8bea42b37402bd6809238dbe",
+    "hash": "934cc48d704ed908f7db26db6b0eea71",
+    "content-hash": "063b868ba6a7a827aad17b8313ee10e0",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2092,17 +2092,17 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.4.3",
+            "version": "dev-CGIV-6593-GifSupport",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "7649c9ac530eb681ef3a3508b37d988a77ba56a9"
+                "reference": "a4b1c292257b41833bd692592accd2e14cf37ec0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.3-5053fc.zip",
-                "reference": "7649c9ac530eb681ef3a3508b37d988a77ba56a9",
-                "shasum": "acd55d80c3b01421c5648e8a098ada34c7db8237"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-6593-GifSupport-d418f2.zip",
+                "reference": "a4b1c292257b41833bd692592accd2e14cf37ec0",
+                "shasum": "cb55c1c37ebc57db6eba51a1d5c4bda308e86fe8"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2141,7 +2141,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2015-12-09 08:42:24"
+            "time": "2015-12-15 15:50:18"
         },
         {
             "name": "channelgrabber/transaction",
@@ -7377,10 +7377,18 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.4.4",
+            "alias_normalized": "1.4.4.0",
+            "version": "dev-CGIV-6593-GifSupport",
+            "package": "channelgrabber/template"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/template": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
