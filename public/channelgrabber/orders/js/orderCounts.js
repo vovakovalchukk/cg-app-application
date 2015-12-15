@@ -23,10 +23,6 @@ define([], function() {
             success: function (json)
             {
                 self.displayCounts(json);
-            },
-            error: function()
-            {
-                alert('Order count request failed');
             }
         });
     };
