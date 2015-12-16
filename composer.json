@@ -63,7 +63,7 @@
         "channelgrabber/stdlib": "~2.12.16",
         "channelgrabber/stock": "~1.6.0",
         "channelgrabber/tax": "~1.0.0",
-        "channelgrabber/template": "~1.4.3",
+        "channelgrabber/template": "~1.4.4",
         "channelgrabber/usage": "~1.0.7",
         "channelgrabber/user": "~1.20.3",
         "channelgrabber/userpreference": "~1.2.4",
