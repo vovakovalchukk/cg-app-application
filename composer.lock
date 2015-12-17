@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a19ad1eedf1a9022b6dd9816d3c06aab",
-    "content-hash": "ef7a56a97f606f332543a9a892d526a8",
+    "hash": "5401877eede0c5cdf0498b960a310778",
+    "content-hash": "8ffa5f6a3d379f59e2d07227e7df639b",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -305,17 +305,17 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.19.3",
+            "version": "dev-CGIV-6525-only-send-account-disabled-email-if-account-isnt-already-disabled",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "e6a61952fca1ce12b174ec2b1b9c95c162ee50a2"
+                "reference": "025fa11c171e52930bbc5279e30c6c1957bfbf12"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.19.3-163494.zip",
-                "reference": "e6a61952fca1ce12b174ec2b1b9c95c162ee50a2",
-                "shasum": "8463b820cfa5b99b237969ef2009ff8e42fd169c"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6525-only-send-account-disabled-email-if-account-isnt-already-disabled-cbed61.zip",
+                "reference": "025fa11c171e52930bbc5279e30c6c1957bfbf12",
+                "shasum": "fa00987f5d5ff8cf014b3dee5a725b6b87b183b6"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -371,7 +371,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-12-14 16:04:40"
+            "time": "2015-12-17 16:32:42"
         },
         {
             "name": "channelgrabber/cilex",
@@ -7377,9 +7377,17 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.19.5",
+            "alias_normalized": "1.19.5.0",
+            "version": "dev-CGIV-6525-only-send-account-disabled-email-if-account-isnt-already-disabled",
+            "package": "channelgrabber/channel"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
