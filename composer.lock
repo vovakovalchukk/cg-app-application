@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d1d5c4b8bdbc3b29de7464d995b6784d",
-    "content-hash": "9802ce74d1e97063f4b03e9e3bd3f56b",
+    "hash": "06d7cae24eebbcd40929b64d623a0565",
+    "content-hash": "6f26f880b6d8338af6ffac1c3ac62187",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3224,17 +3224,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.18",
+            "version": "dev-CGIV-6615-UntickSelectAll",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "67958a51978da0d65575a993dc43e174b4956427"
+                "reference": "2a321f7ab24cced34d61f39c33efe247fb9ab128"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.18-c0e35f.zip",
-                "reference": "67958a51978da0d65575a993dc43e174b4956427",
-                "shasum": "c9414e89e04a7bc2461bcdbe8305107349f0425e"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6615-UntickSelectAll-d52614.zip",
+                "reference": "2a321f7ab24cced34d61f39c33efe247fb9ab128",
+                "shasum": "4b9629631816fd06ef26ce5ec288218133adfee6"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3280,7 +3280,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-12-14 16:18:18"
+            "time": "2015-12-17 12:06:47"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7377,10 +7377,18 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.16.19",
+            "alias_normalized": "1.16.19.0",
+            "version": "dev-CGIV-6615-UntickSelectAll",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
