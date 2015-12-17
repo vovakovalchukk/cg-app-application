@@ -567,8 +567,8 @@ return array(
                                 ['name' => 'User ID'],
                                 ['name' => 'SLID'],
                                 ['name' => 'Authorisation Code'],
-                                ['name' => 'Start Sequence'],
-                                ['name' => 'End Sequence'],
+                                ['name' => 'Start Sequence', 'label' => 'Start Parcel Sequence'],
+                                ['name' => 'End Sequence', 'label' => 'End Parcel Sequence'],
                             ],
                             'services' => [
                                 ['value' => 'DPDEXPR000PA', 'name' => 'Express Parcel'],
@@ -640,10 +640,10 @@ return array(
                                 ['name' => 'Account no'],
                                 ['name' => 'User ID'],
                                 ['name' => 'Authorisation Code'],
-                                ['name' => 'Start Sequence'],
-                                ['name' => 'End Sequence'],
-                                ['name' => 'Order Start Sequence'],
-                                ['name' => 'Order End Sequence']
+                                ['name' => 'Start Sequence', 'label' => 'Start Parcel Sequence'],
+                                ['name' => 'End Sequence', 'label' => 'End Parcel Sequence'],
+                                ['name' => 'Order Start Sequence', 'label' => 'Start Consignment Sequence'],
+                                ['name' => 'Order End Sequence', 'label' => 'End Consignment Sequence'],
                             ],
                             'services' => [
                                 ['value' => 'INTNEXTDAYPA0930', 'name' => 'Next Day 9.30am Parcel'],
@@ -844,8 +844,6 @@ return array(
                                 'deliveryInstructions' => false,
                             ],
                         ],
-                        /*
-                        // Not going live with UKMail but will need this in the near future so leaving this here
                         [
                             'channelName' => Carriers::UK_MAIL,
                             'displayName' => 'UK Mail',
@@ -859,16 +857,18 @@ return array(
                                 ['name' => 'Password', 'inputType' => 'password']
                             ],
                             'services' => [
-                                ['value' => 'UKMNEXTDAYPA', 'name' => 'Parcel Next Day'],
-                                ['value' => 'UKMNEXTDAYPA1200', 'name' => 'Parcel Next Day by 12:00noon'],
-                                ['value' => 'UKMNEXTDAYPA1030', 'name' => 'Parcel Next Day by 10:30am'],
-                                ['value' => 'UKMNEXTDAYPA0900', 'name' => 'Parcel Next day by 09:00am'],
-                                ['value' => 'UKMSAT0000PA', 'name' => 'Parcel Saturday'],
-                                ['value' => 'UKMSAT0000PA1030', 'name' => 'Parcel Saturday by 10:30am'],
-                                ['value' => 'UKMSAT0000PA0900', 'name' => 'Parcel Saturday by 09:00am'],
+                                ['value' => 'UKMNEXTDAYPA', 'name' => 'Next Working Day'],
+                                ['value' => 'UKMNEXTDAYPA1200', 'name' => 'Next Working Day 12:00'],
+                                ['value' => 'UKMNEXTDAYPA1030', 'name' => 'Next Working Day 10:30'],
+                                ['value' => 'UKMNEXTDAYPA0900', 'name' => 'Next Working Day 09:00'],
+                                ['value' => 'UKMPREMR48PA', 'name' => '48 Hour Parcel'],
+                                ['value' => 'UKMSATUDAYPA', 'name' => 'Saturday'],
+                                ['value' => 'UKMSATUDAYPA1030', 'name' => 'Saturday 10:30'],
+                                ['value' => 'UKMSATUDAYPA0900', 'name' => 'Saturday 09:00'],
+                                /*
+                                // Not using these for now, may add them in later
                                 ['value' => 'UKMEXP4800PA', 'name' => 'Parcel 48 Hr'],
                                 ['value' => 'UMKEXP7200PA', 'name' => 'Parcel 72 Hour'],
-                                ['value' => 'UKMPREM480PA', 'name' => 'Premier Parcel 48 Hour'],
                                 ['value' => 'UKMNEXTDAYSB', 'name' => 'Small Bag it Next Day'],
                                 ['value' => 'UKMNEXTDAYSB1200', 'name' => 'Small Bag it Next Day by 12:00noon'],
                                 ['value' => 'UKMNEXTDAYSB1030', 'name' => 'Small Bag it Next Day by 10:30am'],
@@ -889,6 +889,7 @@ return array(
                                 ['value' => 'UKMNEXTDAYXL1030', 'name' => 'Extra Large Bag it Next Day by 10:30am'],
                                 ['value' => 'UKMNEXTDAYXL0900', 'name' => 'Extra Large Bag it Next day by 09:00am'],
                                 ['value' => 'UKMSAT0000XL', 'name' => 'Extra Large Bag it Saturday'],
+                                */
                             ],
                             'options' => [
                                 'insuranceMonetary' => false,
@@ -896,7 +897,6 @@ return array(
                                 'deliveryInstructions' => false,
                             ],
                         ],
-                        */
                         [
                             'channelName' => Carriers::UPS,
                             'displayName' => 'UPS',
@@ -940,7 +940,7 @@ return array(
                                 ['name' => 'Schedule no'],
                                 ['name' => 'Username'],
                                 ['name' => 'Password', 'inputType' => 'password'],
-                                ['name' => 'Licence Plate Prefix'],
+                                ['name' => 'Licence Plate Prefix', 'inputType' => 'hidden', 'value' => 'JJD00022'],
                                 ['name' => 'Start Sequence'],
                                 ['name' => 'End Sequence'],
                             ],

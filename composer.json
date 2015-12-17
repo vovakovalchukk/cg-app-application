@@ -73,7 +73,7 @@
         "channelgrabber/zf2-amazon": "~1.0.9",
         "channelgrabber/zf2-api": "~1.0.0",
         "channelgrabber/zf2-channel": "~1.0.6",
-        "channelgrabber/zf2-dataplug": "~1.0.1",
+        "channelgrabber/zf2-dataplug": "dev-CGIV-6621-dataplug-courier-credentials-changes as 1.0.2",
         "channelgrabber/zf2-ebay": "~1.0.2",
         "channelgrabber/zf2-ekm": "~1.0.2",
         "channelgrabber/zf2-email-template": "~1.0.8",
