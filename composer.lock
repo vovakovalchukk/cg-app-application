@@ -2565,17 +2565,17 @@
         },
         {
             "name": "channelgrabber/zf2-dataplug",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/dataplug-module.git",
-                "reference": "0899abad3c00e4b2e2651dc423dce4d2c1adeb63"
+                "reference": "6d4d84f3c66b61c6305683d0af24d6bd70be3a44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-dataplug-1.0.1-bca606.zip",
-                "reference": "0899abad3c00e4b2e2651dc423dce4d2c1adeb63",
-                "shasum": "1f6fc53f3937cf717ab2bae4fbb0234c00ccfc7a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-dataplug-1.0.2-0fb357.zip",
+                "reference": "6d4d84f3c66b61c6305683d0af24d6bd70be3a44",
+                "shasum": "69da36c0bf15ad6c2804769649fe8dabce242c5f"
             },
             "require": {
                 "channelgrabber/channel": "^1.19.0",
@@ -2607,7 +2607,7 @@
                 ]
             },
             "description": "Dataplug module",
-            "time": "2015-12-03 14:12:56"
+            "time": "2015-12-18 14:09:39"
         },
         {
             "name": "channelgrabber/zf2-ebay",
