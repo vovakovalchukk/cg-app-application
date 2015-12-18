@@ -612,7 +612,7 @@ return array(
                                 ['name' => 'Account no'],
                                 ['name' => 'Key'],
                                 ['name' => 'Password', 'inputType' => 'password'],
-                                ['name' => 'Trans ID'],
+                                ['name' => 'Trans ID', 'inputType' => 'hidden', 'value' => 'ORDERHUB'],
                                 ['name' => 'Meter No'],
                             ],
                             'services' => [

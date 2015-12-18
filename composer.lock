@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "023ab93229a694d18224a27f358cc717",
-    "content-hash": "cbc738abc0c717f82539cc0e0ec16203",
+    "hash": "acde4673473f992ed5b3f7fce8a2e153",
+    "content-hash": "8da71f78e9537891711c8dc86d330dbf",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2559,17 +2559,17 @@
         },
         {
             "name": "channelgrabber/zf2-dataplug",
-            "version": "dev-CGIV-6621-dataplug-courier-credentials-changes",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/dataplug-module.git",
-                "reference": "c9f765c6b9168642c4136c96829136d78fc2731d"
+                "reference": "6d4d84f3c66b61c6305683d0af24d6bd70be3a44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-dataplug-dev-CGIV-6621-dataplug-courier-credentials-changes-a8ab4d.zip",
-                "reference": "c9f765c6b9168642c4136c96829136d78fc2731d",
-                "shasum": "1edf83ef26fdb061e32b5ae8019ed9b06f85e0f7"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-dataplug-1.0.2-0fb357.zip",
+                "reference": "6d4d84f3c66b61c6305683d0af24d6bd70be3a44",
+                "shasum": "69da36c0bf15ad6c2804769649fe8dabce242c5f"
             },
             "require": {
                 "channelgrabber/channel": "^1.19.0",
@@ -2601,7 +2601,7 @@
                 ]
             },
             "description": "Dataplug module",
-            "time": "2015-12-17 16:22:41"
+            "time": "2015-12-18 14:09:39"
         },
         {
             "name": "channelgrabber/zf2-ebay",
@@ -7377,18 +7377,10 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.2",
-            "alias_normalized": "1.0.2.0",
-            "version": "dev-CGIV-6621-dataplug-courier-credentials-changes",
-            "package": "channelgrabber/zf2-dataplug"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-dataplug": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
