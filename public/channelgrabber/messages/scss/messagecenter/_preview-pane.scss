@@ -60,9 +60,11 @@
   background-color: white;
   @include box-sizing(border);
 }
-.message-title, .message-title a{
+.message-title, .message-orders{
   width: 100%;
   min-width: 880px;
+}
+.message-title, .message-orders, .message-title a, .message-orders a{
   float: left;
   clear:both;
   font-size: 14px;
@@ -72,7 +74,7 @@
   width: 100%;
   float: left;
   clear:both;
-  margin-top: 110px;
+  margin-top: 120px;
   padding: 20px;
   overflow: hidden;
   @include box-sizing(border);
