@@ -8,14 +8,17 @@ use CG\Communication\Thread\Filter as ThreadFilter;
 use CG\Communication\Thread\ResolveFactory as ThreadResolveFactory;
 use CG\Communication\Thread\Service as ThreadService;
 use CG\Communication\Thread\Status as ThreadStatus;
+use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
+use CG\Order\Client\Service as OrderService;
+use CG\Order\Service\Filter as OrderFilter;
+use CG\Order\Shared\Collection as Orders;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
-use CG\Http\Exception\Exception3xx\NotModified;
-use CG_UI\View\Helper\DateFormat;
 use CG\User\OrganisationUnit\Service as UserOuService;
 use CG\User\Service as UserService;
+use CG_UI\View\Helper\DateFormat;
 use Messages\Message\FormatMessageDataTrait;
 use Zend\Navigation\Page\AbstractPage as NavPage;
 
@@ -39,6 +42,8 @@ class Service
     protected $userService;
     /** @var AccountService $accountService */
     protected $accountService;
+    /** @var OrderService $orderService */
+    protected $orderService;
     /** @var ThreadResolveFactory $threadResolveFactory */
     protected $threadResolveFactory;
     /** @var IntercomEventService $intercomEventService */
@@ -68,6 +73,7 @@ class Service
         UserOuService $userOuService,
         UserService $userService,
         AccountService $accountService,
+        OrderService $orderService,
         ThreadResolveFactory $threadResolveFactory,
         IntercomEventService $intercomEventService,
         DateFormat $dateFormatter
@@ -77,6 +83,7 @@ class Service
             ->setUserOuService($userOuService)
             ->setUserService($userService)
             ->setAccountService($accountService)
+            ->setOrderService($orderService)
             ->setThreadResolveFactory($threadResolveFactory)
             ->setIntercomEventService($intercomEventService)
             ->setDateFormatter($dateFormatter);
@@ -178,7 +185,7 @@ class Service
         $threadData['createdFuzzy'] = $created->fuzzyFormat();
         $threadData['updated'] = $updated->uiFormat();
         $threadData['updatedFuzzy'] = $updated->fuzzyFormat();
-        $threadData['ordersCount'] = 0;
+        $threadData['ordersCount'] = $this->getOrderCount($thread);
         $threadData['ordersLink'] = '/orders';
 
         $threadData['assignedUserName'] = '';
@@ -188,6 +195,21 @@ class Service
         }
 
         return $threadData;
+    }
+
+    protected function getOrderCount(Thread $thread)
+    {
+        $filter = (new OrderFilter(1))
+            ->setSearchTerm($thread->getExternalUsername())
+            ->setHasItems(true);
+
+        try {
+            /** @var Orders $orders */
+            $orders = $this->orderService->fetchCollectionByFilter($filter);
+            return $orders->getTotal();
+        } catch (NotFound $exception) {
+            return 0;
+        }
     }
 
     protected function sortThreadCollection(ThreadCollection $threads)
@@ -400,6 +422,15 @@ class Service
     protected  function setAccountService(AccountService $accountService)
     {
         $this->accountService = $accountService;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setOrderService(OrderService $orderService)
+    {
+        $this->orderService = $orderService;
         return $this;
     }
 
