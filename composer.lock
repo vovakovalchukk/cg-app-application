@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5401877eede0c5cdf0498b960a310778",
-    "content-hash": "8ffa5f6a3d379f59e2d07227e7df639b",
+    "hash": "76bc51f49c460c19426f867483de58a3",
+    "content-hash": "521fb031738d58acf35a45989277e243",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -309,13 +309,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "025fa11c171e52930bbc5279e30c6c1957bfbf12"
+                "reference": "c65e7e3ed286c110a0493c6e018718d242f46ff1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6525-only-send-account-disabled-email-if-account-isnt-already-disabled-cbed61.zip",
-                "reference": "025fa11c171e52930bbc5279e30c6c1957bfbf12",
-                "shasum": "fa00987f5d5ff8cf014b3dee5a725b6b87b183b6"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6525-only-send-account-disabled-email-if-account-isnt-already-disabled-071ac4.zip",
+                "reference": "c65e7e3ed286c110a0493c6e018718d242f46ff1",
+                "shasum": "361dbd266bc96ee30baec971f107a9af59d5bac7"
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -327,7 +327,7 @@
                 "channelgrabber/gearman": "^1.2.19",
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": ">=1.1.2,<2.0.0",
-                "channelgrabber/listing": "^1.8.0",
+                "channelgrabber/listing": "^1.9.0",
                 "channelgrabber/location": ">=1.1.1,<2.0.0",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.18.1",
@@ -371,7 +371,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-12-17 16:32:42"
+            "time": "2015-12-18 12:10:56"
         },
         {
             "name": "channelgrabber/cilex",
@@ -972,17 +972,17 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.8.0",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "9e65c410b86f854f27d240c0c9c3f9baf04d4511"
+                "reference": "0824bb8a7062a8c8d73465d8710d05c77ddd75ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.8.0-de4d4c.zip",
-                "reference": "9e65c410b86f854f27d240c0c9c3f9baf04d4511",
-                "shasum": "e066d6f0dc4967d89ba33e2397dbf32c8648f782"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.9.0-1fa069.zip",
+                "reference": "0824bb8a7062a8c8d73465d8710d05c77ddd75ca",
+                "shasum": "ce046495c883f8449c6114ceda40fe45f84fe028"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1018,7 +1018,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2015-12-14 15:58:08"
+            "time": "2015-12-17 16:42:37"
         },
         {
             "name": "channelgrabber/locale",
@@ -7379,8 +7379,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.19.5",
-            "alias_normalized": "1.19.5.0",
+            "alias": "1.19.6",
+            "alias_normalized": "1.19.6.0",
             "version": "dev-CGIV-6525-only-send-account-disabled-email-if-account-isnt-already-disabled",
             "package": "channelgrabber/channel"
         }
