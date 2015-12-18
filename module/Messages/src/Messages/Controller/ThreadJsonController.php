@@ -4,6 +4,7 @@ namespace Messages\Controller;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use Messages\Thread\Service;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\JsonModel;
 
 class ThreadJsonController extends AbstractActionController
 {
@@ -14,7 +15,9 @@ class ThreadJsonController extends AbstractActionController
     const ROUTE_SAVE = 'Save';
     const ROUTE_SAVE_URL = '/save';
 
+    /** @var JsonModelFactory $jsonModelFactory */
     protected $jsonModelFactory;
+    /** @var Service $service */
     protected $service;
 
     public function __construct(
@@ -27,6 +30,7 @@ class ThreadJsonController extends AbstractActionController
 
     public function ajaxAction()
     {
+        /** @var JsonModel $view */
         $view = $this->jsonModelFactory->newInstance();
         $filters = $this->params()->fromPost('filter', []);
         $page = $this->params()->fromPost('page');
@@ -38,6 +42,7 @@ class ThreadJsonController extends AbstractActionController
 
     public function threadAction()
     {
+        /** @var JsonModel $view */
         $view = $this->jsonModelFactory->newInstance();
         $id = $this->params()->fromPost('id');
         if (!$id) {
@@ -51,6 +56,7 @@ class ThreadJsonController extends AbstractActionController
 
     public function saveAction()
     {
+        /** @var JsonModel $view */
         $view = $this->jsonModelFactory->newInstance();
         $id = $this->params()->fromPost('id');
         if (!$id) {
@@ -64,7 +70,7 @@ class ThreadJsonController extends AbstractActionController
         return $view->setVariable('thread', $threadData);
     }
 
-    protected function setJsonModelFactory($jsonModelFactory)
+    protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
     {
         $this->jsonModelFactory = $jsonModelFactory;
         return $this;

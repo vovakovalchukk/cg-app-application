@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "acde4673473f992ed5b3f7fce8a2e153",
-    "content-hash": "8da71f78e9537891711c8dc86d330dbf",
+    "hash": "5f0d9a67b197f40f013a8ed54dba8453",
+    "content-hash": "3cfccbb194fccaf6744792f80e480478",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3224,17 +3224,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.19",
+            "version": "dev-CGIV-6271-MessageOrderLink",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "8aab53d7067b35190a8c29b800b333c3a7135236"
+                "reference": "3b2e9690d4e6d942dabe19ce92993087d50e3d48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.19-489a36.zip",
-                "reference": "8aab53d7067b35190a8c29b800b333c3a7135236",
-                "shasum": "f5ad8ec04cfba213092f52ef80d5483342fc306c"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6271-MessageOrderLink-55596b.zip",
+                "reference": "3b2e9690d4e6d942dabe19ce92993087d50e3d48",
+                "shasum": "b8081a4b4ab2aabc8c39e6629bf25073c772f677"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3280,7 +3280,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-12-17 13:21:22"
+            "time": "2015-12-18 16:30:54"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7377,10 +7377,18 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.16.20",
+            "alias_normalized": "1.16.20.0",
+            "version": "dev-CGIV-6271-MessageOrderLink",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

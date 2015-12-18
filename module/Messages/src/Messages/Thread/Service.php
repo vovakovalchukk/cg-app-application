@@ -31,12 +31,19 @@ class Service
     const ASSIGNEE_UNASSIGNED = 'unassigned';
     const EVENT_THREAD_RESOLVED = 'Message Thread Resolved';
 
+    /** @var ThreadService $threadService */
     protected $threadService;
+    /** @var UserOuService $userOuService */
     protected $userOuService;
+    /** @var UserService $userService */
     protected $userService;
+    /** @var AccountService $accountService */
     protected $accountService;
+    /** @var ThreadResolveFactory $threadResolveFactory */
     protected $threadResolveFactory;
+    /** @var IntercomEventService $intercomEventService */
     protected $intercomEventService;
+    /** @var DateFormat $dateFormatter */
     protected $dateFormatter;
 
     protected $assigneeMethodMap = [
@@ -65,7 +72,8 @@ class Service
         IntercomEventService $intercomEventService,
         DateFormat $dateFormatter
     ) {
-        $this->setThreadService($threadService)
+        $this
+            ->setThreadService($threadService)
             ->setUserOuService($userOuService)
             ->setUserService($userService)
             ->setAccountService($accountService)
@@ -170,6 +178,8 @@ class Service
         $threadData['createdFuzzy'] = $created->fuzzyFormat();
         $threadData['updated'] = $updated->uiFormat();
         $threadData['updatedFuzzy'] = $updated->fuzzyFormat();
+        $threadData['ordersCount'] = 0;
+        $threadData['ordersLink'] = '/orders';
 
         $threadData['assignedUserName'] = '';
         if ($threadData['assignedUserId']) {
@@ -357,42 +367,63 @@ class Service
         $page->set('sprite', 'sprite-messages-alert-18-white');
     }
 
+    /**
+     * @return self
+     */
     protected function setThreadService(ThreadService $threadService)
     {
         $this->threadService = $threadService;
         return $this;
     }
 
+    /**
+     * @return self
+     */
     protected function setUserOuService(UserOuService $userOuService)
     {
         $this->userOuService = $userOuService;
         return $this;
     }
 
+    /**
+     * @return self
+     */
     protected function setUserService(UserService $userService)
     {
         $this->userService = $userService;
         return $this;
     }
 
+    /**
+     * @return self
+     */
     protected  function setAccountService(AccountService $accountService)
     {
         $this->accountService = $accountService;
         return $this;
     }
 
+    /**
+     * @return self
+     */
     protected function setThreadResolveFactory(ThreadResolveFactory $threadResolveFactory)
     {
         $this->threadResolveFactory = $threadResolveFactory;
         return $this;
     }
 
+    /**
+     * @return self
+     */
     protected function setIntercomEventService(IntercomEventService $intercomEventService)
     {
         $this->intercomEventService = $intercomEventService;
         return $this;
     }
 
+    /**
+     * @return self
+     */
     protected function setDateFormatter(DateFormat $dateFormatter)
     {
         $this->dateFormatter = $dateFormatter;
