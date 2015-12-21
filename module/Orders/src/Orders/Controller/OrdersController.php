@@ -3,6 +3,7 @@ namespace Orders\Controller;
 
 use ArrayObject;
 use CG\Account\Client\Service as AccountService;
+use CG\Order\Service\Filter;
 use CG\Order\Shared\Entity as OrderEntity;
 use CG\Order\Shared\Label\Filter as OrderLabelFilter;
 use CG\Order\Shared\Label\Service as OrderLabelService;
@@ -23,10 +24,10 @@ use CG_Usage\Service as UsageService;
 use Orders\Courier\Manifest\Service as ManifestService;
 use Orders\Courier\Service as CourierService;
 use Orders\Filter\Service as FilterService;
-use Orders\Order\BulkActions\Action\Courier as CourierBulkAction;
-use Orders\Order\BulkActions\SubAction\CourierManifest as CourierManifestBulkAction;
 use Orders\Order\Batch\Service as BatchService;
+use Orders\Order\BulkActions\Action\Courier as CourierBulkAction;
 use Orders\Order\BulkActions\Service as BulkActionsService;
+use Orders\Order\BulkActions\SubAction\CourierManifest as CourierManifestBulkAction;
 use Orders\Order\Service as OrderService;
 use Orders\Order\StoredFilters\Service as StoredFiltersService;
 use Orders\Order\Timeline\Service as TimelineService;
@@ -99,9 +100,16 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view = $this->getViewModelFactory()->newInstance();
         $ordersTable = $this->getOrderService()->getOrdersTable();
 
-        $filterValues = $this->getFilterService()->getMapper()->toArray(
-            $this->getFilterService()->getPersistentFilter()
-        );
+
+        if ($searchTerm = $this->params()->fromQuery('search')) {
+            $filterValues = [
+                'searchTerm' => $searchTerm
+            ];
+        } else {
+            $filterValues = $this->getFilterService()->getMapper()->toArray(
+                $this->getFilterService()->getPersistentFilter()
+            );
+        }
         if (isset($filterValues['purchaseDate']['from'])) {
             $filterValues['purchaseDate']['from'] = $this->dateFormatOutput($filterValues['purchaseDate']['from'], StdlibDateTime::FORMAT);
         }
@@ -365,7 +373,12 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
     protected function getFilterBar()
     {
-        $filterValues = $this->getFilterService()->getPersistentFilter();
+        /** @var Filter $filterValues */
+        if ($searchTerm = $this->params()->fromQuery('search')) {
+            $filterValues = (new Filter())->setSearchTerm($searchTerm);
+        } else {
+            $filterValues = $this->getFilterService()->getPersistentFilter();
+        }
         $filters = $this->getUIFiltersService()->getFilters(static::FILTER_TYPE, $filterValues);
         return $filters->prepare();
     }
