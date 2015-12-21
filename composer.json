@@ -32,6 +32,7 @@
         "channelgrabber/cache": "~2.1.0",
         "channelgrabber/channel": "~1.19.6",
         "channelgrabber/cilex": "~1.1.2",
+        "channelgrabber/cglib": "dev-CGIV-6341-show-orders-per-filter as 1.8.10",
         "channelgrabber/communication": "~1.0.2",
         "channelgrabber/constants": "dev-master",
         "channelgrabber/dataplug": "~1.0.1",
