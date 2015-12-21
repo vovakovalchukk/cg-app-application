@@ -20,7 +20,9 @@ use CG\User\OrganisationUnit\Service as UserOuService;
 use CG\User\Service as UserService;
 use CG_UI\View\Helper\DateFormat;
 use Messages\Message\FormatMessageDataTrait;
+use Orders\Module as OrdersModule;
 use Zend\Navigation\Page\AbstractPage as NavPage;
+use Zend\View\Helper\Url;
 
 class Service
 {
@@ -50,6 +52,8 @@ class Service
     protected $intercomEventService;
     /** @var DateFormat $dateFormatter */
     protected $dateFormatter;
+    /** @var Url $url */
+    protected $url;
 
     protected $assigneeMethodMap = [
         self::ASSIGNEE_ACTIVE_USER => 'filterByActiveUser',
@@ -76,7 +80,8 @@ class Service
         OrderService $orderService,
         ThreadResolveFactory $threadResolveFactory,
         IntercomEventService $intercomEventService,
-        DateFormat $dateFormatter
+        DateFormat $dateFormatter,
+        Url $url
     ) {
         $this
             ->setThreadService($threadService)
@@ -86,7 +91,8 @@ class Service
             ->setOrderService($orderService)
             ->setThreadResolveFactory($threadResolveFactory)
             ->setIntercomEventService($intercomEventService)
-            ->setDateFormatter($dateFormatter);
+            ->setDateFormatter($dateFormatter)
+            ->setUrl($url);
     }
 
     /**
@@ -186,7 +192,14 @@ class Service
         $threadData['updated'] = $updated->uiFormat();
         $threadData['updatedFuzzy'] = $updated->fuzzyFormat();
         $threadData['ordersCount'] = $this->getOrderCount($thread);
-        $threadData['ordersLink'] = '/orders';
+        $threadData['ordersLink'] = call_user_func(
+            $this->url,
+            OrdersModule::ROUTE,
+            [],
+            [
+                'query' => ['search' => $thread->getExternalUsername()]
+            ]
+        );
 
         $threadData['assignedUserName'] = '';
         if ($threadData['assignedUserId']) {
@@ -465,5 +478,14 @@ class Service
     protected function getDateFormatter()
     {
         return $this->dateFormatter;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setUrl(Url $url)
+    {
+        $this->url = $url;
+        return $this;
     }
 }

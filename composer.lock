@@ -3228,13 +3228,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "3b2e9690d4e6d942dabe19ce92993087d50e3d48"
+                "reference": "7194ae4d0b3d73a79482337181f23ff207b7e676"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6271-MessageOrderLink-55596b.zip",
-                "reference": "3b2e9690d4e6d942dabe19ce92993087d50e3d48",
-                "shasum": "b8081a4b4ab2aabc8c39e6629bf25073c772f677"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6271-MessageOrderLink-39f060.zip",
+                "reference": "7194ae4d0b3d73a79482337181f23ff207b7e676",
+                "shasum": "4e3ece7f3adc09f3438fd7dc4e9f43f776d7c79d"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3258,6 +3258,7 @@
                 "zendframework/zend-modulemanager": "2.*",
                 "zendframework/zend-mvc": "2.*",
                 "zendframework/zend-navigation": "2.*",
+                "zendframework/zend-session": "2.*",
                 "zendframework/zend-view": "2.*",
                 "zeroclipboard/zeroclipboard": "2.1.6"
             },
@@ -3280,7 +3281,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-12-18 16:30:54"
+            "time": "2015-12-21 14:09:40"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
