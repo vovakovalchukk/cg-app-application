@@ -12,6 +12,8 @@ define([], function() {
         init.call(this);
     };
 
+    OrderCounts.MAX_NARROW_WIDTH = 40;
+
     OrderCounts.prototype.ajax = function ()
     {
         var self = this;
@@ -67,6 +69,9 @@ define([], function() {
             maxWidth = maxWidthSub;
         }
         $('.statusCountPillBox, .statusCountOnlyPillBox, .batchCountPillBox').width(maxWidth);
+        if (maxWidth > OrderCounts.MAX_NARROW_WIDTH) {
+            $('#content').addClass('sidebar-wide');
+        }
         return this;
     };
 
