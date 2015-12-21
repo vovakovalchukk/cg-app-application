@@ -102,7 +102,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
         if ($searchTerm = $this->params()->fromQuery('search')) {
             $filterValues = [
-                'searchTerm' => $searchTerm
+                'searchTerm' => $searchTerm,
             ];
         } else {
             $filterValues = $this->getFilterService()->getMapper()->toArray(
