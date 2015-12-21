@@ -213,6 +213,7 @@ class Service
     protected function getOrderCount(Thread $thread)
     {
         $filter = (new OrderFilter(1))
+            ->setOrganisationUnitId($this->userOuService->getAncestorOrganisationUnitIdsByActiveUser())
             ->setSearchTerm($thread->getExternalUsername())
             ->setHasItems(true);
 
