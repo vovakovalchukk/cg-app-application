@@ -100,7 +100,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view = $this->getViewModelFactory()->newInstance();
         $ordersTable = $this->getOrderService()->getOrdersTable();
 
-
         if ($searchTerm = $this->params()->fromQuery('search')) {
             $filterValues = [
                 'searchTerm' => $searchTerm
