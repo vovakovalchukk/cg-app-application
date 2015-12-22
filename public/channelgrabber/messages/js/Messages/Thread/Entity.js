@@ -223,6 +223,11 @@ define([
             messages = newMessages;
             return this;
         };
+
+        this.isComplete = function()
+        {
+            return this.getOrdersCount() != undefined;
+        };
     };
 
     return Entity;

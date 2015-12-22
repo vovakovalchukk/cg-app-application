@@ -191,7 +191,6 @@ class Service
         $threadData['createdFuzzy'] = $created->fuzzyFormat();
         $threadData['updated'] = $updated->uiFormat();
         $threadData['updatedFuzzy'] = $updated->fuzzyFormat();
-        $threadData['ordersCount'] = $includeCounts ? $this->getOrderCount($thread) : 0;
         $threadData['ordersLink'] = call_user_func(
             $this->url,
             OrdersModule::ROUTE,
@@ -200,6 +199,10 @@ class Service
                 'query' => ['search' => $thread->getExternalUsername()]
             ]
         );
+
+        if ($includeCounts) {
+            $threadData['ordersCount'] = $this->getOrderCount($thread);
+        }
 
         $threadData['assignedUserName'] = '';
         if ($threadData['assignedUserId']) {

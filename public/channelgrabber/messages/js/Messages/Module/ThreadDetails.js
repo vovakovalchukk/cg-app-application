@@ -80,11 +80,15 @@ define([
 
     ThreadDetails.prototype.loadThread = function(thread, force)
     {
-        if (!force && this.getThread() && this.getThread().getId() == thread.getId()) {
+        if (!force && this.getThread() && this.getThread().getId() == thread.getId() && this.getThread().isComplete()) {
             return;
         }
         this.setThread(thread);
-        this.loadPanels(thread);
+        if (thread.isComplete()) {
+            this.loadPanels(thread);
+        } else {
+            this.refresh();
+        }
     };
 
     ThreadDetails.prototype.loadPanels = function(thread)
