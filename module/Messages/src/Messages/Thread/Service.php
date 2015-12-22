@@ -8,21 +8,16 @@ use CG\Communication\Thread\Filter as ThreadFilter;
 use CG\Communication\Thread\ResolveFactory as ThreadResolveFactory;
 use CG\Communication\Thread\Service as ThreadService;
 use CG\Communication\Thread\Status as ThreadStatus;
-use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
-use CG\Order\Client\Service as OrderService;
-use CG\Order\Service\Filter as OrderFilter;
-use CG\Order\Shared\Collection as Orders;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Http\Exception\Exception3xx\NotModified;
+use CG_UI\View\Helper\DateFormat;
 use CG\User\OrganisationUnit\Service as UserOuService;
 use CG\User\Service as UserService;
-use CG_UI\View\Helper\DateFormat;
 use Messages\Message\FormatMessageDataTrait;
-use Orders\Module as OrdersModule;
 use Zend\Navigation\Page\AbstractPage as NavPage;
-use Zend\View\Helper\Url;
 
 class Service
 {
@@ -36,24 +31,13 @@ class Service
     const ASSIGNEE_UNASSIGNED = 'unassigned';
     const EVENT_THREAD_RESOLVED = 'Message Thread Resolved';
 
-    /** @var ThreadService $threadService */
     protected $threadService;
-    /** @var UserOuService $userOuService */
     protected $userOuService;
-    /** @var UserService $userService */
     protected $userService;
-    /** @var AccountService $accountService */
     protected $accountService;
-    /** @var OrderService $orderService */
-    protected $orderService;
-    /** @var ThreadResolveFactory $threadResolveFactory */
     protected $threadResolveFactory;
-    /** @var IntercomEventService $intercomEventService */
     protected $intercomEventService;
-    /** @var DateFormat $dateFormatter */
     protected $dateFormatter;
-    /** @var Url $url */
-    protected $url;
 
     protected $assigneeMethodMap = [
         self::ASSIGNEE_ACTIVE_USER => 'filterByActiveUser',
@@ -77,22 +61,17 @@ class Service
         UserOuService $userOuService,
         UserService $userService,
         AccountService $accountService,
-        OrderService $orderService,
         ThreadResolveFactory $threadResolveFactory,
         IntercomEventService $intercomEventService,
-        DateFormat $dateFormatter,
-        Url $url
+        DateFormat $dateFormatter
     ) {
-        $this
-            ->setThreadService($threadService)
+        $this->setThreadService($threadService)
             ->setUserOuService($userOuService)
             ->setUserService($userService)
             ->setAccountService($accountService)
-            ->setOrderService($orderService)
             ->setThreadResolveFactory($threadResolveFactory)
             ->setIntercomEventService($intercomEventService)
-            ->setDateFormatter($dateFormatter)
-            ->setUrl($url);
+            ->setDateFormatter($dateFormatter);
     }
 
     /**
@@ -191,15 +170,6 @@ class Service
         $threadData['createdFuzzy'] = $created->fuzzyFormat();
         $threadData['updated'] = $updated->uiFormat();
         $threadData['updatedFuzzy'] = $updated->fuzzyFormat();
-        $threadData['ordersCount'] = $this->getOrderCount($thread);
-        $threadData['ordersLink'] = call_user_func(
-            $this->url,
-            OrdersModule::ROUTE,
-            [],
-            [
-                'query' => ['search' => $thread->getExternalUsername()]
-            ]
-        );
 
         $threadData['assignedUserName'] = '';
         if ($threadData['assignedUserId']) {
@@ -208,22 +178,6 @@ class Service
         }
 
         return $threadData;
-    }
-
-    protected function getOrderCount(Thread $thread)
-    {
-        $filter = (new OrderFilter(1))
-            ->setOrganisationUnitId($this->userOuService->getAncestorOrganisationUnitIdsByActiveUser())
-            ->setSearchTerm($thread->getExternalUsername())
-            ->setHasItems(true);
-
-        try {
-            /** @var Orders $orders */
-            $orders = $this->orderService->fetchCollectionByFilter($filter);
-            return $orders->getTotal();
-        } catch (NotFound $exception) {
-            return 0;
-        }
     }
 
     protected function sortThreadCollection(ThreadCollection $threads)
@@ -403,72 +357,42 @@ class Service
         $page->set('sprite', 'sprite-messages-alert-18-white');
     }
 
-    /**
-     * @return self
-     */
     protected function setThreadService(ThreadService $threadService)
     {
         $this->threadService = $threadService;
         return $this;
     }
 
-    /**
-     * @return self
-     */
     protected function setUserOuService(UserOuService $userOuService)
     {
         $this->userOuService = $userOuService;
         return $this;
     }
 
-    /**
-     * @return self
-     */
     protected function setUserService(UserService $userService)
     {
         $this->userService = $userService;
         return $this;
     }
 
-    /**
-     * @return self
-     */
     protected  function setAccountService(AccountService $accountService)
     {
         $this->accountService = $accountService;
         return $this;
     }
 
-    /**
-     * @return self
-     */
-    protected function setOrderService(OrderService $orderService)
-    {
-        $this->orderService = $orderService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
     protected function setThreadResolveFactory(ThreadResolveFactory $threadResolveFactory)
     {
         $this->threadResolveFactory = $threadResolveFactory;
         return $this;
     }
 
-    /**
-     * @return self
-     */
     protected function setIntercomEventService(IntercomEventService $intercomEventService)
     {
         $this->intercomEventService = $intercomEventService;
         return $this;
     }
 
-    /**
-     * @return self
-     */
     protected function setDateFormatter(DateFormat $dateFormatter)
     {
         $this->dateFormatter = $dateFormatter;
@@ -479,14 +403,5 @@ class Service
     protected function getDateFormatter()
     {
         return $this->dateFormatter;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setUrl(Url $url)
-    {
-        $this->url = $url;
-        return $this;
     }
 }

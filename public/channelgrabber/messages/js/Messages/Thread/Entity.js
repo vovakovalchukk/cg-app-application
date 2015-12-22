@@ -19,8 +19,6 @@ define([
         assignedUserName,
         subject,
         externalId,
-        ordersCount,
-        ordersLink,
         messages
     ) {
         this.getId = function()
@@ -185,28 +183,6 @@ define([
         this.setExternalId = function(newExternalId)
         {
             externalId = newExternalId;
-            return this;
-        };
-
-        this.getOrdersCount = function()
-        {
-            return ordersCount;
-        };
-
-        this.setOrdersCount = function(newOrdersCount)
-        {
-            ordersCount = newOrdersCount;
-            return this;
-        };
-
-        this.getOrdersLink = function()
-        {
-            return ordersLink;
-        };
-
-        this.setOrdersLink = function(newOrdersLink)
-        {
-            ordersLink = newOrdersLink;
             return this;
         };
 
