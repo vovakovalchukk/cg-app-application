@@ -103,6 +103,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         if ($searchTerm = $this->params()->fromQuery('search')) {
             $filterValues = [
                 'searchTerm' => $searchTerm,
+                'archived' => [true, false],
             ];
         } else {
             $filterValues = $this->getFilterService()->getMapper()->toArray(
@@ -374,7 +375,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     {
         /** @var Filter $filterValues */
         if ($searchTerm = $this->params()->fromQuery('search')) {
-            $filterValues = (new Filter())->setSearchTerm($searchTerm);
+            $filterValues = (new Filter())->setSearchTerm($searchTerm)->setArchived([true, false]);
         } else {
             $filterValues = $this->getFilterService()->getPersistentFilter();
         }
