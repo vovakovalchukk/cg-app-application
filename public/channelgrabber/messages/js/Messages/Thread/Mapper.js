@@ -44,8 +44,6 @@ define([
             json.assignedUserName,
             json.subject,
             json.externalId,
-            json.ordersCount,
-            json.ordersLink,
             messages
         );
         return thread;
