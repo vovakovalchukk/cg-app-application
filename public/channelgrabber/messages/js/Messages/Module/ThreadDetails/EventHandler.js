@@ -28,7 +28,7 @@ define([
         var self = this;
         $(document).on(ThreadListEvents.THREAD_SELECTED, function(event, thread)
         {
-            self.getModule().loadThread(thread);
+            self.getModule().setThread(thread).refresh();
         });
         return this;
     };
