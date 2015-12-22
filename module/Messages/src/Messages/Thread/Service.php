@@ -163,12 +163,12 @@ class Service
     {
         $threadsData = [];
         foreach ($threads as $thread) {
-            $threadsData[] = $this->formatThreadData($thread);
+            $threadsData[] = $this->formatThreadData($thread, false);
         }
         return $threadsData;
     }
 
-    protected function formatThreadData(Thread $thread)
+    protected function formatThreadData(Thread $thread, $includeCounts = true)
     {
         $threadData = $thread->toArray();
         $messages = [];
@@ -191,7 +191,7 @@ class Service
         $threadData['createdFuzzy'] = $created->fuzzyFormat();
         $threadData['updated'] = $updated->uiFormat();
         $threadData['updatedFuzzy'] = $updated->fuzzyFormat();
-        $threadData['ordersCount'] = $this->getOrderCount($thread);
+        $threadData['ordersCount'] = $includeCounts ? $this->getOrderCount($thread) : 0;
         $threadData['ordersLink'] = call_user_func(
             $this->url,
             OrdersModule::ROUTE,
