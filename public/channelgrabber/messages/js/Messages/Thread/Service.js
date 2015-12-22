@@ -1,7 +1,11 @@
 define([
-    'Messages/Thread/Storage/Ajax'
+    'jquery',
+    'Messages/Thread/Storage/Ajax',
+    'Messages/Thread/Storage/Events'
 ], function(
-    storage
+    $,
+    storage,
+    StorageEvents
 ) {
     var Service = function()
     {
@@ -16,12 +20,18 @@ define([
 
     Service.prototype.fetchCollectionByFilter = function(filter, page, callback)
     {
-        this.getStorage().fetchCollectionByFilter(filter, page, callback);
+        this.getStorage().fetchCollectionByFilter(filter, page, function(threads) {
+            $(document).trigger(StorageEvents.THREADS_FETCHED, [threads]);
+            callback(threads);
+        });
     };
 
     Service.prototype.fetch = function(id, callback)
     {
-        this.getStorage().fetch(id, callback);
+        this.getStorage().fetch(id, function(thread) {
+            $(document).trigger(StorageEvents.THREAD_FETCHED, [thread]);
+            callback(thread);
+        });
     };
 
     Service.prototype.assignToActiveUser = function(thread, callback)
