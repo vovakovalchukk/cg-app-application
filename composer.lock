@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "50349bd8289312b4efa39190730fb4d8",
-    "content-hash": "8598fb2acd92e3dfbfb44848d96511ef",
+    "hash": "aac9e4247dc2e1f215332fe29b8c2071",
+    "content-hash": "548a086db4fe42aee5903beefe1f7d92",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3224,17 +3224,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.19",
+            "version": "1.16.20",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "8aab53d7067b35190a8c29b800b333c3a7135236"
+                "reference": "e24cdf756e21ef0e36806a2a94bcd01ddb51152d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.19-489a36.zip",
-                "reference": "8aab53d7067b35190a8c29b800b333c3a7135236",
-                "shasum": "f5ad8ec04cfba213092f52ef80d5483342fc306c"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.20-cf2d1f.zip",
+                "reference": "e24cdf756e21ef0e36806a2a94bcd01ddb51152d",
+                "shasum": "f342190adf207839928651af1c48c5efce70b197"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3258,6 +3258,7 @@
                 "zendframework/zend-modulemanager": "2.*",
                 "zendframework/zend-mvc": "2.*",
                 "zendframework/zend-navigation": "2.*",
+                "zendframework/zend-session": "2.*",
                 "zendframework/zend-view": "2.*",
                 "zeroclipboard/zeroclipboard": "2.1.6"
             },
@@ -3280,7 +3281,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-12-17 13:21:22"
+            "time": "2015-12-22 12:32:22"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
