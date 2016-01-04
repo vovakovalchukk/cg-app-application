@@ -762,7 +762,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             );
         } catch (Conflict $e) {
             if ($attempt >= $maxAttempts) {
-                throw $e;
+                throw new \RuntimeException('We were unable to dispatch one or more orders, please try again. If the problem persists please contact support.');
             }
             $this->logDebug('Attempt %d to set Order %s status to dispatching conflicted, will re-fetch and retry', [$attempt, $order->getId()], static::LOG_CODE);
             $order = $this->orderClient->fetch($order->getId());
