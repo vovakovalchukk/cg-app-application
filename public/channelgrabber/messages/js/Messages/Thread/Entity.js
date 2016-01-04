@@ -19,6 +19,8 @@ define([
         assignedUserName,
         subject,
         externalId,
+        ordersCount,
+        ordersLink,
         messages
     ) {
         this.getId = function()
@@ -186,6 +188,28 @@ define([
             return this;
         };
 
+        this.getOrdersCount = function()
+        {
+            return ordersCount;
+        };
+
+        this.setOrdersCount = function(newOrdersCount)
+        {
+            ordersCount = newOrdersCount;
+            return this;
+        };
+
+        this.getOrdersLink = function()
+        {
+            return ordersLink;
+        };
+
+        this.setOrdersLink = function(newOrdersLink)
+        {
+            ordersLink = newOrdersLink;
+            return this;
+        };
+
         this.getMessages = function()
         {
             if (!messages) {
@@ -198,6 +222,11 @@ define([
         {
             messages = newMessages;
             return this;
+        };
+
+        this.isComplete = function()
+        {
+            return this.getOrdersCount() != undefined;
         };
     };
 

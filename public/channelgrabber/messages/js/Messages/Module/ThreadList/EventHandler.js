@@ -2,12 +2,14 @@ define([
     'jquery',
     'Messages/Module/EventHandlerAbstract',
     'Messages/Module/ThreadList/Events',
-    'Messages/Module/Filter/Events'
+    'Messages/Module/Filter/Events',
+    'Messages/Thread/Storage/Events'
 ], function(
     $,
     EventHandlerAbstract,
     ThreadListEvents,
-    FilterEvents
+    FilterEvents,
+    StorageEvents
 ) {
     var EventHandler = function(module)
     {
@@ -15,7 +17,8 @@ define([
 
         var init = function()
         {
-            this.listenForFilterApplyRequested()
+            this.listenForThreadFetched()
+                .listenForFilterApplyRequested()
                 .listenForThreadDomSelection()
                 .listenForThreadNextPage();
         };
@@ -26,6 +29,16 @@ define([
     EventHandler.SELECTOR_NEXT_PAGE = '.message-pane #next-page';
 
     EventHandler.prototype = Object.create(EventHandlerAbstract.prototype);
+
+    EventHandler.prototype.listenForThreadFetched = function()
+    {
+        var self = this;
+        $(document).on(StorageEvents.THREAD_FETCHED, function(event, thread)
+        {
+            self.getModule().getThreads().attach(thread);
+        });
+        return this;
+    };
 
     EventHandler.prototype.listenForFilterApplyRequested = function()
     {

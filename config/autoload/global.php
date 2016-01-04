@@ -133,6 +133,10 @@ use CG\Account\Client\Manifest\Storage\Api as AccountManifestApiStorage;
 use CG\Dataplug\Request\Carrier as DataplugCarrier;
 use CG\Channel\ShippingChannelsProviderInterface as ChannelShippingChannelsProviderInterface;
 
+// Transactions
+use CG\Transaction\ClientInterface as TransactionClient;
+use CG\Transaction\Client\Redis as RedisTransactionClient;
+
 return array(
     'di' => array(
         'instance' => array(
@@ -162,6 +166,7 @@ return array(
                 OrderLabelStorage::class => OrderLabelApiStorage::class,
                 ProductDetailStorage::class => ProductDetailApiStorage::class,
                 AccountManifestStorage::class => AccountManifestApiStorage::class,
+                TransactionClient::class => RedisTransactionClient::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,

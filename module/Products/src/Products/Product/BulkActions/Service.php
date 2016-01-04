@@ -23,7 +23,6 @@ class Service
                 'name' => 'searchTerm',
                 'class' => 'product-search-text',
                 'placeholder' => 'Search',
-                'value' => 'Search for...'
             ]
         );
         $searchView->setTemplate('elements/search.mustache');

@@ -3,6 +3,7 @@ namespace Orders\Controller;
 
 use ArrayObject;
 use CG\Account\Client\Service as AccountService;
+use CG\Order\Service\Filter;
 use CG\Order\Shared\Entity as OrderEntity;
 use CG\Order\Shared\Label\Filter as OrderLabelFilter;
 use CG\Order\Shared\Label\Service as OrderLabelService;
@@ -109,9 +110,16 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view = $this->getViewModelFactory()->newInstance();
         $ordersTable = $this->getOrderService()->getOrdersTable();
 
-        $filterValues = $this->getFilterService()->getMapper()->toArray(
-            $this->getFilterService()->getPersistentFilter()
-        );
+        if ($searchTerm = $this->params()->fromQuery('search')) {
+            $filterValues = [
+                'searchTerm' => $searchTerm,
+                'archived' => [true, false],
+            ];
+        } else {
+            $filterValues = $this->getFilterService()->getMapper()->toArray(
+                $this->getFilterService()->getPersistentFilter()
+            );
+        }
         if (isset($filterValues['purchaseDate']['from'])) {
             $filterValues['purchaseDate']['from'] = $this->dateFormatOutput($filterValues['purchaseDate']['from'], StdlibDateTime::FORMAT);
         }
@@ -375,7 +383,12 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
     protected function getFilterBar()
     {
-        $filterValues = $this->getFilterService()->getPersistentFilter();
+        /** @var Filter $filterValues */
+        if ($searchTerm = $this->params()->fromQuery('search')) {
+            $filterValues = (new Filter())->setSearchTerm($searchTerm)->setArchived([true, false]);
+        } else {
+            $filterValues = $this->getFilterService()->getPersistentFilter();
+        }
         $filters = $this->getUIFiltersService()->getFilters(static::FILTER_TYPE, $filterValues);
         return $filters->prepare();
     }
