@@ -50,11 +50,14 @@ use Zend\I18n\View\Helper\CurrencyFormat;
 use Zend\Mvc\MvcEvent;
 use CG\Order\Shared\Cancel\Value as Cancel;
 use CG_UI\View\Helper\DateFormat as DateFormatHelper;
+use CG\Stdlib\Exception\Runtime\Conflict;
+use CG\Http\SaveCollectionHandleErrorsTrait;
 
 class Service implements LoggerAwareInterface, StatsAwareInterface
 {
     use LogTrait;
     use StatsTrait;
+    use SaveCollectionHandleErrorsTrait;
 
     const ORDER_TABLE_COL_PREF_KEY = 'order-columns';
     const ORDER_TABLE_COL_POS_PREF_KEY = 'order-column-positions';
@@ -739,13 +742,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
 
         $account = $this->getAccountService()->fetch($order->getAccountId());
 
-        $order = $this->saveOrder(
-            $order->setStatus(OrderStatus::DISPATCHING)
-        );
-        foreach ($order->getItems() as $item) {
-            $item->setStatus(OrderStatus::DISPATCHING);
-        }
-        $this->getOrderItemClient()->saveCollection($order->getItems());
+        $order = $this->setOrderToDispatching($order);
 
         $this->getOrderDispatcher()->generateJob($account, $order);
         $this->statsIncrement(
@@ -755,6 +752,33 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
                 $this->getActiveUserContainer()->getActiveUser()->getId()
             ]
         );
+    }
+
+    protected function setOrderToDispatching(OrderEntity $order, $attempt = 1, $maxAttempts = 2)
+    {
+        try {
+            $order = $this->saveOrder(
+                $order->setStatus(OrderStatus::DISPATCHING)
+            );
+        } catch (Conflict $e) {
+            if ($attempt >= $maxAttempts) {
+                throw $e;
+            }
+            $this->logDebug('Attempt %d to set Order %s status to dispatching conflicted, will re-fetch and retry', [$attempt, $order->getId()], static::LOG_CODE);
+            $order = $this->orderClient->fetch($order->getId());
+            return $this->setOrderToDispatching($order, ++$attempt);
+        }
+        foreach ($order->getItems() as $item) {
+            $item->setStatus(OrderStatus::DISPATCHING);
+        }
+        $this->saveCollectionHandleErrors($this->orderItemClient, $order->getItems());
+        return $order;
+    }
+
+    protected function reapplyChangesToEntityAfterConflict($fetchedEntity, $passedEntity)
+    {
+        $fetchedEntity->setStatus($passedEntity->getStatus());
+        return $fetchedEntity;
     }
 
     protected function notifyOfDispatch()
