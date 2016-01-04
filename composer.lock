@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2eaa25681b4e8e92ed8cd53e915ebb62",
-    "content-hash": "ffc591692238ec7a08226d557299cb94",
+    "hash": "c91d1a9026048eeb1611b2985a85d26a",
+    "content-hash": "097adb000765474fae36ba468dd20e6b",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -252,17 +252,17 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "dev-CGIV-6341-show-orders-per-filter",
+            "version": "1.8.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "8a14d0939545d76b7b9ec597761ca2711e1f9465"
+                "reference": "de56a8bde1dccbcf3306ff8a9754faa575d796df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-CGIV-6341-show-orders-per-filter-6ac474.zip",
-                "reference": "8a14d0939545d76b7b9ec597761ca2711e1f9465",
-                "shasum": "41656ea9a7e0758b3572099d86abca749a3f9f45"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.8.11-33ecc8.zip",
+                "reference": "de56a8bde1dccbcf3306ff8a9754faa575d796df",
+                "shasum": "e711322078d25184b46d11934faa0a2177a164b7"
             },
             "require": {
                 "channelgrabber/billing": ">=1.8.2, <2.0.0",
@@ -303,7 +303,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2015-12-09 10:00:25"
+            "time": "2016-01-04 09:31:38"
         },
         {
             "name": "channelgrabber/channel",
@@ -1202,22 +1202,22 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-6341-show-number-orders-per-filter",
+            "version": "1.20.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "6dc62d3ec22ae0d906fc56f2831c9e01dfb8677f"
+                "reference": "b8e37a64e6f86b4068c8fe4bc616f82bab108404"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6341-show-number-orders-per-filter-26e60d.zip",
-                "reference": "6dc62d3ec22ae0d906fc56f2831c9e01dfb8677f",
-                "shasum": "0d59d483229a8c86534404a5ed009d044958413a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.20.2-48268d.zip",
+                "reference": "b8e37a64e6f86b4068c8fe4bc616f82bab108404",
+                "shasum": "fe2ccb25da8cdd1b0a238051a2bad6b82930f876"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
                 "channelgrabber/cache": "^2.1.0",
-                "channelgrabber/cglib": "dev-CGIV-6341-show-orders-per-filter as 1.8.10",
+                "channelgrabber/cglib": "^1.8.11",
                 "channelgrabber/channel": "^1.17.7",
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
@@ -1274,7 +1274,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2015-12-21 10:23:28"
+            "time": "2016-01-04 10:03:12"
         },
         {
             "name": "channelgrabber/permission",
@@ -1462,17 +1462,17 @@
         },
         {
             "name": "channelgrabber/predis",
-            "version": "dev-CGIV-6341-show-number-of-orders-per-filter",
+            "version": "1.0.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgpredis.git",
-                "reference": "45b625b3ff409c01686e0e9f1c29f389f7ffdaea"
+                "reference": "0942a0cd7bca627d309cc117cba5bce7e24c8ead"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-predis-dev-CGIV-6341-show-number-of-orders-per-filter-d654db.zip",
-                "reference": "45b625b3ff409c01686e0e9f1c29f389f7ffdaea",
-                "shasum": "db88e6837e85e3f6e434f0efc2260233727d5d8a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-predis-1.0.10-1cbdfb.zip",
+                "reference": "0942a0cd7bca627d309cc117cba5bce7e24c8ead",
+                "shasum": "396a5decf855e7a395b26cf3a361454ab93da3c8"
             },
             "require": {
                 "channelgrabber/cg-predis": "~0.8.7",
@@ -1486,7 +1486,7 @@
                     "CG\\Predis\\": "src"
                 }
             },
-            "time": "2015-12-18 15:09:20"
+            "time": "2016-01-04 09:46:11"
         },
         {
             "name": "channelgrabber/predis-async",
@@ -3230,17 +3230,17 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-6341-show-number-orders-per-filter",
+            "version": "1.16.21",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "11dfe053eb720d3ab223ba19528d7fea1bf78331"
+                "reference": "be8e0cdbe69149c00d7854aa7d9e6cd2316fd83f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6341-show-number-orders-per-filter-bfed61.zip",
-                "reference": "11dfe053eb720d3ab223ba19528d7fea1bf78331",
-                "shasum": "4cefbf5d6cad8e9ba612323f07185bb3ec16d609"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.21-b85e79.zip",
+                "reference": "be8e0cdbe69149c00d7854aa7d9e6cd2316fd83f",
+                "shasum": "893ca01d18e76838393d88c5ea39dca9ae797688"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3287,7 +3287,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-12-21 16:16:54"
+            "time": "2016-01-04 09:53:00"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7366,39 +7366,10 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.8.10",
-            "alias_normalized": "1.8.10.0",
-            "version": "dev-CGIV-6341-show-orders-per-filter",
-            "package": "channelgrabber/cglib"
-        },
-        {
-            "alias": "1.19.31",
-            "alias_normalized": "1.19.31.0",
-            "version": "dev-CGIV-6341-show-number-orders-per-filter",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.0.9",
-            "alias_normalized": "1.0.9.0",
-            "version": "dev-CGIV-6341-show-number-of-orders-per-filter",
-            "package": "channelgrabber/predis"
-        },
-        {
-            "alias": "1.16.20",
-            "alias_normalized": "1.16.20.0",
-            "version": "dev-CGIV-6341-show-number-orders-per-filter",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/cglib": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
-        "channelgrabber/predis": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
