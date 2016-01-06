@@ -50,7 +50,8 @@ class Service implements LoggerAwareInterface
     /** @var UnimportedListingImportGenerator */
     protected $unimportedListingImportGenerator;
     protected $nonImportableStatuses = [
-        ListingStatus::CANNOT_IMPORT_SKU => ListingStatus::CANNOT_IMPORT_SKU
+        ListingStatus::CANNOT_IMPORT_SKU => ListingStatus::CANNOT_IMPORT_SKU,
+        ListingStatus::UNEXPECTED_CHARS_IN_SKU => ListingStatus::UNEXPECTED_CHARS_IN_SKU,
     ];
 
     public function __construct(
@@ -177,6 +178,9 @@ class Service implements LoggerAwareInterface
         foreach ($listings as &$listing) {
             if ($listing['status'] == ListingStatus::CANNOT_IMPORT_SKU) {
                 $listing['sku'] = 'SKU(s) Not Found - Cannot Import';
+            }
+            if ($listing['status'] == ListingStatus::UNEXPECTED_CHARS_IN_SKU) {
+                $listing['sku'] = 'Unexpected Characters in SKU(s) - Cannot Import';
             }
             $listing['statusClass'] = $listing['status'];
             $listing['status'] = str_replace('_', ' ', $listing['status']);
