@@ -2,22 +2,22 @@
 
 namespace Products\Controller;
 
-use CG\Stdlib\Exception\Runtime\NotFound;
-use Zend\Mvc\Controller\AbstractActionController;
-use Products\Product\Service as ProductService;
-use CG_UI\View\Prototyper\JsonModelFactory;
-use CG\Product\Entity as ProductEntity;
-use CG\Product\Filter\Mapper as FilterMapper;
+use CG\Account\Client\Service as AccountService;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Http\StatusCode;
-use Zend\I18n\Translator\Translator;
-use CG\Account\Client\Service as AccountService;
-use Products\Product\TaxRate\Service as TaxRateService;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Product\Entity as ProductEntity;
+use CG\Product\Filter\Mapper as FilterMapper;
+use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stock\Import\UpdateOptions as StockImportUpdateOptions;
 use CG\Zend\Stdlib\Http\FileResponse;
+use CG_UI\View\Prototyper\JsonModelFactory;
+use Products\Product\Service as ProductService;
+use Products\Product\TaxRate\Service as TaxRateService;
 use Products\Stock\Csv\Service as StockCsvService;
 use Products\Stock\Settings\Service as StockSettingsService;
-use CG\Stock\Import\UpdateOptions as StockImportUpdateOptions;
+use Zend\I18n\Translator\Translator;
+use Zend\Mvc\Controller\AbstractActionController;
 
 class ProductsJsonController extends AbstractActionController
 {
@@ -60,7 +60,8 @@ class ProductsJsonController extends AbstractActionController
         StockCsvService $stockCsvService,
         StockSettingsService $stockSettingsService
     ) {
-        $this->setProductService($productService)
+        $this
+            ->setProductService($productService)
             ->setJsonModelFactory($jsonModelFactory)
             ->setFilterMapper($filterMapper)
             ->setTranslator($translator)
@@ -73,7 +74,7 @@ class ProductsJsonController extends AbstractActionController
 
     public function ajaxAction()
     {
-        $view = $this->getJsonModelFactory()->newInstance();
+        $view = $this->jsonModelFactory->newInstance();
         $filterParams = $this->params()->fromPost('filter', []);
         $page = (isset($filterParams['page']) ? $filterParams['page'] : ProductService::PAGE);
         $limit = 'all';
@@ -84,12 +85,12 @@ class ProductsJsonController extends AbstractActionController
         if (!array_key_exists('deleted', $filterParams)) {
             $filterParams['deleted'] = false;
         }
-        $requestFilter = $this->getFilterMapper()->fromArray($filterParams);
+        $requestFilter = $this->filterMapper->fromArray($filterParams);
         $requestFilter->setEmbedVariationsAsLinks(true);
         $total = 0;
         $productsArray = [];
         try {
-            $products = $this->getProductService()->fetchProducts($requestFilter, $limit, $page);
+            $products = $this->productService->fetchProducts($requestFilter, $limit, $page);
             $organisationUnitIds = $requestFilter->getOrganisationUnitId();
             $accounts = $this->getAccountsIndexedById($organisationUnitIds);
             $rootOrganisationUnit = $this->organisationUnitService->getRootOuFromOuId(reset($organisationUnitIds));
@@ -109,7 +110,7 @@ class ProductsJsonController extends AbstractActionController
 
     protected function getAccountsIndexedById($organisationUnitIds)
     {
-        $accounts = $this->getAccountService()->fetchByOU($organisationUnitIds, 'all');
+        $accounts = $this->accountService->fetchByOU($organisationUnitIds, 'all');
         $indexedAccounts = [];
         foreach($accounts as $account) {
             $indexedAccounts[$account->getId()] = $account->toArray();
@@ -157,9 +158,9 @@ class ProductsJsonController extends AbstractActionController
 
     public function stockUpdateAction()
     {
-        $view = $this->getJsonModelFactory()->newInstance();
+        $view = $this->jsonModelFactory->newInstance();
         try {
-            $stockLocation = $this->getProductService()->updateStock(
+            $stockLocation = $this->productService->updateStock(
                 $this->params()->fromPost('stockLocationId'),
                 $this->params()->fromPost('eTag'),
                 $this->params()->fromPost('totalQuantity')
@@ -167,7 +168,7 @@ class ProductsJsonController extends AbstractActionController
             $view->setVariable('eTag', $stockLocation->getStoredETag());
         } catch (NotModified $e) {
             $view->setVariable('code', StatusCode::NOT_MODIFIED);
-            $view->setVariable('message', $this->getTranslator()->translate('There were no changes to be saved'));
+            $view->setVariable('message', $this->translator->translate('There were no changes to be saved'));
         }
 
         return $view;
@@ -175,7 +176,7 @@ class ProductsJsonController extends AbstractActionController
 
     public function deleteAction()
     {
-        $view = $this->getJsonModelFactory()->newInstance();
+        $view = $this->jsonModelFactory->newInstance();
 
         $productIds = $this->params()->fromPost('productIds');
         if (empty($productIds)){
@@ -183,7 +184,7 @@ class ProductsJsonController extends AbstractActionController
             return $view;
         }
 
-        $this->getProductService()->deleteProductsById($productIds);
+        $this->productService->deleteProductsById($productIds);
         $view->setVariable('deleted', true);
         return $view;
     }
@@ -192,8 +193,8 @@ class ProductsJsonController extends AbstractActionController
     {
         $productId = (int) $this->params()->fromPost('productId');
         $taxRateId = (string) $this->params()->fromPost('taxRateId');
-        $view = $this->getJsonModelFactory()->newInstance();
-        $this->getProductService()->saveProductTaxRateId($productId, $taxRateId);
+        $view = $this->jsonModelFactory->newInstance();
+        $this->productService->saveProductTaxRateId($productId, $taxRateId);
         $view->setVariable('saved', true);
         return $view;
     }
@@ -258,7 +259,7 @@ class ProductsJsonController extends AbstractActionController
 
         $this->stockCsvService->uploadCsvForActiveUser($post["updateOption"], $post['stockUploadFile']);
 
-        $view = $this->getJsonModelFactory()->newInstance();
+        $view = $this->jsonModelFactory->newInstance();
         $view->setVariable("success", true);
         return $view;
     }
@@ -273,28 +274,12 @@ class ProductsJsonController extends AbstractActionController
     }
 
     /**
-     * @return JsonModelFactory
-     */
-    protected function getJsonModelFactory()
-    {
-        return $this->jsonModelFactory;
-    }
-
-    /**
      * @return self
      */
     protected function setProductService(ProductService $productService)
     {
         $this->productService = $productService;
         return $this;
-    }
-
-    /**
-     * @return ProductService
-     */
-    protected function getProductService()
-    {
-        return $this->productService;
     }
 
     /**
@@ -307,36 +292,12 @@ class ProductsJsonController extends AbstractActionController
     }
 
     /**
-     * @return FilterMapper
-     */
-    protected function getFilterMapper()
-    {
-        return $this->filterMapper;
-    }
-
-    /**
-     * @return Translator
-     */
-    protected function getTranslator()
-    {
-        return $this->translator;
-    }
-
-    /**
      * @return self
      */
     protected function setTranslator(Translator $translator)
     {
         $this->translator = $translator;
         return $this;
-    }
-
-    /**
-     * @return AccountService
-     */
-    protected function getAccountService()
-    {
-        return $this->accountService;
     }
 
     /**
@@ -376,6 +337,9 @@ class ProductsJsonController extends AbstractActionController
         return $this;
     }
 
+    /**
+     * @return self
+     */
     protected function setStockSettingsService(StockSettingsService $stockSettingsService)
     {
         $this->stockSettingsService = $stockSettingsService;

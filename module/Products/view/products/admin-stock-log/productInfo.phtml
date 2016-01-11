@@ -1,0 +1,29 @@
+<?php /** @var CG\Product\Entity $product */ ?>
+<?php /** @var CG\Product\Entity|null $variation */ ?>
+<h1><?= $product->getName() ?></h1>
+<?php if ($product->isParent()) : ?>
+    <?php $this->inlineScript()->captureStart(); ?>
+    $("#variation").bind("change", function(event, option, value) {
+        window.location = value;
+    });
+    <?php $this->inlineScript()->captureEnd(); ?>
+    <?= $this->mustache(
+        'elements/custom-select.mustache',
+        [
+            'id' => 'variation',
+            'name' => 'variation',
+            'title' => 'Variation SKU',
+            'searchField' => true,
+            'options' => array_map(
+                function(CG\Product\Entity $product) use($variation, $route) {
+                    return [
+                        'selected' => ($variation && $product->getId() == $variation->getId()),
+                        'value' => $this->url($route, ['productId' => $product->getId()]),
+                        'title' => $product->getSku(),
+                    ];
+                },
+                iterator_to_array($product->getVariations())
+            ),
+        ]
+    ) ?>
+<?php endif ?>

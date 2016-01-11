@@ -21,9 +21,10 @@ define([
     BulkActionAbstract,
     DeferredQueue
 ) {
-    var Service = function (baseImgUrl)
+    var Service = function (baseImgUrl, isAdmin)
     {
         var baseImgUrl;
+        var isAdmin;
         var deferredQueue;
         var searchDomListener;
         var paginationDomListener;
@@ -38,6 +39,17 @@ define([
         this.setBaseImgUrl = function(newBaseImgUrl)
         {
             baseImgUrl = newBaseImgUrl;
+            return this;
+        };
+
+        this.isAdmin = function()
+        {
+            return isAdmin;
+        };
+
+        this.setAdmin = function(newAdmin)
+        {
+            isAdmin = newAdmin;
             return this;
         };
 
@@ -70,6 +82,7 @@ define([
             productDomListener = new ProductDomListener(this);
 
             this.setBaseImgUrl(baseImgUrl)
+                .setAdmin(isAdmin)
                 .refresh();
         };
         init.call(this);
@@ -183,7 +196,8 @@ define([
             'id': product['id'],
             'eTag': product['eTag'],
             'image': this.getPrimaryImage(product['images']),
-            'hasVariations': hasVariations
+            'hasVariations': hasVariations,
+            'isAdmin': this.isAdmin()
         }, 'product', {
             'productContent': productContent,
             'statusLozenge': statusLozenge,
