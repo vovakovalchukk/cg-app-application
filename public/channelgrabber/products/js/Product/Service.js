@@ -21,7 +21,7 @@ define([
     BulkActionAbstract,
     DeferredQueue
 ) {
-    var Service = function (baseImgUrl, isAdmin)
+    var Service = function (baseImgUrl, isAdmin, searchTerm)
     {
         var baseImgUrl;
         var isAdmin;
@@ -83,6 +83,7 @@ define([
 
             this.setBaseImgUrl(baseImgUrl)
                 .setAdmin(isAdmin)
+                .setSearchTerm(searchTerm)
                 .refresh();
         };
         init.call(this);
@@ -98,6 +99,15 @@ define([
     Service.DOM_SELECTOR_STOCK_LEVEL_COL = '.product-stock-level-col';
     Service.DOM_SELECTOR_STOCK_TABLE = '.stock-table';
     Service.DOM_SELECTOR_STOCK_LEVEL_INPUT = '.product-stock-level';
+
+    Service.prototype.setSearchTerm = function(searchTerm)
+    {
+        if (!searchTerm) {
+            return this;
+        }
+        $(SearchDomListener.SELECTOR_INPUT).val(searchTerm);
+        return this;
+    };
 
     Service.prototype.refresh = function(page)
     {

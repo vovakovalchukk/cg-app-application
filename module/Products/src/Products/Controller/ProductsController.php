@@ -67,6 +67,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
         $view->setVariable('isAdmin', $this->activeUserContainer->isAdmin());
+        $view->setVariable('searchTerm', $this->params()->fromQuery('search', ''));
         $this->addAccountStockSettingsTableToView($view);
         $this->addAccountStockSettingsEnabledStatusToView($view);
         return $view;
