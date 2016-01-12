@@ -1,8 +1,11 @@
 <?php
 namespace Orders\Order\Invoice;
 
+use CG\Gearman\Client as GearmanClient;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
+use CG\Order\Client\Gearman\Generator\SetPrintedDate as PrintedDateGenerator;
+use CG\Order\Client\Gearman\Workload\EmailInvoice;
 use CG\Order\Client\Invoice\Renderer\ServiceInterface as RendererService;
 use CG\Order\Client\Invoice\Service as ClientService;
 use CG\Order\Client\Invoice\Template\Factory as TemplateFactory;
@@ -19,8 +22,6 @@ use CG\Template\PaperPage;
 use CG\User\ActiveUserInterface as ActiveUserContainer;
 use CG\Zend\Stdlib\Http\FileResponse as Response;
 use Orders\Order\Service as OrderService;
-use CG\Gearman\Client as GearmanClient;
-use CG\Order\Client\Gearman\Workload\EmailInvoice;
 
 class Service extends ClientService implements StatsAwareInterface
 {
@@ -29,37 +30,23 @@ class Service extends ClientService implements StatsAwareInterface
     const STAT_ORDER_ACTION_PRINTED = 'orderAction.printed.%s.%d.%d';
     const EVENT_INVOICES_PRINTED = 'Invoices Printed';
 
-    /**
-     * @var OrderService $orderService
-     */
+    /** @var OrderService $orderService */
     protected $orderService;
-    /**
-     * @var ElementFactory $elementFactory
-     */
+    /** @var ElementFactory $elementFactory */
     protected $elementFactory;
-    /**
-     * @var ProgressStorage $progressStorage
-     */
+    /** @var ProgressStorage $progressStorage */
     protected $progressStorage;
-    /**
-     * @var IntercomEventService $intercomEventService
-     */
+    /** @var IntercomEventService $intercomEventService */
     protected $intercomEventService;
-    /**
-     * @var ActiveUserContainer $activeUserContainer
-     */
+    /** @var ActiveUserContainer $activeUserContainer */
     protected $activeUserContainer;
-    /**
-     * @var GearmanClient $gearmanClient
-     */
+    /** @var GearmanClient $gearmanClient */
     protected $gearmanClient;
-    /**
-     * @var string $key
-     */
+    /** @var PrintedDateGenerator $printedDateGenerator */
+    protected $printedDateGenerator;
+    /** @var string $key */
     protected $key;
-    /**
-     * @var int $count
-     */
+    /** * @var int $count */
     protected $count = 0;
 
     public function __construct(
@@ -71,7 +58,8 @@ class Service extends ClientService implements StatsAwareInterface
         ProgressStorage $progressStorage,
         IntercomEventService $intercomEventService,
         ActiveUserContainer $activeUserContainer,
-        GearmanClient $gearmanClient
+        GearmanClient $gearmanClient,
+        PrintedDateGenerator $printedDateGenerator
     ) {
         parent::__construct($rendererService, $templateFactory, $invoiceSettingsService);
         $this
@@ -80,7 +68,8 @@ class Service extends ClientService implements StatsAwareInterface
             ->setProgressStorage($progressStorage)
             ->setIntercomEventService($intercomEventService)
             ->setActiveUserContainer($activeUserContainer)
-            ->setGearmanClient($gearmanClient);
+            ->setGearmanClient($gearmanClient)
+            ->setPrintedDateGenerator($printedDateGenerator);
     }
 
     public function createTemplate(array $config)
@@ -148,12 +137,9 @@ class Service extends ClientService implements StatsAwareInterface
 
     public function markOrdersAsPrintedFromOrderCollection(Collection $orderCollection)
     {
-        $now = time();
-        $this->orderService->patchOrders($orderCollection, ['printedDate' => date(DateTime::FORMAT, $now)]);
+        $this->printedDateGenerator->createJobs($orderCollection, new DateTime());
 
-        /**
-         * @var Order $order
-         */
+        /** @var Order $order */
         foreach ($orderCollection as $order) {
             $this->statsIncrement(
                 static::STAT_ORDER_ACTION_PRINTED, [
@@ -269,6 +255,15 @@ class Service extends ClientService implements StatsAwareInterface
     protected function setGearmanClient(GearmanClient $gearmanClient)
     {
         $this->gearmanClient = $gearmanClient;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setPrintedDateGenerator(PrintedDateGenerator $printedDateGenerator)
+    {
+        $this->printedDateGenerator = $printedDateGenerator;
         return $this;
     }
 }
