@@ -4,6 +4,7 @@ namespace Products;
 use Products\Controller;
 use Products\Controller\ProductsController;
 use Zend\Mvc\Router\Http\Literal;
+use Zend\Mvc\Router\Http\Segment;
 use Products\Controller\ProductsJsonController;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Storage\Api as ProductApiStorage;
@@ -18,6 +19,7 @@ use CG\Listing\Storage\Api as ListingApiStorage;
 use CG\Image\Storage\Api as ImageApiStorage;
 use Products\Controller\ListingsController;
 use Products\Controller\ListingsJsonController;
+use Products\Controller\StockLogController;
 use CG\Listing\Unimported\Service as UnimportedListingService;
 use CG\Listing\Unimported\Storage\Api as UnimportedListingApiStorage;
 use Zend\View\Model\ViewModel;
@@ -109,6 +111,21 @@ return [
                             ]
                         ],
                     ],
+                    StockLogController::ROUTE_PRODUCT_LOGS => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/stockLog/:productId',
+                            'constraints' => [
+                                'productId' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => StockLogController::class,
+                                'action' => 'index',
+                                'sidebar' => false,
+                            ]
+                        ],
+                    ],
+
                     ListingsController::ROUTE_INDEX => [
                         'type' => Literal::class,
                         'options' => [

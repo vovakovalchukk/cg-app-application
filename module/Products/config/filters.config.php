@@ -4,7 +4,9 @@ use CG_UI\View\Filters\Service as FilterService;
 use Filters\Options\Account;
 use Filters\Options\Channel;
 use Filters\Options\Marketplace;
+use Filters\Options\OrderStatus;
 use Products\Controller\ListingsController;
+use Products\Controller\StockLogController;
 
 return [
     'di' => [
@@ -148,6 +150,86 @@ return [
                                 'class' => '',
                                 'value' => ''
                             ],
+                        ],
+                        [
+                            'filterType' => 'buttons',
+                            'variables' => [
+                                'name' => 'buttons',
+                                'buttons' => [
+                                    [
+                                        'name' => 'apply-filters',
+                                        'value' => 'Apply Filters',
+                                        'action' => 'apply-filters',
+                                    ],
+                                    [
+                                        'name' => 'clear-filters',
+                                        'value' => 'Clear',
+                                        'action' => 'clear-filters',
+                                    ],
+                                ],
+                            ]
+                        ],
+                    ]
+                ]
+            ]
+        ],
+
+         StockLogController::FILTER_TYPE => [
+            'rows' => [
+                [
+                    'type' => 'Row',
+                    'filters' => [
+                        [
+                            'filterType' => 'date-range',
+                            'variables' => [
+                                'name' => 'dateTime',
+                                'title' => 'Date Time',
+                                'time' => [
+                                    'hours' => '23',
+                                    'minutes' => '59'
+                                ],
+                                'options' => [
+                                    [
+                                        'title' => 'All Time'
+                                    ],
+                                    [
+                                        'title' => 'Today',
+                                        'from' => 'today',
+                                        'to' => '23:59'
+                                    ],
+                                    [
+                                        'title' => 'Last 7 days',
+                                        'from' => '-7 days',
+                                        'to' => '23:59'
+                                    ],
+                                    [
+                                        'title' => 'Last 30 days',
+                                        'from' => '-30 days',
+                                        'to' => '23:59'
+                                    ],
+                                ]
+                            ]
+                        ],
+                        [
+                            'filterType' => 'customSelectGroup',
+                            'variables' => [
+                                'name' => 'sku',
+                                'title' => 'SKU',
+                                'searchField' => true,
+                                'concatenate' => true,
+                                'options' => []
+                            ],
+                        ],
+                        [
+                            'filterType' => 'customSelectGroup',
+                            'variables' => [
+                                'name' => 'itemStatus',
+                                'title' => 'Order Status',
+                                'searchField' => false,
+                                'concatenate' => true,
+                                'options' => []
+                            ],
+                            'optionsProvider' => OrderStatus::class,
                         ],
                         [
                             'filterType' => 'buttons',
