@@ -20,6 +20,7 @@ use CG\Image\Storage\Api as ImageApiStorage;
 use Products\Controller\ListingsController;
 use Products\Controller\ListingsJsonController;
 use Products\Controller\StockLogController;
+use Products\Controller\StockLogJsonController;
 use CG\Listing\Unimported\Service as UnimportedListingService;
 use CG\Listing\Unimported\Storage\Api as UnimportedListingApiStorage;
 use Zend\View\Model\ViewModel;
@@ -124,6 +125,19 @@ return [
                                 'sidebar' => false,
                             ]
                         ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            StockLogJsonController::ROUTE_AJAX => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/ajax',
+                                    'defaults' => [
+                                        'controller' => StockLogJsonController::class,
+                                        'action' => 'ajax'
+                                    ]
+                                ],
+                            ],
+                        ]
                     ],
 
                     ListingsController::ROUTE_INDEX => [
@@ -226,6 +240,43 @@ return [
                 'ListingFoundColumn' => DataTable\Column::class,
                 'ListingStatusColumnView' => ViewModel::class,
                 'ListingStatusColumn' => DataTable\Column::class,
+
+                'StockLogTable' => DataTable::class,
+                'StockLogTableSettings' => DataTable\Settings::class,
+                'StockLogIdColumnView' => ViewModel::class,
+                'StockLogIdColumn' => DataTable\Column::class,
+                'StockLogDateTimeColumnView' => ViewModel::class,
+                'StockLogDateTimeColumn' => DataTable\Column::class,
+                'StockLogItidColumnView' => ViewModel::class,
+                'StockLogItidColumn' => DataTable\Column::class,
+                'StockLogSkuColumnView' => ViewModel::class,
+                'StockLogSkuColumn' => DataTable\Column::class,
+                'StockLogStidColumnView' => ViewModel::class,
+                'StockLogStidColumn' => DataTable\Column::class,
+                'StockLogActionColumnView' => ViewModel::class,
+                'StockLogActionColumn' => DataTable\Column::class,
+                'StockLogAccountColumnView' => ViewModel::class,
+                'StockLogAccountColumn' => DataTable\Column::class,
+                'StockLogOrderColumnView' => ViewModel::class,
+                'StockLogOrderColumn' => DataTable\Column::class,
+                'StockLogListingIdColumnView' => ViewModel::class,
+                'StockLogListingIdColumn' => DataTable\Column::class,
+                'StockLogProductIdColumnView' => ViewModel::class,
+                'StockLogProductIdColumn' => DataTable\Column::class,
+                'StockLogStockManagementColumnView' => ViewModel::class,
+                'StockLogStockManagementColumn' => DataTable\Column::class,
+                'StockLogStatusColumnView' => ViewModel::class,
+                'StockLogStatusColumn' => DataTable\Column::class,
+                'StockLogStockIdColumnView' => ViewModel::class,
+                'StockLogStockIdColumn' => DataTable\Column::class,
+                'StockLogLocationIdColumnView' => ViewModel::class,
+                'StockLogLocationIdColumn' => DataTable\Column::class,
+                'StockLogAllocatedQtyColumnView' => ViewModel::class,
+                'StockLogAllocatedQtyColumn' => DataTable\Column::class,
+                'StockLogOnHandQtyColumnView' => ViewModel::class,
+                'StockLogOnHandQtyColumn' => DataTable\Column::class,
+                'StockLogAvailableQtyColumnView' => ViewModel::class,
+                'StockLogAvailableQtyColumn' => DataTable\Column::class,
             ],
             ListingsController::class => [
                 'parameters' => [
@@ -323,6 +374,7 @@ return [
                     'cryptor' => 'amazon_cryptor'
                 ]
             ],
+
             'ListingList' => [
                 'parameters' => [
                     'variables' => [
@@ -495,6 +547,292 @@ return [
                     ],
                 ]
             ],
+
+            'StockLogTable' => [
+                'parameters' => [
+                    'variables' => [
+                        'sortable' => 'false',
+                        'id' => 'datatable',
+                        'class' => 'fixed-header fixed-footer',
+                        'width' => '100%'
+                    ],
+                ],
+                'injections' => [
+                    'addColumn' => [
+                        ['column' => 'StockLogIdColumn'],
+                        ['column' => 'StockLogItidColumn'],
+                        ['column' => 'StockLogAccountColumn'],
+                        ['column' => 'StockLogSkuColumn'],
+                        ['column' => 'StockLogOrderColumn'],
+                        ['column' => 'StockLogDateTimeColumn'],
+                        ['column' => 'StockLogActionColumn'],
+                        ['column' => 'StockLogStatusColumn'],
+                        ['column' => 'StockLogOnHandQtyColumn'],
+                        ['column' => 'StockLogAllocatedQtyColumn'],
+                        ['column' => 'StockLogAvailableQtyColumn'],
+                        ['column' => 'StockLogStockManagementColumn'],
+                        ['column' => 'StockLogStidColumn'],
+                        ['column' => 'StockLogListingIdColumn'],
+                        ['column' => 'StockLogProductIdColumn'],
+                        ['column' => 'StockLogStockIdColumn'],
+                        ['column' => 'StockLogLocationIdColumn'],
+                    ],
+                    'setVariable' => [
+                        ['name' => 'settings', 'value' => 'StockLogTableSettings']
+                    ],
+                ],
+            ],
+            'StockLogTableSettings' => [
+                'parameters' => [
+                    'language' => [
+                        'sProcessing' => 'Loading logs',
+                    ],
+                ]
+            ],
+            'StockLogIdColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'ID'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'StockLogIdColumn' => [
+                'parameters' => [
+                    'column' => 'id',
+                    'viewModel' => 'StockLogIdColumnView',
+                    'class' => 'id-col',
+                    'sortable' => false,
+                ],
+            ],
+            'StockLogItidColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Log ID'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'StockLogItidColumn' => [
+                'parameters' => [
+                    'column' => 'itid',
+                    'viewModel' => 'StockLogItidColumnView',
+                    'class' => 'itid-col',
+                    'sortable' => false,
+                ],
+            ],
+            'StockLogAccountColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Account'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'StockLogAccountColumn' => [
+                'parameters' => [
+                    'column' => 'accountId',
+                    'viewModel' => 'StockLogAccountColumnView',
+                    'class' => 'account-col',
+                    'sortable' => false,
+                ],
+            ],
+            'StockLogSkuColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Sku'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'StockLogSkuColumn' => [
+                'parameters' => [
+                    'column' => 'sku',
+                    'viewModel' => 'StockLogSkuColumnView',
+                    'class' => 'sku-col',
+                    'sortable' => false,
+                ],
+            ],
+            'StockLogOrderColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Order ID'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'StockLogOrderColumn' => [
+                'parameters' => [
+                    'column' => 'orderId',
+                    'viewModel' => 'StockLogOrderColumnView',
+                    'class' => 'order-col',
+                    'sortable' => false,
+                ],
+            ],
+            'StockLogDateTimeColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'DateTime'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'StockLogDateTimeColumn' => [
+                'parameters' => [
+                    'column' => 'dateTime',
+                    'viewModel' => 'StockLogDateTimeColumnView',
+                    'class' => 'datetime-col',
+                    'sortable' => false,
+                ],
+            ],
+            'StockLogActionColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Action'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'StockLogActionColumn' => [
+                'parameters' => [
+                    'column' => 'action',
+                    'viewModel' => 'StockLogActionColumnView',
+                    'class' => 'action-col',
+                    'sortable' => false,
+                ],
+            ],
+            'StockLogStatusColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Status'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'StockLogStatusColumn' => [
+                'parameters' => [
+                    'column' => 'status',
+                    'viewModel' => 'StockLogStatusColumnView',
+                    'class' => 'status-col',
+                    'sortable' => false,
+                ],
+            ],
+            'StockLogOnHandQtyColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Total Stock'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'StockLogOnHandQtyColumn' => [
+                'parameters' => [
+                    'column' => 'onHandQty',
+                    'viewModel' => 'StockLogOnHandQtyColumnView',
+                    'class' => 'onhandqty-col',
+                    'sortable' => false,
+                ],
+            ],
+            'StockLogAllocatedQtyColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Awaiting Dispatch'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'StockLogAllocatedQtyColumn' => [
+                'parameters' => [
+                    'column' => 'allocatedQty',
+                    'viewModel' => 'StockLogAllocatedQtyColumnView',
+                    'class' => 'allocatedqty-col',
+                    'sortable' => false,
+                ],
+            ],
+            'StockLogAvailableQtyColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Available For Sale'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'StockLogAvailableQtyColumn' => [
+                'parameters' => [
+                    'column' => 'availableQty',
+                    'viewModel' => 'StockLogAvailableQtyColumnView',
+                    'class' => 'availableqty-col',
+                    'sortable' => false,
+                ],
+            ],
+            'StockLogStockManagementColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Stock Management'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'StockLogStockManagementColumn' => [
+                'parameters' => [
+                    'column' => 'stockManagement',
+                    'viewModel' => 'StockLogStockManagementColumnView',
+                    'class' => 'stockmanagement-col',
+                    'sortable' => false,
+                ],
+            ],
+            'StockLogStidColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Stid'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'StockLogStidColumn' => [
+                'parameters' => [
+                    'column' => 'stid',
+                    'viewModel' => 'StockLogStidColumnView',
+                    'class' => 'stid-col',
+                    'sortable' => false,
+                ],
+            ],
+            'StockLogListingIdColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Listing ID'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'StockLogListingIdColumn' => [
+                'parameters' => [
+                    'column' => 'listingId',
+                    'viewModel' => 'StockLogListingIdColumnView',
+                    'class' => 'listingid-col',
+                    'sortable' => false,
+                ],
+            ],
+            'StockLogProductIdColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Product ID'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'StockLogProductIdColumn' => [
+                'parameters' => [
+                    'column' => 'productId',
+                    'viewModel' => 'StockLogProductIdColumnView',
+                    'class' => 'productid-col',
+                    'sortable' => false,
+                ],
+            ],
+            'StockLogStockIdColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Stock ID'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'StockLogStockIdColumn' => [
+                'parameters' => [
+                    'column' => 'stockId',
+                    'viewModel' => 'StockLogStockIdColumnView',
+                    'class' => 'stockid-col',
+                    'sortable' => false,
+                ],
+            ],
+            'StockLogLocationIdColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Location ID'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'StockLogLocationIdColumn' => [
+                'parameters' => [
+                    'column' => 'locationId',
+                    'viewModel' => 'StockLogLocationIdColumnView',
+                    'class' => 'locationid-col',
+                    'sortable' => false,
+                ],
+            ],
+            StockLogController::class => [
+                'parameters' => [
+                    'dataTable' => 'StockLogTable'
+                ]
+            ],
+
             ProductsController::class => [
                 'parameters' => [
                     'accountStockSettingsTable' => 'StockSettingsAccountsTable', // defined in global.php

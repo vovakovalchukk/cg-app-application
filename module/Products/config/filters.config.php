@@ -174,7 +174,7 @@ return [
             ]
         ],
 
-         StockLogController::FILTER_TYPE => [
+         StockLogController::FILTER_PRODUCT_LOGS => [
             'rows' => [
                 [
                     'type' => 'Row',

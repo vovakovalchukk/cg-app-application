@@ -1,5 +1,7 @@
 <?php
+use Orders\Module as OrdersModule;
 use Products\Module;
+use Products\Controller\StockLogController;
 use CG_UI\Module as UiModule;
 
 return [
@@ -15,6 +17,12 @@ return [
                     'title' => Module::PUBLIC_FOLDER . 'template/columns/title.mustache',
                     'createdDate' => Module::PUBLIC_FOLDER . 'template/columns/found.mustache',
                     'status' => Module::PUBLIC_FOLDER . 'template/columns/status.mustache'
+                ],
+                 StockLogController::MUSTACHE_PRODUCT_LOGS => [
+                    'accountId' => UiModule::PUBLIC_FOLDER . 'templates/columns/accountId.mustache',
+                    'orderId' => UiModule::PUBLIC_FOLDER . 'templates/columns/orderId.mustache',
+                    'status' => OrdersModule::PUBLIC_FOLDER . 'template/columns/status.mustache',
+                    'stockManagement' => Module::PUBLIC_FOLDER . 'template/columns/stock-log/stockManagement.mustache',
                 ],
             ],
         ],

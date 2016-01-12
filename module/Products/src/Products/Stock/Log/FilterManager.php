@@ -20,7 +20,7 @@ class FilterManager
     public function setPersistentFilter(Filter $filter)
     {
         $storage = $this->persistentStorage->getStorage();
-        $filterType = StockLogController::FILTER_TYPE;
+        $filterType = StockLogController::FILTER_PRODUCT_LOGS;
 
         if (!isset($storage[$filterType])) {
             $storage[$filterType] = [];
@@ -34,7 +34,7 @@ class FilterManager
     public function getPersistentFilter()
     {
         $storage = $this->persistentStorage->getStorage();
-        $filterType = StockLogController::FILTER_TYPE;
+        $filterType = StockLogController::FILTER_PRODUCT_LOGS;
 
         if (!isset($storage[$filterType])) {
             $storage[$filterType] = [];

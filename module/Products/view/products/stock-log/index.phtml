@@ -1,7 +1,12 @@
 <?php $this->placeholder('#sub-header')->append($filters); ?>
-<div id="product-stock-logs" class="module product-stock-logs">
-    <div class="heading-large">
-        <div class="product-image"><img src="<?=$this->productDetails['image'];?>" /></div>
-        <span class="product-details"><?= $this->productDetails['name']; ?>, <?= $this->productDetails['sku']; ?></span>
+<div id="product-stock-logs">
+    <div class="module clearfix">
+        <div class="heading-large">
+            <div class="product-image"><img src="<?=$this->productDetails['image'];?>" /></div>
+            <span class="product-details"><?= $this->productDetails['name']; ?>, <?= $this->productDetails['sku']; ?></span>
+        </div>
+    </div>
+    <div class="datatable-container">
+        <?=$this->stockLogTable;?>
     </div>
 </div>
