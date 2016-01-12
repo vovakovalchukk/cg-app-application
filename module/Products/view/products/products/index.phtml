@@ -13,7 +13,7 @@ function(ShowHideFilters, ProductService, VariationService, StockService) {
     $(document).ready(function()
     {
         var hideFilters = new ShowHideFilters();
-        var productService = new ProductService('<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img', <?= $isAdmin ? 'true' : 'false' ?>, '<?=$searchTerm;?>');
+        var productService = new ProductService('<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>img', '<?=$searchTerm;?>');
         var variationService = new VariationService(productService);
         var stockService = new StockService(<?= json_encode($this->accountStockModesEnabled); ?>);
     });

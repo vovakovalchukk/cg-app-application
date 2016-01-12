@@ -1,16 +1,15 @@
 <?php
 namespace Products\Controller;
 
-use CG\Stdlib\Log\LoggerAwareInterface;
-use CG\Stdlib\Log\LogTrait;
-use CG\User\ActiveUserInterface;
+use Zend\Mvc\Controller\AbstractActionController;
 use CG_UI\View\DataTable;
 use CG_UI\View\Prototyper\ViewModelFactory;
-use Products\Product\BulkActions\Service as BulkActionsService;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
 use Products\Product\Service as ProductService;
+use Products\Product\BulkActions\Service as BulkActionsService;
 use Settings\Controller\Stock\AccountTableTrait as AccountStockSettingsTableTrait;
 use Zend\I18n\Translator\Translator;
-use Zend\Mvc\Controller\AbstractActionController;
 
 class ProductsController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -19,34 +18,25 @@ class ProductsController extends AbstractActionController implements LoggerAware
 
     const ROUTE_INDEX_URL = '/products';
 
-    /** @var ViewModelFactory $viewModelFactory */
     protected $viewModelFactory;
-    /** @var ProductService $productService */
     protected $productService;
-    /** @var BulkActionsService $bulkActionsService */
     protected $bulkActionsService;
-    /** @var Translator $translator */
     protected $translator;
-    /** @var DataTable $accountStockSettingsTable */
+    /** @var DataTable */
     protected $accountStockSettingsTable;
-    /** @var ActiveUserInterface $activeUserContainer */
-    protected $activeUserContainer;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         ProductService $productService,
         BulkActionsService $bulkActionsService,
         Translator $translator,
-        DataTable $accountStockSettingsTable,
-        ActiveUserInterface $activeUserContainer
+        DataTable $accountStockSettingsTable
     ) {
-        $this
-            ->setViewModelFactory($viewModelFactory)
-            ->setProductService($productService)
-            ->setBulkActionsService($bulkActionsService)
-            ->setTranslator($translator)
-            ->setAccountStockSettingsTable($accountStockSettingsTable)
-            ->setActiveUserContainer($activeUserContainer);
+        $this->setViewModelFactory($viewModelFactory)
+             ->setProductService($productService)
+             ->setBulkActionsService($bulkActionsService)
+             ->setTranslator($translator)
+            ->setAccountStockSettingsTable($accountStockSettingsTable);
     }
 
     public function indexAction()
@@ -66,7 +56,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('isSidebarVisible', $this->getProductService()->isSidebarVisible());
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
-        $view->setVariable('isAdmin', $this->activeUserContainer->isAdmin());
         $view->setVariable('searchTerm', $this->params()->fromQuery('search', ''));
         $this->addAccountStockSettingsTableToView($view);
         $this->addAccountStockSettingsEnabledStatusToView($view);
@@ -102,9 +91,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('accountStockModesEnabled', $accountStockSettingsEnabledStatus);
     }
 
-    /**
-     * @return self
-     */
     protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
     {
         $this->viewModelFactory = $viewModelFactory;
@@ -119,9 +105,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
         return $this->viewModelFactory;
     }
 
-    /**
-     * @return self
-     */
     protected function setBulkActionsService(BulkActionsService $bulkActionsService)
     {
         $this->bulkActionsService = $bulkActionsService;
@@ -136,9 +119,6 @@ class ProductsController extends AbstractActionController implements LoggerAware
         return $this->bulkActionsService;
     }
 
-    /**
-     * @return self
-     */
     protected function setProductService(ProductService $productService)
     {
         $this->productService = $productService;
@@ -155,18 +135,12 @@ class ProductsController extends AbstractActionController implements LoggerAware
         return $this->translator;
     }
 
-    /**
-     * @return self
-     */
     protected function setTranslator(Translator $translator)
     {
         $this->translator = $translator;
         return $this;
     }
 
-    /**
-     * @return self
-     */
     protected function setAccountStockSettingsTable(DataTable $accountStockSettingsTable)
     {
         $this->accountStockSettingsTable = $accountStockSettingsTable;
@@ -177,14 +151,5 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected function getAccountStockSettingsTable()
     {
         return $this->accountStockSettingsTable;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
-    {
-        $this->activeUserContainer = $activeUserContainer;
-        return $this;
     }
 }

@@ -1,29 +1,27 @@
 <?php
 namespace Products;
 
-use CG\Amazon\ListingImport as AmazonListingImport;
-use CG\Image\Service as ImageService;
-use CG\Image\Storage\Api as ImageApiStorage;
-use CG\Listing\Service as ListingService;
-use CG\Listing\Storage\Api as ListingApiStorage;
-use CG\Listing\Unimported\Service as UnimportedListingService;
-use CG\Listing\Unimported\Storage\Api as UnimportedListingApiStorage;
+use Products\Controller;
+use Products\Controller\ProductsController;
+use Zend\Mvc\Router\Http\Literal;
+use Products\Controller\ProductsJsonController;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Storage\Api as ProductApiStorage;
-use CG\Stock\Location\Service as LocationService;
-use CG\Stock\Location\Storage\Api as LocationApiStorage;
+use CG_UI\View\DataTable;
 use CG\Stock\Service as StockService;
 use CG\Stock\Storage\Api as StockApiStorage;
-use CG_UI\View\DataTable;
-use Products\Controller;
-use Products\Controller\AdminStockLogController;
+use CG\Stock\Location\Service as LocationService;
+use CG\Stock\Location\Storage\Api as LocationApiStorage;
+use CG\Listing\Service as ListingService;
+use CG\Image\Service as ImageService;
+use CG\Listing\Storage\Api as ListingApiStorage;
+use CG\Image\Storage\Api as ImageApiStorage;
 use Products\Controller\ListingsController;
 use Products\Controller\ListingsJsonController;
-use Products\Controller\ProductsController;
-use Products\Controller\ProductsJsonController;
-use Zend\Mvc\Router\Http\Literal;
-use Zend\Mvc\Router\Http\Segment;
+use CG\Listing\Unimported\Service as UnimportedListingService;
+use CG\Listing\Unimported\Storage\Api as UnimportedListingApiStorage;
 use Zend\View\Model\ViewModel;
+use CG\Amazon\ListingImport as AmazonListingImport;
 
 return [
     'router' => [
@@ -108,21 +106,6 @@ return [
                             'defaults' => [
                                 'controller' => ProductsJsonController::class,
                                 'action' => 'stockCsvImport'
-                            ]
-                        ],
-                    ],
-                    AdminStockLogController::ROUTE_STOCKLOG => [
-                        'type' => Segment::class,
-                        'options' => [
-                            'route' => '/stockLog/:productId',
-                            'constraints' => [
-                                'productId' => '[0-9]+'
-                            ],
-                            'defaults' => [
-                                'controller' => AdminStockLogController::class,
-                                'action' => 'index',
-                                'subHeader' => false,
-                                'sidebar' => false,
                             ]
                         ],
                     ],
@@ -499,11 +482,6 @@ return [
                 'parameters' => [
                     'accountStockSettingsTable' => 'StockSettingsAccountsTable', // defined in global.php
                 ]
-            ],
-            AdminStockLogController::class => [
-                'parameters' => [
-                    'sql' => 'cg_appReadSql',
-                ],
             ],
         ],
     ],
