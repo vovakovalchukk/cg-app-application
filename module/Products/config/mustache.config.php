@@ -21,6 +21,7 @@ return [
                  StockLogController::MUSTACHE_PRODUCT_LOGS => [
                     'accountId' => UiModule::PUBLIC_FOLDER . 'templates/columns/accountId.mustache',
                     'orderId' => UiModule::PUBLIC_FOLDER . 'templates/columns/orderId.mustache',
+                    'listingId' => Module::PUBLIC_FOLDER . 'template/columns/stock-log/listingId.mustache',
                     'status' => OrdersModule::PUBLIC_FOLDER . 'template/columns/status.mustache',
                     'stockManagement' => Module::PUBLIC_FOLDER . 'template/columns/stock-log/stockManagement.mustache',
                 ],

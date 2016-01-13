@@ -12,6 +12,7 @@ use CG\Stock\Auditor as StockAuditor;
 use CG_UI\View\Helper\DateFormat as DateFormatter;
 use CG\User\ActiveUserInterface;
 use Orders\Module as OrdersModule;
+use Products\Module as ProductsModule;
 use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
 use Zend\Mvc\MvcEvent;
@@ -89,6 +90,7 @@ class Service
         $data = $stockLogs->toArray();
         $this->addAccountDetailsToUiData($data, $event)
             ->addOrderDetailsToUiData($data, $event)
+            ->addListingDetailsToUiData($data, $event)
             ->addStatusDetailsToUiData($data)
             ->addStockManagementDetailsToUiData($data)
             ->addDateTimeDetailsToUiData($data)
@@ -124,6 +126,22 @@ class Service
                     ['name' => OrdersModule::ROUTE . '/order']
                 );
             }
+        }
+        return $this;
+    }
+
+    protected function addListingDetailsToUiData(array &$data, MvcEvent $event)
+    {
+        foreach ($data as &$row) {
+            $row['listingLink'] = '';
+            if (!isset($row['listingId']) || (int)$row['listingId'] == 0) {
+                $row['listingId'] = '';
+                continue;
+            }
+            $row['listingLink'] = $event->getRouter()->assemble(
+                [],
+                ['name' => ProductsModule::ROUTE]
+            ) . '?' . http_build_query(['search' => $row['sku']]);
         }
         return $this;
     }
