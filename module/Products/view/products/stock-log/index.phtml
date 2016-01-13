@@ -1,3 +1,15 @@
+<?php $this->inlineScript()->captureStart(); ?>
+require.config({
+    paths: {
+        'Filters': "<?= $this->basePath() . Filters\Module::PUBLIC_FOLDER . 'js';?>"
+    }
+});
+require(["Filters/FilterCollection"], function(filterCollection) {
+    filterCollection.setFilters(<?=json_encode($this->filterNames);?>);
+});
+<?php $this->inlineScript()->captureEnd(); ?>
+<?php $this->headScript()->appendFile($this->basePath() . Filters\Module::PUBLIC_FOLDER . 'js/dataTableFilters.js'); ?>
+
 <?php $this->placeholder('#sub-header')->append($filters); ?>
 <div id="product-stock-logs">
     <div class="module clearfix">

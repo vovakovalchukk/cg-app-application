@@ -190,22 +190,22 @@ return [
                                 ],
                                 'options' => [
                                     [
-                                        'title' => 'All Time'
-                                    ],
-                                    [
                                         'title' => 'Today',
                                         'from' => 'today',
-                                        'to' => '23:59'
+                                        'to' => '23:59:59'
                                     ],
                                     [
                                         'title' => 'Last 7 days',
-                                        'from' => '-7 days',
-                                        'to' => '23:59'
+                                        'from' => '-7 days 00:00:00',
+                                        'to' => '23:59:59'
                                     ],
                                     [
                                         'title' => 'Last 30 days',
-                                        'from' => '-30 days',
-                                        'to' => '23:59'
+                                        'from' => '-30 days  00:00:00',
+                                        'to' => '23:59:59'
+                                    ],
+                                    [
+                                        'title' => 'All Time'
                                     ],
                                 ]
                             ]

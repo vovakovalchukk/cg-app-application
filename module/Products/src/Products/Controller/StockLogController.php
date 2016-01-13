@@ -48,17 +48,25 @@ class StockLogController extends AbstractActionController
 
         $view = $this->viewModelFactory->newInstance();
         $view->setVariable('isSidebarPresent', false)
-            ->addChild($this->getFilterBar(), 'filters')
+            ->addChild($this->getFilterBar($productDetails), 'filters')
+            ->setVariable('filterNames', $this->getFilterNames())
             ->setVariable('productDetails', $productDetails)
             ->addChild($this->dataTable, 'stockLogTable');
         return $view;
     }
 
-    protected function getFilterBar()
+    protected function getFilterBar(array $productDetails)
     {
         $filterValues = $this->filterManager->getPersistentFilter();
         $filters = $this->uiFiltersService->getFilters(static::FILTER_PRODUCT_LOGS, $filterValues);
+        $this->service->setUiFilterOptions($filters, $productDetails);
         return $filters->prepare();
+    }
+
+    protected function getFilterNames()
+    {
+        $filterNames = $this->uiFiltersService->getFilterNames(static::FILTER_PRODUCT_LOGS);
+        return array_combine($filterNames, $filterNames);
     }
 
     protected function configureDataTable($productId)

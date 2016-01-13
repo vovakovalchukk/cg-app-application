@@ -39,8 +39,9 @@ class StockLogJsonController extends AbstractActionController
         $productId = $this->params()->fromRoute('productId');
         $productDetails = $this->service->getProductDetails($productId);
         $requestFilter = $this->params()->fromPost('filter', []);
-
-        $requestFilter['sku'] = [$productDetails['sku']];
+        if (!isset($requestFilter['sku']) || $requestFilter['sku'] == '') {
+            $requestFilter['sku'] = [$productDetails['sku']];
+        }
 
         $filter = $this->filterMapper->fromArray($requestFilter)
             ->setPage(1)
@@ -60,12 +61,10 @@ class StockLogJsonController extends AbstractActionController
     protected function getDefaultJsonData()
     {
         return [
-            [
-                'iTotalRecords' => 0,
-                'iTotalDisplayRecords' => 0,
-                'sEcho' => (int) $this->params()->fromPost('sEcho'),
-                'Records' => [],
-            ]
+            'iTotalRecords' => 0,
+            'iTotalDisplayRecords' => 0,
+            'sEcho' => (int) $this->params()->fromPost('sEcho'),
+            'Records' => [],
         ];
     }
 

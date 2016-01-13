@@ -3,12 +3,16 @@ namespace Products\Stock\Log;
 
 use CG\Channel\Type as ChannelType;
 use CG\Product\Client\Service as ProductService;
+use CG\Product\Collection as ProductCollection;
 use CG\Product\Entity as Product;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stock\Adjustment as StockAdjustment;
 use CG\Stock\Audit\Combined\Collection;
+use CG\Stock\Audit\Combined\Entity;
 use CG\Stock\Audit\Combined\Filter;
 use CG\Stock\Audit\Combined\Service as StockLogService;
 use CG\Stock\Auditor as StockAuditor;
+use CG_UI\View\Filters as UIFilters;
 use CG_UI\View\Helper\DateFormat as DateFormatter;
 use CG\User\ActiveUserInterface;
 use Orders\Module as OrdersModule;
@@ -33,6 +37,14 @@ class Service
     protected $actionMap = [
         StockAuditor::JOB_CREATED_ACTION => 'Channel Update Requested',
     ];
+    protected $actionsWithNoStockManagementData = [
+        StockAuditor::SOURCE_USER => true,
+        StockAuditor::SOURCE_API => true,
+        StockAuditor::PRODUCT_CREATE_ACTION => true,
+    ];
+    protected $filterOptionsMethods = [
+        'sku' => 'getSkuFilterOptions',
+    ];
 
     public function __construct(
         ProductService $productService,
@@ -50,23 +62,44 @@ class Service
     {
         $product = $this->productService->fetch($productId);
         $nameProduct = $skuProduct = $imageProduct = $product;
+        $skuOptions = [[
+            'value' => $skuProduct->getSku(),
+            'title' => $skuProduct->getSku(),
+            'selected' => true,
+        ]];
 
         if ($product->isVariation()) {
             $parentProduct = $this->productService->fetch($product->getParentProductId());
             $nameProduct = $imageProduct = $parentProduct;
+            $skuOptions = $this->getSkuOptionsFromVariations($parentProduct->getVariations(), $product->getSku());
         } else if ($product->isParent()) {
             $variations = $product->getVariations();
             $variations->rewind();
             $skuProduct = $variations->current();
+            $skuOptions = $this->getSkuOptionsFromVariations($variations, $skuProduct->getSku());
         }
 
         $details = [
             'name' => $nameProduct->getName(),
             'sku' => $skuProduct->getSku(),
+            'skuOptions' => $skuOptions,
             'image' => $this->getProductImageUrl($imageProduct),
         ];
 
         return $details;
+    }
+
+    protected function getSkuOptionsFromVariations(ProductCollection $variations, $selectedSku)
+    {
+        $skuOptions = [];
+        foreach ($variations as $variation) {
+            $skuOptions[] = [
+                'value' => $variation->getSku(),
+                'title' => $variation->getSku(),
+                'selected' => ($variation->getSku() == $selectedSku),
+            ];
+        }
+        return $skuOptions;
     }
 
     protected function getProductImageUrl(Product $product)
@@ -79,10 +112,32 @@ class Service
         return $image->getUrl();
     }
 
+    public function setUiFilterOptions(UIFilters $filters, array $productDetails)
+    {
+        foreach ($filters->getFilterRows() as $filterRow) {
+            foreach ($filterRow as &$filter) {
+                $name = $filter->getVariable('name');
+                if (!isset($this->filterOptionsMethods[$name])) {
+                    continue;
+                }
+                $filter->setVariable('options', call_user_func([$this, $this->filterOptionsMethods[$name]], $productDetails));
+            }
+        }
+    }
+
+    protected function getSkuFilterOptions(array $productDetails)
+    {
+        return $productDetails['skuOptions'];
+    }
+
     public function fetchCollectionByFilter(Filter $filter)
     {
         $filter->setOrganisationUnitId($this->activeUserContainer->getActiveUser()->getOuList());
-        return $this->stockLogService->fetchCollectionByFilter($filter);
+        try {
+            return $this->stockLogService->fetchCollectionByFilter($filter);
+        } catch (NotFound $e) {
+            return new Collection(Entity::class, __FUNCTION__, $filter->toArray());
+        }
     }
 
     public function stockLogsToUiData(Collection $stockLogs, MvcEvent $event)
@@ -164,7 +219,7 @@ class Service
     protected function addStockManagementDetailsToUiData(array &$data)
     {
         foreach ($data as &$row) {
-            if (isset($row['stockManagement'])) {
+            if (isset($row['stockManagement']) && !isset($this->actionsWithNoStockManagementData[$row['action']])) {
                 $row['stockManagement'] = ($row['stockManagement'] ? 'On' : 'Off');
                 $row['stockManagementClass'] = strtolower($row['stockManagement']);
             } else {
@@ -230,7 +285,13 @@ class Service
     protected function formatActionForUiData(array &$data)
     {
         foreach ($data as &$row) {
-            if (!isset($row['action']) || !isset($this->actionMap[$row['action']])) {
+            if (!isset($row['action'])) {
+                continue;
+            }
+            if ($row['action'] == 'Stock Log') {
+                $row['DT_RowClass'] = 'stock-log-row';
+            }
+            if (!isset($this->actionMap[$row['action']])) {
                 continue;
             }
             $row['action'] = $this->actionMap[$row['action']];
