@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8891b131244f10ffa226bd63a755c504",
-    "content-hash": "af63546d99664ed1b5e3779c8bdb2350",
+    "hash": "f8d8530e393d2fb55ffdeb6c7d7cd920",
+    "content-hash": "3892c80877e5bad6f907fb57aa2f0c34",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2000,17 +2000,17 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "dev-CGIV-6646-stock-log-endpoint",
+            "version": "dev-CGIV-6645-stock-logs-ui",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "a5030f84823512960584f6389a7b5d661cc3c7ef"
+                "reference": "74a1a0b9bd0cd6b56efe39c00948489b170dabe3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-6646-stock-log-endpoint-94c5c2.zip",
-                "reference": "a5030f84823512960584f6389a7b5d661cc3c7ef",
-                "shasum": "94171011d63079e7d3dc161b3445066f3e915065"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-6645-stock-logs-ui-141384.zip",
+                "reference": "74a1a0b9bd0cd6b56efe39c00948489b170dabe3",
+                "shasum": "3c5c21da9fdefb8e566be1e829362bd42f375b27"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2051,7 +2051,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2016-01-11 17:15:27"
+            "time": "2016-01-13 12:10:46"
         },
         {
             "name": "channelgrabber/tax",
@@ -3232,13 +3232,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "f409beca7a19c8bd79793ef9571d6eb5b92f4203"
+                "reference": "479ce4cdb9dfbc8a1190d81a3e06612da36b748d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6645-stock-logs-ui-995a12.zip",
-                "reference": "f409beca7a19c8bd79793ef9571d6eb5b92f4203",
-                "shasum": "985efe3e98aa95b81fb1af1be52bbd0ef07c8d4a"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6645-stock-logs-ui-cde2ba.zip",
+                "reference": "479ce4cdb9dfbc8a1190d81a3e06612da36b748d",
+                "shasum": "dfc42fa82e2383f5bf44587cef7117b53c543fad"
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
@@ -3283,7 +3283,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-01-12 17:21:00"
+            "time": "2016-01-13 12:42:43"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7366,7 +7366,7 @@
         {
             "alias": "1.6.6",
             "alias_normalized": "1.6.6.0",
-            "version": "dev-CGIV-6646-stock-log-endpoint",
+            "version": "dev-CGIV-6645-stock-logs-ui",
             "package": "channelgrabber/stock"
         },
         {

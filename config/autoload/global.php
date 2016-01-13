@@ -137,6 +137,10 @@ use CG\Channel\ShippingChannelsProviderInterface as ChannelShippingChannelsProvi
 use CG\Transaction\ClientInterface as TransactionClient;
 use CG\Transaction\Client\Redis as RedisTransactionClient;
 
+//StockLogs
+use CG\Stock\Audit\Combined\StorageInterface as StockLogStorage;
+use CG\Stock\Audit\Combined\Storage\Api as StockLogApiStorage;
+
 return array(
     'di' => array(
         'instance' => array(
@@ -167,6 +171,7 @@ return array(
                 ProductDetailStorage::class => ProductDetailApiStorage::class,
                 AccountManifestStorage::class => AccountManifestApiStorage::class,
                 TransactionClient::class => RedisTransactionClient::class,
+                StockLogStorage::class => StockLogApiStorage::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,
@@ -410,6 +415,12 @@ return array(
                     'client' => 'cg_app_guzzle'
                 ]
             ],
+            StockLogApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle'
+                ]
+            ],
+
             'StockSettingsAccountsTable' => [
                 'parameters' => [
                     'variables' => [

@@ -62,7 +62,7 @@
         "channelgrabber/sso": "~1.2.7",
         "channelgrabber/stats": "~1.0.0",
         "channelgrabber/stdlib": "~2.12.16",
-        "channelgrabber/stock": "dev-CGIV-6646-stock-log-endpoint as 1.6.6",
+        "channelgrabber/stock": "dev-CGIV-6645-stock-logs-ui as 1.6.6",
         "channelgrabber/tax": "~1.0.0",
         "channelgrabber/template": "~1.4.4",
         "channelgrabber/usage": "~1.0.7",
