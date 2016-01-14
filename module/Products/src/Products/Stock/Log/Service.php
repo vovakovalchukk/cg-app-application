@@ -53,6 +53,12 @@ class Service
     protected $filterOptionsMethods = [
         'sku' => 'getSkuFilterOptions',
     ];
+    protected $defaultColumns = [
+        'stid' => false,
+        'productId' => false,
+        'stockId' => false,
+        'locationId' => false,
+    ];
 
     public function __construct(
         ProductService $productService,
@@ -317,7 +323,7 @@ class Service
             $associativeColumns[$column->getColumn()] = $column;
         }
 
-        $columnPrefs = $this->fetchUserPrefItem(static::COL_PREF_KEY);
+        $columnPrefs = $this->getColumnPreferencesForActiveUser();
         foreach ($columnPrefs as $name => $on) {
             if (!isset($associativeColumns[$name])) {
                 continue;
@@ -326,6 +332,18 @@ class Service
                 filter_var($on, FILTER_VALIDATE_BOOLEAN)
             );
         }
+    }
+
+    protected function getColumnPreferencesForActiveUser()
+    {
+        $userPrefColumns = $this->fetchUserPrefItem(static::COL_PREF_KEY);
+        if (!empty($userPrefColumns)) {
+            return $userPrefColumns;
+        }
+        if ($this->activeUserContainer->isAdmin()) {
+            return [];
+        }
+        return $this->defaultColumns;
     }
 
     public function updateUserPrefStockLogColumns(array $updatedColumns)
