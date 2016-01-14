@@ -19,6 +19,9 @@ return [
                     'status' => Module::PUBLIC_FOLDER . 'template/columns/status.mustache'
                 ],
                  StockLogController::MUSTACHE_PRODUCT_LOGS => [
+                    'id' => Module::PUBLIC_FOLDER . 'template/columns/stock-log/id.mustache',
+                    'itid' => Module::PUBLIC_FOLDER . 'template/columns/stock-log/itid.mustache',
+                    'stid' => Module::PUBLIC_FOLDER . 'template/columns/stock-log/stid.mustache',
                     'accountId' => UiModule::PUBLIC_FOLDER . 'templates/columns/accountId.mustache',
                     'orderId' => UiModule::PUBLIC_FOLDER . 'templates/columns/orderId.mustache',
                     'listingId' => Module::PUBLIC_FOLDER . 'template/columns/stock-log/listingId.mustache',

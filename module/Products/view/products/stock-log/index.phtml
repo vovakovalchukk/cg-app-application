@@ -4,8 +4,16 @@ require.config({
         'Filters': "<?= $this->basePath() . Filters\Module::PUBLIC_FOLDER . 'js';?>"
     }
 });
-require(["Filters/FilterCollection"], function(filterCollection) {
+require([
+    "Filters/FilterCollection",
+    "<?= $this->basePath() . Products\Module::PUBLIC_FOLDER . 'js/Stock/Log/Service.js';?>"
+], function(
+    filterCollection,
+    Service
+) {
     filterCollection.setFilters(<?=json_encode($this->filterNames);?>);
+
+    new Service($('#<?=$stockLogTableId;?>'));
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->headScript()->appendFile($this->basePath() . Filters\Module::PUBLIC_FOLDER . 'js/dataTableFilters.js'); ?>

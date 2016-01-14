@@ -167,8 +167,6 @@ class Service
             ->addDateTimeDetailsToUiData($data)
             ->addAvailableQtyDetailsToUiData($data)
             ->addAdjustmentDetailsToUiData($data)
-            ->formatIdForUiData($data)
-            ->formatItidForUiData($data)
             ->formatActionForUiData($data, $filter);
         return $data;
     }
@@ -278,22 +276,6 @@ class Service
             $sign = ($row['adjustmentOperator'] == StockAdjustment::OPERATOR_DEC ? '-' : '+');
             $type = $row['adjustmentType'];
             $row[$type . 'Qty'] = $sign . $quantity;
-        }
-        return $this;
-    }
-
-    protected function formatIdForUiData(array &$data)
-    {
-        foreach ($data as &$row) {
-            $row['id'] = preg_replace('/-/', '-<br />', $row['id'], 1);
-        }
-        return $this;
-    }
-
-    protected function formatItidForUiData(array &$data)
-    {
-        foreach ($data as &$row) {
-            $row['itid'] = preg_replace('/-/', '-<br />', $row['itid']);
         }
         return $this;
     }

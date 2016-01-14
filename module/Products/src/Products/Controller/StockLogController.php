@@ -52,7 +52,8 @@ class StockLogController extends AbstractActionController
             ->addChild($this->getFilterBar($productDetails), 'filters')
             ->setVariable('filterNames', $this->getFilterNames())
             ->setVariable('productDetails', $productDetails)
-            ->addChild($this->dataTable, 'stockLogTable');
+            ->addChild($this->dataTable, 'stockLogTable')
+            ->setVariable('stockLogTableId', $this->dataTable->getVariable('id'));
         return $view;
     }
 
