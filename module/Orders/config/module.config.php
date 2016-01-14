@@ -1359,6 +1359,9 @@ return [
             'OrdersOptionsColumnView' => [
                 'parameters' => [
                     'template' => 'table/column-picker.phtml',
+                    'variables' => [
+                        'persistUri' => '/orders/update-columns',
+                    ]
                 ],
             ],
             'OrdersOptionsColumn' => [

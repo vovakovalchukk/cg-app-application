@@ -11,6 +11,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 class StockLogJsonController extends AbstractActionController
 {
     const ROUTE_AJAX = 'AJAX';
+    const ROUTE_UPDATE_COLUMNS = 'Update Columns';
 
     /** @var JsonModelFactory */
     protected $jsonModelFactory;
@@ -56,6 +57,20 @@ class StockLogJsonController extends AbstractActionController
         $data['Records'] = $this->service->stockLogsToUiData($stocklogs, $this->getEvent(), $filter);
 
         return $this->jsonModelFactory->newInstance($data);
+    }
+
+    public function updateColumnsAction()
+    {
+        $response = $this->jsonModelFactory->newInstance(['updated' => false]);
+
+        $updatedColumns = $this->params()->fromPost('columns');
+        if (!$updatedColumns) {
+            return $response->setVariable('error', 'No columns provided');
+        }
+
+        $this->service->updateUserPrefStockLogColumns($updatedColumns);
+
+        return $response->setVariable('updated', true);
     }
 
     protected function getDefaultJsonData()

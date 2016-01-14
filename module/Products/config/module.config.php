@@ -112,28 +112,51 @@ return [
                             ]
                         ],
                     ],
-                    StockLogController::ROUTE_PRODUCT_LOGS => [
-                        'type' => Segment::class,
+                    StockLogController::ROUTE => [
+                        'type' => Literal::class,
                         'options' => [
-                            'route' => '/stockLog/:productId',
-                            'constraints' => [
-                                'productId' => '[0-9]+'
-                            ],
+                            'route' => '/stockLog',
                             'defaults' => [
                                 'controller' => StockLogController::class,
-                                'action' => 'index',
-                                'sidebar' => false,
                             ]
                         ],
                         'may_terminate' => true,
                         'child_routes' => [
-                            StockLogJsonController::ROUTE_AJAX => [
+                            StockLogController::ROUTE_PRODUCT_LOGS => [
+                                'type' => Segment::class,
+                                'priority' => -100,
+                                'options' => [
+                                    'route' => '/:productId',
+                                    'constraints' => [
+                                        'productId' => '[0-9]+'
+                                    ],
+                                    'defaults' => [
+                                        'action' => 'index',
+                                        'sidebar' => false,
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    StockLogJsonController::ROUTE_AJAX => [
+                                        'type' => Literal::class,
+                                        'options' => [
+                                            'route' => '/ajax',
+                                            'defaults' => [
+                                                'controller' => StockLogJsonController::class,
+                                                'action' => 'ajax'
+                                            ]
+                                        ],
+                                    ],
+
+                                ]
+                            ],
+                            StockLogJsonController::ROUTE_UPDATE_COLUMNS => [
                                 'type' => Literal::class,
                                 'options' => [
-                                    'route' => '/ajax',
+                                    'route' => '/updateColumns',
                                     'defaults' => [
                                         'controller' => StockLogJsonController::class,
-                                        'action' => 'ajax'
+                                        'action' => 'updateColumns'
                                     ]
                                 ],
                             ],
@@ -277,6 +300,8 @@ return [
                 'StockLogOnHandQtyColumn' => DataTable\Column::class,
                 'StockLogAvailableQtyColumnView' => ViewModel::class,
                 'StockLogAvailableQtyColumn' => DataTable\Column::class,
+                'StockLogOptionsColumnView' => ViewModel::class,
+                'StockLogOptionsColumn' => DataTable\Column::class,
             ],
             ListingsController::class => [
                 'parameters' => [
@@ -576,6 +601,7 @@ return [
                         ['column' => 'StockLogProductIdColumn'],
                         ['column' => 'StockLogStockIdColumn'],
                         ['column' => 'StockLogLocationIdColumn'],
+                        ['column' => 'StockLogOptionsColumn'],
                     ],
                     'setVariable' => [
                         ['name' => 'settings', 'value' => 'StockLogTableSettings']
@@ -825,6 +851,24 @@ return [
                     'viewModel' => 'StockLogLocationIdColumnView',
                     'class' => 'locationid-col',
                     'sortable' => false,
+                ],
+            ],
+            'StockLogOptionsColumnView' => [
+                'parameters' => [
+                    'template' => 'table/column-picker.phtml',
+                    'variables' => [
+                        'persistUri' => '/products/stockLog/updateColumns',
+                    ]
+                ],
+            ],
+            'StockLogOptionsColumn' => [
+                'parameters' => [
+                    'order' => 9999,
+                    'viewModel' => 'StockLogOptionsColumnView',
+                    'class' => 'options',
+                    'defaultContent' => '',
+                    'sortable' => false,
+                    'hideable' => false
                 ],
             ],
             StockLogController::class => [

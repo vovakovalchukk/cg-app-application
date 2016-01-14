@@ -11,6 +11,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 
 class StockLogController extends AbstractActionController
 {
+    const ROUTE = 'Stock Logs';
     const ROUTE_PRODUCT_LOGS = 'Product Stock Logs';
     const FILTER_PRODUCT_LOGS = 'productStockLogs';
     const MUSTACHE_PRODUCT_LOGS = 'productStockLogs';
@@ -75,11 +76,12 @@ class StockLogController extends AbstractActionController
         $settings = $this->dataTable->getVariable('settings');
         $settings->setSource(
             $this->url()->fromRoute(
-                Module::ROUTE . '/' . static::ROUTE_PRODUCT_LOGS . '/' . StockLogJsonController::ROUTE_AJAX,
+                Module::ROUTE . '/' . static::ROUTE . '/' . static::ROUTE_PRODUCT_LOGS . '/' . StockLogJsonController::ROUTE_AJAX,
                 ['productId' => $productId]
             )
         );
         $settings->setTemplateUrlMap($this->mustacheTemplateMap(static::MUSTACHE_PRODUCT_LOGS));
+        $this->service->configureDataTableColumns($this->dataTable);
     }
 
     protected function setViewModelFactory(ViewModelFactory $viewModelFactory)

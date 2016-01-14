@@ -12,9 +12,12 @@ use CG\Stock\Audit\Combined\Entity;
 use CG\Stock\Audit\Combined\Filter;
 use CG\Stock\Audit\Combined\Service as StockLogService;
 use CG\Stock\Auditor as StockAuditor;
+use CG_UI\View\DataTable;
 use CG_UI\View\Filters as UIFilters;
 use CG_UI\View\Helper\DateFormat as DateFormatter;
 use CG\User\ActiveUserInterface;
+use CG\UserPreference\Client\Service as UserPreferenceService;
+use CG\UserPreference\Shared\Entity as UserPreference;
 use Orders\Module as OrdersModule;
 use Products\Module as ProductsModule;
 use Settings\Controller\ChannelController;
@@ -24,6 +27,7 @@ use Zend\Mvc\MvcEvent;
 class Service
 {
     const DEFAULT_IMAGE_URL = '/noproductsimage.png';
+    const COL_PREF_KEY = 'stock-log-columns';
 
     /** @var ProductService */
     protected $productService;
@@ -31,8 +35,12 @@ class Service
     protected $stockLogService;
     /** @var ActiveUserInterface */
     protected $activeUserContainer;
+    /** @var UserPreferenceService */
+    protected $userPreferenceService;
     /** @var DateFormatter */
     protected $dateFormatter;
+    /** @var UserPreference */
+    protected $activeUserPreference;
 
     protected $actionMap = [
         StockAuditor::JOB_CREATED_ACTION => 'Channel Update Requested',
@@ -50,11 +58,13 @@ class Service
         ProductService $productService,
         StockLogService $stockLogService,
         ActiveUserInterface $activeUserContainer,
+        UserPreferenceService $userPreferenceService,
         DateFormatter $dateFormatter
     ) {
         $this->setProductService($productService)
             ->setStockLogService($stockLogService)
             ->setActiveUserContainer($activeUserContainer)
+            ->setUserPreferenceService($userPreferenceService)
             ->setDateFormatter($dateFormatter);
     }
 
@@ -299,6 +309,64 @@ class Service
         return $this;
     }
 
+    public function configureDataTableColumns(DataTable $dataTable)
+    {
+        $columns = $dataTable->getColumns();
+        $associativeColumns = [];
+        foreach ($columns as $column) {
+            $associativeColumns[$column->getColumn()] = $column;
+        }
+
+        $columnPrefs = $this->fetchUserPrefItem(static::COL_PREF_KEY);
+        foreach ($columnPrefs as $name => $on) {
+            if (!isset($associativeColumns[$name])) {
+                continue;
+            }
+            $associativeColumns[$name]->setVisible(
+                filter_var($on, FILTER_VALIDATE_BOOLEAN)
+            );
+        }
+    }
+
+    public function updateUserPrefStockLogColumns(array $updatedColumns)
+    {
+        $storedColumns = $this->fetchUserPrefItem(static::COL_PREF_KEY);
+        foreach ($updatedColumns as $name => $on) {
+            $storedColumns[$name] = $on;
+        }
+
+        $this->saveUserPrefItem(static::COL_PREF_KEY, $storedColumns);
+
+        return $this;
+    }
+
+    protected function fetchUserPrefItem($key)
+    {
+        $userPrefsPref = $this->getActiveUserPreference()->getPreference();
+        $storedItem = (isset($userPrefsPref[$key]) ? $userPrefsPref[$key] : []);
+        return $storedItem;
+    }
+
+    protected function saveUserPrefItem($key, $value)
+    {
+        $userPrefs = $this->getActiveUserPreference();
+        $userPrefsPref = $userPrefs->getPreference();
+        $userPrefsPref[$key] = $value;
+        $userPrefs->setPreference($userPrefsPref);
+
+        $this->userPreferenceService->save($userPrefs);
+    }
+
+    public function getActiveUserPreference()
+    {
+        if (!isset($this->activeUserPreference)) {
+            $activeUserId = $this->activeUserContainer->getActiveUser()->getId();
+            $this->activeUserPreference = $this->userPreferenceService->fetch($activeUserId);
+        }
+
+        return $this->activeUserPreference;
+    }
+
     protected function setProductService(ProductService $productService)
     {
         $this->productService = $productService;
@@ -314,6 +382,12 @@ class Service
     protected function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
     {
         $this->activeUserContainer = $activeUserContainer;
+        return $this;
+    }
+
+    protected function setUserPreferenceService(UserPreferenceService $userPreferenceService)
+    {
+        $this->userPreferenceService = $userPreferenceService;
         return $this;
     }
 
