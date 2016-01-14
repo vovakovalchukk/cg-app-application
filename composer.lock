@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ebb122117dbf7640191fb58716bedda4",
-    "content-hash": "0ec39986d67e899c0b6c871628d711f6",
+    "hash": "7f6b7af71ce6424391e2042bc913c870",
+    "content-hash": "7af1d5991b590462970fe621619e5902",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1202,17 +1202,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-6624-OrderPrintDateGearman",
+            "version": "1.20.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "faf0e6d9dbc95da6beba4aeea8161fe1f1a085a3"
+                "reference": "5e90067aed8c3c69a8ea8fb7fd91a16339967c15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6624-OrderPrintDateGearman-fbb83f.zip",
-                "reference": "faf0e6d9dbc95da6beba4aeea8161fe1f1a085a3",
-                "shasum": "f75464032299178abe8eadc99fd6f1748ad73ad9"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.20.3-0cd7d1.zip",
+                "reference": "5e90067aed8c3c69a8ea8fb7fd91a16339967c15",
+                "shasum": "b7c824fa558227f1b26023973318942950e4a7c2"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1272,7 +1272,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-01-12 09:53:27"
+            "time": "2016-01-14 10:37:16"
         },
         {
             "name": "channelgrabber/permission",
@@ -7365,18 +7365,10 @@
             "time": "2015-06-21 08:04:50"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.20.3",
-            "alias_normalized": "1.20.3.0",
-            "version": "dev-CGIV-6624-OrderPrintDateGearman",
-            "package": "channelgrabber/order"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
