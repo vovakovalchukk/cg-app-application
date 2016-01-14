@@ -57,10 +57,11 @@ class StockLogController extends AbstractActionController
 
     protected function getFilterBar(array $productDetails)
     {
-        $filterValues = $this->filterManager->getPersistentFilter();
-        $filters = $this->uiFiltersService->getFilters(static::FILTER_PRODUCT_LOGS, $filterValues);
-        $this->service->setUiFilterOptions($filters, $productDetails);
-        return $filters->prepare();
+        $filter = $this->filterManager->getPersistentFilter();
+        $this->filterManager->setFilterDefaults($filter);
+        $uiFilters = $this->uiFiltersService->getFilters(static::FILTER_PRODUCT_LOGS, $filter);
+        $this->service->setUiFilterOptions($uiFilters, $productDetails);
+        return $uiFilters->prepare();
     }
 
     protected function getFilterNames()

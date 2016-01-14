@@ -2,11 +2,16 @@
 namespace Products\Stock\Log;
 
 use CG\Stock\Audit\Combined\Filter;
+use CG\Stock\Audit\Combined\Type;
 use Products\Controller\StockLogController;
 use Zend\Session\ManagerInterface;
 
 class FilterManager
 {
+    const DEFAULT_DATE_FROM = '-30 days  00:00:00';
+    const DEFAULT_DATE_TO = '23:59:59';
+    const DEFAULT_DATE_PERIOD = 'Last 30 days';
+
     protected $filter;
     protected $persistentStorage;
 
@@ -45,6 +50,18 @@ class FilterManager
         }
 
         return $storage[$filterType]['filter'];
+    }
+
+    public function setFilterDefaults(Filter $filter)
+    {
+        if (!$filter->getDateTimeFrom() && !$filter->getDateTimeTo()) {
+            $filter->setDateTimeFrom(static::DEFAULT_DATE_FROM)
+                ->setDateTimeTo(static::DEFAULT_DATE_TO)
+                ->setDateTimePeriod(static::DEFAULT_DATE_PERIOD);
+        }
+        if (empty($filter->getType())) {
+            $filter->setType(array_values(Type::getAllTypes()));
+        }
     }
 
     /**

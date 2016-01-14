@@ -140,7 +140,7 @@ class Service
         }
     }
 
-    public function stockLogsToUiData(Collection $stockLogs, MvcEvent $event)
+    public function stockLogsToUiData(Collection $stockLogs, MvcEvent $event, Filter $filter)
     {
         $data = $stockLogs->toArray();
         $this->addAccountDetailsToUiData($data, $event)
@@ -153,7 +153,7 @@ class Service
             ->addAdjustmentDetailsToUiData($data)
             ->formatIdForUiData($data)
             ->formatItidForUiData($data)
-            ->formatActionForUiData($data);
+            ->formatActionForUiData($data, $filter);
         return $data;
     }
 
@@ -282,13 +282,13 @@ class Service
         return $this;
     }
 
-    protected function formatActionForUiData(array &$data)
+    protected function formatActionForUiData(array &$data, Filter $filter)
     {
         foreach ($data as &$row) {
             if (!isset($row['action'])) {
                 continue;
             }
-            if ($row['action'] == 'Stock Log') {
+            if ($row['action'] == 'Stock Log' && count($filter->getType()) != 1) {
                 $row['DT_RowClass'] = 'stock-log-row';
             }
             if (!isset($this->actionMap[$row['action']])) {

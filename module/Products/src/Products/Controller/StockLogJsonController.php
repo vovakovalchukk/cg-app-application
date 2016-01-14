@@ -53,7 +53,7 @@ class StockLogJsonController extends AbstractActionController
 
         $stocklogs = $this->service->fetchCollectionByFilter($filter);
         $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int)$stocklogs->getTotal();
-        $data['Records'] = $this->service->stockLogsToUiData($stocklogs, $this->getEvent());
+        $data['Records'] = $this->service->stockLogsToUiData($stocklogs, $this->getEvent(), $filter);
 
         return $this->jsonModelFactory->newInstance($data);
     }

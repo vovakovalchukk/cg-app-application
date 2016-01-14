@@ -2004,13 +2004,13 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "99c6251e7be7bcc10a2bfe048c14f6b5cef93d8f"
+                "reference": "fdf9f7d3b0302f66df1c785461badebc33665aff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-6645-stock-logs-ui-597a23.zip",
-                "reference": "99c6251e7be7bcc10a2bfe048c14f6b5cef93d8f",
-                "shasum": "3d495c1b7646bda36bf6cf10f42fe50252fadd28"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-6645-stock-logs-ui-6b8a2c.zip",
+                "reference": "fdf9f7d3b0302f66df1c785461badebc33665aff",
+                "shasum": "1fcbfa01457b2369f5c349c62d9a54489d1ab596"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -2051,7 +2051,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2016-01-13 16:54:57"
+            "time": "2016-01-14 12:17:52"
         },
         {
             "name": "channelgrabber/tax",

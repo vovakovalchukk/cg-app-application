@@ -1,5 +1,6 @@
 <?php
 use CG\Listing\Unimported\Status as UnimportedListingStatus;
+use CG\Stock\Audit\Combined\Type as StockLogTypes;
 use CG_UI\View\Filters\Service as FilterService;
 use Filters\Options\Account;
 use Filters\Options\Channel;
@@ -202,7 +203,7 @@ return [
                                     [
                                         'title' => 'Last 30 days',
                                         'from' => '-30 days  00:00:00',
-                                        'to' => '23:59:59'
+                                        'to' => '23:59:59',
                                     ],
                                     [
                                         'title' => 'All Time'
@@ -230,6 +231,33 @@ return [
                                 'options' => []
                             ],
                             'optionsProvider' => OrderStatus::class,
+                        ],
+                        [
+                            'filterType' => 'customSelectGroup',
+                            'variables' => [
+                                'name' => 'type',
+                                'title' => 'Log Types',
+                                'emptyValue' => true,
+                                'options' => [
+                                    [
+                                        'value' => StockLogTypes::LOG,
+                                        'title' => 'Stock Values',
+                                    ],
+                                    [
+                                        'value' => StockLogTypes::ADJUSTMENT,
+                                        'title' => 'Stock Actions',
+                                    ],
+                                ]
+                            ],
+                        ],
+                        [
+                            'filterType' => 'search',
+                            'variables' => [
+                                'name' => 'searchTerm',
+                                'placeholder' => 'Search for...',
+                                'class' => '',
+                                'value' => ''
+                            ],
                         ],
                         [
                             'filterType' => 'buttons',
