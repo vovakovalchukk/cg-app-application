@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cee6763c057e62f260b7899772bf0067",
-    "content-hash": "56a017d6918b8a0295b0ad8b805aee08",
+    "hash": "7f6b7af71ce6424391e2042bc913c870",
+    "content-hash": "7af1d5991b590462970fe621619e5902",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1202,17 +1202,17 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.20.2",
+            "version": "1.20.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "b8e37a64e6f86b4068c8fe4bc616f82bab108404"
+                "reference": "5e90067aed8c3c69a8ea8fb7fd91a16339967c15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.20.2-48268d.zip",
-                "reference": "b8e37a64e6f86b4068c8fe4bc616f82bab108404",
-                "shasum": "fe2ccb25da8cdd1b0a238051a2bad6b82930f876"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.20.3-0cd7d1.zip",
+                "reference": "5e90067aed8c3c69a8ea8fb7fd91a16339967c15",
+                "shasum": "b7c824fa558227f1b26023973318942950e4a7c2"
             },
             "require": {
                 "channelgrabber/account": ">=1.0.26,<2.0.0",
@@ -1248,8 +1248,6 @@
                 "ext-mongo": ">=1.4.4",
                 "guzzle/guzzle": "~3.7",
                 "nocarrier/hal": "~0.9.10",
-                "php-jsonpatch/php-jsonpatch": "@dev",
-                "php-jsonpointer/php-jsonpointer": "@dev",
                 "zendframework/zend-config": "^2.2.5",
                 "zendframework/zend-di": "^2.2.5"
             },
@@ -1274,7 +1272,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-01-04 10:03:12"
+            "time": "2016-01-14 10:37:16"
         },
         {
             "name": "channelgrabber/permission",
@@ -5732,6 +5730,7 @@
                 "browser",
                 "useragent"
             ],
+            "abandoned": "whichbrowser/legacy",
             "time": "2015-11-17 23:20:59"
         },
         {
