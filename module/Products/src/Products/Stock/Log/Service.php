@@ -161,6 +161,7 @@ class Service
         $data = $stockLogs->toArray();
         $this->addAccountDetailsToUiData($data, $event)
             ->addOrderDetailsToUiData($data, $event)
+            ->addProductDetailsToUiData($data, $event)
             ->addListingDetailsToUiData($data, $event)
             ->addStatusDetailsToUiData($data)
             ->addStockManagementDetailsToUiData($data)
@@ -195,6 +196,17 @@ class Service
                     ['name' => OrdersModule::ROUTE . '/order']
                 );
             }
+        }
+        return $this;
+    }
+
+    protected function addProductDetailsToUiData(array &$data, MvcEvent $event)
+    {
+        foreach ($data as &$row) {
+            $row['productLink'] = $event->getRouter()->assemble(
+                [],
+                ['name' => ProductsModule::ROUTE]
+            ) . '?' . http_build_query(['search' => $row['sku']]);
         }
         return $this;
     }
@@ -234,7 +246,7 @@ class Service
     {
         foreach ($data as &$row) {
             if (isset($row['stockManagement']) && !isset($this->actionsWithNoStockManagementData[$row['action']])) {
-                $row['stockManagement'] = ($row['stockManagement'] ? 'On' : 'Off');
+                $row['stockManagement'] = ($row['stockManagement'] ? 'ON' : 'OFF');
                 $row['stockManagementClass'] = strtolower($row['stockManagement']);
             } else {
                 $row['stockManagement'] = '';

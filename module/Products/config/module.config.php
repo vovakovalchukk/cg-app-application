@@ -659,7 +659,7 @@ return [
             ],
             'StockLogSkuColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Sku'],
+                    'variables' => ['value' => 'SKU'],
                     'template' => 'value.phtml',
                 ],
             ],
@@ -687,7 +687,7 @@ return [
             ],
             'StockLogDateTimeColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'DateTime'],
+                    'variables' => ['value' => 'Date'],
                     'template' => 'value.phtml',
                 ],
             ],
@@ -729,7 +729,7 @@ return [
             ],
             'StockLogOnHandQtyColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Total Stock'],
+                    'variables' => ['value' => 'Total<br/>Stock'],
                     'template' => 'value.phtml',
                 ],
             ],
@@ -743,7 +743,7 @@ return [
             ],
             'StockLogAllocatedQtyColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Awaiting Dispatch'],
+                    'variables' => ['value' => 'Awaiting<br/>Dispatch'],
                     'template' => 'value.phtml',
                 ],
             ],
@@ -757,7 +757,7 @@ return [
             ],
             'StockLogAvailableQtyColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Available For Sale'],
+                    'variables' => ['value' => 'Available<br/>For Sale'],
                     'template' => 'value.phtml',
                 ],
             ],
@@ -771,7 +771,7 @@ return [
             ],
             'StockLogStockManagementColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Stock Management'],
+                    'variables' => ['value' => 'Stock<br/>Mgmt'],
                     'template' => 'value.phtml',
                 ],
             ],

@@ -8,6 +8,12 @@ class OrderStatus implements SelectOptionsInterface
 {
     public function getSelectOptions()
     {
-        return Status::getAllStatuses();
+        $statuses = Status::getAllStatuses();
+        $statusOptions = [];
+        foreach ($statuses as $status) {
+            $uiStatus = ucwords(str_replace(['-', '_'], ' ', $status));
+            $statusOptions[$status] = $uiStatus;
+        }
+        return $statusOptions;
     }
 }
