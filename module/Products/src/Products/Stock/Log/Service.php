@@ -214,15 +214,10 @@ class Service
     protected function addListingDetailsToUiData(array &$data, MvcEvent $event)
     {
         foreach ($data as &$row) {
-            $row['listingLink'] = '';
-            if (!isset($row['listingId']) || (int)$row['listingId'] == 0) {
-                $row['listingId'] = '';
+            if (isset($row['listingId']) && (int)$row['listingId'] > 0) {
                 continue;
             }
-            $row['listingLink'] = $event->getRouter()->assemble(
-                [],
-                ['name' => ProductsModule::ROUTE]
-            ) . '?' . http_build_query(['search' => $row['sku']]);
+            $row['listingId'] = '';
         }
         return $this;
     }
