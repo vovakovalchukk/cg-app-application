@@ -330,6 +330,9 @@ class Service
 
     public function updateUserPrefStockLogColumns(array $updatedColumns)
     {
+        if ($this->activeUserContainer->isAdmin()) {
+            return;
+        }
         $storedColumns = $this->fetchUserPrefItem(static::COL_PREF_KEY);
         foreach ($updatedColumns as $name => $on) {
             $storedColumns[$name] = $on;
