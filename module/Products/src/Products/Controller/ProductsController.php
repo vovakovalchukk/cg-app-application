@@ -6,6 +6,7 @@ use CG_UI\View\DataTable;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use CG\User\ActiveUserInterface;
 use Products\Product\Service as ProductService;
 use Products\Product\BulkActions\Service as BulkActionsService;
 use Settings\Controller\Stock\AccountTableTrait as AccountStockSettingsTableTrait;
@@ -24,19 +25,23 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected $translator;
     /** @var DataTable */
     protected $accountStockSettingsTable;
+    /** @var ActiveUserInterface $activeUserContainer */
+    protected $activeUserContainer;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         ProductService $productService,
         BulkActionsService $bulkActionsService,
         Translator $translator,
-        DataTable $accountStockSettingsTable
+        DataTable $accountStockSettingsTable,
+        ActiveUserInterface $activeUserContainer
     ) {
         $this->setViewModelFactory($viewModelFactory)
              ->setProductService($productService)
              ->setBulkActionsService($bulkActionsService)
              ->setTranslator($translator)
-            ->setAccountStockSettingsTable($accountStockSettingsTable);
+             ->setAccountStockSettingsTable($accountStockSettingsTable)
+             ->setActiveUserContainer($activeUserContainer);
     }
 
     public function indexAction()
@@ -56,6 +61,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->setVariable('isSidebarVisible', $this->getProductService()->isSidebarVisible());
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
+        $view->setVariable('isAdmin', $this->activeUserContainer->isAdmin());
         $view->setVariable('searchTerm', $this->params()->fromQuery('search', ''));
         $this->addAccountStockSettingsTableToView($view);
         $this->addAccountStockSettingsEnabledStatusToView($view);
@@ -144,6 +150,15 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected function setAccountStockSettingsTable(DataTable $accountStockSettingsTable)
     {
         $this->accountStockSettingsTable = $accountStockSettingsTable;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
+    {
+        $this->activeUserContainer = $activeUserContainer;
         return $this;
     }
 

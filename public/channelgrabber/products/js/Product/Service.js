@@ -21,7 +21,7 @@ define([
     BulkActionAbstract,
     DeferredQueue
 ) {
-    var Service = function (baseImgUrl, searchTerm)
+    var Service = function (baseImgUrl, isAdmin, searchTerm)
     {
         var baseImgUrl;
         var deferredQueue;
@@ -60,6 +60,11 @@ define([
         {
             templates = newTemplates;
             return this;
+        };
+
+        this.isAdmin = function()
+        {
+            return isAdmin;
         };
 
         var init = function()
@@ -193,7 +198,8 @@ define([
             'id': product['id'],
             'eTag': product['eTag'],
             'image': this.getPrimaryImage(product['images']),
-            'hasVariations': hasVariations
+            'hasVariations': hasVariations,
+            'isAdmin': this.isAdmin()
         }, 'product', {
             'productContent': productContent,
             'statusLozenge': statusLozenge,
