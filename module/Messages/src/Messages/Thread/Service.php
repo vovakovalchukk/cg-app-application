@@ -400,10 +400,14 @@ class Service
 
     public function changeNavSpriteIfHasNew(NavPage $page)
     {
-        if (!$this->userOuService->getActiveUser() || !$this->hasNew()) {
-            return;
+        try {
+            if (!$this->userOuService->getActiveUser() || !$this->hasNew()) {
+                return;
+            }
+            $page->set('sprite', 'sprite-messages-alert-18-white');
+        } catch (\Exception $e) {
+            // No-op, don't stop rendering the nav just for this
         }
-        $page->set('sprite', 'sprite-messages-alert-18-white');
     }
 
     /**
