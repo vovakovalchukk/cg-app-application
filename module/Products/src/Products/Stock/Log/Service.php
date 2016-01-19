@@ -26,7 +26,7 @@ use Zend\Mvc\MvcEvent;
 
 class Service
 {
-    const DEFAULT_IMAGE_URL = '/noproductsimage.png';
+    const DEFAULT_IMAGE_URL = 'img/noproductsimage.png';
     const COL_PREF_KEY = 'stock-log-columns';
 
     /** @var ProductService */
@@ -121,7 +121,7 @@ class Service
     protected function getProductImageUrl(Product $product)
     {
         if (count($product->getImages()) == 0) {
-            return static::DEFAULT_IMAGE_URL;
+            return ProductsModule::PUBLIC_FOLDER . static::DEFAULT_IMAGE_URL;
         }
         $product->getImages()->rewind();
         $image = $product->getImages()->current();
