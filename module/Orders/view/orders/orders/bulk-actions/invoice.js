@@ -1,11 +1,10 @@
 require.config({
     paths: {
-        InvoiceBulkAction: "<?= $this->baseUrl . Orders\Module::PUBLIC_FOLDER . 'js/invoice' ?>",
-        ProgressCheckAbstract: "<?= $this->baseUrl . Orders\Module::PUBLIC_FOLDER . 'js/ProgressCheckAbstract' ?>"
+        Orders: "<?= $this->baseUrl . Orders\Module::PUBLIC_FOLDER . 'js/' ?>",
     }
 });
 require(
-    ["InvoiceBulkAction"],
+    ["Orders/invoice"],
     function(InvoiceBulkAction) {
         var invoiceBulkAction = new InvoiceBulkAction(
             n,
@@ -14,7 +13,6 @@ require(
             "<?= $this->translate('Finished generating invoices') ?>"
         );
         $("#<?= $id ?>").bulkActions("set", "<?= $action ?>", function() {
-            invoiceBulkAction.setElement(this);
             invoiceBulkAction.action();
         });
     }

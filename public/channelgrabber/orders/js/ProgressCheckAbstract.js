@@ -1,21 +1,12 @@
-define(function() {
+define(['Orders/BulkActionAbstract'], function(BulkActionAbstract)
+{
     var ProgressCheckAbstract = function(
         notifications,
         startMessage,
         progressMessage,
         endMessage
     ) {
-        var element;
-
-        this.getElement = function ()
-        {
-            return $(element);
-        };
-
-        this.setElement = function(newElement)
-        {
-            element = newElement;
-        };
+        BulkActionAbstract.call(this);
 
         this.getNotifications = function()
         {
@@ -38,16 +29,9 @@ define(function() {
         };
     };
 
-    ProgressCheckAbstract.prototype.notifyTimeoutHandle = null;
+    ProgressCheckAbstract.prototype = Object.create(BulkActionAbstract.prototype);
 
-    ProgressCheckAbstract.prototype.getDataTableElement = function()
-    {
-        var dataTable = this.getElement().data("datatable");
-        if (!dataTable) {
-            return $();
-        }
-        return $("#" + dataTable);
-    };
+    ProgressCheckAbstract.prototype.notifyTimeoutHandle = null;
 
     ProgressCheckAbstract.prototype.getOrders = function()
     {
@@ -71,12 +55,25 @@ define(function() {
     ProgressCheckAbstract.prototype.getFormElement = function(orders)
     {
         var form = $("<form><input name='" + this.getParam() + "' value='' /></form>").attr("action", this.getUrl()).attr("method", "POST").hide();
-        for (var index in orders) {
-            form.append(function() {
-                return $("<input />").attr("name", "orders[]").val(orders[index]);
-            });
+        var data = this.getDataToSubmit();
+        for (var key in data) {
+            var name = key;
+            var value = data[key];
+            if (!(value instanceof Array)) {
+                form.append(this.getFormInputElement(name, value));
+                continue;
+            }
+            name += '[]';
+            for (var count in value) {
+                form.append(this.getFormInputElement(name, value[count]));
+            }
         }
         return form;
+    };
+
+    ProgressCheckAbstract.prototype.getFormInputElement = function(name, value)
+    {
+        return '<input name="'+name+'" value="'+value+'" />';
     };
 
     ProgressCheckAbstract.prototype.getParam = function()
