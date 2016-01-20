@@ -422,6 +422,7 @@ define([
     {
         var statusPrecedence = {
             'inactive': 1,
+            'ended': 1,
             'active': 2,
             'pending': 3,
             'paused': 4,
