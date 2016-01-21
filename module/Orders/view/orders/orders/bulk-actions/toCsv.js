@@ -1,7 +1,6 @@
 require.config({
     paths: {
-        ToCsvBulkAction: "<?= $this->baseUrl . Orders\Module::PUBLIC_FOLDER . 'js/toCsv' ?>",
-        ProgressCheckAbstract: "<?= $this->baseUrl . Orders\Module::PUBLIC_FOLDER . 'js/ProgressCheckAbstract' ?>"
+        ToCsvBulkAction: "<?= $this->baseUrl . Orders\Module::PUBLIC_FOLDER . 'js/toCsv' ?>"
     }
 });
 require(

@@ -1,10 +1,12 @@
-define([], function()
+define(['BulkActionAbstract'], function(BulkActionAbstract)
 {
-    function BulkActionAbstract()
+    function OrdersBulkActionAbstract()
     {
+        BulkActionAbstract.call(this);
+
         this.getElement = function()
         {
-            return $(this);
+            return $(this.getButtonSelector());
         };
 
         this.getDataTableElement = function()
@@ -13,7 +15,9 @@ define([], function()
         };
     }
 
-    BulkActionAbstract.prototype.getDataToSubmit = function()
+    OrdersBulkActionAbstract.prototype = Object.create(BulkActionAbstract.prototype);
+
+    OrdersBulkActionAbstract.prototype.getDataToSubmit = function()
     {
         if ($('#filter').data('id')) {
             return {"filterId": $('#filter').data('id')};
@@ -24,18 +28,18 @@ define([], function()
         return this.getOrderData();
     };
 
-    BulkActionAbstract.prototype.isAllSelected = function()
+    OrdersBulkActionAbstract.prototype.isAllSelected = function()
     {
         var selectAllDomId = this.getElement().data('datatable') + '-select-all';
         return $('#'+selectAllDomId).is(':checked');
     };
 
-    BulkActionAbstract.prototype.isAllRecordsLoaded = function()
+    OrdersBulkActionAbstract.prototype.isAllRecordsLoaded = function()
     {
         return (this.getDataTableElement().fnSettings().fnRecordsTotal() == this.getDataTableElement().fnGetData().length);
     };
 
-    BulkActionAbstract.prototype.getFilterData = function()
+    OrdersBulkActionAbstract.prototype.getFilterData = function()
     {
         var data = [];
         $("#filters :input[name]").each(function() {
@@ -53,14 +57,19 @@ define([], function()
         return data;
     };
 
-    BulkActionAbstract.prototype.getOrderData = function()
+    OrdersBulkActionAbstract.prototype.getOrderData = function()
+    {
+        return {"orders": this.getOrders()};
+    };
+
+    OrdersBulkActionAbstract.prototype.getOrders = function()
     {
         var orders = this.getElement().data('orders');
         if (!orders) {
             orders = this.getDataTableElement().cgDataTable("selected", ".checkbox-id");
         }
-        return {"orders": orders};
+        return orders;
     };
 
-    return BulkActionAbstract;
+    return OrdersBulkActionAbstract;
 });

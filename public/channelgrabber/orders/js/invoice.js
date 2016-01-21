@@ -1,5 +1,6 @@
-define(['ProgressCheckAbstract'],
-    function(ProgressCheckAbstract) {
+define(['Orders/ProgressCheckAbstract'],
+function(ProgressCheckAbstract)
+{
     var InvoiceBulkAction = function(
         notifications,
         startMessage,

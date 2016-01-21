@@ -1,17 +1,12 @@
-define(['Orders/BulkActionAbstract'], function(BulkActionAbstract)
+define(['Orders/OrdersBulkActionAbstract'], function(OrdersBulkActionAbstract)
 {
     var ProgressCheckAbstract = function(
-        notifications,
+        notifications, //deprecated
         startMessage,
         progressMessage,
         endMessage
     ) {
-        BulkActionAbstract.call(this);
-
-        this.getNotifications = function()
-        {
-            return notifications;
-        };
+        OrdersBulkActionAbstract.call(this);
 
         this.getStartMessage = function()
         {
@@ -29,18 +24,9 @@ define(['Orders/BulkActionAbstract'], function(BulkActionAbstract)
         };
     };
 
-    ProgressCheckAbstract.prototype = Object.create(BulkActionAbstract.prototype);
+    ProgressCheckAbstract.prototype = Object.create(OrdersBulkActionAbstract.prototype);
 
     ProgressCheckAbstract.prototype.notifyTimeoutHandle = null;
-
-    ProgressCheckAbstract.prototype.getOrders = function()
-    {
-        var orders = this.getElement().data("orders");
-        if (orders) {
-            return orders;
-        }
-        return this.getDataTableElement().cgDataTable("selected", ".checkbox-id");
-    };
 
     ProgressCheckAbstract.prototype.getFilterId = function()
     {
@@ -52,9 +38,11 @@ define(['Orders/BulkActionAbstract'], function(BulkActionAbstract)
         return this.getElement().data("url") || "";
     };
 
-    ProgressCheckAbstract.prototype.getFormElement = function(orders)
+    ProgressCheckAbstract.prototype.getFormElement = function(guid)
     {
-        var form = $("<form><input name='" + this.getParam() + "' value='' /></form>").attr("action", this.getUrl()).attr("method", "POST").hide();
+        var form = $("<form><input name='" + this.getParam() + "' value='" + guid + "' /></form>")
+            .attr("action", this.getUrl()).attr("method", "POST")
+            .hide();
         var data = this.getDataToSubmit();
         for (var key in data) {
             var name = key;
@@ -101,7 +89,7 @@ define(['Orders/BulkActionAbstract'], function(BulkActionAbstract)
         throw 'ProgressCheckAbstract::getFreq must be overridden by child class';
     };
 
-    ProgressCheckAbstract.prototype.action = function(event)
+    ProgressCheckAbstract.prototype.invoke = function()
     {
         var orders = this.getOrders();
         if (!orders.length) {
@@ -110,7 +98,7 @@ define(['Orders/BulkActionAbstract'], function(BulkActionAbstract)
         var orderCount = orders.length;
 
         var fadeOut = true;
-        this.getNotifications().notice(this.getStartMessage(), fadeOut);
+        this.getNotificationHandler().notice(this.getStartMessage(), fadeOut);
 
         $.ajax({
             context: this,
@@ -119,21 +107,20 @@ define(['Orders/BulkActionAbstract'], function(BulkActionAbstract)
             dataType: 'json',
             success : function(data) {
                 if (!data.allowed) {
-                    return this.getNotifications().error('You do not have permission to do that');
+                    return this.getNotificationHandler().error('You do not have permission to do that');
                 }
-                this.getNotifications().notice(this.getProgressMessage(), true);
+                this.getNotificationHandler().notice(this.getProgressMessage(), true);
 
                 if (orderCount >= this.getMinOrders()) {
                     this.notifyTimeoutHandle = this.setupProgressCheck(orderCount, data.guid);
                 }
 
-                var form = this.getFormElement(orders);
-                form.find('input[name=' + this.getParam() + ']').val(data.guid);
+                var form = this.getFormElement(data.guid);
                 $("body").append(form);
                 form.submit().remove();
             },
             error: function(error, textStatus, errorThrown) {
-                return this.getNotifications().ajaxError(error, textStatus, errorThrown);
+                return this.getNotificationHandler().ajaxError(error, textStatus, errorThrown);
             }
         });
     };
@@ -157,17 +144,17 @@ define(['Orders/BulkActionAbstract'], function(BulkActionAbstract)
                     }
 
                     var fadeOut = false;
-                    this.getNotifications().notice('Generated ' + data.progressCount + ' of ' + total, fadeOut);
+                    this.getNotificationHandler().notice('Generated ' + data.progressCount + ' of ' + total, fadeOut);
 
                     if (data.progressCount == total) {
                         clearTimeout(this.notifyTimeoutHandle);
                         fadeOut = true;
-                        this.getNotifications().success(self.getEndMessage(), fadeOut);
+                        this.getNotificationHandler().success(self.getEndMessage(), fadeOut);
                     }
                 },
                 error: function(error, textStatus, errorThrown) {
                     clearTimeout(this.notifyTimeoutHandle);
-                    return this.getNotifications().ajaxError(error, textStatus, errorThrown);
+                    return this.getNotificationHandler().ajaxError(error, textStatus, errorThrown);
                 }
             });
         }, self.getFreq());
