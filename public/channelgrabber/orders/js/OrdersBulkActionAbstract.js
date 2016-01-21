@@ -41,18 +41,18 @@ define(['BulkActionAbstract'], function(BulkActionAbstract)
 
     OrdersBulkActionAbstract.prototype.getFilterData = function()
     {
-        var data = [];
+        var data = {};
         $("#filters :input[name]").each(function() {
             var value = $.trim($(this).val());
             if (!value.length) {
                 return;
             }
-            var name = $(this).attr("name").replace(/^(.*?)(\[.*\])?$/g, "filter[$1]$2");
-
-            data.push({
-                "name": name,
-                "value": value
-            });
+            var name = $(this).attr("name");
+            if (name == 'more[]') {
+                return true; // continue
+            }
+            name = name.replace(/^(.*?)(\[.*\])?$/g, "filter[$1]$2");
+            data[name] = value;
         });
         return data;
     };
