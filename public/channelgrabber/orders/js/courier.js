@@ -1,22 +1,22 @@
-define([], function()
+define(['Orders/OrdersBulkActionAbstract'], function(OrdersBulkActionAbstract)
 {
     function Courier()
     {
+        OrdersBulkActionAbstract.call(this);
     }
 
-    Courier.prototype.action = function(element)
+    Courier.prototype = Object.create(OrdersBulkActionAbstract.prototype);
+
+    Courier.prototype.invoke = function()
     {
-        var datatable = $(element).data("datatable");
-        var url = $(element).data("url");
-        var orders = $(element).data("orders");
-        if (!orders && datatable) {
-            orders = $("#" + datatable).cgDataTable("selected", ".checkbox-id");
-        }
-        if (!orders || orders.length == 0) {
+        var element = this.getElement();
+        var url = element.data("url");
+        var orders = this.getOrders();
+        if (!orders) {
             return;
         }
 
-        $('<a href="' + url + '" />').cgPjax('post', {"order": orders});
+        $('<a href="' + url + '" />').cgPjax('post', this.getDataToSubmit());
     };
 
     return Courier;

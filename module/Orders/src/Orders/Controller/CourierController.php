@@ -67,7 +67,7 @@ class CourierController extends AbstractActionController
      */
     public function reviewAction()
     {
-        $orderIds = $this->params()->fromPost('order', []);
+        $orderIds = $this->params()->fromPost('orders', []);
         $view = $this->viewModelFactory->newInstance();
         $this->prepReviewTable();
 
