@@ -3228,12 +3228,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "0c90d759638631d2022408a9e19efdbc50829b2f"
+                "reference": "ad585743f34d48198ae3e64672f364fd6771eac6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6610-select-all-orders-5e31f1.zip",
-                "reference": "0c90d759638631d2022408a9e19efdbc50829b2f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6610-select-all-orders-2a7d71.zip",
+                "reference": "ad585743f34d48198ae3e64672f364fd6771eac6",
                 "shasum": null
             },
             "require": {
