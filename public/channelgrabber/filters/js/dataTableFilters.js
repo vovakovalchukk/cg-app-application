@@ -49,4 +49,17 @@ $(document).ready(function()
             });
         }
     });
+
+    datatable.on('after-cgdatatable-init', function()
+    {
+        $('#datatable-select-all').on('change', function()
+        {
+            $("#filters").removeData("id");
+        });
+
+        $("#filters").on('apply', function()
+        {
+            $("#filters").removeData("id");
+        });
+    });
 });
