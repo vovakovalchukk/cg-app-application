@@ -167,5 +167,19 @@ define([
         this.getPopup().hide();
     };
 
+    TagPopup.prototype.getOrders = function()
+    {
+        // If this is one of the dropdown options we have to check the main button for orders
+        if (this.getElement().data('tag')) {
+            var parentElement = this.getElement().closest('.custom-select').find('span.action');
+            var orders = parentElement.data('orders');
+            if (orders) {
+                return orders;
+            }
+        }
+        // Fall back to parent method
+        return OrdersBulkActionAbstract.prototype.getOrders.call(this);
+    };
+
     return TagPopup;
 });
