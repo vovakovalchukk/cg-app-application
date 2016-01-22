@@ -45,7 +45,7 @@
         "channelgrabber/http": "~1.3.24",
         "channelgrabber/image": "~1.1.6",
         "channelgrabber/intercom": "~1.1.2",
-        "channelgrabber/listing": "dev-CGIV-6694-PreventUpdateIfError as 1.9.6",
+        "channelgrabber/listing": "~1.9.6",
         "channelgrabber/locale": "~1.0.5",
         "channelgrabber/location": "~1.1.3",
         "channelgrabber/log": "~2.0.25",
