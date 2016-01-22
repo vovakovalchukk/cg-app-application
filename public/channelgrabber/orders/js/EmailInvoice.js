@@ -1,65 +1,60 @@
 define([
+    'Orders/OrdersBulkActionAbstract',
     'Orders/SaveCheckboxes'
 ], function(
+    OrdersBulkActionAbstract,
     saveCheckboxes
-    ) {
-    return function(notifications) {
-        this.action = function(event) {
-            event.stopImmediatePropagation();
+) {
+    function EmailInvoice()
+    {
+        OrdersBulkActionAbstract.call(this);
+    }
 
-            var datatable = $(this).data("datatable");
-            var orders = $(this).data("orders");
-            var ajax = {
-                url: $(this).data("url"),
-                complete: function() {
-                    if (datatable) {
-                        var dataTableElement = $('#' + datatable);
-                        dataTableElement.cgDataTable("redraw");
-                        saveCheckboxes.refreshCheckboxes(dataTableElement);
-                    }
+    EmailInvoice.prototype = Object.create(OrdersBulkActionAbstract.prototype);
+
+    EmailInvoice.prototype.invoke = function()
+    {
+        var orders = this.getOrders();
+        if (!orders.length) {
+            return;
+        }
+
+        var ajaxConfig = this.buildAjaxConfig();
+        this.getNotificationHandler().notice("Marking Orders for Email");
+        return $.ajax(ajaxConfig);
+    };
+
+    EmailInvoice.prototype.buildAjaxConfig = function()
+    {
+        var datatable = this.getDataTableElement();
+        var data = this.getDataToSubmit();
+        return {
+            context: this,
+            type: "POST",
+            dataType: 'json',
+            data: data,
+            url: this.getElement().data("url"),
+            complete: function() {
+                if (!datatable.length) {
+                    return;
                 }
-            };
-
-            if (!orders && datatable) {
-                orders = $("#" + datatable).cgDataTable("selected", ".checkbox-id");
-            }
-
-            if (!orders.length) {
-                return;
-            }
-
-            ajax.data = {
-                'orders': orders
-            };
-
-            apply.call(this, orders, ajax);
-        };
-
-        var apply = function(orders, ajaxSettings) {
-            var ajax = {
-                context: this,
-                type: "POST",
-                dataType: 'json',
-                success : function(data) {
-                    if (data.emailing) {
-                        saveCheckboxes.setSavedCheckboxes(orders);
-                        return notifications.success("Orders Marked for Email");
-                    } else if (!data.error) {
-                        return notifications.error("Failed to marked Orders for Email");
-                    }
-                    notifications.error(data.error);
-                },
-                error: function(request, textStatus, errorThrown) {
-                    return notifications.ajaxError(request, textStatus, errorThrown);
+                datatable.cgDataTable("redraw");
+                saveCheckboxes.refreshCheckboxes(datatable);
+            },
+            success : function(data) {
+                if (data.emailing) {
+                    saveCheckboxes.setSavedCheckboxes(this.getOrders());
+                    return this.getNotificationHandler().success("Orders Marked for Email");
+                } else if (!data.error) {
+                    return this.getNotificationHandler().error("Failed to marked Orders for Email");
                 }
-            };
-
-            if (ajaxSettings !== undefined) {
-                $.extend(ajax, ajaxSettings);
+                this.getNotificationHandler().error(data.error);
+            },
+            error: function(request, textStatus, errorThrown) {
+                return this.getNotificationHandler().ajaxError(request, textStatus, errorThrown);
             }
-
-            notifications.notice("Marking Orders for Email");
-            return $.ajax(ajax);
         };
     };
+
+    return EmailInvoice;
 });

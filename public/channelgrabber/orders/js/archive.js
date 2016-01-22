@@ -1,45 +1,45 @@
-define(function() {
-    return function(notifications) {
-        var notifications = notifications;
+define(['Orders/OrdersBulkActionAbstract'], function(OrdersBulkActionAbstract)
+{
+    function Archive()
+    {
+        OrdersBulkActionAbstract.call(this);
+    }
 
-        this.action = function(event) {
-            var datatable = $(this).data("datatable");
-            if (!datatable) {
-                return;
-            }
+    Archive.prototype = Object.create(OrdersBulkActionAbstract.prototype);
 
-            var ajax = {
-                url: $(this).data("url"),
-                type: "POST",
-                dataType: 'json',
-                success : function(data) {
-                    if (data.archived) {
-                        return notifications.success("Archived Successfully");
-                    } else if (!data.error) {
-                        return notifications.error("Failed to archived Orders");
-                    }
-                    notifications.error(data.error);
-                },
-                error: function (error, textStatus, errorThrown) {
-                    return notifications.ajaxError(error, textStatus, errorThrown);
-                },
-                complete: function() {
-                    if (datatable) {
-                        $("#" + datatable).cgDataTable("redraw");
-                    }
+    Archive.prototype.invoke = function()
+    {
+        var datatable = this.getDataTableElement();
+        var orders = this.getOrders();
+        if (!datatable.length || !orders.length) {
+            return;
+        }
+
+        var ajax = {
+            url: this.getElement().data("url"),
+            type: "POST",
+            dataType: 'json',
+            data: this.getDataToSubmit(),
+            context: this,
+            success : function(data) {
+                if (data.archived) {
+                    return this.getNotificationHandler().success("Archived Successfully");
+                } else if (!data.error) {
+                    return this.getNotificationHandler().error("Failed to archived Orders");
                 }
-            };
-
-            var orders = $("#" + datatable).cgDataTable("selected", ".checkbox-id");
-            if (!orders.length) {
-                return;
+                this.getNotificationHandler().error(data.error);
+            },
+            error: function (error, textStatus, errorThrown) {
+                return this.getNotificationHandler().ajaxError(error, textStatus, errorThrown);
+            },
+            complete: function() {
+                datatable.cgDataTable("redraw");
             }
-            ajax.data = {
-                orders: orders
-            };
-
-            notifications.notice("Archiving Orders");
-            $.ajax(ajax);
         };
+
+        this.getNotificationHandler().notice("Archiving Orders");
+        $.ajax(ajax);
     };
+
+    return Archive;
 });

@@ -1,23 +1,26 @@
 define([
+    'Orders/OrdersBulkActionAbstract',
     'element/ElementCollection',
-    'Orders/SaveCheckboxes'
+    'Orders/SaveCheckboxes',
+    'cg-mustache'
 ], function(
+    OrdersBulkActionAbstract,
     elementCollection,
-    saveCheckboxes
+    saveCheckboxes,
+    CGMustache
 ) {
-    var Batch = function(notifications, selector, cgMustache) {
+    var Batch = function(selector)
+    {
+        OrdersBulkActionAbstract.call(this);
+
         var template;
         var mustacheInstance;
 
-        cgMustache.get().fetchTemplate($(selector).attr('data-mustacheTemplate'),
+        CGMustache.get().fetchTemplate($(selector).attr('data-mustacheTemplate'),
             function(batchTemplate, batchMustacheInstance) {
                 template = batchTemplate;
                 mustacheInstance = batchMustacheInstance;
         });
-
-        this.getNotifications = function() {
-            return notifications;
-        };
 
         this.getSelector = function() {
             return selector;
@@ -42,46 +45,46 @@ define([
         };
     };
 
-    Batch.prototype.action = function(element) {
-        this.datatable = $(element).data('datatable');
-        if (!this.datatable) {
+    Batch.prototype = Object.create(OrdersBulkActionAbstract.prototype);
+
+    Batch.prototype.invoke = function()
+    {
+        var datatable = this.getDataTableElement();
+        var orders = this.getOrders();
+        if (!datatable.length || !orders.length) {
             return;
+        }
+        if (this.getElement().data('action') == 'remove') {
+            return this.remove();
         }
 
         var ajax = {
-            url: $(element).data('url'),
+            url: this.getElement().data('url'),
             type: 'POST',
             dataType: 'json',
+            data: this.getDataToSubmit(),
             context: this,
             success : this.actionSuccess,
             error: function (error, textStatus, errorThrown) {
-                return this.getNotifications().ajaxError(error, textStatus, errorThrown);
+                return this.getNotificationHandler().ajaxError(error, textStatus, errorThrown);
             }
         };
 
-        var orders = $('#' + this.datatable).cgDataTable('selected', '.checkbox-id');
-        if (!orders.length) {
-            return;
-        }
-
-        ajax.data = {
-            orders: orders
-        };
-
-        this.getNotifications().notice('Adding orders to a batch');
+        this.getNotificationHandler().notice('Adding orders to a batch');
         $.ajax(ajax);
-        this.getSaveCheckboxes().setSavedCheckboxes(ajax.data.orders);
+        this.getSaveCheckboxes().setSavedCheckboxes(orders);
     };
 
-    Batch.prototype.actionSuccess = function(data) {
-        this.getNotifications().success('Orders successfully batched');
+    Batch.prototype.actionSuccess = function(data)
+    {
+        this.getNotificationHandler().success('Orders successfully batched');
         this.redraw();
-        var dataTable = $('#' + this.datatable);
-        dataTable.cgDataTable('redraw');
-        this.getSaveCheckboxes().refreshCheckboxes(dataTable);
+        this.getDataTableElement().cgDataTable('redraw');
+        this.getSaveCheckboxes().refreshCheckboxes(this.getDataTableElement());
     };
 
-    Batch.prototype.redraw = function() {
+    Batch.prototype.redraw = function()
+    {
         $.ajax({
             url: $(this.getSelector()).attr('data-url'),
             type: 'GET',
@@ -91,11 +94,13 @@ define([
         });
     };
 
-    Batch.prototype.redrawSuccess = function(data) {
+    Batch.prototype.redrawSuccess = function(data)
+    {
         var self = this;
         var batchOptions = [];
         $(self.getSelector()).html('');
-        $.each(data['batches'], function(index) {
+        $.each(data['batches'], function(index)
+        {
             $(self.getSelector()).append(self.getMustacheInstance().renderTemplate(self.getTemplate(), data['batches'][index]));
             batchOptions.push({
                 title: data['batches'][index].name,
@@ -106,43 +111,31 @@ define([
         $(document).trigger('filterable-options-changed', ['batch', batchOptions]);
     };
 
-    Batch.prototype.remove = function(element) {
-        this.datatable = $(element).data('datatable');
-        if (!this.datatable) {
-            return;
-        }
-
+    Batch.prototype.remove = function(element)
+    {
         var ajax = {
-            url: $(element).data('url'),
+            url: this.getElement().data('url'),
             type: 'POST',
             dataType: 'json',
+            data: this.getDataToSubmit(),
             context: this,
             success : this.removeSuccess,
             error: function (error, textStatus, errorThrown) {
-                return this.getNotifications().ajaxError(error, textStatus, errorThrown);
+                return this.getNotificationHandler().ajaxError(error, textStatus, errorThrown);
             }
         };
 
-        var orders = $('#' + this.datatable).cgDataTable('selected', '.checkbox-id');
-        if (!orders.length) {
-            return;
-        }
-
-        ajax.data = {
-            orders: orders
-        };
-
-        this.getNotifications().notice('Removing orders from batch');
+        this.getNotificationHandler().notice('Removing orders from batch');
         $.ajax(ajax);
 
-        this.getSaveCheckboxes().setSavedCheckboxes(ajax.data.orders);
+        this.getSaveCheckboxes().setSavedCheckboxes(this.getOrders());
     };
 
-    Batch.prototype.removeSuccess = function(data) {
-        this.getNotifications().success('Orders removed from batched');
-        var dataTable = $('#' + this.datatable);
-        dataTable.cgDataTable('redraw');
-        this.getSaveCheckboxes().refreshCheckboxes(dataTable);
+    Batch.prototype.removeSuccess = function(data)
+    {
+        this.getNotificationHandler().success('Orders removed from batched');
+        this.getDataTableElement().cgDataTable('redraw');
+        this.getSaveCheckboxes().refreshCheckboxes(this.getDataTableElement());
     };
 
     return Batch;

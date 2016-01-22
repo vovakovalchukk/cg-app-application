@@ -1,12 +1,5 @@
-require.config({
-    paths: {
-        EmailInvoice: "<?= $this->baseUrl . Orders\Module::PUBLIC_FOLDER . 'js/EmailInvoice' ?>"
-    }
+require(["Orders/EmailInvoice"], function(EmailInvoice)
+{
+    var emailInvoice = new EmailInvoice();
+    emailInvoice.init('<?=$selector;?>');
 });
-require(
-    ["EmailInvoice"],
-    function(EmailInvoice) {
-        var emailInvoice = new EmailInvoice(n);
-        $("#<?= $id ?>").bulkActions("set", "<?= $action ?>", emailInvoice.action);
-    }
-);

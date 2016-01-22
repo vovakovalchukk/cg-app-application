@@ -36,7 +36,8 @@ define(['BulkActionAbstract'], function(BulkActionAbstract)
 
     OrdersBulkActionAbstract.prototype.isAllRecordsLoaded = function()
     {
-        return (this.getDataTableElement().fnSettings().fnRecordsTotal() == this.getDataTableElement().fnGetData().length);
+        var dataTable = this.getDataTableElement().dataTable();
+        return (dataTable.fnSettings().fnRecordsTotal() == dataTable.fnGetData().length);
     };
 
     OrdersBulkActionAbstract.prototype.getFilterData = function()
