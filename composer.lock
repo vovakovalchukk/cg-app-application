@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c9290719b3d39808092ef59581b5e7bd",
-    "content-hash": "515c1655c4c7090bc1aa7c0a5c91770e",
+    "hash": "a1fc0270d15a1f7d995bb9c7fa3ec714",
+    "content-hash": "f31bce5804beb0c11bc8c1fc9d60e2d2",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -853,16 +853,16 @@
         },
         {
             "name": "channelgrabber/http",
-            "version": "1.3.23",
+            "version": "1.3.24",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cghttp.git",
-                "reference": "8978a7785557f8491f75043e841b75adf58d71bc"
+                "reference": "010d609950b1c63db19f2a63e141387597cdf3ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.3.23-313a35.zip",
-                "reference": "8978a7785557f8491f75043e841b75adf58d71bc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-http-1.3.24-3ddf94.zip",
+                "reference": "010d609950b1c63db19f2a63e141387597cdf3ac",
                 "shasum": null
             },
             "require": {
@@ -875,8 +875,7 @@
                 "ext-memcached": "*",
                 "guzzle/guzzle": "~3.7",
                 "nocarrier/hal": "~0.9.4",
-                "php-jsonpatch/php-jsonpatch": "@dev",
-                "php-jsonpointer/php-jsonpointer": "@dev",
+                "php-jsonpatch/php-jsonpatch": "~1.2.3",
                 "symfony/console": "~2.5"
             },
             "replace": {
@@ -899,7 +898,7 @@
                     "CG\\Http\\TestAsset\\": "tests/assets/"
                 }
             },
-            "time": "2015-12-03 09:56:23"
+            "time": "2016-01-07 13:05:48"
         },
         {
             "name": "channelgrabber/image",

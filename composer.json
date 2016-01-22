@@ -42,7 +42,7 @@
         "channelgrabber/email": "~1.0.8",
         "channelgrabber/etag": "~1.6.0",
         "channelgrabber/gearman": "~1.2.19",
-        "channelgrabber/http": "~1.3.23",
+        "channelgrabber/http": "~1.3.24",
         "channelgrabber/image": "~1.1.6",
         "channelgrabber/intercom": "~1.1.2",
         "channelgrabber/listing": "~1.9.4",
