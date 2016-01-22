@@ -15,6 +15,7 @@ use Orders\Order\Service as OrderService;
 use Orders\Controller\BulkActions\InvalidArgumentException;
 use Orders\Controller\BulkActions\RuntimeException;
 use Orders\Order\Batch\Service as BatchService;
+use Orders\Order\BulkActions\OrderDecider;
 use Orders\Order\Exception\MultiException;
 use Orders\Order\Invoice\Service as InvoiceService;
 use Orders\Order\PickList\Service as PickListService;
@@ -38,8 +39,11 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected $csvService;
     protected $batchService;
     protected $usageService;
+    /** @var OrderDecider */
+    protected $orderDecider;
+
     protected $typeMap = [
-        self::TYPE_ORDER_IDS => 'getOrdersFromOrderIds',
+        self::TYPE_ORDER_IDS => 'getOrdersFromInput',
         self::TYPE_FILTER_ID => 'getOrdersFromFilterId',
     ];
 
@@ -50,7 +54,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         PickListService $pickListService,
         CsvService $csvService,
         BatchService $batchService,
-        UsageService $usageService
+        UsageService $usageService,
+        OrderDecider $orderDecider
     ) {
         $this
             ->setJsonModelFactory($jsonModelFactory)
@@ -59,7 +64,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             ->setPickListService($pickListService)
             ->setCsvService($csvService)
             ->setBatchService($batchService)
-            ->setUsageService($usageService);
+            ->setUsageService($usageService)
+            ->setOrderDecider($orderDecider);
     }
 
     public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -174,11 +180,6 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         );
     }
 
-    protected function getOrderIds()
-    {
-        return (array) $this->params()->fromPost('orders', []);
-    }
-
     protected function getFilterId()
     {
         return $this->params()->fromRoute('filterId', '');
@@ -189,15 +190,16 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         return $this->params()->fromPost('invoiceProgressKey', null);
     }
 
-    protected function getOrdersFromOrderIds($orderBy = null, $orderDir = null)
+    protected function getOrdersFromInput($orderBy = null, $orderDir = null)
     {
-        $orderIds = $this->getOrderIds();
-        if (empty($orderIds)) {
-            throw new NotFound('No orderIds provided');
-        }
-        return $this->getOrderService()->getOrdersById($orderIds, 'all', 1, $orderBy, $orderDir);
+        $input = $this->params()->fromPost();
+        $orderDecider = $this->orderDecider;
+        return $orderDecider($input, $orderBy, $orderDir);
     }
 
+    /**
+     * @deprecated use getOrdersFromInput
+     */
     protected function getOrdersFromFilterId($orderBy = null, $orderDir = null)
     {
         return $this->getOrderService()->getOrdersFromFilterId(
@@ -228,6 +230,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         $response = $this->getDefaultJsonResponse($action);
         try {
             $orders = $this->{$this->typeMap[$type]}();
+            $response->setVariable('filterId', $orders->getFilterId());
             $callable($orders);
         } catch (MultiException $exception) {
             $failedOrderIds = [];
@@ -249,11 +252,11 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function invoiceOrderIdsAction($orderBy = null, $orderDir = 'ASC')
     {
         try {
-            $orders = $this->getOrdersFromOrderIds($orderBy, $orderDir);
+            $orders = $this->getOrdersFromInput($orderBy, $orderDir);
             $this->markOrdersAsPrinted($orders);
             return $this->invoiceOrders($orders, null, $this->getInvoiceProgressKey());
         } catch (NotFound $exception) {
-            return $this->redirect()->toRoute('Orders');
+            throw new \RuntimeException('No orders were found to generate invoices for');
         }
     }
 
@@ -517,7 +520,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function pickListOrderIdsAction($orderBy = null, $orderDir = 'ASC')
     {
         try {
-            $orders = $this->getOrdersFromOrderIds($orderBy, $orderDir);
+            $orders = $this->getOrdersFromInput($orderBy, $orderDir);
             $progressKey = $this->getPickListProgressKey();
             return $this->getPickListService()->getResponseFromOrderCollection($orders, $progressKey);
         } catch (NotFound $exception) {
@@ -539,7 +542,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function toCsvOrderIdsAction($orderBy = null, $orderDir = 'ASC')
     {
         try {
-            $orders = $this->getOrdersFromOrderIds($orderBy, $orderDir);
+            $orders = $this->getOrdersFromInput($orderBy, $orderDir);
             $csv = $this->getCsvService()->generateCsvForOrdersAndItems($orders);
             return new FileResponse(CsvService::MIME_TYPE, CsvService::FILENAME, (string) $csv);
         } catch (NotFound $exception) {
@@ -562,7 +565,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function toCsvOrderDataOnlyOrderIdsAction($orderBy = null, $orderDir = 'ASC')
     {
         try {
-            $orders = $this->getOrdersFromOrderIds($orderBy, $orderDir);
+            $orders = $this->getOrdersFromInput($orderBy, $orderDir);
             $csv = $this->getCsvService()->generateCsvForOrders($orders);
             return new FileResponse(CsvService::MIME_TYPE, CsvService::FILENAME, (string) $csv);
         } catch (NotFound $exception) {
@@ -634,5 +637,11 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         if ($this->getUsageService()->hasUsageBeenExceeded()) {
             throw new UsageExceeded();
         }
+    }
+
+    protected function setOrderDecider(OrderDecider $orderDecider)
+    {
+        $this->orderDecider = $orderDecider;
+        return $this;
     }
 }

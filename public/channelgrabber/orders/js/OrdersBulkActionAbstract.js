@@ -15,12 +15,15 @@ define(['BulkActionAbstract'], function(BulkActionAbstract)
         };
     }
 
+    OrdersBulkActionAbstract.SELECTOR_FILTER_BAR = '#filter';
+
     OrdersBulkActionAbstract.prototype = Object.create(BulkActionAbstract.prototype);
 
     OrdersBulkActionAbstract.prototype.getDataToSubmit = function()
     {
-        if ($('#filter').data('id')) {
-            return {"filterId": $('#filter').data('id')};
+        var filterBar = $(OrdersBulkActionAbstract.SELECTOR_FILTER_BAR);
+        if (filterBar.data('id')) {
+            return {"filterId": filterBar.data('id')};
         }
         if (this.isAllSelected() && !this.isAllRecordsLoaded()) {
             return this.getFilterData();
@@ -70,6 +73,11 @@ define(['BulkActionAbstract'], function(BulkActionAbstract)
             orders = this.getDataTableElement().cgDataTable("selected", ".checkbox-id");
         }
         return orders;
+    };
+
+    OrdersBulkActionAbstract.prototype.setFilterId = function(filterId)
+    {
+        $(OrdersBulkActionAbstract.SELECTOR_FILTER_BAR).data('id', filterId);
     };
 
     return OrdersBulkActionAbstract;
