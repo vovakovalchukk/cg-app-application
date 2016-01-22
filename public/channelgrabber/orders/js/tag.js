@@ -142,6 +142,7 @@ define([
             dataType: 'json',
             data: data,
             success : function(data) {
+                this.setFilterId(data.filterId);
                 saveCheckboxes.setSavedCheckboxes(self.getOrders());
                 return self.getNotificationHandler().success("Tagged Successfully");
             },

@@ -23,6 +23,7 @@ define(['Orders/OrdersBulkActionAbstract'], function(OrdersBulkActionAbstract)
             context: this,
             success : function(data) {
                 if (data.archived) {
+                    this.setFilterId(data.filterId);
                     return this.getNotificationHandler().success("Archived Successfully");
                 } else if (!data.error) {
                     return this.getNotificationHandler().error("Failed to archived Orders");

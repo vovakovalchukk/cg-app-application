@@ -15,7 +15,7 @@ define(['BulkActionAbstract'], function(BulkActionAbstract)
         };
     }
 
-    OrdersBulkActionAbstract.SELECTOR_FILTER_BAR = '#filter';
+    OrdersBulkActionAbstract.SELECTOR_FILTER_BAR = '#filters';
 
     OrdersBulkActionAbstract.prototype = Object.create(BulkActionAbstract.prototype);
 

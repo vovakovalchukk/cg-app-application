@@ -78,6 +78,7 @@ define([
     Batch.prototype.actionSuccess = function(data)
     {
         this.getNotificationHandler().success('Orders successfully batched');
+        this.setFilterId(data.filterId);
         this.redraw();
         this.getDataTableElement().cgDataTable('redraw');
         this.getSaveCheckboxes().refreshCheckboxes(this.getDataTableElement());
