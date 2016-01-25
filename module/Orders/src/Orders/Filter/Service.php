@@ -110,7 +110,7 @@ class Service
         $filters['hasItems'] = [true];
 
         if (isset($filters[static::FILTER_SHIPPING_ALIAS_NAME])) {
-            $methodNames = $this->getShippingConversionService()
+            $methodNames = $this->shippingConversionService
                 ->fromAliasIdsToMethodNames($filters[static::FILTER_SHIPPING_ALIAS_NAME]);
             $filters[static::FILTER_SHIPPING_METHOD_NAME] = $methodNames;
         }
