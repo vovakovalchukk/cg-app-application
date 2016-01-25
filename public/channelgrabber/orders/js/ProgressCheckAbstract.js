@@ -100,6 +100,9 @@ define(['Orders/OrdersBulkActionAbstract'], function(OrdersBulkActionAbstract)
         var fadeOut = true;
         this.getNotificationHandler().notice(this.getStartMessage(), fadeOut);
 
+        // Can't save the filter as part of the main call as we're getting PDF / CSV data back so can't get the ID back
+        this.saveFilterOnly();
+
         $.ajax({
             context: this,
             url: this.getCheckUrl(),

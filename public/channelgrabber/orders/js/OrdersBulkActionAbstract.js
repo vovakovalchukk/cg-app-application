@@ -16,6 +16,7 @@ define(['BulkActionAbstract'], function(BulkActionAbstract)
     }
 
     OrdersBulkActionAbstract.SELECTOR_FILTER_BAR = '#filters';
+    OrdersBulkActionAbstract.URL_SAVE_FILTER = '/orders/bulkActionFilter';
 
     OrdersBulkActionAbstract.prototype = Object.create(BulkActionAbstract.prototype);
 
@@ -78,6 +79,22 @@ define(['BulkActionAbstract'], function(BulkActionAbstract)
     OrdersBulkActionAbstract.prototype.setFilterId = function(filterId)
     {
         $(OrdersBulkActionAbstract.SELECTOR_FILTER_BAR).data('id', filterId);
+    };
+
+    OrdersBulkActionAbstract.prototype.saveFilterOnly = function()
+    {
+        var self = this;
+        var data = this.getDataToSubmit();
+        if (data.filterId || data.orders) {
+            return;
+        }
+        this.getAjaxRequester().sendRequest(
+            OrdersBulkActionAbstract.URL_SAVE_FILTER, data, function(response)
+            {
+                self.setFilterId(response.filterId);
+            }
+        );
+        return this;
     };
 
     return OrdersBulkActionAbstract;

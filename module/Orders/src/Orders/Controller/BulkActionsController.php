@@ -639,6 +639,13 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         }
     }
 
+    public function saveFilterAction()
+    {
+        // Getting the orders will trigger the OrderDecider which will save the filter
+        $orders = $this->getOrdersFromInput();
+        return $this->getJsonModelFactory()->newInstance(['filterId' => $orders->getFilterId()]);
+    }
+
     protected function setOrderDecider(OrderDecider $orderDecider)
     {
         $this->orderDecider = $orderDecider;

@@ -16,6 +16,9 @@ define(['Orders/OrdersBulkActionAbstract'], function(OrdersBulkActionAbstract)
             return;
         }
 
+        // Can't save the filter as part of the main call as we're opening an iframe so can't get the ID back
+        this.saveFilterOnly();
+
         $('<a href="' + url + '" />').cgPjax('post', this.getDataToSubmit());
     };
 

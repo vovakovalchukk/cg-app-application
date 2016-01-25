@@ -48,6 +48,11 @@ $(document).ready(function()
                 $("a.title", nRow).cgPjax();
             });
         }
+
+        $(document).on('change', '#datatable input.select-all-group', function()
+        {
+            $("#filters").removeData("id");
+        });
     });
 
     datatable.on('after-cgdatatable-init', function()
