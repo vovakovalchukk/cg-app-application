@@ -45,7 +45,8 @@ define([
             {
                 if (data.dispatching) {
                     this.setFilterId(data.filterId);
-                    self.getSaveCheckboxes().setSavedCheckboxes(self.getOrders());
+                    self.getSaveCheckboxes().setSavedCheckboxes(self.getOrders())
+                        .setSavedCheckAll(this.isAllSelected());
                     return self.getNotificationHandler().success("Orders Marked for Dispatch");
                 } else if (!data.error) {
                     return self.getNotificationHandler().error("Failed to marked Orders for Dispatch");

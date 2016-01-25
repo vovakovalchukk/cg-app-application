@@ -7,6 +7,14 @@ $(document).ready(function()
             datatable.removeData("filterId");
         });
 
+        $("#filters").on('apply', removeFilterId);
+
+        datatable.on('fnDrawCallback', function()
+        {
+            $('#datatable input.select-all-group').off('change', removeFilterId).on('change', removeFilterId);
+            $('#datatable-select-all').off('change', removeFilterId).on('change', removeFilterId);
+        });
+
         datatable.on("fnServerData", function(event, sSource, aoData, fnCallback, oSettings) {
             var filterId = datatable.data("filterId");
             if (filterId) {
@@ -48,23 +56,10 @@ $(document).ready(function()
                 $("a.title", nRow).cgPjax();
             });
         }
-
-        $(document).on('change', '#datatable input.select-all-group', function()
-        {
-            $("#filters").removeData("id");
-        });
     });
 
-    datatable.on('after-cgdatatable-init', function()
+    function removeFilterId()
     {
-        $('#datatable-select-all').on('change', function()
-        {
-            $("#filters").removeData("id");
-        });
-
-        $("#filters").on('apply', function()
-        {
-            $("#filters").removeData("id");
-        });
-    });
+        $("#filters").removeData("id");
+    }
 });

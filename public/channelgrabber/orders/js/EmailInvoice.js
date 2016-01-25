@@ -43,7 +43,8 @@ define([
             },
             success : function(data) {
                 if (data.emailing) {
-                    saveCheckboxes.setSavedCheckboxes(this.getOrders());
+                    saveCheckboxes.setSavedCheckboxes(this.getOrders())
+                        .setSavedCheckAll(this.isAllSelected());
                     return this.getNotificationHandler().success("Orders Marked for Email");
                 } else if (!data.error) {
                     return this.getNotificationHandler().error("Failed to marked Orders for Email");

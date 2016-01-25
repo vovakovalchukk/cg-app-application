@@ -72,7 +72,8 @@ define([
 
         this.getNotificationHandler().notice('Adding orders to a batch');
         $.ajax(ajax);
-        this.getSaveCheckboxes().setSavedCheckboxes(orders);
+        this.getSaveCheckboxes().setSavedCheckboxes(orders)
+            .setSavedCheckAll(this.isAllSelected());
     };
 
     Batch.prototype.actionSuccess = function(data)
@@ -129,7 +130,8 @@ define([
         this.getNotificationHandler().notice('Removing orders from batch');
         $.ajax(ajax);
 
-        this.getSaveCheckboxes().setSavedCheckboxes(this.getOrders());
+        this.getSaveCheckboxes().setSavedCheckboxes(this.getOrders())
+            .setSavedCheckAll(this.isAllSelected());
     };
 
     Batch.prototype.removeSuccess = function(data)

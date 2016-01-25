@@ -143,7 +143,8 @@ define([
             data: data,
             success : function(data) {
                 this.setFilterId(data.filterId);
-                saveCheckboxes.setSavedCheckboxes(self.getOrders());
+                saveCheckboxes.setSavedCheckboxes(self.getOrders())
+                    .setSavedCheckAll(this.isAllSelected());
                 return self.getNotificationHandler().success("Tagged Successfully");
             },
             error: function(error, textStatus, errorThrown) {
