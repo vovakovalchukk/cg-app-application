@@ -49,10 +49,6 @@ class Service implements LoggerAwareInterface
     protected $dateFormatHelper;
     /** @var UnimportedListingImportGenerator */
     protected $unimportedListingImportGenerator;
-    protected $nonImportableStatuses = [
-        ListingStatus::CANNOT_IMPORT_SKU => ListingStatus::CANNOT_IMPORT_SKU,
-        ListingStatus::UNEXPECTED_CHARS_IN_SKU => ListingStatus::UNEXPECTED_CHARS_IN_SKU,
-    ];
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
@@ -224,7 +220,7 @@ class Service implements LoggerAwareInterface
         );
 
         foreach ($listings as $listing) {
-            if (isset($this->nonImportableStatuses[$listing->getStatus()])) {
+            if (!ListingStatus::canImport($listing->getStatus())) {
                 continue;
             }
             $account = $accounts->getById($listing->getAccountId());
