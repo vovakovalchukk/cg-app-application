@@ -135,6 +135,7 @@ define([
     Batch.prototype.removeSuccess = function(data)
     {
         this.getNotificationHandler().success('Orders removed from batched');
+        this.setFilterId(data.filterId);
         this.getDataTableElement().cgDataTable('redraw');
         this.getSaveCheckboxes().refreshCheckboxes(this.getDataTableElement());
     };
