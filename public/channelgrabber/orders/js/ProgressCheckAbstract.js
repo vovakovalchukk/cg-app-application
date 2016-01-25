@@ -96,6 +96,9 @@ define(['Orders/OrdersBulkActionAbstract'], function(OrdersBulkActionAbstract)
             return;
         }
         var orderCount = orders.length;
+        if (this.isAllSelected()) {
+            orderCount = this.getTotalRecordCount();
+        }
 
         var fadeOut = true;
         this.getNotificationHandler().notice(this.getStartMessage(), fadeOut);

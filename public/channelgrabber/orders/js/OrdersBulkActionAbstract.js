@@ -40,8 +40,19 @@ define(['BulkActionAbstract'], function(BulkActionAbstract)
 
     OrdersBulkActionAbstract.prototype.isAllRecordsLoaded = function()
     {
+        return (this.getDisplayedRecordCount() == this.getTotalRecordCount());
+    };
+
+    OrdersBulkActionAbstract.prototype.getDisplayedRecordCount = function()
+    {
         var dataTable = this.getDataTableElement().dataTable();
-        return (dataTable.fnSettings().fnRecordsTotal() == dataTable.fnGetData().length);
+        return dataTable.fnGetData().length;
+    };
+
+    OrdersBulkActionAbstract.prototype.getTotalRecordCount = function()
+    {
+        var dataTable = this.getDataTableElement().dataTable();
+        return dataTable.fnSettings().fnRecordsTotal();
     };
 
     OrdersBulkActionAbstract.prototype.getFilterData = function()
