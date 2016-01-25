@@ -15,7 +15,7 @@ use Orders\Order\Service as OrderService;
 use Orders\Controller\BulkActions\InvalidArgumentException;
 use Orders\Controller\BulkActions\RuntimeException;
 use Orders\Order\Batch\Service as BatchService;
-use Orders\Order\BulkActions\OrderDecider;
+use Orders\Order\BulkActions\OrdersToOperateOn;
 use Orders\Order\Exception\MultiException;
 use Orders\Order\Invoice\Service as InvoiceService;
 use Orders\Order\PickList\Service as PickListService;
@@ -39,8 +39,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected $csvService;
     protected $batchService;
     protected $usageService;
-    /** @var OrderDecider */
-    protected $orderDecider;
+    /** @var OrdersToOperateOn */
+    protected $ordersToOperatorOn;
 
     protected $typeMap = [
         self::TYPE_ORDER_IDS => 'getOrdersFromInput',
@@ -55,7 +55,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         CsvService $csvService,
         BatchService $batchService,
         UsageService $usageService,
-        OrderDecider $orderDecider
+        OrdersToOperateOn $ordersToOperatorOn
     ) {
         $this
             ->setJsonModelFactory($jsonModelFactory)
@@ -65,7 +65,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             ->setCsvService($csvService)
             ->setBatchService($batchService)
             ->setUsageService($usageService)
-            ->setOrderDecider($orderDecider);
+            ->setOrdersToOperatorOn($ordersToOperatorOn);
     }
 
     public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -193,8 +193,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected function getOrdersFromInput($orderBy = null, $orderDir = null)
     {
         $input = $this->params()->fromPost();
-        $orderDecider = $this->orderDecider;
-        return $orderDecider($input, $orderBy, $orderDir);
+        $ordersToOperatorOn = $this->ordersToOperatorOn;
+        return $ordersToOperatorOn($input, $orderBy, $orderDir);
     }
 
     /**
@@ -641,14 +641,14 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     public function saveFilterAction()
     {
-        // Getting the orders will trigger the OrderDecider which will save the filter
+        // Getting the orders will trigger the 'OrdersToOperatorOn' invokable which will save the filter
         $orders = $this->getOrdersFromInput();
         return $this->getJsonModelFactory()->newInstance(['filterId' => $orders->getFilterId()]);
     }
 
-    protected function setOrderDecider(OrderDecider $orderDecider)
+    protected function setOrdersToOperatorOn(OrdersToOperateOn $ordersToOperatorOn)
     {
-        $this->orderDecider = $orderDecider;
+        $this->ordersToOperatorOn = $ordersToOperatorOn;
         return $this;
     }
 }

@@ -9,7 +9,7 @@ use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
 use Orders\Filter\Service as FilterService;
 
-class OrderDecider
+class OrdersToOperateOn
 {
     /** @var OrderService */
     protected $orderService;

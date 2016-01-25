@@ -10,7 +10,7 @@ use Orders\Module;
 use Orders\Courier\Label\PrintService as LabelPrintService;
 use Orders\Courier\Manifest\Service as ManifestService;
 use Orders\Courier\Service;
-use Orders\Order\BulkActions\OrderDecider;
+use Orders\Order\BulkActions\OrdersToOperateOn;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -41,8 +41,8 @@ class CourierController extends AbstractActionController
     protected $labelPrintService;
     /** @var ManifestService */
     protected $manifestService;
-    /** @var OrderDecider */
-    protected $orderDecider;
+    /** @var OrdersToOperateOn */
+    protected $ordersToOperatorOn;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -51,7 +51,7 @@ class CourierController extends AbstractActionController
         Service $service,
         LabelPrintService $labelPrintService,
         ManifestService $manifestService,
-        OrderDecider $orderDecider
+        OrdersToOperateOn $ordersToOperatorOn
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setReviewTable($reviewTable)
@@ -59,7 +59,7 @@ class CourierController extends AbstractActionController
             ->setService($service)
             ->setLabelPrintService($labelPrintService)
             ->setManifestService($manifestService)
-            ->setOrderDecider($orderDecider);
+            ->setOrdersToOperatorOn($ordersToOperatorOn);
     }
 
     public function indexAction()
@@ -92,8 +92,8 @@ class CourierController extends AbstractActionController
     protected function getOrdersFromInput()
     {
         $input = $this->params()->fromPost();
-        $orderDecider = $this->orderDecider;
-        return $orderDecider($input);
+        $ordersToOperatorOn = $this->ordersToOperatorOn;
+        return $ordersToOperatorOn($input);
     }
 
     protected function prepReviewTable()
@@ -414,9 +414,9 @@ class CourierController extends AbstractActionController
         return $this;
     }
 
-    protected function setOrderDecider(OrderDecider $orderDecider)
+    protected function setOrdersToOperatorOn(OrdersToOperateOn $ordersToOperatorOn)
     {
-        $this->orderDecider = $orderDecider;
+        $this->ordersToOperatorOn = $ordersToOperatorOn;
         return $this;
     }
 }
