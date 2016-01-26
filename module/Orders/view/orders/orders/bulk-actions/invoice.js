@@ -1,7 +1,6 @@
 require(["Orders/invoice"], function(InvoiceBulkAction)
 {
     var invoiceBulkAction = new InvoiceBulkAction(
-        n,
         "<?= $this->translate('Preparing to generate invoices') ?>",
         "<?= $this->translate('Generating invoices') ?>",
         "<?= $this->translate('Finished generating invoices') ?>"

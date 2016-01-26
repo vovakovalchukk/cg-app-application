@@ -6,32 +6,20 @@ define([
     BulkActionProgressCheckAbstract
 ) {
     var ProgressCheckAbstract = function(
-        notifications, //deprecated
         startMessage,
         progressMessage,
         endMessage
     ) {
-        BulkActionProgressCheckAbstract.call(this);
+        BulkActionProgressCheckAbstract.call(this, startMessage, progressMessage, endMessage);
         OrdersBulkActionAbstract.call(this);
-
-        this.getStartMessage = function()
-        {
-            return startMessage;
-        };
-
-        this.getProgressMessage = function()
-        {
-            return progressMessage;
-        };
-
-        this.getEndMessage = function()
-        {
-            return endMessage;
-        };
     };
 
+    // Multiple inheritance. Note: the ordering of these is important - ProgressCheck before OrdersBulkAction
     ProgressCheckAbstract.prototype = Object.create(BulkActionProgressCheckAbstract.prototype);
     for (var method in OrdersBulkActionAbstract.prototype) {
+        if (!OrdersBulkActionAbstract.prototype.hasOwnProperty(method)) {
+            continue;
+        }
         ProgressCheckAbstract.prototype[method] = OrdersBulkActionAbstract.prototype[method];
     }
 

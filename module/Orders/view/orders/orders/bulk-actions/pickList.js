@@ -1,7 +1,6 @@
 require(["Orders/pickList"], function(PickListBulkAction)
 {
     var pickListBulkAction = new PickListBulkAction(
-        n,
         "<?= $this->translate('Preparing to generate pick list') ?>",
         "<?= $this->translate('Generating pick list') ?>",
         "<?= $this->translate('Finished generating the pick list') ?>"
