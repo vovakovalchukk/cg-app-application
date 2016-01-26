@@ -21,6 +21,7 @@ use Products\Controller\ListingsController;
 use Products\Controller\ListingsJsonController;
 use Products\Controller\StockLogController;
 use Products\Controller\StockLogJsonController;
+use Products\Stock\Csv\ProgressStorage as StockCsvProgressStorage;
 use CG\Listing\Unimported\Service as UnimportedListingService;
 use CG\Listing\Unimported\Storage\Api as UnimportedListingApiStorage;
 use Zend\View\Model\ViewModel;
@@ -101,6 +102,27 @@ return [
                                 'action' => 'stockCsvExport'
                             ]
                         ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            ProductsJsonController::ROUTE_STOCK_CSV_EXPORT_CHECK => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/check',
+                                    'defaults' => [
+                                        'action' => 'stockCsvExportCheck'
+                                    ]
+                                ],
+                            ],
+                            ProductsJsonController::ROUTE_STOCK_CSV_EXPORT_PROGRESS => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/progress',
+                                    'defaults' => [
+                                        'action' => 'stockCsvExportProgress'
+                                    ]
+                                ],
+                            ],
+                        ]
                     ],
                     ProductsJsonController::ROUTE_STOCK_CSV_IMPORT => [
                         'type' => Literal::class,
@@ -882,6 +904,16 @@ return [
                     'accountStockSettingsTable' => 'StockSettingsAccountsTable', // defined in global.php
                 ]
             ],
+            ProductsJsonController::class => [
+                'parameters' => [
+                    'usageService' => 'order_count_usage_service'
+                ]
+            ],
+            StockCsvProgressStorage::class => [
+                'parameters' => [
+                    'predis' => 'reliable_redis'
+                ]
+            ]
         ],
     ],
     'navigation' => array(
