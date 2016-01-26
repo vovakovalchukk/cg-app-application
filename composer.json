@@ -37,7 +37,7 @@
         "channelgrabber/constants": "dev-master",
         "channelgrabber/dataplug": "~1.0.1",
         "channelgrabber/di": "~2.1.1",
-        "channelgrabber/ebay": "~1.9.27",
+        "channelgrabber/ebay": "dev-CGIV-6699-EbayWrongMessage as 1.9.42",
         "channelgrabber/ekm": "~1.8.18",
         "channelgrabber/email": "~1.0.8",
         "channelgrabber/etag": "~1.6.0",
