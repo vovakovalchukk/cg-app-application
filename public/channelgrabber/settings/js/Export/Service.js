@@ -1,14 +1,24 @@
-define([], function() {
-    var Service = function() {
-        self.getNotifications = function() {
-            return n;
-        };
+define(['BulkAction/ProgressCheckAbstract'], function(ProgressCheckAbstract)
+{
+    function Service(
+        startMessage,
+        progressMessage,
+        endMessage
+    ) {
+        ProgressCheckAbstract.call(this, startMessage, progressMessage, endMessage);
     };
 
-    Service.prototype.notifyCsvGeneration = function() {
-        var fadeOut = true;
-        self.getNotifications().notice("Generating CSV", fadeOut);
+    Service.prototype = Object.create(ProgressCheckAbstract.prototype);
+
+    Service.prototype.getDataToSubmit = function()
+    {
+        return {};
     };
 
-    return new Service();
+    Service.prototype.getProgressKeyName = function()
+    {
+        return "orderExportProgressKey";
+    };
+
+    return Service;
 });

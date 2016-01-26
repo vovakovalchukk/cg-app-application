@@ -5,15 +5,27 @@
             'Settings': "<?= $this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js';?>"
         }
     });
-    require(["Settings/Export/DomListener"], function(domListener) {
-        domListener.init();
+    require(["Settings/Export/Service"], function(Service)
+    {
+        var itemExport = new Service(
+            "<?= $this->translate('Preparing to generate item export') ?>",
+            "<?= $this->translate('Generating item export') ?>",
+            "<?= $this->translate('Finished generating item export') ?>"
+        );
+        itemExport.init('#settings-item-export');
+        var orderExport = new Service(
+            "<?= $this->translate('Preparing to generate order export') ?>",
+            "<?= $this->translate('Generating order export') ?>",
+            "<?= $this->translate('Finished generating order export') ?>"
+        );
+        orderExport.init('#settings-order-export');
     });
 <?php $this->inlineScript()->captureEnd(); ?>
 <div id="breadcrumbs" class="floatLeftClear">
     <span class="heading-large"><?= $this->translate('Export Data'); ?>
 </div>
 <div class="module clearfix">
-    <a class="csvExport" href="<?= $this->url($route . '/' . $orderItemsRoute) ?>"><?= ucfirst(strtolower($orderItemsRoute)) ?></a>
+    <a id="settings-item-export" class="csvExport" href="<?= $this->url($route . '/' . $orderItemsRoute) ?>"><?= ucfirst(strtolower($orderItemsRoute)) ?></a>
     or
-    <a class="csvExport" href="<?= $this->url($route . '/' . $ordersRoute) ?>"><?= strtolower($ordersRoute) ?></a>
+    <a id="settings-order-export" class="csvExport" href="<?= $this->url($route . '/' . $ordersRoute) ?>"><?= strtolower($ordersRoute) ?></a>
 </div>

@@ -279,6 +279,10 @@ class ProductsJsonController extends AbstractActionController
 
     public function stockCsvImportAction()
     {
+        if ($this->usageService->hasUsageBeenExceeded()) {
+            throw new UsageExceeded();
+        }
+
         $request = $this->getRequest();
         $post = $request->getPost()->toArray();
 

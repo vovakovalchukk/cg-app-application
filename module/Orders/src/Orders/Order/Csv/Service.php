@@ -42,32 +42,55 @@ class Service implements LoggerAwareInterface
 
     public function generateCsvForOrders(OrderCollection $orders, $progressKey = null)
     {
-        $csv = $this->generateCsv($orders, $this->getOrdersMapper());
+        $csv = $this->generateCsv($orders, $this->getOrdersMapper(), $progressKey);
         $this->notifyOfGeneration();
         return $csv;
     }
 
     public function generateCsvForOrdersAndItems(OrderCollection $orders, $progressKey = null)
     {
-        $csv = $this->generateCsv($orders, $this->getOrdersItemsMapper());
+        $csv = $this->generateCsv($orders, $this->getOrdersItemsMapper(), $progressKey);
         $this->notifyOfGeneration();
         return $csv;
     }
 
-    protected function generateCsv(OrderCollection $orders, MapperInterface $mapper)
+    protected function generateCsv(OrderCollection $orders, MapperInterface $mapper, $progressKey = null)
     {
         $csvWriter = CsvWriter::createFromFileObject(new \SplTempFileObject(-1));
         $csvWriter->insertOne($mapper->getHeaders());
         $rowsGenerator = $mapper->fromOrderCollection($orders);
+        $count = 0;
         foreach($rowsGenerator as $rows) {
             $csvWriter->insertAll($rows);
+            $count += count($rows);
+            if ($progressKey) {
+                $this->getProgressStorage()->setProgress($progressKey, $count);
+            }
         }
+        $this->endProgress($progressKey);
         return $csvWriter;
     }
 
-    public function checkToCsvGenerationProgress($key)
+    public function checkToCsvGenerationProgress($progressKey)
     {
-        return (int) $this->getProgressStorage()->getProgress($key);
+        $count = $this->getProgressStorage()->getProgress($progressKey);
+        if ($count === null) {
+            return null;
+        }
+        return (int)$count;
+    }
+
+    public function startProgress($progressKey)
+    {
+        $this->getProgressStorage()->setProgress($progressKey, 0);
+    }
+
+    protected function endProgress($progressKey)
+    {
+        if (!$progressKey) {
+            return;
+        }
+        $this->getProgressStorage()->removeProgress($progressKey);
     }
 
     protected function notifyOfGeneration()
