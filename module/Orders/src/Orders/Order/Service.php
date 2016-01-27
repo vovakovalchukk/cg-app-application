@@ -12,6 +12,7 @@ use CG\Http\Exception\Exception3xx\NotModified as NotModifiedException;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Order\Client\Collection as FilteredCollection;
+use CG\Order\Client\Service as OrderClient;
 use CG\Order\Service\Filter;
 use CG\Order\Service\Filter\StorageInterface as FilterClient;
 use CG\Order\Shared\Cancel\Item as CancelItem;
@@ -24,7 +25,6 @@ use CG\Order\Shared\Mapper as OrderMapper;
 use CG\Order\Shared\Note\Collection as OrderNoteCollection;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
 use CG\Order\Shared\Status as OrderStatus;
-use CG\Order\Shared\StorageInterface;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
@@ -102,7 +102,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $editableFulfilmentChannels = [OrderEntity::DEFAULT_FULFILMENT_CHANNEL => true];
 
     public function __construct(
-        StorageInterface $orderClient,
+        OrderClient $orderClient,
         OrderItemClient $orderItemClient,
         FilterClient $filterClient,
         TableService $tableService,
@@ -302,14 +302,14 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $this->filterService;
     }
 
-    public function setOrderClient(StorageInterface $orderClient)
+    public function setOrderClient(OrderClient $orderClient)
     {
         $this->orderClient = $orderClient;
         return $this;
     }
 
     /**
-     * @return StorageInterface
+     * @return OrderClient
      */
     public function getOrderClient()
     {
@@ -641,6 +641,15 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->getUserPreferenceService()->save($userPrefs);
     }
 
+    public function tagOrdersByFilter($tag, Filter $filter)
+    {
+        // Use patching as its faster than saving the individual orders
+        $this->orderClient->patchCollectionByFilterObject($filter, ['tag' => $tag], 'add');
+    }
+
+    /**
+     * @deprecated Use tagOrdersByFilter()
+     */
     public function tagOrders($tag, OrderCollection $orders)
     {
         $exception = new MultiException();
@@ -683,7 +692,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     public function unTagOrders($tag, OrderCollection $orders)
     {
         $exception = new MultiException();
-
+        // Can't use patching for this as there's no way to remove an item from an array without knowing its index
         foreach ($orders as $order) {
             try {
                 $this->unTagOrder($tag, $order);

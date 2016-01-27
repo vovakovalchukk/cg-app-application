@@ -34,8 +34,15 @@ class OrdersToOperateOn
 
     public function __invoke(array $params, $orderBy = null, $orderDir = null)
     {
-        $filterId = null;
-        $saveFilter = false;
+        $filter = $this->buildFilterFromInput($params, $orderBy, $orderDir);
+
+        $collection = $this->orderService->fetchCollectionByFilter($filter);
+        $collection->setFilterId($filter->getId());
+        return $collection;
+    }
+
+    public function buildFilterFromInput(array $params, $orderBy = null, $orderDir = null)
+    {
         $filter = $this->getBaseFilter()
             ->setOrderBy($orderBy)
             ->setOrderDirection($orderDir);
@@ -44,24 +51,16 @@ class OrdersToOperateOn
             $filter->setOrderIds($params['orders']);
 
         } elseif (isset($params['filterId']) && $params['filterId'] != '') {
-            $filterId = $params['filterId'];
-            $filter = $this->applyFiltersFromFilterId($filter, $filterId);
+            $filter = $this->applyFiltersFromFilterId($filter, $params['filterId']);
 
         } elseif (isset($params['filter']) && is_array($params['filter']) && !empty($params['filter'])) {
             $filter = $this->applyFiltersFromFilterParam($filter, $params['filter']);
-            $saveFilter = true;
+            $filter = $this->saveFilterAsOrderIds($filter);
 
         } else {
             throw new NotFound('No Order IDs or filters provided');
         }
-
-        $collection = $this->orderService->fetchCollectionByFilter($filter);
-        if ($saveFilter) {
-            $savedFilter = $this->saveOrdersAsFilter($collection);
-            $filterId = $savedFilter->getId();
-        }
-        $collection->setFilterId($filterId);
-        return $collection;
+        return $filter;
     }
 
     protected function getBaseFilter()
@@ -74,16 +73,9 @@ class OrdersToOperateOn
 
     protected function applyFiltersFromFilterId(Filter $filter, $filterId)
     {
-        try {
-            $savedFilter = $this->filterStorage->fetch($filterId);
-            return $this->filterService->mergeFilters(
-                $filter,
-                $savedFilter
-            );
-
-        } catch (NotFound $e) {
-            return $this->applyFiltersFromFilterParam($filter, []);
-        }
+        $filter->setId($filterId)
+            ->setConvertToOrderIds(true);
+        return $filter;
     }
 
     protected function applyFiltersFromFilterParam(Filter $filter, array $filterParam)
@@ -95,10 +87,9 @@ class OrdersToOperateOn
         );
     }
 
-    protected function saveOrdersAsFilter(OrderCollection $orders)
+    protected function saveFilterAsOrderIds(Filter $filter)
     {
-        $filter = $this->getBaseFilter()
-            ->setOrderIds($orders->getIds());
+        $filter->setConvertToOrderIds(true);
         return $this->filterStorage->save($filter);
     }
 

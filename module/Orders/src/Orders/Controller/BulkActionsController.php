@@ -348,12 +348,14 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     public function tagOrderIdsAction()
     {
-        return $this->performActionOnOrderIds(
-            'tagged',
-            [$this, 'tagOrders']
-        );
+        $tagAction = $this->getTagAction();
+        return $this->{$tagAction}();
     }
 
+    /**
+     *
+     * @deprecated Use tagOrderIdsAction
+     */
     public function tagFilterIdAction()
     {
         return $this->performActionOnFilterId(
@@ -362,10 +364,31 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         );
     }
 
-    public function tagOrders(OrderCollection $orders)
+    protected function tagOrders()
     {
-        $tagAction = $this->getTagAction();
-        $this->getOrderService()->{$tagAction}(
+        $this->checkUsage();
+        $response = $this->getDefaultJsonResponse('tagged');
+
+        $input = $this->params()->fromPost();
+        $filter = $this->ordersToOperatorOn->buildFilterFromInput($input);
+        $this->orderService->tagOrdersByFilter($this->getTag(), $filter);
+
+        $response->setVariable('tagged', true)
+            ->setVariable('filterId', $filter->getId());
+        return $response;
+    }
+
+    protected function unTagOrders()
+    {
+        return $this->performActionOnOrderIds(
+            'tagged',
+            [$this, 'doUnTagOrders']
+        );
+    }
+
+    protected function doUnTagOrders(OrderCollection $orders)
+    {
+        $this->getOrderService()->unTagOrders(
             $this->getTag(),
             $orders
         );
