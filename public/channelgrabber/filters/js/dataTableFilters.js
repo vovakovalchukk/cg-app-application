@@ -7,7 +7,11 @@ $(document).ready(function()
             datatable.removeData("filterId");
         });
 
-        $("#filters").on('apply', removeFilterId);
+        $("#filters").on('apply', function()
+        {
+            removeFilterId();
+            $('#datatable-select-all').prop('checked', false).trigger('change');
+        });
 
         datatable.on('fnDrawCallback', function()
         {
@@ -33,7 +37,6 @@ $(document).ready(function()
                     "value": value
                 });
             });
-
         });
 
         datatable.on("jqXHRBeforeSend", function(event, request, settings) {

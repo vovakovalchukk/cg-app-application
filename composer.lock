@@ -307,16 +307,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.19.6",
+            "version": "1.19.9.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "8387a534878254ffd5dfd7ed05a5a902765a4cf2"
+                "reference": "628588602884e0763cfe3abf9a595df9997d452f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.19.6-0b20cf.zip",
-                "reference": "8387a534878254ffd5dfd7ed05a5a902765a4cf2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.19.9.1-b6ea06.zip",
+                "reference": "628588602884e0763cfe3abf9a595df9997d452f",
                 "shasum": null
             },
             "require": {
@@ -347,8 +347,6 @@
                 "ext-gearman": "~1.1.0",
                 "guzzle/guzzle": "~3.7",
                 "nocarrier/hal": "~0.9.4",
-                "php-jsonpatch/php-jsonpatch": "dev-master",
-                "php-jsonpointer/php-jsonpointer": "@dev",
                 "zendframework/zend-di": ">=2.2.5,<3.0"
             },
             "replace": {
@@ -373,7 +371,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-12-21 09:29:40"
+            "time": "2016-01-07 14:35:38"
         },
         {
             "name": "channelgrabber/cilex",
@@ -613,32 +611,32 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.9.33",
+            "version": "1.9.42",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "739bb33b47716c660ddaf7cf060c07c0b80d454d"
+                "reference": "3d3d525e1d052296011b7572c32ecadf451e0283"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.9.33-a8fc8f.zip",
-                "reference": "739bb33b47716c660ddaf7cf060c07c0b80d454d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.9.42-15d975.zip",
+                "reference": "3d3d525e1d052296011b7572c32ecadf451e0283",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": "^1.8.4",
-                "channelgrabber/channel": "^1.18.4",
+                "channelgrabber/channel": "^1.19.9",
                 "channelgrabber/communication": "^1.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.1.0",
                 "channelgrabber/gearman": "^1.2.13",
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
-                "channelgrabber/listing": "^1.6.12",
+                "channelgrabber/listing": "^1.9.4",
                 "channelgrabber/locale": "^1.0.5",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.19.20",
-                "channelgrabber/product": "^1.4.14",
+                "channelgrabber/product": "^1.5.0",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stdlib": "^2.12.0",
@@ -648,8 +646,7 @@
                 "composer/composer": "@dev",
                 "ext-gearman": "~1.1.0",
                 "guzzle/guzzle": "~3.7",
-                "php-jsonpatch/php-jsonpatch": "dev-master",
-                "php-jsonpointer/php-jsonpointer": "dev-master",
+                "php-units-of-measure/php-units-of-measure": "~2.0.0",
                 "zendframework/zend-di": ">=2.2.5",
                 "zendframework/zend-eventmanager": ">=2.2.5"
             },
@@ -668,7 +665,7 @@
                     "CG\\Ebay\\Test\\": "tests/Test/"
                 }
             },
-            "time": "2015-11-19 13:36:44"
+            "time": "2016-01-27 13:56:41"
         },
         {
             "name": "channelgrabber/ekm",
@@ -1203,12 +1200,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "078a1f710bbb3770ba8564856c0cb3e73182b501"
+                "reference": "819802363b2cec8281ff8f6a8d59f7eef754ad6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6610-select-all-orders-6a86d7.zip",
-                "reference": "078a1f710bbb3770ba8564856c0cb3e73182b501",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6610-select-all-orders-36532a.zip",
+                "reference": "819802363b2cec8281ff8f6a8d59f7eef754ad6d",
                 "shasum": null
             },
             "require": {
@@ -1269,7 +1266,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-01-25 10:15:52"
+            "time": "2016-01-28 13:55:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -1539,16 +1536,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.5.0",
+            "version": "dev-CGIV-6610-select-all-orders",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "8e130d79276ddd79a849bb6bdf2dfe8b13772618"
+                "reference": "d38ff9f193e91a5126624885070f8320aeb438bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.5.0-4957d7.zip",
-                "reference": "8e130d79276ddd79a849bb6bdf2dfe8b13772618",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-6610-select-all-orders-fc3748.zip",
+                "reference": "d38ff9f193e91a5126624885070f8320aeb438bf",
                 "shasum": null
             },
             "require": {
@@ -1559,7 +1556,7 @@
                 "channelgrabber/etag": "^1.5.4",
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": ">=1.1.3,<2.0.0",
-                "channelgrabber/listing": ">=1.2.10",
+                "channelgrabber/listing": "^1.8.0",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/notification": "^1.0.0",
                 "channelgrabber/permission": ">=1.0.0",
@@ -1569,8 +1566,6 @@
                 "composer/composer": "@dev",
                 "guzzle/guzzle": "~3.7",
                 "nocarrier/hal": "~0.9.4",
-                "php-jsonpatch/php-jsonpatch": "dev-master",
-                "php-jsonpointer/php-jsonpointer": "@dev",
                 "zendframework/zend-di": ">=2.2.5"
             },
             "type": "di-definition",
@@ -1584,7 +1579,7 @@
                     "CG\\Product\\": "src"
                 }
             },
-            "time": "2015-12-03 10:02:41"
+            "time": "2016-01-26 15:54:55"
         },
         {
             "name": "channelgrabber/purge",
@@ -1955,16 +1950,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.12.21",
+            "version": "dev-CGIV-6610-select-all-orders",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "e7683f6a9ec3af1b5a30c78d3ad12c0e4621af83"
+                "reference": "f37134e76c418fa8d19d84557a3afb87606f909a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.21-9da4b9.zip",
-                "reference": "e7683f6a9ec3af1b5a30c78d3ad12c0e4621af83",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-CGIV-6610-select-all-orders-358604.zip",
+                "reference": "f37134e76c418fa8d19d84557a3afb87606f909a",
                 "shasum": null
             },
             "require": {
@@ -1991,7 +1986,7 @@
                     "CG\\Stdlib\\Test\\": "tests/CG/Stdlib"
                 }
             },
-            "time": "2016-01-18 09:39:42"
+            "time": "2016-01-27 11:37:15"
         },
         {
             "name": "channelgrabber/stock",
@@ -4557,6 +4552,57 @@
                 "json traversal"
             ],
             "time": "2015-07-22 08:39:53"
+        },
+        {
+            "name": "php-units-of-measure/php-units-of-measure",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PhpUnitsOfMeasure/php-units-of-measure.git",
+                "reference": "2424d6444333603c04bc16bc864cd0b45730ea65"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/php-units-of-measure-php-units-of-measure-2424d6444333603c04bc16bc864cd0b45730ea65-zip-ddc8b8.zip",
+                "reference": "2424d6444333603c04bc16bc864cd0b45730ea65",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "replace": {
+                "triplepoint/php-units-of-measure": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.8.*",
+                "squizlabs/php_codesniffer": "2.2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PhpUnitsOfMeasure\\": "source/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Hanson",
+                    "email": "jonathan@jonathan-hanson.org",
+                    "homepage": "http://www.jonathan-hanson.org/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A PHP library for converting between standard units of measure.",
+            "homepage": "https://github.com/PhpUnitsOfMeasure/php-units-of-measure",
+            "keywords": [
+                "conversion",
+                "data",
+                "measurements"
+            ],
+            "time": "2015-12-12 19:31:49"
         },
         {
             "name": "phpish/link_header",
@@ -7365,9 +7411,21 @@
             "package": "channelgrabber/order"
         },
         {
-            "alias": "1.16.27",
-            "alias_normalized": "1.16.27.0",
-            "version": "dev-CGIV-6378-improve-notifications-for-file-downloads",
+            "alias": "1.5.4",
+            "alias_normalized": "1.5.4.0",
+            "version": "dev-CGIV-6610-select-all-orders",
+            "package": "channelgrabber/product"
+        },
+        {
+            "alias": "2.12.22",
+            "alias_normalized": "2.12.22.0",
+            "version": "dev-CGIV-6610-select-all-orders",
+            "package": "channelgrabber/stdlib"
+        },
+        {
+            "alias": "1.16.26",
+            "alias_normalized": "1.16.26.0",
+            "version": "dev-CGIV-6610-select-all-orders",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
@@ -7375,6 +7433,8 @@
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/order": 20,
+        "channelgrabber/product": 20,
+        "channelgrabber/stdlib": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
