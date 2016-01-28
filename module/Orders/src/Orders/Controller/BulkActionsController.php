@@ -540,12 +540,12 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     public function archiveOrderIdsAction()
     {
-        return $this->performActionOnOrderIds(
-            'archived',
-            [$this, 'archiveOrders']
-        );
+        return $this->archiveOrders();
     }
 
+    /**
+     * @deprecated Use archiveOrderIdsAction()
+     */
     public function archiveFilterIdAction()
     {
         return $this->performActionOnFilterId(
@@ -554,9 +554,14 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         );
     }
 
-    public function archiveOrders(OrderCollection $orders)
+    protected function archiveOrders()
     {
-        $this->getOrderService()->archiveOrders($orders);
+        return $this->performPatchingAction('archived', [$this, 'archiveOrdersByFilter']);
+    }
+
+    protected function archiveOrdersByFilter(Filter $filter)
+    {
+        $this->orderService->archiveOrdersByFilter($filter);
     }
 
     public function checkInvoicePrintingAllowedAction()

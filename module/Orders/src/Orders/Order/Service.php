@@ -795,6 +795,15 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->notifyIntercom(static::EVENT_ORDERS_DISPATCHED);
     }
 
+    public function archiveOrdersByFilter(Filter $filter)
+    {
+        // Use patching as its faster than saving the individual orders
+        $this->orderClient->patchCollectionByFilterObject($filter, ['archived' => true]);
+    }
+
+    /**
+     * @deprecated Use tagOrdersByFilter()
+     */
     public function archiveOrders(OrderCollection $orders, $archive = true)
     {
         $exception = new MultiException();
