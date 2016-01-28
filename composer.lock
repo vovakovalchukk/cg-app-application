@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e4e30e766e7a4e974f708886a2ecb7c4",
-    "content-hash": "fa4f51650cf180947e881f4aed093c43",
+    "hash": "be79eccce7f12c3e02d9313d7c1b9efd",
+    "content-hash": "4cf505ee6cf05120d08ae8af8c0bc832",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1200,12 +1200,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "819802363b2cec8281ff8f6a8d59f7eef754ad6d"
+                "reference": "39fce3ff247068073560d9308028a7014a9c4d1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6610-select-all-orders-36532a.zip",
-                "reference": "819802363b2cec8281ff8f6a8d59f7eef754ad6d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6610-select-all-orders-d19a10.zip",
+                "reference": "39fce3ff247068073560d9308028a7014a9c4d1d",
                 "shasum": null
             },
             "require": {
@@ -1266,7 +1266,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-01-28 13:55:00"
+            "time": "2016-01-28 14:44:48"
         },
         {
             "name": "channelgrabber/permission",
@@ -3222,12 +3222,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "49e98a452858b529c16b070545f7dfb9d54e4e68"
+                "reference": "dec9275e26fe303b3ba8176439d620464f031dd1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6378-improve-notifications-for-file-downloads-aa251b.zip",
-                "reference": "49e98a452858b529c16b070545f7dfb9d54e4e68",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6378-improve-notifications-for-file-downloads-901b17.zip",
+                "reference": "dec9275e26fe303b3ba8176439d620464f031dd1",
                 "shasum": null
             },
             "require": {
@@ -3273,7 +3273,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-01-26 14:41:30"
+            "time": "2016-01-28 15:07:38"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7405,8 +7405,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.20.5",
-            "alias_normalized": "1.20.5.0",
+            "alias": "1.21.0",
+            "alias_normalized": "1.21.0.0",
             "version": "dev-CGIV-6610-select-all-orders",
             "package": "channelgrabber/order"
         },
@@ -7423,9 +7423,9 @@
             "package": "channelgrabber/stdlib"
         },
         {
-            "alias": "1.16.26",
-            "alias_normalized": "1.16.26.0",
-            "version": "dev-CGIV-6610-select-all-orders",
+            "alias": "1.16.27",
+            "alias_normalized": "1.16.27.0",
+            "version": "dev-CGIV-6378-improve-notifications-for-file-downloads",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
