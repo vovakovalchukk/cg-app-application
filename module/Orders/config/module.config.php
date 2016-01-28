@@ -322,6 +322,16 @@ return [
                                 ],
                                 'may_terminate' => true,
                                 'child_routes' => [
+                                    'validate' => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/validate',
+                                            'defaults' => [
+                                                'action' => 'validate'
+                                            ],
+                                        ],
+                                        'may_terminate' => true
+                                    ],
                                     'set' => [
                                         'type' => 'Zend\Mvc\Router\Http\Literal',
                                         'options' => [

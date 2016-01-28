@@ -307,16 +307,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.19.6",
+            "version": "1.19.9.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "8387a534878254ffd5dfd7ed05a5a902765a4cf2"
+                "reference": "628588602884e0763cfe3abf9a595df9997d452f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.19.6-0b20cf.zip",
-                "reference": "8387a534878254ffd5dfd7ed05a5a902765a4cf2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.19.9.1-b6ea06.zip",
+                "reference": "628588602884e0763cfe3abf9a595df9997d452f",
                 "shasum": null
             },
             "require": {
@@ -347,8 +347,6 @@
                 "ext-gearman": "~1.1.0",
                 "guzzle/guzzle": "~3.7",
                 "nocarrier/hal": "~0.9.4",
-                "php-jsonpatch/php-jsonpatch": "dev-master",
-                "php-jsonpointer/php-jsonpointer": "@dev",
                 "zendframework/zend-di": ">=2.2.5,<3.0"
             },
             "replace": {
@@ -373,7 +371,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2015-12-21 09:29:40"
+            "time": "2016-01-07 14:35:38"
         },
         {
             "name": "channelgrabber/cilex",
@@ -613,32 +611,32 @@
         },
         {
             "name": "channelgrabber/ebay",
-            "version": "1.9.33",
+            "version": "1.9.42",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-ebay.git",
-                "reference": "739bb33b47716c660ddaf7cf060c07c0b80d454d"
+                "reference": "3d3d525e1d052296011b7572c32ecadf451e0283"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.9.33-a8fc8f.zip",
-                "reference": "739bb33b47716c660ddaf7cf060c07c0b80d454d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ebay-1.9.42-15d975.zip",
+                "reference": "3d3d525e1d052296011b7572c32ecadf451e0283",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/cglib": "^1.8.4",
-                "channelgrabber/channel": "^1.18.4",
+                "channelgrabber/channel": "^1.19.9",
                 "channelgrabber/communication": "^1.0.0",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.1.0",
                 "channelgrabber/gearman": "^1.2.13",
                 "channelgrabber/http": ">=1.3.0,<2.0.0",
-                "channelgrabber/listing": "^1.6.12",
+                "channelgrabber/listing": "^1.9.4",
                 "channelgrabber/locale": "^1.0.5",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.19.20",
-                "channelgrabber/product": "^1.4.14",
+                "channelgrabber/product": "^1.5.0",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stdlib": "^2.12.0",
@@ -648,8 +646,7 @@
                 "composer/composer": "@dev",
                 "ext-gearman": "~1.1.0",
                 "guzzle/guzzle": "~3.7",
-                "php-jsonpatch/php-jsonpatch": "dev-master",
-                "php-jsonpointer/php-jsonpointer": "dev-master",
+                "php-units-of-measure/php-units-of-measure": "~2.0.0",
                 "zendframework/zend-di": ">=2.2.5",
                 "zendframework/zend-eventmanager": ">=2.2.5"
             },
@@ -668,7 +665,7 @@
                     "CG\\Ebay\\Test\\": "tests/Test/"
                 }
             },
-            "time": "2015-11-19 13:36:44"
+            "time": "2016-01-27 13:56:41"
         },
         {
             "name": "channelgrabber/ekm",
@@ -4555,6 +4552,57 @@
                 "json traversal"
             ],
             "time": "2015-07-22 08:39:53"
+        },
+        {
+            "name": "php-units-of-measure/php-units-of-measure",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PhpUnitsOfMeasure/php-units-of-measure.git",
+                "reference": "2424d6444333603c04bc16bc864cd0b45730ea65"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/php-units-of-measure-php-units-of-measure-2424d6444333603c04bc16bc864cd0b45730ea65-zip-ddc8b8.zip",
+                "reference": "2424d6444333603c04bc16bc864cd0b45730ea65",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "replace": {
+                "triplepoint/php-units-of-measure": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.8.*",
+                "squizlabs/php_codesniffer": "2.2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PhpUnitsOfMeasure\\": "source/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Hanson",
+                    "email": "jonathan@jonathan-hanson.org",
+                    "homepage": "http://www.jonathan-hanson.org/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A PHP library for converting between standard units of measure.",
+            "homepage": "https://github.com/PhpUnitsOfMeasure/php-units-of-measure",
+            "keywords": [
+                "conversion",
+                "data",
+                "measurements"
+            ],
+            "time": "2015-12-12 19:31:49"
         },
         {
             "name": "phpish/link_header",
