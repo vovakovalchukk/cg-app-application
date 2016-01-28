@@ -9,7 +9,7 @@ use CG\User\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Batch\Entity as BatchEntity;
-use CG\Order\Client\StorageInterface as OrderClient;
+use CG\Order\Client\Service as OrderClient;
 use Zend\Di\Di;
 use Guzzle\Common\Exception\GuzzleException;
 use Predis\Client as PredisClient;
@@ -112,6 +112,9 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         );
     }
 
+    /**
+     * @deprecated Use createFromFilter()
+     */
     public function create(Orders $orders)
     {
         if (empty($orders)) {
@@ -123,6 +126,13 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->updateOrders($orders, $batch->getName());
     }
 
+    public function createFromFilter(Filter $filter)
+    {
+        $this->logDebug("Creating batch from filter", [], 'OrdersBatchService');
+        $batch = $this->createBatch();
+        $this->updateOrdersByFilter($filter, $batch->getName());
+    }
+
     public function remove(Orders $orders)
     {
         if (empty($orders)) {
@@ -130,6 +140,11 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         }
 
         $this->updateOrders($orders);
+    }
+
+    public function removeByFilter(Filter $filter)
+    {
+        $this->updateOrdersByFilter($filter);
     }
 
     protected function createBatch()
@@ -164,6 +179,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
                 // Batch already correct - ignore
             }
         }
+    }
+
+    protected function updateOrdersByFilter(Filter $filter, $batch = null)
+    {
+        // Use patching as its faster than saving the individual orders
+        $this->orderClient->patchCollectionByFilterObject($filter, ['batch' => $batch]);
     }
 
     protected function generateBatchId($rootOu, $increment)

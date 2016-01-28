@@ -90,7 +90,11 @@ class OrdersToOperateOn
     protected function saveFilterAsOrderIds(Filter $filter)
     {
         $filter->setConvertToOrderIds(true);
-        return $this->filterStorage->save($filter);
+        $filter = $this->filterStorage->save($filter);
+        // Saving a filter strips the pagination so we can change it later, need to re-add it
+        $filter->setLimit('all')
+            ->setPage(1);
+        return $filter;
     }
 
     protected function setOrderService(OrderService $orderService)

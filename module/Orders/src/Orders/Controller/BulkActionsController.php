@@ -2,6 +2,7 @@
 namespace Orders\Controller;
 
 use CG\Http\Exception\Exception3xx\NotModified;
+use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -212,6 +213,9 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         return $this->performAction(static::TYPE_ORDER_IDS, $action, $callable);
     }
 
+    /**
+     * @deprecated
+     */
     protected function performActionOnFilterId($action, callable $callable)
     {
         return $this->performAction(static::TYPE_FILTER_ID, $action, $callable);
@@ -247,6 +251,20 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             throw new \Exception('Failed to update the following orders: ' . implode(', ', $failedOrderIds), 0, $exception);
         }
         return $response->setVariable($action, true);
+    }
+
+    protected function performPatchingAction($action, callable $callable)
+    {
+        $this->checkUsage();
+        $response = $this->getDefaultJsonResponse($action);
+
+        $input = $this->params()->fromPost();
+        $filter = $this->ordersToOperatorOn->buildFilterFromInput($input);
+        $callable($filter);
+
+        $response->setVariable($action, true)
+            ->setVariable('filterId', $filter->getId());
+        return $response;
     }
 
     public function invoiceOrderIdsAction($orderBy = null, $orderDir = 'ASC')
@@ -366,16 +384,12 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     protected function tagOrders()
     {
-        $this->checkUsage();
-        $response = $this->getDefaultJsonResponse('tagged');
+        return $this->performPatchingAction('tagged', [$this, 'tagOrdersByFilter']);
+    }
 
-        $input = $this->params()->fromPost();
-        $filter = $this->ordersToOperatorOn->buildFilterFromInput($input);
+    protected function tagOrdersByFilter(Filter $filter)
+    {
         $this->orderService->tagOrdersByFilter($this->getTag(), $filter);
-
-        $response->setVariable('tagged', true)
-            ->setVariable('filterId', $filter->getId());
-        return $response;
     }
 
     protected function unTagOrders()
@@ -428,12 +442,12 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     public function batchOrderIdsAction()
     {
-        return $this->performActionOnOrderIds(
-            'batched',
-            [$this, 'batchOrders']
-        );
+        return $this->batchOrders();
     }
 
+    /**
+     * @deprecated Use batchOrderIdsAction()
+     */
     public function batchFilterIdAction()
     {
         return $this->performActionOnFilterId(
@@ -442,19 +456,24 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         );
     }
 
-    public function batchOrders(OrderCollection $orders)
+    protected function batchOrders()
     {
-        $this->getBatchService()->create($orders);
+        return $this->performPatchingAction('batched', [$this, 'batchOrdersByFilter']);
+    }
+
+    protected function batchOrdersByFilter(Filter $filter)
+    {
+        $this->batchService->createFromFilter($filter);
     }
 
     public function unBatchOrderIdsAction()
     {
-        return $this->performActionOnOrderIds(
-            'unBatched',
-            [$this, 'unBatchOrders']
-        );
+        return $this->unBatchOrders();
     }
 
+    /**
+     * @deprecated Use batchOrderIdsAction()
+     */
     public function unBatchFilterIdAction()
     {
         return $this->performActionOnFilterId(
@@ -463,9 +482,14 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         );
     }
 
-    public function unBatchOrders(OrderCollection $orders)
+    public function unBatchOrders()
     {
-        $this->getBatchService()->remove($orders);
+        return $this->performPatchingAction('unBatched', [$this, 'unBatchOrdersByFilter']);
+    }
+
+    protected function unBatchOrdersByFilter(Filter $filter)
+    {
+        $this->batchService->removeByFilter($filter);
     }
 
     public function cancelOrderIdsAction()
