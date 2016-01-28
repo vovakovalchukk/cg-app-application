@@ -15,18 +15,18 @@ require([
         "address/Address",
         "alert/Alert",
         "orderDetails/OrderDetailsPage",
-        "tracking/Tracking",
+        "tracking/orderTracking",
         "Clipboard"
     ],
-    function(NoteDomAccess, Notes, Note, OrderDetailsSidebar, Address, Alert, OrderDetailsPage, Tracking, Clipboard) {
+    function(NoteDomAccess, Notes, Note, OrderDetailsSidebar, Address, Alert, OrderDetailsPage, OrderTracking, Clipboard) {
         //References to n need to be migrated, it is the notification library
         var noteDomAccess = new NoteDomAccess('#notes', '#note-input', CGMustache);
         var notes = new Notes(noteDomAccess, n, Note);
         var sidebar = new OrderDetailsSidebar();
         var address = new Address(n, '#addressInformation');
-        var tracking = new Tracking(n, '#trackingInformation');
+        var orderTracking = new OrderTracking(n, '#trackingInformation');
         var alert = new Alert(n, '#alert');
-        var orderDetailsPage = new OrderDetailsPage(sidebar, address, notes, alert, tracking);
+        var orderDetailsPage = new OrderDetailsPage(sidebar, address, notes, alert, orderTracking);
 
         var billingClipboard = new Clipboard(
             '#copy-billing-address',
@@ -250,8 +250,12 @@ require([
 <?php if ($this->editable): ?>
 <div class="module clearfix section-separator" id="tracking-information">
     <span class="heading-large heading-spacing"><?= $this->translate('Shipping'); ?></span>
-    <form id="trackingInformation" data-url="<?= $this->url('Orders/order/tracking', array('order' => $order->getId())); ?>"
-              data-actionMessage="<?= $this->translate('Updating tracking info'); ?>" data-successMessage="<?= $this->translate('Tracking info updated'); ?>">
+    <form id="trackingInformation"
+          data-url="<?= $this->url('Orders/order/tracking', array('order' => $order->getId())); ?>"
+          data-actionMessage="<?= $this->translate('Updating tracking info'); ?>"
+          data-confirmMessage="<?= $this->translate('You have used this tracking number before, you may have an error when dispatching. Do you wish to continue using this tracking number?'); ?>"
+          data-successMessage="<?= $this->translate('Tracking info updated'); ?>"
+        >
         <div class="half">
         <?php if (isset($this->printShippingLabelButton)): ?>
         <label>

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "37e4f064cb6995f2cbe1a6b001fe2afb",
-    "content-hash": "3565da75481518e12fc179b89d2c1203",
+    "hash": "b966092aaaa5e3dff46fe74ad2237d17",
+    "content-hash": "51e92ab96d769b04d00f6f103f81481c",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3220,16 +3220,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.25",
+            "version": "dev-CGIV-6498-SingleUseTrackingNumbers",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "7afeaf149a975394bf19fb19acfb473377f394cc"
+                "reference": "597980d966cd6587c1d8933f1e7cc0c575e27982"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.25-cf5c11.zip",
-                "reference": "7afeaf149a975394bf19fb19acfb473377f394cc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6498-SingleUseTrackingNumbers-62c3d5.zip",
+                "reference": "597980d966cd6587c1d8933f1e7cc0c575e27982",
                 "shasum": null
             },
             "require": {
@@ -3275,7 +3275,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-01-21 08:54:18"
+            "time": "2016-01-28 10:35:46"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7412,12 +7412,19 @@
             "alias_normalized": "1.20.6.0",
             "version": "dev-CGIV-6498-SingleUseTrackingNumbers",
             "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.16.26",
+            "alias_normalized": "1.16.26.0",
+            "version": "dev-CGIV-6498-SingleUseTrackingNumbers",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/order": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
