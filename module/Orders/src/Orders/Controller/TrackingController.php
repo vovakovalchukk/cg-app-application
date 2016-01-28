@@ -1,18 +1,20 @@
 <?php
 namespace Orders\Controller;
 
+use CG\Http\Exception\Exception3xx\NotModified;
+use CG\Order\Client\Service as OrderService;
+use CG\Order\Service\Tracking\Service;
+use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\Tracking\Entity as Tracking;
+use CG\Order\Shared\Tracking\Filter;
+use CG\Order\Shared\Tracking\Mapper;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
-use CG_UI\View\Prototyper\JsonModelFactory;
-use Zend\Mvc\Controller\AbstractActionController;
-use CG\Order\Service\Tracking\Service as TrackingService;
-use CG\Order\Shared\Tracking\Mapper as TrackingMapper;
-use CG\Order\Shared\Tracking\Entity as TrackingEntity;
-use CG\Order\Client\Service as OrderService;
+use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
-use CG\Stdlib\DateTime as StdlibDateTime;
-use CG\Http\Exception\Exception3xx\NotModified;
+use CG_UI\View\Prototyper\JsonModelFactory;
+use Zend\Mvc\Controller\AbstractActionController;
 
 class TrackingController extends AbstractActionController implements StatsAwareInterface
 {
@@ -30,15 +32,32 @@ class TrackingController extends AbstractActionController implements StatsAwareI
     public function __construct(
         ActiveUserInterface $activeUserContainer,
         JsonModelFactory $jsonModelFactory,
-        TrackingService $service,
-        TrackingMapper $mapper,
-        OrderService $orderService)
-    {
-        $this->setJsonModelFactory($jsonModelFactory)
-            ->setTrackingService($service)
+        Service $service,
+        Mapper $mapper,
+        OrderService $orderService
+    ) {
+        $this
+            ->setJsonModelFactory($jsonModelFactory)
+            ->setService($service)
             ->setMapper($mapper)
             ->setOrderService($orderService)
             ->setActiveUserContainer($activeUserContainer);
+    }
+
+    public function validateAction()
+    {
+        $filter = (new Filter(1))
+            ->setOrganisationUnitId($this->getActiveUserContainer()->getActiveUser()->getOuList())
+            ->setNumber([$this->params()->fromPost('trackingNumber')]);
+
+        $view = $this->getJsonModelFactory()->newInstance();
+        try {
+            $this->getService()->fetchCollectionByFilter($filter);
+            $view->setVariable('valid', false);
+        } catch (NotFound $exception) {
+            $view->setVariable('valid', true);
+        }
+        return $view;
     }
 
     public function updateAction()
@@ -46,9 +65,9 @@ class TrackingController extends AbstractActionController implements StatsAwareI
         $tracking = $this->fetchTracking();
         $tracking = $this->update($tracking);
         try {
-            $this->getTrackingService()->save($tracking);
+            $this->getService()->save($tracking);
             $order = $this->fetchOrder();
-            $this->getTrackingService()->createGearmanJob($order);
+            $this->getService()->createGearmanJob($order);
             $this->statsIncrement(
                 static::STAT_ORDER_ACTION_TRACKED, [
                     $order->getChannel(),
@@ -68,14 +87,17 @@ class TrackingController extends AbstractActionController implements StatsAwareI
     {
         $tracking = $this->fetchTracking();
         if ($tracking) {
-            $this->getTrackingService()->remove($tracking);
+            $this->getService()->remove($tracking);
         }
-        $this->getTrackingService()->createGearmanJob($this->fetchOrder()); 
+        $this->getService()->createGearmanJob($this->fetchOrder()); 
         $view = $this->getJsonModelFactory()->newInstance();
         $view->setVariable('eTag', '');
         return $view;
     }
 
+    /**
+     * @return Tracking
+     */
     protected function create()
     {
         $tracking = $this->getMapper()->fromArray(
@@ -91,23 +113,29 @@ class TrackingController extends AbstractActionController implements StatsAwareI
         return $tracking;
     }
 
-    protected function update(TrackingEntity $tracking)
+    protected function update(Tracking $tracking)
     {
         $tracking->setNumber($this->params()->fromPost('trackingNumber'))
             ->setCarrier($this->params()->fromPost('carrier'));
         return $tracking;
     }
 
+    /**
+     * @return Order
+     */
     protected function fetchOrder()
     {
         return $this->getOrderService()->fetch($this->params()->fromRoute('order'));
     }
 
+    /**
+     * @return Tracking
+     */
     protected function fetchTracking()
     {
         try {
             $orderId = $this->params('order');
-            $trackingCollection = $this->getTrackingService()->fetchCollectionByOrderIds([$orderId]);
+            $trackingCollection = $this->getService()->fetchCollectionByOrderIds([$orderId]);
             $trackings = $trackingCollection->getByOrderId($orderId);
             $trackings->rewind();
             $tracking = $trackings->current();
@@ -118,57 +146,87 @@ class TrackingController extends AbstractActionController implements StatsAwareI
         return $tracking;
     }
 
-    public function setTrackingService(TrackingService $service)
+    /**
+     * @return self
+     */
+    protected function setService(Service $service)
     {
         $this->trackingService = $service;
         return $this;
     }
 
-    public function getTrackingService()
+    /**
+     * @return Service
+     */
+    protected function getService()
     {
         return $this->trackingService;
     }
 
-    public function setMapper(TrackingMapper $mapper)
+    /**
+     * @return self
+     */
+    protected function setMapper(Mapper $mapper)
     {
         $this->mapper = $mapper;
         return $this;
     }
 
-    public function getMapper()
+    /**
+     * @return Mapper
+     */
+    protected function getMapper()
     {
         return $this->mapper;
     }
 
-    public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
+    /**
+     * @return self
+     */
+    protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
     {
         $this->jsonModelFactory = $jsonModelFactory;
         return $this;
     }
 
-    public function getJsonModelFactory()
+    /**
+     * @return JsonModelFactory
+     */
+    protected function getJsonModelFactory()
     {
         return $this->jsonModelFactory;
     }
 
-    public function setOrderService(OrderService $orderService)
+    /**
+     * @return self
+     */
+    protected function setOrderService(OrderService $orderService)
     {
         $this->orderService = $orderService;
         return $this;
     }
 
-    public function getOrderService()
+    /**
+     * @return OrderService
+     */
+    protected function getOrderService()
     {
         return $this->orderService;
     }
 
-    public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
+    /**
+     * @return self
+     */
+    protected function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
     {
         $this->activeUserContainer = $activeUserContainer;
         return $this;
     }
 
-    public function getActiveUserContainer()
+    /**
+     * @return ActiveUserInterface
+     */
+    protected function getActiveUserContainer()
     {
         return $this->activeUserContainer;
     }
