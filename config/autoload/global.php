@@ -59,6 +59,8 @@ use CG\OrganisationUnit\Storage\Api as OrganisationUnitStorageApi;
 
 //Order Counts
 use CG\Order\Shared\OrderCounts\Storage\Api as OrderCountsApi;
+// Order usage
+use CG_Usage\Service as UsageService;
 
 // Settings
 use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
@@ -172,6 +174,7 @@ return array(
                 AccountManifestStorage::class => AccountManifestApiStorage::class,
                 TransactionClient::class => RedisTransactionClient::class,
                 StockLogStorage::class => StockLogApiStorage::class,
+                UsageService::class => 'order_count_usage_service',
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,

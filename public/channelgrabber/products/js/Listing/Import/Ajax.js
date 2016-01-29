@@ -1,18 +1,21 @@
 define([
+    'AjaxRequester'
 ], function (
+    ajaxRequester
 ) {
     var Ajax = function ()
     {
+        this.getAjaxRequester = function()
+        {
+            return ajaxRequester;
+        };
     };
 
     Ajax.prototype.refresh = function(callback)
     {
-        $.ajax({
-            'url': '/products/listing/import/refresh',
-            'type': 'POST',
-            'success': function() {
-                callback();
-            }
+        this.getAjaxRequester().sendRequest('/products/listing/import/refresh', {}, function()
+        {
+            callback();
         });
     };
 
