@@ -1,17 +1,8 @@
-require.config({
-    paths: {
-        CourierAction: "<?= $this->baseUrl . Orders\Module::PUBLIC_FOLDER . 'js/courier' ?>"
-    }
+require(["Orders/courier"], function(CourierAction)
+{
+    var courierAction = new CourierAction();
+    courierAction.init('<?=$selector;?>');
 });
-require(
-    ["CourierAction"],
-    function(CourierAction) {
-        var courierAction = new CourierAction();
-        $("#<?= $id ?>").bulkActions("set", "<?= $action ?>", function() {
-            courierAction.action(this);
-        });
-    }
-);
 <?php
 if(isset($order)) {
     $this->placeholder($id . '-' . $action)

@@ -1,18 +1,20 @@
 define([
-    './EventHandler/CourierManifest.js',
-    'AjaxRequester',
+    'Orders/OrdersBulkActionAbstract',
+    'Orders/EventHandler/CourierManifest',
     'popup/generic',
     'popup/confirm',
     'cg-mustache'
 ], function(
+    OrdersBulkActionAbstract,
     EventHandler,
-    ajaxRequester,
     Popup,
     Confirm,
     CGMustache
 ) {
     function CourierManifest(templateMap)
     {
+        OrdersBulkActionAbstract.call(this);
+
         var eventHandler;
         var templates;
         var popup;
@@ -27,11 +29,6 @@ define([
         this.getEventHandler = function()
         {
             return eventHandler;
-        };
-
-        this.getAjaxRequester = function()
-        {
-            return ajaxRequester;
         };
 
         this.getTemplates = function()
@@ -78,17 +75,14 @@ define([
             return this;
         };
 
-        this.getNotifications = function()
-        {
-            return n;
-        };
-
         var init = function()
         {
             eventHandler = new EventHandler(this);
         };
         init.call(this);
     }
+
+    CourierManifest.prototype = Object.create(OrdersBulkActionAbstract.prototype);
 
     CourierManifest.URL_GET_ACCOUNTS = '/orders/courier/manifest/accounts';
     CourierManifest.URL_GET_DETAILS = '/orders/courier/manifest/details';
@@ -103,7 +97,7 @@ define([
     CourierManifest.SELECTOR_HISTORIC_DATES = '.courier-manifest-historic-dates';
     CourierManifest.SELECTOR_PRINT_FORM = '.courier-manifest-print-form';
 
-    CourierManifest.prototype.action = function(element)
+    CourierManifest.prototype.invoke = function()
     {
         if (this.getPopup()) {
             this.getPopup().show();
@@ -115,7 +109,7 @@ define([
     CourierManifest.prototype.createPopup = function()
     {
         var self = this;
-        this.getNotifications().notice('Loading manifest details');
+        this.getNotificationHandler().notice('Loading manifest details');
         var popup = new Popup('', CourierManifest.POPUP_WIDTH_PX, CourierManifest.POPUP_HEIGHT_PX);
         this.setPopup(popup);
 
@@ -150,7 +144,7 @@ define([
                 self.renderDetails(data);
             }
             self.getPopup().show();
-            self.getNotifications().clearNotifications();
+            self.getNotificationHandler().clearNotifications();
         });
     };
 
@@ -158,13 +152,13 @@ define([
     {
         var self = this;
         this.setSelectedAccountId(accountId);
-        this.getNotifications().notice('Loading courier manifest details');
+        this.getNotificationHandler().notice('Loading courier manifest details');
         $(CourierManifest.SELECTOR_GENERATE_SECTION).empty();
         $(CourierManifest.SELECTOR_HISTORIC_SECTION).empty();
         this.getAjaxRequester().sendRequest(CourierManifest.URL_GET_DETAILS, {"account": accountId}, function(response)
         {
             self.renderDetails(response);
-            self.getNotifications().clearNotifications();
+            self.getNotificationHandler().clearNotifications();
         }, function(response)
         {
             self.ajaxError(response);
@@ -255,11 +249,11 @@ define([
     {
         var self = this;
         var accountId = this.getSelectedAccountId();
-        this.getNotifications().notice('Generating manifest, this might take a few moments');
+        this.getNotificationHandler().notice('Generating manifest, this might take a few moments');
         this.getPopup().hide();
         this.getAjaxRequester().sendRequest(CourierManifest.URL_GENERATE, {"account": accountId}, function(response)
         {
-            self.getNotifications().success('Manifest generated successfully, now downloading...');
+            self.getNotificationHandler().success('Manifest generated successfully, now downloading...');
             self.sendPrintManifestRequest(response.id);
             self.removePopup();
         }, function(response)
@@ -280,7 +274,7 @@ define([
     CourierManifest.prototype.historicYearSelected = function(year)
     {
         var self = this;
-        this.getNotifications().notice('Loading historic manifest month options');
+        this.getNotificationHandler().notice('Loading historic manifest month options');
         $(CourierManifest.SELECTOR_HISTORIC_MONTHS).empty();
         $(CourierManifest.SELECTOR_HISTORIC_DATES).empty();
         var data = {
@@ -290,7 +284,7 @@ define([
         this.getAjaxRequester().sendRequest(CourierManifest.URL_GET_HISTORIC, data, function(response)
         {
             self.renderHistoricMonths(response.historic);
-            self.getNotifications().clearNotifications();
+            self.getNotificationHandler().clearNotifications();
         }, function(response)
         {
             self.ajaxError(response);
@@ -319,7 +313,7 @@ define([
     CourierManifest.prototype.historicMonthSelected = function(month, year)
     {
         var self = this;
-        this.getNotifications().notice('Loading historic manifest date options');
+        this.getNotificationHandler().notice('Loading historic manifest date options');
         $(CourierManifest.SELECTOR_HISTORIC_DATES).empty();
         var data = {
             "account": this.getSelectedAccountId(),
@@ -329,7 +323,7 @@ define([
         this.getAjaxRequester().sendRequest(CourierManifest.URL_GET_HISTORIC, data, function(response)
         {
             self.renderHistoricDates(response.historic);
-            self.getNotifications().clearNotifications();
+            self.getNotificationHandler().clearNotifications();
         }, function(response)
         {
             self.ajaxError(response);
@@ -354,7 +348,7 @@ define([
 
     CourierManifest.prototype.historicManifestSelected = function(manifestId)
     {
-        this.getNotifications().notice('Downloading manifest', true);
+        this.getNotificationHandler().notice('Downloading manifest', true);
         this.getPopup().hide();
         this.sendPrintManifestRequest(manifestId);
     };
@@ -362,7 +356,7 @@ define([
     CourierManifest.prototype.ajaxError = function(response)
     {
         this.removePopup();
-        this.getNotifications().ajaxError(response);
+        this.getNotificationHandler().ajaxError(response);
     };
 
     CourierManifest.prototype.removePopup = function()

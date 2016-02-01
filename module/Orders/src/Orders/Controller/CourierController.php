@@ -10,6 +10,7 @@ use Orders\Module;
 use Orders\Courier\Label\PrintService as LabelPrintService;
 use Orders\Courier\Manifest\Service as ManifestService;
 use Orders\Courier\Service;
+use Orders\Order\BulkActions\OrdersToOperateOn;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -40,6 +41,8 @@ class CourierController extends AbstractActionController
     protected $labelPrintService;
     /** @var ManifestService */
     protected $manifestService;
+    /** @var OrdersToOperateOn */
+    protected $ordersToOperatorOn;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -47,14 +50,16 @@ class CourierController extends AbstractActionController
         DataTable $specificsTable,
         Service $service,
         LabelPrintService $labelPrintService,
-        ManifestService $manifestService
+        ManifestService $manifestService,
+        OrdersToOperateOn $ordersToOperatorOn
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setReviewTable($reviewTable)
             ->setSpecificsTable($specificsTable)
             ->setService($service)
             ->setLabelPrintService($labelPrintService)
-            ->setManifestService($manifestService);
+            ->setManifestService($manifestService)
+            ->setOrdersToOperatorOn($ordersToOperatorOn);
     }
 
     public function indexAction()
@@ -67,7 +72,8 @@ class CourierController extends AbstractActionController
      */
     public function reviewAction()
     {
-        $orderIds = $this->params()->fromPost('order', []);
+        $orders = $this->getOrdersFromInput();
+        $orderIds = $orders->getIds();
         $view = $this->viewModelFactory->newInstance();
         $this->prepReviewTable();
 
@@ -81,6 +87,13 @@ class CourierController extends AbstractActionController
         $view->setVariable('subHeaderHide', true);
 
         return $view;
+    }
+
+    protected function getOrdersFromInput()
+    {
+        $input = $this->params()->fromPost();
+        $ordersToOperatorOn = $this->ordersToOperatorOn;
+        return $ordersToOperatorOn($input);
     }
 
     protected function prepReviewTable()
@@ -398,6 +411,12 @@ class CourierController extends AbstractActionController
     protected function setManifestService(ManifestService $manifestService)
     {
         $this->manifestService = $manifestService;
+        return $this;
+    }
+
+    protected function setOrdersToOperatorOn(OrdersToOperateOn $ordersToOperatorOn)
+    {
+        $this->ordersToOperatorOn = $ordersToOperatorOn;
         return $this;
     }
 }

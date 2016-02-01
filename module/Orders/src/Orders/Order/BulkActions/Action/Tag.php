@@ -142,6 +142,7 @@ class Tag extends Action
         $subAction->setElementData($this->getElementData(), false);
         $subAction->addElementData('tag', $tag->getTag());
         $subAction->addElementView($this->getUrlView());
+        $subAction->setJavascript($this->getJavascript());
         return $subAction;
     }
 }

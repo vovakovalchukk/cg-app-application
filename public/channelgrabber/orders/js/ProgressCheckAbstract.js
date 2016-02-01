@@ -1,26 +1,12 @@
-define(function() {
+define(['Orders/OrdersBulkActionAbstract'], function(OrdersBulkActionAbstract)
+{
     var ProgressCheckAbstract = function(
-        notifications,
+        notifications, //deprecated
         startMessage,
         progressMessage,
         endMessage
     ) {
-        var element;
-
-        this.getElement = function ()
-        {
-            return $(element);
-        };
-
-        this.setElement = function(newElement)
-        {
-            element = newElement;
-        };
-
-        this.getNotifications = function()
-        {
-            return notifications;
-        };
+        OrdersBulkActionAbstract.call(this);
 
         this.getStartMessage = function()
         {
@@ -38,25 +24,9 @@ define(function() {
         };
     };
 
+    ProgressCheckAbstract.prototype = Object.create(OrdersBulkActionAbstract.prototype);
+
     ProgressCheckAbstract.prototype.notifyTimeoutHandle = null;
-
-    ProgressCheckAbstract.prototype.getDataTableElement = function()
-    {
-        var dataTable = this.getElement().data("datatable");
-        if (!dataTable) {
-            return $();
-        }
-        return $("#" + dataTable);
-    };
-
-    ProgressCheckAbstract.prototype.getOrders = function()
-    {
-        var orders = this.getElement().data("orders");
-        if (orders) {
-            return orders;
-        }
-        return this.getDataTableElement().cgDataTable("selected", ".checkbox-id");
-    };
 
     ProgressCheckAbstract.prototype.getFilterId = function()
     {
@@ -68,15 +38,30 @@ define(function() {
         return this.getElement().data("url") || "";
     };
 
-    ProgressCheckAbstract.prototype.getFormElement = function(orders)
+    ProgressCheckAbstract.prototype.getFormElement = function(guid)
     {
-        var form = $("<form><input name='" + this.getParam() + "' value='' /></form>").attr("action", this.getUrl()).attr("method", "POST").hide();
-        for (var index in orders) {
-            form.append(function() {
-                return $("<input />").attr("name", "orders[]").val(orders[index]);
-            });
+        var form = $("<form><input name='" + this.getParam() + "' value='" + guid + "' /></form>")
+            .attr("action", this.getUrl()).attr("method", "POST")
+            .hide();
+        var data = this.getDataToSubmit();
+        for (var key in data) {
+            var name = key;
+            var value = data[key];
+            if (!(value instanceof Array)) {
+                form.append(this.getFormInputElement(name, value));
+                continue;
+            }
+            name += '[]';
+            for (var count in value) {
+                form.append(this.getFormInputElement(name, value[count]));
+            }
         }
         return form;
+    };
+
+    ProgressCheckAbstract.prototype.getFormInputElement = function(name, value)
+    {
+        return '<input name="'+name+'" value="'+value+'" />';
     };
 
     ProgressCheckAbstract.prototype.getParam = function()
@@ -104,16 +89,22 @@ define(function() {
         throw 'ProgressCheckAbstract::getFreq must be overridden by child class';
     };
 
-    ProgressCheckAbstract.prototype.action = function(event)
+    ProgressCheckAbstract.prototype.invoke = function()
     {
         var orders = this.getOrders();
         if (!orders.length) {
             return;
         }
         var orderCount = orders.length;
+        if (this.isAllSelected()) {
+            orderCount = this.getTotalRecordCount();
+        }
 
         var fadeOut = true;
-        this.getNotifications().notice(this.getStartMessage(), fadeOut);
+        this.getNotificationHandler().notice(this.getStartMessage(), fadeOut);
+
+        // Can't save the filter as part of the main call as we're getting PDF / CSV data back so can't get the ID back
+        this.saveFilterOnly();
 
         $.ajax({
             context: this,
@@ -122,21 +113,20 @@ define(function() {
             dataType: 'json',
             success : function(data) {
                 if (!data.allowed) {
-                    return this.getNotifications().error('You do not have permission to do that');
+                    return this.getNotificationHandler().error('You do not have permission to do that');
                 }
-                this.getNotifications().notice(this.getProgressMessage(), true);
+                this.getNotificationHandler().notice(this.getProgressMessage(), true);
 
                 if (orderCount >= this.getMinOrders()) {
                     this.notifyTimeoutHandle = this.setupProgressCheck(orderCount, data.guid);
                 }
 
-                var form = this.getFormElement(orders);
-                form.find('input[name=' + this.getParam() + ']').val(data.guid);
+                var form = this.getFormElement(data.guid);
                 $("body").append(form);
                 form.submit().remove();
             },
             error: function(error, textStatus, errorThrown) {
-                return this.getNotifications().ajaxError(error, textStatus, errorThrown);
+                return this.getNotificationHandler().ajaxError(error, textStatus, errorThrown);
             }
         });
     };
@@ -160,17 +150,17 @@ define(function() {
                     }
 
                     var fadeOut = false;
-                    this.getNotifications().notice('Generated ' + data.progressCount + ' of ' + total, fadeOut);
+                    this.getNotificationHandler().notice('Generated ' + data.progressCount + ' of ' + total, fadeOut);
 
                     if (data.progressCount == total) {
                         clearTimeout(this.notifyTimeoutHandle);
                         fadeOut = true;
-                        this.getNotifications().success(self.getEndMessage(), fadeOut);
+                        this.getNotificationHandler().success(self.getEndMessage(), fadeOut);
                     }
                 },
                 error: function(error, textStatus, errorThrown) {
                     clearTimeout(this.notifyTimeoutHandle);
-                    return this.getNotifications().ajaxError(error, textStatus, errorThrown);
+                    return this.getNotificationHandler().ajaxError(error, textStatus, errorThrown);
                 }
             });
         }, self.getFreq());

@@ -3,20 +3,31 @@ namespace Orders\Filter;
 
 use CG\Order\Service\Filter;
 use CG\Order\Service\Filter\Mapper;
+use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
 use Zend\Session\ManagerInterface;
 
 class Service
 {
+    const FILTER_SHIPPING_METHOD_NAME = "shippingMethod";
+    const FILTER_SHIPPING_ALIAS_NAME = "shippingAliasId";
+
     protected $filter;
     protected $mapper;
     protected $persistentStorage;
+    /** @var ShippingConversionService */
+    protected $shippingConversionService;
 
-    public function __construct(Filter $filter, Mapper $mapper, ManagerInterface $persistentStorage)
-    {
+    public function __construct(
+        Filter $filter,
+        Mapper $mapper,
+        ManagerInterface $persistentStorage,
+        ShippingConversionService $shippingConversionService
+    ) {
         $this
             ->setFilter($filter)
             ->setMapper($mapper)
-            ->setPersistentStorage($persistentStorage);
+            ->setPersistentStorage($persistentStorage)
+            ->setShippingConversionService($shippingConversionService);
     }
 
     public function setFilter(Filter $filter)
@@ -88,5 +99,28 @@ class Service
     public function mergeFilters(Filter $filter1, Filter $filter2)
     {
         return $this->getMapper()->merge($filter1, $filter2);
+    }
+
+    public function addDefaultFiltersToArray(array $filters)
+    {
+        if (!isset($filters['archived'])) {
+            $filters['archived'] = [false];
+        }
+
+        $filters['hasItems'] = [true];
+
+        if (isset($filters[static::FILTER_SHIPPING_ALIAS_NAME])) {
+            $methodNames = $this->shippingConversionService
+                ->fromAliasIdsToMethodNames($filters[static::FILTER_SHIPPING_ALIAS_NAME]);
+            $filters[static::FILTER_SHIPPING_METHOD_NAME] = $methodNames;
+        }
+
+        return $filters;
+    }
+
+    protected function setShippingConversionService(ShippingConversionService $shippingConversionService)
+    {
+        $this->shippingConversionService = $shippingConversionService;
+        return $this;
     }
 }

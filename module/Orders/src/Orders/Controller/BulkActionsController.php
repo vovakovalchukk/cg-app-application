@@ -2,6 +2,7 @@
 namespace Orders\Controller;
 
 use CG\Http\Exception\Exception3xx\NotModified;
+use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
@@ -15,6 +16,7 @@ use Orders\Order\Service as OrderService;
 use Orders\Controller\BulkActions\InvalidArgumentException;
 use Orders\Controller\BulkActions\RuntimeException;
 use Orders\Order\Batch\Service as BatchService;
+use Orders\Order\BulkActions\OrdersToOperateOn;
 use Orders\Order\Exception\MultiException;
 use Orders\Order\Invoice\Service as InvoiceService;
 use Orders\Order\PickList\Service as PickListService;
@@ -38,8 +40,11 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     protected $csvService;
     protected $batchService;
     protected $usageService;
+    /** @var OrdersToOperateOn */
+    protected $ordersToOperatorOn;
+
     protected $typeMap = [
-        self::TYPE_ORDER_IDS => 'getOrdersFromOrderIds',
+        self::TYPE_ORDER_IDS => 'getOrdersFromInput',
         self::TYPE_FILTER_ID => 'getOrdersFromFilterId',
     ];
 
@@ -50,7 +55,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         PickListService $pickListService,
         CsvService $csvService,
         BatchService $batchService,
-        UsageService $usageService
+        UsageService $usageService,
+        OrdersToOperateOn $ordersToOperatorOn
     ) {
         $this
             ->setJsonModelFactory($jsonModelFactory)
@@ -59,7 +65,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
             ->setPickListService($pickListService)
             ->setCsvService($csvService)
             ->setBatchService($batchService)
-            ->setUsageService($usageService);
+            ->setUsageService($usageService)
+            ->setOrdersToOperatorOn($ordersToOperatorOn);
     }
 
     public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -174,11 +181,6 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         );
     }
 
-    protected function getOrderIds()
-    {
-        return (array) $this->params()->fromPost('orders', []);
-    }
-
     protected function getFilterId()
     {
         return $this->params()->fromRoute('filterId', '');
@@ -189,15 +191,16 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         return $this->params()->fromPost('invoiceProgressKey', null);
     }
 
-    protected function getOrdersFromOrderIds($orderBy = null, $orderDir = null)
+    protected function getOrdersFromInput($orderBy = null, $orderDir = null)
     {
-        $orderIds = $this->getOrderIds();
-        if (empty($orderIds)) {
-            throw new NotFound('No orderIds provided');
-        }
-        return $this->getOrderService()->getOrdersById($orderIds, 'all', 1, $orderBy, $orderDir);
+        $input = $this->params()->fromPost();
+        $ordersToOperatorOn = $this->ordersToOperatorOn;
+        return $ordersToOperatorOn($input, $orderBy, $orderDir);
     }
 
+    /**
+     * @deprecated use getOrdersFromInput
+     */
     protected function getOrdersFromFilterId($orderBy = null, $orderDir = null)
     {
         return $this->getOrderService()->getOrdersFromFilterId(
@@ -210,6 +213,9 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         return $this->performAction(static::TYPE_ORDER_IDS, $action, $callable);
     }
 
+    /**
+     * @deprecated
+     */
     protected function performActionOnFilterId($action, callable $callable)
     {
         return $this->performAction(static::TYPE_FILTER_ID, $action, $callable);
@@ -228,6 +234,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         $response = $this->getDefaultJsonResponse($action);
         try {
             $orders = $this->{$this->typeMap[$type]}();
+            $response->setVariable('filterId', $orders->getFilterId());
             $callable($orders);
         } catch (MultiException $exception) {
             $failedOrderIds = [];
@@ -246,14 +253,28 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         return $response->setVariable($action, true);
     }
 
+    protected function performPatchingAction($action, callable $callable)
+    {
+        $this->checkUsage();
+        $response = $this->getDefaultJsonResponse($action);
+
+        $input = $this->params()->fromPost();
+        $filter = $this->ordersToOperatorOn->buildFilterFromInput($input);
+        $callable($filter);
+
+        $response->setVariable($action, true)
+            ->setVariable('filterId', $filter->getId());
+        return $response;
+    }
+
     public function invoiceOrderIdsAction($orderBy = null, $orderDir = 'ASC')
     {
         try {
-            $orders = $this->getOrdersFromOrderIds($orderBy, $orderDir);
+            $orders = $this->getOrdersFromInput($orderBy, $orderDir);
             $this->markOrdersAsPrinted($orders);
             return $this->invoiceOrders($orders, null, $this->getInvoiceProgressKey());
         } catch (NotFound $exception) {
-            return $this->redirect()->toRoute('Orders');
+            throw new \RuntimeException('No orders were found to generate invoices for');
         }
     }
 
@@ -345,12 +366,14 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     public function tagOrderIdsAction()
     {
-        return $this->performActionOnOrderIds(
-            'tagged',
-            [$this, 'tagOrders']
-        );
+        $tagAction = $this->getTagAction();
+        return $this->{$tagAction}();
     }
 
+    /**
+     *
+     * @deprecated Use tagOrderIdsAction
+     */
     public function tagFilterIdAction()
     {
         return $this->performActionOnFilterId(
@@ -359,10 +382,27 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         );
     }
 
-    public function tagOrders(OrderCollection $orders)
+    protected function tagOrders()
     {
-        $tagAction = $this->getTagAction();
-        $this->getOrderService()->{$tagAction}(
+        return $this->performPatchingAction('tagged', [$this, 'tagOrdersByFilter']);
+    }
+
+    protected function tagOrdersByFilter(Filter $filter)
+    {
+        $this->orderService->tagOrdersByFilter($this->getTag(), $filter);
+    }
+
+    protected function unTagOrders()
+    {
+        return $this->performActionOnOrderIds(
+            'tagged',
+            [$this, 'doUnTagOrders']
+        );
+    }
+
+    protected function doUnTagOrders(OrderCollection $orders)
+    {
+        $this->getOrderService()->unTagOrders(
             $this->getTag(),
             $orders
         );
@@ -402,12 +442,12 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     public function batchOrderIdsAction()
     {
-        return $this->performActionOnOrderIds(
-            'batched',
-            [$this, 'batchOrders']
-        );
+        return $this->batchOrders();
     }
 
+    /**
+     * @deprecated Use batchOrderIdsAction()
+     */
     public function batchFilterIdAction()
     {
         return $this->performActionOnFilterId(
@@ -416,19 +456,24 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         );
     }
 
-    public function batchOrders(OrderCollection $orders)
+    protected function batchOrders()
     {
-        $this->getBatchService()->create($orders);
+        return $this->performPatchingAction('batched', [$this, 'batchOrdersByFilter']);
+    }
+
+    protected function batchOrdersByFilter(Filter $filter)
+    {
+        $this->batchService->createFromFilter($filter);
     }
 
     public function unBatchOrderIdsAction()
     {
-        return $this->performActionOnOrderIds(
-            'unBatched',
-            [$this, 'unBatchOrders']
-        );
+        return $this->unBatchOrders();
     }
 
+    /**
+     * @deprecated Use batchOrderIdsAction()
+     */
     public function unBatchFilterIdAction()
     {
         return $this->performActionOnFilterId(
@@ -437,9 +482,14 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         );
     }
 
-    public function unBatchOrders(OrderCollection $orders)
+    public function unBatchOrders()
     {
-        $this->getBatchService()->remove($orders);
+        return $this->performPatchingAction('unBatched', [$this, 'unBatchOrdersByFilter']);
+    }
+
+    protected function unBatchOrdersByFilter(Filter $filter)
+    {
+        $this->batchService->removeByFilter($filter);
     }
 
     public function cancelOrderIdsAction()
@@ -490,12 +540,12 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     public function archiveOrderIdsAction()
     {
-        return $this->performActionOnOrderIds(
-            'archived',
-            [$this, 'archiveOrders']
-        );
+        return $this->archiveOrders();
     }
 
+    /**
+     * @deprecated Use archiveOrderIdsAction()
+     */
     public function archiveFilterIdAction()
     {
         return $this->performActionOnFilterId(
@@ -504,9 +554,14 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         );
     }
 
-    public function archiveOrders(OrderCollection $orders)
+    protected function archiveOrders()
     {
-        $this->getOrderService()->archiveOrders($orders);
+        return $this->performPatchingAction('archived', [$this, 'archiveOrdersByFilter']);
+    }
+
+    protected function archiveOrdersByFilter(Filter $filter)
+    {
+        $this->orderService->archiveOrdersByFilter($filter);
     }
 
     public function checkInvoicePrintingAllowedAction()
@@ -517,7 +572,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function pickListOrderIdsAction($orderBy = null, $orderDir = 'ASC')
     {
         try {
-            $orders = $this->getOrdersFromOrderIds($orderBy, $orderDir);
+            $orders = $this->getOrdersFromInput($orderBy, $orderDir);
             $progressKey = $this->getPickListProgressKey();
             return $this->getPickListService()->getResponseFromOrderCollection($orders, $progressKey);
         } catch (NotFound $exception) {
@@ -539,7 +594,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function toCsvOrderIdsAction($orderBy = null, $orderDir = 'ASC')
     {
         try {
-            $orders = $this->getOrdersFromOrderIds($orderBy, $orderDir);
+            $orders = $this->getOrdersFromInput($orderBy, $orderDir);
             $csv = $this->getCsvService()->generateCsvForOrdersAndItems($orders);
             return new FileResponse(CsvService::MIME_TYPE, CsvService::FILENAME, (string) $csv);
         } catch (NotFound $exception) {
@@ -562,7 +617,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function toCsvOrderDataOnlyOrderIdsAction($orderBy = null, $orderDir = 'ASC')
     {
         try {
-            $orders = $this->getOrdersFromOrderIds($orderBy, $orderDir);
+            $orders = $this->getOrdersFromInput($orderBy, $orderDir);
             $csv = $this->getCsvService()->generateCsvForOrders($orders);
             return new FileResponse(CsvService::MIME_TYPE, CsvService::FILENAME, (string) $csv);
         } catch (NotFound $exception) {
@@ -634,5 +689,18 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         if ($this->getUsageService()->hasUsageBeenExceeded()) {
             throw new UsageExceeded();
         }
+    }
+
+    public function saveFilterAction()
+    {
+        // Getting the orders will trigger the 'OrdersToOperatorOn' invokable which will save the filter
+        $orders = $this->getOrdersFromInput();
+        return $this->getJsonModelFactory()->newInstance(['filterId' => $orders->getFilterId()]);
+    }
+
+    protected function setOrdersToOperatorOn(OrdersToOperateOn $ordersToOperatorOn)
+    {
+        $this->ordersToOperatorOn = $ordersToOperatorOn;
+        return $this;
     }
 }

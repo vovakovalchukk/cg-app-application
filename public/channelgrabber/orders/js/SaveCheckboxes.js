@@ -2,6 +2,7 @@ define(function() {
     var SaveCheckboxes = function()
     {
         var savedCheckboxes;
+        var savedCheckAll;
 
         this.getSavedCheckboxes = function()
         {
@@ -11,6 +12,18 @@ define(function() {
         this.setSavedCheckboxes = function(checkboxes)
         {
             savedCheckboxes = checkboxes;
+            return this;
+        };
+
+        this.getSavedCheckAll = function()
+        {
+            return savedCheckAll;
+        };
+
+        this.setSavedCheckAll = function(checkAll)
+        {
+            savedCheckAll = checkAll;
+            return this;
         };
     };
 
@@ -26,6 +39,9 @@ define(function() {
                 checkboxObj.attr('checked', true);
                 checkboxObj.closest('tr').addClass('selected');
             });
+            if (self.getSavedCheckAll()) {
+                $('#' + dataTable.attr('id') + '-select-all').prop('checked', true);
+            }
         });
 
     };

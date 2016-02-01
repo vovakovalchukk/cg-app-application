@@ -1,65 +1,72 @@
 define([
+    'Orders/OrdersBulkActionAbstract',
     'Orders/SaveCheckboxes'
 ], function(
+    OrdersBulkActionAbstract,
     saveCheckboxes
 ) {
-    return function(notifications) {
-        this.action = function(event) {
-            event.stopImmediatePropagation();
+    function Dispatch()
+    {
+        OrdersBulkActionAbstract.call(this);
 
-            var datatable = $(this).data("datatable");
-            var orders = $(this).data("orders");
-            var ajax = {
-                url: $(this).data("url"),
-                complete: function() {
-                    if (datatable) {
-                        var dataTableElement = $('#' + datatable);
-                        dataTableElement.cgDataTable("redraw");
-                        saveCheckboxes.refreshCheckboxes(dataTableElement);
-                    }
-                }
-            };
-
-            if (!orders && datatable) {
-                orders = $("#" + datatable).cgDataTable("selected", ".checkbox-id");
-            }
-
-            if (!orders.length) {
-                return;
-            }
-
-            ajax.data = {
-                'orders': orders
-            };
-
-            apply.call(this, orders, ajax);
-        };
-
-        var apply = function(orders, ajaxSettings) {
-            var ajax = {
-                context: this,
-                type: "POST",
-                dataType: 'json',
-                success : function(data) {
-                    if (data.dispatching) {
-                        saveCheckboxes.setSavedCheckboxes(orders);
-                        return notifications.success("Orders Marked for Dispatch");
-                    } else if (!data.error) {
-                        return notifications.error("Failed to marked Orders for Dispatch");
-                    }
-                    notifications.error(data.error);
-                },
-                error: function(request, textStatus, errorThrown) {
-                    return notifications.ajaxError(request, textStatus, errorThrown);
-                }
-            };
-
-            if (ajaxSettings !== undefined) {
-                $.extend(ajax, ajaxSettings);
-            }
-
-            notifications.notice("Marking Orders for Dispatch");
-            return $.ajax(ajax);
+        this.getSaveCheckboxes = function()
+        {
+            return saveCheckboxes;
         };
     };
+
+    Dispatch.prototype = Object.create(OrdersBulkActionAbstract.prototype);
+
+    Dispatch.prototype.invoke = function()
+    {
+        var orders = this.getOrders();
+        if (!orders.length) {
+            return;
+        }
+
+        var ajaxConfig = this.buildAjaxConfig();
+
+        this.getNotificationHandler().notice("Marking Orders for Dispatch");
+        return $.ajax(ajaxConfig);
+    };
+
+    Dispatch.prototype.buildAjaxConfig = function()
+    {
+        var self = this;
+        var datatable = this.getDataTableElement();
+        var data = this.getDataToSubmit();
+        return {
+            url: this.getElement().data("url"),
+            data: data,
+            context: this,
+            type: "POST",
+            dataType: 'json',
+            success : function(data)
+            {
+                if (data.dispatching) {
+                    this.setFilterId(data.filterId);
+                    self.getSaveCheckboxes().setSavedCheckboxes(self.getOrders())
+                        .setSavedCheckAll(this.isAllSelected());
+                    return self.getNotificationHandler().success("Orders Marked for Dispatch");
+                } else if (!data.error) {
+                    return self.getNotificationHandler().error("Failed to marked Orders for Dispatch");
+                }
+                self.getNotificationHandler().error(data.error);
+            },
+            error: function(request, textStatus, errorThrown)
+            {
+                return self.getNotificationHandler().ajaxError(request, textStatus, errorThrown);
+            },
+            complete: function()
+            {
+                if (!datatable.length) {
+                    return;
+                }
+                datatable.cgDataTable("redraw");
+                self.getSaveCheckboxes().refreshCheckboxes(datatable);
+            }
+        };
+    };
+
+    return Dispatch;
 });

@@ -1,4 +1,4 @@
-define(['ProgressCheckAbstract'],
+define(['Orders/ProgressCheckAbstract'],
     function(ProgressCheckAbstract) {
     var PickListBulkAction = function(
         notifications,

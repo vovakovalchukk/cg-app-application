@@ -1,15 +1,8 @@
-require.config({
-    paths: {
-        TagBulkAction: "<?= $this->baseUrl . Orders\Module::PUBLIC_FOLDER . 'js/tag' ?>"
-    }
+require(["Orders/tag"], function(TagBulkAction)
+{
+    var tagBulkAction = new TagBulkAction(n, "<?= Orders\Module::PUBLIC_FOLDER ?>template/popup/saveTag.mustache");
+    tagBulkAction.init('<?=$selector;?>');
 });
-require(
-    ["TagBulkAction"],
-    function(TagBulkAction) {
-        var tagBulkAction = new TagBulkAction(n, "<?= Orders\Module::PUBLIC_FOLDER ?>template/popup/saveTag.mustache");
-        $("#<?= $id ?>").bulkActions("set", "<?= $action ?>", tagBulkAction.action);
-    }
-);
 <?php
 if(isset($order)) {
     $this->placeholder($id . '-' . $action)
