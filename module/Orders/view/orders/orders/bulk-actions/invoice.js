@@ -1,24 +1,12 @@
-require.config({
-    paths: {
-        InvoiceBulkAction: "<?= $this->baseUrl . Orders\Module::PUBLIC_FOLDER . 'js/invoice' ?>",
-        ProgressCheckAbstract: "<?= $this->baseUrl . Orders\Module::PUBLIC_FOLDER . 'js/ProgressCheckAbstract' ?>"
-    }
+require(["Orders/invoice"], function(InvoiceBulkAction)
+{
+    var invoiceBulkAction = new InvoiceBulkAction(
+        "<?= $this->translate('Preparing to generate invoices') ?>",
+        "<?= $this->translate('Generating invoices') ?>",
+        "<?= $this->translate('Finished generating invoices') ?>"
+    );
+    invoiceBulkAction.init("<?= $selector ?>");
 });
-require(
-    ["InvoiceBulkAction"],
-    function(InvoiceBulkAction) {
-        var invoiceBulkAction = new InvoiceBulkAction(
-            n,
-            "<?= $this->translate('Preparing to generate invoices') ?>",
-            "<?= $this->translate('Generating invoices') ?>",
-            "<?= $this->translate('Finished generating invoices') ?>"
-        );
-        $("#<?= $id ?>").bulkActions("set", "<?= $action ?>", function() {
-            invoiceBulkAction.setElement(this);
-            invoiceBulkAction.action();
-        });
-    }
-);
 <?php
 if(isset($order)) {
     $this->placeholder($id . '-' . $action)

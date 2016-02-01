@@ -7,6 +7,18 @@ $(document).ready(function()
             datatable.removeData("filterId");
         });
 
+        $("#filters").on('apply', function()
+        {
+            removeFilterId();
+            $('#datatable-select-all').prop('checked', false).trigger('change');
+        });
+
+        datatable.on('fnDrawCallback', function()
+        {
+            $('#datatable input.select-all-group').off('change', removeFilterId).on('change', removeFilterId);
+            $('#datatable-select-all').off('change', removeFilterId).on('change', removeFilterId);
+        });
+
         datatable.on("fnServerData", function(event, sSource, aoData, fnCallback, oSettings) {
             var filterId = datatable.data("filterId");
             if (filterId) {
@@ -25,7 +37,6 @@ $(document).ready(function()
                     "value": value
                 });
             });
-
         });
 
         datatable.on("jqXHRBeforeSend", function(event, request, settings) {
@@ -49,4 +60,9 @@ $(document).ready(function()
             });
         }
     });
+
+    function removeFilterId()
+    {
+        $("#filters").removeData("id");
+    }
 });

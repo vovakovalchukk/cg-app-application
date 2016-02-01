@@ -1,12 +1,11 @@
-define(['ProgressCheckAbstract'],
-    function(ProgressCheckAbstract) {
+define(['Orders/ProgressCheckAbstract'], function(ProgressCheckAbstract)
+{
     var PickListBulkAction = function(
-        notifications,
         startMessage,
         progressMessage,
         endMessage
     ) {
-        ProgressCheckAbstract.call(this, notifications, startMessage, progressMessage, endMessage);
+        ProgressCheckAbstract.call(this, startMessage, progressMessage, endMessage);
     };
 
     PickListBulkAction.MIN_ORDERS_FOR_NOTIFICATION = 99999999; //disable it temporarily
@@ -14,7 +13,7 @@ define(['ProgressCheckAbstract'],
 
     PickListBulkAction.prototype = Object.create(ProgressCheckAbstract.prototype);
 
-    PickListBulkAction.prototype.getParam = function()
+    PickListBulkAction.prototype.getProgressKeyName = function()
     {
         return "pickListProgressKey";
     };
@@ -29,12 +28,12 @@ define(['ProgressCheckAbstract'],
         return "/orders/picklist/progress";
     };
 
-    PickListBulkAction.prototype.getMinOrders = function()
+    PickListBulkAction.prototype.getMinRecordsForProgress = function()
     {
         return PickListBulkAction.MIN_ORDERS_FOR_NOTIFICATION;
     };
 
-    PickListBulkAction.prototype.getFreq = function()
+    PickListBulkAction.prototype.getFreqMsForProgress = function()
     {
         return PickListBulkAction.NOTIFICATION_FREQ_MS;
     };

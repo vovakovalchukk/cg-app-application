@@ -41,6 +41,8 @@ class Service
     protected $gearmanClient;
     /** @var IntercomEventService $intercomEventService */
     protected $intercomEventService;
+    /** @var ProgressStorage */
+    protected $progressStorage;
 
     public function __construct(
         ActiveUserInterface $activeUserContainer,
@@ -50,7 +52,8 @@ class Service
         ImportFileStorage $importFileStorage,
         ImportFileMapper $importFileMapper,
         GearmanClient $gearmanClient,
-        IntercomEventService $intercomEventService
+        IntercomEventService $intercomEventService,
+        ProgressStorage $progressStorage
     ) {
         $this
             ->setActiveUserInterface($activeUserContainer)
@@ -60,7 +63,8 @@ class Service
             ->setImportFileStorage($importFileStorage)
             ->setImportFileMapper($importFileMapper)
             ->setGearmanClient($gearmanClient)
-            ->setIntercomEventService($intercomEventService);
+            ->setIntercomEventService($intercomEventService)
+            ->setProgressStorage($progressStorage);
     }
 
     public function uploadCsvForActiveUser($updateOption, $fileContents)
@@ -101,27 +105,28 @@ class Service
         );
     }
 
-    public function generateCsvForActiveUser()
+    public function generateCsvForActiveUser($progressKey = null)
     {
         return $this->generateCsv(
             $this->getActiveUserId(),
-            $this->activeUserContainer->getActiveUserRootOrganisationUnitId()
+            $this->activeUserContainer->getActiveUserRootOrganisationUnitId(),
+            $progressKey
         );
     }
 
-    public function generateCsv($userId, $organisationUnitId)
+    public function generateCsv($userId, $organisationUnitId, $progressKey = null)
     {
         $this->notifyOfExport($userId);
 
         $csv = CsvWriter::createFromFileObject(new \SplTempFileObject(-1));
         $csv->insertOne($this->getHeaders());
 
-        $this->applyStockValuesToCsv($csv, $organisationUnitId);
+        $this->applyStockValuesToCsv($csv, $organisationUnitId, $progressKey);
 
         return $csv;
     }
 
-    protected function applyStockValuesToCsv(CsvWriter $csv, $organisationUnitId)
+    protected function applyStockValuesToCsv(CsvWriter $csv, $organisationUnitId, $progressKey = null)
     {
         try {
             $page = 1;
@@ -158,9 +163,11 @@ class Service
                 $csv->insertAll(
                     $this->mapper->stockCollectionToCsvArray($stock, $products)
                 );
+                $this->progressStorage->incrementProgress($progressKey, count($stock), $stock->getTotal());
             }
         } catch (NotFound $e) {
-            // Do nothing, end of pagination
+            // End of pagination. End progress to show we're done
+            $this->endProgress($progressKey);
         }
     }
 
@@ -171,6 +178,40 @@ class Service
             "Product Name",
             "Total Stock"
         ];
+    }
+
+    public function startProgress($progressKey)
+    {
+        $this->progressStorage->setProgress($progressKey, 0);
+    }
+
+    /**
+     * @return int | null
+     */
+    public function checkProgress($progressKey)
+    {
+        $count = $this->progressStorage->getProgress($progressKey);
+        if ($count === null) {
+            return null;
+        }
+        return (int)$count;
+    }
+
+    protected function endProgress($progressKey)
+    {
+        $this->progressStorage->removeProgress($progressKey);
+    }
+
+    /**
+     * @return int | null
+     */
+    public function getTotalForProgress($key)
+    {
+        $total = $this->progressStorage->getTotal($key);
+        if ($total === null) {
+            return null;
+        }
+        return (int)$total;
     }
 
     protected function notifyOfExport($userId)
@@ -264,6 +305,12 @@ class Service
     public function setIntercomEventService(IntercomEventService $intercomEventService)
     {
         $this->intercomEventService = $intercomEventService;
+        return $this;
+    }
+
+    protected function setProgressStorage(ProgressStorage $progressStorage)
+    {
+        $this->progressStorage = $progressStorage;
         return $this;
     }
 }

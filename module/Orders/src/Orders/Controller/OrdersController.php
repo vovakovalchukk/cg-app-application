@@ -475,16 +475,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             ->setOrderDirection($orderBy->getDirection());
 
         $requestFilter = $this->params()->fromPost('filter', []);
-        if (!isset($requestFilter['archived'])) {
-            $requestFilter['archived'] = [false];
-        }
-
-        $requestFilter['hasItems'] = [true];
-
-        if (isset($requestFilter[static::FILTER_SHIPPING_ALIAS_NAME])) {
-            $methodNames = $this->getShippingConversionService()->fromAliasIdsToMethodNames($requestFilter[static::FILTER_SHIPPING_ALIAS_NAME]);
-            $requestFilter[static::FILTER_SHIPPING_METHOD_NAME] = $methodNames;
-        }
+        $requestFilter = $this->filterService->addDefaultFiltersToArray($requestFilter);
 
         if (!empty($requestFilter)) {
             $filter = $this->getFilterService()->mergeFilters(

@@ -18,6 +18,8 @@ use CG\Zend\Stdlib\Http\FileResponse;
 use Products\Stock\Csv\Service as StockCsvService;
 use Products\Stock\Settings\Service as StockSettingsService;
 use CG\Stock\Import\UpdateOptions as StockImportUpdateOptions;
+use CG_Usage\Service as UsageService;
+use CG_Usage\Exception\Exceeded as UsageExceeded;
 
 class ProductsJsonController extends AbstractActionController
 {
@@ -27,8 +29,12 @@ class ProductsJsonController extends AbstractActionController
     const ROUTE_STOCK_LEVEL = 'Stock Level';
     const ROUTE_STOCK_UPDATE = 'stockupdate';
     const ROUTE_STOCK_CSV_EXPORT = 'stockCsvExport';
+    const ROUTE_STOCK_CSV_EXPORT_CHECK = 'stockCsvExportCheck';
+    const ROUTE_STOCK_CSV_EXPORT_PROGRESS = 'stockCsvExportProgress';
     const ROUTE_STOCK_CSV_IMPORT = 'stockCsvImport';
     const ROUTE_DELETE = 'Delete';
+
+    const PROGRESS_KEY_NAME_STOCK_EXPORT = 'stockExportProgressKey';
 
     /** @var ProductService $productService */
     protected $productService;
@@ -48,6 +54,8 @@ class ProductsJsonController extends AbstractActionController
     protected $stockCsvService;
     /** @var StockSettingsService */
     protected $stockSettingsService;
+    /** @var UsageService */
+    protected $usageService;
 
     public function __construct(
         ProductService $productService,
@@ -58,7 +66,8 @@ class ProductsJsonController extends AbstractActionController
         TaxRateService $taxRateService,
         OrganisationUnitService $organisationUnitService,
         StockCsvService $stockCsvService,
-        StockSettingsService $stockSettingsService
+        StockSettingsService $stockSettingsService,
+        UsageService $usageService
     ) {
         $this->setProductService($productService)
             ->setJsonModelFactory($jsonModelFactory)
@@ -68,7 +77,8 @@ class ProductsJsonController extends AbstractActionController
             ->setTaxRateService($taxRateService)
             ->setOrganisationUnitService($organisationUnitService)
             ->setStockCsvService($stockCsvService)
-            ->setStockSettingsService($stockSettingsService);
+            ->setStockSettingsService($stockSettingsService)
+            ->setUsageService($usageService);
     }
 
     public function ajaxAction()
@@ -236,15 +246,43 @@ class ProductsJsonController extends AbstractActionController
     public function stockCsvExportAction()
     {
         try {
-            $csv = $this->stockCsvService->generateCsvForActiveUser();
+            $guid = $this->params()->fromPost(static::PROGRESS_KEY_NAME_STOCK_EXPORT);
+            $csv = $this->stockCsvService->generateCsvForActiveUser($guid);
             return new FileResponse(StockCsvService::MIME_TYPE, StockCsvService::FILENAME, (string) $csv);
         } catch (NotFound $exception) {
             return $this->redirect()->toRoute('Products');
         }
     }
 
+    public function stockCsvExportCheckAction()
+    {
+        if ($this->usageService->hasUsageBeenExceeded()) {
+            throw new UsageExceeded();
+        }
+
+        $guid = uniqid('', true);
+        $this->stockCsvService->startProgress($guid);
+        return $this->getJsonModelFactory()->newInstance(
+            ["allowed" => true, "guid" => $guid]
+        );
+    }
+
+    public function stockCsvExportProgressAction()
+    {
+        $guid = $this->params()->fromPost(static::PROGRESS_KEY_NAME_STOCK_EXPORT);
+        $count = $this->stockCsvService->checkProgress($guid);
+        $total = $this->stockCsvService->getTotalForProgress($guid);
+        return $this->getJsonModelFactory()->newInstance(
+            ["progressCount" => $count, 'total' => $total]
+        );
+    }
+
     public function stockCsvImportAction()
     {
+        if ($this->usageService->hasUsageBeenExceeded()) {
+            throw new UsageExceeded();
+        }
+
         $request = $this->getRequest();
         $post = $request->getPost()->toArray();
 
@@ -379,6 +417,12 @@ class ProductsJsonController extends AbstractActionController
     protected function setStockSettingsService(StockSettingsService $stockSettingsService)
     {
         $this->stockSettingsService = $stockSettingsService;
+        return $this;
+    }
+
+    protected function setUsageService(UsageService $usageService)
+    {
+        $this->usageService = $usageService;
         return $this;
     }
 }

@@ -1,134 +1,33 @@
 define([
+    'Orders/OrdersBulkActionAbstract',
     'popup/mustache',
-    'Orders/SaveCheckboxes'
+    'Orders/SaveCheckboxes',
+    'mustache'
 ],function(
+    OrdersBulkActionAbstract,
     Popup,
-    saveCheckboxes
+    saveCheckboxes,
+    Mustache
 ) {
-    var TagPopup = function(notifications, popupTemplate) {
-        var self = this;
-        var popup = new Popup(popupTemplate);
+    var TagPopup = function(notifications, popupTemplate)
+    {
+        OrdersBulkActionAbstract.call(this);
+
+        var popup;
 
         this.getPopup = function() {
             return popup;
         };
-
-        this.saveTag = function(tagName, datatable, orders) {
-            apply.call(
-                this,
-                getAppendUrl.call(this, datatable),
-                tagName,
-                orders,
-                {
-                    complete: function() {
-                        if (datatable) {
-                            var dataTableElement = $('#' + datatable);
-                            dataTableElement.cgDataTable("redraw");
-                            saveCheckboxes.refreshCheckboxes(dataTableElement);
-                        }
-                    }
-                }
-            );
-        };
-
-        this.action = function(event) {
-            event.stopImmediatePropagation();
-
-            var datatable = $(this).data("datatable");
-            var orders = $(this).data("orders");
-
-            if (!orders && datatable) {
-                orders = $("#" + datatable).cgDataTable("selected", ".checkbox-id");
-            }
-
-            if (!orders.length) {
-                return;
-            }
-
-            var tag = $(this).data("tag");
-            if (tag) {
-                return self.saveTag.call(this, tag, datatable, orders);
-            }
-
-            self.getPopup().show();
-            self.getPopup().getElement().data('button', this);
-            self.getPopup().getElement().data('datatable', datatable);
-            self.getPopup().getElement().data('orders', orders);
-        };
-
-        this.checkbox = function(event) {
-            event.stopImmediatePropagation();
-
-            var tag = $(this).data("tag");
-            var orders = $(this).data("orders");
-
-            if (!tag || !orders || !orders.length) {
-                return;
-            }
-
-            var url;
-            if ($(this).is(":checked")) {
-                url = getAppendUrl.call(this);
-            } else {
-                url = getRemoveUrl.call(this);
-            }
-
-            apply.call(
-                this,
-                url,
-                tag,
-                orders,
-                {
-                    complete: function() {
-                        var datatable = $(this).data("datatable");
-                        if (datatable) {
-                            $("#" + datatable).cgDataTable("redraw");
-                        }
-                    }
-                }
-            );
-        };
-
-        var getAppendUrl = function(datatable) {
-            return getUrl.call(this, 'append', datatable);
-        };
-
-        var getRemoveUrl = function(datatable) {
-            return getUrl.call(this, 'remove', datatable);
-        };
-
-        var getUrl = function(action, datatable) {
-            return Mustache.render($(this).data("url"), {action: action});
-        };
-
-        var apply = function(url, tag, orders, ajaxSettings) {
-            var ajax = {
-                context: this,
-                url: url,
-                type: "POST",
-                dataType: 'json',
-                data: {
-                    'tag': tag,
-                    'orders': orders
-                },
-                success : function(data) {
-                    saveCheckboxes.setSavedCheckboxes(orders);
-                    return notifications.success("Tagged Successfully");
-                },
-                error: function(error, textStatus, errorThrown) {
-                    return notifications.ajaxError(error, textStatus, errorThrown);
-                }
-            };
-
-            if (ajaxSettings !== undefined) {
-                $.extend(ajax, ajaxSettings);
-            }
-
-            notifications.notice("Updating Order Tag");
-            return $.ajax(ajax);
+        
+        this.getSaveCheckboxes = function()
+        {
+            return saveCheckboxes;
         };
 
         var init = function() {
+            var self = this;
+            popup = new Popup(popupTemplate);
+
             popup.getElement().on("keypress.createTag", "input#tag-name", function(event) {
                 if (event.which !== 13) {
                     return;
@@ -144,13 +43,121 @@ define([
                 popup.hide();
             });
         };
+        init.call(this);
+    };
 
-        this.getSaveCheckboxes = function()
-        {
-            return saveCheckboxes;
+    TagPopup.prototype = Object.create(OrdersBulkActionAbstract.prototype);
+
+    TagPopup.prototype.getAppendUrl = function(element)
+    {
+        return this.getUrl('append', element);
+    };
+
+    TagPopup.prototype.getRemoveUrl = function(element)
+    {
+        return this.getUrl('remove', element);
+    };
+
+    TagPopup.prototype.getUrl = function(action, element)
+    {
+        element = (element ? element: this.getElement());
+        return Mustache.render(element.data("url"), {action: action});
+    };
+
+    TagPopup.prototype.saveTag = function(tagName)
+    {
+        var datatable = this.getDataTableElement();
+        var data = this.getDataToSubmit();
+        this.apply(
+            this.getAppendUrl(),
+            tagName,
+            data,
+            {
+                complete: function() {
+                    if (!datatable.length) {
+                        return;
+                    }
+                    datatable.cgDataTable("redraw");
+                    saveCheckboxes.refreshCheckboxes(datatable);
+                }
+            }
+        );
+    };
+
+    TagPopup.prototype.invoke = function()
+    {
+        var orders = this.getOrders();
+        if (!orders.length) {
+            return;
+        }
+
+        var tag = this.getElement().data('tag');
+        if (tag) {
+            return this.saveTag(tag);
+        }
+
+        this.getPopup().show();
+    };
+
+    // This method is outside of the bulk actions, it is used by the tag-specific columns,
+    // see orders/orders/table/header/tag.phtml
+    TagPopup.prototype.checkbox = function(checkbox)
+    {
+        var tag = checkbox.data('tag');
+        var orders = checkbox.data('orders');
+        if (!tag || !orders || !orders.length) {
+            return;
+        }
+
+        var url;
+        if (checkbox.is(":checked")) {
+            url = this.getAppendUrl(checkbox);
+        } else {
+            url = this.getRemoveUrl(checkbox);
+        }
+
+        this.apply(
+            url,
+            tag,
+            {"orders": orders},
+            {
+                complete: function() {
+                    var datatable = $(checkbox).data("datatable");
+                    if (datatable) {
+                        $("#" + datatable).cgDataTable("redraw");
+                    }
+                }
+            }
+        );
+    };
+
+    TagPopup.prototype.apply = function(url, tag, data, ajaxSettings)
+    {
+        var self = this;
+        data['tag'] = tag;
+        var ajax = {
+            context: this,
+            url: url,
+            type: "POST",
+            dataType: 'json',
+            data: data,
+            success : function(data) {
+                this.setFilterId(data.filterId);
+                saveCheckboxes.setSavedCheckboxes(self.getOrders())
+                    .setSavedCheckAll(this.isAllSelected());
+                return self.getNotificationHandler().success("Tagged Successfully");
+            },
+            error: function(error, textStatus, errorThrown) {
+                return self.getNotificationHandler().ajaxError(error, textStatus, errorThrown);
+            }
         };
 
-        init();
+        if (ajaxSettings !== undefined) {
+            $.extend(ajax, ajaxSettings);
+        }
+
+        this.getNotificationHandler().notice("Updating Order Tag");
+        return $.ajax(ajax);
     };
 
     TagPopup.prototype.savePopup = function() {
@@ -158,11 +165,22 @@ define([
         if (!name.length) {
             return;
         }
-        var button = this.getPopup().getElement().data("button");
-        var datatable = this.getPopup().getElement().data("datatable");
-        var orders = this.getPopup().getElement().data("orders");
-        this.saveTag.call(button, name, datatable, orders);
+        this.saveTag(name);
         this.getPopup().hide();
+    };
+
+    TagPopup.prototype.getOrders = function()
+    {
+        // If this is one of the dropdown options we have to check the main button for orders
+        if (this.getElement().data('tag')) {
+            var parentElement = this.getElement().closest('.custom-select').find('span.action');
+            var orders = parentElement.data('orders');
+            if (orders) {
+                return orders;
+            }
+        }
+        // Fall back to parent method
+        return OrdersBulkActionAbstract.prototype.getOrders.call(this);
     };
 
     return TagPopup;

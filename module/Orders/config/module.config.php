@@ -844,6 +844,17 @@ return [
                             ],
                         ]
                     ],
+                    'bulkActionFilter' => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/bulkActionFilter',
+                            'defaults' => [
+                                'controller' => BulkActionsController::class,
+                                'action' => 'saveFilter',
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ],
                     StoredFiltersController::ROUTE_SAVE => [
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => [
