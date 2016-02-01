@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "be79eccce7f12c3e02d9313d7c1b9efd",
-    "content-hash": "4cf505ee6cf05120d08ae8af8c0bc832",
+    "hash": "7332183627d4c7e30d771d90a58dacef",
+    "content-hash": "de79c7a751ebb7446f1472305449f92b",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2211,6 +2211,36 @@
             "time": "2015-05-28 15:13:29"
         },
         {
+            "name": "channelgrabber/usage-check",
+            "version": "dev-CGIV-6442-improve-feature-lockout",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-usage-check.git",
+                "reference": "bd3631af256eac1d06986e97e0885bf28b6cc251"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-usage-check-dev-CGIV-6442-improve-feature-lockout-1b7ad3.zip",
+                "reference": "bd3631af256eac1d06986e97e0885bf28b6cc251",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/billing": ">=1.1.3",
+                "channelgrabber/di": ">=2.0.0,<3.0.0",
+                "channelgrabber/stdlib": ">=2.7.0",
+                "channelgrabber/usage": ">=1.0.2",
+                "composer/composer": "@dev"
+            },
+            "type": "di-definition",
+            "autoload": {
+                "psr-4": {
+                    "CG\\UsageCheck\\": "src"
+                }
+            },
+            "description": "Check usage against limits",
+            "time": "2016-02-01 11:05:56"
+        },
+        {
             "name": "channelgrabber/user",
             "version": "1.20.3",
             "source": {
@@ -3169,30 +3199,24 @@
         },
         {
             "name": "channelgrabber/zf2-usage",
-            "version": "1.0.7.1",
+            "version": "dev-CGIV-6442-improve-feature-lockout",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/usage-module.git",
-                "reference": "f7e1d4276529b52f5835af1b1eb571206f120da0"
+                "reference": "c9befafa1c6565b484bdc5130e4769382f5a7e1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-usage-1.0.7.1-4b525f.zip",
-                "reference": "f7e1d4276529b52f5835af1b1eb571206f120da0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-usage-dev-CGIV-6442-improve-feature-lockout-73d3c8.zip",
+                "reference": "c9befafa1c6565b484bdc5130e4769382f5a7e1e",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": ">=1.1.3",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/http": ">=1.2.14",
-                "channelgrabber/stdlib": ">=2.7.0",
-                "channelgrabber/usage": ">=1.0.2",
-                "channelgrabber/user": ">=1.11.14",
+                "channelgrabber/usage-check": "dev-CGIV-6442-improve-feature-lockout as 1.0.0",
                 "channelgrabber/zf2-v4-ui": "^1.16.1",
                 "composer/composer": "@dev",
                 "guzzle/guzzle": "~3.7",
-                "php-jsonpatch/php-jsonpatch": "@dev",
-                "php-jsonpointer/php-jsonpointer": "@dev",
                 "zendframework/zend-config": "2.*",
                 "zendframework/zend-eventmanager": "2.*",
                 "zendframework/zend-form": "2.*",
@@ -3214,7 +3238,7 @@
                 ]
             },
             "description": "Usage module to determine if users are exceeding their limits",
-            "time": "2015-10-27 17:27:58"
+            "time": "2016-01-29 16:44:46"
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
@@ -7423,6 +7447,18 @@
             "package": "channelgrabber/stdlib"
         },
         {
+            "alias": "1.0.0",
+            "alias_normalized": "1.0.0.0",
+            "version": "dev-CGIV-6442-improve-feature-lockout",
+            "package": "channelgrabber/usage-check"
+        },
+        {
+            "alias": "1.0.8",
+            "alias_normalized": "1.0.8.0",
+            "version": "dev-CGIV-6442-improve-feature-lockout",
+            "package": "channelgrabber/zf2-usage"
+        },
+        {
             "alias": "1.16.27",
             "alias_normalized": "1.16.27.0",
             "version": "dev-CGIV-6378-improve-notifications-for-file-downloads",
@@ -7435,6 +7471,8 @@
         "channelgrabber/order": 20,
         "channelgrabber/product": 20,
         "channelgrabber/stdlib": 20,
+        "channelgrabber/usage-check": 20,
+        "channelgrabber/zf2-usage": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
