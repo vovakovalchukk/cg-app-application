@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7332183627d4c7e30d771d90a58dacef",
-    "content-hash": "de79c7a751ebb7446f1472305449f92b",
+    "hash": "c206026f6739d40450201843380888a9",
+    "content-hash": "b049e203c30db6cc4f900b97922ea314",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2851,16 +2851,16 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.4.29.1",
+            "version": "dev-CGIV-6442-improve-feature-lockout",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "e0d71f71cc9b65442ef8f82a0be3a6abc1bf522d"
+                "reference": "3eda42946eb1c43ef3321a9cf5c5e0c0f474f882"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.29.1-cd7d32.zip",
-                "reference": "e0d71f71cc9b65442ef8f82a0be3a6abc1bf522d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-6442-improve-feature-lockout-e25fc4.zip",
+                "reference": "3eda42946eb1c43ef3321a9cf5c5e0c0f474f882",
                 "shasum": null
             },
             "require": {
@@ -2876,8 +2876,6 @@
                 "channelgrabber/zf2-v4-ui": ">=1.4.1",
                 "composer/composer": "@dev",
                 "guzzle/guzzle": "~3.7",
-                "php-jsonpatch/php-jsonpatch": "@dev",
-                "php-jsonpointer/php-jsonpointer": "@dev",
                 "zendframework/zend-config": "2.*",
                 "zendframework/zend-di": "2.*",
                 "zendframework/zend-eventmanager": "2.*",
@@ -2903,7 +2901,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2015-08-13 10:45:47"
+            "time": "2016-02-01 16:12:34"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -2943,16 +2941,16 @@
         },
         {
             "name": "channelgrabber/zf2-permission",
-            "version": "1.1.10",
+            "version": "dev-CGIV-6442-improve-feature-lockout",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/permission-module.git",
-                "reference": "636753abc97ffaafa1dda40148cd833ef03d1331"
+                "reference": "17981b972d067d4e586be48a89f7fbd23ec54e0e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.1.10-65c2e3.zip",
-                "reference": "636753abc97ffaafa1dda40148cd833ef03d1331",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-dev-CGIV-6442-improve-feature-lockout-bd8f32.zip",
+                "reference": "17981b972d067d4e586be48a89f7fbd23ec54e0e",
                 "shasum": null
             },
             "require": {
@@ -2979,7 +2977,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2015-07-28 13:00:13"
+            "time": "2016-02-01 16:09:28"
         },
         {
             "name": "channelgrabber/zf2-register",
@@ -7435,6 +7433,18 @@
             "package": "channelgrabber/usage-check"
         },
         {
+            "alias": "1.4.30",
+            "alias_normalized": "1.4.30.0",
+            "version": "dev-CGIV-6442-improve-feature-lockout",
+            "package": "channelgrabber/zf2-login"
+        },
+        {
+            "alias": "1.1.11",
+            "alias_normalized": "1.1.11.0",
+            "version": "dev-CGIV-6442-improve-feature-lockout",
+            "package": "channelgrabber/zf2-permission"
+        },
+        {
             "alias": "1.0.8",
             "alias_normalized": "1.0.8.0",
             "version": "dev-CGIV-6442-improve-feature-lockout",
@@ -7445,6 +7455,8 @@
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/usage-check": 20,
+        "channelgrabber/zf2-login": 20,
+        "channelgrabber/zf2-permission": 20,
         "channelgrabber/zf2-usage": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
