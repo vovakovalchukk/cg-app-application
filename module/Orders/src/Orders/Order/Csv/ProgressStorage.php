@@ -26,6 +26,11 @@ class ProgressStorage
         return $this->getPredis()->get(static::KEY_PREFIX.$key);
     }
 
+    public function removeProgress($key)
+    {
+        return $this->getPredis()->del(static::KEY_PREFIX.$key);
+    }
+
     protected function getPredis()
     {
         return $this->predis;

@@ -565,6 +565,28 @@ return [
                                             ]
                                         ],
                                         'may_terminate' => true,
+                                        'child_routes' => [
+                                            ExportController::ROUTE_EXPORT_ORDER_CHECK => [
+                                                'type' => Literal::class,
+                                                'options' => [
+                                                    'route' => '/check',
+                                                    'defaults' => [
+                                                        'action' => 'exportCheck'
+                                                    ]
+                                                ],
+                                                'may_terminate' => true,
+                                            ],
+                                            ExportController::ROUTE_EXPORT_ORDER_PROGRESS => [
+                                                'type' => Literal::class,
+                                                'options' => [
+                                                    'route' => '/progress',
+                                                    'defaults' => [
+                                                        'action' => 'exportProgress'
+                                                    ]
+                                                ],
+                                                'may_terminate' => true,
+                                            ],
+                                        ],
                                     ],
                                     ExportController::ROUTE_EXPORT_ORDER_ITEM => [
                                         'type' => Literal::class,
@@ -575,6 +597,28 @@ return [
                                             ]
                                         ],
                                         'may_terminate' => true,
+                                        'child_routes' => [
+                                            ExportController::ROUTE_EXPORT_ORDER_ITEM_CHECK => [
+                                                'type' => Literal::class,
+                                                'options' => [
+                                                    'route' => '/check',
+                                                    'defaults' => [
+                                                        'action' => 'exportCheck'
+                                                    ]
+                                                ],
+                                                'may_terminate' => true,
+                                            ],
+                                            ExportController::ROUTE_EXPORT_ORDER_ITEM_PROGRESS => [
+                                                'type' => Literal::class,
+                                                'options' => [
+                                                    'route' => '/progress',
+                                                    'defaults' => [
+                                                        'action' => 'exportProgress'
+                                                    ]
+                                                ],
+                                                'may_terminate' => true,
+                                            ],
+                                        ],
                                     ],
                                 ],
                             ]
@@ -1124,6 +1168,11 @@ return [
             StockController::class => [
                 'parameters' => [
                     'accountsTable' => 'StockSettingsAccountsTable', // defined in global.php
+                ]
+            ],
+            ExportController::class => [
+                'parameters' => [
+                    'usageService' => 'order_count_usage_service'
                 ]
             ],
         ]

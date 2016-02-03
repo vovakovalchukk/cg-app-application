@@ -584,8 +584,6 @@ return array(
                             'channelName' => Carriers::DPD,
                             'displayName' => 'DPD',
                             'code' => DataplugCarrier\Dpd::CODE,
-                            'allowsCancellation' => false,
-                            'allowsManifesting' => false,
                             'fields' => [
                                 ['name' => 'Account no'],
                                 ['name' => 'User ID'],
@@ -658,8 +656,6 @@ return array(
                             'channelName' => Carriers::INTERLINK,
                             'displayName' => 'Interlink',
                             'code' => DataplugCarrier\Interlink::CODE,
-                            'allowsCancellation' => false,
-                            'allowsManifesting' => false,
                             'fields' => [
                                 ['name' => 'Account no'],
                                 ['name' => 'User ID'],

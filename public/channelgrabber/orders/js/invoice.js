@@ -2,12 +2,11 @@ define(['Orders/ProgressCheckAbstract'],
 function(ProgressCheckAbstract)
 {
     var InvoiceBulkAction = function(
-        notifications,
         startMessage,
         progressMessage,
         endMessage
     ) {
-        ProgressCheckAbstract.call(this, notifications, startMessage, progressMessage, endMessage);
+        ProgressCheckAbstract.call(this, startMessage, progressMessage, endMessage);
     };
 
     InvoiceBulkAction.MIN_INVOICES_FOR_NOTIFICATION = 7;
@@ -15,9 +14,9 @@ function(ProgressCheckAbstract)
 
     InvoiceBulkAction.prototype = Object.create(ProgressCheckAbstract.prototype);
 
-    InvoiceBulkAction.prototype.getParam = function()
+    InvoiceBulkAction.prototype.getProgressKeyName = function()
     {
-        return "invoiceProgressKey"
+        return "invoiceProgressKey";
     };
 
     InvoiceBulkAction.prototype.getCheckUrl = function()
@@ -30,12 +29,12 @@ function(ProgressCheckAbstract)
         return "/orders/invoice/progress";
     };
 
-    InvoiceBulkAction.prototype.getMinOrders = function()
+    InvoiceBulkAction.prototype.getMinRecordsForProgress = function()
     {
         return InvoiceBulkAction.MIN_INVOICES_FOR_NOTIFICATION;
     };
 
-    InvoiceBulkAction.prototype.getFreq = function()
+    InvoiceBulkAction.prototype.getFreqMsForProgress = function()
     {
         return InvoiceBulkAction.NOTIFICATION_FREQ_MS;
     };
