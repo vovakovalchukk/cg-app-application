@@ -3,11 +3,13 @@ namespace Orders\Controller;
 
 use ArrayObject;
 use CG\Account\Client\Service as AccountService;
+use CG\Account\Shared\Entity as Account;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Entity as OrderEntity;
 use CG\Order\Shared\Label\Filter as OrderLabelFilter;
 use CG\Order\Shared\Label\Service as OrderLabelService;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
+use CG\Order\Shared\OrderCounts\Storage\Api as OrderCountsApi;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
@@ -25,6 +27,7 @@ use CG_Usage\Service as UsageService;
 use Orders\Courier\Manifest\Service as ManifestService;
 use Orders\Courier\Service as CourierService;
 use Orders\Filter\Service as FilterService;
+use Orders\Module;
 use Orders\Order\Batch\Service as BatchService;
 use Orders\Order\BulkActions\Action\Courier as CourierBulkAction;
 use Orders\Order\BulkActions\Service as BulkActionsService;
@@ -32,10 +35,11 @@ use Orders\Order\BulkActions\SubAction\CourierManifest as CourierManifestBulkAct
 use Orders\Order\Service as OrderService;
 use Orders\Order\StoredFilters\Service as StoredFiltersService;
 use Orders\Order\Timeline\Service as TimelineService;
+use Settings\Controller\ChannelController as ChannelSettings;
+use Settings\Module as Settings;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use CG\Order\Shared\OrderCounts\Storage\Api as OrderCountsApi;
-
+use Messages\Module as Messages;
 
 class OrdersController extends AbstractActionController implements LoggerAwareInterface
 {
@@ -45,19 +49,33 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     const FILTER_SHIPPING_ALIAS_NAME = "shippingAliasId";
     const FILTER_TYPE = "orders";
 
+    /** @var OrderService $orderService */
     protected $orderService;
+    /** @var FilterService $filterService */
     protected $filterService;
+    /** @var TimelineService $timelineService */
     protected $timelineService;
+    /** @var BatchService $batchService */
     protected $batchService;
+    /** @var BulkActionsService $bulkActionsService */
     protected $bulkActionsService;
+    /** @var JsonModelFactory $jsonModelFactory */
     protected $jsonModelFactory;
+    /** @var ViewModelFactory $viewModelFactory */
     protected $viewModelFactory;
+    /** @var UIFiltersService $uiFiltersService */
     protected $uiFiltersService;
+    /** @var StoredFiltersService $storedFiltersService */
     protected $storedFiltersService;
+    /** @var UsageService $usageService */
     protected $usageService;
+    /** @var ShippingConversionService $shippingConversionService */
     protected $shippingConversionService;
+    /** @var AccountService $accountService */
     protected $accountService;
+    /** @var OrderCountsApi $orderCountsApi */
     protected $orderCountsApi;
+    /** @var ActiveUserInterface $activeUserContainer */
     protected $activeUserContainer;
 
     /** @var OrderLabelService */
@@ -86,7 +104,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         ManifestService $manifestService,
         CourierService $courierService
     ) {
-        $this->setJsonModelFactory($jsonModelFactory)
+        $this
+            ->setJsonModelFactory($jsonModelFactory)
             ->setViewModelFactory($viewModelFactory)
             ->setOrderService($orderService)
             ->setFilterService($filterService)
@@ -253,10 +272,13 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             $this->getViewModelFactory()->newInstance()->setTemplate('orders/orders/bulk-actions/order'),
             'afterActions'
         );
-        $channelLogoTemplate = $this->getChannelLogo($order);
+
+        $accountDetails = $this->getAccountDetails($order);
+        $orderDetails = $this->getOrderDetails($order);
         $statusTemplate = $this->getStatus($order->getStatus());
 
-        $view->addChild($channelLogoTemplate, 'channel');
+        $view->addChild($accountDetails, 'accountDetails');
+        $view->addChild($orderDetails, 'orderDetails');
         $view->addChild($statusTemplate, 'status');
         $view->addChild($bulkActions, 'bulkActions');
         $view->addChild($this->getTimelineBoxes($order), 'timelineBoxes');
@@ -273,17 +295,65 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $view;
     }
 
-    protected function getChannelLogo(OrderEntity $order)
+    protected function getAccountDetails(OrderEntity $order)
     {
+        /** @var Account $account */
         $account = $this->accountService->fetch($order->getAccountId());
+        $view = $this->getViewModelFactory()->newInstance();
+        $view->setTemplate('orders/orders/order/accountDetails');
+        $view->addChild($this->getChannelLogo($account), 'channelLogo');
+        $view->setVariable(
+            'accountUrl',
+            $this->url()->fromRoute(
+                implode('/', [Settings::ROUTE, ChannelSettings::ROUTE, ChannelSettings::ROUTE_CHANNELS, ChannelSettings::ROUTE_ACCOUNT]),
+                ['type' => $account->getType(), 'account' => $account->getId()]
+            )
+        );
+        $view->setVariable('accountName', $account->getDisplayName());
+        return $view;
+    }
+
+    protected function getChannelLogo(Account $account)
+    {
         $externalData = $account->getExternalData();
         $view = $this->getViewModelFactory()->newInstance();
         $view->setTemplate("elements/channel-large.mustache");
-        $view->setVariable('channel', $order->getChannel());
+        $view->setVariable('channel', $account->getChannel());
         if (isset($externalData['imageUrl']) && !empty($externalData['imageUrl'])) {
             $view->setVariable('channelImgUrl', $externalData['imageUrl']);
         }
 
+        return $view;
+    }
+
+    protected function getOrderDetails(OrderEntity $order)
+    {
+        $view = $this->getViewModelFactory()->newInstance();
+        $view->setTemplate('orders/orders/order/orderDetails');
+        $view->setVariable('orderId', $order->getExternalId());
+        $view->setVariable('channel', $order->getChannel());
+        $view->setVariable('buyerName', $order->getBillingAddress()->getAddressFullName());
+        $view->setVariable('buyerUsername', $order->getExternalUsername());
+        $view->setVariable(
+            'orderUrl',
+            $this->url()->fromRoute(
+                Module::ROUTE,
+                [],
+                [
+                    'query' => ['search' => $order->getExternalUsername() ?: $order->getBillingAddress()->getEmailAddress()]
+                ]
+            )
+        );
+        $view->setVariable(
+            'messageUrl',
+            $this->url()->fromRoute(
+                implode('/', [Messages::ROUTE]),
+                [],
+                [
+                    'query' => ['f' => 'eu', 'fv' => $order->getExternalUsername() ?: $order->getBillingAddress()->getEmailAddress()]
+                ]
+            )
+        );
         return $view;
     }
 
@@ -581,17 +651,26 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $this->getOrderService()->updateUserPrefOrderColumnPositions($columnPositions);
     }
 
+    /**
+     * @return self
+     */
     protected function setUsageService(UsageService $usageService)
     {
         $this->usageService = $usageService;
         return $this;
     }
 
+    /**
+     * @return UsageService
+     */
     protected function getUsageService()
     {
         return $this->usageService;
     }
 
+    /**
+     * @return self
+     */
     protected function setOrderService(OrderService $orderService)
     {
         $this->orderService = $orderService;
@@ -606,6 +685,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $this->orderService;
     }
 
+    /**
+     * @return self
+     */
     protected function setFilterService(FilterService $filterService)
     {
         $this->filterService = $filterService;
@@ -620,6 +702,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $this->filterService;
     }
 
+    /**
+     * @return self
+     */
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
     {
         $this->jsonModelFactory = $jsonModelFactory;
@@ -634,6 +719,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $this->jsonModelFactory;
     }
 
+    /**
+     * @return self
+     */
     protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
     {
         $this->viewModelFactory = $viewModelFactory;
@@ -648,6 +736,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $this->viewModelFactory;
     }
 
+    /**
+     * @return self
+     */
     protected function setBatchService(BatchService $batchService)
     {
         $this->batchService = $batchService;
@@ -663,6 +754,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 
     }
 
+    /**
+     * @return self
+     */
     protected function setTimelineService(TimelineService $timelineService)
     {
         $this->timelineService = $timelineService;
@@ -677,6 +771,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $this->timelineService;
     }
 
+    /**
+     * @return self
+     */
     protected function setBulkActionsService(BulkActionsService $bulkActionsService)
     {
         $this->bulkActionsService = $bulkActionsService;
@@ -691,6 +788,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $this->bulkActionsService;
     }
 
+    /**
+     * @return self
+     */
     protected function setUIFiltersService(UIFiltersService $uiFiltersService)
     {
         $this->uiFiltersService = $uiFiltersService;
@@ -705,6 +805,9 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $this->uiFiltersService;
     }
 
+    /**
+     * @return self
+     */
     protected function setStoredFiltersService(StoredFiltersService $storedFiltersService)
     {
         $this->storedFiltersService = $storedFiltersService;
@@ -719,47 +822,71 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         return $this->storedFiltersService;
     }
 
+    /**
+     * @return self
+     */
     protected function setShippingConversionService(ShippingConversionService $shippingConversionService)
     {
         $this->shippingConversionService = $shippingConversionService;
         return $this;
     }
 
+    /**
+     * @return ShippingConversionService
+     */
     protected function getShippingConversionService()
     {
         return $this->shippingConversionService;
     }
 
+    /**
+     * @return self
+     */
     public function setAccountService(AccountService $accountService)
     {
         $this->accountService = $accountService;
         return $this;
     }
 
+    /**
+     * @return self
+     */
     public function setOrderCountsApi(OrderCountsApi $orderCountsApi)
     {
         $this->orderCountsApi = $orderCountsApi;
         return $this;
     }
 
+    /**
+     * @return self
+     */
     public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
     {
         $this->activeUserContainer = $activeUserContainer;
         return $this;
     }
 
+    /**
+     * @return self
+     */
     protected function setOrderLabelService(OrderLabelService $orderLabelService)
     {
         $this->orderLabelService = $orderLabelService;
         return $this;
     }
 
+    /**
+     * @return self
+     */
     protected function setManifestService(ManifestService $manifestService)
     {
         $this->manifestService = $manifestService;
         return $this;
     }
 
+    /**
+     * @return self
+     */
     protected function setCourierService(CourierService $courierService)
     {
         $this->courierService = $courierService;
