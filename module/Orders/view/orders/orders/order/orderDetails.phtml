@@ -8,7 +8,7 @@
     <div>
         <span>
             <strong><?= $this->translate('Buyer'); ?>: </strong>
-            <?= $buyerName ?><?php if (isset($buyerUsername)) :?> (<?= $buyerUsername ?>)<?php endif; ?>
+            <?= $buyerName ?><?php if (isset($buyerUsername)) :?> (<span class="logo-small <?= $channel ?>"><?= $channel ?></span><?= $buyerUsername ?>)<?php endif; ?>
             (<a href="<?= $orderUrl ?>">Orders</a> / <a href="<?= $messageUrl ?>">Messages</a>)
         </span>
     </div>
