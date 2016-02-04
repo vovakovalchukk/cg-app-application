@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7c5900a3b1d40c0564cda84da1387457",
-    "content-hash": "d2cdf994502dc4aab07ec0fcacb8f6a7",
+    "hash": "3068b10c17d9e64964e3debc7893fcdb",
+    "content-hash": "d7bf221e4ed2238eb25b49a6c0eed944",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2430,16 +2430,16 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "1.0.9",
+            "version": "1.0.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "d6b97f0f7ad1158b747bfb4839b20d2f630c8cb6"
+                "reference": "e6d8901d59abdf983d408ff6a69c1e10a351cc36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.9-e302d4.zip",
-                "reference": "d6b97f0f7ad1158b747bfb4839b20d2f630c8cb6",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.10-7b9c1a.zip",
+                "reference": "e6d8901d59abdf983d408ff6a69c1e10a351cc36",
                 "shasum": null
             },
             "require": {
@@ -2451,8 +2451,6 @@
                 "channelgrabber/http": ">=1.2.0,<2.0.0",
                 "channelgrabber/zf2-channel": ">=1.0.0",
                 "composer/composer": "@dev",
-                "php-jsonpatch/php-jsonpatch": "@dev",
-                "php-jsonpointer/php-jsonpointer": "@dev",
                 "zendframework/zend-config": "2.*",
                 "zendframework/zend-form": "2.*",
                 "zendframework/zend-loader": "2.*",
@@ -2472,7 +2470,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2015-11-10 09:00:49"
+            "time": "2016-02-04 09:42:23"
         },
         {
             "name": "channelgrabber/zf2-api",
