@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1b79871355258d1c6be1c38c4dbe7efd",
-    "content-hash": "1a005276af33b601d8970a64786ff530",
+    "hash": "f8d81529fe9477db2d4a5f2f53a563e6",
+    "content-hash": "d8f442b254bd79ba9aa2bef0e11c9b10",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2430,16 +2430,16 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "dev-CGIV-6685-AmazonEmailMessage",
+            "version": "1.0.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "141af7351ec6e02ecfa9cd34d5b96da2f45ef029"
+                "reference": "e6d8901d59abdf983d408ff6a69c1e10a351cc36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-CGIV-6685-AmazonEmailMessage-3a0d40.zip",
-                "reference": "141af7351ec6e02ecfa9cd34d5b96da2f45ef029",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.10-7b9c1a.zip",
+                "reference": "e6d8901d59abdf983d408ff6a69c1e10a351cc36",
                 "shasum": null
             },
             "require": {
@@ -2470,7 +2470,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2016-02-01 13:50:01"
+            "time": "2016-02-04 09:42:23"
         },
         {
             "name": "channelgrabber/zf2-api",
@@ -7397,18 +7397,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.10",
-            "alias_normalized": "1.0.10.0",
-            "version": "dev-CGIV-6685-AmazonEmailMessage",
-            "package": "channelgrabber/zf2-amazon"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-amazon": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
