@@ -236,7 +236,7 @@ define([
     {
         var name = 'total-stock_' + product.id + '_' + location['id'];
         var quantityInlineText = this.getStockTotalView(name, location, templates);
-        var available = location['onHand'] - location['allocated'];
+        var available = location['onHand'] - Math.max(location['allocated'], 0);
         var showStockLevel = (product.stockLevel !== null);
         var stockLevelCell = null;
         if (showStockLevel) {
