@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e3f20289974b3772b9171fba5c0d3475",
-    "content-hash": "be28e2ed567771d3dbb41230695e8845",
+    "hash": "9249b8c1e0202f14ee3a6d792bff0a37",
+    "content-hash": "f93d4883db761c7d86be6f41a9383c25",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3239,12 +3239,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e9000e8307fa0f86edd0ceeda77d4f887e0b95be"
+                "reference": "1e3ca9b4a53ddf458d8301fbbf7665041a5612dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6728-OrderDetailImprovements-7c91a7.zip",
-                "reference": "e9000e8307fa0f86edd0ceeda77d4f887e0b95be",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6728-OrderDetailImprovements-b2142a.zip",
+                "reference": "1e3ca9b4a53ddf458d8301fbbf7665041a5612dc",
                 "shasum": null
             },
             "require": {
@@ -3290,7 +3290,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-02-04 13:02:04"
+            "time": "2016-02-05 15:07:21"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7423,8 +7423,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.16.29",
-            "alias_normalized": "1.16.29.0",
+            "alias": "1.16.30",
+            "alias_normalized": "1.16.30.0",
             "version": "dev-CGIV-6728-OrderDetailImprovements",
             "package": "channelgrabber/zf2-v4-ui"
         }
