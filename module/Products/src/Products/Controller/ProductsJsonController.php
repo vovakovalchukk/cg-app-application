@@ -167,6 +167,8 @@ class ProductsJsonController extends AbstractActionController
 
     public function stockUpdateAction()
     {
+        $this->checkUsage();
+
         $view = $this->getJsonModelFactory()->newInstance();
         try {
             $stockLocation = $this->getProductService()->updateStock(
@@ -185,6 +187,8 @@ class ProductsJsonController extends AbstractActionController
 
     public function deleteAction()
     {
+        $this->checkUsage();
+
         $view = $this->getJsonModelFactory()->newInstance();
 
         $productIds = $this->params()->fromPost('productIds');
@@ -200,6 +204,8 @@ class ProductsJsonController extends AbstractActionController
 
     public function saveProductTaxRateAction()
     {
+        $this->checkUsage();
+
         $productId = (int) $this->params()->fromPost('productId');
         $taxRateId = (string) $this->params()->fromPost('taxRateId');
         $view = $this->getJsonModelFactory()->newInstance();
@@ -210,6 +216,8 @@ class ProductsJsonController extends AbstractActionController
 
     public function saveProductStockModeAction()
     {
+        $this->checkUsage();
+
         $productId = $this->params()->fromPost('id');
         $eTag = $this->params()->fromPost('eTag');
         $stockMode = $this->params()->fromPost('stockMode');
@@ -231,6 +239,8 @@ class ProductsJsonController extends AbstractActionController
 
     public function saveProductStockLevelAction()
     {
+        $this->checkUsage();
+
         $productId = $this->params()->fromPost('id');
         $eTag = $this->params()->fromPost('eTag');
         $stockLevel = $this->params()->fromPost('stockLevel');
@@ -256,9 +266,7 @@ class ProductsJsonController extends AbstractActionController
 
     public function stockCsvExportCheckAction()
     {
-        if ($this->usageService->hasUsageBeenExceeded()) {
-            throw new UsageExceeded();
-        }
+        $this->checkUsage();
 
         $guid = uniqid('', true);
         $this->stockCsvService->startProgress($guid);
@@ -279,9 +287,7 @@ class ProductsJsonController extends AbstractActionController
 
     public function stockCsvImportAction()
     {
-        if ($this->usageService->hasUsageBeenExceeded()) {
-            throw new UsageExceeded();
-        }
+        $this->checkUsage();
 
         $request = $this->getRequest();
         $post = $request->getPost()->toArray();
@@ -299,6 +305,13 @@ class ProductsJsonController extends AbstractActionController
         $view = $this->getJsonModelFactory()->newInstance();
         $view->setVariable("success", true);
         return $view;
+    }
+
+    protected function checkUsage()
+    {
+        if ($this->usageService->hasUsageBeenExceeded()) {
+            throw new UsageExceeded();
+        }
     }
 
     /**

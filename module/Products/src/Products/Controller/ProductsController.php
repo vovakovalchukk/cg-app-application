@@ -2,10 +2,12 @@
 namespace Products\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use CG_UI\View\BulkActions as BulkActions;
 use CG_UI\View\DataTable;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
+use CG_Usage\Service as UsageService;
 use CG\User\ActiveUserInterface;
 use Products\Product\Service as ProductService;
 use Products\Product\BulkActions\Service as BulkActionsService;
@@ -27,6 +29,8 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected $accountStockSettingsTable;
     /** @var ActiveUserInterface $activeUserContainer */
     protected $activeUserContainer;
+    /** @var UsageService */
+    protected $usageService;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -34,14 +38,16 @@ class ProductsController extends AbstractActionController implements LoggerAware
         BulkActionsService $bulkActionsService,
         Translator $translator,
         DataTable $accountStockSettingsTable,
-        ActiveUserInterface $activeUserContainer
+        ActiveUserInterface $activeUserContainer,
+        UsageService $usageService
     ) {
         $this->setViewModelFactory($viewModelFactory)
              ->setProductService($productService)
              ->setBulkActionsService($bulkActionsService)
              ->setTranslator($translator)
              ->setAccountStockSettingsTable($accountStockSettingsTable)
-             ->setActiveUserContainer($activeUserContainer);
+             ->setActiveUserContainer($activeUserContainer)
+             ->setUsageService($usageService);
     }
 
     public function indexAction()
@@ -50,6 +56,7 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $view->addChild($this->getDetailsSidebar(), 'sidebarLinks');
 
         $bulkActions = $this->getBulkActionsService()->getListPageBulkActions();
+        $this->amendBulkActionsForUsage($bulkActions);
         $bulkAction = $this->getViewModelFactory()->newInstance()->setTemplate('products/products/bulk-actions/index');
         $bulkActions->addChild(
             $bulkAction,
@@ -77,6 +84,19 @@ class ProductsController extends AbstractActionController implements LoggerAware
         $sidebar->setVariable('links', $links);
 
         return $sidebar;
+    }
+
+    protected function amendBulkActionsForUsage(BulkActions $bulkActions)
+    {
+        if(!$this->usageService->hasUsageBeenExceeded()) {
+            return $this;
+        }
+
+        $actions = $bulkActions->getActions();
+        foreach($actions as $action) {
+            $action->setEnabled(false);
+        }
+        return $this;
     }
 
     protected function getPaginationView()
@@ -159,6 +179,12 @@ class ProductsController extends AbstractActionController implements LoggerAware
     protected function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
     {
         $this->activeUserContainer = $activeUserContainer;
+        return $this;
+    }
+
+    protected function setUsageService(UsageService $usageService)
+    {
+        $this->usageService = $usageService;
         return $this;
     }
 
