@@ -2,6 +2,8 @@
 namespace Messages\Controller;
 
 use CG_UI\View\Prototyper\JsonModelFactory;
+use CG_Usage\Service as UsageService;
+use CG_Usage\Exception\Exceeded as UsageExceeded;
 use Messages\Message\Service;
 use Zend\Mvc\Controller\AbstractActionController;
 
@@ -12,17 +14,23 @@ class MessageJsonController extends AbstractActionController
 
     protected $jsonModelFactory;
     protected $service;
+    /** @var UsageService */
+    protected $usageService;
 
     public function __construct(
         JsonModelFactory $jsonModelFactory,
-        Service $service
+        Service $service,
+        UsageService $usageService
     ) {
         $this->setJsonModelFactory($jsonModelFactory)
-            ->setService($service);
+            ->setService($service)
+            ->setUsageService($usageService);
     }
 
     public function addAction()
     {
+        $this->checkUsage();
+
         $view = $this->jsonModelFactory->newInstance();
         $threadId = $this->params()->fromPost('threadId');
         $body = $this->params()->fromPost('body');
@@ -36,6 +44,13 @@ class MessageJsonController extends AbstractActionController
         return $view->setVariable('messageEntity', $messageData);
     }
 
+    protected function checkUsage()
+    {
+        if ($this->usageService->hasUsageBeenExceeded()) {
+            throw new UsageExceeded();
+        }
+    }
+
     protected function setJsonModelFactory($jsonModelFactory)
     {
         $this->jsonModelFactory = $jsonModelFactory;
@@ -45,6 +60,12 @@ class MessageJsonController extends AbstractActionController
     protected function setService(Service $service)
     {
         $this->service = $service;
+        return $this;
+    }
+
+    protected function setUsageService(UsageService $usageService)
+    {
+        $this->usageService = $usageService;
         return $this;
     }
 }

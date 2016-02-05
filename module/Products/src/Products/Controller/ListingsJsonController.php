@@ -9,6 +9,8 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Products\Listing\Service as ListingService;
 use Products\Listing\Filter\Service as FilterService;
 use CG_UI\View\Prototyper\JsonModelFactory;
+use CG_Usage\Service as UsageService;
+use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG\Listing\Unimported\Filter\Mapper as FilterMapper;
 use CG\Listing\Unimported\Mapper as ListingMapper;
 
@@ -24,19 +26,23 @@ class ListingsJsonController extends AbstractActionController
     protected $filterMapper;
     protected $listingMapper;
     protected $filterService;
+    /** @var UsageService */
+    protected $usageService;
 
     public function __construct(
         ListingService $listingService,
         JsonModelFactory $jsonModelFactory,
         FilterMapper $filterMapper,
         ListingMapper $listingMapper,
-        FilterService $filterService
+        FilterService $filterService,
+        UsageService $usageService
     ) {
         $this->setListingService($listingService)
             ->setJsonModelFactory($jsonModelFactory)
             ->setFilterMapper($filterMapper)
             ->setListingMapper($listingMapper)
-            ->setFilterService($filterService);
+            ->setFilterService($filterService)
+            ->setUsageService($usageService);
     }
 
     protected function getPageLimit()
@@ -112,6 +118,8 @@ class ListingsJsonController extends AbstractActionController
 
     public function hideAction()
     {
+        $this->checkUsage();
+
         $view = $this->getJsonModelFactory()->newInstance();
 
         $listingIds = $this->params()->fromPost('listingIds');
@@ -127,6 +135,8 @@ class ListingsJsonController extends AbstractActionController
 
     public function refreshAction()
     {
+        $this->checkUsage();
+
         $view = $this->getJsonModelFactory()->newInstance();
         $this->getListingService()->refresh();
         return $view;
@@ -134,6 +144,8 @@ class ListingsJsonController extends AbstractActionController
 
     public function importAction()
     {
+        $this->checkUsage();
+
         $view = $this->getJsonModelFactory()->newInstance();
         $listingIds = $this->params()->fromPost('listingIds');
         if (empty($listingIds)){
@@ -143,6 +155,13 @@ class ListingsJsonController extends AbstractActionController
         $this->getListingService()->importListingsById($listingIds);
         $view->setVariable('import', true);
         return $view;
+    }
+
+    protected function checkUsage()
+    {
+        if ($this->usageService->hasUsageBeenExceeded()) {
+            throw new UsageExceeded();
+        }
     }
 
     protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
@@ -197,6 +216,12 @@ class ListingsJsonController extends AbstractActionController
     protected function setFilterService($filterService)
     {
         $this->filterService = $filterService;
+        return $this;
+    }
+
+    protected function setUsageService(UsageService $usageService)
+    {
+        $this->usageService = $usageService;
         return $this;
     }
 }
