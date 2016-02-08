@@ -46,7 +46,7 @@ define([
             var availableElement = row.find(DomListener.SELECTOR_STOCK_AVAILABLE);
             var allocatedElement = row.find(DomListener.SELECTOR_STOCK_ALLOCATED);
             var etagElement = row.find(DomListener.SELECTOR_STOCK_LOC_ETAG);
-            domManipulator.setHtml(availableElement.get(0), value - allocatedElement.html());
+            domManipulator.setHtml(availableElement.get(0), value - Math.max(allocatedElement.html(), 0));
             service.save(stockLocationId, value, etagElement.val(), function(eTag){
                 etagElement.val(eTag);
             });
