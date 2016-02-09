@@ -3236,12 +3236,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "1715c910e9501541e1b00ee0204cb6def5046746"
+                "reference": "40a7b12118951e5f5abc3ca518ca43fede283bc1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6022-ebay-global-shipping-program-79e014.zip",
-                "reference": "1715c910e9501541e1b00ee0204cb6def5046746",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6022-ebay-global-shipping-program-fae1e7.zip",
+                "reference": "40a7b12118951e5f5abc3ca518ca43fede283bc1",
                 "shasum": null
             },
             "require": {
@@ -3287,7 +3287,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-02-09 10:28:56"
+            "time": "2016-02-09 11:38:02"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
