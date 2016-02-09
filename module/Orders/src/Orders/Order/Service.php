@@ -280,7 +280,11 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
                     continue;
                 }
 
-                $orders[$index]['giftMessage'] = $giftWrap->getGiftWrapMessage();
+                $orders[$index]['giftMessage'] = <<<GIFTWRAP
+<div><strong>Gift Wrap:</strong> {$giftWrap->getGiftWrapType()}</div>
+<div><strong>Gift Message:</strong> {$giftWrap->getGiftWrapMessage()}</div>
+GIFTWRAP;
+
                 continue 2;
             }
         }

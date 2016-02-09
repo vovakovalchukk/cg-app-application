@@ -22,7 +22,13 @@ require(["Filters/FilterCollection"], function(filterCollection) {
     filterCollection.setFilters(filterNames);
 });
 require(["tooltip"], function(Tooltip) {
-    var tooltip = new Tooltip("#datatable-container", ".buyer-message-holder, .gift-message-holder");
+    var tooltip = new Tooltip(
+        "#datatable-container",
+        ".buyer-message-holder, .gift-message-holder",
+        function() {
+            return $(this).attr("title");
+        }
+    );
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/jqueryPlugin/cg-pjax.js'); ?>
