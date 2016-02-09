@@ -315,6 +315,26 @@ return [
                                 ]
                             ],
                         ],
+                        [
+                            'filterType' => 'customSelectGroup',
+                            'visible' => false,
+                            'variables' => [
+                                'isBoolean' => true,
+                                'name' => 'giftMessage',
+                                'title' => 'Has Gift Message',
+                                'isOptional' => true,
+                                'options' => [
+                                    [
+                                        'value' => true,
+                                        'title' => 'Yes'
+                                    ],
+                                    [
+                                        'value' => false,
+                                        'title' => 'No'
+                                    ],
+                                ]
+                            ],
+                        ],
                     ]
                 ],
             ],
