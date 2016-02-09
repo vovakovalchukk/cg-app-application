@@ -21,6 +21,9 @@ require(["Filters/FilterCollection"], function(filterCollection) {
     };
     filterCollection.setFilters(filterNames);
 });
+require(["tooltip"], function(Tooltip) {
+    var tooltip = new Tooltip("#datatable-container", ".buyer-message-holder, .gift-message-holder");
+});
 <?php $this->inlineScript()->captureEnd(); ?>
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/jqueryPlugin/cg-pjax.js'); ?>
 <?php $this->headScript()->appendFile($this->basePath() . Filters\Module::PUBLIC_FOLDER . 'js/dataTableFilters.js'); ?>
