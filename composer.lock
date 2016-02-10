@@ -480,12 +480,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "85d22e3787100b23fb3cecee3f0a563d97c4081a"
+                "reference": "98108e753db3657f766d2abcaaf30ac225aeb3bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6022-ebay-global-shipping-program-63ea9a.zip",
-                "reference": "85d22e3787100b23fb3cecee3f0a563d97c4081a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6022-ebay-global-shipping-program-ac6d84.zip",
+                "reference": "98108e753db3657f766d2abcaaf30ac225aeb3bc",
                 "shasum": null
             },
             "require": {
@@ -518,7 +518,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-02-09 16:34:11"
+            "time": "2016-02-10 11:15:05"
         },
         {
             "name": "channelgrabber/db",
@@ -1196,12 +1196,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "fda26a05ab149209273ae6f636f21b51d50c52c0"
+                "reference": "83562789939eb6244929aeafab4183f934d8a704"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6022-ebay-global-shipping-program-b47cd2.zip",
-                "reference": "fda26a05ab149209273ae6f636f21b51d50c52c0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6022-ebay-global-shipping-program-d281c0.zip",
+                "reference": "83562789939eb6244929aeafab4183f934d8a704",
                 "shasum": null
             },
             "require": {
@@ -1263,7 +1263,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-02-09 15:15:02"
+            "time": "2016-02-10 11:09:34"
         },
         {
             "name": "channelgrabber/permission",
@@ -2087,12 +2087,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "9ee7e0ec761ba73ac660e2307ec809eb4e74c80f"
+                "reference": "8a64516e443be07f852263a265d764db0bda524b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-6022-ebay-global-shipping-program-3af467.zip",
-                "reference": "9ee7e0ec761ba73ac660e2307ec809eb4e74c80f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-6022-ebay-global-shipping-program-6dd15b.zip",
+                "reference": "8a64516e443be07f852263a265d764db0bda524b",
                 "shasum": null
             },
             "require": {
@@ -2130,7 +2130,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2016-02-09 15:02:30"
+            "time": "2016-02-10 11:13:57"
         },
         {
             "name": "channelgrabber/transaction",
