@@ -51,9 +51,9 @@ require([
 
 <div class="bulk-actions-section clearfix section-seperator">
     <div class="orderid-logo-holder">
-        <?= $this->channel ;?>
-        <span class="orderid"><strong><?= $this->translate('Order ID'); ?>: </strong><?= $order->getExternalId(); ?></span>
-        <?= $this->status; ?>
+        <?= $this->accountDetails ?>
+        <?= $this->orderDetails ?>
+        <?= $this->status ?>
     </div>
     <div class="bulk-actions-holder">
       <?= $this->bulkActions ?>

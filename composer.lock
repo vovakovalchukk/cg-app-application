@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7e2d09e5e6967a7b4cde80cd60102b97",
-    "content-hash": "6193572c2f193ab1a3784da8461ee9f4",
+    "hash": "0f941d16365f4354f8f46f17e61ba906",
+    "content-hash": "502e87204571646d527bc7f98859e006",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3232,12 +3232,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e9f1bebd382096d121aedeed10bdd31d1fe4f941"
+                "reference": "cdfa02db25146f13f0e4668f7d1d849c4e8ea58f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6022-ebay-global-shipping-program-a1164a.zip",
-                "reference": "e9f1bebd382096d121aedeed10bdd31d1fe4f941",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6022-ebay-global-shipping-program-b382e2.zip",
+                "reference": "cdfa02db25146f13f0e4668f7d1d849c4e8ea58f",
                 "shasum": null
             },
             "require": {
@@ -3283,7 +3283,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-02-10 10:56:13"
+            "time": "2016-02-10 11:31:29"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7433,8 +7433,8 @@
             "package": "channelgrabber/template"
         },
         {
-            "alias": "1.16.30",
-            "alias_normalized": "1.16.30.0",
+            "alias": "1.16.31",
+            "alias_normalized": "1.16.31.0",
             "version": "dev-CGIV-6022-ebay-global-shipping-program",
             "package": "channelgrabber/zf2-v4-ui"
         }
