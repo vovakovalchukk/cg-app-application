@@ -32,13 +32,17 @@ require([
             '#copy-billing-address',
             $('#billing-information').find('label input.copy-address')
         );
+        <?php if (!$order->getFulfilmentAddress()): ?>
         var shippingClipboard = new Clipboard(
             '#copy-shipping-address',
             $('#shipping-information').find('label input.copy-address')
         );
-        if (! billingClipboard.hasFlash()) {
-            $('.copy-address-to-clipboard').hide();
-        }
+        <?php else: ?>
+        var fulfilmentClipboard = new Clipboard(
+            '#copy-shipping-address',
+            $('#fulfilment-information')
+        );
+        <?php endif; ?>
 
 });
 <?php $this->inlineScript()->captureEnd(); ?>
@@ -170,6 +174,7 @@ require([
                 <span class="heading-large heading-spacing"><?= $this->translate('Shipping Information'); ?>
                     <a class="copy-address-to-clipboard" id="copy-shipping-address"><?= $this->translate("Copy address to clipboard"); ?></a>
                 </span>
+                <?php if (!$order->getFulfilmentAddress()): ?>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Recipient Name'); ?></span>
                     <div class="order-inputbox-holder">
@@ -224,6 +229,22 @@ require([
                         <input class="inputbox copy-address" type="text" name="shippingAddressCountry" value="<?= $order->getCalculatedShippingAddressCountry(); ?>"<?php if (!$this->editable): ?> readonly="readonly"<?php endif; ?> />
                     </div>
                 </label>
+                <?php else: ?>
+                <fieldset class='inputbox'>
+                    <legend><?=$this->translate('eBay Global Shipping');?></legend>
+                    <p id='fulfilment-information'><?=
+                        ($order->getFulfilmentAddress()->getAddressFullName() ? $order->getFulfilmentAddress()->getAddressFullName() . '<br />' : '') .
+                        ($order->getFulfilmentAddress()->getAddressCompanyName() ? $order->getFulfilmentAddress()->getAddressCompanyName() . '<br />' : '') .
+                        $order->getFulfilmentAddress()->getAddress1() . '<br />' .
+                        $order->getFulfilmentAddress()->getAddress2() . '<br />' .
+                        ($order->getFulfilmentAddress()->getAddress3() ? $order->getFulfilmentAddress()->getAddress3() . '<br />' : '') .
+                        ($order->getFulfilmentAddress()->getAddressCity() ? $order->getFulfilmentAddress()->getAddressCity() . '<br />' : '') .
+                        ($order->getFulfilmentAddress()->getAddressCounty() ? $order->getFulfilmentAddress()->getAddressCounty() . '<br />' : '') .
+                        $order->getFulfilmentAddress()->getAddressPostcode() . '<br />' .
+                        $order->getFulfilmentAddress()->getAddressCountry()
+                    ;?></p>
+                </fieldset>
+                <?php endif; ?>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Email'); ?></span>
                     <div class="order-inputbox-holder">
