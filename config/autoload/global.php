@@ -923,7 +923,7 @@ return array(
                         [
                             'channelName' => Carriers::UPS,
                             'displayName' => 'UPS',
-                            'code' => DataplugCarrier\UPS::CODE,
+                            'code' => DataplugCarrier\Ups::CODE,
                             'fields' => [
                                 ['name' => 'Account no'],
                                 ['name' => 'Book no'],

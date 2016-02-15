@@ -1,0 +1,17 @@
+<div class="order-details">
+    <div class="details-header">
+        <div><?= $this->translate('Order ID') ?></div>
+        <div><?= $this->translate('Buyer') ?></div>
+    </div>
+    <div class="details-spacer">
+        <div>:</div>
+        <div>:</div>
+    </div>
+    <div>
+        <div><?= $orderId ?></div>
+        <div>
+            <span><?= isset($buyerUsername) ? $buyerUsername : $buyerName ?></span>
+            <span class="links">(<a href="<?= $orderUrl ?>">Orders</a> / <a href="<?= $messageUrl ?>">Messages</a>)</span>
+        </div>
+    </div>
+</div>
