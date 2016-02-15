@@ -260,7 +260,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected function getOrdersArrayWithGiftMessages(OrderCollection $orderCollection, array $orders)
     {
         foreach ($orders as $index => $order) {
-            $orders[$index]['giftMessage'] = '';
+            $giftMessages = [];
 
             /** @var OrderEntity|null $orderEntity */
             $orderEntity = $orderCollection->getById($order['id']);
@@ -274,19 +274,17 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
                 $giftWraps = $orderItemEntity->getGiftWraps();
                 $giftWraps->rewind();
 
-                /** @var GiftWrapEntity|null $giftWrap */
-                $giftWrap = $giftWraps->current();
-                if (!$giftWrap) {
-                    continue;
+                /** @var GiftWrapEntity $giftWrap */
+                foreach ($giftWraps as $giftWrap) {
+                    $giftMessages[] = [
+                        'type' => $giftWrap->getGiftWrapType(),
+                        'message' => $giftWrap->getGiftWrapMessage(),
+                    ];
                 }
-
-                $orders[$index]['giftMessage'] = <<<GIFTWRAP
-<div><strong>Gift Wrap:</strong> {$giftWrap->getGiftWrapType()}</div>
-<div><strong>Gift Message:</strong> {$giftWrap->getGiftWrapMessage()}</div>
-GIFTWRAP;
-
-                continue 2;
             }
+
+            $orders[$index]['giftMessageCount'] = count($giftMessages);
+            $orders[$index]['giftMessages'] = json_encode($giftMessages);
         }
 
         return $orders;

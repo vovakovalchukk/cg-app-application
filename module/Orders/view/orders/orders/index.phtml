@@ -22,11 +22,29 @@ require(["Filters/FilterCollection"], function(filterCollection) {
     filterCollection.setFilters(filterNames);
 });
 require(["tooltip"], function(Tooltip) {
-    var tooltip = new Tooltip(
+    var buyerMessageTooltip = new Tooltip(
         "#datatable-container",
-        ".buyer-message-holder, .gift-message-holder",
+        ".buyer-message-holder",
         function() {
             return $(this).attr("title");
+        }
+    );
+
+    var giftMessageTooltipTemplate = '/cg-built/orders/template/columns/giftMessage/tooltip.mustache';
+    CGMustache.get().fetchTemplate(
+        giftMessageTooltipTemplate,
+        function(template, cgmustache) {
+            var giftMessageTooltip = new Tooltip(
+                "#datatable-container",
+                ".gift-message-holder",
+                function() {
+                    var giftMessages = $(this).data("gift-messages");
+                    if (typeof(giftMessages) !== "object" || !giftMessages.length) {
+                        return "";
+                    }
+                    return cgmustache.renderTemplate(template, {'giftMessages': giftMessages})
+                }
+            );
         }
     );
 });
