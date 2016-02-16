@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5136e4d642ca7a6919589292fa2b79e0",
-    "content-hash": "fad255bfb5a7847238d538df4963f9fe",
+    "hash": "c9aa2d9f1e608405c51c7e80cb53ef82",
+    "content-hash": "aa908f23460b94022416667d347b14c4",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1196,12 +1196,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "bef208626e2b4a4f34d3401a04145f9b4a3cd7ce"
+                "reference": "82a9c16fced1e2a6217b83a2ac540b7a39d4110e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6733-OrdersGiftColumn-f064cb.zip",
-                "reference": "bef208626e2b4a4f34d3401a04145f9b4a3cd7ce",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6733-OrdersGiftColumn-d9904a.zip",
+                "reference": "82a9c16fced1e2a6217b83a2ac540b7a39d4110e",
                 "shasum": null
             },
             "require": {
@@ -1263,7 +1263,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-02-15 15:45:25"
+            "time": "2016-02-16 16:22:13"
         },
         {
             "name": "channelgrabber/permission",
@@ -7414,14 +7414,14 @@
     ],
     "aliases": [
         {
-            "alias": "1.0.7",
-            "alias_normalized": "1.0.7.0",
+            "alias": "1.0.9",
+            "alias_normalized": "1.0.9.0",
             "version": "dev-CGIV-6733-OrdersGiftColumn",
             "package": "channelgrabber/db"
         },
         {
-            "alias": "1.21.6",
-            "alias_normalized": "1.21.6.0",
+            "alias": "1.21.7",
+            "alias_normalized": "1.21.7.0",
             "version": "dev-CGIV-6733-OrdersGiftColumn",
             "package": "channelgrabber/order"
         },
