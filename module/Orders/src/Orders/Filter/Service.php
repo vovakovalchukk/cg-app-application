@@ -85,7 +85,7 @@ class Service
         }
 
         if (!isset($storage['orders']['filter']) || !($storage['orders']['filter'] instanceof Filter)) {
-            $defaultFilter = $this->getFilterFromArray($this->addDefaultFiltersToArray($this->getFilter()->toArray()));
+            $defaultFilter = $this->getFilterFromArray([]);
             $storage['orders']['filter'] = $defaultFilter;
         }
 
