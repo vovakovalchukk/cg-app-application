@@ -76,6 +76,9 @@ class Service
         return $this;
     }
 
+    /**
+     * @return Filter
+     */
     public function getPersistentFilter()
     {
         $storage = $this->getPersistentStorage()->getStorage();
