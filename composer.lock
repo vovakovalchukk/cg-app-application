@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2316c8d5ba4b941133fa9f2842d17112",
-    "content-hash": "9b47015d4bc209324572dc28c13e3322",
+    "hash": "5136e4d642ca7a6919589292fa2b79e0",
+    "content-hash": "fad255bfb5a7847238d538df4963f9fe",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3230,12 +3230,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "9ef981fcbd13459b60eaa70db9118569341d5d67"
+                "reference": "ac537be6a04abd58cc82d6d3765cd4d4c92f9251"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6733-OrdersGiftColumn-437dbb.zip",
-                "reference": "9ef981fcbd13459b60eaa70db9118569341d5d67",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6733-OrdersGiftColumn-7b581f.zip",
+                "reference": "ac537be6a04abd58cc82d6d3765cd4d4c92f9251",
                 "shasum": null
             },
             "require": {
@@ -3281,7 +3281,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-02-15 15:46:55"
+            "time": "2016-02-16 09:10:51"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7414,6 +7414,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.0.7",
+            "alias_normalized": "1.0.7.0",
+            "version": "dev-CGIV-6733-OrdersGiftColumn",
+            "package": "channelgrabber/db"
+        },
+        {
             "alias": "1.21.6",
             "alias_normalized": "1.21.6.0",
             "version": "dev-CGIV-6733-OrdersGiftColumn",
@@ -7424,24 +7430,18 @@
             "alias_normalized": "1.16.33.0",
             "version": "dev-CGIV-6733-OrdersGiftColumn",
             "package": "channelgrabber/zf2-v4-ui"
-        },
-        {
-            "alias": "1.0.7",
-            "alias_normalized": "1.0.7.0",
-            "version": "dev-CGIV-6733-OrdersGiftColumn",
-            "package": "channelgrabber/db"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/db": 20,
         "channelgrabber/order": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "channelgrabber/db": 20,
         "phpspec/phpspec": 20
     },
     "prefer-stable": false,
