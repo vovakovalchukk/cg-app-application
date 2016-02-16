@@ -1,8 +1,8 @@
 <?php
 namespace Orders\Filter;
 
-use CG\Order\Service\Filter;
 use CG\Order\Service\Filter\Mapper;
+use CG\Order\Service\Filter;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
 use Zend\Session\ManagerInterface;
 
@@ -63,7 +63,7 @@ class Service
         return $this->persistentStorage;
     }
 
-    public function setPersistentFilter(Filter $filter)
+    public function setPersistentFilter(DisplayFilter $filter)
     {
         $storage = $this->getPersistentStorage()->getStorage();
 
@@ -77,7 +77,7 @@ class Service
     }
 
     /**
-     * @return Filter
+     * @return DisplayFilter
      */
     public function getPersistentFilter()
     {
@@ -87,12 +87,30 @@ class Service
             $storage['orders'] = [];
         }
 
-        if (!isset($storage['orders']['filter']) || !($storage['orders']['filter'] instanceof Filter)) {
-            $defaultFilter = $this->getFilterFromArray([]);
-            $storage['orders']['filter'] = $defaultFilter;
+        if (!isset($storage['orders']['filter'])) {
+            $storage['orders']['filter'] = $this->createDisplayFilter();
+        }
+
+        if ($storage['orders']['filter'] instanceof Filter) {
+            $storage['orders']['filter'] = $this->createDisplayFilter($storage['orders']['filter']);
+        }
+
+        if (!($storage['orders']['filter'] instanceof DisplayFilter)) {
+            $storage['orders']['filter'] = $this->createDisplayFilter();
         }
 
         return $storage['orders']['filter'];
+    }
+
+    /**
+     * @return DisplayFilter
+     */
+    protected function createDisplayFilter(Filter $filter = null)
+    {
+        return new DisplayFilter(
+            [],
+            $filter ?: $this->getFilterFromArray([])
+        );
     }
 
     public function getFilterFromArray(array $data)

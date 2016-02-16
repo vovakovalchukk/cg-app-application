@@ -26,6 +26,7 @@ use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG_Usage\Service as UsageService;
 use Orders\Courier\Manifest\Service as ManifestService;
 use Orders\Courier\Service as CourierService;
+use Orders\Filter\DisplayFilter;
 use Orders\Filter\Service as FilterService;
 use Orders\Module;
 use Orders\Order\Batch\Service as BatchService;
@@ -136,7 +137,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             ];
         } else {
             $filterValues = $this->getFilterService()->getMapper()->toArray(
-                $this->getFilterService()->getPersistentFilter()
+                $this->getFilterService()->getPersistentFilter()->getFilter()
             );
         }
         if (isset($filterValues['purchaseDate']['from'])) {
@@ -554,7 +555,13 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             );
         }
 
-        $this->getFilterService()->setPersistentFilter($filter);
+        $this->getFilterService()->setPersistentFilter(
+            new DisplayFilter(
+                array_keys($this->params()->fromPost()),
+                $filter
+            )
+        );
+
         // Must reformat dates *after* persisting otherwise it'll happen again when its reloaded
         if ($filter->getPurchaseDateFrom()) {
             $filter->setPurchaseDateFrom($this->dateFormatInput($filter->getPurchaseDateFrom()));
