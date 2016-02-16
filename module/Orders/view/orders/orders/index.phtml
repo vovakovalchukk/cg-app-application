@@ -42,7 +42,22 @@ require(["tooltip"], function(Tooltip) {
                     if (typeof(giftMessages) !== "object" || !giftMessages.length) {
                         return "";
                     }
-                    return cgmustache.renderTemplate(template, {'giftMessages': giftMessages})
+
+                    var counter = 0;
+                    var seperator =  function(text, renderer) {
+                        if (counter++ > 0) {
+                            return renderer(text);
+                        }
+                        return "";
+                    };
+
+                    return cgmustache.renderTemplate(
+                        template,
+                        {
+                            'giftMessages': giftMessages,
+                            'seperator': function() { return seperator; }
+                        }
+                    );
                 }
             );
         }
