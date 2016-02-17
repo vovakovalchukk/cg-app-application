@@ -32,6 +32,7 @@ public/channelgrabber/zf2-api
 public/channelgrabber/zf2-channel
 public/channelgrabber/zf2-dataplug
 public/channelgrabber/zf2-login
+public/channelgrabber/zf2-netdespatch
 public/channelgrabber/zf2-register
 public/channelgrabber/zf2-royalmail
 public/channelgrabber/zf2-usage

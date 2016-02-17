@@ -118,9 +118,14 @@ use CG\ApiCredentials\Storage\Api as ApiCredentialsApi;
 use CG\Template\Image\ClientInterface as ImageTemplateClient;
 use CG\Template\Image\Client\Guzzle as ImageTemplateGuzzleClient;
 
+// Shipping options
+use CG\Channel\ShippingChannelsProviderInterface as ChannelShippingChannelsProviderInterface;
+use CG\Channel\ShippingChannelsProviderRepository as ChannelShippingChannelsProviderRepository;
+use CG\Channel\ShippingOptionsProviderInterface as ChannelShippingOptionsProviderInterface;
+use CG\Channel\ShippingOptionsProviderRepository as ChannelShippingOptionsProviderRepository;
+
 // Dataplug
 use CG\Dataplug\Carrier\Service as DataplugCarrierService;
-use CG\Channel\ShippingOptionsProviderInterface as ChannelShippingOptionsProviderInterface;
 use CG\Order\Shared\Label\StorageInterface as OrderLabelStorage;
 use CG\Order\Client\Label\Storage\Api as OrderLabelApiStorage;
 use CG\Product\Detail\StorageInterface as ProductDetailStorage;
@@ -129,11 +134,13 @@ use CG\Dataplug\Account\Service as DataplugAccountService;
 use CG\Dataplug\Account\Storage\Api as DataplugAccountApi;
 use CG\Dataplug\Request\Factory\CreateCarrier as DataplugCreateCarrierRequestFactory;
 use CG\Dataplug\Request\Factory\UpdateCarrier as  DataplugUpdateCarrierRequestFactory;
-use CG\Dataplug\Carriers;
+use CG\Dataplug\Carriers as DataplugCarriers;
 use CG\Account\Shared\Manifest\StorageInterface as AccountManifestStorage;
 use CG\Account\Client\Manifest\Storage\Api as AccountManifestApiStorage;
 use CG\Dataplug\Request\Carrier as DataplugCarrier;
-use CG\Channel\ShippingChannelsProviderInterface as ChannelShippingChannelsProviderInterface;
+
+// NetDespatch
+use CG\NetDespatch\ShippingOptionsProvider as NetDespatchShippingOptionsProvider;
 
 // Transactions
 use CG\Transaction\ClientInterface as TransactionClient;
@@ -145,6 +152,30 @@ use CG\Stock\Audit\Combined\Storage\Api as StockLogApiStorage;
 
 return array(
     'di' => array(
+        'definition' => [
+            'class' => [
+                ChannelShippingChannelsProviderRepository::class => [
+                    'methods' => [
+                        'addProvider' => [
+                            'provider' => [
+                                'type' => ChannelShippingChannelsProviderInterface::class,
+                                'required' => true
+                            ]
+                        ]
+                    ]
+                ],
+                ChannelShippingOptionsProviderRepository::class => [
+                    'methods' => [
+                        'addProvider' => [
+                            'provider' => [
+                                'type' => ChannelShippingOptionsProviderInterface::class,
+                                'required' => true
+                            ]
+                        ]
+                    ]
+                ],
+            ]
+        ],
         'instance' => array(
             'preferences' => array(
                 EventManagerInterface::class => EventManager::class,
@@ -167,8 +198,8 @@ return array(
                 ApiCredentialsStorage::class => ApiCredentialsApi::class,
                 ImageTemplateClient::class => ImageTemplateGuzzleClient::class,
                 ProductSettingsStorage::class => ProductSettingsStorageApi::class,
-                ChannelShippingOptionsProviderInterface::class => DataplugCarrierService::class,
-                ChannelShippingChannelsProviderInterface::class => Carriers::class,
+                ChannelShippingOptionsProviderInterface::class => ChannelShippingOptionsProviderRepository::class,
+                ChannelShippingChannelsProviderInterface::class => ChannelShippingChannelsProviderRepository::class,
                 OrderLabelStorage::class => OrderLabelApiStorage::class,
                 ProductDetailStorage::class => ProductDetailApiStorage::class,
                 AccountManifestStorage::class => AccountManifestApiStorage::class,
@@ -549,11 +580,27 @@ return array(
                     'client' => 'account_guzzle'
                 ]
             ],
+            ChannelShippingChannelsProviderRepository::class => [
+                'injections' => [
+                    'addProvider' => [
+                        ['provider' => DataplugCarriers::class],
+                        ['provider' => NetDespatchShippingOptionsProvider::class],
+                    ]
+                ]
+            ],
+            ChannelShippingOptionsProviderRepository::class => [
+                'injections' => [
+                    'addProvider' => [
+                        ['provider' => DataplugCarrierService::class],
+                        ['provider' => NetDespatchShippingOptionsProvider::class],
+                    ]
+                ]
+            ],
             DataplugCarrierService::class => [
                 'parameters' => [
                     'carriersConfig' => [
                         [
-                            'channelName' => Carriers::DHL,
+                            'channelName' => DataplugCarriers::DHL,
                             'displayName' => 'DHL',
                             'code' => DataplugCarrier\Dhl::CODE,
                             'allowsCancellation' => false,
@@ -584,7 +631,7 @@ return array(
                             ],
                         ],
                         [
-                            'channelName' => Carriers::DPD,
+                            'channelName' => DataplugCarriers::DPD,
                             'displayName' => 'DPD',
                             'code' => DataplugCarrier\Dpd::CODE,
                             'fields' => [
@@ -628,7 +675,7 @@ return array(
                             ],
                         ],
                         [
-                            'channelName' => Carriers::FEDEX,
+                            'channelName' => DataplugCarriers::FEDEX,
                             'displayName' => 'FedEx',
                             'code' => DataplugCarrier\Fedex::CODE,
                             'allowsCancellation' => false,
@@ -656,7 +703,7 @@ return array(
                             ],
                         ],
                         [
-                            'channelName' => Carriers::INTERLINK,
+                            'channelName' => DataplugCarriers::INTERLINK,
                             'displayName' => 'Interlink',
                             'code' => DataplugCarrier\Interlink::CODE,
                             'fields' => [
@@ -686,7 +733,7 @@ return array(
                         /*
                         // Not going live with Hermes but will need this in the near future so leaving this here
                         [
-                            'channelName' => Carriers::MYHERMES,
+                            'channelName' => DataplugCarriers::MYHERMES,
                             'displayName' => 'Hermes corporate',
                             'salesChannelName' => 'Hermes',
                             'code' => DataplugCarrier\Myhermes::CODE,
@@ -710,7 +757,7 @@ return array(
                         */
 
                         [
-                            'channelName' => Carriers::PARCELFORCE,
+                            'channelName' => DataplugCarriers::PARCELFORCE,
                             'displayName' => 'Parcelforce',
                             'code' => DataplugCarrier\Parcelforce::CODE,
                             'allowsCancellation' => false,
@@ -740,7 +787,8 @@ return array(
                             ],
                         ],
                         [
-                            'channelName' => Carriers::ROYAL_MAIL_OBA,
+                            /** @deprecated We now use NetDespatch for Royal Mail */
+                            'channelName' => DataplugCarriers::ROYAL_MAIL_OBA,
                             'displayName' => 'Royal Mail OBA',
                             'salesChannelName' => 'Royal Mail',
                             'code' => DataplugCarrier\RoyalMailOba::CODE,
@@ -832,7 +880,7 @@ return array(
                             ],
                         ],
                         [
-                            'channelName' => Carriers::TNT,
+                            'channelName' => DataplugCarriers::TNT,
                             'displayName' => 'TNT',
                             'code' => DataplugCarrier\Tnt::CODE,
                             'allowsCancellation' => false,
@@ -868,7 +916,7 @@ return array(
                             ],
                         ],
                         [
-                            'channelName' => Carriers::UK_MAIL,
+                            'channelName' => DataplugCarriers::UK_MAIL,
                             'displayName' => 'UK Mail',
                             'code' => DataplugCarrier\UkMail::CODE,
                             'allowsCancellation' => false,
@@ -921,7 +969,7 @@ return array(
                             ],
                         ],
                         [
-                            'channelName' => Carriers::UPS,
+                            'channelName' => DataplugCarriers::UPS,
                             'displayName' => 'UPS',
                             'code' => DataplugCarrier\Ups::CODE,
                             'fields' => [
@@ -953,7 +1001,7 @@ return array(
                             ],
                         ],
                         [
-                            'channelName' => Carriers::YODEL,
+                            'channelName' => DataplugCarriers::YODEL,
                             'displayName' => 'Yodel',
                             'code' => DataplugCarrier\Yodel::CODE,
                             'fields' => [
