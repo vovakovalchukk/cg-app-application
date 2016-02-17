@@ -34,7 +34,7 @@ class DisplayFilter
      */
     protected function setDisplay(array $display)
     {
-        $this->display = $display;
+        $this->display = array_fill_keys($display, true);
         return $this;
     }
 
