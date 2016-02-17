@@ -548,7 +548,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $requestFilter = $this->params()->fromPost('filter', []);
         $this->getFilterService()->setPersistentFilter(
             new DisplayFilter(
-                isset($requestFilter['more']) ? $requestFilter['more'] : [],
+                isset($requestFilter['more']) && is_array($requestFilter['more']) ? $requestFilter['more'] : [],
                 $this->getFilterService()->getFilterFromArray($requestFilter)
             )
         );
