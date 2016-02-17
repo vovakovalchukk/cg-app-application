@@ -546,21 +546,20 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             ->setOrderDirection($orderBy->getDirection());
 
         $requestFilter = $this->params()->fromPost('filter', []);
-        $requestFilter = $this->filterService->addDefaultFiltersToArray($requestFilter);
+        $this->getFilterService()->setPersistentFilter(
+            new DisplayFilter(
+                array_keys($requestFilter),
+                $this->getFilterService()->getFilterFromArray($requestFilter)
+            )
+        );
 
+        $requestFilter = $this->filterService->addDefaultFiltersToArray($requestFilter);
         if (!empty($requestFilter)) {
             $filter = $this->getFilterService()->mergeFilters(
                 $filter,
                 $this->getFilterService()->getFilterFromArray($requestFilter)
             );
         }
-
-        $this->getFilterService()->setPersistentFilter(
-            new DisplayFilter(
-                array_keys($this->params()->fromPost()),
-                $filter
-            )
-        );
 
         // Must reformat dates *after* persisting otherwise it'll happen again when its reloaded
         if ($filter->getPurchaseDateFrom()) {
