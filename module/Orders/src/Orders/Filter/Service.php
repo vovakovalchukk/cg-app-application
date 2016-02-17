@@ -30,39 +30,60 @@ class Service
             ->setShippingConversionService($shippingConversionService);
     }
 
+    /**
+     * @return self
+     */
     public function setFilter(Filter $filter)
     {
         $this->filter = $filter;
         return $this;
     }
 
+    /**
+     * @return Filter
+     */
     public function getFilter()
     {
         return $this->filter;
     }
 
+    /**
+     * @return self
+     */
     public function setMapper(Mapper $mapper)
     {
         $this->mapper = $mapper;
         return $this;
     }
 
+    /**
+     * @return Mapper
+     */
     public function getMapper()
     {
         return $this->mapper;
     }
 
+    /**
+     * @return self
+     */
     public function setPersistentStorage(ManagerInterface $persistentStorage)
     {
         $this->persistentStorage = $persistentStorage;
         return $this;
     }
 
+    /**
+     * @return ManagerInterface
+     */
     public function getPersistentStorage()
     {
         return $this->persistentStorage;
     }
 
+    /**
+     * @return self
+     */
     public function setPersistentFilter(DisplayFilter $filter)
     {
         $storage = $this->getPersistentStorage()->getStorage();
@@ -113,16 +134,25 @@ class Service
         );
     }
 
+    /**
+     * @return Filter
+     */
     public function getFilterFromArray(array $data)
     {
         return $this->getMapper()->fromArray($data);
     }
 
+    /**
+     * @return Filter
+     */
     public function mergeFilters(Filter $filter1, Filter $filter2)
     {
         return $this->getMapper()->merge($filter1, $filter2);
     }
 
+    /**
+     * @return array
+     */
     public function addDefaultFiltersToArray(array $filters)
     {
         if (!isset($filters['archived'])) {
@@ -140,6 +170,9 @@ class Service
         return $filters;
     }
 
+    /**
+     * @return self
+     */
     protected function setShippingConversionService(ShippingConversionService $shippingConversionService)
     {
         $this->shippingConversionService = $shippingConversionService;
