@@ -119,6 +119,8 @@ use CG\Template\Image\ClientInterface as ImageTemplateClient;
 use CG\Template\Image\Client\Guzzle as ImageTemplateGuzzleClient;
 
 // Shipping options
+use CG\Channel\CarrierBookingOptionsInterface as ChannelCarrierBookingOptionsInterface;
+use CG\Channel\CarrierBookingOptionsRepository as ChannelCarrierBookingOptionsRepository;
 use CG\Channel\ShippingChannelsProviderInterface as ChannelShippingChannelsProviderInterface;
 use CG\Channel\ShippingChannelsProviderRepository as ChannelShippingChannelsProviderRepository;
 use CG\Channel\ShippingOptionsProviderInterface as ChannelShippingOptionsProviderInterface;
@@ -174,6 +176,16 @@ return array(
                         ]
                     ]
                 ],
+                ChannelCarrierBookingOptionsRepository::class => [
+                    'methods' => [
+                        'addProvider' => [
+                            'provider' => [
+                                'type' => ChannelCarrierBookingOptionsInterface::class,
+                                'required' => true
+                            ]
+                        ]
+                    ]
+                ],
             ]
         ],
         'instance' => array(
@@ -200,6 +212,7 @@ return array(
                 ProductSettingsStorage::class => ProductSettingsStorageApi::class,
                 ChannelShippingOptionsProviderInterface::class => ChannelShippingOptionsProviderRepository::class,
                 ChannelShippingChannelsProviderInterface::class => ChannelShippingChannelsProviderRepository::class,
+                ChannelCarrierBookingOptionsInterface::class => ChannelCarrierBookingOptionsRepository::class,
                 OrderLabelStorage::class => OrderLabelApiStorage::class,
                 ProductDetailStorage::class => ProductDetailApiStorage::class,
                 AccountManifestStorage::class => AccountManifestApiStorage::class,
@@ -589,6 +602,14 @@ return array(
                 ]
             ],
             ChannelShippingOptionsProviderRepository::class => [
+                'injections' => [
+                    'addProvider' => [
+                        ['provider' => DataplugCarrierService::class],
+                        ['provider' => NetDespatchShippingOptionsProvider::class],
+                    ]
+                ]
+            ],
+            ChannelCarrierBookingOptionsRepository::class => [
                 'injections' => [
                     'addProvider' => [
                         ['provider' => DataplugCarrierService::class],

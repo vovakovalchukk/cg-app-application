@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f8fba4600312a245ed2f7c37d3f98667",
-    "content-hash": "3f1918b5058cc67b56b7de7f32bec5aa",
+    "hash": "c6df6bcdd634175f30203a8bbe500e09",
+    "content-hash": "fbc17858e02b20ca75d143c376e0d24f",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -309,12 +309,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "0734bb5e53676be1e39f558d39434c68ebf91d22"
+                "reference": "abaee695c58164017af74d88beac0568915e27fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6778-netdespatch-integration-d1b9d0.zip",
-                "reference": "0734bb5e53676be1e39f558d39434c68ebf91d22",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6778-netdespatch-integration-e670b7.zip",
+                "reference": "abaee695c58164017af74d88beac0568915e27fe",
                 "shasum": null
             },
             "require": {
@@ -377,7 +377,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-02-17 09:09:25"
+            "time": "2016-02-18 11:45:25"
         },
         {
             "name": "channelgrabber/cilex",
@@ -484,20 +484,20 @@
         },
         {
             "name": "channelgrabber/dataplug",
-            "version": "1.1.1",
+            "version": "dev-CGIV-6778-netdespatch-integration",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "1163c7823323a63e5c38832530238fd160a8e55a"
+                "reference": "a0e56da431786238e2fc42c4f90627c00ccddb00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-1.1.1-fc1931.zip",
-                "reference": "1163c7823323a63e5c38832530238fd160a8e55a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6778-netdespatch-integration-38c6cd.zip",
+                "reference": "a0e56da431786238e2fc42c4f90627c00ccddb00",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.19.0",
+                "channelgrabber/channel": "dev-CGIV-6778-netdespatch-integration as 1.21.6",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.1.0",
                 "channelgrabber/gearman": "^1.2.0",
@@ -526,7 +526,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-02-10 16:02:40"
+            "time": "2016-02-18 11:56:55"
         },
         {
             "name": "channelgrabber/db",
@@ -1191,16 +1191,16 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "b9efc8d9792a55e5a5301e9afdf53dbf2a1a26f5"
+                "reference": "d9e26a1acd2634a0437f22c050dd89e6944a20d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6778-netdespatch-integration-4dbb27.zip",
-                "reference": "b9efc8d9792a55e5a5301e9afdf53dbf2a1a26f5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6778-netdespatch-integration-71993d.zip",
+                "reference": "d9e26a1acd2634a0437f22c050dd89e6944a20d9",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.19.0",
+                "channelgrabber/channel": "dev-CGIV-6778-netdespatch-integration as 1.21.6",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": ">=2.1.0",
                 "channelgrabber/stats": "^1.0.0",
@@ -1228,7 +1228,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-02-17 15:00:57"
+            "time": "2016-02-18 12:22:21"
         },
         {
             "name": "channelgrabber/notification",
@@ -7623,6 +7623,12 @@
             "package": "channelgrabber/channel"
         },
         {
+            "alias": "1.1.2",
+            "alias_normalized": "1.1.2.0",
+            "version": "dev-CGIV-6778-netdespatch-integration",
+            "package": "channelgrabber/dataplug"
+        },
+        {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
             "version": "dev-CGIV-6778-netdespatch-integration",
@@ -7645,6 +7651,7 @@
     "stability-flags": {
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/dataplug": 20,
         "channelgrabber/netdespatch": 20,
         "channelgrabber/zf2-netdespatch": 20,
         "channelgrabber/zf2-v4-ui": 20,

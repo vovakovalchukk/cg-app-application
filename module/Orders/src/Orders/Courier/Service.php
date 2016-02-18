@@ -6,7 +6,9 @@ use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\ShippingServiceFactory;
+use CG\Channel\ShippingChannelsProviderInterface;
 use CG\Channel\Type as ChannelType;
+// TODO: replace this with ShippingChannelsProvider
 use CG\Dataplug\Carrier\Service as CarrierService;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
@@ -75,6 +77,8 @@ class Service implements LoggerAwareInterface
     protected $productDetailService;
     /** @var Di */
     protected $di;
+    /** @var ShippingChannelsProviderInterface */
+    protected $shippingChannelsProvider;
 
     public function __construct(
         OrderService $orderService,
@@ -86,7 +90,8 @@ class Service implements LoggerAwareInterface
         CarrierService $carrierService,
         OrderLabelStorage $orderLabelStorage,
         ProductDetailService $productDetailService,
-        Di $di
+        Di $di,
+        ShippingChannelsProviderInterface $shippingChannelsProvider
     ) {
         $this->setOrderService($orderService)
             ->setUserOuService($userOuService)
@@ -97,7 +102,8 @@ class Service implements LoggerAwareInterface
             ->setCarrierService($carrierService)
             ->setOrderLabelStorage($orderLabelStorage)
             ->setProductDetailService($productDetailService)
-            ->setDi($di);
+            ->setDi($di)
+            ->setShippingChannelsProvider($shippingChannelsProvider);
     }
     
     /**
@@ -114,7 +120,8 @@ class Service implements LoggerAwareInterface
         $carrierAccounts = new AccountCollection(Account::class, __FUNCTION__);
         foreach ($accounts as $account)
         {
-            if (!$this->carrierService->isProvidedChannel($account->getChannel())) {
+            // Only show 'provided' accounts (i.e. from Dataplug or NetDespatch)
+            if (!$this->shippingChannelsProvider->isProvidedChannel($account->getChannel())) {
                 continue;
             }
             $carrierAccounts->attach($account);
@@ -579,6 +586,12 @@ class Service implements LoggerAwareInterface
     protected function setDi(Di $di)
     {
         $this->di = $di;
+        return $this;
+    }
+
+    protected function setShippingChannelsProvider(ShippingChannelsProviderInterface $shippingChannelsProvider)
+    {
+        $this->shippingChannelsProvider = $shippingChannelsProvider;
         return $this;
     }
 

@@ -35,7 +35,7 @@
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/communication": "~1.0.2",
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/dataplug": "~1.1.1",
+        "channelgrabber/dataplug": "dev-CGIV-6778-netdespatch-integration as 1.1.2",
         "channelgrabber/di": "~2.1.1",
         "channelgrabber/ebay": "~1.9.42",
         "channelgrabber/ekm": "~1.8.18",
