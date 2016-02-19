@@ -125,6 +125,8 @@ use CG\Channel\ShippingChannelsProviderInterface as ChannelShippingChannelsProvi
 use CG\Channel\ShippingChannelsProviderRepository as ChannelShippingChannelsProviderRepository;
 use CG\Channel\ShippingOptionsProviderInterface as ChannelShippingOptionsProviderInterface;
 use CG\Channel\ShippingOptionsProviderRepository as ChannelShippingOptionsProviderRepository;
+use CG\Channel\CarrierProviderServiceInterface as ChannelCarrierProviderServiceInterface;
+use CG\Channel\CarrierProviderServiceRepository as ChannelCarrierProviderServiceRepository;
 
 // Dataplug
 use CG\Dataplug\Carrier\Service as DataplugCarrierService;
@@ -140,9 +142,11 @@ use CG\Dataplug\Carriers as DataplugCarriers;
 use CG\Account\Shared\Manifest\StorageInterface as AccountManifestStorage;
 use CG\Account\Client\Manifest\Storage\Api as AccountManifestApiStorage;
 use CG\Dataplug\Request\Carrier as DataplugCarrier;
+use CG\Dataplug\Order\Service as DataplugOrderService;
 
 // NetDespatch
 use CG\NetDespatch\ShippingOptionsProvider as NetDespatchShippingOptionsProvider;
+use CG\NetDespatch\Order\Service as NetDespatchOrderService;
 
 // Transactions
 use CG\Transaction\ClientInterface as TransactionClient;
@@ -186,6 +190,16 @@ return array(
                         ]
                     ]
                 ],
+                ChannelCarrierProviderServiceRepository::class => [
+                    'methods' => [
+                        'addProvider' => [
+                            'provider' => [
+                                'type' => ChannelCarrierProviderServiceInterface::class,
+                                'required' => true
+                            ]
+                        ]
+                    ]
+                ],
             ]
         ],
         'instance' => array(
@@ -213,6 +227,7 @@ return array(
                 ChannelShippingOptionsProviderInterface::class => ChannelShippingOptionsProviderRepository::class,
                 ChannelShippingChannelsProviderInterface::class => ChannelShippingChannelsProviderRepository::class,
                 ChannelCarrierBookingOptionsInterface::class => ChannelCarrierBookingOptionsRepository::class,
+                ChannelCarrierProviderServiceInterface::class => ChannelCarrierProviderServiceRepository::class,
                 OrderLabelStorage::class => OrderLabelApiStorage::class,
                 ProductDetailStorage::class => ProductDetailApiStorage::class,
                 AccountManifestStorage::class => AccountManifestApiStorage::class,
@@ -614,6 +629,14 @@ return array(
                     'addProvider' => [
                         ['provider' => DataplugCarrierService::class],
                         ['provider' => NetDespatchShippingOptionsProvider::class],
+                    ]
+                ]
+            ],
+            ChannelCarrierProviderServiceRepository::class => [
+                'injections' => [
+                    'addProvider' => [
+                        ['provider' => DataplugOrderService::class],
+                        ['provider' => NetDespatchOrderService::class],
                     ]
                 ]
             ],

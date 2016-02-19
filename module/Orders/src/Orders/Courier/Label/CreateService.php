@@ -1,5 +1,4 @@
 <?php
-
 namespace Orders\Courier\Label;
 
 use CG\Account\Shared\Entity as Account;
@@ -12,6 +11,7 @@ use CG\Dataplug\Request\RetrieveOrders as DataplugRetrieveRequest;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
@@ -33,10 +33,7 @@ class CreateService extends ServiceAbstract
     const CM_PER_M = 100;
     const LOG_CODE = 'OrderCourierLabelCreateService';
     const LOG_CREATE = 'Create label request for Order(s) %s, shipping Account %d';
-    const LOG_CREATE_SEND = 'Sending create request to Dataplug for Order(s) %s, shipping Account %d';
-    const LOG_CREATE_UNEXPECTED_RESPONSE = 'Dataplug response from create request missing Order nodes for Order(s) %s, shipping Account %d';
-    const LOG_CREATE_MISSING_REF = 'Dataplug response from create request missing Order->Reference for one or more Orders (of set: %s), shipping Account %d';
-    const LOG_CREATE_REF = 'Successfully created %d/%d order(s) with Dataplug for Orders %s, shipping Account %d';
+    const LOG_CREATE_SEND = 'Sending create request to carrier provider for Order(s) %s, shipping Account %d';
     const LOG_CREATE_DONE = 'Completed create label request for Order(s) %s, shipping Account %d';
     const LOG_PROD_DET_PERSIST = 'Looking for dimensions to save to ProductDetails';
     const LOG_PROD_DET_UPDATE = 'Updating ProductDetail for SKU %s, OU %d from data for Order %s';
@@ -47,9 +44,6 @@ class CreateService extends ServiceAbstract
     const LOG_GET_TRACKING = 'Looking for tracking numbers for order number %s, Order %s, shipping Account %d.';
     const LOG_GET_TRACKING_FOUND = 'Found tracking number %s for Order %s.';
     const LOG_GET_TRACKING_SAVE = 'Saving tracking numbers for Order %s.';
-    const LOG_GET = 'Getting order details from Dataplug for reference %s, shipping Account %d';
-    const LOG_GET_MISSING_ITEMS = 'Dataplug response from retrieve request missing parcel data for Order %s';
-    const LOG_GET_MISSING_LABEL = 'Dataplug response from retrieve request missing label data for Order %s';
     const LOG_CREATE_ORDER_LABEL = 'Creating OrderLabel for Order %s';
     const LOG_UPDATE_ORDER_LABEL = 'Updating OrderLabel with PDF data for Order %s (attempt %d)';
 
@@ -68,29 +62,24 @@ class CreateService extends ServiceAbstract
         $this->addGlobalLogEventParam('account', $shippingAccountId)->addGlobalLogEventParam('ou', $rootOu->getId());
         $this->logDebug(static::LOG_CREATE, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
         $shippingAccount = $this->accountService->fetch($shippingAccountId);
-        $carrier = $this->dataplugCarrierService->getCarrierForAccount($shippingAccount);
         $orders = $this->getOrdersByIds($orderIds);
+
         $this->persistDimensionsForOrders($orders, $orderParcelsData, $ordersItemsData, $rootOu);
         $orderLabels = $this->createOrderLabelsForOrders($orders, $shippingAccount);
-        $request = $this->mapper->ordersAndDataToDataplugCreateRequest($orders, $ordersData, $orderParcelsData, $rootOu);
-        $this->logDebug(static::LOG_CREATE_SEND, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
-        $orderNumbers = $this->sendCreateOrdersRequest($request, $shippingAccount, $orderIds, $orderLabels);
 
-        $labelReadyStatuses = [];
-        foreach ($orders as $order) {
-            $orderNumber = $orderNumbers[$order->getId()];
-            $orderLabel = $orderLabels[$order->getId()];
-            if ($orderNumber instanceof ValidationMessagesException) {
-                $labelReadyStatuses[$order->getId()] = $orderNumber;
-            } else {
-                $success = $this->getAndProcessDataplugOrderDetails(
-                    $order, $shippingAccount, $carrier, $orderNumber, $orderLabel, $user
-                );
-                $labelReadyStatuses[$order->getId()] = $success;
-            }
-        }
+        $this->logDebug(static::LOG_CREATE_SEND, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
+        $labelReadyStatuses = $this->carrierProviderService->createLabelsForOrders(
+            $orders,
+            $orderLabels,
+            $ordersData,
+            $orderParcelsData,
+            $rootOu,
+            $shippingAccount,
+            $user
+        );
         $this->logDebug(static::LOG_CREATE_DONE, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
         $this->removeGlobalLogEventParam('account')->removeGlobalLogEventParam('ou');
+
         return $labelReadyStatuses;
     }
 
@@ -193,9 +182,9 @@ class CreateService extends ServiceAbstract
 
     protected function createOrderLabelsForOrders(OrderCollection $orders, Account $shippingAccount)
     {
-        $orderLabels = [];
+        $orderLabels = new OrderLabelCollection(OrderLabel::class, __FUNCTION__, ['orderId' => $orders->getIds()]);
         foreach ($orders as $order) {
-            $orderLabels[$order->getId()] = $this->createOrderLabelForOrder($order, $shippingAccount);
+            $orderLabels->attach($this->createOrderLabelForOrder($order, $shippingAccount));
         }
         return $orderLabels;
     }
@@ -214,116 +203,6 @@ class CreateService extends ServiceAbstract
         $orderLabel = $this->orderLabelMapper->fromArray($orderLabelData);
         $hal = $this->orderLabelService->save($orderLabel);
         return $this->orderLabelMapper->fromHal($hal);
-    }
-
-    protected function sendCreateOrdersRequest(
-        DataplugCreateRequest $request,
-        Account $shippingAccount,
-        array $orderIds,
-        array $orderLabels
-    ) {
-        $orderIdsString = implode(',', $orderIds);
-        try {
-            $response = $this->dataplugClient->sendRequest($request, $shippingAccount);
-            if (!isset($response->Order)) {
-                throw new RuntimeException(vsprintf(static::LOG_CREATE_UNEXPECTED_RESPONSE, [$orderIdsString, $shippingAccount->getId()]));
-            }
-            $orderNumbers = [];
-            $successCount = 0;
-            foreach ($response->Order as $responseOrder) {
-                if (!isset($responseOrder->Reference)) {
-                    throw new RuntimeException(vsprintf(static::LOG_CREATE_MISSING_REF, [$orderIdsString, $shippingAccount->getId()]));
-                }
-                if (isset($responseOrder->OrderNumber)) {
-                    $orderNumbers[(string)$responseOrder->Reference] = (string)$responseOrder->OrderNumber;
-                    $successCount++;
-                } else {
-                    $orderNumbers[(string)$responseOrder->Reference] = $this->checkForOrderErrors($responseOrder);
-                    $this->orderLabelService->remove($orderLabels[(string)$responseOrder->Reference]);
-                }
-            }
-            $this->logDebug(static::LOG_CREATE_REF, [$successCount, count($orderNumbers), $orderIdsString, $shippingAccount->getId()], static::LOG_CODE);
-            return $orderNumbers;
-        } catch (\Exception $e) {
-            // Remove labels so we don't get a label stuck in 'creating', preventing creation of new labels
-            foreach ($orderLabels as $orderLabel) {
-                $this->orderLabelService->remove($orderLabel);
-            }
-            throw $e;
-        }
-    }
-
-    protected function checkForOrderErrors(\SimpleXMLElement $responseOrder)
-    {
-        $errorFields = $this->dataplugClient->parseErrorMessagesFromResponseNode($responseOrder);
-        $exception = new ValidationMessagesException('Validation error');
-        $exception->addErrors($errorFields);
-        return $exception;
-    }
-
-    protected function getAndProcessDataplugOrderDetails(
-        Order $order,
-        Account $shippingAccount,
-        Carrier $carrier,
-        $orderNumber,
-        OrderLabel $orderLabel,
-        User $user
-    ) {
-        $labelFormatPDF = DataplugRetrieveRequest::LABEL_FORMAT_PDF;
-        $saveTrackingNumbersPDF = true;
-        $trackingCarrierName = $carrier->getSalesChannelName();
-        $labelFormatPNG = DataplugRetrieveRequest::LABEL_FORMAT_PNG;
-        $saveTrackingNumbersPNG = false;
-        try {
-            // PDF
-            $this->dataplugOrderService->getAndProcessDataplugOrderDetails(
-                $order, $shippingAccount, $orderNumber, $orderLabel, $user, $labelFormatPDF, $saveTrackingNumbersPDF, $trackingCarrierName
-            );
-            // Queue up fetching the PNG version as we only need that for invoices
-            $this->createJobToGetAndProcessDataplugOrderDetails(
-                $order, $shippingAccount, $orderNumber, $orderLabel, $user, $labelFormatPNG, $saveTrackingNumbersPNG
-            );
-            return true;
-        } catch (LabelMissingException $e) {
-            // Label not currently present, queue up a job to keep trying
-            // PDF
-            $this->createJobToGetAndProcessDataplugOrderDetails(
-                $order, $shippingAccount, $orderNumber, $orderLabel, $user, $labelFormatPDF, $saveTrackingNumbersPDF, $trackingCarrierName
-            );
-            // PNG
-            $this->createJobToGetAndProcessDataplugOrderDetails(
-                $order, $shippingAccount, $orderNumber, $orderLabel, $user, $labelFormatPNG, $saveTrackingNumbersPNG
-            );
-            return false;
-        } catch (StorageException $e) {
-            // Remove label so we don't get a label stuck in 'creating', preventing creation of new labels
-            $this->orderLabelService->remove($orderLabel);
-            throw $e;
-        }
-    }
-
-    protected function createJobToGetAndProcessDataplugOrderDetails(
-        Order $order,
-        Account $shippingAccount,
-        $orderNumber,
-        OrderLabel $orderLabel,
-        User $user,
-        $labelFormat,
-        $saveTrackingNumbers,
-        $trackingCarrierName = null
-    ) {
-        $workload = new GetLabelDataWorkload(
-            $order->getId(),
-            $shippingAccount->getId(),
-            $orderLabel->getId(),
-            $user->getId(),
-            $orderNumber,
-            $labelFormat,
-            $saveTrackingNumbers,
-            $trackingCarrierName
-        );
-        $handle = GetLabelDataGF::FUNCTION_NAME . '-' . $order->getId() . '-' . $labelFormat;
-        $this->gearmanClient->doBackground(GetLabelDataGF::FUNCTION_NAME, serialize($workload), $handle);
     }
 
     // Required by GetProductDetailsForOrdersTrait
