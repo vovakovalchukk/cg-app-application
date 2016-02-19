@@ -5,11 +5,10 @@ use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
+use CG\Channel\CarrierBookingOptionsInterface;
 use CG\Channel\ShippingServiceFactory;
 use CG\Channel\ShippingChannelsProviderInterface;
 use CG\Channel\Type as ChannelType;
-// TODO: replace this with ShippingChannelsProvider
-use CG\Dataplug\Carrier\Service as CarrierService;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\Order\Shared\Label\Entity as OrderLabel;
@@ -69,8 +68,6 @@ class Service implements LoggerAwareInterface
     protected $accountService;
     /** @var ShippingServiceFactory */
     protected $shippingServiceFactory;
-    /** @var CarrierService */
-    protected $carrierService;
     /** @var OrderLabelStorage */
     protected $orderLabelStorage;
     /** @var ProductDetailService */
@@ -79,6 +76,8 @@ class Service implements LoggerAwareInterface
     protected $di;
     /** @var ShippingChannelsProviderInterface */
     protected $shippingChannelsProvider;
+    /** @var CarrierBookingOptionsInterface */
+    protected $carrierBookingOptions;
 
     public function __construct(
         OrderService $orderService,
@@ -87,11 +86,11 @@ class Service implements LoggerAwareInterface
         ProductService $productService,
         AccountService $accountService,
         ShippingServiceFactory $shippingServiceFactory,
-        CarrierService $carrierService,
         OrderLabelStorage $orderLabelStorage,
         ProductDetailService $productDetailService,
         Di $di,
-        ShippingChannelsProviderInterface $shippingChannelsProvider
+        ShippingChannelsProviderInterface $shippingChannelsProvider,
+        CarrierBookingOptionsInterface $carrierBookingOptions
     ) {
         $this->setOrderService($orderService)
             ->setUserOuService($userOuService)
@@ -99,11 +98,11 @@ class Service implements LoggerAwareInterface
             ->setProductService($productService)
             ->setAccountService($accountService)
             ->setShippingServiceFactory($shippingServiceFactory)
-            ->setCarrierService($carrierService)
             ->setOrderLabelStorage($orderLabelStorage)
             ->setProductDetailService($productDetailService)
             ->setDi($di)
-            ->setShippingChannelsProvider($shippingChannelsProvider);
+            ->setShippingChannelsProvider($shippingChannelsProvider)
+            ->setCarrierBookingOptions($carrierBookingOptions);
     }
     
     /**
@@ -312,9 +311,7 @@ class Service implements LoggerAwareInterface
 
     protected function getCarrierOptions(Account $account)
     {
-        $carrier = $this->carrierService->getCarrierForAccount($account);
-        $options = array_merge($this->carrierService->getDefaultOptions(), $carrier->getOptions());
-        return array_keys(array_filter($options));
+        return $this->carrierBookingOptions->getCarrierBookingOptionsForAccount($account);
     }
 
     /**
@@ -373,14 +370,14 @@ class Service implements LoggerAwareInterface
         array $options,
         OrderLabel $orderLabel = null
     ) {
-        $carrier = $this->carrierService->getCarrierForAccount($courierAccount);
+        $cancellable = $this->carrierBookingOptions->isCancellationAllowedForAccount($courierAccount);
         $data = [
             'collectionDate' => date('Y-m-d'),
             'parcels' => static::DEFAULT_PARCELS,
             // The order row will always be parcel 1, only parcel rows might be other numbers
             'parcelNumber' => 1,
             'labelStatus' => ($orderLabel ? $orderLabel->getStatus() : ''),
-            'cancellable' => $carrier->getAllowsCancellation(),
+            'cancellable' => $cancellable,
         ];
         foreach ($options as $option) {
             $data[$option] = '';
@@ -565,12 +562,6 @@ class Service implements LoggerAwareInterface
         return $this;
     }
 
-    protected function setCarrierService(CarrierService $carrierService)
-    {
-        $this->carrierService = $carrierService;
-        return $this;
-    }
-
     protected function setOrderLabelStorage(OrderLabelStorage $orderLabelStorage)
     {
         $this->orderLabelStorage = $orderLabelStorage;
@@ -592,6 +583,12 @@ class Service implements LoggerAwareInterface
     protected function setShippingChannelsProvider(ShippingChannelsProviderInterface $shippingChannelsProvider)
     {
         $this->shippingChannelsProvider = $shippingChannelsProvider;
+        return $this;
+    }
+
+    protected function setCarrierBookingOptions(CarrierBookingOptionsInterface $carrierBookingOptions)
+    {
+        $this->carrierBookingOptions = $carrierBookingOptions;
         return $this;
     }
 
