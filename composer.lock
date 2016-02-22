@@ -488,12 +488,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "58820d8905cbd05a3c66fd6c52d19a92f442ce8f"
+                "reference": "bb0c267bd34c8f3095bcc7889d02d2da600588d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6778-netdespatch-integration-1c56d3.zip",
-                "reference": "58820d8905cbd05a3c66fd6c52d19a92f442ce8f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6778-netdespatch-integration-a90679.zip",
+                "reference": "bb0c267bd34c8f3095bcc7889d02d2da600588d4",
                 "shasum": null
             },
             "require": {
@@ -526,7 +526,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-02-19 15:18:10"
+            "time": "2016-02-22 10:28:33"
         },
         {
             "name": "channelgrabber/db",
@@ -1191,12 +1191,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "529777d0ac83adc0f6944175ab4db6bddc2c41b8"
+                "reference": "ee4a6793380ec93b50b00f32a1706ad40a29cc84"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6778-netdespatch-integration-b03dd4.zip",
-                "reference": "529777d0ac83adc0f6944175ab4db6bddc2c41b8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6778-netdespatch-integration-2bab72.zip",
+                "reference": "ee4a6793380ec93b50b00f32a1706ad40a29cc84",
                 "shasum": null
             },
             "require": {
@@ -1230,7 +1230,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-02-19 13:54:40"
+            "time": "2016-02-22 12:35:03"
         },
         {
             "name": "channelgrabber/notification",
