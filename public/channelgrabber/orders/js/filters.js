@@ -59,12 +59,10 @@ define(['element/moreButton', 'element/ElementCollection'], function(MoreButton,
 
     Filters.prototype.clearFilters = function()
     {
-        this.getFilters().find(".more label[data-filter-name]").each(function() {
-            var checkbox = $(this).find(":checkbox");
-            if (checkbox.is(":checked")) {                 
-                checkbox.click();   
-            }
-        });   
+        var element = elementCollection.get("more");
+        if (element) {
+            element.setValue([]);
+        }
     };
 
     Filters.prototype.prepareFilterValues = function(filterName, filterOptions)
@@ -75,7 +73,6 @@ define(['element/moreButton', 'element/ElementCollection'], function(MoreButton,
     Filters.prototype.activateFilter = function(listElement) 
     {
         var filters = $(listElement).data("filter");
-        delete filters['more'];
 
         this.clearFilters();
         this.getFilters().trigger("reset");
