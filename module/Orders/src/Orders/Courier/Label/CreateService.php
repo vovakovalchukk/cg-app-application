@@ -67,20 +67,26 @@ class CreateService extends ServiceAbstract
         $this->persistDimensionsForOrders($orders, $orderParcelsData, $ordersItemsData, $rootOu);
         $orderLabels = $this->createOrderLabelsForOrders($orders, $shippingAccount);
 
-        $this->logDebug(static::LOG_CREATE_SEND, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
-        $labelReadyStatuses = $this->carrierProviderService->createLabelsForOrders(
-            $orders,
-            $orderLabels,
-            $ordersData,
-            $orderParcelsData,
-            $rootOu,
-            $shippingAccount,
-            $user
-        );
-        $this->logDebug(static::LOG_CREATE_DONE, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
-        $this->removeGlobalLogEventParam('account')->removeGlobalLogEventParam('ou');
+        try {
+            $this->logDebug(static::LOG_CREATE_SEND, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
+            $labelReadyStatuses = $this->carrierProviderService->createLabelsForOrders(
+                $orders,
+                $orderLabels,
+                $ordersData,
+                $orderParcelsData,
+                $rootOu,
+                $shippingAccount,
+                $user
+            );
+            $this->logDebug(static::LOG_CREATE_DONE, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
+            $this->removeGlobalLogEventParam('account')->removeGlobalLogEventParam('ou');
 
-        return $labelReadyStatuses;
+            return $labelReadyStatuses;
+        } catch (\Exception $e) {
+            // Remove labels so we don't get a label stuck in 'creating', preventing creation of new labels
+            $this->removeOrderLabels($orderLabels);
+            throw $e;
+        }
     }
 
     protected function persistDimensionsForOrders(
@@ -203,6 +209,13 @@ class CreateService extends ServiceAbstract
         $orderLabel = $this->orderLabelMapper->fromArray($orderLabelData);
         $hal = $this->orderLabelService->save($orderLabel);
         return $this->orderLabelMapper->fromHal($hal);
+    }
+
+    protected function removeOrderLabels(OrderLabelCollection $orderLabels)
+    {
+        foreach ($orderLabels as $orderLabel) {
+            $this->orderLabelService->remove($orderLabel);
+        }
     }
 
     // Required by GetProductDetailsForOrdersTrait
