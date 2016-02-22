@@ -82,7 +82,7 @@
         "channelgrabber/zf2-login": "~1.4.30",
         "channelgrabber/zf2-mustache": "~1.0.1",
         "channelgrabber/zf2-permission": "~1.1.11",
-        "channelgrabber/zf2-register": "~1.4.41",
+        "channelgrabber/zf2-register": "dev-CGIV-6784-IgnoreEmptyEmails as 1.4.42",
         "channelgrabber/zf2-royalmail": "~1.1.1",
         "channelgrabber/zf2-sessions": "~1.1.5",
         "channelgrabber/zf2-ssoclient": "~1.4.2.2",
