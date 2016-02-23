@@ -137,7 +137,7 @@ class CourierController extends AbstractActionController
             'id' => 'courier-service-select-'.$courierId,
             'class' => 'courier-service-select',
             'blankOption' => false,
-            'searchField' => false,
+            'searchField' => true,
             'options' => $options,
         ]);
         $view->setTemplate('elements/custom-select.mustache');
