@@ -16,9 +16,9 @@ define(['element/moreButton', 'element/ElementCollection'], function(MoreButton,
 
         optionalFilters = {};
         $('.custom-select[data-element-name=more] li').each(function() {
-            if ($(this).attr('data-value')) {
-                var json = JSON.parse($(this).attr('data-value'));
-                optionalFilters[json['name']] = json;
+            config = $(this).data('value');
+            if (config) {
+                optionalFilters[config['name']] = config;
             }
         });
 
