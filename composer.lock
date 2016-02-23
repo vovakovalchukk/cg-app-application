@@ -1191,12 +1191,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "545c18d3704a482299ec4b5bd63f5615fa3d4bb5"
+                "reference": "0f3fe9587e6e4ffd7ed42784bedce8c6f76e519b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6778-netdespatch-integration-057ffa.zip",
-                "reference": "545c18d3704a482299ec4b5bd63f5615fa3d4bb5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6778-netdespatch-integration-e89a6c.zip",
+                "reference": "0f3fe9587e6e4ffd7ed42784bedce8c6f76e519b",
                 "shasum": null
             },
             "require": {
@@ -1230,7 +1230,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-02-23 09:12:40"
+            "time": "2016-02-23 09:33:42"
         },
         {
             "name": "channelgrabber/notification",
