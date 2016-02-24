@@ -78,6 +78,7 @@ class CreateService extends ServiceAbstract
                 $shippingAccount,
                 $user
             );
+            $this->deleteOrderLabelsForFailedCreateAttempts($labelReadyStatuses, $orderLabels);
             $this->logDebug(static::LOG_CREATE_DONE, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
             $this->removeGlobalLogEventParam('account')->removeGlobalLogEventParam('ou');
 
@@ -209,6 +210,22 @@ class CreateService extends ServiceAbstract
         $orderLabel = $this->orderLabelMapper->fromArray($orderLabelData);
         $hal = $this->orderLabelService->save($orderLabel);
         return $this->orderLabelMapper->fromHal($hal);
+    }
+
+    protected function deleteOrderLabelsForFailedCreateAttempts(
+        array $labelReadyStatuses,
+        OrderLabelCollection $orderLabels
+    ) {
+        foreach ($labelReadyStatuses as $orderId => $status) {
+            if (!($status instanceof ValidationMessagesException)) {
+                continue;
+            }
+            $labelsByOrderId = $orderLabels->getBy('orderId', $orderId);
+            $labelsByOrderId->rewind();
+            $orderLabel = $labelsByOrderId->current();
+            $this->orderLabelService->remove($orderLabel);
+        }
+        return $this;
     }
 
     protected function removeOrderLabels(OrderLabelCollection $orderLabels)
