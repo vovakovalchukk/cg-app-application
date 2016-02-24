@@ -160,7 +160,7 @@ return [
                     'filters' => [
                         [
                             'filterType' => 'customSelectGroup',
-                            'visible' => true,
+                            'visible' => false,
                             'variables' => [
                                 'name' => 'shippingAddressCountry',
                                 'title' => 'Country',
@@ -187,7 +187,7 @@ return [
                         ],
                         [
                             'filterType' => 'numberRange',
-                            'visible' => true,
+                            'visible' => false,
                             'variables' => [
                                 'name' => 'total',
                                 'title' => 'Total',
@@ -262,7 +262,7 @@ return [
                         ],
                         [
                             'filterType' => 'customSelectGroup',
-                            'visible' => true,
+                            'visible' => false,
                             'variables' => [
                                 'name' => 'fulfilmentChannel',
                                 'title' => 'Fulfilment Channel',

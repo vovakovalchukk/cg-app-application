@@ -436,7 +436,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function batchesAction()
     {
         return $this->getJsonModelFactory()->newInstance(
-            ["batches" => $this->getBatchService()->getBatches()]
+            ["batches" => $this->getBatchService()->getBatches(null)]
         );
     }
 

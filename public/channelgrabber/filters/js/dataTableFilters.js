@@ -13,6 +13,12 @@ $(document).ready(function()
             $('#datatable-select-all').prop('checked', false).trigger('change');
         });
 
+        require(['ResizeSensor'], function(ResizeSensor) {
+            new ResizeSensor($("#filters"), function() {
+                datatable.cgDataTable("adjustTable");
+            });
+        });
+
         datatable.on('fnDrawCallback', function()
         {
             $('#datatable input.select-all-group').off('change', removeFilterId).on('change', removeFilterId);

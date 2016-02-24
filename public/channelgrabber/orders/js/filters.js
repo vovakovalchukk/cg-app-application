@@ -16,9 +16,9 @@ define(['element/moreButton', 'element/ElementCollection'], function(MoreButton,
 
         optionalFilters = {};
         $('.custom-select[data-element-name=more] li').each(function() {
-            if ($(this).attr('data-value')) {
-                var json = JSON.parse($(this).attr('data-value'));
-                optionalFilters[json['name']] = json;
+            config = $(this).data('value');
+            if (config) {
+                optionalFilters[config['name']] = config;
             }
         });
 
@@ -59,12 +59,10 @@ define(['element/moreButton', 'element/ElementCollection'], function(MoreButton,
 
     Filters.prototype.clearFilters = function()
     {
-        this.getFilters().find(".more label[data-filter-name]").each(function() {
-            var checkbox = $(this).find(":checkbox");
-            if (checkbox.is(":checked")) {                 
-                checkbox.click();   
-            }
-        });   
+        var element = elementCollection.get("more");
+        if (element) {
+            element.setValue([]);
+        }
     };
 
     Filters.prototype.prepareFilterValues = function(filterName, filterOptions)
@@ -75,6 +73,7 @@ define(['element/moreButton', 'element/ElementCollection'], function(MoreButton,
     Filters.prototype.activateFilter = function(listElement) 
     {
         var filters = $(listElement).data("filter");
+
         this.clearFilters();
         this.getFilters().trigger("reset");
         

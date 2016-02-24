@@ -103,10 +103,13 @@ define([
         $(self.getSelector()).html('');
         $.each(data['batches'], function(index)
         {
-            $(self.getSelector()).append(self.getMustacheInstance().renderTemplate(self.getTemplate(), data['batches'][index]));
+            var batch = data['batches'][index];
+            if (batch.active) {
+                $(self.getSelector()).append(self.getMustacheInstance().renderTemplate(self.getTemplate(), batch));
+            }
             batchOptions.push({
-                title: data['batches'][index].name,
-                value: data['batches'][index].name
+                title: batch.name,
+                value: batch.name + ""
             });
         });
 

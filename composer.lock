@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5e82a7bcae689c379040676f21c8245f",
-    "content-hash": "076eb90a9c05efc1e8899050dfd393d6",
+    "hash": "1d852c6cf4c05e04f49c9b41ebdb4865",
+    "content-hash": "c26ced5d7767c1792e319deab52f5b5b",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3084,16 +3084,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.4.41",
+            "version": "1.4.42",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "26e4907a48279e4d3781c9de8616c97cb70c708a"
+                "reference": "639a2d91b24c2c618b8ab4efedae6f2d7d83e293"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.41-9045f8.zip",
-                "reference": "26e4907a48279e4d3781c9de8616c97cb70c708a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.42-955660.zip",
+                "reference": "639a2d91b24c2c618b8ab4efedae6f2d7d83e293",
                 "shasum": null
             },
             "require": {
@@ -3130,7 +3130,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2016-02-17 13:47:08"
+            "time": "2016-02-22 12:18:23"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -3341,16 +3341,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.33",
+            "version": "1.16.34.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "f34d75a11787f4dc36010fa5fed7dda6f8c2af9c"
+                "reference": "36c318b7a8f29104c5ce11f88213a3a708f8e48e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.33-9d0f17.zip",
-                "reference": "f34d75a11787f4dc36010fa5fed7dda6f8c2af9c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.34.1-43b283.zip",
+                "reference": "36c318b7a8f29104c5ce11f88213a3a708f8e48e",
                 "shasum": null
             },
             "require": {
@@ -3396,7 +3396,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-02-17 13:51:09"
+            "time": "2016-02-22 14:17:24"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",

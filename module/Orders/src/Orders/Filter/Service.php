@@ -1,8 +1,8 @@
 <?php
 namespace Orders\Filter;
 
-use CG\Order\Service\Filter;
 use CG\Order\Service\Filter\Mapper;
+use CG\Order\Service\Filter;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
 use Zend\Session\ManagerInterface;
 
@@ -30,40 +30,61 @@ class Service
             ->setShippingConversionService($shippingConversionService);
     }
 
+    /**
+     * @return self
+     */
     public function setFilter(Filter $filter)
     {
         $this->filter = $filter;
         return $this;
     }
 
+    /**
+     * @return Filter
+     */
     public function getFilter()
     {
         return $this->filter;
     }
 
+    /**
+     * @return self
+     */
     public function setMapper(Mapper $mapper)
     {
         $this->mapper = $mapper;
         return $this;
     }
 
+    /**
+     * @return Mapper
+     */
     public function getMapper()
     {
         return $this->mapper;
     }
 
+    /**
+     * @return self
+     */
     public function setPersistentStorage(ManagerInterface $persistentStorage)
     {
         $this->persistentStorage = $persistentStorage;
         return $this;
     }
 
+    /**
+     * @return ManagerInterface
+     */
     public function getPersistentStorage()
     {
         return $this->persistentStorage;
     }
 
-    public function setPersistentFilter(Filter $filter)
+    /**
+     * @return self
+     */
+    public function setPersistentFilter(DisplayFilter $filter)
     {
         $storage = $this->getPersistentStorage()->getStorage();
 
@@ -76,6 +97,9 @@ class Service
         return $this;
     }
 
+    /**
+     * @return DisplayFilter
+     */
     public function getPersistentFilter()
     {
         $storage = $this->getPersistentStorage()->getStorage();
@@ -84,24 +108,51 @@ class Service
             $storage['orders'] = [];
         }
 
-        if (!isset($storage['orders']['filter']) || !($storage['orders']['filter'] instanceof Filter)) {
-            $defaultFilter = $this->getFilterFromArray($this->addDefaultFiltersToArray($this->getFilter()->toArray()));
-            $storage['orders']['filter'] = $defaultFilter;
+        if (!isset($storage['orders']['filter'])) {
+            $storage['orders']['filter'] = $this->createDisplayFilter();
+        }
+
+        if ($storage['orders']['filter'] instanceof Filter) {
+            $storage['orders']['filter'] = $this->createDisplayFilter($storage['orders']['filter']);
+        }
+
+        if (!($storage['orders']['filter'] instanceof DisplayFilter)) {
+            $storage['orders']['filter'] = $this->createDisplayFilter();
         }
 
         return $storage['orders']['filter'];
     }
 
+    /**
+     * @return DisplayFilter
+     */
+    protected function createDisplayFilter(Filter $filter = null)
+    {
+        return new DisplayFilter(
+            [],
+            $filter ?: $this->getFilterFromArray([])
+        );
+    }
+
+    /**
+     * @return Filter
+     */
     public function getFilterFromArray(array $data)
     {
         return $this->getMapper()->fromArray($data);
     }
 
+    /**
+     * @return Filter
+     */
     public function mergeFilters(Filter $filter1, Filter $filter2)
     {
         return $this->getMapper()->merge($filter1, $filter2);
     }
 
+    /**
+     * @return array
+     */
     public function addDefaultFiltersToArray(array $filters)
     {
         if (!isset($filters['archived'])) {
@@ -119,6 +170,9 @@ class Service
         return $filters;
     }
 
+    /**
+     * @return self
+     */
     protected function setShippingConversionService(ShippingConversionService $shippingConversionService)
     {
         $this->shippingConversionService = $shippingConversionService;
