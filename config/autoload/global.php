@@ -1113,7 +1113,7 @@ return array(
             ],
             NetDespatchShippingService::class => [
                 'parameters' => [
-                    'defaultShippingServices' => [
+                    'defaultDomesticServices' => [
                         '24L8' => 'RM 24 LL PK301 S8 Daily',
                         '24L8F' => 'RM 24 LL FS101 S8 Flat',
                         '24LD' => 'RM 24 LL CRL01 Daily',
@@ -1194,6 +1194,8 @@ return array(
                         'TRS01S' => 'RM Tracked 48 Lbox Sig',
                         'TSN011' => 'RM Tracked Returns 24',
                         'TSS012' => 'RM Tracked Returns 48',
+                    ],
+                    'defaultInternationalServices' => [
                         'DE1E' => 'Bus Pcls Zero HV RDC Prty',
                         'DE3E' => 'Bus Pcls Zero HV RDC Econ',
                         'DE4E' => 'Bus Pcls Zero LV Prty',
