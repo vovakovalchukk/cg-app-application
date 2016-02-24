@@ -148,6 +148,7 @@ use CG\Dataplug\Order\Service as DataplugOrderService;
 use CG\NetDespatch\ShippingOptionsProvider as NetDespatchShippingOptionsProvider;
 use CG\NetDespatch\Order\Service as NetDespatchOrderService;
 use CG\NetDespatch\ShippingService as NetDespatchShippingService;
+use CG\NetDespatch\Order\CreateService as NetDespatchOrderCreateService;
 
 // Transactions
 use CG\Transaction\ClientInterface as TransactionClient;
@@ -1297,6 +1298,12 @@ return array(
                         'WW4N' => 'Bus Mail Mixd Zero Prty Mch',
                         'WW6N' => 'Bus Mail Mixd Zero Econ Mch',
                     ]
+                ]
+            ],
+            NetDespatchOrderCreateService::class => [
+                'parameters' => [
+                    // Don't use our FailoverClient, use Guzzle directly, as this is for talking to a third-party
+                    'guzzleClient' => \Guzzle\Http\Client::class,
                 ]
             ],
         ),
