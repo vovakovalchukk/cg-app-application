@@ -1,6 +1,7 @@
 <?php
 namespace Settings\Channel;
 
+use CG\Account\DataTableMapper;
 use CG\Account\Shared\Entity;
 use CG\OrganisationUnit\StorageInterface as OUStorage;
 use CG\Stdlib\Exception\Runtime\NotFound;
@@ -10,7 +11,7 @@ use Zend\Mvc\Controller\Plugin\Url;
 use DateTime;
 use Exception;
 
-class Mapper
+class Mapper extends DataTableMapper
 {
     const STATUS_ACTIVE = 'active';
     const STATUS_EXPIRED = 'expired';
@@ -24,58 +25,25 @@ class Mapper
         $this->setOuStorage($ouStorage);
     }
 
-    public function setOuStorage(OUStorage $ouStorage)
-    {
-        $this->ouStorage = $ouStorage;
-        return $this;
-    }
-
-    /**
-     * @return OUStorage
-     */
-    public function getOuStorage()
-    {
-        return $this->ouStorage;
-    }
-
-    public function toDataTableArray(Entity $entity, Url $urlPlugin, $type, DateTime $now = null)
+    public function toDataTableArray(Entity $accountEntity, Url $urlPlugin = null, $type = null, DateTime $now = null)
     {
         if (!($now instanceof DateTime)) {
             $now = new DateTime();
         }
 
-        $dataTableArray = $entity->toArray();
-
-        unset(
-            $dataTableArray['credentials'],
-            $dataTableArray['organisationUnitId'],
-            $dataTableArray['expiryDate']
-        );
-
-        $dataTableArray['enabled'] = $entity->getActive() && !$entity->getDeleted();
-        $dataTableArray['status'] = $entity->getStatus($now);
-        $dataTableArray['organisationUnit'] = $this->getOrganisationUnitCompanyName($entity->getOrganisationUnitId());
-        $dataTableArray['manageLinks'] = $this->getManageLinks($entity->getId(), $type, $urlPlugin);
-        $dataTableArray['channelImgUrl'] = $entity->getImageUrl();
+        $dataTableArray = parent::toDataTableArray($accountEntity);
+        $dataTableArray['manageLinks'] = $this->getManageLinks($accountEntity->getId(), $type, $urlPlugin);
+        $dataTableArray['organisationUnit'] = $this->getOrganisationUnitCompanyName($accountEntity->getOrganisationUnitId());
+        $dataTableArray['status'] = $accountEntity->getStatus($now);
 
         $dataTableArray['expiryDate'] = 'N/A';
-        $expiryDate = $entity->getExpiryDateAsDateTime();
+        $expiryDate = $accountEntity->getExpiryDateAsDateTime();
         if ($expiryDate instanceof DateTime) {
             $timeToExpiry = $expiryDate->getTimestamp() - $now->getTimestamp();
             $dataTableArray['expiryDate'] = ($timeToExpiry > 0) ? $expiryDate->format('jS F Y') : 'Expired';
         }
 
         return $dataTableArray;
-    }
-
-    protected function getOrganisationUnitCompanyName($ouId)
-    {
-        try {
-            $ou = $this->getOuStorage()->fetch($ouId);
-            return $ou->getAddressCompanyName();
-        } catch (NotFound $exception) {
-            return '';
-        }
     }
 
     protected function getManageLinks($id, $type, Url $urlPlugin)
@@ -97,5 +65,21 @@ class Mapper
         }
 
         return $manageLinks;
+    }
+
+    public function setOuStorage(OUStorage $ouStorage)
+    {
+        $this->ouStorage = $ouStorage;
+        return $this;
+    }
+
+    protected function getOrganisationUnitCompanyName($ouId)
+    {
+        try {
+            $ou = $this->ouStorage->fetch($ouId);
+            return $ou->getAddressCompanyName();
+        } catch (NotFound $exception) {
+            return '';
+        }
     }
 }
