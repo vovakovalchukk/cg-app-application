@@ -309,12 +309,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "66b642d7e39885119f6a263fc67446df08de9dcb"
+                "reference": "a17ae23a4623960a2bc9b5068d6ff696381ea9da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6778-netdespatch-integration-d8240f.zip",
-                "reference": "66b642d7e39885119f6a263fc67446df08de9dcb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6778-netdespatch-integration-7c5e59.zip",
+                "reference": "a17ae23a4623960a2bc9b5068d6ff696381ea9da",
                 "shasum": null
             },
             "require": {
@@ -377,7 +377,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-02-22 14:34:09"
+            "time": "2016-02-24 14:40:16"
         },
         {
             "name": "channelgrabber/cilex",
