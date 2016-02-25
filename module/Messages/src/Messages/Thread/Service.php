@@ -163,12 +163,12 @@ class Service
     {
         $threadsData = [];
         foreach ($threads as $thread) {
-            $threadsData[] = $this->formatThreadData($thread, false);
+            $threadsData[] = $this->formatThreadData($thread);
         }
         return $threadsData;
     }
 
-    protected function formatThreadData(Thread $thread, $includeCounts = true)
+    protected function formatThreadData(Thread $thread, $includeCounts = false)
     {
         $threadData = $thread->toArray();
         $messages = [];
@@ -200,6 +200,7 @@ class Service
             ]
         );
 
+        $threadData['ordersCount'] = '?';
         if ($includeCounts) {
             $threadData['ordersCount'] = $this->getOrderCount($thread);
         }
@@ -211,6 +212,12 @@ class Service
         }
 
         return $threadData;
+    }
+
+    public function getOrderCountForId($id)
+    {
+        $thread = $this->threadService->fetch($id);
+        return $this->getOrderCount($thread);
     }
 
     protected function getOrderCount(Thread $thread)
