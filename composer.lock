@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3a7167277be51698fc869cee684b6294",
-    "content-hash": "5cdc194c9b2131389dc9a72d625a7ee8",
+    "hash": "ae47aa3ce5daea4e2ea3cd551074cc98",
+    "content-hash": "e81391a7cdce9cd0158c8c828cccaee9",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -19,7 +19,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.15.39-22f2c2.zip",
                 "reference": "91fb87ac28a83853a8e2ef8fe44c2766639a6ae0",
-                "shasum": "895c26f2c6504c711af23c9a970a3846c3edcd2b"
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -125,7 +125,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.8.7.1-1f979e.zip",
                 "reference": "adef0de8809cd2ebdc7d5c12447fc7157baf3981",
-                "shasum": "334e4200cfe7463553370445d37ff84dd6dbdd90"
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -177,7 +177,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cache-2.1.1.1-5238b9.zip",
                 "reference": "3c31fdd3ead91c0fb532c1145757ed0e707d948e",
-                "shasum": "a7d038b93f2a14809807a5559ce0d0ff026ff46c"
+                "shasum": null
             },
             "require": {
                 "channelgrabber/di": ">=2.0.0,<3.0.0",
@@ -675,7 +675,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-ekm-1.8.20-38dbe1.zip",
                 "reference": "44a70e0c8abd5b127ba623d1fdc2fa05e2b73709",
-                "shasum": "c1b86e07746a7cc01c8030c0276ef3b65e03d642"
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.1.0",
@@ -942,7 +942,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-intercom-1.1.6.1-8ea276.zip",
                 "reference": "0e7a30e73fa25e160bde97648681a04a1dcfda02",
-                "shasum": "b9741b5c1150b36209a9510a5d63a31448ecf1f6"
+                "shasum": null
             },
             "require": {
                 "channelgrabber/billing": ">=1.8.0, <2.0.0",
@@ -1192,16 +1192,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-6788-EKMOrderItemVatFlag",
+            "version": "1.21.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "f8d0198a1a26727cad4c12cba147208c55abece0"
+                "reference": "3699c0f72f1b5ee73d806e237d970d9d18c86a96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6788-EKMOrderItemVatFlag-107f8c.zip",
-                "reference": "f8d0198a1a26727cad4c12cba147208c55abece0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.21.9-906df0.zip",
+                "reference": "3699c0f72f1b5ee73d806e237d970d9d18c86a96",
                 "shasum": null
             },
             "require": {
@@ -1228,7 +1228,7 @@
                 "channelgrabber/settings": "^1.3.9",
                 "channelgrabber/slim": ">=1.13.6,<2.0.0",
                 "channelgrabber/stats": ">=1.0.0,<2.0.0",
-                "channelgrabber/stdlib": "dev-CGIV-6788-EKMOrderItemVatFlag as 2.12.25",
+                "channelgrabber/stdlib": "^2.12.25",
                 "channelgrabber/stock": "^1.6.2",
                 "channelgrabber/tax": "^1.0.0",
                 "channelgrabber/template": "^1.4.3",
@@ -1263,7 +1263,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-02-24 11:30:27"
+            "time": "2016-02-25 08:50:58"
         },
         {
             "name": "channelgrabber/permission",
@@ -1782,7 +1782,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-slim-1.13.16-24abf5.zip",
                 "reference": "9e9fb610e689fbb4f6ed5a60228cf1eabce12b27",
-                "shasum": "f1eba86ef9d5f90fe9dd9692eacc8cc20cfdddd4"
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -1945,16 +1945,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "dev-CGIV-6788-EKMOrderItemVatFlag",
+            "version": "2.12.25",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "2b02d0ee99d9463f2c8f96b348dda6825c32895d"
+                "reference": "dee80a04aff834b25ac8bcc2666b77823b97e01d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-CGIV-6788-EKMOrderItemVatFlag-dfd2ef.zip",
-                "reference": "2b02d0ee99d9463f2c8f96b348dda6825c32895d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.25-9e87e5.zip",
+                "reference": "dee80a04aff834b25ac8bcc2666b77823b97e01d",
                 "shasum": null
             },
             "require": {
@@ -1981,7 +1981,7 @@
                     "CG\\Stdlib\\Test\\": "tests/CG/Stdlib"
                 }
             },
-            "time": "2016-02-24 11:26:20"
+            "time": "2016-02-24 16:37:35"
         },
         {
             "name": "channelgrabber/stock",
@@ -1995,7 +1995,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.6.6-062a24.zip",
                 "reference": "fdcd093b7292a3cf10990b80b142a6441093dbcc",
-                "shasum": "0f5182b345ba599e72615275813edb6658068c66"
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -3594,7 +3594,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/composer-spdx-licenses-9e1c3926bb0842812967213d7c92827bc5883671-zip-227d30.zip",
                 "reference": "9e1c3926bb0842812967213d7c92827bc5883671",
-                "shasum": "d0fcd86e91f625f11176ad5c547aeb7550baa2ab"
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2"
@@ -4262,7 +4262,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/league-oauth2-server-f5d731def9c8d2d06156125f4755e060844edefd-zip-0e8b23.zip",
                 "reference": "f5d731def9c8d2d06156125f4755e060844edefd",
-                "shasum": "348c2946243ca32afce5803f08225417be961b97"
+                "shasum": ""
             },
             "require": {
                 "league/event": "~2.1",
@@ -4940,7 +4940,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/seld-phar-utils-7009b5139491975ef6486545a39f3e6dad5ac30a-zip-8f0162.zip",
                 "reference": "7009b5139491975ef6486545a39f3e6dad5ac30a",
-                "shasum": "58fb70d0415590d073ae59ac709aa19a8b3c70ee"
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3"
@@ -5028,7 +5028,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/symfony-browser-kit-07d664a052572ccc28eb2ab7dbbe82155b1ad367-zip-859906.zip",
                 "reference": "07d664a052572ccc28eb2ab7dbbe82155b1ad367",
-                "shasum": "5a6b74b8e8b1ebc5f9a9ba1ed54e25a03cbd141d"
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.9",
@@ -5082,7 +5082,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/symfony-class-loader-320f8d2a9cdbcbeb24be602c124aae9d998474a4-zip-815332.zip",
                 "reference": "320f8d2a9cdbcbeb24be602c124aae9d998474a4",
-                "shasum": "ced62ee2f699717bc51666cb62ef32943d540a0a"
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.9"
@@ -5131,7 +5131,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/symfony-config-831f88908b51b9ce945f5e6f402931d1ac544423-zip-1643f7.zip",
                 "reference": "831f88908b51b9ce945f5e6f402931d1ac544423",
-                "shasum": "c1dba2d2e108e53184a877e5b5c4d1587337c856"
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.9",
@@ -5178,7 +5178,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/symfony-console-5efd632294c8320ea52492db22292ff853a43766-zip-d0e8e5.zip",
                 "reference": "5efd632294c8320ea52492db22292ff853a43766",
-                "shasum": "db8aa0be9b4d37959e620a5e40a214cf408dfc7d"
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.9"
@@ -5234,7 +5234,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/symfony-css-selector-e1b865b26be4a56d22a8dee398375044a80c865b-zip-b41fe6.zip",
                 "reference": "e1b865b26be4a56d22a8dee398375044a80c865b",
-                "shasum": "6308a5a26eb744dac924739d08204ec1ee336a33"
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.9"
@@ -5284,7 +5284,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/symfony-dependency-injection-af284e795ec8a08c80d1fc47518fd23004b89847-zip-093f3b.zip",
                 "reference": "af284e795ec8a08c80d1fc47518fd23004b89847",
-                "shasum": "53b5648d1ea59f7e8c4cff957a3b4f5a91b82c10"
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.9"
@@ -5343,7 +5343,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/symfony-dom-crawler-5fef7d8b80d8f9992df99d8ee283f420484c9612-zip-fa3ced.zip",
                 "reference": "5fef7d8b80d8f9992df99d8ee283f420484c9612",
-                "shasum": "6db9a3e29ddb93d131f2309971841b4af973695a"
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.9"
@@ -5395,7 +5395,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/symfony-event-dispatcher-87a5db5ea887763fa3a31a5471b512ff1596d9b8-zip-6cf541.zip",
                 "reference": "87a5db5ea887763fa3a31a5471b512ff1596d9b8",
-                "shasum": "16f14557c59943ca35fcd8dee16b16e427b044da"
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.9"
@@ -5452,7 +5452,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/symfony-filesystem-56fd6df73be859323ff97418d97edc1d756df6df-zip-aa5f63.zip",
                 "reference": "56fd6df73be859323ff97418d97edc1d756df6df",
-                "shasum": "cc7db1e34fdd75e6afa673c43b7105d8afe369c1"
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.9"
@@ -5498,7 +5498,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/symfony-finder-2ffb4e9598db3c48eb6d0ae73b04bbf09280c59d-zip-d4b240.zip",
                 "reference": "2ffb4e9598db3c48eb6d0ae73b04bbf09280c59d",
-                "shasum": "a5b47e722f18c7503767dc090c392bd24174b961"
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.9"
@@ -5544,7 +5544,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/symfony-http-foundation-7598eea151ae3d4134df1f9957364b17809eea75-zip-0ed005.zip",
                 "reference": "7598eea151ae3d4134df1f9957364b17809eea75",
-                "shasum": "f5175809b781fd611071f091b44c37e1ec129e76"
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.9"
@@ -5596,7 +5596,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/symfony-process-4a959dd4e19c2c5d7512689413921e0a74386ec7-zip-ed39cc.zip",
                 "reference": "4a959dd4e19c2c5d7512689413921e0a74386ec7",
-                "shasum": "fe90bba1486cee527434d7c352fd683b01f88763"
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.9"
@@ -5642,7 +5642,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/symfony-yaml-eca9019c88fbe250164affd107bc8057771f3f4d-zip-76d9d4.zip",
                 "reference": "eca9019c88fbe250164affd107bc8057771f3f4d",
-                "shasum": "f3190de3d11a56612089477addc4c95ca29bdca2"
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.9"
@@ -5688,7 +5688,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/twig-twig-d9b6333ae8dd2c8e3fd256e127548def0bc614c6-zip-8ecfab.zip",
                 "reference": "d9b6333ae8dd2c8e3fd256e127548def0bc614c6",
-                "shasum": "df22be89d67d98a3890422d0b97e422131deca4f"
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.2.7"
@@ -5749,7 +5749,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/whichbrowser-whichbrowser-124cdb001e3c8978d6c18f88a3ca4201306f8c54-zip-7b3c2f.zip",
                 "reference": "124cdb001e3c8978d6c18f88a3ca4201306f8c54",
-                "shasum": "2b42404b221b64a25078316e8c54a9c34f2bd9df"
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0"
@@ -6495,7 +6495,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/monolog-monolog-bee7f0dc9c3e0b69a6039697533dca1e845c8c24-zip-299fa0.zip",
                 "reference": "bee7f0dc9c3e0b69a6039697533dca1e845c8c24",
-                "shasum": "8a898fee361f46d17399a341b6fc041ac22a8716"
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0",
@@ -7412,25 +7412,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.21.9",
-            "alias_normalized": "1.21.9.0",
-            "version": "dev-CGIV-6788-EKMOrderItemVatFlag",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "2.12.25",
-            "alias_normalized": "2.12.25.0",
-            "version": "dev-CGIV-6788-EKMOrderItemVatFlag",
-            "package": "channelgrabber/stdlib"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
-        "channelgrabber/stdlib": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
