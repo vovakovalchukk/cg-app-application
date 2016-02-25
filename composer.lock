@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9dcee81ef1a3629b76609d64603207f3",
-    "content-hash": "c1fad083687a08d892d292822239b766",
+    "hash": "80a30cfeec1dd7161539af4e98dcb95b",
+    "content-hash": "c23070afc6bfb90cdfd916199f5d4210",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1192,16 +1192,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-6813-OptimiseOrderSearch",
+            "version": "1.21.10.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "53f2f6c614d3640552161118078019e403cfc08c"
+                "reference": "357766d200f8704f8f23a287ae3913dbac094b0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6813-OptimiseOrderSearch-e6ce0c.zip",
-                "reference": "53f2f6c614d3640552161118078019e403cfc08c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.21.10.1-601251.zip",
+                "reference": "357766d200f8704f8f23a287ae3913dbac094b0c",
                 "shasum": null
             },
             "require": {
@@ -1263,7 +1263,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-02-25 11:18:55"
+            "time": "2016-02-25 14:30:47"
         },
         {
             "name": "channelgrabber/permission",
@@ -7412,18 +7412,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.21.10",
-            "alias_normalized": "1.21.10.0",
-            "version": "dev-CGIV-6813-OptimiseOrderSearch",
-            "package": "channelgrabber/order"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
