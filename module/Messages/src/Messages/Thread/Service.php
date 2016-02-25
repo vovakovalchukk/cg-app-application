@@ -217,7 +217,7 @@ class Service
     {
         $filter = (new OrderFilter(1))
             ->setOrganisationUnitId($this->userOuService->getAncestorOrganisationUnitIdsByActiveUser())
-            ->setSearchTerm($thread->getExternalUsername())
+            ->setCustomer($thread->getExternalUsername())
             ->setHasItems(true);
 
         try {
