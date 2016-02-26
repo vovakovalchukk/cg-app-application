@@ -107,6 +107,7 @@ class CourierJsonController extends AbstractActionController
         $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = count($orderIds);
         if (!empty($orderIds)) {
             $data['Records'] = $this->service->getSpecificsListData($orderIds, $courierId, $ordersData, $ordersParcelsData);
+            $data['metadata'] = $this->service->getSpecificsMetaDataFromRecords($data['Records']);
         }
 
         return $this->jsonModelFactory->newInstance($data);

@@ -5,6 +5,7 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
     {
         var eventHandler;
         var delayedLabelsOrderIds;
+        var orderMetaData;
 
         this.getDataTable = function()
         {
@@ -42,6 +43,17 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
             return this;
         };
 
+        this.getOrderMetaData = function()
+        {
+            return orderMetaData;
+        };
+
+        this.setOrderMetaData = function(newOrderMetaData)
+        {
+            orderMetaData = newOrderMetaData;
+            return this;
+        };
+
         this.getNotifications = function()
         {
             return n;
@@ -50,6 +62,7 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         var init = function()
         {
             this.setEventHandler(new EventHandler(this));
+            this.listenForTableLoad();
         };
         init.call(this);
     }
@@ -66,6 +79,21 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
     Service.URI_CANCEL = '/orders/courier/label/cancel';
     Service.URI_READY_CHECK = '/orders/courier/label/readyCheck';
     Service.DELAYED_LABEL_POLL_INTERVAL_MS = 5000;
+
+    Service.prototype.listenForTableLoad = function()
+    {
+        var self = this;
+        this.getDataTable().on('xhr', function(event, settings, response)
+        {
+            self.setOrderMetaData(response.metadata);
+        });
+        return this;
+    };
+
+    Service.prototype.getMetaDataForOrder = function(orderId)
+    {
+        return this.getOrderMetaData()[orderId];
+    };
 
     Service.prototype.courierLinkChosen = function(courierUrl)
     {
@@ -192,27 +220,28 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
 
     Service.prototype.orderWeightChanged = function(weightElement)
     {
-        var prefix = EventHandler.SELECTOR_ITEM_WEIGHT_INPUT.replace('.', '') + '_';
-        var prefixRegex = new RegExp('^'+prefix);
-        var cssClasses = weightElement.className.split(' ');
-        var orderClass = '';
-        for (var count in cssClasses) {
-            if (!cssClasses[count].match(prefixRegex)) {
-                continue;
-            }
-            orderClass = cssClasses[count];
-        }
-        if (!orderClass) {
+        var orderId = this.getOrderIdFromInputElement(weightElement);
+        var metaData = this.getMetaDataForOrder(orderId);
+        // If there's multiple parcels we don't know how to distribute the weight
+        if (metaData.parcelRowCount > 1) {
             return;
         }
+        var orderClass = EventHandler.SELECTOR_ITEM_WEIGHT_INPUT.replace('.', '') + '_' + orderId;
         var sum = 0;
         $('.'+orderClass).each(function()
         {
             var weightElement = this;
             sum += parseFloat($(weightElement).val()) || 0;
         });
-        var orderId = orderClass.replace(prefix, '');
+        // Set the summed weight as the first parcel weight
+        var orderId = orderClass.split('_').pop();
         $(EventHandler.SELECTOR_ORDER_WEIGHT_INPUT_PREFIX + orderId + '-1').val(sum);
+    };
+
+    Service.prototype.getOrderIdFromInputElement = function(element)
+    {
+        // Most input names look like "xData[{orderId}][{item/parcelId}][{thing}]"
+        return element.name.split(/[\[\]]/)[1];
     };
 
     Service.prototype.createLabelForOrder = function(orderId, button)

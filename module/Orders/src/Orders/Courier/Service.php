@@ -393,8 +393,6 @@ class Service implements LoggerAwareInterface
             $orderData['parcels'] = static::MAX_PARCELS;
         }
         // Mustache is logic-less so any logic, however basic, has to be done here
-        $orderData['showWeight'] = ($orderData['parcels'] == 1);
-
         $singleRow = ($orderData['parcels'] == 1 && count($order->getItems()) == 1);
         $orderData['parcelRow'] = $singleRow;
         $orderData['actionRow'] = $singleRow;
@@ -443,7 +441,7 @@ class Service implements LoggerAwareInterface
             $itemData = $this->getCommonItemListData($item, $products, $rowData);
             $specificsItemData = $this->getSpecificsItemListData($item, $productDetails, $options, $rowData);
             $specificsItemData['itemRow'] = true;
-            $specificsItemData['showWeight'] = $orderData['showWeight'];
+            $specificsItemData['showWeight'] = true;
             $specificsItemData['labelStatus'] = $orderData['labelStatus'];
             $itemsData[] = array_merge($itemData, $specificsItemData);
             $itemCount++;
@@ -525,6 +523,30 @@ class Service implements LoggerAwareInterface
             $parcelsData[] = $parcelData;
         }
         return $parcelsData;
+    }
+
+    public function getSpecificsMetaDataFromRecords(array $records)
+    {
+        $orderMetaData = [];
+        foreach ($records as $record) {
+            $orderId = $record['orderId'];
+            if (!isset($orderMetaData[$orderId])) {
+                $orderMetaData[$orderId] = [];
+            }
+            if (isset($record['itemRow']) && $record['itemRow'] == true) {
+                if (!isset($orderMetaData[$orderId]['itemRowCount'])) {
+                    $orderMetaData[$orderId]['itemRowCount'] = 0;
+                }
+                $orderMetaData[$orderId]['itemRowCount']++;
+            }
+            if (isset($record['parcelRow']) && $record['parcelRow'] == true) {
+                if (!isset($orderMetaData[$orderId]['parcelRowCount'])) {
+                    $orderMetaData[$orderId]['parcelRowCount'] = 0;
+                }
+                $orderMetaData[$orderId]['parcelRowCount']++;
+            }
+        }
+        return $orderMetaData;
     }
 
     protected function setOrderService(OrderService $orderService)
