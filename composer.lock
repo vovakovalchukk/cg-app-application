@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ca07f0197c5bf829533734bdd6553414",
-    "content-hash": "d91a0bcfb105ead374e189421f547dad",
+    "hash": "f3bd5fcd83d88f588dc3be2bf885cefc",
+    "content-hash": "b1c127098119418bdad4775f2f55d50a",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1099,6 +1099,41 @@
             "time": "2015-06-25 08:07:55"
         },
         {
+            "name": "channelgrabber/locking",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-locking.git",
+                "reference": "50bf07397f0db9c336dd49eb8291aefbc37ea93b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locking-1.1.0-270824.zip",
+                "reference": "50bf07397f0db9c336dd49eb8291aefbc37ea93b",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/stats": "^1.0.6",
+                "channelgrabber/stdlib": "^2.12.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.6.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Locking\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Locking\\Test\\": "tests/",
+                    "CG\\Locking\\TestAsset\\": "tests/assets/"
+                }
+            },
+            "time": "2016-01-27 14:17:45"
+        },
+        {
             "name": "channelgrabber/log",
             "version": "2.0.25",
             "source": {
@@ -1196,12 +1231,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "822f25feefe734650686a9aa6d9fb2cb417d448f"
+                "reference": "9599f64695dc496e4a409e3d6e3370e48e88f640"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6779-MessengeCenterSpeed-f999e1.zip",
-                "reference": "822f25feefe734650686a9aa6d9fb2cb417d448f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6779-MessengeCenterSpeed-4711c7.zip",
+                "reference": "9599f64695dc496e4a409e3d6e3370e48e88f640",
                 "shasum": null
             },
             "require": {
@@ -1218,6 +1253,7 @@
                 "channelgrabber/gearman": ">=1.1.0,<2.0.0",
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/locale": "^1.0.5",
+                "channelgrabber/locking": "^1.1.0",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/notification": "^1.0.0",
                 "channelgrabber/permission": ">=1.0.0",
@@ -1263,7 +1299,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-02-26 11:09:14"
+            "time": "2016-02-26 12:51:50"
         },
         {
             "name": "channelgrabber/permission",
@@ -1642,6 +1678,40 @@
                 }
             },
             "time": "2015-06-24 07:21:01"
+        },
+        {
+            "name": "channelgrabber/redis-locking",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-redis-locking.git",
+                "reference": "6f46c49376f1a27e63d5f1b6b832acf2c04a218b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-redis-locking-1.0.0-2e6e76.zip",
+                "reference": "6f46c49376f1a27e63d5f1b6b832acf2c04a218b",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/locking": "^1.0.0",
+                "predis/predis": "~0.8.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.6.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Redis\\Locking\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Redis\\Locking\\Test\\": "tests/"
+                }
+            },
+            "time": "2016-01-19 15:18:35"
         },
         {
             "name": "channelgrabber/royalmail",

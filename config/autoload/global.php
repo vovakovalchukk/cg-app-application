@@ -149,6 +149,10 @@ use CG\Order\Shared\CustomerCounts\Repository as CustomerCountRepository;
 use CG\Order\Shared\CustomerCounts\Storage\Cache as CustomerCountCacheStorage;
 use CG\Order\Shared\CustomerCounts\Storage\OrderLookup as CustomerCountOrderLookupStorage;
 
+// Locking
+use CG\Locking\StorageInterface as LockingStorage;
+use CG\Redis\Locking\Storage as LockingRedisStorage;
+
 return array(
     'di' => array(
         'instance' => array(
@@ -182,6 +186,7 @@ return array(
                 StockLogStorage::class => StockLogApiStorage::class,
                 UsageService::class => 'order_count_usage_service',
                 CustomerCountStorage::class => CustomerCountRepository::class,
+                LockingStorage::class => LockingRedisStorage::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,
