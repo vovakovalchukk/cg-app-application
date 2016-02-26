@@ -53,7 +53,7 @@
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/phinx": "~0.3.2",
         "channelgrabber/picklist": "~1.0.2",
-        "channelgrabber/predis": "~1.0.10",
+        "channelgrabber/predis": "dev-CGIV-6779-MessengeCenterSpeed as 1.0.12",
         "channelgrabber/product": "~1.5.4",
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/royalmail": "~1.0.1",

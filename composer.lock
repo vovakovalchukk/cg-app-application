@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5faa4f2fabc1e8d6c46922f2137d6c60",
-    "content-hash": "494e36c276a33c2aa39dd1611def1743",
+    "hash": "ca07f0197c5bf829533734bdd6553414",
+    "content-hash": "d91a0bcfb105ead374e189421f547dad",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1196,12 +1196,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "2119503feb8802a6dd2a8f123e681d7b072ce780"
+                "reference": "822f25feefe734650686a9aa6d9fb2cb417d448f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6779-MessengeCenterSpeed-3d7cf8.zip",
-                "reference": "2119503feb8802a6dd2a8f123e681d7b072ce780",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6779-MessengeCenterSpeed-f999e1.zip",
+                "reference": "822f25feefe734650686a9aa6d9fb2cb417d448f",
                 "shasum": null
             },
             "require": {
@@ -1221,7 +1221,7 @@
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/notification": "^1.0.0",
                 "channelgrabber/permission": ">=1.0.0",
-                "channelgrabber/predis": "^1.0.11",
+                "channelgrabber/predis": "dev-CGIV-6779-MessengeCenterSpeed as 1.0.12",
                 "channelgrabber/product": "^1.4.0",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/sequential-numbering": "^1.0.0",
@@ -1263,7 +1263,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-02-26 09:30:26"
+            "time": "2016-02-26 11:09:14"
         },
         {
             "name": "channelgrabber/permission",
@@ -1451,16 +1451,16 @@
         },
         {
             "name": "channelgrabber/predis",
-            "version": "1.0.11",
+            "version": "dev-CGIV-6779-MessengeCenterSpeed",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgpredis.git",
-                "reference": "93f5fe22f17b0e74910a4ce10f34fe0cab3ebeff"
+                "reference": "bb7992c90453338e1419e82c4b9be5e546551989"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-predis-1.0.11-99df4a.zip",
-                "reference": "93f5fe22f17b0e74910a4ce10f34fe0cab3ebeff",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-predis-dev-CGIV-6779-MessengeCenterSpeed-93feea.zip",
+                "reference": "bb7992c90453338e1419e82c4b9be5e546551989",
                 "shasum": null
             },
             "require": {
@@ -1475,7 +1475,7 @@
                     "CG\\Predis\\": "src"
                 }
             },
-            "time": "2016-02-04 09:48:09"
+            "time": "2016-02-26 11:01:53"
         },
         {
             "name": "channelgrabber/predis-async",
@@ -7418,12 +7418,19 @@
             "alias_normalized": "1.21.11.0",
             "version": "dev-CGIV-6779-MessengeCenterSpeed",
             "package": "channelgrabber/order"
+        },
+        {
+            "alias": "1.0.12",
+            "alias_normalized": "1.0.12.0",
+            "version": "dev-CGIV-6779-MessengeCenterSpeed",
+            "package": "channelgrabber/predis"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/order": 20,
+        "channelgrabber/predis": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
