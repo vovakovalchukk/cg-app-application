@@ -74,6 +74,7 @@ class CreateService extends ServiceAbstract
                 $orderLabels,
                 $ordersData,
                 $orderParcelsData,
+                $ordersItemsData,
                 $rootOu,
                 $shippingAccount,
                 $user

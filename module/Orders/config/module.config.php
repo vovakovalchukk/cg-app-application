@@ -1030,6 +1030,8 @@ return [
                 'CourierSpecificsWidthColumn' => DataTable\Column::class,
                 'CourierSpecificsLengthColumnView' => ViewModel::class,
                 'CourierSpecificsLengthColumn' => DataTable\Column::class,
+                'CourierSpecificsHstariffColumnView' => ViewModel::class,
+                'CourierSpecificsHstariffColumn' => DataTable\Column::class,
                 'CourierSpecificsInsuranceColumnView' => ViewModel::class,
                 'CourierSpecificsInsuranceColumn' => DataTable\Column::class,
                 'CourierSpecificsInsuranceMonetaryColumnView' => ViewModel::class,
@@ -1917,6 +1919,21 @@ return [
                     'viewModel' => 'CourierSpecificsLengthColumnView',
                     'class' => 'length-col',
                     'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsHstariffColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'HS Tariff'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsHstariffColumn' => [
+                'parameters' => [
+                    'column' => 'hstariff',
+                    'viewModel' => 'CourierSpecificsHstariffColumnView',
+                    'class' => 'hstariff-col',
+                    'sortable' => false,
+                    'width' => '100px',
                 ],
             ],
             'CourierSpecificsInsuranceColumnView' => [
