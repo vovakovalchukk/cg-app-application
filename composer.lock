@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5a0de5dd5ad1499375fd63c07ab42247",
-    "content-hash": "b80ea4badecc697c8291d8be34bef02f",
+    "hash": "27d618d753fe235de9e5d84589dd0f8b",
+    "content-hash": "12b3aaccb87b054ca4b23159d9ada993",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1624,16 +1624,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.5.4",
+            "version": "dev-CGIV-6778-netdespatch-integration",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "cafe199582b76356fbd5dea86a100c35c2290e57"
+                "reference": "505a0c9c501ca8b1704ac436ec853ed97dfa4263"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.5.4-86d4a5.zip",
-                "reference": "cafe199582b76356fbd5dea86a100c35c2290e57",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-6778-netdespatch-integration-ed2fd4.zip",
+                "reference": "505a0c9c501ca8b1704ac436ec853ed97dfa4263",
                 "shasum": null
             },
             "require": {
@@ -1667,7 +1667,7 @@
                     "CG\\Product\\": "src"
                 }
             },
-            "time": "2016-02-01 13:31:08"
+            "time": "2016-02-26 15:05:47"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -4675,7 +4675,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpatch/zipball/af859db135b9f7b1c281d634e01b93a3e9fe5ab3",
+                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpatch/zipball/e4b2b3433f92b6268e5660e38b475def1ae4ce54",
                 "reference": "e57b7e02224d0266d5f7de970964b5302501125b",
                 "shasum": "691f4c32e8522bbb20fb4baec578d0eab498b683"
             },
@@ -4727,7 +4727,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/php-jsonpointer-php-jsonpointer-064f65b05d1381d4999113f442af93949cc7c29a-zip-a7425b.zip",
+                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpointer/zipball/6e4e0984dd35a149da9ecc6bfd5e159cffd846bb",
                 "reference": "064f65b05d1381d4999113f442af93949cc7c29a",
                 "shasum": ""
             },
@@ -7644,6 +7644,12 @@
             "package": "channelgrabber/order"
         },
         {
+            "alias": "1.5.6",
+            "alias_normalized": "1.5.6.0",
+            "version": "dev-CGIV-6778-netdespatch-integration",
+            "package": "channelgrabber/product"
+        },
+        {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
             "version": "dev-CGIV-6778-netdespatch-integration",
@@ -7663,6 +7669,7 @@
         "channelgrabber/dataplug": 20,
         "channelgrabber/netdespatch": 20,
         "channelgrabber/order": 20,
+        "channelgrabber/product": 20,
         "channelgrabber/zf2-netdespatch": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,

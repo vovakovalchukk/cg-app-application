@@ -79,6 +79,13 @@ class Service implements LoggerAwareInterface
     /** @var CarrierBookingOptionsInterface */
     protected $carrierBookingOptions;
 
+    protected $productDetailFields = [
+        'weight' => 'processWeightFromProductDetails',
+        'width'  => 'processDimensionFromProductDetails',
+        'height' => 'processDimensionFromProductDetails',
+        'length' => 'processDimensionFromProductDetails',
+    ];
+
     public function __construct(
         OrderService $orderService,
         UserOUService $userOuService,
@@ -468,19 +475,42 @@ class Service implements LoggerAwareInterface
                 continue;
             }
             $data[$option] = '';
-            if ($productDetail && $item->getItemQuantity() == 1) {
-                $getter = 'get'.ucfirst($option);
-                if (is_callable([$productDetail, $getter])) {
-                    $value = $productDetail->$getter();
-                    if ($option != 'weight') {
-                        // Dimensions stored in metres but displayed in centimetres
-                        $value *= static::CM_PER_M;
-                    }
-                    $data[$option] = $value;
-                }
+            if (!$productDetail) {
+                continue;
             }
+            $getter = 'get'.ucfirst($option);
+            if (!is_callable([$productDetail, $getter])) {
+                continue;
+            }
+            $value = $productDetail->$getter();
+            if (isset($this->productDetailFields[$option])) {
+                $callback = $this->productDetailFields[$option];
+                $value = $this->$callback($value, $item);
+            }
+            $data[$option] = $value;
         }
         return $data;
+    }
+
+    protected function processWeightFromProductDetails($value, Item $item)
+    {
+        return $value * $item->getItemQuantity();
+    }
+
+    protected function processDimensionFromProductDetails($value, Item $item)
+    {
+        // Impossible to tell how to multiply dimensions
+        if ($item->getItemQuantity() > 1) {
+            return '';
+        }
+        // Dimensions stored in metres but displayed in centimetres
+        return $this->convertMToCm($value);
+    }
+
+    protected function convertMToCm($value)
+    {
+        $value *= static::CM_PER_M;
+        return $value;
     }
 
     protected function getParcelOrderListData(Order $order, array $options, array $orderData, array $parcelsInputData)
