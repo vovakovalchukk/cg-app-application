@@ -1191,12 +1191,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "f9b54df19d5fed66ddba6c9620c1bdfac17d655a"
+                "reference": "da565db55664f2452e688b94680ac7636ee87d60"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6778-netdespatch-integration-d8e48f.zip",
-                "reference": "f9b54df19d5fed66ddba6c9620c1bdfac17d655a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6778-netdespatch-integration-4e2cb4.zip",
+                "reference": "da565db55664f2452e688b94680ac7636ee87d60",
                 "shasum": null
             },
             "require": {
@@ -1231,7 +1231,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-02-26 12:13:36"
+            "time": "2016-02-29 10:51:35"
         },
         {
             "name": "channelgrabber/notification",
@@ -3437,12 +3437,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "d83c3d36947b5b9600b234538f649edc61b1f2b5"
+                "reference": "669f58e31cdf885019dbbdd5109b801392739437"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6778-netdespatch-integration-b5bd0a.zip",
-                "reference": "d83c3d36947b5b9600b234538f649edc61b1f2b5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6778-netdespatch-integration-6935ea.zip",
+                "reference": "669f58e31cdf885019dbbdd5109b801392739437",
                 "shasum": null
             },
             "require": {

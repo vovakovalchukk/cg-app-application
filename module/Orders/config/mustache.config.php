@@ -42,7 +42,7 @@ return [
                     'width' => Module::PUBLIC_FOLDER . 'template/courier/columns/width.mustache',
                     'height' => Module::PUBLIC_FOLDER . 'template/courier/columns/height.mustache',
                     'length' => Module::PUBLIC_FOLDER . 'template/courier/columns/length.mustache',
-                    'hstariff' => Module::PUBLIC_FOLDER . 'template/courier/columns/hstariff.mustache',
+                    'tradeTariffCode' => Module::PUBLIC_FOLDER . 'template/courier/columns/tradeTariffCode.mustache',
                     'insurance' => Module::PUBLIC_FOLDER . 'template/courier/columns/insurance.mustache',
                     'insuranceMonetary' => Module::PUBLIC_FOLDER . 'template/courier/columns/insuranceMonetary.mustache',
                     'signature' => Module::PUBLIC_FOLDER . 'template/courier/columns/signature.mustache',

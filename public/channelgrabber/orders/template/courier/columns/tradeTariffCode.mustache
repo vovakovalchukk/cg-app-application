@@ -1,0 +1,4 @@
+{{#itemRow}}
+<input type="text" value="{{tradeTariffCode}}" placeholder="commodity code" {{#parcelRow}}name="parcelData[{{orderId}}][{{parcelNumber}}][tradeTariffCode]" id="courier-order-tradeTariffCode-{{orderId}}-{{parcelNumber}}"{{/parcelRow}}{{^parcelRow}}name="itemData[{{orderId}}][{{itemId}}][tradeTariffCode]"{{/parcelRow}} class="inputbox number courier-order-tradeTariffCode required courier-item-tradeTariffCode courier-item-tradeTariffCode_{{orderId}}" />
+{{/itemRow}}
+{{^itemRow}}&nbsp;{{/itemRow}}
