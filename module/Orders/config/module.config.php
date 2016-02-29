@@ -1040,6 +1040,8 @@ return [
                 'CourierSpecificsSignatureColumn' => DataTable\Column::class,
                 'CourierSpecificsDeliveryInstructionsColumnView' => ViewModel::class,
                 'CourierSpecificsDeliveryInstructionsColumn' => DataTable\Column::class,
+                'CourierSpecificsItemParcelAssignmentColumnView' => ViewModel::class,
+                'CourierSpecificsItemParcelAssignmentColumn' => DataTable\Column::class,
             ],
             'preferences' => [
                 InvoiceRendererService::class => PdfInvoiceRendererService::class,
@@ -1991,6 +1993,20 @@ return [
                     'class' => 'deliveryInstructions-col',
                     'sortable' => false,
                     'width' => '150px',
+                ],
+            ],
+            'CourierSpecificsItemParcelAssignmentColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Item(s) per<br />Package'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsItemParcelAssignmentColumn' => [
+                'parameters' => [
+                    'column' => 'itemParcelAssignment',
+                    'viewModel' => 'CourierSpecificsItemParcelAssignmentColumnView',
+                    'class' => 'itemParcelAssignment-col',
+                    'sortable' => false,
                 ],
             ],
         ],

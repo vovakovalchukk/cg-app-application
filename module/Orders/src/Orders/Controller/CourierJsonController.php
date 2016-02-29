@@ -132,6 +132,7 @@ class CourierJsonController extends AbstractActionController
                 }
             }
         }
+        return $this;
     }
 
     public function createLabelAction()
@@ -141,8 +142,9 @@ class CourierJsonController extends AbstractActionController
         $ordersData = $this->params()->fromPost('orderData', []);
         $ordersParcelsData = $this->params()->fromPost('parcelData', []);
         $ordersItemsData = $this->params()->fromPost('itemData', []);
-        $this->sanitiseInputArray($ordersData);
-        $this->sanitiseInputArray($ordersParcelsData);
+        $this->sanitiseInputArray($ordersData)
+            ->sanitiseInputArray($ordersParcelsData)
+            ->decodeItemParcelAssignment($ordersParcelsData);
         try {
             $labelReadyStatuses = $this->labelCreateService->createForOrdersData(
                 $orderIds, $ordersData, $ordersParcelsData, $ordersItemsData, $accountId
@@ -155,6 +157,19 @@ class CourierJsonController extends AbstractActionController
         } catch (ValidationMessagesException $e) {
             return $this->handleLabelCreationFailure($e, $ordersData, $ordersParcelsData, $accountId);
         }
+    }
+
+    protected function decodeItemParcelAssignment(&$ordersParcelsData)
+    {
+        foreach ($ordersParcelsData as &$parcelsData) {
+            foreach ($parcelsData as &$parcelData) {
+                if (!isset($parcelData['itemParcelAssignment'])) {
+                    continue;
+                }
+                $parcelData['itemParcelAssignment'] = json_decode($parcelData['itemParcelAssignment'], true);
+            }
+        }
+        return $this;
     }
 
     protected function handleLabelCreationFailure(
