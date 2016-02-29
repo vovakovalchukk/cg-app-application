@@ -147,6 +147,7 @@ class CourierJsonController extends AbstractActionController
             $labelReadyStatuses = $this->labelCreateService->createForOrdersData(
                 $orderIds, $ordersData, $ordersParcelsData, $ordersItemsData, $accountId
             );
+            return $this->handleFullOrPartialCreationSuccess($labelReadyStatuses, $ordersData, $ordersParcelsData, $accountId);
         } catch (StorageException $e) {
             throw new \RuntimeException(
                 'Failed to create label(s), please check the details you\'ve entered and try again', $e->getCode(), $e
@@ -154,7 +155,6 @@ class CourierJsonController extends AbstractActionController
         } catch (ValidationMessagesException $e) {
             return $this->handleLabelCreationFailure($e, $ordersData, $ordersParcelsData, $accountId);
         }
-        return $this->handleFullOrPartialCreationSuccess($labelReadyStatuses, $ordersData, $ordersParcelsData, $accountId);
     }
 
     protected function handleLabelCreationFailure(

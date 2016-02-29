@@ -65,6 +65,7 @@ class CreateService extends ServiceAbstract
 
         $this->persistProductDetailsForOrders($orders, $orderParcelsData, $ordersItemsData, $rootOu);
         $orderLabels = $this->createOrderLabelsForOrders($orders, $shippingAccount);
+        $ordersItemsData = $this->ensureOrderItemsData($orders, $ordersItemsData, $orderParcelsData);
 
         try {
             $this->logDebug(static::LOG_CREATE_SEND, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
@@ -121,17 +122,17 @@ class CreateService extends ServiceAbstract
                     $itemProductDetails->rewind();
                     $itemProductDetail = $itemProductDetails->current();
                     $this->logDebug(static::LOG_PROD_DET_UPDATE, [$itemProductDetail->getSku(), $itemProductDetail->getOrganisationUnitId(), $order->getId()], static::LOG_CODE);
-                    $this->updateProductDetailFromInputDimensionData($itemProductDetail, $productDetailData, $item, $parcelCount);
+                    $this->updateProductDetailFromInputData($itemProductDetail, $productDetailData, $item, $parcelCount);
                 } else {
                     $this->logDebug(static::LOG_PROD_DET_CREATE, [$item->getItemSku(), $rootOu->getId(), $order->getId()], static::LOG_CODE);
-                    $productDetail = $this->createProductDetailFromInputDimensionData($productDetailData, $item, $parcelCount, $rootOu);
+                    $productDetail = $this->createProductDetailFromInputData($productDetailData, $item, $parcelCount, $rootOu);
                     $productDetails->attach($productDetail);
                 }
             }
         }
     }
 
-    protected function updateProductDetailFromInputDimensionData(
+    protected function updateProductDetailFromInputData(
         ProductDetail $productDetail,
         array $productDetailData,
         Item $item,
@@ -160,7 +161,7 @@ class CreateService extends ServiceAbstract
         }
     }
 
-    protected function createProductDetailFromInputDimensionData(
+    protected function createProductDetailFromInputData(
         array $productDetailData,
         Item $item,
         $parcelCount,
@@ -170,7 +171,7 @@ class CreateService extends ServiceAbstract
             'sku' => $item->getItemSku(),
             'organisationUnitId' => $rootOu->getId(),
         ];
-        foreach ($this->productDimensionFields as $field => $callback) {
+        foreach ($this->productDetailFields as $field => $callback) {
             if (!isset($productDetailData[$field]) || $productDetailData[$field] == '') {
                 continue;
             }
@@ -249,6 +250,25 @@ class CreateService extends ServiceAbstract
         foreach ($orderLabels as $orderLabel) {
             $this->orderLabelService->remove($orderLabel);
         }
+    }
+
+    protected function ensureOrderItemsData(OrderCollection $orders, array $ordersItemsData, array $orderParcelsData)
+    {
+        // Each table row can be an item, a parcel or both (when there's only one item we collapse the item and parcel
+        // into one row). In the latter case we end up with parcelData but not itemData. We'll rectify that if we can.
+        foreach ($orders as $order) {
+            if (isset($ordersItemsData[$order->getId()])) {
+                continue;
+            }
+            if (count($order->getItems()) > 1 || count($orderParcelsData[$order->getId()]) > 1) {
+                continue;
+            }
+            $items = $order->getItems();
+            $items->rewind();
+            $item = $items->current();
+            $ordersItemsData[$order->getId()][$item->getId()] = array_shift($orderParcelsData[$order->getId()]);
+        }
+        return $ordersItemsData;
     }
 
     // Required by GetProductDetailsForOrdersTrait
