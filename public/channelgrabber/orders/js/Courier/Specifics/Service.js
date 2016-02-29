@@ -1,11 +1,21 @@
-define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxRequester)
-{
+define([
+    './EventHandler.js',
+    'AjaxRequester',
+    './Mapper.js',
+    './ItemParcelAssignment.js'
+], function(
+    EventHandler,
+    ajaxRequester,
+    mapper,
+    ItemParcelAssignment
+) {
     // Also requires global CourierSpecificsDataTable class to be present
     function Service(dataTable, courierAccountId)
     {
         var eventHandler;
         var delayedLabelsOrderIds;
         var orderMetaData;
+        var orderData;
 
         this.getDataTable = function()
         {
@@ -25,11 +35,17 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         this.setEventHandler = function(newEventHandler)
         {
             eventHandler = newEventHandler;
+            return this;
         };
 
         this.getAjaxRequester = function()
         {
             return ajaxRequester;
+        };
+
+        this.getMapper = function()
+        {
+            return mapper;
         };
 
         this.getDelayedLabelsOrderIds = function()
@@ -54,6 +70,17 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
             return this;
         };
 
+        this.getOrderData = function()
+        {
+            return orderData;
+        };
+
+        this.setOrderData = function(newOrderData)
+        {
+            orderData = newOrderData;
+            return this;
+        };
+
         this.getNotifications = function()
         {
             return n;
@@ -61,8 +88,9 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
 
         var init = function()
         {
-            this.setEventHandler(new EventHandler(this));
-            this.listenForTableLoad();
+            this.setEventHandler(new EventHandler(this))
+                .listenForTableLoad()
+                .listenForTableDraw();
         };
         init.call(this);
     }
@@ -85,7 +113,8 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
         var self = this;
         this.getDataTable().on('xhr', function(event, settings, response)
         {
-            self.setOrderMetaData(response.metadata);
+            self.setOrderMetaData(response.metadata)
+                .setOrderData(self.getMapper().dataTableRecordsToOrderData(response.Records));
         });
         return this;
     };
@@ -93,6 +122,27 @@ define(['./EventHandler.js', 'AjaxRequester'], function(EventHandler, ajaxReques
     Service.prototype.getMetaDataForOrder = function(orderId)
     {
         return this.getOrderMetaData()[orderId];
+    };
+
+    Service.prototype.getDataForOrder = function(orderId)
+    {
+        return this.getOrderData()[orderId];
+    };
+
+    Service.prototype.listenForTableDraw = function()
+    {
+        var self = this;
+        this.getDataTable().on('fnDrawCallback', function()
+        {
+            self.setUpComplexElements();
+        });
+        return this;
+    };
+
+    Service.prototype.setUpComplexElements = function()
+    {
+        ItemParcelAssignment.setUp(this.getDataTable(), this);
+        return this;
     };
 
     Service.prototype.courierLinkChosen = function(courierUrl)

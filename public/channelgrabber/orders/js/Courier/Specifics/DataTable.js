@@ -42,11 +42,13 @@ CourierSpecificsDataTable.COLUMN_SERVICE = 'service';
 CourierSpecificsDataTable.COLUMN_PARCELS = 'parcels';
 CourierSpecificsDataTable.COLUMN_COLLECTION_DATE = 'collectionDate';
 CourierSpecificsDataTable.COLUMN_ACTIONS = 'actions';
+CourierSpecificsDataTable.COLUMN_ITEM_PARCEL_ASSIGN = 'itemParcelAssignment';
 CourierSpecificsDataTable.SELECTOR_SERVICE_SELECT_PREFIX = '#courier-service-select-';
 CourierSpecificsDataTable.SELECTOR_PARCELS_ELEMENT = '#courier-parcels-input-container';
 CourierSpecificsDataTable.SELECTOR_DATEPICKER_ELEMENT = '#courier-order-collectionDate-container';
 CourierSpecificsDataTable.SELECTOR_ACTION_BUTTONS = '#courier-action-buttons .button-holder';
 CourierSpecificsDataTable.SELECTOR_ITEM_WEIGHT_INPUT = '.courier-item-weight';
+CourierSpecificsDataTable.SELECTOR_ITEM_PARCELS_ASSIGN = '#courier-itemParcelAssignment-button-container .button-holder';
 CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS_CONTAINER = '#courier-specifics-bulk-actions';
 CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS = '#courier-specifics-bulk-actions div.courier-status-all-labels-button';
 CourierSpecificsDataTable.SELECTOR_BULK_ACTIONS_SUFFIX = '-all-labels-button-shadow';
@@ -83,6 +85,9 @@ CourierSpecificsDataTable.prototype.addElementsToColumns = function()
         if (column.mData == CourierSpecificsDataTable.COLUMN_ACTIONS) {
             return self.addButtonsToActionsColumn(data);
         }
+        if (column.mData == CourierSpecificsDataTable.COLUMN_ITEM_PARCEL_ASSIGN) {
+            return self.addItemParcelAssignmentButtonColumn(data);
+        }
     });
     return this;
 };
@@ -99,7 +104,7 @@ CourierSpecificsDataTable.prototype.addCustomSelectToServiceColumn = function(te
     var serviceSelectCopy = this.cloneCustomSelectElement(
         templateSelector, name, 'courier-service-custom-select', service
     );
-    templateData.serviceOptions = $('<div>').append(serviceSelectCopy).html();
+    templateData.serviceOptions = CourierSpecificsDataTable.elementToHtmlString(serviceSelectCopy);
     return this;
 };
 
@@ -118,7 +123,7 @@ CourierSpecificsDataTable.prototype.addInlineTextToParcelsColumn = function(temp
         .attr('data-element-name', name)
         // .val() doesn't work here, possibly because its not part of the DOM yet
         .attr('value', templateData.parcels);
-    templateData.parcelsInput = $('<div>').append(elementCopy).html();
+    templateData.parcelsInput = CourierSpecificsDataTable.elementToHtmlString(elementCopy);
     return this;
 };
 
@@ -140,7 +145,7 @@ CourierSpecificsDataTable.prototype.addDatePickerToCollectionDateColumn = functi
         .attr('data-element-name', name)
         .attr('value', templateData.collectionDate.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3/$2/$1'))
         .removeClass('hasDatepicker');
-    templateData.collectionDatePicker = $('<div>').append(elementCopy).html();
+    templateData.collectionDatePicker = CourierSpecificsDataTable.elementToHtmlString(elementCopy);
     return this;
 };
 
@@ -167,7 +172,7 @@ CourierSpecificsDataTable.prototype.addButtonsToActionsColumn = function(templat
         id += '_' + templateData.orderId;
         $('input.button', buttonCopy).attr('id', id);
         $('div.button', buttonCopy).attr('id', id+'-shadow');
-        buttonsHtml += $('<div>').append(buttonCopy).html();
+        buttonsHtml += CourierSpecificsDataTable.elementToHtmlString(buttonCopy);
     });
     templateData.actions = buttonsHtml;
     return this;
@@ -192,6 +197,19 @@ CourierSpecificsDataTable.prototype.trackDistinctStatusActions = function(action
         }
         this.distinctStatusActions[action] = true;
     }
+    return this;
+};
+
+CourierSpecificsDataTable.prototype.addItemParcelAssignmentButtonColumn = function(templateData)
+{
+    if (!templateData.parcelRow || templateData.itemParcelAssignmentButton) {
+        return;
+    }
+    var elementCopy = $(CourierSpecificsDataTable.SELECTOR_ITEM_PARCELS_ASSIGN).clone();
+    var id = $('input.button', elementCopy).attr('id') + '_' + templateData.orderId + '_' + templateData.parcelNumber;
+    $('input.button', elementCopy).attr('id', id);
+    $('div.button', elementCopy).attr('id', id+'-shadow');
+    templateData.itemParcelAssignmentButton = CourierSpecificsDataTable.elementToHtmlString(elementCopy);
     return this;
 };
 
@@ -253,7 +271,7 @@ CourierSpecificsDataTable.getButtonsHtmlForActions = function(actions, orderId)
         id += '_' + orderId;
         $('input.button', buttonCopy).attr('id', id);
         $('div.button', buttonCopy).attr('id', id+'-shadow');
-        buttonsHtml += $('<div>').append(buttonCopy).html();
+        buttonsHtml += CourierSpecificsDataTable.elementToHtmlString(buttonCopy);
     });
     return buttonsHtml;
 };
@@ -265,4 +283,10 @@ CourierSpecificsDataTable.getActionsFromLabelStatus = function(labelStatus, canc
         delete actions['cancel'];
     }
     return actions;
+};
+
+CourierSpecificsDataTable.elementToHtmlString = function(element)
+{
+    // Easiest way: add to a temporary element then get its innerHTML
+    return $('<div>').append(element).html();
 };
