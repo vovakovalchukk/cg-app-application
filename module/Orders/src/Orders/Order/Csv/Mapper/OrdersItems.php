@@ -2,6 +2,7 @@
 namespace Orders\Order\Csv\Mapper;
 
 use CG\Order\Client\Service as OrderService;
+use CG\Order\Service\Filter\StorageInterface as OrderFilterStorage;
 use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
@@ -21,8 +22,12 @@ use Orders\Order\Csv\MapperInterface;
 
 class OrdersItems implements MapperInterface
 {
+    const ORDERS_PER_PAGE = 500;
+
     /** @var OrderService $orderService */
     protected $orderService;
+    /** @var OrderFilterStorage $orderFilterStorage */
+    protected $orderFilterStorage;
     /** @var GiftWrapMessageFormatter $giftWrapMessageFormatter */
     protected $giftWrapMessageFormatter;
     /** @var GiftWrapPriceFormatter $giftWrapPriceFormatter */
@@ -50,6 +55,7 @@ class OrdersItems implements MapperInterface
 
     public function __construct(
         OrderService $orderService,
+        OrderFilterStorage $orderFilterStorage,
         GiftWrapMessageFormatter $giftWrapMessageFormatter,
         GiftWrapPriceFormatter $giftWrapPriceFormatter,
         GiftWrapTypeFormatter $giftWrapTypeFormatter,
@@ -65,6 +71,7 @@ class OrdersItems implements MapperInterface
     ) {
         $this
             ->setOrderService($orderService)
+            ->setOrderFilterStorage($orderFilterStorage)
             ->setGiftWrapMessageFormatter($giftWrapMessageFormatter)
             ->setGiftWrapPriceFormatter($giftWrapPriceFormatter)
             ->setGiftWrapTypeFormatter($giftWrapTypeFormatter)
@@ -157,9 +164,20 @@ class OrdersItems implements MapperInterface
      */
     public function fromOrderFilter(OrderFilter $orderFilter)
     {
-        return $this->fromOrderCollection(
-            $this->orderService->fetchCollectionByFilter($orderFilter)
-        );
+        /** @var OrderFilter $orderFilter */
+        $orderFilter = $this->orderFilterStorage->save($orderFilter->setConvertToOrderIds(true));
+
+        $page = 1;
+        do {
+            /** @var OrderCollection $orderCollection */
+            $orderCollection = $this->orderService->fetchCollectionByFilter(
+                $orderFilter->setLimit(static::ORDERS_PER_PAGE, $page)
+            );
+
+            foreach ($this->fromOrderCollection($orderCollection) as $rows) {
+                yield $rows;
+            }
+        } while (($page++ * static::ORDERS_PER_PAGE) < $orderCollection->getTotal());
     }
 
     /**
@@ -197,6 +215,15 @@ class OrdersItems implements MapperInterface
     protected function setOrderService(OrderService $orderService)
     {
         $this->orderService = $orderService;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setOrderFilterStorage(OrderFilterStorage $orderFilterStorage)
+    {
+        $this->orderFilterStorage = $orderFilterStorage;
         return $this;
     }
 
