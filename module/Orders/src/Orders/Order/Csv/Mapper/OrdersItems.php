@@ -1,6 +1,8 @@
 <?php
 namespace Orders\Order\Csv\Mapper;
 
+use CG\Order\Client\Service as OrderService;
+use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stdlib;
@@ -19,6 +21,8 @@ use Orders\Order\Csv\MapperInterface;
 
 class OrdersItems implements MapperInterface
 {
+    /** @var OrderService $orderService */
+    protected $orderService;
     /** @var GiftWrapMessageFormatter $giftWrapMessageFormatter */
     protected $giftWrapMessageFormatter;
     /** @var GiftWrapPriceFormatter $giftWrapPriceFormatter */
@@ -45,6 +49,7 @@ class OrdersItems implements MapperInterface
     protected $organisationUnitService;
 
     public function __construct(
+        OrderService $orderService,
         GiftWrapMessageFormatter $giftWrapMessageFormatter,
         GiftWrapPriceFormatter $giftWrapPriceFormatter,
         GiftWrapTypeFormatter $giftWrapTypeFormatter,
@@ -59,6 +64,7 @@ class OrdersItems implements MapperInterface
         OrganisationUnitService $organisationUnitService
     ) {
         $this
+            ->setOrderService($orderService)
             ->setGiftWrapMessageFormatter($giftWrapMessageFormatter)
             ->setGiftWrapPriceFormatter($giftWrapPriceFormatter)
             ->setGiftWrapTypeFormatter($giftWrapTypeFormatter)
@@ -149,6 +155,16 @@ class OrdersItems implements MapperInterface
     /**
      * @inherit
      */
+    public function fromOrderFilter(OrderFilter $orderFilter)
+    {
+        return $this->fromOrderCollection(
+            $this->orderService->fetchCollectionByFilter($orderFilter)
+        );
+    }
+
+    /**
+     * @inherit
+     */
     public function fromOrderCollection(OrderCollection $orderCollection)
     {
         $columnFormatters = $this->getFormatters();
@@ -173,6 +189,15 @@ class OrdersItems implements MapperInterface
             }
             yield Stdlib\transposeArray($columns);
         }
+    }
+
+    /**
+     * @return self
+     */
+    protected function setOrderService(OrderService $orderService)
+    {
+        $this->orderService = $orderService;
+        return $this;
     }
 
     /**

@@ -1,6 +1,8 @@
 <?php
 namespace Orders\Order\Csv\Mapper;
 
+use CG\Order\Client\Service as OrderService;
+use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\User\ActiveUserInterface;
@@ -13,6 +15,8 @@ use Orders\Order\Csv\MapperInterface;
 
 class Orders implements MapperInterface
 {
+    /** @var OrderService $orderService */
+    protected $orderService;
     /** @var StandardFormatter $standardFormatter */
     protected $standardFormatter;
     /** @var SalesChannelNameFormatter $salesChannelNameFormatter */
@@ -29,6 +33,7 @@ class Orders implements MapperInterface
     protected $organisationUnitService;
 
     public function __construct(
+        OrderService $orderService,
         StandardFormatter $standardFormatter,
         SalesChannelNameFormatter $salesChannelNameFormatter,
         ShippingMethodFormatter $shippingMethodFormatter,
@@ -38,6 +43,7 @@ class Orders implements MapperInterface
         ActiveUserInterface $activeUserContainer
     ) {
         $this
+            ->setOrderService($orderService)
             ->setStandardFormatter($standardFormatter)
             ->setSalesChannelNameFormatter($salesChannelNameFormatter)
             ->setShippingMethodFormatter($shippingMethodFormatter)
@@ -113,6 +119,16 @@ class Orders implements MapperInterface
     /**
      * @inherit
      */
+    public function fromOrderFilter(OrderFilter $orderFilter)
+    {
+        return $this->fromOrderCollection(
+            $this->orderService->fetchCollectionByFilter($orderFilter)
+        );
+    }
+
+    /**
+     * @inherit
+     */
     public function fromOrderCollection(OrderCollection $orderCollection)
     {
         $columnFormatters = $this->getFormatters();
@@ -138,6 +154,15 @@ class Orders implements MapperInterface
             }
             yield [$row];
         }
+    }
+
+    /**
+     * @return self
+     */
+    protected function setOrderService(OrderService $orderService)
+    {
+        $this->orderService = $orderService;
+        return $this;
     }
 
     /**
