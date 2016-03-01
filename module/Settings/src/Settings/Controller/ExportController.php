@@ -1,7 +1,6 @@
 <?php
 namespace Settings\Controller;
 
-use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter as OrderFilter;
 use CG\User\ActiveUserInterface as ActiveUserContainer;
 use CG\User\Entity as User;
@@ -30,8 +29,6 @@ class ExportController extends AdvancedController
     protected $viewModelFactory;
     /** @var ActiveUserContainer $activeUserContainer */
     protected $activeUserContainer;
-    /** @var OrderService $orderService */
-    protected $orderService;
     /** @var OrderCsvService $orderCsvService */
     protected $orderCsvService;
     /** @var UsageService */
@@ -42,7 +39,6 @@ class ExportController extends AdvancedController
     public function __construct(
         ViewModelFactory $viewModelFactory,
         ActiveUserContainer $activeUserContainer,
-        OrderService $orderService,
         OrderCsvService $orderCsvService,
         UsageService $usageService,
         JsonModelFactory $jsonModelFactory
@@ -50,7 +46,6 @@ class ExportController extends AdvancedController
         $this
             ->setViewModelFactory($viewModelFactory)
             ->setActiveUserContainer($activeUserContainer)
-            ->setOrderService($orderService)
             ->setOrderCsvService($orderCsvService)
             ->setUsageService($usageService)
             ->setJsonModelFactory($jsonModelFactory);
@@ -72,14 +67,14 @@ class ExportController extends AdvancedController
     public function exportOrderAction()
     {
         $guid = $this->params()->fromPost(static::PROGRESS_KEY_NAME, null);
-        $csv = $this->orderCsvService->generateCsvForOrders($this->getOrders(), $guid);
+        $csv = $this->orderCsvService->generateCsvFromFilterForOrders($this->getOrderFilter(), $guid);
         return new FileResponse(OrderCsvService::MIME_TYPE, OrderCsvService::FILENAME, (string) $csv);
     }
 
     public function exportOrderItemAction()
     {
         $guid = $this->params()->fromPost(static::PROGRESS_KEY_NAME, null);
-        $csv = $this->orderCsvService->generateCsvForOrdersAndItems($this->getOrders(), $guid);
+        $csv = $this->orderCsvService->generateCsvFromFilterForOrdersAndItems($this->getOrderFilter(), $guid);
         return new FileResponse(OrderCsvService::MIME_TYPE, OrderCsvService::FILENAME, (string) $csv);
     }
 
@@ -121,13 +116,14 @@ class ExportController extends AdvancedController
         return $this->activeUserContainer->getActiveUser();
     }
 
-    protected function getOrders()
+    /**
+     * @return OrderFilter
+     */
+    protected function getOrderFilter()
     {
-        $orderFilter = (new OrderFilter())
+        return (new OrderFilter())
             ->setLimit('all')
             ->setOrganisationUnitId($this->getActiveUser()->getOuList());
-
-        return $this->orderService->fetchCollectionByFilter($orderFilter);
     }
 
     /**
@@ -145,15 +141,6 @@ class ExportController extends AdvancedController
     protected function setActiveUserContainer(ActiveUserContainer $activeUserContainer)
     {
         $this->activeUserContainer = $activeUserContainer;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setOrderService(OrderService $orderService)
-    {
-        $this->orderService = $orderService;
         return $this;
     }
 
