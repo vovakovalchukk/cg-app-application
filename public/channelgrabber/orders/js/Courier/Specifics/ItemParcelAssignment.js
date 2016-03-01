@@ -1,10 +1,18 @@
-define([], function()
-{
-    function ItemParcelAssignment(element, orderData)
+define([
+    'cg-mustache'
+], function(
+    CGMustache
+) {
+    function ItemParcelAssignment(element, orderId, orderData, parcelNumber, templates, popup)
     {
         this.getElement = function()
         {
             return element;
+        };
+
+        this.getOrderId = function()
+        {
+            return orderId;;
         };
 
         this.getOrderData = function()
@@ -12,69 +20,163 @@ define([], function()
             return orderData;
         };
 
+        this.getParcelNumber = function()
+        {
+            return parcelNumber;
+        };
+
+        this.getTemplates = function()
+        {
+            return templates;
+        };
+
+        this.getPopup = function()
+        {
+            return popup;
+        };
+
         var init = function()
         {
+            this.listenForButtonClick();
             if (orderData.parcels.length == 1) {
-                this.setDataForSingleParcel();
-            } else {
-                this.preparePopup();
+                this.setDataForSingleParcel()
+                    .disableAssignButton();
+            }
+            if ($(element).val()) {
+                this.markAsAssigned();
             }
         };
         init.call(this);
     }
 
-    ItemParcelAssignment.SELECTOR_INPUT = 'input.courier-order-itemParcelAssignment';
     ItemParcelAssignment.SELECTOR_PARENT = 'td';
     ItemParcelAssignment.SELECTOR_BUTTON = 'div.button';
+    ItemParcelAssignment.SELECTOR_POPUP = '.courier-item-parcel-assignment-popup';
+    ItemParcelAssignment.ITEM_QTY_ID = 'courier-itemParcelAssignment-qty_{orderId}_{parcelNumber}_{itemId}';
 
-    ItemParcelAssignment.instances = [];
-
-    ItemParcelAssignment.setUp = function(dataTable, service)
+    ItemParcelAssignment.prototype.listenForButtonClick = function()
     {
-        ItemParcelAssignment.reset();
-        if ($(ItemParcelAssignment.SELECTOR_INPUT, dataTable).length == 0) {
-            return;
-        }
-        $(ItemParcelAssignment.SELECTOR_INPUT, dataTable).each(function()
+        var self = this;
+        var button = this.getAssignButton();
+        button.click(function()
         {
-            var element = this;
-            var orderId = element.dataset.orderId;
-            var orderData = service.getDataForOrder(orderId);
-            var instance = new ItemParcelAssignment(element, orderData);
-            ItemParcelAssignment.instances.push(instance);
+            self.showPopup();
         });
-    };
-
-    ItemParcelAssignment.reset = function()
-    {
-        delete ItemParcelAssignment.instances;
-        ItemParcelAssignment.instances = [];
     };
 
     ItemParcelAssignment.prototype.setDataForSingleParcel = function()
     {
-        var data = {};
+        var assignmentData = {};
         var items = this.getOrderData().items;
         for (var index in items) {
             var item = items[index];
-            data[item.id] = item.quantity;
+            assignmentData[item.id] = item.quantity;
         }
-        $(this.getElement()).val(JSON.stringify(data));
-        this.markAsAssigned(true);
+        this.storeAssignmentData(assignmentData);
+        return this;
     };
 
-    ItemParcelAssignment.prototype.markAsAssigned = function(disable)
+    ItemParcelAssignment.prototype.storeAssignmentData = function(assignmentData)
     {
-        var button = $(this.getElement()).closest(ItemParcelAssignment.SELECTOR_PARENT).find(ItemParcelAssignment.SELECTOR_BUTTON);
-        button.find('.title').html('Assigned');
-        if (disable) {
-            button.addClass('disabled');
-        }
+        $(this.getElement()).val(JSON.stringify(assignmentData));
+        return this;
     };
 
-    ItemParcelAssignment.prototype.preparePopup = function()
+    ItemParcelAssignment.prototype.markAsAssigned = function()
     {
-        // TODO
+        var button = this.getAssignButton();
+        button.find('.title').html('Assigned &#10003;');
+        return this;
+    };
+
+    ItemParcelAssignment.prototype.disableAssignButton = function()
+    {
+        this.getAssignButton().addClass('disabled');
+    };
+
+    ItemParcelAssignment.prototype.showPopup = function()
+    {
+        var content = this.renderPopupContent();
+        this.getPopup().htmlContent(content);
+        this.listenForPopupButtonClick();
+        this.getPopup().show();
+    };
+
+    ItemParcelAssignment.prototype.renderPopupContent = function()
+    {
+        var cgMustache = CGMustache.get();
+        var buttons = cgMustache.renderTemplate(this.getTemplates(), {"buttons": [{"value": "Assign"}]}, 'buttons');
+        var partials = {"actionButtons": buttons};
+        return cgMustache.renderTemplate(this.getTemplates(), {
+            "parcelNumber": this.getParcelNumber(),
+            "items": this.getItemOptionsForPopupContent()
+        }, 'itemParcelAssignment', partials);
+    };
+
+    ItemParcelAssignment.prototype.getItemOptionsForPopupContent = function()
+    {
+        var assignmentData = {};
+        if ($(this.getElement()).val()) {
+            assignmentData = JSON.parse($(this.getElement()).val());
+        }
+        var orderData = this.getOrderData();
+        var itemOptions = [];
+        for (var index in orderData.items) {
+            var item = orderData.items[index];
+            var value = assignmentData[item.id] || 0;
+            var itemQtyInput = CGMustache.get().renderTemplate(this.getTemplates(), {
+                "name": "itemQty_"+item.id,
+                "type": "number",
+                "min": "0",
+                // Not sure why but if you pass this through as an integer it breaks the Mustache template
+                "max": String(item.quantity),
+                "value": value
+            }, 'inlineText');
+            itemOptions.push({
+                "name": item.name,
+                "qtyInput": itemQtyInput
+            });
+        }
+        return itemOptions;
+    };
+
+    ItemParcelAssignment.prototype.listenForPopupButtonClick = function()
+    {
+        var self = this;
+        $(ItemParcelAssignment.SELECTOR_POPUP + ' ' + ItemParcelAssignment.SELECTOR_BUTTON).one('click', function()
+        {
+            self.processAssignmentSelection();
+            self.getPopup().hide();
+        });
+    };
+
+    ItemParcelAssignment.prototype.processAssignmentSelection = function()
+    {
+        var assignmentData = {};
+        $(ItemParcelAssignment.SELECTOR_POPUP + ' table input').each(function()
+        {
+            var input = this;
+            var value = parseInt($(input).val());
+            if (value == NaN || value <= 0) {
+                return true; // continue
+            }
+            var itemId = $(input).attr('name').split('_').pop();
+            assignmentData[itemId] = value;
+        });
+
+        this.storeAssignmentData(assignmentData)
+            .markAsAssigned();
+    };
+
+    ItemParcelAssignment.prototype.clear = function()
+    {
+        $(this.getElement()).val('');
+        return this;
+    };
+
+    ItemParcelAssignment.prototype.getAssignButton = function()
+    {
+        return $(this.getElement()).closest(ItemParcelAssignment.SELECTOR_PARENT).find(ItemParcelAssignment.SELECTOR_BUTTON);
     };
 
     return ItemParcelAssignment;

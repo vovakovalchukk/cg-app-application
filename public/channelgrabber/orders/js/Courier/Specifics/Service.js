@@ -10,7 +10,7 @@ define([
     ItemParcelAssignment
 ) {
     // Also requires global CourierSpecificsDataTable class to be present
-    function Service(dataTable, courierAccountId)
+    function Service(dataTable, courierAccountId, ipaManager)
     {
         var eventHandler;
         var delayedLabelsOrderIds;
@@ -25,6 +25,11 @@ define([
         this.getCourierAccountId = function()
         {
             return courierAccountId;
+        };
+
+        this.getItemParcelAssignmentManager = function()
+        {
+            return ipaManager;
         };
 
         this.getEventHandler = function()
@@ -141,13 +146,19 @@ define([
 
     Service.prototype.setUpComplexElements = function()
     {
-        ItemParcelAssignment.setUp(this.getDataTable(), this);
+        this.getItemParcelAssignmentManager().createInstances(this.getDataTable(), this);
         return this;
     };
 
     Service.prototype.courierLinkChosen = function(courierUrl)
     {
         $(Service.SELECTOR_NAV_FORM).attr('action', courierUrl).submit();
+    };
+
+    Service.prototype.parcelsChangedForOrder = function(orderId)
+    {
+        this.getItemParcelAssignmentManager().clearForOrder(orderId);
+        this.refresh();
     };
 
     Service.prototype.refresh = function()

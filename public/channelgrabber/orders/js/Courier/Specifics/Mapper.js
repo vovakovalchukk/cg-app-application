@@ -16,14 +16,14 @@ define([], function()
                     "parcels": []
                 };
             }
-            if (typeof record.itemId != 'undefined' && record.itemId) {
+            if (record.itemRow) {
                 orderData[orderId].items.push({
                     "id": record.itemId,
                     "quantity": record.quantity,
                     "name": record.itemName
                 });
             }
-            if (typeof record.parcelNumber != 'undefined' && record.parcelNumber) {
+            if (record.parcelRow) {
                 orderData[orderId].parcels.push(record.parcelNumber);
             }
         }

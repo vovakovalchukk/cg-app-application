@@ -1,5 +1,5 @@
 {{#parcelRow}}
 {{{itemParcelAssignmentButton}}}
-<input type="hidden" value="{{itemParcelAssignment}}" name="parcelData[{{orderId}}][{{parcelNumber}}][itemParcelAssignment]" id="courier-order-itemParcelAssignment-{{orderId}}-{{parcelNumber}}" class="courier-order-itemParcelAssignment required" data-order-id="{{orderId}}" />
+<input type="hidden" value="{{itemParcelAssignment}}" name="parcelData[{{orderId}}][{{parcelNumber}}][itemParcelAssignment]" id="courier-order-itemParcelAssignment-{{orderId}}-{{parcelNumber}}" class="courier-order-itemParcelAssignment required" data-order-id="{{orderId}}" data-parcel-number="{{parcelNumber}}" />
 {{/parcelRow}}
 {{^parcelRow}}&nbsp;{{/parcelRow}}

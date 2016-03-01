@@ -1997,7 +1997,7 @@ return [
             ],
             'CourierSpecificsItemParcelAssignmentColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Item(s) per<br />Package'],
+                    'variables' => ['value' => 'Item(s) per<br />Parcel'],
                     'template' => 'value.phtml',
                 ],
             ],
