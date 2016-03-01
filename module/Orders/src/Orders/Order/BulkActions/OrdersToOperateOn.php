@@ -2,8 +2,8 @@
 namespace Orders\Order\BulkActions;
 
 use CG\Order\Client\Service as OrderService;
-use CG\Order\Service\Filter;
 use CG\Order\Service\Filter\StorageInterface as FilterStorage;
+use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\ActiveUserInterface;
@@ -26,21 +26,29 @@ class OrdersToOperateOn
         ActiveUserInterface $activeUserContainer,
         FilterStorage $filterStorage
     ) {
-        $this->setOrderService($orderService)
+        $this
+            ->setOrderService($orderService)
             ->setFilterService($filterService)
             ->setActiveUserContainer($activeUserContainer)
             ->setFilterStorage($filterStorage);
     }
 
+    /**
+     * @return OrderCollection
+     */
     public function __invoke(array $params, $orderBy = null, $orderDir = null)
     {
         $filter = $this->buildFilterFromInput($params, $orderBy, $orderDir);
 
+        /** @var OrderCollection $collection */
         $collection = $this->orderService->fetchCollectionByFilter($filter);
         $collection->setFilterId($filter->getId());
         return $collection;
     }
 
+    /**
+     * @return Filter
+     */
     public function buildFilterFromInput(array $params, $orderBy = null, $orderDir = null)
     {
         $filter = $this->getBaseFilter()
@@ -63,6 +71,9 @@ class OrdersToOperateOn
         return $filter;
     }
 
+    /**
+     * @return Filter
+     */
     protected function getBaseFilter()
     {
         return (new Filter())
@@ -71,6 +82,9 @@ class OrdersToOperateOn
             ->setOrganisationUnitId($this->activeUserContainer->getActiveUser()->getOuList());
     }
 
+    /**
+     * @return Filter
+     */
     protected function applyFiltersFromFilterId(Filter $filter, $filterId)
     {
         $filter->setId($filterId)
@@ -78,6 +92,9 @@ class OrdersToOperateOn
         return $filter;
     }
 
+    /**
+     * @return Filter
+     */
     protected function applyFiltersFromFilterParam(Filter $filter, array $filterParam)
     {
         $filterParam = $this->filterService->addDefaultFiltersToArray($filterParam);
@@ -87,9 +104,13 @@ class OrdersToOperateOn
         );
     }
 
+    /**
+     * @return Filter
+     */
     protected function saveFilterAsOrderIds(Filter $filter)
     {
         $filter->setConvertToOrderIds(true);
+        /** @var Filter $filter */
         $filter = $this->filterStorage->save($filter);
         // Saving a filter strips the pagination so we can change it later, need to re-add it
         $filter->setLimit('all')
@@ -97,24 +118,36 @@ class OrdersToOperateOn
         return $filter;
     }
 
+    /**
+     * @return self
+     */
     protected function setOrderService(OrderService $orderService)
     {
         $this->orderService = $orderService;
         return $this;
     }
 
+    /**
+     * @return self
+     */
     protected function setFilterService(FilterService $filterService)
     {
         $this->filterService = $filterService;
         return $this;
     }
 
+    /**
+     * @return self
+     */
     protected function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
     {
         $this->activeUserContainer = $activeUserContainer;
         return $this;
     }
 
+    /**
+     * @return self
+     */
     protected function setFilterStorage(FilterStorage $filterStorage)
     {
         $this->filterStorage = $filterStorage;

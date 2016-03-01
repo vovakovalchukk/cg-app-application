@@ -198,6 +198,13 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         return $ordersToOperatorOn($input, $orderBy, $orderDir);
     }
 
+    protected function getFilterFromInput($orderBy = null, $orderDir = null)
+    {
+        $input = $this->params()->fromPost();
+        $ordersToOperatorOn = $this->ordersToOperatorOn;
+        return $ordersToOperatorOn->buildFilterFromInput($input, $orderBy, $orderDir);
+    }
+
     /**
      * @deprecated use getOrdersFromInput
      */
@@ -594,8 +601,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function toCsvOrderIdsAction($orderBy = null, $orderDir = 'ASC')
     {
         try {
-            $orders = $this->getOrdersFromInput($orderBy, $orderDir);
-            $csv = $this->getCsvService()->generateCsvForOrdersAndItems($orders);
+            $filter = $this->getFilterFromInput($orderBy, $orderDir);
+            $csv = $this->getCsvService()->generateCsvFromFilterForOrdersAndItems($filter);
             return new FileResponse(CsvService::MIME_TYPE, CsvService::FILENAME, (string) $csv);
         } catch (NotFound $exception) {
             return $this->redirect()->toRoute('Orders');
@@ -617,8 +624,8 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
     public function toCsvOrderDataOnlyOrderIdsAction($orderBy = null, $orderDir = 'ASC')
     {
         try {
-            $orders = $this->getOrdersFromInput($orderBy, $orderDir);
-            $csv = $this->getCsvService()->generateCsvForOrders($orders);
+            $filter = $this->getFilterFromInput($orderBy, $orderDir);
+            $csv = $this->getCsvService()->generateCsvFromFilterForOrders($filter);
             return new FileResponse(CsvService::MIME_TYPE, CsvService::FILENAME, (string) $csv);
         } catch (NotFound $exception) {
             return $this->redirect()->toRoute('Orders');
