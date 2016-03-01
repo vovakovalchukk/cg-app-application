@@ -135,7 +135,7 @@ class Orders implements MapperInterface
         do {
             /** @var OrderCollection $orderCollection */
             $orderCollection = $this->orderService->fetchCollectionByFilter(
-                $orderFilter->setLimit(static::ORDERS_PER_PAGE, $page)
+                $orderFilter->setLimit(static::ORDERS_PER_PAGE)->setPage($page)
             );
 
             foreach ($this->fromOrderCollection($orderCollection) as $rows) {
