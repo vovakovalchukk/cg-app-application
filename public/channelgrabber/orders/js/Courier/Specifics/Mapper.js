@@ -17,6 +17,9 @@ define([], function()
                 };
             }
             if (record.itemRow) {
+                orderData[orderId].labelStatus = record.labelStatus;
+            }
+            if (record.itemRow) {
                 orderData[orderId].items.push({
                     "id": record.itemId,
                     "quantity": record.quantity,

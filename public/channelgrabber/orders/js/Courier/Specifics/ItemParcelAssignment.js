@@ -45,6 +45,9 @@ define([
             if ($(element).val()) {
                 this.markAsAssigned();
             }
+            if (orderData.labelStatus != '') {
+                this.disableAssignButton();
+            }
         };
         init.call(this);
     }
@@ -52,6 +55,8 @@ define([
     ItemParcelAssignment.SELECTOR_PARENT = 'td';
     ItemParcelAssignment.SELECTOR_BUTTON = 'div.button';
     ItemParcelAssignment.SELECTOR_POPUP = '.courier-item-parcel-assignment-popup';
+    ItemParcelAssignment.SELECTOR_ITEM_WEIGHT = 'input[name="itemData[{orderId}][{itemId}][weight]"]';
+    ItemParcelAssignment.SELECTOR_PARCEL_WEIGHT = 'input[name="parcelData[{orderId}][{parcelNumber}][weight]"]';
     ItemParcelAssignment.ITEM_QTY_ID = 'courier-itemParcelAssignment-qty_{orderId}_{parcelNumber}_{itemId}';
 
     ItemParcelAssignment.prototype.listenForButtonClick = function()
@@ -60,6 +65,9 @@ define([
         var button = this.getAssignButton();
         button.click(function()
         {
+            if ($(this).hasClass('disabled')) {
+                return;
+            }
             self.showPopup();
         });
     };
@@ -152,7 +160,9 @@ define([
 
     ItemParcelAssignment.prototype.processAssignmentSelection = function()
     {
+        var self = this;
         var assignmentData = {};
+        var parcelWeight = 0;
         $(ItemParcelAssignment.SELECTOR_POPUP + ' table input').each(function()
         {
             var input = this;
@@ -162,10 +172,35 @@ define([
             }
             var itemId = $(input).attr('name').split('_').pop();
             assignmentData[itemId] = value;
+            parcelWeight += (self.getUnitWeightForItem(itemId) * value) ;
         });
 
         this.storeAssignmentData(assignmentData)
-            .markAsAssigned();
+            .markAsAssigned()
+            .setParcelWeight(parcelWeight);
+    };
+
+    ItemParcelAssignment.prototype.getUnitWeightForItem = function(itemId)
+    {
+        var weightSelector = ItemParcelAssignment.SELECTOR_ITEM_WEIGHT
+            .replace('{orderId}', this.getOrderId())
+            .replace('{itemId}', itemId);
+        var totalWeight = $(weightSelector).val();
+        if (!totalWeight) {
+            return 0;
+        }
+        var items = this.getOrderData().items;
+        var item = null;
+        for (var index in items) {
+            if (items[index].id == itemId) {
+                item = items[index];
+                break;
+            }
+        }
+        if (!item) {
+            return 0;
+        }
+        return totalWeight / item.quantity;
     };
 
     ItemParcelAssignment.prototype.clear = function()
@@ -177,6 +212,15 @@ define([
     ItemParcelAssignment.prototype.getAssignButton = function()
     {
         return $(this.getElement()).closest(ItemParcelAssignment.SELECTOR_PARENT).find(ItemParcelAssignment.SELECTOR_BUTTON);
+    };
+
+    ItemParcelAssignment.prototype.setParcelWeight = function(parcelWeight)
+    {
+        var weightSelector = ItemParcelAssignment.SELECTOR_PARCEL_WEIGHT
+            .replace('{orderId}', this.getOrderId())
+            .replace('{parcelNumber}', this.getParcelNumber());
+        $(weightSelector).val(parcelWeight);
+        return this;
     };
 
     return ItemParcelAssignment;
