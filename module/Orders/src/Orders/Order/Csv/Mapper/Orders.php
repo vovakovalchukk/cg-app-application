@@ -1,30 +1,31 @@
 <?php
 namespace Orders\Order\Csv\Mapper;
 
-use CG\User\ActiveUserInterface;
-use Orders\Order\Csv\MapperInterface;
 use CG\Order\Shared\Collection as OrderCollection;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\User\ActiveUserInterface;
 use Orders\Order\Csv\Mapper\Formatter\DateSingle as DateFormatter;
 use Orders\Order\Csv\Mapper\Formatter\InvoiceDateSingle as InvoiceDateFormatter;
-use Orders\Order\Csv\Mapper\Formatter\StandardSingle as StandardFormatter;
 use Orders\Order\Csv\Mapper\Formatter\SalesChannelNameSingle as SalesChannelNameFormatter;
 use Orders\Order\Csv\Mapper\Formatter\ShippingMethodSingle as ShippingMethodFormatter;
-use CG\OrganisationUnit\Service as OrganisationUnitService;
+use Orders\Order\Csv\Mapper\Formatter\StandardSingle as StandardFormatter;
+use Orders\Order\Csv\MapperInterface;
 
 class Orders implements MapperInterface
 {
+    /** @var StandardFormatter $standardFormatter */
     protected $standardFormatter;
+    /** @var SalesChannelNameFormatter $salesChannelNameFormatter */
     protected $salesChannelNameFormatter;
+    /** @var ShippingMethodFormatter $shippingMethodFormatter */
     protected $shippingMethodFormatter;
+    /** @var DateFormatter $dateFormatter */
     protected $dateFormatter;
+    /** @var InvoiceDateFormatter $invoiceDateFormatter */
     protected $invoiceDateFormatter;
-    /**
-     * @var ActiveUserInterface $activeUserContainer
-     */
+    /** @var ActiveUserInterface $activeUserContainer */
     protected $activeUserContainer;
-    /**
-     * @var OrganisationUnitService $organisationUnitService
-     */
+    /** @var OrganisationUnitService $organisationUnitService */
     protected $organisationUnitService;
 
     public function __construct(
@@ -102,7 +103,7 @@ class Orders implements MapperInterface
     }
 
     /**
-     * @return array
+     * @inherit
      */
     public function getHeaders()
     {
@@ -110,8 +111,7 @@ class Orders implements MapperInterface
     }
 
     /**
-     * @param OrderCollection $orderCollection
-     * @return \Generator
+     * @inherit
      */
     public function fromOrderCollection(OrderCollection $orderCollection)
     {
@@ -141,7 +141,6 @@ class Orders implements MapperInterface
     }
 
     /**
-     * @param StandardFormatter $standardFormatter
      * @return self
      */
     public function setStandardFormatter(StandardFormatter $standardFormatter)
@@ -151,7 +150,6 @@ class Orders implements MapperInterface
     }
 
     /**
-     * @param SalesChannelNameFormatter $salesChannelNameFormatter
      * @return self
      */
     public function setSalesChannelNameFormatter(SalesChannelNameFormatter $salesChannelNameFormatter)
@@ -161,7 +159,6 @@ class Orders implements MapperInterface
     }
 
     /**
-     * @param ShippingMethodFormatter $shippingMethodFormatter
      * @return self
      */
     public function setShippingMethodFormatter(ShippingMethodFormatter $shippingMethodFormatter)
@@ -170,12 +167,18 @@ class Orders implements MapperInterface
         return $this;
     }
 
+    /**
+     * @return self
+     */
     protected function setDateFormatter(DateFormatter $dateFormatter)
     {
         $this->dateFormatter = $dateFormatter;
         return $this;
     }
 
+    /**
+     * @return self
+     */
     protected function setInvoiceDateFormatter(InvoiceDateFormatter $invoiceDateFormatter)
     {
         $this->invoiceDateFormatter = $invoiceDateFormatter;
@@ -183,8 +186,7 @@ class Orders implements MapperInterface
     }
 
     /**
-     * @param OrganisationUnitService $organisationUnitService
-     * @return $this
+     * @return self
      */
     public function setOrganisationUnitService(OrganisationUnitService $organisationUnitService)
     {
@@ -193,8 +195,7 @@ class Orders implements MapperInterface
     }
 
     /**
-     * @param ActiveUserInterface $activeUserContainer
-     * @return $this
+     * @return self
      */
     public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
     {
