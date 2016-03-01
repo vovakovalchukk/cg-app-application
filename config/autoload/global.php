@@ -143,6 +143,16 @@ use CG\Transaction\Client\Redis as RedisTransactionClient;
 use CG\Stock\Audit\Combined\StorageInterface as StockLogStorage;
 use CG\Stock\Audit\Combined\Storage\Api as StockLogApiStorage;
 
+// Customer Order Counts
+use CG\Order\Shared\CustomerCounts\StorageInterface as CustomerCountStorage;
+use CG\Order\Shared\CustomerCounts\Repository as CustomerCountRepository;
+use CG\Order\Shared\CustomerCounts\Storage\Cache as CustomerCountCacheStorage;
+use CG\Order\Shared\CustomerCounts\Storage\OrderLookup as CustomerCountOrderLookupStorage;
+
+// Locking
+use CG\Locking\StorageInterface as LockingStorage;
+use CG\Redis\Locking\Storage as LockingRedisStorage;
+
 return array(
     'di' => array(
         'instance' => array(
@@ -175,6 +185,8 @@ return array(
                 TransactionClient::class => RedisTransactionClient::class,
                 StockLogStorage::class => StockLogApiStorage::class,
                 UsageService::class => 'order_count_usage_service',
+                CustomerCountStorage::class => CustomerCountRepository::class,
+                LockingStorage::class => LockingRedisStorage::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,
@@ -1016,6 +1028,17 @@ return array(
                         'deliveryInstructions' => true,
                     ]
                 ]
+            ],
+            CustomerCountRepository::class => [
+                'parameters' => [
+                    'storage' => CustomerCountCacheStorage::class,
+                    'repository' => CustomerCountOrderLookupStorage::class,
+                ],
+            ],
+            CustomerCountCacheStorage::class => [
+                'parameters' => [
+                    'client' => 'reliable_redis',
+                ],
             ],
         ),
     ),

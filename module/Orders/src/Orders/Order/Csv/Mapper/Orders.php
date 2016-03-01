@@ -1,33 +1,45 @@
 <?php
 namespace Orders\Order\Csv\Mapper;
 
-use CG\User\ActiveUserInterface;
-use Orders\Order\Csv\MapperInterface;
+use CG\Order\Client\Service as OrderService;
+use CG\Order\Service\Filter\StorageInterface as OrderFilterStorage;
+use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Shared\Collection as OrderCollection;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\User\ActiveUserInterface;
 use Orders\Order\Csv\Mapper\Formatter\DateSingle as DateFormatter;
 use Orders\Order\Csv\Mapper\Formatter\InvoiceDateSingle as InvoiceDateFormatter;
-use Orders\Order\Csv\Mapper\Formatter\StandardSingle as StandardFormatter;
 use Orders\Order\Csv\Mapper\Formatter\SalesChannelNameSingle as SalesChannelNameFormatter;
 use Orders\Order\Csv\Mapper\Formatter\ShippingMethodSingle as ShippingMethodFormatter;
-use CG\OrganisationUnit\Service as OrganisationUnitService;
+use Orders\Order\Csv\Mapper\Formatter\StandardSingle as StandardFormatter;
+use Orders\Order\Csv\MapperInterface;
 
 class Orders implements MapperInterface
 {
+    const ORDERS_PER_PAGE = 500;
+
+    /** @var OrderService $orderService */
+    protected $orderService;
+    /** @var OrderFilterStorage $orderFilterStorage */
+    protected $orderFilterStorage;
+    /** @var StandardFormatter $standardFormatter */
     protected $standardFormatter;
+    /** @var SalesChannelNameFormatter $salesChannelNameFormatter */
     protected $salesChannelNameFormatter;
+    /** @var ShippingMethodFormatter $shippingMethodFormatter */
     protected $shippingMethodFormatter;
+    /** @var DateFormatter $dateFormatter */
     protected $dateFormatter;
+    /** @var InvoiceDateFormatter $invoiceDateFormatter */
     protected $invoiceDateFormatter;
-    /**
-     * @var ActiveUserInterface $activeUserContainer
-     */
+    /** @var ActiveUserInterface $activeUserContainer */
     protected $activeUserContainer;
-    /**
-     * @var OrganisationUnitService $organisationUnitService
-     */
+    /** @var OrganisationUnitService $organisationUnitService */
     protected $organisationUnitService;
 
     public function __construct(
+        OrderService $orderService,
+        OrderFilterStorage $orderFilterStorage,
         StandardFormatter $standardFormatter,
         SalesChannelNameFormatter $salesChannelNameFormatter,
         ShippingMethodFormatter $shippingMethodFormatter,
@@ -37,6 +49,8 @@ class Orders implements MapperInterface
         ActiveUserInterface $activeUserContainer
     ) {
         $this
+            ->setOrderService($orderService)
+            ->setOrderFilterStorage($orderFilterStorage)
             ->setStandardFormatter($standardFormatter)
             ->setSalesChannelNameFormatter($salesChannelNameFormatter)
             ->setShippingMethodFormatter($shippingMethodFormatter)
@@ -102,7 +116,7 @@ class Orders implements MapperInterface
     }
 
     /**
-     * @return array
+     * @inherit
      */
     public function getHeaders()
     {
@@ -110,8 +124,28 @@ class Orders implements MapperInterface
     }
 
     /**
-     * @param OrderCollection $orderCollection
-     * @return \Generator
+     * @inherit
+     */
+    public function fromOrderFilter(OrderFilter $orderFilter)
+    {
+        /** @var OrderFilter $orderFilter */
+        $orderFilter = $this->orderFilterStorage->save($orderFilter->setConvertToOrderIds(true));
+
+        $page = 1;
+        do {
+            /** @var OrderCollection $orderCollection */
+            $orderCollection = $this->orderService->fetchCollectionByFilter(
+                $orderFilter->setLimit(static::ORDERS_PER_PAGE)->setPage($page)
+            );
+
+            foreach ($this->fromOrderCollection($orderCollection) as $rows) {
+                yield $rows;
+            }
+        } while (($page++ * static::ORDERS_PER_PAGE) < $orderCollection->getTotal());
+    }
+
+    /**
+     * @inherit
      */
     public function fromOrderCollection(OrderCollection $orderCollection)
     {
@@ -141,7 +175,24 @@ class Orders implements MapperInterface
     }
 
     /**
-     * @param StandardFormatter $standardFormatter
+     * @return self
+     */
+    protected function setOrderService(OrderService $orderService)
+    {
+        $this->orderService = $orderService;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setOrderFilterStorage(OrderFilterStorage $orderFilterStorage)
+    {
+        $this->orderFilterStorage = $orderFilterStorage;
+        return $this;
+    }
+
+    /**
      * @return self
      */
     public function setStandardFormatter(StandardFormatter $standardFormatter)
@@ -151,7 +202,6 @@ class Orders implements MapperInterface
     }
 
     /**
-     * @param SalesChannelNameFormatter $salesChannelNameFormatter
      * @return self
      */
     public function setSalesChannelNameFormatter(SalesChannelNameFormatter $salesChannelNameFormatter)
@@ -161,7 +211,6 @@ class Orders implements MapperInterface
     }
 
     /**
-     * @param ShippingMethodFormatter $shippingMethodFormatter
      * @return self
      */
     public function setShippingMethodFormatter(ShippingMethodFormatter $shippingMethodFormatter)
@@ -170,12 +219,18 @@ class Orders implements MapperInterface
         return $this;
     }
 
+    /**
+     * @return self
+     */
     protected function setDateFormatter(DateFormatter $dateFormatter)
     {
         $this->dateFormatter = $dateFormatter;
         return $this;
     }
 
+    /**
+     * @return self
+     */
     protected function setInvoiceDateFormatter(InvoiceDateFormatter $invoiceDateFormatter)
     {
         $this->invoiceDateFormatter = $invoiceDateFormatter;
@@ -183,8 +238,7 @@ class Orders implements MapperInterface
     }
 
     /**
-     * @param OrganisationUnitService $organisationUnitService
-     * @return $this
+     * @return self
      */
     public function setOrganisationUnitService(OrganisationUnitService $organisationUnitService)
     {
@@ -193,8 +247,7 @@ class Orders implements MapperInterface
     }
 
     /**
-     * @param ActiveUserInterface $activeUserContainer
-     * @return $this
+     * @return self
      */
     public function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
     {
