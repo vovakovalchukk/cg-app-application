@@ -1191,12 +1191,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "4c78c1462b871a686ec8ecfd4973d6e2a5009882"
+                "reference": "1bba470e59c888ed4c434b8aad1eb245c203cc4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6778-netdespatch-integration-0dd071.zip",
-                "reference": "4c78c1462b871a686ec8ecfd4973d6e2a5009882",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6778-netdespatch-integration-eaef5b.zip",
+                "reference": "1bba470e59c888ed4c434b8aad1eb245c203cc4c",
                 "shasum": null
             },
             "require": {
@@ -1231,7 +1231,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-03-02 09:24:58"
+            "time": "2016-03-02 12:22:45"
         },
         {
             "name": "channelgrabber/notification",
@@ -3096,12 +3096,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/netdespatch-module.git",
-                "reference": "bf803a43635c26e23cf31e0096c7b7875ebc86db"
+                "reference": "12079f10beccf4b17411690d7f37abe3eb666080"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-CGIV-6778-netdespatch-integration-b16acb.zip",
-                "reference": "bf803a43635c26e23cf31e0096c7b7875ebc86db",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-CGIV-6778-netdespatch-integration-e8bfb3.zip",
+                "reference": "12079f10beccf4b17411690d7f37abe3eb666080",
                 "shasum": null
             },
             "require": {
@@ -3132,7 +3132,7 @@
                 ]
             },
             "description": "NetDespatch module",
-            "time": "2016-02-24 15:40:51"
+            "time": "2016-03-02 13:23:29"
         },
         {
             "name": "channelgrabber/zf2-permission",
