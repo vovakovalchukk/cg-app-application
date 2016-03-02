@@ -45,7 +45,6 @@ class CreateService extends ServiceAbstract
         'width'  => 'processDimensionForProductDetails',
         'height' => 'processDimensionForProductDetails',
         'length' => 'processDimensionForProductDetails',
-        'tradeTariffCode' => '',
     ];
 
     public function createForOrdersData(
