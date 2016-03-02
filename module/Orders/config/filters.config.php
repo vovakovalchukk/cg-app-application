@@ -160,7 +160,7 @@ return [
                     'filters' => [
                         [
                             'filterType' => 'customSelectGroup',
-                            'visible' => true,
+                            'visible' => false,
                             'variables' => [
                                 'name' => 'shippingAddressCountry',
                                 'title' => 'Country',
@@ -187,7 +187,7 @@ return [
                         ],
                         [
                             'filterType' => 'numberRange',
-                            'visible' => true,
+                            'visible' => false,
                             'variables' => [
                                 'name' => 'total',
                                 'title' => 'Total',
@@ -262,7 +262,7 @@ return [
                         ],
                         [
                             'filterType' => 'customSelectGroup',
-                            'visible' => true,
+                            'visible' => false,
                             'variables' => [
                                 'name' => 'fulfilmentChannel',
                                 'title' => 'Fulfilment Channel',
@@ -302,6 +302,26 @@ return [
                                 'isBoolean' => true,
                                 'name' => 'buyerMessage',
                                 'title' => 'Has Buyer Message',
+                                'isOptional' => true,
+                                'options' => [
+                                    [
+                                        'value' => true,
+                                        'title' => 'Yes'
+                                    ],
+                                    [
+                                        'value' => false,
+                                        'title' => 'No'
+                                    ],
+                                ]
+                            ],
+                        ],
+                        [
+                            'filterType' => 'customSelectGroup',
+                            'visible' => false,
+                            'variables' => [
+                                'isBoolean' => true,
+                                'name' => 'giftMessage',
+                                'title' => 'Has Gift Message',
                                 'isOptional' => true,
                                 'options' => [
                                     [

@@ -1,15 +1,22 @@
 define([
     'Messages/Module/ThreadDetails/PanelAbstract',
     'Messages/Module/ThreadDetails/Panel/Body/EventHandler',
+    'Messages/Thread/Service',
     'cg-mustache'
 ], function(
     PanelAbstract,
     EventHandler,
+    threadService,
     CGMustache
 ) {
     var Body = function(module, thread)
     {
         PanelAbstract.call(this, module, thread);
+
+        this.getThreadService = function()
+        {
+            return threadService;
+        };
 
         var init = function()
         {
@@ -20,6 +27,7 @@ define([
     };
 
     Body.SELECTOR = '.message-section';
+    Body.COUNT_SELECTOR = '.message-:type .count'
     Body.PRINT_CLASS = 'print-message';
     Body.TEMPLATE = '/channelgrabber/messages/template/Messages/ThreadDetails/Panel/body.mustache';
 
@@ -46,6 +54,18 @@ define([
                 'messages': messagesData
             });
             self.getDomManipulator().append(PanelAbstract.SELECTOR_CONTAINER, html);
+            self.updateCounts(thread);
+        });
+    };
+
+    Body.prototype.updateCounts = function(thread)
+    {
+        var self = this;
+        this.getThreadService().fetchCounts(thread.getId(), function(counts) {
+            for (var type in counts) {
+                var selector = Body.COUNT_SELECTOR.replace(":type", type);
+                self.getDomManipulator().setHtml(selector, counts[type]);
+            }
         });
     };
 

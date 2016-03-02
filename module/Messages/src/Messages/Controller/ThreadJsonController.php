@@ -16,6 +16,8 @@ class ThreadJsonController extends AbstractActionController
     const ROUTE_THREAD_URL = '/thread';
     const ROUTE_SAVE = 'Save';
     const ROUTE_SAVE_URL = '/save';
+    const ROUTE_COUNTS = 'Counts';
+    const ROUTE_COUNTS_URL = '/counts';
 
     /** @var JsonModelFactory $jsonModelFactory */
     protected $jsonModelFactory;
@@ -39,6 +41,9 @@ class ThreadJsonController extends AbstractActionController
         /** @var JsonModel $view */
         $view = $this->jsonModelFactory->newInstance();
         $filters = $this->params()->fromPost('filter', []);
+        if ($threadId = $this->params('threadId')) {
+            $filters['id'] = $threadId;
+        }
         $page = $this->params()->fromPost('page');
 
         $threadsData = $this->service->fetchThreadDataForFilters($filters, $page);
@@ -76,6 +81,20 @@ class ThreadJsonController extends AbstractActionController
         $threadData = $this->service->updateThreadAndReturnData($id, $assignedUserId, $status);
 
         return $view->setVariable('thread', $threadData);
+    }
+
+    public function countsAction()
+    {
+        $counts = [
+            'orders' => 0,
+        ];
+
+        $threadId = $this->params('threadId');
+        if ($threadId) {
+            $counts['orders'] = $this->service->getOrderCountForId($threadId);
+        }
+
+        return $this->jsonModelFactory->newInstance(['counts' => $counts]);
     }
 
     protected function checkUsage()

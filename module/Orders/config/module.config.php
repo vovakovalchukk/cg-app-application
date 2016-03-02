@@ -972,6 +972,8 @@ return [
                 'OrdersBatchColumn' => DataTable\Column::class,
                 'OrdersMessagesColumnView' => ViewModel::class,
                 'OrdersMessagesColumn' => DataTable\Column::class,
+                'OrdersGiftColumnView' => ViewModel::class,
+                'OrdersGiftColumn' => DataTable\Column::class,
                 'OrdersShippingColumnView' => ViewModel::class,
                 'OrdersShippingColumn' => DataTable\Column::class,
                 'OrdersDispatchColumnView' => ViewModel::class,
@@ -1112,6 +1114,7 @@ return [
                         ['column' => 'OrdersStatusColumn'],
                         ['column' => 'OrdersBatchColumn'],
                         ['column' => 'OrdersMessagesColumn'],
+                        ['column' => 'OrdersGiftColumn'],
                         ['column' => 'OrdersShippingColumn'],
                         ['column' => 'OrdersTagColumn'],
                         ['column' => 'OrdersFulfilmentChannelColumn'],
@@ -1275,6 +1278,20 @@ return [
                     'column' => 'buyerMessage',
                     'viewModel' => 'OrdersMessagesColumnView',
                     'class' => 'message-col',
+                    'sortable' => false,
+                ],
+            ],
+            'OrdersGiftColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Gift'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'OrdersGiftColumn' => [
+                'parameters' => [
+                    'column' => 'giftMessage',
+                    'viewModel' => 'OrdersGiftColumnView',
+                    'class' => 'gift-col',
                     'sortable' => false,
                 ],
             ],

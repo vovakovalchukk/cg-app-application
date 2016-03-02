@@ -19,6 +19,7 @@ define([
 
     Ajax.URL_COLLECTION = '/messages/ajax';
     Ajax.URL_ENTITY = '/messages/ajax/thread';
+    Ajax.URL_COUNTS = '/messages/:threadId/ajax/counts';
     Ajax.URL_SAVE = '/messages/ajax/save';
 
     Ajax.prototype = Object.create(StorageAbstract.prototype);
@@ -52,6 +53,19 @@ define([
             }
             var thread = self.getMapper().fromJson(response.thread);
             callback(thread);
+        }, failureCallback);
+    };
+
+    Ajax.prototype.fetchCounts = function(id, callback, failureCallback)
+    {
+        var self = this;
+        this.getRequester().sendRequest(Ajax.URL_COUNTS.replace(':threadId', id), {}, function(response)
+        {
+            if (response.message) {
+                n.error(response.message);
+                return;
+            }
+            callback(response.counts);
         }, failureCallback);
     };
 

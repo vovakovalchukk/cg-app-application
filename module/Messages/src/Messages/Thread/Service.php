@@ -11,9 +11,9 @@ use CG\Communication\Thread\Status as ThreadStatus;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
-use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Shared\Collection as Orders;
+use CG\Order\Shared\CustomerCounts\Service as CustomerCountService;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\User\OrganisationUnit\Service as UserOuService;
@@ -44,8 +44,8 @@ class Service
     protected $userService;
     /** @var AccountService $accountService */
     protected $accountService;
-    /** @var OrderService $orderService */
-    protected $orderService;
+    /** @var CustomerCountService $customerCountService */
+    protected $customerCountService;
     /** @var ThreadResolveFactory $threadResolveFactory */
     protected $threadResolveFactory;
     /** @var IntercomEventService $intercomEventService */
@@ -77,7 +77,7 @@ class Service
         UserOuService $userOuService,
         UserService $userService,
         AccountService $accountService,
-        OrderService $orderService,
+        CustomerCountService $customerCountService,
         ThreadResolveFactory $threadResolveFactory,
         IntercomEventService $intercomEventService,
         DateFormat $dateFormatter,
@@ -88,7 +88,7 @@ class Service
             ->setUserOuService($userOuService)
             ->setUserService($userService)
             ->setAccountService($accountService)
-            ->setOrderService($orderService)
+            ->setCustomerCountService($customerCountService)
             ->setThreadResolveFactory($threadResolveFactory)
             ->setIntercomEventService($intercomEventService)
             ->setDateFormatter($dateFormatter)
@@ -163,12 +163,12 @@ class Service
     {
         $threadsData = [];
         foreach ($threads as $thread) {
-            $threadsData[] = $this->formatThreadData($thread, false);
+            $threadsData[] = $this->formatThreadData($thread);
         }
         return $threadsData;
     }
 
-    protected function formatThreadData(Thread $thread, $includeCounts = true)
+    protected function formatThreadData(Thread $thread, $includeCounts = false)
     {
         $threadData = $thread->toArray();
         $messages = [];
@@ -200,6 +200,7 @@ class Service
             ]
         );
 
+        $threadData['ordersCount'] = '?';
         if ($includeCounts) {
             $threadData['ordersCount'] = $this->getOrderCount($thread);
         }
@@ -213,20 +214,15 @@ class Service
         return $threadData;
     }
 
+    public function getOrderCountForId($id)
+    {
+        $thread = $this->threadService->fetch($id);
+        return $this->getOrderCount($thread);
+    }
+
     protected function getOrderCount(Thread $thread)
     {
-        $filter = (new OrderFilter(1))
-            ->setOrganisationUnitId($this->userOuService->getAncestorOrganisationUnitIdsByActiveUser())
-            ->setSearchTerm($thread->getExternalUsername())
-            ->setHasItems(true);
-
-        try {
-            /** @var Orders $orders */
-            $orders = $this->orderService->fetchCollectionByFilter($filter);
-            return $orders->getTotal();
-        } catch (NotFound $exception) {
-            return 0;
-        }
+        return $this->customerCountService->fetch($thread->getOrganisationUnitId(), $thread->getExternalUsername());
     }
 
     protected function sortThreadCollection(ThreadCollection $threads)
@@ -449,9 +445,9 @@ class Service
     /**
      * @return self
      */
-    protected function setOrderService(OrderService $orderService)
+    protected function setCustomerCountService(CustomerCountService $customerCountService)
     {
-        $this->orderService = $orderService;
+        $this->customerCountService = $customerCountService;
         return $this;
     }
 

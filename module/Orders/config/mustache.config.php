@@ -13,6 +13,7 @@ return [
                     'batch' => Module::PUBLIC_FOLDER . 'template/columns/batch.mustache',
                     'billingAddressFullName' => Module::PUBLIC_FOLDER . 'template/columns/billingAddressFullName.mustache',
                     'buyerMessage' => Module::PUBLIC_FOLDER . 'template/columns/buyerMessage.mustache',
+                    'giftMessage' => Module::PUBLIC_FOLDER . 'template/columns/giftMessage.mustache',
                     'custom-tag' => Module::PUBLIC_FOLDER . 'template/columns/custom-tag.mustache',
                     'dispatchDate' => Module::PUBLIC_FOLDER . 'template/columns/dispatchDate.mustache',
                     'externalId' => Module::PUBLIC_FOLDER . 'template/columns/externalId.mustache',

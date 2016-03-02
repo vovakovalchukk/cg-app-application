@@ -2,24 +2,28 @@
 namespace Orders\Order;
 
 use CG\Account\Client\Service as AccountService;
-use CG\Channel\Action\Order\Service as ActionService;
 use CG\Channel\Action\Order\MapInterface as ActionMapInterface;
+use CG\Channel\Action\Order\Service as ActionService;
 use CG\Channel\Carrier;
 use CG\Channel\Gearman\Generator\Order\Cancel as OrderCanceller;
 use CG\Channel\Gearman\Generator\Order\Dispatch as OrderDispatcher;
 use CG\Channel\Type;
 use CG\Http\Exception\Exception3xx\NotModified as NotModifiedException;
+use CG\Http\SaveCollectionHandleErrorsTrait;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Order\Client\Collection as FilteredCollection;
 use CG\Order\Client\Service as OrderClient;
-use CG\Order\Service\Filter;
 use CG\Order\Service\Filter\StorageInterface as FilterClient;
+use CG\Order\Service\Filter;
 use CG\Order\Shared\Cancel\Item as CancelItem;
+use CG\Order\Shared\Cancel\Value as Cancel;
 use CG\Order\Shared\Cancel\Value as CancelValue;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as OrderEntity;
 use CG\Order\Shared\Item\Entity as ItemEntity;
+use CG\Order\Shared\Item\GiftWrap\Collection as GiftWrapCollection;
+use CG\Order\Shared\Item\GiftWrap\Entity as GiftWrapEntity;
 use CG\Order\Shared\Item\StorageInterface as OrderItemClient;
 use CG\Order\Shared\Mapper as OrderMapper;
 use CG\Order\Shared\Note\Collection as OrderNoteCollection;
@@ -29,6 +33,7 @@ use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
 use CG\Stdlib\DateTime as StdlibDateTime;
+use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
@@ -36,22 +41,18 @@ use CG\User\ActiveUserInterface;
 use CG\User\Service as UserService;
 use CG\UserPreference\Client\Service as UserPreferenceService;
 use CG_UI\View\Filters\Service as FilterService;
-use CG_UI\View\Table;
-use CG_UI\View\Table\Column as TableColumn;
+use CG_UI\View\Helper\DateFormat as DateFormatHelper;
 use CG_UI\View\Table\Column\Collection as TableColumnCollection;
+use CG_UI\View\Table\Column as TableColumn;
 use CG_UI\View\Table\Row\Collection as TableRowCollection;
+use CG_UI\View\Table;
 use Exception;
 use Orders\Order\Exception\MultiException;
 use Orders\Order\Table\Row\Mapper as RowMapper;
 use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
 use Zend\Di\Di;
-use Zend\I18n\View\Helper\CurrencyFormat;
 use Zend\Mvc\MvcEvent;
-use CG\Order\Shared\Cancel\Value as Cancel;
-use CG_UI\View\Helper\DateFormat as DateFormatHelper;
-use CG\Stdlib\Exception\Runtime\Conflict;
-use CG\Http\SaveCollectionHandleErrorsTrait;
 
 class Service implements LoggerAwareInterface, StatsAwareInterface
 {
@@ -162,6 +163,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $orders = $this->getOrdersArrayWithSanitisedStatus($orders);
         $orders = $this->getOrdersArrayWithTruncatedShipping($orders);
         $orders = $this->getOrdersArrayWithFormattedDates($orders);
+        $orders = $this->getOrdersArrayWithGiftMessages($orderCollection, $orders);
         
         $filterId = null;
         if ($orderCollection instanceof FilteredCollection) {
@@ -252,6 +254,39 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             $orders[$index]['printedDate'] = $dateFormatter($orders[$index]['printedDate'], StdlibDateTime::FORMAT);
             $orders[$index]['dispatchDate'] = $dateFormatter($orders[$index]['dispatchDate'], StdlibDateTime::FORMAT);
         }
+        return $orders;
+    }
+
+    protected function getOrdersArrayWithGiftMessages(OrderCollection $orderCollection, array $orders)
+    {
+        foreach ($orders as $index => $order) {
+            $giftMessages = [];
+
+            /** @var OrderEntity|null $orderEntity */
+            $orderEntity = $orderCollection->getById($order['id']);
+            if (!$orderEntity) {
+                continue;
+            }
+
+            /** @var ItemEntity $orderItemEntity */
+            foreach ($orderEntity->getItems() as $orderItemEntity) {
+                /** @var GiftWrapCollection $giftWraps */
+                $giftWraps = $orderItemEntity->getGiftWraps();
+                $giftWraps->rewind();
+
+                /** @var GiftWrapEntity $giftWrap */
+                foreach ($giftWraps as $giftWrap) {
+                    $giftMessages[] = [
+                        'type' => $giftWrap->getGiftWrapType(),
+                        'message' => $giftWrap->getGiftWrapMessage(),
+                    ];
+                }
+            }
+
+            $orders[$index]['giftMessageCount'] = count($giftMessages);
+            $orders[$index]['giftMessages'] = json_encode($giftMessages);
+        }
+
         return $orders;
     }
 

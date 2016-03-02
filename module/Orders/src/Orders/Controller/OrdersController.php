@@ -26,6 +26,7 @@ use CG_Usage\Exception\Exceeded as UsageExceeded;
 use CG_Usage\Service as UsageService;
 use Orders\Courier\Manifest\Service as ManifestService;
 use Orders\Courier\Service as CourierService;
+use Orders\Filter\DisplayFilter;
 use Orders\Filter\Service as FilterService;
 use Orders\Module;
 use Orders\Order\Batch\Service as BatchService;
@@ -136,7 +137,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             ];
         } else {
             $filterValues = $this->getFilterService()->getMapper()->toArray(
-                $this->getFilterService()->getPersistentFilter()
+                $this->getFilterService()->getPersistentFilter()->getFilter()
             );
         }
         if (isset($filterValues['purchaseDate']['from'])) {
@@ -455,7 +456,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     {
         /** @var Filter $filterValues */
         if ($searchTerm = $this->params()->fromQuery('search')) {
-            $filterValues = (new Filter())->setSearchTerm($searchTerm)->setArchived([true, false]);
+            $filterValues = (new Filter())->setSearchTerm($searchTerm);
         } else {
             $filterValues = $this->getFilterService()->getPersistentFilter();
         }
@@ -545,8 +546,14 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             ->setOrderDirection($orderBy->getDirection());
 
         $requestFilter = $this->params()->fromPost('filter', []);
-        $requestFilter = $this->filterService->addDefaultFiltersToArray($requestFilter);
+        $this->getFilterService()->setPersistentFilter(
+            new DisplayFilter(
+                isset($requestFilter['more']) && is_array($requestFilter['more']) ? $requestFilter['more'] : [],
+                $this->getFilterService()->getFilterFromArray($requestFilter)
+            )
+        );
 
+        $requestFilter = $this->filterService->addDefaultFiltersToArray($requestFilter);
         if (!empty($requestFilter)) {
             $filter = $this->getFilterService()->mergeFilters(
                 $filter,
@@ -554,7 +561,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             );
         }
 
-        $this->getFilterService()->setPersistentFilter($filter);
         // Must reformat dates *after* persisting otherwise it'll happen again when its reloaded
         if ($filter->getPurchaseDateFrom()) {
             $filter->setPurchaseDateFrom($this->dateFormatInput($filter->getPurchaseDateFrom()));

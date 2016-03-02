@@ -109,6 +109,31 @@ return [
                             ]
                         ],
                         'may_terminate' => true,
+                        'child_routes' => [
+                            ThreadJsonController::ROUTE_AJAX => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => ThreadJsonController::ROUTE_AJAX_URL,
+                                    'defaults' => [
+                                        'controller' => ThreadJsonController::class,
+                                        'action' => 'ajax'
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    ThreadJsonController::ROUTE_COUNTS => [
+                                        'type' => Literal::class,
+                                        'options' => [
+                                            'route' => ThreadJsonController::ROUTE_COUNTS_URL,
+                                            'defaults' => [
+                                                'action' => 'counts',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
+                                ],
+                            ],
+                        ],
                     ],
                 ],
             ]

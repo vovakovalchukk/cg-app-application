@@ -34,6 +34,11 @@ define([
         });
     };
 
+    Service.prototype.fetchCounts = function(id, callback)
+    {
+        this.getStorage().fetchCounts(id, callback);
+    };
+
     Service.prototype.assignToActiveUser = function(thread, callback)
     {
         // Special value for the current user
