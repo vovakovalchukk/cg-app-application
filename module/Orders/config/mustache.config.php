@@ -47,6 +47,7 @@ return [
                     'insuranceMonetary' => Module::PUBLIC_FOLDER . 'template/courier/columns/insuranceMonetary.mustache',
                     'signature' => Module::PUBLIC_FOLDER . 'template/courier/columns/signature.mustache',
                     'deliveryInstructions' => Module::PUBLIC_FOLDER . 'template/courier/columns/deliveryInstructions.mustache',
+                    'itemParcelAssignment' => Module::PUBLIC_FOLDER . 'template/courier/columns/itemParcelAssignment.mustache',
                     'actions' => Module::PUBLIC_FOLDER . 'template/courier/columns/actions.mustache',
                 ],
             ],

@@ -137,7 +137,7 @@ class CourierController extends AbstractActionController
             'id' => 'courier-service-select-'.$courierId,
             'class' => 'courier-service-select',
             'blankOption' => false,
-            'searchField' => false,
+            'searchField' => true,
             'options' => $options,
         ]);
         $view->setTemplate('elements/custom-select.mustache');
@@ -208,6 +208,7 @@ class CourierController extends AbstractActionController
             ->addChild($this->getSpecificsActionsButtons(), 'actionsButtons')
             ->addChild($this->getSpecificsParcelsElement(), 'parcelsElement')
             ->addChild($this->getSpecificsCollectionDateElement(), 'collectionDateElement')
+            ->addChild($this->getItemParcelAssignmentButton(), 'itemParcelAssignmentButton')
             ->setVariable('isHeaderBarVisible', false)
             ->setVariable('subHeaderHide', true);
         $this->addCourierServiceViewForSelectedCourier($view, $selectedCourierId);
@@ -353,6 +354,22 @@ class CourierController extends AbstractActionController
             'class' => 'courier-order-collectionDate required',
         ]);
         $view->setTemplate('elements/date.mustache');
+        return $view;
+    }
+
+    protected function getItemParcelAssignmentButton()
+    {
+        $view = $this->viewModelFactory->newInstance([
+            'buttons' => [
+                [
+                    'value' => 'Assign',
+                    'id' => 'courier-itemParcelAssignment-button',
+                    'class' => 'courier-itemParcelAssignment-button',
+                    'disabled' => false,
+                ]
+            ]
+        ]);
+        $view->setTemplate('elements/buttons.mustache');
         return $view;
     }
 

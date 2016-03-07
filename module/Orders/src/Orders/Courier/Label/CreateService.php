@@ -1,25 +1,18 @@
 <?php
-
 namespace Orders\Courier\Label;
 
 use CG\Account\Shared\Entity as Account;
-use CG\Dataplug\Carrier\Entity as Carrier;
-use CG\Dataplug\Gearman\WorkerFunction\GetLabelData as GetLabelDataGF;
-use CG\Dataplug\Gearman\Workload\GetLabelData as GetLabelDataWorkload;
-use CG\Dataplug\Order\LabelMissingException;
-use CG\Dataplug\Request\CreateOrders as DataplugCreateRequest;
-use CG\Dataplug\Request\RetrieveOrders as DataplugRetrieveRequest;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\Item\Entity as Item;
+use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\Order\Shared\Label\Entity as OrderLabel;
 use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Entity as ProductDetail;
 use CG\Stdlib\DateTime as StdlibDateTime;
 use CG\Stdlib\Exception\Runtime\ValidationMessagesException;
-use CG\Stdlib\Exception\Storage as StorageException;
-use CG\User\Entity as User;
 use Orders\Courier\GetProductDetailsForOrdersTrait;
 
 class CreateService extends ServiceAbstract
@@ -33,10 +26,7 @@ class CreateService extends ServiceAbstract
     const CM_PER_M = 100;
     const LOG_CODE = 'OrderCourierLabelCreateService';
     const LOG_CREATE = 'Create label request for Order(s) %s, shipping Account %d';
-    const LOG_CREATE_SEND = 'Sending create request to Dataplug for Order(s) %s, shipping Account %d';
-    const LOG_CREATE_UNEXPECTED_RESPONSE = 'Dataplug response from create request missing Order nodes for Order(s) %s, shipping Account %d';
-    const LOG_CREATE_MISSING_REF = 'Dataplug response from create request missing Order->Reference for one or more Orders (of set: %s), shipping Account %d';
-    const LOG_CREATE_REF = 'Successfully created %d/%d order(s) with Dataplug for Orders %s, shipping Account %d';
+    const LOG_CREATE_SEND = 'Sending create request to carrier provider for Order(s) %s, shipping Account %d';
     const LOG_CREATE_DONE = 'Completed create label request for Order(s) %s, shipping Account %d';
     const LOG_PROD_DET_PERSIST = 'Looking for dimensions to save to ProductDetails';
     const LOG_PROD_DET_UPDATE = 'Updating ProductDetail for SKU %s, OU %d from data for Order %s';
@@ -47,13 +37,15 @@ class CreateService extends ServiceAbstract
     const LOG_GET_TRACKING = 'Looking for tracking numbers for order number %s, Order %s, shipping Account %d.';
     const LOG_GET_TRACKING_FOUND = 'Found tracking number %s for Order %s.';
     const LOG_GET_TRACKING_SAVE = 'Saving tracking numbers for Order %s.';
-    const LOG_GET = 'Getting order details from Dataplug for reference %s, shipping Account %d';
-    const LOG_GET_MISSING_ITEMS = 'Dataplug response from retrieve request missing parcel data for Order %s';
-    const LOG_GET_MISSING_LABEL = 'Dataplug response from retrieve request missing label data for Order %s';
     const LOG_CREATE_ORDER_LABEL = 'Creating OrderLabel for Order %s';
     const LOG_UPDATE_ORDER_LABEL = 'Updating OrderLabel with PDF data for Order %s (attempt %d)';
 
-    protected $productDimensionFields = ['weight', 'width', 'height', 'length'];
+    protected $productDetailFields = [
+        'weight' => 'processWeightForProductDetails',
+        'width'  => 'processDimensionForProductDetails',
+        'height' => 'processDimensionForProductDetails',
+        'length' => 'processDimensionForProductDetails',
+    ];
 
     public function createForOrdersData(
         array $orderIds,
@@ -68,33 +60,37 @@ class CreateService extends ServiceAbstract
         $this->addGlobalLogEventParam('account', $shippingAccountId)->addGlobalLogEventParam('ou', $rootOu->getId());
         $this->logDebug(static::LOG_CREATE, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
         $shippingAccount = $this->accountService->fetch($shippingAccountId);
-        $carrier = $this->dataplugCarrierService->getCarrierForAccount($shippingAccount);
         $orders = $this->getOrdersByIds($orderIds);
-        $this->persistDimensionsForOrders($orders, $orderParcelsData, $ordersItemsData, $rootOu);
-        $orderLabels = $this->createOrderLabelsForOrders($orders, $shippingAccount);
-        $request = $this->mapper->ordersAndDataToDataplugCreateRequest($orders, $ordersData, $orderParcelsData, $rootOu);
-        $this->logDebug(static::LOG_CREATE_SEND, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
-        $orderNumbers = $this->sendCreateOrdersRequest($request, $shippingAccount, $orderIds, $orderLabels);
 
-        $labelReadyStatuses = [];
-        foreach ($orders as $order) {
-            $orderNumber = $orderNumbers[$order->getId()];
-            $orderLabel = $orderLabels[$order->getId()];
-            if ($orderNumber instanceof ValidationMessagesException) {
-                $labelReadyStatuses[$order->getId()] = $orderNumber;
-            } else {
-                $success = $this->getAndProcessDataplugOrderDetails(
-                    $order, $shippingAccount, $carrier, $orderNumber, $orderLabel, $user
-                );
-                $labelReadyStatuses[$order->getId()] = $success;
-            }
+        $this->persistProductDetailsForOrders($orders, $orderParcelsData, $ordersItemsData, $rootOu);
+        $orderLabels = $this->createOrderLabelsForOrders($orders, $shippingAccount);
+        $ordersItemsData = $this->ensureOrderItemsData($orders, $ordersItemsData, $orderParcelsData);
+
+        try {
+            $this->logDebug(static::LOG_CREATE_SEND, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
+            $labelReadyStatuses = $this->carrierProviderService->createLabelsForOrders(
+                $orders,
+                $orderLabels,
+                $ordersData,
+                $orderParcelsData,
+                $ordersItemsData,
+                $rootOu,
+                $shippingAccount,
+                $user
+            );
+            $this->deleteOrderLabelsForFailedCreateAttempts($labelReadyStatuses, $orderLabels);
+            $this->logDebug(static::LOG_CREATE_DONE, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
+            $this->removeGlobalLogEventParam('account')->removeGlobalLogEventParam('ou');
+
+            return $labelReadyStatuses;
+        } catch (\Exception $e) {
+            // Remove labels so we don't get a label stuck in 'creating', preventing creation of new labels
+            $this->removeOrderLabels($orderLabels);
+            throw $e;
         }
-        $this->logDebug(static::LOG_CREATE_DONE, [$orderIdsString, $shippingAccountId], static::LOG_CODE);
-        $this->removeGlobalLogEventParam('account')->removeGlobalLogEventParam('ou');
-        return $labelReadyStatuses;
     }
 
-    protected function persistDimensionsForOrders(
+    protected function persistProductDetailsForOrders(
         OrderCollection $orders,
         array $orderParcelsData,
         array $ordersItemsData,
@@ -104,10 +100,6 @@ class CreateService extends ServiceAbstract
         $suitableOrders = new OrderCollection(Order::class, __FUNCTION__);
         foreach ($orders as $order) {
             $parcelsData = $orderParcelsData[$order->getId()];
-            // if there's multiple parcels we won't know which products the dimensions relate to directly
-            if (count($parcelsData) > 1) {
-                continue;
-            }
             // If there's multiple items and we don't have specific data for each then we don't know how the parcel data is made up
             if (count($order->getItems()) > 1 && !isset($ordersItemsData[$order->getId()])) {
                 continue;
@@ -118,37 +110,42 @@ class CreateService extends ServiceAbstract
         $productDetails = $this->getProductDetailsForOrders($suitableOrders, $rootOu);
         foreach ($suitableOrders as $order) {
             $parcelsData = $orderParcelsData[$order->getId()];
+            $parcelCount = count($parcelsData);
             $parcelData = array_pop($parcelsData);
             $itemData = (isset($ordersItemsData[$order->getId()]) ? $ordersItemsData[$order->getId()] : []);
             $items = $order->getItems();
             foreach ($items as $item) {
-                if ($item->getItemQuantity() > 1) {
-                    continue;
-                }
-                $itemDimensionData = (isset($itemData[$item->getId()]) ? $itemData[$item->getId()] : $parcelData);
+                $productDetailData = (isset($itemData[$item->getId()]) ? $itemData[$item->getId()] : $parcelData);
                 $itemProductDetails = $productDetails->getBy('sku', $item->getItemSku());
                 if (count($itemProductDetails) > 0) {
                     $itemProductDetails->rewind();
                     $itemProductDetail = $itemProductDetails->current();
                     $this->logDebug(static::LOG_PROD_DET_UPDATE, [$itemProductDetail->getSku(), $itemProductDetail->getOrganisationUnitId(), $order->getId()], static::LOG_CODE);
-                    $this->updateProductDetailFromInputDimensionData($itemProductDetail, $itemDimensionData);
+                    $this->updateProductDetailFromInputData($itemProductDetail, $productDetailData, $item, $parcelCount);
                 } else {
                     $this->logDebug(static::LOG_PROD_DET_CREATE, [$item->getItemSku(), $rootOu->getId(), $order->getId()], static::LOG_CODE);
-                    $productDetail = $this->createProductDetailFromInputDimensionData($itemDimensionData, $item->getItemSku(), $rootOu);
+                    $productDetail = $this->createProductDetailFromInputData($productDetailData, $item, $parcelCount, $rootOu);
                     $productDetails->attach($productDetail);
                 }
             }
         }
     }
 
-    protected function updateProductDetailFromInputDimensionData(ProductDetail $productDetail, array $itemDimensionData)
-    {
+    protected function updateProductDetailFromInputData(
+        ProductDetail $productDetail,
+        array $productDetailData,
+        Item $item,
+        $parcelCount
+    ) {
         $changes = false;
-        foreach ($this->productDimensionFields as $field) {
-            if (!isset($itemDimensionData[$field]) || $itemDimensionData[$field] == '') {
+        foreach ($this->productDetailFields as $field => $callback) {
+            if (!isset($productDetailData[$field]) || $productDetailData[$field] == '') {
                 continue;
             }
-            $value = $this->getProductDetailValueFromInputDimensionData($field, $itemDimensionData);
+            $value = ($callback ? $this->$callback($productDetailData[$field], $item, $parcelCount) : $productDetailData[$field]);
+            if ($value === null) {
+                continue;
+            }
             $setter = 'set' . ucfirst($field);
             $productDetail->$setter($value);
             $changes = true;
@@ -163,39 +160,54 @@ class CreateService extends ServiceAbstract
         }
     }
 
-    protected function createProductDetailFromInputDimensionData(array $itemDimensionData, $sku, OrganisationUnit $rootOu)
-    {
-        $productDetailData = [
-            'sku' => $sku,
+    protected function createProductDetailFromInputData(
+        array $productDetailData,
+        Item $item,
+        $parcelCount,
+        OrganisationUnit $rootOu
+    ) {
+        $data = [
+            'sku' => $item->getItemSku(),
             'organisationUnitId' => $rootOu->getId(),
         ];
-        foreach ($this->productDimensionFields as $field) {
-            if (!isset($itemDimensionData[$field]) || $itemDimensionData[$field] == '') {
+        foreach ($this->productDetailFields as $field => $callback) {
+            if (!isset($productDetailData[$field]) || $productDetailData[$field] == '') {
                 continue;
             }
-            $value = $this->getProductDetailValueFromInputDimensionData($field, $itemDimensionData);
-            $productDetailData[$field] = $value;
+            $value = ($callback ? $this->$callback($productDetailData[$field], $item, $parcelCount) : $productDetailData[$field]);
+            $data[$field] = $value;
         }
-        $productDetail = $this->productDetailMapper->fromArray($productDetailData);
+        $productDetail = $this->productDetailMapper->fromArray($data);
         $hal = $this->productDetailService->save($productDetail);
         return $this->productDetailMapper->fromHal($hal);
     }
 
-    protected function getProductDetailValueFromInputDimensionData($field, array $itemDimensionData)
+    protected function processWeightForProductDetails($value, Item $item, $parcelCount)
     {
-        $value = $itemDimensionData[$field];
-        if ($field != 'weight') {
-            // Dimensions entered in centimetres but stored in metres
-            $value /= static::CM_PER_M;
+        return $value / $item->getItemQuantity();
+    }
+
+    protected function processDimensionForProductDetails($value, Item $item, $parcelCount)
+    {
+        // Impossible to tell how to divide up dimensions
+        if ($item->getItemQuantity() > 1 || $parcelCount > 1) {
+            return null;
         }
+        // Dimensions entered in centimetres but stored in metres
+        return $this->convertCmToM($value);
+    }
+
+    protected function convertCmToM($value)
+    {
+        $value /= static::CM_PER_M;
         return $value;
     }
 
     protected function createOrderLabelsForOrders(OrderCollection $orders, Account $shippingAccount)
     {
-        $orderLabels = [];
+        $orderLabels = new OrderLabelCollection(OrderLabel::class, __FUNCTION__, ['orderId' => $orders->getIds()]);
         foreach ($orders as $order) {
-            $orderLabels[$order->getId()] = $this->createOrderLabelForOrder($order, $shippingAccount);
+            $orderLabels->attach($this->createOrderLabelForOrder($order, $shippingAccount));
         }
         return $orderLabels;
     }
@@ -216,114 +228,46 @@ class CreateService extends ServiceAbstract
         return $this->orderLabelMapper->fromHal($hal);
     }
 
-    protected function sendCreateOrdersRequest(
-        DataplugCreateRequest $request,
-        Account $shippingAccount,
-        array $orderIds,
-        array $orderLabels
+    protected function deleteOrderLabelsForFailedCreateAttempts(
+        array $labelReadyStatuses,
+        OrderLabelCollection $orderLabels
     ) {
-        $orderIdsString = implode(',', $orderIds);
-        try {
-            $response = $this->dataplugClient->sendRequest($request, $shippingAccount);
-            if (!isset($response->Order)) {
-                throw new RuntimeException(vsprintf(static::LOG_CREATE_UNEXPECTED_RESPONSE, [$orderIdsString, $shippingAccount->getId()]));
+        foreach ($labelReadyStatuses as $orderId => $status) {
+            if (!($status instanceof ValidationMessagesException)) {
+                continue;
             }
-            $orderNumbers = [];
-            $successCount = 0;
-            foreach ($response->Order as $responseOrder) {
-                if (!isset($responseOrder->Reference)) {
-                    throw new RuntimeException(vsprintf(static::LOG_CREATE_MISSING_REF, [$orderIdsString, $shippingAccount->getId()]));
-                }
-                if (isset($responseOrder->OrderNumber)) {
-                    $orderNumbers[(string)$responseOrder->Reference] = (string)$responseOrder->OrderNumber;
-                    $successCount++;
-                } else {
-                    $orderNumbers[(string)$responseOrder->Reference] = $this->checkForOrderErrors($responseOrder);
-                    $this->orderLabelService->remove($orderLabels[(string)$responseOrder->Reference]);
-                }
-            }
-            $this->logDebug(static::LOG_CREATE_REF, [$successCount, count($orderNumbers), $orderIdsString, $shippingAccount->getId()], static::LOG_CODE);
-            return $orderNumbers;
-        } catch (\Exception $e) {
-            // Remove labels so we don't get a label stuck in 'creating', preventing creation of new labels
-            foreach ($orderLabels as $orderLabel) {
-                $this->orderLabelService->remove($orderLabel);
-            }
-            throw $e;
-        }
-    }
-
-    protected function checkForOrderErrors(\SimpleXMLElement $responseOrder)
-    {
-        $errorFields = $this->dataplugClient->parseErrorMessagesFromResponseNode($responseOrder);
-        $exception = new ValidationMessagesException('Validation error');
-        $exception->addErrors($errorFields);
-        return $exception;
-    }
-
-    protected function getAndProcessDataplugOrderDetails(
-        Order $order,
-        Account $shippingAccount,
-        Carrier $carrier,
-        $orderNumber,
-        OrderLabel $orderLabel,
-        User $user
-    ) {
-        $labelFormatPDF = DataplugRetrieveRequest::LABEL_FORMAT_PDF;
-        $saveTrackingNumbersPDF = true;
-        $trackingCarrierName = $carrier->getSalesChannelName();
-        $labelFormatPNG = DataplugRetrieveRequest::LABEL_FORMAT_PNG;
-        $saveTrackingNumbersPNG = false;
-        try {
-            // PDF
-            $this->dataplugOrderService->getAndProcessDataplugOrderDetails(
-                $order, $shippingAccount, $orderNumber, $orderLabel, $user, $labelFormatPDF, $saveTrackingNumbersPDF, $trackingCarrierName
-            );
-            // Queue up fetching the PNG version as we only need that for invoices
-            $this->createJobToGetAndProcessDataplugOrderDetails(
-                $order, $shippingAccount, $orderNumber, $orderLabel, $user, $labelFormatPNG, $saveTrackingNumbersPNG
-            );
-            return true;
-        } catch (LabelMissingException $e) {
-            // Label not currently present, queue up a job to keep trying
-            // PDF
-            $this->createJobToGetAndProcessDataplugOrderDetails(
-                $order, $shippingAccount, $orderNumber, $orderLabel, $user, $labelFormatPDF, $saveTrackingNumbersPDF, $trackingCarrierName
-            );
-            // PNG
-            $this->createJobToGetAndProcessDataplugOrderDetails(
-                $order, $shippingAccount, $orderNumber, $orderLabel, $user, $labelFormatPNG, $saveTrackingNumbersPNG
-            );
-            return false;
-        } catch (StorageException $e) {
-            // Remove label so we don't get a label stuck in 'creating', preventing creation of new labels
+            $labelsByOrderId = $orderLabels->getBy('orderId', $orderId);
+            $labelsByOrderId->rewind();
+            $orderLabel = $labelsByOrderId->current();
             $this->orderLabelService->remove($orderLabel);
-            throw $e;
+        }
+        return $this;
+    }
+
+    protected function removeOrderLabels(OrderLabelCollection $orderLabels)
+    {
+        foreach ($orderLabels as $orderLabel) {
+            $this->orderLabelService->remove($orderLabel);
         }
     }
 
-    protected function createJobToGetAndProcessDataplugOrderDetails(
-        Order $order,
-        Account $shippingAccount,
-        $orderNumber,
-        OrderLabel $orderLabel,
-        User $user,
-        $labelFormat,
-        $saveTrackingNumbers,
-        $trackingCarrierName = null
-    ) {
-        $workload = new GetLabelDataWorkload(
-            $order->getId(),
-            $shippingAccount->getId(),
-            $orderLabel->getId(),
-            $user->getId(),
-            $orderNumber,
-            $labelFormat,
-            $saveTrackingNumbers,
-            $trackingCarrierName
-        );
-        $handle = GetLabelDataGF::FUNCTION_NAME . '-' . $order->getId() . '-' . $labelFormat;
-        $this->gearmanClient->doBackground(GetLabelDataGF::FUNCTION_NAME, serialize($workload), $handle);
+    protected function ensureOrderItemsData(OrderCollection $orders, array $ordersItemsData, array $orderParcelsData)
+    {
+        // Each table row can be an item, a parcel or both (when there's only one item we collapse the item and parcel
+        // into one row). In the latter case we end up with parcelData but not itemData. We'll rectify that if we can.
+        foreach ($orders as $order) {
+            if (isset($ordersItemsData[$order->getId()])) {
+                continue;
+            }
+            if (count($order->getItems()) > 1 || count($orderParcelsData[$order->getId()]) > 1) {
+                continue;
+            }
+            $items = $order->getItems();
+            $items->rewind();
+            $item = $items->current();
+            $ordersItemsData[$order->getId()][$item->getId()] = array_shift($orderParcelsData[$order->getId()]);
+        }
+        return $ordersItemsData;
     }
 
     // Required by GetProductDetailsForOrdersTrait

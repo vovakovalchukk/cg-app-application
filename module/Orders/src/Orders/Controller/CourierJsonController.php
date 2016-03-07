@@ -107,6 +107,7 @@ class CourierJsonController extends AbstractActionController
         $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = count($orderIds);
         if (!empty($orderIds)) {
             $data['Records'] = $this->service->getSpecificsListData($orderIds, $courierId, $ordersData, $ordersParcelsData);
+            $data['metadata'] = $this->service->getSpecificsMetaDataFromRecords($data['Records']);
         }
 
         return $this->jsonModelFactory->newInstance($data);
@@ -131,6 +132,7 @@ class CourierJsonController extends AbstractActionController
                 }
             }
         }
+        return $this;
     }
 
     public function createLabelAction()
@@ -140,12 +142,14 @@ class CourierJsonController extends AbstractActionController
         $ordersData = $this->params()->fromPost('orderData', []);
         $ordersParcelsData = $this->params()->fromPost('parcelData', []);
         $ordersItemsData = $this->params()->fromPost('itemData', []);
-        $this->sanitiseInputArray($ordersData);
-        $this->sanitiseInputArray($ordersParcelsData);
+        $this->sanitiseInputArray($ordersData)
+            ->sanitiseInputArray($ordersParcelsData)
+            ->decodeItemParcelAssignment($ordersParcelsData);
         try {
             $labelReadyStatuses = $this->labelCreateService->createForOrdersData(
                 $orderIds, $ordersData, $ordersParcelsData, $ordersItemsData, $accountId
             );
+            return $this->handleFullOrPartialCreationSuccess($labelReadyStatuses, $ordersData, $ordersParcelsData, $accountId);
         } catch (StorageException $e) {
             throw new \RuntimeException(
                 'Failed to create label(s), please check the details you\'ve entered and try again', $e->getCode(), $e
@@ -153,7 +157,19 @@ class CourierJsonController extends AbstractActionController
         } catch (ValidationMessagesException $e) {
             return $this->handleLabelCreationFailure($e, $ordersData, $ordersParcelsData, $accountId);
         }
-        return $this->handleFullOrPartialCreationSuccess($labelReadyStatuses, $ordersData, $ordersParcelsData, $accountId);
+    }
+
+    protected function decodeItemParcelAssignment(&$ordersParcelsData)
+    {
+        foreach ($ordersParcelsData as &$parcelsData) {
+            foreach ($parcelsData as &$parcelData) {
+                if (!isset($parcelData['itemParcelAssignment'])) {
+                    continue;
+                }
+                $parcelData['itemParcelAssignment'] = json_decode($parcelData['itemParcelAssignment'], true);
+            }
+        }
+        return $this;
     }
 
     protected function handleLabelCreationFailure(

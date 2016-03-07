@@ -2,10 +2,7 @@
 namespace Orders\Courier\Label;
 
 use CG\Account\Client\Service as AccountService;
-use CG\Dataplug\Carrier\Service as DataplugCarrierService;
-use CG\Dataplug\Client as DataplugClient;
-use CG\Dataplug\Order\Mapper;
-use CG\Dataplug\Order\Service as DataplugOrderService;
+use CG\Channel\CarrierProviderServiceInterface;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Service\Tracking\Service as OrderTrackingService;
@@ -33,16 +30,12 @@ abstract class ServiceAbstract implements LoggerAwareInterface
     const LOG_PDF_MERGE_WRITE_FAIL = 'Error writing PDF data to file';
     const LOG_PDF_MERGE_FAIL = 'Error merging PDF data';
 
-    /** @var Mapper */
-    protected $mapper;
     /** @var UserOUService */
     protected $userOUService;
     /** @var OrderService */
     protected $orderService;
     /** @var AccountService */
     protected $accountService;
-    /** @var DataplugClient */
-    protected $dataplugClient;
     /** @var OrderLabelMapper */
     protected $orderLabelMapper;
     /** @var OrderLabelService */
@@ -53,41 +46,33 @@ abstract class ServiceAbstract implements LoggerAwareInterface
     protected $productDetailMapper;
     /** @var ProductDetailService */
     protected $productDetailService;
-    /** @var DataplugOrderService */
-    protected $dataplugOrderService;
     /** @var GearmanClient */
     protected $gearmanClient;
-    /** @var DataplugCarrierService */
-    protected $dataplugCarrierService;
+    /** @var CarrierProviderServiceInterface */
+    protected $carrierProviderService;
 
     public function __construct(
-        Mapper $mapper,
         UserOUService $userOuService,
         OrderService $orderService,
         AccountService $accountService,
-        DataplugClient $dataplugClient,
         OrderLabelMapper $orderLabelMapper,
         OrderLabelService $orderLabelService,
         OrderTrackingService $orderTrackingService,
         ProductDetailMapper $productDetailMapper,
         ProductDetailService $productDetailService,
-        DataplugOrderService $dataplugOrderService,
         GearmanClient $gearmanClient,
-        DataplugCarrierService $dataplugCarrierService
+        CarrierProviderServiceInterface $carrierProviderService
     ) {
-        $this->setMapper($mapper)
-            ->setUserOUService($userOuService)
+        $this->setUserOUService($userOuService)
             ->setOrderService($orderService)
             ->setAccountService($accountService)
-            ->setDataplugClient($dataplugClient)
             ->setOrderLabelMapper($orderLabelMapper)
             ->setOrderLabelService($orderLabelService)
             ->setOrderTrackingService($orderTrackingService)
             ->setProductDetailMapper($productDetailMapper)
             ->setProductDetailService($productDetailService)
-            ->setDataplugOrderService($dataplugOrderService)
             ->setGearmanClient($gearmanClient)
-            ->setDataplugCarrierService($dataplugCarrierService);
+            ->setCarrierProviderService($carrierProviderService);
     }
 
     protected function getOrdersByIds(array $orderIds)
@@ -121,12 +106,6 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         return $this->orderLabelService->fetchCollectionByFilter($filter);
     }
 
-    protected function setMapper(Mapper $mapper)
-    {
-        $this->mapper = $mapper;
-        return $this;
-    }
-
     protected function setUserOUService(UserOUService $userOUService)
     {
         $this->userOUService = $userOUService;
@@ -142,12 +121,6 @@ abstract class ServiceAbstract implements LoggerAwareInterface
     protected function setAccountService(AccountService $accountService)
     {
         $this->accountService = $accountService;
-        return $this;
-    }
-
-    protected function setDataplugClient(DataplugClient $dataplugClient)
-    {
-        $this->dataplugClient = $dataplugClient;
         return $this;
     }
 
@@ -181,21 +154,15 @@ abstract class ServiceAbstract implements LoggerAwareInterface
         return $this;
     }
 
-    protected function setDataplugOrderService(DataplugOrderService $dataplugOrderService)
-    {
-        $this->dataplugOrderService = $dataplugOrderService;
-        return $this;
-    }
-
     protected function setGearmanClient(GearmanClient $gearmanClient)
     {
         $this->gearmanClient = $gearmanClient;
         return $this;
     }
 
-    public function setDataplugCarrierService(DataplugCarrierService $dataplugCarrierService)
+    protected function setCarrierProviderService(CarrierProviderServiceInterface $carrierProviderService)
     {
-        $this->dataplugCarrierService = $dataplugCarrierService;
+        $this->carrierProviderService = $carrierProviderService;
         return $this;
     }
 }
