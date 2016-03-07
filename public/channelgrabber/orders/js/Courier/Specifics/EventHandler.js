@@ -52,7 +52,8 @@ define([], function()
         var service = this.getService();
         $(document).on('save', EventHandler.SELECTOR_PARCEL_INPUT, function(event, value, element)
         {
-            service.refresh();
+            var orderId = $(element).attr('id').split('_').pop();
+            service.parcelsChangedForOrder(orderId);
         });
         return this;
     };

@@ -208,6 +208,7 @@ class ShippingController extends AbstractActionController
             'name' => 'shipping-service-custom-select-' . $alias->getId(),
             'id' => 'shipping-service-custom-select-' . $alias->getId(),
             'class' => 'shipping-service-select',
+            'searchField' => true,
             'options' => $options
         ]);
         $customSelect->setTemplate('elements/custom-select.mustache');

@@ -5,9 +5,10 @@ use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
+use CG\Channel\CarrierBookingOptionsInterface;
 use CG\Channel\ShippingServiceFactory;
+use CG\Channel\ShippingChannelsProviderInterface;
 use CG\Channel\Type as ChannelType;
-use CG\Dataplug\Carrier\Service as CarrierService;
 use CG\Order\Client\Service as OrderService;
 use CG\Order\Shared\Label\Collection as OrderLabelCollection;
 use CG\Order\Shared\Label\Entity as OrderLabel;
@@ -67,14 +68,23 @@ class Service implements LoggerAwareInterface
     protected $accountService;
     /** @var ShippingServiceFactory */
     protected $shippingServiceFactory;
-    /** @var CarrierService */
-    protected $carrierService;
     /** @var OrderLabelStorage */
     protected $orderLabelStorage;
     /** @var ProductDetailService */
     protected $productDetailService;
     /** @var Di */
     protected $di;
+    /** @var ShippingChannelsProviderInterface */
+    protected $shippingChannelsProvider;
+    /** @var CarrierBookingOptionsInterface */
+    protected $carrierBookingOptions;
+
+    protected $productDetailFields = [
+        'weight' => 'processWeightFromProductDetails',
+        'width'  => 'processDimensionFromProductDetails',
+        'height' => 'processDimensionFromProductDetails',
+        'length' => 'processDimensionFromProductDetails',
+    ];
 
     public function __construct(
         OrderService $orderService,
@@ -83,10 +93,11 @@ class Service implements LoggerAwareInterface
         ProductService $productService,
         AccountService $accountService,
         ShippingServiceFactory $shippingServiceFactory,
-        CarrierService $carrierService,
         OrderLabelStorage $orderLabelStorage,
         ProductDetailService $productDetailService,
-        Di $di
+        Di $di,
+        ShippingChannelsProviderInterface $shippingChannelsProvider,
+        CarrierBookingOptionsInterface $carrierBookingOptions
     ) {
         $this->setOrderService($orderService)
             ->setUserOuService($userOuService)
@@ -94,10 +105,11 @@ class Service implements LoggerAwareInterface
             ->setProductService($productService)
             ->setAccountService($accountService)
             ->setShippingServiceFactory($shippingServiceFactory)
-            ->setCarrierService($carrierService)
             ->setOrderLabelStorage($orderLabelStorage)
             ->setProductDetailService($productDetailService)
-            ->setDi($di);
+            ->setDi($di)
+            ->setShippingChannelsProvider($shippingChannelsProvider)
+            ->setCarrierBookingOptions($carrierBookingOptions);
     }
     
     /**
@@ -114,7 +126,8 @@ class Service implements LoggerAwareInterface
         $carrierAccounts = new AccountCollection(Account::class, __FUNCTION__);
         foreach ($accounts as $account)
         {
-            if (!$this->carrierService->isProvidedChannel($account->getChannel())) {
+            // Only show 'provided' accounts (i.e. from Dataplug or NetDespatch)
+            if (!$this->shippingChannelsProvider->isProvidedChannel($account->getChannel())) {
                 continue;
             }
             $carrierAccounts->attach($account);
@@ -305,9 +318,7 @@ class Service implements LoggerAwareInterface
 
     protected function getCarrierOptions(Account $account)
     {
-        $carrier = $this->carrierService->getCarrierForAccount($account);
-        $options = array_merge($this->carrierService->getDefaultOptions(), $carrier->getOptions());
-        return array_keys(array_filter($options));
+        return $this->carrierBookingOptions->getCarrierBookingOptionsForAccount($account);
     }
 
     /**
@@ -366,14 +377,14 @@ class Service implements LoggerAwareInterface
         array $options,
         OrderLabel $orderLabel = null
     ) {
-        $carrier = $this->carrierService->getCarrierForAccount($courierAccount);
+        $cancellable = $this->carrierBookingOptions->isCancellationAllowedForAccount($courierAccount);
         $data = [
             'collectionDate' => date('Y-m-d'),
             'parcels' => static::DEFAULT_PARCELS,
             // The order row will always be parcel 1, only parcel rows might be other numbers
             'parcelNumber' => 1,
             'labelStatus' => ($orderLabel ? $orderLabel->getStatus() : ''),
-            'cancellable' => $carrier->getAllowsCancellation(),
+            'cancellable' => $cancellable,
         ];
         foreach ($options as $option) {
             $data[$option] = '';
@@ -389,8 +400,6 @@ class Service implements LoggerAwareInterface
             $orderData['parcels'] = static::MAX_PARCELS;
         }
         // Mustache is logic-less so any logic, however basic, has to be done here
-        $orderData['showWeight'] = ($orderData['parcels'] == 1);
-
         $singleRow = ($orderData['parcels'] == 1 && count($order->getItems()) == 1);
         $orderData['parcelRow'] = $singleRow;
         $orderData['actionRow'] = $singleRow;
@@ -438,7 +447,8 @@ class Service implements LoggerAwareInterface
             }
             $itemData = $this->getCommonItemListData($item, $products, $rowData);
             $specificsItemData = $this->getSpecificsItemListData($item, $productDetails, $options, $rowData);
-            $specificsItemData['showWeight'] = $orderData['showWeight'];
+            $specificsItemData['itemRow'] = true;
+            $specificsItemData['showWeight'] = true;
             $specificsItemData['labelStatus'] = $orderData['labelStatus'];
             $itemsData[] = array_merge($itemData, $specificsItemData);
             $itemCount++;
@@ -465,19 +475,42 @@ class Service implements LoggerAwareInterface
                 continue;
             }
             $data[$option] = '';
-            if ($productDetail && $item->getItemQuantity() == 1) {
-                $getter = 'get'.ucfirst($option);
-                if (is_callable([$productDetail, $getter])) {
-                    $value = $productDetail->$getter();
-                    if ($option != 'weight') {
-                        // Dimensions stored in metres but displayed in centimetres
-                        $value *= static::CM_PER_M;
-                    }
-                    $data[$option] = $value;
-                }
+            if (!$productDetail) {
+                continue;
             }
+            $getter = 'get'.ucfirst($option);
+            if (!is_callable([$productDetail, $getter])) {
+                continue;
+            }
+            $value = $productDetail->$getter();
+            if (isset($this->productDetailFields[$option])) {
+                $callback = $this->productDetailFields[$option];
+                $value = $this->$callback($value, $item);
+            }
+            $data[$option] = $value;
         }
         return $data;
+    }
+
+    protected function processWeightFromProductDetails($value, Item $item)
+    {
+        return $value * $item->getItemQuantity();
+    }
+
+    protected function processDimensionFromProductDetails($value, Item $item)
+    {
+        // Impossible to tell how to multiply dimensions
+        if ($item->getItemQuantity() > 1) {
+            return '';
+        }
+        // Dimensions stored in metres but displayed in centimetres
+        return $this->convertMToCm($value);
+    }
+
+    protected function convertMToCm($value)
+    {
+        $value *= static::CM_PER_M;
+        return $value;
     }
 
     protected function getParcelOrderListData(Order $order, array $options, array $orderData, array $parcelsInputData)
@@ -522,6 +555,30 @@ class Service implements LoggerAwareInterface
         return $parcelsData;
     }
 
+    public function getSpecificsMetaDataFromRecords(array $records)
+    {
+        $orderMetaData = [];
+        foreach ($records as $record) {
+            $orderId = $record['orderId'];
+            if (!isset($orderMetaData[$orderId])) {
+                $orderMetaData[$orderId] = [];
+            }
+            if (isset($record['itemRow']) && $record['itemRow'] == true) {
+                if (!isset($orderMetaData[$orderId]['itemRowCount'])) {
+                    $orderMetaData[$orderId]['itemRowCount'] = 0;
+                }
+                $orderMetaData[$orderId]['itemRowCount']++;
+            }
+            if (isset($record['parcelRow']) && $record['parcelRow'] == true) {
+                if (!isset($orderMetaData[$orderId]['parcelRowCount'])) {
+                    $orderMetaData[$orderId]['parcelRowCount'] = 0;
+                }
+                $orderMetaData[$orderId]['parcelRowCount']++;
+            }
+        }
+        return $orderMetaData;
+    }
+
     protected function setOrderService(OrderService $orderService)
     {
         $this->orderService = $orderService;
@@ -558,12 +615,6 @@ class Service implements LoggerAwareInterface
         return $this;
     }
 
-    protected function setCarrierService(CarrierService $carrierService)
-    {
-        $this->carrierService = $carrierService;
-        return $this;
-    }
-
     protected function setOrderLabelStorage(OrderLabelStorage $orderLabelStorage)
     {
         $this->orderLabelStorage = $orderLabelStorage;
@@ -579,6 +630,18 @@ class Service implements LoggerAwareInterface
     protected function setDi(Di $di)
     {
         $this->di = $di;
+        return $this;
+    }
+
+    protected function setShippingChannelsProvider(ShippingChannelsProviderInterface $shippingChannelsProvider)
+    {
+        $this->shippingChannelsProvider = $shippingChannelsProvider;
+        return $this;
+    }
+
+    protected function setCarrierBookingOptions(CarrierBookingOptionsInterface $carrierBookingOptions)
+    {
+        $this->carrierBookingOptions = $carrierBookingOptions;
         return $this;
     }
 

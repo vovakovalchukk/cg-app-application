@@ -27,6 +27,7 @@ return array (
     22 => 'CG_Api',
     23 => 'CG_WooCommerce',
     24 => 'CG_Dataplug',
+    25 => 'CG_NetDespatch',
   ),
   'module_listener_options' => 
   array (

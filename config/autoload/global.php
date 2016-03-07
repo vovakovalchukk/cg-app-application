@@ -118,9 +118,18 @@ use CG\ApiCredentials\Storage\Api as ApiCredentialsApi;
 use CG\Template\Image\ClientInterface as ImageTemplateClient;
 use CG\Template\Image\Client\Guzzle as ImageTemplateGuzzleClient;
 
+// Shipping options
+use CG\Channel\CarrierBookingOptionsInterface as ChannelCarrierBookingOptionsInterface;
+use CG\Channel\CarrierBookingOptionsRepository as ChannelCarrierBookingOptionsRepository;
+use CG\Channel\ShippingChannelsProviderInterface as ChannelShippingChannelsProviderInterface;
+use CG\Channel\ShippingChannelsProviderRepository as ChannelShippingChannelsProviderRepository;
+use CG\Channel\ShippingOptionsProviderInterface as ChannelShippingOptionsProviderInterface;
+use CG\Channel\ShippingOptionsProviderRepository as ChannelShippingOptionsProviderRepository;
+use CG\Channel\CarrierProviderServiceInterface as ChannelCarrierProviderServiceInterface;
+use CG\Channel\CarrierProviderServiceRepository as ChannelCarrierProviderServiceRepository;
+
 // Dataplug
 use CG\Dataplug\Carrier\Service as DataplugCarrierService;
-use CG\Channel\ShippingOptionsProviderInterface as ChannelShippingOptionsProviderInterface;
 use CG\Order\Shared\Label\StorageInterface as OrderLabelStorage;
 use CG\Order\Client\Label\Storage\Api as OrderLabelApiStorage;
 use CG\Product\Detail\StorageInterface as ProductDetailStorage;
@@ -129,11 +138,17 @@ use CG\Dataplug\Account\Service as DataplugAccountService;
 use CG\Dataplug\Account\Storage\Api as DataplugAccountApi;
 use CG\Dataplug\Request\Factory\CreateCarrier as DataplugCreateCarrierRequestFactory;
 use CG\Dataplug\Request\Factory\UpdateCarrier as  DataplugUpdateCarrierRequestFactory;
-use CG\Dataplug\Carriers;
+use CG\Dataplug\Carriers as DataplugCarriers;
 use CG\Account\Shared\Manifest\StorageInterface as AccountManifestStorage;
 use CG\Account\Client\Manifest\Storage\Api as AccountManifestApiStorage;
 use CG\Dataplug\Request\Carrier as DataplugCarrier;
-use CG\Channel\ShippingChannelsProviderInterface as ChannelShippingChannelsProviderInterface;
+use CG\Dataplug\Order\Service as DataplugOrderService;
+
+// NetDespatch
+use CG\NetDespatch\ShippingOptionsProvider as NetDespatchShippingOptionsProvider;
+use CG\NetDespatch\Order\Service as NetDespatchOrderService;
+use CG\NetDespatch\ShippingService as NetDespatchShippingService;
+use CG\NetDespatch\Order\CreateService as NetDespatchOrderCreateService;
 
 // Transactions
 use CG\Transaction\ClientInterface as TransactionClient;
@@ -155,6 +170,50 @@ use CG\Redis\Locking\Storage as LockingRedisStorage;
 
 return array(
     'di' => array(
+        'definition' => [
+            'class' => [
+                ChannelShippingChannelsProviderRepository::class => [
+                    'methods' => [
+                        'addProvider' => [
+                            'provider' => [
+                                'type' => ChannelShippingChannelsProviderInterface::class,
+                                'required' => true
+                            ]
+                        ]
+                    ]
+                ],
+                ChannelShippingOptionsProviderRepository::class => [
+                    'methods' => [
+                        'addProvider' => [
+                            'provider' => [
+                                'type' => ChannelShippingOptionsProviderInterface::class,
+                                'required' => true
+                            ]
+                        ]
+                    ]
+                ],
+                ChannelCarrierBookingOptionsRepository::class => [
+                    'methods' => [
+                        'addProvider' => [
+                            'provider' => [
+                                'type' => ChannelCarrierBookingOptionsInterface::class,
+                                'required' => true
+                            ]
+                        ]
+                    ]
+                ],
+                ChannelCarrierProviderServiceRepository::class => [
+                    'methods' => [
+                        'addProvider' => [
+                            'provider' => [
+                                'type' => ChannelCarrierProviderServiceInterface::class,
+                                'required' => true
+                            ]
+                        ]
+                    ]
+                ],
+            ]
+        ],
         'instance' => array(
             'preferences' => array(
                 EventManagerInterface::class => EventManager::class,
@@ -177,8 +236,10 @@ return array(
                 ApiCredentialsStorage::class => ApiCredentialsApi::class,
                 ImageTemplateClient::class => ImageTemplateGuzzleClient::class,
                 ProductSettingsStorage::class => ProductSettingsStorageApi::class,
-                ChannelShippingOptionsProviderInterface::class => DataplugCarrierService::class,
-                ChannelShippingChannelsProviderInterface::class => Carriers::class,
+                ChannelShippingOptionsProviderInterface::class => ChannelShippingOptionsProviderRepository::class,
+                ChannelShippingChannelsProviderInterface::class => ChannelShippingChannelsProviderRepository::class,
+                ChannelCarrierBookingOptionsInterface::class => ChannelCarrierBookingOptionsRepository::class,
+                ChannelCarrierProviderServiceInterface::class => ChannelCarrierProviderServiceRepository::class,
                 OrderLabelStorage::class => OrderLabelApiStorage::class,
                 ProductDetailStorage::class => ProductDetailApiStorage::class,
                 AccountManifestStorage::class => AccountManifestApiStorage::class,
@@ -561,11 +622,43 @@ return array(
                     'client' => 'account_guzzle'
                 ]
             ],
+            ChannelShippingChannelsProviderRepository::class => [
+                'injections' => [
+                    'addProvider' => [
+                        ['provider' => DataplugCarriers::class],
+                        ['provider' => NetDespatchShippingOptionsProvider::class],
+                    ]
+                ]
+            ],
+            ChannelShippingOptionsProviderRepository::class => [
+                'injections' => [
+                    'addProvider' => [
+                        ['provider' => DataplugCarrierService::class],
+                        ['provider' => NetDespatchShippingOptionsProvider::class],
+                    ]
+                ]
+            ],
+            ChannelCarrierBookingOptionsRepository::class => [
+                'injections' => [
+                    'addProvider' => [
+                        ['provider' => DataplugCarrierService::class],
+                        ['provider' => NetDespatchShippingOptionsProvider::class],
+                    ]
+                ]
+            ],
+            ChannelCarrierProviderServiceRepository::class => [
+                'injections' => [
+                    'addProvider' => [
+                        ['provider' => DataplugOrderService::class],
+                        ['provider' => NetDespatchOrderService::class],
+                    ]
+                ]
+            ],
             DataplugCarrierService::class => [
                 'parameters' => [
                     'carriersConfig' => [
                         [
-                            'channelName' => Carriers::DHL,
+                            'channelName' => DataplugCarriers::DHL,
                             'displayName' => 'DHL',
                             'code' => DataplugCarrier\Dhl::CODE,
                             'allowsCancellation' => false,
@@ -596,7 +689,7 @@ return array(
                             ],
                         ],
                         [
-                            'channelName' => Carriers::DPD,
+                            'channelName' => DataplugCarriers::DPD,
                             'displayName' => 'DPD',
                             'code' => DataplugCarrier\Dpd::CODE,
                             'fields' => [
@@ -640,7 +733,7 @@ return array(
                             ],
                         ],
                         [
-                            'channelName' => Carriers::FEDEX,
+                            'channelName' => DataplugCarriers::FEDEX,
                             'displayName' => 'FedEx',
                             'code' => DataplugCarrier\Fedex::CODE,
                             'allowsCancellation' => false,
@@ -668,7 +761,7 @@ return array(
                             ],
                         ],
                         [
-                            'channelName' => Carriers::INTERLINK,
+                            'channelName' => DataplugCarriers::INTERLINK,
                             'displayName' => 'Interlink',
                             'code' => DataplugCarrier\Interlink::CODE,
                             'fields' => [
@@ -698,7 +791,7 @@ return array(
                         /*
                         // Not going live with Hermes but will need this in the near future so leaving this here
                         [
-                            'channelName' => Carriers::MYHERMES,
+                            'channelName' => DataplugCarriers::MYHERMES,
                             'displayName' => 'Hermes corporate',
                             'salesChannelName' => 'Hermes',
                             'code' => DataplugCarrier\Myhermes::CODE,
@@ -722,7 +815,7 @@ return array(
                         */
 
                         [
-                            'channelName' => Carriers::PARCELFORCE,
+                            'channelName' => DataplugCarriers::PARCELFORCE,
                             'displayName' => 'Parcelforce',
                             'code' => DataplugCarrier\Parcelforce::CODE,
                             'allowsCancellation' => false,
@@ -752,99 +845,7 @@ return array(
                             ],
                         ],
                         [
-                            'channelName' => Carriers::ROYAL_MAIL_OBA,
-                            'displayName' => 'Royal Mail OBA',
-                            'salesChannelName' => 'Royal Mail',
-                            'code' => DataplugCarrier\RoyalMailOba::CODE,
-                            'manifestOncePerDay' => true,
-                            'fields' => [
-                                ['name' => 'Account no'],
-                                ['name' => 'PPI Account no'],
-                                ['name' => 'Wire no'],
-                                ['name' => 'Contract no'],
-                                ['name' => 'Hub no'],
-                                ['name' => 'Posting Location no'],
-                                ['name' => 'Username OBA'],
-                                ['name' => 'Password OBA', 'inputType' => 'password'],
-                                ['name' => 'Access Code'],
-                            ],
-                            'services' => [
-                                ['value' => 'RMIIE10000PA', 'name' => 'International Business Zone Sort Priority Parcel'],
-                                ['value' => 'RMIIG10000LT', 'name' => 'International Business Mail Large Letter Zone Sort Priority Letter'],
-                                ['value' => 'RMIIP10000LT', 'name' => 'International Business Mail Letter Zone Sort Priority Letter'],
-                                ['value' => 'RMIOLA0000PA', 'name' => 'International Standard On Account Parcel'],
-                                ['value' => 'RMIOLA0000LT', 'name' => 'International Standard On Account Letter'],
-                                ['value' => 'RMIOLA0000LL', 'name' => 'International Standard On Account Large Letter'],
-                                ['value' => 'RMICRL2400LT', 'name' => 'Domestic RM24 Standard Letter'],
-                                ['value' => 'RMICRL2400LL', 'name' => 'Domestic RM24 Standard Large Letter'],
-                                ['value' => 'RMICRL2400SP', 'name' => 'Domestic RM24 Standard Small Parcel'],
-                                ['value' => 'RMICRL2400MP', 'name' => 'Domestic RM24 Standard Medium Parcel'],
-                                ['value' => 'RMICRL4800LT', 'name' => 'Domestic RM48 Standard Letter'],
-                                ['value' => 'RMICRL4800LL', 'name' => 'Domestic RM48 Standard Large Letter'],
-                                ['value' => 'RMICRL4800SP', 'name' => 'Domestic RM48 Standard Small Parcel'],
-                                ['value' => 'RMICRL4800MP', 'name' => 'Domestic RM48 Standard Medium Parcel'],
-                                ['value' => 'RMISTL1000LT', 'name' => 'Domestic 1st Class Account Mail Letter'],
-                                ['value' => 'RMISTL1000LL', 'name' => 'Domestic 1st Class Account Mail Large Letter'],
-                                ['value' => 'RMISTL1000SP', 'name' => 'Domestic 1st Class Account Mail Small Parcel'],
-                                ['value' => 'RMISTL1000MP', 'name' => 'Domestic 1st Class Account Mail Medium Parcel'],
-                                ['value' => 'RMISTL2000LT', 'name' => 'Domestic 2nd Class Account Mail Letter'],
-                                ['value' => 'RMISTL2000LL', 'name' => 'Domestic 2nd Class Account Mail Large Letter'],
-                                ['value' => 'RMISTL2000SP', 'name' => 'Domestic 2nd Class Account Mail Small Parcel'],
-                                ['value' => 'RMISTL2000MP', 'name' => 'Domestic 2nd Class Account Mail Medium Parcel'],
-                                /*
-                                // The following services are not currently in use as they require extra work but we may add them in later
-                                ['value' => 'RMIMP10000PA', 'name' => 'International Business Parcel Tracked'],
-                                ['value' => 'RMIMP40000PA', 'name' => 'International Business Parcel Tracked Extra Compensation'],
-                                ['value' => 'RMIMP50000PA', 'name' => 'International Business Parcel Signed'],
-                                ['value' => 'RMIMP60000PA', 'name' => 'International Business Parcel Signed Extra Compensation'],
-                                ['value' => 'RMIMTA0000PA', 'name' => 'International Business Parcel Tracked & Signed'],
-                                ['value' => 'RMIMTB0000PA', 'name' => 'International Business Parcel Tracked & Signed Extra Compensation'],
-                                ['value' => 'RMIMTC0000LL', 'name' => 'International Business Mail Tracked & Signed Large Letter'],
-                                ['value' => 'RMIMTC0000LT', 'name' => 'International Business Mail Tracked & Signed Letter'],
-                                ['value' => 'RMIMTD0000LL', 'name' => 'International Business Mail Tracked & Signed Extra Compensation Large Letter'],
-                                ['value' => 'RMIMTD0000LT', 'name' => 'International Business Mail Tracked & Signed Extra Compensation Letter'],
-                                ['value' => 'RMIMTI0000LT', 'name' => 'International Business Mail Tracked Large Letter'],
-                                ['value' => 'RMIMTI0000LL', 'name' => 'International Business Mail Tracked Letter'],
-                                ['value' => 'RMIMTJ0000LL', 'name' => 'International Business Mail Tracked Extra Compensation Large Letter'],
-                                ['value' => 'RMIMTJ0000LT', 'name' => 'International Business Mail Tracked Extra Compensation Letter'],
-                                ['value' => 'RMIMTM0000LL', 'name' => 'International Business Mail Signed Large Letter'],
-                                ['value' => 'RMIMTM0000LT', 'name' => 'International Business Mail Signed Letter'],
-                                ['value' => 'RMIMTN0000LL', 'name' => 'International Business Mail Signed Extra Compensation Large Letter'],
-                                ['value' => 'RMIMTN0000LT', 'name' => 'International Business Mail Signed Extra Compensation Letter'],
-                                ['value' => 'RMISD10000LT', 'name' => 'Domestic Special Delivery Guaranteed by 1pm Letter'],
-                                ['value' => 'RMISD10000LL', 'name' => 'Domestic Special Delivery Guaranteed by 1pm Large Letter'],
-                                ['value' => 'RMISD10000SP', 'name' => 'Domestic Special Delivery Guaranteed by 1pm Small Parcel'],
-                                ['value' => 'RMISD10000MP', 'name' => 'Domestic Special Delivery Guaranteed by 1pm Medium Parcel'],
-                                ['value' => 'RMISD40000LT', 'name' => 'Domestic Special Delivery Guaranteed by 9am Letter'],
-                                ['value' => 'RMISD40000LL', 'name' => 'Domestic Special Delivery Guaranteed by 9am Large Letter'],
-                                ['value' => 'RMISD40000SP', 'name' => 'Domestic Special Delivery Guaranteed by 9am Small Parcel'],
-                                ['value' => 'RMISD40000MP', 'name' => 'Domestic Special Delivery Guaranteed by 9am Medium Parcel'],
-                                ['value' => 'RMICRL24S0LT', 'name' => 'Domestic RM24 Signed For Letter'],
-                                ['value' => 'RMICRL24S0LL', 'name' => 'Domestic RM24 Signed For Large Letter'],
-                                ['value' => 'RMICRL24S0SP', 'name' => 'Domestic RM24 Signed For Small Parcel'],
-                                ['value' => 'RMICRL24S0MP', 'name' => 'Domestic RM24 Signed For Medium Parcel'],
-                                ['value' => 'RMICRL48S0LT', 'name' => 'Domestic RM48 Signed For Letter'],
-                                ['value' => 'RMICRL48S0LL', 'name' => 'Domestic RM48 Signed For Large Letter'],
-                                ['value' => 'RMICRL48S0SP', 'name' => 'Domestic RM48 Signed For Small Parcel'],
-                                ['value' => 'RMICRL48S0MP', 'name' => 'Domestic RM48 Signed For Medium Parcel'],
-                                ['value' => 'RMIOSA0000PA', 'name' => 'International Signed On Account Parcel'],
-                                ['value' => 'RMIOSA0000LT', 'name' => 'International Signed On Account Letter'],
-                                ['value' => 'RMIOSA0000LL', 'name' => 'International Signed On Account Large Letter'],
-                                ['value' => 'RMIOTA0000PA', 'name' => 'International Tracked On Account Parcel'],
-                                ['value' => 'RMIOTA0000LT', 'name' => 'International Tracked On Account Letter'],
-                                ['value' => 'RMIOTA0000LL', 'name' => 'International Tracked On Account Large Letter'],
-                                ['value' => 'RMIOTC0000PA', 'name' => 'International Tracked & Signed On Account Parcel'],
-                                ['value' => 'RMIOTC0000LT', 'name' => 'International Tracked & Signed On Account Letter'],
-                                ['value' => 'RMIOTC0000LL', 'name' => 'International Tracked & Signed On Account Large Letter'],
-                                */
-                            ],
-                            'options' => [
-                                'insuranceMonetary' => false,
-                                'signature' => false,
-                            ],
-                        ],
-                        [
-                            'channelName' => Carriers::TNT,
+                            'channelName' => DataplugCarriers::TNT,
                             'displayName' => 'TNT',
                             'code' => DataplugCarrier\Tnt::CODE,
                             'allowsCancellation' => false,
@@ -880,7 +881,7 @@ return array(
                             ],
                         ],
                         [
-                            'channelName' => Carriers::UK_MAIL,
+                            'channelName' => DataplugCarriers::UK_MAIL,
                             'displayName' => 'UK Mail',
                             'code' => DataplugCarrier\UkMail::CODE,
                             'allowsCancellation' => false,
@@ -933,7 +934,7 @@ return array(
                             ],
                         ],
                         [
-                            'channelName' => Carriers::UPS,
+                            'channelName' => DataplugCarriers::UPS,
                             'displayName' => 'UPS',
                             'code' => DataplugCarrier\Ups::CODE,
                             'fields' => [
@@ -965,7 +966,7 @@ return array(
                             ],
                         ],
                         [
-                            'channelName' => Carriers::YODEL,
+                            'channelName' => DataplugCarriers::YODEL,
                             'displayName' => 'Yodel',
                             'code' => DataplugCarrier\Yodel::CODE,
                             'fields' => [
@@ -1027,6 +1028,203 @@ return array(
                         'signature' => true,
                         'deliveryInstructions' => true,
                     ]
+                ]
+            ],
+            NetDespatchShippingService::class => [
+                'parameters' => [
+                    'defaultDomesticServices' => [
+                        '24L8' => 'RM 24 LL PK301 S8 Daily',
+                        '24L8F' => 'RM 24 LL FS101 S8 Flat',
+                        '24LD' => 'RM 24 LL CRL01 Daily',
+                        '24LF' => 'RM 24 LL PK901 Flat',
+                        '24P8' => 'RM 24 P PK301 S8 Daily',
+                        '24P8F' => 'RM 24 P PK101 S8 Flat',
+                        '24PD' => 'RM 24 P CRL01 Daily',
+                        '24PF' => 'RM 24 P PPF01 Flat',
+                        '24SL8' => 'RM 24 Signed LL PK301 S8 Daily',
+                        '24SL8F' => 'RM 24 Signed LL FS101 S8 Flat',
+                        '24SLD' => 'RM 24 Signed LL CRL01 Daily',
+                        '24SLF' => 'RM 24 Signed LL PK901 Flat',
+                        '24SP8' => 'RM 24 Signed P PK301 S8 Daily',
+                        '24SP8F' => 'RM 24 Signed P PK101 S8 Flat',
+                        '24SPD' => 'RM 24 Signed P CRL01 Daily',
+                        '24SPF' => 'RM 24 Signed P PPF01 Flat',
+                        '48L8' => 'RM 48 LL PK402 S8 Daily',
+                        '48L8F' => 'RM 48 LL FS202 S8 Flat',
+                        '48LD' => 'RM 48 LL CRL02 Daily',
+                        '48LF' => 'RM 48 LL PK002 Flat',
+                        '48P8' => 'RM 48 P PK402 S8 Daily',
+                        '48P8F' => 'RM 48 P PK202 S8 Flat',
+                        '48PD' => 'RM 48 P CRL02 Daily',
+                        '48PF' => 'RM 48 P PPF02 Flat',
+                        '48RM0' => 'RM 48 P RM001 S8 Flat',
+                        '48SL8' => 'RM 48 Signed LL PK402 S8 Daily',
+                        '48SL8F' => 'RM 48 Signed LL FS202 S8 Flat',
+                        '48SLD' => 'RM 48 Signed LL CRL02 Daily',
+                        '48SLF' => 'RM 48 Signed LL PK002 Flat',
+                        '48SP8' => 'RM 48 Signed P PK402 S8 Daily',
+                        '48SP8F' => 'RM 48 Signed P PK202 S8 Flat',
+                        '48SPD' => 'RM 48 Signed P CRL02 Daily',
+                        '48SPF' => 'RM 48 Signed P PPF02 Flat',
+                        'RMSD1A' => 'RM SD 1pm £500 Comp',
+                        'RMSD1B' => 'RM SD 1pm £1000 Comp',
+                        'RMSD1C' => 'RM SD 1pm £2500 Comp',
+                        'RMSD9A' => 'RM SD 9am £50 Comp',
+                        'RMSD9B' => 'RM SD 9am £1000 Comp',
+                        'RMSD9C' => 'RM SD 9am £2500 Comp',
+                        'RMSG1A' => 'RM SD SG 1pm £500 Comp',
+                        'RMSG1B' => 'RM SD SG 1pm £1000 Comp',
+                        'RMSG1C' => 'RM SD SG 1pm £2500 Comp',
+                        'RMSG9A' => 'RM SD SG 9am £50 Comp',
+                        'RMSG9B' => 'RM SD SG 9am £1000 Comp',
+                        'RMSG9C' => 'RM SD SG 9am £2500 Comp',
+                        'STL1FN' => 'RM 1ST F STL01',
+                        'STL1FS' => 'RM 1ST Signed F STL01',
+                        'STL1LN' => 'RM 1ST L STL01',
+                        'STL1LS' => 'RM 1ST Signed L STL01',
+                        'STL1PN' => 'RM 1ST P STL01',
+                        'STL1PS' => 'RM 1ST Signed P STL01',
+                        'STL2FN' => 'RM 2ND F STL02',
+                        'STL2FS' => 'RM 2ND Signed F STL02',
+                        'STL2LN' => 'RM 2ND L STL02',
+                        'STL2LS' => 'RM 2ND Signed L STL02',
+                        'STL2PN' => 'RM 2ND P STL02',
+                        'STL2PS' => 'RM 2ND Signed P STL02',
+                        'TPH01N' => 'RM Tracked 48 HV Non Signature',
+                        'TPH01P' => 'RM Tracked 48 HV SafePlace',
+                        'TPH01S' => 'RM Tracked 48 HV Signature',
+                        'TPM01N' => 'RM Tracked 24 HV Non Signature',
+                        'TPM01P' => 'RM Tracked 24 HV SafePlace',
+                        'TPM01S' => 'RM Tracked 24 HV Signature',
+                        'TPN01N' => 'RM Tracked 24 Non Signature',
+                        'TPN01P' => 'RM Tracked 24 SafePlace',
+                        'TPN01S' => 'RM Tracked 24 Signature',
+                        'TPS01N' => 'RM Tracked 48 Non Signature',
+                        'TPS01P' => 'RM Tracked 48 SafePlace',
+                        'TPS01R' => 'RM Tracked 48 P and P',
+                        'TPS01S' => 'RM Tracked 48 Signature',
+                        'TRL01N' => 'RM Tracked 48 HV Lbox Non Sig',
+                        'TRL01S' => 'RM Tracked 48 HV Lbox Sig',
+                        'TRM01N' => 'RM Tracked 24 HV Lbox Non Sig',
+                        'TRM01S' => 'RM Tracked 24 HV Lbox Sig',
+                        'TRN01N' => 'RM Tracked 24 Lbox Non Sig',
+                        'TRN01S' => 'RM Tracked 24 Lbox Sig',
+                        'TRS01N' => 'RM Tracked 48 Lbox Non Sig',
+                        'TRS01S' => 'RM Tracked 48 Lbox Sig',
+                        'TSN011' => 'RM Tracked Returns 24',
+                        'TSS012' => 'RM Tracked Returns 48',
+                    ],
+                    'defaultInternationalServices' => [
+                        'DE1E' => 'Bus Pcls Zero HV RDC Prty',
+                        'DE3E' => 'Bus Pcls Zero HV RDC Econ',
+                        'DE4E' => 'Bus Pcls Zero LV Prty',
+                        'DE6E' => 'Bus Pcls Zero LV Econ',
+                        'DG1G' => 'Bus Mail LL Ctry HV RDC Prty',
+                        'DG3G' => 'Bus Mail LL Ctry HV RDC Econ',
+                        'DG4G' => 'Bus Mail LL Ctry LV Prty',
+                        'DG6G' => 'Bus Mail LL Ctry LV Econ',
+                        'DW1E' => 'Bus Pcls Bespoke',
+                        'IE1E' => 'Bus Pcls Zone Prty',
+                        'IE3E' => 'Bus Pcls Zone Econ',
+                        'IG1G' => 'Bus Mail LL Zone Prty',
+                        'IG3G' => 'Bus Mail LL Zone Econ',
+                        'IG4G' => 'Bus Mail LL Zone Prty Mch',
+                        'IG6G' => 'Bus Mail LL Zone Econ Mch',
+                        'MB1N' => 'Bus Pcls Print Direct Prty',
+                        'MB2N' => 'Bus Pcls Print Direct Std',
+                        'MB3N' => 'Bus Pcls Print Direct Econ',
+                        'MP0E' => 'Bus Pcls Signed +Comp Ctry',
+                        'MP1E' => 'Bus Pcls Tracked',
+                        'MP4E' => 'Bus Pcls Tracked +Comp',
+                        'MP5E' => 'Bus Pcls Signed',
+                        'MP6E' => 'Bus Pcls Signed +Comp',
+                        'MP7E' => 'Bus Pcls Tracked Ctry',
+                        'MP8E' => 'Bus Pcls Tracked +Comp Ctry',
+                        'MP9E' => 'Bus Pcls Signed Ctry',
+                        'MTAE' => 'Bus Pcls TandS',
+                        'MTBE' => 'Bus Pcls TandS +Comp',
+                        'MTCG' => 'Bus Mail TandS LL',
+                        'MTCP' => 'Bus Mail TandS Letter',
+                        'MTDG' => 'Bus Mail TandS +Comp LL',
+                        'MTDP' => 'Bus Mail TandS +Comp Letter',
+                        'MTEE' => 'Bus Pcls TandS Ctry',
+                        'MTFE' => 'Bus Pcls TandS +Comp Ctry',
+                        'MTGG' => 'Bus Mail TandS Ctry LL',
+                        'MTHG' => 'Bus Mail TandS +Comp Ctry LL',
+                        'MTIG' => 'Bus Mail Tracked LL',
+                        'MTIP' => 'Bus Mail Tracked Letter',
+                        'MTJG' => 'Bus Mail Tracked +Comp LL',
+                        'MTJP' => 'Bus Mail Tracked +Comp Letter',
+                        'MTKG' => 'Bus Mail Tracked Ctry LL',
+                        'MTLG' => 'Bus Mail Tracked +Comp Ctry LL',
+                        'MTMG' => 'Bus Mail Signed LL',
+                        'MTMP' => 'Bus Mail Signed Letter',
+                        'MTNG' => 'Bus Mail Signed +Comp LL',
+                        'MTNP' => 'Bus Mail Signed +Comp Letter',
+                        'MTOG' => 'Bus Mail Signed Ctry LL',
+                        'MTPG' => 'Bus Mail Signed +Comp Ctry LL',
+                        'MTQE' => 'Bus Pcls Zone Plus Prty',
+                        'MTSE' => 'Bus Pcls Zone Plus Econ',
+                        'NDE1E' => 'Test Copy of DE1E Tariff',
+                        'OLAE' => 'Std on Account Pcls',
+                        'OLAG' => 'Std on Acct LL',
+                        'OLAH' => 'Std on Account PrtPaper',
+                        'OLAP' => 'Std on Account Letter',
+                        'OLSE' => 'Econ on Account Pcls',
+                        'OLSG' => 'Econ on Acct LL',
+                        'OLSH' => 'Econ on Acct PrtPaper',
+                        'OLSP' => 'Econ on Account Letter',
+                        'OSAE' => 'Signed on Acct Pcls',
+                        'OSAG' => 'Signed on Acct LL',
+                        'OSAH' => 'Signed on Acct PrtPaper',
+                        'OSAP' => 'Signed on Acct Letter',
+                        'OSBE' => 'Signed on Acct +Comp Pcls',
+                        'OSBG' => 'Signed on Acct +Comp LL',
+                        'OSBH' => 'Signed on Acct +Comp PrtPaper',
+                        'OSBP' => 'Signed on Acct +Comp Letter',
+                        'OTAE' => 'Tracked on Acct Pcls',
+                        'OTAG' => 'Tracked on Acct LL',
+                        'OTAH' => 'Tracked on Acct PrtPaper',
+                        'OTAP' => 'Tracked on Acct Letter',
+                        'OTBE' => 'Tracked on Acct +Comp Pcls',
+                        'OTBG' => 'Tracked on Acct +Comp LL',
+                        'OTBH' => 'Tracked on Acct +Comp PrtPaper',
+                        'OTBP' => 'Tracked on Acct +Comp Letter',
+                        'OTCE' => 'TandS on Acct Pcls',
+                        'OTCG' => 'TandS on Acct LL',
+                        'OTCH' => 'TandS on Acct PrtPaper',
+                        'OTCP' => 'TandS on Acct Letter',
+                        'OTDE' => 'TandS on Acct +Comp Pcls',
+                        'OTDG' => 'TandS on Acct +Comp LL',
+                        'OTDH' => 'TandS on Acct +Comp PrtPaper',
+                        'OTDP' => 'TandS on Acct +Comp Letter',
+                        'OZ1N' => 'Bus Mail Mixd Prty',
+                        'OZ3N' => 'Bus Mail Mixd Econ',
+                        'OZ4N' => 'Bus Mail Mixd Prty Mch',
+                        'OZ6N' => 'Bus Mail Mixd Econ Mch',
+                        'PS0E' => 'Bus Pcls Max Econ',
+                        'PS7G' => 'Bus Mail LL Max Prty',
+                        'PS8G' => 'Bus Mail LL Max Econ',
+                        'PS9E' => 'Bus Pcls Max Prty',
+                        'PSBG' => 'Bus Mail LL Max Std',
+                        'PSCE' => 'Bus Pcls Max Std',
+                        'WE1E' => 'Bus Pcls Zero Prty',
+                        'WE3E' => 'Bus Pcls Zero Econ',
+                        'WG1G' => 'Bus Mail LL Zero Prty',
+                        'WG3G' => 'Bus Mail LL Zero Econ',
+                        'WG4G' => 'Bus Mail LL Zero Prty Mch',
+                        'WG6G' => 'Bus Mail LL Zero Econ Mch',
+                        'WW1N' => 'Bus Mail Mixd Zero Prty',
+                        'WW3N' => 'Bus Mail Mixd Zero Econ',
+                        'WW4N' => 'Bus Mail Mixd Zero Prty Mch',
+                        'WW6N' => 'Bus Mail Mixd Zero Econ Mch',
+                    ]
+                ]
+            ],
+            NetDespatchOrderCreateService::class => [
+                'parameters' => [
+                    // Don't use our FailoverClient, use Guzzle directly, as this is for talking to a third-party
+                    'guzzleClient' => \Guzzle\Http\Client::class,
                 ]
             ],
             CustomerCountRepository::class => [

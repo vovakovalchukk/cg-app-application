@@ -1,0 +1,22 @@
+<div class="courier-item-parcel-assignment-popup">
+    <div class="header-large">Assign items to this package ({{parcelNumber}})</div>
+    <div class="clearfix">
+        <table class="courier-item-parcel-assignment-table">
+            <thead>
+                <tr>
+                    <th>Item</th><th>Parcel Qty</th>
+                </tr>
+            </thead>
+            <tbody>
+            {{#items}}
+                <tr>
+                    <td class="item-name">{{name}}</td><td class="item-quantity">{{{qtyInput}}}</td>
+                </tr>
+            {{/items}}
+            </tbody>
+        </table>
+    </div>
+    <div class="clearfix">
+        {{> actionButtons}}
+    </div>
+</div>

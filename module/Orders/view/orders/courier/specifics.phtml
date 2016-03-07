@@ -9,9 +9,20 @@ $(document).ready(function()
     var orderServices = <?=json_encode($this->orderServices);?>;
     var specificsDataTable = new CourierSpecificsDataTable($('#datatable'), courierOrderIds, courierAccountId, orderServices);
 
-    require(['<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Specifics/Service.js'], function(Service)
-    {
-        var service = new Service($('#datatable'), courierAccountId);
+    require([
+        '<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Specifics/Service.js',
+        '<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Specifics/ItemParcelAssignment/Manager.js',
+    ], function(
+        Service,
+        ItemParcelAssignmentManager
+    ) {
+        var ipaTemplateMap = {
+            "inlineText": "<?=CG_UI\Module::PUBLIC_FOLDER;?>templates/elements/inline-text.mustache",
+            "buttons": "<?=CG_UI\Module::PUBLIC_FOLDER;?>templates/elements/buttons.mustache",
+            "itemParcelAssignment": "<?=Orders\Module::PUBLIC_FOLDER;?>template/courier/popup/itemParcelAssignment.mustache"
+        };
+        var ipaManager = new ItemParcelAssignmentManager(ipaTemplateMap);
+        var service = new Service($('#datatable'), courierAccountId, ipaManager);
     });
 });
 </script>
@@ -32,6 +43,9 @@ $(document).ready(function()
         <?=$this->serviceSelect;?>
         <?=$this->parcelsElement;?>
         <?=$this->collectionDateElement;?>
+        <div id="courier-itemParcelAssignment-button-container">
+            <?=$this->itemParcelAssignmentButton;?>
+        </div>
         <div id="courier-action-buttons">
             <?=$this->actionsButtons;?>
         </div>
