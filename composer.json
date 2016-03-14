@@ -84,7 +84,7 @@
         "channelgrabber/zf2-login": "~1.4.30",
         "channelgrabber/zf2-mustache": "~1.0.1",
         "channelgrabber/zf2-netdespatch": "~1.0.0",
-        "channelgrabber/zf2-permission": "~1.1.11",
+        "channelgrabber/zf2-permission": "dev-CGIV-6858-billing-transaction-ordering as 1.1.12",
         "channelgrabber/zf2-register": "~1.4.42",
         "channelgrabber/zf2-royalmail": "~1.1.1",
         "channelgrabber/zf2-sessions": "~1.1.5",

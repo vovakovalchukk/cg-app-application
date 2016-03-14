@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e241b7b41b21397166692814585c71c7",
-    "content-hash": "3ce428865753b6f6368cdffc362a5d88",
+    "hash": "7f30d4e4523394fa2e71879c946123db",
+    "content-hash": "8a68b8d17692505e24b3079cc1b2777f",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3165,16 +3165,16 @@
         },
         {
             "name": "channelgrabber/zf2-permission",
-            "version": "1.1.11",
+            "version": "dev-CGIV-6858-billing-transaction-ordering",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/permission-module.git",
-                "reference": "dae3eb47c3e1f47d3ee241d65cb5be87e754e3b5"
+                "reference": "3e237a94924e04fdc6bb682a8b388727073ea5a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.1.11-939fb3.zip",
-                "reference": "dae3eb47c3e1f47d3ee241d65cb5be87e754e3b5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-dev-CGIV-6858-billing-transaction-ordering-616004.zip",
+                "reference": "3e237a94924e04fdc6bb682a8b388727073ea5a3",
                 "shasum": null
             },
             "require": {
@@ -3189,6 +3189,10 @@
                 "zendframework/zend-mvc": ">=2.2.5,<3.0",
                 "zendframework/zend-session": ">=2.2.5,<3.0"
             },
+            "require-dev": {
+                "channelgrabber/phpunit": "dev-develop",
+                "phpunit/phpunit": "4.2.*"
+            },
             "type": "zf2-module",
             "extra": {
                 "zf2-module": "CG_Permission"
@@ -3201,7 +3205,12 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-02-05 08:57:56"
+            "autoload-dev": {
+                "psr-4": {
+                    "CG_Permission\\Test\\": "tests"
+                }
+            },
+            "time": "2016-03-14 11:13:38"
         },
         {
             "name": "channelgrabber/zf2-register",
@@ -4704,7 +4713,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpatch/zipball/e4b2b3433f92b6268e5660e38b475def1ae4ce54",
+                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpatch/zipball/23e4f0d8e66d3784e9a1d0db812b105fb9890f76",
                 "reference": "e57b7e02224d0266d5f7de970964b5302501125b",
                 "shasum": "691f4c32e8522bbb20fb4baec578d0eab498b683"
             },
@@ -4756,7 +4765,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpointer/zipball/6e4e0984dd35a149da9ecc6bfd5e159cffd846bb",
+                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpointer/zipball/72cb977c4c19d12786107320ed9bab3ce24045cd",
                 "reference": "064f65b05d1381d4999113f442af93949cc7c29a",
                 "shasum": ""
             },
@@ -7647,10 +7656,18 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.1.12",
+            "alias_normalized": "1.1.12.0",
+            "version": "dev-CGIV-6858-billing-transaction-ordering",
+            "package": "channelgrabber/zf2-permission"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-permission": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
