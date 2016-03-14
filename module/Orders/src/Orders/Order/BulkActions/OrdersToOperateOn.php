@@ -109,12 +109,20 @@ class OrdersToOperateOn
      */
     protected function saveFilterAsOrderIds(Filter $filter)
     {
+        $limit = $filter->getLimit();
+        $page = $filter->getPage();
+        $orderBy = $filter->getOrderBy();
+        $orderDir = $filter->getOrderDirection();
+
         $filter->setConvertToOrderIds(true);
         /** @var Filter $filter */
         $filter = $this->filterStorage->save($filter);
-        // Saving a filter strips the pagination so we can change it later, need to re-add it
-        $filter->setLimit('all')
-            ->setPage(1);
+
+        // Saving a filter strips the pagination and ordering so we can change it later, need to re-add it
+        $filter->setLimit($limit)
+            ->setPage($page)
+            ->setOrderBy($orderBy)
+            ->setOrderDirection($orderDir);
         return $filter;
     }
 
