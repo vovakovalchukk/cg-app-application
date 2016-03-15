@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7f30d4e4523394fa2e71879c946123db",
-    "content-hash": "8a68b8d17692505e24b3079cc1b2777f",
+    "hash": "91cc0c630ce07f1375728289669a7ff5",
+    "content-hash": "bcee4b0951d6c8a07844f76aaf4c5cee",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3165,16 +3165,16 @@
         },
         {
             "name": "channelgrabber/zf2-permission",
-            "version": "dev-CGIV-6858-billing-transaction-ordering",
+            "version": "1.1.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/permission-module.git",
-                "reference": "3e237a94924e04fdc6bb682a8b388727073ea5a3"
+                "reference": "f8ed56b2c5c2c90387b295be24936c1b94041bec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-dev-CGIV-6858-billing-transaction-ordering-616004.zip",
-                "reference": "3e237a94924e04fdc6bb682a8b388727073ea5a3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-permission-1.1.12-b6154d.zip",
+                "reference": "f8ed56b2c5c2c90387b295be24936c1b94041bec",
                 "shasum": null
             },
             "require": {
@@ -3210,7 +3210,7 @@
                     "CG_Permission\\Test\\": "tests"
                 }
             },
-            "time": "2016-03-14 11:13:38"
+            "time": "2016-03-15 08:29:02"
         },
         {
             "name": "channelgrabber/zf2-register",
@@ -7656,18 +7656,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.1.12",
-            "alias_normalized": "1.1.12.0",
-            "version": "dev-CGIV-6858-billing-transaction-ordering",
-            "package": "channelgrabber/zf2-permission"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-permission": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
