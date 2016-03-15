@@ -1019,6 +1019,7 @@ return array(
                         ],
                     ],
                     'defaultOptions' => [
+                        'collectionDate' => true,
                         'weight' => true,
                         'height' => true,
                         'width' => true,

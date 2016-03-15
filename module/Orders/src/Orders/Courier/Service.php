@@ -379,7 +379,6 @@ class Service implements LoggerAwareInterface
     ) {
         $cancellable = $this->carrierBookingOptions->isCancellationAllowedForAccount($courierAccount);
         $data = [
-            'collectionDate' => date('Y-m-d'),
             'parcels' => static::DEFAULT_PARCELS,
             // The order row will always be parcel 1, only parcel rows might be other numbers
             'parcelNumber' => 1,
@@ -388,6 +387,9 @@ class Service implements LoggerAwareInterface
         ];
         foreach ($options as $option) {
             $data[$option] = '';
+            if ($option == 'collectionDate') {
+                $data[$option] = date('Y-m-d');
+            }
         }
         return $data;
     }
