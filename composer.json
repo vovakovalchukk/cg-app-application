@@ -31,7 +31,7 @@
         "channelgrabber/billing": "~1.8.6",
         "channelgrabber/cache": "~2.1.0",
         "channelgrabber/cglib": "~1.9.0",
-        "channelgrabber/channel": "~1.21.8",
+        "channelgrabber/channel": "dev-CGIV-6853-netdespatch-improvements as 1.21.9",
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/communication": "~1.0.2",
         "channelgrabber/constants": "dev-master",

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "91cc0c630ce07f1375728289669a7ff5",
-    "content-hash": "bcee4b0951d6c8a07844f76aaf4c5cee",
+    "hash": "aab2ef1325cf92a65de4aaa92534c0fb",
+    "content-hash": "a84857a6e33ba1703235d20ec555a5f3",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -305,16 +305,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.21.8",
+            "version": "dev-CGIV-6853-netdespatch-improvements",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "69ef50d9e549b047b11c72e26e8e43f8f9eb2903"
+                "reference": "8d797e1088fa8071922782a5c177851a32648648"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.21.8-44da03.zip",
-                "reference": "69ef50d9e549b047b11c72e26e8e43f8f9eb2903",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6853-netdespatch-improvements-0ff11a.zip",
+                "reference": "8d797e1088fa8071922782a5c177851a32648648",
                 "shasum": null
             },
             "require": {
@@ -377,7 +377,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-03-07 11:46:15"
+            "time": "2016-03-15 11:10:44"
         },
         {
             "name": "channelgrabber/cilex",
@@ -7656,9 +7656,17 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.21.9",
+            "alias_normalized": "1.21.9.0",
+            "version": "dev-CGIV-6853-netdespatch-improvements",
+            "package": "channelgrabber/channel"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
