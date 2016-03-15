@@ -231,11 +231,17 @@ class Service implements LoggerAwareInterface
         $itemSpecifics = [
             'itemId' => $item->getId(),
             'itemImage' => $this->getImageUrlForOrderItem($item, $products),
-            'itemName' => $item->getItemName(),
+            'itemName' => $this->getSanitisedItemName($item),
             'itemSku' => $item->getItemSku(),
             'quantity' => $item->getItemQuantity(),
         ];
         return array_merge($rowData, $itemSpecifics);
+    }
+
+    protected function getSanitisedItemName(Item $item)
+    {
+        // We sometimes append item options onto the name and separate them with newlines, strip those out
+        return explode(PHP_EOL, $item->getItemName())[0];
     }
 
     protected function getChildRowListData($orderId)
