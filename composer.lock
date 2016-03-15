@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "aab2ef1325cf92a65de4aaa92534c0fb",
-    "content-hash": "a84857a6e33ba1703235d20ec555a5f3",
+    "hash": "d3ba84229cc6e1f86756bdf8fa54a9a5",
+    "content-hash": "b9d3e6e8652215f6537ce9c10d88163f",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3471,16 +3471,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.37",
+            "version": "dev-CGIV-6853-netdespatch-improvements2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "fe1f1000cf3b777c6d5e581c83161c5b5dcf7f51"
+                "reference": "829743236c72f24fe2eac48b20c6f82959c6a788"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.37-75ffb8.zip",
-                "reference": "fe1f1000cf3b777c6d5e581c83161c5b5dcf7f51",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6853-netdespatch-improvements2-61a47a.zip",
+                "reference": "829743236c72f24fe2eac48b20c6f82959c6a788",
                 "shasum": null
             },
             "require": {
@@ -3526,7 +3526,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-03-07 15:55:14"
+            "time": "2016-03-15 15:26:44"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7662,12 +7662,19 @@
             "alias_normalized": "1.21.9.0",
             "version": "dev-CGIV-6853-netdespatch-improvements",
             "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.16.38",
+            "alias_normalized": "1.16.38.0",
+            "version": "dev-CGIV-6853-netdespatch-improvements2",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
