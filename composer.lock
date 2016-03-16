@@ -309,12 +309,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "8d797e1088fa8071922782a5c177851a32648648"
+                "reference": "154a71ef9cb686c49d3039fb6092abed8c7400cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6853-netdespatch-improvements-0ff11a.zip",
-                "reference": "8d797e1088fa8071922782a5c177851a32648648",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6853-netdespatch-improvements-7bcf51.zip",
+                "reference": "154a71ef9cb686c49d3039fb6092abed8c7400cf",
                 "shasum": null
             },
             "require": {
@@ -377,7 +377,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-03-15 11:10:44"
+            "time": "2016-03-16 15:15:37"
         },
         {
             "name": "channelgrabber/cilex",
@@ -3475,12 +3475,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "829743236c72f24fe2eac48b20c6f82959c6a788"
+                "reference": "79d5a71cfa43c35bb918314a30c968ea6aea90b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6853-netdespatch-improvements2-61a47a.zip",
-                "reference": "829743236c72f24fe2eac48b20c6f82959c6a788",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6853-netdespatch-improvements2-6dc47e.zip",
+                "reference": "79d5a71cfa43c35bb918314a30c968ea6aea90b9",
                 "shasum": null
             },
             "require": {
@@ -3526,7 +3526,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-03-15 15:26:44"
+            "time": "2016-03-16 15:16:40"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
