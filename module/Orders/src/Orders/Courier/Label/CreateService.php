@@ -12,6 +12,7 @@ use CG\Order\Shared\Label\Status as OrderLabelStatus;
 use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Detail\Entity as ProductDetail;
 use CG\Stdlib\DateTime as StdlibDateTime;
+use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Exception\Runtime\ValidationMessagesException;
 use Orders\Courier\GetProductDetailsForOrdersTrait;
 
@@ -23,6 +24,7 @@ class CreateService extends ServiceAbstract
     const LABEL_MAX_ATTEMPTS = 10;
     const LABEL_ATTEMPT_INTERVAL_SEC = 1;
     const LABEL_SAVE_MAX_ATTEMPTS = 2;
+    const PROD_DETAIL_SAVE_MAX_ATTEMPTS = 2;
     const CM_PER_M = 100;
     const LOG_CODE = 'OrderCourierLabelCreateService';
     const LOG_CREATE = 'Create label request for Order(s) %s, shipping Account %d';
@@ -135,7 +137,8 @@ class CreateService extends ServiceAbstract
         ProductDetail $productDetail,
         array $productDetailData,
         Item $item,
-        $parcelCount
+        $parcelCount,
+        $attempt = 1
     ) {
         $changes = false;
         foreach ($this->productDetailFields as $field => $callback) {
@@ -157,6 +160,12 @@ class CreateService extends ServiceAbstract
             $this->productDetailService->save($productDetail);
         } catch (NotModified $e) {
             // No-op
+        } catch (Conflict $e) {
+            if ($attempt > static::PROD_DETAIL_SAVE_MAX_ATTEMPTS) {
+                throw $e;
+            }
+            $productDetail = $this->productDetailService->fetch($productDetail->getId());
+            return $this->updateProductDetailFromInputData($productDetail, $productDetailData, $item, $parcelCount, $attempt++);
         }
     }
 
