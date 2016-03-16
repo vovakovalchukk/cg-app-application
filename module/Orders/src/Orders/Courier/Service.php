@@ -308,9 +308,9 @@ class Service implements LoggerAwareInterface
     public function alterSpecificsTableForSelectedCourier(DataTable $specificsTable, Account $selectedCourier)
     {
         $options = $this->getCarrierOptions($selectedCourier);
-        // We always need the actions column but it must go last (false here is the required flag)
-        $options['actions'] = false;
-        foreach ($options as $option => $required) {
+        // We always need the actions column but it must go last
+        array_push($options, 'actions');
+        foreach ($options as $option) {
             $columnAlias = sprintf(static::OPTION_COLUMN_ALIAS, ucfirst($option));
             try {
                 $column = $this->di->get($columnAlias);
@@ -324,17 +324,7 @@ class Service implements LoggerAwareInterface
 
     protected function getCarrierOptions(Account $account)
     {
-        $options = $this->carrierBookingOptions->getCarrierBookingOptionsForAccount($account);
-        $normalisedOptions = [];
-        foreach ($options as $option => $required) {
-            // Allow for an indexed array of options, have to assume they're all required
-            if (is_numeric($option) && is_string($required)) {
-                $option = $required;
-                $required = true;
-            }
-            $normalisedOptions[$option] = $required;
-        }
-        return $normalisedOptions;
+        return $this->carrierBookingOptions->getCarrierBookingOptionsForAccount($account);
     }
 
     /**
@@ -384,8 +374,7 @@ class Service implements LoggerAwareInterface
             }
             $data = array_merge($data, $itemsData);
         }
-
-        return $this->sortSpecificsListData($data);
+        return $data;
     }
 
     protected function getSpecificsOrderListDataDefaults(
@@ -402,7 +391,7 @@ class Service implements LoggerAwareInterface
             'labelStatus' => ($orderLabel ? $orderLabel->getStatus() : ''),
             'cancellable' => $cancellable,
         ];
-        foreach ($options as $option => $required) {
+        foreach ($options as $option) {
             $data[$option] = '';
             if ($option == 'collectionDate') {
                 $data[$option] = date('Y-m-d');
@@ -489,19 +478,16 @@ class Service implements LoggerAwareInterface
             $productDetail = $matchingProductDetails->current();
         }
 
-        $requiredAllSet = true;
-        foreach ($options as $option => $required) {
+        foreach ($options as $option) {
             if (isset($data[$option]) && $data[$option] != '') {
                 continue;
             }
             $data[$option] = '';
             if (!$productDetail) {
-                $requiredAllSet = ($required ? false : $requiredAllSet);
                 continue;
             }
             $getter = 'get'.ucfirst($option);
             if (!is_callable([$productDetail, $getter])) {
-                $requiredAllSet = ($required ? false : $requiredAllSet);
                 continue;
             }
             $value = $productDetail->$getter();
@@ -511,9 +497,6 @@ class Service implements LoggerAwareInterface
             }
             $data[$option] = $value;
         }
-
-        $data['complete'] = $requiredAllSet;
-
         return $data;
     }
 
@@ -554,16 +537,17 @@ class Service implements LoggerAwareInterface
             $parcelData['actionRow'] = ($parcel == $parcels);
             $parcelData['labelStatus'] = $orderData['labelStatus'];
             $parcelData['cancellable'] = $orderData['cancellable'];
-            foreach ($options as $option => $required) {
+            foreach ($options as $option) {
                 $parcelData[$option] = (isset($orderData[$option]) ? $orderData[$option] : '');
             }
-            if (isset($options['weight']) || isset($options['width']) || isset($options['height']) || isset($options['length'])) {
+            $optionKeys = array_flip($options);
+            if (isset($optionKeys['weight']) || isset($optionKeys['width']) || isset($optionKeys['height']) || isset($optionKeys['length'])) {
                 $itemImageText = 'Package ' . $parcel . ' ';
                 $itemImageTextAdtnl = [];
-                if (isset($options['weight'])) {
+                if (isset($optionKeys['weight'])) {
                     $itemImageTextAdtnl[] = 'weight';
                 }
-                if (isset($options['width']) || isset($options['height']) || isset($options['length'])) {
+                if (isset($optionKeys['width']) || isset($optionKeys['height']) || isset($optionKeys['length'])) {
                     $itemImageTextAdtnl[] = 'dimensions';
                 }
                 $itemImageText .= implode(' and ', $itemImageTextAdtnl);
@@ -577,38 +561,6 @@ class Service implements LoggerAwareInterface
             $parcelsData[] = $parcelData;
         }
         return $parcelsData;
-    }
-
-    protected function sortSpecificsListData(array $data)
-    {
-        // Sort 'complete' order rows to the bottom, as they dont require any input from the user,
-        // keeping rows for the same order together
-        $completeRows = [];
-        $incompleteRows = [];
-        $orderComplete = null;
-        $orderStartIndex = 0;
-        for ($index = 0; $index < count($data); $index++) {
-            $row = $data[$index];
-            if (!isset($row['complete'])) {
-                $row['complete'] = false;
-            }
-            if ($orderComplete === null || !$row['complete']) {
-                $orderComplete = $row['complete'];
-            }
-            $nextRow = (isset($data[$index+1]) ? $data[$index+1] : null);
-            if ($nextRow && $nextRow['orderId'] == $row['orderId']) {
-                continue;
-            }
-            $orderRows = array_slice($data, $orderStartIndex, ($index - $orderStartIndex + 1));
-            if ($orderComplete) {
-                $completeRows = array_merge($completeRows, $orderRows);
-            } else {
-                $incompleteRows = array_merge($incompleteRows, $orderRows);
-            }
-            $orderComplete = null;
-            $orderStartIndex = $index+1;
-        }
-        return array_merge($incompleteRows, $completeRows);
     }
 
     public function getSpecificsMetaDataFromRecords(array $records)

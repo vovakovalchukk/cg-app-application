@@ -1019,42 +1019,15 @@ return array(
                         ],
                     ],
                     'defaultOptions' => [
-                        'collectionDate' => [
-                            'enabled' => true,
-                            'required' => true,
-                        ],
-                        'weight' => [
-                            'enabled' => true,
-                            'required' => true,
-                        ],
-                        'height' => [
-                            'enabled' => true,
-                            'required' => true,
-                        ],
-                        'width' => [
-                            'enabled' => true,
-                            'required' => true,
-                        ],
-                        'length' => [
-                            'enabled' => true,
-                            'required' => true,
-                        ],
-                        'insurance' => [
-                            'enabled' => true,
-                            'required' => false,
-                        ],
-                        'insuranceMonetary' => [
-                            'enabled' => true,
-                            'required' => false,
-                        ],
-                        'signature' => [
-                            'enabled' => true,
-                            'required' => false,
-                        ],
-                        'deliveryInstructions' => [
-                            'enabled' => true,
-                            'required' => false,
-                        ],
+                        'collectionDate' => true,
+                        'weight' => true,
+                        'height' => true,
+                        'width' => true,
+                        'length' => true,
+                        'insurance' => true,
+                        'insuranceMonetary' => true,
+                        'signature' => true,
+                        'deliveryInstructions' => true,
                     ]
                 ]
             ],
