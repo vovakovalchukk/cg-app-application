@@ -84,7 +84,8 @@ CourierSpecificsDataTable.columnRenderers = {
     collectionDate: "addDatePickerToCollectionDateColumn",
     actions: "addButtonsToActionsColumn",
     itemParcelAssignment: "addItemParcelAssignmentButtonColumn",
-    packageType: "addCustomSelectToPackageTypeColumn"
+    packageType: "addCustomSelectToPackageTypeColumn",
+    addOns: "addCustomSelectToAddOnsColumn"
 };
 
 CourierSpecificsDataTable.prototype = Object.create(CourierDataTableAbstract.prototype);
@@ -251,6 +252,8 @@ CourierSpecificsDataTable.prototype.addCustomSelectToPackageTypeColumn = functio
     this.fetchTemplate('select', cgMustache, function(template)
     {
         var data = {
+            name: 'orderData[' + templateData.orderId + '][packageType]',
+            class: 'required',
             options: []
         };
         for (var index in templateData.packageTypes) {
@@ -260,6 +263,26 @@ CourierSpecificsDataTable.prototype.addCustomSelectToPackageTypeColumn = functio
             });
         }
         templateData.packageTypeOptions = cgMustache.renderTemplate(template, data);
+    }, true);
+};
+
+CourierSpecificsDataTable.prototype.addCustomSelectToAddOnsColumn = function(templateData, cgMustache)
+{
+    this.fetchTemplate('multiselect', cgMustache, function(template)
+    {
+        var data = {
+            id: 'courier-add-ons-' + templateData.orderId,
+            name: 'orderData[' + templateData.orderId + '][addOns]',
+            emptyTitle: " ",
+            searchField: false,
+            options: []
+        };
+        for (var index in templateData.addOns) {
+            data.options.push({
+                title: templateData.addOns[index],
+            });
+        }
+        templateData.addOnsOptions = cgMustache.renderTemplate(template, data);
     }, true);
 };
 

@@ -1157,6 +1157,7 @@ return array(
                     'carrierBookingOptionsDomestic' => [
                         'weight' => true,
                         'packageType' => true,
+                        'addOns' => true,
                         'height' => false,
                         'width' => false,
                         'length' => false,
@@ -1170,6 +1171,7 @@ return array(
                     'carrierBookingOptionsInternational' => [
                         'weight' => true,
                         'packageType' => false,
+                        'addOns' => false,
                         'height' => true,
                         'width' => true,
                         'length' => true,
