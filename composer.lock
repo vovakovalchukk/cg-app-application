@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d226d31b027cfc2e7e8740794727b6d3",
+    "hash": "8052b7ab1fb77357e6cc51870df1c9a3",
     "content-hash": "a42368168b59937e4e61c541e67e1a41",
     "packages": [
         {
@@ -118,12 +118,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "ae011888b31ed68d14f399c3a64f1cbcebd6dcff"
+                "reference": "ea1cf93447b74d80bcc99b530e8f9c57d12abe9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-CGIV-6862-FailedPaymentUi-683244.zip",
-                "reference": "ae011888b31ed68d14f399c3a64f1cbcebd6dcff",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-dev-CGIV-6862-FailedPaymentUi-8c3c10.zip",
+                "reference": "ea1cf93447b74d80bcc99b530e8f9c57d12abe9a",
                 "shasum": null
             },
             "require": {
@@ -160,7 +160,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2016-03-16 16:01:28"
+            "time": "2016-03-17 11:43:30"
         },
         {
             "name": "channelgrabber/cache",
