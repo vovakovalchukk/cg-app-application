@@ -1,0 +1,10 @@
+<?= $value ?>
+<script type='text/javascript'>
+    require(['<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Specifics/Columns/PackageType.js'], function(PackageType)
+    {
+        var templateMap = {
+            "select": "<?=CG_UI\Module::PUBLIC_FOLDER;?>templates/elements/custom-select.mustache"
+        };
+        var packageType = new PackageType(templateMap);
+    });
+</script>

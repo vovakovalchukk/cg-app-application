@@ -59,6 +59,11 @@ return [
             'courier-specifics-navigation'  => SidebarNavFactory::class,
         ]
     ],
+    'view_manager' => [
+        'template_path_stack' => [
+            dirname(__DIR__) . '/view/orders/',
+        ],
+    ],
     'navigation' => [
         'courier-specifics-navigation' => [
             'couriers' => [
@@ -2015,7 +2020,8 @@ return [
             'CourierSpecificsPackageTypeColumnView' => [
                 'parameters' => [
                     'variables' => ['value' => 'Package Type'],
-                    'template' => 'value.phtml',
+                    // Note: this is NOT using the standard template but a bespoke one that loads up some JS
+                    'template' => 'orders/courier/specifics/columns/packageType.phtml',
                 ],
             ],
             'CourierSpecificsPackageTypeColumn' => [

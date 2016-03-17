@@ -252,6 +252,7 @@ CourierSpecificsDataTable.prototype.addCustomSelectToPackageTypeColumn = functio
     this.fetchTemplate('select', cgMustache, function(template)
     {
         var data = {
+            id: 'courier-package-type_' + templateData.orderId,
             name: 'orderData[' + templateData.orderId + '][packageType]',
             class: 'required',
             options: []
@@ -271,7 +272,7 @@ CourierSpecificsDataTable.prototype.addCustomSelectToAddOnsColumn = function(tem
     this.fetchTemplate('multiselect', cgMustache, function(template)
     {
         var data = {
-            id: 'courier-add-ons-' + templateData.orderId,
+            id: 'courier-add-ons_' + templateData.orderId,
             name: 'orderData[' + templateData.orderId + '][addOns]',
             emptyTitle: " ",
             searchField: false,
