@@ -374,6 +374,7 @@ class Service implements LoggerAwareInterface
             }
             $data = array_merge($data, $itemsData);
         }
+        $data = $this->carrierBookingOptions->addCarrierSpecificDataToListArray($data, $courierAccount);
         return $data;
     }
 
@@ -483,19 +484,21 @@ class Service implements LoggerAwareInterface
                 continue;
             }
             $data[$option] = '';
-            if (!$productDetail) {
+        }
+        if (!$productDetail) {
+            return $data;
+        }
+
+        // Always add all product details even if there's no option for them as sometimes they're used indirectly
+        $productDetailArray = $productDetail->toArray();
+        foreach ($productDetailArray as $field => $value) {
+            if (in_array($field, ['id', 'organisationUnitId', 'sku'])) {
                 continue;
             }
-            $getter = 'get'.ucfirst($option);
-            if (!is_callable([$productDetail, $getter])) {
+            if (isset($data[$field]) && $data[$field] != '') {
                 continue;
             }
-            $value = $productDetail->$getter();
-            if (isset($this->productDetailFields[$option])) {
-                $callback = $this->productDetailFields[$option];
-                $value = $this->$callback($value, $item);
-            }
-            $data[$option] = $value;
+            $data[$field] = $value;
         }
         return $data;
     }

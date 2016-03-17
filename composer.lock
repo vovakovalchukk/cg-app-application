@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7eb86423342afa3dd4057f3fc81b653b",
-    "content-hash": "24b882a802cabc2f003621cfb80277ed",
+    "hash": "08bfa24f9e5e0392bb9298882ab58f07",
+    "content-hash": "5fe465fe843ce715a2c010e251e5bed1",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3471,16 +3471,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-6853-netdespatch-improvements2",
+            "version": "dev-CGIV-6866-netdespatch-service-option-changes",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "79d5a71cfa43c35bb918314a30c968ea6aea90b9"
+                "reference": "403447b6ef790128d9b6aa3615109f77c5c9416b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6853-netdespatch-improvements2-6dc47e.zip",
-                "reference": "79d5a71cfa43c35bb918314a30c968ea6aea90b9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6866-netdespatch-service-option-changes-8228aa.zip",
+                "reference": "403447b6ef790128d9b6aa3615109f77c5c9416b",
                 "shasum": null
             },
             "require": {
@@ -3526,7 +3526,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-03-16 15:16:40"
+            "time": "2016-03-17 14:06:18"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7676,9 +7676,9 @@
             "package": "channelgrabber/netdespatch"
         },
         {
-            "alias": "1.16.38",
-            "alias_normalized": "1.16.38.0",
-            "version": "dev-CGIV-6853-netdespatch-improvements2",
+            "alias": "1.16.39",
+            "alias_normalized": "1.16.39.0",
+            "version": "dev-CGIV-6866-netdespatch-service-option-changes",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],

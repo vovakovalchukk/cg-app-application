@@ -1,6 +1,8 @@
-function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderServices)
+function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderServices, templateMap)
 {
     CourierDataTableAbstract.call(this, dataTable, orderIds);
+
+    var templates = {};
 
     this.getCourierAccountId = function()
     {
@@ -16,12 +18,32 @@ function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderS
         delete orderServices[orderId];
     };
 
+    this.getTemplateMap = function()
+    {
+        return templateMap;
+    };
+
+    this.getTemplate = function(type)
+    {
+        if (templates.hasOwnProperty(type)) {
+            return templates[type];
+        }
+        return null;
+    };
+
+    this.addTemplate = function(type, template)
+    {
+        templates[type] = template;
+        return this;
+    };
+
     var init = function()
     {
         var self = this;
         dataTable.on('before-cgdatatable-init', function()
         {
             self.addOrderIdsToAjaxRequest()
+                .addOrderServicesToAjaxRequest()
                 .addElementsToColumns()
                 .disableInputsForCreatedLabels();
         });
@@ -38,11 +60,6 @@ function CourierSpecificsDataTable(dataTable, orderIds, courierAccountId, orderS
     init.call(this);
 }
 
-CourierSpecificsDataTable.COLUMN_SERVICE = 'service';
-CourierSpecificsDataTable.COLUMN_PARCELS = 'parcels';
-CourierSpecificsDataTable.COLUMN_COLLECTION_DATE = 'collectionDate';
-CourierSpecificsDataTable.COLUMN_ACTIONS = 'actions';
-CourierSpecificsDataTable.COLUMN_ITEM_PARCEL_ASSIGN = 'itemParcelAssignment';
 CourierSpecificsDataTable.SELECTOR_SERVICE_SELECT_PREFIX = '#courier-service-select-';
 CourierSpecificsDataTable.SELECTOR_PARCELS_ELEMENT = '#courier-parcels-input-container';
 CourierSpecificsDataTable.SELECTOR_DATEPICKER_ELEMENT = '#courier-order-collectionDate-container';
@@ -61,6 +78,15 @@ CourierSpecificsDataTable.labelStatusActions = {
     'creating': {}
 };
 
+CourierSpecificsDataTable.columnRenderers = {
+    service: "addCustomSelectToServiceColumn",
+    parcels: "addInlineTextToParcelsColumn",
+    collectionDate: "addDatePickerToCollectionDateColumn",
+    actions: "addButtonsToActionsColumn",
+    itemParcelAssignment: "addItemParcelAssignmentButtonColumn",
+    packageType: "addCustomSelectToPackageTypeColumn"
+};
+
 CourierSpecificsDataTable.prototype = Object.create(CourierDataTableAbstract.prototype);
 
 /**
@@ -68,26 +94,33 @@ CourierSpecificsDataTable.prototype = Object.create(CourierDataTableAbstract.pro
  */
 CourierSpecificsDataTable.prototype.distinctStatusActions = {};
 
+CourierSpecificsDataTable.prototype.addOrderServicesToAjaxRequest = function()
+{
+    var orderServices = this.getOrderServices();
+    // We just need this for the initial load, Service.js::refresh() will take care of it after that
+    this.getDataTable().one("fnServerData", function(event, sSource, aoData, fnCallback, oSettings)
+    {
+        for (var orderId in orderServices)
+        {
+            aoData.push({
+                'name': 'orderData['+orderId+'][service]',
+                'value': orderServices[orderId]
+            });
+        }
+    });
+    return this;
+};
+
 CourierSpecificsDataTable.prototype.addElementsToColumns = function()
 {
     var self = this;
     this.getDataTable().on('renderColumn', function(event, cgmustache, template, column, data)
     {
-        if (column.mData == CourierSpecificsDataTable.COLUMN_SERVICE) {
-            return self.addCustomSelectToServiceColumn(data);
+        if (!CourierSpecificsDataTable.columnRenderers.hasOwnProperty(column.mData)) {
+            return;
         }
-        if (column.mData == CourierSpecificsDataTable.COLUMN_PARCELS) {
-            return self.addInlineTextToParcelsColumn(data);
-        }
-        if (column.mData == CourierSpecificsDataTable.COLUMN_COLLECTION_DATE) {
-            return self.addDatePickerToCollectionDateColumn(data);
-        }
-        if (column.mData == CourierSpecificsDataTable.COLUMN_ACTIONS) {
-            return self.addButtonsToActionsColumn(data);
-        }
-        if (column.mData == CourierSpecificsDataTable.COLUMN_ITEM_PARCEL_ASSIGN) {
-            return self.addItemParcelAssignmentButtonColumn(data);
-        }
+        var method = CourierSpecificsDataTable.columnRenderers[column.mData];
+        self[method](data, cgmustache);
     });
     return this;
 };
@@ -213,6 +246,23 @@ CourierSpecificsDataTable.prototype.addItemParcelAssignmentButtonColumn = functi
     return this;
 };
 
+CourierSpecificsDataTable.prototype.addCustomSelectToPackageTypeColumn = function(templateData, cgMustache)
+{
+    this.fetchTemplate('select', cgMustache, function(template)
+    {
+        var data = {
+            options: []
+        };
+        for (var index in templateData.packageTypes) {
+            data.options.push({
+                title: templateData.packageTypes[index],
+                selected: (templateData.packageTypes[index] == templateData.packageType)
+            });
+        }
+        templateData.packageTypeOptions = cgMustache.renderTemplate(template, data);
+    }, true);
+};
+
 CourierSpecificsDataTable.prototype.disableInputsForCreatedLabels = function()
 {
     this.getDataTable().on('fnRowCallback', function(event, nRow, aData)
@@ -253,6 +303,19 @@ CourierSpecificsDataTable.prototype.getAndUnsetOrderService = function(orderId)
     var service = this.getOrderServices()[orderId];
     this.unsetOrderService(orderId);
     return service;
+};
+
+CourierSpecificsDataTable.prototype.fetchTemplate = function (templateName, cgMustache, callback, synchronous)
+{
+    var template = this.getTemplate(templateName);
+    if (template) {
+        callback(template, cgMustache);
+        return;
+    }
+    cgMustache.fetchTemplate(this.getTemplateMap()[templateName], function(template)
+    {
+        callback(template, cgMustache);
+    }, synchronous);
 };
 
 // The following methods are static so they can be accessed here and in the Service

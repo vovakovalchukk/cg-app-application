@@ -1042,6 +1042,8 @@ return [
                 'CourierSpecificsDeliveryInstructionsColumn' => DataTable\Column::class,
                 'CourierSpecificsItemParcelAssignmentColumnView' => ViewModel::class,
                 'CourierSpecificsItemParcelAssignmentColumn' => DataTable\Column::class,
+                'CourierSpecificsPackageTypeColumnView' => ViewModel::class,
+                'CourierSpecificsPackageTypeColumn' => DataTable\Column::class,
             ],
             'preferences' => [
                 InvoiceRendererService::class => PdfInvoiceRendererService::class,
@@ -2005,6 +2007,20 @@ return [
                     'column' => 'itemParcelAssignment',
                     'viewModel' => 'CourierSpecificsItemParcelAssignmentColumnView',
                     'class' => 'itemParcelAssignment-col',
+                    'sortable' => false,
+                ],
+            ],
+            'CourierSpecificsPackageTypeColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Package Type'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsPackageTypeColumn' => [
+                'parameters' => [
+                    'column' => 'packageType',
+                    'viewModel' => 'CourierSpecificsPackageTypeColumnView',
+                    'class' => 'package-type-col',
                     'sortable' => false,
                 ],
             ],
