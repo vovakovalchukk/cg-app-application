@@ -83,7 +83,7 @@
         "channelgrabber/zf2-logclient": "~1.4.2",
         "channelgrabber/zf2-login": "~1.4.30",
         "channelgrabber/zf2-mustache": "~1.0.1",
-        "channelgrabber/zf2-netdespatch": "~1.0.0",
+        "channelgrabber/zf2-netdespatch": "dev-CGIV-6853-netdespatch-improvements2 as 1.0.1",
         "channelgrabber/zf2-permission": "~1.1.12",
         "channelgrabber/zf2-register": "~1.4.42",
         "channelgrabber/zf2-royalmail": "~1.1.1",

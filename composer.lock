@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d3ba84229cc6e1f86756bdf8fa54a9a5",
-    "content-hash": "b9d3e6e8652215f6537ce9c10d88163f",
+    "hash": "a67b25701ea86fbc93a6e90f9431aee5",
+    "content-hash": "a09a7dd64c92e5d5dceaccb26c4dad00",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3121,16 +3121,16 @@
         },
         {
             "name": "channelgrabber/zf2-netdespatch",
-            "version": "1.0.0",
+            "version": "dev-CGIV-6853-netdespatch-improvements2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/netdespatch-module.git",
-                "reference": "951a92e27872c261d72e6a4334d91f2902e7554d"
+                "reference": "15a927883876df99f8600afac71ac892e0e0b5e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-1.0.0-a4d44f.zip",
-                "reference": "951a92e27872c261d72e6a4334d91f2902e7554d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-CGIV-6853-netdespatch-improvements2-c1ee57.zip",
+                "reference": "15a927883876df99f8600afac71ac892e0e0b5e4",
                 "shasum": null
             },
             "require": {
@@ -3161,7 +3161,7 @@
                 ]
             },
             "description": "NetDespatch module",
-            "time": "2016-03-07 12:16:54"
+            "time": "2016-03-18 12:32:46"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -7664,6 +7664,12 @@
             "package": "channelgrabber/channel"
         },
         {
+            "alias": "1.0.1",
+            "alias_normalized": "1.0.1.0",
+            "version": "dev-CGIV-6853-netdespatch-improvements2",
+            "package": "channelgrabber/zf2-netdespatch"
+        },
+        {
             "alias": "1.16.38",
             "alias_normalized": "1.16.38.0",
             "version": "dev-CGIV-6853-netdespatch-improvements2",
@@ -7674,6 +7680,7 @@
     "stability-flags": {
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-netdespatch": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
