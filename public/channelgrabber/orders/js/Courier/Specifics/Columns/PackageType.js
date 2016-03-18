@@ -1,4 +1,4 @@
-define(['AjaxRequester'], function(ajaxRequester)
+define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
 {
     function PackageType(templateMap)
     {
@@ -19,10 +19,11 @@ define(['AjaxRequester'], function(ajaxRequester)
             return template;
         };
 
-        this.setTemplate = function()
+        this.setTemplate = function(newTemplate)
         {
-
-        }
+            template = newTemplate;
+            return this;
+        };
 
         var init = function()
         {
@@ -31,27 +32,82 @@ define(['AjaxRequester'], function(ajaxRequester)
         init.call(this);
     }
 
+    PackageType.SELECTOR_PACKAGE_TYPE_PREFIX = '#courier-package-type_';
+    PackageType.SELECTOR_PACKAGE_TYPE_CONTAINER = '.courier-package-type-options';
     PackageType.SELECTOR_SERVICE_SELECT = '.courier-service-custom-select';
-    PackageType.URI = '/orders/courier/specifics/packageTypes';
+    PackageType.SELECTOR_ACCOUNT_INPUT = '#courier-specifics-label-form input';
+    PackageType.URI = '/orders/courier/specifics/{accountId}/optionData';
+    PackageType.LOADER = '<img src="/cg-built/zf2-v4-ui/img/loading-transparent-21x21.gif">';
 
     PackageType.prototype.listenForServiceChanges = function()
     {
         var self = this;
         $(document).on('change', PackageType.SELECTOR_SERVICE_SELECT, function(event, element, value)
         {
-            var orderId = element.dataset.elementName.match(/^orderData\[(.+?)\]/)[1];
-            self.updateOptionsForOrder(orderId);
+            var orderId = $(element).data('elementName').match(/^orderData\[(.+?)\]/)[1];
+            self.updateOptionsForOrder(orderId, value);
         });
     };
 
-    PackageType.prototype.updateOptionsForOrder = function(orderId)
+    PackageType.prototype.updateOptionsForOrder = function(orderId, service)
     {
-        // TODO: disable the current packageType dropdown / show its loading somehow
-        this.getAjaxRequester().sendRequest(PackageType.URI, data, function(response)
+        var self = this;
+        var selected = $(PackageType.SELECTOR_PACKAGE_TYPE_PREFIX + orderId + ' input').val();
+        var container = $(PackageType.SELECTOR_PACKAGE_TYPE_PREFIX + orderId)
+            .closest(PackageType.SELECTOR_PACKAGE_TYPE_CONTAINER);
+        container.empty().html(PackageType.LOADER);
+
+        this.fetchTemplate()
+            .then(function(template)
+            {
+                var data = {
+                    order: orderId,
+                    option: "packageTypes",
+                    service: service
+                };
+                var accountId = $(PackageType.SELECTOR_ACCOUNT_INPUT).val();
+                var uri = PackageType.URI.replace('{accountId}', accountId);
+                self.getAjaxRequester().sendRequest(uri, data, function(response)
+                {
+                    self.renderNewOptions(template, orderId, response.packageTypes, selected, container);
+                });
+            });
+    };
+
+    PackageType.prototype.fetchTemplate = function()
+    {
+        var self = this;
+        return new Promise(function(resolve, reject)
         {
-            // TODO: get the mustache template (pre-load it?)
-            // remove the old dropdown and render the new one over the top
+            var template = self.getTemplate();
+            if (template) {
+                resolve(template);
+                return;
+            }
+            CGMustache.get().fetchTemplate(self.getTemplateMap()['select'], function(template)
+            {
+                resolve(template);
+            });
         });
+    };
+
+    PackageType.prototype.renderNewOptions = function(template, orderId, options, selected, container)
+    {
+        var data = {
+            id: PackageType.SELECTOR_PACKAGE_TYPE_PREFIX.replace('#', '') + orderId,
+            name: 'orderData[' + orderId + '][packageType]',
+            class: 'required',
+            options: []
+        };
+        for (var index in options) {
+            data.options.push({
+                title: options[index],
+                selected: (options[index] == selected)
+            });
+        }
+        var html = CGMustache.get().renderTemplate(template, data);
+        container.empty().append(html);
+        return this;
     };
 
     return PackageType;

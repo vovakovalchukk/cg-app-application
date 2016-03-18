@@ -590,6 +590,13 @@ class Service implements LoggerAwareInterface
         return $orderMetaData;
     }
 
+    public function getDataForCarrierOption($option, $orderId, $accountId, $service = null)
+    {
+        $order = $this->orderService->fetch($orderId);
+        $account = $this->accountService->fetch($accountId);
+        return $this->carrierBookingOptions->getDataForCarrierBookingOption($option, $order, $account, $service);
+    }
+
     protected function setOrderService(OrderService $orderService)
     {
         $this->orderService = $orderService;

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "08bfa24f9e5e0392bb9298882ab58f07",
-    "content-hash": "5fe465fe843ce715a2c010e251e5bed1",
+    "hash": "ddc6aae1400b9c8d66da30b589942bf9",
+    "content-hash": "da46a9854e60be4abcc359344fab1e1c",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -309,12 +309,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "7d2d9a1915e1a364821f75d27651baddbe55e466"
+                "reference": "76122c08bb0f8c23e10f1328c1b017439eabdaa1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6866-netdespatch-service-option-changes-cda1b1.zip",
-                "reference": "7d2d9a1915e1a364821f75d27651baddbe55e466",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6866-netdespatch-service-option-changes-750b5e.zip",
+                "reference": "76122c08bb0f8c23e10f1328c1b017439eabdaa1",
                 "shasum": null
             },
             "require": {
@@ -377,7 +377,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-03-17 09:58:38"
+            "time": "2016-03-18 14:18:43"
         },
         {
             "name": "channelgrabber/cilex",
@@ -488,12 +488,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "ea2a5807d11e110fe005663a768284837664cab8"
+                "reference": "dbcca17b0d849200c78e7ae794c1541907ce3373"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6866-netdespatch-service-option-changes-04bfa9.zip",
-                "reference": "ea2a5807d11e110fe005663a768284837664cab8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6866-netdespatch-service-option-changes-19b177.zip",
+                "reference": "dbcca17b0d849200c78e7ae794c1541907ce3373",
                 "shasum": null
             },
             "require": {
@@ -526,7 +526,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-03-17 11:10:30"
+            "time": "2016-03-18 14:26:07"
         },
         {
             "name": "channelgrabber/db",
@@ -1189,12 +1189,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "2e9f71e0d683763057b4c81d3823465f44713803"
+                "reference": "6c29d387d085d892f6cd138c730a9714fb81f247"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6866-netdespatch-service-option-changes-2489c0.zip",
-                "reference": "2e9f71e0d683763057b4c81d3823465f44713803",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6866-netdespatch-service-option-changes-6a5c10.zip",
+                "reference": "6c29d387d085d892f6cd138c730a9714fb81f247",
                 "shasum": null
             },
             "require": {
@@ -1229,7 +1229,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-03-17 10:59:55"
+            "time": "2016-03-18 14:20:47"
         },
         {
             "name": "channelgrabber/notification",
@@ -7676,16 +7676,16 @@
             "package": "channelgrabber/netdespatch"
         },
         {
-            "alias": "1.16.39",
-            "alias_normalized": "1.16.39.0",
-            "version": "dev-CGIV-6866-netdespatch-service-option-changes",
-            "package": "channelgrabber/zf2-v4-ui"
-        },
-        {
             "alias": "1.0.1",
             "alias_normalized": "1.0.1.0",
             "version": "dev-CGIV-6853-netdespatch-improvements2",
             "package": "channelgrabber/zf2-netdespatch"
+        },
+        {
+            "alias": "1.16.39",
+            "alias_normalized": "1.16.39.0",
+            "version": "dev-CGIV-6866-netdespatch-service-option-changes",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",

@@ -730,6 +730,17 @@ return [
                                             ]
                                         ],
                                         'may_terminate' => true,
+                                    ],
+                                    CourierJsonController::ROUTE_SPECIFICS_OPTION_DATA => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/optionData',
+                                            'defaults' => [
+                                                'controller' => CourierJsonController::class,
+                                                'action' => 'optionData',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
                                     ]
                                 ]
                             ],
