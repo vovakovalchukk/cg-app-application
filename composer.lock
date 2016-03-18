@@ -3121,16 +3121,16 @@
         },
         {
             "name": "channelgrabber/zf2-netdespatch",
-            "version": "1.0.0",
+            "version": "dev-CGIV-6853-netdespatch-improvements2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/netdespatch-module.git",
-                "reference": "951a92e27872c261d72e6a4334d91f2902e7554d"
+                "reference": "15a927883876df99f8600afac71ac892e0e0b5e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-1.0.0-a4d44f.zip",
-                "reference": "951a92e27872c261d72e6a4334d91f2902e7554d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-CGIV-6853-netdespatch-improvements2-c1ee57.zip",
+                "reference": "15a927883876df99f8600afac71ac892e0e0b5e4",
                 "shasum": null
             },
             "require": {
@@ -3161,7 +3161,7 @@
                 ]
             },
             "description": "NetDespatch module",
-            "time": "2016-03-07 12:16:54"
+            "time": "2016-03-18 12:32:46"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -7680,6 +7680,12 @@
             "alias_normalized": "1.16.39.0",
             "version": "dev-CGIV-6866-netdespatch-service-option-changes",
             "package": "channelgrabber/zf2-v4-ui"
+        },
+        {
+            "alias": "1.0.1",
+            "alias_normalized": "1.0.1.0",
+            "version": "dev-CGIV-6853-netdespatch-improvements2",
+            "package": "channelgrabber/zf2-netdespatch"
         }
     ],
     "minimum-stability": "stable",
@@ -7688,6 +7694,7 @@
         "channelgrabber/constants": 20,
         "channelgrabber/dataplug": 20,
         "channelgrabber/netdespatch": 20,
+        "channelgrabber/zf2-netdespatch": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
