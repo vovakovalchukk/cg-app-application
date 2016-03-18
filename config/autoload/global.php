@@ -687,6 +687,12 @@ return array(
                                 'signature' => false,
                                 'deliveryInstructions' => false,
                             ],
+                            'links' => [
+                                [
+                                    'description' => 'Credentials Guide',
+                                    'source' => 'http://help.orderhub.io/hc/en-us/articles/206517099-DHL',
+                                ],
+                            ],
                         ],
                         [
                             'channelName' => DataplugCarriers::DPD,
@@ -731,6 +737,12 @@ return array(
                                 'insuranceMonetary' => false,
                                 'signature' => false,
                             ],
+                            'links' => [
+                                [
+                                    'description' => 'Credentials Guide',
+                                    'source' => 'http://help.orderhub.io/hc/en-us/articles/206517189-DPD',
+                                ],
+                            ],
                         ],
                         [
                             'channelName' => DataplugCarriers::FEDEX,
@@ -759,6 +771,12 @@ return array(
                                 'signature' => false,
                                 'deliveryInstructions' => false,
                             ],
+                            'links' => [
+                                [
+                                    'description' => 'Credentials Guide',
+                                    'source' => 'http://help.orderhub.io/hc/en-us/articles/207217195-Fedex',
+                                ],
+                            ],
                         ],
                         [
                             'channelName' => DataplugCarriers::INTERLINK,
@@ -785,6 +803,12 @@ return array(
                             'options' => [
                                 'insuranceMonetary' => false,
                                 'signature' => false,
+                            ],
+                            'links' => [
+                                [
+                                    'description' => 'Credentials Guide',
+                                    'source' => 'http://help.orderhub.io/hc/en-us/articles/206521369-Interlink-Express',
+                                ],
                             ],
                         ],
 
@@ -843,6 +867,12 @@ return array(
                                 'insuranceMonetary' => false,
                                 'signature' => false,
                             ],
+                            'links' => [
+                                [
+                                    'description' => 'Credentials Guide',
+                                    'source' => 'http://help.orderhub.io/hc/en-us/articles/207220525-Parcelforce',
+                                ],
+                            ],
                         ],
                         [
                             'channelName' => DataplugCarriers::TNT,
@@ -878,6 +908,12 @@ return array(
                                 'insuranceMonetary' => false,
                                 'signature' => false,
                                 'deliveryInstructions' => false,
+                            ],
+                            'links' => [
+                                [
+                                    'description' => 'Credentials Guide',
+                                    'source' => 'http://help.orderhub.io/hc/en-us/articles/206521389-TNT',
+                                ],
                             ],
                         ],
                         [
@@ -932,6 +968,12 @@ return array(
                                 'signature' => false,
                                 'deliveryInstructions' => false,
                             ],
+                            'links' => [
+                                [
+                                    'description' => 'Credentials Guide',
+                                    'source' => 'http://help.orderhub.io/hc/en-us/articles/206521539-UKMail',
+                                ],
+                            ],
                         ],
                         [
                             'channelName' => DataplugCarriers::UPS,
@@ -963,6 +1005,12 @@ return array(
                             'options' => [
                                 'insuranceMonetary' => false,
                                 'deliveryInstructions' => false,
+                            ],
+                            'links' => [
+                                [
+                                    'description' => 'Credentials Guide',
+                                    'source' => 'http://help.orderhub.io/hc/en-us/articles/207220635-UPS',
+                                ],
                             ],
                         ],
                         [
@@ -1015,6 +1063,12 @@ return array(
                                 'insuranceMonetary' => false,
                                 'signature' => false,
                                 'deliveryInstructions' => false,
+                            ],
+                            'links' => [
+                                [
+                                    'description' => 'Credentials Guide',
+                                    'source' => 'http://help.orderhub.io/hc/en-us/articles/207220655-Yodel',
+                                ],
                             ],
                         ],
                     ],
