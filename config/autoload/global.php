@@ -689,7 +689,7 @@ return array(
                             ],
                             'links' => [
                                 [
-                                    'description' => 'Credentials Guide',
+                                    'description' => 'Follow this guide to get your credentials',
                                     'source' => 'http://help.orderhub.io/hc/en-us/articles/206517099-DHL',
                                 ],
                             ],
@@ -739,7 +739,7 @@ return array(
                             ],
                             'links' => [
                                 [
-                                    'description' => 'Credentials Guide',
+                                    'description' => 'Follow this guide to get your credentials',
                                     'source' => 'http://help.orderhub.io/hc/en-us/articles/206517189-DPD',
                                 ],
                             ],
@@ -773,7 +773,7 @@ return array(
                             ],
                             'links' => [
                                 [
-                                    'description' => 'Credentials Guide',
+                                    'description' => 'Follow this guide to get your credentials',
                                     'source' => 'http://help.orderhub.io/hc/en-us/articles/207217195-Fedex',
                                 ],
                             ],
@@ -806,7 +806,7 @@ return array(
                             ],
                             'links' => [
                                 [
-                                    'description' => 'Credentials Guide',
+                                    'description' => 'Follow this guide to get your credentials',
                                     'source' => 'http://help.orderhub.io/hc/en-us/articles/206521369-Interlink-Express',
                                 ],
                             ],
@@ -869,7 +869,7 @@ return array(
                             ],
                             'links' => [
                                 [
-                                    'description' => 'Credentials Guide',
+                                    'description' => 'Follow this guide to get your credentials',
                                     'source' => 'http://help.orderhub.io/hc/en-us/articles/207220525-Parcelforce',
                                 ],
                             ],
@@ -911,7 +911,7 @@ return array(
                             ],
                             'links' => [
                                 [
-                                    'description' => 'Credentials Guide',
+                                    'description' => 'Follow this guide to get your credentials',
                                     'source' => 'http://help.orderhub.io/hc/en-us/articles/206521389-TNT',
                                 ],
                             ],
@@ -970,7 +970,7 @@ return array(
                             ],
                             'links' => [
                                 [
-                                    'description' => 'Credentials Guide',
+                                    'description' => 'Follow this guide to get your credentials',
                                     'source' => 'http://help.orderhub.io/hc/en-us/articles/206521539-UKMail',
                                 ],
                             ],
@@ -1008,7 +1008,7 @@ return array(
                             ],
                             'links' => [
                                 [
-                                    'description' => 'Credentials Guide',
+                                    'description' => 'Follow this guide to get your credentials',
                                     'source' => 'http://help.orderhub.io/hc/en-us/articles/207220635-UPS',
                                 ],
                             ],
@@ -1066,7 +1066,7 @@ return array(
                             ],
                             'links' => [
                                 [
-                                    'description' => 'Credentials Guide',
+                                    'description' => 'Follow this guide to get your credentials',
                                     'source' => 'http://help.orderhub.io/hc/en-us/articles/207220655-Yodel',
                                 ],
                             ],

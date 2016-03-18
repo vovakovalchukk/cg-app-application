@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c88d601cb55feff5b62f9f8c7f2692be",
+    "hash": "c38b038bd5a96eee281326e2757e178b",
     "content-hash": "f86b7846e52593a86522e8a481bcf75e",
     "packages": [
         {
@@ -488,12 +488,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "2fdfbdd8b1f7c164236ed6585812b9568284e4f7"
+                "reference": "048f49f1abca7cdf3f2d0e319562b5b424acbc7c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6852-Courier-setup-page-links-c9d58d.zip",
-                "reference": "2fdfbdd8b1f7c164236ed6585812b9568284e4f7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6852-Courier-setup-page-links-cbb009.zip",
+                "reference": "048f49f1abca7cdf3f2d0e319562b5b424acbc7c",
                 "shasum": null
             },
             "require": {
@@ -526,7 +526,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-03-18 14:52:16"
+            "time": "2016-03-18 15:51:04"
         },
         {
             "name": "channelgrabber/db",
@@ -3475,12 +3475,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "5596328fa8161c9b6d1cacb8777cc84c7f70e9f3"
+                "reference": "88c978d73309b051f8f563609850094c694e0c43"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6852-Courier-setup-page-links-e3ad0e.zip",
-                "reference": "5596328fa8161c9b6d1cacb8777cc84c7f70e9f3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6852-Courier-setup-page-links-79d3fd.zip",
+                "reference": "88c978d73309b051f8f563609850094c694e0c43",
                 "shasum": null
             },
             "require": {
@@ -3526,7 +3526,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-03-18 15:13:40"
+            "time": "2016-03-18 15:50:37"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
