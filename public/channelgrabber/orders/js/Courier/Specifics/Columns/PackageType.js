@@ -1,29 +1,8 @@
-define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
+define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOptionsAbstract)
 {
-    function PackageType(templateMap)
+    function PackageType(templatePath)
     {
-        var template;
-
-        this.getAjaxRequester = function()
-        {
-            return ajaxRequester;
-        };
-
-        this.getTemplateMap = function()
-        {
-            return templateMap;
-        };
-
-        this.getTemplate = function()
-        {
-            return template;
-        };
-
-        this.setTemplate = function(newTemplate)
-        {
-            template = newTemplate;
-            return this;
-        };
+        ServiceDependantOptionsAbstract.call(this, templatePath);
 
         var init = function()
         {
@@ -34,65 +13,33 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
 
     PackageType.SELECTOR_PACKAGE_TYPE_PREFIX = '#courier-package-type_';
     PackageType.SELECTOR_PACKAGE_TYPE_CONTAINER = '.courier-package-type-options';
-    PackageType.SELECTOR_SERVICE_SELECT = '.courier-service-custom-select';
-    PackageType.SELECTOR_ACCOUNT_INPUT = '#courier-specifics-label-form input';
-    PackageType.URI = '/orders/courier/specifics/{accountId}/optionData';
-    PackageType.LOADER = '<img src="/cg-built/zf2-v4-ui/img/loading-transparent-21x21.gif">';
 
-    PackageType.prototype.listenForServiceChanges = function()
+    PackageType.prototype = Object.create(ServiceDependantOptionsAbstract.prototype);
+
+    PackageType.prototype.getSelectedValue = function(orderId)
     {
-        var self = this;
-        $(document).on('change', PackageType.SELECTOR_SERVICE_SELECT, function(event, element, value)
-        {
-            var orderId = $(element).data('elementName').match(/^orderData\[(.+?)\]/)[1];
-            self.updateOptionsForOrder(orderId, value);
-        });
+        return $(PackageType.SELECTOR_PACKAGE_TYPE_PREFIX + orderId + ' input').val();
     };
 
-    PackageType.prototype.updateOptionsForOrder = function(orderId, service)
+    PackageType.prototype.getContainer = function(orderId)
     {
-        var self = this;
-        var selected = $(PackageType.SELECTOR_PACKAGE_TYPE_PREFIX + orderId + ' input').val();
-        var container = $(PackageType.SELECTOR_PACKAGE_TYPE_PREFIX + orderId)
+        return $(PackageType.SELECTOR_PACKAGE_TYPE_PREFIX + orderId)
             .closest(PackageType.SELECTOR_PACKAGE_TYPE_CONTAINER);
-        container.empty().html(PackageType.LOADER);
-
-        this.fetchTemplate()
-            .then(function(template)
-            {
-                var data = {
-                    order: orderId,
-                    option: "packageTypes",
-                    service: service
-                };
-                var accountId = $(PackageType.SELECTOR_ACCOUNT_INPUT).val();
-                var uri = PackageType.URI.replace('{accountId}', accountId);
-                self.getAjaxRequester().sendRequest(uri, data, function(response)
-                {
-                    self.renderNewOptions(template, orderId, response.packageTypes, selected, container);
-                });
-            });
     };
 
-    PackageType.prototype.fetchTemplate = function()
+    PackageType.prototype.getOptionName = function()
     {
-        var self = this;
-        return new Promise(function(resolve, reject)
-        {
-            var template = self.getTemplate();
-            if (template) {
-                resolve(template);
-                return;
-            }
-            CGMustache.get().fetchTemplate(self.getTemplateMap()['select'], function(template)
-            {
-                resolve(template);
-            });
-        });
+        return 'packageTypes';
     };
 
-    PackageType.prototype.renderNewOptions = function(template, orderId, options, selected, container)
-    {
+    PackageType.prototype.renderNewOptions = function(
+        cgMustache,
+        template,
+        orderId,
+        options,
+        selected,
+        container
+    ) {
         var data = {
             id: PackageType.SELECTOR_PACKAGE_TYPE_PREFIX.replace('#', '') + orderId,
             name: 'orderData[' + orderId + '][packageType]',
@@ -105,7 +52,7 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
                 selected: (options[index] == selected)
             });
         }
-        var html = CGMustache.get().renderTemplate(template, data);
+        var html = cgMustache.renderTemplate(template, data);
         container.empty().append(html);
         return this;
     };

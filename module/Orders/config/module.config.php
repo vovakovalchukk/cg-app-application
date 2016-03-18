@@ -2046,7 +2046,8 @@ return [
             'CourierSpecificsAddOnsColumnView' => [
                 'parameters' => [
                     'variables' => ['value' => 'Add-ons'],
-                    'template' => 'value.phtml',
+                    // Note: this is NOT using the standard template but a bespoke one that loads up some JS
+                    'template' => 'orders/courier/specifics/columns/addOns.phtml',
                 ],
             ],
             'CourierSpecificsAddOnsColumn' => [
