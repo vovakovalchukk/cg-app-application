@@ -17,7 +17,7 @@
     clear:both;
     margin-bottom: 20px;
     .label {
-      width: 35%;
+      width: 40%;
       float: left;
       clear:both;
       position: relative;
@@ -58,4 +58,6 @@
   width: 100%;
   float: left;
   margin-bottom: 10px;
+  padding-left: 40%;
+  box-sizing: border-box;
 }
