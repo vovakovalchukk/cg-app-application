@@ -285,7 +285,15 @@ define([
         for (var count in inputData) {
             var name = inputData[count].name;
             var value = inputData[count].value;
-            ajaxData[name] = value;
+            if (name.match(/\[\]$/)) {
+                name = name.replace(/\[\]$/, '');
+                if (!ajaxData.hasOwnProperty(name)) {
+                    ajaxData[name] = [];
+                }
+                ajaxData[name].push(value);
+            } else {
+                ajaxData[name] = value;
+            }
         }
         return ajaxData;
     };

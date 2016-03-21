@@ -273,7 +273,7 @@ CourierSpecificsDataTable.prototype.addCustomSelectToAddOnsColumn = function(tem
     {
         var data = {
             id: 'courier-add-ons_' + templateData.orderId,
-            name: 'orderData[' + templateData.orderId + '][addOns]',
+            name: 'orderData[' + templateData.orderId + '][addOn]',
             emptyTitle: " ",
             searchField: false,
             options: []
@@ -281,6 +281,7 @@ CourierSpecificsDataTable.prototype.addCustomSelectToAddOnsColumn = function(tem
         for (var index in templateData.addOns) {
             data.options.push({
                 title: templateData.addOns[index],
+                selected: (templateData.addOn && templateData.addOn.indexOf(templateData.addOns[index]) > -1)
             });
         }
         templateData.addOnsOptions = cgMustache.renderTemplate(template, data);

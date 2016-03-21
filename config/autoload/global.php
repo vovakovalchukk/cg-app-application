@@ -1040,8 +1040,8 @@ return array(
                         '48' => '48',
                         'TPN01' => '24 Tracked',
                         'TPS01' => '48 Tracked',
-                        'RMSD1' => 'Special Delivery 9am',
-                        'RMSD9' => 'Special Delivery 1pm',
+                        'RMSD9' => 'Special Delivery 9am',
+                        'RMSD1' => 'Special Delivery 1pm',
                         'STL1'  => '1st Class (STL)',
                         'STL2'  => '2nd Class (STL)',
                     ],
@@ -1206,11 +1206,11 @@ return array(
                         ],
                         'RMSD1' => [
                             'packageTypes' => ['Parcel'],
-                            'addOns' => ['Saturday', 'Insurance £50', 'Insurance £1000', 'Insurance £2500']
+                            'addOns' => ['Saturday', 'Insurance £500', 'Insurance £1000', 'Insurance £2500']
                         ],
                         'RMSD9' => [
                             'packageTypes' => ['Parcel'],
-                            'addOns' => ['Saturday', 'Insurance £500', 'Insurance £1000', 'Insurance £2500']
+                            'addOns' => ['Saturday', 'Insurance £50', 'Insurance £1000', 'Insurance £2500']
                         ],
                         'STL1'  => [
                             'packageTypes' => ['Letter', 'Large Letter', 'Parcel'],

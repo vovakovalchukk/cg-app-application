@@ -56,7 +56,7 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
     ) {
         var data = {
             id: AddOns.SELECTOR_ADD_ONS_PREFIX.replace('#', '') + orderId,
-            name: 'orderData[' + orderId + '][addOns]',
+            name: 'orderData[' + orderId + '][addOn]',
             emptyTitle: " ",
             searchField: false,
             options: []

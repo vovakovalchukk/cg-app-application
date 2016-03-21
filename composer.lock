@@ -1189,12 +1189,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "6c29d387d085d892f6cd138c730a9714fb81f247"
+                "reference": "413b049493ed3642dc547b0a32c32a8dc3040bce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6866-netdespatch-service-option-changes-6a5c10.zip",
-                "reference": "6c29d387d085d892f6cd138c730a9714fb81f247",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6866-netdespatch-service-option-changes-1ce0c7.zip",
+                "reference": "413b049493ed3642dc547b0a32c32a8dc3040bce",
                 "shasum": null
             },
             "require": {
@@ -1211,6 +1211,10 @@
                 "php-jsonpatch/php-jsonpatch": "dev-master",
                 "php-jsonpointer/php-jsonpointer": "dev-master",
                 "zendframework/zend-di": ">=2.2.5"
+            },
+            "require-dev": {
+                "channelgrabber/phpunit": "^1.0.4",
+                "phpunit/phpunit": "4.2.*"
             },
             "type": "di-definition",
             "autoload": {
@@ -1229,7 +1233,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-03-18 14:20:47"
+            "time": "2016-03-21 14:40:25"
         },
         {
             "name": "channelgrabber/notification",
