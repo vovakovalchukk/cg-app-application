@@ -6,7 +6,8 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
 
         var init = function()
         {
-            this.listenForServiceChanges()
+            this.toggleDeliveryInstructions()
+                .listenForServiceChanges()
                 .listenForAddOnOptionChanges()
                 .listenForAddOnSelectAll();
         };
@@ -16,6 +17,10 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
     AddOns.SELECTOR_ADD_ONS_PREFIX = '#courier-add-ons_';
     AddOns.SELECTOR_ADD_ONS_CONTAINER = '.courier-add-ons-options';
     AddOns.SELECTOR_ADD_ONS_OPTION = '.custom-select-item';
+    AddOns.SELECTOR_TABLE = '#datatable';
+    AddOns.SELECTOR_DEL_INSTR_TH = '.deliveryInstructions-col';
+    AddOns.SELECTOR_DEL_INSTR_INPUT = '.courier-order-deliveryInstructions';
+    AddOns.SELECTOR_DEL_INSTR_INPUT_ID_PREFIX = '#courier-order-deliveryInstructions-';
 
     AddOns.prototype = Object.create(ServiceDependantOptionsAbstract.prototype);
 
@@ -23,6 +28,56 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
         ['Insurance £50', 'Insurance £500', 'Insurance £1000', 'Insurance £2500'],
         ['Signature', 'Safe Place']
     ];
+    AddOns.prototype.addOnsRequiringDeliveryInstructions = ['Safe Place'];
+
+    AddOns.prototype.toggleDeliveryInstructions = function()
+    {
+        var self = this;
+        $(AddOns.SELECTOR_TABLE).on('fnDrawCallback', function()
+        {
+            $(AddOns.SELECTOR_DEL_INSTR_INPUT).each(function()
+            {
+                var input = this;
+                var hide = true;
+                var orderId = $(input).attr('name').match(/^orderData\[(.+?)\]/)[1];
+                $(input).closest('tr').find(AddOns.SELECTOR_ADD_ONS_CONTAINER + ' ' + AddOns.SELECTOR_ADD_ONS_OPTION).each(function()
+                {
+                    var li = this;
+                    if ($(li).find('input').is(':checked') && self.addOnsRequiringDeliveryInstructions.indexOf($(li).data('value')) > -1) {
+                        hide = false;
+                        return false; // break
+                    }
+                });
+                if (hide) {
+                    $(input).closest('tr').find(AddOns.SELECTOR_DEL_INSTR_INPUT).hide();
+                }
+            });
+            if ($(AddOns.SELECTOR_DEL_INSTR_INPUT + ':visible').length == 0) {
+                $(AddOns.SELECTOR_DEL_INSTR_TH).hide();
+                $(AddOns.SELECTOR_DEL_INSTR_INPUT).closest('td').hide();
+            }
+        });
+        return this;
+    };
+
+    AddOns.prototype.showDeliveryInstructionsForOrder = function(orderId)
+    {
+        $(AddOns.SELECTOR_DEL_INSTR_TH).show();
+        $(AddOns.SELECTOR_DEL_INSTR_INPUT).closest('td').show();
+        $(AddOns.SELECTOR_DEL_INSTR_INPUT_ID_PREFIX + orderId).addClass('required').show();
+        return this;
+    };
+
+    AddOns.prototype.hideDeliveryInstructionsForOrder = function(orderId)
+    {
+        $(AddOns.SELECTOR_DEL_INSTR_INPUT_ID_PREFIX + orderId)
+            .removeClass('required').hide();
+        if ($(AddOns.SELECTOR_DEL_INSTR_INPUT + ':visible').length == 0) {
+            $(AddOns.SELECTOR_DEL_INSTR_TH).hide();
+            $(AddOns.SELECTOR_DEL_INSTR_INPUT).closest('td').hide();
+        }
+        return this;
+    };
 
     AddOns.prototype.getSelectedValue = function(orderId)
     {
@@ -78,7 +133,8 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
         $(document).on('click', AddOns.SELECTOR_ADD_ONS_CONTAINER + ' ' + AddOns.SELECTOR_ADD_ONS_OPTION, function()
         {
             var li = this;
-            self.deSelectMutuallyExclusiveOptions(li);
+            self.deSelectMutuallyExclusiveOptions(li)
+                .showAdditionalFieldsForAddOn($(li).data('value'), $(li).find('input').is(':checked'), $(li).attr('id').split('_').pop());
         });
         return this;
     };
@@ -86,7 +142,7 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
     AddOns.prototype.deSelectMutuallyExclusiveOptions = function(li)
     {
         if (!$(li).find('input:checkbox').is(':checked')) {
-            return;
+            return this;
         }
         var mutuallyExclusiveOptions = this.mutuallyExclusiveOptions;
         var value =  $(li).data('value');
@@ -106,6 +162,7 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
                 $(this).click();
             });
         }
+        return this;
     };
 
     AddOns.prototype.listenForAddOnSelectAll = function()
@@ -120,6 +177,20 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
                 self.deSelectMutuallyExclusiveOptions(li);
             });
         });
+        return this;
+    };
+
+    AddOns.prototype.showAdditionalFieldsForAddOn = function(addOn, selected, orderId)
+    {
+        if (this.addOnsRequiringDeliveryInstructions.indexOf(addOn) == -1) {
+            return;
+        }
+        if (selected) {
+            this.showDeliveryInstructionsForOrder(orderId);
+        } else {
+            this.hideDeliveryInstructionsForOrder(orderId);
+        }
+        return this;
     };
 
     return AddOns;

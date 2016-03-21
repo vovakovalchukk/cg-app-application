@@ -1168,7 +1168,7 @@ return array(
                         'insurance' => false,
                         'insuranceMonetary' => false,
                         'signature' => false,
-                        'deliveryInstructions' => false,
+                        'deliveryInstructions' => true,
                         'itemParcelAssignment' => false,
                     ],
                     'carrierBookingOptionsInternational' => [
