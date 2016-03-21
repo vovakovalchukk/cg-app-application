@@ -39,6 +39,7 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
             var orderId = $(element).data('elementName').match(/^orderData\[(.+?)\]/)[1];
             self.updateOptionsForOrder(orderId, value);
         });
+        return this;
     };
 
     ServiceDependantOptionsAbstract.prototype.updateOptionsForOrder = function(orderId, service)
@@ -65,6 +66,7 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
                     );
                 });
             });
+        return this;
     };
 
     ServiceDependantOptionsAbstract.prototype.getSelectedValue = function(orderId)
