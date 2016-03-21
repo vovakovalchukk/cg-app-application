@@ -1019,6 +1019,7 @@ return array(
                         ],
                     ],
                     'defaultOptions' => [
+                        'parcels' => true,
                         'collectionDate' => true,
                         'weight' => true,
                         'height' => true,
@@ -1155,6 +1156,8 @@ return array(
             NetDespatchShippingOptionsProvider::class => [
                 'parameters' => [
                     'carrierBookingOptionsDomestic' => [
+                        'parcels' => false,
+                        'collectionDate' => false,
                         'weight' => true,
                         'packageType' => true,
                         'addOns' => true,
@@ -1169,6 +1172,8 @@ return array(
                         'itemParcelAssignment' => false,
                     ],
                     'carrierBookingOptionsInternational' => [
+                        'parcels' => false,
+                        'collectionDate' => false,
                         'weight' => true,
                         'packageType' => false,
                         'addOns' => false,

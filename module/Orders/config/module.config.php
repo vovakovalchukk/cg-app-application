@@ -1767,7 +1767,6 @@ return [
                         ['column' => 'CourierSpecificsBuyerOrderColumn'],
                         ['column' => 'CourierSpecificsShippingMethodColumn'],
                         ['column' => 'CourierSpecificsServiceColumn'],
-                        ['column' => 'CourierSpecificsParcelsColumn'],
                         ['column' => 'CourierSpecificsItemImageColumn'],
                         ['column' => 'CourierSpecificsItemColumn'],
                     ],
@@ -1799,6 +1798,7 @@ return [
                     'viewModel' => 'CourierSpecificsBuyerOrderColumnView',
                     'class' => 'buyerOrder-col',
                     'sortable' => false,
+                    'order' => 10,
                 ],
             ],
             'CourierSpecificsShippingMethodColumnView' => [
@@ -1813,6 +1813,7 @@ return [
                     'viewModel' => 'CourierSpecificsShippingMethodColumnView',
                     'class' => 'shippingMethod-col',
                     'sortable' => false,
+                    'order' => 20,
                 ],
             ],
             'CourierSpecificsServiceColumnView' => [
@@ -1827,6 +1828,7 @@ return [
                     'viewModel' => 'CourierSpecificsServiceColumnView',
                     'class' => 'service-col',
                     'sortable' => false,
+                    'order' => 30,
                 ],
             ],
             'CourierSpecificsParcelsColumnView' => [
@@ -1841,6 +1843,7 @@ return [
                     'viewModel' => 'CourierSpecificsParcelsColumnView',
                     'class' => 'parcels-col',
                     'sortable' => false,
+                    'order' => 40,
                     'width' => '100px',
                 ],
             ],
@@ -1856,6 +1859,7 @@ return [
                     'viewModel' => 'CourierSpecificsCollectionDateColumnView',
                     'class' => 'collectionDate-col',
                     'sortable' => false,
+                    'order' => 50,
                 ],
             ],
             'CourierSpecificsItemImageColumnView' => [
@@ -1870,6 +1874,7 @@ return [
                     'viewModel' => 'CourierSpecificsItemImageColumnView',
                     'class' => 'itemImage-col',
                     'sortable' => false,
+                    'order' => 60,
                 ],
             ],
             'CourierSpecificsItemColumnView' => [
@@ -1884,6 +1889,7 @@ return [
                     'viewModel' => 'CourierSpecificsItemColumnView',
                     'class' => 'item-col',
                     'sortable' => false,
+                    'order' => 70,
                 ],
             ],
             'CourierSpecificsActionsColumnView' => [
@@ -1898,6 +1904,7 @@ return [
                     'viewModel' => 'CourierSpecificsActionsColumnView',
                     'class' => 'actions-col',
                     'sortable' => false,
+                    'order' => 999,
                 ],
             ],
             // Optional columns, will be added to table dynamically as required
@@ -1913,6 +1920,7 @@ return [
                     'viewModel' => 'CourierSpecificsWeightColumnView',
                     'class' => 'weight-col',
                     'sortable' => false,
+                    'order' => 80,
                 ],
             ],
             'CourierSpecificsHeightColumnView' => [
@@ -1927,6 +1935,7 @@ return [
                     'viewModel' => 'CourierSpecificsHeightColumnView',
                     'class' => 'height-col',
                     'sortable' => false,
+                    'order' => 90,
                 ],
             ],
             'CourierSpecificsWidthColumnView' => [
@@ -1941,6 +1950,7 @@ return [
                     'viewModel' => 'CourierSpecificsWidthColumnView',
                     'class' => 'width-col',
                     'sortable' => false,
+                    'order' => 100,
                 ],
             ],
             'CourierSpecificsLengthColumnView' => [
@@ -1955,6 +1965,7 @@ return [
                     'viewModel' => 'CourierSpecificsLengthColumnView',
                     'class' => 'length-col',
                     'sortable' => false,
+                    'order' => 110,
                 ],
             ],
             'CourierSpecificsInsuranceColumnView' => [
@@ -1969,6 +1980,7 @@ return [
                     'viewModel' => 'CourierSpecificsInsuranceColumnView',
                     'class' => 'insurance-col',
                     'sortable' => false,
+                    'order' => 120,
                 ],
             ],
             'CourierSpecificsInsuranceMonetaryColumnView' => [
@@ -1983,6 +1995,7 @@ return [
                     'viewModel' => 'CourierSpecificsInsuranceMonetaryColumnView',
                     'class' => 'insuranceMonetary-col',
                     'sortable' => false,
+                    'order' => 130,
                 ],
             ],
             'CourierSpecificsSignatureColumnView' => [
@@ -1997,6 +2010,7 @@ return [
                     'viewModel' => 'CourierSpecificsSignatureColumnView',
                     'class' => 'signature-col',
                     'sortable' => false,
+                    'order' => 140,
                 ],
             ],
             'CourierSpecificsDeliveryInstructionsColumnView' => [
@@ -2011,6 +2025,7 @@ return [
                     'viewModel' => 'CourierSpecificsDeliveryInstructionsColumnView',
                     'class' => 'deliveryInstructions-col',
                     'sortable' => false,
+                    'order' => 150,
                     'width' => '150px',
                 ],
             ],
@@ -2026,6 +2041,7 @@ return [
                     'viewModel' => 'CourierSpecificsItemParcelAssignmentColumnView',
                     'class' => 'itemParcelAssignment-col',
                     'sortable' => false,
+                    'order' => 145,
                 ],
             ],
             'CourierSpecificsPackageTypeColumnView' => [
@@ -2041,6 +2057,7 @@ return [
                     'viewModel' => 'CourierSpecificsPackageTypeColumnView',
                     'class' => 'package-type-col',
                     'sortable' => false,
+                    'order' => 85,
                 ],
             ],
             'CourierSpecificsAddOnsColumnView' => [
@@ -2056,6 +2073,7 @@ return [
                     'viewModel' => 'CourierSpecificsAddOnsColumnView',
                     'class' => 'add-ons-col',
                     'sortable' => false,
+                    'order' => 95,
                 ],
             ],
         ],
