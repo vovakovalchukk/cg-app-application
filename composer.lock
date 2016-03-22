@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b3e2e4c6eff8ce8a1ee6e9db7d216068",
-    "content-hash": "8a9ea49eab017f7ca49b9e1f9e19d178",
+    "hash": "c2448c2f20ffc9b55169e9f3436df333",
+    "content-hash": "424377abd12174dd8e3f2efd6f97783e",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -484,16 +484,16 @@
         },
         {
             "name": "channelgrabber/dataplug",
-            "version": "dev-CGIV-6852-Courier-setup-page-links",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "84875593435d54bd18bc7ee4cb3e6c15c75164ae"
+                "reference": "56e84abbc3997e2034a19d6d19d3e435eaadaa31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6852-Courier-setup-page-links-ace933.zip",
-                "reference": "84875593435d54bd18bc7ee4cb3e6c15c75164ae",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-1.2.2-16c72e.zip",
+                "reference": "56e84abbc3997e2034a19d6d19d3e435eaadaa31",
                 "shasum": null
             },
             "require": {
@@ -526,7 +526,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-03-22 14:46:51"
+            "time": "2016-03-22 16:07:32"
         },
         {
             "name": "channelgrabber/db",
@@ -2769,16 +2769,16 @@
         },
         {
             "name": "channelgrabber/zf2-dataplug",
-            "version": "dev-CGIV-6852-Courier-setup-page-links",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/dataplug-module.git",
-                "reference": "ce7bdead902dd9a8c704a7ea1dcfd51207b7ee53"
+                "reference": "a2934ec8120c6c617e26d792a3486b23fc0a03ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-dataplug-dev-CGIV-6852-Courier-setup-page-links-074fdb.zip",
-                "reference": "ce7bdead902dd9a8c704a7ea1dcfd51207b7ee53",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-dataplug-1.0.4-3c36f3.zip",
+                "reference": "a2934ec8120c6c617e26d792a3486b23fc0a03ee",
                 "shasum": null
             },
             "require": {
@@ -2809,7 +2809,7 @@
                 ]
             },
             "description": "Dataplug module",
-            "time": "2016-03-18 15:51:51"
+            "time": "2016-03-22 16:04:44"
         },
         {
             "name": "channelgrabber/zf2-ebay",
@@ -3475,16 +3475,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-6852-Courier-setup-page-links",
+            "version": "1.16.40",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "88c978d73309b051f8f563609850094c694e0c43"
+                "reference": "66ebce6d9fe76bfa76a3f4bd374fc210560ca28a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6852-Courier-setup-page-links-79d3fd.zip",
-                "reference": "88c978d73309b051f8f563609850094c694e0c43",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.40-1d81b1.zip",
+                "reference": "66ebce6d9fe76bfa76a3f4bd374fc210560ca28a",
                 "shasum": null
             },
             "require": {
@@ -3530,7 +3530,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-03-18 15:50:37"
+            "time": "2016-03-22 16:05:39"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7661,32 +7661,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.2.1",
-            "alias_normalized": "1.2.1.0",
-            "version": "dev-CGIV-6852-Courier-setup-page-links",
-            "package": "channelgrabber/dataplug"
-        },
-        {
-            "alias": "1.0.4",
-            "alias_normalized": "1.0.4.0",
-            "version": "dev-CGIV-6852-Courier-setup-page-links",
-            "package": "channelgrabber/zf2-dataplug"
-        },
-        {
-            "alias": "1.16.40",
-            "alias_normalized": "1.16.40.0",
-            "version": "dev-CGIV-6852-Courier-setup-page-links",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/dataplug": 20,
-        "channelgrabber/zf2-dataplug": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
