@@ -7,7 +7,13 @@ $(document).ready(function()
     var courierOrderIds = <?=json_encode($this->courierOrderIds);?>;
     var courierAccountId = <?=$this->selectedCourier->getId();?>;
     var orderServices = <?=json_encode($this->orderServices);?>;
-    var specificsDataTable = new CourierSpecificsDataTable($('#datatable'), courierOrderIds, courierAccountId, orderServices);
+    var templateMap = {
+        "select": "<?=CG_UI\Module::PUBLIC_FOLDER;?>templates/elements/custom-select.mustache",
+        "multiselect": "<?=CG_UI\Module::PUBLIC_FOLDER;?>templates/elements/custom-select-group.mustache"
+    };
+    var specificsDataTable = new CourierSpecificsDataTable(
+        $('#datatable'), courierOrderIds, courierAccountId, orderServices, templateMap
+    );
 
     require([
         '<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Specifics/Service.js',

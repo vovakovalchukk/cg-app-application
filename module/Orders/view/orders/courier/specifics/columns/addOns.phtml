@@ -1,0 +1,8 @@
+<?= $value ?>
+<script type='text/javascript'>
+    require(['<?=Orders\Module::PUBLIC_FOLDER;?>js/Courier/Specifics/Columns/AddOns.js'], function(AddOns)
+    {
+        var templatePath = "<?=CG_UI\Module::PUBLIC_FOLDER;?>templates/elements/custom-select-group.mustache";
+        var addOns = new AddOns(templatePath);
+    });
+</script>

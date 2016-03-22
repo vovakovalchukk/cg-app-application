@@ -59,6 +59,11 @@ return [
             'courier-specifics-navigation'  => SidebarNavFactory::class,
         ]
     ],
+    'view_manager' => [
+        'template_path_stack' => [
+            dirname(__DIR__) . '/view/orders/',
+        ],
+    ],
     'navigation' => [
         'courier-specifics-navigation' => [
             'couriers' => [
@@ -725,6 +730,17 @@ return [
                                             ]
                                         ],
                                         'may_terminate' => true,
+                                    ],
+                                    CourierJsonController::ROUTE_SPECIFICS_OPTION_DATA => [
+                                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                                        'options' => [
+                                            'route' => '/optionData',
+                                            'defaults' => [
+                                                'controller' => CourierJsonController::class,
+                                                'action' => 'optionData',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
                                     ]
                                 ]
                             ],
@@ -1015,8 +1031,6 @@ return [
                 'CourierSpecificsServiceColumn' => DataTable\Column::class,
                 'CourierSpecificsParcelsColumnView' => ViewModel::class,
                 'CourierSpecificsParcelsColumn' => DataTable\Column::class,
-                'CourierSpecificsCollectionDateColumnView' => ViewModel::class,
-                'CourierSpecificsCollectionDateColumn' => DataTable\Column::class,
                 'CourierSpecificsItemImageColumnView' => ViewModel::class,
                 'CourierSpecificsItemImageColumn' => DataTable\Column::class,
                 'CourierSpecificsItemColumnView' => ViewModel::class,
@@ -1024,6 +1038,8 @@ return [
                 'CourierSpecificsActionsColumnView' => ViewModel::class,
                 'CourierSpecificsActionsColumn' => DataTable\Column::class,
                 // Optional columns, added to table dynamically as required
+                'CourierSpecificsCollectionDateColumnView' => ViewModel::class,
+                'CourierSpecificsCollectionDateColumn' => DataTable\Column::class,
                 'CourierSpecificsWeightColumnView' => ViewModel::class,
                 'CourierSpecificsWeightColumn' => DataTable\Column::class,
                 'CourierSpecificsHeightColumnView' => ViewModel::class,
@@ -1042,6 +1058,10 @@ return [
                 'CourierSpecificsDeliveryInstructionsColumn' => DataTable\Column::class,
                 'CourierSpecificsItemParcelAssignmentColumnView' => ViewModel::class,
                 'CourierSpecificsItemParcelAssignmentColumn' => DataTable\Column::class,
+                'CourierSpecificsPackageTypeColumnView' => ViewModel::class,
+                'CourierSpecificsPackageTypeColumn' => DataTable\Column::class,
+                'CourierSpecificsAddOnsColumnView' => ViewModel::class,
+                'CourierSpecificsAddOnsColumn' => DataTable\Column::class,
             ],
             'preferences' => [
                 InvoiceRendererService::class => PdfInvoiceRendererService::class,
@@ -1747,8 +1767,6 @@ return [
                         ['column' => 'CourierSpecificsBuyerOrderColumn'],
                         ['column' => 'CourierSpecificsShippingMethodColumn'],
                         ['column' => 'CourierSpecificsServiceColumn'],
-                        ['column' => 'CourierSpecificsParcelsColumn'],
-                        ['column' => 'CourierSpecificsCollectionDateColumn'],
                         ['column' => 'CourierSpecificsItemImageColumn'],
                         ['column' => 'CourierSpecificsItemColumn'],
                     ],
@@ -1770,7 +1788,7 @@ return [
             ],
             'CourierSpecificsBuyerOrderColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Buyer / Order ID'],
+                    'variables' => ['value' => 'Buyer /<br />Order ID'],
                     'template' => 'value.phtml',
                 ],
             ],
@@ -1780,6 +1798,7 @@ return [
                     'viewModel' => 'CourierSpecificsBuyerOrderColumnView',
                     'class' => 'buyerOrder-col',
                     'sortable' => false,
+                    'order' => 10,
                 ],
             ],
             'CourierSpecificsShippingMethodColumnView' => [
@@ -1794,6 +1813,7 @@ return [
                     'viewModel' => 'CourierSpecificsShippingMethodColumnView',
                     'class' => 'shippingMethod-col',
                     'sortable' => false,
+                    'order' => 20,
                 ],
             ],
             'CourierSpecificsServiceColumnView' => [
@@ -1808,6 +1828,7 @@ return [
                     'viewModel' => 'CourierSpecificsServiceColumnView',
                     'class' => 'service-col',
                     'sortable' => false,
+                    'order' => 30,
                 ],
             ],
             'CourierSpecificsParcelsColumnView' => [
@@ -1822,6 +1843,7 @@ return [
                     'viewModel' => 'CourierSpecificsParcelsColumnView',
                     'class' => 'parcels-col',
                     'sortable' => false,
+                    'order' => 40,
                     'width' => '100px',
                 ],
             ],
@@ -1837,6 +1859,7 @@ return [
                     'viewModel' => 'CourierSpecificsCollectionDateColumnView',
                     'class' => 'collectionDate-col',
                     'sortable' => false,
+                    'order' => 50,
                 ],
             ],
             'CourierSpecificsItemImageColumnView' => [
@@ -1851,6 +1874,7 @@ return [
                     'viewModel' => 'CourierSpecificsItemImageColumnView',
                     'class' => 'itemImage-col',
                     'sortable' => false,
+                    'order' => 60,
                 ],
             ],
             'CourierSpecificsItemColumnView' => [
@@ -1865,6 +1889,7 @@ return [
                     'viewModel' => 'CourierSpecificsItemColumnView',
                     'class' => 'item-col',
                     'sortable' => false,
+                    'order' => 70,
                 ],
             ],
             'CourierSpecificsActionsColumnView' => [
@@ -1879,12 +1904,13 @@ return [
                     'viewModel' => 'CourierSpecificsActionsColumnView',
                     'class' => 'actions-col',
                     'sortable' => false,
+                    'order' => 999,
                 ],
             ],
             // Optional columns, will be added to table dynamically as required
             'CourierSpecificsWeightColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Weight'],
+                    'variables' => ['value' => 'Weight<br />(kg)'],
                     'template' => 'value.phtml',
                 ],
             ],
@@ -1894,11 +1920,12 @@ return [
                     'viewModel' => 'CourierSpecificsWeightColumnView',
                     'class' => 'weight-col',
                     'sortable' => false,
+                    'order' => 80,
                 ],
             ],
             'CourierSpecificsHeightColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Height'],
+                    'variables' => ['value' => 'Height<br />(cm)'],
                     'template' => 'value.phtml',
                 ],
             ],
@@ -1908,11 +1935,12 @@ return [
                     'viewModel' => 'CourierSpecificsHeightColumnView',
                     'class' => 'height-col',
                     'sortable' => false,
+                    'order' => 90,
                 ],
             ],
             'CourierSpecificsWidthColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Width'],
+                    'variables' => ['value' => 'Width<br />(cm)'],
                     'template' => 'value.phtml',
                 ],
             ],
@@ -1922,11 +1950,12 @@ return [
                     'viewModel' => 'CourierSpecificsWidthColumnView',
                     'class' => 'width-col',
                     'sortable' => false,
+                    'order' => 100,
                 ],
             ],
             'CourierSpecificsLengthColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Length'],
+                    'variables' => ['value' => 'Length<br />(cm)'],
                     'template' => 'value.phtml',
                 ],
             ],
@@ -1936,6 +1965,7 @@ return [
                     'viewModel' => 'CourierSpecificsLengthColumnView',
                     'class' => 'length-col',
                     'sortable' => false,
+                    'order' => 110,
                 ],
             ],
             'CourierSpecificsInsuranceColumnView' => [
@@ -1950,6 +1980,7 @@ return [
                     'viewModel' => 'CourierSpecificsInsuranceColumnView',
                     'class' => 'insurance-col',
                     'sortable' => false,
+                    'order' => 120,
                 ],
             ],
             'CourierSpecificsInsuranceMonetaryColumnView' => [
@@ -1964,6 +1995,7 @@ return [
                     'viewModel' => 'CourierSpecificsInsuranceMonetaryColumnView',
                     'class' => 'insuranceMonetary-col',
                     'sortable' => false,
+                    'order' => 130,
                 ],
             ],
             'CourierSpecificsSignatureColumnView' => [
@@ -1978,6 +2010,7 @@ return [
                     'viewModel' => 'CourierSpecificsSignatureColumnView',
                     'class' => 'signature-col',
                     'sortable' => false,
+                    'order' => 140,
                 ],
             ],
             'CourierSpecificsDeliveryInstructionsColumnView' => [
@@ -1992,6 +2025,7 @@ return [
                     'viewModel' => 'CourierSpecificsDeliveryInstructionsColumnView',
                     'class' => 'deliveryInstructions-col',
                     'sortable' => false,
+                    'order' => 150,
                     'width' => '150px',
                 ],
             ],
@@ -2007,6 +2041,39 @@ return [
                     'viewModel' => 'CourierSpecificsItemParcelAssignmentColumnView',
                     'class' => 'itemParcelAssignment-col',
                     'sortable' => false,
+                    'order' => 145,
+                ],
+            ],
+            'CourierSpecificsPackageTypeColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Package Type'],
+                    // Note: this is NOT using the standard template but a bespoke one that loads up some JS
+                    'template' => 'orders/courier/specifics/columns/packageType.phtml',
+                ],
+            ],
+            'CourierSpecificsPackageTypeColumn' => [
+                'parameters' => [
+                    'column' => 'packageType',
+                    'viewModel' => 'CourierSpecificsPackageTypeColumnView',
+                    'class' => 'package-type-col',
+                    'sortable' => false,
+                    'order' => 85,
+                ],
+            ],
+            'CourierSpecificsAddOnsColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Add-ons'],
+                    // Note: this is NOT using the standard template but a bespoke one that loads up some JS
+                    'template' => 'orders/courier/specifics/columns/addOns.phtml',
+                ],
+            ],
+            'CourierSpecificsAddOnsColumn' => [
+                'parameters' => [
+                    'column' => 'addOns',
+                    'viewModel' => 'CourierSpecificsAddOnsColumnView',
+                    'class' => 'add-ons-col',
+                    'sortable' => false,
+                    'order' => 95,
                 ],
             ],
         ],

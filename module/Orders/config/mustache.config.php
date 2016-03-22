@@ -48,6 +48,8 @@ return [
                     'signature' => Module::PUBLIC_FOLDER . 'template/courier/columns/signature.mustache',
                     'deliveryInstructions' => Module::PUBLIC_FOLDER . 'template/courier/columns/deliveryInstructions.mustache',
                     'itemParcelAssignment' => Module::PUBLIC_FOLDER . 'template/courier/columns/itemParcelAssignment.mustache',
+                    'packageType' => Module::PUBLIC_FOLDER . 'template/courier/columns/packageType.mustache',
+                    'addOns' => Module::PUBLIC_FOLDER . 'template/courier/columns/addOns.mustache',
                     'actions' => Module::PUBLIC_FOLDER . 'template/courier/columns/actions.mustache',
                 ],
             ],
