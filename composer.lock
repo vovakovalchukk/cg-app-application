@@ -2769,12 +2769,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/dataplug-module.git",
-                "reference": "dd8e76e4c503122b859af444c491742d042aa4d9"
+                "reference": "ce7bdead902dd9a8c704a7ea1dcfd51207b7ee53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-dataplug-dev-CGIV-6852-Courier-setup-page-links-40414b.zip",
-                "reference": "dd8e76e4c503122b859af444c491742d042aa4d9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-dataplug-dev-CGIV-6852-Courier-setup-page-links-074fdb.zip",
+                "reference": "ce7bdead902dd9a8c704a7ea1dcfd51207b7ee53",
                 "shasum": null
             },
             "require": {
@@ -2805,7 +2805,7 @@
                 ]
             },
             "description": "Dataplug module",
-            "time": "2016-03-18 15:14:39"
+            "time": "2016-03-18 15:51:51"
         },
         {
             "name": "channelgrabber/zf2-ebay",
