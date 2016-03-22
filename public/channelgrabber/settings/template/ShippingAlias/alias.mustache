@@ -23,6 +23,11 @@
             <div id="services-custom-select" class="shipping-service">
                 {{> serviceCustomSelect}}
             </div>
+            {{#serviceOptions}}
+            <div id="services-options-select" class="shipping-service-options">
+                {{> serviceOptions}}
+            </div>
+            {{/serviceOptions}}
         </div>
     </div>
 </div>

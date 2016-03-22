@@ -11,9 +11,12 @@ use CG_UI\View\Prototyper\ViewModelFactory;
 use CG\Order\Shared\Shipping\Conversion\Service as ConversionService;
 use CG\Settings\Shipping\Alias\Service as ShippingService;
 use CG\User\ActiveUserInterface;
+use CG\Settings\Shipping\Alias\Collection as AliasCollection;
 use CG\Settings\Shipping\Alias\Entity as AliasEntity;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Account\Client\Filter as AccountFilter;
 use CG\Account\Client\Service as AccountService;
+use CG\Account\Shared\Entity as AccountEntity;
 
 class ShippingController extends AbstractActionController
 {
@@ -34,6 +37,11 @@ class ShippingController extends AbstractActionController
     protected $organisationUnitService;
     protected $accountService;
     protected $shippingServiceFactory;
+
+    protected $serviceOptionsTypeMap = [
+        'select' => 'custom-select',
+        'multiselect' => 'custom-select-group',
+    ];
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
@@ -110,17 +118,17 @@ class ShippingController extends AbstractActionController
     protected function getAliasView()
     {
         try {
-            $aliases = $this->getShippingService()->fetchCollectionByPagination(
-                static::LIMIT,
-                static::FIRST_PAGE,
-                [],
-                [$this->getActiveUser()->getActiveUserRootOrganisationUnitId()]
-            );
+            $aliases = $this->fetchAliasesForActiveUser();
+            $aliasAccounts = $this->fetchAccountsForAliases($aliases);
             $view = $this->getViewModelFactory()->newInstance();
             $view->setTemplate('settings/shipping/aliases/many');
             $aliasViews = [];
             foreach ($aliases as $alias) {
-                $aliasViews[] = $this->getIndividualAliasView($alias);
+                $account = null;
+                if ($alias->getAccountId()) {
+                    $account = ($aliasAccounts->getById($alias->getAccountId()));
+                }
+                $aliasViews[] = $this->getIndividualAliasView($alias, $account);
             }
             $aliasViews = array_reverse($aliasViews);
             foreach ($aliasViews as $aliasView) {
@@ -132,6 +140,29 @@ class ShippingController extends AbstractActionController
         }
     }
 
+    protected function fetchAliasesForActiveUser()
+    {
+        return $this->getShippingService()->fetchCollectionByPagination(
+            static::LIMIT,
+            static::FIRST_PAGE,
+            [],
+            [$this->getActiveUser()->getActiveUserRootOrganisationUnitId()]
+        );
+    }
+
+    protected function fetchAccountsForAliases(AliasCollection $aliases)
+    {
+        $accountIds = array_filter($aliases->getArrayOf('accountId'));
+        if (empty($accountIds)) {
+            return [];
+        }
+        $filter = (new AccountFilter())
+            ->setLimit('all')
+            ->setPage(1)
+            ->setId($accountIds);
+        return $this->accountService->fetchByFilter($filter);
+    }
+
     protected function getNoAliasesView()
     {
         $view = $this->getViewModelFactory()->newInstance();
@@ -139,22 +170,27 @@ class ShippingController extends AbstractActionController
         return $view;
     }
 
-    protected function getIndividualAliasView(AliasEntity $alias)
+    protected function getIndividualAliasView(AliasEntity $alias, AccountEntity $account = null)
     {
         $view = $this->getViewModelFactory()->newInstance([
             'id' => 'shipping-alias-' . $alias->getId(),
             'aliasId' => $alias->getId(),
             'aliasEtag' => $alias->getStoredETag()
         ]);
+        $view->setTemplate('ShippingAlias/alias.mustache');
         $view->addChild($this->getTextView($alias), 'text');
         $view->addChild($this->getDeleteButtonView($alias), 'deleteButton');
         $view->addChild($this->getMultiSelectExpandedView($alias), 'multiSelectExpanded');
         $view->addChild($this->getAccountCustomSelectView($alias), 'accountCustomSelect');
         $serviceCustomSelect = $this->getServiceCustomSelectView($alias);
-        if(!is_null($serviceCustomSelect)) {
-            $view->addChild($this->getServiceCustomSelectView($alias), 'serviceCustomSelect');
+        if (is_null($serviceCustomSelect)) {
+            return $view;
         }
-        $view->setTemplate('ShippingAlias/alias.mustache');
+        $view->addChild($serviceCustomSelect, 'serviceCustomSelect');
+        $serviceOptions = $this->getServiceOptionsView($alias, $account);
+        if ($serviceOptions) {
+            $view->addChild($serviceOptions, 'serviceOptions');
+        }
 
         return $view;
     }
@@ -213,6 +249,31 @@ class ShippingController extends AbstractActionController
         ]);
         $customSelect->setTemplate('elements/custom-select.mustache');
         return $customSelect;
+    }
+
+    protected function getServiceOptionsView(AliasEntity $alias, AccountEntity $account = null)
+    {
+        if (!$account || !$alias->getShippingService()) {
+            return null;
+        }
+        $shippingService = $this->shippingServiceFactory->createShippingService($account);
+        if (!$shippingService->doesServiceHaveOptions($alias->getShippingService())) {
+            return null;
+        }
+        $optionsData = $shippingService->getOptionsForService($alias->getShippingService(), $alias->getOptions());
+        $type = $optionsData['inputType'];
+        if (isset($this->serviceOptionsTypeMap[$type])) {
+            $type = $this->serviceOptionsTypeMap[$type];
+        }
+        $viewData = [
+            'name' => 'shipping-service-options-' . $alias->getId(),
+            'id' => 'shipping-service-options-' . $alias->getId(),
+            'class' => 'shipping-service-options-input',
+        ];
+        $viewData = array_merge($viewData, $optionsData);
+        $view = $this->getViewModelFactory()->newInstance($viewData);
+        $view->setTemplate('elements/' . $type . '.mustache');
+        return $view;
     }
 
     protected function getDeleteButtonView(AliasEntity $alias)
