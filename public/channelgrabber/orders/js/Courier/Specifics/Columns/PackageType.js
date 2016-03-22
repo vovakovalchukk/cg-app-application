@@ -40,6 +40,9 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
         selected,
         container
     ) {
+        if (options.indexOf(selected) == -1) {
+            selected = options[0];
+        }
         var data = {
             id: PackageType.SELECTOR_PACKAGE_TYPE_PREFIX.replace('#', '') + orderId,
             name: 'orderData[' + orderId + '][packageType]',
