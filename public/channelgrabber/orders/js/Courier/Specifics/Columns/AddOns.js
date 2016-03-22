@@ -9,7 +9,8 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
             this.toggleDeliveryInstructions()
                 .listenForServiceChanges()
                 .listenForAddOnOptionChanges()
-                .listenForAddOnSelectAll();
+                .listenForAddOnSelectAll()
+                .listenForAddOnClearAll();
         };
         init.call(this);
     }
@@ -49,21 +50,21 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
                     }
                 });
                 if (hide) {
-                    $(input).closest('tr').find(AddOns.SELECTOR_DEL_INSTR_INPUT).hide();
+                    self.hideDeliveryInstructionsForOrder(orderId);
+                } else {
+                    self.showDeliveryInstructionsForOrder(orderId);
                 }
             });
-            if ($(AddOns.SELECTOR_DEL_INSTR_INPUT + ':visible').length == 0) {
-                $(AddOns.SELECTOR_DEL_INSTR_TH).hide();
-                $(AddOns.SELECTOR_DEL_INSTR_INPUT).closest('td').hide();
-            }
         });
         return this;
     };
 
     AddOns.prototype.showDeliveryInstructionsForOrder = function(orderId)
     {
-        $(AddOns.SELECTOR_DEL_INSTR_TH).show();
-        $(AddOns.SELECTOR_DEL_INSTR_INPUT).closest('td').show();
+        if ($(AddOns.SELECTOR_DEL_INSTR_INPUT + ':visible').length == 0) {
+            $(AddOns.SELECTOR_DEL_INSTR_TH).show();
+            $(AddOns.SELECTOR_DEL_INSTR_INPUT).closest('td').show();
+        }
         $(AddOns.SELECTOR_DEL_INSTR_INPUT_ID_PREFIX + orderId).addClass('required').show();
         return this;
     };
@@ -174,7 +175,23 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
             $(select).find(AddOns.SELECTOR_ADD_ONS_OPTION).each(function()
             {
                 var li = this;
-                self.deSelectMutuallyExclusiveOptions(li);
+                self.deSelectMutuallyExclusiveOptions(li)
+                    .showAdditionalFieldsForAddOn($(li).data('value'), $(li).find('input').is(':checked'), $(li).attr('id').split('_').pop());
+            });
+        });
+        return this;
+    };
+
+    AddOns.prototype.listenForAddOnClearAll = function()
+    {
+        var self = this;
+        $(document).on('all-cleared', AddOns.SELECTOR_ADD_ONS_CONTAINER, function()
+        {
+            var select = this;
+            $(select).find(AddOns.SELECTOR_ADD_ONS_OPTION).each(function()
+            {
+                var li = this;
+                self.showAdditionalFieldsForAddOn($(li).data('value'), $(li).find('input').is(':checked'), $(li).attr('id').split('_').pop());
             });
         });
         return this;
