@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "da2612a281f04afa45f3d6d659d2b383",
+    "hash": "b3e2e4c6eff8ce8a1ee6e9db7d216068",
     "content-hash": "8a9ea49eab017f7ca49b9e1f9e19d178",
     "packages": [
         {
@@ -488,12 +488,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "048f49f1abca7cdf3f2d0e319562b5b424acbc7c"
+                "reference": "84875593435d54bd18bc7ee4cb3e6c15c75164ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6852-Courier-setup-page-links-cbb009.zip",
-                "reference": "048f49f1abca7cdf3f2d0e319562b5b424acbc7c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6852-Courier-setup-page-links-ace933.zip",
+                "reference": "84875593435d54bd18bc7ee4cb3e6c15c75164ae",
                 "shasum": null
             },
             "require": {
@@ -526,7 +526,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-03-18 15:51:04"
+            "time": "2016-03-22 14:46:51"
         },
         {
             "name": "channelgrabber/db",
