@@ -190,12 +190,17 @@ class Service implements LoggerAwareInterface
             $courierId = $shippingAlias->getAccountId();
             $service = $shippingAlias->getShippingService();
         }
+        $shippingCountry = $order->getShippingAddressCountryForCourier();
+        // 'United Kingdom' takes up a lot of space in the UI. As it is very common we'll drop it and only mention non-UK countries
+        if ($shippingCountry == 'United Kingdom') {
+            $shippingCountry = '';
+        }
 
         $orderData = [
             'orderRow' => true,
             'orderId' => $order->getId(),
             'buyerName' => $order->getBillingAddress()->getAddressFullName(),
-            'shippingCountry' => $order->getShippingAddressCountryForCourier(),
+            'shippingCountry' => $shippingCountry,
             'postcode' => $order->getShippingAddressPostcodeForCourier(),
             'orderNumber' => $order->getExternalId(),
             'shippingMethod' => $shippingDescription,

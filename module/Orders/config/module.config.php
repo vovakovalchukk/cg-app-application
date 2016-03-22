@@ -1788,7 +1788,7 @@ return [
             ],
             'CourierSpecificsBuyerOrderColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Buyer / Order ID'],
+                    'variables' => ['value' => 'Buyer /<br />Order ID'],
                     'template' => 'value.phtml',
                 ],
             ],
@@ -1910,7 +1910,7 @@ return [
             // Optional columns, will be added to table dynamically as required
             'CourierSpecificsWeightColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Weight'],
+                    'variables' => ['value' => 'Weight<br />(kg)'],
                     'template' => 'value.phtml',
                 ],
             ],
@@ -1925,7 +1925,7 @@ return [
             ],
             'CourierSpecificsHeightColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Height'],
+                    'variables' => ['value' => 'Height<br />(cm)'],
                     'template' => 'value.phtml',
                 ],
             ],
@@ -1940,7 +1940,7 @@ return [
             ],
             'CourierSpecificsWidthColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Width'],
+                    'variables' => ['value' => 'Width<br />(cm)'],
                     'template' => 'value.phtml',
                 ],
             ],
@@ -1955,7 +1955,7 @@ return [
             ],
             'CourierSpecificsLengthColumnView' => [
                 'parameters' => [
-                    'variables' => ['value' => 'Length'],
+                    'variables' => ['value' => 'Length<br />(cm)'],
                     'template' => 'value.phtml',
                 ],
             ],

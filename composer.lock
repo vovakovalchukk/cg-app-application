@@ -3479,12 +3479,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "e8ec2ba61cac9983fa2c05281f96a334a27c2127"
+                "reference": "ec354dd0cdc674ac6e9a9a51890d0b1fe2b899e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6866-netdespatch-service-option-changes-8fc412.zip",
-                "reference": "e8ec2ba61cac9983fa2c05281f96a334a27c2127",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6866-netdespatch-service-option-changes-ac3936.zip",
+                "reference": "ec354dd0cdc674ac6e9a9a51890d0b1fe2b899e1",
                 "shasum": null
             },
             "require": {
@@ -3530,7 +3530,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-03-21 10:16:58"
+            "time": "2016-03-22 09:06:29"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
