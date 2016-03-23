@@ -63,7 +63,7 @@ define([
                 options: accountCollection.getItems()
             }, "customSelect");
 
-            var alias = cgmustache.renderTemplate(templates, {'id' : 'shipping-alias-new-' + aliasNo}, "alias", {
+            var alias = cgmustache.renderTemplate(templates, {'id' : 'shipping-alias-' + aliasNo}, "alias", {
                 'multiSelectExpanded' : multiSelectExpanded,
                 'accountCustomSelect': accountCustomSelect,
                 'deleteButton' : deleteButton,
@@ -140,8 +140,6 @@ define([
         if(services.length === 0) {
             if($("#shipping-alias-" + aliasId).length) {
                 $("#shipping-alias-" + aliasId).find("#services-custom-select").html('');
-            } else if($("#shipping-alias-new-" + aliasId).length) {
-                $("#shipping-alias-new-" + aliasId).find("#services-custom-select").html('');
             }
             return;
         }
@@ -161,8 +159,6 @@ define([
 
             if($("#shipping-alias-" + aliasId).length) {
                 $("#shipping-alias-" + aliasId).find("#services-custom-select").html(serviceCustomSelect);
-            } else if($("#shipping-alias-new-" + aliasId).length) {
-                $("#shipping-alias-new-" + aliasId).find("#services-custom-select").html(serviceCustomSelect);
             }
         });
     };
