@@ -1189,12 +1189,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "4f34b80f3b84bf3d663afb996197e127300a2e01"
+                "reference": "24e13e244c51ea76d92338828be684804ce0b3bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6889-shipping-alias-service-options-1200d3.zip",
-                "reference": "4f34b80f3b84bf3d663afb996197e127300a2e01",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6889-shipping-alias-service-options-10ad74.zip",
+                "reference": "24e13e244c51ea76d92338828be684804ce0b3bc",
                 "shasum": null
             },
             "require": {
@@ -1233,7 +1233,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-03-23 15:54:15"
+            "time": "2016-03-23 16:29:13"
         },
         {
             "name": "channelgrabber/notification",

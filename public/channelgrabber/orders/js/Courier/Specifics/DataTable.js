@@ -274,7 +274,7 @@ CourierSpecificsDataTable.prototype.addCustomSelectToAddOnsColumn = function(tem
         var data = {
             id: 'courier-add-ons_' + templateData.orderId,
             name: 'orderData[' + templateData.orderId + '][addOn]',
-            emptyTitle: " ",
+            emptyTitle: "No add-ons",
             searchField: false,
             options: []
         };
