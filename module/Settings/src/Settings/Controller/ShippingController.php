@@ -25,6 +25,7 @@ class ShippingController extends AbstractActionController
     const ROUTE_ALIASES_SAVE = 'Shipping Alias Save';
     const ROUTE_ALIASES_REMOVE = 'Shipping Alias Remove';
     const ROUTE_SERVICES = 'Shipping Services';
+    const ROUTE_SERVICE_OPTIONS = 'Shipping Service Options';
     const FIRST_PAGE = 1;
     const LIMIT = 'all';
     const TYPE = 'shipping';
@@ -102,6 +103,13 @@ class ShippingController extends AbstractActionController
     {
         $accountId = $this->params('account');
         return $this->getJsonModelFactory()->newInstance(['shippingServices' => $this->getShippingServices($accountId)]);
+    }
+
+    public function getServiceOptionsAction()
+    {
+        $accountId = $this->params()->fromRoute('account');
+        $service = $this->params()->fromPost('service');
+        return $this->getJsonModelFactory()->newInstance(['shippingServiceOptions' => $this->getShippingServiceOptions($accountId, $service)]);
     }
 
     protected function getAddButtonView()
@@ -360,6 +368,13 @@ class ShippingController extends AbstractActionController
             // Ignore
         }
         return $shippingServices;
+    }
+
+    protected function getShippingServiceOptions($accountId, $service)
+    {
+        $account = $this->getAccountService()->fetch($accountId);
+        $shippingService = $this->getShippingServiceFactory()->createShippingService($account);
+        return $shippingService->getOptionsForService($service);
     }
 
     protected function getViewModelFactory()

@@ -8,11 +8,12 @@ $(document).ready(function() {
     var shippingMethods = <?= json_encode($shippingMethods); ?>;
     var shippingAccounts = <?= json_encode($shippingAccounts); ?>;
     var rootOuId = <?=$rootOuId;?>;
+    var templatePath = '<?=$this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'templates/';?>';
     require(['ShippingAlias/Service'], function(Service)
     {
         $(document).ready(function()
         {
-            var service = new Service(shippingMethods, shippingAccounts, rootOuId);
+            var service = new Service(shippingMethods, shippingAccounts, rootOuId, templatePath);
         });
     });
 });

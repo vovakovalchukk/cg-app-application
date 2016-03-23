@@ -112,6 +112,7 @@ function(domManipulator, eventCollator, DeferredQueue)
             methodIds: checkBoxValues
         };
 
+        n.notice('Saving');
         return $.ajax({
             'url' : '/settings/shipping/alias/save',
             'data' : {'alias' : JSON.stringify(singleAlias)},

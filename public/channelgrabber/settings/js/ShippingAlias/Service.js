@@ -6,6 +6,7 @@ define([
     'ShippingAlias/DomListener/DeleteButton',
     'ShippingAlias/DomListener/AliasChange',
     'ShippingAlias/DomListener/AccountChange',
+    'ShippingAlias/DomListener/ServiceChange',
     'ShippingAlias/Mapper'
 ], function(
     domManipulator,
@@ -15,9 +16,10 @@ define([
     deleteButtonListener,
     aliasChangeListener,
     accountChangeListener,
+    serviceChangeListener,
     mapper
 ) {
-    function Service(shippingMethods, shippingAccounts, rootOuId)
+    function Service(shippingMethods, shippingAccounts, rootOuId, templatePath)
     {
         var init = function()
         {
@@ -33,6 +35,7 @@ define([
             deleteButtonListener.init(rootOuId);
             aliasChangeListener.init(rootOuId);
             accountChangeListener.init();
+            serviceChangeListener.init(templatePath);
 
             domManipulator.updateAllAliasMethodCheckboxes();
         };

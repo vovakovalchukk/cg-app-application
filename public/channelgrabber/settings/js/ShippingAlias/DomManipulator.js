@@ -166,7 +166,20 @@ define([
                 $("#shipping-alias-new-" + aliasId).find("#services-custom-select").html(serviceCustomSelect);
             }
         });
-    }
+    };
+
+    DomManipulator.prototype.updateServicesOptions = function(aliasId, options, templateName)
+    {
+        $('#shipping-alias-' + aliasId).find('.shipping-service-options').empty();
+        if (!options || (options instanceof Array && options.length == 0)) {
+            return;
+        }
+        CGMustache.get().fetchTemplate(templateName, function(template, cgmustache)
+        {
+            var html = cgmustache.renderTemplate(template, options);
+            $('#shipping-alias-' + aliasId).find('.shipping-service-options').append(html);
+        });
+    };
 
     DomManipulator.prototype.remove = function(id, html)
     {
