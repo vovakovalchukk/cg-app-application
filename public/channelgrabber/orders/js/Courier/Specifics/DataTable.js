@@ -279,10 +279,8 @@ CourierSpecificsDataTable.prototype.addCustomSelectToAddOnsColumn = function(tem
             options: []
         };
         for (var index in templateData.addOns) {
-            data.options.push({
-                title: templateData.addOns[index],
-                selected: (templateData.addOn && templateData.addOn.indexOf(templateData.addOns[index]) > -1)
-            });
+            templateData.addOns[index].selected = (templateData.addOn && templateData.addOn.indexOf(templateData.addOns[index]) > -1);
+            data.options.push(templateData.addOns[index]);
         }
         templateData.addOnsOptions = cgMustache.renderTemplate(template, data);
     }, true);

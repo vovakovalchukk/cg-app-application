@@ -1244,35 +1244,59 @@ return array(
                     'serviceOptions' => [
                         '24' => [
                             'packageTypes' => ['Large Letter', 'Parcel'],
-                            'addOns' => ['Signature']
+                            'addOns' => [
+                                ['title' => 'Signature'],
+                            ]
                         ],
                         '48' => [
                             'packageTypes' => ['Large Letter', 'Parcel'],
-                            'addOns' => ['Signature']
+                            'addOns' => [
+                                ['title' => 'Signature'],
+                            ]
                         ],
                         'TPN01' => [
                             'packageTypes' => ['Large Letter', 'Parcel'],
-                            'addOns' => ['Signature', 'Safe Place']
+                            'addOns' => [
+                                ['title' => 'Signature', 'excludes' => 'Safe Place'],
+                                ['title' => 'Safe Place', 'excludes' => 'Signature'],
+                            ]
                         ],
                         'TPS01' => [
                             'packageTypes' => ['Large Letter', 'Parcel'],
-                            'addOns' => ['Signature', 'Safe Place']
+                            'addOns' => [
+                                ['title' => 'Signature', 'excludes' => 'Safe Place'],
+                                ['title' => 'Safe Place', 'excludes' => 'Signature'],
+                            ]
                         ],
                         'RMSD1' => [
                             'packageTypes' => ['Parcel'],
-                            'addOns' => ['Saturday', 'Insurance £500', 'Insurance £1000', 'Insurance £2500']
+                            'addOns' => [
+                                ['title' => 'Saturday'],
+                                ['title' => 'Insurance £500', 'excludes' => 'Insurance £1000,Insurance £2500'],
+                                ['title' => 'Insurance £1000', 'excludes' => 'Insurance £500,Insurance £2500'],
+                                ['title' => 'Insurance £2500', 'excludes' => 'Insurance £500,Insurance £1000'],
+                            ]
                         ],
                         'RMSD9' => [
                             'packageTypes' => ['Parcel'],
-                            'addOns' => ['Saturday', 'Insurance £50', 'Insurance £1000', 'Insurance £2500']
+                            'addOns' => [
+                                ['title' => 'Saturday'],
+                                ['title' => 'Insurance £50', 'excludes' => 'Insurance £1000,Insurance £2500'],
+                                ['title' => 'Insurance £1000', 'excludes' => 'Insurance £50,Insurance £2500'],
+                                ['title' => 'Insurance £2500', 'excludes' => 'Insurance £50,Insurance £1000'],
+                            ]
                         ],
                         'STL1'  => [
                             'packageTypes' => ['Letter', 'Large Letter', 'Parcel'],
-                            'addOns' => ['Signature']
+                            'addOns' => [
+                                ['title' => 'Signature'],
+                            ]
                         ],
                         'STL2'  => [
                             'packageTypes' => ['Letter', 'Large Letter', 'Parcel'],
-                            'addOns' => ['Signature']
+                            'addOns' => [
+                                ['title' => 'Signature'],
+                            ]
                         ],
                     ]
                 ]

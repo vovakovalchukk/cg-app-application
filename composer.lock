@@ -1189,12 +1189,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "fb57f8c48fdfbc52f88fd97bef73f07247ab3dda"
+                "reference": "4f34b80f3b84bf3d663afb996197e127300a2e01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6889-shipping-alias-service-options-c31010.zip",
-                "reference": "fb57f8c48fdfbc52f88fd97bef73f07247ab3dda",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6889-shipping-alias-service-options-1200d3.zip",
+                "reference": "4f34b80f3b84bf3d663afb996197e127300a2e01",
                 "shasum": null
             },
             "require": {
@@ -1233,7 +1233,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-03-22 16:30:05"
+            "time": "2016-03-23 15:54:15"
         },
         {
             "name": "channelgrabber/notification",
@@ -3479,12 +3479,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "fc1f88c132226a68ffd7e5e5f78b72df2023fa11"
+                "reference": "a6abafb078017e39aed9233e55c1a1b3983b4544"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6889-shipping-alias-service-options-af3a4a.zip",
-                "reference": "fc1f88c132226a68ffd7e5e5f78b72df2023fa11",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6889-shipping-alias-service-options-c6dbfe.zip",
+                "reference": "a6abafb078017e39aed9233e55c1a1b3983b4544",
                 "shasum": null
             },
             "require": {
@@ -3530,7 +3530,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-03-23 13:39:22"
+            "time": "2016-03-23 15:56:03"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
