@@ -11,17 +11,6 @@ define([
 ) {
     var DomManipulator = function()
     {
-        var aliasNo = 0;
-
-        this.getAliasNo = function()
-        {
-            return aliasNo;
-        };
-
-        this.getAndIncrementAliasNo = function()
-        {
-            return ++aliasNo;
-        };
     };
 
     DomManipulator.ALIAS_CHANGED = 'alias-changed';
@@ -30,6 +19,16 @@ define([
     DomManipulator.DOM_SELECTOR_ALIAS = '.shipping-alias';
     DomManipulator.DOM_SELECTOR_ALIAS_NONE = '.shipping-alias-none';
     DomManipulator.SHIPPING_METHOD_SELECTOR = '.channel-shipping-methods .custom-select-item';
+
+    DomManipulator.prototype.getAliasNo = function()
+    {
+        return $('.shipping-alias').length;
+    };
+
+    DomManipulator.prototype.getAndIncrementAliasNo = function()
+    {
+        return this.getAliasNo()+1;
+    };
 
     DomManipulator.prototype.prependAlias = function()
     {
