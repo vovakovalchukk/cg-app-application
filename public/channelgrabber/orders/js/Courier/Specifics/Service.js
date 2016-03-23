@@ -182,6 +182,7 @@ define([
         var self = this;
         var inputData = [];
         var valid = true;
+        var invalidInput = null;
         $(selector).each(function()
         {
             var input = this;
@@ -195,6 +196,7 @@ define([
             }
             if (validate && !self.isInputValid(input)) {
                 valid = false;
+                invalidInput = input;
                 return false; // break
             }
             inputData.push({
@@ -203,7 +205,8 @@ define([
             });
         });
         if (!valid) {
-            this.getNotifications().error('Please complete all required fields in the correct format');
+            this.getNotifications().error('Please complete all required fields in the correct format', true);
+            this.highlightInvalidInput(invalidInput);
             return false;
         }
         return inputData;
@@ -222,6 +225,14 @@ define([
             return false;
         }
         return true;
+    };
+
+    Service.prototype.highlightInvalidInput = function(input)
+    {
+        var offsetTop = $(input).closest('td').get(0).offsetTop;
+        document.querySelector('.dataTables_scrollBody').scrollTop = offsetTop;
+        input.focus();
+        return this;
     };
 
     Service.prototype.getInputDataForOrder = function(orderId)
@@ -274,7 +285,15 @@ define([
         for (var count in inputData) {
             var name = inputData[count].name;
             var value = inputData[count].value;
-            ajaxData[name] = value;
+            if (name.match(/\[\]$/)) {
+                name = name.replace(/\[\]$/, '');
+                if (!ajaxData.hasOwnProperty(name)) {
+                    ajaxData[name] = [];
+                }
+                ajaxData[name].push(value);
+            } else {
+                ajaxData[name] = value;
+            }
         }
         return ajaxData;
     };

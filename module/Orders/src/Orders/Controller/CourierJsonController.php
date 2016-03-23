@@ -20,6 +20,7 @@ class CourierJsonController extends AbstractActionController
     const ROUTE_REVIEW_LIST_URI = '/ajax';
     const ROUTE_SPECIFICS_LIST = 'Specifics List';
     const ROUTE_SPECIFICS_LIST_URI = '/ajax';
+    const ROUTE_SPECIFICS_OPTION_DATA = 'Option Data';
     const ROUTE_LABEL_CREATE = 'Create';
     const ROUTE_LABEL_CREATE_URI = '/create';
     const ROUTE_LABEL_CANCEL = 'Cancel';
@@ -311,6 +312,17 @@ class CourierJsonController extends AbstractActionController
             ->setTemplate('courier/messages/label-creation/orderErrorList.mustache');
         $viewRender = $this->getServiceLocator()->get(MustacheViewHelper::class);
         return $viewRender($orderErrorsView);
+    }
+
+    public function optionDataAction()
+    {
+        $courierId = $this->params()->fromRoute('account');
+        $orderId = $this->params()->fromPost('order');
+        $option = $this->params()->fromPost('option');
+        $service = $this->params()->fromPost('service');
+
+        $optionData = $this->service->getDataForCarrierOption($option, $orderId, $courierId, $service);
+        return $this->jsonModelFactory->newInstance([$option => $optionData]);
     }
 
     public function cancelAction()

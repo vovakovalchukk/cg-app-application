@@ -190,12 +190,17 @@ class Service implements LoggerAwareInterface
             $courierId = $shippingAlias->getAccountId();
             $service = $shippingAlias->getShippingService();
         }
+        $shippingCountry = $order->getShippingAddressCountryForCourier();
+        // 'United Kingdom' takes up a lot of space in the UI. As it is very common we'll drop it and only mention non-UK countries
+        if ($shippingCountry == 'United Kingdom') {
+            $shippingCountry = '';
+        }
 
         $orderData = [
             'orderRow' => true,
             'orderId' => $order->getId(),
             'buyerName' => $order->getBillingAddress()->getAddressFullName(),
-            'shippingCountry' => $order->getShippingAddressCountryForCourier(),
+            'shippingCountry' => $shippingCountry,
             'postcode' => $order->getShippingAddressPostcodeForCourier(),
             'orderNumber' => $order->getExternalId(),
             'shippingMethod' => $shippingDescription,
@@ -231,11 +236,17 @@ class Service implements LoggerAwareInterface
         $itemSpecifics = [
             'itemId' => $item->getId(),
             'itemImage' => $this->getImageUrlForOrderItem($item, $products),
-            'itemName' => $item->getItemName(),
+            'itemName' => $this->getSanitisedItemName($item),
             'itemSku' => $item->getItemSku(),
             'quantity' => $item->getItemQuantity(),
         ];
         return array_merge($rowData, $itemSpecifics);
+    }
+
+    protected function getSanitisedItemName(Item $item)
+    {
+        // We sometimes append item options onto the name and separate them with newlines, strip those out
+        return explode(PHP_EOL, $item->getItemName())[0];
     }
 
     protected function getChildRowListData($orderId)
@@ -368,6 +379,7 @@ class Service implements LoggerAwareInterface
             }
             $data = array_merge($data, $itemsData);
         }
+        $data = $this->carrierBookingOptions->addCarrierSpecificDataToListArray($data, $courierAccount);
         return $data;
     }
 
@@ -379,7 +391,6 @@ class Service implements LoggerAwareInterface
     ) {
         $cancellable = $this->carrierBookingOptions->isCancellationAllowedForAccount($courierAccount);
         $data = [
-            'collectionDate' => date('Y-m-d'),
             'parcels' => static::DEFAULT_PARCELS,
             // The order row will always be parcel 1, only parcel rows might be other numbers
             'parcelNumber' => 1,
@@ -388,6 +399,9 @@ class Service implements LoggerAwareInterface
         ];
         foreach ($options as $option) {
             $data[$option] = '';
+            if ($option == 'collectionDate') {
+                $data[$option] = date('Y-m-d');
+            }
         }
         return $data;
     }
@@ -475,19 +489,21 @@ class Service implements LoggerAwareInterface
                 continue;
             }
             $data[$option] = '';
-            if (!$productDetail) {
+        }
+        if (!$productDetail) {
+            return $data;
+        }
+
+        // Always add all product details even if there's no option for them as sometimes they're used indirectly
+        $productDetailArray = $productDetail->toArray();
+        foreach ($productDetailArray as $field => $value) {
+            if (in_array($field, ['id', 'organisationUnitId', 'sku'])) {
                 continue;
             }
-            $getter = 'get'.ucfirst($option);
-            if (!is_callable([$productDetail, $getter])) {
+            if (isset($data[$field]) && $data[$field] != '') {
                 continue;
             }
-            $value = $productDetail->$getter();
-            if (isset($this->productDetailFields[$option])) {
-                $callback = $this->productDetailFields[$option];
-                $value = $this->$callback($value, $item);
-            }
-            $data[$option] = $value;
+            $data[$field] = $value;
         }
         return $data;
     }
@@ -577,6 +593,13 @@ class Service implements LoggerAwareInterface
             }
         }
         return $orderMetaData;
+    }
+
+    public function getDataForCarrierOption($option, $orderId, $accountId, $service = null)
+    {
+        $order = $this->orderService->fetch($orderId);
+        $account = $this->accountService->fetch($accountId);
+        return $this->carrierBookingOptions->getDataForCarrierBookingOption($option, $order, $account, $service);
     }
 
     protected function setOrderService(OrderService $orderService)
