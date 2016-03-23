@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "733f9204c0478bc8fa9744bd67c606fd",
-    "content-hash": "2d0c1283050325f857e9e5a08c61e984",
+    "hash": "79040f5c405f96ddfbbafecf8e513a85",
+    "content-hash": "143913ae23a75abd168709db06650ec1",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1906,12 +1906,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "2b8a9facf35e4e1a55dc3c6a2f3176dabc9b9b42"
+                "reference": "0b8033a862052908f3d243be74da5d7831459643"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-6889-shipping-alias-service-options-a745b4.zip",
-                "reference": "2b8a9facf35e4e1a55dc3c6a2f3176dabc9b9b42",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-6889-shipping-alias-service-options-8efc89.zip",
+                "reference": "0b8033a862052908f3d243be74da5d7831459643",
                 "shasum": null
             },
             "require": {
@@ -1932,7 +1932,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2016-03-22 14:41:18"
+            "time": "2016-03-23 13:33:49"
         },
         {
             "name": "channelgrabber/slim",
@@ -3475,16 +3475,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.40",
+            "version": "dev-CGIV-6889-shipping-alias-service-options",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "66ebce6d9fe76bfa76a3f4bd374fc210560ca28a"
+                "reference": "fc1f88c132226a68ffd7e5e5f78b72df2023fa11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.40-1d81b1.zip",
-                "reference": "66ebce6d9fe76bfa76a3f4bd374fc210560ca28a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6889-shipping-alias-service-options-af3a4a.zip",
+                "reference": "fc1f88c132226a68ffd7e5e5f78b72df2023fa11",
                 "shasum": null
             },
             "require": {
@@ -3530,7 +3530,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-03-22 16:05:39"
+            "time": "2016-03-23 13:39:22"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7690,6 +7690,12 @@
             "alias_normalized": "1.3.12.0",
             "version": "dev-CGIV-6889-shipping-alias-service-options",
             "package": "channelgrabber/settings"
+        },
+        {
+            "alias": "1.16.41",
+            "alias_normalized": "1.16.41.0",
+            "version": "dev-CGIV-6889-shipping-alias-service-options",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
@@ -7700,6 +7706,7 @@
         "channelgrabber/netdespatch": 20,
         "channelgrabber/royalmail": 20,
         "channelgrabber/settings": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
