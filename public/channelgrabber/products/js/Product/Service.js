@@ -397,6 +397,7 @@ define([
                 accountId = product['listings'][listing]['accountId'];
                 mustacheFormattedData['listings'].push({
                     'status' : product['listings'][listing]['status'],
+                    'message' : product['listings'][listing]['message'],
                     'channel' : product['accounts'][accountId]['displayName'],
                     'url' : product['listings'][listing]['url']
                 });
