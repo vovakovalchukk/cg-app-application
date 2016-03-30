@@ -8,7 +8,7 @@
             </tr>
             {{#listings}}
             <tr>
-                <td><span class="status {{status}} hint--bottom" {{#message}}data-hint="{{message}}"{{/message}}>{{status}}</span></td>
+                <td><span class="status {{status}}" title="{{message}}">{{status}}</span></td>
                 <td>{{#url}}<a href='{{url}}' target='_blank'>{{/url}}{{channel}}{{#url}}</a>{{/url}}</td>
             </tr>
             {{/listings}}

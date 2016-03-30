@@ -8,7 +8,8 @@ define([
     'DomManipulator',
     'Variation/DomListener',
     'BulkActionAbstract',
-    'DeferredQueue'
+    'DeferredQueue',
+    'tooltip'
 ], function (
     CGMustache,
     SearchDomListener,
@@ -19,7 +20,8 @@ define([
     domManipulator,
     VariationDomListener,
     BulkActionAbstract,
-    DeferredQueue
+    DeferredQueue,
+    Tooltip
 ) {
     var Service = function (baseImgUrl, isAdmin, searchTerm)
     {
@@ -29,6 +31,7 @@ define([
         var paginationDomListener;
         var productDomListener;
         var templates;
+        var tooltip;
 
         this.getBaseImgUrl = function()
         {
@@ -73,6 +76,13 @@ define([
             searchDomListener = new SearchDomListener(this);
             paginationDomListener = new PaginationDomListener(this);
             productDomListener = new ProductDomListener(this);
+            tooltip = new Tooltip(
+                Service.DOM_SELECTOR_PRODUCTS_CONTAINER,
+                Service.DOM_SELECTOR_TOOLTIP_STATUS,
+                function() {
+                    return $(this).attr("title");
+                }
+            );
 
             this.setBaseImgUrl(baseImgUrl)
                 .setSearchTerm(searchTerm)
@@ -91,6 +101,7 @@ define([
     Service.DOM_SELECTOR_STOCK_LEVEL_COL = '.product-stock-level-col';
     Service.DOM_SELECTOR_STOCK_TABLE = '.stock-table';
     Service.DOM_SELECTOR_STOCK_LEVEL_INPUT = '.product-stock-level';
+    Service.DOM_SELECTOR_TOOLTIP_STATUS = '.product-listing-status-dropdown .status';
 
     Service.prototype.setSearchTerm = function(searchTerm)
     {
