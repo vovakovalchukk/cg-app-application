@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dc6fb50c4600c92010fc84f14b4f12c0",
-    "content-hash": "e99bd95e45003d6ca4ad01a84f665cbd",
+    "hash": "08b7f3d743ccb0b9d68dd3f878788165",
+    "content-hash": "d926bd6e2f5a08e9987037a55afdf696",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -559,47 +559,27 @@
         },
         {
             "name": "channelgrabber/di",
-            "version": "2.1.1",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-di.git",
-                "reference": "a324c33edf58452379edf5bc9bb4329753f8950b"
+                "reference": "60e5fff088458542976cde2493d9db1096c112d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-di-2.1.1-4a06ae.zip",
-                "reference": "a324c33edf58452379edf5bc9bb4329753f8950b",
-                "shasum": "1aa4d1bd7ef63469911da771117039613fc7d319"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-di-2.2.0-1fb30f.zip",
+                "reference": "60e5fff088458542976cde2493d9db1096c112d4",
+                "shasum": null
             },
             "require": {
-                "channelgrabber/spork": "~0.2",
-                "channelgrabber/stdlib": ">=2.7.16",
-                "cilex/cilex": "~1.0.1",
-                "composer-plugin-api": "1.0.0",
-                "composer/composer": "1.0.*@dev",
-                "zendframework/zend-cache": ">=2.2,<3.0",
-                "zendframework/zend-di": ">=2.2,<3.0"
+                "zendframework/zend-cache": "^2.2",
+                "zendframework/zend-code": "^2.2",
+                "zendframework/zend-di": "^2.2"
             },
-            "require-dev": {
-                "phpunit/phpunit": "~3.7.28"
-            },
-            "bin": [
-                "bin/di.php"
-            ],
-            "type": "composer-plugin",
-            "extra": {
-                "class": [
-                    "CG\\Di\\Installer\\Plugin"
-                ]
-            },
+            "type": "library",
             "autoload": {
                 "psr-4": {
                     "CG\\Di\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "CG\\Di\\Test\\": "tests"
                 }
             },
             "authors": [
@@ -609,7 +589,7 @@
                 }
             ],
             "description": "Dependency injection wrappers and compilation",
-            "time": "2014-09-22 13:32:50"
+            "time": "2016-03-30 13:39:22"
         },
         {
             "name": "channelgrabber/ebay",
@@ -978,18 +958,18 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "178e2858a668fcb40a5c3e6abf46621959c35350"
+                "reference": "52ed232c5ab5cc2aad09c413b4bfa44ee9c859b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-CGIV-6740-ListingStatus-29b71a.zip",
-                "reference": "178e2858a668fcb40a5c3e6abf46621959c35350",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-CGIV-6740-ListingStatus-7832c8.zip",
+                "reference": "52ed232c5ab5cc2aad09c413b4bfa44ee9c859b6",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/di": ">=2.1.0,<3.0.0",
+                "channelgrabber/di": "^2.2.0",
                 "channelgrabber/etag": "^1.6.0",
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": "^1.1.7",
@@ -1007,7 +987,7 @@
                 "channelgrabber/phpunit": ">=1.0.0",
                 "phpunit/phpunit": "3.7.*"
             },
-            "type": "di-definition",
+            "type": "library",
             "autoload": {
                 "psr-4": {
                     "CG\\Listing\\": "src"
@@ -1018,7 +998,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2016-03-29 13:52:35"
+            "time": "2016-03-31 08:49:27"
         },
         {
             "name": "channelgrabber/locale",
@@ -1989,53 +1969,6 @@
                 }
             },
             "time": "2015-11-06 14:32:04"
-        },
-        {
-            "name": "channelgrabber/spork",
-            "version": "v0.2.1",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:channelgrabber/spork.git",
-                "reference": "5fcf29931ee0574c6177e41c218c2e132e4f9e02"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-spork-v0.2.1-5e3e04.zip",
-                "reference": "5fcf29931ee0574c6177e41c218c2e132e4f9e02",
-                "shasum": "905806f14db1d76d43a29056482d537eab3ca44a"
-            },
-            "require": {
-                "ext-pcntl": "*",
-                "ext-posix": "*",
-                "php": ">=5.3.0",
-                "symfony/event-dispatcher": "*"
-            },
-            "replace": {
-                "kriswallsmith/spork": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Spork": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Kris Wallsmith",
-                    "email": "kris.wallsmith@gmail.com",
-                    "homepage": "http://kriswallsmith.net/"
-                },
-                {
-                    "name": "Nick Peirson",
-                    "email": "nickpeirson@gmail.com"
-                }
-            ],
-            "description": "Asynchronous PHP",
-            "homepage": "https://github.com/channelgrabber/spork",
-            "time": "2014-09-16 11:12:42"
         },
         {
             "name": "channelgrabber/sso",
@@ -3477,18 +3410,18 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "95ce57fb50d646b89a6ccba903dbdccd7c0b1e3e"
+                "reference": "4bd2ad3ec821f80a6658883dba2062b9a1bfc4bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6740-ListingStatus-89ce89.zip",
-                "reference": "95ce57fb50d646b89a6ccba903dbdccd7c0b1e3e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6740-ListingStatus-98f409.zip",
+                "reference": "4bd2ad3ec821f80a6658883dba2062b9a1bfc4bd",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.17.1",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/di": ">=2.0.0",
+                "channelgrabber/di": "^2.2.0",
                 "channelgrabber/etag": ">=1.4.2",
                 "channelgrabber/intercom": ">=1.0.0,<2.0.0",
                 "channelgrabber/log": ">=1.4.2",
@@ -3528,7 +3461,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-03-30 14:36:21"
+            "time": "2016-03-31 08:56:57"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -6519,6 +6452,53 @@
                 }
             },
             "time": "2015-02-17 16:11:07"
+        },
+        {
+            "name": "channelgrabber/spork",
+            "version": "v0.2.1",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:channelgrabber/spork.git",
+                "reference": "5fcf29931ee0574c6177e41c218c2e132e4f9e02"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-spork-v0.2.1-5e3e04.zip",
+                "reference": "5fcf29931ee0574c6177e41c218c2e132e4f9e02",
+                "shasum": "905806f14db1d76d43a29056482d537eab3ca44a"
+            },
+            "require": {
+                "ext-pcntl": "*",
+                "ext-posix": "*",
+                "php": ">=5.3.0",
+                "symfony/event-dispatcher": "*"
+            },
+            "replace": {
+                "kriswallsmith/spork": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Spork": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kris Wallsmith",
+                    "email": "kris.wallsmith@gmail.com",
+                    "homepage": "http://kriswallsmith.net/"
+                },
+                {
+                    "name": "Nick Peirson",
+                    "email": "nickpeirson@gmail.com"
+                }
+            ],
+            "description": "Asynchronous PHP",
+            "homepage": "https://github.com/channelgrabber/spork",
+            "time": "2014-09-16 11:12:42"
         },
         {
             "name": "codeception/codeception",
