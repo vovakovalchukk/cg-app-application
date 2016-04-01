@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "26c1773c62c7c80b5a96a14d782629b0",
-    "content-hash": "08d27f80456792549879e3b09505c67f",
+    "hash": "cdc96659278ccfbc2a33be3ebebc204b",
+    "content-hash": "cd2763eda36ac7c34d2834ff453a257e",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -801,7 +801,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-1.2.19-f3332f.zip",
                 "reference": "3d0f00eb9a96ffb617b9b185013a149ceb9ea1c6",
-                "shasum": "83ba5ac355c5c90da370e71b0bd619c492729006"
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cilex": ">=1.1.0,<2.0.0",
@@ -909,7 +909,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-1.1.7-05f72c.zip",
                 "reference": "6a6b681730d894f0e0699a47a41c733ecb9101d8",
-                "shasum": "70bed91dafc31ddee4f49fe9b1b73f7f6164889a"
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1183,16 +1183,16 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "c70963b1b774499beff7bd15376a4f305b4922c4"
+                "reference": "90341caf986ffd2d4b4ed5a2fe58f73f05788b27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.0.1-229596.zip",
-                "reference": "c70963b1b774499beff7bd15376a4f305b4922c4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.0.2-24b150.zip",
+                "reference": "90341caf986ffd2d4b4ed5a2fe58f73f05788b27",
                 "shasum": null
             },
             "require": {
@@ -1231,7 +1231,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-03-22 13:47:37"
+            "time": "2016-04-01 15:11:52"
         },
         {
             "name": "channelgrabber/notification",
@@ -1245,7 +1245,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-notification-1.0.0.1-f06f6a.zip",
                 "reference": "d7a69d86a0efd5179e467259dd41cc7c0c5de260",
-                "shasum": "323e492d1c0b80426691bbfc487883b178cc3cce"
+                "shasum": null
             },
             "require": {
                 "channelgrabber/billing": "^1.8.0",
@@ -2898,7 +2898,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-1.0.12-1f68e4.zip",
                 "reference": "828e8de6d584e0ae6cf2b18c2eaf08661f20d1cd",
-                "shasum": "b06221cdfbe3a2cac085257e5096a7bce455f12d"
+                "shasum": null
             },
             "require": {
                 "guzzle/guzzle": "~3.7",
@@ -3769,17 +3769,17 @@
         },
         {
             "name": "composer/semver",
-            "version": "1.2.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/semver.git",
-                "reference": "0faeb6e433f6b352f0dc55ec1faf5c6b605a35d3"
+                "reference": "84c47f3d8901440403217afc120683c7385aecb8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/composer-semver-0faeb6e433f6b352f0dc55ec1faf5c6b605a35d3-zip-5e9026.zip",
-                "reference": "0faeb6e433f6b352f0dc55ec1faf5c6b605a35d3",
-                "shasum": "51d9839a716d8cc64275d456198ef944c19ff0ed"
+                "url": "https://composer.build.channelgrabber.com/dist/composer-semver-84c47f3d8901440403217afc120683c7385aecb8-zip-ca1cc2.zip",
+                "reference": "84c47f3d8901440403217afc120683c7385aecb8",
+                "shasum": ""
             },
             "require": {
                 "php": "^5.3.2 || ^7.0"
@@ -3827,7 +3827,7 @@
                 "validation",
                 "versioning"
             ],
-            "time": "2015-11-10 11:17:42"
+            "time": "2016-03-30 13:16:03"
         },
         {
             "name": "composer/spdx-licenses",
@@ -4623,7 +4623,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/mustache-mustache-c745b01956caf27d26b55a72a90aff56bc169cd6-zip-3ba429.zip",
                 "reference": "c745b01956caf27d26b55a72a90aff56bc169cd6",
-                "shasum": "63803ece5e981d98d6bf0fd4a52afb65103adf60"
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.2.4"
@@ -5372,12 +5372,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423"
+                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-831f88908b51b9ce945f5e6f402931d1ac544423-zip-1643f7.zip",
-                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423",
+                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-524bc2ef778f99df0ba09f8985b23a379c668879-zip-a11667.zip",
+                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879",
                 "shasum": ""
             },
             "require": {
