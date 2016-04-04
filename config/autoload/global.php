@@ -168,6 +168,11 @@ use CG\Order\Shared\CustomerCounts\Storage\OrderLookup as CustomerCountOrderLook
 use CG\Locking\StorageInterface as LockingStorage;
 use CG\Redis\Locking\Storage as LockingRedisStorage;
 
+// Amazon Logistics
+use CG\Amazon\Carrier\ShippingChannelsProvider as AmazonShippingChannelsProvider;
+use CG\Amazon\Carrier\StorageInterface as AmazonCarrierStorage;
+use CG\Amazon\Carrier\Storage\Api as AmazonCarrierApiStorage;
+
 return array(
     'di' => array(
         'definition' => [
@@ -248,6 +253,7 @@ return array(
                 UsageService::class => 'order_count_usage_service',
                 CustomerCountStorage::class => CustomerCountRepository::class,
                 LockingStorage::class => LockingRedisStorage::class,
+                AmazonCarrierStorage::class => AmazonCarrierApiStorage::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,
@@ -627,6 +633,7 @@ return array(
                     'addProvider' => [
                         ['provider' => DataplugCarriers::class],
                         ['provider' => NetDespatchShippingOptionsProvider::class],
+                        ['provider' => AmazonShippingChannelsProvider::class],
                     ]
                 ]
             ],
@@ -1292,6 +1299,11 @@ return array(
             CustomerCountCacheStorage::class => [
                 'parameters' => [
                     'client' => 'reliable_redis',
+                ],
+            ],
+            AmazonCarrierApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle',
                 ],
             ],
         ),
