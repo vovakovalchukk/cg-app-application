@@ -1097,7 +1097,8 @@ return [
             ],
             AmazonController::class => [
                 'parameters' => [
-                    'accountCreationService' => AmazonAccountCreationService::class
+                    'accountCreationService' => AmazonAccountCreationService::class,
+                    'cryptor' => 'amazon_cryptor',
                 ]
             ],
             DataplugController::class => [
