@@ -169,6 +169,8 @@ use CG\Locking\StorageInterface as LockingStorage;
 use CG\Redis\Locking\Storage as LockingRedisStorage;
 
 // Amazon Logistics
+use CG\Amazon\ShippingService as AmazonShippingService;
+use CG\Amazon\Carrier\Service as AmazonCarrierService;
 use CG\Amazon\Carrier\ShippingChannelsProvider as AmazonShippingChannelsProvider;
 use CG\Amazon\Carrier\StorageInterface as AmazonCarrierStorage;
 use CG\Amazon\Carrier\Storage\Api as AmazonCarrierApiStorage;
@@ -650,6 +652,7 @@ return array(
                     'addProvider' => [
                         ['provider' => DataplugCarrierService::class],
                         ['provider' => NetDespatchShippingOptionsProvider::class],
+                        ['provider' => AmazonShippingChannelsProvider::class],
                     ]
                 ]
             ],
@@ -1304,6 +1307,16 @@ return array(
             AmazonCarrierApiStorage::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle',
+                ],
+            ],
+            AmazonShippingService::class => [
+                'parameters' => [
+                    'cryptor' => 'amazon_cryptor',
+                ],
+            ],
+            AmazonCarrierService::class => [
+                'parameters' => [
+                    'cryptor' => 'amazon_cryptor',
                 ],
             ],
         ),
