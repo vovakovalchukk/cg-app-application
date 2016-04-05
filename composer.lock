@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "28468520fa40ae442877ff7c8477bd75c7d44bc6"
+                "reference": "d3915e392b4e2e1e9498129ed15cb9736cd87a17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-6787-AmazonLogitics-4a5a11.zip",
-                "reference": "28468520fa40ae442877ff7c8477bd75c7d44bc6",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-6787-AmazonLogitics-4e020e.zip",
+                "reference": "d3915e392b4e2e1e9498129ed15cb9736cd87a17",
                 "shasum": null
             },
             "require": {
@@ -66,7 +66,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-04-05 16:41:25"
+            "time": "2016-04-05 17:13:31"
         },
         {
             "name": "channelgrabber/api-lib",

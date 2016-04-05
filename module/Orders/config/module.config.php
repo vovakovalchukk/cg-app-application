@@ -1062,6 +1062,8 @@ return [
                 'CourierSpecificsPackageTypeColumn' => DataTable\Column::class,
                 'CourierSpecificsAddOnsColumnView' => ViewModel::class,
                 'CourierSpecificsAddOnsColumn' => DataTable\Column::class,
+                'CourierSpecificsDeliveryExperienceColumnView' => ViewModel::class,
+                'CourierSpecificsDeliveryExperienceColumn' => DataTable\Column::class,
             ],
             'preferences' => [
                 InvoiceRendererService::class => PdfInvoiceRendererService::class,
@@ -2074,6 +2076,21 @@ return [
                     'class' => 'add-ons-col',
                     'sortable' => false,
                     'order' => 95,
+                ],
+            ],
+            'CourierSpecificsDeliveryExperienceColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Delivery Experience'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsDeliveryExperienceColumn' => [
+                'parameters' => [
+                    'column' => 'deliveryExperience',
+                    'viewModel' => 'CourierSpecificsDeliveryExperienceColumnView',
+                    'class' => 'experience-col',
+                    'sortable' => false,
+                    'order' => 35,
                 ],
             ],
         ],

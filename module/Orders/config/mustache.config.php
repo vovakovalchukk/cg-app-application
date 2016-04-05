@@ -51,6 +51,7 @@ return [
                     'packageType' => Module::PUBLIC_FOLDER . 'template/courier/columns/packageType.mustache',
                     'addOns' => Module::PUBLIC_FOLDER . 'template/courier/columns/addOns.mustache',
                     'actions' => Module::PUBLIC_FOLDER . 'template/courier/columns/actions.mustache',
+                    'deliveryExperience' => Module::PUBLIC_FOLDER . 'template/courier/columns/deliveryExperience.mustache',
                 ],
             ],
         ],
