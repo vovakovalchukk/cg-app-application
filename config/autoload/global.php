@@ -169,12 +169,12 @@ use CG\Locking\StorageInterface as LockingStorage;
 use CG\Redis\Locking\Storage as LockingRedisStorage;
 
 // Amazon Logistics
-use CG\Amazon\ShippingService as AmazonShippingService;
 use CG\Amazon\Carrier\Service as AmazonCarrierService;
 use CG\Amazon\Carrier\ShippingChannelsProvider as AmazonShippingChannelsProvider;
 use CG\Amazon\Carrier\CarrierProviderService as AmazonCarrierProvider;
-use CG\Amazon\Carrier\StorageInterface as AmazonCarrierStorage;
-use CG\Amazon\Carrier\Storage\Api as AmazonCarrierApiStorage;
+use CG\Amazon\ShippingService\Service as AmazonShippingServiceService;
+use CG\Amazon\ShippingService\StorageInterface as AmazonShippingServiceStorage;
+use CG\Amazon\ShippingService\Storage\Api as AmazonShippingServiceApiStorage;
 
 return array(
     'di' => array(
@@ -256,7 +256,7 @@ return array(
                 UsageService::class => 'order_count_usage_service',
                 CustomerCountStorage::class => CustomerCountRepository::class,
                 LockingStorage::class => LockingRedisStorage::class,
-                AmazonCarrierStorage::class => AmazonCarrierApiStorage::class,
+                AmazonShippingServiceStorage::class => AmazonShippingServiceApiStorage::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,
@@ -1306,12 +1306,12 @@ return array(
                     'client' => 'reliable_redis',
                 ],
             ],
-            AmazonCarrierApiStorage::class => [
+            AmazonShippingServiceApiStorage::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle',
                 ],
             ],
-            AmazonShippingService::class => [
+            AmazonShippingServiceService::class => [
                 'parameters' => [
                     'cryptor' => 'amazon_cryptor',
                 ],
