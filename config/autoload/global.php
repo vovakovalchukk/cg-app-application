@@ -172,6 +172,7 @@ use CG\Redis\Locking\Storage as LockingRedisStorage;
 use CG\Amazon\ShippingService as AmazonShippingService;
 use CG\Amazon\Carrier\Service as AmazonCarrierService;
 use CG\Amazon\Carrier\ShippingChannelsProvider as AmazonShippingChannelsProvider;
+use CG\Amazon\Carrier\CarrierProviderService as AmazonCarrierProvider;
 use CG\Amazon\Carrier\StorageInterface as AmazonCarrierStorage;
 use CG\Amazon\Carrier\Storage\Api as AmazonCarrierApiStorage;
 
@@ -661,6 +662,7 @@ return array(
                     'addProvider' => [
                         ['provider' => DataplugOrderService::class],
                         ['provider' => NetDespatchOrderService::class],
+                        ['provider' => AmazonCarrierProvider::class],
                     ]
                 ]
             ],
