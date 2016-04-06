@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ae21552126c18228c0a57624ac0e7966",
-    "content-hash": "9c4e9f33b637f42177e84da6173d4d2a",
+    "hash": "a05ebf4ad6e8da5e68a467819fcb04f7",
+    "content-hash": "ca212adde5245af15fca9e86687ce967",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-CGIV-6913-AmazonLogistics-PdfPng",
+            "version": "dev-CGIV-6914-AmazonLogistics-PngPdf",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "427db72fc5a659710575c24243114e9e30694490"
+                "reference": "7ce58dd2f7bb69b836395eba3354cac8cb7e611b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-6913-AmazonLogistics-PdfPng-615f40.zip",
-                "reference": "427db72fc5a659710575c24243114e9e30694490",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-6914-AmazonLogistics-PngPdf-d5db5a.zip",
+                "reference": "7ce58dd2f7bb69b836395eba3354cac8cb7e611b",
                 "shasum": null
             },
             "require": {
@@ -35,7 +35,7 @@
                 "channelgrabber/listing": "^1.9.0",
                 "channelgrabber/locale": "^1.0.5",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "dev-CGIV-6913-AmazonLogistics-PdfPng as 1.22.1",
+                "channelgrabber/order": "dev-CGIV-6914-AmazonLogistics-PngPdf as 1.22.1",
                 "channelgrabber/product": "^1.5.0",
                 "channelgrabber/scraper": ">=1.0.2,<2.0.0",
                 "channelgrabber/settings": "^1.3.10",
@@ -57,7 +57,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-CGIV-6913-AmazonLogistics-PdfPng": "1.17.7-dev"
+                    "dev-CGIV-6914-AmazonLogistics-PngPdf": "1.17.7-dev"
                 }
             },
             "autoload": {
@@ -71,7 +71,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-04-06 09:27:55"
+            "time": "2016-04-06 10:00:02"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -1268,16 +1268,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-6913-AmazonLogistics-PdfPng",
+            "version": "dev-CGIV-6914-AmazonLogistics-PngPdf",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "30492cb0fba3e23c78225f5bc2088d18a56b8228"
+                "reference": "43a39269ae2a489c27dcb19e323fbef078524995"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6913-AmazonLogistics-PdfPng-cffc69.zip",
-                "reference": "30492cb0fba3e23c78225f5bc2088d18a56b8228",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6914-AmazonLogistics-PngPdf-1a352a.zip",
+                "reference": "43a39269ae2a489c27dcb19e323fbef078524995",
                 "shasum": null
             },
             "require": {
@@ -1340,7 +1340,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-04-06 09:10:16"
+            "time": "2016-04-06 09:53:00"
         },
         {
             "name": "channelgrabber/permission",
@@ -7647,13 +7647,13 @@
         {
             "alias": "dev-CGIV-6787-AmazonLogitics",
             "alias_normalized": "dev-CGIV-6787-AmazonLogitics",
-            "version": "dev-CGIV-6913-AmazonLogistics-PdfPng",
+            "version": "dev-CGIV-6914-AmazonLogistics-PngPdf",
             "package": "channelgrabber/amazon"
         },
         {
             "alias": "1.22.1",
             "alias_normalized": "1.22.1.0",
-            "version": "dev-CGIV-6913-AmazonLogistics-PdfPng",
+            "version": "dev-CGIV-6914-AmazonLogistics-PngPdf",
             "package": "channelgrabber/order"
         },
         {
