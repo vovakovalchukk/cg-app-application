@@ -2044,12 +2044,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "fc36a093d7f59fb20cb808b3d7e22a56795d240b"
+                "reference": "bda30204fea5f62cdf44d1e1da23dfc0f97b2b73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-CGIV-6787-AmazonLogitics-5208d7.zip",
-                "reference": "fc36a093d7f59fb20cb808b3d7e22a56795d240b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-CGIV-6787-AmazonLogitics-124091.zip",
+                "reference": "bda30204fea5f62cdf44d1e1da23dfc0f97b2b73",
                 "shasum": null
             },
             "require": {
@@ -2076,7 +2076,7 @@
                     "CG\\Stdlib\\Test\\": "tests/CG/Stdlib"
                 }
             },
-            "time": "2016-04-02 15:44:50"
+            "time": "2016-04-06 08:03:53"
         },
         {
             "name": "channelgrabber/stock",

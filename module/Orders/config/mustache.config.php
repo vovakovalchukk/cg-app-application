@@ -52,6 +52,7 @@ return [
                     'addOns' => Module::PUBLIC_FOLDER . 'template/courier/columns/addOns.mustache',
                     'actions' => Module::PUBLIC_FOLDER . 'template/courier/columns/actions.mustache',
                     'deliveryExperience' => Module::PUBLIC_FOLDER . 'template/courier/columns/deliveryExperience.mustache',
+                    'collectionTime' => Module::PUBLIC_FOLDER . 'template/courier/columns/collectionTime.mustache',
                 ],
             ],
         ],

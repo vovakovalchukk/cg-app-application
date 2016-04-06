@@ -1,0 +1,5 @@
+{{#orderRow}}
+    <input type="time" value="{{#collectionTime}}{{collectionTime}}{{/collectionTime}}{{^collectionTime}}{{currentTime}}{{/collectionTime}}" name="orderData[{{orderId}}][collctionTime]" id="courier-order-collection-time-{{orderId}}-{{parcelNumber}}" class="inputbox courier-order-collection-time required">
+    <input type="hidden" value="{{timezone}}" name="orderData[{{orderId}}][collctionTimeZone]">
+{{/orderRow}}
+{{^orderRow}}&nbsp;{{/orderRow}}

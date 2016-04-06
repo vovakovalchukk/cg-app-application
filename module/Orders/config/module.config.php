@@ -1040,6 +1040,8 @@ return [
                 // Optional columns, added to table dynamically as required
                 'CourierSpecificsCollectionDateColumnView' => ViewModel::class,
                 'CourierSpecificsCollectionDateColumn' => DataTable\Column::class,
+                'CourierSpecificsCollectionTimeColumnView' => ViewModel::class,
+                'CourierSpecificsCollectionTimeColumn' => DataTable\Column::class,
                 'CourierSpecificsWeightColumnView' => ViewModel::class,
                 'CourierSpecificsWeightColumn' => DataTable\Column::class,
                 'CourierSpecificsHeightColumnView' => ViewModel::class,
@@ -1862,6 +1864,21 @@ return [
                     'class' => 'collectionDate-col',
                     'sortable' => false,
                     'order' => 50,
+                ],
+            ],
+            'CourierSpecificsCollectionTimeColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Time'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsCollectionTimeColumn' => [
+                'parameters' => [
+                    'column' => 'collectionTime',
+                    'viewModel' => 'CourierSpecificsCollectionTimeColumnView',
+                    'class' => 'collectionTime-col',
+                    'sortable' => false,
+                    'order' => 51,
                 ],
             ],
             'CourierSpecificsItemImageColumnView' => [
