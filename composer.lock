@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cdc96659278ccfbc2a33be3ebebc204b",
-    "content-hash": "cd2763eda36ac7c34d2834ff453a257e",
+    "hash": "85f091076587f66c7d0967866dba2453",
+    "content-hash": "a3e3e3eba9e8a8cde17237484754c5bd",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -482,16 +482,16 @@
         },
         {
             "name": "channelgrabber/dataplug",
-            "version": "1.2.2",
+            "version": "dev-CGIV-6880-MyHermes-Dataplug-Integration",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "56e84abbc3997e2034a19d6d19d3e435eaadaa31"
+                "reference": "1f2c1c11a53f92e04ea8917741854b84a7ed3b8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-1.2.2-16c72e.zip",
-                "reference": "56e84abbc3997e2034a19d6d19d3e435eaadaa31",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6880-MyHermes-Dataplug-Integration-1a9561.zip",
+                "reference": "1f2c1c11a53f92e04ea8917741854b84a7ed3b8d",
                 "shasum": null
             },
             "require": {
@@ -524,7 +524,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-03-22 16:07:32"
+            "time": "2016-04-06 14:54:22"
         },
         {
             "name": "channelgrabber/db",
@@ -801,7 +801,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-gearman-1.2.19-f3332f.zip",
                 "reference": "3d0f00eb9a96ffb617b9b185013a149ceb9ea1c6",
-                "shasum": null
+                "shasum": "83ba5ac355c5c90da370e71b0bd619c492729006"
             },
             "require": {
                 "channelgrabber/cilex": ">=1.1.0,<2.0.0",
@@ -909,7 +909,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-1.1.7-05f72c.zip",
                 "reference": "6a6b681730d894f0e0699a47a41c733ecb9101d8",
-                "shasum": null
+                "shasum": "70bed91dafc31ddee4f49fe9b1b73f7f6164889a"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
@@ -1245,7 +1245,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-notification-1.0.0.1-f06f6a.zip",
                 "reference": "d7a69d86a0efd5179e467259dd41cc7c0c5de260",
-                "shasum": null
+                "shasum": "323e492d1c0b80426691bbfc487883b178cc3cce"
             },
             "require": {
                 "channelgrabber/billing": "^1.8.0",
@@ -2898,7 +2898,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-1.0.12-1f68e4.zip",
                 "reference": "828e8de6d584e0ae6cf2b18c2eaf08661f20d1cd",
-                "shasum": null
+                "shasum": "b06221cdfbe3a2cac085257e5096a7bce455f12d"
             },
             "require": {
                 "guzzle/guzzle": "~3.7",
@@ -4623,7 +4623,7 @@
                 "type": "zip",
                 "url": "https://composer.build.channelgrabber.com/dist/mustache-mustache-c745b01956caf27d26b55a72a90aff56bc169cd6-zip-3ba429.zip",
                 "reference": "c745b01956caf27d26b55a72a90aff56bc169cd6",
-                "shasum": ""
+                "shasum": "63803ece5e981d98d6bf0fd4a52afb65103adf60"
             },
             "require": {
                 "php": ">=5.2.4"
@@ -5372,12 +5372,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879"
+                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-524bc2ef778f99df0ba09f8985b23a379c668879-zip-a11667.zip",
-                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879",
+                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-831f88908b51b9ce945f5e6f402931d1ac544423-zip-1643f7.zip",
+                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423",
                 "shasum": ""
             },
             "require": {
@@ -7659,10 +7659,18 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.2.3",
+            "alias_normalized": "1.2.3.0",
+            "version": "dev-CGIV-6880-MyHermes-Dataplug-Integration",
+            "package": "channelgrabber/dataplug"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/dataplug": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
