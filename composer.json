@@ -26,7 +26,7 @@
         }
     },
     "require": {
-        "channelgrabber/amazon": "dev-CGIV-6787-AmazonLogitics as 1.17.7",
+        "channelgrabber/amazon": "dev-CGIV-6913-AmazonLogistics-PdfPng as dev-CGIV-6787-AmazonLogitics",
         "channelgrabber/api-lib": "~1.0.0",
         "channelgrabber/billing": "~1.10.0",
         "channelgrabber/cache": "~2.1.0",
@@ -50,7 +50,7 @@
         "channelgrabber/location": "~1.1.3",
         "channelgrabber/log": "~2.0.25",
         "channelgrabber/netdespatch": "~1.0.2",
-        "channelgrabber/order": "~1.21.12",
+        "channelgrabber/order": "dev-CGIV-6913-AmazonLogistics-PdfPng as 1.22.1",
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/phinx": "~0.3.2",
         "channelgrabber/picklist": "~1.0.2",
