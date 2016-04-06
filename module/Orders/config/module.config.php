@@ -2081,7 +2081,8 @@ return [
             'CourierSpecificsDeliveryExperienceColumnView' => [
                 'parameters' => [
                     'variables' => ['value' => 'Delivery Experience'],
-                    'template' => 'value.phtml',
+                    // Note: this is NOT using the standard template but a bespoke one that loads up some JS
+                    'template' => 'orders/courier/specifics/columns/deliveryExperience.phtml',
                 ],
             ],
             'CourierSpecificsDeliveryExperienceColumn' => [
