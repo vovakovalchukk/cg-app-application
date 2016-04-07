@@ -725,7 +725,6 @@ return array(
                                 ['value' => 'DPDNEXTDAYPL', 'name' => 'Next Day Pallet'],
                                 ['value' => 'DPDNEXTDAYPL1200', 'name' => 'Next Day 12:00noon Pallet'],
                                 ['value' => 'DPDNEXTDAYPL1030', 'name' => 'Next Day 10:30am Pallet'],
-                                ['value' => 'DPDNEXTDAYPL1000', 'name' => 'Next Day 10:00am Pallet'],
                                 ['value' => 'DPDSAT0000PL', 'name' => 'Saturday Pallet'],
                                 ['value' => 'DPDSAT0000PL1200', 'name' => 'Saturday 12:00noon Pallet'],
                                 ['value' => 'DPDSAT0000PL1030', 'name' => 'Saturday 10:30am Pallet'],
