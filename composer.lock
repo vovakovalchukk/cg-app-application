@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a05ebf4ad6e8da5e68a467819fcb04f7",
-    "content-hash": "ca212adde5245af15fca9e86687ce967",
+    "hash": "32c6d8990c773e244e0cb527ef92edfd",
+    "content-hash": "f596e344dbc561888e1e264cc8f60644",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-CGIV-6914-AmazonLogistics-PngPdf",
+            "version": "1.17.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "c8709e78af559b0fbd8508e47d55e865160fd998"
+                "reference": "819a84d73e86a19ef1705204a077e47a62bd18a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-6914-AmazonLogistics-PngPdf-8a8e0d.zip",
-                "reference": "c8709e78af559b0fbd8508e47d55e865160fd998",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.17.7-e171b8.zip",
+                "reference": "819a84d73e86a19ef1705204a077e47a62bd18a4",
                 "shasum": null
             },
             "require": {
@@ -35,12 +35,12 @@
                 "channelgrabber/listing": "^1.9.0",
                 "channelgrabber/locale": "^1.0.5",
                 "channelgrabber/log": "^2.0.21",
-                "channelgrabber/order": "dev-CGIV-6914-AmazonLogistics-PngPdf as 1.22.1",
+                "channelgrabber/order": "^1.22.1",
                 "channelgrabber/product": "^1.5.0",
                 "channelgrabber/scraper": ">=1.0.2,<2.0.0",
                 "channelgrabber/settings": "^1.3.10",
                 "channelgrabber/stats": "^1.0.0",
-                "channelgrabber/stdlib": "dev-CGIV-6787-AmazonLogitics as 2.12.27",
+                "channelgrabber/stdlib": "^2.12.27",
                 "channelgrabber/stock": ">=1.3.4",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "composer/composer": "@dev",
@@ -71,7 +71,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-04-07 13:13:42"
+            "time": "2016-04-07 14:01:27"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -1268,16 +1268,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-6914-AmazonLogistics-PngPdf",
+            "version": "1.22.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "43a39269ae2a489c27dcb19e323fbef078524995"
+                "reference": "96540bacd1ceac1b0120b29b73b474e934919d8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6914-AmazonLogistics-PngPdf-1a352a.zip",
-                "reference": "43a39269ae2a489c27dcb19e323fbef078524995",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.22.1-a24708.zip",
+                "reference": "96540bacd1ceac1b0120b29b73b474e934919d8c",
                 "shasum": null
             },
             "require": {
@@ -1340,7 +1340,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-04-06 09:53:00"
+            "time": "2016-04-07 13:48:35"
         },
         {
             "name": "channelgrabber/permission",
@@ -2045,16 +2045,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "dev-CGIV-6787-AmazonLogitics",
+            "version": "2.12.27",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "bda30204fea5f62cdf44d1e1da23dfc0f97b2b73"
+                "reference": "c7b2e8d0c9cbb37836663b5e38b667699583c454"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-CGIV-6787-AmazonLogitics-124091.zip",
-                "reference": "bda30204fea5f62cdf44d1e1da23dfc0f97b2b73",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.27-5e9f9b.zip",
+                "reference": "c7b2e8d0c9cbb37836663b5e38b667699583c454",
                 "shasum": null
             },
             "require": {
@@ -2081,7 +2081,7 @@
                     "CG\\Stdlib\\Test\\": "tests/CG/Stdlib"
                 }
             },
-            "time": "2016-04-06 08:03:53"
+            "time": "2016-04-07 13:43:19"
         },
         {
             "name": "channelgrabber/stock",
@@ -2585,26 +2585,26 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "dev-CGIV-6787-AmazonLogitics",
+            "version": "1.0.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "dc6cd6e874078efa62816fdd0b1a3fd48f2fdf64"
+                "reference": "858ddc06060dd258eb716597d0352c4a09c2ab89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-CGIV-6787-AmazonLogitics-23c5fc.zip",
-                "reference": "dc6cd6e874078efa62816fdd0b1a3fd48f2fdf64",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.11-8507c7.zip",
+                "reference": "858ddc06060dd258eb716597d0352c4a09c2ab89",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/account": ">=1.0.9",
-                "channelgrabber/amazon": "dev-CGIV-6787-AmazonLogitics as 1.17.7",
+                "channelgrabber/amazon": "^1.17.7",
                 "channelgrabber/channel": "^1.17.12",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/http": ">=1.2.0,<2.0.0",
-                "channelgrabber/stdlib": "dev-CGIV-6787-AmazonLogitics as 2.12.27",
+                "channelgrabber/stdlib": "^2.12.27",
                 "channelgrabber/zf2-channel": ">=1.0.0",
                 "composer/composer": "@dev",
                 "zendframework/zend-config": "2.*",
@@ -2626,7 +2626,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2016-04-07 13:34:20"
+            "time": "2016-04-07 14:13:50"
         },
         {
             "name": "channelgrabber/zf2-api",
@@ -7645,39 +7645,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "dev-CGIV-6787-AmazonLogitics",
-            "alias_normalized": "dev-CGIV-6787-AmazonLogitics",
-            "version": "dev-CGIV-6914-AmazonLogistics-PngPdf",
-            "package": "channelgrabber/amazon"
-        },
-        {
-            "alias": "1.22.1",
-            "alias_normalized": "1.22.1.0",
-            "version": "dev-CGIV-6914-AmazonLogistics-PngPdf",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "2.12.27",
-            "alias_normalized": "2.12.27.0",
-            "version": "dev-CGIV-6787-AmazonLogitics",
-            "package": "channelgrabber/stdlib"
-        },
-        {
-            "alias": "1.0.11",
-            "alias_normalized": "1.0.11.0",
-            "version": "dev-CGIV-6787-AmazonLogitics",
-            "package": "channelgrabber/zf2-amazon"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/order": 20,
-        "channelgrabber/stdlib": 20,
-        "channelgrabber/zf2-amazon": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
