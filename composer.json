@@ -50,7 +50,7 @@
         "channelgrabber/location": "~1.1.3",
         "channelgrabber/log": "~2.0.25",
         "channelgrabber/netdespatch": "~1.0.2",
-        "channelgrabber/order": "dev-CGIV-6914-AmazonLogistics-PngPdf as 1.22.1",
+        "channelgrabber/order": "dev-CGIV-6915-OrderLabelService as dev-CGIV-6914-AmazonLogistics-PngPdf",
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/phinx": "~0.3.2",
         "channelgrabber/picklist": "~1.0.2",
