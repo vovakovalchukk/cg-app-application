@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "53a32d882ab8960177699fb1939717082a70f473"
+                "reference": "c8709e78af559b0fbd8508e47d55e865160fd998"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-6914-AmazonLogistics-PngPdf-51704b.zip",
-                "reference": "53a32d882ab8960177699fb1939717082a70f473",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-6914-AmazonLogistics-PngPdf-8a8e0d.zip",
+                "reference": "c8709e78af559b0fbd8508e47d55e865160fd998",
                 "shasum": null
             },
             "require": {
@@ -71,7 +71,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-04-07 10:47:40"
+            "time": "2016-04-07 13:13:42"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -2589,12 +2589,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "579f58e94272b81d80c0d837ba5b93a5d6c57523"
+                "reference": "dc6cd6e874078efa62816fdd0b1a3fd48f2fdf64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-CGIV-6787-AmazonLogitics-e2b62d.zip",
-                "reference": "579f58e94272b81d80c0d837ba5b93a5d6c57523",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-CGIV-6787-AmazonLogitics-23c5fc.zip",
+                "reference": "dc6cd6e874078efa62816fdd0b1a3fd48f2fdf64",
                 "shasum": null
             },
             "require": {
@@ -2626,7 +2626,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2016-04-04 13:51:40"
+            "time": "2016-04-07 13:34:20"
         },
         {
             "name": "channelgrabber/zf2-api",
