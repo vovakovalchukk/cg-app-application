@@ -1040,6 +1040,8 @@ return [
                 // Optional columns, added to table dynamically as required
                 'CourierSpecificsCollectionDateColumnView' => ViewModel::class,
                 'CourierSpecificsCollectionDateColumn' => DataTable\Column::class,
+                'CourierSpecificsCollectionTimeColumnView' => ViewModel::class,
+                'CourierSpecificsCollectionTimeColumn' => DataTable\Column::class,
                 'CourierSpecificsWeightColumnView' => ViewModel::class,
                 'CourierSpecificsWeightColumn' => DataTable\Column::class,
                 'CourierSpecificsHeightColumnView' => ViewModel::class,
@@ -1062,6 +1064,8 @@ return [
                 'CourierSpecificsPackageTypeColumn' => DataTable\Column::class,
                 'CourierSpecificsAddOnsColumnView' => ViewModel::class,
                 'CourierSpecificsAddOnsColumn' => DataTable\Column::class,
+                'CourierSpecificsDeliveryExperienceColumnView' => ViewModel::class,
+                'CourierSpecificsDeliveryExperienceColumn' => DataTable\Column::class,
             ],
             'preferences' => [
                 InvoiceRendererService::class => PdfInvoiceRendererService::class,
@@ -1862,6 +1866,21 @@ return [
                     'order' => 50,
                 ],
             ],
+            'CourierSpecificsCollectionTimeColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Time'],
+                    'template' => 'value.phtml',
+                ],
+            ],
+            'CourierSpecificsCollectionTimeColumn' => [
+                'parameters' => [
+                    'column' => 'collectionTime',
+                    'viewModel' => 'CourierSpecificsCollectionTimeColumnView',
+                    'class' => 'collectionTime-col',
+                    'sortable' => false,
+                    'order' => 51,
+                ],
+            ],
             'CourierSpecificsItemImageColumnView' => [
                 'parameters' => [
                     'variables' => ['value' => ''],
@@ -2074,6 +2093,22 @@ return [
                     'class' => 'add-ons-col',
                     'sortable' => false,
                     'order' => 95,
+                ],
+            ],
+            'CourierSpecificsDeliveryExperienceColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Delivery Experience'],
+                    // Note: this is NOT using the standard template but a bespoke one that loads up some JS
+                    'template' => 'orders/courier/specifics/columns/deliveryExperience.phtml',
+                ],
+            ],
+            'CourierSpecificsDeliveryExperienceColumn' => [
+                'parameters' => [
+                    'column' => 'deliveryExperience',
+                    'viewModel' => 'CourierSpecificsDeliveryExperienceColumnView',
+                    'class' => 'experience-col',
+                    'sortable' => false,
+                    'order' => 35,
                 ],
             ],
         ],
