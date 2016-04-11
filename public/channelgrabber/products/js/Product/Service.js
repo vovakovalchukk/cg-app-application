@@ -80,7 +80,9 @@ define([
                 Service.DOM_SELECTOR_PRODUCTS_CONTAINER,
                 Service.DOM_SELECTOR_TOOLTIP_STATUS,
                 function() {
-                    return $(this).attr("title");
+                    var status = $(this);
+                    tooltip.setClassName(status.text());
+                    return status.attr("title");
                 }
             );
 
