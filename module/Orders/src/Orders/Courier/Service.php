@@ -6,35 +6,34 @@ use CG\Account\Client\Service as AccountService;
 use CG\Account\Shared\Collection as AccountCollection;
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\CarrierBookingOptionsInterface;
-use CG\Channel\ShippingServiceFactory;
 use CG\Channel\ShippingChannelsProviderInterface;
-use CG\Channel\Type as ChannelType;
+use CG\Channel\ShippingServiceFactory;
 use CG\Order\Client\Service as OrderService;
-use CG\Order\Shared\Label\Collection as OrderLabelCollection;
-use CG\Order\Shared\Label\Entity as OrderLabel;
-use CG\Order\Shared\Label\Filter as OrderLabelFilter;
-use CG\Order\Shared\Label\Status as OrderLabelStatus;
-use CG\Order\Shared\Label\StorageInterface as OrderLabelStorage;
 use CG\Order\Service\Filter as OrderFilter;
 use CG\Order\Shared\Collection as OrderCollection;
 use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Item\Collection as ItemCollection;
 use CG\Order\Shared\Item\Entity as Item;
+use CG\Order\Shared\Label\Collection as OrderLabelCollection;
+use CG\Order\Shared\Label\Entity as OrderLabel;
+use CG\Order\Shared\Label\Filter as OrderLabelFilter;
+use CG\Order\Shared\Label\Status as OrderLabelStatus;
+use CG\Order\Shared\Label\StorageInterface as OrderLabelStorage;
 use CG\Order\Shared\Shipping\Conversion\Service as ShippingConversionService;
-use CG\Product\Filter as ProductFilter;
+use CG\OrganisationUnit\Entity as OrganisationUnit;
 use CG\Product\Client\Service as ProductService;
 use CG\Product\Collection as ProductCollection;
 use CG\Product\Detail\Collection as ProductDetailCollection;
-use CG\Product\Detail\Entity as ProductDetail;
-use CG\Product\Detail\Filter as ProductDetailFilter;
 use CG\Product\Detail\Service as ProductDetailService;
 use CG\Product\Entity as Product;
-use CG\OrganisationUnit\Entity as OrganisationUnit;
+use CG\Product\Filter as ProductFilter;
+use CG\Stdlib\DateTime;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
-use CG_UI\View\DataTable;
 use CG\User\OrganisationUnit\Service as UserOUService;
+use CG_UI\View\DataTable;
+use DateTimeZone;
 use Orders\Courier\GetProductDetailsForOrdersTrait;
 use Zend\Di\Di;
 use Zend\Di\Exception\ClassNotFoundException;
@@ -379,8 +378,20 @@ class Service implements LoggerAwareInterface
             }
             $data = array_merge($data, $itemsData);
         }
+        $now = (new DateTime())->setTimezone(new DateTimeZone($this->getUsersTimezone()));
+        foreach ($data as &$row) {
+            $row['currentTime'] = $now->uiTimeFormat();
+            $row['timezone'] = $now->getTimezone()->getName();
+        }
         $data = $this->carrierBookingOptions->addCarrierSpecificDataToListArray($data, $courierAccount);
         return $data;
+    }
+
+    protected function getUsersTimezone()
+    {
+        /** @var OrganisationUnit $rootOu */
+        $rootOu = $this->userOuService->getRootOuByActiveUser();
+        return $rootOu->getTimezone();
     }
 
     protected function getSpecificsOrderListDataDefaults(

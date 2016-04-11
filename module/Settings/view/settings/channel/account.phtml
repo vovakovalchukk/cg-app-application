@@ -72,7 +72,7 @@ require(
         <label>
             <span class="inputbox-label">Enable Account:</span>
             <div class="alternate-input mustache">
-                <?= $this->mustache('columns/enable.mustache', $account) ?>
+                <?= $this->mustache('columns/enable.mustache', array_merge($account, ['type' => $type])) ?>
                 <span class="current-account-status">
                   <?= $this->mustache('columns/accountStatus.mustache', $account) ?>
                 </span>

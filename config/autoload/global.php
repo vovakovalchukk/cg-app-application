@@ -168,6 +168,14 @@ use CG\Order\Shared\CustomerCounts\Storage\OrderLookup as CustomerCountOrderLook
 use CG\Locking\StorageInterface as LockingStorage;
 use CG\Redis\Locking\Storage as LockingRedisStorage;
 
+// Amazon Logistics
+use CG\Amazon\Carrier\Service as AmazonCarrierService;
+use CG\Amazon\Carrier\ShippingChannelsProvider as AmazonShippingChannelsProvider;
+use CG\Amazon\Carrier\CarrierProviderService as AmazonCarrierProvider;
+use CG\Amazon\ShippingService\Service as AmazonShippingServiceService;
+use CG\Amazon\ShippingService\StorageInterface as AmazonShippingServiceStorage;
+use CG\Amazon\ShippingService\Storage\Api as AmazonShippingServiceApiStorage;
+
 return array(
     'di' => array(
         'definition' => [
@@ -248,6 +256,7 @@ return array(
                 UsageService::class => 'order_count_usage_service',
                 CustomerCountStorage::class => CustomerCountRepository::class,
                 LockingStorage::class => LockingRedisStorage::class,
+                AmazonShippingServiceStorage::class => AmazonShippingServiceApiStorage::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,
@@ -627,6 +636,7 @@ return array(
                     'addProvider' => [
                         ['provider' => DataplugCarriers::class],
                         ['provider' => NetDespatchShippingOptionsProvider::class],
+                        ['provider' => AmazonShippingChannelsProvider::class],
                     ]
                 ]
             ],
@@ -643,6 +653,7 @@ return array(
                     'addProvider' => [
                         ['provider' => DataplugCarrierService::class],
                         ['provider' => NetDespatchShippingOptionsProvider::class],
+                        ['provider' => AmazonShippingChannelsProvider::class],
                     ]
                 ]
             ],
@@ -651,6 +662,7 @@ return array(
                     'addProvider' => [
                         ['provider' => DataplugOrderService::class],
                         ['provider' => NetDespatchOrderService::class],
+                        ['provider' => AmazonCarrierProvider::class],
                     ]
                 ]
             ],
@@ -1292,6 +1304,21 @@ return array(
             CustomerCountCacheStorage::class => [
                 'parameters' => [
                     'client' => 'reliable_redis',
+                ],
+            ],
+            AmazonShippingServiceApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle',
+                ],
+            ],
+            AmazonShippingServiceService::class => [
+                'parameters' => [
+                    'cryptor' => 'amazon_cryptor',
+                ],
+            ],
+            AmazonCarrierService::class => [
+                'parameters' => [
+                    'cryptor' => 'amazon_cryptor',
                 ],
             ],
         ),
