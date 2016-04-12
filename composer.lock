@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3ead0be455a63f5024d168022db5bc5b",
-    "content-hash": "bfb9cc3f2194be6e1e608cc6c6f68f75",
+    "hash": "ae3d5503678d4afd05cba934d10fbc23",
+    "content-hash": "f1fba15f98c8c95bfec5ab5905d60aad",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2045,16 +2045,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "dev-CGIV-6740-ListingStatus",
+            "version": "2.12.27",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "aab21dc8343b22521ab2f8ac0099571d1691aeda"
+                "reference": "c7b2e8d0c9cbb37836663b5e38b667699583c454"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-CGIV-6740-ListingStatus-958cfe.zip",
-                "reference": "aab21dc8343b22521ab2f8ac0099571d1691aeda",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.27-5e9f9b.zip",
+                "reference": "c7b2e8d0c9cbb37836663b5e38b667699583c454",
                 "shasum": null
             },
             "require": {
@@ -2081,7 +2081,7 @@
                     "CG\\Stdlib\\Test\\": "tests/CG/Stdlib"
                 }
             },
-            "time": "2016-04-11 08:47:41"
+            "time": "2016-04-07 13:43:19"
         },
         {
             "name": "channelgrabber/stock",
@@ -7653,12 +7653,6 @@
             "package": "channelgrabber/listing"
         },
         {
-            "alias": "2.12.28",
-            "alias_normalized": "2.12.28.0",
-            "version": "dev-CGIV-6740-ListingStatus",
-            "package": "channelgrabber/stdlib"
-        },
-        {
             "alias": "1.16.42",
             "alias_normalized": "1.16.42.0",
             "version": "dev-CGIV-6740-ListingStatus",
@@ -7669,7 +7663,6 @@
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/listing": 20,
-        "channelgrabber/stdlib": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,

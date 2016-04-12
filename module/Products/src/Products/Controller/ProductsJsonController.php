@@ -136,27 +136,7 @@ class ProductsJsonController extends AbstractActionController
         $product = array_merge($product, [
             'eTag' => $productEntity->getStoredETag(),
             'images' => $productEntity->getImages()->toArray(),
-            'listings' => $productEntity->getListings()->toArray(
-                    function(ListingEntity $listing) {
-                        $listingData = $listing->toArray();
-                        $listingData['message'] = '';
-
-                        $statusHistory = $listing->getStatusHistory();
-                        if ($statusHistory->count() == 0) {
-                            return $listingData;
-                        }
-                        $statusHistory->rewind();
-
-                        /** @var ListingStatusHistory $currentStatus */
-                        $currentStatus = $statusHistory->current();
-                        if ($currentStatus->getStatus() != $listing->getStatus()) {
-                            return $listingData;
-                        }
-
-                        $listingData['message'] = $currentStatus->getMessage();
-                        return $listingData;
-                    }
-                ),
+            'listings' => $this->getProductListingsArray($productEntity),
             'accounts' => $accounts,
             'stockModeDefault' => $this->stockSettingsService->getStockModeDefault(),
             'stockModeDesc' => $this->stockSettingsService->getStockModeDecriptionForProduct($productEntity),
@@ -185,6 +165,35 @@ class ProductsJsonController extends AbstractActionController
             $product['stock']['locations'][$stockLocationIndex]['eTag'] = $stockEntity->getLocations()->getById($stockLocationId)->getStoredETag();
         }
         return $product;
+    }
+
+    protected function getProductListingsArray(ProductEntity $productEntity)
+    {
+        $listings = [];
+        /** @var ListingEntity $listing */
+        foreach ($productEntity->getListings() as $listing) {
+            $listingData = $listing->toArray();
+            $listingData['message'] = '';
+
+            $statusHistory = $listing->getStatusHistory();
+            $statusHistory->rewind();
+
+            if ($statusHistory->count() == 0) {
+                $listings[] = $listingData;
+                continue;
+            }
+
+            /** @var ListingStatusHistory $currentStatus */
+            $currentStatus = $statusHistory->current();
+            if ($currentStatus->getStatus() != $listing->getStatus()) {
+                $listings[] = $listingData;
+                continue;
+            }
+
+            $listingData['message'] = $currentStatus->getMessage();
+            $listings[] = $listingData;
+        }
+        return $listings;
     }
 
     public function stockUpdateAction()
