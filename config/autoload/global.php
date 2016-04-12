@@ -168,6 +168,14 @@ use CG\Order\Shared\CustomerCounts\Storage\OrderLookup as CustomerCountOrderLook
 use CG\Locking\StorageInterface as LockingStorage;
 use CG\Redis\Locking\Storage as LockingRedisStorage;
 
+// Amazon Logistics
+use CG\Amazon\Carrier\Service as AmazonCarrierService;
+use CG\Amazon\Carrier\ShippingChannelsProvider as AmazonShippingChannelsProvider;
+use CG\Amazon\Carrier\CarrierProviderService as AmazonCarrierProvider;
+use CG\Amazon\ShippingService\Service as AmazonShippingServiceService;
+use CG\Amazon\ShippingService\StorageInterface as AmazonShippingServiceStorage;
+use CG\Amazon\ShippingService\Storage\Api as AmazonShippingServiceApiStorage;
+
 return array(
     'di' => array(
         'definition' => [
@@ -248,6 +256,7 @@ return array(
                 UsageService::class => 'order_count_usage_service',
                 CustomerCountStorage::class => CustomerCountRepository::class,
                 LockingStorage::class => LockingRedisStorage::class,
+                AmazonShippingServiceStorage::class => AmazonShippingServiceApiStorage::class,
             ),
             'aliases' => [
                 'amazonWriteCGSql' => CGSql::class,
@@ -627,6 +636,7 @@ return array(
                     'addProvider' => [
                         ['provider' => DataplugCarriers::class],
                         ['provider' => NetDespatchShippingOptionsProvider::class],
+                        ['provider' => AmazonShippingChannelsProvider::class],
                     ]
                 ]
             ],
@@ -643,6 +653,7 @@ return array(
                     'addProvider' => [
                         ['provider' => DataplugCarrierService::class],
                         ['provider' => NetDespatchShippingOptionsProvider::class],
+                        ['provider' => AmazonShippingChannelsProvider::class],
                     ]
                 ]
             ],
@@ -651,6 +662,7 @@ return array(
                     'addProvider' => [
                         ['provider' => DataplugOrderService::class],
                         ['provider' => NetDespatchOrderService::class],
+                        ['provider' => AmazonCarrierProvider::class],
                     ]
                 ]
             ],
@@ -713,24 +725,24 @@ return array(
                                 ['value' => 'DPDTWODAY0PA', 'name' => 'Two Day Parcel'],
                                 ['value' => 'DPDNEXTDAYPA', 'name' => 'Next Day Parcel'],
                                 ['value' => 'DPDNEXTDAYPA1200', 'name' => 'Next Day 12:00noon Parcel'],
-                                ['value' => 'DPDNEXTDAYPA1000', 'name' => 'Next Day 10:00am Parcel'],
+                                ['value' => 'DPDNEXTDAYPA1030', 'name' => 'Next Day 10:30am Parcel'],
                                 ['value' => 'DPDSAT0000PA', 'name' => 'Saturday Parcel'],
                                 ['value' => 'DPDSAT0000PA1200', 'name' => 'Saturday 12:00noon Parcel'],
-                                ['value' => 'DPDSAT0000PA1000', 'name' => 'Saturday 10:00am Parcel'],
+                                ['value' => 'DPDSAT0000PA1030', 'name' => 'Saturday 10:30am Parcel'],
                                 ['value' => 'DPDCLASSICPA', 'name' => 'Classic Parcel'],
                                 ['value' => 'DPDNEXTDAYPK', 'name' => 'Next day Express Pack'],
                                 ['value' => 'DPDNEXTDAYPK1200', 'name' => 'Next day 12:00noon Express Pack'],
-                                ['value' => 'DPDNEXTDAYPK1000', 'name' => 'Next day 10:00am Express Pack'],
+                                ['value' => 'DPDNEXTDAYPK1030', 'name' => 'Next day 10:30am Express Pack'],
                                 ['value' => 'DPDTWODAY0PL', 'name' => 'Two Day Pallet'],
                                 ['value' => 'DPDNEXTDAYPL', 'name' => 'Next Day Pallet'],
                                 ['value' => 'DPDNEXTDAYPL1200', 'name' => 'Next Day 12:00noon Pallet'],
-                                ['value' => 'DPDNEXTDAYPL1000', 'name' => 'Next Day 10:00am Pallet'],
+                                ['value' => 'DPDNEXTDAYPL1030', 'name' => 'Next Day 10:30am Pallet'],
                                 ['value' => 'DPDSAT0000PL', 'name' => 'Saturday Pallet'],
                                 ['value' => 'DPDSAT0000PL1200', 'name' => 'Saturday 12:00noon Pallet'],
-                                ['value' => 'DPDSAT0000PL1000', 'name' => 'Saturday 10:00am Pallet'],
+                                ['value' => 'DPDSAT0000PL1030', 'name' => 'Saturday 10:30am Pallet'],
                                 ['value' => 'DPDCLASAIRPA', 'name' => 'Classic Air Parcel'],
                                 ['value' => 'DPDSAT0000PK', 'name' => 'Saturday Express Pack'],
-                                ['value' => 'DPDSAT0000PK1000', 'name' => 'Saturday 10:00am Express Pack'],
+                                ['value' => 'DPDSAT0000PK1030', 'name' => 'Saturday 10:30am Express Pack'],
                                 ['value' => 'DPDSAT0000PK1200', 'name' => 'Saturday 12:00noon Express Pack']
                             ],
                             'options' => [
@@ -792,13 +804,40 @@ return array(
                                 ['name' => 'Order End Sequence', 'label' => 'End Consignment Sequence'],
                             ],
                             'services' => [
-                                ['value' => 'INTNEXTDAYPA0930', 'name' => 'Next Day 9.30am Parcel'],
-                                ['value' => 'INTNEXTDAYPA1200', 'name' => 'Next Day 12.00noon Parcel'],
+                                ['value' => 'INTHOMECALPK1', 'name' => 'HomeCall Express Pack 1 Parcel'],
+                                ['value' => 'INTNEXTDAYPK1', 'name' => 'Next Day Express Pack 1 Parcel'],
+                                ['value' => 'INTNEXTDAYPK11030', 'name' => 'By 10:30am Express Pack 1 Parcel'],
+                                ['value' => 'INTNEXTDAYPK11200', 'name' => 'By 12:00am Express Pack 1 Parcel'],
+                                ['value' => 'INTSAT000PK1', 'name' => 'Saturday Express Pack 1 Parcel'],
+                                ['value' => 'INTSATUDAYPK11030', 'name' => 'Saturday by 10:30am Express Pack 1 Parcel'],
+                                ['value' => 'INTSATUDAYPK11200', 'name' => 'Saturday by 12:00am Express Pack 1 Parcel'],
+                                ['value' => 'INTSUN000PK1', 'name' => 'Sunday Express Pack 1 Parcel'],
+                                ['value' => 'INTSUNDAYPK11030', 'name' => 'Sunday by 10:30am Express Pack 1 Parcel'],
+                                ['value' => 'INTSUNDAYPK11200', 'name' => 'Sunday by 12:00am Express Pack 1 Parcel'],
+                                ['value' => 'INTHOMECALPK5', 'name' => 'HomeCall Express Pack 5 Parcel'],
+                                ['value' => 'INTNEXTDAYPK5', 'name' => 'Next Day Express Pack 5 Parcel'],
+                                ['value' => 'INTNEXTDAYPK51030', 'name' => 'By 10:30am Express Pack 5 Parcel'],
+                                ['value' => 'INTNEXTDAYPK51200', 'name' => 'By 12:00am Express Pack 5 Parcel'],
+                                ['value' => 'INTSAT000PK5', 'name' => 'Saturday Express Pack 5 Parcel'],
+                                ['value' => 'INTSATUDAYPK51030', 'name' => 'Saturday by 10:30am Express Pack 5 Parcel'],
+                                ['value' => 'INTSATUDAYPK51200', 'name' => 'Saturday by 12:00am Express Pack 5 Parcel'],
+                                ['value' => 'INTSUN000PK5', 'name' => 'Sunday Express Pack 5 Parcel'],
+                                ['value' => 'INTSUNDAYK5A1030', 'name' => 'Sunday by 10:30am Express Pack 5 Parcel'],
+                                ['value' => 'INTSUNDAYPK51200', 'name' => 'Sunday by 12:00am Express Pack 5 Parcel'],
+                                ['value' => 'INTHOMECALPA', 'name' => 'HomeCall Parcel'],
                                 ['value' => 'INTNEXTDAYPA', 'name' => 'Next Day Parcel'],
-                                ['value' => 'INTSATUDAYPA1000', 'name' => 'Saturday 10.00am Parcel'],
-                                ['value' => 'INTSATUDAYPA1200', 'name' => 'Saturday 12.00noon Parcel'],
+                                ['value' => 'INTNEXTDAYPA1030', 'name' => 'By 10:30am Parcel'],
+                                ['value' => 'INTNEXTDAYPA1200', 'name' => 'By 12:00am Parcel'],
+                                ['value' => 'INTSAT0000PA', 'name' => 'Saturday Parcel'],
+                                ['value' => 'INTSATUDAYPA1030', 'name' => 'Saturday by 10:30am Parcel'],
+                                ['value' => 'INTSATUDAYPA1200', 'name' => 'Saturday by 12:00am Parcel'],
+                                ['value' => 'INTSUN0000PA', 'name' => 'Sunday Parcel'],
+                                ['value' => 'INTSUNDAYPA1030', 'name' => 'Sunday by 10:30am Parcel'],
+                                ['value' => 'INTSUNDAYPA1200', 'name' => 'Sunday by 12:00am Parcel'],
                                 ['value' => 'INTTWODAY0PA', 'name' => 'Two Day Parcel'],
-                                ['value' => 'INTHOMECALPA', 'name' => 'Homecall Parcel']
+                                ['value' => 'DPDEXPAIR0PA', 'name' => 'Air Express Parcel'],
+                                ['value' => 'DPDCLASSICPA', 'name' => 'Classic Parcel'],
+                                ['value' => 'DPDCLASAIRPA', 'name' => 'Classic Air Parcel'],
                             ],
                             'options' => [
                                 'insuranceMonetary' => false,
@@ -1290,6 +1329,21 @@ return array(
             CustomerCountCacheStorage::class => [
                 'parameters' => [
                     'client' => 'reliable_redis',
+                ],
+            ],
+            AmazonShippingServiceApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle',
+                ],
+            ],
+            AmazonShippingServiceService::class => [
+                'parameters' => [
+                    'cryptor' => 'amazon_cryptor',
+                ],
+            ],
+            AmazonCarrierService::class => [
+                'parameters' => [
+                    'cryptor' => 'amazon_cryptor',
                 ],
             ],
         ),
