@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "32c6d8990c773e244e0cb527ef92edfd",
-    "content-hash": "f596e344dbc561888e1e264cc8f60644",
+    "hash": "621f8c3c87165dc14643d4cd2ef6cb09",
+    "content-hash": "629eef86785bb943211be94b54ccc4b9",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2585,16 +2585,16 @@
         },
         {
             "name": "channelgrabber/zf2-amazon",
-            "version": "1.0.11",
+            "version": "dev-CGIV-6930-AmazonLogisticImprovements",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "858ddc06060dd258eb716597d0352c4a09c2ab89"
+                "reference": "1ab17da11ce9365b01ce8070cbdd586e9a2c06ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-1.0.11-8507c7.zip",
-                "reference": "858ddc06060dd258eb716597d0352c4a09c2ab89",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-CGIV-6930-AmazonLogisticImprovements-647c30.zip",
+                "reference": "1ab17da11ce9365b01ce8070cbdd586e9a2c06ee",
                 "shasum": null
             },
             "require": {
@@ -2626,7 +2626,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2016-04-07 14:13:50"
+            "time": "2016-04-12 14:07:49"
         },
         {
             "name": "channelgrabber/zf2-api",
@@ -4654,7 +4654,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpatch/zipball/23e4f0d8e66d3784e9a1d0db812b105fb9890f76",
+                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpatch/zipball/cc43b856ed3e1726f5f1fab7f5a6fc0cdbce0ef4",
                 "reference": "e57b7e02224d0266d5f7de970964b5302501125b",
                 "shasum": "691f4c32e8522bbb20fb4baec578d0eab498b683"
             },
@@ -4706,7 +4706,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpointer/zipball/72cb977c4c19d12786107320ed9bab3ce24045cd",
+                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpointer/zipball/86abfb29af042a1c1dabc439089b3a5945ac3e34",
                 "reference": "064f65b05d1381d4999113f442af93949cc7c29a",
                 "shasum": "1982d83a6b5c301565c6af5e5acfe9f11e43776b"
             },
@@ -7645,10 +7645,18 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.12",
+            "alias_normalized": "1.0.12.0",
+            "version": "dev-CGIV-6930-AmazonLogisticImprovements",
+            "package": "channelgrabber/zf2-amazon"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-amazon": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
