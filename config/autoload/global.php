@@ -796,7 +796,8 @@ return array(
                             'code' => DataplugCarrier\Interlink::CODE,
                             'fields' => [
                                 ['name' => 'Account no'],
-                                ['name' => 'User ID'],
+                                ['name' => 'FTP Username', 'required' => false],
+                                ['name' => 'FTP Password', 'required' => false],
                                 ['name' => 'Authorisation Code'],
                                 ['name' => 'Start Sequence', 'label' => 'Start Parcel Sequence'],
                                 ['name' => 'End Sequence', 'label' => 'End Parcel Sequence'],
