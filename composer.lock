@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "621f8c3c87165dc14643d4cd2ef6cb09",
+    "hash": "e0ef4efa49dee69e04cf72e4600bacb2",
     "content-hash": "629eef86785bb943211be94b54ccc4b9",
     "packages": [
         {
@@ -2589,12 +2589,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/amazon-module.git",
-                "reference": "1ab17da11ce9365b01ce8070cbdd586e9a2c06ee"
+                "reference": "731e230068608f03744169f320ac5eb54a82b26b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-CGIV-6930-AmazonLogisticImprovements-647c30.zip",
-                "reference": "1ab17da11ce9365b01ce8070cbdd586e9a2c06ee",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-amazon-dev-CGIV-6930-AmazonLogisticImprovements-3cfc4e.zip",
+                "reference": "731e230068608f03744169f320ac5eb54a82b26b",
                 "shasum": null
             },
             "require": {
@@ -2626,7 +2626,7 @@
                 }
             },
             "description": "Amazon module",
-            "time": "2016-04-12 14:07:49"
+            "time": "2016-04-13 07:24:59"
         },
         {
             "name": "channelgrabber/zf2-api",
