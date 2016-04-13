@@ -114,9 +114,9 @@ class Service implements LoggerAwareInterface
     /**
      * @return array
      */
-    public function getCourierOptions()
+    public function getCourierOptions($selectedAccountId = null)
     {
-        return $this->getShippingAccountOptions();
+        return $this->getShippingAccountOptions($selectedAccountId);
     }
 
     public function getShippingAccounts()
@@ -203,7 +203,14 @@ class Service implements LoggerAwareInterface
             'postcode' => $order->getShippingAddressPostcodeForCourier(),
             'orderNumber' => $order->getExternalId(),
             'shippingMethod' => $shippingDescription,
-            'courier' => (string)$courierId,
+            'courier' => (string) $courierId,
+            'courierOptions' => [
+                'name' => 'courier_' . $order->getId(),
+                'class' => 'courier-review-courier-select',
+                'blankOption' => false,
+                'searchField' => false,
+                'options' => $this->getCourierOptions($courierId),
+            ],
             'service' => $service,
         ];
         return $orderData;

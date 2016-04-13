@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e0ef4efa49dee69e04cf72e4600bacb2",
-    "content-hash": "629eef86785bb943211be94b54ccc4b9",
+    "hash": "4ddc72009879ae7b83d946e330623adb",
+    "content-hash": "529cb320a1825d52e9853ccb5da0a0ff",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3412,16 +3412,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.40",
+            "version": "dev-CGIV-6930-AmazonLogisticImprovements",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "66ebce6d9fe76bfa76a3f4bd374fc210560ca28a"
+                "reference": "5d385e7010c07961cff9e81648b1a5a7aaa69826"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.40-1d81b1.zip",
-                "reference": "66ebce6d9fe76bfa76a3f4bd374fc210560ca28a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6930-AmazonLogisticImprovements-cb9cba.zip",
+                "reference": "5d385e7010c07961cff9e81648b1a5a7aaa69826",
                 "shasum": null
             },
             "require": {
@@ -3467,7 +3467,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-03-22 16:05:39"
+            "time": "2016-04-13 08:47:32"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -3642,7 +3642,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/composer-composer-c41079192f38f0fc446b17baa8f628dcb3b61e7d-zip-2f144b.zip",
+                "url": "https://api.github.com/repos/composer/composer/zipball/de7123097e2e8a82997f41a844bee297dafcd4f0",
                 "reference": "c41079192f38f0fc446b17baa8f628dcb3b61e7d",
                 "shasum": "557f4fb72b06f29ad2f07f44ce744b703b7cea9a"
             },
@@ -7651,12 +7651,19 @@
             "alias_normalized": "1.0.12.0",
             "version": "dev-CGIV-6930-AmazonLogisticImprovements",
             "package": "channelgrabber/zf2-amazon"
+        },
+        {
+            "alias": "1.16.42",
+            "alias_normalized": "1.16.42.0",
+            "version": "dev-CGIV-6930-AmazonLogisticImprovements",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-amazon": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

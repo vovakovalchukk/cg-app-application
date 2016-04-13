@@ -79,7 +79,6 @@ class CourierController extends AbstractActionController
 
         $view->setVariable('orderIds', $orderIds);
         $view->setVariable('specificsUrl', $this->url()->fromRoute(Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_SPECIFICS));
-        $view->addChild($this->getCourierSelectView(), 'courierSelect');
         $this->addCourierServiceViews($view);
         $view->addChild($this->reviewTable, 'reviewTable');
         $view->addChild($this->getReviewContinueButton(), 'continueButton');
@@ -105,20 +104,6 @@ class CourierController extends AbstractActionController
             )
         );
         $settings->setTemplateUrlMap($this->mustacheTemplateMap('courierReview'));
-    }
-
-    protected function getCourierSelectView()
-    {
-        $courierOptions = $this->service->getCourierOptions();
-        $view = $this->viewModelFactory->newInstance([
-            'id' => 'courier-review-courier-select',
-            'class' => 'courier-review-courier-select',
-            'blankOption' => false,
-            'searchField' => false,
-            'options' => $courierOptions,
-        ]);
-        $view->setTemplate('elements/custom-select.mustache');
-        return $view;
     }
 
     protected function addCourierServiceViews(ViewModel $view, $selectedCourierId = null)
