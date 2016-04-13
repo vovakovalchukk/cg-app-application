@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7139791d19135a306551e660dcd05f01",
+    "hash": "ead6a676ddbc5a97917b4ddfec993f80",
     "content-hash": "303e3bb07c419cb43ae0a5de187ed305",
     "packages": [
         {
@@ -3411,12 +3411,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "5d385e7010c07961cff9e81648b1a5a7aaa69826"
+                "reference": "c2d471614db9379738d3032e844c35033b82fa71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6930-AmazonLogisticImprovements-cb9cba.zip",
-                "reference": "5d385e7010c07961cff9e81648b1a5a7aaa69826",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6930-AmazonLogisticImprovements-a6ec06.zip",
+                "reference": "c2d471614db9379738d3032e844c35033b82fa71",
                 "shasum": null
             },
             "require": {
@@ -3462,7 +3462,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-04-13 08:47:32"
+            "time": "2016-04-13 11:30:13"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",

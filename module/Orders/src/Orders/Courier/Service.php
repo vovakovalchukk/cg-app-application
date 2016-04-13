@@ -216,7 +216,7 @@ class Service implements LoggerAwareInterface
             'courier' => (string) $courierId,
             'courierOptions' => [
                 'name' => 'courier_' . $order->getId(),
-                'class' => 'courier-review-courier-select',
+                'class' => 'courier-courier-custom-select',
                 'blankOption' => false,
                 'searchField' => false,
                 'options' => $this->getCourierOptionsForOrder($order, $courierId),
