@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b8ee26ba9eb765e7014d1340fc8dbc3b",
+    "hash": "97c91066a554b3a5a3ed6b6497486d2e",
     "content-hash": "bf0629984aba6f0356e5cd992f6d7dd2",
     "packages": [
         {
@@ -1172,12 +1172,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "5e82db44cc19c472ed4c9e7b42c06861321476ab"
+                "reference": "59abe8e8b0fc298b4fafdb0446b33a066528b8eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6915-OrderLabelService-03fa79.zip",
-                "reference": "5e82db44cc19c472ed4c9e7b42c06861321476ab",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6915-OrderLabelService-7e8038.zip",
+                "reference": "59abe8e8b0fc298b4fafdb0446b33a066528b8eb",
                 "shasum": null
             },
             "require": {
@@ -1216,7 +1216,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-04-12 08:17:05"
+            "time": "2016-04-13 11:52:56"
         },
         {
             "name": "channelgrabber/notification",
@@ -3642,7 +3642,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/composer-composer-c41079192f38f0fc446b17baa8f628dcb3b61e7d-zip-2f144b.zip",
+                "url": "https://api.github.com/repos/composer/composer/zipball/de7123097e2e8a82997f41a844bee297dafcd4f0",
                 "reference": "c41079192f38f0fc446b17baa8f628dcb3b61e7d",
                 "shasum": "557f4fb72b06f29ad2f07f44ce744b703b7cea9a"
             },
