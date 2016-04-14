@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d1660d479ff63b3aeecd8ba54c85b384",
-    "content-hash": "fe3505e7a7107b677ffae743eeeecdf7",
+    "hash": "203c666748ef43051f44b69d0f6db985",
+    "content-hash": "1956d43bb218e3150750d7bfb0009504",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -487,22 +487,22 @@
         },
         {
             "name": "channelgrabber/dataplug",
-            "version": "dev-CGIV-6918-Interlink-ftp-details-change",
+            "version": "1.2.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "eddbfe80308eff775678af86eb83b210919c97e5"
+                "reference": "95ea9ca3630937bafba53773ae2aa95520aed0ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6918-Interlink-ftp-details-change-4e7ae9.zip",
-                "reference": "eddbfe80308eff775678af86eb83b210919c97e5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-1.2.4-400062.zip",
+                "reference": "95ea9ca3630937bafba53773ae2aa95520aed0ca",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.21.8",
+                "channelgrabber/channel": "^1.22.2",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/di": ">=2.1.0",
+                "channelgrabber/di": "^2.2.0",
                 "channelgrabber/gearman": "^1.2.0",
                 "channelgrabber/order": "^1.21.5",
                 "channelgrabber/product": "^1.5.0",
@@ -529,7 +529,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-04-13 14:27:40"
+            "time": "2016-04-14 12:04:17"
         },
         {
             "name": "channelgrabber/db",
@@ -7645,18 +7645,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.2.4",
-            "alias_normalized": "1.2.4.0",
-            "version": "dev-CGIV-6918-Interlink-ftp-details-change",
-            "package": "channelgrabber/dataplug"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/dataplug": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
