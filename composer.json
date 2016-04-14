@@ -35,7 +35,7 @@
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/communication": "~1.0.2",
         "channelgrabber/constants": "dev-master",
-        "channelgrabber/dataplug": "~1.2.3",
+        "channelgrabber/dataplug": "dev-CGIV-6918-Interlink-ftp-details-change as 1.2.4",
         "channelgrabber/di": "~2.2.0",
         "channelgrabber/ebay": "~1.9.48",
         "channelgrabber/ekm": "~1.8.30",
