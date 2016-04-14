@@ -49,7 +49,7 @@
         "channelgrabber/locale": "~1.0.5",
         "channelgrabber/location": "~1.1.3",
         "channelgrabber/log": "~2.0.25",
-        "channelgrabber/netdespatch": "~1.0.3",
+        "channelgrabber/netdespatch": "dev-CGIV-6938-MultiRowOrders as 1.0.4",
         "channelgrabber/order": "~1.23.0",
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/phinx": "~0.3.2",
