@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "268352bccd23a127de56734e60d4cb49",
-    "content-hash": "356278d3778bfab7546e7882d7de5400",
+    "hash": "d1660d479ff63b3aeecd8ba54c85b384",
+    "content-hash": "fe3505e7a7107b677ffae743eeeecdf7",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1168,22 +1168,22 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "90341caf986ffd2d4b4ed5a2fe58f73f05788b27"
+                "reference": "2d0bfecaf9e1b9e342f3a3a96268acd293d33148"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.0.2-24b150.zip",
-                "reference": "90341caf986ffd2d4b4ed5a2fe58f73f05788b27",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.0.3-175603.zip",
+                "reference": "2d0bfecaf9e1b9e342f3a3a96268acd293d33148",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.21.8",
+                "channelgrabber/channel": "^1.22.2",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/di": ">=2.1.0",
+                "channelgrabber/di": "^2.2.0",
                 "channelgrabber/locale": "^1.0.5",
                 "channelgrabber/order": "^1.21.12",
                 "channelgrabber/stats": "^1.0.0",
@@ -1216,7 +1216,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-04-01 15:11:52"
+            "time": "2016-04-14 09:27:58"
         },
         {
             "name": "channelgrabber/notification",
@@ -1268,16 +1268,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.22.1",
+            "version": "1.23.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "96540bacd1ceac1b0120b29b73b474e934919d8c"
+                "reference": "f80d4756269bc7af3d1c6222db96a6995af9926b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.22.1-a24708.zip",
-                "reference": "96540bacd1ceac1b0120b29b73b474e934919d8c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.23.0-bd3dab.zip",
+                "reference": "f80d4756269bc7af3d1c6222db96a6995af9926b",
                 "shasum": null
             },
             "require": {
@@ -1288,7 +1288,7 @@
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/db": "^1.0.9",
-                "channelgrabber/di": ">=2.0.0,<3.0.0",
+                "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.0.7",
                 "channelgrabber/etag": "^1.6.0",
                 "channelgrabber/gearman": ">=1.1.0,<2.0.0",
@@ -1323,7 +1323,7 @@
                 "channelgrabber/phpunit": "~1.0.1",
                 "phpunit/phpunit": "4.6.*"
             },
-            "type": "di-definition",
+            "type": "library",
             "extra": {
                 "branch-alias": {
                     "dev-develop": "1.x-dev"
@@ -1340,7 +1340,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-04-07 13:48:35"
+            "time": "2016-04-14 09:32:35"
         },
         {
             "name": "channelgrabber/permission",
@@ -3412,16 +3412,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.40",
+            "version": "1.16.41",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "66ebce6d9fe76bfa76a3f4bd374fc210560ca28a"
+                "reference": "2e6d112b6bc7dab8eb9162152b13b92ba421bbc6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.40-1d81b1.zip",
-                "reference": "66ebce6d9fe76bfa76a3f4bd374fc210560ca28a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.41-976e09.zip",
+                "reference": "2e6d112b6bc7dab8eb9162152b13b92ba421bbc6",
                 "shasum": null
             },
             "require": {
@@ -3467,7 +3467,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-03-22 16:05:39"
+            "time": "2016-03-29 08:56:59"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7647,8 +7647,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.2.3",
-            "alias_normalized": "1.2.3.0",
+            "alias": "1.2.4",
+            "alias_normalized": "1.2.4.0",
             "version": "dev-CGIV-6918-Interlink-ftp-details-change",
             "package": "channelgrabber/dataplug"
         }
