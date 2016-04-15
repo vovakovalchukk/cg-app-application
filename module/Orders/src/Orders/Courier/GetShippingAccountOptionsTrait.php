@@ -8,10 +8,10 @@ trait GetShippingAccountOptionsTrait
     /**
      * @return array
      */
-    public function getShippingAccountOptions()
+    public function getShippingAccountOptions($selectedAccountId = null)
     {
         $shippingAccounts = $this->getShippingAccounts();
-        return $this->convertShippingAccountsToOptions($shippingAccounts);
+        return $this->convertShippingAccountsToOptions($shippingAccounts, $selectedAccountId);
     }
 
     protected function convertShippingAccountsToOptions(AccountCollection $shippingAccounts, $selectedAccountId = null)
