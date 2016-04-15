@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d7eb45692af0c2c18cc1c84517af018a",
-    "content-hash": "bd18ced37d6a47498e557826ae5815b6",
+    "hash": "2fb7485d4388e3cd43126fbe09c9c00c",
+    "content-hash": "09891a735c17517e34bf0ebe90fb7031",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "1.17.7",
+            "version": "1.17.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "819a84d73e86a19ef1705204a077e47a62bd18a4"
+                "reference": "8f78e84923f117e7c202ee12f0cec8439a7a5f50"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.17.7-e171b8.zip",
-                "reference": "819a84d73e86a19ef1705204a077e47a62bd18a4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.17.8-26d33a.zip",
+                "reference": "8f78e84923f117e7c202ee12f0cec8439a7a5f50",
                 "shasum": null
             },
             "require": {
@@ -55,11 +55,6 @@
                 "phpunit/phpunit": "~4.6.0"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-CGIV-6914-AmazonLogistics-PngPdf": "1.17.7-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "CG\\Amazon\\": "src"
@@ -71,21 +66,21 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-04-07 14:01:27"
+            "time": "2016-04-12 10:35:57"
         },
         {
             "name": "channelgrabber/api-lib",
-            "version": "1.0.0",
+            "version": "dev-CGIV-6939-ApiOrderDispatch",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-api-lib.git",
-                "reference": "f4b62b76a22cd48fb96a5283fa9aefc8969494f7"
+                "reference": "72dc0298170cdc47fa5e3de1bc48d0cf00dc3ceb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-api-lib-1.0.0-6bf2e7.zip",
-                "reference": "f4b62b76a22cd48fb96a5283fa9aefc8969494f7",
-                "shasum": "bfe71de1afb9ae4e3c6fc84c98bfe532a4e3be26"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-api-lib-dev-CGIV-6939-ApiOrderDispatch-a33c3c.zip",
+                "reference": "72dc0298170cdc47fa5e3de1bc48d0cf00dc3ceb",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.16.20",
@@ -94,8 +89,6 @@
                 "channelgrabber/stats": "^1.0.0",
                 "channelgrabber/stdlib": "^2.12.6",
                 "composer/composer": "@dev",
-                "php-jsonpatch/php-jsonpatch": "dev-master",
-                "php-jsonpointer/php-jsonpointer": "dev-master",
                 "zendframework/zend-di": ">=2.2.5"
             },
             "type": "di-definition",
@@ -115,7 +108,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2015-08-26 12:50:01"
+            "time": "2016-04-15 09:24:01"
         },
         {
             "name": "channelgrabber/billing",
@@ -7645,9 +7638,17 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.1",
+            "alias_normalized": "1.0.1.0",
+            "version": "dev-CGIV-6939-ApiOrderDispatch",
+            "package": "channelgrabber/api-lib"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/api-lib": 20,
         "channelgrabber/constants": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,

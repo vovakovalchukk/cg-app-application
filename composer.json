@@ -27,7 +27,7 @@
     },
     "require": {
         "channelgrabber/amazon": "~1.17.7",
-        "channelgrabber/api-lib": "~1.0.0",
+        "channelgrabber/api-lib": "dev-CGIV-6939-ApiOrderDispatch as 1.0.1",
         "channelgrabber/billing": "~1.10.0",
         "channelgrabber/cache": "~2.1.0",
         "channelgrabber/cglib": "~1.9.0",
