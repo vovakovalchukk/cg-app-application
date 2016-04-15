@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ead6a676ddbc5a97917b4ddfec993f80",
-    "content-hash": "303e3bb07c419cb43ae0a5de187ed305",
+    "hash": "166b782b32adc8a324c0402a14043648",
+    "content-hash": "984405568b58dda1551c4ba7e87e3f8c",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -486,18 +486,18 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "e32c5e264cc0d46b2efe13bd473fa9b46ed172a5"
+                "reference": "1391e9742b0c332ac0e0dcf009990390cb8b1eea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6930-AmazonLogisticImprovements-324fcd.zip",
-                "reference": "e32c5e264cc0d46b2efe13bd473fa9b46ed172a5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6930-AmazonLogisticImprovements-53b509.zip",
+                "reference": "1391e9742b0c332ac0e0dcf009990390cb8b1eea",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.21.8",
+                "channelgrabber/channel": "^1.22.2",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/di": ">=2.1.0",
+                "channelgrabber/di": "^2.2.0",
                 "channelgrabber/gearman": "^1.2.0",
                 "channelgrabber/order": "^1.21.5",
                 "channelgrabber/product": "^1.5.0",
@@ -524,7 +524,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-04-13 11:10:59"
+            "time": "2016-04-15 08:59:38"
         },
         {
             "name": "channelgrabber/db",
@@ -1167,18 +1167,18 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "c29c8194393a6ed78a4dff9e172130ce3e980cae"
+                "reference": "4e86d649181b54d5d1ca5b4ab9b8f3b8153d5e78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6930-AmazonLogisticImprovements-a3214f.zip",
-                "reference": "c29c8194393a6ed78a4dff9e172130ce3e980cae",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6930-AmazonLogisticImprovements-aa9383.zip",
+                "reference": "4e86d649181b54d5d1ca5b4ab9b8f3b8153d5e78",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.21.8",
+                "channelgrabber/channel": "^1.22.2",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/di": ">=2.1.0",
+                "channelgrabber/di": "^2.2.0",
                 "channelgrabber/locale": "^1.0.5",
                 "channelgrabber/order": "^1.21.12",
                 "channelgrabber/stats": "^1.0.0",
@@ -1211,7 +1211,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-04-13 11:12:26"
+            "time": "2016-04-15 09:00:22"
         },
         {
             "name": "channelgrabber/notification",
@@ -1263,16 +1263,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.22.1",
+            "version": "1.23.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "96540bacd1ceac1b0120b29b73b474e934919d8c"
+                "reference": "f80d4756269bc7af3d1c6222db96a6995af9926b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.22.1-a24708.zip",
-                "reference": "96540bacd1ceac1b0120b29b73b474e934919d8c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.23.0-bd3dab.zip",
+                "reference": "f80d4756269bc7af3d1c6222db96a6995af9926b",
                 "shasum": null
             },
             "require": {
@@ -1283,7 +1283,7 @@
                 "channelgrabber/communication": "^1.0.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/db": "^1.0.9",
-                "channelgrabber/di": ">=2.0.0,<3.0.0",
+                "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.0.7",
                 "channelgrabber/etag": "^1.6.0",
                 "channelgrabber/gearman": ">=1.1.0,<2.0.0",
@@ -1318,7 +1318,7 @@
                 "channelgrabber/phpunit": "~1.0.1",
                 "phpunit/phpunit": "4.6.*"
             },
-            "type": "di-definition",
+            "type": "library",
             "extra": {
                 "branch-alias": {
                     "dev-develop": "1.x-dev"
@@ -1335,7 +1335,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-04-07 13:48:35"
+            "time": "2016-04-14 09:32:35"
         },
         {
             "name": "channelgrabber/permission",
@@ -7654,14 +7654,14 @@
             "package": "channelgrabber/channel"
         },
         {
-            "alias": "1.2.3",
-            "alias_normalized": "1.2.3.0",
+            "alias": "1.2.5",
+            "alias_normalized": "1.2.5.0",
             "version": "dev-CGIV-6930-AmazonLogisticImprovements",
             "package": "channelgrabber/dataplug"
         },
         {
-            "alias": "1.0.3",
-            "alias_normalized": "1.0.3.0",
+            "alias": "1.0.5",
+            "alias_normalized": "1.0.5.0",
             "version": "dev-CGIV-6930-AmazonLogisticImprovements",
             "package": "channelgrabber/netdespatch"
         },
