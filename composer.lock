@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5d0176046762c88b3902163ffd338f7e",
-    "content-hash": "436b1f40d77d820264b00b2d4dc796a8",
+    "hash": "d7eb45692af0c2c18cc1c84517af018a",
+    "content-hash": "bd18ced37d6a47498e557826ae5815b6",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1168,16 +1168,16 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "dev-CGIV-6938-MultiRowOrders",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "0953f50f8b1df1d5043e94351b9b6bc44314e021"
+                "reference": "90dc8f1853b3c5da3d4f409d83335965b158a7db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6938-MultiRowOrders-ccccf2.zip",
-                "reference": "0953f50f8b1df1d5043e94351b9b6bc44314e021",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.0.4-12d487.zip",
+                "reference": "90dc8f1853b3c5da3d4f409d83335965b158a7db",
                 "shasum": null
             },
             "require": {
@@ -1216,7 +1216,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-04-14 13:55:50"
+            "time": "2016-04-15 08:46:10"
         },
         {
             "name": "channelgrabber/notification",
@@ -7645,18 +7645,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.4",
-            "alias_normalized": "1.0.4.0",
-            "version": "dev-CGIV-6938-MultiRowOrders",
-            "package": "channelgrabber/netdespatch"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/netdespatch": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
