@@ -31,6 +31,11 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
     ];
     AddOns.prototype.addOnsRequiringDeliveryInstructions = ['Safe Place'];
 
+    AddOns.prototype.getDataTable = function()
+    {
+        return $(AddOns.SELECTOR_TABLE).dataTable();
+    };
+
     AddOns.prototype.toggleDeliveryInstructions = function()
     {
         var self = this;
@@ -62,8 +67,7 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
     AddOns.prototype.showDeliveryInstructionsForOrder = function(orderId)
     {
         if ($(AddOns.SELECTOR_DEL_INSTR_INPUT + ':visible').length == 0) {
-            $(AddOns.SELECTOR_DEL_INSTR_TH).show();
-            $(AddOns.SELECTOR_DEL_INSTR_INPUT).closest('td').show();
+            this.getDataTable().fnSetColumnVis($(AddOns.SELECTOR_DEL_INSTR_TH).index(), true);
         }
         $(AddOns.SELECTOR_DEL_INSTR_INPUT_ID_PREFIX + orderId).addClass('required').show();
         return this;
@@ -71,11 +75,9 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
 
     AddOns.prototype.hideDeliveryInstructionsForOrder = function(orderId)
     {
-        $(AddOns.SELECTOR_DEL_INSTR_INPUT_ID_PREFIX + orderId)
-            .removeClass('required').hide();
+        $(AddOns.SELECTOR_DEL_INSTR_INPUT_ID_PREFIX + orderId).removeClass('required').hide();
         if ($(AddOns.SELECTOR_DEL_INSTR_INPUT + ':visible').length == 0) {
-            $(AddOns.SELECTOR_DEL_INSTR_TH).hide();
-            $(AddOns.SELECTOR_DEL_INSTR_INPUT).closest('td').hide();
+            this.getDataTable().fnSetColumnVis($(AddOns.SELECTOR_DEL_INSTR_TH).index(), false);
         }
         return this;
     };
