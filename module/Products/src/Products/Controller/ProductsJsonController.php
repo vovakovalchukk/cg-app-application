@@ -2,24 +2,26 @@
 
 namespace Products\Controller;
 
-use CG\Stdlib\Exception\Runtime\NotFound;
-use Zend\Mvc\Controller\AbstractActionController;
-use Products\Product\Service as ProductService;
-use CG_UI\View\Prototyper\JsonModelFactory;
-use CG\Product\Entity as ProductEntity;
-use CG\Product\Filter\Mapper as FilterMapper;
+use CG\Account\Client\Service as AccountService;
 use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Http\StatusCode;
-use Zend\I18n\Translator\Translator;
-use CG\Account\Client\Service as AccountService;
-use Products\Product\TaxRate\Service as TaxRateService;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Product\Entity as ProductEntity;
+use CG\Product\Filter\Mapper as FilterMapper;
+use CG\Listing\Entity as ListingEntity;
+use CG\Listing\StatusHistory\Entity as ListingStatusHistory;
+use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stock\Import\UpdateOptions as StockImportUpdateOptions;
 use CG\Zend\Stdlib\Http\FileResponse;
+use CG_UI\View\Prototyper\JsonModelFactory;
+use CG_Usage\Exception\Exceeded as UsageExceeded;
+use CG_Usage\Service as UsageService;
+use Products\Product\Service as ProductService;
+use Products\Product\TaxRate\Service as TaxRateService;
 use Products\Stock\Csv\Service as StockCsvService;
 use Products\Stock\Settings\Service as StockSettingsService;
-use CG\Stock\Import\UpdateOptions as StockImportUpdateOptions;
-use CG_Usage\Service as UsageService;
-use CG_Usage\Exception\Exceeded as UsageExceeded;
+use Zend\I18n\Translator\Translator;
+use Zend\Mvc\Controller\AbstractActionController;
 
 class ProductsJsonController extends AbstractActionController
 {
@@ -134,7 +136,7 @@ class ProductsJsonController extends AbstractActionController
         $product = array_merge($product, [
             'eTag' => $productEntity->getStoredETag(),
             'images' => $productEntity->getImages()->toArray(),
-            'listings' => $productEntity->getListings()->toArray(),
+            'listings' => $this->getProductListingsArray($productEntity),
             'accounts' => $accounts,
             'stockModeDefault' => $this->stockSettingsService->getStockModeDefault(),
             'stockModeDesc' => $this->stockSettingsService->getStockModeDecriptionForProduct($productEntity),
@@ -163,6 +165,35 @@ class ProductsJsonController extends AbstractActionController
             $product['stock']['locations'][$stockLocationIndex]['eTag'] = $stockEntity->getLocations()->getById($stockLocationId)->getStoredETag();
         }
         return $product;
+    }
+
+    protected function getProductListingsArray(ProductEntity $productEntity)
+    {
+        $listings = [];
+        /** @var ListingEntity $listing */
+        foreach ($productEntity->getListings() as $listing) {
+            $listingData = $listing->toArray();
+            $listingData['message'] = '';
+
+            $statusHistory = $listing->getStatusHistory();
+            $statusHistory->rewind();
+
+            if ($statusHistory->count() == 0) {
+                $listings[] = $listingData;
+                continue;
+            }
+
+            /** @var ListingStatusHistory $currentStatus */
+            $currentStatus = $statusHistory->current();
+            if ($currentStatus->getStatus() != $listing->getStatus()) {
+                $listings[] = $listingData;
+                continue;
+            }
+
+            $listingData['message'] = $currentStatus->getMessage();
+            $listings[] = $listingData;
+        }
+        return $listings;
     }
 
     public function stockUpdateAction()
