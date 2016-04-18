@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "01fe6abedfa288fadeaeb2e618c45ba9",
-    "content-hash": "5443cd0524eee313ce8efc120c4cf459",
+    "hash": "fb0e48a5128b733d9c52adf76c6d5bbe",
+    "content-hash": "5bc8b79765fcec65e1ad9c98b61e7828",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -957,16 +957,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "dev-CGIV-6740-ListingStatus",
+            "version": "1.9.8",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "210af1314f75f66c0a0a9e7f07a9303487850ce4"
+                "reference": "da586eb2e4ee778b9665de09eed2d6226ac3b471"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-dev-CGIV-6740-ListingStatus-3eafb8.zip",
-                "reference": "210af1314f75f66c0a0a9e7f07a9303487850ce4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.9.8-2f11a7.zip",
+                "reference": "da586eb2e4ee778b9665de09eed2d6226ac3b471",
                 "shasum": null
             },
             "require": {
@@ -1001,7 +1001,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2016-04-18 08:44:01"
+            "time": "2016-04-18 12:28:44"
         },
         {
             "name": "channelgrabber/locale",
@@ -3410,16 +3410,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-6740-ListingStatus",
+            "version": "1.16.43",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "9b4910178471d96a08926d17cd31324f60ee23ea"
+                "reference": "a90bbe56e55c7aa5d148c293f9d42607fdd61ce3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6740-ListingStatus-e0a342.zip",
-                "reference": "9b4910178471d96a08926d17cd31324f60ee23ea",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.43-1a067b.zip",
+                "reference": "a90bbe56e55c7aa5d148c293f9d42607fdd61ce3",
                 "shasum": null
             },
             "require": {
@@ -3465,7 +3465,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-04-18 08:44:45"
+            "time": "2016-04-18 13:18:28"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7643,25 +7643,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.9.7",
-            "alias_normalized": "1.9.7.0",
-            "version": "dev-CGIV-6740-ListingStatus",
-            "package": "channelgrabber/listing"
-        },
-        {
-            "alias": "1.16.42",
-            "alias_normalized": "1.16.42.0",
-            "version": "dev-CGIV-6740-ListingStatus",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/listing": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
