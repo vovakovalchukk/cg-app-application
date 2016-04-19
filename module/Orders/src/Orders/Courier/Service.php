@@ -630,7 +630,8 @@ class Service implements LoggerAwareInterface
     {
         $order = $this->orderService->fetch($orderId);
         $account = $this->accountService->fetch($accountId);
-        return $this->carrierBookingOptions->getDataForCarrierBookingOption($option, $order, $account, $service);
+        $rootOu = $this->userOuService->getRootOuByActiveUser();
+        return $this->carrierBookingOptions->getDataForCarrierBookingOption($option, $order, $account, $service, $rootOu);
     }
 
     protected function setOrderService(OrderService $orderService)
