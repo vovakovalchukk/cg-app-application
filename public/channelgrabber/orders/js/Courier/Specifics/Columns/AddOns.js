@@ -116,7 +116,9 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
             options: []
         };
         for (var index in options) {
-            options[index].selected = (selected.indexOf(options[index].title) != -1)
+            if (!options[index].selected && selected.indexOf(options[index].title) != -1) {
+                options[index].selected = true;
+            }
             data.options.push(options[index]);
         }
         var html = cgMustache.renderTemplate(template, data);
