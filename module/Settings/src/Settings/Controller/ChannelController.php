@@ -28,6 +28,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 use Zend\I18n\Translator\Translator;
+use SplObjectStorage;
 
 class ChannelController extends AbstractActionController
 {
@@ -220,6 +221,20 @@ class ChannelController extends AbstractActionController
                 $page,
                 $this->params('type')
             );
+
+            // Hack to hide amazon shipping accounts
+            if ($this->params('type') == Type::SHIPPING) {
+                $amazonAccounts = new SplObjectStorage();
+
+                /** @var AccountEntity $account */
+                foreach ($accounts as $account) {
+                    if ($account->getChannel() == 'amazon') {
+                        $amazonAccounts->attach($account);
+                    }
+                }
+
+                $accounts->removeAll($amazonAccounts);
+            }
 
             $data['iTotalRecords'] = $data['iTotalDisplayRecords'] = (int) $accounts->getTotal();
 

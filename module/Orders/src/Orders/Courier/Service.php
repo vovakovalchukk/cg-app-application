@@ -114,23 +114,33 @@ class Service implements LoggerAwareInterface
     /**
      * @return array
      */
-    public function getCourierOptions()
+    public function getCourierOptionsForOrder(Order $order, $selectedAccountId = null)
     {
-        return $this->getShippingAccountOptions();
+        $shippingAccounts = $this->getShippingAccounts($order);
+        return $this->convertShippingAccountsToOptions($shippingAccounts, $selectedAccountId);
     }
 
-    public function getShippingAccounts()
+    public function getShippingAccounts(Order $order = null)
     {
         $accounts = $this->traitGetShippingAccounts();
         $carrierAccounts = new AccountCollection(Account::class, __FUNCTION__);
+
+        /** @var Account $account */
         foreach ($accounts as $account)
         {
             // Only show 'provided' accounts (i.e. from Dataplug or NetDespatch)
             if (!$this->shippingChannelsProvider->isProvidedChannel($account->getChannel())) {
                 continue;
             }
+
+            // Only show accounts that support the requested order
+            if ($order && !$this->shippingChannelsProvider->isOrderSupported($account->getChannel(), $order)) {
+                continue;
+            }
+
             $carrierAccounts->attach($account);
         }
+
         return $carrierAccounts;
     }
 
@@ -203,7 +213,14 @@ class Service implements LoggerAwareInterface
             'postcode' => $order->getShippingAddressPostcodeForCourier(),
             'orderNumber' => $order->getExternalId(),
             'shippingMethod' => $shippingDescription,
-            'courier' => (string)$courierId,
+            'courier' => (string) $courierId,
+            'courierOptions' => [
+                'name' => 'courier_' . $order->getId(),
+                'class' => 'courier-courier-custom-select',
+                'blankOption' => false,
+                'searchField' => false,
+                'options' => $this->getCourierOptionsForOrder($order, $courierId),
+            ],
             'service' => $service,
         ];
         return $orderData;
