@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2cdc4e3fffc3d79c6a8a84f72a9e8643",
-    "content-hash": "aedb9d75f57f55c08d0673663828208e",
+    "hash": "e2f7ffde6e3c1b981a9dc41df56bbeaf",
+    "content-hash": "ef4f9480c9efa1cb5b9c106e4fc55bc3",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -70,16 +70,16 @@
         },
         {
             "name": "channelgrabber/api-lib",
-            "version": "dev-CGIV-6939-ApiOrderDispatch",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-api-lib.git",
-                "reference": "0aecf20048627f83fa4b34c97dc6e7dba07b6a23"
+                "reference": "0559636959966e7dcf7475f74e3689b3318f07eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-api-lib-dev-CGIV-6939-ApiOrderDispatch-8be499.zip",
-                "reference": "0aecf20048627f83fa4b34c97dc6e7dba07b6a23",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-api-lib-1.0.1-054f7c.zip",
+                "reference": "0559636959966e7dcf7475f74e3689b3318f07eb",
                 "shasum": null
             },
             "require": {
@@ -92,7 +92,7 @@
                 "composer/composer": "@dev",
                 "zendframework/zend-di": ">=2.2.5"
             },
-            "type": "di-definition",
+            "type": "library",
             "autoload": {
                 "psr-4": {
                     "CG\\Api\\": "src"
@@ -109,7 +109,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-04-18 08:02:07"
+            "time": "2016-04-19 09:20:37"
         },
         {
             "name": "channelgrabber/billing",
@@ -7644,17 +7644,9 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.1",
-            "alias_normalized": "1.0.1.0",
-            "version": "dev-CGIV-6939-ApiOrderDispatch",
-            "package": "channelgrabber/api-lib"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/api-lib": 20,
         "channelgrabber/constants": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
