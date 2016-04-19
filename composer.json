@@ -26,7 +26,7 @@
         }
     },
     "require": {
-        "channelgrabber/amazon": "~1.17.9",
+        "channelgrabber/amazon": "dev-CGIV-6889-shipping-alias-service-options as 1.17.11",
         "channelgrabber/api-lib": "~1.0.0",
         "channelgrabber/billing": "~1.10.0",
         "channelgrabber/cache": "~2.1.0",
