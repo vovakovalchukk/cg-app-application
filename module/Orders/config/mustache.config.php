@@ -26,6 +26,7 @@ return [
                     'alerts' => Module::PUBLIC_FOLDER . 'template/columns/alerts.mustache',
                 ],
                 'courierReview' => [
+                    'customSelect' => UiModule::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache',
                     'buyerOrder' => Module::PUBLIC_FOLDER . 'template/courier/columns/buyerOrder.mustache',
                     'courier' => Module::PUBLIC_FOLDER . 'template/courier/columns/courier.mustache',
                     'service' => Module::PUBLIC_FOLDER . 'template/courier/columns/service.mustache',
@@ -51,6 +52,8 @@ return [
                     'packageType' => Module::PUBLIC_FOLDER . 'template/courier/columns/packageType.mustache',
                     'addOns' => Module::PUBLIC_FOLDER . 'template/courier/columns/addOns.mustache',
                     'actions' => Module::PUBLIC_FOLDER . 'template/courier/columns/actions.mustache',
+                    'deliveryExperience' => Module::PUBLIC_FOLDER . 'template/courier/columns/deliveryExperience.mustache',
+                    'collectionTime' => Module::PUBLIC_FOLDER . 'template/courier/columns/collectionTime.mustache',
                 ],
             ],
         ],

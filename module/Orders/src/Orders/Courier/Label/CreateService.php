@@ -233,8 +233,7 @@ class CreateService extends ServiceAbstract
             'created' => $date->stdFormat(),
         ];
         $orderLabel = $this->orderLabelMapper->fromArray($orderLabelData);
-        $hal = $this->orderLabelService->save($orderLabel);
-        return $this->orderLabelMapper->fromHal($hal);
+        return $this->orderLabelService->save($orderLabel);
     }
 
     protected function deleteOrderLabelsForFailedCreateAttempts(
