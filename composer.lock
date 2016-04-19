@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fb0e48a5128b733d9c52adf76c6d5bbe",
+    "hash": "c88d09c8df38da9fbc08559d12bcb790",
     "content-hash": "5bc8b79765fcec65e1ad9c98b61e7828",
     "packages": [
         {
@@ -957,16 +957,16 @@
         },
         {
             "name": "channelgrabber/listing",
-            "version": "1.9.8",
+            "version": "1.9.8.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-listing.git",
-                "reference": "da586eb2e4ee778b9665de09eed2d6226ac3b471"
+                "reference": "0e71e8813836339bddb63405ef0c844960170511"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.9.8-2f11a7.zip",
-                "reference": "da586eb2e4ee778b9665de09eed2d6226ac3b471",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-listing-1.9.8.2-d5edb7.zip",
+                "reference": "0e71e8813836339bddb63405ef0c844960170511",
                 "shasum": null
             },
             "require": {
@@ -1001,7 +1001,7 @@
                     "CG\\Listing\\Test\\": "tests"
                 }
             },
-            "time": "2016-04-18 12:28:44"
+            "time": "2016-04-19 08:04:14"
         },
         {
             "name": "channelgrabber/locale",
