@@ -70,28 +70,29 @@
         },
         {
             "name": "channelgrabber/api-lib",
-            "version": "1.0.0.1",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-api-lib.git",
-                "reference": "bb4181fa054aae36048b604f6a9d9665219ba410"
+                "reference": "0559636959966e7dcf7475f74e3689b3318f07eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-api-lib-1.0.0.1-2efe1a.zip",
-                "reference": "bb4181fa054aae36048b604f6a9d9665219ba410",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-api-lib-1.0.1-054f7c.zip",
+                "reference": "0559636959966e7dcf7475f74e3689b3318f07eb",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "^1.16.20",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/di": ">=2.1.0",
+                "channelgrabber/di": "^2.2.0",
+                "channelgrabber/gearman": "^1.2.0",
                 "channelgrabber/stats": "^1.0.0",
                 "channelgrabber/stdlib": "^2.12.6",
                 "composer/composer": "@dev",
                 "zendframework/zend-di": ">=2.2.5"
             },
-            "type": "di-definition",
+            "type": "library",
             "autoload": {
                 "psr-4": {
                     "CG\\Api\\": "src"
@@ -108,7 +109,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-01-07 14:19:41"
+            "time": "2016-04-19 09:20:37"
         },
         {
             "name": "channelgrabber/billing",
