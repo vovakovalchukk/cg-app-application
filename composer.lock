@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6db58e30b3b54d080b4bdca55e708770",
-    "content-hash": "e2816fb94d1b4dc8cd4cdcfe55441014",
+    "hash": "6ee99776d65b2dab9addfa5eba5d4fae",
+    "content-hash": "0f6b37fec5f687b8a72288b401178058",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1891,12 +1891,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "ca420fb1e5d6a6337a691804f36348cc4b6f5474"
+                "reference": "92b9a5b4fd77673a8b6f9e4c6e9885ec2fe9b08f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-6889-shipping-alias-service-options-a83a13.zip",
-                "reference": "ca420fb1e5d6a6337a691804f36348cc4b6f5474",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-6889-shipping-alias-service-options-ca59e9.zip",
+                "reference": "92b9a5b4fd77673a8b6f9e4c6e9885ec2fe9b08f",
                 "shasum": null
             },
             "require": {
@@ -1917,7 +1917,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2016-04-19 14:07:03"
+            "time": "2016-04-20 08:42:41"
         },
         {
             "name": "channelgrabber/slim",
