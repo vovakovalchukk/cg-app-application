@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6ee99776d65b2dab9addfa5eba5d4fae",
-    "content-hash": "0f6b37fec5f687b8a72288b401178058",
+    "hash": "f209546a4af9764f5525016aa54362bf",
+    "content-hash": "739cbcf9c4886edacdf617e732b6129d",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "dev-CGIV-6889-shipping-alias-service-options",
+            "version": "1.17.11",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "7af2c535d430a060402a78f13c0400f694f63c71"
+                "reference": "2428092d0ebe488e92bc3af95e37eba80b8aa607"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-6889-shipping-alias-service-options-6ffdfd.zip",
-                "reference": "7af2c535d430a060402a78f13c0400f694f63c71",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.17.11-8aca0f.zip",
+                "reference": "2428092d0ebe488e92bc3af95e37eba80b8aa607",
                 "shasum": null
             },
             "require": {
@@ -66,7 +66,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-04-19 13:37:56"
+            "time": "2016-04-21 12:53:47"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -305,16 +305,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-6889-shipping-alias-service-options",
+            "version": "1.24.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "6c142cd6488f640dff18932fb32ecbecf118756f"
+                "reference": "405ff7f6a279a700d45ce70274aaf5fe36d97f38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6889-shipping-alias-service-options-570cd9.zip",
-                "reference": "6c142cd6488f640dff18932fb32ecbecf118756f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.24.0-46801f.zip",
+                "reference": "405ff7f6a279a700d45ce70274aaf5fe36d97f38",
                 "shasum": null
             },
             "require": {
@@ -382,7 +382,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-04-19 13:32:05"
+            "time": "2016-04-21 12:51:37"
         },
         {
             "name": "channelgrabber/cilex",
@@ -489,16 +489,16 @@
         },
         {
             "name": "channelgrabber/dataplug",
-            "version": "dev-CGIV-6889-shipping-alias-service-options",
+            "version": "1.2.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "d2f1eb5f878dfefd6876db1610f728c547a8d24e"
+                "reference": "97592d1af25df87c22d6025a0705b01fe2b1ae9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6889-shipping-alias-service-options-aba8ff.zip",
-                "reference": "d2f1eb5f878dfefd6876db1610f728c547a8d24e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-1.2.6-36dbbe.zip",
+                "reference": "97592d1af25df87c22d6025a0705b01fe2b1ae9c",
                 "shasum": null
             },
             "require": {
@@ -531,7 +531,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-04-19 13:35:54"
+            "time": "2016-04-21 12:54:05"
         },
         {
             "name": "channelgrabber/db",
@@ -1170,16 +1170,16 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "dev-CGIV-6889-shipping-alias-service-options",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "910d57f663d079ffcd968c104760c20901c1f990"
+                "reference": "cc23d859bea672aa6bb06a8ffff782d02c8bfe1c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6889-shipping-alias-service-options-39fc87.zip",
-                "reference": "910d57f663d079ffcd968c104760c20901c1f990",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.0.6-c6327c.zip",
+                "reference": "cc23d859bea672aa6bb06a8ffff782d02c8bfe1c",
                 "shasum": null
             },
             "require": {
@@ -1218,7 +1218,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-04-19 15:03:54"
+            "time": "2016-04-21 12:54:25"
         },
         {
             "name": "channelgrabber/notification",
@@ -1794,30 +1794,30 @@
         },
         {
             "name": "channelgrabber/royalmail",
-            "version": "dev-CGIV-6889-shipping-alias-service-options",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-royalmail.git",
-                "reference": "fffcbbc73b5cbcc3a9b8a3ce6340d8ee68d37ce2"
+                "reference": "e0d23d6de16707f69963b082ec72ac741e7bc971"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-royalmail-dev-CGIV-6889-shipping-alias-service-options-0c3d16.zip",
-                "reference": "fffcbbc73b5cbcc3a9b8a3ce6340d8ee68d37ce2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-royalmail-1.0.4-390718.zip",
+                "reference": "e0d23d6de16707f69963b082ec72ac741e7bc971",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/channel": ">=1.5.3, <2.0.0",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/di": ">=1.0.1"
+                "channelgrabber/di": "^2.2.0"
             },
-            "type": "di-definition",
+            "type": "library",
             "autoload": {
                 "psr-4": {
                     "CG\\RoyalMail\\": "src"
                 }
             },
-            "time": "2016-03-22 16:34:01"
+            "time": "2016-04-21 12:54:36"
         },
         {
             "name": "channelgrabber/scraper",
@@ -1887,16 +1887,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "dev-CGIV-6889-shipping-alias-service-options",
+            "version": "1.3.12",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "92b9a5b4fd77673a8b6f9e4c6e9885ec2fe9b08f"
+                "reference": "cd6b7a6ed9baa7b0822591c7ee3f38487a23e655"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-6889-shipping-alias-service-options-ca59e9.zip",
-                "reference": "92b9a5b4fd77673a8b6f9e4c6e9885ec2fe9b08f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.3.12-a8bceb.zip",
+                "reference": "cd6b7a6ed9baa7b0822591c7ee3f38487a23e655",
                 "shasum": null
             },
             "require": {
@@ -1917,7 +1917,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2016-04-20 08:42:41"
+            "time": "2016-04-21 12:54:50"
         },
         {
             "name": "channelgrabber/slim",
@@ -3414,16 +3414,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-6889-shipping-alias-service-options",
+            "version": "1.16.44",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "5189b33b47da675dd262a230ea022bbdd6f14865"
+                "reference": "4db1899753e35844b76d0f4529142e14f690498f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6889-shipping-alias-service-options-070706.zip",
-                "reference": "5189b33b47da675dd262a230ea022bbdd6f14865",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.44-5dd4af.zip",
+                "reference": "4db1899753e35844b76d0f4529142e14f690498f",
                 "shasum": null
             },
             "require": {
@@ -3469,7 +3469,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-04-19 08:37:22"
+            "time": "2016-04-21 12:55:14"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7646,60 +7646,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.17.11",
-            "alias_normalized": "1.17.11.0",
-            "version": "dev-CGIV-6889-shipping-alias-service-options",
-            "package": "channelgrabber/amazon"
-        },
-        {
-            "alias": "1.24.0",
-            "alias_normalized": "1.24.0.0",
-            "version": "dev-CGIV-6889-shipping-alias-service-options",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.2.6",
-            "alias_normalized": "1.2.6.0",
-            "version": "dev-CGIV-6889-shipping-alias-service-options",
-            "package": "channelgrabber/dataplug"
-        },
-        {
-            "alias": "1.0.6",
-            "alias_normalized": "1.0.6.0",
-            "version": "dev-CGIV-6889-shipping-alias-service-options",
-            "package": "channelgrabber/netdespatch"
-        },
-        {
-            "alias": "1.0.4",
-            "alias_normalized": "1.0.4.0",
-            "version": "dev-CGIV-6889-shipping-alias-service-options",
-            "package": "channelgrabber/royalmail"
-        },
-        {
-            "alias": "1.3.12",
-            "alias_normalized": "1.3.12.0",
-            "version": "dev-CGIV-6889-shipping-alias-service-options",
-            "package": "channelgrabber/settings"
-        },
-        {
-            "alias": "1.16.44",
-            "alias_normalized": "1.16.44.0",
-            "version": "dev-CGIV-6889-shipping-alias-service-options",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/amazon": 20,
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/dataplug": 20,
-        "channelgrabber/netdespatch": 20,
-        "channelgrabber/royalmail": 20,
-        "channelgrabber/settings": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
