@@ -90,7 +90,7 @@
         "channelgrabber/zf2-sessions": "~1.1.5",
         "channelgrabber/zf2-ssoclient": "~1.4.2.2",
         "channelgrabber/zf2-stdlib": "~1.2.0",
-        "channelgrabber/zf2-usage": "~1.0.8",
+        "channelgrabber/zf2-usage": "~1.0.9",
         "channelgrabber/zf2-v4-ui": "~1.16.44",
         "channelgrabber/zf2-woocommerce": "~1.0.0",
         "cilex/cilex": "~1.0.1",

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f209546a4af9764f5525016aa54362bf",
-    "content-hash": "739cbcf9c4886edacdf617e732b6129d",
+    "hash": "6ef2bdb7cece3547ac159daa015f3db8",
+    "content-hash": "647b28a6c99ec91fdff641f9b7cc3cb6",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3371,16 +3371,16 @@
         },
         {
             "name": "channelgrabber/zf2-usage",
-            "version": "1.0.8",
+            "version": "1.0.9",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/usage-module.git",
-                "reference": "47c9067d9862a08259a53b9bc2bad4eaccf323e6"
+                "reference": "9a1d81a6ef19ae1dd02b06a022bc95f0ef7d34ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-usage-1.0.8-528a24.zip",
-                "reference": "47c9067d9862a08259a53b9bc2bad4eaccf323e6",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-usage-1.0.9-1ec643.zip",
+                "reference": "9a1d81a6ef19ae1dd02b06a022bc95f0ef7d34ec",
                 "shasum": null
             },
             "require": {
@@ -3410,7 +3410,7 @@
                 ]
             },
             "description": "Usage module to determine if users are exceeding their limits",
-            "time": "2016-02-05 09:16:16"
+            "time": "2016-04-25 12:57:32"
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
@@ -4656,7 +4656,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpatch/zipball/cc43b856ed3e1726f5f1fab7f5a6fc0cdbce0ef4",
+                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpatch/zipball/e57b7e02224d0266d5f7de970964b5302501125b",
                 "reference": "e57b7e02224d0266d5f7de970964b5302501125b",
                 "shasum": "691f4c32e8522bbb20fb4baec578d0eab498b683"
             },
@@ -4708,7 +4708,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpointer/zipball/86abfb29af042a1c1dabc439089b3a5945ac3e34",
+                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpointer/zipball/064f65b05d1381d4999113f442af93949cc7c29a",
                 "reference": "064f65b05d1381d4999113f442af93949cc7c29a",
                 "shasum": ""
             },
