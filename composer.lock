@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6ef2bdb7cece3547ac159daa015f3db8",
-    "content-hash": "647b28a6c99ec91fdff641f9b7cc3cb6",
+    "hash": "a98fafc5debffac1a2e1b8382253f1c3",
+    "content-hash": "27090edeffd48d4cd1ebee1cadd1a9c2",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1270,16 +1270,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.23.0",
+            "version": "dev-CGIV-6716-handle-tracking-number-errors",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "f80d4756269bc7af3d1c6222db96a6995af9926b"
+                "reference": "cce75a1880cfaf26fcd8aa868d19cd0fcf9ec05f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.23.0-bd3dab.zip",
-                "reference": "f80d4756269bc7af3d1c6222db96a6995af9926b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6716-handle-tracking-number-errors-94e0dd.zip",
+                "reference": "cce75a1880cfaf26fcd8aa868d19cd0fcf9ec05f",
                 "shasum": null
             },
             "require": {
@@ -1342,7 +1342,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-04-14 09:32:35"
+            "time": "2016-04-20 09:32:18"
         },
         {
             "name": "channelgrabber/permission",
@@ -7646,10 +7646,18 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.23.1",
+            "alias_normalized": "1.23.1.0",
+            "version": "dev-CGIV-6716-handle-tracking-number-errors",
+            "package": "channelgrabber/order"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/order": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

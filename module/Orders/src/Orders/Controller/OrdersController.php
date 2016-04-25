@@ -290,6 +290,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $view->setVariable('subHeaderHide', true);
         $view->setVariable('carriers', $carriers);
         $view->addChild($this->getCarrierSelect(), 'carrierSelect');
+        $view->setVariable('tracking', $this->getOrderTracking($order));
         $view->setVariable('editable', $this->getOrderService()->isOrderEditable($order));
         $view->setVariable('rootOu', $this->getOrderService()->getRootOrganisationUnitForOrder($order));
         $this->addLabelPrintButtonToView($view, $order);
@@ -372,9 +373,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     {
         $order = $this->getOrderService()->getOrder($this->params('order'));
         $carriers = $this->getOrderService()->getCarriersData();
-        $trackings = $order->getTrackings();
-        $trackings->rewind();
-        $tracking = $trackings->current();
+        $tracking = $this->getOrderTracking($order);
         $options = [];
         foreach ($carriers as $carrier) {
             $selected = false;
@@ -393,6 +392,16 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         $carrierSelect->setVariable("id", "carrier");
         $carrierSelect->setVariable("blankOption", true);
         return $carrierSelect;
+    }
+
+    protected function getOrderTracking(OrderEntity $order)
+    {
+        $trackings = $order->getTrackings();
+        if (count($trackings) == 0) {
+            return null;
+        }
+        $trackings->rewind();
+        return $trackings->current();
     }
 
     protected function addLabelPrintButtonToView(ViewModel $view, OrderEntity $order)
