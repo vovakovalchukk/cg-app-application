@@ -85,6 +85,8 @@ class Service implements LoggerAwareInterface
         'length' => 'processDimensionFromProductDetails',
     ];
 
+    protected $reviewListInputFields = ['courier', 'service'];
+
     public function __construct(
         OrderService $orderService,
         UserOUService $userOuService,
@@ -172,7 +174,8 @@ class Service implements LoggerAwareInterface
             ->setPage(1)
             ->setOrderIds($orderIds);
         $orders = $this->orderService->fetchCollectionByFilter($filter);
-        return $this->formatOrdersAsReviewListData($orders);
+        $data = $this->formatOrdersAsReviewListData($orders);
+        return $this->sortReviewListData($data);
     }
 
     protected function formatOrdersAsReviewListData(OrderCollection $orders)
@@ -186,6 +189,33 @@ class Service implements LoggerAwareInterface
             $data = array_merge($data, $itemData);
         }
         return $data;
+    }
+
+    protected function sortReviewListData(array $data)
+    {
+        // Separate out the fully pre-filled rows from those still requiring input
+        $preFilledRows = [];
+        $inputRequiredRows = [];
+        $orderArray = null;
+        foreach ($data as $row) {
+            if ($row['orderRow'] == false) {
+                $orderArray[] = $row;
+                continue;
+            }
+            foreach ($this->reviewListInputFields as $field) {
+                if (!isset($row[$field]) || $row[$field] == '') {
+                    $row['group'] = 'Input Required';
+                    $orderArray = &$inputRequiredRows;
+                    $orderArray[] = $row;
+                    continue 2;
+                }
+            }
+            $row['group'] = 'Ready';
+            $orderArray = &$preFilledRows;
+            $orderArray[] = $row;
+        }
+        // Put rows requiring input at the top to make it easier for the user to find them
+        return array_merge($inputRequiredRows, $preFilledRows);
     }
 
     protected function getCommonOrderListData($order, $rootOu)
