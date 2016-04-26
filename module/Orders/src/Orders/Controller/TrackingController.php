@@ -8,6 +8,7 @@ use CG\Order\Shared\Entity as Order;
 use CG\Order\Shared\Tracking\Entity as Tracking;
 use CG\Order\Shared\Tracking\Filter;
 use CG\Order\Shared\Tracking\Mapper;
+use CG\Order\Shared\Tracking\Status;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
 use CG\Stdlib\DateTime as StdlibDateTime;
@@ -107,7 +108,8 @@ class TrackingController extends AbstractActionController implements StatsAwareI
                 'number' => $this->params()->fromPost('trackingNumber'),
                 'carrier' => $this->params()->fromPost('carrier'),
                 'timestamp' => date(StdlibDateTime::FORMAT),
-                'organisationUnitId' => $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId()
+                'organisationUnitId' => $this->getActiveUserContainer()->getActiveUserRootOrganisationUnitId(),
+                'status' => Status::PENDING,
             ]
         );
         return $tracking;
@@ -116,7 +118,8 @@ class TrackingController extends AbstractActionController implements StatsAwareI
     protected function update(Tracking $tracking)
     {
         $tracking->setNumber($this->params()->fromPost('trackingNumber'))
-            ->setCarrier($this->params()->fromPost('carrier'));
+            ->setCarrier($this->params()->fromPost('carrier'))
+            ->setStatus(Status::PENDING);
         return $tracking;
     }
 
