@@ -215,6 +215,16 @@ return [
                                     ],
                                 ],
                             ],
+                            'check' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/check/exists',
+                                    'defaults' => [
+                                        'action' => 'checkBatchesExist'
+                                    ],
+                                ],
+                                'may_terminate' => true,
+                            ],
                         )
                     ],
                     'order' => [

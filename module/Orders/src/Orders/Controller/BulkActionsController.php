@@ -473,6 +473,20 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
         $this->batchService->createFromFilter($filter);
     }
 
+    protected function checkBatchesExistAction()
+    {
+        $orderIds = $this->getRequest()->getPost('orderIds', []);
+
+        $batchMap = [];
+        if (! empty($orderIds)) {
+            $batchMap = $this->batchService->checkBatchesExist($orderIds);
+        }
+
+        return $this->getJsonModelFactory()->newInstance(
+            ["batchMap" => $batchMap]
+        );
+    }
+
     public function unBatchOrderIdsAction()
     {
         return $this->unBatchOrders();

@@ -152,6 +152,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     {
         $filter = new Filter();
         $filter->setOrderIds($orderIds);
+        $filter->setOrganisationUnitId([$this->getActiveUserContainer()->getActiveUser()->getOrganisationUnitId()]);
         $orders = $this->getOrderClient()->fetchCollectionByFilter($filter);
 
         $batchMap = [];
