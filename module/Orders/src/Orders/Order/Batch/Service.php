@@ -33,6 +33,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $redisClient;
     protected $activeUserContainer;
 
+    const LOG_CODE = "OrderBatchService";
     const DEFAULT_LIMIT = "all";
     const DEFAULT_PAGE = 1;
     const ACTIVE = true;
@@ -145,6 +146,24 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     public function removeByFilter(Filter $filter)
     {
         $this->updateOrdersByFilter($filter);
+    }
+
+    public function checkBatchesExist($orderIds)
+    {
+        $filter = new Filter();
+        $filter->setOrderIds($orderIds);
+        $orders = $this->getOrderClient()->fetchCollectionByFilter($filter);
+
+        $batchMap = [];
+        foreach($orders as $order)
+        {
+            $this->logInfo(sprintf("Checking if batch exists for order %s", $order->getId()), ['order' => $order->getId()], self::LOG_CODE);
+            $batchMap[] = [
+                'orderId' => $order->getId(),
+                'batchExists' => ($order->getBatch() ? true : false),
+            ];
+        }
+        return $batchMap;
     }
 
     protected function createBatch()
