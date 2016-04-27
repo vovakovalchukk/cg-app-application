@@ -85,7 +85,9 @@ class Service implements LoggerAwareInterface
         'length' => 'processDimensionFromProductDetails',
     ];
 
-    protected $reviewListInputFields = ['courier', 'service'];
+    protected $reviewListRequiredFields = ['courier', 'service'];
+    protected $specificsListRequiredOrderFields = ['service', 'parcels', 'collectionDate', 'collectionTime'];
+    protected $specificsListRequiredParcelFields = ['weight', 'width', 'height', 'length', 'packageType', 'itemParcelAssignment'];
 
     public function __construct(
         OrderService $orderService,
@@ -202,7 +204,7 @@ class Service implements LoggerAwareInterface
                 $orderArray[] = $row;
                 continue;
             }
-            foreach ($this->reviewListInputFields as $field) {
+            foreach ($this->reviewListRequiredFields as $field) {
                 if (!isset($row[$field]) || $row[$field] == '') {
                     $row['group'] = 'Input Required';
                     $orderArray = &$inputRequiredRows;
@@ -392,7 +394,12 @@ class Service implements LoggerAwareInterface
             ->setOrderIds($orderIds);
         $orders = $this->orderService->fetchCollectionByFilter($filter);
         $courierAccount = $this->accountService->fetch($courierAccountId);
-        return $this->formatOrdersAsSpecificsListData($orders, $courierAccount, $ordersData, $ordersParcelsData);
+        $data = $this->formatOrdersAsSpecificsListData($orders, $courierAccount, $ordersData, $ordersParcelsData);
+        return $this->sortSpecificsListData(
+            $data,
+            array_intersect($this->specificsListRequiredOrderFields, $this->getCarrierOptions($courierAccount)),
+            array_intersect($this->specificsListRequiredParcelFields, $this->getCarrierOptions($courierAccount))
+        );
     }
 
     protected function formatOrdersAsSpecificsListData(
@@ -630,6 +637,58 @@ class Service implements LoggerAwareInterface
             $parcelsData[] = $parcelData;
         }
         return $parcelsData;
+    }
+
+    protected function sortSpecificsListData(array $data, array $orderRequiredFields, array $parcelRequiredFields = [])
+    {
+        // Separate out the fully pre-filled rows from those still requiring input
+        $preFilledRows = [];
+        $inputRequiredRows = [];
+        $orderRows = $this->groupListDataByOrder($data);
+        foreach ($orderRows as $orderId => $rows) {
+            $complete = true;
+            foreach ($rows as $row) {
+                if (isset($row['orderRow']) && $row['orderRow']) {
+                    foreach ($orderRequiredFields as $field) {
+                        if (!isset($row[$field]) || $row[$field] == '') {
+                            $complete = false;
+                            break 2;
+                        }
+                    }
+                }
+                if (isset($row['parcelRow']) && $row['parcelRow']) {
+                    foreach ($parcelRequiredFields as $field) {
+                        if (!isset($row[$field]) || $row[$field] == '') {
+                            $complete = false;
+                            break 2;
+                        }
+                    }
+                }
+            }
+
+            $group = ($complete ? 'Ready' : 'Input Required');
+            ($complete ? $orderArray = &$preFilledRows : $orderArray = &$inputRequiredRows);
+
+            $rows[0]['group'] = $group;
+            foreach ($rows as $row) {
+                $orderArray[] = $row;
+            }
+        }
+
+        // Put rows requiring input at the top to make it easier for the user to find them
+        return array_merge($inputRequiredRows, $preFilledRows);
+    }
+
+    protected function groupListDataByOrder(array $data)
+    {
+        $orderRows = [];
+        foreach ($data as $row) {
+            if (!isset($orderRows[$row['orderId']])) {
+                $orderRows[$row['orderId']] = [];
+            }
+            $orderRows[$row['orderId']][] = $row;
+        }
+        return $orderRows;
     }
 
     public function getSpecificsMetaDataFromRecords(array $records)
