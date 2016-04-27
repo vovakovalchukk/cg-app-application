@@ -82,6 +82,9 @@ CourierDataTableAbstract.prototype.alternateOrderRowColours = function()
     var self = this;
     this.getDataTable().on('fnRowCallback', function(event, nRow, aData)
     {
+        if ($(nRow).hasClass('even-order-row') || $(nRow).hasClass('odd-order-row')) {
+            return;
+        }
         var orderParity = self.getOrderParity();
         if (aData.orderRow) {
             $(nRow).addClass('courier-order-row');
