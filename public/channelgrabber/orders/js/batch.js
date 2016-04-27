@@ -58,6 +58,39 @@ define([
             return this.remove();
         }
 
+        $.ajax({
+            url: '/orders/batch/check/exists',
+            type: 'POST',
+            dataType: 'json',
+            data: this.getDataToSubmit(),
+            context: this,
+            success : function(data)
+            {
+                var ordersAlreadyInBatches = [];
+                for (var i=0; i<data.batchMap.length; i++) {
+                    if (data.batchMap[i].batchExists) {
+                        ordersAlreadyInBatches.append(data.batchMap[i].orderId);
+                    }
+                }
+                if (ordersAlreadyInBatches.length) {
+                    this.createPopup(ordersAlreadyInBatches);
+                }
+            },
+            error: function (error, textStatus, errorThrown)
+            {
+                return this.getNotificationHandler().ajaxError(error, textStatus, errorThrown);
+            }
+        });
+    };
+
+    Batch.prototype.createPopup = function(ordersAlreadyInBatches)
+    {
+        console.log(ordersAlreadyInBatches);
+    };
+
+    Batch.prototype.createBatch = function(orders)
+    {
+        var self = this;
         var ajax = {
             url: this.getElement().data('url'),
             type: 'POST',
@@ -66,7 +99,7 @@ define([
             context: this,
             success : this.actionSuccess,
             error: function (error, textStatus, errorThrown) {
-                return this.getNotificationHandler().ajaxError(error, textStatus, errorThrown);
+                return self.getNotificationHandler().ajaxError(error, textStatus, errorThrown);
             }
         };
 

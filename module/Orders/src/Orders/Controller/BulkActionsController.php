@@ -475,7 +475,7 @@ class BulkActionsController extends AbstractActionController implements LoggerAw
 
     protected function checkBatchesExistAction()
     {
-        $orderIds = $this->getRequest()->getPost('orderIds', []);
+        $orderIds = $this->getRequest()->getPost('orders', []);
 
         $batchMap = [];
         if (! empty($orderIds)) {
