@@ -440,6 +440,7 @@ class Service implements LoggerAwareInterface
             $row['currentTime'] = $now->uiTimeFormat();
             $row['timezone'] = $now->getTimezone()->getName();
         }
+        $data = $this->performSumsOnSpecificsListData($data, $options);
         $data = $this->carrierBookingOptions->addCarrierSpecificDataToListArray($data, $courierAccount);
         return $data;
     }
@@ -637,6 +638,48 @@ class Service implements LoggerAwareInterface
             $parcelsData[] = $parcelData;
         }
         return $parcelsData;
+    }
+
+    protected function performSumsOnSpecificsListData(array $data, array $options)
+    {
+        $optionsKeyed = array_flip($options);
+        if (isset($optionsKeyed['weight'])) {
+            $data = $this->sumParcelWeightsOnSpecificsListData($data);
+        }
+        return $data;
+    }
+
+    protected function sumParcelWeightsOnSpecificsListData(array $data)
+    {
+        $orderRows = $this->groupListDataByOrder($data);
+        foreach ($orderRows as &$rows) {
+            $itemCount = 0;
+            $parcelCount = 0;
+            $weightSum = 0;
+            foreach ($rows as &$row) {
+                if (isset($row['itemRow']) && $row['itemRow']) {
+                    $itemCount++;
+                    if (isset($row['weight'])) {
+                        $weightSum += (float)$row['weight'];
+                    }
+                }
+                if (isset($row['parcelRow']) && $row['parcelRow']) {
+                    $parcelCount++;
+                }
+            }
+            if ($itemCount > 1 && $parcelCount == 1 && $weightSum > 0) {
+                // The parcel row will be the last one we looked at so we can re-use $row
+                $row['weight'] = $weightSum;
+            }
+        }
+
+        $data = [];
+        foreach ($orderRows as $rows2) {
+            foreach ($rows2 as $row2) {
+                $data[] = $row2;
+            }
+        }
+        return $data;
     }
 
     protected function sortSpecificsListData(array $data, array $orderRequiredFields, array $parcelRequiredFields = [])
