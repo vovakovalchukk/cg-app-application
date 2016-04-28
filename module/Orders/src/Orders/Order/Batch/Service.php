@@ -161,7 +161,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             $this->logInfo(sprintf("Checking if batch exists for order %s", $order->getId()), ['order' => $order->getId()], self::LOG_CODE);
             $batchMap[] = [
                 'orderId' => $order->getId(),
-                'batchExists' => ($order->getBatch() ? true : false),
+                'batch' => ($order->getBatch() ? $order->getBatch() : 0),
             ];
         }
         return $batchMap;
