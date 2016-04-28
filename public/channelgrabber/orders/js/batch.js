@@ -2,12 +2,14 @@ define([
     'Orders/OrdersBulkActionAbstract',
     'element/ElementCollection',
     'Orders/SaveCheckboxes',
-    'cg-mustache'
+    'cg-mustache',
+    'popup/confirm'
 ], function(
     OrdersBulkActionAbstract,
     elementCollection,
     saveCheckboxes,
-    CGMustache
+    CGMustache,
+    Confirm
 ) {
     var Batch = function(selector)
     {
@@ -49,8 +51,11 @@ define([
 
     Batch.prototype.invoke = function()
     {
+        var self = this;
         var datatable = this.getDataTableElement();
         var orders = this.getOrders();
+        var dataToSubmit = this.getDataToSubmit();
+
         if (!datatable.length || !orders.length) {
             return;
         }
@@ -58,44 +63,94 @@ define([
             return this.remove();
         }
 
+        this.getNotificationHandler().notice("Checking orders for existing batches...");
         $.ajax({
             url: '/orders/batch/check/exists',
             type: 'POST',
             dataType: 'json',
-            data: this.getDataToSubmit(),
+            data: dataToSubmit,
             context: this,
             success : function(data)
             {
                 var ordersAlreadyInBatches = [];
-                for (var i=0; i<data.batchMap.length; i++) {
-                    if (data.batchMap[i].batchExists) {
-                        ordersAlreadyInBatches.append(data.batchMap[i].orderId);
+                $.each(data.batchMap, function(index, value){
+                    if (value.batch > 0) {
+                        ordersAlreadyInBatches.push({
+                            'key': value.orderId,
+                            'value': value.batch
+                        });
                     }
-                }
+                });
+
+                self.getNotificationHandler().clearNotifications();
                 if (ordersAlreadyInBatches.length) {
-                    this.createPopup(ordersAlreadyInBatches);
+                    this.showPopup(ordersAlreadyInBatches);
+                } else {
+                    this.createBatch(orders, dataToSubmit);
                 }
             },
             error: function (error, textStatus, errorThrown)
             {
-                return this.getNotificationHandler().ajaxError(error, textStatus, errorThrown);
+                return self.getNotificationHandler().ajaxError(error, textStatus, errorThrown);
             }
         });
     };
 
-    Batch.prototype.createPopup = function(ordersAlreadyInBatches)
+    Batch.prototype.showPopup = function(ordersAlreadyInBatches)
     {
-        console.log(ordersAlreadyInBatches);
+        var self = this;
+        var templateMap = {
+            'messageTemplate' : '/channelgrabber/orders/template/Batch/batchAlreadyExistsMessage.mustache',
+            'tableTemplate' : '/channelgrabber/zf2-v4-ui/templates/popups/hashTable.mustache'
+        };
+        CGMustache.get().fetchTemplates(templateMap, function(templates, cgmustache)
+        {
+            var tableTemplateParams = {
+                'keyHeader': 'Order ID',
+                'valueHeader': 'Batch',
+                'rows': ordersAlreadyInBatches
+            };
+
+            var table = cgmustache.renderTemplate(templates, tableTemplateParams, 'tableTemplate');
+            var messageTemplateParams = {
+                'ordersTable': table
+            };
+            var message = cgmustache.renderTemplate(templates, messageTemplateParams, 'messageTemplate');
+            var confirm = new Confirm(message, function(answer){
+                self.confirmAction(ordersAlreadyInBatches, answer);
+            });
+        });
     };
 
-    Batch.prototype.createBatch = function(orders)
+    Batch.prototype.confirmAction = function(ordersAlreadyInBatches, answer)
+    {
+        if (!answer) {
+            return;
+        }
+        var orders = this.getOrders();
+        var dataToSubmit = this.getDataToSubmit();
+
+        if (answer === 'No') {
+            $.each(ordersAlreadyInBatches, function(key, element){
+                var index = dataToSubmit.orders.indexOf(element.key);
+
+                if (index > -1) {
+                    dataToSubmit.orders.splice(index, 1);
+                }
+            });
+        }
+
+        this.createBatch(orders, dataToSubmit);
+    };
+
+    Batch.prototype.createBatch = function(orders, dataToSubmit)
     {
         var self = this;
         var ajax = {
             url: this.getElement().data('url'),
             type: 'POST',
             dataType: 'json',
-            data: this.getDataToSubmit(),
+            data: dataToSubmit,
             context: this,
             success : this.actionSuccess,
             error: function (error, textStatus, errorThrown) {
