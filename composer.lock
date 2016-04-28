@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6ef2bdb7cece3547ac159daa015f3db8",
-    "content-hash": "647b28a6c99ec91fdff641f9b7cc3cb6",
+    "hash": "6b8f59f54e5183911635c10f9d2c210b",
+    "content-hash": "ff39f5eb1880e020ef5cd5a06fafc0b8",
     "packages": [
         {
             "name": "channelgrabber/amazon",
-            "version": "1.17.11",
+            "version": "dev-CGIV-6941-courier-booking-separate-out-pre-filled-rows",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-amazon.git",
-                "reference": "2428092d0ebe488e92bc3af95e37eba80b8aa607"
+                "reference": "a29e98551a5ed92e818a9c603dc47af598c851ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-1.17.11-8aca0f.zip",
-                "reference": "2428092d0ebe488e92bc3af95e37eba80b8aa607",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-amazon-dev-CGIV-6941-courier-booking-separate-out-pre-filled-rows-944740.zip",
+                "reference": "a29e98551a5ed92e818a9c603dc47af598c851ae",
                 "shasum": null
             },
             "require": {
@@ -66,7 +66,7 @@
                     "CG\\Amazon\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-04-21 12:53:47"
+            "time": "2016-04-28 11:26:42"
         },
         {
             "name": "channelgrabber/api-lib",
@@ -3414,16 +3414,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.44",
+            "version": "dev-CGIV-6941-courier-booking-separate-out-pre-filled-rows",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "4db1899753e35844b76d0f4529142e14f690498f"
+                "reference": "6208682df50e9762f1ff087e347c7cfcd30be91a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.44-5dd4af.zip",
-                "reference": "4db1899753e35844b76d0f4529142e14f690498f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6941-courier-booking-separate-out-pre-filled-rows-83d66e.zip",
+                "reference": "6208682df50e9762f1ff087e347c7cfcd30be91a",
                 "shasum": null
             },
             "require": {
@@ -3469,7 +3469,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-04-21 12:55:14"
+            "time": "2016-04-27 08:30:17"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7646,10 +7646,25 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.17.12",
+            "alias_normalized": "1.17.12.0",
+            "version": "dev-CGIV-6941-courier-booking-separate-out-pre-filled-rows",
+            "package": "channelgrabber/amazon"
+        },
+        {
+            "alias": "1.16.45",
+            "alias_normalized": "1.16.45.0",
+            "version": "dev-CGIV-6941-courier-booking-separate-out-pre-filled-rows",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/amazon": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
