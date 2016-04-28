@@ -63,7 +63,6 @@ define([
             return this.remove();
         }
 
-        this.getNotificationHandler().notice("Checking orders for existing batches...");
         $.ajax({
             url: '/orders/batch/check/exists',
             type: 'POST',
@@ -82,7 +81,6 @@ define([
                     }
                 });
 
-                self.getNotificationHandler().clearNotifications();
                 if (ordersAlreadyInBatches.length) {
                     this.showPopup(ordersAlreadyInBatches);
                 } else {
