@@ -52,19 +52,14 @@
             width: 100%;
             float: left;
             clear:both;
-            margin-top: 10px;
         }
-        .shipping-account{
+        > div {
+            margin: 10px 0;
             width: 50%;
             float: left;
+        }
+        .shipping-account {
             clear:both;
-        }
-        .shipping-service{
-            width: 50%;
-            float: left;
-        }
-        .shipping-account, .shipping-service {
-            margin-top: 10px;
         }
     }
 }

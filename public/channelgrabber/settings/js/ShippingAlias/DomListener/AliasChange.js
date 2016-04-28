@@ -34,6 +34,7 @@ function(domManipulator, eventCollator, DeferredQueue)
     AliasChange.SHIPPING_METHOD_SELECTOR = '.channel-shipping-methods .custom-select-item';
     AliasChange.ALIAS_NAME_INPUT_SELECTOR = '.shipping-alias-name-holder .inputbox';
     AliasChange.SHIPPING_SERVICES_CUSTOM_SELECT_SELECTOR = '.shipping-services .custom-select';
+    AliasChange.SHIPPING_SERVICE_OPTIONS_SELECTOR = '.shipping-service-options input';
 
     AliasChange.prototype.init = function(rootOuId)
     {
@@ -50,6 +51,10 @@ function(domManipulator, eventCollator, DeferredQueue)
         });
 
         $(document).on("keyup", AliasChange.ALIAS_NAME_INPUT_SELECTOR, function(event, data) {
+            self.triggerRequestMadeEvent(this);
+        });
+
+        $(document).on("change", AliasChange.SHIPPING_SERVICE_OPTIONS_SELECTOR, function(event, data) {
             self.triggerRequestMadeEvent(this);
         });
 
@@ -91,8 +96,10 @@ function(domManipulator, eventCollator, DeferredQueue)
         var aliasName = aliasInUse.find('.shipping-alias-name-holder .inputbox').val();
         var aliasAccount = aliasInUse.find('input[class=shipping-account-select][type=hidden]').val();
         var aliasService = aliasInUse.find('input[class=shipping-service-select][type=hidden]').val();
+        var aliasServiceOptions = aliasInUse.find('.shipping-service-options input[type=hidden]');
         var hiddenCheckBoxes = aliasInUse.find('.channel-shipping-methods input[type=hidden]');
         var checkBoxValues = [];
+        var serviceOptionsValues = null;
 
         if(aliasService === undefined) {
             aliasService = '';
@@ -102,6 +109,16 @@ function(domManipulator, eventCollator, DeferredQueue)
             checkBoxValues[index] = $(this).val();
         });
 
+        if (aliasServiceOptions.length == 1) {
+            serviceOptionsValues = aliasServiceOptions.val();
+        } else if (aliasServiceOptions.length > 1) {
+            serviceOptionsValues = [];
+            aliasServiceOptions.each(function()
+            {
+                serviceOptionsValues.push($(this).val());
+            });
+        }
+
         var singleAlias = {
             storedEtag: storedETag,
             id: aliasID ? aliasID : null,
@@ -109,9 +126,11 @@ function(domManipulator, eventCollator, DeferredQueue)
             organisationUnitId: this.getRootOuId(),
             accountId: (aliasAccount.length && parseInt(aliasAccount) > 0 ? aliasAccount : null),
             shippingService: aliasService,
-            methodIds: checkBoxValues
+            methodIds: checkBoxValues,
+            options: serviceOptionsValues
         };
 
+        n.notice('Saving');
         return $.ajax({
             'url' : '/settings/shipping/alias/save',
             'data' : {'alias' : JSON.stringify(singleAlias)},

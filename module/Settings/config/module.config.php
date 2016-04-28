@@ -485,6 +485,19 @@ return [
                                     'account' => '[0-9]*'
                                 ],
                                 'may_terminate' => true
+                            ],
+                            ShippingController::ROUTE_SERVICE_OPTIONS => [
+                                'type' => Segment::class,
+                                'options' => [
+                                    'route' => '/serviceOptions/:account',
+                                    'defaults' => [
+                                        'action' => 'getServiceOptions'
+                                    ]
+                                ],
+                                'constraints' => [
+                                    'account' => '[0-9]*'
+                                ],
+                                'may_terminate' => true
                             ]
                         ]
                     ],

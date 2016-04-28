@@ -194,10 +194,12 @@ class Service implements LoggerAwareInterface
         $shippingDescription = $order->getShippingMethod();
         $courierId = null;
         $service = null;
+        $serviceOptions = null;
         if ($shippingAlias) {
             $shippingDescription = $shippingAlias->getName();
             $courierId = $shippingAlias->getAccountId();
             $service = $shippingAlias->getShippingService();
+            $serviceOptions = $shippingAlias->getOptions();
         }
         $shippingCountry = $order->getShippingAddressCountryForCourier();
         // 'United Kingdom' takes up a lot of space in the UI. As it is very common we'll drop it and only mention non-UK countries
@@ -222,6 +224,7 @@ class Service implements LoggerAwareInterface
                 'options' => $this->getCourierOptionsForOrder($order, $courierId),
             ],
             'service' => $service,
+            'serviceOptions' => $serviceOptions,
         ];
         return $orderData;
     }
@@ -627,7 +630,8 @@ class Service implements LoggerAwareInterface
     {
         $order = $this->orderService->fetch($orderId);
         $account = $this->accountService->fetch($accountId);
-        return $this->carrierBookingOptions->getDataForCarrierBookingOption($option, $order, $account, $service);
+        $rootOu = $this->userOuService->getRootOuByActiveUser();
+        return $this->carrierBookingOptions->getDataForCarrierBookingOption($option, $order, $account, $service, $rootOu);
     }
 
     protected function setOrderService(OrderService $orderService)

@@ -11,17 +11,6 @@ define([
 ) {
     var DomManipulator = function()
     {
-        var aliasNo = 0;
-
-        this.getAliasNo = function()
-        {
-            return aliasNo;
-        };
-
-        this.getAndIncrementAliasNo = function()
-        {
-            return ++aliasNo;
-        };
     };
 
     DomManipulator.ALIAS_CHANGED = 'alias-changed';
@@ -30,6 +19,16 @@ define([
     DomManipulator.DOM_SELECTOR_ALIAS = '.shipping-alias';
     DomManipulator.DOM_SELECTOR_ALIAS_NONE = '.shipping-alias-none';
     DomManipulator.SHIPPING_METHOD_SELECTOR = '.channel-shipping-methods .custom-select-item';
+
+    DomManipulator.prototype.getAliasNo = function()
+    {
+        return $('.shipping-alias').length;
+    };
+
+    DomManipulator.prototype.getAndIncrementAliasNo = function()
+    {
+        return this.getAliasNo()+1;
+    };
 
     DomManipulator.prototype.prependAlias = function()
     {
@@ -64,7 +63,7 @@ define([
                 options: accountCollection.getItems()
             }, "customSelect");
 
-            var alias = cgmustache.renderTemplate(templates, {'id' : 'shipping-alias-new-' + aliasNo}, "alias", {
+            var alias = cgmustache.renderTemplate(templates, {'id' : 'shipping-alias-' + aliasNo}, "alias", {
                 'multiSelectExpanded' : multiSelectExpanded,
                 'accountCustomSelect': accountCustomSelect,
                 'deleteButton' : deleteButton,
@@ -141,8 +140,6 @@ define([
         if(services.length === 0) {
             if($("#shipping-alias-" + aliasId).length) {
                 $("#shipping-alias-" + aliasId).find("#services-custom-select").html('');
-            } else if($("#shipping-alias-new-" + aliasId).length) {
-                $("#shipping-alias-new-" + aliasId).find("#services-custom-select").html('');
             }
             return;
         }
@@ -162,11 +159,22 @@ define([
 
             if($("#shipping-alias-" + aliasId).length) {
                 $("#shipping-alias-" + aliasId).find("#services-custom-select").html(serviceCustomSelect);
-            } else if($("#shipping-alias-new-" + aliasId).length) {
-                $("#shipping-alias-new-" + aliasId).find("#services-custom-select").html(serviceCustomSelect);
             }
         });
-    }
+    };
+
+    DomManipulator.prototype.updateServicesOptions = function(aliasId, options, templateName)
+    {
+        $('#shipping-alias-' + aliasId).find('.shipping-service-options').empty();
+        if (!options || (options instanceof Array && options.length == 0)) {
+            return;
+        }
+        CGMustache.get().fetchTemplate(templateName, function(template, cgmustache)
+        {
+            var html = cgmustache.renderTemplate(template, options);
+            $('#shipping-alias-' + aliasId).find('.shipping-service-options').append(html);
+        });
+    };
 
     DomManipulator.prototype.remove = function(id, html)
     {

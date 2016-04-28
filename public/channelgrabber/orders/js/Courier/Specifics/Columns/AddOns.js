@@ -25,10 +25,6 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
 
     AddOns.prototype = Object.create(ServiceDependantOptionsAbstract.prototype);
 
-    AddOns.prototype.mutuallyExclusiveOptions = [
-        ['Insurance £50', 'Insurance £500', 'Insurance £1000', 'Insurance £2500'],
-        ['Signature', 'Safe Place']
-    ];
     AddOns.prototype.addOnsRequiringDeliveryInstructions = ['Safe Place'];
 
     AddOns.prototype.getDataTable = function()
@@ -115,15 +111,15 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
         var data = {
             id: AddOns.SELECTOR_ADD_ONS_PREFIX.replace('#', '') + orderId,
             name: 'orderData[' + orderId + '][addOn]',
-            emptyTitle: " ",
+            emptyTitle: "No add-ons",
             searchField: false,
             options: []
         };
         for (var index in options) {
-            data.options.push({
-                title: options[index],
-                selected: (selected.indexOf(options[index]) != -1)
-            });
+            if (!options[index].selected && selected.indexOf(options[index].title) != -1) {
+                options[index].selected = true;
+            }
+            data.options.push(options[index]);
         }
         var html = cgMustache.renderTemplate(template, data);
         container.empty().append(html);
@@ -136,35 +132,8 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
         $(document).on('click', AddOns.SELECTOR_ADD_ONS_CONTAINER + ' ' + AddOns.SELECTOR_ADD_ONS_OPTION, function()
         {
             var li = this;
-            self.deSelectMutuallyExclusiveOptions(li)
-                .showAdditionalFieldsForAddOn($(li).data('value'), $(li).find('input').is(':checked'), $(li).attr('id').split('_').pop());
+            self.showAdditionalFieldsForAddOn($(li).data('value'), $(li).find('input').is(':checked'), $(li).attr('id').split('_').pop());
         });
-        return this;
-    };
-
-    AddOns.prototype.deSelectMutuallyExclusiveOptions = function(li)
-    {
-        if (!$(li).find('input:checkbox').is(':checked')) {
-            return this;
-        }
-        var mutuallyExclusiveOptions = this.mutuallyExclusiveOptions;
-        var value =  $(li).data('value');
-        for (var index in mutuallyExclusiveOptions) {
-            if (mutuallyExclusiveOptions[index].indexOf(value) == -1) {
-                continue;
-            }
-
-            $(li).closest('ul').find(AddOns.SELECTOR_ADD_ONS_OPTION).each(function()
-            {
-                if (this == li ||
-                    !$(this).find('input:checkbox').is(':checked') ||
-                    mutuallyExclusiveOptions[index].indexOf($(this).data('value')) == -1
-                ) {
-                    return true; // continue
-                }
-                $(this).click();
-            });
-        }
         return this;
     };
 
@@ -177,8 +146,7 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
             $(select).find(AddOns.SELECTOR_ADD_ONS_OPTION).each(function()
             {
                 var li = this;
-                self.deSelectMutuallyExclusiveOptions(li)
-                    .showAdditionalFieldsForAddOn($(li).data('value'), $(li).find('input').is(':checked'), $(li).attr('id').split('_').pop());
+                self.showAdditionalFieldsForAddOn($(li).data('value'), $(li).find('input').is(':checked'), $(li).attr('id').split('_').pop());
             });
         });
         return this;
