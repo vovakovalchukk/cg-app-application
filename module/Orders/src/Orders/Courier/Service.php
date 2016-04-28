@@ -195,29 +195,7 @@ class Service implements LoggerAwareInterface
 
     protected function sortReviewListData(array $data)
     {
-        // Separate out the fully pre-filled rows from those still requiring input
-        $preFilledRows = [];
-        $inputRequiredRows = [];
-        $orderArray = null;
-        foreach ($data as $row) {
-            if ($row['orderRow'] == false) {
-                $orderArray[] = $row;
-                continue;
-            }
-            foreach ($this->reviewListRequiredFields as $field) {
-                if (!isset($row[$field]) || $row[$field] == '') {
-                    $row['group'] = 'Input Required';
-                    $orderArray = &$inputRequiredRows;
-                    $orderArray[] = $row;
-                    continue 2;
-                }
-            }
-            $row['group'] = 'Ready';
-            $orderArray = &$preFilledRows;
-            $orderArray[] = $row;
-        }
-        // Put rows requiring input at the top to make it easier for the user to find them
-        return array_merge($inputRequiredRows, $preFilledRows);
+        return $this->sortOrderListData($data, $this->reviewListRequiredFields);
     }
 
     protected function getCommonOrderListData($order, $rootOu)
@@ -395,11 +373,7 @@ class Service implements LoggerAwareInterface
         $orders = $this->orderService->fetchCollectionByFilter($filter);
         $courierAccount = $this->accountService->fetch($courierAccountId);
         $data = $this->formatOrdersAsSpecificsListData($orders, $courierAccount, $ordersData, $ordersParcelsData);
-        return $this->sortSpecificsListData(
-            $data,
-            array_intersect($this->specificsListRequiredOrderFields, $this->getCarrierOptions($courierAccount)),
-            array_intersect($this->specificsListRequiredParcelFields, $this->getCarrierOptions($courierAccount))
-        );
+        return $this->sortSpecificsListData($data, $courierAccount);
     }
 
     protected function formatOrdersAsSpecificsListData(
@@ -682,7 +656,15 @@ class Service implements LoggerAwareInterface
         return $data;
     }
 
-    protected function sortSpecificsListData(array $data, array $orderRequiredFields, array $parcelRequiredFields = [])
+    protected function sortSpecificsListData(array $data, Account $courierAccount)
+    {
+        $carrierOptions = $this->getCarrierOptions($courierAccount);
+        $orderRequiredFields = array_intersect($this->specificsListRequiredOrderFields, $carrierOptions);
+        $parcelRequiredFields = array_intersect($this->specificsListRequiredParcelFields, $carrierOptions);
+        return $this->sortOrderListData($data, $orderRequiredFields, $parcelRequiredFields);
+    }
+
+    protected function sortOrderListData(array $data, array $orderRequiredFields, array $parcelRequiredFields = [])
     {
         // Separate out the fully pre-filled rows from those still requiring input
         $preFilledRows = [];
