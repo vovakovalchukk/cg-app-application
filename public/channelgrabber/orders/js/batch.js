@@ -140,6 +140,10 @@ define([
             });
         }
 
+        if (! dataToSubmit.orders.length) {
+            return;
+        }
+
         this.createBatch(orders, dataToSubmit);
     };
 
