@@ -86,7 +86,7 @@ class Service implements LoggerAwareInterface
     ];
 
     protected $reviewListRequiredFields = ['courier', 'service'];
-    protected $specificsListRequiredOrderFields = ['service', 'parcels', 'collectionDate', 'collectionTime'];
+    protected $specificsListRequiredOrderFields = ['parcels', 'collectionDate', 'collectionTime'];
     protected $specificsListRequiredParcelFields = ['weight', 'width', 'height', 'length', 'packageType', 'itemParcelAssignment'];
 
     public function __construct(
@@ -660,6 +660,8 @@ class Service implements LoggerAwareInterface
     {
         $carrierOptions = $this->getCarrierOptions($courierAccount);
         $orderRequiredFields = array_intersect($this->specificsListRequiredOrderFields, $carrierOptions);
+        // service field is always required and can ocassionally get unset if the chosen service is not available
+        $orderRequiredFields[] = 'service';
         $parcelRequiredFields = array_intersect($this->specificsListRequiredParcelFields, $carrierOptions);
         return $this->sortOrderListData($data, $orderRequiredFields, $parcelRequiredFields);
     }
@@ -675,7 +677,7 @@ class Service implements LoggerAwareInterface
             foreach ($rows as $row) {
                 if (isset($row['orderRow']) && $row['orderRow']) {
                     foreach ($orderRequiredFields as $field) {
-                        if (!isset($row[$field]) || $row[$field] == '') {
+                        if (!$this->isOrderListRowFieldSet($row, $field)) {
                             $complete = false;
                             break 2;
                         }
@@ -683,7 +685,7 @@ class Service implements LoggerAwareInterface
                 }
                 if (isset($row['parcelRow']) && $row['parcelRow']) {
                     foreach ($parcelRequiredFields as $field) {
-                        if (!isset($row[$field]) || $row[$field] == '') {
+                        if (!$this->isOrderListRowFieldSet($row, $field)) {
                             $complete = false;
                             break 2;
                         }
@@ -702,6 +704,14 @@ class Service implements LoggerAwareInterface
 
         // Put rows requiring input at the top to make it easier for the user to find them
         return array_merge($inputRequiredRows, $preFilledRows);
+    }
+
+    protected function isOrderListRowFieldSet(array $row, $field)
+    {
+        if (!isset($row[$field]) || $row[$field] == '' || (is_numeric($row[$field]) && (float)$row[$field] == 0)) {
+            return false;
+        }
+        return true;
     }
 
     protected function groupListDataByOrder(array $data)
