@@ -853,7 +853,7 @@ return array(
                         ],
                         [
                             'channelName' => DataplugCarriers::MYHERMES,
-                            'displayName' => 'Hermes corporate',
+                            'displayName' => 'MyHermes',
                             'salesChannelName' => 'Hermes',
                             'code' => DataplugCarrier\Myhermes::CODE,
                             'allowsCancellation' => false,
