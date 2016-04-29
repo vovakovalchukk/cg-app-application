@@ -546,6 +546,10 @@ class Service implements LoggerAwareInterface
             if (isset($data[$field]) && $data[$field] != '') {
                 continue;
             }
+            if (isset($this->productDetailFields[$field])) {
+                $callback = $this->productDetailFields[$field];
+                $value = $this->$callback($value, $item);
+            }
             $data[$field] = $value;
         }
         return $data;
