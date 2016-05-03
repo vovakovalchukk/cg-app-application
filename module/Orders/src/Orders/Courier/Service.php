@@ -85,6 +85,10 @@ class Service implements LoggerAwareInterface
         'length' => 'processDimensionFromProductDetails',
     ];
 
+    protected $reviewListRequiredFields = ['courier', 'service'];
+    protected $specificsListRequiredOrderFields = ['parcels', 'collectionDate', 'collectionTime'];
+    protected $specificsListRequiredParcelFields = ['weight', 'width', 'height', 'length', 'packageType', 'itemParcelAssignment'];
+
     public function __construct(
         OrderService $orderService,
         UserOUService $userOuService,
@@ -172,7 +176,8 @@ class Service implements LoggerAwareInterface
             ->setPage(1)
             ->setOrderIds($orderIds);
         $orders = $this->orderService->fetchCollectionByFilter($filter);
-        return $this->formatOrdersAsReviewListData($orders);
+        $data = $this->formatOrdersAsReviewListData($orders);
+        return $this->sortReviewListData($data);
     }
 
     protected function formatOrdersAsReviewListData(OrderCollection $orders)
@@ -186,6 +191,11 @@ class Service implements LoggerAwareInterface
             $data = array_merge($data, $itemData);
         }
         return $data;
+    }
+
+    protected function sortReviewListData(array $data)
+    {
+        return $this->sortOrderListData($data, $this->reviewListRequiredFields);
     }
 
     protected function getCommonOrderListData($order, $rootOu)
@@ -362,7 +372,8 @@ class Service implements LoggerAwareInterface
             ->setOrderIds($orderIds);
         $orders = $this->orderService->fetchCollectionByFilter($filter);
         $courierAccount = $this->accountService->fetch($courierAccountId);
-        return $this->formatOrdersAsSpecificsListData($orders, $courierAccount, $ordersData, $ordersParcelsData);
+        $data = $this->formatOrdersAsSpecificsListData($orders, $courierAccount, $ordersData, $ordersParcelsData);
+        return $this->sortSpecificsListData($data, $courierAccount);
     }
 
     protected function formatOrdersAsSpecificsListData(
@@ -403,6 +414,7 @@ class Service implements LoggerAwareInterface
             $row['currentTime'] = $now->uiTimeFormat();
             $row['timezone'] = $now->getTimezone()->getName();
         }
+        $data = $this->performSumsOnSpecificsListData($data, $options);
         $data = $this->carrierBookingOptions->addCarrierSpecificDataToListArray($data, $courierAccount);
         return $data;
     }
@@ -534,6 +546,10 @@ class Service implements LoggerAwareInterface
             if (isset($data[$field]) && $data[$field] != '') {
                 continue;
             }
+            if (isset($this->productDetailFields[$field])) {
+                $callback = $this->productDetailFields[$field];
+                $value = $this->$callback($value, $item);
+            }
             $data[$field] = $value;
         }
         return $data;
@@ -600,6 +616,118 @@ class Service implements LoggerAwareInterface
             $parcelsData[] = $parcelData;
         }
         return $parcelsData;
+    }
+
+    protected function performSumsOnSpecificsListData(array $data, array $options)
+    {
+        $optionsKeyed = array_flip($options);
+        if (isset($optionsKeyed['weight'])) {
+            $data = $this->sumParcelWeightsOnSpecificsListData($data);
+        }
+        return $data;
+    }
+
+    protected function sumParcelWeightsOnSpecificsListData(array $data)
+    {
+        $orderRows = $this->groupListDataByOrder($data);
+        foreach ($orderRows as &$rows) {
+            $itemCount = 0;
+            $parcelCount = 0;
+            $weightSum = 0;
+            foreach ($rows as &$row) {
+                if (isset($row['itemRow']) && $row['itemRow']) {
+                    $itemCount++;
+                    if (isset($row['weight'])) {
+                        $weightSum += (float)$row['weight'];
+                    }
+                }
+                if (isset($row['parcelRow']) && $row['parcelRow']) {
+                    $parcelCount++;
+                }
+            }
+            if ($itemCount > 1 && $parcelCount == 1 && $weightSum > 0) {
+                // The parcel row will be the last one we looked at so we can re-use $row
+                $row['weight'] = $weightSum;
+            }
+        }
+
+        $data = [];
+        foreach ($orderRows as $rows2) {
+            foreach ($rows2 as $row2) {
+                $data[] = $row2;
+            }
+        }
+        return $data;
+    }
+
+    protected function sortSpecificsListData(array $data, Account $courierAccount)
+    {
+        $carrierOptions = $this->getCarrierOptions($courierAccount);
+        $orderRequiredFields = array_intersect($this->specificsListRequiredOrderFields, $carrierOptions);
+        // service field is always required and can ocassionally get unset if the chosen service is not available
+        $orderRequiredFields[] = 'service';
+        $parcelRequiredFields = array_intersect($this->specificsListRequiredParcelFields, $carrierOptions);
+        return $this->sortOrderListData($data, $orderRequiredFields, $parcelRequiredFields);
+    }
+
+    protected function sortOrderListData(array $data, array $orderRequiredFields, array $parcelRequiredFields = [])
+    {
+        // Separate out the fully pre-filled rows from those still requiring input
+        $preFilledRows = [];
+        $inputRequiredRows = [];
+        $orderRows = $this->groupListDataByOrder($data);
+        foreach ($orderRows as $orderId => $rows) {
+            $complete = true;
+            foreach ($rows as $row) {
+                if (isset($row['orderRow']) && $row['orderRow']) {
+                    foreach ($orderRequiredFields as $field) {
+                        if (!$this->isOrderListRowFieldSet($row, $field)) {
+                            $complete = false;
+                            break 2;
+                        }
+                    }
+                }
+                if (isset($row['parcelRow']) && $row['parcelRow']) {
+                    foreach ($parcelRequiredFields as $field) {
+                        if (!$this->isOrderListRowFieldSet($row, $field)) {
+                            $complete = false;
+                            break 2;
+                        }
+                    }
+                }
+            }
+
+            $group = ($complete ? 'Ready' : 'Input Required');
+            ($complete ? $orderArray = &$preFilledRows : $orderArray = &$inputRequiredRows);
+
+            $rows[0]['group'] = $group;
+            foreach ($rows as $row) {
+                $orderArray[] = $row;
+            }
+        }
+
+        // Put rows requiring input at the top to make it easier for the user to find them
+        return array_merge($inputRequiredRows, $preFilledRows);
+    }
+
+    protected function isOrderListRowFieldSet(array $row, $field)
+    {
+        if (!isset($row[$field]) || $row[$field] == '' || (is_numeric($row[$field]) && (float)$row[$field] == 0)) {
+            return false;
+        }
+        return true;
+    }
+
+    protected function groupListDataByOrder(array $data)
+    {
+        $orderRows = [];
+        foreach ($data as $row) {
+            if (!isset($orderRows[$row['orderId']])) {
+                $orderRows[$row['orderId']] = [];
+            }
+            $orderRows[$row['orderId']][] = $row;
+        }
+        return $orderRows;
     }
 
     public function getSpecificsMetaDataFromRecords(array $records)

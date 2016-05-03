@@ -26,7 +26,7 @@
         }
     },
     "require": {
-        "channelgrabber/amazon": "~1.17.11",
+        "channelgrabber/amazon": "~1.17.13",
         "channelgrabber/api-lib": "~1.0.1",
         "channelgrabber/billing": "~1.10.0",
         "channelgrabber/cache": "~2.1.0",
