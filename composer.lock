@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f7beac5bfc82911d963ce58f10003507",
-    "content-hash": "8fedaf6c462be1380576ec726f1f0142",
+    "hash": "d9cf6d5f55159d2d38d9fec1412173da",
+    "content-hash": "6b0d1b15896edcb96bf1d0d574827572",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1270,16 +1270,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.23.0",
+            "version": "1.23.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "f80d4756269bc7af3d1c6222db96a6995af9926b"
+                "reference": "ec3270f11c3ef9883d536c40a15be2a2a73f75ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.23.0-bd3dab.zip",
-                "reference": "f80d4756269bc7af3d1c6222db96a6995af9926b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.23.1-22dd3c.zip",
+                "reference": "ec3270f11c3ef9883d536c40a15be2a2a73f75ab",
                 "shasum": null
             },
             "require": {
@@ -1342,7 +1342,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-04-14 09:32:35"
+            "time": "2016-04-28 15:28:44"
         },
         {
             "name": "channelgrabber/permission",
