@@ -148,7 +148,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $this->updateOrdersByFilter($filter);
     }
 
-    public function checkBatchesExist($orderIds)
+    public function areOrdersAssociatedWithAnyBatch($orderIds)
     {
         $filter = new Filter();
         $filter->setOrderIds($orderIds);
@@ -158,12 +158,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $batchMap = [];
         foreach($orders as $order)
         {
-            $this->logInfo(sprintf("Checking if batch exists for order %s", $order->getId()), ['order' => $order->getId()], self::LOG_CODE);
             $batchMap[] = [
                 'orderId' => $order->getId(),
                 'batch' => ($order->getBatch() ? $order->getBatch() : 0),
             ];
         }
+        $this->logPrettyDebug('The following batch map was generated:', $batchMap, [], [static::LOG_CODE, __FUNCTION__]);
         return $batchMap;
     }
 

@@ -215,12 +215,12 @@ return [
                                     ],
                                 ],
                             ],
-                            'check' => [
+                            'checkAssociation' => [
                                 'type' => 'Zend\Mvc\Router\Http\Literal',
                                 'options' => [
-                                    'route' => '/check/exists',
+                                    'route' => '/checkAssociation',
                                     'defaults' => [
-                                        'action' => 'checkBatchesExist'
+                                        'action' => 'areOrdersAssociatedWithAnyBatch'
                                     ],
                                 ],
                                 'may_terminate' => true,

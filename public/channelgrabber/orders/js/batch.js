@@ -64,7 +64,7 @@ define([
         }
 
         $.ajax({
-            url: '/orders/batch/check/exists',
+            url: '/orders/batch/checkAssociation',
             type: 'POST',
             dataType: 'json',
             data: dataToSubmit,
