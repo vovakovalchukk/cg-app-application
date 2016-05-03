@@ -992,10 +992,6 @@ return [
                 'OrdersGiftColumn' => DataTable\Column::class,
                 'OrdersShippingColumnView' => ViewModel::class,
                 'OrdersShippingColumn' => DataTable\Column::class,
-                'OrdersDispatchColumnView' => ViewModel::class,
-                'OrdersDispatchColumn' => DataTable\Column::class,
-                'OrdersPrintColumnView' => ViewModel::class,
-                'OrdersPrintColumn' => DataTable\Column::class,
                 'OrdersTagColumnView' => ViewModel::class,
                 'OrdersTagColumn' => DataTable\Column::class,
                 'OrdersFulfilmentChannelColumnView' => ViewModel::class,
@@ -1369,34 +1365,6 @@ return [
                     'sortable' => false,
                 ],
             ],
-            'OrdersDispatchColumnView' => [
-                'parameters' => [
-                    'variables' => ['value' => 'Dispatch'],
-                    'template' => 'value.phtml',
-                ],
-            ],
-            'OrdersDispatchColumn' => [
-                'parameters' => [
-                    'column' => 'dispatchDate',
-                    'viewModel' => 'OrdersDispatchColumnView',
-                    'class' => 'actions',
-                    'sortable' => false,
-                ],
-            ],
-            'OrdersPrintColumnView' => [
-                'parameters' => [
-                    'variables' => ['value' => 'Print'],
-                    'template' => 'value.phtml',
-                ],
-            ],
-            'OrdersPrintColumn' => [
-                'parameters' => [
-                    'column' => 'printedDate',
-                    'viewModel' => 'OrdersPrintColumnView',
-                    'class' => 'actions',
-                    'sortable' => false,
-                ],
-            ],
             'OrdersTagColumnView' => [
                 'parameters' => [
                     'variables' => ['value' => 'Tag'],
@@ -1543,7 +1511,7 @@ return [
             'OrdersDispatchedDateColumn' => [
                 'parameters' => [
                     'visible' => false,
-                    'column' => 'dispatchedDate',
+                    'column' => 'dispatchDate',
                     'viewModel' => 'OrdersDispatchedDateColumnView',
                     'class' => 'order-dispatched-date-col',
                     'sortable' => true,
@@ -1558,7 +1526,7 @@ return [
             'OrdersInvoiceEmailedDateColumn' => [
                 'parameters' => [
                     'visible' => false,
-                    'column' => 'invoiceEmailedDate',
+                    'column' => 'emailDate',
                     'viewModel' => 'OrdersInvoiceEmailedDateColumnView',
                     'class' => 'order-invoice-emailed-date-col',
                     'sortable' => true,
@@ -1618,7 +1586,7 @@ return [
             'OrdersPostcodeColumn' => [
                 'parameters' => [
                     'visible' => false,
-                    'column' => 'postcode',
+                    'column' => 'shippingAddressPostcode',
                     'viewModel' => 'OrdersPostcodeColumnView',
                     'class' => 'order-postcode-col',
                     'sortable' => false,
