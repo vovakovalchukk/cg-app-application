@@ -10,6 +10,8 @@ use CG\Channel\Gearman\Generator\Order\Dispatch as OrderDispatcher;
 use CG\Channel\Type;
 use CG\Http\Exception\Exception3xx\NotModified as NotModifiedException;
 use CG\Http\SaveCollectionHandleErrorsTrait;
+use CG\Image\Filter as ImageFilter;
+use CG\Image\Service as ImageService;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Order\Client\Collection as FilteredCollection;
@@ -99,6 +101,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $intercomEventService;
     protected $rowMapper;
     protected $dateFormatHelper;
+    /** @var ImageService */
+    protected $imageService;
 
     protected $editableFulfilmentChannels = [OrderEntity::DEFAULT_FULFILMENT_CHANNEL => true];
 
@@ -121,7 +125,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         ActionService $actionService,
         IntercomEventService $intercomEventService,
         RowMapper $rowMapper,
-        DateFormatHelper $dateFormatHelper
+        DateFormatHelper $dateFormatHelper,
+        ImageService $imageService
     ) {
         $this
             ->setOrderClient($orderClient)
@@ -143,10 +148,11 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ->setActionService($actionService)
             ->setIntercomEventService($intercomEventService)
             ->setRowMapper($rowMapper)
-            ->setDateFormatHelper($dateFormatHelper);
+            ->setDateFormatHelper($dateFormatHelper)
+            ->setImageService($imageService);
     }
 
-    public function alterOrderTable(OrderCollection $orderCollection, MvcEvent $event)
+    public function alterOrderTable(OrderCollection $orderCollection, MvcEvent $event, array $columns = [])
     {
         $orders = $orderCollection->toArray();
 
@@ -164,6 +170,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $orders = $this->getOrdersArrayWithTruncatedShipping($orders);
         $orders = $this->getOrdersArrayWithFormattedDates($orders);
         $orders = $this->getOrdersArrayWithGiftMessages($orderCollection, $orders);
+        $orders = $this->getOrdersArrayWithProductImage($orders, $columns);
         
         $filterId = null;
         if ($orderCollection instanceof FilteredCollection) {
@@ -287,6 +294,17 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             $orders[$index]['giftMessageCount'] = count($giftMessages);
             $orders[$index]['giftMessages'] = json_encode($giftMessages);
         }
+
+        return $orders;
+    }
+
+    protected function getOrdersArrayWithProductImage(array $orders, array $columns)
+    {
+        if (!isset($columns['image'])) {
+            return $orders;
+        }
+
+// TODO
 
         return $orders;
     }
@@ -1106,6 +1124,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected function setDateFormatHelper(DateFormatHelper $dateFormatHelper)
     {
         $this->dateFormatHelper = $dateFormatHelper;
+        return $this;
+    }
+
+    protected function setImageService(ImageService $imageService)
+    {
+        $this->imageService = $imageService;
         return $this;
     }
 }
