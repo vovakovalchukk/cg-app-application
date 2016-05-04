@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "270a270976ef9c4d5a9fe8f8f9a7bbcc",
-    "content-hash": "55592305391d5cbc76ece88748fd907d",
+    "hash": "e70514d23597b4b441644e04325ee4cd",
+    "content-hash": "7274a57a59cdf7f1a61f6edbb5277471",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3414,16 +3414,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-6361-orders-table-extra-columns",
+            "version": "1.16.46",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "2689bc8c076dd99e55010d48a8cd941ef7426558"
+                "reference": "c2474bb925520fb9bd791dd5e08fcf7e40b2e7c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6361-orders-table-extra-columns-696831.zip",
-                "reference": "2689bc8c076dd99e55010d48a8cd941ef7426558",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.46-ed9ad5.zip",
+                "reference": "c2474bb925520fb9bd791dd5e08fcf7e40b2e7c1",
                 "shasum": null
             },
             "require": {
@@ -3469,7 +3469,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-05-03 09:57:50"
+            "time": "2016-05-04 10:24:18"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -5972,7 +5972,7 @@
             "version": "2.3.9",
             "source": {
                 "type": "git",
-                "url": "https://github.com/zendframework/zf2.git",
+                "url": "https://github.com/zendframework/zendframework.git",
                 "reference": "32858f883fffb5eef9f610b538ed026f6033b6de"
             },
             "dist": {
@@ -7646,18 +7646,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.16.46",
-            "alias_normalized": "1.16.46.0",
-            "version": "dev-CGIV-6361-orders-table-extra-columns",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
