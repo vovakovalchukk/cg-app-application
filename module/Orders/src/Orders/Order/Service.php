@@ -253,6 +253,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             $orders[$index]['paymentDate'] = $dateFormatter($orders[$index]['paymentDate'], StdlibDateTime::FORMAT);
             $orders[$index]['printedDate'] = $dateFormatter($orders[$index]['printedDate'], StdlibDateTime::FORMAT);
             $orders[$index]['dispatchDate'] = $dateFormatter($orders[$index]['dispatchDate'], StdlibDateTime::FORMAT);
+            $orders[$index]['emailDate'] = $dateFormatter($orders[$index]['emailDate'], StdlibDateTime::FORMAT);
         }
         return $orders;
     }
