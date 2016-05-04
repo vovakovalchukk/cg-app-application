@@ -1176,7 +1176,7 @@ return [
                         ['column' => 'OrdersPaymentReferenceColumn'],
                         ['column' => 'OrdersTrackingInfoColumn'],
                         ['column' => 'OrdersPostcodeColumn'],
-                        ['column' => 'OrdersProductImageColumn'],
+                        //['column' => 'OrdersProductImageColumn'], // To be added by CGIV-7005
                     ],
                     'setVariable' => [
                         ['name' => 'settings', 'value' => 'OrdersTableSettings']
