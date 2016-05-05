@@ -55,7 +55,7 @@
         "channelgrabber/phinx": "~0.3.2",
         "channelgrabber/picklist": "~1.0.2",
         "channelgrabber/predis": "~1.0.12",
-        "channelgrabber/product": "~1.5.4",
+        "channelgrabber/product": "dev-CGIV-7014-product-filtering-by-blank-sku-problem as 1.5.7",
         "channelgrabber/redis": "~0.1.0",
         "channelgrabber/redis-locking": "~1.0.0",
         "channelgrabber/royalmail": "~1.0.4",
