@@ -1605,7 +1605,8 @@ return [
             'OrdersProductImageColumnView' => [
                 'parameters' => [
                     'variables' => ['value' => 'Product Image'],
-                    'template' => 'value.phtml',
+                    // Note: this is NOT using the standard template but a bespoke one that loads up some JS
+                    'template' => 'orders/table/columns/productImage.phtml',
                 ]
             ],
             'OrdersProductImageColumn' => [

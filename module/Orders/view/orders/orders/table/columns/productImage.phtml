@@ -1,0 +1,7 @@
+<?= $value ?>
+<script type='text/javascript'>
+    require(['<?=Orders\Module::PUBLIC_FOLDER;?>js/Columns/ProductImage.js'], function(ProductImage)
+    {
+        var productImage = new ProductImage($('#<?=$tableId;?>'));
+    });
+</script>
