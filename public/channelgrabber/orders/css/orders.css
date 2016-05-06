@@ -5,3 +5,8 @@
 #datatable_length {
     display: none;
 }
+
+#orders-batch-table {
+    overflow-y: auto;
+    max-height: 400px;
+}
