@@ -49,7 +49,6 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     const FILTER_SHIPPING_METHOD_NAME = "shippingMethod";
     const FILTER_SHIPPING_ALIAS_NAME = "shippingAliasId";
     const FILTER_TYPE = "orders";
-    const DATATABLE_COLUMN_PREFIX = 'mDataProp_';
 
     /** @var OrderService $orderService */
     protected $orderService;
@@ -574,25 +573,13 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
             $this->mergeOrderDataWithJsonData(
                 $pageLimit,
                 $data,
-                $this->getOrderService()->alterOrderTable($orders, $this->getEvent(), $this->getSelectedColumns())
+                $this->getOrderService()->alterOrderTable($orders, $this->getEvent())
             );
         } catch (NotFound $exception) {
             // No Orders so ignoring
         }
 
         return $this->getJsonModelFactory()->newInstance($data);
-    }
-
-    protected function getSelectedColumns()
-    {
-        $columns = [];
-        foreach ($this->params()->fromPost() as $field => $value) {
-            if (!preg_match('/^' . static::DATATABLE_COLUMN_PREFIX . '/', $field)) {
-                continue;
-            }
-            $columns[$value] = $value;
-        }
-        return $columns;
     }
 
     public function jsonFilterIdAction()

@@ -152,7 +152,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ->setImageService($imageService);
     }
 
-    public function alterOrderTable(OrderCollection $orderCollection, MvcEvent $event, array $columns = [])
+    public function alterOrderTable(OrderCollection $orderCollection, MvcEvent $event)
     {
         $orders = $orderCollection->toArray();
 
@@ -170,7 +170,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $orders = $this->getOrdersArrayWithTruncatedShipping($orders);
         $orders = $this->getOrdersArrayWithFormattedDates($orders);
         $orders = $this->getOrdersArrayWithGiftMessages($orderCollection, $orders);
-        $orders = $this->getOrdersArrayWithProductImage($orders, $columns);
+        $orders = $this->getOrdersArrayWithProductImage($orders);
         
         $filterId = null;
         if ($orderCollection instanceof FilteredCollection) {
@@ -298,9 +298,10 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $orders;
     }
 
-    protected function getOrdersArrayWithProductImage(array $orders, array $columns)
+    protected function getOrdersArrayWithProductImage(array $orders)
     {
-        if (!isset($columns['image'])) {
+        $columns = $this->fetchUserPrefOrderColumns();
+        if (!isset($columns['image']) || filter_var($columns['image'], FILTER_VALIDATE_BOOLEAN) == false) {
             return $orders;
         }
 
