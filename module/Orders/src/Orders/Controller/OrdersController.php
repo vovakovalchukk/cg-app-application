@@ -587,7 +587,7 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
     {
         $columns = [];
         foreach ($this->params()->fromPost() as $field => $value) {
-            if (!preg_match('/^' . static::DATATABLE_COLUMN_PREFIX, $field)) {
+            if (!preg_match('/^' . static::DATATABLE_COLUMN_PREFIX . '/', $field)) {
                 continue;
             }
             $columns[$value] = $value;

@@ -1164,6 +1164,7 @@ return [
                         ['column' => 'OrdersAccountColumn'],
                         ['column' => 'OrdersDateColumn'],
                         ['column' => 'OrdersIdColumn'],
+                        ['column' => 'OrdersProductImageColumn'],
                         ['column' => 'OrdersTotalColumn'],
                         ['column' => 'OrdersBuyerColumn'],
                         ['column' => 'OrdersStatusColumn'],
@@ -1186,7 +1187,6 @@ return [
                         ['column' => 'OrdersPaymentReferenceColumn'],
                         ['column' => 'OrdersTrackingInfoColumn'],
                         ['column' => 'OrdersPostcodeColumn'],
-                        //['column' => 'OrdersProductImageColumn'], // To be added by CGIV-7005
                     ],
                     'setVariable' => [
                         ['name' => 'settings', 'value' => 'OrdersTableSettings']
