@@ -313,6 +313,9 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             }
             $imagesToFetch[$index] = $order['items'][0]['imageIds'][0];
         }
+        if (empty($imagesToFetch)) {
+            return $orders;
+        }
         try {
             $images = $this->fetchImagesById(array_values($imagesToFetch));
         } catch (NotFound $e) {

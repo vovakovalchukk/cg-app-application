@@ -1606,7 +1606,7 @@ return [
                 'parameters' => [
                     'variables' => ['value' => 'Product Image'],
                     // Note: this is NOT using the standard template but a bespoke one that loads up some JS
-                    'template' => 'orders/table/columns/productImage.phtml',
+                    'template' => 'orders/orders/table/columns/productImage.phtml',
                 ]
             ],
             'OrdersProductImageColumn' => [
