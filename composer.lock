@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "aed2c5ae254e165890f25fc252ba38d5",
-    "content-hash": "1a8578d10be68359f0b39c025923e31a",
+    "hash": "d8c34540b278d5eb0aba79957e5547a2",
+    "content-hash": "0c6198168f5f95a38fa9a15aa4180b3e",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -886,16 +886,16 @@
         },
         {
             "name": "channelgrabber/image",
-            "version": "1.1.7",
+            "version": "1.1.7.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-image.git",
-                "reference": "6a6b681730d894f0e0699a47a41c733ecb9101d8"
+                "reference": "0d632cc5a6b5c6e88f206df03457f6d00b567787"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-1.1.7-05f72c.zip",
-                "reference": "6a6b681730d894f0e0699a47a41c733ecb9101d8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-1.1.7.1-8d660a.zip",
+                "reference": "0d632cc5a6b5c6e88f206df03457f6d00b567787",
                 "shasum": null
             },
             "require": {
@@ -909,9 +909,7 @@
                 "channelgrabber/scraper": ">=1.0.1,<2.0.0",
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stdlib": "^2.10.4",
-                "composer/composer": "@dev",
-                "php-jsonpatch/php-jsonpatch": "dev-master",
-                "php-jsonpointer/php-jsonpointer": "dev-master"
+                "composer/composer": "@dev"
             },
             "type": "di-definition",
             "autoload": {
@@ -919,7 +917,7 @@
                     "CG\\Image\\": "src"
                 }
             },
-            "time": "2015-12-07 08:48:57"
+            "time": "2016-01-07 12:22:26"
         },
         {
             "name": "channelgrabber/intercom",
@@ -1612,16 +1610,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-CGIV-7014-product-filtering-by-blank-sku-problem",
+            "version": "1.5.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "314bd144f08b0ad24b9019e429b22c6cd15aaebb"
+                "reference": "d27735cd4d013788deed91a00e055eb61fdd8ec6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-7014-product-filtering-by-blank-sku-problem-d93176.zip",
-                "reference": "314bd144f08b0ad24b9019e429b22c6cd15aaebb",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.5.7-e879ef.zip",
+                "reference": "d27735cd4d013788deed91a00e055eb61fdd8ec6",
                 "shasum": null
             },
             "require": {
@@ -1655,7 +1653,7 @@
                     "CG\\Product\\": "src"
                 }
             },
-            "time": "2016-05-05 12:53:44"
+            "time": "2016-05-09 12:17:05"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -7652,18 +7650,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.5.7",
-            "alias_normalized": "1.5.7.0",
-            "version": "dev-CGIV-7014-product-filtering-by-blank-sku-problem",
-            "package": "channelgrabber/product"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/product": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
