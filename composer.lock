@@ -1615,12 +1615,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "0675663269b75411f5e85c5b75bd2ea18b4bd351"
+                "reference": "5b2cf4699cc1ab1004a0d89020663d0f426b7a7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-7005-orders-table-product-image-column-471bd6.zip",
-                "reference": "0675663269b75411f5e85c5b75bd2ea18b4bd351",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-7005-orders-table-product-image-column-084392.zip",
+                "reference": "5b2cf4699cc1ab1004a0d89020663d0f426b7a7b",
                 "shasum": null
             },
             "require": {
@@ -1654,7 +1654,7 @@
                     "CG\\Product\\": "src"
                 }
             },
-            "time": "2016-05-06 09:27:50"
+            "time": "2016-05-09 12:46:31"
         },
         {
             "name": "channelgrabber/product-locking",
