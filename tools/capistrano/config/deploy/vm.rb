@@ -1,7 +1,7 @@
 set :stage, :vm
 
 role :app, [
-    "www-data@192.168.33.54"
+    "www-data@192.168.33.53"
 ]
 
 set :log_level, :debug

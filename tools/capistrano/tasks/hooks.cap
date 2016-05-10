@@ -6,8 +6,6 @@ end
 namespace :hooks do
   task :deploy do
     on roles(:all), in: :parallel do
-      output = SSHKit.config.output
-      SSHKit.config.output = SSHKit::Formatter::PassThrough.new($stdout)
 
       within release_path do
         script = 'tools/post_deploy.sh'
@@ -18,14 +16,11 @@ namespace :hooks do
         end
       end
 
-      SSHKit.config.output = output
     end
   end
 
   task :after_symlink do
     on roles(:all), in: :parallel do
-      output = SSHKit.config.output
-      SSHKit.config.output = SSHKit::Formatter::PassThrough.new($stdout)
 
       within release_path do
         script = 'tools/post_symlink.sh'
@@ -36,7 +31,6 @@ namespace :hooks do
         end
       end
 
-      SSHKit.config.output = output
     end
   end
 end
