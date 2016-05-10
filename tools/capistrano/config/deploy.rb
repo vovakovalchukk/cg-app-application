@@ -7,8 +7,7 @@ set :repo_url, 'git@bitbucket.org:channelgrabber/cg-orders-application.git'
 ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 set :deploy_via, :remote_cache
 
-set :format, :pretty
-set :log_level, :info
+set :log_level, :debug
 
 set :use_sudo, false
 set :pty, true
@@ -20,6 +19,8 @@ set :linked_files, []
 set :linked_dirs, []
 
 namespace :deploy do
+    after :publishing, :restart
+
     desc 'Restart application'
     task :restart do
         on roles(:all), in: :parallel do
