@@ -46,6 +46,8 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
 {
     use LogTrait;
 
+    const ROUTE_IMAGES = 'Images';
+
     const FILTER_SHIPPING_METHOD_NAME = "shippingMethod";
     const FILTER_SHIPPING_ALIAS_NAME = "shippingAliasId";
     const FILTER_TYPE = "orders";
@@ -654,6 +656,13 @@ class OrdersController extends AbstractActionController implements LoggerAwareIn
         }
 
         $this->getOrderService()->updateUserPrefOrderColumnPositions($columnPositions);
+    }
+
+    public function imagesForOrdersAction()
+    {
+        $orderIds = $this->params()->fromPost('orders');
+        $imagesForOrders = $this->orderService->getImagesForOrders($orderIds);
+        return $this->getJsonModelFactory()->newInstance($imagesForOrders);
     }
 
     /**

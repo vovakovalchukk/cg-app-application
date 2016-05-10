@@ -29,7 +29,7 @@ return [
                     'totalDiscount' => Module::PUBLIC_FOLDER . 'template/columns/totalDiscount.mustache',
                     'shippingPrice' => Module::PUBLIC_FOLDER . 'template/columns/shippingPrice.mustache',
                     'trackingInfo' => Module::PUBLIC_FOLDER . 'template/columns/trackingInfo.mustache',
-                    'image' => UiModule::PUBLIC_FOLDER . 'templates/columns/image.mustache',
+                    'image' => Module::PUBLIC_FOLDER . 'template/columns/image.mustache',
                 ],
                 'courierReview' => [
                     'customSelect' => UiModule::PUBLIC_FOLDER . 'templates/elements/custom-select.mustache',

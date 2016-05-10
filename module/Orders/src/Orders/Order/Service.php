@@ -341,6 +341,45 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $this->imageService->fetchCollectionByPaginationAndFilters($filter);
     }
 
+    public function getImagesForOrders(array $orderIds)
+    {
+        $imagesForOrders = [];
+        $imagesToFetch = [];
+        $filter = (new Filter())
+            ->setLimit('all')
+            ->setPage(1)
+            ->setOrderIds($orderIds);
+        $orders = $this->getOrders($filter);
+        foreach ($orders as $order) {
+            $imagesForOrders[$order->getId()] = '';
+            if (count($order->getItems()) == 0) {
+                continue;
+            }
+            $order->getItems()->rewind();
+            $item = $order->getItems()->current();
+            if (empty($item->getImageIds())) {
+                continue;
+            }
+            $imagesToFetch[$order->getId()] = $item->getImageIds()[0];
+        }
+        if (empty($imagesToFetch)) {
+            return $imagesForOrders;
+        }
+        try {
+            $images = $this->fetchImagesById(array_values($imagesToFetch));
+        } catch (NotFound $e) {
+            return $imagesForOrders;
+        }
+        foreach ($imagesToFetch as $orderId => $imageId) {
+            $image = $images->getById($imageId);
+            if (!$image) {
+                continue;
+            }
+            $imagesForOrders[$orderId] = $image->getUrl();
+        }
+        return $imagesForOrders;
+    }
+
     public function setDi(Di $di)
     {
         $this->di = $di;

@@ -910,7 +910,18 @@ return [
                                 'action' => 'removeBatch'
                             ]
                         ]
-                    ]
+                    ],
+
+                    Controller\OrdersController::ROUTE_IMAGES => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/images',
+                            'defaults' => [
+                                'controller' => Controller\OrdersController::class,
+                                'action' => 'imagesForOrders'
+                            ]
+                        ]
+                    ],
                 ],
             ],
         ],
