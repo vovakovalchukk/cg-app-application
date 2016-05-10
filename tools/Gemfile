@@ -1,4 +1,4 @@
 source "https://rubygems.org"
-gem 'capistrano', '~> 3.0.1'
+gem 'capistrano', '~> 3.5.0'
 gem 'compass'
 gem 'animate', ">= 0.2.beta"
