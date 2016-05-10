@@ -890,12 +890,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-image.git",
-                "reference": "c8706811d827f4485531512dceb3111cbfee43b0"
+                "reference": "302f46e78f6ee8d36b521e910112cfe56b71b0c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-dev-CGIV-7005-orders-table-product-image-column-4ec746.zip",
-                "reference": "c8706811d827f4485531512dceb3111cbfee43b0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-dev-CGIV-7005-orders-table-product-image-column-4d6abf.zip",
+                "reference": "302f46e78f6ee8d36b521e910112cfe56b71b0c2",
                 "shasum": null
             },
             "require": {
@@ -917,7 +917,7 @@
                     "CG\\Image\\": "src"
                 }
             },
-            "time": "2016-05-03 14:23:49"
+            "time": "2016-05-10 15:26:07"
         },
         {
             "name": "channelgrabber/intercom",
