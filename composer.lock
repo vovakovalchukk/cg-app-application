@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "221cff69276c06c8e3ed7c822418349a",
-    "content-hash": "35b65a3ba8377178b8d93bfc5a1be07d",
+    "hash": "cb5f78424bcd3d2d8359bb4fc03f0e86",
+    "content-hash": "8da77a6b37531498eee6c49e58ffc601",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3419,16 +3419,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.48",
+            "version": "dev-CGIV-7005-orders-table-product-image-column",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "67617018f4fa862e470e0cde32835cc2a33d965c"
+                "reference": "8c783e010547808d21aeb9f8a3eec35cb98ca58e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.48-495dda.zip",
-                "reference": "67617018f4fa862e470e0cde32835cc2a33d965c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7005-orders-table-product-image-column-cd5472.zip",
+                "reference": "8c783e010547808d21aeb9f8a3eec35cb98ca58e",
                 "shasum": null
             },
             "require": {
@@ -3474,7 +3474,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-05-04 14:10:47"
+            "time": "2016-05-09 13:09:50"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7669,6 +7669,12 @@
             "alias_normalized": "1.6.0.0",
             "version": "dev-CGIV-7005-orders-table-product-image-column",
             "package": "channelgrabber/product"
+        },
+        {
+            "alias": "1.16.48",
+            "alias_normalized": "1.16.48.0",
+            "version": "dev-CGIV-7005-orders-table-product-image-column",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
@@ -7677,6 +7683,7 @@
         "channelgrabber/image": 20,
         "channelgrabber/order": 20,
         "channelgrabber/product": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
