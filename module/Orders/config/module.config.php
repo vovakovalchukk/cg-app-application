@@ -215,6 +215,16 @@ return [
                                     ],
                                 ],
                             ],
+                            'checkAssociation' => [
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route' => '/checkAssociation',
+                                    'defaults' => [
+                                        'action' => 'areOrdersAssociatedWithAnyBatch'
+                                    ],
+                                ],
+                                'may_terminate' => true,
+                            ],
                         )
                     ],
                     'order' => [
@@ -992,10 +1002,6 @@ return [
                 'OrdersGiftColumn' => DataTable\Column::class,
                 'OrdersShippingColumnView' => ViewModel::class,
                 'OrdersShippingColumn' => DataTable\Column::class,
-                'OrdersDispatchColumnView' => ViewModel::class,
-                'OrdersDispatchColumn' => DataTable\Column::class,
-                'OrdersPrintColumnView' => ViewModel::class,
-                'OrdersPrintColumn' => DataTable\Column::class,
                 'OrdersTagColumnView' => ViewModel::class,
                 'OrdersTagColumn' => DataTable\Column::class,
                 'OrdersFulfilmentChannelColumnView' => ViewModel::class,
@@ -1006,7 +1012,31 @@ return [
                 'OrdersAlertColumn' => DataTable\Column::class,
                 'OrdersOptionsColumnView' => ViewModel::class,
                 'OrdersOptionsColumn' => DataTable\Column::class,
+                'OrdersShippingPriceColumnView' => ViewModel::class,
+                'OrdersShippingPriceColumn' => DataTable\Column::class,
+                'OrdersTotalDiscountColumnView' => ViewModel::class,
+                'OrdersTotalDiscountColumn' => DataTable\Column::class,
+                'OrdersPaymentDateColumnView' => ViewModel::class,
+                'OrdersPaymentDateColumn' => DataTable\Column::class,
+                'OrdersPrintedDateColumnView' => ViewModel::class,
+                'OrdersPrintedDateColumn' => DataTable\Column::class,
+                'OrdersDispatchedDateColumnView' => ViewModel::class,
+                'OrdersDispatchedDateColumn' => DataTable\Column::class,
+                'OrdersInvoiceEmailedDateColumnView' => ViewModel::class,
+                'OrdersInvoiceEmailedDateColumn' => DataTable\Column::class,
+                'OrdersPaymentMethodColumnView' => ViewModel::class,
+                'OrdersPaymentMethodColumn' => DataTable\Column::class,
+                'OrdersPaymentReferenceColumnView' => ViewModel::class,
+                'OrdersPaymentReferenceColumn' => DataTable\Column::class,
+                'OrdersTrackingInfoColumnView' => ViewModel::class,
+                'OrdersTrackingInfoColumn' => DataTable\Column::class,
+                'OrdersPostcodeColumnView' => ViewModel::class,
+                'OrdersPostcodeColumn' => DataTable\Column::class,
+                'OrdersProductImageColumnView' => ViewModel::class,
+                'OrdersProductImageColumn' => DataTable\Column::class,
+
                 'OrderRpcClient' => JsonRpcClient::class,
+
                 'CourierReviewTable' => DataTable::class,
                 'CourierReviewTableSettings' => DataTable\Settings::class,
                 'CourierReviewBuyerOrderColumnView' => ViewModel::class,
@@ -1021,6 +1051,7 @@ return [
                 'CourierReviewItemImageColumn' => DataTable\Column::class,
                 'CourierReviewItemColumnView' => ViewModel::class,
                 'CourierReviewItemColumn' => DataTable\Column::class,
+
                 'CourierSpecificsTable' => DataTable::class,
                 'CourierSpecificsTableSettings' => DataTable\Settings::class,
                 'CourierSpecificsBuyerOrderColumnView' => ViewModel::class,
@@ -1145,6 +1176,17 @@ return [
                         ['column' => 'OrdersInvoiceNumberColumn'],
                         ['column' => 'OrdersAlertColumn'],
                         ['column' => 'OrdersOptionsColumn'],
+                        ['column' => 'OrdersShippingPriceColumn'],
+                        ['column' => 'OrdersTotalDiscountColumn'],
+                        ['column' => 'OrdersPaymentDateColumn'],
+                        ['column' => 'OrdersPrintedDateColumn'],
+                        ['column' => 'OrdersDispatchedDateColumn'],
+                        ['column' => 'OrdersInvoiceEmailedDateColumn'],
+                        ['column' => 'OrdersPaymentMethodColumn'],
+                        ['column' => 'OrdersPaymentReferenceColumn'],
+                        ['column' => 'OrdersTrackingInfoColumn'],
+                        ['column' => 'OrdersPostcodeColumn'],
+                        //['column' => 'OrdersProductImageColumn'], // To be added by CGIV-7005
                     ],
                     'setVariable' => [
                         ['name' => 'settings', 'value' => 'OrdersTableSettings']
@@ -1333,34 +1375,6 @@ return [
                     'sortable' => false,
                 ],
             ],
-            'OrdersDispatchColumnView' => [
-                'parameters' => [
-                    'variables' => ['value' => 'Dispatch'],
-                    'template' => 'value.phtml',
-                ],
-            ],
-            'OrdersDispatchColumn' => [
-                'parameters' => [
-                    'column' => 'dispatchDate',
-                    'viewModel' => 'OrdersDispatchColumnView',
-                    'class' => 'actions',
-                    'sortable' => false,
-                ],
-            ],
-            'OrdersPrintColumnView' => [
-                'parameters' => [
-                    'variables' => ['value' => 'Print'],
-                    'template' => 'value.phtml',
-                ],
-            ],
-            'OrdersPrintColumn' => [
-                'parameters' => [
-                    'column' => 'printedDate',
-                    'viewModel' => 'OrdersPrintColumnView',
-                    'class' => 'actions',
-                    'sortable' => false,
-                ],
-            ],
             'OrdersTagColumnView' => [
                 'parameters' => [
                     'variables' => ['value' => 'Tag'],
@@ -1438,6 +1452,172 @@ return [
                     'hideable' => false
                 ],
             ],
+            'OrdersShippingPriceColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Shipping Price'],
+                    'template' => 'value.phtml',
+                ]
+            ],
+            'OrdersShippingPriceColumn' => [
+                'parameters' => [
+                    'visible' => false,
+                    'column' => 'shippingPrice',
+                    'viewModel' => 'OrdersShippingPriceColumnView',
+                    'class' => 'order-shipping-price-col',
+                    'sortable' => true,
+                ]
+            ],
+            'OrdersTotalDiscountColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Total Discount'],
+                    'template' => 'value.phtml',
+                ]
+            ],
+            'OrdersTotalDiscountColumn' => [
+                'parameters' => [
+                    'visible' => false,
+                    'column' => 'totalDiscount',
+                    'viewModel' => 'OrdersTotalDiscountColumnView',
+                    'class' => 'order-total-discount-col',
+                    'sortable' => true,
+                ]
+            ],
+            'OrdersPaymentDateColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Payment Date'],
+                    'template' => 'value.phtml',
+                ]
+            ],
+            'OrdersPaymentDateColumn' => [
+                'parameters' => [
+                    'visible' => false,
+                    'column' => 'paymentDate',
+                    'viewModel' => 'OrdersPaymentDateColumnView',
+                    'class' => 'order-payment-date-col',
+                    'sortable' => true,
+                ]
+            ],
+            'OrdersPrintedDateColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Printed Date'],
+                    'template' => 'value.phtml',
+                ]
+            ],
+            'OrdersPrintedDateColumn' => [
+                'parameters' => [
+                    'visible' => false,
+                    'column' => 'printedDate',
+                    'viewModel' => 'OrdersPrintedDateColumnView',
+                    'class' => 'order-printed-date-col',
+                    'sortable' => true,
+                ]
+            ],
+            'OrdersDispatchedDateColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Dispatched Date'],
+                    'template' => 'value.phtml',
+                ]
+            ],
+            'OrdersDispatchedDateColumn' => [
+                'parameters' => [
+                    'visible' => false,
+                    'column' => 'dispatchDate',
+                    'viewModel' => 'OrdersDispatchedDateColumnView',
+                    'class' => 'order-dispatched-date-col',
+                    'sortable' => true,
+                ]
+            ],
+            'OrdersInvoiceEmailedDateColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Invoice Emailed'],
+                    'template' => 'value.phtml',
+                ]
+            ],
+            'OrdersInvoiceEmailedDateColumn' => [
+                'parameters' => [
+                    'visible' => false,
+                    'column' => 'emailDate',
+                    'viewModel' => 'OrdersInvoiceEmailedDateColumnView',
+                    'class' => 'order-invoice-emailed-date-col',
+                    'sortable' => true,
+                ]
+            ],
+            'OrdersPaymentMethodColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Payment Method'],
+                    'template' => 'value.phtml',
+                ]
+            ],
+            'OrdersPaymentMethodColumn' => [
+                'parameters' => [
+                    'visible' => false,
+                    'column' => 'paymentMethod',
+                    'viewModel' => 'OrdersPaymentMethodColumnView',
+                    'class' => 'order-payment-method-col',
+                    'sortable' => false,
+                ]
+            ],
+            'OrdersPaymentReferenceColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Payment Reference'],
+                    'template' => 'value.phtml',
+                ]
+            ],
+            'OrdersPaymentReferenceColumn' => [
+                'parameters' => [
+                    'visible' => false,
+                    'column' => 'paymentReference',
+                    'viewModel' => 'OrdersPaymentReferenceColumnView',
+                    'class' => 'order-payment-reference-col',
+                    'sortable' => false,
+                ]
+            ],
+            'OrdersTrackingInfoColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Tracking Info'],
+                    'template' => 'value.phtml',
+                ]
+            ],
+            'OrdersTrackingInfoColumn' => [
+                'parameters' => [
+                    'visible' => false,
+                    'column' => 'trackingInfo',
+                    'viewModel' => 'OrdersTrackingInfoColumnView',
+                    'class' => 'order-tracking-info-col',
+                    'sortable' => false,
+                ]
+            ],
+            'OrdersPostcodeColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Postcode'],
+                    'template' => 'value.phtml',
+                ]
+            ],
+            'OrdersPostcodeColumn' => [
+                'parameters' => [
+                    'visible' => false,
+                    'column' => 'shippingAddressPostcode',
+                    'viewModel' => 'OrdersPostcodeColumnView',
+                    'class' => 'order-postcode-col',
+                    'sortable' => false,
+                ]
+            ],
+            'OrdersProductImageColumnView' => [
+                'parameters' => [
+                    'variables' => ['value' => 'Product Image'],
+                    'template' => 'value.phtml',
+                ]
+            ],
+            'OrdersProductImageColumn' => [
+                'parameters' => [
+                    'visible' => false,
+                    'column' => 'image',
+                    'viewModel' => 'OrdersProductImageColumnView',
+                    'class' => 'order-product-image-col',
+                    'sortable' => false,
+                ]
+            ],
+
             AlertService::class => [
                 'parameters' => [
                     'repository' => AlertApi::class

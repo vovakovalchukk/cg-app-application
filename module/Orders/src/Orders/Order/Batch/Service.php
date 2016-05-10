@@ -33,6 +33,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $redisClient;
     protected $activeUserContainer;
 
+    const LOG_CODE = "OrderBatchService";
     const DEFAULT_LIMIT = "all";
     const DEFAULT_PAGE = 1;
     const ACTIVE = true;
@@ -145,6 +146,25 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     public function removeByFilter(Filter $filter)
     {
         $this->updateOrdersByFilter($filter);
+    }
+
+    public function areOrdersAssociatedWithAnyBatch($orderIds)
+    {
+        $filter = new Filter();
+        $filter->setOrderIds($orderIds);
+        $filter->setOrganisationUnitId([$this->getActiveUserContainer()->getActiveUser()->getOrganisationUnitId()]);
+        $orders = $this->getOrderClient()->fetchCollectionByFilter($filter);
+
+        $batchMap = [];
+        foreach($orders as $order)
+        {
+            $batchMap[] = [
+                'orderId' => $order->getId(),
+                'batch' => ($order->getBatch() ? $order->getBatch() : 0),
+            ];
+        }
+        $this->logPrettyDebug('The following batch map was generated:', $batchMap, [], [static::LOG_CODE, __FUNCTION__]);
+        return $batchMap;
     }
 
     protected function createBatch()
