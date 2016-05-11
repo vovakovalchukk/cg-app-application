@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "05dd95dda13ab0b87fef888a40a59b1f",
+    "hash": "5089ebf1a088c178082ff208cb8e9548",
     "content-hash": "f838437593ae225c383428e1a5b9c511",
     "packages": [
         {
@@ -3165,12 +3165,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "96799db074be1c38551a53345e1bb3baad93ee30"
+                "reference": "411f14ba060d8177805d9c7612aeb3b5e591fd44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-6990-Add-landing-page-tracking-86ebcd.zip",
-                "reference": "96799db074be1c38551a53345e1bb3baad93ee30",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-6990-Add-landing-page-tracking-136491.zip",
+                "reference": "411f14ba060d8177805d9c7612aeb3b5e591fd44",
                 "shasum": null
             },
             "require": {
@@ -3207,7 +3207,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2016-05-11 11:58:04"
+            "time": "2016-05-11 13:09:07"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
