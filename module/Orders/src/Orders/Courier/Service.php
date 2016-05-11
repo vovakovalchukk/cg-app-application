@@ -317,6 +317,7 @@ class Service implements LoggerAwareInterface
 
     protected function getImageUrlForOrderItem(Item $item, ProductCollection $products)
     {
+        // Note: we now store imageIds directly on Items. If you touch this code update it to use those. See CGIV-7005 for details.
         $imageUrl = '';
         $matchingProducts = $products->getBy('sku', $item->getItemSku());
         if (count($matchingProducts) > 0) {
