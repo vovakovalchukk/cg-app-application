@@ -23,8 +23,8 @@
 /tests/*/*Guy.php
 /tests/_log
 /tests/api.suite.yml
-/tools/post_deploy.sh
 /tools/capistrano/log/
+/tools/post_deploy.sh
 /vendor
 phinx/migrations/channelgrabber/zf2-sessions
 public/cg-built
