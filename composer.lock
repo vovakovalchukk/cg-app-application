@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a0bea8de2c892ccb9f8a3831ec99b984",
-    "content-hash": "3e9aaa4e7b5dad8018924c45817e3b02",
+    "hash": "5c9b1c83d10471099f9d91bb2a9e1a96",
+    "content-hash": "b49b9b915ff424e606df54c63e109a88",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -493,12 +493,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "1c07e375bdc8af79c9c5e1b58eac0088c17276dc"
+                "reference": "d0f9beec4c5c42c225bfed69ade527826d88a56e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6880-MyHermes-Dataplug-Integration-4849c4.zip",
-                "reference": "1c07e375bdc8af79c9c5e1b58eac0088c17276dc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6880-MyHermes-Dataplug-Integration-e7e1cc.zip",
+                "reference": "d0f9beec4c5c42c225bfed69ade527826d88a56e",
                 "shasum": null
             },
             "require": {
@@ -531,7 +531,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-04-29 08:19:20"
+            "time": "2016-05-11 09:32:23"
         },
         {
             "name": "channelgrabber/db",
