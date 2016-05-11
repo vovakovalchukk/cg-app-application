@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cb5f78424bcd3d2d8359bb4fc03f0e86",
-    "content-hash": "8da77a6b37531498eee6c49e58ffc601",
+    "hash": "9ecbc7256db8917afae725984cc8284c",
+    "content-hash": "cabc6f5f7437909a4ecbb82fc2130d4c",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -886,16 +886,16 @@
         },
         {
             "name": "channelgrabber/image",
-            "version": "dev-CGIV-7005-orders-table-product-image-column",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-image.git",
-                "reference": "302f46e78f6ee8d36b521e910112cfe56b71b0c2"
+                "reference": "e84af655ba39c6c83967a088c1441539d4911de9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-dev-CGIV-7005-orders-table-product-image-column-4d6abf.zip",
-                "reference": "302f46e78f6ee8d36b521e910112cfe56b71b0c2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-image-1.2.0-1714d6.zip",
+                "reference": "e84af655ba39c6c83967a088c1441539d4911de9",
                 "shasum": null
             },
             "require": {
@@ -917,7 +917,7 @@
                     "CG\\Image\\": "src"
                 }
             },
-            "time": "2016-05-10 15:26:07"
+            "time": "2016-05-11 11:00:22"
         },
         {
             "name": "channelgrabber/intercom",
@@ -1268,16 +1268,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "dev-CGIV-7005-orders-table-product-image-column",
+            "version": "1.23.4.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "4a075a8e649661241584c71451ad96a4ff0f0619"
+                "reference": "64a03ace8fd0c23107b947217e0aedeb95ede807"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-7005-orders-table-product-image-column-1e521d.zip",
-                "reference": "4a075a8e649661241584c71451ad96a4ff0f0619",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.23.4.1-ca1df6.zip",
+                "reference": "64a03ace8fd0c23107b947217e0aedeb95ede807",
                 "shasum": null
             },
             "require": {
@@ -1293,14 +1293,14 @@
                 "channelgrabber/etag": "^1.6.0",
                 "channelgrabber/gearman": ">=1.1.0,<2.0.0",
                 "channelgrabber/http": "^1.3.14",
-                "channelgrabber/image": "dev-CGIV-7005-orders-table-product-image-column as 1.1.8",
+                "channelgrabber/image": "^1.2.0",
                 "channelgrabber/locale": "^1.0.5",
                 "channelgrabber/locking": "^1.1.0",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/notification": "^1.0.0",
                 "channelgrabber/permission": ">=1.0.0",
                 "channelgrabber/predis": "^1.0.12",
-                "channelgrabber/product": "dev-CGIV-7005-orders-table-product-image-column as 1.6.0",
+                "channelgrabber/product": "^1.6.0",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/sequential-numbering": "^1.0.0",
                 "channelgrabber/settings": "^1.3.9",
@@ -1341,7 +1341,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-05-06 11:22:17"
+            "time": "2016-05-11 12:08:43"
         },
         {
             "name": "channelgrabber/permission",
@@ -1611,16 +1611,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-CGIV-7005-orders-table-product-image-column",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "8467aad45beaa42fd1f8d34b368a6d8b39ca20bf"
+                "reference": "621a7a76ea3f9e201b5fb2956751dda713a9b25d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-7005-orders-table-product-image-column-ea8cc0.zip",
-                "reference": "8467aad45beaa42fd1f8d34b368a6d8b39ca20bf",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.6.0-01b800.zip",
+                "reference": "621a7a76ea3f9e201b5fb2956751dda713a9b25d",
                 "shasum": null
             },
             "require": {
@@ -1654,7 +1654,7 @@
                     "CG\\Product\\": "src"
                 }
             },
-            "time": "2016-05-10 12:28:05"
+            "time": "2016-05-11 11:00:36"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -3419,16 +3419,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-7005-orders-table-product-image-column",
+            "version": "1.16.49",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "8c783e010547808d21aeb9f8a3eec35cb98ca58e"
+                "reference": "3c25be46c64fc701725bd3544e7bcfc70a6ffd7d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7005-orders-table-product-image-column-cd5472.zip",
-                "reference": "8c783e010547808d21aeb9f8a3eec35cb98ca58e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.49-93b984.zip",
+                "reference": "3c25be46c64fc701725bd3544e7bcfc70a6ffd7d",
                 "shasum": null
             },
             "require": {
@@ -3474,7 +3474,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-05-09 13:09:50"
+            "time": "2016-05-11 11:00:55"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7651,39 +7651,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.1.8",
-            "alias_normalized": "1.1.8.0",
-            "version": "dev-CGIV-7005-orders-table-product-image-column",
-            "package": "channelgrabber/image"
-        },
-        {
-            "alias": "1.23.4",
-            "alias_normalized": "1.23.4.0",
-            "version": "dev-CGIV-7005-orders-table-product-image-column",
-            "package": "channelgrabber/order"
-        },
-        {
-            "alias": "1.6.0",
-            "alias_normalized": "1.6.0.0",
-            "version": "dev-CGIV-7005-orders-table-product-image-column",
-            "package": "channelgrabber/product"
-        },
-        {
-            "alias": "1.16.48",
-            "alias_normalized": "1.16.48.0",
-            "version": "dev-CGIV-7005-orders-table-product-image-column",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/image": 20,
-        "channelgrabber/order": 20,
-        "channelgrabber/product": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
