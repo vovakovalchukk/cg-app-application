@@ -88,11 +88,8 @@ define(['AjaxRequester', 'cg-mustache'], function(ajaxRequester, CGMustache)
         {
             for (var orderId in response) {
                 var imageUrl = response[orderId];
-                var contents = '-';
-                if (imageUrl) {
-                    contents = CGMustache.get().renderTemplate(template, {image: imageUrl});
-                }
-                $(ProductImage.PREFIX_CONTAINER + orderId).html(contents);
+                var contents = CGMustache.get().renderTemplate(template, {image: imageUrl, id: orderId});
+                $(ProductImage.PREFIX_CONTAINER + orderId).replaceWith(contents);
             }
         });
     };
