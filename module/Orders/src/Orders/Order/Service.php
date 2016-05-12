@@ -10,6 +10,8 @@ use CG\Channel\Gearman\Generator\Order\Dispatch as OrderDispatcher;
 use CG\Channel\Type;
 use CG\Http\Exception\Exception3xx\NotModified as NotModifiedException;
 use CG\Http\SaveCollectionHandleErrorsTrait;
+use CG\Image\Filter as ImageFilter;
+use CG\Image\Service as ImageService;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
 use CG\Order\Client\Collection as FilteredCollection;
@@ -99,6 +101,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $intercomEventService;
     protected $rowMapper;
     protected $dateFormatHelper;
+    /** @var ImageService */
+    protected $imageService;
 
     protected $editableFulfilmentChannels = [OrderEntity::DEFAULT_FULFILMENT_CHANNEL => true];
 
@@ -121,7 +125,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         ActionService $actionService,
         IntercomEventService $intercomEventService,
         RowMapper $rowMapper,
-        DateFormatHelper $dateFormatHelper
+        DateFormatHelper $dateFormatHelper,
+        ImageService $imageService
     ) {
         $this
             ->setOrderClient($orderClient)
@@ -143,7 +148,8 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ->setActionService($actionService)
             ->setIntercomEventService($intercomEventService)
             ->setRowMapper($rowMapper)
-            ->setDateFormatHelper($dateFormatHelper);
+            ->setDateFormatHelper($dateFormatHelper)
+            ->setImageService($imageService);
     }
 
     public function alterOrderTable(OrderCollection $orderCollection, MvcEvent $event)
@@ -164,6 +170,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         $orders = $this->getOrdersArrayWithTruncatedShipping($orders);
         $orders = $this->getOrdersArrayWithFormattedDates($orders);
         $orders = $this->getOrdersArrayWithGiftMessages($orderCollection, $orders);
+        $orders = $this->getOrdersArrayWithProductImage($orders);
         
         $filterId = null;
         if ($orderCollection instanceof FilteredCollection) {
@@ -289,6 +296,88 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         }
 
         return $orders;
+    }
+
+    protected function getOrdersArrayWithProductImage(array $orders)
+    {
+        $columns = $this->fetchUserPrefOrderColumns();
+        if (!isset($columns['image']) || filter_var($columns['image'], FILTER_VALIDATE_BOOLEAN) == false) {
+            return $orders;
+        }
+
+        $imagesToFetch = [];
+        foreach ($orders as $index => $order) {
+            $orders[$index]['image'] = '';
+            if (empty($order['items']) || empty($order['items'][0]['imageIds'])) {
+                continue;
+            }
+            $imagesToFetch[$index] = $order['items'][0]['imageIds'][0];
+        }
+        if (empty($imagesToFetch)) {
+            return $orders;
+        }
+        try {
+            $images = $this->fetchImagesById(array_values($imagesToFetch));
+        } catch (NotFound $e) {
+            return $orders;
+        }
+        foreach ($imagesToFetch as $orderIndex => $imageId) {
+            $image = $images->getById($imageId);
+            if (!$image) {
+                continue;
+            }
+            $orders[$orderIndex]['image'] = $image->getUrl();
+        }
+
+        return $orders;
+    }
+
+    protected function fetchImagesById(array $imageIds)
+    {
+        $filter = (new ImageFilter())
+            ->setLimit('all')
+            ->setPage(1)
+            ->setId($imageIds);
+        return $this->imageService->fetchCollectionByPaginationAndFilters($filter);
+    }
+
+    public function getImagesForOrders(array $orderIds)
+    {
+        $imagesForOrders = [];
+        $imagesToFetch = [];
+        $filter = (new Filter())
+            ->setLimit('all')
+            ->setPage(1)
+            ->setOrderIds($orderIds);
+        $orders = $this->getOrders($filter);
+        foreach ($orders as $order) {
+            $imagesForOrders[$order->getId()] = '';
+            if (count($order->getItems()) == 0) {
+                continue;
+            }
+            $order->getItems()->rewind();
+            $item = $order->getItems()->current();
+            if (empty($item->getImageIds())) {
+                continue;
+            }
+            $imagesToFetch[$order->getId()] = $item->getImageIds()[0];
+        }
+        if (empty($imagesToFetch)) {
+            return $imagesForOrders;
+        }
+        try {
+            $images = $this->fetchImagesById(array_values($imagesToFetch));
+        } catch (NotFound $e) {
+            return $imagesForOrders;
+        }
+        foreach ($imagesToFetch as $orderId => $imageId) {
+            $image = $images->getById($imageId);
+            if (!$image) {
+                continue;
+            }
+            $imagesForOrders[$orderId] = $image->getUrl();
+        }
+        return $imagesForOrders;
     }
 
     public function setDi(Di $di)
@@ -1106,6 +1195,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected function setDateFormatHelper(DateFormatHelper $dateFormatHelper)
     {
         $this->dateFormatHelper = $dateFormatHelper;
+        return $this;
+    }
+
+    protected function setImageService(ImageService $imageService)
+    {
+        $this->imageService = $imageService;
         return $this;
     }
 }

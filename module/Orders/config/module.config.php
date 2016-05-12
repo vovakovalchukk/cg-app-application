@@ -910,7 +910,18 @@ return [
                                 'action' => 'removeBatch'
                             ]
                         ]
-                    ]
+                    ],
+
+                    Controller\OrdersController::ROUTE_IMAGES => [
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route' => '/images',
+                            'defaults' => [
+                                'controller' => Controller\OrdersController::class,
+                                'action' => 'imagesForOrders'
+                            ]
+                        ]
+                    ],
                 ],
             ],
         ],
@@ -1164,6 +1175,7 @@ return [
                         ['column' => 'OrdersAccountColumn'],
                         ['column' => 'OrdersDateColumn'],
                         ['column' => 'OrdersIdColumn'],
+                        ['column' => 'OrdersProductImageColumn'],
                         ['column' => 'OrdersTotalColumn'],
                         ['column' => 'OrdersBuyerColumn'],
                         ['column' => 'OrdersStatusColumn'],
@@ -1186,7 +1198,6 @@ return [
                         ['column' => 'OrdersPaymentReferenceColumn'],
                         ['column' => 'OrdersTrackingInfoColumn'],
                         ['column' => 'OrdersPostcodeColumn'],
-                        //['column' => 'OrdersProductImageColumn'], // To be added by CGIV-7005
                     ],
                     'setVariable' => [
                         ['name' => 'settings', 'value' => 'OrdersTableSettings']
@@ -1605,7 +1616,8 @@ return [
             'OrdersProductImageColumnView' => [
                 'parameters' => [
                     'variables' => ['value' => 'Product Image'],
-                    'template' => 'value.phtml',
+                    // Note: this is NOT using the standard template but a bespoke one that loads up some JS
+                    'template' => 'orders/orders/table/columns/productImage.phtml',
                 ]
             ],
             'OrdersProductImageColumn' => [
