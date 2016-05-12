@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5c9b1c83d10471099f9d91bb2a9e1a96",
-    "content-hash": "b49b9b915ff424e606df54c63e109a88",
+    "hash": "53d7466930e7ebb9b90ed04e9f5d3303",
+    "content-hash": "5f4b8e00e06d00aa1a7ed36372d2d38d",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -489,16 +489,16 @@
         },
         {
             "name": "channelgrabber/dataplug",
-            "version": "dev-CGIV-6880-MyHermes-Dataplug-Integration",
+            "version": "1.2.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "d0f9beec4c5c42c225bfed69ade527826d88a56e"
+                "reference": "2c94691e8228eb86d8f8d3c61200c8533e611fdd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-dev-CGIV-6880-MyHermes-Dataplug-Integration-e7e1cc.zip",
-                "reference": "d0f9beec4c5c42c225bfed69ade527826d88a56e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-1.2.7-cf395d.zip",
+                "reference": "2c94691e8228eb86d8f8d3c61200c8533e611fdd",
                 "shasum": null
             },
             "require": {
@@ -531,7 +531,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-05-11 09:32:23"
+            "time": "2016-05-12 07:43:52"
         },
         {
             "name": "channelgrabber/db",
@@ -7651,18 +7651,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.2.7",
-            "alias_normalized": "1.2.7.0",
-            "version": "dev-CGIV-6880-MyHermes-Dataplug-Integration",
-            "package": "channelgrabber/dataplug"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/dataplug": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
