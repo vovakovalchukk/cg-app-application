@@ -67,7 +67,19 @@ define(['BulkActionAbstract'], function(BulkActionAbstract)
             if (name == 'more[]') {
                 return true; // continue
             }
+
+            // Convert 'xfield' to 'filter[xfield]' and 'yfield[subfield]' to 'filter[yfield][subfield]'
             name = name.replace(/^(.*?)(\[.*\])?$/g, "filter[$1]$2");
+            // Special case for 'zfield[]' as they all have the same name and would overwrite each other. Convert to a proper array.
+            if (name.match(/\[\]$/)) {
+                name = name.replace(/\[\]$/, '');
+                if (typeof data[name] == 'undefined') {
+                    data[name] = [];
+                }
+                data[name].push(value);
+                return true; // continue
+            }
+
             data[name] = value;
         });
         return data;
