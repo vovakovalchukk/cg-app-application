@@ -165,7 +165,7 @@ require([
                             'class' => 'copy-address',
                             'name' => 'billingAddressCountry',
                             'searchField' => true,
-                            'blankOption' => true,
+                            'initialValue' => $order->getCalculatedBillingAddressCountry(),
                             'options' => CountrySelect::getDefaultCountryOptions($order->getCalculatedBillingAddressCountry()),
                             'disabled' => !$this->editable,
                         ]
@@ -248,7 +248,7 @@ require([
                             'class' => 'copy-address',
                             'name' => 'shippingAddressCountry',
                             'searchField' => true,
-                            'blankOption' => true,
+                            'initialValue' => $order->getCalculatedShippingAddressCountry(),
                             'options' => CountrySelect::getDefaultCountryOptions($order->getCalculatedShippingAddressCountry()),
                             'disabled' => !$this->editable,
                         ]
