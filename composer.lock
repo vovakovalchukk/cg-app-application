@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "376e1c21676a3ce25eead6260e073edc",
-    "content-hash": "4d347432e3159ce1bba59eda5dd886b0",
+    "hash": "c5254ea2a2d674f80e83e45857412a8a",
+    "content-hash": "15f1642abf83c380208383ce3f7820d9",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1007,17 +1007,17 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.0.5",
+            "version": "dev-CGIV-6968-CountrySelect",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "8dad1793288f79ab6725281364cb6bead740c592"
+                "reference": "efdf7bdb2f26167298b3c754b9496ea04e0043fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.5-5d1f65.zip",
-                "reference": "8dad1793288f79ab6725281364cb6bead740c592",
-                "shasum": "338cd3cfaf23f73bcbf5e2a36fbda6ccdcf37eb6"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-CGIV-6968-CountrySelect-9ca39e.zip",
+                "reference": "efdf7bdb2f26167298b3c754b9496ea04e0043fd",
+                "shasum": null
             },
             "require": {
                 "php": ">=5.4.0"
@@ -1036,7 +1036,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2015-05-19 12:18:08"
+            "time": "2016-05-16 09:42:00"
         },
         {
             "name": "channelgrabber/location",
@@ -3423,12 +3423,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "8640b5ef8d263d95739d8c65e68e9a78f4e7f5c7"
+                "reference": "8f0b27c5d11af8c1fcec430f77f6e12904bfed11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6968-CountrySelect-cb472a.zip",
-                "reference": "8640b5ef8d263d95739d8c65e68e9a78f4e7f5c7",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6968-CountrySelect-d7aa04.zip",
+                "reference": "8f0b27c5d11af8c1fcec430f77f6e12904bfed11",
                 "shasum": null
             },
             "require": {
@@ -3437,7 +3437,7 @@
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/etag": ">=1.4.2",
                 "channelgrabber/intercom": ">=1.0.0,<2.0.0",
-                "channelgrabber/locale": "^1.0.5",
+                "channelgrabber/locale": "dev-CGIV-6968-CountrySelect as 1.0.6",
                 "channelgrabber/log": ">=1.4.2",
                 "channelgrabber/stdlib": ">=2.7.4,<3.0.0",
                 "channelgrabber/user": "^1.20.6",
@@ -3475,7 +3475,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-05-16 09:28:11"
+            "time": "2016-05-16 09:47:50"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7655,6 +7655,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.0.6",
+            "alias_normalized": "1.0.6.0",
+            "version": "dev-CGIV-6968-CountrySelect",
+            "package": "channelgrabber/locale"
+        },
+        {
             "alias": "1.16.50",
             "alias_normalized": "1.16.50.0",
             "version": "dev-CGIV-6968-CountrySelect",
@@ -7664,6 +7670,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/locale": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
