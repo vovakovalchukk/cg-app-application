@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a7c814cd623e5f883dd2b018ead9fa44",
-    "content-hash": "36270267020c7e31d8713b81e685a794",
+    "hash": "a4b178c21d437f9c4fdd3c4a88de398b",
+    "content-hash": "24243326c62fb414b2bc540648b023f0",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1007,17 +1007,17 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.0.5",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "8dad1793288f79ab6725281364cb6bead740c592"
+                "reference": "d14fadcbf3a618853c25dbd2fdbdfa9ebba369f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.5-5d1f65.zip",
-                "reference": "8dad1793288f79ab6725281364cb6bead740c592",
-                "shasum": "338cd3cfaf23f73bcbf5e2a36fbda6ccdcf37eb6"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.6-bbe71e.zip",
+                "reference": "d14fadcbf3a618853c25dbd2fdbdfa9ebba369f8",
+                "shasum": null
             },
             "require": {
                 "php": ">=5.4.0"
@@ -1036,7 +1036,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2015-05-19 12:18:08"
+            "time": "2016-05-17 07:36:18"
         },
         {
             "name": "channelgrabber/location",
@@ -3419,16 +3419,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.49",
+            "version": "1.16.50",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "3c25be46c64fc701725bd3544e7bcfc70a6ffd7d"
+                "reference": "43d52462cdeea8d81a37e1a087b48a9b8dc93ca3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.49-93b984.zip",
-                "reference": "3c25be46c64fc701725bd3544e7bcfc70a6ffd7d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.50-6ba992.zip",
+                "reference": "43d52462cdeea8d81a37e1a087b48a9b8dc93ca3",
                 "shasum": null
             },
             "require": {
@@ -3437,6 +3437,7 @@
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/etag": ">=1.4.2",
                 "channelgrabber/intercom": ">=1.0.0,<2.0.0",
+                "channelgrabber/locale": "^1.0.6",
                 "channelgrabber/log": ">=1.4.2",
                 "channelgrabber/stdlib": ">=2.7.4,<3.0.0",
                 "channelgrabber/user": "^1.20.6",
@@ -3474,7 +3475,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-05-11 11:00:55"
+            "time": "2016-05-17 07:57:24"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",

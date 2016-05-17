@@ -1,5 +1,7 @@
 <?php
+use CG\Locale\CountryNameByCode;
 use CG\Order\Shared\Tracking\Status as OrderTrackingStatus;
+use CG_UI\Form\Element\Text\Country as CountrySelect;
 ?>
 <?php $this->inlineScript()->captureStart(); ?>
     $('form').submit(function() {
@@ -156,9 +158,20 @@ require([
                 </label>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Country'); ?></span>
-                    <div class="order-inputbox-holder">
-                        <input class="inputbox copy-address" type="text" name="billingAddressCountry" value="<?= $order->getCalculatedBillingAddressCountry(); ?>"<?php if (!$this->editable): ?> readonly="readonly"<?php endif; ?> />
-                    </div>
+                    <?=
+                    $this->mustache(
+                        'elements/custom-select.mustache',
+                        [
+                            'holder' => 'order-inputbox-holder',
+                            'class' => 'copy-address',
+                            'name' => 'billingAddressCountry',
+                            'searchField' => true,
+                            'initialValue' => $order->getCalculatedBillingAddressCountry(),
+                            'options' => CountrySelect::getDefaultCountryOptions(CountryNameByCode::getCountryNameFromCode($order->getCalculatedBillingAddressCountry(), false)),
+                            'disabled' => !$this->editable,
+                        ]
+                    )
+                    ?>
                 </label>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Email'); ?></span>
@@ -228,9 +241,20 @@ require([
                 </label>
                 <label>
                     <span class="inputbox-label"><?= $this->translate('Country'); ?></span>
-                    <div class="order-inputbox-holder">
-                        <input class="inputbox copy-address" type="text" name="shippingAddressCountry" value="<?= $order->getCalculatedShippingAddressCountry(); ?>"<?php if (!$this->editable): ?> readonly="readonly"<?php endif; ?> />
-                    </div>
+                    <?=
+                    $this->mustache(
+                        'elements/custom-select.mustache',
+                        [
+                            'holder' => 'order-inputbox-holder',
+                            'class' => 'copy-address',
+                            'name' => 'shippingAddressCountry',
+                            'searchField' => true,
+                            'initialValue' => $order->getCalculatedShippingAddressCountry(),
+                            'options' => CountrySelect::getDefaultCountryOptions(CountryNameByCode::getCountryNameFromCode($order->getCalculatedShippingAddressCountry(), false)),
+                            'disabled' => !$this->editable,
+                        ]
+                    )
+                    ?>
                 </label>
                 <?php else: ?>
                 <fieldset class='inputbox'>
