@@ -851,33 +851,31 @@ return array(
                                 ],
                             ],
                         ],
-
-                        /*
-                        // Not going live with Hermes but will need this in the near future so leaving this here
                         [
                             'channelName' => DataplugCarriers::MYHERMES,
-                            'displayName' => 'Hermes corporate',
+                            'displayName' => 'MyHermes',
                             'salesChannelName' => 'Hermes',
                             'code' => DataplugCarrier\Myhermes::CODE,
+                            'allowsCancellation' => false,
+                            'allowsManifesting' => false,
                             'fields' => [
-                                ['name' => 'Client ID'],
-                                ['name' => 'Username'],
+                                ['name' => 'Email'],
                                 ['name' => 'Password', 'inputType' => 'password'],
+                                ['name' => 'Client ID'],
+                                ['name' => 'Client Secret'],
                             ],
                             'services' => [
-                                ['value' => 'HRMNEXT000PA', 'name' => 'Next Day Parcel'],
-                                ['value' => 'HRMSTD0000PA', 'name' => 'Standard Parcel'],
-                                ['value' => 'HRMNEXTPODPA', 'name' => 'Next Day Proof Of Delivery Parcel'],
-                                ['value' => 'HRMSTD0PODPA', 'name' => 'Standard Proof Of Delivery Parcel'],
+                                ['value' => 'MYHER48HRPAKG', 'name' => '48 Hour Parcel'],
+                                ['value' => 'MYHER48HRSFPAKG', 'name' => '48 Hour Signed For Parcel'],
                             ],
                             'options' => [
-                                'insuranceMonetary' => false,
+                                'height' => false,
+                                'width' => false,
+                                'length' => false,
+                                'insurance' => false,
                                 'signature' => false,
-                                'deliveryInstructions' => false,
                             ],
                         ],
-                        */
-
                         [
                             'channelName' => DataplugCarriers::PARCELFORCE,
                             'displayName' => 'Parcelforce',

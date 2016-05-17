@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dc5bc401202a51f523481ff1dfc6fc05",
-    "content-hash": "ee65808e837f8ddc3feff3c9826e1621",
+    "hash": "a7c814cd623e5f883dd2b018ead9fa44",
+    "content-hash": "36270267020c7e31d8713b81e685a794",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -489,16 +489,16 @@
         },
         {
             "name": "channelgrabber/dataplug",
-            "version": "1.2.6",
+            "version": "1.2.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-dataplug.git",
-                "reference": "97592d1af25df87c22d6025a0705b01fe2b1ae9c"
+                "reference": "2c94691e8228eb86d8f8d3c61200c8533e611fdd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-1.2.6-36dbbe.zip",
-                "reference": "97592d1af25df87c22d6025a0705b01fe2b1ae9c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-dataplug-1.2.7-cf395d.zip",
+                "reference": "2c94691e8228eb86d8f8d3c61200c8533e611fdd",
                 "shasum": null
             },
             "require": {
@@ -531,7 +531,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-04-21 12:54:05"
+            "time": "2016-05-12 07:43:52"
         },
         {
             "name": "channelgrabber/db",
