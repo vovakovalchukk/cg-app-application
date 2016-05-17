@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c5254ea2a2d674f80e83e45857412a8a",
-    "content-hash": "15f1642abf83c380208383ce3f7820d9",
+    "hash": "396efc20c421af24f95ffe2c3deda9f5",
+    "content-hash": "95a126f86f37aa48f87428d819697b5a",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1007,16 +1007,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "dev-CGIV-6968-CountrySelect",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "efdf7bdb2f26167298b3c754b9496ea04e0043fd"
+                "reference": "d14fadcbf3a618853c25dbd2fdbdfa9ebba369f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-dev-CGIV-6968-CountrySelect-9ca39e.zip",
-                "reference": "efdf7bdb2f26167298b3c754b9496ea04e0043fd",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.6-bbe71e.zip",
+                "reference": "d14fadcbf3a618853c25dbd2fdbdfa9ebba369f8",
                 "shasum": null
             },
             "require": {
@@ -1036,7 +1036,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2016-05-16 09:42:00"
+            "time": "2016-05-17 07:36:18"
         },
         {
             "name": "channelgrabber/location",
@@ -3419,16 +3419,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-6968-CountrySelect",
+            "version": "1.16.50",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "8f0b27c5d11af8c1fcec430f77f6e12904bfed11"
+                "reference": "43d52462cdeea8d81a37e1a087b48a9b8dc93ca3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6968-CountrySelect-d7aa04.zip",
-                "reference": "8f0b27c5d11af8c1fcec430f77f6e12904bfed11",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.50-6ba992.zip",
+                "reference": "43d52462cdeea8d81a37e1a087b48a9b8dc93ca3",
                 "shasum": null
             },
             "require": {
@@ -3437,7 +3437,7 @@
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/etag": ">=1.4.2",
                 "channelgrabber/intercom": ">=1.0.0,<2.0.0",
-                "channelgrabber/locale": "dev-CGIV-6968-CountrySelect as 1.0.6",
+                "channelgrabber/locale": "^1.0.6",
                 "channelgrabber/log": ">=1.4.2",
                 "channelgrabber/stdlib": ">=2.7.4,<3.0.0",
                 "channelgrabber/user": "^1.20.6",
@@ -3475,7 +3475,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-05-16 09:47:50"
+            "time": "2016-05-17 07:57:24"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7653,25 +7653,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.6",
-            "alias_normalized": "1.0.6.0",
-            "version": "dev-CGIV-6968-CountrySelect",
-            "package": "channelgrabber/locale"
-        },
-        {
-            "alias": "1.16.50",
-            "alias_normalized": "1.16.50.0",
-            "version": "dev-CGIV-6968-CountrySelect",
-            "package": "channelgrabber/zf2-v4-ui"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/locale": 20,
-        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
