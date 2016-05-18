@@ -235,7 +235,7 @@ define([
 
     Service.prototype.getDetailsTableLineView = function(product, templates)
     {
-        return CGMustache.get().renderTemplate(templates, product, 'detailsRow');
+        return CGMustache.get().renderTemplate(templates, product['details'], 'detailsRow');
     };
 
     Service.prototype.renderDetailsTableView = function(product, details, templates)

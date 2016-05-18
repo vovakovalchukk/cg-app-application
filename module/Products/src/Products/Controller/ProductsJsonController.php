@@ -160,6 +160,9 @@ class ProductsJsonController extends AbstractActionController
             'locations' => $stockEntity->getLocations()->toArray()
         ]);
 
+        $detailsEntity = $productEntity->getDetails();
+        $product['details'] = $detailsEntity ? $detailsEntity->toArray() : [];
+
         foreach ($product['stock']['locations'] as $stockLocationIndex => $stockLocation) {
             $stockLocationId = $product['stock']['locations'][$stockLocationIndex]['id'];
             $product['stock']['locations'][$stockLocationIndex]['eTag'] = $stockEntity->getLocations()->getById($stockLocationId)->getStoredETag();
