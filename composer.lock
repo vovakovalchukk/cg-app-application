@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "396efc20c421af24f95ffe2c3deda9f5",
-    "content-hash": "95a126f86f37aa48f87428d819697b5a",
+    "hash": "fb74867332b1e16a163bc0b9f2e10354",
+    "content-hash": "72dabbad2f45894b2e10cd694ba90d7e",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3419,16 +3419,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.50",
+            "version": "dev-CGIV-7001-ProductEditableWeightDimensions",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "43d52462cdeea8d81a37e1a087b48a9b8dc93ca3"
+                "reference": "b560d0ad4c56b3bdca652cde07ad331f1201f4c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.50-6ba992.zip",
-                "reference": "43d52462cdeea8d81a37e1a087b48a9b8dc93ca3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7001-ProductEditableWeightDimensions-ddd22b.zip",
+                "reference": "b560d0ad4c56b3bdca652cde07ad331f1201f4c4",
                 "shasum": null
             },
             "require": {
@@ -3475,7 +3475,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-05-17 07:57:24"
+            "time": "2016-05-18 08:23:30"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7653,10 +7653,18 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.16.51",
+            "alias_normalized": "1.16.51.0",
+            "version": "dev-CGIV-7001-ProductEditableWeightDimensions",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

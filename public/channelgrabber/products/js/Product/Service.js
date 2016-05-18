@@ -168,7 +168,8 @@ define([
             inlineText: '/channelgrabber/zf2-v4-ui/templates/elements/inline-text.mustache',
             variationTable: '/channelgrabber/products/template/product/variationTable.mustache',
             variationRow: '/channelgrabber/products/template/product/variationRow.mustache',
-            variationStock: '/channelgrabber/products/template/product/variationStock.mustache',
+            variationContent: '/channelgrabber/products/template/product/variationContent.mustache',
+            simpleContent: '/channelgrabber/products/template/product/simpleContent.mustache',
             stockTable: '/channelgrabber/products/template/product/stockTable.mustache',
             stockRow: '/channelgrabber/products/template/product/stockRow.mustache',
             stockLevelHeader: '/channelgrabber/products/template/product/stockLevelHeader.mustache',
@@ -197,7 +198,7 @@ define([
             }
             hasVariations = true;
         } else {
-            var productContent = this.getStockTableView(product, templates);
+            var productContent = this.getSimpleView(product, templates);
         }
 
         var statusLozenge = this.getStatusView(product, templates);
@@ -305,6 +306,14 @@ define([
         return (stockMode == null && stockModeDefault != null && stockModeDefault != 'all');
     };
 
+    Service.prototype.getSimpleView = function(product, templates)
+    {
+        var stockTable = this.getStockTableView(product, templates);
+        return CGMustache.get().renderTemplate(templates, {}, 'simpleContent', {
+            'stockTable': stockTable
+        });
+    };
+
     Service.prototype.getVariationView = function(product, templates)
     {
         var variations = "";
@@ -318,7 +327,7 @@ define([
             'attributes': product['attributeNames']
         }, 'variationTable', {'variations': variations});
         var stockTable = this.renderStockTableView(product, stockLocations, templates);
-        var html = CGMustache.get().renderTemplate(templates, {}, 'variationStock', {
+        var html = CGMustache.get().renderTemplate(templates, {}, 'variationContent', {
             'variationTable': variationTable,
             'stockTable': stockTable
         });
