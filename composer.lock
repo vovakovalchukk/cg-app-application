@@ -252,12 +252,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "ce8a40d08a312a808e2dbbf70503cf52c1216cd2"
+                "reference": "28ddefa3a1e921a27faf232f92674b0b3080b75d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-CGIV-6990-Add-landing-page-tracking-634e57.zip",
-                "reference": "ce8a40d08a312a808e2dbbf70503cf52c1216cd2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-CGIV-6990-Add-landing-page-tracking-936cfd.zip",
+                "reference": "28ddefa3a1e921a27faf232f92674b0b3080b75d",
                 "shasum": null
             },
             "require": {
@@ -301,7 +301,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2016-05-11 11:59:07"
+            "time": "2016-05-18 10:30:17"
         },
         {
             "name": "channelgrabber/channel",
