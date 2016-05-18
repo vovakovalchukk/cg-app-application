@@ -2838,12 +2838,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/email-template-module.git",
-                "reference": "62ece7ddbaad467f2968c9e8e2b26ad6deddd51d"
+                "reference": "6ab5c04c43f185867bd147f27cdf328c159e1b84"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-dev-CGIV-6990-Add-landing-page-tracking-e7ef42.zip",
-                "reference": "62ece7ddbaad467f2968c9e8e2b26ad6deddd51d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-dev-CGIV-6990-Add-landing-page-tracking-1ec99b.zip",
+                "reference": "6ab5c04c43f185867bd147f27cdf328c159e1b84",
                 "shasum": null
             },
             "require": {
@@ -2864,7 +2864,7 @@
                 ]
             },
             "description": "email template module",
-            "time": "2016-05-11 11:59:28"
+            "time": "2016-05-17 15:26:02"
         },
         {
             "name": "channelgrabber/zf2-hal",
@@ -3166,12 +3166,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "411f14ba060d8177805d9c7612aeb3b5e591fd44"
+                "reference": "ab8ec5047eca76a06d9c30042f8574e28b22e973"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-6990-Add-landing-page-tracking-136491.zip",
-                "reference": "411f14ba060d8177805d9c7612aeb3b5e591fd44",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-6990-Add-landing-page-tracking-412922.zip",
+                "reference": "ab8ec5047eca76a06d9c30042f8574e28b22e973",
                 "shasum": null
             },
             "require": {
@@ -3208,7 +3208,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2016-05-11 13:09:07"
+            "time": "2016-05-18 10:31:52"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
