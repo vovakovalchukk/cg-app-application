@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8ed0e6aa8ac275d1df0992a8d52044b3",
-    "content-hash": "af68f3b5c693e02e8e5489632b9044cb",
+    "hash": "feaffa57eb1722c9c6832843581b9f76",
+    "content-hash": "776714f2760329135fb7390ad21ecebe",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -113,16 +113,16 @@
         },
         {
             "name": "channelgrabber/billing",
-            "version": "1.10.0",
+            "version": "1.11.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-billing.git",
-                "reference": "567e9b2f0b2513af8290d72212949abca452aab6"
+                "reference": "0caa4d5cf93c2e97702e36983099fb185b5d6b9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.10.0-f7d59c.zip",
-                "reference": "567e9b2f0b2513af8290d72212949abca452aab6",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-billing-1.11.2-310356.zip",
+                "reference": "0caa4d5cf93c2e97702e36983099fb185b5d6b9c",
                 "shasum": null
             },
             "require": {
@@ -159,7 +159,7 @@
                     "CG\\Billing\\Test\\": "tests"
                 }
             },
-            "time": "2016-03-29 07:55:11"
+            "time": "2016-05-05 10:58:29"
         },
         {
             "name": "channelgrabber/cache",
@@ -248,20 +248,20 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "1.9.3",
+            "version": "1.10.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "0cf8a63a846cf07601ca8d76014868339b09e347"
+                "reference": "89d45bbe12af36ae952cf970b56b44ec6a550607"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.9.3-1aff2d.zip",
-                "reference": "0cf8a63a846cf07601ca8d76014868339b09e347",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.10.0-2edb1f.zip",
+                "reference": "89d45bbe12af36ae952cf970b56b44ec6a550607",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/billing": ">=1.8.2, <2.0.0",
+                "channelgrabber/billing": "^1.11.0",
                 "channelgrabber/channel": "^1.18.4",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
@@ -301,7 +301,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2016-04-18 12:39:03"
+            "time": "2016-05-18 15:28:27"
         },
         {
             "name": "channelgrabber/channel",
@@ -2834,17 +2834,17 @@
         },
         {
             "name": "channelgrabber/zf2-email-template",
-            "version": "1.0.12",
+            "version": "1.0.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/email-template-module.git",
-                "reference": "828e8de6d584e0ae6cf2b18c2eaf08661f20d1cd"
+                "reference": "1ac6c9c00764937a826109804093f4a8f89c5615"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-1.0.12-1f68e4.zip",
-                "reference": "828e8de6d584e0ae6cf2b18c2eaf08661f20d1cd",
-                "shasum": "b06221cdfbe3a2cac085257e5096a7bce455f12d"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-1.0.13-5a2ba7.zip",
+                "reference": "1ac6c9c00764937a826109804093f4a8f89c5615",
+                "shasum": null
             },
             "require": {
                 "guzzle/guzzle": "~3.7",
@@ -2864,7 +2864,7 @@
                 ]
             },
             "description": "email template module",
-            "time": "2015-11-12 14:10:09"
+            "time": "2016-05-18 15:33:03"
         },
         {
             "name": "channelgrabber/zf2-hal",
@@ -2902,24 +2902,23 @@
         },
         {
             "name": "channelgrabber/zf2-installer",
-            "version": "1.0.5",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-installer.git",
-                "reference": "6371324516dd081f8c86deb38a02f4008517491c"
+                "reference": "34fcd193d30969a9c40625e0b15ae9e7f16dfae8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-installer-1.0.5-a989c7.zip",
-                "reference": "6371324516dd081f8c86deb38a02f4008517491c",
-                "shasum": "53af4ebad4a03335a1b28ea0bb7fc03ac2e7bdd9"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-installer-1.0.6-952a6e.zip",
+                "reference": "34fcd193d30969a9c40625e0b15ae9e7f16dfae8",
+                "shasum": null
             },
             "require": {
-                "channelgrabber/di": ">=1.0.1",
-                "composer-plugin-api": "1.0.0"
+                "composer-plugin-api": "^1.0"
             },
             "require-dev": {
-                "composer/composer": "1.0.*@dev"
+                "composer/composer": "^1.0"
             },
             "type": "composer-plugin",
             "extra": {
@@ -2932,7 +2931,7 @@
                     "CG\\Zend\\Installer\\": "src"
                 }
             },
-            "time": "2014-12-09 12:24:52"
+            "time": "2016-05-18 12:51:53"
         },
         {
             "name": "channelgrabber/zf2-logclient",
@@ -3162,16 +3161,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.4.42",
+            "version": "1.4.43",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "639a2d91b24c2c618b8ab4efedae6f2d7d83e293"
+                "reference": "82fc700f6b6960bc2f17d1cc0e68eef362af046e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.42-955660.zip",
-                "reference": "639a2d91b24c2c618b8ab4efedae6f2d7d83e293",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.43-d320d7.zip",
+                "reference": "82fc700f6b6960bc2f17d1cc0e68eef362af046e",
                 "shasum": null
             },
             "require": {
@@ -3208,7 +3207,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2016-02-22 12:18:23"
+            "time": "2016-05-18 15:28:42"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -3650,7 +3649,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/de7123097e2e8a82997f41a844bee297dafcd4f0",
+                "url": "https://composer.build.channelgrabber.com/dist/composer-composer-c41079192f38f0fc446b17baa8f628dcb3b61e7d-zip-2f144b.zip",
                 "reference": "c41079192f38f0fc446b17baa8f628dcb3b61e7d",
                 "shasum": "557f4fb72b06f29ad2f07f44ce744b703b7cea9a"
             },
@@ -4662,7 +4661,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpatch/zipball/cc43b856ed3e1726f5f1fab7f5a6fc0cdbce0ef4",
+                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpatch/zipball/e57b7e02224d0266d5f7de970964b5302501125b",
                 "reference": "e57b7e02224d0266d5f7de970964b5302501125b",
                 "shasum": "691f4c32e8522bbb20fb4baec578d0eab498b683"
             },
@@ -4714,7 +4713,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpointer/zipball/86abfb29af042a1c1dabc439089b3a5945ac3e34",
+                "url": "https://api.github.com/repos/raphaelstolt/php-jsonpointer/zipball/064f65b05d1381d4999113f442af93949cc7c29a",
                 "reference": "064f65b05d1381d4999113f442af93949cc7c29a",
                 "shasum": "1982d83a6b5c301565c6af5e5acfe9f11e43776b"
             },
@@ -5026,6 +5025,7 @@
                 "rest",
                 "xml"
             ],
+            "abandoned": "ramsey/vnderror",
             "time": "2012-07-17 22:17:31"
         },
         {
