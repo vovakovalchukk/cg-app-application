@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a4b178c21d437f9c4fdd3c4a88de398b",
-    "content-hash": "24243326c62fb414b2bc540648b023f0",
+    "hash": "bff284863f33608d07095df6273fe3f5",
+    "content-hash": "aab97f10d394717feaf037ecd559e58d",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -248,16 +248,16 @@
         },
         {
             "name": "channelgrabber/cglib",
-            "version": "dev-CGIV-6990-Add-landing-page-tracking",
+            "version": "1.10.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-cglib.git",
-                "reference": "28ddefa3a1e921a27faf232f92674b0b3080b75d"
+                "reference": "89d45bbe12af36ae952cf970b56b44ec6a550607"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-dev-CGIV-6990-Add-landing-page-tracking-936cfd.zip",
-                "reference": "28ddefa3a1e921a27faf232f92674b0b3080b75d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-cglib-1.10.0-2edb1f.zip",
+                "reference": "89d45bbe12af36ae952cf970b56b44ec6a550607",
                 "shasum": null
             },
             "require": {
@@ -301,7 +301,7 @@
                     "CG\\CGLib\\Test\\": "tests"
                 }
             },
-            "time": "2016-05-18 10:30:17"
+            "time": "2016-05-18 15:28:27"
         },
         {
             "name": "channelgrabber/channel",
@@ -2834,16 +2834,16 @@
         },
         {
             "name": "channelgrabber/zf2-email-template",
-            "version": "dev-CGIV-6990-Add-landing-page-tracking",
+            "version": "1.0.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/email-template-module.git",
-                "reference": "6ab5c04c43f185867bd147f27cdf328c159e1b84"
+                "reference": "1ac6c9c00764937a826109804093f4a8f89c5615"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-dev-CGIV-6990-Add-landing-page-tracking-1ec99b.zip",
-                "reference": "6ab5c04c43f185867bd147f27cdf328c159e1b84",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-email-template-1.0.13-5a2ba7.zip",
+                "reference": "1ac6c9c00764937a826109804093f4a8f89c5615",
                 "shasum": null
             },
             "require": {
@@ -2864,7 +2864,7 @@
                 ]
             },
             "description": "email template module",
-            "time": "2016-05-17 15:26:02"
+            "time": "2016-05-18 15:33:03"
         },
         {
             "name": "channelgrabber/zf2-hal",
@@ -3162,16 +3162,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-CGIV-6990-Add-landing-page-tracking",
+            "version": "1.4.43",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "ab8ec5047eca76a06d9c30042f8574e28b22e973"
+                "reference": "82fc700f6b6960bc2f17d1cc0e68eef362af046e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-6990-Add-landing-page-tracking-412922.zip",
-                "reference": "ab8ec5047eca76a06d9c30042f8574e28b22e973",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.43-d320d7.zip",
+                "reference": "82fc700f6b6960bc2f17d1cc0e68eef362af046e",
                 "shasum": null
             },
             "require": {
@@ -3208,7 +3208,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2016-05-18 10:31:52"
+            "time": "2016-05-18 15:28:42"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -7653,32 +7653,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.9.5",
-            "alias_normalized": "1.9.5.0",
-            "version": "dev-CGIV-6990-Add-landing-page-tracking",
-            "package": "channelgrabber/cglib"
-        },
-        {
-            "alias": "1.0.13",
-            "alias_normalized": "1.0.13.0",
-            "version": "dev-CGIV-6990-Add-landing-page-tracking",
-            "package": "channelgrabber/zf2-email-template"
-        },
-        {
-            "alias": "1.4.43",
-            "alias_normalized": "1.4.43.0",
-            "version": "dev-CGIV-6990-Add-landing-page-tracking",
-            "package": "channelgrabber/zf2-register"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/cglib": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-email-template": 20,
-        "channelgrabber/zf2-register": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
