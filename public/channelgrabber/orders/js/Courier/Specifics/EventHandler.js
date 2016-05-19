@@ -18,7 +18,8 @@ define([], function()
                 .listenToCreateAllLabelsButtons()
                 .listenToPrintAllLabelsButtons()
                 .listenToCancelAllLabelsButtons()
-                .listenToNextCourierButton();
+                .listenToNextCourierButton()
+                .listenForServiceChange();
         };
         init.call(this);
     }
@@ -34,6 +35,7 @@ define([], function()
     EventHandler.SELECTOR_PRINT_ALL_LABELS_BUTTON = '#print-all-labels-button-shadow';
     EventHandler.SELECTOR_CANCEL_ALL_LABELS_BUTTON = '#cancel-all-labels-button-shadow';
     EventHandler.SELECTOR_NEXT_COURIER_BUTTON = '#next-courier-button';
+    EventHandler.SELECTOR_SERVICE_SELECT_PREFIX = '.courier-service-select';
 
     EventHandler.prototype.listenToNavLinkClicks = function()
     {
@@ -144,6 +146,17 @@ define([], function()
         {
             var button = this;
             service.courierLinkChosen(button.dataset.action);
+        });
+        return this;
+    };
+
+    EventHandler.prototype.listenForServiceChange = function()
+    {
+        var service = this.getService();
+        $(document).on('change', EventHandler.SELECTOR_SERVICE_SELECT_PREFIX, function(event, element, value)
+        {
+            var orderId = $(element).attr('data-element-name').split('_').pop();
+            service.serviceChanged(orderId, value);
         });
         return this;
     };
