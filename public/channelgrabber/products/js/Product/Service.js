@@ -257,7 +257,8 @@ define([
                 'value': details.hasOwnProperty(detail) ? details[detail] : defaultValue,
                 'name': detail,
                 'class': 'product-detail',
-                'type': 'number'
+                'type': 'number',
+                'step': '0.1'
             },
             'inlineText'
         );

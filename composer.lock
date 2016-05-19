@@ -3422,12 +3422,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "b9317b0ae668dffef8118567fbd2c1b1b592577a"
+                "reference": "499ea4588ea7c5be5c8281a717ec49cef8b4097c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7001-ProductEditableWeightDimensions-7975f1.zip",
-                "reference": "b9317b0ae668dffef8118567fbd2c1b1b592577a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7001-ProductEditableWeightDimensions-981fa0.zip",
+                "reference": "499ea4588ea7c5be5c8281a717ec49cef8b4097c",
                 "shasum": null
             },
             "require": {
@@ -3474,7 +3474,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-05-19 14:11:18"
+            "time": "2016-05-19 14:53:57"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
