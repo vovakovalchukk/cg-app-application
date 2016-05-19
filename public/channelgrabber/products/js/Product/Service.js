@@ -235,7 +235,32 @@ define([
 
     Service.prototype.getDetailsTableLineView = function(product, templates)
     {
-        return CGMustache.get().renderTemplate(templates, product['details'], 'detailsRow');
+        return CGMustache.get().renderTemplate(
+            templates,
+            product['details'],
+            'detailsRow',
+            {
+                weight: this.getDetailView(templates, product['details'], 'weight'),
+                height: this.getDetailView(templates, product['details'], 'height'),
+                width: this.getDetailView(templates, product['details'], 'width'),
+                length: this.getDetailView(templates, product['details'], 'length')
+            }
+        );
+    };
+
+    Service.prototype.getDetailView = function(templates, details, detail, defaultValue)
+    {
+        defaultValue = defaultValue ? defaultValue : '';
+        return CGMustache.get().renderTemplate(
+            templates,
+            {
+                'value': details.hasOwnProperty(detail) ? details[detail] : defaultValue,
+                'name': detail,
+                'class': 'product-detail',
+                'type': 'number'
+            },
+            'inlineText'
+        );
     };
 
     Service.prototype.renderDetailsTableView = function(product, details, templates)
