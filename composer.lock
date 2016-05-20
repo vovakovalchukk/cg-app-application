@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c1647fb979ed3ca29dd344d646f82c56",
+    "hash": "a5669a033fbba5648792eb914a8dbd25",
     "content-hash": "a207a4890edc68f5923bbc6fb805bd32",
     "packages": [
         {
@@ -3422,12 +3422,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "499ea4588ea7c5be5c8281a717ec49cef8b4097c"
+                "reference": "6c31004696f8b1bddbf2de8fea1479cfa8c7e94e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7001-ProductEditableWeightDimensions-981fa0.zip",
-                "reference": "499ea4588ea7c5be5c8281a717ec49cef8b4097c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7001-ProductEditableWeightDimensions-3aaa0d.zip",
+                "reference": "6c31004696f8b1bddbf2de8fea1479cfa8c7e94e",
                 "shasum": null
             },
             "require": {
@@ -3474,7 +3474,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-05-19 14:53:57"
+            "time": "2016-05-20 11:54:41"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",

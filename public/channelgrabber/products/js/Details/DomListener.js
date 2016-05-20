@@ -9,6 +9,7 @@ define([], function() {
     }
 
     DomListener.HOLDER = '.details-table';
+    DomListener.ROW = 'tr.detail';
     DomListener.INPUT = 'input';
     DomListener.EVENT = 'save.details';
 
@@ -20,15 +21,15 @@ define([], function() {
     DomListener.prototype.listenForDetailsSave = function()
     {
         var self = this;
-        var selector = DomListener.HOLDER + ' ' + DomListener.INPUT;
+        var selector = DomListener.HOLDER + ' ' + DomListener.ROW + ' ' + DomListener.INPUT;
         $(document)
             .off(DomListener.EVENT, selector)
             .on(DomListener.EVENT, selector, function() {
                 self.getService().updateDetail(
-                    undefined,
+                    $(this).closest(DomListener.ROW).data('id'),
                     $(this).attr('name'),
                     $(this).val(),
-                    undefined
+                    $(this).closest(DomListener.ROW).data('sku')
                 );
             });
     };
