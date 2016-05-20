@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "feaffa57eb1722c9c6832843581b9f76",
-    "content-hash": "776714f2760329135fb7390ad21ecebe",
+    "hash": "39b9de400bec813f1afafe5a2b06424f",
+    "content-hash": "8b1917c4e1fffeea0f60c934a15cb0e4",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3375,16 +3375,16 @@
         },
         {
             "name": "channelgrabber/zf2-usage",
-            "version": "dev-CGIV-7020-PackagePriceTiers",
+            "version": "1.0.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/usage-module.git",
-                "reference": "05f74a66270505573c879385d525e68f9eab494e"
+                "reference": "937f8fcfa61ee9698f2c2d48f580ef8c35c03d4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-usage-dev-CGIV-7020-PackagePriceTiers-2b4c35.zip",
-                "reference": "05f74a66270505573c879385d525e68f9eab494e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-usage-1.0.10-bcfdfc.zip",
+                "reference": "937f8fcfa61ee9698f2c2d48f580ef8c35c03d4a",
                 "shasum": null
             },
             "require": {
@@ -3414,7 +3414,7 @@
                 ]
             },
             "description": "Usage module to determine if users are exceeding their limits",
-            "time": "2016-05-17 15:11:42"
+            "time": "2016-05-20 09:35:12"
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
@@ -7653,18 +7653,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.10",
-            "alias_normalized": "1.0.10.0",
-            "version": "dev-CGIV-7020-PackagePriceTiers",
-            "package": "channelgrabber/zf2-usage"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-usage": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
