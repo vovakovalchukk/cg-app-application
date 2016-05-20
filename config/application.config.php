@@ -16,6 +16,7 @@ return array (
     11 => 'Settings',
     12 => 'Products',
     13 => 'Messages',
+    13 => 'SetupWizard',
     14 => 'CG_Email_Template',
     15 => 'CG_Amazon',
     16 => 'CG_Ebay',
