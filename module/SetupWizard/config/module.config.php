@@ -7,6 +7,28 @@ use Zend\Mvc\Router\Http\Literal;
 use Zend\Mvc\Router\Http\Segment;
 
 return [
+    'navigation' => [
+        'setup-navigation' => [
+            'Steps' => [
+                'label' => '',
+                'uri' => '',
+                'class' => '',
+                'pages' => [
+                    'test' => [
+                        'label' => 'Test',
+                        'title' => 'Test',
+                        'route' => Module::ROUTE,
+                        'sprite' => 'sprite-settings-18-white'
+                    ],
+                ]
+            ],
+        ],
+    ],
+    'service_manager' => [
+        'factories' => [
+            'setup-navigation'  => Navigation\SidebarNavFactory::class,
+        ]
+    ],
     'router' => [
         'routes' => [
             Module::ROUTE => [
