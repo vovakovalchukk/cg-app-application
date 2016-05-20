@@ -62,7 +62,7 @@ return [
         ]
     ],
     'navigation' => [
-        'sidebar-navigation' => [
+        'settings-navigation' => [
             'Channel Management' => [
                 'label' => 'Channel Management',
                 'uri' => '',
@@ -167,7 +167,7 @@ return [
     ],
     'service_manager' => [
         'factories' => [
-            'sidebar-navigation'  => SidebarNavFactory::class,
+            'settings-navigation'  => SidebarNavFactory::class,
         ]
     ],
     'router' => [
