@@ -32,15 +32,24 @@ define(
             this.getQueue().queue(
                 function() {
                     return ajaxRequester.sendRequest(
-                        '/url-goes-here',
+                        '/products/details/update',
                         {
                             id: id,
                             detail: detail,
                             value: value,
                             sku: sku
                         },
-                        function() {
-                            notifications.success('Saved product ' + detail + '');
+                        function(response) {
+                            if (response.id) {
+                                notifications.success('Saved product ' + detail);
+                                $(DomListener.HOLDER + ' ' + DomListener.ROW)
+                                    .filter(function() {
+                                        return $(this).data('sku') == sku;
+                                    })
+                                    .data('id', response.id);
+                            } else {
+                                notifications.error('Unable to save changes to product ' + detail);
+                            }
                         },
                         function() {
                             notifications.error('Unable to save changes to product ' + detail);

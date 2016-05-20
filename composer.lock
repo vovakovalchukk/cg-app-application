@@ -1615,12 +1615,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "9cc9f74672b4d4f7e8696af99a13bb64f53cb64d"
+                "reference": "bf1543330243e1e2758be8cc01ac04b759a48f08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-7001-ProductEditableWeightDimensions-b325c7.zip",
-                "reference": "9cc9f74672b4d4f7e8696af99a13bb64f53cb64d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-7001-ProductEditableWeightDimensions-662b3b.zip",
+                "reference": "bf1543330243e1e2758be8cc01ac04b759a48f08",
                 "shasum": null
             },
             "require": {
@@ -1654,7 +1654,7 @@
                     "CG\\Product\\": "src"
                 }
             },
-            "time": "2016-05-18 11:57:00"
+            "time": "2016-05-20 14:32:01"
         },
         {
             "name": "channelgrabber/product-locking",
