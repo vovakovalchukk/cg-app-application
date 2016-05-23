@@ -18,7 +18,7 @@ return [
                         'label' => 'Test',
                         'title' => 'Test',
                         'route' => Module::ROUTE,
-                        'sprite' => 'sprite-settings-18-white'
+                        'sprite' => 'sprite-settings-24-white'
                     ],
                 ]
             ],

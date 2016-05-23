@@ -119,6 +119,7 @@
             "if [ -d \"public/channelgrabber/settings/css\" ]; then rm -rf public/channelgrabber/settings/css/*; fi",
             "compass compile vendor/channelgrabber/zf2-v4-ui",
             "compass compile public/channelgrabber/settings",
+            "compass compile public/channelgrabber/setup-wizard",
             "cd public-build && node r.js -o require-build.js && cd -"
         ],
         "post-update-cmd": [
@@ -128,6 +129,7 @@
             "if [ -d \"public/channelgrabber/settings/css\" ]; then rm -rf public/channelgrabber/settings/css/*; fi",
             "compass compile vendor/channelgrabber/zf2-v4-ui",
             "compass compile public/channelgrabber/settings",
+            "compass compile public/channelgrabber/setup-wizard",
             "cd public-build && node r.js -o require-build.js && cd -"
         ]
     }
