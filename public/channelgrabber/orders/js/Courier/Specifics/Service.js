@@ -155,6 +155,17 @@ define([
         $(Service.SELECTOR_NAV_FORM).attr('action', courierUrl).submit();
     };
 
+    Service.prototype.serviceChanged = function(orderId, service)
+    {
+        var selector = Service.SELECTOR_SERVICE_PREFIX + orderId;
+        var rowElement = $(selector).parent().parent();
+        this.applyServiceSpecificOptionsToRow(rowElement, service);
+    };
+
+    Service.prototype.applyServiceSpecificOptionsToRow = function(rowElement, service)
+    {
+    };
+
     Service.prototype.parcelsChangedForOrder = function(orderId)
     {
         this.getItemParcelAssignmentManager().clearForOrder(orderId);
