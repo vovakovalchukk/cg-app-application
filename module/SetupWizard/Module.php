@@ -27,9 +27,8 @@ class Module implements DependencyIndicatorInterface
 
     public function getConfig()
     {
-        return ConfigFactory::fromFiles(
-            glob(__DIR__ . '/config/*.config.php')
-        );
+        $configFiles = array_merge(glob(__DIR__ . '/config/*.config.php'), glob(__DIR__ . '/config/steps/*.config.php'));
+        return ConfigFactory::fromFiles($configFiles);
     }
 
     public function getAutoloaderConfig()

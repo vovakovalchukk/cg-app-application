@@ -1,5 +1,20 @@
 #sidebar.setup-wizard-sidebar {
     background: $color-lblue;
+
+    .navbar-content {
+        margin-top: 50px;
+
+        ul {
+            li {
+                border-bottom: none;
+
+                span.sprite {
+                    float: left;
+                    margin-right: 20px;
+                }
+            }
+        }
+    }
 }
 
 .setup-wizard-heading {

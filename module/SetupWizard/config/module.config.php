@@ -4,22 +4,16 @@ namespace SetupWizard;
 use SetupWizard\Controller\IndexController;
 use SetupWizard\Module;
 use Zend\Mvc\Router\Http\Literal;
-use Zend\Mvc\Router\Http\Segment;
 
 return [
     'navigation' => [
         'setup-navigation' => [
             'Steps' => [
                 'label' => '',
-                'uri' => '',
+                'route' => Module::ROUTE,
                 'class' => '',
                 'pages' => [
-                    'test' => [
-                        'label' => 'Test',
-                        'title' => 'Test',
-                        'route' => Module::ROUTE,
-                        'sprite' => 'sprite-settings-24-white'
-                    ],
+                    // Added by config in the ./steps directory
                 ]
             ],
         ],
@@ -46,7 +40,7 @@ return [
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
-
+                    // Added by config in the ./steps directory
                 ],
             ]
         ]
