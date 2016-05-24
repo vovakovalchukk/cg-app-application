@@ -7,3 +7,9 @@
 <div class="module setup-wizard-footer">
     <?=$this->footer;?>
 </div>
+<script type="text/javascript">
+    require(['<?=SetupWizard\Module::PUBLIC_FOLDER;?>js/SetupWizard.js'], function(SetupWizard)
+    {
+        new SetupWizard();
+    });
+</script>
