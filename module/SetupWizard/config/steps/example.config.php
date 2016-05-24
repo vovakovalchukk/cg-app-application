@@ -14,7 +14,7 @@ return [
                         'title' => 'Example',
                         'route' => Module::ROUTE . '/' . IndexController::ROUTE_EXAMPLE,
                         'order' => 1,
-                        'sprite' => 'sprite-settings-24-white',
+                        'sprite' => 'sprite-channels-circle-25-white',
                         'link' => false,
                     ],
                 ]
