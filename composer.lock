@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "62b503bc8a2d5acc8f129731ee3a8b15",
-    "content-hash": "0ac27d55a9f2f9c01e94f0c9ba9c5800",
+    "hash": "7afafe0726111f1a793271bc0b065fcc",
+    "content-hash": "2e5adf303e5fc6fb3b9154b9fd96f4d4",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2052,16 +2052,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "dev-CGIV-7075-woo-commerce-nonces-not-unique",
+            "version": "2.12.29",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "638883b987ba75d835ffcfb8621f8742a042d301"
+                "reference": "7287e6214dc9eee65afb22ee3df41e6f7de58b2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-CGIV-7075-woo-commerce-nonces-not-unique-bdd47c.zip",
-                "reference": "638883b987ba75d835ffcfb8621f8742a042d301",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.29-52b817.zip",
+                "reference": "7287e6214dc9eee65afb22ee3df41e6f7de58b2b",
                 "shasum": null
             },
             "require": {
@@ -2089,7 +2089,7 @@
                     "CG\\Stdlib\\Test\\": "tests/CG/Stdlib"
                 }
             },
-            "time": "2016-05-24 12:33:37"
+            "time": "2016-05-24 15:16:45"
         },
         {
             "name": "channelgrabber/stock",
@@ -2377,16 +2377,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "dev-CGIV-7075-woo-commerce-nonces-not-unique",
+            "version": "1.21.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "7653b9a5068597c776a6e5513e642d6b498b7416"
+                "reference": "ac33e0ad1cd017331162983c005a98a3014ea181"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-7075-woo-commerce-nonces-not-unique-43dfea.zip",
-                "reference": "7653b9a5068597c776a6e5513e642d6b498b7416",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.21.1-85ce02.zip",
+                "reference": "ac33e0ad1cd017331162983c005a98a3014ea181",
                 "shasum": null
             },
             "require": {
@@ -2402,7 +2402,7 @@
                 "channelgrabber/permission": ">=1.0.1",
                 "channelgrabber/slim": "^1.13.14",
                 "channelgrabber/stats": ">=1.0.1, <2.0.0",
-                "channelgrabber/stdlib": "dev-CGIV-7075-woo-commerce-nonces-not-unique as 2.12.29",
+                "channelgrabber/stdlib": "^2.12.29",
                 "channelgrabber/validation": ">=1.2.5",
                 "channelgrabber/zf2-stdlib": ">=1.1.17,<2.0.0",
                 "composer/composer": "@dev",
@@ -2423,7 +2423,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2016-05-24 10:28:08"
+            "time": "2016-05-24 15:23:50"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -7652,25 +7652,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "2.12.29",
-            "alias_normalized": "2.12.29.0",
-            "version": "dev-CGIV-7075-woo-commerce-nonces-not-unique",
-            "package": "channelgrabber/stdlib"
-        },
-        {
-            "alias": "1.21.1",
-            "alias_normalized": "1.21.1.0",
-            "version": "dev-CGIV-7075-woo-commerce-nonces-not-unique",
-            "package": "channelgrabber/user"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/stdlib": 20,
-        "channelgrabber/user": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
