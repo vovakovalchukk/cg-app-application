@@ -7,10 +7,22 @@
         ul {
             li {
                 border-bottom: none;
+                color: $color-white;
+                font-size: 15px;
 
                 span.sprite {
                     float: left;
-                    margin-right: 20px;
+                }
+
+                span.label {
+                    display: block;
+                    margin-left: 40px;
+
+                    span.setup-wizard-step-number {
+                        display: block;
+                        font-size: 1.5em;
+                        margin-bottom: 5px;
+                    }
                 }
             }
         }
