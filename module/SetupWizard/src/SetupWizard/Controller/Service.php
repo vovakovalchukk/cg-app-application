@@ -49,7 +49,7 @@ class Service
         return $view;
     }
 
-    public function getSetupLayoutView()
+    protected function getSetupLayoutView()
     {
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('setup-wizard/layout/layout')
@@ -59,7 +59,7 @@ class Service
         return $view;
     }
 
-    public function getSetupFooterView()
+    protected function getSetupFooterView()
     {
         $nextStepUri = $this->getNextStepUri();
         if (!$nextStepUri) {
