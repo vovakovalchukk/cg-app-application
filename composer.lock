@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "744345ac49a3a2649f4b39175f929286",
-    "content-hash": "fa1ec62ae64799ecf2cd9388ccd113b5",
+    "hash": "b44dc8bf4d8c66efd9c00850e89ff318",
+    "content-hash": "e7fb7fe1dac1bdd5ac36badb920eb8cf",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2377,16 +2377,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.21.1",
+            "version": "dev-CGIV-7062-setup-wizard-module-and-layout",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "ac33e0ad1cd017331162983c005a98a3014ea181"
+                "reference": "26c00f6faa4eb210d0fc34fabb485afd2ffa30bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.21.1-85ce02.zip",
-                "reference": "ac33e0ad1cd017331162983c005a98a3014ea181",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-7062-setup-wizard-module-and-layout-cc4e6b.zip",
+                "reference": "26c00f6faa4eb210d0fc34fabb485afd2ffa30bb",
                 "shasum": null
             },
             "require": {
@@ -2423,7 +2423,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2016-05-24 15:23:50"
+            "time": "2016-05-25 13:14:20"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -2979,16 +2979,16 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "1.4.32",
+            "version": "dev-CGIV-7062-setup-wizard-module-and-layout",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
-                "reference": "58e3d6c1b52e3f1a7793038615d539187e6d3e5e"
+                "reference": "b587838fc90a5cedf6ca78fff849c9aeaeeb1a19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-1.4.32-76a3ef.zip",
-                "reference": "58e3d6c1b52e3f1a7793038615d539187e6d3e5e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-7062-setup-wizard-module-and-layout-7eb2f9.zip",
+                "reference": "b587838fc90a5cedf6ca78fff849c9aeaeeb1a19",
                 "shasum": null
             },
             "require": {
@@ -3029,7 +3029,7 @@
                 ]
             },
             "description": "login module to authenticate against the User Directory service",
-            "time": "2016-05-10 10:01:09"
+            "time": "2016-05-25 14:35:24"
         },
         {
             "name": "channelgrabber/zf2-mustache",
@@ -3162,25 +3162,25 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "1.4.43",
+            "version": "dev-CGIV-7062-setup-wizard-module-and-layout",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "82fc700f6b6960bc2f17d1cc0e68eef362af046e"
+                "reference": "9f5af0c255734e963b4537075e69c3badf02d908"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-1.4.43-d320d7.zip",
-                "reference": "82fc700f6b6960bc2f17d1cc0e68eef362af046e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-7062-setup-wizard-module-and-layout-e01c72.zip",
+                "reference": "9f5af0c255734e963b4537075e69c3badf02d908",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cglib": "^1.6.8",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/di": ">=2.1.1",
+                "channelgrabber/di": ">=2.2.0",
                 "channelgrabber/slim": ">=1.11.0",
                 "channelgrabber/stdlib": "^2.10.0",
-                "channelgrabber/user": "^1.20.6",
+                "channelgrabber/user": "dev-CGIV-7062-setup-wizard-module-and-layout as 1.21.2",
                 "channelgrabber/zendesk": ">=1.0.0,<2.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
                 "composer/composer": "@dev",
@@ -3208,7 +3208,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2016-05-18 15:28:42"
+            "time": "2016-05-25 13:36:14"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -7654,6 +7654,24 @@
     ],
     "aliases": [
         {
+            "alias": "1.21.2",
+            "alias_normalized": "1.21.2.0",
+            "version": "dev-CGIV-7062-setup-wizard-module-and-layout",
+            "package": "channelgrabber/user"
+        },
+        {
+            "alias": "1.4.32",
+            "alias_normalized": "1.4.32.0",
+            "version": "dev-CGIV-7062-setup-wizard-module-and-layout",
+            "package": "channelgrabber/zf2-login"
+        },
+        {
+            "alias": "1.4.44",
+            "alias_normalized": "1.4.44.0",
+            "version": "dev-CGIV-7062-setup-wizard-module-and-layout",
+            "package": "channelgrabber/zf2-register"
+        },
+        {
             "alias": "1.16.51",
             "alias_normalized": "1.16.51.0",
             "version": "dev-CGIV-7062-setup-wizard-module-and-layout",
@@ -7663,6 +7681,9 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/user": 20,
+        "channelgrabber/zf2-login": 20,
+        "channelgrabber/zf2-register": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
