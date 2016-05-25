@@ -3,6 +3,7 @@ namespace SetupWizard\Controller;
 
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_UI\View\Helper\NavigationMenu;
+use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Model\ViewModel;
 
 class Service
@@ -11,11 +12,17 @@ class Service
     protected $viewModelFactory;
     /** @var NavigationMenu */
     protected $navigationMenu;
+    /** @var ServiceLocatorInterface */
+    protected $serviceLocator;
 
-    public function __construct(ViewModelFactory $viewModelFactory, NavigationMenu $navigationMenu)
-    {
+    public function __construct(
+        ViewModelFactory $viewModelFactory,
+        NavigationMenu $navigationMenu,
+        ServiceLocatorInterface $serviceLocator
+    ) {
         $this->setViewModelFactory($viewModelFactory)
-            ->setNavigationMenu($navigationMenu);
+            ->setNavigationMenu($navigationMenu)
+            ->setServiceLocator($serviceLocator);
     }
 
     public function getSetupView($heading, $body, $footer = null)
@@ -32,7 +39,7 @@ class Service
             $view->setVariable('body', $body);
         }
         if (!$footer) {
-            return $view;
+            $footer = $this->getSetupFooterView();
         }
         if ($footer instanceof ViewModel) {
             $view->addChild($footer, 'footer');
@@ -52,9 +59,51 @@ class Service
         return $view;
     }
 
+    public function getSetupFooterView()
+    {
+        $nextStepUri = $this->getNextStepUri();
+        if (!$nextStepUri) {
+            return '';
+        }
+        $footer = $this->viewModelFactory->newInstance([
+            'buttons' => [
+                [
+                    'value' => 'Next',
+                    'id' => 'setup-wizard-next-button',
+                    'class' => 'setup-wizard-next-button',
+                    'disabled' => false,
+                    'action' => $nextStepUri,
+                ], [
+                    'value' => 'Skip',
+                    'id' => 'setup-wizard-skip-button',
+                    'class' => 'setup-wizard-skip-button',
+                    'disabled' => false,
+                    'action' => $nextStepUri,
+                ]
+            ]
+        ]);
+        $footer->setTemplate('elements/buttons.mustache');
+        return $footer;
+    }
+
     public function getFirstStepUri()
     {
         return $this->navigationMenu->getFirstPageUri();
+    }
+
+    public function getNextStepUri()
+    {
+        $currentPage = $this->navigationMenu->getPageByRoute($this->getCurrentRoute());
+        return $this->navigationMenu->getNextPageUri($currentPage);
+    }
+
+    protected function getCurrentRoute()
+    {
+        return $this->serviceLocator
+            ->get('Application')
+            ->getMvcEvent()
+            ->getRouteMatch()
+            ->getMatchedRouteName();
     }
 
     protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
@@ -68,6 +117,12 @@ class Service
     {
         $navigationMenu->__invoke('setup-navigation');
         $this->navigationMenu = $navigationMenu;
+        return $this;
+    }
+
+    protected function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    {
+        $this->serviceLocator = $serviceLocator;
         return $this;
     }
 }
