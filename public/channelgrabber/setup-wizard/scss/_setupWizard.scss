@@ -1,8 +1,13 @@
 #sidebar.setup-wizard-sidebar {
     background: $color-lblue;
+    width: 250px;
+
+    .logo {
+        padding-top: 30px;
+    }
 
     .navbar-content {
-        margin-top: 50px;
+        margin-top: 30px;
 
         ul {
             li {
@@ -27,6 +32,11 @@
                 }
             }
         }
+    }
+
+    &+ #main-wrapper {
+        width: calc(100% - 250px);
+        margin-left: 250px;
     }
 }
 
