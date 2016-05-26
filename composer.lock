@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b44dc8bf4d8c66efd9c00850e89ff318",
-    "content-hash": "e7fb7fe1dac1bdd5ac36badb920eb8cf",
+    "hash": "d03b53a4898ff2d91069a1ed4c231043",
+    "content-hash": "e8bfde73b5c019d1561b31f7712acca5",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2377,7 +2377,7 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "dev-CGIV-7062-setup-wizard-module-and-layout",
+            "version": "dev-EPIC-CGIV-7061-setup-wizard",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
@@ -2385,7 +2385,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-7062-setup-wizard-module-and-layout-cc4e6b.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-EPIC-CGIV-7061-setup-wizard-cc4e6b.zip",
                 "reference": "26c00f6faa4eb210d0fc34fabb485afd2ffa30bb",
                 "shasum": null
             },
@@ -2979,7 +2979,7 @@
         },
         {
             "name": "channelgrabber/zf2-login",
-            "version": "dev-CGIV-7062-setup-wizard-module-and-layout",
+            "version": "dev-EPIC-CGIV-7061-setup-wizard",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/login-module.git",
@@ -2987,7 +2987,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-CGIV-7062-setup-wizard-module-and-layout-7eb2f9.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-login-dev-EPIC-CGIV-7061-setup-wizard-7eb2f9.zip",
                 "reference": "b587838fc90a5cedf6ca78fff849c9aeaeeb1a19",
                 "shasum": null
             },
@@ -3162,16 +3162,16 @@
         },
         {
             "name": "channelgrabber/zf2-register",
-            "version": "dev-CGIV-7062-setup-wizard-module-and-layout",
+            "version": "dev-EPIC-CGIV-7061-setup-wizard",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "9f5af0c255734e963b4537075e69c3badf02d908"
+                "reference": "7542bd2a50b72a7ca5e0eb02f6eb9ed0e4209668"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-7062-setup-wizard-module-and-layout-e01c72.zip",
-                "reference": "9f5af0c255734e963b4537075e69c3badf02d908",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-EPIC-CGIV-7061-setup-wizard-0e0dc1.zip",
+                "reference": "7542bd2a50b72a7ca5e0eb02f6eb9ed0e4209668",
                 "shasum": null
             },
             "require": {
@@ -3180,7 +3180,7 @@
                 "channelgrabber/di": ">=2.2.0",
                 "channelgrabber/slim": ">=1.11.0",
                 "channelgrabber/stdlib": "^2.10.0",
-                "channelgrabber/user": "dev-CGIV-7062-setup-wizard-module-and-layout as 1.21.2",
+                "channelgrabber/user": "dev-EPIC-CGIV-7061-setup-wizard as 1.21.2",
                 "channelgrabber/zendesk": ">=1.0.0,<2.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
                 "composer/composer": "@dev",
@@ -3208,7 +3208,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2016-05-25 13:36:14"
+            "time": "2016-05-26 07:35:22"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -3419,16 +3419,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "dev-CGIV-7062-setup-wizard-module-and-layout",
+            "version": "dev-EPIC-CGIV-7061-setup-wizard",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "7b201db16f5403a72c565077ed73c8be47350570"
+                "reference": "029f554ee11a12aa93f4fc8fe1e152def9c25325"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7062-setup-wizard-module-and-layout-01df62.zip",
-                "reference": "7b201db16f5403a72c565077ed73c8be47350570",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-7061-setup-wizard-82cc0c.zip",
+                "reference": "029f554ee11a12aa93f4fc8fe1e152def9c25325",
                 "shasum": null
             },
             "require": {
@@ -3475,7 +3475,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-05-24 15:13:50"
+            "time": "2016-05-25 14:51:09"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7656,25 +7656,25 @@
         {
             "alias": "1.21.2",
             "alias_normalized": "1.21.2.0",
-            "version": "dev-CGIV-7062-setup-wizard-module-and-layout",
+            "version": "dev-EPIC-CGIV-7061-setup-wizard",
             "package": "channelgrabber/user"
         },
         {
             "alias": "1.4.32",
             "alias_normalized": "1.4.32.0",
-            "version": "dev-CGIV-7062-setup-wizard-module-and-layout",
+            "version": "dev-EPIC-CGIV-7061-setup-wizard",
             "package": "channelgrabber/zf2-login"
         },
         {
             "alias": "1.4.44",
             "alias_normalized": "1.4.44.0",
-            "version": "dev-CGIV-7062-setup-wizard-module-and-layout",
+            "version": "dev-EPIC-CGIV-7061-setup-wizard",
             "package": "channelgrabber/zf2-register"
         },
         {
             "alias": "1.16.51",
             "alias_normalized": "1.16.51.0",
-            "version": "dev-CGIV-7062-setup-wizard-module-and-layout",
+            "version": "dev-EPIC-CGIV-7061-setup-wizard",
             "package": "channelgrabber/zf2-v4-ui"
         }
     ],
