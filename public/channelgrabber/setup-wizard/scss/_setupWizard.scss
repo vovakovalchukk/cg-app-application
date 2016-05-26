@@ -24,7 +24,8 @@
                     display: block;
                     margin-left: 40px;
 
-                    span.setup-wizard-step-number {
+                    span.setup-wizard-step-number,
+                    span.setup-wizard-step-complete {
                         display: block;
                         font-size: 1.5em;
                         margin-bottom: 5px;
@@ -41,6 +42,8 @@
 }
 
 .setup-wizard-heading {
+    margin-bottom: 30px;
+
     .heading-large {
         font-size: 32px;
         color: $color-mgrey;
@@ -48,7 +51,12 @@
 }
 
 .setup-wizard-body {
-    color: $color-mgrey; 
+    color: $color-dgrey;
+    font-size: 18px;
+
+    p {
+        @extend .setup-wizard-body;
+    }
 }
 
 .setup-wizard-footer {

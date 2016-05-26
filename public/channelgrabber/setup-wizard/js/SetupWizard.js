@@ -18,7 +18,13 @@ define([], function()
         {
             var step = this;
             var stepNo = index + 1;
-            $(step).find('.label').prepend('<span class="setup-wizard-step-number">Step ' + stepNo + '</span>');
+            var label = $(step).find('.label');
+            // Special case for the last step: don't number it
+            if (stepNo == steps.length) {
+                label.html('<span class="setup-wizard-step-complete">' + label.text() + '</span>');
+                return true; // continue
+            }
+            label.prepend('<span class="setup-wizard-step-number">Step ' + stepNo + '</span>');
         });
     };
 
