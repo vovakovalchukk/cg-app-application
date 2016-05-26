@@ -5,3 +5,9 @@
 <div class="setup-wizard-complete setup-wizard-complete-congrats">
     Congratulations, you have successfully setup your <span class="setup-wizard-complete-oh">OrderHub</span> account. Now enjoy selling faster!
 </div>
+<script type="text/javascript">
+    require(['<?=SetupWizard\Module::PUBLIC_FOLDER;?>js/steps/Complete.js'], function(Complete)
+    {
+        new Complete();
+    });
+</script>
