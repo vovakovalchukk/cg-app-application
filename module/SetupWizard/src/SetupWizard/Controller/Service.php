@@ -3,6 +3,7 @@ namespace SetupWizard\Controller;
 
 use CG_UI\View\Prototyper\ViewModelFactory;
 use CG_UI\View\Helper\NavigationMenu;
+use CG\User\ActiveUserInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Model\ViewModel;
 
@@ -14,15 +15,19 @@ class Service
     protected $navigationMenu;
     /** @var ServiceLocatorInterface */
     protected $serviceLocator;
+    /** @var ActiveUserInterface */
+    protected $activeUserContainer;
 
     public function __construct(
         ViewModelFactory $viewModelFactory,
         NavigationMenu $navigationMenu,
-        ServiceLocatorInterface $serviceLocator
+        ServiceLocatorInterface $serviceLocator,
+        ActiveUserInterface $activeUserContainer
     ) {
         $this->setViewModelFactory($viewModelFactory)
             ->setNavigationMenu($navigationMenu)
-            ->setServiceLocator($serviceLocator);
+            ->setServiceLocator($serviceLocator)
+            ->setActiveUserContainer($activeUserContainer);
     }
 
     public function getSetupView($heading, $body, $footer = null)
@@ -106,6 +111,11 @@ class Service
             ->getMatchedRouteName();
     }
 
+    public function getActiveUser()
+    {
+        return $this->activeUserContainer->getActiveUser();
+    }
+
     protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
     {
         $this->viewModelFactory = $viewModelFactory;
@@ -123,6 +133,12 @@ class Service
     protected function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
         $this->serviceLocator = $serviceLocator;
+        return $this;
+    }
+
+    protected function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
+    {
+        $this->activeUserContainer = $activeUserContainer;
         return $this;
     }
 }
