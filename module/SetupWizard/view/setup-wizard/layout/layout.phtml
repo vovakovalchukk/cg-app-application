@@ -8,8 +8,8 @@
     <?=$this->footer;?>
 </div>
 <script type="text/javascript">
-    require(['<?=SetupWizard\Module::PUBLIC_FOLDER;?>js/SetupWizard.js'], function(SetupWizard)
+    require(['<?=SetupWizard\Module::PUBLIC_FOLDER;?>js/SetupWizard.js'], function(setupWizard)
     {
-        new SetupWizard();
+        setupWizard.init('<?=$this->stepName;?>');
     });
 </script>
