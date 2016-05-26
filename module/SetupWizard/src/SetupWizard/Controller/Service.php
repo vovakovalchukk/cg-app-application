@@ -61,6 +61,10 @@ class Service
             ->setVariable('isNavBarVisible', false)
             ->setVariable('isHeaderBarVisible', false);
 
+        $routeParts = explode('/', $this->getCurrentRoute());
+        $stepName = array_pop($routeParts);
+        $view->setVariable('stepName', $stepName);
+
         return $view;
     }
 

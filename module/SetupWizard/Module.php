@@ -1,6 +1,8 @@
 <?php
 namespace SetupWizard;
 
+use SetupWizard\StepStatusService;
+use Zend\Di\Di;
 use Zend\Config\Factory as ConfigFactory;
 use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
 use Zend\Mvc\MvcEvent;
@@ -15,6 +17,7 @@ class Module implements DependencyIndicatorInterface
     {
         $eventManager = $event->getApplication()->getEventManager();
         $eventManager->attach(MvcEvent::EVENT_RENDER, [$this, 'appendStylesheet']);
+        $eventManager->attach(MvcEvent::EVENT_DISPATCH, [$this, 'checkForStepStatus']);
     }
 
     public function appendStylesheet(MvcEvent $e)
@@ -23,6 +26,19 @@ class Module implements DependencyIndicatorInterface
         $renderer = $serviceManager->get(PhpRenderer::class);
         $basePath = $serviceManager->get('viewhelpermanager')->get('basePath');
         $renderer->headLink()->appendStylesheet($basePath() . static::PUBLIC_FOLDER . 'css/default.css');
+    }
+
+    public function checkForStepStatus(MvcEvent $e)
+    {
+        $request = $e->getRequest();
+        $previousStep = $request->getPost('step');
+        $previousStepStatus = $request->getPost('status');
+        if (!$previousStep || !$previousStepStatus) {
+            return;
+        }
+        $di = $e->getApplication()->getServiceManager()->get(Di::class);
+        $service = $di->get(StepStatusService::class);
+        $service($previousStep, $previousStepStatus);
     }
 
     public function getConfig()
