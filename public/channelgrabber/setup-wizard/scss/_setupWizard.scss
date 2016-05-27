@@ -59,6 +59,14 @@
     p {
         @extend .setup-wizard-body;
     }
+
+    .notifications > div span.content {
+        font-size: 18px;
+    }
+
+    .fixed-notifications {
+        height: 85px;
+    }
 }
 
 .setup-wizard-footer {
