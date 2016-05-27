@@ -5,8 +5,10 @@ use CG_UI\View\Prototyper\ViewModelFactory;
 use SetupWizard\Controller\Service;
 use Zend\Mvc\Controller\AbstractActionController;
 
-class IndexController extends AbstractActionController
+class ChannelsController extends AbstractActionController
 {
+    const ROUTE_CHANNELS = 'Channels';
+
     /** @var Service */
     protected $service;
     /** @var ViewModelFactory */
@@ -20,7 +22,10 @@ class IndexController extends AbstractActionController
 
     public function indexAction()
     {
-        $this->redirect()->toUrl($this->service->getFirstStepUri());
+        $view = $this->viewModelFactory->newInstance();
+        $view->setTemplate('setup-wizard/channels/index');
+
+        return $this->service->getSetupView('Add Channels', $view);
     }
 
     protected function setService(Service $service)

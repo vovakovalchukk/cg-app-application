@@ -1,6 +1,6 @@
 <?php
 
-use SetupWizard\Controller\IndexController;
+use SetupWizard\Controller\ChannelsController;
 use SetupWizard\Module;
 use Zend\Mvc\Router\Http\Literal;
 
@@ -10,10 +10,10 @@ return [
             'Steps' => [
                 'pages' => [
                     'example' => [
-                        'label' => 'Example',
-                        'title' => 'Example',
-                        'route' => Module::ROUTE . '/' . IndexController::ROUTE_EXAMPLE,
-                        'order' => 1,
+                        'label' => 'Add Channels',
+                        'title' => 'Add Channels',
+                        'route' => Module::ROUTE . '/' . ChannelsController::ROUTE_CHANNELS,
+                        'order' => 10,
                         'sprite' => 'sprite-channels-circle-25-white',
                         'link' => false,
                     ],
@@ -25,13 +25,13 @@ return [
         'routes' => [
             Module::ROUTE => [
                 'child_routes' => [
-                    IndexController::ROUTE_EXAMPLE => [
+                    ChannelsController::ROUTE_CHANNELS => [
                         'type' => Literal::class,
                         'options' => [
-                            'route' => '/example',
+                            'route' => '/channels',
                             'defaults' => [
-                                'controller' => IndexController::class,
-                                'action' => 'example',
+                                'controller' => ChannelsController::class,
+                                'action' => 'index',
                             ]
                         ],
                         'may_terminate' => true,
