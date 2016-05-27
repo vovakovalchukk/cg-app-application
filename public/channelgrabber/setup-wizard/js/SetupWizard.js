@@ -156,10 +156,7 @@ define(['popup/confirm'], function(Confirm)
 
     SetupWizard.prototype.loadNext = function(nextUri, status)
     {
-        var form = '<form method="POST" action="' + nextUri + '">';
-        form += '<input type="hidden" name="step" value="' + this.getStepName() + '" />';
-        form += '<input type="hidden" name="status" value="' + status + '" />';
-        $(form).appendTo('body').submit().remove();
+        window.location = nextUri + '?prev=' + encodeURIComponent(this.getStepName()) + '&status=' + encodeURIComponent(status);
     };
 
     return new SetupWizard();

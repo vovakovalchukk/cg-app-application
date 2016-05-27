@@ -31,8 +31,8 @@ class Module implements DependencyIndicatorInterface
     public function checkForStepStatus(MvcEvent $e)
     {
         $request = $e->getRequest();
-        $previousStep = $request->getPost('step');
-        $previousStepStatus = $request->getPost('status');
+        $previousStep = $request->getQuery('prev');
+        $previousStepStatus = $request->getQuery('status');
         if (!$previousStep || !$previousStepStatus) {
             return;
         }
