@@ -2,32 +2,57 @@
 namespace Settings\Channel;
 
 use CG_UI\View\DataTable;
-use CG\Account\Shared\Entity as AccountEntity;
+use CG\Account\Client\Mapper as AccountMapper;
 use CG\Account\Client\Service as AccountClient;
+use CG\Account\Shared\Entity as AccountEntity;
+use CG\Channel\AccountFactory;
 use CG\Channel\Service as ChannelService;
+use CG\Intercom\Event\Request as IntercomEvent;
+use CG\Intercom\Event\Service as IntercomEventService;
 use CG\OrganisationUnit\StorageInterface as OUClient;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\User\ActiveUserInterface;
+use Settings\Module;
+use Settings\Controller\ChannelController;
 use Zend\Form\Form;
 use Zend\ServiceManager\ServiceManager;
 
 class Service
 {
+    const EVENT_ACCOUNT_ADDED = 'Account Added';
+
     protected $accountList;
     protected $accountClient;
     protected $ouClient;
     protected $channelService;
     protected $serviceManager;
+    /** @var AccountMapper */
+    protected $accountMapper;
+    /** @var ActiveUserInterface */
+    protected $activeUserContainer;
+    /** @var AccountFactory */
+    protected $accountFactory;
+    /** @var IntercomEventService */
+    protected $intercomEventService;
 
     public function __construct(
         AccountClient $accountClient,
         OUClient $ouClient,
         ChannelService $channelService,
-        ServiceManager $serviceManager
+        ServiceManager $serviceManager,
+        AccountMapper $accountMapper,
+        ActiveUserInterface $activeUserContainer,
+        AccountFactory $accountFactory,
+        IntercomEventService $intercomEventService
     ) {
         $this->setAccountClient($accountClient)
             ->setOuClient($ouClient)
             ->setChannelService($channelService)
-            ->setServiceManager($serviceManager);
+            ->setServiceManager($serviceManager)
+            ->setAccountMapper($accountMapper)
+            ->setActiveUserContainer($activeUserContainer)
+            ->setAccountFactory($accountFactory)
+            ->setIntercomEventService($intercomEventService);
     }
 
     public function setAccountList(DataTable $accountList)
@@ -109,6 +134,42 @@ class Service
         return $account;
     }
 
+    public function createAccount($type, $channel, $region)
+    {
+        $accountEntity = $this->accountMapper->fromArray([
+            "channel" => $channel,
+            "organisationUnitId" => $this->activeUserContainer->getActiveUser()->getOrganisationUnitId(),
+            "displayName" => "",
+            "credentials" => "",
+            "active" => false,
+            "deleted" => false,
+            "expiryDate" => null,
+            "type" => $type,
+            "stockManagement" => false,
+        ]);
+        $baseRoute = Module::ROUTE . '/' . ChannelController::ROUTE . '/' . ChannelController::ROUTE_CHANNELS;
+        $url = $this->accountFactory->createRedirect(
+            $accountEntity, $baseRoute, ["type" => $type], $region
+        );
+        $this->notifyOfChange(static::EVENT_ACCOUNT_ADDED, $accountEntity);
+        return $url;
+    }
+
+    protected function notifyOfChange($change, AccountEntity $accountEntity)
+    {
+        $event = new IntercomEvent(
+            $change,
+            $this->activeUserContainer->getActiveUser()->getId(),
+            [
+                'id' => $accountEntity->getId(),
+                'channel' => $accountEntity->getChannel(),
+                'status' => $accountEntity->getStatus(),
+                'stockManagement' => $accountEntity->getStockManagement(),
+            ]
+        );
+        $this->intercomEventService->save($event);
+    }
+
     public function getAccountClient()
     {
         return $this->accountClient;
@@ -151,5 +212,29 @@ class Service
     protected function getServiceManager()
     {
         return $this->serviceManager;
+    }
+
+    protected function setAccountMapper(AccountMapper $accountMapper)
+    {
+        $this->accountMapper = $accountMapper;
+        return $this;
+    }
+
+    protected function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
+    {
+        $this->activeUserContainer = $activeUserContainer;
+        return $this;
+    }
+
+    protected function setAccountFactory(AccountFactory $accountFactory)
+    {
+        $this->accountFactory = $accountFactory;
+        return $this;
+    }
+
+    protected function setIntercomEventService(IntercomEventService $intercomEventService)
+    {
+        $this->intercomEventService = $intercomEventService;
+        return $this;
     }
 }
