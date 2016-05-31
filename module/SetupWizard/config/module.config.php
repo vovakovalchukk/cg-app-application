@@ -1,8 +1,10 @@
 <?php
 namespace SetupWizard;
 
+use SetupWizard\Channels\Service;
 use SetupWizard\Controller\IndexController;
 use SetupWizard\Module;
+use SetupWizard\Navigation\SidebarNavFactory;
 use Zend\Mvc\Router\Http\Literal;
 
 return [
@@ -20,7 +22,7 @@ return [
     ],
     'service_manager' => [
         'factories' => [
-            'setup-navigation'  => Navigation\SidebarNavFactory::class,
+            'setup-navigation'  => SidebarNavFactory::class,
         ]
     ],
     'router' => [
@@ -57,7 +59,12 @@ return [
     'di' => [
         'instance' => [
             'aliases' => [
-            ]
+            ],
+             Service::class => [
+                 'parameters' => [
+                     'amazonCryptor' => 'amazon_cryptor',
+                 ]
+             ]
         ]
     ],
 ];

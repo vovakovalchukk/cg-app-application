@@ -1,0 +1,37 @@
+.setup-wizard-account-badge {
+    float: left;
+    margin-right: 30px;
+    margin-bottom: 30px;
+    position: relative;
+
+    .setup-wizard-account-badge-footer {
+        background-color: $color-lblue;
+        position: absolute;
+        bottom: 0;
+        height: 30px;
+        width: 100%;
+        @include border-radius(0 0 10px 10px);
+        color: white;
+        font-size: 13px;
+
+        div {
+            padding: 5px;
+
+            &.setup-wizard-account-badge-name {
+                float: left;
+                width: 55%;
+                overflow-x: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            &.setup-wizard-account-badge-controls {
+                float: right;
+
+                a {
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+}
