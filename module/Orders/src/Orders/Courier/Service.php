@@ -303,12 +303,12 @@ class Service implements LoggerAwareInterface
             }
         }
 
-        $filter = (new ProductFilter())
-            ->setLimit('all')
-            ->setPage(1)
-            ->setOrganisationUnitId(array_keys($ouIds))
-            ->setSku($productSkus);
         try {
+            $filter = (new ProductFilter())
+                ->setLimit('all')
+                ->setPage(1)
+                ->setOrganisationUnitId(array_keys($ouIds))
+                ->setSku($productSkus);
             return $this->productService->fetchCollectionByFilter($filter);
         } catch (NotFound $e) {
             return new ProductCollection(Product::class, 'empty');
