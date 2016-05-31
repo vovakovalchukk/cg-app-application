@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7a51708ba92ab6ea5729c05bff681389",
-    "content-hash": "d75bc889a66978cd316d39c4b23c2e4d",
+    "hash": "463c072884162ebe88b8d90471d5367e",
+    "content-hash": "0652012449e6f04f3994173c7188bfc8",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1615,19 +1615,19 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "bf1543330243e1e2758be8cc01ac04b759a48f08"
+                "reference": "fe31fb1f2e6e46b2305c14673637ab145dc052a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-7001-ProductEditableWeightDimensions-662b3b.zip",
-                "reference": "bf1543330243e1e2758be8cc01ac04b759a48f08",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-7001-ProductEditableWeightDimensions-53b6c9.zip",
+                "reference": "fe31fb1f2e6e46b2305c14673637ab145dc052a0",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/channel": "^1.17.7",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/di": ">=2.0.1",
+                "channelgrabber/di": "^2.2.0",
                 "channelgrabber/etag": "^1.5.4",
                 "channelgrabber/http": "^1.3.14",
                 "channelgrabber/image": ">=1.1.3,<2.0.0",
@@ -1638,7 +1638,6 @@
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stdlib": "^2.12.24",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
-                "composer/composer": "@dev",
                 "guzzle/guzzle": "~3.7",
                 "nocarrier/hal": "~0.9.7",
                 "zendframework/zend-di": ">=2.2.5"
@@ -1654,7 +1653,7 @@
                     "CG\\Product\\": "src"
                 }
             },
-            "time": "2016-05-20 14:32:01"
+            "time": "2016-05-31 08:39:40"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -2093,22 +2092,22 @@
         },
         {
             "name": "channelgrabber/stock",
-            "version": "1.7.0",
+            "version": "dev-CGIV-7001-ProductEditableWeightDimensions",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-stock.git",
-                "reference": "4ce8b927cca0e56a44a7626186999f6b3ac793f8"
+                "reference": "b77556e70de0f4fdb92feb8af3b31f8c0fab1d39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-1.7.0-2534d5.zip",
-                "reference": "4ce8b927cca0e56a44a7626186999f6b3ac793f8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stock-dev-CGIV-7001-ProductEditableWeightDimensions-e5e654.zip",
+                "reference": "b77556e70de0f4fdb92feb8af3b31f8c0fab1d39",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/di": ">=2.1.0",
+                "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.0.8",
                 "channelgrabber/etag": "^1.6.0",
                 "channelgrabber/gearman": ">=1.1.0,<2.0.0",
@@ -2117,18 +2116,18 @@
                 "channelgrabber/notification": "^1.0.0",
                 "channelgrabber/order": "^1.18.2",
                 "channelgrabber/permission": ">=1.0.1,<2.0.0",
+                "channelgrabber/product": "dev-CGIV-7001-ProductEditableWeightDimensions as 1.6.1",
                 "channelgrabber/redis": ">=0.1.1",
                 "channelgrabber/slim": "^1.13.2",
                 "channelgrabber/stdlib": "^2.12.14",
                 "channelgrabber/transaction": ">=1.1.3, <2.0.0",
-                "composer/composer": "@dev",
                 "nocarrier/hal": "~0.9.4"
             },
             "require-dev": {
                 "channelgrabber/phpunit": ">=1.0.2",
                 "phpunit/phpunit": "~4.0.0"
             },
-            "type": "di-definition",
+            "type": "library",
             "extra": {
                 "branch-alias": {
                     "dev-develop": "1.x-dev"
@@ -2144,7 +2143,7 @@
                     "CG\\Stock\\Test\\": "tests"
                 }
             },
-            "time": "2016-01-19 15:48:19"
+            "time": "2016-05-31 10:45:39"
         },
         {
             "name": "channelgrabber/stock-locking",
@@ -3423,12 +3422,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "f3c11519a5f6d313437d043b140664ed6bdae5f4"
+                "reference": "71103c3806d26546813109bb14e7a90e3e6c1358"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7001-ProductEditableWeightDimensions-8d2c8c.zip",
-                "reference": "f3c11519a5f6d313437d043b140664ed6bdae5f4",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7001-ProductEditableWeightDimensions-223bf3.zip",
+                "reference": "71103c3806d26546813109bb14e7a90e3e6c1358",
                 "shasum": null
             },
             "require": {
@@ -3441,7 +3440,7 @@
                 "channelgrabber/log": ">=1.4.2",
                 "channelgrabber/stdlib": ">=2.7.4,<3.0.0",
                 "channelgrabber/user": "^1.20.6",
-                "channelgrabber/zf2-installer": "~1.0.5",
+                "channelgrabber/zf2-installer": "~1.0.6",
                 "channelgrabber/zf2-mustache": ">=1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
                 "composer/composer": "@dev",
@@ -3475,7 +3474,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-05-20 14:52:55"
+            "time": "2016-05-31 08:44:43"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7662,6 +7661,12 @@
             "package": "channelgrabber/product"
         },
         {
+            "alias": "1.7.2",
+            "alias_normalized": "1.7.2.0",
+            "version": "dev-CGIV-7001-ProductEditableWeightDimensions",
+            "package": "channelgrabber/stock"
+        },
+        {
             "alias": "1.16.51",
             "alias_normalized": "1.16.51.0",
             "version": "dev-CGIV-7001-ProductEditableWeightDimensions",
@@ -7672,6 +7677,7 @@
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/product": 20,
+        "channelgrabber/stock": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,

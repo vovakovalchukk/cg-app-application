@@ -64,7 +64,7 @@
         "channelgrabber/sso": "~1.2.7",
         "channelgrabber/stats": "~1.0.0",
         "channelgrabber/stdlib": "~2.12.29",
-        "channelgrabber/stock": "~1.7.0",
+        "channelgrabber/stock": "dev-CGIV-7001-ProductEditableWeightDimensions as 1.7.2",
         "channelgrabber/tax": "~1.0.0",
         "channelgrabber/template": "~1.4.5",
         "channelgrabber/usage": "~1.0.7",
