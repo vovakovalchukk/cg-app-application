@@ -1,6 +1,6 @@
 define(['../SetupWizard.js'], function(setupWizard)
 {
-    function Channels(notifications)
+    function Channels(notifications, pickChannelUri)
     {
         this.getSetupWizard = function()
         {
@@ -12,16 +12,23 @@ define(['../SetupWizard.js'], function(setupWizard)
             return notifications;
         };
 
+        this.getPickChannelUri = function()
+        {
+            return pickChannelUri;
+        };
+
         var init = function()
         {
             this.registerNextCallback()
-                .hideSkipIfAccountsAdded();
+                .hideSkipIfAccountsAdded()
+                .listenForAddClick();
         };
         init.call(this);
     }
 
     Channels.SELECTOR_CHANNEL = '.setup-wizard-account-badge';
     Channels.SELECTOR_SKIP = '.setup-wizard-skip-button';
+    Channels.SELECTOR_ADD = '.setup-wizard-account-badges .setup-wizard-button-badge';
 
     Channels.prototype.registerNextCallback = function()
     {
@@ -40,11 +47,27 @@ define(['../SetupWizard.js'], function(setupWizard)
     Channels.prototype.hideSkipIfAccountsAdded = function()
     {
         if ($(Channels.SELECTOR_CHANNEL).length == 0) {
-            return;
+            return this;
         }
         // If the user has added accounts then skipping doesnt make sense
         $(Channels.SELECTOR_SKIP).hide();
         return this;
+    };
+
+    Channels.prototype.listenForAddClick = function()
+    {
+        var self = this;
+        $(Channels.SELECTOR_ADD).click(function()
+        {
+            self.showNewChannelOptions();
+        });
+
+        return this;
+    };
+
+    Channels.prototype.showNewChannelOptions = function()
+    {
+        window.location = this.getPickChannelUri();
     };
 
     return Channels;

@@ -35,6 +35,18 @@ return [
                             ]
                         ],
                         'may_terminate' => true,
+                        'child_routes' => [
+                            ChannelsController::ROUTE_CHANNEL_PICK => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/pick',
+                                    'defaults' => [
+                                        'action' => 'pick',
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                        ]
                     ]
                 ],
             ]

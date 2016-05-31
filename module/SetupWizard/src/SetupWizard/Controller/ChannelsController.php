@@ -13,6 +13,7 @@ use Zend\View\Model\ViewModel;
 class ChannelsController extends AbstractActionController
 {
     const ROUTE_CHANNELS = 'Channels';
+    const ROUTE_CHANNEL_PICK = 'Pick';
 
     /** @var SetupService */
     protected $setupService;
@@ -35,6 +36,7 @@ class ChannelsController extends AbstractActionController
     {
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('setup-wizard/channels/index');
+        $view->setVariable('pickUri', $this->url()->fromRoute(Module::ROUTE . '/' . static::ROUTE_CHANNELS . '/' . static::ROUTE_CHANNEL_PICK));
 
         $this->addAccountAddButtonToView($view)
             ->addExistingAccountsToView($view);
@@ -82,6 +84,31 @@ class ChannelsController extends AbstractActionController
         $badgeView->setTemplate('setup-wizard/account-badge.mustache');
         $view->addChild($badgeView, 'accountBadges', true);
         return $this;
+    }
+
+    public function pickAction()
+    {
+        $view = $this->viewModelFactory->newInstance();
+        $view->setTemplate('setup-wizard/channels/pick');
+
+        return $this->setupService->getSetupView('Pick a Channel', $view, $this->getPickFooterView());
+    }
+
+    protected function getPickFooterView()
+    {
+        $footer = $this->viewModelFactory->newInstance([
+            'buttons' => [
+                [
+                    'value' => 'Back',
+                    'id' => 'setup-wizard-back-button',
+                    'class' => 'setup-wizard-next-button setup-wizard-back-button',
+                    'disabled' => false,
+                    'action' => $this->url()->fromRoute(Module::ROUTE . '/' . static::ROUTE_CHANNELS),
+                ]
+            ]
+        ]);
+        $footer->setTemplate('elements/buttons.mustache');
+        return $footer;
     }
 
     protected function setSetupService(SetupService $setupService)

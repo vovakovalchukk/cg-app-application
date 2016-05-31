@@ -12,6 +12,6 @@
 <script type="text/javascript">
     require(['<?=SetupWizard\Module::PUBLIC_FOLDER;?>js/steps/Channels.js'], function(Channels)
     {
-        new Channels(n);
+        new Channels(n, '<?=$this->pickUri;?>');
     });
 </script>
