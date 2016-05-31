@@ -36,9 +36,21 @@ class ChannelsController extends AbstractActionController
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('setup-wizard/channels/index');
 
-        $this->addExistingAccountsToView($view);
+        $this->addAccountAddButtonToView($view)
+            ->addExistingAccountsToView($view);
 
         return $this->setupService->getSetupView('Add Channels', $view);
+    }
+
+    protected function addAccountAddButtonToView(ViewModel $view)
+    {
+        $badgeView = $this->viewModelFactory->newInstance([
+            'text' => '+',
+            'description' => 'Add a channel',
+        ]);
+        $badgeView->setTemplate('setup-wizard/button-badge.mustache');
+        $view->addChild($badgeView, 'addBadge');
+        return $this;
     }
 
     protected function addExistingAccountsToView(ViewModel $view)

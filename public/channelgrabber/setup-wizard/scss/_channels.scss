@@ -2,6 +2,9 @@
     float: left;
     margin-right: 30px;
     margin-bottom: 30px;
+    width: 175px;
+    height: 175px;
+    @include border-radius(10px);
     position: relative;
 
     .setup-wizard-account-badge-footer {
@@ -33,5 +36,21 @@
                 }
             }
         }
+    }
+}
+
+.setup-wizard-button-badge {
+    @extend .setup-wizard-account-badge;
+    background-color: $color-lblue;
+    color: white;
+    cursor: pointer;
+
+    > div {
+        font-size: 120px;
+        font-weight: bold;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 }
