@@ -91,7 +91,41 @@ class ChannelsController extends AbstractActionController
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('setup-wizard/channels/pick');
 
+        $this->addChannelOptionsToView($view);
+
         return $this->setupService->getSetupView('Pick a Channel', $view, $this->getPickFooterView());
+    }
+
+    protected function addChannelOptionsToView(ViewModel $view)
+    {
+        $channelOptions = $this->channelsService->getSalesChannelOptions();
+        foreach ($channelOptions as $description => $details)
+        {
+            $channel = $details['channel'];
+            $region = (isset($details['region']) ? $details['region'] : null);
+            $this->addChannelOptionToView($view, $channel, $description, $region);
+        }
+
+        return $this;
+    }
+
+    protected function addChannelOptionToView(ViewModel $view, $channel, $description, $region = null)
+    {
+        $img = $channel . '.png';
+        if ($region) {
+            $img = $channel . strtoupper($region) . '.png';
+        }
+        $img = Module::PUBLIC_FOLDER . 'img/channel-badges/' . $img;
+
+        $badgeView = $this->viewModelFactory->newInstance([
+            'image' => $img,
+            'channel' => $channel,
+            'name' => $description,
+        ]);
+        $badgeView->setTemplate('setup-wizard/channel-badge.mustache');
+        $view->addChild($badgeView, 'channelBadges', true);
+
+        return $this;
     }
 
     protected function getPickFooterView()

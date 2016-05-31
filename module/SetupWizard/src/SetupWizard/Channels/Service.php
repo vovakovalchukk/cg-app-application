@@ -6,6 +6,7 @@ use CG\Account\Client\Service as AccountService;
 use CG\Account\Credentials\Cryptor as AmazonCryptor;
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\Type as ChannelType;
+use CG\Channel\Service as ChannelService;
 use CG\User\ActiveUserInterface;
 use SetupWizard\Module;
 
@@ -17,6 +18,8 @@ class Service
     protected $accountService;
     /** @var AmazonCryptor */
     protected $amazonCryptor;
+    /** @var ChannelService */
+    protected $channelService;
 
     protected $channelImgMap = [
         'amazon' => 'getImageNameFromAmazonAccount',
@@ -25,11 +28,13 @@ class Service
     public function __construct(
         ActiveUserInterface $activeUserContainer,
         AccountService $accountService,
-        AmazonCryptor $amazonCryptor
+        AmazonCryptor $amazonCryptor,
+        ChannelService $channelService
     ) {
         $this->setActiveUserContainer($activeUserContainer)
             ->setAccountService($accountService)
-            ->setAmazonCryptor($amazonCryptor);
+            ->setAmazonCryptor($amazonCryptor)
+            ->setChannelService($channelService);
     }
 
     public function fetchAccountsForActiveUser()
@@ -76,6 +81,11 @@ class Service
         return 'amazon' . strtoupper($region) . '.png';
     }
 
+    public function getSalesChannelOptions()
+    {
+        return $this->channelService->getChannels(ChannelType::SALES);
+    }
+
     protected function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
     {
         $this->activeUserContainer = $activeUserContainer;
@@ -91,6 +101,12 @@ class Service
     protected function setAmazonCryptor(AmazonCryptor $amazonCryptor)
     {
         $this->amazonCryptor = $amazonCryptor;
+        return $this;
+    }
+
+    protected function setChannelService(ChannelService $channelService)
+    {
+        $this->channelService = $channelService;
         return $this;
     }
 }
