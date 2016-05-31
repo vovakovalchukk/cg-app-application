@@ -46,6 +46,16 @@ return [
                                 ],
                                 'may_terminate' => true,
                             ],
+                            ChannelsController::ROUTE_CHANNEL_ADD => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/add',
+                                    'defaults' => [
+                                        'action' => 'add',
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
                         ]
                     ]
                 ],

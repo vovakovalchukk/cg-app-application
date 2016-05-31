@@ -62,6 +62,7 @@ class Module implements DependencyIndicatorInterface
     {
         return [
             'CG_UI',
+            'Settings',
         ];
     }
 }

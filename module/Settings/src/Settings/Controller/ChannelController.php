@@ -158,6 +158,9 @@ class ChannelController extends AbstractActionController
 
     public function listAction()
     {
+        if ($redirectRoute = $this->service->getAddChannelRedirectRoute()) {
+            return $this->redirect()->toRoute($redirectRoute);
+        }
         $list = $this->newViewModel();
         $list->setVariable('title', $this->getRouteName())
              ->setVariable('createRoute', Module::ROUTE.'/'.static::ROUTE.'/'.static::ROUTE_CHANNELS.'/'.static::ROUTE_CREATE, ['type' => $this->params('type')])
@@ -245,6 +248,9 @@ class ChannelController extends AbstractActionController
 
     public function accountAction()
     {
+        if ($redirectRoute = $this->service->getAddChannelRedirectRoute()) {
+            return $this->redirect()->toRoute($redirectRoute);
+        }
         $id = $this->params('account');
         $accountEntity = $this->getService()->getAccount($id);
         $view = $this->newViewModel();

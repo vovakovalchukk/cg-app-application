@@ -16,10 +16,12 @@ use Settings\Module;
 use Settings\Controller\ChannelController;
 use Zend\Form\Form;
 use Zend\ServiceManager\ServiceManager;
+use Zend\Session\ManagerInterface as SessionManager;
 
 class Service
 {
     const EVENT_ACCOUNT_ADDED = 'Account Added';
+    const SESSION_ADD_CHANNEL_RETURN_ROUTE = 'addChannelReturnRoute';
 
     protected $accountList;
     protected $accountClient;
@@ -34,6 +36,8 @@ class Service
     protected $accountFactory;
     /** @var IntercomEventService */
     protected $intercomEventService;
+    /** @var SessionManager */
+    protected $sessionManager;
 
     public function __construct(
         AccountClient $accountClient,
@@ -43,7 +47,8 @@ class Service
         AccountMapper $accountMapper,
         ActiveUserInterface $activeUserContainer,
         AccountFactory $accountFactory,
-        IntercomEventService $intercomEventService
+        IntercomEventService $intercomEventService,
+        SessionManager $sessionManager
     ) {
         $this->setAccountClient($accountClient)
             ->setOuClient($ouClient)
@@ -52,7 +57,8 @@ class Service
             ->setAccountMapper($accountMapper)
             ->setActiveUserContainer($activeUserContainer)
             ->setAccountFactory($accountFactory)
-            ->setIntercomEventService($intercomEventService);
+            ->setIntercomEventService($intercomEventService)
+            ->setSessionManager($sessionManager);
     }
 
     public function setAccountList(DataTable $accountList)
@@ -170,6 +176,17 @@ class Service
         $this->intercomEventService->save($event);
     }
 
+    public function getAddChannelRedirectRoute()
+    {
+        $session = $this->sessionManager->getStorage();
+        if (!isset($session[Module::SESSION_KEY], $session[Module::SESSION_KEY][static::SESSION_ADD_CHANNEL_RETURN_ROUTE])) {
+            return null;
+        }
+        $redirectRoute = $session[Module::SESSION_KEY][static::SESSION_ADD_CHANNEL_RETURN_ROUTE];
+        unset($session[Module::SESSION_KEY][static::SESSION_ADD_CHANNEL_RETURN_ROUTE]);
+        return $redirectRoute;
+    }
+
     public function getAccountClient()
     {
         return $this->accountClient;
@@ -235,6 +252,12 @@ class Service
     protected function setIntercomEventService(IntercomEventService $intercomEventService)
     {
         $this->intercomEventService = $intercomEventService;
+        return $this;
+    }
+
+    protected function setSessionManager(SessionManager $sessionManager)
+    {
+        $this->sessionManager = $sessionManager;
         return $this;
     }
 }

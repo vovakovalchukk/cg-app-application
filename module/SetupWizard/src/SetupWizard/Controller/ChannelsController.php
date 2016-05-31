@@ -2,8 +2,11 @@
 namespace SetupWizard\Controller;
 
 use CG\Account\Shared\Entity as Account;
+use CG\Channel\Type as ChannelType;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
+use Settings\Channel\Service as SettingsChannelService;
 use SetupWizard\Channels\Service as ChannelsService;
 use SetupWizard\Controller\Service as SetupService;
 use SetupWizard\Module;
@@ -14,22 +17,31 @@ class ChannelsController extends AbstractActionController
 {
     const ROUTE_CHANNELS = 'Channels';
     const ROUTE_CHANNEL_PICK = 'Pick';
+    const ROUTE_CHANNEL_ADD = 'Add';
 
     /** @var SetupService */
     protected $setupService;
     /** @var ViewModelFactory */
     protected $viewModelFactory;
+    /** @var JsonModelFactory */
+    protected $jsonModelFactory;
     /** @var ChannelsService */
     protected $channelsService;
+    /** @var SettingsChannelService */
+    protected $settingsChannelService;
 
     public function __construct(
         SetupService $setupService,
         ViewModelFactory $viewModelFactory,
-        ChannelsService $channelsService
+        JsonModelFactory $jsonModelFactory,
+        ChannelsService $channelsService,
+        SettingsChannelService $settingsChannelService
     ) {
         $this->setSetupService($setupService)
             ->setViewModelFactory($viewModelFactory)
-            ->setChannelsService($channelsService);
+            ->setJsonModelFactory($jsonModelFactory)
+            ->setChannelsService($channelsService)
+            ->setSettingsChannelService($settingsChannelService);
     }
 
     public function indexAction()
@@ -90,6 +102,7 @@ class ChannelsController extends AbstractActionController
     {
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('setup-wizard/channels/pick');
+        $view->setVariable('addUri', $this->url()->fromRoute(Module::ROUTE . '/' . static::ROUTE_CHANNELS . '/' . static::ROUTE_CHANNEL_ADD));
 
         $this->addChannelOptionsToView($view);
 
@@ -120,6 +133,7 @@ class ChannelsController extends AbstractActionController
         $badgeView = $this->viewModelFactory->newInstance([
             'image' => $img,
             'channel' => $channel,
+            'region' => $region,
             'name' => $description,
         ]);
         $badgeView->setTemplate('setup-wizard/channel-badge.mustache');
@@ -145,6 +159,19 @@ class ChannelsController extends AbstractActionController
         return $footer;
     }
 
+    public function addAction()
+    {
+        $channel = $this->params()->fromPost('channel');
+        $region = $this->params()->fromPost('region');
+        $type = ChannelType::SALES;
+
+        $returnRoute = Module::ROUTE . '/' . static::ROUTE_CHANNELS;
+        $this->channelsService->storeAddChannelReturnRoute($returnRoute);
+
+        $redirectUrl = $this->settingsChannelService->createAccount($type, $channel, $region);
+        return $this->jsonModelFactory->newInstance(['url' => $redirectUrl]);
+    }
+
     protected function setSetupService(SetupService $setupService)
     {
         $this->setupService = $setupService;
@@ -157,9 +184,21 @@ class ChannelsController extends AbstractActionController
         return $this;
     }
 
+    protected function setJsonModelFactory(JsonModelFactory $jsonModelFactory)
+    {
+        $this->jsonModelFactory = $jsonModelFactory;
+        return $this;
+    }
+
     protected function setChannelsService(ChannelsService $channelsService)
     {
         $this->channelsService = $channelsService;
+        return $this;
+    }
+
+    protected function setSettingsChannelService(SettingsChannelService $settingsChannelService)
+    {
+        $this->settingsChannelService = $settingsChannelService;
         return $this;
     }
 }
