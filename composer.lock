@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7afafe0726111f1a793271bc0b065fcc",
-    "content-hash": "2e5adf303e5fc6fb3b9154b9fd96f4d4",
+    "hash": "42e1f0ebcee13e3c0242a337d438e23e",
+    "content-hash": "4b28c14b3f1d2bf52e3a5b98c8545d9e",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1168,16 +1168,16 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.0.6",
+            "version": "dev-CGIV-6994-Royal-mail-missing-delivery-instructions",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "cc23d859bea672aa6bb06a8ffff782d02c8bfe1c"
+                "reference": "8e5d5ff94550434e8fdfb168b181c41d7915eec5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.0.6-c6327c.zip",
-                "reference": "cc23d859bea672aa6bb06a8ffff782d02c8bfe1c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6994-Royal-mail-missing-delivery-instructions-148af3.zip",
+                "reference": "8e5d5ff94550434e8fdfb168b181c41d7915eec5",
                 "shasum": null
             },
             "require": {
@@ -1216,7 +1216,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-04-21 12:54:25"
+            "time": "2016-06-01 09:56:45"
         },
         {
             "name": "channelgrabber/notification",
@@ -1793,16 +1793,16 @@
         },
         {
             "name": "channelgrabber/royalmail",
-            "version": "1.0.4",
+            "version": "dev-CGIV-6994-Royal-mail-missing-delivery-instructions",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-royalmail.git",
-                "reference": "e0d23d6de16707f69963b082ec72ac741e7bc971"
+                "reference": "72a32e7532075a4739d2362ca172583936e752c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-royalmail-1.0.4-390718.zip",
-                "reference": "e0d23d6de16707f69963b082ec72ac741e7bc971",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-royalmail-dev-CGIV-6994-Royal-mail-missing-delivery-instructions-6c6121.zip",
+                "reference": "72a32e7532075a4739d2362ca172583936e752c9",
                 "shasum": null
             },
             "require": {
@@ -1816,7 +1816,7 @@
                     "CG\\RoyalMail\\": "src"
                 }
             },
-            "time": "2016-04-21 12:54:36"
+            "time": "2016-06-01 09:57:21"
         },
         {
             "name": "channelgrabber/scraper",
@@ -5318,12 +5318,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423"
+                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-831f88908b51b9ce945f5e6f402931d1ac544423-zip-1643f7.zip",
-                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423",
+                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-524bc2ef778f99df0ba09f8985b23a379c668879-zip-a11667.zip",
+                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879",
                 "shasum": ""
             },
             "require": {
@@ -7652,10 +7652,25 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.7",
+            "alias_normalized": "1.0.7.0",
+            "version": "dev-CGIV-6994-Royal-mail-missing-delivery-instructions",
+            "package": "channelgrabber/netdespatch"
+        },
+        {
+            "alias": "1.0.5",
+            "alias_normalized": "1.0.5.0",
+            "version": "dev-CGIV-6994-Royal-mail-missing-delivery-instructions",
+            "package": "channelgrabber/royalmail"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/netdespatch": 20,
+        "channelgrabber/royalmail": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
