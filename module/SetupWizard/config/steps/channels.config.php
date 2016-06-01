@@ -66,6 +66,16 @@ return [
                                 ],
                                 'may_terminate' => true,
                             ],
+                            ChannelsController::ROUTE_CHANNEL_DELETE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/delete',
+                                    'defaults' => [
+                                        'action' => 'delete',
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
                         ]
                     ]
                 ],

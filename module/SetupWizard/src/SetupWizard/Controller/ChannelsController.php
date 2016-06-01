@@ -19,6 +19,7 @@ class ChannelsController extends AbstractActionController
     const ROUTE_CHANNEL_PICK = 'Pick';
     const ROUTE_CHANNEL_ADD = 'Add';
     const ROUTE_CHANNEL_SAVE = 'Save';
+    const ROUTE_CHANNEL_DELETE = 'Delete';
 
     /** @var SetupService */
     protected $setupService;
@@ -50,7 +51,8 @@ class ChannelsController extends AbstractActionController
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('setup-wizard/channels/index')
             ->setVariable('pickUri', $this->url()->fromRoute(Module::ROUTE . '/' . static::ROUTE_CHANNELS . '/' . static::ROUTE_CHANNEL_PICK))
-            ->setVariable('saveUri', $this->url()->fromRoute(Module::ROUTE . '/' . static::ROUTE_CHANNELS . '/' . static::ROUTE_CHANNEL_SAVE));
+            ->setVariable('saveUri', $this->url()->fromRoute(Module::ROUTE . '/' . static::ROUTE_CHANNELS . '/' . static::ROUTE_CHANNEL_SAVE))
+            ->setVariable('deleteUri', $this->url()->fromRoute(Module::ROUTE . '/' . static::ROUTE_CHANNELS . '/' . static::ROUTE_CHANNEL_DELETE));
 
         $this->addAccountAddButtonToView($view)
             ->addExistingAccountsToView($view);
@@ -182,6 +184,13 @@ class ChannelsController extends AbstractActionController
         unset($data['id']);
 
         $this->channelsService->updateAccount($id, $data);
+        return $this->jsonModelFactory->newInstance(['success' => true]);
+    }
+
+    public function deleteAction()
+    {
+        $id = $this->params()->fromPost('id');
+        $this->channelsService->deleteAccount($id);
         return $this->jsonModelFactory->newInstance(['success' => true]);
     }
 

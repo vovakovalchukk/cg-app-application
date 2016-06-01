@@ -109,6 +109,12 @@ class Service
         $this->accountService->save($account);
     }
 
+    public function deleteAccount($id)
+    {
+        $account = $this->accountService->fetch($id);
+        $this->accountService->remove($account);
+    }
+
     protected function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
     {
         $this->activeUserContainer = $activeUserContainer;

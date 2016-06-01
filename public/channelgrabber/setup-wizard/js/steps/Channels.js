@@ -2,17 +2,20 @@ define([
     '../SetupWizard.js',
     'cg-mustache',
     'popup/generic',
+    'popup/confirm',
     'AjaxRequester'
 ], function(
     setupWizard,
     CGMustache,
     Popup,
+    Confirm,
     ajaxRequester
 ) {
     function Channels(
         notifications,
         pickChannelUri,
         saveAccountUri,
+        deleteAccountUri,
         editPopupTemplateUri,
         buttonsTemplateUri
     ) {
@@ -43,6 +46,11 @@ define([
             return saveAccountUri;
         };
 
+        this.getDeleteAccountUri = function()
+        {
+            return deleteAccountUri;
+        };
+
         this.getEditPopupTemplateUri = function()
         {
             return editPopupTemplateUri;
@@ -67,9 +75,10 @@ define([
         var init = function()
         {
             this.registerNextValidation()
-                .hideSkipIfAccountsAdded()
+                .hideSkipIfAccountsPresent()
                 .listenForAddClick()
-                .listenForEditClick();
+                .listenForEditClick()
+                .listenForDeleteClick();
         };
         init.call(this);
     }
@@ -80,6 +89,7 @@ define([
     Channels.SELECTOR_SKIP = '.setup-wizard-skip-button';
     Channels.SELECTOR_ADD = '.setup-wizard-account-badges .setup-wizard-button-badge';
     Channels.SELECTOR_EDIT = '.setup-wizard-account-edit';
+    Channels.SELECTOR_DELETE = '.setup-wizard-account-delete';
     Channels.SELECTOR_EDIT_SAVE = '#setup-wizard-edit-save-button';
     Channels.SELECTOR_EDIT_CANCEL = '#setup-wizard-edit-cancel-button';
 
@@ -97,13 +107,23 @@ define([
         return this;
     };
 
-    Channels.prototype.hideSkipIfAccountsAdded = function()
+    Channels.prototype.hideSkipIfAccountsPresent = function()
     {
         if ($(Channels.SELECTOR_CHANNEL).length == 0) {
             return this;
         }
         // If the user has added accounts then skipping doesnt make sense
         $(Channels.SELECTOR_SKIP).hide();
+        return this;
+    };
+
+    Channels.prototype.showSkipIfNoAccountsPresent = function()
+    {
+        if ($(Channels.SELECTOR_CHANNEL).length > 0) {
+            return this;
+        }
+        // If there's no accounts then the user can skip if they wish
+        $(Channels.SELECTOR_SKIP).show();
         return this;
     };
 
@@ -226,7 +246,49 @@ define([
         this.getAjaxRequester().sendRequest(this.getSaveAccountUri(), {"id": id, "displayName": name}, function()
         {
             self.getNotifications().success('Changes saved successfully');
-            $(Channels.SELECTOR_CHANNEL_ID + id + ' ' + Channels.SELECTOR_ACCOUNT_NAME).text(name); 
+            $(Channels.SELECTOR_CHANNEL_ID + id + ' ' + Channels.SELECTOR_ACCOUNT_NAME).text(name);
+        });
+    };
+
+    Channels.prototype.listenForDeleteClick = function()
+    {
+        var self = this;
+        $(Channels.SELECTOR_DELETE).click(function(event)
+        {
+            event.preventDefault();
+            var anchor = this;
+            var badge = $(anchor).closest(Channels.SELECTOR_CHANNEL)
+            var accountId = badge.data('account');
+            var name = badge.find(Channels.SELECTOR_ACCOUNT_NAME).text();
+
+            self.deleteAccountWithConfirmation(accountId, name);
+        });
+
+        return this;
+    };
+
+    Channels.prototype.deleteAccountWithConfirmation = function(accountId, name)
+    {
+        var self = this;
+        var message = 'Are you sure you wish to delete <strong>' + name + '</strong>?'
+        new Confirm(message, function(answer)
+        {
+            if (answer !== Confirm.VALUE_YES) {
+                return;
+            }
+            self.deleteAccount(accountId);
+        });
+    };
+
+    Channels.prototype.deleteAccount = function(id)
+    {
+        var self = this;
+        this.getNotifications().notice('Deleting channel');
+        this.getAjaxRequester().sendRequest(this.getDeleteAccountUri(), {"id": id}, function()
+        {
+            self.getNotifications().success('Channel deleted successfully');
+            $(Channels.SELECTOR_CHANNEL_ID + id).remove();
+            self.showSkipIfNoAccountsPresent();
         });
     };
 
