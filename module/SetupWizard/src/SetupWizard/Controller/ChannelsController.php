@@ -62,7 +62,7 @@ class ChannelsController extends AbstractActionController
             'text' => '+',
             'description' => 'Add a channel',
         ]);
-        $badgeView->setTemplate('setup-wizard/button-badge.mustache');
+        $badgeView->setTemplate('setup-wizard/channels/button-badge.mustache');
         $view->addChild($badgeView, 'addBadge');
         return $this;
     }
@@ -93,7 +93,7 @@ class ChannelsController extends AbstractActionController
                 'icon' => Module::PUBLIC_FOLDER . 'img/icons/delete.png',
             ]]
         ]);
-        $badgeView->setTemplate('setup-wizard/account-badge.mustache');
+        $badgeView->setTemplate('setup-wizard/channels/account-badge.mustache');
         $view->addChild($badgeView, 'accountBadges', true);
         return $this;
     }
@@ -136,7 +136,7 @@ class ChannelsController extends AbstractActionController
             'region' => $region,
             'name' => $description,
         ]);
-        $badgeView->setTemplate('setup-wizard/channel-badge.mustache');
+        $badgeView->setTemplate('setup-wizard/channels/channel-badge.mustache');
         $view->addChild($badgeView, 'channelBadges', true);
 
         return $this;
