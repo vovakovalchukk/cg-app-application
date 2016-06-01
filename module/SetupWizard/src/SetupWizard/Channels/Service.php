@@ -99,6 +99,16 @@ class Service
         $session[SettingsModule::SESSION_KEY][SettingsChannelService::SESSION_ADD_CHANNEL_RETURN_ROUTE] = $returnRoute;
     }
 
+    public function updateAccount($id, array $data)
+    {
+        $account = $this->accountService->fetch($id);
+        foreach ($data as $field => $value) {
+            $setter = 'set' . ucfirst($field);
+            $account->$setter($value);
+        }
+        $this->accountService->save($account);
+    }
+
     protected function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
     {
         $this->activeUserContainer = $activeUserContainer;

@@ -75,3 +75,24 @@
         margin-left: 10px;
     }
 }
+
+.setup-wizard-popup {
+    font-size: 18px;
+
+    .header-large {
+        font-size: 1.5em;
+    }
+
+    .content {
+        @extend .setup-wizard-popup;
+
+        .inputbox-label {
+            @extend .setup-wizard-popup;
+            margin-bottom: 10px;
+        }
+
+        .inputbox {
+            @extend .setup-wizard-popup;
+        }
+    }
+}

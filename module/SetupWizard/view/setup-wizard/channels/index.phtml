@@ -12,6 +12,12 @@
 <script type="text/javascript">
     require(['<?=SetupWizard\Module::PUBLIC_FOLDER;?>js/steps/Channels.js'], function(Channels)
     {
-        new Channels(n, '<?=$this->pickUri;?>');
+        new Channels(
+            n,
+            '<?=$this->pickUri;?>',
+            '<?=$this->saveUri;?>',
+            '<?= SetupWizard\Module::PUBLIC_FOLDER . 'template/setup-wizard/channels/edit-popup.mustache';?>',
+            '<?= CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/buttons.mustache';?>'
+        );
     });
 </script>

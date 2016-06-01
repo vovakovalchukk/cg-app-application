@@ -18,6 +18,7 @@ class ChannelsController extends AbstractActionController
     const ROUTE_CHANNELS = 'Channels';
     const ROUTE_CHANNEL_PICK = 'Pick';
     const ROUTE_CHANNEL_ADD = 'Add';
+    const ROUTE_CHANNEL_SAVE = 'Save';
 
     /** @var SetupService */
     protected $setupService;
@@ -47,8 +48,9 @@ class ChannelsController extends AbstractActionController
     public function indexAction()
     {
         $view = $this->viewModelFactory->newInstance();
-        $view->setTemplate('setup-wizard/channels/index');
-        $view->setVariable('pickUri', $this->url()->fromRoute(Module::ROUTE . '/' . static::ROUTE_CHANNELS . '/' . static::ROUTE_CHANNEL_PICK));
+        $view->setTemplate('setup-wizard/channels/index')
+            ->setVariable('pickUri', $this->url()->fromRoute(Module::ROUTE . '/' . static::ROUTE_CHANNELS . '/' . static::ROUTE_CHANNEL_PICK))
+            ->setVariable('saveUri', $this->url()->fromRoute(Module::ROUTE . '/' . static::ROUTE_CHANNELS . '/' . static::ROUTE_CHANNEL_SAVE));
 
         $this->addAccountAddButtonToView($view)
             ->addExistingAccountsToView($view);
@@ -84,6 +86,7 @@ class ChannelsController extends AbstractActionController
         $img = $this->channelsService->getImageFromAccount($account);
         $badgeView = $this->viewModelFactory->newInstance([
             'image' => $img,
+            'id' => $account->getId(),
             'name' => $account->getDisplayName(),
             'controls' => [[
                 'name' => 'edit',
@@ -170,6 +173,16 @@ class ChannelsController extends AbstractActionController
 
         $redirectUrl = $this->settingsChannelService->createAccount($type, $channel, $region);
         return $this->jsonModelFactory->newInstance(['url' => $redirectUrl]);
+    }
+
+    public function saveAction()
+    {
+        $data = $this->params()->fromPost();
+        $id = $data['id'];
+        unset($data['id']);
+
+        $this->channelsService->updateAccount($id, $data);
+        return $this->jsonModelFactory->newInstance(['success' => true]);
     }
 
     protected function setSetupService(SetupService $setupService)

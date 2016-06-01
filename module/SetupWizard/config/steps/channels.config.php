@@ -56,6 +56,16 @@ return [
                                 ],
                                 'may_terminate' => true,
                             ],
+                            ChannelsController::ROUTE_CHANNEL_SAVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/save',
+                                    'defaults' => [
+                                        'action' => 'save',
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
                         ]
                     ]
                 ],
