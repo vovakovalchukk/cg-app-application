@@ -94,6 +94,17 @@ class Service
         return $this->channelService->getChannels(ChannelType::SALES);
     }
 
+    public function getSalesChannelDisplayName($channel)
+    {
+        $salesChannelOptions = $this->getSalesChannelOptions();
+        foreach ($salesChannelOptions as $displayName => $details) {
+            if ($details['channel'] == $channel) {
+                return $displayName;
+            }
+        }
+        return ucfirst($channel);
+    }
+
     public function storeAddChannelReturnRoute($returnRoute)
     {
         $session = $this->sessionManager->getStorage();

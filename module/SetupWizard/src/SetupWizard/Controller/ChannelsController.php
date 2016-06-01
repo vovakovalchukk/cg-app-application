@@ -20,6 +20,9 @@ class ChannelsController extends AbstractActionController
     const ROUTE_CHANNEL_ADD = 'Add';
     const ROUTE_CHANNEL_SAVE = 'Save';
     const ROUTE_CHANNEL_DELETE = 'Delete';
+    const ROUTE_CHANNEL_CONNECT = 'Connect';
+
+    const CHANNEL_CONNECT_TEMPLATE_PATH = 'settings/channel/';
 
     /** @var SetupService */
     protected $setupService;
@@ -174,7 +177,28 @@ class ChannelsController extends AbstractActionController
         $this->channelsService->storeAddChannelReturnRoute($returnRoute);
 
         $redirectUrl = $this->settingsChannelService->createAccount($type, $channel, $region);
+        if ($this->isInternalUrl($redirectUrl)) {
+            $redirectUrl = $this->constructConnectUrl($channel, $region);
+        }
+
         return $this->jsonModelFactory->newInstance(['url' => $redirectUrl]);
+    }
+
+    protected function isInternalUrl($url)
+    {
+        return (substr($url, 0, 1) == '/');
+    }
+
+    protected function constructConnectUrl($channel, $region = null)
+    {
+        $routeParams = ['channel' => $channel];
+        if ($region) {
+            $routeParams['region'] = $region;
+        }
+        return $this->url()->fromRoute(
+            Module::ROUTE . '/' . static::ROUTE_CHANNELS . '/' . static::ROUTE_CHANNEL_ADD . '/' . static::ROUTE_CHANNEL_CONNECT,
+            $routeParams
+        );
     }
 
     public function saveAction()
@@ -192,6 +216,21 @@ class ChannelsController extends AbstractActionController
         $id = $this->params()->fromPost('id');
         $this->channelsService->deleteAccount($id);
         return $this->jsonModelFactory->newInstance(['success' => true]);
+    }
+
+    public function connectAction()
+    {
+        $channel = $this->params()->fromRoute('channel');
+        $region = $this->params()->fromRoute('region');
+        $displayName = $this->channelsService->getSalesChannelDisplayName($channel);
+        $template = static::CHANNEL_CONNECT_TEMPLATE_PATH . str_replace(['-', '_'], '', strtolower($channel));
+
+        $view = $this->viewModelFactory->newInstance();
+        $view->setTemplate($template)
+            ->setVariable('region', $region)
+            ->setVariable('accountId', null);
+
+        return $this->setupService->getSetupView('Add ' . $displayName, $view, false);
     }
 
     protected function setSetupService(SetupService $setupService)

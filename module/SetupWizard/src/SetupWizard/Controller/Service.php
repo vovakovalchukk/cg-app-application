@@ -43,12 +43,12 @@ class Service
         } else {
             $view->setVariable('body', $body);
         }
-        if (!$footer) {
+        if ($footer === null) {
             $footer = $this->getSetupFooterView();
         }
         if ($footer instanceof ViewModel) {
             $view->addChild($footer, 'footer');
-        } else {
+        } elseif ($footer !== false) {
             $view->setVariable('footer', $footer);
         }
         return $view;

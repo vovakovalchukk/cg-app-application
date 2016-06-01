@@ -3,6 +3,7 @@
 use SetupWizard\Controller\ChannelsController;
 use SetupWizard\Module;
 use Zend\Mvc\Router\Http\Literal;
+use Zend\Mvc\Router\Http\Segment;
 
 return [
     'navigation' => [
@@ -55,6 +56,18 @@ return [
                                     ]
                                 ],
                                 'may_terminate' => true,
+                                'child_routes' => [
+                                    ChannelsController::ROUTE_CHANNEL_CONNECT => [
+                                        'type' => Segment::class,
+                                        'options' => [
+                                            'route' => '/:channel[/:region]',
+                                            'defaults' => [
+                                                'action' => 'connect',
+                                            ]
+                                        ],
+                                        'may_terminate' => true,
+                                    ],
+                                ]
                             ],
                             ChannelsController::ROUTE_CHANNEL_SAVE => [
                                 'type' => Literal::class,
