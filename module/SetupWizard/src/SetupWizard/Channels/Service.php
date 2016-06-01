@@ -57,6 +57,7 @@ class Service
             ->setLimit('all')
             ->setPage(1)
             ->setOrganisationUnitId($ouList)
+            ->setDeleted(false)
             ->setType(ChannelType::SALES);
         return $this->accountService->fetchByFilter($filter);
     }
@@ -112,7 +113,7 @@ class Service
     public function deleteAccount($id)
     {
         $account = $this->accountService->fetch($id);
-        $this->accountService->remove($account);
+        $this->accountService->delete($account);
     }
 
     protected function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
