@@ -73,6 +73,7 @@
     .button {
         float: right;
         margin-left: 10px;
+        font-size: 16px;
     }
 }
 
@@ -96,5 +97,9 @@
         .inputbox {
             @extend .setup-wizard-popup;
         }
+    }
+
+    .button {
+        font-size: 16px;
     }
 }
