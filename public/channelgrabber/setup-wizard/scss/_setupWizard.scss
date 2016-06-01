@@ -85,6 +85,8 @@
 
     .content {
         @extend .setup-wizard-popup;
+        width: auto;
+        max-width: 800px;
 
         .inputbox-label {
             @extend .setup-wizard-popup;

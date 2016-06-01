@@ -271,13 +271,14 @@ define([
     {
         var self = this;
         var message = 'Are you sure you wish to delete <strong>' + name + '</strong>?'
-        new Confirm(message, function(answer)
+        var confirm = new Confirm(message, function(answer)
         {
             if (answer !== Confirm.VALUE_YES) {
                 return;
             }
             self.deleteAccount(accountId);
         });
+        confirm.getElement().addClass('setup-wizard-popup');
     };
 
     Channels.prototype.deleteAccount = function(id)
