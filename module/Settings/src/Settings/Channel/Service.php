@@ -22,6 +22,7 @@ class Service
 {
     const EVENT_ACCOUNT_ADDED = 'Account Added';
     const SESSION_ADD_CHANNEL_RETURN_ROUTE = 'addChannelReturnRoute';
+    const ADD_CHANNEL_RETURN_ROUTE_TIMEOUT_SEC = 600;
 
     protected $accountList;
     protected $accountClient;
@@ -182,9 +183,13 @@ class Service
         if (!isset($session[Module::SESSION_KEY], $session[Module::SESSION_KEY][static::SESSION_ADD_CHANNEL_RETURN_ROUTE])) {
             return null;
         }
-        $redirectRoute = $session[Module::SESSION_KEY][static::SESSION_ADD_CHANNEL_RETURN_ROUTE];
+        $redirectRouteDetails = $session[Module::SESSION_KEY][static::SESSION_ADD_CHANNEL_RETURN_ROUTE];
         unset($session[Module::SESSION_KEY][static::SESSION_ADD_CHANNEL_RETURN_ROUTE]);
-        return $redirectRoute;
+        $timeElapsed = time() - $redirectRouteDetails['timestamp'];
+        if ($timeElapsed > static::ADD_CHANNEL_RETURN_ROUTE_TIMEOUT_SEC) {
+            return null;
+        }
+        return $redirectRouteDetails['route'];
     }
 
     public function getAccountClient()

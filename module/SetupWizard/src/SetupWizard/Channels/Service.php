@@ -108,7 +108,10 @@ class Service
     public function storeAddChannelReturnRoute($returnRoute)
     {
         $session = $this->sessionManager->getStorage();
-        $session[SettingsModule::SESSION_KEY][SettingsChannelService::SESSION_ADD_CHANNEL_RETURN_ROUTE] = $returnRoute;
+        $session[SettingsModule::SESSION_KEY][SettingsChannelService::SESSION_ADD_CHANNEL_RETURN_ROUTE] = [
+            'route' => $returnRoute,
+            'timestamp' => time()
+        ];
     }
 
     public function updateAccount($id, array $data)
