@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7356805bd9fb5926747f05733db81bc9",
+    "hash": "e4d3760af42eba7d7a8d74a2e4d13710",
     "content-hash": "4b6016d9eb9d310cd8d74554e7556fe6",
     "packages": [
         {
@@ -3073,12 +3073,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/netdespatch-module.git",
-                "reference": "35e11e0b8f8b3593995f38fbd3cb597922f25a49"
+                "reference": "99817a76c1546cdd95aa5b178e273bb220cf8ea3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-CGIV-6958-RoyalMailRegistrationForm-427103.zip",
-                "reference": "35e11e0b8f8b3593995f38fbd3cb597922f25a49",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-CGIV-6958-RoyalMailRegistrationForm-8057aa.zip",
+                "reference": "99817a76c1546cdd95aa5b178e273bb220cf8ea3",
                 "shasum": null
             },
             "require": {
@@ -3109,7 +3109,7 @@
                 ]
             },
             "description": "NetDespatch module",
-            "time": "2016-06-02 10:48:59"
+            "time": "2016-06-02 13:32:19"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -3419,16 +3419,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.50",
+            "version": "1.16.50.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "43d52462cdeea8d81a37e1a087b48a9b8dc93ca3"
+                "reference": "ba9f23056553eac368a6709e6775a4c636258d06"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.50-6ba992.zip",
-                "reference": "43d52462cdeea8d81a37e1a087b48a9b8dc93ca3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.50.1-c1d3bb.zip",
+                "reference": "ba9f23056553eac368a6709e6775a4c636258d06",
                 "shasum": null
             },
             "require": {
@@ -3441,7 +3441,7 @@
                 "channelgrabber/log": ">=1.4.2",
                 "channelgrabber/stdlib": ">=2.7.4,<3.0.0",
                 "channelgrabber/user": "^1.20.6",
-                "channelgrabber/zf2-installer": "~1.0.5",
+                "channelgrabber/zf2-installer": "~1.0.6",
                 "channelgrabber/zf2-mustache": ">=1.0.0",
                 "channelgrabber/zf2-stdlib": ">=1.0.3",
                 "composer/composer": "@dev",
@@ -3475,7 +3475,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-05-17 07:57:24"
+            "time": "2016-06-01 10:55:48"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
