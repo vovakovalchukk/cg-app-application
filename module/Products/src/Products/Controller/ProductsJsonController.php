@@ -162,7 +162,18 @@ class ProductsJsonController extends AbstractActionController
         ]);
 
         $detailsEntity = $productEntity->getDetails();
-        $product['details'] = $detailsEntity ? $detailsEntity->toArray() : ['sku' => $productEntity->getSku()];
+        if ($detailsEntity) {
+            $product['details'] = [
+                'id' => $detailsEntity->getId(),
+                'sku' => $detailsEntity->getSku(),
+                'weight' => $detailsEntity->getDisplayWeight(),
+                'width' => $detailsEntity->getDisplayWidth(),
+                'height' => $detailsEntity->getDisplayHeight(),
+                'length' => $detailsEntity->getDisplayLength(),
+            ];
+        } else {
+            $product['details'] = ['sku' => $productEntity->getSku()];
+        }
 
         foreach ($product['stock']['locations'] as $stockLocationIndex => $stockLocation) {
             $stockLocationId = $product['stock']['locations'][$stockLocationIndex]['id'];

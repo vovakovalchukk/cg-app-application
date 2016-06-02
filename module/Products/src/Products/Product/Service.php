@@ -256,6 +256,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     public function saveProductDetail($sku, $detail, $value, $id = null)
     {
         $value = is_numeric($value) ? (float) $value : null;
+        if ($detail == 'weight') {
+            $value = Details::convertMass($value, Details::DISPLAY_UNIT_MASS, Details::UNIT_MASS);
+        } else {
+            $value = Details::convertLength($value, Details::DISPLAY_UNIT_LENGTH, Details::UNIT_LENGTH);
+        }
+
         if ($id) {
             $this->detailService->patchEntity($id, [$detail => $value]);
         } else {
@@ -271,6 +277,7 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             );
             $id = $details->getId();
         }
+
         return $id;
     }
 

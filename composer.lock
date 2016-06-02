@@ -1615,12 +1615,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "fe31fb1f2e6e46b2305c14673637ab145dc052a0"
+                "reference": "d361b0695713a816c54a76fab9032573d1f5c5e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-7001-ProductEditableWeightDimensions-53b6c9.zip",
-                "reference": "fe31fb1f2e6e46b2305c14673637ab145dc052a0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-7001-ProductEditableWeightDimensions-9ad324.zip",
+                "reference": "d361b0695713a816c54a76fab9032573d1f5c5e1",
                 "shasum": null
             },
             "require": {
@@ -1640,6 +1640,7 @@
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "guzzle/guzzle": "~3.7",
                 "nocarrier/hal": "~0.9.7",
+                "php-units-of-measure/php-units-of-measure": "^2.0.0",
                 "zendframework/zend-di": ">=2.2.5"
             },
             "type": "di-definition",
@@ -1653,7 +1654,7 @@
                     "CG\\Product\\": "src"
                 }
             },
-            "time": "2016-05-31 08:39:40"
+            "time": "2016-06-02 08:52:37"
         },
         {
             "name": "channelgrabber/product-locking",
