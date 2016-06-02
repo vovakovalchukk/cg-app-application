@@ -78,13 +78,6 @@ class Service implements LoggerAwareInterface
     /** @var CarrierBookingOptionsInterface */
     protected $carrierBookingOptions;
 
-    protected $productDetailFields = [
-        'weight' => 'processWeightFromProductDetails',
-        'width'  => 'processDimensionFromProductDetails',
-        'height' => 'processDimensionFromProductDetails',
-        'length' => 'processDimensionFromProductDetails',
-    ];
-
     protected $reviewListRequiredFields = ['courier', 'service'];
     protected $specificsListRequiredOrderFields = ['parcels', 'collectionDate', 'collectionTime'];
     protected $specificsListRequiredParcelFields = ['weight', 'width', 'height', 'length', 'packageType', 'itemParcelAssignment'];
