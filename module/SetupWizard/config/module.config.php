@@ -7,6 +7,10 @@ use SetupWizard\Module;
 use SetupWizard\Navigation\SidebarNavFactory;
 use Zend\Mvc\Router\Http\Literal;
 
+// SetupProgress
+use CG\Settings\SetupProgress\Storage\Api as SetupProgressApiStorage;
+use CG\Settings\SetupProgress\StorageInterface as SetupProgressStorage;
+
 return [
     'navigation' => [
         'setup-navigation' => [
@@ -60,11 +64,19 @@ return [
         'instance' => [
             'aliases' => [
             ],
-             Service::class => [
-                 'parameters' => [
-                     'amazonCryptor' => 'amazon_cryptor',
-                 ]
-             ]
+            Service::class => [
+                'parameters' => [
+                    'amazonCryptor' => 'amazon_cryptor',
+                ]
+            ],
+            SetupProgressApiStorage::class => [
+                'parameters' => [
+                    'client' => 'cg_app_guzzle',
+                ]
+            ],
+            'preferences' => [
+                SetupProgressStorage::class => SetupProgressApiStorage::class,
+            ]
         ]
     ],
 ];

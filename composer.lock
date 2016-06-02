@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d03b53a4898ff2d91069a1ed4c231043",
-    "content-hash": "e8bfde73b5c019d1561b31f7712acca5",
+    "hash": "945feff88633e365e6afc3170eb44363",
+    "content-hash": "b5ff5321d01ceb7ee3ab1530aa6b1bc0",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1886,16 +1886,16 @@
         },
         {
             "name": "channelgrabber/settings",
-            "version": "1.3.12",
+            "version": "dev-CGIV-7099-setup-wizard-record-progress",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "cd6b7a6ed9baa7b0822591c7ee3f38487a23e655"
+                "reference": "325db16f251b60978e66917127d3145c76de4a00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-1.3.12-a8bceb.zip",
-                "reference": "cd6b7a6ed9baa7b0822591c7ee3f38487a23e655",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-7099-setup-wizard-record-progress-4e6c1f.zip",
+                "reference": "325db16f251b60978e66917127d3145c76de4a00",
                 "shasum": null
             },
             "require": {
@@ -1916,7 +1916,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2016-04-21 12:54:50"
+            "time": "2016-06-02 13:33:08"
         },
         {
             "name": "channelgrabber/slim",
@@ -7654,6 +7654,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.3.13",
+            "alias_normalized": "1.3.13.0",
+            "version": "dev-CGIV-7099-setup-wizard-record-progress",
+            "package": "channelgrabber/settings"
+        },
+        {
             "alias": "1.21.2",
             "alias_normalized": "1.21.2.0",
             "version": "dev-EPIC-CGIV-7061-setup-wizard",
@@ -7681,6 +7687,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/settings": 20,
         "channelgrabber/user": 20,
         "channelgrabber/zf2-login": 20,
         "channelgrabber/zf2-register": 20,

@@ -17,7 +17,7 @@ class Module implements DependencyIndicatorInterface
     {
         $eventManager = $event->getApplication()->getEventManager();
         $eventManager->attach(MvcEvent::EVENT_RENDER, [$this, 'appendStylesheet']);
-        $eventManager->attach(MvcEvent::EVENT_DISPATCH, [$this, 'checkForStepStatus']);
+        $eventManager->attach(MvcEvent::EVENT_DISPATCH, [$this, 'processStepStatus']);
     }
 
     public function appendStylesheet(MvcEvent $e)
@@ -28,17 +28,22 @@ class Module implements DependencyIndicatorInterface
         $renderer->headLink()->appendStylesheet($basePath() . static::PUBLIC_FOLDER . 'css/default.css');
     }
 
-    public function checkForStepStatus(MvcEvent $e)
+    public function processStepStatus(MvcEvent $e)
     {
+        $currentStep = null;
+        $route = $e->getRouteMatch()->getMatchedRouteName();
+        if (preg_match('/^' . static::ROUTE . '\/([^\/]+)/', $route, $matches)) {
+            $currentStep = $matches[1];
+        }
         $request = $e->getRequest();
         $previousStep = $request->getQuery('prev');
         $previousStepStatus = $request->getQuery('status');
-        if (!$previousStep || !$previousStepStatus) {
+        if (!$currentStep && (!$previousStep || !$previousStepStatus)) {
             return;
         }
         $di = $e->getApplication()->getServiceManager()->get(Di::class);
         $service = $di->get(StepStatusService::class);
-        $service($previousStep, $previousStepStatus);
+        $service->processStepStatus($currentStep, $previousStep, $previousStepStatus);
     }
 
     public function getConfig()
