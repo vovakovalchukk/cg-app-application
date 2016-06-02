@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "42e1f0ebcee13e3c0242a337d438e23e",
+    "hash": "6a721ad1dda12dd115a9d40c8ef65a05",
     "content-hash": "4b28c14b3f1d2bf52e3a5b98c8545d9e",
     "packages": [
         {
@@ -1172,12 +1172,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "8e5d5ff94550434e8fdfb168b181c41d7915eec5"
+                "reference": "7eed02cb3522bb4055950aeeacec9f41edf98355"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6994-Royal-mail-missing-delivery-instructions-148af3.zip",
-                "reference": "8e5d5ff94550434e8fdfb168b181c41d7915eec5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6994-Royal-mail-missing-delivery-instructions-7b95ec.zip",
+                "reference": "7eed02cb3522bb4055950aeeacec9f41edf98355",
                 "shasum": null
             },
             "require": {
@@ -1216,7 +1216,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-06-01 09:56:45"
+            "time": "2016-06-02 08:03:43"
         },
         {
             "name": "channelgrabber/notification",
