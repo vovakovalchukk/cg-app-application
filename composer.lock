@@ -1890,12 +1890,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-settings.git",
-                "reference": "325db16f251b60978e66917127d3145c76de4a00"
+                "reference": "28c0a7e2956380af5181a19aaea7769fb456c436"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-7099-setup-wizard-record-progress-4e6c1f.zip",
-                "reference": "325db16f251b60978e66917127d3145c76de4a00",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-settings-dev-CGIV-7099-setup-wizard-record-progress-23ef4b.zip",
+                "reference": "28c0a7e2956380af5181a19aaea7769fb456c436",
                 "shasum": null
             },
             "require": {
@@ -1916,7 +1916,7 @@
                     "CG\\Settings\\": "src"
                 }
             },
-            "time": "2016-06-02 13:33:08"
+            "time": "2016-06-02 14:55:53"
         },
         {
             "name": "channelgrabber/slim",

@@ -1,6 +1,8 @@
 <?php
 namespace SetupWizard;
 
+use CG\Http\StatusCode;
+use CG\Settings\SetupProgress\Entity as SetupProgress;
 use SetupWizard\StepStatusService;
 use Zend\Di\Di;
 use Zend\Config\Factory as ConfigFactory;
@@ -17,7 +19,9 @@ class Module implements DependencyIndicatorInterface
     {
         $eventManager = $event->getApplication()->getEventManager();
         $eventManager->attach(MvcEvent::EVENT_RENDER, [$this, 'appendStylesheet']);
+        // The ordering of these is important - must save the current status before interrogating it
         $eventManager->attach(MvcEvent::EVENT_DISPATCH, [$this, 'processStepStatus']);
+        $eventManager->attach(MvcEvent::EVENT_DISPATCH, [$this, 'constrainToWizard']);
     }
 
     public function appendStylesheet(MvcEvent $e)
@@ -43,7 +47,33 @@ class Module implements DependencyIndicatorInterface
         }
         $di = $e->getApplication()->getServiceManager()->get(Di::class);
         $service = $di->get(StepStatusService::class);
-        $service->processStepStatus($currentStep, $previousStep, $previousStepStatus);
+        $service->processStepStatus($previousStep, $previousStepStatus, $currentStep);
+    }
+
+    public function constrainToWizard(MvcEvent $e)
+    {
+        $route = $e->getRouteMatch()->getMatchedRouteName();
+        if (preg_match('/^' . static::ROUTE . '/', $route)) {
+            return;
+        }
+        $di = $e->getApplication()->getServiceManager()->get(Di::class);
+        $service = $di->get(StepStatusService::class);
+        $redirectRoute = $service->getRedirectRouteIfIncomplete();
+        if (!$redirectRoute) {
+            return;
+        }
+        return $this->redirectToRoute($redirectRoute, $e);
+    }
+
+    protected function redirectToRoute($route, MvcEvent $e)
+    {
+        $url = $e->getRouter()->assemble([], ['name' => $route]);
+
+        $response = $e->getResponse();
+        $e->stopPropagation();
+        $response->getHeaders()->addHeaderLine('Location', $url);
+        $response->setStatusCode(StatusCode::TEMPORARY_REDIRECT);
+        $response->sendHeaders();
     }
 
     public function getConfig()

@@ -3,6 +3,7 @@ namespace SetupWizard;
 
 use CG\Intercom\Event\Service as EventService;
 use CG\Intercom\Event\Request as Event;
+use CG\Settings\SetupProgress\Entity as SetupProgress;
 use CG\Settings\SetupProgress\Mapper as SetupProgressMapper;
 use CG\Settings\SetupProgress\Service as SetupProgressService;
 use CG\Settings\SetupProgress\Step\Status as StepStatus;
@@ -12,6 +13,7 @@ use CG\Stdlib\Log\LogTrait;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
 use CG\User\ActiveUserInterface;
+use SetupWizard\Module;
 
 class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
 {
@@ -21,6 +23,9 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
     const EVENT_NAME_PREFIX = 'Setup ';
     const LOG_CODE = 'SetupStepStatus';
     const LOG_STATUS = 'User %d (OU %d) %s setup step \'%s\'';
+    const LOG_COMPLETE = 'User %d (OU %d) has completed the setup wizard %s';
+    const LOG_LAST_STEP = 'User %d (OU %d) was on setup step \'%s\', will redirect';
+    const LOG_NO_STEPS = 'User %d (OU %d) has not been through setup yet, will redirect';
     const STAT_NAME = 'setup-wizard.%s.%s';
 
     /** @var EventService */
@@ -44,13 +49,13 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
             ->setSetupProgressService($setupProgressService);
     }
 
-    public function processStepStatus($currentStep, $previousStep, $previousStepStatus)
+    public function processStepStatus($previousStep, $previousStepStatus, $currentStep)
     {
-        if ($currentStep) {
-            $this->processCurrentStep($currentStep);
-        }
         if ($previousStep) {
             $this->processPreviousStep($previousStep, $previousStepStatus);
+        }
+        if ($currentStep) {
+            $this->processCurrentStep($currentStep);
         }
     }
 
@@ -102,6 +107,26 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
         $this->eventService->save($event);
 
         return $this;
+    }
+
+    public function getRedirectRouteIfIncomplete()
+    {
+        $user = $this->activeUserContainer->getActiveUser();
+        $ouId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+        $setupProgress = $this->setupProgressService->fetch($ouId);
+        if ($setupProgress->isComplete()) {
+            $this->logDebug(static::LOG_COMPLETE, ['user' => $user->getId(), 'ou' => $ouId, ''], static::LOG_CODE);
+            return null;
+        }
+
+        $lastStep = $setupProgress->getLastStep();
+        if (!$lastStep) {
+            $this->logDebug(static::LOG_NO_STEPS, ['user' => $user->getId(), 'ou' => $ouId], static::LOG_CODE);
+            return Module::ROUTE;
+        }
+
+        $this->logDebug(static::LOG_LAST_STEP, ['user' => $user->getId(), 'ou' => $ouId, 'setupWizardStep' => $lastStep->getName()], static::LOG_CODE);
+        return Module::ROUTE . '/' . $lastStep->getName();
     }
 
     protected function setEventService(EventService $eventService)
