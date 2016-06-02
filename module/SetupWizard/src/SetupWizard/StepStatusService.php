@@ -3,7 +3,6 @@ namespace SetupWizard;
 
 use CG\Intercom\Event\Service as EventService;
 use CG\Intercom\Event\Request as Event;
-use CG\Settings\SetupProgress\Entity as SetupProgress;
 use CG\Settings\SetupProgress\Mapper as SetupProgressMapper;
 use CG\Settings\SetupProgress\Service as SetupProgressService;
 use CG\Settings\SetupProgress\Step\Status as StepStatus;
@@ -14,6 +13,7 @@ use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
 use CG\User\ActiveUserInterface;
 use SetupWizard\Module;
+use Zend\Session\SessionManager;
 
 class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
 {
@@ -36,17 +36,21 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
     protected $setupProgressMapper;
     /** @var SetupProgressService */
     protected $setupProgressService;
+    /** @var SessionManager */
+    protected $sessionManager;
 
     public function __construct(
         EventService $eventService,
         ActiveUserInterface $activeUserContainer,
         SetupProgressMapper $setupProgressMapper,
-        SetupProgressService $setupProgressService
+        SetupProgressService $setupProgressService,
+        SessionManager $sessionManager
     ) {
         $this->setEventService($eventService)
             ->setActiveUserContainer($activeUserContainer)
             ->setSetupProgressMapper($setupProgressMapper)
-            ->setSetupProgressService($setupProgressService);
+            ->setSetupProgressService($setupProgressService)
+            ->setSessionManager($sessionManager);
     }
 
     public function processStepStatus($previousStep, $previousStepStatus, $currentStep)
@@ -112,9 +116,23 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
     public function getRedirectRouteIfIncomplete()
     {
         $user = $this->activeUserContainer->getActiveUser();
+        if (!$user) {
+            return null;
+        }
         $ouId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+
+        $session = $this->sessionManager->getStorage();
+        if (isset($session['setup'], $session['setup']['complete']) && $session['setup']['complete'] == true) {
+            $this->logDebug(static::LOG_COMPLETE, ['user' => $user->getId(), 'ou' => $ouId, '(cached)'], static::LOG_CODE);
+            return null;
+        }
+
         $setupProgress = $this->setupProgressService->fetch($ouId);
         if ($setupProgress->isComplete()) {
+            if (!isset($session['setup'])) {
+                $session['setup'] = [];
+            }
+            $session['setup']['complete'] = true;
             $this->logDebug(static::LOG_COMPLETE, ['user' => $user->getId(), 'ou' => $ouId, ''], static::LOG_CODE);
             return null;
         }
@@ -150,6 +168,12 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
     protected function setSetupProgressService(SetupProgressService $setupProgressService)
     {
         $this->setupProgressService = $setupProgressService;
+        return $this;
+    }
+
+    protected function setSessionManager(SessionManager $sessionManager)
+    {
+        $this->sessionManager = $sessionManager;
         return $this;
     }
 }
