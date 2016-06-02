@@ -2,7 +2,6 @@
 namespace SetupWizard;
 
 use CG\Http\StatusCode;
-use CG\Settings\SetupProgress\Entity as SetupProgress;
 use SetupWizard\StepStatusService;
 use Zend\Di\Di;
 use Zend\Config\Factory as ConfigFactory;
@@ -53,7 +52,7 @@ class Module implements DependencyIndicatorInterface
     public function constrainToWizard(MvcEvent $e)
     {
         $route = $e->getRouteMatch()->getMatchedRouteName();
-        if (preg_match('/^' . static::ROUTE . '/', $route)) {
+        if ($this->isLoginRoute($route) || $this->isSetupWizardRoute($route)) {
             return;
         }
         $di = $e->getApplication()->getServiceManager()->get(Di::class);
@@ -63,6 +62,16 @@ class Module implements DependencyIndicatorInterface
             return;
         }
         return $this->redirectToRoute($redirectRoute, $e);
+    }
+
+    protected function isLoginRoute($route)
+    {
+        return preg_match('/^cg_login/', $route);
+    }
+
+    protected function isSetupWizardRoute($route)
+    {
+        return preg_match('/^' . static::ROUTE . '/', $route);
     }
 
     protected function redirectToRoute($route, MvcEvent $e)
@@ -97,6 +106,7 @@ class Module implements DependencyIndicatorInterface
     {
         return [
             'CG_UI',
+            'CG_Login',
             'Settings',
         ];
     }
