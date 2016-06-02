@@ -35,8 +35,11 @@ class Module implements DependencyIndicatorInterface
     {
         $currentStep = null;
         $route = $e->getRouteMatch()->getMatchedRouteName();
-        if (preg_match('/^' . static::ROUTE . '\/([^\/]+)/', $route, $matches)) {
-            $currentStep = $matches[1];
+        if (preg_match('/^' . static::ROUTE . '\/([^\/]+)(\/[^\/]+)?/', $route, $matches)) {
+            // Don't process sub steps, only main steps
+            if (!isset($matches[2]) || !$matches[2]) {
+                $currentStep = $matches[1];
+            }
         }
         $request = $e->getRequest();
         $previousStep = $request->getQuery('prev');
