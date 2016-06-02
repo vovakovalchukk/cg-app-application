@@ -5,17 +5,25 @@
   position: absolute;
   @include calc(top, "50% - 150px");
   @include calc(left, "50% - 250px");
-  p {
+  &.large {
+    width: 1000px;
+    height: auto;
+    top: 80px;
+    @include calc(left, "50% - 500px");
+  }
+  > div, p {
     width: 100%;
     float: left;
     clear:both;
     margin: 30px 0px 30px 0px;
   }
-  .account-field-holder {
+  h1, .spacer, .account-field-holder {
     width: 100%;
     float: left;
     clear:both;
     margin-bottom: 20px;
+  }
+  .account-field-holder {
     .label {
       width: 40%;
       float: left;
@@ -27,6 +35,9 @@
       width: 50%;
       float: left;
     }
+  }
+  div > .account-field-holder {
+    margin-left: 10px;
   }
   .account-form-buttons-holder {
     width: 250px;
