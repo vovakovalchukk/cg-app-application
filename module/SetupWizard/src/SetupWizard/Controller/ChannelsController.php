@@ -60,7 +60,7 @@ class ChannelsController extends AbstractActionController
         $this->addAccountAddButtonToView($view)
             ->addExistingAccountsToView($view);
 
-        return $this->setupService->getSetupView('Add Channels', $view);
+        return $this->setupService->getSetupView('Add Channels', $view, $this->getMainFooterView());
     }
 
     protected function addAccountAddButtonToView(ViewModel $view)
@@ -104,6 +104,18 @@ class ChannelsController extends AbstractActionController
         $badgeView->setTemplate('setup-wizard/channels/account-badge.mustache');
         $view->addChild($badgeView, 'accountBadges', true);
         return $this;
+    }
+
+    protected function getMainFooterView()
+    {
+        // No skip button for this step as it must be completed
+        $footer = $this->viewModelFactory->newInstance([
+            'buttons' => [
+                $this->setupService->getNextButtonViewConfig(),
+            ]
+        ]);
+        $footer->setTemplate('elements/buttons.mustache');
+        return $footer;
     }
 
     public function pickAction()

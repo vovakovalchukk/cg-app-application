@@ -76,23 +76,42 @@ class Service
         }
         $footer = $this->viewModelFactory->newInstance([
             'buttons' => [
-                [
-                    'value' => 'Next',
-                    'id' => 'setup-wizard-next-button',
-                    'class' => 'setup-wizard-next-button',
-                    'disabled' => false,
-                    'action' => $nextStepUri,
-                ], [
-                    'value' => 'Skip',
-                    'id' => 'setup-wizard-skip-button',
-                    'class' => 'setup-wizard-skip-button',
-                    'disabled' => false,
-                    'action' => $nextStepUri,
-                ]
+                $this->getNextButtonViewConfig(),
+                $this->getSkipButtonViewConfig(),
             ]
         ]);
         $footer->setTemplate('elements/buttons.mustache');
         return $footer;
+    }
+
+    public function getNextButtonViewConfig()
+    {
+        $nextStepUri = $this->getNextStepUri();
+        if (!$nextStepUri) {
+            return null;
+        }
+        return [
+            'value' => 'Next',
+            'id' => 'setup-wizard-next-button',
+            'class' => 'setup-wizard-next-button',
+            'disabled' => false,
+            'action' => $nextStepUri,
+        ];
+    }
+
+    public function getSkipButtonViewConfig()
+    {
+        $nextStepUri = $this->getNextStepUri();
+        if (!$nextStepUri) {
+            return null;
+        }
+        return [
+            'value' => 'Skip',
+            'id' => 'setup-wizard-skip-button',
+            'class' => 'setup-wizard-skip-button',
+            'disabled' => false,
+            'action' => $nextStepUri,
+        ];
     }
 
     public function getFirstStepUri()

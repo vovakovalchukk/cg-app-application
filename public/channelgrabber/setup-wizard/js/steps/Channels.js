@@ -75,7 +75,6 @@ define([
         var init = function()
         {
             this.registerNextValidation()
-                .hideSkipIfAccountsPresent()
                 .listenForAddClick()
                 .listenForEditClick()
                 .listenForDeleteClick();
@@ -86,7 +85,6 @@ define([
     Channels.SELECTOR_CHANNEL = '.setup-wizard-account-badge';
     Channels.SELECTOR_CHANNEL_ID = '#setup-wizard-account-badge-';
     Channels.SELECTOR_ACCOUNT_NAME = '.setup-wizard-account-badge-name';
-    Channels.SELECTOR_SKIP = '.setup-wizard-skip-button';
     Channels.SELECTOR_ADD = '.setup-wizard-account-badges .setup-wizard-button-badge';
     Channels.SELECTOR_EDIT = '.setup-wizard-account-edit';
     Channels.SELECTOR_DELETE = '.setup-wizard-account-delete';
@@ -98,32 +96,12 @@ define([
         this.getSetupWizard().registerNextCallback(function()
         {
             if ($(Channels.SELECTOR_CHANNEL).length == 0) {
-                n.error('You must add at least one channel (or you can choose to skip this step)');
+                n.error('You must add at least one channel');
                 return false;
             }
             return true;
         });
 
-        return this;
-    };
-
-    Channels.prototype.hideSkipIfAccountsPresent = function()
-    {
-        if ($(Channels.SELECTOR_CHANNEL).length == 0) {
-            return this;
-        }
-        // If the user has added accounts then skipping doesnt make sense
-        $(Channels.SELECTOR_SKIP).hide();
-        return this;
-    };
-
-    Channels.prototype.showSkipIfNoAccountsPresent = function()
-    {
-        if ($(Channels.SELECTOR_CHANNEL).length > 0) {
-            return this;
-        }
-        // If there's no accounts then the user can skip if they wish
-        $(Channels.SELECTOR_SKIP).show();
         return this;
     };
 
@@ -289,7 +267,6 @@ define([
         {
             self.getNotifications().success('Channel deleted successfully');
             $(Channels.SELECTOR_CHANNEL_ID + id).remove();
-            self.showSkipIfNoAccountsPresent();
         });
     };
 
