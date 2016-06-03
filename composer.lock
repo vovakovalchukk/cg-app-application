@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7b2fb735b55bc68e92d0b0aa80791e69",
+    "hash": "2fea8f1d1b606de7681029976b34108d",
     "content-hash": "8e8979243dd7e53422d0b84917b85439",
     "packages": [
         {
@@ -2188,12 +2188,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-tax.git",
-                "reference": "906c26cdd495824ee412e2dc03875c8f1ff204c3"
+                "reference": "bdf238821a4293c5625f0baebdcbb6c189809dd9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-tax-dev-CGIV-7095-Country-specific-vat-rates-6b3c26.zip",
-                "reference": "906c26cdd495824ee412e2dc03875c8f1ff204c3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-tax-dev-CGIV-7095-Country-specific-vat-rates-df1178.zip",
+                "reference": "bdf238821a4293c5625f0baebdcbb6c189809dd9",
                 "shasum": null
             },
             "require": {
@@ -2221,7 +2221,7 @@
                     "CG\\Tax\\Test\\": "tests\\src"
                 }
             },
-            "time": "2016-06-03 14:37:17"
+            "time": "2016-06-03 15:23:13"
         },
         {
             "name": "channelgrabber/template",
