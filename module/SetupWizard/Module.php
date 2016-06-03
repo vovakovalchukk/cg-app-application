@@ -60,7 +60,7 @@ class Module implements DependencyIndicatorInterface
         }
         $di = $e->getApplication()->getServiceManager()->get(Di::class);
         $service = $di->get(StepStatusService::class);
-        $redirectRoute = $service->getRedirectRouteIfIncomplete();
+        $redirectRoute = $service->getRedirectRouteIfIncomplete($route);
         if (!$redirectRoute) {
             return;
         }

@@ -1,18 +1,22 @@
 <?php
 namespace SetupWizard;
 
+use CG\Http\Exception\Exception3xx\NotModified;
 use CG\Intercom\Event\Service as EventService;
 use CG\Intercom\Event\Request as Event;
+use CG\Settings\SetupProgress\Entity as SetupProgress;
 use CG\Settings\SetupProgress\Mapper as SetupProgressMapper;
 use CG\Settings\SetupProgress\Service as SetupProgressService;
 use CG\Settings\SetupProgress\Step\Status as StepStatus;
 use CG\Stdlib\DateTime as StdlibDateTime;
+use CG\Stdlib\Exception\Runtime\Conflict;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
 use CG\User\ActiveUserInterface;
 use SetupWizard\Module;
+use Zend\Config\Config;
 use Zend\Session\SessionManager;
 
 class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
@@ -26,7 +30,9 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
     const LOG_COMPLETE = 'User %d (OU %d) has completed the setup wizard %s';
     const LOG_LAST_STEP = 'User %d (OU %d) was on setup step \'%s\', will redirect';
     const LOG_NO_STEPS = 'User %d (OU %d) has not been through setup yet, will redirect';
+    const LOG_WHITELIST = 'User %d (OU %d) hasn\'t completed the setup wizard but the current route is whitelisted, allowing';
     const STAT_NAME = 'setup-wizard.%s.%s';
+    const MAX_SAVE_ATTEMPTS = 2;
 
     /** @var EventService */
     protected $eventService;
@@ -38,19 +44,26 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
     protected $setupProgressService;
     /** @var SessionManager */
     protected $sessionManager;
+    /** @var Config */
+    protected $config;
+
+    /** @var SetupProgress */
+    protected $setupProgress;
 
     public function __construct(
         EventService $eventService,
         ActiveUserInterface $activeUserContainer,
         SetupProgressMapper $setupProgressMapper,
         SetupProgressService $setupProgressService,
-        SessionManager $sessionManager
+        SessionManager $sessionManager,
+        Config $config
     ) {
         $this->setEventService($eventService)
             ->setActiveUserContainer($activeUserContainer)
             ->setSetupProgressMapper($setupProgressMapper)
             ->setSetupProgressService($setupProgressService)
-            ->setSessionManager($sessionManager);
+            ->setSessionManager($sessionManager)
+            ->setConfig($config);
     }
 
     public function processStepStatus($previousStep, $previousStepStatus, $currentStep)
@@ -87,17 +100,27 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
         return $this;
     }
 
-    protected function saveSetupStepProgress($stepName, $status)
+    protected function saveSetupStepProgress($stepName, $status, $attempt = 1)
     {
         $ouId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
-        $setupProgress = $this->setupProgressService->fetch($ouId);
+        $setupProgress = $this->fetchSetupProgress($ouId, true);
         $step = $this->setupProgressMapper->stepFromArray([
             'name' => $stepName,
             'status' => $status,
             'modified' => (new StdlibDateTime())->stdFormat(),
         ]);
         $setupProgress->addStep($step);
-        $this->setupProgressService->save($setupProgress);
+
+        try {
+            $this->setupProgressService->save($setupProgress);
+        } catch (NotModified $e) {
+            // No-op
+        } catch (Conflict $e) {
+            if ($attempt >= static::MAX_SAVE_ATTEMPTS) {
+                throw $e;
+            }
+            return $this->saveSetupStepProgress($stepName, $status, ++$attempt);
+        }
 
         return $this;
     }
@@ -113,7 +136,7 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
         return $this;
     }
 
-    public function getRedirectRouteIfIncomplete()
+    public function getRedirectRouteIfIncomplete($currentRoute)
     {
         $user = $this->activeUserContainer->getActiveUser();
         if (!$user) {
@@ -121,30 +144,62 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
         }
         $ouId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
 
-        $session = $this->sessionManager->getStorage();
-        if (isset($session['setup'], $session['setup']['complete']) && $session['setup']['complete'] == true) {
-            $this->logDebug(static::LOG_COMPLETE, ['user' => $user->getId(), 'ou' => $ouId, '(cached)'], static::LOG_CODE);
+        if ($this->isSetupComplete($user, $ouId)) {
+            return null;
+        }
+        if ($this->isWhiteListedRoute($currentRoute, $user, $ouId)) {
             return null;
         }
 
-        $setupProgress = $this->setupProgressService->fetch($ouId);
+        $setupProgress = $this->fetchSetupProgress($ouId);
+        $lastStep = $setupProgress->getLastStep();
+        if (!$lastStep) {
+            $this->logDebug(static::LOG_NO_STEPS, ['user' => $user->getId(), 'ou' => $ouId], [static::LOG_CODE, 'NoSteps']);
+            return Module::ROUTE;
+        }
+
+        $this->logDebug(static::LOG_LAST_STEP, ['user' => $user->getId(), 'ou' => $ouId, 'setupWizardStep' => $lastStep->getName()], [static::LOG_CODE, 'LastStep']);
+        return Module::ROUTE . '/' . $lastStep->getName();
+    }
+
+    protected function isSetupComplete($user, $ouId)
+    {
+        $session = $this->sessionManager->getStorage();
+        if (isset($session['setup'], $session['setup']['complete']) && $session['setup']['complete'] == true) {
+            $this->logDebug(static::LOG_COMPLETE, ['user' => $user->getId(), 'ou' => $ouId, '(cached)'], [static::LOG_CODE, 'Complete', 'Cached']);
+            return true;
+        }
+
+        $setupProgress = $this->fetchSetupProgress($ouId);
         if ($setupProgress->isComplete()) {
             if (!isset($session['setup'])) {
                 $session['setup'] = [];
             }
             $session['setup']['complete'] = true;
-            $this->logDebug(static::LOG_COMPLETE, ['user' => $user->getId(), 'ou' => $ouId, ''], static::LOG_CODE);
-            return null;
+            $this->logDebug(static::LOG_COMPLETE, ['user' => $user->getId(), 'ou' => $ouId, ''], [static::LOG_CODE, 'Complete']);
+            return true;
         }
 
-        $lastStep = $setupProgress->getLastStep();
-        if (!$lastStep) {
-            $this->logDebug(static::LOG_NO_STEPS, ['user' => $user->getId(), 'ou' => $ouId], static::LOG_CODE);
-            return Module::ROUTE;
-        }
+        return false;
+    }
 
-        $this->logDebug(static::LOG_LAST_STEP, ['user' => $user->getId(), 'ou' => $ouId, 'setupWizardStep' => $lastStep->getName()], static::LOG_CODE);
-        return Module::ROUTE . '/' . $lastStep->getName();
+    protected function fetchSetupProgress($id, $force = false)
+    {
+        if (!$this->setupProgress || $force) {
+            $this->setupProgress = $this->setupProgressService->fetch($id);
+        }
+        return $this->setupProgress;
+    }
+
+    protected function isWhiteListedRoute($route, $user, $ouId)
+    {
+        $config = $this->config->get('SetupWizard')->get('SetupWizard');
+        $whitelist = $config->get('white_listed_routes');
+        if (isset($whitelist[$route])) {
+            $this->logDebug(static::LOG_WHITELIST, ['user' => $user->getId(), 'ou' => $ouId], [static::LOG_CODE, 'Whitelist']);
+            return true;
+        }
+        return false;
     }
 
     protected function setEventService(EventService $eventService)
@@ -174,6 +229,12 @@ class StepStatusService implements LoggerAwareInterface, StatsAwareInterface
     protected function setSessionManager(SessionManager $sessionManager)
     {
         $this->sessionManager = $sessionManager;
+        return $this;
+    }
+
+    protected function setConfig(Config $config)
+    {
+        $this->config = $config;
         return $this;
     }
 }

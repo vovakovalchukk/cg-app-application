@@ -61,6 +61,14 @@ return [
             'show_to_pdf_button' => false
         ]
     ],
+    'SetupWizard' => [
+        'SetupWizard' => [
+            'white_listed_routes' => [
+                Module::ROUTE . '/' . ChannelController::ROUTE . '/' . ChannelController::ROUTE_CHANNELS . '/' . EkmAccount::ROUTE . '/' . EkmController::ROUTE_AJAX => true,
+                Module::ROUTE . '/' . ChannelController::ROUTE . '/' . ChannelController::ROUTE_CHANNELS . '/' . WooCommerceAccount::ROUTE . '/' . WooCommerceController::ROUTE_AJAX => true,
+            ]
+        ]
+    ],
     'navigation' => [
         'settings-navigation' => [
             'Channel Management' => [

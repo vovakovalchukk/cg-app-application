@@ -5,6 +5,7 @@ use SetupWizard\Channels\Service;
 use SetupWizard\Controller\IndexController;
 use SetupWizard\Module;
 use SetupWizard\Navigation\SidebarNavFactory;
+use SetupWizard\StepStatusService;
 use Zend\Mvc\Router\Http\Literal;
 
 // SetupProgress
@@ -69,6 +70,11 @@ return [
                     'amazonCryptor' => 'amazon_cryptor',
                 ]
             ],
+            StepStatusService::class => [
+                'parameters' => [
+                    'config' => 'app_config',
+                ]
+            ],
             SetupProgressApiStorage::class => [
                 'parameters' => [
                     'client' => 'cg_app_guzzle',
@@ -79,4 +85,11 @@ return [
             ]
         ]
     ],
+    'SetupWizard' => [
+        'SetupWizard' => [
+            'white_listed_routes' => [
+
+            ]
+        ]
+    ]
 ];
