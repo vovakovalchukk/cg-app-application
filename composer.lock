@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fb7fa153cc3f5dbfc30f0944865fb3d9",
+    "hash": "a81305d59d9e3a5f798a81ea93474758",
     "content-hash": "cef30298e04e398de048a4e006c00ec7",
     "packages": [
         {
@@ -3077,12 +3077,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/netdespatch-module.git",
-                "reference": "daac1d7aa1295be3854c1de0602c53285977caa0"
+                "reference": "8a4017c714e7ccff71b09f82c8917c90f874a7f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-CGIV-6958-RoyalMailRegistrationForm-9dd7a7.zip",
-                "reference": "daac1d7aa1295be3854c1de0602c53285977caa0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-CGIV-6958-RoyalMailRegistrationForm-43f05d.zip",
+                "reference": "8a4017c714e7ccff71b09f82c8917c90f874a7f8",
                 "shasum": null
             },
             "require": {
@@ -3113,7 +3113,7 @@
                 ]
             },
             "description": "NetDespatch module",
-            "time": "2016-06-03 14:00:37"
+            "time": "2016-06-03 14:33:52"
         },
         {
             "name": "channelgrabber/zf2-permission",
