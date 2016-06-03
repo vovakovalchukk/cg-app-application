@@ -185,9 +185,6 @@ class ChannelsController extends AbstractActionController
         $region = $this->params()->fromPost('region');
         $type = ChannelType::SALES;
 
-        $returnRoute = Module::ROUTE . '/' . static::ROUTE_CHANNELS;
-        $this->channelsService->storeAddChannelReturnRoute($returnRoute);
-
         $redirectUrl = $this->settingsChannelService->createAccount($type, $channel, $region);
         if ($this->isInternalUrl($redirectUrl)) {
             $redirectUrl = $this->constructConnectUrl($channel, $region);

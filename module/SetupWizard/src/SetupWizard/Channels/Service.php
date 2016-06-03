@@ -8,10 +8,7 @@ use CG\Account\Shared\Entity as Account;
 use CG\Channel\Type as ChannelType;
 use CG\Channel\Service as ChannelService;
 use CG\User\ActiveUserInterface;
-use Settings\Channel\Service as SettingsChannelService;
-use Settings\Module as SettingsModule;
 use SetupWizard\Module;
-use Zend\Session\ManagerInterface as SessionManager;
 
 class Service
 {
@@ -23,8 +20,6 @@ class Service
     protected $amazonCryptor;
     /** @var ChannelService */
     protected $channelService;
-    /** @var SessionManager */
-    protected $sessionManager;
 
     protected $channelImgMap = [
         'amazon' => 'getImageNameFromAmazonAccount',
@@ -34,14 +29,12 @@ class Service
         ActiveUserInterface $activeUserContainer,
         AccountService $accountService,
         AmazonCryptor $amazonCryptor,
-        ChannelService $channelService,
-        SessionManager $sessionManager
+        ChannelService $channelService
     ) {
         $this->setActiveUserContainer($activeUserContainer)
             ->setAccountService($accountService)
             ->setAmazonCryptor($amazonCryptor)
-            ->setChannelService($channelService)
-            ->setSessionManager($sessionManager);
+            ->setChannelService($channelService);
     }
 
     public function fetchAccountsForActiveUser()
@@ -105,15 +98,6 @@ class Service
         return ucfirst($channel);
     }
 
-    public function storeAddChannelReturnRoute($returnRoute)
-    {
-        $session = $this->sessionManager->getStorage();
-        $session[SettingsModule::SESSION_KEY][SettingsChannelService::SESSION_ADD_CHANNEL_RETURN_ROUTE] = [
-            'route' => $returnRoute,
-            'timestamp' => time()
-        ];
-    }
-
     public function updateAccount($id, array $data)
     {
         $account = $this->accountService->fetch($id);
@@ -151,12 +135,6 @@ class Service
     protected function setChannelService(ChannelService $channelService)
     {
         $this->channelService = $channelService;
-        return $this;
-    }
-
-    protected function setSessionManager(SessionManager $sessionManager)
-    {
-        $this->sessionManager = $sessionManager;
         return $this;
     }
 }
