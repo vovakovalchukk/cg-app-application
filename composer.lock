@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4934f1ca5916597c287273f9f1d4a42d",
-    "content-hash": "16f9254fafd2d1c4d4e8c5b01d88553f",
+    "hash": "89b06ae604c0e7f4cb73a910c6e44bd6",
+    "content-hash": "a5256838393f1366d4a126fa72209e62",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2225,30 +2225,29 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.4.5",
+            "version": "1.4.6",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "b826169cd516b5583f107d40af5ebd2f1dd7e855"
+                "reference": "cff1f4face8fb4ab1635b1b710f0c466ab9e4d4b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.5-585f62.zip",
-                "reference": "b826169cd516b5583f107d40af5ebd2f1dd7e855",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.6-dcb8f9.zip",
+                "reference": "cff1f4face8fb4ab1635b1b710f0c466ab9e4d4b",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/cache": "^2.0.6",
                 "channelgrabber/channel": ">=1.6.0,<2.0.0",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/di": ">=2.1.0",
+                "channelgrabber/di": "^2.2.0",
                 "channelgrabber/log": "^2.0.21",
                 "channelgrabber/order": "^1.21.5",
                 "channelgrabber/product": "^1.2.0",
                 "channelgrabber/settings": "^1.3.8",
                 "channelgrabber/stdlib": "^2.10.4",
                 "channelgrabber/user": "^1.20.0",
-                "composer/composer": "@dev",
                 "ext-gd": "*",
                 "guzzle/guzzle": "~3.7",
                 "zendframework/zend-di": ">=2.2.5,<3.0",
@@ -2260,7 +2259,12 @@
                 "channelgrabber/phpunit": ">=1.0.0",
                 "phpunit/phpunit": "~3.7.28"
             },
-            "type": "di-definition",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "1.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CG\\Template\\": "src"
@@ -2272,7 +2276,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2016-02-10 16:01:08"
+            "time": "2016-06-03 09:21:54"
         },
         {
             "name": "channelgrabber/transaction",
