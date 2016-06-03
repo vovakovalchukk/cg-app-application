@@ -65,7 +65,7 @@
         "channelgrabber/stats": "~1.0.0",
         "channelgrabber/stdlib": "~2.12.29",
         "channelgrabber/stock": "~1.7.0",
-        "channelgrabber/tax": "~1.0.0",
+        "channelgrabber/tax": "dev-CGIV-7095-Country-specific-vat-rates as 1.0.1",
         "channelgrabber/template": "~1.4.6",
         "channelgrabber/usage": "~1.0.7",
         "channelgrabber/user": "~1.21.1",
