@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "89b06ae604c0e7f4cb73a910c6e44bd6",
-    "content-hash": "a5256838393f1366d4a126fa72209e62",
+    "hash": "fb7fa153cc3f5dbfc30f0944865fb3d9",
+    "content-hash": "cef30298e04e398de048a4e006c00ec7",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -305,16 +305,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.24.0",
+            "version": "dev-CGIV-6958-RoyalMailRegistrationForm",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "405ff7f6a279a700d45ce70274aaf5fe36d97f38"
+                "reference": "42630d3e1f663e20530063496b0c15deac82c734"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.24.0-46801f.zip",
-                "reference": "405ff7f6a279a700d45ce70274aaf5fe36d97f38",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6958-RoyalMailRegistrationForm-6c3109.zip",
+                "reference": "42630d3e1f663e20530063496b0c15deac82c734",
                 "shasum": null
             },
             "require": {
@@ -382,7 +382,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-04-21 12:51:37"
+            "time": "2016-06-03 13:32:53"
         },
         {
             "name": "channelgrabber/cilex",
@@ -3077,16 +3077,16 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/netdespatch-module.git",
-                "reference": "5f1e715149ab8ff63da59bc5ef51563c107d0af8"
+                "reference": "daac1d7aa1295be3854c1de0602c53285977caa0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-CGIV-6958-RoyalMailRegistrationForm-d016a6.zip",
-                "reference": "5f1e715149ab8ff63da59bc5ef51563c107d0af8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-CGIV-6958-RoyalMailRegistrationForm-9dd7a7.zip",
+                "reference": "daac1d7aa1295be3854c1de0602c53285977caa0",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.19.0",
+                "channelgrabber/channel": "dev-CGIV-6958-RoyalMailRegistrationForm as 1.24.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/netdespatch": "^1.0.0",
@@ -3113,7 +3113,7 @@
                 ]
             },
             "description": "NetDespatch module",
-            "time": "2016-06-03 10:48:37"
+            "time": "2016-06-03 14:00:37"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -7660,6 +7660,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.24.2",
+            "alias_normalized": "1.24.2.0",
+            "version": "dev-CGIV-6958-RoyalMailRegistrationForm",
+            "package": "channelgrabber/channel"
+        },
+        {
             "alias": "1.0.2",
             "alias_normalized": "1.0.2.0",
             "version": "dev-CGIV-6958-RoyalMailRegistrationForm",
@@ -7674,6 +7680,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-netdespatch": 20,
         "channelgrabber/zf2-v4-ui": 20,
