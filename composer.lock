@@ -3077,12 +3077,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/netdespatch-module.git",
-                "reference": "1add93c8d695c5503fb251d8514505602aabb938"
+                "reference": "d8f931e769ca797f817b475934df1b95acd103aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-CGIV-6958-RoyalMailRegistrationForm-a35ca7.zip",
-                "reference": "1add93c8d695c5503fb251d8514505602aabb938",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-CGIV-6958-RoyalMailRegistrationForm-7b7286.zip",
+                "reference": "d8f931e769ca797f817b475934df1b95acd103aa",
                 "shasum": null
             },
             "require": {
@@ -3113,7 +3113,7 @@
                 ]
             },
             "description": "NetDespatch module",
-            "time": "2016-06-03 08:57:57"
+            "time": "2016-06-03 10:04:45"
         },
         {
             "name": "channelgrabber/zf2-permission",
