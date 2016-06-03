@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e4d3760af42eba7d7a8d74a2e4d13710",
-    "content-hash": "4b6016d9eb9d310cd8d74554e7556fe6",
+    "hash": "4934f1ca5916597c287273f9f1d4a42d",
+    "content-hash": "16f9254fafd2d1c4d4e8c5b01d88553f",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3073,12 +3073,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/netdespatch-module.git",
-                "reference": "99817a76c1546cdd95aa5b178e273bb220cf8ea3"
+                "reference": "1add93c8d695c5503fb251d8514505602aabb938"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-CGIV-6958-RoyalMailRegistrationForm-8057aa.zip",
-                "reference": "99817a76c1546cdd95aa5b178e273bb220cf8ea3",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-CGIV-6958-RoyalMailRegistrationForm-a35ca7.zip",
+                "reference": "1add93c8d695c5503fb251d8514505602aabb938",
                 "shasum": null
             },
             "require": {
@@ -3087,7 +3087,7 @@
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/netdespatch": "^1.0.0",
                 "channelgrabber/zf2-installer": "^1.0.6",
-                "channelgrabber/zf2-v4-ui": "^1.12.90",
+                "channelgrabber/zf2-v4-ui": "dev-CGIV-6958-RoyalMailRegistrationForm as 1.16.51",
                 "php-jsonpatch/php-jsonpatch": "dev-master",
                 "php-jsonpointer/php-jsonpointer": "dev-master",
                 "zendframework/zend-config": "2.*",
@@ -3109,7 +3109,7 @@
                 ]
             },
             "description": "NetDespatch module",
-            "time": "2016-06-02 13:32:19"
+            "time": "2016-06-03 08:57:57"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -3419,16 +3419,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.50.1",
+            "version": "dev-CGIV-6958-RoyalMailRegistrationForm",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "ba9f23056553eac368a6709e6775a4c636258d06"
+                "reference": "037d2ba2fbfb4e74a579377124638df3d21c0996"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.50.1-c1d3bb.zip",
-                "reference": "ba9f23056553eac368a6709e6775a4c636258d06",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6958-RoyalMailRegistrationForm-42d199.zip",
+                "reference": "037d2ba2fbfb4e74a579377124638df3d21c0996",
                 "shasum": null
             },
             "require": {
@@ -3475,7 +3475,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-06-01 10:55:48"
+            "time": "2016-06-03 08:47:24"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7660,12 +7660,19 @@
             "alias_normalized": "1.0.2.0",
             "version": "dev-CGIV-6958-RoyalMailRegistrationForm",
             "package": "channelgrabber/zf2-netdespatch"
+        },
+        {
+            "alias": "1.16.51",
+            "alias_normalized": "1.16.51.0",
+            "version": "dev-CGIV-6958-RoyalMailRegistrationForm",
+            "package": "channelgrabber/zf2-v4-ui"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
         "channelgrabber/zf2-netdespatch": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,

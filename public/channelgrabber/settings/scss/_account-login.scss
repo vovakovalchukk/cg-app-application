@@ -11,7 +11,7 @@
     top: 80px;
     @include calc(left, "50% - 400px");
   }
-  > div, p {
+  > div, > p {
     width: 100%;
     float: left;
     clear:both;
@@ -41,8 +41,13 @@
       width: 50%;
       float: left;
     }
+    .std-checkbox .checkbox_label {
+      max-width: initial;
+      margin-left: 5px;
+      margin-bottom: 10px;
+    }
   }
-  div > .account-field-holder {
+  div.section > .account-field-holder {
     margin-left: 10px;
   }
   .account-form-buttons-holder {
@@ -58,6 +63,14 @@
     a {
       float: right;
     }
+  }
+  .button-holder > .inline {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .center {
+    margin: auto;
+    text-align: center;
   }
 }
 .account-logo {
