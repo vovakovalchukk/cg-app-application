@@ -309,12 +309,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "42630d3e1f663e20530063496b0c15deac82c734"
+                "reference": "3c187644dd1dba0c3351f6ba23f84535c7e30bb8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6958-RoyalMailRegistrationForm-6c3109.zip",
-                "reference": "42630d3e1f663e20530063496b0c15deac82c734",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-6958-RoyalMailRegistrationForm-e3e961.zip",
+                "reference": "3c187644dd1dba0c3351f6ba23f84535c7e30bb8",
                 "shasum": null
             },
             "require": {
@@ -382,7 +382,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-06-03 13:32:53"
+            "time": "2016-06-06 10:50:40"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1172,12 +1172,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "966ed63ab9a8871182e36e8b6dd45d1e5b6b0261"
+                "reference": "63a3f64b1375c00e2e17379631b593c7bf9cc296"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6958-RoyalMailRegistrationForm-615e0c.zip",
-                "reference": "966ed63ab9a8871182e36e8b6dd45d1e5b6b0261",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6958-RoyalMailRegistrationForm-c57230.zip",
+                "reference": "63a3f64b1375c00e2e17379631b593c7bf9cc296",
                 "shasum": null
             },
             "require": {
@@ -1216,7 +1216,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-06-06 08:27:44"
+            "time": "2016-06-06 11:59:18"
         },
         {
             "name": "channelgrabber/notification",
@@ -3077,12 +3077,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/netdespatch-module.git",
-                "reference": "82c56c1ab5768e4d752028b7ca550809c254a366"
+                "reference": "acd3df94b5b57ee92e8ed6096867c85b990d619f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-CGIV-6958-RoyalMailRegistrationForm-3b1e10.zip",
-                "reference": "82c56c1ab5768e4d752028b7ca550809c254a366",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-CGIV-6958-RoyalMailRegistrationForm-30c954.zip",
+                "reference": "acd3df94b5b57ee92e8ed6096867c85b990d619f",
                 "shasum": null
             },
             "require": {
@@ -3114,7 +3114,7 @@
                 ]
             },
             "description": "NetDespatch module",
-            "time": "2016-06-06 09:38:10"
+            "time": "2016-06-06 11:56:26"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -3428,12 +3428,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "037d2ba2fbfb4e74a579377124638df3d21c0996"
+                "reference": "ec4915e6f9d03437e25a52bf1af0f2ae7d82d385"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6958-RoyalMailRegistrationForm-42d199.zip",
-                "reference": "037d2ba2fbfb4e74a579377124638df3d21c0996",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-6958-RoyalMailRegistrationForm-488197.zip",
+                "reference": "ec4915e6f9d03437e25a52bf1af0f2ae7d82d385",
                 "shasum": null
             },
             "require": {
@@ -3480,7 +3480,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-06-03 08:47:24"
+            "time": "2016-06-06 11:39:51"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
