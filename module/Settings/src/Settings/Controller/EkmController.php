@@ -16,54 +16,7 @@ class EkmController extends ChannelControllerAbstract
         $index->setVariable('subHeaderHide', true);
         $index->setVariable('isSidebarVisible', false);
         $index->setVariable('accountId', $this->params()->fromQuery('accountId'));
-        $index->addChild($this->getUsernameView(), 'username');
-        $index->addChild($this->getPasswordView(), 'password');
-        $index->addChild($this->getLinkAccountView(), 'linkAccount');
-        $index->addChild($this->getGoBackView(), 'goBack');
         return $index;
-    }
-
-    protected function getUsernameView()
-    {
-        $username = $this->getViewModelFactory()->newInstance([
-            'name' => 'ekm-username',
-            'id' => 'ekm-username'
-        ]);
-        $username->setTemplate('elements/text.mustache');
-        return $username;
-    }
-
-    protected function getPasswordView()
-    {
-        $password = $this->getViewModelFactory()->newInstance([
-            'name' => 'ekm-password',
-            'id' => 'ekm-password',
-            'type' => 'password'
-        ]);
-        $password->setTemplate('elements/text.mustache');
-        return $password;
-    }
-
-    protected function getLinkAccountView()
-    {
-        $linkAccount = $this->getViewModelFactory()->newInstance([
-            'buttons' => true,
-            'value' => 'Link Account',
-            'id' => 'ekm-link-account'
-        ]);
-        $linkAccount->setTemplate('elements/buttons.mustache');
-        return $linkAccount;
-    }
-
-    protected function getGoBackView()
-    {
-        $linkAccount = $this->getViewModelFactory()->newInstance([
-            'buttons' => true,
-            'value' => 'Go Back',
-            'id' => 'ekm-go-back'
-        ]);
-        $linkAccount->setTemplate('elements/buttons.mustache');
-        return $linkAccount;
     }
 
     public function saveAction()

@@ -3,7 +3,6 @@ namespace Settings\Controller;
 
 use CG\Account\Client\Entity as AccountEntity;
 use CG\Account\Client\Service as AccountService;
-use CG\Channel\AccountFactory;
 use CG\Channel\GetNamespacePartForAccountTrait;
 use CG\Channel\Service as ChannelService;
 use CG\Channel\ShippingOptionsProviderInterface;
@@ -48,7 +47,6 @@ class ChannelController extends AbstractActionController
     const ACCOUNT_CHANNEL_FORM_BLANK_TEMPLATE = "Sales Channel Item Channel Form Blank";
     const ACCOUNT_DETAIL_FORM = "Sales Channel Item Detail";
     const ACCOUNT_TYPE_TO_LIST = 'sale';
-    const EVENT_ACCOUNT_ADDED = 'Account Added';
     const EVENT_ACCOUNT_STATUS_CHANGED = 'Account Status Changed';
     const EVENT_ACCOUNT_STOCK_MANAGEMENT_CHANGED = 'Account Stock Management Changed';
     const EVENT_ACCOUNT_DELETED = 'Account Deleted';
@@ -57,7 +55,6 @@ class ChannelController extends AbstractActionController
     protected $jsonModelFactory;
     protected $viewModelFactory;
     protected $accountService;
-    protected $accountFactory;
     protected $activeUserContainer;
     protected $service;
     protected $mapper;
@@ -75,7 +72,6 @@ class ChannelController extends AbstractActionController
         JsonModelFactory $jsonModelFactory,
         ViewModelFactory $viewModelFactory,
         AccountService $accountService,
-        AccountFactory $accountFactory,
         ActiveUserInterface $activeUserContainer,
         Service $service,
         Mapper $mapper,
@@ -91,7 +87,6 @@ class ChannelController extends AbstractActionController
             ->setJsonModelFactory($jsonModelFactory)
             ->setViewModelFactory($viewModelFactory)
             ->setAccountService($accountService)
-            ->setAccountFactory($accountFactory)
             ->setActiveUserContainer($activeUserContainer)
             ->setService($service)
             ->setMapper($mapper)
@@ -401,22 +396,12 @@ class ChannelController extends AbstractActionController
 
     public function createAction()
     {
-        $accountEntity = $this->getDi()->newInstance(AccountEntity::class, array(
-            "channel" => $this->params()->fromPost('channel'),
-            "organisationUnitId" => $this->getActiveUserContainer()->getActiveUser()->getOrganisationUnitId(),
-            "displayName" => "",
-            "credentials" => "",
-            "active" => false,
-            "deleted" => false,
-            "expiryDate" => null,
-            "type" => $this->params('type'),
-            "stockManagement" => false,
-        ));
-        $view = $this->getJsonModelFactory()->newInstance();
-        $url = $this->getAccountFactory()->createRedirect($accountEntity, Module::ROUTE . '/' . static::ROUTE . '/' . ChannelController::ROUTE_CHANNELS,
-            ["type" => $this->params('type')], $this->params()->fromPost('region'));
-        $view->setVariable('url', $url);
-        $this->notifyOfChange(static::EVENT_ACCOUNT_ADDED, $accountEntity);
+        $channel = $this->params()->fromPost('channel');
+        $type = $this->params('type');
+        $region = $this->params()->fromPost('region');
+        $redirectUrl = $this->service->createAccount($type, $channel, $region);
+
+        $view = $this->getJsonModelFactory()->newInstance(['url' => $redirectUrl]);
         return $view;
     }
 
@@ -513,17 +498,6 @@ class ChannelController extends AbstractActionController
     public function getAccountService()
     {
         return $this->accountService;
-    }
-
-    public function setAccountFactory(AccountFactory $accountFactory)
-    {
-        $this->accountFactory = $accountFactory;
-        return $this;
-    }
-
-    public function getAccountFactory()
-    {
-        return $this->accountFactory;
     }
 
     public function setJsonModelFactory(JsonModelFactory $jsonModelFactory)

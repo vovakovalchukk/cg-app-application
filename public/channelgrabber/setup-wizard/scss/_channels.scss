@@ -1,0 +1,74 @@
+.setup-wizard-account-badge,
+.setup-wizard-button-badge,
+.setup-wizard-channel-badge {
+    float: left;
+    margin-right: 25px;
+    margin-bottom: 25px;
+    width: 175px;
+    height: 175px;
+    @include border-radius(10px);
+    position: relative;
+
+    /* Fix to prevent last channel wrapping on to newline unecessarily */
+    &:last-child {
+        margin-right: 0;
+    }
+}
+
+.setup-wizard-account-badge {
+    .setup-wizard-account-badge-footer {
+        background-color: $color-lblue;
+        position: absolute;
+        bottom: 0;
+        height: 30px;
+        width: 100%;
+        @include border-radius(0 0 10px 10px);
+        color: white;
+        font-size: 13px;
+
+        div {
+            padding: 5px;
+
+            &.setup-wizard-account-badge-name {
+                float: left;
+                width: 55%;
+                overflow-x: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            &.setup-wizard-account-badge-controls {
+                float: right;
+
+                a {
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+}
+
+.setup-wizard-button-badge {
+    background-color: $color-lblue;
+    color: white;
+    cursor: pointer;
+
+    > div {
+        font-size: 120px;
+        font-weight: bold;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.setup-wizard-channel-badge {
+    height: 200px;
+    cursor: pointer;
+
+    .setup-wizard-channel-badge-footer {
+        font-size: 16px;
+        padding-top: 5px;
+    }
+}
