@@ -20,7 +20,7 @@ $accountPageRoute = implode('/', [
       <?= $this->translate('Email Address or Username'); ?>:
     </div>
     <div class="text-field">
-      <?= $username ?>
+        <?= $this->mustache('elements/text.mustache', ['name' => 'ekm-username', 'id' => 'ekm-username']); ?>
     </div>
   </div>
   <div class="account-field-holder">
@@ -28,12 +28,14 @@ $accountPageRoute = implode('/', [
       <?= $this->translate('Password'); ?>:
     </div>
     <div class="text-field">
-      <?= $password ?>
+        <?= $this->mustache('elements/text.mustache', ['name' => 'ekm-password', 'id' => 'ekm-password', 'type' => 'password']); ?>
     </div>
   </div>
   <div class="account-form-buttons-holder">
-    <?= $linkAccount ?>
-    <a href='<?= $this->url($accountPageRoute, ['type' => Type::SALES]); ?>'><?= $goBack ?></a>
+    <?= $this->mustache('elements/buttons.mustache', ['buttons' => [['id' => 'ekm-link-account', 'value' => 'Link Account']]]); ?>
+    <a href='<?= $this->url($accountPageRoute, ['type' => Type::SALES, 'account' => $accountId]) ?>'>
+        <?= $this->mustache('elements/buttons.mustache', ['buttons' => [['id' => 'ekm-go-back', 'value' => 'Go Back']]]); ?>
+    </a>
   </div>
 
 </div>
