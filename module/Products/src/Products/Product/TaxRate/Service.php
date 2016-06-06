@@ -61,7 +61,7 @@ class Service
         foreach ($rates->getAll() as $rateId => $rate) {
             $ratesOptions[$rateId] = [
                 'name' => $rate->getName(),
-                'rate' => (int) ($rate->getCurrent() * 100)
+                'rate' => ((float) $rate->getCurrent() * (float) 100)
             ];
         }
         return $ratesOptions;
