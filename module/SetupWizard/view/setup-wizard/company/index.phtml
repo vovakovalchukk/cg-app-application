@@ -1,55 +1,68 @@
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/pca-predict-smart-address.js'); ?>
 
-<form class="setup-wizard-company setup-wizard-company-thanks">
+<form id="setup-wizard-company-form">
     <div class="half">
-    <label>
-        <span class="inputbox-label">Search Address:</span>
-        <div class="order-inputbox-holder">
-            <input class="inputbox " type="text" name="search" />
+        <label>
+            <span class="inputbox-label">Company Name:</span>
+            <div class="order-inputbox-holder">
+                <input class="inputbox " type="text" name="addressCompanyName" />
+            </div>
+        </label>
+        <div id="setup-wizard-company-address-search">
+            <label>
+                <span class="inputbox-label">Search Address:</span>
+                <div id="setup-wizard-company-address-toggle">
+                    <a>Enter Manually</a>
+                </div>
+                <div class="order-inputbox-holder">
+                    <input class="inputbox " type="text" name="search" />
+                </div>
+            </label>
         </div>
-    </label>
-    <label>
-        <span class="inputbox-label">Address Line 1:</span>
-        <div class="order-inputbox-holder">
-            <input class="inputbox " type="text" name="address1" />
+        <div id="setup-wizard-company-address-fields">
+            <label>
+                <span class="inputbox-label">Address Line 1:</span>
+                <div class="order-inputbox-holder">
+                    <input class="inputbox " type="text" name="address1" />
+                </div>
+            </label>
+            <label>
+                <span class="inputbox-label">Address Line 2:</span>
+                <div class="order-inputbox-holder">
+                    <input class="inputbox " type="text" name="address2" />
+                </div>
+            </label>
+            <label>
+                <span class="inputbox-label">Address Line 3:</span>
+                <div class="order-inputbox-holder">
+                    <input class="inputbox " type="text" name="address3" />
+                </div>
+            </label>
+            <label>
+                <span class="inputbox-label">City:</span>
+                <div class="order-inputbox-holder">
+                    <input class="inputbox " type="text" name="addressCity" />
+                </div>
+            </label>
+            <label>
+                <span class="inputbox-label">County:</span>
+                <div class="order-inputbox-holder">
+                    <input class="inputbox " type="text" name="addressCounty" />
+                </div>
+            </label>
+            <label>
+                <span class="inputbox-label">Post Code:</span>
+                <div class="order-inputbox-holder">
+                    <input class="inputbox " type="text" name="addressPostCode" />
+                </div>
+            </label>
+            <label>
+                <span class="inputbox-label">Country:</span>
+                <?=$this->countrySelect;?>
+                <div class="order-inputbox-holder">
+                    <input class="inputbox " type="text" name="addressCountryCode" />
+                </div>
+            </label>
         </div>
-    </label>
-    <label>
-        <span class="inputbox-label">Address Line 2:</span>
-        <div class="order-inputbox-holder">
-            <input class="inputbox " type="text" name="address2" />
-        </div>
-    </label>
-    <label>
-        <span class="inputbox-label">Address Line 3:</span>
-        <div class="order-inputbox-holder">
-            <input class="inputbox " type="text" name="address3" />
-        </div>
-    </label>
-    <label>
-        <span class="inputbox-label">City:</span>
-        <div class="order-inputbox-holder">
-            <input class="inputbox " type="text" name="addressCity" />
-        </div>
-    </label>
-    <label>
-        <span class="inputbox-label">County:</span>
-        <div class="order-inputbox-holder">
-            <input class="inputbox " type="text" name="addressCounty" />
-        </div>
-    </label>
-    <label>
-        <span class="inputbox-label">Post Code:</span>
-        <div class="order-inputbox-holder">
-            <input class="inputbox " type="text" name="addressPostCode" />
-        </div>
-    </label>
-    <label>
-        <span class="inputbox-label">Country:</span>
-        <?=$this->countrySelect;?>
-        <div class="order-inputbox-holder">
-            <input class="inputbox " type="text" name="addressCountryCode" />
-        </div>
-    </label>
     </div>
 </form>
