@@ -1,5 +1,5 @@
 <?php
-namespace CG_Name;
+namespace CG_Shopify;
 
 use Zend\Config\Factory as ConfigFactory;
 use Zend\Loader\StandardAutoloader;
