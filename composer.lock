@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a81305d59d9e3a5f798a81ea93474758",
-    "content-hash": "cef30298e04e398de048a4e006c00ec7",
+    "hash": "bb920ea80c88fb504862d88e1ebd1004",
+    "content-hash": "0a08814f895c7c8dbc49df0aac9d4929",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1168,20 +1168,20 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.0.6",
+            "version": "dev-CGIV-6958-RoyalMailRegistrationForm",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "cc23d859bea672aa6bb06a8ffff782d02c8bfe1c"
+                "reference": "966ed63ab9a8871182e36e8b6dd45d1e5b6b0261"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.0.6-c6327c.zip",
-                "reference": "cc23d859bea672aa6bb06a8ffff782d02c8bfe1c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-6958-RoyalMailRegistrationForm-615e0c.zip",
+                "reference": "966ed63ab9a8871182e36e8b6dd45d1e5b6b0261",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.22.2",
+                "channelgrabber/channel": "dev-CGIV-6958-RoyalMailRegistrationForm as 1.24.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/locale": "^1.0.5",
@@ -1216,7 +1216,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-04-21 12:54:25"
+            "time": "2016-06-06 08:27:44"
         },
         {
             "name": "channelgrabber/notification",
@@ -3077,19 +3077,20 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/netdespatch-module.git",
-                "reference": "8a4017c714e7ccff71b09f82c8917c90f874a7f8"
+                "reference": "7da8aaf71449eeff2a5dfd570be999f028c942c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-CGIV-6958-RoyalMailRegistrationForm-43f05d.zip",
-                "reference": "8a4017c714e7ccff71b09f82c8917c90f874a7f8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-CGIV-6958-RoyalMailRegistrationForm-a9be85.zip",
+                "reference": "7da8aaf71449eeff2a5dfd570be999f028c942c4",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "dev-CGIV-6958-RoyalMailRegistrationForm as 1.24.2",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
-                "channelgrabber/netdespatch": "^1.0.0",
+                "channelgrabber/email": "^1.0.8",
+                "channelgrabber/netdespatch": "dev-CGIV-6958-RoyalMailRegistrationForm as 1.0.7",
                 "channelgrabber/zf2-installer": "^1.0.6",
                 "channelgrabber/zf2-v4-ui": "dev-CGIV-6958-RoyalMailRegistrationForm as 1.16.51",
                 "php-jsonpatch/php-jsonpatch": "dev-master",
@@ -3113,7 +3114,7 @@
                 ]
             },
             "description": "NetDespatch module",
-            "time": "2016-06-03 14:33:52"
+            "time": "2016-06-06 09:27:37"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -7666,6 +7667,12 @@
             "package": "channelgrabber/channel"
         },
         {
+            "alias": "1.0.7",
+            "alias_normalized": "1.0.7.0",
+            "version": "dev-CGIV-6958-RoyalMailRegistrationForm",
+            "package": "channelgrabber/netdespatch"
+        },
+        {
             "alias": "1.0.2",
             "alias_normalized": "1.0.2.0",
             "version": "dev-CGIV-6958-RoyalMailRegistrationForm",
@@ -7682,6 +7689,7 @@
     "stability-flags": {
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/netdespatch": 20,
         "channelgrabber/zf2-netdespatch": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
