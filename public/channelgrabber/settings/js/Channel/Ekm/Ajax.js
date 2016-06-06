@@ -7,7 +7,7 @@ define([
     {
         n.notice('Connecting ekm account');
         $.ajax({
-            'url': 'ekm/ajax',
+            'url': '/settings/channel/sales/ekm/ajax',
             'method': 'POST',
             'data': {'username': username, 'password': password, 'accountId': accountId},
             'dataType': 'JSON',

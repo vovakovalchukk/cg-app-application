@@ -1,0 +1,24 @@
+<div class="setup-wizard-account-badges">
+    <?=$this->addBadge;?>
+    <?=$this->accountBadges;?>
+</div>
+<div class="fixed-notifications">
+    <div class='notifications'>
+        <div class="success clearfix">
+            <span class="icon"><span>&tick;</span></span><span class="content">You can have as many sales channels as you like. You can add all your sales channels now or add at least one now and the rest later.</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    require(['<?=SetupWizard\Module::PUBLIC_FOLDER;?>js/steps/Channels.js'], function(Channels)
+    {
+        new Channels(
+            n,
+            '<?=$this->pickUri;?>',
+            '<?=$this->saveUri;?>',
+            '<?=$this->deleteUri;?>',
+            '<?= SetupWizard\Module::PUBLIC_FOLDER . 'template/setup-wizard/channels/edit-popup.mustache';?>',
+            '<?= CG_UI\Module::PUBLIC_FOLDER . 'templates/elements/buttons.mustache';?>'
+        );
+    });
+</script>

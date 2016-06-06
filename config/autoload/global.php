@@ -1399,4 +1399,9 @@ return array(
             ],
         ],
     ],
+    'CG_Login' => [
+        'CG_Login' => [
+            'default_landing_route_registered' => SetupWizard\Module::ROUTE
+        ]
+    ]
 );

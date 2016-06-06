@@ -1,0 +1,15 @@
+<div class="module setup-wizard-heading">
+    <span class="heading-large heading-spacing manage-payment-title"><?=$this->heading;?></span>
+</div>
+<div class="module setup-wizard-body">
+    <?=$this->body;?>
+</div>
+<div class="module setup-wizard-footer">
+    <?=$this->footer;?>
+</div>
+<script type="text/javascript">
+    require(['<?=SetupWizard\Module::PUBLIC_FOLDER;?>js/SetupWizard.js'], function(setupWizard)
+    {
+        setupWizard.init('<?=$this->stepName;?>');
+    });
+</script>
