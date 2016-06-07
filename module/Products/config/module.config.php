@@ -134,6 +134,16 @@ return [
                             ]
                         ],
                     ],
+                    ProductsJsonController::ROUTE_DETAILS_UPDATE => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/details/update',
+                            'defaults' => [
+                                'controller' => ProductsJsonController::class,
+                                'action' => 'detailsUpdate'
+                            ]
+                        ],
+                    ],
                     StockLogController::ROUTE => [
                         'type' => Literal::class,
                         'options' => [

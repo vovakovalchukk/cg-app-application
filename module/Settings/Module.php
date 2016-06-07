@@ -15,6 +15,7 @@ class Module
     const ROUTE = 'Settings';
     const SUBHEADER_TEMPLATE = 'settings/sub-header';
     const SIDEBAR_TEMPLATE = 'settings/sidebar';
+    const SESSION_KEY = 'OHSettings';
 
     public function onBootstrap(MvcEvent $event)
     {

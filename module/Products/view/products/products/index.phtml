@@ -3,13 +3,14 @@ require.config({
     paths: {
         'Stock': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>/js/Stock',
         'Product': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>/js/Product',
-        'Variation': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>/js/Variation'
+        'Variation': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>/js/Variation',
+        'Details': '<?= $this->basePath() . Products\Module::PUBLIC_FOLDER; ?>/js/Details'
     }
 });
 require([
-    "showHideFilters", "Product/Service", "Variation/Service", 'Stock/Service'
+    "showHideFilters", "Product/Service", "Variation/Service", 'Stock/Service', 'Details/Service'
 ],
-function(ShowHideFilters, ProductService, VariationService, StockService) {
+function(ShowHideFilters, ProductService, VariationService, StockService, DetailsService) {
     $(document).ready(function()
     {
         var hideFilters = new ShowHideFilters();
@@ -18,6 +19,7 @@ function(ShowHideFilters, ProductService, VariationService, StockService) {
         );
         var variationService = new VariationService(productService);
         var stockService = new StockService(<?= json_encode($this->accountStockModesEnabled); ?>);
+        var detailsService = new DetailsService();
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>

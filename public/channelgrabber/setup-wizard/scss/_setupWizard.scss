@@ -1,0 +1,113 @@
+#sidebar.setup-wizard-sidebar {
+    background: $color-lblue;
+    width: 250px;
+
+    .logo {
+        padding-top: 30px;
+    }
+
+    .navbar-content {
+        margin-top: 30px;
+
+        ul {
+            li {
+                border-bottom: none;
+                margin-bottom: 50px;
+                color: $color-white;
+                font-size: 15px;
+
+                span.sprite {
+                    float: left;
+                }
+
+                span.label {
+                    display: block;
+                    margin-left: 40px;
+
+                    span.setup-wizard-step-number,
+                    span.setup-wizard-step-complete {
+                        display: block;
+                        font-size: 1.5em;
+                        margin-bottom: 5px;
+                    }
+                }
+            }
+        }
+    }
+
+    &+ #main-wrapper {
+        width: calc(100% - 250px);
+        margin-left: 250px;
+    }
+}
+
+.setup-wizard-heading {
+    margin-bottom: 30px;
+
+    .heading-large {
+        font-size: 32px;
+        color: $color-mgrey;
+    }
+}
+
+.setup-wizard-body {
+    color: $color-dgrey;
+    font-size: 18px;
+    max-height: 430px;
+    overflow-y: auto;
+
+    p {
+        @extend .setup-wizard-body;
+    }
+
+    .notifications > div span.content {
+        font-size: 18px;
+    }
+
+    .fixed-notifications {
+        height: 85px;
+    }
+
+    .button {
+        font-size: 16px;
+    }
+
+    .account-form-holder .account-form-buttons-holder {
+        width: 300px;
+    }
+}
+
+.setup-wizard-footer {
+    .button {
+        float: right;
+        margin-left: 10px;
+        font-size: 16px;
+    }
+}
+
+.setup-wizard-popup {
+    font-size: 18px;
+
+    .header-large {
+        font-size: 1.5em;
+    }
+
+    .content {
+        @extend .setup-wizard-popup;
+        width: auto;
+        max-width: 800px;
+
+        .inputbox-label {
+            @extend .setup-wizard-popup;
+            margin-bottom: 10px;
+        }
+
+        .inputbox {
+            @extend .setup-wizard-popup;
+        }
+    }
+
+    .button {
+        font-size: 16px;
+    }
+}
