@@ -10,14 +10,20 @@
         </label>
         <label id="setup-wizard-company-address-search">
             <span class="inputbox-label">Search Address:</span>
-            <div id="setup-wizard-company-address-toggle">
+            <div class="setup-wizard-company-address-toggle">
                 <a>Enter Manually</a>
             </div>
             <div class="order-inputbox-holder">
                 <input class="inputbox " type="text" name="search" />
             </div>
         </label>
-        <div id="setup-wizard-company-address-fields">
+        <div id="setup-wizard-company-address-fields" style="display: none">
+            <label>
+                <span class="inputbox-label">Address:</span>
+                <div class="setup-wizard-company-address-toggle">
+                    <a>Search Address</a>
+                </div>
+            </label>
             <label>
                 <span class="inputbox-label">Address Line 1:</span>
                 <div class="order-inputbox-holder">
@@ -61,12 +67,6 @@
                 </div>
             </label>
         </div>
-            <label>
-                <span class="inputbox-label">Telephone:</span>
-                <div class="order-inputbox-holder">
-                    <input class="inputbox" type="text" name="address[phoneNumber]" value="<?=$ou->getContact()->getPhoneNumber();?>" />
-                </div>
-            </label>
         <label>
             <span class="inputbox-label">VAT:</span>
             <?= $this->mustache('elements/toggle.mustache', [

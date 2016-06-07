@@ -30,12 +30,17 @@ define([
         var init = function()
         {
             this.registerSkipConfirmation()
-                .registerNextValidation();
+                .registerNextValidation()
+                .listenForManualEntryToggle();
         };
         init.call(this);
     }
 
     Company.SELECTOR_FORM = '#setup-wizard-company-form';
+    Company.SELECTOR_TOGGLE = '.setup-wizard-company-address-toggle a';
+    Company.SELECTOR_SEARCH = '#setup-wizard-company-address-search';
+    Company.SELECTOR_ADDRESS = '#setup-wizard-company-address-fields';
+    Company.SELECTOR_SEARCH_ITEM = '.pcaitem';
 
     Company.prototype.registerSkipConfirmation = function()
     {
@@ -100,6 +105,34 @@ reject();
             data[fieldData.name] = fieldData.value;
         }
         this.getAjaxRequester().sendRequest(this.getSaveUri(), data, callback);
+    };
+
+    Company.prototype.listenForManualEntryToggle = function()
+    {
+        var self = this;
+        $(Company.SELECTOR_TOGGLE).click(function()
+        {
+            self.toggleAddressFields();
+        });
+
+        if ($(Company.SELECTOR_FORM + ' input[name="address[address1]"').val() &&
+            $(Company.SELECTOR_FORM + ' input[name="address[addressPostcode]"').val()
+        ) {
+            self.toggleAddressFields();
+        }
+
+        return this;
+    };
+
+    Company.prototype.toggleAddressFields = function()
+    {
+        if ($(Company.SELECTOR_SEARCH).is(':visible')) {
+            $(Company.SELECTOR_SEARCH).hide();
+            $(Company.SELECTOR_ADDRESS).show();
+        } else {
+            $(Company.SELECTOR_SEARCH).show();
+            $(Company.SELECTOR_ADDRESS).hide();
+        }
     };
 
     return Company;
