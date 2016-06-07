@@ -5,7 +5,7 @@
         <label id="setup-wizard-company-name">
             <span class="inputbox-label">Company Name:</span>
             <div class="order-inputbox-holder">
-                <input class="inputbox required" type="text" name="address[addressCompanyName]" />
+                <input class="inputbox required" type="text" name="address[addressCompanyName]" value="<?=$ou->getContact()->getAddressCompanyName();?>" />
             </div>
         </label>
         <label id="setup-wizard-company-address-search">
@@ -21,60 +21,64 @@
             <label>
                 <span class="inputbox-label">Address Line 1:</span>
                 <div class="order-inputbox-holder">
-                    <input class="inputbox required" type="text" name="address[address1]" />
+                    <input class="inputbox required" type="text" name="address[address1]" value="<?=$ou->getContact()->getAddress1();?>" />
                 </div>
             </label>
             <label>
                 <span class="inputbox-label">Address Line 2:</span>
                 <div class="order-inputbox-holder">
-                    <input class="inputbox " type="text" name="address[address2]" />
+                    <input class="inputbox " type="text" name="address[address2]" value="<?=$ou->getContact()->getAddress2();?>" />
                 </div>
             </label>
             <label>
                 <span class="inputbox-label">Address Line 3:</span>
                 <div class="order-inputbox-holder">
-                    <input class="inputbox " type="text" name="address[address3]" />
+                    <input class="inputbox " type="text" name="address[address3]" value="<?=$ou->getContact()->getAddress3();?>" />
                 </div>
             </label>
             <label>
                 <span class="inputbox-label">City:</span>
                 <div class="order-inputbox-holder">
-                    <input class="inputbox " type="text" name="address[addressCity]" />
+                    <input class="inputbox " type="text" name="address[addressCity]" value="<?=$ou->getContact()->getAddressCity();?>" />
                 </div>
             </label>
             <label>
                 <span class="inputbox-label">County:</span>
                 <div class="order-inputbox-holder">
-                    <input class="inputbox " type="text" name="address[addressCounty]" />
+                    <input class="inputbox " type="text" name="address[addressCounty]" value="<?=$ou->getContact()->getAddressCounty();?>" />
                 </div>
             </label>
             <label>
                 <span class="inputbox-label">Post Code:</span>
                 <div class="order-inputbox-holder">
-                    <input class="inputbox required" type="text" name="address[addressPostcode]" />
+                    <input class="inputbox required" type="text" name="address[addressPostcode]" value="<?=$ou->getContact()->getAddressPostcode();?>" />
                 </div>
             </label>
             <label>
                 <span class="inputbox-label">Country:</span>
                 <div class="order-inputbox-holder">
-                    <input class="inputbox required" type="text" name="address[addressCountry]" />
+                    <input class="inputbox required" type="text" name="address[addressCountry]" value="<?=$ou->getContact()->getAddressCountry();?>" />
                 </div>
             </label>
         </div>
             <label>
                 <span class="inputbox-label">Telephone:</span>
                 <div class="order-inputbox-holder">
-                    <input class="inputbox" type="text" name="address[phoneNumber]" />
+                    <input class="inputbox" type="text" name="address[phoneNumber]" value="<?=$ou->getContact()->getPhoneNumber();?>" />
                 </div>
             </label>
         <label>
             <span class="inputbox-label">VAT:</span>
-            <?= $this->mustache('elements/toggle.mustache', ['id' => 'setup-wizard-company-vat-toggle', 'name' => 'vatRegistered']); ?>
+            <?= $this->mustache('elements/toggle.mustache', [
+                'id' => 'setup-wizard-company-vat-toggle',
+                'name' => 'vatRegistered',
+                'selected' => $ou->isVatRegistered(),
+            ]); ?>
         </label>
         <label id="setup-wizard-company-vat-number">
             <span class="inputbox-label">VAT Number:</span>
             <div class="order-inputbox-holder">
-                <input class="inputbox " type="text" name="vatNumber" />
+                <input class="inputbox " type="text" name="vatNumber" value="<?=$ou->getVatNumber();?>" />
             </div>
         </label>
         <div class="fixed-notifications">

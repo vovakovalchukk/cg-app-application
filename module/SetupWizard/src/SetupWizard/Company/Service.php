@@ -22,6 +22,11 @@ use LogTrait;
         $this->setOrganisationUnitService($organisationUnitService);
     }
 
+    public function fetchOrganisationUnit($ouId)
+    {
+        return $this->organisationUnitService->fetch($ouId);
+    }
+
     public function saveCompanyDetails($rootOuId, array $details, $attempt = 1)
     {
         $ou = $this->organisationUnitService->fetch($rootOuId);

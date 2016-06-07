@@ -36,8 +36,10 @@ class CompanyController extends AbstractActionController
 
     public function indexAction()
     {
+        $rootOuId = $this->setupService->getActiveRootOuId();
         $view = $this->viewModelFactory->newInstance();
         $view->setTemplate('setup-wizard/company/index')
+            ->setVariable('ou', $this->companyService->fetchOrganisationUnit($rootOuId))
             ->setVariable('saveUri', $this->url()->fromRoute(Module::ROUTE . '/' . static::ROUTE_COMPANY . '/' . static::ROUTE_COMPANY_SAVE));
 
         return $this->setupService->getSetupView('Company Details', $view);
