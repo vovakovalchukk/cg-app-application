@@ -8,9 +8,7 @@ return [
         'template_path_stack' => [
             dirname(__DIR__) . '/view/',
         ],
-        'template_map' => [
-
-        ]
+        'template_map' => []
     ],
     'router' => [
         'routes' => [
@@ -22,7 +20,7 @@ return [
                         'controller' => AccountController::class,
                     ],
                 ],
-                'may_terminate' => false,
+                'may_terminate' => true,
                 'child_routes' => [
                     Account::ROUTE_SETUP => [
                         'type' => Literal::class,
@@ -30,16 +28,13 @@ return [
                             'route' => '/setup',
                             'defaults' => [
                                 'action' => 'setup',
+                                'subHeader' => false,
+                                'sidebar' => false,
                             ],
                         ],
                     ],
                 ],
             ],
-        ],
-    ],
-    'di' => [
-        'instance' => [
-
         ],
     ],
 ];

@@ -1,0 +1,44 @@
+<div class="account-form-holder">
+    <div class="account-logo">
+        <span class="logo-large shopify"></span>
+    </div>
+    <input type="hidden" name="accountId" value="<?= $accountId ?>">
+    <div class="account-field-holder">
+        <div class="label">
+            <span class="name"><?= $this->translate('Shop') ?>:</span>
+            <abbr class="required">*</abbr>
+        </div>
+        <div class="text-field">
+            <?= $this->mustache(
+                'elements/text.mustache',
+                [
+                    'name' => 'shop',
+                    'value' => isset($accountData['credentials'], $accountData['credentials']['shop']) ? $accountData['credentials']['shop'] : '',
+                    'placeholder' => '{shop}.myshopify.com',
+                ]
+            ) ?>
+        </div>
+        <div class="account-form-buttons-holder">
+            <?= $this->mustache(
+                'elements/buttons.mustache',
+                [
+                    'buttons' => true,
+                    'id' => 'linkAccount',
+                    'value' => $this->translate('Link Account'),
+                ]
+            ) ?>
+            <?php if ($returnUrl) : ?>
+                <a href="<?= $returnUrl ?>">
+                    <?= $this->mustache(
+                        'elements/buttons.mustache',
+                        [
+                            'buttons' => true,
+                            'id' => 'goBack',
+                            'value' => $this->translate('Go Back'),
+                        ]
+                    ) ?>
+                </a>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
