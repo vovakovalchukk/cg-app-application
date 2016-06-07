@@ -9,6 +9,8 @@ use Zend\Mvc\Controller\AbstractActionController;
 
 class AccountController extends AbstractActionController
 {
+    const ROUTE_SETUP_LINK = 'Link';
+
     /** @var AccountService $accountService */
     protected $accountService;
 

@@ -4,7 +4,10 @@ namespace CG_Shopify\Account;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Credentials\Cryptor;
 use CG\Account\Shared\Entity as Account;
+use CG\Shopify\Account as ShopifyAccount;
 use CG\Shopify\Credentials;
+use CG\Zend\Stdlib\Mvc\Model\Helper\Url as UrlHelper;
+use CG_Shopify\Controller\AccountController;
 use CG_UI\View\Prototyper\ViewModelFactory;
 
 class Service
@@ -15,10 +18,20 @@ class Service
     protected $accountService;
     /** @var Cryptor $cryptor */
     protected $cryptor;
+    /** @var UrlHelper $urlHelper */
+    protected $urlHelper;
 
-    public function __construct(ViewModelFactory $viewModelFactory, AccountService $accountService, Cryptor $cryptor)
-    {
-        $this->setViewModelFactory($viewModelFactory)->setAccountService($accountService)->setCryptor($cryptor);
+    public function __construct(
+        ViewModelFactory $viewModelFactory,
+        AccountService $accountService,
+        Cryptor $cryptor,
+        UrlHelper $urlHelper
+    ) {
+        $this
+            ->setViewModelFactory($viewModelFactory)
+            ->setAccountService($accountService)
+            ->setCryptor($cryptor)
+            ->setUrlHelper($urlHelper);
     }
 
     public function getSetupView($accountId = null, $returnUrl = null)
@@ -28,6 +41,7 @@ class Service
                 'isHeaderBarVisible' => false,
                 'isSidebarPresent' => false,
                 'accountId' => $accountId,
+                'submitUrl' => $this->getSubmitUrl(),
                 'returnUrl' => $returnUrl,
             ]
         );
@@ -47,6 +61,12 @@ class Service
         }
 
         return $view->setTemplate('cg_shopify/account/setup');
+    }
+
+    protected function getSubmitUrl()
+    {
+        $route = [ShopifyAccount::ROUTE_SHOPIFY, ShopifyAccount::ROUTE_SETUP, AccountController::ROUTE_SETUP_LINK];
+        return $this->urlHelper->fromRoute(implode('/', $route));
     }
 
     /**
@@ -73,6 +93,15 @@ class Service
     protected function setCryptor(Cryptor $cryptor)
     {
         $this->cryptor = $cryptor;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setUrlHelper(UrlHelper $urlHelper)
+    {
+        $this->urlHelper = $urlHelper;
         return $this;
     }
 } 

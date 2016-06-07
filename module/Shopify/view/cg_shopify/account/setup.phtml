@@ -1,4 +1,4 @@
-<div class="account-form-holder">
+<form class="account-form-holder" action="<?= $submitUrl ?>" method="POST">
     <div class="account-logo">
         <span class="logo-large shopify"></span>
     </div>
@@ -41,4 +41,9 @@
             <?php endif; ?>
         </div>
     </div>
-</div>
+</form>
+<?php $this->inlineScript()->captureStart(); ?>
+require(["<?= $this->basePath() . \CG_Shopify\Module::PUBLIC_FOLDER; ?>/js/Setup/Service.js"], function(Service) {
+    var service = new Service();
+});
+<?php $this->inlineScript()->captureEnd(); ?>

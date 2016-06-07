@@ -32,6 +32,18 @@ return [
                                 'sidebar' => false,
                             ],
                         ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            AccountController::ROUTE_SETUP_LINK => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/link',
+                                    'defaults' => [
+                                        'action' => 'link',
+                                    ],
+                                ],
+                            ],
+                        ],
                     ],
                 ],
             ],
