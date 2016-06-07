@@ -37,7 +37,17 @@ return [
                         ],
                         'may_terminate' => true,
                         'child_routes' => [
-                            
+                            CompanyController::ROUTE_COMPANY_SAVE => [
+                                'type' => Literal::class,
+                                'options' => [
+                                    'route' => '/save',
+                                    'defaults' => [
+                                        'controller' => CompanyController::class,
+                                        'action' => 'save',
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ]
                         ]
                     ]
                 ],

@@ -11,7 +11,8 @@ use Zend\View\Renderer\PhpRenderer;
 
 class Module implements DependencyIndicatorInterface
 {
-    const PUBLIC_FOLDER = '/cg-built/setup-wizard/';
+    //const PUBLIC_FOLDER = '/cg-built/setup-wizard/';
+    const PUBLIC_FOLDER = '/channelgrabber/setup-wizard/'; // TEMP
     const ROUTE = 'SetupWizard';
 
     public function onBootstrap(MvcEvent $event)

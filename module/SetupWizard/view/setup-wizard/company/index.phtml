@@ -2,67 +2,93 @@
 
 <form id="setup-wizard-company-form">
     <div class="half">
-        <label>
+        <label id="setup-wizard-company-name">
             <span class="inputbox-label">Company Name:</span>
             <div class="order-inputbox-holder">
-                <input class="inputbox " type="text" name="addressCompanyName" />
+                <input class="inputbox required" type="text" name="address[addressCompanyName]" />
             </div>
         </label>
-        <div id="setup-wizard-company-address-search">
-            <label>
-                <span class="inputbox-label">Search Address:</span>
-                <div id="setup-wizard-company-address-toggle">
-                    <a>Enter Manually</a>
-                </div>
-                <div class="order-inputbox-holder">
-                    <input class="inputbox " type="text" name="search" />
-                </div>
-            </label>
-        </div>
+        <label id="setup-wizard-company-address-search">
+            <span class="inputbox-label">Search Address:</span>
+            <div id="setup-wizard-company-address-toggle">
+                <a>Enter Manually</a>
+            </div>
+            <div class="order-inputbox-holder">
+                <input class="inputbox " type="text" name="search" />
+            </div>
+        </label>
         <div id="setup-wizard-company-address-fields">
             <label>
                 <span class="inputbox-label">Address Line 1:</span>
                 <div class="order-inputbox-holder">
-                    <input class="inputbox " type="text" name="address1" />
+                    <input class="inputbox required" type="text" name="address[address1]" />
                 </div>
             </label>
             <label>
                 <span class="inputbox-label">Address Line 2:</span>
                 <div class="order-inputbox-holder">
-                    <input class="inputbox " type="text" name="address2" />
+                    <input class="inputbox " type="text" name="address[address2]" />
                 </div>
             </label>
             <label>
                 <span class="inputbox-label">Address Line 3:</span>
                 <div class="order-inputbox-holder">
-                    <input class="inputbox " type="text" name="address3" />
+                    <input class="inputbox " type="text" name="address[address3]" />
                 </div>
             </label>
             <label>
                 <span class="inputbox-label">City:</span>
                 <div class="order-inputbox-holder">
-                    <input class="inputbox " type="text" name="addressCity" />
+                    <input class="inputbox " type="text" name="address[addressCity]" />
                 </div>
             </label>
             <label>
                 <span class="inputbox-label">County:</span>
                 <div class="order-inputbox-holder">
-                    <input class="inputbox " type="text" name="addressCounty" />
+                    <input class="inputbox " type="text" name="address[addressCounty]" />
                 </div>
             </label>
             <label>
                 <span class="inputbox-label">Post Code:</span>
                 <div class="order-inputbox-holder">
-                    <input class="inputbox " type="text" name="addressPostCode" />
+                    <input class="inputbox required" type="text" name="address[addressPostcode]" />
                 </div>
             </label>
             <label>
                 <span class="inputbox-label">Country:</span>
-                <?=$this->countrySelect;?>
                 <div class="order-inputbox-holder">
-                    <input class="inputbox " type="text" name="addressCountryCode" />
+                    <input class="inputbox required" type="text" name="address[addressCountry]" />
                 </div>
             </label>
         </div>
+            <label>
+                <span class="inputbox-label">Telephone:</span>
+                <div class="order-inputbox-holder">
+                    <input class="inputbox" type="text" name="address[phoneNumber]" />
+                </div>
+            </label>
+        <label>
+            <span class="inputbox-label">VAT:</span>
+            <?= $this->mustache('elements/toggle.mustache', ['id' => 'setup-wizard-company-vat-toggle', 'name' => 'vatRegistered']); ?>
+        </label>
+        <label id="setup-wizard-company-vat-number">
+            <span class="inputbox-label">VAT Number:</span>
+            <div class="order-inputbox-holder">
+                <input class="inputbox " type="text" name="vatNumber" />
+            </div>
+        </label>
+        <div class="fixed-notifications">
+            <div class='notifications'>
+                <div class="error clearfix">
+                    <span class="icon"><span>!</span></span><span class="content">Your invoices will not show VAT.</span>
+                </div>
+            </div>
+        </div>
     </div>
 </form>
+<script type="text/javascript">
+    require(['<?=SetupWizard\Module::PUBLIC_FOLDER;?>js/steps/Company.js'], function(Company)
+    {
+        new Company(n, '<?=$this->saveUri;?>');
+    });
+</script>

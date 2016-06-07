@@ -61,7 +61,11 @@ define(['popup/confirm'], function(Confirm)
                     } else if (answer == Confirm.VALUE_NO) {
                         reject();
                     }
-                })
+                });
+                // Inject a class into the popup so we can style it. Needs hiding/re-showing to re-centre it.
+                confirm.hide();
+                confirm.getElement().addClass('setup-wizard-popup');
+                confirm.show();
             });
         });
     };

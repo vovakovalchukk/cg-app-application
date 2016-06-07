@@ -139,6 +139,11 @@ class Service
         return $this->activeUserContainer->getActiveUser();
     }
 
+    public function getActiveRootOuId()
+    {
+        return $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
+    }
+
     protected function setViewModelFactory(ViewModelFactory $viewModelFactory)
     {
         $this->viewModelFactory = $viewModelFactory;
