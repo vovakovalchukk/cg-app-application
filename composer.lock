@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7ce0eba323e41bc403836710b987421e",
-    "content-hash": "a6c592aaf4d1563bf74a4c89edb0d37e",
+    "hash": "e759be28c7aa0a5a1377b259bc2056ae",
+    "content-hash": "30268b3d6e0f541353b25a2567c5f724",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -305,16 +305,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.24.0",
+            "version": "dev-CGIV-7051-ShopifyAccountSetup",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "405ff7f6a279a700d45ce70274aaf5fe36d97f38"
+                "reference": "389adbaf55d0682927cca053e2c64d3a9295da66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.24.0-46801f.zip",
-                "reference": "405ff7f6a279a700d45ce70274aaf5fe36d97f38",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7051-ShopifyAccountSetup-260a9f.zip",
+                "reference": "389adbaf55d0682927cca053e2c64d3a9295da66",
                 "shasum": null
             },
             "require": {
@@ -382,7 +382,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-04-21 12:51:37"
+            "time": "2016-06-07 10:07:10"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1919,6 +1919,43 @@
             "time": "2016-06-06 08:35:17"
         },
         {
+            "name": "channelgrabber/shopify",
+            "version": "dev-CGIV-7051-ShopifyAccountSetup",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
+                "reference": "10f7bcdc6d48b95de18df8de2ded153401d73a6c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-CGIV-7051-ShopifyAccountSetup-c2ac0b.zip",
+                "reference": "10f7bcdc6d48b95de18df8de2ded153401d73a6c",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/channel": "^1.24.0",
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/stdlib": "^2.12.24",
+                "channelgrabber/zf2-stdlib": "^1.1.7"
+            },
+            "require-dev": {
+                "channelgrabber/phpunit": "^1.0.0",
+                "phpunit/phpunit": "~4.6.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Shopify\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Shopify\\Test\\": "tests/"
+                }
+            },
+            "time": "2016-06-07 10:17:52"
+        },
+        {
             "name": "channelgrabber/slim",
             "version": "1.13.22",
             "source": {
@@ -3293,6 +3330,47 @@
             "time": "2015-09-09 10:29:36"
         },
         {
+            "name": "channelgrabber/zf2-shopify",
+            "version": "dev-CGIV-7051-ShopifyAccountSetup",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/shopify-module.git",
+                "reference": "9abd152469f2d65133ea8135c5599d3c2590d14f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-shopify-dev-CGIV-7051-ShopifyAccountSetup-ca1239.zip",
+                "reference": "9abd152469f2d65133ea8135c5599d3c2590d14f",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/shopify": "dev-CGIV-7051-ShopifyAccountSetup as 1.0.0",
+                "channelgrabber/zf2-installer": "^1.0.6",
+                "channelgrabber/zf2-v4-ui": "dev-CGIV-7051-ShopifyAccountSetup as 1.16.53",
+                "zendframework/zend-config": "~2.3",
+                "zendframework/zend-form": "~2.3",
+                "zendframework/zend-loader": "~2.3",
+                "zendframework/zend-modulemanager": "~2.3",
+                "zendframework/zend-mvc": "~2.3",
+                "zendframework/zend-view": "~2.3"
+            },
+            "type": "zf2-module",
+            "extra": {
+                "zf2-module": "CG_Shopify"
+            },
+            "autoload": {
+                "psr-0": {
+                    "CG_Shopify\\": "src"
+                },
+                "classmap": [
+                    "./Module.php"
+                ]
+            },
+            "description": "Shopify Module",
+            "time": "2016-06-07 11:05:08"
+        },
+        {
             "name": "channelgrabber/zf2-ssoclient",
             "version": "1.4.2.3",
             "source": {
@@ -3423,16 +3501,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.52",
+            "version": "dev-CGIV-7051-ShopifyAccountSetup",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "f575d5f131df6315f31cfde03b01229a272cc5b0"
+                "reference": "995b62146e053f90727028a9bae8ac93969a3c98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.52-066ea5.zip",
-                "reference": "f575d5f131df6315f31cfde03b01229a272cc5b0",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7051-ShopifyAccountSetup-cd0adb.zip",
+                "reference": "995b62146e053f90727028a9bae8ac93969a3c98",
                 "shasum": null
             },
             "require": {
@@ -3479,7 +3557,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-06-07 07:38:11"
+            "time": "2016-06-07 09:40:08"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7658,10 +7736,39 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.24.2",
+            "alias_normalized": "1.24.2.0",
+            "version": "dev-CGIV-7051-ShopifyAccountSetup",
+            "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "1.0.0",
+            "alias_normalized": "1.0.0.0",
+            "version": "dev-CGIV-7051-ShopifyAccountSetup",
+            "package": "channelgrabber/shopify"
+        },
+        {
+            "alias": "1.0.0",
+            "alias_normalized": "1.0.0.0",
+            "version": "dev-CGIV-7051-ShopifyAccountSetup",
+            "package": "channelgrabber/zf2-shopify"
+        },
+        {
+            "alias": "1.16.53",
+            "alias_normalized": "1.16.53.0",
+            "version": "dev-CGIV-7051-ShopifyAccountSetup",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/shopify": 20,
+        "channelgrabber/zf2-shopify": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
