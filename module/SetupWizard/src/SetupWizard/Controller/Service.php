@@ -72,7 +72,7 @@ class Service
     {
         $nextStepUri = $this->getNextStepUri();
         if (!$nextStepUri) {
-            return '';
+            return false;
         }
         $footer = $this->viewModelFactory->newInstance([
             'buttons' => [
