@@ -206,7 +206,6 @@ define([
             for (var memberState in product['taxRates']) {
                 if (product['taxRates'].hasOwnProperty(memberState)) {
                     var taxSelectView = this.getTaxRateCustomSelectView(product, templates, memberState);
-                    console.log(taxSelectView);
                     taxRateCustomSelects += (taxSelectView ? taxSelectView : "");
                 }
             }
@@ -486,9 +485,10 @@ define([
         if(productId === undefined || productId === '' || value === undefined || value === '') {
             return;
         }
+        var memberState = value.replace(/([0-9])+/, '');
 
         this.getDeferredQueue().queue(function() {
-            return productStorage.saveTaxRate(productId, value, function(error, textStatus, errorThrown) {
+            return productStorage.saveTaxRate(productId, value, memberState, function(error, textStatus, errorThrown) {
                 if(error === null) {
                     n.success('Product tax rate updated successfully');
                 } else {
