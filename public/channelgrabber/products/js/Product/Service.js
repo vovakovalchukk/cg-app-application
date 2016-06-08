@@ -383,7 +383,7 @@ define([
             'id': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'] + '-' + memberState,
             'name': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'] + '-' + memberState,
             'class': Service.DOM_SELECTOR_TAX_RATE,
-            'title': 'VAT',
+            'title': memberState + ' VAT',
             'options': options
         }, 'customSelect');
     };
