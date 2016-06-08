@@ -47,7 +47,7 @@ return [
                             AccountController::ROUTE_SETUP_RETURN => [
                                 'type' => Segment::class,
                                 'options' => [
-                                    'route' => '/return[/:accountId]',
+                                    'route' => '/return',
                                     'defaults' => [
                                         'action' => 'return',
                                     ],

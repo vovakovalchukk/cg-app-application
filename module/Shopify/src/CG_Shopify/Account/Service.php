@@ -117,7 +117,16 @@ class Service
     protected function getProcessUrl($accountId = null)
     {
         $route = [ShopifyAccount::ROUTE_SHOPIFY, ShopifyAccount::ROUTE_SETUP, AccountController::ROUTE_SETUP_RETURN];
-        return $this->urlHelper->fromRoute(implode('/', $route), ['accountId' => $accountId]);
+        return $this->urlHelper->fromRoute(
+            implode('/', $route),
+            [],
+            [
+                'force_canonical' => true,
+                'query' => [
+                    'accountId' => $accountId,
+                ]
+            ]
+        );
     }
 
     /**
