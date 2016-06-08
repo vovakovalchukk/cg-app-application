@@ -2,7 +2,9 @@
     <div class="account-logo">
         <span class="logo-large shopify"></span>
     </div>
-    <input type="hidden" name="accountId" value="<?= $accountId ?>">
+    <?php if ($accountId) : ?>
+        <input type="hidden" name="accountId" value="<?= $accountId ?>">
+    <?php endif; ?>
     <div class="account-field-holder">
         <div class="label">
             <span class="name"><?= $this->translate('Shop') ?>:</span>
@@ -28,8 +30,8 @@
                     'value' => $this->translate('Link Account'),
                 ]
             ) ?>
-            <?php if ($returnUrl) : ?>
-                <a href="<?= $returnUrl ?>">
+            <?php if ($cancelUrl) : ?>
+                <a href="<?= $cancelUrl ?>">
                     <?= $this->mustache(
                         'elements/buttons.mustache',
                         [

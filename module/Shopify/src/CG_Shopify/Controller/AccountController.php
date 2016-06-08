@@ -10,6 +10,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 class AccountController extends AbstractActionController
 {
     const ROUTE_SETUP_LINK = 'Link';
+    const ROUTE_SETUP_RETURN = 'Return';
 
     /** @var AccountService $accountService */
     protected $accountService;
@@ -39,6 +40,13 @@ class AccountController extends AbstractActionController
                 'account' => $accountId,
             ]
         );
+    }
+
+    public function linkAction()
+    {
+        $shop = $this->params()->fromPost('shop');
+        $accountId = $this->params()->fromPost('accountId');
+        return $this->accountService->getLinkJson($shop, $accountId);
     }
 
     /**

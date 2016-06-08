@@ -2,6 +2,7 @@
 use CG\Shopify\Account;
 use CG_Shopify\Controller\AccountController;
 use Zend\Mvc\Router\Http\Literal;
+use Zend\Mvc\Router\Http\Segment;
 
 return [
     'view_manager' => [
@@ -40,6 +41,15 @@ return [
                                     'route' => '/link',
                                     'defaults' => [
                                         'action' => 'link',
+                                    ],
+                                ],
+                            ],
+                            AccountController::ROUTE_SETUP_RETURN => [
+                                'type' => Segment::class,
+                                'options' => [
+                                    'route' => '/return[/:accountId]',
+                                    'defaults' => [
+                                        'action' => 'return',
                                     ],
                                 ],
                             ],
