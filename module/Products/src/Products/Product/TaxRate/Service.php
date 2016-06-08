@@ -74,9 +74,11 @@ class Service
     {
         $taxRateIds = $product->getTaxRateIds();
 
-        foreach ($taxRateIds as $memberState => $taxRateId) {
-            if (!isset($ratesOptions[$memberState][$taxRateId])) {
-                $taxRateId = $defaultRate->getId();
+        foreach ($ratesOptions as $memberState => $taxRate) {
+            if (isset($taxRateIds[$memberState])) {
+                $taxRateId = $taxRateIds[$memberState];
+            } else {
+                $taxRateId = $defaultRate[$memberState]->getId();
             }
             $ratesOptions[$memberState][$taxRateId]['selected'] = true;
         }
