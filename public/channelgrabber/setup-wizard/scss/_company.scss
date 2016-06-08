@@ -1,7 +1,15 @@
+%setup-wizard-company-form-inputbox-holder {
+    float: none;
+
+    input {
+        margin-top: 10px;
+    }
+}
+
 #setup-wizard-company-form {
     #setup-wizard-company-name {
         .order-inputbox-holder {
-            float: none;
+            @extend %setup-wizard-company-form-inputbox-holder;
         }
     }
 
@@ -12,7 +20,54 @@
 
     #setup-wizard-company-address-search {
         .order-inputbox-holder {
+            @extend %setup-wizard-company-form-inputbox-holder;
+        }
+    }
+
+    #setup-wizard-company-vat {
+        label {
+            float: left;
+            clear: none;
+        }
+
+        &:after {
+            clear: both;
+        }
+    }
+
+    #setup-wizard-company-vat-registered {
+        width: 100px;
+        padding-bottom: 13px;
+
+        label {
+            left: -5px;
+            top: -8px;
+            width: 60px;
+        }
+    }
+
+    #setup-wizard-company-vat-number {
+        width: calc(100% - 100px);
+
+        .inputbox-label {
             float: none;
+        }
+
+        .order-inputbox-holder {
+            @extend %setup-wizard-company-form-inputbox-holder;
+
+            > * {
+                float: left;
+            }
+
+            span {
+                padding: 5px;
+                margin-top: 10px;
+            }
+
+            input {
+                width: 165px;
+            }
         }
     }
 }

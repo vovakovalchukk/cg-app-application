@@ -67,20 +67,23 @@
                 </div>
             </label>
         </div>
-        <label>
-            <span class="inputbox-label">VAT:</span>
-            <?= $this->mustache('elements/toggle.mustache', [
-                'id' => 'setup-wizard-company-vat-toggle',
-                'name' => 'vatRegistered',
-                'selected' => $ou->isVatRegistered(),
-            ]); ?>
-        </label>
-        <label id="setup-wizard-company-vat-number">
-            <span class="inputbox-label">VAT Number:</span>
-            <div class="order-inputbox-holder">
-                <input class="inputbox " type="text" name="vatNumber" value="<?=$ou->getVatNumber();?>" />
-            </div>
-        </label>
+        <div id="setup-wizard-company-vat">
+            <label id="setup-wizard-company-vat-registered">
+                <span class="inputbox-label">VAT:</span>
+                <?= $this->mustache('elements/toggle.mustache', [
+                    'id' => 'setup-wizard-company-vat-toggle',
+                    'name' => 'vatRegistered',
+                    'selected' => $ou->isVatRegistered(),
+                ]); ?>
+            </label>
+            <label id="setup-wizard-company-vat-number">
+                <span class="inputbox-label">VAT Number:</span>
+                <div class="order-inputbox-holder">
+                    <span>GB</span>
+                    <input class="inputbox " type="text" name="vatNumber" value="<?=$ou->getVatNumber();?>" />
+                </div>
+            </label>
+        </div>
         <div class="fixed-notifications" id="setup-wizard-company-vat-notice">
             <div class='notifications'>
                 <div class="success clearfix">
