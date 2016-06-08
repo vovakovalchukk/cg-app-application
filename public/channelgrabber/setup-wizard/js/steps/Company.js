@@ -69,8 +69,7 @@ define([
                 self.saveForm(function()
                 {
                     self.getNotifications().success('Your details have been saved');
-                    //resolve();
-reject();
+                    resolve();
                 });
             });
         });
