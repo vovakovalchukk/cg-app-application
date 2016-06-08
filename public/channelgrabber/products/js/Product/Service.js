@@ -188,7 +188,7 @@ define([
         var checkbox = this.getCheckboxView(product, templates);
         var expandButton = '';
         var hasVariations = false;
-        var taxRateCustomSelect = null;
+        var taxRateCustomSelects = '';
 
         if (product['variationCount'] != undefined && product['variationCount']) {
             var productContent = this.getVariationView(product, templates);
@@ -203,7 +203,13 @@ define([
         var statusLozenge = this.getStatusView(product, templates);
         var stockModesCustomSelect = this.getStockModesCustomSelectView(product, templates);
         if (product['taxRates']) {
-            taxRateCustomSelect = this.getTaxRateCustomSelectView(product, templates);
+            for (var memberState in product['taxRates']) {
+                if (product['taxRates'].hasOwnProperty(memberState)) {
+                    var taxSelectView = this.getTaxRateCustomSelectView(product, templates, memberState);
+                    console.log(taxSelectView);
+                    taxRateCustomSelects += (taxSelectView ? taxSelectView : "");
+                }
+            }
         }
         var productView = CGMustache.get().renderTemplate(templates, {
             'title': product['name'],
@@ -212,13 +218,13 @@ define([
             'eTag': product['eTag'],
             'image': this.getPrimaryImage(product['images']),
             'hasVariations': hasVariations,
+            'taxRateCustomSelects': taxRateCustomSelects,
             'isAdmin': this.isAdmin()
         }, 'product', {
             'productContent': productContent,
             'statusLozenge': statusLozenge,
             'expandButton': expandButton,
             'stockModeOptions': stockModesCustomSelect,
-            'taxRateCustomSelect': taxRateCustomSelect,
             'checkbox': checkbox
         });
         return productView;
@@ -359,23 +365,23 @@ define([
         }, 'buttons');
     };
 
-    Service.prototype.getTaxRateCustomSelectView = function(product, templates)
+    Service.prototype.getTaxRateCustomSelectView = function(product, templates, memberState)
     {
         var options = [];
-        for(var taxRateId in product['taxRates']) {
-            if(!product['taxRates'].hasOwnProperty(taxRateId)) {
+        for(var taxRateId in product['taxRates'][memberState]) {
+            if(!product['taxRates'][memberState].hasOwnProperty(taxRateId)) {
                 continue;
             }
             options.push({
-                'title': product['taxRates'][taxRateId]['rate'] + '% (' + product['taxRates'][taxRateId]['name'] + ')',
+                'title': product['taxRates'][memberState][taxRateId]['rate'] + '% (' + product['taxRates'][memberState][taxRateId]['name'] + ')',
                 'value': taxRateId,
-                'selected': product['taxRates'][taxRateId]['selected']
+                'selected': product['taxRates'][memberState][taxRateId]['selected']
             });
         }
 
         return CGMustache.get().renderTemplate(templates, {
-            'id': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'],
-            'name': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'],
+            'id': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'] + '-' + memberState,
+            'name': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'] + '-' + memberState,
             'class': Service.DOM_SELECTOR_TAX_RATE,
             'title': 'VAT',
             'options': options
