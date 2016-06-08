@@ -1,6 +1,7 @@
 <?php
-use CG_Shopify\Account\Service as AccountService;
+use CG\Shopify\Account\CreationService as ShopifyAccountCreator;
 use CG\Shopify\Client\Factory as ClientFactory;
+use CG_Shopify\Account\Service as AccountService;
 
 return [
     'di' => [
@@ -11,6 +12,11 @@ return [
                 ],
             ],
             ClientFactory::class => [
+                'parameters' => [
+                    'cryptor' => 'shopify_cryptor',
+                ],
+            ],
+            ShopifyAccountCreator::class => [
                 'parameters' => [
                     'cryptor' => 'shopify_cryptor',
                 ],

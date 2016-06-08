@@ -44,7 +44,7 @@ define(['./EventHandler.js'], function(EventHandler) {
     Service.prototype.linkAccount = function()
     {
         var n = this.getNotification();
-        n.notice('Linking account...');
+        n.notice('Linking account');
 
         this.getForm().ajaxSubmit({
             dataType: "json",

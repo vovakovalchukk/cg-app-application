@@ -26,6 +26,29 @@ class AccountController extends AbstractActionController
         return $this->accountService->getSetupView($accountId, $this->getAccountUrl($accountId));
     }
 
+    public function linkAction()
+    {
+        $shop = $this->params()->fromPost('shop');
+        $accountId = $this->params()->fromPost('accountId');
+        return $this->accountService->getLinkJson($shop, $accountId);
+    }
+
+    public function returnAction()
+    {
+        $params = $this->params()->fromQuery();
+        $accountId = null;
+
+        if (isset($params['accountId'])) {
+            $accountId = $params['accountId'];
+            unset($params['accountId']);
+        }
+
+        $account = $this->accountService->activateAccount($params, $accountId);
+        return $this->plugin('redirect')->toUrl(
+            $this->getAccountUrl($account->getId())
+        );
+    }
+
     protected function getAccountUrl($accountId = null)
     {
         $route = [SettingsModule::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS];
@@ -40,13 +63,6 @@ class AccountController extends AbstractActionController
                 'account' => $accountId,
             ]
         );
-    }
-
-    public function linkAction()
-    {
-        $shop = $this->params()->fromPost('shop');
-        $accountId = $this->params()->fromPost('accountId');
-        return $this->accountService->getLinkJson($shop, $accountId);
     }
 
     /**
