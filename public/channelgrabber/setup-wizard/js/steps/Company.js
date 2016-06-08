@@ -31,7 +31,9 @@ define([
         {
             this.registerSkipConfirmation()
                 .registerNextValidation()
-                .listenForManualEntryToggle();
+                .listenForManualEntryToggle()
+                .listenForSearchSelection()
+                .listenForVatToggle();
         };
         init.call(this);
     }
@@ -40,7 +42,6 @@ define([
     Company.SELECTOR_TOGGLE = '.setup-wizard-company-address-toggle a';
     Company.SELECTOR_SEARCH = '#setup-wizard-company-address-search';
     Company.SELECTOR_ADDRESS = '#setup-wizard-company-address-fields';
-    Company.SELECTOR_SEARCH_ITEM = '.pcaitem';
 
     Company.prototype.registerSkipConfirmation = function()
     {
@@ -133,6 +134,17 @@ reject();
             $(Company.SELECTOR_SEARCH).show();
             $(Company.SELECTOR_ADDRESS).hide();
         }
+    };
+
+    Company.prototype.listenForSearchSelection = function()
+    {
+        var self = this;
+        $(Company.SELECTOR_SEARCH).on('select', function()
+        {
+            self.toggleAddressFields();
+        });
+
+        return this;
     };
 
     return Company;
