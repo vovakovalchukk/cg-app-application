@@ -32,10 +32,13 @@ class Service
             );
         }
 
-        $memberState = $this->fetchMemberStateForOuId($organisationUnitId);
-        $rates = $this->fetchTaxRatesForMemberState($memberState);
-        $defaultRate = $rates->getDefault();
-        $ratesOptions = $this->buildRatesOptions($rates);
+        $defaultRate = [];
+        $ratesOptions = [];
+        foreach ($product->getTaxRateIds() as $memberState => $taxRateId) {
+            $rates = $this->fetchTaxRatesForMemberState($memberState);
+            $defaultRate[$memberState] = $rates->getDefault();
+            $ratesOptions[$memberState] = $this->buildRatesOptions($rates);
+        }
         $this->cache[$organisationUnitId] = $ratesOptions;
         $this->cacheDefaults[$organisationUnitId] = $defaultRate;
 
@@ -69,12 +72,15 @@ class Service
 
     protected function markRateOptionSelectedForProduct(Product $product, $ratesOptions, $defaultRate)
     {
-        $taxRateId = $product->getTaxRateId();
-        if ($taxRateId == null || !isset($ratesOptions[$taxRateId])) {
-            $taxRateId = $defaultRate->getId();
+        $taxRateIds = $product->getTaxRateIds();
+
+        foreach ($taxRateIds as $memberState => $taxRateId) {
+            if (!isset($ratesOptions[$memberState][$taxRateId])) {
+                $taxRateId = $defaultRate->getId();
+            }
+            $ratesOptions[$memberState][$taxRateId]['selected'] = true;
         }
 
-        $ratesOptions[$taxRateId]['selected'] = true;
         return $ratesOptions;
     }
 
