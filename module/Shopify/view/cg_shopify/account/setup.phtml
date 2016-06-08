@@ -24,6 +24,7 @@
                 [
                     'buttons' => true,
                     'id' => 'linkAccount',
+                    'type' => 'submit',
                     'value' => $this->translate('Link Account'),
                 ]
             ) ?>
@@ -34,6 +35,7 @@
                         [
                             'buttons' => true,
                             'id' => 'goBack',
+                            'type' => 'button',
                             'value' => $this->translate('Go Back'),
                         ]
                     ) ?>
@@ -44,6 +46,6 @@
 </form>
 <?php $this->inlineScript()->captureStart(); ?>
 require(["<?= $this->basePath() . \CG_Shopify\Module::PUBLIC_FOLDER; ?>/js/Setup/Service.js"], function(Service) {
-    var service = new Service();
+var service = new Service();
 });
 <?php $this->inlineScript()->captureEnd(); ?>

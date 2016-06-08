@@ -35,7 +35,7 @@ class AccountController extends AbstractActionController
         return $this->plugin('url')->fromRoute(
             implode('/', $route),
             [
-                'type' => ChannelType::SHIPPING,
+                'type' => ChannelType::SALES,
                 'account' => $accountId,
             ]
         );

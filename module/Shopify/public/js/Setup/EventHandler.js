@@ -8,9 +8,7 @@ define([], function() {
 
         var init = function()
         {
-            this
-                .initSubmitListener()
-                .initClickListener();
+            this.initSubmitListener();
         };
 
         init.call(this);
@@ -25,14 +23,6 @@ define([], function() {
         $(EventHandler.SELECTOR_FORM).off('submit.shopify').on('submit.shopify', function(event) {
             event.preventDefault();
             service.linkAccount();
-        });
-        return this;
-    };
-
-    EventHandler.prototype.initClickListener = function()
-    {
-        $(EventHandler.SELECTOR_LINK).off('click.shopify').on('click.shopify', function(event) {
-            $(EventHandler.SELECTOR_FORM).submit();
         });
         return this;
     };
