@@ -5,13 +5,8 @@ use CG\Http\Exception\Exception3xx\NotModified;
 use CG\OrganisationUnit\Service as OrganisationUnitService;
 use CG\Stdlib\Exception\Runtime\Conflict;
 
-use CG\Stdlib\Log\LoggerAwareInterface;
-use CG\Stdlib\Log\LogTrait;
-
 class Service
-implements LoggerAwareInterface
 {
-use LogTrait;
     const MAX_SAVE_ATTEMPTS = 2;
 
     /** @var OrganisationUnitService */
