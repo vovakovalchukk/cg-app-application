@@ -99,27 +99,12 @@
         new Company(n, '<?=$this->saveUri;?>');
     });
 
-    function capturePlusToDomEvent()
+    // Convert PCA Predict's internal event into a DOM event so we can do react to it
+    pca.on("load", function (type, id, control)
     {
-        // Convert PCA Predict's internal event into a DOM event so we can do react to it
-        capturePlus.controls[0].listen("populate", function()
+        control.listen("populate", function (address)
         {
             $('#setup-wizard-company-address-search').trigger('select');
         });
-    }
-
-    if (typeof capturePlus != 'undefined') {
-        capturePlusToDomEvent();
-    } else {
-        // Need to listen to an address being selected but capturePlus loads asynchronously so we have to wait for it
-        var intervalId;
-        intervalId = setInterval(function()
-        {
-            if (typeof capturePlus == 'undefined') {
-                return;
-            }
-            clearInterval(intervalId);
-            capturePlusToDomEvent();
-        }, 10);
-    }
+    });
 </script>
