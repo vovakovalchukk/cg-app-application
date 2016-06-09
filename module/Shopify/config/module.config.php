@@ -7,6 +7,14 @@ use Zend\Mvc\Router\Http\Literal;
 use Zend\Mvc\Router\Http\Segment;
 
 return [
+    'SetupWizard' => [
+        'SetupWizard' => [
+            'white_listed_routes' => [
+                implode('/', [Account::ROUTE_SHOPIFY, Account::ROUTE_SETUP, AccountController::ROUTE_SETUP_LINK]) => true,
+                implode('/', [Account::ROUTE_SHOPIFY, Account::ROUTE_SETUP, AccountController::ROUTE_SETUP_RETURN]) => true,
+            ]
+        ]
+    ],
     'view_manager' => [
         'template_path_stack' => [
             dirname(__DIR__) . '/view/',
