@@ -309,12 +309,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "cae9d9f1da2dfbcc1fa5fd6d0451800819a40747"
+                "reference": "bb6f2cac36b5c840e9a513b22b6e64841ed39634"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7051-ShopifyAccountSetup-f884c4.zip",
-                "reference": "cae9d9f1da2dfbcc1fa5fd6d0451800819a40747",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7051-ShopifyAccountSetup-ba2dba.zip",
+                "reference": "bb6f2cac36b5c840e9a513b22b6e64841ed39634",
                 "shasum": null
             },
             "require": {
@@ -382,7 +382,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-06-08 09:01:50"
+            "time": "2016-06-09 10:12:02"
         },
         {
             "name": "channelgrabber/cilex",
@@ -3341,15 +3341,16 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/shopify-module.git",
-                "reference": "05eb23741fd193e7428fad2fccad139813bf7148"
+                "reference": "5daf0b2080cbf71cf1df67290639dc40389a4a43"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-shopify-dev-CGIV-7051-ShopifyAccountSetup-29d155.zip",
-                "reference": "05eb23741fd193e7428fad2fccad139813bf7148",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-shopify-dev-CGIV-7051-ShopifyAccountSetup-d97b9e.zip",
+                "reference": "5daf0b2080cbf71cf1df67290639dc40389a4a43",
                 "shasum": null
             },
             "require": {
+                "channelgrabber/channel": "dev-CGIV-7051-ShopifyAccountSetup as 1.24.3",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/shopify": "dev-CGIV-7051-ShopifyAccountSetup as 1.0.0",
                 "channelgrabber/stdlib": "^2.12.24",
@@ -3378,7 +3379,7 @@
                 ]
             },
             "description": "Shopify Module",
-            "time": "2016-06-09 09:39:48"
+            "time": "2016-06-09 10:50:01"
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
