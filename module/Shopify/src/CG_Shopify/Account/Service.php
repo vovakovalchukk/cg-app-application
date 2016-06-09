@@ -19,6 +19,7 @@ use CG_UI\View\Prototyper\ViewModelFactory;
 use InvalidArgumentException;
 use Zend\Session\Container as Session;
 use Zend\Stdlib\ArrayObject;
+use CG_Shopify\Session\OAuth as OAuthSession;
 
 class Service implements LoggerAwareInterface
 {
@@ -115,8 +116,8 @@ class Service implements LoggerAwareInterface
         if (!isset($this->session['oauth']) || !($this->session['oauth'] instanceof ArrayObject)) {
             $this->session['oauth'] = new ArrayObject();
         }
-        $this->session['oauth'][$shop] = $nonce;
 
+        $this->session['oauth'][$shop] = new OAuthSession($accountId, $nonce);
         return $this->jsonModelFactory->newInstance(['redirectUrl' => $redirectUrl]);
     }
 
@@ -134,22 +135,13 @@ class Service implements LoggerAwareInterface
     protected function getProcessUrl($accountId = null)
     {
         $route = [ShopifyAccount::ROUTE_SHOPIFY, ShopifyAccount::ROUTE_SETUP, AccountController::ROUTE_SETUP_RETURN];
-        return $this->urlHelper->fromRoute(
-            implode('/', $route),
-            [],
-            [
-                'force_canonical' => true,
-                'query' => [
-                    'accountId' => $accountId,
-                ]
-            ]
-        );
+        return $this->urlHelper->fromRoute(implode('/', $route), [], ['force_canonical' => true]);
     }
 
     /**
      * @return Account
      */
-    public function activateAccount(array $parameters, $accountId = null)
+    public function activateAccount(array $parameters)
     {
         if (!isset($parameters['shop'], $parameters['state'], $parameters['code'])) {
             $this->logPrettyError(static::LOG_MSG_INVALID_OAUTH_RESPONSE, ['shop' => isset($parameters['shop']) ? $parameters['shop'] : '-', 'state' => isset($parameters['state']) ? $parameters['state'] : '-', 'code' => isset($parameters['code']) ? $parameters['code'] : '-'], [], static::LOG_CODE_INVALID_OAUTH_RESPONSE);
@@ -160,10 +152,15 @@ class Service implements LoggerAwareInterface
         $nonce = $parameters['state'];
         $code = $parameters['code'];
 
-        if (!isset($this->session['oauth'][$shop]) || $this->session['oauth'][$shop] != $nonce) {
-            $this->logPrettyError(static::LOG_MSG_INVALID_NONCE, ['Session' => isset($this->session['oauth'][$shop]) ? $this->session['oauth'][$shop] : '-', 'OAuth' => $nonce], [], static::LOG_CODE_INVALID_NONCE);
+        $oAuthSession = new OAuthSession();
+        if (isset($this->session['oauth'][$shop]) && $this->session['oauth'][$shop] instanceof OAuthSession) {
+            $oAuthSession = $this->session['oauth'][$shop];
+        }
+
+        if ($oAuthSession->getNonce() != $nonce) {
+            $this->logPrettyError(static::LOG_MSG_INVALID_NONCE, ['Session' => $oAuthSession->getNonce() != $nonce ?: '-', 'OAuth' => $nonce], [], static::LOG_CODE_INVALID_NONCE);
             throw new InvalidArgumentException(
-                sprintf("OAuth response has been comprimised:\n\"%s\" != \"%s\"", isset($this->session['oauth'][$shop]) ? $this->session['oauth'][$shop] : '-', $nonce)
+                sprintf("OAuth response has been comprimised:\n\"%s\" != \"%s\"", $oAuthSession->getNonce() != $nonce ?: '-', $nonce)
             );
         }
 
@@ -173,7 +170,7 @@ class Service implements LoggerAwareInterface
 
         return $this->shopifyAccountCreator->connectAccount(
             $this->activeUser->getCompanyId(),
-            $accountId,
+            $oAuthSession->getAccountId(),
             [
                 'shop' => $shop,
                 'token' => $token,

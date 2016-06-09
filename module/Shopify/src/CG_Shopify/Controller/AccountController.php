@@ -35,15 +35,7 @@ class AccountController extends AbstractActionController
 
     public function returnAction()
     {
-        $params = $this->params()->fromQuery();
-        $accountId = null;
-
-        if (isset($params['accountId'])) {
-            $accountId = $params['accountId'];
-            unset($params['accountId']);
-        }
-
-        $account = $this->accountService->activateAccount($params, $accountId);
+        $account = $this->accountService->activateAccount($this->params()->fromQuery());
         return $this->plugin('redirect')->toUrl(
             $this->getAccountUrl($account->getId())
         );
