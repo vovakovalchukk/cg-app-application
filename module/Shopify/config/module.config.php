@@ -1,4 +1,6 @@
 <?php
+use CG\Channel\Service as ChannelService;
+use CG\Shopify\Account\CreationService as ShopifyAccountCreator;
 use CG\Shopify\Account;
 use CG_Shopify\Controller\AccountController;
 use Zend\Mvc\Router\Http\Literal;
@@ -9,7 +11,9 @@ return [
         'template_path_stack' => [
             dirname(__DIR__) . '/view/',
         ],
-        'template_map' => []
+        'template_map' => [
+            ChannelService::FORM_SETTINGS_ACCOUNT_PREFIX . \CG\Stdlib\hyphenToClassname(ShopifyAccountCreator::CHANNEL) => dirname(__DIR__) . '/view/cg_shopify/account/settings.phtml',
+        ],
     ],
     'router' => [
         'routes' => [
