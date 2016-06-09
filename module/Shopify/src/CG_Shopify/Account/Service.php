@@ -4,22 +4,22 @@ namespace CG_Shopify\Account;
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Credentials\Cryptor;
 use CG\Account\Shared\Entity as Account;
-use CG\Shopify\Account\CreationService as ShopifyAccountCreator;
 use CG\Shopify\Account as ShopifyAccount;
-use CG\Shopify\Client\Factory as ClientFactory;
+use CG\Shopify\Account\CreationService as ShopifyAccountCreator;
 use CG\Shopify\Client;
+use CG\Shopify\Client\Factory as ClientFactory;
 use CG\Shopify\Credentials;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
 use CG\Zend\Stdlib\Mvc\Model\Helper\Url as UrlHelper;
 use CG_Shopify\Controller\AccountController;
+use CG_Shopify\Session\OAuth as OAuthSession;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use InvalidArgumentException;
 use Zend\Session\Container as Session;
 use Zend\Stdlib\ArrayObject;
-use CG_Shopify\Session\OAuth as OAuthSession;
 
 class Service implements LoggerAwareInterface
 {
