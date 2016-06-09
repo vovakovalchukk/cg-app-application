@@ -17,7 +17,8 @@ use CG_Shopify\Controller\AccountController;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use InvalidArgumentException;
-use Zend\Session\SessionManager;
+use Zend\Session\Container as Session;
+use Zend\Stdlib\ArrayObject;
 
 class Service implements LoggerAwareInterface
 {
@@ -42,8 +43,8 @@ class Service implements LoggerAwareInterface
     protected $urlHelper;
     /** @var ClientFactory $clientFactory */
     protected $clientFactory;
-    /** @var SessionManager $sessionManager */
-    protected $sessionManager;
+    /** @var Session $session */
+    protected $session;
     /** @var ShopifyAccountCreator $shopifyAccountCreator */
     protected $shopifyAccountCreator;
 
@@ -55,7 +56,7 @@ class Service implements LoggerAwareInterface
         Cryptor $cryptor,
         UrlHelper $urlHelper,
         ClientFactory $clientFactory,
-        SessionManager $sessionManager,
+        Session $session,
         ShopifyAccountCreator $shopifyAccountCreator
     ) {
         $this
@@ -66,7 +67,7 @@ class Service implements LoggerAwareInterface
             ->setCryptor($cryptor)
             ->setUrlHelper($urlHelper)
             ->setClientFactory($clientFactory)
-            ->setSessionManager($sessionManager)
+            ->setSession($session)
             ->setShopifyAccountCreator($shopifyAccountCreator);
     }
 
@@ -107,17 +108,14 @@ class Service implements LoggerAwareInterface
 
     public function getLinkJson($shop, $accountId = null)
     {
-        $client = $this->clientFactory->createClientForCredentials(new Credentials($this->parseShop($shop)));
+        $shop = $this->parseShop($shop);
+        $client = $this->clientFactory->createClientForCredentials(new Credentials($shop));
         $redirectUrl = $client->getOauthLink($nonce, Client::getRequiredScopes(), $this->getProcessUrl($accountId));
 
-        $session = $this->sessionManager->getStorage();
-        if (!isset($session['shopify'])) {
-            $session['shopify'] = [];
+        if (!isset($this->session['oauth']) || !($this->session['oauth'] instanceof ArrayObject)) {
+            $this->session['oauth'] = new ArrayObject();
         }
-        if (!isset($session['shopify']['oauth'])) {
-            $session['shopify']['oauth'] = [];
-        }
-        $session['shopify']['oauth'][$shop] = $nonce;
+        $this->session['oauth'][$shop] = $nonce;
 
         return $this->jsonModelFactory->newInstance(['redirectUrl' => $redirectUrl]);
     }
@@ -162,10 +160,11 @@ class Service implements LoggerAwareInterface
         $nonce = $parameters['state'];
         $code = $parameters['code'];
 
-        $session = $this->sessionManager->getStorage();
-        if (!isset($session['shopify']['oauth'][$shop]) || $session['shopify']['oauth'][$shop] != $nonce) {
-            $this->logPrettyError(static::LOG_MSG_INVALID_NONCE, ['Session' => isset($session['shopify']['oauth'][$shop]) ? $session['shopify']['oauth'][$shop] : '-', 'OAuth' => $nonce], [], static::LOG_CODE_INVALID_NONCE);
-            throw new InvalidArgumentException('OAuth response has been comprimised');
+        if (!isset($this->session['oauth'][$shop]) || $this->session['oauth'][$shop] != $nonce) {
+            $this->logPrettyError(static::LOG_MSG_INVALID_NONCE, ['Session' => isset($this->session['oauth'][$shop]) ? $this->session['oauth'][$shop] : '-', 'OAuth' => $nonce], [], static::LOG_CODE_INVALID_NONCE);
+            throw new InvalidArgumentException(
+                sprintf("OAuth response has been comprimised:\n\"%s\" != \"%s\"", isset($this->session['oauth'][$shop]) ? $this->session['oauth'][$shop] : '-', $nonce)
+            );
         }
 
         $client = $this->clientFactory->createClientForCredentials(new Credentials($shop));
@@ -248,9 +247,9 @@ class Service implements LoggerAwareInterface
     /**
      * @return self
      */
-    protected function setSessionManager(SessionManager $sessionManager)
+    protected function setSession(Session $session)
     {
-        $this->sessionManager = $sessionManager;
+        $this->session = $session;
         return $this;
     }
 
