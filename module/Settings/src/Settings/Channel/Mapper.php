@@ -35,6 +35,7 @@ class Mapper extends DataTableMapper
         $dataTableArray['manageLinks'] = $this->getManageLinks($accountEntity->getId(), $type, $urlPlugin);
         $dataTableArray['organisationUnit'] = $this->getOrganisationUnitCompanyName($accountEntity->getOrganisationUnitId());
         $dataTableArray['status'] = $accountEntity->getStatus($now);
+        $dataTableArray['disabled'] = $accountEntity->getPending();
 
         $dataTableArray['expiryDate'] = 'N/A';
         $expiryDate = $accountEntity->getExpiryDateAsDateTime();

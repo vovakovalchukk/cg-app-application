@@ -168,7 +168,10 @@ define([
             inlineText: '/channelgrabber/zf2-v4-ui/templates/elements/inline-text.mustache',
             variationTable: '/channelgrabber/products/template/product/variationTable.mustache',
             variationRow: '/channelgrabber/products/template/product/variationRow.mustache',
-            variationStock: '/channelgrabber/products/template/product/variationStock.mustache',
+            variationContent: '/channelgrabber/products/template/product/variationContent.mustache',
+            simpleContent: '/channelgrabber/products/template/product/simpleContent.mustache',
+            detailsTable: '/channelgrabber/products/template/product/detailsTable.mustache',
+            detailsRow: '/channelgrabber/products/template/product/detailsRow.mustache',
             stockTable: '/channelgrabber/products/template/product/stockTable.mustache',
             stockRow: '/channelgrabber/products/template/product/stockRow.mustache',
             stockLevelHeader: '/channelgrabber/products/template/product/stockLevelHeader.mustache',
@@ -197,7 +200,7 @@ define([
             }
             hasVariations = true;
         } else {
-            var productContent = this.getStockTableView(product, templates);
+            var productContent = this.getSimpleView(product, templates);
         }
 
         var statusLozenge = this.getStatusView(product, templates);
@@ -222,6 +225,48 @@ define([
             'checkbox': checkbox
         });
         return productView;
+    };
+
+    Service.prototype.getDetailsTableView = function(product, templates)
+    {
+        var details = this.getDetailsTableLineView(product, templates);
+        return this.renderDetailsTableView(product, details, templates);
+    };
+
+    Service.prototype.getDetailsTableLineView = function(product, templates)
+    {
+        return CGMustache.get().renderTemplate(
+            templates,
+            product['details'],
+            'detailsRow',
+            {
+                weight: this.getDetailView(templates, product['details'], 'weight'),
+                height: this.getDetailView(templates, product['details'], 'height'),
+                width: this.getDetailView(templates, product['details'], 'width'),
+                length: this.getDetailView(templates, product['details'], 'length')
+            }
+        );
+    };
+
+    Service.prototype.getDetailView = function(templates, details, detail, defaultValue)
+    {
+        defaultValue = defaultValue ? defaultValue : '';
+        return CGMustache.get().renderTemplate(
+            templates,
+            {
+                'value': details.hasOwnProperty(detail) ? details[detail] : defaultValue,
+                'name': detail,
+                'class': 'product-detail',
+                'type': 'number',
+                'step': '0.1'
+            },
+            'inlineText'
+        );
+    };
+
+    Service.prototype.renderDetailsTableView = function(product, details, templates)
+    {
+        return CGMustache.get().renderTemplate(templates, {}, 'detailsTable', {'details': details});
     };
 
     Service.prototype.getStockTableView = function(product, templates)
@@ -305,21 +350,35 @@ define([
         return (stockMode == null && stockModeDefault != null && stockModeDefault != 'all');
     };
 
+    Service.prototype.getSimpleView = function(product, templates)
+    {
+        var detailsTable = this.getDetailsTableView(product, templates);
+        var stockTable = this.getStockTableView(product, templates);
+        return CGMustache.get().renderTemplate(templates, {}, 'simpleContent', {
+            'detailsTable': detailsTable,
+            'stockTable': stockTable
+        });
+    };
+
     Service.prototype.getVariationView = function(product, templates)
     {
         var variations = "";
+        var details = "";
         var stockLocations = "";
         for (var index in product['variations']) {
             var variation = product['variations'][index];
             variations += this.getVariationLineView(templates, variation, product['attributeNames']);
+            details += this.getDetailsTableLineView(variation, templates);
             stockLocations += this.getStockTableLineView(variation, variation['stock']['locations'][0], templates);
         }
         var variationTable = CGMustache.get().renderTemplate(templates, {
             'attributes': product['attributeNames']
         }, 'variationTable', {'variations': variations});
+        var detailsTable = this.renderDetailsTableView(product, details, templates);
         var stockTable = this.renderStockTableView(product, stockLocations, templates);
-        var html = CGMustache.get().renderTemplate(templates, {}, 'variationStock', {
+        var html = CGMustache.get().renderTemplate(templates, {}, 'variationContent', {
             'variationTable': variationTable,
+            'detailsTable': detailsTable,
             'stockTable': stockTable
         });
         return html;

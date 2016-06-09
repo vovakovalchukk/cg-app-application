@@ -18,14 +18,12 @@ use Orders\Courier\GetProductDetailsForOrdersTrait;
 
 class CreateService extends ServiceAbstract
 {
-
     use GetProductDetailsForOrdersTrait;
 
     const LABEL_MAX_ATTEMPTS = 10;
     const LABEL_ATTEMPT_INTERVAL_SEC = 1;
     const LABEL_SAVE_MAX_ATTEMPTS = 2;
     const PROD_DETAIL_SAVE_MAX_ATTEMPTS = 2;
-    const CM_PER_M = 100;
     const LOG_CODE = 'OrderCourierLabelCreateService';
     const LOG_CREATE = 'Create label request for Order(s) %s, shipping Account %d';
     const LOG_CREATE_SEND = 'Sending create request to carrier provider for Order(s) %s, shipping Account %d';
@@ -193,7 +191,7 @@ class CreateService extends ServiceAbstract
 
     protected function processWeightForProductDetails($value, Item $item, $parcelCount)
     {
-        return $value / $item->getItemQuantity();
+        return ProductDetail::convertMass($value / $item->getItemQuantity(), ProductDetail::DISPLAY_UNIT_MASS, ProductDetail::UNIT_MASS);
     }
 
     protected function processDimensionForProductDetails($value, Item $item, $parcelCount)
@@ -203,13 +201,7 @@ class CreateService extends ServiceAbstract
             return null;
         }
         // Dimensions entered in centimetres but stored in metres
-        return $this->convertCmToM($value);
-    }
-
-    protected function convertCmToM($value)
-    {
-        $value /= static::CM_PER_M;
-        return $value;
+        return ProductDetail::convertLength($value, ProductDetail::DISPLAY_UNIT_LENGTH, ProductDetail::UNIT_LENGTH);
     }
 
     protected function createOrderLabelsForOrders(OrderCollection $orders, Account $shippingAccount)

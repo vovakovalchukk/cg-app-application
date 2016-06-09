@@ -22,6 +22,7 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
     AddOns.SELECTOR_DEL_INSTR_TH = '.deliveryInstructions-col';
     AddOns.SELECTOR_DEL_INSTR_INPUT = '.courier-order-deliveryInstructions';
     AddOns.SELECTOR_DEL_INSTR_INPUT_ID_PREFIX = '#courier-order-deliveryInstructions-';
+    AddOns.SELECTOR_HIDDEN_FIELD_INDEX = 'hidden-column-index';
 
     AddOns.prototype = Object.create(ServiceDependantOptionsAbstract.prototype);
 
@@ -63,7 +64,14 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
     AddOns.prototype.showDeliveryInstructionsForOrder = function(orderId)
     {
         if ($(AddOns.SELECTOR_DEL_INSTR_INPUT + ':visible').length == 0) {
-            this.getDataTable().fnSetColumnVis($(AddOns.SELECTOR_DEL_INSTR_TH).index(), true);
+            $('.courier-group-row td').each(function(){
+                var newColspan = parseInt($(this).attr('colspan')) + 1;
+                $(this).attr('colspan', newColspan);
+            });
+
+            var columnIndex = $('#'+AddOns.SELECTOR_HIDDEN_FIELD_INDEX).val();
+            this.getDataTable().fnSetColumnVis(columnIndex, true, false);
+            $(AddOns.SELECTOR_TABLE).cgDataTable('adjustTable');
         }
         $(AddOns.SELECTOR_DEL_INSTR_INPUT_ID_PREFIX + orderId).addClass('required').show();
         return this;
@@ -73,7 +81,22 @@ define(['./ServiceDependantOptionsAbstract.js'], function(ServiceDependantOption
     {
         $(AddOns.SELECTOR_DEL_INSTR_INPUT_ID_PREFIX + orderId).removeClass('required').hide();
         if ($(AddOns.SELECTOR_DEL_INSTR_INPUT + ':visible').length == 0) {
-            this.getDataTable().fnSetColumnVis($(AddOns.SELECTOR_DEL_INSTR_TH).index(), false);
+            $('.courier-group-row td').each(function(){
+                var newColspan = parseInt($(this).attr('colspan')) - 1;
+                $(this).attr('colspan', newColspan);
+            });
+
+            var columnIndex = $(AddOns.SELECTOR_DEL_INSTR_TH).index();
+            if (! $('#'+AddOns.SELECTOR_HIDDEN_FIELD_INDEX).length && columnIndex > 0) {
+                $('<input>').attr({
+                    type: 'hidden',
+                    id: AddOns.SELECTOR_HIDDEN_FIELD_INDEX,
+                    name: AddOns.SELECTOR_HIDDEN_FIELD_INDEX+'-name',
+                    value: columnIndex
+                }).appendTo(AddOns.SELECTOR_ADD_ONS_CONTAINER);
+            }
+            this.getDataTable().fnSetColumnVis(columnIndex, false, false);
+            $(AddOns.SELECTOR_TABLE).cgDataTable('adjustTable');
         }
         return this;
     };
