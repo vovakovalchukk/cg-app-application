@@ -3341,12 +3341,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/shopify-module.git",
-                "reference": "f54b96466581f13ec87f083d1a5e58287be68367"
+                "reference": "05eb23741fd193e7428fad2fccad139813bf7148"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-shopify-dev-CGIV-7051-ShopifyAccountSetup-50c3d9.zip",
-                "reference": "f54b96466581f13ec87f083d1a5e58287be68367",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-shopify-dev-CGIV-7051-ShopifyAccountSetup-29d155.zip",
+                "reference": "05eb23741fd193e7428fad2fccad139813bf7148",
                 "shasum": null
             },
             "require": {
@@ -3378,7 +3378,7 @@
                 ]
             },
             "description": "Shopify Module",
-            "time": "2016-06-09 07:58:15"
+            "time": "2016-06-09 09:39:48"
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
