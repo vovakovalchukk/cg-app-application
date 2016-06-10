@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ff1ae0ea208c17da515ae205c537c59f",
-    "content-hash": "3f08e1c43f8d5acabf9f0e0124eba700",
+    "hash": "3a2778faf82d14af489afa360e13f4d1",
+    "content-hash": "c2b084f49284070c4da878af7ed37da7",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -305,16 +305,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.24.0",
+            "version": "dev-CGIV-7095-Country-specific-vat-rates",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "405ff7f6a279a700d45ce70274aaf5fe36d97f38"
+                "reference": "1c3b683065598617be25b1b61b452ff467bd7618"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.24.0-46801f.zip",
-                "reference": "405ff7f6a279a700d45ce70274aaf5fe36d97f38",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7095-Country-specific-vat-rates-b96c3e.zip",
+                "reference": "1c3b683065598617be25b1b61b452ff467bd7618",
                 "shasum": null
             },
             "require": {
@@ -382,7 +382,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-04-21 12:51:37"
+            "time": "2016-06-10 11:41:20"
         },
         {
             "name": "channelgrabber/cilex",
@@ -7658,6 +7658,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.24.3",
+            "alias_normalized": "1.24.3.0",
+            "version": "dev-CGIV-7095-Country-specific-vat-rates",
+            "package": "channelgrabber/channel"
+        },
+        {
             "alias": "1.6.2",
             "alias_normalized": "1.6.2.0",
             "version": "dev-CGIV-7095-Country-specific-vat-rates",
@@ -7672,6 +7678,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/product": 20,
         "channelgrabber/tax": 20,

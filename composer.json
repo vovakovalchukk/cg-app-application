@@ -31,7 +31,7 @@
         "channelgrabber/billing": "~1.11.0",
         "channelgrabber/cache": "~2.1.0",
         "channelgrabber/cglib": "~1.10.0",
-        "channelgrabber/channel": "~1.24.0",
+        "channelgrabber/channel": "dev-CGIV-7095-Country-specific-vat-rates as 1.24.3",
         "channelgrabber/cilex": "~1.1.2",
         "channelgrabber/communication": "~1.0.2",
         "channelgrabber/constants": "dev-master",
