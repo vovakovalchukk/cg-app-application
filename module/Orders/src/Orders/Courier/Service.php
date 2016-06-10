@@ -25,6 +25,7 @@ use CG\Product\Client\Service as ProductService;
 use CG\Product\Collection as ProductCollection;
 use CG\Product\Detail\Collection as ProductDetailCollection;
 use CG\Product\Detail\Service as ProductDetailService;
+use CG\Product\Detail\Entity as ProductDetail;
 use CG\Product\Entity as Product;
 use CG\Product\Filter as ProductFilter;
 use CG\Stdlib\DateTime;
@@ -51,7 +52,6 @@ class Service implements LoggerAwareInterface
     const DEFAULT_PARCELS = 1;
     const MIN_PARCELS = 1;
     const MAX_PARCELS = 10;
-    const CM_PER_M = 100;
     const LOG_CODE = 'OrderCourierService';
     const LOG_OPTION_COLUMN_NOT_FOUND = 'No column alias called %s found for Account %d, channel %s';
 
@@ -77,13 +77,6 @@ class Service implements LoggerAwareInterface
     protected $shippingChannelsProvider;
     /** @var CarrierBookingOptionsInterface */
     protected $carrierBookingOptions;
-
-    protected $productDetailFields = [
-        'weight' => 'processWeightFromProductDetails',
-        'width'  => 'processDimensionFromProductDetails',
-        'height' => 'processDimensionFromProductDetails',
-        'length' => 'processDimensionFromProductDetails',
-    ];
 
     protected $reviewListRequiredFields = ['courier', 'service'];
     protected $specificsListRequiredOrderFields = ['parcels', 'collectionDate', 'collectionTime'];
@@ -534,46 +527,34 @@ class Service implements LoggerAwareInterface
             }
             $data[$option] = '';
         }
-        if (!$productDetail) {
+
+        if (!($productDetail instanceof ProductDetail)) {
             return $data;
         }
 
         // Always add all product details even if there's no option for them as sometimes they're used indirectly
-        $productDetailArray = $productDetail->toArray();
-        foreach ($productDetailArray as $field => $value) {
-            if (in_array($field, ['id', 'organisationUnitId', 'sku'])) {
-                continue;
-            }
-            if (isset($data[$field]) && $data[$field] != '') {
-                continue;
-            }
-            if (isset($this->productDetailFields[$field])) {
-                $callback = $this->productDetailFields[$field];
-                $value = $this->$callback($value, $item);
-            }
-            $data[$field] = $value;
-        }
+        $data['weight'] = $this->processWeightFromProductDetails($productDetail->getDisplayWeight(), $item);
+        $data['width'] = $this->processDimensionFromProductDetails($productDetail->getDisplayWidth(), $item);
+        $data['height'] = $this->processDimensionFromProductDetails($productDetail->getDisplayHeight(), $item);
+        $data['length'] = $this->processDimensionFromProductDetails($productDetail->getDisplayLength(), $item);
+
         return $data;
     }
 
     protected function processWeightFromProductDetails($value, Item $item)
     {
+        if ($value === null) {
+            return '';
+        }
         return $value * $item->getItemQuantity();
     }
 
     protected function processDimensionFromProductDetails($value, Item $item)
     {
         // Impossible to tell how to multiply dimensions
-        if ($item->getItemQuantity() > 1) {
+        if ($value === null || $item->getItemQuantity() > 1) {
             return '';
         }
-        // Dimensions stored in metres but displayed in centimetres
-        return $this->convertMToCm($value);
-    }
-
-    protected function convertMToCm($value)
-    {
-        $value *= static::CM_PER_M;
         return $value;
     }
 

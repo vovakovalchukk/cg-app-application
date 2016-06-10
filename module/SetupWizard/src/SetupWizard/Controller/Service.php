@@ -72,7 +72,7 @@ class Service
     {
         $nextStepUri = $this->getNextStepUri();
         if (!$nextStepUri) {
-            return '';
+            return false;
         }
         $footer = $this->viewModelFactory->newInstance([
             'buttons' => [
@@ -137,6 +137,11 @@ class Service
     public function getActiveUser()
     {
         return $this->activeUserContainer->getActiveUser();
+    }
+
+    public function getActiveRootOuId()
+    {
+        return $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
     }
 
     protected function setViewModelFactory(ViewModelFactory $viewModelFactory)

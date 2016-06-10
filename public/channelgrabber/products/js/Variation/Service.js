@@ -68,6 +68,7 @@ define([
     Service.SELECTOR_CONTENT_CONTAINER = '.product-content-container';
     Service.SELECTOR_EXPAND_BUTTON = '.product-variation-expand-button';
     Service.SELECTOR_VARIATION_TABLE = '.variation-table';
+    Service.SELECTOR_DETAILS_TABLE = '.details-table';
     Service.SELECTOR_STOCK_TABLE = '.stock-table';
     Service.SELECTOR_ID = ':input[name=id]';
     Service.CLASS_AJAX = 'expand-button-ajax';
@@ -118,10 +119,12 @@ define([
     Service.prototype.renderAdditionalVariations = function(productContainer, variations, templates)
     {
         var variationTableBodySelector = this.getSelectorForProductContainer(productContainer, Service.SELECTOR_VARIATION_TABLE + ' tbody');
+        var detailsTableBodySelector = this.getSelectorForProductContainer(productContainer, Service.SELECTOR_DETAILS_TABLE + ' tbody');
         var stockTableBodySelector = this.getSelectorForProductContainer(productContainer, Service.SELECTOR_STOCK_TABLE + ' tbody');
         var attributeNamesSelector = this.getSelectorForProductContainer(productContainer, Service.SELECTOR_VARIATION_TABLE + ' thead th:nth-child(n+3)');
         var attributeNames = this.getAttributeNamesFromDom(attributeNamesSelector);
         var variationRows = '';
+        var detailsRows = '';
         var stockRows = '';
 
         for (var index in variations) {
@@ -129,12 +132,14 @@ define([
             variationRows += this.getProductService().getVariationLineView(
                 templates, variation, attributeNames
             );
+            detailsRows += this.getProductService().getDetailsTableLineView(variation, templates);
             stockRows += this.getProductService().getStockTableLineView(
                 variation, variation['stock']['locations'][0], templates
             );
         }
 
         this.getDomManipulator().setHtml(variationTableBodySelector, variationRows);
+        this.getDomManipulator().setHtml(detailsTableBodySelector, detailsRows);
         this.getDomManipulator().setHtml(stockTableBodySelector, stockRows);
     };
 

@@ -35,6 +35,7 @@ class ProductsJsonController extends AbstractActionController
     const ROUTE_STOCK_CSV_EXPORT_PROGRESS = 'stockCsvExportProgress';
     const ROUTE_STOCK_CSV_IMPORT = 'stockCsvImport';
     const ROUTE_DELETE = 'Delete';
+    const ROUTE_DETAILS_UPDATE = 'detailsUpdate';
 
     const PROGRESS_KEY_NAME_STOCK_EXPORT = 'stockExportProgressKey';
 
@@ -158,6 +159,20 @@ class ProductsJsonController extends AbstractActionController
         $product['stock'] = array_merge($productEntity->getStock()->toArray(), [
             'locations' => $stockEntity->getLocations()->toArray()
         ]);
+
+        $detailsEntity = $productEntity->getDetails();
+        if ($detailsEntity) {
+            $product['details'] = [
+                'id' => $detailsEntity->getId(),
+                'sku' => $detailsEntity->getSku(),
+                'weight' => $detailsEntity->getDisplayWeight(),
+                'width' => $detailsEntity->getDisplayWidth(),
+                'height' => $detailsEntity->getDisplayHeight(),
+                'length' => $detailsEntity->getDisplayLength(),
+            ];
+        } else {
+            $product['details'] = ['sku' => $productEntity->getSku()];
+        }
 
         foreach ($product['stock']['locations'] as $stockLocationIndex => $stockLocation) {
             $stockLocationId = $product['stock']['locations'][$stockLocationIndex]['id'];
@@ -335,6 +350,24 @@ class ProductsJsonController extends AbstractActionController
 
         $view = $this->getJsonModelFactory()->newInstance();
         $view->setVariable("success", true);
+        return $view;
+    }
+
+    public function detailsUpdateAction()
+    {
+        $this->checkUsage();
+
+        $view = $this->getJsonModelFactory()->newInstance();
+        $view->setVariable(
+            'id',
+            $this->productService->saveProductDetail(
+                $this->params()->fromPost('sku'),
+                $this->params()->fromPost('detail'),
+                $this->params()->fromPost('value'),
+                $this->params()->fromPost('id')
+            )
+        );
+
         return $view;
     }
 

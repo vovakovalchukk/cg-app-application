@@ -1,34 +1,37 @@
 <?php
 namespace Products\Product;
 
-use CG\Http\Exception\Exception3xx\NotModified as HttpNotModified;
-use CG\ETag\Exception\NotModified;
-use CG\Product\Client\Service as ProductService;
-use CG\Stats\StatsAwareInterface;
-use CG\Stats\StatsTrait;
-use CG_UI\View\Table;
-use CG\User\ActiveUserInterface;
-use Zend\Di\Di;
-use CG\User\Service as UserService;
-use CG\UserPreference\Client\Service as UserPreferenceService;
-use CG\Account\Client\Service as AccountService;
 use CG\Account\Client\Filter as AccountFilter;
+use CG\Account\Client\Service as AccountService;
 use CG\Channel\Type as ChannelType;
-use CG\Stdlib\Log\LoggerAwareInterface;
-use CG\Stdlib\Log\LogTrait;
-use CG\OrganisationUnit\Service as OrganisationUnitService;
-use CG\Stock\Adjustment as StockAdjustment;
-use CG\Stock\Adjustment\Service as StockAdjustmentService;
-use CG\Stock\Location\Service as StockLocationService;
-use CG\Stock\Service as StockService;
-use CG\Product\Filter as ProductFilter;
-use CG\Product\Filter\Mapper as ProductFilterMapper;
-use CG\Product\Entity as Product;
-use CG\Product\StockMode;
-use CG\Stdlib\Exception\Runtime\NotFound;
-use CG\Stock\Auditor as StockAuditor;
+use CG\ETag\Exception\NotModified;
+use CG\Http\Exception\Exception3xx\NotModified as HttpNotModified;
 use CG\Intercom\Event\Request as IntercomEvent;
 use CG\Intercom\Event\Service as IntercomEventService;
+use CG\OrganisationUnit\Service as OrganisationUnitService;
+use CG\Product\Client\Service as ProductService;
+use CG\Product\Detail\Client\Service as DetailService;
+use CG\Product\Detail\Entity as Details;
+use CG\Product\Detail\Mapper as DetailMapper;
+use CG\Product\Filter as ProductFilter;
+use CG\Product\Filter\Mapper as ProductFilterMapper;
+use CG\Product\StockMode;
+use CG\Stats\StatsAwareInterface;
+use CG\Stats\StatsTrait;
+use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\Stdlib\Log\LoggerAwareInterface;
+use CG\Stdlib\Log\LogTrait;
+use CG\Stock\Adjustment as StockAdjustment;
+use CG\Stock\Adjustment\Service as StockAdjustmentService;
+use CG\Stock\Auditor as StockAuditor;
+use CG\Stock\Location\Service as StockLocationService;
+use CG\Stock\Service as StockService;
+use CG\User\ActiveUserInterface;
+use CG\User\Entity as User;
+use CG\User\Service as UserService;
+use CG\UserPreference\Client\Service as UserPreferenceService;
+use CG_UI\View\Table;
+use Zend\Di\Di;
 
 class Service implements LoggerAwareInterface, StatsAwareInterface
 {
@@ -66,6 +69,10 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
     protected $intercomEventService;
     /** @var StockAdjustmentService */
     protected $stockAdjustmentService;
+    /** @var DetailService $detailService */
+    protected $detailService;
+    /** @var DetailMapper $detailMapper */
+    protected $detailMapper;
 
     public function __construct(
         UserService $userService,
@@ -80,9 +87,12 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         StockService $stockService,
         StockAuditor $stockAuditor,
         IntercomEventService $intercomEventService,
-        StockAdjustmentService $stockAdjustmentService
+        StockAdjustmentService $stockAdjustmentService,
+        DetailService $detailService,
+        DetailMapper $detailMapper
     ) {
-        $this->setProductService($productService)
+        $this
+            ->setProductService($productService)
             ->setUserService($userService)
             ->setProductFilterMapper($productFilterMapper)
             ->setActiveUserContainer($activeUserContainer)
@@ -94,7 +104,9 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
             ->setStockLocationService($stockLocationService)
             ->setStockAuditor($stockAuditor)
             ->setIntercomEventService($intercomEventService)
-            ->setStockAdjustmentService($stockAdjustmentService);
+            ->setStockAdjustmentService($stockAdjustmentService)
+            ->setDetailService($detailService)
+            ->setDetailMapper($detailMapper);
     }
 
     public function fetchProducts(ProductFilter $productFilter, $limit = self::LIMIT, $page = self::PAGE)
@@ -245,6 +257,37 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $this->accountService->fetchByFilter($filter);
     }
 
+    public function saveProductDetail($sku, $detail, $value, $id = null)
+    {
+        $value = is_numeric($value) ? (float) $value : null;
+        if ($detail == 'weight') {
+            $value = Details::convertMass($value, Details::DISPLAY_UNIT_MASS, Details::UNIT_MASS);
+        } else {
+            $value = Details::convertLength($value, Details::DISPLAY_UNIT_LENGTH, Details::UNIT_LENGTH);
+        }
+
+        if ($id) {
+            $this->detailService->patchEntity($id, [$detail => $value]);
+        } else {
+            /** @var Details $details */
+            $details = $this->detailService->save(
+                $this->detailMapper->fromArray(
+                    [
+                        'organisationUnitId' => $this->getActiveUserRootOu(),
+                        'sku' => $sku,
+                        $detail => $value,
+                    ]
+                )
+            );
+            $id = $details->getId();
+        }
+
+        return $id;
+    }
+
+    /**
+     * @return self
+     */
     protected function setProductService(ProductService $productService)
     {
         $this->productService = $productService;
@@ -259,6 +302,9 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $this->productService;
     }
 
+    /**
+     * @return self
+     */
     protected function setDi(Di $di)
     {
         $this->di = $di;
@@ -273,6 +319,9 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $this->di;
     }
 
+    /**
+     * @return self
+     */
     protected function setActiveUserContainer(ActiveUserInterface $activeUserContainer)
     {
         $this->activeUserContainer = $activeUserContainer;
@@ -289,6 +338,9 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $this->activeUserPreference;
     }
 
+    /**
+     * @return self
+     */
     protected function setUserService(UserService $userService)
     {
         $this->userService = $userService;
@@ -311,11 +363,24 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $this->activeUserContainer;
     }
 
+    /**
+     * @return User
+     */
     protected function getActiveUser()
     {
         return $this->getActiveUserContainer()->getActiveUser();
     }
 
+    protected function getActiveUserRootOu()
+    {
+        return $this->getOrganisationUnitService()->getRootOuIdFromOuId(
+            $this->getActiveUser()->getOrganisationUnitId()
+        );
+    }
+
+    /**
+     * @return self
+     */
     protected function setUserPreferenceService(UserPreferenceService $userPreferenceService)
     {
         $this->userPreferenceService = $userPreferenceService;
@@ -330,6 +395,9 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $this->userPreferenceService;
     }
 
+    /**
+     * @return self
+     */
     protected function setAccountService(AccountService $accountService)
     {
         $this->accountService = $accountService;
@@ -344,17 +412,26 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $this->accountService;
     }
 
+    /**
+     * @return OrganisationUnitService
+     */
     protected function getOrganisationUnitService()
     {
         return $this->organisationUnitService;
     }
 
+    /**
+     * @return self
+     */
     protected function setOrganisationUnitService(OrganisationUnitService $organisationUnitService)
     {
         $this->organisationUnitService = $organisationUnitService;
         return $this;
     }
 
+    /**
+     * @return self
+     */
     protected function setStockLocationService(StockLocationService $stockLocationService)
     {
         $this->stockLocationService = $stockLocationService;
@@ -366,6 +443,9 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $this->stockLocationService;
     }
 
+    /**
+     * @return self
+     */
     protected function setStockService(StockService $stockService)
     {
         $this->stockService = $stockService;
@@ -377,6 +457,9 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $this->stockService;
     }
 
+    /**
+     * @return self
+     */
     protected function setProductFilterMapper(ProductFilterMapper $productFilterMapper)
     {
         $this->productFilterMapper = $productFilterMapper;
@@ -410,15 +493,39 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         return $this->intercomEventService;
     }
 
+    /**
+     * @return self
+     */
     protected function setIntercomEventService(IntercomEventService $intercomEventService)
     {
         $this->intercomEventService = $intercomEventService;
         return $this;
     }
 
+    /**
+     * @return self
+     */
     protected function setStockAdjustmentService(StockAdjustmentService $stockAdjustmentService)
     {
         $this->stockAdjustmentService = $stockAdjustmentService;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setDetailService(DetailService $detailService)
+    {
+        $this->detailService = $detailService;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setDetailMapper(DetailMapper $detailMapper)
+    {
+        $this->detailMapper = $detailMapper;
         return $this;
     }
 }
