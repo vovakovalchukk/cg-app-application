@@ -105,10 +105,9 @@ class ProductsJsonController extends AbstractActionController
             $organisationUnitIds = $requestFilter->getOrganisationUnitId();
             $accounts = $this->getAccountsIndexedById($organisationUnitIds);
             $rootOrganisationUnit = $this->organisationUnitService->getRootOuFromOuId(reset($organisationUnitIds));
-            $isVatRegistered = $rootOrganisationUnit->isVatRegistered();
 
             foreach ($products as $product) {
-                $productsArray[] = $this->toArrayProductEntityWithEmbeddedData($product, $accounts, $isVatRegistered);
+                $productsArray[] = $this->toArrayProductEntityWithEmbeddedData($product, $accounts, $rootOrganisationUnit);
             }
             $total = $products->getTotal();
         } catch(NotFound $e) {
@@ -129,7 +128,7 @@ class ProductsJsonController extends AbstractActionController
         return $indexedAccounts;
     }
 
-    protected function toArrayProductEntityWithEmbeddedData(ProductEntity $productEntity, $accounts, $isVatRegistered)
+    protected function toArrayProductEntityWithEmbeddedData(ProductEntity $productEntity, $accounts, $rootOrganisationUnit)
     {
         $product = $productEntity->toArray();
 
@@ -144,8 +143,8 @@ class ProductsJsonController extends AbstractActionController
             'stockLevel' => $this->stockSettingsService->getStockLevelForProduct($productEntity),
         ]);
 
-        if($isVatRegistered) {
-            $product['taxRates'] = $this->taxRateService->getTaxRatesOptionsForProduct($productEntity);
+        if($rootOrganisationUnit->isVatRegistered()) {
+            $product['taxRates'] = $this->taxRateService->getTaxRatesOptionsForProduct($productEntity, $rootOrganisationUnit->getMemberState());
         }
 
         $product['variationCount'] = count($productEntity->getVariationIds());
