@@ -39,6 +39,12 @@ class Service
         }
 
         foreach ($product->getTaxRateIds() as $memberState => $taxRateId) {
+            if ($memberState !== $ouMemberState) {
+                /**
+                 * Temporarily exclude tax rates that aren't part of this ou's currently selected memberstate
+                 */
+                continue;
+            }
             $rates = $this->fetchTaxRatesForMemberState($memberState);
             $defaultRate[$memberState] = $rates->getDefault();
             $ratesOptions[$memberState] = $this->buildRatesOptions($rates);
