@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b5a80c0c89a0487d8e841bed3d6d92fc",
-    "content-hash": "f5bd34273a9305fc2690730b01ce5ed8",
+    "hash": "c1619abbf479612c2375544b661e98d4",
+    "content-hash": "1664c6fae0af1fea160952f810cd2f29",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2055,16 +2055,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "dev-CGIV-7127-DuplicatePdfLabels",
+            "version": "2.12.31",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "7e7216d2a0888cd2a85e754ad430f0404cac179d"
+                "reference": "a54c56646c497569bf1353c9ad3794064c5e4318"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-CGIV-7127-DuplicatePdfLabels-518803.zip",
-                "reference": "7e7216d2a0888cd2a85e754ad430f0404cac179d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.31-c9d041.zip",
+                "reference": "a54c56646c497569bf1353c9ad3794064c5e4318",
                 "shasum": null
             },
             "require": {
@@ -2095,7 +2095,7 @@
                     "CG\\Stdlib\\Test\\": "tests/CG/Stdlib"
                 }
             },
-            "time": "2016-06-10 08:54:00"
+            "time": "2016-06-10 09:49:51"
         },
         {
             "name": "channelgrabber/stock",
@@ -7665,18 +7665,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "2.12.31",
-            "alias_normalized": "2.12.31.0",
-            "version": "dev-CGIV-7127-DuplicatePdfLabels",
-            "package": "channelgrabber/stdlib"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
-        "channelgrabber/stdlib": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
