@@ -309,12 +309,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "1c3b683065598617be25b1b61b452ff467bd7618"
+                "reference": "4b4fd23461c2d5d1977e47752732969fd5f1087c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7095-Country-specific-vat-rates-b96c3e.zip",
-                "reference": "1c3b683065598617be25b1b61b452ff467bd7618",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7095-Country-specific-vat-rates-12b52e.zip",
+                "reference": "4b4fd23461c2d5d1977e47752732969fd5f1087c",
                 "shasum": null
             },
             "require": {
@@ -382,7 +382,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-06-10 11:41:20"
+            "time": "2016-06-14 10:42:15"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1618,12 +1618,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "657809e477e50fd3ffefaf73e955458fcd3b1d0b"
+                "reference": "26acded0874c439bc981360f8c8f6cb9365dceb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-7095-Country-specific-vat-rates-c0d1b5.zip",
-                "reference": "657809e477e50fd3ffefaf73e955458fcd3b1d0b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-7095-Country-specific-vat-rates-ea7554.zip",
+                "reference": "26acded0874c439bc981360f8c8f6cb9365dceb5",
                 "shasum": null
             },
             "require": {
@@ -1657,7 +1657,7 @@
                     "CG\\Product\\": "src"
                 }
             },
-            "time": "2016-06-13 08:47:58"
+            "time": "2016-06-14 11:20:37"
         },
         {
             "name": "channelgrabber/product-locking",
