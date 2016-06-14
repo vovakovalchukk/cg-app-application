@@ -416,11 +416,11 @@ class ChannelController extends AbstractActionController
             );
 
             $active = filter_var(
-                $this->params()->fromPost('active', false),
+                $this->params()->fromPost('active', $account->getActive()),
                 FILTER_VALIDATE_BOOLEAN
             );
 
-            $accountService->save($account->setActive($active));
+            $accountService->save($account->setActive($active)->setPending(false));
             $this->notifyOfChange(static::EVENT_ACCOUNT_STATUS_CHANGED, $account);
             $response->setVariable(
                 'account',
