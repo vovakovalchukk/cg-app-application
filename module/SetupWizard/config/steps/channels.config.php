@@ -10,7 +10,7 @@ return [
         'setup-navigation' => [
             'Steps' => [
                 'pages' => [
-                    'example' => [
+                    'channels' => [
                         'label' => 'Add Channels',
                         'title' => 'Add Channels',
                         'route' => Module::ROUTE . '/' . ChannelsController::ROUTE_CHANNELS,
