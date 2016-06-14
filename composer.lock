@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6ceed89300054a42dfd7cda6212eead7",
-    "content-hash": "da92d6a7a78ec4edc5902dc276d4951f",
+    "hash": "b338abcdaa8aab49668a13ba9153b2a8",
+    "content-hash": "d53646745ed4b6ba2906936eb1362604",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -305,16 +305,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-7133-SaveRoyalMailCredentials",
+            "version": "1.24.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "412d9facc20a706a1fd2b0b717dbea1cacac3e1a"
+                "reference": "6cfa2124a570bb04448d3449038c27e7c574138c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7133-SaveRoyalMailCredentials-4f2f30.zip",
-                "reference": "412d9facc20a706a1fd2b0b717dbea1cacac3e1a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.24.3-8ad29d.zip",
+                "reference": "6cfa2124a570bb04448d3449038c27e7c574138c",
                 "shasum": null
             },
             "require": {
@@ -382,7 +382,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-06-14 14:49:26"
+            "time": "2016-06-14 15:07:58"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1168,16 +1168,16 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "dev-CGIV-7133-SaveRoyalMailCredentials",
+            "version": "1.0.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "3f4b738fb050a6350fc35c897d6359b9e4c1ec4a"
+                "reference": "58a359b7984905b270f6959fb24e82018e84309b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-dev-CGIV-7133-SaveRoyalMailCredentials-978033.zip",
-                "reference": "3f4b738fb050a6350fc35c897d6359b9e4c1ec4a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.0.10-c06aa1.zip",
+                "reference": "58a359b7984905b270f6959fb24e82018e84309b",
                 "shasum": null
             },
             "require": {
@@ -1196,7 +1196,7 @@
                 "zendframework/zend-di": ">=2.2.5"
             },
             "conflict": {
-                "channelgrabber/zf2-netdespatch": "<1.0.2"
+                "channelgrabber/zf2-netdespatch": "<1.0.3"
             },
             "require-dev": {
                 "channelgrabber/phpunit": "^1.0.4",
@@ -1219,7 +1219,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-06-14 10:31:01"
+            "time": "2016-06-14 15:12:04"
         },
         {
             "name": "channelgrabber/notification",
@@ -3079,16 +3079,16 @@
         },
         {
             "name": "channelgrabber/zf2-netdespatch",
-            "version": "dev-CGIV-7133-SaveRoyalMailCredentials",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/netdespatch-module.git",
-                "reference": "4b6aca8f66241bd710d7143cf05803222dd1dd61"
+                "reference": "171bd074a693163a01948f8bdd579b3689684088"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-CGIV-7133-SaveRoyalMailCredentials-4c24db.zip",
-                "reference": "4b6aca8f66241bd710d7143cf05803222dd1dd61",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-1.0.3-e2f5b2.zip",
+                "reference": "171bd074a693163a01948f8bdd579b3689684088",
                 "shasum": null
             },
             "require": {
@@ -3096,7 +3096,7 @@
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.0.8",
-                "channelgrabber/netdespatch": "dev-CGIV-7133-SaveRoyalMailCredentials as 1.0.10",
+                "channelgrabber/netdespatch": "^1.0.10",
                 "channelgrabber/zf2-installer": "^1.0.6",
                 "channelgrabber/zf2-v4-ui": "^1.16.53",
                 "php-jsonpatch/php-jsonpatch": "dev-master",
@@ -3120,7 +3120,7 @@
                 ]
             },
             "description": "NetDespatch module",
-            "time": "2016-06-14 11:18:54"
+            "time": "2016-06-14 15:18:48"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -7665,32 +7665,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.24.3",
-            "alias_normalized": "1.24.3.0",
-            "version": "dev-CGIV-7133-SaveRoyalMailCredentials",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.0.10",
-            "alias_normalized": "1.0.10.0",
-            "version": "dev-CGIV-7133-SaveRoyalMailCredentials",
-            "package": "channelgrabber/netdespatch"
-        },
-        {
-            "alias": "1.0.3",
-            "alias_normalized": "1.0.3.0",
-            "version": "dev-CGIV-7133-SaveRoyalMailCredentials",
-            "package": "channelgrabber/zf2-netdespatch"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/netdespatch": 20,
-        "channelgrabber/zf2-netdespatch": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
