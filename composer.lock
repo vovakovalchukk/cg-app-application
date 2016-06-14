@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c2e1e9f431215d2d2762ed08d9f42ee6",
-    "content-hash": "adb2646467985f21e0981e3dd2c1b1a1",
+    "hash": "6ceed89300054a42dfd7cda6212eead7",
+    "content-hash": "da92d6a7a78ec4edc5902dc276d4951f",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -305,16 +305,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.24.2",
+            "version": "dev-CGIV-7133-SaveRoyalMailCredentials",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "0b32a5fffd0bb40625db58a04f38c6fba646b922"
+                "reference": "412d9facc20a706a1fd2b0b717dbea1cacac3e1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.24.2-74de44.zip",
-                "reference": "0b32a5fffd0bb40625db58a04f38c6fba646b922",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7133-SaveRoyalMailCredentials-4f2f30.zip",
+                "reference": "412d9facc20a706a1fd2b0b717dbea1cacac3e1a",
                 "shasum": null
             },
             "require": {
@@ -382,7 +382,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-06-08 08:02:15"
+            "time": "2016-06-14 14:49:26"
         },
         {
             "name": "channelgrabber/cilex",
@@ -7667,6 +7667,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.24.3",
+            "alias_normalized": "1.24.3.0",
+            "version": "dev-CGIV-7133-SaveRoyalMailCredentials",
+            "package": "channelgrabber/channel"
+        },
+        {
             "alias": "1.0.10",
             "alias_normalized": "1.0.10.0",
             "version": "dev-CGIV-7133-SaveRoyalMailCredentials",
@@ -7681,6 +7687,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
         "channelgrabber/netdespatch": 20,
         "channelgrabber/zf2-netdespatch": 20,
