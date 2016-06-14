@@ -38,16 +38,16 @@ class Service
             $ratesOptions[$memberStateOfOu] = $this->buildRatesOptions($rates);
         }
 
-        foreach ($product->getTaxRateIds() as $memberState => $taxRateId) {
-            if ($memberState !== array_pop($VATCountryCodes)) {
+        foreach ($product->getTaxRateIds() as $VATCountryCode => $taxRateId) {
+            if ($VATCountryCode !== array_pop($VATCountryCodes)) {
                 /**
                  * Temporarily exclude tax rates that aren't part of this ou's currently selected memberstate
                  */
                 continue;
             }
-            $rates = $this->fetchTaxRatesForMemberState($memberState);
-            $defaultRate[$memberState] = $rates->getDefault();
-            $ratesOptions[$memberState] = $this->buildRatesOptions($rates);
+            $rates = $this->fetchTaxRatesForMemberState($VATCountryCode);
+            $defaultRate[$VATCountryCode] = $rates->getDefault();
+            $ratesOptions[$VATCountryCode] = $this->buildRatesOptions($rates);
         }
         $this->cache[$organisationUnitId] = $ratesOptions;
         $this->cacheDefaults[$organisationUnitId] = $defaultRate;
