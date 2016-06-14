@@ -17,11 +17,11 @@ define(function () {
         });
     };
 
-    Ajax.prototype.saveTaxRate = function(productId, taxRateId, memberState, callback)
+    Ajax.prototype.saveTaxRate = function(productId, taxRateId, VATCountryCode, callback)
     {
         return $.ajax({
             'url' : '/products/taxRate',
-            'data' : {productId: productId, taxRateId: taxRateId, memberState: memberState },
+            'data' : {productId: productId, taxRateId: taxRateId, VATCountryCode: VATCountryCode },
             'method' : 'POST',
             'dataType' : 'json',
             'success' : function() {

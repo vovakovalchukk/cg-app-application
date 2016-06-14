@@ -253,9 +253,9 @@ class ProductsJsonController extends AbstractActionController
 
         $productId = (int) $this->params()->fromPost('productId');
         $taxRateId = (string) $this->params()->fromPost('taxRateId');
-        $memberState = (string) $this->params()->fromPost('memberState');
+        $VATCountryCode = (string) $this->params()->fromPost('VATCountryCode');
         $view = $this->getJsonModelFactory()->newInstance();
-        $this->getProductService()->saveProductTaxRateId($productId, $taxRateId, $memberState);
+        $this->getProductService()->saveProductTaxRateId($productId, $taxRateId, $VATCountryCode);
         $view->setVariable('saved', true);
         return $view;
     }

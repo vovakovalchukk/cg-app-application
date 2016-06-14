@@ -206,9 +206,9 @@ define([
         var statusLozenge = this.getStatusView(product, templates);
         var stockModesCustomSelect = this.getStockModesCustomSelectView(product, templates);
         if (product['taxRates']) {
-            for (var memberState in product['taxRates']) {
-                if (product['taxRates'].hasOwnProperty(memberState)) {
-                    var taxSelectView = this.getTaxRateCustomSelectView(product, templates, memberState);
+            for (var VATCountryCode in product['taxRates']) {
+                if (product['taxRates'].hasOwnProperty(VATCountryCode)) {
+                    var taxSelectView = this.getTaxRateCustomSelectView(product, templates, VATCountryCode);
                     taxRateCustomSelects += (taxSelectView ? taxSelectView : "");
                 }
             }
@@ -423,25 +423,25 @@ define([
         }, 'buttons');
     };
 
-    Service.prototype.getTaxRateCustomSelectView = function(product, templates, memberState)
+    Service.prototype.getTaxRateCustomSelectView = function(product, templates, VATCountryCode)
     {
         var options = [];
-        for(var taxRateId in product['taxRates'][memberState]) {
-            if(!product['taxRates'][memberState].hasOwnProperty(taxRateId)) {
+        for(var taxRateId in product['taxRates'][VATCountryCode]) {
+            if(!product['taxRates'][VATCountryCode].hasOwnProperty(taxRateId)) {
                 continue;
             }
             options.push({
-                'title': product['taxRates'][memberState][taxRateId]['rate'] + '% (' + product['taxRates'][memberState][taxRateId]['name'] + ')',
+                'title': product['taxRates'][VATCountryCode][taxRateId]['rate'] + '% (' + product['taxRates'][VATCountryCode][taxRateId]['name'] + ')',
                 'value': taxRateId,
-                'selected': product['taxRates'][memberState][taxRateId]['selected']
+                'selected': product['taxRates'][VATCountryCode][taxRateId]['selected']
             });
         }
 
         return CGMustache.get().renderTemplate(templates, {
-            'id': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'] + '-' + memberState,
-            'name': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'] + '-' + memberState,
+            'id': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'] + '-' + VATCountryCode,
+            'name': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'] + '-' + VATCountryCode,
             'class': Service.DOM_SELECTOR_TAX_RATE,
-            'title': memberState + ' VAT',
+            'title': 'VAT',
             'options': options
         }, 'customSelect');
     };
@@ -544,10 +544,10 @@ define([
         if(productId === undefined || productId === '' || value === undefined || value === '') {
             return;
         }
-        var memberState = value.replace(/([0-9])+/, '');
+        var VATCountryCode = value.substring(0, 2);
 
         this.getDeferredQueue().queue(function() {
-            return productStorage.saveTaxRate(productId, value, memberState, function(error, textStatus, errorThrown) {
+            return productStorage.saveTaxRate(productId, value, VATCountryCode, function(error, textStatus, errorThrown) {
                 if(error === null) {
                     n.success('Product tax rate updated successfully');
                 } else {

@@ -22,7 +22,7 @@ class Service
         $this->cache = [];
     }
 
-    public function getTaxRatesOptionsForProduct(Product $product, $ouMemberState = null)
+    public function getTaxRatesOptionsForProduct(Product $product, array $VATCountryCodes = null)
     {
         $organisationUnitId = $product->getOrganisationUnitId();
 
@@ -32,14 +32,14 @@ class Service
             );
         }
 
-        foreach ($ouMemberState as $memberStateOfOu) {
+        foreach ($VATCountryCodes as $memberStateOfOu) {
             $rates = $this->fetchTaxRatesForMemberState($memberStateOfOu);
             $defaultRate[$memberStateOfOu] = $rates->getDefault();
             $ratesOptions[$memberStateOfOu] = $this->buildRatesOptions($rates);
         }
 
         foreach ($product->getTaxRateIds() as $memberState => $taxRateId) {
-            if ($memberState !== $ouMemberState) {
+            if ($memberState !== array_pop($VATCountryCodes)) {
                 /**
                  * Temporarily exclude tax rates that aren't part of this ou's currently selected memberstate
                  */
@@ -74,7 +74,7 @@ class Service
         foreach ($rates->getAll() as $rateId => $rate) {
             $ratesOptions[$rateId] = [
                 'name' => $rate->getName(),
-                'rate' => ((float) $rate->getCurrent() * (float) 100)
+                'rate' => bcmul($rate->getCurrent(), 100, 2)
             ];
         }
         return $ratesOptions;

@@ -155,13 +155,13 @@ class Service implements LoggerAwareInterface, StatsAwareInterface
         }
     }
 
-    public function saveProductTaxRateId($productId, $taxRateId, $memberState)
+    public function saveProductTaxRateId($productId, $taxRateId, $VATCountryCode)
     {
         try {
             $product = $this->getProductService()->fetch($productId);
 
             $oldTaxRates = $product->getTaxRateIds();
-            $newTaxRates = array_merge($oldTaxRates, [$memberState => $taxRateId]);
+            $newTaxRates = array_merge($oldTaxRates, [$VATCountryCode => $taxRateId]);
 
             $this->getProductService()->save($product->setTaxRateIds($newTaxRates));
         } catch (NotFound $e) {
