@@ -430,8 +430,9 @@ define([
             if(!product['taxRates'][VATCountryCode].hasOwnProperty(taxRateId)) {
                 continue;
             }
+            var formattedRate = parseFloat(product['taxRates'][VATCountryCode][taxRateId]['rate']);
             options.push({
-                'title': product['taxRates'][VATCountryCode][taxRateId]['rate'] + '% (' + product['taxRates'][VATCountryCode][taxRateId]['name'] + ')',
+                'title': formattedRate + '% (' + product['taxRates'][VATCountryCode][taxRateId]['name'] + ')',
                 'value': taxRateId,
                 'selected': product['taxRates'][VATCountryCode][taxRateId]['selected']
             });
