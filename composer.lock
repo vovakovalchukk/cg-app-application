@@ -2194,12 +2194,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-tax.git",
-                "reference": "03b0671155be00fe3b2c57eabca2a76926fb8815"
+                "reference": "825d1c7b61c739596dc404cadf5b460e0b8aa2d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-tax-dev-CGIV-7095-Country-specific-vat-rates-1285cb.zip",
-                "reference": "03b0671155be00fe3b2c57eabca2a76926fb8815",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-tax-dev-CGIV-7095-Country-specific-vat-rates-3f40bd.zip",
+                "reference": "825d1c7b61c739596dc404cadf5b460e0b8aa2d8",
                 "shasum": null
             },
             "require": {
@@ -2227,7 +2227,7 @@
                     "CG\\Tax\\Test\\": "tests\\src"
                 }
             },
-            "time": "2016-06-15 07:46:19"
+            "time": "2016-06-15 10:33:20"
         },
         {
             "name": "channelgrabber/template",
