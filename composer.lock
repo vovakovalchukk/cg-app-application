@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ff759538aa6bca8da5b09620a10e104f",
-    "content-hash": "b638fa839f71e3a9276a453eeccf4c39",
+    "hash": "1983fdce89e243e71cf17e6b7803fc00",
+    "content-hash": "859ff8a10456c9f6d439414eee791025",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1168,16 +1168,16 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.0.9",
+            "version": "1.0.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "61063e482762c00de1078740351b2ae500604641"
+                "reference": "58a359b7984905b270f6959fb24e82018e84309b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.0.9-b5afb0.zip",
-                "reference": "61063e482762c00de1078740351b2ae500604641",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.0.10-c06aa1.zip",
+                "reference": "58a359b7984905b270f6959fb24e82018e84309b",
                 "shasum": null
             },
             "require": {
@@ -1196,7 +1196,7 @@
                 "zendframework/zend-di": ">=2.2.5"
             },
             "conflict": {
-                "channelgrabber/zf2-netdespatch": "<1.0.2"
+                "channelgrabber/zf2-netdespatch": "<1.0.3"
             },
             "require-dev": {
                 "channelgrabber/phpunit": "^1.0.4",
@@ -1219,7 +1219,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-06-08 08:15:50"
+            "time": "2016-06-14 15:12:04"
         },
         {
             "name": "channelgrabber/notification",
@@ -3079,16 +3079,16 @@
         },
         {
             "name": "channelgrabber/zf2-netdespatch",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/netdespatch-module.git",
-                "reference": "3b28bb7a443a2f598623ea4ac03b9fd75680dd6e"
+                "reference": "171bd074a693163a01948f8bdd579b3689684088"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-1.0.2-642a76.zip",
-                "reference": "3b28bb7a443a2f598623ea4ac03b9fd75680dd6e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-1.0.3-e2f5b2.zip",
+                "reference": "171bd074a693163a01948f8bdd579b3689684088",
                 "shasum": null
             },
             "require": {
@@ -3096,7 +3096,7 @@
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.0.8",
-                "channelgrabber/netdespatch": "^1.0.9",
+                "channelgrabber/netdespatch": "^1.0.10",
                 "channelgrabber/zf2-installer": "^1.0.6",
                 "channelgrabber/zf2-v4-ui": "^1.16.53",
                 "php-jsonpatch/php-jsonpatch": "dev-master",
@@ -3120,7 +3120,7 @@
                 ]
             },
             "description": "NetDespatch module",
-            "time": "2016-06-08 08:31:01"
+            "time": "2016-06-14 15:18:48"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -7665,8 +7665,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.24.3",
-            "alias_normalized": "1.24.3.0",
+            "alias": "1.24.4",
+            "alias_normalized": "1.24.4.0",
             "version": "dev-CGIV-7095-Country-specific-vat-rates",
             "package": "channelgrabber/channel"
         },

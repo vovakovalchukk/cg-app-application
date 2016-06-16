@@ -1,5 +1,5 @@
 <div class="enable_switch">
-    <input id="status-{{id}}" data-id="{{id}}" data-type="{{type}}" class="toggle" type="checkbox" name="active"{{#enabled}} checked="checked"{{/enabled}} {{#disabled}}disabled="disabled"{{/disabled}}>
+    <input id="status-{{id}}" data-id="{{id}}" data-type="{{type}}" class="toggle" type="checkbox" {{^pending}}name="active"{{#enabled}} checked="checked"{{/enabled}}{{/pending}}{{#pending}}name="clearPending"{{/pending}} {{#disabled}}disabled="disabled"{{/disabled}}>
     <label for="status-{{id}}">
         <span class="toggle_label onlabel">On</span>
         <span class="toggle_label offlabel">Off</span>
