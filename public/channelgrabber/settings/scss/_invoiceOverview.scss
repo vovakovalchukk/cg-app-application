@@ -1,16 +1,40 @@
 #invoiceOverview {
     .invoice-template-section {
-        width: 100%;
+        width: 75%;
         float: left;
+        .heading-large {
+            margin-bottom: 20px;
+        }
         .invoice-template-element {
             float: left;
-            min-width: 15%;
             margin-right: 5%;
+            margin-bottom: 20px;
             .invoice-template-thumb {
+                border: 1px solid rgba(0, 0, 0, 0.5);
+                cursor: pointer;
+                width: 167px;
+                height: 236px;
+                img {
+                    width: 100%;
+                }
+                &:hover {
+                    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+                }
             }
             .invoice-template-name {
+                font-weight: 600;
+                text-align: center;
+                margin-top: 4px;
+                max-width: 169px;
             }
             .invoice-template-actions {
+                margin-top: 7px;
+                padding-left: 7px;
+                .invoice-template-action-link {
+                    text-decoration: underline;
+                    margin-bottom: 5px;
+                    cursor: pointer;
+                }
             }
         }
     }
