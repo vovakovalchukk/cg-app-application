@@ -1,15 +1,15 @@
 define([
-    //'InvoiceOverview/TemplateList'
+    'react',
+    'react-dom',
+    'InvoiceOverview/MainComponent'
 ], function(
-    //TemplateList
+    React,
+    ReactDOM,
+    MainComponent
 ) {
-    var InvoiceOverview = function(mountNode)
+    var InvoiceOverview = function(mountingNode, invoiceTemplates)
     {
-
-    };
-
-    InvoiceOverview.prototype.addTemplate = function()
-    {
+        ReactDOM.render(React.createElement(MainComponent, invoiceTemplates), mountingNode);
     };
 
     return InvoiceOverview;

@@ -2,18 +2,63 @@
 $(document).ready(function() {
     require.config({
         paths: {
-            'Settings': "<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js';?>"
+            'InvoiceOverview': "<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js/InvoiceOverview';?>"
         }
     });
-    require(['Settings/InvoiceOverview/invoiceOverview'], function(InvoiceOverview)
+    require(['InvoiceOverview/InvoiceOverview'], function(InvoiceOverview)
     {
-        new InvoiceOverview(document.getElementById('invoiceOverview'));
+        var mountingNode = document.getElementById('invoice-overview-mount');
+// *TEMPORARY*
+        var invoiceTemplates = {
+            templates: [
+                0: {
+                    name: 'FPS-16 Template',
+                    id: 'fps16',
+                    links: [
+                        0: {
+                            name: 'Create',
+                            url: 'https://www.formsplus.co.uk/online-shop/integrated/single-integrated-labels/fps-3/?utm_source=Channel%20Grabber&utm_medium=Link%20&utm_campaign=FPS-3%20CG%20Link'
+                        },
+                        1: {
+                        }
+                    ]
+                },
+                1: {
+                    name: 'FPS-15 Template',
+                    id: 'fps15',
+                    links: [
+                        0: {
+                            name: 'Create',
+                            url: 'https://www.formsplus.co.uk/online-shop/integrated/single-integrated-labels/fps-3/?utm_source=Channel%20Grabber&utm_medium=Link%20&utm_campaign=FPS-3%20CG%20Link'
+                        },
+                        1: {
+                        }
+                    ]
+                },
+                2: {
+                    name: 'FPS-14 Template',
+                    id: 'fps14',
+                    links: [
+                        0: {
+                            name: 'Create',
+                            url: 'https://www.formsplus.co.uk/online-shop/integrated/single-integrated-labels/fps-3/?utm_source=Channel%20Grabber&utm_medium=Link%20&utm_campaign=FPS-3%20CG%20Link'
+                        },
+                        1: {
+                        }
+                    ]
+                }
+            ],
+            existing: [
+            ]
+        };
+        new InvoiceOverview(mountingNode, invoiceTemplates);
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <div id="invoiceOverview">
     <form>
         <input type='hidden' value="<?= $eTag ?>" id="setting-etag">
+        <div id="invoice-overview-mount"></div>
         <div class="invoice-template-section module">
             <div class="heading-large">Create New Invoice</div>
             <div class="invoice-template-element">
