@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f086a2dce0fd32f1c2d70fc4b5c26202",
-    "content-hash": "90fe336652a5a6c5b163028cf7190bd3",
+    "hash": "bcaf4dcb45f2d84b31a9180e74e975ba",
+    "content-hash": "82e3c90c82397b676c2f79c06d820d6c",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1923,16 +1923,16 @@
         },
         {
             "name": "channelgrabber/shopify",
-            "version": "dev-EPIC-CGIV-7049-ShopifyIntegration",
+            "version": "dev-CGIV-7053-ShopifyWebHook",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "d2dc1241a878c3e91c6245dc175c99bb5657039e"
+                "reference": "c945c5043947cd43e90d05d7c59fc9ff3e8089ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-EPIC-CGIV-7049-ShopifyIntegration-6c3599.zip",
-                "reference": "d2dc1241a878c3e91c6245dc175c99bb5657039e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-CGIV-7053-ShopifyWebHook-b320d1.zip",
+                "reference": "c945c5043947cd43e90d05d7c59fc9ff3e8089ad",
                 "shasum": null
             },
             "require": {
@@ -1955,10 +1955,50 @@
             },
             "autoload-dev": {
                 "psr-4": {
-                    "CG\\Shopify\\Test\\": "tests/"
+                    "CG\\Shopify\\Test\\": "tests/",
+                    "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-06-09 14:19:38"
+            "time": "2016-06-16 12:33:49"
+        },
+        {
+            "name": "channelgrabber/shopify-webhook",
+            "version": "dev-CGIV-7053-ShopifyWebHook",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:channelgrabber/cg-shopify-webhook.git",
+                "reference": "6dc80f5d1da06f6853b85e59cccf0e41d890791e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-webhook-dev-CGIV-7053-ShopifyWebHook-97bebc.zip",
+                "reference": "6dc80f5d1da06f6853b85e59cccf0e41d890791e",
+                "shasum": null
+            },
+            "require": {
+                "channelgrabber/channel": "^1.24.0",
+                "channelgrabber/constants": "dev-master",
+                "channelgrabber/gearman": "^1.2.20",
+                "channelgrabber/shopify": "dev-CGIV-7053-ShopifyWebHook as 1.0.0",
+                "channelgrabber/stdlib": "^2.12.24",
+                "ext-http": "1.*"
+            },
+            "require-dev": {
+                "channelgrabber/phpunit": "^1.0.0",
+                "phpunit/phpunit": "~4.6.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CG\\Shopify\\Webhook\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "CG\\Shopify\\Webhook\\Test\\": "tests/"
+                }
+            },
+            "time": "2016-06-17 15:00:46"
         },
         {
             "name": "channelgrabber/slim",
@@ -3340,22 +3380,23 @@
         },
         {
             "name": "channelgrabber/zf2-shopify",
-            "version": "dev-EPIC-CGIV-7049-ShopifyIntegration",
+            "version": "dev-CGIV-7053-ShopifyWebHook",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/shopify-module.git",
-                "reference": "36dc31e74d359a86d1b169ab914f01df0f9e1a8d"
+                "reference": "0ded5466da8c64d00422ecb66df5ad0532123086"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-shopify-dev-EPIC-CGIV-7049-ShopifyIntegration-8bd2a4.zip",
-                "reference": "36dc31e74d359a86d1b169ab914f01df0f9e1a8d",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-shopify-dev-CGIV-7053-ShopifyWebHook-856591.zip",
+                "reference": "0ded5466da8c64d00422ecb66df5ad0532123086",
                 "shasum": null
             },
             "require": {
                 "channelgrabber/channel": "dev-EPIC-CGIV-7049-ShopifyIntegration as 1.24.3",
                 "channelgrabber/constants": "dev-master",
-                "channelgrabber/shopify": "dev-EPIC-CGIV-7049-ShopifyIntegration as 1.0.0",
+                "channelgrabber/shopify": "dev-CGIV-7053-ShopifyWebHook as 1.0.0",
+                "channelgrabber/shopify-webhook": "dev-CGIV-7053-ShopifyWebHook as 1.0.0",
                 "channelgrabber/stdlib": "^2.12.24",
                 "channelgrabber/user": "^1.21.0",
                 "channelgrabber/zf2-installer": "^1.0.6",
@@ -3382,7 +3423,7 @@
                 ]
             },
             "description": "Shopify Module",
-            "time": "2016-06-09 14:08:32"
+            "time": "2016-06-17 15:21:39"
         },
         {
             "name": "channelgrabber/zf2-ssoclient",
@@ -7758,35 +7799,42 @@
             "package": "channelgrabber/channel"
         },
         {
+            "alias": "1.0.0",
+            "alias_normalized": "1.0.0.0",
+            "version": "dev-CGIV-7053-ShopifyWebHook",
+            "package": "channelgrabber/shopify"
+        },
+        {
+            "alias": "1.0.0-dev",
+            "alias_normalized": "1.0.0.0-dev",
+            "version": "dev-CGIV-7053-ShopifyWebHook",
+            "package": "channelgrabber/shopify-webhook"
+        },
+        {
+            "alias": "1.0.0",
+            "alias_normalized": "1.0.0.0",
+            "version": "dev-CGIV-7053-ShopifyWebHook",
+            "package": "channelgrabber/zf2-shopify"
+        },
+        {
             "alias": "1.16.55",
             "alias_normalized": "1.16.55.0",
             "version": "dev-EPIC-CGIV-7049-ShopifyIntegration",
             "package": "channelgrabber/zf2-v4-ui"
-        },
-        {
-            "alias": "1.0.0",
-            "alias_normalized": "1.0.0.0",
-            "version": "dev-EPIC-CGIV-7049-ShopifyIntegration",
-            "package": "channelgrabber/shopify"
-        },
-        {
-            "alias": "1.0.0",
-            "alias_normalized": "1.0.0.0",
-            "version": "dev-EPIC-CGIV-7049-ShopifyIntegration",
-            "package": "channelgrabber/zf2-shopify"
         }
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/shopify": 20,
+        "channelgrabber/shopify-webhook": 20,
+        "channelgrabber/zf2-shopify": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
         "phpish/link_header": 20,
-        "channelgrabber/shopify": 20,
-        "channelgrabber/zf2-shopify": 20,
         "phpspec/phpspec": 20
     },
     "prefer-stable": false,
