@@ -106,7 +106,7 @@ return [
                     ], [
                         'label' => InvoiceController::ROUTE_DESIGNER,
                         'title' => InvoiceController::ROUTE_DESIGNER,
-                        'route' => Module::ROUTE.'/'.InvoiceController::ROUTE.'/'.InvoiceController::ROUTE_DESIGNER
+                        'route' => Module::ROUTE.'/'.InvoiceController::ROUTE
                     ],
                 ]
             ],
