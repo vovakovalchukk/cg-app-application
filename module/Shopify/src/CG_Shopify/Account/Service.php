@@ -5,7 +5,7 @@ use CG\Account\Client\Service as AccountService;
 use CG\Account\Credentials\Cryptor;
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\Creation\SetupViewInterface;
-use CG\Shopify\Account\CreationService as ShopifyAccountCreator;
+use CG\Shopify\Webhook\Account\CreationService as ShopifyAccountCreator;
 use CG\Shopify\Account as ShopifyAccount;
 use CG\Shopify\Client\Factory as ClientFactory;
 use CG\Shopify\Client;
