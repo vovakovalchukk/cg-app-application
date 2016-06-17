@@ -1,0 +1,94 @@
+<?php $this->inlineScript()->captureStart(); ?>
+$(document).ready(function() {
+    require.config({
+        paths: {
+            'Settings': "<?=$this->basePath() . Settings\Module::PUBLIC_FOLDER . 'js';?>"
+        }
+    });
+    require(['Settings/InvoiceOverview/invoiceOverview'], function(InvoiceOverview)
+    {
+        new InvoiceOverview(document.getElementById('invoiceOverview'));
+    });
+});
+<?php $this->inlineScript()->captureEnd(); ?>
+<div id="invoiceOverview">
+    <form>
+        <input type='hidden' value="<?= $eTag ?>" id="setting-etag">
+        <div class="invoice-template-section module">
+            <div class="heading-large">Create New Invoice</div>
+            <div class="invoice-template-element">
+                <div class="invoice-template-thumb">
+
+                </div>
+                <div class="invoice-template-name">Blank Invoice</div>
+                <div class="invoice-template-actions">
+                    <div class="invoice-template-action-link-create"></div>
+                    <div class="invoice-template-action-link-purchase"></div>
+                </div>
+            </div>
+            <div class="invoice-template-element">
+                <div class="invoice-template-thumb">
+
+                </div>
+                <div class="invoice-template-name">FPS-3 Template</div>
+                <div class="invoice-template-actions">
+                    <div class="invoice-template-action-link-create"></div>
+                    <div class="invoice-template-action-link-purchase"></div>
+                </div>
+            </div>
+            <div class="invoice-template-element">
+                <div class="invoice-template-thumb">
+
+                </div>
+                <div class="invoice-template-name">FPS-15 Template</div>
+                <div class="invoice-template-actions">
+                    <div class="invoice-template-action-link-create"></div>
+                    <div class="invoice-template-action-link-purchase"></div>
+                </div>
+            </div>
+            <div class="invoice-template-element">
+                <div class="invoice-template-thumb">
+
+                </div>
+                <div class="invoice-template-name">FPS-16 Template</div>
+                <div class="invoice-template-actions">
+                    <div class="invoice-template-action-link-create"></div>
+                    <div class="invoice-template-action-link-purchase"></div>
+                </div>
+            </div>
+            <div class="invoice-template-element">
+                <div class="invoice-template-thumb">
+
+                </div>
+                <div class="invoice-template-name">FPS-1 Template</div>
+                <div class="invoice-template-actions">
+                    <div class="invoice-template-action-link-create"></div>
+                    <div class="invoice-template-action-link-purchase"></div>
+                </div>
+            </div>
+        </div>
+        <div class="invoice-template-section module half">
+            <div class="heading-large">Edit Existing Invoice</div>
+            <div class="invoice-template-element">
+                <div class="invoice-template-thumb">
+
+                </div>
+                <div class="invoice-template-name">Main Default 1</div>
+                <div class="invoice-template-actions">
+                    <div class="invoice-template-action-link-edit"></div>
+                    <div class="invoice-template-action-link-delete"></div>
+                </div>
+            </div>
+            <div class="invoice-template-element">
+                <div class="invoice-template-thumb">
+
+                </div>
+                <div class="invoice-template-name">Main 2</div>
+                <div class="invoice-template-actions">
+                    <div class="invoice-template-action-link-edit"></div>
+                    <div class="invoice-template-action-link-delete"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

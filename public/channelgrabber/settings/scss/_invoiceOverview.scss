@@ -1,0 +1,17 @@
+#invoiceOverview {
+    .invoice-template-section {
+        width: 100%;
+        float: left;
+        .invoice-template-element {
+            float: left;
+            min-width: 15%;
+            margin-right: 5%;
+            .invoice-template-thumb {
+            }
+            .invoice-template-name {
+            }
+            .invoice-template-actions {
+            }
+        }
+    }
+}
