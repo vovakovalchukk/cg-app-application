@@ -1,6 +1,6 @@
 <?php
-use CG\Shopify\Account\CreationService as ShopifyAccountCreator;
 use CG\Shopify\Client\Factory as ClientFactory;
+use CG\Shopify\Webhook\Account\CreationService as ShopifyAccountCreator;
 use CG_Shopify\Account\Service as AccountService;
 use Zend\Session\Container as Session;
 
