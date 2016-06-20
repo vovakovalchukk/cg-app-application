@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "01da96274bed96b1fbcf5f030ba494eb",
-    "content-hash": "3e5dd0c94ffc616edb0b05ee99277eba",
+    "hash": "60113b41fe6be3cb164fbe9410769a75",
+    "content-hash": "b31cf1fc4bfc2ceb51ad2620ae61d24b",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -305,16 +305,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.24.3",
+            "version": "1.24.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "6cfa2124a570bb04448d3449038c27e7c574138c"
+                "reference": "7d165891c9b54c6c527f213052ca98e36d03236f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.24.3-8ad29d.zip",
-                "reference": "6cfa2124a570bb04448d3449038c27e7c574138c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.24.4-287f0e.zip",
+                "reference": "7d165891c9b54c6c527f213052ca98e36d03236f",
                 "shasum": null
             },
             "require": {
@@ -382,7 +382,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-06-14 15:07:58"
+            "time": "2016-06-20 08:31:44"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1168,16 +1168,16 @@
         },
         {
             "name": "channelgrabber/netdespatch",
-            "version": "1.0.9",
+            "version": "1.0.10",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-netdespatch.git",
-                "reference": "61063e482762c00de1078740351b2ae500604641"
+                "reference": "58a359b7984905b270f6959fb24e82018e84309b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.0.9-b5afb0.zip",
-                "reference": "61063e482762c00de1078740351b2ae500604641",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-netdespatch-1.0.10-c06aa1.zip",
+                "reference": "58a359b7984905b270f6959fb24e82018e84309b",
                 "shasum": null
             },
             "require": {
@@ -1196,7 +1196,7 @@
                 "zendframework/zend-di": ">=2.2.5"
             },
             "conflict": {
-                "channelgrabber/zf2-netdespatch": "<1.0.2"
+                "channelgrabber/zf2-netdespatch": "<1.0.3"
             },
             "require-dev": {
                 "channelgrabber/phpunit": "^1.0.4",
@@ -1219,7 +1219,7 @@
                     "email": "dev@channelgrabber.com"
                 }
             ],
-            "time": "2016-06-08 08:15:50"
+            "time": "2016-06-14 15:12:04"
         },
         {
             "name": "channelgrabber/notification",
@@ -1614,16 +1614,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.6.1",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "55c06367dccaa09c470ba273fa66a5c85584d0b9"
+                "reference": "65ce0e9972fabc62f819678024099c447c0dbfad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.6.1-2dbc96.zip",
-                "reference": "55c06367dccaa09c470ba273fa66a5c85584d0b9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.7.0-48b07e.zip",
+                "reference": "65ce0e9972fabc62f819678024099c447c0dbfad",
                 "shasum": null
             },
             "require": {
@@ -1657,7 +1657,7 @@
                     "CG\\Product\\": "src"
                 }
             },
-            "time": "2016-06-07 07:47:27"
+            "time": "2016-06-20 08:31:18"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -2190,16 +2190,16 @@
         },
         {
             "name": "channelgrabber/tax",
-            "version": "1.0.0.1",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-tax.git",
-                "reference": "de43e87122e51520ba9c9af2e606ca4302e852f5"
+                "reference": "a87029e05a3f3e4b4c155d5d96053db699089913"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-tax-1.0.0.1-86b2ae.zip",
-                "reference": "de43e87122e51520ba9c9af2e606ca4302e852f5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-tax-1.0.1-230ab2.zip",
+                "reference": "a87029e05a3f3e4b4c155d5d96053db699089913",
                 "shasum": null
             },
             "require": {
@@ -2225,7 +2225,7 @@
                     "CG\\Tax\\Test\\": "tests\\src"
                 }
             },
-            "time": "2016-01-07 12:36:41"
+            "time": "2016-06-20 08:31:30"
         },
         {
             "name": "channelgrabber/template",
@@ -3077,16 +3077,16 @@
         },
         {
             "name": "channelgrabber/zf2-netdespatch",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/netdespatch-module.git",
-                "reference": "3b28bb7a443a2f598623ea4ac03b9fd75680dd6e"
+                "reference": "171bd074a693163a01948f8bdd579b3689684088"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-1.0.2-642a76.zip",
-                "reference": "3b28bb7a443a2f598623ea4ac03b9fd75680dd6e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-1.0.3-e2f5b2.zip",
+                "reference": "171bd074a693163a01948f8bdd579b3689684088",
                 "shasum": null
             },
             "require": {
@@ -3094,7 +3094,7 @@
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/email": "^1.0.8",
-                "channelgrabber/netdespatch": "^1.0.9",
+                "channelgrabber/netdespatch": "^1.0.10",
                 "channelgrabber/zf2-installer": "^1.0.6",
                 "channelgrabber/zf2-v4-ui": "^1.16.53",
                 "php-jsonpatch/php-jsonpatch": "dev-master",
@@ -3118,7 +3118,7 @@
                 ]
             },
             "description": "NetDespatch module",
-            "time": "2016-06-08 08:31:01"
+            "time": "2016-06-14 15:18:48"
         },
         {
             "name": "channelgrabber/zf2-permission",

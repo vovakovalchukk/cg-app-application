@@ -22,7 +22,7 @@ class Service
         $this->cache = [];
     }
 
-    public function getTaxRatesOptionsForProduct(Product $product)
+    public function getTaxRatesOptionsForProduct(Product $product, array $VATCountryCodes = null)
     {
         $organisationUnitId = $product->getOrganisationUnitId();
 
@@ -32,10 +32,23 @@ class Service
             );
         }
 
-        $memberState = $this->fetchMemberStateForOuId($organisationUnitId);
-        $rates = $this->fetchTaxRatesForMemberState($memberState);
-        $defaultRate = $rates->getDefault();
-        $ratesOptions = $this->buildRatesOptions($rates);
+        foreach ($VATCountryCodes as $memberStateOfOu) {
+            $rates = $this->fetchTaxRatesForMemberState($memberStateOfOu);
+            $defaultRate[$memberStateOfOu] = $rates->getDefault();
+            $ratesOptions[$memberStateOfOu] = $this->buildRatesOptions($rates);
+        }
+
+        foreach ($product->getTaxRateIds() as $VATCountryCode => $taxRateId) {
+            if ($VATCountryCode !== array_pop($VATCountryCodes)) {
+                /**
+                 * Temporarily exclude tax rates that aren't part of this ou's currently selected memberstate
+                 */
+                continue;
+            }
+            $rates = $this->fetchTaxRatesForMemberState($VATCountryCode);
+            $defaultRate[$VATCountryCode] = $rates->getDefault();
+            $ratesOptions[$VATCountryCode] = $this->buildRatesOptions($rates);
+        }
         $this->cache[$organisationUnitId] = $ratesOptions;
         $this->cacheDefaults[$organisationUnitId] = $defaultRate;
 
@@ -61,7 +74,7 @@ class Service
         foreach ($rates->getAll() as $rateId => $rate) {
             $ratesOptions[$rateId] = [
                 'name' => $rate->getName(),
-                'rate' => (int) ($rate->getCurrent() * 100)
+                'rate' => bcmul($rate->getCurrent(), 100, 2)
             ];
         }
         return $ratesOptions;
@@ -69,12 +82,17 @@ class Service
 
     protected function markRateOptionSelectedForProduct(Product $product, $ratesOptions, $defaultRate)
     {
-        $taxRateId = $product->getTaxRateId();
-        if ($taxRateId == null || !isset($ratesOptions[$taxRateId])) {
-            $taxRateId = $defaultRate->getId();
+        $taxRateIds = $product->getTaxRateIds();
+
+        foreach ($ratesOptions as $memberState => $taxRate) {
+            if (isset($taxRateIds[$memberState])) {
+                $taxRateId = $taxRateIds[$memberState];
+            } else {
+                $taxRateId = $defaultRate[$memberState]->getId();
+            }
+            $ratesOptions[$memberState][$taxRateId]['selected'] = true;
         }
 
-        $ratesOptions[$taxRateId]['selected'] = true;
         return $ratesOptions;
     }
 

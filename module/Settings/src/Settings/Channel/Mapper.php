@@ -5,11 +5,11 @@ use CG\Account\DataTableMapper;
 use CG\Account\Shared\Entity;
 use CG\OrganisationUnit\StorageInterface as OUStorage;
 use CG\Stdlib\Exception\Runtime\NotFound;
+use CG\User\ActiveUserInterface as ActiveUser;
+use DateTime;
 use Settings\Controller\ChannelController;
 use Settings\Module;
 use Zend\Mvc\Controller\Plugin\Url;
-use DateTime;
-use Exception;
 
 class Mapper extends DataTableMapper
 {
@@ -18,11 +18,14 @@ class Mapper extends DataTableMapper
     const STATUS_INACTIVE = 'inactive';
     const STATUS_DELETED = 'deleted';
 
+    /** @var OUStorage $ouStorage */
     protected $ouStorage;
+    /** @var ActiveUser $activeUser */
+    protected $activeUser;
 
-    public function __construct(OUStorage $ouStorage)
+    public function __construct(OUStorage $ouStorage, ActiveUser $activeUser)
     {
-        $this->setOuStorage($ouStorage);
+        $this->setOuStorage($ouStorage)->setActiveUser($activeUser);
     }
 
     public function toDataTableArray(Entity $accountEntity, Url $urlPlugin = null, $type = null, DateTime $now = null)
@@ -35,7 +38,7 @@ class Mapper extends DataTableMapper
         $dataTableArray['manageLinks'] = $this->getManageLinks($accountEntity->getId(), $type, $urlPlugin);
         $dataTableArray['organisationUnit'] = $this->getOrganisationUnitCompanyName($accountEntity->getOrganisationUnitId());
         $dataTableArray['status'] = $accountEntity->getStatus($now);
-        $dataTableArray['disabled'] = $accountEntity->getPending();
+        $dataTableArray['disabled'] = !$this->activeUser->isAdmin() && $accountEntity->getPending();
 
         $dataTableArray['expiryDate'] = 'N/A';
         $expiryDate = $accountEntity->getExpiryDateAsDateTime();
@@ -68,7 +71,10 @@ class Mapper extends DataTableMapper
         return $manageLinks;
     }
 
-    public function setOuStorage(OUStorage $ouStorage)
+    /**
+     * @return self
+     */
+    protected function setOuStorage(OUStorage $ouStorage)
     {
         $this->ouStorage = $ouStorage;
         return $this;
@@ -82,5 +88,14 @@ class Mapper extends DataTableMapper
         } catch (NotFound $exception) {
             return '';
         }
+    }
+
+    /**
+     * @return self
+     */
+    protected function setActiveUser(ActiveUser $activeUser)
+    {
+        $this->activeUser = $activeUser;
+        return $this;
     }
 }
