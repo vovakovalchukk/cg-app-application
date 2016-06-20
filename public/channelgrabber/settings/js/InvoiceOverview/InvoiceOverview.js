@@ -1,15 +1,15 @@
 define([
     'react',
     'react-dom',
-    'InvoiceOverview/MainComponent'
+    'InvoiceOverview/RootComponent'
 ], function(
     React,
     ReactDOM,
-    MainComponent
+    RootComponent
 ) {
-    var InvoiceOverview = function(mountingNode, invoiceTemplates)
+    var InvoiceOverview = function(mountingNode)
     {
-        ReactDOM.render(React.createElement(MainComponent, invoiceTemplates), mountingNode);
+        ReactDOM.render(React.createElement(RootComponent), mountingNode);
     };
 
     return InvoiceOverview;

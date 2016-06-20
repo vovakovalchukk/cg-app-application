@@ -1,68 +1,36 @@
 define([
-    'react'
+    'react',
+    'InvoiceOverview/SectionComponent'
 ], function(
-    React
+    React,
+    SectionComponent
 ) {
     "use strict";
 
-    var MainComponent = React.createClass({
-        componentWillMount: function() {
-            console.log("AJAX request sent!");
-            return {
-                templates: [
-                    {
-                        name: 'FPS-16 Template',
-                        id: 'fps16',
-                        links: [
-                            {
-                                name: 'Create',
-                                url: 'https://www.formsplus.co.uk/online-shop/integrated/single-integrated-labels/fps-3/?utm_source=Channel%20Grabber&utm_medium=Link%20&utm_campaign=FPS-3%20CG%20Link'
-                            },
-                            {
-                                name: 'Purchase Label',
-                                url: 'https://www.formsplus.co.uk/online-shop/integrated/single-integrated-labels/fps-3/?utm_source=Channel%20Grabber&utm_medium=Link%20&utm_campaign=FPS-3%20CG%20Link'
-                            }
-                        ]
-                    },
-                    {
-                        name: 'FPS-15 Template',
-                        id: 'fps15',
-                        links: [
-                            {
-                                name: 'Create',
-                                url: 'https://www.formsplus.co.uk/online-shop/integrated/single-integrated-labels/fps-3/?utm_source=Channel%20Grabber&utm_medium=Link%20&utm_campaign=FPS-3%20CG%20Link'
-                            }
-                        ]
-                    },
-                    {
-                        name: 'FPS-14 Template',
-                        id: 'fps14',
-                        links: [
-                            {
-                                name: 'Create',
-                                url: 'https://www.formsplus.co.uk/online-shop/integrated/single-integrated-labels/fps-3/?utm_source=Channel%20Grabber&utm_medium=Link%20&utm_campaign=FPS-3%20CG%20Link'
-                            }
-                        ]
-                    }
-                ],
-                existing: [
-                ]
-            };
-        },
+    var RootComponent = React.createClass({
         render: function render() {
-            var newInvoicesHeader = React.createElement("div", {className: 'heading-large'}, "Create New Invoice");
-            var newInvoicesElements = React.createElement("div", {}, this.state.newInvoices);
-            var newInvoices = React.createElement(
-                "div",
-                {className: 'invoice-template-section module'},
-                newInvoicesHeader,
-                newInvoicesElements
+            console.log("Rendering Root");
+            var rootElement = React.createElement('div', {},
+                React.createElement(
+                    SectionComponent,
+                    {
+                        dataUrl: '',
+                        className: 'invoice-template-section module'
+                    },
+                    "Create New Invoice"
+                ),
+                React.createElement(
+                    SectionComponent,
+                    {
+                        dataUrl: '',
+                        className: 'invoice-template-section module'
+                    },
+                    "Edit Existing Invoice"
+                )
             );
-            var output = newInvoices;
-
-            return output;
+            return rootElement;
         }
     });
 
-    return MainComponent;
+    return RootComponent;
 });
