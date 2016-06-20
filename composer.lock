@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bcaf4dcb45f2d84b31a9180e74e975ba",
+    "hash": "5c12b8ae29976bc18111d12cc903fc6b",
     "content-hash": "82e3c90c82397b676c2f79c06d820d6c",
     "packages": [
         {
@@ -1927,12 +1927,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "c945c5043947cd43e90d05d7c59fc9ff3e8089ad"
+                "reference": "ac710c8f9b4480b230f4cb22b2e68c349123173d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-CGIV-7053-ShopifyWebHook-b320d1.zip",
-                "reference": "c945c5043947cd43e90d05d7c59fc9ff3e8089ad",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-CGIV-7053-ShopifyWebHook-03979c.zip",
+                "reference": "ac710c8f9b4480b230f4cb22b2e68c349123173d",
                 "shasum": null
             },
             "require": {
@@ -1959,7 +1959,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-06-16 12:33:49"
+            "time": "2016-06-20 09:42:53"
         },
         {
             "name": "channelgrabber/shopify-webhook",
@@ -1967,12 +1967,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify-webhook.git",
-                "reference": "6dc80f5d1da06f6853b85e59cccf0e41d890791e"
+                "reference": "7aeb972508d76114fe5415213128c29da3e65fd0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-webhook-dev-CGIV-7053-ShopifyWebHook-97bebc.zip",
-                "reference": "6dc80f5d1da06f6853b85e59cccf0e41d890791e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-webhook-dev-CGIV-7053-ShopifyWebHook-f48b6c.zip",
+                "reference": "7aeb972508d76114fe5415213128c29da3e65fd0",
                 "shasum": null
             },
             "require": {
@@ -1998,7 +1998,7 @@
                     "CG\\Shopify\\Webhook\\Test\\": "tests/"
                 }
             },
-            "time": "2016-06-17 15:00:46"
+            "time": "2016-06-20 08:42:49"
         },
         {
             "name": "channelgrabber/slim",
