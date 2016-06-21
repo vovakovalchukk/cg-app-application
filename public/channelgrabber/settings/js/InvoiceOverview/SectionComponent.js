@@ -14,48 +14,46 @@ define([
                 {
                     name: 'FPS-3 Template',
                     key: 'fps3',
+                    invoiceId: 'default-formsPlusFPS-3_OU1',
                     imageUrl: '/cg-built/settings/img/InvoiceOverview/TemplateThumbnails/Form-FPS3.png',
                     links: [
                         {
                             name: 'Create',
-                            url: '/settings/invoice/fetch'
+                            url: '/settings/invoice/fetch',
+                            key: 'createLinkfps3'
                         },
                         {
                             name: 'Buy Label',
-                            url: 'https://www.formsplus.co.uk/online-shop/integrated/single-integrated-labels/fps-3/?utm_source=Channel%20Grabber&utm_medium=Link%20&utm_campaign=FPS-3%20CG%20Link'
+                            url: 'https://www.formsplus.co.uk/online-shop/integrated/single-integrated-labels/fps-3/?utm_source=Channel%20Grabber&utm_medium=Link%20&utm_campaign=FPS-3%20CG%20Link',
+                            key: 'buyLinkfps3'
                         }
-                    ],
-                    invoiceData: {
-                        id: 'default-formsPlusFPS-3_OU1'
-                    }
+                    ]
                 },
                 {
                     name: 'FPS-15 Template',
                     key: 'fps15',
+                    invoiceId: 'default-formsPlusFPS-15_OU1',
                     imageUrl: '/cg-built/settings/img/InvoiceOverview/TemplateThumbnails/Form-FPS15.png',
                     links: [
                         {
                             name: 'Create',
-                            url: '/settings/invoice/fetch'
+                            url: '/settings/invoice/fetch',
+                            key: 'createLinkfps15'
                         }
-                    ],
-                    invoiceData: {
-                        id: 'default-formsPlusFPS-15_OU1'
-                    }
+                    ]
                 },
                 {
                     name: 'FPS-16 Template',
                     key: 'fps16',
+                    invoiceId: 'default-formsPlusFPS-16_OU1',
                     imageUrl: '/cg-built/settings/img/InvoiceOverview/TemplateThumbnails/Form-FPS16.png',
                     links: [
                         {
                             name: 'Create',
-                            url: '/settings/invoice/fetch'
+                            url: '/settings/invoice/fetch',
+                            key: 'createLinkfps16'
                         }
-                    ],
-                    invoiceData: {
-                        id: 'default-formsPlusFPS-16_OU1'
-                    }
+                    ]
                 }
             ];
             return {newInvoices: newInvoices};
