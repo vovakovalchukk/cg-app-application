@@ -6,7 +6,7 @@ use Zend\Loader\StandardAutoloader;
 
 class Module
 {
-    const PUBLIC_FOLDER = '/cg-built/zf2-shopify';
+    const PUBLIC_FOLDER = '/cg-built/shopify';
 
     public function getConfig()
     {
