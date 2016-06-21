@@ -32,6 +32,7 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     const ROUTE = 'Invoice';
     const ROUTE_MAPPING = 'Invoice Mapping';
     const ROUTE_DESIGNER = 'Invoice Designer';
+    const ROUTE_DESIGNER_ID = 'Invoice Designer View';
     const ROUTE_AJAX = 'Ajax';
     const ROUTE_FETCH = 'Fetch';
     const ROUTE_SAVE = 'Save';
@@ -215,6 +216,10 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         $showToPdfButton = $this->getConfig()->get('CG')->get('Settings')->get('show_to_pdf_button');
 
         $view = $this->getViewModelFactory()->newInstance();
+
+        $template = $this->params()->fromRoute('templateId');
+        $view->setVariable("templateId", $template);
+
         $view->addChild($this->getTemplateSelectView(), 'templates');
         $view->addChild($this->getTemplateAddButtonView(), 'templateAddButton');
         $view->addChild($this->getTemplateDuplicateButtonView(), 'templateDuplicateButton');

@@ -18,22 +18,14 @@ $(document).ready(function() {
     ) {
         textInspector.setDataFieldOptions(<?=json_encode($dataFieldOptions);?>);
 
-        designerApp.init(<?=$rootOuId;?>);
+        designerApp.init(<?=$rootOuId;?>, '<?=$templateId;?>');
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>
 <div id="invoice-controls-bar" class="sidebar sidebar-fixed sidebar-left sidebar-invoice-designer">
     <div class="scrollable-sidebar">
-        <div id="template-select-container" class="template-module invoice-select-create">
-            <div class="template-custom-select">
-                <?= $templates; ?>
-            </div>
-            <div class="template-new-btn">
-                <?= $templateAddButton ?>
-            </div>
-            <div class="template-dup-btn">
-                <?= $templateDuplicateButton ?>
-            </div>
+        <div class="template-module invoice-action-buttons">
+            <a href="/settings/invoice" class="button">Back to Invoices</a>
         </div>
         <?php if($this->showToPdfButton) : ?>
         <div id="template-topdf-container" class="template-module template-topdf-container">

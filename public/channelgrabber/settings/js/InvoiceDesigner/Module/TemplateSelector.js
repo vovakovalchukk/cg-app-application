@@ -41,8 +41,11 @@ define([
 
     TemplateSelector.prototype = Object.create(ModuleAbstract.prototype);
 
-    TemplateSelector.prototype.init = function(application)
+    TemplateSelector.prototype.init = function(application, templateId)
     {
+        if (templateId) {
+            this.setTemplate(this.getService().fetchAndLoadModules(templateId));
+        }
         ModuleAbstract.prototype.init.call(this, application);
     };
 

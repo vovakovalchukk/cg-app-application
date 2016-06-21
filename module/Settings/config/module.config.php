@@ -415,6 +415,15 @@ return [
                                         'action' => 'design',
                                     ]
                                 ],
+                                'child_routes' => [
+                                    InvoiceController::ROUTE_DESIGNER_ID => [
+                                        'type' => Segment::class,
+                                        'options' => [
+                                            'route' => '/id/:templateId',
+                                        ],
+                                        'may_terminate' => true
+                                    ],
+                                ],
                             ],
                             InvoiceController::ROUTE_FETCH => [
                                 'type' => Literal::class,
