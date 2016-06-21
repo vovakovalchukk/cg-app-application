@@ -1,24 +1,24 @@
 <?php
-namespace CG_Shopify\Account;
+namespace Shopify\Account;
 
 use CG\Account\Client\Service as AccountService;
 use CG\Account\Credentials\Cryptor;
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\Creation\SetupViewInterface;
+use CG\Shopify\Account\CreationService as ShopifyAccountCreator;
 use CG\Shopify\Account as ShopifyAccount;
 use CG\Shopify\Client;
 use CG\Shopify\Client\Factory as ClientFactory;
 use CG\Shopify\Credentials;
-use CG\Shopify\Webhook\Account\CreationService as ShopifyAccountCreator;
 use CG\Stdlib\Log\LoggerAwareInterface;
 use CG\Stdlib\Log\LogTrait;
 use CG\User\ActiveUserInterface;
 use CG\Zend\Stdlib\Mvc\Model\Helper\Url as UrlHelper;
-use CG_Shopify\Controller\AccountController;
-use CG_Shopify\Session\OAuth as OAuthSession;
 use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use InvalidArgumentException;
+use Shopify\Controller\AccountController;
+use Shopify\Session\OAuth as OAuthSession;
 use Zend\Session\Container as Session;
 use Zend\Stdlib\ArrayObject;
 

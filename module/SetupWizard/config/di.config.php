@@ -1,7 +1,7 @@
 <?php
 use CG\Channel\Creation\SetupViewInterface;
 use CG\Shopify\Account\CreationService as ShopifyAccountCreator;
-use CG_Shopify\Account\Service as ShopifyService;
+use Shopify\Account\Service as ShopifyService;
 use SetupWizard\Channels\ConnectViewFactory;
 
 return [

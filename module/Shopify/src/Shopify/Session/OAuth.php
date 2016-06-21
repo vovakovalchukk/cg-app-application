@@ -1,5 +1,5 @@
 <?php
-namespace CG_Shopify\Session;
+namespace Shopify\Session;
 
 use Zend\Stdlib\ArrayObject;
 

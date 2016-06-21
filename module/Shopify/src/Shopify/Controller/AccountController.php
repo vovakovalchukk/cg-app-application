@@ -1,10 +1,10 @@
 <?php
-namespace CG_Shopify\Controller;
+namespace Shopify\Controller;
 
 use CG\Channel\Type as ChannelType;
-use CG_Shopify\Account\Service as AccountService;
 use Settings\Controller\ChannelController;
 use Settings\Module as SettingsModule;
+use Shopify\Account\Service as AccountService;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class AccountController extends AbstractActionController
