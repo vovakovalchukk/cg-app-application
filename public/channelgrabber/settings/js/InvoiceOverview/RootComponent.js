@@ -9,23 +9,22 @@ define([
 
     var RootComponent = React.createClass({
         render: function render() {
-            console.log("Rendering Root");
             var rootElement = React.createElement('div', {},
                 React.createElement(
                     SectionComponent,
                     {
-                        dataUrl: '',
-                        className: 'invoice-template-section module'
-                    },
-                    "Create New Invoice"
+                        className: 'invoice-template-section module',
+                        sectionHeader: 'Create New Invoice',
+                        sectionType: 'new'
+                    }
                 ),
                 React.createElement(
                     SectionComponent,
                     {
-                        dataUrl: '',
-                        className: 'invoice-template-section module'
-                    },
-                    "Edit Existing Invoice"
+                        className: 'invoice-template-section module',
+                        sectionHeader: 'Edit Existing Invoice',
+                        sectionType: 'existing'
+                    }
                 )
             );
             return rootElement;
