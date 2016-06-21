@@ -20,7 +20,7 @@ class Module
         return array(
             StandardAutoloader::class => array(
                 'namespaces' => array(
-                    __NAMESPACE__ => __DIR__ . '/src/',
+                    __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
                 ),
             ),
         );
