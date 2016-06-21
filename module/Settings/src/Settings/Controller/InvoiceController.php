@@ -85,19 +85,12 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     public function indexAction()
     {
         $invoiceSettings = $this->getInvoiceService()->getSettings();
-        $tradingCompanies = $this->getInvoiceService()->getTradingCompanies();
         $invoices = $this->getInvoiceService()->getInvoices();
 
         $view = $this->getViewModelFactory()->newInstance()
             ->setVariable('invoiceSettings', $invoiceSettings)
-            ->setVariable('tradingCompanies', $tradingCompanies)
             ->setVariable('invoices', $invoices)
-            ->setVariable('eTag', $invoiceSettings->getStoredETag())
-            ->setVariable('hasAmazonAccount',$this->checkIfUserHasAmazonAccount())
-            ->addChild($this->getInvoiceSettingsDefaultSelectView($invoiceSettings, $invoices), 'defaultCustomSelect')
-            ->addChild($this->getInvoiceSettingsAutoEmailCheckboxView($invoiceSettings), 'emailCheckbox')
-            ->addChild($this->getInvoiceSettingsProductImagesCheckboxView($invoiceSettings), 'productImagesCheckbox')
-            ->addChild($this->getTradingCompanyInvoiceSettingsDataTable(), 'invoiceSettingsDataTable');
+            ->setVariable('eTag', $invoiceSettings->getStoredETag());
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
         return $view;
