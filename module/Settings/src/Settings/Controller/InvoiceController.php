@@ -33,6 +33,9 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     const ROUTE_MAPPING = 'Invoice Mapping';
     const ROUTE_DESIGNER = 'Invoice Designer';
     const ROUTE_DESIGNER_ID = 'Invoice Designer View';
+    const ROUTE_TEMPLATES = 'Invoice Templates';
+    const ROUTE_TEMPLATES_NEW = 'Invoice Templates New';
+    const ROUTE_TEMPLATES_EXISTING = 'Invoice Templates Existing';
     const ROUTE_AJAX = 'Ajax';
     const ROUTE_FETCH = 'Fetch';
     const ROUTE_SAVE = 'Save';
@@ -95,6 +98,22 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
         return $view;
+    }
+
+    public function newInvoiceTemplatesAction()
+    {
+        $existingInvoices = $this->getInvoiceService()->getNewInvoicesForView();
+        return $this->getJsonModelFactory()->newInstance([
+            "invoiceTemplateData" => json_encode($existingInvoices)
+        ]);
+    }
+
+    public function existingInvoiceTemplatesAction()
+    {
+        $existingInvoices = $this->getInvoiceService()->getExistingInvoicesForView();
+        return $this->getJsonModelFactory()->newInstance([
+            "invoiceTemplateData" => json_encode($existingInvoices)
+        ]);
     }
 
     public function saveMappingAction()
