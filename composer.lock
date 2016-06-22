@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1983fdce89e243e71cf17e6b7803fc00",
-    "content-hash": "859ff8a10456c9f6d439414eee791025",
+    "hash": "9cd43976b234f3583310398c9955378f",
+    "content-hash": "b57b84a594c0af60d51dc8bbcc3e1b44",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -305,16 +305,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-7095-Country-specific-vat-rates",
+            "version": "1.24.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "4b4fd23461c2d5d1977e47752732969fd5f1087c"
+                "reference": "7d165891c9b54c6c527f213052ca98e36d03236f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7095-Country-specific-vat-rates-12b52e.zip",
-                "reference": "4b4fd23461c2d5d1977e47752732969fd5f1087c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.24.4-287f0e.zip",
+                "reference": "7d165891c9b54c6c527f213052ca98e36d03236f",
                 "shasum": null
             },
             "require": {
@@ -382,7 +382,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-06-14 10:42:15"
+            "time": "2016-06-20 08:31:44"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1614,16 +1614,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "dev-CGIV-7095-Country-specific-vat-rates",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "26acded0874c439bc981360f8c8f6cb9365dceb5"
+                "reference": "65ce0e9972fabc62f819678024099c447c0dbfad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-dev-CGIV-7095-Country-specific-vat-rates-ea7554.zip",
-                "reference": "26acded0874c439bc981360f8c8f6cb9365dceb5",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.7.0-48b07e.zip",
+                "reference": "65ce0e9972fabc62f819678024099c447c0dbfad",
                 "shasum": null
             },
             "require": {
@@ -1657,7 +1657,7 @@
                     "CG\\Product\\": "src"
                 }
             },
-            "time": "2016-06-14 11:20:37"
+            "time": "2016-06-20 08:31:18"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -2190,16 +2190,16 @@
         },
         {
             "name": "channelgrabber/tax",
-            "version": "dev-CGIV-7095-Country-specific-vat-rates",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-tax.git",
-                "reference": "a349054250727e443247e88363208a4ea56497b6"
+                "reference": "a87029e05a3f3e4b4c155d5d96053db699089913"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-tax-dev-CGIV-7095-Country-specific-vat-rates-fddef3.zip",
-                "reference": "a349054250727e443247e88363208a4ea56497b6",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-tax-1.0.1-230ab2.zip",
+                "reference": "a87029e05a3f3e4b4c155d5d96053db699089913",
                 "shasum": null
             },
             "require": {
@@ -2208,9 +2208,7 @@
                 "channelgrabber/log": "^2.0.23",
                 "channelgrabber/stdlib": "^2.10.9",
                 "channelgrabber/user": "^1.19.4",
-                "composer/composer": "@dev",
-                "php-jsonpatch/php-jsonpatch": "dev-master",
-                "php-jsonpointer/php-jsonpointer": "@dev"
+                "composer/composer": "@dev"
             },
             "require-dev": {
                 "channelgrabber/phpunit": ">=1.0.0",
@@ -2227,7 +2225,7 @@
                     "CG\\Tax\\Test\\": "tests\\src"
                 }
             },
-            "time": "2016-06-15 14:20:41"
+            "time": "2016-06-20 08:31:30"
         },
         {
             "name": "channelgrabber/template",
@@ -7663,32 +7661,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.24.4",
-            "alias_normalized": "1.24.4.0",
-            "version": "dev-CGIV-7095-Country-specific-vat-rates",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.6.2",
-            "alias_normalized": "1.6.2.0",
-            "version": "dev-CGIV-7095-Country-specific-vat-rates",
-            "package": "channelgrabber/product"
-        },
-        {
-            "alias": "1.0.1",
-            "alias_normalized": "1.0.1.0",
-            "version": "dev-CGIV-7095-Country-specific-vat-rates",
-            "package": "channelgrabber/tax"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/product": 20,
-        "channelgrabber/tax": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
