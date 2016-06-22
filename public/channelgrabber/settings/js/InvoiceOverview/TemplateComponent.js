@@ -6,16 +6,22 @@ define([
     "use strict";
 
     var TemplateComponent = React.createClass({
-        render: function() {
+        generateLinkElements: function() {
             var linkElements = [];
             this.props.links.map(function(element){
                 linkElements.push(React.createElement(
                     "div",
-                    {className: 'invoice-template-action-link ' + element.name},
-                    React.createElement("a", {href: element.url, target: '_blank'}, element.name)
+                    {className: 'invoice-template-action-link ' + element.name.toLowerCase()},
+                    React.createElement("a", element.properties, element.name)
                 ));
             });
-            var imageElement = React.createElement("img", {src: this.props.imageUrl});
+            return linkElements;
+        },
+        render: function() {
+            var linkElements = this.generateLinkElements();
+            if (this.props.imageUrl) {
+                var imageElement = React.createElement("img", {src: this.props.imageUrl});
+            }
             var output = React.createElement(
                 "div",
                 {className: 'invoice-template-element'},

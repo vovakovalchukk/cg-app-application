@@ -15,7 +15,7 @@ define([
                     {
                         className: 'invoice-template-section module',
                         sectionHeader: 'Create New Invoice',
-                        sectionType: 'new'
+                        invoiceData: this.props.system
                     }
                 ),
                 React.createElement(
@@ -23,7 +23,7 @@ define([
                     {
                         className: 'invoice-template-section module',
                         sectionHeader: 'Edit Existing Invoice',
-                        sectionType: 'existing'
+                        invoiceData: this.props.user
                     }
                 )
             );

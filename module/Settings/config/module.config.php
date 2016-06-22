@@ -431,32 +431,8 @@ return [
                                     'route' => '/templates',
                                     'defaults' => [
                                         'controller' => InvoiceController::class,
-                                        'action' => 'fetch'
+                                        'action' => 'existingInvoiceTemplates'
                                     ]
-                                ],
-                                'child_routes' => [
-                                    InvoiceController::ROUTE_TEMPLATES_NEW => [
-                                        'type' => Literal::class,
-                                        'options' => [
-                                            'route' => '/new',
-                                            'defaults' => [
-                                                'controller' => InvoiceController::class,
-                                                'action' => 'newInvoiceTemplates'
-                                            ],
-                                        ],
-                                        'may_terminate' => true
-                                    ],
-                                    InvoiceController::ROUTE_TEMPLATES_EXISTING => [
-                                        'type' => Literal::class,
-                                        'options' => [
-                                            'route' => '/existing',
-                                            'defaults' => [
-                                                'controller' => InvoiceController::class,
-                                                'action' => 'existingInvoiceTemplates'
-                                            ],
-                                        ],
-                                        'may_terminate' => true
-                                    ],
                                 ],
                             ],
                             InvoiceController::ROUTE_FETCH => [

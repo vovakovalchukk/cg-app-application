@@ -8,7 +8,8 @@ $(document).ready(function() {
     require(['InvoiceOverview/InvoiceOverview'], function(InvoiceOverview)
     {
         var mountingNode = document.getElementById('invoice-overview-mount');
-        new InvoiceOverview(mountingNode);
+        var invoiceData = '<?= $invoiceData ?>';
+        new InvoiceOverview(mountingNode, invoiceData);
     });
 });
 <?php $this->inlineScript()->captureEnd(); ?>

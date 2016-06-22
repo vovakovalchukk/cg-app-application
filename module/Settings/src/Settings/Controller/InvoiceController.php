@@ -89,31 +89,15 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
     public function indexAction()
     {
         $invoiceSettings = $this->getInvoiceService()->getSettings();
-        $invoices = $this->getInvoiceService()->getInvoices();
+        $existingInvoices = $this->getInvoiceService()->getExistingInvoicesForView();
 
         $view = $this->getViewModelFactory()->newInstance()
             ->setVariable('invoiceSettings', $invoiceSettings)
-            ->setVariable('invoices', $invoices)
+            ->setVariable('invoiceData', json_encode($existingInvoices))
             ->setVariable('eTag', $invoiceSettings->getStoredETag());
         $view->setVariable('isHeaderBarVisible', false);
         $view->setVariable('subHeaderHide', true);
         return $view;
-    }
-
-    public function newInvoiceTemplatesAction()
-    {
-        $existingInvoices = $this->getInvoiceService()->getNewInvoicesForView();
-        return $this->getJsonModelFactory()->newInstance([
-            "invoiceTemplateData" => json_encode($existingInvoices)
-        ]);
-    }
-
-    public function existingInvoiceTemplatesAction()
-    {
-        $existingInvoices = $this->getInvoiceService()->getExistingInvoicesForView();
-        return $this->getJsonModelFactory()->newInstance([
-            "invoiceTemplateData" => json_encode($existingInvoices)
-        ]);
     }
 
     public function saveMappingAction()
@@ -239,8 +223,8 @@ class InvoiceController extends AbstractActionController implements LoggerAwareI
         $template = $this->params()->fromRoute('templateId');
         $view->setVariable("templateId", $template);
 
-        $view->addChild($this->getTemplateSelectView(), 'templates');
-        $view->addChild($this->getTemplateAddButtonView(), 'templateAddButton');
+        //$view->addChild($this->getTemplateSelectView(), 'templates');
+        //$view->addChild($this->getTemplateAddButtonView(), 'templateAddButton');
         $view->addChild($this->getTemplateDuplicateButtonView(), 'templateDuplicateButton');
         $view->addChild($this->getTemplateDiscardButtonView(), 'templateDiscardButton');
         $view->addChild($this->getTemplateSaveButtonView(), 'templateSaveButton');

@@ -7,9 +7,9 @@ define([
     ReactDOM,
     RootComponent
 ) {
-    var InvoiceOverview = function(mountingNode)
+    var InvoiceOverview = function(mountingNode, invoiceData)
     {
-        ReactDOM.render(React.createElement(RootComponent), mountingNode);
+        ReactDOM.render(React.createElement(RootComponent, JSON.parse(invoiceData)), mountingNode);
     };
 
     return InvoiceOverview;

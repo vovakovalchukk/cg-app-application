@@ -73,9 +73,10 @@ class Service
         }
     }
 
-    public function getNewInvoicesForView()
+    public function getExistingInvoicesForView()
     {
-        $templates[] = [
+        $userInvoices = [];
+        $systemInvoices[] = [
             'name' => 'Blank',
             'key' => 'blank',
             'invoiceId' => '',
@@ -91,29 +92,40 @@ class Service
                 ]
             ]
         ];
-        return $templates;
-    }
 
-    public function getExistingInvoicesForView()
-    {
-        //$templates = $this->getInvoices();
-        $templates[] = [
-            'name' => 'Blankety Blank',
-            'key' => 'blank123',
-            'invoiceId' => 'default-formsPlusFPS-3_OU1',
-            'imageUrl' => '',
-            'links' => [
-                [
-                    'name' => 'Create',
-                    'key' => 'createLinkfps31',
-                    'properties' => [
-                        'target' => '_blank',
-                        'href' => '/settings/invoice/designer',
-                    ],
-                ]
-            ]
-        ];
-        return $templates;
+        $templates = $this->getInvoices();
+        foreach ($templates as $template) {
+            $templateViewDataElement['name'] = $template->getName();
+            $templateViewDataElement['key'] = $template->getId();
+            $templateViewDataElement['invoiceId'] = $template->getId();
+            $templateViewDataElement['imageUrl'] = '/cg-built/settings/img/InvoiceOverview/TemplateThumbnails/Form-FPS3.png';
+            $templateViewDataElement['links']  = [
+
+            ];
+
+            if ($template->getEditable()) {
+                $userInvoices[] = $templateViewDataElement;
+            } else {
+                $systemInvoices[] = $templateViewDataElement;
+            }
+        }
+//        $templates[] = [
+//            'name' => 'Blankety Blank',
+//            'key' => 'blank123',
+//            'invoiceId' => 'default-formsPlusFPS-3_OU1',
+//            'imageUrl' => '',
+//            'links' => [
+//                [
+//                    'name' => 'Create',
+//                    'key' => 'createLinkfps31',
+//                    'properties' => [
+//                        'target' => '_blank',
+//                        'href' => '/settings/invoice/designer',
+//                    ],
+//                ]
+//            ]
+//        ];
+        return ['system' => $systemInvoices, 'user' => $userInvoices];
     }
 
     public function getTradingCompanies()
