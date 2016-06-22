@@ -1,66 +1,41 @@
 define([
     'react',
+    'jquery',
     'InvoiceOverview/TemplateComponent'
 ], function(
     React,
+    $,
     TemplateComponent
 ) {
     "use strict";
 
     var SectionComponent = React.createClass({
         getInitialState: function() {
-            console.log("Type is "+this.props.sectionType);
-            var newInvoices = [
-                {
-                    name: 'FPS-3 Template',
-                    key: 'fps3',
-                    invoiceId: 'default-formsPlusFPS-3_OU1',
-                    imageUrl: '/cg-built/settings/img/InvoiceOverview/TemplateThumbnails/Form-FPS3.png',
-                    links: [
-                        {
-                            name: 'Create',
-                            url: '/settings/invoice/fetch',
-                            key: 'createLinkfps3'
-                        },
-                        {
-                            name: 'Buy Label',
-                            url: 'https://www.formsplus.co.uk/online-shop/integrated/single-integrated-labels/fps-3/?utm_source=Channel%20Grabber&utm_medium=Link%20&utm_campaign=FPS-3%20CG%20Link',
-                            key: 'buyLinkfps3'
-                        }
-                    ]
-                },
-                {
-                    name: 'FPS-15 Template',
-                    key: 'fps15',
-                    invoiceId: 'default-formsPlusFPS-15_OU1',
-                    imageUrl: '/cg-built/settings/img/InvoiceOverview/TemplateThumbnails/Form-FPS15.png',
-                    links: [
-                        {
-                            name: 'Create',
-                            url: '/settings/invoice/fetch',
-                            key: 'createLinkfps15'
-                        }
-                    ]
-                },
-                {
-                    name: 'FPS-16 Template',
-                    key: 'fps16',
-                    invoiceId: 'default-formsPlusFPS-16_OU1',
-                    imageUrl: '/cg-built/settings/img/InvoiceOverview/TemplateThumbnails/Form-FPS16.png',
-                    links: [
-                        {
-                            name: 'Create',
-                            url: '/settings/invoice/fetch',
-                            key: 'createLinkfps16'
-                        }
-                    ]
+            return {invoiceElements: []};
+        },
+        componentDidMount: function() {
+            var sectionType = this.props.sectionType;
+            this.serverRequest = $.ajax({
+                url: "/settings/invoice/templates/"+sectionType,
+                type: 'GET',
+                success: function(result) {
+                    this.setState({invoiceElements: JSON.parse(result.invoiceTemplateData)});
+                }.bind(this),
+                error: function (error, textStatus, errorThrown) {
+                    return {error: 'There was a problem retrieving '+sectionType+' invoice templates from the server.'};
                 }
-            ];
-            return {newInvoices: newInvoices};
+            });
+        },
+        componentWillUnmount: function() {
+            this.serverRequest.abort();
         },
         render: function render() {
+            if (this.state.error !== undefined) {
+                // Could refactor this into a notification component
+                return React.createElement('div', {className: 'error'}, this.state.error);
+            }
             var invoiceElements = [];
-            this.state.newInvoices.map(function(element){
+            this.state.invoiceElements.map(function(element){
                 invoiceElements.push(React.createElement(
                     TemplateComponent,
                     element
