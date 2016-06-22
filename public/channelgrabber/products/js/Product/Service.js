@@ -206,9 +206,10 @@ define([
         var statusLozenge = this.getStatusView(product, templates);
         var stockModesCustomSelect = this.getStockModesCustomSelectView(product, templates);
         if (product['taxRates']) {
+            var showCodeInLabel = (Object.keys(product['taxRates']).length > 1);
             for (var VATCountryCode in product['taxRates']) {
                 if (product['taxRates'].hasOwnProperty(VATCountryCode)) {
-                    var taxSelectView = this.getTaxRateCustomSelectView(product, templates, VATCountryCode);
+                    var taxSelectView = this.getTaxRateCustomSelectView(product, templates, VATCountryCode, showCodeInLabel);
                     taxRateCustomSelects += (taxSelectView ? taxSelectView : "");
                 }
             }
@@ -259,7 +260,7 @@ define([
         return CGMustache.get().renderTemplate(
             templates,
             {
-                'value': details.hasOwnProperty(detail) ? details[detail] : defaultValue,
+                'value': details && details.hasOwnProperty(detail) ? details[detail] : defaultValue,
                 'name': detail,
                 'class': 'product-detail',
                 'type': 'number',
@@ -423,7 +424,7 @@ define([
         }, 'buttons');
     };
 
-    Service.prototype.getTaxRateCustomSelectView = function(product, templates, VATCountryCode)
+    Service.prototype.getTaxRateCustomSelectView = function(product, templates, VATCountryCode, showCodeInLabel)
     {
         var options = [];
         for(var taxRateId in product['taxRates'][VATCountryCode]) {
@@ -438,13 +439,18 @@ define([
             });
         }
 
-        return CGMustache.get().renderTemplate(templates, {
+        var label = 'VAT';
+        if (showCodeInLabel) {
+            label = VATCountryCode + ' ' + label;
+        }
+        var html = CGMustache.get().renderTemplate(templates, {
             'id': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'] + '-' + VATCountryCode,
             'name': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'] + '-' + VATCountryCode,
             'class': Service.DOM_SELECTOR_TAX_RATE,
-            'title': 'VAT',
+            'title': label,
             'options': options
         }, 'customSelect');
+        return '<div class="tax-rate-custom-select-holder">' + html + '</div>';
     };
 
     Service.prototype.getStockModesCustomSelectView = function(product, templates)

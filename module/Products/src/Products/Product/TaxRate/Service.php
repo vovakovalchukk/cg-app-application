@@ -39,12 +39,6 @@ class Service
         }
 
         foreach ($product->getTaxRateIds() as $VATCountryCode => $taxRateId) {
-            if ($VATCountryCode !== array_pop($VATCountryCodes)) {
-                /**
-                 * Temporarily exclude tax rates that aren't part of this ou's currently selected memberstate
-                 */
-                continue;
-            }
             $rates = $this->fetchTaxRatesForMemberState($VATCountryCode);
             $defaultRate[$VATCountryCode] = $rates->getDefault();
             $ratesOptions[$VATCountryCode] = $this->buildRatesOptions($rates);
