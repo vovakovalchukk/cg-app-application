@@ -28,9 +28,9 @@ class AccountController extends AbstractActionController
 
     public function linkAction()
     {
-        $shop = $this->params()->fromPost('shop');
+        $shopHost = $this->params()->fromPost('shopHost');
         $accountId = $this->params()->fromPost('accountId');
-        return $this->accountService->getLinkJson($shop, $accountId);
+        return $this->accountService->getLinkJson($shopHost, $accountId);
     }
 
     public function returnAction()

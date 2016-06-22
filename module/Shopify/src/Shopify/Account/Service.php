@@ -108,29 +108,32 @@ class Service implements LoggerAwareInterface, SetupViewInterface
         return $this->urlHelper->fromRoute(implode('/', $route));
     }
 
-    public function getLinkJson($shop, $accountId = null)
+    public function getLinkJson($shopHost, $accountId = null)
     {
-        $shop = $this->parseShop($shop);
-        $client = $this->clientFactory->createClientForCredentials(new Credentials($shop));
+        $shopHost = $this->parseShopHost($shopHost);
+        $client = $this->clientFactory->createClientForCredentials(new Credentials($shopHost));
         $redirectUrl = $client->getOauthLink($nonce, Client::getRequiredScopes(), $this->getProcessUrl($accountId));
 
-        if (!isset($this->session['oauth']) || !($this->session['oauth'] instanceof ArrayObject)) {
-            $this->session['oauth'] = new ArrayObject();
+        if (!isset($this->session['oauth']) || !is_array($this->session['oauth'])) {
+            $this->session['oauth'] = [];
         }
 
-        $this->session['oauth'][$shop] = new OAuthSession($accountId, $nonce);
+        $this->session['oauth'][$shopHost] = ['accountId' => $accountId, 'nonce' => $nonce];
         return $this->jsonModelFactory->newInstance(['redirectUrl' => $redirectUrl]);
     }
 
-    protected function parseShop($shop)
+    protected function parseShopHost($shopHost)
     {
-        if (filter_var($shop, FILTER_VALIDATE_URL)) {
-            $shop = parse_url($shop, PHP_URL_HOST);
+        if (filter_var($shopHost, FILTER_VALIDATE_URL)) {
+            $shopHost = parse_url($shopHost, PHP_URL_HOST);
         }
-        if (!preg_match('/[a-z0-9\.\-]\.myshopify\.com$/i', $shop)) {
-            throw new InvalidArgumentException(sprintf('Shop (%s) is not a valid Shopify Shop', $shop));
+        if (strrpos($shopHost, '.') === false) {
+            $shopHost .= '.myshopify.com';
         }
-        return $shop;
+        if (!preg_match('/[a-z0-9\.\-]\.myshopify\.com$/i', $shopHost)) {
+            throw new InvalidArgumentException(sprintf('Shop Host (%s) is not a valid Shopify Shop', $shopHost));
+        }
+        return $shopHost;
     }
 
     protected function getProcessUrl($accountId = null)
@@ -153,15 +156,15 @@ class Service implements LoggerAwareInterface, SetupViewInterface
         $nonce = $parameters['state'];
         $code = $parameters['code'];
 
-        $oAuthSession = new OAuthSession();
-        if (isset($this->session['oauth'][$shop]) && $this->session['oauth'][$shop] instanceof OAuthSession) {
-            $oAuthSession = $this->session['oauth'][$shop];
-        }
+        $oAuthSession = [
+            'accountId' => (isset($this->session['oauth'][$shop]['accountId']) ? $this->session['oauth'][$shop]['accountId'] : null),
+            'nonce' => (isset($this->session['oauth'][$shop]['nonce']) ? $this->session['oauth'][$shop]['nonce'] : null),
+        ];
 
-        if ($oAuthSession->getNonce() != $nonce) {
-            $this->logPrettyError(static::LOG_MSG_INVALID_NONCE, ['Session' => $oAuthSession->getNonce() != $nonce ?: '-', 'OAuth' => $nonce], [], static::LOG_CODE_INVALID_NONCE);
+        if ($oAuthSession['nonce'] != $nonce) {
+            $this->logPrettyError(static::LOG_MSG_INVALID_NONCE, ['Session' => $oAuthSession['nonce'] ?: '-', 'OAuth' => $nonce ?: '-'], [], static::LOG_CODE_INVALID_NONCE);
             throw new InvalidArgumentException(
-                sprintf("OAuth response has been comprimised:\n\"%s\" != \"%s\"", $oAuthSession->getNonce() != $nonce ?: '-', $nonce)
+                sprintf("OAuth response has been comprimised:\n\"%s\" != \"%s\"", $oAuthSession['nonce'] ?: '-', $nonce ?: '-')
             );
         }
 
@@ -171,7 +174,7 @@ class Service implements LoggerAwareInterface, SetupViewInterface
 
         return $this->shopifyAccountCreator->connectAccount(
             $this->activeUser->getCompanyId(),
-            $oAuthSession->getAccountId(),
+            $oAuthSession['accountId'],
             [
                 'shop' => $shop,
                 'token' => $token,

@@ -4,7 +4,7 @@
     </div>
     <?php if ($accountId) : ?>
         <input type="hidden" name="accountId" value="<?= $accountId ?>">
-    <?php endif; ?>
+    <?php endif ?>
     <div class="account-field-holder">
         <div class="label">
             <span class="name"><?= $this->translate('Shop') ?>:</span>
@@ -14,8 +14,8 @@
             <?= $this->mustache(
                 'elements/text.mustache',
                 [
-                    'name' => 'shop',
-                    'value' => isset($accountData['credentials'], $accountData['credentials']['shop']) ? $accountData['credentials']['shop'] : '',
+                    'name' => 'shopHost',
+                    'value' => isset($accountData['credentials']['shopHost']) ? $accountData['credentials']['shopHost'] : '',
                     'placeholder' => '{shop}.myshopify.com',
                 ]
             ) ?>
