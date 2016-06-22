@@ -73,6 +73,49 @@ class Service
         }
     }
 
+    public function getNewInvoicesForView()
+    {
+        $templates[] = [
+            'name' => 'Blank',
+            'key' => 'blank',
+            'invoiceId' => '',
+            'imageUrl' => '',
+            'links' => [
+                [
+                    'name' => 'Create',
+                    'key' => 'createLinkfps3',
+                    'properties' => [
+                        'target' => '_blank',
+                        'href' => '/settings/invoice/designer',
+                    ],
+                ]
+            ]
+        ];
+        return $templates;
+    }
+
+    public function getExistingInvoicesForView()
+    {
+        //$templates = $this->getInvoices();
+        $templates[] = [
+            'name' => 'Blankety Blank',
+            'key' => 'blank123',
+            'invoiceId' => 'default-formsPlusFPS-3_OU1',
+            'imageUrl' => '',
+            'links' => [
+                [
+                    'name' => 'Create',
+                    'key' => 'createLinkfps31',
+                    'properties' => [
+                        'target' => '_blank',
+                        'href' => '/settings/invoice/designer',
+                    ],
+                ]
+            ]
+        ];
+        return $templates;
+    }
+
     public function getTradingCompanies()
     {
         $limit = 'all';
