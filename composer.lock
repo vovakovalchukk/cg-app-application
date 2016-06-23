@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "63a1870f38278ea44ca75fe3da154ac9",
-    "content-hash": "b2011ff120162c09b291e91860ff2d64",
+    "hash": "378b3c3122ae5a87f7394490d406e721",
+    "content-hash": "957c5060699e5ee6c41370582e6f2043",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1923,16 +1923,16 @@
         },
         {
             "name": "channelgrabber/shopify",
-            "version": "dev-CGIV-7053-ShopifyWebHook",
+            "version": "dev-EPIC-CGIV-7049-ShopifyIntegration",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "157e9b47f7841e37bc89a399a36202813cd8c756"
+                "reference": "a46bac264533c19cc4006e1c9f0f001b91f4ea00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-CGIV-7053-ShopifyWebHook-432f20.zip",
-                "reference": "157e9b47f7841e37bc89a399a36202813cd8c756",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-EPIC-CGIV-7049-ShopifyIntegration-a45cd4.zip",
+                "reference": "a46bac264533c19cc4006e1c9f0f001b91f4ea00",
                 "shasum": null
             },
             "require": {
@@ -1959,7 +1959,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-06-22 12:35:54"
+            "time": "2016-06-23 12:52:27"
         },
         {
             "name": "channelgrabber/slim",
@@ -7715,7 +7715,7 @@
         {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
-            "version": "dev-CGIV-7053-ShopifyWebHook",
+            "version": "dev-EPIC-CGIV-7049-ShopifyIntegration",
             "package": "channelgrabber/shopify"
         },
         {
