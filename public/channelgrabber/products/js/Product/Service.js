@@ -191,7 +191,7 @@ define([
         var checkbox = this.getCheckboxView(product, templates);
         var expandButton = '';
         var hasVariations = false;
-        var taxRateCustomSelect = null;
+        var taxRateCustomSelects = '';
 
         if (product['variationCount'] != undefined && product['variationCount']) {
             var productContent = this.getVariationView(product, templates);
@@ -206,7 +206,12 @@ define([
         var statusLozenge = this.getStatusView(product, templates);
         var stockModesCustomSelect = this.getStockModesCustomSelectView(product, templates);
         if (product['taxRates']) {
-            taxRateCustomSelect = this.getTaxRateCustomSelectView(product, templates);
+            for (var VATCountryCode in product['taxRates']) {
+                if (product['taxRates'].hasOwnProperty(VATCountryCode)) {
+                    var taxSelectView = this.getTaxRateCustomSelectView(product, templates, VATCountryCode);
+                    taxRateCustomSelects += (taxSelectView ? taxSelectView : "");
+                }
+            }
         }
         var productView = CGMustache.get().renderTemplate(templates, {
             'title': product['name'],
@@ -215,13 +220,13 @@ define([
             'eTag': product['eTag'],
             'image': this.getPrimaryImage(product['images']),
             'hasVariations': hasVariations,
+            'taxRateCustomSelects': taxRateCustomSelects,
             'isAdmin': this.isAdmin()
         }, 'product', {
             'productContent': productContent,
             'statusLozenge': statusLozenge,
             'expandButton': expandButton,
             'stockModeOptions': stockModesCustomSelect,
-            'taxRateCustomSelect': taxRateCustomSelect,
             'checkbox': checkbox
         });
         return productView;
@@ -418,23 +423,24 @@ define([
         }, 'buttons');
     };
 
-    Service.prototype.getTaxRateCustomSelectView = function(product, templates)
+    Service.prototype.getTaxRateCustomSelectView = function(product, templates, VATCountryCode)
     {
         var options = [];
-        for(var taxRateId in product['taxRates']) {
-            if(!product['taxRates'].hasOwnProperty(taxRateId)) {
+        for(var taxRateId in product['taxRates'][VATCountryCode]) {
+            if(!product['taxRates'][VATCountryCode].hasOwnProperty(taxRateId)) {
                 continue;
             }
+            var formattedRate = parseFloat(product['taxRates'][VATCountryCode][taxRateId]['rate']);
             options.push({
-                'title': product['taxRates'][taxRateId]['rate'] + '% (' + product['taxRates'][taxRateId]['name'] + ')',
+                'title': formattedRate + '% (' + product['taxRates'][VATCountryCode][taxRateId]['name'] + ')',
                 'value': taxRateId,
-                'selected': product['taxRates'][taxRateId]['selected']
+                'selected': product['taxRates'][VATCountryCode][taxRateId]['selected']
             });
         }
 
         return CGMustache.get().renderTemplate(templates, {
-            'id': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'],
-            'name': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'],
+            'id': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'] + '-' + VATCountryCode,
+            'name': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'] + '-' + VATCountryCode,
             'class': Service.DOM_SELECTOR_TAX_RATE,
             'title': 'VAT',
             'options': options
@@ -539,9 +545,10 @@ define([
         if(productId === undefined || productId === '' || value === undefined || value === '') {
             return;
         }
+        var VATCountryCode = value.substring(0, 2);
 
         this.getDeferredQueue().queue(function() {
-            return productStorage.saveTaxRate(productId, value, function(error, textStatus, errorThrown) {
+            return productStorage.saveTaxRate(productId, value, VATCountryCode, function(error, textStatus, errorThrown) {
                 if(error === null) {
                     n.success('Product tax rate updated successfully');
                 } else {

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "378b3c3122ae5a87f7394490d406e721",
-    "content-hash": "957c5060699e5ee6c41370582e6f2043",
+    "hash": "0539886448acb42677ff0b41f14900a1",
+    "content-hash": "812c40b3d12bcf6106d4d8403c2f575e",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -309,12 +309,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "d1e76ffe155481f7f97dab3e07d81d60306363ae"
+                "reference": "9d4453f4e35b6adad20f5a17c094d6fa8e4de071"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-7049-ShopifyIntegration-5de86f.zip",
-                "reference": "d1e76ffe155481f7f97dab3e07d81d60306363ae",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-7049-ShopifyIntegration-323ccc.zip",
+                "reference": "9d4453f4e35b6adad20f5a17c094d6fa8e4de071",
                 "shasum": null
             },
             "require": {
@@ -330,7 +330,7 @@
                 "channelgrabber/listing": "^1.9.6",
                 "channelgrabber/location": ">=1.1.1,<2.0.0",
                 "channelgrabber/locking": "^1.1.0",
-                "channelgrabber/log": "^2.0.21",
+                "channelgrabber/log": "dev-EPIC-CGIV-7049-ShopifyIntegration as 2.0.27",
                 "channelgrabber/order": "^1.18.1",
                 "channelgrabber/permission": ">=1.0.1, <2.0.0",
                 "channelgrabber/predis": "^1.0.7",
@@ -382,7 +382,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-06-14 15:32:54"
+            "time": "2016-06-23 13:36:36"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1007,16 +1007,16 @@
         },
         {
             "name": "channelgrabber/locale",
-            "version": "1.0.6",
+            "version": "1.0.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-locale.git",
-                "reference": "d14fadcbf3a618853c25dbd2fdbdfa9ebba369f8"
+                "reference": "1cd5e05cc79ee120fe59cfc9c130ca745fe41fbb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.6-bbe71e.zip",
-                "reference": "d14fadcbf3a618853c25dbd2fdbdfa9ebba369f8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-locale-1.0.7-d36fa9.zip",
+                "reference": "1cd5e05cc79ee120fe59cfc9c130ca745fe41fbb",
                 "shasum": null
             },
             "require": {
@@ -1036,7 +1036,7 @@
                     "CG\\Locale\\Test\\": "tests"
                 }
             },
-            "time": "2016-05-17 07:36:18"
+            "time": "2016-06-20 08:16:52"
         },
         {
             "name": "channelgrabber/location",
@@ -1124,17 +1124,17 @@
         },
         {
             "name": "channelgrabber/log",
-            "version": "2.0.25",
+            "version": "dev-EPIC-CGIV-7049-ShopifyIntegration",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-log.git",
-                "reference": "ccb94380433239243505c9bab3f7d71681f0983e"
+                "reference": "6d481cc2c317dfc52e67c5edbca7451f4fab4fb4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-2.0.25-ff3ec3.zip",
-                "reference": "ccb94380433239243505c9bab3f7d71681f0983e",
-                "shasum": "1944b3bb970c05dd9892ea362a40a01fdf11c6b6"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-log-dev-EPIC-CGIV-7049-ShopifyIntegration-262ba0.zip",
+                "reference": "6d481cc2c317dfc52e67c5edbca7451f4fab4fb4",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/cache": ">=2.0.1,<3.0.0",
@@ -1145,8 +1145,6 @@
                 "channelgrabber/validation": ">=1.1.0",
                 "composer/composer": "@dev",
                 "nocarrier/hal": "~0.9.4",
-                "php-jsonpatch/php-jsonpatch": "@dev",
-                "php-jsonpointer/php-jsonpointer": "@dev",
                 "zendframework/zend-di": ">=2.2,<3.0",
                 "zendframework/zend-eventmanager": ">=2.2,<3.0"
             },
@@ -1164,7 +1162,7 @@
                     "CG\\Log\\Test\\": "tests/"
                 }
             },
-            "time": "2015-07-16 08:27:05"
+            "time": "2016-06-23 12:46:23"
         },
         {
             "name": "channelgrabber/netdespatch",
@@ -1271,16 +1269,16 @@
         },
         {
             "name": "channelgrabber/order",
-            "version": "1.23.4.1",
+            "version": "1.23.7",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "64a03ace8fd0c23107b947217e0aedeb95ede807"
+                "reference": "a485a25ceaee7622a7510a7437e32b9d8d98f314"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.23.4.1-ca1df6.zip",
-                "reference": "64a03ace8fd0c23107b947217e0aedeb95ede807",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-1.23.7-61e0db.zip",
+                "reference": "a485a25ceaee7622a7510a7437e32b9d8d98f314",
                 "shasum": null
             },
             "require": {
@@ -1344,7 +1342,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-05-11 12:08:43"
+            "time": "2016-06-23 10:37:50"
         },
         {
             "name": "channelgrabber/permission",
@@ -1614,16 +1612,16 @@
         },
         {
             "name": "channelgrabber/product",
-            "version": "1.6.1",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-product.git",
-                "reference": "55c06367dccaa09c470ba273fa66a5c85584d0b9"
+                "reference": "65ce0e9972fabc62f819678024099c447c0dbfad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.6.1-2dbc96.zip",
-                "reference": "55c06367dccaa09c470ba273fa66a5c85584d0b9",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-product-1.7.0-48b07e.zip",
+                "reference": "65ce0e9972fabc62f819678024099c447c0dbfad",
                 "shasum": null
             },
             "require": {
@@ -1657,7 +1655,7 @@
                     "CG\\Product\\": "src"
                 }
             },
-            "time": "2016-06-07 07:47:27"
+            "time": "2016-06-20 08:31:18"
         },
         {
             "name": "channelgrabber/product-locking",
@@ -2230,17 +2228,17 @@
         },
         {
             "name": "channelgrabber/tax",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-tax.git",
-                "reference": "97c51a3396b019630dd9988c8c04de7409427fd2"
+                "reference": "a87029e05a3f3e4b4c155d5d96053db699089913"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-tax-1.0.0-7579cb.zip",
-                "reference": "97c51a3396b019630dd9988c8c04de7409427fd2",
-                "shasum": "83c29dcaad1d1c6506c1c71accb0ee11dd19a941"
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-tax-1.0.1-230ab2.zip",
+                "reference": "a87029e05a3f3e4b4c155d5d96053db699089913",
+                "shasum": null
             },
             "require": {
                 "channelgrabber/constants": "dev-master",
@@ -2248,9 +2246,7 @@
                 "channelgrabber/log": "^2.0.23",
                 "channelgrabber/stdlib": "^2.10.9",
                 "channelgrabber/user": "^1.19.4",
-                "composer/composer": "@dev",
-                "php-jsonpatch/php-jsonpatch": "dev-master",
-                "php-jsonpointer/php-jsonpointer": "@dev"
+                "composer/composer": "@dev"
             },
             "require-dev": {
                 "channelgrabber/phpunit": ">=1.0.0",
@@ -2267,7 +2263,7 @@
                     "CG\\Tax\\Test\\": "tests\\src"
                 }
             },
-            "time": "2015-05-19 12:25:17"
+            "time": "2016-06-20 08:31:30"
         },
         {
             "name": "channelgrabber/template",
@@ -3474,12 +3470,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "959a4d4df10f91132423058a3932192a2fe2ad25"
+                "reference": "38045df640156262536ec59f48bb05c58bfe9ccb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-7049-ShopifyIntegration-ce5da8.zip",
-                "reference": "959a4d4df10f91132423058a3932192a2fe2ad25",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-EPIC-CGIV-7049-ShopifyIntegration-88bc39.zip",
+                "reference": "38045df640156262536ec59f48bb05c58bfe9ccb",
                 "shasum": null
             },
             "require": {
@@ -3488,7 +3484,7 @@
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/etag": ">=1.4.2",
                 "channelgrabber/intercom": ">=1.0.0,<2.0.0",
-                "channelgrabber/locale": "^1.0.6",
+                "channelgrabber/locale": "^1.0.7",
                 "channelgrabber/log": ">=1.4.2",
                 "channelgrabber/stdlib": ">=2.7.4,<3.0.0",
                 "channelgrabber/user": "^1.20.6",
@@ -3526,7 +3522,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-06-14 15:34:38"
+            "time": "2016-06-23 13:37:45"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7707,10 +7703,16 @@
     ],
     "aliases": [
         {
-            "alias": "1.24.4",
-            "alias_normalized": "1.24.4.0",
+            "alias": "1.24.5",
+            "alias_normalized": "1.24.5.0",
             "version": "dev-EPIC-CGIV-7049-ShopifyIntegration",
             "package": "channelgrabber/channel"
+        },
+        {
+            "alias": "2.0.27-dev",
+            "alias_normalized": "2.0.27.0-dev",
+            "version": "dev-EPIC-CGIV-7049-ShopifyIntegration",
+            "package": "channelgrabber/log"
         },
         {
             "alias": "1.0.0",
@@ -7719,8 +7721,8 @@
             "package": "channelgrabber/shopify"
         },
         {
-            "alias": "1.16.55",
-            "alias_normalized": "1.16.55.0",
+            "alias": "1.16.58",
+            "alias_normalized": "1.16.58.0",
             "version": "dev-EPIC-CGIV-7049-ShopifyIntegration",
             "package": "channelgrabber/zf2-v4-ui"
         }
@@ -7729,6 +7731,7 @@
     "stability-flags": {
         "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
+        "channelgrabber/log": 20,
         "channelgrabber/shopify": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
