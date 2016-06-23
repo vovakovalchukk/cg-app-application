@@ -1275,12 +1275,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "a39f6bc4bccff07ccdd3f931f3dd7564d87bbe94"
+                "reference": "1bdd86764c19d467518c3ffef412f0e9be873200"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6455-eu-vat-rates-772966.zip",
-                "reference": "a39f6bc4bccff07ccdd3f931f3dd7564d87bbe94",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6455-eu-vat-rates-0a4783.zip",
+                "reference": "1bdd86764c19d467518c3ffef412f0e9be873200",
                 "shasum": null
             },
             "require": {
@@ -1314,7 +1314,7 @@
                 "channelgrabber/tax": "^1.0.1",
                 "channelgrabber/template": "^1.4.3",
                 "channelgrabber/transaction": "^1.2.1",
-                "channelgrabber/user": "^1.19.4",
+                "channelgrabber/user": "dev-CGIV-6455-eu-vat-rates as 1.21.4",
                 "channelgrabber/zf2-stdlib": ">=1.1.17",
                 "composer/composer": "@dev",
                 "ext-mongo": ">=1.4.4",
@@ -1344,7 +1344,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-06-22 14:45:46"
+            "time": "2016-06-23 10:50:31"
         },
         {
             "name": "channelgrabber/permission",
