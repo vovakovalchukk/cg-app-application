@@ -50,7 +50,7 @@
         "channelgrabber/location": "~1.1.3",
         "channelgrabber/log": "~2.0.25",
         "channelgrabber/netdespatch": "~1.0.10",
-        "channelgrabber/order": "dev-CGIV-6455-eu-vat-rates as 1.23.7",
+        "channelgrabber/order": "dev-CGIV-6455-eu-vat-rates as 1.23.8",
         "channelgrabber/permission": "~1.0.1",
         "channelgrabber/phinx": "~0.3.2",
         "channelgrabber/picklist": "~1.0.2",

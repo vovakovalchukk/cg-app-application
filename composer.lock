@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "07471fda33bc1e5573418119d79bafff",
-    "content-hash": "ef9239153792bf73d20f18b4ced96a3c",
+    "hash": "d2325a1763cabb79ddac1f85b6d83f49",
+    "content-hash": "a14dacab7473891458099746f971fd36",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1275,12 +1275,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "229e0fa2e85e9d8ca183d7958383b518b6ea9064"
+                "reference": "e4cd20bab1552cd2dc16be5e794228ca2f96fd4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6455-eu-vat-rates-081e64.zip",
-                "reference": "229e0fa2e85e9d8ca183d7958383b518b6ea9064",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6455-eu-vat-rates-607f72.zip",
+                "reference": "e4cd20bab1552cd2dc16be5e794228ca2f96fd4c",
                 "shasum": null
             },
             "require": {
@@ -1344,7 +1344,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-06-23 13:45:37"
+            "time": "2016-06-23 14:47:11"
         },
         {
             "name": "channelgrabber/permission",
@@ -7663,8 +7663,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.23.7",
-            "alias_normalized": "1.23.7.0",
+            "alias": "1.23.8",
+            "alias_normalized": "1.23.8.0",
             "version": "dev-CGIV-6455-eu-vat-rates",
             "package": "channelgrabber/order"
         },
