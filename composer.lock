@@ -1275,12 +1275,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-order.git",
-                "reference": "bd4116246f26a4e229323f726a5a1e2d3b623e10"
+                "reference": "229e0fa2e85e9d8ca183d7958383b518b6ea9064"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6455-eu-vat-rates-820cf0.zip",
-                "reference": "bd4116246f26a4e229323f726a5a1e2d3b623e10",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-order-dev-CGIV-6455-eu-vat-rates-081e64.zip",
+                "reference": "229e0fa2e85e9d8ca183d7958383b518b6ea9064",
                 "shasum": null
             },
             "require": {
@@ -1344,7 +1344,7 @@
                     "CG\\Order\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-06-23 10:50:31"
+            "time": "2016-06-23 13:45:37"
         },
         {
             "name": "channelgrabber/permission",
