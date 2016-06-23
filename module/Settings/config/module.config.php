@@ -415,6 +415,7 @@ return [
                                         'action' => 'design',
                                     ]
                                 ],
+                                'may_terminate' => true,
                                 'child_routes' => [
                                     InvoiceController::ROUTE_DESIGNER_ID => [
                                         'type' => Segment::class,

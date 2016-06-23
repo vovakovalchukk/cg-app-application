@@ -43,10 +43,13 @@ define([
 
     TemplateSelector.prototype.init = function(application, templateId)
     {
-        if (templateId) {
-            this.setTemplate(this.getService().fetchAndLoadModules(templateId));
-        }
         ModuleAbstract.prototype.init.call(this, application);
+
+        if (templateId !== '') {
+            this.setTemplate(this.getService().fetchAndLoadModules(templateId));
+        } else {
+            this.getService().createForOu(this.getApplication().getOrganisationUnitId());
+        }
     };
 
     TemplateSelector.prototype.selectionMade = function(id)
