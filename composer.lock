@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "60113b41fe6be3cb164fbe9410769a75",
-    "content-hash": "b31cf1fc4bfc2ceb51ad2620ae61d24b",
+    "hash": "77201a5022575ffe80cf9881fae06d36",
+    "content-hash": "67be30f612b68e09965a7205fc198ee3",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2229,16 +2229,16 @@
         },
         {
             "name": "channelgrabber/template",
-            "version": "1.4.6",
+            "version": "dev-CGIV-6919-Invoice-creator-page-modifications",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-template.git",
-                "reference": "cff1f4face8fb4ab1635b1b710f0c466ab9e4d4b"
+                "reference": "c1969314c64e05b4b8b9887bad0c5bc3aabcba2a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-1.4.6-dcb8f9.zip",
-                "reference": "cff1f4face8fb4ab1635b1b710f0c466ab9e4d4b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-template-dev-CGIV-6919-Invoice-creator-page-modifications-e107b6.zip",
+                "reference": "c1969314c64e05b4b8b9887bad0c5bc3aabcba2a",
                 "shasum": null
             },
             "require": {
@@ -2280,7 +2280,7 @@
                     "CG\\Template\\Test\\": "tests/src"
                 }
             },
-            "time": "2016-06-03 09:21:54"
+            "time": "2016-06-23 10:36:43"
         },
         {
             "name": "channelgrabber/transaction",
@@ -7663,6 +7663,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.4.7",
+            "alias_normalized": "1.4.7.0",
+            "version": "dev-CGIV-6919-Invoice-creator-page-modifications",
+            "package": "channelgrabber/template"
+        },
+        {
             "alias": "1.16.55",
             "alias_normalized": "1.16.55.0",
             "version": "dev-CGIV-6919-Invoice-creator-page-modifications",
@@ -7672,6 +7678,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/template": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
