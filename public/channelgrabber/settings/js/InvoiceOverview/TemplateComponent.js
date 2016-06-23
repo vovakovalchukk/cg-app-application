@@ -8,13 +8,15 @@ define([
     var TemplateComponent = React.createClass({
         generateLinkElements: function() {
             var linkElements = [];
-            this.props.links.map(function(element){
-                linkElements.push(React.createElement(
-                    "div",
-                    {className: 'invoice-template-action-link ' + element.name.toLowerCase()},
-                    React.createElement("a", element.properties, element.name)
-                ));
-            });
+            if (this.props.links) {
+                this.props.links.map(function (element) {
+                    linkElements.push(React.createElement(
+                        "div",
+                        {className: 'invoice-template-action-link ' + element.name.toLowerCase()},
+                        React.createElement("a", element.properties, element.name)
+                    ));
+                });
+            }
             return linkElements;
         },
         render: function() {

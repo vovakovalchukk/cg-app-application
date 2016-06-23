@@ -6,9 +6,10 @@ use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
 use CG\Settings\Invoice\Shared\Mapper as InvoiceSettingsMapper;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Template\Service as TemplateService;
-use CG\Template\Type as TemplateType;
+use CG\Template\Entity as Template;
 use CG\User\ActiveUserInterface;
 use CG_UI\View\DataTable;
+use Settings\Module;
 
 class Service
 {
@@ -18,6 +19,21 @@ class Service
     protected $activeUserContainer;
     protected $invoiceSettingsMapper;
     protected $datatable;
+
+    const TEMPLATE_THUMBNAIL_PATH = 'img/InvoiceOverview/TemplateThumbnails/';
+    protected $templateImagesMap = [
+        'FPS-3'  => 'Form-FPS3.png',
+        'FPS-15'  => 'Form-FPS15.png',
+        'FPS-16'  => 'Form-FPS16.png',
+        'FPD-1'  => 'Form-FPD1.png',
+        Template::DEFAULT_TEMPLATE_ID => 'Default.png',
+    ];
+    protected $templatePurchaseLinksMap = [
+        'FPS-3'  => 'https://www.formsplus.co.uk/online-shop/integrated/single-integrated-labels/fps-3/?utm_source=Channel%20Grabber&utm_medium=Link%20&utm_campaign=FPS-3%20CG%20Link',
+        'FPS-15'  => 'https://www.formsplus.co.uk/online-shop/integrated/single-integrated-labels/fps-15/?utm_source=Channel%20Grabber&utm_medium=Link&utm_campaign=FPS-15%20CG',
+        'FPS-16'  => 'https://www.formsplus.co.uk/online-shop/integrated/single-integrated-labels/fps-16/?utm_source=Channel%20Grabber&utm_medium=Link%20&utm_campaign=FPS-16%20CG%20Link',
+        'FPD-1'  => 'https://www.formsplus.co.uk/online-shop/integrated/double-integrated-labels/fpd-1/?utm_source=Channel%20Grabber&utm_medium=Link&utm_campaign=FPD-1%20CG',
+    ];
 
     public function __construct(
         InvoiceSettingsService $invoiceSettingsService,
@@ -76,32 +92,11 @@ class Service
     public function getExistingInvoicesForView()
     {
         $userInvoices = [];
-        $systemInvoices[] = [
-            'name' => 'Blank',
-            'key' => 'blank',
-            'invoiceId' => '',
-            'imageUrl' => '',
-            'links' => [
-                [
-                    'name' => 'Create',
-                    'key' => 'createLinkfps3',
-                    'properties' => [
-                        'target' => '_blank',
-                        'href' => '/settings/invoice/designer',
-                    ],
-                ]
-            ]
-        ];
+        $systemInvoices[] = $this->getBlankTemplate();
 
         $templates = $this->getInvoices();
         foreach ($templates as $template) {
-            $templateViewDataElement['name'] = $template->getName();
-            $templateViewDataElement['key'] = $template->getId();
-            $templateViewDataElement['invoiceId'] = $template->getId();
-            $templateViewDataElement['imageUrl'] = '/cg-built/settings/img/InvoiceOverview/TemplateThumbnails/Form-FPS3.png';
-            $templateViewDataElement['links']  = [
-
-            ];
+            $templateViewDataElement = $this->getTemplateViewData($template);
 
             if ($template->getEditable()) {
                 $userInvoices[] = $templateViewDataElement;
@@ -109,23 +104,87 @@ class Service
                 $systemInvoices[] = $templateViewDataElement;
             }
         }
-//        $templates[] = [
-//            'name' => 'Blankety Blank',
-//            'key' => 'blank123',
-//            'invoiceId' => 'default-formsPlusFPS-3_OU1',
-//            'imageUrl' => '',
-//            'links' => [
-//                [
-//                    'name' => 'Create',
-//                    'key' => 'createLinkfps31',
-//                    'properties' => [
-//                        'target' => '_blank',
-//                        'href' => '/settings/invoice/designer',
-//                    ],
-//                ]
-//            ]
-//        ];
         return ['system' => $systemInvoices, 'user' => $userInvoices];
+    }
+
+    private function getTemplateViewData($template)
+    {
+        $templateViewDataElement['name'] = $template->getName();
+        $templateViewDataElement['key'] = $template->getId();
+        $templateViewDataElement['invoiceId'] = $template->getId();
+        $templateViewDataElement['imageUrl'] = Module::PUBLIC_FOLDER.static::TEMPLATE_THUMBNAIL_PATH.$this->templateImagesMap[$template->getTypeId()];
+
+        if ($template->getEditable()) {
+            $templateViewDataElement['links'] = $this->getUserTemplateLinks($template);
+        } else {
+            $templateViewDataElement['links'] = $this->getSystemTemplateLinks($template);
+        }
+        return $templateViewDataElement;
+    }
+
+    private function getSystemTemplateLinks($template)
+    {
+        $links =  [
+            [
+                'name' => 'Create',
+                'key' => 'create-' . $template->getId(),
+                'properties' => [
+                    'href' => '/settings/invoice/designer/id/' . $template->getId(),
+                ],
+            ],
+        ];
+
+        if ($template->getTypeId() !== Template::DEFAULT_TEMPLATE_ID) {
+            $links[] = [
+                'name' => 'Buy Label',
+                'key' => 'buy-' . $template->getId(),
+                'properties' => [
+                    'href' => $this->templatePurchaseLinksMap[$template->getTypeId()],
+                    'target' => '_blank',
+                ]
+            ];
+        }
+
+        return $links;
+    }
+
+    private function getUserTemplateLinks($template)
+    {
+        return [
+            [
+                'name' => 'Edit',
+                'key' => 'edit-' . $template->getId(),
+                'properties' => [
+                    'href' => '/settings/invoice/designer/id/' . $template->getId(),
+                ],
+            ],
+            [
+                'name' => 'Delete',
+                'key' => 'delete-' . $template->getId(),
+                'properties' => [
+                    'href' => '#',
+                ],
+            ],
+        ];
+    }
+
+    private function getBlankTemplate()
+    {
+        return [
+            'name' => 'Blank',
+            'key' => 'blank',
+            'invoiceId' => '',
+            'imageUrl' => '',
+            'links' => [
+                [
+                    'name' => 'Create',
+                    'key' => 'createLinkBlank',
+                    'properties' => [
+                        'href' => '/settings/invoice/designer',
+                    ],
+                ]
+            ]
+        ];
     }
 
     public function getTradingCompanies()

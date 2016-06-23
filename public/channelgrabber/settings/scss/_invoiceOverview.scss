@@ -10,15 +10,11 @@
             margin-right: 5%;
             margin-bottom: 20px;
             .invoice-template-thumb {
-                border: 1px solid rgba(0, 0, 0, 0.5);
-                cursor: pointer;
+                border: 1px solid $color-lgrey;
                 width: 167px;
                 height: 236px;
                 img {
                     width: 100%;
-                }
-                &:hover {
-                    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
                 }
             }
             .invoice-template-name {
@@ -26,6 +22,7 @@
                 text-align: center;
                 margin-top: 4px;
                 max-width: 169px;
+                color: #444444;
             }
             .invoice-template-actions {
                 margin-top: 7px;
