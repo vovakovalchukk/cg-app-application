@@ -129,7 +129,7 @@ class Service
                 'name' => 'Create',
                 'key' => 'create-' . $template->getId(),
                 'properties' => [
-                    'href' => '/settings/invoice/designer/id/' . $template->getId(),
+                    'href' => '/settings/invoice/designer/id/' . $template->getId().'#duplicate',
                 ],
             ],
         ];

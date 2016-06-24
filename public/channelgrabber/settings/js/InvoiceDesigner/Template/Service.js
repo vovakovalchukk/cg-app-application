@@ -103,10 +103,6 @@ define([
             return false;
         }
         
-        if (! template.isEditable()) {
-            template = this.duplicate(template);
-        }
-
         try {
             this.getStorage().save(template);
             template.setState(Service.FETCHED_STATE)

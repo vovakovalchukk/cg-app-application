@@ -2,10 +2,12 @@
     .invoice-template-section {
         width: 100%;
         float: left;
+        padding: 20px 30px 0 30px;
         .heading-large {
             margin-bottom: 20px;
         }
         .invoice-template-element {
+            height: 340px;
             float: left;
             margin-right: 5%;
             margin-bottom: 20px;
@@ -22,7 +24,9 @@
                 text-align: center;
                 margin-top: 4px;
                 max-width: 169px;
-                color: #444444;
+                color: $color-dgrey;
+                max-height: 40px;
+                overflow-y: auto;
             }
             .invoice-template-actions {
                 margin-top: 7px;

@@ -45,14 +45,15 @@ define([
     {
         ModuleAbstract.prototype.init.call(this, application);
 
-        if (templateId !== '') {
-            this.setTemplate(this.getService().fetchAndLoadModules(templateId));
-        } else {
+        if (templateId === '') {
             this.getService().createForOu(this.getApplication().getOrganisationUnitId());
+            return;
         }
 
         if (window.location.href.indexOf("duplicate") > -1) {
-            this.getService().duplicate(this.getTemplate());
+            this.setTemplate(this.getService().fetchAndDuplicate(templateId));
+        } else {
+            this.setTemplate(this.getService().fetchAndLoadModules(templateId));
         }
     };
 
