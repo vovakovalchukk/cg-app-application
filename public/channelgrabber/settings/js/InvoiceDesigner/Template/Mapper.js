@@ -95,6 +95,7 @@ define([
             storedETag: template.getStoredETag(),
             id: template.getId(),
             type: template.getType(),
+            typeId: template.getTypeId(),
             name: template.getName(),
             organisationUnitId: template.getOrganisationUnitId(),
             paperPage: template.getPaperPage().toJson(),

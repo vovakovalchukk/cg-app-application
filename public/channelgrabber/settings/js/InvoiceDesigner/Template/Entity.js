@@ -24,6 +24,7 @@ define([
             id: undefined,
             name: undefined,
             type: Entity.TYPE,
+            typeId: undefined,
             organisationUnitId: undefined,
             editable: true
         };
@@ -92,6 +93,17 @@ define([
         this.setType = function(newType)
         {
             this.set('type', newType, true);
+            return this;
+        };
+
+        this.getTypeId = function()
+        {
+            return this.get('typeId');
+        };
+
+        this.setTypeId = function(newTypeId)
+        {
+            this.set('typeId', newTypeId, true);
             return this;
         };
 
