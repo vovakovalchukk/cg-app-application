@@ -22,7 +22,7 @@ class Service
         $this->cache = [];
     }
 
-    public function getTaxRatesOptionsForProduct(Product $product, array $VATCountryCodes = null)
+    public function getTaxRatesOptionsForProduct(Product $product, array $memberStates = null)
     {
         $organisationUnitId = $product->getOrganisationUnitId();
 
@@ -32,16 +32,16 @@ class Service
             );
         }
 
-        foreach ($VATCountryCodes as $memberStateOfOu) {
+        foreach ($memberStates as $memberStateOfOu) {
             $rates = $this->fetchTaxRatesForMemberState($memberStateOfOu);
             $defaultRate[$memberStateOfOu] = $rates->getDefault();
             $ratesOptions[$memberStateOfOu] = $this->buildRatesOptions($rates);
         }
 
-        foreach ($product->getTaxRateIds() as $VATCountryCode => $taxRateId) {
-            $rates = $this->fetchTaxRatesForMemberState($VATCountryCode);
-            $defaultRate[$VATCountryCode] = $rates->getDefault();
-            $ratesOptions[$VATCountryCode] = $this->buildRatesOptions($rates);
+        foreach ($product->getTaxRateIds() as $memberState => $taxRateId) {
+            $rates = $this->fetchTaxRatesForMemberState($memberState);
+            $defaultRate[$memberState] = $rates->getDefault();
+            $ratesOptions[$memberState] = $this->buildRatesOptions($rates);
         }
         $this->cache[$organisationUnitId] = $ratesOptions;
         $this->cacheDefaults[$organisationUnitId] = $defaultRate;

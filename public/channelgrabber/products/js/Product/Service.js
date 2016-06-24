@@ -207,9 +207,9 @@ define([
         var stockModesCustomSelect = this.getStockModesCustomSelectView(product, templates);
         if (product['taxRates']) {
             var showCodeInLabel = (Object.keys(product['taxRates']).length > 1);
-            for (var VATCountryCode in product['taxRates']) {
-                if (product['taxRates'].hasOwnProperty(VATCountryCode)) {
-                    var taxSelectView = this.getTaxRateCustomSelectView(product, templates, VATCountryCode, showCodeInLabel);
+            for (var memberState in product['taxRates']) {
+                if (product['taxRates'].hasOwnProperty(memberState)) {
+                    var taxSelectView = this.getTaxRateCustomSelectView(product, templates, memberState, showCodeInLabel);
                     taxRateCustomSelects += (taxSelectView ? taxSelectView : "");
                 }
             }
@@ -424,28 +424,28 @@ define([
         }, 'buttons');
     };
 
-    Service.prototype.getTaxRateCustomSelectView = function(product, templates, VATCountryCode, showCodeInLabel)
+    Service.prototype.getTaxRateCustomSelectView = function(product, templates, memberState, showCodeInLabel)
     {
         var options = [];
-        for(var taxRateId in product['taxRates'][VATCountryCode]) {
-            if(!product['taxRates'][VATCountryCode].hasOwnProperty(taxRateId)) {
+        for(var taxRateId in product['taxRates'][memberState]) {
+            if(!product['taxRates'][memberState].hasOwnProperty(taxRateId)) {
                 continue;
             }
-            var formattedRate = parseFloat(product['taxRates'][VATCountryCode][taxRateId]['rate']);
+            var formattedRate = parseFloat(product['taxRates'][memberState][taxRateId]['rate']);
             options.push({
-                'title': formattedRate + '% (' + product['taxRates'][VATCountryCode][taxRateId]['name'] + ')',
+                'title': formattedRate + '% (' + product['taxRates'][memberState][taxRateId]['name'] + ')',
                 'value': taxRateId,
-                'selected': product['taxRates'][VATCountryCode][taxRateId]['selected']
+                'selected': product['taxRates'][memberState][taxRateId]['selected']
             });
         }
 
         var label = 'VAT';
         if (showCodeInLabel) {
-            label = VATCountryCode + ' ' + label;
+            label = memberState + ' ' + label;
         }
         var html = CGMustache.get().renderTemplate(templates, {
-            'id': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'] + '-' + VATCountryCode,
-            'name': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'] + '-' + VATCountryCode,
+            'id': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'] + '-' + memberState,
+            'name': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'] + '-' + memberState,
             'class': Service.DOM_SELECTOR_TAX_RATE,
             'title': label,
             'options': options
@@ -551,10 +551,10 @@ define([
         if(productId === undefined || productId === '' || value === undefined || value === '') {
             return;
         }
-        var VATCountryCode = value.substring(0, 2);
+        var memberState = $(sourceCustomSelect).attr('id').split('-').pop();
 
         this.getDeferredQueue().queue(function() {
-            return productStorage.saveTaxRate(productId, value, VATCountryCode, function(error, textStatus, errorThrown) {
+            return productStorage.saveTaxRate(productId, value, memberState, function(error, textStatus, errorThrown) {
                 if(error === null) {
                     n.success('Product tax rate updated successfully');
                 } else {
