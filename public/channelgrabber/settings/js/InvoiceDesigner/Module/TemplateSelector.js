@@ -50,6 +50,10 @@ define([
         } else {
             this.getService().createForOu(this.getApplication().getOrganisationUnitId());
         }
+
+        if (window.location.href.indexOf("duplicate") > -1) {
+            this.getService().duplicate(this.getTemplate());
+        }
     };
 
     TemplateSelector.prototype.selectionMade = function(id)

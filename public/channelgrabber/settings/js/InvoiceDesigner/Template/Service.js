@@ -150,6 +150,7 @@ define([
         template.setName('DUPLICATE - ' + template.getName())
             .setState(Service.DUPLICATED_STATE)
             .setId()
+            .setTypeId()
             .setEditable(true);
         if (template.getId()) {
             template.setStateId(template.getId());

@@ -159,10 +159,10 @@ class Service
                 ],
             ],
             [
-                'name' => 'Delete',
-                'key' => 'delete-' . $template->getId(),
+                'name' => 'Duplicate',
+                'key' => 'duplicate-' . $template->getId(),
                 'properties' => [
-                    'href' => '#',
+                    'href' => '/settings/invoice/designer/id/' . $template->getId().'#duplicate',
                 ],
             ],
         ];
