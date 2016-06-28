@@ -7,6 +7,7 @@ use CG\Settings\Invoice\Shared\Mapper as InvoiceSettingsMapper;
 use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Template\Service as TemplateService;
 use CG\Template\Entity as Template;
+use CG\Template\SystemTemplateEntity as SystemTemplate;
 use CG\User\ActiveUserInterface;
 use CG_UI\View\DataTable;
 use Settings\Module;
@@ -98,10 +99,10 @@ class Service
         foreach ($templates as $template) {
             $templateViewDataElement = $this->getTemplateViewData($template);
 
-            if ($template->getEditable()) {
-                $userInvoices[] = $templateViewDataElement;
-            } else {
+            if ($template instanceof SystemTemplate) {
                 $systemInvoices[] = $templateViewDataElement;
+            } else {
+                $userInvoices[] = $templateViewDataElement;
             }
         }
         return ['system' => $systemInvoices, 'user' => $userInvoices];
@@ -113,59 +114,9 @@ class Service
         $templateViewDataElement['key'] = $template->getId();
         $templateViewDataElement['invoiceId'] = $template->getId();
         $templateViewDataElement['imageUrl'] = Module::PUBLIC_FOLDER.static::TEMPLATE_THUMBNAIL_PATH.$this->templateImagesMap[$template->getTypeId()];
+        $templateViewDataElement['links'] = $template->getViewLinks();
 
-        if ($template->getEditable()) {
-            $templateViewDataElement['links'] = $this->getUserTemplateLinks($template);
-        } else {
-            $templateViewDataElement['links'] = $this->getSystemTemplateLinks($template);
-        }
         return $templateViewDataElement;
-    }
-
-    private function getSystemTemplateLinks($template)
-    {
-        $links =  [
-            [
-                'name' => 'Create',
-                'key' => 'create-' . $template->getId(),
-                'properties' => [
-                    'href' => '/settings/invoice/designer/id/' . $template->getId().'#duplicate',
-                ],
-            ],
-        ];
-
-        if ($template->getTypeId() !== Template::DEFAULT_TEMPLATE_ID) {
-            $links[] = [
-                'name' => 'Buy Label',
-                'key' => 'buy-' . $template->getId(),
-                'properties' => [
-                    'href' => $this->templatePurchaseLinksMap[$template->getTypeId()],
-                    'target' => '_blank',
-                ]
-            ];
-        }
-
-        return $links;
-    }
-
-    private function getUserTemplateLinks($template)
-    {
-        return [
-            [
-                'name' => 'Edit',
-                'key' => 'edit-' . $template->getId(),
-                'properties' => [
-                    'href' => '/settings/invoice/designer/id/' . $template->getId(),
-                ],
-            ],
-            [
-                'name' => 'Duplicate',
-                'key' => 'duplicate-' . $template->getId(),
-                'properties' => [
-                    'href' => '/settings/invoice/designer/id/' . $template->getId().'#duplicate',
-                ],
-            ],
-        ];
     }
 
     private function getBlankTemplate()
