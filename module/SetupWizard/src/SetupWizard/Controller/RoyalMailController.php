@@ -36,7 +36,7 @@ class RoyalMailController extends AbstractActionController
             ->setVariable('ou', $this->companyService->fetchOrganisationUnit($rootOuId))
             ->setVariable('pickUri', $this->url()->fromRoute(Module::ROUTE . '/' . static::ROUTE_ROYAL_MAIL));
 
-        return $this->setupService->getSetupView('Add Royal Mail', $view, $this->getMainFooterView());
+        return $this->setupService->getSetupView('Add Royal Mail Shipping', $view, $this->getMainFooterView());
     }
 
     protected function getMainFooterView()

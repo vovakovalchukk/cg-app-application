@@ -10,7 +10,7 @@ return [
             'Steps' => [
                 'pages' => [
                     'royal-mail' => [
-                        'label' => 'Royal Mail',
+                        'label' => 'Add Royal Mail',
                         'title' => 'Royal Mail',
                         'route' => Module::ROUTE . '/' . RoyalMailController::ROUTE_ROYAL_MAIL,
                         'order' => 999,
