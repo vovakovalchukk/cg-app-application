@@ -80,7 +80,12 @@
                 <span class="inputbox-label">VAT Number:</span>
                 <div class="order-inputbox-holder">
                     <span>GB</span>
-                    <input class="inputbox " type="text" name="vatNumber" value="<?=$ou->getVatNumber();?>" />
+                    <?php
+                    // This needs to change to support multiple VAT Numbers (CGIV-7128)
+                    $vatNumbers = $ou->getVatNumbers();
+                    $vatNumber = (!empty($vatNumbers) ? array_shift($vatNumbers) : '');
+                    ?>
+                    <input class="inputbox " type="text" name="vatNumber" value="<?=$vatNumber;?>" />
                 </div>
             </label>
         </div>

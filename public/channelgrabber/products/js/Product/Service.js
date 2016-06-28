@@ -206,9 +206,10 @@ define([
         var statusLozenge = this.getStatusView(product, templates);
         var stockModesCustomSelect = this.getStockModesCustomSelectView(product, templates);
         if (product['taxRates']) {
-            for (var VATCountryCode in product['taxRates']) {
-                if (product['taxRates'].hasOwnProperty(VATCountryCode)) {
-                    var taxSelectView = this.getTaxRateCustomSelectView(product, templates, VATCountryCode);
+            var showCodeInLabel = (Object.keys(product['taxRates']).length > 1);
+            for (var memberState in product['taxRates']) {
+                if (product['taxRates'].hasOwnProperty(memberState)) {
+                    var taxSelectView = this.getTaxRateCustomSelectView(product, templates, memberState, showCodeInLabel);
                     taxRateCustomSelects += (taxSelectView ? taxSelectView : "");
                 }
             }
@@ -259,7 +260,7 @@ define([
         return CGMustache.get().renderTemplate(
             templates,
             {
-                'value': details.hasOwnProperty(detail) ? details[detail] : defaultValue,
+                'value': details && details.hasOwnProperty(detail) ? details[detail] : defaultValue,
                 'name': detail,
                 'class': 'product-detail',
                 'type': 'number',
@@ -423,28 +424,33 @@ define([
         }, 'buttons');
     };
 
-    Service.prototype.getTaxRateCustomSelectView = function(product, templates, VATCountryCode)
+    Service.prototype.getTaxRateCustomSelectView = function(product, templates, memberState, showCodeInLabel)
     {
         var options = [];
-        for(var taxRateId in product['taxRates'][VATCountryCode]) {
-            if(!product['taxRates'][VATCountryCode].hasOwnProperty(taxRateId)) {
+        for(var taxRateId in product['taxRates'][memberState]) {
+            if(!product['taxRates'][memberState].hasOwnProperty(taxRateId)) {
                 continue;
             }
-            var formattedRate = parseFloat(product['taxRates'][VATCountryCode][taxRateId]['rate']);
+            var formattedRate = parseFloat(product['taxRates'][memberState][taxRateId]['rate']);
             options.push({
-                'title': formattedRate + '% (' + product['taxRates'][VATCountryCode][taxRateId]['name'] + ')',
+                'title': formattedRate + '% (' + product['taxRates'][memberState][taxRateId]['name'] + ')',
                 'value': taxRateId,
-                'selected': product['taxRates'][VATCountryCode][taxRateId]['selected']
+                'selected': product['taxRates'][memberState][taxRateId]['selected']
             });
         }
 
-        return CGMustache.get().renderTemplate(templates, {
-            'id': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'] + '-' + VATCountryCode,
-            'name': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'] + '-' + VATCountryCode,
+        var label = 'VAT';
+        if (showCodeInLabel) {
+            label = memberState + ' ' + label;
+        }
+        var html = CGMustache.get().renderTemplate(templates, {
+            'id': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'] + '-' + memberState,
+            'name': Service.DOM_SELECTOR_TAX_RATE + '-' + product['id'] + '-' + memberState,
             'class': Service.DOM_SELECTOR_TAX_RATE,
-            'title': 'VAT',
+            'title': label,
             'options': options
         }, 'customSelect');
+        return '<div class="tax-rate-custom-select-holder">' + html + '</div>';
     };
 
     Service.prototype.getStockModesCustomSelectView = function(product, templates)
@@ -545,10 +551,10 @@ define([
         if(productId === undefined || productId === '' || value === undefined || value === '') {
             return;
         }
-        var VATCountryCode = value.substring(0, 2);
+        var memberState = $(sourceCustomSelect).attr('id').split('-').pop();
 
         this.getDeferredQueue().queue(function() {
-            return productStorage.saveTaxRate(productId, value, VATCountryCode, function(error, textStatus, errorThrown) {
+            return productStorage.saveTaxRate(productId, value, memberState, function(error, textStatus, errorThrown) {
                 if(error === null) {
                     n.success('Product tax rate updated successfully');
                 } else {

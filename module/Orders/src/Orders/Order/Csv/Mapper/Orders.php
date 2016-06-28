@@ -12,6 +12,7 @@ use Orders\Order\Csv\Mapper\Formatter\InvoiceDateSingle as InvoiceDateFormatter;
 use Orders\Order\Csv\Mapper\Formatter\SalesChannelNameSingle as SalesChannelNameFormatter;
 use Orders\Order\Csv\Mapper\Formatter\ShippingMethodSingle as ShippingMethodFormatter;
 use Orders\Order\Csv\Mapper\Formatter\StandardSingle as StandardFormatter;
+use Orders\Order\Csv\Mapper\Formatter\VatNumberSingle as VatNumberFormatter;
 use Orders\Order\Csv\MapperInterface;
 
 class Orders implements MapperInterface
@@ -32,6 +33,8 @@ class Orders implements MapperInterface
     protected $dateFormatter;
     /** @var InvoiceDateFormatter $invoiceDateFormatter */
     protected $invoiceDateFormatter;
+    /** @var VatNumberFormatter */
+    protected $vatNumberFormatter;
     /** @var ActiveUserInterface $activeUserContainer */
     protected $activeUserContainer;
     /** @var OrganisationUnitService $organisationUnitService */
@@ -45,6 +48,7 @@ class Orders implements MapperInterface
         ShippingMethodFormatter $shippingMethodFormatter,
         DateFormatter $dateFormatter,
         InvoiceDateFormatter $invoiceDateFormatter,
+        VatNumberFormatter $vatNumberFormatter,
         OrganisationUnitService $organisationUnitService,
         ActiveUserInterface $activeUserContainer
     ) {
@@ -56,6 +60,7 @@ class Orders implements MapperInterface
             ->setShippingMethodFormatter($shippingMethodFormatter)
             ->setDateFormatter($dateFormatter)
             ->setInvoiceDateFormatter($invoiceDateFormatter)
+            ->setVatNumberFormatter($vatNumberFormatter)
             ->setOrganisationUnitService($organisationUnitService)
             ->setActiveUserContainer($activeUserContainer);
     }
@@ -105,12 +110,13 @@ class Orders implements MapperInterface
             'Shipping Telephone' => 'calculatedShippingPhoneNumber',
             'Buyer Message' => 'buyerMessage',
             'Invoice Number' => 'invoiceNumber',
+            'VAT Number' => $this->vatNumberFormatter,
             'Billing Username' => 'externalUsername',
         ];
         $rootOrganisationUnitId = $this->activeUserContainer->getActiveUserRootOrganisationUnitId();
         $organisationUnit = $this->organisationUnitService->getRootOuFromOuId($rootOrganisationUnitId);
         if(!$organisationUnit->isVatRegistered()) {
-            unset($formatters['Total VAT']);
+            unset($formatters['Total VAT'], $formatters['VAT Number']);
         }
         return $formatters;
     }
@@ -234,6 +240,15 @@ class Orders implements MapperInterface
     protected function setInvoiceDateFormatter(InvoiceDateFormatter $invoiceDateFormatter)
     {
         $this->invoiceDateFormatter = $invoiceDateFormatter;
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    protected function setVatNumberFormatter(VatNumberFormatter $vatNumberFormatter)
+    {
+        $this->vatNumberFormatter = $vatNumberFormatter;
         return $this;
     }
 
