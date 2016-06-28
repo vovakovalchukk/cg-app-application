@@ -61,7 +61,7 @@
         "channelgrabber/royalmail": "~1.0.5",
         "channelgrabber/sequential-numbering": "~1.0.0",
         "channelgrabber/settings": "~1.3.13",
-        "channelgrabber/shopify": "dev-EPIC-CGIV-7049-ShopifyIntegration as 1.0.0",
+        "channelgrabber/shopify": "dev-CGIV-7056-ShopifyUnimportedListings as 1.0.0",
         "channelgrabber/sso": "~1.2.7",
         "channelgrabber/stats": "~1.0.0",
         "channelgrabber/stdlib": "~2.12.31",
