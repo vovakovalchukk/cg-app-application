@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "108421098298b22b24e7b4351265b027",
-    "content-hash": "43204253ee4fb9123495155d158ebd32",
+    "hash": "7a6a16c1a29eff046d0a60bc7fafd359",
+    "content-hash": "4c2b2367da50f82f3419b0c87fb3a19d",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -305,16 +305,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-7131-Expose-royal-mail-to-the-masses",
+            "version": "1.24.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "564eff50e9802094d4bcf168acd9b58d4972c906"
+                "reference": "d0d47d2e69a8f0e67e46ba1fe187c77552eb44df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7131-Expose-royal-mail-to-the-masses-f6fdcb.zip",
-                "reference": "564eff50e9802094d4bcf168acd9b58d4972c906",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.24.5-31a3ff.zip",
+                "reference": "d0d47d2e69a8f0e67e46ba1fe187c77552eb44df",
                 "shasum": null
             },
             "require": {
@@ -382,7 +382,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-06-24 15:17:42"
+            "time": "2016-06-28 12:35:53"
         },
         {
             "name": "channelgrabber/cilex",
@@ -3080,16 +3080,16 @@
         },
         {
             "name": "channelgrabber/zf2-netdespatch",
-            "version": "dev-CGIV-7131-Expose-royal-mail-to-the-masses",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/netdespatch-module.git",
-                "reference": "b847aba9d69dc420af219d16a00a7b189d567bcc"
+                "reference": "5b47abd84ddd3218d834d10747ea2f9dcded868e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-CGIV-7131-Expose-royal-mail-to-the-masses-072205.zip",
-                "reference": "b847aba9d69dc420af219d16a00a7b189d567bcc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-1.0.4-ad833a.zip",
+                "reference": "5b47abd84ddd3218d834d10747ea2f9dcded868e",
                 "shasum": null
             },
             "require": {
@@ -3121,7 +3121,7 @@
                 ]
             },
             "description": "NetDespatch module",
-            "time": "2016-06-28 08:54:20"
+            "time": "2016-06-28 12:36:08"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -7664,25 +7664,10 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.24.5",
-            "alias_normalized": "1.24.5.0",
-            "version": "dev-CGIV-7131-Expose-royal-mail-to-the-masses",
-            "package": "channelgrabber/channel"
-        },
-        {
-            "alias": "1.0.4",
-            "alias_normalized": "1.0.4.0",
-            "version": "dev-CGIV-7131-Expose-royal-mail-to-the-masses",
-            "package": "channelgrabber/zf2-netdespatch"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/channel": 20,
         "channelgrabber/constants": 20,
-        "channelgrabber/zf2-netdespatch": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
