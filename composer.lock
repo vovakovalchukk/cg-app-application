@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7a6a16c1a29eff046d0a60bc7fafd359",
-    "content-hash": "4c2b2367da50f82f3419b0c87fb3a19d",
+    "hash": "4244df2079ff4acef8301366a1523422",
+    "content-hash": "995271f1a09580611beb085f1cdb0088",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3431,16 +3431,16 @@
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
-            "version": "1.16.54",
+            "version": "dev-CGIV-7104-Add-royal-mail-step-to-setup-wizard",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "492d015557941c256c64ccde2b36e04eaf9f9a1c"
+                "reference": "a847c1822259fe9d731129c5a5cc09763f871575"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-1.16.54-f475db.zip",
-                "reference": "492d015557941c256c64ccde2b36e04eaf9f9a1c",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7104-Add-royal-mail-step-to-setup-wizard-6af6f9.zip",
+                "reference": "a847c1822259fe9d731129c5a5cc09763f871575",
                 "shasum": null
             },
             "require": {
@@ -3449,7 +3449,7 @@
                 "channelgrabber/di": "^2.2.0",
                 "channelgrabber/etag": ">=1.4.2",
                 "channelgrabber/intercom": ">=1.0.0,<2.0.0",
-                "channelgrabber/locale": "^1.0.6",
+                "channelgrabber/locale": "^1.0.7",
                 "channelgrabber/log": ">=1.4.2",
                 "channelgrabber/stdlib": ">=2.7.4,<3.0.0",
                 "channelgrabber/user": "^1.20.6",
@@ -3487,7 +3487,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-06-09 15:15:38"
+            "time": "2016-06-28 14:24:25"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
@@ -7664,10 +7664,18 @@
             "time": "2015-11-11 19:50:13"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.16.57",
+            "alias_normalized": "1.16.57.0",
+            "version": "dev-CGIV-7104-Add-royal-mail-step-to-setup-wizard",
+            "package": "channelgrabber/zf2-v4-ui"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
         "php-jsonpointer/php-jsonpointer": 20,
