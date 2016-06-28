@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "356bf07fcc849fcd1ce7809e8f4fe728",
-    "content-hash": "3aae7c9135a91c9b77e31a30ff74e9f3",
+    "hash": "9f3389b614d0ed45d1c0da061f59c04c",
+    "content-hash": "0ccf28c988d77474baf276f12c06592b",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1921,7 +1921,7 @@
         },
         {
             "name": "channelgrabber/shopify",
-            "version": "dev-CGIV-7055-shopify-order-dispatch",
+            "version": "dev-EPIC-CGIV-7049-ShopifyIntegration",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
@@ -1929,7 +1929,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-CGIV-7055-shopify-order-dispatch-bada84.zip",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-EPIC-CGIV-7049-ShopifyIntegration-bada84.zip",
                 "reference": "e92306dce2406aa9cce6872ec913c9b9d771938b",
                 "shasum": null
             },
@@ -7717,7 +7717,7 @@
         {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
-            "version": "dev-CGIV-7055-shopify-order-dispatch",
+            "version": "dev-EPIC-CGIV-7049-ShopifyIntegration",
             "package": "channelgrabber/shopify"
         },
         {
