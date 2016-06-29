@@ -27,17 +27,12 @@ define([
             this.registerSkipConfirmation()
                 .registerNextValidation()
                 .removeSubmitButton()
-                .listenForManualEntryToggle()
-                .listenForSearchSelection()
                 .listenForVatToggle();
         };
         init.call(this);
     }
 
     Company.SELECTOR_FORM = '#legalCompanyDetailsForm form';
-    Company.SELECTOR_TOGGLE = '.setup-wizard-company-address-toggle a';
-    Company.SELECTOR_SEARCH = '#setup-wizard-company-address-search';
-    Company.SELECTOR_ADDRESS = '#setup-wizard-company-address-fields';
     Company.SELECTOR_VAT_TOGGLE = '#setup-wizard-company-vat-toggle';
     Company.SELECTOR_VAT_NUMBER = '#setup-wizard-company-vat-number';
     Company.SELECTOR_VAT_NOTICE = '#setup-wizard-company-vat-notice';
@@ -101,44 +96,6 @@ define([
     Company.prototype.removeSubmitButton = function()
     {
         $('#company-details-save').closest('.order-inputbox-holder').remove();
-    };
-
-    Company.prototype.listenForManualEntryToggle = function()
-    {
-        var self = this;
-        $(Company.SELECTOR_TOGGLE).click(function()
-        {
-            self.toggleAddressFields();
-        });
-
-        if ($(Company.SELECTOR_FORM + ' input[name="address[address1]"').val() &&
-            $(Company.SELECTOR_FORM + ' input[name="address[addressPostcode]"').val()
-        ) {
-            self.toggleAddressFields();
-        }
-
-        return this;
-    };
-
-    Company.prototype.toggleAddressFields = function()
-    {
-        if ($(Company.SELECTOR_SEARCH).is(':visible')) {
-            $(Company.SELECTOR_SEARCH).hide();
-            $(Company.SELECTOR_ADDRESS).show();
-        } else {
-            $(Company.SELECTOR_SEARCH).show();
-            $(Company.SELECTOR_ADDRESS).hide();
-        }
-    };
-
-    Company.prototype.listenForSearchSelection = function()
-    {
-        var self = this;
-        $(Company.SELECTOR_SEARCH).on('select', function()
-        {
-            self.toggleAddressFields();
-        });
-
         return this;
     };
 

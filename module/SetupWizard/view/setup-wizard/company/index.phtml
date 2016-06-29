@@ -1,19 +1,8 @@
-<?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/pca-predict-smart-address.js'); ?>
-
 <?=$this->detailsForm;?>
 
 <script type="text/javascript">
     require(['<?=SetupWizard\Module::PUBLIC_FOLDER;?>js/steps/Company.js'], function(Company)
     {
         new Company(n);
-    });
-
-    // Convert PCA Predict's internal event into a DOM event so we can do react to it
-    pca.on("load", function (type, id, control)
-    {
-        control.listen("populate", function (address)
-        {
-            $('#setup-wizard-company-address-search').trigger('select');
-        });
     });
 </script>
