@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f6cad018c5821a055904febfd9e2fb94",
-    "content-hash": "988b1373bbe6f96da6ed5055fbb37cee",
+    "hash": "d5cac1568708e57ff1c7b9a2dd71171b",
+    "content-hash": "dc0833d18213ab9d9ed2d8bd7fe07bee",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -1925,12 +1925,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "a196b6de59905942ff00fe7cf1cc5d1dd40bb9a1"
+                "reference": "3b105bdd673604ed8621a6b28f75a943cd53e2fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-CGIV-7056-ShopifyUnimportedListings-479566.zip",
-                "reference": "a196b6de59905942ff00fe7cf1cc5d1dd40bb9a1",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-CGIV-7056-ShopifyUnimportedListings-4a26f8.zip",
+                "reference": "3b105bdd673604ed8621a6b28f75a943cd53e2fc",
                 "shasum": null
             },
             "require": {
@@ -1959,7 +1959,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-06-28 09:42:35"
+            "time": "2016-06-29 13:11:36"
         },
         {
             "name": "channelgrabber/slim",
