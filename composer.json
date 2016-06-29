@@ -83,7 +83,7 @@
         "channelgrabber/zf2-logclient": "~1.4.2",
         "channelgrabber/zf2-login": "~1.4.33",
         "channelgrabber/zf2-mustache": "~1.0.1",
-        "channelgrabber/zf2-netdespatch": "~1.0.4",
+        "channelgrabber/zf2-netdespatch": "dev-CGIV-7104-Add-royal-mail-step-to-setup-wizard as 1.0.5",
         "channelgrabber/zf2-permission": "~1.1.13",
         "channelgrabber/zf2-register": "~1.4.44",
         "channelgrabber/zf2-royalmail": "~1.1.1",

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4244df2079ff4acef8301366a1523422",
-    "content-hash": "995271f1a09580611beb085f1cdb0088",
+    "hash": "2db8d899f049ab8a295bdfd1fff50a6d",
+    "content-hash": "5052ed59978b228009d5cd65d372c591",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -3080,16 +3080,16 @@
         },
         {
             "name": "channelgrabber/zf2-netdespatch",
-            "version": "1.0.4",
+            "version": "dev-CGIV-7104-Add-royal-mail-step-to-setup-wizard",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/netdespatch-module.git",
-                "reference": "5b47abd84ddd3218d834d10747ea2f9dcded868e"
+                "reference": "0b94a10b1716945f796e25d76f196e6d895edbcf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-1.0.4-ad833a.zip",
-                "reference": "5b47abd84ddd3218d834d10747ea2f9dcded868e",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-CGIV-7104-Add-royal-mail-step-to-setup-wizard-daa335.zip",
+                "reference": "0b94a10b1716945f796e25d76f196e6d895edbcf",
                 "shasum": null
             },
             "require": {
@@ -3121,7 +3121,7 @@
                 ]
             },
             "description": "NetDespatch module",
-            "time": "2016-06-28 12:36:08"
+            "time": "2016-06-29 15:17:31"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -7666,6 +7666,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.0.5",
+            "alias_normalized": "1.0.5.0",
+            "version": "dev-CGIV-7104-Add-royal-mail-step-to-setup-wizard",
+            "package": "channelgrabber/zf2-netdespatch"
+        },
+        {
             "alias": "1.16.57",
             "alias_normalized": "1.16.57.0",
             "version": "dev-CGIV-7104-Add-royal-mail-step-to-setup-wizard",
@@ -7675,6 +7681,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/zf2-netdespatch": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
