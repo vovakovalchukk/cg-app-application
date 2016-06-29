@@ -5,7 +5,7 @@ define([
     setupWizard,
     ajaxRequester
 ) {
-    function Company(notifications, saveUri)
+    function Company(notifications)
     {
         this.getSetupWizard = function()
         {
@@ -22,15 +22,11 @@ define([
             return notifications;
         };
 
-        this.getSaveUri = function()
-        {
-            return saveUri;
-        };
-
         var init = function()
         {
             this.registerSkipConfirmation()
                 .registerNextValidation()
+                .removeSubmitButton()
                 .listenForManualEntryToggle()
                 .listenForSearchSelection()
                 .listenForVatToggle();
@@ -38,7 +34,7 @@ define([
         init.call(this);
     }
 
-    Company.SELECTOR_FORM = '#setup-wizard-company-form';
+    Company.SELECTOR_FORM = '#legalCompanyDetailsForm form';
     Company.SELECTOR_TOGGLE = '.setup-wizard-company-address-toggle a';
     Company.SELECTOR_SEARCH = '#setup-wizard-company-address-search';
     Company.SELECTOR_ADDRESS = '#setup-wizard-company-address-fields';
@@ -60,16 +56,16 @@ define([
         var self = this;
         this.getSetupWizard().registerNextCallback(function()
         {
-            if (!self.isFormValid()) {
-                return false;
-            }
             // Need to save the form which involves an asynchronous request so return a Promise
             return new Promise(function(resolve, reject)
             {
-                self.saveForm(function()
+                self.saveForm(function(success)
                 {
-                    self.getNotifications().success('Your details have been saved');
-                    resolve();
+                    if (success) {
+                        resolve();
+                    } else {
+                        reject(new Error('Form could not be saved'));
+                    }
                 });
             });
         });
@@ -77,37 +73,34 @@ define([
         return this;
     };
 
-    Company.prototype.isFormValid = function()
-    {
-        var errors = [];
-        $(Company.SELECTOR_FORM + ' .required').each(function()
-        {
-            var input = this;
-            if ($(input).val() != '') {
-                return true; // continue
-            }
-            var field = $(input).closest('label').find('.inputbox-label').text().replace(':', '');
-            errors.push(field + ' is required');
-        });
-        if (errors.length == 0) {
-            return true;
-        }
-
-        var errorMessage = errors.join('<br />');
-        this.getNotifications().error(errorMessage);
-        return false;
-    };
-
     Company.prototype.saveForm = function(callback)
     {
+        var self = this;
         this.getNotifications().notice('Saving details');
-        var data = {};
-        var formArray = $(Company.SELECTOR_FORM).serializeArray();
-        for (var index in formArray) {
-            var fieldData = formArray[index];
-            data[fieldData.name] = fieldData.value;
-        }
-        this.getAjaxRequester().sendRequest(this.getSaveUri(), data, callback);
+
+        $(Company.SELECTOR_FORM).ajaxSubmit({
+            "dataType": "json",
+            "success": function(data) {
+                self.getNotifications().success('Your details have been saved');
+                callback(true);
+            },
+            "error": function(request) {
+                var message = 'There was a problem saving the form, please try again';
+                if (request && request.responseText) {
+                    var json = $.parseJSON(request.responseText);
+                    if (json.display_exceptions && json.message) {
+                        message = json.message;
+                    }
+                }
+                self.getNotifications().error(message);
+                callback(false);
+            }
+        });
+    };
+
+    Company.prototype.removeSubmitButton = function()
+    {
+        $('#company-details-save').closest('.order-inputbox-holder').remove();
     };
 
     Company.prototype.listenForManualEntryToggle = function()

@@ -1,107 +1,11 @@
 <?php $this->headScript()->appendFile($this->basePath() . CG_UI\Module::PUBLIC_FOLDER . 'js/pca-predict-smart-address.js'); ?>
 
-<form id="setup-wizard-company-form">
-    <div class="half">
-        <label id="setup-wizard-company-name">
-            <span class="inputbox-label">Company Name:</span>
-            <div class="order-inputbox-holder">
-                <input class="inputbox required" type="text" name="address[addressCompanyName]" value="<?=$ou->getContact()->getAddressCompanyName();?>" />
-            </div>
-        </label>
-        <label id="setup-wizard-company-address-search">
-            <span class="inputbox-label">Search Address:</span>
-            <div class="setup-wizard-company-address-toggle">
-                <a>Enter Manually</a>
-            </div>
-            <div class="order-inputbox-holder">
-                <input class="inputbox " type="text" name="search" />
-            </div>
-        </label>
-        <div id="setup-wizard-company-address-fields" style="display: none">
-            <label>
-                <span class="inputbox-label">Address:</span>
-                <div class="setup-wizard-company-address-toggle">
-                    <a>Search Address</a>
-                </div>
-            </label>
-            <label>
-                <span class="inputbox-label">Address Line 1:</span>
-                <div class="order-inputbox-holder">
-                    <input class="inputbox required" type="text" name="address[address1]" value="<?=$ou->getContact()->getAddress1();?>" />
-                </div>
-            </label>
-            <label>
-                <span class="inputbox-label">Address Line 2:</span>
-                <div class="order-inputbox-holder">
-                    <input class="inputbox " type="text" name="address[address2]" value="<?=$ou->getContact()->getAddress2();?>" />
-                </div>
-            </label>
-            <label>
-                <span class="inputbox-label">Address Line 3:</span>
-                <div class="order-inputbox-holder">
-                    <input class="inputbox " type="text" name="address[address3]" value="<?=$ou->getContact()->getAddress3();?>" />
-                </div>
-            </label>
-            <label>
-                <span class="inputbox-label">City:</span>
-                <div class="order-inputbox-holder">
-                    <input class="inputbox " type="text" name="address[addressCity]" value="<?=$ou->getContact()->getAddressCity();?>" />
-                </div>
-            </label>
-            <label>
-                <span class="inputbox-label">County:</span>
-                <div class="order-inputbox-holder">
-                    <input class="inputbox " type="text" name="address[addressCounty]" value="<?=$ou->getContact()->getAddressCounty();?>" />
-                </div>
-            </label>
-            <label>
-                <span class="inputbox-label">Post Code:</span>
-                <div class="order-inputbox-holder">
-                    <input class="inputbox required" type="text" name="address[addressPostcode]" value="<?=$ou->getContact()->getAddressPostcode();?>" />
-                </div>
-            </label>
-            <label>
-                <span class="inputbox-label">Country:</span>
-                <div class="order-inputbox-holder">
-                    <input class="inputbox required" type="text" name="address[addressCountry]" value="<?=$ou->getContact()->getAddressCountry();?>" />
-                </div>
-            </label>
-        </div>
-        <div id="setup-wizard-company-vat">
-            <label id="setup-wizard-company-vat-registered">
-                <span class="inputbox-label">VAT:</span>
-                <?= $this->mustache('elements/toggle.mustache', [
-                    'id' => 'setup-wizard-company-vat-toggle',
-                    'name' => 'vatRegistered',
-                    'selected' => $ou->isVatRegistered(),
-                ]); ?>
-            </label>
-            <label id="setup-wizard-company-vat-number">
-                <span class="inputbox-label">VAT Number:</span>
-                <div class="order-inputbox-holder">
-                    <span>GB</span>
-                    <?php
-                    // This needs to change to support multiple VAT Numbers (CGIV-7128)
-                    $vatNumbers = $ou->getVatNumbers();
-                    $vatNumber = (!empty($vatNumbers) ? array_shift($vatNumbers) : '');
-                    ?>
-                    <input class="inputbox " type="text" name="vatNumber" value="<?=$vatNumber;?>" />
-                </div>
-            </label>
-        </div>
-        <div class="fixed-notifications" id="setup-wizard-company-vat-notice">
-            <div class='notifications'>
-                <div class="success clearfix">
-                    <span class="icon"><span>&tick;</span></span><span class="content">Your invoices will show VAT.</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
+<?=$this->detailsForm;?>
+
 <script type="text/javascript">
     require(['<?=SetupWizard\Module::PUBLIC_FOLDER;?>js/steps/Company.js'], function(Company)
     {
-        new Company(n, '<?=$this->saveUri;?>');
+        new Company(n);
     });
 
     // Convert PCA Predict's internal event into a DOM event so we can do react to it
