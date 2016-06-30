@@ -5,8 +5,8 @@ use CG\Account\Client\Service as AccountService;
 use CG\Account\Credentials\Cryptor;
 use CG\Account\Shared\Entity as Account;
 use CG\Channel\Creation\SetupViewInterface;
-use CG\Shopify\Account\CreationService as ShopifyAccountCreator;
 use CG\Shopify\Account as ShopifyAccount;
+use CG\Shopify\Account\CreationService as ShopifyAccountCreator;
 use CG\Shopify\Client;
 use CG\Shopify\Client\Factory as ClientFactory;
 use CG\Shopify\Credentials;
@@ -18,9 +18,7 @@ use CG_UI\View\Prototyper\JsonModelFactory;
 use CG_UI\View\Prototyper\ViewModelFactory;
 use InvalidArgumentException;
 use Shopify\Controller\AccountController;
-use Shopify\Session\OAuth as OAuthSession;
 use Zend\Session\Container as Session;
-use Zend\Stdlib\ArrayObject;
 
 class Service implements LoggerAwareInterface, SetupViewInterface
 {
@@ -39,8 +37,6 @@ class Service implements LoggerAwareInterface, SetupViewInterface
     protected $jsonModelFactory;
     /** @var AccountService $accountService */
     protected $accountService;
-    /** @var Cryptor $cryptor */
-    protected $cryptor;
     /** @var UrlHelper $urlHelper */
     protected $urlHelper;
     /** @var ClientFactory $clientFactory */
@@ -55,7 +51,6 @@ class Service implements LoggerAwareInterface, SetupViewInterface
         ViewModelFactory $viewModelFactory,
         JsonModelFactory $jsonModelFactory,
         AccountService $accountService,
-        Cryptor $cryptor,
         UrlHelper $urlHelper,
         ClientFactory $clientFactory,
         Session $session,
@@ -66,7 +61,6 @@ class Service implements LoggerAwareInterface, SetupViewInterface
             ->setViewModelFactory($viewModelFactory)
             ->setJsonModelFactory($jsonModelFactory)
             ->setAccountService($accountService)
-            ->setCryptor($cryptor)
             ->setUrlHelper($urlHelper)
             ->setClientFactory($clientFactory)
             ->setSession($session)
@@ -89,11 +83,7 @@ class Service implements LoggerAwareInterface, SetupViewInterface
         if ($accountId) {
             /** @var Account|null $account */
             $account = $this->accountService->fetch($accountId);
-            /** @var Credentials|null $credentials */
-            $credentials = $this->cryptor->decrypt($account->getCredentials());
-
             $accountData = $account->toArray();
-            $accountData['credentials'] = $credentials->toArray();
             $view->setVariable('accountData', $accountData);
         } else {
             $view->setVariable('accountData', []);
@@ -111,7 +101,7 @@ class Service implements LoggerAwareInterface, SetupViewInterface
     public function getLinkJson($shopHost, $accountId = null)
     {
         $shopHost = $this->parseShopHost($shopHost);
-        $client = $this->clientFactory->createClientForCredentials(new Credentials($shopHost));
+        $client = $this->clientFactory->createClientForShop($shopHost);
         $redirectUrl = $client->getOauthLink($nonce, Client::getRequiredScopes(), $this->getProcessUrl($accountId));
 
         if (!isset($this->session['oauth']) || !is_array($this->session['oauth'])) {
@@ -168,7 +158,7 @@ class Service implements LoggerAwareInterface, SetupViewInterface
             );
         }
 
-        $client = $this->clientFactory->createClientForCredentials(new Credentials($shop));
+        $client = $this->clientFactory->createClientForShop($shop);
         $client->hmacSignatureValidation($parameters);
         $token = $client->getToken($code, Client::getRequiredScopes());
 
@@ -215,15 +205,6 @@ class Service implements LoggerAwareInterface, SetupViewInterface
     protected function setAccountService(AccountService $accountService)
     {
         $this->accountService = $accountService;
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    protected function setCryptor(Cryptor $cryptor)
-    {
-        $this->cryptor = $cryptor;
         return $this;
     }
 

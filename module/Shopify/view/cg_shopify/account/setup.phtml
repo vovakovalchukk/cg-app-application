@@ -15,7 +15,7 @@
                 'elements/text.mustache',
                 [
                     'name' => 'shopHost',
-                    'value' => isset($accountData['credentials']['shopHost']) ? $accountData['credentials']['shopHost'] : '',
+                    'value' => isset($accountData['externalData']['shopHost']) ? $accountData['externalData']['shopHost'] : '',
                     'placeholder' => '{shop}.myshopify.com',
                 ]
             ) ?>

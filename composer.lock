@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d5cac1568708e57ff1c7b9a2dd71171b",
-    "content-hash": "dc0833d18213ab9d9ed2d8bd7fe07bee",
+    "hash": "b3fee0fd8b9d867cee198f980bd7ca33",
+    "content-hash": "e975c20f33207cb6ae5b31794655f4ba",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -305,16 +305,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-EPIC-CGIV-7049-ShopifyIntegration",
+            "version": "dev-CGIV-7056-ShopifyUnimportedListings",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "9d4453f4e35b6adad20f5a17c094d6fa8e4de071"
+                "reference": "37c0d233ef11b5bff49bad57d58a3ccad6e5c655"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-7049-ShopifyIntegration-323ccc.zip",
-                "reference": "9d4453f4e35b6adad20f5a17c094d6fa8e4de071",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7056-ShopifyUnimportedListings-cc62e1.zip",
+                "reference": "37c0d233ef11b5bff49bad57d58a3ccad6e5c655",
                 "shasum": null
             },
             "require": {
@@ -382,7 +382,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-06-23 13:36:36"
+            "time": "2016-06-30 08:35:54"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1925,20 +1925,21 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "3b105bdd673604ed8621a6b28f75a943cd53e2fc"
+                "reference": "98e58c6892f0c0f37cc25b39d0efe75cc4053f80"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-CGIV-7056-ShopifyUnimportedListings-4a26f8.zip",
-                "reference": "3b105bdd673604ed8621a6b28f75a943cd53e2fc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-CGIV-7056-ShopifyUnimportedListings-f10f88.zip",
+                "reference": "98e58c6892f0c0f37cc25b39d0efe75cc4053f80",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "^1.24.2",
+                "channelgrabber/channel": "dev-CGIV-7056-ShopifyUnimportedListings as 1.24.6",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.20",
+                "channelgrabber/log": "dev-EPIC-CGIV-7049-ShopifyIntegration as 2.0.27-dev",
                 "channelgrabber/order": "^1.23.0",
-                "channelgrabber/stdlib": "^2.12.24",
+                "channelgrabber/stdlib": "dev-CGIV-7056-ShopifyUnimportedListings as 2.12.33",
                 "channelgrabber/zf2-stdlib": "^1.1.7",
                 "guzzlehttp/guzzle": ">=4.1,<6.0",
                 "zendframework/zend-di": "~2.3"
@@ -1959,7 +1960,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-06-29 13:11:36"
+            "time": "2016-06-30 09:08:40"
         },
         {
             "name": "channelgrabber/slim",
@@ -2095,16 +2096,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.12.31",
+            "version": "dev-CGIV-7056-ShopifyUnimportedListings",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "a54c56646c497569bf1353c9ad3794064c5e4318"
+                "reference": "38b880fe95aa4bf8f05a6450ab9325e6419f3ad7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-2.12.31-c9d041.zip",
-                "reference": "a54c56646c497569bf1353c9ad3794064c5e4318",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-stdlib-dev-CGIV-7056-ShopifyUnimportedListings-5c1d62.zip",
+                "reference": "38b880fe95aa4bf8f05a6450ab9325e6419f3ad7",
                 "shasum": null
             },
             "require": {
@@ -2135,7 +2136,7 @@
                     "CG\\Stdlib\\Test\\": "tests/CG/Stdlib"
                 }
             },
-            "time": "2016-06-10 09:49:51"
+            "time": "2016-06-29 14:39:15"
         },
         {
             "name": "channelgrabber/stock",
@@ -7705,9 +7706,9 @@
     ],
     "aliases": [
         {
-            "alias": "1.24.5",
-            "alias_normalized": "1.24.5.0",
-            "version": "dev-EPIC-CGIV-7049-ShopifyIntegration",
+            "alias": "1.24.6",
+            "alias_normalized": "1.24.6.0",
+            "version": "dev-CGIV-7056-ShopifyUnimportedListings",
             "package": "channelgrabber/channel"
         },
         {
@@ -7723,6 +7724,12 @@
             "package": "channelgrabber/shopify"
         },
         {
+            "alias": "2.12.33",
+            "alias_normalized": "2.12.33.0",
+            "version": "dev-CGIV-7056-ShopifyUnimportedListings",
+            "package": "channelgrabber/stdlib"
+        },
+        {
             "alias": "1.16.58",
             "alias_normalized": "1.16.58.0",
             "version": "dev-EPIC-CGIV-7049-ShopifyIntegration",
@@ -7735,6 +7742,7 @@
         "channelgrabber/constants": 20,
         "channelgrabber/log": 20,
         "channelgrabber/shopify": 20,
+        "channelgrabber/stdlib": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
         "php-jsonpatch/php-jsonpatch": 20,
