@@ -26,16 +26,12 @@ define([
         {
             this.registerSkipConfirmation()
                 .registerNextValidation()
-                .removeSubmitButton()
-                .listenForVatToggle();
+                .removeSubmitButton();
         };
         init.call(this);
     }
 
     Company.SELECTOR_FORM = '#legalCompanyDetailsForm form';
-    Company.SELECTOR_VAT_TOGGLE = '#setup-wizard-company-vat-toggle';
-    Company.SELECTOR_VAT_NUMBER = '#setup-wizard-company-vat-number';
-    Company.SELECTOR_VAT_NOTICE = '#setup-wizard-company-vat-notice';
 
     Company.prototype.registerSkipConfirmation = function()
     {
@@ -96,27 +92,6 @@ define([
     Company.prototype.removeSubmitButton = function()
     {
         $('#company-details-save').closest('.order-inputbox-holder').remove();
-        return this;
-    };
-
-    Company.prototype.listenForVatToggle = function()
-    {
-        $(Company.SELECTOR_VAT_TOGGLE).on('change', function()
-        {
-            var toggle = this;
-            if ($(toggle).is(':checked')) {
-                $(Company.SELECTOR_VAT_NOTICE + ' .notifications > div').removeClass('error').addClass('success');
-                $(Company.SELECTOR_VAT_NOTICE + ' .content').text('Your invoices will show VAT');
-                $(Company.SELECTOR_VAT_NUMBER).show();
-            } else {
-                $(Company.SELECTOR_VAT_NOTICE + ' .notifications > div').removeClass('success').addClass('error');
-                $(Company.SELECTOR_VAT_NOTICE + ' .content').text('Your invoices will not show VAT');
-                $(Company.SELECTOR_VAT_NUMBER).val('').hide();
-            }
-        });
-
-        $(Company.SELECTOR_VAT_TOGGLE).trigger('change');
-
         return this;
     };
 
