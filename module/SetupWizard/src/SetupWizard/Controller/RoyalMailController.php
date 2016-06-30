@@ -49,11 +49,12 @@ class RoyalMailController extends AbstractActionController
         $form = $this->accountCreationService->generateSetupForm($account);
         $saveUrl = $this->url()->fromRoute($this->getAccountRoute());
         $form->setVariable('saveUrl', $saveUrl);
+        $formView = $this->viewModelFactory->newInstance()->setTemplate('cg_netdespatch/setup')->addChild($form, 'form');
+        $formView->setVariables($form->getVariables());
 
-        $view = $this->viewModelFactory->newInstance()->setTemplate('cg_netdespatch/setup')->addChild($form, 'form');
-        $view->setVariables($form->getVariables());
+        $wrapperView = $this->viewModelFactory->newInstance()->setTemplate('setup-wizard/royal-mail/index')->addChild($formView, 'formView');
 
-        return $this->setupService->getSetupView('Add Royal Mail Shipping', $view, $this->getMainFooterView());
+        return $this->setupService->getSetupView('Add Royal Mail Shipping', $wrapperView, $this->getMainFooterView());
     }
 
     protected function getAccountRoute()
