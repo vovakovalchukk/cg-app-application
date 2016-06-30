@@ -2,12 +2,13 @@
 namespace SetupWizard\Controller;
 
 use CG_UI\View\Prototyper\ViewModelFactory;
-use SetupWizard\Module;
 use SetupWizard\Controller\Service as SetupService;
 use SetupWizard\Company\Service as CompanyService;
 use Zend\Mvc\Controller\AbstractActionController;
 use CG\Account\Client\Service as AccountService;
 use CG_NetDespatch\Account\CreationService as AccountCreationService;
+use CG_NetDespatch\Module as NetdespatchModule;
+use CG_NetDespatch\Controller\AccountController;
 
 class RoyalMailController extends AbstractActionController
 {
@@ -40,18 +41,13 @@ class RoyalMailController extends AbstractActionController
 
     public function indexAction()
     {
-        $rootOuId = $this->setupService->getActiveRootOuId();
-        $ou = $this->companyService->fetchOrganisationUnit($rootOuId);
-
         $account = null;
         if ($accountId = $this->params()->fromQuery('accountId')) {
             $account = $this->accountService->fetch($accountId);
         }
 
         $form = $this->accountCreationService->generateSetupForm($account);
-
-        $saveRoute = implode('/', [Module::ROUTE, static::ROUTE_ROYAL_MAIL]);
-        $saveUrl = $this->url()->fromRoute($saveRoute);
+        $saveUrl = $this->url()->fromRoute($this->getAccountRoute());
         $form->setVariable('saveUrl', $saveUrl);
 
         $view = $this->viewModelFactory->newInstance()->setTemplate('cg_netdespatch/setup')->addChild($form, 'form');
@@ -62,7 +58,7 @@ class RoyalMailController extends AbstractActionController
 
     protected function getAccountRoute()
     {
-        //return implode('/', [SettingsModule::ROUTE, ChannelController::ROUTE, ChannelController::ROUTE_CHANNELS]);
+        return implode('/', [NetdespatchModule::ROUTE, AccountController::ROUTE, AccountController::ROUTE_SAVE]);
     }
 
     protected function getMainFooterView()
