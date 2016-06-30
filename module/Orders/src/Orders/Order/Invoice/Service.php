@@ -12,6 +12,7 @@ use CG\Order\Client\Invoice\Template\Factory as TemplateFactory;
 use CG\Order\Service\Filter;
 use CG\Order\Shared\Collection;
 use CG\Order\Shared\Entity as Order;
+use CG\Order\Shared\Tax\Service as TaxService;
 use CG\Settings\Invoice\Service\Service as InvoiceSettingsService;
 use CG\Stats\StatsAwareInterface;
 use CG\Stats\StatsTrait;
@@ -44,6 +45,9 @@ class Service extends ClientService implements StatsAwareInterface
     protected $gearmanClient;
     /** @var PrintedDateGenerator $printedDateGenerator */
     protected $printedDateGenerator;
+    /** @var TaxService */
+    protected $taxService;
+
     /** @var string $key */
     protected $key;
     /** * @var int $count */
@@ -59,7 +63,8 @@ class Service extends ClientService implements StatsAwareInterface
         IntercomEventService $intercomEventService,
         ActiveUserContainer $activeUserContainer,
         GearmanClient $gearmanClient,
-        PrintedDateGenerator $printedDateGenerator
+        PrintedDateGenerator $printedDateGenerator,
+        TaxService $taxService
     ) {
         parent::__construct($rendererService, $templateFactory, $invoiceSettingsService);
         $this
@@ -69,7 +74,8 @@ class Service extends ClientService implements StatsAwareInterface
             ->setIntercomEventService($intercomEventService)
             ->setActiveUserContainer($activeUserContainer)
             ->setGearmanClient($gearmanClient)
-            ->setPrintedDateGenerator($printedDateGenerator);
+            ->setPrintedDateGenerator($printedDateGenerator)
+            ->setTaxService($taxService);
     }
 
     public function createTemplate(array $config)
@@ -137,6 +143,8 @@ class Service extends ClientService implements StatsAwareInterface
 
     public function markOrdersAsPrintedFromOrderCollection(Collection $orderCollection)
     {
+        $this->setVatNumberOnOrderCollection($orderCollection);
+
         $this->printedDateGenerator->createJobs($orderCollection, new DateTime());
 
         /** @var Order $order */
@@ -149,6 +157,19 @@ class Service extends ClientService implements StatsAwareInterface
                 ]
             );
         }
+    }
+
+    protected function setVatNumberOnOrderCollection(Collection $orderCollection)
+    {
+        foreach ($orderCollection as $order) {
+            if ($order->getVatNumber()) {
+                continue;
+            }
+            $order->setVatNumber($this->taxService->getVatNumberForOrder($order));
+        }
+        // Note: we're not persisting the VAT numbers now so as not to delay invoice generation,
+        // that will happen in the SetPrintedDate Gearman job
+        return $this;
     }
 
     public function emailInvoicesForCollection(Collection $orders)
@@ -264,6 +285,12 @@ class Service extends ClientService implements StatsAwareInterface
     protected function setPrintedDateGenerator(PrintedDateGenerator $printedDateGenerator)
     {
         $this->printedDateGenerator = $printedDateGenerator;
+        return $this;
+    }
+
+    protected function setTaxService(TaxService $taxService)
+    {
+        $this->taxService = $taxService;
         return $this;
     }
 }
