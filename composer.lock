@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2db8d899f049ab8a295bdfd1fff50a6d",
+    "hash": "ceb97d3b77ce92ffe315d4250ed74372",
     "content-hash": "5052ed59978b228009d5cd65d372c591",
     "packages": [
         {
@@ -3435,12 +3435,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "a847c1822259fe9d731129c5a5cc09763f871575"
+                "reference": "c6d1e6ecdd9407e994f38c22d2341c8c1f597f88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7104-Add-royal-mail-step-to-setup-wizard-6af6f9.zip",
-                "reference": "a847c1822259fe9d731129c5a5cc09763f871575",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7104-Add-royal-mail-step-to-setup-wizard-fc7d90.zip",
+                "reference": "c6d1e6ecdd9407e994f38c22d2341c8c1f597f88",
                 "shasum": null
             },
             "require": {
@@ -3487,7 +3487,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-06-28 14:24:25"
+            "time": "2016-06-30 11:10:32"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
