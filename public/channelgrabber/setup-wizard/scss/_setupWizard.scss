@@ -75,11 +75,10 @@
         width: 300px;
     }
 
-    .inputbox-label {
-        font-size: 18px;
-    }
-
-    .inputbox {
+    .inputbox-label,
+    .inputbox,
+    .custom-select .selected,
+    .number-range .selected {
         font-size: 18px;
     }
 }
