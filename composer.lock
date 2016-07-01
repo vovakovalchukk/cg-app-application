@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a972e79b5dc0e6a8d59f83295fb3675e",
-    "content-hash": "a01b0ed2d3dc6bf0a313c89dc5870131",
+    "hash": "d205c62224e1b380b7374823738bc5fa",
+    "content-hash": "bb060b58d793d0f3ee4f289fd9cf9908",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -305,16 +305,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-EPIC-CGIV-7049-ShopifyIntegration",
+            "version": "dev-CGIV-7180-ProductStorage",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "30b2427127c37c6bb296a52edc302b1793b05bd8"
+                "reference": "b3ed4a1fcd1df2764ff2838858b551364efdbc0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-7049-ShopifyIntegration-2b1114.zip",
-                "reference": "30b2427127c37c6bb296a52edc302b1793b05bd8",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7180-ProductStorage-e19a02.zip",
+                "reference": "b3ed4a1fcd1df2764ff2838858b551364efdbc0a",
                 "shasum": null
             },
             "require": {
@@ -382,7 +382,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-06-30 13:48:57"
+            "time": "2016-07-01 10:48:24"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1921,20 +1921,20 @@
         },
         {
             "name": "channelgrabber/shopify",
-            "version": "dev-EPIC-CGIV-7049-ShopifyIntegration",
+            "version": "dev-CGIV-7180-ProductStorage",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "635270b6c9edebc6ed6dd4ed235691a7104a0101"
+                "reference": "08368d3e853c469e08a12d5f438baf4c3e376623"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-EPIC-CGIV-7049-ShopifyIntegration-0871cd.zip",
-                "reference": "635270b6c9edebc6ed6dd4ed235691a7104a0101",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-CGIV-7180-ProductStorage-b3e290.zip",
+                "reference": "08368d3e853c469e08a12d5f438baf4c3e376623",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "dev-EPIC-CGIV-7049-ShopifyIntegration as 1.24.6",
+                "channelgrabber/channel": "dev-CGIV-7180-ProductStorage as 1.24.6",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.20",
                 "channelgrabber/log": "dev-EPIC-CGIV-7049-ShopifyIntegration as 2.0.27-dev",
@@ -1960,7 +1960,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-06-30 11:21:12"
+            "time": "2016-07-01 10:30:33"
         },
         {
             "name": "channelgrabber/slim",
@@ -4076,6 +4076,7 @@
                 "rest",
                 "web service"
             ],
+            "abandoned": "guzzlehttp/guzzle",
             "time": "2015-03-18 18:23:50"
         },
         {
@@ -7711,7 +7712,7 @@
         {
             "alias": "1.24.6",
             "alias_normalized": "1.24.6.0",
-            "version": "dev-EPIC-CGIV-7049-ShopifyIntegration",
+            "version": "dev-CGIV-7180-ProductStorage",
             "package": "channelgrabber/channel"
         },
         {
@@ -7723,7 +7724,7 @@
         {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
-            "version": "dev-EPIC-CGIV-7049-ShopifyIntegration",
+            "version": "dev-CGIV-7180-ProductStorage",
             "package": "channelgrabber/shopify"
         },
         {
