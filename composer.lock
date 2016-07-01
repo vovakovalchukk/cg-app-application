@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c8997435da706a4d4ea59850883a28aa",
+    "hash": "bc45f59ef734b0947e56f87c529b8aad",
     "content-hash": "faaa8a0d7340271823ed98b2c5f2b5d1",
     "packages": [
         {
@@ -3178,12 +3178,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "00f77032b4d1e7f097b94f18b3d8b627a8a8a10b"
+                "reference": "9dee2a67b28ac2dc64ae513cc2d04ad1613425dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-7128-setup-wizard-company-improvements-f99ec9.zip",
-                "reference": "00f77032b4d1e7f097b94f18b3d8b627a8a8a10b",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-7128-setup-wizard-company-improvements-0c8c8d.zip",
+                "reference": "9dee2a67b28ac2dc64ae513cc2d04ad1613425dc",
                 "shasum": null
             },
             "require": {
@@ -3222,7 +3222,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2016-06-30 11:16:36"
+            "time": "2016-07-01 11:18:24"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -4037,6 +4037,7 @@
                 "rest",
                 "web service"
             ],
+            "abandoned": "guzzlehttp/guzzle",
             "time": "2015-03-18 18:23:50"
         },
         {
