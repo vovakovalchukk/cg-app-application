@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bc45f59ef734b0947e56f87c529b8aad",
-    "content-hash": "faaa8a0d7340271823ed98b2c5f2b5d1",
+    "hash": "7e7a07f5249dd5205c17bd452d14353f",
+    "content-hash": "830683440c91bdbc1976bc2bbdf8c4db",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -2387,16 +2387,16 @@
         },
         {
             "name": "channelgrabber/user",
-            "version": "1.22.0",
+            "version": "dev-CGIV-7128-setup-wizard-company-improvements",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "72b17e20039ceafae3517d35c9991584b11fcda2"
+                "reference": "328658185c1c0a98452a3918943f4ab4bb89a9ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-1.22.0-62b42d.zip",
-                "reference": "72b17e20039ceafae3517d35c9991584b11fcda2",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-7128-setup-wizard-company-improvements-31670d.zip",
+                "reference": "328658185c1c0a98452a3918943f4ab4bb89a9ab",
                 "shasum": null
             },
             "require": {
@@ -2434,7 +2434,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2016-06-28 08:06:27"
+            "time": "2016-07-04 08:11:41"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -7669,6 +7669,12 @@
     ],
     "aliases": [
         {
+            "alias": "1.22.1",
+            "alias_normalized": "1.22.1.0",
+            "version": "dev-CGIV-7128-setup-wizard-company-improvements",
+            "package": "channelgrabber/user"
+        },
+        {
             "alias": "1.4.45",
             "alias_normalized": "1.4.45.0",
             "version": "dev-CGIV-7128-setup-wizard-company-improvements",
@@ -7684,6 +7690,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "channelgrabber/constants": 20,
+        "channelgrabber/user": 20,
         "channelgrabber/zf2-register": 20,
         "channelgrabber/zf2-v4-ui": 20,
         "composer/composer": 20,
