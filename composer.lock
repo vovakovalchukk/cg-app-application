@@ -2391,12 +2391,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cguser.git",
-                "reference": "328658185c1c0a98452a3918943f4ab4bb89a9ab"
+                "reference": "174fb4e479dc14de09a388e44fd6a0dd7bcf0930"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-7128-setup-wizard-company-improvements-31670d.zip",
-                "reference": "328658185c1c0a98452a3918943f4ab4bb89a9ab",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-user-dev-CGIV-7128-setup-wizard-company-improvements-79f6ce.zip",
+                "reference": "174fb4e479dc14de09a388e44fd6a0dd7bcf0930",
                 "shasum": null
             },
             "require": {
@@ -2434,7 +2434,7 @@
                     "CG\\": "src"
                 }
             },
-            "time": "2016-07-04 08:11:41"
+            "time": "2016-07-04 12:49:10"
         },
         {
             "name": "channelgrabber/userpreference",
@@ -3178,12 +3178,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/register-module.git",
-                "reference": "9dee2a67b28ac2dc64ae513cc2d04ad1613425dc"
+                "reference": "703ac3e04a7b746fae6a8ace23741ea8c1bafacf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-7128-setup-wizard-company-improvements-0c8c8d.zip",
-                "reference": "9dee2a67b28ac2dc64ae513cc2d04ad1613425dc",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-register-dev-CGIV-7128-setup-wizard-company-improvements-2fe5d3.zip",
+                "reference": "703ac3e04a7b746fae6a8ace23741ea8c1bafacf",
                 "shasum": null
             },
             "require": {
@@ -3222,7 +3222,7 @@
                 ]
             },
             "description": "module to register a new user account",
-            "time": "2016-07-01 11:18:24"
+            "time": "2016-07-04 11:09:50"
         },
         {
             "name": "channelgrabber/zf2-royalmail",
@@ -3437,12 +3437,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/zf2-v4-ui.git",
-                "reference": "5e16cc7343e318404afb5b3ff48db895c8c3c352"
+                "reference": "c4a9b789d5d90ba5a015b0f0097116168f7cefda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7128-setup-wizard-company-improvements-316af8.zip",
-                "reference": "5e16cc7343e318404afb5b3ff48db895c8c3c352",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-v4-ui-dev-CGIV-7128-setup-wizard-company-improvements-d084d9.zip",
+                "reference": "c4a9b789d5d90ba5a015b0f0097116168f7cefda",
                 "shasum": null
             },
             "require": {
@@ -3489,7 +3489,7 @@
                     "./Module.php"
                 ]
             },
-            "time": "2016-06-29 11:15:38"
+            "time": "2016-07-04 11:12:16"
         },
         {
             "name": "channelgrabber/zf2-woocommerce",
