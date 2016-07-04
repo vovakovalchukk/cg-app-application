@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d205c62224e1b380b7374823738bc5fa",
-    "content-hash": "bb060b58d793d0f3ee4f289fd9cf9908",
+    "hash": "492de2d828f82fd40f60a4a4bb62d74e",
+    "content-hash": "e6c6da4a102240e13c85d70a905b870b",
     "packages": [
         {
             "name": "channelgrabber/amazon",
@@ -305,16 +305,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "dev-CGIV-7180-ProductStorage",
+            "version": "dev-EPIC-CGIV-7049-ShopifyIntegration",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "b3ed4a1fcd1df2764ff2838858b551364efdbc0a"
+                "reference": "bb3c45cf39ba59ba4f8eaaff20bfd97d15b783d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-CGIV-7180-ProductStorage-e19a02.zip",
-                "reference": "b3ed4a1fcd1df2764ff2838858b551364efdbc0a",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-dev-EPIC-CGIV-7049-ShopifyIntegration-ce6a9a.zip",
+                "reference": "bb3c45cf39ba59ba4f8eaaff20bfd97d15b783d0",
                 "shasum": null
             },
             "require": {
@@ -382,7 +382,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-07-01 10:48:24"
+            "time": "2016-07-04 07:51:27"
         },
         {
             "name": "channelgrabber/cilex",
@@ -1921,20 +1921,20 @@
         },
         {
             "name": "channelgrabber/shopify",
-            "version": "dev-CGIV-7180-ProductStorage",
+            "version": "dev-EPIC-CGIV-7049-ShopifyIntegration",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-shopify.git",
-                "reference": "08368d3e853c469e08a12d5f438baf4c3e376623"
+                "reference": "c847c5c0bf62cc834a20536ce2a8c7a046009692"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-CGIV-7180-ProductStorage-b3e290.zip",
-                "reference": "08368d3e853c469e08a12d5f438baf4c3e376623",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-shopify-dev-EPIC-CGIV-7049-ShopifyIntegration-6e4aea.zip",
+                "reference": "c847c5c0bf62cc834a20536ce2a8c7a046009692",
                 "shasum": null
             },
             "require": {
-                "channelgrabber/channel": "dev-CGIV-7180-ProductStorage as 1.24.6",
+                "channelgrabber/channel": "dev-EPIC-CGIV-7049-ShopifyIntegration as 1.24.6",
                 "channelgrabber/constants": "dev-master",
                 "channelgrabber/gearman": "^1.2.20",
                 "channelgrabber/log": "dev-EPIC-CGIV-7049-ShopifyIntegration as 2.0.27-dev",
@@ -1960,7 +1960,7 @@
                     "CG\\Shopify\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2016-07-01 10:30:33"
+            "time": "2016-07-04 08:02:10"
         },
         {
             "name": "channelgrabber/slim",
@@ -7712,7 +7712,7 @@
         {
             "alias": "1.24.6",
             "alias_normalized": "1.24.6.0",
-            "version": "dev-CGIV-7180-ProductStorage",
+            "version": "dev-EPIC-CGIV-7049-ShopifyIntegration",
             "package": "channelgrabber/channel"
         },
         {
@@ -7724,7 +7724,7 @@
         {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
-            "version": "dev-CGIV-7180-ProductStorage",
+            "version": "dev-EPIC-CGIV-7049-ShopifyIntegration",
             "package": "channelgrabber/shopify"
         },
         {
