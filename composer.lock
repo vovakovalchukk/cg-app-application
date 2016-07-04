@@ -305,16 +305,16 @@
         },
         {
             "name": "channelgrabber/channel",
-            "version": "1.24.4",
+            "version": "1.24.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-channel.git",
-                "reference": "7d165891c9b54c6c527f213052ca98e36d03236f"
+                "reference": "d0d47d2e69a8f0e67e46ba1fe187c77552eb44df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.24.4-287f0e.zip",
-                "reference": "7d165891c9b54c6c527f213052ca98e36d03236f",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-channel-1.24.5-31a3ff.zip",
+                "reference": "d0d47d2e69a8f0e67e46ba1fe187c77552eb44df",
                 "shasum": null
             },
             "require": {
@@ -382,7 +382,7 @@
                     "CG\\Test\\": "tests/assets/"
                 }
             },
-            "time": "2016-06-20 08:31:44"
+            "time": "2016-06-28 12:35:53"
         },
         {
             "name": "channelgrabber/cilex",
@@ -3080,16 +3080,16 @@
         },
         {
             "name": "channelgrabber/zf2-netdespatch",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/netdespatch-module.git",
-                "reference": "171bd074a693163a01948f8bdd579b3689684088"
+                "reference": "5b47abd84ddd3218d834d10747ea2f9dcded868e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-1.0.3-e2f5b2.zip",
-                "reference": "171bd074a693163a01948f8bdd579b3689684088",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-1.0.4-ad833a.zip",
+                "reference": "5b47abd84ddd3218d834d10747ea2f9dcded868e",
                 "shasum": null
             },
             "require": {
@@ -3121,7 +3121,7 @@
                 ]
             },
             "description": "NetDespatch module",
-            "time": "2016-06-14 15:18:48"
+            "time": "2016-06-28 12:36:08"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -5333,12 +5333,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423"
+                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-831f88908b51b9ce945f5e6f402931d1ac544423-zip-1643f7.zip",
-                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423",
+                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-524bc2ef778f99df0ba09f8985b23a379c668879-zip-a11667.zip",
+                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879",
                 "shasum": ""
             },
             "require": {
