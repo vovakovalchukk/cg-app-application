@@ -3084,12 +3084,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/netdespatch-module.git",
-                "reference": "0b94a10b1716945f796e25d76f196e6d895edbcf"
+                "reference": "018ef369f58f675ba7ff9379872034bbccb8f36c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-CGIV-7104-Add-royal-mail-step-to-setup-wizard-daa335.zip",
-                "reference": "0b94a10b1716945f796e25d76f196e6d895edbcf",
+                "url": "https://composer.build.channelgrabber.com/dist/channelgrabber-zf2-netdespatch-dev-CGIV-7104-Add-royal-mail-step-to-setup-wizard-03421f.zip",
+                "reference": "018ef369f58f675ba7ff9379872034bbccb8f36c",
                 "shasum": null
             },
             "require": {
@@ -3121,7 +3121,7 @@
                 ]
             },
             "description": "NetDespatch module",
-            "time": "2016-06-29 15:17:31"
+            "time": "2016-07-05 08:16:31"
         },
         {
             "name": "channelgrabber/zf2-permission",
@@ -4035,6 +4035,7 @@
                 "rest",
                 "web service"
             ],
+            "abandoned": "guzzlehttp/guzzle",
             "time": "2015-03-18 18:23:50"
         },
         {
@@ -5330,12 +5331,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879"
+                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-524bc2ef778f99df0ba09f8985b23a379c668879-zip-a11667.zip",
-                "reference": "524bc2ef778f99df0ba09f8985b23a379c668879",
+                "url": "https://composer.build.channelgrabber.com/dist/symfony-config-831f88908b51b9ce945f5e6f402931d1ac544423-zip-1643f7.zip",
+                "reference": "831f88908b51b9ce945f5e6f402931d1ac544423",
                 "shasum": ""
             },
             "require": {
